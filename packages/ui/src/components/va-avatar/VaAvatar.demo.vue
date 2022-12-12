@@ -131,6 +131,11 @@
       <va-avatar :loading="isLoading" square src="https://randomuser.me/api/portraits/women/5.jpg" />
     </VbCard>
     <BadgeAvatarDemo />
+    <VbCard title="On error">
+      <p v-if="hasError">Show this message if failed to load image</p>
+      <br />
+      <va-avatar src="https://void" @error="onError" />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -143,4 +148,9 @@ import { VaAvatar } from './'
 import BadgeAvatarDemo from '../va-badge/BadgeAvatarDemo'
 
 const isLoading = ref(true)
+const hasError = ref(false)
+
+const onError = () => {
+  hasError.value = true
+}
 </script>

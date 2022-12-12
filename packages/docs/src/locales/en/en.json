@@ -563,6 +563,9 @@
       },
       "slots": {
         "default": "Use this slot to replace default content to be displayed inside the component"
+      },
+      "events": {
+        "error": "Triggers when failed to load an image"
       }
     },
     "VaCheckbox": {

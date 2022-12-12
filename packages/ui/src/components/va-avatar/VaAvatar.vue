@@ -16,6 +16,7 @@
         v-if="$props.src"
         :src="$props.src"
         :alt="$props.alt"
+        @error="onLoadError"
       >
       <va-icon
         v-else-if="$props.icon"
@@ -26,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, ref, watch, computed } from 'vue'
 
 import {
   useSize,
@@ -57,7 +58,9 @@ export default defineComponent({
     fontSize: { type: String, default: '' },
   },
 
-  setup (props) {
+  emits: ['error'],
+
+  setup (props, { emit }) {
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
     const backgroundColorComputed = computed(() => props.loading || props.src ? 'transparent' : colorComputed.value)
@@ -69,12 +72,25 @@ export default defineComponent({
       fontSize: props.fontSize || fontSizeComputed.value,
     }))
 
+    const hasLoadError = ref(false)
+
+    const onLoadError = (event: ErrorEvent) => {
+      hasLoadError.value = true
+      emit('error', event)
+    }
+
+    watch(() => props.src, () => {
+      hasLoadError.value = false
+    })
+
     return {
       sizeComputed,
       computedStyle,
       colorComputed,
       textColorComputed,
       backgroundColorComputed,
+
+      onLoadError,
     }
   },
 })
