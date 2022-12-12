@@ -136,6 +136,17 @@
       <br />
       <va-avatar src="https://void" @error="onError" />
     </VbCard>
+    <VbCard title="Fallback">
+      <va-avatar
+        src="https://void"
+        fallback-src="https://randomuser.me/api/portraits/women/5.jpg"
+      />
+      <va-avatar
+        square
+        src="https://void"
+        fallback-src="https://randomuser.me/api/portraits/women/5.jpg"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 

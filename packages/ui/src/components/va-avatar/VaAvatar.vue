@@ -11,10 +11,10 @@
       :color="colorComputed"
       indeterminate
     />
-    <slot v-else>
+    <slot v-bind="avatarOptions" v-else>
       <img
-        v-if="$props.src"
-        :src="$props.src"
+        v-if="srcComputed"
+        :src="srcComputed"
         :alt="$props.alt"
         @error="onLoadError"
       >
@@ -54,11 +54,12 @@ export default defineComponent({
     square: { type: Boolean, default: false },
     icon: { type: String, default: '' },
     src: { type: String, default: null },
+    fallbackSrc: { type: String, default: null },
     alt: { type: String, default: '' },
     fontSize: { type: String, default: '' },
   },
 
-  emits: ['error'],
+  emits: ['error', 'fallback'],
 
   setup (props, { emit }) {
     const { getColor } = useColors()
@@ -74,6 +75,16 @@ export default defineComponent({
 
     const hasLoadError = ref(false)
 
+    const srcComputed = computed(() => {
+      if (props.src && hasLoadError.value) {
+        emit('fallback')
+
+        return props.fallbackSrc
+      }
+
+      return props.src
+    })
+
     const onLoadError = (event: ErrorEvent) => {
       hasLoadError.value = true
       emit('error', event)
@@ -83,8 +94,15 @@ export default defineComponent({
       hasLoadError.value = false
     })
 
+    const avatarOptions = computed(() => ({
+      hasError: hasLoadError.value,
+      onError: onLoadError,
+    }))
+
     return {
+      srcComputed,
       sizeComputed,
+      avatarOptions,
       computedStyle,
       colorComputed,
       textColorComputed,
