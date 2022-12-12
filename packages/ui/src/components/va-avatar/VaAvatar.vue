@@ -56,7 +56,7 @@ export default defineComponent({
 
     const computedStyle = computed(() => ({
       color: textColorComputed.value,
-      backgroundColor: props.loading ? 'transparent' : colorComputed.value,
+      backgroundColor: props.loading || props.src ? 'transparent' : colorComputed.value,
       borderRadius: props.square ? 0 : '',
       fontSize: props.fontSize || fontSizeComputed.value,
       width: sizeComputed.value,
