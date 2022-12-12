@@ -5,15 +5,15 @@
     :aria-hidden="!$props.src"
     aria-live="polite"
   >
-    <slot>
-      <va-progress-circle
-        v-if="$props.loading"
-        :size="sizeComputed"
-        :color="colorComputed"
-        indeterminate
-      />
+    <va-progress-circle
+      v-if="$props.loading"
+      :size="sizeComputed"
+      :color="colorComputed"
+      indeterminate
+    />
+    <slot v-else>
       <img
-        v-else-if="$props.src"
+        v-if="$props.src"
         :src="$props.src"
         :alt="$props.alt"
       >
