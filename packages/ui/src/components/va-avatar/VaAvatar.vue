@@ -51,23 +51,21 @@ export default defineComponent({
   setup (props) {
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
+    const backgroundColorComputed = computed(() => props.loading || props.src ? 'transparent' : colorComputed.value)
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
     const { textColorComputed } = useTextColor()
 
     const computedStyle = computed(() => ({
-      color: textColorComputed.value,
-      backgroundColor: props.loading || props.src ? 'transparent' : colorComputed.value,
       borderRadius: props.square ? 0 : '',
       fontSize: props.fontSize || fontSizeComputed.value,
-      width: sizeComputed.value,
-      minWidth: sizeComputed.value, // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
-      height: sizeComputed.value,
     }))
 
     return {
       sizeComputed,
       computedStyle,
       colorComputed,
+      textColorComputed,
+      backgroundColorComputed,
     }
   },
 })
@@ -86,6 +84,11 @@ export default defineComponent({
   vertical-align: var(--va-avatar-vertical-align);
   border-radius: var(--va-avatar-border-radius);
   font-family: var(--va-font-family);
+  background-color: v-bind('backgroundColorComputed');
+  color: v-bind('textColorComputed');
+  width: v-bind('sizeComputed');
+  min-width: v-bind('sizeComputed');  // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
+  height: v-bind('sizeComputed');
 
   img,
   svg {
