@@ -108,15 +108,35 @@
       </va-avatar>
     </VbCard>
     <VbCard title="loading">
-      <va-avatar loading />
+      <va-button @click="isLoading = !isLoading" class="mb-2">Toggle loading</va-button>
+      <br />
+      <va-avatar class="mr-4" :loading="isLoading" />
+
+      <va-avatar class="mr-4" :loading="isLoading">
+        J.D.
+      </va-avatar>
+
+      <va-avatar class="mr-4" :loading="isLoading" icon="warning" />
+
+      <va-avatar :loading="isLoading" src="https://randomuser.me/api/portraits/women/5.jpg" />
+      <p class="mt-2 mb-2">Squared</p>
+      <va-avatar class="mr-4" :loading="isLoading" square />
+
+      <va-avatar class="mr-4" :loading="isLoading" square>
+        J.D.
+      </va-avatar>
+
+      <va-avatar class="mr-4" :loading="isLoading" square icon="warning" />
+
+      <va-avatar :loading="isLoading" square src="https://randomuser.me/api/portraits/women/5.jpg" />
     </VbCard>
     <BadgeAvatarDemo />
   </VbDemo>
 </template>
 
 <script>
+import { VaIcon, VaButton } from '../index'
 import { VaAvatar } from './index'
-import { VaIcon } from '../va-icon'
 import BadgeAvatarDemo from '../va-badge/BadgeAvatarDemo'
 
 export default {
@@ -124,6 +144,11 @@ export default {
     BadgeAvatarDemo,
     VaAvatar,
     VaIcon,
+    VaButton,
   },
+
+  data: () => ({
+    isLoading: true,
+  }),
 }
 </script>
