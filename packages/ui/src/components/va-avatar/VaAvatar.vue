@@ -28,14 +28,22 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useComponentPresetProp, useColors, useTextColor, useSize, useSizeProps, useLoadingProps } from '../../composables'
+import {
+  useSize,
+  useColors,
+  useTextColor,
+  useSizeProps,
+  useLoadingProps,
+  useComponentPresetProp,
+} from '../../composables'
 
-import { VaIcon } from '../va-icon'
-import { VaProgressCircle } from '../va-progress-circle'
+import { VaIcon, VaProgressCircle } from '../index'
 
 export default defineComponent({
   name: 'VaAvatar',
+
   components: { VaIcon, VaProgressCircle },
+
   props: {
     ...useLoadingProps,
     ...useSizeProps,
@@ -48,6 +56,7 @@ export default defineComponent({
     alt: { type: String, default: '' },
     fontSize: { type: String, default: '' },
   },
+
   setup (props) {
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
