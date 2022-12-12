@@ -10,7 +10,7 @@
           <div class="d-flex flex-direction-column align-center">
             <va-dropdown
               :model-value="true"
-              :placement="placement"
+              :placement="placementWIthAlias"
               :close-on-click-outside="false"
               :close-on-anchor-click="false"
               :close-on-content-click="false"
@@ -28,7 +28,7 @@
       <tr>
         <td>Placement:</td>
         <td>
-          <va-select :options="$options.placements" v-model="placement" />
+          <va-select :options="$options.placements" v-model="placementWIthAlias" />
         </td>
       </tr>
       <tr>
@@ -43,16 +43,22 @@
 </template>
 
 <script>
+import { aliasToPlacement } from 'packages/ui/src/composables'
 import Coordinates from '../components/Coordinates.vue'
+import { computed } from 'vue'
 
 export default {
   components: { Coordinates },
   data () {
     return {
-      placement: 'auto',
+      placementWIthAlias: 'auto',
       offset: [10, 0],
     }
   },
+
+  placement: computed(() => {
+    return aliasToPlacement[this.placementWIthAlias] || this.placementWIthAlias
+  }),
 
   placements: ['top', 'bottom', 'left', 'right'].reduce(
     (acc, position) => [
