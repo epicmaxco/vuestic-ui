@@ -138,10 +138,10 @@
   }
 }
 
-@mixin va-scroll($color: var(--va-background-element)) {
+@mixin va-scroll($color: var(--va-background-element), $size: 4px) {
   &::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    width: $size;
+    height: $size;
   }
 
   &::-webkit-scrollbar-track {

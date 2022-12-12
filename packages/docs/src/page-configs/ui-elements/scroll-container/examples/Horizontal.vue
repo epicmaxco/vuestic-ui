@@ -1,5 +1,11 @@
 <template>
-  <va-scroll-container vertical horizontal color="warning" style="max-height: 300px;">
-    <va-image :ratio="4/3" style="width: 2000px; height: 2000px;" src="https://picsum.photos/1500" />
+  <va-scroll-container
+    color="warning"
+    style="max-height: 400px;"
+    horizontal
+  >
+    <div style="min-width: 700px; max-height: 400px;">
+      <img :src="require('@/assets/docs/images/sky.jpeg')" alt="" />
+    </div>
   </va-scroll-container>
 </template>

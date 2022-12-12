@@ -3,6 +3,10 @@ import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaScrollContainer from 'vuestic-ui/src/components/va-scroll-container/VaScrollContainer.vue'
 import apiOptions from './api-options'
 
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+const cssVariables = import('!raw-loader!vuestic-ui/src/components/va-scroll-container/_variables.scss')
+
 const block = new PageGenerationHelper(__dirname)
 
 const config: ApiDocsBlock[] = [
@@ -11,10 +15,9 @@ const config: ApiDocsBlock[] = [
 
   block.subtitle('all.examples'),
 
-  // examples
   ...block.exampleBlock(
     'scrollContainer.examples.Default.title',
-    'scrollContainer.examples.Default.text',
+    '',
     'Default',
   ),
 
@@ -36,7 +39,22 @@ const config: ApiDocsBlock[] = [
     'Size',
   ),
 
+  ...block.exampleBlock(
+    'scrollContainer.examples.gradient.title',
+    'scrollContainer.examples.gradient.text',
+    'Gradient',
+  ),
+
+  ...block.exampleBlock(
+    'scrollContainer.examples.rtl.title',
+    'scrollContainer.examples.rtl.text',
+    'Rtl',
+  ),
+
   block.api(VaScrollContainer, apiOptions),
+
+  block.subtitle('all.cssVariables'),
+  block.file(cssVariables),
 ]
 
 export default config

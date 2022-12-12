@@ -1381,7 +1381,11 @@
       "slots": {}
     },
     "VaScrollContainer": {
-      "props": {},
+      "props": {
+        "horizontal": "Enables horizontal scrolling.",
+        "vertical": "Enables vertical scrolling.",
+        "rtl": "Moves scrollbar to the left side of the container (depends on `vertical` prop)."
+      },
       "events": {},
       "methods": {},
       "slots": {}
@@ -4661,20 +4665,27 @@
     "description": "Scroll container with custom colored scrollbar. Useful in case you have long list.",
     "examples": {
       "Default": {
-        "title": "Default usage",
-        "text": ""
+        "title": "Default usage"
       },
       "Color": {
         "title": "Color",
-        "text": "You can change color of scrollbar by passing `color` prop."
+        "text": "You can change color of scrollbar by passing `color` prop. Try it by choosing colors listed below."
+      },
+      "gradient": {
+        "title": "Gradient",
+        "text": "The `gradient` prop enables gradient for scrollbar's background."
+      },
+      "rtl": {
+        "title": "RTL",
+        "text": "The `rtl` prop enables RTL-mode."
       },
       "Horizontal": {
         "title": "Horizontal",
-        "text": "You can specify if scroll container has horizontal scroll as well as vertical."
+        "text": "You can specify if scroll container has `horizontal` scroll in the same way as `vertical` one."
       },
       "Size": {
         "title": "Size",
-        "text": "By default Vuestic use `thin` scrollbar width. You can change it to `default` in GlobalConfig if you don't like `thin` size."
+        "text": "You are able to set scrollbar's size (width or height) via `size` prop (`small`, `medium` or `large` presets are available, `px` and `rem` values are also suitable)."
       }
     }
   },
