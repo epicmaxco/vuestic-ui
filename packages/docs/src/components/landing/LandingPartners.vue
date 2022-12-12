@@ -177,6 +177,8 @@ export default {
     justify-content: flex-start;
     color: unset;
 
+    &:active,
+    &:visited,
     &:hover {
       color: unset;
     }
