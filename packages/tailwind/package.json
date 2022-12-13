@@ -9,7 +9,7 @@
     "uikit",
     "uiframework"
   ],
-  "version": "1.0.0",
+  "version": "0.1.0",
   "license": "MIT",
   "main": "./dist/sync.cjs",
   "files": [
@@ -20,6 +20,10 @@
   },
   "peerDependencies": {
     "tailwindcss": "^3.2.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "devDependencies": {
     "vite": "^2.9.8"
