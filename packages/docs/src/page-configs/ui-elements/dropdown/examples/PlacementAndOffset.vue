@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import { aliasToPlacement } from 'packages/ui/src/composables'
 import Coordinates from '../components/Coordinates.vue'
 import { computed } from 'vue'
 
@@ -57,6 +56,7 @@ export default {
   },
 
   placement: computed(() => {
+    // eslint-disable-next-line no-undef
     return aliasToPlacement[this.placementWIthAlias] || this.placementWIthAlias
   }),
 
@@ -69,6 +69,6 @@ export default {
       `${position}-center`,
     ],
     ['auto'],
-  ),
+  ).concat(['top-left', 'top-right', 'bottom-left', 'bottom-right']),
 }
 </script>
