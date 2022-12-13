@@ -3561,7 +3561,7 @@
     },
     "bundleSize": {
       "title": "Bundle Size",
-      "description": "A small comparison of the space occupied in the project bundle (without gzip) for the situation if only button component was taken."
+      "description": "Statistics of the space occupied in the project bundle (without gzip):"
     }
   },
   "roadmap": {

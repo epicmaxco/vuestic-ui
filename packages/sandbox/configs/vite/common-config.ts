@@ -8,7 +8,7 @@ import camelCase from 'lodash/camelCase.js'
 
 import type { AnalysisObject } from 'rollup-plugin-analyzer'
 import type { UserConfig, PluginOption } from 'vite'
-type BuildType = 'base' | 'button' | 'empty'
+type BuildType = 'base' | 'button' | 'empty' | 'button-select' | 'full'
 
 const defineVitePlugin = <T extends UserConfig>(p: T): UserConfig & T => p
 
