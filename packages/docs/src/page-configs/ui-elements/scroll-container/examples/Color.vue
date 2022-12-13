@@ -23,6 +23,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+
 import { presets } from 'vuestic-ui/src/services/color/presets'
 
 const currentColor = ref('primary')
@@ -30,8 +31,9 @@ const currentColor = ref('primary')
 const capitalizeFirstLetter = (text) => text.charAt(0).toUpperCase() + text.slice(1)
 
 const colorsArray = computed(() => {
-  return Object.keys(presets.light)
-    .map((c) => (!c.includes('background') && { name: c, title: capitalizeFirstLetter(c) }))
-    .filter((c) => !!c)
+  return Object.keys(presets.light).reduce((acc, color) => {
+    !color.includes('background') && acc.push({ name: color, title: capitalizeFirstLetter(color) })
+    return acc
+  }, [])
 })
 </script>

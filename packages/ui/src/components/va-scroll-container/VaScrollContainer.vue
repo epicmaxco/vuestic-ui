@@ -49,7 +49,7 @@ export default defineComponent({
       }),
       scrollbarSize: computed(() => {
         if (typeof props.size === 'string' && ['thin', 'default', 'none'].includes(props.size)) {
-          // TODO: remove in 1.7.0
+          // TODO: remove in 1.6.0
           __DEV__ && console.warn('`VaScrollbar` `size` property acceptable values list was changed. Please, check the documentation (https://vuestic.dev/ui-elements/scroll-container).')
           return '4px'
         }
