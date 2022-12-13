@@ -5,7 +5,7 @@
     horizontal
   >
     <div style="min-width: 700px; max-height: 400px;">
-      <img :src="require('@/assets/docs/images/sky.jpeg')" alt="" />
+      <img src="https://picsum.photos/2000/400" alt="" />
     </div>
   </va-scroll-container>
 </template>
