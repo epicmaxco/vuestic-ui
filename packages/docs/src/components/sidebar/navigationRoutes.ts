@@ -92,11 +92,19 @@ export const navigationRoutes: NavigationRoute[] = [
     disabled: true,
     children: [
       {
+        name: 'tailwind',
+        displayName: 'menu.tailwind',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
+        name: 'reset',
+        displayName: 'menu.reset',
+      },
+      {
         name: 'grid',
         displayName: 'menu.grid',
-        meta: {
-          badge: 'updated',
-        },
       },
       {
         name: 'smart-helpers',
