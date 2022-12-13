@@ -39,6 +39,7 @@ import {
 } from '../../composables'
 
 import { VaIcon, VaProgressCircle } from '../index'
+import { useAvatarProps } from './hooks/useAvatarProps'
 
 export default defineComponent({
   name: 'VaAvatar',
@@ -49,14 +50,11 @@ export default defineComponent({
     ...useLoadingProps,
     ...useSizeProps,
     ...useComponentPresetProp,
-    color: { type: String, default: 'info' },
-    textColor: { type: String },
-    square: { type: Boolean, default: false },
-    icon: { type: String, default: '' },
+    ...useAvatarProps,
+
     src: { type: String, default: null },
-    fallbackSrc: { type: String, default: null },
+    icon: { type: String, default: '' },
     alt: { type: String, default: '' },
-    fontSize: { type: String, default: '' },
   },
 
   emits: ['error', 'fallback'],
