@@ -88,7 +88,7 @@ export default defineComponent({
       emit('error', event)
     }
 
-    watch(srcComputed, () => {
+    watch(() => props.src, () => {
       hasLoadError.value = false
     })
 
