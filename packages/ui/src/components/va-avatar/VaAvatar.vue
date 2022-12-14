@@ -74,7 +74,7 @@ export default defineComponent({
     const hasLoadError = ref(false)
 
     const srcComputed = computed(() => {
-      if (props.src && hasLoadError.value) {
+      if (props.src && props.fallbackSrc && hasLoadError.value) {
         emit('fallback')
 
         return props.fallbackSrc
