@@ -18,8 +18,8 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { defineProps, computed } from 'vue'
+<script lang="ts">
+import { defineComponent, computed, PropType } from 'vue'
 
 import { VaAvatar } from '../va-avatar'
 
@@ -27,39 +27,57 @@ import pick from 'lodash/pick.js'
 import { useBem, useComponentPresetProp, useSize, useSizeProps } from '../../composables'
 import { useAvatarProps } from '../va-avatar/hooks/useAvatarProps'
 
-const props = defineProps({
-  ...useSizeProps,
-  ...useComponentPresetProp,
-  ...useAvatarProps,
+export default defineComponent({
+  name: 'VaAvatarGroup',
 
-  max: {
-    type: Number,
-    default: undefined,
+  components: {
+    VaAvatar,
   },
-  vertical: {
-    type: Boolean,
-    default: false,
+
+  props: {
+    ...useSizeProps,
+    ...useComponentPresetProp,
+    ...useAvatarProps,
+
+    max: {
+      type: Number,
+      default: undefined,
+    },
+    vertical: {
+      type: Boolean,
+      default: false,
+    },
+    options: {
+      type: Array as PropType<Record<string, unknown>[]>,
+      default: () => [],
+    },
   },
-  options: {
-    type: Array,
-    default: () => [],
+
+  setup (props) {
+    const classComputed = useBem('va-avatar-group', () => ({
+      ...pick(props, ['vertical']),
+    }))
+
+    const maxOptions = computed(() => props.options.slice(0, props.max))
+    const visibleItemsCount = computed(() => props.max ? props.max + 1 : 1)
+    const restOptionsCount = computed(() => props.options.length - (props.max || 0))
+    const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatarGroup')
+
+    const avatarProps = computed(() => ({
+      ...props,
+      fontSize: fontSizeComputed.value,
+      size: sizeComputed.value,
+    }))
+
+    return {
+      classComputed,
+      maxOptions,
+      visibleItemsCount,
+      restOptionsCount,
+      avatarProps,
+    }
   },
 })
-
-const classComputed = useBem('va-avatar-group', () => ({
-  ...pick(props, ['vertical']),
-}))
-
-const maxOptions = computed(() => props.options.slice(0, props.max))
-const visibleItemsCount = computed(() => props.max ? props.max + 1 : 1)
-const restOptionsCount = computed(() => props.options.length - (props.max || 0))
-const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatarGroup')
-
-const avatarProps = computed(() => ({
-  ...props,
-  fontSize: fontSizeComputed.value,
-  size: sizeComputed.value,
-}))
 </script>
 
 <style lang="scss">
