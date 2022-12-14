@@ -1725,6 +1725,10 @@
         "withIcon": {
           "title": "With icons",
           "text": "The `icon` prop is used to display icons inside an avatar."
+        },
+        "group": {
+          "title": "Grouped",
+          "text": "You can use `va-avatar-group` component to group avatars."
         }
       },
       "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"

@@ -63,6 +63,12 @@ const config: ApiDocsBlock[] = [
     'WithBadge',
   ),
 
+  ...block.exampleBlock(
+    'avatar.examples.group.title',
+    'avatar.examples.group.text',
+    'Group',
+  ),
+
   block.subtitle('all.api'),
   block.api(VaAvatar, apiOptions),
 

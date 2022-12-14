@@ -1644,6 +1644,10 @@
       "withIcon": {
         "title": "Иконки",
         "text": "Свойство `icon` используется для отображения иконок внутри аватара."
+      },
+      "group": {
+        "title": "Группа аватар",
+        "text": "Используйте компонент `va-avatar-group` для группировки аватарок."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"
