@@ -32,3 +32,11 @@ const parsePlacement = (placement: Placement) => {
 
   return { position, align: align || 'center' }
 }
+
+export const usePlacementAliases = () => {
+  return {
+    placementsPositionsWithAliases,
+    aliasToPlacement,
+    parsePlacementWithAlias,
+  }
+}

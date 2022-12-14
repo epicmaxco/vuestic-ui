@@ -3,7 +3,9 @@ import { computed, Ref, unref, watchPostEffect } from 'vue'
 import { mapObject } from '../utils/map-object'
 import { useDomRect } from './useDomRect'
 import { useDocument } from './useDocument'
-import { Placement, PlacementAlignment, parsePlacementWithAlias } from './usePlacement'
+import { Placement, PlacementAlignment, usePlacementAliases } from './usePlacementAliases'
+
+const { parsePlacementWithAlias } = usePlacementAliases()
 
 export type Offset = number | [number, number]
 

@@ -44,7 +44,10 @@
 
 <script>
 import Coordinates from '../components/Coordinates.vue'
+import { usePlacementAliases } from 'vuestic-ui/src/composables'
 import { computed } from 'vue'
+
+const { aliasToPlacement } = usePlacementAliases()
 
 export default {
   components: { Coordinates },
@@ -56,7 +59,6 @@ export default {
   },
 
   placement: computed(() => {
-    // eslint-disable-next-line no-undef
     return aliasToPlacement[this.placementWIthAlias] || this.placementWIthAlias
   }),
 
