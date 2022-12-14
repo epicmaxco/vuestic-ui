@@ -8,10 +8,15 @@
       v-for="(option, idx) in maxOptions"
       :key="idx"
       v-bind="{ ...avatarProps, ...option }"
+      role="listitem"
       tabindex="0"
     />
     <slot name="rest" v-bind="avatarProps">
-      <va-avatar color="secondary" v-bind="avatarProps">
+      <va-avatar
+        color="secondary"
+        v-bind="avatarProps"
+        role="listitem"
+      >
         +{{ restOptionsCount }}
       </va-avatar>
     </slot>

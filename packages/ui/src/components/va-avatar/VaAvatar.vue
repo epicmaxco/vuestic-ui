@@ -88,7 +88,7 @@ export default defineComponent({
       emit('error', event)
     }
 
-    watch(() => props.src, () => {
+    watch(srcComputed, () => {
       hasLoadError.value = false
     })
 
@@ -125,11 +125,11 @@ export default defineComponent({
   vertical-align: var(--va-avatar-vertical-align);
   border-radius: var(--va-avatar-border-radius);
   font-family: var(--va-font-family);
-  background-color: v-bind('backgroundColorComputed');
-  color: v-bind('textColorComputed');
-  width: v-bind('sizeComputed');
-  min-width: v-bind('sizeComputed');  // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
-  height: v-bind('sizeComputed');
+  background-color: v-bind(backgroundColorComputed);
+  color: v-bind(textColorComputed);
+  width: v-bind(sizeComputed);
+  min-width: v-bind(sizeComputed);  // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
+  height: v-bind(sizeComputed);
 
   img,
   svg {
