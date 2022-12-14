@@ -4,6 +4,7 @@ export {
   VaAlert,
   VaAppBar,
   VaAvatar,
+  VaAvatarGroup,
   VaBacktop,
   VaBadge,
   VaBreadcrumbs,
