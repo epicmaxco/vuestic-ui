@@ -1648,6 +1648,10 @@
       "group": {
         "title": "Группа аватар",
         "text": "Используйте компонент `va-avatar-group` для группировки аватарок."
+      },
+      "fallback": {
+        "title": "Fallback",
+        "text": "Вы можете задать изображение, которое заменит отсутствующее основное."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"

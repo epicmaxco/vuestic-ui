@@ -28,6 +28,12 @@ const config: ApiDocsBlock[] = [
   ),
 
   ...block.exampleBlock(
+    'avatar.examples.fallback.title',
+    'avatar.examples.fallback.text',
+    'Fallback',
+  ),
+
+  ...block.exampleBlock(
     'avatar.examples.withIcon.title',
     'avatar.examples.withIcon.text',
     'WithIcon',
