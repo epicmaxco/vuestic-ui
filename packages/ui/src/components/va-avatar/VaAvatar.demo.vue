@@ -156,7 +156,7 @@ import { ref } from 'vue'
 import { VaIcon, VaButton } from '../index'
 import { VaAvatar } from './'
 
-import BadgeAvatarDemo from '../va-badge/BadgeAvatarDemo'
+import BadgeAvatarDemo from '../va-badge/BadgeAvatarDemo.vue'
 
 const isLoading = ref(true)
 const hasError = ref(false)

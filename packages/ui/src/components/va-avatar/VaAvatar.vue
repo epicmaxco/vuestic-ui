@@ -83,7 +83,7 @@ export default defineComponent({
       return props.src
     })
 
-    const onLoadError = (event: ErrorEvent) => {
+    const onLoadError = (event: Event) => {
       hasLoadError.value = true
       emit('error', event)
     }

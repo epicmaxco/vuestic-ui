@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import VaAvatarGroup from '@/components/va-avatar-group/VaAvatarGroup.vue'
+import VaAvatarGroup from './VaAvatarGroup.vue'
 
 const avatars = [
   {
