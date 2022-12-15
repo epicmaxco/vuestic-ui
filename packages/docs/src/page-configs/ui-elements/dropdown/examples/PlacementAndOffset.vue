@@ -49,6 +49,8 @@ import { computed } from 'vue'
 
 const { aliasToPlacement } = usePlacementAliases()
 
+const aliases = ['top-left', 'left-top', 'top-right', 'right-top', 'bottom-left', 'left-bottom', 'bottom-right', 'right-bottom']
+
 export default {
   components: { Coordinates },
   data () {
@@ -71,6 +73,6 @@ export default {
       `${position}-center`,
     ],
     ['auto'],
-  ).concat(['top-left', 'top-right', 'bottom-left', 'bottom-right']),
+  ).concat(aliases),
 }
 </script>
