@@ -563,6 +563,9 @@
       },
       "slots": {
         "default": "Use this slot to replace default content to be displayed inside the component"
+      },
+      "events": {
+        "error": "Triggers when failed to load an image"
       }
     },
     "VaCheckbox": {
@@ -1759,6 +1762,14 @@
       "withIcon": {
         "title": "With icon",
         "text": "The `icon` prop is used to display icon inside an avatar."
+      },
+      "group": {
+        "title": "Grouped",
+        "text": "You can use `va-avatar-group` component to group avatars."
+      },
+      "fallback": {
+        "title": "Fallback",
+        "text": "You can set fallback image."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"

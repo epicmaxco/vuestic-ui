@@ -560,6 +560,9 @@
       },
       "slots": {
         "default": "Используйте этот слот для замены содержимого по умолчанию, отображаемого внутри компонента"
+      },
+      "events": {
+        "error": "Срабатывает когда не удалось загрузить изображение"
       }
     },
     "VaCheckbox": {
@@ -1645,6 +1648,14 @@
       "withIcon": {
         "title": "Иконки",
         "text": "Свойство `icon` используется для отображения иконок внутри аватара."
+      },
+      "group": {
+        "title": "Группа аватар",
+        "text": "Используйте компонент `va-avatar-group` для группировки аватарок."
+      },
+      "fallback": {
+        "title": "Fallback",
+        "text": "Вы можете задать изображение, которое заменит отсутствующее основное."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"

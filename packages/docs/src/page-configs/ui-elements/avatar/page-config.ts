@@ -28,6 +28,12 @@ const config: ApiDocsBlock[] = [
   ),
 
   ...block.exampleBlock(
+    'avatar.examples.fallback.title',
+    'avatar.examples.fallback.text',
+    'Fallback',
+  ),
+
+  ...block.exampleBlock(
     'avatar.examples.withIcon.title',
     'avatar.examples.withIcon.text',
     'WithIcon',
@@ -61,6 +67,12 @@ const config: ApiDocsBlock[] = [
     'avatar.examples.withBadge.title',
     'avatar.examples.withBadge.text',
     'WithBadge',
+  ),
+
+  ...block.exampleBlock(
+    'avatar.examples.group.title',
+    'avatar.examples.group.text',
+    'Group',
   ),
 
   block.subtitle('all.api'),
