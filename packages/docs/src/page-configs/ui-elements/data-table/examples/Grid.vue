@@ -16,8 +16,9 @@ const columns = [
   { key: 'id', sortable: true, sortingOptions: ['desc', 'asc'] },
   { key: 'username', sortable: true },
   { key: 'name', sortable: true },
-  { key: 'address.city', name: 'city', label: 'City', sortable: true },
   { key: 'phone' },
+  { key: 'website' },
+  { key: 'email' },
 ]
 
 const users = [
