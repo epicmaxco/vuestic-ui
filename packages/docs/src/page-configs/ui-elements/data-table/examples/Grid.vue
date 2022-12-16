@@ -13,7 +13,6 @@
 import { ref } from 'vue'
 
 const columns = [
-  { key: 'id', sortable: true, sortingOptions: ['desc', 'asc'] },
   { key: 'username', sortable: true },
   { key: 'name', sortable: true },
   { key: 'phone' },
