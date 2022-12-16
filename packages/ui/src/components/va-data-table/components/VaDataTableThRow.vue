@@ -70,6 +70,8 @@ import { VaCheckbox } from '../../va-checkbox'
 
 import { useStylable, useStylableProps } from '../hooks/useStylable'
 
+import type { TSortIcon } from '../hooks/useSortable'
+
 import { useTranslation } from '../../../composables'
 
 import {
@@ -94,7 +96,7 @@ export default defineComponent({
     isFooter: { type: Boolean, default: false },
 
     sortBySync: { type: String, required: true },
-    sortingOrderIconName: { type: String as PropType<'va-arrow-up' | 'va-arrow-down' | 'unfold_more'>, required: true },
+    sortingOrderIconName: { type: String as PropType<TSortIcon>, required: true },
     sortingOrderSync: { type: String as PropType<DataTableSortingOrder | null>, default: null },
   },
 

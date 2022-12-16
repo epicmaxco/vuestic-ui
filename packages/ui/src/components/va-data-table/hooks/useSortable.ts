@@ -14,10 +14,13 @@ export const useSortableProps = {
 }
 
 export type TSortedArgs = { sortBy: string, sortingOrder: DataTableSortingOrder, items: DataTableItem[], itemsIndexes: number[] }
+
 export type TSortableEmits = (
   event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
   args: string | DataTableSortingOrder | TSortedArgs,
 ) => void
+
+export type TSortIcon = 'va-arrow-up' | 'va-arrow-down' | 'unfold_more'
 
 export function useSortable (
   columns: Ref<DataTableColumnInternal[]>,
@@ -137,7 +140,7 @@ export function useSortable (
       : sortingOrderSync.value === 'desc'
         ? 'va-arrow-down'
         : 'unfold_more'
-  }) as ComputedRef<'va-arrow-up' | 'va-arrow-down' | 'unfold_more'>
+  }) as ComputedRef<TSortIcon>
 
   return {
     sortBySync,
