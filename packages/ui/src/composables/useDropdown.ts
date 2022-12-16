@@ -3,28 +3,16 @@ import { computed, Ref, unref, watchPostEffect } from 'vue'
 import { mapObject } from '../utils/map-object'
 import { useDomRect } from './useDomRect'
 import { useDocument } from './useDocument'
+import { Placement, PlacementAlignment, usePlacementAliases } from './usePlacementAliases'
 
-export type PlacementPosition = 'top' | 'bottom' | 'left' | 'right'
-export type PlacementAlignment = 'start' | 'end' | 'center'
-export type Placement = PlacementPosition | 'auto' | `${PlacementPosition}-${PlacementAlignment}`
+const { parsePlacementWithAlias } = usePlacementAliases()
+
 export type Offset = number | [number, number]
 
 type Coords = { x: number, y: number }
 type AlignCoords = { main: number, cross: number }
 
-export const placementsPositions = ['top', 'bottom', 'left', 'right']
-  .reduce((acc, position) => [...acc, position, `${position}-start`, `${position}-end`, `${position}-center`], ['auto'] as string[])
-
 const coordsToCss = ({ x, y }: Coords) => ({ left: `${x}px`, top: `${y}px` })
-
-const parsePlacement = (placement: Placement) => {
-  let [position, align] = placement.split('-') as [PlacementPosition | 'auto', PlacementAlignment | undefined]
-  if (position === 'auto') {
-    position = 'bottom'
-  }
-
-  return { position, align: align || 'center' }
-}
 
 const parseOffset = (offset: Offset): AlignCoords => {
   return Array.isArray(offset) ? { main: offset[0], cross: offset[1] } : { main: offset, cross: 0 }
@@ -38,7 +26,7 @@ const calculateContentAlignment = (align: PlacementAlignment, anchorStart: numbe
 }
 
 const calculateContentCoords = (placement: Placement, anchor: DOMRect, content: DOMRect) => {
-  const { position, align } = parsePlacement(placement)
+  const { position, align } = parsePlacementWithAlias(placement)
 
   const alignmentX = calculateContentAlignment(align, anchor.left, anchor.width, content.width)
   const alignmentY = calculateContentAlignment(align, anchor.top, anchor.height, content.height)
@@ -53,7 +41,7 @@ const calculateContentCoords = (placement: Placement, anchor: DOMRect, content: 
 }
 
 const calculateOffsetCoords = (placement: Placement, offset: Offset): Coords => {
-  const { position } = parsePlacement(placement)
+  const { position } = parsePlacementWithAlias(placement)
   const { main, cross } = parseOffset(offset)
 
   switch (position) {
@@ -99,7 +87,7 @@ const calculateClipToEdge = (coords: Coords, offsetCoords: Coords, content: DOMR
 }
 
 const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect, viewport: DOMRect): Placement => {
-  const { position } = parsePlacement(placement)
+  const { position } = parsePlacementWithAlias(placement)
   const overflow = calculateContentOverflow(coords, content, viewport)
 
   const newPlacements = {

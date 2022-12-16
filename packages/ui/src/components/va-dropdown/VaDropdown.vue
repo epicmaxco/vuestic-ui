@@ -39,7 +39,7 @@ import {
   useComponentPresetProp,
   useStateful, useStatefulEmits, createStatefulProps,
   useDebounceFn,
-  useDropdown, placementsPositions, Placement,
+  useDropdown, placementsPositionsWithAliases, PlacementWithAlias, aliasToPlacement,
   useClickOutside,
   useBem,
   useHTMLElementSelector,
@@ -84,9 +84,9 @@ export default defineComponent({
       validator: (value: string) => ['click', 'right-click', 'hover', 'dblclick', 'none'].includes(value),
     },
     placement: {
-      type: String as PropType<Placement>,
+      type: String as PropType<PlacementWithAlias>,
       default: 'auto',
-      validator: (value: string) => placementsPositions.includes(value),
+      validator: (value: string) => placementsPositionsWithAliases.includes(value),
     },
     /** Not reactive */
     keyboardNavigation: { type: Boolean, default: false },
@@ -220,7 +220,7 @@ export default defineComponent({
       computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value),
       contentRef,
       computed(() => ({
-        placement: props.placement,
+        placement: aliasToPlacement[props.placement] || props.placement,
         keepAnchorWidth: props.keepAnchorWidth,
         offset: props.offset,
         stickToEdges: props.stickToEdges,
