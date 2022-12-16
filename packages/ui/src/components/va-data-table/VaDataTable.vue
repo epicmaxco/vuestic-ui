@@ -583,7 +583,7 @@ export default defineComponent({
     }
 
     .va-data-table__table-tbody {
-      margin-top: 1rem;
+      margin-top: var(--va-data-table-grid-tbody-margin-top);
       display: grid;
       grid-template-columns: repeat(var(--va-data-table-grid-tbody-columns), minmax(0, 1fr));
       gap: var(--va-data-table-grid-tbody-gap);
