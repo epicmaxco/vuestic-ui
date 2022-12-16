@@ -1,16 +1,18 @@
-import { computed, Ref, ref, watch } from 'vue'
+import { computed, ExtractPropTypes, Ref, ref, watch } from 'vue'
+
+import { currentPage } from './useCommonProps'
 
 import type { DataTableRow } from '../types'
 
 type AnimationName = 'shuffle' | 'fade'
 
-interface useAnimationNameProps {
-  currentPage: number | undefined
-  animated: boolean
+export const useAnimationNameProps = {
+  ...currentPage,
+  animated: { type: Boolean, default: true },
 }
 
-export default function useAnimationName (
-  props: useAnimationNameProps,
+export function useAnimationName (
+  props: ExtractPropTypes<typeof useAnimationNameProps>,
   rows: Ref<DataTableRow[]>,
 ) {
   const animationType = ref<AnimationName>('shuffle')

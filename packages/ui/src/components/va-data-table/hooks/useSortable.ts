@@ -1,4 +1,4 @@
-import { computed, ref, Ref, watch } from 'vue'
+import { PropType, computed, ref, Ref, watch, ExtractPropTypes, ComputedRef } from 'vue'
 
 import type {
   DataTableColumnInternal,
@@ -8,20 +8,21 @@ import type {
   DataTableSortingOptions,
 } from '../types'
 
-interface useSortableProps {
-  sortBy: string | undefined
-  sortingOrder: DataTableSortingOrder | undefined
+export const useSortableProps = {
+  sortBy: { type: String as PropType<string | undefined> },
+  sortingOrder: { type: String as PropType<DataTableSortingOrder | undefined> },
 }
+
 export type TSortedArgs = { sortBy: string, sortingOrder: DataTableSortingOrder, items: DataTableItem[], itemsIndexes: number[] }
 export type TSortableEmits = (
   event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
   args: string | DataTableSortingOrder | TSortedArgs,
 ) => void
 
-export default function useSortable (
+export function useSortable (
   columns: Ref<DataTableColumnInternal[]>,
   filteredRows: Ref<DataTableRow[]>,
-  props: useSortableProps,
+  props: ExtractPropTypes<typeof useSortableProps>,
   emit: TSortableEmits,
 ) {
   const sortByFallback = ref('')
@@ -136,7 +137,7 @@ export default function useSortable (
       : sortingOrderSync.value === 'desc'
         ? 'va-arrow-down'
         : 'unfold_more'
-  })
+  }) as ComputedRef<'va-arrow-up' | 'va-arrow-down' | 'unfold_more'>
 
   return {
     sortBySync,

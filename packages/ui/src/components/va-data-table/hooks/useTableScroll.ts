@@ -9,7 +9,7 @@ export const useTableScrollProps = {
 
 export const useTableScrollEmits = ['scroll:top', 'scroll:bottom']
 
-export default function useTableScroll (
+export function useTableScroll (
   props: ExtractPropTypes<typeof useTableScrollProps>,
   emit: (event: 'scroll:bottom' | 'scroll:top', ...args: any[]) => void,
 ) {
