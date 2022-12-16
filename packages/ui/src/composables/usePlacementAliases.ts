@@ -23,18 +23,16 @@ export const aliasToPlacement: Record<string, Placement> = {
   'right-bottom': 'bottom-end',
 }
 
-export const parsePlacementWithAlias = (placementWithAlias: PlacementWithAlias) => {
-  const placement = aliasToPlacement[placementWithAlias] || placementWithAlias
-  return parsePlacement(placement)
-}
+export const parsePlacementWithAlias = (placementWithAlias: PlacementWithAlias) =>
+  parsePlacement(aliasToPlacement[placementWithAlias] || placementWithAlias)
 
 const parsePlacement = (placement: Placement) => {
-  let [position, align] = placement.split('-') as [PlacementPosition | 'auto', PlacementAlignment | undefined]
+  let [position, align = 'center'] = placement.split('-') as [PlacementPosition | 'auto', PlacementAlignment | undefined]
   if (position === 'auto') {
     position = 'bottom'
   }
 
-  return { position, align: align || 'center' }
+  return { position, align }
 }
 
 export const usePlacementAliases = () => {
