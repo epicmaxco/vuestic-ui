@@ -1,3 +1,5 @@
+![Nuxt Vuestic](./public/cover.png)
+
 # Vuestic UI Nuxt Module
 
 ## Description
