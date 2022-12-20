@@ -1,18 +1,37 @@
-export type PlacementPosition = 'top' | 'bottom' | 'left' | 'right'
+type YPlacementPosition = 'top' | 'bottom'
+type XPlacementPosition = 'left' | 'right'
+type PlacementPosition = XPlacementPosition | YPlacementPosition
+type PlacementPositionWithDefault = PlacementPosition | 'auto'
+type PlacementAlias = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'left-top' | 'right-top' | 'left-bottom' | 'right-bottom'
+
 export type PlacementAlignment = 'start' | 'end' | 'center'
-export type Placement = PlacementPosition | 'auto' | `${PlacementPosition}-${PlacementAlignment}`
-export type PlacementAlias = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+export type Placement = PlacementPositionWithDefault | `${PlacementPosition}-${PlacementAlignment}`
 export type PlacementWithAlias = Placement | PlacementAlias
 
-export const placementsPositions = ['top', 'bottom', 'left', 'right']
-  .reduce((acc, position) => [...acc, position, `${position}-start`, `${position}-end`, `${position}-center`], ['auto'] as string[])
+const yPlacementPosition: YPlacementPosition[] = ['top', 'bottom']
+const xPlacementPosition: XPlacementPosition[] = ['left', 'right']
+const placementPosition = [...yPlacementPosition, ...xPlacementPosition] as PlacementPosition[]
+const placementAlignment = ['start', 'end', 'center'] as PlacementAlignment[]
 
-export const placementAliasesPositions = ['top', 'bottom']
-  .flatMap(position => [`${position}-left`, `${position}-right`, `left-${position}`, `right-${position}`])
+export const placementsPositions = placementPosition
+  .reduce((acc, position) => {
+    acc.push(position)
+    placementAlignment.forEach((alignment) => acc.push(`${position}-${alignment}`))
+    return acc
+  }, ['auto'] as Placement[])
 
-export const placementsPositionsWithAliases = [...placementsPositions, ...placementAliasesPositions]
+export const placementAliasesPositions = yPlacementPosition
+  .reduce((acc, yPosition) => {
+    xPlacementPosition.forEach((xPosition) => {
+      acc.push(`${yPosition}-${xPosition}`)
+      acc.push(`${xPosition}-${yPosition}`)
+    })
+    return acc
+  }, [] as PlacementAlias[])
 
-export const aliasToPlacement: Record<string, Placement> = {
+export const placementsPositionsWithAliases: PlacementWithAlias[] = [...placementsPositions, ...placementAliasesPositions]
+
+const aliasToPlacement: Record<PlacementAlias, Placement> = {
   'top-left': 'top-start',
   'left-top': 'top-start',
   'top-right': 'top-end',
@@ -23,22 +42,13 @@ export const aliasToPlacement: Record<string, Placement> = {
   'right-bottom': 'bottom-end',
 }
 
-export const parsePlacementWithAlias = (placementWithAlias: PlacementWithAlias) =>
-  parsePlacement(aliasToPlacement[placementWithAlias] || placementWithAlias)
+const getPlacementName = (placementWithAlias: PlacementAlias | PlacementWithAlias) =>
+  aliasToPlacement[placementWithAlias as PlacementAlias] || placementWithAlias as PlacementWithAlias
 
-const parsePlacement = (placement: Placement) => {
-  let [position, align = 'center'] = placement.split('-') as [PlacementPosition | 'auto', PlacementAlignment | undefined]
-  if (position === 'auto') {
-    position = 'bottom'
-  }
-
-  return { position, align }
+const parsePlacementWithAlias = (placementWithAlias: PlacementAlias | PlacementWithAlias) => {
+  const placement = getPlacementName(placementWithAlias)
+  const [position, align = 'center' as PlacementAlignment] = placement.split('-') as [PlacementPositionWithDefault, PlacementAlignment]
+  return { position: position === 'auto' ? 'bottom' : position, align }
 }
 
-export const usePlacementAliases = () => {
-  return {
-    placementsPositionsWithAliases,
-    aliasToPlacement,
-    parsePlacementWithAlias,
-  }
-}
+export const usePlacementAliases = () => ({ parsePlacementWithAlias, getPlacementName })

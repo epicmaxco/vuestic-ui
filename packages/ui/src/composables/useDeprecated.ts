@@ -1,14 +1,18 @@
-import { __DEV__ } from '../utils/env'
 import { unref, Ref, getCurrentInstance } from 'vue'
 
-type DeprecationSource = 'attrs' | 'slots'
+import { __DEV__ } from '../utils/env'
 
-const OPTIONS_LIST: Record<DeprecationSource, 'prop' | 'slot'> = {
-  attrs: 'prop',
+type DeprecationSource = 'slots' | 'props'
+
+const OPTIONS_LIST: Record<DeprecationSource, string> = {
+  props: 'prop',
   slots: 'slot',
 }
 
-export function useDeprecated (deprecatedList: Ref<string[]> | string[], deprecationSource: DeprecationSource = 'attrs') {
+export const useDeprecated = (
+  deprecatedList: Ref<string[]> | string[],
+  deprecationSource: DeprecationSource = 'props',
+) => {
   if (!__DEV__) { return undefined }
 
   const instance = getCurrentInstance()

@@ -77,6 +77,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
+import omit from 'lodash/omit.js'
+
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import {
@@ -85,7 +87,7 @@ import {
   useComponentPresetProp,
   useStateful, useStatefulProps,
   useEmitProxy,
-  Placement, placementsPositions,
+  placementsPositionsWithAliases,
   useTranslation,
 } from '../../composables'
 
@@ -93,7 +95,7 @@ import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
-import omit from 'lodash/omit.js'
+import type { PlacementWithAlias } from '../../composables'
 
 const { createEmits, createVOnListeners: createListeners } = useEmitProxy(['click'])
 const { createEmits: createMainButtonEmits, createVOnListeners: createMainButtonListeners } = useEmitProxy(
@@ -131,10 +133,11 @@ export default defineComponent({
     disableDropdown: { type: Boolean, default: false },
 
     placement: {
-      type: String as PropType<Placement>,
+      type: String as PropType<PlacementWithAlias>,
       default: 'bottom',
-      validator: (placement: string) => placementsPositions.includes(placement),
+      validator: (position: PlacementWithAlias) => placementsPositionsWithAliases.includes(position),
     },
+
     offset: { type: [Number, Array] as PropType<number | [number, number]>, default: 2 },
     keepAnchorWidth: { type: Boolean, default: false },
     closeOnContentClick: { type: Boolean, default: true },

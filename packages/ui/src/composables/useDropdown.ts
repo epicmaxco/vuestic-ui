@@ -3,7 +3,9 @@ import { computed, Ref, unref, watchPostEffect } from 'vue'
 import { mapObject } from '../utils/map-object'
 import { useDomRect } from './useDomRect'
 import { useDocument } from './useDocument'
-import { Placement, PlacementAlignment, usePlacementAliases } from './usePlacementAliases'
+import { usePlacementAliases } from './usePlacementAliases'
+
+import type { Placement, PlacementAlignment } from './usePlacementAliases'
 
 const { parsePlacementWithAlias } = usePlacementAliases()
 

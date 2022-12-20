@@ -39,7 +39,8 @@ import {
   useComponentPresetProp,
   useStateful, useStatefulEmits, createStatefulProps,
   useDebounceFn,
-  useDropdown, placementsPositionsWithAliases, PlacementWithAlias, aliasToPlacement,
+  useDropdown,
+  usePlacementAliases, placementsPositionsWithAliases,
   useClickOutside,
   useBem,
   useHTMLElementSelector,
@@ -52,7 +53,9 @@ import {
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
 import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
+
 import type { DropdownOffsetProp } from './types'
+import type { PlacementWithAlias } from '../../composables'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -86,7 +89,7 @@ export default defineComponent({
     placement: {
       type: String as PropType<PlacementWithAlias>,
       default: 'auto',
-      validator: (value: string) => placementsPositionsWithAliases.includes(value),
+      validator: (position: PlacementWithAlias) => placementsPositionsWithAliases.includes(position),
     },
     /** Not reactive */
     keyboardNavigation: { type: Boolean, default: false },
@@ -216,11 +219,13 @@ export default defineComponent({
 
     const teleportDisabled = computed(() => props.disabled || !isPopoverFloating.value)
 
+    const { getPlacementName } = usePlacementAliases()
+
     useDropdown(
       computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value),
       contentRef,
       computed(() => ({
-        placement: aliasToPlacement[props.placement] || props.placement,
+        placement: getPlacementName(props.placement),
         keepAnchorWidth: props.keepAnchorWidth,
         offset: props.offset,
         stickToEdges: props.stickToEdges,
