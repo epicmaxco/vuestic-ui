@@ -10,11 +10,11 @@ export const useFilterableProps = {
 export type TFilteredArgs = { items: DataTableItem[], itemsIndexes: number[] }
 export type TFilterableEmits = (event: 'filtered', arg: TFilteredArgs) => void
 
-export function useFilterable (
+export const useFilterable = (
   rawRows: Ref<DataTableRow[]>,
   props: ExtractPropTypes<typeof useFilterableProps>,
   emit: TFilterableEmits,
-) {
+) => {
   const filteredRows = computed<DataTableRow[]>(() => {
     if (!rawRows.value.length) {
       return rawRows.value

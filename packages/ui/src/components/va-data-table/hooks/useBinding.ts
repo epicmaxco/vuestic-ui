@@ -15,7 +15,7 @@ export const useBindingProps = {
   cellBind: { type: null as unknown as PropType<DataTableCellBind | undefined> },
 }
 
-export function useBinding (props: ExtractPropTypes<typeof useBindingProps>) {
+export const useBinding = (props: ExtractPropTypes<typeof useBindingProps>) => {
   const getRowBind = (row: DataTableRow) => (
     isFunction(props.rowBind)
       ? props.rowBind(row.source, row.initialIndex)

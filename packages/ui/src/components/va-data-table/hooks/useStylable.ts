@@ -2,7 +2,7 @@ import { computed, PropType, ExtractPropTypes } from 'vue'
 
 import { safeCSSLength } from '../../../utils/css'
 import { useColors } from '../../../composables'
-import { selectable } from './useCommonProps'
+import { useSelectableProp } from './useCommonProps'
 
 import type {
   DataTableColumnInternal,
@@ -16,7 +16,7 @@ const prefix = '--va-data-table'
 const isFunction = (val: unknown): val is Function => typeof val === 'function'
 
 export const useStylableProps = {
-  ...selectable,
+  ...useSelectableProp,
   selectedColor: { type: String, default: 'primary' },
   allowFooterSorting: { type: Boolean, default: false },
   stickyHeader: { type: Boolean, default: false },
@@ -27,7 +27,7 @@ export const useStylableProps = {
 const getClass = (classes: DataTableColumnClass) => isFunction(classes) ? classes() : classes
 const getStyle = (styles: DataTableColumnStyle) => isFunction(styles) ? styles() : styles
 
-export function useStylable (props: ExtractPropTypes<typeof useStylableProps>) {
+export const useStylable = (props: ExtractPropTypes<typeof useStylableProps>) => {
   const { getColor, getFocusColor, getHoverColor } = useColors()
 
   const color = computed(() => getColor(props.selectedColor))

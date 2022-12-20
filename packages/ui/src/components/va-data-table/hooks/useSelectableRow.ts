@@ -1,13 +1,13 @@
 import { Ref, computed, watch, ref, PropType, ExtractPropTypes } from 'vue'
 
 import { getItemKey } from './useRows'
-import { selectable, itemsTrackBy } from './useCommonProps'
+import { useSelectableProp, useItemsTrackByProp } from './useCommonProps'
 
 import type { DataTableRow, DataTableItem, DataTableSelectMode, DataTableItemKey } from '../types'
 
 export const useSelectableProps = {
-  ...selectable,
-  ...itemsTrackBy,
+  ...useSelectableProp,
+  ...useItemsTrackByProp,
   modelValue: { type: Array as PropType<(DataTableItem | DataTableItemKey)[]> },
   selectMode: { type: String as PropType<DataTableSelectMode>, default: 'multiple' },
 }
@@ -19,11 +19,11 @@ export type TSelectionChange = {
 }
 export type TSelectableEmits = (event: TEmits, arg: (DataTableItem | DataTableItemKey)[] | TSelectionChange) => void
 
-export function useSelectableRow (
+export const useSelectableRow = (
   paginatedRows: Ref<DataTableRow[]>,
   props: ExtractPropTypes<typeof useSelectableProps>,
   emit: TSelectableEmits,
-) {
+) => {
   const selectedItemsFallback = ref<(DataTableItem | DataTableItemKey)[]>([])
 
   const selectedItemsSync = computed<(DataTableItem | DataTableItemKey)[]>({

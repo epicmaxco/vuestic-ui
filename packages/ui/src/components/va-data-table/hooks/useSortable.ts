@@ -22,12 +22,12 @@ export type TSortableEmits = (
 
 export type TSortIcon = 'va-arrow-up' | 'va-arrow-down' | 'unfold_more'
 
-export function useSortable (
+export const useSortable = (
   columns: Ref<DataTableColumnInternal[]>,
   filteredRows: Ref<DataTableRow[]>,
   props: ExtractPropTypes<typeof useSortableProps>,
   emit: TSortableEmits,
-) {
+) => {
   const sortByFallback = ref('')
   const sortBySync = computed<string>({
     get () {

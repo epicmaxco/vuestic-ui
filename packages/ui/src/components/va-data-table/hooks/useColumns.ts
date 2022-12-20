@@ -2,7 +2,7 @@ import { computed, ExtractPropTypes, PropType } from 'vue'
 import startCase from 'lodash/startCase.js'
 import merge from 'lodash/merge.js'
 
-import { items } from './useCommonProps'
+import { useItemsProp } from './useCommonProps'
 
 import { warn } from '../../../utils/console'
 
@@ -21,7 +21,7 @@ export const sortingOptionsValidator = (options: DataTableSortingOptions) => {
 }
 
 export const useColumnsProps = {
-  ...items,
+  ...useItemsProp,
   columns: { type: Array as PropType<DataTableColumnSource[]>, default: () => [] as DataTableColumnSource[] },
   sortingOptions: {
     type: Array as PropType<DataTableSortingOptions>,
@@ -77,7 +77,7 @@ const buildNormalizedColumns = (props: useColumnsPropsType) => {
   return props.columns.map((item, index) => buildTableColumn(item, index, props))
 }
 
-export function useColumns (props: useColumnsPropsType) {
+export const useColumns = (props: useColumnsPropsType) => {
   const columnsComputed = computed(() => {
     if (props.columns.length === 0) {
       // if no column definitions provided then build them based on provided rawItems

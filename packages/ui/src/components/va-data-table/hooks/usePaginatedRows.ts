@@ -1,18 +1,18 @@
 import { Ref, computed, PropType, ExtractPropTypes } from 'vue'
 
-import { currentPage } from './useCommonProps'
+import { useCurrentPageProp } from './useCommonProps'
 
 import type { DataTableRow } from '../types'
 
 export const usePaginatedRowsProps = {
-  ...currentPage,
+  ...useCurrentPageProp,
   perPage: { type: Number as PropType<number | undefined> },
 }
 
-export function usePaginatedRows (
+export const usePaginatedRows = (
   sortedRows: Ref<DataTableRow[]>,
   props: ExtractPropTypes<typeof usePaginatedRowsProps>,
-) {
+) => {
   const paginatedRows = computed(() => {
     if (!props.perPage || props.perPage < 0) {
       return sortedRows.value

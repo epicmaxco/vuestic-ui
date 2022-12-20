@@ -1,6 +1,6 @@
 import { Ref, computed, ExtractPropTypes } from 'vue'
 
-import { items, itemsTrackBy } from './useCommonProps'
+import { useItemsProp, useItemsTrackByProp } from './useCommonProps'
 
 import { getValueByPath } from '../../../utils/value-by-key'
 
@@ -19,8 +19,8 @@ export const getItemKey = (source: DataTableItem, itemsTrackBy: string | ((item:
 )
 
 export const useRowsProps = {
-  ...items,
-  ...itemsTrackBy,
+  ...useItemsProp,
+  ...useItemsTrackByProp,
 }
 
 const buildTableCell = (
@@ -57,10 +57,10 @@ const buildTableRow = (
   }
 }
 
-export function useRows (
+export const useRows = (
   columns: Ref<DataTableColumnInternal[]>,
   props: ExtractPropTypes<typeof useRowsProps>,
-) {
+) => {
   const rowsComputed = computed(() => props.items
     .map((rawItem, index) => buildTableRow(rawItem, index, props.itemsTrackBy, columns.value)))
 
