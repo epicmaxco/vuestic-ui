@@ -197,9 +197,9 @@ export const useDropdown = (
     position: 'absolute',
   }
 
-  const { position, align } = usePlacementAliases(props)
-
   watchPostEffect(() => {
+    const { position, align } = usePlacementAliases(props)
+
     if (!rootRef.value || !anchorDomRect.value || !contentDomRect.value) { return }
 
     const { offset, keepAnchorWidth, autoPlacement, stickToEdges } = unref(options)
