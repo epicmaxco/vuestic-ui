@@ -3,14 +3,15 @@
     class="va-badge"
     role="alert"
     :class="badgeClass"
+    style="width: fit-content;"
   >
     <span
       class="va-badge__text-wrapper"
-      :style="badgeStyle"
+      :style="stylesComputed"
     >
       <span class="va-badge__text">
         <slot name="text">
-          {{ text }}
+          {{ $props.placement }}
         </slot>
       </span>
     </span>
@@ -19,12 +20,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
+import pick from 'lodash/pick.js'
 
-import { useColors, useTextColor, useComponentPresetProp } from '../../composables'
+import {
+  useColors, useTextColor,
+  useComponentPresetProp,
+  usePlacementAliases, placementsPositionsWithAliases,
+  useDeprecated,
+  useBem,
+} from '../../composables'
+
+import type { PlacementWithAlias } from '../../composables'
 
 export default defineComponent({
   name: 'VaBadge',
+
   props: {
     ...useComponentPresetProp,
     color: { type: String, default: 'danger' },
@@ -35,36 +46,60 @@ export default defineComponent({
     visibleEmpty: { type: Boolean, default: false },
     dot: { type: Boolean, default: false },
     transparent: { type: Boolean, default: false },
-    left: { type: Boolean, default: false },
-    bottom: { type: Boolean, default: false },
+    placement: {
+      type: String as PropType<PlacementWithAlias>,
+      default: 'top-end',
+      validator: (position: PlacementWithAlias) => placementsPositionsWithAliases.includes(position),
+    },
   },
+
   setup (props, { slots }) {
+    // TODO: remove `left` and `bottom` props in 1.6.0
+    useDeprecated(['left', 'bottom'])
+
     const isEmpty = computed(() => !(props.text || props.visibleEmpty || props.dot || slots.text))
 
     const isFloating = computed(() => slots.default || props.dot)
 
-    const badgeClass = computed(() => ({
-      'va-badge--visible-empty': props.visibleEmpty,
-      'va-badge--empty': isEmpty.value,
-      'va-badge--dot': props.dot,
-      'va-badge--multiLine': props.multiLine,
-      'va-badge--floating': isFloating.value,
-      'va-badge--left': props.left,
-      'va-badge--bottom': props.bottom,
-      'va-badge--overlap': props.overlap,
+    const badgeClass = useBem('va-badge', () => ({
+      ...pick(props, ['visibleEmpty', 'dot', 'multiLine', 'overlap']),
+      empty: isEmpty.value,
+      floating: !!isFloating.value,
     }))
 
     const { getColor } = useColors()
     const { textColorComputed } = useTextColor()
     const colorComputed = computed(() => getColor(props.color))
-    const badgeStyle = computed(() => ({
+
+    const { parsePlacementWithAlias } = usePlacementAliases()
+    const { position, align } = parsePlacementWithAlias(props.placement)
+
+    const positionStylesComputed = computed(() => {
+      const variants = {
+        top: { position: { top: 0 }, translate: { transform: 'translateX(0%) translateY(-100%)' }, alignment: { start: { left: 0 }, center: { left: '50%' }, end: { left: '100%' } } },
+        bottom: { position: { bottom: 0 }, translate: { transform: 'translateX(-100%) translateY(100%)' }, alignment: { start: { left: 0 }, center: { left: '50%' }, end: { left: '100%' } } },
+        left: { position: { left: 0 }, translate: { transform: 'translateX(-100%) translateY(-50%)' }, alignment: { start: { top: 0 }, center: { top: '50%' }, end: { top: '100%' } } },
+        right: { position: { right: 0 }, translate: { transform: 'translateX(100%) translateY(0%)' }, alignment: { start: { top: 0 }, center: { top: '50%' }, end: { top: '100%' } } },
+      }
+
+      const currentVariant = variants[position]
+
+      return {
+        ...currentVariant.position,
+        ...currentVariant.alignment[align],
+        ...currentVariant.translate,
+      }
+    })
+
+    const stylesComputed = computed(() => ({
       color: textColorComputed.value,
       borderColor: colorComputed.value,
       backgroundColor: colorComputed.value,
       opacity: props.transparent ? 0.5 : 1,
+      ...positionStylesComputed.value,
     }))
 
-    return { badgeClass, badgeStyle }
+    return { badgeClass, stylesComputed }
   },
 })
 </script>
@@ -121,9 +156,6 @@ export default defineComponent({
     .va-badge--floating & {
       position: absolute;
       z-index: 2;
-      top: 0;
-      left: 100%;
-      transform: translateX(0) translateY(-50%);
     }
 
     .va-badge--overlap & {

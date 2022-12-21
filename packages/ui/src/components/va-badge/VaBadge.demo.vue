@@ -8,6 +8,7 @@
             <va-badge
               text="Success theme color"
               color="success"
+              left
             />
           </VbCard>
         </td>
@@ -23,32 +24,125 @@
       </tr>
       <tr>
         <td>
-          <VbCard title="Floated badges">
-            <va-badge text="Regular">
+          <VbCard
+            title="Floated badges"
+            style="padding: 6rem; display: flex; flex-direction: column; gap: 1rem;"
+          >
+            <va-badge text="Default">
               Float at
-            </va-badge><br><br>
+            </va-badge>
+
+            <va-badge
+              text="Top"
+              placement="top"
+            >
+              Float at
+            </va-badge>
+
+            <va-badge
+              text="Top + Start"
+              placement="top-start"
+            >
+              Float at
+            </va-badge>
+
+            <va-badge
+              text="Top + Center"
+              placement="top-center"
+            >
+              Float at
+            </va-badge>
+
+            <va-badge
+              text="Top + End"
+              placement="top-end"
+            >
+              Float at
+            </va-badge>
+
             <va-badge
               text="Bottom"
-              bottom
+              placement="bottom"
             >
               Float at
-            </va-badge><br><br>
+            </va-badge>
+
+            <va-badge
+              text="Bottom + Start"
+              placement="bottom-start"
+            >
+              Float at
+            </va-badge>
+
+            <va-badge
+              text="Bottom + Center"
+              placement="bottom-center"
+            >
+              Float at
+            </va-badge>
+
+            <va-badge
+              text="Bottom + End"
+              placement="bottom-end"
+            >
+              Float at
+            </va-badge>
+
             <va-badge
               text="Left"
-              left
+              placement="left"
             >
               Float at
-            </va-badge><br><br>
+            </va-badge>
+
             <va-badge
-              text="Bottom+Left"
-              bottom
-              left
+              text="Left + Start"
+              placement="left-start"
             >
               Float at
-            </va-badge><br><br>
-            <va-badge text="icon">
-              <va-icon name="face" />
-            </va-badge><br><br>
+            </va-badge>
+
+            <va-badge
+              text="Left + Center"
+              placement="left-center"
+            >
+              Float at
+            </va-badge>
+
+            <va-badge
+              text="Left + end"
+              placement="left-end"
+            >
+              Float at
+            </va-badge>
+
+            <va-badge
+              text="Right"
+              placement="right"
+            >
+              Float at
+            </va-badge>
+
+            <va-badge
+              text="Right + Start"
+              placement="right-start"
+            >
+              Float at
+            </va-badge>
+
+            <va-badge
+              text="Right + Center"
+              placement="right-center"
+            >
+              Float at
+            </va-badge>
+
+            <va-badge
+              text="Right + end"
+              placement="right-end"
+            >
+              Float at
+            </va-badge>
           </VbCard>
         </td>
         <td>
@@ -98,25 +192,24 @@
             </va-badge><br><br>
             <va-badge
               dot
-              text="Bottom"
-              bottom
+              text="Bottom + Start"
+              placement="bottom-start"
             >
-              Bottom
+              Bottom + Start
             </va-badge><br><br>
             <va-badge
               dot
-              text="Left"
-              left
+              text="Left + End"
+              placement="left-end"
             >
-              Left
+              Left + End
             </va-badge><br><br>
             <va-badge
               dot
-              text="Bottom+Left"
-              bottom
-              left
+              text="Bottom + Start"
+              placement="bottom-start"
             >
-              Bottom+Left
+              Bottom + Start
             </va-badge><br><br>
             <va-badge
               dot
@@ -139,24 +232,23 @@
             <va-badge
               overlap
               text="overlap"
-              bottom
+              placement="bottom"
             >
-              Bottom
+              Bottom + Center
             </va-badge><br><br>
             <va-badge
               overlap
               text="overlap"
-              left
+              placement="left-center"
             >
-              Left
+              Left + Center
             </va-badge><br><br>
             <va-badge
               overlap
               text="overlap"
-              bottom
-              left
+              placement="bottom-start"
             >
-              Bottom+Left
+              Bottom + Start
             </va-badge><br><br>
             <va-badge
               overlap
@@ -179,26 +271,25 @@
               dot
               overlap
               text="dot overlap"
-              bottom
+              placement="bottom-start"
             >
-              Bottom
+              Bottom + Start
             </va-badge><br><br>
             <va-badge
               dot
               overlap
               text="dot overlap"
-              left
+              placement="left"
             >
-              Left
+              Left + Center
             </va-badge><br><br>
             <va-badge
               dot
               overlap
               text="dot overlap"
-              bottom
-              left
+              placement="bottom-start"
             >
-              Bottom+Left
+              Bottom + Start
             </va-badge><br><br>
             <va-badge
               dot
@@ -260,14 +351,6 @@
               type="checkbox"
               v-model="visibleEmpty"
             ><br>
-            Left: <input
-              type="checkbox"
-              v-model="left"
-            ><br>
-            Bottom: <input
-              type="checkbox"
-              v-model="bottom"
-            ><br>
             Overlap: <input
               type="checkbox"
               v-model="overlap"
@@ -276,8 +359,6 @@
           <td>
             <va-badge
               :transparent="transparent"
-              :bottom="bottom"
-              :left="left"
               :overlap="overlap"
               :text="label"
               :dot="dot"
@@ -287,8 +368,6 @@
             </va-badge><br>
             <va-badge
               :transparent="transparent"
-              :bottom="bottom"
-              :left="left"
               :overlap="overlap"
               :text="label"
               :dot="dot"
@@ -349,8 +428,6 @@ export default {
   data () {
     return {
       label: '1234',
-      left: false,
-      bottom: false,
       overlap: false,
       dot: false,
       transparent: false,
