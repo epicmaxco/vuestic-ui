@@ -40,7 +40,7 @@ import {
   useStateful, useStatefulEmits, createStatefulProps,
   useDebounceFn,
   useDropdown,
-  usePlacementAliases, placementsPositionsWithAliases,
+  usePlacementAliasesProps,
   useClickOutside,
   useBem,
   useHTMLElementSelector,
@@ -55,7 +55,6 @@ import { useCursorAnchor } from './hooks/useCursorAnchor'
 import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
 
 import type { DropdownOffsetProp } from './types'
-import type { PlacementWithAlias } from '../../composables'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -63,6 +62,7 @@ export default defineComponent({
   props: {
     ...createStatefulProps(Boolean, true),
     ...useComponentPresetProp,
+    ...usePlacementAliasesProps,
     disabled: { type: Boolean },
     readonly: { type: Boolean },
     anchorSelector: { type: String, default: '' },
@@ -85,11 +85,6 @@ export default defineComponent({
       type: String as PropType<'click' | 'right-click' | 'hover' | 'dblclick' | 'none'>,
       default: 'click',
       validator: (value: string) => ['click', 'right-click', 'hover', 'dblclick', 'none'].includes(value),
-    },
-    placement: {
-      type: String as PropType<PlacementWithAlias>,
-      default: 'auto',
-      validator: (position: PlacementWithAlias) => placementsPositionsWithAliases.includes(position),
     },
     /** Not reactive */
     keyboardNavigation: { type: Boolean, default: false },
@@ -219,13 +214,11 @@ export default defineComponent({
 
     const teleportDisabled = computed(() => props.disabled || !isPopoverFloating.value)
 
-    const { getPlacementName } = usePlacementAliases()
-
+    // TODO: may be move keepAnchorWidth, ..., autoPlacement to useDropdownProps
     useDropdown(
       computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value),
       contentRef,
       computed(() => ({
-        placement: getPlacementName(props.placement),
         keepAnchorWidth: props.keepAnchorWidth,
         offset: props.offset,
         stickToEdges: props.stickToEdges,
@@ -233,6 +226,7 @@ export default defineComponent({
         root: teleportTargetComputed.value,
         viewport: targetComputed.value,
       })),
+      props,
     )
 
     const idComputed = computed(generateUniqueId)

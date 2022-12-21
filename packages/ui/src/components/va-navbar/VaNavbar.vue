@@ -50,7 +50,7 @@ export default defineComponent({
 
   setup (props) {
     // TODO(1.6.0): Remove deprecated slots
-    useDeprecated(['center'], 'slots')
+    useDeprecated(['center'], ['slots'])
 
     const { scrollRoot, isScrolledDown } = setupScroll(props.fixed)
     const { fixedBarStyleComputed } = useFixedBar(props, isScrolledDown)

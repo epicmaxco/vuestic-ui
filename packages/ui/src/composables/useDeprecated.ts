@@ -2,16 +2,17 @@ import { unref, Ref, getCurrentInstance } from 'vue'
 
 import { __DEV__ } from '../utils/env'
 
-type DeprecationSource = 'slots' | 'props'
+type DeprecationSource = 'slots' | 'props' | 'attrs'
 
 const OPTIONS_LIST: Record<DeprecationSource, string> = {
   props: 'prop',
+  attrs: 'prop',
   slots: 'slot',
 }
 
 export const useDeprecated = (
   deprecatedList: Ref<string[]> | string[],
-  deprecationSource: DeprecationSource = 'props',
+  deprecationSource: DeprecationSource[] = ['props', 'attrs'],
 ) => {
   if (!__DEV__) { return undefined }
 
@@ -21,13 +22,29 @@ export const useDeprecated = (
     throw new Error('`useDeprecated` hook must be used only inside of setup function!')
   }
 
-  const instanceOptions = { ...instance[deprecationSource] }
   const instanceName = instance.type.name
-  const option = OPTIONS_LIST[deprecationSource]
+  const deprecatedItems = unref(deprecatedList)
 
-  Object.keys(instanceOptions).forEach((key) => {
-    if (unref(deprecatedList).includes(key)) {
+  deprecationSource.every((source) => {
+    const option = OPTIONS_LIST[source]
+
+    const throwWarning = (key: string) =>
       console.warn(`The '${key}' ${option} (${instanceName} component) is deprecated! Please, check the documentation.`)
+
+    if (source === 'props') {
+      const propsOptions = (instance as any)?.propsOptions?.[0] || {}
+
+      deprecatedItems.forEach((propName) => {
+        propsOptions[propName] && (propsOptions[propName][0] !== propsOptions[propName].default) && throwWarning(propName)
+      })
+
+      return true
     }
+
+    Object.keys({ ...instance[source] }).forEach((key) => {
+      if (deprecatedItems.includes(key)) { throwWarning(key) }
+    })
+
+    return true
   })
 }
