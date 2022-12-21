@@ -1,4 +1,4 @@
-import { computed, ref, toRefs, watch, ExtractPropTypes } from 'vue'
+import { computed, ref, toRef, watch, ExtractPropTypes } from 'vue'
 
 import type { SelectOption } from '../types'
 
@@ -6,10 +6,12 @@ export const useMaxVisibleOptionsProps = {
   maxVisibleOptions: { type: Number, default: 0 },
 }
 
+type UseMaxVisibleOptionsProps = ExtractPropTypes<typeof useMaxVisibleOptionsProps> & { multiple: boolean, modelValue: SelectOption | SelectOption[] }
+
 export const useMaxVisibleOptions = (
-  props: ExtractPropTypes<typeof useMaxVisibleOptionsProps> & { multiple: boolean, modelValue: SelectOption | SelectOption[] },
+  props: UseMaxVisibleOptionsProps,
 ) => {
-  const { modelValue } = toRefs(props)
+  const modelValue = toRef(props, 'modelValue')
   const isAllOptionsShown = ref(false)
   const belowLimitSelectedOptions = ref<SelectOption[]>([])
   const hiddenSelectedOptions = ref<SelectOption[]>([])

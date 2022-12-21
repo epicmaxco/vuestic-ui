@@ -3246,7 +3246,7 @@
         "text": "Select styles inherit from input styles"
       },
       "maxVisibleOptions": {
-        "title": "Max visible selected options amount",
+        "title": "Max visible selected options",
         "text": "The `max-visible-options` props sets amount of selected options, that will be shown inside of input wrapper. The rest will be hidden, but may be shown after clicking the badge with hidden options counter."
       },
       "selectedTopShown": {

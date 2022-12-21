@@ -10,6 +10,7 @@
       <va-input-wrapper
         ref="input"
         class="va-select__anchor va-select-anchor__input"
+        :class="inputWrapperClassComputed"
         :model-value="valueComputedString"
         :success="$props.success"
         :error="computedError"
@@ -184,14 +185,19 @@ import {
   useClearableProps, useClearable, useClearableEmits,
   useFocusDeep,
   useTranslation,
+  useBem,
 } from '../../composables'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
-import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-import { VaBadge } from '../va-badge'
-import { VaIcon } from '../va-icon'
-import { VaInput, VaInputWrapper } from '../va-input'
+import {
+  VaDropdown,
+  VaDropdownContent,
+  VaBadge,
+  VaIcon,
+  VaInput,
+  VaInputWrapper,
+} from '../index'
 import { VaSelectOptionList } from './components/VaSelectOptionList'
 
 import { useMaxVisibleOptions, useMaxVisibleOptionsProps } from './hooks/useMaxVisibleOptions'
@@ -277,7 +283,7 @@ export default defineComponent({
     requiredMark: { type: Boolean, default: false },
   },
 
-  setup (props, { emit }) {
+  setup (props, { emit, slots }) {
     const optionList = shallowRef<typeof VaSelectOptionList>()
     const input = shallowRef<typeof VaInputWrapper>()
     const searchBar = shallowRef<typeof VaInput>()
@@ -590,6 +596,10 @@ export default defineComponent({
         : validate()
     }
 
+    const inputWrapperClassComputed = useBem('va-select-anchor', () => ({
+      nowrap: !!(props.maxVisibleOptions && !slots.content),
+    }))
+
     /** @public */
     const blur = () => {
       if (showDropdownContentComputed.value) {
@@ -727,6 +737,7 @@ export default defineComponent({
       visibleSelectedOptions,
       optionsListPropsComputed,
       toggleHiddenOptionsState,
+      inputWrapperClassComputed,
     }
   },
 })
@@ -762,6 +773,12 @@ export default defineComponent({
 
   &__state-icon {
     margin-left: var(--va-select-anchor-state-icon-margin-left);
+  }
+
+  &--nowrap {
+    .va-input-wrapper__text {
+      flex-wrap: nowrap;
+    }
   }
 }
 
