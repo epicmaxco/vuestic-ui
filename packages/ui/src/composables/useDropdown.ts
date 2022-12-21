@@ -218,7 +218,8 @@ export const useDropdown = (
 
     if (autoPlacement) {
       const { position: newPosition, align: newAlign } = getAutoPlacement(position, align, coords, contentDomRect.value, viewportRect)
-      if (newPosition !== position && newAlign !== align) {
+
+      if (newPosition !== position || newAlign !== align) {
         coords = calculateContentCoords(newPosition, newAlign, anchorDomRect.value, contentDomRect.value)
 
         if (offset) {
