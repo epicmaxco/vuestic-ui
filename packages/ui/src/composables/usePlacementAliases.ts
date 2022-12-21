@@ -1,12 +1,16 @@
+import { PropType, ExtractPropTypes } from 'vue'
+
 type verticalPlacement = 'top' | 'bottom'
 type horizontalPlacement = 'left' | 'right'
-type PlacementPosition = horizontalPlacement | verticalPlacement
-type PlacementPositionWithDefault = PlacementPosition | 'auto'
 type PlacementAlias = `${verticalPlacement}-${horizontalPlacement}` | `${horizontalPlacement}-${verticalPlacement}`
+
+export type PlacementPosition = horizontalPlacement | verticalPlacement
+type PlacementPositionWithDefault = PlacementPosition | 'auto'
 
 export type PlacementAlignment = 'start' | 'end' | 'center'
 export type Placement = PlacementPositionWithDefault | `${PlacementPosition}-${PlacementAlignment}`
 export type PlacementWithAlias = Placement | PlacementAlias
+export type ParsedPlacement = { position: PlacementPosition, align: PlacementAlignment }
 
 const verticalPlacement: verticalPlacement[] = ['top', 'bottom']
 const horizontalPlacement: horizontalPlacement[] = ['left', 'right']
@@ -29,8 +33,9 @@ export const placementAliasesPositions = verticalPlacement
     return acc
   }, [] as PlacementAlias[])
 
-export const placementsPositionsWithAliases: PlacementWithAlias[] = [...placementsPositions, ...placementAliasesPositions]
+const placementsPositionsWithAliases: PlacementWithAlias[] = [...placementsPositions, ...placementAliasesPositions]
 
+// TODO: may be rewrite this const, it's not very flexible
 const aliasToPlacement: Record<PlacementAlias, Placement> = {
   'top-left': 'top-start',
   'left-top': 'top-start',
@@ -42,13 +47,20 @@ const aliasToPlacement: Record<PlacementAlias, Placement> = {
   'right-bottom': 'bottom-end',
 }
 
-const getPlacementName = (placementWithAlias: PlacementAlias | PlacementWithAlias) =>
-  aliasToPlacement[placementWithAlias as PlacementAlias] || placementWithAlias as PlacementWithAlias
-
-const parsePlacementWithAlias = (placementWithAlias: PlacementAlias | PlacementWithAlias) => {
-  const placement = getPlacementName(placementWithAlias)
+const parsePlacementWithAlias = (placementWithAlias: PlacementAlias | PlacementWithAlias): ParsedPlacement => {
+  const placement = aliasToPlacement[placementWithAlias as PlacementAlias] || placementWithAlias as PlacementWithAlias
   const [position, align = 'center' as PlacementAlignment] = placement.split('-') as [PlacementPositionWithDefault, PlacementAlignment]
   return { position: position === 'auto' ? 'bottom' : position, align }
 }
 
-export const usePlacementAliases = () => ({ parsePlacementWithAlias, getPlacementName })
+export const usePlacementAliasesProps = {
+  placement: {
+    type: String as PropType<PlacementWithAlias>,
+    default: 'auto',
+    validator: (position: PlacementWithAlias) => placementsPositionsWithAliases.includes(position),
+  },
+}
+
+export type UsePlacementAliasesProps = ExtractPropTypes<typeof usePlacementAliasesProps>
+
+export const usePlacementAliases = (props: UsePlacementAliasesProps) => ({ ...parsePlacementWithAlias(props.placement) })

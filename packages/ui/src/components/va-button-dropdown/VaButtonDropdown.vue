@@ -87,15 +87,13 @@ import {
   useComponentPresetProp,
   useStateful, useStatefulProps,
   useEmitProxy,
-  placementsPositionsWithAliases,
+  usePlacementAliasesProps,
   useTranslation,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-
-import type { PlacementWithAlias } from '../../composables'
 
 const { createEmits, createVOnListeners: createListeners } = useEmitProxy(['click'])
 const { createEmits: createMainButtonEmits, createVOnListeners: createMainButtonListeners } = useEmitProxy(
@@ -119,6 +117,7 @@ export default defineComponent({
     ...VaButtonProps,
     ...VaDropdownProps,
     ...useStatefulProps,
+    ...usePlacementAliasesProps,
     modelValue: { type: Boolean, default: false },
     stateful: { type: Boolean, default: true },
 
@@ -131,12 +130,6 @@ export default defineComponent({
     disabled: { type: Boolean, default: false },
     disableButton: { type: Boolean, default: false },
     disableDropdown: { type: Boolean, default: false },
-
-    placement: {
-      type: String as PropType<PlacementWithAlias>,
-      default: 'bottom',
-      validator: (position: PlacementWithAlias) => placementsPositionsWithAliases.includes(position),
-    },
 
     offset: { type: [Number, Array] as PropType<number | [number, number]>, default: 2 },
     keepAnchorWidth: { type: Boolean, default: false },
