@@ -28,7 +28,7 @@
       <tr>
         <td>Placement:</td>
         <td>
-          <va-select :options="$options.placements" v-model="placementWIthAlias" />
+          <va-select :options="placements" v-model="placementWIthAlias" />
         </td>
       </tr>
       <tr>
@@ -43,36 +43,39 @@
 </template>
 
 <script>
-import Coordinates from '../components/Coordinates.vue'
-import { usePlacementAliases } from 'vuestic-ui/src/composables'
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 
-const { aliasToPlacement } = usePlacementAliases()
+import { aliasToPlacement } from 'vuestic-ui/src/composables'
+
+import Coordinates from '../components/Coordinates.vue'
 
 const aliases = ['top-left', 'left-top', 'top-right', 'right-top', 'bottom-left', 'left-bottom', 'bottom-right', 'right-bottom']
 
 export default {
   components: { Coordinates },
-  data () {
-    return {
-      placementWIthAlias: 'auto',
-      offset: [10, 0],
-    }
-  },
 
-  placement: computed(() => {
-    return aliasToPlacement[this.placementWIthAlias] || this.placementWIthAlias
+  data: () => ({
+    offset: [10, 0],
   }),
 
-  placements: ['top', 'bottom', 'left', 'right'].reduce(
-    (acc, position) => [
-      ...acc,
-      position,
-      `${position}-start`,
-      `${position}-end`,
-      `${position}-center`,
-    ],
-    ['auto'],
-  ).concat(aliases),
+  setup: () => {
+    const placementWIthAlias = ref('auto')
+    return {
+      placementWIthAlias,
+      placement: computed(() => {
+        return aliasToPlacement[placementWIthAlias.value] || placementWIthAlias.value
+      }),
+      placements: ['top', 'bottom', 'left', 'right'].reduce(
+        (acc, position) => [
+          ...acc,
+          position,
+          `${position}-start`,
+          `${position}-end`,
+          `${position}-center`,
+        ],
+        ['auto'],
+      ).concat(aliases),
+    }
+  },
 }
 </script>
