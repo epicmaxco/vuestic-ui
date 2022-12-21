@@ -1,16 +1,16 @@
-type YPlacementPosition = 'top' | 'bottom'
-type XPlacementPosition = 'left' | 'right'
-type PlacementPosition = XPlacementPosition | YPlacementPosition
+type verticalPlacement = 'top' | 'bottom'
+type horizontalPlacement = 'left' | 'right'
+type PlacementPosition = horizontalPlacement | verticalPlacement
 type PlacementPositionWithDefault = PlacementPosition | 'auto'
-type PlacementAlias = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'left-top' | 'right-top' | 'left-bottom' | 'right-bottom'
+type PlacementAlias = `${verticalPlacement}-${horizontalPlacement}` | `${horizontalPlacement}-${verticalPlacement}`
 
 export type PlacementAlignment = 'start' | 'end' | 'center'
 export type Placement = PlacementPositionWithDefault | `${PlacementPosition}-${PlacementAlignment}`
 export type PlacementWithAlias = Placement | PlacementAlias
 
-const yPlacementPosition: YPlacementPosition[] = ['top', 'bottom']
-const xPlacementPosition: XPlacementPosition[] = ['left', 'right']
-const placementPosition = [...yPlacementPosition, ...xPlacementPosition] as PlacementPosition[]
+const verticalPlacement: verticalPlacement[] = ['top', 'bottom']
+const horizontalPlacement: horizontalPlacement[] = ['left', 'right']
+const placementPosition = [...verticalPlacement, ...horizontalPlacement] as PlacementPosition[]
 const placementAlignment = ['start', 'end', 'center'] as PlacementAlignment[]
 
 export const placementsPositions = placementPosition
@@ -20,9 +20,9 @@ export const placementsPositions = placementPosition
     return acc
   }, ['auto'] as Placement[])
 
-export const placementAliasesPositions = yPlacementPosition
+export const placementAliasesPositions = verticalPlacement
   .reduce((acc, yPosition) => {
-    xPlacementPosition.forEach((xPosition) => {
+    horizontalPlacement.forEach((xPosition) => {
       acc.push(`${yPosition}-${xPosition}`)
       acc.push(`${xPosition}-${yPosition}`)
     })
