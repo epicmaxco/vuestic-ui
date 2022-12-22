@@ -33,7 +33,7 @@ export const placementAliasesPositions = verticalPlacement
     return acc
   }, [] as PlacementAlias[])
 
-const placementsPositionsWithAliases: PlacementWithAlias[] = [...placementsPositions, ...placementAliasesPositions]
+export const placementsPositionsWithAliases: PlacementWithAlias[] = [...placementsPositions, ...placementAliasesPositions]
 
 // TODO: may be rewrite this const, it's not very flexible
 export const aliasToPlacement: Record<PlacementAlias, Placement> = {

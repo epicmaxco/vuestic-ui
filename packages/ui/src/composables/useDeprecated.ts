@@ -34,6 +34,7 @@ export const useDeprecated = (
     if (source === 'props') {
       const propsOptions = (instance as any)?.propsOptions?.[0] || {}
 
+      // checking if default prop value isn't equal to the current one -> it's deprecated and used
       deprecatedItems.forEach((propName) => {
         propsOptions[propName] && (propsOptions[propName][0] !== propsOptions[propName].default) && throwWarning(propName)
       })
