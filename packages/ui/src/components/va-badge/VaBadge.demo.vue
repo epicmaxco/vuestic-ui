@@ -26,120 +26,13 @@
         <td>
           <VbCard
             title="Floated badges"
-            style="padding: 6rem; display: flex; flex-direction: column; gap: 1rem;"
+            style="padding: 6rem; display: flex; flex-direction: column; gap: 2rem;"
           >
-            <va-badge text="Default">
-              Float at
-            </va-badge>
-
             <va-badge
-              text="Top"
-              placement="top"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Top + Start"
-              placement="top-start"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Top + Center"
-              placement="top-center"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Top + End"
-              placement="top-end"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Bottom"
-              placement="bottom"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Bottom + Start"
-              placement="bottom-start"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Bottom + Center"
-              placement="bottom-center"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Bottom + End"
-              placement="bottom-end"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Left"
-              placement="left"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Left + Start"
-              placement="left-start"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Left + Center"
-              placement="left-center"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Left + end"
-              placement="left-end"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Right"
-              placement="right"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Right + Start"
-              placement="right-start"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Right + Center"
-              placement="right-center"
-            >
-              Float at
-            </va-badge>
-
-            <va-badge
-              text="Right + end"
-              placement="right-end"
+              v-for="placement in placementsPositionsWithAliases"
+              :key="placement"
+              :text="placement"
+              :placement="placement"
             >
               Float at
             </va-badge>
@@ -222,82 +115,35 @@
       </tr>
       <tr>
         <td>
-          <VbCard title="Overlap badges">
+          <VbCard
+            title="Overlapped badges"
+            style="padding: 6rem; display: flex; flex-direction: column; gap: 2rem;"
+          >
             <va-badge
+              v-for="placement in placementsPositionsWithAliases"
+              :key="placement"
+              :text="placement"
+              :placement="placement"
               overlap
-              text="overlap"
             >
-              Regular
-            </va-badge><br><br>
-            <va-badge
-              overlap
-              text="overlap"
-              placement="bottom"
-            >
-              Bottom + Center
-            </va-badge><br><br>
-            <va-badge
-              overlap
-              text="overlap"
-              placement="left-center"
-            >
-              Left + Center
-            </va-badge><br><br>
-            <va-badge
-              overlap
-              text="overlap"
-              placement="bottom-start"
-            >
-              Bottom + Start
-            </va-badge><br><br>
-            <va-badge
-              overlap
-              text="1+"
-            >
-              <va-icon name="face" />
-            </va-badge><br><br>
+              Float at
+            </va-badge>
           </VbCard>
         </td>
         <td>
-          <VbCard title="Overlap badges dot">
+          <VbCard
+            title="Overlapped badges with dot"
+            style="display: flex; flex-direction: column; gap: 1rem;"
+          >
             <va-badge
-              dot
+              v-for="placement in placementsPositionsWithAliases"
+              :key="placement"
+              :placement="placement"
               overlap
-              text="dot overlap"
-            >
-              Regular
-            </va-badge><br><br>
-            <va-badge
               dot
-              overlap
-              text="dot overlap"
-              placement="bottom-start"
             >
-              Bottom + Start
-            </va-badge><br><br>
-            <va-badge
-              dot
-              overlap
-              text="dot overlap"
-              placement="left"
-            >
-              Left + Center
-            </va-badge><br><br>
-            <va-badge
-              dot
-              overlap
-              text="dot overlap"
-              placement="bottom-start"
-            >
-              Bottom + Start
-            </va-badge><br><br>
-            <va-badge
-              dot
-              overlap
-              text="icon"
-            >
-              <va-icon name="face" />
-            </va-badge><br><br>
+              <div style="background-color: wheat;">{{ placement }}</div>
+            </va-badge>
           </VbCard>
         </td>
         <td>
@@ -409,11 +255,9 @@
 </template>
 
 <script>
-import VaBadge from './VaBadge'
-import { VaButton } from '../va-button'
-import { VaCard } from '../va-card'
-import VaCardContent from '../va-card/components/va-card-content/VaCardContent.vue'
-import { VaIcon } from '../va-icon/'
+import { placementsPositionsWithAliases } from '../../composables'
+
+import { VaBadge, VaButton, VaCard, VaCardContent, VaIcon } from '../../components'
 import BadgeAvatarDemo from './BadgeAvatarDemo'
 
 export default {
@@ -425,14 +269,14 @@ export default {
     VaCardContent,
     VaIcon,
   },
-  data () {
-    return {
-      label: '1234',
-      overlap: false,
-      dot: false,
-      transparent: false,
-      visibleEmpty: false,
-    }
-  },
+
+  data: () => ({
+    label: '1234',
+    overlap: false,
+    dot: false,
+    transparent: false,
+    visibleEmpty: false,
+    placementsPositionsWithAliases,
+  }),
 }
 </script>

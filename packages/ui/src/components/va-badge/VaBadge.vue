@@ -20,37 +20,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
   useColors, useTextColor,
   useComponentPresetProp,
-  usePlacementAliases, placementsPositionsWithAliases,
   useDeprecated,
   useBem,
 } from '../../composables'
-
-import type { PlacementWithAlias } from '../../composables'
+import { useFloatingPosition, useFloatingPositionProps } from './hooks/useFloatingPositionStyles'
 
 export default defineComponent({
   name: 'VaBadge',
 
   props: {
     ...useComponentPresetProp,
+    ...useFloatingPositionProps,
     color: { type: String, default: 'danger' },
     textColor: { type: String },
     text: { type: [String, Number], default: '' },
-    overlap: { type: Boolean, default: false },
     multiLine: { type: Boolean, default: false },
     visibleEmpty: { type: Boolean, default: false },
     dot: { type: Boolean, default: false },
     transparent: { type: Boolean, default: false },
-    placement: {
-      type: String as PropType<PlacementWithAlias>,
-      default: 'top-end',
-      validator: (position: PlacementWithAlias) => placementsPositionsWithAliases.includes(position),
-    },
   },
 
   setup (props, { slots }) {
@@ -62,7 +55,7 @@ export default defineComponent({
     const isFloating = computed(() => slots.default || props.dot)
 
     const badgeClass = useBem('va-badge', () => ({
-      ...pick(props, ['visibleEmpty', 'dot', 'multiLine', 'overlap']),
+      ...pick(props, ['visibleEmpty', 'dot', 'multiLine']),
       empty: isEmpty.value,
       floating: !!isFloating.value,
     }))
@@ -71,25 +64,7 @@ export default defineComponent({
     const { textColorComputed } = useTextColor()
     const colorComputed = computed(() => getColor(props.color))
 
-    const { parsePlacementWithAlias } = usePlacementAliases()
-    const { position, align } = parsePlacementWithAlias(props.placement)
-
-    const positionStylesComputed = computed(() => {
-      const variants = {
-        top: { position: { top: 0 }, translate: { transform: 'translateX(0%) translateY(-100%)' }, alignment: { start: { left: 0 }, center: { left: '50%' }, end: { left: '100%' } } },
-        bottom: { position: { bottom: 0 }, translate: { transform: 'translateX(-100%) translateY(100%)' }, alignment: { start: { left: 0 }, center: { left: '50%' }, end: { left: '100%' } } },
-        left: { position: { left: 0 }, translate: { transform: 'translateX(-100%) translateY(-50%)' }, alignment: { start: { top: 0 }, center: { top: '50%' }, end: { top: '100%' } } },
-        right: { position: { right: 0 }, translate: { transform: 'translateX(100%) translateY(0%)' }, alignment: { start: { top: 0 }, center: { top: '50%' }, end: { top: '100%' } } },
-      }
-
-      const currentVariant = variants[position]
-
-      return {
-        ...currentVariant.position,
-        ...currentVariant.alignment[align],
-        ...currentVariant.translate,
-      }
-    })
+    const positionStylesComputed = useFloatingPosition(props)
 
     const stylesComputed = computed(() => ({
       color: textColorComputed.value,
@@ -149,48 +124,13 @@ export default defineComponent({
       border-width: 0;
     }
 
-    .va-badge--multiLine & {
+    .va-badge--multi-line & {
       white-space: normal;
     }
 
     .va-badge--floating & {
       position: absolute;
       z-index: 2;
-    }
-
-    .va-badge--overlap & {
-      margin-left: calc(-1 * var(--va-badge-overlap));
-      margin-right: 0;
-      transform: translateY(-25%);
-    }
-
-    .va-badge--left & {
-      left: 0;
-      transform: translateX(-100%) translateY(-50%);
-    }
-
-    .va-badge--left.va-badge--overlap & {
-      margin-left: var(--va-badge-overlap);
-      transform: translateX(-100%) translateY(-25%);
-    }
-
-    .va-badge--bottom & {
-      top: 100%;
-      transform: translateX(0) translateY(-50%);
-    }
-
-    .va-badge--left.va-badge--bottom & {
-      transform: translateX(-100%) translateY(-50%);
-    }
-
-    .va-badge--bottom.va-badge--overlap & {
-      margin-left: calc(-1 * var(--va-badge-overlap));
-      transform: translateX(0) translateY(-75%);
-    }
-
-    .va-badge--bottom.va-badge--left.va-badge--overlap & {
-      margin-left: var(--va-badge-overlap);
-      transform: translateX(-100%) translateY(-75%);
     }
   }
 
@@ -207,7 +147,7 @@ export default defineComponent({
     white-space: nowrap;
     font-size: var(--va-badge-font-size);
 
-    .va-badge--multiLine & {
+    .va-badge--multi-line & {
       overflow: auto;
       max-height: initial;
       text-align: initial;
