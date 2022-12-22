@@ -32,11 +32,12 @@ export const useDeprecated = (
       console.warn(`The '${key}' ${option} (${instanceName} component) is deprecated! Please, check the documentation.`)
 
     if (source === 'props') {
-      const propsOptions = (instance as any)?.propsOptions?.[0] || {}
+      const propsOptions = (instance as any).propsOptions?.[0] || {}
+      const propsValues = instance.props || {}
 
       // checking if default prop value isn't equal to the current one -> it's deprecated and used
       deprecatedItems.forEach((propName) => {
-        propsOptions[propName] && (propsOptions[propName][0] !== propsOptions[propName].default) && throwWarning(propName)
+        propsOptions[propName] && (propsValues[propName] !== propsOptions[propName].default) && throwWarning(propName)
       })
 
       return true
