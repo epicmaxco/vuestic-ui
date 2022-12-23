@@ -1,11 +1,17 @@
 import { computed, Ref, unref, watchPostEffect } from 'vue'
 
 import { mapObject } from '../utils/map-object'
+
 import { useDomRect } from './useDomRect'
 import { useDocument } from './useDocument'
-import { Placement, PlacementAlignment, usePlacementAliases } from './usePlacementAliases'
+import { usePlacementAliases } from './usePlacementAliases'
 
-const { parsePlacementWithAlias } = usePlacementAliases()
+import type {
+  PlacementAlignment,
+  PlacementPosition,
+  UsePlacementAliasesProps,
+  ParsedPlacement,
+} from './usePlacementAliases'
 
 export type Offset = number | [number, number]
 
@@ -25,9 +31,12 @@ const calculateContentAlignment = (align: PlacementAlignment, anchorStart: numbe
   return anchorStart + (anchorSize - contentSize) / 2
 }
 
-const calculateContentCoords = (placement: Placement, anchor: DOMRect, content: DOMRect) => {
-  const { position, align } = parsePlacementWithAlias(placement)
-
+const calculateContentCoords = (
+  position: PlacementPosition,
+  align: PlacementAlignment,
+  anchor: DOMRect,
+  content: DOMRect,
+) => {
   const alignmentX = calculateContentAlignment(align, anchor.left, anchor.width, content.width)
   const alignmentY = calculateContentAlignment(align, anchor.top, anchor.height, content.height)
 
@@ -40,8 +49,7 @@ const calculateContentCoords = (placement: Placement, anchor: DOMRect, content: 
   }
 }
 
-const calculateOffsetCoords = (placement: Placement, offset: Offset): Coords => {
-  const { position } = parsePlacementWithAlias(placement)
+const calculateOffsetCoords = (position: PlacementPosition, offset: Offset): Coords => {
   const { main, cross } = parseOffset(offset)
 
   switch (position) {
@@ -86,18 +94,24 @@ const calculateClipToEdge = (coords: Coords, offsetCoords: Coords, content: DOMR
   }
 }
 
-const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect, viewport: DOMRect): Placement => {
-  const { position } = parsePlacementWithAlias(placement)
+const getAutoPlacement = (
+  position: PlacementPosition,
+  align: PlacementAlignment,
+  coords: Coords,
+  content: DOMRect,
+  viewport: DOMRect,
+): ParsedPlacement => {
   const overflow = calculateContentOverflow(coords, content, viewport)
+  const convertPlacement = (position: PlacementPosition, align: PlacementAlignment) => ({ position, align })
 
-  const newPlacements = {
-    top: 'bottom' as Placement,
-    bottom: 'top' as Placement,
-    right: 'left' as Placement,
-    left: 'right' as Placement,
+  const newPlacements: Record<PlacementPosition, PlacementPosition> = {
+    top: 'bottom',
+    bottom: 'top',
+    right: 'left',
+    left: 'right',
   }
 
-  if (!overflow[position]) { return placement }
+  if (!overflow[position]) { return convertPlacement(position, align) }
 
   // TODO: This is not recursive, if there is overflow in left and right - still will be a problem
   // Might need to use some different algorithm here
@@ -105,25 +119,17 @@ const getAutoPlacement = (placement: Placement, coords: Coords, content: DOMRect
 
   if (newPlacement === 'bottom' || newPlacement === 'top') {
     // cross: →
-    if (overflow.left) {
-      return [newPlacement, 'start'].join('-') as Placement
-    }
-    if (overflow.right) {
-      return [newPlacement, 'end'].join('-') as Placement
-    }
+    if (overflow.left) { return convertPlacement(newPlacement, 'start') }
+    if (overflow.right) { return convertPlacement(newPlacement, 'end') }
   }
 
   if (newPlacement === 'left' || newPlacement === 'right') {
     // cross: ↓
-    if (overflow.top) {
-      return [newPlacement, 'start'].join('-') as Placement
-    }
-    if (overflow.bottom) {
-      return [newPlacement, 'end'].join('-') as Placement
-    }
+    if (overflow.top) { return convertPlacement(newPlacement, 'start') }
+    if (overflow.bottom) { return convertPlacement(newPlacement, 'end') }
   }
 
-  return newPlacement
+  return convertPlacement(newPlacement, 'center')
 }
 
 const findFirstRelativeParent = (el: Element | null) => {
@@ -145,7 +151,6 @@ export type usePopoverOptions = {
   keepAnchorWidth?: boolean,
   autoPlacement?: boolean,
   stickToEdges?: boolean,
-  placement: Placement,
   offset?: Offset,
   /** Root element selector */
   root?: string | HTMLElement,
@@ -154,12 +159,16 @@ export type usePopoverOptions = {
 
 /**
  * Updates `contentRef` css, make it position fixed and moves relative to `anchorRef`
+ * @param anchorRef
+ * @param contentRef
  * @param options make options reactive if you want popover to react on options change.
+ * @param props
  */
 export const useDropdown = (
   anchorRef: Ref<HTMLElement | undefined>,
   contentRef: Ref<HTMLElement | undefined>,
   options: usePopoverOptions | Ref<usePopoverOptions>,
+  props: UsePlacementAliasesProps,
 ) => {
   const documentRef = useDocument()
   const rootRef = computed(() => {
@@ -189,16 +198,18 @@ export const useDropdown = (
   }
 
   watchPostEffect(() => {
+    const { position, align } = usePlacementAliases(props)
+
     if (!rootRef.value || !anchorDomRect.value || !contentDomRect.value) { return }
 
-    const { placement, offset, keepAnchorWidth, autoPlacement, stickToEdges } = unref(options)
+    const { offset, keepAnchorWidth, autoPlacement, stickToEdges } = unref(options)
 
     // calculate coords (x and y) of content left-top corner
-    let coords = calculateContentCoords(placement, anchorDomRect.value, contentDomRect.value)
+    let coords = calculateContentCoords(position, align, anchorDomRect.value, contentDomRect.value)
 
     let offsetCoords: Coords = { x: 0, y: 0 }
     if (offset) {
-      offsetCoords = calculateOffsetCoords(placement, offset)
+      offsetCoords = calculateOffsetCoords(position, offset)
       coords = mapObject(coords, (c, key) => c + offsetCoords[key])
     }
 
@@ -206,12 +217,13 @@ export const useDropdown = (
     const viewportRect = unref(options).viewport?.getBoundingClientRect() ?? rootRect
 
     if (autoPlacement) {
-      const newPlacement = getAutoPlacement(placement, coords, contentDomRect.value, viewportRect)
-      if (newPlacement !== placement) {
-        coords = calculateContentCoords(newPlacement, anchorDomRect.value, contentDomRect.value)
+      const { position: newPosition, align: newAlign } = getAutoPlacement(position, align, coords, contentDomRect.value, viewportRect)
+
+      if (newPosition !== position || newAlign !== align) {
+        coords = calculateContentCoords(newPosition, newAlign, anchorDomRect.value, contentDomRect.value)
 
         if (offset) {
-          offsetCoords = calculateOffsetCoords(newPlacement, offset)
+          offsetCoords = calculateOffsetCoords(newPosition, offset)
           coords = mapObject(coords, (c, key) => c + offsetCoords[key])
         }
       }
