@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://vuestic.dev" target="_blank">
-      <img alt="Vuestic UI Logo" width="400" src=".github/assets/vuestic-ui-logo.png">
+      <img alt="Vuestic UI Logo" width="400" src="https://user-images.githubusercontent.com/29167241/208700497-c356a0eb-338f-46cc-a2ca-4a892df7e446.png">
   </a>
       <br>
   Vue.js 3.0 UI Library
