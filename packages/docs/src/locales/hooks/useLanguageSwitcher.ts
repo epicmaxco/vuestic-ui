@@ -28,6 +28,7 @@ export const useLanguageSwitcher = () => {
 
     return path
   }
+
   const setLanguage = (newLocale: string, replace = false) => {
     if (locale.value === newLocale) { return }
 
