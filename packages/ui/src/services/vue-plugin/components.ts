@@ -73,6 +73,7 @@ export {
   VaTimeInput,
   VaTimeline, VaTimelineItem,
   VaTimePicker,
+  VaToast,
   VaTreeView,
   VaScrollContainer,
   VaVirtualScroller,
