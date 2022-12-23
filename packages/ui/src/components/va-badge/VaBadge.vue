@@ -3,7 +3,6 @@
     class="va-badge"
     role="alert"
     :class="badgeClass"
-    style="width: fit-content;"
   >
     <span
       class="va-badge__text-wrapper"
@@ -11,7 +10,7 @@
     >
       <span class="va-badge__text">
         <slot name="text">
-          {{ $props.placement }}
+          {{ text }}
         </slot>
       </span>
     </span>
@@ -20,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, unref } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -52,26 +51,26 @@ export default defineComponent({
 
     const isEmpty = computed(() => !(props.text || props.visibleEmpty || props.dot || slots.text))
 
-    const isFloating = computed(() => slots.default || props.dot)
+    const isFloating = computed(() => !!(slots.default || props.dot))
 
     const badgeClass = useBem('va-badge', () => ({
       ...pick(props, ['visibleEmpty', 'dot', 'multiLine']),
       empty: isEmpty.value,
-      floating: !!isFloating.value,
+      floating: isFloating.value,
     }))
 
     const { getColor } = useColors()
     const { textColorComputed } = useTextColor()
     const colorComputed = computed(() => getColor(props.color))
 
-    const positionStylesComputed = useFloatingPosition(props)
+    const positionStylesComputed = useFloatingPosition(props, isFloating)
 
     const stylesComputed = computed(() => ({
       color: textColorComputed.value,
       borderColor: colorComputed.value,
       backgroundColor: colorComputed.value,
       opacity: props.transparent ? 0.5 : 1,
-      ...positionStylesComputed.value,
+      ...unref(positionStylesComputed),
     }))
 
     return { badgeClass, stylesComputed }
@@ -86,6 +85,7 @@ export default defineComponent({
   display: inline-flex;
   position: relative;
   font-family: var(--va-font-family);
+  width: var(--va-badge-width);
 
   &__text-wrapper {
     transition: var(--va-badge-text-wrapper-transition, var(--va-transition));

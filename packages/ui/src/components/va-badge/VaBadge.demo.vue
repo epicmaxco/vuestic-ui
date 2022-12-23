@@ -8,7 +8,6 @@
             <va-badge
               text="Success theme color"
               color="success"
-              left
             />
           </VbCard>
         </td>
@@ -21,21 +20,37 @@
             />
           </VbCard>
         </td>
+        <td>
+          <VbCard title="Transparent">
+            Dot: <va-badge
+            dot
+            transparent
+          /><br>
+            Default: <va-badge
+            text="label"
+            transparent
+          /><br>
+            <br>
+            Slotted: <va-badge
+            text="label"
+            transparent
+          >
+            content
+          </va-badge><br>
+          </VbCard>
+        </td>
       </tr>
       <tr>
         <td>
-          <VbCard
-            title="Floated badges"
-            style="padding: 6rem; display: flex; flex-direction: column; gap: 2rem;"
-          >
-            <va-badge
-              v-for="placement in placementsPositionsWithAliases"
-              :key="placement"
-              :text="placement"
-              :placement="placement"
-            >
-              Float at
-            </va-badge>
+          <VbCard title="VisibleEmpty">
+            Empty: <va-badge /><br>
+            Empty dot: <va-badge dot /><br>
+            Empty with visibleEmpty prop: <va-badge visible-empty /><br>
+            Dot with visibleEmpty prop: <va-badge
+            visible-empty
+            dot
+          /><br>
+            Not empty: <va-badge text="not empty" /><br>
           </VbCard>
         </td>
         <td>
@@ -117,7 +132,7 @@
         <td>
           <VbCard
             title="Overlapped badges"
-            style="padding: 6rem; display: flex; flex-direction: column; gap: 2rem;"
+            style="padding: 5rem; display: flex; flex-direction: column; gap: 1.5rem;"
           >
             <va-badge
               v-for="placement in placementsPositionsWithAliases"
@@ -133,7 +148,7 @@
         <td>
           <VbCard
             title="Overlapped badges with dot"
-            style="display: flex; flex-direction: column; gap: 1rem;"
+            style="padding: 5rem; display: flex; flex-direction: column; gap: 1.5rem;"
           >
             <va-badge
               v-for="placement in placementsPositionsWithAliases"
@@ -147,34 +162,34 @@
           </VbCard>
         </td>
         <td>
-          <VbCard title="VisibleEmpty">
-            Empty: <va-badge /><br>
-            Empty dot: <va-badge dot /><br>
-            Empty with visibleEmpty prop: <va-badge visible-empty /><br>
-            Dot with visibleEmpty prop: <va-badge
-              visible-empty
-              dot
-            /><br>
-            Not empty: <va-badge text="not empty" /><br>
+          <VbCard
+            title="Floated badges"
+            style="padding: 5rem; display: flex; flex-direction: column; gap: 1.5rem;"
+          >
+            <va-badge
+              v-for="placement in placementsPositionsWithAliases"
+              :key="placement"
+              :text="placement"
+              :placement="placement"
+            >
+              Float at
+            </va-badge>
           </VbCard>
         </td>
         <td>
-          <VbCard title="Transparent">
-            Dot: <va-badge
-              dot
-              transparent
-            /><br>
-            Default: <va-badge
-              text="label"
-              transparent
-            /><br>
-            <br>
-            Slotted: <va-badge
-              text="label"
-              transparent
+          <VbCard
+            title="Floated badges with huge offset"
+            style="padding: 5rem; display: flex; flex-direction: column; gap: 1.5rem;"
+          >
+            <va-badge
+              v-for="placement in placementsPositionsWithAliases"
+              :key="placement"
+              :text="placement"
+              :placement="placement"
+              offset="1rem"
             >
-              content
-            </va-badge><br>
+              Float at
+            </va-badge>
           </VbCard>
         </td>
       </tr>
@@ -249,7 +264,6 @@
       <br>
       <br>
     </VbCard>
-
     <BadgeAvatarDemo />
   </VbDemo>
 </template>

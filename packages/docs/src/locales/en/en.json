@@ -184,14 +184,14 @@
     },
     "VaBadge": {
       "props": {
-        "text": "Badge text",
+        "text": "Badge text.",
         "overlap": "Allows badge to overlap with element.",
         "transparent": "Makes badge semi-transparent.",
         "multiLine": "Badge text will wrap to next line.",
         "visibleEmpty": "Badge will be shown even when there is no text.",
         "dot": "Shows dot instead of full badge. Useful to notify user without grabbing too much attention.",
-        "left": "Sets the component position to the left-top corner.",
-        "bottom": "Sets the component position to the bottom-right corner."
+        "placement": "Badge will be placed on `placement` side of the base element.",
+        "offset": "Moves badge relatively to main axis."
       }
     },
     "VaButton": {
@@ -1842,7 +1842,7 @@
       },
       "position": {
         "title": "Position",
-        "text": "`left` and `bottom` properties allows you to align the badge by left-top or right-bottom corner (relatively to the base element)."
+        "text": "The `placement` allows you to set placement of the badge relatively to the base element. Available values: `top/bottom/left/right - start/center/end`. The `offset` prop allows you to amend the selected position - it moves badge forward or backward relatively to the main axis (`top/bottom/left/right`)."
       },
       "dot": {
         "title": "Dot",

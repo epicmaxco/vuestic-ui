@@ -1,8 +1,10 @@
-import { PropType, computed, ExtractPropTypes } from 'vue'
+import { PropType, Ref, computed, ExtractPropTypes, toRef } from 'vue'
 
-import { usePlacementAliases, placementsPositionsWithAliases } from '../../../composables'
+import { usePlacementAliases, placementsPositionsWithAliases, useParsableMeasure } from '../../../composables'
 
 import type { PlacementAlignment, PlacementPosition, PlacementWithAlias } from '../../../composables'
+
+const { isParsableMeasure, parseSizeValue } = useParsableMeasure()
 
 export const useFloatingPositionProps = {
   overlap: { type: Boolean, default: false },
@@ -11,12 +13,28 @@ export const useFloatingPositionProps = {
     default: 'top-end',
     validator: (position: PlacementWithAlias) => placementsPositionsWithAliases.includes(position),
   },
+  offset: {
+    type: [Number, String] as PropType<string | number>,
+    default: 0,
+    validator: (value: string | number) => {
+      if (typeof value === 'string') {
+        return isParsableMeasure(value)
+      }
+
+      return !isNaN(value)
+    },
+  },
   // TODO: remove `left` and `bottom` props in 1.6.0
   left: { type: Boolean, default: false },
   bottom: { type: Boolean, default: false },
 }
 
-export const useFloatingPosition = (props: ExtractPropTypes<typeof useFloatingPositionProps>) => {
+export const useFloatingPosition = (
+  props: ExtractPropTypes<typeof useFloatingPositionProps>,
+  floating: Ref<boolean>,
+) => {
+  if (!floating.value) { return {} }
+
   let { position, align } = usePlacementAliases(props)
 
   // TODO: remove `left` and `bottom` props in 1.6.0
@@ -26,22 +44,22 @@ export const useFloatingPosition = (props: ExtractPropTypes<typeof useFloatingPo
   }
   if (props.bottom) {
     position = 'bottom'
-    align = 'start'
+    align = 'end'
   }
 
-  const getTransform = () => {
+  const isCenterAlign = computed(() => align === 'center')
+  const transformComputed = computed(() => {
     const options = {
-      top: { transform: `translateX(${align === 'center' ? '-50' : '0'}%) translateY(-100%)` },
-      bottom: { transform: 'translateX(-100%) translateY(100%)' },
+      top: { transform: `translateX(${isCenterAlign.value ? '-50' : '0'}%) translateY(-100%)` },
+      bottom: { transform: 'translateX(0) translateY(100%)' },
       left: { transform: 'translateX(-100%) translateY(-50%)' },
-      right: { transform: 'translateX(100%) translateY(0%)' },
+      right: { transform: `translateX(100%) translateY(${isCenterAlign.value ? '-50' : '0'}%)` },
     }
 
-    console.log(123, options[position])
     return options[position]
-  }
+  })
 
-  const getOverlapMargin = () => {
+  const getOverlapMargin = computed(() => {
     if (!props.overlap) { return {} }
 
     const result = { [`margin-${position}`]: 'var(--va-badge-overlap)' }
@@ -59,18 +77,20 @@ export const useFloatingPosition = (props: ExtractPropTypes<typeof useFloatingPo
     }
 
     return result
-  }
+  })
 
-  const getAlignment = () => {
+  const getAlignment = computed(() => {
     const baseSide = ['left', 'right'].includes(position) ? 'top' : 'left'
     const alignmentOptions = { start: { [baseSide]: 0 }, center: { [baseSide]: '50%' }, end: { [baseSide]: '100%' } }
     return alignmentOptions[align]
-  }
+  })
+
+  const offset = toRef(props, 'offset')
 
   return computed(() => ({
-    [position]: 0,
-    ...getTransform,
-    ...getAlignment(),
-    ...getOverlapMargin(),
+    [position]: `${parseSizeValue(offset)}px`,
+    ...transformComputed.value,
+    ...getAlignment.value,
+    ...getOverlapMargin.value,
   }))
 }
