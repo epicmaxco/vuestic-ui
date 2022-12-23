@@ -7,6 +7,7 @@
 import { defineComponent } from '@vue/runtime-core'
 import emitter from 'tiny-emitter/instance'
 import { useToast } from '../../ui/src/main'
+import { useLanguageSwitcher } from './locales/hooks/useLanguageSwitcher'
 
 const eventBus = {
   $on: (...args) => emitter.on(...args),
@@ -26,6 +27,8 @@ export default defineComponent({
 
   setup () {
     const { init } = useToast()
+
+    useLanguageSwitcher()
 
     window.page_reload_notification = () => {
       init({
