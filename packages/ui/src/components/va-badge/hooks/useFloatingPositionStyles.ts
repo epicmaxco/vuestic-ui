@@ -3,6 +3,7 @@ import { PropType, Ref, computed, ExtractPropTypes, toRef } from 'vue'
 import { usePlacementAliases, placementsPositionsWithAliases, useParsableMeasure } from '../../../composables'
 
 import type { PlacementAlignment, PlacementPosition, PlacementWithAlias } from '../../../composables'
+type AlignComplianceTable = Record<PlacementPosition, Record<PlacementAlignment, string> & { multiplier: number }>
 
 const { isParsableMeasure, parseSizeValue } = useParsableMeasure()
 
@@ -47,13 +48,13 @@ export const useFloatingPosition = (
     align = 'end'
   }
 
-  const isCenterAlign = computed(() => align === 'center')
+  const centerAlignment = computed(() => align === 'center' ? '-50%' : '0%')
   const transformComputed = computed(() => {
     const options = {
-      top: { transform: `translateX(${isCenterAlign.value ? '-50' : '0'}%) translateY(-100%)` },
+      top: { transform: `translateX(${centerAlignment.value}) translateY(-100%)` },
       bottom: { transform: 'translateX(0) translateY(100%)' },
       left: { transform: 'translateX(-100%) translateY(-50%)' },
-      right: { transform: `translateX(100%) translateY(${isCenterAlign.value ? '-50' : '0'}%)` },
+      right: { transform: `translateX(100%) translateY(${centerAlignment.value})` },
     }
 
     return options[position]
@@ -67,7 +68,7 @@ export const useFloatingPosition = (
     const alignComplianceTable = {
       top: { end: 'left', multiplier: -1 },
       bottom: { start: 'left', multiplier: 1 },
-    } as Record<PlacementPosition, Record<PlacementAlignment, string> & { multiplier: number }>
+    } as AlignComplianceTable
 
     const alignComplianceValue = alignComplianceTable[position]?.[align]
     if (alignComplianceValue) {

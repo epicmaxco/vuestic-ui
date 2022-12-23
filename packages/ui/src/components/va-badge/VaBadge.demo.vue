@@ -20,6 +20,8 @@
             />
           </VbCard>
         </td>
+      </tr>
+      <tr>
         <td>
           <VbCard title="Transparent">
             Dot: <va-badge
@@ -37,20 +39,6 @@
           >
             content
           </va-badge><br>
-          </VbCard>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <VbCard title="VisibleEmpty">
-            Empty: <va-badge /><br>
-            Empty dot: <va-badge dot /><br>
-            Empty with visibleEmpty prop: <va-badge visible-empty /><br>
-            Dot with visibleEmpty prop: <va-badge
-            visible-empty
-            dot
-          /><br>
-            Not empty: <va-badge text="not empty" /><br>
           </VbCard>
         </td>
         <td>
@@ -85,11 +73,74 @@
               With multi-line prop
               <va-badge
                 multi-line
-                text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+                text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
               />
             </div>
           </VbCard>
         </td>
+      </tr>
+      <tr>
+        <td>
+          <VbCard title="Overlapped badges">
+            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+              <va-badge
+                v-for="placement in placementsPositionsWithAliases"
+                :key="placement"
+                :text="placement"
+                :placement="placement"
+                overlap
+              >
+                Float at
+              </va-badge>
+            </div>
+          </VbCard>
+        </td>
+        <td>
+          <VbCard title="Overlapped badges with dot">
+            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+              <va-badge
+                v-for="placement in placementsPositionsWithAliases"
+                :key="placement"
+                :placement="placement"
+                overlap
+                dot
+              >
+                <div style="background-color: wheat;">{{ placement }}</div>
+              </va-badge>
+            </div>
+          </VbCard>
+        </td>
+        <td>
+          <VbCard title="Floated badges">
+            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+              <va-badge
+                v-for="placement in placementsPositionsWithAliases"
+                :key="placement"
+                :text="placement"
+                :placement="placement"
+              >
+                Float at
+              </va-badge>
+            </div>
+          </VbCard>
+        </td>
+        <td>
+          <VbCard title="Floated badges with huge offset">
+            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+              <va-badge
+                v-for="placement in placementsPositionsWithAliases"
+                :key="placement"
+                :text="placement"
+                :placement="placement"
+                offset="1rem"
+              >
+                Float at
+              </va-badge>
+            </div>
+          </VbCard>
+        </td>
+      </tr>
+      <tr>
         <td>
           <VbCard title="Dotted badges">
             <va-badge
@@ -127,69 +178,16 @@
             </va-badge><br><br>
           </VbCard>
         </td>
-      </tr>
-      <tr>
         <td>
-          <VbCard
-            title="Overlapped badges"
-            style="padding: 5rem; display: flex; flex-direction: column; gap: 1.5rem;"
-          >
-            <va-badge
-              v-for="placement in placementsPositionsWithAliases"
-              :key="placement"
-              :text="placement"
-              :placement="placement"
-              overlap
-            >
-              Float at
-            </va-badge>
-          </VbCard>
-        </td>
-        <td>
-          <VbCard
-            title="Overlapped badges with dot"
-            style="padding: 5rem; display: flex; flex-direction: column; gap: 1.5rem;"
-          >
-            <va-badge
-              v-for="placement in placementsPositionsWithAliases"
-              :key="placement"
-              :placement="placement"
-              overlap
-              dot
-            >
-              <div style="background-color: wheat;">{{ placement }}</div>
-            </va-badge>
-          </VbCard>
-        </td>
-        <td>
-          <VbCard
-            title="Floated badges"
-            style="padding: 5rem; display: flex; flex-direction: column; gap: 1.5rem;"
-          >
-            <va-badge
-              v-for="placement in placementsPositionsWithAliases"
-              :key="placement"
-              :text="placement"
-              :placement="placement"
-            >
-              Float at
-            </va-badge>
-          </VbCard>
-        </td>
-        <td>
-          <VbCard
-            title="Floated badges with huge offset"
-            style="padding: 5rem; display: flex; flex-direction: column; gap: 1.5rem;"
-          >
-            <va-badge
-              v-for="placement in placementsPositionsWithAliases"
-              :key="placement"
-              :text="placement"
-              :placement="placement"
-              offset="1rem"
-            >
-              Float at
-            </va-badge>
+          <VbCard title="VisibleEmpty">
+            Empty: <va-badge /><br>
+            Empty dot: <va-badge dot /><br>
+            Empty with visibleEmpty prop: <va-badge visible-empty /><br>
+            Dot with visibleEmpty prop: <va-badge
+            visible-empty
+            dot
+          /><br>
+            Not empty: <va-badge text="not empty" /><br>
           </VbCard>
         </td>
       </tr>
