@@ -5,6 +5,8 @@
   "scripts": {
     "test:manual": "cypress run",
     "build:local-vuestic": "docker image prune -f && docker container prune -f && docker-compose --profile local-vuestic build --no-cache",
+    "build:local-cli": "docker image prune -f && docker container prune -f && docker-compose --profile local-cli build --no-cache",
+    "build:local-nuxt": "docker image prune -f && docker container prune -f && docker-compose --profile local-nuxt build --no-cache",
     "build:test-page": "tsx ./create-test-page.ts",
     "run:vite": "docker-compose --profile run-vite up",
     "run:cli": "docker-compose --profile run-cli up",
@@ -12,7 +14,7 @@
     "test:vite": "docker-compose --profile vite up --build --exit-code-from cypress_vite",
     "test:cli": "docker-compose --profile cli up --build --exit-code-from cypress_cli",
     "test:nuxt": "docker-compose --profile nuxt up --build --exit-code-from cypress_nuxt",
-    "test": "yarn build:local-vuestic && yarn test:vite && yarn test:cli && yarn test:nuxt"
+    "test": "yarn build:local-cli && yarn build:local-nuxt && yarn build:local-vuestic && yarn test:vite && yarn test:cli && yarn test:nuxt"
   },
   "dependencies": {
     "cypress": "^10.11.0"

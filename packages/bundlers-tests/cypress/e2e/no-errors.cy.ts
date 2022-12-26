@@ -1,4 +1,4 @@
-describe("Test that there is no errors on start page", () => {
+describe("Test that there are no errors on start page", () => {
   beforeEach(() => {
     cy.visit("/", {
       onBeforeLoad(win) {

@@ -2,14 +2,8 @@ let imports = "";
 let template = "";
 
 function addComponentToIndexFile(componentName) {
-  addComponentToComponentsSection(componentName);
   addComponentToTemplate(componentName);
   addComponentToImports(componentName);
-}
-
-function addComponentToComponentsSection(componentName: string) {
-  const camelCaseName = convertComponentNameToCamelCase(componentName);
-  // custom-components[camelCaseName] = camelCaseName;
 }
 
 function convertComponentNameToCamelCase(componentName: string) {

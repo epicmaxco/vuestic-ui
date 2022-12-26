@@ -12,10 +12,24 @@ services:
     image: "local-vuestic:latest"
     profiles:
       - "local-vuestic"
+  local-cli:
+    build:
+      context: ./../
+      dockerfile: ./bundlers-tests/cli.Dockerfile
+    image: "local-cli:latest"
+    profiles:
+      - "local-cli"
+  local-nuxt:
+    build:
+      context: ./../
+      dockerfile: ./bundlers-tests/nuxt.Dockerfile
+    image: "local-nuxt:latest"
+    profiles:
+      - "local-nuxt"
   vite_test:
     build:
       context: .
-      dockerfile: vite.Dockerfile
+      dockerfile: ./docker-tests/vite.Dockerfile
     ports:
       - "8080:80"
     profiles:
@@ -24,7 +38,7 @@ services:
   cli_test:
     build:
       context: .
-      dockerfile: cli.Dockerfile
+      dockerfile: ./docker-tests/cli.Dockerfile
       no_cache: true
     ports:
       - "8080:80"
@@ -34,7 +48,7 @@ services:
   nuxt_test:
     build:
       context: .
-      dockerfile: nuxt.Dockerfile
+      dockerfile: ./docker-tests/nuxt.Dockerfile
     ports:
       - "8080:3000"
     profiles:
