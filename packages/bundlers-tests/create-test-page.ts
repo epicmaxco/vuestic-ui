@@ -4,7 +4,6 @@ import {
   mkdir,
   rm,
   access,
-  copyFile,
   writeFile,
 } from "node:fs/promises";
 import { resolve } from "path";
@@ -60,9 +59,9 @@ async function getDefaultExampleFromDir(dirName: string) {
 async function buildTestPage() {
   console.log("Removing previous test page...");
   try {
-    await access(resolve(testPageLocation, "components"));
+    await access(resolve(testPageLocation, "custom-components"));
 
-    await rm(resolve(testPageLocation, "components"), {
+    await rm(resolve(testPageLocation, "custom-components"), {
       recursive: true,
       force: true,
     });
@@ -76,13 +75,13 @@ async function buildTestPage() {
 
   console.log("Creating new test page directory...");
   try {
-    await mkdir(resolve(testPageLocation, "components"));
+    await mkdir(resolve(testPageLocation, "custom-components"));
   } catch (err) {
     console.error(err);
     process.exit(3);
   }
 
-  console.log("Copying components...");
+  console.log("Copying custom-components...");
   const components = await readDir(uiElementsPath);
 
   for (const component of components) {

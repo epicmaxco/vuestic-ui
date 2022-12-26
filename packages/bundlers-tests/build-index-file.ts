@@ -9,7 +9,7 @@ function addComponentToIndexFile(componentName) {
 
 function addComponentToComponentsSection(componentName: string) {
   const camelCaseName = convertComponentNameToCamelCase(componentName);
-  // components[camelCaseName] = camelCaseName;
+  // custom-components[camelCaseName] = camelCaseName;
 }
 
 function convertComponentNameToCamelCase(componentName: string) {
@@ -34,7 +34,7 @@ function addComponentToTemplate(componentName: string) {
 function addComponentToImports(componentName: string) {
   imports += `import ${convertComponentNameToCamelCase(
     componentName
-  )} from './components/${componentName}.vue'\n`;
+  )} from './custom-components/${componentName}.vue'\n`;
 }
 
 function buildIndexFile() {

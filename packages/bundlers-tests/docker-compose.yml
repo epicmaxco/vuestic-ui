@@ -25,6 +25,7 @@ services:
     build:
       context: .
       dockerfile: cli.Dockerfile
+      no_cache: true
     ports:
       - "8080:80"
     profiles:

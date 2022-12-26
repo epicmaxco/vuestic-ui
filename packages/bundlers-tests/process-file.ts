@@ -58,7 +58,7 @@ export async function processFile(filePath: string, componentName: string) {
 
   const fileHandler = createReadStream(filePath);
   const outputFileHandler = createWriteStream(
-    resolve(__dirname, `./templates/src/components/${componentName}.vue`)
+    resolve(__dirname, `./templates/src/custom-components/${componentName}.vue`)
   );
   const lines = createInterface({
     input: fileHandler,

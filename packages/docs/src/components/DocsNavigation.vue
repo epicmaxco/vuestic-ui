@@ -61,7 +61,7 @@ import getCodesandboxExample from '../helpers/CodeSandboxExample'
 import { applyTranslations } from '../helpers/TranslationsHelper'
 import { getWindow } from 'vuestic-ui/src/utils/ssr'
 
-const query = '?query=file=/src/App.vue'
+const query = '?query=file=/src/app.vue'
 
 type ButtonStates = 'active' | 'error' | 'default'
 

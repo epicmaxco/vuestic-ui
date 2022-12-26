@@ -3,12 +3,13 @@ FROM local-vuestic:latest as build
 RUN yarn create vite vite-app --template vue
 WORKDIR /vite-app
 
-RUN yarn add file:/local-vuestic
+RUN yarn add vuestic-ui@file:/local-vuestic
 RUN yarn add material-design-icons-iconfont -D
 
 WORKDIR /vite-app/src
 COPY /templates/src .
 
+WORKDIR /vite-app
 RUN yarn build
 
 FROM nginx:stable-alpine

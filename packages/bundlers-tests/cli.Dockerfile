@@ -5,12 +5,13 @@ COPY /templates/configs/vuerc.json /vuerc.json
 RUN vue create --preset /vuerc.json app
 
 WORKDIR /app
-RUN yarn add file:/local-vuestic
+RUN yarn add vuestic-ui@file:/local-vuestic
 RUN yarn add material-design-icons-iconfont -D
 
-WORKDIR /app/src
-COPY /templates/src .
+COPY /templates/src ./src
 
+WORKDIR /app
+RUN yarn
 RUN yarn build
 
 FROM nginx:stable-alpine

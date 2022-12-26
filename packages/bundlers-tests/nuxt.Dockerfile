@@ -3,11 +3,11 @@ FROM local-vuestic:latest as build
 RUN npx nuxi init nuxt-app
 WORKDIR /nuxt-app
 RUN yarn add @vuestic/nuxt
-RUN yarn add file:/local-vuestic
+RUN yarn add vuestic-ui@file:/local-vuestic
 RUN yarn add material-design-icons-iconfont -D
 
 COPY templates/src/App.vue ./app.vue
-COPY templates/src/components ./components
+COPY templates/src/custom-components ./custom-components
 COPY templates/src/kitchensink.vue ./kitchensink.vue
 COPY templates/configs/nuxt.config.ts .
 
