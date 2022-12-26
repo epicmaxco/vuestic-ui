@@ -48,7 +48,7 @@ export default defineComponent({
     shape: { type: Boolean, default: false },
   },
 
-  setup (props) {
+  setup (props, { slots }) {
     // TODO(1.6.0): Remove deprecated slots
     useDeprecated(['center'], ['slots'])
 
@@ -70,7 +70,25 @@ export default defineComponent({
       fill: textColorComputed.value,
     }))
 
-    return { computedStyle, shapeStyleComputed, scrollRoot }
+    const gridTemplateComputed = computed(() => {
+      const gridTemplateAreas = [
+        slots.left && 'left',
+        (slots.default || slots.center) && 'center',
+        slots.right && 'right',
+      ].filter(v => v)
+      const sizes = '1fr '.repeat(gridTemplateAreas.length).trimEnd()
+
+      return `"${gridTemplateAreas.join(' ')}" / ${sizes}`
+    })
+
+    console.log(gridTemplateComputed.value)
+
+    return {
+      scrollRoot,
+      computedStyle,
+      shapeStyleComputed,
+      gridTemplateComputed,
+    }
   },
 })
 </script>
@@ -81,7 +99,7 @@ export default defineComponent({
 
 .va-navbar {
   display: grid;
-  grid-template: "left center right" / 1fr 1fr 1fr;
+  grid-template: v-bind(gridTemplateComputed);
   align-items: center;
   transition: var(--va-navbar-transition);
   position: var(--va-navbar-position);
