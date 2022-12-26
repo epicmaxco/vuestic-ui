@@ -27,7 +27,6 @@
 <file-upload />
 <form />
 <icon />
-<image />
 <infinite-scroll />
 <inner-loading />
 <input />
@@ -84,7 +83,6 @@ import Dropdown from './components/dropdown.vue'
 import FileUpload from './components/file-upload.vue'
 import Form from './components/form.vue'
 import Icon from './components/icon.vue'
-import Image from './components/image.vue'
 import InfiniteScroll from './components/infinite-scroll.vue'
 import InnerLoading from './components/inner-loading.vue'
 import Input from './components/input.vue'

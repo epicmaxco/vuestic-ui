@@ -9,7 +9,7 @@ describe("Kitchensink page", () => {
 
   it("Check h1 text", () => {
     cy.get("h1").should("contain", "Kitchensink");
-  });
+  })
 
   it('Should be no errors in console', () => {
     cy.get('@errorLogged').should('not.be.called')
