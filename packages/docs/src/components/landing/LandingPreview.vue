@@ -16,7 +16,7 @@
           </a>
         </div>
 <!--        <div class="preview__image">-->
-<!--          <div class="custom-components-slideshow">-->
+<!--          <div class="components-slideshow">-->
 <!--            <div class="mover"></div>-->
 <!--          </div>-->
 <!--        </div>-->
@@ -37,9 +37,9 @@
             <div class="item__frame">
               <img src="@/assets/landing/images/features/components.svg" alt="responsive-components">
             </div>
-            <h2 class="item__title">{{$t('landing.preview.features.custom-components.title')}}</h2>
+            <h2 class="item__title">{{$t('landing.preview.features.components.title')}}</h2>
             <router-link class="item__link text--primary" :to="`/${$root.$i18n.locale}/ui-elements/alert`">
-              {{$t('landing.preview.features.custom-components.text')}}
+              {{$t('landing.preview.features.components.text')}}
             </router-link>
           </div>
 
@@ -167,7 +167,7 @@ export default {
 
   &__image {
     position: absolute;
-    // background-image: url("../../assets/landing/images/image-custom-components.png");
+    // background-image: url("../../assets/landing/images/image-components.png");
     background-size: contain;
     background-repeat: repeat-x;
     background-position: top;
@@ -255,9 +255,9 @@ export default {
   transform: translate3d(0, 0, 0);
 }
 
-//.custom-components-slideshow .mover {
+//.components-slideshow .mover {
 //  width: 3153px;
-//  background: url(../../assets/landing/images/custom-components.png);
+//  background: url(../../assets/landing/images/components.png);
 //  position: absolute;
 //  top: 0;
 //  left: 0;

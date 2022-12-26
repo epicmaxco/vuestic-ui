@@ -6,7 +6,7 @@
 // export const genAppMetaInfo = () => {
 //   const title = 'Vuestic UI — Vue.js 3.0 UI Framework'
 //   const description = 'Vuestic UI is modern vue.js UI framework designed to be simple and customizable for any type and scale of application'
-//   const keywords = 'vue, vue custom-components, vuestic, vuestic-ui, component framework'
+//   const keywords = 'vue, vue components, vuestic, vuestic-ui, component framework'
 //
 //   return genMetaInfo(title, description, keywords)
 // }

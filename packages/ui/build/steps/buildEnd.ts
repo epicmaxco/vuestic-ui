@@ -10,7 +10,7 @@ import {
 import { readDirRecursive } from '../common-config'
 
 export const buildEnd = () => {
-  // moving common css (resources & custom-components styles) to the dist root
+  // moving common css (resources & components styles) to the dist root
   const cjsStylesPath = './dist/cjs/style.css'
   existsSync(cjsStylesPath) && renameSync(cjsStylesPath, './dist/vuestic-ui.css')
 
