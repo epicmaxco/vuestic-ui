@@ -5,27 +5,13 @@ x-base-cypress: &base-cypress
   working_dir: /app-testing
 
 services:
-  local-vuestic:
+  local-packages:
     build:
       context: ./../
-      dockerfile: ./bundlers-tests/vuestic.Dockerfile
-    image: "local-vuestic:latest"
+      dockerfile: ./bundlers-tests/packages.Dockerfile
+    image: "local-packages:latest"
     profiles:
-      - "local-vuestic"
-  local-cli:
-    build:
-      context: ./../
-      dockerfile: ./bundlers-tests/cli.Dockerfile
-    image: "local-cli:latest"
-    profiles:
-      - "local-cli"
-  local-nuxt:
-    build:
-      context: ./../
-      dockerfile: ./bundlers-tests/nuxt.Dockerfile
-    image: "local-nuxt:latest"
-    profiles:
-      - "local-nuxt"
+      - "local-packages"
   vite_test:
     build:
       context: .
@@ -39,7 +25,6 @@ services:
     build:
       context: .
       dockerfile: ./docker-tests/cli.Dockerfile
-      no_cache: true
     ports:
       - "8080:80"
     profiles:
