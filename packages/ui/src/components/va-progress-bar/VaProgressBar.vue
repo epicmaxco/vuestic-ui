@@ -64,6 +64,7 @@ export default defineComponent({
     reverse: { type: Boolean, default: false },
     contentInside: { type: Boolean, default: false },
     showPercent: { type: Boolean, default: false },
+    max: { type: Number, default: 100 },
   },
 
   setup (props) {
@@ -81,6 +82,8 @@ export default defineComponent({
     }
 
     const { t } = useTranslation()
+
+    const progressBarValue = computed(() => 100 / props.max * props.modelValue)
 
     return {
       rootClass: computed(() => ({
@@ -104,8 +107,8 @@ export default defineComponent({
       })),
 
       progressStyle: computed(() => ({
-        width: `${clamp(props.modelValue, 0, 100)}%`,
         marginLeft: props.reverse ? 'auto' : undefined,
+        width: `${clamp(progressBarValue.value, 0, 100)}%`,
       })),
 
       intermediateStyle: computed(() => ({

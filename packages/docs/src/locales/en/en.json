@@ -586,7 +586,8 @@
         "reverse": "Reverse the progress bar direction",
         "rounded": "Add a border radius to the `va-progress-bar` component (default: true)",
         "contentInside": "Sets the content of the slot inside the progress bar",
-        "showPercent": "Shows the indicator value with a percent sign"
+        "showPercent": "Shows the indicator value with a percent sign",
+        "max": "Maximum value"
       },
       "slots": {
         "default": "Display any additional info about the progress"
@@ -2680,6 +2681,10 @@
       "buffer": {
         "title": "Buffer",
         "text": "When dealing with media content like streaming videos we can use progress bars to show the buffering progress indicator on a video."
+      },
+      "max": {
+        "title": "Maximum value",
+        "text": "You can set maximum value for progress bar component"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-progress-bar/_variables.scss)[[target=_blank]]"
