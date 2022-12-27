@@ -30,14 +30,23 @@ services:
     profiles:
       - "cli"
       - "run-cli"
-  nuxt_test:
+  nuxt_ssr_test:
     build:
       context: .
-      dockerfile: ./docker-tests/nuxt.Dockerfile
+      dockerfile: ./docker-tests/nuxt-ssr.Dockerfile
     ports:
       - "8080:3000"
     profiles:
-      - "nuxt"
+      - "nuxt-ssr"
+      - "run-nuxt"
+  nuxt_spa_test:
+    build:
+      context: .
+      dockerfile: ./docker-tests/nuxt-spa.Dockerfile
+    ports:
+      - "8080:3000"
+    profiles:
+      - "nuxt-spa"
       - "run-nuxt"
   cypress_vite:
     <<: *base-cypress
@@ -59,13 +68,23 @@ services:
       - CYPRESS_baseUrl=http://cli_test:80
     profiles:
       - "cli"
-  cypress_nuxt:
+  cypress_nuxt_ssr:
     <<: *base-cypress
     volumes:
-      - ./docker-tests/nuxt:/app-testing
+      - ./docker-tests/nuxt-ssr:/app-testing
     depends_on:
-      - nuxt_test
+      - nuxt_ssr_test
     environment:
-      - CYPRESS_baseUrl=http://nuxt_test:3000
+      - CYPRESS_baseUrl=http://nuxt_ssr_test:3000
     profiles:
-      - "nuxt"
+      - "nuxt-ssr"
+  cypress_nuxt_spa:
+    <<: *base-cypress
+    volumes:
+      - ./docker-tests/nuxt-spa:/app-testing
+    depends_on:
+      - nuxt_spa_test
+    environment:
+      - CYPRESS_baseUrl=http://nuxt_spa_test:3000
+    profiles:
+      - "nuxt-spa"
