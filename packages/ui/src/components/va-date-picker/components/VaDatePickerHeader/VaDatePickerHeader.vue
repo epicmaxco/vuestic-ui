@@ -32,7 +32,7 @@
           <slot name="year" v-bind="{ year: syncView.year }">{{ syncView.year }}</slot>
 
           <slot v-if="syncView.type === 'day'" name="month" v-bind="{ month: syncView.month }">
-            <span class="ml-1">{{ monthNames[syncView.month] }}</span>
+            <span class="va-date-picker__header__month">{{ monthNames[syncView.month] }}</span>
           </slot>
         </va-button>
       </slot>
@@ -112,6 +112,10 @@ export default defineComponent({
 
     &__text {
       color: currentColor;
+    }
+
+    &__month {
+      margin-left: 0.25rem;
     }
   }
 }

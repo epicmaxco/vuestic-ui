@@ -1,5 +1,5 @@
 <template>
-  <div class="row row">
+  <div class="row">
     <div class="flex md6 lg4">
       <va-card>
         <va-card-title>Between horizontal alignment</va-card-title>

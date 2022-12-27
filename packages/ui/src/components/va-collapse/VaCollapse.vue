@@ -25,9 +25,14 @@
             :name="icon"
             :color="textColorComputed"
           />
-          <div class="va-collapse__header__text">
-            {{ header }}
-          </div>
+          <slot
+            name="header-content"
+            v-bind="{ header }"
+          >
+            <div class="va-collapse__header__text">
+                {{ header }}
+            </div>
+          </slot>
           <va-icon
             class="va-collapse__header__icon"
             :name="computedModelValue ? 'va-arrow-up' : 'va-arrow-down'"
@@ -82,6 +87,7 @@ export default defineComponent({
     color: { type: String, default: 'background-element' },
     textColor: { type: String, default: '' },
     colorAll: { type: Boolean, default: false },
+    flat: { type: Boolean, default: false },
   },
   emits: ['update:modelValue'],
 
@@ -128,7 +134,7 @@ export default defineComponent({
     }))
 
     const computedClasses = useBem('va-collapse', () => ({
-      ...pick(props, ['disabled', 'solid']),
+      ...pick(props, ['disabled', 'solid', 'flat']),
       expanded: computedModelValue.value,
       active: props.solid && computedModelValue.value,
       popout: !!(accordionProps.value.popout && computedModelValue.value),
@@ -204,6 +210,7 @@ export default defineComponent({
 
     &__text {
       width: var(--va-collapse-header-content-text-width);
+      font-weight: var(--va-collapse-header-content-text-font-weight);
     }
 
     &__icon {
@@ -230,6 +237,10 @@ export default defineComponent({
         background-color: var(--va-collapse-solid-header-content-background-color);
       }
 
+      &__body-wrapper {
+        border-radius: var(--va-collapse-solid-border-radius);
+      }
+
       &__body {
         border-radius: var(--va-collapse-solid-body-border-radius);
         margin-top: var(--va-collapse-solid-body-margin-top);
@@ -243,6 +254,14 @@ export default defineComponent({
 
   &--inset {
     margin: var(--va-collapse-inset-margin);
+  }
+
+  &--flat {
+    .va-collapse__header {
+      box-shadow: none;
+      border: 0;
+      border-radius: 0;
+    }
   }
 
   &--disabled {

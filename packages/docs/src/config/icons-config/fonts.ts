@@ -7,6 +7,10 @@ export const fonts: IconConfiguration[] = [
     resolve: ({ content }) => ({ content: content }),
   },
   {
+    name: 'mdi-{name}',
+    resolve: ({ name }) => ({ class: `mdi mdi-${name}` }),
+  },
+  {
     name: 'fa4-{code}',
     resolve: ({ code }) => ({ class: `fa fa-${code}` }),
   },

@@ -1,16 +1,15 @@
 <template>
   <header class="header">
-    <div class="header__banner">
-      <div>
-        🔥🔥🔥
-        <span class="pl-2">
-          {{ $t('landing.header.banner.text') }}
-        </span>
-      </div>
-      <a href="https://github.com/epicmaxco/vuestic-ui" target="_blank" class="header__banner-btn">
-        GitHub
-      </a>
-    </div>
+<!--    <div class="header__banner">-->
+<!--      <div>-->
+<!--        🔥🔥🔥-->
+<!--        <span class="pl-2">-->
+<!--          {{ $t('landing.header.banner.text') }}-->
+<!--        </span>-->
+<!--      </div>-->
+<!--      <a href="https://www.producthunt.com/posts/vuestic-ui" target="_blank" class="header__banner-btn">Launch page 🚀-->
+<!--      </a>-->
+<!--    </div>-->
     <div class="header__wrapper">
       <div class="header__inner">
         <div class="header__logo">
@@ -75,14 +74,12 @@
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
                 <a href="https://discord.gg/u7fQdqQt8c" target="_blank">
-                  <va-icon name="discord" class="mr-1 mt-1" size="small" />
                   {{ $t('landing.header.buttons.discord') }}</a>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
                 <a href="https://epicmax.co/blog" target="_blank">
-                  <va-icon name="exit_to_app" class="mr-1 mt-1" size="small" />
                   {{ $t('landing.header.buttons.blog') }}</a>
               </va-list-item-section>
             </va-list-item>
@@ -202,15 +199,16 @@ export default class Header extends Vue {
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: #5cb76c;
-    font-size: 0.8rem;
+    background-color: #ef6c05;
+    font-size: 1rem;
     color: white;
 
     &-btn {
-      padding: 7px 8px;
+      padding: 10px;
       border-radius: 5px;
       background-color: #fdfdfd;
-      margin-left: 7px;
+      color: #e06301 !important;
+      margin-left: 15px;
     }
   }
 
@@ -341,6 +339,10 @@ export default class Header extends Vue {
   @include sm(top, 0);
   @include sm(left, 0);
 
+  .va-list-item {
+    margin-bottom: 0.5rem;
+  }
+
   &--open {
     @include sm(display, flex);
   }
@@ -360,12 +362,14 @@ export default class Header extends Vue {
 
   &__label {
     font-size: 10px;
-    padding-top: 3rem;
+    padding-top: 4.5rem;
     padding-bottom: 0.5rem;
   }
 
   &__link {
     @include link-font();
+    @include sm(font-size, 1.2rem);
+    @include xs(font-size, 1.2rem);
 
     text-align: center;
 

@@ -124,9 +124,10 @@
         :options="filteredOptions"
         :selected-value="valueComputed"
         :get-selected-state="checkIsOptionSelected"
-        :get-text="getText"
-        :get-track-by="getTrackBy"
-        :get-group-by="getGroupBy"
+        :text-by="$props.textBy"
+        :track-by="$props.trackBy"
+        :group-by="$props.groupBy"
+        :disabled-by="$props.disabledBy"
         :search="searchInput"
         :no-options-text="tp($props.noOptionsText)"
         :color="$props.color"
@@ -269,7 +270,7 @@ export default defineComponent({
     const isFocused = computed(() => isInputFocused.value || showDropdownContent.value)
 
     const { getHoverColor, getColor } = useColors()
-    const { getOptionByValue, getValue, getText, getTrackBy, getGroupBy } = useSelectableList(props)
+    const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
 
     /** @public */
     const reset = () => withoutValidation(() => {
@@ -350,7 +351,7 @@ export default defineComponent({
     })
 
     const valueComputedString = computed<string>(() => {
-      if (!valueComputed.value) { return props.clearValue }
+      if (!valueComputed.value && valueComputed.value !== 0) { return props.clearValue }
       if (typeof valueComputed.value === 'string' || typeof valueComputed.value === 'number') { return valueComputed.value }
       if (Array.isArray(valueComputed.value)) {
         return valueComputed.value.map((value) => getText(value)).join(props.separator) || props.clearValue
@@ -474,7 +475,7 @@ export default defineComponent({
     const hoveredOption = ref<SelectOption | null>(null)
 
     const selectHoveredOption = () => {
-      if (!hoveredOption.value) { return }
+      if (!hoveredOption.value && hoveredOption.value !== 0) { return }
 
       if (!showDropdownContent.value) {
         // We can not select options if they are hidden
@@ -697,9 +698,6 @@ export default defineComponent({
       toggleDropdown,
       toggleIconColor,
       onHintedSearch,
-      getText,
-      getTrackBy,
-      getGroupBy,
       onScrollBottom,
       clearIconProps,
       isPlaceholder,

@@ -5,7 +5,7 @@
     <va-button icon="battery" color="#fff" preset="secondary" />
     <va-spacer />
     <va-button color="#fff" preset="secondary">Login</va-button>
-    <va-button-dropdown size="small" preset="secondary" color="#fff" icon="ellipsis">
+    <va-button-dropdown preset="secondary" color="#fff" icon-color="#fff">
       Content
     </va-button-dropdown>
   </va-app-bar>

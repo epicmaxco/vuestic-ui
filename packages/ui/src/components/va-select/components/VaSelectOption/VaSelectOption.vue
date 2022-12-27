@@ -37,6 +37,7 @@ export default defineComponent({
 
   props: {
     ...useColorProps,
+    disabled: { type: Boolean, default: false },
     option: { type: [Number, String, Object] as PropType<SelectableOption>, default: () => ({}) },
     getText: { type: Function as PropType<(option: SelectableOption) => string>, required: true },
     getTrackBy: { type: Function as PropType<(option: SelectableOption) => number>, required: true },
@@ -54,7 +55,7 @@ export default defineComponent({
 
     const isSelected = computed(() => props.getSelectedState(props.option))
     const isFocused = computed(() => {
-      if (!props.currentOption) { return false }
+      if (!props.currentOption && props.currentOption !== 0) { return false }
       if (typeof props.option === 'string') { return props.option === props.currentOption }
 
       if (!props.getTrackBy) { return false }
@@ -68,6 +69,8 @@ export default defineComponent({
     const optionStyle = computed(() => ({
       color: isSelected.value ? getColor(props.color) : 'inherit',
       backgroundColor: isFocused.value ? getHoverColor(getColor(props.color)) : 'transparent',
+      cursor: props.disabled ? 'default' : undefined,
+      opacity: props.disabled ? 'var(--va-select-option-list-option-disabled-opacity)' : undefined,
     }))
 
     return {

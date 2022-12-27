@@ -4,11 +4,17 @@
       <va-avatar :src="item" />
     </template>
 
-    <template #prev-arrow> Go back! </template>
+    <template #prev-arrow>
+      <va-button>Go back</va-button>
+    </template>
 
-    <template #next-arrow> Go forward! </template>
+    <template #next-arrow>
+      <va-button>Go forward</va-button>
+    </template>
 
-    <template #indicator="{ index }"> Go to {{ index }} </template>
+    <template #indicator="{ index }">
+      <va-button>Go to slide {{ index }}</va-button>
+    </template>
   </va-carousel>
 </template>
 
