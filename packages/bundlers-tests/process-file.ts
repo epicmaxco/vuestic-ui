@@ -24,7 +24,7 @@ export async function processFile(filePath: string, componentName: string) {
       sections.template = false;
       return;
     }
-    if (/<script((?: lang="(?:ts|js)")?|(?: setup)?)+>/.test(line)) {
+    if (/<script((?: lang="(?:ts|js)")?|(?: setup)?)+>/i.test(line)) {
       sections.script = true;
       return;
     }
