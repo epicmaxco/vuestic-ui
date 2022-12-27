@@ -88,14 +88,14 @@
             </va-list-label>
             <div class="mobile-menu__languages">
               <va-list-item
-                v-for="(option, id) in options"
+                v-for="(language, id) in languages"
                 :key="id"
                 class="mobile-menu__language"
-                :class="{ active: option.code === locale }"
-                @click="setLanguage(option.code)"
+                :class="{ active: language.code === locale }"
+                @click="setLanguage(language.code)"
               >
                 <va-list-item-section class="mobile-menu__link">
-                  <span class="language">{{ option.name }}</span>
+                  <span class="language">{{ language.name }}</span>
                 </va-list-item-section>
               </va-list-item>
               <va-list-item>
@@ -153,15 +153,15 @@ export default defineComponent({
       'mobile-menu--open': !isHidden.value,
     }))
 
-    const { options, setLanguage } = inject(LanguageSwitcherKey, {
+    const { languages, setLanguage } = inject(LanguageSwitcherKey, {
       locale: undefined,
-      options: [],
+      languages: [],
       setLanguage: () => undefined,
     })
 
     return {
       locale,
-      options,
+      languages,
       isHidden,
       classComputed,
       onClick,

@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 import { languages } from '../index'
 
 export type LanguageSwitcherType = {
-  options: Record<string, unknown>[],
+  languages: Record<string, unknown>[],
   currentLanguageName: ComputedRef<string | undefined>
   setLanguage: (newLocale: string, replace: boolean) => void
   getCurrentPathWithoutLocale: () => void
@@ -57,7 +57,7 @@ export const useLanguageSwitcher = () => {
   watch(locale, setHtmlLang)
 
   provide<LanguageSwitcherType>(LanguageSwitcherKey, {
-    options: languages,
+    languages,
     currentLanguageName,
     setLanguage,
     getCurrentPathWithoutLocale,

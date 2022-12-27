@@ -8,14 +8,14 @@
   >
     <div class="language-dropdown__content">
       <va-list-item
-        v-for="(option, id) in options"
+        v-for="(language, id) in languages"
         :key="id"
         class="language-dropdown__item row align-center py-2 va-link"
-        :class="{ active: option.code === locale }"
-        @click="setLanguage(option.code)"
+        :class="{ active: language.code === locale }"
+        @click="setLanguage(language.code)"
       >
-        <va-list-item-section :style="{ color: option.code === locale ? colors.textPrimary : colors.primary }">
-          <span class="dropdown-item__text">{{ option.name }}</span>
+        <va-list-item-section :style="{ color: language.code === locale ? colors.textPrimary : colors.primary }">
+          <span class="dropdown-item__text">{{ language.name }}</span>
         </va-list-item-section>
       </va-list-item>
       <va-list-item
@@ -47,8 +47,8 @@ export default defineComponent({
     const { getColors } = useColors()
     const colors = computed(getColors)
 
-    const { currentLanguageName, options, setLanguage } = inject(LanguageSwitcherKey, {
-      options: [],
+    const { currentLanguageName, languages, setLanguage } = inject(LanguageSwitcherKey, {
+      languages: [],
       setLanguage: () => undefined,
       currentLanguageName: undefined,
     })
@@ -57,7 +57,7 @@ export default defineComponent({
       t,
       colors,
       locale,
-      options,
+      languages,
       currentLanguageName,
       setLanguage,
     }
