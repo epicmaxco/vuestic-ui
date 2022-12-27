@@ -1,4 +1,4 @@
-FROM local-vuestic:latest as build
+FROM local-packages:latest as build
 
 RUN yarn create vite vite-app --template vue
 WORKDIR /vite-app
