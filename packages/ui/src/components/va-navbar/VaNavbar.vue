@@ -81,8 +81,6 @@ export default defineComponent({
       return `"${gridTemplateAreas.join(' ')}" / ${sizes}`
     })
 
-    console.log(gridTemplateComputed.value)
-
     return {
       scrollRoot,
       computedStyle,
