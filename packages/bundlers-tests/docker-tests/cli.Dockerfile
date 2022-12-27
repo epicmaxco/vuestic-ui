@@ -7,6 +7,7 @@ RUN vue create --preset /vuerc.json app
 WORKDIR /app
 RUN yarn add file:/local-cli
 RUN vue invoke vuestic-ui --default
+RUN yarn add vuestic-ui@file:/local-vuestic
 RUN yarn add material-design-icons-iconfont -D
 
 WORKDIR /app/src
