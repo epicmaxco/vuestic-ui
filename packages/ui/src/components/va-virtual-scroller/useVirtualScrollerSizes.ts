@@ -10,25 +10,11 @@ import {
   getCurrentInstance,
 } from 'vue'
 
-import { useEvent } from '../../composables'
+import { useEvent, useParsableMeasure } from '../../composables'
+
 import { warn } from '../../utils/console'
 
-// TODO: Move this to composable?
-export const isParsableMeasure = (value: unknown): value is string => {
-  if (typeof value === 'string') {
-    return (!isNaN(+value) ||
-      value.endsWith('px') ||
-      value.endsWith('rem'))
-  }
-  return false
-}
-
-export const isParsablePositiveMeasure = (value: unknown) => {
-  if (typeof value === 'number') {
-    return value >= 0
-  }
-  return isParsableMeasure(value) && parseInt(value) >= 0
-}
+const { isParsablePositiveMeasure, parseSizeValue } = useParsableMeasure()
 
 const validateSizeProp = (v: number | string, propName: string) => {
   const isProperValue = isParsablePositiveMeasure(v)
@@ -60,19 +46,8 @@ export const useVirtualScrollerSizes = (
   const list = shallowRef<HTMLElement>()
   const wrapper = shallowRef<HTMLElement>()
 
-  const parseSizeValue = (value: number | string) => {
-    if (typeof value === 'string') {
-      const parsedValue = parseInt(value)
-
-      if (isNaN(parsedValue)) { return 0 }
-
-      return value.endsWith('rem') ? parsedValue * pageFontSize.value : parsedValue
-    }
-    return value
-  }
-
   const wrapperSize = computed(() => {
-    return parseSizeValue(props.wrapperSize)
+    return parseSizeValue(props.wrapperSize, pageFontSize)
   })
 
   const pageFontSize = ref(16)
@@ -109,7 +84,7 @@ export const useVirtualScrollerSizes = (
 
   let oldItemSize = 0
   const itemSize = computed(() => {
-    const sizeParsed = parseSizeValue(props.itemSize)
+    const sizeParsed = parseSizeValue(props.itemSize, pageFontSize)
 
     const result = Math.max(sizeParsed, itemSizeCalculated.value, 1)
     const diff = Math.abs(((oldItemSize / result) * 100) - 100)

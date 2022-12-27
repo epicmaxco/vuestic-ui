@@ -1,6 +1,10 @@
 <template>
   <div class="theme-switch-container">
-    <va-badge text="new">
+    <va-badge
+      placement="right-center"
+      text="new"
+      offset="-4px"
+    >
       <va-switch
         v-model="isDark"
         color="#5123a1"
@@ -45,13 +49,6 @@ setTheme(localStorage.getItem('vuestic-docs-theme') || 'light')
 .theme-switch-container {
   margin-right: 3.5rem;
   position: relative;
-
-  .va-badge__text-wrapper {
-    top: 50%;
-    left: unset;
-    right: -0.25rem;
-    transform: translate(100%, -50%);
-  }
 }
 
 .theme-switch-button {
