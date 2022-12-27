@@ -15,6 +15,7 @@ type UseButtonTextColor = (
   opacity?: number
   'background-clip'?: 'text',
   '-webkit-background-clip'?: 'text',
+  '-webkit-text-fill-color'?: string,
 }>
 
 export const useButtonTextColor: UseButtonTextColor = (
@@ -34,6 +35,7 @@ export const useButtonTextColor: UseButtonTextColor = (
     background: 'transparent',
     color: 'transparent',
     '-webkit-background-clip': 'text',
+    '-webkit-text-fill-color': textColorComputed.value,
     'background-clip': 'text',
     opacity: getPlainTextOpacity.value,
   }))
