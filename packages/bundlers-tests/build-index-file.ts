@@ -2,6 +2,9 @@ let imports = "";
 let template = "";
 
 function addComponentToIndexFile(componentName) {
+  // TODO: remove this after VaImage component rework (hydration issues)
+  if (componentName === 'image') { return }
+
   addComponentToTemplate(componentName);
   addComponentToImports(componentName);
 }
