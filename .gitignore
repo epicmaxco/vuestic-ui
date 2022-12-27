@@ -5,6 +5,8 @@ dist
 
 /packages/bundlers-tests/**/screenshots
 /packages/bundlers-tests/**/video
+/packages/bundlers-tests/templates/src/kitchensink.vue
+/packages/bundlers-tests/templates/src/custom-components
 
 # local env files
 .env.local
