@@ -30,6 +30,15 @@ services:
     profiles:
       - "cli"
       - "run-cli"
+  webpack_test:
+    build:
+      context: .
+      dockerfile: ./docker-tests/webpack.Dockerfile
+    ports:
+      - "8080:80"
+    profiles:
+      - "webpack"
+      - "run-webpack"
   nuxt_ssr_test:
     build:
       context: .
@@ -68,6 +77,16 @@ services:
       - CYPRESS_baseUrl=http://cli_test:80
     profiles:
       - "cli"
+  cypress_webpack:
+    <<: *base-cypress
+    volumes:
+      - ./docker-tests/webpack:/app-testing
+    depends_on:
+      - webpack_test
+    environment:
+      - CYPRESS_baseUrl=http://webpack_test:80
+    profiles:
+      - "webpack"
   cypress_nuxt_ssr:
     <<: *base-cypress
     volumes:
