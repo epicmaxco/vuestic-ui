@@ -20,6 +20,8 @@ export const addOrUpdateStyleElement = (id: string, getStyles: () => string): vo
     stylesElement.setAttribute('type', 'text/css')
     stylesElement.setAttribute('id', id)
     stylesElement.innerHTML = getStyles()
-    document.head.append(stylesElement)
   }
+
+  const styleAnchor = document.head.querySelector('[name="vuestic-style"]')
+  styleAnchor?.after(stylesElement)
 }
