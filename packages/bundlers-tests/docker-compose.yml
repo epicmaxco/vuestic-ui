@@ -25,6 +25,7 @@ services:
     build:
       context: .
       dockerfile: ./docker-tests/cli.Dockerfile
+      no_cache: true
     ports:
       - "8080:80"
     profiles:
@@ -34,6 +35,7 @@ services:
     build:
       context: .
       dockerfile: ./docker-tests/webpack.Dockerfile
+      no_cache: true
     ports:
       - "8080:80"
     profiles:
