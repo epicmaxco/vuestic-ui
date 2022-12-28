@@ -11,7 +11,7 @@ RUN yarn add material-design-icons-iconfont -D
 COPY ./../templates/src/App.vue ./app.vue
 COPY ./../templates/src/custom-components ./custom-components
 COPY ./../templates/src/kitchensink.vue ./kitchensink.vue
-COPY ./../templates/configs/nuxt-ssr.config.ts ./nuxt.config.ts
+COPY ./../templates/configs/nuxt-spa.config.ts ./nuxt.config.ts
 
 RUN yarn build
 
