@@ -5,14 +5,22 @@ x-base-cypress: &base-cypress
   working_dir: /app-testing
 
 services:
-  local-packages:
+  local-packages-lts:
     build:
       context: ./../
-      dockerfile: ./bundlers-tests/packages.Dockerfile
+      dockerfile: ./bundlers-tests/docker-tests/packages-lts.Dockerfile
       no_cache: true
-    image: "local-packages:latest"
+    image: "local-packages-lts:latest"
     profiles:
-      - "local-packages"
+      - "local-packages-lts"
+  local-packages-16:
+    build:
+      context: ./../
+      dockerfile: ./bundlers-tests/docker-tests/packages-16.Dockerfile
+      no_cache: true
+    image: "local-packages-16:latest"
+    profiles:
+      - "local-packages-16"
   vite_test:
     build:
       context: .
