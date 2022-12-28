@@ -9,9 +9,9 @@
     </va-list-label>
 
     <va-list-item
-      class="list__item"
       v-for="(contact, index) in contacts"
       :key="index"
+      style="margin-bottom: 0.5rem;"
     >
       <va-list-item-section avatar>
         <va-avatar>
@@ -74,9 +74,3 @@ const contacts = [
   },
 ]
 </script>
-
-<style lang="scss" scoped>
-.list__item + .list__item {
-  margin-top: 20px;
-}
-</style>

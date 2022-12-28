@@ -1,8 +1,8 @@
 FROM local-packages:latest as build
 
 RUN yarn create vite vite-app --template vue
-WORKDIR /vite-app
 
+WORKDIR /vite-app
 RUN yarn add vuestic-ui@file:/local-vuestic
 RUN yarn add material-design-icons-iconfont -D
 

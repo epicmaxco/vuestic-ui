@@ -8,6 +8,8 @@ type FileMeta = {
 }
 
 export async function processFile(filePath: string, componentName: string) {
+
+  //TODO: no docs default examples styles block processor, but not sure if we need it because of Tailwind CSS
   const sections = {
     template: false,
     script: false,
