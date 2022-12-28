@@ -1,12 +1,14 @@
 FROM local-packages:latest as build
 
 RUN yarn global add @vue/cli
+
 COPY ./../templates/configs/vuerc.json /vuerc.json
 RUN vue create --preset /vuerc.json app
 
 WORKDIR /app
-RUN yarn add file:/local-cli
+RUN yarn add -D file:/local-cli
 RUN vue invoke vuestic-ui --default
+
 RUN yarn add vuestic-ui@file:/local-vuestic
 RUN yarn add material-design-icons-iconfont -D
 
