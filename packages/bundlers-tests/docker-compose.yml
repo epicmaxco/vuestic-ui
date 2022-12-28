@@ -9,6 +9,7 @@ services:
     build:
       context: ./../
       dockerfile: ./bundlers-tests/packages.Dockerfile
+      no_cache: true
     image: "local-packages:latest"
     profiles:
       - "local-packages"
@@ -25,7 +26,6 @@ services:
     build:
       context: .
       dockerfile: ./docker-tests/cli.Dockerfile
-      no_cache: true
     ports:
       - "8080:80"
     profiles:
@@ -35,7 +35,6 @@ services:
     build:
       context: .
       dockerfile: ./docker-tests/webpack.Dockerfile
-      no_cache: true
     ports:
       - "8080:80"
     profiles:

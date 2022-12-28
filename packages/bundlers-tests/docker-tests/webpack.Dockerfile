@@ -12,6 +12,7 @@ RUN yarn add material-design-icons-iconfont -D
 WORKDIR /app-webpack/src
 COPY ./../templates/src .
 
+WORKDIR /app-webpack
 RUN yarn build
 
 FROM nginx:stable-alpine
