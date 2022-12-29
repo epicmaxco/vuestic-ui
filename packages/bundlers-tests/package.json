@@ -6,7 +6,7 @@
     "test:manual": "cypress run",
     "build:local-packages-16": "docker image prune -f && docker container prune -f && docker-compose --profile local-packages-16 build --no-cache",
     "build:local-packages-lts": "docker image prune -f && docker container prune -f && docker-compose --profile local-packages-lts build --no-cache",
-    "build:test-page": "tsx ./create-test-page.ts",
+    "build:test-page": "tsx ./kitchensink-builder/create-test-page.ts",
     "run:vite": "docker-compose --profile run-vite up",
     "run:cli": "docker-compose --profile run-cli up",
     "run:nuxt-ssr": "docker-compose --profile run-nuxt-ssr up",

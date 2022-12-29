@@ -13,9 +13,9 @@ import {processFile} from "./process-file";
 
 const uiElementsPath = resolve(
   __dirname,
-  "./../docs/src/page-configs/ui-elements"
+  "./../../docs/src/page-configs/ui-elements"
 );
-const testPageLocation = resolve(__dirname, "./templates/src");
+const testPageLocation = resolve(__dirname, "./../templates/src");
 
 async function readDir(dir) {
   try {
