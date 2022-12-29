@@ -25,6 +25,7 @@ services:
     build:
       context: .
       dockerfile: ./docker-tests/vite.Dockerfile
+      no_cache: true
     ports:
       - "8080:80"
     profiles:
@@ -34,6 +35,7 @@ services:
     build:
       context: .
       dockerfile: ./docker-tests/vite-cjs.Dockerfile
+      no_cache: true
     ports:
       - "8080:80"
     profiles:
@@ -43,6 +45,7 @@ services:
     build:
       context: .
       dockerfile: ./docker-tests/cli.Dockerfile
+      no_cache: true
     ports:
       - "8080:80"
     profiles:
@@ -52,6 +55,7 @@ services:
     build:
       context: .
       dockerfile: ./docker-tests/webpack.Dockerfile
+      no_cache: true
     ports:
       - "8080:80"
     profiles:
@@ -61,6 +65,7 @@ services:
     build:
       context: .
       dockerfile: ./docker-tests/nuxt-ssr.Dockerfile
+      no_cache: true
     ports:
       - "8080:3000"
     profiles:
@@ -70,6 +75,7 @@ services:
     build:
       context: .
       dockerfile: ./docker-tests/nuxt-spa.Dockerfile
+      no_cache: true
     ports:
       - "8080:3000"
     profiles:
