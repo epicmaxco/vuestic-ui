@@ -11,6 +11,7 @@ RUN yarn add material-design-icons-iconfont -D
 
 WORKDIR /app-webpack/src
 COPY ./../templates/src .
+COPY ./../templates/configs/main-base.js ./main.js
 
 WORKDIR /app-webpack
 RUN yarn build

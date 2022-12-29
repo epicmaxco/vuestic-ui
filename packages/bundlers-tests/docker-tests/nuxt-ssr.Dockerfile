@@ -8,9 +8,7 @@ RUN yarn add @vuestic/nuxt@file:/local-nuxt
 RUN yarn add vuestic-ui@file:/local-vuestic
 RUN yarn add material-design-icons-iconfont -D
 
-COPY ./../templates/src/App.vue ./app.vue
-COPY ./../templates/src/custom-components ./custom-components
-COPY ./../templates/src/kitchensink.vue ./kitchensink.vue
+COPY ./../templates/src .
 COPY ./../templates/configs/nuxt-ssr.config.ts ./nuxt.config.ts
 
 RUN yarn build
