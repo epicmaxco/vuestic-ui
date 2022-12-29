@@ -30,6 +30,15 @@ services:
     profiles:
       - "vite"
       - "run-vite"
+  vite_cjs_test:
+    build:
+      context: .
+      dockerfile: ./docker-tests/vite-cjs.Dockerfile
+    ports:
+      - "8080:80"
+    profiles:
+      - "vite-cjs"
+      - "run-vite-cjs"
   cli_test:
     build:
       context: .
@@ -76,6 +85,16 @@ services:
       - CYPRESS_baseUrl=http://vite_test:80
     profiles:
       - "vite"
+  cypress_vite_cjs:
+    <<: *base-cypress
+    volumes:
+      - ./docker-tests/vite-cjs:/app-testing
+    depends_on:
+      - vite_cjs_test
+    environment:
+      - CYPRESS_baseUrl=http://vite_cjs_test:80
+    profiles:
+      - "vite-cjs"
   cypress_cli:
     <<: *base-cypress
     volumes:
