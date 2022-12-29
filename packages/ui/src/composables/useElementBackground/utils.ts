@@ -1,5 +1,6 @@
 import { getWindow } from '../../utils/ssr'
 import { isCSSVariable } from '../useColors'
+import { __DEV__ } from '../../utils/env'
 
 export type ColorArray = [number, number, number, number]
 
@@ -15,7 +16,7 @@ const getCSSVariableNameFromDeclaration = (color: string) => color.slice(4, -1)
 
 /**
  * Super slow function. Must be covered with cache as much as possible.
- * It actually goes trough all CSS and search for value.
+ * It actually goes through all CSS and search for value.
  * This is needed to prevent transition delay when changing background color.
  */
 export const getElementBackgroundFromCSS = (el: HTMLElement) => {
@@ -31,11 +32,20 @@ export const getElementBackgroundFromCSS = (el: HTMLElement) => {
     .map(s => [...s.cssRules || []])
     .flat()
     .reduce((bg, cssRule) => {
-      if (!el.matches((cssRule as CSSPageRule).selectorText)) { return bg }
+      const { selectorText } = (cssRule as CSSPageRule)
+
+      try {
+        if (!el.matches(selectorText)) { return bg }
+      } catch (error) {
+        if (__DEV__) {
+          console.warn(error, selectorText)
+        }
+      }
 
       if (cssRule instanceof CSSStyleRule) {
         return cssRule.style.background || cssRule.style.backgroundColor || bg
       }
+
       return bg
     }, '')
     .trim()
