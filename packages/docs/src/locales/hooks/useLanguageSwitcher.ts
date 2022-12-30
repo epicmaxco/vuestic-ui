@@ -44,8 +44,7 @@ export const useLanguageSwitcher = () => {
     }
   }
 
-  const options = languages
-  const currentLanguageName = computed(() => options.find(({ code }) => code === locale.value)?.name)
+  const currentLanguageName = computed(() => languages.find(({ code }) => code === locale.value)?.name)
 
   const setHtmlLang = () => {
     if (!document?.documentElement) { return }
