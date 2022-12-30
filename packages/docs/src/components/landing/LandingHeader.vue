@@ -121,7 +121,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, inject, computed } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import VuesticLogo from '../header/components/VuesticLogo.vue'
@@ -129,7 +129,7 @@ import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import LandingStarsButton from './LandingStarsButton.vue'
 // import LandingThemeSwitchButton from '../ThemeSwitch.vue'
 
-import { LanguageSwitcherKey } from '../../locales/hooks/useLanguageSwitcher'
+import { useSharedLanguageSwitcher } from '../../locales/hooks/useLanguageSwitcher'
 
 export default defineComponent({
   name: 'LandingHeader',
@@ -145,11 +145,7 @@ export default defineComponent({
     const { locale } = useI18n()
     const isHidden = ref(true)
 
-    const { languages, setLanguage } = inject(LanguageSwitcherKey, {
-      locale: undefined,
-      languages: [],
-      setLanguage: () => undefined,
-    })
+    const { languages, setLanguage } = useSharedLanguageSwitcher()
 
     return {
       locale,

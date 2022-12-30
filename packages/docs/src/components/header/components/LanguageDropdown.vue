@@ -33,11 +33,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useColors } from 'vuestic-ui/src/main'
 import { useI18n } from 'vue-i18n'
 
-import { LanguageSwitcherKey } from '../../../locales/hooks/useLanguageSwitcher'
+import { useSharedLanguageSwitcher } from '../../../locales/hooks/useLanguageSwitcher'
 
 export default defineComponent({
   name: 'DocsLanguageDropdown',
@@ -47,11 +47,7 @@ export default defineComponent({
     const { getColors } = useColors()
     const colors = computed(getColors)
 
-    const { currentLanguageName, languages, setLanguage } = inject(LanguageSwitcherKey, {
-      languages: [],
-      setLanguage: () => undefined,
-      currentLanguageName: undefined,
-    })
+    const { currentLanguageName, languages, setLanguage } = useSharedLanguageSwitcher()
 
     return {
       t,

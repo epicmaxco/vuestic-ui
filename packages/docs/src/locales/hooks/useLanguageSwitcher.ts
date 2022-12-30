@@ -1,8 +1,9 @@
-import { computed, onMounted, provide, watch, ComputedRef } from 'vue'
+import { computed, onMounted, watch, ComputedRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
 import { languages } from '../index'
+import { useSharedComposable } from '@/composables/useSharedComposable'
 
 export type LanguageSwitcherType = {
   languages: Record<string, unknown>[],
@@ -11,9 +12,7 @@ export type LanguageSwitcherType = {
   getCurrentPathWithoutLocale: () => void
 }
 
-export const LanguageSwitcherKey = Symbol('LanguageSwitcher')
-
-export const useLanguageSwitcher = () => {
+export const useLanguageSwitcher = (): LanguageSwitcherType => {
   const router = useRouter()
   const { locale, t } = useI18n()
 
@@ -55,10 +54,12 @@ export const useLanguageSwitcher = () => {
   onMounted(setHtmlLang)
   watch(locale, setHtmlLang)
 
-  provide<LanguageSwitcherType>(LanguageSwitcherKey, {
+  return {
     languages,
     currentLanguageName,
     setLanguage,
     getCurrentPathWithoutLocale,
-  })
+  }
 }
+
+export const useSharedLanguageSwitcher = useSharedComposable <typeof useLanguageSwitcher>(useLanguageSwitcher)
