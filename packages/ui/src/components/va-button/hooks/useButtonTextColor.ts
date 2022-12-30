@@ -1,6 +1,6 @@
 import { computed, Ref, ComputedRef, getCurrentInstance } from 'vue'
 
-import { useColors } from '../../../composables'
+import { getOpacity, useColors } from '../../../composables'
 
 import { ButtonPropsTypes } from '../types'
 
@@ -47,11 +47,9 @@ export const useButtonTextColor: UseButtonTextColor = (
     if (stateBehavior === 'opacity') {
       stateStyles = { color: colorToRgba(textColorComputed.value, stateOpacity) }
     } else {
-      const opacity = stateOpacity < 1 ? 1 - stateOpacity : stateOpacity
-
       stateStyles = {
         background: getStateMaskGradientBackground(colorComputed.value, maskStateColor, stateOpacity),
-        color: stateOpacity < 1 ? colorToRgba(textColorComputed.value, opacity) : maskStateColor,
+        color: stateOpacity < 1 ? colorToRgba(textColorComputed.value, getOpacity(stateOpacity)) : maskStateColor,
       }
     }
 
