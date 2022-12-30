@@ -16,7 +16,7 @@
           <a href="/" aria-label="go to the main page">
             <vuestic-logo height="30" width="150" aria-hidden="true" />
           </a>
-          <div class="menu" @click="onClick(!isHidden)" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
+          <div class="menu" @click="isHidden = !isHidden" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
             <img v-if="!isHidden" src="../../assets/landing/images/hamburger.svg" alt="menu">
             <img v-else src="../../assets/landing/images/cross.svg" alt="menu">
           </div>
@@ -59,7 +59,7 @@
           <landing-stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
         </nav>
         <!-- mobile -->
-        <nav class="mobile-menu" :class="classComputed">
+        <nav class="mobile-menu" :class="{'mobile-menu--open': !isHidden}">
           <va-list>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
@@ -145,14 +145,6 @@ export default defineComponent({
     const { locale } = useI18n()
     const isHidden = ref(true)
 
-    const onClick = (value: boolean) => {
-      isHidden.value = value
-    }
-
-    const classComputed = computed(() => ({
-      'mobile-menu--open': !isHidden.value,
-    }))
-
     const { languages, setLanguage } = inject(LanguageSwitcherKey, {
       locale: undefined,
       languages: [],
@@ -163,8 +155,6 @@ export default defineComponent({
       locale,
       languages,
       isHidden,
-      classComputed,
-      onClick,
       setLanguage,
     }
   },
