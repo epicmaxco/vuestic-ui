@@ -2,7 +2,24 @@ import { definePrompts, createPrompts } from './utils/define-prompts';
 import { getPackageManagerName } from './utils/package-manager';
 import { isProjectExists } from './utils/is-project-exists';
 import chalk from 'chalk';
-import { rmSync } from 'fs';
+import { PromptType } from 'prompts';
+
+const skipVuesticAdmin = <T extends PromptType>(cb: T) => (type, answers, rest) => {
+  if (answers.projectType === 'vuestic-admin') {
+    return null
+  }
+
+  return cb
+}
+
+const skipVuesticAdminFn = <TT extends PromptType | null>(cb: (...args: any[]) => TT) => (type, answers, rest) => {
+  if (answers.projectType === 'vuestic-admin') {
+    return null
+  }
+
+  return cb(type, answers, rest) as TT
+}
+
 
 const questions = definePrompts([
   {
@@ -32,6 +49,7 @@ const questions = definePrompts([
     choices: [
       { title: 'create-vue', value: 'create-vue' as const },
       { title: 'nuxt', value: 'nuxt' as const },
+      { title: 'Vuestic Admin', value: 'vuestic-admin' as const },
     ],
   },
   {
@@ -49,7 +67,7 @@ const questions = definePrompts([
     ],
   },
   {
-    type: 'multiselect',
+    type: skipVuesticAdmin('multiselect'),
     name: 'vuesticFeatures',
     message: 'Vuestic features',
     initial: 0,
@@ -59,7 +77,7 @@ const questions = definePrompts([
     ],
   },
   {
-    type: (prev) => prev.includes('treeShaking') ? 'multiselect' : null,
+    type: skipVuesticAdminFn((prev) => prev.includes('treeShaking') ? 'multiselect' : null),
     name: 'treeShaking',
     message: 'Vuestic tree shaking',
     initial: 0,

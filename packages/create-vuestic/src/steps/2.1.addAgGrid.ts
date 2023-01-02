@@ -3,7 +3,7 @@ import { usePackageJson } from "../composables/usePackageJson"
 
 export const addAgGrid = async (options: UserAnswers) => {
   const { vuesticFeatures } = options
-  if (!vuesticFeatures.includes('agGrid')) {
+  if (vuesticFeatures && !vuesticFeatures.includes('agGrid')) {
     return
   }
 
