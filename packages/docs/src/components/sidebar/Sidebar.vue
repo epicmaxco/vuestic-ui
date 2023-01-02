@@ -47,8 +47,9 @@
             <va-sidebar-item-content>
               <va-sidebar-item-title>
                 <va-badge
-                  class="sidebar-item-badge"
+                  placement="right-center"
                   size="small"
+                  offset="-5px"
                   :text="childRoute.meta && t(`menu.badges.${childRoute.meta.badge}.text`)"
                   :color="childRoute.meta && badgeColors[childRoute.meta.badge]"
                   :visible-empty="false"
@@ -142,12 +143,6 @@ export default defineComponent({
 @import "~@/assets/main.scss";
 
 .sidebar {
-  &-item-badge {
-    .va-badge__text-wrapper {
-      transform: translate(5px, 2px);
-    }
-  }
-
   &__collapse-custom-header {
     position: relative;
     padding: 1rem 1.2rem;

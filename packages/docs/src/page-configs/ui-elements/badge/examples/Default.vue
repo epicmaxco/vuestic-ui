@@ -1,7 +1,12 @@
 <template>
-  Payment:
   <va-badge
-    text="success"
+    class="mr-4"
+    text="Paid"
     color="success"
+  />
+
+  <va-badge
+    text="Declined"
+    color="danger"
   />
 </template>

@@ -5,10 +5,9 @@
   --va-badge-border: 0.125rem;
   --va-badge-size: calc(var(--va-badge-font-size) * var(--va-badge-line-height) + var(--va-badge-border) * 2);
   --va-badge-overlap: calc(var(--va-badge-size) / 3);
-  --va-badge-display: inline-flex;
-  --va-badge-position: relative;
   --va-badge-line-height: 1.4;
   --va-badge-margin: 0;
+  --va-badge-width: fit-content;
 
   /* Dot */
   --va-badge-dot-size: 0.5rem;
@@ -23,7 +22,7 @@
   --va-badge-text-wrapper-letter-spacing: 0.0375rem;
   --va-badge-text-wrapper-justify-content: center;
   --va-badge-text-wrapper-white-space: nowrap;
-  --va-badge-text-wrapper-width: auto;
+  --va-badge-text-wrapper-width: min-content;
   --va-badge-text-wrapper-height: auto;
   --va-badge-text-wrapper-min-width: initial;
   --va-badge-text-wrapper-min-height: initial;

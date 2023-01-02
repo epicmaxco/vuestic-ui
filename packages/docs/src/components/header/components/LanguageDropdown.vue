@@ -8,14 +8,14 @@
   >
     <div class="language-dropdown__content">
       <va-list-item
-        v-for="(option, id) in options"
+        v-for="(language, id) in languages"
         :key="id"
         class="language-dropdown__item row align-center py-2 va-link"
-        :class="{ active: option.code === locale }"
-        @click="setLanguage(option.code)"
+        :class="{ active: language.code === locale }"
+        @click="setLanguage(language.code)"
       >
-        <va-list-item-section :style="{ color: option.code === locale ? colors.textPrimary : colors.primary }">
-          <span class="dropdown-item__text">{{ option.name }}</span>
+        <va-list-item-section :style="{ color: language.code === locale ? colors.textPrimary : colors.primary }">
+          <span class="dropdown-item__text">{{ language.name }}</span>
         </va-list-item-section>
       </va-list-item>
       <va-list-item
@@ -33,59 +33,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch, onMounted } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useColors } from 'vuestic-ui/src/main'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 
-import { languages } from '../../../locales'
+import { useSharedLanguageSwitcher } from '../../../locales/hooks/useLanguageSwitcher'
 
 export default defineComponent({
   name: 'DocsLanguageDropdown',
   setup () {
     const { locale, t } = useI18n()
-    const router = useRouter()
 
-    const getCurrentPathWithoutLocale = () => {
-      const path = router.currentRoute.value.fullPath
-      const localeUrlPart = `/${locale.value}`
-
-      if (path.slice(0, localeUrlPart.length) === localeUrlPart) { return path.slice(localeUrlPart.length) }
-
-      return path
-    }
-
-    const setLanguage = (newLocale: string) => {
-      if (locale.value === newLocale) { return }
-
-      localStorage.setItem('language', newLocale)
-
-      const currentPathWithoutLocale = getCurrentPathWithoutLocale()
-
-      router.push('/' + newLocale + currentPathWithoutLocale)
-    }
-
-    const options = languages
     const { getColors } = useColors()
     const colors = computed(getColors)
-    const currentLanguageName = computed(() => options.find(({ code }) => code === locale.value)?.name)
 
-    const setHtmlLang = () => {
-      if (!document?.documentElement) { return }
-
-      document.documentElement.setAttribute('lang', locale.value || 'en')
-    }
-
-    onMounted(setHtmlLang)
-    watch(locale, setHtmlLang)
+    const { currentLanguageName, languages, setLanguage } = useSharedLanguageSwitcher()
 
     return {
-      colors,
-      options,
-      setLanguage,
-      locale,
       t,
+      colors,
+      locale,
+      languages,
       currentLanguageName,
+      setLanguage,
     }
   },
 })

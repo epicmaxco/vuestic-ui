@@ -556,6 +556,9 @@
         },
         "slots": {
           "default": "Use this slot to replace default content to be displayed inside the component"
+        },
+        "events": {
+          "error": "Triggers when failed to load an image"
         }
       },
       "VaCheckbox": {
@@ -576,7 +579,8 @@
           "reverse": "Reverse the progress bar direction",
           "rounded": "Add a border radius to the `va-progress-bar` component (default: true)",
           "contentInside": "Sets the content of the slot inside the progress bar",
-          "showPercent": "Shows the indicator value with a percent sign"
+          "showPercent": "Shows the indicator value with a percent sign",
+          "max": "Maximum value"
         },
         "slots": {
           "default": "Display any additional info about the progress"
@@ -1177,7 +1181,11 @@
         },
         "events": {},
         "methods": {},
-        "slots": {}
+        "slots": {
+          "left": "Place VaNavbar items on the left",
+          "default": "Place VaNavbar items on the center (default)",
+          "right": "Place VaNavbar items on the right"
+        }
       },
       "VaPopover": {
         "props": {
@@ -1718,6 +1726,14 @@
         "withIcon": {
           "title": "With icons",
           "text": "The `icon` prop is used to display icons inside an avatar."
+        },
+        "group": {
+          "title": "Grouped",
+          "text": "You can use `va-avatar-group` component to group avatars."
+        },
+        "fallback": {
+          "title": "Fallback",
+          "text": "You can set fallback image."
         }
       },
       "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"
@@ -2611,6 +2627,10 @@
         "buffer": {
           "title": "Buffer",
           "text": "When dealing with media content like streaming videos we can use progress bars to show the buffering progress indicator on a video."
+        },
+        "max": {
+          "title": "Maximum value",
+          "text": "You can set maximum value for progress bar component"
         }
       },
       "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-progress-bar/_variables.scss)[[target=_blank]]"

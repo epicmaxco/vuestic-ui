@@ -25,7 +25,7 @@
     </template>
 
     <template v-else #prependInner="slotScope">
-      <div @mousedown.prevent="focus">
+      <div @mousedown.prevent="focus" class="va-counter__prepend-inner">
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button v-bind="decreaseIconProps" />
         </slot>
@@ -49,7 +49,7 @@
     </template>
 
     <template v-else #appendInner="slotScope">
-      <div @mousedown.prevent="focus">
+      <div @mousedown.prevent="focus" class="va-counter__append-inner">
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button v-bind="increaseIconProps" />
         </slot>
@@ -438,6 +438,13 @@ export default defineComponent({
     .va-input__container {
       padding-right: 0;
     }
+  }
+
+  &__prepend-inner,
+  &__append-inner {
+    display: flex;
+    align-items: stretch;
+    height: 100%;
   }
 }
 </style>

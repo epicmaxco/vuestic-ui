@@ -91,7 +91,7 @@
                       v-if="$props.cancelText"
                       preset="secondary"
                       color="secondary"
-                      class="mr-3"
+                      class="va-modal__default-cancel-button"
                       @click="cancel"
                     >
                       {{ tp($props.cancelText) }}
@@ -531,6 +531,10 @@ export default defineComponent({
     font-style: normal;
     color: var(--va-secondary);
     z-index: 1;
+  }
+
+  &__default-cancel-button {
+    margin-right: 0.75rem;
   }
 
   &__footer {
