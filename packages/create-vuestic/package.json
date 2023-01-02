@@ -1,0 +1,25 @@
+{
+  "name": "create-vuestic",
+  "version": "0.0.1",
+  "description": "Easy way to create new vuestic-ui app",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "serve": "tsx ./src/index.ts",
+    "serve:watch": "tsup src/index.ts --watch --onSuccess 'node dist/index.js'",
+    "build": "rm -rf dist && tsup src/ --format esm"
+  },
+  "bin": {
+    "create-vuestic": "./bin/create-vuestic.js"
+  },
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@types/prompts": "^2.4.2",
+    "tsup": "^6.5.0",
+    "tsx": "^3.12.1"
+  }
+}
