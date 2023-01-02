@@ -6,6 +6,17 @@ import { usePackageJson } from '../../composables/usePackageJson';
 import { insertHead } from './insert-head';
 import { insertImport } from './insert-import';
 import { insertVuesticPlugin } from './insert-plugin';
+import { useVuesticConfig } from '../../composables/useVuesticConfig';
+
+const treeShakingConfig = {
+  import: `import { createVuestic, VaButton } from 'vuestic-ui'`,
+  plugin: 'createVuesticEssential({ components: VaButton })',
+}
+
+const defaultConfig = {
+  import: `import { createVuestic } from 'vuestic-ui'`,
+  plugin: 'createVuestic()'
+}
 
 export const addVuesticToVue3App = async () => {
   const { projectName } = await useUserAnswers()
@@ -21,11 +32,15 @@ export const addVuesticToVue3App = async () => {
     throw new Error('Unexpected error: Could not find main.js or main.ts')
   }
 
+  const config = await useVuesticConfig()
+
+  const css = config.css.map((css) => `import '${css}'`)
+
   let mainSource = await readFile(mainPath, 'utf-8')
-  mainSource = insertVuesticPlugin(mainSource, 'createVuestic()')
+  mainSource = insertVuesticPlugin(mainSource, config.plugin)
   mainSource = insertImport(mainSource, [
-    `import { createVuestic } from 'vuestic-ui'`,
-    `import 'vuestic/css'`,
+    ...config.import,
+    ...css,
   ])
   await writeFile(mainPath, mainSource)
 

@@ -49,6 +49,27 @@ const questions = definePrompts([
     ],
   },
   {
+    type: 'multiselect',
+    name: 'vuesticFeatures',
+    message: 'Vuestic features',
+    initial: 0,
+    choices: [
+      { title: 'AG Grid', value: 'agGrid' as const, description: 'You can configure it later' },
+      { title: 'Tree shaking', value: 'treeShaking' as const, description: 'You can configure it later' },
+    ],
+  },
+  {
+    type: (prev) => prev.includes('treeShaking') ? 'multiselect' : null,
+    name: 'treeShaking',
+    message: 'Vuestic tree shaking',
+    initial: 0,
+    choices: [
+      { title: 'grid.css', value: 'grid' as const },
+      { title: 'typography.css', value: 'typography' as const},
+      { title: 'normalize.css', value: 'normalize' as const },
+    ],
+  },
+  {
     type: "confirm",
     name: "runGitInit",
     message: "Initialize a new git repository?",

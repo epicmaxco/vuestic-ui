@@ -9,7 +9,7 @@ export const addVuesticToNuxtApp = async () => {
   const { addDevDependency } = await usePackageJson()
   addDevDependency('@vuestic/nuxt', 'latest')
 
-  const { projectName } = await useUserAnswers()
+  const { projectName, treeShaking } = await useUserAnswers()
 
   // Add plugin
   const nuxtConfigPath = resolvePath(process.cwd(), projectName, 'nuxt.config.js') || resolvePath(process.cwd(), projectName, 'nuxt.config.ts')
@@ -18,7 +18,9 @@ export const addVuesticToNuxtApp = async () => {
     throw new Error('Unexpected error: Could not find nuxt.config.js or nuxt.config.ts')
   }
 
+  const css = treeShaking.filter((option) => ['grid', 'typography', 'normalize'].includes(option))
+
   let nuxtConfigSource = await readFile(nuxtConfigPath, 'utf-8')
-  nuxtConfigSource = insertNuxtModule(nuxtConfigSource)
+  nuxtConfigSource = insertNuxtModule(nuxtConfigSource, css)
   await writeFile(nuxtConfigPath, nuxtConfigSource)
 }
