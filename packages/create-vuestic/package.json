@@ -6,11 +6,10 @@
   "license": "MIT",
   "scripts": {
     "serve": "tsx ./src/index.ts",
-    "serve:watch": "tsup src/index.ts --watch --onSuccess 'node dist/index.js'",
     "build": "rm -rf dist && tsup src/ --format esm"
   },
   "bin": {
-    "create-vuestic": "./bin/create-vuestic.js"
+    "create-vuestic": "./dist/index.mjs"
   },
   "dependencies": {
     "chalk": "^5.2.0",
