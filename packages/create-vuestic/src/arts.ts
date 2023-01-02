@@ -1,14 +1,19 @@
+import chalk from "chalk"
+
 export const logo = `
-        ______
-       /     /\\
-      /     /  \\
-     /_____/----\\_    (
-    "     "          ).
-   _ ___          o (:') o
-  (@))_))        o ~/~~\\~ o
-                  o  o  o
+#####        /////
+ #####      /////
+  #####    /////
+   #####  /////
+    #####/////
+     #####///
+      ####//
+       ####
 `
 
 export const error = `
 :(
 `
+export const primaryColor = (text: string) => {
+  return chalk.hex('#154EC1')(text)
+}
