@@ -8,16 +8,6 @@ import { insertImport } from './insert-import';
 import { insertVuesticPlugin } from './insert-plugin';
 import { useVuesticConfig } from '../../composables/useVuesticConfig';
 
-const treeShakingConfig = {
-  import: `import { createVuestic, VaButton } from 'vuestic-ui'`,
-  plugin: 'createVuesticEssential({ components: { VaButton } })',
-}
-
-const defaultConfig = {
-  import: `import { createVuestic } from 'vuestic-ui'`,
-  plugin: 'createVuestic()'
-}
-
 export const addVuesticToVue3App = async () => {
   const { projectName } = await useUserAnswers()
 
@@ -44,9 +34,11 @@ export const addVuesticToVue3App = async () => {
   ])
   await writeFile(mainPath, mainSource)
 
+  // Add fonts
+
   const htmlPath = resolvePath(process.cwd(), projectName, 'index.html')!
   let htmlSource = await readFile(htmlPath, 'utf-8')
-  insertHead(htmlSource, [
+  htmlSource = insertHead(htmlSource, [
     `<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">`,
     `<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`
   ])
