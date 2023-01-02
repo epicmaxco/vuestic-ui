@@ -15,8 +15,22 @@ const questions = definePrompts([
     message: 'Project type',
     initial: 0,
     choices: [
-      { title: 'Vite', value: 'spa' },
-      { title: 'Nuxt', value: 'ssr' },
+      { title: 'create-vue', value: 'create-vue' as const },
+      { title: 'nuxt', value: 'nuxt' as const },
+    ],
+  },
+  {
+    type: (prev) => prev === 'create-vue' ? 'multiselect' : null,
+    name: 'projectFeatures',
+    message: 'Project features',
+    initial: 0,
+    choices: [
+      { title: 'TypeScript', value: 'ts' as const, selected: true, description: 'Vuestic has a great TS support, so we recommend to use it with TS' },
+      { title: 'Eslint', value: 'eslint' as const, description: 'for code quality' },
+      { title: 'Pinia', value: 'pinia' as const, description: 'for state management' },
+      { title: 'Vue router', value: 'router' as const, description: 'for Single Page Application development' },
+      { title: 'Vitest', value: 'vitest' as const, description: 'for unit testing' },
+      { title: 'Cypress', value: 'cypress' as const, description: 'for End-to-End testing' },
     ],
   },
   {
@@ -39,3 +53,5 @@ const questions = definePrompts([
 export const getUserAnswers = async () => {
   return createPrompts(questions)
 }
+
+export type UserAnswers = Awaited<ReturnType<typeof getUserAnswers>>
