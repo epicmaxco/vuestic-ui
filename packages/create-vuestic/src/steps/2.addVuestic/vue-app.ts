@@ -10,7 +10,7 @@ import { useVuesticConfig } from '../../composables/useVuesticConfig';
 
 const treeShakingConfig = {
   import: `import { createVuestic, VaButton } from 'vuestic-ui'`,
-  plugin: 'createVuesticEssential({ components: VaButton })',
+  plugin: 'createVuesticEssential({ components: { VaButton } })',
 }
 
 const defaultConfig = {

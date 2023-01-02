@@ -36,7 +36,7 @@ export const usePackageJson = async () => {
     await writePackage(pkg)
   }
 
-  const addDevDependency = async (name: string, version: string,) => {
+  const addDevDependency = async (name: string, version: string) => {
     const pkg = await readPackage()
     if (!pkg.devDependencies) { pkg.devDependencies = {} }
     pkg.devDependencies[name] = version
