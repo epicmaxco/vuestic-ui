@@ -46,8 +46,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       const colorConfig = getGlobalProperty(app, '$vaColorConfig')
 
       if (colorConfig) {
-        // TODO: Remove. This is a temporary fix for the issue with vuestic-ui.
-        const renderCSSVariables = colorConfig.renderCSSVariables || colorConfig.renderCSSVarialbes
+        const renderCSSVariables = colorConfig.renderCSSVariables
 
         // Add reactive CSS variables to head so they are taken from colorConfig
         head.addHeadObjs(ref({
