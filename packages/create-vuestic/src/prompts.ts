@@ -26,7 +26,7 @@ const questions = definePrompts([
     type: 'text',
     name: 'projectName',
     message: 'Project name',
-    initial: 'my-vuestic-project',
+    initial: 'vuestic-app',
   },
   {
     type: (prev) => isProjectExists(prev) ? 'confirm' : null,

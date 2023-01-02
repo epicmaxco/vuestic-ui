@@ -27,6 +27,14 @@ export const main = async () => {
   await installDeps()
 
   console.log(`${chalk.greenBright('Success!')} Created ${answers.projectName}`)
+
+  console.log()
+  console.log(`  - Docs:    ${primaryColor('https://vuestic.dev/')}`)
+  console.log(`  - Discord: ${primaryColor('https://discord.gg/u7fQdqQt8c')}`)
+  console.log(`  - Github:  ${primaryColor('https://github.com/epicmaxco/vuestic-ui')}`)
+  console.log('\nRun:')
+  console.log(chalk.green(`  cd ${answers.projectName}\n`))
+
 }
 
 main()
