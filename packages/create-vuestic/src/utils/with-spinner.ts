@@ -1,9 +1,9 @@
 import ora from 'ora';
 
 export const withSpinner = async <T>(message: string, cb: () => Promise<T>) => {
-  const spinner = ora('Creating Vue project').start();
+  const spinner = ora(message).start();
 
   await cb()
 
-  spinner.succeed('Succeeded!')
+  spinner.succeed()
 }

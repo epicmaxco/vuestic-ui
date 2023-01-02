@@ -1,6 +1,8 @@
 import { definePrompts, createPrompts } from './utils/define-prompts';
-
 import { getPackageManagerName } from './utils/package-manager';
+import { isProjectExists } from './utils/is-project-exists';
+import chalk from 'chalk';
+import { rmSync } from 'fs';
 
 const questions = definePrompts([
   {
@@ -8,6 +10,19 @@ const questions = definePrompts([
     name: 'projectName',
     message: 'Project name',
     initial: 'my-vuestic-project',
+  },
+  {
+    type: (prev) => isProjectExists(prev) ? 'confirm' : null,
+    name: 'removeProject',
+    message: `Project folder already exists. ${chalk.red('Should we remove it')} and init new project?`,
+    initial: false,
+    onState({ value }) {
+      if (!value) {
+        console.log(chalk.cyan('\nRemove folder manually and try again.'))
+        console.log('Aborting...')
+        process.exit(0)
+      }
+    }
   },
   {
     type: 'select',
