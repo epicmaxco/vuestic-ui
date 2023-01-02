@@ -6,6 +6,8 @@ import { cleanDir } from "./steps/0.cleanDir"
 import { scaffoldProject } from "./steps/1.scaffoldProject"
 import { addVuestic } from './steps/2.addVuestic'
 import { addAgGrid } from './steps/2.1.addAgGrid'
+import { initGit } from "./steps/3.initGit"
+import { installDeps } from "./steps/4.installDeps"
 
 
 export const main = async () => {
@@ -20,9 +22,10 @@ export const main = async () => {
   await scaffoldProject(answers)
   await addVuestic(answers)
   await addAgGrid(answers)
+  await initGit()
+  await installDeps()
 
-  console.log(`
-  ${chalk.greenBright('Success!')} Created ${answers.projectName} at ${answers.projectName}`)
+  console.log(`${chalk.greenBright('Success!')} Created ${answers.projectName}`)
 }
 
 main()

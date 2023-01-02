@@ -1,4 +1,4 @@
-import { rmdir } from 'fs/promises'
+import { rm } from 'fs/promises'
 import { execp } from './../utils/exacp';
 
 export const createVuesticAdmin = async (projectName: string) => {
@@ -6,5 +6,5 @@ export const createVuesticAdmin = async (projectName: string) => {
   const command = `git clone https://github.com/epicmaxco/vuestic-admin.git ${projectName}`
 
   await execp(command)
-  await rmdir(`${outPath}/.git`, { recursive: true })
+  await rm(`${outPath}/.git`, { recursive: true })
 }
