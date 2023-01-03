@@ -1,10 +1,13 @@
 import { Ref, computed } from 'vue'
 
+import { useThrottleValue } from '../../../composables'
+
 import type { DataTableRow } from '../types'
 
 interface useSelectableProps {
   perPage: number | undefined
   currentPage: number | undefined
+  delay: number
   [prop: string]: unknown
 }
 
@@ -25,7 +28,9 @@ export default function usePaginatedRows (
     return sortedRows.value.slice(pageStartIndex, pageStartIndex + props.perPage)
   })
 
+  const paginatedRowsThrottled = useThrottleValue(paginatedRows, props)
+
   return {
-    paginatedRows,
+    paginatedRows: paginatedRowsThrottled,
   }
 }

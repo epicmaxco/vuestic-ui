@@ -128,6 +128,7 @@
         :track-by="$props.trackBy"
         :group-by="$props.groupBy"
         :disabled-by="$props.disabledBy"
+        :delay="$props.delay"
         :search="searchInput"
         :no-options-text="tp($props.noOptionsText)"
         :color="$props.color"
@@ -163,6 +164,7 @@ import {
   useClearableProps, useClearable, useClearableEmits,
   useFocusDeep,
   useTranslation,
+  useThrottleProps,
 } from '../../composables'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
@@ -209,6 +211,7 @@ export default defineComponent({
     ...useClearableProps,
     ...useFormProps,
     ...useComponentPresetProp,
+    ...useThrottleProps,
 
     modelValue: {
       type: [String, Number, Array, Object] as PropType<SelectOption | SelectOption[]>,

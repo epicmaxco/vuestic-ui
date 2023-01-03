@@ -1,5 +1,7 @@
 import { computed, ref, Ref, watch } from 'vue'
 
+import { useThrottleFunction } from '../../../composables'
+
 import type {
   DataTableColumnInternal,
   DataTableRow,
@@ -11,6 +13,7 @@ import type {
 interface useSortableProps {
   sortBy: string | undefined
   sortingOrder: DataTableSortingOrder | undefined
+  delay: number
 }
 export type TSortedArgs = { sortBy: string, sortingOrder: DataTableSortingOrder, items: DataTableItem[], itemsIndexes: number[] }
 export type TSortableEmits = (
@@ -130,6 +133,8 @@ export default function useSortable (
     }
   }
 
+  const toggleSortingThrottled = useThrottleFunction(toggleSorting, props)
+
   const sortingOrderIconName = computed(() => {
     return sortingOrderSync.value === 'asc'
       ? 'va-arrow-up'
@@ -141,7 +146,7 @@ export default function useSortable (
   return {
     sortBySync,
     sortingOrderSync,
-    toggleSorting,
+    toggleSorting: toggleSortingThrottled,
     sortedRows,
     sortingOrderIconName,
   }

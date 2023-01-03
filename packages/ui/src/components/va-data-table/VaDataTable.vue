@@ -284,7 +284,7 @@ import useBinding from './hooks/useBinding'
 import useAnimationName from './hooks/useAnimationName'
 import useTableScroll, { useTableScrollProps, useTableScrollEmits } from './hooks/useTableScroll'
 
-import { useComponentPresetProp, useTranslation } from '../../composables'
+import { useComponentPresetProp, useTranslation, useThrottleProps } from '../../composables'
 
 import { extractComponentProps } from '../../utils/component-options'
 
@@ -346,6 +346,7 @@ export default defineComponent({
     ...useComponentPresetProp,
     ...VaVirtualScrollerProps,
     ...useTableScrollProps,
+    ...useThrottleProps,
     columns: { type: Array as PropType<DataTableColumnSource[]>, default: () => [] as DataTableColumnSource[] },
     items: { type: Array as PropType<DataTableItem[]>, default: () => [] as DataTableItem[] },
     itemsTrackBy: { type: [String, Function] as PropType<string | ((item: DataTableItem) => any)>, default: '' },

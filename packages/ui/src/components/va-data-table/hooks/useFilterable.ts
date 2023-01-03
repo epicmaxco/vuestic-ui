@@ -1,10 +1,13 @@
 import { Ref, watch, computed } from 'vue'
 
+import { useThrottleValue } from '../../../composables'
+
 import type { DataTableRow, DataTableFilterMethod, DataTableItem } from '../types'
 
 interface useFilterableProps {
   filter: string
   filterMethod: DataTableFilterMethod | undefined
+  delay: number
   [prop: string]: unknown
 }
 
@@ -32,14 +35,16 @@ export default function useFilterable (
     }))
   })
 
-  watch(filteredRows, () => {
+  const filteredRowsThrottled = useThrottleValue(filteredRows, props)
+
+  watch(filteredRowsThrottled, () => {
     emit('filtered', {
-      items: filteredRows.value.map(row => row.source),
-      itemsIndexes: filteredRows.value.map(row => row.initialIndex),
+      items: filteredRowsThrottled.value.map(row => row.source),
+      itemsIndexes: filteredRowsThrottled.value.map(row => row.initialIndex),
     })
   })
 
   return {
-    filteredRows,
+    filteredRows: filteredRowsThrottled,
   }
 }
