@@ -89,7 +89,7 @@ export default defineComponent({
   align-items: center;
   transition: var(--va-navbar-transition);
   position: var(--va-navbar-position);
-  padding: var(--va-navbar-padding-y) var(--va-navbar-padding-y);
+  padding: var(--va-navbar-padding-y) var(--va-navbar-padding-x);
   background-color: var(--va-primary);
   font-family: var(--va-font-family);
   top: 0;
