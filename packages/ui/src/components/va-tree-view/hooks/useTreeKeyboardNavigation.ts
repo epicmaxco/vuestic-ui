@@ -53,12 +53,10 @@ const useTreeKeyboardNavigation = (toggleNode: (node: TreeNode) => void) => {
   }
 
   const onHorizontalMove = (currentElement: TreeNodeElement, dir: 'left' | 'right') => {
-    const isCurrentElementExpanded = isElementExpanded(currentElement)
-
     if (dir === 'left') {
       getParentElement(currentElement)?.focus()
     } else if (dir === 'right') {
-      if (isCurrentElementExpanded) {
+      if (isElementExpanded(currentElement)) {
         getFirstChildElement(currentElement)?.focus()
       }
     }
