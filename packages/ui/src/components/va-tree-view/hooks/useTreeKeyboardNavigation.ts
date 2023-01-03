@@ -9,25 +9,11 @@ const useTreeKeyboardNavigation = (toggleNode: (node: TreeNode) => void) => {
   const isElementExpanded = (currentElement: TreeNodeElement): boolean =>
     currentElement?.getAttribute('aria-expanded') === 'true' || false
 
-  const getPreviousElement = (currentElement: TreeNodeElement, omitParent = false): TreeNodeElement => {
-    let previousElement = currentElement?.previousElementSibling as TreeNodeElement
+  const getPreviousElement = (currentElement: TreeNodeElement): TreeNodeElement =>
+    currentElement?.previousElementSibling as TreeNodeElement
 
-    if (!omitParent && !previousElement) {
-      previousElement = currentElement?.parentElement?.closest('.va-tree-node') || null
-    }
-
-    return previousElement
-  }
-
-  const getNextElement = (currentElement: TreeNodeElement, omitParent = false): TreeNodeElement => {
-    let nextElement = currentElement?.nextElementSibling as TreeNodeElement
-
-    if (!omitParent && isParentElement(currentElement) && isElementExpanded(currentElement)) {
-      nextElement = currentElement?.querySelector('.va-tree-node') || null
-    }
-
-    return nextElement
-  }
+  const getNextElement = (currentElement: TreeNodeElement): TreeNodeElement =>
+    currentElement?.nextElementSibling as TreeNodeElement
 
   const getFirstChildElement = (currentElement: TreeNodeElement): TreeNodeElement => {
     return (currentElement?.querySelector('.va-tree-node-children')?.firstElementChild || null) as TreeNodeElement
@@ -39,6 +25,32 @@ const useTreeKeyboardNavigation = (toggleNode: (node: TreeNode) => void) => {
 
   const getParentElement = (currentElement: TreeNodeElement): TreeNodeElement =>
     currentElement?.parentElement?.closest('.va-tree-node') || null
+
+  const findElement = (currentElement: TreeNodeElement, backwards?: boolean): TreeNodeElement => {
+    if (!currentElement) {
+      return null
+    }
+
+    const element = currentElement?.[backwards ? 'previousElementSibling' : 'nextElementSibling'] as TreeNodeElement
+
+    if (element) {
+      if (isElementExpanded(element)) {
+        if (backwards) {
+          return getLastChildElement(element)
+        } else {
+          return getFirstChildElement(element)
+        }
+      }
+
+      return element
+    } else {
+      if (backwards) {
+        return getParentElement(currentElement)
+      }
+
+      return findElement(getParentElement(currentElement), backwards)
+    }
+  }
 
   const onHorizontalMove = (currentElement: TreeNodeElement, dir: 'left' | 'right') => {
     const isCurrentElementExpanded = isElementExpanded(currentElement)
@@ -57,26 +69,26 @@ const useTreeKeyboardNavigation = (toggleNode: (node: TreeNode) => void) => {
       const previousElement = getPreviousElement(currentElement)
 
       if (previousElement) {
-        if (isParentElement(previousElement)) {
-          if (isElementExpanded(previousElement)) {
-            getLastChildElement(previousElement)?.focus()
-          } else {
-            previousElement.focus()
-          }
+        if (isElementExpanded(previousElement)) {
+          findElement(currentElement, true)?.focus()
         } else {
           previousElement.focus()
         }
-      }
-    } else if (dir === 'down') {
-      const nextElement = getNextElement(currentElement)
-
-      if (nextElement) {
-        nextElement?.focus()
       } else {
-        const parentElement = getParentElement(currentElement)
+        findElement(currentElement, true)?.focus()
+      }
+    }
 
-        if (parentElement && isElementExpanded(parentElement)) {
-          getNextElement(parentElement, true)?.focus()
+    if (dir === 'down') {
+      if (isElementExpanded(currentElement)) {
+        getFirstChildElement(currentElement)?.focus()
+      } else {
+        const nextElement = getNextElement(currentElement)
+
+        if (nextElement) {
+          nextElement.focus()
+        } else {
+          findElement(currentElement)?.focus()
         }
       }
     }
@@ -117,9 +129,7 @@ const useTreeKeyboardNavigation = (toggleNode: (node: TreeNode) => void) => {
     }
   }
 
-  return {
-    handleKeyboardNavigation,
-  }
+  return { handleKeyboardNavigation }
 }
 
 export default useTreeKeyboardNavigation
