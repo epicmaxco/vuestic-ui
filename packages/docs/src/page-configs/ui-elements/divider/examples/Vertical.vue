@@ -1,5 +1,5 @@
 <template>
-  <div class="row my-5">
+  <div class="row my-8">
     <span class="flex lg1">Title</span>
     <va-divider vertical />
     <span class="flex lg1">News</span>

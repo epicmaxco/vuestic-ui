@@ -7,7 +7,7 @@
 
       <div class="pl-2 d-flex flex-direction-column justify-end">
         <span class="title">Profile</span>
-        <h5 class="display-5 ma-0" style="color: inherit;">User</h5>
+        <h5 class="display-5 m-0" style="color: inherit;">User</h5>
 
         <div class="d-flex flex-wrap">
           <span class="mr-2 text--no-wrap">29 public playlists</span>

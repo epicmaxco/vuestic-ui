@@ -1,5 +1,5 @@
 <template>
-  <div class="row mb-4">
+  <div class="row mb-6">
     <va-checkbox
       class="flex md3 sm4 xs6"
       label="Row bind"

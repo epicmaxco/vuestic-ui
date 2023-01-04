@@ -6,7 +6,7 @@
     >
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         :options="defaultSingleSelect.options"
       />
       <p>Value: {{ defaultSingleSelect.value }}</p>
@@ -17,7 +17,7 @@
     >
       <va-select
         v-model="disabledOptions.value"
-        class="mb-4"
+        class="mb-6"
         :options="disabledOptions.options"
       />
       <p>Value: {{ disabledOptions.value }}</p>
@@ -28,7 +28,7 @@
     >
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         :options="defaultSingleSelect.options"
       >
         <template v-slot:option="{ option, index, selectOption }">
@@ -48,7 +48,7 @@
     >
       <va-select
         v-model="withVirtualScroller.value"
-        class="mb-4"
+        class="mb-6"
         :options="withVirtualScroller.options"
         virtual-scroller
       />
@@ -60,34 +60,34 @@
     >
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Default (solid)"
         :options="defaultSingleSelect.options"
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Outline"
         :options="defaultSingleSelect.options"
         outline
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Bordered"
         :options="defaultSingleSelect.options"
         bordered
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Default (solid) (Purple color)"
         color="#990099"
         :options="defaultSingleSelect.options"
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Outline (Purple color)"
         :options="defaultSingleSelect.options"
         color="#990099"
@@ -95,7 +95,7 @@
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Bordered (Purple color)"
         :options="defaultSingleSelect.options"
         color="#990099"
@@ -108,20 +108,20 @@
     >
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Default"
         :options="defaultSingleSelect.options"
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Default, hide selected"
         :options="defaultSingleSelect.options"
         hide-selected
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="No options"
         :options="[]"
       />
@@ -139,14 +139,14 @@
     >
       <va-select
         v-model="defaultMultiSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Default"
         :options="defaultMultiSelect.options"
         multiple
       />
       <va-select
         v-model="defaultMultiSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Default, hide selected"
         :options="defaultMultiSelect.options"
         multiple
@@ -154,7 +154,7 @@
       />
       <va-select
         v-model="defaultMultiSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Max selections (3)"
         :options="defaultMultiSelect.options"
         multiple
@@ -162,7 +162,7 @@
       />
       <va-select
         v-model="defaultMultiSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Tags"
         :options="defaultMultiSelect.options"
         multiple
@@ -175,7 +175,7 @@
     >
       <va-select
         v-model="objectSingleSelectWithIcons.value"
-        class="mb-4"
+        class="mb-6"
         label="Options with icon"
         :options="objectSingleSelectWithIcons.options"
         text-by="text"
@@ -184,28 +184,28 @@
       <p>Value: {{ objectSingleSelectWithIcons.value }}</p>
       <va-select
         v-model="objectSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Single select text by text (default)"
         :options="objectSingleSelect.options"
         text-by="text"
       />
       <va-select
         v-model="objectSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Text by value"
         :options="objectSingleSelect.options"
         text-by="value"
       />
       <va-select
         v-model="objectSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Track by text property"
         :options="objectSingleSelect.options"
         track-by="text"
       />
       <va-select
         v-model="objectSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Track by text property (function)"
         :options="objectSingleSelect.options"
         track-by="text"
@@ -213,7 +213,7 @@
       <p>Value: {{ objectSingleSelect.value }}</p>
       <va-select
         v-model="objectMultiSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Multi select Text by value"
         :options="objectMultiSelect.options"
         text-by="value"
@@ -221,7 +221,7 @@
       />
       <va-select
         v-model="objectMultiSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Searchable multiselect text-by value"
         :options="objectMultiSelect.options"
         text-by="value"
@@ -231,7 +231,7 @@
       <p>Value: {{ objectMultiSelect.value }}</p>
       <va-select
         v-model="objectMultiSelectByValue.value"
-        class="mb-4"
+        class="mb-6"
         label="Multi select value by value"
         :options="objectMultiSelectByValue.options"
         text-by="value"
@@ -246,7 +246,7 @@
     >
       <va-select
         v-model="objectGrouped.value"
-        class="mb-4"
+        class="mb-6"
         :options="objectGrouped.options"
       />
 
@@ -257,53 +257,53 @@
     >
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="With label"
         :options="defaultSingleSelect.options"
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
         placeholder="Long label"
         :options="defaultSingleSelect.options"
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         placeholder="With placeholder"
         :options="defaultSingleSelect.options"
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Long placeholder"
         placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,"
         :options="defaultSingleSelect.options"
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="No options"
         :options="[]"
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="No options with custom text"
         :options="[]"
         no-options-text="Sorry, nothing to show :("
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Clearable"
         :options="defaultSingleSelect.options"
         clearable
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Clearable and custom clear icon"
         :options="defaultSingleSelect.options"
         clearable
@@ -311,14 +311,14 @@
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Hint messages"
         :options="defaultSingleSelect.options"
         :messages="['Hint message 1', 'Hint message 2']"
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Prepend slot"
         :options="defaultSingleSelect.options"
       >
@@ -328,7 +328,7 @@
       </va-select>
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Prepend inner slot"
         :options="defaultSingleSelect.options"
       >
@@ -338,7 +338,7 @@
       </va-select>
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Append inner slot"
         :options="defaultSingleSelect.options"
       >
@@ -348,7 +348,7 @@
       </va-select>
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Append slot"
         :options="defaultSingleSelect.options"
       >
@@ -358,7 +358,7 @@
       </va-select>
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="All slots"
         :options="defaultSingleSelect.options"
         clearable
@@ -379,13 +379,13 @@
       </va-select>
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Content slot"
         :options="defaultSingleSelect.options"
       >
         <template #content="{ value }">
           <va-chip>{{ value || 'no value :(' }}</va-chip>
-          <span class="ml-4">
+          <span class="ml-6">
             Click on share ;)
             <va-icon
               name="share"
@@ -396,35 +396,35 @@
       </va-select>
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Custom list placement (top)"
         :options="defaultSingleSelect.options"
         placement="top"
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Custom list placement (bottom)"
         :options="defaultSingleSelect.options"
         placement="bottom"
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Custom list height (320px)"
         :options="defaultSingleSelect.options"
         max-height="320px"
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Custom select width (50%)"
         :options="defaultSingleSelect.options"
         width="50%"
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Required Mark"
         :options="defaultSingleSelect.options"
         required-mark
@@ -441,7 +441,7 @@
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Readonly"
         placeholder="Try to type in ..."
         :options="defaultSingleSelect.options"
@@ -450,7 +450,7 @@
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Disabled"
         placeholder="Try to focus ..."
         :options="defaultSingleSelect.options"
@@ -459,7 +459,7 @@
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Loading"
         :options="defaultSingleSelect.options"
         loading
@@ -467,7 +467,7 @@
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Error state"
         :options="defaultSingleSelect.options"
         error
@@ -475,7 +475,7 @@
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Error state with messages"
         :options="defaultSingleSelect.options"
         error
@@ -484,7 +484,7 @@
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Success state"
         :options="defaultSingleSelect.options"
         success
@@ -492,7 +492,7 @@
       />
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Success state with messages"
         :options="defaultSingleSelect.options"
         success
@@ -506,14 +506,14 @@
     >
       <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Searchable single select"
         :options="defaultSingleSelect.options"
         searchable
       />
       <va-select
         v-model="defaultMultiSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Searchable multi select"
         :options="defaultMultiSelect.options"
         multiple
@@ -521,7 +521,7 @@
       />
        <va-select
         v-model="defaultSingleSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="Searchable changed text"
         :options="defaultSingleSelect.options"
         searchable
@@ -534,7 +534,7 @@
     >
       <va-select
         v-model="allowCreateSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="'true' mode and single select"
         :options="allowCreateSelect.options"
         @create-new="addNewOption"
@@ -543,7 +543,7 @@
       />
       <va-select
         v-model="allowCreateSelect.allowUniqueValue"
-        class="mb-4"
+        class="mb-6"
         label="'unique' mode and single select"
         :options="allowCreateSelect.options"
         @create-new="addNewOption"
@@ -552,7 +552,7 @@
       />
       <va-select
         v-model="allowCreateSelect.valueMultiple"
-        class="mb-4"
+        class="mb-6"
         label="'true' mode and multi select"
         :options="allowCreateSelect.options"
         @create-new="addNewOption"
@@ -563,7 +563,7 @@
       <va-select
         v-model="allowCreateSelect.allowUniqueValueMultiple"
         label="'unique' mode and multi select"
-        class="mb-4"
+        class="mb-6"
         :options="allowCreateSelect.options"
         @create-new="addNewOption"
         track-by="id"
@@ -572,7 +572,7 @@
       />
       <va-select
         v-model="allowCreateSelect.valueMultipleMax"
-        class="mb-4"
+        class="mb-6"
         label="'true' mode and multi select, Max 3 selections"
         :options="allowCreateSelect.options"
         @create-new="addNewOption"
@@ -610,7 +610,7 @@
     >
       <va-select
         v-model="validationSelect.value"
-        class="mb-4"
+        class="mb-6"
         label="At least 1 option should be selected"
         :options="validationSelect.options"
         :rules="validationSelect.rules.required"
@@ -618,7 +618,7 @@
       />
       <va-select
         v-model="validationSelect.multipleValue"
-        class="mb-4"
+        class="mb-6"
         label="Exactly 2 options should be selected"
         :options="validationSelect.options"
         :rules="validationSelect.rules.twoOptions"

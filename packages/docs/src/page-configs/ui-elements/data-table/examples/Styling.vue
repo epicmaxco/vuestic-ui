@@ -1,5 +1,5 @@
 <template>
-  <div class='row mb-4'>
+  <div class='row mb-6'>
     <div class='flex md4'>
       <va-select
         v-model="columns[0].thAlign"
@@ -62,7 +62,7 @@
     </div>
   </div>
 
-  <div class='row mb-4'>
+  <div class='row mb-6'>
     <div class='flex md4'>
       <va-select
         v-model="columns[0].tdAlign"
@@ -110,7 +110,7 @@
     </div>
   </div>
 
-  <div class='row mb-4'>
+  <div class='row mb-6'>
     <va-checkbox
       class="flex mb-1 md6"
       label="Use additional class to cells of first column"

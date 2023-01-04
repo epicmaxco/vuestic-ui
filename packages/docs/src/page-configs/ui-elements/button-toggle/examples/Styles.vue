@@ -2,28 +2,28 @@
   <va-button-toggle
     v-model="model"
     :options="options"
-    class="mb-4"
+    class="mb-6"
   />
 
   <va-button-toggle
     preset="primary"
     v-model="model"
     :options="options"
-    class="mb-4"
+    class="mb-6"
   />
 
   <va-button-toggle
     preset="plain"
     v-model="model"
     :options="options"
-    class="mb-4"
+    class="mb-6"
   />
 
   <va-button-toggle
     round
     v-model="model"
     :options="options"
-    class="mb-4"
+    class="mb-6"
   />
 
   <va-button-toggle

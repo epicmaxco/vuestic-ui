@@ -1,8 +1,8 @@
 <template>
   <div style="max-width: 300px;">
-    <va-select class="mb-4" label="track by" v-model="value" :options="options" track-by="id" />
+    <va-select class="mb-6" label="track by" v-model="value" :options="options" track-by="id" />
 
-    <va-select class="mb-4" label="track by (function)" v-model="value" :options="options" :track-by="(option) => option.id" />
+    <va-select class="mb-6" label="track by (function)" v-model="value" :options="options" :track-by="(option) => option.id" />
 
     <va-alert color="info">
       <template #title>

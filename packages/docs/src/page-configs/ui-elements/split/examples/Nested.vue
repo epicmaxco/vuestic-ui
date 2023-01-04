@@ -3,12 +3,12 @@
     <template #start>
       <va-split>
         <template #start>
-          <div class="pa-4">
+          <div class="p-6">
             {{ lorem }}
           </div>
         </template>
         <template #end>
-          <div class="pa-4">
+          <div class="p-6">
             {{ lorem }}
           </div>
         </template>
@@ -17,12 +17,12 @@
     <template #end>
       <va-split vertical style="height: 8rem;">
         <template #start>
-          <div class="pa-4">
+          <div class="p-6">
             {{ lorem }}
           </div>
         </template>
         <template #end>
-          <div class="pa-4">
+          <div class="p-6">
             {{ lorem }}
           </div>
         </template>

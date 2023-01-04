@@ -1,5 +1,5 @@
 <template>
-  <va-avatar class="mr-4">
+  <va-avatar class="mr-6">
     A
   </va-avatar>
 

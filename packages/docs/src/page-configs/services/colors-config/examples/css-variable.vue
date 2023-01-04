@@ -12,7 +12,7 @@
       <va-color-palette
         v-model="primaryColor"
         :palette="colorsToChange"
-        class="mx-4"
+        class="mx-6"
       />
 
       <span>

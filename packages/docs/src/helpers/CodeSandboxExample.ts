@@ -32,7 +32,7 @@ const viteEnv = `declare module '*.vue' {
 `
 
 const defaultExample = `<template>
-  <div class="pa-4">
+  <div class="p-6">
     Hello, Vuestic-UI v${packageUi.version}
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div style="display: flex; align-items: center;">
-    <va-badge class="mr-4" text="New" overlap>
+    <va-badge class="mr-6" text="New" overlap>
       <va-card>
         <va-card-content>
           Next update is right behind the corner
@@ -12,13 +12,13 @@
       color="primary"
       text="3"
       overlap
-      class="mr-4"
+      class="mr-6"
     >
       <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg" />
     </va-badge>
 
     <va-badge
-      class="mr-4"
+      class="mr-6"
       color="success"
       dot
       overlap

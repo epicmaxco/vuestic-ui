@@ -1,21 +1,21 @@
 <template>
   <div class="row">
     <va-date-input
-      class="mb-4 mr-4"
+      class="mb-6 mr-6"
       v-model="value"
       v-model:view="dayView"
       label="Day"
     />
 
     <va-date-input
-      class="mb-4 mr-4"
+      class="mb-6 mr-6"
       v-model="value"
       v-model:view="monthView"
       label="Month"
     />
 
     <va-date-input
-      class="mb-4 mr-4"
+      class="mb-6 mr-6"
       v-model="value"
       v-model:view="yearView"
       label="Year"

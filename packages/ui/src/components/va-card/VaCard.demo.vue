@@ -203,7 +203,7 @@
     <VbCard title="Horizontal">
       <div class="d-flex">
         <div class="flex">
-          <va-card class="mr-4" style="width: 400px;">
+          <va-card class="mr-6" style="width: 400px;">
             <va-card-block horizontal>
               <va-image class="flex md6" src="https://picsum.photos/200/280" />
               <div class="flex md6">

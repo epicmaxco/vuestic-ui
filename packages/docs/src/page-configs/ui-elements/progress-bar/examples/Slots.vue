@@ -5,7 +5,7 @@
       {{ value }}
     </va-progress-bar>
 
-    <div class="mt-4 mb-2 text--bold muted">When you use a 'content-inside' prop:</div>
+    <div class="mt-6 mb-2 text--bold muted">When you use a 'content-inside' prop:</div>
     <va-progress-bar
       :model-value="value"
       size="large"
@@ -14,7 +14,7 @@
       {{ value }}
     </va-progress-bar>
 
-    <div class="mt-4 mb-2 text--bold muted">When you use a 'show-percent' prop:</div>
+    <div class="mt-6 mb-2 text--bold muted">When you use a 'show-percent' prop:</div>
     <va-progress-bar
       :model-value="value"
       show-percent

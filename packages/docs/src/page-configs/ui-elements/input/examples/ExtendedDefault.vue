@@ -1,13 +1,13 @@
 <template>
   <div style="width: 300px;">
     <va-input
-      class="mb-4"
+      class="mb-6"
       v-model="value"
       label="Name long long long long long long long long long long long long"
       placeholder="Long label"
     />
     <va-input
-      class="mb-4"
+      class="mb-6"
       v-model="value"
       id="input-ID"
       name="input-Name"
@@ -15,14 +15,14 @@
       placeholder="Check <input> in devtools"
     />
     <va-input
-      class="mb-4"
+      class="mb-6"
       v-model="value"
       label="Disabled"
       placeholder="Disabled"
       disabled
     />
     <va-input
-      class="mb-4"
+      class="mb-6"
       v-model="value"
       label="Readonly"
       placeholder="Readonly"
@@ -31,19 +31,19 @@
     <va-input
       v-model="value"
       counter
-      class="mb-4"
+      class="mb-6"
     />
     <va-input
       v-model="value"
       :max-length="30"
       counter
-      class="mb-4"
+      class="mb-6"
     />
     <va-input
       v-model="value"
       :max-length="30"
       counter
-      class="mb-4"
+      class="mb-6"
     >
       <template #counter="{ valueLength, maxLength }">
         <b
