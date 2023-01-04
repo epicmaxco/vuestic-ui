@@ -25,8 +25,6 @@ export const convertValueToString = (value: any, nestingLevel = 1): string => {
     }
 
     result.push(']')
-  } else if (typeof value === 'function') {
-    result.push(value.toString())
   } else if (typeof value === 'number') {
     result.push(value)
   } else {
