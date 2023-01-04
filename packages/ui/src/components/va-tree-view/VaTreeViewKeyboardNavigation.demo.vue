@@ -9,6 +9,9 @@
     <VbCard>
       <va-tree-view :nodes="triangle" />
     </VbCard>
+    <VbCard>
+      <va-tree-view :nodes="waves" />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -110,6 +113,46 @@ export default {
       },
       {
         id: 6,
+        label: 'Item',
+      },
+    ],
+    waves: [
+      {
+        id: 1,
+        label: 'Item',
+      },
+      {
+        id: 2,
+        label: 'Item',
+        children: [
+          {
+            id: 3,
+            label: 'Item',
+          },
+        ],
+      },
+      {
+        id: 4,
+        label: 'Item',
+        children: [
+          {
+            id: 5,
+            label: 'Item',
+          },
+        ],
+      },
+      {
+        id: 6,
+        label: 'Item',
+        children: [
+          {
+            id: 6,
+            label: 'Item',
+          },
+        ],
+      },
+      {
+        id: 7,
         label: 'Item',
       },
     ],
