@@ -3,14 +3,8 @@ import type { TreeNode } from '../types'
 type TreeNodeElement = HTMLElement | null
 
 const useTreeKeyboardNavigation = (toggleNode: (node: TreeNode) => void) => {
-  const isParentElement = (currentElement: TreeNodeElement): boolean =>
-    currentElement?.getAttribute('role') === 'group' || false
-
   const isElementExpanded = (currentElement: TreeNodeElement): boolean =>
     currentElement?.getAttribute('aria-expanded') === 'true' || false
-
-  const isSingleElement = (currentElement: TreeNodeElement): boolean =>
-    !!(getParentElement(currentElement)?.children?.length)
 
   const getParentElement = (currentElement: TreeNodeElement): TreeNodeElement =>
     currentElement?.parentElement?.closest('.va-tree-node') || null
