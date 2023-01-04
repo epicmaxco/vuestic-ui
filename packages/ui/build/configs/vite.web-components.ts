@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve as resolver } from 'path'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
-import { fixImportHell } from '../plugins/fix-import-hell'
+import { removeSideEffectedChunks } from '../plugins/remove-side-effected-chunks'
 import { webComponentsNestedStyles } from '../plugins/web-components-nested-styles'
 import { readFileSync } from 'fs'
 
@@ -52,7 +52,7 @@ export default () => defineConfig({
       customElement: true,
     }),
     chunkSplitPlugin({ strategy: 'unbundle' }),
-    fixImportHell(),
+    removeSideEffectedChunks(),
     webComponentsNestedStyles(),
     // TODO: Make plugin to clean up empty generated files, for example `types.js`
   ],

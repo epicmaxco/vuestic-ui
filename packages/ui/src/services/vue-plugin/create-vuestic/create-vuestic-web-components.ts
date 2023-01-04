@@ -40,8 +40,8 @@ export const createVuesticWebComponents = (options: {
   const { css, components } = options
 
   Object.entries(components).forEach(([name, component]) => {
-    const customElement = defineCustomElement(component)
-    if (css) { component.styles.push(css) }
+    const customElement = defineCustomElement(component as any)
+    if (css && 'styles' in component) { component.styles.push(css) }
     customElements.define(`${kebabCase(name)}`, customElement)
   })
 }
