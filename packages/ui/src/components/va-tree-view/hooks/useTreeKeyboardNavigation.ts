@@ -40,11 +40,33 @@ const useTreeKeyboardNavigation = (toggleNode: (node: TreeNode) => void) => {
       return null
     }
 
-    if (isElementExpanded(currentElement)) {
+    let nextElement = getNextElement(currentElement)
+    const isCurrentExpanded = isElementExpanded(currentElement)
+
+    if (!nextElement) {
+      let parentElement = getParentElement(currentElement)
+
+      do {
+        if (!getNextElement(parentElement)) {
+          parentElement = getParentElement(parentElement)
+
+          if (!parentElement) {
+            break
+          } else {
+            continue
+          }
+        } else {
+          nextElement = getNextElement(parentElement)
+          break
+        }
+      } while (true)
+    }
+
+    if (isCurrentExpanded) {
       return getFirstChildElement(currentElement)
     }
 
-    return getNextElement(currentElement)
+    return nextElement
   }
 
   const getFirstChildElement = (currentElement: TreeNodeElement): TreeNodeElement => {
