@@ -174,7 +174,6 @@ export default defineComponent({
   @include media-breakpoint-down(sm) {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     height: var(--va-navbar-mobile-height);
     padding: var(--va-navbar-sm-padding);
