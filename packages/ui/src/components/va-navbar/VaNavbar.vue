@@ -84,8 +84,8 @@ export default defineComponent({
 @import "variables";
 
 .va-navbar {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template: "left center right" / 1fr auto 1fr;
   align-items: center;
   transition: var(--va-navbar-transition);
   position: var(--va-navbar-position);
@@ -100,7 +100,6 @@ export default defineComponent({
 
   &__left {
     display: flex;
-    flex-direction: row;
     grid-area: left;
 
     & > .va-navbar__item {
@@ -119,9 +118,8 @@ export default defineComponent({
 
   &__center {
     display: flex;
+    justify-content: center;
     grid-area: center;
-    margin-left: auto;
-    margin-right: auto;
 
     & > .va-navbar__item {
       margin: 0 var(--va-navbar-item-margin);
