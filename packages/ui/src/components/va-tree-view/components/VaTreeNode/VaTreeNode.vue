@@ -11,6 +11,7 @@
     @keydown.right.stop.prevent="handleKeyboardNavigation($event, $props.node)"
     @keydown.down.stop.prevent="handleKeyboardNavigation($event, $props.node)"
     @keydown.left.stop.prevent="handleKeyboardNavigation($event, $props.node)"
+    @keydown.space.stop.prevent="handleKeyboardNavigation($event, $props.node)"
   >
     <div class="va-tree-node-root">
       <div class="va-tree-node-content" :class="indentClassComputed" @click="onNodeClick('node')">

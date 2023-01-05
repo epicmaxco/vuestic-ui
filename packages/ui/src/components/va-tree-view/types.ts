@@ -1,4 +1,5 @@
 import { ComputedRef, InjectionKey, WritableComputedRef } from 'vue'
+export type TreeViewEmitsFunc = (event: string, newValues: unknown) => void
 
 export interface TreeNode {
   id: number | string

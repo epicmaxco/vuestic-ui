@@ -1,8 +1,18 @@
-import type { TreeNode } from '../types'
+import { ExtractPropTypes } from 'vue'
+
+import type { TreeNode, TreeView, TreeViewEmitsFunc } from '../types'
+import { useTreeViewProps } from './useTreeHelpers'
 
 type TreeNodeElement = HTMLElement | null
+type UseTreeKeyboardNavigationMethods = Pick<TreeView, 'toggleNode' | 'toggleCheckbox'> & {
+  emit: TreeViewEmitsFunc,
+}
 
-const useTreeKeyboardNavigation = (toggleNode: (node: TreeNode) => void) => {
+const useTreeKeyboardNavigation = (
+  props: ExtractPropTypes<typeof useTreeViewProps>,
+  methods: UseTreeKeyboardNavigationMethods,
+) => {
+  const { emit, toggleNode, toggleCheckbox } = methods
   const isElementExpanded = (currentElement: TreeNodeElement): boolean =>
     currentElement?.getAttribute('aria-expanded') === 'true' || false
 
@@ -135,6 +145,17 @@ const useTreeKeyboardNavigation = (toggleNode: (node: TreeNode) => void) => {
           toggleNode(node)
         } else {
           onHorizontalMove(currentElement, 'left')
+        }
+
+        break
+      }
+      case 'Space': {
+        if (props.selectable) {
+          const state = typeof node.checked !== 'undefined' ? !node.checked : null
+
+          toggleCheckbox(node, state)
+        } else {
+          emit('update:selected', node)
         }
 
         break
