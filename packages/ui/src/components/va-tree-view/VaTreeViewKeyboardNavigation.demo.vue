@@ -12,6 +12,25 @@
     <VbCard title="Waves-like navigation">
       <va-tree-view :nodes="waves" />
     </VbCard>
+    <VbCard title="Selection">
+      Selected node: {{selectedNode}}
+      <br />
+      <va-tree-view
+        :nodes="triangle"
+        @update:selected="onSelectNode"
+        expand-all
+      />
+    </VbCard>
+    <VbCard title="Checkboxes selection">
+      Checked nodes: {{checkedNodes}}
+      <br />
+      <va-tree-view
+        v-model:checked="checkedNodes"
+        :nodes="triangle"
+        selectable
+        expand-all
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -26,6 +45,8 @@ export default {
   },
 
   data: () => ({
+    selectedNode: null,
+    checkedNodes: [],
     flat: [
       {
         id: 1,
@@ -157,5 +178,11 @@ export default {
       },
     ],
   }),
+
+  methods: {
+    onSelectNode ({ id, label }) {
+      this.selectedNode = `${id} ${label}`
+    },
+  },
 }
 </script>
