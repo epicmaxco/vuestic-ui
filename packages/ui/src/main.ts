@@ -1,4 +1,5 @@
 export * from './services/vue-plugin'
+export * from './services/web-components'
 export { useColors, useBreakpoint, useI18nConfig, useIcon as useIcons } from './composables'
 export { useGlobalConfig } from './services/global-config'
 export {

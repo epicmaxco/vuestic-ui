@@ -1,10 +1,10 @@
-import { VuesticComponent } from './../types/index'
 import kebabCase from 'lodash/kebabCase.js'
 import { defineCustomElement } from 'vue'
+import { VuesticComponent } from '../vue-plugin/types/index'
 
 // TODO: Not sure, but we might add global config support here.
 /** Register vuestic components as Custom Elements */
-export const createVuesticWebComponents = (options: {
+export const registerVuesticWebComponents = (options: {
   /**
    * In case you need pass some css to shadow-dom of Custom Element
    *

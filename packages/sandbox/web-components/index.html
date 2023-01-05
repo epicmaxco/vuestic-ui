@@ -13,7 +13,18 @@
   <body>
     <div id="app">
       <va-button id="button">Button</va-button>
-      <va-select id="select" stateful />
+      <va-select id="select" stateful></va-select>
+      <va-tabs model-value="0">
+        <va-tab slot="tabs">One</va-tab>
+        <slot slot="tabs">
+          <va-tab>One</va-tab>
+          <va-tab>Two</va-tab>
+          <va-tab>Three</va-tab>
+        </slot>
+      </va-tabs>
+      <div>
+        aaa
+      </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
     <script>

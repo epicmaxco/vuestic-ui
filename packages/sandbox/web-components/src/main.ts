@@ -1,10 +1,12 @@
-import { createVuesticWebComponents, VaButton, VaSelect } from 'vuestic-ui/web-components'
+import { registerVuesticWebComponents, VaButton, VaSelect, VaTab, VaTabs } from 'vuestic-ui/web-components'
 import 'vuestic-ui/css'
 
-createVuesticWebComponents({
+registerVuesticWebComponents({
   components: {
     VaButton,
     VaSelect,
+    VaTab,
+    VaTabs,
   },
 
   css: `
