@@ -1,15 +1,15 @@
 <template>
   <VbDemo>
-    <VbCard>
+    <VbCard title="Flat-like navigation">
       <va-tree-view :nodes="flat" />
     </VbCard>
-    <VbCard>
+    <VbCard title="Stair-like navigation">
       <va-tree-view :nodes="stairs" />
     </VbCard>
-    <VbCard>
+    <VbCard title="Triangle-like navigation">
       <va-tree-view :nodes="triangle" />
     </VbCard>
-    <VbCard>
+    <VbCard title="Waves-like navigation">
       <va-tree-view :nodes="waves" />
     </VbCard>
   </VbDemo>
