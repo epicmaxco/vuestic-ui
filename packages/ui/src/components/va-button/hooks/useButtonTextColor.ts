@@ -1,6 +1,7 @@
 import { computed, Ref, ComputedRef, getCurrentInstance } from 'vue'
 
-import { getOpacity, useColors } from '../../../composables'
+import { useColors } from '../../../composables'
+import { isServer } from '../../../utils/ssr'
 
 import { ButtonPropsTypes } from '../types'
 
@@ -18,6 +19,27 @@ type UseButtonTextColor = (
   isPressed: Ref<boolean>,
   isHovered: Ref<boolean>,
 ) => ComputedRef<ButtonTextColorStyles>
+
+/*
+* Inverts opacity depending on browser (webkit/chromium)
+* TODO: Check if Safari <16 version will be less then 1% and remove function
+*
+* @param {number} opacity - Opacity value
+* @returns {number} Inverted opacity value
+* */
+const getOpacity = (opacity: number): number => {
+  if (isServer()) { return opacity }
+
+  if (/^((?!chrome|android).)*safari/i.test(window?.navigator?.userAgent)) {
+    const isLatestSafari = /(version.)15|16/i.test(window?.navigator?.userAgent)
+
+    if (!isLatestSafari) {
+      return opacity < 1 ? 1 - opacity : opacity
+    }
+  }
+
+  return opacity
+}
 
 export const useButtonTextColor: UseButtonTextColor = (
   textColorComputed,
