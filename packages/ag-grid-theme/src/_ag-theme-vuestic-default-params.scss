@@ -214,14 +214,14 @@ $ag-theme-vuestic-default-params: (
         row-group-indent-size: ag-derived(cell-widget-spacing, $plus: icon-size),
 
   // How much to indent child columns in the filters tool panel relative to their parent
-        filter-tool-panel-group-indent: 16px,
+        filter-tool-panel-group-indent: inherit,
 
   // Cause tabs to stretch across the full width of the tab panel header
         full-width-tabs: false,
 
   // Fonts
         font-family: ("Source Sans Pro", sans-serif),
-        font-size: 16px,
+        font-size: inherit,
 
   // The name of the font family you're using
         icon-font-family: $ag-theme-base-icon-font-family, // this var exported by ag-theme-base-font-vars.scss
