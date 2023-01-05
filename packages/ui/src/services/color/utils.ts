@@ -1,6 +1,5 @@
 import kebabCase from 'lodash/kebabCase.js'
 import camelCase from 'lodash/camelCase.js'
-import { isServer } from '../../utils/ssr'
 import { ColorTranslator } from 'colortranslator'
 import type { HSLObject, ColorInput } from 'colortranslator/dist/@types'
 
@@ -140,20 +139,4 @@ export const applyColors = (color1: ColorInput, color2: ColorInput) => {
   c1.setB(Math.round((c1.B) * (1 - weight) + (c2.B) * weight))
 
   return c1.RGBA
-}
-
-/*
-* Inverts opacity depending on browser (webkit/chromium)
-*
-* @param {number} opacity - Opacity value
-* @returns {number} Inverted opacity value
-* */
-export const getOpacity = (opacity: number): number => {
-  if (isServer()) { return opacity }
-
-  if (/^((?!chrome|android).)*safari/i.test(window?.navigator?.userAgent)) {
-    return opacity < 1 ? 1 - opacity : opacity
-  }
-
-  return opacity
 }
