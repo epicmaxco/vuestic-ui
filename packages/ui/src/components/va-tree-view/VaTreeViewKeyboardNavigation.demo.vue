@@ -180,8 +180,8 @@ export default {
   }),
 
   methods: {
-    onSelectNode ({ id, label }) {
-      this.selectedNode = `${id} ${label}`
+    onSelectNode (node) {
+      this.selectedNode = node ? `${node.id} ${node.label}` : null
     },
   },
 }
