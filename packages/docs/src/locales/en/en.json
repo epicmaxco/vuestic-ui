@@ -3640,6 +3640,10 @@
     "css": {
       "title": "CSS Code Split",
       "description": "We separated our CSS into modules: `essential`, `typography`, `grid` and `reset`. Instead of import `vuestic/css` you can import `vuestic/styles/essential.css` - module without typography, grid and normalize. This is usually need if you already using some CSS framework to prevent style conflicts."
+    },
+    "bundleSize": {
+      "title": "Bundle Size",
+      "description": "Statistics of the space occupied in the project bundle (without gzip):"
     }
   },
   "roadmap": {
