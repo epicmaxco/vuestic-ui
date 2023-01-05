@@ -12,7 +12,11 @@ export default defineConfig({
     minify: 'terser',
     terserOptions: { keep_fnames: true },
     rollupOptions: {
-      input: [resolve(process.cwd(), './sync.ts'), resolve(process.cwd(), './watch.ts')],
+      input: [
+        resolve(process.cwd(), './sync-tailwind.ts'),
+        resolve(process.cwd(), './watch-tailwind.ts'),
+        resolve(process.cwd(), './sync-vuestic.ts'),
+      ],
       output: {
         format: 'cjs',
         entryFileNames: '[name].cjs',

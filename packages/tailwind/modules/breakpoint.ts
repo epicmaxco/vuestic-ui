@@ -1,3 +1,5 @@
+import { thresholdsPreset } from 'vuestic-ui'
+
 type VuesticThresholdsList = Record<string, number>
 type TailwindScreensConfig = Record<string, string>
 
@@ -5,7 +7,7 @@ type TailwindScreensConfig = Record<string, string>
  * @param thresholds tailwind css screens settings
  * @returns vuestic ui thresholds settings
  */
-export const convertThresholds = (thresholds: TailwindScreensConfig): VuesticThresholdsList => {
+const convertTailwindThresholds = (thresholds: TailwindScreensConfig): VuesticThresholdsList => {
   return Object.entries(thresholds)
     .reduce((acc, [key, value]) => {
       const vuesticThreshold = Number(value.substring(0, value.length - 2))
@@ -20,20 +22,20 @@ export const convertThresholds = (thresholds: TailwindScreensConfig): VuesticThr
 }
 
 /**
- * @param tailwindConfig users or default tailwind config
- * @returns vuestic breakpoint config
+ * @param tailwindConfig users or default tailwind css config
+ * @returns vuestic ui breakpoint config
  */
-export const proceedBreakpoint = (tailwindConfig?: Record<string, any>): VuesticThresholdsList => {
+export const tailwindThresholdsSync = (tailwindConfig?: Record<string, any>): VuesticThresholdsList => {
   let tailwindThresholds
 
   if (tailwindConfig) {
     const tailwindThresholdsConfig = tailwindConfig.theme?.screens || tailwindConfig.theme?.extend?.screens
-    if (tailwindThresholdsConfig) { tailwindThresholds = convertThresholds(tailwindThresholdsConfig) }
+    if (tailwindThresholdsConfig) { tailwindThresholds = convertTailwindThresholds(tailwindThresholdsConfig) }
   }
 
   const isTailwindScreensConfigOverwritten = !!Object.keys(tailwindConfig?.theme?.screens || {}).length
   const defaultTailwindConfig = require('tailwindcss/defaultTheme')
-  const tailwindDefaultScreensConverted = convertThresholds(defaultTailwindConfig.screens)
+  const tailwindDefaultScreensConverted = convertTailwindThresholds(defaultTailwindConfig.screens)
 
   if (!tailwindThresholds) {
     tailwindThresholds = tailwindDefaultScreensConverted
@@ -42,4 +44,24 @@ export const proceedBreakpoint = (tailwindConfig?: Record<string, any>): Vuestic
   }
 
   return tailwindThresholds
+}
+
+/**
+ * @returns tailwind ui thresholds settings
+ */
+export const convertVuesticThresholds = (current: Record<string, any>): TailwindScreensConfig => {
+  const currentThresholdsConfig = { ...(current.theme.extend.screens || {}) }
+
+  if (!thresholdsPreset) {
+    console.warn("Vuestic UI default thresholds preset wasn't found!")
+    return currentThresholdsConfig
+  }
+
+  const vuesticThresholdsConverted = Object.entries(thresholdsPreset)
+    .reduce((acc, [key, value]) => {
+      acc[key] = `${value}px`
+      return acc
+    }, {} as TailwindScreensConfig)
+
+  return { ...currentThresholdsConfig, ...vuesticThresholdsConverted }
 }

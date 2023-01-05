@@ -1,3 +1,10 @@
+import fs from 'fs'
+import path from 'path'
+
+export const defaultTailwindConfigFilename = 'tailwind.config.cjs'
+export const tailwindConfigFilename = fs.readdirSync('.').find((fileName: string) => fileName.startsWith('tailwind.config.'))
+export const tailwindConfigPath = tailwindConfigFilename ? path.resolve(process.cwd(), tailwindConfigFilename) : undefined
+
 /**
  * @param value any value for converting it to raw string
  * @param nestingLevel current nesting level (is needed for correct indents)

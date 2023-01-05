@@ -1,4 +1,5 @@
-import { tailwindConfigFilename, integrateTailwindConfig } from './sync'
+import { tailwindConfigFilename } from "./helpers/helpers";
+import { integrateTailwindConfig } from './sync-tailwind'
 
 const fs = require('fs')
 

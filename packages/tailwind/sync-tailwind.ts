@@ -1,12 +1,9 @@
-import { convertValueToString } from './helpers/helpers'
-import { proceedBreakpoint } from './modules/breakpoint'
-import { proceedColors } from './modules/colors'
+import { convertValueToString, tailwindConfigPath } from './helpers/helpers'
+import { tailwindThresholdsSync } from './modules/breakpoint'
+import { tailwindColorsSync } from './modules/colors'
 
-const path = require('path')
 const fs = require('fs')
 
-export const tailwindConfigFilename = fs.readdirSync('.').find((fileName: string) => fileName.startsWith('tailwind.config.'))
-const tailwindConfigPath = tailwindConfigFilename ? path.resolve(process.cwd(), tailwindConfigFilename) : undefined
 const vuesticConfigFilename = 'vuestic.config.js'
 
 /**
@@ -34,8 +31,8 @@ export const integrateTailwindConfig = async () => {
     if (!tailwindConfigPath) { console.log('Tailwind CSS config file not found. Proceeding with default Tailwind CSS settings.') }
     const tailwindConfig = tailwindConfigPath ? await (() => import(tailwindConfigPath))() : undefined
 
-    const tailwindColors = proceedColors(tailwindConfig)
-    const tailwindThresholds = proceedBreakpoint(tailwindConfig)
+    const tailwindColors = tailwindColorsSync(tailwindConfig)
+    const tailwindThresholds = tailwindThresholdsSync(tailwindConfig)
 
     const vuesticConfig = {
       breakpoints: {
@@ -45,7 +42,10 @@ export const integrateTailwindConfig = async () => {
         variables: tailwindColors,
       },
     }
+
     updateVuesticConfig(convertValueToString(vuesticConfig))
+
+    tailwindConfigPath && delete require.cache[require.resolve(tailwindConfigPath)]
   }
 
 ;(async () => { await integrateTailwindConfig() })()
