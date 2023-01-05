@@ -17,6 +17,7 @@
 <script lang="ts">
 import { defineComponent, computed, ref, PropType } from 'vue'
 
+import { VaConfig } from '../va-config'
 import { getGradientBackground } from '../../services/color'
 import { useColors, useTextColor, useBem } from '../../composables'
 import { useSidebar } from './hooks/useSidebar'
@@ -49,6 +50,9 @@ export default defineComponent({
     modelValue: { type: Boolean, default: true },
     animated: { type: Boolean, default: true },
   },
+
+  components: { VaConfig },
+
   setup (props) {
     const { getColor } = useColors()
     useSidebar(props)
