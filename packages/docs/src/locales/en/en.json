@@ -843,7 +843,11 @@
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
         "bordered": "Applies style with bottom border",
         "requiredMark": "Adds required mark to the label",
-        "separator": "Text to separate selected values"
+        "separator": "Text to separate selected values",
+        "maxVisibleOptions": "Max selected options amount, that will be shown inside of input wrapper.",
+        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
+        "selectedTopShown": "Selected options will be shown at the top of the options list.",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction."
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -860,7 +864,9 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content",
         "content": "Adds an item instead the input",
-        "option": "Allows to specify option template"
+        "option": "Allows to specify option template",
+        "hiddenOptionsBadge": "Replaces default badge with hidden options counter (see `maxVisibleOptions` prop).",
+        "hideOptionsButton": "Replaces default button for hiding selected options that are over the limit (see `maxVisibleOptions` prop)."
       }
     },
     "VaParallax": {
@@ -913,7 +919,7 @@
         "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
         "trigger": "Action that will open and close dropdown.",
         "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
-        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
         "isContentHoverable": "If true, dropdown content will be hoverable",
         "innerAnchorSelector": "Anchor CSS selector inside passed slot.",
         "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
@@ -3243,6 +3249,14 @@
       "styles": {
         "title": "Styles",
         "text": "Select styles inherit from input styles"
+      },
+      "maxVisibleOptions": {
+        "title": "Max visible selected options",
+        "text": "The `max-visible-options` props sets amount of selected options, that will be shown inside of input wrapper. The rest will be hidden, but may be shown after clicking the badge with hidden options counter."
+      },
+      "selectedTopShown": {
+        "title": "Displaying selected options at the top of the list",
+        "text": "The `selected-top-shown` prop forces to display selected options at the top of the options list."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-select/_variables.scss)[[target=_blank]]"
