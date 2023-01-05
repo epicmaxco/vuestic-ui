@@ -160,6 +160,15 @@ const useTreeKeyboardNavigation = (
 
         break
       }
+      case 'Escape': {
+        if (!props.selectable) {
+          emit('update:selected', null)
+        }
+
+        currentElement.blur()
+
+        break
+      }
       default:
         currentElement.blur()
     }
