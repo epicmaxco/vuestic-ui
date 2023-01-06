@@ -1,0 +1,55 @@
+export default definePageConfig({
+  meta: {
+    title: 'Hello',
+    category: 'component'
+  },
+
+  blocks: [
+    block.title('button.title'),
+    block.paragraph('button.summaryText'),
+
+    block.subtitle('all.examples'),
+    block.example(
+      'Default',
+    ),
+    block.example(
+      'Presets',
+    ),
+    block.example(
+      'WithColor',
+    ),
+    block.example(
+      'WithGradient',
+    ),
+    block.example(
+      'WithTextColor',
+    ),
+    block.example(
+      'WithSize',
+    ),
+    block.example(
+      'WithRound',
+    ),
+    block.example(
+      'WithOutline',
+    ),
+    block.example(
+      'WithIcon',
+    ),
+    block.example(
+      'WithLoading',
+    ),
+    block.example(
+      'Behavior',
+    ),
+    block.example(
+      'Disabled',
+    ),
+
+    block.subtitle('all.api'),
+    // block.api(VaButton, apiOptions),
+
+    block.subtitle('all.cssVariables'),
+    block.file('vuestic-ui/src/components/va-button/_variables.scss'),
+  ]
+})

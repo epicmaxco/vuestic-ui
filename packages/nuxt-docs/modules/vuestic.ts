@@ -3,7 +3,7 @@ import { resolve } from 'pathe'
 import { VuesticOptions } from './../../nuxt/src/types';
 import originalNuxtModule from '../../nuxt/src/module'
 
-/** 
+/**
  * @vuestic/nuxt module wrapper with relative resolved vuestic from packages/ui
  */
 export default defineNuxtModule<VuesticOptions>({
@@ -22,8 +22,10 @@ export default defineNuxtModule<VuesticOptions>({
 
   setup (options, nuxt) {
     const vuesticMainPath = resolve(__dirname, '../../ui/src/main.ts')
+    const vuesticSrcPath = resolve(__dirname, '../../ui/src/')
     const vuesticCSSPath = resolve(__dirname, '../../ui/src/styles/index.scss')
 
+    nuxt.options.alias['vuestic-ui/src'] = vuesticSrcPath;
     nuxt.options.alias['vuestic-ui/css'] = vuesticCSSPath;
     nuxt.options.alias['vuestic-ui'] = vuesticMainPath;
 

@@ -8,7 +8,7 @@
     </VaChip>
     <h1 class="va-h1">CSS Works!</h1>
     <p>Primary color is: {{ getColor('primary') }}</p>
-    
+
     <PageConfig :page-config="pageConfig" />
 
     <NuxtPage />
@@ -16,6 +16,6 @@
 </template>
 
 <script setup>
-import pageConfig from './page-config/button'
+import pageConfig from './page-config/ui-elements/button'
 const { getColor } = useColors()
 </script>
