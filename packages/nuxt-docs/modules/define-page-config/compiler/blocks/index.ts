@@ -1,14 +1,20 @@
+import { compileParagraphBlock } from './paragraph/index';
+import { compileTitleBlock } from './title/index';
 import { ParsedBlock } from '../parse';
 import { compileComponentBlock } from './component'
 import { compileExampleBlock } from './example'
 import { compileCodeBlock } from './code'
 import { compileMarkdownBlock } from './markdown'
+import { compileSubtitleBlock } from './subtitle';
 
 export const blockCompilers = {
   component: compileComponentBlock,
   example: compileExampleBlock,
   code: compileCodeBlock,
   markdown: compileMarkdownBlock,
+  title: compileTitleBlock,
+  subtitle: compileSubtitleBlock,
+  paragraph: compileParagraphBlock,
 }
 
 export const compileBlocks = (code: string, parsedBlocks: ParsedBlock[], parentPath: string) => {

@@ -11,7 +11,7 @@ export type PageConfigComponent = (name: string, props?: Record<string, any>) =>
   props?: Record<string, any>
 }
 
-export const compileComponentBlock = defineCompileBlockFn((code, block, path) => {
+export const compileComponentBlock = defineCompileBlockFn<PageConfigComponent>((code, block, path) => {
   const name = block.args[0].slice(1, -1)
 
   return {

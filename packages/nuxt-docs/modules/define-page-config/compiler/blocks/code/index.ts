@@ -9,7 +9,7 @@ export type PageConfigCode = (code: string, language?: string) => {
   language: string
 }
 
-export const compileCodeBlock = defineCompileBlockFn((code, block, path) => {
+export const compileCodeBlock = defineCompileBlockFn<PageConfigCode>((code, block, path) => {
   const name = block.args[0].slice(1, -1)
 
   const importer = createImporter()

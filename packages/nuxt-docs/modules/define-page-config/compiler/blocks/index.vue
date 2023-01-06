@@ -6,6 +6,9 @@ import PageConfigComponent from './component/index.vue'
 import PageConfigExample from './example/index.vue'
 import PageConfigCode from './code/index.vue'
 import PageConfigMarkdown from './markdown/index.vue'
+import PageConfigTitle from './title/index.vue'
+import PageConfigSubtitle from './subtitle/index.vue'
+import PageConfigParagraph from './paragraph/index.vue'
 
 const props = defineProps({
   pageConfig: {
@@ -21,6 +24,9 @@ const pageConfigComponent = {
   'example': PageConfigExample,
   'code': PageConfigCode,
   'markdown': PageConfigMarkdown,
+  'title': PageConfigTitle,
+  'paragraph': PageConfigParagraph,
+  'subtitle': PageConfigSubtitle,
 }
 </script>
 

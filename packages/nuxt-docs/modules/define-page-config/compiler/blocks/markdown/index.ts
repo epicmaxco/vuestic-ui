@@ -6,7 +6,7 @@ export type PageConfigMarkdown = (content: string) => {
   content: string
 }
 
-export const compileMarkdownBlock = defineCompileBlockFn((code, block, path) => {
+export const compileMarkdownBlock = defineCompileBlockFn<PageConfigMarkdown>((code, block, path) => {
   const name = block.args[0].slice(1, -1)
 
   const importer = createImporter()

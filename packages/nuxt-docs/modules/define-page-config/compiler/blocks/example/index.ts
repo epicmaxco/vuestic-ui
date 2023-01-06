@@ -9,7 +9,7 @@ export type PageConfigExample = (name: string) => {
   source: Promise<string>
 }
 
-export const compileExampleBlock = defineCompileBlockFn((code, block, path) => {
+export const compileExampleBlock = defineCompileBlockFn<PageConfigExample>((code, block, path) => {
   const name = block.args[0].slice(1, -1)
 
   return {

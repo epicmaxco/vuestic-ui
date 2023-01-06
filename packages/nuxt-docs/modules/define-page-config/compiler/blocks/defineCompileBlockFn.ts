@@ -1,11 +1,11 @@
 import type { ParsedBlock } from "../parse"
 
-type CompileBlockFn = (code: string, block: ParsedBlock, parentPath: string) => {
+export type CompileBlockFn<Config> = (code: string, block: ParsedBlock, parentPath: string) => {
   code: string,
   files?: string[]
 }
 
-export const defineCompileBlockFn = (cb: CompileBlockFn) => cb
+export const defineCompileBlockFn = <T = {}>(cb: CompileBlockFn<T>) => cb
 
 let IMPORT_STATIC_ID = 0
 export const createImporter = () => {
