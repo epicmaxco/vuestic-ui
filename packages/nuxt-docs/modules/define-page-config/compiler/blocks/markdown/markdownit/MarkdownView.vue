@@ -1,17 +1,31 @@
 <template>
-  <MarkdownView :content="config.content" />
+  <div v-html="text" class="MarkdownView"></div>
 </template>
 
 <script lang="ts" setup>
-import { PropType } from "vue";
-import { PageConfigMarkdown } from ".";
-import MarkdownView from "./markdownit/MarkdownView.vue";
+import { computed } from "vue";
+import { useMarkdownIt } from "./useMarkdownIt";
 
 const props = defineProps({
-  config: {
-    type: Object as PropType<ReturnType<PageConfigMarkdown>>,
+  content: {
+    type: String,
     required: true,
   },
+});
+
+const { locale } = useI18n();
+
+const md = useMarkdownIt();
+
+// watch(locale, (newValue) => {
+//   localeOptions.currentLocale = newValue
+// })
+
+const text = computed(() => {
+  // if (props.config.inline) {
+  //   return md.renderInline(props.config.content)
+  // }
+  return md.render(props.content);
 });
 </script>
 

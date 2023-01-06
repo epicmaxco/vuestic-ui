@@ -6,6 +6,8 @@ import { compileExampleBlock } from './example'
 import { compileCodeBlock } from './code'
 import { compileMarkdownBlock } from './markdown'
 import { compileSubtitleBlock } from './subtitle';
+import { compileFileStructureBlock } from './file-structure';
+import { compileAlertBlock } from './alert';
 
 export const blockCompilers = {
   component: compileComponentBlock,
@@ -15,6 +17,8 @@ export const blockCompilers = {
   title: compileTitleBlock,
   subtitle: compileSubtitleBlock,
   paragraph: compileParagraphBlock,
+  fileStructure: compileFileStructureBlock,
+  alert: compileAlertBlock
 }
 
 export const compileBlocks = (code: string, parsedBlocks: ParsedBlock[], parentPath: string) => {

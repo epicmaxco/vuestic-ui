@@ -2,7 +2,7 @@ import { defineCompileBlockFn } from '../defineCompileBlockFn'
 import { renderBlock } from '../../render'
 
 export type PageConfigParagraph = (text: string) => {
-  type: 'code'
+  type: 'paragraph'
   text: string
 }
 

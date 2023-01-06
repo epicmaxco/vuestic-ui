@@ -2,7 +2,7 @@ import { defineCompileBlockFn } from '../defineCompileBlockFn'
 import { renderBlock } from '../../render'
 
 export type PageConfigTitle = (text: string) => {
-  type: 'code'
+  type: 'title'
   text: string
 }
 

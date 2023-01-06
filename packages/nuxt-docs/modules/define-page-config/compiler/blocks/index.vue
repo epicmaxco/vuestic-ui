@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue';
 import { CompiledPageConfig } from '../..';
+import { PageConfigBlockType } from './types'
 
 import PageConfigComponent from './component/index.vue'
 import PageConfigExample from './example/index.vue'
@@ -9,6 +10,8 @@ import PageConfigMarkdown from './markdown/index.vue'
 import PageConfigTitle from './title/index.vue'
 import PageConfigSubtitle from './subtitle/index.vue'
 import PageConfigParagraph from './paragraph/index.vue'
+import PageConfigFileStructure from './file-structure/index.vue'
+import PageConfigAlert from './alert/index.vue'
 
 const props = defineProps({
   pageConfig: {
@@ -19,7 +22,7 @@ const props = defineProps({
 
 const blocks = props.pageConfig.blocks
 
-const pageConfigComponent = {
+const pageConfigComponent: Record<PageConfigBlockType, any> = {
   'component': PageConfigComponent,
   'example': PageConfigExample,
   'code': PageConfigCode,
@@ -27,6 +30,8 @@ const pageConfigComponent = {
   'title': PageConfigTitle,
   'paragraph': PageConfigParagraph,
   'subtitle': PageConfigSubtitle,
+  'file-structure': PageConfigFileStructure,
+  'alert': PageConfigAlert,
 }
 </script>
 

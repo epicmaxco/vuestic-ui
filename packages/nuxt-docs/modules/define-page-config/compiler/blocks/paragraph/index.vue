@@ -14,6 +14,6 @@ const { tie } = useI18n()
 
 <template>
   <p>
-    {{ tie(props.config.text) }}
+    {{ tie(config.text) }}
   </p>
 </template>
