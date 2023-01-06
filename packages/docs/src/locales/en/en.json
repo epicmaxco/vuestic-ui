@@ -204,9 +204,9 @@
       },
       "slots": {
         "default": "Default slot for button's content.",
-        "append": "Slot to input before button's content. Slot scope properties available: `{ icon, iconAttributes }`.",
-        "prepend": "Slot to input after button's content. Slot scope properties available: `{ icon, iconAttributes }`.",
-        "loading": "Slot for loading state. Slot scope properties available: `{ icon, iconAttributes }`."
+        "append": "Slot to input before button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
+        "prepend": "Slot to input after button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
+        "loading": "Slot for loading state. Slot scope properties available: `{'{ icon, iconAttributes }'}`."
       },
       "events": {
         "click": "Emitted when user clicks on button"
