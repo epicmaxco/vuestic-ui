@@ -1,10 +1,12 @@
 import { ParsedBlock } from '../parse';
 import { compileComponentBlock } from './component'
 import { compileExampleBlock } from './example'
+import { compileCodeBlock } from './code'
 
 export const blockCompilers = {
   component: compileComponentBlock,
   example: compileExampleBlock,
+  code: compileCodeBlock,
 }
 
 export const compileBlocks = (code: string, parsedBlocks: ParsedBlock[], parentPath: string) => {

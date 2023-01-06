@@ -4,6 +4,7 @@ import { CompiledPageConfig } from '../..';
 
 import PageConfigComponent from './component/index.vue'
 import PageConfigExample from './example/index.vue'
+import PageConfigCode from './code/index.vue'
 
 const props = defineProps({
   pageConfig: {
@@ -16,7 +17,8 @@ const blocks = props.pageConfig.blocks
 
 const pageConfigComponent = {
   'component': PageConfigComponent,
-  'example': PageConfigExample
+  'example': PageConfigExample,
+  'code': PageConfigCode,
 }
 </script>
 

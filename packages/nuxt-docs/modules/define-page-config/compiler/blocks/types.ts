@@ -1,3 +1,4 @@
+import { PageConfigCode } from './code/index';
 import type { PageConfigComponent } from './component'
 import type { PageConfigExample } from './example'
 
@@ -7,5 +8,6 @@ export type PageConfigBlockType = PageConfigBlockCompiled['type']
 
 export type PageConfigBlockFabric = {
   component: PageConfigComponent
-  example: PageConfigExample
+  example: PageConfigExample,
+  code: PageConfigCode
 }
