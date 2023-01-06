@@ -23,7 +23,7 @@
 <script>
 export default {
   data: () => {
-    const hugeArray = new Array(10000).fill(null).map((_, index) => index + 1)
+    const hugeArray = new Array(1000).fill(null).map((_, index) => index + 1)
     return { hugeArray }
   },
 }

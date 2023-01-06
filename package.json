@@ -24,7 +24,7 @@
     "build:docs:ci": "yarn workspace docs build:ci",
     "push": "yarn workspace vuestic-ui push",
     "push-production": "yarn workspace vuestic-ui push-production",
-    "generate:docs": "yarn workspace docs generate:docspage",
+    "generate:docspage": "yarn workspace docs generate:docspage",
     "generate:component": "yarn workspace docs generate:component",
     "sandbox:vite": "yarn workspace sandbox dev:vite",
     "sandbox:nuxt": "yarn workspace sandbox dev:nuxt",

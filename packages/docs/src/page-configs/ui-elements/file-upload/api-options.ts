@@ -9,4 +9,7 @@ export default defineManualApi({
       types: '`(files: VaFile[]) => void`',
     },
   },
+  slots: {
+    default: { },
+  },
 })

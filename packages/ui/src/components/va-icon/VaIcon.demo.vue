@@ -93,7 +93,7 @@
 import { defineComponent, markRaw, ref } from 'vue'
 
 import { useGlobalConfig } from '../../main'
-import { createIconsConfig } from '../../services/icon-config/icon-config'
+import { createIconsConfig } from '../../services/icon'
 import DemoIconsAliases from '../../vue-book/vuestic-config/demo-icon-aliases'
 import DemoIconsFonts from '../../vue-book/vuestic-config/demo-icon-fonts'
 

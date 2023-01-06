@@ -1,40 +1,21 @@
 import cloneDeep from 'lodash/cloneDeep.js'
-import { ref, Ref, getCurrentInstance } from 'vue'
-import { GlobalConfig, GlobalConfigUpdater, PartialGlobalConfig } from './types'
-import { getComponentsDefaultConfig } from './config-default'
-import { createIconsConfig } from '../icon-config/icon-config-helpers'
-import { colorsPresets } from '../color-config/color-theme-presets'
+import { ref, getCurrentInstance } from 'vue'
+import { GlobalConfig, GlobalConfigUpdater, PartialGlobalConfig, ProvidedGlobalConfig } from './types'
+import { getComponentsDefaultConfig } from '../component-config'
+import { getIconDefaultConfig } from '../icon'
+import { getColorDefaultConfig } from '../color'
 import { getI18nConfigDefaults } from '../i18n'
 import { getBreakpointDefaultConfig } from '../breakpoint'
-import { getGlobalProperty } from '../../vuestic-plugin/utils'
+import { getGlobalProperty } from '../vue-plugin/utils'
 import { inject } from '../current-app'
 import { mergeDeep } from '../../utils/merge-deep'
-
-export type ProvidedGlobalConfig = {
-  globalConfig: Ref<GlobalConfig>,
-  getGlobalConfig: () => GlobalConfig,
-  /**
-   * Set new global config
-   * @see mergeGlobalConfig if you want to update existing config
-   */
-  setGlobalConfig: (updater: GlobalConfig | GlobalConfigUpdater<GlobalConfig>) => void,
-  mergeGlobalConfig: (updater: PartialGlobalConfig | GlobalConfigUpdater<PartialGlobalConfig>) => void
-}
 
 export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
 
 export const createGlobalConfig = () => {
   const globalConfig = ref<GlobalConfig>({
-    colors: {
-      variables: colorsPresets.light,
-      threshold: 150,
-      presets: {
-        light: colorsPresets.light,
-        dark: colorsPresets.dark,
-      },
-      currentPresetName: 'light',
-    },
-    icons: createIconsConfig({}),
+    colors: getColorDefaultConfig(),
+    icons: getIconDefaultConfig(),
     components: getComponentsDefaultConfig(),
     breakpoint: getBreakpointDefaultConfig(),
     i18n: getI18nConfigDefaults(),

@@ -14,6 +14,7 @@
           class="va-date-input__anchor"
           :style="cursorStyleComputed"
           v-bind="inputWrapperProps"
+          @click.stop="toggleDropdown"
         >
           <template #default>
             <input
@@ -39,6 +40,9 @@
               v-if="$props.leftIcon"
               :aria-label="t('toggleDropdown')"
               v-bind="iconProps"
+              @click.stop="showDropdown"
+              @keydown.enter.stop="showDropdown"
+              @keydown.space.stop="showDropdown"
             />
           </template>
 
@@ -52,9 +56,12 @@
               @keydown.space.stop="reset"
             />
             <va-icon
-              v-else-if="!$props.leftIcon"
+              v-else-if="!$props.leftIcon && $props.icon"
               :aria-label="t('toggleDropdown')"
               v-bind="iconProps"
+              @click.stop="showDropdown"
+              @keydown.enter.stop="showDropdown"
+              @keydown.space.stop="showDropdown"
             />
           </template>
         </va-input-wrapper>
@@ -100,7 +107,7 @@ import {
 } from 'vue'
 import omit from 'lodash/omit'
 
-import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/child-props'
+import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/component-options'
 import {
   useComponentPresetProp,
   useClearable, useClearableEmits, useClearableProps,
@@ -248,6 +255,8 @@ export default defineComponent({
     })
 
     const onInputTextChanged = ({ target }: Event) => {
+      if (props.disabled) { return }
+
       const parsedValue = parseDateInputValue((target as HTMLInputElement).value)
 
       if (isValid.value) {
@@ -339,7 +348,7 @@ export default defineComponent({
     }))
 
     const computedInputWrapperProps = computed(() => ({
-      ...filterComponentProps(props, VaInputWrapperProps).value,
+      ...filterComponentProps(VaInputWrapperProps).value,
       focused: isFocused.value,
       error: hasError.value,
       errorMessages: computedErrorMessages.value,
@@ -371,6 +380,7 @@ export default defineComponent({
 
     const inputAttributesComputed = computed(() => ({
       readonly: props.readonly || !props.manualInput,
+      disabled: props.disabled,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
       ariaLabel: props.label || t('selectedDate'),
@@ -382,7 +392,7 @@ export default defineComponent({
     }))
 
     const dropdownPropsComputed = computed(() => ({
-      ...filterComponentProps(props, VaDropdownProps).value,
+      ...filterComponentProps(VaDropdownProps).value,
       offset: [2, 0] as DropdownOffsetProp,
       stateful: false,
       keyboardNavigation: true,
@@ -405,7 +415,7 @@ export default defineComponent({
       inputWrapperProps: computedInputWrapperProps,
       inputListeners: computedInputListeners,
       inputAttributesComputed,
-      datePickerProps: filterComponentProps(props, VaDatePickerProps),
+      datePickerProps: filterComponentProps(VaDatePickerProps),
       dropdownPropsComputed,
 
       filterSlots,

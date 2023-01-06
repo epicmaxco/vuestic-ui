@@ -25,12 +25,9 @@
     </template>
 
     <template v-else #prependInner="slotScope">
-      <div @mousedown.prevent="focus">
+      <div @mousedown.prevent="focus" class="va-counter__prepend-inner">
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
-          <va-icon
-            class="va-counter__icon-decrease"
-            v-bind="decreaseIconProps"
-          />
+          <va-button v-bind="decreaseIconProps" />
         </slot>
       </div>
     </template>
@@ -52,12 +49,9 @@
     </template>
 
     <template v-else #appendInner="slotScope">
-      <div @mousedown.prevent="focus">
+      <div @mousedown.prevent="focus" class="va-counter__append-inner">
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
-          <va-icon
-            class="va-counter__icon-increase"
-            v-bind="increaseIconProps"
-          />
+          <va-button v-bind="increaseIconProps" />
         </slot>
       </div>
     </template>
@@ -87,11 +81,19 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, PropType, ComputedRef, shallowRef } from 'vue'
+import {
+  toRefs,
+  computed,
+  shallowRef,
+  defineComponent,
+  InputHTMLAttributes,
+  PropType,
+  ComputedRef,
+} from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 
-import { safeCSSLength } from '../../utils/css-utils'
+import { safeCSSLength } from '../../utils/css'
 import {
   useComponentPresetProp,
   useFormProps,
@@ -104,7 +106,6 @@ import {
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
 import { VaInputWrapper } from '../va-input'
-import VaIcon from '../va-icon/VaIcon.vue'
 import VaButton from '../va-button/VaButton.vue'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
@@ -121,7 +122,7 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 export default defineComponent({
   name: 'VaCounter',
 
-  components: { VaInputWrapper, VaIcon, VaButton },
+  components: { VaInputWrapper, VaButton },
 
   props: {
     ...useFormProps,
@@ -163,6 +164,7 @@ export default defineComponent({
 
   setup (props, { emit, attrs }) {
     const input = shallowRef<HTMLInputElement | HTMLDivElement>()
+    const { min, max, step } = toRefs(props)
 
     const {
       isFocused,
@@ -181,23 +183,26 @@ export default defineComponent({
     }
 
     const getRoundDownWithStep = (value: number) => {
-      if (!props.min || !props.step) { return value }
+      if (typeof min.value === 'undefined' || !step.value) { return value }
 
       // If the user enters a value manually, then we must round it to the nearest valid value,
       // taking into account the initial value (`props.min`) and the step size (`props.step`)
-      return props.min + props.step * Math.floor((value - props.min) / props.step)
+      return min.value + step.value * Math.floor((value - min.value) / step.value)
     }
 
     const calculateCounterValue = (counterValue: number) => {
-      if (props.min && counterValue < props.min) {
-        valueComputed.value = props.min
+      if (typeof min.value !== 'undefined' && counterValue < min.value) {
+        valueComputed.value = min.value
         return
       }
 
-      if (props.max && (counterValue > props.max)) {
+      if (max.value && (counterValue > max.value)) {
         // since the `props.step` may not be a multiple of `(props.max - props.min)`,
         // we must round the result taking into account the allowable value
-        valueComputed.value = (props.min && props.step) ? getRoundDownWithStep(props.max) : props.max
+        valueComputed.value = (typeof min.value !== 'undefined' && step.value)
+          ? getRoundDownWithStep(max.value)
+          : max.value
+
         return
       }
 
@@ -205,16 +210,17 @@ export default defineComponent({
     }
 
     const isMinReached = computed(() => {
-      if (!props.min) { return false }
-      return Number(valueComputed.value) <= props.min
+      if (typeof min.value === 'undefined') { return false }
+
+      return Number(valueComputed.value) <= min.value
     })
 
     const isMaxReached = computed(() => {
-      if (!props.max) { return false }
+      if (!max.value) { return false }
 
-      return props.step
-        ? Number(valueComputed.value) > (props.max - props.step)
-        : Number(valueComputed.value) >= props.max
+      return step.value
+        ? Number(valueComputed.value) > (max.value - step.value)
+        : Number(valueComputed.value) >= max.value
     })
 
     const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
@@ -229,12 +235,12 @@ export default defineComponent({
 
     const decreaseCount = () => {
       if (isDecreaseActionDisabled.value) { return }
-      calculateCounterValue(Number(valueComputed.value) - props.step)
+      calculateCounterValue(Number(valueComputed.value) - step.value)
     }
 
     const increaseCount = () => {
       if (isIncreaseActionDisabled.value) { return }
-      calculateCounterValue(Number(valueComputed.value) + props.step)
+      calculateCounterValue(Number(valueComputed.value) + step.value)
     }
 
     const { getColor } = useColors()
@@ -243,14 +249,20 @@ export default defineComponent({
     const decreaseIconProps = computed(() => ({
       class: { 'va-counter__icon--inactive': isDecreaseActionDisabled.value },
       color: colorComputed.value,
-      name: props.decreaseIcon,
+      icon: props.decreaseIcon,
+      plain: true,
+      disabled: isDecreaseActionDisabled.value,
+      tabindex: -1,
       ...(!isDecreaseActionDisabled.value && { onClick: decreaseCount }),
     }))
 
     const increaseIconProps = computed(() => ({
       class: { 'va-counter__icon--inactive': isIncreaseActionDisabled.value },
       color: colorComputed.value,
-      name: props.increaseIcon,
+      icon: props.increaseIcon,
+      plain: true,
+      disabled: isIncreaseActionDisabled.value,
+      tabindex: -1,
       ...(!isIncreaseActionDisabled.value && { onClick: increaseCount }),
     }))
 
@@ -281,8 +293,8 @@ export default defineComponent({
     const inputAttributesComputed = computed(() => ({
       tabindex: tabIndexComputed.value,
       ariaLabel: props.label || t('counterValue'),
-      ariaValuemin: props.min,
-      ariaValuemax: props.max,
+      ariaValuemin: min.value,
+      ariaValuemax: max.value,
       ...omit(attrs, ['class', 'style']),
       ...pick(props, ['disabled', 'min', 'max', 'step']),
       readonly: props.readonly || !props.manualInput,
@@ -418,10 +430,21 @@ export default defineComponent({
     }
   }
 
-  .va-counter__icon--inactive {
-    cursor: inherit;
-    user-select: none;
-    opacity: 0.4;
+  .va-input-wrapper__field {
+    align-items: stretch;
+    padding: 0;
+
+    .va-input-wrapper__text,
+    .va-input__container {
+      padding-right: 0;
+    }
+  }
+
+  &__prepend-inner,
+  &__append-inner {
+    display: flex;
+    align-items: stretch;
+    height: 100%;
   }
 }
 </style>

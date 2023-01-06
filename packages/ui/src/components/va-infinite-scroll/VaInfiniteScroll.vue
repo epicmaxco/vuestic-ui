@@ -35,7 +35,7 @@
 import { computed, defineComponent, PropType, ref, shallowRef, watch } from 'vue'
 import debounce from 'lodash/debounce.js'
 
-import { sleep } from '../../services/utils'
+import { sleep } from '../../utils/sleep'
 import { useColors } from '../../composables'
 import { useScroll } from './hooks/useScroll'
 

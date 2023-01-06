@@ -1,14 +1,17 @@
 <template>
-  <va-input
-    v-model="filter"
-    placeholder="Filter the tree view"
-    clearable
-  />
-  <va-checkbox
-    v-model="isFilterCaseSensitive"
-    label="Case sensitive"
-    style="margin-top: 1rem;"
-  />
+  <div class="d-flex align-center">
+    <va-input
+      v-model="filter"
+      placeholder="Filter..."
+      clearable
+      class="mr-3"
+      style="flex: 0 200px;"
+    />
+    <va-checkbox
+      v-model="isFilterCaseSensitive"
+      label="Case sensitive"
+    />
+  </div>
   <va-tree-view
     :nodes="nodes"
     :filter="filter"

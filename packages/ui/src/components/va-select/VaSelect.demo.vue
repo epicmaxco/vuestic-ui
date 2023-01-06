@@ -12,6 +12,67 @@
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
     <VbCard
+      title="Selected options at the top"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultMultiSelect.value"
+        class="mb-4"
+        :options="defaultMultiSelect.options"
+        selected-top-shown
+        multiple
+      />
+      <p>Value: {{ defaultMultiSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Max visible options"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultMultiSelect.value"
+        class="mb-4"
+        :options="defaultMultiSelect.options"
+        :max-visible-options="2"
+        multiple
+      />
+      <p>Value: {{ defaultMultiSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Max visible options with content slot"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultMultiSelect.value"
+        class="mb-4"
+        :options="defaultMultiSelect.options"
+        :max-visible-options="2"
+        multiple
+      >
+        <template #content="{ value }">
+          <va-chip
+            v-for="chip in value"
+            :key="chip"
+            class="mr-1"
+            size="small"
+          >
+            {{ chip }}
+          </va-chip>
+        </template>
+      </va-select>
+      <p>Value: {{ defaultMultiSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Disabled options"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="disabledOptions.value"
+        class="mb-4"
+        :options="disabledOptions.options"
+      />
+      <p>Value: {{ disabledOptions.value }}</p>
+    </VbCard>
+    <VbCard
       title="Option slot"
       style="width: 400px;"
     >
@@ -672,6 +733,17 @@ export default {
         valueMultiple: [],
         allowUniqueValueMultiple: [],
         valueMultipleMax: [],
+      },
+      disabledOptions: {
+        options: [
+          { id: '0', text: 'one', value: 'one', disabled: true },
+          { id: '1', text: 'two', value: 'two' },
+          { id: '2', text: 'three', value: 'three', disabled: true },
+          { id: '3', text: 'four', value: 'four' },
+          { id: '4', text: 'five', value: 'five' },
+          { id: '5', text: 'six', value: 'six', disabled: true },
+        ],
+        value: '',
       },
       objectSingleSelect: {
         value: '',

@@ -2,7 +2,7 @@ import { PropType, ExtractPropTypes } from 'vue'
 
 import type { TreeNode, TreeViewFilterMethod, TreeViewPropKey } from '../types'
 
-import { getValueByKey } from '../../../services/utils'
+import { getValueByKey } from '../../../utils/value-by-key'
 
 export const useTreeViewProps = {
   nodes: {

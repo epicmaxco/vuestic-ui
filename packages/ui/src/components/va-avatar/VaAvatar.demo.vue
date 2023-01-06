@@ -1,6 +1,6 @@
 <template>
   <VbDemo>
-    <VbCard title="default">
+    <VbCard title="Default">
       <va-avatar /> Empty
       <br>
       <va-avatar>AA</va-avatar> Text inserted
@@ -45,7 +45,7 @@
         </va-avatar>
       </div>
     </VbCard>
-    <VbCard title="image">
+    <VbCard title="Image">
       <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg" /> square image
       <br>
       <va-avatar
@@ -56,7 +56,7 @@
       <va-avatar src="https://cdn.pixabay.com/photo/2016/08/03/06/22/space-1565986_1280.jpg" /> vertical image
       <br>
     </VbCard>
-    <VbCard title="default slot">
+    <VbCard title="Default slot">
       <va-avatar>
         <img
           src="https://randomuser.me/api/portraits/women/5.jpg"
@@ -71,7 +71,7 @@
       icon
       <br>
     </VbCard>
-    <VbCard title="square">
+    <VbCard title="Square">
       <va-avatar square>
         AA
       </va-avatar>
@@ -94,7 +94,7 @@
       /> large
       <br>
     </VbCard>
-    <VbCard title="сolor">
+    <VbCard title="Color">
       <va-avatar color="danger">
         A
       </va-avatar> background
@@ -102,28 +102,66 @@
         A
       </va-avatar> text
     </VbCard>
-    <VbCard title="font size">
+    <VbCard title="Font size">
       <va-avatar font-size="15px">
         A
       </va-avatar>
     </VbCard>
-    <VbCard title="loading">
-      <va-avatar loading />
+    <VbCard title="Loading">
+      <va-button @click="isLoading = !isLoading" class="mb-2">Toggle loading</va-button>
+      <br />
+      <va-avatar class="mr-4" :loading="isLoading" />
+
+      <va-avatar class="mr-4" :loading="isLoading">
+        J.D.
+      </va-avatar>
+
+      <va-avatar class="mr-4" :loading="isLoading" icon="warning" />
+
+      <va-avatar :loading="isLoading" src="https://randomuser.me/api/portraits/women/5.jpg" />
+      <p class="mt-2 mb-2">Squared</p>
+      <va-avatar class="mr-4" :loading="isLoading" square />
+
+      <va-avatar class="mr-4" :loading="isLoading" square>
+        J.D.
+      </va-avatar>
+
+      <va-avatar class="mr-4" :loading="isLoading" square icon="warning" />
+
+      <va-avatar :loading="isLoading" square src="https://randomuser.me/api/portraits/women/5.jpg" />
     </VbCard>
     <BadgeAvatarDemo />
+    <VbCard title="On error">
+      <p v-if="hasError">Show this message if failed to load image</p>
+      <br />
+      <va-avatar src="https://void" @error="onError" />
+    </VbCard>
+    <VbCard title="Fallback">
+      <va-avatar
+        src="https://void"
+        fallback-src="https://randomuser.me/api/portraits/women/5.jpg"
+      />
+      <va-avatar
+        square
+        src="https://void"
+        fallback-src="https://randomuser.me/api/portraits/women/5.jpg"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
-<script>
-import { VaAvatar } from './index'
-import { VaIcon } from '../va-icon'
-import BadgeAvatarDemo from '../va-badge/BadgeAvatarDemo'
+<script lang="ts" setup>
+import { ref } from 'vue'
 
-export default {
-  components: {
-    BadgeAvatarDemo,
-    VaAvatar,
-    VaIcon,
-  },
+import { VaIcon, VaButton } from '../index'
+import { VaAvatar } from './'
+
+import BadgeAvatarDemo from '../va-badge/BadgeAvatarDemo.vue'
+
+const isLoading = ref(true)
+const hasError = ref(false)
+
+const onError = () => {
+  hasError.value = true
 }
 </script>

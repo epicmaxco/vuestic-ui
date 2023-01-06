@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://vuestic.dev" target="_blank">
-      <img alt="Vuestic UI Logo" width="400" src="packages/ui/src/assets/vuestic-ui-logo.png">
+      <img alt="Vuestic UI Logo" width="400" src="https://user-images.githubusercontent.com/29167241/208700497-c356a0eb-338f-46cc-a2ca-4a892df7e446.png">
   </a>
       <br>
   Vue.js 3.0 UI Library
@@ -43,7 +43,7 @@
 <a href="https://discord.gg/u7fQdqQt8c">Discord</a> to help us improve Vuestic UI experience.
 
   <p align="center">
-    <img src="./packages/ui/src/assets/vuestic-ui-image.jpg">
+    <img src=".github/assets/vuestic-ui-image.jpg">
   </p>
 
 ### Why use Vuestic UI?
@@ -100,12 +100,33 @@ on [vuestic.dev](https://vuestic.dev)
 
 ### Partners & Sponsors ❤️
 <div>
-        <a href="https://epicmax.co/" target="_blank" title="Epicmax - Top Vue.js Development Company"><img src="./.github/assets/epicmax.svg" loading="lazy" vspace="10" alt=""></a>
-        <a href="https://www.ag-grid.com/" target="_blank" title=" Data Grid: AG Grid: High-Performance React Grid, Angular Grid, JavaScript Grid"><img hspace="15" vspace="10" src="./.github/assets/aggrid.svg" loading="lazy" alt=""></a>
-        <a href="https://vuejobs.com/" target="_blank" title="Vue.js jobs – Browse through dozens of Vue.js openings"><img src="./.github/assets/vuejobs.svg" loading="lazy" vspace="10" alt=""></a>
-        <a href="https://flatlogic.com/" target="_blank" title="Flatlogic - The best way to create React, Angular and Vue full-stack web applications"><img hspace="15" vspace="10" src="./.github/assets/flatlogic.svg" loading="lazy" alt=""></a>
+  <a href="https://nuxt.com/" target="_blank" title="Nuxt - The Intuitive Web Framework">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/nuxt-light.svg" />
+      <img src="./.github/assets/nuxt.svg" loading="lazy" alt=""/>
+    </picture>
+  </a>
+  <a href="https://epicmax.co/" target="_blank" title="Epicmax - Top Vue.js Development Company"><img hspace="15" src="./.github/assets/epicmax.svg" loading="lazy" alt=""></a>
+  <a href="https://www.ag-grid.com/" target="_blank" title=" Data Grid: AG Grid: High-Performance React Grid, Angular Grid, JavaScript Grid">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/aggrid-light.svg" />
+      <img src="./.github/assets/aggrid.svg" loading="lazy" alt=""/>
+    </picture>
+  </a>
+  <a href="https://vuejobs.com/" target="_blank" title="Vue.js jobs – Browse through dozens of Vue.js openings">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/vuejobs-light.svg" />
+      <img hspace="15" src="./.github/assets/vuejobs.svg" loading="lazy" alt=""/>
+    </picture>
+  </a>
+  <a href="https://flatlogic.com/" target="_blank" title="Flatlogic - The best way to create React, Angular and Vue full-stack web applications">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/flatlogic-light.svg" />
+      <img src="./.github/assets/flatlogic.svg" loading="lazy" alt=""/>
+    </picture>
+  </a>
 </div>
-<br >
+<br />
 
 Become a partner: [hello@epicmax.co](mailto:hello@epicmax.co)
 

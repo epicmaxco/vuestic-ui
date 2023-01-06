@@ -1,7 +1,7 @@
 import { App } from 'vue'
 import { createGlobalConfig, GLOBAL_CONFIG } from '../global-config'
 import { PartialGlobalConfig } from '../types'
-import { defineGlobalProperty, defineVuesticPlugin } from '../../../vuestic-plugin/utils'
+import { defineGlobalProperty, defineVuesticPlugin } from '../../vue-plugin/utils'
 
 /** Provides global configuration to Vuestic components */
 export const GlobalConfigPlugin = defineVuesticPlugin((config: PartialGlobalConfig | undefined) => ({

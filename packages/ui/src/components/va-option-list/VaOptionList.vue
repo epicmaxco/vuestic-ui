@@ -47,7 +47,7 @@
 import { computed, defineComponent, PropType, onMounted } from 'vue'
 import pick from 'lodash/pick'
 
-import { __DEV__ } from '../../utils/global-utils'
+import { __DEV__ } from '../../utils/env'
 import {
   useComponentPresetProp,
   useSelectableList, useSelectableListProps, SelectableOption,

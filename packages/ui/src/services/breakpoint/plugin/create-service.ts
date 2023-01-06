@@ -1,20 +1,21 @@
 import { App, Ref, computed, watch, ComputedRef } from 'vue'
 
-import { useDocument, useWindowSize } from '../../../composables'
+import { useDocument, useWindowSize, useReactiveComputed } from '../../../composables'
 
-import { isClient } from '../../../utils/ssr-utils'
-import { warn, generateUniqueId } from '../../utils'
-import { getGlobalProperty } from '../../../vuestic-plugin/utils'
-import { addOrUpdateStyleElement } from '../../dom-functions'
+import { isClient } from '../../../utils/ssr'
+import { warn } from '../../../utils/console'
+import { generateUniqueId } from '../../../utils/uuid'
+import { getGlobalProperty } from '../../vue-plugin/utils'
+import { addOrUpdateStyleElement } from '../../../utils/dom'
 
 import { GlobalConfig } from '../../global-config/types'
 import { ThresholdsKey, BreakpointConfig, BodyClass, BreakpointServiceObject, BreakpointHelpers } from '../types'
 
-export const createBreakpointConfigPlugin = (app: App) => {
+export const createBreakpointConfigPlugin = (app: App): BreakpointServiceObject => {
   const globalConfig: Ref<GlobalConfig> | undefined = getGlobalProperty(app, '$vaConfig')?.globalConfig
   if (!globalConfig) {
     warn('createBreakpointConfigPlugin: globalConfig is not defined!')
-    return {}
+    return {} as BreakpointServiceObject
   }
 
   const breakpointConfig: ComputedRef<BreakpointConfig> = computed(() => {
@@ -24,12 +25,12 @@ export const createBreakpointConfigPlugin = (app: App) => {
   })
 
   if (!breakpointConfig.value.enabled) {
-    return {}
+    return {} as BreakpointServiceObject
   }
 
   if (!breakpointConfig.value.thresholds || !Object.values(breakpointConfig.value.thresholds).length) {
     warn('createBreakpointConfigPlugin: there are no defined thresholds!')
-    return {}
+    return {} as BreakpointServiceObject
   }
 
   const { windowSizes } = useWindowSize()
@@ -105,17 +106,11 @@ export const createBreakpointConfigPlugin = (app: App) => {
     }
   }) as ComputedRef<BreakpointHelpers>
 
-  const result = computed(() => ({
-    width: windowSizes.width,
-    height: windowSizes.height,
-    current: currentBreakpoint.value,
+  return useReactiveComputed<BreakpointServiceObject>(() => ({
+    width: windowSizes.width!,
+    height: windowSizes.height!,
+    current: currentBreakpoint.value!,
     thresholds: breakpointConfig.value.thresholds,
     ...breakpointHelpers.value,
-  })) as ComputedRef<BreakpointServiceObject>
-
-  return new Proxy({} as typeof result.value, {
-    ownKeys: () => Reflect.ownKeys(result.value),
-    getOwnPropertyDescriptor: (_, key) => Reflect.getOwnPropertyDescriptor(result.value, key),
-    get: (_, key: string, receiver: any) => Reflect.get(result.value, key, receiver),
-  })
+  }))
 }

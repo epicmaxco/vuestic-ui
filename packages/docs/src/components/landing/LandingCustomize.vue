@@ -133,7 +133,7 @@ import { ref, computed, shallowRef } from 'vue'
 import 'prismjs'
 import dedent from 'dedent'
 
-import { shiftHSLAColor } from 'vuestic-ui/src/services/color-config/color-functions'
+import { shiftHSLAColor } from 'vuestic-ui/src/services/color'
 import { useColors } from 'vuestic-ui/src/composables'
 import { useI18n } from 'vue-i18n'
 
@@ -506,7 +506,8 @@ const copyText = () => {
     @include sm(margin-top, 2rem);
 
     &--first {
-      background: #ffffff;
+      background: var(--va-background-secondary);
+      color: var(--va-on-background-secondary);
       position: relative;
       display: flex;
       flex-direction: column;
@@ -528,22 +529,23 @@ const copyText = () => {
       align-items: center;
       flex-direction: column;
       padding: 1rem;
-      padding-bottom: 1rem;
       width: 80%;
       border-radius: 0 0 0.7rem 0.7rem;
     }
 
     &__link {
       @include link-font();
-
       // sm
       @include sm(text-align, center);
 
-      color: #ffffff;
       padding-top: 1rem;
       line-height: 1.5rem;
     }
   }
+}
+
+.landing .customize__content__link {
+  color: var(--va-text-inverted);
 }
 
 .block {

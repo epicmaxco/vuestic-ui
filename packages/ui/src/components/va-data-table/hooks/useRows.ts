@@ -1,6 +1,6 @@
 import { Ref, computed } from 'vue'
 
-import { getValueByPath } from '../../../services/utils'
+import { getValueByPath } from '../../../utils/value-by-key'
 
 import type {
   DataTableColumnInternal,

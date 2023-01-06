@@ -4,8 +4,8 @@
       v-model="value"
       manual-input
       :messages="['Hello world']"
+      class="mr-3"
     />
-    <va-divider vertical />
     <va-time-input
       v-model="value"
       success
@@ -20,8 +20,8 @@
       error
       :errorMessages="['Bye world!']"
       manual-input
+      class="mr-3"
     />
-    <va-divider vertical />
     <va-time-input
       label="accept only hours < 12"
       v-model="value"

@@ -2,7 +2,7 @@
 import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
 
 import { useComponentPresetProp, useAlign, useAlignProps, useColors, useTranslation } from '../../composables'
-import { hasOwnProperty } from '../../services/utils'
+import { hasOwnProperty } from '../../utils/has-own-property'
 
 export default defineComponent({
   name: 'VaBreadcrumbs',

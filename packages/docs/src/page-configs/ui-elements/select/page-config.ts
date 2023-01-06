@@ -70,6 +70,16 @@ const config: ApiDocsBlock[] = [
     'select.examples.validation.text',
     'Validation',
   ),
+  ...block.exampleBlock(
+    'select.examples.maxVisibleOptions.title',
+    'select.examples.maxVisibleOptions.text',
+    'MaxVisibleOptions',
+  ),
+  ...block.exampleBlock(
+    'select.examples.selectedTopShown.title',
+    'select.examples.selectedTopShown.text',
+    'SelectedTopShown',
+  ),
 
   block.headline('select.examples.keyboardNavigation.title'),
   block.paragraph('select.examples.keyboardNavigation.moves'),

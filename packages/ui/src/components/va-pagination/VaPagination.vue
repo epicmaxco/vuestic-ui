@@ -108,7 +108,7 @@ import {
 import clamp from 'lodash/clamp.js'
 import pick from 'lodash/pick.js'
 
-import { __DEV__ } from '../../utils/global-utils'
+import { __DEV__ } from '../../utils/env'
 import {
   useBem,
   useComponentPresetProp,
@@ -134,9 +134,9 @@ export default defineComponent({
     disabled: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },
     size: {
-      type: String as PropType<'medium' | 'small' | 'large'>,
+      type: String as PropType<'small' | 'medium' | 'large'>,
       default: 'medium',
-      validator: (v: string) => ['medium', 'small', 'large'].includes(v),
+      validator: (v: string) => ['small', 'medium', 'large'].includes(v),
     },
     boundaryLinks: { type: Boolean, default: true },
     boundaryNumbers: { type: Boolean, default: false },
@@ -280,6 +280,7 @@ export default defineComponent({
       preset: props.buttonsPreset,
       color: props.color,
       borderColor: props.borderColor,
+      round: props.rounded,
     }))
 
     const currentPageButtonProps = computed(() => ({
@@ -295,10 +296,12 @@ export default defineComponent({
       return buttonPropsComputed.value
     }
 
+    const isStandAloneInput = computed(() => props.input && !props.boundaryLinks && !props.directionLinks)
     const inputClassComputed = useBem('va-pagination__input', () => ({
-      sm: props.size === 'small',
-      md: props.size === 'medium',
-      lg: props.size === 'large',
+      sm: props.size === 'small' && isStandAloneInput.value,
+      md: props.size === 'medium' && isStandAloneInput.value,
+      lg: props.size === 'large' && isStandAloneInput.value,
+      auto: !isStandAloneInput.value,
     }))
 
     const classComputed = useBem('va-pagination', () => ({
@@ -350,24 +353,44 @@ export default defineComponent({
     border-width: var(--va-pagination-input-border-width);
     text-align: var(--va-pagination-input-text-align);
     font-size: var(--va-pagination-input-font-size);
+    font-weight: normal;
 
     // by default input's height relies on va-button size
     &--sm {
-      height: var(--va-button-sm-size);
+      height: var(--va-pagination-button-sm-size);
     }
 
     &--md {
-      height: var(--va-button-size);
+      height: var(--va-pagination-button-size);
     }
 
     &--lg {
-      height: var(--va-button-lg-size);
+      height: var(--va-pagination-button-lg-size);
+    }
+
+    &--auto {
+      height: auto;
     }
   }
 
   .va-button {
     &.va-input {
       cursor: default;
+    }
+
+    &--small {
+      height: var(--va-pagination-button-sm-size);
+      min-width: var(--va-pagination-button-sm-size);
+    }
+
+    &--normal {
+      height: var(--va-pagination-button-size);
+      min-width: var(--va-pagination-button-size);
+    }
+
+    &--large {
+      height: var(--va-pagination-button-lg-size);
+      min-width: var(--va-pagination-button-lg-size);
     }
 
     &--ellipsis {
@@ -424,7 +447,7 @@ export default defineComponent({
 
   &--rounded {
     &.va-pagination > .va-button {
-      border-radius: 9999px;
+      border-radius: 50%;
 
       &::before {
         border-radius: inherit;
@@ -432,8 +455,8 @@ export default defineComponent({
 
       &.va-button--small {
         &.va-button--icon-only {
-          width: var(--va-button-sm-size);
-          height: var(--va-button-sm-size);
+          height: var(--va-pagination-button-sm-size);
+          width: var(--va-pagination-button-sm-size);
         }
 
         & .va-button__content {
@@ -443,26 +466,26 @@ export default defineComponent({
       }
 
       &.va-button--normal {
-        & .va-button--icon-only {
-          width: var(--va-button-sm-size);
-          height: var(--va-button-sm-size);
+        &.va-button--icon-only {
+          height: var(--va-pagination-button-size);
+          width: var(--va-pagination-button-size);
         }
 
         & .va-button__content {
-          padding-right: var(--va-button-sm-content-px);
-          padding-left: var(--va-button-sm-content-px);
+          padding-right: var(--va-button-content-px);
+          padding-left: var(--va-button-content-px);
         }
       }
 
       &.va-button--large {
         &.va-button--icon-only {
-          width: var(--va-button-sm-size);
-          height: var(--va-button-sm-size);
+          height: var(--va-pagination-button-lg-size);
+          width: var(--va-pagination-button-lg-size);
         }
 
         & .va-button__content {
-          padding-right: var(--va-button-sm-content-px);
-          padding-left: var(--va-button-sm-content-px);
+          padding-right: var(--va-button-lg-content-px);
+          padding-left: var(--va-button-lg-content-px);
         }
       }
     }

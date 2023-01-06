@@ -18,9 +18,11 @@
         </va-button>
       </template>
 
-      <va-dropdown-content>
-        <slot />
-      </va-dropdown-content>
+      <slot name="content">
+        <va-dropdown-content>
+          <slot />
+        </va-dropdown-content>
+      </slot>
     </va-dropdown>
 
     <va-button-group
@@ -49,6 +51,7 @@
             :aria-label="t('toggleDropdown')"
             :disabled="$props.disabled || $props.disableDropdown"
             :icon="computedIcon"
+            :icon-color="$props.iconColor"
             v-on="listeners"
             @keydown.esc.prevent="hideDropdown"
           />
@@ -74,23 +77,23 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
-import { extractComponentProps, filterComponentProps } from '../../utils/child-props'
+import omit from 'lodash/omit.js'
+
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import {
   useBem,
-  useDeprecatedProps,
+  useDeprecated,
   useComponentPresetProp,
   useStateful, useStatefulProps,
   useEmitProxy,
-  Placement, placementsPositions,
+  usePlacementAliasesProps,
   useTranslation,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-
-import omit from 'lodash/omit.js'
 
 const { createEmits, createVOnListeners: createListeners } = useEmitProxy(['click'])
 const { createEmits: createMainButtonEmits, createVOnListeners: createMainButtonListeners } = useEmitProxy(
@@ -114,6 +117,7 @@ export default defineComponent({
     ...VaButtonProps,
     ...VaDropdownProps,
     ...useStatefulProps,
+    ...usePlacementAliasesProps,
     modelValue: { type: Boolean, default: false },
     stateful: { type: Boolean, default: true },
 
@@ -121,16 +125,12 @@ export default defineComponent({
     openedIcon: { type: String, default: 'va-arrow-up' },
     hideIcon: { type: Boolean, default: false },
     leftIcon: { type: Boolean, default: false },
+    iconColor: { type: String, default: '' },
 
     disabled: { type: Boolean, default: false },
     disableButton: { type: Boolean, default: false },
     disableDropdown: { type: Boolean, default: false },
 
-    placement: {
-      type: String as PropType<Placement>,
-      default: 'bottom',
-      validator: (placement: string) => placementsPositions.includes(placement),
-    },
     offset: { type: [Number, Array] as PropType<number | [number, number]>, default: 2 },
     keepAnchorWidth: { type: Boolean, default: false },
     closeOnContentClick: { type: Boolean, default: true },
@@ -145,7 +145,7 @@ export default defineComponent({
 
   setup (props, { emit, slots }) {
     // TODO(1.6.0): Remove deprecated props
-    useDeprecatedProps(['flat', 'outline'])
+    useDeprecated(['flat', 'outline'])
 
     const { valueComputed } = useStateful(props, emit)
 
@@ -199,7 +199,7 @@ export default defineComponent({
 
     return {
       ...useTranslation(),
-      vaDropdownProps: filterComponentProps(props, VaDropdownProps),
+      vaDropdownProps: filterComponentProps(VaDropdownProps),
       hideDropdown,
       valueComputed,
       computedIcon,

@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { VuesticIconAliases } from 'vuestic-ui/src/services/icon-config/presets/vuestic-aliases'
+import { VuesticIconAliases } from 'vuestic-ui/src/services/icon/presets/vuestic-aliases'
 </script>
 
 <style lang="scss" scoped>

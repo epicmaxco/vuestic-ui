@@ -10,7 +10,6 @@
             target="blank"
             preset="plain"
           >
-            <va-icon class="button-icon" :component="IconEpicmax" />
             {{ $t("landing.footer.buttons.epicmax") }}
           </va-button>
           <va-button
@@ -19,7 +18,6 @@
             target="blank"
             preset="plain"
           >
-            <va-icon class="button-icon" :component="IconAdmin" />
             {{ $t("landing.footer.buttons.admin") }}
           </va-button>
           <va-button
@@ -28,7 +26,6 @@
             target="blank"
             preset="plain"
           >
-            <va-icon class="button-icon" :component="IconSpinners" />
             {{ $t("landing.footer.buttons.spinners") }}
           </va-button>
         </div>
@@ -77,38 +74,21 @@
           </a>
         </div>
       </div>
+<!--      <LandingNewsBanner />-->
     </div>
   </footer>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useColors, useElementTextColor } from 'vuestic-ui/src/main'
-import { markRaw, defineComponent } from 'vue'
-import IconEpicmax from './icons/IconEpicmax.vue'
-import IconAdmin from './icons/IconAdmin.vue'
-import IconSpinners from './icons/IconSpinners.vue'
 import LandingEpicmaxBanner from '@/components/landing/LandingEpicmaxBanner.vue'
+// import LandingNewsBanner from '@/components/landing/LandingNewsBanner.vue'
 
-export default defineComponent({
-  name: 'LandingFooter',
+const { getComputedColor } = useColors()
 
-  components: {
-    LandingEpicmaxBanner,
-  },
-
-  setup () {
-    const { getComputedColor } = useColors()
-
-    return {
-      textColor: useElementTextColor('background-primary'),
-      IconEpicmax: markRaw(IconEpicmax),
-      IconAdmin: markRaw(IconAdmin),
-      IconSpinners: markRaw(IconSpinners),
-      primaryColor: getComputedColor('primary'),
-      currentYear: new Date().getFullYear(),
-    }
-  },
-})
+const textColor = useElementTextColor('background-primary')
+const primaryColor = getComputedColor('primary')
+const currentYear = new Date().getFullYear()
 </script>
 
 <style lang="scss" scoped>
@@ -118,7 +98,7 @@ export default defineComponent({
   width: 100%;
   position: relative;
   padding-top: 4.5rem;
-  background: transparent;
+  background: var(--va-background-secondary);
 
   // sm
   @include sm(padding-top, 1rem);

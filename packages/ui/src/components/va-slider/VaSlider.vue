@@ -162,7 +162,7 @@
 import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef, CSSProperties } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { generateUniqueId } from '../../services/utils'
+import { generateUniqueId } from '../../utils/uuid'
 import { useComponentPresetProp, useColors, useArrayRefs, useBem } from '../../composables'
 import { validateSlider } from './validateSlider'
 
