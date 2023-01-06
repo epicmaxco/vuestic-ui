@@ -10,12 +10,14 @@ export type PageConfig = (componentName: string, manualOptions?: ManualApiOption
   componentName: string
 }
 
-export const compileApiBlock = defineCompileBlockFn<PageConfig>((code, block, path) => {
+export const compileApiBlock = defineCompileBlockFn<PageConfig>(async function (code, block, path) {
   const name = block.args[0].slice(1, -1)
 
   const importer = createImporter()
 
-  const component = importer.importNamed(name, 'vuestic-ui')
+  const vuestic = (await this.resolve('vuestic-ui')).id
+
+  const component = importer.importNamed(name, vuestic)
 
   return {
     code: importer.imports + code.replaceAll(block.code, renderBlock('api', {

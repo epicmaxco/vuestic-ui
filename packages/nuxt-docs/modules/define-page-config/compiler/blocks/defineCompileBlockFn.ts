@@ -1,11 +1,13 @@
 import type { ParsedBlock } from "../parse"
+import type { TransformPluginContext } from 'rollup';
 
-export type CompileBlockFn<Config> = (code: string, block: ParsedBlock, parentPath: string) => {
+type CompileBlockReturn = {
   code: string,
   files?: string[]
 }
+export type CompileBlockFn<Config> = (this: TransformPluginContext, code: string, block: ParsedBlock, parentPath: string) => Promise<CompileBlockReturn> | CompileBlockReturn
 
-export const defineCompileBlockFn = <T = {}>(cb: CompileBlockFn<T>) => cb
+export const defineCompileBlockFn = <T = {}> (cb: CompileBlockFn<T>) => cb
 
 let IMPORT_STATIC_ID = 0
 export const createImporter = () => {

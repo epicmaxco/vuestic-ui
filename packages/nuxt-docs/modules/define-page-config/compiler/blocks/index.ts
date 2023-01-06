@@ -25,24 +25,25 @@ export const blockCompilers = {
   api: compileApiBlock,
 }
 
-export const compileBlocks = (code: string, parsedBlocks: ParsedBlock[], parentPath: string) => {
+export async function compileBlocks(code: string, parsedBlocks: ParsedBlock[], parentPath: string) {
   const files: string[] = []
 
-  parsedBlocks.forEach(block => {
+  for (const block of parsedBlocks) {
     const compiler = blockCompilers[block.type as keyof typeof blockCompilers]
 
     if (!compiler) {
       throw new Error(`Block compiler for type "${block.type}" not found`)
     }
 
-    const { code: newCode, files: newFiles } = compiler(code, block, parentPath)
+    const { code: newCode, files: newFiles } = await compiler.call(this, code, block, parentPath)
 
     code = newCode
 
     if (newFiles) {
       files.push(...newFiles)
     }
-  })
+  }
+
   return {
     code,
     files,

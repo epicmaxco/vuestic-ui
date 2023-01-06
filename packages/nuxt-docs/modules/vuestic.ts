@@ -30,6 +30,8 @@ export default defineNuxtModule<VuesticOptions>({
     nuxt.options.alias['vuestic-ui'] = vuesticMainPath;
 
     originalNuxtModule(options, nuxt)
+
+    nuxt.options.build.transpile.push('lodash')
   }
 })
 
