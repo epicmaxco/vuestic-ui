@@ -17,7 +17,7 @@ export const compileComponentBlock = defineCompileBlockFn<PageConfigComponent>((
   return {
     code: code.replaceAll(block.code, renderBlock('component', {
       name: block.args[0],
-      component: `defineAsyncComponent(() => import('./components/${name}'))`,
+      component: `markRaw(defineAsyncComponent(() => import('./components/${name}')))`,
       props: block.args[1],
     })),
 

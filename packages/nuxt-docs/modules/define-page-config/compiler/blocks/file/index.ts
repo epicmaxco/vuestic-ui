@@ -1,6 +1,6 @@
 import { defineCompileBlockFn, createImporter } from '../defineCompileBlockFn'
 import { renderBlock } from '../../render'
-import { resolve } from 'path'
+import { resolve, extname } from 'path'
 
 export type PageConfig = (path: string, language?: string) => {
   type: 'file'
@@ -14,12 +14,11 @@ export const compileFileBlock = defineCompileBlockFn<PageConfig>((code, block) =
   const importer = createImporter()
 
   const codeImport = importer.importDefault(`code`, `${path}?raw`)
-  console.log(resolve(path))
 
   return {
     code: importer.imports + code.replaceAll(block.code, renderBlock('file', {
       code: codeImport,
-      language: block.args[1],
+      language: block.args[1] || `'${extname(resolve(path)).slice(1)}'`,
     })),
   }
 })

@@ -17,7 +17,7 @@ export const compileExampleBlock = defineCompileBlockFn<PageConfigExample>((code
     {
       type: 'example',
       name: '${name}',
-      component: defineAsyncComponent(() => import('./examples/${name}.vue')),
+      component: markRaw(defineAsyncComponent(() => import('./examples/${name}.vue'))),
       source: import('./examples/${name}.vue?raw').then(m => m.default),
     }
     `.trim()),
