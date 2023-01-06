@@ -214,7 +214,7 @@ $ag-theme-vuestic-default-params: (
         row-group-indent-size: ag-derived(cell-widget-spacing, $plus: icon-size),
 
   // How much to indent child columns in the filters tool panel relative to their parent
-        filter-tool-panel-group-indent: inherit,
+        filter-tool-panel-group-indent: 16px,
 
   // Cause tabs to stretch across the full width of the tab panel header
         full-width-tabs: false,
