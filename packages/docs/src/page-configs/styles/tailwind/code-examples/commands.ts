@@ -3,7 +3,8 @@ export const packageCommands = `
 
 "scripts": {
   ...
-  "config:sync": "tsx node_modules/@vuestic/tailwind/dist/sync.cjs",
-  "config:watch": "tsx node_modules/@vuestic/tailwind/dist/watch.cjs"
+  "config:tailwind:sync": "node node_modules/@vuestic/tailwind/dist/sync-tailwind.cjs",
+  "config:tailwind:watch": "node node_modules/@vuestic/tailwind/dist/watch-tailwind.cjs"
+  "config:vuestic:sync": "node node_modules/@vuestic/tailwind/dist/sync-vuestic.cjs"
 },
 `
