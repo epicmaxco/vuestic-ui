@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue';
 import { PageConfig } from '.';
-import MarkdownView from '../markdown/markdownit/MarkdownView.vue';
+import { MarkdownView } from "../../shared/markdown";
 
 const props = defineProps({
   config: {
