@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rm -rf ./dist && yarn build:vite && yarn build:vue-cli && yarn build:nuxt",
     "build:vite": "vue-tsc --noEmit && vite build --config ./configs/vite/vite.base.ts",
-    "build:bundle-analysis": "tsx ./scripts/bundle-analysis.ts",
+    "build:bundle": "tsx ./scripts/bundle-analysis.ts",
     "build:vue-cli": "vue-cli-service build",
     "build:nuxt": "nuxt build",
     "dev:vite": "vite",
