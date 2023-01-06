@@ -1,5 +1,3 @@
-import type { DefineComponent } from "vue"
-import { resolve, dirname } from 'path'
 import { defineCompileBlockFn, createImporter } from '../defineCompileBlockFn'
 import { renderBlock } from '../../render'
 

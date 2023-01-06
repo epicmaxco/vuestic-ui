@@ -37,7 +37,7 @@ const text = computed(() => {
 
   code {
     margin: 0 0.3rem;
-    // color: $markdown-code;
+    color: #d7234e;
   }
 
   h1,

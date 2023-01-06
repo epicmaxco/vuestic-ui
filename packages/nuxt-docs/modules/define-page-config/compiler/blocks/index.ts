@@ -9,6 +9,7 @@ import { compileSubtitleBlock } from './subtitle';
 import { compileFileStructureBlock } from './file-structure';
 import { compileAlertBlock } from './alert';
 import { compileFileBlock } from './file';
+import { compileApiBlock } from './api'
 
 export const blockCompilers = {
   component: compileComponentBlock,
@@ -21,6 +22,7 @@ export const blockCompilers = {
   fileStructure: compileFileStructureBlock,
   alert: compileAlertBlock,
   file: compileFileBlock,
+  api: compileApiBlock,
 }
 
 export const compileBlocks = (code: string, parsedBlocks: ParsedBlock[], parentPath: string) => {

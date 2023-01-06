@@ -13,6 +13,7 @@ import PageConfigParagraph from './paragraph/index.vue'
 import PageConfigFileStructure from './file-structure/index.vue'
 import PageConfigAlert from './alert/index.vue'
 import PageConfigFile from './file/index.vue'
+import PageConfigApi from './api/index.vue'
 
 const props = defineProps({
   pageConfig: {
@@ -33,7 +34,8 @@ const pageConfigComponent: Record<PageConfigBlockType, any> = {
   'subtitle': PageConfigSubtitle,
   'file-structure': PageConfigFileStructure,
   'alert': PageConfigAlert,
-  'file': PageConfigFile
+  'file': PageConfigFile,
+  'api': PageConfigApi
 }
 </script>
 

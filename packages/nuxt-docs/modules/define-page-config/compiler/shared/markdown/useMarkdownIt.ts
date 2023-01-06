@@ -15,22 +15,28 @@ const md = new MarkdownIt({
 
 export const externalLinkStartWith: ExternalLinkStartWith = ['http://', 'https://']
 
-// export const localeOptions: LocaleOptions = {
-//   currentLocale: locale,
-//   externalLinkStartWith,
-// }
-
 export const attributesOptions: AttributesOptions = {
   className: '',
 }
 
-// md.use(setOriginLocationToRelativeLinks, localeOptions)
-//   .use(setClassAttributeToExternalLinks, attributesOptions)
-//   .use(markdownItAttrs, {
-//     leftDelimiter: '[[',
-//     rightDelimiter: ']]',
-//   })
-
 export const useMarkdownIt = () => {
+  const { locale } = useI18n()
+
+  const localeOptions: LocaleOptions = {
+    currentLocale: locale.value,
+    externalLinkStartWith,
+  }
+
+  md.use(setOriginLocationToRelativeLinks, localeOptions)
+    .use(setClassAttributeToExternalLinks, attributesOptions)
+    .use(markdownItAttrs, {
+      leftDelimiter: '[[',
+      rightDelimiter: ']]',
+    })
+
+  watch(locale, () => {
+    localeOptions.currentLocale = locale.value
+  })
+
   return md
 }

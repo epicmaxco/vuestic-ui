@@ -2,6 +2,8 @@
 import { PropType } from 'vue';
 import { PageConfigParagraph } from '.';
 
+import { MarkdownView } from '../../shared/markdown';
+
 const props = defineProps({
   config: {
     type: Object as PropType<ReturnType<PageConfigParagraph>>,
@@ -13,7 +15,7 @@ const { tie } = useI18n()
 </script>
 
 <template>
-  <p>
-    {{ tie(config.text) }}
-  </p>
+  <va-content>
+    <MarkdownView :content="tie(config.text)" />
+  </va-content>
 </template>
