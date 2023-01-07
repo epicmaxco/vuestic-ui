@@ -4,7 +4,6 @@ import { defineNuxtConfig } from "nuxt";
 export default defineNuxtConfig({
   modules: [
     "./modules/vuestic",
-    // "./modules/define-page-config",
     "./modules/page-config",
     "./modules/i18n",
   ],
