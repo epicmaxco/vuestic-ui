@@ -1,3 +1,3 @@
 <template>
-  <VaButton />
+  <VaButton>AAA</VaButton>
 </template>

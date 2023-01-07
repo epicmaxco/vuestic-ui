@@ -1,7 +1,6 @@
-import { onMounted } from 'vue';
-import { CompiledPageConfig } from "../modules/define-page-config"
+import { PageConfigOptions } from "../modules/page-config"
 
-type PageConfigJSModule = { default: CompiledPageConfig }
+type PageConfigJSModule = { default: PageConfigOptions }
 
 const files = Object.entries(import.meta.glob('../page-config/**/index.ts'))
   .reduce((acc, [key, fn]) => {
@@ -14,7 +13,7 @@ export const usePageConfigs = () => {
 }
 
 export const usePageConfig = (name: string) => {
-  const config = ref<CompiledPageConfig | null>(null)
+  const config = ref<PageConfigOptions | null>(null)
 
   files[name]().then((c: PageConfigJSModule) => {
     config.value = c.default

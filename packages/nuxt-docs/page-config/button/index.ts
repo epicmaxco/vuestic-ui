@@ -5,12 +5,12 @@ export default definePageConfig({
   },
 
   blocks: [
-    block.title('button.title'),
-    block.paragraph('button.summaryText'),
-    block.alert('button.summaryText'),
-    block.component('default', { text: 'Hello' }),
     block.example('test'),
-    block.code('example.ts'),
-    block.markdown('# Hello'),
+    // block.title('button.title'),
+    // block.paragraph('button.summaryText'),
+    // block.alert('button.summaryText'),
+    // block.component('default', { text: 'Hello' }),
+    // block.code('example.ts'),
+    // block.markdown('# Hello'),
   ]
 })

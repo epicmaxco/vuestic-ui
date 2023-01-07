@@ -22,8 +22,8 @@ export type PageConfigOptions = {
 
 export type CompiledPageConfig = PageConfigOptions & { path: string }
 
-declare global {
-  function definePageConfig(options: PageConfigOptions): CompiledPageConfig
+// declare global {
+//   function definePageConfig(options: PageConfigOptions): CompiledPageConfig
 
-  const block: PageConfigBlockFabric
-}
+//   const block: PageConfigBlockFabric
+// }

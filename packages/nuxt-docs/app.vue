@@ -1,10 +1,9 @@
 <template>
   <div>
-    <NuxtPage />
+    <PageConfig v-if="config" :pageConfig="config" />
   </div>
 </template>
 
 <script setup>
-import pageConfig from './page-config/ui-elements/button'
-const { getColor } = useColors()
+const config = usePageConfig('button')
 </script>
