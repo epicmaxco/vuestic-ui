@@ -5,5 +5,5 @@
 </template>
 
 <script setup>
-const config = usePageConfig('button')
+const config = usePageConfig('ui-elements/button')
 </script>

@@ -15,6 +15,11 @@ export const usePageConfigs = () => {
 export const usePageConfig = (name: string) => {
   const config = ref<PageConfigOptions | null>(null)
 
+  if (!files[name]) {
+    console.log(`Page config ${name} not found`)
+    console.log(Object.keys(files))
+  }
+
   files[name]().then((c: PageConfigJSModule) => {
     config.value = c.default
   })

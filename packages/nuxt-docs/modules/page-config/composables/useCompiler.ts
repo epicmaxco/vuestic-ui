@@ -2,6 +2,7 @@ import { addVitePlugin } from '@nuxt/kit';
 import { createFilter } from '@rollup/pluginutils'
 import { createImporter } from '../compiler/create-importer'
 import { parseCode } from '../compiler/parse'
+import { extname } from 'path'
 
 export const useCompiler = (options: any) => {
   const filter = createFilter(options.include, options.exclude)
@@ -27,6 +28,43 @@ export const useCompiler = (options: any) => {
           const importSource = importer.importDefault(importName, `${importPath}?raw`)
           code = code.replace(block.code, (b) => {
             return b.replace(block.args[0], `${importComponent}, ${importSource}`)
+          })
+        }
+
+        if (block.type === 'component') {
+          const importName = block.args[0].slice(1, -1)
+          const importPath = await importer.resolvePath(`./components/${importName}`)
+          const importComponent = importer.importDefault(importName, importPath)
+          code = code.replace(block.code, (b) => {
+            return b.replace(block.args[0], `${importComponent}`)
+          })
+        }
+
+        if (block.type === 'code') {
+          const importName = block.args[0].slice(1, -1)
+          const importPath = await importer.resolvePath(`./code/${importName}`)
+          const importComponent = importer.importDefault(importName, importPath)
+          code = code.replace(block.code, (b) => {
+            return b.replace(block.args[0], `${importComponent}`)
+          })
+        }
+
+        if (block.type === 'file') {
+          const importName = block.args[0].slice(1, -1)
+          const importPath = (await this.resolve(`${importName}`)).id
+          const importComponent = importer.importDefault('file', importPath)
+          const importExt = block.args[1] || `'${extname(importPath).slice(1)}'`
+          code = code.replace(block.code, (b) => {
+            return b.replace(block.args[0], `${importComponent}, ${importExt}`)
+          })
+        }
+
+        if (block.type === 'api') {
+          const importName = block.args[0].slice(1, -1)
+          const importPath = (await this.resolve('vuestic-ui')).id
+          const importComponent = importer.importNamed(importName, importPath)
+          code = code.replace(block.code, (b) => {
+            return b.replace(block.args[0], `'${importName}', ${importComponent}`)
           })
         }
       }

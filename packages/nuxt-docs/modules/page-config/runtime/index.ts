@@ -3,12 +3,20 @@ import example from '../blocks/example'
 import title from '../blocks/title'
 import paragraph from '../blocks/paragraph'
 import subtitle from '../blocks/subtitle'
+import file from '../blocks/file'
+import code from '../blocks/code'
+import markdown from '../blocks/markdown'
+import api from '../blocks/api'
 
 export const block = {
   example,
   title,
   paragraph,
   subtitle,
+  file,
+  code,
+  markdown,
+  api,
 }
 
 export type GlobalBlock = typeof block

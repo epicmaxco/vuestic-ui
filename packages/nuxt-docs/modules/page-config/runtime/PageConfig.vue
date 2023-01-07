@@ -32,7 +32,6 @@ const resolveProps = (block: Block) => {
   <component
     v-for="block in blocks"
     :is="resolveComponent(block)"
-    :config="block"
     v-bind="resolveProps(block)"
    />
 </template>
