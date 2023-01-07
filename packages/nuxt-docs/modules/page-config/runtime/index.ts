@@ -1,8 +1,14 @@
 import { DefineComponent } from 'vue'
-import { example } from '../blocks/example'
+import example from '../blocks/example'
+import title from '../blocks/title'
+import paragraph from '../blocks/paragraph'
+import subtitle from '../blocks/subtitle'
 
 export const block = {
   example,
+  title,
+  paragraph,
+  subtitle,
 }
 
 export type GlobalBlock = typeof block

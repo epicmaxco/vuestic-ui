@@ -6,6 +6,10 @@ export default definePageConfig({
 
   blocks: [
     block.example('test'),
+    block.title("button.title"),
+    block.paragraph("button.summaryText"),
+
+    block.subtitle("all.examples"),
     // block.title('button.title'),
     // block.paragraph('button.summaryText'),
     // block.alert('button.summaryText'),

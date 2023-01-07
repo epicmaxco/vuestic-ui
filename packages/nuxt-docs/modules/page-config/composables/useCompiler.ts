@@ -1,6 +1,5 @@
 import { addVitePlugin } from '@nuxt/kit';
 import { createFilter } from '@rollup/pluginutils'
-import { dirname } from 'path'
 import { createImporter } from '../compiler/create-importer'
 import { parseCode } from '../compiler/parse'
 
@@ -32,17 +31,12 @@ export const useCompiler = (options: any) => {
         }
       }
 
-      console.log(importer.imports + code)
-
       /**
        * Add this context to all block call
        *
        * block.example('Button') -> block.example.call({ callerPath: '/..' }, 'Button')
        */
       return importer.imports + code
-      // code.replaceAll(/block.(\w*)\(.*\)/gm, (b, blockName) => {
-      //   return b.replace(`${blockName}(`, `${blockName}.call(${thisCode}, `)
-      // })
     },
   })
 }

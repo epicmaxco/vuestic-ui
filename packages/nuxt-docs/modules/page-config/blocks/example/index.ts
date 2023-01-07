@@ -12,7 +12,7 @@ const setup = (component: DefineComponent, source: string) => {
   }
 }
 
-export const example = definePageConfigBlock({
+export default definePageConfigBlock({
   setup: setup as unknown as (name: string) => ReturnType<typeof setup>,
   component: Component,
 })
