@@ -95,31 +95,34 @@ const methodsOptions = Object
 </script>
 
 <template>
-  <ApiTable title="Props" :columns="['Name', 'Description', 'Types', 'Default']" :data="propsOptions">
-    <template #name="{ data }">
-      <strong>{{ data.name }}</strong>
-      <va-badge v-if="data.required" class="ml-2" text="required" color="primary" />
-    </template>
-  </ApiTable>
+  <va-content>
+    <ApiTable title="Props" :columns="['Name', 'Description', 'Types', 'Default']" :data="propsOptions">
+      <template #name="{ data }">
+        <strong>{{ data.name }}</strong>
+        <va-badge v-if="data.required" class="ml-2" text="required" color="primary" />
+      </template>
+    </ApiTable>
 
-  <ApiTable title="Events" :columns="['Name', 'Description']" :data="eventsOptions">
-    <template #name="{ data }">
-      <strong>{{ data.name }}</strong>
-      <va-badge v-if="data.required" class="ml-2" text="required" color="primary" />
-    </template>
-  </ApiTable>
+    <ApiTable title="Events" :columns="['Name', 'Description']" :data="eventsOptions">
+      <template #name="{ data }">
+        <strong>{{ data.name }}</strong>
+        <va-badge v-if="data.required" class="ml-2" text="required" color="primary" />
+      </template>
+    </ApiTable>
 
-  <ApiTable title="Slots" :columns="['Name', 'Description']" :data="slotsOptions">
-    <template #name="{ data }">
-      <strong>{{ data.name }}</strong>
-      <va-badge v-if="data.required" class="ml-2" text="required" color="primary" />
-    </template>
-  </ApiTable>
+    <ApiTable title="Slots" :columns="['Name', 'Description']" :data="slotsOptions">
+      <template #name="{ data }">
+        <strong>{{ data.name }}</strong>
+        <va-badge v-if="data.required" class="ml-2" text="required" color="primary" />
+      </template>
+    </ApiTable>
 
-  <ApiTable title="Methods" :columns="['Name', 'Description']" :data="methodsOptions">
-    <template #name="{ data }">
-      <strong>{{ data.name }}</strong>
-      <va-badge v-if="data.required" class="ml-2" text="required" color="primary" />
-    </template>
-  </ApiTable>
+    <ApiTable title="Methods" :columns="['Name', 'Description']" :data="methodsOptions">
+      <template #name="{ data }">
+        <strong>{{ data.name }}</strong>
+        <va-badge v-if="data.required" class="ml-2" text="required" color="primary" />
+      </template>
+    </ApiTable>
+  </va-content>
+
 </template>
