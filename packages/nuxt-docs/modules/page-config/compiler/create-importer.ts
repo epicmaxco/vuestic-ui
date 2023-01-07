@@ -17,8 +17,12 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
       return name
     },
 
-    resolvePath: async (path: string) => {
+    resolveRelativePath: async (path: string) => {
       return (await ctx.resolve(resolve(dirname(caller), path))).id
+    },
+
+    resolveAbsolutePath: async (path: string) => {
+      return (await ctx.resolve(path)).id
     },
 
     get imports() {

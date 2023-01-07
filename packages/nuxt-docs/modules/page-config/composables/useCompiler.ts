@@ -23,49 +23,44 @@ export const useCompiler = (options: any) => {
       for (const block of blocks) {
         if (block.type === 'example') {
           const importName = block.args[0].slice(1, -1)
-          const importPath = await importer.resolvePath(`./examples/${importName}`)
+          const importPath = await importer.resolveRelativePath(`./examples/${importName}`)
           const importComponent = importer.importDefault(importName, importPath)
           const importSource = importer.importDefault(importName, `${importPath}?raw`)
-          code = code.replace(block.code, (b) => {
-            return b.replace(block.args[0], `${importComponent}, ${importSource}`)
-          })
+
+          code = block.replaceArgCode(0, `${importComponent}, ${importSource}`)
         }
 
         if (block.type === 'component') {
           const importName = block.args[0].slice(1, -1)
-          const importPath = await importer.resolvePath(`./components/${importName}`)
+          const importPath = await importer.resolveRelativePath(`./components/${importName}`)
           const importComponent = importer.importDefault(importName, importPath)
-          code = code.replace(block.code, (b) => {
-            return b.replace(block.args[0], `${importComponent}`)
-          })
+
+          code = block.replaceArgCode(0, importComponent)
         }
 
         if (block.type === 'code') {
           const importName = block.args[0].slice(1, -1)
-          const importPath = await importer.resolvePath(`./code/${importName}`)
+          const importPath = await importer.resolveRelativePath(`./code/${importName}`)
           const importComponent = importer.importDefault(importName, importPath)
-          code = code.replace(block.code, (b) => {
-            return b.replace(block.args[0], `${importComponent}`)
-          })
+
+          code = block.replaceArgCode(0, `${importComponent}`)
         }
 
         if (block.type === 'file') {
           const importName = block.args[0].slice(1, -1)
-          const importPath = (await this.resolve(`${importName}`)).id
+          const importPath = await importer.resolveAbsolutePath(`${importName}`)
           const importComponent = importer.importDefault('file', importPath)
           const importExt = block.args[1] || `'${extname(importPath).slice(1)}'`
-          code = code.replace(block.code, (b) => {
-            return b.replace(block.args[0], `${importComponent}, ${importExt}`)
-          })
+
+          code = block.replaceArgCode(0, `${importComponent}, ${importExt}`)
         }
 
         if (block.type === 'api') {
           const importName = block.args[0].slice(1, -1)
-          const importPath = (await this.resolve('vuestic-ui')).id
+          const importPath = await importer.resolveAbsolutePath('vuestic-ui')
           const importComponent = importer.importNamed(importName, importPath)
-          code = code.replace(block.code, (b) => {
-            return b.replace(block.args[0], `'${importName}', ${importComponent}`)
-          })
+
+          code = block.replaceArgCode(0, `'${importName}', ${importComponent}`)
         }
       }
 
