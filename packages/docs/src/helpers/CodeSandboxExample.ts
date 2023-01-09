@@ -48,6 +48,10 @@ const getCodeSandboxHtml = ({ requireIcons = false }: CodesandboxConfig): string
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     >
+    <link
+      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    >
     ${requireIcons ? iconsStyles : ''}
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
