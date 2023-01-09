@@ -41,9 +41,9 @@ export function useThrottleFunction<Output> (fn: ThrottledFunction<Output>, prop
    * to always keep undefined as possible return type. If function returns undefined itself
    * it will be still presented by typescript as undefined (expected behaviour).
    */
-  const lastCallResult = ref<Output>(undefined as any as Output) as Ref<Output>
+  let lastCallResult = undefined as any as Output
 
-  return function (this: ComponentInternalInstance, ...args: ThrottledFunctionArgs) {
+  return function (this: any, ...args: ThrottledFunctionArgs) {
     const invoke = () => fn.apply(this, args)
 
     if (!unref(delay)) { return invoke() }
@@ -53,10 +53,10 @@ export function useThrottleFunction<Output> (fn: ThrottledFunction<Output>, prop
 
       setTimeout(() => (isThrottled.value = true), unref(delay))
 
-      lastCallResult.value = invoke()
+      lastCallResult = invoke()
     }
 
-    return lastCallResult.value
+    return lastCallResult
   }
 }
 
