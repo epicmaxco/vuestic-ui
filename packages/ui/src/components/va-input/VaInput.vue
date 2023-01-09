@@ -219,12 +219,12 @@ export default defineComponent({
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
 
     const computedChildAttributes = computed(() => ({
-      ariaLabel: props.ariaLabel || props.label,
-      ariaRequired: props.requiredMark,
+      'aria-label': props.ariaLabel || props.label,
+      'aria-required': props.requiredMark,
       tabindex: tabIndexComputed.value,
       class: props.inputClass,
-      ariaDisabled: props.disabled,
-      ariaReadonly: props.readonly,
+      'aria-disabled': props.disabled,
+      'aria-readonly': props.readonly,
       ...validationAriaAttributes.value,
       ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)
