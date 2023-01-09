@@ -252,6 +252,7 @@ export default defineComponent({
     virtualScroller: { type: Boolean, default: false },
     virtualTrackBy: { type: [String, Number] as PropType<string | number>, default: 'initialIndex' },
     grid: { type: Boolean, default: false },
+    gridColumns: { type: Number, default: 0 },
   },
 
   emits: [
@@ -368,6 +369,8 @@ export default defineComponent({
 
     const isVirtualScroll = computed(() => props.virtualScroller && !props.grid)
 
+    const gridColumnsCount = computed(() => props.gridColumns || 'var(--va-data-table-grid-tbody-columns)')
+
     return {
       ...useTranslation(),
       scrollContainer,
@@ -395,6 +398,7 @@ export default defineComponent({
       doRenderTopTrigger,
       doRenderBottomTrigger,
       isVirtualScroll,
+      gridColumnsCount,
     }
   },
 })
@@ -411,6 +415,19 @@ export default defineComponent({
   --va-data-table-height--computed: v-bind('CSSVariables.tableHeight');
   --va-data-table-thead-background--computed: v-bind('CSSVariables.theadBg');
   --va-data-table-tfoot-background--computed: v-bind('CSSVariables.tfootBg');
+  --va-data-table-grid-tbody-columns: 4;
+
+  @include media-breakpoint-down(lg) {
+    --va-data-table-grid-tbody-columns: 3;
+  }
+
+  @include media-breakpoint-down(md) {
+    --va-data-table-grid-tbody-columns: 2;
+  }
+
+  @include media-breakpoint-down(sm) {
+    --va-data-table-grid-tbody-columns: 1;
+  }
 
   min-width: unset;
   font-family: var(--va-font-family);
@@ -579,13 +596,17 @@ export default defineComponent({
         .va-data-table__table-th {
           box-shadow: none;
         }
+
+        @include media-breakpoint-down(sm) {
+          flex-direction: column;
+        }
       }
     }
 
     .va-data-table__table-tbody {
       margin-top: var(--va-data-table-grid-tbody-margin-top);
       display: grid;
-      grid-template-columns: repeat(var(--va-data-table-grid-tbody-columns), minmax(0, 1fr));
+      grid-template-columns: repeat(v-bind(gridColumnsCount), minmax(0, 1fr));
       gap: var(--va-data-table-grid-tbody-gap);
 
       .va-data-table__table-tr {
@@ -595,6 +616,10 @@ export default defineComponent({
         flex-direction: column;
         border: var(--va-data-table-grid-tr-border);
         border-radius: var(--va-data-table-grid-tr-border-radius);
+      }
+
+      .va-data-table__table-td {
+        overflow: hidden;
       }
     }
 
