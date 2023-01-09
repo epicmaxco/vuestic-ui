@@ -184,14 +184,14 @@
     },
     "VaBadge": {
       "props": {
-        "text": "Badge text",
+        "text": "Badge text.",
         "overlap": "Allows badge to overlap with element.",
         "transparent": "Makes badge semi-transparent.",
         "multiLine": "Badge text will wrap to next line.",
         "visibleEmpty": "Badge will be shown even when there is no text.",
         "dot": "Shows dot instead of full badge. Useful to notify user without grabbing too much attention.",
-        "left": "Sets the component position to the left-top corner.",
-        "bottom": "Sets the component position to the bottom-right corner."
+        "placement": "Badge will be placed on `placement` side of the base element.",
+        "offset": "Moves badge relatively to main axis."
       }
     },
     "VaButton": {
@@ -204,9 +204,9 @@
       },
       "slots": {
         "default": "Default slot for button's content.",
-        "append": "Slot to input before button's content. Slot scope properties available: `{ icon, iconAttributes }`.",
-        "prepend": "Slot to input after button's content. Slot scope properties available: `{ icon, iconAttributes }`.",
-        "loading": "Slot for loading state. Slot scope properties available: `{ icon, iconAttributes }`."
+        "append": "Slot to input before button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
+        "prepend": "Slot to input after button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
+        "loading": "Slot for loading state. Slot scope properties available: `{'{ icon, iconAttributes }'}`."
       },
       "events": {
         "click": "Emitted when user clicks on button"
@@ -563,6 +563,9 @@
       },
       "slots": {
         "default": "Use this slot to replace default content to be displayed inside the component"
+      },
+      "events": {
+        "error": "Triggers when failed to load an image"
       }
     },
     "VaCheckbox": {
@@ -583,7 +586,8 @@
         "reverse": "Reverse the progress bar direction",
         "rounded": "Add a border radius to the `va-progress-bar` component (default: true)",
         "contentInside": "Sets the content of the slot inside the progress bar",
-        "showPercent": "Shows the indicator value with a percent sign"
+        "showPercent": "Shows the indicator value with a percent sign",
+        "max": "Maximum value"
       },
       "slots": {
         "default": "Display any additional info about the progress"
@@ -839,7 +843,11 @@
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
         "bordered": "Applies style with bottom border",
         "requiredMark": "Adds required mark to the label",
-        "separator": "Text to separate selected values"
+        "separator": "Text to separate selected values",
+        "maxVisibleOptions": "Max selected options amount, that will be shown inside of input wrapper.",
+        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
+        "selectedTopShown": "Selected options will be shown at the top of the options list.",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction."
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -856,7 +864,9 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content",
         "content": "Adds an item instead the input",
-        "option": "Allows to specify option template"
+        "option": "Allows to specify option template",
+        "hiddenOptionsBadge": "Replaces default badge with hidden options counter (see `maxVisibleOptions` prop).",
+        "hideOptionsButton": "Replaces default button for hiding selected options that are over the limit (see `maxVisibleOptions` prop)."
       }
     },
     "VaParallax": {
@@ -909,7 +919,7 @@
         "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
         "trigger": "Action that will open and close dropdown.",
         "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
-        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
         "isContentHoverable": "If true, dropdown content will be hoverable",
         "innerAnchorSelector": "Anchor CSS selector inside passed slot.",
         "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
@@ -1761,6 +1771,14 @@
       "withIcon": {
         "title": "With icon",
         "text": "The `icon` prop is used to display icon inside an avatar."
+      },
+      "group": {
+        "title": "Grouped",
+        "text": "You can use `va-avatar-group` component to group avatars."
+      },
+      "fallback": {
+        "title": "Fallback",
+        "text": "You can set fallback image."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"
@@ -1833,7 +1851,7 @@
       },
       "position": {
         "title": "Position",
-        "text": "`left` and `bottom` properties allows you to align the badge by left-top or right-bottom corner (relatively to the base element)."
+        "text": "The `placement` allows you to set placement of the badge relatively to the base element. Available values: `top/bottom/left/right - start/center/end`. The `offset` prop allows you to amend the selected position - it moves badge forward or backward relatively to the main axis (`top/bottom/left/right`)."
       },
       "dot": {
         "title": "Dot",
@@ -2671,6 +2689,10 @@
       "buffer": {
         "title": "Buffer",
         "text": "When dealing with media content like streaming videos we can use progress bars to show the buffering progress indicator on a video."
+      },
+      "max": {
+        "title": "Maximum value",
+        "text": "You can set maximum value for progress bar component"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-progress-bar/_variables.scss)[[target=_blank]]"
@@ -3229,6 +3251,14 @@
       "styles": {
         "title": "Styles",
         "text": "Select styles inherit from input styles"
+      },
+      "maxVisibleOptions": {
+        "title": "Max visible selected options",
+        "text": "The `max-visible-options` props sets amount of selected options, that will be shown inside of input wrapper. The rest will be hidden, but may be shown after clicking the badge with hidden options counter."
+      },
+      "selectedTopShown": {
+        "title": "Displaying selected options at the top of the list",
+        "text": "The `selected-top-shown` prop forces to display selected options at the top of the options list."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-select/_variables.scss)[[target=_blank]]"
@@ -3612,6 +3642,10 @@
     "css": {
       "title": "CSS Code Split",
       "description": "We separated our CSS into modules: `essential`, `typography`, `grid` and `reset`. Instead of import `vuestic/css` you can import `vuestic/styles/essential.css` - module without typography, grid and normalize. This is usually need if you already using some CSS framework to prevent style conflicts."
+    },
+    "bundleSize": {
+      "title": "Bundle Size",
+      "description": "Statistics of the space occupied in the project bundle (without gzip):"
     }
   },
   "roadmap": {

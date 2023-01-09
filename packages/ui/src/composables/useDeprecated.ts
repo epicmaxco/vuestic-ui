@@ -1,14 +1,19 @@
-import { __DEV__ } from '../utils/env'
 import { unref, Ref, getCurrentInstance } from 'vue'
 
-type DeprecationSource = 'attrs' | 'slots'
+import { __DEV__ } from '../utils/env'
 
-const OPTIONS_LIST: Record<DeprecationSource, 'prop' | 'slot'> = {
+type DeprecationSource = 'slots' | 'props' | 'attrs'
+
+const OPTIONS_LIST: Record<DeprecationSource, string> = {
+  props: 'prop',
   attrs: 'prop',
   slots: 'slot',
 }
 
-export function useDeprecated (deprecatedList: Ref<string[]> | string[], deprecationSource: DeprecationSource = 'attrs') {
+export const useDeprecated = (
+  deprecatedList: Ref<string[]> | string[],
+  deprecationSource: DeprecationSource[] = ['props', 'attrs'],
+) => {
   if (!__DEV__) { return undefined }
 
   const instance = getCurrentInstance()
@@ -17,13 +22,31 @@ export function useDeprecated (deprecatedList: Ref<string[]> | string[], depreca
     throw new Error('`useDeprecated` hook must be used only inside of setup function!')
   }
 
-  const instanceOptions = { ...instance[deprecationSource] }
   const instanceName = instance.type.name
-  const option = OPTIONS_LIST[deprecationSource]
+  const deprecatedItems = unref(deprecatedList)
 
-  Object.keys(instanceOptions).forEach((key) => {
-    if (unref(deprecatedList).includes(key)) {
+  deprecationSource.every((source) => {
+    const option = OPTIONS_LIST[source]
+
+    const throwWarning = (key: string) =>
       console.warn(`The '${key}' ${option} (${instanceName} component) is deprecated! Please, check the documentation.`)
+
+    if (source === 'props') {
+      const propsOptions = (instance as any).propsOptions?.[0] || {}
+      const propsValues = instance.props || {}
+
+      // checking if default prop value isn't equal to the current one -> it's deprecated and used
+      deprecatedItems.forEach((propName) => {
+        propsOptions[propName] && (propsValues[propName] !== propsOptions[propName].default) && throwWarning(propName)
+      })
+
+      return true
     }
+
+    Object.keys({ ...instance[source] }).forEach((key) => {
+      if (deprecatedItems.includes(key)) { throwWarning(key) }
+    })
+
+    return true
   })
 }
