@@ -129,23 +129,19 @@ const useTreeKeyboardNavigation = (
     const currentElement = event.target as HTMLElement
 
     switch (event.code) {
-      case 'ArrowUp': {
+      case 'ArrowUp':
         onVerticalMove(currentElement, 'up')
         break
-      }
-      case 'ArrowRight': {
+      case 'ArrowRight':
         onHorizontalMove(currentElement, 'right', node)
         break
-      }
-      case 'ArrowDown': {
+      case 'ArrowDown':
         onVerticalMove(currentElement, 'down')
         break
-      }
-      case 'ArrowLeft': {
+      case 'ArrowLeft':
         onHorizontalMove(currentElement, 'left', node)
         break
-      }
-      case 'Space': {
+      case 'Space':
         if (props.selectable) {
           const state = typeof node.checked !== 'undefined' ? !node.checked : null
 
@@ -155,8 +151,7 @@ const useTreeKeyboardNavigation = (
         }
 
         break
-      }
-      case 'Escape': {
+      case 'Escape':
         if (!props.selectable) {
           emit('update:selected', null)
         }
@@ -164,7 +159,6 @@ const useTreeKeyboardNavigation = (
         currentElement.blur()
 
         break
-      }
       default:
         currentElement.blur()
     }
