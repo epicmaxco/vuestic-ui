@@ -30,10 +30,12 @@ type UseButtonTextColor = (
 const getOpacity = (opacity: number): number => {
   if (isServer()) { return opacity }
 
-  if (/^((?!chrome|android).)*safari/i.test(window?.navigator?.userAgent)) {
-    const isLatestSafari = /(version.)15|16/i.test(window?.navigator?.userAgent)
+  if (opacity > 0) {
+    const userAgent = window?.navigator?.userAgent
+    const isSafari = userAgent && /^((?!chrome|android).)*safari/i.test(window?.navigator?.userAgent)
+    const isLatestSafari = userAgent && /(version.)15|16/i.test(window?.navigator?.userAgent)
 
-    if (!isLatestSafari) {
+    if (isSafari && !isLatestSafari) {
       return opacity < 1 ? 1 - opacity : opacity
     }
   }
