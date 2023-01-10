@@ -5,8 +5,13 @@ registerVuesticWebComponents({
   components: {
     VaButton,
     VaSelect,
-    VaTab,
+    // Make sure to register VaTabs before VaTab, otherwise VaTab will be rendered before parent
+    // and provide/inject will not work.
+    // This is because Parent component provides `parent` for instance of Child component after
+    // custom element is connected. If child is connected before parent, then VNode will have no `parent` from Parent
+    // This will make `provides` filed empty.
     VaTabs,
+    VaTab,
   },
 
   css: `
