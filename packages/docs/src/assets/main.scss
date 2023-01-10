@@ -3,7 +3,4 @@
 @import "./smart-grid.scss";
 @import "./colors.scss";
 @import "./fonts.scss";
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "./tailwind.scss";
