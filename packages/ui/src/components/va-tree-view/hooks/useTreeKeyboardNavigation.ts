@@ -108,7 +108,7 @@ const useTreeKeyboardNavigation = (
       } else {
         getParentElement(currentElement)?.focus()
       }
-    } else if (dir === 'right') {
+    } else {
       if (!isCurrentElementExpanded) {
         toggleNode(node)
       } else {
@@ -120,7 +120,7 @@ const useTreeKeyboardNavigation = (
   const onVerticalMove = (currentElement: HTMLElement, dir: 'up' | 'down') => {
     if (dir === 'up') {
       findPreviousElement(currentElement)?.focus()
-    } else if (dir === 'down') {
+    } else {
       findNextElement(currentElement)?.focus()
     }
   }
