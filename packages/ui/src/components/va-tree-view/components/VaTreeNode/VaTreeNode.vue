@@ -129,9 +129,9 @@ export default defineComponent({
     const tabIndexComputed = computed(() => props.node.disabled ? -1 : 0)
 
     const onNodeClick = (type: typeof expandNodeBy) => {
-      type = expandNodeBy === 'node' && type === 'leaf' ? 'node' : type
+      const nodeType = expandNodeBy === 'node' && type === 'leaf' ? 'node' : type
 
-      if (expandNodeBy === type) {
+      if (expandNodeBy === nodeType) {
         toggleNode(props.node)
       }
 

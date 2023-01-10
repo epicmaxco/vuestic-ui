@@ -58,7 +58,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       const value = getValue(node)
 
       if (selectedNode.value !== value) {
-        selectedNode.value = getValue(node)
+        selectedNode.value = value
         emit('update:selected', node)
       }
     },

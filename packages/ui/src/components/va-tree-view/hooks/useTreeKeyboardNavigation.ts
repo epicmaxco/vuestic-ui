@@ -14,7 +14,7 @@ const useTreeKeyboardNavigation = (
 ) => {
   const { emit, toggleNode, toggleCheckbox } = methods
   const isElementExpanded = (currentElement: TreeNodeElement): boolean =>
-    currentElement?.getAttribute('aria-expanded') === 'true' || false
+    currentElement?.getAttribute('aria-expanded') === 'true'
 
   const getParentElement = (currentElement: TreeNodeElement): TreeNodeElement =>
     currentElement?.parentElement?.closest('.va-tree-node') || null
@@ -99,11 +99,19 @@ const useTreeKeyboardNavigation = (
     return (currentElement?.querySelector('.va-tree-node-children')?.lastElementChild || null) as TreeNodeElement
   }
 
-  const onHorizontalMove = (currentElement: TreeNodeElement, dir: 'left' | 'right') => {
+  const onHorizontalMove = (currentElement: TreeNodeElement, dir: 'left' | 'right', node: TreeNode) => {
+    const isCurrentElementExpanded = isElementExpanded(currentElement)
+
     if (dir === 'left') {
-      getParentElement(currentElement)?.focus()
+      if (isCurrentElementExpanded) {
+        toggleNode(node)
+      } else {
+        getParentElement(currentElement)?.focus()
+      }
     } else if (dir === 'right') {
-      if (isElementExpanded(currentElement)) {
+      if (!isCurrentElementExpanded) {
+        toggleNode(node)
+      } else {
         getFirstChildElement(currentElement)?.focus()
       }
     }
@@ -112,9 +120,7 @@ const useTreeKeyboardNavigation = (
   const onVerticalMove = (currentElement: HTMLElement, dir: 'up' | 'down') => {
     if (dir === 'up') {
       findPreviousElement(currentElement)?.focus()
-    }
-
-    if (dir === 'down') {
+    } else if (dir === 'down') {
       findNextElement(currentElement)?.focus()
     }
   }
@@ -128,12 +134,7 @@ const useTreeKeyboardNavigation = (
         break
       }
       case 'ArrowRight': {
-        if (!isElementExpanded(currentElement)) {
-          toggleNode(node)
-        } else {
-          onHorizontalMove(currentElement, 'right')
-        }
-
+        onHorizontalMove(currentElement, 'right', node)
         break
       }
       case 'ArrowDown': {
@@ -141,12 +142,7 @@ const useTreeKeyboardNavigation = (
         break
       }
       case 'ArrowLeft': {
-        if (isElementExpanded(currentElement)) {
-          toggleNode(node)
-        } else {
-          onHorizontalMove(currentElement, 'left')
-        }
-
+        onHorizontalMove(currentElement, 'left', node)
         break
       }
       case 'Space': {
