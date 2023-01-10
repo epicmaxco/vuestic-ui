@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div
-      class="primary-danger-gradient d-flex justify-space-around align-center"
+      class="primary-danger-gradient d-flex justify-around align-center"
     >
       <span class="px-2">Primary</span>
       <span class="px-2">Success</span>

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex lg6 xs12">
+  <div class="flex flex-col lg6 xs12">
     <div class="mt-2 text--bold muted">When you use a default slot:</div>
     <va-progress-bar :model-value="value">
       {{ value }}

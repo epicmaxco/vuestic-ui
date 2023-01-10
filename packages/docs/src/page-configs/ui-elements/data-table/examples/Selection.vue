@@ -1,20 +1,20 @@
 <template>
   <div class="row">
     <va-checkbox
-      class="flex mb-2 md4"
+      class="flex flex-col mb-2 md4"
       label="Selectable"
       v-model="selectable"
     />
 
     <va-select
-      class="flex mb-2 md4"
+      class="flex flex-col mb-2 md4"
       v-model="selectMode"
       label="Select mode"
       :options="selectModeOptions"
     />
 
     <va-select
-      class="flex mb-2 md4"
+      class="flex flex-col mb-2 md4"
       v-model="selectedColor"
       label="Selected color"
       :options="selectColorOptions"

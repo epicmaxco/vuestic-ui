@@ -1,5 +1,5 @@
 <template>
-  <div class="my-8 flex lg4 xs12">
+  <div class="my-8 flex flex-col lg4 xs12">
     <p class="example-item">
       <va-icon class="ml-3" name="home" />
       <span class="ml-6">I'm a list item</span>

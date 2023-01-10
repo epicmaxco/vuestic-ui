@@ -6,23 +6,23 @@
 .seamless-another-button {
   cursor: pointer;
   position: relative;
-  background-color: #16a085 !important;
+  background-color: #16a085;
   border: none;
-  color: #ffffff !important;
+  color: #ffffff;
   transition-duration: 0.4s;
   overflow: hidden !important;
   border-radius: 4px;
   padding: 8px 16px !important;
 
   &:hover {
-    background: #ffffff !important;
+    background: #ffffff;
     box-shadow: 0 2px 10px 5px #1abc9c;
-    color: #000000 !important;
+    color: #000000;
   }
 
   &::after {
     content: "";
-    background: #1abc9c !important;
+    background: #1abc9c;
     display: block;
     position: absolute;
     padding-top: 300%;

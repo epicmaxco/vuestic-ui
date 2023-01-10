@@ -65,7 +65,7 @@
       v-model="value"
     >
       <template v-slot:option="{ option, index, selectOption }">
-        <div class="d-flex justify-space-between align-center p-2">
+        <div class="d-flex justify-between align-center p-2">
           Have a nice day!
           <va-button
             class="mb-2"

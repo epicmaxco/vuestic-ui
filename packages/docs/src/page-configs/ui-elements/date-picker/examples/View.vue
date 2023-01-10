@@ -1,16 +1,16 @@
 <template>
   <div class="flex row">
-    <div class="flex">
+    <div class="flex flex-col">
       <h6>Day, 1st month, 2000 year</h6>
       <va-date-picker stateful v-model:view="dayView" />
     </div>
 
-    <div class="flex">
+    <div class="flex flex-col">
       <h6>Month, 2000 year</h6>
       <va-date-picker stateful v-model:view="monthView" />
     </div>
 
-    <div class="flex">
+    <div class="flex flex-col">
       <h6>Year, 2000 year</h6>
       <va-date-picker stateful v-model:view="yearView" />
     </div>

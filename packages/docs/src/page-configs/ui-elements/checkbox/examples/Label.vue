@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-direction-column">
+  <div class="d-flex flex-col">
     <va-checkbox class="mb-6" v-model="value" :label="label" />
     <va-checkbox class="mb-6" v-model="value" :label="longLabel" />
     <va-checkbox v-model="value" :label="leftLabel" left-label />

@@ -1,14 +1,14 @@
 <template>
   <div class="flex row">
-    <div class="flex">
+    <div class="flex flex-col">
       <va-date-picker v-model="value" type="day" disabled />
     </div>
 
-    <div class="flex">
+    <div class="flex flex-col">
       <va-date-picker v-model="value" type="month" disabled />
     </div>
 
-    <div class="flex">
+    <div class="flex flex-col">
       <va-date-picker v-model="value" type="year" disabled />
     </div>
   </div>

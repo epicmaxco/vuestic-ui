@@ -5,7 +5,7 @@
         <va-avatar src="https://randomuser.me/api/portraits/men/3.jpg" size="128px" />
       </div>
 
-      <div class="pl-2 d-flex flex-direction-column justify-end">
+      <div class="pl-2 d-flex flex-col justify-end">
         <span class="title">Profile</span>
         <div class="text-2xl font-bold">User</div>
 
