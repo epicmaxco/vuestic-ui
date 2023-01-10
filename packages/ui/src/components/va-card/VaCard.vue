@@ -12,10 +12,7 @@
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
   >
-    <div v-if="stripe" class="va-card__stripe" :style="stripeStyles" />
-    <div class="va-card__inner" @click="$emit('click', $event)">
-      <slot />
-    </div>
+    <slot />
   </component>
 </template>
 
@@ -35,7 +32,7 @@ import {
 
 export default defineComponent({
   name: 'VaCard',
-  emits: ['click'],
+
   props: {
     ...useRouterLinkProps,
     ...useComponentPresetProp,
@@ -52,15 +49,16 @@ export default defineComponent({
     textColor: { type: String },
     color: { type: String, default: 'background-secondary' },
   },
+
   setup (props) {
     const { getColor } = useColors()
     const { isLinkTag, tagComputed, hrefComputed } = useRouterLink(props)
     const { textColorComputed } = useTextColor()
 
-    const stripeStyles = computed(() => ({ background: getColor(props.stripeColor) }))
+    const stripeColorComputed = computed(() => getColor(props.stripeColor))
 
     const classComputed = useBem('va-card', () => ({
-      ...pick(props, ['square', 'outlined', 'disabled']),
+      ...pick(props, ['square', 'outlined', 'disabled', 'stripe']),
       noBorder: !props.bordered,
       link: isLinkTag.value,
     }))
@@ -79,7 +77,7 @@ export default defineComponent({
     return {
       classComputed,
       cardStyles,
-      stripeStyles,
+      stripeColorComputed,
       tagComputed,
       hrefComputed,
     }
@@ -101,19 +99,14 @@ export default defineComponent({
   background-color: var(--va-card-background-color);
   font-family: var(--va-font-family);
 
-  &__inner {
-    width: 100%;
-    height: 100%;
+  & > div:first-child {
+    border-top-right-radius: var(--va-card-border-radius);
+    border-top-left-radius: var(--va-card-border-radius);
+  }
 
-    & > div:first-child {
-      border-top-right-radius: var(--va-card-border-radius);
-      border-top-left-radius: var(--va-card-border-radius);
-    }
-
-    & > div:last-child {
-      border-bottom-right-radius: var(--va-card-border-radius);
-      border-bottom-left-radius: var(--va-card-border-radius);
-    }
+  & > div:last-child {
+    border-bottom-right-radius: var(--va-card-border-radius);
+    border-bottom-left-radius: var(--va-card-border-radius);
   }
 
   &--square {
@@ -137,13 +130,18 @@ export default defineComponent({
     cursor: pointer;
   }
 
-  &__stripe {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: var(--va-card-stripe-border-size);
-    top: 0;
-    left: 0;
+  &--stripe {
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: var(--va-card-stripe-border-size);
+      top: 0;
+      left: 0;
+      background: v-bind(stripeColorComputed);
+      border-top-right-radius: var(--va-card-border-radius);
+      border-top-left-radius: var(--va-card-border-radius);
+    }
   }
 
   &__title,

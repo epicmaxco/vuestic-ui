@@ -12,6 +12,56 @@
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
     <VbCard
+      title="Selected options at the top"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultMultiSelect.value"
+        class="mb-4"
+        :options="defaultMultiSelect.options"
+        selected-top-shown
+        multiple
+      />
+      <p>Value: {{ defaultMultiSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Max visible options"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultMultiSelect.value"
+        class="mb-4"
+        :options="defaultMultiSelect.options"
+        :max-visible-options="2"
+        multiple
+      />
+      <p>Value: {{ defaultMultiSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Max visible options with content slot"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultMultiSelect.value"
+        class="mb-4"
+        :options="defaultMultiSelect.options"
+        :max-visible-options="2"
+        multiple
+      >
+        <template #content="{ value }">
+          <va-chip
+            v-for="chip in value"
+            :key="chip"
+            class="mr-1"
+            size="small"
+          >
+            {{ chip }}
+          </va-chip>
+        </template>
+      </va-select>
+      <p>Value: {{ defaultMultiSelect.value }}</p>
+    </VbCard>
+    <VbCard
       title="Disabled options"
       style="width: 400px;"
     >

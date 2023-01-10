@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "build:ci": "vue-cli-service build",
+    "serve": "yarn build:analysis && vue-cli-service serve",
+    "build": "yarn build:analysis && vue-cli-service build",
+    "build:ci": "yarn build:analysis && vue-cli-service build",
+    "build:analysis": "npx lerna run build:bundle-analysis --scope=sandbox",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}' --fix",
     "test:unit": "vue-cli-service test:unit",
