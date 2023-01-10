@@ -5,57 +5,75 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vuestic sandbox</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    />
   </head>
   <body>
     <div id="app">
-      <va-button id="button">Button</va-button>
-      <va-select id="select" stateful></va-select>
-      <va-tabs model-value="0" id="tabs">
-        <slot slot="tabs">
-          <va-tab name="0">One</va-tab>
-          <va-tab name="1">Two</va-tab>
-          <va-tab name="2">Three</va-tab>
-        </slot>
-      </va-tabs>
-      <div>
-        aaa
-      </div>
+      <va-config id="config">
+        <va-button id="button">Button</va-button>
+        <va-select id="select" stateful></va-select>
+        <va-tabs model-value="0" id="tabs">
+          <slot slot="tabs">
+            <va-tab name="0">One</va-tab>
+            <va-tab name="1">Two</va-tab>
+            <va-tab name="2">Three</va-tab>
+          </slot>
+        </va-tabs>
+      </va-config>
+      <div>aaa</div>
     </div>
     <script type="module" src="/src/main.ts"></script>
     <script>
-      const button = document.getElementById('button')
-  
-      button.addEventListener('click', () => {
-        console.log('clicked')
-      })
+      const button = document.getElementById("button");
+
+      button.addEventListener("click", () => {
+        console.log("clicked");
+      });
     </script>
 
     <script>
-      const select = document.getElementById('select')
+      const select = document.getElementById("select");
 
-      select.options = [
-        'Option 1',
-        'Option 2',
-        'Option 3',
-      ]
+      select.options = ["Option 1", "Option 2", "Option 3"];
 
       // TODO: Must work with stateful I guess.
-      select.addEventListener('update:modelValue', (e) => {
-        e.target.modelValue = e.detail
-      })
+      select.addEventListener("update:modelValue", (e) => {
+        e.target.modelValue = e.detail;
+      });
     </script>
 
-  <script>
-    const tabs = document.getElementById('tabs')
+    <script>
+      const tabs = document.getElementById("tabs");
 
-    // TODO: Must work with stateful I guess.
-    tabs.addEventListener('update:modelValue', (e) => {
-      e.target.modelValue = e.detail[0]
-    })
-  </script>
+      // TODO: Must work with stateful I guess.
+      tabs.addEventListener("update:modelValue", (e) => {
+        e.target.modelValue = e.detail[0];
+      });
+    </script>
+
+    <script>
+      const config = document.getElementById("config");
+
+      config.components = {
+        VaButton: {
+          color: "danger",
+        },
+      };
+    </script>
   </body>
 </html>

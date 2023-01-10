@@ -1,4 +1,4 @@
-import { registerVuesticWebComponents, VaButton, VaSelect, VaTab, VaTabs } from 'vuestic-ui/web-components'
+import { registerVuesticWebComponents, VaButton, VaSelect, VaTab, VaTabs, VaConfig } from 'vuestic-ui/web-components'
 import 'vuestic-ui/css'
 
 registerVuesticWebComponents({
@@ -7,6 +7,7 @@ registerVuesticWebComponents({
     VaSelect,
     VaTab,
     VaTabs,
+    VaConfig,
   },
 
   css: `
