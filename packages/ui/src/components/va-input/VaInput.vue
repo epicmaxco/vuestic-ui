@@ -5,6 +5,7 @@
     :class="$attrs.class"
     :style="$attrs.style"
     :color="$props.color"
+    :background="$props.background"
     :readonly="$props.readonly"
     :disabled="$props.disabled"
     :success="$props.success"
@@ -135,6 +136,7 @@ export default defineComponent({
 
     // style
     color: { type: String, default: 'primary' },
+    background: { type: String, default: 'background-element' },
     outline: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
     requiredMark: { type: Boolean, default: false },
