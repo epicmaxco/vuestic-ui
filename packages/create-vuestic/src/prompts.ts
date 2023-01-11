@@ -44,18 +44,18 @@ const questions = definePrompts([
   {
     type: 'select',
     name: 'projectType' as const,
-    message: 'Project type',
+    message: 'Project template',
     initial: 0,
     choices: [
-      { title: 'create-vue', value: 'create-vue' as const },
-      { title: 'nuxt', value: 'nuxt' as const },
-      { title: 'Vuestic Admin', value: 'vuestic-admin' as const },
+      { title: 'Vuestic Admin', description: 'SPA project based on Vite with predefined Admin Template for quick start', value: 'vuestic-admin' as const },
+      { title: 'Create-vue', description: 'Clean project based on Vite (the same as created with create-vue)', value: 'create-vue' as const },
+      { title: 'Nuxt', description: 'SPA/SSG/SSR based on Nuxt framework', value: 'nuxt' as const },
     ],
   },
   {
     type: (prev) => prev === 'create-vue' ? 'multiselect' : null,
     name: 'projectFeatures' as const,
-    message: 'Project features',
+    message: 'Create-vue features',
     initial: 0,
     choices: [
       { title: 'TypeScript', value: 'ts' as const, description: 'Vuestic has a great TS support, so we recommend to use it with TS' },
@@ -64,22 +64,24 @@ const questions = definePrompts([
       { title: 'Vue router', value: 'router' as const, description: 'for Single Page Application development' },
       { title: 'Vitest', value: 'vitest' as const, description: 'for unit testing' },
       { title: 'Cypress', value: 'cypress' as const, description: 'for End-to-End testing' },
+      { title: 'Playwright', value: 'playwright' as const, description: 'for End-to-End testing' },
+      { title: 'JSX', value: 'jsx' as const, description: '' },
     ],
   },
   {
     type: skipVuesticAdmin('multiselect' as const),
     name: 'vuesticFeatures' as const,
-    message: 'Vuestic features',
+    message: 'Vuestic features (can be manually added later)',
     initial: 0,
     choices: [
-      { title: 'AG Grid', value: 'agGrid' as const, description: 'You can configure it later' },
-      { title: 'Tree shaking', value: 'treeShaking' as const, description: 'You can configure it later' },
+      { title: 'AG Grid', value: 'agGrid' as const, description: 'Install Vuestic AG Grid theme for complex data tables' },
+      { title: 'Tree shaking', value: 'treeShaking' as const, description: 'You will need to register each component manually, but it will decrees bundle size' },
     ],
   },
   {
     type: skipVuesticAdminFn((prev) => prev.includes('treeShaking') ? 'multiselect' : null),
     name: 'treeShaking' as const,
-    message: 'Vuestic tree shaking',
+    message: 'Vuestic CSS modules',
     initial: 0,
     choices: [
       { title: 'grid.css', value: 'grid' as const },
