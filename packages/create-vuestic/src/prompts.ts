@@ -4,7 +4,7 @@ import { isProjectExists } from './utils/is-project-exists';
 import chalk from 'chalk';
 import { PromptType } from 'prompts';
 
-const skipVuesticAdmin = <T extends PromptType>(cb: T) => (type, answers, rest) => {
+const skipVuesticAdmin = <T extends PromptType>(cb: T) => (type: T, answers, rest) => {
   if (answers.projectType === 'vuestic-admin') {
     return null
   }
@@ -24,13 +24,13 @@ const skipVuesticAdminFn = <TT extends PromptType | null>(cb: (...args: any[]) =
 const questions = definePrompts([
   {
     type: 'text',
-    name: 'projectName',
+    name: 'projectName' as const,
     message: 'Project name',
     initial: 'vuestic-app',
   },
   {
     type: (prev) => isProjectExists(prev) ? 'confirm' : null,
-    name: 'removeProject',
+    name: 'removeProject' as const,
     message: `Project folder already exists. ${chalk.red('Should we remove it')} and init new project?`,
     initial: false,
     onState({ value }) {
@@ -43,7 +43,7 @@ const questions = definePrompts([
   },
   {
     type: 'select',
-    name: 'projectType',
+    name: 'projectType' as const,
     message: 'Project type',
     initial: 0,
     choices: [
@@ -54,11 +54,11 @@ const questions = definePrompts([
   },
   {
     type: (prev) => prev === 'create-vue' ? 'multiselect' : null,
-    name: 'projectFeatures',
+    name: 'projectFeatures' as const,
     message: 'Project features',
     initial: 0,
     choices: [
-      { title: 'TypeScript', value: 'ts' as const, selected: true, description: 'Vuestic has a great TS support, so we recommend to use it with TS' },
+      { title: 'TypeScript', value: 'ts' as const, description: 'Vuestic has a great TS support, so we recommend to use it with TS' },
       { title: 'Eslint', value: 'eslint' as const, description: 'for code quality' },
       { title: 'Pinia', value: 'pinia' as const, description: 'for state management' },
       { title: 'Vue router', value: 'router' as const, description: 'for Single Page Application development' },
@@ -67,8 +67,8 @@ const questions = definePrompts([
     ],
   },
   {
-    type: skipVuesticAdmin('multiselect'),
-    name: 'vuesticFeatures',
+    type: skipVuesticAdmin('multiselect' as const),
+    name: 'vuesticFeatures' as const,
     message: 'Vuestic features',
     initial: 0,
     choices: [
@@ -78,7 +78,7 @@ const questions = definePrompts([
   },
   {
     type: skipVuesticAdminFn((prev) => prev.includes('treeShaking') ? 'multiselect' : null),
-    name: 'treeShaking',
+    name: 'treeShaking' as const,
     message: 'Vuestic tree shaking',
     initial: 0,
     choices: [
@@ -89,13 +89,13 @@ const questions = definePrompts([
   },
   {
     type: "confirm",
-    name: "runGitInit",
+    name: "runGitInit" as const,
     message: "Initialize a new git repository?",
     initial: true,
   },
   {
     type: "confirm",
-    name: "runInstall",
+    name: "runInstall" as const,
     message: () => {
       const packageManager = getPackageManagerName()
       return `Would you like to run \`${packageManager} install\` after finishing up?`
@@ -104,8 +104,8 @@ const questions = definePrompts([
   }
 ])
 
-export const getUserAnswers = async () => {
+export const getUserAnswers = () => {
   return createPrompts(questions)
 }
 
-export type UserAnswers = Awaited<ReturnType<typeof getUserAnswers>>
+export type UserAnswers = ReturnType<typeof getUserAnswers>
