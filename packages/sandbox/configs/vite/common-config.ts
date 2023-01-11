@@ -47,6 +47,12 @@ export default function createViteConfig (type: BuildType) {
       },
     },
 
+    resolve: {
+      alias: {
+        'vuestic-ui': '../../node_modules/vuestic-ui'
+      },
+    },
+
     plugins: [vue(), isBase ? visualizerPlugin : analyzerPlugin],
   })
 }

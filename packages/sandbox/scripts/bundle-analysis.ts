@@ -4,8 +4,7 @@ import * as process from 'process'
 
 (async () => {
   const isFullAnalysis = process.argv.includes('full')
-  const isProduction = process.argv.includes('production')
-  const forceRebuild = process.argv.includes('force-rebuild')
+  const forceRebuild = !process.argv.includes('--use-cache')
   const outputDir = process.argv.find((arg) => arg.startsWith('./') || arg.startsWith('../'))
 
   const distPath = './dist'
@@ -20,11 +19,11 @@ import * as process from 'process'
   }
 
   const bundleSizesCachePath = `./${analyticsStorePath}/bundle-sizes.js`
-  if ((forceRebuild || isProduction) && existsSync(bundleSizesCachePath)) {
+  if ((forceRebuild) && existsSync(bundleSizesCachePath)) {
     rmSync(bundleSizesCachePath)
   }
 
-  if (forceRebuild || isProduction || !existsSync(bundleSizesCachePath)) {
+  if (forceRebuild || !existsSync(bundleSizesCachePath)) {
     await Promise.all([
       $('vite build --config ./configs/vite/vite.empty.ts', { successMessage: 'Empty config was built.' }),
       $('vite build --config ./configs/vite/vite.button.ts', { successMessage: 'Config with button was built.' }),
