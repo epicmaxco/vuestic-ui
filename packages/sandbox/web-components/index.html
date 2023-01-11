@@ -51,10 +51,10 @@
 
       select.options = ["Option 1", "Option 2", "Option 3"];
 
-      // // TODO: Must work with stateful I guess.
-      // select.addEventListener("update:modelValue", (e) => {
-      //   e.target.modelValue = e.detail;
-      // });
+      select.addEventListener("update:modelValue", (e) => {
+        e.target.modelValue = e.detail;
+        console.log('Option selected!', e.target.modelValue)
+      });
     </script>
 
     <script>
