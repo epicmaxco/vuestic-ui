@@ -143,6 +143,7 @@
   }
 }
 
+// TODO: remove in 1.6.0, already changed to Tailwind CSS, delete /styles/grid/examples/AlignSelf.vue
 .align-self {
   &-start {
     align-self: flex-start;
@@ -161,6 +162,7 @@
   }
 }
 
+// TODO: remove in 1.6.0, already changed to Tailwind CSS, delete /styles/grid/examples/AlignContent.vue
 .align-content {
   &-start {
     align-content: flex-start;
@@ -248,10 +250,6 @@
 //}
 //}
 
-.spacer {
-  @include va-spacer();
-}
-
 .grow {
   @include va-grow();
 }
@@ -285,14 +283,6 @@
 
 .d-flex {
   display: flex !important;
-}
-
-.d-inline-flex {
-  display: inline-flex !important;
-}
-
-.no-wrap {
-  @include va-no-wrap();
 }
 
 .ellipsis {

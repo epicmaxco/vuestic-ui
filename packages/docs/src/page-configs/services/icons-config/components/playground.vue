@@ -146,7 +146,6 @@ const copy = () => {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  margin: -0.5rem;
 
   & > * {
     padding: 0.5rem;
