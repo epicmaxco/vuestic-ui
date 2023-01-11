@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "serve": "yarn build:analysis && vue-cli-service serve",
+    "serve": "yarn build:analysis --use-cache && vue-cli-service serve",
     "build": "yarn build:analysis && vue-cli-service build",
     "build:ci": "yarn build:analysis && vue-cli-service build",
-    "build:analysis": "npx lerna run build:bundle-analysis --scope=sandbox",
+    "build:analysis": "yarn workspace sandbox build:analysis ../docs/src/page-configs/getting-started/tree-shaking",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}' --fix",
     "test:unit": "vue-cli-service test:unit",

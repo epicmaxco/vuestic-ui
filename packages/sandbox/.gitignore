@@ -4,6 +4,5 @@ dist
 dist-ssr
 *.local
 package-lock.json
-bundle-sizes.js
-dev-tree-shaking.md
-tree-shaking.md
+analysis/*
+!analysis/.keep

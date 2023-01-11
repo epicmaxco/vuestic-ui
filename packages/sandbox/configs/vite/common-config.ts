@@ -21,7 +21,7 @@ const visualizerPlugin = visualizer({
 
 export default function createViteConfig (type: BuildType) {
   const onAnalysis = async (analysisObject: AnalysisObject) => {
-    appendFileSync('./bundle-sizes.js', `export const ${camelCase(type)} = ${analysisObject.bundleSize}\n`)
+    appendFileSync('./analysis/bundle-sizes.js', `export const ${camelCase(type)} = ${analysisObject.bundleSize}\n`)
   }
   const analyzerPlugin = analyzer({ onAnalysis, stdout: true }) as PluginOption
 
@@ -44,6 +44,12 @@ export default function createViteConfig (type: BuildType) {
           chunkFileNames: 'assets/[name].js',
           assetFileNames: 'assets/[name].[ext]',
         },
+      },
+    },
+
+    resolve: {
+      alias: {
+        'vuestic-ui': '../../node_modules/vuestic-ui'
       },
     },
 
