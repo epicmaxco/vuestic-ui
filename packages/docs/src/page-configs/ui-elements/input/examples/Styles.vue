@@ -37,6 +37,14 @@
       label="Bordered"
       bordered
     />
+    <va-input
+      class="mb-4"
+      v-model="value"
+      placeholder="Background"
+      label="Background"
+      color="#000"
+      background="warning"
+    />
   </div>
 </template>
 
