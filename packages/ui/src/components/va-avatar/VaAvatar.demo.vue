@@ -110,23 +110,23 @@
     <VbCard title="Loading">
       <va-button @click="isLoading = !isLoading" class="mb-2">Toggle loading</va-button>
       <br />
-      <va-avatar class="mr-4" :loading="isLoading" />
+      <va-avatar class="mr-6" :loading="isLoading" />
 
-      <va-avatar class="mr-4" :loading="isLoading">
+      <va-avatar class="mr-6" :loading="isLoading">
         J.D.
       </va-avatar>
 
-      <va-avatar class="mr-4" :loading="isLoading" icon="warning" />
+      <va-avatar class="mr-6" :loading="isLoading" icon="warning" />
 
       <va-avatar :loading="isLoading" src="https://randomuser.me/api/portraits/women/5.jpg" />
       <p class="mt-2 mb-2">Squared</p>
-      <va-avatar class="mr-4" :loading="isLoading" square />
+      <va-avatar class="mr-6" :loading="isLoading" square />
 
-      <va-avatar class="mr-4" :loading="isLoading" square>
+      <va-avatar class="mr-6" :loading="isLoading" square>
         J.D.
       </va-avatar>
 
-      <va-avatar class="mr-4" :loading="isLoading" square icon="warning" />
+      <va-avatar class="mr-6" :loading="isLoading" square icon="warning" />
 
       <va-avatar :loading="isLoading" square src="https://randomuser.me/api/portraits/women/5.jpg" />
     </VbCard>

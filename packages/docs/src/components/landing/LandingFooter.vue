@@ -2,7 +2,7 @@
   <footer class="footer" :style="{ color: textColor }">
     <div class="footer__wrapper">
       <div class="footer__inner">
-        <LandingEpicmaxBanner class="mb-4 " />
+        <LandingEpicmaxBanner class="mb-6 " />
         <div class="footer__buttons">
           <va-button
             class="footer__buttons__button"

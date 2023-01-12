@@ -1,13 +1,13 @@
 <template>
   <div class="row">
-    <va-counter class="mx-4 my-2"
+    <va-counter class="mx-6 my-2"
       v-model="value"
       increaseIcon="add_circle_outline"
       decreaseIcon="remove_circle_outline"
       color="#6938D1"
     />
 
-    <va-counter class="mx-4 my-2"
+    <va-counter class="mx-6 my-2"
       v-model="value"
       outline
       increaseIcon="arrow_upward"
@@ -15,7 +15,7 @@
       color="#0FB58D"
     />
 
-    <va-counter class="mx-4 my-2"
+    <va-counter class="mx-6 my-2"
       v-model="value"
       outline
       preset="secondary"

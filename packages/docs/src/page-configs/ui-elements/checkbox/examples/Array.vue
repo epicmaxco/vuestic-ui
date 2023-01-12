@@ -1,23 +1,23 @@
 <template>
-  <div class="d-flex flex-direction-column">
-    <div class="mb-4">{{ selection }}</div>
+  <div class="d-flex flex-col">
+    <div class="mb-6">{{ selection }}</div>
     <va-checkbox
       v-model="selection"
       array-value="one"
       label="one"
-      class="mb-4"
+      class="mb-6"
     />
     <va-checkbox
       v-model="selection"
       array-value="two"
       label="two"
-      class="mb-4"
+      class="mb-6"
     />
     <va-checkbox
       v-model="selection"
       array-value="three"
       label="three"
-      class="mb-4"
+      class="mb-6"
     />
     <va-checkbox
       v-model="selection"

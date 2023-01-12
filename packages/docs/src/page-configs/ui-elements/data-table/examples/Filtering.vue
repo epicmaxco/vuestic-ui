@@ -1,12 +1,12 @@
 <template>
   <div class="row">
     <va-input
-      class="flex mb-2 md6 xs12"
+      class="flex flex-col mb-2 md6 xs12"
       placeholder="Filter..."
       v-model="input"
     />
 
-    <div class="flex mb-2 md6 xs12">
+    <div class="flex flex-col mb-2 md6 xs12">
       <va-checkbox
         class="mb-3 d-block"
         label="Use custom filtering function (looks for an exact match)"

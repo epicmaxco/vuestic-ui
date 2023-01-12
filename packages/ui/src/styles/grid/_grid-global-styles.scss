@@ -116,13 +116,13 @@
     }
   }
 
-  &-nowrap {
-    flex-wrap: nowrap;
-  }
-
-  &-wrap {
-    flex-wrap: wrap;
-  }
+  //&-nowrap {
+  //  flex-wrap: nowrap;
+  //}
+  //
+  //&-wrap {
+  //  flex-wrap: wrap;
+  //}
 }
 
 .align {
@@ -143,6 +143,7 @@
   }
 }
 
+// TODO: remove in 1.6.0, already changed to Tailwind CSS, delete /styles/grid/examples/AlignSelf.vue
 .align-self {
   &-start {
     align-self: flex-start;
@@ -161,6 +162,7 @@
   }
 }
 
+// TODO: remove in 1.6.0, already changed to Tailwind CSS, delete /styles/grid/examples/AlignContent.vue
 .align-content {
   &-start {
     align-content: flex-start;
@@ -183,6 +185,7 @@
   }
 }
 
+// TODO: remove in 1.6.0, already changed to Tailwind CSS
 .justify {
   &-start {
     justify-content: flex-start;
@@ -209,6 +212,7 @@
   }
 }
 
+// TODO: remove in 1.6.0, already changed to Tailwind CSS
 .justify-self {
   &-start {
     justify-self: flex-start;
@@ -227,27 +231,24 @@
   }
 }
 
-.flex-direction {
-  &-row {
-    flex-direction: row;
-  }
-
-  &-row-reverse {
-    flex-direction: row-reverse;
-  }
-
-  &-column {
-    flex-direction: column;
-  }
-
-  &-column-reverse {
-    flex-direction: column-reverse;
-  }
-}
-
-.spacer {
-  @include va-spacer();
-}
+// TODO: remove in 1.6.0
+//.flex-direction {
+//&-row {
+//  flex-direction: row;
+//}
+//
+//&-row-reverse {
+//  flex-direction: row-reverse;
+//}
+//
+//&-column {
+//  flex-direction: column;
+//}
+//
+//&-column-reverse {
+//  flex-direction: column-reverse;
+//}
+//}
 
 .grow {
   @include va-grow();
@@ -282,14 +283,6 @@
 
 .d-flex {
   display: flex !important;
-}
-
-.d-inline-flex {
-  display: inline-flex !important;
-}
-
-.no-wrap {
-  @include va-no-wrap();
 }
 
 .ellipsis {

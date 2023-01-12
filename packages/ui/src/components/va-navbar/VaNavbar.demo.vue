@@ -101,7 +101,7 @@
       <va-button-toggle
         v-model="currentSlot"
         :options="slotsList"
-        class="mt-4 mb-4"
+        class="mt-6 mb-6"
       />
       <va-navbar color="#990099">
         <template #[currentSlot]>

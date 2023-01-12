@@ -5,7 +5,7 @@
       header="Collapse header"
       solid
       color="success"
-      class="mb-4"
+      class="mb-6"
     >
       <div style="padding: 8px;">
         Collapse content
@@ -16,7 +16,7 @@
       header="Collapse header"
       solid
       color="secondary"
-      class="mb-4"
+      class="mb-6"
     >
       <div style="padding: 8px;">
         Collapse content
@@ -28,7 +28,7 @@
       solid
       color="info"
       color-all
-      class="mb-4"
+      class="mb-6"
     >
       <div style="padding: 8px;">
         Collapse content
@@ -42,7 +42,7 @@
       color-all
       text-color="backgroundPrimary"
       icon="info"
-      class="mb-4"
+      class="mb-6"
     >
       <div style="padding: 8px;">
         Collapse content

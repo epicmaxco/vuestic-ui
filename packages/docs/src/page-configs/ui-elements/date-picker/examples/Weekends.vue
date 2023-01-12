@@ -1,12 +1,12 @@
 <template>
   <div class="flex row">
-    <div class="flex">
+    <div class="flex flex-col">
       <va-date-picker
         stateful
         highlight-weekend
       />
     </div>
-    <div class="flex">
+    <div class="flex flex-col">
       <va-date-picker
         stateful
         highlight-weekend

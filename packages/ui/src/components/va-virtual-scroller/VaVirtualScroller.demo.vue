@@ -71,7 +71,7 @@
         :wrapper-size="200"
         v-slot="{item, index}"
       >
-        <div :class="index % 2 ? 'pb-1' : 'pb-4'">
+        <div :class="index % 2 ? 'pb-1' : 'pb-6'">
           <va-button :size="index % 2 ? 'small' : 'medium'">{{ item.value }}</va-button>
         </div>
       </va-virtual-scroller>

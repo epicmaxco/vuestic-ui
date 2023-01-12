@@ -6,7 +6,7 @@
     expand-all
   />
 
-  <p class="mt-4">
+  <p class="mt-6">
     Selected nodes: {{ selectedNodes.join(',') || 'none' }}
   </p>
 </template>

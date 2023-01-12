@@ -1,6 +1,6 @@
 <template>
   <div class="flex row">
-    <div class="flex">
+    <div class="flex flex-col">
       <va-date-picker
         v-model="range"
         color="warning"
@@ -10,7 +10,7 @@
       />
     </div>
 
-    <div class="flex">
+    <div class="flex flex-col">
       <va-date-picker
         v-model="range"
         color="warning"
@@ -21,7 +21,7 @@
       />
     </div>
 
-    <div class="flex">
+    <div class="flex flex-col">
       <va-date-picker
         v-model="range"
         color="warning"

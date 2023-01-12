@@ -1,6 +1,6 @@
 <template>
   <div class="row flex-nowrap">
-    <div class="flex md4 lg4">
+    <div class="flex items-center md4 lg4">
       <va-card>
         <va-card-block class="flex-nowrap" horizontal>
           <div style="flex: auto;">
@@ -13,7 +13,7 @@
         </va-card-block>
       </va-card>
     </div>
-    <div class="flex md4 lg4">
+    <div class="flex items-center md4 lg4">
       <va-card>
         <va-card-block class="flex-nowrap" horizontal>
           <va-card-block style="flex: auto;">
@@ -26,7 +26,7 @@
         </va-card-block>
       </va-card>
     </div>
-    <div class="flex md4 lg4">
+    <div class="flex items-center md4 lg4">
       <va-card>
         <va-card-block class="flex-nowrap" horizontal>
           <va-image style="flex: 1;" src="https://picsum.photos/260" />

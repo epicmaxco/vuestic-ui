@@ -1,13 +1,13 @@
 <template>
   <div class="row">
-    <va-modal anchorClass="mr-4 my-1" stateful>
+    <va-modal anchorClass="mr-6 my-1" stateful>
       <template #anchor="{ show }">
         <va-button @click="show">Anchor-button (stateful modal)</va-button>
       </template>
       <div>{{ message }}</div>
     </va-modal>
 
-    <va-modal anchorClass="mr-4 my-1" v-model="showModal">
+    <va-modal anchorClass="mr-6 my-1" v-model="showModal">
       <template #anchor="{ show }">
         <va-button @click="show">Anchor-button (stateless modal)</va-button>
       </template>

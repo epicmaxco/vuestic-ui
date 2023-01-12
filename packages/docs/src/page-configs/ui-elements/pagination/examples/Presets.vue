@@ -4,14 +4,14 @@
     :pages="10"
     :visible-pages="3"
     buttons-preset="primary"
-    class="mb-4"
+    class="mb-6"
   />
   <va-pagination
     v-model="value"
     :pages="10"
     :visible-pages="3"
     buttons-preset="default"
-    class="mb-4"
+    class="mb-6"
   />
   <va-pagination
     v-model="value"

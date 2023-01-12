@@ -1,5 +1,5 @@
 <template>
-  <div class="flex lg6 xs12">
+  <div class="flex flex-col lg6 xs12">
     <va-slider v-model="length" :max="15" />
     <va-rating v-model="value" :max="length" numbers />
   </div>
