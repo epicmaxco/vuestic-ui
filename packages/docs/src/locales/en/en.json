@@ -4081,7 +4081,7 @@
     },
     "reactivity": {
       "subtitle": "Reactivity",
-      "about": "As you can see, methods like `getColor`, `getColors` don’t return `Proxy`. If you want to use color as reactive Proxy, use computed properties like in the example above."
+      "about": "Methods like `getColors` return an computed reactive that can also be accessed by name `colors`. The Advantage is forbitting accidantly change by `colors.value = { ... }`, while allowing the properties to mutate, for example you can change `primary` color by writing `colors.primary = '#ff0'`, multiply poperties changes are also supported, you can write `setColors({ primary: '#00f', secondary: '#0ff' })`"
     },
     "otherServices": {
       "subtitle": "Colors config with other services",
@@ -4095,7 +4095,7 @@
       "ColorConfig": "An object where the keys are the color names and the values are valid CSS colors.",
       "ColorInput": "A valid CSS color",
       "methods": "Methods",
-      "useColor": "Return colors methods",
+      "useColors": "Return colors methods and variables",
       "setColors": "Used to merge new colors into config or update existing colors.",
       "getColors": "Returns current color config",
       "getColor": "Return color by name",
@@ -4103,7 +4103,9 @@
       "getHoverColor": "Return a color that you can use as a `hover` color.",
       "getFocusColor": "Return a color that you can use as a `focus` color.",
       "getGradientBackground": "Return a gradient-color that you can use as a `background-image` CSS property's value.",
-      "hookMethods": "useColors hook methods"
+      "hookMethods": "useColors hook methods",
+      "hookVariables": "useColors hook variables",
+      "colors": "An computed reactive where the keys are color names and values are valid CSS colors."
     }
   },
   "breakpoints": {
