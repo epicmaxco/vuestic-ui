@@ -97,7 +97,7 @@
       <va-file-upload
         v-model="basic"
       >
-        <div class="p-4">
+        <div class="p-6">
           <p class="mb-2">This is slot, click or drag'n'drop file to upload</p>
           <img
             src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"

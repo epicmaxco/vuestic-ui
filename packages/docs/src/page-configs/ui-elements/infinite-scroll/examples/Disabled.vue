@@ -9,7 +9,7 @@
   <div class="row">
     <div
       style="height: 200px;"
-      class="flex md6 lg4"
+      class="flex flex-col md6 lg4"
     >
       <va-infinite-scroll
         :load="appendRecordsAsync"

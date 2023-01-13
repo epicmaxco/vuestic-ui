@@ -6,7 +6,7 @@
     v-slot="{item}"
   >
     <div class="row">
-      <div class="flex md6 lg4">
+      <div class="flex flex-col md6 lg4">
         <va-card>
           <va-image
             src="https://picsum.photos/400/200"

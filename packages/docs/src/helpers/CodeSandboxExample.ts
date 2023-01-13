@@ -32,7 +32,7 @@ const viteEnv = `declare module '*.vue' {
 `
 
 const defaultExample = `<template>
-  <div class="pa-4">
+  <div class="p-6">
     Hello, Vuestic-UI v${packageUi.version}
   </div>
 </template>
@@ -46,6 +46,10 @@ const getCodeSandboxHtml = ({ requireIcons = false }: CodesandboxConfig): string
     >
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    >
+    <link
+      href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     >
     ${requireIcons ? iconsStyles : ''}

@@ -10,14 +10,14 @@
         <th
           v-for="key in Object.keys(createdItem)"
           :key="key"
-          class="pa-1"
+          class="p-1"
         >
           <va-input
             :placeholder="key"
             v-model="createdItem[key]"
           />
         </th>
-        <th class="pa-1">
+        <th class="p-1">
           <va-button
             @click="addNewItem"
             :disabled="!isNewData"

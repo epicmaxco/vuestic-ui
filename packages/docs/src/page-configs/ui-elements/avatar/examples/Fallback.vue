@@ -1,7 +1,7 @@
 <template>
   <va-avatar
     src="https://not-exist"
-    class="mr-4"
+    class="mr-6"
   />
   <va-avatar
     src="https://not-exist"

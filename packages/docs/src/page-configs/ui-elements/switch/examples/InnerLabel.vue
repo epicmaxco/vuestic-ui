@@ -1,7 +1,7 @@
 <template>
   <div style="display: flex; align-items: center;">
-    <va-switch v-model="value" true-inner-label="Agree" false-inner-label="Disagree" class="mr-4" />
-    <va-switch v-model="value" class="mr-4">
+    <va-switch v-model="value" true-inner-label="Agree" false-inner-label="Disagree" class="mr-6" />
+    <va-switch v-model="value" class="mr-6">
       <template #innerLabel>
         Inner Label slot
       </template>

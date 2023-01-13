@@ -1,6 +1,6 @@
 <template>
   <va-badge
-    class="mr-4"
+    class="mr-6"
     text="Paid"
     color="success"
   />

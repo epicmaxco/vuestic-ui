@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="Update CSS Variable">
-      <div class="mb-4">
+      <div class="mb-6">
         <a class="title title--va-danger">
           This is title danger color
         </a>
