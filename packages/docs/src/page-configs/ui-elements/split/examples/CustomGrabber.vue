@@ -1,7 +1,7 @@
 <template>
   <va-split class="split-demo" style="height: 22rem;">
     <template #start>
-      <div class="pa-4">
+      <div class="p-6">
         {{ lorem }}
       </div>
     </template>
@@ -11,7 +11,7 @@
       </div>
     </template>
     <template #end>
-      <div class="pa-4">
+      <div class="p-6">
         {{ lorem }}
       </div>
     </template>

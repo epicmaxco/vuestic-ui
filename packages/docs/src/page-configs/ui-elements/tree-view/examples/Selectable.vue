@@ -2,43 +2,22 @@
   <va-tree-view
     v-model:checked="selectedNodes"
     :nodes="nodes"
-    :color="selectedColor"
     selectable
     expand-all
   />
 
-  <p class="mt-4">
+  <p class="mt-6">
     Selected nodes: {{ selectedNodes.join(',') || 'none' }}
-  </p>
-
-  <p class="d-flex align-center">
-    Color:
-    <va-color-palette
-      v-model="selectedColor"
-      class="ml-2"
-      :palette="colorsPalette"
-    />
   </p>
 </template>
 
 <script>
-const COLORS_PALETTE = [
-  '#4ae387',
-  '#e34a4a',
-  '#4ab2e3',
-  '#db76df',
-  '#f7cc36',
-  '#f3f3f3',
-  '#000',
-]
 
 export default {
   name: 'Default',
 
   data: () => ({
     selectedNodes: [],
-    colorsPalette: COLORS_PALETTE,
-    selectedColor: COLORS_PALETTE[0],
     nodes: [
       {
         id: 1,

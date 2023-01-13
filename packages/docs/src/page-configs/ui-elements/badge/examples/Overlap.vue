@@ -1,5 +1,5 @@
 <template>
-  <va-badge class="mr-4" dot overlap>
+  <va-badge class="mr-6" dot overlap>
     <va-button>Text</va-button>
   </va-badge>
 

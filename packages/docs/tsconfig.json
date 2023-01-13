@@ -42,6 +42,8 @@
     "tests/**/*.tsx"
   ],
   "exclude": [
+    "dist",
+    "public",
     "node_modules",
     "src/**/*.spec.ts",
     "./src/examples"

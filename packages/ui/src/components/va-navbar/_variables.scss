@@ -1,8 +1,8 @@
 .va-navbar {
   --va-navbar-mobile-height: 6.5rem;
   --va-navbar-height: 4.0625rem;
-  --va-navbar-padding-left: 1rem;
-  --va-navbar-padding-right: 1rem;
+  --va-navbar-padding-x: 1rem;
+  --va-navbar-padding-y: 1.2rem;
   --va-navbar-transition: transform 0.5s ease;
   --va-navbar-position: relative;
   --va-nav-z-index: calc(var(--va-z-index-teleport-overlay) - 100);

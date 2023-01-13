@@ -1,14 +1,14 @@
 <template>
   <div style="display: flex; align-items: flex-start;">
     <va-date-input
-      class="mr-4"
+      class="mr-6"
       label="Success"
       v-model="value"
       success
     />
 
     <va-date-input
-      class="mr-4"
+      class="mr-6"
       label="Error"
       v-model="value"
       error

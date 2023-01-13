@@ -40,6 +40,8 @@ const config: ApiDocsBlock[] = [
   // Selectable
   block.subtitle('treeView.examples.selectable.title'),
   block.example('Selectable'),
+  block.subtitle('treeView.examples.selectable.coloredTitle'),
+  block.example('SelectableColored'),
 
   // API
   block.subtitle('api'),

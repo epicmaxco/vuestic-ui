@@ -48,7 +48,7 @@ export default defineComponent({
     shape: { type: Boolean, default: false },
   },
 
-  setup (props, { slots }) {
+  setup (props) {
     // TODO(1.6.0): Remove deprecated slots
     useDeprecated(['center'], ['slots'])
 
@@ -70,22 +70,10 @@ export default defineComponent({
       fill: textColorComputed.value,
     }))
 
-    const gridTemplateComputed = computed(() => {
-      const gridTemplateAreas = [
-        slots.left && 'left',
-        (slots.default || slots.center) && 'center',
-        slots.right && 'right',
-      ].filter(v => v)
-      const sizes = '1fr '.repeat(gridTemplateAreas.length).trimEnd()
-
-      return `"${gridTemplateAreas.join(' ')}" / ${sizes}`
-    })
-
     return {
       scrollRoot,
       computedStyle,
       shapeStyleComputed,
-      gridTemplateComputed,
     }
   },
 })
@@ -97,13 +85,11 @@ export default defineComponent({
 
 .va-navbar {
   display: grid;
-  grid-template: v-bind(gridTemplateComputed);
+  grid-template: "left center right" / 1fr auto 1fr;
   align-items: center;
   transition: var(--va-navbar-transition);
   position: var(--va-navbar-position);
-  height: var(--va-navbar-height);
-  padding-left: var(--va-navbar-padding-left);
-  padding-right: var(--va-navbar-padding-right);
+  padding: var(--va-navbar-padding-y) var(--va-navbar-padding-x);
   background-color: var(--va-primary);
   font-family: var(--va-font-family);
   top: 0;
@@ -114,9 +100,7 @@ export default defineComponent({
 
   &__left {
     display: flex;
-    flex-direction: row;
     grid-area: left;
-    justify-self: start;
 
     & > .va-navbar__item {
       margin-right: var(--va-navbar-item-margin-side);
@@ -134,8 +118,8 @@ export default defineComponent({
 
   &__center {
     display: flex;
+    justify-content: center;
     grid-area: center;
-    justify-self: center;
 
     & > .va-navbar__item {
       margin: 0 var(--va-navbar-item-margin);
@@ -155,7 +139,6 @@ export default defineComponent({
     flex-direction: row;
     justify-content: flex-end;
     grid-area: right;
-    justify-self: end;
 
     & > .va-navbar__item {
       margin-right: var(--va-navbar-item-margin-side);
@@ -189,7 +172,6 @@ export default defineComponent({
   @include media-breakpoint-down(sm) {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     height: var(--va-navbar-mobile-height);
     padding: var(--va-navbar-sm-padding);

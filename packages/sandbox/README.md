@@ -35,3 +35,9 @@ Tests only can guarantee that tree-shaking is working.
 > Before build, please, check how project runs using `dev:vite`, `dev:vue-cli`, `serve:vite`, `server:vue-cli` before release.
 
 Later we can write some e2e tests
+
+
+### Analysis
+
+`yarn build:analysis` makes build with tree-shaking.md file, where store information about bundle sizes
+use `yarn build:analysis --use-cache` if you want to generated tree-shaking.md only if it doesn't exists already.

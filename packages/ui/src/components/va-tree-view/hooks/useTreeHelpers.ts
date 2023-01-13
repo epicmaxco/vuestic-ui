@@ -58,6 +58,10 @@ export const useTreeViewProps = {
     type: Array as PropType<(string | number | TreeNode)[]>,
     default: [],
   },
+  expandNodeBy: {
+    type: String as PropType<'leaf' | 'node'>,
+    default: 'leaf',
+  },
   filter: {
     type: String,
     default: '',
@@ -76,7 +80,7 @@ export const useTreeViewProps = {
   },
 }
 
-export const useTreeViewEmits = ['update:modelValue', 'update:checked', 'update:expanded']
+export const useTreeViewEmits = ['update:modelValue', 'update:checked', 'update:expanded', 'update:selected']
 
 export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>) => {
   const isStringOrNumber = (node: TreeNode): node is any => {

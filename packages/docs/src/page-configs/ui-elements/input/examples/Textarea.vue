@@ -1,26 +1,26 @@
 <template>
   <div style="width: 300px;">
     <va-input
-      class="mb-4"
+      class="mb-6"
       v-model="value"
       type="textarea"
       placeholder="Basic textarea"
     />
     <va-input
-      class="mb-4"
+      class="mb-6"
       v-model="value"
       type="textarea"
       label="With label"
     />
     <va-input
-      class="mb-4"
+      class="mb-6"
       v-model="value"
       type="textarea"
       label="With autosize"
       autosize
     />
     <va-input
-      class="mb-4"
+      class="mb-6"
       v-model="value"
       type="textarea"
       label="With limits from 3 to 5 rows"

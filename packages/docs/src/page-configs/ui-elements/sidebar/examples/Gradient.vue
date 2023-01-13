@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4" style="height: 16rem;">
+  <div class="mb-6" style="height: 16rem;">
     <va-sidebar color="primary" gradient minimizedWidth="64px" width="18rem">
       <va-sidebar-item
         v-for="item in items"

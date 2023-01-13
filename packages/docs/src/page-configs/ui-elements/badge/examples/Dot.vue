@@ -1,5 +1,5 @@
 <template>
-  <va-badge class="mr-4" overlap dot>
+  <va-badge class="mr-6" overlap dot>
     <template #text>
       <va-icon name="warning" size="12px" />
     </template>
