@@ -1,217 +1,174 @@
 <template>
-  <VbDemo>
-    <div class="row">
-      <VbCard title="default">
-        <va-image
-          style="width: 200px; height: 200px;"
-          :src="getImagePath(200)"
-        />
-      </VbCard>
-      <VbCard title="Slots (loading, error)">
-        <button @click="newImage()">
+  <VbDemo class="flex flex-wrap space-x-4 space-y-4">
+    <VbCard title="Default">
+      <va-image
+        class="image"
+        :src="getImagePath(200)"
+      />
+    </VbCard>
+
+    <VbCard title="Slots (loading, error, placeholder)">
+      <div class="mb-2 flex">
+        <button class="mr-2" @click="newImage">
           New image
         </button>
-        <button @click="wrongPath()">
+        <button @click="wrongPath">
           Wrong path
         </button>
-        <va-image
-          :src="slotImagePath"
-          class="image"
-          @loaded="$vb.log('loaded', $event)"
-          @error="$vb.log('error', $event)"
-        >
-          <template #loader>
-            Loading...
-          </template>
-          <template #error>
-            Error
-          </template>
-        </va-image>
-      </VbCard>
-      <VbCard title="Default slot usage examples">
-        <va-image
-          :src="getImagePath(200)"
-          class="image"
-        >
-          <div class="overlay overlay--top">
-            Overlay Top
-          </div>
-        </va-image>
-        <va-image
-          :src="getImagePath(200)"
-          class="image"
-        >
-          <div class="overlay overlay--bottom">
-            Overlay Bottom
-          </div>
-        </va-image>
-      </VbCard>
-    </div>
-    <div class="row">
-      <VbCard title="4/3">
-        <div class="image">
-          <va-image
-            :ratio="4/3"
-            :src="getImagePath(200)"
-          />
+      </div>
+
+      <va-image
+        class="image mb-2"
+        :src="slotImagePath"
+        @loaded="$vb.log('loaded', $event)"
+        @error="$vb.log('error', $event)"
+      >
+        <template #loader>
+          Loading
+        </template>
+        <template #error>
+          Error
+        </template>
+      </va-image>
+
+      <va-image
+        class="image"
+        :src="slotImagePath"
+      >
+        <template #placeholder>
+          Placeholder (both error and loading states)
+        </template>
+      </va-image>
+    </VbCard>
+
+    <VbCard title="Default slot">
+      <va-image
+        class="mb-2 image"
+        :src="getImagePath(200)"
+      >
+        <div class="overlay overlay--top">
+          Overlay Top
         </div>
-      </VbCard>
-      <VbCard title="1/1">
-        <div class="image">
-          <va-image
-            :ratio="1"
-            :src="getImagePath(200)"
-          />
+      </va-image>
+
+      <va-image
+        class="mb-2 image"
+        :src="getImagePath(200)"
+      >
+        <div class="overlay overlay--bottom">
+          Overlay Bottom
         </div>
-      </VbCard>
-      <VbCard title="16/9">
-        <div class="image">
-          <va-image
-            :ratio="16/9"
-            :src="getImagePath(200)"
-          />
+      </va-image>
+
+      <va-image
+        class="image"
+        :src="getImagePath(200)"
+      >
+        <div class="overlay overlay--whole">
+          Overlay Whole
         </div>
-      </VbCard>
-    </div>
-    <div class="row">
-      <VbCard title="Portrait">
-        <va-image
-          style="width: 100px; height: 200px;"
-          class="image--portrait"
-          :src="getImagePath(100, 200)"
-        />
-      </VbCard>
-      <VbCard title="Portrait cover">
-        <va-image
-          class="image"
-          :src="getImagePath(100, 200)"
-        />
-      </VbCard>
-      <VbCard title="Portrait contain">
-        <va-image
-          class="image"
-          contain
-          :src="getImagePath(100, 200)"
-        />
-      </VbCard>
-    </div>
-    <div class="row">
-      <VbCard title="Landscape">
-        <va-image
-          style="width: 200px; height: 100px;"
-          :src="getImagePath(200, 100)"
-        />
-      </VbCard>
-      <VbCard title="Landscape cover">
-        <va-image
-          class="image"
-          :src="getImagePath(200, 100)"
-        />
-      </VbCard>
-      <VbCard title="Landscape contain">
-        <va-image
-          class="image"
-          contain
-          :src="getImagePath(200, 100)"
-        />
-      </VbCard>
-    </div>
+      </va-image>
+    </VbCard>
+
+    <VbCard title="4/3">
+      <va-image
+        class="image"
+        :src="getImagePath(200)"
+        :ratio="4/3"
+      />
+    </VbCard>
+
+    <VbCard title="16/9">
+      <va-image
+        class="image"
+        :src="getImagePath(200)"
+        :ratio="16/9"
+      />
+    </VbCard>
+
+    <VbCard title="Portrait">
+      <va-image
+        class="image"
+        :src="getImagePath(200, 100)"
+      />
+    </VbCard>
+
+    <VbCard title="Landscape">
+      <va-image
+        class="image"
+        :src="getImagePath(100, 200)"
+      />
+    </VbCard>
+
+    <VbCard title="Contain">
+      <va-image
+        class="image bg-orange-500"
+        fit="contain"
+        :src="getImagePath(200, 100)"
+      />
+    </VbCard>
+
+    <VbCard title="Fill">
+      <va-image
+        class="image"
+        fit="fill"
+        :src="getImagePath(200, 100)"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
-<script>
+<script setup>
+import { ref, computed } from 'vue'
+
 import { VaImage } from './index'
 
-export default {
-  components: {
-    VaImage,
-  },
-  data () {
-    return {
-      slotImageSize: 1500,
-      slotOverlayPosition: 'top',
-    }
-  },
-  computed: {
-    slotImagePath () {
-      return this.getImagePath(this.slotImageSize)
-    },
-  },
-  methods: {
-    getImagePath (width, height = width) {
-      return `https://picsum.photos/${width}/${height}`
-    },
-    newImage () {
-      this.slotImageSize = this.slotImageSize !== 1500 ? 1500 : 1501
-    },
-    wrongPath () {
-      this.slotImageSize = -1
-    },
-  },
-}
+const slotImageSize = ref(1500)
+
+const getImagePath = (width, height = 0) => `https://picsum.photos/${width}/${height || width}`
+const newImage = () => (slotImageSize.value = slotImageSize.value !== 1500 ? 1500 : 1501)
+const wrongPath = () => (slotImageSize.value = -1)
+
+const slotImagePath = computed(() => getImagePath(slotImageSize.value))
 </script>
 
 <style lang="scss" scoped>
-.row {
+@mixin flex-center {
   display: flex;
-  flex: 1 0 100%;
-  flex-wrap: wrap;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-}
-
-.row + .row {
-  margin-top: 20px;
 }
 
 .image {
   width: 200px;
-  height: 200px;
-}
-
-.image--medium {
-  width: 400px;
-  height: 400px;
-}
-
-.image--large {
-  width: 600px;
-  height: 600px;
-}
-
-.image--landscape {
-  width: 400px;
-  height: 250px;
-}
-
-.image--portrait {
-  width: 250px;
-  height: 400px;
 }
 
 .loading,
 .error {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
 }
 
 .overlay {
   position: absolute;
   left: 0;
   right: 0;
-  text-align: center;
-  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
   color: white;
-  background: rgba(0, 0, 0, 0.2);
 
+  &--whole,
   &--top {
     top: 0;
   }
 
+  &--whole,
   &--bottom {
     bottom: 0;
+  }
+
+  &--whole,
+  &--top,
+  &--bottom {
+    @include flex-center;
   }
 }
 </style>

@@ -1,122 +1,206 @@
 <template>
-  <div class="va-image" aria-live="polite">
+  <va-aspect-ratio v-bind="aspectRationAttributesComputed">
+    <picture
+      v-show="isSuccessfullyLoaded"
+      class="va-image"
+      :aria-busy="isLoading"
+    >
+      <slot v-if="$slots.sources" name="sources" />
+
+      <img
+        ref="image"
+        v-bind="imgAttributesComputed"
+        @error="handleError"
+        @load="handleLoad"
+      />
+    </picture>
+
     <div
-      v-if="loadingError"
+      v-if="$slots.default && isSuccessfullyLoaded"
+      class="va-image__overlay"
+    >
+      <slot />
+    </div>
+
+    <div
+      v-if="isError && $slots.error"
       class="va-image__error"
     >
       <slot name="error" />
     </div>
 
-    <div :style="paddingStyles" />
     <div
-      v-show="!loadingError && !loading"
-      class="va-image__img"
-    >
-      <img
-        :style="imageStyles"
-        :src="$props.src"
-        :alt="$props.alt"
-        :draggable="$props.draggable"
-        @error="handleError"
-        @load="handleLoad"
-      />
-    </div>
-    <div class="va-image__overlay">
-      <slot />
-    </div>
-    <div
-      v-if="loading"
+      v-if="isLoading && $slots.loader"
       class="va-image__loader"
     >
       <slot name="loader" />
     </div>
-  </div>
+
+    <div
+      v-if="isPlaceholderShown"
+      class="va-image__placeholder"
+    >
+      <slot name="placeholder" />
+    </div>
+  </va-aspect-ratio>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch, ref } from 'vue'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { defineComponent, ref, computed, watch, nextTick, onBeforeUnmount, type PropType } from 'vue'
+
+import { VaAspectRatio } from '../va-aspect-ratio'
+
+import {
+  useNativeImgAttributes, useNativeImgAttributesProps,
+  validateProp,
+} from './hooks/useNativeImgAttributes'
+import { useComponentPresetProp } from '../../composables'
+
+const fitOptions = ['contain', 'fill', 'cover', 'scale-down', 'none'] as const
 
 export default defineComponent({
   name: 'VaImage',
+
+  components: { VaAspectRatio },
+
   emits: ['loaded', 'error'],
+
   props: {
     ...useComponentPresetProp,
-    ratio: { type: Number, default: 1 },
-    contain: { type: Boolean, default: false },
-    src: { type: String, required: true },
-    alt: { type: String, default: '' },
-    draggable: { type: Boolean, default: true },
+    ...useNativeImgAttributesProps,
+    ratio: { type: Number, validator: (v: number) => v >= 0 },
+    fit: {
+      type: String as PropType<typeof fitOptions[number]>,
+      default: 'cover',
+      validator: (v: string) => validateProp(v, fitOptions),
+    },
   },
-  setup (props, { emit }) {
-    const loading = ref(false)
-    const loadingError = ref(false)
 
-    const imageStyles = computed(() => ({
-      objectFit: props.contain ? 'contain' as const : 'cover' as const,
-    }))
+  setup (props, { emit, slots }) {
+    const image = ref<HTMLImageElement>()
+    const renderedImage = ref()
+    const currentImage = computed(() => renderedImage.value || props.src)
 
-    const paddingStyles = computed(() => ({
-      paddingBottom: `${1 / props.ratio * 100}%`,
-    }))
+    const imgWidth = ref(1)
+    const imgHeight = ref(1)
+
+    const isLoading = ref(false)
+    const isError = ref(false)
 
     const handleLoad = () => {
-      loading.value = false
-      emit('loaded', props.src)
+      isLoading.value = false
+
+      getImgSizes()
+
+      emit('loaded', currentImage.value)
     }
 
-    const handleError = (err: Event) => {
-      loadingError.value = true
-      loading.value = false
-      emit('error', err)
+    const handleError = (err?: Event) => {
+      isError.value = true
+      isLoading.value = false
+
+      emit('error', err || currentImage.value)
     }
 
-    watch(() => props.src, () => {
-      loading.value = true
-      loadingError.value = false
-    })
+    const init = () => {
+      if (!props.src || isLoading.value) {
+        return
+      }
+
+      isLoading.value = true
+      isError.value = false
+
+      nextTick(() => {
+        if (!image.value?.complete) {
+          return
+        }
+        renderedImage.value = image.value?.currentSrc
+
+        if (!image.value.naturalWidth) {
+          handleError()
+          return
+        }
+
+        handleLoad()
+      })
+    }
+
+    let timer: ReturnType<Window['setTimeout']>
+    const getImgSizes = () => {
+      clearTimeout(timer)
+
+      if (isLoading.value) {
+        timer = window.setTimeout(getImgSizes, 100)
+      }
+
+      const { naturalHeight, naturalWidth } = image.value || {}
+      if (naturalHeight && naturalWidth) {
+        imgWidth.value = naturalHeight
+        imgHeight.value = naturalWidth
+      }
+    }
+    onBeforeUnmount(() => clearTimeout(timer))
+
+    watch(() => props.src, init)
+
+    const isPlaceholderShown = computed(() =>
+      ((isLoading.value && !slots?.loader?.()) || (isError.value && !slots?.error?.())) && slots?.placeholder?.())
+
+    const isSuccessfullyLoaded = computed(() => !(isLoading.value || isError.value))
+
+    const imgAttributesComputed = useNativeImgAttributes(props)
+
+    const aspectRationAttributesComputed = computed(() => ({
+      contentWidth: imgWidth.value,
+      contentHeight: imgHeight.value,
+      ratio: props.ratio,
+    }))
 
     return {
-      loading,
-      loadingError,
-      imageStyles,
-      paddingStyles,
+      image,
+      isLoading,
       handleLoad,
+      isError,
       handleError,
+      isPlaceholderShown,
+      isSuccessfullyLoaded,
+      imgAttributesComputed,
+      aspectRationAttributesComputed,
     }
   },
 })
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@import 'variables';
+
+@mixin absolute {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
 
 .va-image {
-  overflow: var(--va-image-overflow);
-  position: var(--va-image-position);
-  font-family: var(--va-font-family);
+  @include absolute;
 
   img {
-    height: 100%;
     width: 100%;
+    height: 100%;
+    object-fit: v-bind(fit);
+    object-position: var(--va-image-object-position);
   }
 
-  &__img,
+  &__placeholder,
   &__loader,
   &__error,
   &__overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
+    @include absolute;
 
-  &__loader,
-  &__error,
-  &__overlay {
-    @include flex-center();
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>
