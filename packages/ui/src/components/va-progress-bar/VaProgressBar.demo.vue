@@ -12,6 +12,9 @@
         :rounded="false"
         :modelValue="value"
       />
+      <br>
+      Max: {{ maxValue }}
+      <va-progress-bar :modelValue="value" :max="maxValue" />
     </VbCard>
 
     <VbCard title="Color">
@@ -160,47 +163,29 @@
     </VbCard>
 
     <VbCard title="Controls">
-      Values:
-      <div>
-        <button @click="value -= 100">
-          -100
-        </button>
-        <button @click="value -= 10">
-          -10
-        </button>
-        <input
-          style="width: 50px;"
-          type="number"
-          v-model.number="value"
-        >
-        <button @click="value += 10">
-          +10
-        </button>
-        <button @click="value += 100">
-          +100
-        </button>
-      </div>
-      <br>
-      Buffer values:
-      <div>
-        <button @click="bufferValue -= 100">
-          -100
-        </button>
-        <button @click="bufferValue -= 10">
-          -10
-        </button>
-        <input
-          style="width: 50px;"
-          type="number"
-          v-model.number="bufferValue"
-        >
-        <button @click="bufferValue += 10">
-          +10
-        </button>
-        <button @click="bufferValue += 100">
-          +100
-        </button>
-      </div>
+      <template v-for="(field, idx) in fields" :key="idx">
+        {{ field.label }}:
+        <div>
+          <button @click="subtract(field.key, 100)">
+            -100
+          </button>
+          <button @click="subtract(field.key, 10)">
+            -10
+          </button>
+          <input
+            style="width: 50px;"
+            type="number"
+            v-model.number="field.value"
+          >
+          <button @click="add(field.key, 10)">
+            +10
+          </button>
+          <button @click="add(field.key, 100)">
+            +100
+          </button>
+        </div>
+        <br>
+      </template>
     </VbCard>
   </VbDemo>
 </template>
@@ -209,15 +194,42 @@
 import { VaProgressBar } from './index'
 import { VaConfig } from '../va-config'
 
+const FIELD_NAMES = {
+  bufferValue: 'Buffer values',
+  value: 'Values',
+  maxValue: 'Max values',
+}
+
 export default {
   components: {
     VaProgressBar, VaConfig,
   },
+
   data () {
     return {
-      bufferValue: 75,
       value: 35,
+      maxValue: 42,
+      bufferValue: 75,
     }
+  },
+
+  computed: {
+    fields () {
+      return ['value', 'maxValue', 'bufferValue'].map(key => ({
+        key,
+        value: this[key],
+        label: FIELD_NAMES[key],
+      }))
+    },
+  },
+
+  methods: {
+    subtract (key, value) {
+      this[key] -= value
+    },
+    add (key, value) {
+      this[key] += value
+    },
   },
 }
 </script>

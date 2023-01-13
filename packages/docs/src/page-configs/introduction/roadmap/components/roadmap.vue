@@ -7,7 +7,7 @@
 
           <va-card v-for="item in col.items" :key="item.title">
             <a :href="item.link" target="_blank">
-              <va-card-content class="px-4 py-2">
+              <va-card-content class="px-6 py-2">
                 <h6 class="link">{{ item.title }}</h6>
 
                 <div class="docs-roadmap__image" v-if="item.image">

@@ -41,6 +41,12 @@ const config: ApiDocsBlock[] = [
     'Color',
   ),
 
+  ...block.exampleBlock(
+    'collapse.examples.flat.title',
+    '',
+    'Flat',
+  ),
+
   block.api(VaCollapse, apiOptions),
 
   block.subtitle('all.cssVariables'),

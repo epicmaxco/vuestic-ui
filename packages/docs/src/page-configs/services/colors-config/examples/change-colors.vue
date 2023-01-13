@@ -2,7 +2,7 @@
   <div class="d-flex align-center">
     <va-button>{{ buttonText }}</va-button>
 
-    <va-color-palette v-model="primaryColor" :palette="colorsToChange" class="mx-4" />
+    <va-color-palette v-model="primaryColor" :palette="colorsToChange" class="mx-6" />
 
     <span>{{ currentColorText }} {{ primaryColor }}</span>
   </div>

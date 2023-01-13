@@ -73,8 +73,8 @@ export default defineComponent({
       })),
       ariaAttributesComputed: computed(() => ({
         role: 'progressbar',
-        ariaLabel: t('progressState'),
-        ariaValuenow: !props.indeterminate ? props.modelValue : undefined,
+        'aria-label': t('progressState'),
+        'aria-valuenow': !props.indeterminate ? props.modelValue : undefined,
       })),
 
       colorComputed,

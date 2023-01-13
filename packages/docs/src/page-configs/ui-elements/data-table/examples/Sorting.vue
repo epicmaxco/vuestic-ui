@@ -1,14 +1,14 @@
 <template>
   <div class="row">
     <va-select
-      class="flex mb-2 md6"
+      class="flex flex-col mb-2 md6"
       v-model="sortBy"
       label="Sort by"
       :options="sortByOptions()"
     />
 
     <va-select
-      class="flex mb-2 md6"
+      class="flex flex-col mb-2 md6"
       v-model="sortingOrder"
       label="Sorting order"
       :options="sortingOrderOptions"

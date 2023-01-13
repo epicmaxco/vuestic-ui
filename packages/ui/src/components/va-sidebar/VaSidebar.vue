@@ -17,6 +17,7 @@
 <script lang="ts">
 import { defineComponent, computed, ref, PropType } from 'vue'
 
+import { VaConfig } from '../va-config'
 import { getGradientBackground } from '../../services/color'
 import { useColors, useTextColor, useBem } from '../../composables'
 import { useSidebar } from './hooks/useSidebar'
@@ -28,6 +29,11 @@ export default defineComponent({
     ...useComponentPresetProp,
     activeColor: { type: String, default: 'primary' },
     hoverColor: { type: String, default: undefined },
+    hoverOpacity: {
+      type: Number,
+      default: 0.2,
+      validator: (v: number) => v >= 0 && v <= 1,
+    },
     borderColor: { type: String, default: undefined },
     color: { type: String, default: 'background-element' },
     textColor: { type: String },
@@ -44,6 +50,9 @@ export default defineComponent({
     modelValue: { type: Boolean, default: true },
     animated: { type: Boolean, default: true },
   },
+
+  components: { VaConfig },
+
   setup (props) {
     const { getColor } = useColors()
     useSidebar(props)
@@ -94,6 +103,7 @@ export default defineComponent({
         activeColor: props.activeColor,
         hoverColor: props.hoverColor,
         borderColor: props.borderColor,
+        hoverOpacity: props.hoverOpacity,
       })),
     }
   },

@@ -2,7 +2,7 @@
   <component
     :is="tagComputed"
     class="va-card"
-    :class="cardClasses"
+    :class="classComputed"
     :style="cardStyles"
     :href="hrefComputed"
     :target="target"
@@ -12,22 +12,27 @@
     :active-class="activeClass"
     :exact-active-class="exactActiveClass"
   >
-    <div v-if="stripe" class="va-card__stripe" :style="stripeStyles" />
-    <div class="va-card__inner" @click="$emit('click', $event)">
-      <slot />
-    </div>
+    <slot />
   </component>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
+import pick from 'lodash/pick.js'
 import { getGradientBackground } from '../../services/color'
-import { useComponentPresetProp, useColors, useTextColor, useRouterLink, useRouterLinkProps } from '../../composables'
+import {
+  useBem,
+  useComponentPresetProp,
+  useColors,
+  useTextColor,
+  useRouterLink,
+  useRouterLinkProps,
+} from '../../composables'
 
 export default defineComponent({
   name: 'VaCard',
-  emits: ['click'],
+
   props: {
     ...useRouterLinkProps,
     ...useComponentPresetProp,
@@ -44,36 +49,35 @@ export default defineComponent({
     textColor: { type: String },
     color: { type: String, default: 'background-secondary' },
   },
+
   setup (props) {
     const { getColor } = useColors()
     const { isLinkTag, tagComputed, hrefComputed } = useRouterLink(props)
     const { textColorComputed } = useTextColor()
 
-    const stripeStyles = computed(() => ({ background: getColor(props.stripeColor) }))
+    const stripeColorComputed = computed(() => getColor(props.stripeColor))
 
-    const cardClasses = computed(() => ({
-      'va-card--square': props.square,
-      'va-card--outlined': props.outlined,
-      'va-card--no-border': !props.bordered,
-      'va-card--disabled': props.disabled,
-      'va-card--link': isLinkTag.value,
+    const classComputed = useBem('va-card', () => ({
+      ...pick(props, ['square', 'outlined', 'disabled', 'stripe']),
+      noBorder: !props.bordered,
+      link: isLinkTag.value,
     }))
 
     const cardStyles = computed(() => {
-      if (props.gradient && props.color) {
-        return {
-          background: getGradientBackground(getColor(props.color)),
-          color: textColorComputed.value,
-        }
-      }
+      const background = props.gradient && props.color
+        ? getGradientBackground(getColor(props.color))
+        : getColor(props.color)
 
-      return { background: getColor(props.color), color: textColorComputed.value }
+      return {
+        background,
+        color: textColorComputed.value,
+      }
     })
 
     return {
-      cardClasses,
+      classComputed,
       cardStyles,
-      stripeStyles,
+      stripeColorComputed,
       tagComputed,
       hrefComputed,
     }
@@ -95,9 +99,14 @@ export default defineComponent({
   background-color: var(--va-card-background-color);
   font-family: var(--va-font-family);
 
-  &__inner {
-    width: 100%;
-    height: 100%;
+  & > div:first-child {
+    border-top-right-radius: var(--va-card-border-radius);
+    border-top-left-radius: var(--va-card-border-radius);
+  }
+
+  & > div:last-child {
+    border-bottom-right-radius: var(--va-card-border-radius);
+    border-bottom-left-radius: var(--va-card-border-radius);
   }
 
   &--square {
@@ -121,19 +130,24 @@ export default defineComponent({
     cursor: pointer;
   }
 
-  &__stripe {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: var(--va-card-stripe-border-size);
-    top: 0;
-    left: 0;
+  &--stripe {
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: var(--va-card-stripe-border-size);
+      top: 0;
+      left: 0;
+      background: v-bind(stripeColorComputed);
+      border-top-right-radius: var(--va-card-border-radius);
+      border-top-left-radius: var(--va-card-border-radius);
+    }
   }
 
   &__title,
   &__content,
   &__actions,
-  &__actions_vertical {
+  &__actions--vertical {
     padding: var(--va-card-padding);
 
     + .va-card__title,

@@ -5,9 +5,9 @@
       header="Collapse header"
       solid
       color="success"
-      class="mb-4"
+      class="mb-6"
     >
-      <div>
+      <div style="padding: 8px;">
         Collapse content
       </div>
     </va-collapse>
@@ -15,10 +15,10 @@
       v-model="value[1]"
       header="Collapse header"
       solid
-      color="warning"
-      class="mb-4"
+      color="secondary"
+      class="mb-6"
     >
-      <div>
+      <div style="padding: 8px;">
         Collapse content
       </div>
     </va-collapse>
@@ -26,11 +26,11 @@
       v-model="value[2]"
       header="Collapse header"
       solid
-      color="danger"
+      color="info"
       color-all
-      class="mb-4"
+      class="mb-6"
     >
-      <div>
+      <div style="padding: 8px;">
         Collapse content
       </div>
     </va-collapse>
@@ -42,9 +42,9 @@
       color-all
       text-color="backgroundPrimary"
       icon="info"
-      class="mb-4"
+      class="mb-6"
     >
-      <div>
+      <div style="padding: 8px;">
         Collapse content
       </div>
     </va-collapse>

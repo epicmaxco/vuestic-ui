@@ -207,20 +207,39 @@
             </va-button>
           </td>
         </tr>
+
+        <tr>
+          <td>Slots</td>
+          <td>
+            <va-button icon-right="alarm" @click="isChecked = !isChecked">
+              <template #prepend>
+                <VaCheckbox v-model="isChecked" color="secondary" readonly />
+              </template>
+              &nbsp;
+              Button
+            </va-button>
+            <va-button>
+              <template #prepend>prepend</template>
+              -
+              <template #append>append</template>
+            </va-button>
+          </td>
+        </tr>
       </table>
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import { VaIcon } from '../va-icon'
+import { VaIcon, VaCheckbox } from '../index'
 import { VaConfig } from '../va-config'
 import { VaButton } from './index'
 
 export default {
-  components: { VaButton, VaIcon, VaConfig },
+  components: { VaButton, VaIcon, VaConfig, VaCheckbox },
   data: () => ({
     buttonLoading: true,
+    isChecked: false,
   }),
 }
 </script>
