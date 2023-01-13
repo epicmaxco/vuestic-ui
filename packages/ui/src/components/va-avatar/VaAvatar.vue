@@ -13,11 +13,14 @@
     />
     <slot v-bind="avatarOptions" v-else>
       <img
-        v-if="srcComputed"
-        :src="srcComputed"
+        v-if="$props.src && !hasLoadError"
+        :src="$props.src"
         :alt="$props.alt"
         @error="onLoadError"
       >
+      <template v-else-if="hasLoadError && $props.src">
+        <component :is="fallbackComponent" />
+      </template>
       <va-icon
         v-else-if="$props.icon"
         :name="$props.icon"
@@ -32,6 +35,7 @@ import { defineComponent, ref, watch, computed } from 'vue'
 import {
   useSize,
   useColors,
+  useFallback,
   useTextColor,
   useSizeProps,
   useLoadingProps,
@@ -62,9 +66,16 @@ export default defineComponent({
   setup (props, { emit }) {
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
-    const backgroundColorComputed = computed(() => props.loading || props.src ? 'transparent' : colorComputed.value)
+    const backgroundColorComputed = computed(() => {
+      if (props.loading || (props.src && !hasLoadError.value)) {
+        return 'transparent'
+      }
+
+      return colorComputed.value
+    })
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
     const { textColorComputed } = useTextColor()
+    const fallbackComponent = useFallback(props)
 
     const computedStyle = computed(() => ({
       borderRadius: props.square ? 0 : '',
@@ -72,16 +83,6 @@ export default defineComponent({
     }))
 
     const hasLoadError = ref(false)
-
-    const srcComputed = computed(() => {
-      if (props.src && props.fallbackSrc && hasLoadError.value) {
-        emit('fallback')
-
-        return props.fallbackSrc
-      }
-
-      return props.src
-    })
 
     const onLoadError = (event: Event) => {
       hasLoadError.value = true
@@ -98,7 +99,8 @@ export default defineComponent({
     }))
 
     return {
-      srcComputed,
+      fallbackComponent,
+      hasLoadError,
       sizeComputed,
       avatarOptions,
       computedStyle,
