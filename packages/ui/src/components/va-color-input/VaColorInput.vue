@@ -79,6 +79,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import "../../styles/resources";
+
 .va-color-input {
   display: flex;
   align-items: center !important;
@@ -91,6 +93,8 @@ export default defineComponent({
     margin-bottom: 0;
     margin-left: 0.25rem;
     min-width: 5.6rem;
+
+    @include visually-hidden;
 
     &__pointer {
       cursor: pointer;
