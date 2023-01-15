@@ -2,7 +2,8 @@ import { createDistTransformPlugin } from './fabrics/create-dist-transform-plugi
 
 /** Returns list of child components names */
 const getComponentsList = (text: string) => {
-  const declaration = text.match(/components:\s?{([^}]*)}/gms)
+  // TODO: Replace Regex with ast parser
+  const declaration = text.match(/^\s\scomponents:\s?{([^}]*)}/gms)
   if (!declaration) { return [] }
 
   // There might be only on `components` declaration for one file
