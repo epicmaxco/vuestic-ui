@@ -21,6 +21,7 @@
 
 <script lang="ts">
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useScrollParent } from '../../composables/useScrollParent'
 import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue'
 import { warn } from '../../utils/console'
 
@@ -61,6 +62,8 @@ export default defineComponent({
       top: props.reversed ? 0 : 'auto',
     }))
 
+    const { getScrollableParent } = useScrollParent()
+
     const targetElement = computed(() => {
       if (!props.target) {
         return getScrollableParent(rootElement.value?.parentElement)
@@ -77,18 +80,6 @@ export default defineComponent({
       warn('VaParallax target prop got wrong selector. Target is null')
       return null
     })
-
-    const getScrollableParent = (element?: HTMLElement | null): HTMLElement | null => {
-      if (!element) {
-        return document.body
-      }
-
-      if (element.scrollHeight > element.clientHeight) {
-        return element
-      }
-
-      return getScrollableParent(element.parentElement)
-    }
 
     const imgHeight = computed(() => img.value?.naturalHeight || 0)
 
