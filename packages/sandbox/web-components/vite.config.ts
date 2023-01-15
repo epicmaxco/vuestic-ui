@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import demos from './plugins/resolve-demos'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,6 +14,9 @@ export default defineConfig({
         chunkFileNames: `assets/[name].js`,
         assetFileNames: `assets/[name].[ext]`
       },
+      watch: {
+        include: './web-components/node_modules/.cache/demos.js'
+      }
     },
   },
   esbuild: {
@@ -48,6 +52,7 @@ export default defineConfig({
         }
         return code
       }
-    }
+    },
+    demos(),
   ]
 })
