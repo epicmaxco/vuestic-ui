@@ -31,28 +31,28 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @import "../../../../styles/resources";
+@import "../../../../styles/resources";
 
-  .va-card {
-    &__title {
-      display: flex;
-      align-items: center;
+.va-card {
+  &__title {
+    display: flex;
+    align-items: center;
 
-      @include va-title();
-    }
+    @include va-title();
+  }
 
-    &__title,
-    &__content,
-    &__actions,
-    &__actions--vertical {
-      padding: var(--va-card-padding);
+  &__title,
+  &__content,
+  &__actions,
+  &__actions--vertical {
+    padding: var(--va-card-padding);
 
-      + .va-card__title,
-      + .va-card__content,
-      + .va-card__actions,
-      + .va-card_actions__vertical {
-        padding-top: 0;
-      }
+    + .va-card__title,
+    + .va-card__content,
+    + .va-card__actions,
+    + .va-card_actions__vertical {
+      padding-top: 0;
     }
   }
+}
 </style>
