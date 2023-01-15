@@ -2,13 +2,14 @@ import { createDistTransformPlugin } from './fabrics/create-dist-transform-plugi
 
 /** Returns list of child components names */
 const getComponentsList = (text: string) => {
-  const declaration = text.match(/components: \{(\w|\s|\n|,|:)*\}/gm)
+  const declaration = text.match(/components:\s?{([^}]*)}/gms)
   if (!declaration) { return [] }
 
+  // There might be only on `components` declaration for one file
   const oneLineDeclaration = declaration[0].replace(/\n/g, '')
   return oneLineDeclaration
-    .replace(/components: {/, '')
-    .replace(/}/, '')
+    .replace('components: {', '')
+    .replace('}', '')
     .split(',')
     .map((item) => {
       /*
