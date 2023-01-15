@@ -803,6 +803,7 @@ export default defineComponent({
     outline: var(--va-slider-handler-outline);
     left: var(--va-slider-handler-left);
     transition: var(--va-slider-handler-transition);
+    box-sizing: border-box;
 
     &__dot--focus {
       transform: var(--va-slider-dot-transform);
