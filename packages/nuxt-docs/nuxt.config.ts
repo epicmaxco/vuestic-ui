@@ -5,6 +5,6 @@ export default defineNuxtConfig({
   modules: [
     "./modules/vuestic",
     "./modules/page-config",
-    "./modules/i18n",
+    // "./modules/i18n",
   ],
 });

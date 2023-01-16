@@ -27,12 +27,21 @@ export const parseCode = (code: string) => {
       if (!('elements' in node.value)) { return }
 
       node.value?.elements?.forEach((element) => {
+        // TODO: This is not ideal, we should use acorn-walk to find the code always
+        const blockCode = code.slice(element.start, element.end)
+
         blocks.push({
-          code: code.slice(element.start, element.end),
+          code: blockCode,
           type: element.callee?.property?.name,
           args: element.arguments?.map((arg: any) => code.slice(arg.start, arg.end)),
           replaceArgCode: (index: number, value: string) => {
-            return code.slice(0, element.arguments[index].start) + value + code.slice(element.arguments[index].end)
+            const argStartInSlice = element.arguments[index].start - element.start
+            const argEndInSlice = element.arguments[index].end - element.start
+
+            const newBlockCode = blockCode.slice(0, argStartInSlice) + value + blockCode.slice(argEndInSlice)
+            const newCode = code.replace(blockCode, newBlockCode)
+            code = newCode
+            return newCode
           }
         })
       })

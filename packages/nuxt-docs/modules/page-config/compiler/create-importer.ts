@@ -1,9 +1,14 @@
 import { resolve, dirname } from 'path'
 import { type TransformPluginContext } from 'rollup'
+import { resolveAlias } from '@nuxt/kit';
 
 let IMPORT_STATIC_ID = 0
 export const createImporter = (ctx: TransformPluginContext, caller: string) => {
   const imports = []
+
+  const resolveWithAlias = (path: string) => {
+    return ctx.resolve(resolveAlias(path))
+  }
 
   return {
     importDefault(name: string, path: string) {
@@ -18,11 +23,11 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
     },
 
     resolveRelativePath: async (path: string) => {
-      return (await ctx.resolve(resolve(dirname(caller), path))).id
+      return (await resolveWithAlias(resolve(dirname(caller), path))).id
     },
 
     resolveAbsolutePath: async (path: string) => {
-      return (await ctx.resolve(path)).id
+      return (await resolveWithAlias(path)).id
     },
 
     get imports() {

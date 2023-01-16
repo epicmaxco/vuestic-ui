@@ -1,8 +1,8 @@
-import { addVitePlugin } from '@nuxt/kit';
+import { addVitePlugin,  } from '@nuxt/kit';
 import { createFilter } from '@rollup/pluginutils'
 import { createImporter } from '../compiler/create-importer'
 import { parseCode } from '../compiler/parse'
-import { extname } from 'path'
+import { extname, resolve } from 'path'
 
 export const useCompiler = (options: any) => {
   const filter = createFilter(options.include, options.exclude)
@@ -15,8 +15,9 @@ export const useCompiler = (options: any) => {
 
       const importer = createImporter(this, id)
 
-      importer.importNamed('block', (await this.resolve('@/modules/page-config/runtime')).id)
-      importer.importNamed('definePageConfig', (await this.resolve('@/modules/page-config/runtime')).id)
+      const runtimePath = resolve(__dirname, '../runtime/index.ts')
+      importer.importNamed('block', (await this.resolve(runtimePath)).id)
+      importer.importNamed('definePageConfig', (await this.resolve(runtimePath)).id)
 
       const blocks = parseCode(code)
 
@@ -64,11 +65,6 @@ export const useCompiler = (options: any) => {
         }
       }
 
-      /**
-       * Add this context to all block call
-       *
-       * block.example('Button') -> block.example.call({ callerPath: '/..' }, 'Button')
-       */
       return importer.imports + code
     },
   })
