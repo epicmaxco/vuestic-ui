@@ -8,7 +8,7 @@
     <div> inside the row class </div>
     But grid is not imported so we are not.
   </div>
-  <div class="flex-center ma-3">
+  <div class="flex-center m-3">
     <va-button @click="toggleAmPm()">
       Test Am\Pm toggle and minutes filter.
     </va-button>

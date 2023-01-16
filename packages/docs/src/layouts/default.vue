@@ -28,7 +28,7 @@
 <!--          </template>-->
 <!--        </va-breadcrumbs>-->
 
-        <div class="layout va-gutter-5 pb-6">
+        <div class="layout va-gutter-5">
           <router-view />
         </div>
       </div>

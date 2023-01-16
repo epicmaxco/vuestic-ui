@@ -1,11 +1,11 @@
 <template>
   <div class="row">
-    <va-counter class="mx-4 my-2"
+    <va-counter class="mx-6 my-2"
       v-model="value"
       width="250px"
     />
 
-    <va-counter class="mx-4 my-2"
+    <va-counter class="mx-6 my-2"
       v-model="value"
       outline
       buttons

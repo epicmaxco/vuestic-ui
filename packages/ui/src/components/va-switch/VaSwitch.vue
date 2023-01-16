@@ -206,9 +206,9 @@ export default defineComponent({
       name: props.name || undefined,
       disabled: props.disabled,
       readonly: props.readonly,
-      ariaDisabled: props.disabled,
-      ariaReadOnly: props.readonly,
-      ariaChecked: !!props.modelValue,
+      'aria-disabled': props.disabled,
+      'aria-readonly': props.readonly,
+      'aria-checked': !!props.modelValue,
       'aria-labelledby': computedLabel.value || slots.default ? ariaLabelIdComputed.value : undefined,
       ...validationAriaAttributes.value,
     }))

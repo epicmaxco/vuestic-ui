@@ -1,21 +1,47 @@
 import { computed, Ref, ComputedRef, getCurrentInstance } from 'vue'
 
 import { useColors } from '../../../composables'
+import { isServer } from '../../../utils/ssr'
 
 import { ButtonPropsTypes } from '../types'
+
+type ButtonTextColorStyles = {
+  color: string
+  background?: string
+  opacity?: number
+  'background-clip'?: 'text',
+  '-webkit-background-clip'?: 'text',
+}
 
 type UseButtonTextColor = (
   textColorComputed: Ref<string>,
   colorComputed: Ref<string>,
   isPressed: Ref<boolean>,
   isHovered: Ref<boolean>,
-) => ComputedRef<{
-  color: string
-  background?: string
-  opacity?: number
-  'background-clip'?: 'text',
-  '-webkit-background-clip'?: 'text',
-}>
+) => ComputedRef<ButtonTextColorStyles>
+
+/*
+* Inverts opacity depending on browser (webkit/chromium)
+* TODO: Check if Safari <16 version will be less then 1% and remove function
+*
+* @param {number} opacity - Opacity value
+* @returns {number} Inverted opacity value
+* */
+const getOpacity = (opacity: number): number => {
+  if (isServer()) { return opacity }
+
+  if (opacity > 0) {
+    const userAgent = window?.navigator?.userAgent
+    const isSafari = userAgent && /^((?!chrome|android).)*safari/i.test(window?.navigator?.userAgent)
+    const isLatestSafari = userAgent && /(version.)15|16/i.test(window?.navigator?.userAgent)
+
+    if (isSafari && !isLatestSafari) {
+      return opacity < 1 ? 1 - opacity : opacity
+    }
+  }
+
+  return opacity
+}
 
 export const useButtonTextColor: UseButtonTextColor = (
   textColorComputed,
@@ -32,7 +58,7 @@ export const useButtonTextColor: UseButtonTextColor = (
 
   const plainColorStyles = computed(() => ({
     background: 'transparent',
-    color: 'transparent',
+    color: textColorComputed.value,
     '-webkit-background-clip': 'text',
     'background-clip': 'text',
     opacity: getPlainTextOpacity.value,
@@ -40,11 +66,18 @@ export const useButtonTextColor: UseButtonTextColor = (
 
   const getStateColor = (maskColor: string, stateOpacity: number, stateBehavior: string) => {
     const maskStateColor = getColor(maskColor)
+    let stateStyles: Partial<ButtonTextColorStyles>
 
-    const res = stateBehavior === 'opacity'
-      ? { color: colorToRgba(textColorComputed.value, stateOpacity) }
-      : { background: getStateMaskGradientBackground(colorComputed.value, maskStateColor, stateOpacity) }
-    return { ...plainColorStyles.value, ...res }
+    if (stateBehavior === 'opacity') {
+      stateStyles = { color: colorToRgba(textColorComputed.value, stateOpacity) }
+    } else {
+      stateStyles = {
+        background: getStateMaskGradientBackground(colorComputed.value, maskStateColor, stateOpacity),
+        color: stateOpacity < 1 ? colorToRgba(textColorComputed.value, getOpacity(stateOpacity)) : maskStateColor,
+      }
+    }
+
+    return { ...plainColorStyles.value, ...stateStyles }
   }
 
   const hoverTextColorComputed = computed(() => {

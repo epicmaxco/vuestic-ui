@@ -5,9 +5,9 @@
         <va-avatar src="https://randomuser.me/api/portraits/men/3.jpg" size="128px" />
       </div>
 
-      <div class="pl-2 d-flex flex-direction-column justify-end">
+      <div class="pl-2 d-flex flex-col justify-end">
         <span class="title">Profile</span>
-        <h5 class="display-5 ma-0" style="color: inherit;">User</h5>
+        <div class="text-2xl font-bold">User</div>
 
         <div class="d-flex flex-wrap">
           <span class="mr-2 text--no-wrap">29 public playlists</span>

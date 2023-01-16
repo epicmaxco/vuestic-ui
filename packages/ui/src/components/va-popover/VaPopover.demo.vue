@@ -11,21 +11,21 @@
           <td>
             <va-popover
               message="Placement Bottom"
-              class="mr-4"
+              class="mr-6"
             >
               <va-button>Bottom</va-button>
             </va-popover>
             <va-popover
               placement="top"
               message="Placement Top"
-              class="mr-4"
+              class="mr-6"
             >
               <va-button>Top</va-button>
             </va-popover>
             <va-popover
               placement="left"
               message="Placement Left"
-              class="mr-4"
+              class="mr-6"
             >
               <va-button>Left</va-button>
             </va-popover>
@@ -45,7 +45,7 @@
               placement="right"
               icon="error"
               message="Popover with icon"
-              class="mr-4"
+              class="mr-6"
             >
               <va-button>Hover me</va-button>
             </va-popover>
@@ -58,7 +58,7 @@
               placement="right"
               title="Popover title"
               message="Popover text"
-              class="mr-4"
+              class="mr-6"
             >
               <va-button>Hover me</va-button>
             </va-popover>
@@ -72,7 +72,7 @@
               title="Popover title"
               icon="error"
               message="Popover dummy text"
-              class="mr-4"
+              class="mr-6"
             >
               <va-button>Hover me</va-button>
             </va-popover>
@@ -85,7 +85,7 @@
               placement="right"
               message="Popover dummy text"
               color="warning"
-              class="mr-4"
+              class="mr-6"
             >
               <va-button color="warning">
                 Hover me
@@ -96,7 +96,7 @@
               placement="right"
               message="Popover dummy text"
               color="info"
-              class="mr-4"
+              class="mr-6"
             >
               <va-button color="info">
                 Hover me
@@ -107,7 +107,7 @@
               placement="right"
               message="Popover dummy text"
               color="danger"
-              class="mr-4"
+              class="mr-6"
             >
               <va-button color="danger">
                 Hover me
@@ -118,7 +118,7 @@
               placement="right"
               message="Popover dummy text"
               color="textPrimary"
-              class="mr-4"
+              class="mr-6"
             >
               <va-button color="textPrimary">
                 Hover me
@@ -129,7 +129,7 @@
               placement="right"
               message="Popover dummy text"
               color="secondary"
-              class="mr-4"
+              class="mr-6"
             >
               <va-button color="secondary">
                 Hover me

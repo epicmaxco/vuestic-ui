@@ -8,7 +8,7 @@
     <va-popover message="Popover text"><va-button>Hover me</va-button></va-popover>
     <va-date-input class="mt-2" />
 
-    <va-button class="mt-5" @click="showSecondModal = !showSecondModal" color="secondary">
+    <va-button class="mt-8" @click="showSecondModal = !showSecondModal" color="secondary">
       Show second modal
     </va-button>
 

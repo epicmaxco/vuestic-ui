@@ -10,7 +10,7 @@
       <va-list-item
         v-for="(language, id) in languages"
         :key="id"
-        class="language-dropdown__item row align-center py-2 va-link"
+        class="language-dropdown__item row align-center va-link"
         :class="{ active: language.code === locale }"
         @click="setLanguage(language.code)"
       >
@@ -19,7 +19,7 @@
         </va-list-item-section>
       </va-list-item>
       <va-list-item
-        class="language-dropdown__item va-link row align-center py-2"
+        class="language-dropdown__item va-link row align-center"
         :to="`/${locale}/contribution/translation`"
       >
         <va-list-item-section :style="{color: colors.primary}">
@@ -70,7 +70,8 @@ export default defineComponent({
   }
 
   &__item {
-    padding-bottom: 0.625rem;
+    @apply py-1.5;
+
     cursor: pointer;
     flex-wrap: nowrap;
     font-weight: 600;

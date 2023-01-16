@@ -1452,7 +1452,8 @@
         "checked": "Array of pre-selected tree nodes.",
         "checkedBy": "The key to set the checked field in the tree view model.",
         "color": "The checkboxes color.",
-        "expanded": "Array of pre-expanded tree nodes."
+        "expanded": "Array of pre-expanded tree nodes.",
+        "expandNodeBy": "Click target to expand node, can be `node` or `leaf` icon."
       },
       "slots": {
         "notFound": "No matching nodes to the filter message.",
@@ -4654,7 +4655,8 @@
         "title": "Filters"
       },
       "selectable": {
-        "title": "Selectable"
+        "title": "Selectable",
+        "coloredTitle": "Colored checkboxes"
       }
     }
   },

@@ -2,25 +2,25 @@
   <va-parallax :src="imageSrc">
     <div class="d-flex align-center justify-center" style="height: 100%;">
       <va-icon
-        class="mr-5"
+        class="mr-8"
         name="mdi-calendar-blank-outline"
         size="36px"
         color="#fff"
       />
       <va-icon
-        class="mr-5"
+        class="mr-8"
         name="mdi-close"
         size="36px"
         color="#fff"
       />
       <va-icon
-        class="mr-5"
+        class="mr-8"
         name="mdi-heart-outline"
         size="36px"
         color="#fff"
       />
       <va-icon
-        class="mr-5"
+        class="mr-8"
         name="mdi-folder-outline"
         size="36px"
         color="#fff"

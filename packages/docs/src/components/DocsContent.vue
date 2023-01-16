@@ -89,7 +89,7 @@
         :header="block.header"
         solid
       >
-        <div class="pa-4">
+        <div class="p-6">
           <DocsContent :config="block.blocks" />
         </div>
       </VaCollapse>

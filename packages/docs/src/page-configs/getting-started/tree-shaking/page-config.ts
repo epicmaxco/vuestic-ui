@@ -1,7 +1,7 @@
 import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import { treeShakingExample, cssCodeSplit } from './code-examples'
-import bundleSizeData from 'sandbox/tree-shaking.md'
+import bundleSizeData from './tree-shaking.md'
 
 const block = new PageGenerationHelper(__dirname)
 

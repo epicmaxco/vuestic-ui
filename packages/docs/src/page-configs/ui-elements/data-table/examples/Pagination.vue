@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <va-input
-      class="flex mb-2 md3"
+      class="flex flex-col mb-2 md3"
       type="number"
       placeholder="Items..."
       label="Items per page"
@@ -9,7 +9,7 @@
     />
 
     <va-input
-      class="flex mb-2 md3"
+      class="flex flex-col mb-2 md3"
       type="number"
       placeholder="Page..."
       label="Current page"
@@ -17,7 +17,7 @@
     />
 
     <va-input
-      class="flex mb-2 md6"
+      class="flex flex-col mb-2 md6"
       placeholder="Filter..."
       v-model="filter"
     />

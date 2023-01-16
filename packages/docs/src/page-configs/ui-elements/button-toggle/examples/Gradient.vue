@@ -4,7 +4,7 @@
     color="primary"
     v-model="model"
     :options="options"
-    class="mb-4"
+    class="mb-6"
   />
 
   <va-button-toggle
@@ -12,7 +12,7 @@
     color="success"
     v-model="model"
     :options="options"
-    class="mb-4"
+    class="mb-6"
   />
 
   <va-button-toggle
@@ -20,7 +20,7 @@
     color="danger"
     v-model="model"
     :options="options"
-    class="mb-4"
+    class="mb-6"
   />
 
   <va-button-toggle

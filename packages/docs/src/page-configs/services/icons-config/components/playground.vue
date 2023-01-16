@@ -20,10 +20,10 @@
 
     <div class="va-code-snippet">
       const fonts = [{
-      <div class="ml-4">
+      <div class="ml-6">
         <div>name: '<CodeInput class="code-input" v-model="configName" />',</div>
         {{ resolveFnName }}: (<span class="params">{{ args }}</span>) => ({
-          <div class="ml-4 mb-1" v-for="key in Object.keys(resolve)" :key="key">
+          <div class="ml-6 mb-1" v-for="key in Object.keys(resolve)" :key="key">
             {{ key }}: <CodeInput v-model="(resolve as any)[key]" />,
           </div>
         })
@@ -146,7 +146,6 @@ const copy = () => {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  margin: -0.5rem;
 
   & > * {
     padding: 0.5rem;

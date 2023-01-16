@@ -1,5 +1,5 @@
 <template>
-  <div class="flex lg6 xs12">
+  <div class="flex flex-col lg6 xs12">
     <va-progress-bar :model-value="value" :max="max" />
     <va-slider class="mt-3" v-model="value" :max="max" track-label-visible />
     <va-input v-model="max" label="Max value" class="mt-3" />
