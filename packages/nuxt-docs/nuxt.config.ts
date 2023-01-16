@@ -6,7 +6,8 @@ export default defineNuxtConfig({
     "./modules/vuestic",
     "./modules/page-config",
     // "./modules/i18n",
-    '@nuxtjs/i18n',
+    // TODO: remove after i18n is released https://github.com/nuxt-modules/i18n/pull/1712
+    '@nuxtjs/i18n-edge',
   ],
 
   i18n: {

@@ -10,7 +10,7 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@nuxtjs/i18n": "^8.0.0-beta.7",
+    "@nuxtjs/i18n-edge": "^8.0.0-beta.7-27893843.b72135e",
     "acorn": "^8.8.1",
     "acorn-walk": "^8.2.0",
     "nuxt": "3.0.0",
@@ -18,8 +18,5 @@
   },
   "dependencies": {
     "prismjs": "^1.29.0"
-  },
-  "workspaces": {
-    "nohoist": ["*", "@intlify/vue-router-bridge"]
   }
 }
