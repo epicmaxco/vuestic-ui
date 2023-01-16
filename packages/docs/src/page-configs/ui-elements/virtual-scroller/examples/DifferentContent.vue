@@ -6,7 +6,7 @@
     v-slot="{item}"
   >
     <div class="row">
-      <div class="flex md6 lg4">
+      <div class="flex flex-col md6 lg4">
         <va-card>
           <va-image
             src="https://picsum.photos/400/200"
@@ -23,7 +23,7 @@
 <script>
 export default {
   data: () => {
-    const hugeArray = new Array(10000).fill(null).map((_, index) => index + 1)
+    const hugeArray = new Array(1000).fill(null).map((_, index) => index + 1)
     return { hugeArray }
   },
 }

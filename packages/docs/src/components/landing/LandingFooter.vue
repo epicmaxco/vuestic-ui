@@ -2,7 +2,7 @@
   <footer class="footer" :style="{ color: textColor }">
     <div class="footer__wrapper">
       <div class="footer__inner">
-        <LandingEpicmaxBanner class="mb-4 " />
+        <LandingEpicmaxBanner class="mb-6 " />
         <div class="footer__buttons">
           <va-button
             class="footer__buttons__button"
@@ -74,38 +74,21 @@
           </a>
         </div>
       </div>
+<!--      <LandingNewsBanner />-->
     </div>
   </footer>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useColors, useElementTextColor } from 'vuestic-ui/src/main'
-import { markRaw, defineComponent } from 'vue'
-import IconEpicmax from './icons/IconEpicmax.vue'
-import IconAdmin from './icons/IconAdmin.vue'
-import IconSpinners from './icons/IconSpinners.vue'
 import LandingEpicmaxBanner from '@/components/landing/LandingEpicmaxBanner.vue'
+// import LandingNewsBanner from '@/components/landing/LandingNewsBanner.vue'
 
-export default defineComponent({
-  name: 'LandingFooter',
+const { getComputedColor } = useColors()
 
-  components: {
-    LandingEpicmaxBanner,
-  },
-
-  setup () {
-    const { getComputedColor } = useColors()
-
-    return {
-      textColor: useElementTextColor('background-primary'),
-      IconEpicmax: markRaw(IconEpicmax),
-      IconAdmin: markRaw(IconAdmin),
-      IconSpinners: markRaw(IconSpinners),
-      primaryColor: getComputedColor('primary'),
-      currentYear: new Date().getFullYear(),
-    }
-  },
-})
+const textColor = useElementTextColor('background-primary')
+const primaryColor = getComputedColor('primary')
+const currentYear = new Date().getFullYear()
 </script>
 
 <style lang="scss" scoped>

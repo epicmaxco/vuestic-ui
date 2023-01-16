@@ -7,10 +7,10 @@
       </tr>
       <tr>
         <td colspan="2" style="padding: 4rem;">
-          <div class="d-flex flex-direction-column align-center">
+          <div class="d-flex flex-col align-center">
             <va-dropdown
               :model-value="true"
-              :placement="placement"
+              :placement="placementWIthAlias"
               :close-on-click-outside="false"
               :close-on-anchor-click="false"
               :close-on-content-click="false"
@@ -28,7 +28,7 @@
       <tr>
         <td>Placement:</td>
         <td>
-          <va-select :options="$options.placements" v-model="placement" />
+          <va-select :options="placements" v-model="placementWIthAlias" />
         </td>
       </tr>
       <tr>
@@ -43,26 +43,39 @@
 </template>
 
 <script>
+import { ref, computed } from 'vue'
+
+import { aliasToPlacement } from 'vuestic-ui/src/composables'
+
 import Coordinates from '../components/Coordinates.vue'
+
+const aliases = ['top-left', 'left-top', 'top-right', 'right-top', 'bottom-left', 'left-bottom', 'bottom-right', 'right-bottom']
 
 export default {
   components: { Coordinates },
-  data () {
+
+  data: () => ({
+    offset: [10, 0],
+  }),
+
+  setup: () => {
+    const placementWIthAlias = ref('auto')
     return {
-      placement: 'auto',
-      offset: [10, 0],
+      placementWIthAlias,
+      placement: computed(() => {
+        return aliasToPlacement[placementWIthAlias.value] || placementWIthAlias.value
+      }),
+      placements: ['top', 'bottom', 'left', 'right'].reduce(
+        (acc, position) => [
+          ...acc,
+          position,
+          `${position}-start`,
+          `${position}-end`,
+          `${position}-center`,
+        ],
+        ['auto'],
+      ).concat(aliases),
     }
   },
-
-  placements: ['top', 'bottom', 'left', 'right'].reduce(
-    (acc, position) => [
-      ...acc,
-      position,
-      `${position}-start`,
-      `${position}-end`,
-      `${position}-center`,
-    ],
-    ['auto'],
-  ),
 }
 </script>

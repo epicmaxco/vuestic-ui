@@ -11,7 +11,7 @@ import { defineComponent, computed } from 'vue'
 import { extractComponentProps } from '../../utils/component-options'
 import omit from 'lodash/omit.js'
 
-import { useBem, useDeprecatedProps, useComponentPresetProp } from '../../composables'
+import { useBem, useDeprecated, useComponentPresetProp } from '../../composables'
 
 import { VaConfig } from '../va-config'
 import { VaButton } from '../va-button'
@@ -32,7 +32,7 @@ export default defineComponent({
 
   setup: (props) => {
     // TODO(1.6.0): Remove deprecated props
-    useDeprecatedProps(['flat', 'outline'])
+    useDeprecated(['flat', 'outline'])
 
     const buttonConfig = computed(() => ({ VaButton: { ...props } }))
     const computedClass = useBem('va-button-group', () => ({

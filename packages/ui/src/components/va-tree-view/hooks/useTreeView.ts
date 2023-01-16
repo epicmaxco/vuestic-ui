@@ -1,4 +1,5 @@
 import {
+  ref,
   toRefs,
   provide,
   computed,
@@ -9,9 +10,10 @@ import {
 
 import { useColors, useStateful } from '../../../composables'
 
-import type { TreeNode, TreeViewFilterMethod } from '../types'
+import type { TreeNode, TreeViewFilterMethod, TreeViewEmitsFunc } from '../types'
 import { useTreeHelpers, useTreeViewProps } from './useTreeHelpers'
 import { TreeViewKey } from '../types'
+import useTreeKeyboardNavigation from './useTreeKeyboardNavigation'
 
 type CreateNodeProps = {
   node: TreeNode
@@ -21,7 +23,6 @@ type CreateNodeProps = {
 }
 
 type CreateNodeFunc = (props: CreateNodeProps) => TreeNode
-type TreeViewEmitsFunc = (event: string, newValues: unknown) => void
 type TreeBuilderFunc = (nodes: TreeNode[], level?: number) => TreeNode[]
 type TypeModelValue = (string | number | TreeNode)[]
 
@@ -49,6 +50,19 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
   const { nodes, expandAll, filter, filterMethod, textBy } = toRefs(props)
   const { valueComputed: expandedList } = useStateful(props, emit, 'expanded')
   const { valueComputed: checkedList } = useStateful(props, emit, 'checked')
+
+  const selectedNode = ref()
+  const selectedNodeComputed: WritableComputedRef<string | number | Record<string, unknown>> = computed({
+    get: () => selectedNode.value,
+    set: (node: TreeNode) => {
+      const value = getValue(node)
+
+      if (selectedNode.value !== value) {
+        selectedNode.value = value
+        emit('update:selected', node)
+      }
+    },
+  })
 
   const updateModel = (model: WritableComputedRef<TypeModelValue>, values: TypeModelValue, state: boolean) => {
     if (state) {
@@ -147,15 +161,21 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     return node.matchesFilter ? node : false
   })
 
+  const { handleKeyboardNavigation } = useTreeKeyboardNavigation(props, { emit, toggleCheckbox, toggleNode })
+
   provide(TreeViewKey, {
+    selectedNodeComputed,
     colorComputed,
     iconBy: props.iconBy,
     selectable: props.selectable,
+    expandNodeBy: props.expandNodeBy,
     getText,
+    getValue,
     getTrackBy,
     toggleNode,
     toggleCheckbox,
     getNodeProperty,
+    handleKeyboardNavigation,
   })
 
   const treeItems = computed(() => buildTree(nodes.value))

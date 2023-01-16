@@ -1,7 +1,7 @@
 <template>
   <div style="max-width: 300px;">
     <va-select
-      class="mb-4"
+      class="mb-6"
       label="Content slot"
       :options="options"
       v-model="value"
@@ -12,7 +12,7 @@
       </template>
     </va-select>
     <va-select
-      class="mb-4"
+      class="mb-6"
       label="Prepend slot"
       :options="options"
       v-model="value"
@@ -24,7 +24,7 @@
       </template>
     </va-select>
     <va-select
-      class="mb-4"
+      class="mb-6"
       label="Prepend inner slot"
       :options="options"
       v-model="value"
@@ -36,7 +36,7 @@
       </template>
     </va-select>
     <va-select
-      class="mb-4"
+      class="mb-6"
       label="Append inner slot"
       :options="options"
       v-model="value"
@@ -48,7 +48,7 @@
       </template>
     </va-select>
     <va-select
-      class="mb-4"
+      class="mb-6"
       label="Append slot"
       :options="options"
       v-model="value"
@@ -65,7 +65,7 @@
       v-model="value"
     >
       <template v-slot:option="{ option, index, selectOption }">
-        <div class="d-flex justify-space-between align-center pa-2">
+        <div class="d-flex justify-between align-center p-2">
           Have a nice day!
           <va-button
             class="mb-2"

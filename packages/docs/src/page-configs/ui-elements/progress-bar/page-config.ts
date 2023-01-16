@@ -46,6 +46,11 @@ const config: ApiDocsBlock[] = [
     'progressBar.examples.buffer.text',
     'Buffer',
   ),
+  ...block.exampleBlock(
+    'progressBar.examples.max.title',
+    'progressBar.examples.max.text',
+    'Max',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaProgressBar, apiOptions),

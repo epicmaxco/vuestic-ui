@@ -5,6 +5,7 @@
     :class="$attrs.class"
     :style="$attrs.style"
     :color="$props.color"
+    :background="$props.background"
     :readonly="$props.readonly"
     :disabled="$props.disabled"
     :success="$props.success"
@@ -135,6 +136,7 @@ export default defineComponent({
 
     // style
     color: { type: String, default: 'primary' },
+    background: { type: String, default: 'background-element' },
     outline: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
     requiredMark: { type: Boolean, default: false },
@@ -219,12 +221,12 @@ export default defineComponent({
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
 
     const computedChildAttributes = computed(() => ({
-      ariaLabel: props.ariaLabel || props.label,
-      ariaRequired: props.requiredMark,
+      'aria-label': props.ariaLabel || props.label,
+      'aria-required': props.requiredMark,
       tabindex: tabIndexComputed.value,
       class: props.inputClass,
-      ariaDisabled: props.disabled,
-      ariaReadonly: props.readonly,
+      'aria-disabled': props.disabled,
+      'aria-readonly': props.readonly,
       ...validationAriaAttributes.value,
       ...omit(attrs, ['class', 'style']),
     }) as InputHTMLAttributes)

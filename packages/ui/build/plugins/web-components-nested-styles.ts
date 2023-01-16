@@ -2,11 +2,30 @@ import { createDistTransformPlugin } from './fabrics/create-dist-transform-plugi
 
 /** Returns list of child components names */
 const getComponentsList = (text: string) => {
-  const declaration = text.match(/components: {(\w|\s|\n|,)*}/gm)
+  // TODO: Replace Regex with ast parser
+  const declaration = text.match(/^\s\scomponents:\s?{([^}]*)}/gms)
   if (!declaration) { return [] }
 
+  // There might be only on `components` declaration for one file
   const oneLineDeclaration = declaration[0].replace(/\n/g, '')
-  return oneLineDeclaration.replace(/components: {/, '').replace(/}/, '').split(',').map((item) => item.trim())
+  return oneLineDeclaration
+    .replace('components: {', '')
+    .replace('}', '')
+    .split(',')
+    .map((item) => {
+      /*
+      Can be one of two way to register component
+      ```
+      components: {
+        VaDatePicker: _VaDatePicker,
+        VaInput,
+      }
+      ```
+
+      So we need _VaDatePicker or if not, just component name
+      */
+      return item.split(':')[1] || item
+    })
 }
 
 /** .styles returns component styles, that will be injected inside Web Component shadow dom */

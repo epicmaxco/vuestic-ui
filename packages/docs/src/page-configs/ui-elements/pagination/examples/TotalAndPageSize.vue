@@ -5,10 +5,11 @@
     :visible-pages="7"
     :total="100"
     :direction-links="false"
-    :page-size="10"
+    :page-size="pageSize"
     boundary-numbers
   />
-  Current value: {{ value }}
+
+  Items from {{ value }} to {{ value + pageSize - 1}}
 </template>
 
 <script>
@@ -16,6 +17,7 @@ export default {
   data () {
     return {
       value: 11,
+      pageSize: 10,
     }
   },
 }

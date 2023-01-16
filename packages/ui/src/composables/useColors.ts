@@ -80,10 +80,9 @@ export const useColors = () => {
       prop = getColor(defaultColor)
     }
 
-    const normalizedColor = normalizeColorName(prop)
-
-    if (colors[normalizedColor]) {
-      return preferVariables ? `var(${cssVariableName(prop)})` : colors[normalizedColor]
+    const colorValue = colors[prop] || colors[normalizeColorName(prop)]
+    if (colorValue) {
+      return preferVariables ? `var(${cssVariableName(prop)})` : colorValue
     }
 
     if (isColor(prop)) {

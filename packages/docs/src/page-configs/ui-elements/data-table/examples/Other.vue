@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="flex lg4 mb-2">
+    <div class="flex flex-col lg4 mb-2">
       <va-switch
         class="mt-2"
         label="Striped style"
@@ -23,7 +23,7 @@
       />
     </div>
 
-    <div class="flex lg4 mb-2">
+    <div class="flex flex-col lg4 mb-2">
       <va-switch
         class="mt-2"
         label="Loading state"
@@ -46,7 +46,7 @@
       />
     </div>
 
-    <div class="flex lg4 mb-2">
+    <div class="flex flex-col lg4 mb-2">
       <va-switch
         class="mt-2"
         label="Hide default header"

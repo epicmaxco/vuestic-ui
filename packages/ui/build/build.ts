@@ -4,7 +4,7 @@ import { buildStart } from './steps/buildStart'
 import { buildEnd } from './steps/buildEnd'
 
 defineVuesticBuild(async () => {
-  buildStart()
+  // buildStart()
 
   await Promise.all([
     // $('npm run build:types', { successMessage: 'types built' }),

@@ -52,3 +52,14 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+@import "~@/assets/main.scss";
+
+.stars-button {
+  .va-icon {
+    @include sm(padding-right, 0.25rem);
+    @include xs(padding-right, 0.25rem);
+  }
+}
+</style>

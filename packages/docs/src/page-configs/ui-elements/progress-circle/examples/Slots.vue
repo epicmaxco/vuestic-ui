@@ -1,5 +1,5 @@
 <template>
-  <div class="flex lg6 xs12">
+  <div class="flex flex-col lg6 xs12">
     <va-progress-circle class="mb-2" :modelValue="value">
       {{ value + '%' }}
     </va-progress-circle>

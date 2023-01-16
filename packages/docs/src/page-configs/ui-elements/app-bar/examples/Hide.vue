@@ -10,7 +10,7 @@
       <va-button icon="battery" color="#fff" preset="plain" />
       <va-spacer />
       <va-button color="#fff" preset="plain">Login</va-button>
-      <va-button-dropdown size="small" preset="plain" icon="ellipsis">
+      <va-button-dropdown preset="plain" icon-color="#fff">
         Content
       </va-button-dropdown>
     </va-app-bar>
