@@ -35,6 +35,7 @@ export {
   VaDropdown,
   VaDropdownContent,
   VaForm,
+  VaFileUpload,
   VaHover,
   VaIcon,
   VaImage,
