@@ -12,11 +12,11 @@ const props = defineProps({
   }
 })
 
-const { tie } = useI18n()
+const { t } = useI18n()
 </script>
 
 <template>
   <va-alert :color="color">
-    <MarkdownView :content="tie(text)" />
+    <MarkdownView :content="t(text)" />
   </va-alert>
 </template>

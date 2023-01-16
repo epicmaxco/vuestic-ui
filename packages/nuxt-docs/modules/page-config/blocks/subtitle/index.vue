@@ -6,11 +6,11 @@ const props = defineProps({
   }
 })
 
-const { tie } = useI18n()
+const { t } = useI18n()
 </script>
 
 <template>
   <h3>
-    {{ tie(text) }}
+    {{ t(text) }}
   </h3>
 </template>
