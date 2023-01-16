@@ -6,7 +6,7 @@ const files = Object.entries(import.meta.glob('../page-config/**/index.ts'))
   .reduce((acc, [key, fn]) => {
     acc[key.replace('../page-config/', '').replace('/index.ts', '')] = fn
     return acc
-  }, {})
+  }, {} as Record<string, () => Promise<any>>)
 
 export const usePageConfigs = () => {
   return files
