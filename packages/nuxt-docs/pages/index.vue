@@ -1,12 +1,9 @@
 <template>
-  <va-content v-if="false">
-    <!-- <PageConfig  :page-config="config" /> -->
-    <!-- <component :is="config.blocks[0].component" /> -->
-  </va-content>
-  <div v-else>Loading</div>
+  <div>
+    <PageConfig v-if="config" :pageConfig="config" />
+  </div>
 </template>
 
-<script setup lang="ts">
-// const config = usePageConfig('button')
-// console.log(config)
+<script setup>
+const config = usePageConfig('ui-elements/button')
 </script>

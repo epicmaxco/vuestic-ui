@@ -21,13 +21,10 @@ export default defineNuxtModule<VuesticOptions>({
   },
 
   setup (options, nuxt) {
-    const vuesticMainPath = resolve(__dirname, '../../ui/src/main.ts')
-    const vuesticSrcPath = resolve(__dirname, '../../ui/src/')
-    const vuesticCSSPath = resolve(__dirname, '../../ui/src/styles/index.scss')
-
-    nuxt.options.alias['vuestic-ui/src'] = vuesticSrcPath;
-    nuxt.options.alias['vuestic-ui/css'] = vuesticCSSPath;
-    nuxt.options.alias['vuestic-ui'] = vuesticMainPath;
+    nuxt.options.alias['vuestic-ui/src'] = resolve(__dirname, '../../ui/src/');
+    nuxt.options.alias['vuestic-ui/styles'] = resolve(__dirname, '../../ui/src/styles/');;
+    nuxt.options.alias['vuestic-ui/css'] =  resolve(__dirname, '../../ui/src/styles/index.scss');
+    nuxt.options.alias['vuestic-ui'] = resolve(__dirname, '../../ui/src/main.ts');
 
     originalNuxtModule(options, nuxt)
 
