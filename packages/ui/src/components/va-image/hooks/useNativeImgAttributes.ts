@@ -1,5 +1,5 @@
 import { computed, type ExtractPropTypes, type PropType } from 'vue'
-import pick from 'lodash/pick'
+import pick from 'lodash/pick.js'
 
 const referrerPolicyOptions = ['no-referrer', 'no-referrer-when-downgrade', 'origin', 'origin-when-cross-origin', 'same-origin', 'strict-origin', 'strict-origin-when-cross-origin', 'unsafe-url'] as const
 const loadingOptions = ['lazy', 'eager'] as const
@@ -14,12 +14,10 @@ export const useNativeImgAttributesProps = {
   alt: { type: String, default: '' },
   title: { type: String, default: '' },
   sizes: { type: String, default: '' },
-  scrset: { type: String, default: '' },
-  lazy: { type: Boolean, default: false },
+  srcset: { type: String, default: '' },
   notDraggable: { type: Boolean, default: false },
   loading: {
     type: String as PropType<typeof loadingOptions[number]>,
-    default: 'lazy',
     validator: (v: string) => validateProp(v, loadingOptions),
   },
   crossorigin: {
@@ -43,7 +41,7 @@ export const useNativeImgAttributesProps = {
 
 export const useNativeImgAttributes = (props: ExtractPropTypes<typeof useNativeImgAttributesProps>) => {
   return computed(() => ({
-    ...pick(props, ['src', 'alt', 'title', 'sizes', 'scrset', 'lazy', 'loading', 'referrerpolicy', 'fetchpriority', 'decoding', 'crossorigin']),
+    ...pick(props, ['src', 'alt', 'title', 'sizes', 'srcset', 'loading', 'referrerpolicy', 'fetchpriority', 'decoding', 'crossorigin']),
     draggable: !props.notDraggable,
   }))
 }

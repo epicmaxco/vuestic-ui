@@ -7,12 +7,23 @@
       />
     </VbCard>
 
+    <VbCard title="Progressive loading">
+      <va-image
+        class="image"
+        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+      >
+        <template #placeholder>
+          <img src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200" alt="" />
+        </template>
+      </va-image>
+    </VbCard>
+
     <VbCard title="Slots (loading, error, placeholder)">
       <div class="mb-2 flex">
-        <button class="mr-2" @click="newImage">
+        <button class="mr-2 border border-gray-200 rounded" @click="newImage">
           New image
         </button>
-        <button @click="wrongPath">
+        <button class="border border-gray-200 rounded" @click="wrongPath">
           Wrong path
         </button>
       </div>
@@ -61,11 +72,20 @@
       </va-image>
 
       <va-image
-        class="image"
+        class="mb-2 image"
         :src="getImagePath(200)"
       >
         <div class="overlay overlay--whole">
-          Overlay Whole
+          Overlay
+        </div>
+      </va-image>
+
+      <va-image
+        class="image"
+        :src="getImagePath(200)"
+      >
+        <div class="overlay overlay--whole overlay--gradient">
+          Overlay with gradient
         </div>
       </va-image>
     </VbCard>
@@ -102,7 +122,7 @@
 
     <VbCard title="Contain">
       <va-image
-        class="image bg-orange-500"
+        class="image bg-gray-200"
         fit="contain"
         :src="getImagePath(200, 100)"
       />
@@ -113,6 +133,22 @@
         class="image"
         fit="fill"
         :src="getImagePath(200, 100)"
+      />
+    </VbCard>
+
+    <VbCard title="Scrset and sizes">
+      <va-image
+        class="image"
+        :src="getImagePath(200)"
+        :srcset="`${getImagePath(201)} 400w,
+                ${getImagePath(202)} 800w,
+                ${getImagePath(203)} 1200w,
+                ${getImagePath(204)} 1600w`"
+        sizes="(max-width: 400px) 400w,
+              (min-width: 400px) and (max-width: 800px) 800w,
+              (min-width: 800px) and (max-width: 1200px) 1200w,
+              (min-width: 1200px) 1600w"
+        @loaded="$vb.log('srcset rendered image is', $event)"
       />
     </VbCard>
   </VbDemo>
@@ -154,6 +190,10 @@ const slotImagePath = computed(() => getImagePath(slotImageSize.value))
   right: 0;
   background: rgba(0, 0, 0, 0.5);
   color: white;
+
+  &--gradient {
+    background: repeating-linear-gradient(-45deg, rgba(0, 255, 23, 0.25), rgba(0, 83, 255, 0.25) 25px);
+  }
 
   &--whole,
   &--top {

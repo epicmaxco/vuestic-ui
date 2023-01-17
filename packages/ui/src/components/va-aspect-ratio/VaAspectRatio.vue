@@ -1,12 +1,12 @@
 <template>
   <div class="va-aspect-ratio">
-    <div :style="stylesComputed" />
+    <div v-if="stylesComputed" :style="stylesComputed" />
     <slot />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, type PropType } from 'vue'
 
 import { useComponentPresetProp } from '../../composables'
 
@@ -15,15 +15,33 @@ export default defineComponent({
 
   props: {
     ...useComponentPresetProp,
-    ratio: { type: Number, validator: (v: number) => v > 0 },
+    ratio: {
+      type: [Number, String] as PropType<number | 'auto'>,
+      default: 'auto',
+      validator: (v: number | 'auto') => {
+        if (typeof v === 'number') {
+          return v > 0
+        }
+
+        return v === 'auto'
+      },
+    },
     contentHeight: { type: Number, default: 1 },
     contentWidth: { type: Number, default: 1 },
   },
 
   setup (props) {
-    const aspectRatio = computed(() => props.ratio || props.contentWidth / props.contentHeight)
+    const aspectRatio = computed(() => {
+      if (props.ratio === 'auto' && props.contentHeight === 1 && props.contentWidth === 1) { return 0 }
+      if (!isNaN(+props.ratio)) { return props.ratio as number }
+      return props.contentWidth / props.contentHeight
+    })
 
-    const stylesComputed = computed(() => ({ paddingBottom: `${1 / aspectRatio.value * 100}%` }))
+    const stylesComputed = computed(() => {
+      if (!aspectRatio.value) { return }
+
+      return { paddingBottom: `${1 / aspectRatio.value * 100}%` }
+    })
 
     return { stylesComputed }
   },
@@ -36,5 +54,6 @@ export default defineComponent({
 .va-aspect-ratio {
   position: var(--va-aspect-ratio-position);
   overflow: var(--va-aspect-ratio-overflow);
+  display: flex;
 }
 </style>

@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch, nextTick, onBeforeUnmount, type PropType } from 'vue'
+import { defineComponent, ref, computed, watch, nextTick, onBeforeUnmount, type PropType, onBeforeMount } from 'vue'
 
 import { VaAspectRatio } from '../va-aspect-ratio'
 
@@ -68,7 +68,17 @@ export default defineComponent({
   props: {
     ...useComponentPresetProp,
     ...useNativeImgAttributesProps,
-    ratio: { type: Number, validator: (v: number) => v >= 0 },
+    ratio: {
+      type: [Number, String] as PropType<number | 'auto'>,
+      default: 'auto',
+      validator: (v: number | 'auto') => {
+        if (typeof v === 'number') {
+          return v > 0
+        }
+
+        return v === 'auto'
+      },
+    },
     fit: {
       type: String as PropType<typeof fitOptions[number]>,
       default: 'cover',
@@ -90,6 +100,7 @@ export default defineComponent({
     const handleLoad = () => {
       isLoading.value = false
 
+      renderedImage.value = image.value?.currentSrc
       getImgSizes()
 
       emit('loaded', currentImage.value)
@@ -114,7 +125,6 @@ export default defineComponent({
         if (!image.value?.complete) {
           return
         }
-        renderedImage.value = image.value?.currentSrc
 
         if (!image.value.naturalWidth) {
           handleError()
@@ -139,8 +149,9 @@ export default defineComponent({
         imgHeight.value = naturalWidth
       }
     }
-    onBeforeUnmount(() => clearTimeout(timer))
 
+    onBeforeMount(init)
+    onBeforeUnmount(() => clearTimeout(timer))
     watch(() => props.src, init)
 
     const isPlaceholderShown = computed(() =>
