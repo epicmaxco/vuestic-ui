@@ -1,9 +1,15 @@
 {
   // https://v3.nuxtjs.org/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
-  // "compilerOptions": {
-  //   "paths": {
-  //     "vuestic-ui": ["../ui/src/main"]
-  //   }
-  // }
+  "exclude": [
+    "../dist",
+    "@types/react"
+  ],
+  "compilerOptions": {
+    // ...
+    "types": [
+      "vite/client", // if using vite
+      // ...
+    ]
+  },
 }

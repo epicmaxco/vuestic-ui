@@ -13,7 +13,6 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
 import { useColors } from 'vuestic-ui/src/composables'
 
 const { colors } = useColors()

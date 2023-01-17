@@ -44,8 +44,7 @@
   </va-navbar>
 </template>
 
-<script lang="ts">
-import { Options, Vue, prop, mixins } from 'vue-class-component'
+<script lang="ts" setup>
 import LanguageDropdown from './components/LanguageDropdown.vue'
 import VersionDropdown from './components/VersionDropdown.vue'
 import ColorDropdown from './components/ColorDropdown.vue'
@@ -53,61 +52,45 @@ import HeaderSelector from './components/HeaderSelector.vue'
 import VuesticLogo from './components/VuesticDocsLogo.vue'
 import AlgoliaSearch from './components/algolia-search/AlgoliaSearch.vue'
 import ThemeSwitch from '@/components/ThemeSwitch.vue'
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 
-class Props {
-  isSidebarVisible = prop<boolean>({ type: Boolean, default: false })
-}
+const { locale, t } = useI18n()
 
-const PropsMixin = Vue.with(Props)
+const landing = computed(() => ({
+  text: t('menu.home'),
+  to: `/${locale}`,
+}))
 
-@Options({
-  name: 'DocsHeader',
-  components: {
-    ThemeSwitch,
-    HeaderSelector,
-    LanguageDropdown,
-    ColorDropdown,
-    VersionDropdown,
-    VuesticLogo,
-    AlgoliaSearch,
+const links = computed(() => [
+  {
+    text: t('menu.github'),
+    url: 'https://github.com/epicmaxco/vuestic-ui',
+    target: '_blank',
+  },
+  {
+    text: t('menu.contribution'),
+    to: `/${locale.value}/contribution/documentation-page`,
+  },
+])
+
+const props = defineProps({
+  isSidebarVisible: {
+    type: Boolean,
+    default: false,
   },
 })
 
-export default class Header extends mixins(PropsMixin) {
-  get locale () {
-    return this.$root?.$i18n?.locale
-  }
+const emit = defineEmits(['update:isSidebarVisible'])
 
-  get landing () {
-    return {
-      text: this.$t('menu.home'),
-      to: `/${this.locale}`,
-    }
-  }
-
-  get links () {
-    return [
-      {
-        text: this.$t('menu.github'),
-        url: 'https://github.com/epicmaxco/vuestic-ui',
-        target: '_blank',
-      },
-      {
-        text: this.$t('menu.contribution'),
-        to: `/${this.locale}/contribution/documentation-page`,
-      },
-    ]
-  }
-
-  toggleSidebar () {
-    this.$emit('update:isSidebarVisible', !this.isSidebarVisible)
-  }
+const toggleSidebar = () => {
+  emit('update:isSidebarVisible', !props.isSidebarVisible)
 }
 </script>
 
 <style lang="scss">
 @import "~vuestic-ui/src/styles/resources";
-@import '@/assets/smart-grid.scss';
+@import "@/assets/smart-grid.scss";
 
 .header {
   --va-navbar-mobile-height: auto;

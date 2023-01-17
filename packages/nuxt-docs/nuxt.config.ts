@@ -18,5 +18,5 @@ export default defineNuxtConfig({
     },
 
     defaultLocale: 'en',
-  }
+  },
 });
