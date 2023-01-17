@@ -68,8 +68,7 @@ export type CompiledComponentOptions = {
 function getDefaultValue (propOptions: Record<string, any>, types: Array<string>) {
   const defaultValue = !types.includes('Function') && isFunction(propOptions.default) ? propOptions.default() : propOptions.default
 
-  // @ts-ignore
-  if (defaultValue === window) {
+  if (typeof window !== 'undefined' && defaultValue === window) {
     return 'Window'
   }
   if (typeof defaultValue === 'undefined') {

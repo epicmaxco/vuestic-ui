@@ -4,6 +4,12 @@
   </div>
 </template>
 
-<script setup>
-const config = usePageConfig('ui-elements/button')
+<script lang="ts" setup>
+const route = useRoute();
+
+const config = usePageConfig(route.path.slice(1));
+
+useHead({
+  title: config.value?.meta.title,
+});
 </script>

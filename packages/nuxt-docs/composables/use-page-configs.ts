@@ -2,11 +2,11 @@ import { PageConfigOptions } from "../modules/page-config"
 
 type PageConfigJSModule = { default: PageConfigOptions }
 
-const files = Object.entries(import.meta.glob('../page-config/**/index.ts'))
+const files = Object.entries(import.meta.glob<true, string, PageConfigJSModule>('../page-config/**/index.ts', { eager: true }))
   .reduce((acc, [key, fn]) => {
     acc[key.replace('../page-config/', '').replace('/index.ts', '')] = fn
     return acc
-  }, {} as Record<string, () => Promise<any>>)
+  }, {} as Record<string, PageConfigJSModule>)
 
 export const usePageConfigs = () => {
   return files
@@ -20,9 +20,7 @@ export const usePageConfig = (name: string) => {
     console.log(Object.keys(files))
   }
 
-  files[name]().then((c: PageConfigJSModule) => {
-    config.value = c.default
-  })
+  config.value = files[name].default
 
   return config
 }
