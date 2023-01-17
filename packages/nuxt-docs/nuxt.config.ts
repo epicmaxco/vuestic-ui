@@ -1,4 +1,5 @@
 import { locales, messages } from './locales'
+import { VuesticConfig } from './config/vuestic-config'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
@@ -19,4 +20,8 @@ export default defineNuxtConfig({
 
     defaultLocale: 'en',
   },
+
+  vuestic: {
+    config: VuesticConfig,
+  }
 });

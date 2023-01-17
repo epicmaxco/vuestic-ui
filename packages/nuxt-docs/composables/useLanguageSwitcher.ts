@@ -5,14 +5,7 @@ import { useRouter } from 'vue-router'
 import { languages } from '../locales'
 import { useSharedComposable } from './useSharedComposable'
 
-export type LanguageSwitcherType = {
-  languages: Record<string, unknown>[],
-  currentLanguageName: ComputedRef<string | undefined>
-  setLanguage: (newLocale: string, replace: boolean) => void
-  getCurrentPathWithoutLocale: () => void
-}
-
-export const useLanguageSwitcher = (): LanguageSwitcherType => {
+export const useLanguageSwitcher = () => {
   const router = useRouter()
   const { locale, t } = useI18n()
 
