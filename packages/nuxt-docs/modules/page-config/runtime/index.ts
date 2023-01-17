@@ -7,8 +7,10 @@ import file from '../blocks/file'
 import code from '../blocks/code'
 import markdown from '../blocks/markdown'
 import api from '../blocks/api'
+import collapse from '../blocks/collapse'
 
-export const block = {
+// Need to define type in collapse without recursion
+const blocksWithoutCollapse = {
   example,
   title,
   paragraph,
@@ -17,6 +19,13 @@ export const block = {
   code,
   markdown,
   api,
+}
+
+export type BlockWithCollapse = ReturnType<(typeof blocksWithoutCollapse)[keyof typeof blocksWithoutCollapse]>
+
+export const block = {
+  ...blocksWithoutCollapse,
+  collapse,
 }
 
 export type GlobalBlock = typeof block
