@@ -2,14 +2,14 @@
   <div class="landing">
     <div class="landing__preview-wrapper">
       <LandingHeader />
-      <!-- <LandingPreview />
-      <LandingPartners /> -->
+      <LandingPreview />
+      <LandingPartners />
     </div>
-    <!-- <LandingCustomize />
-    <SeamlessIntegration />
+    <LandingCustomize />
+    <LandingSeamlessIntegration />
     <LandingOpenSource />
     <LandingAdmin />
-    <LandingFooter /> -->
+    <LandingFooter />
   </div>
 </template>
 

@@ -17,8 +17,8 @@
             <layout-header-vuestic-logo height="30" width="150" aria-hidden="true" />
           </a>
           <div class="menu" @click="isHidden = !isHidden" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
-            <img v-if="!isHidden" src="../../assets/landing/images/hamburger.svg" alt="menu">
-            <img v-else src="../../assets/landing/images/cross.svg" alt="menu">
+            <img v-if="!isHidden" src="../../assets/images/landing/hamburger.svg" alt="menu">
+            <img v-else src="../../assets/images/landing/cross.svg" alt="menu">
           </div>
         </div>
         <nav class="header__links">
