@@ -54,7 +54,7 @@ import {
   useNativeImgAttributes, useNativeImgAttributesProps,
   validateProp,
 } from './hooks/useNativeImgAttributes'
-import { useComponentPresetProp } from '../../composables'
+import { useComponentPresetProp, useDeprecated } from '../../composables'
 
 const fitOptions = ['contain', 'fill', 'cover', 'scale-down', 'none'] as const
 
@@ -84,9 +84,14 @@ export default defineComponent({
       default: 'cover',
       validator: (v: string) => validateProp(v, fitOptions),
     },
+    // TODO: delete in 1.7.0
+    contain: { type: Boolean, default: false },
   },
 
   setup (props, { emit, slots }) {
+    // TODO: delete in 1.7.0
+    useDeprecated(['contain'])
+
     const image = ref<HTMLImageElement>()
     const renderedImage = ref()
     const currentImage = computed(() => renderedImage.value || props.src)
@@ -167,7 +172,14 @@ export default defineComponent({
       ratio: props.ratio,
     }))
 
+    // TODO: refactor (just v-bind fit prop to CSS) in 1.7.0
+    const fitComputed = computed(() => {
+      if (props.contain) { return 'contain' }
+      return props.fit
+    })
+
     return {
+      fitComputed,
       image,
       isLoading,
       handleLoad,
@@ -199,7 +211,7 @@ export default defineComponent({
   img {
     width: 100%;
     height: 100%;
-    object-fit: v-bind(fit);
+    object-fit: v-bind(fitComputed);
     object-position: var(--va-image-object-position);
   }
 
