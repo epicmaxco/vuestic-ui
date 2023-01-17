@@ -23,5 +23,12 @@ export default defineNuxtConfig({
 
   vuestic: {
     config: VuesticConfig,
-  }
+  },
+
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
 });

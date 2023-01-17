@@ -39,6 +39,8 @@ onMounted(scrollToElement)
 
 <style lang="scss">
   @import 'vuestic-ui/styles/index.scss';
+  // Need to import tailwind in layout, because otherwise Vuestic component's css will has a higher priority
+  @import '~/assets/css/tailwind.css';
 
   html {
     font-family: var(--va-font-family);
