@@ -146,7 +146,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/smart-grid.scss";
+@import "@/assets";
 
 .header {
   --header-nav-font-size: 1rem;
@@ -219,7 +219,7 @@ export default defineComponent({
     }
 
     &--link {
-      // @include link-font();
+      @include link-font();
       @include sm(width, 100%);
 
       border-radius: 0;
@@ -334,7 +334,7 @@ export default defineComponent({
   }
 
   &__link {
-    // @include link-font();
+    @include link-font();
     @include sm(font-size, 1.2rem);
     @include xs(font-size, 1.2rem);
 
@@ -363,7 +363,7 @@ export default defineComponent({
 }
 
 .stars-button {
-  // @include code-font();
+  @include code-font();
 
   min-height: 1.8rem;
   padding: 0 !important;

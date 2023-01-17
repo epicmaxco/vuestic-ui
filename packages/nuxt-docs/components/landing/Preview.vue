@@ -100,7 +100,7 @@ const textColor = useElementTextColor('background-primary')
 
   &__title {
     @include col();
-    // @include title-font();
+    @include title-font();
 
     padding-top: 7.5rem;
     font-size: 5rem;
@@ -138,7 +138,7 @@ const textColor = useElementTextColor('background-primary')
     &--button {
       --va-button-font-size: 1.1rem;
 
-      // @include button-font();
+      @include button-font();
 
       margin-top: 1rem;
       height: 3rem;
@@ -147,7 +147,7 @@ const textColor = useElementTextColor('background-primary')
     }
 
     &--link {
-      // @include button-font();
+      @include button-font();
       @include xs(width, 100%);
 
       margin-top: 0.75rem;
@@ -214,7 +214,7 @@ const textColor = useElementTextColor('background-primary')
   }
 
   &__title {
-    // @include subtitle-font();
+    @include subtitle-font();
 
     text-align: center;
     padding: 0.75rem 0 0.5rem;
@@ -222,7 +222,7 @@ const textColor = useElementTextColor('background-primary')
   }
 
   &__link {
-    // @include link-font();
+    @include link-font();
 
     text-align: center;
     line-height: 1.6rem;

@@ -1,5 +1,6 @@
-import en from './en/en.json'
-import ru from './ru/ru.json'
+import en from './en.json'
+import ru from './ru.json'
+import zhCh from './zh-cn.json'
 
 export type TranslationStatusPath = { [key in 'full' | 'part']: string }
 
@@ -15,6 +16,12 @@ export const languages = [
     name: 'Русский',
     status: 'full',
     translationPath: 'translation.language.ru',
+  },
+  {
+    code: 'zh-cn',
+    name: '简体中文',
+    status: 'part',
+    translationPath: 'translation.language.zh-CN',
   },
   // GENERATOR_ADD - language
 ]

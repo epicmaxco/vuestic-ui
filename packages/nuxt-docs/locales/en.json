@@ -4,13 +4,19 @@
       "buttons": {
         "overview": "Overview",
         "docs": "Docs",
-        "discord": "Join on Discord",
+        "github": "GitHub",
+        "discord": "Discord",
         "translation": "Add translation...",
-        "language": "Language"
+        "language": "Language",
+        "team": "Team",
+        "blog": "Blog"
+      },
+      "banner": {
+        "text": "Vuestic UI is live on Product Hunt! \uD83D\uDE80"
       }
     },
     "preview": {
-      "title": "Vue.js 3.0 UI Framework",
+      "title": "Vue 3 UI Framework",
       "buttons": {
         "start": "Get started",
         "github": "View on GitHub",
@@ -18,11 +24,11 @@
       },
       "features": {
         "components": {
-          "title": "52 Responsive Components",
+          "title": "60 Responsive Components",
           "text": "Available components docs"
         },
-        "keyboard": {
-          "title": "Keyboard Navigation",
+        "accessibility": {
+          "title": "Accessibility",
           "text": "Accessibility guides"
         },
         "browsers": {
@@ -30,6 +36,9 @@
           "text": "Supported browsers list"
         }
       }
+    },
+    "partners": {
+      "title": "Partners & Sponsors ❤️"
     },
     "seamless": {
       "title": "Seamless Integration",
@@ -43,9 +52,9 @@
       "title": "Customize Everything",
       "text": "Make Vuestic UI components match your designs with powerful dynamic configs.",
       "tabs": [
-        "Large Modern",
-        "Styles",
-        "Multiple Themes"
+        "Form elements",
+        "Table",
+        "Misc"
       ],
       "copy": "Copied to clipboard",
       "configuration": "See our configuration guides"
@@ -76,12 +85,21 @@
       }
     },
     "footer": {
-      "text": "Open source, free to use. Development inquiries:",
+      "text": "Vuestic UI. Open source, free to use. Development inquiries: ",
       "buttons": {
         "epicmax": "About Epicmax",
         "admin": "Vuestic Admin",
         "spinners": "Epic Spinners"
-      }
+      },
+      "contactUs": "Contact us",
+      "newsBannerText": " \uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hi there, we're celebrating our launch on Product Hunt this week! \uD83D\uDE80 We'd love to get your feedback and support! \uD83D\uDE4F",
+      "newsBannerLink": "Visit the launch page",
+      "bannerText": [
+        "expert",
+        "s",
+        "available in",
+        "to build and launch your product"
+      ]
     }
   },
   "api": {
@@ -113,8 +131,8 @@
         "errorMessages": "Error messages for the component.",
         "errorCount": "Number of error messages displayed.",
         "stateful": "Add possibility to work with component without setting `v-model`.",
-        "color": "Color of the component (theme string or *HEX* string).",
-        "textColor": "Text color (theme string or *HEX* string).",
+        "color": "Color of the component (theme string or `HEX` string).",
+        "textColor": "Text color (theme string or HEX string).",
         "rules": "Validation rules <!-- TODO Add link -->.",
         "to": "The target route of the link. [More info here](https://router.vuejs.org/api/#to \"Vue router docs\")[[target=_blank]].",
         "replace": "When set, calls `router.replace()` instead of `router.push()` when navigated, so it will not leave a history record. [More info here](https://router.vuejs.org/api/#replace \"Vue router docs\")[[target=_blank]].",
@@ -142,40 +160,53 @@
         "activeButtonTextColor": "The color of the text of the active button (options supported by the theme or `HEX`).",
         "indeterminate": "Same as native `indeterminate` - a state in which it's impossible to say whether the item is toggled `on` or `off`",
         "indeterminateValue": "Overrides a state value that is not set.",
-        "borderColor": "Color css style `border` (theme supported options or `HEX`).",
+        "borderColor": "Color CSS style `border` (theme supported options or `HEX`).",
         "clearableIcon": "Sets the cleaning button icon.",
-        "tabindex": "Sets the custom `tabindex`."
+        "tabindex": "Sets the custom `tabindex`.",
+        "preset": "Named preset combination of component props.",
+        "hideOnScroll": "Hides component when scrolling.",
+        "bottom": "Sets the component position to the bottom (`fixed` state).",
+        "backgroundOpacity": "Sets up button background opacity.",
+        "hoverBehavior": "Behavior of the button, when it's being hovered. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
+        "hoverMaskColor": "Mask color for `mask` behavior.",
+        "hoverOpacity": "Opacity value for `opacity` behavior and mask opacity for `mask` behavior.",
+        "pressedBehavior": "Behavior of the button, when it's being pressed. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
+        "pressedMaskColor": "Mask color for `mask` behavior.",
+        "pressedOpacity": "Opacity value for `opacity` behavior and mask opacity for `mask` behavior.",
+        "textOpacity": "Sets button text opacity.",
+        "iconColor": "Sets an icon color.",
+        "type": "Will be used as value for html `type` attribute.",
+        "plain": "Applies `plain` styling.",
+        "round": "Adds rounded corners (or make a button fully rounded if only icon is passed).",
+        "iconRight": "The icon to be displayed to the right of a title.",
+        "keyboardNavigation": "Enables keyboard navigation for the component."
       }
     },
     "VaBadge": {
       "props": {
-        "text": "Badge text",
+        "text": "Badge text.",
         "overlap": "Allows badge to overlap with element.",
         "transparent": "Makes badge semi-transparent.",
         "multiLine": "Badge text will wrap to next line.",
         "visibleEmpty": "Badge will be shown even when there is no text.",
         "dot": "Shows dot instead of full badge. Useful to notify user without grabbing too much attention.",
-        "bottom": "Position badge to the bottom.",
-        "left": "Position badge to the left"
+        "placement": "Badge will be placed on `placement` side of the base element.",
+        "offset": "Moves badge relatively to main axis."
       }
     },
     "VaButton": {
       "props": {
-        "outline": "Applies outline styling",
-        "flat": "Applies `flat` styling",
-        "icon": "The icon to be displayed to the left of a title",
-        "iconRight": "The icon to be displayed to the right of a title",
-        "type": "Will be used as value for html `type` attribute",
-        "block": "Applies block styling (will take 100% of container width)",
-        "rounded": "Adds rounded corners",
-        "round": "Makes the button round",
-        "spaceBetweenItems": "Sets margin between multiple buttons",
-        "gradient": "Makes the button color a gradient",
-        "href": "Will be used as value for html `href` attribute. (If used, `<button />` will be replaced with `<a>` tag)",
-        "target": "Will be used as value for html `target` attribute (If used, `<button />` will be replaced with `<a>` tag)"
+        "icon": "The icon to be displayed to the left of the title.",
+        "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
+        "href": "Will be used as value for html `href` attribute (if used, `<button />` will be replaced with `<a>` tag).",
+        "target": "Will be used as value for html `target` attribute.",
+        "block": "Applies block styling (will take 100% of container width)."
       },
       "slots": {
-        "default": "Slot for button content"
+        "default": "Default slot for button's content.",
+        "append": "Slot to input before button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
+        "prepend": "Slot to input after button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
+        "loading": "Slot for loading state. Slot scope properties available: `{'{ icon, iconAttributes }'}`."
       },
       "events": {
         "click": "Emitted when user clicks on button"
@@ -330,22 +361,30 @@
     },
     "VaPagination": {
       "props": {
-        "value": "Current page (or item if `total` is issued) value",
-        "visiblePages": "The amount of displayed pages. (When set to 0 all pages are displayed)",
-        "pages": "The amount of pages",
-        "boundaryLinks": "Show controls to move to first and last page",
-        "boundaryNumbers": "Always show first and last page (will replace `boundary-links` if both used)",
-        "directionLinks": "Show buttons to move forward and backward",
-        "input": "Use HTML Input instead of buttons to control `va-pagination` state",
-        "hideOnSinglePage": "Component won't be displayed if only 1 page is available",
-        "flat": "Applies `flat` style",
+        "value": "Current page (or item if `total` is issued) value.",
+        "visiblePages": "The amount of displayed pages (when set to 0 all pages are displayed).",
+        "pages": "The amount of pages.",
+        "boundaryLinks": "Show controls to move to first and last page.",
+        "boundaryNumbers": "Always show first and last page (will replace `boundary-links` if both used).",
+        "directionLinks": "Show buttons to move forward and backward.",
+        "input": "Use HTML Input instead of buttons to control `va-pagination` state.",
+        "hideOnSinglePage": "Component won't be displayed if only 1 page is available.",
         "total": "Set the amount of data pagination should iterate through. This prop should not be used with `pages` prop.",
         "pageSize": "Set the amount of data to be displayed at 1 page. Used to calculate the length of pagination. This prop should not be used with `pages` prop.",
-        "boundaryIconLeft": "Set the icon name for left boundary icon",
-        "boundaryIconRight": "Set the icon name for right boundary icon",
-        "directionIconLeft": "Set the icon name for left direction icon",
-        "directionIconRight": "Set the icon name for right direction icon",
-        "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available"
+        "boundaryIconLeft": "Set the icon name for left boundary icon.",
+        "boundaryIconRight": "Set the icon name for right boundary icon.",
+        "directionIconLeft": "Set the icon name for left direction icon.",
+        "directionIconRight": "Set the icon name for right direction icon.",
+        "size": "Specify size for component. `small`, `medium`, `large` sizes are available.",
+        "activePageColor": "Specifies color of the currently active page button.",
+        "gapped": "Enables gaps between page buttons.",
+        "buttonsPreset": "Value of the `preset` prop for passing it to the `VaButton` component ([read more](/ui-elements/button))."
+      },
+      "slots": {
+        "firstPageLink": "For the first page link content",
+        "prevPageLink": "For the prev page link content",
+        "nextPageLink": "For the next page link content",
+        "lastPageLink": "For the last page link content"
       }
     },
     "VaTabs": {
@@ -358,7 +397,8 @@
         "hideSlider": "Remove slider which underlines selected item",
         "vertical": "Align all items vertically",
         "prevIcon": "Icon to be used for scrolling backward in pagination",
-        "nextIcon": "Icon to be used for scrolling forward in pagination"
+        "nextIcon": "Icon to be used for scrolling forward in pagination",
+        "hidePagination": "Hide or show pagination arrows"
       },
       "events": {
         "clickNext": "Emits when pagination **next** is clicked",
@@ -407,6 +447,9 @@
       "events": {
         "fileAdded": "Emits after files are added",
         "fileRemoved": "Emits after file is removed"
+      },
+      "slots": {
+        "default": "Default slot allows to create custom file upload area."
       }
     },
     "VaHover": {
@@ -520,6 +563,9 @@
       },
       "slots": {
         "default": "Use this slot to replace default content to be displayed inside the component"
+      },
+      "events": {
+        "error": "Triggers when failed to load an image"
       }
     },
     "VaCheckbox": {
@@ -540,7 +586,8 @@
         "reverse": "Reverse the progress bar direction",
         "rounded": "Add a border radius to the `va-progress-bar` component (default: true)",
         "contentInside": "Sets the content of the slot inside the progress bar",
-        "showPercent": "Shows the indicator value with a percent sign"
+        "showPercent": "Shows the indicator value with a percent sign",
+        "max": "Maximum value"
       },
       "slots": {
         "default": "Display any additional info about the progress"
@@ -590,7 +637,7 @@
         "dense": "Reduces alert paddings"
       },
       "methods": {
-        "hide": "Hide alert. On stateless alert only emits `input`"
+        "hide": "Hides alert (on stateless alert only emits `input`)"
       },
       "slots": {
         "default": "Content of alert body",
@@ -620,21 +667,23 @@
         "header": "Text content to place in the header",
         "icon": "The icon to be displayed inside a header",
         "solid": "Adds borders to the collapse",
-        "colorAll": "Applies color to collapse contents background"
+        "colorAll": "Applies color to collapse contents background",
+        "flat": "Disables shadows and borders"
       },
       "events": {
         "input": "Emits when collapse is clicked"
       },
       "methods": {},
       "slots": {
-        "default": "Content of the collapse component",
-        "header": "Replaces content of the header to custom"
+        "default": "Collapsable content of the component",
+        "header": "Replaces the whole component's header block",
+        "headerContent": "Replaces component's header block inner content"
       }
     },
     "VaAccordion": {
       "props": {
         "value": "The array of currently opened collapses",
-        "multiply": "Allows to expand multiply components",
+        "multiple": "Allows to expand multiple components",
         "inset": "Collapse becomes smaller when activated",
         "popout": "Collapse becomes bigger when activated"
       },
@@ -689,7 +738,7 @@
         "immediateValidation": "Sets the validation to be performed when the component is mounted",
         "inputClass": "Classes for `input` (not its wrapper)",
         "pattern": "The pattern prop specifies a regular expression the input value should match",
-        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This alows a browser to display an apropriate virtual keyboard",
+        "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an apropriate virtual keyboard",
         "counter": "Show a counter of value length",
         "maxLength": "Specify a max length of value"
       },
@@ -776,7 +825,7 @@
         "textBy": "When `options` prop is an object, this key will be used as displayed text. Can be string (path to the key) or function of type: `(option) => option.text`",
         "groupBy": "When `options` prop is an object, this key will be used to group up options. Can be string (path to the key) or function of type: `(option) => option.group`",
         "placeholder": "Sets the placeholder text to input",
-        "placement": "Sets option list placement",
+        "placement": "Sets option list placement. [More about placements](/ui-elements/dropdown#placement-and-offset)",
         "tagMax": "Sets maximum tag count after whom selection will be cropped",
         "tags": "Sets selection display as tags",
         "deletableTags": "Sets ability to delete tags",
@@ -794,7 +843,11 @@
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
         "bordered": "Applies style with bottom border",
         "requiredMark": "Adds required mark to the label",
-        "separator": "Text to separate selected values"
+        "separator": "Text to separate selected values",
+        "maxVisibleOptions": "Max selected options amount, that will be shown inside of input wrapper.",
+        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
+        "selectedTopShown": "Selected options will be shown at the top of the options list.",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction."
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -810,7 +863,10 @@
         "prependInner": "Adds an item inside the input and before input content",
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content",
-        "content": "Adds an item instead the input"
+        "content": "Adds an item instead the input",
+        "option": "Allows to specify option template",
+        "hiddenOptionsBadge": "Replaces default badge with hidden options counter (see `maxVisibleOptions` prop).",
+        "hideOptionsButton": "Replaces default button for hiding selected options that are over the limit (see `maxVisibleOptions` prop)."
       }
     },
     "VaParallax": {
@@ -846,22 +902,33 @@
     },
     "VaButtonDropdown": {
       "props": {
-        "size": "Specify size for component. `\"small\"`, `\"medium\"`, `\"large\"` sizes are available.",
         "disableDropdown": "Disables the dropdown menu.",
         "disableButton": "Disables the button.",
-        "round": "Sets the square style for a button.",
         "split": "Divides the button into two parts. This is useful when you have main action (button) and a number of secondary actions (icon + dropdown).",
         "splitTo": "Sets a vue navigation link in a split component.",
         "splitHref": "Sets a native navigation link in a split component.",
         "icon": "Applies a custom icon in the dropdown section.",
-        "leftIcon": "Sets the icon position to the left",
-        "hideIcon": "Hide icon (when `split = false`)",
+        "leftIcon": "Sets the icon position to the left.",
+        "hideIcon": "Hide icon (when `split` is disabled).",
         "openedIcon": "Applies a custom icon in the dropdown section when the dropdown is opened.",
-        "placement": "Sets the placement of the dropdown content.",
+        "placement": "Sets the placement of the dropdown content. [More about placements](/ui-elements/dropdown#placement-and-offset)",
         "keepAnchorWidth": "Keeps anchor position the same.",
         "offset": "Sets the distance between dropdown and anchor.",
         "modelValue": "Sets a dropdown state.",
-        "closeOnContentClick": "Sets dropdown content on click behavior."
+        "closeOnContentClick": "Sets dropdown content on click behavior.",
+        "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
+        "trigger": "Action that will open and close dropdown.",
+        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
+        "isContentHoverable": "If true, dropdown content will be hoverable",
+        "innerAnchorSelector": "Anchor CSS selector inside passed slot.",
+        "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
+        "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
+        "cursor": "Dropdown will be rendered relative to cursor position",
+        "closeOnAnchorClick": "Dropdown will be closed when anchor is clicked",
+        "closeOnClickOutside": "Dropdown will be closed when clicked outside dropdown content and anchor",
+        "anchorSelector": "Anchor CSS selector instead of passing slot",
+        "autoPlacement": "If dropdown doesn't fit viewport, it will be placed automatically to fit viewport"
       },
       "events": {
         "click": "Emitted when user clicks on button.",
@@ -921,7 +988,14 @@
         "stickyFooter": "Enables sticky footer (sticky footer is achieved through CSS with `position: sticky` for `tfoot`)",
         "height": "Sets the height to the table and enables scrolling",
         "rowBind": "Adds attributes to a table row using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. The function receives a table row element (`DataTableItem` type) and an index as arguments",
-        "cellBind": "Adds attributes to a table cell using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. As arguments, the function receives a table cell element (`any` type), a row (`DataTableItem` type), a column (`TableColumn` type), and a row index"
+        "bench": "Amount of rows will be rendered before and after visible part of the table (for smooth scrolling). Suitable only for the state with the virtual scrolling enabled.",
+        "itemSize": "Average size (width or height) of the row (can be number or string with \"px\"/\"rem\" value). Suitable only for the state with the virtual scrolling enabled.",
+        "virtualScroller": "Enables virtual scrolling for `tbody` rows.",
+        "virtualTrackBy": "Property name for row identifying. Suitable only for the state with the virtual scrolling enabled.",
+        "wrapperSize": "Size (width or height) of the component's viewport (can be number or string with \"px\"/\"rem\" value). Suitable only for the state with the virtual scrolling enabled.",
+        "cellBind": "Adds attributes to a table cell using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. As arguments, the function receives a table cell element (`any` type), a row (`DataTableItem` type), a column (`TableColumn` type), and a row index",
+        "scrollTopMargin": "Sets the threshold (`px`) for scrolling up when the `scroll:top` event is enabled.",
+        "scrollBottomMargin": "Sets the threshold (`px`) for scrolling down when the `scroll:bottom` event is enabled."
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
@@ -931,7 +1005,9 @@
         "rowClick": "When row clicked the event is thrown with the following param: `RowClickEmit` = \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: DataTableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
         "rowDblclick": "Double-clicking a row raises an event with the `RowClickEmit` param",
         "rowContextmenu": "When the context menu is clicked on a row, an event is raised with the `RowClickEmit` param",
-        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: (DataTableItem | DataTableItemKey)[]`,\n &nbsp; `previousSelectedItems: (DataTableItem | DataTableItemKey)[]`\n &#125;"
+        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: (DataTableItem | DataTableItemKey)[]`,\n &nbsp; `previousSelectedItems: (DataTableItem | DataTableItemKey)[]`\n &#125;",
+        "scrollBottom": "Emits when table scroll down reaches `scrollBottomMargin`.",
+        "scrollTop": "Emits when table scroll top reaches `scrollTopMargin`."
       },
       "methods": {},
       "slots": {
@@ -1081,12 +1157,11 @@
     },
     "VaAppBar": {
       "props": {
-        "gradient": "Applies gradient style to background",
-        "bottom": "Sets the component position to the bottom",
-        "hideOnScroll": "Hides component when scrolling target",
-        "shadowOnScroll": "Applies box-shadow to the component when scrolling target",
-        "shadowColor": "Sets color to the box-shadow",
-        "target": "Target for scrolling"
+        "gradient": "Applies gradient style to background.",
+        "shadowOnScroll": "Applies box-shadow to the component when scrolling target.",
+        "shadowColor": "Sets color to the box-shadow.",
+        "target": "Target for scrolling.",
+        "fixed": "Switches component position to `fixed`."
       },
       "events": {},
       "methods": {},
@@ -1118,6 +1193,7 @@
       "props": {
         "activeColor": "Used to set accent color for active `VaSidebarItem`",
         "hoverColor": "Used to set accent color for hovered `VaSidebarItem`",
+        "hoverOpacity": "Used to set opacity of the color for hovered `VaSidebarItem`",
         "active": "If `true` this sidebar item will be highlighted"
       },
       "events": {},
@@ -1126,11 +1202,16 @@
     },
     "VaNavbar": {
       "props": {
-        "shape": "If this prop true, then shape will be drawn at navbar background."
+        "shape": "If true, shape will be drawn at navbar background.",
+        "fixed": "Switches component position to `fixed`."
       },
       "events": {},
       "methods": {},
-      "slots": {}
+      "slots": {
+        "left": "Place VaNavbar items on the left",
+        "default": "Place VaNavbar items on the center (default)",
+        "right": "Place VaNavbar items on the right"
+      }
     },
     "VaPopover": {
       "props": {
@@ -1138,7 +1219,7 @@
         "message": "Message which showed in a popover",
         "trigger": "Event on which popover is triggered",
         "open": "Shows popover",
-        "placement": "Sets a popover position",
+        "placement": "Sets a popover position. [More about placements](/ui-elements/dropdown#placement-and-offset)",
         "autoHide": "Adds the ability to hide popover when clicked outside",
         "hoverOverTimeout": "Delay before opening",
         "hoverOutTimeout": "Delay before closing"
@@ -1261,7 +1342,10 @@
         "loop": "If true, after last slide slider will scroll to first one through all items before.",
         "modelValue": "Slide index to be shown.",
         "vertical": "Change slider scroll orientation.",
-        "fadeKeyframe": "Custom keyframe name for fade animation"
+        "fadeKeyframe": "Custom keyframe name for fade animation",
+        "swipable": "Enables swiping behavior.",
+        "swipeDirection": "Allowed directions for swiping: `all, horizontal, vertical, left, right, up, down`.",
+        "swipeDistance": "Distance in `px` considered sufficient for the swipe event."
       },
       "events": {},
       "methods": {},
@@ -1305,6 +1389,83 @@
       },
       "methods": {},
       "slots": {}
+    },
+    "VaScrollContainer": {
+      "props": {
+        "horizontal": "Enables horizontal scrolling.",
+        "vertical": "Enables vertical scrolling.",
+        "rtl": "Moves scrollbar to the left side of the container (depends on `vertical` prop)."
+      },
+      "events": {},
+      "methods": {},
+      "slots": {}
+    },
+    "VaSplit": {
+      "props": {
+        "vertical": "Changes `va-split` orientation to vertical.",
+        "limits": "Min-max size limits of the each panel.",
+        "maximization": "End panel size maximization via separator double click.",
+        "maximizeStart": "Maximize size of the start panel instead of end one.",
+        "snapping": "Marks array the splitter will be 'jumping' to.",
+        "snapping-range": "Distance (% of components container size, px or rem) between splitter and snapping mark, which will call 'jumping' to it."
+      },
+      "events": {},
+      "methods": {},
+      "slots": {
+        "dragger": "Changes default separator-dragger (`va-divider` component) to custom.",
+        "start": "Start panel content.",
+        "end": "End panel content."
+      }
+    },
+    "VaVirtualScroller": {
+      "props": {
+        "bench": "Amount of items will be rendered before and after visible part of the list (for smooth scrolling).",
+        "horizontal": "Sets component state to horizontal orientation.",
+        "itemSize": "Average size (width or height) of the list items (can be number or string with \"px\"/\"rem\" value).",
+        "wrapperSize": "Size (width or height) of the component's viewport (can be number or string with \"px\"/\"rem\" value).",
+        "items": "Array of list items.",
+        "table": "Switches component to work with table rows.",
+        "trackBy": "Property name for identifying item.",
+        "disable": "Disables virtual scrolling, all items are rendered."
+      },
+      "events": {},
+      "methods": {},
+      "slots": {
+        "default": "Slot for repeating content template.",
+        "content": "Slot to overwrite entire component's template (in case of complicated integrations)."
+      }
+    },
+    "VaTreeView": {
+      "props": {
+        "nodes": "Tree nodes array.",
+        "selectable": "Selectable.",
+        "selectionType": "Selection type where is a `leaf` current and all children nodes, `independent` - single selectable nodes.",
+        "valueBy": "The key to track the value.",
+        "textBy": "The key to show the value of node item.",
+        "trackBy": "The key to index nodes.",
+        "iconBy": "The key where is node placed.",
+        "disabledBy": "The key which describes the disabled property.",
+        "expandedBy": "The where is placed the expanded property.",
+        "expandAll": "Expand or hide all nodes by default.",
+        "filter": "Tree view filter.",
+        "filterMethod": "Custom tree view filter method.",
+        "checked": "Array of pre-selected tree nodes.",
+        "checkedBy": "The key to set the checked field in the tree view model.",
+        "color": "The checkboxes color.",
+        "expanded": "Array of pre-expanded tree nodes.",
+        "expandNodeBy": "Click target to expand node, can be `node` or `leaf` icon."
+      },
+      "slots": {
+        "notFound": "No matching nodes to the filter message.",
+        "content": "Configurable node content.",
+        "checkbox": "Checkbox icon placeholder.",
+        "icon": "Additional icon placeholder.",
+        "iconToggle": "Node leaf icon."
+      },
+      "events": {
+        "updateChecked": "The array of checked tree nodes.",
+        "updateExpanded": "The array of expanded tree nodes."
+      }
     }
   },
   "menu": {
@@ -1316,6 +1477,10 @@
       "new": {
         "text": "new",
         "title": "Recently added"
+      },
+      "updated": {
+        "text": "updated",
+        "title": "Recently updated"
       }
     },
     "categories": {
@@ -1326,6 +1491,7 @@
       "color": "Color",
       "other": "Other"
     },
+    "home": "Home",
     "introduction": "Introduction",
     "gettingStarted": "Getting Started",
     "styles": "Styles",
@@ -1333,7 +1499,7 @@
     "uiElements": "UI Elements",
     "contribution": "Contribution",
     "extensions": "Extensions",
-    "documentationPage": "Documentation Page",
+    "documentationPage": "Documentation Guide",
     "affix": "Affix",
     "avatar": "Avatar",
     "breadcrumbs": "Breadcrumbs",
@@ -1397,7 +1563,9 @@
     "advancedIconsConfig": "Advanced Icons Config",
     "componentsConfig": "Components Config",
     "colorsConfig": "Colors Config",
+    "breakpoints": "Breakpoint Service",
     "cssVariables": "CSS Variables",
+    "smartHelpers": "Smart Helpers",
     "sidebarItem": "Sidebar Item",
     "navbar": "Navbar",
     "toast": "Toast",
@@ -1414,8 +1582,15 @@
     "counter": "Counter",
     "nuxt": "Nuxt",
     "ssrGuide": "SSR",
+    "kitchensink": "Kitchen Sink",
     "spacer": "Spacer",
-    "dropdown": "Dropdown"
+    "dropdown": "Dropdown",
+    "scrollContainer": "Scroll Container",
+    "split": "Split",
+    "virtualScroller": "Virtual Scroller",
+    "treeView": "Tree view",
+    "team": "Meet The Team",
+    "i18n": "I18n"
   },
   "all": {
     "examples": "Examples",
@@ -1430,7 +1605,7 @@
         "componentDirectory": "component directory",
         "componentItself": "component itself",
         "componentDemo": "component demo",
-        "componentTests": "compoennt tests"
+        "componentTests": "component tests"
       },
       "npmScripts": {
         "runVueBookDevServer": "Run vue-book dev server",
@@ -1465,9 +1640,14 @@
     "showCode": "Show Code",
     "hideCode": "Hide Code"
   },
+  "kitchensink": {
+    "title": "Kitchensink",
+    "description": "At this page you can see examples for all components, this is a great place to get started with `Vuestic`. For even more examples you can check `UI Elements` tab in menu.",
+    "seeMore": "See more"
+  },
   "documentationPage": {
     "compilesTo": "Compiles to:",
-    "title": "Documentation Page",
+    "title": "Working with documentation",
     "description": "This page is intended for Vuestic-UI contributors. It explains the ways to create and modify the documentation.",
     "introduction": {
       "title": "Introduction",
@@ -1565,18 +1745,39 @@
       },
       "size": {
         "title": "Different sizes",
-        "text": "The `size` prop prop allows you to specify custom size for an avatar. By default, font size will be scaled depending on the value of the `size` prop. But you can use the `font-size` prop prop to force text size you need."
+        "text": "The `size` prop allows you to specify custom size for an avatar. By default, font size will be scaled depending on the value of the `size` prop. But you can use the `font-size` prop to force text size you need."
       },
       "color": {
-        "title": "Different colors"
+        "title": "Different colors",
+        "text": "The `color` prop is used to set the color of the component and `text-color` for its textual content."
+      },
+      "loading": {
+        "title": "Loading",
+        "text": "The `loading` prop sets a loading state for the component via spinner icon."
       },
       "withImage": {
-        "title": "With images",
-        "text": "The `src` prop prop is used to add custom icons to a component."
+        "title": "With image",
+        "text": "The `src` prop is used to add custom image to a component."
+      },
+      "withBadge": {
+        "title": "With badge",
+        "text": "You may combine `va-avatar` with `va-badge`, for example, to output amount of the new notifications."
+      },
+      "square": {
+        "title": "Square",
+        "text": "The `square` prop is used to change components form from round to square."
       },
       "withIcon": {
-        "title": "With icons",
-        "text": "The `icon` prop is used to display icons inside an avatar."
+        "title": "With icon",
+        "text": "The `icon` prop is used to display icon inside an avatar."
+      },
+      "group": {
+        "title": "Grouped",
+        "text": "You can use `va-avatar-group` component to group avatars."
+      },
+      "fallback": {
+        "title": "Fallback",
+        "text": "You can set fallback image."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"
@@ -1588,10 +1789,7 @@
       "top": {
         "title": "Fixed at the top"
       },
-      "bottom": {
-        "title": "Fixed at them bottom"
-      },
-      "target": {
+      "default": {
         "title": "Fixes element relative to custom container"
       }
     },
@@ -1644,40 +1842,54 @@
   },
   "badge": {
     "title": "Badge",
-    "summaryText": "VaBadge is used to highlight information related to other element, such as missed notifications on top of avatar.",
+    "summaryText": "VaBadge is used to highlight information related to other element, such as missed notifications near the user's avatar.",
     "examples": {
       "default": {
         "title": "Default",
         "text": "Useful for information views and tables."
       },
-      "withAvatar": {
-        "title": "With Avatar"
-      },
-      "withCard": {
-        "title": "With Card"
-      },
       "position": {
-        "title": "Position left and bottom"
+        "title": "Position",
+        "text": "The `placement` allows you to set placement of the badge relatively to the base element. Available values: `top/bottom/left/right - start/center/end`. The `offset` prop allows you to amend the selected position - it moves badge forward or backward relatively to the main axis (`top/bottom/left/right`)."
       },
       "dot": {
-        "title": "Dot"
+        "title": "Dot",
+        "text": "The `dot` property puts the component in a minimalist mode in order to accentuate the base element."
       },
       "transparent": {
-        "title": "Transparent"
+        "title": "Transparent",
+        "text": "The `transparent` property adds transparency to the component."
+      },
+      "overlap": {
+        "title": "Overlap",
+        "text": "The `overlap` property allows badge to overlap the base element."
       },
       "color": {
-        "title": "Color"
+        "title": "Color",
+        "text": "The `color` property sets the color of the component (respectively, `text-color` sets the color of the content), both preset and HEX colors are available."
+      },
+      "withOtherComponents": {
+        "title": "Usage with other components",
+        "text": "By combining a component with others, you can add information to them or focus attention on them."
+      },
+      "noContent": {
+        "title": "Without content",
+        "text": "By default, the component is hidden unless content is passed to it via a slot or the `text` property. The `visible-empty` property allows displaying an empty component as a colored square."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-badge/_variables.scss)[[target=_blank]]"
   },
   "button": {
     "title": "Button",
-    "summaryText": "The `va-button` component replaces the standard HTML button. It offers multiple built-in styles and allows a user to change color and size manually.",
+    "summaryText": "The `va-button` component replaces the standard HTML button. It offers multiple built-in style presets and allows user to change different attributes (size, color, opacity etc.) manually.",
     "examples": {
       "default": {
         "title": "Default",
         "text": "Just a simple button."
+      },
+      "presets": {
+        "title": "Presets",
+        "text": "The `preset` prop is used to change the build-in style of the component."
       },
       "withColor": {
         "title": "Colors",
@@ -1685,7 +1897,7 @@
       },
       "withGradient": {
         "title": "Gradient",
-        "text": "It’s used to apply a gradient style to a background."
+        "text": "Used to apply a gradient style to a background (only if `backgroundOpacity` prop is equals `1`)."
       },
       "withTextColor": {
         "title": "Text colors",
@@ -1695,25 +1907,33 @@
         "title": "Sizes",
         "text": "The `size` prop is used to fit your button to any place on your web page."
       },
-      "withStyle": {
-        "title": "Different styles",
-        "text": "We have 3 styles available: `outlined`, `flat` and `square`."
+      "withRound": {
+        "title": "Rounded",
+        "text": "You can make your button rounded using `round` prop."
+      },
+      "withOutline": {
+        "title": "Outlined",
+        "text": "You can make the button outlined using prop `border-color`."
       },
       "withIcon": {
         "title": "Add icons",
-        "text": "You can add icons to `va-button` with 2 different props: `icon` and `icon-right`"
-      },
-      "withConfig": {
-        "title": "Icons as slots with config",
-        "text": "You can wrap your buttons with `VaConfig` and pass icons as slots"
+        "text": "You can add icons to `va-button` with 2 different props: `icon` and `icon-right`. Also you can specify color for them via `icon-color` prop."
       },
       "withLoading": {
         "title": "Loading state",
-        "text": "You can add loading state to the button"
+        "text": "You can add loading state to the button."
       },
       "disabled": {
         "title": "Disabled",
-        "text": "The `disabled` prop prevent any actions with button."
+        "text": "The `disabled` prop prevents any actions with button."
+      },
+      "behavior": {
+        "title": "Behavior",
+        "text": "You can change hover or pressed behavior of the button via `hover`/`pressedBehavior`, `hover`/`pressedMaskColor` and `hover`/`pressedOpacity` props."
+      },
+      "tag": {
+        "title": "Tag",
+        "text": "You can change the tag of the button wrapper to any other necessary one. However, we recommend to use other properties. For example, if the `href` property is set, then `button` will be replaced with `a`, and if the value of the `to` property is passed, the button tag will automatically change to `router-link`."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button/_variables.scss)[[target=_blank]]"
@@ -1863,6 +2083,10 @@
         "title": "Numbers",
         "text": "Want to see numbers instead of icons? We got you covered."
       },
+      "itemSlot": {
+        "title": "Item slot",
+        "text": "You can pass own html to the component using `item` slot. We still handle user events and accessibility, but you can change appearance."
+      },
       "customIcons": {
         "title": "Custom Icons",
         "text": "Providing this prop to component allows you to add custom icons."
@@ -1895,7 +2119,7 @@
       },
       "color": {
         "title": "Color",
-        "text": "Set different colors using `color` prop. You can either user theme string *HEX* color value."
+        "text": "Set different colors using `color` prop. You can either user theme string HEX color value."
       },
       "offset": {
         "title": "Offset",
@@ -1971,7 +2195,7 @@
     },
     "hidingOverlay": {
       "title": "Hiding the overlay",
-      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behaviour by setting the `no-outside-dismiss` prop on `va-modal`."
+      "text": "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behavior by setting the `no-outside-dismiss` prop on `va-modal`."
     },
     "blurredOverlay": {
       "title": "Blurred overlay",
@@ -1993,6 +2217,10 @@
       "title": "Modal functional API",
       "text": "To make it easier to create modal we have a shorthands. For options API it is `$vaModal` that provides the VaModalPlugin (automatically installed with createVuestic). For composition Api we have `useModal` hook. Hook and global object have similar API."
     },
+    "beforeClose": {
+      "title": "Before close",
+      "text": "You can set custom before close event to prevent modal from closing."
+    },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-modal/_variables.scss)[[target=_blank]]"
   },
   "pagination": {
@@ -2005,11 +2233,11 @@
       },
       "colors": {
         "title": "Color",
-        "text": "Set different colors using `color` prop. You can either user theme string *HEX* color value"
+        "text": "Set different colors using `color` prop. You can either user theme string HEX color value."
       },
       "sizes": {
         "title": "Size",
-        "text": "Utilize `size` prop in order to make component fit your needs. Refer to *API* section for more in-depth explanation of how to use `size` prop."
+        "text": "Utilize `size` prop in order to make component fit your needs. Refer to API section for more in-depth explanation of how to use `size` prop."
       },
       "icons": {
         "title": "Custom icons",
@@ -2026,6 +2254,30 @@
       "totalAndPageSize": {
         "title": "Using `total` and `page-size`",
         "text": "You can provide `total` and `page-size` props to `va-pagination` component and let it calculate the length of pagination itself. The value of the component in this case would be equal to the number of the first item at the selected page."
+      },
+      "prevAndNextLinks": {
+        "title": "Custom links instead of icons",
+        "text": "The `prevPageLink` and `nextPageLink` slots allow you to set a different look to the buttons to go to the previous/next page."
+      },
+      "gapped": {
+        "title": "Gaps",
+        "text": "`gapped` prop allows you to add distance between pagination items."
+      },
+      "presets": {
+        "title": "Presets",
+        "text": "We provide several built-in style presets: `default`, `primary`, `secondary` (inherited from [VaButton](/ui-elements/button)). You can switch between them via `buttons-preset` prop."
+      },
+      "bordered": {
+        "title": "Borders",
+        "text": "Specifying `border-color` prop will add borders to the pagination items."
+      },
+      "activeColor": {
+        "title": "Active pagination button color",
+        "text": "You can specify color of the current pagination item via `active-page-color` prop."
+      },
+      "rounded": {
+        "title": "Rounded",
+        "text": "`rounded` prop makes your pagination items rounded."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-pagination/_variables.scss)[[target=_blank]]",
@@ -2231,6 +2483,9 @@
         "purpose": "The `VaCardActions` component is designed to apply margins and alignment to content (`VaButtons` expected).",
         "props": "Two properties can be passed: `align` (**string**, specify how to align actions) and `vertical` (**boolean**, display actions one below the other).",
         "values": "Valid values for `align`: left, center, right, between, around, stretch."
+      },
+      "horizontal": {
+        "title": "Horizontal"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-card/_variables.scss)[[target=_blank]]",
@@ -2433,6 +2688,10 @@
       "buffer": {
         "title": "Buffer",
         "text": "When dealing with media content like streaming videos we can use progress bars to show the buffering progress indicator on a video."
+      },
+      "max": {
+        "title": "Maximum value",
+        "text": "You can set maximum value for progress bar component"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-progress-bar/_variables.scss)[[target=_blank]]"
@@ -2469,7 +2728,7 @@
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-progress-circle/_variables.scss)[[target=_blank]]"
   },
   "infiniteScroll": {
-    "title": "Inifinite Scroll",
+    "title": "Infinite Scroll",
     "summaryText": "The `va-infinite-scroll` component is a wrapper component which is intended to be used to create lists with dynamically added content. It provides rich interface to customize scrolling behavior and much more.",
     "examples": {
       "default": {
@@ -2497,7 +2756,11 @@
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text": "By default `va-input` doesn’t have attributes, but can be combined with a placeholder and/or label. It can also be disabled or readonly."
+        "text": "By default `va-input` doesn’t have attributes, but can be combined with a placeholder and/or label."
+      },
+      "extendedDefault": {
+        "title": "Readonly, disabled, symbols counter",
+        "text": "It can also be disabled, readonly and have symbols counter."
       },
       "hint": {
         "title": "Hint messages",
@@ -2519,8 +2782,8 @@
         "title": "Input Class",
         "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `text--center` and `text--right` to align the center or right.",
         "exampleTexts": [
-          "This input must have right-aligned red text with bottom indent.",
-          "Native input element must have red text. VaInput wrapper has a gray border."
+          "This input must have right-aligned green text with bottom indent.",
+          "Native input element must have green text. VaInput wrapper has a gray border."
         ]
       },
       "mask": {
@@ -2530,13 +2793,20 @@
       "styles": {
         "title": "Styles",
         "text": "There are tree styles for input: Default (solid), outline, bordered."
+      },
+      "types": {
+        "title": "Input types",
+        "description": [
+          "With a `type` property you can set the type of the input which will render native `<input type=\"text/password/search/etc\" />`.",
+          "Watch available types [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) (some types aren't supported or have implemented as a Vuestic UI component)."
+        ]
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-input/_variables.scss)[[target=_blank]]"
   },
   "alert": {
     "title": "Alert",
-    "summaryText": "Alert displays an important message to attract user attention.",
+    "summaryText": "Displays an important message to attract user attention.",
     "examples": {
       "default": {
         "title": "Default",
@@ -2546,11 +2816,11 @@
       },
       "color": {
         "title": "Color",
-        "text": "Use `color` property to change the color of the component."
+        "text": "Use `color` property to change the color of the component and `text-color` to change the textual content color."
       },
       "styles": {
         "title": "Different styles",
-        "text": "We have 3 styles available: `color`, `outlined` and `border` styled alerts."
+        "text": "3 styles are available: `color`, `outlined` and `border` styled alerts."
       },
       "border": {
         "title": "Border",
@@ -2581,10 +2851,9 @@
       "title": "Title",
       "close": "close",
       "slottedTitle": "Slotted title",
-      "dense": "Dense alert.",
-      "color": "Alert with color style.",
-      "outlined": "Alert with outline style.",
-      "border": "Alert with colorful border.",
+      "color": "Colored background.",
+      "outlined": "Outline.",
+      "border": "Colored border.",
       "primary": "You read this important alert message.",
       "primarySlotted": "You read this important slotted alert message.",
       "success": "You successfully read this important alert message.",
@@ -2610,7 +2879,7 @@
       "default": {
         "title": "Default",
         "text": "Basic usage of the component with different icon fonts.",
-        "alert": "Notice that Vuestic UI uses only Material Icons by default. You need to manualy install additional libraries."
+        "alert": "Notice that Vuestic UI uses only Material Icons by default. You need to manually install additional libraries."
       },
       "color": {
         "title": "Color",
@@ -2681,6 +2950,9 @@
       "color": {
         "title": "Color",
         "text": "Use two color schemes."
+      },
+      "flat": {
+        "title": "Flat"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-collapse/_variables.scss)[[target=_blank]]"
@@ -2693,9 +2965,9 @@
         "title": "Default",
         "text": "Default usage  of the `va-accordion` component."
       },
-      "multiply": {
-        "title": "Multiply",
-        "text": "Accordion component allows you to select multiply collapses."
+      "multiple": {
+        "title": "Multiple",
+        "text": "Accordion component allows you to select multiple collapses."
       },
       "inset": {
         "title": "Inset",
@@ -2704,6 +2976,13 @@
       "popout": {
         "title": "Popout",
         "text": "Active collapse component becomes bigger."
+      },
+      "flat": {
+        "title": "Flat"
+      },
+      "menu": {
+        "title": "Menu",
+        "text": "One of the interesting ways to use the component is a collapsing menu."
       }
     }
   },
@@ -2754,6 +3033,34 @@
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-chip/_variables.scss)[[target=_blank]]"
   },
+  "smartHelpers": {
+    "title": "Smart Helpers",
+    "summaryText": "Vuestic UI provides amount of smart CSS helpers which are adopting to the current breakpoint (see also [Breakpoint Service](/services/breakpoints)).",
+    "examples": {
+      "gutters": {
+        "title": "Gutters",
+        "text": "Sets the margin between the cells of your flex-container with the `gutter` class.",
+        "sizes": {
+          "xs": "`.va-gutter-1` - Extra small gutter between cells",
+          "sm": "`.va-gutter-2` - Small gutter between cells",
+          "md": "`.va-gutter-3` - Default gutter between cells",
+          "lg": "`.va-gutter-4` - Large gutter between cells",
+          "xl": "`.va-gutter-5` - Extra large gutter between cells"
+        }
+      },
+      "spacing": {
+        "title": "Spacing",
+        "text": "Sets the margin (`x` or `y`) between child items of the container with the `spacing` class.",
+        "sizes": {
+          "xs": "`.va-spacing-x/y-1` - Extra small spacing between items",
+          "sm": "`.va-spacing-x/y-2` - Small spacing between items",
+          "md": "`.va-spacing-x/y-3` - Default spacing between items",
+          "lg": "`.va-spacing-x/y-4` - Large spacing between items",
+          "xl": "`.va-spacing-x/y-5` - Extra large spacing between items"
+        }
+      }
+    }
+  },
   "grid": {
     "title": "Grid System",
     "summaryText": "Vuestic UI provides you with some flexbox helper classes. Of course, you can opt out using CSS Grid instead (or any other layout-scheme you'd like), but if you prefer using flexbox, we've got you covered. Still, the final decision is totally up to you.",
@@ -2766,86 +3073,75 @@
         "title": "Breakpoints",
         "text": "Use the following classes (`breakpoints`) to apply provided styling to screens of certain widths exclusively.",
         "sizes": {
-          "xs": "`.xs` - (< 576px ) - Extra small devices",
-          "sm": "`.sm` - (≥ 576px ) - Small devices",
-          "md": "`.md` - (≥ 768px ) - Medium devices",
-          "lg": "`.lg` - (≥ 992px ) - Large devices",
-          "xl": "`.xl` - (≥ 1200px) - Extra large devices"
+          "xs": "`.xs` - (< 640px) - Extra small devices",
+          "sm": "`.sm` - (>= 640px && < 1024px) - Small devices",
+          "md": "`.md` - (>= 1024px && < 1440px) - Medium devices",
+          "lg": "`.lg` - (>= 1440px && < 1920px) - Large devices",
+          "xl": "`.xl` - (>= 1920) - Extra large devices"
         }
       },
       "offsets": {
         "title": "Offsets",
         "text": "You can use the `offset`-classes to set spaces between a given element and the one to the left from it.",
         "sizes": {
-          "xs": "`.offset--xs` - Extra small devices",
-          "sm": "`.offset--sm` - Small devices",
-          "md": "`.offset--md` - Medium devices",
-          "lg": "`.offset--lg` - Large devices",
-          "xl": "`.offset--xl` - Extra large devices"
+          "xs": "`.offset-xs` - Extra small devices",
+          "sm": "`.offset-sm` - Small devices",
+          "md": "`.offset-md` - Medium devices",
+          "lg": "`.offset-lg` - Large devices",
+          "xl": "`.offset-xl` - Extra large devices"
         },
         "first": "First",
         "second": "Second",
         "last": "Last"
-      },
-      "gutters": {
-        "title": "Gutters",
-        "text": "Set the margins between the \"`cell`s\" of you flex-container with the `gutter` classes.",
-        "sizes": {
-          "xs": "`.gutter--xs` - Extra small gutter between cells",
-          "sm": "`.gutter--sm` - Small gutter between cells",
-          "md": "`.gutter--md` - Default gutter between cells",
-          "lg": "`.gutter--lg` - Large gutter between cells",
-          "xl": "`.gutter--xl` - Extra large gutter between cells"
-        }
       }
     },
     "api": {
       "align": {
         "title": "`align`:",
         "variants": [
-          "`.align--start` - cross-start margin edge of the items is placed on the cross-start line",
-          "`.align--end` - cross-end margin edge of the items is placed on the cross-end line",
-          "`.align--center` - items are centered in the cross-axis",
-          "`.align--baseline` - items are aligned the way their baselines align"
+          "`.align-start` - cross-start margin edge of the items is placed on the cross-start line",
+          "`.align-end` - cross-end margin edge of the items is placed on the cross-end line",
+          "`.align-center` - items are centered in the cross-axis",
+          "`.align-baseline` - items are aligned the way their baselines align"
         ]
       },
       "alignSelf": {
         "title": "`align-self`:",
         "variants": [
-          "`.align-self--start` - cross-start margin edge of the items is placed on the cross-start line",
-          "`.align-self--end` - cross-end margin edge of the items is placed on the cross-end line",
-          "`.align-self--center` - items are centered in the cross-axis",
-          "`.align-self--baseline` - items are aligned the way their baselines align"
+          "`.align-self-start` - cross-start margin edge of the items is placed on the cross-start line",
+          "`.align-self-end` - cross-end margin edge of the items is placed on the cross-end line",
+          "`.align-self-center` - items are centered in the cross-axis",
+          "`.align-self-baseline` - items are aligned the way their baselines align"
         ]
       },
       "alignContent": {
         "title": "`align-content`:",
         "variants": [
-          "`.align-content--start` - lines packed to the start of the container",
-          "`.align-content--end` - lines packed to the end of the container",
-          "`.align-content--center` - lines packed to the center of the container",
-          "`.align-content--space-between` - lines evenly distributed; the first line is at the start of the container while the last one is at the end",
-          "`.align-content--space-around` - lines evenly distributed with equal space between them"
+          "`.align-content-start` - lines packed to the start of the container",
+          "`.align-content-end` - lines packed to the end of the container",
+          "`.align-content-center` - lines packed to the center of the container",
+          "`.align-content-space-between` - lines evenly distributed; the first line is at the start of the container while the last one is at the end",
+          "`.align-content-space-around` - lines evenly distributed with equal space between them"
         ]
       },
       "justify": {
         "title": "`justify`:",
         "variants": [
-          "`.justify--start` - items are packed toward the start line",
-          "`.justify--end` - items are packed toward to end line",
-          "`.justify--center` - items are centered along the line",
-          "`.justify--space-around` - items are evenly distributed in the line, items have equal space around on either end",
-          "`.justify--space-between` - items are evenly distributed in the line; first item is on the start line, last item is on the end line",
-          "`.justify--space-evenly` - items are evenly distributed in the line; items have equal space around them"
+          "`.justify-start` - items are packed toward the start line",
+          "`.justify-end` - items are packed toward to end line",
+          "`.justify-center` - items are centered along the line",
+          "`.justify-space-around` - items are evenly distributed in the line, items have equal space around on either end",
+          "`.justify-space-between` - items are evenly distributed in the line; first item is on the start line, last item is on the end line",
+          "`.justify-space-evenly` - items are evenly distributed in the line; items have equal space around them"
         ]
       },
       "justifySelf": {
         "title": "`justify-self`:",
         "variants": [
-          "`.justify-self--start` - The item is packed flush to each other toward the start edge of the alignment container in the appropriate axis.",
-          "`.justify-self--end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
-          "`.justify-self--center` - For items that are not children of a flex container, this value is treated as `.justify-self--start`.",
-          "`.justify-self--baseline` - The items are aligned according to baselines"
+          "`.justify-self-start` - The item is packed flush to each other toward the start edge of the alignment container in the appropriate axis.",
+          "`.justify-self-end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
+          "`.justify-self-center` - For items that are not children of a flex container, this value is treated as `.justify-self-start`.",
+          "`.justify-self-baseline` - The items are aligned according to baselines"
         ]
       }
     }
@@ -2923,10 +3219,11 @@
       },
       "slots": {
         "title": "Slots",
-        "text": [
-          "Includes `content`, `prepend`, `prepend-inner`, `append` and `append-inner` slots.",
-          "The content of the `content` slot replaces the `input` element in the component."
-        ]
+        "text": "Includes `option`, `content`, `prepend`, `prepend-inner`, `append` and `append-inner` slots."
+      },
+      "tagging": {
+        "title": "Tagging",
+        "text": "`content` slot allows you to overwrite default `input` element with custom one. So you are able to set tagging state via adding `VaChip` component:"
       },
       "state": {
         "title": "State",
@@ -2953,6 +3250,14 @@
       "styles": {
         "title": "Styles",
         "text": "Select styles inherit from input styles"
+      },
+      "maxVisibleOptions": {
+        "title": "Max visible selected options",
+        "text": "The `max-visible-options` props sets amount of selected options, that will be shown inside of input wrapper. The rest will be hidden, but may be shown after clicking the badge with hidden options counter."
+      },
+      "selectedTopShown": {
+        "title": "Displaying selected options at the top of the list",
+        "text": "The `selected-top-shown` prop forces to display selected options at the top of the options list."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-select/_variables.scss)[[target=_blank]]"
@@ -3144,7 +3449,7 @@
   },
   "buttonGroup": {
     "title": "Button Group",
-    "summaryText": "It is a special component that wraps buttons and applies special styles to them.",
+    "summaryText": "It is a special component that wrap buttons and applies special styles to them.",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -3162,13 +3467,17 @@
         "title": "Sizes",
         "text": "You can set different sizes."
       },
+      "grow": {
+        "title": "Grow",
+        "text": "Makes button group grow to the width of its container."
+      },
       "styles": {
-        "title": "Styles",
-        "text": "You can set button styles."
+        "title": "Presets & styles",
+        "text": "You can use the same `preset`'s (`default`, `primary`, `secondary`, `plain`, `plainOpacity`) and styles (`round`, outline via `borderColor` property) as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "icons": {
         "title": "Icons",
-        "text": "Looks good with icons provided to buttons."
+        "text": "Looks good with icons provided to buttons. "
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button-group/_variables.scss)[[target=_blank]]"
@@ -3198,12 +3507,12 @@
         "text": "You can provide size presets to the component."
       },
       "styles": {
-        "title": "Styles",
-        "text": "You can set button styles to the component."
+        "title": "Presets and styles",
+        "text": "You can use the same `preset`'s (`default`, `primary`, `secondary`, `plain`, `plainOpacity`) and styles (`round`, outline via `borderColor` property) as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {
         "title": "Disabled",
-        "text": "The component can be disabled."
+        "text": "The component can be disabled via `disabled` prop."
       },
       "icons": {
         "title": "Icons",
@@ -3223,9 +3532,9 @@
         "title": "Color",
         "text": "You can set a background color and gradient of the component with `color` and `gradient` props."
       },
-      "bottom": {
-        "title": "Bottom",
-        "text": "You can make app bar sit at the bottom of the screen with `bottom` prop."
+      "fixed": {
+        "title": "Fixed",
+        "text": "You can make app bar position fixed via `fixed` prop."
       },
       "hide": {
         "title": "Hide",
@@ -3293,6 +3602,22 @@
       "node": "[Node.js](https://nodejs.org/en/)[[target=_blank]] (>=v14.0.0)",
       "npm": "[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)[[target=_blank]] (>=v3.0.0) (or [yarn](https://yarnpkg.com/lang/en/docs/install)[[target=_blank]] (>= v1.16.0)) and [Git](https://git-scm.com/)[[target=_blank]]",
       "afterCheck": "After checking the prerequisites, install Vuestic UI via npm or yarn:"
+    },
+    "migrationGuide": {
+      "title": "Migration guide",
+      "1_5": {
+        "components": "Components",
+        "button": "* Button has been changed visually and its API changed too:\n* `flat` prop has been moved to `preset=\"secondary\"`.\n* Prop `rounded` renamed to `round` and is now `false` by default.",
+        "checkbox": "Checkbox is now `inline-block` instead of `block`.",
+        "services": "Services",
+        "colors": "Colors",
+        "colors_0": "In `1.5.0` there are a lot of changes to support dark theme.",
+        "colors_1": "* Color config is now extended with variables (where previous colors are stored);\n* `dark`, `white`, `background`, `gray` colors have been removed;\n* text color in components is calculated automatically, but you can force text to be `textDark` or `textLight`;\n* there are 4 types of background color now: `backgroundPrimary`, `backgroundSecondary`, `backgroundTertiary`, `backgroundElement`;\n* read more: [colors](https://vuestic.dev/styles/colors)[[target=_blank]].",
+        "colors_2": "* use `useTheme` instead of `useColors` - it has all the same methods.",
+        "styles": "Styles",
+        "stylesDescription": "* All typography classes now have `va` prefix. For instance: link renamed to `va-link`, `text--right` renamed to `va-text-right`",
+        "typography_1": "* `display-1` has been renamed to `va-h1`, same for 2 to 6"
+      }
     }
   },
   "treeShaking": {
@@ -3316,6 +3641,10 @@
     "css": {
       "title": "CSS Code Split",
       "description": "We separated our CSS into modules: `essential`, `typography`, `grid` and `reset`. Instead of import `vuestic/css` you can import `vuestic/styles/essential.css` - module without typography, grid and normalize. This is usually need if you already using some CSS framework to prevent style conflicts."
+    },
+    "bundleSize": {
+      "title": "Bundle Size",
+      "description": "Statistics of the space occupied in the project bundle (without gzip):"
     }
   },
   "roadmap": {
@@ -3368,10 +3697,14 @@
   },
   "accessibilityGuide": {
     "title": "Accessibility",
-    "description": "Vuestic UI components support keyboard interactions for all mouse-based actions and utilize HTML5 semantic elements where applicable.",
+    "description": "Vuestic UI components are support keyboard interactions for all mouse-based actions, utilize HTML5 semantic elements where applicable and provide full coverage by WAI-ARIA attributes.",
     "keyboardInteractions": {
       "title": "Keyboard accessible",
-      "description": "All the interactive elements on your page (e.g. text boxes, buttons, etc.) can be accessed with the keyboard. That means you should be able to focus them by using `Tab` and `Shift+Tab` keys."
+      "description": "All interactive elements of your page should be accessible by keyboard (e.g. text boxes, buttons, etc). That means you should be able focus on them via `Tab` and `Shift+Tab` keys. Focused via keyboard elements have their own visual state. For example, you can focus `date-input` component below via `Tab`, then call `date-picker` via `Enter` and select date, using left-right keys, `Shift+Tab` to focus year and month, `Enter` to confirm the selection and `Esc` to close the picker."
+    },
+    "waiAria": {
+      "title": "WAI-ARIA",
+      "description": "All our components are fully (depending on their roles) covered by [WAI-ARIA](https://www.w3.org/WAI/standards-guidelines/aria/)[[target=_blank]] attributes, providing full support for screen-readers. For example, simple input below provides for screen-readers information about inputs name, it is disabled or readonly, it is necessary to fill it and  it doesn't contain any validation errors."
     }
   },
   "configurationGuide": {
@@ -3386,13 +3719,16 @@
     },
     "icons": {
       "title": "Icon fonts",
-      "description": "By default Vuestic UI uses **material icons**, so make sure to install the package:",
+      "description": [
+        "By default Vuestic UI uses **material icons**, so make sure to install the package:",
+        "After installing the **material icons** package, you need to import its styles into the `main.js` file."
+      ],
       "subtitle": "Using custom icons",
       "subDescription": "With icons config you can use any icon font you'd like by simply transforming the icon names to respective props."
     },
     "components": {
       "title": "Components config",
-      "intro": "If you want to set global defaults for Vuestic components — we've got a config for that either!",
+      "intro": "If you want to set global defaults for Vuestic components or create presets — we have config for this as well!",
       "description": "Let’s say you want all of your buttons to be `outline` and `small` to match your design, but by default that's not the case:",
       "action": "To solve that problem edit to `main.js` file the following way:",
       "result": "Now all of your buttons by default will look like this:",
@@ -3410,13 +3746,24 @@
   },
   "overview": {
     "title": "What is Vuestic UI",
-    "description": "We’ve designed the framework in such a way that it satisfies the most sophisticated design fantasies and allows you to implement them.",
+    "description": "Vuestic UI is an OpenSource Vue 3 based UI framework. It is a MIT-licensed UI framework that provides ready-to-use frontend components that are easily configurable and speed up development of responsive and fast-loading web interfaces. It was initially released in May 2021 by [Epicmax](https://epicmax.co/)[[target=_blank]] and that is what Vuestic UI today:\n\n",
     "featuresOverview": "Features overview",
-    "vueThreeCompatible": "Fully **Vue.js 3 compatible**",
-    "featureRich": "Contains a **50+ feature-rich components** that can be used in any design solution",
-    "configurable": "Allows **to configure components** globally via config and CSS variables",
-    "responsive": "Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
-    "translatable": "Integrates seamlessly with **i18n**"
+    "vueThreeCompatible": "Fully Vue 3 compatible \uD83E\uDD18",
+    "featureRich": "Contains 60+ ready-to-use classy UI components that can be used in any design solution \uD83D\uDC85",
+    "darkTheme": "Dark Theme ready to make your app look sexy \uD83D\uDDA4",
+    "accessibility": "Accessible - because it’s important❗",
+    "configurable": "Allows to configure components globally via config and CSS variables",
+    "responsive": "Fully responsive and supports modern browsers (no IE11, sorry)",
+    "translatable": "Integrates seamlessly with i18n",
+    "support": "Fast & professional technical support from [the core team](https://vuestic.dev/en/introduction/team)[[target=_blank]] \uD83E\uDEC2"
+  },
+  "team": {
+    "title": "Meet the Team",
+    "description": "Hi there, we are really pleased to meet you too!\n\nVuestic started as a small admin template back in 2017. It was released on GitHub and was warmly embraced by the Vue.js community. Since then we’ve been contributing to Vuestic daily and today it’s grown into a full-fledged framework with a decent ecosystem around it.\n\nThe team behind Vuestic is in ❤️ with Vue.js and Open Source. We’re doing our best to make developers’ lives easier and  joyful.",
+    "coreTeam": "Core Team 🤓",
+    "coreTeamDescription": "Established in 2017, [Epicmax](https://epicmax.co/)[[target=_blank]] is a Vue.js development company with over 55 successfully completed projects for it’s clients all over the world.\n\nThe company is committed to Open Source from its beginning. Vuestic was created and backed by Epicmax, and is supported through all the years. You can request a consultation or order web development services by Epicmax via this [form](https://epicmax.co/contacts)[[target=_blank]]\n\nAnd now, please meet the core contributors 🎉",
+    "specialThanks": "Special Thanks 🙌",
+    "specialThanksDescription": "We’d like to thank all contributors and users of Vuestic. Your constant assistance, insights and feedback not only help Vuestic to get a better ecosystem, but also charges the core team with energy and enthusiasm to go an extra mile. With you everything is possible."
   },
   "translation": {
     "title": "Translation",
@@ -3536,6 +3883,47 @@
   "guide": {
     "title": "Contribution guide",
     "description": "This guide describes the possible ways in which you can become a part of the ongoing development of Vuestic UI. We are really excited that you are interested in helping us make Vuestic better!",
+    "quickStart": {
+      "title": "Quick start",
+      "description": "If you want to make some changes get a local copy of VausticUI:",
+      "steps": {
+        "1": "Fork Vuestic repository",
+        "2": "Clone your fork",
+        "3": "Install dependencies with `yarn install`"
+      }
+    },
+    "packages": {
+      "title": "Packages",
+      "description": "Vuestic has few packages in order of importance for newcommers:",
+      "list": {
+        "ui": "`packages/ui` - UI lib with demos. Here all vuestic components stored.",
+        "docs": "`packages/docs` - [vuestic.dev](https://vuestic.dev) source code.",
+        "nuxt": "`packages/nuxt` - {'`@vuestic/nuxt`'} module for Nuxt3.",
+        "sandbox": "`packages/sandbox` - Package for testing build and treeshaking.",
+        "vue-cli-plugin": "`packages/vue-cli-plugin` - vue add vuestic-ui plugin for vue-cli.",
+        "ag-grid-theme": "`packages/ag-grid-theme` - AgGrid extension styles.",
+        "deploy": "`packages/deploy` - Release scripts for core contributors."
+      },
+      "notice": "Likely you will deal only with `ui` and `docs` packages."
+    },
+    "commonlyUsedScripts": {
+      "title": "Commonly used scripts",
+      "list": {
+        "demo": "`yarn serve` - this will run project with demos, where you can test component features.",
+        "docs": "`yarn serve:docs` - this will run project with docs (deployed here [vuestic.dev](https://vuestic.dev)).",
+        "generateDocspage": "`yarn generate:docspage` - this will generate docs page, so you can write some guide or tutorial.",
+        "generateComponent": "`yarn generate:component` - this will make component template with docs page and demo page, so you can easily start making new component."
+      },
+      "notice": "You can find more scripts in `package.json` of each package."
+    },
+    "creating": {
+      "title": "Making new components or docs pages",
+      "description": "We have few generate scripts for you to make your life easier.",
+      "scripts": {
+        "docs": "`yarn generate:docs` will make new docs page.",
+        "component": "`yarn generate:component` will make new component."
+      }
+    },
     "pullRequests": {
       "title": "Pull Request Guidelines",
       "description": {
@@ -3549,13 +3937,7 @@
     "branches": {
       "title": "Branches",
       "publicBranches": "Public branches (**epicmax/vuestic-ui**):\n  * `master` - releases and hotfixes only. Do not submit PR's to `master`!\n  * `develop` - main development branch.",
-      "localBranches": "Local branches\n  * For local branches prepend your messages with `feat/` (e.g. for a tabs-related fix it would be `feat/fix-tabs`). This is necessary to keep local branches visually separated from the public ones."
-    },
-    "fileNaming": {
-      "title": "File naming",
-      "camelCase": "`testIsContextableComponent.ts` - helpers and instants",
-      "kebabCase": "`api-options.ts` - configs",
-      "pascalCase": "`DocsCode.vue` - components, classes, types"
+      "localBranches": "Local branches\n  * For local branches prepend your messages with `feat/` or `fix/` (e.g. for a tabs-related fix it would be `fix/tabs`, `feat/date-picker` or `fix#1000/important-bug`). This is necessary to keep local branches visually separated from the public ones."
     },
     "forCoreContributors": {
       "title": "For the core contributors",
@@ -3571,14 +3953,8 @@
       "workInBook": "If you work on UI components - work in the book environment (`yarn serve:book`). We want to keep global stuff out of components."
     },
     "componentFolderStructure": {
-      "title": "Component folder structure"
-    },
-    "beforeReleaseWorkflow": {
-      "title": "Before release workflow",
-      "description": "Update packages' versions. Update the lock files (for both `npm` and `yarn`)\n"
-    },
-    "npmScripts": {
-      "title": "Commonly used NPM scripts"
+      "title": "Component folder structure",
+      "link": "See detailed guide here."
     },
     "credits": {
       "title": "Credits",
@@ -3587,9 +3963,9 @@
   },
   "globalConfig": {
     "title": "Global config",
-    "subtitle": "With the help of Global config one can configure default values for colors, icons and components' props. ",
-    "structure": "Global config consists of `icons`, `colors`, `components` and `componentsAll` configs. ",
-    "setupExampleTitle": "You can provide a custom config to `createVuestic` fabric:",
+    "subtitle": "Global config allows to configure default values for colors, icons and component's props. ",
+    "structure": "Global config consists of `icons`, `colors` and `components` (that also includes `all` and `presets`) configs. ",
+    "setupExampleTitle": "You can provide a custom config via `createVuestic` fabric:",
     "reactiveUpdateExampleTitle": "Or you can update the configuration partially at the runtime:",
     "reactiveSetExampleTitle": "Alternatively, you can substitute the whole configuration object at the runtime with another one:",
     "links": {
@@ -3603,7 +3979,8 @@
       "icons": "Used to configure icon fonts and aliases.",
       "components": "Used to globally overwrite props of specific components.",
       "componentsAll": "Used to globally set props for all components. If there are no other source of props.",
-      "colors": "Used to define theme colors that components make use of. Here you can redefine default Vuestic-theme colors."
+      "componentsPresets": "Used to specify named component's props combinations to use them later at the your application.",
+      "colors": "Used to define theme colors that components make use of. Here you can redefine default Vuestic UI theme colors."
     }
   },
   "iconsConfig": {
@@ -3635,6 +4012,10 @@
         "title": "Example aliases config",
         "about": "Below we can see how the icons would be transformed",
         "explain": "As you can see alias config is more important than font config. And `va-icon` props take precedence over both."
+      },
+      "vaAliases": {
+        "title": "Vuestic component alises",
+        "text": "We use some icons in our components by default. You can redefine them by changing it's alias."
       }
     },
     "setup": {
@@ -3658,18 +4039,26 @@
   },
   "componentsConfig": {
     "title": "Components config",
-    "subtitle": "Component config allows you to override default props' values for any Vuestic component. It is an object where the keys are component names and the values are prop-value pairs you want to overwrite. For example:",
-    "demoTitle": "The example below allows you to change styling of all the buttons for the whole Vuestic Documentation site. Feel free to navigate to Button docs page and take a look at the updated examples.",
+    "subtitle": "Component config allows you to override default props values for any Vuestic component. It is an object where the keys are component names and the values are prop-value pairs you want to overwrite. Moreover, there are two more nested configuration objects &mdash; `presets` и `all`. `preset` allows you to specify named props combinations for any component. `all` allows you to specify props value for all Vuestic components. For example:",
+    "demoTitle": "The example below allows you to change styling of all buttons for the whole Vuestic documentation site.",
     "resetConfig": "Reset config",
     "componentsAll": {
       "title": "All components config",
-      "subtitle": "You could use `componentsAll` global config property to set prop values for all components at once. It will be applied if there are no other source of prop value. For example:",
-      "description": "These prop values will be used as default values if prop is not set somewhere else (inside the component or inside other configs)."
+      "subtitle": "You could use `components.all` global config property to set prop values for all components at once. It will be applied if there are no other source of prop value. For example:",
+      "description": "These prop values will be used as defaults if prop is not set somewhere else (inside the component or other configs)."
+    },
+    "componentsPresets": {
+      "title": "Presets config",
+      "subtitle": "As was said, `presets` allows you to specify named props combinations for Vuestic components and then use them in your application. For example:"
     },
     "vaConfig": {
       "title": "Scoped config",
-      "subtitle": "You can use the `<va-config>` component to overwrite the default props' values for the components inside that tag. Take a look at the demo below:",
-      "explain": "Look at the code. In this demo we have changed the default color for all the `VaButton`s and `VaIcons`s inside the `VaConfig`. We also pass a different value to the third button's `color` prop (direct component's prop takes precedence over the one specified on the `VaConfig`)."
+      "subtitle": "You can use the `<va-config>` component to overwrite the default props values for the components inside that tag. Take a look at the demo below:",
+      "explain": "Look at the code. In this demo we have changed the default color for all the `VaButton` and `VaIcon` inside the `VaConfig`. We also have passed a different value to the third button's `color` prop (direct component's prop takes precedence over the one specified on the `VaConfig`)."
+    },
+    "priority": {
+      "title": "Props values priority",
+      "description": "You are able to specify props values via: direct, `va-config`, `presets config`, `components config`, `components all config`. Their priority (in case several options were used) is presented at the scheme below:"
     },
     "defaultSizes": {
       "title": "Default sizes",
@@ -3679,7 +4068,8 @@
       "title": "Component config service API",
       "types": "Types",
       "ComponentConfig": "Object where the keys are Vuestic component names and the values are the component's new default props.",
-      "ComponentsAllConfig": "Object where the keys are prop names and the values are the prop's new default values. Will be applied if there are no other source of prop value."
+      "ComponentsAllConfig": "Object where the keys are prop names and the values are the prop's new default values. Will be applied if there are no other source of prop value.",
+      "ComponentsPresetsConfig": "Object where the keys are Vuestic component names and the values are objects where the keys are prop names and the values are the prop's values."
     }
   },
   "colorsConfig": {
@@ -3691,7 +4081,7 @@
     },
     "reactivity": {
       "subtitle": "Reactivity",
-      "about": "As you can see, methods like `getColor`, `getColors` don’t return `Proxy`. If you want to use color as reactive Proxy, use computed properties like in the example above."
+      "about": "Methods like `getColors` return a computed reactives that can also be accessed by variable `colors`. The advantage is allow to change properties, instead of rewriting whole colors variable. For example, you can change `primary` color by writing `colors.primary = '#ff0'`. Multiple properties changes are also supported, you can write `setColors({ primary: '#00f', secondary: '#0ff' })`."
     },
     "otherServices": {
       "subtitle": "Colors config with other services",
@@ -3705,7 +4095,7 @@
       "ColorConfig": "An object where the keys are the color names and the values are valid CSS colors.",
       "ColorInput": "A valid CSS color",
       "methods": "Methods",
-      "useColor": "Return colors methods",
+      "useColors": "Return colors methods and variables",
       "setColors": "Used to merge new colors into config or update existing colors.",
       "getColors": "Returns current color config",
       "getColor": "Return color by name",
@@ -3713,7 +4103,46 @@
       "getHoverColor": "Return a color that you can use as a `hover` color.",
       "getFocusColor": "Return a color that you can use as a `focus` color.",
       "getGradientBackground": "Return a gradient-color that you can use as a `background-image` CSS property's value.",
-      "hookMethods": "useColors hook methods"
+      "hookMethods": "useColors hook methods.",
+      "hookVariables": "useColors hook variables.",
+      "colors": "A computed reactive where the keys are color names and values are valid CSS colors."
+    }
+  },
+  "breakpoints": {
+    "title": "Breakpoint Service",
+    "about": "Vuestic UI provides breakpoint service that allows you to control every aspect of your application which depends on the window size.",
+    "sizes": {
+      "intro": "We use the following breakpoints:",
+      "xs": "`.xs` - (< 640px) - Extra small devices",
+      "sm": "`.sm` - (>= 640px && < 1024px) - Small devices",
+      "md": "`.md` - (>= 1024px && < 1440px) - Medium devices",
+      "lg": "`.lg` - (>= 1440px && < 1920px) - Large devices",
+      "xl": "`.xl` - (>= 1920) - Extra large devices"
+    },
+    "helpers": {
+      "title": "Helpers",
+      "about": "Breakpoint service provides amount of helpers via `useBreakpoint` composable.",
+      "list": {
+        "title": "Helpers list:",
+        "thresholds": "List of the current thresholds.",
+        "exactThreshold": "`true` only for mentioned threshold.",
+        "width": "Current window width (`px`).",
+        "height": "Current window height (`px`).",
+        "current": "Current breakpoint name.",
+        "downHelper": "`true` for mentioned threshold and all below it.",
+        "upHelper": "`true` for mentioned threshold and all above it."
+      }
+    },
+    "class": {
+      "title": "Threshold Class",
+      "about": "Optional part of the service - reactive `body` class (`.va-screen-lg` for example) that allows you to build the following CSS constructions:"
+    },
+    "configuring": {
+      "title": "Configuring",
+      "about": "You can specify your own thresholds values, disable threshold class support or the whole service via Vuestic UI configuration object."
+    },
+    "examples": {
+      "default": "Current breakpoint is:"
     }
   },
   "cssVariables": {
@@ -3753,49 +4182,48 @@
       "shape": {
         "title": "Shape",
         "text": "You can add the shape to navbar background. Shape color will be taken automatic from `color` prop."
+      },
+      "height": {
+        "title": "Height"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-navbar/_variables.scss)[[target=_blank]]"
   },
   "buttonDropdown": {
     "title": "Button Dropdown",
-    "summaryText": "This is a button that displays drop-down content when clicked.",
+    "summaryText": "Component with a button that displays dropdown content when getting clicked. It inherits properties, provided by [VaButton](/ui-elements/button) and [VaDropdown](/ui-elements/dropdown) components.",
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text": "By default, wrap your content in `va-button-dropdown` component."
+        "text": "Just wrap your content with `va-button-dropdown` component and it will become available only via click."
       },
       "split": {
         "title": "Split",
-        "text": "You can split the button in two."
+        "text": "The `split` prop allows you to split the button into two, with different purposes of using. One of them can be a link (you can set href for it via `split-to` or `split-href` props, which are analogues of the `to` and `href` attributes)."
       },
       "colors": {
         "title": "Colors",
-        "text": "The `va-dropdown-button` can be colored."
+        "text": "The component can be colored via `color`, `gradient` and `text-color` props."
       },
       "sizes": {
         "title": "Sizes",
-        "text": "Component can apply button sizes."
+        "text": "You are able to set component's size via `size` prop (`small`, `medium` or `large` presets are available, `px` and `rem` values are also suitable)."
       },
       "styles": {
-        "title": "Styles",
-        "text": "You can use the same styles as in `va-button`."
+        "title": "Presets and styles",
+        "text": "You can use the same `preset`'s (`default`, `primary`, `secondary`, `plain`, `plainOpacity`) and styles (`round`, outline via `borderColor` property) as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {
         "title": "Disabled",
-        "text": "The component can be disabled."
+        "text": "The component can be disabled via `disabled` prop. For the `split` state can be disabled both or only one button (via `disableButton` and `disableDropdown` props)."
       },
       "icons": {
         "title": "Icons",
-        "text": "You can set the dropdown icon."
-      },
-      "events": {
-        "title": "Events",
-        "text": "The `va-dropdown-button` can handle click events."
+        "text": "You can set the dropdown icon and its color via `icon` and `icon-color` props. Also you are able to change icon's position from right to  left side of the button via `left-icon` boolean prop. If you want to remove icon at all, use the `hide-icon` property. Opened-state icon can be changed using `openedIcon` prop."
       },
       "clickInside": {
         "title": "Click inside",
-        "text": "You could set the dropdown to be closed or not after clicking on its content."
+        "text": "You are able to set up the dropdown to be closed or not after clicking on its content using the `close-on-content-click` prop."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button-dropdown/_variables.scss)[[target=_blank]]"
@@ -3814,7 +4242,7 @@
       },
       "placement": {
         "title": "Placement",
-        "text": "A component can be set in a different position. Use a position property to set it: `top`, `left`, `right` and `bottom` are available."
+        "text": "A component can be set in a different position. Use a position property to set it: `top`, `left`, `right` and `bottom` are available. [More about placements](/ui-elements/dropdown#placement-and-offset)"
       },
       "icon": {
         "title": "Icon",
@@ -3956,6 +4384,10 @@
           "To work correctly, it is important to limit the height (set the value in the `height` property of the component or using the CSS `height` or `max-height` properties) of the table and assign a background color (set the CSS value `background-color`) of the table header."
         ]
       },
+      "virtualScroll": {
+        "title": "Virtual scroll",
+        "text": "The `virtual-scroller` prop enables virtual scroll for `tbody` rows ([read more](/ui-elements/virtual-scroll)). Pay your attention, that CSS transition is disabled here because of possible performance problems."
+      },
       "other": {
         "title": "Other",
         "text": [
@@ -4002,9 +4434,9 @@
     },
     "requirements": {
       "title": "Requirements and rules",
-      "esModules": "We need to use ES module (esm format) and Named Exports (`export { somthing }` instead of `export default somthing`). Export default breaks tree shaking for importend file. It will fully loaded by bundler.",
+      "esModules": "We need to use ES module (esm format) and Named Exports (`export { something }` instead of `export default something`). Export default breaks tree shaking for importend file. It will fully loaded by bundler.",
       "dependencies": "TreeShaking works only with node modules, that is written in esm format. For example, we use `lodash-es` instead of `lodash`. That way we compile only functional we need instead of full library.",
-      "beforeBuild": "Before release check dist with `bundlers-tests`. We need to check build with Webpack, Vite (Rollup) because vuestic-ui can work diffent for this two."
+      "beforeBuild": "Before release check dist with `bundlers-tests`. We need to check build with Webpack, Vite (Rollup) because vuestic-ui can work different for this two."
     }
   },
   "timePicker": {
@@ -4089,14 +4521,31 @@
       "availableCss": "Available CSS variables",
       "colorsUsed": "Each default color of Vuestic UI  (including overridden colors) and the new custom color have their own `CSS variables`."
     },
-    "defaultColorThemes": {
-      "title": "Default color themes",
-      "description": "All the default colors of Vuestic UI are listed below:"
-    },
     "reactivity": {
       "subtitle": "Reactivity",
       "about": "These variables reactive relative to `Colors Config`. This means that they will be updated when the configuration changes. Read more about how to update the configuration [here](https://vuestic.dev/en/services/colors-config#icon-config-service-api).",
       "additional": "Please note that changing `CSS variables` of the colors directly, in turn, will not update `Colors Config`."
+    },
+    "theme": {
+      "title": "Color presets",
+      "description": "Vuestic is shipped with two built-in color pressets: light and dark. You can switch between them using `applyPreset` method from `useColors`. You can check example bellow:",
+      "autoTextColor": "We use abstract color names instead of absolute names. You can click on each color above to see its description and where is it used.",
+      "colors": {
+        "primary": "Accent color used on button, links and other interactive elements",
+        "secondary": "Accent color used on non important interactive elements",
+        "success": "Accent color for success validation, alerts or toasts",
+        "danger": "Accent color for error validation, alerts or toasts",
+        "info": "Accent color for info toasts or alerts",
+        "warning": "Accent color for warning toasts or alerts",
+        "backgroundPrimary": "Page background",
+        "backgroundSecondary": "Card, Modal, Dropdown background",
+        "backgroundElement": "Input, switch, divider background colors",
+        "backgroundBorder": "Used as border color in elements like input, switch etc.",
+        "textPrimary": "Main text used on page. Used as default color on background colors.",
+        "textInverted": "Used as text color, if `textPrimary` doesn't have enough contrast with background color.",
+        "shadow": "Color of shadows that used in elements like cards, modals etc.",
+        "focus": "Keyboard focus outline color"
+      }
     }
   },
   "carousel": {
@@ -4112,7 +4561,7 @@
       },
       "Indicators": {
         "title": "Indicator buttons",
-        "text": "Indicators (or dots) used to quicly change slide by it's index."
+        "text": "Indicators (or dots) used to quickly change slide by it's index."
       },
       "Vertical": {
         "title": "Vertical",
@@ -4133,6 +4582,18 @@
       "Fade": {
         "title": "Fade",
         "text": "Additional carousel slide switch effect."
+      },
+      "swipe": {
+        "title": "Swipe",
+        "text": "The `swipable` prop enables swipe behavior for the component."
+      },
+      "Ratio": {
+        "title": "Ratio",
+        "text": "The `ratio` prop allows you to set the aspect ratio of the carousel."
+      },
+      "Height": {
+        "title": "Height",
+        "text": "If you need specific height instead of ratio, you can use `height` prop."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-carousel/_variables.scss)[[target=_blank]]"
@@ -4149,7 +4610,15 @@
     "treeShaking": {
       "title": "Tree shaking",
       "description": "Vuestic UI is tree-shaking friendly in Nuxt as well. You can choose which css modules will be used. This can be configured in `nuxt.config.ts`. Components must be tree-shakable automatically.",
-      "css": "In `css` options you can pass array of css modules that will be used in the project or `false` to remove all css from Vuestic exepct components css. Available modules: `typography`, `grid`, `reset`. In example below grid will not be used in project. This is helpful in case you already using some other library."
+      "css": "In `css` options you can pass array of css modules that will be used in the project or `false` to remove all css from Vuestic expect components css. Available modules: `typography`, `grid`, `reset`. In example below grid will not be used in project. This is helpful in case you already using some other library."
+    },
+    "options": {
+      "title": "Options",
+      "option": {
+        "config": "Vuestic [Global Config](/services/global-config)",
+        "css": "Choose which CSS modules will be added to nuxt. If `true` all CSS modules will be added",
+        "fonts": "Adds Vuestic default fonts to head"
+      }
     }
   },
   "ssrGuide": {
@@ -4170,6 +4639,26 @@
       "vitesse": {
         "title": "Vitesse",
         "description": "Learn more about [Vitesse](https://github.com/antfu/vitesse) and [useHead](https://github.com/vueuse/head#server-side-rendering)"
+      }
+    }
+  },
+  "treeView": {
+    "title": "Tree view",
+    "description": "Component for the hierarchical and nested data",
+    "examples": {
+      "default": {
+        "title": "Basic usage"
+      },
+      "customizableContent": {
+        "title": "Customizable content",
+        "description": "You can customize the body of node"
+      },
+      "filters": {
+        "title": "Filters"
+      },
+      "selectable": {
+        "title": "Selectable",
+        "coloredTitle": "Colored checkboxes"
       }
     }
   },
@@ -4197,16 +4686,133 @@
       },
       "Trigger": {
         "title": "Trigger",
-        "text": "You can use `click`, `hover` or `none` trigger which will open dropdown. If you want dropdown to be opened only programatically use `none` trigger"
+        "text": "You can use `click`, `hover` or `none` trigger which will open dropdown. If you want dropdown to be opened only programmatically use `none` trigger"
       },
       "Cursor": {
         "title": "Place on cursor",
-        "text": "You can render dropdown content on cursor position. It is usefull to use `cursor` props with `auto-placement` so if content do not fit target it will be placed somewhere else."
+        "text": "You can render dropdown content on cursor position. It is useful to use `cursor` props with `auto-placement` so if content do not fit target it will be placed somewhere else."
       },
-      "PreventOverflow" : {
+      "PreventOverflow": {
         "title": "Prevent overflow",
-        "text": "By default dropdown content is rendered as body child. This way we prevent any overflow. In example below `overflow: hidden` of green box is ignored. But we still able to respec overflow by changing `target` prop. In example below `overflow: hidden` of red box is hidding dropdown content."
+        "text": "By default dropdown content is rendered as body child. This way we prevent any overflow. In example below `overflow: hidden` of green box is ignored. But we still able to respec overflow by changing `target` prop. In example below `overflow: hidden` of red box is hiding dropdown content."
       }
+    }
+  },
+  "scrollContainer": {
+    "title": "Scroll container",
+    "description": "Scroll container with custom colored scrollbar. Useful in case you have long list.",
+    "examples": {
+      "Default": {
+        "title": "Default usage"
+      },
+      "Color": {
+        "title": "Color",
+        "text": "You can change color of scrollbar by passing `color` prop. Try it by choosing colors listed below."
+      },
+      "gradient": {
+        "title": "Gradient",
+        "text": "The `gradient` prop enables gradient for scrollbar's background."
+      },
+      "rtl": {
+        "title": "RTL",
+        "text": "The `rtl` prop enables RTL-mode."
+      },
+      "Horizontal": {
+        "title": "Horizontal",
+        "text": "You can specify if scroll container has `horizontal` scroll in the same way as `vertical` one."
+      },
+      "Size": {
+        "title": "Size",
+        "text": "You are able to set scrollbar's size (width or height) via `size` prop (`small`, `medium` or `large` presets are available, `px` and `rem` values are also suitable)."
+      }
+    }
+  },
+  "split": {
+    "title": "Split",
+    "summaryText": "`va-split` component splits container into 2 horizontal/vertical panels. You can change panels sizes via grabbing the separator-grabber between them.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": ""
+      },
+      "vertical": {
+        "title": "Vertical",
+        "text": "Prop `vertical` changes components orientation to vertical."
+      },
+      "customGrabber": {
+        "title": "Custom grabber",
+        "text": "You can pass via `grabber` slot any content which will overwrite default grabber (`va-divider`)."
+      },
+      "customLimits": {
+        "title": "Limits",
+        "text": "`limits` prop allows you to set up panels min-max sizes. For example, `[[10, 'any'], ['50px', '30rem']]` (sum of different panels min and max size should be equal to 100%) will set up min size of the start panel to 10%, max - 100%. For the end panel - 50px and 30rem accordingly. If you don't need max sizes limits but only min ones, you can use this record form: `[10px, 50%]`."
+      },
+      "snapping": {
+        "title": "Snapping",
+        "text": "`snapping` and `snapping-range` props allow you to set up a virtual marks, splitter will be 'jumping' to when it will be near of them. For example, `snapping` with value `['20', 80]` and `snapping-range` with value `5` will set up 2 marks - 20 and 80 percents of the splitter container size. Meanwhile, splitter will 'jump' to it when there is at least 5 percents of the container size between them."
+      },
+      "nested": {
+        "title": "Nested",
+        "text": "Passing another `va-split` component via `start`/`end` slot you can gain different panels combinations."
+      },
+      "maximization": {
+        "title": "Maximization",
+        "text": "Prop `maximization` allows to maximize end panel size via double click on dragger (additional prop `maximizeStart` changes this logic - start panel maximizing instead)."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "`disabled` prop restricts to change panels size (including option via `maximization` prop)."
+      }
+    }
+  },
+  "virtualScroller": {
+    "title": "Virtual Scroller",
+    "summaryText": "The `va-virtual-scroller` component allows you to use long lists without need to render every list child element but only visible ones depending on the current state of the scroll.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": ""
+      },
+      "horizontal": {
+        "title": "Horizontal",
+        "text": "The `horizontal` prop allows you to change component's orientation."
+      },
+      "bench": {
+        "title": "Bench",
+        "text": "The `bench` prop allows you to make scrolling smooth by rendering additional but not visible items at the start or end of the list. For example, `bench` prop with value `10` will render additional ~10 items before the visible list start and ~10 after the visible list end."
+      },
+      "customKey": {
+        "title": "Custom Key",
+        "text": "The `trackBy` prop allows you to specify the key name for list items rendering."
+      },
+      "itemSize": {
+        "title": "Item Size",
+        "text": "The `itemSize` prop allows you to specify the list item size (width or height - depends on `horizontal` prop value). For example, acceptable values are: 5, \"5\", \"5px\", \"5rem\". The component is recalculating average item's size ourselves on every scroll event and max value (`itemSize` or calculated one) will be used. We recommend to set at least minimal item size via this prop to prevent possible performance issues during first rendering."
+      },
+      "differentContent": {
+        "title": "Any list items",
+        "text": "`va-virtual-scroller` component allows you to create not only 'modest' list with primitive elements but also use it for scrolling card, table rows etc."
+      }
+    }
+  },
+  "i18n": {
+    "title": "i18n",
+    "description": "We made a separeted config for i18n messages, so you can redefine messages we use in components.",
+    "config": {
+      "title": "i18n default messages",
+      "changeDefault": {
+        "title": "Change default messages",
+        "description": "Default messages can be set in `GlobalConfig`. Config is fully typed, so you can use autocomplete to find messages you want to change."
+       }
+    },
+    "runtimeUpdate": {
+      "title": "Changing language in runtime",
+      "description": "If you have more than one language, you can update messages in runtime with `useI18nConfig` hook from VuesticUI."
+    },
+    "useWithVueI18n": {
+      "title": "Using with vue-i18n",
+      "description": "If you use vue-i18n we can recommend to store VuesticUI messages under specific key",
+      "exampleConfig": "Recommended config structure"
     }
   }
 }
