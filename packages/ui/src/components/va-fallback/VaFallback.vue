@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h, PropType } from 'vue'
+import { defineComponent, h, onMounted, PropType } from 'vue'
 
 import { VaIcon } from '../va-icon'
 
@@ -27,7 +27,13 @@ export default defineComponent({
 
   components: { VaIcon },
 
-  setup (props) {
+  emits: ['fallback'],
+
+  setup (props, { emit }) {
+    onMounted(() => {
+      emit('fallback')
+    })
+
     if (props.fallbackIcon) {
       return () => h(VaIcon, {
         name: props.fallbackIcon,
