@@ -5,7 +5,7 @@
     </div>
     <section class="docs-layout__main-section">
       <aside class="docs-layout__sidebar">
-        <LayoutSidebar v-model:visible="isSidebarVisible" :mobile="breakpoints.sm"   />
+        <LayoutSidebar v-model:visible="isSidebarVisible" :mobile="breakpoints.sm" />
       </aside>
       <main class="docs-layout__main-content">
         <article class="docs-layout__page-content layout">

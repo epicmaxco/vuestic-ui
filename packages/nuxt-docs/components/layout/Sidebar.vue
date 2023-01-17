@@ -1,32 +1,29 @@
 <template>
   <va-sidebar
     class="sidebar"
-    v-model="computedVisible"
+    v-model="writableVisible"
     :width="sidebarWidth"
   >
-    <LayoutDocsSidebarAlgoliaSearch />
-
     <va-accordion
-      v-model="accordionValue"
-      multiply
+      v-model="value"
+      multiple
     >
       <va-collapse
-        v-for="(route, key) in sidebarItems"
+        v-for="(route, key) in navigationRoutes"
         :key="key"
       >
         <template #header="{ value, hasKeyboardFocus }">
-          <div
+          <va-sidebar-item
             class="sidebar__collapse-custom-header"
             :class="{
-              'sidebar__collapse-custom-header--active': isRouteHasActiveChild(route),
+              'sidebar__collapse-custom-header--active': routeHasActiveChild(route),
               'sidebar__collapse-custom-header--keyboard-focused': hasKeyboardFocus
             }"
           >
-            {{ sidebarItemText(route.name) }}
+            {{ t(route.displayName) }}
             <va-icon :name="value ? 'expand_less' : 'expand_more'" />
-          </div>
+          </va-sidebar-item>
         </template>
-
         <div
           v-for="(childRoute, index) in route.children"
           :key="index"
@@ -35,7 +32,7 @@
           <va-list-label
             v-if="childRoute.category"
             class="va-sidebar__child__label"
-            color="primary"
+            color="secondary"
           >
             {{ t(childRoute.category) }}
           </va-list-label>
@@ -45,25 +42,21 @@
             :activeColor="activeColor"
             :hover-color="hoverColor"
             border-color="primary"
-            text-color="dark"
             @click="onSidebarItemClick"
           >
             <va-sidebar-item-content>
               <va-sidebar-item-title>
-                {{ sidebarItemText(childRoute.name) }}
-              </va-sidebar-item-title>
-              <div
-                class="va-sidebar-item-badges"
-                v-if="childRoute.meta && childRoute.meta.badge"
-              >
-                <va-chip
+                <va-badge
+                  placement="right-center"
                   size="small"
-                  :color="badgeColors[childRoute.meta.badge]"
-                  :title="t(`menu.badges.${childRoute.meta.badge}.title`)"
+                  offset="-5px"
+                  :text="childRoute.meta && t(`menu.badges.${childRoute.meta.badge}.text`)"
+                  :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge]"
+                  :visible-empty="false"
                 >
-                  {{ t(`menu.badges.${childRoute.meta.badge}.text`) }}
-                </va-chip>
-              </div>
+                  {{ t(childRoute.displayName) }}
+                </va-badge>
+              </va-sidebar-item-title>
             </va-sidebar-item-content>
           </va-sidebar-item>
         </div>
@@ -72,77 +65,81 @@
   </va-sidebar>
 </template>
 
-<script setup lang="ts">
-import { useColors } from 'vuestic-ui'
-import { kebabCase } from 'lodash';
+<script lang="ts">
+import { defineComponent, watch, ref, computed, PropType } from 'vue'
+import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
-type SidebarItem = {
-  name: string,
-  path: string,
-  children: SidebarItem[],
-  category?: string,
-  meta: {
-    badge?: 'wip' | 'new' // TODO: Change this type and place somewhere else
-  }
-}
+import { useColors } from 'vuestic-ui/src/main'
 
-const { locale, t } = useI18n()
-const pages = [] as SidebarItem[]
+import { NavigationRoute, navigationRoutes } from '@/page-config/navigationRoutes'
 
-const emit = defineEmits(['update:visible'])
+export default defineComponent({
+  name: 'DocsSidebar',
+  props: {
+    visible: { type: Boolean, default: false },
+    mobile: { type: Boolean, default: false },
+  },
+  setup: (props, { emit }) => {
+    const i18n = useI18n()
+    const route = useRoute()
+    const { getColor, getFocusColor, getHoverColor } = useColors()
 
-const props = defineProps({
-  visible: { type: Boolean },
-  mobile: { type: Boolean },
-})
+    const value = ref<boolean[]>([])
+    const writableVisible = computed({
+      get: () => props.visible,
+      set: (v: boolean) => emit('update:visible', v),
+    })
 
-const computedVisible = computed({
-  get: () => props.visible,
-  set: (val: boolean) => emit('update:visible', val)
-})
+    const isActiveChildRoute = (child: NavigationRoute, parent: NavigationRoute) => {
+      const path = `/${i18n.locale.value}/${String(parent.name)}/${String(child.name)}`
 
-const onSidebarItemClick = () => props.mobile && emit('update:visible', false)
-
-const { getColor, getHoverColor, getFocusColor } = useColors()
-
-const activeColor = computed(() => getFocusColor(getColor('primary')))
-const hoverColor = computed(() => getHoverColor(getColor('primary')))
-const badgeColors = { wip: 'primary', new: 'success' }
-
-const sidebarWidth = computed(() => props.mobile ? '100%' : '16rem')
-const sidebarItems = computed(() => pages)
-const { currentRoute, afterEach } = useRouter()
-
-const sidebarItemText = (name: string) => t(`menu.${kebabCase(name)}`)
-
-const isActiveChildRoute = (route: SidebarItem, parent: SidebarItem) => {
-  const childPath = `/${locale.value}/${parent.name}/${route.name}`
-
-  return currentRoute.value.path === childPath
-}
-
-const accordionValue = ref<boolean[]>([])
-
-const isRouteHasActiveChild = (route: { path: string, children: { path: string }[] }) => {
-  return !!route.children.some(({ path }) => currentRoute.value.path.includes(path))
-}
-
-const updateAccordionValue = () => {
-  accordionValue.value = sidebarItems.value.map((route, index) => {
-    if (!route.children || accordionValue.value[index]) {
-      return accordionValue.value[index]
+      return path === route.path
     }
 
-    return isRouteHasActiveChild(route)
-  })
-}
+    const routeHasActiveChild = (section: NavigationRoute) =>
+      section.children?.some(({ name }) => route.path.endsWith(`/${name}`))
 
-afterEach(updateAccordionValue)
-updateAccordionValue()
+    const setActiveExpand = () => {
+      value.value = navigationRoutes.map((route, i) => {
+        if (!route.children || value.value[i]) { return value.value[i] }
+
+        return routeHasActiveChild(route) || false
+      })
+    }
+
+    const sidebarWidth = computed(() => props.mobile ? '100%' : '16rem')
+
+    const onSidebarItemClick = () => {
+      if (props.mobile) {
+        emit('update:visible', false)
+      }
+    }
+
+    watch(() => route, setActiveExpand, { immediate: true })
+
+    return {
+      ...i18n,
+      navigationRoutes,
+      route,
+      getColor,
+      writableVisible,
+      sidebarWidth,
+      value,
+      routeHasActiveChild,
+      isActiveChildRoute,
+      onSidebarItemClick,
+      badgeColors: { wip: 'primary', new: 'danger', updated: 'warning' },
+      activeColor: computed(() => getFocusColor(getColor('primary'))),
+      hoverColor: computed(() => getHoverColor(getColor('primary'))),
+    }
+  },
+})
 </script>
 
 <style lang="scss">
-@import "vuestic-ui/styles/resources";
+@import "vuestic-ui/src/styles/resources";
+@import "@/assets/smart-grid.scss";
 
 .sidebar {
   &__collapse-custom-header {
@@ -156,17 +153,6 @@ updateAccordionValue()
     font-size: 16px;
     line-height: 20px;
     cursor: pointer;
-
-    ::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: var(--va-primary);
-      opacity: 0;
-    }
 
     &:hover {
       ::before {
@@ -188,17 +174,7 @@ updateAccordionValue()
   &.va-sidebar {
     z-index: 1;
     height: 100%;
-    min-width: 16rem;
     color: var(--va-dark, #323742);
-
-    .va-sidebar__menu {
-      display: flex;
-      @include va-scroll(var(--va-primary));
-    }
-
-    &.va-sidebar--hidden {
-      min-width: 0;
-    }
 
     @include media-breakpoint-down(sm) {
       z-index: 100;
@@ -236,5 +212,8 @@ updateAccordionValue()
       }
     }
   }
+
+  // two safari mobile panels, 44px each, can be both bottom
+  @include md(padding-bottom, 5.5rem);
 }
 </style>
