@@ -16,24 +16,26 @@ export const useCompiler = (options: any) => {
       const importer = createImporter(this, id)
 
       const runtimePath = resolve(__dirname, '../runtime/index.ts')
-      importer.importNamed('block', (await this.resolve(runtimePath)).id)
-      importer.importNamed('definePageConfig', (await this.resolve(runtimePath)).id)
+      importer.importNamed('block', (await this.resolve(runtimePath))!.id)
+      importer.importNamed('definePageConfig', (await this.resolve(runtimePath))!.id)
 
       const blocks = parseCode(code)
+      // TODO: Handle unresolved imports
 
       for (const block of blocks) {
         if (block.type === 'example') {
           const importName = block.args[0].slice(1, -1)
-          const importPath = await importer.resolveRelativePath(`./examples/${importName}`)
+          const importPath = (await importer.resolveRelativePath(`./examples/${importName}`))!
           const importComponent = importer.importDefault(importName, importPath)
           const importSource = importer.importDefault(importName, `${importPath}?raw`)
+          const path = /page-config\/.*$/.exec(importPath)?.[0]
 
-          code = block.replaceArgCode(0, `${importComponent}, ${importSource}`)
+          code = block.replaceArgCode(0, `${importComponent}, ${importSource}, "${path}"`)
         }
 
         if (block.type === 'component') {
           const importName = block.args[0].slice(1, -1)
-          const importPath = await importer.resolveRelativePath(`./components/${importName}`)
+          const importPath = (await importer.resolveRelativePath(`./components/${importName}`))!
           const importComponent = importer.importDefault(importName, importPath)
 
           code = block.replaceArgCode(0, importComponent)
@@ -41,7 +43,7 @@ export const useCompiler = (options: any) => {
 
         if (block.type === 'code') {
           const importName = block.args[0].slice(1, -1)
-          const importPath = await importer.resolveRelativePath(`./code/${importName}`)
+          const importPath = (await importer.resolveRelativePath(`./code/${importName}`))!
           const importComponent = importer.importDefault(importName, importPath)
 
           code = block.replaceArgCode(0, `${importComponent}`)
@@ -49,7 +51,7 @@ export const useCompiler = (options: any) => {
 
         if (block.type === 'file') {
           const importName = block.args[0].slice(1, -1)
-          const importPath = await importer.resolveAbsolutePath(`${importName}`)
+          const importPath = (await importer.resolveAbsolutePath(`${importName}`))!
           const importComponent = importer.importDefault('file', importPath)
           const importExt = block.args[1] || `'${extname(importPath).slice(1)}'`
 
@@ -58,7 +60,7 @@ export const useCompiler = (options: any) => {
 
         if (block.type === 'api') {
           const importName = block.args[0].slice(1, -1)
-          const importPath = await importer.resolveAbsolutePath('vuestic-ui')
+          const importPath = (await importer.resolveAbsolutePath('vuestic-ui'))!
           const importComponent = importer.importNamed(importName, importPath)
 
           code = block.replaceArgCode(0, `'${importName}', ${importComponent}`)

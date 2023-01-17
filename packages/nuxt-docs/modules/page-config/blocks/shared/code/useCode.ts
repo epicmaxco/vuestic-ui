@@ -1,5 +1,3 @@
-
-
 export const useCode = () => {
   const { t: $t } = useI18n()
 

@@ -1,17 +1,25 @@
 <script setup lang="ts">
-import { DefineComponent, PropType } from 'vue';
+import { DefineComponent, PropType, ref } from 'vue';
 import { CodeView } from "../shared/code";
+import ExampleFooter from './example-footer.vue';
 
 const props = defineProps({
   component: {
     type: Object as PropType<DefineComponent>,
+    required: true,
   },
   source: {
     type: String as PropType<string>,
+    required: true,
   },
+  path: {
+    type: String as PropType<string>,
+    required: true,
+  }
 });
 
-const source = await props.source
+const source = props.source
+const showCode = ref(false)
 
 function parseTemplate (target: string, template: string) {
   const string = `(<${target}(.*)?>[\\w\\W]*<\\/${target}>)`
@@ -23,6 +31,11 @@ function parseTemplate (target: string, template: string) {
 const template = parseTemplate('template', source)
 const script = parseTemplate('script', source)
 const style = parseTemplate('style', source)
+
+// TODO: double check if path correct after release
+const gitLink = computed(
+  () => `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/${props.path}`,
+)
 </script>
 
 <template>
@@ -32,8 +45,13 @@ const style = parseTemplate('style', source)
         <component :is="component" />
       </va-card-content>
     </va-card>
+    <ExampleFooter
+      :code="source"
+      :gitLink="gitLink"
+      v-model:show-code="showCode"
+    />
 
-    <div>
+    <div v-if="showCode">
       <CodeView
         v-if="template"
         language="markup"

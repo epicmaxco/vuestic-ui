@@ -4,7 +4,7 @@ import { resolveAlias } from '@nuxt/kit';
 
 let IMPORT_STATIC_ID = 0
 export const createImporter = (ctx: TransformPluginContext, caller: string) => {
-  const imports = []
+  const imports: string[] = []
 
   const resolveWithAlias = (path: string) => {
     return ctx.resolve(resolveAlias(path))
@@ -23,11 +23,11 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
     },
 
     resolveRelativePath: async (path: string) => {
-      return (await resolveWithAlias(resolve(dirname(caller), path))).id
+      return (await resolveWithAlias(resolve(dirname(caller), path)))?.id
     },
 
     resolveAbsolutePath: async (path: string) => {
-      return (await resolveWithAlias(path)).id
+      return (await resolveWithAlias(path))?.id
     },
 
     get imports() {

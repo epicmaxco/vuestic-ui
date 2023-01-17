@@ -1,6 +1,5 @@
 import { Parser, Node } from 'acorn'
 import { simple } from 'acorn-walk'
-import { Property } from 'estree'
 
 export type ParsedBlock = {
   code: string
@@ -21,12 +20,12 @@ export const parseCode = (code: string) => {
   const blocks: ParsedBlock[] = []
 
   simple(parser.parse(), {
-    Property(node: AcornNode<Property>) {
+    Property(node: AcornNode<any>) {
       if (!('name' in node.key && node.key.name === 'blocks')) { return }
 
       if (!('elements' in node.value)) { return }
 
-      node.value?.elements?.forEach((element) => {
+      node.value?.elements?.forEach((element: any) => {
         // TODO: This is not ideal, we should use acorn-walk to find the code always
         const blockCode = code.slice(element.start, element.end)
 
