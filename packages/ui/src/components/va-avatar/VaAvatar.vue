@@ -18,9 +18,7 @@
         :alt="$props.alt"
         @error="onLoadError"
       >
-      <template v-else-if="hasLoadError && $props.src">
-        <component :is="fallbackComponent" />
-      </template>
+      <va-fallback v-else-if="hasLoadError && $props.src" v-bind="VaFallbackProps" />
       <va-icon
         v-else-if="$props.icon"
         :name="$props.icon"
@@ -35,26 +33,29 @@ import { defineComponent, ref, watch, computed } from 'vue'
 import {
   useSize,
   useColors,
-  useFallback,
   useTextColor,
   useSizeProps,
   useLoadingProps,
   useComponentPresetProp,
 } from '../../composables'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
-import { VaIcon, VaProgressCircle } from '../index'
+import { VaIcon, VaProgressCircle, VaFallback } from '../index'
 import { useAvatarProps } from './hooks/useAvatarProps'
+
+const VaFallbackProps = extractComponentProps(VaFallback)
 
 export default defineComponent({
   name: 'VaAvatar',
 
-  components: { VaIcon, VaProgressCircle },
+  components: { VaIcon, VaProgressCircle, VaFallback },
 
   props: {
     ...useLoadingProps,
     ...useSizeProps,
     ...useComponentPresetProp,
     ...useAvatarProps,
+    ...VaFallbackProps,
 
     src: { type: String, default: null },
     icon: { type: String, default: '' },
@@ -75,7 +76,6 @@ export default defineComponent({
     })
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
     const { textColorComputed } = useTextColor()
-    const fallbackComponent = useFallback(props)
 
     const computedStyle = computed(() => ({
       borderRadius: props.square ? 0 : '',
@@ -99,7 +99,6 @@ export default defineComponent({
     }))
 
     return {
-      fallbackComponent,
       hasLoadError,
       sizeComputed,
       avatarOptions,
@@ -107,6 +106,7 @@ export default defineComponent({
       colorComputed,
       textColorComputed,
       backgroundColorComputed,
+      VaFallbackProps: filterComponentProps(VaFallbackProps),
 
       onLoadError,
     }
