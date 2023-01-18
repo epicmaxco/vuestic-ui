@@ -24,6 +24,10 @@ import * as process from 'process'
   }
 
   if (forceRebuild || !existsSync(bundleSizesCachePath)) {
+    if (!existsSync('../ui/dist')) {
+      await $('yarn workspace vuestic-ui build', {})
+    }
+
     await Promise.all([
       $('vite build --config ./configs/vite/vite.empty.ts', { successMessage: 'Empty config was built.' }),
       $('vite build --config ./configs/vite/vite.button.ts', { successMessage: 'Config with button was built.' }),
