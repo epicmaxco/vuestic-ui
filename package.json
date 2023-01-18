@@ -12,7 +12,6 @@
     "serve": "yarn workspace vuestic-ui serve",
     "serve:book": "yarn workspace vuestic-ui serve",
     "serve:production": "yarn workspace vuestic-ui serve:production",
-    "test": "yarn workspace vuestic-ui test",
     "lint": "yarn workspace vuestic-ui lint",
     "build": "yarn workspace vuestic-ui build",
     "build:book": "yarn workspace vuestic-ui build:book",

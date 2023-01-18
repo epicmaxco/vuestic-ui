@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest'
 import { mountWithGlobalConfig } from '../../../utils/unit-test-utils'
 
-import VaToast from '../VaToast.vue'
+import VaBadge from '../VaBadge.vue'
 
-describe('VaToast', () => {
+describe('VaBadge', () => {
   it('should render without an error', () => {
-    const wrapper = mountWithGlobalConfig(VaToast)
+    const wrapper = mountWithGlobalConfig(VaBadge)
     expect(wrapper.exists()).toBeTruthy()
   })
 })
