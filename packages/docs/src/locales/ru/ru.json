@@ -537,7 +537,8 @@
         "sizes": "Проксирует свойство `sizes` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "srcset": "Проксирует свойство `srcset` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "title": "Проксирует свойство `title` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
-        "notDraggable": "Переводит свойство `draggable` в `false` [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]]."
+        "notDraggable": "Переводит свойство `draggable` в `false` [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
+        "lazy": "Включает ленивую загрузку изображения."
       },
       "events": {
         "loaded": "Событие вызывается, когда загрузка изображения окончена.",
@@ -2501,6 +2502,10 @@
       "fit": {
         "title": "Object Fit",
         "text": "Проксирует значение CSS свойства `object-fit` в компонент. Допустимые значения: `contain`, `fill`, `cover`, `scale-down`, `none`."
+      },
+      "lazy": {
+        "title": "Ленивая загрузка",
+        "text": "Свойство `lazy` позволяет задать компоненту поведение ленивой загрузки. В этом случае изображение будет загружено лишь тогда, когда войдет в видимую область экрана пользователя."
       },
       "ratio": {
         "title": "Соотношение сторон",
