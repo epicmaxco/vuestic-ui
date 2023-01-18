@@ -24,5 +24,7 @@ export default defineManualApi({
     appendInner: { },
     content: { },
     option: { },
+    hiddenOptionsBadge: { },
+    hideOptionsButton: { },
   },
 })

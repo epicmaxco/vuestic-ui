@@ -25,9 +25,14 @@
             :name="icon"
             :color="textColorComputed"
           />
-          <div class="va-collapse__header__text">
-            {{ header }}
-          </div>
+          <slot
+            name="header-content"
+            v-bind="{ header }"
+          >
+            <div class="va-collapse__header__text">
+                {{ header }}
+            </div>
+          </slot>
           <va-icon
             class="va-collapse__header__icon"
             :name="computedModelValue ? 'va-arrow-up' : 'va-arrow-down'"
@@ -205,6 +210,7 @@ export default defineComponent({
 
     &__text {
       width: var(--va-collapse-header-content-text-width);
+      font-weight: var(--va-collapse-header-content-text-font-weight);
     }
 
     &__icon {
@@ -229,6 +235,10 @@ export default defineComponent({
         transition: var(--va-collapse-solid-header-content-transition);
         box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--va-block-box-shadow));
         background-color: var(--va-collapse-solid-header-content-background-color);
+      }
+
+      &__body-wrapper {
+        border-radius: var(--va-collapse-solid-border-radius);
       }
 
       &__body {

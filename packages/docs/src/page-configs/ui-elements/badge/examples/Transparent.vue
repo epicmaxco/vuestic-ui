@@ -1,5 +1,5 @@
 <template>
-  <va-badge class="mr-4" transparent overlap text="+1">
+  <va-badge class="mr-6" transparent overlap text="+1">
     <va-icon name="face" size="30px" />
   </va-badge>
 

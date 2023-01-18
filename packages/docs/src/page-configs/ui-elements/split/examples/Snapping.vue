@@ -1,12 +1,12 @@
 <template>
   <va-split class="split-demo" :snapping="[20, 80]" :snapping-range="5" style="height: 22rem;">
     <template #start>
-      <div class="pa-4">
+      <div class="p-6">
         {{ lorem }}
       </div>
     </template>
     <template #end>
-      <div class="pa-4">
+      <div class="p-6">
         {{ lorem }}
       </div>
     </template>

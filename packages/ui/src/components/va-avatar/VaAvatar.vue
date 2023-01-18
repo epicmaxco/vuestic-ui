@@ -5,18 +5,22 @@
     :aria-hidden="!$props.src"
     aria-live="polite"
   >
-    <slot>
-      <va-progress-circle
-        v-if="$props.loading"
-        :size="sizeComputed"
-        :color="colorComputed"
-        indeterminate
-      />
+    <va-progress-circle
+      v-if="$props.loading"
+      :size="sizeComputed"
+      :color="colorComputed"
+      indeterminate
+    />
+    <slot v-bind="avatarOptions" v-else>
       <img
-        v-else-if="$props.src"
+        v-if="$props.src && !hasLoadError"
         :src="$props.src"
         :alt="$props.alt"
+        @error="onLoadError"
       >
+      <slot v-else-if="hasLoadError && $props.src" name="fallback">
+        <va-fallback v-bind="VaFallbackProps" @fallback="$emit('fallback')" />
+      </slot>
       <va-icon
         v-else-if="$props.icon"
         :name="$props.icon"
@@ -26,48 +30,87 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, ref, watch, computed } from 'vue'
 
-import { useComponentPresetProp, useColors, useTextColor, useSize, useSizeProps, useLoadingProps } from '../../composables'
+import {
+  useSize,
+  useColors,
+  useTextColor,
+  useSizeProps,
+  useLoadingProps,
+  useComponentPresetProp,
+} from '../../composables'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
-import { VaIcon } from '../va-icon'
-import { VaProgressCircle } from '../va-progress-circle'
+import { VaIcon, VaProgressCircle, VaFallback } from '../index'
+import { useAvatarProps } from './hooks/useAvatarProps'
+
+const VaFallbackProps = extractComponentProps(VaFallback)
 
 export default defineComponent({
   name: 'VaAvatar',
-  components: { VaIcon, VaProgressCircle },
+
+  components: { VaIcon, VaProgressCircle, VaFallback },
+
   props: {
     ...useLoadingProps,
     ...useSizeProps,
     ...useComponentPresetProp,
-    color: { type: String, default: 'info' },
-    textColor: { type: String },
-    square: { type: Boolean, default: false },
-    icon: { type: String, default: '' },
+    ...useAvatarProps,
+    ...VaFallbackProps,
+
     src: { type: String, default: null },
+    icon: { type: String, default: '' },
     alt: { type: String, default: '' },
-    fontSize: { type: String, default: '' },
   },
-  setup (props) {
+
+  emits: ['error', 'fallback'],
+
+  setup (props, { emit }) {
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
+    const backgroundColorComputed = computed(() => {
+      if (props.loading || (props.src && !hasLoadError.value)) {
+        return 'transparent'
+      }
+
+      return colorComputed.value
+    })
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
     const { textColorComputed } = useTextColor()
 
     const computedStyle = computed(() => ({
-      color: textColorComputed.value,
-      backgroundColor: props.loading ? 'transparent' : colorComputed.value,
       borderRadius: props.square ? 0 : '',
       fontSize: props.fontSize || fontSizeComputed.value,
-      width: sizeComputed.value,
-      minWidth: sizeComputed.value, // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
-      height: sizeComputed.value,
+    }))
+
+    const hasLoadError = ref(false)
+
+    const onLoadError = (event: Event) => {
+      hasLoadError.value = true
+      emit('error', event)
+    }
+
+    watch(() => props.src, () => {
+      hasLoadError.value = false
+    })
+
+    const avatarOptions = computed(() => ({
+      hasError: hasLoadError.value,
+      onError: onLoadError,
     }))
 
     return {
+      hasLoadError,
       sizeComputed,
+      avatarOptions,
       computedStyle,
       colorComputed,
+      textColorComputed,
+      backgroundColorComputed,
+      VaFallbackProps: filterComponentProps(VaFallbackProps),
+
+      onLoadError,
     }
   },
 })
@@ -86,6 +129,11 @@ export default defineComponent({
   vertical-align: var(--va-avatar-vertical-align);
   border-radius: var(--va-avatar-border-radius);
   font-family: var(--va-font-family);
+  background-color: v-bind(backgroundColorComputed);
+  color: v-bind(textColorComputed);
+  width: v-bind(sizeComputed);
+  min-width: v-bind(sizeComputed);  // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
+  height: v-bind(sizeComputed);
 
   img,
   svg {

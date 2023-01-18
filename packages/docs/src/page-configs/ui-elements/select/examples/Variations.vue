@@ -1,13 +1,13 @@
 <template>
   <div style="max-width: 300px;">
     <va-select
-      class="mb-4"
+      class="mb-6"
       label="Single select"
       :options="options"
       v-model="valueSingle"
     />
     <va-select
-      class="mb-4"
+      class="mb-6"
       label="Multiple select"
       :options="options"
       v-model="valueMultiple"

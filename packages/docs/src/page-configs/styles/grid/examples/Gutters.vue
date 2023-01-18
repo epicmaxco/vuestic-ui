@@ -2,10 +2,10 @@
   <va-card color="background-element" style="padding: 0.75rem;">
     <div class="layout gutter--md">
       <div class="row">
-        <div class="flex xs6">
+        <div class="flex flex-col xs6">
           <div class="item">gutter--md</div>
         </div>
-        <div class="flex xs6">
+        <div class="flex flex-col xs6">
           <div class="item">gutter--md</div>
         </div>
       </div>
@@ -13,10 +13,10 @@
     <br />
     <div class="layout gutter--xl">
       <div class="row">
-        <div class="flex xs6">
+        <div class="flex flex-col xs6">
           <div class="item">gutter--xl</div>
         </div>
-        <div class="flex xs6">
+        <div class="flex flex-col xs6">
           <div class="item">gutter--xl</div>
         </div>
       </div>

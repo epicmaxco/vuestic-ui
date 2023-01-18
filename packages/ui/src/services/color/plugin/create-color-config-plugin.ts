@@ -10,10 +10,10 @@ export const setCSSVariable = (name: string, value: string, root: HTMLElement) =
 }
 
 export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) => {
-  const { colors, getTextColor, getColor, currentPresetName, applyPreset } = useColors()
+  const { colors: configColors, getTextColor, getColor, currentPresetName, applyPreset } = useColors()
 
   /** Renders CSS variables string. Use this in SSR mode */
-  const renderCSSVariables = (colors: ColorVariables | undefined) => {
+  const renderCSSVariables = (colors: ColorVariables | undefined = configColors) => {
     if (!colors) { return }
 
     const colorNames = Object.keys(colors)
@@ -35,7 +35,7 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
     })
   }
 
-  watch(colors, (newValue) => {
+  watch(configColors, (newValue) => {
     updateColors(newValue)
   }, { immediate: true, deep: true })
 

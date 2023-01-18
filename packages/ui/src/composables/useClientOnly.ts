@@ -1,15 +1,16 @@
-import { onMounted, ref, UnwrapRef } from 'vue'
-import { isServer } from '../utils/ssr'
+import { computed, ref, UnwrapRef, watch } from 'vue'
+import { isClient } from '../utils/ssr'
 
 /** Returns cb result only on client. Returns null on server  */
 export const useClientOnly = <T>(cb: () => T) => {
-  if (isServer()) {
-    const result = ref<T | null>(null)
+  const isMounted = computed(isClient)
+  const result = ref<T | null>(null)
 
-    onMounted(() => { result.value = cb() as UnwrapRef<T> })
+  watch(isMounted, () => {
+    if (isMounted.value) {
+      result.value = cb() as UnwrapRef<T>
+    }
+  }, { immediate: true })
 
-    return result
-  }
-
-  return ref(cb())
+  return result
 }

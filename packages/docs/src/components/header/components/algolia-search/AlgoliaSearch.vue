@@ -149,4 +149,10 @@ onMounted(() => {
     flex-grow: 0;
   }
 }
+
+.DocSearch-Modal {
+  top: 3rem;
+
+  @include md(top, 0);
+}
 </style>

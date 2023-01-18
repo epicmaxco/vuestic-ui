@@ -74,6 +74,11 @@ const config: ApiDocsBlock[] = [
     'button.examples.disabled.text',
     'Disabled',
   ),
+  ...block.exampleBlock(
+    'button.examples.tag.title',
+    'button.examples.tag.text',
+    'Tag',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaButton, apiOptions),

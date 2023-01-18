@@ -10,6 +10,7 @@
       <va-input-wrapper
         ref="input"
         class="va-select__anchor va-select-anchor__input"
+        :class="inputWrapperClassComputed"
         :model-value="valueComputedString"
         :success="$props.success"
         :error="computedError"
@@ -85,11 +86,43 @@
             name="content"
             v-bind="{
               valueString: valueComputedString,
-              value: valueComputed,
+              value: visibleSelectedOptions,
               tabindex: tabIndexComputed,
             }"
           >
             {{ valueComputedString }}
+          </slot>
+          <slot
+            name="hiddenOptionsBadge"
+            v-bind="{
+              amount: hiddenSelectedOptionsAmount,
+              isShown: isAllOptionsShown,
+              toggle: toggleHiddenOptionsState,
+            }"
+          >
+            <va-badge
+              v-if="hiddenSelectedOptionsAmount && !isAllOptionsShown"
+              :text="`+${hiddenSelectedOptionsAmount}`"
+              class="va-select-anchor__state-icon"
+              tabindex="0"
+              color="info"
+              @click.stop="toggleHiddenOptionsState"
+            />
+          </slot>
+          <slot
+            name="hideOptionsButton"
+            v-bind="{ isShown: isAllOptionsShown, toggle: toggleHiddenOptionsState }"
+          >
+            <va-icon
+              v-if="isAllOptionsShown"
+              class="va-select-anchor__state-icon"
+              role="button"
+              tabindex="0"
+              aria-hidden="false"
+              size="small"
+              name="reply"
+              @click.stop="toggleHiddenOptionsState"
+            />
           </slot>
         </template>
       </va-input-wrapper>
@@ -106,7 +139,7 @@
         class="va-select-dropdown__content-search-input"
         :aria-label="t('optionsFilter')"
         :tabindex="tabIndexComputed"
-        :bordered="true"
+        bordered
         :placeholder="tp($props.searchPlaceholderText)"
         v-model="searchInput"
         @keydown.up.stop.prevent="focusPreviousOption"
@@ -121,18 +154,7 @@
         class="va-select-dropdown__options-wrapper"
         v-model:hoveredOption="hoveredOption"
         :style="{ maxHeight: $props.maxHeight }"
-        :options="filteredOptions"
-        :selected-value="valueComputed"
-        :get-selected-state="checkIsOptionSelected"
-        :text-by="$props.textBy"
-        :track-by="$props.trackBy"
-        :group-by="$props.groupBy"
-        :disabled-by="$props.disabledBy"
-        :search="searchInput"
-        :no-options-text="tp($props.noOptionsText)"
-        :color="$props.color"
-        :tabindex="tabIndexComputed"
-        :virtual-scroller="$props.virtualScroller"
+        v-bind="optionsListPropsComputed"
         @select-option="selectOption"
         @no-previous-option-to-hover="focusSearchBar"
         @keydown.enter.stop.prevent="selectHoveredOption"
@@ -150,6 +172,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, watch, nextTick, Ref, shallowRef } from 'vue'
+import pick from 'lodash/pick.js'
 
 import { warn } from '../../utils/console'
 import {
@@ -158,21 +181,29 @@ import {
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
   useFormProps,
   useLoadingProps,
-  useColors,
   useMaxSelections, useMaxSelectionsProps,
   useClearableProps, useClearable, useClearableEmits,
   useFocusDeep,
   useTranslation,
+  useBem,
 } from '../../composables'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
-import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-import { VaIcon } from '../va-icon'
-import { VaInput, VaInputWrapper } from '../va-input'
+import {
+  VaDropdown,
+  VaDropdownContent,
+  VaBadge,
+  VaIcon,
+  VaInput,
+  VaInputWrapper,
+} from '../index'
 import { VaSelectOptionList } from './components/VaSelectOptionList'
 
-import type { SelectDropdownIcon, SelectOption, Placement } from './types'
+import { useMaxVisibleOptions, useMaxVisibleOptionsProps } from './hooks/useMaxVisibleOptions'
+import { useToggleIcon, useToggleIconProps } from './hooks/useToggleIcon'
+
+import type { SelectOption, Placement } from './types'
 import type { DropdownOffsetProp } from '../va-dropdown/types'
 
 const VaDropdownProps = extractComponentProps(VaDropdown,
@@ -189,6 +220,7 @@ export default defineComponent({
     VaDropdownContent,
     VaInput,
     VaInputWrapper,
+    VaBadge,
   },
 
   emits: [
@@ -202,13 +234,15 @@ export default defineComponent({
 
   props: {
     ...VaDropdownProps,
+    ...useComponentPresetProp,
     ...useSelectableListProps,
     ...useValidationProps as ValidationProps<SelectOption>,
     ...useLoadingProps,
     ...useMaxSelectionsProps,
     ...useClearableProps,
     ...useFormProps,
-    ...useComponentPresetProp,
+    ...useMaxVisibleOptionsProps,
+    ...useToggleIconProps,
 
     modelValue: {
       type: [String, Number, Array, Object] as PropType<SelectOption | SelectOption[]>,
@@ -237,20 +271,8 @@ export default defineComponent({
     noOptionsText: { type: String, default: '$t:noOptions' },
     hideSelected: { type: Boolean, default: false },
     tabindex: { type: Number, default: 0 },
-    dropdownIcon: {
-      type: [String, Object] as PropType<string | SelectDropdownIcon>,
-      default: (): SelectDropdownIcon => ({
-        open: 'va-arrow-down',
-        close: 'va-arrow-up',
-      }),
-      validator: (value: string | SelectDropdownIcon) => {
-        if (typeof value === 'string') { return true }
-        const isOpenIconString = typeof value.open === 'string'
-        const isCloseIconString = typeof value.close === 'string'
-        return isOpenIconString && isCloseIconString
-      },
-    },
     virtualScroller: { type: Boolean, default: false },
+    selectedTopShown: { type: Boolean, default: false },
 
     // Input style
     outline: { type: Boolean, default: false },
@@ -261,7 +283,7 @@ export default defineComponent({
     requiredMark: { type: Boolean, default: false },
   },
 
-  setup (props, { emit }) {
+  setup (props, { emit, slots }) {
     const optionList = shallowRef<typeof VaSelectOptionList>()
     const input = shallowRef<typeof VaInputWrapper>()
     const searchBar = shallowRef<typeof VaInput>()
@@ -269,7 +291,6 @@ export default defineComponent({
     const isInputFocused = useFocusDeep(input as any)
     const isFocused = computed(() => isInputFocused.value || showDropdownContent.value)
 
-    const { getHoverColor, getColor } = useColors()
     const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
 
     /** @public */
@@ -299,9 +320,6 @@ export default defineComponent({
       resetValidation,
     } = useValidation(props, emit, { reset, focus })
 
-    const colorComputed = computed(() => getColor(props.color))
-    const toggleIconColor = computed(() => props.readonly ? getHoverColor(colorComputed.value) : colorComputed.value)
-
     const onScrollBottom = () => emit('scroll-bottom')
 
     const searchInput = ref('')
@@ -312,21 +330,18 @@ export default defineComponent({
       hoveredOption.value = null
     })
 
-    // Select value
+    const {
+      toggleHiddenOptionsState,
+      isAllOptionsShown,
+      visibleSelectedOptions,
+      hiddenSelectedOptionsAmount,
+      allSelectedOptions,
+    } = useMaxVisibleOptions(props)
 
+    // select value
     const valueComputed = computed<SelectOption | SelectOption[]>({
       get () {
-        if (props.multiple) {
-          if (!props.modelValue) {
-            return []
-          }
-
-          if (!Array.isArray(props.modelValue)) {
-            return [getOptionByValue(props.modelValue)]
-          }
-
-          return props.modelValue.map(getOptionByValue)
-        }
+        if (props.multiple) { return allSelectedOptions.value }
 
         const value = getOptionByValue(props.modelValue)
 
@@ -352,9 +367,11 @@ export default defineComponent({
 
     const valueComputedString = computed<string>(() => {
       if (!valueComputed.value && valueComputed.value !== 0) { return props.clearValue }
+
       if (typeof valueComputed.value === 'string' || typeof valueComputed.value === 'number') { return valueComputed.value }
+
       if (Array.isArray(valueComputed.value)) {
-        return valueComputed.value.map((value) => getText(value)).join(props.separator) || props.clearValue
+        return visibleSelectedOptions.value.map((value) => getText(value)).join(props.separator) || props.clearValue
       }
 
       return getText(valueComputed.value)
@@ -362,8 +379,7 @@ export default defineComponent({
 
     const isPlaceholder = computed(() => props.placeholder && !valueComputedString.value)
 
-    // Icons
-
+    // icons
     const {
       canBeCleared,
       clearIconProps,
@@ -377,20 +393,21 @@ export default defineComponent({
       return true
     })
 
-    const toggleIcon = computed(() => {
-      if (!props.dropdownIcon) { return '' }
-
-      if (typeof props.dropdownIcon === 'string') {
-        return props.dropdownIcon
-      }
-
-      return showDropdownContent.value ? props.dropdownIcon.close : props.dropdownIcon.open
-    })
-
-    // Options
-
+    // options
     const filteredOptions = computed(() => {
       if (!props.options) { return [] }
+
+      if (props.selectedTopShown) {
+        return props.options.slice().sort((a, b) => {
+          const isASelected = checkIsOptionSelected(a)
+          const isBSelected = checkIsOptionSelected(b)
+
+          if (isASelected && isBSelected) { return 0 }
+          if (isASelected && !isBSelected) { return -1 }
+
+          return 1
+        })
+      }
 
       if (props.hideSelected) {
         return props.options.filter((option) => !checkIsOptionSelected(option))
@@ -579,6 +596,10 @@ export default defineComponent({
         : validate()
     }
 
+    const inputWrapperClassComputed = useBem('va-select-anchor', () => ({
+      nowrap: !!(props.maxVisibleOptions && !slots.content),
+    }))
+
     /** @public */
     const blur = () => {
       if (showDropdownContentComputed.value) {
@@ -655,8 +676,19 @@ export default defineComponent({
       'aria-label': props.modelValue ? `${t('selectedOption')}: ${props.modelValue}` : t('noSelectedOption'),
     }))
 
+    const optionsListPropsComputed = computed(() => ({
+      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'disabledBy', 'color', 'virtualScroller']),
+      search: searchInput.value,
+      tabindex: tabIndexComputed.value,
+      selectedValue: valueComputed.value,
+      options: filteredOptions.value,
+      getSelectedState: checkIsOptionSelected,
+      noOptionsText: tp(props.noOptionsText),
+    }))
+
+    const { toggleIcon, toggleIconColor } = useToggleIcon(props, showDropdownContent)
+
     return {
-      ...useTranslation(),
       isFocused,
 
       input,
@@ -668,6 +700,7 @@ export default defineComponent({
       blur,
 
       tp,
+      t,
 
       onInputFocus,
       onInputBlur,
@@ -678,14 +711,11 @@ export default defineComponent({
       showSearchInput,
       hoveredOption,
       tabIndexComputed,
-      valueComputed,
       valueComputedString,
       showClearIcon,
       toggleIcon,
       computedErrorMessages,
       computedError,
-      filteredOptions,
-      checkIsOptionSelected,
       selectOption,
       selectOrAddOption,
       selectHoveredOption,
@@ -702,6 +732,12 @@ export default defineComponent({
       clearIconProps,
       isPlaceholder,
       dropdownPropsComputed,
+      isAllOptionsShown,
+      hiddenSelectedOptionsAmount,
+      visibleSelectedOptions,
+      optionsListPropsComputed,
+      toggleHiddenOptionsState,
+      inputWrapperClassComputed,
     }
   },
 })
@@ -733,6 +769,16 @@ export default defineComponent({
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     flex: 1;
+  }
+
+  &__state-icon {
+    margin-left: var(--va-select-anchor-state-icon-margin-left);
+  }
+
+  &--nowrap {
+    .va-input-wrapper__text {
+      flex-wrap: nowrap;
+    }
   }
 }
 

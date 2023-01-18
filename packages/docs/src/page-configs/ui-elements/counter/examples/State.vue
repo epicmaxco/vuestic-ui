@@ -1,11 +1,11 @@
 <template>
   <div class="row">
-    <va-counter class="mx-4 my-2"
+    <va-counter class="mx-6 my-2"
       v-model="value"
       readonly
     />
 
-    <va-counter class="mx-4 my-2"
+    <va-counter class="mx-6 my-2"
       v-model="value"
       buttons
       readonly
@@ -13,12 +13,12 @@
   </div>
 
   <div class="row">
-    <va-counter class="mx-4 my-2"
+    <va-counter class="mx-6 my-2"
       v-model="value"
       disabled
     />
 
-    <va-counter class="mx-4 my-2"
+    <va-counter class="mx-6 my-2"
       v-model="value"
       buttons
       disabled

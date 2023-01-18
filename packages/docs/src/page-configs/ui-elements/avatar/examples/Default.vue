@@ -1,5 +1,9 @@
 <template>
+  <va-avatar class="mr-6">
+    A
+  </va-avatar>
+
   <va-avatar>
-    <va-icon name="warning" />
+    J.K.
   </va-avatar>
 </template>

@@ -8,19 +8,29 @@
     v-bind="attributesComputed"
   >
     <span class="va-button__content" :class="wrapperClassComputed">
-      <va-icon
-        v-if="icon"
-        class="va-button__left-icon"
-        :name="icon"
-        v-bind="iconAttributesComputed"
-      />
+      <slot
+        name="prepend"
+        v-bind="{ icon, iconAttributes: iconAttributesComputed }"
+      >
+        <va-icon
+          v-if="icon"
+          class="va-button__left-icon"
+          :name="icon"
+          v-bind="iconAttributesComputed"
+        />
+      </slot>
       <slot />
-      <va-icon
-        v-if="iconRight"
-        class="va-button__right-icon"
-        :name="iconRight"
-        v-bind="iconAttributesComputed"
-      />
+      <slot
+        name="append"
+        v-bind="{ icon: iconRight, iconAttributes: iconAttributesComputed }"
+      >
+        <va-icon
+          v-if="iconRight"
+          class="va-button__right-icon"
+          :name="iconRight"
+          v-bind="iconAttributesComputed"
+        />
+      </slot>
     </span>
     <template v-if="loading">
       <slot name="loading" v-bind="{
@@ -52,7 +62,7 @@ import {
   useLoadingProps,
   useSize, useSizeProps,
   useRouterLink, useRouterLinkProps,
-  useDeprecatedProps,
+  useDeprecated,
   useComponentPresetProp,
   useSlotPassed,
 } from '../../composables'
@@ -101,7 +111,7 @@ export default defineComponent({
   },
   setup (props, { slots }) {
     // TODO: Remove deprecated props in 1.6.0
-    useDeprecatedProps(['flat', 'outline'])
+    useDeprecated(['flat', 'outline'])
 
     // colors
     const { getColor } = useColors()

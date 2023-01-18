@@ -1,10 +1,10 @@
 <template>
-  <va-slider class="mb-4"
+  <va-slider class="mb-6"
     v-model="value[0]"
     track-label-visible
   />
 
-  <va-slider class="mb-4"
+  <va-slider class="mb-6"
     v-model="value[1]"
     track-label-visible
   >
@@ -13,7 +13,7 @@
     </template>
   </va-slider>
 
-  <va-slider class="mb-4"
+  <va-slider class="mb-6"
     v-model="value"
     range
     track-label-visible

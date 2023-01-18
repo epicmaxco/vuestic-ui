@@ -49,11 +49,6 @@ const config: ApiDocsBlock[] = [
     'Icons',
   ),
   ...block.exampleBlock(
-    'buttonDropdown.examples.events.title',
-    'buttonDropdown.examples.events.text',
-    'Events',
-  ),
-  ...block.exampleBlock(
     'buttonDropdown.examples.clickInside.title',
     'buttonDropdown.examples.clickInside.text',
     'ClickInside',
