@@ -31,7 +31,7 @@ export const createVuestic = defineVuesticPlugin((options: { config?: PartialGlo
     usePlugin(app, GlobalConfigPlugin(config))
     usePlugin(app, CachePlugin)
     usePlugin(app, ColorConfigPlugin(config))
-    usePlugin(app, ColorsCustomClassesPlugin(config))
+    usePlugin(app, ColorsCustomClassesPlugin)
 
     usePlugin(app, BreakpointConfigPlugin)
     usePlugin(app, VaDropdownPlugin)
