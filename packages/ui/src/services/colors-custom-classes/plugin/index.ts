@@ -50,14 +50,16 @@ export const ColorsCustomClassesPlugin = defineVuesticPlugin((config?: PartialGl
 
     watch(() => globalConfig.value.colorsCustomClasses as ColorsCustomClassesConfig[], (newHelpers: ColorsCustomClassesConfig[]) => {
       if (!newHelpers.length || !globalConfig.value.colors) { return }
+      return null
 
-      handleConfigUpdate(newHelpers, globalConfig.value.colors.variables)
+      // handleConfigUpdate(newHelpers, globalConfig.value.colors.variables)
     }, { immediate: true, deep: true })
 
     watch(() => globalConfig.value.colors.variables as ColorVariables, (newColors: ColorVariables) => {
       if (!newColors) { return }
 
-      handleConfigUpdate(globalConfig.value.colorsCustomClasses as ColorsCustomClassesConfig[], newColors)
+      return null
+      // handleConfigUpdate(globalConfig.value.colorsCustomClasses as ColorsCustomClassesConfig[], newColors)
     }, { immediate: true, deep: true })
   },
 }))
