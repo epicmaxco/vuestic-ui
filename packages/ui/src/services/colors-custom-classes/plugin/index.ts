@@ -1,30 +1,30 @@
 import { watch } from 'vue'
-import type { App } from 'vue'
 
 import { isServer } from '../../../utils/ssr'
-import { defineVuesticPlugin, getGlobalProperty } from '../../vue-plugin/utils'
+import { useGlobalConfig } from '../../global-config'
+import { defineVuesticPlugin } from '../../vue-plugin/utils'
 import { addOrUpdateStyleElement } from '../../../utils/dom'
 
 import type { ColorVariables } from '../../color'
-import type { ColorsCustomClassesConfig } from '../types'
+import type { ColorsCustomClassesConfig, ColorsCustomClassesConfigItem } from '../types'
+
 import { ColorsCustomClassesPresets } from '../config/default'
-import { PartialGlobalConfig } from '../../global-config'
 
 export const getColorsCustomClassesDefaultConfig = () => ColorsCustomClassesPresets
 
-const getColorsCustomClassesHelpers = (helpers: ColorsCustomClassesConfig[], colors: ColorVariables) => {
+const getColorsCustomClassesHelpers = (helpers: ColorsCustomClassesConfig, colors: ColorVariables) => {
   const colorsEntries = Object.entries(colors)
 
-  return helpers.reduce((acc, helper: ColorsCustomClassesConfig) => acc.concat(
+  return helpers.reduce((acc, helper: ColorsCustomClassesConfigItem) => acc.concat(
     colorsEntries.map(([colorName, colorValue]) => ({
       ...helper,
       postfix: helper.postfix ? helper.postfix : colorName,
       value: helper.value ? helper.value : colorValue,
     })),
-  ), [] as ColorsCustomClassesConfig[])
+  ), [] as ColorsCustomClassesConfig)
 }
 
-const getColorsCustomClassesStyles = (helpers: ColorsCustomClassesConfig[]) =>
+const getColorsCustomClassesStyles = (helpers: ColorsCustomClassesConfig) =>
   helpers.reduce((styles, helper) => {
     const style = [helper.property].flat().map(prop => `${prop}: ${helper.value};`).join('')
 
@@ -33,7 +33,7 @@ const getColorsCustomClassesStyles = (helpers: ColorsCustomClassesConfig[]) =>
     return styles
   }, '')
 
-const handleConfigUpdate = (helpers: ColorsCustomClassesConfig[], colors: ColorVariables) => {
+const handleConfigUpdate = (helpers: ColorsCustomClassesConfig, colors: ColorVariables) => {
   const coloredHelpers = getColorsCustomClassesHelpers(helpers, colors)
 
   addOrUpdateStyleElement(
@@ -42,24 +42,22 @@ const handleConfigUpdate = (helpers: ColorsCustomClassesConfig[], colors: ColorV
   )
 }
 
-export const ColorsCustomClassesPlugin = defineVuesticPlugin((config?: PartialGlobalConfig) => ({
-  install (app: App) {
+export const ColorsCustomClassesPlugin = defineVuesticPlugin(() => ({
+  install () {
     if (isServer()) { return }
 
-    const { globalConfig } = getGlobalProperty(app, '$vaConfig')
+    const { globalConfig } = useGlobalConfig()
 
-    watch(() => globalConfig.value.colorsCustomClasses as ColorsCustomClassesConfig[], (newHelpers: ColorsCustomClassesConfig[]) => {
-      if (!newHelpers.length || !globalConfig.value.colors) { return }
-      return null
-
-      // handleConfigUpdate(newHelpers, globalConfig.value.colors.variables)
+    watch(() => globalConfig.value.colorsCustomClasses as ColorsCustomClassesConfig, (newHelpers: ColorsCustomClassesConfig) => {
+      if (newHelpers.length) {
+        handleConfigUpdate(newHelpers, globalConfig.value.colors.variables)
+      }
     }, { immediate: true, deep: true })
 
     watch(() => globalConfig.value.colors.variables as ColorVariables, (newColors: ColorVariables) => {
       if (!newColors) { return }
 
-      return null
-      // handleConfigUpdate(globalConfig.value.colorsCustomClasses as ColorsCustomClassesConfig[], newColors)
+      handleConfigUpdate(globalConfig.value.colorsCustomClasses as ColorsCustomClassesConfig, newColors)
     }, { immediate: true, deep: true })
   },
 }))

@@ -1,8 +1,8 @@
-export type ColorsCustomClassesConfig = {
+export type ColorsCustomClassesConfigItem = {
   prefix?: string
   postfix?: string
   property?: string | string[]
   value?: string
 }
 
-export type ColorsCustomClassesConfigPreset = Record<string, ColorsCustomClassesConfig[]>
+export type ColorsCustomClassesConfig = ColorsCustomClassesConfigItem[]
