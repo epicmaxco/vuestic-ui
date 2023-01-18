@@ -1,4 +1,4 @@
-import { ParsedBlock, parseCode } from './parse';
+import { parseCode } from './parse';
 import { Importer } from './create-importer'
 import code from '../blocks/code/transform'
 

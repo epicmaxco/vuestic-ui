@@ -1,14 +1,13 @@
 import { describe, expect, test } from 'vitest'
 import transform from '../../blocks/code/transform'
-import { createImporter } from '../../compiler/create-importer'
+import { createImporter, Importer } from '../../compiler/create-importer'
 import { parseCode } from '../../compiler/parse'
 
 describe('blocks/code/transform', () => {
   const caller = import.meta.url.replace('file://', '')
-  const importer = createImporter({
+  let importer: Importer = createImporter({
     resolve: (path: string) => new Promise((resolve) => resolve({ id: '' + path }))
   } as unknown as any, caller)
-
 
   test('resolve-string-file', async () => {
     const template = `
@@ -22,13 +21,23 @@ export default definePageConfig({
     block.code('test'),
   ]
 })
-`
+`.trim()
   const blocks = parseCode(template)
 
   const newCode = await transform.call({ importer }, blocks[0])
-  // console.log(newCode, importer.imports)
 
-  expect(newCode).not.toBe(template)
+  expect(newCode).toBe(`
+export default definePageConfig({
+  meta: {
+    title: 'any',
+    category: 'any',
+  },
+
+  blocks: [
+    block.code(test_1),
+  ]
+})
+  `.trim())
   })
 
   test('resolve-object-file', async () => {
@@ -46,13 +55,25 @@ export default definePageConfig({
     }),
   ]
 })
-`
+`.trim()
   const blocks = parseCode(template)
 
   const newCode = await transform.call({ importer }, blocks[0])
 
-  console.log(newCode, importer.imports)
+  expect(newCode).toBe(`
+export default definePageConfig({
+  meta: {
+    title: 'any',
+    category: 'any',
+  },
 
-  expect(newCode).not.toBe(template)
+  blocks: [
+    block.code({
+    yarn: test_2,
+    npm: test_3
+}),
+  ]
+})
+  `.trim())
   })
 })

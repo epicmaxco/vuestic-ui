@@ -1,9 +1,11 @@
 import { resolve, dirname, parse } from 'path'
 import { type TransformPluginContext } from 'rollup'
 import { resolveAlias } from '@nuxt/kit';
-import { readdirSync } from 'fs'
+import { readdirSync, existsSync } from 'fs'
 
 const resolveFromFolder = (dir: string, file: string) => {
+  if (!existsSync(dir)) { return null }
+
   const dirFiles = readdirSync(dir)
 
   for (const dirFile of dirFiles) {

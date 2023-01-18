@@ -1,12 +1,14 @@
-import { PageConfigOptions } from "../modules/page-config"
+import { type PageConfigOptions } from "../modules/page-config"
 
 type PageConfigJSModule = { default: PageConfigOptions }
 
-const files = Object.entries(import.meta.glob<true, string, PageConfigJSModule>('../page-config/**/index.ts', { eager: true }))
+const files = Object.entries(import.meta.glob<false, string, PageConfigJSModule>('../page-config/**/index.ts'))
   .reduce((acc, [key, fn]) => {
     acc[key.replace('../page-config/', '').replace('/index.ts', '')] = fn
     return acc
-  }, {} as Record<string, PageConfigJSModule>)
+  }, {} as Record<string, () => Promise<PageConfigJSModule>>)
+
+console.log(files)
 
 export const usePageConfigs = () => {
   return files
@@ -20,7 +22,10 @@ export const usePageConfig = (name: string) => {
     console.log(Object.keys(files))
   }
 
-  config.value = files[name].default
+  files[name]().then((module) => {
+    config.value = module.default
+  })
+
 
   return config
 }

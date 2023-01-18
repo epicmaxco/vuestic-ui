@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import getCodesandboxExample from '@/helpers/CodeSandboxExample'
+import { createCodeSandbox } from '@/composables/code-sandbox'
 
 export default {
   name: 'DocsOpenCodeSandbox',
@@ -29,7 +29,7 @@ export default {
       return `https://codesandbox.io/api/v1/sandboxes/define${this.query}`
     },
     sandboxParams () {
-      return getCodesandboxExample()
+      return createCodeSandbox()
     },
   },
 }

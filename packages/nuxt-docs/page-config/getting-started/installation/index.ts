@@ -17,12 +17,16 @@ export default definePageConfig({
     block.paragraph('installation.cli.codeAnnotation'),
     block.code('vue add vuestic-ui', 'bash'),
 
+
     block.subtitle('installation.manual.title'),
     block.paragraph('installation.manual.subtitle'),
     block.paragraph('installation.manual.prerequisites'),
     // block.list(['installation.manual.node', 'installation.manual.npm']),
     block.paragraph('installation.manual.afterCheck'),
-    block.code('installation.ts', 'bash'),
+    block.code({
+      npm: 'npm install vuestic-ui',
+      yarn: 'yarn add vuestic-ui',
+    }, 'bash'),
 
     // block.headline('installation.fonts.title'),
     block.paragraph('installation.fonts.description'),
