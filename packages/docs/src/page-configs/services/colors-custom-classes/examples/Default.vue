@@ -1,16 +1,12 @@
 <template>
-  <va-card color="background" style="padding: 0.75rem;">
-    <div class="row gutter--md">
-      <div class="flex md12">
-        <p class="va-custom--success" style="padding: 0.75rem;">
-          {{ $t('colorsCustomClasses.examples.custom.example1') }}
-        </p>
-        <p class="va-brand--danger" style="padding: 0.75rem;">
-          {{ $t('colorsCustomClasses.examples.custom.example2') }}
-        </p>
-      </div>
-    </div>
-  </va-card>
+  <div>
+    <p class="va-custom--success p-4">
+      {{ $t('colorsCustomClasses.examples.custom.example1') }}
+    </p>
+    <p class="va-brand--danger p-4">
+      {{ $t('colorsCustomClasses.examples.custom.example2') }}
+    </p>
+  </div>
 </template>
 
 <script>
