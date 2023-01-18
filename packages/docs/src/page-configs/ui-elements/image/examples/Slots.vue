@@ -8,22 +8,30 @@
       Wrong path
     </va-button>
   </div>
-  <va-image
-    class="flex flex-col md6 lg4"
-    :src="slotImagePath"
-    @loaded="consoleLog"
-    @error="consoleLog"
-  >
-    <template #loader>
-      <va-progress-circle indeterminate />
-    </template>
+  <div class="row space-x-4">
+    <va-image
+      class="flex flex-col md6 lg4"
+      :src="slotImagePath"
+      @loaded="consoleLog"
+      @error="consoleLog"
+    >
+      <template #loader>
+        <va-progress-circle indeterminate />
+      </template>
 
-    <template #error>
-      <div class="p-8 flex items-center justify-center bg-red-300 rounded-3xl">
-        <va-icon name="close" color="danger" :size="32" />
-      </div>
-    </template>
-  </va-image>
+      <template #error>
+        <div class="p-8 flex items-center justify-center bg-red-300 rounded-3xl">
+          <va-icon name="close" color="danger" :size="32" />
+        </div>
+      </template>
+    </va-image>
+
+    <va-image
+      class="flex flex-col md6 lg4"
+      :src="slotImagePath"
+      fallback-text="Fallback will work if error slot wasn't passed"
+    />
+  </div>
 </template>
 
 <script setup>

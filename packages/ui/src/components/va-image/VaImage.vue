@@ -23,10 +23,12 @@
     </div>
 
     <div
-      v-if="isError && $slots.error"
+      v-if="isError && ($slots.error || isAnyFallbackPassed)"
       class="va-image__error"
     >
-      <slot name="error" />
+      <slot name="error">
+        <va-fallback v-bind="fallbackProps" @fallback="$emit('fallback')" />
+      </slot>
     </div>
 
     <div
@@ -49,6 +51,7 @@
 import { defineComponent, ref, computed, watch, nextTick, onBeforeUnmount, type PropType, onBeforeMount } from 'vue'
 
 import { VaAspectRatio } from '../va-aspect-ratio'
+import { VaFallback } from '../va-fallback'
 
 import {
   useNativeImgAttributes, useNativeImgAttributesProps,
@@ -56,18 +59,23 @@ import {
 } from './hooks/useNativeImgAttributes'
 import { useComponentPresetProp, useDeprecated } from '../../composables'
 
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
+
+const VaFallbackProps = extractComponentProps(VaFallback)
+
 const fitOptions = ['contain', 'fill', 'cover', 'scale-down', 'none'] as const
 
 export default defineComponent({
   name: 'VaImage',
 
-  components: { VaAspectRatio },
+  components: { VaAspectRatio, VaFallback },
 
   emits: ['loaded', 'error'],
 
   props: {
     ...useComponentPresetProp,
     ...useNativeImgAttributesProps,
+    ...VaFallbackProps,
     ratio: {
       type: [Number, String] as PropType<number | 'auto'>,
       default: 'auto',
@@ -160,7 +168,8 @@ export default defineComponent({
     watch(() => props.src, init)
 
     const isPlaceholderShown = computed(() =>
-      ((isLoading.value && !slots?.loader?.()) || (isError.value && !slots?.error?.())) && slots?.placeholder?.())
+      ((isLoading.value && !slots?.loader?.()) || (isError.value && (!slots?.error?.() && !isAnyFallbackPassed.value))) &&
+      slots?.placeholder?.())
 
     const isSuccessfullyLoaded = computed(() => !(isLoading.value || isError.value))
 
@@ -171,6 +180,9 @@ export default defineComponent({
       contentHeight: imgHeight.value,
       ratio: props.ratio,
     }))
+
+    const fallbackProps = filterComponentProps(VaFallbackProps)
+    const isAnyFallbackPassed = computed(() => !!Object.values(fallbackProps.value).filter((prop) => prop).length)
 
     // TODO: refactor (just v-bind fit prop to CSS) in 1.7.0
     const fitComputed = computed(() => {
@@ -189,6 +201,9 @@ export default defineComponent({
       isSuccessfullyLoaded,
       imgAttributesComputed,
       aspectRationAttributesComputed,
+
+      isAnyFallbackPassed,
+      fallbackProps,
     }
   },
 })
