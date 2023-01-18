@@ -13,11 +13,14 @@
     />
     <slot v-bind="avatarOptions" v-else>
       <img
-        v-if="srcComputed"
-        :src="srcComputed"
+        v-if="$props.src && !hasLoadError"
+        :src="$props.src"
         :alt="$props.alt"
         @error="onLoadError"
       >
+      <slot v-else-if="hasLoadError && $props.src" name="fallback">
+        <va-fallback v-bind="VaFallbackProps" @fallback="$emit('fallback')" />
+      </slot>
       <va-icon
         v-else-if="$props.icon"
         :name="$props.icon"
@@ -37,20 +40,24 @@ import {
   useLoadingProps,
   useComponentPresetProp,
 } from '../../composables'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
-import { VaIcon, VaProgressCircle } from '../index'
+import { VaIcon, VaProgressCircle, VaFallback } from '../index'
 import { useAvatarProps } from './hooks/useAvatarProps'
+
+const VaFallbackProps = extractComponentProps(VaFallback)
 
 export default defineComponent({
   name: 'VaAvatar',
 
-  components: { VaIcon, VaProgressCircle },
+  components: { VaIcon, VaProgressCircle, VaFallback },
 
   props: {
     ...useLoadingProps,
     ...useSizeProps,
     ...useComponentPresetProp,
     ...useAvatarProps,
+    ...VaFallbackProps,
 
     src: { type: String, default: null },
     icon: { type: String, default: '' },
@@ -62,7 +69,13 @@ export default defineComponent({
   setup (props, { emit }) {
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
-    const backgroundColorComputed = computed(() => props.loading || props.src ? 'transparent' : colorComputed.value)
+    const backgroundColorComputed = computed(() => {
+      if (props.loading || (props.src && !hasLoadError.value)) {
+        return 'transparent'
+      }
+
+      return colorComputed.value
+    })
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
     const { textColorComputed } = useTextColor()
 
@@ -72,16 +85,6 @@ export default defineComponent({
     }))
 
     const hasLoadError = ref(false)
-
-    const srcComputed = computed(() => {
-      if (props.src && props.fallbackSrc && hasLoadError.value) {
-        emit('fallback')
-
-        return props.fallbackSrc
-      }
-
-      return props.src
-    })
 
     const onLoadError = (event: Event) => {
       hasLoadError.value = true
@@ -98,13 +101,14 @@ export default defineComponent({
     }))
 
     return {
-      srcComputed,
+      hasLoadError,
       sizeComputed,
       avatarOptions,
       computedStyle,
       colorComputed,
       textColorComputed,
       backgroundColorComputed,
+      VaFallbackProps: filterComponentProps(VaFallbackProps),
 
       onLoadError,
     }

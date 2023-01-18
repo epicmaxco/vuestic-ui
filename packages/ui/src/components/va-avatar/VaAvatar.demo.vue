@@ -142,16 +142,23 @@
         fallback-src="https://randomuser.me/api/portraits/women/5.jpg"
       />
       <va-avatar
-        square
         src="https://void"
-        fallback-src="https://randomuser.me/api/portraits/women/5.jpg"
+        fallback-text="J.D."
+      />
+      <va-avatar
+        src="https://void"
+        fallback-icon="info_outline"
+      />
+      <va-avatar
+        src="https://void"
+        :fallback-render="fallbackRender"
       />
     </VbCard>
   </VbDemo>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, h } from 'vue'
 
 import { VaIcon, VaButton } from '../index'
 import { VaAvatar } from './'
@@ -164,4 +171,10 @@ const hasError = ref(false)
 const onError = () => {
   hasError.value = true
 }
+
+const fallbackRender = () => h('b', {
+  style: {
+    color: 'red',
+  },
+}, 'Text')
 </script>
