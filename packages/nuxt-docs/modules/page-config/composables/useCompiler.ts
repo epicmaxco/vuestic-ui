@@ -3,6 +3,7 @@ import { createFilter } from '@rollup/pluginutils'
 import { createImporter } from '../compiler/create-importer'
 import { parseCode } from '../compiler/parse'
 import { extname, resolve } from 'path'
+import { transform } from '../compiler/transform'
 
 export const useCompiler = (options: any) => {
   const filter = createFilter(options.include, options.exclude)
@@ -18,6 +19,10 @@ export const useCompiler = (options: any) => {
       const runtimePath = resolve(__dirname, '../runtime/index.ts')
       importer.importNamed('block', (await this.resolve(runtimePath))!.id)
       importer.importNamed('definePageConfig', (await this.resolve(runtimePath))!.id)
+
+      code = await transform(code, importer)
+
+      // OLD
 
       const blocks = parseCode(code)
       // TODO: Handle unresolved imports
@@ -41,13 +46,16 @@ export const useCompiler = (options: any) => {
           code = block.replaceArgCode(0, importComponent)
         }
 
-        if (block.type === 'code') {
-          const importName = block.args[0].slice(1, -1)
-          const importPath = (await importer.resolveRelativePath(`./code/${importName}`))!
-          const importComponent = importer.importDefault(importName, importPath)
+        // if (block.type === 'code') {
+        //   const importName = block.args[0].slice(1, -1)
+        //   const importPath = (await importer.resolveRelativePath(`./code/${importName}`))
 
-          code = block.replaceArgCode(0, `${importComponent}`)
-        }
+        //   if (importPath) {
+        //     const importedVariable = importer.importDefault(importName, `${importPath}?raw`)
+
+        //     code = block.replaceArgCode(0, `${importedVariable}`)
+        //   }
+        // }
 
         if (block.type === 'file') {
           const importName = block.args[0].slice(1, -1)

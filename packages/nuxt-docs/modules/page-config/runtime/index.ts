@@ -8,9 +8,12 @@ import code from '../blocks/code'
 import markdown from '../blocks/markdown'
 import api from '../blocks/api'
 import collapse from '../blocks/collapse'
+import alert from '../blocks/alert'
+import component from '../blocks/component'
 
 // Need to define type in collapse without recursion
 const blocksWithoutCollapse = {
+  alert,
   example,
   title,
   paragraph,
@@ -19,6 +22,7 @@ const blocksWithoutCollapse = {
   code,
   markdown,
   api,
+  component,
 }
 
 export type BlockWithCollapse = ReturnType<(typeof blocksWithoutCollapse)[keyof typeof blocksWithoutCollapse]>
@@ -35,7 +39,7 @@ export type PageConfigOptions = {
   meta: {
     title: string;
     // TODO: Add more
-    category: 'component' | 'introduction' | 'services'
+    category: 'component' | 'introduction' | 'services' | 'getting-started'
     badge?: string
     visibility?: boolean
   },

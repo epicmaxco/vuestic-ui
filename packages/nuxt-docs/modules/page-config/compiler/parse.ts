@@ -10,6 +10,8 @@ export type ParsedBlock = {
    * @notice if you add new args in new string they will not appear in args array.
   */
   replaceArgCode: (index: number, value: string) => string
+
+  argNodes: Node[]
 }
 
 type AcornNode<T> = Node & T
@@ -33,6 +35,7 @@ export const parseCode = (code: string) => {
           code: blockCode,
           type: element.callee?.property?.name,
           args: element.arguments?.map((arg: any) => code.slice(arg.start, arg.end)),
+          argNodes: element.arguments,
           replaceArgCode: (index: number, value: string) => {
             const argStartInSlice = element.arguments[index].start - element.start
             const argEndInSlice = element.arguments[index].end - element.start

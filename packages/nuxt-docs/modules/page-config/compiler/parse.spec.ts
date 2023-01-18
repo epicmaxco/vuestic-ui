@@ -28,25 +28,25 @@ describe('definePageConfig.compiler', () => {
   it('parseCode', () => {
     const blocks = parseCode(code)
 
-    expect(blocks[0]).toEqual({
+    expect(blocks[0]).toMatchObject({
       code: 'block.component("default")',
       type: 'component',
       args: ['"default"'],
     })
 
-    expect(blocks[1]).toEqual({
+    expect(blocks[1]).toMatchObject({
       code: 'block.example("test")',
       type: 'example',
       args: ['"test"'],
     })
 
-    expect(blocks[2]).toEqual({
+    expect(blocks[2]).toMatchObject({
       code: `block.example("test", ${objArg})`,
       type: 'example',
       args: ['"test"', objArg],
     })
 
-    expect(blocks[3]).toEqual({
+    expect(blocks[3]).toMatchObject({
       code: `block.alert(${fnArg})`,
       type: 'alert',
       args: [fnArg],
