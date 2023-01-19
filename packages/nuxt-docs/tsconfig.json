@@ -1,15 +1,8 @@
 {
-  // https://v3.nuxtjs.org/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json",
   "exclude": [
-    "../dist",
-    "@types/react"
+    "../../node_modules",
+    "node_modules",
   ],
-  "compilerOptions": {
-    // ...
-    "types": [
-      "vite/client", // if using vite
-      // ...
-    ]
-  },
+  // https://v3.nuxtjs.org/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json"
 }

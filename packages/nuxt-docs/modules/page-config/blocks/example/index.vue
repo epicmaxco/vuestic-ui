@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { DefineComponent, PropType, ref } from 'vue';
+import { type CodeSandboxConfig } from '../../../../composables/code-sandbox';
 import { CodeView } from "../shared/code";
 import ExampleFooter from './example-footer.vue';
 
@@ -15,13 +16,17 @@ const props = defineProps({
   path: {
     type: String as PropType<string>,
     required: true,
-  }
+  },
+  hideCode: { type: Boolean, default: false, },
+  hideTemplate: { type: Boolean, default: false, },
+  forceShowCode: { type: Boolean, default: false },
+  codesandboxConfig: { type: Object as PropType<CodeSandboxConfig>, default: {} },
 });
 
 const source = props.source
 const showCode = ref(false)
 
-function parseTemplate (target: string, template: string) {
+function parseTemplate(target: string, template: string) {
   const string = `(<${target}(.*)?>[\\w\\W]*<\\/${target}>)`
   const regex = new RegExp(string, 'g')
   const parsed = regex.exec(template) || []
@@ -45,28 +50,12 @@ const gitLink = computed(
         <component :is="component" />
       </va-card-content>
     </va-card>
-    <ExampleFooter
-      :code="source"
-      :gitLink="gitLink"
-      v-model:show-code="showCode"
-    />
+    <ExampleFooter :code="source" :gitLink="gitLink" v-model:show-code="showCode" :hide-show-code-button="forceShowCode || hideCode" />
 
-    <div v-if="showCode">
-      <CodeView
-        v-if="template"
-        language="markup"
-        :code="template"
-      />
-      <CodeView
-        v-if="script"
-        :code="script"
-        language="javascript"
-      />
-      <CodeView
-        v-if="style"
-        :code="style"
-        language="css"
-      />
+    <div v-if="(showCode && !hideCode) || forceShowCode">
+      <CodeView v-if="template && !hideTemplate" language="markup" :code="template" />
+      <CodeView v-if="script" :code="script" language="javascript" />
+      <CodeView v-if="style" :code="style" language="css" />
     </div>
   </div>
 </template>
