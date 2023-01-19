@@ -6,7 +6,7 @@ const setup = (component: DefineComponent) => {
   const asyncComponent = markRaw(component)
 
   return {
-    type: 'component',
+    type: 'component' as const,
     component: asyncComponent
   }
 }

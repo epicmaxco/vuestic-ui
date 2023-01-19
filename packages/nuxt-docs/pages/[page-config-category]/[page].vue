@@ -6,8 +6,20 @@
 
 <script lang="ts" setup>
 const route = useRoute();
+const { locale } = useI18n()
 
-const config = usePageConfig(route.path.slice(1));
+const pageConfigName = computed(() => {
+  const path = route.path
+  const localePrefix = `/${locale.value}/`
+
+  if (path.startsWith(localePrefix)) {
+    return path.replace(localePrefix, '')
+  }
+
+  return path
+})
+
+const config = usePageConfig(pageConfigName);
 
 useHead({
   title: config.value?.meta.title,

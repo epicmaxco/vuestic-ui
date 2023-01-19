@@ -4,7 +4,7 @@ import Component from './index.vue'
 export default definePageConfigBlock({
   setup: (text: string) => {
     return {
-      type: 'title',
+      type: 'title' as const,
       text
     }
   },

@@ -12,7 +12,7 @@ type Options = Partial<{
 
 const setup = (component: DefineComponent, source: string, path: string, options: Options) => {
   return {
-    type: 'example',
+    type: 'example' as const,
     component: markRaw(component),
     source,
     path,

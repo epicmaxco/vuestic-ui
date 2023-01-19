@@ -20,7 +20,7 @@ export default definePageConfig({
     block.subtitle('installation.manual.title'),
     block.paragraph('installation.manual.subtitle'),
     block.paragraph('installation.manual.prerequisites'),
-    // block.list(['installation.manual.node', 'installation.manual.npm']),
+    block.list(['installation.manual.node', 'installation.manual.npm']),
     block.paragraph('installation.manual.afterCheck'),
     block.code({
       npm: 'npm install vuestic-ui',

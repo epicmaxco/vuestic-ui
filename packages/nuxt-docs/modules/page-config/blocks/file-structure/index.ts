@@ -6,7 +6,7 @@ export type File = { name: string, description?: string, icon?: string, children
 export default definePageConfigBlock({
   setup (files: File[]) {
     return {
-      type: 'file-structure',
+      type: 'file-structure' as const,
       files,
     }
   },

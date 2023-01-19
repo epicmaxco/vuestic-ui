@@ -5,7 +5,7 @@ import { type ManualApiOptions } from './types';
 
 const setup = (componentName: string, component: DefineComponent, manual?: ManualApiOptions) => {
   return {
-    type: 'code',
+    type: 'api' as const,
     componentName,
     component,
     manual,

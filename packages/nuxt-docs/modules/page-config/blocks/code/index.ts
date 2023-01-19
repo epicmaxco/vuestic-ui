@@ -4,7 +4,7 @@ import Component from './index.vue'
 export default definePageConfigBlock({
   setup (name: string | Record<string, string>, language?: string) {
     return {
-      type: 'code',
+      type: 'code' as const,
       content: name,
       language,
     }

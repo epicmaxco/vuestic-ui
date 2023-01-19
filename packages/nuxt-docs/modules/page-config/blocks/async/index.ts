@@ -1,11 +1,12 @@
+import { BaseBlock } from './../../runtime/index';
 import { definePageConfigBlock } from '../../types'
 import Component from './index.vue'
 
 export default definePageConfigBlock({
-  setup: (text: string) => {
+  setup: (blocks: Promise<BaseBlock[]>) => {
     return {
-      type: 'markdown' as const,
-      text
+      type: 'async' as const,
+      blocks,
     }
   },
   component: Component,

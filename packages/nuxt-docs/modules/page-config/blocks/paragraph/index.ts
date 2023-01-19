@@ -4,7 +4,7 @@ import Component from './index.vue'
 export default definePageConfigBlock({
   setup: (text: string) => {
     return {
-      type: 'paragraph',
+      type: 'paragraph' as const,
       text
     }
   },

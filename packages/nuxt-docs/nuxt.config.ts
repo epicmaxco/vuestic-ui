@@ -19,6 +19,8 @@ export default defineNuxtConfig({
     },
 
     defaultLocale: 'en',
+
+    strategy: 'prefix_and_default',
   },
 
   vuestic: {

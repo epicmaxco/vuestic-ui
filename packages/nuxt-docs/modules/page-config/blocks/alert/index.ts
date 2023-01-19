@@ -4,7 +4,7 @@ import Component from './index.vue'
 export default definePageConfigBlock({
   setup: (text: string, color?: string) => {
     return {
-      type: 'alert',
+      type: 'alert' as const,
       text,
       color
     }

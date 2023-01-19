@@ -1,3 +1,4 @@
+import { type Ref, unref, watchEffect } from 'vue'
 import { type PageConfigOptions } from "../modules/page-config"
 
 type PageConfigJSModule = { default: PageConfigOptions }
@@ -8,24 +9,28 @@ const files = Object.entries(import.meta.glob<false, string, PageConfigJSModule>
     return acc
   }, {} as Record<string, () => Promise<PageConfigJSModule>>)
 
-console.log(files)
-
 export const usePageConfigs = () => {
   return files
 }
 
-export const usePageConfig = (name: string) => {
+export const usePageConfig = (name: string | Ref<string>) => {
   const config = ref<PageConfigOptions | null>(null)
 
-  if (!files[name]) {
-    console.log(`Page config ${name} not found`)
-    console.log(Object.keys(files))
-  }
+  watchEffect(() => {
+    const file = files[unref(name)]
 
-  files[name]().then((module) => {
-    config.value = module.default
+
+    if (!file) {
+      console.log(`Page config ${name} not found`)
+      console.log(Object.keys(files))
+      config.value = null
+      return
+    }
+
+    file().then((module) => {
+      config.value = module.default
+    })
   })
-
 
   return config
 }

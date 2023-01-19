@@ -7,7 +7,7 @@ export default definePageConfigBlock({
     afterText?: string,
   } = {}) => {
     return {
-      type: 'link',
+      type: 'link' as const,
       text,
       href,
       ...options,

@@ -4,7 +4,7 @@ import Component from './index.vue'
 export default definePageConfigBlock({
   setup: (text: string) => {
     return {
-      type: 'subtitle',
+      type: 'subtitle' as const,
       text
     }
   },

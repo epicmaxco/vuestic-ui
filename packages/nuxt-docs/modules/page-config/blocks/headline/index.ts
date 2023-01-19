@@ -4,7 +4,7 @@ import Component from './index.vue'
 export default definePageConfigBlock({
   setup: (text: string) => {
     return {
-      type: 'headline',
+      type: 'headline' as const,
       text
     }
   },

@@ -1,11 +1,11 @@
-import { PageConfigOptions, BlockWithCollapse } from './../../runtime/index';
+import { PageConfigOptions, BaseBlock } from './../../runtime/index';
 import { definePageConfigBlock } from '../../types'
 import Component from './index.vue'
 
 export default definePageConfigBlock({
-  setup (header: string, blocks: BlockWithCollapse[]) {
+  setup (header: string, blocks: BaseBlock[]) {
     return {
-      type: 'collapse',
+      type: 'collapse' as const,
       header,
       blocks
     }
