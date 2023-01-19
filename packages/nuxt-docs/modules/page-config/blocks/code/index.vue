@@ -3,7 +3,7 @@ import { CodeView } from '../shared/code';
 
 const props = defineProps({
   content: {
-    type: String,
+    type: [String, Object],
   },
   language: {
     type: String,

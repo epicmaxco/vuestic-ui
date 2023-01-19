@@ -10,6 +10,7 @@ import api from '../blocks/api'
 import collapse from '../blocks/collapse'
 import alert from '../blocks/alert'
 import component from '../blocks/component'
+import headline from '../blocks/headline'
 
 // Need to define type in collapse without recursion
 const blocksWithoutCollapse = {
@@ -23,6 +24,7 @@ const blocksWithoutCollapse = {
   markdown,
   api,
   component,
+  headline,
 }
 
 export type BlockWithCollapse = ReturnType<(typeof blocksWithoutCollapse)[keyof typeof blocksWithoutCollapse]>

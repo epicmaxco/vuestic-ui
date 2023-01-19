@@ -17,7 +17,6 @@ export default definePageConfig({
     block.paragraph('installation.cli.codeAnnotation'),
     block.code('vue add vuestic-ui', 'bash'),
 
-
     block.subtitle('installation.manual.title'),
     block.paragraph('installation.manual.subtitle'),
     block.paragraph('installation.manual.prerequisites'),
@@ -28,26 +27,26 @@ export default definePageConfig({
       yarn: 'yarn add vuestic-ui',
     }, 'bash'),
 
-    // block.headline('installation.fonts.title'),
+    block.headline('installation.fonts.title'),
     block.paragraph('installation.fonts.description'),
     block.paragraph('installation.fonts.htmlExampleTitle'),
     block.code('font-installation.html', 'html'),
     block.paragraph('installation.fonts.cssExampleTitle'),
     block.code('font-installation.css', 'css'),
 
-    // block.headline('installation.quickStart.title'),
+    block.headline('installation.quickStart.title'),
     block.paragraph('installation.quickStart.description'),
     block.code('quick-start.ts'),
 
-    // block.headline('installation.migrationGuide.title'),
+    block.headline('installation.migrationGuide.title'),
     block.collapse('1.4 -> 1.5', [
       block.subtitle('installation.migrationGuide.1_5.components'),
-      // block.headline('VaButton'),
+      block.headline('VaButton'),
       block.paragraph('installation.migrationGuide.1_5.button'),
-      // block.headline('VaCheckbox'),
+      block.headline('VaCheckbox'),
       block.paragraph('installation.migrationGuide.1_5.checkbox'),
       block.subtitle('installation.migrationGuide.1_5.services'),
-      // block.headline('installation.migrationGuide.1_5.colors'),
+      block.headline('installation.migrationGuide.1_5.colors'),
       block.alert('installation.migrationGuide.1_5.colors_0', 'info'),
       block.paragraph('installation.migrationGuide.1_5.colors_1'),
       block.paragraph('installation.migrationGuide.1_5.colors_2'),
