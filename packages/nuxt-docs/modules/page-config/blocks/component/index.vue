@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { CodeView } from '../shared/code';
+import { DefineComponent, PropType } from 'vue';
 
 const props = defineProps({
-  content: {
-    type: String,
+  component: {
+    type: Object as PropType<DefineComponent>,
+    required: true,
   },
-  language: {
-    type: String,
+  bind: {
+    type: Object as PropType<Record<string, unknown>>,
+    required: true,
   },
 })
 </script>
 
 <template>
-  <CodeView :code="content" :language="language" />
+  <component :is="component" v-bind="bind" />
 </template>

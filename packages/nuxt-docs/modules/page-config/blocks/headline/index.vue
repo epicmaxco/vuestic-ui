@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { MarkdownView } from '../shared/markdown'
+
 const props = defineProps({
   text: {
     type: String,
@@ -10,7 +12,5 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <h3>
-    {{ t(text) }}
-  </h3>
+  <MarkdownView :content="`#### ${t(text)}`" />
 </template>

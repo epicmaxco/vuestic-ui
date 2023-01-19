@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Anchor } from '../shared/anchor'
+import { MarkdownView } from '../shared/markdown'
 
 const props = defineProps({
   text: {

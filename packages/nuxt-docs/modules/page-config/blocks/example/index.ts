@@ -21,6 +21,6 @@ const setup = (component: DefineComponent, source: string, path: string, options
 }
 
 export default definePageConfigBlock({
-  setup: setup as unknown as (name: string, options: Options) => ReturnType<typeof setup>,
+  setup: setup as unknown as (name: string, options?: Options) => ReturnType<typeof setup>,
   component: Component,
 })

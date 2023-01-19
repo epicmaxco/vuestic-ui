@@ -44,10 +44,10 @@ export type GlobalBlock = typeof block
 export type Block = ReturnType<GlobalBlock[keyof typeof block]>
 
 export type PageConfigOptions = {
-  meta: {
-    title: string;
+  meta?: {
+    title?: string;
     // TODO: Add more
-    category: 'component' | 'introduction' | 'services' | 'getting-started'
+    category?: 'component' | 'introduction' | 'services' | 'getting-started'
     badge?: string
     visibility?: boolean
   },
