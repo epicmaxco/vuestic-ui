@@ -30,16 +30,6 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from 'vue-class-component'
-
-@Options({
-  name: 'HeaderBanner',
-})
-export default class HeaderBanner extends Vue {
-}
-</script>
-
 <style lang="scss" scoped>
 @import "../assets/main";
 
