@@ -47,6 +47,10 @@ export default class HeaderBanner extends Vue {
   @include wrapper();
 }
 
+.header-banner--docs .header__wrapper {
+  max-width: 100%;
+}
+
 .header-banner {
   min-height: 40px;
   padding: 7px 0;
