@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Anchor } from '../shared/anchor'
+
 const props = defineProps({
   text: {
     type: String,
@@ -12,5 +14,6 @@ const { t } = useI18n()
 <template>
   <h3>
     {{ t(text) }}
+    <Anchor :text="text"/>
   </h3>
 </template>
