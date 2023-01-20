@@ -18,7 +18,7 @@
     "acorn-walk": "^8.2.0",
     "autoprefixer": "^10.4.13",
     "escodegen": "^2.0.0",
-    "nuxt": "3.0.0",
+    "nuxt": "^3.0.0",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.4",
     "vitest": "^0.18.1"
