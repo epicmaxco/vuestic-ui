@@ -4,6 +4,7 @@ import title from '../blocks/title'
 import paragraph from '../blocks/paragraph'
 import subtitle from '../blocks/subtitle'
 import file from '../blocks/file'
+import fileStructure from '../blocks/file-structure'
 import code from '../blocks/code'
 import markdown from '../blocks/markdown'
 import api from '../blocks/api'
@@ -23,6 +24,7 @@ const blocksWithoutCollapse = {
   paragraph,
   subtitle,
   file,
+  fileStructure,
   code,
   markdown,
   api,
