@@ -1,4 +1,4 @@
-import v from './code/vvvv'
+import vitesse from './code/vitesse'
 
 export default definePageConfig({
   meta: {
@@ -24,6 +24,6 @@ export default definePageConfig({
     block.code('vite-ssr-plugin'),
     block.headline('ssrGuide.solutions.vitesse.title'),
     block.paragraph('ssrGuide.solutions.vitesse.description'),
-    block.code(v),
+    block.code(vitesse),
   ]
 })

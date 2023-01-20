@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, PropType, computed } from 'vue'
+import { PropType, computed } from 'vue'
 import { TeamItem } from '../types'
 
 const props = defineProps({

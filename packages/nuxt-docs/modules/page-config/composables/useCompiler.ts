@@ -9,7 +9,7 @@ export const useCompiler = (options: any) => {
   const filter = createFilter(options.include, options.exclude)
 
   extendViteConfig((config) => {
-    config.optimizeDeps?.exclude?.push('@/page-config/**/code/*')
+    config.optimizeDeps?.exclude?.push('@/page-config/*/code/')
   })
 
   addVitePlugin({

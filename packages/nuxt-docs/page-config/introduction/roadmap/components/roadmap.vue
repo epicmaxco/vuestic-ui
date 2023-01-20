@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, PropType, computed } from 'vue'
+import { PropType, computed } from 'vue'
 import { RoadmapItem } from '../types'
 import images from '../images'
 

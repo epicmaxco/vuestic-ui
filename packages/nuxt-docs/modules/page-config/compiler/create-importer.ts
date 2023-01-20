@@ -33,7 +33,7 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
   }
 
   const fixFileNameImport = (path: string) => {
-    return path.replace(/-|\./g, '_')
+    return path.replace(/-|\.|\//g, '_')
   }
 
   const resolveWithoutExtension = (path: string) => {
