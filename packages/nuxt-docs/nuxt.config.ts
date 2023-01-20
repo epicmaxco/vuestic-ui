@@ -20,7 +20,7 @@ export default defineNuxtConfig({
 
     defaultLocale: 'en',
 
-    strategy: 'prefix_and_default',
+    // strategy: 'prefix_and_default',
   },
 
   vuestic: {
@@ -35,4 +35,10 @@ export default defineNuxtConfig({
   },
 
   ssr: false,
+
+  vite: {
+    build: {
+      minify: false,
+    }
+  }
 });

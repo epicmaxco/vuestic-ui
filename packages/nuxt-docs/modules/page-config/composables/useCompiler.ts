@@ -1,4 +1,4 @@
-import { addVitePlugin,  } from '@nuxt/kit';
+import { addVitePlugin, extendViteConfig } from '@nuxt/kit';
 import { createFilter } from '@rollup/pluginutils'
 import { createImporter } from '../compiler/create-importer'
 import { parseCode } from '../compiler/parse'
@@ -8,8 +8,14 @@ import { transform } from '../compiler/transform'
 export const useCompiler = (options: any) => {
   const filter = createFilter(options.include, options.exclude)
 
+  extendViteConfig((config) => {
+    config.optimizeDeps?.exclude?.push('@/page-config/**/code/*')
+  })
+
   addVitePlugin({
     name: 'vuestic:page-config:compiler',
+
+    enforce: 'post',
 
     async transform(code, id) {
       if (!filter(id)) { return }
@@ -74,6 +80,8 @@ export const useCompiler = (options: any) => {
           code = block.replaceArgCode(0, `'${importName}', ${importComponent}`)
         }
       }
+
+      // console.log(importer.imports + code)
 
       return importer.imports + code
     },

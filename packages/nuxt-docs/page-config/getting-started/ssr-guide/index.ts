@@ -1,3 +1,5 @@
+import v from './code/vvvv'
+
 export default definePageConfig({
   meta: {
     title: 'SSR guide',
@@ -22,6 +24,6 @@ export default definePageConfig({
     block.code('vite-ssr-plugin'),
     block.headline('ssrGuide.solutions.vitesse.title'),
     block.paragraph('ssrGuide.solutions.vitesse.description'),
-    block.code('vitesse'),
+    block.code(v),
   ]
 })

@@ -1,12 +1,8 @@
 <template>
   <div class="d-flex team-banner flex-wrap">
-    <landing-epicmax-banner />
+    <LandingEpicmaxBanner />
   </div>
 </template>
-
-<script setup lang="ts">
-import LandingEpicmaxBanner from '@/components/landing/LandingEpicmaxBanner.vue'
-</script>
 
 <style lang="scss">
 $gap: 1rem;

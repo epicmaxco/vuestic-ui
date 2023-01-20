@@ -17,38 +17,43 @@ export type ParsedBlock = {
 type AcornNode<T> = Node & T
 
 export const parseCode = (code: string) => {
-  const parser = new Parser({ ecmaVersion: 2020, sourceType: 'module' }, code)
+  try {
+    const parser = new Parser({ ecmaVersion: 2020, sourceType: 'module' }, code)
 
-  const blocks: ParsedBlock[] = []
+    const blocks: ParsedBlock[] = []
 
-  simple(parser.parse(), {
-    Property(node: AcornNode<any>) {
-      if (!('name' in node.key && node.key.name === 'blocks')) { return }
+    simple(parser.parse(), {
+      Property(node: AcornNode<any>) {
+        if (!('name' in node.key && node.key.name === 'blocks')) { return }
 
-      if (!('elements' in node.value)) { return }
+        if (!('elements' in node.value)) { return }
 
-      node.value?.elements?.forEach((element: any) => {
-        // TODO: This is not ideal, we should use acorn-walk to find the code always
-        const blockCode = code.slice(element.start, element.end)
+        node.value?.elements?.forEach((element: any) => {
+          // TODO: This is not ideal, we should use acorn-walk to find the code always
+          const blockCode = code.slice(element.start, element.end)
 
-        blocks.push({
-          code: blockCode,
-          type: element.callee?.property?.name,
-          args: element.arguments?.map((arg: any) => code.slice(arg.start, arg.end)),
-          argNodes: element.arguments,
-          replaceArgCode: (index: number, value: string) => {
-            const argStartInSlice = element.arguments[index].start - element.start
-            const argEndInSlice = element.arguments[index].end - element.start
+          blocks.push({
+            code: blockCode,
+            type: element.callee?.property?.name,
+            args: element.arguments?.map((arg: any) => code.slice(arg.start, arg.end)),
+            argNodes: element.arguments,
+            replaceArgCode: (index: number, value: string) => {
+              const argStartInSlice = element.arguments[index].start - element.start
+              const argEndInSlice = element.arguments[index].end - element.start
 
-            const newBlockCode = blockCode.slice(0, argStartInSlice) + value + blockCode.slice(argEndInSlice)
-            const newCode = code.replace(blockCode, newBlockCode)
-            code = newCode
-            return newCode
-          }
+              const newBlockCode = blockCode.slice(0, argStartInSlice) + value + blockCode.slice(argEndInSlice)
+              const newCode = code.replace(blockCode, newBlockCode)
+              code = newCode
+              return newCode
+            }
+          })
         })
-      })
-    }
-  })
+      }
+    })
 
-  return blocks
+    return blocks
+  } catch (e) {
+    console.error(code)
+    throw e
+  }
 }

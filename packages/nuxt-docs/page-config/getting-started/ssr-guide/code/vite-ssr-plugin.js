@@ -12,10 +12,10 @@ export async function render(pageContext) {
     <html>
       <head>
         <title>Vuestic App</title>
-        <style>\${cssVariables}</style>
+        <style>${cssVariables}</style>
       </head>
       <body>
-        <div id="app">\${dangerouslySkipEscape(appHtml)}</div>
+        <div id="app">${dangerouslySkipEscape(appHtml)}</div>
       </body>
     </html>`
 }

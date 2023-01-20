@@ -22,6 +22,12 @@ let IMPORT_STATIC_ID = 0
 export const createImporter = (ctx: TransformPluginContext, caller: string) => {
   const imports: string[] = []
 
+  const loadRawOrImport = (id: string) => {
+    if (id.split('?')[1] === 'raw') {
+      return `export default `
+    }
+  }
+
   const resolveWithAlias = (path: string) => {
     return ctx.resolve(resolveWithoutExtension(resolveAlias(path)))
   }

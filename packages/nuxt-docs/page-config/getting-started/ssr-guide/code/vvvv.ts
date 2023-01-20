@@ -1,4 +1,4 @@
-// ...
+export default `
 import { createVuestic } from 'vuestic-ui'
 import { ref } from 'vue'
 import 'vuestic-ui/css'
@@ -21,4 +21,4 @@ export const createApp = ViteSSG(
     }))
   },
 )
-
+`

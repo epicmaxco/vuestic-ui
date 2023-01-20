@@ -5,6 +5,10 @@
 </template>
 
 <script lang="ts" setup>
+definePageMeta({
+  layout: 'default',
+})
+
 const route = useRoute();
 const { locale } = useI18n()
 
@@ -21,7 +25,12 @@ const pageConfigName = computed(() => {
 
 const config = usePageConfig(pageConfigName);
 
-useHead({
-  title: config.value?.meta.title,
-});
+
+// watchEffect(() => {
+//   if (!config.value?.meta?.title) { return }
+
+//   useHead({
+//     title: config.value?.meta?.title,
+//   });
+// })
 </script>
