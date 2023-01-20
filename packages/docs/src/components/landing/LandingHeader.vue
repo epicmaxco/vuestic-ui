@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <header-banner></header-banner>
+    <header-banner />
     <div class="header__wrapper">
       <div class="header__inner">
         <div class="header__logo">
@@ -118,10 +118,10 @@ import { useI18n } from 'vue-i18n'
 import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import LandingStarsButton from './LandingStarsButton.vue'
+import HeaderBanner from '../HeaderBanner.vue'
 // import LandingThemeSwitchButton from '../ThemeSwitch.vue'
 
 import { useSharedLanguageSwitcher } from '../../locales/hooks/useLanguageSwitcher'
-import HeaderBanner from '@/components/HeaderBanner.vue'
 
 export default defineComponent({
   name: 'LandingHeader',
