@@ -25,6 +25,7 @@ export default defineNuxtModule<VuesticOptions>({
     nuxt.options.alias['vuestic-ui/src'] = resolve(__dirname, '../../ui/src/');
     nuxt.options.alias['vuestic-ui/styles'] = resolve(__dirname, '../../ui/src/styles/');;
     nuxt.options.alias['vuestic-ui/css'] =  resolve(__dirname, '../../ui/src/styles/index.scss');
+    nuxt.options.alias['vuestic-ui/dist/styles/index.css'] =  resolve(__dirname, '../../ui/src/styles/index.scss');
     nuxt.options.alias['vuestic-ui/package.json'] = resolve(__dirname, '../../ui/package.json');
     nuxt.options.alias['vuestic-ui'] = resolve(__dirname, '../../ui/src/main.ts');
 

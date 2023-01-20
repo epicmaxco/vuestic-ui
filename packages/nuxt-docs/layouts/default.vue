@@ -44,6 +44,7 @@ onMounted(scrollToElement)
 
   html {
     font-family: var(--va-font-family);
+    color: var(--va-text-primary)
   }
 
   .docs-layout {

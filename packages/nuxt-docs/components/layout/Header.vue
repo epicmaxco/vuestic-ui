@@ -6,7 +6,7 @@
         :minimized="isSidebarVisible"
         @toggleSidebar="toggleSidebar"
       />
-      <router-link :to="landing.to" custom v-slot="{ navigate, href }">
+      <NuxtLink :to="landing.to" custom v-slot="{ navigate, href }">
         <a
           :href="href"
           :aria-label="landing.text"
@@ -21,7 +21,7 @@
             @click="navigate"
           />
         </a>
-      </router-link>
+      </NuxtLink>
       <algolia-search class="header__searchbar" />
     </template>
     <template #right>
@@ -59,7 +59,7 @@ const { locale, t } = useI18n()
 
 const landing = computed(() => ({
   text: t('menu.home'),
-  to: `/${locale}`,
+  to: `/${locale.value}`,
 }))
 
 const links = computed(() => [

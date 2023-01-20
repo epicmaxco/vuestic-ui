@@ -9,6 +9,7 @@
  * @notice this exports used in `vuestic-ui` package. Make sure add component to vuestic-plugin as well.
  */
 
+export * from './va-fallback'
 export * from './va-accordion'
 export * from './va-affix'
 export * from './va-alert'
@@ -38,7 +39,6 @@ export * from './va-date-input'
 export * from './va-date-picker'
 export * from './va-divider'
 export * from './va-dropdown'
-export * from './va-fallback'
 export * from './va-file-upload'
 export * from './va-form'
 export * from './va-hover'
