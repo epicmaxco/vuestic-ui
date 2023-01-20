@@ -21,7 +21,7 @@
             }"
           >
             {{ t(route.displayName) }}
-            <va-icon :name="value ? 'va-expand-less' : 'va-expand-more'" />
+            <va-icon :name="value ? 'va-arrow-up' : 'va-arrow-down'" />
           </va-sidebar-item>
         </template>
         <div

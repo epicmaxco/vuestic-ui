@@ -23,10 +23,6 @@ export default defineNuxtConfig({
     strategy: 'prefix_and_default',
   },
 
-  vuestic: {
-    config: VuesticConfig,
-  },
-
   postcss: {
     plugins: {
       tailwindcss: {},
