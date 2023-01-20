@@ -52,11 +52,11 @@ import { VaAspectRatio } from '../va-aspect-ratio'
 
 import {
   useNativeImgAttributes, useNativeImgAttributesProps,
-  validateProp,
+  validateImgProp,
 } from './hooks/useNativeImgAttributes'
 import { useComponentPresetProp, useDeprecated } from '../../composables'
 
-const fitOptions = ['contain', 'fill', 'cover', 'scale-down', 'none'] as const
+const FIT_OPTIONS = ['contain', 'fill', 'cover', 'scale-down', 'none'] as const
 
 export default defineComponent({
   name: 'VaImage',
@@ -80,9 +80,9 @@ export default defineComponent({
       },
     },
     fit: {
-      type: String as PropType<typeof fitOptions[number]>,
+      type: String as PropType<typeof FIT_OPTIONS[number]>,
       default: 'cover',
-      validator: (v: string) => validateProp(v, fitOptions),
+      validator: (v: string) => validateImgProp(v, FIT_OPTIONS),
     },
     // TODO: delete in 1.7.0
     contain: { type: Boolean, default: false },
