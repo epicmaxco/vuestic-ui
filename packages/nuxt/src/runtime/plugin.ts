@@ -5,7 +5,7 @@ import {
   VaModalPlugin,
   BreakpointConfigPlugin,
 } from 'vuestic-ui'
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 
 import type { VuesticOptions } from '../types'
 import { defineNuxtPlugin } from '#app'
@@ -42,18 +42,19 @@ export default defineNuxtPlugin((nuxtApp) => {
   const head = getGlobalProperty(app, '$head')
 
   if (head) {
-    const colorConfig = getGlobalProperty(app, '$vaColorConfig')
+    watchEffect(() => {
+      const colorConfig = getGlobalProperty(app, '$vaColorConfig')
 
-    if (colorConfig) {
-      // TODO: Remove. This is a temporary fix for the issue with vuestic-ui.
-      const renderCSSVariables = colorConfig.renderCSSVariables || colorConfig.renderCSSVarialbes
+      if (colorConfig) {
+        const renderCSSVariables = colorConfig.renderCSSVariables
 
-      // Add reactive CSS variables to head so they are taken from colorConfig
-      head.addHeadObjs(ref({
-        htmlAttrs: {
-          style: renderCSSVariables()
-        }
-      }))
-    }
+        // Add reactive CSS variables to head so they are taken from colorConfig
+        head.addHeadObjs(ref({
+          htmlAttrs: {
+            style: renderCSSVariables()
+          }
+        }))
+      }
+    })
   }
 })

@@ -34,6 +34,7 @@ export {
   VaDivider,
   VaDropdown,
   VaDropdownContent,
+  VaFallback,
   VaFileUpload,
   VaForm,
   VaHover,
