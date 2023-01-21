@@ -44,8 +44,8 @@ const gitLink = computed(
 </script>
 
 <template>
-  <div class="mb-3">
-    <va-card outlined class="docs-example-card" color="background-primary">
+  <div class="page-config-example mb-3">
+    <va-card outlined class="page-config-example__card" color="background-primary">
       <va-card-content>
         <component :is="component" />
       </va-card-content>
@@ -59,3 +59,12 @@ const gitLink = computed(
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+  .page-config-example {
+    &__card {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+</style>

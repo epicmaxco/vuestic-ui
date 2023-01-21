@@ -1,4 +1,4 @@
-import type { GlobalBlock, DefinePageConfig } from './runtime'
+import type { GlobalBlock, DefinePageConfig, DefineManualApi } from './runtime'
 
 import { markRaw } from 'vue'
 

@@ -9,7 +9,9 @@ export const useCompiler = (options: any) => {
   const filter = createFilter(options.include, options.exclude)
 
   extendViteConfig((config) => {
-    config.optimizeDeps?.exclude?.push('@/page-config/*/code/')
+    // TODO: Find better solution
+    // Do not mark code in this modules as asset
+    config.assetsInclude = /(?<!modules)\/page-config\/.*\/code\/.*/
   })
 
   addVitePlugin({
@@ -25,6 +27,7 @@ export const useCompiler = (options: any) => {
       const runtimePath = resolve(__dirname, '../runtime/index.ts')
       importer.importNamed('block', (await this.resolve(runtimePath))!.id)
       importer.importNamed('definePageConfig', (await this.resolve(runtimePath))!.id)
+      importer.importNamed('defineManualApi', (await this.resolve(runtimePath))!.id)
 
       code = await transform(code, importer)
 

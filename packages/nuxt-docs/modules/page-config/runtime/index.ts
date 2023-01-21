@@ -15,6 +15,7 @@ import component from '../blocks/component'
 import headline from '../blocks/headline'
 import link from '../blocks/link'
 import list from '../blocks/list'
+import { type ManualApiOptions } from '../blocks/api/types'
 
 // Need to define type in collapse without recursion
 const blocksWithoutCollapse = {
@@ -56,6 +57,9 @@ export type PageConfigOptions = {
 
   blocks: Block[]
 }
+
+export const defineManualApi = (options: ManualApiOptions) => options
+export type DefineManualApi = typeof defineManualApi
 
 export const definePageConfig = (options: PageConfigOptions) => options
 

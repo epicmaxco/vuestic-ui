@@ -45,8 +45,7 @@
 
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
-import CodeInput from '../../../../components/demo/CodeInput.vue'
-import MarkdownView from '../../../../components/markdown-view/MarkdownView.vue'
+import CodeInput from './CodeInput.vue'
 import { getArgs, parseConfig } from './playground-utils'
 import { useCopyToClipboard } from './use-copy-to-clipboard'
 import { useExampleSelect } from './use-example-select'
