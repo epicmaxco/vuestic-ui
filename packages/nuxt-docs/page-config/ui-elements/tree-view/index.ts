@@ -43,7 +43,7 @@ export default definePageConfig({
 
   // API
   block.subtitle('api'),
-  block.api(VaTreeView, VaTreeViewOptions),
+  block.api('VaTreeView', VaTreeViewOptions),
   block.collapse('TreeNode type', [block.code(treeNodeType)]),
 ]
 })

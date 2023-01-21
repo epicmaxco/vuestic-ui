@@ -26,12 +26,12 @@ export default definePageConfig({
 
     block.subtitle('nuxt.options.title'),
     block.table(
-    //   [{ title: 'options', type: 'strong' }, { title: 'description', type: 'markdown' }, { title: 'type', type: 'code' }, { title: 'default', type: 'code' }],
-    //   [
-    //     ['config', 'nuxt.options.option.config', 'Object', '{}'],
-    //     ['css', 'nuxt.options.option.css', "Array<'typography' | 'grid' | 'reset'> | boolean", 'true'],
-    //     ['fonts', 'nuxt.options.option.fonts', 'boolean', 'true'],
-    //   ],
-    // ),
+      [{ title: 'options', type: 'strong' }, { title: 'description', type: 'markdown' }, { title: 'type', type: 'code' }, { title: 'default', type: 'code' }],
+      [
+        ['config', 'nuxt.options.option.config', 'Object', '{}'],
+        ['css', 'nuxt.options.option.css', "Array<'typography' | 'grid' | 'reset'> | boolean", 'true'],
+        ['fonts', 'nuxt.options.option.fonts', 'boolean', 'true'],
+      ],
+    ),
   ]
 })

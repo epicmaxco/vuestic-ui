@@ -115,13 +115,13 @@ export default definePageConfig({
       'documentationPage.blocktypes.list.listExample2',
     ]),
     block.paragraph('documentationPage.blocktypes.list.inCode'),
-    block.code(codeForListBlock),
+    block.code('list'),
 
     block.headline('documentationPage.blocktypes.code.title'),
     block.paragraph('documentationPage.blocktypes.code.text'),
-    block.code(`block.code(${codeForCodeblock})`),
+    block.code('block'),
     block.paragraph('documentationPage.compilesTo'),
-    block.code(codeForCodeblock.slice(1, -1)),
+    block.code('<div>Code string</div>'),
 
     block.headline('documentationPage.blocktypes.example.title'),
     block.paragraph('documentationPage.blocktypes.example.text'),
@@ -144,14 +144,14 @@ export default definePageConfig({
 
     block.headline('documentationPage.blocktypes.table.title'),
     block.paragraph('documentationPage.blocktypes.table.text'),
-    block.code(tableDataBlock),
+    block.code('tabledata'),
     block.code('block.table(columns, tableData)'),
     block.paragraph('documentationPage.compilesTo'),
     block.table(columns, tableData),
 
     block.headline('documentationPage.blocktypes.link.title'),
     block.paragraph('documentationPage.blocktypes.link.text'),
-    block.code(linkOptionsBlock),
+    block.code('options'),
     block.code(
       'block.link(\'translation.path\', \'/contribution/documentation-page#introduction\', options)',
     ),

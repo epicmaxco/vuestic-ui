@@ -38,27 +38,27 @@ export default definePageConfig({
   block.subtitle('all.api'),
 
   block.paragraph('list.api.list.text'),
-  block.api(VaList, listApiOptions),
+  block.api('VaList', listApiOptions),
 
   block.subtitle('list.api.listLabel.title'),
   block.paragraph('list.api.listLabel.text'),
-  block.api(VaListLabel, listLabelApiOptions),
+  block.api('VaListLabel', listLabelApiOptions),
 
   block.subtitle('list.api.listSeparator.title'),
   block.paragraph('list.api.listSeparator.text'),
-  block.api(VaListSeparator, listSeparatorApiOptions),
+  block.api('VaListSeparator', listSeparatorApiOptions),
 
   block.subtitle('list.api.listItem.title'),
   block.paragraph('list.api.listItem.text'),
-  block.api(VaListItem, listItemApiOptions),
+  block.api('VaListItem', listItemApiOptions),
 
   block.subtitle('list.api.listItemLabel.title'),
   block.paragraph('list.api.listItemLabel.text'),
-  block.api(VaListItemLabel, listItemLabelApiOptions),
+  block.api('VaListItemLabel', listItemLabelApiOptions),
 
   block.subtitle('list.api.listItemSection.title'),
   block.paragraph('list.api.listItemSection.text'),
-  block.api(VaListItemSection, listItemSectionApiOptions),
+  block.api('VaListItemSection', listItemSectionApiOptions),
 
   block.subtitle('all.cssVariables'),
   block.file('vuestic-ui/src/components/va-list/_variables.scss'),
