@@ -37,6 +37,6 @@ export default definePageConfig({
 
     // api
     block.subtitle('all.api'),
-    // block.table(columns, tableData),
+    block.table(columns, tableData),
   ]
 })

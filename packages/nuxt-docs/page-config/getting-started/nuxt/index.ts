@@ -25,7 +25,7 @@ export default definePageConfig({
     block.code('nuxt-config-css'),
 
     block.subtitle('nuxt.options.title'),
-    // block.table(
+    block.table(
     //   [{ title: 'options', type: 'strong' }, { title: 'description', type: 'markdown' }, { title: 'type', type: 'code' }, { title: 'default', type: 'code' }],
     //   [
     //     ['config', 'nuxt.options.option.config', 'Object', '{}'],

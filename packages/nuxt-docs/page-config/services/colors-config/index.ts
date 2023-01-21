@@ -81,15 +81,15 @@ export default definePageConfig({
     block.subtitle('colorsConfig.api.title'),
 
     block.headline('colorsConfig.api.types'),
-    // block.table(columnsApiTypes, tableDataApiTypes),
+    block.table(columnsApiTypes, tableDataApiTypes),
 
     block.headline('colorsConfig.api.methods'),
-    // block.table(columnsApiMethods, tableDataApiMethods),
+    block.table(columnsApiMethods, tableDataApiMethods),
 
     block.headline('colorsConfig.api.hookMethods'),
-    // block.table(columnsApiMethods, tableDataApiHookMethods),
+    block.table(columnsApiMethods, tableDataApiHookMethods),
 
     block.headline('colorsConfig.api.hookVariables'),
-    // block.table(columnsApiHookVariables, tableDataApiHookVariables),
+    block.table(columnsApiHookVariables, tableDataApiHookVariables),
   ]
 })

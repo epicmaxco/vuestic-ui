@@ -22,10 +22,16 @@ const md = useMarkdownIt();
 // })
 
 const text = computed(() => {
+  try {
+    return md.render(props.content);
+  } catch (e) {
+    console.error(e, props.content)
+    return ''
+  }
   // if (props.config.inline) {
   //   return md.renderInline(props.config.content)
   // }
-  return md.render(props.content);
+
 });
 </script>
 

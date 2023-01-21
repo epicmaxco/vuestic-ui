@@ -39,7 +39,7 @@ export default definePageConfig({
     block.paragraph('breakpoints.helpers.about'),
     block.code('helpers'),
     block.paragraph('breakpoints.helpers.list.title'),
-    // block.table(columnsHelpersTypes, tableDataHelpersTypes),
+    block.table(columnsHelpersTypes, tableDataHelpersTypes),
 
     block.subtitle('breakpoints.class.title'),
     block.paragraph('breakpoints.class.about'),

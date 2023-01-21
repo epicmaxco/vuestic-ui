@@ -70,6 +70,6 @@ export default definePageConfig({
     // api
     block.subtitle('iconsConfig.api.title'),
     block.paragraph('iconsConfig.api.description'),
-    // block.table(columns, tableData),
+    block.table(columns, tableData),
   ]
 })

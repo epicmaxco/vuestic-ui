@@ -25,7 +25,7 @@ export default definePageConfig({
   blocks: [
     block.title('translation.title'),
     block.paragraph('translation.description'),
-    // block.table(columns, translationStatuses),
+    block.table(columns, translationStatuses),
 
     block.subtitle('translation.sync.title'),
     block.paragraph('translation.sync.description'),

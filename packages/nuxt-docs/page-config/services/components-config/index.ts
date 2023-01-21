@@ -57,6 +57,6 @@ export default definePageConfig({
     // api
     block.subtitle('componentsConfig.api.title'),
     block.headline('componentsConfig.api.types'),
-    // block.table(columns, tableData),
+    block.table(columns, tableData),
   ]
 })

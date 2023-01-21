@@ -147,7 +147,7 @@ export default definePageConfig({
     block.code(tableDataBlock),
     block.code('block.table(columns, tableData)'),
     block.paragraph('documentationPage.compilesTo'),
-    // block.table(columns, tableData),
+    block.table(columns, tableData),
 
     block.headline('documentationPage.blocktypes.link.title'),
     block.paragraph('documentationPage.blocktypes.link.text'),

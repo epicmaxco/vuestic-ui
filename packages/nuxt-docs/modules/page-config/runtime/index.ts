@@ -15,6 +15,7 @@ import component from '../blocks/component'
 import headline from '../blocks/headline'
 import link from '../blocks/link'
 import list from '../blocks/list'
+import table from '../blocks/table'
 import { type ManualApiOptions } from '../blocks/api/types'
 
 // Need to define type in collapse without recursion
@@ -33,6 +34,7 @@ const blocksWithoutCollapse = {
   headline,
   link,
   list,
+  table,
 }
 
 export type BaseBlock = ReturnType<(typeof blocksWithoutCollapse)[keyof typeof blocksWithoutCollapse]>

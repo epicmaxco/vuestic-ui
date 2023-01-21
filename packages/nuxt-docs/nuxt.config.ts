@@ -16,6 +16,8 @@ export default defineNuxtConfig({
 
     vueI18n: {
       messages,
+
+      fallbackRoot: false,
     },
 
     defaultLocale: 'en',
