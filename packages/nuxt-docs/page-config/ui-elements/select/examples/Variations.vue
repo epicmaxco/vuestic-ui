@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 300px;">
+  <div style="max-width: 300px">
     <va-select
       class="mb-6"
       label="Single select"
@@ -25,14 +25,24 @@
 
 <script>
 export default {
-  name: 'Variations',
-  data () {
+  name: "Variations",
+  data() {
     return {
-      options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
-      valueSingle: '',
-      valueMultiple: '',
-      valueMultipleMax: '',
-    }
+      options: [
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+      ],
+      valueSingle: "",
+      valueMultiple: "",
+      valueMultipleMax: "",
+    };
   },
-}
+};
 </script>

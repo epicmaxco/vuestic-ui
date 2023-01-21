@@ -11,9 +11,12 @@
         />
       </div>
 
-      <div class="col" style="width: 100%;">
+      <div class="col" style="width: 100%">
         <div class="va-code-snippet">
-          <span class="tag">va-icon name="<CodeInput class="code-input" v-model="iconName" />" /</span>
+          <span class="tag"
+            >va-icon name="<CodeInput class="code-input" v-model="iconName" />"
+            /</span
+          >
         </div>
       </div>
     </div>
@@ -21,21 +24,35 @@
     <div class="va-code-snippet">
       const fonts = [{
       <div class="ml-6">
-        <div>name: '<CodeInput class="code-input" v-model="configName" />',</div>
-        {{ resolveFnName }}: (<span class="params">{{ args }}</span>) => ({
-          <div class="ml-6 mb-1" v-for="key in Object.keys(resolve)" :key="key">
-            {{ key }}: <CodeInput v-model="(resolve as any)[key]" />,
-          </div>
+        <div>
+          name: '<CodeInput class="code-input" v-model="configName" />',
+        </div>
+        {{ resolveFnName }}: (<span class="params">{{ args }}</span
+        >) => ({
+        <div class="ml-6 mb-1" v-for="key in Object.keys(resolve)" :key="key">
+          {{ key }}: <CodeInput v-model="(resolve as any)[key]" />,
+        </div>
         })
       </div>
       }]
-      <va-button class="copy-button" preset="secondary" icon="content_copy" @click="copy" />
+      <va-button
+        class="copy-button"
+        preset="secondary"
+        icon="content_copy"
+        @click="copy"
+      />
     </div>
 
     <div class="demo-footer mt-2">
       <div class="d-flex align-center">
-        <div style="width: 64px;" class="va-code-snippet va-code-snippet--icon mr-2" v-html="renderHTML(iconName)" />
-        <div class="va-code-snippet" style="width: 100%;">{{ renderHTML(iconName) }}</div>
+        <div
+          style="width: 64px"
+          class="va-code-snippet va-code-snippet--icon mr-2"
+          v-html="renderHTML(iconName)"
+        />
+        <div class="va-code-snippet" style="width: 100%">
+          {{ renderHTML(iconName) }}
+        </div>
       </div>
     </div>
 
@@ -44,59 +61,64 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
-import CodeInput from './CodeInput.vue'
-import { getArgs, parseConfig } from './playground-utils'
-import { useCopyToClipboard } from './use-copy-to-clipboard'
-import { useExampleSelect } from './use-example-select'
+import { computed, reactive, ref } from "vue";
+import CodeInput from "./CodeInput.vue";
+import { getArgs, parseConfig } from "./playground-utils";
+import { useCopyToClipboard } from "./use-copy-to-clipboard";
+import { useExampleSelect } from "./use-example-select";
 
 const resolve = reactive({
-  class: '',
-  content: '',
-  attrs: '',
-  tag: '',
-})
-const configName = ref('')
-const iconName = ref('fa-book')
-const isRegex = computed(() => configName.value.startsWith('/') && configName.value.endsWith('/'))
-const resolveFnName = computed(() => isRegex.value ? 'resolveFromRegex' : 'resolve')
-const description = ref<string | undefined>('')
+  class: "",
+  content: "",
+  attrs: "",
+  tag: "",
+});
+const configName = ref("");
+const iconName = ref("fa-book");
+const isRegex = computed(
+  () => configName.value.startsWith("/") && configName.value.endsWith("/")
+);
+const resolveFnName = computed(() =>
+  isRegex.value ? "resolveFromRegex" : "resolve"
+);
+const description = ref<string | undefined>("");
 const args = computed(() => {
-  return getArgs(iconName.value, configName.value)
-})
+  return getArgs(iconName.value, configName.value);
+});
 
 const { exampleOptions, exampleValue } = useExampleSelect((example) => {
   (Object.keys(resolve) as (keyof typeof resolve)[]).forEach((key) => {
-    resolve[key] = example.resolve[key] || ''
-  })
-  configName.value = example.name
-  iconName.value = example.exampleName
-  description.value = example.description
-})
+    resolve[key] = example.resolve[key] || "";
+  });
+  configName.value = example.name;
+  iconName.value = example.exampleName;
+  description.value = example.description;
+});
 
 const renderHTML = (iconName: string) => {
   const {
-    tag = 'i',
-    class: className = '',
+    tag = "i",
+    class: className = "",
     attrs = {},
-    content = '',
-  } = parseConfig(iconName, configName.value, resolve)
+    content = "",
+  } = parseConfig(iconName, configName.value, resolve);
 
   const attributes = [
     className ? `class="${className}"` : undefined,
     ...Object.entries(attrs).map(([key, value]) => `${key}="${value}"`),
-  ].filter(Boolean).join(' ')
+  ]
+    .filter(Boolean)
+    .join(" ");
 
-  return `<${tag} ${attributes}>${content}</${tag}>`
-}
+  return `<${tag} ${attributes}>${content}</${tag}>`;
+};
 
 const renderResolve = (tab = 4) => {
-  return Object
-    .entries(resolve)
+  return Object.entries(resolve)
     .filter(([key, value]) => Boolean(value))
-    .map(([key, value]) => `${' '.repeat(tab)}${key}: ${value},`)
-    .join('\n')
-}
+    .map(([key, value]) => `${" ".repeat(tab)}${key}: ${value},`)
+    .join("\n");
+};
 
 const renderConfig = () => {
   return `const fonts = [{
@@ -104,14 +126,14 @@ const renderConfig = () => {
   resolve: ({ ${args.value} }) => ({
 ${renderResolve()}
   }),
-}]`
-}
+}]`;
+};
 
-const copyToClipboard = useCopyToClipboard()
+const copyToClipboard = useCopyToClipboard();
 
 const copy = () => {
-  copyToClipboard(renderConfig())
-}
+  copyToClipboard(renderConfig());
+};
 </script>
 
 <style lang="scss" scoped>
@@ -121,11 +143,11 @@ const copy = () => {
 
 .tag {
   &::before {
-    content: '<';
+    content: "<";
   }
 
   &::after {
-    content: '>';
+    content: ">";
   }
 }
 
@@ -154,7 +176,9 @@ const copy = () => {
     flex-direction: column;
     align-items: stretch;
 
-    & > * { width: 100%; }
+    & > * {
+      width: 100%;
+    }
   }
 
   .va-code-snippet {

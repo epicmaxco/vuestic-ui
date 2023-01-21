@@ -12,9 +12,7 @@
       <va-list-item>
         <span class="ml-6">I'm a list item</span>
       </va-list-item>
-      <va-divider inset>
-        Inset
-      </va-divider>
+      <va-divider inset> Inset </va-divider>
       <va-list-item>
         <span class="ml-6">I'm a list item</span>
       </va-list-item>

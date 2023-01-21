@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 300px;">
+  <div style="max-width: 300px">
     <va-select
       class="mb-6"
       label="With label"
@@ -26,12 +26,7 @@
       v-model="value"
       :options="options"
     />
-    <va-select
-      class="mb-6"
-      label="No options"
-      v-model="value"
-      :options="[]"
-    />
+    <va-select class="mb-6" label="No options" v-model="value" :options="[]" />
     <va-select
       class="mb-6"
       label="No options with custom text"
@@ -93,12 +88,22 @@
 
 <script>
 export default {
-  name: 'Decorators',
-  data () {
+  name: "Decorators",
+  data() {
     return {
-      options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
-      value: '',
-    }
+      options: [
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+      ],
+      value: "",
+    };
   },
-}
+};
 </script>

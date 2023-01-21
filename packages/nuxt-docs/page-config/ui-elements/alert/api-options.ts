@@ -1,15 +1,13 @@
-
-
 export default defineManualApi({
   methods: {
     hide: {
-      types: '() => void',
+      types: "() => void",
     },
   },
   slots: {
-    default: { },
-    title: { },
-    icon: { },
-    close: { },
+    default: {},
+    title: {},
+    icon: {},
+    close: {},
   },
-})
+});

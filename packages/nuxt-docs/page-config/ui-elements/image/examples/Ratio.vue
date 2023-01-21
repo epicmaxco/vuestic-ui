@@ -4,7 +4,7 @@
       <va-image :ratio="0.75" src="https://picsum.photos/1500" />
     </div>
     <div class="flex flex-col xs12 sm12 md6 lg4">
-      <va-image :ratio="4/3" src="https://picsum.photos/1500" />
+      <va-image :ratio="4 / 3" src="https://picsum.photos/1500" />
     </div>
   </div>
 </template>

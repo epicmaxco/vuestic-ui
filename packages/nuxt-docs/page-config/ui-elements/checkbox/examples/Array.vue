@@ -19,20 +19,16 @@
       label="three"
       class="mb-6"
     />
-    <va-checkbox
-      v-model="selection"
-      array-value="four"
-      label="four"
-    />
+    <va-checkbox v-model="selection" array-value="four" label="four" />
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      selection: ['one', 'four'],
-    }
+      selection: ["one", "four"],
+    };
   },
-}
+};
 </script>

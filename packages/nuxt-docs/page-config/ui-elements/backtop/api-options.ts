@@ -1,15 +1,12 @@
- 
-
 export default defineManualApi({
   events: {
     click: {
-      types: 'Event',
+      types: "Event",
       isDOMEvent: true,
     },
   },
-  methods: {
-  },
+  methods: {},
   slots: {
-    default: { },
+    default: {},
   },
-})
+});

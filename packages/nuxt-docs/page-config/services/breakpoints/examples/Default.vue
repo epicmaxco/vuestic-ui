@@ -1,9 +1,12 @@
 <template>
-<p>{{ $t('breakpoints.examples.default') }} <strong>{{ breakpoint.current }}</strong></p>
+  <p>
+    {{ $t("breakpoints.examples.default") }}
+    <strong>{{ breakpoint.current }}</strong>
+  </p>
 </template>
 
 <script setup lang="ts">
-import { useBreakpoint } from 'vuestic-ui/src/composables'
+import { useBreakpoint } from "vuestic-ui/src/composables";
 
-const breakpoint = useBreakpoint()
+const breakpoint = useBreakpoint();
 </script>

@@ -1,13 +1,9 @@
- 
-
 export const apiOptionsAdvanced = defineManualApi({
-  events: {
-  },
-  methods: {
-  },
+  events: {},
+  methods: {},
   slots: {
-    default: { },
+    default: {},
   },
-})
+});
 
-export default defineManualApi({})
+export default defineManualApi({});

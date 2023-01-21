@@ -7,10 +7,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      listValue: ['Option 1'],
-    }
+      listValue: ["Option 1"],
+    };
   },
-}
+};
 </script>

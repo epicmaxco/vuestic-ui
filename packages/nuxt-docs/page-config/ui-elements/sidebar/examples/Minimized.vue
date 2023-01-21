@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 13rem;">
+  <div style="height: 13rem">
     <va-sidebar :minimized="minimized" minimizedWidth="64px">
       <template v-for="item in items" :key="item.title">
         <va-sidebar-item :active="item.active">
@@ -19,15 +19,15 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       items: [
-        { title: 'Dashboard', icon: 'dashboard' },
-        { title: 'Sidebar demo', icon: 'room', active: true },
-        { title: 'Loop', icon: 'loop' },
+        { title: "Dashboard", icon: "dashboard" },
+        { title: "Sidebar demo", icon: "room", active: true },
+        { title: "Loop", icon: "loop" },
       ],
       minimized: false,
-    }
+    };
   },
-}
+};
 </script>

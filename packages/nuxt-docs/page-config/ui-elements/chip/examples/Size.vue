@@ -5,20 +5,16 @@
     :size="size"
     class="mr-6 mb-2"
   >
-    {{size}} size
+    {{ size }} size
   </va-chip>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      sizes: [
-        'small',
-        'medium',
-        'large',
-      ],
-    }
+      sizes: ["small", "medium", "large"],
+    };
   },
-}
+};
 </script>

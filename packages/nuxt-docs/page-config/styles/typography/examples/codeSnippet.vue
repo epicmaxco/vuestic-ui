@@ -3,5 +3,6 @@
 &lt;p class="va-code-snippet">
   This is a wonderful example.
   &lt;a href="#" onClick="">Read more&lt;/a>
-&lt;/p></pre>
+&lt;/p></pre
+  >
 </template>

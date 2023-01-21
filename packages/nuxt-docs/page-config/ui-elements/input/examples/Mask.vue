@@ -1,8 +1,8 @@
 <template>
-  <div style="width: 300px;">
+  <div style="width: 300px">
     <va-input
       class="mb-6"
-      :style="{paddingTop: '4px'}"
+      :style="{ paddingTop: '4px' }"
       label="Credit card mask"
       v-model="maskCreditCardValue"
       type="input"
@@ -31,7 +31,7 @@
       v-model="maskCustomBlocksValue"
       label="Custom blocks mask"
       placeholder="# ##### #####"
-      :mask="{blocks: [1, 5, 5]}"
+      :mask="{ blocks: [1, 5, 5] }"
     />
     <va-input
       class="mb-6"
@@ -47,15 +47,15 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      maskCreditCardValue: '',
-      maskDateValue: '',
-      maskTimeValue: '',
-      maskNumeralsValue: '',
-      maskCustomBlocksValue: '',
-      maskReturnFormattedValue: '',
-    }
+      maskCreditCardValue: "",
+      maskDateValue: "",
+      maskTimeValue: "",
+      maskNumeralsValue: "",
+      maskCustomBlocksValue: "",
+      maskReturnFormattedValue: "",
+    };
   },
-}
+};
 </script>

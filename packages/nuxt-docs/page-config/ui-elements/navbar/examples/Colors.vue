@@ -45,31 +45,34 @@
         <va-icon :color="darkNavbarColors.textColor" name="mdi-magnify" />
       </va-navbar-item>
       <va-navbar-item>
-        <va-icon :color="darkNavbarColors.textColor" name="mdi-account-circle-outline" />
+        <va-icon
+          :color="darkNavbarColors.textColor"
+          name="mdi-account-circle-outline"
+        />
       </va-navbar-item>
     </template>
   </va-navbar>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useColors } from 'vuestic-ui/src/main'
+import { computed } from "vue";
+import { useColors } from "vuestic-ui/src/main";
 
-const { currentPresetName } = useColors()
+const { currentPresetName } = useColors();
 
 const darkNavbarColors = computed(() => {
-  if (currentPresetName.value === 'light') {
+  if (currentPresetName.value === "light") {
     return {
-      color: '#111111',
-      textColor: '#BAFFC5',
-    }
+      color: "#111111",
+      textColor: "#BAFFC5",
+    };
   } else {
     return {
-      color: '#FBCAF6',
-      textColor: '#481269',
-    }
+      color: "#FBCAF6",
+      textColor: "#481269",
+    };
   }
-})
+});
 </script>
 
 <style scoped>

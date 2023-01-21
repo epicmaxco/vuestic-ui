@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 13rem;">
+  <div style="height: 13rem">
     <va-sidebar v-model="enabled">
       <va-sidebar-item
         v-for="item in items"
@@ -21,15 +21,15 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       enabled: true,
       items: [
-        { title: 'Dashboard', icon: 'dashboard' },
-        { title: 'Sidebar demo', icon: 'room', active: true },
-        { title: 'Loop', icon: 'loop' },
+        { title: "Dashboard", icon: "dashboard" },
+        { title: "Sidebar demo", icon: "room", active: true },
+        { title: "Loop", icon: "loop" },
       ],
-    }
+    };
   },
-}
+};
 </script>

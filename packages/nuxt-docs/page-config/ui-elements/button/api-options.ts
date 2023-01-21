@@ -1,17 +1,15 @@
-
-
 export default defineManualApi({
   slots: {
-    default: { },
-    prepend: { },
-    append: { },
-    loading: { },
+    default: {},
+    prepend: {},
+    append: {},
+    loading: {},
   },
   events: {
-    click: { types: '`() => Event`', isDOMEvent: true },
+    click: { types: "`() => Event`", isDOMEvent: true },
   },
   methods: {
-    focus: { types: '`() => void`' },
-    blur: { types: '`() => void`' },
+    focus: { types: "`() => void`" },
+    blur: { types: "`() => void`" },
   },
-})
+});

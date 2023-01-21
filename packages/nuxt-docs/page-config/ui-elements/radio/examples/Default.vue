@@ -5,22 +5,16 @@
     v-model="selectedOption"
     :option="option"
   />
-  <div>
-    Selected: {{ selectedOption }}
-  </div>
+  <div>Selected: {{ selectedOption }}</div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      options: [
-        'one',
-        'two',
-        'three',
-      ],
-      selectedOption: 'one',
-    }
+      options: ["one", "two", "three"],
+      selectedOption: "one",
+    };
   },
-}
+};
 </script>

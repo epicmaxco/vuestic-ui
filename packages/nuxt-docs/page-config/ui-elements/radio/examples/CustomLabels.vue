@@ -28,27 +28,17 @@
       Slotted label: {{ labels[index] }}
     </va-radio>
   </div>
-  <div>
-    Selected: {{ selectedOption }}
-  </div>
+  <div>Selected: {{ selectedOption }}</div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      labels: [
-        'first label',
-        'second label',
-        'third label',
-      ],
-      options: [
-        'one',
-        'two',
-        'three',
-      ],
-      selectedOption: 'one',
-    }
+      labels: ["first label", "second label", "third label"],
+      options: ["one", "two", "three"],
+      selectedOption: "one",
+    };
   },
-}
+};
 </script>

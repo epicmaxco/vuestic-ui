@@ -16,17 +16,17 @@
 
 <script>
 const datePlusDay = (date, days) => {
-  const d = new Date(date)
-  d.setDate(d.getDate() + days)
-  return d
-}
-const nextWeek = datePlusDay(new Date(), 7)
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+};
+const nextWeek = datePlusDay(new Date(), 7);
 
 export default {
-  data () {
+  data() {
     return {
       value: nextWeek,
-    }
+    };
   },
-}
+};
 </script>

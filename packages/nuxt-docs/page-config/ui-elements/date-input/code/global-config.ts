@@ -19,4 +19,4 @@ createApp(App)
     },
   }))
   .mount('#app')
-`
+`;

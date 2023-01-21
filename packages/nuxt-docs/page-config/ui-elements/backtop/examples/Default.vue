@@ -1,22 +1,24 @@
 <template>
-  <va-switch v-model="positionVertical"
-             true-value="top"
-             false-value="bottom"
-             true-inner-label="top"
-             false-inner-label="bottom"
-             label="Vertical Position:"
-             left-label
-             class="py-2"
+  <va-switch
+    v-model="positionVertical"
+    true-value="top"
+    false-value="bottom"
+    true-inner-label="top"
+    false-inner-label="bottom"
+    label="Vertical Position:"
+    left-label
+    class="py-2"
   />
   <br />
-  <va-switch v-model="positionHorizontal"
-             true-value="left"
-             false-value="right"
-             true-inner-label="left"
-             false-inner-label="right"
-             label="Horizontal Position:"
-             left-label
-             class="pt-2 pb-6"
+  <va-switch
+    v-model="positionHorizontal"
+    true-value="left"
+    false-value="right"
+    true-inner-label="left"
+    false-inner-label="right"
+    label="Horizontal Position:"
+    left-label
+    class="pt-2 pb-6"
   />
   <br />
   <va-slider
@@ -55,9 +57,7 @@
     :max="500"
   />
   <br />
-  <va-checkbox
-    v-model="isSlot"
-    :label="`Active Slot: ${isSlot}`" />
+  <va-checkbox v-model="isSlot" :label="`Active Slot: ${isSlot}`" />
 
   <va-backtop
     target=".base-layout__content"
@@ -74,17 +74,17 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      positionVertical: 'bottom',
-      positionHorizontal: 'right',
+      positionVertical: "bottom",
+      positionHorizontal: "right",
 
       verticalOffset: 5,
       horizontalOffset: 5,
       visibilityHeight: 1,
       scrollSpeed: 50,
       isSlot: false,
-    }
+    };
   },
-}
+};
 </script>

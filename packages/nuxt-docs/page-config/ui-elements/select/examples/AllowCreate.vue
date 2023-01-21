@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 300px;">
+  <div style="max-width: 300px">
     <va-select
       class="mb-6"
       label="'true' mode and single select"
@@ -42,27 +42,31 @@
 
 <script>
 export default {
-  name: 'AllowCreate',
-  data () {
+  name: "AllowCreate",
+  data() {
     return {
       options: [
-        { id: '0', text: 'one', value: 'one' },
-        { id: '1', text: 'two', value: 'two' },
-        { id: '2', text: 'three', value: 'three' },
-        { id: '3', text: 'four', value: 'four' },
-        { id: '4', text: 'five', value: 'five' },
+        { id: "0", text: "one", value: "one" },
+        { id: "1", text: "two", value: "two" },
+        { id: "2", text: "three", value: "three" },
+        { id: "3", text: "four", value: "four" },
+        { id: "4", text: "five", value: "five" },
       ],
-      value: '',
-      allowUniqueValue: '',
+      value: "",
+      allowUniqueValue: "",
       valueMultiple: [],
       allowUniqueValueMultiple: [],
-    }
+    };
   },
   methods: {
-    addNewOption (newOption) {
-      const option = { id: String(this.options.length), text: newOption, value: newOption }
-      this.options = [...this.options, option]
+    addNewOption(newOption) {
+      const option = {
+        id: String(this.options.length),
+        text: newOption,
+        value: newOption,
+      };
+      this.options = [...this.options, option];
     },
   },
-}
+};
 </script>

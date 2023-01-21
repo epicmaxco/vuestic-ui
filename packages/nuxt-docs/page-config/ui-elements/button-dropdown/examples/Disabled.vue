@@ -1,9 +1,5 @@
 <template>
-  <va-button-dropdown
-    class="mr-2 mb-2"
-    disabled
-    label="disabled"
-  >
+  <va-button-dropdown class="mr-2 mb-2" disabled label="disabled">
     Content
   </va-button-dropdown>
   <va-button-dropdown

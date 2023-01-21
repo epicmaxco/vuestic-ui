@@ -13,24 +13,20 @@
     class="mb-6"
   />
 
-  <va-button-toggle
-    color="warning"
-    v-model="model"
-    :options="options"
-  />
+  <va-button-toggle color="warning" v-model="model" :options="options" />
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       options: [
-        { label: 'One', value: 'one' },
-        { label: 'Two', value: 'two' },
-        { label: 'Three', value: 'three' },
+        { label: "One", value: "one" },
+        { label: "Two", value: "two" },
+        { label: "Three", value: "three" },
       ],
-      model: 'two',
-    }
+      model: "two",
+    };
   },
-}
+};
 </script>

@@ -13,10 +13,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: 35,
-    }
+    };
   },
-}
+};
 </script>

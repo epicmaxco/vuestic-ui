@@ -9,7 +9,9 @@
       Content
     </va-button-dropdown>
   </va-app-bar>
-  <va-button @click="enabled = !enabled">Enable/Disable fixed app bar example</va-button>
+  <va-button @click="enabled = !enabled"
+    >Enable/Disable fixed app bar example</va-button
+  >
 </template>
 
 <script>
@@ -17,5 +19,5 @@ export default {
   data: () => ({
     enabled: false,
   }),
-}
+};
 </script>

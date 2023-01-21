@@ -1,9 +1,7 @@
-
-
 export default defineManualApi({
   events: {
     change: {
-      types: 'boolean',
+      types: "boolean",
     },
   },
-})
+});

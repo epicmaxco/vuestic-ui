@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 300px;">
+  <div style="width: 300px">
     <va-input
       class="mb-6"
       v-model="value"
@@ -19,13 +19,13 @@
 
 <script>
 export default {
-  name: 'Hint',
-  data () {
+  name: "Hint",
+  data() {
     return {
-      message: 'Required field',
-      messages: ['Required field', 'Tap to start typing'],
-      value: '',
-    }
+      message: "Required field",
+      messages: ["Required field", "Tap to start typing"],
+      value: "",
+    };
   },
-}
+};
 </script>

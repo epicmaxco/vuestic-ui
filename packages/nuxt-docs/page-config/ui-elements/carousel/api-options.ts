@@ -1,16 +1,13 @@
-import { ManualApiOptions } from '@/components/DocsApi/ManualApiOptions'
+import { ManualApiOptions } from "@/components/DocsApi/ManualApiOptions";
 
 export default {
-  props: {
-  },
-  events: {
-  },
-  methods: {
-  },
+  props: {},
+  events: {},
+  methods: {},
   slots: {
     default: {},
-    'prev-arrow': {},
-    'next-arrow': {},
+    "prev-arrow": {},
+    "next-arrow": {},
     indicator: {},
   },
-} as ManualApiOptions
+} as ManualApiOptions;

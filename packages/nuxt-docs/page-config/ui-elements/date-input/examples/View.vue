@@ -25,13 +25,13 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: new Date(),
-      dayView: { type: 'day', month: 1, year: 2000 },
-      monthView: { type: 'month', year: 2000 },
-      yearView: { type: 'year', year: 2000 },
-    }
+      dayView: { type: "day", month: 1, year: 2000 },
+      monthView: { type: "month", year: 2000 },
+      yearView: { type: "year", year: 2000 },
+    };
   },
-}
+};
 </script>

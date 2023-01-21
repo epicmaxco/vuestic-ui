@@ -9,32 +9,34 @@
 </template>
 
 <script>
-import { ref, toRefs, watch } from 'vue'
+import { ref, toRefs, watch } from "vue";
 
 export default {
-  emits: ['update:modelValue'],
+  emits: ["update:modelValue"],
   props: {
     modelValue: { type: Array },
   },
-  setup (props, ctx) {
-    const { modelValue } = toRefs(props)
+  setup(props, ctx) {
+    const { modelValue } = toRefs(props);
 
-    const colors = ref([
-      ...modelValue.value,
-    ])
+    const colors = ref([...modelValue.value]);
 
-    watch(colors, () => {
-      ctx.emit('update:modelValue', colors.value)
-    }, { deep: true })
+    watch(
+      colors,
+      () => {
+        ctx.emit("update:modelValue", colors.value);
+      },
+      { deep: true }
+    );
 
-    const colorsPalette = colors.value.map((c) => c.value)
+    const colorsPalette = colors.value.map((c) => c.value);
 
     return {
       colors,
       colorsPalette,
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

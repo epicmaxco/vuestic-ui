@@ -13,16 +13,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      icons: [
-        'face',
-        'email',
-        'thumb_up',
-        'info',
-        'remove',
-      ],
-    }
+      icons: ["face", "email", "thumb_up", "info", "remove"],
+    };
   },
-}
+};
 </script>

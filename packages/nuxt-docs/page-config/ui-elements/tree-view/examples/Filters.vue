@@ -5,12 +5,9 @@
       placeholder="Filter..."
       clearable
       class="mr-3"
-      style="flex: 0 200px;"
+      style="flex: 0 200px"
     />
-    <va-checkbox
-      v-model="isFilterCaseSensitive"
-      label="Case sensitive"
-    />
+    <va-checkbox v-model="isFilterCaseSensitive" label="Case sensitive" />
   </div>
   <va-tree-view
     :nodes="nodes"
@@ -22,64 +19,56 @@
 
 <script>
 export default {
-  name: 'Filters',
+  name: "Filters",
 
   data: () => ({
-    filter: '',
+    filter: "",
     isFilterCaseSensitive: false,
     nodes: [
       {
         id: 1,
-        label: 'One',
+        label: "One",
         children: [
           {
             id: 2,
-            label: 'Two',
+            label: "Two",
             children: [
-              { id: 3, label: 'Three' },
-              { id: 4, label: 'Four' },
+              { id: 3, label: "Three" },
+              { id: 4, label: "Four" },
             ],
           },
           {
             id: 5,
-            label: 'Five',
-            children: [
-              { id: 6, label: 'Six' },
-            ],
+            label: "Five",
+            children: [{ id: 6, label: "Six" }],
           },
         ],
       },
       {
         id: 7,
-        label: 'Seven',
-        children: [
-          { id: 8, label: 'Eight' },
-        ],
+        label: "Seven",
+        children: [{ id: 8, label: "Eight" }],
       },
       {
         id: 9,
-        label: 'Nine',
-        children: [
-          { id: 10, label: 'Ten' },
-        ],
+        label: "Nine",
+        children: [{ id: 10, label: "Ten" }],
       },
       {
         id: 11,
-        label: 'Eleven',
+        label: "Eleven",
       },
     ],
   }),
 
   computed: {
-    customFilterMethod () {
+    customFilterMethod() {
       return this.isFilterCaseSensitive
         ? (node, filterText, key) => node[key].includes(filterText)
-        : undefined
+        : undefined;
     },
   },
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

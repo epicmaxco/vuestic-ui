@@ -2,7 +2,8 @@
   <div class="flex flex-col lg6 xs12">
     <va-progress-circle v-model="value" />
 
-    <va-slider class="mt-3"
+    <va-slider
+      class="mt-3"
       v-model="value"
       track-label-visible
       :track-label="(v) => `${v}%`"
@@ -12,10 +13,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: 65,
-    }
+    };
   },
-}
+};
 </script>

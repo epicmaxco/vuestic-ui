@@ -1,44 +1,42 @@
- 
-
 export default defineManualApi({
   events: {
     clickOutside: {
-      types: '() => void',
+      types: "() => void",
     },
     ok: {
-      types: '() => void',
+      types: "() => void",
     },
     cancel: {
-      types: '() => void',
+      types: "() => void",
     },
     beforeOpen: {
-      types: '() => HTMLElement',
+      types: "() => HTMLElement",
     },
     open: {
-      types: '() => HTMLElement',
+      types: "() => HTMLElement",
     },
     beforeClose: {
-      types: '() => HTMLElement',
+      types: "() => HTMLElement",
     },
     close: {
-      types: '() => HTMLElement',
+      types: "() => HTMLElement",
     },
   },
   methods: {
     hide: {
-      types: '() => void',
+      types: "() => void",
     },
     show: {
-      types: '() => void',
+      types: "() => void",
     },
     toggle: {
-      types: '() => void',
+      types: "() => void",
     },
   },
   slots: {
-    default: { },
-    header: { },
-    footer: { },
-    anchor: { },
+    default: {},
+    header: {},
+    footer: {},
+    anchor: {},
   },
-})
+});

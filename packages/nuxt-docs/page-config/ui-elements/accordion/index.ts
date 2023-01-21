@@ -1,39 +1,25 @@
-
-
-import apiOptions from './api-options'
+import apiOptions from "./api-options";
 
 export default definePageConfig({
   blocks: [
-  block.title('accordion.title'),
-  block.paragraph('accordion.summaryText'),
+    block.title("accordion.title"),
+    block.paragraph("accordion.summaryText"),
 
-  block.subtitle('all.examples'),
+    block.subtitle("all.examples"),
 
-  block.example(
-    'Default',
-  ),
+    block.example("Default"),
 
-  block.example(
-    'Multiple',
-  ),
+    block.example("Multiple"),
 
-  block.example(
-    'Inset',
-  ),
+    block.example("Inset"),
 
-  block.example(
-    'Popout',
-  ),
+    block.example("Popout"),
 
-  block.example(
-    'Flat',
-  ),
+    block.example("Flat"),
 
-  block.example(
-    'Menu',
-  ),
+    block.example("Menu"),
 
-  block.subtitle('all.api'),
-  block.api('VaAccordion', apiOptions),
-]
-})
+    block.subtitle("all.api"),
+    block.api("VaAccordion", apiOptions),
+  ],
+});

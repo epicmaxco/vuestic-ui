@@ -1,21 +1,19 @@
- 
-
 export default defineManualApi({
   events: {
     dragStart: {
-      types: '',
+      types: "",
     },
     dragEnd: {
-      types: '',
+      types: "",
     },
     change: {
-      types: '`Number | [Number, Number]`',
+      types: "`Number | [Number, Number]`",
     },
   },
   slots: {
-    append: { },
-    prepend: { },
-    label: { },
-    trackLabel: { },
+    append: {},
+    prepend: {},
+    label: {},
+    trackLabel: {},
   },
-})
+});

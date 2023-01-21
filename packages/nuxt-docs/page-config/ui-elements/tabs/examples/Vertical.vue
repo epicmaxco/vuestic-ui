@@ -1,8 +1,5 @@
 <template>
-  <va-tabs
-    v-model="value"
-    vertical
-  >
+  <va-tabs v-model="value" vertical>
     <template #tabs>
       <va-tab
         v-for="title in ['One', 'Two', 'Three']"
@@ -17,10 +14,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      value: 'One',
-    }
+      value: "One",
+    };
   },
-}
+};
 </script>

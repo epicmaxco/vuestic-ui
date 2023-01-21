@@ -1,17 +1,19 @@
-import { createVuestic } from 'vuestic-ui'
+import { createVuestic } from "vuestic-ui";
 
 createApp(App)
-  .use(createVuestic({
-    config: {
-      // ...
-
-      i18n: {
-        ok: 'Добре',
-        cancel: 'Скасувати',
-        search: 'Пошук',
-
+  .use(
+    createVuestic({
+      config: {
         // ...
-      }
-    }
-  }))
-  .mount('#app')
+
+        i18n: {
+          ok: "Добре",
+          cancel: "Скасувати",
+          search: "Пошук",
+
+          // ...
+        },
+      },
+    })
+  )
+  .mount("#app");

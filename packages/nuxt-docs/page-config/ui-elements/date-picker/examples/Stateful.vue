@@ -10,7 +10,7 @@
       <va-date-picker mode="multiple" stateful />
     </div>
 
-    <div  class="flex flex-col">
+    <div class="flex flex-col">
       <h6>Range mode</h6>
       <va-date-picker mode="range" stateful />
     </div>

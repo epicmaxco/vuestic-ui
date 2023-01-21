@@ -1,5 +1,5 @@
 <template>
-  <va-card color="background-element" style="padding: 0.75rem;">
+  <va-card color="background-element" style="padding: 0.75rem">
     <div class="row">
       <div class="flex flex-col md12">
         <div class="item">md12</div>

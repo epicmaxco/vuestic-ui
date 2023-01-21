@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 300px;">
+  <div style="width: 300px">
     <va-input
       class="mb-6"
       v-model="value"
@@ -43,13 +43,13 @@
 
 <script>
 export default {
-  name: 'Validate',
-  data () {
+  name: "Validate",
+  data() {
     return {
-      value: '',
-      errorMessage: 'Please enter correct email',
-      successMessage: 'The entered email is correct',
-    }
+      value: "",
+      errorMessage: "Please enter correct email",
+      successMessage: "The entered email is correct",
+    };
   },
-}
+};
 </script>

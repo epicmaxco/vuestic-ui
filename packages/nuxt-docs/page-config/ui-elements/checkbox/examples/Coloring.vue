@@ -1,16 +1,21 @@
 <template>
   <div class="d-flex flex-col">
     <va-checkbox class="mb-6" color="primary" v-model="value" label="Primary" />
-    <va-checkbox color="#9c27b0" v-model="value" label="Custom color with icon" checked-icon="loop" />
+    <va-checkbox
+      color="#9c27b0"
+      v-model="value"
+      label="Custom color with icon"
+      checked-icon="loop"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: true,
-    }
+    };
   },
-}
+};
 </script>

@@ -1,5 +1,7 @@
 <template>
-  <h6>{{ value.getHours() }}:{{ value.getMinutes() }}:{{ value.getSeconds() }}</h6>
+  <h6>
+    {{ value.getHours() }}:{{ value.getMinutes() }}:{{ value.getSeconds() }}
+  </h6>
 
   <div class="d-flex">
     <va-time-picker v-model="value" />
@@ -10,8 +12,8 @@
 
 <script>
 export default {
-  data () {
-    return { value: new Date() }
+  data() {
+    return { value: new Date() };
   },
-}
+};
 </script>

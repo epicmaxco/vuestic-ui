@@ -8,14 +8,14 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: true,
-      label: 'Label',
+      label: "Label",
       longLabel:
-          'This label is pretty long, but still perfectly fits the layout...',
-      leftLabel: 'Left label',
-    }
+        "This label is pretty long, but still perfectly fits the layout...",
+      leftLabel: "Left label",
+    };
   },
-}
+};
 </script>

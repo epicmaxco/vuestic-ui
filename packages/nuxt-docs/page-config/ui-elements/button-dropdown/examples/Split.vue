@@ -1,11 +1,6 @@
 <template>
-  <div style="display: flex; align-items: center;">
-    <va-button-dropdown
-      class="mr-2 mb-2"
-      split
-      label="Split"
-      round
-    >
+  <div style="display: flex; align-items: center">
+    <va-button-dropdown class="mr-2 mb-2" split label="Split" round>
       Content
     </va-button-dropdown>
 
@@ -21,11 +16,7 @@
       Content
     </va-button-dropdown>
 
-    <va-button-dropdown
-      class="mr-2 mb-2"
-      split
-      label="Split"
-    >
+    <va-button-dropdown class="mr-2 mb-2" split label="Split">
       Content
     </va-button-dropdown>
 

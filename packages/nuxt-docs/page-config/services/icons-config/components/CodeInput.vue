@@ -10,35 +10,39 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, onMounted, onUpdated, nextTick } from 'vue'
+import { computed, ref, watch, onMounted, onUpdated, nextTick } from "vue";
 
 const props = defineProps({
   modelValue: { type: String },
-})
+});
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(["update:modelValue"]);
 
 const valueComputed = computed({
-  get () { return props.modelValue },
-  set (v) { emit('update:modelValue', v) },
-})
+  get() {
+    return props.modelValue;
+  },
+  set(v) {
+    emit("update:modelValue", v);
+  },
+});
 
-const textDiv = ref<HTMLDivElement>()
-const textDivWidth = ref(0)
+const textDiv = ref<HTMLDivElement>();
+const textDivWidth = ref(0);
 
 watch(valueComputed, () => {
   nextTick(() => {
-    textDivWidth.value = (textDiv.value?.offsetWidth || 0)
-  })
-})
+    textDivWidth.value = textDiv.value?.offsetWidth || 0;
+  });
+});
 
 onMounted(() => {
-  textDivWidth.value = (textDiv.value?.offsetWidth || 0)
-})
+  textDivWidth.value = textDiv.value?.offsetWidth || 0;
+});
 
 onUpdated(() => {
-  textDivWidth.value = (textDiv.value?.offsetWidth || 0)
-})
+  textDivWidth.value = textDiv.value?.offsetWidth || 0;
+});
 </script>
 
 <style lang="scss" scoped>
@@ -61,7 +65,7 @@ onUpdated(() => {
   }
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;

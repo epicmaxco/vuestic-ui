@@ -25,7 +25,11 @@
     <va-time-input
       label="accept only hours < 12"
       v-model="value"
-      :rules="[(date) => date && date.getHours && date.getHours() < 12 || 'Hours should be < 12']"
+      :rules="[
+        (date) =>
+          (date && date.getHours && date.getHours() < 12) ||
+          'Hours should be < 12',
+      ]"
       manual-input
       clearable
     />
@@ -34,10 +38,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: new Date(),
-    }
+    };
   },
-}
+};
 </script>

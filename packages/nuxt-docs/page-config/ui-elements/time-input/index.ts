@@ -1,37 +1,29 @@
-
-
-import apiOptions from './api-options'
+import apiOptions from "./api-options";
 
 export default definePageConfig({
   blocks: [
-  block.title('timeInput.title'),
+    block.title("timeInput.title"),
 
-  block.paragraph('timeInput.description'),
-  block.link('timePicker.title', '/ui-elements/time-picker'),
-  block.link('input.title', '/ui-elements/input'),
+    block.paragraph("timeInput.description"),
+    block.link("timePicker.title", "/ui-elements/time-picker"),
+    block.link("input.title", "/ui-elements/input"),
 
-  block.subtitle('all.examples'),
+    block.subtitle("all.examples"),
 
-  block.example(    'default',
-  ),
+    block.example("default"),
 
-  block.example(    'format',
-  ),
+    block.example("format"),
 
-  block.example(    'input',
-  ),
+    block.example("input"),
 
-  block.alert('timeInput.examples.input.notion', 'primary'),
+    block.alert("timeInput.examples.input.notion", "primary"),
 
-  block.example(    'ampm',
-  ),
+    block.example("ampm"),
 
-  block.example(    'clearable',
-  ),
+    block.example("clearable"),
 
-  block.example(    'validation',
-  ),
+    block.example("validation"),
 
-  block.api('VaTimeInput', apiOptions),
-]
-})
+    block.api("VaTimeInput", apiOptions),
+  ],
+});

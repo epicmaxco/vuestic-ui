@@ -1,13 +1,8 @@
- 
-
 export default defineManualApi({
-  props: {
-  },
-  events: {
-  },
-  methods: {
-  },
+  props: {},
+  events: {},
+  methods: {},
   slots: {
-    default: { },
+    default: {},
   },
-})
+});

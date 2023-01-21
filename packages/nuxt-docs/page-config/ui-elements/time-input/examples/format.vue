@@ -14,11 +14,11 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: new Date(),
       formatFn: (d) => d?.toLocaleTimeString?.(),
-    }
+    };
   },
-}
+};
 </script>

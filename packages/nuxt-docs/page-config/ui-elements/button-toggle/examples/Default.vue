@@ -2,19 +2,19 @@
   <va-button-toggle
     v-model="model"
     :options="[
-        { label: 'One', value: 'one' },
-        { label: 'Two', value: 'two' },
-        { label: 'Three', value: 'three' },
-      ]"
+      { label: 'One', value: 'one' },
+      { label: 'Two', value: 'two' },
+      { label: 'Three', value: 'three' },
+    ]"
   />
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      model: 'two',
-    }
+      model: "two",
+    };
   },
-}
+};
 </script>

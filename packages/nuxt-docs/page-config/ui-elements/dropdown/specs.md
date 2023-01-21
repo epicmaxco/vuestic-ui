@@ -1,4 +1,5 @@
 ### Map
+
 ![Example how to get `content.left`](https://user-images.githubusercontent.com/23530004/181629414-5e40211a-7a3c-4d3c-8e78-8808b956d98b.png)
 _Example how to get `content.left`_
 
@@ -11,15 +12,16 @@ _Example how to get `content.left`_
 - content - block which we need to position.
 
 ### Placement
+
 All placement names the same as in CSS.
 
 - verical - cross direction `left`, main:
-    - `bottom`
-    - `auto` the same as `bottom` (activates `auto-placement`)
-    - `top`
+  - `bottom`
+  - `auto` the same as `bottom` (activates `auto-placement`)
+  - `top`
 - horizontal - cross direction `bottom`, main:
-    - `left`
-    - `right`
+  - `left`
+  - `right`
 
 Sub placement
 
@@ -30,12 +32,12 @@ Sub placement
 ### Terms
 
 - offset - contains main and cross line. For:
-    - `'top' | 'bottom'` the main line is `vertical` outside of anchor. Cross will be `horizontal` to the BOTTOM.
-    - `'left' | 'right'` the main line is `horizontal` outside of anchor. Cross will be `vertical` to the LEFT.
+
+  - `'top' | 'bottom'` the main line is `vertical` outside of anchor. Cross will be `horizontal` to the BOTTOM.
+  - `'left' | 'right'` the main line is `horizontal` outside of anchor. Cross will be `vertical` to the LEFT.
 
 - auto-placement - makes content always visible if viewport big enough.
 - stick-to-edges - makes content stick to edge if auto-placement is off and moves content outside of viewport.
-
 
 ### Behavior
 

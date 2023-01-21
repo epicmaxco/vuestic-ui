@@ -1,6 +1,7 @@
 <template>
   <va-sidebar-item
-    v-for="(route, idx) in items" :key="idx"
+    v-for="(route, idx) in items"
+    :key="idx"
     :active="isRouteActive(route)"
     @click="setRouteActive(route)"
   >
@@ -13,26 +14,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  data () {
+  data() {
     return {
-      items: [
-        { name: 'Home' },
-        { name: 'Docs' },
-        { name: 'Media' },
-      ],
-      activeRouteName: 'Docs',
-    }
+      items: [{ name: "Home" }, { name: "Docs" }, { name: "Media" }],
+      activeRouteName: "Docs",
+    };
   },
   methods: {
-    isRouteActive (route: { name: string }) {
-      return this.activeRouteName === route.name
+    isRouteActive(route: { name: string }) {
+      return this.activeRouteName === route.name;
     },
-    setRouteActive (route: { name: string }) {
-      this.activeRouteName = route.name
+    setRouteActive(route: { name: string }) {
+      this.activeRouteName = route.name;
     },
   },
-})
+});
 </script>

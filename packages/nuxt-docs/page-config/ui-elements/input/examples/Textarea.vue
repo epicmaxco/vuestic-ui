@@ -1,17 +1,12 @@
 <template>
-  <div style="width: 300px;">
+  <div style="width: 300px">
     <va-input
       class="mb-6"
       v-model="value"
       type="textarea"
       placeholder="Basic textarea"
     />
-    <va-input
-      class="mb-6"
-      v-model="value"
-      type="textarea"
-      label="With label"
-    />
+    <va-input class="mb-6" v-model="value" type="textarea" label="With label" />
     <va-input
       class="mb-6"
       v-model="value"
@@ -32,11 +27,11 @@
 
 <script>
 export default {
-  name: 'Textarea',
-  data () {
+  name: "Textarea",
+  data() {
     return {
-      value: '',
-    }
+      value: "",
+    };
   },
-}
+};
 </script>

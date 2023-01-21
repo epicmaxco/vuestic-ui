@@ -1,19 +1,17 @@
- 
-
 export default defineManualApi({
   events: {
-    'click:next': {
-      types: '`() => void`',
+    "click:next": {
+      types: "`() => void`",
     },
-    'click:prev': {
-      types: '`() => void`',
+    "click:prev": {
+      types: "`() => void`",
     },
-    'update:model-value': {
-      types: '`() => number | string`',
+    "update:model-value": {
+      types: "`() => number | string`",
     },
   },
   slots: {
-    default: { },
-    tabs: { },
+    default: {},
+    tabs: {},
   },
-})
+});

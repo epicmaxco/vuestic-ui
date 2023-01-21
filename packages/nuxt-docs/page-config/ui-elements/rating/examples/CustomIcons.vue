@@ -1,5 +1,6 @@
 <template>
-  <va-rating class="mb-2"
+  <va-rating
+    class="mb-2"
     icon="favorite"
     empty-icon="favorite_border"
     v-model="value"
@@ -13,10 +14,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: 3,
-    }
+    };
   },
-}
+};
 </script>

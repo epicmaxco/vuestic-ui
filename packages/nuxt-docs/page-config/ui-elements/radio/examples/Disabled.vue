@@ -10,15 +10,11 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      options: [
-        'one',
-        'two',
-        'three',
-      ],
-      selectedOption: 'one',
-    }
+      options: ["one", "two", "three"],
+      selectedOption: "one",
+    };
   },
-}
+};
 </script>

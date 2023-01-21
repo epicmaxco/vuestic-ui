@@ -1,17 +1,13 @@
 <template>
-  <va-pagination
-    v-model="value"
-    :pages="15"
-    :visible-pages="4"
-  />
+  <va-pagination v-model="value" :pages="15" :visible-pages="4" />
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: 3,
-    }
+    };
   },
-}
+};
 </script>

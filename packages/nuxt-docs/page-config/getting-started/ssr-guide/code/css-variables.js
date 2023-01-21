@@ -1,1 +1,1 @@
-app.config.globalProperties.$vaColorConfig.renderCSSVariables()
+app.config.globalProperties.$vaColorConfig.renderCSSVariables();

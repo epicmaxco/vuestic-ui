@@ -6,18 +6,22 @@
     Show modal (stateless)
   </va-button>
   <va-modal ref="statefulModal" :message="message" stateful />
-  <va-modal ref="statelessModal" :message="message" v-model="showStatefulModal" />
+  <va-modal
+    ref="statelessModal"
+    :message="message"
+    v-model="showStatefulModal"
+  />
 </template>
 
 <script>
-import message from './popup-message'
+import message from "./popup-message";
 
 export default {
-  data () {
+  data() {
     return {
       showStatefulModal: false,
       message,
-    }
+    };
   },
-}
+};
 </script>

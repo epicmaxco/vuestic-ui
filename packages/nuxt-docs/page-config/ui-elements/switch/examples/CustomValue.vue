@@ -6,10 +6,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      value: 'Right',
-    }
+      value: "Right",
+    };
   },
-}
+};
 </script>

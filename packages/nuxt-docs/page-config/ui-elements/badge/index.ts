@@ -1,44 +1,31 @@
-
-
-import apiOptions from './api-options'
-
-
-
+import apiOptions from "./api-options";
 
 export default definePageConfig({
   blocks: [
-  block.title('badge.title'),
-  block.paragraph('badge.summaryText'),
+    block.title("badge.title"),
+    block.paragraph("badge.summaryText"),
 
-  block.subtitle('all.examples'),
-  block.example(    'Default',
-  ),
+    block.subtitle("all.examples"),
+    block.example("Default"),
 
-  block.example(    'Position',
-  ),
+    block.example("Position"),
 
-  block.example(    'Color',
-  ),
+    block.example("Color"),
 
-  block.example(    'Dot',
-  ),
+    block.example("Dot"),
 
-  block.example(    'Overlap',
-  ),
+    block.example("Overlap"),
 
-  block.example(    'Transparent',
-  ),
+    block.example("Transparent"),
 
-  block.example(    'WithOtherComponents',
-  ),
+    block.example("WithOtherComponents"),
 
-  block.example(    'NoContent',
-  ),
+    block.example("NoContent"),
 
-  block.subtitle('all.api'),
-  block.api('VaBadge', apiOptions),
+    block.subtitle("all.api"),
+    block.api("VaBadge", apiOptions),
 
-  block.subtitle('all.cssVariables'),
-  block.file('vuestic-ui/src/components/va-badge/_variables.scss'),
-]
-})
+    block.subtitle("all.cssVariables"),
+    block.file("vuestic-ui/src/components/va-badge/_variables.scss"),
+  ],
+});

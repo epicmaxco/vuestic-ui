@@ -23,84 +23,84 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  data () {
+  data() {
     const users = [
       {
         id: 1,
-        name: 'Leanne Graham',
-        username: 'Bret',
-        email: 'Sincere@april.biz',
-        phone: '1-770-736-8031 x56442',
+        name: "Leanne Graham",
+        username: "Bret",
+        email: "Sincere@april.biz",
+        phone: "1-770-736-8031 x56442",
       },
       {
         id: 2,
-        name: 'Ervin Howell',
-        username: 'Antonette',
-        email: 'Shanna@melissa.tv',
-        phone: '010-692-6593 x09125',
+        name: "Ervin Howell",
+        username: "Antonette",
+        email: "Shanna@melissa.tv",
+        phone: "010-692-6593 x09125",
       },
       {
         id: 3,
-        name: 'Clementine Bauch',
-        username: 'Samantha',
-        email: 'Nathan@yesenia.net',
-        phone: '1-463-123-4447',
+        name: "Clementine Bauch",
+        username: "Samantha",
+        email: "Nathan@yesenia.net",
+        phone: "1-463-123-4447",
       },
       {
         id: 4,
-        name: 'Patricia Lebsack',
-        username: 'Karianne',
-        email: 'Julianne.OConner@kory.org',
-        phone: '493-170-9623 x156',
+        name: "Patricia Lebsack",
+        username: "Karianne",
+        email: "Julianne.OConner@kory.org",
+        phone: "493-170-9623 x156",
       },
       {
         id: 5,
-        name: 'Chelsey Dietrich',
-        username: 'Kamren',
-        email: 'Lucio_Hettinger@annie.ca',
-        phone: '(254)954-1289',
+        name: "Chelsey Dietrich",
+        username: "Kamren",
+        email: "Lucio_Hettinger@annie.ca",
+        phone: "(254)954-1289",
       },
-    ]
+    ];
 
     const columns = [
-      { key: 'id', sortable: true },
-      { key: 'username', sortable: true },
-      { key: 'name', sortable: true },
-      { key: 'email', sortable: true },
-      { key: 'phone', sortable: true },
-    ]
+      { key: "id", sortable: true },
+      { key: "username", sortable: true },
+      { key: "name", sortable: true },
+      { key: "email", sortable: true },
+      { key: "phone", sortable: true },
+    ];
 
     return {
       items: users,
       columns,
       isCellBind: true,
       isRowBind: true,
-    }
+    };
   },
 
   methods: {
-    getRowBind (row) {
-      const classes = ['customRowClass_1']
-      if (row.name === 'Ervin Howell') {
-        classes.push(['customRowClass_2', 'customRowClass_3'])
-      } else if (row.phone.startsWith('(')) {
-        classes.push({ customRowClass_4: true })
+    getRowBind(row) {
+      const classes = ["customRowClass_1"];
+      if (row.name === "Ervin Howell") {
+        classes.push(["customRowClass_2", "customRowClass_3"]);
+      } else if (row.phone.startsWith("(")) {
+        classes.push({ customRowClass_4: true });
       }
-      return { class: classes }
+      return { class: classes };
     },
-    getCellBind (cell, row, column) {
-      if (column.key === 'username' && cell.startsWith('S')) {
+    getCellBind(cell, row, column) {
+      if (column.key === "username" && cell.startsWith("S")) {
         return {
-          style: { fontWeight: 'bold' },
+          style: { fontWeight: "bold" },
           onClick: () => console.log(cell),
-        }
+        };
       }
     },
   },
-})
+});
 </script>
 
 <style lang="scss">

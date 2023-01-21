@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 300px;">
+  <div style="max-width: 300px">
     <va-select
       class="mb-6"
       label="Content slot"
@@ -18,9 +18,7 @@
       v-model="value"
     >
       <template #prepend>
-        <va-icon
-          name="share"
-        />
+        <va-icon name="share" />
       </template>
     </va-select>
     <va-select
@@ -30,9 +28,7 @@
       v-model="value"
     >
       <template #prependInner>
-        <va-icon
-          name="share"
-        />
+        <va-icon name="share" />
       </template>
     </va-select>
     <va-select
@@ -42,9 +38,7 @@
       v-model="value"
     >
       <template #appendInner>
-        <va-icon
-          name="share"
-        />
+        <va-icon name="share" />
       </template>
     </va-select>
     <va-select
@@ -54,24 +48,14 @@
       v-model="value"
     >
       <template #append>
-        <va-icon
-          name="share"
-        />
+        <va-icon name="share" />
       </template>
     </va-select>
-    <va-select
-      label="Option slot"
-      :options="options"
-      v-model="value"
-    >
+    <va-select label="Option slot" :options="options" v-model="value">
       <template v-slot:option="{ option, index, selectOption }">
         <div class="d-flex justify-between align-center p-2">
           Have a nice day!
-          <va-button
-            class="mb-2"
-            size="small"
-            @click="selectOption(option)"
-          >
+          <va-button class="mb-2" size="small" @click="selectOption(option)">
             {{ option }} ({{ index + 1 }})
           </va-button>
         </div>
@@ -82,12 +66,22 @@
 
 <script>
 export default {
-  name: 'Slots',
-  data () {
+  name: "Slots",
+  data() {
     return {
-      options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
-      value: '',
-    }
+      options: [
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+      ],
+      value: "",
+    };
   },
-}
+};
 </script>

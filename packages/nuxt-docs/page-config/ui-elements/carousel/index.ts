@@ -1,51 +1,35 @@
-
-
-import apiOptions from './api-options'
-
-
-
+import apiOptions from "./api-options";
 
 export default definePageConfig({
   blocks: [
-  block.title('carousel.title'),
+    block.title("carousel.title"),
 
-  block.subtitle('all.examples'),
+    block.subtitle("all.examples"),
 
-  // examples
-  block.example(    'Default',
-  ),
-  block.example(    'Ratio',
-  ),
-  block.example(    'Height',
-  ),
+    // examples
+    block.example("Default"),
+    block.example("Ratio"),
+    block.example("Height"),
 
-  block.example(    'Arrows',
-  ),
+    block.example("Arrows"),
 
-  block.example(    'Indicators',
-  ),
+    block.example("Indicators"),
 
-  block.example(    'Vertical',
-  ),
+    block.example("Vertical"),
 
-  block.example(    'Slots',
-  ),
+    block.example("Slots"),
 
-  block.example(    'Infinite',
-  ),
+    block.example("Infinite"),
 
-  block.example(    'Autoscroll',
-  ),
+    block.example("Autoscroll"),
 
-  block.example(    'Fade',
-  ),
+    block.example("Fade"),
 
-  block.example(    'Swipe',
-  ),
+    block.example("Swipe"),
 
-  block.api('VaCarousel', apiOptions),
+    block.api("VaCarousel", apiOptions),
 
-  block.subtitle('all.cssVariables'),
-  block.file('vuestic-ui/src/components/va-carousel/_variables.scss'),
-]
-})
+    block.subtitle("all.cssVariables"),
+    block.file("vuestic-ui/src/components/va-carousel/_variables.scss"),
+  ],
+});

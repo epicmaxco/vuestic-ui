@@ -1,62 +1,60 @@
- 
-
 export default defineManualApi({
   events: {
     change: {
-      types: 'any',
+      types: "any",
     },
     blur: {
-      types: 'FocusEvent',
+      types: "FocusEvent",
     },
     focus: {
-      types: 'FocusEvent',
+      types: "FocusEvent",
     },
     click: {
-      types: 'Event',
+      types: "Event",
     },
     clickIcon: {
-      types: 'Event',
+      types: "Event",
     },
     clickPrepend: {
-      types: 'Event',
+      types: "Event",
     },
     clickPrependInner: {
-      types: 'Event',
+      types: "Event",
     },
     clickAppend: {
-      types: 'Event',
+      types: "Event",
     },
     clickAppendInner: {
-      types: 'Event',
+      types: "Event",
     },
     keyup: {
-      types: 'Event',
+      types: "Event",
     },
     keydown: {
-      types: 'Event',
+      types: "Event",
     },
     updateError: {
-      types: '() => boolean',
+      types: "() => boolean",
     },
     updateErrorMessages: {
-      types: '() => string[] | string',
+      types: "() => string[] | string",
     },
   },
   methods: {
     focus: {
-      types: '() => void',
+      types: "() => void",
     },
     blur: {
-      types: '() => void',
+      types: "() => void",
     },
     reset: {
-      types: '() => void',
+      types: "() => void",
     },
   },
   slots: {
-    prepend: { },
-    prependInner: { },
-    append: { },
-    appendInner: { },
+    prepend: {},
+    prependInner: {},
+    append: {},
+    appendInner: {},
   },
-})
+});

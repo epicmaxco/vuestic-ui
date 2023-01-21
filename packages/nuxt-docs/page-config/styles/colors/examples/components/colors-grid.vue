@@ -5,19 +5,23 @@
       v-for="[name, value] in colorsComputed"
       :key="name"
     >
-      <ColorsGridCard class="color-grid__item " :value="getColor(value)" :name="name" />
+      <ColorsGridCard
+        class="color-grid__item"
+        :value="getColor(value)"
+        :name="name"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useColors } from 'vuestic-ui/src/main'
-import ColorsGridCard from './colors-grid-card.vue'
+import { computed } from "vue";
+import { useColors } from "vuestic-ui/src/main";
+import ColorsGridCard from "./colors-grid-card.vue";
 
-const { colors, getColor } = useColors()
+const { colors, getColor } = useColors();
 
-const colorsComputed = computed(() => Object.entries(colors))
+const colorsComputed = computed(() => Object.entries(colors));
 </script>
 
 <style lang="scss" scoped>

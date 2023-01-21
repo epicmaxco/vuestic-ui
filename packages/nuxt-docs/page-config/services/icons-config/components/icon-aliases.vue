@@ -1,6 +1,10 @@
 <template>
   <va-list>
-    <va-list-item v-for="{ name, to } in VuesticIconAliases" :key="name" class="mt-2">
+    <va-list-item
+      v-for="{ name, to } in VuesticIconAliases"
+      :key="name"
+      class="mt-2"
+    >
       <va-list-item-section avatar>
         <va-icon :name="name" size="32px" />
       </va-list-item-section>
@@ -18,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { VuesticIconAliases } from 'vuestic-ui/src/services/icon/presets/vuestic-aliases'
+import { VuesticIconAliases } from "vuestic-ui/src/services/icon/presets/vuestic-aliases";
 </script>
 
 <style lang="scss" scoped>

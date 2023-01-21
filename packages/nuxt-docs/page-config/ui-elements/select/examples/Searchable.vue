@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 300px;">
+  <div style="max-width: 300px">
     <va-select
       label="Searchable multi select"
       :options="options"
@@ -12,12 +12,22 @@
 
 <script>
 export default {
-  name: 'Searchable',
-  data () {
+  name: "Searchable",
+  data() {
     return {
-      options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
-      value: '',
-    }
+      options: [
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+      ],
+      value: "",
+    };
   },
-}
+};
 </script>

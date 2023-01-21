@@ -9,9 +9,9 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useColors } from 'vuestic-ui/src/main'
+import { computed } from "vue";
+import { useColors } from "vuestic-ui/src/main";
 
-const { getColors } = useColors()
-const colors = computed(getColors)
+const { getColors } = useColors();
+const colors = computed(getColors);
 </script>

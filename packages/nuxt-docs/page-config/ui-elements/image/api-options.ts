@@ -1,17 +1,15 @@
- 
-
 export default defineManualApi({
   events: {
     loaded: {
-      types: 'Boolean',
+      types: "Boolean",
     },
     error: {
-      types: 'Boolean',
+      types: "Boolean",
     },
   },
   slots: {
-    loading: { },
-    error: { },
-    default: { },
+    loading: {},
+    error: {},
+    default: {},
   },
-})
+});

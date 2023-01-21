@@ -8,11 +8,11 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       max: 50,
       value: 35,
-    }
+    };
   },
-}
+};
 </script>

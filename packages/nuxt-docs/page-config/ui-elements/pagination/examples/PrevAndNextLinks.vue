@@ -8,23 +8,35 @@
     class="mb-3"
   >
     <template #prevPageLink="{ onClick, disabled }">
-      <va-button preset="primary" :disabled="disabled" @click="onClick" aria-label="go prev page">Previous</va-button>
+      <va-button
+        preset="primary"
+        :disabled="disabled"
+        @click="onClick"
+        aria-label="go prev page"
+        >Previous</va-button
+      >
     </template>
     <template #nextPageLink="{ onClick, disabled }">
-      <va-button preset="primary" :disabled="disabled" @click="onClick" aria-label="go next page">Next</va-button>
+      <va-button
+        preset="primary"
+        :disabled="disabled"
+        @click="onClick"
+        aria-label="go next page"
+        >Next</va-button
+      >
     </template>
   </va-pagination>
 
-  Items from {{ value }} to {{ value + pageSize - 1}}
+  Items from {{ value }} to {{ value + pageSize - 1 }}
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: 3,
       pageSize: 10,
-    }
+    };
   },
-}
+};
 </script>

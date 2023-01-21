@@ -1,9 +1,9 @@
 export type TeamItem = {
-  name: string,
-  jobTitle: string,
-  image: string,
+  name: string;
+  jobTitle: string;
+  image: string;
   socNetworks: {
-    name: string,
-    url: string,
-  }[],
-}
+    name: string;
+    url: string;
+  }[];
+};

@@ -1,30 +1,28 @@
- 
-
 export default defineManualApi({
   events: {
     clear: {
-      types: 'any',
+      types: "any",
     },
     updateSearch: {
-      types: 'any',
+      types: "any",
     },
     scrollBottom: {
-      types: 'any',
+      types: "any",
     },
   },
   methods: {
     reset: {
-      types: '() => void',
+      types: "() => void",
     },
   },
   slots: {
-    prepend: { },
-    prependInner: { },
-    append: { },
-    appendInner: { },
-    content: { },
-    option: { },
-    hiddenOptionsBadge: { },
-    hideOptionsButton: { },
+    prepend: {},
+    prependInner: {},
+    append: {},
+    appendInner: {},
+    content: {},
+    option: {},
+    hiddenOptionsBadge: {},
+    hideOptionsButton: {},
   },
-})
+});

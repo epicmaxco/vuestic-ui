@@ -1,17 +1,10 @@
 <template>
   <div class="flex row">
     <div class="flex flex-col">
-      <va-date-picker
-        stateful
-        highlight-weekend
-      />
+      <va-date-picker stateful highlight-weekend />
     </div>
     <div class="flex flex-col">
-      <va-date-picker
-        stateful
-        highlight-weekend
-        :weekends="getWeekends"
-      />
+      <va-date-picker stateful highlight-weekend :weekends="getWeekends" />
     </div>
   </div>
 </template>
@@ -19,9 +12,9 @@
 <script>
 export default {
   methods: {
-    getWeekends (date) {
-      return [0, 1, 5, 6].includes(date?.getDay())
+    getWeekends(date) {
+      return [0, 1, 5, 6].includes(date?.getDay());
     },
   },
-}
+};
 </script>

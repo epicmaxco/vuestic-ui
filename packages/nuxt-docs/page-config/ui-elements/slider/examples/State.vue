@@ -6,12 +6,12 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value1: 33,
       value2: 66,
       isState: true,
-    }
+    };
   },
-}
+};
 </script>

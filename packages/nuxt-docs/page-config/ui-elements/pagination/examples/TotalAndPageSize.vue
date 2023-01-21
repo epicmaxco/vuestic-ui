@@ -9,16 +9,16 @@
     boundary-numbers
   />
 
-  Items from {{ value }} to {{ value + pageSize - 1}}
+  Items from {{ value }} to {{ value + pageSize - 1 }}
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: 11,
       pageSize: 10,
-    }
+    };
   },
-}
+};
 </script>

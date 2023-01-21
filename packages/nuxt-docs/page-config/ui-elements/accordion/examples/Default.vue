@@ -1,5 +1,5 @@
 <template>
-  <va-accordion v-model="value" style="width: 400px;">
+  <va-accordion v-model="value" style="width: 400px">
     <va-collapse
       v-for="(collapse, index) in collapses"
       :key="index"
@@ -14,15 +14,15 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: [false, false, false],
       collapses: [
-        { title: 'First collapse', content: 'first collapse content' },
-        { title: 'Second collapse', content: 'second collapse content' },
-        { title: 'Third collapse', content: 'third collapse content' },
+        { title: "First collapse", content: "first collapse content" },
+        { title: "Second collapse", content: "second collapse content" },
+        { title: "Third collapse", content: "third collapse content" },
       ],
-    }
+    };
   },
-}
+};
 </script>

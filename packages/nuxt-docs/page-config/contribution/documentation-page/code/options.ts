@@ -1,4 +1,4 @@
 options = {
-  preText: 'prefix with **markdown** text',
-  afterText: 'suffix',
-}
+  preText: "prefix with **markdown** text",
+  afterText: "suffix",
+};

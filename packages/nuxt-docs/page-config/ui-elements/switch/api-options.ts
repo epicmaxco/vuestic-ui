@@ -1,19 +1,17 @@
- 
-
 export default defineManualApi({
   events: {
     blur: {
-      types: 'FocusEvent',
+      types: "FocusEvent",
     },
     focus: {
-      types: 'FocusEvent',
+      types: "FocusEvent",
     },
     input: {
-      types: 'any',
+      types: "any",
     },
   },
   slots: {
-    default: { },
-    innerLabel: { },
+    default: {},
+    innerLabel: {},
   },
-})
+});

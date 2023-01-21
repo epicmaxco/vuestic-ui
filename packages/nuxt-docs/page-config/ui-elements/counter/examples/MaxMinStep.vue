@@ -1,15 +1,21 @@
 <template>
   <div class="row">
-    <va-counter class="mx-6 my-2"
+    <va-counter
+      class="mx-6 my-2"
       v-model="value"
-      :min="-100" :max="100" :step="10"
+      :min="-100"
+      :max="100"
+      :step="10"
       messages="-100 to 100 with step=10"
     />
 
-    <va-counter class="mx-6 my-2"
+    <va-counter
+      class="mx-6 my-2"
       v-model="value"
       manual-input
-      :min="-100" :max="100" :step="10"
+      :min="-100"
+      :max="100"
+      :step="10"
       messages="manual input"
     />
   </div>
@@ -17,10 +23,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: 10,
-    }
+    };
   },
-}
+};
 </script>

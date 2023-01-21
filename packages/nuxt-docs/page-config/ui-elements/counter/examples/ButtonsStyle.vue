@@ -1,13 +1,15 @@
 <template>
   <div class="row">
-    <va-counter class="mx-6 my-2"
+    <va-counter
+      class="mx-6 my-2"
       v-model="value"
       buttons
       :flat="false"
       rounded
     />
 
-    <va-counter class="mx-6 my-2"
+    <va-counter
+      class="mx-6 my-2"
       v-model="value"
       outline
       buttons
@@ -16,13 +18,10 @@
       rounded
     />
 
-    <va-counter class="mx-6 my-2"
-      v-model="value"
-      buttons
-      :flat="false"
-    />
+    <va-counter class="mx-6 my-2" v-model="value" buttons :flat="false" />
 
-    <va-counter class="mx-6 my-2"
+    <va-counter
+      class="mx-6 my-2"
       v-model="value"
       outline
       buttons
@@ -34,10 +33,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: 10,
-    }
+    };
   },
-}
+};
 </script>

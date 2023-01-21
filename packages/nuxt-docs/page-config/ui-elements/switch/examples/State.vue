@@ -6,11 +6,11 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: true,
       isState: true,
-    }
+    };
   },
-}
+};
 </script>

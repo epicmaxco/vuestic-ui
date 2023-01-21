@@ -4,18 +4,30 @@
 
 <script>
 const monthNames = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
-]
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 export default {
-  data () {
-    return { value: new Date() }
+  data() {
+    return { value: new Date() };
   },
   methods: {
-    formatFn (date) {
-      return `${date.getDate()} - ${monthNames[date.getMonth()]} - ${date.getFullYear()}`
+    formatFn(date) {
+      return `${date.getDate()} - ${
+        monthNames[date.getMonth()]
+      } - ${date.getFullYear()}`;
     },
   },
-}
+};
 </script>

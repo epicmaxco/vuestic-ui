@@ -1,5 +1,11 @@
 <template>
-  <svg class="placement-coordinates" xmlns="http://www.w3.org/2000/svg" width="104" height="104" fill="none">
+  <svg
+    class="placement-coordinates"
+    xmlns="http://www.w3.org/2000/svg"
+    width="104"
+    height="104"
+    fill="none"
+  >
     <g>
       <path
         :style="computedStyle.y"
@@ -14,26 +20,37 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed } from "vue";
 
 const props = defineProps({
   placement: {
     type: String,
-    default: 'top',
+    default: "top",
   },
-})
+});
 
-const main = computed(() => ['top', 'bottom', 'auto'].some((p) => props.placement.includes(p)) ? 'y' : 'x')
-const cross = computed(() => main.value === 'y' ? 'x' : 'y')
-const mainReversed = computed(() => ['bottom', 'left', 'auto'].some((p) => props.placement.includes(p)))
-const crossReversed = computed(() => cross.value === 'y')
+const main = computed(() =>
+  ["top", "bottom", "auto"].some((p) => props.placement.includes(p)) ? "y" : "x"
+);
+const cross = computed(() => (main.value === "y" ? "x" : "y"));
+const mainReversed = computed(() =>
+  ["bottom", "left", "auto"].some((p) => props.placement.includes(p))
+);
+const crossReversed = computed(() => cross.value === "y");
 
 const computedStyle = computed(() => {
   return {
-    [main.value]: { fill: 'var(--va-primary)', transform: mainReversed.value ? 'scale(-1) translate(-100%, -100%)' : '' },
-    [cross.value]: { fill: 'var(--va-secondary)', opacity: 0.3, transform: crossReversed.value ? 'scale(-1) translate(-100%, -100%)' : '' },
-  }
-})
+    [main.value]: {
+      fill: "var(--va-primary)",
+      transform: mainReversed.value ? "scale(-1) translate(-100%, -100%)" : "",
+    },
+    [cross.value]: {
+      fill: "var(--va-secondary)",
+      opacity: 0.3,
+      transform: crossReversed.value ? "scale(-1) translate(-100%, -100%)" : "",
+    },
+  };
+});
 </script>
 
 <style lang="scss" scoped>

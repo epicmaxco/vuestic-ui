@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 300px;">
+  <div style="max-width: 300px">
     <va-select
       class="mb-6"
       label="Readonly"
@@ -55,12 +55,22 @@
 
 <script>
 export default {
-  name: 'State',
-  data () {
+  name: "State",
+  data() {
     return {
-      options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
-      value: 'two',
-    }
+      options: [
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+      ],
+      value: "two",
+    };
   },
-}
+};
 </script>

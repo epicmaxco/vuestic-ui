@@ -4,10 +4,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       basic: [],
-    }
+    };
   },
-}
+};
 </script>

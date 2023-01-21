@@ -1,12 +1,8 @@
-import { ManualApiOptions } from '@/components/DocsApi/ManualApiOptions'
+import { ManualApiOptions } from "@/components/DocsApi/ManualApiOptions";
 
 export default {
-  props: {
-  },
-  events: {
-  },
-  methods: {
-  },
-  slots: {
-  },
-} as ManualApiOptions
+  props: {},
+  events: {},
+  methods: {},
+  slots: {},
+} as ManualApiOptions;

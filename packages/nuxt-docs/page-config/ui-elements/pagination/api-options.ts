@@ -1,10 +1,8 @@
- 
-
 export default defineManualApi({
   slots: {
-    firstPageLink: { },
-    prevPageLink: { },
-    nextPageLink: { },
-    lastPageLink: { },
+    firstPageLink: {},
+    prevPageLink: {},
+    nextPageLink: {},
+    lastPageLink: {},
   },
-})
+});

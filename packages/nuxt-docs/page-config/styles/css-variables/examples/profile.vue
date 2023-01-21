@@ -2,7 +2,10 @@
   <va-card class="user-card" color="#25272c" gradient>
     <va-card-content class="d-flex">
       <div>
-        <va-avatar src="https://randomuser.me/api/portraits/men/3.jpg" size="128px" />
+        <va-avatar
+          src="https://randomuser.me/api/portraits/men/3.jpg"
+          size="128px"
+        />
       </div>
 
       <div class="pl-2 d-flex flex-col justify-end">
@@ -16,10 +19,23 @@
         </div>
 
         <va-card-action class="d-flex pt-2">
-          <va-button preset="secondary" color="backgroundPrimary" style="margin-left: -0.5rem;">Follow</va-button>
+          <va-button
+            preset="secondary"
+            color="backgroundPrimary"
+            style="margin-left: -0.5rem"
+            >Follow</va-button
+          >
           <va-spacer />
-          <va-button preset="secondary" color="backgroundPrimary" icon="message"></va-button>
-          <va-button preset="secondary" color="backgroundPrimary" icon="play_arrow"></va-button>
+          <va-button
+            preset="secondary"
+            color="backgroundPrimary"
+            icon="message"
+          ></va-button>
+          <va-button
+            preset="secondary"
+            color="backgroundPrimary"
+            icon="play_arrow"
+          ></va-button>
         </va-card-action>
       </div>
     </va-card-content>

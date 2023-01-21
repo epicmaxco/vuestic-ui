@@ -1,8 +1,6 @@
 <template>
   <va-list>
-    <va-list-label>
-      Contacts
-    </va-list-label>
+    <va-list-label> Contacts </va-list-label>
 
     <va-list-item
       class="list__item"
@@ -11,7 +9,7 @@
     >
       <va-list-item-section avatar>
         <va-avatar>
-          <img :src="contact.img">
+          <img :src="contact.img" />
         </va-avatar>
       </va-list-item-section>
 
@@ -26,10 +24,7 @@
       </va-list-item-section>
 
       <va-list-item-section icon>
-        <va-icon
-          name="remove_red_eye"
-          color="background-tertiary"
-        />
+        <va-icon name="remove_red_eye" color="background-tertiary" />
       </va-list-item-section>
     </va-list-item>
   </va-list>
@@ -37,33 +32,33 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       contacts: [
         {
-          name: 'Audrey Clay',
-          address: '644 Vermont Court, Freelandville, Kentucky, 2619',
-          img: 'https://randomuser.me/api/portraits/women/5.jpg',
+          name: "Audrey Clay",
+          address: "644 Vermont Court, Freelandville, Kentucky, 2619",
+          img: "https://randomuser.me/api/portraits/women/5.jpg",
         },
         {
-          name: 'Aguirre Klein',
-          address: '626 Carroll Street, Roulette, Ohio, 1477',
-          img: 'https://randomuser.me/api/portraits/men/1.jpg',
+          name: "Aguirre Klein",
+          address: "626 Carroll Street, Roulette, Ohio, 1477",
+          img: "https://randomuser.me/api/portraits/men/1.jpg",
         },
         {
-          name: 'Tucker Kaufman',
-          address: '887 Winthrop Street, Tryon, Florida, 3912',
-          img: 'https://randomuser.me/api/portraits/men/3.jpg',
+          name: "Tucker Kaufman",
+          address: "887 Winthrop Street, Tryon, Florida, 3912",
+          img: "https://randomuser.me/api/portraits/men/3.jpg",
         },
         {
-          name: 'Herbert Keller',
-          address: '286 NW. Shore St.Longwood, FL 32779',
-          img: 'https://randomuser.me/api/portraits/men/5.jpg',
+          name: "Herbert Keller",
+          address: "286 NW. Shore St.Longwood, FL 32779",
+          img: "https://randomuser.me/api/portraits/men/5.jpg",
         },
       ],
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss">

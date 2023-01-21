@@ -1,10 +1,8 @@
 <template>
   <div class="row">
-    <va-counter class="mx-6 my-2"
-      v-model="value"
-      messages="Select number"
-    />
-    <va-counter class="mx-6 my-2"
+    <va-counter class="mx-6 my-2" v-model="value" messages="Select number" />
+    <va-counter
+      class="mx-6 my-2"
       v-model="value"
       :messages="['Select number', 'Select again :)']"
     />
@@ -13,10 +11,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: undefined,
-    }
+    };
   },
-}
+};
 </script>

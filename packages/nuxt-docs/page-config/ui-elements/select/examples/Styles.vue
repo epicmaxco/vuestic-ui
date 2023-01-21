@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 300px;">
+  <div style="max-width: 300px">
     <va-select
       v-model="value"
       class="mb-6"
@@ -47,12 +47,22 @@
 
 <script>
 export default {
-  name: 'State',
-  data () {
+  name: "State",
+  data() {
     return {
-      options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
-      value: '',
-    }
+      options: [
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+      ],
+      value: "",
+    };
   },
-}
+};
 </script>

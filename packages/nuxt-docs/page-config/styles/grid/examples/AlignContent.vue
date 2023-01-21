@@ -1,5 +1,5 @@
 <template>
-  <va-card color="background-element" style="padding: 0.75rem;">
+  <va-card color="background-element" style="padding: 0.75rem">
     <!-- align-content-start -->
     <div class="row align-content-start">
       <div class="flex flex-col xs6">
@@ -68,15 +68,15 @@
 </template>
 
 <script>
-import VaCard from 'vuestic-ui/src/components/va-card/VaCard'
+import VaCard from "vuestic-ui/src/components/va-card/VaCard";
 
 export default {
   components: { VaCard },
-}
+};
 </script>
 
 <style lang="scss" scoped>
-@import 'vuestic-ui/src/styles/resources';
+@import "vuestic-ui/src/styles/resources";
 
 .row {
   min-height: 10rem;

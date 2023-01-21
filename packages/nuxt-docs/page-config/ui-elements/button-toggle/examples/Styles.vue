@@ -1,9 +1,5 @@
 <template>
-  <va-button-toggle
-    v-model="model"
-    :options="options"
-    class="mb-6"
-  />
+  <va-button-toggle v-model="model" :options="options" class="mb-6" />
 
   <va-button-toggle
     preset="primary"
@@ -19,12 +15,7 @@
     class="mb-6"
   />
 
-  <va-button-toggle
-    round
-    v-model="model"
-    :options="options"
-    class="mb-6"
-  />
+  <va-button-toggle round v-model="model" :options="options" class="mb-6" />
 
   <va-button-toggle
     preset="secondary"
@@ -36,15 +27,15 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       options: [
-        { label: 'One', value: 'one' },
-        { label: 'Two', value: 'two' },
-        { label: 'Three', value: 'three' },
+        { label: "One", value: "one" },
+        { label: "Two", value: "two" },
+        { label: "Three", value: "three" },
       ],
-      model: 'two',
-    }
+      model: "two",
+    };
   },
-}
+};
 </script>

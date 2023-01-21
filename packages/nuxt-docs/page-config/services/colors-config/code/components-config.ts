@@ -1,19 +1,21 @@
-import { createVuestic } from 'vuestic-ui'
+import { createVuestic } from "vuestic-ui";
 
 createApp(App)
-  .use(createVuestic({
-    config: {
-      colors: {
-        variables: {
-          primary: '#ff00ff',
-          button: '#000'
-        }
+  .use(
+    createVuestic({
+      config: {
+        colors: {
+          variables: {
+            primary: "#ff00ff",
+            button: "#000",
+          },
+        },
+        components: {
+          VaButton: {
+            color: "button",
+          },
+        },
       },
-      components: {
-        VaButton: {
-          color: 'button'
-        }
-      },
-    }
-  }))
-  .mount('#app')
+    })
+  )
+  .mount("#app");

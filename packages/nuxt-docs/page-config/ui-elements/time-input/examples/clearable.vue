@@ -1,11 +1,6 @@
 <template>
   <div class="d-flex">
-    <va-time-input
-      v-model="value"
-      clearable
-      label="Clearable"
-      class="mr-3"
-    />
+    <va-time-input v-model="value" clearable label="Clearable" class="mr-3" />
     <va-time-input
       v-model="value"
       leftIcon
@@ -33,8 +28,8 @@
 
 <script>
 export default {
-  data () {
-    return { value: new Date() }
+  data() {
+    return { value: new Date() };
   },
-}
+};
 </script>

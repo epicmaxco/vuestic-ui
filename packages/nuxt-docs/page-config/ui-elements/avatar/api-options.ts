@@ -1,13 +1,11 @@
- 
-
 export default defineManualApi({
   slots: {
-    default: { },
+    default: {},
   },
 
   events: {
     error: {
-      types: 'Error',
+      types: "Error",
     },
   },
-})
+});

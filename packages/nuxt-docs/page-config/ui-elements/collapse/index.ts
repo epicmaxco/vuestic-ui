@@ -1,37 +1,27 @@
-
-
-import apiOptions from './api-options'
-
-
-
+import apiOptions from "./api-options";
 
 export default definePageConfig({
   blocks: [
-  block.title('collapse.title'),
+    block.title("collapse.title"),
 
-  block.paragraph('collapse.summaryText'),
+    block.paragraph("collapse.summaryText"),
 
-  block.subtitle('all.examples'),
+    block.subtitle("all.examples"),
 
-  // examples
-  block.example(    'Default',
-  ),
+    // examples
+    block.example("Default"),
 
-  block.example(    'Solid',
-  ),
+    block.example("Solid"),
 
-  block.example(    'Icon',
-  ),
+    block.example("Icon"),
 
-  block.example(    'Color',
-  ),
+    block.example("Color"),
 
-  block.example(    'Flat',
-  ),
+    block.example("Flat"),
 
-  block.api('VaCollapse', apiOptions),
+    block.api("VaCollapse", apiOptions),
 
-  block.subtitle('all.cssVariables'),
-  block.file('vuestic-ui/src/components/va-collapse/_variables.scss'),
-]
-})
+    block.subtitle("all.cssVariables"),
+    block.file("vuestic-ui/src/components/va-collapse/_variables.scss"),
+  ],
+});

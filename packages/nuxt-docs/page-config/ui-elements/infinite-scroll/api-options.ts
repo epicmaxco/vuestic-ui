@@ -1,11 +1,9 @@
- 
-
 export default defineManualApi({
   props: {
-    load: { types: '() => Promise<any>' },
+    load: { types: "() => Promise<any>" },
   },
   slots: {
-    loading: { },
-    default: { },
+    loading: {},
+    default: {},
   },
-})
+});

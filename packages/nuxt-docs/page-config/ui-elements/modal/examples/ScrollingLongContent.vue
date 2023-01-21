@@ -2,7 +2,10 @@
   <va-button class="mr-6 my-1" @click="showModal = !showModal">
     Show modal with long content
   </va-button>
-  <va-button class="mr-6 my-1" @click="showModalWithFixedLayout = !showModalWithFixedLayout">
+  <va-button
+    class="mr-6 my-1"
+    @click="showModalWithFixedLayout = !showModalWithFixedLayout"
+  >
     Show modal with long content and fixed layout
   </va-button>
   <va-modal v-model="showModal" :title="title" :message="message" />
@@ -15,16 +18,16 @@
 </template>
 
 <script>
-import message from './popup-message'
+import message from "./popup-message";
 
 export default {
-  data () {
+  data() {
     return {
       showModal: false,
       showModalWithFixedLayout: false,
-      title: 'Scrolling long content',
-      message: Array(100).fill(message).join(' '),
-    }
+      title: "Scrolling long content",
+      message: Array(100).fill(message).join(" "),
+    };
   },
-}
+};
 </script>

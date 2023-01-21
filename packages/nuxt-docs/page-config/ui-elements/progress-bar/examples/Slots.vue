@@ -5,20 +5,17 @@
       {{ value }}
     </va-progress-bar>
 
-    <div class="mt-6 mb-2 text--bold muted">When you use a 'content-inside' prop:</div>
-    <va-progress-bar
-      :model-value="value"
-      size="large"
-      content-inside
-    >
+    <div class="mt-6 mb-2 text--bold muted">
+      When you use a 'content-inside' prop:
+    </div>
+    <va-progress-bar :model-value="value" size="large" content-inside>
       {{ value }}
     </va-progress-bar>
 
-    <div class="mt-6 mb-2 text--bold muted">When you use a 'show-percent' prop:</div>
-    <va-progress-bar
-      :model-value="value"
-      show-percent
-    />
+    <div class="mt-6 mb-2 text--bold muted">
+      When you use a 'show-percent' prop:
+    </div>
+    <va-progress-bar :model-value="value" show-percent />
     <va-progress-bar
       class="mt-2"
       :model-value="value"
@@ -32,10 +29,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: 75,
-    }
+    };
   },
-}
+};
 </script>

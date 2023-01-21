@@ -1,12 +1,13 @@
-import { createVuestic } from 'vuestic-ui'
-import 'vuestic-ui/css'
+import { createVuestic } from "vuestic-ui";
+import "vuestic-ui/css";
 
 export async function render(pageContext) {
   // ...
-  app.use(createVuestic())
+  app.use(createVuestic());
 
-  const appHtml = await renderToString(app)
-  const cssVariables = app.config.globalProperties.$vaColorConfig.renderCSSVariables()
+  const appHtml = await renderToString(app);
+  const cssVariables =
+    app.config.globalProperties.$vaColorConfig.renderCSSVariables();
 
   return escapeInject`<!DOCTYPE html>
     <html>
@@ -17,5 +18,5 @@ export async function render(pageContext) {
       <body>
         <div id="app">${dangerouslySkipEscape(appHtml)}</div>
       </body>
-    </html>`
+    </html>`;
 }

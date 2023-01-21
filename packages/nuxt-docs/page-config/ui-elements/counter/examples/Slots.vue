@@ -1,18 +1,12 @@
 <template>
   <div class="row">
-    <va-counter class="mx-6 my-2"
-      v-model="value"
-      width="220px"
-    >
+    <va-counter class="mx-6 my-2" v-model="value" width="220px">
       <template #content="{ value }">
         <VaChip icon="done">{{ value }} copies</VaChip>
       </template>
     </va-counter>
 
-    <va-counter class="mx-6 my-2"
-      v-model="value"
-      width="220px"
-    >
+    <va-counter class="mx-6 my-2" v-model="value" width="220px">
       <template #decreaseAction="{ decreaseCount }">
         <VaButton size="small" outline @click="decreaseCount">dec</VaButton>
       </template>
@@ -21,11 +15,7 @@
       </template>
     </va-counter>
 
-    <va-counter class="mx-6 my-2"
-      v-model="value"
-      width="220px"
-      buttons
-    >
+    <va-counter class="mx-6 my-2" v-model="value" width="220px" buttons>
       <template #decreaseAction="{ decreaseCount }">
         <VaButton :rounded="false" @click="decreaseCount">dec</VaButton>
       </template>
@@ -38,10 +28,10 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: 10,
-    }
+    };
   },
-}
+};
 </script>

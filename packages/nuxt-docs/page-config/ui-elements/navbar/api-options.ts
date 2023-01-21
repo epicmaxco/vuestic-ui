@@ -1,9 +1,7 @@
- 
-
 export default defineManualApi({
   slots: {
-    left: { },
-    default: { },
-    right: { },
+    left: {},
+    default: {},
+    right: {},
   },
-})
+});

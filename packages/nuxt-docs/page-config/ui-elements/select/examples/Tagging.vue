@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 300px;">
+  <div style="max-width: 300px">
     <va-select
       class="mb-6"
       label="Custom chips (first 3)"
@@ -43,17 +43,27 @@
 
 <script>
 export default {
-  name: 'Chips',
-  data () {
+  name: "Chips",
+  data() {
     return {
-      options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
+      options: [
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+      ],
       value: [],
-    }
+    };
   },
   methods: {
-    deleteChip (chip) {
-      this.value = this.value.filter((v) => v !== chip)
+    deleteChip(chip) {
+      this.value = this.value.filter((v) => v !== chip);
     },
   },
-}
+};
 </script>

@@ -1,10 +1,6 @@
 <template>
   <div class="wrapper">
-    <va-app-bar
-      absolute
-      hide-on-scroll
-      target="#va-app-bar-hide"
-    >
+    <va-app-bar absolute hide-on-scroll target="#va-app-bar-hide">
       <va-button icon="home" color="#fff" preset="plain" />
       <va-button icon="info" color="#fff" preset="plain" />
       <va-button icon="battery" color="#fff" preset="plain" />

@@ -5,11 +5,11 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value1: 45,
       value2: 45,
-    }
+    };
   },
-}
+};
 </script>

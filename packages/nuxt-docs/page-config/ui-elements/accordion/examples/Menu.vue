@@ -1,5 +1,5 @@
 <template>
-  <va-accordion v-model="value" style="width: 400px;">
+  <va-accordion v-model="value" style="width: 400px">
     <va-collapse
       v-for="(group, idx) in items"
       :key="idx"
@@ -8,7 +8,7 @@
       color="textInverted"
       flat
     >
-      <div style="padding: 0 1rem 0.75rem;">
+      <div style="padding: 0 1rem 0.75rem">
         <router-link
           v-for="(navItem, idx) in group.items"
           :key="idx"
@@ -24,36 +24,36 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: [false, true, false, false],
       items: [
         {
-          title: 'UI Elements',
+          title: "UI Elements",
           items: [
-            { label: 'Button', to: '/ui-elements/button' },
-            { label: 'Data Table', to: '/ui-elements/table' },
-            { label: 'Radio', to: '/ui-elements/radio' },
+            { label: "Button", to: "/ui-elements/button" },
+            { label: "Data Table", to: "/ui-elements/table" },
+            { label: "Radio", to: "/ui-elements/radio" },
           ],
         },
         {
-          title: 'Services',
+          title: "Services",
           items: [
-            { label: 'Global Config', to: '/services/global-config' },
-            { label: 'Breakpoint Service', to: '/services/breakpoints' },
+            { label: "Global Config", to: "/services/global-config" },
+            { label: "Breakpoint Service", to: "/services/breakpoints" },
           ],
         },
         {
-          title: 'Styles',
+          title: "Styles",
           items: [
-            { label: 'Colors', to: '/styles/colors' },
-            { label: 'Typography', to: '/styles/typography' },
+            { label: "Colors", to: "/styles/colors" },
+            { label: "Typography", to: "/styles/typography" },
           ],
         },
       ],
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

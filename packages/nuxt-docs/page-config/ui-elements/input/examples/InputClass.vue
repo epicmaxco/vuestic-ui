@@ -16,12 +16,12 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      value: '',
-    }
+      value: "",
+    };
   },
-}
+};
 </script>
 
 <style lang="scss">

@@ -2,12 +2,24 @@
   <va-split class="split-demo split-demo--image" :limits="[10, 10]">
     <template #start="{ containerSize }">
       <div class="img-block">
-        <img src="https://picsum.photos/seed/picsum/1536/800" :style="{ width: `${containerSize}px` }" draggable="false" class="img img--start" alt="" />
+        <img
+          src="https://picsum.photos/seed/picsum/1536/800"
+          :style="{ width: `${containerSize}px` }"
+          draggable="false"
+          class="img img--start"
+          alt=""
+        />
       </div>
     </template>
     <template #end="{ containerSize }">
       <div class="img-block">
-        <img src="https://picsum.photos/seed/picsum/1536/800?grayscale" :style="{ width: `${containerSize}px` }" draggable="false" class="img img--end" alt="" />
+        <img
+          src="https://picsum.photos/seed/picsum/1536/800?grayscale"
+          :style="{ width: `${containerSize}px` }"
+          draggable="false"
+          class="img img--end"
+          alt=""
+        />
       </div>
     </template>
   </va-split>

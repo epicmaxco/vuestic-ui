@@ -1,56 +1,43 @@
-
-
-import apiOptions from './api-options'
-import GlobalConfigCode from './code/global-config'
+import apiOptions from "./api-options";
+import GlobalConfigCode from "./code/global-config";
 
 export default definePageConfig({
   blocks: [
-  block.title('dateInput.title'),
-  block.paragraph('dateInput.description'),
+    block.title("dateInput.title"),
+    block.paragraph("dateInput.description"),
 
-  block.link('datePicker.title', '/ui-elements/date-picker'),
-  block.link('input.title', '/ui-elements/input'),
+    block.link("datePicker.title", "/ui-elements/date-picker"),
+    block.link("input.title", "/ui-elements/input"),
 
-  block.subtitle('all.examples'),
+    block.subtitle("all.examples"),
 
-  // examples
-  block.example(    'default',
-  ),
+    // examples
+    block.example("default"),
 
-  block.example(    'resetOnClose',
-  ),
+    block.example("resetOnClose"),
 
-  block.example(    'isOpen',
-  ),
+    block.example("isOpen"),
 
-  block.example(    'inputProps',
-  ),
+    block.example("inputProps"),
 
-  block.example(    'formatting',
-  ),
+    block.example("formatting"),
 
-  block.example(    'manual',
-  ),
+    block.example("manual"),
 
-  block.example(    'input',
-  ),
+    block.example("input"),
 
-  block.example(    'advancedFormatting',
-  ),
+    block.example("advancedFormatting"),
 
-  block.example(    'View',
-  ),
+    block.example("View"),
 
-  block.paragraph('dateInput.examples.formattingGlobalConfig.text'),
-  block.code(GlobalConfigCode),
+    block.paragraph("dateInput.examples.formattingGlobalConfig.text"),
+    block.code(GlobalConfigCode),
 
-  block.example(    'validation',
-  ),
+    block.example("validation"),
 
-  block.example(    'mode',
-  ),
+    block.example("mode"),
 
-  block.subtitle('all.api'),
-  block.api('VaDateInput', apiOptions),
-]
-})
+    block.subtitle("all.api"),
+    block.api("VaDateInput", apiOptions),
+  ],
+});

@@ -1,9 +1,13 @@
 <template>
   <div class="docs-team d-flex flex-wrap">
     <div class="docs-team__row d-flex flex-wrap">
-      <div class="docs-team__avatar-wrapper" v-for="item in items" :key="item.index">
+      <div
+        class="docs-team__avatar-wrapper"
+        v-for="item in items"
+        :key="item.index"
+      >
         <va-avatar :size="146" class="docs-team__avatar">
-            <img :src="item.image" :alt="item.name" />
+          <img :src="item.image" :alt="item.name" />
         </va-avatar>
         <strong class="mt-3 mb-1">{{ item.name }}</strong>
         <div>{{ item.jobTitle }}</div>
@@ -20,30 +24,29 @@
 </template>
 
 <script setup lang="ts">
-import { PropType, computed } from 'vue'
-import { TeamItem } from '../types'
+import { PropType, computed } from "vue";
+import { TeamItem } from "../types";
 
 const props = defineProps({
   team: {
     type: Array as PropType<TeamItem[]>,
     default: () => [],
   },
-})
+});
 
 const items = computed(() => {
   return props.team.map((item, index) => {
     return {
       ...item,
-      name: typeof item === 'string' ? item : item.name,
-      jobTitle: typeof item === 'string' ? item : item.jobTitle,
+      name: typeof item === "string" ? item : item.name,
+      jobTitle: typeof item === "string" ? item : item.jobTitle,
       image: item.image,
-    }
-  })
-})
+    };
+  });
+});
 </script>
 
 <style lang="scss">
-
 $gap: 1rem;
 
 .docs-team {
@@ -58,8 +61,22 @@ $gap: 1rem;
 
   &__avatar {
     padding: 3px;
-    background: linear-gradient(108.62deg, #e9439d, #e5419e, #9e23b2 100%, #ffffff) border-box;
-    -webkit-mask: linear-gradient(108.62deg, #e9439d, #e5419e, #9e23b2 100%, #ffffff) padding-box;
+    background: linear-gradient(
+        108.62deg,
+        #e9439d,
+        #e5419e,
+        #9e23b2 100%,
+        #ffffff
+      )
+      border-box;
+    -webkit-mask: linear-gradient(
+        108.62deg,
+        #e9439d,
+        #e5419e,
+        #9e23b2 100%,
+        #ffffff
+      )
+      padding-box;
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     overflow: hidden;

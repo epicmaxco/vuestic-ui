@@ -1,6 +1,6 @@
 <template>
-  <div class='row mb-6'>
-    <div class='flex flex-col md4'>
+  <div class="row mb-6">
+    <div class="flex flex-col md4">
       <va-select
         v-model="columns[0].thAlign"
         label="First heading align"
@@ -20,7 +20,7 @@
         clearable
       />
     </div>
-    <div class='flex flex-col md4'>
+    <div class="flex flex-col md4">
       <va-select
         v-model="columns[1].thAlign"
         label="Second heading align"
@@ -40,7 +40,7 @@
         clearable
       />
     </div>
-    <div class='flex flex-col md4'>
+    <div class="flex flex-col md4">
       <va-select
         v-model="columns[2].thAlign"
         label="Third heading align"
@@ -62,8 +62,8 @@
     </div>
   </div>
 
-  <div class='row mb-6'>
-    <div class='flex flex-col md4'>
+  <div class="row mb-6">
+    <div class="flex flex-col md4">
       <va-select
         v-model="columns[0].tdAlign"
         label="First column align"
@@ -78,7 +78,7 @@
         color="#990099"
       />
     </div>
-    <div class='flex flex-col md4'>
+    <div class="flex flex-col md4">
       <va-select
         v-model="columns[1].tdAlign"
         label="Second column align"
@@ -93,7 +93,7 @@
         color="#990099"
       />
     </div>
-    <div class='flex flex-col md4'>
+    <div class="flex flex-col md4">
       <va-select
         v-model="columns[2].tdAlign"
         label="Third column align"
@@ -110,7 +110,7 @@
     </div>
   </div>
 
-  <div class='row mb-6'>
+  <div class="row mb-6">
     <va-checkbox
       class="flex flex-col mb-1 md6"
       label="Use additional class to cells of first column"
@@ -123,69 +123,65 @@
     />
   </div>
 
-  <va-data-table
-    class="table-example"
-    :items='items'
-    :columns='columns'
-  />
+  <va-data-table class="table-example" :items="items" :columns="columns" />
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  data () {
+  data() {
     const items = [
       {
         id: 1,
-        text: 'Some text 1',
-        target: 'Some prop 1',
+        text: "Some text 1",
+        target: "Some prop 1",
       },
       {
         id: 2,
-        text: 'Some text 2',
-        target: 'Some prop 2',
+        text: "Some text 2",
+        target: "Some prop 2",
       },
       {
         id: 3,
-        text: 'Some text 3',
-        target: 'Some prop 3',
+        text: "Some text 3",
+        target: "Some prop 3",
       },
-    ]
+    ];
 
     const columns = [
       {
-        key: 'id',
-        label: 'ID',
-        thAlign: 'left',
-        thVerticalAlign: 'top',
-        tdAlign: 'left',
-        tdVerticalAlign: 'top',
+        key: "id",
+        label: "ID",
+        thAlign: "left",
+        thVerticalAlign: "top",
+        tdAlign: "left",
+        tdVerticalAlign: "top",
         sortable: true,
       },
       {
-        key: 'text',
-        label: 'Text',
-        thAlign: 'center',
-        thVerticalAlign: 'middle',
-        tdAlign: 'center',
-        tdVerticalAlign: 'middle',
+        key: "text",
+        label: "Text",
+        thAlign: "center",
+        thVerticalAlign: "middle",
+        tdAlign: "center",
+        tdVerticalAlign: "middle",
         sortable: true,
       },
       {
-        key: 'target',
-        label: 'Target',
-        thAlign: 'right',
-        thVerticalAlign: 'bottom',
-        tdAlign: 'right',
-        tdVerticalAlign: 'bottom',
+        key: "target",
+        label: "Target",
+        thAlign: "right",
+        thVerticalAlign: "bottom",
+        tdAlign: "right",
+        tdVerticalAlign: "bottom",
         sortable: true,
       },
-    ]
+    ];
 
-    const verticalAlignOptions = ['top', 'middle', 'bottom']
-    const alignOptions = ['left', 'center', 'right']
-    const widthOptions = ['25%', '200px', 300]
+    const verticalAlignOptions = ["top", "middle", "bottom"];
+    const alignOptions = ["left", "center", "right"];
+    const widthOptions = ["25%", "200px", 300];
 
     return {
       items,
@@ -195,24 +191,24 @@ export default defineComponent({
       widthOptions,
       useAdditionalClass: true,
       useAdditionalStyle: true,
-    }
+    };
   },
 
   watch: {
     useAdditionalClass: {
-      handler (value) {
-        this.columns[0].tdClass = value && 'additionalClass'
+      handler(value) {
+        this.columns[0].tdClass = value && "additionalClass";
       },
       immediate: true,
     },
     useAdditionalStyle: {
-      handler (value) {
-        this.columns[1].tdStyle = value && { color: 'blue', fontWeight: 900 }
+      handler(value) {
+        this.columns[1].tdStyle = value && { color: "blue", fontWeight: 900 };
       },
       immediate: true,
     },
   },
-})
+});
 </script>
 
 <style lang="scss">

@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-6" style="height: 16rem; overflow: hidden;">
+  <div class="mb-6" style="height: 16rem; overflow: hidden">
     <va-sidebar
       color="primary"
       minimized-width="64px"
@@ -8,7 +8,7 @@
     >
       <va-sidebar-item active-color="backgroundPrimary">
         <va-sidebar-item-content>
-          <va-sidebar-item-title style="white-space: normal;">
+          <va-sidebar-item-title style="white-space: normal">
             background primary and white text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>
@@ -29,7 +29,7 @@
     </va-sidebar>
   </div>
 
-  <div class="mb-6" style="height: 16rem; overflow: hidden;">
+  <div class="mb-6" style="height: 16rem; overflow: hidden">
     <va-sidebar
       color="background-element"
       minimized-width="64px"
@@ -38,7 +38,7 @@
     >
       <va-sidebar-item>
         <va-sidebar-item-content>
-          <va-sidebar-item-title style="white-space: normal;">
+          <va-sidebar-item-title style="white-space: normal">
             background dark and auto text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>
@@ -58,7 +58,7 @@
     </va-sidebar>
   </div>
 
-  <div class="mb-6" style="height: 16rem; overflow: hidden;">
+  <div class="mb-6" style="height: 16rem; overflow: hidden">
     <va-sidebar
       color="#F0F7ED"
       text-color="#009600"
@@ -68,7 +68,7 @@
     >
       <va-sidebar-item active-color="#F0F7ED">
         <va-sidebar-item-content>
-          <va-sidebar-item-title style="white-space: normal;">
+          <va-sidebar-item-title style="white-space: normal">
             background success and auto text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>
@@ -91,7 +91,7 @@
     </va-sidebar>
   </div>
 
-  <div class="mb-6" style="height: 16rem;">
+  <div class="mb-6" style="height: 16rem">
     <va-sidebar
       color="#FFD300"
       active-color="#FFD300"
@@ -102,7 +102,7 @@
     >
       <va-sidebar-item>
         <va-sidebar-item-content>
-          <va-sidebar-item-title style="white-space: normal;">
+          <va-sidebar-item-title style="white-space: normal">
             background danger and success text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>
@@ -128,16 +128,16 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       items: [
-        { title: 'Dashboard', icon: 'dashboard' },
-        { title: 'Sidebar demo', icon: 'room', active: true },
-        { title: 'Loop', icon: 'loop' },
+        { title: "Dashboard", icon: "dashboard" },
+        { title: "Sidebar demo", icon: "room", active: true },
+        { title: "Loop", icon: "loop" },
       ],
-    }
+    };
   },
-}
+};
 </script>
 
 <style>

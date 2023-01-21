@@ -10,7 +10,9 @@
     <div class="flex flex-col">
       <va-date-picker
         stateful
-        :allowedMonths="(date) => date.getMonth() !== 0 && date.getMonth() !== 11"
+        :allowedMonths="
+          (date) => date.getMonth() !== 0 && date.getMonth() !== 11
+        "
         type="month"
       />
     </div>

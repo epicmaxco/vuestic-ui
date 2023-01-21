@@ -1,3 +1,1 @@
- 
-
-export default defineManualApi({})
+export default defineManualApi({});

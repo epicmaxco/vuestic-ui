@@ -7,22 +7,11 @@
   >
     <template #headerAppend>
       <tr class="table-crud-example__slot">
-        <th
-          v-for="key in Object.keys(createdItem)"
-          :key="key"
-          class="p-1"
-        >
-          <va-input
-            :placeholder="key"
-            v-model="createdItem[key]"
-          />
+        <th v-for="key in Object.keys(createdItem)" :key="key" class="p-1">
+          <va-input :placeholder="key" v-model="createdItem[key]" />
         </th>
         <th class="p-1">
-          <va-button
-            @click="addNewItem"
-            :disabled="!isNewData"
-            block
-          >
+          <va-button @click="addNewItem" :disabled="!isNewData" block>
             Add
           </va-button>
         </th>
@@ -30,8 +19,16 @@
     </template>
 
     <template #cell(actions)="{ rowIndex }">
-      <va-button preset="plain" icon="edit" @click="openModalToEditItemById(rowIndex)" />
-      <va-button preset="plain" icon="delete" @click="deleteItemById(rowIndex)" />
+      <va-button
+        preset="plain"
+        icon="edit"
+        @click="openModalToEditItemById(rowIndex)"
+      />
+      <va-button
+        preset="plain"
+        icon="delete"
+        @click="deleteItemById(rowIndex)"
+      />
     </template>
   </va-data-table>
 
@@ -54,45 +51,45 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 const defaultItem = {
-  name: '',
-  username: '',
-  email: '',
-}
+  name: "",
+  username: "",
+  email: "",
+};
 
 export default defineComponent({
-  data () {
+  data() {
     const items = [
       {
-        name: 'Leanne Graham',
-        username: 'Bret',
-        email: 'Sincere@april.biz',
+        name: "Leanne Graham",
+        username: "Bret",
+        email: "Sincere@april.biz",
       },
       {
-        name: 'Ervin Howell',
-        username: 'Antonette',
-        email: 'Shanna@melissa.tv',
+        name: "Ervin Howell",
+        username: "Antonette",
+        email: "Shanna@melissa.tv",
       },
       {
-        name: 'Clementine Bauch',
-        username: 'Samantha',
-        email: 'Nathan@yesenia.net',
+        name: "Clementine Bauch",
+        username: "Samantha",
+        email: "Nathan@yesenia.net",
       },
       {
-        name: 'Patricia Lebsack',
-        username: 'Karianne',
-        email: 'Julianne.OConner@kory.org',
+        name: "Patricia Lebsack",
+        username: "Karianne",
+        email: "Julianne.OConner@kory.org",
       },
-    ]
+    ];
 
     const columns = [
-      { key: 'name', sortable: true },
-      { key: 'username', sortable: true },
-      { key: 'email', sortable: true },
-      { key: 'actions', width: 80 },
-    ]
+      { key: "name", sortable: true },
+      { key: "username", sortable: true },
+      { key: "email", sortable: true },
+      { key: "actions", width: 80 },
+    ];
 
     return {
       items,
@@ -100,47 +97,46 @@ export default defineComponent({
       editedItemId: null,
       editedItem: null,
       createdItem: { ...defaultItem },
-    }
+    };
   },
 
   computed: {
-    isNewData () {
-      return Object.keys(this.createdItem).every((key) => !!this.createdItem[key])
+    isNewData() {
+      return Object.keys(this.createdItem).every(
+        (key) => !!this.createdItem[key]
+      );
     },
   },
 
   methods: {
-    resetEditedItem () {
-      this.editedItem = null
-      this.editedItemId = null
+    resetEditedItem() {
+      this.editedItem = null;
+      this.editedItemId = null;
     },
-    resetCreatedItem () {
-      this.createdItem = { ...defaultItem }
+    resetCreatedItem() {
+      this.createdItem = { ...defaultItem };
     },
-    deleteItemById (id) {
-      this.items = [
-        ...this.items.slice(0, id),
-        ...this.items.slice(id + 1),
-      ]
+    deleteItemById(id) {
+      this.items = [...this.items.slice(0, id), ...this.items.slice(id + 1)];
     },
-    addNewItem () {
-      this.items = [...this.items, { ...this.createdItem }]
-      this.resetCreatedItem()
+    addNewItem() {
+      this.items = [...this.items, { ...this.createdItem }];
+      this.resetCreatedItem();
     },
-    editItem () {
+    editItem() {
       this.items = [
         ...this.items.slice(0, this.editedItemId),
         { ...this.editedItem },
         ...this.items.slice(this.editedItemId + 1),
-      ]
-      this.resetEditedItem()
+      ];
+      this.resetEditedItem();
     },
-    openModalToEditItemById (id) {
-      this.editedItemId = id
-      this.editedItem = { ...this.items[id] }
+    openModalToEditItemById(id) {
+      this.editedItemId = id;
+      this.editedItem = { ...this.items[id] };
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

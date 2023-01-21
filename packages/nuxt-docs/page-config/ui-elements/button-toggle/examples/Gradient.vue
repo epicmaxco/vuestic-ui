@@ -33,15 +33,15 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       options: [
-        { label: 'One', value: 'one' },
-        { label: 'Two', value: 'two' },
-        { label: 'Three', value: 'three' },
+        { label: "One", value: "one" },
+        { label: "Two", value: "two" },
+        { label: "Three", value: "three" },
       ],
-      model: 'two',
-    }
+      model: "two",
+    };
   },
-}
+};
 </script>

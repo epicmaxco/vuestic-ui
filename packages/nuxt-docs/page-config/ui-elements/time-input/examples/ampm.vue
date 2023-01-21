@@ -7,8 +7,8 @@
 
 <script>
 export default {
-  data () {
-    return { value: new Date() }
+  data() {
+    return { value: new Date() };
   },
-}
+};
 </script>

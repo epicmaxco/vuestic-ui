@@ -11,7 +11,12 @@
       <va-button icon="battery" color="textInverted" preset="plain" />
       <va-spacer />
       <va-button color="textInverted" preset="plain">Login</va-button>
-      <va-button-dropdown preset="plain" color="textInverted" icon-color="#fff" stick-to-edges>
+      <va-button-dropdown
+        preset="plain"
+        color="textInverted"
+        icon-color="#fff"
+        stick-to-edges
+      >
         Content
       </va-button-dropdown>
     </va-app-bar>

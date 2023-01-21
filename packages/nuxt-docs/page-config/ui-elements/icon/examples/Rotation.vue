@@ -22,15 +22,11 @@
     track-label-visible
     :disabled="!isRotation"
     :model-value="rotation || 0"
-    @update:model-value="isRotation ? rotation = $event : () => {}"
+    @update:model-value="isRotation ? (rotation = $event) : () => {}"
   />
 
   <div>
-    <va-icon
-      class="mr-3"
-      name="thumb_up"
-      size="large"
-    />
+    <va-icon class="mr-3" name="thumb_up" size="large" />
     <va-icon
       name="thumb_up"
       size="large"
@@ -42,31 +38,31 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  data () {
+  data() {
     const flipOptions = [
-      { label: 'off', value: 'off' },
-      { label: 'horizontal', value: 'horizontal' },
-      { label: 'vertical', value: 'vertical' },
-      { label: 'both', value: 'both' },
-    ]
+      { label: "off", value: "off" },
+      { label: "horizontal", value: "horizontal" },
+      { label: "vertical", value: "vertical" },
+      { label: "both", value: "both" },
+    ];
 
     return {
       flipOptions,
       flip: flipOptions[0].value,
       rotation: 0,
       isRotation: true,
-    }
+    };
   },
 
   watch: {
-    isRotation (value) {
+    isRotation(value) {
       if (!value) {
-        this.rotation = undefined
+        this.rotation = undefined;
       }
     },
   },
-})
+});
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div style="position: relative;">
+  <div style="position: relative">
     <va-app-bar>
       <va-button icon="home" color="#fff" preset="plain" />
       <va-button icon="info" color="#fff" preset="plain" />

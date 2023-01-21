@@ -1,20 +1,16 @@
-
-
-import apiOptions from './api-options'
+import apiOptions from "./api-options";
 
 export default definePageConfig({
   blocks: [
-  block.title('colorPalette.title'),
-  block.paragraph('colorPalette.summaryText'),
+    block.title("colorPalette.title"),
+    block.paragraph("colorPalette.summaryText"),
 
-  block.subtitle('all.examples'),
+    block.subtitle("all.examples"),
 
-  block.example(    'Default',
-  ),
-  block.example(    'Indicator',
-  ),
+    block.example("Default"),
+    block.example("Indicator"),
 
-  block.subtitle('all.api'),
-  block.api('VaColorPalette', apiOptions),
-]
-})
+    block.subtitle("all.api"),
+    block.api("VaColorPalette", apiOptions),
+  ],
+});

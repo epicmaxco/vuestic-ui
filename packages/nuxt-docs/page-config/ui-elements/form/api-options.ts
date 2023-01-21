@@ -1,26 +1,24 @@
- 
-
 export default defineManualApi({
   methods: {
     validate: {
-      types: '`() => boolean`',
+      types: "`() => boolean`",
     },
     focus: {
-      types: '`() => void`',
+      types: "`() => void`",
     },
     focusInvalid: {
-      types: '`() => void`',
+      types: "`() => void`",
     },
     resetValidation: {
-      types: '`() => boolean`',
+      types: "`() => boolean`",
     },
     reset: {
-      types: '`() => boolean`',
+      types: "`() => boolean`",
     },
   },
   events: {
     validation: {
-      types: '`(valid: boolean) => void`',
+      types: "`(valid: boolean) => void`",
     },
   },
-})
+});

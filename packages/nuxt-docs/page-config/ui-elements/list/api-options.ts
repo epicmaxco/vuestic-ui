@@ -1,33 +1,31 @@
- 
-
 export const listApiOptions = defineManualApi({
   slots: {
-    default: { },
+    default: {},
   },
-})
+});
 
 export const listLabelApiOptions = defineManualApi({
   slots: {
-    default: { },
+    default: {},
   },
-})
+});
 
-export const listSeparatorApiOptions = defineManualApi({})
+export const listSeparatorApiOptions = defineManualApi({});
 
 export const listItemApiOptions = defineManualApi({
   slots: {
-    default: { },
+    default: {},
   },
-})
+});
 
 export const listItemLabelApiOptions = defineManualApi({
   slots: {
-    default: { },
+    default: {},
   },
-})
+});
 
 export const listItemSectionApiOptions = defineManualApi({
   slots: {
-    default: { },
+    default: {},
   },
-})
+});

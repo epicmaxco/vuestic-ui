@@ -7,7 +7,7 @@
       <p>
         {{ name }}
       </p>
-      <p style="font-size: 14px;">
+      <p style="font-size: 14px">
         var(--va-{{ kebabCase(name) }})<span class="ml-2">{{ value }}</span>
       </p>
     </div>
@@ -18,11 +18,11 @@
 </template>
 
 <script setup lang="ts">
-import { useElementBackground, useTextColor } from 'vuestic-ui/src/composables'
-import kebabCase from 'lodash/kebabCase'
+import { useElementBackground, useTextColor } from "vuestic-ui/src/composables";
+import kebabCase from "lodash/kebabCase";
 
-const { background } = useElementBackground()
-const { textColorComputed } = useTextColor(background)
+const { background } = useElementBackground();
+const { textColorComputed } = useTextColor(background);
 
 const props = defineProps({
   name: {
@@ -33,7 +33,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

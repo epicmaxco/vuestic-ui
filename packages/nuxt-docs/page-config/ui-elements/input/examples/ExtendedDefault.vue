@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 300px;">
+  <div style="width: 300px">
     <va-input
       class="mb-6"
       v-model="value"
@@ -28,27 +28,19 @@
       placeholder="Readonly"
       readonly
     />
-    <va-input
-      v-model="value"
-      counter
-      class="mb-6"
-    />
-    <va-input
-      v-model="value"
-      :max-length="30"
-      counter
-      class="mb-6"
-    />
-    <va-input
-      v-model="value"
-      :max-length="30"
-      counter
-      class="mb-6"
-    >
+    <va-input v-model="value" counter class="mb-6" />
+    <va-input v-model="value" :max-length="30" counter class="mb-6" />
+    <va-input v-model="value" :max-length="30" counter class="mb-6">
       <template #counter="{ valueLength, maxLength }">
         <b
-          style="margin-left: auto;"
-          :style="{ color: valueLength > maxLength ? 'var(--va-danger)' : 'var(--va-success)' }">
+          style="margin-left: auto"
+          :style="{
+            color:
+              valueLength > maxLength
+                ? 'var(--va-danger)'
+                : 'var(--va-success)',
+          }"
+        >
           {{ maxLength - valueLength }}
         </b>
       </template>
@@ -57,16 +49,16 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref } from "vue";
 
 export default {
-  name: 'ExtendedDefault',
-  setup () {
-    const value = ref('')
+  name: "ExtendedDefault",
+  setup() {
+    const value = ref("");
 
     return {
       value,
-    }
+    };
   },
-}
+};
 </script>

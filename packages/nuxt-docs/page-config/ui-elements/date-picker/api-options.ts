@@ -1,32 +1,32 @@
- 
-
 export default defineManualApi({
   props: {
-    modelValue: { types: 'Date | Date[] | { start: Date | null, end: Date | null }' },
+    modelValue: {
+      types: "Date | Date[] | { start: Date | null, end: Date | null }",
+    },
     firstWeekday: { types: "'Monday' | 'Sunday'" },
     mode: { types: "'single' | 'multiple' | 'range'" },
   },
   events: {
     updateView: {
-      types: '`() => Object`',
+      types: "`() => Object`",
     },
     hoverYear: {
-      types: '`() => Date | undefined`',
+      types: "`() => Date | undefined`",
     },
     clickYear: {
-      types: '`() => Date`',
+      types: "`() => Date`",
     },
     hoverMonth: {
-      types: '`() => Date | undefined`',
+      types: "`() => Date | undefined`",
     },
     clickMonth: {
-      types: '`() => Date`',
+      types: "`() => Date`",
     },
     hoverDay: {
-      types: '`() => Date | undefined`',
+      types: "`() => Date | undefined`",
     },
     clickDay: {
-      types: '`() => Date`',
+      types: "`() => Date`",
     },
   },
   slots: {
@@ -38,4 +38,4 @@ export default defineManualApi({
     weekday: {},
     day: {},
   },
-})
+});

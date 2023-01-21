@@ -1,12 +1,12 @@
 <template>
-  <div style="height: 13rem; position: relative;">
+  <div style="height: 13rem; position: relative">
     <div class="content">Content</div>
 
     <va-sidebar
       v-model="enabled"
       :minimized="minimized"
       position="right"
-      style="position: absolute;"
+      style="position: absolute"
     >
       <va-sidebar-item
         v-for="item in items"
@@ -29,18 +29,18 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       items: [
-        { title: 'Dashboard', icon: 'dashboard' },
-        { title: 'Sidebar demo', icon: 'room', active: true },
-        { title: 'Loop', icon: 'loop' },
+        { title: "Dashboard", icon: "dashboard" },
+        { title: "Sidebar demo", icon: "room", active: true },
+        { title: "Loop", icon: "loop" },
       ],
       minimized: false,
       enabled: true,
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

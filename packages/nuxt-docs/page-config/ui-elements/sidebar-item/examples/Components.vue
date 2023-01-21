@@ -14,12 +14,16 @@
             <va-sidebar-item-title>
               {{ $tie(route.displayName) }}
             </va-sidebar-item-title>
-            <va-icon v-if="route.children" :name="accordionValue[idx] ? 'expand_less' : 'expand_more'" />
+            <va-icon
+              v-if="route.children"
+              :name="accordionValue[idx] ? 'expand_less' : 'expand_more'"
+            />
           </va-sidebar-item-content>
         </va-sidebar-item>
       </template>
       <va-sidebar-item
-        v-for="(child, index) in route.children" :key="index"
+        v-for="(child, index) in route.children"
+        :key="index"
         :active="isRouteActive(child)"
         @click="setRouteActive(child)"
       >
@@ -34,52 +38,58 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
-declare type DemoRoute = { name: string, displayName: string, children?: DemoRoute[] }
+declare type DemoRoute = {
+  name: string;
+  displayName: string;
+  children?: DemoRoute[];
+};
 
 export default defineComponent({
-  data () {
+  data() {
     return {
       accordionValue: [false, true],
       items: [
         {
-          name: 'Home',
-          displayName: 'Home',
+          name: "Home",
+          displayName: "Home",
         },
         {
-          name: 'Docs',
-          displayName: 'Docs',
+          name: "Docs",
+          displayName: "Docs",
         },
         {
-          name: 'Components',
-          displayName: 'Components',
+          name: "Components",
+          displayName: "Components",
           children: [
             {
-              name: 'Button',
-              displayName: 'Button',
+              name: "Button",
+              displayName: "Button",
             },
             {
-              name: 'Input',
-              displayName: 'Input',
+              name: "Input",
+              displayName: "Input",
             },
           ],
         },
       ],
       // Change this with current route came from your router :)
-      activeRouteName: 'Docs',
-    }
+      activeRouteName: "Docs",
+    };
   },
   methods: {
-    isRouteActive (route: DemoRoute) {
-      return this.activeRouteName === route.name
+    isRouteActive(route: DemoRoute) {
+      return this.activeRouteName === route.name;
     },
-    setRouteActive (route: DemoRoute) {
-      if (route.children) { return }
-      this.activeRouteName = route.name
+    setRouteActive(route: DemoRoute) {
+      if (route.children) {
+        return;
+      }
+      this.activeRouteName = route.name;
     },
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>

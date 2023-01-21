@@ -1,13 +1,6 @@
 <template>
-  <va-form
-    style="width: 300px;"
-    tag="form"
-    @submit.prevent="handleSubmit"
-  >
-    <va-input
-      label="Username"
-      v-model="username"
-    />
+  <va-form style="width: 300px" tag="form" @submit.prevent="handleSubmit">
+    <va-input label="Username" v-model="username" />
 
     <va-input
       class="mt-3"
@@ -24,26 +17,24 @@
       clearable
     />
 
-    <va-button type="submit" class="mt-3">
-      Login
-    </va-button>
+    <va-button type="submit" class="mt-3"> Login </va-button>
   </va-form>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      username: '',
-      password: '',
-      value: '',
-      options: ['admin', 'user'],
-    }
+      username: "",
+      password: "",
+      value: "",
+      options: ["admin", "user"],
+    };
   },
   methods: {
-    handleSubmit () {
-      alert('-- form submit --')
+    handleSubmit() {
+      alert("-- form submit --");
     },
   },
-}
+};
 </script>

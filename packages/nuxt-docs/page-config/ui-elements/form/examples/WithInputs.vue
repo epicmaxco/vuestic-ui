@@ -1,21 +1,11 @@
 <template>
-  <div  style="width: 300px;">
-    <va-button
-      class="mb-3"
-      @click="$refs.form.validate()"
-    >
+  <div style="width: 300px">
+    <va-button class="mb-3" @click="$refs.form.validate()">
       Validate
     </va-button>
 
-    <va-form
-      ref="form"
-      @validation="validation = $event"
-    >
-      <va-input
-        label="Name"
-        v-model="inputValue"
-        :rules="inputRules"
-      />
+    <va-form ref="form" @validation="validation = $event">
+      <va-input label="Name" v-model="inputValue" :rules="inputRules" />
       <va-select
         class="mt-3"
         label="City"
@@ -42,17 +32,17 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      inputValue: '',
-      selectValue: '',
+      inputValue: "",
+      selectValue: "",
       inputDate: undefined,
       validation: null,
-      options: ['Minsk', 'Los Angeles', 'San Francisco', 'Peru'],
-      inputRules: [value => value === 'Ben' || 'Should be Ben'],
-      selectRules: [value => value === 'Minsk' || 'Should be Minsk'],
-      dateRules: [value => !!value || 'Should be date'],
-    }
+      options: ["Minsk", "Los Angeles", "San Francisco", "Peru"],
+      inputRules: [(value) => value === "Ben" || "Should be Ben"],
+      selectRules: [(value) => value === "Minsk" || "Should be Minsk"],
+      dateRules: [(value) => !!value || "Should be date"],
+    };
   },
-}
+};
 </script>
