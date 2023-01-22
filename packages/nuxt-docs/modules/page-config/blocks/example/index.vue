@@ -3,6 +3,7 @@ import { DefineComponent, PropType, ref } from 'vue';
 import { type CodeSandboxConfig } from '../../../../composables/code-sandbox';
 import { CodeView } from "../shared/code";
 import ExampleFooter from './example-footer.vue';
+import { Anchor } from '../shared/anchor';
 
 const props = defineProps({
   component: {
@@ -41,9 +42,37 @@ const style = parseTemplate('style', source)
 const gitLink = computed(
   () => `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/${props.path}`,
 )
+
+
+const lowerCaseFirst = (str: string) => str.charAt(0).toLowerCase() + str.slice(1)
+const exampleName = computed(() => lowerCaseFirst(props.path.split('/').pop()?.replace('.vue', '') || ''))
+
+const configName = computed(() => {
+  const fullName = props.path.match(/\/(.*)\/examples/)?.[1] || undefined
+  return fullName?.split('/').pop()
+})
+
+const { t } = useI18n()
+
+const title = computed(() => {
+  return t(`${configName.value}.examples.${exampleName.value}.title`)
+})
+
+const description = computed(() => {
+  return t(`${configName.value}.examples.${exampleName.value}.text`)
+})
 </script>
 
 <template>
+  <h4 v-if="title">
+    {{ title }}
+    <Anchor  :text="title" />
+  </h4>
+
+  <p v-if="description">
+    {{ description }}
+  </p>
+
   <div class="page-config-example mb-3">
     <va-card outlined class="page-config-example__card" color="background-primary">
       <va-card-content>

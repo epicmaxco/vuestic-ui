@@ -188,6 +188,8 @@ import adminImage from '@/assets/images/landing/admin/admin.png'
   @include row-flex();
 
   .item {
+    $color: #6C7898;
+
     @include col();
     @include size(12);
 
@@ -210,7 +212,7 @@ import adminImage from '@/assets/images/landing/admin/admin.png'
     &__frame {
       display: inline-block;
       padding: 0.75rem;
-      border: 1px dashed var(--va-background-border);
+      border: 1px dashed $color;
       border-radius: 1rem;
     }
 
