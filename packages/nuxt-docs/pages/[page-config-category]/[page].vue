@@ -35,11 +35,29 @@ watchEffect(() => {
 </script>
 
 <style lang="scss">
+.page-config-title,
+.page-config-subtitle,
+.page-config-headline {
+
+  .page-config-title+&,
+  .page-config-subtitle+&,
+  .page-config-headline+& {
+    margin-top: 1rem !important;
+  }
+}
+
 .page-config {
+
   .page-config-title,
   .page-config-subtitle,
   .page-config-headline {
     margin-top: 4rem;
+
+    .page-config-title+&,
+    .page-config-subtitle+&,
+    .page-config-headline+& {
+      margin-top: 2rem;
+    }
 
     &:first-child {
       margin-top: 0;

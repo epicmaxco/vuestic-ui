@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { MarkdownView } from '../shared/markdown'
+import { Anchor } from '../shared/anchor'
 
 const props = defineProps({
   text: {
@@ -12,5 +12,8 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <MarkdownView class="page-config-headline" :content="`#### ${t(text)}`" />
+  <h4 class="page-config-headline">
+    {{ t(text)  }}
+    <Anchor :text="text" />
+  </h4>
 </template>

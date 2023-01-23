@@ -3,7 +3,7 @@ import { DefineComponent, PropType, ref } from 'vue';
 import { type CodeSandboxConfig } from '../../../../composables/code-sandbox';
 import { CodeView } from "../shared/code";
 import ExampleFooter from './example-footer.vue';
-import { Anchor } from '../shared/anchor';
+import Headline from '../headline/index.vue'
 
 const props = defineProps({
   component: {
@@ -64,10 +64,10 @@ const description = computed(() => {
 </script>
 
 <template>
-  <h4 v-if="title">
+  <Headline v-if="title" :text="title">
     {{ title }}
-    <Anchor  :text="title" />
-  </h4>
+    <!-- <Anchor  :text="title" /> -->
+  </Headline>
 
   <p v-if="description">
     {{ description }}
