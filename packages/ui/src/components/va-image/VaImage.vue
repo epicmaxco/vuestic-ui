@@ -215,12 +215,15 @@ export default defineComponent({
     object-position: var(--va-image-object-position);
   }
 
+  &__overlay {
+    @include absolute;
+  }
+
   &__placeholder,
   &__loader,
   &__error,
   &__overlay {
-    @include absolute;
-
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
