@@ -12,7 +12,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <h1>
+  <h1 class="page-config-title">
     {{ t(text) }}
     <Anchor :text="text"/>
   </h1>

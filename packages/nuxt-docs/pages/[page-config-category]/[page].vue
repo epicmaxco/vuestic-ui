@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-config">
     <PageConfig v-if="config" :pageConfig="config" />
   </div>
 </template>
@@ -25,12 +25,25 @@ const pageConfigName = computed(() => {
 
 const config = usePageConfig(pageConfigName);
 
+watchEffect(() => {
+  if (!config.value?.meta?.title) { return }
 
-// watchEffect(() => {
-//   if (!config.value?.meta?.title) { return }
-
-//   useHead({
-//     title: config.value?.meta?.title,
-//   });
-// })
+  useHead({
+    title: config.value?.meta?.title,
+  });
+})
 </script>
+
+<style lang="scss">
+.page-config {
+  .page-config-title,
+  .page-config-subtitle,
+  .page-config-headline {
+    margin-top: 4rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+</style>

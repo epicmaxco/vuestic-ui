@@ -12,5 +12,5 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <MarkdownView :content="`#### ${t(text)}`" />
+  <MarkdownView class="page-config-headline" :content="`#### ${t(text)}`" />
 </template>
