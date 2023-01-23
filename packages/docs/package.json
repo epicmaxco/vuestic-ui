@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "yarn build:analysis --use-cache && vue-cli-service serve",
     "build": "yarn build:analysis && vue-cli-service build",
-    "build:ci": "yarn build:analysis && vue-cli-service build",
+    "build:ci": "yarn build:analysis --use-cache && vue-cli-service build",
     "build:analysis": "yarn workspace sandbox build:analysis ../docs/src/page-configs/getting-started/tree-shaking",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}' --fix",
