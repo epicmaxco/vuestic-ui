@@ -47,6 +47,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, watch, nextTick, onBeforeUnmount, type PropType, onBeforeMount } from 'vue'
+import pick from 'lodash/pick.js'
 
 import { VaAspectRatio } from '../va-aspect-ratio'
 
@@ -83,6 +84,11 @@ export default defineComponent({
       type: String as PropType<typeof fitOptions[number]>,
       default: 'cover',
       validator: (v: string) => validateProp(v, fitOptions),
+    },
+    maxWidth: {
+      type: Number,
+      default: 0,
+      validator: (v: number) => v >= 0,
     },
     // TODO: delete in 1.7.0
     contain: { type: Boolean, default: false },
@@ -167,9 +173,9 @@ export default defineComponent({
     const imgAttributesComputed = useNativeImgAttributes(props)
 
     const aspectRationAttributesComputed = computed(() => ({
+      ...pick(props, ['ratio', 'maxWidth']),
       contentWidth: imgWidth.value,
       contentHeight: imgHeight.value,
-      ratio: props.ratio,
     }))
 
     // TODO: refactor (just v-bind fit prop to CSS) in 1.7.0
@@ -197,16 +203,9 @@ export default defineComponent({
 <style lang="scss">
 @import 'variables';
 
-@mixin absolute {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
 .va-image {
-  @include absolute;
+  position: var(--va-image-position);
+  inset: 0;
 
   img {
     width: 100%;
@@ -219,8 +218,8 @@ export default defineComponent({
   &__loader,
   &__error,
   &__overlay {
-    @include absolute;
-
+    position: absolute;
+    inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
