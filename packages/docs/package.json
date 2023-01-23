@@ -40,7 +40,6 @@
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
-    "@tailwindcss/postcss7-compat": "^2.2.17",
     "@types/dedent": "^0.7.0",
     "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.168",
@@ -68,7 +67,6 @@
     "i18n-unused": "^0.4.2",
     "lint-staged": "^11.1.2",
     "plop": "^2.7.0",
-    "postcss": "^7",
     "sass-loader": "^10.1.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
