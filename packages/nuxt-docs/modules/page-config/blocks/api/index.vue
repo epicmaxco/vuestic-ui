@@ -67,7 +67,7 @@ const propsOptions = Object
   .map(([key, prop]) => ({
     name: { name: key, ...prop },
     description: t(getTranslation('props', key)),
-    types: prop.types,
+    types: '`' + prop.types + '`',
     default: cleanDefaultValue(prop.default),
   }))
 
