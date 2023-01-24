@@ -100,6 +100,12 @@ on [vuestic.dev](https://vuestic.dev)
 
 ### Partners & Sponsors ❤️
 <div>
+  <a href="https://vuejs.org/" target="_blank" title="VueJS - The Progressive JavaScript Framework">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/vuejs-light.svg" />
+      <img src="./.github/assets/vuejs.svg" loading="lazy" alt=""/>
+    </picture>
+  </a>
   <a href="https://nuxt.com/" target="_blank" title="Nuxt - The Intuitive Web Framework">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/nuxt-light.svg" />
