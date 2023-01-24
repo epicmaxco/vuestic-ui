@@ -1,5 +1,5 @@
 <template>
-  <div class="flex lg6 xs12">
+  <div class="flex flex-col lg6 xs12">
     <div class="my-2 text--bold muted">small</div>
     <va-progress-circle
       size="small"

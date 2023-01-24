@@ -31,7 +31,7 @@
       />
     </va-form>
 
-    <va-alert v-if="validation !== null" class="mt-4" border="left">
+    <va-alert v-if="validation !== null" class="mt-6" border="left">
       <span>
         Validate form:
         <va-chip>{{ validation }}</va-chip>

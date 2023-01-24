@@ -12,7 +12,9 @@
         "blog": "Blog"
       },
       "banner": {
-        "text": "Vuestic UI is live on Product Hunt! \uD83D\uDE80"
+        "partner": "Official Partner of",
+        "and": "and",
+        "hire": "\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hire us"
       }
     },
     "preview": {
@@ -180,6 +182,10 @@
         "round": "Adds rounded corners (or make a button fully rounded if only icon is passed).",
         "iconRight": "The icon to be displayed to the right of a title.",
         "keyboardNavigation": "Enables keyboard navigation for the component.",
+        "fallbackSrc": "Shows an alternative image if original image failed to load or src doesn't specified.",
+        "fallbackText": "Shows an alternative text if image failed to load or src doesn't specified.",
+        "fallbackIcon": "Shows an icon if image failed to load or src doesn't specified.",
+        "fallbackRender": "Allows to use render function to render custom contents if image failed to load or src doesn't specified",
         "delay": "Sets throttling delay (ms) for the components any data change (useful for huge data)."
       }
     },
@@ -205,9 +211,9 @@
       },
       "slots": {
         "default": "Default slot for button's content.",
-        "append": "Slot to input before button's content. Slot scope properties available: `{ icon, iconAttributes }`.",
-        "prepend": "Slot to input after button's content. Slot scope properties available: `{ icon, iconAttributes }`.",
-        "loading": "Slot for loading state. Slot scope properties available: `{ icon, iconAttributes }`."
+        "append": "Slot to input before button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
+        "prepend": "Slot to input after button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
+        "loading": "Slot for loading state. Slot scope properties available: `{'{ icon, iconAttributes }'}`."
       },
       "events": {
         "click": "Emitted when user clicks on button"
@@ -844,7 +850,11 @@
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
         "bordered": "Applies style with bottom border",
         "requiredMark": "Adds required mark to the label",
-        "separator": "Text to separate selected values"
+        "separator": "Text to separate selected values",
+        "maxVisibleOptions": "Max selected options amount, that will be shown inside of input wrapper.",
+        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
+        "selectedTopShown": "Selected options will be shown at the top of the options list.",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction."
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -861,7 +871,9 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content",
         "content": "Adds an item instead the input",
-        "option": "Allows to specify option template"
+        "option": "Allows to specify option template",
+        "hiddenOptionsBadge": "Replaces default badge with hidden options counter (see `maxVisibleOptions` prop).",
+        "hideOptionsButton": "Replaces default button for hiding selected options that are over the limit (see `maxVisibleOptions` prop)."
       }
     },
     "VaParallax": {
@@ -914,7 +926,7 @@
         "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
         "trigger": "Action that will open and close dropdown.",
         "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
-        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
         "isContentHoverable": "If true, dropdown content will be hoverable",
         "innerAnchorSelector": "Anchor CSS selector inside passed slot.",
         "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
@@ -1447,7 +1459,8 @@
         "checked": "Array of pre-selected tree nodes.",
         "checkedBy": "The key to set the checked field in the tree view model.",
         "color": "The checkboxes color.",
-        "expanded": "Array of pre-expanded tree nodes."
+        "expanded": "Array of pre-expanded tree nodes.",
+        "expandNodeBy": "Click target to expand node, can be `node` or `leaf` icon."
       },
       "slots": {
         "notFound": "No matching nodes to the filter message.",
@@ -3244,6 +3257,14 @@
       "styles": {
         "title": "Styles",
         "text": "Select styles inherit from input styles"
+      },
+      "maxVisibleOptions": {
+        "title": "Max visible selected options",
+        "text": "The `max-visible-options` props sets amount of selected options, that will be shown inside of input wrapper. The rest will be hidden, but may be shown after clicking the badge with hidden options counter."
+      },
+      "selectedTopShown": {
+        "title": "Displaying selected options at the top of the list",
+        "text": "The `selected-top-shown` prop forces to display selected options at the top of the options list."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-select/_variables.scss)[[target=_blank]]"
@@ -3627,6 +3648,10 @@
     "css": {
       "title": "CSS Code Split",
       "description": "We separated our CSS into modules: `essential`, `typography`, `grid` and `reset`. Instead of import `vuestic/css` you can import `vuestic/styles/essential.css` - module without typography, grid and normalize. This is usually need if you already using some CSS framework to prevent style conflicts."
+    },
+    "bundleSize": {
+      "title": "Bundle Size",
+      "description": "Statistics of the space occupied in the project bundle (without gzip):"
     }
   },
   "roadmap": {
@@ -4063,7 +4088,7 @@
     },
     "reactivity": {
       "subtitle": "Reactivity",
-      "about": "As you can see, methods like `getColor`, `getColors` don’t return `Proxy`. If you want to use color as reactive Proxy, use computed properties like in the example above."
+      "about": "Methods like `getColors` return a computed reactives that can also be accessed by variable `colors`. The advantage is allow to change properties, instead of rewriting whole colors variable. For example, you can change `primary` color by writing `colors.primary = '#ff0'`. Multiple properties changes are also supported, you can write `setColors({ primary: '#00f', secondary: '#0ff' })`."
     },
     "otherServices": {
       "subtitle": "Colors config with other services",
@@ -4077,7 +4102,7 @@
       "ColorConfig": "An object where the keys are the color names and the values are valid CSS colors.",
       "ColorInput": "A valid CSS color",
       "methods": "Methods",
-      "useColor": "Return colors methods",
+      "useColors": "Return colors methods and variables",
       "setColors": "Used to merge new colors into config or update existing colors.",
       "getColors": "Returns current color config",
       "getColor": "Return color by name",
@@ -4085,7 +4110,9 @@
       "getHoverColor": "Return a color that you can use as a `hover` color.",
       "getFocusColor": "Return a color that you can use as a `focus` color.",
       "getGradientBackground": "Return a gradient-color that you can use as a `background-image` CSS property's value.",
-      "hookMethods": "useColors hook methods"
+      "hookMethods": "useColors hook methods.",
+      "hookVariables": "useColors hook variables.",
+      "colors": "A computed reactive where the keys are color names and values are valid CSS colors."
     }
   },
   "breakpoints": {
@@ -4637,7 +4664,8 @@
         "title": "Filters"
       },
       "selectable": {
-        "title": "Selectable"
+        "title": "Selectable",
+        "coloredTitle": "Colored checkboxes"
       }
     }
   },

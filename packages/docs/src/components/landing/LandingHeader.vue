@@ -1,22 +1,13 @@
 <template>
   <header class="header">
-<!--    <div class="header__banner">-->
-<!--      <div>-->
-<!--        🔥🔥🔥-->
-<!--        <span class="pl-2">-->
-<!--          {{ $t('landing.header.banner.text') }}-->
-<!--        </span>-->
-<!--      </div>-->
-<!--      <a href="https://www.producthunt.com/posts/vuestic-ui" target="_blank" class="header__banner-btn">Launch page 🚀-->
-<!--      </a>-->
-<!--    </div>-->
+    <header-banner />
     <div class="header__wrapper">
       <div class="header__inner">
         <div class="header__logo">
           <a href="/" aria-label="go to the main page">
             <vuestic-logo height="30" width="150" aria-hidden="true" />
           </a>
-          <div class="menu" @click="onClick(!isHidden)" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
+          <div class="menu" @click="isHidden = !isHidden" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
             <img v-if="!isHidden" src="../../assets/landing/images/hamburger.svg" alt="menu">
             <img v-else src="../../assets/landing/images/cross.svg" alt="menu">
           </div>
@@ -24,7 +15,7 @@
         <nav class="header__links">
           <!-- vuestic buttons -->
           <va-button
-            :to="`/${$root.$i18n.locale}/introduction/overview`"
+            :to="`/${locale}/introduction/overview`"
             class="header__links--link"
             preset="landingHeader"
           >
@@ -39,7 +30,7 @@
             {{ $t('landing.header.buttons.discord') }}
           </va-button>
           <va-button
-            :to="`/${$root.$i18n.locale}/introduction/team`"
+            :to="`/${locale}/introduction/team`"
             class="header__links--link"
             preset="landingHeader"
             target="_blank"
@@ -59,16 +50,16 @@
           <landing-stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
         </nav>
         <!-- mobile -->
-        <nav class="mobile-menu" :class="computedClass">
+        <nav class="mobile-menu" :class="{'mobile-menu--open': !isHidden}">
           <va-list>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <router-link :to="`/${$root.$i18n.locale}/introduction/overview`">{{ $t('landing.header.buttons.overview') }}</router-link>
+                <router-link :to="`/${locale}/introduction/overview`">{{ $t('landing.header.buttons.overview') }}</router-link>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <router-link :to="`/${$root.$i18n.locale}/introduction/overview`">{{ $t('landing.header.buttons.docs') }}</router-link>
+                <router-link :to="`/${locale}/introduction/overview`">{{ $t('landing.header.buttons.docs') }}</router-link>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
@@ -88,21 +79,21 @@
             </va-list-label>
             <div class="mobile-menu__languages">
               <va-list-item
-                v-for="(option, id) in options"
+                v-for="(language, id) in languages"
                 :key="id"
                 class="mobile-menu__language"
-                :class="{ active: option.code === currentLanguage }"
-                @click="setLanguage(option.code)"
+                :class="{ active: language.code === locale }"
+                @click="setLanguage(language.code)"
               >
                 <va-list-item-section class="mobile-menu__link">
-                  <span class="language">{{ option.name }}</span>
+                  <span class="language">{{ language.name }}</span>
                 </va-list-item-section>
               </va-list-item>
               <va-list-item>
                 <va-list-item-section class="mobile-menu__link">
                   <router-link
                     class="mobile-menu__language"
-                    :to="`/${$root.$i18n.locale}/contribution/translation`"
+                    :to="`/${locale}/contribution/translation`"
                   >
                     {{ $t('landing.header.buttons.translation') }}
                   </router-link>
@@ -121,61 +112,42 @@
 </template>
 
 <script lang="ts">
-// @ts-nocheck
-import { Options, Vue } from 'vue-class-component'
-import { languages } from '../../locales'
+import { defineComponent, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
 import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import LandingStarsButton from './LandingStarsButton.vue'
-import LandingThemeSwitchButton from '../ThemeSwitch.vue'
+import HeaderBanner from '../HeaderBanner.vue'
+// import LandingThemeSwitchButton from '../ThemeSwitch.vue'
 
-@Options({
+import { useSharedLanguageSwitcher } from '../../locales/hooks/useLanguageSwitcher'
+
+export default defineComponent({
   name: 'LandingHeader',
+
   components: {
+    HeaderBanner,
     LanguageDropdown,
     LandingStarsButton,
     VuesticLogo,
-    LandingThemeSwitchButton,
+    // LandingThemeSwitchButton,
+  },
+
+  setup () {
+    const { locale } = useI18n()
+    const isHidden = ref(true)
+
+    const { languages, setLanguage } = useSharedLanguageSwitcher()
+
+    return {
+      locale,
+      languages,
+      isHidden,
+      setLanguage,
+    }
   },
 })
-export default class Header extends Vue {
-  value = false
-  isHidden = true
-  options = languages
-
-  onClick (value: boolean) {
-    this.isHidden = value
-  }
-
-  get computedClass () {
-    return {
-      'mobile-menu--open': !this.isHidden,
-    }
-  }
-
-  setLanguage (locale: any) {
-    this.$root.$i18n.locale = locale
-    document.querySelector('html').setAttribute('lang', locale)
-    localStorage.setItem('VueAppLanguage', locale)
-    this.$nextTick(() => {
-      // a little hack to change the same route alias
-      const path = this.$localizePath(this.$route.fullPath, locale)
-      this.$router.replace({
-        path,
-        hash: `#${+new Date()}`,
-      }).then(() => this.$router.replace({ hash: '' }))
-    })
-  }
-
-  get currentLanguage () {
-    return (this as any).$root.$i18n.locale
-  }
-
-  get currentLanguageName () {
-    const result = (this as any).options.find(({ code }: any) => code === this.currentLanguage)
-    return result.name
-  }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -191,26 +163,6 @@ export default class Header extends Vue {
   left: 0;
   width: 100%;
   background: transparent;
-
-  &__banner {
-    display: flex;
-    min-height: 50px;
-    padding: 10px 20px;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background-color: #ef6c05;
-    font-size: 1rem;
-    color: white;
-
-    &-btn {
-      padding: 10px;
-      border-radius: 5px;
-      background-color: #fdfdfd;
-      color: #e06301 !important;
-      margin-left: 15px;
-    }
-  }
 
   &__wrapper {
     @include wrapper();

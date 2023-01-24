@@ -15,6 +15,12 @@ const columnsApiMethods: TableColumn[] = [
   { title: 'description', type: 'markdown' },
 ]
 
+const columnsApiHookVariables: TableColumn[] = [
+  'variable',
+  { title: 'type', type: 'code' },
+  { title: 'description', type: 'markdown' },
+]
+
 const tableDataApiTypes: TableData = [
   ['ColorConfig', '{ [colorName: string]: string; }', 'colorsConfig.api.ColorConfig'],
   ['ColorInput', 'string', 'colorsConfig.api.ColorInput'],
@@ -24,6 +30,7 @@ const tableDataApiMethods: TableData = [
   [
     'useColors',
     `() => {
+      colors,
       setColors,
       getColors,
       getColor,
@@ -32,7 +39,7 @@ const tableDataApiMethods: TableData = [
       getFocusColor,
       getGradientBackground
     }`,
-    'colorsConfig.api.useColor',
+    'colorsConfig.api.useColors',
   ],
 ]
 
@@ -44,6 +51,10 @@ const tableDataApiHookMethods: TableData = [
   ['getHoverColor', '(color: ColorInput) => string', 'colorsConfig.api.getHoverColor'],
   ['getFocusColor', '(color: ColorInput) => string', 'colorsConfig.api.getFocusColor'],
   ['getGradientBackground', '(color: string) => string', 'colorsConfig.api.getGradientBackground'],
+]
+
+const tableDataApiHookVariables: TableData = [
+  ['colors', 'ColorConfig', 'colorsConfig.api.colors'],
 ]
 
 const block = new PageGenerationHelper(__dirname)
@@ -83,6 +94,9 @@ const config: ApiDocsBlock[] = [
 
   block.headline('colorsConfig.api.hookMethods'),
   block.table(columnsApiMethods, tableDataApiHookMethods),
+
+  block.headline('colorsConfig.api.hookVariables'),
+  block.table(columnsApiHookVariables, tableDataApiHookVariables),
 ]
 
 export default config

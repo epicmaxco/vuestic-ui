@@ -3,7 +3,7 @@
     <div
       style="height: 200px;"
       ref="infiniteScrollTarget"
-      class="flex md6 lg4"
+      class="flex flex-col md6 lg4"
     >
       <va-infinite-scroll
         :load="appendRecordsAsyncRef"
@@ -23,7 +23,7 @@
     <div
       style="height: 200px;"
       id="infinite-scroll-custom-target"
-      class="flex md6 lg4"
+      class="flex flex-col md6 lg4"
     >
       <va-infinite-scroll
         :load="appendRecordsAsyncId"

@@ -3,7 +3,7 @@
     disabled
     v-model="model"
     :options="options"
-    class="mb-4"
+    class="mb-6"
   />
 </template>
 

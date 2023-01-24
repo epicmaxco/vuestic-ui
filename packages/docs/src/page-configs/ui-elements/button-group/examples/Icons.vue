@@ -1,11 +1,11 @@
 <template>
-  <va-button-group class="mb-4">
+  <va-button-group class="mb-6">
     <va-button icon="create" />
     <va-button icon="add" />
     <va-button icon="add_circle_outline" />
   </va-button-group>
 
-  <va-button-group icon-color="danger" class="mb-4">
+  <va-button-group icon-color="danger" class="mb-6">
     <va-button icon="create" />
     <va-button icon="add" />
     <va-button icon="add_circle_outline" />
