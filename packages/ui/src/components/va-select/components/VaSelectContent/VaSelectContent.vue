@@ -89,6 +89,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import '../../variables';
+
 .va-select-content {
   &__placeholder {
     overflow: hidden !important;
@@ -100,7 +102,7 @@ export default defineComponent({
   }
 
   &__state-icon {
-    margin-left: var(--va-select-content-state-icon-margin-left);
+    margin-left: var(--va-select-state-icon-margin-left);
   }
 }
 </style>
