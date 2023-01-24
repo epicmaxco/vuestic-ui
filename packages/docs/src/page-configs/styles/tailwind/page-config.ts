@@ -9,7 +9,7 @@ const config: ApiDocsBlock[] = [
   block.title('tailwind.title'),
   block.paragraph('tailwind.summaryText'),
 
-  block.alert('tailwind.deprecated', 'primary'),
+  block.alert('tailwind.deprecated', 'warning'),
 
   block.headline('tailwind.preparation.title'),
   block.paragraph('tailwind.preparation.text'),
