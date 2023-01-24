@@ -113,9 +113,8 @@ on [vuestic.dev](https://vuestic.dev)
     </picture>
   </a>
   <a href="https://epicmax.co/" target="_blank" title="Epicmax - Top Vue.js Development Company"><img src="./.github/assets/epicmax.svg" loading="lazy" alt=""></a>
-</div>
-<br />
-<div>
+  <br />
+  <br />
   <a href="https://www.ag-grid.com/" target="_blank" title=" Data Grid: AG Grid: High-Performance React Grid, Angular Grid, JavaScript Grid">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/aggrid-light.svg" />
