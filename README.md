@@ -100,6 +100,14 @@ on [vuestic.dev](https://vuestic.dev)
 
 ### Partners & Sponsors ❤️
 <div>
+<a href="https://vuejs.org/partners/epicmax.html" target="_blank" title="VueJS - The Progressive JavaScript Framework">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/nuxt-light.svg" />
+      <img src="./.github/assets/vuejs.svg" loading="lazy" alt=""/>
+    </picture>
+  </a>
+  <a href="https://nuxt.com/support/agencies/epicmax" target="_blank" title="Nuxt - The Intuitive Vue Framework">
+  <img hspace="15" src="./.github/assets/epicmax.svg" loading="lazy" alt=""></a>
   <a href="https://nuxt.com/" target="_blank" title="Nuxt - The Intuitive Web Framework">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/nuxt-light.svg" />
