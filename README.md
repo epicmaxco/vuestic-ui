@@ -99,11 +99,11 @@ Information, guides and tutorials are available
 on [vuestic.dev](https://vuestic.dev)
 
 ### Partners & Sponsors ❤️
-<div style="display: flex; align-items: center;">
+<div class="flex-container"><!-- .element: style="display: flex; align-items: center;" -->
 <a href="https://vuejs.org/partners/epicmax.html" target="_blank" title="VueJS - The Progressive JavaScript Framework">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/vue-light.svg" />
-      <img width="50" hspace="15" src="./.github/assets/vue.svg" loading="lazy" alt=""/>
+      <img hspace="15" src="./.github/assets/vue.svg" loading="lazy" alt=""/><!-- .element: style="max-width: 50px;"-->
     </picture>
   </a>
   <a href="https://nuxt.com/support/agencies/epicmax" target="_blank" title="Nuxt - The Intuitive Web Framework">
