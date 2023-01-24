@@ -104,7 +104,7 @@ on [vuestic.dev](https://vuestic.dev)
 <a href="https://vuejs.org/partners/epicmax.html" target="_blank" title="VueJS - The Progressive JavaScript Framework">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/vue-light.svg" />
-      <img src="./.github/assets/vue.svg" loading="lazy" alt=""/>
+      <img width="40" src="./.github/assets/vue.svg" loading="lazy" alt=""/>
     </picture>
   </a>
   <a href="https://nuxt.com/support/agencies/epicmax" target="_blank" title="Nuxt - The Intuitive Web Framework">
@@ -113,24 +113,25 @@ on [vuestic.dev](https://vuestic.dev)
       <img hspace="15" vspace="15" src="./.github/assets/nuxt.svg" loading="lazy" alt=""/>
     </picture>
   </a> 
-   <a href="https://epicmax.co/" target="_blank" title="Epicmax - Delivering Vue.js frontends
+  <a href="https://vuejobs.com/" target="_blank" title="Vue.js jobs – Browse through dozens of Vue.js openings">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/vuejobs-light.svg" />
+      <img src="./.github/assets/vuejobs.svg" loading="lazy" alt=""/>
+    </picture>
+  </a>
+  <br /><br />
+  <a href="https://epicmax.co/" target="_blank" title="Epicmax - Delivering Vue.js frontends
 for disruptive products
 around the globe">
 <img src="./.github/assets/epicmax.svg" loading="lazy" alt="" />
-</a> <br /><br />
+</a> 
    <a href="https://www.ag-grid.com/" target="_blank" title=" Data Grid: AG Grid: High-Performance React Grid, Angular Grid, JavaScript Grid">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/aggrid-light.svg" />
-      <img src="./.github/assets/aggrid.svg" loading="lazy" alt=""/>
+      <img hspace="15" vspace="15" src="./.github/assets/aggrid.svg" loading="lazy" alt=""/>
     </picture>
   </a>
-      <a href="https://vuejobs.com/" target="_blank" title="Vue.js jobs – Browse through dozens of Vue.js openings">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/vuejobs-light.svg" />
-      <img hspace="15" vspace="15" src="./.github/assets/vuejobs.svg" loading="lazy" alt=""/>
-    </picture>
-  </a>
-      <a href="https://flatlogic.com/" target="_blank" title="Flatlogic - The best way to create React, Angular and Vue full-stack web applications">
+    <a href="https://flatlogic.com/" target="_blank" title="Flatlogic - The best way to create React, Angular and Vue full-stack web applications">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/flatlogic-light.svg" />
       <img src="./.github/assets/flatlogic.svg" loading="lazy" alt=""/>
