@@ -160,10 +160,10 @@ export default defineComponent({
       disabled: props.disabled,
       readonly: props.readonly,
       tabindex: props.disabled ? -1 : 0,
-      ariaLabel: props.ariaLabel,
-      ariaDisabled: props.disabled,
-      ariaReadOnly: props.readonly,
-      ariaChecked: isActive.value,
+      'aria-label': props.ariaLabel,
+      'aria-disabled': props.disabled,
+      'aria-readOnly': props.readonly,
+      'aria-checked': isActive.value,
       ...validationAriaAttributes.value,
     }))
 

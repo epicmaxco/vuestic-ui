@@ -1,5 +1,5 @@
 <template>
-  <va-button class="mr-4 my-1"
+  <va-button class="mr-6 my-1"
     @click="$vaModal.init({
       title: 'Click Event',
       message: 'Modal from plugin',
@@ -11,7 +11,7 @@
     Create modal (Options API)
   </va-button>
 
-  <va-button class="mr-4 my-1"
+  <va-button class="mr-6 my-1"
     @click="init('Modal from hook')"
   >
     Create modal (Composition API)

@@ -3,22 +3,22 @@
     <va-switch
       v-model="isGalleryViewEnabled"
       :label="$t('fileUpload.examples.undo.galleryViewLabel')"
-      class="mb-4"
+      class="mb-6"
     />
     <va-input
       v-model.number="undoDuration"
       :label="$t('fileUpload.examples.undo.durationFieldLabel')"
-      class="mb-4"
+      class="mb-6"
     />
     <va-input
       v-model="deletedFileMessage"
       :label="$t('fileUpload.examples.undo.cancelFieldLabel')"
-      class="mb-4"
+      class="mb-6"
     />
     <va-input
       v-model="undoButtonText"
       :label="$t('fileUpload.examples.undo.deletedFileFieldLabel')"
-      class="mb-4"
+      class="mb-6"
     />
   </div>
   <va-file-upload

@@ -19,7 +19,7 @@
 import { defineComponent, PropType, computed } from 'vue'
 import { extractComponentProps } from '../../utils/component-options'
 
-import { useDeprecatedProps, useComponentPresetProp, useColors } from '../../composables'
+import { useDeprecated, useComponentPresetProp, useColors } from '../../composables'
 
 import { ButtonOption } from './types'
 
@@ -51,7 +51,7 @@ export default defineComponent({
 
   setup (props, { emit }) {
     // TODO(1.6.0): Remove deprecated props
-    useDeprecatedProps(['flat', 'outline'])
+    useDeprecated(['flat', 'outline'])
 
     const { getColor, shiftHSLAColor } = useColors()
     const p = VaButtonGroupProps.color

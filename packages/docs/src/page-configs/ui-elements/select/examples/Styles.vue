@@ -2,34 +2,34 @@
   <div style="max-width: 300px;">
     <va-select
       v-model="value"
-      class="mb-4"
+      class="mb-6"
       placeholder="Default (solid)"
       :options="options"
     />
     <va-select
       v-model="value"
-      class="mb-4"
+      class="mb-6"
       placeholder="Outline"
       :options="options"
       outline
     />
     <va-select
       v-model="value"
-      class="mb-4"
+      class="mb-6"
       placeholder="Bordered"
       :options="options"
       bordered
     />
     <va-select
       v-model="value"
-      class="mb-4"
+      class="mb-6"
       label="Default (solid) (Purple color)"
       color="#990099"
       :options="options"
     />
     <va-select
       v-model="value"
-      class="mb-4"
+      class="mb-6"
       label="Outline (Purple color)"
       :options="options"
       color="#990099"

@@ -1,7 +1,7 @@
 <template>
   <div class="cards">
     <va-card class="card card-1">
-      <va-card-title><h3 class="display-2 ma-0">Get started</h3></va-card-title>
+      <va-card-title><h3 class="display-2 m-0">Get started</h3></va-card-title>
 
       <va-card-content>
         <va-input stateful label="Email" class="mb-2" />
@@ -81,7 +81,7 @@
     <div class="card card-8">
       <va-card color="primary" gradient>
         <va-card-content>
-          <h2 class="ma-0">12:00 pm</h2>
+          <h2 class="m-0">12:00 pm</h2>
         </va-card-content>
       </va-card>
     </div>

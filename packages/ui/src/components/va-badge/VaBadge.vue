@@ -6,7 +6,7 @@
   >
     <span
       class="va-badge__text-wrapper"
-      :style="badgeStyle"
+      :style="stylesComputed"
     >
       <span class="va-badge__text">
         <slot name="text">
@@ -19,52 +19,61 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, unref } from 'vue'
+import pick from 'lodash/pick.js'
 
-import { useColors, useTextColor, useComponentPresetProp } from '../../composables'
+import {
+  useColors, useTextColor,
+  useComponentPresetProp,
+  useDeprecated,
+  useBem,
+} from '../../composables'
+import { useFloatingPosition, useFloatingPositionProps } from './hooks/useFloatingPositionStyles'
 
 export default defineComponent({
   name: 'VaBadge',
+
   props: {
     ...useComponentPresetProp,
+    ...useFloatingPositionProps,
     color: { type: String, default: 'danger' },
     textColor: { type: String },
     text: { type: [String, Number], default: '' },
-    overlap: { type: Boolean, default: false },
     multiLine: { type: Boolean, default: false },
     visibleEmpty: { type: Boolean, default: false },
     dot: { type: Boolean, default: false },
     transparent: { type: Boolean, default: false },
-    left: { type: Boolean, default: false },
-    bottom: { type: Boolean, default: false },
   },
+
   setup (props, { slots }) {
+    // TODO: remove `left` and `bottom` props in 1.6.0
+    useDeprecated(['left', 'bottom'])
+
     const isEmpty = computed(() => !(props.text || props.visibleEmpty || props.dot || slots.text))
 
-    const isFloating = computed(() => slots.default || props.dot)
+    const isFloating = computed(() => !!(slots.default || props.dot))
 
-    const badgeClass = computed(() => ({
-      'va-badge--visible-empty': props.visibleEmpty,
-      'va-badge--empty': isEmpty.value,
-      'va-badge--dot': props.dot,
-      'va-badge--multiLine': props.multiLine,
-      'va-badge--floating': isFloating.value,
-      'va-badge--left': props.left,
-      'va-badge--bottom': props.bottom,
-      'va-badge--overlap': props.overlap,
+    const badgeClass = useBem('va-badge', () => ({
+      ...pick(props, ['visibleEmpty', 'dot', 'multiLine']),
+      empty: isEmpty.value,
+      floating: isFloating.value,
     }))
 
     const { getColor } = useColors()
     const { textColorComputed } = useTextColor()
     const colorComputed = computed(() => getColor(props.color))
-    const badgeStyle = computed(() => ({
+
+    const positionStylesComputed = useFloatingPosition(props, isFloating)
+
+    const stylesComputed = computed(() => ({
       color: textColorComputed.value,
       borderColor: colorComputed.value,
       backgroundColor: colorComputed.value,
       opacity: props.transparent ? 0.5 : 1,
+      ...unref(positionStylesComputed),
     }))
 
-    return { badgeClass, badgeStyle }
+    return { badgeClass, stylesComputed }
   },
 })
 </script>
@@ -76,6 +85,7 @@ export default defineComponent({
   display: inline-flex;
   position: relative;
   font-family: var(--va-font-family);
+  width: var(--va-badge-width);
 
   &__text-wrapper {
     transition: var(--va-badge-text-wrapper-transition, var(--va-transition));
@@ -114,51 +124,13 @@ export default defineComponent({
       border-width: 0;
     }
 
-    .va-badge--multiLine & {
+    .va-badge--multi-line & {
       white-space: normal;
     }
 
     .va-badge--floating & {
       position: absolute;
       z-index: 2;
-      top: 0;
-      left: 100%;
-      transform: translateX(0) translateY(-50%);
-    }
-
-    .va-badge--overlap & {
-      margin-left: calc(-1 * var(--va-badge-overlap));
-      margin-right: 0;
-      transform: translateY(-25%);
-    }
-
-    .va-badge--left & {
-      left: 0;
-      transform: translateX(-100%) translateY(-50%);
-    }
-
-    .va-badge--left.va-badge--overlap & {
-      margin-left: var(--va-badge-overlap);
-      transform: translateX(-100%) translateY(-25%);
-    }
-
-    .va-badge--bottom & {
-      top: 100%;
-      transform: translateX(0) translateY(-50%);
-    }
-
-    .va-badge--left.va-badge--bottom & {
-      transform: translateX(-100%) translateY(-50%);
-    }
-
-    .va-badge--bottom.va-badge--overlap & {
-      margin-left: calc(-1 * var(--va-badge-overlap));
-      transform: translateX(0) translateY(-75%);
-    }
-
-    .va-badge--bottom.va-badge--left.va-badge--overlap & {
-      margin-left: var(--va-badge-overlap);
-      transform: translateX(-100%) translateY(-75%);
     }
   }
 
@@ -175,7 +147,7 @@ export default defineComponent({
     white-space: nowrap;
     font-size: var(--va-badge-font-size);
 
-    .va-badge--multiLine & {
+    .va-badge--multi-line & {
       overflow: auto;
       max-height: initial;
       text-align: initial;

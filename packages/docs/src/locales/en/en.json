@@ -12,7 +12,9 @@
         "blog": "Blog"
       },
       "banner": {
-        "text": "Vuestic UI is launching on Product Hunt next Friday! We'd love to get your support! \uD83D\uDE4F"
+        "partner": "Official Partner of",
+        "and": "and",
+        "hire": "\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hire us"
       }
     },
     "preview": {
@@ -92,6 +94,8 @@
         "spinners": "Epic Spinners"
       },
       "contactUs": "Contact us",
+      "newsBannerText": " \uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hi there, we're celebrating our launch on Product Hunt this week! \uD83D\uDE80 We'd love to get your feedback and support! \uD83D\uDE4F",
+      "newsBannerLink": "Visit the launch page",
       "bannerText": [
         "expert",
         "s",
@@ -171,23 +175,29 @@
         "pressedBehavior": "Behavior of the button, when it's being pressed. Can be `mask` (superimposes color mask on the background or text color for plain state) or `opacity` (adds opacity to the background or text color for plain state).",
         "pressedMaskColor": "Mask color for `mask` behavior.",
         "pressedOpacity": "Opacity value for `opacity` behavior and mask opacity for `mask` behavior.",
-        "textOpacity": "Sets up button text opacity.",
-        "iconColor": "Sets up an icon color.",
+        "textOpacity": "Sets button text opacity.",
+        "iconColor": "Sets an icon color.",
         "type": "Will be used as value for html `type` attribute.",
         "plain": "Applies `plain` styling.",
         "round": "Adds rounded corners (or make a button fully rounded if only icon is passed).",
-        "iconRight": "The icon to be displayed to the right of a title."
+        "iconRight": "The icon to be displayed to the right of a title.",
+        "keyboardNavigation": "Enables keyboard navigation for the component.",
+        "fallbackSrc": "Shows an alternative image if original image failed to load or src doesn't specified.",
+        "fallbackText": "Shows an alternative text if image failed to load or src doesn't specified.",
+        "fallbackIcon": "Shows an icon if image failed to load or src doesn't specified.",
+        "fallbackRender": "Allows to use render function to render custom contents if image failed to load or src doesn't specified"
       }
     },
     "VaBadge": {
       "props": {
-        "text": "Badge text",
+        "text": "Badge text.",
         "overlap": "Allows badge to overlap with element.",
         "transparent": "Makes badge semi-transparent.",
         "multiLine": "Badge text will wrap to next line.",
         "visibleEmpty": "Badge will be shown even when there is no text.",
         "dot": "Shows dot instead of full badge. Useful to notify user without grabbing too much attention.",
-        "left": "Position badge to the left"
+        "placement": "Badge will be placed on `placement` side of the base element.",
+        "offset": "Moves badge relatively to main axis."
       }
     },
     "VaButton": {
@@ -199,10 +209,10 @@
         "block": "Applies block styling (will take 100% of container width)."
       },
       "slots": {
-        "default": "Slot for button content",
-        "prepend": "Slot from the left of the content. In the slot scope you have access to the name and attributes of the icon: `{ icon, iconAttributes }`",
-        "append": "Slot from the right of the content. In the slot scope you have access to the name and attributes of the icon: `{ icon, iconAttributes }`",
-        "loading": "Slot for displaying any process that take a lot of time. Available options: `{ size, color }`"
+        "default": "Default slot for button's content.",
+        "append": "Slot to input before button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
+        "prepend": "Slot to input after button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
+        "loading": "Slot for loading state. Slot scope properties available: `{'{ icon, iconAttributes }'}`."
       },
       "events": {
         "click": "Emitted when user clicks on button"
@@ -559,6 +569,9 @@
       },
       "slots": {
         "default": "Use this slot to replace default content to be displayed inside the component"
+      },
+      "events": {
+        "error": "Triggers when failed to load an image"
       }
     },
     "VaCheckbox": {
@@ -579,7 +592,8 @@
         "reverse": "Reverse the progress bar direction",
         "rounded": "Add a border radius to the `va-progress-bar` component (default: true)",
         "contentInside": "Sets the content of the slot inside the progress bar",
-        "showPercent": "Shows the indicator value with a percent sign"
+        "showPercent": "Shows the indicator value with a percent sign",
+        "max": "Maximum value"
       },
       "slots": {
         "default": "Display any additional info about the progress"
@@ -629,7 +643,7 @@
         "dense": "Reduces alert paddings"
       },
       "methods": {
-        "hide": "Hide alert. On stateless alert only emits `input`"
+        "hide": "Hides alert (on stateless alert only emits `input`)"
       },
       "slots": {
         "default": "Content of alert body",
@@ -667,8 +681,9 @@
       },
       "methods": {},
       "slots": {
-        "default": "Content of the collapse component",
-        "header": "Replaces content of the header to custom"
+        "default": "Collapsable content of the component",
+        "header": "Replaces the whole component's header block",
+        "headerContent": "Replaces component's header block inner content"
       }
     },
     "VaAccordion": {
@@ -834,7 +849,11 @@
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
         "bordered": "Applies style with bottom border",
         "requiredMark": "Adds required mark to the label",
-        "separator": "Text to separate selected values"
+        "separator": "Text to separate selected values",
+        "maxVisibleOptions": "Max selected options amount, that will be shown inside of input wrapper.",
+        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
+        "selectedTopShown": "Selected options will be shown at the top of the options list.",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction."
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -851,7 +870,9 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content",
         "content": "Adds an item instead the input",
-        "option": "Allows to specify option template"
+        "option": "Allows to specify option template",
+        "hiddenOptionsBadge": "Replaces default badge with hidden options counter (see `maxVisibleOptions` prop).",
+        "hideOptionsButton": "Replaces default button for hiding selected options that are over the limit (see `maxVisibleOptions` prop)."
       }
     },
     "VaParallax": {
@@ -901,7 +922,19 @@
         "offset": "Sets the distance between dropdown and anchor.",
         "modelValue": "Sets a dropdown state.",
         "closeOnContentClick": "Sets dropdown content on click behavior.",
-        "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`)."
+        "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
+        "trigger": "Action that will open and close dropdown.",
+        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
+        "isContentHoverable": "If true, dropdown content will be hoverable",
+        "innerAnchorSelector": "Anchor CSS selector inside passed slot.",
+        "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
+        "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
+        "cursor": "Dropdown will be rendered relative to cursor position",
+        "closeOnAnchorClick": "Dropdown will be closed when anchor is clicked",
+        "closeOnClickOutside": "Dropdown will be closed when clicked outside dropdown content and anchor",
+        "anchorSelector": "Anchor CSS selector instead of passing slot",
+        "autoPlacement": "If dropdown doesn't fit viewport, it will be placed automatically to fit viewport"
       },
       "events": {
         "click": "Emitted when user clicks on button.",
@@ -1180,7 +1213,11 @@
       },
       "events": {},
       "methods": {},
-      "slots": {}
+      "slots": {
+        "left": "Place VaNavbar items on the left",
+        "default": "Place VaNavbar items on the center (default)",
+        "right": "Place VaNavbar items on the right"
+      }
     },
     "VaPopover": {
       "props": {
@@ -1360,7 +1397,11 @@
       "slots": {}
     },
     "VaScrollContainer": {
-      "props": {},
+      "props": {
+        "horizontal": "Enables horizontal scrolling.",
+        "vertical": "Enables vertical scrolling.",
+        "rtl": "Moves scrollbar to the left side of the container (depends on `vertical` prop)."
+      },
       "events": {},
       "methods": {},
       "slots": {}
@@ -1417,7 +1458,8 @@
         "checked": "Array of pre-selected tree nodes.",
         "checkedBy": "The key to set the checked field in the tree view model.",
         "color": "The checkboxes color.",
-        "expanded": "Array of pre-expanded tree nodes."
+        "expanded": "Array of pre-expanded tree nodes.",
+        "expandNodeBy": "Click target to expand node, can be `node` or `leaf` icon."
       },
       "slots": {
         "notFound": "No matching nodes to the filter message.",
@@ -1710,18 +1752,39 @@
       },
       "size": {
         "title": "Different sizes",
-        "text": "The `size` prop prop allows you to specify custom size for an avatar. By default, font size will be scaled depending on the value of the `size` prop. But you can use the `font-size` prop prop to force text size you need."
+        "text": "The `size` prop allows you to specify custom size for an avatar. By default, font size will be scaled depending on the value of the `size` prop. But you can use the `font-size` prop to force text size you need."
       },
       "color": {
-        "title": "Different colors"
+        "title": "Different colors",
+        "text": "The `color` prop is used to set the color of the component and `text-color` for its textual content."
+      },
+      "loading": {
+        "title": "Loading",
+        "text": "The `loading` prop sets a loading state for the component via spinner icon."
       },
       "withImage": {
-        "title": "With images",
-        "text": "The `src` prop prop is used to add custom icons to a component."
+        "title": "With image",
+        "text": "The `src` prop is used to add custom image to a component."
+      },
+      "withBadge": {
+        "title": "With badge",
+        "text": "You may combine `va-avatar` with `va-badge`, for example, to output amount of the new notifications."
+      },
+      "square": {
+        "title": "Square",
+        "text": "The `square` prop is used to change components form from round to square."
       },
       "withIcon": {
-        "title": "With icons",
-        "text": "The `icon` prop is used to display icons inside an avatar."
+        "title": "With icon",
+        "text": "The `icon` prop is used to display icon inside an avatar."
+      },
+      "group": {
+        "title": "Grouped",
+        "text": "You can use `va-avatar-group` component to group avatars."
+      },
+      "fallback": {
+        "title": "Fallback",
+        "text": "You can set fallback image."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"
@@ -1786,29 +1849,39 @@
   },
   "badge": {
     "title": "Badge",
-    "summaryText": "VaBadge is used to highlight information related to other element, such as missed notifications on top of avatar.",
+    "summaryText": "VaBadge is used to highlight information related to other element, such as missed notifications near the user's avatar.",
     "examples": {
       "default": {
         "title": "Default",
         "text": "Useful for information views and tables."
       },
-      "withAvatar": {
-        "title": "With Avatar"
-      },
-      "withCard": {
-        "title": "With Card"
-      },
       "position": {
-        "title": "Position left and bottom"
+        "title": "Position",
+        "text": "The `placement` allows you to set placement of the badge relatively to the base element. Available values: `top/bottom/left/right - start/center/end`. The `offset` prop allows you to amend the selected position - it moves badge forward or backward relatively to the main axis (`top/bottom/left/right`)."
       },
       "dot": {
-        "title": "Dot"
+        "title": "Dot",
+        "text": "The `dot` property puts the component in a minimalist mode in order to accentuate the base element."
       },
       "transparent": {
-        "title": "Transparent"
+        "title": "Transparent",
+        "text": "The `transparent` property adds transparency to the component."
+      },
+      "overlap": {
+        "title": "Overlap",
+        "text": "The `overlap` property allows badge to overlap the base element."
       },
       "color": {
-        "title": "Color"
+        "title": "Color",
+        "text": "The `color` property sets the color of the component (respectively, `text-color` sets the color of the content), both preset and HEX colors are available."
+      },
+      "withOtherComponents": {
+        "title": "Usage with other components",
+        "text": "By combining a component with others, you can add information to them or focus attention on them."
+      },
+      "noContent": {
+        "title": "Without content",
+        "text": "By default, the component is hidden unless content is passed to it via a slot or the `text` property. The `visible-empty` property allows displaying an empty component as a colored square."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-badge/_variables.scss)[[target=_blank]]"
@@ -1864,6 +1937,10 @@
       "behavior": {
         "title": "Behavior",
         "text": "You can change hover or pressed behavior of the button via `hover`/`pressedBehavior`, `hover`/`pressedMaskColor` and `hover`/`pressedOpacity` props."
+      },
+      "tag": {
+        "title": "Tag",
+        "text": "You can change the tag of the button wrapper to any other necessary one. However, we recommend to use other properties. For example, if the `href` property is set, then `button` will be replaced with `a`, and if the value of the `to` property is passed, the button tag will automatically change to `router-link`."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button/_variables.scss)[[target=_blank]]"
@@ -2413,6 +2490,9 @@
         "purpose": "The `VaCardActions` component is designed to apply margins and alignment to content (`VaButtons` expected).",
         "props": "Two properties can be passed: `align` (**string**, specify how to align actions) and `vertical` (**boolean**, display actions one below the other).",
         "values": "Valid values for `align`: left, center, right, between, around, stretch."
+      },
+      "horizontal": {
+        "title": "Horizontal"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-card/_variables.scss)[[target=_blank]]",
@@ -2615,6 +2695,10 @@
       "buffer": {
         "title": "Buffer",
         "text": "When dealing with media content like streaming videos we can use progress bars to show the buffering progress indicator on a video."
+      },
+      "max": {
+        "title": "Maximum value",
+        "text": "You can set maximum value for progress bar component"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-progress-bar/_variables.scss)[[target=_blank]]"
@@ -2705,8 +2789,8 @@
         "title": "Input Class",
         "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `text--center` and `text--right` to align the center or right.",
         "exampleTexts": [
-          "This input must have right-aligned red text with bottom indent.",
-          "Native input element must have red text. VaInput wrapper has a gray border."
+          "This input must have right-aligned green text with bottom indent.",
+          "Native input element must have green text. VaInput wrapper has a gray border."
         ]
       },
       "mask": {
@@ -2729,7 +2813,7 @@
   },
   "alert": {
     "title": "Alert",
-    "summaryText": "Alert displays an important message to attract user attention.",
+    "summaryText": "Displays an important message to attract user attention.",
     "examples": {
       "default": {
         "title": "Default",
@@ -2739,11 +2823,11 @@
       },
       "color": {
         "title": "Color",
-        "text": "Use `color` property to change the color of the component."
+        "text": "Use `color` property to change the color of the component and `text-color` to change the textual content color."
       },
       "styles": {
         "title": "Different styles",
-        "text": "We have 3 styles available: `color`, `outlined` and `border` styled alerts."
+        "text": "3 styles are available: `color`, `outlined` and `border` styled alerts."
       },
       "border": {
         "title": "Border",
@@ -2774,10 +2858,9 @@
       "title": "Title",
       "close": "close",
       "slottedTitle": "Slotted title",
-      "dense": "Dense alert.",
-      "color": "Alert with color style.",
-      "outlined": "Alert with outline style.",
-      "border": "Alert with colorful border.",
+      "color": "Colored background.",
+      "outlined": "Outline.",
+      "border": "Colored border.",
       "primary": "You read this important alert message.",
       "primarySlotted": "You read this important slotted alert message.",
       "success": "You successfully read this important alert message.",
@@ -2903,6 +2986,10 @@
       },
       "flat": {
         "title": "Flat"
+      },
+      "menu": {
+        "title": "Menu",
+        "text": "One of the interesting ways to use the component is a collapsing menu."
       }
     }
   },
@@ -3201,6 +3288,14 @@
       "styles": {
         "title": "Styles",
         "text": "Select styles inherit from input styles"
+      },
+      "maxVisibleOptions": {
+        "title": "Max visible selected options",
+        "text": "The `max-visible-options` props sets amount of selected options, that will be shown inside of input wrapper. The rest will be hidden, but may be shown after clicking the badge with hidden options counter."
+      },
+      "selectedTopShown": {
+        "title": "Displaying selected options at the top of the list",
+        "text": "The `selected-top-shown` prop forces to display selected options at the top of the options list."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-select/_variables.scss)[[target=_blank]]"
@@ -3417,7 +3512,7 @@
       },
       "styles": {
         "title": "Presets & styles",
-        "text": "You can use the same presets and styles as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
+        "text": "You can use the same `preset`'s (`default`, `primary`, `secondary`, `plain`, `plainOpacity`) and styles (`round`, outline via `borderColor` property) as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "icons": {
         "title": "Icons",
@@ -3451,12 +3546,12 @@
         "text": "You can provide size presets to the component."
       },
       "styles": {
-        "title": "Presets & styles",
-        "text": "You can use the same presets and styles as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
+        "title": "Presets and styles",
+        "text": "You can use the same `preset`'s (`default`, `primary`, `secondary`, `plain`, `plainOpacity`) and styles (`round`, outline via `borderColor` property) as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {
         "title": "Disabled",
-        "text": "The component can be disabled."
+        "text": "The component can be disabled via `disabled` prop."
       },
       "icons": {
         "title": "Icons",
@@ -3532,7 +3627,7 @@
       "description": "Recommended way to install Vuestic UI is using the Vue CLI plugin. Works fine with vite or webpack.",
       "attention": "Installing Vuestic UI via the plugin would modify your `package.json` and `main.(js`&#124;`ts)` files, so make sure you’ve committed your code before proceeding to avoid data loss.",
       "prepare": "First, make sure you've got [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] installed globally:",
-      "upgrade": "Notice also that the minimum supported version of Vue CLI is v4.0.0. In case you've got an older version installed, please, consider [upgrading](https://cli.vuejs.org/migrations/migrate-from-v3.html)[[target=_blank]] it.",
+      "upgrade": "Notice also that the minimum supported version of Vue CLI is v4.0.0. In case you've got an older version installed, please, consider [upgrading](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] it.",
       "codeAnnotation": "If everything's fine then you can finally install the plugin with the following command (**don't forget to commit**):"
     },
     "codesandbox": {
@@ -3585,6 +3680,10 @@
     "css": {
       "title": "CSS Code Split",
       "description": "We separated our CSS into modules: `essential`, `typography`, `grid` and `reset`. Instead of import `vuestic/css` you can import `vuestic/styles/essential.css` - module without typography, grid and normalize. This is usually need if you already using some CSS framework to prevent style conflicts."
+    },
+    "bundleSize": {
+      "title": "Bundle Size",
+      "description": "Statistics of the space occupied in the project bundle (without gzip):"
     }
   },
   "roadmap": {
@@ -3686,13 +3785,16 @@
   },
   "overview": {
     "title": "What is Vuestic UI",
-    "description": "We’ve designed the framework in such a way that it satisfies the most sophisticated design fantasies and allows you to implement them.",
+    "description": "Vuestic UI is an OpenSource Vue 3 based UI framework. It is a MIT-licensed UI framework that provides ready-to-use frontend components that are easily configurable and speed up development of responsive and fast-loading web interfaces. It was initially released in May 2021 by [Epicmax](https://epicmax.co/)[[target=_blank]] and that is what Vuestic UI today:\n\n",
     "featuresOverview": "Features overview",
-    "vueThreeCompatible": "Fully **Vue.js 3 compatible**",
-    "featureRich": "Contains **50+ feature-rich components** that can be used in any design solution",
-    "configurable": "Allows **to configure components** globally via config and CSS variables",
-    "responsive": "Fully **responsive** and **supports modern browsers** (no IE11, sorry)",
-    "translatable": "Integrates seamlessly with **i18n**"
+    "vueThreeCompatible": "Fully Vue 3 compatible \uD83E\uDD18",
+    "featureRich": "Contains 60+ ready-to-use classy UI components that can be used in any design solution \uD83D\uDC85",
+    "darkTheme": "Dark Theme ready to make your app look sexy \uD83D\uDDA4",
+    "accessibility": "Accessible - because it’s important❗",
+    "configurable": "Allows to configure components globally via config and CSS variables",
+    "responsive": "Fully responsive and supports modern browsers (no IE11, sorry)",
+    "translatable": "Integrates seamlessly with i18n",
+    "support": "Fast & professional technical support from [the core team](https://vuestic.dev/en/introduction/team)[[target=_blank]] \uD83E\uDEC2"
   },
   "team": {
     "title": "Meet the Team",
@@ -3830,7 +3932,7 @@
       }
     },
     "packages": {
-      "title": "Pacakges",
+      "title": "Packages",
       "description": "Vuestic has few packages in order of importance for newcommers:",
       "list": {
         "ui": "`packages/ui` - UI lib with demos. Here all vuestic components stored.",
@@ -4018,7 +4120,7 @@
     },
     "reactivity": {
       "subtitle": "Reactivity",
-      "about": "As you can see, methods like `getColor`, `getColors` don’t return `Proxy`. If you want to use color as reactive Proxy, use computed properties like in the example above."
+      "about": "Methods like `getColors` return a computed reactives that can also be accessed by variable `colors`. The advantage is allow to change properties, instead of rewriting whole colors variable. For example, you can change `primary` color by writing `colors.primary = '#ff0'`. Multiple properties changes are also supported, you can write `setColors({ primary: '#00f', secondary: '#0ff' })`."
     },
     "otherServices": {
       "subtitle": "Colors config with other services",
@@ -4032,7 +4134,7 @@
       "ColorConfig": "An object where the keys are the color names and the values are valid CSS colors.",
       "ColorInput": "A valid CSS color",
       "methods": "Methods",
-      "useColor": "Return colors methods",
+      "useColors": "Return colors methods and variables",
       "setColors": "Used to merge new colors into config or update existing colors.",
       "getColors": "Returns current color config",
       "getColor": "Return color by name",
@@ -4040,7 +4142,9 @@
       "getHoverColor": "Return a color that you can use as a `hover` color.",
       "getFocusColor": "Return a color that you can use as a `focus` color.",
       "getGradientBackground": "Return a gradient-color that you can use as a `background-image` CSS property's value.",
-      "hookMethods": "useColors hook methods"
+      "hookMethods": "useColors hook methods.",
+      "hookVariables": "useColors hook variables.",
+      "colors": "A computed reactive where the keys are color names and values are valid CSS colors."
     }
   },
   "breakpoints": {
@@ -4126,43 +4230,39 @@
   },
   "buttonDropdown": {
     "title": "Button Dropdown",
-    "summaryText": "This is a button that displays drop-down content when clicked.",
+    "summaryText": "Component with a button that displays dropdown content when getting clicked. It inherits properties, provided by [VaButton](/ui-elements/button) and [VaDropdown](/ui-elements/dropdown) components.",
     "examples": {
       "default": {
         "title": "Basic usage",
-        "text": "By default, wraps your content in `va-button-dropdown` component."
+        "text": "Just wrap your content with `va-button-dropdown` component and it will become available only via click."
       },
       "split": {
         "title": "Split",
-        "text": "You can split the button in two."
+        "text": "The `split` prop allows you to split the button into two, with different purposes of using. One of them can be a link (you can set href for it via `split-to` or `split-href` props, which are analogues of the `to` and `href` attributes)."
       },
       "colors": {
         "title": "Colors",
-        "text": "The `va-dropdown-button` can be colored."
+        "text": "The component can be colored via `color`, `gradient` and `text-color` props."
       },
       "sizes": {
         "title": "Sizes",
-        "text": "Component can apply button sizes."
+        "text": "You are able to set component's size via `size` prop (`small`, `medium` or `large` presets are available, `px` and `rem` values are also suitable)."
       },
       "styles": {
-        "title": "Presets & styles",
-        "text": "You can use the same presets and styles as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
+        "title": "Presets and styles",
+        "text": "You can use the same `preset`'s (`default`, `primary`, `secondary`, `plain`, `plainOpacity`) and styles (`round`, outline via `borderColor` property) as in [va-button](https://vuestic.dev/ui-elements/button)[[target=_blank]]."
       },
       "disabled": {
         "title": "Disabled",
-        "text": "The component can be disabled."
+        "text": "The component can be disabled via `disabled` prop. For the `split` state can be disabled both or only one button (via `disableButton` and `disableDropdown` props)."
       },
       "icons": {
         "title": "Icons",
-        "text": "You can set the dropdown icon and its color."
-      },
-      "events": {
-        "title": "Events",
-        "text": "The `va-dropdown-button` can handle click events."
+        "text": "You can set the dropdown icon and its color via `icon` and `icon-color` props. Also you are able to change icon's position from right to  left side of the button via `left-icon` boolean prop. If you want to remove icon at all, use the `hide-icon` property. Opened-state icon can be changed using `openedIcon` prop."
       },
       "clickInside": {
         "title": "Click inside",
-        "text": "You could set the dropdown to be closed or not after clicking on its content."
+        "text": "You are able to set up the dropdown to be closed or not after clicking on its content using the `close-on-content-click` prop."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button-dropdown/_variables.scss)[[target=_blank]]"
@@ -4319,7 +4419,7 @@
       "sticky": {
         "title": "Sticky header and footer",
         "text": [
-          "The sticky header and footer are set by the `sticky-header` and `sticky-footer` properties. Sticky behavior is achieved through CSS with `position: sticky`.",
+          "The sticky header and footer are set by the `sticky-header` and `sticky-footer` properties. Sticky behavior is achieved through CSS with `position: sticky`. This is NOT supported on all browsers. Check [caniuse.com](https://caniuse.com/?search=sticky)[[target=_blank]] before using this technique.",
           "To work correctly, it is important to limit the height (set the value in the `height` property of the component or using the CSS `height` or `max-height` properties) of the table and assign a background color (set the CSS value `background-color`) of the table header."
         ]
       },
@@ -4596,7 +4696,8 @@
         "title": "Filters"
       },
       "selectable": {
-        "title": "Selectable"
+        "title": "Selectable",
+        "coloredTitle": "Colored checkboxes"
       }
     }
   },
@@ -4641,20 +4742,27 @@
     "description": "Scroll container with custom colored scrollbar. Useful in case you have long list.",
     "examples": {
       "Default": {
-        "title": "Default usage",
-        "text": ""
+        "title": "Default usage"
       },
       "Color": {
         "title": "Color",
-        "text": "You can change color of scrollbar by passing `color` prop."
+        "text": "You can change color of scrollbar by passing `color` prop. Try it by choosing colors listed below."
+      },
+      "gradient": {
+        "title": "Gradient",
+        "text": "The `gradient` prop enables gradient for scrollbar's background."
+      },
+      "rtl": {
+        "title": "RTL",
+        "text": "The `rtl` prop enables RTL-mode."
       },
       "Horizontal": {
         "title": "Horizontal",
-        "text": "You can specify if scroll container has horizontal scroll as well as vertical."
+        "text": "You can specify if scroll container has `horizontal` scroll in the same way as `vertical` one."
       },
       "Size": {
         "title": "Size",
-        "text": "By default Vuestic use `thin` scrollbar width. You can change it to `default` in GlobalConfig if you don't like `thin` size."
+        "text": "You are able to set scrollbar's size (width or height) via `size` prop (`small`, `medium` or `large` presets are available, `px` and `rem` values are also suitable)."
       }
     }
   },

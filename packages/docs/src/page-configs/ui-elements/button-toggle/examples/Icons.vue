@@ -2,7 +2,7 @@
   <va-button-toggle
     v-model="model"
     :options="optionsWithIcons"
-    class="mb-4"
+    class="mb-6"
     icon-color="warning"
   />
   <va-button-toggle

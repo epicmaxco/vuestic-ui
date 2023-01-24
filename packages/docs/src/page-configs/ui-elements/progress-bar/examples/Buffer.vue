@@ -1,8 +1,8 @@
 <template>
-  <div class="flex lg6 xs12">
+  <div class="flex flex-col lg6 xs12">
     <va-progress-bar :model-value="value" :buffer="bufferValue" />
 
-    <va-slider class="mt-4"
+    <va-slider class="mt-6"
       v-model="value"
       track-label-visible
       :track-label="(v) => `${v}%`"

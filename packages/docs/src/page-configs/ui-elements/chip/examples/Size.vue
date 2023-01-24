@@ -3,7 +3,7 @@
     v-for="(size, index) in sizes"
     :key="index"
     :size="size"
-    class="mr-4 mb-2"
+    class="mr-6 mb-2"
   >
     {{size}} size
   </va-chip>

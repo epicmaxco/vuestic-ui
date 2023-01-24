@@ -1,11 +1,11 @@
 <template>
   <div class="flex row">
-    <div class="flex">
+    <div class="flex flex-col">
       <h6>Reset on close (resetOnClose = true)</h6>
       <va-date-input v-model="range" />
     </div>
 
-    <div class="flex">
+    <div class="flex flex-col">
       <h6>Don't reset on close (resetOnClose = false)</h6>
       <va-date-input :reset-on-close="false" v-model="range" />
     </div>

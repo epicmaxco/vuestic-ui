@@ -91,7 +91,7 @@
                       v-if="$props.cancelText"
                       preset="secondary"
                       color="secondary"
-                      class="mr-3"
+                      class="va-modal__default-cancel-button"
                       @click="cancel"
                     >
                       {{ tp($props.cancelText) }}
@@ -133,7 +133,7 @@ import {
 import {
   useStateful, useStatefulProps, useStatefulEmits,
   useColors, useTextColor,
-  useWindow, useDocument,
+  useWindow,
   useComponentPresetProp,
   useTrapFocus,
   useModalLevel,
@@ -143,6 +143,8 @@ import {
 
 import { VaButton } from '../va-button'
 import { VaIcon } from '../va-icon'
+
+import { useBlur } from './hooks/useBlur'
 
 const ModalElement = defineComponent({
   name: 'ModalElement',
@@ -282,7 +284,6 @@ export default defineComponent({
     })
 
     const window = useWindow()
-    const document = useDocument()
 
     watchEffect(() => {
       if (valueComputed.value) {
@@ -292,15 +293,7 @@ export default defineComponent({
       }
     })
 
-    watchEffect(() => {
-      if (props.blur) {
-        if (valueComputed.value) {
-          document.value?.body.classList.add('va-modal-overlay-background--blurred')
-        } else {
-          document.value?.body.classList.remove('va-modal-overlay-background--blurred')
-        }
-      }
-    })
+    useBlur(toRef(props, 'blur'), valueComputed)
 
     watch(valueComputed, newValueComputed => { // watch for open/close modal
       if (newValueComputed) {
@@ -531,6 +524,10 @@ export default defineComponent({
     font-style: normal;
     color: var(--va-secondary);
     z-index: 1;
+  }
+
+  &__default-cancel-button {
+    margin-right: 0.75rem;
   }
 
   &__footer {

@@ -62,7 +62,7 @@ import {
   useLoadingProps,
   useSize, useSizeProps,
   useRouterLink, useRouterLinkProps,
-  useDeprecatedProps,
+  useDeprecated,
   useComponentPresetProp,
   useSlotPassed,
 } from '../../composables'
@@ -111,7 +111,7 @@ export default defineComponent({
   },
   setup (props, { slots }) {
     // TODO: Remove deprecated props in 1.6.0
-    useDeprecatedProps(['flat', 'outline'])
+    useDeprecated(['flat', 'outline'])
 
     // colors
     const { getColor } = useColors()

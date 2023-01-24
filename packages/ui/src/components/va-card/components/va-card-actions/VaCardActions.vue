@@ -1,6 +1,7 @@
 <template>
   <div
-    :class="[vertical ? 'va-card__actions_vertical' : 'va-card__actions']"
+    class="va-card__actions"
+    :class="classComputed"
     :style="alignComputed"
   >
     <slot />
@@ -9,7 +10,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useComponentPresetProp, useAlignProps, useAlign } from '../../composables'
+import { useBem, useComponentPresetProp, useAlignProps, useAlign } from '../../../../composables'
+import pick from 'lodash/pick.js'
 
 export default defineComponent({
   name: 'VaCardActions',
@@ -19,8 +21,12 @@ export default defineComponent({
   },
   setup (props) {
     const { alignComputed } = useAlign(props)
+    const classComputed = useBem('va-card__actions', () => ({
+      ...pick(props, ['vertical']),
+    }))
 
     return {
+      classComputed,
       alignComputed,
     }
   },
@@ -29,7 +35,8 @@ export default defineComponent({
 
 <style lang="scss">
 .va-card__actions {
-  button {
+  button,
+  .va-button {
     margin: 0 var(--va-card-actions-btn-margin);
 
     &:first-child {
@@ -41,8 +48,9 @@ export default defineComponent({
     }
   }
 
-  &_vertical {
-    button {
+  &--vertical {
+    button,
+    .va-button {
       margin: var(--va-card-actions-btn-margin) 0;
 
       &:first-child {

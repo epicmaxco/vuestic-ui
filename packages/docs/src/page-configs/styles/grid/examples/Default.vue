@@ -1,7 +1,7 @@
 <template>
   <va-card color="background-element" style="padding: 0.75rem;">
     <div class="row">
-      <div class="flex" style="width: 100%;">
+      <div class="flex flex-col" style="width: 100%;">
         <div class="item">{{ $t('grid.examples.default.example') }}</div>
       </div>
     </div>

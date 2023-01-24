@@ -2,7 +2,7 @@
   <va-card class="gutters-demo" color="background-primary">
     <div class="layout va-gutter-1">
       <div class="row">
-        <div v-for="i in 2" :key="i" class="flex xs6">
+        <div v-for="i in 2" :key="i" class="flex flex-col xs6">
           <div class="item">va-gutter-1</div>
         </div>
       </div>
@@ -10,7 +10,7 @@
     <br />
     <div class="layout va-gutter-2">
       <div class="row">
-        <div v-for="i in 2" :key="i" class="flex xs6">
+        <div v-for="i in 2" :key="i" class="flex flex-col xs6">
           <div class="item">va-gutter-2</div>
         </div>
       </div>
@@ -18,7 +18,7 @@
     <br />
     <div class="layout va-gutter-3">
       <div class="row">
-        <div v-for="i in 2" :key="i" class="flex xs6">
+        <div v-for="i in 2" :key="i" class="flex flex-col xs6">
           <div class="item">va-gutter-3</div>
         </div>
       </div>
@@ -26,7 +26,7 @@
     <br />
     <div class="layout va-gutter-4">
       <div class="row">
-        <div v-for="i in 2" :key="i" class="flex xs6">
+        <div v-for="i in 2" :key="i" class="flex flex-col xs6">
           <div class="item">va-gutter-4</div>
         </div>
       </div>
@@ -34,7 +34,7 @@
     <br />
     <div class="layout va-gutter-5">
       <div class="row">
-        <div v-for="i in 2" :key="i" class="flex xs6">
+        <div v-for="i in 2" :key="i" class="flex flex-col xs6">
           <div class="item">va-gutter-5</div>
         </div>
       </div>
