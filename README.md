@@ -99,56 +99,43 @@ Information, guides and tutorials are available
 on [vuestic.dev](https://vuestic.dev)
 
 ### Partners & Sponsors ❤️
+
 <div>
-<table border="0" bordercolor="transparent" align="center" cellpadding="10">
-    <tr>
-      <td align="left" valign="center" bordercolor="transparent">
-        <a href="https://vuejs.org/partners/epicmax.html" target="_blank" title="VueJS - The Progressive JavaScript Framework">
+<a href="https://vuejs.org/partners/epicmax.html" target="_blank" title="VueJS - The Progressive JavaScript Framework">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/vue-light.svg" />
-      <img hspace="15" src="./.github/assets/vue.svg" loading="lazy" alt=""/>
+      <img src="./.github/assets/vue.svg" loading="lazy" alt=""/>
     </picture>
   </a>
-      </td>
-      <td align="left" valign="center">
-        <a href="https://nuxt.com/support/agencies/epicmax" target="_blank" title="Nuxt - The Intuitive Web Framework">
+  <a href="https://nuxt.com/support/agencies/epicmax" target="_blank" title="Nuxt - The Intuitive Web Framework">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/nuxt-light.svg" />
-      <img src="./.github/assets/nuxt.svg" loading="lazy" alt=""/>
+      <img hspace="15" vspace="15" src="./.github/assets/nuxt.svg" loading="lazy" alt=""/>
     </picture>
-  </a>
-      </td>
-      <td align="left" valign="center">
-        <a href="https://epicmax.co/" target="_blank" title="Epicmax - Delivering Vue.js frontends
+  </a> 
+   <a href="https://epicmax.co/" target="_blank" title="Epicmax - Delivering Vue.js frontends
 for disruptive products
-around the globe"><img hspace="15" src="./.github/assets/epicmax.svg" loading="lazy" alt=""></a> 
-      </td>
-      <td align="left" valign="center">
-         <a href="https://www.ag-grid.com/" target="_blank" title=" Data Grid: AG Grid: High-Performance React Grid, Angular Grid, JavaScript Grid">
+around the globe">
+<img src="./.github/assets/epicmax.svg" loading="lazy" alt="" />
+</a> <br /><br />
+   <a href="https://www.ag-grid.com/" target="_blank" title=" Data Grid: AG Grid: High-Performance React Grid, Angular Grid, JavaScript Grid">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/aggrid-light.svg" />
       <img src="./.github/assets/aggrid.svg" loading="lazy" alt=""/>
     </picture>
   </a>
-      </td>
-      <td align="left" valign="center">
-        <a href="https://vuejobs.com/" target="_blank" title="Vue.js jobs – Browse through dozens of Vue.js openings">
+      <a href="https://vuejobs.com/" target="_blank" title="Vue.js jobs – Browse through dozens of Vue.js openings">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/vuejobs-light.svg" />
-      <img hspace="15" src="./.github/assets/vuejobs.svg" loading="lazy" alt=""/>
+      <img hspace="15" vspace="15" src="./.github/assets/vuejobs.svg" loading="lazy" alt=""/>
     </picture>
   </a>
-      </td>
-      <td align="left" valign="center">
-        <a href="https://flatlogic.com/" target="_blank" title="Flatlogic - The best way to create React, Angular and Vue full-stack web applications">
+      <a href="https://flatlogic.com/" target="_blank" title="Flatlogic - The best way to create React, Angular and Vue full-stack web applications">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/flatlogic-light.svg" />
       <img src="./.github/assets/flatlogic.svg" loading="lazy" alt=""/>
     </picture>
-  </a>
-      </td>
-    </tr>
-  </table>  
+  </a> 
 </div>
 <br />
 
