@@ -1,8 +1,11 @@
 <template>
-  <va-aspect-ratio v-bind="aspectRationAttributesComputed">
+  <va-aspect-ratio
+    class="va-image"
+    v-bind="aspectRationAttributesComputed"
+  >
     <picture
       v-show="isSuccessfullyLoaded"
-      class="va-image"
+      class="va-image__content"
       :aria-busy="isLoading"
     >
       <slot v-if="$slots.sources" name="sources" />
@@ -50,13 +53,8 @@ import { defineComponent, ref, computed, watch, nextTick, onBeforeUnmount, type 
 
 import { VaAspectRatio } from '../va-aspect-ratio'
 
-import {
-  useNativeImgAttributes, useNativeImgAttributesProps,
-  validateImgProp,
-} from './hooks/useNativeImgAttributes'
+import { useNativeImgAttributes, useNativeImgAttributesProps } from './hooks/useNativeImgAttributes'
 import { useComponentPresetProp, useDeprecated } from '../../composables'
-
-const FIT_OPTIONS = ['contain', 'fill', 'cover', 'scale-down', 'none'] as const
 
 export default defineComponent({
   name: 'VaImage',
@@ -80,9 +78,8 @@ export default defineComponent({
       },
     },
     fit: {
-      type: String as PropType<typeof FIT_OPTIONS[number]>,
+      type: String as PropType<'contain' | 'fill' | 'cover' | 'scale-down' | 'none'>,
       default: 'cover',
-      validator: (v: string) => validateImgProp(v, FIT_OPTIONS),
     },
     // TODO: delete in 1.7.0
     contain: { type: Boolean, default: false },
@@ -206,13 +203,15 @@ export default defineComponent({
 }
 
 .va-image {
-  @include absolute;
+  &__content {
+    @include absolute;
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: v-bind(fitComputed);
-    object-position: var(--va-image-object-position);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: v-bind(fitComputed);
+      object-position: var(--va-image-object-position);
+    }
   }
 
   &__overlay {

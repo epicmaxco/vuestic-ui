@@ -336,7 +336,7 @@ export default defineComponent({
     }
   }
 
-  .va-aspect-ratio {
+  .va-image {
     height: 100%;
     width: 100%;
   }
