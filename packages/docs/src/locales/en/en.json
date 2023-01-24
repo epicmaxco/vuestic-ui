@@ -12,7 +12,9 @@
         "blog": "Blog"
       },
       "banner": {
-        "text": "Vuestic UI is live on Product Hunt! \uD83D\uDE80"
+        "partner": "Official Partner of",
+        "and": "and",
+        "hire": "\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hire us"
       }
     },
     "preview": {
