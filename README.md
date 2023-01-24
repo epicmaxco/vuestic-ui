@@ -184,8 +184,8 @@ Say hi: <a href="mailto:hello@epicmax.co">hello@epicmax.co</a>. We will be happy
 ### Follow us
 
 Stay up to date with the latest Vuestic news! Follow us
-on [Twitter](https://twitter.com/epicmaxco)
-or [Facebook](https://facebook.com/epicmaxco)
+on [Twitter](https://twitter.com/vuestic_ui)
+or [Linkedin](https://www.linkedin.com/company/18509340)
 
 ### License
 
