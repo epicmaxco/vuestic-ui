@@ -104,7 +104,7 @@ on [vuestic.dev](https://vuestic.dev)
 <a href="https://vuejs.org/partners/epicmax.html" target="_blank" title="VueJS - The Progressive JavaScript Framework">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/vue.svg" />
-      <img width="120" vspace="15"  src="./.github/assets/vue.svg" loading="lazy" alt=""/>
+      <img src="./.github/assets/vue.svg" loading="lazy" alt=""/>
     </picture>
   </a>
   <a href="https://nuxt.com/support/agencies/epicmax" target="_blank" title="Nuxt - The Intuitive Web Framework">
@@ -188,7 +188,7 @@ Say hi: <a href="mailto:hello@epicmax.co">hello@epicmax.co</a>. We will be happy
 ### Follow us
 
 Stay up to date with the latest Vuestic news! Follow us
-on [Twitter](https://twitter.com/epicmaxco)
+on [Twitter](https://twitter.com/vuestic_ui)
 or [Facebook](https://facebook.com/epicmaxco)
 
 ### License
