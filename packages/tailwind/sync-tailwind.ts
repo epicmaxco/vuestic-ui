@@ -14,7 +14,7 @@ const updateVuesticConfig = (config?: string) => {
   try {
     const vuesticConfig = '// Do not insert custom values to the colors or breakpoints Vuestic UI config\n' +
       '// or they will be overwritten! Use Tailwind CSS config instead.' +
-      `\n\nexport const config = ${config ?? '{}'}`
+      `\n\nexport default ${config ?? '{}'}`
 
     fs.writeFileSync(vuesticConfigFilename, vuesticConfig)
 

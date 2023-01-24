@@ -2,7 +2,7 @@ export const configuringVuesticFull = `
 // main.*
 
 import { createVuestic } from 'vuestic-ui'
-import { config } from '../vuestic.config.ts'
+import config from '../vuestic.config.js'
 
 createApp(App)
   .use(createVuestic({ config }))
@@ -13,7 +13,7 @@ export const configuringVuesticPartial = `
 // main.*
 
 import { createVuestic } from 'vuestic-ui'
-import { config } from '../vuestic.config.ts'
+import config from '../vuestic.config.js'
 
 import { createVuestic } from 'vuestic-ui'
 
@@ -32,7 +32,7 @@ createApp(App)
 `
 
 export const configExample = `
-// vuestic.config.ts
+// vuestic.config.js
 
 {
 breakpoint: {

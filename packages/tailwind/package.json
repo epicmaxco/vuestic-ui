@@ -11,12 +11,13 @@
   ],
   "version": "0.1.2",
   "license": "MIT",
-  "main": "./dist/sync.cjs",
+  "main": "./dist/watch-tailwind.cjs",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "vite build"
+    "build": "node ./build.mjs",
+    "build:vite": "vite build"
   },
   "peerDependencies": {
     "tailwindcss": "^3.2.4"
