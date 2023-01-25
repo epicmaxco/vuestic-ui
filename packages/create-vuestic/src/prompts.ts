@@ -42,7 +42,7 @@ const questions = definePrompts([
     }
   },
   {
-    type: 'select',
+    type: 'select' as const,
     name: 'projectType' as const,
     message: 'Project template',
     initial: 0,

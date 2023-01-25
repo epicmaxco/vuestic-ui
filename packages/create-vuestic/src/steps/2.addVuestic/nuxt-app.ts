@@ -18,7 +18,7 @@ export const addVuesticToNuxtApp = async () => {
     throw new Error('Unexpected error: Could not find nuxt.config.js or nuxt.config.ts')
   }
 
-  const css = treeShaking.filter((option) => ['grid', 'typography', 'normalize'].includes(option))
+  const css = treeShaking?.filter((option) => ['grid', 'typography', 'normalize'].includes(option))
 
   let nuxtConfigSource = await readFile(nuxtConfigPath, 'utf-8')
   nuxtConfigSource = insertNuxtModule(nuxtConfigSource, css)
