@@ -1,6 +1,6 @@
 import { useUserAnswers } from '../composables/useUserAnswers';
 import { getPackageManagerName } from '../utils/package-manager';
-import { execp } from './../utils/exacp';
+import { execp } from '../utils/exacp';
 
 export const installDeps = async () => {
   const { runInstall, projectName } = await useUserAnswers()

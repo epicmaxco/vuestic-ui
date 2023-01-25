@@ -7,7 +7,7 @@ export const createVue = async (projectName: string, features: CreateVueFeature[
     .map((feature) => `--${feature}`)
     .join(' ')
 
-  const command = `npm create vue@3 --yes -- --default ${argsString} ${projectName} --force`
+  const command = `npm create vue@3 --yes -- ${argsString} ${projectName} --force`
 
   return execp(command)
 }

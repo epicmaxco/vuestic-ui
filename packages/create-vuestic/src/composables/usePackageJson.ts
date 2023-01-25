@@ -9,11 +9,13 @@ type Package = {
 }
 
 const sortObjectKeys = (obj: Record<string, string>) => {
-  const sorted = {} as Record<string, string>
-  Object.keys(obj).sort().forEach(key => {
-    sorted[key] = obj[key]
-  })
-  return sorted
+  return Object
+    .keys(obj)
+    .sort()
+    .reduce((acc, key) => {
+      acc[key] = obj[key]
+      return acc
+    }, {} as Record<string, string>)
 }
 
 export const usePackageJson = async () => {
