@@ -12,7 +12,9 @@
         "blog": "Blog"
       },
       "banner": {
-        "text": "Vuestic UI is live on Product Hunt! \uD83D\uDE80"
+        "partner": "Official Partner of",
+        "and": "and",
+        "hire": "\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hire us"
       }
     },
     "preview": {
@@ -179,7 +181,11 @@
         "plain": "Applies `plain` styling.",
         "round": "Adds rounded corners (or make a button fully rounded if only icon is passed).",
         "iconRight": "The icon to be displayed to the right of a title.",
-        "keyboardNavigation": "Enables keyboard navigation for the component."
+        "keyboardNavigation": "Enables keyboard navigation for the component.",
+        "fallbackSrc": "Shows an alternative image if original image failed to load or src doesn't specified.",
+        "fallbackText": "Shows an alternative text if image failed to load or src doesn't specified.",
+        "fallbackIcon": "Shows an icon if image failed to load or src doesn't specified.",
+        "fallbackRender": "Allows to use render function to render custom contents if image failed to load or src doesn't specified"
       }
     },
     "VaBadge": {
@@ -4086,7 +4092,7 @@
     },
     "reactivity": {
       "subtitle": "Reactivity",
-      "about": "As you can see, methods like `getColor`, `getColors` don’t return `Proxy`. If you want to use color as reactive Proxy, use computed properties like in the example above."
+      "about": "Methods like `getColors` return a computed reactives that can also be accessed by variable `colors`. The advantage is allow to change properties, instead of rewriting whole colors variable. For example, you can change `primary` color by writing `colors.primary = '#ff0'`. Multiple properties changes are also supported, you can write `setColors({ primary: '#00f', secondary: '#0ff' })`."
     },
     "otherServices": {
       "subtitle": "Colors config with other services",
@@ -4100,7 +4106,7 @@
       "ColorConfig": "An object where the keys are the color names and the values are valid CSS colors.",
       "ColorInput": "A valid CSS color",
       "methods": "Methods",
-      "useColor": "Return colors methods",
+      "useColors": "Return colors methods and variables",
       "setColors": "Used to merge new colors into config or update existing colors.",
       "getColors": "Returns current color config",
       "getColor": "Return color by name",
@@ -4108,7 +4114,9 @@
       "getHoverColor": "Return a color that you can use as a `hover` color.",
       "getFocusColor": "Return a color that you can use as a `focus` color.",
       "getGradientBackground": "Return a gradient-color that you can use as a `background-image` CSS property's value.",
-      "hookMethods": "useColors hook methods"
+      "hookMethods": "useColors hook methods.",
+      "hookVariables": "useColors hook variables.",
+      "colors": "A computed reactive where the keys are color names and values are valid CSS colors."
     }
   },
   "breakpoints": {

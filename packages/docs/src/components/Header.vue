@@ -1,4 +1,5 @@
 <template lang="html">
+  <header-banner class="header-banner--docs"></header-banner>
   <va-navbar class="header" color="background-secondary">
     <template #left>
       <header-selector
@@ -46,13 +47,14 @@
 
 <script lang="ts">
 import { Options, Vue, prop, mixins } from 'vue-class-component'
-import LanguageDropdown from './components/LanguageDropdown.vue'
-import VersionDropdown from './components/VersionDropdown.vue'
-import ColorDropdown from './components/ColorDropdown.vue'
-import HeaderSelector from './components/HeaderSelector.vue'
-import VuesticLogo from './components/VuesticDocsLogo.vue'
-import AlgoliaSearch from './components/algolia-search/AlgoliaSearch.vue'
+import LanguageDropdown from './header/components/LanguageDropdown.vue'
+import VersionDropdown from './header/components/VersionDropdown.vue'
+import ColorDropdown from './header/components/ColorDropdown.vue'
+import HeaderSelector from './header/components/HeaderSelector.vue'
+import VuesticLogo from './header/components/VuesticDocsLogo.vue'
+import AlgoliaSearch from './header/components/algolia-search/AlgoliaSearch.vue'
 import ThemeSwitch from '@/components/ThemeSwitch.vue'
+import HeaderBanner from '@/components/HeaderBanner.vue'
 
 class Props {
   isSidebarVisible = prop<boolean>({ type: Boolean, default: false })
@@ -65,6 +67,7 @@ const PropsMixin = Vue.with(Props)
   components: {
     ThemeSwitch,
     HeaderSelector,
+    HeaderBanner,
     LanguageDropdown,
     ColorDropdown,
     VersionDropdown,
