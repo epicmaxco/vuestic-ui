@@ -3578,7 +3578,7 @@
   },
   "installation": {
     "title": "Installation",
-    "description": "You can create a new project or integrate Vuestic UI into an existing application. The installation process is mostly the same for both cases: you can either *install Vuestic UI manually* or use specifically designed *Vue CLI plugin*. Both ways provide you with a **full tree-shaking support**. Choose the one that fits your needs the most.",
+    "description": "You can create a new project or integrate Vuestic UI into an existing application. There are three ways to create new Vuestic App. All of them mostly the same and provides the same features.",
     "fonts": {
       "title": "Assets installation",
       "description": "By default Vuestic UI uses `Source Sans Pro` and `Material Icons` fonts. You should manually add them into your project. In order to do so you can either:",
@@ -3589,9 +3589,14 @@
       "title": "Modify your application's entry point",
       "description": "Import both the styles and the plugin into your entry file. The plugin is used to automatically register all the components, directives and other stuff globally. If you don't want to register everything globally then check out the tree-shaking section below."
     },
+    "createVuestic": {
+      "title": "Create Vuestic",
+      "description": "`create-vuestic` is CLI based tool to create new Vuestic App. This is a recomended way to scaffold new Vue apps with Vuestic",
+      "templates": "`create-vuestic` provides three template: Vuestic Admin, create-vue and Nuxt. Templates can be configured to use specific features like tree-shaking or AG Grid theme."
+    },
     "cli": {
       "title": "Vue CLI installation",
-      "description": "Recommended way to install Vuestic UI is using the Vue CLI plugin. Works fine with vite or webpack.",
+      "description": "If you have app based on Vue CLI this is a way to install Vuestic UI. Works fine with vite or webpack. Prefer `create-vuestic` for new projects",
       "attention": "Installing Vuestic UI via the plugin would modify your `package.json` and `main.(js`&#124;`ts)` files, so make sure you’ve committed your code before proceeding to avoid data loss.",
       "prepare": "First, make sure you've got [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] installed globally:",
       "upgrade": "Notice also that the minimum supported version of Vue CLI is v4.0.0. In case you've got an older version installed, please, consider [upgrading](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] it.",
@@ -4607,8 +4612,13 @@
   "nuxt": {
     "title": "Nuxt integration",
     "description": "Vuestic UI is fully compatible with Nuxt3. You can use Vuestic UI in your Nuxt3 project.",
+    "createVuestic": {
+      "title": "Scaffold new Nuxt app with Vuestic",
+      "description": "The easiest way to create new Nuxt project with integrated Vuestic is to use `create-vuestic` tool. Create new project and select `Nuxt` template.",
+      "link": "See detailed guide here."
+    },
     "installation": {
-      "title": "Installation",
+      "title": "Manual Installation",
       "plugin": "Install integration module:",
       "nuxtConfig": "Then you need to update nuxt-config.ts file:",
       "moreAboutConfig": "More about configuration"
