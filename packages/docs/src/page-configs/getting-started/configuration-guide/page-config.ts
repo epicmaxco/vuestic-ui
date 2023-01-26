@@ -36,7 +36,7 @@ const config: ApiDocsBlock[] = [
   block.headline('configurationGuide.colorsClasses.subtitle'),
   block.paragraph('configurationGuide.colorsClasses.subDescription'),
   block.code(colorsClasses),
-  block.link('configurationGuide.readMore', '/services/colors-custom-classes'),
+  block.link('configurationGuide.readMore', '/services/colors-classes'),
 
   block.subtitle('configurationGuide.components.title'),
   block.paragraph('configurationGuide.components.intro'),

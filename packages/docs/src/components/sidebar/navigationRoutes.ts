@@ -471,7 +471,7 @@ export const navigationRoutes: NavigationRoute[] = [
         },
       },
       {
-        name: 'colors-custom-classes',
+        name: 'colors-classes',
         displayName: 'menu.colorsClasses',
         meta: {
           badge: 'new',
