@@ -20,7 +20,11 @@ export const useConfigFile = async () => {
     nuxt.options.alias['#vuestic-config'] = resolveInRuntime('./runtime/config.mjs')
   }
 
-  watch(configPath)
-    .on('add', restartNuxt)
-    .on('unlink', restartNuxt)
+  const watcher = watch(configPath)
+    .on('ready', () => {
+      watcher
+        .on('add', restartNuxt)
+        .on('unlink', restartNuxt)
+    })
+
 }
