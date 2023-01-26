@@ -1,5 +1,9 @@
 <template>
-  <div v-html="text" class="MarkdownView"></div>
+  <div
+    v-html="text"
+    class="MarkdownView"
+    :class="{ 'MarkdownView--inline': inline || text }"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -11,6 +15,14 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  inline: {
+    type: Boolean,
+    default: false,
+  },
+  text: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const { locale } = useI18n();
@@ -23,15 +35,19 @@ const md = useMarkdownIt();
 
 const text = computed(() => {
   try {
+    // if (props.inline) {
+    //   return md.renderInline(props.content)
+    // }
+
+    if (props.text) {
+      return md.render(props.content).match(/<p>(.*)<\/p>/)?.[1]
+    }
+
     return md.render(props.content);
   } catch (e) {
     console.error(e, props.content)
     return ''
   }
-  // if (props.config.inline) {
-  //   return md.renderInline(props.config.content)
-  // }
-
 });
 </script>
 
@@ -40,6 +56,10 @@ const text = computed(() => {
 
 .MarkdownView {
   color: currentColor;
+
+  &--inline {
+    display: inline;
+  }
 
   code {
     margin: 0 0.3rem;
