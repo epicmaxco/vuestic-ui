@@ -18,15 +18,14 @@ const resolveFromFolder = (dir: string, file: string) => {
   return null
 }
 
-let IMPORT_STATIC_ID = 0
-export const createImporter = (ctx: TransformPluginContext, caller: string) => {
-  const imports: string[] = []
+type Imports = {
+  name: string,
+  alias: string,
+  type: 'default' | 'named'
+}
 
-  const loadRawOrImport = (id: string) => {
-    if (id.split('?')[1] === 'raw') {
-      return `export default `
-    }
-  }
+export const createImporter = (ctx: TransformPluginContext, caller: string) => {
+  const pathImports: Record<string, Imports[]> = {}
 
   const resolveWithAlias = (path: string) => {
     return ctx.resolve(resolveWithoutExtension(resolveAlias(path)))
@@ -44,18 +43,62 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
     return resolveFromFolder(p.dir, p.name) || path
   }
 
+  const findImportAlias = (path: string, name: string) => {
+    const index = Object.keys(pathImports).reduce((acc, key) => {
+      if (key === path) { return acc }
+
+      return acc + pathImports[key].reduce((acc, i) => {
+        return acc + (i.name === name ? 1 : 0)
+      }, 0)
+    }, 0)
+
+    return index === 0 ?  name : `${name}_${index}`
+  }
+
   return {
     importDefault(name: string, path: string) {
-      IMPORT_STATIC_ID += 1
       name = fixFileNameImport(name)
-      imports.push(`import ${name}_${IMPORT_STATIC_ID} from '${(path)}';\n`)
-      return `${name}_${IMPORT_STATIC_ID}`
+
+      if (!pathImports[path]) {
+        pathImports[path] = []
+      }
+
+      const existingImport = pathImports[path].find((i) => i.type === 'default')
+
+      if (existingImport) {
+        return existingImport.name
+      }
+
+      const index = Object.keys(pathImports).reduce((acc, key) => {
+        return acc + pathImports[key].reduce((acc, i) => {
+          return acc + (i.name === name ? 1 : 0)
+        }, 0)
+      }, 0)
+
+      const alias = findImportAlias(path, name)
+
+      pathImports[path].push({ name, alias, type: 'default' })
+
+      return alias
     },
     importNamed(name: string, path: string) {
-      IMPORT_STATIC_ID += 1
       name = fixFileNameImport(name)
-      imports.push(`import { ${name} } from '${(path)}';\n`)
-      return name
+
+      if (!pathImports[path]) {
+        pathImports[path] = []
+      }
+
+      const existingImport = pathImports[path].find((i) => i.type === 'named' && i.name === name)
+
+      if (existingImport) {
+        return existingImport.alias
+      }
+
+      const alias = findImportAlias(path, name)
+
+      pathImports[path].push({ name, alias, type: 'named' })
+
+      return alias
     },
 
     resolveRelativePath: async (path: string) => {
@@ -67,7 +110,22 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
     },
 
     get imports() {
-      return imports.join('\n')
+      return Object.entries(pathImports).map(([path, imports]) => {
+        const defaultImport = imports.find((i) => i.type === 'default')?.alias
+        const namedImports = imports
+          .filter((i) => i.type === 'named')
+          .map((i) => {
+            if (i.alias) {
+              return `${i.name} as ${i.alias}`
+            }
+
+            return i.name
+          }).join(', ')
+
+        const allImports = [defaultImport, namedImports ? `{ ${namedImports} }` : null].filter(Boolean).join(', ')
+
+        return `import ${allImports} from '${path}';`
+      }).join('\n')
     }
   }
 }

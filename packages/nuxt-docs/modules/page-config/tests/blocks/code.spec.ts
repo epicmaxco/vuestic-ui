@@ -34,7 +34,7 @@ export default definePageConfig({
   },
 
   blocks: [
-    block.code(test_1),
+    block.code(test),
   ]
 })
   `.trim())
@@ -69,8 +69,8 @@ export default definePageConfig({
 
   blocks: [
     block.code({
-    yarn: test_2,
-    npm: test_3
+    yarn: test,
+    npm: test
 }),
   ]
 })
