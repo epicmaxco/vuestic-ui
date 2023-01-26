@@ -5,16 +5,16 @@
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component'
 import DocsContent from '../../components/DocsContent.vue'
-import colorsCustomClassesConfig from '../../page-configs/services/colors-custom-classes/page-config'
+import colorsClassesConfig from '../../page-configs/services/colors-classes/page-config'
 
 @Options({
   components: {
     DocsContent,
   },
 })
-export default class ColorsCustomClasses extends Vue {
+export default class ColorsClasses extends Vue {
   get configComputed () {
-    return colorsCustomClassesConfig
+    return colorsClassesConfig
   }
 }
 </script>

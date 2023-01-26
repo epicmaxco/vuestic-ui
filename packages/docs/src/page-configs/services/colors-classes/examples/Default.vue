@@ -17,7 +17,7 @@ export default {
     const { mergeGlobalConfig } = useGlobalConfig()
 
     mergeGlobalConfig({
-      colorsCustomClasses: [
+      colorsClasses: [
         {
           prefix: 'custom',
           property: ['border', 'color'],

@@ -1,4 +1,4 @@
-export const colorsCustomClassesType = `
+export const colorsClassesType = `
   [{
     prefix?: string
     postfix?: string

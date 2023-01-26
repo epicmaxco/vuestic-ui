@@ -2,7 +2,7 @@ import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 
 import type { TableColumn, TableData } from '../../../components/DocsTable/DocsTableTypes'
-import { colorsCustomClassesType, setupExample } from './code-examples'
+import { colorsClassesType, setupExample } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
 
@@ -13,7 +13,7 @@ const columns: TableColumn[] = [
 ]
 
 const tableData: TableData = [
-  ['colorsCustomClasses', colorsCustomClassesType, 'colorsCustomClasses.configDescription'],
+  ['colorsCustomClasses', colorsClassesType, 'colorsCustomClasses.configDescription'],
 ]
 
 const config: ApiDocsBlock[] = [

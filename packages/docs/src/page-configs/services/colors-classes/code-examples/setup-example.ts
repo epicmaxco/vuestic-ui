@@ -7,7 +7,7 @@ createApp(App)
   .use(createVuestic({
     config: {
       colors: { ... },
-      colorsCustomClasses: [
+      colorsClasses: [
         {
           prefix: 'custom',
           property: ['border', 'color'],

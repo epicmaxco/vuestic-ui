@@ -9,7 +9,7 @@ import { getBreakpointDefaultConfig } from '../breakpoint'
 import { getGlobalProperty } from '../vue-plugin/utils'
 import { inject } from '../current-app'
 import { mergeDeep } from '../../utils/merge-deep'
-import { getColorsCustomClassesDefaultConfig } from '../colors-custom-classes'
+import { getColorsClassesDefaultConfig } from '../colors-classes'
 
 export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
 
@@ -20,7 +20,7 @@ export const createGlobalConfig = () => {
     components: getComponentsDefaultConfig(),
     breakpoint: getBreakpointDefaultConfig(),
     i18n: getI18nConfigDefaults(),
-    colorsCustomClasses: getColorsCustomClassesDefaultConfig(),
+    colorsClasses: getColorsClassesDefaultConfig(),
   })
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value
