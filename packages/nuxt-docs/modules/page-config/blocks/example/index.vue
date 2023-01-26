@@ -4,6 +4,7 @@ import { type CodeSandboxConfig } from '../../../../composables/code-sandbox';
 import { CodeView } from "../shared/code";
 import ExampleFooter from './example-footer.vue';
 import Headline from '../headline/index.vue'
+import camelCase from 'lodash/camelCase'
 
 const props = defineProps({
   component: {
@@ -43,13 +44,11 @@ const gitLink = computed(
   () => `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/${props.path}`,
 )
 
-
-const lowerCaseFirst = (str: string) => str.charAt(0).toLowerCase() + str.slice(1)
-const exampleName = computed(() => lowerCaseFirst(props.path.split('/').pop()?.replace('.vue', '') || ''))
+const exampleName = computed(() => camelCase(props.path.split('/').pop()?.replace('.vue', '') || ''))
 
 const configName = computed(() => {
   const fullName = props.path.match(/\/(.*)\/examples/)?.[1] || undefined
-  return fullName?.split('/').pop()
+  return camelCase(fullName?.split('/').pop())
 })
 
 const { t } = useI18n()
