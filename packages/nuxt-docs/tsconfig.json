@@ -1,13 +1,4 @@
 {
-  "exclude": [
-    "../../node_modules",
-    "node_modules",
-  ],
-  "compilerOptions": {
-    "types": [
-      "vite/client"
-    ]
-  },
   // https://v3.nuxtjs.org/concepts/typescript
   "extends": "./.nuxt/tsconfig.json"
 }

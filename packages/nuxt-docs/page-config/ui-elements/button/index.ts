@@ -5,6 +5,8 @@ export default definePageConfig({
     block.title("button.title"),
     block.paragraph("button.summaryText"),
 
+    block.component("Playground"),
+
     block.subtitle("all.examples"),
     block.example("Default"),
     block.example("Presets"),
