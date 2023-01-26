@@ -543,7 +543,8 @@
         "sizes": "Проксирует свойство `sizes` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "srcset": "Проксирует свойство `srcset` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "title": "Проксирует свойство `title` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
-        "notDraggable": "Переводит свойство `draggable` в `false` [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]]."
+        "notDraggable": "Переводит свойство `draggable` в `false` [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
+        "placeholderSrc": "Значение аттрибута `src` для тега `img` в плейсхолдере (который может быть перезаписан с помощью слота `placeholder`)."
       },
       "events": {
         "loaded": "Событие вызывается, когда загрузка изображения окончена.",
