@@ -2,13 +2,14 @@
   <a
     :id="anchor"
     :href="`#${anchor}`"
-    class="page-config-anchor"
     :class="{ 'page-config-anchor--force-show': forceShow }"
+    class="page-config-anchor"
+    ref="el"
   >#</a>
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, onMounted } from 'vue'
 import { kebabCase } from 'lodash'
 
 export default defineComponent({
@@ -16,15 +17,25 @@ export default defineComponent({
     text: { type: String },
   },
   setup: (props) => {
+    const el = ref<HTMLElement>()
     const route = useRoute()
 
     const anchor = computed(() => kebabCase(props.text))
 
+    const active = computed(() => {
+      return route.hash === `#${anchor.value}`
+    })
+
+    onMounted(() => {
+      if (active.value) {
+        el.value?.scrollIntoView()
+      }
+    })
+
     return {
+      el,
       anchor,
-      forceShow: computed(() => {
-        return route.hash === `#${anchor.value}`
-      })
+      forceShow: active,
     }
   },
 })
