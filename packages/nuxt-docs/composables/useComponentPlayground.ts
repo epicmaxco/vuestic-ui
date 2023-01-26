@@ -1,10 +1,11 @@
 export type PlaygroundOption = {
+  key: string,
   type: 'select' | 'input' | 'color' | 'checkbox',
   options?: string[],
   value?: string | boolean
 }
 
-export const useComponentPlayground = (options: Record<string, PlaygroundOption>) => {
+export const useComponentPlayground = (options: Record<string, Omit<PlaygroundOption, 'key'>>) => {
   const optionsRef = reactive(Object.keys(options).map((key) => reactive({ ...options[key], key })))
 
   const slots = computed(() => {

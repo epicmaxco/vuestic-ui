@@ -19,7 +19,7 @@ const { options, renderComponent, slots } = useComponentPlayground({
   },
   color: {
     type: 'input',
-    value: 'success'
+    value: ''
   },
   withContent: {
     type: 'checkbox',
@@ -27,7 +27,7 @@ const { options, renderComponent, slots } = useComponentPlayground({
   },
   placement: {
     type: 'select',
-    value: 'left-start',
+    value: '',
     options: ['top', 'top-end', 'top-start', 'bottom-end', 'left-start']
   },
   dot: {

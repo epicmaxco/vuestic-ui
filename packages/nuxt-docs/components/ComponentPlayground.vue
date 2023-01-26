@@ -44,7 +44,7 @@ const optionValues = computed(() => {
       </va-card-content>
     </va-card>
   </div>
-  <div class="component-playground">
+<div class="component-playground">
     <div class="component-playground__code">
       <CodeView :code="code" language="html" />
     </div>
@@ -73,7 +73,26 @@ const optionValues = computed(() => {
 
   &__code {
     width: 100%;
-    border: 1px solid var(--va-background-primary)
+    border: 1px solid var(--va-background-primary);
+    position: relative;
+    z-index: 0;
+
+    &:deep(.DocsCode) {
+      background: transparent;
+    }
+
+    &::after {
+      pointer-events: none;
+      content: '';
+      background: var(--va-background-border);
+      opacity: 0.05;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
   }
 }
 </style>

@@ -27,7 +27,7 @@ const { options, renderComponent, slots } = useComponentPlayground({
   },
   color: {
     type: 'input',
-    value: 'warning'
+    value: ''
   },
   size: {
     type: 'select',
