@@ -1,10 +1,10 @@
 <template>
   <div>
     <p class="va-custom--success p-4">
-      {{ $t('colorsCustomClasses.examples.custom.example1') }}
+      {{ $t('colorsClasses.examples.custom.example1') }}
     </p>
     <p class="va-brand--danger p-4">
-      {{ $t('colorsCustomClasses.examples.custom.example2') }}
+      {{ $t('colorsClasses.examples.custom.example2') }}
     </p>
   </div>
 </template>

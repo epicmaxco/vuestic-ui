@@ -30,11 +30,11 @@ const config: ApiDocsBlock[] = [
   block.code(iconsConfig),
   block.link('configurationGuide.readMore', '/services/icons-config'),
 
-  block.subtitle('configurationGuide.colorsCustomClasses.title'),
-  block.paragraph('configurationGuide.colorsCustomClasses.description'),
+  block.subtitle('configurationGuide.colorsClasses.title'),
+  block.paragraph('configurationGuide.colorsClasses.description'),
 
-  block.headline('configurationGuide.colorsCustomClasses.subtitle'),
-  block.paragraph('configurationGuide.colorsCustomClasses.subDescription'),
+  block.headline('configurationGuide.colorsClasses.subtitle'),
+  block.paragraph('configurationGuide.colorsClasses.subDescription'),
   block.code(colorsClasses),
   block.link('configurationGuide.readMore', '/services/colors-custom-classes'),
 

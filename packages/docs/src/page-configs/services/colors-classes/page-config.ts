@@ -13,23 +13,23 @@ const columns: TableColumn[] = [
 ]
 
 const tableData: TableData = [
-  ['colorsCustomClasses', colorsClassesType, 'colorsCustomClasses.configDescription'],
+  ['colorsClasses', colorsClassesType, 'colorsClasses.configDescription'],
 ]
 
 const config: ApiDocsBlock[] = [
-  block.title('colorsCustomClasses.title'),
-  block.paragraph('colorsCustomClasses.about'),
-  block.paragraph('colorsCustomClasses.defaultColors'),
-  block.paragraph('colorsCustomClasses.readMoreAboutDefaultColor'),
+  block.title('colorsClasses.title'),
+  block.paragraph('colorsClasses.about'),
+  block.paragraph('colorsClasses.defaultColors'),
+  block.paragraph('colorsClasses.readMoreAboutDefaultColor'),
 
-  block.subtitle('colorsCustomClasses.setup.title'),
-  block.paragraph('colorsCustomClasses.setup.about'),
+  block.subtitle('colorsClasses.setup.title'),
+  block.paragraph('colorsClasses.setup.about'),
   block.code(setupExample),
-  block.paragraph('colorsCustomClasses.setup.explanation'),
-  block.paragraph('colorsCustomClasses.setup.example'),
+  block.paragraph('colorsClasses.setup.explanation'),
+  block.paragraph('colorsClasses.setup.example'),
   block.example('Default'),
 
-  block.subtitle('colorsCustomClasses.api.title'),
+  block.subtitle('colorsClasses.api.title'),
   block.table(columns, tableData),
 ]
 

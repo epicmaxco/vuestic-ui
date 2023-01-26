@@ -472,7 +472,7 @@ export const navigationRoutes: NavigationRoute[] = [
       },
       {
         name: 'colors-custom-classes',
-        displayName: 'menu.colorsCustomClasses',
+        displayName: 'menu.colorsClasses',
         meta: {
           badge: 'new',
         },
