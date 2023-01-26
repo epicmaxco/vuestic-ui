@@ -1,11 +1,11 @@
 <template>
-  <ComponentPlayground :options="options" :code="renderComponent('va-button')" :slots="slots"
+  <ComponentPlayground :options="options" :code="renderComponent('va-avatar')" :slots="slots"
     #default="{ bind, slots }">
-    <VaButton v-bind="bind">
+    <va-avatar v-bind="bind">
       <template v-for="slot in slots" #[slot.name]>
         {{ slot.value }}
       </template>
-    </VaButton>
+    </va-avatar>
   </ComponentPlayground>
 </template>
 
@@ -13,37 +13,32 @@
 import { useComponentPlayground } from '@/composables/useComponentPlayground'
 
 const { options, renderComponent, slots } = useComponentPlayground({
-  'slot:default': {
+  src: {
     type: 'input',
-    value: 'Hello world!'
+    value: 'https://randomuser.me/api/portraits/women/5.jpg'
+  },
+  alt: {
+    type: 'input',
+    value: 'User avatar'
+  },
+  icon: {
+    type: 'input',
+    value: 'people'
   },
   color: {
     type: 'input',
-    value: 'primary'
-  },
-  preset: {
-    type: 'select',
-    value: '',
-    options: ['primary', 'secondary', 'plain', 'plain-opacity']
+    value: 'warning'
   },
   size: {
     type: 'select',
     value: '',
     options: ['small', 'medium', 'large']
   },
-  round: {
-    type: 'checkbox',
-    value: false,
-  },
   loading: {
     type: 'checkbox',
     value: false,
   },
-  disabled: {
-    type: 'checkbox',
-    value: false,
-  },
-  gradient: {
+  square: {
     type: 'checkbox',
     value: false,
   },

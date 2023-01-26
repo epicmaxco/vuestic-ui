@@ -1,11 +1,11 @@
 <template>
-  <ComponentPlayground :options="options" :code="renderComponent('va-button')" :slots="slots"
+  <ComponentPlayground :options="options" :code="renderComponent('va-button-dropdown')" :slots="slots"
     #default="{ bind, slots }">
-    <VaButton v-bind="bind">
+    <VaButtonDropdown v-bind="bind">
       <template v-for="slot in slots" #[slot.name]>
         {{ slot.value }}
       </template>
-    </VaButton>
+    </VaButtonDropdown>
   </ComponentPlayground>
 </template>
 
@@ -16,6 +16,10 @@ const { options, renderComponent, slots } = useComponentPlayground({
   'slot:default': {
     type: 'input',
     value: 'Hello world!'
+  },
+  label: {
+    type: 'input',
+    value: 'Label'
   },
   color: {
     type: 'input',
@@ -32,10 +36,6 @@ const { options, renderComponent, slots } = useComponentPlayground({
     options: ['small', 'medium', 'large']
   },
   round: {
-    type: 'checkbox',
-    value: false,
-  },
-  loading: {
     type: 'checkbox',
     value: false,
   },

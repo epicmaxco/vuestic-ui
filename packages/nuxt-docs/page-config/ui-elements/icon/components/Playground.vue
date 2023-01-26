@@ -1,11 +1,11 @@
 <template>
-  <ComponentPlayground :options="options" :code="renderComponent('va-button')" :slots="slots"
+  <ComponentPlayground :options="options" :code="renderComponent('va-icon')" :slots="slots"
     #default="{ bind, slots }">
-    <VaButton v-bind="bind">
+    <VaIcon v-bind="bind">
       <template v-for="slot in slots" #[slot.name]>
         {{ slot.value }}
       </template>
-    </VaButton>
+    </VaIcon>
   </ComponentPlayground>
 </template>
 
@@ -13,39 +13,36 @@
 import { useComponentPlayground } from '@/composables/useComponentPlayground'
 
 const { options, renderComponent, slots } = useComponentPlayground({
-  'slot:default': {
+  name: {
     type: 'input',
-    value: 'Hello world!'
+    value: 'phone'
   },
   color: {
     type: 'input',
     value: 'primary'
   },
-  preset: {
-    type: 'select',
-    value: '',
-    options: ['primary', 'secondary', 'plain', 'plain-opacity']
-  },
   size: {
     type: 'select',
     value: '',
-    options: ['small', 'medium', 'large']
-  },
-  round: {
-    type: 'checkbox',
-    value: false,
-  },
-  loading: {
-    type: 'checkbox',
-    value: false,
+    options: ['small', 'medium', 'large', '44', '4rem']
   },
   disabled: {
     type: 'checkbox',
     value: false,
   },
-  gradient: {
+  spin: {
     type: 'checkbox',
     value: false,
+  },
+  rotation: {
+    type: 'select',
+    value: '',
+    options: ['-180', '-90', '0', '90', '180']
+  },
+  flip: {
+    type: 'select',
+    value: '',
+    options: ['horizontal', 'vertical', 'both']
   },
 })
 </script>

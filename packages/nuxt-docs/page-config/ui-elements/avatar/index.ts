@@ -5,6 +5,8 @@ export default definePageConfig({
     block.title("avatar.title"),
     block.paragraph("avatar.summaryText"),
 
+    block.component("Playground"),
+
     block.subtitle("all.examples"),
 
     block.example("Default"),

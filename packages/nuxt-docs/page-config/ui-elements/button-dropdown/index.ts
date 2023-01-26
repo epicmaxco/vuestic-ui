@@ -4,6 +4,9 @@ export default definePageConfig({
   blocks: [
     block.title("buttonDropdown.title"),
     block.paragraph("buttonDropdown.summaryText"),
+
+    block.component("Playground"),
+
     block.subtitle("all.examples"),
     block.example("Default"),
     block.example("Split"),

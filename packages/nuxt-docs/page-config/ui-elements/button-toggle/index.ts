@@ -5,6 +5,8 @@ export default definePageConfig({
     block.title("buttonToggle.title"),
     block.paragraph("buttonToggle.summaryText"),
 
+    block.component("Playground"),
+
     block.subtitle("all.examples"),
     block.example("Default"),
     block.example("Colors"),

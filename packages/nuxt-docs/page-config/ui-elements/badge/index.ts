@@ -5,6 +5,8 @@ export default definePageConfig({
     block.title("badge.title"),
     block.paragraph("badge.summaryText"),
 
+    block.component("Playground"),
+
     block.subtitle("all.examples"),
     block.example("Default"),
 

@@ -34,9 +34,13 @@ export const useComponentPlayground = (options: Record<string, PlaygroundOption>
   })
 
   const renderAttrs = () => {
-    return attrs.value
+    return '\n    ' + attrs.value
       .map(({ name, value }) => {
         if (!value) { return null }
+
+        if (typeof value === 'object') {
+          value = JSON.stringify(value)
+        }
 
         if (typeof value !== 'string') {
           return `:${name}="${value}"`
@@ -45,7 +49,7 @@ export const useComponentPlayground = (options: Record<string, PlaygroundOption>
         return `${name}="${value}"`
       })
       .filter(Boolean)
-      .join(' ')
+      .join('\n    ')
   }
 
   const renderSlots = () => {
@@ -54,14 +58,20 @@ export const useComponentPlayground = (options: Record<string, PlaygroundOption>
         if (name === 'default') { return `  ${value}` }
 
         return `<template #${name}>
-  ${value}
+  ${JSON.stringify(value)}
 <template />`
       })
     .join('\n')
   }
 
   const renderComponent = (componentName: string, attrs: string = renderAttrs(), slots: string = renderSlots()) => {
-    return `<${componentName} ${attrs}>
+    if (!slots) {
+      return `<${componentName} ${attrs}
+/>`
+    }
+
+    return `<${componentName} ${attrs}
+  >
 ${slots}
 </${componentName}>`
   }

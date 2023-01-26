@@ -57,15 +57,14 @@ const optionValues = computed(() => {
   padding: 1rem;
   display: flex;
 
+  --va-card-box-shadow: none;
+
   &+& {
     padding-top: 0;
   }
 
-  &>* {
-    width: 50%;
-  }
-
   &__example {
+    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;

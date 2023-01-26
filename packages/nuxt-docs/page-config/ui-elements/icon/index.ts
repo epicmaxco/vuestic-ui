@@ -5,6 +5,8 @@ export default definePageConfig({
     block.title("icon.title"),
     block.paragraph("icon.summaryText"),
 
+    block.component("Playground"),
+
     block.link("icon.iconsConfig", "services/icons-config"),
 
     block.subtitle("all.examples"),
