@@ -43,7 +43,13 @@
       v-if="isPlaceholderShown"
       class="va-image__placeholder"
     >
-      <slot name="placeholder" />
+      <slot name="placeholder">
+        <img
+          v-if="$props.placeholderSrc"
+          :src="$props.placeholderSrc"
+          alt=""
+        />
+      </slot>
     </div>
   </va-aspect-ratio>
 </template>
@@ -81,6 +87,7 @@ export default defineComponent({
       type: String as PropType<'contain' | 'fill' | 'cover' | 'scale-down' | 'none'>,
       default: 'cover',
     },
+    placeholderSrc: { type: String, default: '' },
     // TODO: delete in 1.7.0
     contain: { type: Boolean, default: false },
   },
@@ -157,7 +164,7 @@ export default defineComponent({
     watch(() => props.src, init)
 
     const isPlaceholderShown = computed(() =>
-      ((isLoading.value && !slots?.loader?.()) || (isError.value && !slots?.error?.())) && slots?.placeholder?.())
+      ((isLoading.value && !slots?.loader?.()) || (isError.value && !slots?.error?.())) && (slots?.placeholder?.() || props.placeholderSrc))
 
     const isSuccessfullyLoaded = computed(() => !(isLoading.value || isError.value))
 
