@@ -3700,42 +3700,46 @@
   "accessibilityGuide": {
     "title": "Accessibility",
     "description": "Vuestic UI components are support keyboard interactions for all mouse-based actions, utilize HTML5 semantic elements where applicable and provide full coverage by WAI-ARIA attributes.",
-    "keyboardInteractions": {
-      "title": "Keyboard accessible",
-      "description": "All interactive elements of your page should be accessible by keyboard (e.g. text boxes, buttons, etc). That means you should be able focus on them via `Tab` and `Shift+Tab` keys. Focused via keyboard elements have their own visual state. For example, you can focus `date-input` component below via `Tab`, then call `date-picker` via `Enter` and select date, using left-right keys, `Shift+Tab` to focus year and month, `Enter` to confirm the selection and `Esc` to close the picker."
-    },
-    "waiAria": {
-      "title": "WAI-ARIA",
-      "description": "All our components are fully (depending on their roles) covered by [WAI-ARIA](https://www.w3.org/WAI/standards-guidelines/aria/)[[target=_blank]] attributes, providing full support for screen-readers. For example, simple input below provides for screen-readers information about inputs name, it is disabled or readonly, it is necessary to fill it and  it doesn't contain any validation errors."
+    "examples": {
+      "keyboardInteractions": {
+        "title": "Keyboard accessible",
+        "description": "All interactive elements of your page should be accessible by keyboard (e.g. text boxes, buttons, etc). That means you should be able focus on them via `Tab` and `Shift+Tab` keys. Focused via keyboard elements have their own visual state. For example, you can focus `date-input` component below via `Tab`, then call `date-picker` via `Enter` and select date, using left-right keys, `Shift+Tab` to focus year and month, `Enter` to confirm the selection and `Esc` to close the picker."
+      },
+      "waiAria": {
+        "title": "WAI-ARIA",
+        "description": "All our components are fully (depending on their roles) covered by [WAI-ARIA](https://www.w3.org/WAI/standards-guidelines/aria/)[[target=_blank]] attributes, providing full support for screen-readers. For example, simple input below provides for screen-readers information about inputs name, it is disabled or readonly, it is necessary to fill it and  it doesn't contain any validation errors."
+      }
     }
   },
   "configurationGuide": {
     "title": "Configuration",
     "description": "Vuestic UI comes with a convenient mechanism that allows for a deep icons, components, and colors customization.",
     "readMore": "More on this topic",
-    "colors": {
-      "title": "Color themes",
-      "description": "You can easily modify the colors used by Vuestic UI components (and even add custom ones):",
-      "defaultColors": "Default colors",
-      "customColors": "Custom colors"
-    },
-    "icons": {
-      "title": "Icon fonts",
-      "description": [
-        "By default Vuestic UI uses **material icons**, so make sure to install the package:",
-        "After installing the **material icons** package, you need to import its styles into the `main.js` file."
-      ],
-      "subtitle": "Using custom icons",
-      "subDescription": "With icons config you can use any icon font you'd like by simply transforming the icon names to respective props."
-    },
-    "components": {
-      "title": "Components config",
-      "intro": "If you want to set global defaults for Vuestic components or create presets — we have config for this as well!",
-      "description": "Let’s say you want all of your buttons to be `outline` and `small` to match your design, but by default that's not the case:",
-      "action": "To solve that problem edit to `main.js` file the following way:",
-      "result": "Now all of your buttons by default will look like this:",
-      "example": "You can configure any prop for any Vuestic UI component in such a manner.",
-      "more": "In case your customization runs deeper consider [overriding CSS variables](/styles/css-variables#overriding) or even directly the `.class`' properties (components use BEM-notation so it should be easy to figure out which selector to address with the help of standard dev-tooling)."
+    "examples": {
+      "colors": {
+        "title": "Color themes",
+        "description": "You can easily modify the colors used by Vuestic UI components (and even add custom ones):",
+        "defaultColors": "Default colors",
+        "customColors": "Custom colors"
+      },
+      "icons": {
+        "title": "Icon fonts",
+        "description": [
+          "By default Vuestic UI uses **material icons**, so make sure to install the package:",
+          "After installing the **material icons** package, you need to import its styles into the `main.js` file."
+        ],
+        "subtitle": "Using custom icons",
+        "subDescription": "With icons config you can use any icon font you'd like by simply transforming the icon names to respective props."
+      },
+      "components": {
+        "title": "Components config",
+        "intro": "If you want to set global defaults for Vuestic components or create presets — we have config for this as well!",
+        "description": "Let’s say you want all of your buttons to be `outline` and `small` to match your design, but by default that's not the case:",
+        "action": "To solve that problem edit to `main.js` file the following way:",
+        "result": "Now all of your buttons by default will look like this:",
+        "example": "You can configure any prop for any Vuestic UI component in such a manner.",
+        "more": "In case your customization runs deeper consider [overriding CSS variables](/styles/css-variables#overriding) or even directly the `.class`' properties (components use BEM-notation so it should be easy to figure out which selector to address with the help of standard dev-tooling)."
+      }
     }
   },
   "browserSupport": {
