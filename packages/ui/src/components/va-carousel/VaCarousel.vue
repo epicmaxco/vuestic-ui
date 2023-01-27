@@ -86,7 +86,7 @@
               v-bind="vaImageProps"
               :src="isObjectSlides ? item.src : item"
               :alt="isObjectSlides ? item.alt : ''"
-              not-draggable
+              :draggable="false"
             />
           </slot>
         </div>

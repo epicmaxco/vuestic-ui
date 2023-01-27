@@ -546,7 +546,7 @@
         "sizes": "Proxies the `sizes` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "srcset": "Proxies the `srcset` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "title": "Proxies the `title` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
-        "notDraggable": "Switches the `draggable` attribute value to `false` [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
+        "draggable": "Proxies the `draggable` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
         "placeholderSrc": "`src` value for the placeholder image (can be replaced with `placeholder` slot)."
       },
       "events": {

@@ -189,7 +189,7 @@ const slotImagePath = computed(() => getImagePath(slotImageSize.value))
   color: white;
 
   &--gradient {
-    background: repeating-linear-gradient(-45deg, rgba(0, 255, 23, 0.25), rgba(0, 83, 255, 0.25) 25px);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0.3) 100%);
   }
 
   &--whole,

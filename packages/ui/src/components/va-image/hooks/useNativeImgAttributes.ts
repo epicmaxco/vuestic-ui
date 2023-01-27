@@ -7,7 +7,7 @@ export const useNativeImgAttributesProps = {
   title: { type: String, default: '' },
   sizes: { type: String, default: '' },
   srcset: { type: String, default: '' },
-  notDraggable: { type: Boolean, default: false },
+  draggable: { type: Boolean, default: false },
   loading: {
     type: String as PropType<'lazy' | 'eager'>,
   },
@@ -27,8 +27,7 @@ export const useNativeImgAttributesProps = {
 }
 
 export const useNativeImgAttributes = (props: ExtractPropTypes<typeof useNativeImgAttributesProps>) => {
-  return computed(() => ({
-    ...pick(props, ['src', 'alt', 'title', 'sizes', 'srcset', 'loading', 'referrerpolicy', 'fetchpriority', 'decoding', 'crossorigin']),
-    draggable: !props.notDraggable,
-  }))
+  return computed(() =>
+    pick(props, ['src', 'alt', 'title', 'sizes', 'srcset', 'loading', 'referrerpolicy', 'fetchpriority', 'decoding', 'crossorigin', 'draggable']),
+  )
 }
