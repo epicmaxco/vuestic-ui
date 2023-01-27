@@ -1,11 +1,12 @@
 <template>
   <va-aspect-ratio
     ref="root"
+    class="va-image"
     v-bind="aspectRationAttributesComputed"
   >
     <picture
       v-show="isSuccessfullyLoaded"
-      class="va-image"
+      class="va-image__content"
       :aria-busy="isLoading"
     >
       <slot v-if="$slots.sources" name="sources" />
@@ -43,7 +44,13 @@
       v-if="isPlaceholderShown"
       class="va-image__placeholder"
     >
-      <slot name="placeholder" />
+      <slot name="placeholder">
+        <img
+          v-if="$props.placeholderSrc"
+          :src="$props.placeholderSrc"
+          alt=""
+        />
+      </slot>
     </div>
   </va-aspect-ratio>
 </template>
@@ -62,17 +69,12 @@ import {
 
 import { VaAspectRatio } from '../va-aspect-ratio'
 
-import {
-  useNativeImgAttributes, useNativeImgAttributesProps,
-  validateProp,
-} from './hooks/useNativeImgAttributes'
+import { useNativeImgAttributes, useNativeImgAttributesProps } from './hooks/useNativeImgAttributes'
 import {
   useComponentPresetProp,
   useDeprecated,
   useIntersectionObserver,
 } from '../../composables'
-
-const fitOptions = ['contain', 'fill', 'cover', 'scale-down', 'none'] as const
 
 export default defineComponent({
   name: 'VaImage',
@@ -96,11 +98,11 @@ export default defineComponent({
       },
     },
     fit: {
-      type: String as PropType<typeof fitOptions[number]>,
+      type: String as PropType<'contain' | 'fill' | 'cover' | 'scale-down' | 'none'>,
       default: 'cover',
-      validator: (v: string) => validateProp(v, fitOptions),
     },
     lazy: { type: Boolean, default: false },
+    placeholderSrc: { type: String, default: '' },
     // TODO: delete in 1.7.0
     contain: { type: Boolean, default: false },
   },
@@ -196,7 +198,7 @@ export default defineComponent({
     watch(() => props.src, init)
 
     const isPlaceholderShown = computed(() =>
-      ((isLoading.value && !slots?.loader?.()) || (isError.value && !slots?.error?.())) && slots?.placeholder?.())
+      ((isLoading.value && !slots?.loader?.()) || (isError.value && !slots?.error?.())) && (slots?.placeholder?.() || props.placeholderSrc))
 
     const isSuccessfullyLoaded = computed(() => !(isLoading.value || isError.value))
 
@@ -246,21 +248,26 @@ export default defineComponent({
 }
 
 .va-image {
-  @include absolute;
+  &__content {
+    @include absolute;
 
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: v-bind(fitComputed);
-    object-position: var(--va-image-object-position);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: v-bind(fitComputed);
+      object-position: var(--va-image-object-position);
+    }
+  }
+
+  &__overlay {
+    @include absolute;
   }
 
   &__placeholder,
   &__loader,
   &__error,
   &__overlay {
-    @include absolute;
-
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

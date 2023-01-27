@@ -12,7 +12,9 @@
         "blog": "Блог"
       },
       "banner": {
-        "text": "Вышла новая версия Vuestic v1.5! Перейдите в репозиторий проекта, чтобы узнать больше"
+        "partner": "Официальный партнер",
+        "and": "и",
+        "hire": "\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Нанять нас"
       }
     },
     "preview": {
@@ -541,8 +543,9 @@
         "sizes": "Проксирует свойство `sizes` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "srcset": "Проксирует свойство `srcset` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "title": "Проксирует свойство `title` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
-        "notDraggable": "Переводит свойство `draggable` в `false` [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
-        "lazy": "Включает ленивую загрузку изображения."
+        "lazy": "Включает ленивую загрузку изображения.",
+        "draggable": "Проксирует свойство `draggable` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
+        "placeholderSrc": "Значение аттрибута `src` для тега `img` в плейсхолдере (который может быть перезаписан с помощью слота `placeholder`)."
       },
       "events": {
         "loaded": "Событие вызывается, когда загрузка изображения окончена.",

@@ -86,7 +86,7 @@
               v-bind="vaImageProps"
               :src="isObjectSlides ? item.src : item"
               :alt="isObjectSlides ? item.alt : ''"
-              not-draggable
+              :draggable="false"
             />
           </slot>
         </div>
@@ -336,7 +336,7 @@ export default defineComponent({
     }
   }
 
-  .va-aspect-ratio {
+  .va-image {
     height: 100%;
     width: 100%;
   }
