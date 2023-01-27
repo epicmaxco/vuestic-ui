@@ -52,7 +52,8 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
       }, 0)
     }, 0)
 
-    return index === 0 ?  name : `${name}_${index}`
+    // Always add index, there might be used JS keyword as import, so it will be with index instead
+    return `${name}_${index}`
   }
 
   return {
@@ -66,14 +67,8 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
       const existingImport = pathImports[path].find((i) => i.type === 'default')
 
       if (existingImport) {
-        return existingImport.name
+        return existingImport.alias
       }
-
-      const index = Object.keys(pathImports).reduce((acc, key) => {
-        return acc + pathImports[key].reduce((acc, i) => {
-          return acc + (i.name === name ? 1 : 0)
-        }, 0)
-      }, 0)
 
       const alias = findImportAlias(path, name)
 

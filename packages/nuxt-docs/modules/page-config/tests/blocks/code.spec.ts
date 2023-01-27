@@ -34,13 +34,50 @@ export default definePageConfig({
   },
 
   blocks: [
-    block.code(test),
+    block.code(test_0),
   ]
 })
   `.trim())
   })
 
   test('resolve-object-file', async () => {
+    const template = `
+export default definePageConfig({
+  meta: {
+    title: 'any',
+    category: 'any',
+  },
+
+  blocks: [
+    block.code({
+      yarn: 'test',
+      npm: 'yarn',
+    }),
+  ]
+})
+`.trim()
+  const blocks = parseCode(template)
+
+  const newCode = await transform.call({ importer }, blocks[0])
+
+  expect(newCode).toBe(`
+export default definePageConfig({
+  meta: {
+    title: 'any',
+    category: 'any',
+  },
+
+  blocks: [
+    block.code({
+    yarn: test_0,
+    npm: yarn_0
+}),
+  ]
+})
+  `.trim())
+  })
+
+  test('resolve-object-file (same file)', async () => {
     const template = `
 export default definePageConfig({
   meta: {
@@ -69,8 +106,8 @@ export default definePageConfig({
 
   blocks: [
     block.code({
-    yarn: test,
-    npm: test
+    yarn: test_0,
+    npm: test_0
 }),
   ]
 })
