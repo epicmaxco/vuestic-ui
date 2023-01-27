@@ -1,5 +1,5 @@
 <template>
-  <va-content class="va-skeleton page-config">
+  <va-content v-show="doShow" class="va-skeleton page-config">
     <h1 class="page-config-title">
       Loading title
     </h1><br/>
@@ -25,12 +25,16 @@
   </va-content>
 </template>
 
+<script lang="ts" setup>
+const doShow = ref(false)
+
+setTimeout(() => {
+  doShow.value = true
+}, 300)
+</script>
+
 <style lang="scss" scoped>
   @keyframes slide {
-    // 0% {
-    //   left: -100%;
-    // }
-
     0% {
       transform: translateX(-50%)
     }
