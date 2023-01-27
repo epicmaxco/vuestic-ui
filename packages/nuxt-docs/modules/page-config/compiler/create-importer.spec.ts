@@ -13,7 +13,7 @@ describe('definePageConfig.importer', () => {
     importer.importDefault('Default', 'example/Default.vue?raw')
 
     expect(importer.imports).toBe(`
-import Default_0 from 'example/Default.vue';
+import Default from 'example/Default.vue';
 import Default_1 from 'example/Default.vue?raw';
 `.trim())
   })
@@ -27,7 +27,7 @@ import Default_1 from 'example/Default.vue?raw';
     importer.importNamed('VaInput', 'vuestic-ui')
 
     expect(importer.imports).toBe(`
-import { VaButton as VaButton_0, VaInput as VaInput_0 } from 'vuestic-ui';
+import { VaButton as VaButton, VaInput as VaInput } from 'vuestic-ui';
     `.trim())
   })
 
@@ -41,7 +41,7 @@ import { VaButton as VaButton_0, VaInput as VaInput_0 } from 'vuestic-ui';
     importer.importNamed('VaButton', 'vuestic-ui')
 
     expect(importer.imports).toBe(`
-import { VaButton as VaButton_0 } from 'vuestic-ui';
+import { VaButton as VaButton } from 'vuestic-ui';
 `.trim())
   })
 })

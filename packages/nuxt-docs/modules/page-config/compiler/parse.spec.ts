@@ -52,4 +52,21 @@ describe('definePageConfig.compiler', () => {
       args: [fnArg],
     })
   })
+
+  it('parseCode (nested)', () => {
+    const blocks = parseCode(`export default {
+      meta: {
+        title: "Hello",
+        category: "component"
+      },
+      blocks: [
+        block.component("default"),
+        block.collapse('title', [
+          block.component("hidden"),
+        ])
+      ]
+    }`)
+
+    expect(blocks.length).toBe(3)
+  })
 })

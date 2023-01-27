@@ -1,5 +1,6 @@
 import { Parser, Node } from 'acorn'
 import { simple } from 'acorn-walk'
+import { CallExpression } from 'estree'
 
 export type ParsedBlock = {
   code: string
@@ -14,7 +15,7 @@ export type ParsedBlock = {
   argNodes: Node[]
 }
 
-type AcornNode<T> = Node & T
+type AcornNode<T = {}> = Node & T
 
 export const parseCode = (code: string) => {
   try {
@@ -23,30 +24,37 @@ export const parseCode = (code: string) => {
     const blocks: ParsedBlock[] = []
 
     simple(parser.parse(), {
-      Property(node: AcornNode<any>) {
-        if (!('name' in node.key && node.key.name === 'blocks')) { return }
+      CallExpression(node: AcornNode) {
+        if (node.type !== 'CallExpression') { return }
+        const n = node as unknown as CallExpression
 
-        if (!('elements' in node.value)) { return }
+        if (n.callee.type !== 'MemberExpression') { return }
 
-        node.value?.elements?.forEach((element: any) => {
-          // TODO: This is not ideal, we should use acorn-walk to find the code always
-          const blockCode = code.slice(element.start, element.end)
+        if (n.callee.object.type !== 'Identifier') { return }
+        if (n.callee.property.type !== 'Identifier') { return }
 
-          blocks.push({
-            code: blockCode,
-            type: element.callee?.property?.name,
-            args: element.arguments?.map((arg: any) => code.slice(arg.start, arg.end)),
-            argNodes: element.arguments,
-            replaceArgCode: (index: number, value: string) => {
-              const argStartInSlice = element.arguments[index].start - element.start
-              const argEndInSlice = element.arguments[index].end - element.start
+        if (n.callee.object.name !== 'block') { return }
 
-              const newBlockCode = blockCode.slice(0, argStartInSlice) + value + blockCode.slice(argEndInSlice)
-              const newCode = code.replace(blockCode, newBlockCode)
-              code = newCode
-              return newCode
-            }
-          })
+        const blockName = n.callee.property.name
+
+        const args = n.arguments.map((arg: any) => code.slice(arg.start, arg.end))
+
+        const blockCode = code.slice(node.start, node.end)
+
+        blocks.push({
+          code: blockCode,
+          type: blockName,
+          args,
+          argNodes: n.arguments as unknown as Node[],
+          replaceArgCode: (index: number, value: string) => {
+            const argStartInSlice = (n.arguments[index] as any).start - node.start
+            const argEndInSlice = (n.arguments[index] as any).end - node.start
+
+            const newBlockCode = blockCode.slice(0, argStartInSlice) + value + blockCode.slice(argEndInSlice)
+            const newCode = code.replace(blockCode, newBlockCode)
+            code = newCode
+            return newCode
+          }
         })
       }
     })
