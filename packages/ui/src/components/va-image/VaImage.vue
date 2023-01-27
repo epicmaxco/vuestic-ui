@@ -74,7 +74,7 @@ export default defineComponent({
 
   components: { VaAspectRatio, VaFallback },
 
-  emits: ['loaded', 'error'],
+  emits: ['loaded', 'error', 'fallback'],
 
   props: {
     ...useComponentPresetProp,
