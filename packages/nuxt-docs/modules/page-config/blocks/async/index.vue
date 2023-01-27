@@ -21,4 +21,5 @@ watchEffect(() => {
 
 <template>
   <PageConfigBlocks v-if="loadedBlocks" :blocks="loadedBlocks"/>
+  <PageConfigSkeleton class="mt-24" v-else />
 </template>

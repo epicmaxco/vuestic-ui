@@ -8,6 +8,8 @@ const resolveConfigs = async () => {
   return (
     await Promise.all(
       Object.keys(pageConfigs).map(async (name) => {
+        if (!name.includes("ui-elements")) { return }
+
         const config = (await pageConfigs[name]()).default;
 
         const titleBlock = config.blocks.find(
