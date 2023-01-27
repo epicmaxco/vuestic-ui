@@ -2,6 +2,8 @@ import { resolve, dirname, parse } from 'path'
 import { type TransformPluginContext } from 'rollup'
 import { resolveAlias } from '@nuxt/kit';
 import { readdirSync, existsSync } from 'fs'
+import keyword from './javascript-keywords'
+import javascriptKeywords from './javascript-keywords';
 
 const resolveFromFolder = (dir: string, file: string) => {
   if (!existsSync(dir)) { return null }
@@ -52,8 +54,11 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
       }, 0)
     }, 0)
 
-    // Always add index, there might be used JS keyword as import, so it will be with index instead
-    return `${name}_${index}`
+    if (index > 0 || javascriptKeywords.includes(name)) {
+      return `${name}_${index}`
+    }
+
+    return name
   }
 
   return {
