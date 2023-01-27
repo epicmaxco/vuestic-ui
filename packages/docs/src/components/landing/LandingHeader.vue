@@ -1,15 +1,6 @@
 <template>
   <header class="header">
-<!--    <div class="header__banner">-->
-<!--      <div>-->
-<!--        🔥🔥🔥-->
-<!--        <span class="pl-2">-->
-<!--          {{ $t('landing.header.banner.text') }}-->
-<!--        </span>-->
-<!--      </div>-->
-<!--      <a href="https://www.producthunt.com/posts/vuestic-ui" target="_blank" class="header__banner-btn">Launch page 🚀-->
-<!--      </a>-->
-<!--    </div>-->
+    <header-banner />
     <div class="header__wrapper">
       <div class="header__inner">
         <div class="header__logo">
@@ -127,6 +118,7 @@ import { useI18n } from 'vue-i18n'
 import VuesticLogo from '../header/components/VuesticLogo.vue'
 import LanguageDropdown from '../header/components/LanguageDropdown.vue'
 import LandingStarsButton from './LandingStarsButton.vue'
+import HeaderBanner from '../HeaderBanner.vue'
 // import LandingThemeSwitchButton from '../ThemeSwitch.vue'
 
 import { useSharedLanguageSwitcher } from '../../locales/hooks/useLanguageSwitcher'
@@ -135,6 +127,7 @@ export default defineComponent({
   name: 'LandingHeader',
 
   components: {
+    HeaderBanner,
     LanguageDropdown,
     LandingStarsButton,
     VuesticLogo,
@@ -170,26 +163,6 @@ export default defineComponent({
   left: 0;
   width: 100%;
   background: transparent;
-
-  &__banner {
-    display: flex;
-    min-height: 50px;
-    padding: 10px 20px;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background-color: #ef6c05;
-    font-size: 1rem;
-    color: white;
-
-    &-btn {
-      padding: 10px;
-      border-radius: 5px;
-      background-color: #fdfdfd;
-      color: #e06301 !important;
-      margin-left: 15px;
-    }
-  }
 
   &__wrapper {
     @include wrapper();

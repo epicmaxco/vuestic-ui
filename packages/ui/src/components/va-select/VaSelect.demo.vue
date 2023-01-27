@@ -432,6 +432,7 @@
         class="mb-6"
         label="Content slot"
         :options="defaultSingleSelect.options"
+        multiple
       >
         <template #content="{ value }">
           <va-chip>{{ value || 'no value :(' }}</va-chip>
