@@ -87,7 +87,7 @@ export default definePageConfig({
 
     block.paragraph("colorsConfig.example.about"),
     block.paragraph("colorsConfig.example.demo"),
-    block.example("change-colors"),
+    block.example("change-colors", { hideTitle: true }),
 
     // reactivity
     block.subtitle("colorsConfig.reactivity.subtitle"),
@@ -103,7 +103,7 @@ export default definePageConfig({
     block.code("icons-config"),
 
     block.paragraph("colorsConfig.otherServices.css"),
-    block.example("css-variable"),
+    block.example("css-variable", { hideTitle: true }),
 
     // api
     block.subtitle("colorsConfig.api.title"),

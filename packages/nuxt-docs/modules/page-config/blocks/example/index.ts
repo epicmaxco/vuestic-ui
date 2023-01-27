@@ -5,6 +5,7 @@ import Component from './index.vue'
 
 type Options = Partial<{
   hideCode: boolean,
+  hideTitle: boolean,
   hideTemplate: boolean,
   forceShowCode: boolean,
   codesandboxConfig: CodeSandboxConfig

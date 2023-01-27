@@ -44,7 +44,7 @@ const linkHref = computed(() => {
       inline
       tag="span"
       v-if="preText"
-      :value="t(preText)"
+      :content="t(preText)"
     />
     <a v-if="externalLink" class="MarkdownView__link--external" :href="href" target="_blank">
       {{ t(text) }}
@@ -57,7 +57,7 @@ const linkHref = computed(() => {
       inline
       tag="span"
       v-if="afterText"
-      :value="t(afterText)"
+      :content="t(afterText)"
     />
   </p>
 </template>

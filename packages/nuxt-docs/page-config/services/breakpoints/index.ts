@@ -34,7 +34,7 @@ export default definePageConfig({
   blocks: [
     block.title("breakpoints.title"),
     block.paragraph("breakpoints.about"),
-    block.example("Default"),
+    block.example("Default", { hideTitle: true }),
 
     block.paragraph("breakpoints.sizes.intro"),
     block.paragraph("breakpoints.sizes.xs"),

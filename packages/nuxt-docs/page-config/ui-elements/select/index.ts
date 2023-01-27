@@ -7,18 +7,11 @@ export default definePageConfig({
 
     block.subtitle("all.examples"),
 
-    block.headline("select.examples.default"),
     block.example("Default"),
-
     block.example("Styles"),
     block.example("Variations"),
-
-    block.headline("select.examples.decorators.title"),
     block.example("Decorators"),
-
-    block.headline("select.examples.objectOptions.title"),
     block.example("ObjectOptions"),
-
     block.example("TrackBy"),
     block.example("Slots"),
     block.example("Tagging"),

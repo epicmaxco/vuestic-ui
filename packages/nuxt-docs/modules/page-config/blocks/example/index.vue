@@ -21,6 +21,7 @@ const props = defineProps({
     required: true,
   },
   hideCode: { type: Boolean, default: false, },
+  hideTitle: { type: Boolean, default: false, },
   hideTemplate: { type: Boolean, default: false, },
   forceShowCode: { type: Boolean, default: false },
   codesandboxConfig: { type: Object as PropType<CodeSandboxConfig>, default: {} },
@@ -52,24 +53,23 @@ const configName = computed(() => {
   return camelCase(fullName?.split('/').pop())
 })
 
-const { t } = useI18n()
+const { t, te } = useI18n()
 
 const title = computed(() => {
   return t(`${configName.value}.examples.${exampleName.value}.title`)
 })
 
 const description = computed(() => {
-  return t(`${configName.value}.examples.${exampleName.value}.text`)
+  const key = `${configName.value}.examples.${exampleName.value}.text`
+  return  te(key) ? t(key) : ''
 })
 </script>
 
 <template>
-  <Headline v-if="title" :text="title">
-    {{ title }}
-    <!-- <Anchor  :text="title" /> -->
-  </Headline>
-
-  <Paragraph v-if="description" :text="description" />
+  <template v-if="!hideTitle">
+    <Headline v-if="title" :text="title" />
+    <Paragraph v-if="description" :text="description" />
+  </template>
 
   <div class="page-config-example mb-3">
     <va-card outlined class="page-config-example__card" color="background-primary">

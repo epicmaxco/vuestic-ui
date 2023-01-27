@@ -30,7 +30,7 @@ const doShow = ref(false)
 
 setTimeout(() => {
   doShow.value = true
-}, 300)
+}, 50)
 </script>
 
 <style lang="scss" scoped>
@@ -47,6 +47,7 @@ setTimeout(() => {
   .va-skeleton {
     & > * {
       --color: var(--va-background-element);
+      overflow: hidden;
 
       position: relative;
       display: table;

@@ -39,5 +39,20 @@ export default defineNuxtConfig({
     build: {
       minify: false,
     }
+  },
+
+  typescript: {
+    tsConfig: {
+      "exclude": [
+        "../node_modules",
+        "node_modules",
+        "@types/react",
+      ],
+      "compilerOptions": {
+        "types": [
+          "vite/client",
+        ]
+      }
+    }
   }
 });

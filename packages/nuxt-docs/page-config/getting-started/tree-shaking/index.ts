@@ -8,7 +8,6 @@ export default definePageConfig({
 
   blocks: [
     block.title("treeShaking.title"),
-    block.paragraph("treeShaking.components.title"),
     block.paragraph("treeShaking.description"),
 
     block.paragraph("treeShaking.example.title"),

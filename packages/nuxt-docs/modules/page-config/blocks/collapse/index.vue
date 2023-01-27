@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { type PropType } from 'vue';
-import { type PageConfigOptions } from '../../runtime';
 import PageConfigBlocks from '../../runtime/PageConfigBlocks.vue';
-
 const props = defineProps({
   header: {
     type: String,
@@ -12,11 +10,13 @@ const props = defineProps({
     required: true,
   },
 })
+
+const { t } = useI18n()
 </script>
 
 <template>
   <va-collapse
-    :header="header"
+    :header="t(header)"
     solid
   >
     <div class="p-6">

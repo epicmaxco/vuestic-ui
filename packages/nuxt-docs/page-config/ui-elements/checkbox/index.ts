@@ -9,13 +9,8 @@ export default definePageConfig({
 
     block.example("Default"),
     block.example("Label"),
-
-    block.headline("checkbox.examples.indeterminate.title"),
     block.example("Indeterminate"),
-
-    block.headline("checkbox.examples.coloring.title"),
     block.example("Coloring"),
-
     block.example("Array"),
     block.example("Error"),
 

@@ -29,7 +29,7 @@ export default definePageConfig({
     block.code("components-config"),
 
     block.paragraph("componentsConfig.demoTitle"),
-    block.example("button"),
+    block.example("button", { hideTitle: true }),
 
     block.subtitle("componentsConfig.componentsAll.title"),
     block.paragraph("componentsConfig.componentsAll.subtitle"),
@@ -39,16 +39,16 @@ export default definePageConfig({
     block.subtitle("componentsConfig.componentsPresets.title"),
     block.paragraph("componentsConfig.componentsPresets.subtitle"),
     block.code("components-presets"),
-    block.example("presets"),
+    block.example("presets", { hideTitle: true }),
 
     block.subtitle("componentsConfig.vaConfig.title"),
     block.paragraph("componentsConfig.vaConfig.subtitle"),
-    block.example("va-config"),
+    block.example("va-config", { hideTitle: true }),
     block.paragraph("componentsConfig.vaConfig.explain"),
 
     block.subtitle("componentsConfig.priority.title"),
     block.paragraph("componentsConfig.priority.description"),
-    block.example("priority", { hideCode: true }),
+    block.example("priority", { hideCode: true, hideTitle: true }),
 
     block.subtitle("componentsConfig.defaultSizes.title"),
     block.paragraph("componentsConfig.defaultSizes.description"),

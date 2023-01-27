@@ -35,6 +35,8 @@ const md = useMarkdownIt();
 
 const text = computed(() => {
   try {
+    if (!props.content) { return '' }
+
     if (props.text) {
       return md.render(props.content).match(/<p>(.*)<\/p>/)?.[1]
     }

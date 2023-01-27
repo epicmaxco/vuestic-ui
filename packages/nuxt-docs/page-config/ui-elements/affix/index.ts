@@ -6,14 +6,8 @@ export default definePageConfig({
     block.paragraph("affix.summaryText"),
 
     block.subtitle("all.examples"),
-
-    block.headline("affix.examples.top.title"),
     block.example("Top"),
-
-    block.headline("affix.examples.bottom.title"),
     block.example("Bottom"),
-
-    block.headline("affix.examples.default.title"),
     block.example("Default"),
 
     block.subtitle("all.api"),

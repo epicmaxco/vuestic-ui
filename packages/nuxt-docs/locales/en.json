@@ -1789,6 +1789,9 @@
       "top": {
         "title": "Fixed at the top"
       },
+      "bottom": {
+        "title": "Fixed at the bottom"
+      },
       "default": {
         "title": "Fixes element relative to custom container"
       }
@@ -1950,7 +1953,7 @@
         "title": "Color",
         "text": "You can customize the color of the slider."
       },
-      "minmax": {
+      "minMax": {
         "title": "Minimum and maximum values",
         "text": "You can set a range between min and max values."
       },
@@ -2421,6 +2424,9 @@
       "submit": {
         "title": "Form submit",
         "text": "You can fire the `submit` event of a `va-form` component: for this you need to set `tag=\"form\"` to the `va-form` and have at least one inner button with `type=\"submit\"`."
+      },
+      "withInputs": {
+        "title": "With inputs"
       }
     }
   },
@@ -3379,7 +3385,7 @@
         "title": "Disable dates",
         "text": "You can disable some specific days, month or year using `allowedDays`, `allowedMonth` or `allowedYear` props."
       },
-      "colors": {
+      "color": {
         "title": "Colors",
         "text": "You can change colors using CSS variables for deeper customization, but also you can simple change colors using props."
       },
@@ -4228,6 +4234,10 @@
       "clickInside": {
         "title": "Click inside",
         "text": "You are able to set up the dropdown to be closed or not after clicking on its content using the `close-on-content-click` prop."
+      },
+      "presets": {
+        "title": "Presets",
+        "text": "The `preset` prop is used to change the build-in style of the component."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-button-dropdown/_variables.scss)[[target=_blank]]"
@@ -4348,6 +4358,20 @@
           "Slot names that are not in `columns` will be omitted."
         ]
       },
+      "customSlots": {
+        "title": "Custom slots",
+        "text": ""
+      },
+      "staticSlots": {
+        "title": "Static slots",
+        "text": ""
+      },
+      "colgroupSlots": {
+        "title": "Colgroup slots"
+      },
+      "selectionWithKeys": {
+        "title": "Selection with keys"
+      },
       "filtering": {
         "title": "Filtering",
         "text": "`va-data-table` allows to apply a single filter for the entire table with the `filter` prop. To use a custom filtering function provide the `va-data-table` with the `filter-method` prop.\n\nThe following example shows the use of a custom filtering function (which looks for the exact match rather than the standard one which checks for substring-inclusion) when the respective checkbox is checked."
@@ -4398,6 +4422,9 @@
           "The component has many different properties, some of them are shown below with an example.",
           "Example of `va-data-table` with **CRUD** actions using a `va-modal` component for editing each row:"
         ]
+      },
+      "crud": {
+        "title": "CRUD"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-data-table/_variables.scss)[[target=_blank]]"
@@ -4555,35 +4582,35 @@
   "carousel": {
     "title": "Carousel",
     "examples": {
-      "Default": {
+      "default": {
         "title": "Default",
         "text": ""
       },
-      "Arrows": {
+      "arrows": {
         "title": "Arrow buttons",
         "text": "Arrow buttons allow user switch to next or previous slide."
       },
-      "Indicators": {
+      "indicators": {
         "title": "Indicator buttons",
         "text": "Indicators (or dots) used to quickly change slide by it's index."
       },
-      "Vertical": {
+      "vertical": {
         "title": "Vertical",
         "text": ""
       },
-      "Slots": {
+      "slots": {
         "title": "Slots",
         "text": "Slots allow you to customize carousel component."
       },
-      "Infinite": {
+      "infinite": {
         "title": "Infinite",
         "text": "Smooth scroll transition."
       },
-      "Autoscroll": {
+      "autoscroll": {
         "title": "Autoscroll",
         "text": "Autoscroll animation."
       },
-      "Fade": {
+      "fade": {
         "title": "Fade",
         "text": "Additional carousel slide switch effect."
       },
@@ -4591,11 +4618,11 @@
         "title": "Swipe",
         "text": "The `swipable` prop enables swipe behavior for the component."
       },
-      "Ratio": {
+      "ratio": {
         "title": "Ratio",
         "text": "The `ratio` prop allows you to set the aspect ratio of the carousel."
       },
-      "Height": {
+      "height": {
         "title": "Height",
         "text": "If you need specific height instead of ratio, you can use `height` prop."
       }
@@ -4680,23 +4707,23 @@
     "title": "Dropdown",
     "text": "Dropdown component is a component that allow you to show some content near anchor. It is more utility component. You can use it with `VaDropdownContent` or `VaCard` component. This component looks like popover, but without any additional styling as `VaPopover` has.",
     "examples": {
-      "Default": {
+      "default": {
         "title": "Default usage",
         "text": ""
       },
-      "PlacementAndOffset": {
+      "placementAndOffset": {
         "title": "Placement and Offset",
         "text": "You can place dropdown any direction you want. Offset is calculated relative to `placement` prop. We use `main` and `cross` offset. Means `main` will be relative to `placement` direction while `cross` is perpendicular. `auto` placement will be `bottom` by default, but will change to `top` if it is not possible to display on bottom."
       },
-      "Trigger": {
+      "trigger": {
         "title": "Trigger",
         "text": "You can use `click`, `hover` or `none` trigger which will open dropdown. If you want dropdown to be opened only programmatically use `none` trigger"
       },
-      "Cursor": {
+      "cursor": {
         "title": "Place on cursor",
         "text": "You can render dropdown content on cursor position. It is useful to use `cursor` props with `auto-placement` so if content do not fit target it will be placed somewhere else."
       },
-      "PreventOverflow": {
+      "preventOverflow": {
         "title": "Prevent overflow",
         "text": "By default dropdown content is rendered as body child. This way we prevent any overflow. In example below `overflow: hidden` of green box is ignored. But we still able to respec overflow by changing `target` prop. In example below `overflow: hidden` of red box is hiding dropdown content."
       }
