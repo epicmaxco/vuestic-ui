@@ -14,6 +14,14 @@ const config: ApiDocsBlock[] = [
   block.title('installation.title'),
   block.paragraph('installation.description'),
 
+  block.subtitle('installation.createVuestic.title'),
+  block.paragraph('installation.createVuestic.description'),
+  block.code({
+    npm: 'npm create vuestic@latest',
+    yarn: 'yarn create vuestic',
+  }, 'bash'),
+  block.paragraph('installation.createVuestic.templates'),
+
   block.subtitle('installation.cli.title'),
   block.paragraph('installation.cli.description'),
   block.alert('installation.cli.attention', 'warning'),
