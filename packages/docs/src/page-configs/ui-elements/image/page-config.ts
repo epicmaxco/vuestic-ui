@@ -1,7 +1,8 @@
-import { ApiDocsBlock } from '@/types/configTypes'
 import { PageGenerationHelper } from '@/helpers/DocsHelper'
 import VaImage from 'vuestic-ui/src/components/va-image/VaImage.vue'
 import apiOptions from './api-options'
+
+import type { ApiDocsBlock } from '@/types/configTypes'
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -24,25 +25,24 @@ const config: ApiDocsBlock[] = [
     'Ratio',
   ),
   ...block.exampleBlock(
-    'image.examples.contain.title',
-    'image.examples.contain.text',
-    'Contain',
+    'image.examples.fit.title',
+    'image.examples.fit.text',
+    'Fit',
   ),
   ...block.exampleBlock(
     'image.examples.defaultSlot.title',
     'image.examples.defaultSlot.text',
     'DefaultSlot',
   ),
-  // TODO Disabled because loading doesn't work properly.
-  // ...block.exampleBlock(
-  //   'image.examples.loaderSlot.title',
-  //   'image.examples.loaderSlot.text',
-  //   'LoaderSlot',
-  // ),
   ...block.exampleBlock(
-    'image.examples.errorSlot.title',
-    'image.examples.errorSlot.text',
-    'ErrorSlot',
+    'image.examples.slots.title',
+    'image.examples.slots.text',
+    'Slots',
+  ),
+  ...block.exampleBlock(
+    'image.examples.srcSet.title',
+    'image.examples.srcSet.text',
+    'SrcSet',
   ),
 
   block.subtitle('all.api'),

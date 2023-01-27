@@ -3,6 +3,7 @@ export {
   VaAffix,
   VaAlert,
   VaAppBar,
+  VaAspectRatio,
   VaAvatar,
   VaAvatarGroup,
   VaBacktop,

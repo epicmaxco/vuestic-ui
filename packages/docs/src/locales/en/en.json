@@ -185,7 +185,8 @@
         "fallbackSrc": "Shows an alternative image if original image failed to load or src doesn't specified.",
         "fallbackText": "Shows an alternative text if image failed to load or src doesn't specified.",
         "fallbackIcon": "Shows an icon if image failed to load or src doesn't specified.",
-        "fallbackRender": "Allows to use render function to render custom contents if image failed to load or src doesn't specified"
+        "fallbackRender": "Allows to use render function to render custom contents if image failed to load or src doesn't specified",
+        "ratio": "Aspect ratio of the component's wrapper."
       }
     },
     "VaBadge": {
@@ -270,6 +271,12 @@
         "prepend": "Slot for input before slider.",
         "label": "Replaces the default label.",
         "trackLabel": "The content of the `track-label`. Slot scope has access to `value` and `order` (for `range` type) variables."
+      }
+    },
+    "VaAspectRatio": {
+      "props": {
+        "contentWidth": "Wrapper width, it's used with `content-height` to replace the `ratio` property.",
+        "contentHeight": "Wrapper height, it's used with `content-width` to replace the `ratio` property."
       }
     },
     "VaAffix": {
@@ -527,18 +534,31 @@
     },
     "VaImage": {
       "props": {
-        "alt": "Specifies an alternate text for an image.",
-        "ratio": "Width to height ratio.",
-        "contain": "Scales the image while maintaining the proportions so that the whole image fits inside the block."
+        "src": "Initial image URL.",
+        "alt": "Image alternative text.",
+        "ratio": "Image width to height ratio.",
+        "fit": "Proxies the `object-fit` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/CSS/object-fit)[[target=_blank]].",
+        "crossorigin": "Proxies the `crossorigin` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-crossorigin)[[target=_blank]].",
+        "decoding": "Proxies the `decoding` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-decoding)[[target=_blank]].",
+        "fetchpriority": "Proxies the `fetchpriority` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-fetchpriority)[[target=_blank]].",
+        "loading": "Proxies the `loading` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-loading)[[target=_blank]].",
+        "referrerpolicy": "Proxies the `referrerpolicy` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-referrerpolicy)[[target=_blank]].",
+        "sizes": "Proxies the `sizes` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
+        "srcset": "Proxies the `srcset` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
+        "title": "Proxies the `title` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
+        "draggable": "Proxies the `draggable` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
+        "placeholderSrc": "`src` value for the placeholder image (can be replaced with `placeholder` slot)."
       },
       "events": {
         "loaded": "Emitted when image loading is finished.",
         "error": "Emitted on loading error."
       },
       "slots": {
+        "sources": "Slot for passing one or more `source` tags [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/picture)[[target=_blank]].",
         "loading": "Shown when image is loading.",
-        "error": "Is shown if loading gives an error.",
-        "default": "Image overlay for you to add content. Doesn't show on loading or error."
+        "error": "Shown if loading returns an error.",
+        "default": "Image overlay content. Won't be shown on loading or error.",
+        "placeholder": "Shown in case of loading/error and if no specific for these states slots were passed."
       }
     },
     "VaOptionList": {
@@ -1522,6 +1542,7 @@
     "form": "Form",
     "hover": "Hover",
     "image": "Image",
+    "aspectRatio": "Aspect Ratio",
     "optionList": "Option List",
     "divider": "Divider",
     "checkbox": "Checkbox",
@@ -2484,6 +2505,10 @@
       "image": {
         "title": "Image"
       },
+      "ratio": {
+        "title": "Aspect ratio",
+        "text": "Combination of the `va-card` and `va-aspect-ratio` allows you to set aspect ratio of the component."
+      },
       "actions": {
         "title": "Actions",
         "purpose": "The `VaCardActions` component is designed to apply margins and alignment to content (`VaButtons` expected).",
@@ -2585,6 +2610,20 @@
       }
     }
   },
+  "aspectRatio": {
+    "title": "Aspect Ratio",
+    "summaryText": "The `va-aspect-ratio` is a wrapper, that may help you to view your block with the required width to height ratio.",
+    "examples": {
+      "default": {
+        "title": "Default"
+      },
+      "withOtherComponents": {
+        "title": "With other components",
+        "text": "You're able to combine the `va-aspect-ratio` components with others. By default it's already used in `va-image`, but also will be useful in, for example, `va-card`."
+      }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-aspect-ratio/_variables.scss)[[target=_blank]]"
+  },
   "image": {
     "title": "Image",
     "summaryText": "The `va-image` component is used to display responsive images. It has some features to make your work with images easier.",
@@ -2592,25 +2631,25 @@
       "default": {
         "title": "Default"
       },
-      "contain": {
-        "title": "Contain",
-        "text": "It is used to show a full image while ignoring its original ratio and size."
+      "fit": {
+        "title": "Object Fit",
+        "text": "Proxies `object-fit` CSS property. Available values are: `contain`, `fill`, `cover`, `scale-down`, `none`."
       },
       "ratio": {
         "title": "Ratio",
-        "text": "Change image original ratio, show part of image to fit new ratio."
+        "text": "The `ratio` prop changes image original ratio, showing part of image to fit new ratio."
       },
       "defaultSlot": {
         "title": "Default slot",
-        "text": "Always shown by default."
+        "text": "Useful for, for example, overlays."
       },
-      "loaderSlot": {
-        "title": "Loader slot",
-        "text": "Is visible when image is loading."
+      "slots": {
+        "title": "Status slots",
+        "text": "We're providing 3 status slots: `error` (visible when `src` path is incorrect), `loading` (visible when image is loading) and `placeholder` (works as both previous)."
       },
-      "errorSlot": {
-        "title": "Error slot",
-        "text": "Is visible when `src` path is incorrect."
+      "srcSet": {
+        "title": "Srcset",
+        "text": "The `srcset` and `sizes` properties allows you to use native srcset attribute with our component."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-image/_variables.scss)[[target=_blank]]"

@@ -182,7 +182,8 @@
         "fallbackSrc": "Показывает альтернативное изображение, если изображение не указано или не удалось загрузить.",
         "fallbackText": "Показывает альтернативный текст, если изображение не указано или не удалось загрузить.",
         "fallbackIcon": "Показывает альтернативную иконку, если изображение не указано или не удалось загрузить.",
-        "fallbackRender": "Позволяет задать функцию-рендерер с настраиваемым содержимым, если изображение не указано или не удалось загрузить."
+        "fallbackRender": "Позволяет задать функцию-рендерер с настраиваемым содержимым, если изображение не указано или не удалось загрузить.",
+        "ratio": "Соотношение сторон обертки компонента."
       }
     },
     "VaBadge": {
@@ -269,6 +270,12 @@
         "prepend": "Поле ввода после слайдера",
         "label": "Название слайдера",
         "trackLabel": "Контент `track-label`. В скоупе слота есть доступ к переменным `value` и `order` (для типа `range`)"
+      }
+    },
+    "VaAspectRatio": {
+      "props": {
+        "contentWidth": "Ширина обертки компонента. Используется совместно с `content-height` вместо свойства `ratio`.",
+        "contentHeight": "Высота обертки компонента. Используется совместно с `content-width` вместо свойства `ratio`."
       }
     },
     "VaAffix": {
@@ -503,7 +510,7 @@
     },
     "VaCard": {
       "props": {
-        "stripe": "Включает отображени полоски над заголовком карточки",
+        "stripe": "Включает отображение полоски над заголовком карточки",
         "stripeColor": "Задает цвет полоски (предопределенные опции цвета или `HEX`)",
         "gradient": "Добавляет градиент в тело компонента",
         "bordered": "Включает контур компонента",
@@ -524,18 +531,31 @@
     },
     "VaImage": {
       "props": {
-        "alt": "Альтернативный текст изображения",
-        "ratio": "Соотношение ширины к высоте",
-        "contain": "Масштабирует изображение, сохраняя пропорции, чтобы все изображение поместилось внутри блока"
+        "src": "Исходный адрес изображения изображения.",
+        "alt": "Альтернативный текст изображения.",
+        "ratio": "Отношение ширины к высоте изображения.",
+        "fit": "Проксирует свойство `object-fit` в изображение [MDN](https://developer.mozilla.org/docs/Web/CSS/object-fit)[[target=_blank]].",
+        "crossorigin": "Проксирует свойство `crossorigin` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-crossorigin)[[target=_blank]].",
+        "decoding": "Проксирует свойство `decoding` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-decoding)[[target=_blank]].",
+        "fetchpriority": "Проксирует свойство `fetchpriority` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-fetchpriority)[[target=_blank]].",
+        "loading": "Проксирует свойство `loading` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-loading)[[target=_blank]].",
+        "referrerpolicy": "Проксирует свойство `referrerpolicy` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-referrerpolicy)[[target=_blank]].",
+        "sizes": "Проксирует свойство `sizes` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
+        "srcset": "Проксирует свойство `srcset` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
+        "title": "Проксирует свойство `title` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
+        "draggable": "Проксирует свойство `draggable` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
+        "placeholderSrc": "Значение аттрибута `src` для тега `img` в плейсхолдере (который может быть перезаписан с помощью слота `placeholder`)."
       },
       "events": {
-        "loaded": "Событие вызывается когда загрузка изображения окончена",
-        "error": "Событие вызывается при ошибке загрузки"
+        "loaded": "Событие вызывается, когда загрузка изображения окончена.",
+        "error": "Событие вызывается при ошибке загрузки изображения."
       },
       "slots": {
-        "loading": "Отображается при загрузке изображения",
-        "error": "Отображается при ошибке загрузки изображения",
-        "default": "Ваше содержимое изображения, не отображается при загрузке или ошибке"
+        "sources": "Слот для передачи одного или нескольких тегов `source` [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/picture)[[target=_blank]].",
+        "loading": "Отображается при загрузке изображения.",
+        "error": "Отображается при ошибке загрузки изображения.",
+        "default": "Содержимое поверх изображения, не отображается при загрузке или ошибке.",
+        "placeholder": "Содержимое изображения, отображаемое при загрузке-ошибки, если не были заданы специфические слоты этих состояний."
       }
     },
     "VaOptionList": {
@@ -1432,6 +1452,7 @@
     "form": "Form",
     "hover": "Hover",
     "image": "Image",
+    "aspectRatio": "Aspect Ratio",
     "optionList": "Option List",
     "divider": "Divider",
     "checkbox": "Checkbox",
@@ -2358,6 +2379,10 @@
       "image": {
         "title": "Изображение"
       },
+      "ratio": {
+        "title": "Соотношение сторон",
+        "text": "Совместное использование `va-card` и `va-aspect-ratio` позволяет установить соотношение сторон компонента."
+      },
       "actions": {
         "title": "Действия",
         "purpose": "Компонент `VaCardActions` предназначен для применения margins к контенту и выравнивания содержимого (ожидаются` VaButtons`).",
@@ -2459,32 +2484,46 @@
       }
     }
   },
-  "image": {
-    "title": "Image",
-    "summaryText": "Компонент `va-image` используется для отображения адаптивных изображений, в нем есть функции, облегчающие работу с изображениями.",
+  "aspectRatio": {
+    "title": "Aspect Ratio",
+    "summaryText": "Компонент `va-aspect-ratio` используется для отображения блока с нужными пропорциями ширины к высоте.",
     "examples": {
       "default": {
         "title": "Базовое использование"
       },
-      "contain": {
-        "title": "Содержание",
-        "text": "Свойство `contain` используется для отображения полного изображения, игнорируя его исходное соотношение сторон и размер."
+      "withOtherComponents": {
+        "title": "С другими компонентами",
+        "text": "`va-aspect-ratio` можно комбинировать с другими нашими компонентами. По умолчанию он уже встроен в `va-image`, но будет полезен и в, например, `va-card`."
+      }
+    },
+    "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-aspect-ratio/_variables.scss)[[target=_blank]]"
+  },
+  "image": {
+    "title": "Image",
+    "summaryText": "Компонент `va-image` используется для отображения адаптивных изображений. Кроме того, он предоставляет инструменты, облегчающие работу с изображениями.",
+    "examples": {
+      "default": {
+        "title": "Базовое использование"
+      },
+      "fit": {
+        "title": "Object Fit",
+        "text": "Проксирует значение CSS свойства `object-fit` в компонент. Допустимые значения: `contain`, `fill`, `cover`, `scale-down`, `none`."
       },
       "ratio": {
-        "title": "Соотношение",
-        "text": "Свойство `ratio` изменяет исходное соотношение сторон."
+        "title": "Соотношение сторон",
+        "text": "Свойство `ratio` изменяет исходное соотношение сторон изображения."
       },
       "defaultSlot": {
         "title": "Слот по умолчанию",
-        "text": "Всегда отображается по умолчанию."
+        "text": "Полезен, например, для оверлеев."
       },
-      "loaderSlot": {
-        "title": "Слот закгрузки",
-        "text": "Виден при загрузке изображения."
+      "slots": {
+        "title": "Слоты состояний",
+        "text": "Мы предоставляем 3 слота состояния: `error` (содержимое отображается когда `src` некорректен), `loading` (содержимое отображается когда изображение грузится) and `placeholder` (универсальное решение, заменяющее 2 предыдущих)."
       },
-      "errorSlot": {
-        "title": "Слот ошибки",
-        "text": "Виден, когда путь `src` неверен."
+      "srcSet": {
+        "title": "Srcset",
+        "text": "Свойства `srcset` и `sizes` позволяют использовать в компоненте нативный srcset."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-image/_variables.scss)[[target=_blank]]"
