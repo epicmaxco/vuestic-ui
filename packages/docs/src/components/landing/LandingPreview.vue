@@ -122,7 +122,7 @@ export default {
     @include md(font-size, 5.5rem);
 
     // sm
-    @include sm(padding-top, 4rem);
+    @include sm(padding-top, 7rem);
 
     // xs
     @include xs(font-size, 3rem);

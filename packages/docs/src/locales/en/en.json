@@ -12,7 +12,9 @@
         "blog": "Blog"
       },
       "banner": {
-        "text": "Vuestic UI is live on Product Hunt! \uD83D\uDE80"
+        "partner": "Official Partner of",
+        "and": "and",
+        "hire": "\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hire us"
       }
     },
     "preview": {
@@ -273,8 +275,8 @@
     },
     "VaAspectRatio": {
       "props": {
-        "contentWidth": "Component's wrapper width. Is used with `content-height` to replace the `ratio` property.",
-        "contentHeight": "Component's wrapper height. Is used with `content-width` to replace the `ratio` property."
+        "contentWidth": "Wrapper width, it's used with `content-height` to replace the `ratio` property.",
+        "contentHeight": "Wrapper height, it's used with `content-width` to replace the `ratio` property."
       }
     },
     "VaAffix": {
@@ -544,7 +546,8 @@
         "sizes": "Proxies the `sizes` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "srcset": "Proxies the `srcset` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "title": "Proxies the `title` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
-        "notDraggable": "Changes the `draggable` attribute value в `false` [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]]."
+        "draggable": "Proxies the `draggable` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
+        "placeholderSrc": "`src` value for the placeholder image (can be replaced with `placeholder` slot)."
       },
       "events": {
         "loaded": "Emitted when image loading is finished.",

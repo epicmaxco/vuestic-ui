@@ -11,11 +11,8 @@
       <va-image
         class="image"
         src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-      >
-        <template #placeholder>
-          <img src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200" alt="" />
-        </template>
-      </va-image>
+        placeholder-src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
+      />
     </VbCard>
 
     <VbCard title="Slots (loading, error, placeholder)">
@@ -198,7 +195,7 @@ const slotImagePath = computed(() => getImagePath(slotImageSize.value))
   color: white;
 
   &--gradient {
-    background: repeating-linear-gradient(-45deg, rgba(0, 255, 23, 0.25), rgba(0, 83, 255, 0.25) 25px);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0.3) 100%);
   }
 
   &--whole,
