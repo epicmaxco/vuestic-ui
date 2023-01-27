@@ -12,6 +12,7 @@
       <slot v-if="$slots.sources" name="sources" />
 
       <img
+        v-if="isReadyForRender"
         ref="image"
         v-bind="imgAttributesComputed"
         @error="handleError"
@@ -72,6 +73,7 @@ import { VaAspectRatio } from '../va-aspect-ratio'
 import { useNativeImgAttributes, useNativeImgAttributesProps } from './hooks/useNativeImgAttributes'
 import {
   useComponentPresetProp,
+  useIsMounted,
   useDeprecated,
   useIntersectionObserver,
 } from '../../composables'
@@ -155,6 +157,8 @@ export default defineComponent({
     }
     const { isIntersectionDisabled } = useIntersectionObserver(handleIntersection, undefined, root, props.lazy)
     const isReadyForLoad = computed(() => isIntersectionDisabled.value || isIntersecting.value)
+    const isMounted = useIsMounted()
+    const isReadyForRender = computed(() => !props.lazy || (props.lazy && isMounted.value && isReadyForLoad.value))
 
     const init = () => {
       if (!props.src || (isLoading.value && isIntersectionDisabled.value) || !isReadyForLoad.value) {
@@ -226,6 +230,7 @@ export default defineComponent({
       handleLoad,
       isError,
       handleError,
+      isReadyForRender,
 
       isPlaceholderShown,
       isSuccessfullyLoaded,
