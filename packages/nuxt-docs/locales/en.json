@@ -3095,9 +3095,7 @@
         "first": "First",
         "second": "Second",
         "last": "Last"
-      }
-    },
-    "api": {
+      },
       "align": {
         "title": "`align`:",
         "variants": [
