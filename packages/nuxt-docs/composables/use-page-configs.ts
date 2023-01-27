@@ -21,6 +21,7 @@ export const usePageConfig = (name: string | Ref<string>) => {
   const config = ref<PageConfigOptions | null>(null)
 
   watchEffect(() => {
+    console.log('Loading', unref(name))
     const file = files[unref(name)]
 
     if (!file) {

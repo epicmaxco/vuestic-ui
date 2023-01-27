@@ -26,6 +26,10 @@
 definePageMeta({
   layout: 'landing',
 })
+
+useHead({
+  title: 'Vuestic UI — Vue 3 UI framework',
+});
 </script>
 
 <style lang="scss">

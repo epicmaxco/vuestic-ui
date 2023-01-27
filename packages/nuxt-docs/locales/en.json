@@ -3786,7 +3786,8 @@
     "language": {
       "en": "English",
       "ru": "Russian",
-      "es": "Spanish"
+      "es": "Spanish",
+      "zh-CN": "Chinese"
     },
     "status": {
       "part": "Partial support",

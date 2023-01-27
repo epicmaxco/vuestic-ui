@@ -1,5 +1,5 @@
 <template>
-  <va-tabs v-if="!isString" v-model="index">
+  <va-tabs class="DocsCode__tabs" v-if="!isString" v-model="index">
     <template #tabs>
       <va-tab v-for="tab in tabs" :key="tab">
         {{ tab }}
@@ -71,6 +71,18 @@ export default defineComponent({
 
 <style lang="scss">
 $prism-background: var(--va-background-element);
+$radius: 0.25rem;
+
+.DocsCode__tabs {
+  background: var(--va-background-border);
+  border-top-left-radius: $radius;
+  border-top-right-radius: $radius;
+
+  & + .DocsCode {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
 
 /* PrismJS 1.20.0
   https://prismjs.com/download.html#themes=prism&languages=css */
@@ -89,7 +101,7 @@ $prism-background: var(--va-background-element);
   margin-bottom: 0.2rem !important;
   background: var(--va-background-element);
   font-size: 1rem !important;
-  border-radius: 0.25rem;
+  border-radius: $radius;
 
   code[class*="language-"],
   pre[class*="language-"] {

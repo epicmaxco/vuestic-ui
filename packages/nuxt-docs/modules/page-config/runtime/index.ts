@@ -48,6 +48,8 @@ export const block = {
 export type GlobalBlock = typeof block
 export type Block = ReturnType<GlobalBlock[keyof typeof block]>
 
+export type ConcreteBlock<T extends string, B = Block> = B extends { type: T } ? B : never
+
 export type PageConfigOptions = {
   meta?: {
     title?: string;

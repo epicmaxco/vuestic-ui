@@ -6,12 +6,14 @@
 </template>
 
 <script lang="ts" setup>
+import { ConcreteBlock } from '../../modules/page-config/runtime';
+
 definePageMeta({
   layout: 'default',
 })
 
 const route = useRoute();
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 
 const pageConfigName = computed(() => {
   const path = route.path
@@ -25,12 +27,15 @@ const pageConfigName = computed(() => {
 })
 
 const config = usePageConfig(pageConfigName);
+const tabTitlePrefix = 'Vuestic UI'
 
 watchEffect(() => {
-  if (!config.value?.meta?.title) { return }
+  const configTitle = config.value?.blocks.find((block) => block.type === 'title') as ConcreteBlock<'title'> | undefined
+
+  const tabTitle = configTitle?.text || config.value?.meta?.title
 
   useHead({
-    title: config.value?.meta?.title,
+    title: tabTitle ? `${tabTitlePrefix} - ${t(tabTitle)}` : tabTitlePrefix,
   });
 })
 </script>

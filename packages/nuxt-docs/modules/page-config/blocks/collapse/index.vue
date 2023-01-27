@@ -16,11 +16,24 @@ const { t } = useI18n()
 
 <template>
   <va-collapse
+    class="page-config-collapse"
     :header="t(header)"
-    solid
+    flat
   >
-    <div class="p-6">
+    <div class="page-config-collapse__content p-6">
       <PageConfigBlocks :blocks="blocks"/>
     </div>
   </va-collapse>
 </template>
+
+<style lang="scss" scoped>
+  @import 'vuestic-ui/styles/resources';
+
+  .page-config-collapse {
+    &__content {
+      position: relative;
+
+      @include va-background(var(--va-background-element), 0.5);
+    }
+  }
+</style>
