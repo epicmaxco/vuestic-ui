@@ -1,3 +1,4 @@
-@tailwind base;
+/* Disables Tailwind CSS Reset */
+/* @tailwind base; */
 @tailwind components;
 @tailwind utilities;

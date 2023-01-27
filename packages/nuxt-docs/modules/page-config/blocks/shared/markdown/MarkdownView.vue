@@ -35,10 +35,6 @@ const md = useMarkdownIt();
 
 const text = computed(() => {
   try {
-    // if (props.inline) {
-    //   return md.renderInline(props.content)
-    // }
-
     if (props.text) {
       return md.render(props.content).match(/<p>(.*)<\/p>/)?.[1]
     }
@@ -52,7 +48,7 @@ const text = computed(() => {
 </script>
 
 <style lang="scss">
-// @import "~vuestic-ui/src/styles/resources";
+@import "vuestic-ui/src/styles/resources";
 
 .MarkdownView {
   color: currentColor;
@@ -61,9 +57,24 @@ const text = computed(() => {
     display: inline;
   }
 
+  li {
+    margin-bottom: 0.25rem;
+  }
+
   code {
+    position: relative;
     margin: 0 0.3rem;
-    color: #d7234e;
+    color: var(--va-danger);
+    font-family: Source Sans Code, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    // background: #d7234d11;
+    padding: 0 6px;
+    z-index: 0;
+
+    @include va-background(var(--va-danger), 0.1);
+
+    &::after {
+      border-radius: 2px;
+    }
   }
 
   h1,

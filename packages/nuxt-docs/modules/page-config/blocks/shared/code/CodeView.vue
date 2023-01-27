@@ -88,14 +88,14 @@ $prism-background: var(--va-background-element);
 .DocsCode {
   margin-bottom: 0.2rem !important;
   background: var(--va-background-element);
-  font-size: calc(1rem / 1.4);
+  font-size: 1rem !important;
   border-radius: 0.25rem;
 
   code[class*="language-"],
   pre[class*="language-"] {
     color: currentColor;
     background: none;
-    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-family: Source Sans Code, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     font-size: 1rem;
     text-align: left;
     white-space: pre;

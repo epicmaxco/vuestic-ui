@@ -160,6 +160,8 @@
 }
 
 @mixin va-background($color, $opacity: 1, $index: auto) {
+  z-index: 0;
+  
   &::after {
     position: absolute;
     top: 0;
@@ -171,6 +173,7 @@
     opacity: $opacity;
     z-index: $index;
     transition: all 0.3s ease-in-out;
+    z-index: -1;
   }
 }
 

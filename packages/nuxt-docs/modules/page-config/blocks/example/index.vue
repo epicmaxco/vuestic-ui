@@ -4,6 +4,7 @@ import { type CodeSandboxConfig } from '../../../../composables/code-sandbox';
 import { CodeView } from "../shared/code";
 import ExampleFooter from './example-footer.vue';
 import Headline from '../headline/index.vue'
+import Paragraph from '../paragraph/index.vue'
 import camelCase from 'lodash/camelCase'
 
 const props = defineProps({
@@ -68,9 +69,7 @@ const description = computed(() => {
     <!-- <Anchor  :text="title" /> -->
   </Headline>
 
-  <p v-if="description">
-    {{ description }}
-  </p>
+  <Paragraph v-if="description" :text="description" />
 
   <div class="page-config-example mb-3">
     <va-card outlined class="page-config-example__card" color="background-primary">
@@ -81,9 +80,9 @@ const description = computed(() => {
     <ExampleFooter :code="source" :gitLink="gitLink" v-model:show-code="showCode" :hide-show-code-button="forceShowCode || hideCode" />
 
     <div v-if="(showCode && !hideCode) || forceShowCode">
-      <CodeView v-if="template && !hideTemplate" language="markup" :code="template" />
-      <CodeView v-if="script" :code="script" language="javascript" />
-      <CodeView v-if="style" :code="style" language="css" />
+      <CodeView v-if="template && !hideTemplate" language="html" :code="template" />
+      <CodeView v-if="script" :code="script" language="html" />
+      <CodeView v-if="style" :code="style" language="html" />
     </div>
   </div>
 </template>

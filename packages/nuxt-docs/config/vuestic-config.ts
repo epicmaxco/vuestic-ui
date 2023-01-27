@@ -1,7 +1,7 @@
 import { PartialGlobalConfig } from 'vuestic-ui'
 import { icons } from './icons-config/icons-config'
 
-const scrollWrapperSelector = '.base-layout__content'
+const scrollWrapperSelector = '.docs-layout__main-content'
 
 const VaButtonLandingHeader = {
   round: false,
@@ -19,6 +19,9 @@ export const VuesticConfig: PartialGlobalConfig = {
       target: scrollWrapperSelector,
     },
     VaDropdown: {
+      target: scrollWrapperSelector,
+    },
+    VaBacktop: {
       target: scrollWrapperSelector,
     },
     presets: {

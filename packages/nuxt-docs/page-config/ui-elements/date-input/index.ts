@@ -1,5 +1,4 @@
 import apiOptions from "./api-options";
-import GlobalConfigCode from "./code/global-config";
 
 export default definePageConfig({
   blocks: [
@@ -31,7 +30,7 @@ export default definePageConfig({
     block.example("View"),
 
     block.paragraph("dateInput.examples.formattingGlobalConfig.text"),
-    block.code(GlobalConfigCode),
+    block.code("global-config"),
 
     block.example("validation"),
 

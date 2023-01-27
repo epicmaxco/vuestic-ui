@@ -1,10 +1,9 @@
-export default `
 import { createVuestic } from 'vuestic-ui'
 
 createApp(App)
   .use(createVuestic({
     config: {
-      icons: [ ... ],
+      icons: [ /* ... */ ],
       components: {
         VaDateInput: {
           formatDate: (date) => {
@@ -15,8 +14,7 @@ createApp(App)
           }
         }
       },
-      colors: { ... },
+      colors: { /* ... */ },
     },
   }))
   .mount('#app')
-`;

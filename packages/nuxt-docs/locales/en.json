@@ -4706,10 +4706,10 @@
     "title": "Scroll container",
     "description": "Scroll container with custom colored scrollbar. Useful in case you have long list.",
     "examples": {
-      "Default": {
+      "default": {
         "title": "Default usage"
       },
-      "Color": {
+      "color": {
         "title": "Color",
         "text": "You can change color of scrollbar by passing `color` prop. Try it by choosing colors listed below."
       },
@@ -4721,11 +4721,11 @@
         "title": "RTL",
         "text": "The `rtl` prop enables RTL-mode."
       },
-      "Horizontal": {
+      "horizontal": {
         "title": "Horizontal",
         "text": "You can specify if scroll container has `horizontal` scroll in the same way as `vertical` one."
       },
-      "Size": {
+      "size": {
         "title": "Size",
         "text": "You are able to set scrollbar's size (width or height) via `size` prop (`small`, `medium` or `large` presets are available, `px` and `rem` values are also suitable)."
       }
