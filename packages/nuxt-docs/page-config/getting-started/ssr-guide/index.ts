@@ -1,4 +1,4 @@
-import vitesse from "./code/vitesse";
+import vitesse from "./vitesse";
 
 export default definePageConfig({
   meta: {

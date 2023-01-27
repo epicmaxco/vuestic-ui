@@ -34,7 +34,7 @@ export default definePageConfig({
   },
 
   blocks: [
-    block.code(test_0),
+    block.code(test),
   ]
 })
   `.trim())
@@ -69,8 +69,8 @@ export default definePageConfig({
 
   blocks: [
     block.code({
-    yarn: test_0,
-    npm: yarn_0
+    yarn: test,
+    npm: yarn
 }),
   ]
 })
@@ -106,11 +106,31 @@ export default definePageConfig({
 
   blocks: [
     block.code({
-    yarn: test_0,
-    npm: test_0
+    yarn: test,
+    npm: test
 }),
   ]
 })
   `.trim())
+  })
+
+  test('resolve-variable', async () => {
+    const template = `
+export default definePageConfig({
+  meta: {
+    title: 'any',
+    category: 'any',
+  },
+
+  blocks: [
+    block.code(variable),
+  ]
+})
+`.trim()
+  const blocks = parseCode(template)
+
+  const newCode = await transform.call({ importer }, blocks[0])
+
+  expect(newCode).toBe(undefined)
   })
 })
