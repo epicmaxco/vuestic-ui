@@ -70,7 +70,7 @@ const links = computed(() => [
   },
   {
     text: t('menu.contribution'),
-    to: `/${locale.value}/contribution/documentation-page`,
+    to: `/${locale.value}/contribution/guide`,
   },
 ])
 

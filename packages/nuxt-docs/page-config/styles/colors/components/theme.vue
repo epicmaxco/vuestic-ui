@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <p class="d-flex align--center">
-      Background colors:
+  <div class="flex justify-space-between">
+    <p class="inline-flex align-center py-2 px-4" :style="{ background: 'var(--va-background-element)'}">
+      Color preset
       <va-button-toggle v-model="theme" :options="themeOptions" class="ml-2" />
     </p>
 
-    <p class="d-flex align--center">
-      Primary color:
+    <p class="inline-flex align-center py-2 px-4" :style="{ background: 'var(--va-background-element)'}">
+      Primary color
       <va-color-palette
         class="ml-2"
         v-model="primaryColor"

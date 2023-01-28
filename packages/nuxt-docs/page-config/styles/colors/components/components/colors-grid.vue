@@ -18,10 +18,15 @@
 import { computed } from "vue";
 import { useColors } from "vuestic-ui/src/main";
 import ColorsGridCard from "./colors-grid-card.vue";
+import { presets } from 'vuestic-ui/src/services/color/presets'
 
 const { colors, getColor } = useColors();
 
-const colorsComputed = computed(() => Object.entries(colors));
+const defaultColors = Object.keys(presets.light)
+
+const colorsComputed = computed(() => Object.entries(colors).filter(([name]) => {
+  return defaultColors.includes(name)
+}));
 </script>
 
 <style lang="scss" scoped>
