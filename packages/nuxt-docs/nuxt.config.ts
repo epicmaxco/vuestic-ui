@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [
+        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
         { href: 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css', rel: 'stylesheet' },
         { href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', rel: 'stylesheet' },
       ],
@@ -57,19 +58,4 @@ export default defineNuxtConfig({
       minify: false,
     }
   },
-
-  typescript: {
-    tsConfig: {
-      "exclude": [
-        "../node_modules",
-        "node_modules",
-        "@types/react",
-      ],
-      "compilerOptions": {
-        "types": [
-          "vite/client",
-        ]
-      }
-    }
-  }
 });

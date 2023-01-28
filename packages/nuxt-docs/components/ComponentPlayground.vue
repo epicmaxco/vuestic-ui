@@ -4,7 +4,7 @@ import type { PlaygroundOption } from '@/composables/useComponentPlayground'
 
 const props = defineProps({
   options: {
-    type: Array as PropType<PlaygroundOption[]>,
+    type: Array as PropType<( PlaygroundOption & {value: any} )[]>,
     required: true,
   },
   code: {
