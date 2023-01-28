@@ -11,6 +11,10 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n-edge',
   ],
 
+  vuestic: {
+    css: ['typography']
+  },
+
   i18n: {
     locales,
 

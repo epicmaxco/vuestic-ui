@@ -65,11 +65,11 @@ const text = computed(() => {
 
   code {
     position: relative;
-    margin: 0 0.3rem;
+    margin: 0.1rem 0;
     color: var(--va-danger);
     font-family: Source Sans Code, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     // background: #d7234d11;
-    padding: 0 6px;
+    padding: 0 0.3rem;
     z-index: 0;
 
     @include va-background(var(--va-danger), 0.1);

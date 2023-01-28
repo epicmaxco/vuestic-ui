@@ -22,6 +22,8 @@ export default defineNuxtModule<VuesticOptions>({
   },
 
   setup (options, nuxt) {
+    nuxt.options.alias['vuestic-ui/styles/typography.css'] = resolve(__dirname, '../../ui/src/styles/typography/typography.scss');
+    nuxt.options.alias['vuestic-ui/styles/essential.css'] = resolve(__dirname, '../../ui/src/styles/essential.scss');
     nuxt.options.alias['vuestic-ui/src'] = resolve(__dirname, '../../ui/src/');
     nuxt.options.alias['vuestic-ui/styles'] = resolve(__dirname, '../../ui/src/styles/');;
     nuxt.options.alias['vuestic-ui/css'] =  resolve(__dirname, '../../ui/src/styles/index.scss');

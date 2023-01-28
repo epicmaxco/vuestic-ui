@@ -8,7 +8,7 @@
         <LayoutSidebar v-model:visible="isSidebarVisible" :mobile="breakpoints.sm" />
       </aside>
       <main class="docs-layout__main-content">
-        <article class="docs-layout__page-content layout">
+        <article class="docs-layout__page-content">
           <VaContent>
             <slot />
           </VaContent>
@@ -38,7 +38,7 @@ onMounted(scrollToElement)
 </script>
 
 <style lang="scss">
-  @import 'vuestic-ui/styles/index.scss';
+  @import 'vuestic-ui/styles/resources';
   // Need to import tailwind in layout, because otherwise Vuestic component's css will has a higher priority
   @import '~/assets/css/tailwind.css';
 
@@ -78,9 +78,10 @@ onMounted(scrollToElement)
 
     &__main-content {
       width: 100%;
-      // height: 100%;
       overflow-y: scroll;
       overflow-x: hidden;
+      display: flex;
+      justify-content: center;
 
       @include va-scroll(var(--va-primary));
     }
