@@ -77,7 +77,7 @@ const description = computed(() => {
         <component :is="component" />
       </va-card-content>
     </va-card>
-    <ExampleFooter :code="source" :gitLink="gitLink" v-model:show-code="showCode" :hide-show-code-button="forceShowCode || hideCode" />
+    <ExampleFooter class="-mt-1" :code="source" :gitLink="gitLink" v-model:show-code="showCode" :hide-show-code-button="forceShowCode || hideCode" />
 
     <div v-if="(showCode && !hideCode) || forceShowCode">
       <CodeView v-if="template && !hideTemplate" language="html" :code="template" />

@@ -1,7 +1,7 @@
 <template>
   <va-tree-view :nodes="nodes" class="customizable-content">
     <template #content="node">
-      <div class="d-flex align-center">
+      <div class="flex items-center">
         <va-avatar
           v-if="node.image"
           :src="node.image"

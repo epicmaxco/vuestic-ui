@@ -67,7 +67,6 @@ onMounted(() => {
 
 <style lang="scss">
 @import '@docsearch/css';
-@import 'vuestic-ui/src/styles/index.scss';
 @import '@/assets/smart-grid.scss';
 
 :root {

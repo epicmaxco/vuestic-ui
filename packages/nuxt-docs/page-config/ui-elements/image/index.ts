@@ -5,11 +5,11 @@ export default definePageConfig({
     block.title("image.title"),
     block.paragraph("image.summaryText"),
 
+    block.component('Playground'),
+
     block.subtitle("all.examples"),
 
-    block.headline("image.examples.default.title"),
     block.example("Default"),
-
     block.example("Ratio"),
     block.example("Contain"),
     block.example("DefaultSlot"),

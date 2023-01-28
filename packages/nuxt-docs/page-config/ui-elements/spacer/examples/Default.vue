@@ -1,7 +1,7 @@
 <template>
   <va-card>
     <va-card-content>
-      <div class="d-flex">
+      <div class="flex">
         <va-button>Button</va-button>
         <va-spacer class="spacer" />
         <va-button>Button</va-button>

@@ -121,7 +121,7 @@ const sandboxParams = computed(() => createCodeSandbox(applyTranslations(props.c
 
 .docs-navigation {
   background: var(--va-background-element);
-  margin: 0 0 0.2rem 0;
+  margin: -2px 0 0.2rem 0;
   border-radius: 0 0 0.25rem 0.25rem;
   padding: 0 calc(var(--va-card-padding) - var(--va-button-sm-content-px) / 2);
   display: flex;

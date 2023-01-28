@@ -4,6 +4,8 @@ export default definePageConfig({
   blocks: [
     block.title("carousel.title"),
 
+    block.component('Playground'),
+
     block.subtitle("all.examples"),
 
     // examples

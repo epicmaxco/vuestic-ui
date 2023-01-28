@@ -1,6 +1,6 @@
 <template>
-  <div class="docs-team d-flex flex-wrap">
-    <div class="docs-team__row d-flex flex-wrap">
+  <div class="docs-team flex flex-wrap">
+    <div class="docs-team__row flex flex-wrap">
       <div
         class="docs-team__avatar-wrapper"
         v-for="item in items"
@@ -11,7 +11,7 @@
         </va-avatar>
         <strong class="mt-3 mb-1">{{ item.name }}</strong>
         <div>{{ item.jobTitle }}</div>
-        <div v-if="item.socNetworks" class="d-flex">
+        <div v-if="item.socNetworks" class="flex">
           <div v-for="icon in item.socNetworks">
             <a :href="icon.url" :title="item.name" target="_blank">
               <va-icon :class="icon.name" class="mr-1" size="small" />

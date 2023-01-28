@@ -19,8 +19,9 @@ const props = defineProps({
 
 const optionValues = computed(() => {
   const values = {} as Record<string, any>
-  props.options.forEach(({ key, value }) => {
-    if (!value) { return }
+  props.options.forEach(({ key, value, defaultValue }) => {
+    const isDefault = defaultValue ? defaultValue === value : !value
+    if (isDefault) { return null }
     values[key] = value
   })
   return values
@@ -38,6 +39,8 @@ const optionValues = computed(() => {
           <va-input v-if="option.type === 'input'" v-model="option.value" :label="option.key" />
           <va-select v-if="option.type === 'select'" v-model="option.value" :options="option.options"
             :label="option.key" clearable />
+            <va-select v-if="option.type === 'multiselect'" v-model="option.value" :options="option.options"
+            :label="option.key" clearable multiple />
           <va-checkbox v-if="option.type === 'checkbox'" v-model="option.value" :label="option.key"
             :true-value="true" :false-value="false" />
         </div>
@@ -52,6 +55,8 @@ const optionValues = computed(() => {
 </template>
 
 <style lang="scss" scoped>
+@import "vuestic-ui/styles/resources";
+
 .component-playground {
   background: var(--va-background-element);
   padding: 1rem;
@@ -68,7 +73,16 @@ const optionValues = computed(() => {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid var(--va-background-primary)
+    border: 1px solid var(--va-background-primary);
+    width: 100%;
+    padding: 1rem;
+  }
+
+  &__options {
+    max-height: 350px;
+    overflow-y: scroll;
+
+    @include va-scroll(var(--va-primary));
   }
 
   &__code {

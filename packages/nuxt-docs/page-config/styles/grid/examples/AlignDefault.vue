@@ -14,10 +14,10 @@
       </div>
     </div>
 
-    <!-- align-center -->
-    <div class="row align-center">
+    <!-- items-center -->
+    <div class="row items-center">
       <div class="flex flex-col xs12">
-        <div class="item">align-center</div>
+        <div class="item">items-center</div>
       </div>
     </div>
 

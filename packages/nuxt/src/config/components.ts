@@ -4,6 +4,7 @@ export default [
   'VaAlert',
   'VaAppBar',
   'VaAvatar',
+  'VaAvatarGroup',
   'VaBacktop',
   'VaBadge',
   'VaBreadcrumbs',

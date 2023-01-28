@@ -1,6 +1,6 @@
 <template>
   <va-card class="user-card" color="#25272c" gradient>
-    <va-card-content class="d-flex">
+    <va-card-content class="flex">
       <div>
         <va-avatar
           src="https://randomuser.me/api/portraits/men/3.jpg"
@@ -8,32 +8,32 @@
         />
       </div>
 
-      <div class="pl-2 d-flex flex-col justify-end">
+      <div class="pl-2 flex flex-col justify-end">
         <span class="title">Profile</span>
         <div class="text-2xl font-bold">User</div>
 
-        <div class="d-flex flex-wrap">
+        <div class="flex flex-wrap">
           <span class="mr-2 text--no-wrap">29 public playlists</span>
           <span class="mr-2 text--no-wrap">10 followers</span>
           <span class="mr-2 text--no-wrap">16 following</span>
         </div>
 
-        <va-card-action class="d-flex pt-2">
+        <va-card-action class="flex pt-2">
           <va-button
             preset="secondary"
-            color="backgroundPrimary"
+            color="#fff"
             style="margin-left: -0.5rem"
             >Follow</va-button
           >
           <va-spacer />
           <va-button
             preset="secondary"
-            color="backgroundPrimary"
+            color="#fff"
             icon="message"
           ></va-button>
           <va-button
             preset="secondary"
-            color="backgroundPrimary"
+            color="#fff"
             icon="play_arrow"
           ></va-button>
         </va-card-action>

@@ -3,6 +3,19 @@ import { VuesticConfig } from './config/vuestic-config'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      link: [
+        { href: 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css', rel: 'stylesheet' },
+        { href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', rel: 'stylesheet' },
+      ],
+      script: [
+        { src: 'https://kit.fontawesome.com/5460c87b2a.js', crossorigin: 'anonymous' },
+        { src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js', type: 'module' },
+      ]
+    }
+  },
+
   modules: [
     "./modules/vuestic",
     "./modules/page-config",

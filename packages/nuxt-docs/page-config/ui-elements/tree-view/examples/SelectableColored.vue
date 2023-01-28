@@ -1,5 +1,5 @@
 <template>
-  <p class="d-flex align-center">
+  <p class="flex items-center">
     Color:
     <va-color-palette
       v-model="selectedColor"

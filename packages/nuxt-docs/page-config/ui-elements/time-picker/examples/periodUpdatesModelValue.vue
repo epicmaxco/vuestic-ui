@@ -3,7 +3,7 @@
     {{ value.getHours() }}:{{ value.getMinutes() }}:{{ value.getSeconds() }}
   </h6>
 
-  <div class="d-flex">
+  <div class="flex">
     <va-time-picker v-model="value" ampm />
     <va-divider vertical />
     <va-time-picker v-model="value" ampm :period-updates-model-value="false" />

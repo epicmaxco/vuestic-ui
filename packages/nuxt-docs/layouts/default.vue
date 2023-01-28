@@ -44,7 +44,8 @@ onMounted(scrollToElement)
 
   html {
     font-family: var(--va-font-family);
-    color: var(--va-text-primary)
+    color: var(--va-text-primary);
+    background: var(--va-background-primary);
   }
 
   .docs-layout {
@@ -73,6 +74,7 @@ onMounted(scrollToElement)
       min-width: fit-content;
       overflow-y: auto;
       overflow-x: unset;
+
       @include va-scroll(var(--va-primary));
     }
 
@@ -82,6 +84,7 @@ onMounted(scrollToElement)
       overflow-x: hidden;
       display: flex;
       justify-content: center;
+      background: var(--va-background-primary);
 
       @include va-scroll(var(--va-primary));
     }

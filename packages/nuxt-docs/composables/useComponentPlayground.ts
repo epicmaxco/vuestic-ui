@@ -1,8 +1,9 @@
 export type PlaygroundOption = {
   key: string,
-  type: 'select' | 'input' | 'color' | 'checkbox',
+  type: 'select' | 'input' | 'color' | 'checkbox' | 'multiselect' | 'none',
   options?: string[],
-  value?: string | boolean
+  defaultValue?: any,
+  value?: string | boolean | string[]
 }
 
 export const useComponentPlayground = (options: Record<string, Omit<PlaygroundOption, 'key'>>) => {
@@ -10,8 +11,8 @@ export const useComponentPlayground = (options: Record<string, Omit<PlaygroundOp
 
   const slots = computed(() => {
     return optionsRef
-      .filter(({ key }) => {
-        return key.startsWith('slot:')
+      .filter(({ key, value }) => {
+        return key.startsWith('slot:') && value
       })
       .map(({ key, value }) => {
         return {
@@ -23,22 +24,23 @@ export const useComponentPlayground = (options: Record<string, Omit<PlaygroundOp
 
   const attrs = computed(() => {
     return optionsRef
-      .filter(({ key }) => {
+      .filter(({ key, defaultValue, value }) => {
+        const isDefault = defaultValue ? defaultValue === value : !value
+        if (isDefault) { return null }
         return !key.startsWith('slot:')
       })
-      .map(({ key, value }) => {
+      .map(({ key, value, defaultValue }) => {
         return {
           name: key,
-          value: value
+          value: value,
+          defaultValue
         }
       })
   })
 
   const renderAttrs = () => {
     return '\n    ' + attrs.value
-      .map(({ name, value }) => {
-        if (!value) { return null }
-
+      .map(({ name, value, defaultValue }) => {
         if (typeof value === 'object') {
           value = JSON.stringify(value)
         }
@@ -55,11 +57,12 @@ export const useComponentPlayground = (options: Record<string, Omit<PlaygroundOp
 
   const renderSlots = () => {
     return slots.value.
+      filter(({ value }) => Boolean(value)).
       map(({ name, value }) => {
         if (name === 'default') { return `  ${value}` }
 
         return `<template #${name}>
-  ${JSON.stringify(value)}
+  ${JSON.stringify(value).slice(1, -1)}
 <template />`
       })
     .join('\n')

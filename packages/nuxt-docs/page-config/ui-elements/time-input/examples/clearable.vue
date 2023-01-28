@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex">
+  <div class="flex">
     <va-time-input v-model="value" clearable label="Clearable" class="mr-3" />
     <va-time-input
       v-model="value"

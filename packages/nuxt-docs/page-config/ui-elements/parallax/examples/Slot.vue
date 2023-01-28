@@ -1,6 +1,6 @@
 <template>
   <va-parallax :src="imageSrc">
-    <div class="d-flex align-center justify-center" style="height: 100%">
+    <div class="flex items-center justify-center" style="height: 100%">
       <va-icon
         class="mr-8"
         name="mdi-calendar-blank-outline"

@@ -44,7 +44,7 @@
     </div>
 
     <div class="demo-footer mt-2">
-      <div class="d-flex align-center">
+      <div class="flex items-center">
         <div
           style="width: 64px"
           class="va-code-snippet va-code-snippet--icon mr-2"

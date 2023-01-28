@@ -1,5 +1,5 @@
 <template>
-  <div class="docs-roadmap d-flex flex-wrap">
+  <div class="docs-roadmap flex flex-wrap">
     <div class="docs-roadmap__columns">
       <div
         class="docs-roadmap__column-wrapper"

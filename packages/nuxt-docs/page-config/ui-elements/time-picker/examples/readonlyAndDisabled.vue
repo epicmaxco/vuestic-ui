@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex">
+  <div class="flex">
     <va-time-picker v-model="value" readonly />
     <va-divider vertical />
     <va-time-picker v-model="value" disabled />

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex team-banner flex-wrap">
+  <div class="flex team-banner flex-wrap">
     <LandingEpicmaxBanner />
   </div>
 </template>

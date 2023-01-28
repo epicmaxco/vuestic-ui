@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-center">
+  <div class="flex justify-center">
     <div class="flex flex-col lg6">
       <img :src="priority" alt="" class="fill-width" />
     </div>

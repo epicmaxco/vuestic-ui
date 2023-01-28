@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex align-center">
+  <div class="flex items-center">
     <va-button>{{ buttonText }}</va-button>
 
     <va-color-palette

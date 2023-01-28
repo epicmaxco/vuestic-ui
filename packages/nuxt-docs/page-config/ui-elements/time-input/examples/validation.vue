@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex mb-6">
+  <div class="flex mb-6">
     <va-time-input
       v-model="value"
       manual-input
@@ -14,7 +14,7 @@
     />
   </div>
 
-  <div class="d-flex">
+  <div class="flex">
     <va-time-input
       v-model="value"
       error

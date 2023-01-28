@@ -1,16 +1,16 @@
 <template>
   <div class="">
-    <div class="primary-danger-gradient d-flex justify-around align-center">
+    <div class="primary-danger-gradient flex justify-around items-center">
       <span class="px-2">Primary</span>
       <span class="px-2">Success</span>
       <span class="px-2">Danger</span>
     </div>
 
-    <div class="controls d-flex align-center">
+    <div class="controls flex items-center mt-2">
       <va-color-palette
         v-model="primaryColor"
         :palette="colorsToChange"
-        class="mx-6"
+        class="mr-6"
       />
 
       <span>

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex align-center">
+  <div class="flex items-center">
     <va-input
       v-model="filter"
       placeholder="Filter..."

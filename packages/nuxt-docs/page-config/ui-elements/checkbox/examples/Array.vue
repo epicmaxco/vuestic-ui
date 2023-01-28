@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-col">
+  <div class="flex flex-col">
     <div class="mb-6">{{ selection }}</div>
     <va-checkbox
       v-model="selection"

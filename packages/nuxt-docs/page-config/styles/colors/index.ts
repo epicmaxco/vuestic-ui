@@ -9,11 +9,12 @@ export default definePageConfig({
     block.component("theme", { hideTemplate: true }),
     block.component("theme-examples", { hideCode: true }),
 
-    block.example("CustomAlert"),
     block.subtitle("colors.syntax.title"),
     block.paragraph("colors.syntax.description"),
     block.code("scheme"),
     block.paragraph("colors.syntax.colorsUsed"),
+    block.example("CustomAlert", { hideTitle: true }),
+
     block.subtitle("colors.reactivity.subtitle"),
     block.paragraph("colors.reactivity.about"),
     block.paragraph("colors.reactivity.additional"),

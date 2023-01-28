@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex items-start">
+  <div class="flex items-start">
     <va-switch v-model="value" error class="mr-6" />
     <va-switch v-model="value" error error-messages="error message" />
   </div>

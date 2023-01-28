@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-col">
+  <div class="flex flex-col">
     <va-checkbox
       v-for="(_, name) in buttonProps"
       :key="name"
