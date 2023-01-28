@@ -13,6 +13,11 @@
           <va-color-indicator size="1.25rem" :color="color.name" /> <span class="color__title">{{ color.title }}</span>
         </div>
       </div>
+      <div class="color-dropdown__content px-1 mt-2">
+        <va-button class="w-full" :to="`${locale ? ('/' + locale) : ''}/styles/colors`">
+          Learn about colors
+        </va-button>
+      </div>
     </va-button-dropdown>
   </div>
 </template>
@@ -22,21 +27,20 @@ import { presets as colorsPresets } from 'vuestic-ui/src/services/color/presets'
 import { computed, defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'DocsColorDropdown',
+    setup() {
+        const capitalizeFirstLetter = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+        const colorsArray = computed(() => {
+            const colorNames = Object.keys(colorsPresets.light);
+            return colorNames.map((c) => ({ name: c, title: capitalizeFirstLetter(c) }));
+        });
 
-  setup () {
-    const capitalizeFirstLetter = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
+        const { locale } = useI18n()
 
-    const colorsArray = computed(() => {
-      const colorNames = Object.keys(colorsPresets.light)
-
-      return colorNames.map((c) => ({ name: c, title: capitalizeFirstLetter(c) }))
-    })
-
-    return {
-      colorsArray,
-    }
-  },
+        return {
+            colorsArray,
+            locale,
+        };
+    },
 })
 </script>
 
