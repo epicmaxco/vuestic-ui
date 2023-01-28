@@ -53,6 +53,7 @@ watchEffect(() => {
 }
 
 .page-config {
+  padding-bottom: 3rem;
 
   .page-config-title,
   .page-config-subtitle,

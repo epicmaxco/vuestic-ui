@@ -1,27 +1,16 @@
 <template>
   <va-content v-show="doShow" class="va-skeleton page-config">
-    <h1 class="page-config-title">
-      Loading title
-    </h1><br/>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus harum, autem obcaecati...</p>
+    <h1 class="page-config-title short" /><br/>
+    <p class="two-lines long" />
     <br/>
-    <h3 class="page-config-subtitle">
-      Loading title
-    </h3>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus harum, autem obcaecati voluptatum, ipsum laudantium consequatur amet qui porro delectus</p>
+    <h3 class="page-config-subtitle medium" />
+    <p class="three-lines short" />
 
-    <va-card style="height: 150px; width: 100%">
+    <va-card style="height: 150px; width: 100%" />
+    <h3 class="page-config-subtitle long" />
+    <p class="medium" />
 
-    </va-card>
-
-    <h3 class="page-config-subtitle">
-      Loading title
-    </h3>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus harum, autem obcaecati voluptatum, ipsum laudantium consequatur amet qui porro delectus illum voluptates, nemo temporibus quisquam. Ducimus et quis distinctio! Explicabo!</p>
-
-    <va-card style="height: 300px; width: 100%">
-
-    </va-card>
+    <va-card style="height: 300px; width: 100%" />
   </va-content>
 </template>
 
@@ -34,53 +23,87 @@ setTimeout(() => {
 </script>
 
 <style lang="scss" scoped>
-  @keyframes slide {
+  @keyframes fade {
     0% {
-      transform: translateX(-50%)
+      filter: brightness(0.8);
+    }
+
+    50% {
+      filter: brightness(0.8);
     }
 
     100% {
-      transform: translateX(100%)
+      filter: brightness(1);
     }
   }
 
   .va-skeleton {
     & > * {
       --color: var(--va-background-element);
+      --line-height: 1em;
+      --height: var(--line-height);
+      --width: 100%;
+      --gap: 8px;
+
       overflow: hidden;
 
       position: relative;
-      display: table;
+      display: block;
       box-shadow: none;
       color: var(--color) !important;
       background: var(--color) !important;
+      width: 2rem;
+      border-radius: 0;
 
-      &:is(p) {
-        display: inline !important;
+      animation: fade 1s ease-in-out infinite alternate;
 
-        & + * {
-          margin-top: 1rem
-        }
-      }
-
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-      }
+      width: var(--width);
 
       &::after {
-        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.775), transparent 50%);
         content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100vw;
-        height: 100%;
-        animation: slide 3s ease-in-out infinite;
+        display: block;
+        height: var(--height);
+        width: 1px;
+      }
+
+      &.two-lines {
+        --height: calc(2em);
+      }
+
+      &.three-lines {
+        --height: calc(3em);
+      }
+
+      &.full {
+        width: 100%;
+      }
+
+      &.short {
+        --width: 160px;
+      }
+
+      &.medium {
+        --width: 240px;
+      }
+
+      &.long {
+        --width: 360px;
+      }
+
+      &:is(p) {
+        position: relative;
+        width: 100%;
+        // Stripes background, so it looks like a lot of lines
+        background: repeating-linear-gradient(
+          0deg,
+          var(--color),
+          var(--color) calc(var(--line-height) - var(--gap) / 2),
+          transparent calc(var(--line-height) - var(--gap) / 2),
+          transparent var(--line-height),
+        ) !important;
+        background-position-y: calc(var(--gap) / -2);
+
+        clip-path: polygon(0% 0%, 0% 100%, var(--width) 100%, var(--width) calc(100% - var(--line-height)), 100% calc(100% - var(--line-height)), 100% 100%, var(--line-height) 100%, var(--width) 100%, 100% 100%, 100% 0%);
       }
     }
   }
