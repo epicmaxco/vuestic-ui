@@ -174,6 +174,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'image',
         displayName: 'menu.image',
+        meta: {
+          badge: 'updated',
+        },
       },
       {
         name: 'carousel',
@@ -266,6 +269,13 @@ export const navigationRoutes: NavigationRoute[] = [
       },
       {
         category: 'menu.categories.layout',
+        name: 'aspect-ratio',
+        displayName: 'menu.aspectRatio',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
         name: 'card',
         displayName: 'menu.card',
       },
@@ -473,6 +483,13 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'i18n',
         displayName: 'menu.i18n',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
+        name: 'colors-classes',
+        displayName: 'menu.colorsClasses',
         meta: {
           badge: 'new',
         },

@@ -1,6 +1,6 @@
 import kebabCase from 'lodash/kebabCase.js'
 import { defineCustomElement } from 'vue'
-import { VuesticComponent } from '../vue-plugin/types/index'
+import { type VuesticComponent } from '../vue-plugin/types/index'
 
 /**
  * We need to re-order component registration, so

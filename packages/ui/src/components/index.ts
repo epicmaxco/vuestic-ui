@@ -9,10 +9,12 @@
  * @notice this exports used in `vuestic-ui` package. Make sure add component to vuestic-plugin as well.
  */
 
+export * from './va-fallback'
 export * from './va-accordion'
 export * from './va-affix'
 export * from './va-alert'
 export * from './va-app-bar'
+export * from './va-aspect-ratio'
 export * from './va-avatar'
 export * from './va-avatar-group'
 export * from './va-backtop'

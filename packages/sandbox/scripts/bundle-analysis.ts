@@ -19,11 +19,18 @@ import * as process from 'process'
   }
 
   const bundleSizesCachePath = `./${analyticsStorePath}/bundle-sizes.js`
-  if ((forceRebuild) && existsSync(bundleSizesCachePath)) {
-    rmSync(bundleSizesCachePath)
-  }
+  const vuesticDistPath = '../ui/dist'
 
-  if (forceRebuild || !existsSync(bundleSizesCachePath)) {
+  if (forceRebuild) {
+    if (existsSync(bundleSizesCachePath)) {
+      rmSync(bundleSizesCachePath)
+    }
+
+    if (!existsSync(vuesticDistPath)) {
+      console.warn(`[bundle analysis] Vuestic dist wasn't found in ${vuesticDistPath}. Proceeding new build...`)
+      await $('yarn workspace vuestic-ui build', {})
+    }
+
     await Promise.all([
       $('vite build --config ./configs/vite/vite.empty.ts', { successMessage: 'Empty config was built.' }),
       $('vite build --config ./configs/vite/vite.button.ts', { successMessage: 'Config with button was built.' }),
@@ -31,6 +38,10 @@ import * as process from 'process'
       $('vite build --config ./configs/vite/vite.button-select.ts', { successMessage: 'Config with button and select was built.' }),
     ])
   }
+
+  const baseOutputPath = outputDir || analyticsStorePath
+  const mdFilePath = `${baseOutputPath}/tree-shaking.md`
+  const devMdFilePath = `${baseOutputPath}/dev-tree-shaking.md`
 
   if (existsSync(bundleSizesCachePath)) {
     const VUETIFY_VERSION = '3.0.3'
@@ -45,10 +56,8 @@ import * as process from 'process'
     const bundleSizes = await (async () => await require('../analysis/bundle-sizes.js'))()
     const { empty, button, buttonSelect, full } = bundleSizes
 
-    const baseOutputPath = outputDir || analyticsStorePath
     const getOutputBundleSize = (v: number) => Math.trunc((v - empty) / 1000)
 
-    const mdFilePath = `${baseOutputPath}/tree-shaking.md`
     writeFileSync(mdFilePath, `
 | Bundle                     | Vuestic UI                                |
 | -------------------------- | :---------------------------------------: |
@@ -56,10 +65,9 @@ import * as process from 'process'
 | Core + VaButton            | ~ ${getOutputBundleSize(button)} Kb       |
 | Core + VaButton + VaSelect | ~ ${getOutputBundleSize(buttonSelect)} Kb |
     `)
-    console.warn(`Result was successfully written to ${mdFilePath}.`)
+    console.warn(`[bundle analysis] Result was successfully written to ${mdFilePath}.`)
 
     if (isFullAnalysis) {
-      const devMdFilePath = `${baseOutputPath}/dev-tree-shaking.md`
       writeFileSync(devMdFilePath, `
 | Bundle                 | Vuestic UI                                | Vuetify UI (${VUETIFY_VERSION}) | Naive UI (${NAIVE_VERSION}) |
 | ---------------------- | :---------------------------------------: | :-----------------------------: | :-------------------------: |
@@ -68,11 +76,10 @@ import * as process from 'process'
 | Core + Button + Select | ~ ${getOutputBundleSize(buttonSelect)} Kb | ~ ${VUETIFY_BUTTON_SELECT_SIZE} Kb | ~ ${NAIVE_BUTTON_SELECT_SIZE} Kb |
     `)
 
-      console.warn(`Result was successfully written to ${devMdFilePath}.`)
+      console.warn(`[bundle analysis] Result was successfully written to ${devMdFilePath}.`)
     }
-
-    return
+  } else {
+    writeFileSync(mdFilePath, 'No cache was found. Please, run `yarn build:analysis && vue-cli-service serve` if you want to have bundle size data in dev.')
+    console.warn(`[bundle analysis] Blank file was written to ${mdFilePath}.`)
   }
-
-  console.warn(`${bundleSizesCachePath} file wasn't found. Bundle size analysis was terminated.`)
 })()

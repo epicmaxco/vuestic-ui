@@ -4,6 +4,7 @@ import type { IconConfig } from '../icon'
 import type { BreakpointConfig } from '../breakpoint'
 import type { I18nConfig } from '../i18n'
 import type { Ref } from 'vue'
+import type { ColorsClassesConfig } from '../colors-classes'
 
 export type GlobalConfig = {
   colors: ColorConfig,
@@ -11,6 +12,7 @@ export type GlobalConfig = {
   components: ComponentConfig,
   breakpoint: BreakpointConfig,
   i18n: I18nConfig,
+  colorsClasses: ColorsClassesConfig
 }
 
 type DeepPartial<T> = T extends Record<string, any> ? {

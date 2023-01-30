@@ -28,7 +28,7 @@ export const useVuesticCSS = (options: VuesticOptions) => {
     })
   } else if (options.css === true) {
     /** Register all CSS */
-    nuxt.options.css.push('vuestic-ui/dist/vuestic-ui.css')
+    nuxt.options.css.push('vuestic-ui/dist/styles/index.css')
   }
 
   if (options.fonts) {
