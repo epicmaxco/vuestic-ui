@@ -1,5 +1,6 @@
 <template>
   <va-aspect-ratio
+    ref="root"
     class="va-image"
     v-bind="aspectRationAttributesComputed"
   >
@@ -11,6 +12,7 @@
       <slot v-if="$slots.sources" name="sources" />
 
       <img
+        v-if="isReadyForRender"
         ref="image"
         v-bind="imgAttributesComputed"
         @error="handleError"
@@ -57,13 +59,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch, nextTick, onBeforeUnmount, type PropType, onBeforeMount } from 'vue'
+import {
+  defineComponent,
+  ref,
+  computed,
+  watch,
+  nextTick,
+  onBeforeMount,
+  onBeforeUnmount,
+  type PropType,
+} from 'vue'
 
 import { VaAspectRatio } from '../va-aspect-ratio'
 import { VaFallback } from '../va-fallback'
 
 import { useNativeImgAttributes, useNativeImgAttributesProps } from './hooks/useNativeImgAttributes'
-import { useComponentPresetProp, useDeprecated } from '../../composables'
+import {
+  useComponentPresetProp,
+  useIsMounted,
+  useDeprecated,
+  useIntersectionObserver,
+} from '../../composables'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
@@ -95,6 +111,7 @@ export default defineComponent({
       type: String as PropType<'contain' | 'fill' | 'cover' | 'scale-down' | 'none'>,
       default: 'cover',
     },
+    lazy: { type: Boolean, default: false },
     placeholderSrc: { type: String, default: '' },
     // TODO: delete in 1.7.0
     contain: { type: Boolean, default: false },
@@ -104,7 +121,9 @@ export default defineComponent({
     // TODO: delete in 1.7.0
     useDeprecated(['contain'])
 
+    const root = ref<HTMLElement>()
     const image = ref<HTMLImageElement>()
+
     const renderedImage = ref()
     const currentImage = computed(() => renderedImage.value || props.src)
 
@@ -115,6 +134,10 @@ export default defineComponent({
     const isError = ref(false)
 
     const handleLoad = () => {
+      isLoading.value = true
+
+      if (!isReadyForLoad.value) { return }
+
       isLoading.value = false
 
       renderedImage.value = image.value?.currentSrc
@@ -130,8 +153,23 @@ export default defineComponent({
       emit('error', err || currentImage.value)
     }
 
+    const isIntersecting = ref(false)
+    const handleIntersection = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) { return }
+
+        isIntersecting.value = true
+        init()
+        observer.disconnect()
+      })
+    }
+    const { isIntersectionDisabled } = useIntersectionObserver(handleIntersection, undefined, root, props.lazy)
+    const isReadyForLoad = computed(() => isIntersectionDisabled.value || isIntersecting.value)
+    const isMounted = useIsMounted()
+    const isReadyForRender = computed(() => !props.lazy || (props.lazy && isMounted.value && isReadyForLoad.value))
+
     const init = () => {
-      if (!props.src || isLoading.value) {
+      if (!props.src || (isLoading.value && isIntersectionDisabled.value) || !isReadyForLoad.value) {
         return
       }
 
@@ -196,11 +234,16 @@ export default defineComponent({
 
     return {
       fitComputed,
+
+      root,
       image,
+
       isLoading,
       handleLoad,
       isError,
       handleError,
+      isReadyForRender,
+
       isPlaceholderShown,
       isSuccessfullyLoaded,
       imgAttributesComputed,

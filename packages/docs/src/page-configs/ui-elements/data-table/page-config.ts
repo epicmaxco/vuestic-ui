@@ -79,6 +79,10 @@ const config: ApiDocsBlock[] = [
   block.paragraph('dataTable.examples.sticky.text[1]'),
   block.example('Sticky'),
 
+  block.headline('dataTable.examples.grid.title'),
+  block.paragraph('dataTable.examples.grid.text'),
+  block.example('Grid'),
+
   ...block.exampleBlock(
     'dataTable.examples.other.title',
     'dataTable.examples.other.text[0]',

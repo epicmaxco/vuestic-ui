@@ -4,6 +4,7 @@ import { GlobalConfigPlugin, VaDropdownPlugin, VaToastPlugin, VaModalPlugin, Col
 import * as vuesticComponents from '../components'
 import type { VuesticComponents } from '../types/components'
 import { setCurrentApp } from '../../current-app'
+import { ColorsClassesPlugin } from '../../colors-classes'
 
 // Declare all components globally
 declare module 'vue' {
@@ -30,6 +31,7 @@ export const createVuestic = defineVuesticPlugin((options: { config?: PartialGlo
     usePlugin(app, GlobalConfigPlugin(config))
     usePlugin(app, CachePlugin)
     usePlugin(app, ColorConfigPlugin(config))
+    usePlugin(app, ColorsClassesPlugin)
 
     usePlugin(app, BreakpointConfigPlugin)
     usePlugin(app, VaDropdownPlugin)
