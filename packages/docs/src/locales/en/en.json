@@ -2653,7 +2653,7 @@
       },
       "slots": {
         "title": "Status slots",
-        "text": "We're providing 3 status slots: `error` (visible when `src` path is incorrect), `loading` (visible when image is loading) and `placeholder` (works as both previous)."
+        "text": "We're providing 3 status slots: `error` (visible when `src` path is incorrect), `loading` (visible when image is loading) and `placeholder` (works as both previous). As an alternative for error handling, we provide the `fallback-icon`, `fallback-text`, `fallback-image` and `fallback-renderer` props, that will be called if error slot wasn't passed. Also you're able to set global fallback settings via [components config](/getting-started/configuration-guide#components-config)."
       },
       "srcSet": {
         "title": "Srcset",
