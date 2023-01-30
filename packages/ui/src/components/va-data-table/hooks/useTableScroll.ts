@@ -9,10 +9,10 @@ export const useTableScrollProps = {
 
 export const useTableScrollEmits = ['scroll:top', 'scroll:bottom']
 
-export default function useTableScroll (
+export const useTableScroll = (
   props: ExtractPropTypes<typeof useTableScrollProps>,
   emit: (event: 'scroll:bottom' | 'scroll:top', ...args: any[]) => void,
-) {
+) => {
   // NOTE: unfortunately, this is not reactive
   // TODO: replace 'vNodeProps' with '$listeners' when it's available in vue 3
   const vNodeProps = getCurrentInstance()?.vnode.props

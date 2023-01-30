@@ -996,6 +996,8 @@
         "sortingOrder": "Sets the sorting order. Works through the `v-model`",
         "sortingOptions": "An array from a set of values (`'asc'`, `'desc'`, `null`) that specifies the order and allowed sort directions.",
         "selectable": "Sets whether the `va-data-table` should have selectable rows or not",
+        "grid": "Enables grid view for the component",
+        "gridColumns": "Sets the amount of columns for grid view. By default is ruled by adaptive CSS variables.",
         "clickable": "Sets whether the `va-data-table` should have clickable (the click events will be emitted) rows or not",
         "selectMode": "Sets the select mode. `'single'` selection allows for only a single row to be selected at a time, while `'multiple'` mode allows to select multiple rows by clicking on checkboxes or using the **ctrl**/**shift** keys when clicking rows",
         "selectedColor": "Sets the highlighting color of the selected row",
@@ -4388,6 +4390,10 @@
       "default": {
         "title": "Basic usage",
         "text": "The standard `va-data-table` will by default render your data as simple rows."
+      },
+      "grid": {
+        "title": "Grid mode",
+        "text": "The `grid` property set the grid display mode for the table."
       },
       "slots": {
         "title": "Slots",
