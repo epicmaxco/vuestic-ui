@@ -18,6 +18,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    "./modules/banner",
     "./modules/vuestic",
     "./modules/page-config",
     // "./modules/i18n",

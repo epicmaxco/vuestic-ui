@@ -1,4 +1,4 @@
-import { defineNuxtModule } from '@nuxt/kit';
+import { defineNuxtModule, addVitePlugin, addPluginTemplate } from '@nuxt/kit';
 import { resolve } from 'pathe'
 import { VuesticOptions } from './../../nuxt/src/types';
 import originalNuxtModule from '../../nuxt/src/module'
