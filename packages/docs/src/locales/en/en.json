@@ -1665,7 +1665,7 @@
       "button": "Your button"
     },
     "alerts": {
-      "beta": "This feature is currently in test mode. You can use it, but there can be unexpected bugs or we can change API in future."
+      "beta": "This feature is currently in test mode. You can use it, but there can be unexpected bugs or we can change API in future. Help use improve it!"
     }
   },
   "docsNavigation": {
@@ -4919,6 +4919,10 @@
         "You can also use Global Config with VaConfig element"
       ],
       "seeMore": "See more detailed example in our Sandbox"
+    },
+    "treeShaking": {
+      "title": "Tree shaking",
+      "description": "You can import and register only specific components that you need and your bundler will tree-shake other components. It also removes our default CSS in case you don't want ot use Material Icons."
     }
   },
   "colorsClasses": {

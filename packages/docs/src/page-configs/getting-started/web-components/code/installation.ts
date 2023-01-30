@@ -1,16 +1,8 @@
 export const installationCode = `
-import { registerVuesticWebComponents, VaButton, VaSelect, VaTab, VaTabs, VaConfig } from 'vuestic-ui/web-components'
+import { registerVuesticWebComponents } from 'vuestic-ui/web-components'
 import 'vuestic-ui/css'
 
-registerVuesticWebComponents({
-  components: {
-    VaButton,
-    VaSelect,
-    VaTab,
-    VaTabs,
-    VaConfig,
-  },
-})
+registerVuesticWebComponents()
 `
 
 // TODO: Check if Font Awesome is correct font
@@ -22,10 +14,6 @@ const fas = \`
 \`
 
 registerVuesticWebComponents({
-  components: {
-    // ...
-  },
-
   css: fas
 })
 `

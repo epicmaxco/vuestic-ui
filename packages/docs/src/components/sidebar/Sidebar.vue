@@ -129,7 +129,7 @@ export default defineComponent({
       routeHasActiveChild,
       isActiveChildRoute,
       onSidebarItemClick,
-      badgeColors: { wip: 'primary', new: 'danger', updated: 'warning', beta: 'danger' },
+      badgeColors: { wip: 'primary', new: 'danger', updated: 'warning', beta: 'primary' },
       activeColor: computed(() => getFocusColor(getColor('primary'))),
       hoverColor: computed(() => getHoverColor(getColor('primary'))),
 

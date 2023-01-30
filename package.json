@@ -28,6 +28,7 @@
     "sandbox:vite": "yarn workspace sandbox dev:vite",
     "sandbox:nuxt": "yarn workspace sandbox dev:nuxt",
     "sandbox:vue-cli": "yarn workspace sandbox dev:vue-cli",
+    "sandbox:web-components": "yarn workspace sandbox dev:web-components",
     "release": "yarn workspace deploy release"
   },
   "workspaces": {
