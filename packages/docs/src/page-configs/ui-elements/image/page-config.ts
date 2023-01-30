@@ -44,6 +44,11 @@ const config: ApiDocsBlock[] = [
     'image.examples.srcSet.text',
     'SrcSet',
   ),
+  ...block.exampleBlock(
+    'image.examples.lazy.title',
+    'image.examples.lazy.text',
+    'Lazy',
+  ),
 
   block.subtitle('all.api'),
   block.api(VaImage, apiOptions),

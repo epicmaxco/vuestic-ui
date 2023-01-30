@@ -1,11 +1,14 @@
-import { onBeforeUnmount, ref, Ref, unref, watch } from 'vue'
+import { ref, unref, computed, watch, onBeforeUnmount, type Ref } from 'vue'
+
+import { extractHTMLElement } from './useHTMLElement'
 
 type MaybeRef<T> = T | Ref<T>
 
 export const useIntersectionObserver = <T extends HTMLElement | undefined>(
   cb: (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => void,
-  options: MaybeRef<IntersectionObserverInit> = {},
-  targetsList: Ref<MaybeRef<T>[]> = ref([]),
+  options: Ref<IntersectionObserverInit> = ref({}),
+  target: Ref<MaybeRef<T>[] | T> = ref([]),
+  enabled = true,
 ) => {
   const observer = ref<IntersectionObserver>()
 
@@ -14,41 +17,33 @@ export const useIntersectionObserver = <T extends HTMLElement | undefined>(
   }
 
   const observeTarget = (target: MaybeRef<T>) => {
-    const disclosedTarget = unref(target)
+    const disclosedTarget = extractHTMLElement(unref(target))
     disclosedTarget && observer.value?.observe(disclosedTarget)
   }
 
-  const observeAll = (targets: MaybeRef<MaybeRef<T>[]>) => {
-    const disclosedTargets = unref(targets)
-    disclosedTargets.forEach(observeTarget)
+  const observeAll = (targets: MaybeRef<T>[]) => {
+    targets.forEach(observeTarget)
   }
 
   const initObserver = () => {
-    observer.value = new IntersectionObserver(cb, unref(options))
+    observer.value = new IntersectionObserver(cb, options.value)
   }
 
-  watch([targetsList, options], ([newList, newOptions], [oldList, oldOptions]) => {
+  const isIntersectionDisabled = computed(() => !enabled || !(typeof window !== 'undefined' && 'IntersectionObserver' in window))
+
+  watch([target, options], ([newTarget]) => {
+    if (isIntersectionDisabled.value) { return }
+
     disconnectObserver()
 
-    if (newOptions !== oldOptions) {
-      if (newList.length) {
-        initObserver()
-        observeAll(newList)
-      }
+    if (!newTarget) { return }
 
-      return
-    }
+    initObserver()
 
-    if (newList.length) {
-      if (!observer.value) {
-        initObserver()
-      }
-
-      observeAll(newList)
-    }
+    Array.isArray(newTarget) ? observeAll(newTarget) : observeTarget(newTarget)
   }, { immediate: true })
 
   onBeforeUnmount(disconnectObserver)
 
-  return observer
+  return { isIntersectionDisabled }
 }

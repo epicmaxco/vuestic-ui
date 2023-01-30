@@ -546,6 +546,7 @@
         "sizes": "Proxies the `sizes` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "srcset": "Proxies the `srcset` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "title": "Proxies the `title` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
+        "lazy": "Enables lazy load for the image.",
         "draggable": "Proxies the `draggable` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
         "placeholderSrc": "`src` value for the placeholder image (can be replaced with `placeholder` slot)."
       },
@@ -2634,6 +2635,10 @@
       "fit": {
         "title": "Object Fit",
         "text": "Proxies `object-fit` CSS property. Available values are: `contain`, `fill`, `cover`, `scale-down`, `none`."
+      },
+      "lazy": {
+        "title": "Lazy Load",
+        "text": "The `lazy` prop allows you to use lazy-load behavior. In this case the image will be loaded only when it becomes visible (intersection)."
       },
       "ratio": {
         "title": "Ratio",
