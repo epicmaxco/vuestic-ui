@@ -18,34 +18,39 @@
   dependencies:
     "@ag-grid-community/core" "~26.2.0"
 
-"@ag-grid-community/client-side-row-model@^28.1.1":
-  version "28.1.1"
-  resolved "https://registry.yarnpkg.com/@ag-grid-community/client-side-row-model/-/client-side-row-model-28.1.1.tgz#ad9f42978199fe6983b93827d34af11f4bf8dcb8"
-  integrity sha512-5lzXsdNzMQjRWYTI9VLn9KjhSyTc6TPBf63CoBWsBxxG5pSRbtKCVsx512SDxiRYZsrf/B/zImVyvHCoTBZ+Dg==
+"@ag-grid-community/client-side-row-model@^29.0.0":
+  version "29.0.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/client-side-row-model/-/client-side-row-model-29.0.0.tgz#dcb3fec92681b94d2bdd56f6c8eaeade2a53ba1e"
+  integrity sha512-e+/888QYu/k+UBD74Ke6+e4Fc8/gxXmkcgF7cM4+EB941YDZ9j+gIR6ltI29B8T2n63OwTGWqNkwSooh1ed1nw==
   dependencies:
-    "@ag-grid-community/core" "~28.1.0"
+    "@ag-grid-community/core" "~29.0.0"
 
 "@ag-grid-community/core@^26.1.0", "@ag-grid-community/core@~26.2.0":
   version "26.2.1"
   resolved "https://registry.yarnpkg.com/@ag-grid-community/core/-/core-26.2.1.tgz#b0c3478b0df14b3145c7d126b4da34a5f55a44ad"
   integrity sha512-E2e3rZoZ90QtgO320kmlrm7kFbzFkCyrvCWYUQshJJU/UzCqr6DffVAXTaeehPNLzHBybANxWbSbFab9LQLIwQ==
 
-"@ag-grid-community/core@^28.1.1", "@ag-grid-community/core@~28.1.0":
-  version "28.1.1"
-  resolved "https://registry.yarnpkg.com/@ag-grid-community/core/-/core-28.1.1.tgz#b0454ee818dd960d68b3bdd2bfaa80516f054dfe"
-  integrity sha512-0Mrvg1lERglcFd4oQijxvGpECnx1ZX1L/fPlmfxYPGAFMJzIKxfXtF1tL2h20QrntTZSHuDnm3aWkTFB1ybp2A==
+"@ag-grid-community/core@^29.0.0", "@ag-grid-community/core@~29.0.0":
+  version "29.0.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/core/-/core-29.0.0.tgz#b4ef6ac3c05d21e65f83e2c1ed46b1c2bac30f25"
+  integrity sha512-qj5H9tAZtikpjFL9f7VmJLPS8tx/PUfIjt5DPtqDA01GZ9dYt3XwPuHdLKzpA5E9Yevhwk1m+TXCCz5Al7WWSw==
+
+"@ag-grid-community/styles@^29.0.0":
+  version "29.0.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/styles/-/styles-29.0.0.tgz#07c5013c090aa0cb425580240e6511f1c67cb2e5"
+  integrity sha512-Wl7q1IxhDjwfyPrnEvAT6m107Um/TaMyzJjWrRax9f30QTb7dVMTe6B5/JXq6HPbMrcvQfcAgS6TlpEsJGtVbg==
 
 "@ag-grid-community/vue3@^26.1.0":
   version "26.2.0"
   resolved "https://registry.yarnpkg.com/@ag-grid-community/vue3/-/vue3-26.2.0.tgz#093ce65f79cf3adcc2351d90a3306069e256aa3b"
   integrity sha512-c+yJGfZ5FYaSpryRcDjjFWr1zqRIC8mU39Ke6ZvRiEN4/ggjfZaKNI+rEK0s/WfNXF4pxyLWpCRaUC8i3SCaig==
 
-"@ag-grid-community/vue3@^28.1.1":
-  version "28.1.1"
-  resolved "https://registry.yarnpkg.com/@ag-grid-community/vue3/-/vue3-28.1.1.tgz#d5878fccb88d2b107ceedbb382b82df584c54417"
-  integrity sha512-uTI3GErkThmWJ/UPGZE2JbttsMbEjG54dTA18EzVuih56kHOKt/drmPmLh9OCwn2hO7R+JykgPdKf9y6gBJVNw==
+"@ag-grid-community/vue3@^29.0.0":
+  version "29.0.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/vue3/-/vue3-29.0.0.tgz#53c8e41b34360c7f6c11f0c0648883b22222c1d4"
+  integrity sha512-0AqUbjgD+fRuPB7kDrxOxTu8Usv2nwSB1GNkmR915y4727IVvCyfEKFtk4bp9fioNNEzJM0NBTbQfY51NG9JEQ==
   dependencies:
-    "@ag-grid-community/core" "~28.1.0"
+    "@ag-grid-community/core" "~29.0.0"
     vue "^3.0.0"
 
 "@algolia/autocomplete-core@1.7.1":

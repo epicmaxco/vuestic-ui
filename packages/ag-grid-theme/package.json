@@ -10,9 +10,10 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@ag-grid-community/core": "^28.1.1",
-    "@ag-grid-community/vue3": "^28.1.1",
-    "@ag-grid-community/client-side-row-model": "^28.1.1"
+    "@ag-grid-community/client-side-row-model": "^29.0.0",
+    "@ag-grid-community/core": "^29.0.0",
+    "@ag-grid-community/styles": "^29.0.0",
+    "@ag-grid-community/vue3": "^29.0.0"
   },
   "peerDependencies": {
     "vuestic-ui": "^1.3.0"
