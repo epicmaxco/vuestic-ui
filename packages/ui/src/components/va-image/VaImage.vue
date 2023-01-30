@@ -79,6 +79,7 @@ import {
   useIsMounted,
   useDeprecated,
   useIntersectionObserver,
+  useGlobalConfig,
 } from '../../composables'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
@@ -209,9 +210,10 @@ export default defineComponent({
     onBeforeUnmount(() => clearTimeout(timer))
     watch(() => props.src, init)
 
-    const isPlaceholderShown = computed(() =>
-      ((isLoading.value && !slots?.loader?.()) || (isError.value && (!slots?.error?.() && !isAnyFallbackPassed.value))) &&
-      (slots?.placeholder?.() || props.placeholderSrc))
+    const isPlaceholderPassed = computed(() => slots?.placeholder?.() || props.placeholderSrc)
+    const isLoaderShown = computed(() => isLoading.value && !slots?.loader?.())
+    const isErrorShown = computed(() => isError.value && (!slots?.error?.() && !isAnyFallbackPassed.value))
+    const isPlaceholderShown = computed(() => (isLoaderShown.value || isErrorShown.value) && isPlaceholderPassed.value)
 
     const isSuccessfullyLoaded = computed(() => !(isLoading.value || isError.value))
 
@@ -224,7 +226,9 @@ export default defineComponent({
     }))
 
     const fallbackProps = filterComponentProps(VaFallbackProps)
-    const isAnyFallbackPassed = computed(() => !!Object.values(fallbackProps.value).filter((prop) => prop).length)
+    const checkObjectNonEmptyValues = (obj: Record<string, any> | undefined) => !!Object.values(obj || {}).filter((prop) => prop).length
+    const hasFallbackGlobalConfig = computed(() => checkObjectNonEmptyValues(useGlobalConfig()?.globalConfig?.value?.components?.VaFallback))
+    const isAnyFallbackPassed = computed(() => checkObjectNonEmptyValues(fallbackProps.value) || hasFallbackGlobalConfig.value)
 
     // TODO: refactor (just v-bind fit prop to CSS) in 1.7.0
     const fitComputed = computed(() => {
