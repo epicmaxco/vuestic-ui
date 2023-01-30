@@ -12,7 +12,7 @@ class ResizeObserver {
 
 global.ResizeObserver = ResizeObserver as any
 
-export const mountWithGlobalConfig = (component: Parameters<typeof shallowMount>[0], options: any = {}) => {
+export const mountWithGlobalConfig: typeof mount = (component: any, options: any = {}) => {
   return mount(component, {
     global: {
       plugins: [vuestic],
@@ -24,7 +24,7 @@ export const mountWithGlobalConfig = (component: Parameters<typeof shallowMount>
   })
 }
 
-export const shallowMountWithGlobalConfig = (component: Parameters<typeof shallowMount>[0], options: any = {}) => {
+export const shallowMountWithGlobalConfig: typeof shallowMount = (component: any, options: any = {}) => {
   return shallowMount(component, {
     global: {
       plugins: [vuestic],
