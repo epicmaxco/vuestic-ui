@@ -1,16 +1,16 @@
 <template>
-  <div class="flex row">
-    <div class="flex flex-col">
+  <div class="flex justify-around">
+    <div>
       <h6>Single mode</h6>
       <va-date-input mode="single" v-model="single" />
     </div>
 
-    <div class="flex flex-col">
+    <div>
       <h6>Multiple mode</h6>
       <va-date-input mode="multiple" v-model="multiple" />
     </div>
 
-    <div class="flex flex-col">
+    <div>
       <h6>Range mode</h6>
       <va-date-input mode="range" v-model="range" />
     </div>

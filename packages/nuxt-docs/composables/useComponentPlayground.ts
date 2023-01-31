@@ -42,16 +42,35 @@ export const useComponentPlayground = (options: Record<string, Omit<PlaygroundOp
     if (attrs.value.length == 0) { return '' }
 
     return '\n    ' + attrs.value
+      .sort((aO, bO) => {
+        const a = typeof aO.value
+        const b = typeof bO.value
+
+        if (a === b) { return 0 }
+
+        if (a === 'object') { return -1 }
+        if (b === 'object') { return 1 }
+
+        if (a === 'boolean') { return 1 }
+        if (a === 'string' && b !== 'boolean') { return 1 }
+        if (a !== 'string' && b === 'boolean') { return -1 }
+
+        return 0
+      })
       .map(({ name, value, defaultValue }) => {
+        if (typeof value == 'string') {
+          return `${name}="${value}"`
+        }
+
+        if (typeof value === 'boolean' && value === true) {
+          return name
+        }
+
         if (typeof value === 'object') {
           value = JSON.stringify(value)
         }
 
-        if (typeof value !== 'string') {
-          return `:${name}="${value}"`
-        }
-
-        return `${name}="${value}"`
+        return `:${name}="${value}"`
       })
       .filter(Boolean)
       .join('\n    ')

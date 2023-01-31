@@ -1,15 +1,9 @@
 <template>
-  <div class="flex row">
-    <div class="flex flex-col">
-      <va-date-picker stateful type="day" />
-    </div>
+  <div class="flex gap-5 flex-wrap">
+    <va-date-picker stateful type="day" />
 
-    <div class="flex flex-col">
-      <va-date-picker stateful type="month" />
-    </div>
+    <va-date-picker stateful type="month" />
 
-    <div class="flex flex-col">
-      <va-date-picker stateful type="year" />
-    </div>
+    <va-date-picker stateful type="year" />
   </div>
 </template>

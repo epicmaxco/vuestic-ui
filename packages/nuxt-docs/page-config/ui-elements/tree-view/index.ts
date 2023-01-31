@@ -40,7 +40,6 @@ export default definePageConfig({
     block.example("SelectableColored"),
 
     // API
-    block.subtitle("api"),
     block.api("VaTreeView", VaTreeViewOptions),
     block.collapse("TreeNode type", [block.code(treeNodeType)]),
   ],

@@ -3,7 +3,7 @@
     {{ value.getHours() }}:{{ value.getMinutes() }}:{{ value.getSeconds() }}
   </h6>
 
-  <div class="flex">
+  <div class="flex gap-5 flex-wrap">
     <va-time-picker v-model="value" :visible-cells-count="3" />
     <va-divider vertical />
     <va-time-picker v-model="value" :visible-cells-count="8" />

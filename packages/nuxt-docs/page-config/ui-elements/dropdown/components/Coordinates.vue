@@ -57,5 +57,6 @@ const computedStyle = computed(() => {
 .placement-coordinates {
   border: 1px solid var(--va-divider);
   padding: 4px;
+  box-sizing: content-box;
 }
 </style>

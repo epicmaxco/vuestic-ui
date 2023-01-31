@@ -17,6 +17,7 @@ export default [
   'VaCardActions',
   'VaCardContent',
   'VaCardTitle',
+  'VaCardBlock',
   'VaCarousel',
   'VaCheckbox',
   'VaChip',

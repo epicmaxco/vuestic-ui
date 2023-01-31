@@ -1,15 +1,15 @@
 <template>
-  <div class="flex flex-col lg6 xs12">
-    <div class="my-2 text--bold muted">small</div>
+  <div class="flex flex-col gap-3">
+    <div>small</div>
     <va-progress-circle size="small" :modelValue="value" />
 
-    <div class="my-2 text--bold muted">large</div>
+    <div>large</div>
     <va-progress-circle size="large" :modelValue="value" />
 
-    <div class="my-2 text--bold muted">25px</div>
+    <div>25px</div>
     <va-progress-circle :size="25" :modelValue="value" />
 
-    <div class="my-2 text--bold muted">2rem</div>
+    <div>2rem</div>
     <va-progress-circle size="2rem" :modelValue="value" />
   </div>
 </template>

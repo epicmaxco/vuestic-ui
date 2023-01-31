@@ -5,6 +5,8 @@ export default definePageConfig({
     block.title("switch.title"),
     block.paragraph("switch.summaryText"),
 
+    block.component('Playground'),
+
     block.subtitle("all.examples"),
 
     block.example("Default"),

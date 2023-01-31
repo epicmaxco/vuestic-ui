@@ -52,7 +52,7 @@ const text = computed(() => {
 const { getColor, setHSLAColor } = useColors()
 
 const dangerWithOpacity = computed(() => {
-  return setHSLAColor(getColor('backgroundElement'), { a: 0.75 })
+  return setHSLAColor(getColor('code'), { a: 0.1 })
 })
 </script>
 
@@ -73,9 +73,9 @@ const dangerWithOpacity = computed(() => {
   code {
     display: inline;
     margin: 0.1rem 0;
-    color: var(--va-danger);
+    color: var(--va-code);
     font-family: Source Sans Code, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-    background: v-bind(dangerWithOpacity);
+    background: var(--code-bg, v-bind(dangerWithOpacity));
     border-radius: 4px;
     padding: 0.15rem 0.3rem;
     z-index: 0;

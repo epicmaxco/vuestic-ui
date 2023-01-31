@@ -34,7 +34,7 @@
       solid
       color="#000"
       color-all
-      text-color="backgroundPrimary"
+      text-color="#fff"
       icon="info"
       class="mb-6"
     >

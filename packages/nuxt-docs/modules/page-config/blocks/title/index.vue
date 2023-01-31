@@ -18,3 +18,9 @@ const { t } = useI18n()
     <Anchor :text="text"/>
   </h1>
 </template>
+
+<style lang="scss">
+  .page-config-title {
+    --code-bg: transparent;
+  }
+</style>

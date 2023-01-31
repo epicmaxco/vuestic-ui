@@ -40,7 +40,7 @@
   .img {
     position: absolute;
     top: 0;
-    width: 67vw;
+    max-width: unset;
 
     &--start {
       left: 0;

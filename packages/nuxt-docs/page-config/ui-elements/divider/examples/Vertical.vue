@@ -1,9 +1,9 @@
 <template>
-  <div class="row my-8">
-    <span class="flex flex-col lg1">Title</span>
+  <div class="flex">
+    <span>Title</span>
     <va-divider vertical />
-    <span class="flex flex-col lg1">News</span>
+    <span>News</span>
     <va-divider vertical />
-    <span class="flex flex-col lg1">Blog</span>
+    <span>Blog</span>
   </div>
 </template>

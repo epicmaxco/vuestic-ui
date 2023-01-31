@@ -5,6 +5,8 @@ export default definePageConfig({
     block.title("slider.title"),
     block.paragraph("slider.summaryText"),
 
+    block.component("Playground"),
+
     block.subtitle("all.examples"),
 
     block.example("Default"),

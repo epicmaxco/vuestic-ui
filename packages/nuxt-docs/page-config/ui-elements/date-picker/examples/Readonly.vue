@@ -1,16 +1,10 @@
 <template>
-  <div class="flex row">
-    <div class="flex flex-col">
-      <va-date-picker v-model="value" type="day" readonly />
-    </div>
+  <div class="flex gap-5 flex-wrap">
+    <va-date-picker v-model="value" type="day" readonly />
 
-    <div class="flex flex-col">
-      <va-date-picker v-model="value" type="month" readonly />
-    </div>
+    <va-date-picker v-model="value" type="month" readonly />
 
-    <div class="flex flex-col">
-      <va-date-picker v-model="value" type="year" readonly />
-    </div>
+    <va-date-picker v-model="value" type="year" readonly />
   </div>
 </template>
 

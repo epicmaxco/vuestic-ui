@@ -1,12 +1,11 @@
 <template>
-  <div class="flex flex-col lg6 xs12">
+  <div class="flex flex-col gap-3">
     <va-progress-circle v-model="value" />
 
     <va-slider
-      class="mt-3"
       v-model="value"
-      track-label-visible
       :track-label="(v) => `${v}%`"
+      track-label-visible
     />
   </div>
 </template>

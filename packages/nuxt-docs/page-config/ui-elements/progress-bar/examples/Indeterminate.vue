@@ -1,5 +1,3 @@
 <template>
-  <div class="flex flex-col lg6 xs12">
-    <va-progress-bar indeterminate />
-  </div>
+  <va-progress-bar indeterminate />
 </template>
