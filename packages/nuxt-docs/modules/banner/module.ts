@@ -4,7 +4,7 @@ import packageJson from '../../../ui/package.json'
 import { execSync } from 'child_process'
 
 const getLastCommitHash = () => {
-  return execSync('git rev-parse HEAD').toString()
+  return execSync('git rev-parse HEAD').toString().trim()
 }
 
 /** Module used to add current file path to page-config */

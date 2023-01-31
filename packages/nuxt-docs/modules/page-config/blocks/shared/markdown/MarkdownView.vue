@@ -52,7 +52,7 @@ const text = computed(() => {
 const { getColor, setHSLAColor } = useColors()
 
 const dangerWithOpacity = computed(() => {
-  return setHSLAColor(getColor('danger'), { a: 0.1 })
+  return setHSLAColor(getColor('backgroundElement'), { a: 0.75 })
 })
 </script>
 
