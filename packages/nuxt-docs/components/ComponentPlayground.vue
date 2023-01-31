@@ -38,9 +38,9 @@ const optionValues = computed(() => {
         <div class="mb-2" v-for="option in options">
           <va-input v-if="option.type === 'input'" v-model="option.value" :label="option.key" />
           <va-select v-if="option.type === 'select'" v-model="option.value" :options="option.options"
-            :label="option.key" clearable />
-            <va-select v-if="option.type === 'multiselect'" v-model="option.value" :options="option.options"
-            :label="option.key" clearable multiple />
+            :label="option.key" clearable prevent-overflow />
+          <va-select v-if="option.type === 'multiselect'" v-model="option.value" :options="option.options"
+            :label="option.key" clearable multiple prevent-overflow />
           <va-checkbox v-if="option.type === 'checkbox'" v-model="option.value" :label="option.key"
             :true-value="true" :false-value="false" />
         </div>

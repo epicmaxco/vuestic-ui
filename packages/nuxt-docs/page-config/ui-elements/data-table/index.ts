@@ -15,11 +15,11 @@ export default definePageConfig({
     block.paragraph("dataTable.examples.slots.text[0]"),
     block.paragraph("dataTable.examples.slots.text[1]"),
     block.alert("dataTable.examples.slots.text[4]", "warning"),
-    block.example("CustomSlots"),
+    block.example("CustomSlots", { hideTitle: true }),
     block.paragraph("dataTable.examples.slots.text[2]"),
-    block.example("StaticSlots"),
+    block.example("StaticSlots", { hideTitle: true }),
     block.paragraph("dataTable.examples.slots.text[3]"),
-    block.example("ColgroupSlots"),
+    block.example("ColgroupSlots", { hideTitle: true }),
 
     block.example("Filtering"),
 
@@ -28,14 +28,14 @@ export default definePageConfig({
     block.paragraph("dataTable.examples.sorting.text[1]"),
     block.paragraph("dataTable.examples.sorting.text[2]"),
     block.paragraph("dataTable.examples.sorting.text[3]"),
-    block.example("Sorting"),
+    block.example("Sorting", { hideTitle: true }),
 
     block.headline("dataTable.examples.selection.title"),
     block.paragraph("dataTable.examples.selection.text[0]"),
     block.paragraph("dataTable.examples.selection.text[1]"),
-    block.example("Selection"),
+    block.example("Selection", { hideTitle: true }),
     block.paragraph("dataTable.examples.selection.text[2]"),
-    block.example("SelectionWithKeys"),
+    block.example("SelectionWithKeys", { hideTitle: true }),
 
     block.example("Pagination"),
     block.example("Styling"),
@@ -45,12 +45,12 @@ export default definePageConfig({
     block.headline("dataTable.examples.sticky.title"),
     block.paragraph("dataTable.examples.sticky.text[0]"),
     block.paragraph("dataTable.examples.sticky.text[1]"),
-    block.example("Sticky"),
+    block.example("Sticky", { hideTitle: true }),
 
     block.example("Other"),
 
     block.paragraph("dataTable.examples.other.text[1]"),
-    block.example("CRUD"),
+    block.example("CRUD", { hideTitle: true }),
 
     block.subtitle("all.api"),
     block.api("VaDataTable", apiOptions),

@@ -5,6 +5,8 @@ export default definePageConfig({
     block.title("alert.title"),
     block.paragraph("alert.summaryText"),
 
+    block.component('Playground'),
+
     block.subtitle("all.examples"),
     block.example("Default"),
     block.example("Styles"),

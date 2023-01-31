@@ -1,7 +1,7 @@
 <template>
   <p class="va-code-snippet">
-    --va-<span class="text--highlighted">component-name</span>-<span
-      class="text--highlighted"
+    --va-<span class="va-text-highlighted">component-name</span>-<span
+      class="va-text-highlighted"
       >variable-name</span
     >
   </p>

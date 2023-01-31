@@ -39,6 +39,8 @@ export const useComponentPlayground = (options: Record<string, Omit<PlaygroundOp
   })
 
   const renderAttrs = () => {
+    if (attrs.value.length == 0) { return '' }
+
     return '\n    ' + attrs.value
       .map(({ name, value, defaultValue }) => {
         if (typeof value === 'object') {
@@ -74,8 +76,11 @@ export const useComponentPlayground = (options: Record<string, Omit<PlaygroundOp
 />`
     }
 
-    return `<${componentName} ${attrs}
-  >
+    if (attrs.length > 0) {
+      attrs = `${attrs}\n  `
+    }
+
+    return `<${componentName}${attrs}>
 ${slots}
 </${componentName}>`
   }

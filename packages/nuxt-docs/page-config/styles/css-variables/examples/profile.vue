@@ -18,7 +18,7 @@
           <span class="mr-2 text--no-wrap">16 following</span>
         </div>
 
-        <va-card-action class="flex pt-2">
+        <va-card-actions class="flex pt-2">
           <va-button
             preset="secondary"
             color="#fff"
@@ -36,7 +36,7 @@
             color="#fff"
             icon="play_arrow"
           ></va-button>
-        </va-card-action>
+        </va-card-actions>
       </div>
     </va-card-content>
   </va-card>
