@@ -48,12 +48,9 @@ export default defineComponent({
       return { paddingBottom: `${1 / aspectRatio.value * 100}%` }
     })
 
-    const widthComputed = computed(() => ({
-      width: `${props.contentWidth}px`,
-      maxWidth: props.maxWidth ? `${props.maxWidth}px` : undefined,
-    }))
+    const maxWidthComputed = computed(() => props.maxWidth ? `${props.maxWidth}px` : undefined)
 
-    return { stylesComputed, widthComputed }
+    return { stylesComputed, maxWidthComputed }
   },
 })
 </script>
@@ -65,7 +62,6 @@ export default defineComponent({
   position: var(--va-aspect-ratio-position);
   overflow: var(--va-aspect-ratio-overflow);
   display: flex;
-  width: v-bind('widthComputed.width');
-  max-width: v-bind('widthComputed.maxWidth');
+  max-width: v-bind(maxWidthComputed);
 }
 </style>

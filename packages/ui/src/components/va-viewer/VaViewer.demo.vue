@@ -3,7 +3,6 @@
     <VbCard title="Default">
       <va-viewer>
         <va-image
-          style="--va-image-position: relative;"
           :src="getImagePath(600, 800)"
           :max-width="200"
           fit="contain"
@@ -25,8 +24,9 @@
           >
             Open image
           </button>
+        </template>
+        <template #image>
           <va-image
-            style="--va-image-position: relative;"
             :src="getImagePath(600, 800)"
             :max-width="200"
             fit="contain"
@@ -38,7 +38,6 @@
     <VbCard title="Custom controls">
       <va-viewer>
         <va-image
-          style="--va-image-position: relative;"
           :src="getImagePath(600, 800)"
           :max-width="200"
           fit="contain"

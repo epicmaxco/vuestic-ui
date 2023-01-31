@@ -1,15 +1,19 @@
 <template>
-  <slot
-    name="anchor"
-    v-bind="{ openViewer }"
+  <div
+    class="va-viewer__anchor"
+    v-bind="$attrs"
   >
+    <slot
+      name="anchor"
+      v-bind="{ openViewer }"
+    />
     <div
       v-if="!$slots.anchor"
       @click="openViewer"
     >
       <slot />
     </div>
-  </slot>
+  </div>
 
   <teleport
     v-if="isOpened"
@@ -20,9 +24,9 @@
         ref="content"
         class="va-viewer__content"
       >
-        <slot v-if="!$slots.anchor" />
+        <slot v-if="!$slots.image" />
         <slot
-          name="anchor"
+          name="image"
           v-bind="{ isOpened: isViewerContent }"
         />
       </div>
@@ -61,6 +65,8 @@ import { useIsMounted, useDocument, useClickOutside } from '../../composables'
 
 export default defineComponent({
   name: 'VaViewer',
+
+  inheritAttrs: false,
 
   components: { VaIcon },
 
@@ -108,7 +114,13 @@ export default defineComponent({
   justify-content: center;
   background-color: var(--va-viewer-overlay-background-color);
 
-  .va-viewer__content {
+  &__anchor {
+    --va-image-position: relative;
+  }
+
+  &__content {
+    --va-image-position: relative;
+
     display: flex;
 
     & > * {
