@@ -147,23 +147,23 @@ export default defineComponent({
       emit('update:modelValue', index)
     }
 
-    const nextStep = (increment = 0) => {
-      const targetIndex = props.modelValue + 1 + increment
+    const nextStep = (stepsToSkip = 0) => {
+      const targetIndex = props.modelValue + 1 + stepsToSkip
 
       if (!props.steps[targetIndex]) { return }
       if (props.steps[targetIndex].disabled) {
-        nextStep(increment + 1)
+        nextStep(stepsToSkip + 1)
       }
 
       setStep(targetIndex)
     }
 
-    const prevStep = (decrement = 0) => {
-      const targetIndex = props.modelValue - 1 - decrement
+    const prevStep = (stepsToSkip = 0) => {
+      const targetIndex = props.modelValue - 1 - stepsToSkip
 
       if (!props.steps[targetIndex]) { return }
       if (props.steps[targetIndex].disabled) {
-        prevStep(decrement + 1)
+        prevStep(stepsToSkip + 1)
       }
 
       setStep(targetIndex)
