@@ -1,10 +1,11 @@
 import { Ref, watch, computed, PropType, ExtractPropTypes } from 'vue'
 
-import { useThrottleValue } from '../../../composables'
+import { useThrottleValue, useThrottleProps } from '../../../composables'
 
 import type { DataTableRow, DataTableFilterMethod, DataTableItem } from '../types'
 
 export const useFilterableProps = {
+  ...useThrottleProps,
   filter: { type: String, default: '' },
   filterMethod: { type: Function as PropType<DataTableFilterMethod | undefined> },
 }

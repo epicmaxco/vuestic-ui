@@ -1,6 +1,6 @@
 import { PropType, computed, ref, Ref, watch, ExtractPropTypes, ComputedRef } from 'vue'
 
-import { useThrottleFunction } from '../../../composables'
+import { useThrottleFunction, useThrottleProps } from '../../../composables'
 
 import type {
   DataTableColumnInternal,
@@ -11,6 +11,7 @@ import type {
 } from '../types'
 
 export const useSortableProps = {
+  ...useThrottleProps,
   sortBy: { type: String as PropType<string | undefined> },
   sortingOrder: { type: String as PropType<DataTableSortingOrder | undefined> },
 }
