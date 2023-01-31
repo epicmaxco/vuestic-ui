@@ -1,14 +1,16 @@
 import { describe, it, expect } from 'vitest'
+import { mountWithGlobalConfig } from '../../../utils/unit-test-utils'
+
 import VaCarousel from '../VaCarousel.vue'
-import { mountWithGlobalConfig } from '../../../composables/tests/mountWithGlobalConfig'
 
 describe('VaCarousel', () => {
   it('should render without an error', () => {
     const wrapper = mountWithGlobalConfig(VaCarousel, {
-      props: {
+      propsData: {
+        options: [],
         items: [],
       },
     })
-    expect(wrapper.findComponent('VaCarousel')).toBeTruthy()
+    expect(wrapper.exists()).toBeTruthy()
   })
 })

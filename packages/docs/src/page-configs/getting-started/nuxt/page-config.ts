@@ -8,6 +8,10 @@ const config: ApiDocsBlock[] = [
   block.title('nuxt.title'),
   block.paragraph('nuxt.description'),
 
+  block.subtitle('nuxt.createVuestic.title'),
+  block.paragraph('nuxt.createVuestic.description'),
+  block.link('nuxt.createVuestic.link', '/getting-started/installation#create-vuestic'),
+
   block.subtitle('nuxt.installation.title'),
   block.paragraph('nuxt.installation.plugin'),
   block.code(installationObject, 'bash'),

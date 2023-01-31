@@ -2,6 +2,7 @@
 node_modules
 dist
 .nuxt
+packages/create-vuestic/vuestic-app
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
