@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useMarkdownIt } from "./useMarkdownIt";
-import { useColors } from 'vuestic-ui'
+import { useColors, useElementTextColor } from 'vuestic-ui'
 
 const props = defineProps({
   content: {
@@ -23,6 +23,10 @@ const props = defineProps({
   text: {
     type: Boolean,
     default: false,
+  },
+  background: {
+    type: String,
+    default: undefined,
   }
 });
 
@@ -49,10 +53,14 @@ const text = computed(() => {
   }
 });
 
-const { getColor, setHSLAColor } = useColors()
+const { getColor, setHSLAColor, getTextColor, colors } = useColors()
+
+const codeRed = computed(() =>
+  getTextColor(getColor(props.background || colors.backgroundPrimary), "#990055", "#FF006E")
+);
 
 const dangerWithOpacity = computed(() => {
-  return setHSLAColor(getColor('code'), { a: 0.1 })
+  return setHSLAColor(codeRed.value, { a: 0.1 })
 })
 </script>
 
@@ -73,7 +81,7 @@ const dangerWithOpacity = computed(() => {
   code {
     display: inline;
     margin: 0.1rem 0;
-    color: var(--va-code);
+    color: v-bind(codeRed);
     font-family: Source Sans Code, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     background: var(--code-bg, v-bind(dangerWithOpacity));
     border-radius: 4px;

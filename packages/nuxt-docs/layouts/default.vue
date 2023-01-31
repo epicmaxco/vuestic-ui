@@ -8,10 +8,8 @@
         <LayoutSidebar v-model:visible="isSidebarVisible" :mobile="breakpoints.sm" />
       </aside>
       <main class="docs-layout__main-content">
-        <article class="docs-layout__page-content">
-          <VaContent>
+        <article class="docs-layout__page-content va-typography-block">
             <slot />
-          </VaContent>
         </article>
       </main>
     </section>

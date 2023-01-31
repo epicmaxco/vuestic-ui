@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import { type PropType } from 'vue'
 import { MarkdownView } from '../../shared/markdown'
+import { Anchor } from '../../shared/anchor'
 
 defineProps({
   data: {
@@ -17,7 +18,10 @@ defineProps({
 </script>
 
 <template>
-  <h5>{{ title }}</h5>
+  <h4 class="ApiDocs__header">
+    {{ title }}
+    <Anchor :text="title" />
+  </h4>
 
   <div class="ApiDocs__table-wrapper">
     <table class="ApiDocs__table">
@@ -45,6 +49,10 @@ defineProps({
 
 <style lang="scss">
 .ApiDocs {
+  &__header {
+    margin-top: 2rem !important;
+  }
+
   &__table-wrapper {
     overflow-x: auto;
     width: 100%;

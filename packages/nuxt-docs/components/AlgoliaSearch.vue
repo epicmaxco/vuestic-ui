@@ -10,6 +10,11 @@ import { useRouter } from 'vue-router'
 
 const { locale } = useI18n()
 const router = useRouter()
+
+const { getTextColor, setHSLAColor, colors, getColor } = useColors()
+
+const placeholderColor = computed(() => setHSLAColor(getColor(getTextColor(colors.backgroundElement)), { a: 0.7 }))
+
 onMounted(() => {
   const getPathFromAlgoliaResponse = (url: string): string => {
     // sometimes is response we have relative url,
@@ -131,6 +136,8 @@ onMounted(() => {
   .DocSearch-Button-Placeholder {
     @include md(display, block);
     @include xs(display, none);
+
+    color: v-bind(placeholderColor);
   }
 
   .DocSearch-Button-Keys {

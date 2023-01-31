@@ -14,59 +14,99 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, ref, watch, nextTick } from 'vue'
-import PrismWrapper from './PrismWrapper.vue'
-import { useCode } from './useCode'
+import { defineComponent, PropType, computed, ref, watch, nextTick } from "vue";
+import PrismWrapper from "./PrismWrapper.vue";
+import { useCode } from "./useCode";
 
 export default defineComponent({
-  name: 'DocsCode',
+  name: "DocsCode",
   components: { PrismWrapper },
   props: {
-    language: { type: String as PropType<string>, default: 'javascript' },
+    language: { type: String as PropType<string>, default: "javascript" },
     code: {
       type: [Object, String] as PropType<Record<string, string> | string>,
-      default: '',
+      default: "",
     },
   },
-  setup (props) {
-    const { applyTranslations } = useCode()
-    const isString = computed(() => typeof props.code === 'string')
+  setup(props) {
+    const { applyTranslations } = useCode();
+    const isString = computed(() => typeof props.code === "string");
 
     const tabs = computed(() =>
-      isString.value ? [] : Object.keys(props.code),
-    )
+      isString.value ? [] : Object.keys(props.code)
+    );
 
     const contents = computed(() =>
       isString.value
         ? [applyTranslations((props.code as string).trim())]
         : tabs.value.map((tab) =>
-          applyTranslations(
-            (props.code as Record<string, string>)[tab].trim(),
-          ),
-        ),
-    )
+            applyTranslations(
+              (props.code as Record<string, string>)[tab].trim()
+            )
+          )
+    );
 
-    const index = ref(0)
+    const index = ref(0);
 
-    const doShowCode = ref(true)
+    const doShowCode = ref(true);
 
     const forceUpdate = () => {
-      doShowCode.value = false
+      doShowCode.value = false;
       nextTick(() => {
-        doShowCode.value = true
-      }) // nextTick() triggers v-if, that causes re-rendering of component.
-    }
+        doShowCode.value = true;
+      }); // nextTick() triggers v-if, that causes re-rendering of component.
+    };
 
     // Hack: Remove this with alias when moving to vite.
     const escapeVuesticImport = (code: string) => {
-      return code.replace(/vuestic-ui\/src\/main/g, 'vuestic-ui')
-    }
+      return code.replace(/vuestic-ui\/src\/main/g, "vuestic-ui");
+    };
 
-    watch(() => props.code, forceUpdate, { immediate: true })
+    watch(() => props.code, forceUpdate, { immediate: true });
 
-    return { isString, tabs, contents, index, escapeVuesticImport }
+    const { getTextColor, colors, currentPresetName } = useColors();
+
+    const codeRed = computed(() =>
+      getTextColor(colors.backgroundSecondary, "#990055", "#FF006E")
+    );
+    const codeGreen = computed(() =>
+      getTextColor(colors.backgroundSecondary, "#3A5700", "#7EBD00")
+    );
+    const codeYellow = computed(() =>
+      getTextColor(colors.backgroundSecondary, "#896334", "#C79E6B")
+    );
+    const codeCyan = computed(() =>
+      getTextColor(colors.backgroundSecondary, "#005980", "#00AFFA")
+    );
+    const codeOrange = computed(() =>
+      getTextColor(colors.backgroundSecondary, "#9B3303", "#FC834A")
+    );
+    const codeGray = computed(() =>
+      getTextColor(colors.backgroundSecondary, "#596273", "#A0A6B6")
+    );
+    const codeGrayMuted = computed(() =>
+      getTextColor(colors.backgroundSecondary, "#6B6B6B", "#A6A6A6")
+    );
+
+    const tabsColor = computed(() => currentPresetName.value === 'dark' ? colors.backgroundSecondary : colors.backgroundBorder)
+
+    return {
+      codeRed,
+      codeGreen,
+      codeYellow,
+      codeCyan,
+      codeOrange,
+      codeGray,
+      codeGrayMuted,
+      tabsColor,
+      isString,
+      tabs,
+      contents,
+      index,
+      escapeVuesticImport,
+    };
   },
-})
+});
 </script>
 
 <style lang="scss">
@@ -74,7 +114,7 @@ $prism-background: var(--va-background-element);
 $radius: 0.25rem;
 
 .DocsCode__tabs {
-  background: var(--va-background-border);
+  background: v-bind(tabsColor);
   border-top-left-radius: $radius;
   border-top-right-radius: $radius;
 
@@ -107,7 +147,8 @@ $radius: 0.25rem;
   pre[class*="language-"] {
     color: currentColor;
     background: none;
-    font-family: Source Sans Code, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-family: Source Sans Code, Consolas, Monaco, "Andale Mono",
+      "Ubuntu Mono", monospace;
     font-size: 1rem;
     text-align: left;
     white-space: pre;
@@ -118,6 +159,11 @@ $radius: 0.25rem;
     tab-size: 4;
     hyphens: none;
     border-radius: 0.25rem;
+  }
+
+  .token {
+    font-family: Source Sans Code, Consolas, Monaco, "Andale Mono",
+      "Ubuntu Mono", monospace;
   }
 
   :not(pre) > code[class*="language-"],
@@ -137,11 +183,11 @@ $radius: 0.25rem;
   .token.prolog,
   .token.doctype,
   .token.cdata {
-    color: slategray;
+    color: v-bind(codeGray);
   }
 
   .token.punctuation {
-    color: #999999;
+    color: v-bind(codeGrayMuted);
   }
 
   .token.namespace {
@@ -154,8 +200,10 @@ $radius: 0.25rem;
   .token.number,
   .token.constant,
   .token.symbol,
+  .token.function,
+  .token.class-name,
   .token.deleted {
-    color: #990055;
+    color: v-bind(codeRed);
   }
 
   .token.selector,
@@ -164,7 +212,7 @@ $radius: 0.25rem;
   .token.char,
   .token.builtin,
   .token.inserted {
-    color: #669900;
+    color: v-bind(codeGreen);
   }
 
   .token.operator,
@@ -172,24 +220,19 @@ $radius: 0.25rem;
   .token.url,
   .language-css .token.string,
   .style .token.string {
-    color: #9a6e3a;
+    color: v-bind(codeYellow);
   }
 
   .token.atrule,
   .token.attr-value,
   .token.keyword {
-    color: #0077aa;
-  }
-
-  .token.function,
-  .token.class-name {
-    color: #dd4a68;
+    color: v-bind(codeCyan);
   }
 
   .token.regex,
   .token.important,
   .token.variable {
-    color: #ee9900;
+    color: v-bind(codeOrange);
   }
 
   .token.important,

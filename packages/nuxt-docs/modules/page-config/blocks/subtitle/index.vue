@@ -13,14 +13,16 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <h3 class="page-config-subtitle">
+  <h2 class="page-config-subtitle">
     <MarkdownView :content="t(text)" text class="mr-2" />
     <Anchor :text="text"/>
-  </h3>
+  </h2>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .page-config-subtitle {
     --code-bg: transparent;
+    font-size: 2rem;
+    line-height: 2.5rem;
   }
 </style>

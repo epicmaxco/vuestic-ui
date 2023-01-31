@@ -13,8 +13,15 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <h4 class="page-config-headline">
+  <h3 class="page-config-headline">
     <MarkdownView :content="t(text)" text class="mr-2" />
     <Anchor :text="text"/>
-  </h4>
+  </h3>
 </template>
+
+<style lang="scss" scoped>
+  .page-config-headline {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+</style>

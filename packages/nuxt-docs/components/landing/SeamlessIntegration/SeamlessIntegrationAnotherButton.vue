@@ -3,10 +3,12 @@
 </template>
 
 <style lang="scss">
+$button-color: #117763;
+
 .seamless-another-button {
   cursor: pointer;
   position: relative;
-  background-color: #16a085;
+  background-color: #117763;
   border: none;
   color: #ffffff;
   transition-duration: 0.4s;
@@ -16,7 +18,7 @@
 
   &:hover {
     background: #ffffff;
-    box-shadow: 0 2px 10px 5px #1abc9c;
+    box-shadow: 0 2px 10px 5px $button-color;
     color: #000000;
   }
 

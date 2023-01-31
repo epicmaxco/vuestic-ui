@@ -11,6 +11,8 @@
         off-color="#ffd300"
         style="--va-switch-checker-background-color: #252723;"
         class="theme-switch-button"
+        name="Switch theme"
+        :aria-label="`Switch theme to ${isDark ? 'light' : 'dark'}`"
       >
         <template #innerLabel>
           <div class="va-text-center">
