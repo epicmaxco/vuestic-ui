@@ -185,6 +185,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.modal',
       },
       {
+        name: 'stepper',
+        displayName: 'menu.stepper',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
         name: 'table',
         displayName: 'menu.table',
       },

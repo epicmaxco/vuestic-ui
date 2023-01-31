@@ -94,12 +94,7 @@
       "contactUs": "Contact us",
       "newsBannerText": " \uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hi there, we're celebrating our launch on Product Hunt this week! \uD83D\uDE80 We'd love to get your feedback and support! \uD83D\uDE4F",
       "newsBannerLink": "Visit the launch page",
-      "bannerText": [
-        "expert",
-        "s",
-        "available in",
-        "to build and launch your product"
-      ]
+      "bannerText": ["expert", "s", "available in", "to build and launch your product"]
     }
   },
   "api": {
@@ -1459,6 +1454,27 @@
         "updateChecked": "The array of checked tree nodes.",
         "updateExpanded": "The array of expanded tree nodes."
       }
+    },
+    "VaStepper": {
+      "props": {
+        "modelValue": "Value of current step starting from `0`.",
+        "steps": "Array of step configs. `Label` is text displayed under each step in timeline, `Icon` if set, replaces step icon with specified icon, `disabled` makes step inaccessible without removing it from the timeline.",
+        "navigationDisabled": "Disables navigation via pressing on steps.",
+        "nextDisabled": "Disables navigation to steps further than `model-value`.",
+        "noControls": "Removes 'Back' and 'Next' buttons.",
+        "vertical": "Changes stepper orientation to vertical."
+      },
+      "slots": {
+        "step": "Replaces the step in timeline with provided template. Step slots are enumerable and should be used with step number postfix (i.e. step-0, step-1, etc). Slot scope properties and methods available: `{ setStep, nextStep, prevStep, step, isActive, isCompleted }`.",
+        "content": "Replaces step content with provided template. Content slots are enumerable and should be used with step number postfix (i.e. content-0, content-1, etc). Slot scope properties and methods available: `{ setStep, nextStep, prevStep }`.",
+        "controls": "Inserts provided template after default controls. If you want to replace default controls set `no-controls` prop to `true`. Slot scope properties and methods available: `{ setStep, nextStep, prevStep }`.",
+        "divider": "Replaces step divider in the timeline with provided template."
+      },
+      "methods": {
+        "setStep": "Activates step at specified index.",
+        "nextStep": "By default activates next step. If target step is disabled activates the step after it.",
+        "prevStep": "By default activates previous step. If target step is disabled activates the step before it."
+      }
     }
   },
   "menu": {
@@ -1570,6 +1586,7 @@
     "colors": "Colors",
     "timePicker": "Time Picker",
     "timeInput": "Time Input",
+    "stepper": "Stepper",
     "carousel": "Carousel",
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
@@ -4487,6 +4504,32 @@
       }
     }
   },
+  "stepper": {
+    "title": "Stepper",
+    "description": "Stepper allows users to separate content into several steps and navigate through it using buttons or timeline.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": ""
+      },
+      "vertical": {
+        "title": "Vertical",
+        "text": ""
+      },
+      "icons": {
+        "title": "Custom icons",
+        "text": "Each step config could have icon name specified, check `va-icon` for more details."
+      },
+      "custom": {
+        "title": "Customized vith slots",
+        "text": ""
+      },
+      "minimal": {
+        "title": "Navigation only",
+        "text": "You can hide controls and use stepper navigation independently"
+      }
+    }
+  },
   "colors": {
     "title": "Colors",
     "description": "Vuestic UI defines `CSS variables` of the colors that are used in your application. This allows you to easily build your selectors using the colors you specified in the [Colors Config](https://vuestic.dev/en/services/colors-config).",
@@ -4781,7 +4824,7 @@
       "changeDefault": {
         "title": "Change default messages",
         "description": "Default messages can be set in `GlobalConfig`. Config is fully typed, so you can use autocomplete to find messages you want to change."
-       }
+      }
     },
     "runtimeUpdate": {
       "title": "Changing language in runtime",
