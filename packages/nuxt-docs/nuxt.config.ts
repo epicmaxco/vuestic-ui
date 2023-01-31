@@ -6,15 +6,20 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'icon', type: 'image/png', href: '/favicon.png' },
-        { href: 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css', rel: 'stylesheet' },
-        { href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', rel: 'stylesheet' },
       ],
-      script: [
-        { src: 'https://kit.fontawesome.com/5460c87b2a.js', crossorigin: 'anonymous' },
-        { src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js', type: 'module' },
+
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1.0, minimum-scale=1.0' },
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Vuestic UI is a modern Vue.js UI framework designed to be simple and customizable for applications of any type and scale'
+        }
       ]
-    }
+    },
   },
 
   modules: [
@@ -24,6 +29,7 @@ export default defineNuxtConfig({
     // "./modules/i18n",
     // TODO: remove after i18n is released https://github.com/nuxt-modules/i18n/pull/1712
     '@nuxtjs/i18n-edge',
+    '@nuxtjs/tailwindcss',
   ],
 
   vuestic: {
@@ -31,17 +37,38 @@ export default defineNuxtConfig({
   },
 
   i18n: {
-    locales,
-
-    vueI18n: {
-      messages,
-
-      fallbackRoot: false,
-    },
+    locales: [
+      {
+        code: 'en',
+        name: 'English',
+        status: 'full',
+        translationPath: 'translation.language.en',
+        file: 'en.json',
+      },
+      {
+        code: 'ru',
+        name: 'Русский',
+        status: 'full',
+        translationPath: 'translation.language.ru',
+        file: 'ru.json',
+      },
+      {
+        code: 'zh-cn',
+        name: '简体中文',
+        status: 'part',
+        translationPath: 'translation.language.zh-CN',
+        file: 'zh-cn.json',
+      },
+      // GENERATOR_ADD - language
+    ],
 
     defaultLocale: 'en',
 
     strategy: 'prefix_and_default',
+
+    lazy: true,
+
+    langDir: 'locales/',
   },
 
   postcss: {
@@ -51,12 +78,12 @@ export default defineNuxtConfig({
     },
   },
 
-  // TODO: Have this in dev for now, but remove it later
-  ssr: false,
+  // // TODO: Have this in dev for now, but remove it later
+  // ssr: false,
 
-  vite: {
-    build: {
-      minify: false,
-    }
-  },
+  // vite: {
+  //   build: {
+  //     minify: false,
+  //   }
+  // },
 });

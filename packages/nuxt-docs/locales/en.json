@@ -4092,7 +4092,7 @@
     },
     "reactivity": {
       "subtitle": "Reactivity",
-      "about": "Methods like `getColors` return a computed reactives that can also be accessed by variable `colors`. The advantage is allow to change properties, instead of rewriting whole colors variable. For example, you can change `primary` color by writing `colors.primary = '#ff0'`. Multiple properties changes are also supported, you can write `setColors({ primary: '#00f', secondary: '#0ff' })`."
+      "about": "Methods like `getColors` return a computed reactives that can also be accessed by variable `colors`. The advantage is allow to change properties, instead of rewriting whole colors variable. For example, you can change `primary` color by writing `colors.primary = '#ff0'`. Multiple properties changes are also supported, you can write `setColors({'{ primary: `#00f`, secondary: `#0ff` }'})`."
     },
     "otherServices": {
       "subtitle": "Colors config with other services",

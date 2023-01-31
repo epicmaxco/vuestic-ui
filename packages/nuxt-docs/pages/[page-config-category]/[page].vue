@@ -36,6 +36,9 @@ watchEffect(() => {
 
   useHead({
     title: tabTitle ? `${tabTitlePrefix} - ${t(tabTitle)}` : tabTitlePrefix,
+    meta: {
+      description: tabTitle ? `${tabTitlePrefix} ${t(tabTitle)} documentation page` : `${tabTitlePrefix} documentation page`
+    } as any
   });
 })
 </script>
