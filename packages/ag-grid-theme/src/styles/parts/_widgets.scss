@@ -1,6 +1,9 @@
 //
 // See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_widgets.scss
 //
+
+$backgroundSecondary: #FFFFFF;
+
 @mixin ag-vuestic-theme-part-widgets {
   input[class^=ag-]:not([type]),
   input[class^=ag-][type=text],
@@ -76,6 +79,8 @@
   // Popup
   ////////////////////////////////////////
   .ag-popup-child {
+    --ag-background-color: $backgroundSecondary;
+
     padding: 0;
     border-radius: var(--va-dropdown-content-border-radius);
 

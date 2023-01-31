@@ -1,9 +1,136 @@
-@import "@ag-grid-community/core/dist/styles/ag-grid.scss";
-@import "./ag-theme-vuestic-mixin";
+//@import "@ag-grid-community/core/dist/styles/ag-grid.scss";
+//@import "./ag-theme-vuestic-mixin";
+//
+//// Including this file emits CSS for the Vuestic theme. If you want to extend the Vuestic theme,
+//// @import ag-theme-vuestic-mixin.scss and @include ag-theme-vuestic($params) instead of using this file.
+//
+//.ag-theme-vuestic {
+//  @include ag-theme-vuestic($ag-theme-vuestic-default-params);
+//}
 
-// Including this file emits CSS for the Vuestic theme. If you want to extend the Vuestic theme,
-// @import ag-theme-vuestic-mixin.scss and @include ag-theme-vuestic($params) instead of using this file.
+
+// Accent
+$primary: #154EC1;
+$secondary: #767C88;
+$success: #3D9209;
+$info: #158DE3;
+$danger: #E42222;
+$warning: #FFD43A;
+
+// Background Colors
+$backgroundPrimary: #f6f6f6;
+$backgroundSecondary: #FFFFFF;
+$backgroundElement: #EBF1F4;
+$backgroundBorder: #DEE5F2;
+
+// Text Colors
+$textPrimary: #262824;
+$textInverted: #FFFFFF;
+
+// Misc
+$shadow: rgba(0, 0, 0, 0.12);
+$focus: #FFFF00;
+
+@use "@ag-grid-community/styles" as ag;
+
+@include ag.grid-styles((
+        theme: vuestic,
+        extend-theme: alpine,
+        foreground-color: $textPrimary,
+        data-color: $textPrimary,
+        disabled-foreground-color: rgba(0, 0, 0, 0.5),
+        background-color: transparent,
+        header-background-color: transparent,
+        subheader-background-color: $backgroundSecondary,
+        subheader-toolbar-background-color: $backgroundSecondary,
+        control-panel-background-color: $backgroundSecondary,
+        selected-row-background-color: var(--ag-selected-row-background-color),
+        odd-row-background-color: $backgroundElement,
+        modal-overlay-background-color: rgba(255, 255, 255, 0.5),
+        row-hover-color: var(--ag-selected-row-background-color),
+        column-hover-color: transparent,
+        range-selection-border-color: black,
+        selected-tab-underline-width: 0,
+        selected-tab-underline-transition-speed: 0,
+        range-selection-chart-category-background-color: rgba(#00FF84, 0.1),
+        range-selection-chart-background-color: rgba(#0058FF, 0.1),
+        header-cell-hover-background-color: transparent,
+        value-change-value-highlight-background-color: rgba(#16A085, 0.5),
+        value-change-delta-up-color: var(--va-success, #43a047),
+        value-change-delta-down-color: var(--va-danger, #e53935),
+        chip-background-color: transparent,
+        borders: solid 0,
+        borders-critical: solid 1px,
+        borders-secondary: solid 0,
+        borders-side-button: solid 0,
+        side-bar-panel-width: 200px,
+        border-radius: 0px,
+        border-color: $backgroundBorder,
+        secondary-border-color: transparent,
+        row-border-color: transparent,
+        cell-horizontal-border: solid transparent,
+        header-column-separator-display: none,
+        header-column-separator-height: 100%,
+        header-column-separator-width: 1px,
+        header-column-separator-color: $backgroundBorder,
+        header-column-resize-handle-display: none,
+        header-column-resize-handle-height: 50%,
+        header-column-resize-handle-width: 1px,
+        header-column-resize-handle-color: $backgroundBorder,
+        input-border-color: transparent,
+        input-disabled-border-color: $backgroundBorder,
+        input-disabled-background-color: transparent,
+        checkbox-background-color: transparent,
+        checkbox-border-radius: 0px,
+        checkbox-checked-color: $textPrimary,
+        checkbox-unchecked-color: $textPrimary,
+        checkbox-indeterminate-color: $textPrimary,
+        toggle-button-off-border-color: $textPrimary,
+        toggle-button-off-background-color:$textPrimary,
+        toggle-button-on-border-color: $textPrimary,
+        toggle-button-on-background-color: $textPrimary,
+        toggle-button-switch-background-color: $textPrimary,
+        toggle-button-switch-border-color: $textPrimary,
+        toggle-button-border-width: 1px,
+        toggle-button-height: 10px,
+        toggle-button-width: 10px,
+        input-focus-box-shadow: transparent,
+        input-focus-border-color: transparent,
+        minichart-selected-chart-color: $textPrimary,
+        minichart-selected-page-color: $textPrimary,
+        grid-size: 8px,
+        icon-size: 10px,
+        widget-container-horizontal-padding: 12px,
+        widget-container-vertical-padding: 12px,
+        widget-horizontal-spacing: 12px,
+        widget-vertical-spacing: 8px,
+        cell-horizontal-padding: 10px,
+        cell-widget-spacing: 10px,
+        row-height: 48px,
+        header-height: 25px,
+        list-item-height: 36px,
+        column-select-indent-size: 18px,
+        row-group-indent-size: 20px,
+        filter-tool-panel-group-indent: 16px,
+        //full-width-tabs: false,
+        font-family: ("Source Sans Pro", sans-serif),
+        font-size: 16px,
+        //icon-font-family: $ag-theme-base-icon-font-family,
+        //icons-data: $ag-theme-base-icons-data,             // this var exported by ag-theme-base-font-vars.scss
+        //icons-font-codes: $ag-theme-base-icons-font-codes,
+        card-radius: 0px,
+        card-shadow: none,
+        popup-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3)
+));
+
+@import "./parts/header";
+@import "./parts/grid";
+@import "./parts/footer";
+@import "./parts/widgets";
 
 .ag-theme-vuestic {
-  @include ag-theme-vuestic($ag-theme-vuestic-default-params);
+  @include ag-vuestic-theme-part-widgets();
+  @include ag-vuestic-theme-part-header();
+  @include ag-vuestic-theme-part-grid();
+  @include ag-vuestic-theme-part-footer();
 }
