@@ -209,6 +209,8 @@ export default defineComponent({
 @import './variables';
 
 .va-input-wrapper {
+  --va-input-wrapper-background: v-bind(backgroundComputed);
+
   position: relative;
   cursor: var(--va-input-cursor);
   font-family: var(--va-font-family);
@@ -219,8 +221,6 @@ export default defineComponent({
   flex: 1;
 
   &__field {
-    --va-input-wrapper-background: v-bind(backgroundComputed);
-
     position: relative;
     display: flex;
     align-items: center;

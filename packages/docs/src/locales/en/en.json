@@ -546,6 +546,7 @@
         "sizes": "Proxies the `sizes` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "srcset": "Proxies the `srcset` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
         "title": "Proxies the `title` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
+        "lazy": "Enables lazy load for the image.",
         "draggable": "Proxies the `draggable` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
         "placeholderSrc": "`src` value for the placeholder image (can be replaced with `placeholder` slot)."
       },
@@ -995,6 +996,8 @@
         "sortingOrder": "Sets the sorting order. Works through the `v-model`",
         "sortingOptions": "An array from a set of values (`'asc'`, `'desc'`, `null`) that specifies the order and allowed sort directions.",
         "selectable": "Sets whether the `va-data-table` should have selectable rows or not",
+        "grid": "Enables grid view for the component",
+        "gridColumns": "Sets the amount of columns for grid view. By default is ruled by adaptive CSS variables.",
         "clickable": "Sets whether the `va-data-table` should have clickable (the click events will be emitted) rows or not",
         "selectMode": "Sets the select mode. `'single'` selection allows for only a single row to be selected at a time, while `'multiple'` mode allows to select multiple rows by clicking on checkboxes or using the **ctrl**/**shift** keys when clicking rows",
         "selectedColor": "Sets the highlighting color of the selected row",
@@ -1617,7 +1620,8 @@
     "virtualScroller": "Virtual Scroller",
     "treeView": "Tree view",
     "team": "Meet The Team",
-    "i18n": "I18n"
+    "i18n": "I18n",
+    "colorsClasses": "Colors Classes"
   },
   "all": {
     "examples": "Examples",
@@ -2635,6 +2639,10 @@
         "title": "Object Fit",
         "text": "Proxies `object-fit` CSS property. Available values are: `contain`, `fill`, `cover`, `scale-down`, `none`."
       },
+      "lazy": {
+        "title": "Lazy Load",
+        "text": "The `lazy` prop allows you to use lazy-load behavior. In this case the image will be loaded only when it becomes visible (intersection)."
+      },
       "ratio": {
         "title": "Ratio",
         "text": "The `ratio` prop changes image original ratio, showing part of image to fit new ratio."
@@ -2645,7 +2653,7 @@
       },
       "slots": {
         "title": "Status slots",
-        "text": "We're providing 3 status slots: `error` (visible when `src` path is incorrect), `loading` (visible when image is loading) and `placeholder` (works as both previous)."
+        "text": "We're providing 3 status slots: `error` (visible when `src` path is incorrect), `loading` (visible when image is loading) and `placeholder` (works as both previous). As an alternative for error handling, we provide the `fallback-icon`, `fallback-text`, `fallback-image` and `fallback-renderer` props, that will be called if error slot wasn't passed. Also you're able to set global fallback settings via [components config](/getting-started/configuration-guide#components-config)."
       },
       "srcSet": {
         "title": "Srcset",
@@ -3767,6 +3775,12 @@
       "defaultColors": "Default colors",
       "customColors": "Custom colors"
     },
+    "colorsClasses": {
+      "title": "Custom classes for the colors",
+      "description": "By default, Vuestic UI creates custom classes for coloring the text and background colors of elements relative to the global color configuration.",
+      "subtitle": "Configuring the custom classes",
+      "subDescription": "With custom classes configuration you can create and/or use classes with styles associated with the global color configuration"
+    },
     "icons": {
       "title": "Icon fonts",
       "description": [
@@ -4022,7 +4036,8 @@
       "readMore": "More on configuration",
       "icons": "Icons config",
       "components": "Components config",
-      "colors": "Colors config"
+      "colors": "Colors config",
+      "colorsClasses": "Custom classes for the colors"
     },
     "useInRuntime": "The global configuration object might be made reactive:",
     "api": {
@@ -4383,6 +4398,10 @@
       "default": {
         "title": "Basic usage",
         "text": "The standard `va-data-table` will by default render your data as simple rows."
+      },
+      "grid": {
+        "title": "Grid mode",
+        "text": "The `grid` property set the grid display mode for the table."
       },
       "slots": {
         "title": "Slots",
@@ -4858,7 +4877,7 @@
       "changeDefault": {
         "title": "Change default messages",
         "description": "Default messages can be set in `GlobalConfig`. Config is fully typed, so you can use autocomplete to find messages you want to change."
-       }
+      }
     },
     "runtimeUpdate": {
       "title": "Changing language in runtime",
@@ -4868,6 +4887,29 @@
       "title": "Using with vue-i18n",
       "description": "If you use vue-i18n we can recommend to store VuesticUI messages under specific key",
       "exampleConfig": "Recommended config structure"
+    }
+  },
+  "colorsClasses": {
+    "title": "Custom classes for the colors",
+    "about": "By default, Vuestic UI creates custom classes for coloring the text and background colors of elements relative to the global color configuration. To expand the number of generated classes, you need to add the `colorsClasses` configuration to the `GlobalConfig`.",
+    "default": "Here is format of custom classes for the colors generated by Vuestic UI:",
+    "defaultColors": "The values for `colorVariableName` and `colorValue` are taken from the global color config.",
+    "readMoreAboutDefaultColor": "Read more about CSS Variables for colors generated by Vuestic UI by default [here](/services/colors-config).",
+    "configDescription": "An array of `ColorsClassesConfig` type objects. Used to define new helper classes",
+    "setup": {
+      "title": "Let's create our config",
+      "about": "We need to update the colors classes configuration in the our global configuration. The colors classes are an array of objects with class names and CSS properties. For example:",
+      "explanation": "The example above shows us the `ColorsClassesConfig` configuration structure. It's important to note that styleProperty can take either a string or an array of strings as its value.",
+      "example": "An example of using the classes we created:"
+    },
+    "examples": {
+      "custom": {
+        "example1": "Now I'm have a green color on the borders and text colors",
+        "example2": "I have a red background"
+      }
+    },
+    "api": {
+      "title": "Helper classes configuration API"
     }
   }
 }

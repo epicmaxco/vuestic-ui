@@ -1,4 +1,6 @@
-import { Ref, computed } from 'vue'
+import { Ref, computed, ExtractPropTypes } from 'vue'
+
+import { useItemsProp, useItemsTrackByProp } from './useCommonProps'
 
 import { getValueByPath } from '../../../utils/value-by-key'
 
@@ -16,10 +18,9 @@ export const getItemKey = (source: DataTableItem, itemsTrackBy: string | ((item:
     : getValueByPath(source, itemsTrackBy) || source
 )
 
-interface useRowsProps {
-  items: DataTableItem[]
-  itemsTrackBy: string | ((item: DataTableItem) => any)
-  [prop: string]: unknown
+export const useRowsProps = {
+  ...useItemsProp,
+  ...useItemsTrackByProp,
 }
 
 const buildTableCell = (
@@ -56,10 +57,10 @@ const buildTableRow = (
   }
 }
 
-export default function useRows (
+export const useRows = (
   columns: Ref<DataTableColumnInternal[]>,
-  props: useRowsProps,
-) {
+  props: ExtractPropTypes<typeof useRowsProps>,
+) => {
   const rowsComputed = computed(() => props.items
     .map((rawItem, index) => buildTableRow(rawItem, index, props.itemsTrackBy, columns.value)))
 

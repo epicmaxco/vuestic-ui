@@ -480,6 +480,13 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: 'new',
         },
       },
+      {
+        name: 'colors-classes',
+        displayName: 'menu.colorsClasses',
+        meta: {
+          badge: 'new',
+        },
+      },
       // GENERATOR_ADD - services
     ],
   },

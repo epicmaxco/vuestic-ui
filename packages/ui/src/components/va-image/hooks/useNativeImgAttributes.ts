@@ -7,7 +7,7 @@ export const useNativeImgAttributesProps = {
   title: { type: String, default: '' },
   sizes: { type: String, default: '' },
   srcset: { type: String, default: '' },
-  draggable: { type: Boolean, default: false },
+  draggable: { type: Boolean, default: true },
   loading: {
     type: String as PropType<'lazy' | 'eager'>,
   },
