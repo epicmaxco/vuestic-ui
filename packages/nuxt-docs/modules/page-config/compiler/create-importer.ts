@@ -2,7 +2,6 @@ import { resolve, dirname, parse } from 'path'
 import { type TransformPluginContext } from 'rollup'
 import { resolveAlias } from '@nuxt/kit';
 import { readdirSync, existsSync } from 'fs'
-import keyword from './javascript-keywords'
 import javascriptKeywords from './javascript-keywords';
 
 const resolveFromFolder = (dir: string, file: string) => {

@@ -55,17 +55,6 @@ export const useCompiler = (options: any) => {
           code = block.replaceArgCode(0, importComponent)
         }
 
-        // if (block.type === 'code') {
-        //   const importName = block.args[0].slice(1, -1)
-        //   const importPath = (await importer.resolveRelativePath(`./code/${importName}`))
-
-        //   if (importPath) {
-        //     const importedVariable = importer.importDefault(importName, `${importPath}?raw`)
-
-        //     code = block.replaceArgCode(0, `${importedVariable}`)
-        //   }
-        // }
-
         if (block.type === 'file') {
           const importName = block.args[0].slice(1, -1)
           const importPath = (await importer.resolveAbsolutePath(`${importName}`))!
@@ -83,8 +72,6 @@ export const useCompiler = (options: any) => {
           code = block.replaceArgCode(0, `'${importName}', ${importComponent}`)
         }
       }
-
-      // console.log(importer.imports + code)
 
       return importer.imports + code
     },
