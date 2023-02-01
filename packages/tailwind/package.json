@@ -16,9 +16,9 @@
     "dist"
   ],
   "bin": {
-    "sync-tailwind": "./sync-tailwind",
-    "sync-vuestic": "./sync-vuestic",
-    "watch-tailwind": "./watch-tailwind"
+    "sync-tailwind": "./bin/sync-tailwind",
+    "sync-vuestic": "./bin/sync-vuestic",
+    "watch-tailwind": "./bin/watch-tailwind"
   },
   "scripts": {
     "build": "node ./build.mjs",
