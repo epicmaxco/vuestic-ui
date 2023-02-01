@@ -30,6 +30,15 @@ export default definePageConfig({
     block.code("icons-config.mjs"),
     block.link("configurationGuide.readMore", "/services/icons-config"),
 
+    block.subtitle('configurationGuide.colorsClasses.title'),
+    block.paragraph('configurationGuide.colorsClasses.description'),
+
+    block.headline('configurationGuide.colorsClasses.subtitle'),
+    block.paragraph('configurationGuide.colorsClasses.subDescription'),
+    block.code('colorClasses'),
+    block.link('configurationGuide.readMore', '/services/colors-classes'),
+
+
     block.subtitle("configurationGuide.examples.components.title"),
     block.paragraph("configurationGuide.examples.components.intro"),
     block.paragraph("configurationGuide.examples.components.description"),
