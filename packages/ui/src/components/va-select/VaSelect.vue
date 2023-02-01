@@ -125,6 +125,7 @@ import {
   useFocusDeep,
   useTranslation,
   useBem,
+  useThrottleProps,
 } from '../../composables'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
@@ -182,6 +183,7 @@ export default defineComponent({
     ...useFormProps,
     ...useMaxVisibleOptionsProps,
     ...useToggleIconProps,
+    ...useThrottleProps,
 
     modelValue: {
       type: [String, Number, Array, Object] as PropType<SelectOption | SelectOption[]>,
@@ -564,7 +566,7 @@ export default defineComponent({
     }))
 
     const optionsListPropsComputed = computed(() => ({
-      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'disabledBy', 'color', 'virtualScroller', 'highlightSearch', 'minSearchChars', 'autoSelectFirstOption']),
+      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'disabledBy', 'color', 'virtualScroller', 'highlightSearch', 'minSearchChars', 'autoSelectFirstOption', 'delay']),
       search: searchInput.value || autocompleteValue.value,
       tabindex: tabIndexComputed.value,
       selectedValue: valueComputed.value,

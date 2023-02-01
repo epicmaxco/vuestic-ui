@@ -80,6 +80,7 @@ import {
   useObjectRefs,
   useSlotPassed,
   useSelectableList, useSelectableListProps,
+  useThrottleValue, useThrottleProps,
 } from '../../../../composables'
 
 import { scrollToElement } from '../../../../utils/scroll-to-element'
@@ -102,6 +103,7 @@ export default defineComponent({
     ...useColorProps,
     ...useComponentPresetProp,
     ...useSelectableListProps,
+    ...useThrottleProps,
     noOptionsText: { type: String, default: 'Items not found' },
     getSelectedState: { type: Function as PropType<(option: SelectOption) => boolean>, required: true },
     multiple: { type: Boolean, default: false },
@@ -165,6 +167,7 @@ export default defineComponent({
 
         return groups
       }, { _noGroup: [] }))
+    const optionGroupsThrottled = useThrottleValue(optionGroups, props)
 
     const isValueExists = (value: SelectOption | null | undefined) => !!value || value === 0
 
@@ -177,7 +180,7 @@ export default defineComponent({
 
     const selectOption = (option: SelectOption) => !getDisabled(option) && emit('select-option', option)
 
-    const groupedOptions = computed(() => Object.values(optionGroups.value).flat())
+    const groupedOptions = computed(() => Object.values(optionGroupsThrottled.value).flat())
     const currentOptions = computed(() =>
       filteredOptions.value.some((el) => getGroupBy(el)) ? groupedOptions.value : filteredOptions.value)
 
@@ -267,7 +270,7 @@ export default defineComponent({
       virtualScrollerRef,
 
       rootHeight,
-      optionGroups,
+      optionGroups: optionGroupsThrottled,
       filteredOptions,
       selectOptionProps,
       isSlotContentPassed,

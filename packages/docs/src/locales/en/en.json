@@ -186,6 +186,7 @@
         "fallbackText": "Shows an alternative text if image failed to load or src doesn't specified.",
         "fallbackIcon": "Shows an icon if image failed to load or src doesn't specified.",
         "fallbackRender": "Allows to use render function to render custom contents if image failed to load or src doesn't specified",
+        "delay": "Sets throttling delay (ms) for the components any data change (useful for huge data).",
         "ratio": "Aspect ratio of the component's wrapper."
       }
     },
