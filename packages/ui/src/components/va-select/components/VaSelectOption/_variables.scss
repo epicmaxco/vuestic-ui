@@ -15,4 +15,13 @@
 
   /* Disabled Option */
   --va-select-option-list-option-disabled-opacity: 0.7;
+
+  /* Highlighted Chars */
+  --va-select-option-list-option-highlighted-color: var(--va-text-inverted);
+  --va-select-option-list-option-highlighted-background-color: rgba(0, 0, 0, 0.38);
+
+  /* Autocomplete */
+  --va-select-content-autocomplete-gap: 0.25rem;
+  --va-select-content-autocomplete-color: var(--va-text-primary);
+  --va-select-content-autocomplete-line-height: calc(var(--va-input-font-size) + 2px);
 }

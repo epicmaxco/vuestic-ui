@@ -12,6 +12,91 @@
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
     <VbCard
+      title="Autocomplete"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        placeholder="Start to write..."
+        :options="defaultSingleSelect.options"
+        autocomplete
+        highlight-search
+      />
+      <p>Value: {{ defaultSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Multiple autocomplete"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultMultiSelect.value"
+        class="mb-6"
+        placeholder="Start to write..."
+        :options="defaultMultiSelect.options"
+        multiple
+        autocomplete
+        highlight-search
+      />
+      <p>Value: {{ defaultMultiSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Autocomplete with content slot"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultMultiSelect.value"
+        class="mb-6"
+        placeholder="Start to write..."
+        :options="defaultMultiSelect.options"
+        multiple
+        autocomplete
+        highlight-search
+      >
+        <template #content="{ value }">
+          <va-chip
+            v-for="chip in value"
+            :key="chip"
+            class="mr-1"
+            size="small"
+          >
+            {{ chip }}
+          </va-chip>
+        </template>
+      </va-select>
+      <p>Value: {{ defaultMultiSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Min chars (2) to trigger autocomplete"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        placeholder="Start to write..."
+        :options="defaultSingleSelect.options"
+        :min-search-chars="2"
+        autocomplete
+        highlight-search
+      />
+      <p>Value: {{ defaultSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Autocomplete with auto select first option"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        placeholder="Start to write..."
+        :options="defaultSingleSelect.options"
+        autocomplete
+        highlight-search
+        auto-select-first-option
+      />
+      <p>Value: {{ defaultSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
       title="Selected options at the top"
       style="width: 400px;"
     >

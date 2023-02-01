@@ -109,6 +109,9 @@ export default defineComponent({
     tabindex: { type: Number, default: 0 },
     hoveredOption: { type: [String, Number, Object] as PropType<SelectOption | null>, default: null },
     virtualScroller: { type: Boolean, default: true },
+    highlightSearch: { type: Boolean, default: false },
+    minSearchChars: { type: Number, default: 0 },
+    autoSelectFirstOption: { type: Boolean, default: false },
   },
 
   setup (props, { emit }) {
@@ -139,7 +142,7 @@ export default defineComponent({
     const { getText, getGroupBy, getTrackBy, getDisabled } = useSelectableList(props)
 
     const filteredOptions = computed(() => {
-      if (!props.search) { return props.options }
+      if (!props.search || props.search.length < props.minSearchChars) { return props.options }
 
       return props.options.filter((option: SelectOption) => {
         const optionText = getText(option).toString().toUpperCase()
@@ -183,7 +186,7 @@ export default defineComponent({
     }))
 
     const selectOptionProps = computed(() => ({
-      ...pick(props, ['getSelectedState', 'color']),
+      ...pick(props, ['getSelectedState', 'color', 'search', 'highlightSearch', 'minSearchChars']),
       getText,
       getTrackBy,
     }))
@@ -251,8 +254,13 @@ export default defineComponent({
     }
 
     watch(() => props.hoveredOption, (newOption: SelectOption | null) => {
-      (!lastInteractionSource.value || lastInteractionSource.value === 'keyboard') && (isValueExists(newOption)) && scrollToOption(newOption!)
+      (!lastInteractionSource.value || lastInteractionSource.value === 'keyboard') &&
+      (isValueExists(newOption)) && scrollToOption(newOption!)
     })
+
+    props.autoSelectFirstOption && watch(filteredOptions, () => {
+      focusFirstOption()
+    }, { immediate: true })
 
     return {
       root,

@@ -15,6 +15,7 @@
         v-bind="inputWrapperPropsComputed"
         @focus="onInputFocus"
         @blur="onInputBlur"
+        @click="focusAutocompleteInput"
       >
         <template
           v-for="(_, name) in $slots"
@@ -41,6 +42,7 @@
           <va-icon
             :color="toggleIconColor"
             :name="toggleIcon"
+            @click.stop="toggleDropdown"
           />
         </template>
 
@@ -48,6 +50,11 @@
           <va-select-content
             v-bind="selectContentPropsComputed"
             @toggle-hidden="toggleHiddenOptionsState"
+            @autocomplete-input="handleAutocompleteInput"
+            @focus-prev="focusPreviousOption"
+            @focus-next="focusNextOption"
+            @select-option="selectHoveredOption"
+            @delete-last-selected="deleteLastSelected"
           >
             <template
               v-for="(_, name) in $slots"
@@ -205,6 +212,10 @@ export default defineComponent({
     tabindex: { type: Number, default: 0 },
     virtualScroller: { type: Boolean, default: false },
     selectedTopShown: { type: Boolean, default: false },
+    autocomplete: { type: Boolean, default: false },
+    highlightSearch: { type: Boolean, default: false },
+    minSearchChars: { type: Number, default: 0 },
+    autoSelectFirstOption: { type: Boolean, default: false },
 
     // Input style
     outline: { type: Boolean, default: false },
@@ -553,8 +564,8 @@ export default defineComponent({
     }))
 
     const optionsListPropsComputed = computed(() => ({
-      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'disabledBy', 'color', 'virtualScroller']),
-      search: searchInput.value,
+      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'disabledBy', 'color', 'virtualScroller', 'highlightSearch', 'minSearchChars', 'autoSelectFirstOption']),
+      search: searchInput.value || autocompleteValue.value,
       tabindex: tabIndexComputed.value,
       selectedValue: valueComputed.value,
       options: filteredOptions.value,
@@ -579,13 +590,23 @@ export default defineComponent({
 
     // select content
     const selectContentPropsComputed = computed(() => ({
-      ...pick(props, ['placeholder']),
+      ...pick(props, ['placeholder', 'autocomplete', 'multiple', 'disabled']),
       tabindex: tabIndexComputed.value,
       value: visibleSelectedOptions.value,
       valueString: valueComputedString.value,
       hiddenSelectedOptionsAmount: hiddenSelectedOptionsAmount.value,
       isAllOptionsShown: isAllOptionsShown.value,
+      dropdownContentShown: showDropdownContent.value,
+      focused: isInputFocused.value,
+      getText,
     }))
+
+    // autocomplete
+    const autocompleteValue = ref('')
+    const handleAutocompleteInput = (v: string) => {
+      autocompleteValue.value = v
+      showDropdownContent.value = true
+    }
 
     // public methods
     const focus = () => {
@@ -613,6 +634,26 @@ export default defineComponent({
       resetValidation()
     })
 
+    const focusAutocompleteInput = (e: Event) => {
+      if (props.autocomplete) {
+        e.stopImmediatePropagation()
+
+        onFocus()
+      }
+    }
+
+    const toggleDropdown = () => {
+      if (props.disabled || props.readonly) { return }
+
+      showDropdownContentComputed.value = !showDropdownContentComputed.value
+    }
+
+    const deleteLastSelected = () => {
+      if (!Array.isArray(valueComputed.value)) { return }
+
+      valueComputed.value = valueComputed.value.slice(0, -1)
+    }
+
     const {
       validate,
       computedError,
@@ -629,6 +670,9 @@ export default defineComponent({
       reset,
       focus,
       blur,
+      toggleDropdown,
+      deleteLastSelected,
+      focusAutocompleteInput,
 
       tp,
       t,
@@ -661,6 +705,7 @@ export default defineComponent({
       visibleSelectedOptions,
       optionsListPropsComputed,
       toggleHiddenOptionsState,
+      handleAutocompleteInput,
 
       inputWrapperPropsComputed,
       inputWrapperClassComputed,

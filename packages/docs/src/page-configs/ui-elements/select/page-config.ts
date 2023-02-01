@@ -80,6 +80,11 @@ const config: ApiDocsBlock[] = [
     'select.examples.selectedTopShown.text',
     'SelectedTopShown',
   ),
+  ...block.exampleBlock(
+    'select.examples.autocomplete.title',
+    'select.examples.autocomplete.text',
+    'Autocomplete',
+  ),
 
   block.headline('select.examples.keyboardNavigation.title'),
   block.paragraph('select.examples.keyboardNavigation.moves'),
