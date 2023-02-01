@@ -62,7 +62,7 @@ export default defineComponent({
 
     const isAllChildLinks = ref(true)
     const getChildren = () => {
-      const childNodes = (slots as any)?.default()?.reduce(childNodeFilter, []) || []
+      const childNodes = (slots as any)?.default?.reduce(childNodeFilter, []) || []
       const childNodesLength = childNodes.length
       const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
       const isChildLink = (child: VNode) => {

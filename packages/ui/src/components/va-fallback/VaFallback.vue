@@ -9,19 +9,15 @@ export default defineComponent({
   props: {
     fallbackSrc: {
       type: String,
-      default: '',
     },
     fallbackText: {
       type: String,
-      default: '',
     },
     fallbackIcon: {
       type: String,
-      default: '',
     },
     fallbackRender: {
       type: Function as PropType<() => any | undefined>,
-      default: undefined,
     },
   },
 

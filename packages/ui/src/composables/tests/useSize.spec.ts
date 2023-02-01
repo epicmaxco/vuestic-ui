@@ -1,7 +1,7 @@
+import { mountWithGlobalConfig } from './../../utils/unit-test-utils'
 import { useSize, useSizeProps } from '../useSize'
 import { describe, it, expect } from 'vitest'
 import { createTestComposable } from './createTestComposable'
-import { mountWithGlobalConfig } from './mountWithGlobalConfig'
 
 const TestComponent = {
   template: '<p></p>',

@@ -24,6 +24,15 @@
       </va-alert>
     </VbCard>
 
+    <VbCard title="Grid mode">
+      <va-data-table
+        :items="items"
+        :columns="columns"
+        selectable
+        grid
+      />
+    </VbCard>
+
     <VbCard title="With virtual scroll">
       <va-data-table
         :items="itemsHuge"

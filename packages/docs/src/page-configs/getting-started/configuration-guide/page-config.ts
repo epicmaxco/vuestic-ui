@@ -6,6 +6,7 @@ import {
   iconsSetup,
   iconsConfig,
   componentsConfig,
+  colorsClasses,
 } from './code-examples'
 
 const block = new PageGenerationHelper(__dirname)
@@ -28,6 +29,14 @@ const config: ApiDocsBlock[] = [
   block.paragraph('configurationGuide.icons.subDescription'),
   block.code(iconsConfig),
   block.link('configurationGuide.readMore', '/services/icons-config'),
+
+  block.subtitle('configurationGuide.colorsClasses.title'),
+  block.paragraph('configurationGuide.colorsClasses.description'),
+
+  block.headline('configurationGuide.colorsClasses.subtitle'),
+  block.paragraph('configurationGuide.colorsClasses.subDescription'),
+  block.code(colorsClasses),
+  block.link('configurationGuide.readMore', '/services/colors-classes'),
 
   block.subtitle('configurationGuide.components.title'),
   block.paragraph('configurationGuide.components.intro'),
