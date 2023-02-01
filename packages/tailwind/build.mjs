@@ -1,5 +1,6 @@
 import { existsSync } from 'fs'
-import { exec } from 'child_process'
+import fse from 'fs-extra'
+import { execSync } from 'child_process'
 
 if (!existsSync('../ui/dist')) {
   console.log('Build Vuestic UI first to build Tailwind CSS package!')
@@ -7,8 +8,10 @@ if (!existsSync('../ui/dist')) {
 }
 
 console.log('Building Tailwind CSS integration package...')
-exec('yarn run build:vite', (error) => {
+execSync('yarn run build:vite', (error) => {
   if (error) {
     console.error(`Build error: ${error}`)
   }
 })
+
+fse.copySync('bin', 'dist')

@@ -6,7 +6,7 @@ const fs = require('fs')
 /**
  * watches tailwind config file and syncing it with vuestic config file on change
  */
-const watchTailwindConfigFile = () => {
+export const watchTailwindConfigFile = () => {
   fs.watch(tailwindConfigFilename, async () => { await integrateTailwindConfig() })
 }
 

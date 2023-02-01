@@ -15,6 +15,11 @@
   "files": [
     "dist"
   ],
+  "bin": {
+    "sync-tailwind": "./sync-tailwind",
+    "sync-vuestic": "./sync-vuestic",
+    "watch-tailwind": "./watch-tailwind"
+  },
   "scripts": {
     "build": "node ./build.mjs",
     "build:vite": "vite build"
@@ -27,6 +32,7 @@
     "registry": "https://registry.npmjs.org"
   },
   "devDependencies": {
-    "vite": "^2.9.8"
+    "vite": "^2.9.8",
+    "fs-extra": "^11.1.0"
   }
 }

@@ -36,7 +36,7 @@ const updateTailwindConfig = (config?: string) => {
 /**
  * @description forming tailwind config file from vuestic default presets
  */
-const integrateVuesticConfig = async () => {
+export const integrateVuesticConfig = async () => {
     if (!tailwindConfigPath) { console.log('Tailwind CSS config file not found. Proceeding with default config.') }
     const tailwindConfig = tailwindConfigPath ? (await (() => import(tailwindConfigPath))()).default : defaultTailwindConfig
 
