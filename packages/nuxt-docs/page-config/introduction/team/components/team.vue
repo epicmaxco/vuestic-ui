@@ -7,7 +7,7 @@
         :key="item.index"
       >
         <va-avatar :size="146" class="docs-team__avatar">
-          <img :src="item.image" :alt="item.name" />
+          <nuxt-img :src="item.image" :alt="item.name" />
         </va-avatar>
         <strong class="mt-3 mb-1">{{ item.name }}</strong>
         <div>{{ item.jobTitle }}</div>

@@ -22,6 +22,10 @@ export default defineNuxtConfig({
     },
   },
 
+  image: {
+    formats: ['webp', 'avif'],
+  },
+
   modules: [
     "./modules/banner",
     "./modules/vuestic",
@@ -30,6 +34,7 @@ export default defineNuxtConfig({
     // TODO: remove after i18n is released https://github.com/nuxt-modules/i18n/pull/1712
     '@nuxtjs/i18n-edge',
     '@nuxtjs/tailwindcss',
+    '@nuxt/image-edge',
   ],
 
   vuestic: {

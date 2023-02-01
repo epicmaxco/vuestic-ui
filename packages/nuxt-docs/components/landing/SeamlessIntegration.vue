@@ -35,7 +35,7 @@
                 />
               </div>
             </div>
-            <img :src="plusImage" alt="">
+            <nuxt-img :src="plusImage" alt=""/>
           </div>
           <!-- /First block -->
 

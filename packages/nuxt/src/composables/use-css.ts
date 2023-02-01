@@ -4,7 +4,7 @@ import type { VuesticOptions } from "../types";
 
 const VUESTIC_DEFAULT_FONTS = [
   { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;1,700&display=swap' },
-  { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' }
+  { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons&display=swap' }
 ]
 
 const registerDefaultFonts = (nuxt: Nuxt) => {

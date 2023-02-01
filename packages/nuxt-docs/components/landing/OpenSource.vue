@@ -4,7 +4,7 @@
       <div class="opensource__inner">
         <div class="opensource__info">
           <div class="opensource__icon">
-            <img src="../../assets/images/landing/icon-open-source.svg" alt="">
+            <nuxt-img src="../../assets/images/landing/icon-open-source.svg" alt=""/>
           </div>
           <h2 class="opensource__title">{{$t('landing.opensource.title')}}</h2>
           <div class="opensource__text">
@@ -18,7 +18,7 @@
             {{$t('landing.opensource.text[5]')}}</div>
         </div>
         <div class="opensource__actions">
-          <img src="../../assets/images/landing/image-open-source.png" alt="open-source">
+          <nuxt-img height="437px" width="310px" format="webp" :src="imageOpenSource" alt="open-source"/>
         </div>
       </div>
     </div>
@@ -28,6 +28,7 @@
 <script lang="ts">
 import { useElementTextColor } from 'vuestic-ui'
 import { defineComponent } from 'vue'
+import imageOpenSource from '@/assets/images/landing/image-open-source.png'
 
 export default defineComponent({
   name: 'LandingOpenSource',
@@ -36,6 +37,7 @@ export default defineComponent({
     const { locale } = useI18n()
 
     return {
+      imageOpenSource,
       locale,
       textColor: useElementTextColor('background-primary'),
     }

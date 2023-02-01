@@ -25,7 +25,7 @@
           <!-- items -->
 <!--          <div class="item">-->
 <!--            <div class="item__frame">-->
-<!--              <img src="@/assets/images/landing/features/nuxt-support.svg" alt="nuxt-support">-->
+<!--              <nuxt-img height="48px" width="48px" src="@/assets/images/landing/features/nuxt-support.svg" alt="nuxt-support" />-->
 <!--            </div>-->
 <!--            <h2 class="item__title">{{$t('landing.preview.features.nuxt.title')}}</h2>-->
 <!--            <router-link class="item__link" :to="`/${$root.$i18n.locale}/getting-started/nuxt-integration`">-->
@@ -35,7 +35,7 @@
 
           <div class="item">
             <div class="item__frame">
-              <img :src="responsiveComponentsImage" alt="responsive-components">
+              <nuxt-img height="48px" width="48px" :src="responsiveComponentsImage" alt="responsive-components"/>
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.components.title')}}</h2>
             <router-link class="item__link text--primary" :to="`/${locale}/ui-elements/alert`">
@@ -45,7 +45,7 @@
 
           <div class="item">
             <div class="item__frame">
-              <img :src="keyboardNavigationImage" alt="accessibility">
+              <nuxt-img height="48px" width="48px" :src="keyboardNavigationImage" alt="accessibility"/>
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.accessibility.title')}}</h2>
             <router-link class="item__link text--primary" :to="`/${locale}/introduction/accessibility-guide`">
@@ -55,7 +55,7 @@
 
           <div class="item">
             <div class="item__frame">
-              <img :src="modernBrowsersImage" alt="modern-browsers">
+              <nuxt-img height="48px" width="48px" :src="modernBrowsersImage" alt="modern-browsers"/>
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.browsers.title')}}</h2>
             <router-link class="item__link text--primary" :to="`/${locale}/introduction/browser-support`">

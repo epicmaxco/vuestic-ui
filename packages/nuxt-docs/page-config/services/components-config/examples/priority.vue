@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center">
     <div class="flex flex-col lg6">
-      <img :src="priority" alt="" class="fill-width" />
+      <nuxt-img :src="priority" alt="" class="fill-width" />
     </div>
   </div>
 </template>

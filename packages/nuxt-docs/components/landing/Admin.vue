@@ -26,35 +26,35 @@
         </div>
         <div class="admin__content">
           <div class="admin__content__item admin__content__item--first">
-            <img :src="adminImage" alt="vuestic-admin">
+            <nuxt-img height="555px" width="875px" :src="adminImage" format="webp" alt="vuestic-admin"/>
           </div>
           <div class="admin__content__item admin__content__item--second">
             <!-- items -->
             <div class="items">
               <div class="item item--first">
                 <div class="item__frame">
-                  <img :src="openSourceImage" alt="open-source">
+                  <nuxt-img height="32px" width="32px" :src="openSourceImage" alt="open-source"/>
                 </div>
                 <h2 class="item__title">{{ $t('landing.admin.features.opensource') }}</h2>
               </div>
 
               <div class="item">
                 <div class="item__frame">
-                  <img :src="themesImage" alt="themes">
+                  <nuxt-img height="32px" width="32px" :src="themesImage" alt="themes"/>
                 </div>
                 <h2 class="item__title">{{ $t('landing.admin.features.themes') }}</h2>
               </div>
 
               <div class="item">
                 <div class="item__frame">
-                  <img :src="responsiveImage" alt="responsive">
+                  <nuxt-img height="32px" width="32px" :src="responsiveImage" alt="responsive"/>
                 </div>
                 <h2 class="item__title">{{ $t('landing.admin.features.responsive') }}</h2>
               </div>
 
               <div class="item">
                 <div class="item__frame">
-                  <img :src="i18nImage" alt="i18n">
+                  <nuxt-img height="32px" width="32px" :src="i18nImage" alt="i18n"/>
                 </div>
                 <h2 class="item__title">{{ $t('landing.admin.features.i18n') }}</h2>
               </div>
