@@ -35,7 +35,7 @@
                 />
               </div>
             </div>
-            <nuxt-img :src="plusImage" alt=""/>
+            <nuxt-img src="/landing/plus.svg" alt=""/>
           </div>
           <!-- /First block -->
 
@@ -75,8 +75,6 @@ import SeamlessIntegrationAnotherButton from './SeamlessIntegration/SeamlessInte
 import SeamlessIntegrationAnotherSelect from './SeamlessIntegration/SeamlessIntegrationAnotherSelect.vue'
 import SeamlessIntegrationAnotherRangeSlider from './SeamlessIntegration/SeamlessIntegrationAnotherRangeSlider.vue'
 import SeamlessIntegrationAnotherCheckbox from './SeamlessIntegration/SeamlessIntegrationAnotherCheckbox.vue'
-
-import plusImage from '@/assets/images/landing/plus.svg'
 
 const value = ref(true)
 const value2 = ref(45)

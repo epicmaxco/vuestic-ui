@@ -17,8 +17,8 @@
             <layout-header-vuestic-logo height="30" width="150" aria-hidden="true" />
           </a>
           <div class="menu" @click="isHidden = !isHidden" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
-            <nuxt-img height="24px" width="24px" v-if="!isHidden" :src="require('@/assets/images/landing/hamburger.svg')" alt="menu"/>
-            <nuxt-img height="24px" width="24px" v-else :src="require('@/assets/images/landing/cross.svg')" alt="menu"/>
+            <nuxt-img height="24px" width="24px" v-if="!isHidden" src="/landing/hamburger.svg" alt="menu"/>
+            <nuxt-img height="24px" width="24px" v-else src="/landing/cross.svg" alt="menu"/>
           </div>
         </div>
         <nav class="header__links">

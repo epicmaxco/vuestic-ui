@@ -4,7 +4,7 @@
       <p class="mb-2">
         {{ $t("fileUpload.examples.dragAndDrop.exampleText") }}
       </p>
-      <nuxt-img
+      <img
         src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
         width="100"
         height="100"

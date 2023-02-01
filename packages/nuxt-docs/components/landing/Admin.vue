@@ -26,35 +26,35 @@
         </div>
         <div class="admin__content">
           <div class="admin__content__item admin__content__item--first">
-            <nuxt-img height="555px" width="875px" :src="adminImage" format="webp" alt="vuestic-admin"/>
+            <nuxt-img height="555px" width="875px" src="/landing/admin/admin.png" format="webp" alt="vuestic-admin"/>
           </div>
           <div class="admin__content__item admin__content__item--second">
             <!-- items -->
             <div class="items">
               <div class="item item--first">
                 <div class="item__frame">
-                  <nuxt-img height="32px" width="32px" :src="openSourceImage" alt="open-source"/>
+                  <nuxt-img height="32px" width="32px" src="/landing/admin/open-source.svg" alt="open-source"/>
                 </div>
                 <h2 class="item__title">{{ $t('landing.admin.features.opensource') }}</h2>
               </div>
 
               <div class="item">
                 <div class="item__frame">
-                  <nuxt-img height="32px" width="32px" :src="themesImage" alt="themes"/>
+                  <nuxt-img height="32px" width="32px" src="/landing/admin/themes.svg" alt="themes"/>
                 </div>
                 <h2 class="item__title">{{ $t('landing.admin.features.themes') }}</h2>
               </div>
 
               <div class="item">
                 <div class="item__frame">
-                  <nuxt-img height="32px" width="32px" :src="responsiveImage" alt="responsive"/>
+                  <nuxt-img height="32px" width="32px" src="/landing/admin/responsive.svg" alt="responsive"/>
                 </div>
                 <h2 class="item__title">{{ $t('landing.admin.features.responsive') }}</h2>
               </div>
 
               <div class="item">
                 <div class="item__frame">
-                  <nuxt-img height="32px" width="32px" :src="i18nImage" alt="i18n"/>
+                  <nuxt-img height="32px" width="32px" src="/landing/admin/i18n.svg" alt="i18n"/>
                 </div>
                 <h2 class="item__title">{{ $t('landing.admin.features.i18n') }}</h2>
               </div>
@@ -69,11 +69,6 @@
 
 <script lang="ts" setup>
 import LandingStarsButton from './StarsButton.vue'
-import i18nImage from '@/assets/images/landing/admin/i18n.svg'
-import responsiveImage from '@/assets/images/landing/admin/responsive.svg'
-import themesImage from '@/assets/images/landing/admin/themes.svg'
-import openSourceImage from '@/assets/images/landing/admin/open-source.svg'
-import adminImage from '@/assets/images/landing/admin/admin.png'
 </script>
 
 <style lang="scss" scoped>

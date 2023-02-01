@@ -23,7 +23,7 @@ export default defineNuxtConfig({
   },
 
   image: {
-    formats: ['webp', 'avif'],
+    dir: 'assets/images',
   },
 
   modules: [

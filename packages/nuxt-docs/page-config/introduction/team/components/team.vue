@@ -4,10 +4,9 @@
       <div
         class="docs-team__avatar-wrapper"
         v-for="item in items"
-        :key="item.index"
       >
         <va-avatar :size="146" class="docs-team__avatar">
-          <nuxt-img :src="item.image" :alt="item.name" />
+          <img :src="item.image" :alt="item.name" height="140px" width="140px" />
         </va-avatar>
         <strong class="mt-3 mb-1">{{ item.name }}</strong>
         <div>{{ item.jobTitle }}</div>

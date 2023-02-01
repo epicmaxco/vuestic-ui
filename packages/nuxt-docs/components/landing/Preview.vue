@@ -25,7 +25,7 @@
           <!-- items -->
 <!--          <div class="item">-->
 <!--            <div class="item__frame">-->
-<!--              <nuxt-img height="48px" width="48px" src="@/assets/images/landing/features/nuxt-support.svg" alt="nuxt-support" />-->
+<!--              <nuxt-img height="48px" width="48px" src="/landing/features/nuxt-support.svg" alt="nuxt-support" />-->
 <!--            </div>-->
 <!--            <h2 class="item__title">{{$t('landing.preview.features.nuxt.title')}}</h2>-->
 <!--            <router-link class="item__link" :to="`/${$root.$i18n.locale}/getting-started/nuxt-integration`">-->
@@ -35,7 +35,7 @@
 
           <div class="item">
             <div class="item__frame">
-              <nuxt-img height="48px" width="48px" :src="responsiveComponentsImage" alt="responsive-components"/>
+              <nuxt-img height="48px" width="48px" src="/landing/features/components.svg" alt="responsive-components"/>
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.components.title')}}</h2>
             <router-link class="item__link text--primary" :to="`/${locale}/ui-elements/alert`">
@@ -45,7 +45,7 @@
 
           <div class="item">
             <div class="item__frame">
-              <nuxt-img height="48px" width="48px" :src="keyboardNavigationImage" alt="accessibility"/>
+              <nuxt-img height="48px" width="48px" src="/landing/features/keyboard-navigation.svg" alt="accessibility"/>
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.accessibility.title')}}</h2>
             <router-link class="item__link text--primary" :to="`/${locale}/introduction/accessibility-guide`">
@@ -55,7 +55,7 @@
 
           <div class="item">
             <div class="item__frame">
-              <nuxt-img height="48px" width="48px" :src="modernBrowsersImage" alt="modern-browsers"/>
+              <nuxt-img height="48px" width="48px" src="/landing/features/modern-browsers.svg" alt="modern-browsers"/>
             </div>
             <h2 class="item__title">{{$t('landing.preview.features.browsers.title')}}</h2>
             <router-link class="item__link text--primary" :to="`/${locale}/introduction/browser-support`">
@@ -71,9 +71,6 @@
 
 <script setup lang="ts">
 import { useElementTextColor } from 'vuestic-ui'
-import modernBrowsersImage from '@/assets/images/landing/features/modern-browsers.svg'
-import keyboardNavigationImage from '@/assets/images/landing/features/keyboard-navigation.svg'
-import responsiveComponentsImage from '@/assets/images/landing/features/components.svg'
 
 const { locale } = useI18n()
 const textColor = useElementTextColor('background-primary')

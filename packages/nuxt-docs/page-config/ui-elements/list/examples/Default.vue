@@ -9,7 +9,7 @@
     >
       <va-list-item-section avatar>
         <va-avatar>
-          <nuxt-img :src="contact.img" />
+          <img :src="contact.img" />
         </va-avatar>
       </va-list-item-section>
 
