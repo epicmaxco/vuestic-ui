@@ -1,5 +1,6 @@
 export const useTheme = () => {
   const colorMode = useColorMode()
+  const cookie = useCookie('vuestic-theme')
 
   const { applyPreset } = useColors()
 
@@ -7,9 +8,14 @@ export const useTheme = () => {
     if (theme) {
       colorMode.preference = theme
       applyPreset(theme)
+      cookie.value = theme
       return
     }
 
+    if (cookie.value) {
+      applyPreset(colorMode.value)
+      return
+    }
     if (!colorMode.unknown) {
       applyPreset(colorMode.value)
     }

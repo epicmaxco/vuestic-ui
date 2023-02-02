@@ -17,4 +17,8 @@ export const useRuntime = () => {
     name: 'defineManualApi',
     from: '~/modules/page-config/runtime/index.ts'
   })
+  addImports({
+    name: 'usePageConfig',
+    from: '~/modules/page-config/runtime/usePageConfig.ts'
+  })
 }

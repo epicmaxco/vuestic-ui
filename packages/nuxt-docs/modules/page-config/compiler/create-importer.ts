@@ -36,6 +36,14 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
     return path.replace(/-|\.|\//g, '_')
   }
 
+  const fixFilePath = (path: string) => {
+    if (/(css|scss)\?raw$/.test(path)) {
+      return path.replace(/\?raw$/, '?inline')
+    }
+
+    return path
+  }
+
   const resolveWithoutExtension = (path: string) => {
     if (/\w*\.\w*/.test(path)) { return path }
 
@@ -63,6 +71,7 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
   return {
     importDefault(name: string, path: string) {
       name = fixFileNameImport(name)
+      path = fixFilePath(path)
 
       if (!pathImports[path]) {
         pathImports[path] = []
@@ -82,6 +91,7 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
     },
     importNamed(name: string, path: string) {
       name = fixFileNameImport(name)
+      path = fixFilePath(path)
 
       if (!pathImports[path]) {
         pathImports[path] = []

@@ -34,12 +34,6 @@ const { scrollToElement } = useDocsScroll()
 afterEach(scrollToElement)
 onMounted(scrollToElement)
 
-const { setTheme } = useTheme()
-
-onMounted(() => {
-  setTheme()
-})
-
 useHead({
   meta: {
     link: [

@@ -1,8 +1,7 @@
 import { addVitePlugin, extendViteConfig } from '@nuxt/kit';
 import { createFilter } from '@rollup/pluginutils'
 import { createImporter } from '../compiler/create-importer'
-import { parseCode } from '../compiler/parse'
-import { extname, resolve } from 'path'
+import { resolve } from 'path'
 import { transform } from '../compiler/transform'
 
 export const useCompiler = (options: any) => {
@@ -22,6 +21,7 @@ export const useCompiler = (options: any) => {
     async transform(code, id) {
       if (!filter(id)) { return }
 
+      console.log('Transform:', id)
       const importer = createImporter(this, id)
 
       const runtimePath = resolve(__dirname, '../runtime/index.ts')
@@ -30,48 +30,6 @@ export const useCompiler = (options: any) => {
       importer.importNamed('defineManualApi', (await this.resolve(runtimePath))!.id)
 
       code = await transform(code, importer)
-
-      // OLD
-
-      const blocks = parseCode(code)
-      // TODO: Handle unresolved imports
-
-      for (const block of blocks) {
-        if (block.type === 'example') {
-          const importName = block.args[0].slice(1, -1)
-          const importPath = (await importer.resolveRelativePath(`./examples/${importName}`))!
-          const importComponent = importer.importDefault(importName, importPath)
-          const importSource = importer.importDefault(importName, `${importPath}?raw`)
-          const path = /page-config\/.*$/.exec(importPath)?.[0]
-
-          code = block.replaceArgCode(0, `${importComponent}, ${importSource}, "${path}"`)
-        }
-
-        if (block.type === 'component') {
-          const importName = block.args[0].slice(1, -1)
-          const importPath = (await importer.resolveRelativePath(`./components/${importName}`))!
-          const importComponent = importer.importDefault(importName, importPath)
-
-          code = block.replaceArgCode(0, importComponent)
-        }
-
-        if (block.type === 'file') {
-          const importName = block.args[0].slice(1, -1)
-          const importPath = (await importer.resolveAbsolutePath(`${importName}`))!
-          const importComponent = importer.importDefault('file', importPath)
-          const importExt = block.args[1] || `'${extname(importPath).slice(1)}'`
-
-          code = block.replaceArgCode(0, `${importComponent}, ${importExt}`)
-        }
-
-        if (block.type === 'api') {
-          const importName = block.args[0].slice(1, -1)
-          const importPath = (await importer.resolveAbsolutePath('vuestic-ui'))!
-          const importComponent = importer.importNamed(importName, importPath)
-
-          code = block.replaceArgCode(0, `'${importName}', ${importComponent}`)
-        }
-      }
 
       return importer.imports + code
     },

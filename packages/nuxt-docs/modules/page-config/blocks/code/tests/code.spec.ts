@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
-import transform from '../../blocks/code/transform'
-import { createImporter, Importer } from '../../compiler/create-importer'
-import { parseCode } from '../../compiler/parse'
+import transform from '../transform'
+import { createImporter, Importer } from '../../../compiler/create-importer'
+import { parseCode } from '../../../compiler/parse'
 
 describe('blocks/code/transform', () => {
   const caller = import.meta.url.replace('file://', '')
@@ -12,11 +12,6 @@ describe('blocks/code/transform', () => {
   test('resolve-string-file', async () => {
     const template = `
 export default definePageConfig({
-  meta: {
-    title: 'any',
-    category: 'any',
-  },
-
   blocks: [
     block.code('test'),
   ]
@@ -28,11 +23,6 @@ export default definePageConfig({
 
   expect(newCode).toBe(`
 export default definePageConfig({
-  meta: {
-    title: 'any',
-    category: 'any',
-  },
-
   blocks: [
     block.code(test),
   ]
@@ -43,11 +33,6 @@ export default definePageConfig({
   test('resolve-object-file', async () => {
     const template = `
 export default definePageConfig({
-  meta: {
-    title: 'any',
-    category: 'any',
-  },
-
   blocks: [
     block.code({
       yarn: 'test',
@@ -62,11 +47,6 @@ export default definePageConfig({
 
   expect(newCode).toBe(`
 export default definePageConfig({
-  meta: {
-    title: 'any',
-    category: 'any',
-  },
-
   blocks: [
     block.code({
     yarn: test,
@@ -80,11 +60,6 @@ export default definePageConfig({
   test('resolve-object-file (same file)', async () => {
     const template = `
 export default definePageConfig({
-  meta: {
-    title: 'any',
-    category: 'any',
-  },
-
   blocks: [
     block.code({
       yarn: 'test',
@@ -99,11 +74,6 @@ export default definePageConfig({
 
   expect(newCode).toBe(`
 export default definePageConfig({
-  meta: {
-    title: 'any',
-    category: 'any',
-  },
-
   blocks: [
     block.code({
     yarn: test,
@@ -117,11 +87,6 @@ export default definePageConfig({
   test('resolve-variable', async () => {
     const template = `
 export default definePageConfig({
-  meta: {
-    title: 'any',
-    category: 'any',
-  },
-
   blocks: [
     block.code(variable),
   ]

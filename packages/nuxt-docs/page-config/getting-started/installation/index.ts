@@ -43,7 +43,7 @@ export default definePageConfig({
     block.paragraph("installation.fonts.htmlExampleTitle"),
     block.code("font-installation.html", "html"),
     block.paragraph("installation.fonts.cssExampleTitle"),
-    block.code("font-installation.scss", "css"),
+    block.code("font-installation.css", "css"),
 
     block.headline("installation.quickStart.title"),
     block.paragraph("installation.quickStart.description"),

@@ -26,7 +26,7 @@ const pageConfigName = computed(() => {
   return path.slice(1)
 })
 
-const config = usePageConfig(pageConfigName);
+const config = await usePageConfig(pageConfigName);
 const tabTitlePrefix = 'Vuestic UI'
 
 watchEffect(() => {
