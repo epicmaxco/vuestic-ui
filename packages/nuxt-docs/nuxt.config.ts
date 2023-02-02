@@ -6,18 +6,77 @@ export default defineNuxtConfig({
   app: {
     head: {
       link: [
+        { rel: 'manifest', href: '/manifest.json' },
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+        { rel: 'stylesheet', href: "https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css" },
+        { rel: 'stylesheet', href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" },
+        { rel: 'stylesheet', href: "https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap" },
+        { rel: 'stylesheet', href: "https://fonts.googleapis.com/icon?family=Material+Icons" },
+        { rel: 'stylesheet', href: "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" },
+        { rel: 'stylesheet', href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" },
+      ],
+
+      script: [
+        { crossorigin: 'anonymous', src: 'https://kit.fontawesome.com/5460c87b2a.js' },
+        { type: 'module', src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js' },
       ],
 
       meta: [
         { charset: 'utf-8' },
+        { name: 'theme-color', content: '#154EC1' },
+        { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1.0, minimum-scale=1.0' },
         {
           hid: 'description',
           name: 'description',
           content: 'Vuestic UI is a modern Vue.js UI framework designed to be simple and customizable for applications of any type and scale'
-        }
+        },
+        {
+          vmid: 'keywords',
+          name: 'keywords',
+          content: 'vue, vue components, vuestic, vuestic-ui, component framework'
+        },
+        {
+          vmid: 'og:description',
+          property: "og:description",
+          content: 'Vuestic UI is a modern Vue.js UI framework designed to be simple and customizable for applications of any type and scale'
+        },
+        {
+          vmid: 'og:image',
+          property: "og:image",
+          content: 'https://raw.githubusercontent.com/epicmaxco/vuestic-ui/develop/.github/assets/vuestic-ui-social.png'
+        },
+        {
+          vmid: 'og:site_name',
+          property: "og:site_name",
+          content: 'Vuestic UI'
+        },
+        {
+          vmid: 'og:title',
+          property: "og:title",
+          content: 'Vuestic UI — Vue.js 3.0 UI Framework'
+        },
+        {
+          vmid: 'og:type',
+          property: "og:type",
+          content: 'website'
+        },
+        {
+          vmid: 'twitter:card',
+          property: 'twitter:card',
+          content: 'https://raw.githubusercontent.com/epicmaxco/vuestic-ui/develop/.github/assets/vuestic-ui-social.png'
+        },
+        {
+          vmid: 'twitter:domain',
+          property: 'twitter:domain',
+          content: 'https://vuestic.dev/'
+        },
+        {
+          vmid: 'twitter:site',
+          property: 'twitter:site',
+          content: 'Vuestic UI'
+        },
       ]
     },
   },
@@ -27,9 +86,9 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    "./modules/banner",
-    "./modules/vuestic",
-    "./modules/page-config",
+    './modules/banner',
+    './modules/vuestic',
+    './modules/page-config',
     // "./modules/i18n",
     // TODO: remove after i18n is released https://github.com/nuxt-modules/i18n/pull/1712
     '@nuxtjs/i18n-edge',
