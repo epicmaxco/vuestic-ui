@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { resolve as resolver } from 'path'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 import { appendComponentCss } from './plugins/append-component-css'
-import { fixImportHell } from './plugins/fix-import-hell'
+import { removeSideEffectedChunks } from './plugins/remove-side-effected-chunks'
 import { defineVitePlugin } from './types/define-vite-plugin'
 
 import type { RollupOptions } from 'rollup'
@@ -101,7 +101,7 @@ export default function createViteConfig (format: BuildFormat) {
   // https://github.com/sanyuan0704/vite-plugin-chunk-split
   isEsm && config.plugins.push(chunkSplitPlugin({ strategy: 'unbundle' }))
   isEsm && !isNode && config.plugins.push(appendComponentCss())
-  isEsm && config.plugins.push(fixImportHell())
+  isEsm && config.plugins.push(removeSideEffectedChunks())
 
   config.build.rollupOptions = isNode ? { ...external, ...rollupMjsBuildOptions } : external
 

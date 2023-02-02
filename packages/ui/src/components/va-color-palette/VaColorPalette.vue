@@ -1,24 +1,22 @@
 <template>
-  <div class="va-color-palette">
-    <ul
-      class="va-color-palette__colors"
-      role="listbox"
-      :aria-label="t('colorSelection')"
-    >
-      <va-color-indicator
-        v-for="(color, index) in palette"
-        :key="index"
-        role="option"
-        :aria-label="t('color', { color })"
-        :aria-selected="isSelected(color)"
-        tabindex="0"
-        :modelValue="isSelected(color)"
-        :color="color"
-        :square="indicator === 'square'"
-        @update:modelValue="valueComputed = color"
-      />
-    </ul>
-  </div>
+  <ul
+    class="va-color-palette"
+    role="listbox"
+    :aria-label="t('colorSelection')"
+  >
+    <va-color-indicator
+      v-for="(color, index) in palette"
+      :key="index"
+      role="option"
+      :aria-label="t('color', { color })"
+      :aria-selected="isSelected(color)"
+      tabindex="0"
+      :modelValue="isSelected(color)"
+      :color="color"
+      :square="indicator === 'square'"
+      @update:modelValue="valueComputed = color"
+    />
+  </ul>
 </template>
 
 <script lang="ts">
@@ -57,17 +55,15 @@ export default defineComponent({
 
 <style lang="scss">
 .va-color-palette {
-  padding-top: 3px;
+  display: flex;
+  padding-left: 0;
+  margin: 0;
 
-  &__colors {
-    display: flex;
+  & > * {
+    margin-right: 0.25rem;
 
-    & > * {
-      margin-right: 0.25rem;
-
-      &:last-child {
-        margin-right: 0;
-      }
+    &:last-child {
+      margin-right: 0;
     }
   }
 }

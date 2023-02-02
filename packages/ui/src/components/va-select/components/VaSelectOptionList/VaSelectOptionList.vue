@@ -34,7 +34,7 @@
           :current-option="currentOptionComputed"
           :disabled="getDisabled(option)"
           v-bind="selectOptionProps"
-          @click="selectOption(option)"
+          @click.stop="selectOption(option)"
           @mousemove="updateHoveredOption(option)"
         />
         <template v-else>
@@ -51,7 +51,7 @@
             :option="option"
             :disabled="getDisabled(option)"
             v-bind="selectOptionProps"
-            @click="selectOption(option)"
+            @click.stop="selectOption(option)"
             @mousemove="updateHoveredOption(option)"
           />
           <template v-else>

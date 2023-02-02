@@ -10,9 +10,10 @@ const tests = {
   css: (output: any) => {
     // Use regex here, because bundlers can transform css. Webpack adds comments while Vite removes spaces.
     // So we need to insert .*
-    expect(/\:root\s?\{(.*)--va-primary\:(.*)\}/.test(output)).toBe(true)
+    expect(/[:root,:host|:host,:root]\s?\{(.*)--va-primary\:(.*)\}/.test(output)).toBe(true)
 
-    expect(/.text--capitalize\s?{/.test(output)).toBe(true)
+    expect(/.ml-0/.test(output)).toBe(false)
+    expect(/.va-text-capitalize\s?{/.test(output)).toBe(true)
   }
 }
 

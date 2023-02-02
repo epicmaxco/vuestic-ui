@@ -1511,6 +1511,10 @@
       "updated": {
         "text": "updated",
         "title": "Recently updated"
+      },
+      "beta": {
+        "text": "beta",
+        "title": "Not production ready"
       }
     },
     "categories": {
@@ -1622,6 +1626,7 @@
     "treeView": "Tree view",
     "team": "Meet The Team",
     "i18n": "I18n",
+    "webComponents": "Web Components",
     "colorsClasses": "Colors Classes"
   },
   "all": {
@@ -1659,6 +1664,9 @@
     },
     "examplesTexts": {
       "button": "Your button"
+    },
+    "alerts": {
+      "beta": "This feature is currently in test mode. You can use it, but there can be unexpected bugs or we can change API in future. Help use improve it!"
     }
   },
   "docsNavigation": {
@@ -4888,6 +4896,34 @@
       "title": "Using with vue-i18n",
       "description": "If you use vue-i18n we can recommend to store VuesticUI messages under specific key",
       "exampleConfig": "Recommended config structure"
+    }
+  },
+  "webComponents": {
+    "title": "Web components",
+    "description": "Vuestic UI provides web-components build, so you can pick some component and use them without Vue application",
+    "installation": {
+      "title": "Installation",
+      "description": "Web components build shiped within `vuestic-ui` package and can be imported with suffix `vuestic-ui/web-components`.",
+      "create": "Before you can use web-components they must be registered with `window.customElement`. We provide a nice helper, so you can register specific components:",
+      "installVuestic": "See \"Install Vuestic UI\""
+    },
+    "css": {
+      "title": "CSS",
+      "description": "Since Custom Elements have their own scoped CSS in Shadow DOM, there might be a case when you want to provide some CSS to components. You can do this with `css` property in `registerVuesticWebComponents`. For example, if you want to use Font Awesome in Vuestic components you need provide this CSS:"
+    },
+    "example": {
+      "title": "Usage example",
+      "description": "We use Vuestic web component with vanilla Vite project here",
+      "steps": [
+        "First, we need to register Custom Elements",
+        "Then we can use them in our HTML",
+        "You can also use Global Config with VaConfig element"
+      ],
+      "seeMore": "See more detailed example in our Sandbox"
+    },
+    "treeShaking": {
+      "title": "Tree shaking",
+      "description": "You can import and register only specific components that you need and your bundler will tree-shake other components. It also removes our default CSS in case you don't want ot use Material Icons."
     }
   },
   "colorsClasses": {
