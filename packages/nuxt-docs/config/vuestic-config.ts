@@ -12,6 +12,13 @@ const VaButtonLandingHeader = {
   'hover-opacity': '1',
 }
 
+const getMatchedColorMode = () => {
+  if (typeof window === 'undefined') return undefined
+
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+  return isDark ? 'dark' : 'light'
+}
+
 export const VuesticConfig: PartialGlobalConfig = {
   icons,
   components: {
@@ -36,6 +43,8 @@ export const VuesticConfig: PartialGlobalConfig = {
     },
   },
   colors: {
+    currentPresetName: getMatchedColorMode(),
+
     presets: {
       light: {
         secondary: '#666E75',

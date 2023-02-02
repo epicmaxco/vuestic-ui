@@ -58,6 +58,6 @@ export default defineNuxtPlugin((nuxtApp) => {
           }
         }))
       }
-    })
+    }, { flush: 'pre' })
   }
 })
