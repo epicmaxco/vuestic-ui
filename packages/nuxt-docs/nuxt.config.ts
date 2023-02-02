@@ -93,6 +93,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n-edge',
     '@nuxtjs/tailwindcss',
     '@nuxt/image-edge',
+    '@nuxtjs/color-mode',
   ],
 
   vuestic: {

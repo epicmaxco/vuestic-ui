@@ -29,24 +29,16 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useColors } from 'vuestic-ui/src/main'
+import { useColors } from 'vuestic-ui'
 
-const { currentPresetName, applyPreset } = useColors()
+const { currentPresetName } = useColors()
 
-const setTheme = (theme: string) => {
-  applyPreset(theme)
-  localStorage.setItem('vuestic-docs-theme', theme)
-  document.documentElement.style.colorScheme = theme
-}
+const { setTheme } = useTheme()
 
 const isDark = computed({
   get: () => currentPresetName.value === 'dark',
   set: (value) => setTheme(value ? 'dark' : 'light'),
 })
-
-if (typeof localStorage !== 'undefined') {
- setTheme(localStorage.getItem('vuestic-docs-theme') || 'light')
-}
 </script>
 
 <style lang="scss">

@@ -23,7 +23,7 @@ const pageConfigName = computed(() => {
     return path.replace(localePrefix, '')
   }
 
-  return path
+  return path.slice(1)
 })
 
 const config = usePageConfig(pageConfigName);

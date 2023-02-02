@@ -36,21 +36,19 @@ export const VuesticConfig: PartialGlobalConfig = {
     },
   },
   colors: {
-    threshold: 127.5,
     presets: {
       light: {
         secondary: '#666E75',
         backgroundPrimary: '#FFFFFF',
         backgroundLanding: '#f4f9fc',
         backgroundLandingBorder: 'rgba(155, 179, 206, 0.8)',
-        code: '#990055',
       },
       dark: {
-        primary: '#5389F3',
+        // TODO: Check color contrast:  current primary is bad
+        // primary: '#5389F3',
         secondary: '#818992',
         backgroundLanding: '#070d14',
         backgroundLandingBorder: 'rgba(43, 49, 56, 0.8)',
-        code: '#FF006E',
       },
     },
   },
