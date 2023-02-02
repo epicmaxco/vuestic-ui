@@ -11,9 +11,9 @@
   ],
   "version": "0.1.2",
   "license": "MIT",
-  "main": "./dist/watch-tailwind.cjs",
   "files": [
-    "dist"
+    "dist",
+    "bin"
   ],
   "bin": {
     "sync-tailwind": "./bin/sync-tailwind",
@@ -32,7 +32,6 @@
     "registry": "https://registry.npmjs.org"
   },
   "devDependencies": {
-    "vite": "^2.9.8",
-    "fs-extra": "^11.1.0"
+    "vite": "^2.9.8"
   }
 }

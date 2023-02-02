@@ -50,5 +50,3 @@ export const integrateVuesticConfig = async () => {
 
     updateTailwindConfig(convertValueToString(tailwindConfig))
   }
-
-;(async () => { await integrateVuesticConfig() })()

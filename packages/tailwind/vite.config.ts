@@ -12,6 +12,7 @@ export default defineConfig({
     minify: 'terser',
     terserOptions: { keep_fnames: true },
     rollupOptions: {
+      preserveEntrySignatures: 'strict',
       input: [
         resolve(process.cwd(), './sync-tailwind.ts'),
         resolve(process.cwd(), './watch-tailwind.ts'),

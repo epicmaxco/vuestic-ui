@@ -1,5 +1,4 @@
 import { existsSync } from 'fs'
-import fse from 'fs-extra'
 import { execSync } from 'child_process'
 
 if (!existsSync('../ui/dist')) {
@@ -13,5 +12,3 @@ execSync('yarn run build:vite', (error) => {
     console.error(`Build error: ${error}`)
   }
 })
-
-fse.copySync('bin', 'dist')

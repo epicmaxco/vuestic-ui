@@ -47,5 +47,3 @@ export const integrateTailwindConfig = async () => {
 
     tailwindConfigPath && delete require.cache[require.resolve(tailwindConfigPath)]
   }
-
-;(async () => { await integrateTailwindConfig() })()
