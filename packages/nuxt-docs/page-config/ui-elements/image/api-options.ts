@@ -11,5 +11,7 @@ export default defineManualApi({
     loading: {},
     error: {},
     default: {},
+    placeholder: { },
+    sources: { },
   },
 });

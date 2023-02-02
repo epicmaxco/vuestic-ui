@@ -11,12 +11,13 @@ export default definePageConfig({
 
     block.example("Default"),
     block.example("Ratio"),
-    block.example("Contain"),
-    block.example("DefaultSlot"),
+    block.example("Fit"),
+    block.example("Slots"),
     // TODO Disabled because loading doesn't work properly.
     // block.example(  //   'LoaderSlot',
     // ),
-    block.example("ErrorSlot"),
+    block.example("SrcSet"),
+    block.example("Lazy"),
 
     block.subtitle("all.api"),
     block.api("VaImage", apiOptions),
