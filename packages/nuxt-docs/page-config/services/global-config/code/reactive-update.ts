@@ -8,7 +8,7 @@ export default {
       mergeGlobalConfig({
         icons: [{ name: 'phone', to: 'fas-phone' }],
         components: {
-          VaButton: { ... },
+          VaButton: { /* ... */ },
           all: { color: 'secondary' },
           presets: { VaButton: { presetName: { size: 'small' } } },
         },

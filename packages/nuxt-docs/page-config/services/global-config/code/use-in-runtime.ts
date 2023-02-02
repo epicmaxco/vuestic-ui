@@ -1,5 +1,4 @@
 import { useGlobalConfig } from "vuestic-ui";
-import { computed } from "vue";
 
 export default {
   setup() {

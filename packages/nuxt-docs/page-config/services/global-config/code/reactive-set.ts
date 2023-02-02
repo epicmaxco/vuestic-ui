@@ -6,13 +6,13 @@ export default {
 
     const setNewLookForOurApplication = () => {
       setGlobalConfig({
-        icons: [...],
+        icons: [/*...*/],
         components: {
-          ...,
-          all: { ... },
-          presets: { ... },
+          /* ... */
+          all: { /* ... */ },
+          presets: { /*... */ },
         },
-        colors: { ... },
+        colors: { /*...*/ },
       })
     }
 

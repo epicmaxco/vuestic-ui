@@ -78,6 +78,13 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: "new",
         },
       },
+      {
+        name: 'web-components',
+        displayName: 'menu.webComponents',
+        meta: {
+          badge: 'new',
+        },
+      },
       // GENERATOR_ADD - gettingStarted
     ],
   },

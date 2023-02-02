@@ -1,15 +1,16 @@
+import { createApp } from 'vue'
 import { createVuestic } from 'vuestic-ui'
 
 createApp(App)
   .use(createVuestic({
     config: {
-      icons: [...],
+      icons: [/* ... */],
         components: {
-          ...,
-          all: { ... },
-          presets: { ... },
+          /* ... */
+          all: { /* ... */ },
+          presets: { /* ... */ },
         },
-      colors: { ... },
+      colors: { /* ... */ },
     },
   }))
   .mount('#app')

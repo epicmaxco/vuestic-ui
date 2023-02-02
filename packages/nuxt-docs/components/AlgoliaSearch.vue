@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 import docsearch from '@docsearch/js'
 import { useI18n } from 'vue-i18n'
-import { onMounted } from 'vue'
+import { onMounted, unref as _unref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const { locale } = useI18n()
@@ -67,7 +67,6 @@ onMounted(() => {
     },
   })
 })
-
 </script>
 
 <style lang="scss">
@@ -137,6 +136,7 @@ onMounted(() => {
     @include md(display, block);
     @include xs(display, none);
 
+    // TODO: This Vbind breaks build !
     color: v-bind(placeholderColor);
   }
 

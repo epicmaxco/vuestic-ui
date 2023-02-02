@@ -38,7 +38,7 @@ const resolveConfigs = async () => {
 
         return [
           titleBlock,
-          exampleBlock,
+          {...exampleBlock, hideTitle: true },
           block.link("kitchensink.seeMore", path),
         ];
       })

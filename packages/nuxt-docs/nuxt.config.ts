@@ -1,6 +1,3 @@
-import { locales, messages } from './locales'
-import { VuesticConfig } from './config/vuestic-config'
-
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   app: {
@@ -82,7 +79,7 @@ export default defineNuxtConfig({
 
   image: {
     dir: 'assets/images',
-  },
+  } as any,
 
   modules: [
     './modules/banner',
@@ -141,13 +138,11 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-
-  // // TODO: Have this in dev for now, but remove it later
-  // ssr: false,
-
-  // vite: {
-  //   build: {
-  //     minify: false,
-  //   }
-  // },
+  vite: {
+    resolve: {
+      alias: [
+        { find: '~@ag-grid-community', replacement: ('@ag-grid-community') }
+      ]
+    }
+  },
 });
