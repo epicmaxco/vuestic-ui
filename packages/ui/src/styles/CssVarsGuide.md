@@ -22,7 +22,7 @@ Schema: `--[component-name]-[state*]-[nested-element*]-[size*]-[property]`
 1. Create css/scss file in your project (e.g. vuestic-overrides.scss) with the following template:
 
 ```css
-:root {
+:root, :host {
 
 }
 ```

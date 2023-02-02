@@ -2,9 +2,10 @@
   <va-virtual-scroller
     :items="hugeArray"
     :wrapper-size="200"
-    v-slot="{item, index}"
   >
-    <va-badge class="pb-2" color="textPrimary" :text="`item ${item} with index ${index}`" />
+    <template #default="{item, index}">
+      <va-badge class="pb-2" color="textPrimary" :text="`item ${item} with index ${index}`" />
+    </template>
   </va-virtual-scroller>
 </template>
 

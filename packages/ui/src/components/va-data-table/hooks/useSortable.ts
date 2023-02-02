@@ -1,4 +1,6 @@
-import { computed, ref, Ref, watch } from 'vue'
+import { PropType, computed, ref, Ref, watch, ExtractPropTypes, ComputedRef } from 'vue'
+
+import { useThrottleFunction, useThrottleProps } from '../../../composables'
 
 import type {
   DataTableColumnInternal,
@@ -8,22 +10,27 @@ import type {
   DataTableSortingOptions,
 } from '../types'
 
-interface useSortableProps {
-  sortBy: string | undefined
-  sortingOrder: DataTableSortingOrder | undefined
+export const useSortableProps = {
+  ...useThrottleProps,
+  sortBy: { type: String as PropType<string | undefined> },
+  sortingOrder: { type: String as PropType<DataTableSortingOrder | undefined> },
 }
+
 export type TSortedArgs = { sortBy: string, sortingOrder: DataTableSortingOrder, items: DataTableItem[], itemsIndexes: number[] }
+
 export type TSortableEmits = (
   event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
   args: string | DataTableSortingOrder | TSortedArgs,
 ) => void
 
-export default function useSortable (
+export type TSortIcon = 'va-arrow-up' | 'va-arrow-down' | 'unfold_more'
+
+export const useSortable = (
   columns: Ref<DataTableColumnInternal[]>,
   filteredRows: Ref<DataTableRow[]>,
-  props: useSortableProps,
+  props: ExtractPropTypes<typeof useSortableProps>,
   emit: TSortableEmits,
-) {
+) => {
   const sortByFallback = ref('')
   const sortBySync = computed<string>({
     get () {
@@ -130,18 +137,20 @@ export default function useSortable (
     }
   }
 
+  const toggleSortingThrottled = useThrottleFunction(toggleSorting, props)
+
   const sortingOrderIconName = computed(() => {
     return sortingOrderSync.value === 'asc'
       ? 'va-arrow-up'
       : sortingOrderSync.value === 'desc'
         ? 'va-arrow-down'
         : 'unfold_more'
-  })
+  }) as ComputedRef<TSortIcon>
 
   return {
     sortBySync,
     sortingOrderSync,
-    toggleSorting,
+    toggleSorting: toggleSortingThrottled,
     sortedRows,
     sortingOrderIconName,
   }

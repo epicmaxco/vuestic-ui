@@ -1,3 +1,5 @@
+import { ExtractPropTypes, PropType } from 'vue'
+
 import type {
   DataTableCell,
   DataTableRow,
@@ -8,12 +10,12 @@ import type {
 const isFunction = (val: unknown): val is Function => typeof val === 'function'
 const isObject = (val: unknown): val is Record<any, any> => val !== null && typeof val === 'object'
 
-interface useBindingProps {
-  rowBind?: DataTableRowBind
-  cellBind?: DataTableCellBind
+export const useBindingProps = {
+  rowBind: { type: null as unknown as PropType<DataTableRowBind | undefined> },
+  cellBind: { type: null as unknown as PropType<DataTableCellBind | undefined> },
 }
 
-export default function useBinding (props: useBindingProps) {
+export const useBinding = (props: ExtractPropTypes<typeof useBindingProps>) => {
   const getRowBind = (row: DataTableRow) => (
     isFunction(props.rowBind)
       ? props.rowBind(row.source, row.initialIndex)

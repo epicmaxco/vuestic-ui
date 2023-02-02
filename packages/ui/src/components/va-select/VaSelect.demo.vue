@@ -432,6 +432,7 @@
         class="mb-6"
         label="Content slot"
         :options="defaultSingleSelect.options"
+        multiple
       >
         <template #content="{ value }">
           <va-chip>{{ value || 'no value :(' }}</va-chip>
@@ -576,6 +577,13 @@
         :options="defaultSingleSelect.options"
         searchable
         searchtext="test"
+      />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        label="Search with throttling"
+        :options="defaultSingleSelect.options"
+        :delay="1000"
+        searchable
       />
     </VbCard>
     <VbCard

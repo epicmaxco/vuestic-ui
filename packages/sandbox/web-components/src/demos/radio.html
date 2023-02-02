@@ -1,0 +1,23 @@
+<script>
+  const options = ["one", "two", "three"];
+  const selectedOption = "one";
+</script>
+
+<va-radio
+  :model-value="selectedOption"
+  :option="options[0]"
+  color="warning"
+  label="warning"
+></va-radio>
+<va-radio
+  :model-value="selectedOption"
+  :option="options[1]"
+  color="danger"
+  label="danger"
+></va-radio>
+<va-radio
+  :model-value="selectedOption"
+  :option="options[2]"
+  color="info"
+  label="info"
+></va-radio>
