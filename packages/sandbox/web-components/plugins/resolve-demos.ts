@@ -8,7 +8,7 @@ const watchForDirChange = (dir: string, cb: (file: string, event: 'change' | 're
   const { signal } = ac;
   const w = async () => {
     try {
-      const watcher = watch(dir, { signal: signal })
+      const watcher = watch(dir, { signal })
       for await (const event of watcher)
         cb(event.filename, event.eventType);
       w()
