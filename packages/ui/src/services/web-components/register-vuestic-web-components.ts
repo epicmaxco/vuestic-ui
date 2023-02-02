@@ -31,7 +31,7 @@ export const registerVuesticWebComponents = (options: {
    * For Material Icons support inside Custom Element we need to pass `.material-icons` class.
    *
    * @default
-   * We do this by default, so you don't need to copy past it. In case you want to use different icon
+   * We do this by default, so you don't need to copy paste it. In case you want to use different icon
    * font, then you need to provide class manually.
    * Notice: we don't need to pass font, but only style. Fonts are inherited from actual DOM.
 ```css
