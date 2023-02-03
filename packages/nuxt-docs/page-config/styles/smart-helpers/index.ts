@@ -10,7 +10,7 @@ export default definePageConfig({
     block.paragraph("smartHelpers.examples.gutters.sizes.md"),
     block.paragraph("smartHelpers.examples.gutters.sizes.lg"),
     block.paragraph("smartHelpers.examples.gutters.sizes.xl"),
-    block.example("Gutters"),
+    block.example("Gutters", { hideTitle: true }),
 
     block.headline("smartHelpers.examples.spacing.title"),
     block.paragraph("smartHelpers.examples.spacing.text"),
@@ -19,6 +19,6 @@ export default definePageConfig({
     block.paragraph("smartHelpers.examples.spacing.sizes.md"),
     block.paragraph("smartHelpers.examples.spacing.sizes.lg"),
     block.paragraph("smartHelpers.examples.spacing.sizes.xl"),
-    block.example("Spacing"),
+    block.example("Spacing", { hideTitle: true }),
   ],
 });

@@ -3,7 +3,6 @@ export default definePageConfig({
     block.title("grid.title"),
     block.paragraph("grid.summaryText"),
 
-    block.headline("grid.examples.default.title"),
     block.example("Default"),
 
     block.headline("grid.examples.breakpoints.title"),
@@ -30,14 +29,14 @@ export default definePageConfig({
     block.paragraph("grid.examples.align.variants[1]"),
     block.paragraph("grid.examples.align.variants[2]"),
     block.paragraph("grid.examples.align.variants[3]"),
-    block.example("AlignDefault"),
+    block.example("AlignDefault", { hideTitle: true }),
 
     block.headline("grid.examples.alignSelf.title"),
     block.paragraph("grid.examples.alignSelf.variants[0]"),
     block.paragraph("grid.examples.alignSelf.variants[1]"),
     block.paragraph("grid.examples.alignSelf.variants[2]"),
     block.paragraph("grid.examples.alignSelf.variants[3]"),
-    block.example("AlignSelf"),
+    block.example("AlignSelf", { hideTitle: true }),
 
     block.headline("grid.examples.alignContent.title"),
     block.paragraph("grid.examples.alignContent.variants[0]"),
@@ -45,7 +44,7 @@ export default definePageConfig({
     block.paragraph("grid.examples.alignContent.variants[2]"),
     block.paragraph("grid.examples.alignContent.variants[3]"),
     block.paragraph("grid.examples.alignContent.variants[4]"),
-    block.example("AlignContent"),
+    block.example("AlignContent", { hideTitle: true }),
 
     block.headline("grid.examples.justify.title"),
     block.paragraph("grid.examples.justify.variants[0]"),
@@ -54,6 +53,6 @@ export default definePageConfig({
     block.paragraph("grid.examples.justify.variants[3]"),
     block.paragraph("grid.examples.justify.variants[4]"),
     block.paragraph("grid.examples.justify.variants[5]"),
-    block.example("AlignJustify"),
+    block.example("AlignJustify", { hideTitle: true }),
   ],
 });
