@@ -21,7 +21,7 @@
         placeholder="Start to write..."
         :options="defaultSingleSelect.options"
         autocomplete
-        highlight-search
+        highlight-matched-text
       />
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
@@ -36,12 +36,28 @@
         :options="defaultMultiSelect.options"
         multiple
         autocomplete
-        highlight-search
+        highlight-matched-text
       />
       <p>Value: {{ defaultMultiSelect.value }}</p>
     </VbCard>
     <VbCard
-      title="Autocomplete with content slot"
+      title="Multiple autocomplete with max visible options"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultMultiSelect.value"
+        class="mb-6"
+        placeholder="Start to write..."
+        :options="defaultMultiSelect.options"
+        :max-visible-options="2"
+        multiple
+        autocomplete
+        highlight-matched-text
+      />
+      <p>Value: {{ defaultMultiSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Multiple autocomplete with content slot"
       style="width: 400px;"
     >
       <va-select
@@ -51,7 +67,7 @@
         :options="defaultMultiSelect.options"
         multiple
         autocomplete
-        highlight-search
+        highlight-matched-text
       >
         <template #content="{ value }">
           <va-chip
@@ -77,7 +93,7 @@
         :options="defaultSingleSelect.options"
         :min-search-chars="2"
         autocomplete
-        highlight-search
+        highlight-matched-text
       />
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
@@ -91,7 +107,7 @@
         placeholder="Start to write..."
         :options="defaultSingleSelect.options"
         autocomplete
-        highlight-search
+        highlight-matched-text
         auto-select-first-option
       />
       <p>Value: {{ defaultSingleSelect.value }}</p>
@@ -294,14 +310,6 @@
         :options="defaultMultiSelect.options"
         multiple
         :max-selections="3"
-      />
-      <va-select
-        v-model="defaultMultiSelect.value"
-        class="mb-6"
-        label="Tags"
-        :options="defaultMultiSelect.options"
-        multiple
-        tags
       />
     </VbCard>
     <VbCard
@@ -513,10 +521,10 @@
         </template>
       </va-select>
       <va-select
-        v-model="defaultSingleSelect.value"
+        v-model="defaultMultiSelect.value"
         class="mb-6"
         label="Content slot"
-        :options="defaultSingleSelect.options"
+        :options="defaultMultiSelect.options"
         multiple
       >
         <template #content="{ value }">

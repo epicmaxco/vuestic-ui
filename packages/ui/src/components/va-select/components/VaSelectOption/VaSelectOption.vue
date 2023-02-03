@@ -14,10 +14,10 @@
     />
     {{ optionTextSplit.start }}
     <span
-      v-if="optionTextSplit.middle"
+      v-if="optionTextSplit.searchedSubString"
       class="va-select-option__highlighted"
     >
-      {{ optionTextSplit.middle }}
+      {{ optionTextSplit.searchedSubString }}
     </span>
     {{ optionTextSplit.end }}
     <va-icon
@@ -53,7 +53,7 @@ export default defineComponent({
     currentOption: { type: [String, Number, Object] as PropType<SelectableOption | null>, default: null },
     getSelectedState: { type: Function as PropType<(option: SelectableOption) => boolean>, required: true },
     search: { type: String, default: '' },
-    highlightSearch: { type: Boolean, default: false },
+    highlightMatchedText: { type: Boolean, default: false },
     inputFocused: { type: Boolean, default: false },
     minSearchChars: { type: Number, default: 0 },
   },
@@ -66,9 +66,9 @@ export default defineComponent({
 
     const optionText = computed(() => props.getText(props.option))
     const optionTextSplit = computed(() => {
-      const defaultSplit = { start: optionText.value, middle: '', end: '' }
+      const defaultSplit = { start: optionText.value, searchedSubString: '', end: '' }
 
-      if (!optionText.value || !props.search || !props.highlightSearch || props.search.length < props.minSearchChars) {
+      if (!optionText.value || !props.search || !props.highlightMatchedText || props.search.length < props.minSearchChars) {
         return defaultSplit
       }
 
@@ -77,10 +77,10 @@ export default defineComponent({
       if (substringStartIndex < 0) { return defaultSplit }
 
       const start = optionText.value.slice(0, substringStartIndex)
-      const middle = optionText.value.slice(substringStartIndex, substringStartIndex + props.search.length)
+      const searchedSubString = optionText.value.slice(substringStartIndex, substringStartIndex + props.search.length)
       const end = optionText.value.slice(substringStartIndex + props.search.length)
 
-      return { start, middle, end }
+      return { start, searchedSubString, end }
     })
 
     const isSelected = computed(() => props.getSelectedState(props.option))

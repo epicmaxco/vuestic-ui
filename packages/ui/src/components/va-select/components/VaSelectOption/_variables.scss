@@ -18,7 +18,7 @@
 
   /* Highlighted Chars */
   --va-select-option-list-option-highlighted-color: var(--va-text-inverted);
-  --va-select-option-list-option-highlighted-background-color: rgba(0, 0, 0, 0.38);
+  --va-select-option-list-option-highlighted-background-color: var(--va-primary);
 
   /* Autocomplete */
   --va-select-content-autocomplete-gap: 0.25rem;

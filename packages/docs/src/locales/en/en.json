@@ -877,7 +877,7 @@
         "selectedTopShown": "Selected options will be shown at the top of the options list.",
         "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
         "autocomplete": "Enables the autocomplete behaviour.",
-        "highlightSearch": "Highlight chars in options that are match the input value (search or autocomplete).",
+        "highlightMatchedText": "Highlight chars in options that are match the input value (search or autocomplete).",
         "minSearchChars": "Minimal amount of chars in input value to initiate search or autocomplete."
       },
       "events": {

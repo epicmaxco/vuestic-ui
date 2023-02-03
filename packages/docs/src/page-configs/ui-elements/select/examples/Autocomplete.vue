@@ -7,7 +7,7 @@
       placeholder="Start to write..."
       :options="options"
       autocomplete
-      highlight-search
+      highlight-matched-text
     />
 
     <va-select
@@ -18,7 +18,7 @@
       :options="options"
       multiple
       autocomplete
-      highlight-search
+      highlight-matched-text
     />
 
     <va-select
@@ -29,7 +29,7 @@
       :options="options"
       multiple
       autocomplete
-      highlight-search
+      highlight-matched-text
     >
       <template #content="{ value }">
         <va-chip

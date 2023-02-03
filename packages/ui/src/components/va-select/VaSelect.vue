@@ -11,7 +11,7 @@
         ref="input"
         class="va-select__anchor va-select-anchor__input"
         :class="inputWrapperClassComputed"
-        :model-value="valueComputedString"
+        :model-value="valueString"
         v-bind="inputWrapperPropsComputed"
         @focus="onInputFocus"
         @blur="onInputBlur"
@@ -50,7 +50,7 @@
           <va-select-content
             v-bind="selectContentPropsComputed"
             @toggle-hidden="toggleHiddenOptionsState"
-            @autocomplete-input="handleAutocompleteInput"
+            @autocomplete-input="setAutocompleteValue"
             @focus-prev="focusPreviousOption"
             @focus-next="focusNextOption"
             @select-option="selectHoveredOption"
@@ -142,6 +142,8 @@ import { VaSelectContent } from './components/VaSelectContent'
 
 import { useMaxVisibleOptions, useMaxVisibleOptionsProps } from './hooks/useMaxVisibleOptions'
 import { useToggleIcon, useToggleIconProps } from './hooks/useToggleIcon'
+import { useStringValue, useStringValueProps } from './hooks/useStringValue'
+import { useAutocomplete, useAutocompleteProps } from './hooks/useAutocomplete'
 
 import type { SelectOption, Placement } from './types'
 import type { DropdownOffsetProp } from '../va-dropdown/types'
@@ -184,6 +186,8 @@ export default defineComponent({
     ...useMaxVisibleOptionsProps,
     ...useToggleIconProps,
     ...useThrottleProps,
+    ...useStringValueProps,
+    ...useAutocompleteProps,
 
     modelValue: {
       type: [String, Number, Array, Object] as PropType<SelectOption | SelectOption[]>,
@@ -206,7 +210,6 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
     multiple: { type: Boolean, default: false },
     searchable: { type: Boolean, default: false },
-    separator: { type: String, default: ', ' },
     width: { type: String, default: '100%' },
     maxHeight: { type: String, default: '256px' },
     noOptionsText: { type: String, default: '$t:noOptions' },
@@ -214,8 +217,7 @@ export default defineComponent({
     tabindex: { type: Number, default: 0 },
     virtualScroller: { type: Boolean, default: false },
     selectedTopShown: { type: Boolean, default: false },
-    autocomplete: { type: Boolean, default: false },
-    highlightSearch: { type: Boolean, default: false },
+    highlightMatchedText: { type: Boolean, default: false },
     minSearchChars: { type: Number, default: 0 },
     autoSelectFirstOption: { type: Boolean, default: false },
 
@@ -282,17 +284,7 @@ export default defineComponent({
       },
     })
 
-    const valueComputedString = computed<string>(() => {
-      if (!valueComputed.value && valueComputed.value !== 0) { return props.clearValue }
-
-      if (typeof valueComputed.value === 'string' || typeof valueComputed.value === 'number') { return valueComputed.value }
-
-      if (Array.isArray(valueComputed.value)) {
-        return visibleSelectedOptions.value.map((value) => getText(value)).join(props.separator) || props.clearValue
-      }
-
-      return getText(valueComputed.value)
-    })
+    const valueString = useStringValue(props, valueComputed, visibleSelectedOptions, getText)
 
     // icons
     const {
@@ -390,6 +382,8 @@ export default defineComponent({
         valueComputed.value = typeof option === 'string' || typeof option === 'number' ? option : { ...option }
         hideAndFocus()
       }
+
+      focusAutocompleteInput()
     }
 
     const addNewOption = () => {
@@ -411,7 +405,7 @@ export default defineComponent({
 
       if (!showDropdownContent.value) {
         // We can not select options if they are hidden
-        showDropdown()
+        handleDropdownOpen()
         return
       }
 
@@ -439,7 +433,7 @@ export default defineComponent({
     const showDropdownContentComputed = computed({
       get: () => showDropdownContent.value,
       set: (show: boolean) => {
-        show ? showDropdown() : hideDropdown()
+        show ? handleDropdownOpen() : handleDropdownClose()
       },
     })
 
@@ -447,7 +441,7 @@ export default defineComponent({
       return !(props.multiple || props.searchable || props.allowCreate)
     })
 
-    const showDropdown = () => {
+    const handleDropdownOpen = () => {
       if (props.disabled || props.readonly) { return }
 
       showDropdownContent.value = true
@@ -455,14 +449,13 @@ export default defineComponent({
       focusSearchOrOptions()
     }
 
-    const hideDropdown = () => {
+    const handleDropdownClose = () => {
       showDropdownContent.value = false
       searchInput.value = ''
       validate()
     }
-
     const hideAndFocus = () => {
-      hideDropdown()
+      handleDropdownClose()
       isInputFocused.value = true
     }
 
@@ -566,7 +559,7 @@ export default defineComponent({
     }))
 
     const optionsListPropsComputed = computed(() => ({
-      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'disabledBy', 'color', 'virtualScroller', 'highlightSearch', 'minSearchChars', 'autoSelectFirstOption', 'delay']),
+      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'autoSelectFirstOption', 'delay']),
       search: searchInput.value || autocompleteValue.value,
       tabindex: tabIndexComputed.value,
       selectedValue: valueComputed.value,
@@ -583,7 +576,7 @@ export default defineComponent({
       nowrap: !!(props.maxVisibleOptions && !slots.content),
     }))
     const inputWrapperPropsComputed = computed(() => ({
-      ...pick(props, ['messages', 'requiredMark', 'bordered', 'outline', 'loading', 'label', 'color', 'success']),
+      ...pick(props, ['messages', 'requiredMark', 'bordered', 'outline', 'label', 'color', 'success']),
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
       focused: isFocused.value,
@@ -595,20 +588,17 @@ export default defineComponent({
       ...pick(props, ['placeholder', 'autocomplete', 'multiple', 'disabled']),
       tabindex: tabIndexComputed.value,
       value: visibleSelectedOptions.value,
-      valueString: valueComputedString.value,
+      valueString: valueString.value,
       hiddenSelectedOptionsAmount: hiddenSelectedOptionsAmount.value,
       isAllOptionsShown: isAllOptionsShown.value,
-      dropdownContentShown: showDropdownContent.value,
       focused: isInputFocused.value,
+      autocompleteInputValue: autocompleteValue.value,
       getText,
     }))
 
     // autocomplete
-    const autocompleteValue = ref('')
-    const handleAutocompleteInput = (v: string) => {
-      autocompleteValue.value = v
-      showDropdownContent.value = true
-    }
+    const { autocompleteValue, setAutocompleteValue } =
+      useAutocomplete(props, visibleSelectedOptions, valueString, showDropdownContent, getText)
 
     // public methods
     const focus = () => {
@@ -636,11 +626,11 @@ export default defineComponent({
       resetValidation()
     })
 
-    const focusAutocompleteInput = (e: Event) => {
+    const focusAutocompleteInput = (e?: Event) => {
       if (props.autocomplete) {
-        e.stopImmediatePropagation()
+        e?.stopImmediatePropagation()
 
-        onFocus()
+        isInputFocused.value = true
       }
     }
 
@@ -674,6 +664,7 @@ export default defineComponent({
       blur,
       toggleDropdown,
       deleteLastSelected,
+
       focusAutocompleteInput,
 
       tp,
@@ -687,7 +678,7 @@ export default defineComponent({
       showSearchInput,
       hoveredOption,
       tabIndexComputed,
-      valueComputedString,
+      valueString,
       showClearIcon,
       toggleIcon,
       selectOption,
@@ -696,8 +687,8 @@ export default defineComponent({
       focusPreviousOption,
       focusNextOption,
       showDropdownContentComputed,
-      showDropdown,
-      hideDropdown,
+      handleDropdownOpen,
+      handleDropdownClose,
       hideAndFocus,
       toggleIconColor,
       onHintedSearch,
@@ -707,7 +698,7 @@ export default defineComponent({
       visibleSelectedOptions,
       optionsListPropsComputed,
       toggleHiddenOptionsState,
-      handleAutocompleteInput,
+      setAutocompleteValue,
 
       inputWrapperPropsComputed,
       inputWrapperClassComputed,

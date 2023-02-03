@@ -7,9 +7,9 @@
       v-if="$props.multiple || $slots.content"
       name="content"
       v-bind="{
-         value: $props.value,
-         valueString: $props.valueString,
-         tabindex: $props.tabindex,
+        value: $props.value,
+        valueString: $props.valueString,
+        tabindex: $props.tabindex,
       }"
     >
       <template v-if="value.length">
@@ -17,8 +17,7 @@
           v-for="(option, index) in value"
           :key="$props.getText(option)"
         >
-          {{ $props.getText(option) }}
-          {{ index + 1 === value.length ? '' : ', ' }}
+          {{ `${$props.getText(option)}${index + 1 === value.length ? '' : ', '}` }}
         </span>
       </template>
 
@@ -29,7 +28,7 @@
 
     <input
       ref="autocompleteInput"
-      v-model="autocompleteInputValue"
+      v-model="autocompleteInputValueComputed"
       :placeholder="$props.placeholder"
       :disabled="$props.disabled"
       autocomplete="off"
@@ -113,17 +112,17 @@ export default defineComponent({
 
   props: {
     value: { type: Array as PropType<SelectOption[]> },
-    valueString: { type: [String, Number] },
+    valueString: { type: String },
     placeholder: { type: String, default: '' },
     tabindex: { type: Number, default: 0 },
     hiddenSelectedOptionsAmount: { type: Number, default: 0 },
     isAllOptionsShown: { type: Boolean, default: false },
     autocomplete: { type: Boolean, default: false },
     focused: { type: Boolean, default: false },
-    dropdownContentShown: { type: Boolean, default: false },
     multiple: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     getText: { type: Function as PropType<(option: SelectOption) => string>, required: true },
+    autocompleteInputValue: { type: String, default: '' },
   },
 
   emits: ['toggle-hidden', 'autocomplete-input', 'focus-prev', 'focus-next', 'select-option', 'delete-last-selected'],
@@ -135,56 +134,21 @@ export default defineComponent({
 
     const toggleHiddenOptionsState = () => emit('toggle-hidden')
 
-    const { dropdownContentShown, valueString, value, focused } = toRefs(props)
+    const { value, focused } = toRefs(props)
 
-    const autocompleteInputValue = ref('')
-    const convertToString = (v: number | string | undefined) => v ? String(v) : ''
-    const getLastOptionText = (v: SelectOption[] | undefined) => {
-      return v && Array.isArray(v) && v.length ? props.getText(v.at(-1)!) : ''
-    }
-    props.autocomplete && watch([autocompleteInputValue, valueString, dropdownContentShown, value],
-      (
-        [newAutocompleteValue, newValueString, newDropdownShownState, newValueArray],
-        [oldAutocompleteValue, oldValueString, oldDropdownShownState, oldValueArray],
-      ) => {
-        // just opened, nothing to handle
-        if (newDropdownShownState && !oldDropdownShownState) { return }
+    const autocompleteInputValueComputed = computed({
+      get: () => props.autocompleteInputValue,
+      set: (v: string) => emit('autocomplete-input', v),
+    })
 
-        // just cleared after blur, nothing to handle
-        if (autocompleteInputValue.value === '' && !newDropdownShownState) { return }
+    watch(focused, (newValue) => {
+      if (!props.autocomplete || !newValue) { return }
 
-        let newValueStringConverted = ''
-        let oldValueStringConverted = ''
-
-        // taking string value or last options array text value depending on multiple state
-        if (props.multiple) {
-          newValueStringConverted = getLastOptionText(newValueArray)
-          oldValueStringConverted = getLastOptionText(oldValueArray)
-        } else {
-          newValueStringConverted = convertToString(newValueString)
-          oldValueStringConverted = convertToString(oldValueString)
-        }
-
-        if (newValueStringConverted !== oldValueStringConverted) {
-          // selected value change handling, not for multiple state
-          if (!props.multiple) { autocompleteInputValue.value = newValueStringConverted }
-        } else if (newAutocompleteValue !== oldAutocompleteValue && autocompleteInputValue.value !== newValueStringConverted) {
-          // autocomplete input handling
-          emit('autocomplete-input', newAutocompleteValue)
-        }
-
-        if (!newDropdownShownState && oldDropdownShownState && newValueStringConverted !== autocompleteInputValue.value) {
-          // handling input wrapper blur, not for multiple state
-          autocompleteInputValue.value = props.multiple ? '' : newValueStringConverted
-        }
-      })
-
-    watch(focused, () => {
-      focused.value && autocompleteInput.value?.focus()
+      autocompleteInput.value?.focus()
     })
 
     const handleBackspace = (e: KeyboardEvent) => {
-      if (props.multiple && value.value?.length && e.key === 'Backspace' && !autocompleteInputValue.value) {
+      if (props.multiple && value.value?.length && e.key === 'Backspace' && !autocompleteInputValueComputed.value) {
         emit('delete-last-selected')
       }
     }
@@ -192,7 +156,7 @@ export default defineComponent({
     return {
       isPlaceholder,
       toggleHiddenOptionsState,
-      autocompleteInputValue,
+      autocompleteInputValueComputed,
       autocompleteInput,
       handleBackspace,
     }
