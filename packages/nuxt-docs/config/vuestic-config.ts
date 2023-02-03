@@ -12,9 +12,9 @@ const VaButtonLandingHeader = {
   'hover-opacity': '1',
 }
 
-const cookie = useCookie('vuestic-theme')
+// const cookie = useCookie('vuestic-theme')
 
-const theme = cookie.value || 'light'
+const theme = 'light'
 
 export const VuesticConfig: PartialGlobalConfig = {
   icons,

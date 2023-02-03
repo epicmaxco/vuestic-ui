@@ -22,20 +22,26 @@ const getConfig = async (name: string) => {
     return null
   }
 
-  return file().then((module) => module.default)
+  return await (file().then((module) => module.default).catch((e) => { throw e }))
 }
 
 export const usePageConfig = async (name: string | Ref<string>) => {
-  const config = ref<PageConfigOptions | null>(await getConfig(unref(name)))
+  try {
+    const config = ref<PageConfigOptions | null>(await getConfig(unref(name)))
 
-  watchEffect(async () => {
-    try {
-      config.value = await getConfig(unref(name))
-    }
-    catch (e) {
-      console.error(e)
-    }
-  })
+    watchEffect(async () => {
+      try {
+        config.value = await getConfig(unref(name))
+      }
+      catch (e) {
+        console.error(e)
+      }
+    })
 
-  return config
+    return config
+  }
+  catch (e) {
+    console.log(e)
+    return ref(null)
+  }
 }

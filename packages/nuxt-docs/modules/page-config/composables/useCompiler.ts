@@ -21,7 +21,6 @@ export const useCompiler = (options: any) => {
     async transform(code, id) {
       if (!filter(id)) { return }
 
-      console.log('Transform:', id)
       const importer = createImporter(this, id)
 
       const runtimePath = resolve(__dirname, '../runtime/index.ts')

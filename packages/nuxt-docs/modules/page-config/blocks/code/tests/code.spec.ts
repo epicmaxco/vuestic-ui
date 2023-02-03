@@ -97,5 +97,7 @@ export default definePageConfig({
   const newCode = await transform.call({ importer }, blocks[0])
 
   expect(newCode).toBe(undefined)
+
+  console.log(importer.imports)
   })
 })
