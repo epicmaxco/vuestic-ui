@@ -10,7 +10,8 @@ export const useCompiler = (options: any) => {
   extendViteConfig((config) => {
     // TODO: Find better solution
     // Do not mark code in this modules as asset
-    config.assetsInclude = /(?<!modules)\/page-config\/.*\/code\/.*/
+    // (?<!modules)\/page-config\/.*\/code\/(?!.*\.(css|scss)).*
+    // config.assetsInclude = /(?<!modules)\/page-config\/.*\/code\/.*\.(ts|mjs|js)$/
   })
 
   addVitePlugin({
