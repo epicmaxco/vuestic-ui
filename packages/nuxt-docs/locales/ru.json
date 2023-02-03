@@ -1879,7 +1879,7 @@
         "title": "Цвет",
         "text": "Свойство `color` используется для изменения цвета компонента (предопределенные опции цвета или `HEX`)."
       },
-      "minmax": {
+      "minMax": {
         "title": "Диапазон значений",
         "text": "Свойства `min` и `max` позволяют установить минимальное и максимальное значения."
       },
@@ -2034,6 +2034,9 @@
   "toast": {
     "title": "Toast",
     "summaryText": "Компонент для отправки уведомлении пользователю.",
+    "optionsAPI": "In options API you can use VaToastPlugin (automatically installed with createVuestic). `$vaToast` have a few methods: init, close, closeAll.",
+    "compositionAPI": "In composition API you can use `useToast` hook.",
+    "toastOptionsHeader": "Init Options",
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -2073,67 +2076,69 @@
   "modal": {
     "title": "Modal",
     "summaryText": "Классический модальный оверлей, который представляет собой диалоговое окно или другой интерактивный компонент, такой как отклоняемый alert, подокно и т.д.",
-    "overview": {
-      "title": "Обзор",
-      "text": "По умолчанию `va-modal` содержит в футере кнопки **OK** and **Cancel**. Вы можете указать собственное сообщение и заголовок с помощью параметров `message` и `title`.\n\nКомпонент `va-modal` поддерживает закрытие по клику **Esc** (включено по умолчанию) и клику по оверлею (включено по умолчанию). Эти функции можно отключить, используя параметры `no-esc-dismiss` и `no-external-dismiss` соответственно или `no-dismiss` в качестве сокращения, чтобы отключить обе функции."
-    },
-    "stateful": {
-      "title": "Сохранение состояния (stateful)",
-      "text": "По умолчанию компонент `va-modal` не сохраняет состояние. Вы можете изменить это установив параметр `stateful`."
-    },
-    "fullscreen": {
-      "title": "Отображение на весь экран",
-      "text": "Свойство `fullscreen` включает отображение модального окна на весь экран.\n\nИмейте ввиду, что компонент `va-modal` на мобильных устройствах включает свойство `fullscreen` по умолчанию. Вы можете изменить это установив свойство `mobile-fullscreen` в `false`."
-    },
-    "modalSizing": {
-      "title": "Размер",
-      "text": "Свойство `size` позволяет изменить размер модального окна, имеется три опциональных размера. Эти размеры действуют в определенных брейкпоинтах, чтобы избежать горизонтальных полос прокрутки на более узких окнах просмотра. Доступные опции: `small`, `medium` (по умолчанию) и `large`."
-    },
-    "toggleVisibility": {
-      "title": "Переключение видимости",
-      "text": "Есть несколько методов, которые вы можете использовать для переключения видимости модального окна.",
-      "sections": [
-        {
-          "title": "Использование свойства `v-model`",
-          "text": "Свойство `v-model` всегда автоматически синхронизировано с состоянием отображения компонентом `va-modal` и вы можете управлять видимостью при помощи `v-model`."
-        },
-        {
-          "title": "Использование методов `show()`, `hide()`, и `toggle()`",
-          "text": "Вы можете получить доступ к компоненту используя атрибут `ref` и вызвать методы `show()`, `hide()` или `toggle()`."
-        }
-      ]
-    },
-    "anchor": {
-      "title": "Слот `anchor`",
-      "text": "Используя слот `anchor`, пользователь может получить доступ к методам `show()`, `hide()`, и `toggle()`."
-    },
-    "disableAnimation": {
-      "title": "Отмена анимации открытия/закрытия",
-      "text": "Свойство `without-transitions` позволяет отключить анимации открытия/закрытия модального окна."
-    },
-    "hidingOverlay": {
-      "title": "Скрытие оверлея",
-      "text": "Свойство `overlay` позволяет скрыть оверелей модального окна, для этого его необходимо установит в `false`.\n\nИмейте ввиду, что клик по скрытому оверлею все еще будет приводить к закрытию модального окна. Вы можете отменить это действие при помощи свойства `no-outside-dismiss`."
-    },
-    "blurredOverlay": {
-      "title": "Размытие оверлея",
-      "text": "Используйте CSS-фильтр `blur` для оверлея, установив для свойства `blur` значение `true`. Вы можете переопределить корневую переменную CSS `--va-modal-overlay-background-blur-radius`, чтобы установить собственный радиус размытия."
-    },
-    "scrollingLongContent": {
-      "title": "Прокрутка длинного контента",
-      "text": "Когда модальное окно становится слишком длинным для области просмотра, то появляется полоса прокрутки для скроллинга тела модального окна.\n\nСвойство `fixed-layout` позволяет включить прокрутку только для контента внутри модального окна, тогда заголовок и футер с кнопками останутся зафиксированными."
-    },
-    "customization": {
-      "title": "Кастомизация",
-      "text": "Компонент `va-modal` предоставляет несколько слотов (`default`, `header` и `footer`), которые вы можете использовать для кастомизации контента в соответствующих секциях.\n\nВы можете задать кастомный текст для кнопок **Cancel** и **Ok** используя свойства `ok-text` и `cancel-text`, или вы можете скрыть их используя свойство `hide-default-actions`.\n\nКомпонент `va-modal` также поддерживает свойство `overlay-opacity` и такие свойства, как `z-index`, `max-width` и `max-height`."
-    },
-    "nestedModals": {
-      "title": "Вложенные модальные окна",
-      "text": "Модальные окна могут быть вложенными, то есть вы можете открыть модальное окно из другого."
-    },
-    "functionalApi": {
-      "title": "Функциональное API",
-      "text": "Чтобы упростить создание модального окна, у нас есть сокращение. Для Options API - это `$vaModal`, который предоставляет VaModalPlugin (автоматически устанавливается вместе с createVuestic). Для Composition API у нас есть хук `useModal`. Хук и глобальный объект имеют похожий API."
+    "examples": {
+      "overview": {
+        "title": "Обзор",
+        "text": "По умолчанию `va-modal` содержит в футере кнопки **OK** and **Cancel**. Вы можете указать собственное сообщение и заголовок с помощью параметров `message` и `title`.\n\nКомпонент `va-modal` поддерживает закрытие по клику **Esc** (включено по умолчанию) и клику по оверлею (включено по умолчанию). Эти функции можно отключить, используя параметры `no-esc-dismiss` и `no-external-dismiss` соответственно или `no-dismiss` в качестве сокращения, чтобы отключить обе функции."
+      },
+      "stateful": {
+        "title": "Сохранение состояния (stateful)",
+        "text": "По умолчанию компонент `va-modal` не сохраняет состояние. Вы можете изменить это установив параметр `stateful`."
+      },
+      "fullscreen": {
+        "title": "Отображение на весь экран",
+        "text": "Свойство `fullscreen` включает отображение модального окна на весь экран.\n\nИмейте ввиду, что компонент `va-modal` на мобильных устройствах включает свойство `fullscreen` по умолчанию. Вы можете изменить это установив свойство `mobile-fullscreen` в `false`."
+      },
+      "modalSizing": {
+        "title": "Размер",
+        "text": "Свойство `size` позволяет изменить размер модального окна, имеется три опциональных размера. Эти размеры действуют в определенных брейкпоинтах, чтобы избежать горизонтальных полос прокрутки на более узких окнах просмотра. Доступные опции: `small`, `medium` (по умолчанию) и `large`."
+      },
+      "toggleVisibility": {
+        "title": "Переключение видимости",
+        "text": "Есть несколько методов, которые вы можете использовать для переключения видимости модального окна.",
+        "sections": [
+          {
+            "title": "Использование свойства `v-model`",
+            "text": "Свойство `v-model` всегда автоматически синхронизировано с состоянием отображения компонентом `va-modal` и вы можете управлять видимостью при помощи `v-model`."
+          },
+          {
+            "title": "Использование методов `show()`, `hide()`, и `toggle()`",
+            "text": "Вы можете получить доступ к компоненту используя атрибут `ref` и вызвать методы `show()`, `hide()` или `toggle()`."
+          }
+        ]
+      },
+      "anchor": {
+        "title": "Слот `anchor`",
+        "text": "Используя слот `anchor`, пользователь может получить доступ к методам `show()`, `hide()`, и `toggle()`."
+      },
+      "disableAnimation": {
+        "title": "Отмена анимации открытия/закрытия",
+        "text": "Свойство `without-transitions` позволяет отключить анимации открытия/закрытия модального окна."
+      },
+      "hidingOverlay": {
+        "title": "Скрытие оверлея",
+        "text": "Свойство `overlay` позволяет скрыть оверелей модального окна, для этого его необходимо установит в `false`.\n\nИмейте ввиду, что клик по скрытому оверлею все еще будет приводить к закрытию модального окна. Вы можете отменить это действие при помощи свойства `no-outside-dismiss`."
+      },
+      "blurredOverlay": {
+        "title": "Размытие оверлея",
+        "text": "Используйте CSS-фильтр `blur` для оверлея, установив для свойства `blur` значение `true`. Вы можете переопределить корневую переменную CSS `--va-modal-overlay-background-blur-radius`, чтобы установить собственный радиус размытия."
+      },
+      "scrollingLongContent": {
+        "title": "Прокрутка длинного контента",
+        "text": "Когда модальное окно становится слишком длинным для области просмотра, то появляется полоса прокрутки для скроллинга тела модального окна.\n\nСвойство `fixed-layout` позволяет включить прокрутку только для контента внутри модального окна, тогда заголовок и футер с кнопками останутся зафиксированными."
+      },
+      "customization": {
+        "title": "Кастомизация",
+        "text": "Компонент `va-modal` предоставляет несколько слотов (`default`, `header` и `footer`), которые вы можете использовать для кастомизации контента в соответствующих секциях.\n\nВы можете задать кастомный текст для кнопок **Cancel** и **Ok** используя свойства `ok-text` и `cancel-text`, или вы можете скрыть их используя свойство `hide-default-actions`.\n\nКомпонент `va-modal` также поддерживает свойство `overlay-opacity` и такие свойства, как `z-index`, `max-width` и `max-height`."
+      },
+      "nestedModals": {
+        "title": "Вложенные модальные окна",
+        "text": "Модальные окна могут быть вложенными, то есть вы можете открыть модальное окно из другого."
+      },
+      "functionalApi": {
+        "title": "Функциональное API",
+        "text": "Чтобы упростить создание модального окна, у нас есть сокращение. Для Options API - это `$vaModal`, который предоставляет VaModalPlugin (автоматически устанавливается вместе с createVuestic). Для Composition API у нас есть хук `useModal`. Хук и глобальный объект имеют похожий API."
+      }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-modal/_variables.scss)[[target=_blank]]"
   },
@@ -2333,6 +2338,9 @@
       "submit": {
         "title": "Отправка формы",
         "text": "Вы можете вызывать событие `submit` компонента формы: для этого вам нужно установить `tag=\"form\"` компоненту `va-form` и иметь внутри формы кнопку с `type=\"submit\"`."
+      },
+      "withInputs": {
+        "title": "With inputs"
       }
     }
   },
@@ -3186,7 +3194,9 @@
     "title": "Select",
     "summaryText": "Компонент `va-select` используется для выбора значения из списка опций. Этот компонент открывает меню с вариантами выбора.",
     "examples": {
-      "default": "Базовое использование",
+      "default": {
+        "title": "Базовое использование"
+      },
       "variations": {
         "title": "Выбор нескольких значений",
         "text": "Свойство `multiple` включает возможность выбора нескольких значений"
@@ -3363,9 +3373,17 @@
         "title": "Отключение дат",
         "text": "Вы можете отключить определенные даты, месяцы или годы, используя свойства `allowedDays`, `allowedMonth` или `allowedYear`."
       },
-      "colors": {
+      "color": {
         "title": "Цвета",
         "text": "Вы можете изменить цвета с помощью переменных `CSS` для более глубокой настройки, но также вы можете просто изменить цвета с помощью этого свойства."
+      },
+      "readonly": {
+        "title": "Readonly",
+        "text": "Readonly picker for readonly forms."
+      },
+      "disabled": {
+        "title": "Disabled",
+        "text": "Disabled picker that can be used in forms."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-date-picker/_variables.scss)[[target=_blank]]"
@@ -3402,9 +3420,16 @@
         "title": "Передаваемые свойства",
         "text": "Вы можете передать свойства в `VaDateInput`"
       },
+      "advancedFormatting": {
+        "title": "Advanced formatting",
+        "text": "If you need specific format for multiple or range modes you can use."
+      },
       "view": {
         "title": "Вид",
         "text": "Вы можете установить конкретный вид для выбора даты. С помощью свойства `view` вы можете определить, как будет отображаться окно выбора даты, а также год и месяц, которые будут отображаться."
+      },
+      "formattingGlobalConfig": {
+        "text": "You can easily use your format functions for all VaDateInputs using [Global Config](/services/components-config) feature."
       },
       "validation": {
         "title": "Валидация",
@@ -3727,7 +3752,10 @@
     "featureRich": "Содержит более **50+ компонентов** с богатым набором функций, которые можно использовать в любом дизайнерском решении",
     "configurable": "Позволяет **настраивать компоненты** глобально через конфигурации и переменные css",
     "responsive": "Полностью **адаптивный** и **поддерживает современные браузеры** (но не IE11, извините)",
-    "translatable": "Легко интегрируется с **i18n**"
+    "translatable": "Легко интегрируется с **i18n**",
+    "darkTheme": "Dark Theme ready to make your app look sexy \uD83D\uDDA4",
+    "accessibility": "Accessible - because it’s important❗",
+    "support": "Fast & professional technical support from [the core team](https://vuestic.dev/en/introduction/team)[[target=_blank]] \uD83E\uDEC2"
   },
   "team": {
     "title": "Команда разработчиков",
@@ -3768,6 +3796,7 @@
     },
     "code": {
       "title": "Переводы внутри блоков кода",
+      "warn": "Using translation in demos is an exceptional case. Generally we want to leave filler text untranslated, as it's expensive to support and provides no useful information.",
       "description": "Важно видеть уже переведенный текств вместо функции vue-i18n внутри блока кода, поэтому мы создали несколько хелперов, которые позволяют нам переводить текст внутри блоков кода также, как мы переводим их внутри vue шаблонов.",
       "basicTitle": "Базовый синтаксис",
       "basicText": "Просто разместите функцию vue-i18n в коде и хелпер вернет переведенный текст, обернув его в ковычки.",
@@ -3854,6 +3883,47 @@
   "guide": {
     "title": "Руководство для контрибьюторов",
     "description": "В этом руководстве описаны способы, с помощью которых вы можете стать частью непрерывного развития пользовательского интерфейса Vuestic. Мы очень рады, что вы хотите внести свой вклад в Vuestic UI.",
+    "quickStart": {
+      "title": "Quick start",
+      "description": "If you want to make some changes get a local copy of VausticUI:",
+      "steps": {
+        "1": "Fork Vuestic repository",
+        "2": "Clone your fork",
+        "3": "Install dependencies with `yarn install`"
+      }
+    },
+    "packages": {
+      "title": "Packages",
+      "description": "Vuestic has few packages in order of importance for newcommers:",
+      "list": {
+        "ui": "`packages/ui` - UI lib with demos. Here all vuestic components stored.",
+        "docs": "`packages/docs` - [vuestic.dev](https://vuestic.dev) source code.",
+        "nuxt": "`packages/nuxt` - {'`@vuestic/nuxt`'} module for Nuxt3.",
+        "sandbox": "`packages/sandbox` - Package for testing build and treeshaking.",
+        "vue-cli-plugin": "`packages/vue-cli-plugin` - vue add vuestic-ui plugin for vue-cli.",
+        "ag-grid-theme": "`packages/ag-grid-theme` - AgGrid extension styles.",
+        "deploy": "`packages/deploy` - Release scripts for core contributors."
+      },
+      "notice": "Likely you will deal only with `ui` and `docs` packages."
+    },
+    "commonlyUsedScripts": {
+      "title": "Commonly used scripts",
+      "list": {
+        "demo": "`yarn serve` - this will run project with demos, where you can test component features.",
+        "docs": "`yarn serve:docs` - this will run project with docs (deployed here [vuestic.dev](https://vuestic.dev)).",
+        "generateDocspage": "`yarn generate:docspage` - this will generate docs page, so you can write some guide or tutorial.",
+        "generateComponent": "`yarn generate:component` - this will make component template with docs page and demo page, so you can easily start making new component."
+      },
+      "notice": "You can find more scripts in `package.json` of each package."
+    },
+    "creating": {
+      "title": "Making new components or docs pages",
+      "description": "We have few generate scripts for you to make your life easier.",
+      "scripts": {
+        "docs": "`yarn generate:docs` will make new docs page.",
+        "component": "`yarn generate:component` will make new component."
+      }
+    },
     "pullRequests": {
       "title": "Рекомендации по внесению изменений (Pull Request)",
       "description": {
@@ -3955,6 +4025,10 @@
         "title": "Пример конфигурации псевдонимов",
         "about": "Ниже мы видим, как трансформируется иконка:",
         "explain": "Как видите, конфигурация псевдонима более значимая, чем конфигурация шрифта. И свойства `va-icon` более значимые, чем конфигурация псевдонима и шрифта."
+      },
+      "vaAliases": {
+        "title": "Vuestic component alises",
+        "text": "We use some icons in our components by default. You can redefine them by changing it's alias."
       }
     },
     "setup": {
@@ -3963,6 +4037,7 @@
     },
     "api": {
       "title": "API конфигурации иконок",
+      "description": "You can use IconConfig properties in aliases, fonts and as return in resolve function.",
       "name": "Строка или регулярное выражение. Может быть строкой с динамическим сегментом или регулярным выражением, чтобы использовать эту конфигурацию в качестве шрифта.",
       "iconClass": "Класс, который будет применен к иконке. Может быть строкой или функцией, которая принимает значение динамического сегмента и возвращает строку.",
       "content": "Контент, который будет внутри иконки. Может быть строкой или функцией, которая принимает значение динамического сегмента и возвращает строку.",
@@ -4041,7 +4116,10 @@
       "getHoverColor": "Возвращает цвет, который вы можете использовать как цвет для `hover`",
       "getFocusColor": "Возвращает цвет, который вы можете использовать как цвет для `focus`",
       "getGradientBackground": "Возвращает цвет, который вы можете использовать как цвет для css атрибута `background`",
-      "hookMethods": "useColors хуки"
+      "hookMethods": "useColors хуки",
+      "useColors": "Return colors methods and variables",
+      "hookVariables": "useColors hook variables.",
+      "colors": "A computed reactive where the keys are color names and values are valid CSS colors."
     }
   },
   "breakpoints": {
@@ -4438,6 +4516,10 @@
         "title": "AM PM",
         "text": "Time Input будет автоматически преобразовывать формат в AM PM."
       },
+      "clearable": {
+        "title": "Clearable",
+        "text": "The `clearable` prop adds a button to the right to clear the input. Prop `clearableIcon` sets the custom clear icon."
+      },
       "validation": {
         "title": "Валидация",
         "text": "Валидация работает подобрным образом как и валидация `VaInput`, только функции должны принимать `Date` вместо строки."
@@ -4492,9 +4574,49 @@
     "title": "Карусель",
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-carousel/_variables.scss)[[target=_blank]]",
     "examples": {
+      "default": {
+        "title": "Default",
+        "text": ""
+      },
+      "arrows": {
+        "title": "Arrow buttons",
+        "text": "Arrow buttons allow user switch to next or previous slide."
+      },
+      "indicators": {
+        "title": "Indicator buttons",
+        "text": "Indicators (or dots) used to quickly change slide by it's index."
+      },
+      "vertical": {
+        "title": "Vertical",
+        "text": ""
+      },
+      "slots": {
+        "title": "Slots",
+        "text": "Slots allow you to customize carousel component."
+      },
+      "infinite": {
+        "title": "Infinite",
+        "text": "Smooth scroll transition."
+      },
+      "autoscroll": {
+        "title": "Autoscroll",
+        "text": "Autoscroll animation."
+      },
+      "fade": {
+        "title": "Fade",
+        "text": "Additional carousel slide switch effect."
+      },
       "swipe": {
         "title": "Свайпинг",
         "text": "Свойство `swipable` активирует возможность перелистывания слайдов посредством свайпа."
+      },
+      "ratio": {
+        "title": "Ratio",
+        "text": "The `ratio` prop allows you to set the aspect ratio of the carousel."
+      },
+      "height": {
+        "title": "Height",
+        "text": "If you need specific height instead of ratio, you can use `height` prop."
       }
     }
   },
@@ -4589,13 +4711,16 @@
         "title": "Фильтры"
       },
       "selectable": {
-        "title": "Чекбоксы",
-        "coloredTitle": "Цветные чекбоксы"
+        "title": "Чекбоксы"
+      },
+      "selectableColored": {
+        "title": "Цветные чекбоксы"
       }
     }
   },
   "spacer": {
     "title": "Spacer component",
+    "summaryText": "`va-spacer` is an equivalent for the `flex-grow` property. It allows you to get more space between flex components.",
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -4604,16 +4729,39 @@
     }
   },
   "dropdown": {
-    "title": "Dropdown"
+    "title": "Dropdown",
+    "text": "Dropdown component is a component that allow you to show some content near anchor. It is more utility component. You can use it with `VaDropdownContent` or `VaCard` component. This component looks like popover, but without any additional styling as `VaPopover` has.",
+    "examples": {
+      "default": {
+        "title": "Default usage",
+        "text": ""
+      },
+      "placementAndOffset": {
+        "title": "Placement and Offset",
+        "text": "You can place dropdown any direction you want. Offset is calculated relative to `placement` prop. We use `main` and `cross` offset. Means `main` will be relative to `placement` direction while `cross` is perpendicular. `auto` placement will be `bottom` by default, but will change to `top` if it is not possible to display on bottom."
+      },
+      "trigger": {
+        "title": "Trigger",
+        "text": "You can use `click`, `hover` or `none` trigger which will open dropdown. If you want dropdown to be opened only programmatically use `none` trigger"
+      },
+      "cursor": {
+        "title": "Place on cursor",
+        "text": "You can render dropdown content on cursor position. It is useful to use `cursor` props with `auto-placement` so if content do not fit target it will be placed somewhere else."
+      },
+      "preventOverflow": {
+        "title": "Prevent overflow",
+        "text": "By default dropdown content is rendered as body child. This way we prevent any overflow. In example below `overflow: hidden` of green box is ignored. But we still able to respec overflow by changing `target` prop. In example below `overflow: hidden` of red box is hiding dropdown content."
+      }
+    }
   },
   "scrollContainer": {
     "title": "Scroll container",
     "description": "Компонент контейнера с настраиваемой полосой прокрутки.",
     "examples": {
-      "Default": {
+      "default": {
         "title": "Использование по умолчанию"
       },
-      "Color": {
+      "color": {
         "title": "Цвет",
         "text": "Вы можете поменять цвет полосы прокрутки, используя свойство `color`. Попробуйте, выбирая цвета в списке ниже."
       },
@@ -4625,11 +4773,11 @@
         "title": "Режим вывода текста справа-налево",
         "text": "Свойство `rtl` активирует режим вывода текста слева направо и переносит полосу прокрутки на левую часть контейнера."
       },
-      "Horizontal": {
+      "horizontal": {
         "title": "Горизонтальный режим",
         "text": "Вы можете задать контейнеру горизонтальный (свойство `horizontal`) режим прокрутки таким же образом, как и вертикальный (свойство `vertical`)."
       },
-      "Size": {
+      "size": {
         "title": "Размер",
         "text": "Свойство `size` задает размер (ширину или высоту) полосы прокрутки (доступны значения `small`, `medium` и `large`, также вы можете указать размер путем передачи значения в `px` и `rem`)."
       }
@@ -4704,7 +4852,24 @@
     }
   },
   "i18n": {
-    "title": "i18n"
+    "title": "i18n",
+    "description": "We made a separated config for i18n messages, so you can redefine messages we use in components.",
+    "config": {
+      "title": "i18n default messages",
+      "changeDefault": {
+        "title": "Change default messages",
+        "description": "Default messages can be set in `GlobalConfig`. Config is fully typed, so you can use autocomplete to find messages you want to change."
+      }
+    },
+    "runtimeUpdate": {
+      "title": "Changing language in runtime",
+      "description": "If you have more than one language, you can update messages in runtime with `useI18nConfig` hook from VuesticUI."
+    },
+    "useWithVueI18n": {
+      "title": "Using with vue-i18n",
+      "description": "If you use vue-i18n we can recommend to store VuesticUI messages under specific key",
+      "exampleConfig": "Recommended config structure"
+    }
   },
   "webComponents": {
     "title": "Web components",
