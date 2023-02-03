@@ -43,7 +43,7 @@ useHead({
   }
 
   &__preview-wrapper {
-    background-image: url("@/assets/images/landing/pattern.svg");
+    background-image: url("@/public/landing/pattern.svg");
     background-size: unset;
     background-repeat: no-repeat;
     background-position: top;

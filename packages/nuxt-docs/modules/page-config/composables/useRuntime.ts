@@ -21,4 +21,8 @@ export const useRuntime = () => {
     name: 'usePageConfig',
     from: '~/modules/page-config/runtime/usePageConfig.ts'
   })
+  addImports({
+    name: 'usePageConfigs',
+    from: '~/modules/page-config/runtime/usePageConfig.ts'
+  })
 }

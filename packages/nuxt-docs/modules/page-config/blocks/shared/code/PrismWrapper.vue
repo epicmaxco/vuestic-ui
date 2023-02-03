@@ -32,7 +32,17 @@ export default {
       return `${this.$attrs.class} language-${this.lang}`
     },
     highlightedCode () {
-      return Prism.highlight(this.code, Prism.languages[this.lang])
+      let lang = this.lang
+
+      if (lang === 'bash') {
+        lang = 'sh'
+      }
+
+      if (!Prism.languages[this.lang]) {
+        console.error(`Prism language ${this.lang} not found!`)
+        lang = 'md'
+      }
+      return Prism.highlight(this.code, Prism.languages[lang])
     },
   },
 }

@@ -25,6 +25,8 @@ const getConfig = async (name: string) => {
   return await (file().then((module) => module.default).catch((e) => { throw e }))
 }
 
+export const usePageConfigs = () => files
+
 export const usePageConfig = async (name: string | Ref<string>) => {
   try {
     const config = ref<PageConfigOptions | null>(await getConfig(unref(name)))
