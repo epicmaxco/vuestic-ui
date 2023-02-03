@@ -3785,6 +3785,12 @@
         "defaultColors": "Default colors",
         "customColors": "Custom colors"
       },
+      "colorsClasses": {
+        "title": "Custom classes for the colors",
+        "description": "By default, Vuestic UI creates custom classes for coloring the text and background colors of elements relative to the global color configuration.",
+        "subtitle": "Configuring the custom classes",
+        "subDescription": "With custom classes configuration you can create and/or use classes with styles associated with the global color configuration"
+      },
       "icons": {
         "title": "Icon fonts",
         "description": [
