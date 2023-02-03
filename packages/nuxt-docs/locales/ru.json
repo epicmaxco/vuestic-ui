@@ -1415,11 +1415,19 @@
     "badges": {
       "wip": {
         "text": "wip",
-        "title": "Работа в процессе"
+        "title": "Work In Progress"
       },
       "new": {
         "text": "new",
-        "title": "Недавно добавленный"
+        "title": "Recently added"
+      },
+      "updated": {
+        "text": "updated",
+        "title": "Recently updated"
+      },
+      "beta": {
+        "text": "beta",
+        "title": "Not production ready"
       }
     },
     "categories": {
@@ -1494,7 +1502,7 @@
     "overview": "Обзор",
     "github": "GitHub",
     "translation": "Перевод",
-    "browserSupport": "Поддрежка браузеров",
+    "browserSupport": "Поддержка браузеров",
     "table": "Таблицы",
     "guide": "Контрибьюторам",
     "iconsConfig": "Иконки",
@@ -2990,37 +2998,85 @@
     }
   },
   "grid": {
-    "title": "Grid Layout",
+    "title": "Grid System",
     "summaryText": "Мы предоставляем вам вспомогательные классы для [flex](https://developer.mozilla.org/ru/docs/Web/CSS/flex)[[target=_blank]]. Для [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)[[target=_blank]] встроенных классов не предоставляется. Это не означает, что вам *нужно* использовать `flex`, но он остается мощным инструментом.",
     "examples": {
       "default": {
-        "title": "Включение flexbox",
-        "example": "Теперь я подвижный"
+        "title": "Enabling flexbox",
+        "example": "Now I'm flexible"
       },
       "breakpoints": {
         "title": "Breakpoints",
-        "text": "Вы можете использовать наши `breakpoints`, чтобы установить длину вашего контейнера.",
+        "text": "Use the following classes (`breakpoints`) to apply provided styling to screens of certain widths exclusively.",
         "sizes": {
-          "xs": "`.xs` - (< 640px) - для очень маленьких устройств",
-          "sm": "`.sm` - (>= 640px && < 1024px) - для маленьких устройств",
-          "md": "`.md` - (>= 1024px && < 1440px) - для средних устройств",
-          "lg": "`.lg` - (>= 1440px && < 1920px) - для больших устройств",
-          "xl": "`.xl` - (>= 1920) - для очень больших устройств"
+          "xs": "`.xs` - (< 640px) - Extra small devices",
+          "sm": "`.sm` - (>= 640px && < 1024px) - Small devices",
+          "md": "`.md` - (>= 1024px && < 1440px) - Medium devices",
+          "lg": "`.lg` - (>= 1440px && < 1920px) - Large devices",
+          "xl": "`.xl` - (>= 1920) - Extra large devices"
         }
       },
       "offsets": {
-        "title": "Смещения (offsets)",
-        "text": "Вы можете использовать класс `offset`, чтобы установить расстояние между левым и текущим элементами вашего контейнера.",
+        "title": "Offsets",
+        "text": "You can use the `offset`-classes to set spaces between a given element and the one to the left from it.",
         "sizes": {
-          "xs": "`.offset-xs` - для очень маленьких устройств",
-          "sm": "`.offset-sm` - для маленьких устройств",
-          "md": "`.offset-md` - для средних устройств",
-          "lg": "`.offset-lg` - для больших устройств",
-          "xl": "`.offset-xl` - для очень больших устройств"
+          "xs": "`.offset-xs` - Extra small devices",
+          "sm": "`.offset-sm` - Small devices",
+          "md": "`.offset-md` - Medium devices",
+          "lg": "`.offset-lg` - Large devices",
+          "xl": "`.offset-xl` - Extra large devices"
         },
-        "first": "Первый",
-        "second": "Второй",
-        "last": "Крайний"
+        "first": "First",
+        "second": "Second",
+        "last": "Last"
+      },
+      "align": {
+        "title": "`align`:",
+        "variants": [
+          "`.align-start` - cross-start margin edge of the items is placed on the cross-start line",
+          "`.align-end` - cross-end margin edge of the items is placed on the cross-end line",
+          "`.align-center` - items are centered in the cross-axis",
+          "`.align-baseline` - items are aligned the way their baselines align"
+        ]
+      },
+      "alignSelf": {
+        "title": "`align-self`:",
+        "variants": [
+          "`.align-self-start` - cross-start margin edge of the items is placed on the cross-start line",
+          "`.align-self-end` - cross-end margin edge of the items is placed on the cross-end line",
+          "`.align-self-center` - items are centered in the cross-axis",
+          "`.align-self-baseline` - items are aligned the way their baselines align"
+        ]
+      },
+      "alignContent": {
+        "title": "`align-content`:",
+        "variants": [
+          "`.align-content-start` - lines packed to the start of the container",
+          "`.align-content-end` - lines packed to the end of the container",
+          "`.align-content-center` - lines packed to the center of the container",
+          "`.align-content-space-between` - lines evenly distributed; the first line is at the start of the container while the last one is at the end",
+          "`.align-content-space-around` - lines evenly distributed with equal space between them"
+        ]
+      },
+      "justify": {
+        "title": "`justify`:",
+        "variants": [
+          "`.justify-start` - items are packed toward the start line",
+          "`.justify-end` - items are packed toward to end line",
+          "`.justify-center` - items are centered along the line",
+          "`.justify-space-around` - items are evenly distributed in the line, items have equal space around on either end",
+          "`.justify-space-between` - items are evenly distributed in the line; first item is on the start line, last item is on the end line",
+          "`.justify-space-evenly` - items are evenly distributed in the line; items have equal space around them"
+        ]
+      },
+      "justifySelf": {
+        "title": "`justify-self`:",
+        "variants": [
+          "`.justify-self-start` - The item is packed flush to each other toward the start edge of the alignment container in the appropriate axis.",
+          "`.justify-self-end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
+          "`.justify-self-center` - For items that are not children of a flex container, this value is treated as `.justify-self-start`.",
+          "`.justify-self-baseline` - The items are aligned according to baselines"
+        ]
       }
     },
     "api": {
@@ -3492,6 +3548,11 @@
       "title": "Быстрый старт",
       "description": "Убедитесь, что вы импортировали оба стиля и плагин в свой входной файл:"
     },
+    "createVuestic": {
+      "title": "Create Vuestic",
+      "description": "`create-vuestic` это CLI утилита для создания нового приложения на Vuestic. Это рекомендуемый способ создания новых приложений на Vuestic.",
+      "templates": "`create-vuestic` предлагает на выбор три шаблона: Vuestic Admin, create-vue и Nuxt. Шаблоны настраиваемы, к примеру, вы можете настроить tree-shaking или тему для AG Grid."
+    },
     "cli": {
       "title": "Установка через Vue CLI",
       "prepare": "Перед установкой убедитесь, что [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] установлен глобально и имеет версию 4+:",
@@ -3558,6 +3619,10 @@
       "title": "В разработке",
       "description": "В настоящее время разрабатываются следующие:"
     },
+    "1-5": {
+      "title": "[v1.5](https://github.com/epicmaxco/vuestic-ui/milestone/11)",
+      "description": "Мы работаем над новыми сервисами, компонентами и авто-тестами."
+    },
     "1-4": {
       "title": "[v1.4](https://github.com/epicmaxco/vuestic-ui/milestone/7)",
       "description": "* Carousel компонент. \n * Stepper компонент. \n * Nuxt поддержка."
@@ -3598,52 +3663,56 @@
   "accessibilityGuide": {
     "title": "Доступность",
     "description": "Компоненты Vuestic UI обеспечивают взаимодействие через клавиатуру для всех действий, доступных и с помощью мыши. Кроме того, мы предоставляем семантические элементы HTML5 (где применимо) и полное покрытие WAI-ARIA атрибутами.",
-    "keyboardInteractions": {
-      "title": "Навигация с клавиатуры",
-      "description": "Все интерактивные элементы вашей страницы, например, текстовые поля, кнопки и т.д. доступны с клавиатуры. Это означает, что вы сможете установить на них фокус, используя клавиши `Tab` и `Shift+Tab`. Сфокусированные через клавиатуру элементы имеют собственное визуальное состояние. Для примера, через `Tab` вы можете выделить компонент `date-input` ниже, а также иконку внутри него, через которую, посредством нажатия `Enter`, вызвать пикер даты, а затем с помощью клавиш вправо-влево, `Shift+Tab` для выделения месяца, `Enter` для подтверждения выбора и `Esc` для закрытия пикера выбрать нужную дату, не прикасаясь к мышке."
-    },
-    "waiAria": {
-      "title": "WAI-ARIA",
-      "description": "Все наши компоненты максимально полно (в зависимости от их назначения и ролей составных элементов) снабжены [WAI-ARIA](https://www.w3.org/WAI/standards-guidelines/aria/)[[target=_blank]] атрибутами, обеспечивающими наилучшую поддержку скринридеров. Например, простое поле снизу обеспечивает информацию для скринридеров о том, какое у поля имя, отключено ли оно или доступно только для чтения, необходимо ли его заполнения и нет ли ошибки валидации, а если есть, но с каким текстом ошибки."
+    "examples": {
+      "keyboardInteractions": {
+        "title": "Навигация с клавиатуры",
+        "text": "Все интерактивные элементы вашей страницы, например, текстовые поля, кнопки и т.д. доступны с клавиатуры. Это означает, что вы сможете установить на них фокус, используя клавиши `Tab` и `Shift+Tab`. Сфокусированные через клавиатуру элементы имеют собственное визуальное состояние. Для примера, через `Tab` вы можете выделить компонент `date-input` ниже, а также иконку внутри него, через которую, посредством нажатия `Enter`, вызвать пикер даты, а затем с помощью клавиш вправо-влево, `Shift+Tab` для выделения месяца, `Enter` для подтверждения выбора и `Esc` для закрытия пикера выбрать нужную дату, не прикасаясь к мышке."
+      },
+      "waiAria": {
+        "title": "WAI-ARIA",
+        "text": "Все наши компоненты максимально полно (в зависимости от их назначения и ролей составных элементов) снабжены [WAI-ARIA](https://www.w3.org/WAI/standards-guidelines/aria/)[[target=_blank]] атрибутами, обеспечивающими наилучшую поддержку скринридеров. Например, простое поле снизу обеспечивает информацию для скринридеров о том, какое у поля имя, отключено ли оно или доступно только для чтения, необходимо ли его заполнения и нет ли ошибки валидации, а если есть, но с каким текстом ошибки."
+      }
     }
   },
   "configurationGuide": {
     "title": "Конфигурация",
     "description": "Мы разработали удобный механизм, который позволяет делать глубокую настройку иконок, компонентов и цветов.",
     "readMore": "Подробнее",
-    "colors": {
-      "title": "Цветовые темы",
-      "description": "Vuestic UI поставляется с набором цветов, которые можно легко расширить:",
-      "defaultColors": "Базовые цвета",
-      "customColors": "Пользовательские цвета"
-    },
-    "colorsClasses": {
-      "title": "Настраиваемые классы для цветовых схем",
-      "subtitle": "Использование настраиваемых классов для цветовых схем",
-      "description": "По умолчанию, Vuestic UI создает вспомогательные классы для окрашивания текста и фоновых элементов относительно глобальной конфигурации цветов.",
-      "subDescription": "С помощью конфигурации вы можете создавать и/или использовать классы со стилями связанными с глобальной конфигурацией цветов:"
-    },
-    "icons": {
-      "title": "Иконочные шрифты",
-      "description": [
-        "По умолчанию в Vuestic UI используется npm-пакет **material icons**, поэтому вам следует установить его заранее:",
-        "После установки npm-пакета **material-icons**, необходимо импортировать его стили в файл `main.js`."
-      ],
-      "subtitle": "Использование кастомных иконок",
-      "subDescription": "С помощью конфигурации иконок вы можете использовать любой иконочный шрифт, который вам нужен, просто преобразовывая имя иконки в нужные свойства:"
-    },
-    "components": {
-      "title": "Конфигурация компонентов",
-      "intro": "Если вы хотите установить глобальные настройки по умолчанию для компонентов Vuestic, то у нас есть для этого конфигурация!",
-      "description": "Допустим, вам нужно, чтобы все ваши кнопки были `outline` и `small` в соответствии с дизайном, но по умолчанию это не так:",
-      "action": "Чтобы решить эту проблему - добавьте в свой `main.js`:",
-      "result": "Теперь ваши кнопки будут выглядеть так:",
-      "example": "Аналогичным образом вы можете глобально настроить любые свойства для компонентов Vuestic UI.",
-      "more": "Если вам нужна более глубокая кастомизация, то вы можете переопределить [переменные css](/styles/css-variables#overriding) или свойства класса напрямую (в компонентах используется БЭМ, так что селекторы легко угадать)."
+    "examples": {
+      "colors": {
+        "title": "Цветовые темы",
+        "description": "Vuestic UI поставляется с набором цветов, которые можно легко расширить:",
+        "defaultColors": "Базовые цвета",
+        "customColors": "Пользовательские цвета"
+      },
+      "colorsClasses": {
+        "title": "Настраиваемые классы для цветовых схем",
+        "subtitle": "Использование настраиваемых классов для цветовых схем",
+        "description": "По умолчанию, Vuestic UI создает вспомогательные классы для окрашивания текста и фоновых элементов относительно глобальной конфигурации цветов.",
+        "subDescription": "С помощью конфигурации вы можете создавать и/или использовать классы со стилями связанными с глобальной конфигурацией цветов:"
+      },
+      "icons": {
+        "title": "Иконочные шрифты",
+        "description": [
+          "По умолчанию в Vuestic UI используется npm-пакет **material icons**, поэтому вам следует установить его заранее:",
+          "После установки npm-пакета **material-icons**, необходимо импортировать его стили в файл `main.js`."
+        ],
+        "subtitle": "Использование кастомных иконок",
+        "subDescription": "С помощью конфигурации иконок вы можете использовать любой иконочный шрифт, который вам нужен, просто преобразовывая имя иконки в нужные свойства:"
+      },
+      "components": {
+        "title": "Конфигурация компонентов",
+        "intro": "Если вы хотите установить глобальные настройки по умолчанию для компонентов Vuestic, то у нас есть для этого конфигурация!",
+        "description": "Допустим, вам нужно, чтобы все ваши кнопки были `outline` и `small` в соответствии с дизайном, но по умолчанию это не так:",
+        "action": "Чтобы решить эту проблему - добавьте в свой `main.js`:",
+        "result": "Теперь ваши кнопки будут выглядеть так:",
+        "example": "Аналогичным образом вы можете глобально настроить любые свойства для компонентов Vuestic UI.",
+        "more": "Если вам нужна более глубокая кастомизация, то вы можете переопределить [переменные css](/styles/css-variables#overriding) или свойства класса напрямую (в компонентах используется БЭМ, так что селекторы легко угадать)."
+      }
     }
   },
   "browserSupport": {
-    "title": "Поддрежка браузеров",
+    "title": "Поддержка браузеров",
     "description": "Мы разрабатываем Vuestic UI с расчетом на будущее. Вот почему мы поддерживаем современные браузеры, но извините, пришлось отказаться от некоторых старых браузеров, таких как IE. На это решение повлияло [прекращение его поддержки во Vue 3](https://github.com/vuejs/rfcs/discussions/296)[[target=_blank]] и [падение рейтинга использования](https://caniuse.com/usage-table)[[target=_blank]].",
     "table": {
       "browser": "Браузер",
@@ -4137,8 +4206,10 @@
     "titled": "Title заголовка",
     "textStyles": "Стили текста",
     "codeSnippet": "Фрагмент кода",
+    "codeSnippetWarn": "You need to install `Source Code Pro` font if you want to use `.code-snippet` class",
     "textCode": "Код в тексте",
     "other": "Другие типографические стили",
+    "list": "List styles",
     "orderedList": "Нумерованный список",
     "unorderedList": "Ненумерованный список",
     "links": "Ссылки",
@@ -4394,6 +4465,27 @@
       "subtitle": "Реактивность",
       "about": "Эти переменные реактивны относительно `Colors Config`. Это значит, что они будут обновляться, когда изменяется конфигурация. Читайте подробнее о том, как обновлять конфигурацию [здесь](https://vuestic.dev/en/services/colors-config#icon-config-service-api).",
       "additional": "Обратите внимание, что изменение цветовых переменных CSS напрямую, в свою очередь, не приведет к обновлению `Colors Config`."
+    },
+    "theme": {
+      "title": "Color presets",
+      "description": "Vuestic is shipped with two built-in color pressets: light and dark. You can switch between them using `applyPreset` method from `useColors`. You can check example bellow:",
+      "autoTextColor": "We use abstract color names instead of absolute names. You can click on each color above to see its description and where is it used.",
+      "colors": {
+        "primary": "Accent color used on button, links and other interactive elements",
+        "secondary": "Accent color used on non important interactive elements",
+        "success": "Accent color for success validation, alerts or toasts",
+        "danger": "Accent color for error validation, alerts or toasts",
+        "info": "Accent color for info toasts or alerts",
+        "warning": "Accent color for warning toasts or alerts",
+        "backgroundPrimary": "Page background",
+        "backgroundSecondary": "Card, Modal, Dropdown background",
+        "backgroundElement": "Input, switch, divider background colors",
+        "backgroundBorder": "Used as border color in elements like input, switch etc.",
+        "textPrimary": "Main text used on page. Used as default color on background colors.",
+        "textInverted": "Used as text color, if `textPrimary` doesn't have enough contrast with background color.",
+        "shadow": "Color of shadows that used in elements like cards, modals etc.",
+        "focus": "Keyboard focus outline color"
+      }
     }
   },
   "carousel": {
@@ -4423,20 +4515,64 @@
     },
     "attention": {
       "cssLoader": "Поскольку код всех компонентов разделен, вам может потребоваться загрузчик `CSS` для загрузки стилей для конкретных компонентов.\nНо, вероятно, он у вас уже есть."
+    },
+    "css": {
+      "title": "CSS Code Split",
+      "description": "We separated our CSS into modules: `essential`, `typography`, `grid` and `reset`. Instead of import `vuestic/css` you can import `vuestic/styles/essential.css` - module without typography, grid and normalize. This is usually need if you already using some CSS framework to prevent style conflicts."
+    },
+    "bundleSize": {
+      "title": "Bundle Size",
+      "description": "Statistics of the space occupied in the project bundle (without gzip):"
     }
   },
   "nuxt": {
     "title": "Nuxt интеграция",
     "description": "Vuestic UI компоненты полностью совместимы с Nuxt3.",
+    "createVuestic": {
+      "title": "Scaffold new Nuxt app with Vuestic",
+      "description": "The easiest way to create new Nuxt project with integrated Vuestic is to use `create-vuestic` tool. Create new project and select `Nuxt` template.",
+      "link": "See detailed guide here."
+    },
     "installation": {
       "title": "Установка",
       "plugin": "Установите интеграционный модуль:",
       "nuxtConfig": "Затем обновите файл nuxt-config.ts:",
       "moreAboutConfig": "Подробнее про конфигурирование"
+    },
+    "treeShaking": {
+      "title": "Tree shaking",
+      "description": "Vuestic UI is tree-shaking friendly in Nuxt as well. You can choose which css modules will be used. This can be configured in `nuxt.config.ts`. Components must be tree-shakable automatically.",
+      "css": "In `css` options you can pass array of css modules that will be used in the project or `false` to remove all css from Vuestic expect components css. Available modules: `typography`, `grid`, `reset`. In example below grid will not be used in project. This is helpful in case you already using some other library."
+    },
+    "options": {
+      "title": "Options",
+      "option": {
+        "config": "Vuestic [Global Config](/services/global-config)",
+        "css": "Choose which CSS modules will be added to nuxt. If `true` all CSS modules will be added",
+        "fonts": "Adds Vuestic default fonts to head"
+      }
     }
   },
   "ssrGuide": {
-    "title": "SSR Guide"
+    "title": "SSR Guide",
+    "description": "Vuestic is fully compatible with server-side rendering.",
+    "cssVariables": {
+      "title": "CSS variables",
+      "description": "Vuestic UI uses `CSS variables` in components. For SSR you need to define them in html head element. You can use following code to generate CSS Variables based on your [ColorConfig](/services/colors-config):"
+    },
+    "solutions": {
+      "title": "Examples",
+      "description": "Here are two examples how you can add CSS variables to html head",
+      "nuxt": "Look at Nuxt3 guide",
+      "viteSsrPlugin": {
+        "title": "Vite SSR Plugin",
+        "description": "Learn more about [Vite SSR Plugin](https://vite-plugin-ssr.com/vue-tour)"
+      },
+      "vitesse": {
+        "title": "Vitesse",
+        "description": "Learn more about [Vitesse](https://github.com/antfu/vitesse) and [useHead](https://github.com/vueuse/head#server-side-rendering)"
+      }
+    }
   },
   "treeView": {
     "title": "Tree view",
@@ -4571,7 +4707,33 @@
     "title": "i18n"
   },
   "webComponents": {
-    "title": "Web components"
+    "title": "Web components",
+    "description": "Vuestic UI provides web-components build, so you can pick some component and use them without Vue application",
+    "warn": "This feature is currently in test mode. You can use it, but there can be unexpected bugs or we can change API in future. Help use improve it!",
+    "installation": {
+      "title": "Installation",
+      "description": "Web components build shiped within `vuestic-ui` package and can be imported with suffix `vuestic-ui/web-components`.",
+      "create": "Before you can use web-components they must be registered with `window.customElement`. We provide a nice helper, so you can register specific components:",
+      "installVuestic": "See \"Install Vuestic UI\""
+    },
+    "css": {
+      "title": "CSS",
+      "description": "Since Custom Elements have their own scoped CSS in Shadow DOM, there might be a case when you want to provide some CSS to components. You can do this with `css` property in `registerVuesticWebComponents`. For example, if you want to use Font Awesome in Vuestic components you need provide this CSS:"
+    },
+    "example": {
+      "title": "Usage example",
+      "description": "We use Vuestic web component with vanilla Vite project here",
+      "steps": [
+        "First, we need to register Custom Elements",
+        "Then we can use them in our HTML",
+        "You can also use Global Config with VaConfig element"
+      ],
+      "seeMore": "See more detailed example in our Sandbox"
+    },
+    "treeShaking": {
+      "title": "Tree shaking",
+      "description": "You can import and register only specific components that you need and your bundler will tree-shake other components. It also removes our default CSS in case you don't want ot use Material Icons."
+    }
   },
   "colorsClasses": {
     "title": "Настраиваемые классы для цветовых схем",

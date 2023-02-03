@@ -35,7 +35,7 @@ export default definePageConfig({
 
     block.headline('configurationGuide.examples.colorsClasses.subtitle'),
     block.paragraph('configurationGuide.examples.colorsClasses.subDescription'),
-    block.code('colorClasses'),
+    block.code('color-classes'),
     block.link('configurationGuide.readMore', '/services/colors-classes'),
 
 

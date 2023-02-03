@@ -3655,7 +3655,7 @@
     },
     "createVuestic": {
       "title": "Create Vuestic",
-      "description": "`create-vuestic` is CLI based tool to create new Vuestic App. This is a recomended way to scaffold new Vue apps with Vuestic",
+      "description": "`create-vuestic` is CLI based tool to create new Vuestic App. This is a recommended way to scaffold new Vue apps with Vuestic.",
       "templates": "`create-vuestic` provides three template: Vuestic Admin, create-vue and Nuxt. Templates can be configured to use specific features like tree-shaking or AG Grid theme."
     },
     "cli": {
@@ -3776,11 +3776,11 @@
     "examples": {
       "keyboardInteractions": {
         "title": "Keyboard accessible",
-        "description": "All interactive elements of your page should be accessible by keyboard (e.g. text boxes, buttons, etc). That means you should be able focus on them via `Tab` and `Shift+Tab` keys. Focused via keyboard elements have their own visual state. For example, you can focus `date-input` component below via `Tab`, then call `date-picker` via `Enter` and select date, using left-right keys, `Shift+Tab` to focus year and month, `Enter` to confirm the selection and `Esc` to close the picker."
+        "text": "All interactive elements of your page should be accessible by keyboard (e.g. text boxes, buttons, etc). That means you should be able focus on them via `Tab` and `Shift+Tab` keys. Focused via keyboard elements have their own visual state. For example, you can focus `date-input` component below via `Tab`, then call `date-picker` via `Enter` and select date, using left-right keys, `Shift+Tab` to focus year and month, `Enter` to confirm the selection and `Esc` to close the picker."
       },
       "waiAria": {
         "title": "WAI-ARIA",
-        "description": "All our components are fully (depending on their roles) covered by [WAI-ARIA](https://www.w3.org/WAI/standards-guidelines/aria/)[[target=_blank]] attributes, providing full support for screen-readers. For example, simple input below provides for screen-readers information about inputs name, it is disabled or readonly, it is necessary to fill it and  it doesn't contain any validation errors."
+        "text": "All our components are fully (depending on their roles) covered by [WAI-ARIA](https://www.w3.org/WAI/standards-guidelines/aria/)[[target=_blank]] attributes, providing full support for screen-readers. For example, simple input below provides for screen-readers information about inputs name, it is disabled or readonly, it is necessary to fill it and  it doesn't contain any validation errors."
       }
     }
   },
