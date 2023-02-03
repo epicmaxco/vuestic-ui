@@ -175,6 +175,10 @@ export default defineComponent({
 .va-option-list {
   &__list {
     line-height: var(--va-option-list-line-height);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    vertical-align: baseline;
   }
 }
 </style>

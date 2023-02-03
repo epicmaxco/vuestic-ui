@@ -189,7 +189,7 @@ import { useFilterable, useFilterableProps } from './hooks/useFilterable'
 import { useSortable, useSortableProps } from './hooks/useSortable'
 import { useTableScroll, useTableScrollProps, useTableScrollEmits } from './hooks/useTableScroll'
 
-import { useComponentPresetProp, useTranslation } from '../../composables'
+import { useComponentPresetProp, useTranslation, useThrottleProps } from '../../composables'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
@@ -240,6 +240,7 @@ export default defineComponent({
     ...usePaginatedRowsProps,
     ...useRowsProps,
     ...useSelectableProps,
+    ...useThrottleProps,
     hoverable: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },
     loading: { type: Boolean, default: false },

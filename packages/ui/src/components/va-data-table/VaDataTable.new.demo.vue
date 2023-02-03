@@ -120,6 +120,19 @@
       </va-data-table>
     </VbCard>
 
+    <VbCard title="Throttling (in the example below - for columns sorting)">
+      <va-data-table
+        v-model:sort-by="sortBy"
+        v-model:sorting-order="sortingOrder"
+        :items="items"
+        :columns="columns"
+        :delay="1000"
+      >
+        <template #header(street)="{ label }">{{ label }}</template>
+        <template #header(companyName)>Company Name</template>
+      </va-data-table>
+    </VbCard>
+
     <VbCard title="Use `columns` prop, enable sorting and use custom sorting function (always returns -1) for the `id` column">
       <label for="sortingBy">Sort by</label>
       <select id="sortingBy" v-model="sortBy">

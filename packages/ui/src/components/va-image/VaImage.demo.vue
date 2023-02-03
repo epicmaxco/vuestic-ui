@@ -40,13 +40,19 @@
       </va-image>
 
       <va-image
-        class="image"
+        class="image mb-2"
         :src="slotImagePath"
       >
         <template #placeholder>
           Placeholder (both error and loading states)
         </template>
       </va-image>
+
+      <va-image
+        class="image"
+        :src="slotImagePath"
+        fallback-text="Fallback text"
+      />
     </VbCard>
 
     <VbCard title="Default slot">
