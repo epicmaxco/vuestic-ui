@@ -51,6 +51,7 @@ useHead({
 <style lang="scss">
   @import 'vuestic-ui/styles/resources';
   @import '@/assets/fonts-imports.scss';
+  @import '@/assets/smart-grid.scss';
   // Need to import tailwind in layout, because otherwise Vuestic component's css will has a higher priority
   // @import '~/assets/css/tailwind.css';
 
@@ -106,6 +107,8 @@ useHead({
       max-width: 1080px;
       padding: 1.75rem 3.5rem;
       box-sizing: border-box;
+
+      @include sm(padding, 2em);
     }
   }
 </style>
