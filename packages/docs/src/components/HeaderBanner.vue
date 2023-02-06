@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!hided" class="header-banner">
+  <div v-if="!isHidden" class="header-banner">
     <div class="header__wrapper">
       <div class="header-banner__left">
         <strong>{{ $t("landing.header.banner.partner") }}</strong>
@@ -39,7 +39,7 @@ const isHidden = ref(localStorage.getItem('official-partner-banner') === 'hide')
 
 const hide = () => {
   localStorage.setItem('official-partner-banner', 'hide')
-  hided.value = true
+  isHidden.value = true
 }
 </script>
 
