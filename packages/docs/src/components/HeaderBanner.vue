@@ -24,7 +24,7 @@
         <a href="https://nuxtjs.org/partners/epicmax" target="_blank" class="link-5"><strong class="bold-text-9">Nuxt</strong></a>
       </div>
       <div class="header__banner-button">
-        <va-button href="https://epicmax.co/contacts?ref=vuestic-header" target="blank">{{ $t("landing.header.banner.hire") }}</va-button>
+        <va-button href="https://epicmax.co/?ref=vuestic-header" target="blank">{{ $t("landing.header.banner.hire") }}</va-button>
       </div>
     </div>
   </div>
