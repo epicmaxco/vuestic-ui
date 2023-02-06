@@ -12,14 +12,14 @@
       class="va-select-option__icon"
       :name="optionIcon"
     />
-    {{ optionTextSplit.start }}
+    {{ optionTextSplitted.start }}
     <span
-      v-if="optionTextSplit.searchedSubString"
+      v-if="optionTextSplitted.searchedSubString"
       class="va-select-option__highlighted"
     >
-      {{ optionTextSplit.searchedSubString }}
+      {{ optionTextSplitted.searchedSubString }}
     </span>
-    {{ optionTextSplit.end }}
+    {{ optionTextSplitted.end }}
     <va-icon
       v-show="isSelected"
       class="va-select-option__selected-icon"
@@ -65,7 +65,7 @@ export default defineComponent({
     const optionIconColor = computed(() => getColor(props.color))
 
     const optionText = computed(() => props.getText(props.option))
-    const optionTextSplit = computed(() => {
+    const optionTextSplitted = computed(() => {
       const defaultSplit = { start: optionText.value, searchedSubString: '', end: '' }
 
       if (!optionText.value || !props.search || !props.highlightMatchedText || props.search.length < props.minSearchChars) {
@@ -111,7 +111,7 @@ export default defineComponent({
       optionStyle,
       optionClass,
       optionIconColor,
-      optionTextSplit,
+      optionTextSplitted,
     }
   },
 })

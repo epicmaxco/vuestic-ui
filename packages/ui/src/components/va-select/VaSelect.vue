@@ -268,7 +268,7 @@ export default defineComponent({
           warn('Model value should be a string or a number for a single Select.')
 
           if (value.length) {
-            return value[value.length - 1]
+            return value.at(-1)
           }
         }
 
@@ -284,7 +284,7 @@ export default defineComponent({
       },
     })
 
-    const valueString = useStringValue(props, valueComputed, visibleSelectedOptions, getText)
+    const valueString = useStringValue(props, visibleSelectedOptions, getText)
 
     // icons
     const {
@@ -597,8 +597,8 @@ export default defineComponent({
     }))
 
     // autocomplete
-    const { autocompleteValue, setAutocompleteValue } =
-      useAutocomplete(props, visibleSelectedOptions, valueString, showDropdownContent, getText)
+    const autocompleteValue = useAutocomplete(props, visibleSelectedOptions, showDropdownContent, getText)
+    const setAutocompleteValue = (v: string) => (autocompleteValue.value = v)
 
     // public methods
     const focus = () => {

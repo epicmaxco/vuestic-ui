@@ -11,17 +11,10 @@ type UseAutocompleteProps = ExtractPropTypes<typeof useAutocompleteProps> & { mu
 export const useAutocomplete = (
   props: UseAutocompleteProps,
   value: Ref<SelectOption[]>,
-  valueString: Ref<string>,
   dropdownShown: Ref<boolean>,
   getText: (option: SelectOption) => string,
 ) => {
-  const getLastOptionText = (v: SelectOption[] | string | undefined) => {
-    if (!v) { return '' }
-
-    if (typeof v === 'string') { return v }
-
-    return Array.isArray(v) && v.length ? getText(v.at(-1)!) : ''
-  }
+  const getLastOptionText = (v: SelectOption[]) => v?.length ? getText(v.at(-1)!) : ''
 
   const autocompleteValue = ref('')
 
@@ -45,13 +38,15 @@ export const useAutocomplete = (
     }
   })
 
-  watch(dropdownShown, (newValue, oldValue) => {
-    if (!props.autocomplete || newValue || !oldValue) { return }
+  const onDropdownClosed = () => {
+    autocompleteValue.value = props.multiple ? '' : getLastOptionText(value.value)
+  }
 
-    autocompleteValue.value = props.multiple ? '' : String(valueString.value)
+  watch(dropdownShown, (newValue, oldValue) => {
+    if (!props.autocomplete) { return }
+
+    if (!newValue || oldValue) { onDropdownClosed() }
   })
 
-  const setAutocompleteValue = (v: string) => (autocompleteValue.value = v)
-
-  return { autocompleteValue, setAutocompleteValue }
+  return autocompleteValue
 }

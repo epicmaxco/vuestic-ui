@@ -10,24 +10,15 @@ type UseStringValueProps = ExtractPropTypes<typeof useStringValueProps> & { clea
 
 export const useStringValue = (
   props: UseStringValueProps,
-  valueComputed: Ref<SelectOption | SelectOption[]>,
   visibleSelectedOptions: Ref<SelectOption[]>,
   getText: (option: SelectOption) => string,
 ) => {
   return computed<string>(() => {
-    if (!valueComputed.value && valueComputed.value !== 0) {
+    if (!visibleSelectedOptions.value?.length) {
       return props.clearValue
     }
 
-    if (['string', 'number'].includes(typeof valueComputed.value)) {
-      return String(valueComputed.value)
-    }
-
-    if (Array.isArray(valueComputed.value)) {
-      return visibleSelectedOptions.value.map((value) =>
-        getText(value)).join(props.separator) || props.clearValue
-    }
-
-    return getText(valueComputed.value)
+    return visibleSelectedOptions.value.map((value) =>
+      getText(value)).join(props.separator) || props.clearValue
   })
 }
