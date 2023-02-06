@@ -36,6 +36,14 @@
             @keydown.enter.stop="reset"
             @keydown.space.stop="reset"
           />
+
+          <va-icon
+            v-if="$props.loading"
+            :color="$props.color"
+            size="small"
+            name="va-loading"
+            spin="counter-clockwise"
+          />
         </template>
 
         <template #appendInner>
