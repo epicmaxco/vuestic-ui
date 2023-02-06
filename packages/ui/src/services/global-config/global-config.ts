@@ -9,7 +9,7 @@ import { getBreakpointDefaultConfig } from '../breakpoint'
 import { getGlobalProperty } from '../vue-plugin/utils'
 import { inject } from '../current-app'
 import { mergeDeep } from '../../utils/merge-deep'
-import { getColorsClassesDefaultConfig } from '../colors-classes'
+import { getColorsClassesDefaultConfig } from '../colors-classes/config/default'
 
 export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
 
@@ -47,7 +47,7 @@ export function useGlobalConfigSafe () {
   return inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
 }
 
-export function useGlobalConfig (): ProvidedGlobalConfig {
+export const useGlobalConfig = (): ProvidedGlobalConfig => {
   const injected = inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
 
   if (!injected) {
