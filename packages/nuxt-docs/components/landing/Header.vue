@@ -158,6 +158,7 @@ export default defineComponent({
   left: 0;
   width: 100%;
   background: transparent;
+  box-shadow: 0 2px 8px var(--va-shadow);
 
   &__banner {
     display: flex;
