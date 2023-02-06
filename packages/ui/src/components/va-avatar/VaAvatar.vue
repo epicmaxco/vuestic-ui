@@ -42,7 +42,9 @@ import {
 } from '../../composables'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
-import { VaIcon, VaProgressCircle, VaFallback } from '../index'
+import { VaIcon } from '../va-icon'
+import { VaProgressCircle } from '../va-progress-circle'
+import { VaFallback } from '../va-fallback'
 import { useAvatarProps } from './hooks/useAvatarProps'
 
 const VaFallbackProps = extractComponentProps(VaFallback)

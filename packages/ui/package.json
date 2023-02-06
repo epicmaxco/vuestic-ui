@@ -39,7 +39,10 @@
     "push": "npm publish --tag=next",
     "push-production": "npm publish --tag=latest",
     "precommit": "lint-staged --concurrent=false && yarn test:unit --run",
-    "server:webapp": "npx http-server dist --push-state"
+    "server:webapp": "npx http-server dist --push-state",
+    "story:dev": "histoire dev",
+    "story:build": "histoire build",
+    "story:preview": "histoire preview"
   },
   "dependencies": {
     "@types/lodash": "^4.14.161",
@@ -55,6 +58,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-2",
+    "@histoire/plugin-vue": "^0.12.4",
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@types/cleave.js": "^1.4.7",
@@ -87,6 +91,7 @@
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^7.0.1",
     "friendly-errors-webpack-plugin": "^1.7.0",
+    "histoire": "^0.12.4",
     "identity-obj-proxy": "^3.0.0",
     "ionicons": "^3.0.0",
     "jsdom": "^16.2.2",
