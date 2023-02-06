@@ -140,6 +140,9 @@ export default defineComponent({
   &__highlighted {
     color: var(--va-select-option-list-option-highlighted-color);
     background-color: var(--va-select-option-list-option-highlighted-background-color);
+    border-radius: var(--va-select-option-list-option-highlighted-border-radius);
+    margin: var(--va-select-option-list-option-highlighted-margin);
+    padding: var(--va-select-option-list-option-highlighted-padding);
   }
 }
 </style>
