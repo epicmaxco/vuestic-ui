@@ -1,5 +1,5 @@
 <template>
-  <div class="header-banner">
+  <div v-if="!hided" class="header-banner">
     <div class="header__wrapper">
       <div class="header-banner__left">
         <strong>{{ $t("landing.header.banner.partner") }}</strong>
@@ -23,12 +23,25 @@
         </a>
         <a href="https://nuxtjs.org/partners/epicmax" target="_blank" class="link-5"><strong class="bold-text-9">Nuxt</strong></a>
       </div>
-      <div class="header__banner-button">
+      <div class="header-banner__button">
         <va-button href="https://epicmax.co/contacts?ref=vuestic-header" target="blank">{{ $t("landing.header.banner.hire") }}</va-button>
+        <div class="header-banner__button--close">
+          <va-icon class="cursor-pointer" size="small" name="close" @click="hide" />
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+const hided = ref(localStorage.getItem('official-partner-banner') === 'hide')
+
+const hide = () => {
+  localStorage.setItem('official-partner-banner', 'hide')
+  hided.value = true
+}
+</script>
 
 <style lang="scss" scoped>
 @import "../assets/main";
@@ -50,6 +63,15 @@
 
   &__button {
     z-index: 10;
+    display: flex;
+    align-items: center;
+
+    &--close {
+      margin-left: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
   }
 
   .header__wrapper {
