@@ -33,9 +33,11 @@ export const useVirtualScrollerSizesProps = {
     validator: (v: number | string) => { return validateSizeProp(v, 'itemSize') },
   },
   wrapperSize: {
-    type: [Number, String] as PropType<string | number>,
+    type: [Number, String] as PropType<number | string | 'auto'>,
     default: 100,
-    validator: (v: number | string) => { return validateSizeProp(v, 'wrapperSize') },
+    validator: (v: number | string | 'auto') => {
+      return v === 'auto' || validateSizeProp(v, 'wrapperSize')
+    },
   },
 }
 
@@ -46,7 +48,13 @@ export const useVirtualScrollerSizes = (
   const list = shallowRef<HTMLElement>()
   const wrapper = shallowRef<HTMLElement>()
 
+  const clientSizeMeasure = computed(() => props.horizontal ? 'clientWidth' : 'clientHeight')
+
   const wrapperSize = computed(() => {
+    if (props.wrapperSize === 'auto') {
+      return wrapper.value?.[clientSizeMeasure.value] || 0
+    }
+
     return parseSizeValue(props.wrapperSize, pageFontSize)
   })
 
@@ -66,7 +74,7 @@ export const useVirtualScrollerSizes = (
 
     for (let i = 0; i < itemsAmount; i++) {
       const currentChild = list.value.children.item(i)
-      currentChild && sizes.push(currentChild[props.horizontal ? 'clientWidth' : 'clientHeight'])
+      currentChild && sizes.push(currentChild[clientSizeMeasure.value])
     }
 
     itemSizeCalculated.value = itemsAmount
