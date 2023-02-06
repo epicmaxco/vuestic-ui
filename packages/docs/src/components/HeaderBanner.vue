@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-const hided = ref(localStorage.getItem('official-partner-banner') === 'hide')
+const isHidden = ref(localStorage.getItem('official-partner-banner') === 'hide')
 
 const hide = () => {
   localStorage.setItem('official-partner-banner', 'hide')
