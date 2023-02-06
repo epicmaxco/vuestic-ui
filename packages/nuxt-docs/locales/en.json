@@ -4747,7 +4747,7 @@
       },
       "customizableContent": {
         "title": "Customizable content",
-        "description": "You can customize the body of node"
+        "text": "You can customize the body of node"
       },
       "filters": {
         "title": "Filters"
