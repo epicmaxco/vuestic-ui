@@ -31,8 +31,9 @@
     "dependenciesInstalled": "node ./scripts/stud-nuxt.mjs"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.0.0-rc.9",
-    "nuxt": "^3.0.0-rc.9",
+    "@nuxt/kit": "^3.0.0",
+    "chokidar": "*",
+    "nuxt": "^3.0.0",
     "pathe": "^0.3.5",
     "vuestic-ui": "^1.4.10"
   },

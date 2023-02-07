@@ -1,0 +1,55 @@
+<template>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="511.5"
+    height="351.7"
+    viewBox="0 0 512 352"
+  >
+    <defs />
+    <g stroke-linecap="round">
+      <path
+        fill="var(--va-danger)"
+        stroke-width="0"
+        d="m10 226 490-2 3 118-495-2"
+      />
+      <path
+        fill="none"
+        stroke="#000"
+        stroke-width="4"
+        d="M10 224c190 4 381 2 492 1m-492 0h491m1 2v115m-1-117 1 117m0 0-492-1m492 1c-131 1-261 2-492 0m-1 1c3-45 2-90 0-119m0 118c3-36 2-71 2-118"
+      />
+    </g>
+    <text
+      y="33"
+      font-family="Virgil, Segoe UI Emoji"
+      font-size="36"
+      style="white-space: pre"
+      fill="white"
+      transform="translate(35 258)"
+    >
+      bg-danger text-inverted
+    </text>
+    <g stroke-linecap="round">
+      <path
+        fill="var(--va-success)"
+        stroke-width="0"
+        d="m54 8 397 2 20 5h7l13 14 3 15 4 101-3 21-4 6-13 11-7 6-20 3-398-1-19-3-12-10-11-11 1-10L9 43l9-15 3-5 14-9 20-3"
+      />
+      <path
+        fill="none"
+        stroke="#000"
+        stroke-width="4"
+        d="M55 10h397M55 10h397m0 0c29 0 46 15 45 45m-45-45c28 1 45 15 45 45m0 0v91m0-91v91m0 0c-1 31-14 44-45 45m45-45c0 30-14 47-45 45m0 0c-148 2-296 1-397 0m397 0c-98 2-195 2-397 0m0 0c-28-1-45-17-45-45m45 45c-29 1-45-15-45-45m0 0V55m0 91V55m0 0C8 26 23 10 55 10M10 55c1-29 16-43 45-45"
+      />
+    </g>
+    <text
+      y="33"
+      font-family="Virgil, Segoe UI Emoji"
+      font-size="36"
+      style="white-space: pre"
+      transform="translate(50 28)"
+    >
+      bg-success rounded
+    </text>
+  </svg>
+</template>

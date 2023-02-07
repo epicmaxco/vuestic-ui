@@ -159,7 +159,9 @@
   scrollbar-width: thin;
 }
 
-@mixin va-background($color, $opacity: 1, $index: auto) {
+@mixin va-background($color, $opacity: 1, $index: -1) {
+  z-index: 0;
+
   &::after {
     position: absolute;
     top: 0;
