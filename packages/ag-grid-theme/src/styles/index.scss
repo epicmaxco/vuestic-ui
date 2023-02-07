@@ -13,19 +13,16 @@
 $primary: #154EC1;
 $secondary: #767C88;
 $success: #3D9209;
-$info: #158DE3;
 $danger: #E42222;
 $warning: #FFD43A;
 
 // Background Colors
-$backgroundPrimary: #f6f6f6;
 $backgroundSecondary: #FFFFFF;
 $backgroundElement: #EBF1F4;
 $backgroundBorder: #DEE5F2;
 
 // Text Colors
 $textPrimary: #262824;
-$textInverted: #FFFFFF;
 
 // Misc
 $shadow: rgba(0, 0, 0, 0.12);
@@ -45,7 +42,7 @@ $focus: #FFFF00;
         subheader-toolbar-background-color: $backgroundSecondary,
         control-panel-background-color: $backgroundSecondary,
         selected-row-background-color: var(--ag-selected-row-background-color),
-        odd-row-background-color: $backgroundElement,
+        odd-row-background-color: transparent,
         modal-overlay-background-color: rgba(255, 255, 255, 0.5),
         row-hover-color: var(--ag-selected-row-background-color),
         column-hover-color: transparent,
@@ -95,7 +92,7 @@ $focus: #FFFF00;
         toggle-button-height: 10px,
         toggle-button-width: 10px,
         input-focus-box-shadow: transparent,
-        input-focus-border-color: transparent,
+        input-focus-border-color: $focus,
         minichart-selected-chart-color: $textPrimary,
         minichart-selected-page-color: $textPrimary,
         grid-size: 8px,
@@ -120,7 +117,7 @@ $focus: #FFFF00;
         //icons-font-codes: $ag-theme-base-icons-font-codes,
         card-radius: 0px,
         card-shadow: none,
-        popup-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3)
+        popup-shadow: $shadow
 ));
 
 @import "./parts/header";

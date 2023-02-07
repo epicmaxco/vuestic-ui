@@ -35,7 +35,7 @@ $backgroundElement: #EBF1F4;
 ////////////////////////////////////////
 @mixin vuestic-theme-striped {
   &--striped {
-    --ag-odd-row-background-color: $backgroundElement;
+    --ag-odd-row-background-color: #{$backgroundElement};
     --ag-selected-row-background-color: var(--ag-selected-row-background-color);
     //.ag-row-odd {
     //  background-color: var(--va-background-element);
