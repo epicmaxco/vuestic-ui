@@ -170,7 +170,6 @@ export default defineComponent({
     bottom: 0;
     left: 50%;
     min-width: 100%;
-    max-width: unset;
     min-height: 100%;
     display: none;
     transform: translate(-50%, 0);

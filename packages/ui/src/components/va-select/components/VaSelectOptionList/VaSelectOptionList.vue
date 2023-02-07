@@ -28,31 +28,35 @@
         @scroll:bottom="handleScrollToBottom"
         v-slot="{ item: option, index }"
       >
-        <slot v-bind="{ option, index, selectOption }">
+        <va-select-option
+          v-if="!isSlotContentPassed"
+          :option="option"
+          :current-option="currentOptionComputed"
+          :disabled="getDisabled(option)"
+          v-bind="selectOptionProps"
+          @click.stop="selectOption(option)"
+          @mousemove="updateHoveredOption(option)"
+        />
+        <template v-else>
+          <slot v-bind="{ option, index, selectOption }" />
+        </template>
+      </va-virtual-scroller>
+
+      <template v-else>
+        <template v-for="(option, index) in options" :key="getTrackBy(option)">
           <va-select-option
-            :option="option"
+            v-if="!isSlotContentPassed"
+            :ref="setItemRef(getTrackBy(option))"
             :current-option="currentOptionComputed"
+            :option="option"
             :disabled="getDisabled(option)"
             v-bind="selectOptionProps"
             @click.stop="selectOption(option)"
             @mousemove="updateHoveredOption(option)"
           />
-        </slot>
-      </va-virtual-scroller>
-
-      <template v-else>
-        <template v-for="(option, index) in options" :key="getTrackBy(option)">
-          <slot v-bind="{ option, index, selectOption }">
-            <va-select-option
-              :ref="setItemRef(getTrackBy(option))"
-              :current-option="currentOptionComputed"
-              :option="option"
-              :disabled="getDisabled(option)"
-              v-bind="selectOptionProps"
-              @click.stop="selectOption(option)"
-              @mousemove="updateHoveredOption(option)"
-            />
-          </slot>
+          <template v-else>
+            <slot v-bind="{ option, index, selectOption }" />
+          </template>
         </template>
       </template>
     </template>
@@ -187,6 +191,8 @@ export default defineComponent({
       getTrackBy,
     }))
 
+    const isSlotContentPassed = useSlotPassed()
+
     const findNextActiveOption = (startSearchIndex: number, reversedSearch = false) => {
       const searchBase = [...(currentOptions.value || [])]
       const searchBaseOrdered = reversedSearch ? searchBase.reverse() : searchBase
@@ -259,6 +265,7 @@ export default defineComponent({
       optionGroups: optionGroupsThrottled,
       filteredOptions,
       selectOptionProps,
+      isSlotContentPassed,
       currentOptionComputed,
 
       onScroll,

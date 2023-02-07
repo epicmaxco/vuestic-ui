@@ -107,12 +107,6 @@
         false-value="disagree"
         :label="`${customTrueFalse}`"
       />
-      <va-switch
-        v-model="customTrueFalseNumber"
-        :true-value="1"
-        :false-value="0"
-        :label="`${customTrueFalseNumber}`"
-      />
     </VbCard>
     <VbCard title="Array as model">
       <div>
@@ -226,7 +220,6 @@ export default {
       valueIndeterminate: true,
       valueIndeterminateCustom: true,
       customTrueFalse: 'disagree',
-      customTrueFalseNumber: 1,
       selection: [],
       selectionObjectValues: [],
       objectOptions: [

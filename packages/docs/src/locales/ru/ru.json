@@ -1494,7 +1494,7 @@
     "overview": "Обзор",
     "github": "GitHub",
     "translation": "Перевод",
-    "browserSupport": "Поддержка браузеров",
+    "browserSupport": "Поддрежка браузеров",
     "table": "Таблицы",
     "guide": "Контрибьюторам",
     "iconsConfig": "Иконки",
@@ -3643,7 +3643,7 @@
     }
   },
   "browserSupport": {
-    "title": "Поддержка браузеров",
+    "title": "Поддрежка браузеров",
     "description": "Мы разрабатываем Vuestic UI с расчетом на будущее. Вот почему мы поддерживаем современные браузеры, но извините, пришлось отказаться от некоторых старых браузеров, таких как IE. На это решение повлияло [прекращение его поддержки во Vue 3](https://github.com/vuejs/rfcs/discussions/296)[[target=_blank]] и [падение рейтинга использования](https://caniuse.com/usage-table)[[target=_blank]].",
     "table": {
       "browser": "Браузер",

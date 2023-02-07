@@ -14,23 +14,32 @@
     </va-list-item-section>
   </va-list-item>
 </template>
+<script lang='ts'>
+import { Options, Vue, prop, mixins, setup } from 'vue-class-component'
+import { getHoverColor } from 'vuestic-ui/src/services/color'
+import { useColors } from 'vuestic-ui/src/main'
 
-<script lang='ts' setup>
-import { ref, computed } from 'vue'
-import { useColors } from 'vuestic-ui'
+class SidebarLinkProps {
+  path = prop<string>({ type: String, default: undefined })
+}
 
-const props = defineProps({
-  path: { type: String },
+const SidebarLinkPropsMixin = Vue.with(SidebarLinkProps)
+
+@Options({
+  name: 'DocsSidebarLink',
 })
+export default class SidebarLink extends mixins(SidebarLinkPropsMixin) {
+  isHovered = false
 
-const isHovered = ref(false)
+  colorsCtx = setup(useColors)
 
-const { getColor, getHoverColor } = useColors()
-
-const computedStyle = computed(() => ({
-  backgroundColor: isHovered.value ? getHoverColor(getColor('primary', '#ecf4f8')) : '',
-  color: isHovered.value ? getColor('primary', '#2c82e0') : '',
-}))
+  get computedStyle () {
+    return {
+      backgroundColor: this.isHovered ? getHoverColor(this.colorsCtx.getColor('primary', '#ecf4f8')) : '',
+      color: this.isHovered ? this.colorsCtx.getColor('primary', '#2c82e0') : '',
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

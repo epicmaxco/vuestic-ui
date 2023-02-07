@@ -256,8 +256,9 @@ export default defineComponent({
 
   &--flat {
     .va-collapse__header {
-      --va-collapse-solid-header-content-border-radius: 0;
-      --va-collapse-header-content-box-shadow: none;
+      box-shadow: none;
+      border: 0;
+      border-radius: 0;
     }
   }
 

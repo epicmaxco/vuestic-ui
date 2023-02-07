@@ -41,8 +41,7 @@ import { defineComponent, ref, PropType } from 'vue'
 import { useBem, useFocus, useStrictInject, useTranslation } from '../../../composables'
 import { VaFileUploadKey, ConvertedFile } from '../types'
 
-import { VaButton } from '../../va-button'
-import { VaListItem, VaListItemSection } from '../../va-list'
+import { VaListItem, VaListItemSection, VaButton } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadListItem component should be used in the context of VaFileUpload component'

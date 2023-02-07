@@ -1,7 +1,0 @@
-<template>
-  <va-avatar src="https://not-exist" class="mr-6" />
-  <va-avatar
-    src="https://not-exist"
-    fallback-src="https://randomuser.me/api/portraits/men/1.jpg"
-  />
-</template>

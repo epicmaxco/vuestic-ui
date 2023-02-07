@@ -116,7 +116,6 @@ export default defineComponent({
     falseLabel: { type: String, default: null },
     trueInnerLabel: { type: String, default: null },
     falseInnerLabel: { type: String, default: null },
-    ariaLabel: { type: String, default: 'Switch' },
     color: { type: String, default: 'primary' },
     offColor: { type: String, default: 'background-element' },
     size: {
@@ -124,6 +123,7 @@ export default defineComponent({
       default: 'medium',
       validator: (value: string) => ['medium', 'small', 'large'].includes(value),
     },
+
   },
   setup (props, { emit, slots }) {
     const elements = {
@@ -209,7 +209,6 @@ export default defineComponent({
       'aria-disabled': props.disabled,
       'aria-readonly': props.readonly,
       'aria-checked': !!props.modelValue,
-      'aria-label': !slots.default ? props.ariaLabel : undefined,
       'aria-labelledby': computedLabel.value || slots.default ? ariaLabelIdComputed.value : undefined,
       ...validationAriaAttributes.value,
     }))
