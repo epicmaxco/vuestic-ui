@@ -4956,7 +4956,8 @@
       "example": "An example of using the classes we created:"
     },
     "examples": {
-      "custom": {
+      "default": {
+        "title": "Example",
         "example1": "Now I'm have a green color on the borders and text colors",
         "example2": "I have a red background"
       }

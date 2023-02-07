@@ -462,6 +462,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.colorsConfig",
       },
       {
+        name: "colors-classes",
+        displayName: "menu.colorsClasses",
+        meta: {
+          badge: 'new',
+        }
+      },
+      {
         name: "breakpoints",
         displayName: "menu.breakpoints",
         meta: {
