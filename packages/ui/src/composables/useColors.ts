@@ -1,7 +1,7 @@
 import type { ColorInput } from 'colortranslator/dist/@types'
 import type { ColorVariables, CssColor } from '../services/color'
 import { computed } from 'vue'
-import { useGlobalConfigSafe } from '../services/global-config/global-config'
+import { useGlobalConfig } from '../services/global-config/global-config'
 import { warn } from '../utils/console'
 import { useCache } from './useCache'
 import { useReactiveComputed } from './useReactiveComputed'
@@ -21,6 +21,7 @@ import {
   cssVariableName,
   normalizeColorName,
 } from '../services/color/utils'
+import { __DEV__ } from '../utils/env'
 
 /**
  * You can add these props to any component by destructuring them inside props option.
@@ -36,7 +37,7 @@ export const useColorProps = {
 }
 
 export const useColors = () => {
-  const gc = useGlobalConfigSafe()
+  const gc = useGlobalConfig()
 
   if (!gc) {
     throw new Error('useColors must be used in setup function or Vuestic GlobalConfigPlugin is not registered!')
@@ -93,7 +94,7 @@ export const useColors = () => {
       return prop
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (__DEV__) {
       console.warn(`'${prop}' is not a proper color! Use HEX or default color themes
       names (https://vuestic.dev/en/styles/colors#default-color-themes)`)
     }

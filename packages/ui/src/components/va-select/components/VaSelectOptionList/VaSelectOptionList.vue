@@ -28,35 +28,31 @@
         @scroll:bottom="handleScrollToBottom"
         v-slot="{ item: option, index }"
       >
-        <va-select-option
-          v-if="!isSlotContentPassed"
-          :option="option"
-          :current-option="currentOptionComputed"
-          :disabled="getDisabled(option)"
-          v-bind="selectOptionProps"
-          @click="selectOption(option)"
-          @mousemove="updateHoveredOption(option)"
-        />
-        <template v-else>
-          <slot v-bind="{ option, index, selectOption }" />
-        </template>
+        <slot v-bind="{ option, index, selectOption }">
+          <va-select-option
+            :option="option"
+            :current-option="currentOptionComputed"
+            :disabled="getDisabled(option)"
+            v-bind="selectOptionProps"
+            @click.stop="selectOption(option)"
+            @mousemove="updateHoveredOption(option)"
+          />
+        </slot>
       </va-virtual-scroller>
 
       <template v-else>
         <template v-for="(option, index) in options" :key="getTrackBy(option)">
-          <va-select-option
-            v-if="!isSlotContentPassed"
-            :ref="setItemRef(getTrackBy(option))"
-            :current-option="currentOptionComputed"
-            :option="option"
-            :disabled="getDisabled(option)"
-            v-bind="selectOptionProps"
-            @click="selectOption(option)"
-            @mousemove="updateHoveredOption(option)"
-          />
-          <template v-else>
-            <slot v-bind="{ option, index, selectOption }" />
-          </template>
+          <slot v-bind="{ option, index, selectOption }">
+            <va-select-option
+              :ref="setItemRef(getTrackBy(option))"
+              :current-option="currentOptionComputed"
+              :option="option"
+              :disabled="getDisabled(option)"
+              v-bind="selectOptionProps"
+              @click.stop="selectOption(option)"
+              @mousemove="updateHoveredOption(option)"
+            />
+          </slot>
         </template>
       </template>
     </template>
@@ -80,6 +76,7 @@ import {
   useObjectRefs,
   useSlotPassed,
   useSelectableList, useSelectableListProps,
+  useThrottleValue, useThrottleProps,
 } from '../../../../composables'
 
 import { scrollToElement } from '../../../../utils/scroll-to-element'
@@ -102,6 +99,7 @@ export default defineComponent({
     ...useColorProps,
     ...useComponentPresetProp,
     ...useSelectableListProps,
+    ...useThrottleProps,
     noOptionsText: { type: String, default: 'Items not found' },
     getSelectedState: { type: Function as PropType<(option: SelectOption) => boolean>, required: true },
     multiple: { type: Boolean, default: false },
@@ -162,6 +160,7 @@ export default defineComponent({
 
         return groups
       }, { _noGroup: [] }))
+    const optionGroupsThrottled = useThrottleValue(optionGroups, props)
 
     const isValueExists = (value: SelectOption | null | undefined) => !!value || value === 0
 
@@ -174,7 +173,7 @@ export default defineComponent({
 
     const selectOption = (option: SelectOption) => !getDisabled(option) && emit('select-option', option)
 
-    const groupedOptions = computed(() => Object.values(optionGroups.value).flat())
+    const groupedOptions = computed(() => Object.values(optionGroupsThrottled.value).flat())
     const currentOptions = computed(() =>
       filteredOptions.value.some((el) => getGroupBy(el)) ? groupedOptions.value : filteredOptions.value)
 
@@ -187,8 +186,6 @@ export default defineComponent({
       getText,
       getTrackBy,
     }))
-
-    const isSlotContentPassed = useSlotPassed()
 
     const findNextActiveOption = (startSearchIndex: number, reversedSearch = false) => {
       const searchBase = [...(currentOptions.value || [])]
@@ -259,10 +256,9 @@ export default defineComponent({
       virtualScrollerRef,
 
       rootHeight,
-      optionGroups,
+      optionGroups: optionGroupsThrottled,
       filteredOptions,
       selectOptionProps,
-      isSlotContentPassed,
       currentOptionComputed,
 
       onScroll,
