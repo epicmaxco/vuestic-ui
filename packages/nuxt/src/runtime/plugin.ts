@@ -8,7 +8,10 @@ import {
 import { ref, watchEffect } from 'vue'
 
 import type { VuesticOptions } from '../types'
+// @ts-ignore: nuxt import alias
 import { defineNuxtPlugin } from '#app'
+// @ts-ignore: use-config-file import alias
+import configFromFile from '#vuestic-config'
 
 function getGlobalProperty (app, key) {
   return app.config.globalProperties[key]
@@ -22,7 +25,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   /** Use tree-shaking by default and do not register any component. Components will be registered by nuxt in use-components. */
   app.use(createVuesticEssential({
-    config,
+    config: configFromFile || config,
     // TODO: Would be nice to tree-shake plugins, but they're small so we don't cant for now.
     // Should be synced with create-vuestic.ts
     plugins: {
@@ -55,6 +58,6 @@ export default defineNuxtPlugin((nuxtApp) => {
           }
         }))
       }
-    })
+    }, { flush: 'pre' })
   }
 })

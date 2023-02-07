@@ -3155,9 +3155,7 @@
         "first": "First",
         "second": "Second",
         "last": "Last"
-      }
-    },
-    "api": {
+      },
       "align": {
         "title": "`align`:",
         "variants": [
@@ -3264,7 +3262,9 @@
     "title": "Select",
     "summaryText": "Select field components are used for collecting user provided information from a list of options. This component opens up a menu for the selection list and action.",
     "examples": {
-      "default": "Default select",
+      "default": {
+        "title": "Default select"
+      },
       "variations": {
         "title": "Variants",
         "text": "Includes single or multiple selects."
