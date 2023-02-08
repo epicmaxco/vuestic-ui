@@ -1,0 +1,13 @@
+<va-form style="width: 300px;">
+  <va-input
+    label="First Name"
+    :model-value="''"
+    :rules="[value => (value && value.length > 0) || 'Field is required']"
+  ></va-input>
+  <va-input
+    class="mt-3"
+    label="Last Name"
+    :model-value="''"
+    :rules="[value => (value && value.length > 0) || 'Field is required']"
+  ></va-input>
+</va-form>
