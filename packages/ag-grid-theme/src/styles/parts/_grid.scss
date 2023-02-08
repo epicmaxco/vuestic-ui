@@ -37,39 +37,17 @@ $backgroundElement: #EBF1F4;
   &--striped {
     --ag-odd-row-background-color: #{$backgroundElement};
     --ag-selected-row-background-color: var(--ag-selected-row-background-color);
-    //.ag-row-odd {
-    //  background-color: var(--va-background-element);
-    //
-    //  &.ag-row-selected {
-    //    background-color: var(--ag-selected-row-background-color);
-    //  }
-    //}
   }
 }
+
+$backgroundHoverable: #d4d9dc;
 
 ////////////////////////////////////////
 // HOVERABlE MODE
 ////////////////////////////////////////
 @mixin vuestic-theme-hoverable {
   &--hoverable {
-    --ag-row-hover-color: var(--ag-selected-row-background-color);
-    //.ag-row {
-    //  &:hover {
-    //    background-color: var(--ag-selected-row-background-color);
-    //    &::after {
-    //      position: absolute;
-    //      top: 0;
-    //      left: 0;
-    //      width: 100%;
-    //      height: 100%;
-    //      content: '';
-    //      background: rgb(0, 0, 0);
-    //      opacity: 0.1;
-    //      z-index: 0;
-    //      transition: all 0.3s ease-in-out;
-    //    }
-    //  }
-    //}
+    --ag-row-hover-color: #{$backgroundHoverable};
   }
 }
 
