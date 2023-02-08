@@ -13,6 +13,7 @@
       track-label-visible
       :track-label="(v) => `${v}%`"
       label="Buffer:"
+
     />
   </div>
 </template>

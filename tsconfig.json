@@ -32,7 +32,6 @@
     "tests/**/*.tsx"
   ],
   "exclude": [
-    "node_modules",
-    "@types/react"
+    "node_modules"
   ]
 }
