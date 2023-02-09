@@ -82,9 +82,10 @@ const dangerWithOpacity = computed(() => {
     display: inline;
     margin: 0.1rem 0;
     color: v-bind(codeRed);
-    font-family: Source Sans Code, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-family: Source Code Pro, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     // TODO: Fancy code background. IDK if we need it.
     // background: var(--code-bg, v-bind(dangerWithOpacity));
+    // font-size: 0.9rem;
     // padding: 0.15rem 0.3rem;
     border-radius: 4px;
     z-index: 0;
