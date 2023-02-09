@@ -12,8 +12,6 @@ import { useBem, useColors } from '../../composables'
 export default defineComponent({
   name: 'VaSkeleton',
 
-  inheritAttrs: true,
-
   props: {
     color: { type: String, default: 'backgroundElement' },
     delay: { type: Number, default: 100 },
@@ -31,8 +29,6 @@ export default defineComponent({
 
     variant: { type: String as PropType<'text' | 'circle' | 'rounded' | 'squared'>, default: 'squared' },
   },
-
-  emits: [/* Define emits here */],
 
   setup (props, { attrs }) {
     const doShow = ref(false)
