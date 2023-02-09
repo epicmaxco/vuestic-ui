@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsx ./src/index.ts",
-    "build": "rm -rf dist && tsup src/ --format esm"
+    "build": "rm -rf dist && tsup src/ --format esm",
+    "prepublishOnly": "npm run build"
   },
   "bin": {
     "create-vuestic": "./dist/index.mjs"
