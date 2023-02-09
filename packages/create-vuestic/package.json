@@ -1,6 +1,6 @@
 {
   "name": "create-vuestic",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Easy way to create new vuestic-ui app",
   "main": "index.js",
   "license": "MIT",
@@ -11,7 +11,7 @@
     "prepublishOnly": "npm run build"
   },
   "bin": {
-    "create-vuestic": "./dist/index.mjs"
+    "create-vuestic": "./dist/index.js"
   },
   "dependencies": {
     "chalk": "^5.2.0",
