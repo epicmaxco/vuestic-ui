@@ -8,6 +8,7 @@
     "build:ci": "yarn build:analysis && vue-cli-service build",
     "build:analysis": "yarn workspace sandbox build:analysis ../docs/src/page-configs/getting-started/tree-shaking",
     "lint": "vue-cli-service lint",
+    "lint:translations": "eslint 'src/locales/**/*.json'",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}' --fix",
     "test:unit": "vue-cli-service test:unit",
     "generate:component": "plop --plopfile src/scripts/generators/index.ts",
@@ -40,6 +41,7 @@
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
+    "@intlify/eslint-plugin-vue-i18n": "^2.0.0",
     "@tailwindcss/postcss7-compat": "^2.2.17",
     "@types/dedent": "^0.7.0",
     "@types/jest": "^26.0.20",
@@ -83,6 +85,9 @@
     "vue-property-decorator": "^9.1.2"
   },
   "lint-staged": {
+    "src/locales/**/*.json": [
+      "eslint 'src/locales/**/*.json'"
+    ],
     "*.{js,ts}": [
       "vue-cli-service lint"
     ],

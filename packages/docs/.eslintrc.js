@@ -8,6 +8,7 @@ module.exports = {
     'plugin:vue/vue3-essential',
     '@vue/standard',
     '@vue/typescript/recommended',
+    'plugin:@intlify/vue-i18n/recommended',
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -32,8 +33,19 @@ module.exports = {
     '@typescript-eslint/camelcase': 'off',
     'id-match': ['error', '^[A-Za-z0-9-_$]+$', { properties: true }], // To prevent cyrillic letters etc.
     'vue/html-closing-bracket-spacing': 'error',
+    '@intlify/vue-i18n/no-missing-keys': 'warn',
+    '@intlify/vue-i18n/no-duplicate-keys-in-locale': 'warn',
+    '@intlify/vue-i18n/no-missing-keys-in-other-locales': 'warn',
+    '@intlify/vue-i18n/valid-message-syntax': 'off', // doesn't work correctly in our case
+    '@intlify/vue-i18n/no-raw-text': 'off', // we need in some places
+    '@intlify/vue-i18n/no-unused-keys': 'off', // doesn't work correctly with our doc-blocks
+    '@intlify/vue-i18n/no-html-messages': 'off', // we need html examples
   },
   overrides: [
+    {
+      files: ['*.json', '*.json5'],
+      extends: ['plugin:@intlify/vue-i18n/base'],
+    },
     {
       files: ['src/components/*.vue', 'src/components/**/*.vue'],
       rules: {
@@ -41,4 +53,10 @@ module.exports = {
       },
     },
   ],
+  settings: {
+    'vue-i18n': {
+      localeDir: './src/locales/**/*.json',
+      messageSyntaxVersion: '^9.0.0',
+    },
+  },
 }
