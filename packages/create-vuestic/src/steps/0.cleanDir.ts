@@ -2,7 +2,6 @@ import { withSpinner } from './../utils/with-spinner';
 import { existsSync, rmSync } from "fs"
 import { useUserAnswers } from "../composables/useUserAnswers"
 import { resolvePath } from "../utils/resolve-path"
-import prompts from "prompts"
 
 export const cleanDir = async () => {
   const { projectName } = await useUserAnswers()

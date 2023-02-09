@@ -18,8 +18,6 @@ export const main = async () => {
 
   const answers = await useUserAnswers()
 
-  console.log('')
-
   await scaffoldProject(answers)
   await addVuestic(answers)
   await addAgGrid(answers)
