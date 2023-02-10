@@ -15,7 +15,7 @@ import { useSyncProp } from './useSyncProp'
 import { useFocus } from './useFocus'
 import { FormServiceKey } from '../components/va-form/consts'
 
-type ValidationRule<V extends any = any> = ((v: V) => any | string)
+export type ValidationRule<V extends any = any> = ((v: V) => any | string)
 
 type UseValidationOptions = {
   reset: () => void
