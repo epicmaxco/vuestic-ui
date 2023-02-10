@@ -27,6 +27,8 @@ const config: ApiDocsBlock[] = [
   block.paragraph('tailwind.features.integration.instruction[3]'),
   block.paragraph('tailwind.features.integration.instruction[4]'),
 
+  block.alert('tailwind.features.integration.extendAlert', 'primary'),
+
   block.paragraph('tailwind.features.integration.instruction[5]'),
   block.code(configuringVuesticFull),
 
@@ -39,8 +41,6 @@ const config: ApiDocsBlock[] = [
   block.code(configExample),
 
   block.paragraph('tailwind.features.integration.instruction[9]'),
-
-  block.alert('tailwind.features.integration.instruction[10]', 'primary'),
 ]
 
 export default config

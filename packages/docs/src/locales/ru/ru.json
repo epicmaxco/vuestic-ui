@@ -3052,6 +3052,7 @@
         "title": "Синхронизация конфигураций",
         "text": "Чтобы повысить комфорт от использования Vuestic совместно с Tailwind, мы сформировали отдельный пакет `@vuestic/tailwind`, который позволит синхронизировать конфигурации и использовать настройки брейкпоинтов (например, в [Breakpoint Service](/services/breakpoints)[[target=_blank]]) и цветов Tailwind в компонентах Vuestic. Также, наоборот, пакет позволяет импортировать настройки цветов и экранов из Tailwind во Vuestic.",
         "instructionIntro": "Для начала использования необходимо:",
+        "extendAlert": "Мы не заменяем цветовые схемы или настройки экранов Tailwind, а расширяем их.",
         "instruction": [
           "1.&nbsp;Установите пакет, используя команды ниже:",
           "2.&nbsp;После установки вам становятся доступны три команды::",
@@ -3062,8 +3063,7 @@
           "Также, возможно, вы захотите синхронизировать конфигурацию частично (в примере ниже из Tailwind CSS были взяты только цвета):",
           "3B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Никаких дополнительных действий не требуется.",
           "4A.&nbsp;`[Tailwind CSS -> Vuestic UI]` Итогом станет возможность применения цветов и текущих значений порогов экрана Tailwind в Vuestic. Например, итогом синхронизации дефолтных настроек Tailwind станет файл настроек Vuestic подобного содержания:",
-          "4B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Цвета и экраны Vuestic UI смогут использоваться в Tailwind CSS. Конечный формат представлен требованиями, изложенными [тут](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]] and [тут](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]].",
-          "Мы не заменяем цветовые схемы или настройки экранов Tailwind, а расширяем их."
+          "4B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Цвета и экраны Vuestic UI смогут использоваться в Tailwind CSS. Конечный формат представлен требованиями, изложенными [тут](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]] and [тут](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]]."
         ]
       }
     }

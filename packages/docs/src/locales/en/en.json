@@ -3165,20 +3165,20 @@
     "features": {
       "integration": {
         "title": "Syncing configs",
-        "text": "To create a tight bind between Vuestic with Tailwind we have a `@vuestic/tailwind` package: it syncs [breakpoint](/services/breakpoints)[[target=_blank]] and [color](/services/colors)[[target=_blank]] settings. You can sync from Vuestic UI to Tailwind or from Tailwind to Vuestic UI!",
+        "text": "To create a tight bind between Vuestic with Tailwind we have a `@vuestic/tailwind` package: it syncs [breakpoint](/services/breakpoints)[[target=_blank]] and [color](/services/colors)[[target=_blank]] settings. You can sync from Vuestic UI to Tailwind or backwards!",
         "instructionIntro": "Here's what you have to do to make it work:",
+        "extendAlert": "We're not overriding Tailwind CSS settings, but extending them.",
         "instruction": [
           "1.&nbsp;Install this package:",
           "2.&nbsp;After installation, three commands become available to you:",
           "`npx sync-tailwind` - formats and transfers the color and breakpoints settings from the `tailwind.config.*` file (and in its absence, it uses the default Tailwind CSS configuration) to the root file `vuestic.config.js` (also added by this command);",
           "`npx watch-tailwind` - watches `tailwind.config.*` in background and synchronizes the Vuestic UI configuration on the fly;",
-          "`npx sync-vuestic` - transfers color and breakpoints settings from default Vuestic UI config to the `tailwind.config.cjs`.",
+          "`npx sync-vuestic` - transfers color and breakpoint settings from default Vuestic UI config to the Tailwind's configuration file (`tailwind.config.cjs`).",
           "3A.&nbsp;`[Tailwind CSS -> Vuestic UI]` import the `config` configuration in your `main.*` and specify it when initializing the application:",
           "Also, you may want to synchronize the configuration partially (in the example - only Tailwind CSS colors will be taken):",
           "3B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Nothing more is needed.",
           "4A.&nbsp;`[Tailwind CSS -> Vuestic UI]` As a result you will be able to use Tailwind colors and breakpoints setting in Vuestic. For example, the result of synchronization default Tailwind settings will be a Vuestic settings file:",
-          "4B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Vuestic UI setting will be available in the Tailwind CSS scope. Output format follows the requirements, located [here](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]] and [here](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]].",
-          "We're not overriding Tailwind CSS settings, but extending them."
+          "4B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Vuestic UI setting will be available in the Tailwind CSS scope. Output format follows the requirements, located [here](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]] and [here](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]]."
         ]
       }
     }
