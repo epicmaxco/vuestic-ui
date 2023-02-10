@@ -17,6 +17,10 @@ export const useClickOutside = (elements: MaybeArray<MaybeRef<HTMLElement | unde
   useCaptureEvent('click', (event: MouseEvent) => {
     const clickTarget = event.target as HTMLElement
 
+    if ((event.target as HTMLElement).shadowRoot) {
+      return
+    }
+
     const isClickInside = safeArray(elements)
       .some((element) => unref(element) && checkIfElementChild(unref(element) as HTMLElement, clickTarget))
 
