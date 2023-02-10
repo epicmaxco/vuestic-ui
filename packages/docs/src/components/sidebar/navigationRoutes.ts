@@ -6,7 +6,7 @@ export type NavigationRoute = {
   displayName: TranslationString,
   meta?: {
     iconClass?: string,
-    badge?: 'wip' | 'new' | 'updated'
+    badge?: 'wip' | 'new' | 'updated' | 'beta'
   },
   disabled?: boolean,
   children?: NavigationRoute[],
@@ -78,6 +78,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.kitchensink',
         meta: {
           badge: 'new',
+        },
+      },
+      {
+        name: 'web-components',
+        displayName: 'menu.webComponents',
+        meta: {
+          badge: 'beta',
         },
       },
       // GENERATOR_ADD - gettingStarted
@@ -174,6 +181,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'image',
         displayName: 'menu.image',
+        meta: {
+          badge: 'updated',
+        },
       },
       {
         name: 'carousel',
@@ -266,6 +276,13 @@ export const navigationRoutes: NavigationRoute[] = [
       },
       {
         category: 'menu.categories.layout',
+        name: 'aspect-ratio',
+        displayName: 'menu.aspectRatio',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
         name: 'card',
         displayName: 'menu.card',
       },
@@ -473,6 +490,13 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'i18n',
         displayName: 'menu.i18n',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
+        name: 'colors-classes',
+        displayName: 'menu.colorsClasses',
         meta: {
           badge: 'new',
         },
