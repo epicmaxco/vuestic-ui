@@ -578,6 +578,13 @@
         searchable
         searchtext="test"
       />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        label="Search with throttling"
+        :options="defaultSingleSelect.options"
+        :delay="1000"
+        searchable
+      />
     </VbCard>
     <VbCard
       title="Allow create new"

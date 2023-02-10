@@ -143,26 +143,5 @@ export default defineComponent({
       border-top-left-radius: var(--va-card-border-radius);
     }
   }
-
-  &__title,
-  &__content,
-  &__actions,
-  &__actions--vertical {
-    padding: var(--va-card-padding);
-
-    + .va-card__title,
-    + .va-card__content,
-    + .va-card__actions,
-    + .va-card_actions__vertical {
-      padding-top: 0;
-    }
-  }
-
-  &__title {
-    display: flex;
-    align-items: center;
-
-    @include va-title();
-  }
 }
 </style>

@@ -1,1 +1,1 @@
-export { default as VaConfig } from './VaConfig'
+export { default as VaConfig } from './VaConfig.vue'

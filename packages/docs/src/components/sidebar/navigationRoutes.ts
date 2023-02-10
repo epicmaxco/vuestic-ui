@@ -6,7 +6,7 @@ export type NavigationRoute = {
   displayName: TranslationString,
   meta?: {
     iconClass?: string,
-    badge?: 'wip' | 'new' | 'updated'
+    badge?: 'wip' | 'new' | 'updated' | 'beta'
   },
   disabled?: boolean,
   children?: NavigationRoute[],
@@ -78,6 +78,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'menu.kitchensink',
         meta: {
           badge: 'new',
+        },
+      },
+      {
+        name: 'web-components',
+        displayName: 'menu.webComponents',
+        meta: {
+          badge: 'beta',
         },
       },
       // GENERATOR_ADD - gettingStarted

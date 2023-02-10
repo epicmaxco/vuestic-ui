@@ -1,5 +1,7 @@
 import { PropType, computed, ref, Ref, watch, ExtractPropTypes, ComputedRef } from 'vue'
 
+import { useThrottleFunction, useThrottleProps } from '../../../composables'
+
 import type {
   DataTableColumnInternal,
   DataTableRow,
@@ -9,6 +11,7 @@ import type {
 } from '../types'
 
 export const useSortableProps = {
+  ...useThrottleProps,
   sortBy: { type: String as PropType<string | undefined> },
   sortingOrder: { type: String as PropType<DataTableSortingOrder | undefined> },
 }
@@ -134,6 +137,8 @@ export const useSortable = (
     }
   }
 
+  const toggleSortingThrottled = useThrottleFunction(toggleSorting, props)
+
   const sortingOrderIconName = computed(() => {
     return sortingOrderSync.value === 'asc'
       ? 'va-arrow-up'
@@ -145,7 +150,7 @@ export const useSortable = (
   return {
     sortBySync,
     sortingOrderSync,
-    toggleSorting,
+    toggleSorting: toggleSortingThrottled,
     sortedRows,
     sortingOrderIconName,
   }

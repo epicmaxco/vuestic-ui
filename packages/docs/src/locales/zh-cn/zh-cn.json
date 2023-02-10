@@ -179,10 +179,12 @@
           "plain": "Applies `plain` styling.",
           "round": "Adds rounded corners (or make a button fully rounded if only icon is passed).",
           "iconRight": "The icon to be displayed to the right of a title.",
+          "keyboardNavigation": "Enables keyboard navigation for the component.",
           "fallbackSrc": "Shows an alternative image if original image failed to load or src doesn't specified.",
           "fallbackText": "Shows an alternative text if image failed to load or src doesn't specified.",
           "fallbackIcon": "Shows an icon if image failed to load or src doesn't specified.",
-          "fallbackRender": "Allows to use render function to render custom contents if image failed to load or src doesn't specified"
+          "fallbackRender": "Allows to use render function to render custom contents if image failed to load or src doesn't specified",
+          "delay": "Sets throttling delay (ms) for the components any data change (useful for huge data)."
         }
       },
       "VaBadge": {

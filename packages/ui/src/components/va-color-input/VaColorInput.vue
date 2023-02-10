@@ -25,7 +25,7 @@
     <input
       ref="colorPicker"
       type="color"
-      class="visually-hidden"
+      class="va-color-input__hidden-input"
       aria-hidden="true"
       tabindex="-1"
       v-model="valueComputed" />
@@ -79,6 +79,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import "../../styles/resources";
+
 .va-color-input {
   display: flex;
   align-items: center !important;
@@ -95,6 +97,10 @@ export default defineComponent({
     &__pointer {
       cursor: pointer;
     }
+  }
+
+  &__hidden-input {
+    @include visually-hidden;
   }
 }
 </style>
