@@ -1,39 +1,33 @@
 <template>
   <div
-    class="va-viewer__anchor"
+    class="va-viewer"
     v-bind="$attrs"
+    @click="handleAnchorClick"
   >
     <slot
       name="anchor"
       v-bind="{ openViewer }"
     />
-    <div
-      v-if="!$slots.anchor"
-      @click="openViewer"
-    >
-      <slot />
-    </div>
+
+    <slot v-if="!$slots.anchor" />
   </div>
 
   <teleport
     v-if="isOpened"
     :to="teleportTarget"
   >
-    <div class="va-viewer">
+    <div class="va-viewer-content">
       <div
         ref="content"
-        class="va-viewer__content"
+        class="va-viewer-content__main-area"
       >
         <slot v-if="!$slots.image" />
-        <slot
-          name="image"
-          v-bind="{ isOpened: isViewerContent }"
-        />
+        <slot name="image" />
       </div>
 
       <div
         ref="controls"
-        class="va-viewer__controls-panel"
+        class="va-viewer-content__controls-panel"
       >
         <slot name="controls" />
 
@@ -42,7 +36,7 @@
           v-bind="{ close: closeViewer }"
         >
           <button
-            class="va-viewer__close-button"
+            class="va-viewer-content__close-button"
             @click="closeViewer"
           >
             <va-icon
@@ -70,7 +64,7 @@ export default defineComponent({
 
   components: { VaIcon },
 
-  setup () {
+  setup (_, { slots }) {
     const content = ref<HTMLElement>()
     const controls = ref<HTMLElement>()
 
@@ -80,13 +74,16 @@ export default defineComponent({
 
     const openViewer = () => (isClosed.value = false)
     const closeViewer = () => (isClosed.value = true)
+    const handleAnchorClick = () => {
+      if (!slots.anchor) {
+        openViewer()
+      }
+    }
 
     useClickOutside([content, controls], closeViewer)
 
     const document = useDocument()
     const teleportTarget = computed(() => document.value?.body)
-
-    const isViewerContent = computed(() => !!content.value)
 
     return {
       content,
@@ -94,10 +91,10 @@ export default defineComponent({
 
       teleportTarget,
       isOpened,
-      isViewerContent,
 
       openViewer,
       closeViewer,
+      handleAnchorClick,
     }
   },
 })
@@ -107,18 +104,18 @@ export default defineComponent({
 @import 'variables';
 
 .va-viewer {
+  --va-image-position: relative;
+}
+
+.va-viewer-content {
   position: fixed;
   inset: 0;
-  z-index: var(--va-viewer-overlay-z-index);
+  z-index: var(--va-viewer-content-overlay-z-index);
   display: flex;
   justify-content: center;
-  background-color: var(--va-viewer-overlay-background-color);
+  background-color: var(--va-viewer-content-overlay-background-color);
 
-  &__anchor {
-    --va-image-position: relative;
-  }
-
-  &__content {
+  &__main-area {
     --va-image-position: relative;
 
     display: flex;
@@ -134,11 +131,11 @@ export default defineComponent({
     top: 0;
     left: 0;
     right: 0;
-    z-index: var(--va-viewer-controls-panel-z-index);
+    z-index: var(--va-viewer-content-controls-panel-z-index);
     display: flex;
-    justify-content: var(--va-viewer-controls-panel-justify-content);
-    padding: var(--va-viewer-controls-panel-padding);
-    background-color: var(--va-viewer-controls-panel-background-color);
+    justify-content: var(--va-viewer-content-controls-panel-justify-content);
+    padding: var(--va-viewer-content-controls-panel-padding);
+    background-color: var(--va-viewer-content-controls-panel-background-color);
   }
 }
 </style>

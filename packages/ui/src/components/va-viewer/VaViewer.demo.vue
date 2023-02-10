@@ -16,9 +16,8 @@
 
     <VbCard title="Custom anchor">
       <va-viewer>
-        <template #anchor="{ openViewer, isOpened }">
+        <template #anchor="{ openViewer }">
           <button
-            v-if="!isOpened"
             class="mb-2 p-1 border rounded"
             @click="openViewer"
           >
