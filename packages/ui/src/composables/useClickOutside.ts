@@ -1,5 +1,7 @@
 import { Ref, unref } from 'vue'
+
 import { useCaptureEvent } from './useCaptureEvent'
+import { extractHTMLElement } from './useHTMLElement'
 
 const checkIfElementChild = (parent: HTMLElement, child: HTMLElement | null | undefined): boolean => {
   if (!child) { return false }
@@ -22,7 +24,10 @@ export const useClickOutside = (elements: MaybeArray<MaybeRef<HTMLElement | unde
     }
 
     const isClickInside = safeArray(elements)
-      .some((element) => unref(element) && checkIfElementChild(unref(element) as HTMLElement, clickTarget))
+      .some((element) => {
+        const el = extractHTMLElement(unref(element))
+        return el && checkIfElementChild(el, clickTarget)
+      })
 
     if (!isClickInside) { cb(clickTarget) }
   })

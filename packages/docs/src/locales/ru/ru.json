@@ -546,11 +546,13 @@
         "title": "Проксирует свойство `title` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
         "lazy": "Включает ленивую загрузку изображения.",
         "draggable": "Проксирует свойство `draggable` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
-        "placeholderSrc": "Значение аттрибута `src` для тега `img` в плейсхолдере (который может быть перезаписан с помощью слота `placeholder`)."
+        "placeholderSrc": "Значение аттрибута `src` для тега `img` в плейсхолдере (который может быть перезаписан с помощью слота `placeholder`).",
+        "maxWidth": "Максимальная ширина обертки компонента."
       },
       "events": {
         "loaded": "Событие вызывается, когда загрузка изображения окончена.",
-        "error": "Событие вызывается при ошибке загрузки изображения."
+        "error": "Событие вызывается при ошибке загрузки изображения.",
+        "fallback": "Событие вызывается при срабатывании фолбэка."
       },
       "slots": {
         "sources": "Слот для передачи одного или нескольких тегов `source` [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/picture)[[target=_blank]].",
@@ -2517,6 +2519,10 @@
       "lazy": {
         "title": "Ленивая загрузка",
         "text": "Свойство `lazy` позволяет задать компоненту поведение ленивой загрузки. В этом случае изображение будет загружено лишь тогда, когда войдет в видимую область экрана пользователя."
+      },
+      "viewer": {
+        "title": "Highslide",
+        "text": "Использовав компонент-обертку `va-viewer` с `va-image` вы получите эффект highslide."
       },
       "ratio": {
         "title": "Соотношение сторон",
