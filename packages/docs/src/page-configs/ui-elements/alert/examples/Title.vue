@@ -1,11 +1,12 @@
 <template>
-  <va-alert color="success" :title="$t('alert.misc.title')" class="mb-6">
-    {{ $t('alert.misc.primary') }}
+  <va-alert color="info" :title="$t('alert.misc.title')" class="mb-6">
+    {{ $t('alert.misc.titleContent') }}
   </va-alert>
-  <va-alert color="info" class="mb-6">
+  <va-alert color="#265c83" class="mb-6">
     <template #title>
-      {{ $t('alert.misc.slottedTitle') }}
+      <h4>{{ $t('alert.misc.slottedTitle') }}</h4>
     </template>
-    {{ $t('alert.misc.primary') }}
+    <va-divider />
+    {{ $t('alert.misc.slottedTitleContent') }}
   </va-alert>
 </template>

@@ -12,6 +12,11 @@ const block = new PageGenerationHelper(__dirname)
 const config: ApiDocsBlock[] = [
   block.title('alert.title'),
   block.paragraph('alert.summaryText'),
+  block.subtitle('alert.whenToUseTitle'),
+  block.list([
+    'alert.whenToUseList.show',
+    'alert.whenToUseList.static',
+  ]),
 
   block.subtitle('all.examples'),
   ...block.exampleBlock(
