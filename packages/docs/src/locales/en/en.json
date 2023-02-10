@@ -549,11 +549,13 @@
         "title": "Proxies the `title` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
         "lazy": "Enables lazy load for the image.",
         "draggable": "Proxies the `draggable` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
-        "placeholderSrc": "`src` value for the placeholder image (can be replaced with `placeholder` slot)."
+        "placeholderSrc": "`src` value for the placeholder image (can be replaced with `placeholder` slot).",
+        "maxWidth": "Max width of the components wrapper."
       },
       "events": {
         "loaded": "Emitted when image loading is finished.",
-        "error": "Emitted on loading error."
+        "error": "Emitted on loading error.",
+        "fallback": "Emitted on fallback shown."
       },
       "slots": {
         "sources": "Slot for passing one or more `source` tags [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/picture)[[target=_blank]].",
@@ -2647,6 +2649,10 @@
       "fit": {
         "title": "Object Fit",
         "text": "Proxies `object-fit` CSS property. Available values are: `contain`, `fill`, `cover`, `scale-down`, `none`."
+      },
+      "viewer": {
+        "title": "Highslide",
+        "text": "Wrap the `va-image` with `va-viewer` component and you will gain highslide effect."
       },
       "lazy": {
         "title": "Lazy Load",
