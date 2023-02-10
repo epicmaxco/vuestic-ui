@@ -61,6 +61,8 @@ export const useVirtualScrollerSizes = (
   const pageFontSize = ref(16)
   const handleWindowResize = () => {
     pageFontSize.value = parseFloat(getComputedStyle(document.documentElement).fontSize)
+
+    calcAverageItemsSize()
   }
   useEvent('resize', handleWindowResize, true)
 

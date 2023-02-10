@@ -112,7 +112,7 @@
 import { VaBadge, VaButton } from '../'
 import { VaVirtualScroller } from './'
 
-const hugeArrayBase = new Array(14)
+const hugeArrayBase = new Array(1000)
 const hugeArray = hugeArrayBase.fill(null).map((_, index) => index)
 const hugeObjectsArray = hugeArrayBase.fill(null).map((el, index) => ({ value: index }))
 </script>
