@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vuestic sandbox</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <va-config id="config">
+        <va-button id="button">Button</va-button>
+        <va-select id="select" stateful model-value="Option 1"></va-select>
+        <va-tabs model-value="0" id="tabs" stateful>
+          <slot slot="tabs">
+            <va-tab name="0">One</va-tab>
+            <va-tab name="1">Two</va-tab>
+            <va-tab name="2">Three</va-tab>
+          </slot>
+        </va-tabs>
+      </va-config>
+      <div>aaa</div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+    <script>
+      const button = document.getElementById("button");
+
+      button.addEventListener("click", () => {
+        console.log("clicked");
+      });
+    </script>
+
+    <script>
+      const select = document.getElementById("select");
+
+      select.options = ["Option 1", "Option 2", "Option 3"];
+
+      select.addEventListener("update:modelValue", (e) => {
+        e.target.modelValue = e.detail;
+        console.log('Option selected!', e.target.modelValue)
+      });
+    </script>
+
+    <script>
+      const config = document.getElementById("config");
+
+      config.components = {
+        VaButton: {
+          color: "danger",
+        },
+      };
+    </script>
+
+    <h1 class="va-h1">Demos</h1>
+    <div class="demos">
+
+    </div>
+
+    <style>
+      .demos .demo {
+        margin-top: 5rem;
+      }
+    </style>
+  </body>
+</html>

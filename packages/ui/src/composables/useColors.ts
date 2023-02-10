@@ -1,7 +1,7 @@
 import type { ColorInput } from 'colortranslator/dist/@types'
 import type { ColorVariables, CssColor } from '../services/color'
 import { computed } from 'vue'
-import { useGlobalConfigSafe } from '../services/global-config/global-config'
+import { useGlobalConfig } from '../services/global-config/global-config'
 import { warn } from '../utils/console'
 import { useCache } from './useCache'
 import { useReactiveComputed } from './useReactiveComputed'
@@ -36,7 +36,7 @@ export const useColorProps = {
 }
 
 export const useColors = () => {
-  const gc = useGlobalConfigSafe()
+  const gc = useGlobalConfig()
 
   if (!gc) {
     throw new Error('useColors must be used in setup function or Vuestic GlobalConfigPlugin is not registered!')

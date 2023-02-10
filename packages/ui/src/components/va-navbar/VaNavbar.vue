@@ -4,16 +4,16 @@
     class="va-navbar"
     :style="computedStyle"
   >
-    <div v-if="$slots.left" class="va-navbar__left">
+    <div class="va-navbar__left">
       <slot name="left" />
     </div>
 
-    <div v-if="$slots.center || $slots.default" class="va-navbar__center">
-      <slot v-if="$slots.center && !$slots.default" name="center" />
-      <slot v-if="$slots.default && !$slots.center" />
+    <div class="va-navbar__center">
+      <slot name="center" />
+      <slot />
     </div>
 
-    <div v-if="$slots.right" class="va-navbar__right">
+    <div class="va-navbar__right">
       <slot name="right" />
     </div>
 

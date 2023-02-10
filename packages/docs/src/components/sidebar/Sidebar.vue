@@ -51,7 +51,7 @@
                   size="small"
                   offset="-5px"
                   :text="childRoute.meta && t(`menu.badges.${childRoute.meta.badge}.text`)"
-                  :color="childRoute.meta && badgeColors[childRoute.meta.badge]"
+                  :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge]"
                   :visible-empty="false"
                 >
                   {{ t(childRoute.displayName) }}
@@ -129,7 +129,7 @@ export default defineComponent({
       routeHasActiveChild,
       isActiveChildRoute,
       onSidebarItemClick,
-      badgeColors: { wip: 'primary', new: 'danger', updated: 'warning' },
+      badgeColors: { wip: 'primary', new: 'danger', updated: 'warning', beta: 'primary' },
       activeColor: computed(() => getFocusColor(getColor('primary'))),
       hoverColor: computed(() => getHoverColor(getColor('primary'))),
 
