@@ -1,4 +1,4 @@
-#!/bin/env node
+#!/usr/bin/env node
 import chalk from "chalk"
 import { logo, primaryColor } from "./arts"
 import { onError } from './on-error'
