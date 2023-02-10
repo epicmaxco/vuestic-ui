@@ -1,3 +1,4 @@
+import { versions } from './../../versions';
 import { useUserAnswers } from './../../composables/useUserAnswers';
 import { readFile, writeFile } from "fs/promises"
 import { usePackageJson } from "../../composables/usePackageJson"
@@ -7,7 +8,7 @@ import { insertNuxtModule } from './insert-nuxt-module';
 export const addVuesticToNuxtApp = async () => {
   // Install vuestic-ui
   const { addDevDependency } = await usePackageJson()
-  addDevDependency('@vuestic/nuxt', 'latest')
+  addDevDependency('@vuestic/nuxt', versions['@vuestic/nuxt'])
 
   const { projectName, treeShaking } = await useUserAnswers()
 
