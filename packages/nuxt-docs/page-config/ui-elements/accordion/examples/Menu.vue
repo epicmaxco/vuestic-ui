@@ -1,5 +1,5 @@
 <template>
-  <va-accordion v-model="value" style="width: 400px">
+  <va-accordion v-model="value" style="max-width: 400px">
     <va-collapse
       v-for="(group, idx) in items"
       :key="idx"

@@ -1,5 +1,5 @@
 <template>
-  <va-accordion v-model="value" style="width: 400px" popout>
+  <va-accordion v-model="value" style="max-width: 400px" popout>
     <va-collapse
       v-for="(collapse, index) in collapses"
       :key="index"

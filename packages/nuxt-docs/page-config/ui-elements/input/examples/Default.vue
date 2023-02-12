@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 300px">
+  <div style="max-width: 300px">
     <va-input class="mb-6" v-model="value" />
     <va-input class="mb-6" v-model="value" placeholder="Placeholder" />
     <va-input class="mb-6" v-model="value" label="Name" placeholder="Label" />

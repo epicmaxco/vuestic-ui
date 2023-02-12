@@ -22,5 +22,9 @@ const { t } = useI18n()
 <style lang="scss">
   .page-config-title {
     --code-bg: transparent;
+
+    @media screen and (max-width: 767px) {
+      font-size: 2rem !important;    
+    }
   }
 </style>
