@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, PropType } from 'vue';
-import type { PlaygroundOption } from '@/composables/useComponentPlayground'
+import { ComponentOptions, computed, PropType } from "vue";
+import type { PlaygroundOption } from "@/composables/useComponentPlayground";
+import { getWindow } from "vuestic-ui/src/utils/ssr";
 
 const props = defineProps({
   options: {
-    type: Array as PropType<( PlaygroundOption & {value: any} )[]>,
+    type: Array as PropType<(PlaygroundOption & { value: any })[]>,
     required: true,
   },
   code: {
@@ -12,20 +13,33 @@ const props = defineProps({
     required: true,
   },
   slots: {
-    type: Array as PropType<{ name: string, value: string}[]>,
+    type: Array as PropType<{ name: string; value: string }[]>,
     required: true,
-  }
-})
+  },
+});
 
 const optionValues = computed(() => {
-  const values = {} as Record<string, any>
+  const values = {} as Record<string, any>;
   props.options.forEach(({ key, value, defaultValue }) => {
-    const isDefault = defaultValue ? defaultValue === value : !value
-    if (isDefault) { return null }
-    values[key] = value
-  })
-  return values
-})
+    const isDefault = defaultValue ? defaultValue === value : !value;
+    if (isDefault) {
+      return null;
+    }
+    values[key] = value;
+  });
+  return values;
+});
+
+const codeEl = ref<HTMLElement>();
+const copyButtonIcon = ref('content_copy')
+
+const copyCode = async () => {
+  await getWindow()?.navigator.clipboard.writeText(codeEl.value!.innerText);
+  copyButtonIcon.value = 'check'
+  setTimeout(() => {
+    copyButtonIcon.value = 'content_copy'
+  }, 1000)
+};
 </script>
 
 <template>
@@ -36,21 +50,52 @@ const optionValues = computed(() => {
     <va-card class="component-playground__options" square>
       <va-card-content>
         <div class="mb-2" v-for="option in options">
-          <va-input v-if="option.type === 'input'" v-model="option.value" :label="option.key" />
-          <va-select v-if="option.type === 'select'" v-model="option.value" :options="option.options"
-            :label="option.key" clearable prevent-overflow />
-          <va-select v-if="option.type === 'multiselect'" v-model="option.value" :options="option.options"
-            :label="option.key" clearable multiple prevent-overflow />
-          <va-checkbox v-if="option.type === 'checkbox'" v-model="option.value" :label="option.key"
-            :true-value="true" :false-value="false" />
+          <va-input
+            class="w-full"
+            v-if="option.type === 'input'"
+            v-model="option.value"
+            :label="option.key"
+          />
+          <va-select
+            class="w-full"
+            v-if="option.type === 'select'"
+            v-model="option.value"
+            :options="option.options"
+            :label="option.key"
+            clearable
+            prevent-overflow
+          />
+          <va-select
+            class="w-full"
+            v-if="option.type === 'multiselect'"
+            v-model="option.value"
+            :options="option.options"
+            :label="option.key"
+            clearable
+            multiple
+            prevent-overflow
+          />
+          <va-checkbox
+            v-if="option.type === 'checkbox'"
+            v-model="option.value"
+            :label="option.key"
+            :true-value="true"
+            :false-value="false"
+          />
         </div>
       </va-card-content>
     </va-card>
   </div>
-<div class="component-playground">
-    <div class="component-playground__code">
+  <div class="component-playground">
+    <div class="component-playground__code" ref="codeEl">
       <CodeView :code="code" language="html" />
     </div>
+    <VaButton
+      class="component-playground__copy-code-button"
+      :icon="copyButtonIcon"
+      preset="secondary"
+      @click="copyCode"
+    />
   </div>
 </template>
 
@@ -61,10 +106,11 @@ const optionValues = computed(() => {
   background: var(--va-background-element);
   padding: 1rem;
   display: flex;
+  position: relative;
 
   --va-card-box-shadow: none;
 
-  &+& {
+  & + & {
     padding-top: 0;
   }
 
@@ -98,7 +144,7 @@ const optionValues = computed(() => {
 
     &::after {
       pointer-events: none;
-      content: '';
+      content: "";
       background: var(--va-background-border);
       opacity: 0.05;
       position: absolute;
@@ -108,6 +154,13 @@ const optionValues = computed(() => {
       height: 100%;
       z-index: -1;
     }
+  }
+
+  &__copy-code-button {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 1;
   }
 }
 </style>
