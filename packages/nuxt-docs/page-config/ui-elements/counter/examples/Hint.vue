@@ -1,8 +1,7 @@
 <template>
-  <div class="row">
-    <va-counter class="mx-6 my-2" v-model="value" messages="Select number" />
+  <div class="flex gap-5 flex-wrap">
+    <va-counter v-model="value" messages="Select number" />
     <va-counter
-      class="mx-6 my-2"
       v-model="value"
       :messages="['Select number', 'Select again :)']"
     />
@@ -17,4 +16,4 @@ export default {
     };
   },
 };
-</script>
+</script>Í

@@ -1,10 +1,10 @@
 <template>
-  <div class="row">
-    <va-counter class="mx-6 my-2" v-model="value" buttons />
+  <div class="flex gap-5 flex-wrap">
+    <va-counter v-model="value" buttons />
 
-    <va-counter class="mx-6 my-2" v-model="value" outline buttons />
+    <va-counter v-model="value" outline buttons />
 
-    <va-counter class="mx-6 my-2" v-model="value" bordered buttons />
+    <va-counter v-model="value" bordered buttons />
   </div>
 </template>
 
@@ -17,3 +17,4 @@ export default {
   },
 };
 </script>
+<!--  -->

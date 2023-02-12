@@ -1,10 +1,10 @@
 <template>
-  <div class="row">
-    <va-counter class="mx-6 my-2" v-model="value" />
+  <div class="flex gap-5 flex-wrap">
+    <va-counter v-model="value" />
 
-    <va-counter class="mx-6 my-2" v-model="value" outline />
+    <va-counter v-model="value" outline />
 
-    <va-counter class="mx-6 my-2" v-model="value" bordered />
+    <va-counter v-model="value" bordered />
   </div>
 </template>
 

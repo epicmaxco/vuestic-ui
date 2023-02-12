@@ -14,15 +14,6 @@
 </template>
 
 <script lang="ts" setup>
-// import LandingHeader from "../components/landing/LandingHeader.vue";
-// import LandingPreview from "../components/landing/LandingPreview.vue";
-// import LandingPartners from "../components/landing/LandingPartners.vue";
-// import LandingAdmin from "../components/landing/LandingAdmin.vue";
-// import LandingFooter from "../components/landing/LandingFooter.vue";
-// import LandingOpenSource from "../components/landing/LandingOpenSource.vue";
-// import SeamlessIntegration from "../components/landing/SeamlessIntegration/SeamlessIntegration.vue";
-// import LandingCustomize from "../components/landing/LandingCustomize.vue";
-
 definePageMeta({
   layout: 'landing',
 })

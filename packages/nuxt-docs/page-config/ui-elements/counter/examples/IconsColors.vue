@@ -1,7 +1,6 @@
 <template>
-  <div class="row">
+  <div class="flex gap-5 flex-wrap">
     <va-counter
-      class="mx-6 my-2"
       v-model="value"
       increaseIcon="add_circle_outline"
       decreaseIcon="remove_circle_outline"
@@ -9,7 +8,6 @@
     />
 
     <va-counter
-      class="mx-6 my-2"
       v-model="value"
       outline
       increaseIcon="arrow_upward"
@@ -18,7 +16,6 @@
     />
 
     <va-counter
-      class="mx-6 my-2"
       v-model="value"
       outline
       preset="secondary"

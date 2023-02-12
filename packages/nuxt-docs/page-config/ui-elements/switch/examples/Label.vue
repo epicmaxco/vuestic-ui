@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div>
     <va-switch v-model="value" label="left" left-label class="mr-6" />
     <va-switch v-model="value" label="right" class="mr-6" />
     <va-switch v-model="value" class="mr-6"> right labeled by slot </va-switch>

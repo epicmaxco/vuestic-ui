@@ -1,7 +1,6 @@
 <template>
-  <div class="row">
+  <div class="flex gap-5 flex-wrap">
     <va-counter
-      class="mx-6 my-2"
       v-model="value"
       :min="-100"
       :max="100"
@@ -10,7 +9,6 @@
     />
 
     <va-counter
-      class="mx-6 my-2"
       v-model="value"
       manual-input
       :min="-100"

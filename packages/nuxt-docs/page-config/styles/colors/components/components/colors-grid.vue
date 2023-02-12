@@ -1,7 +1,7 @@
 <template>
   <div class="color-grid">
     <div
-      class="color-grid__item-wrapper"
+      class="color-grid__item-wrapper sm:w-1/2 w-full"
       v-for="[name, value] in colorsComputed"
       :key="name"
     >
@@ -49,7 +49,6 @@ $gap: 12px;
 
     &-wrapper {
       padding: $gap;
-      width: 50%;
     }
   }
 }

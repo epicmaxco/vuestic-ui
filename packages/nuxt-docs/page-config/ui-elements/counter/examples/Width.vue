@@ -1,15 +1,8 @@
 <template>
-  <div class="row">
-    <va-counter class="mx-6 my-2" v-model="value" width="250px" />
+  <div class="flex gap-5 flex-wrap">
+    <va-counter v-model="value" width="250px" />
 
-    <va-counter
-      class="mx-6 my-2"
-      v-model="value"
-      outline
-      buttons
-      margins="30px"
-      width="200px"
-    />
+    <va-counter v-model="value" outline buttons margins="30px" width="200px" />
   </div>
 </template>
 

@@ -3,7 +3,7 @@
     class="color-grid-item"
     :style="{ backgroundColor: value, color: textColorComputed }"
   >
-    <div class="color-grid-item__header">
+    <div class="color-grid-item__header flex-col md:flex-row">
       <p>
         {{ name }}
       </p>

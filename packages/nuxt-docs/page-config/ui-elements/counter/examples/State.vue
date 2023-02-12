@@ -1,14 +1,16 @@
 <template>
-  <div class="row">
-    <va-counter class="mx-6 my-2" v-model="value" readonly />
+  <div class="flex gap-5 flex-wrap">
+    <div class="flex gap-5 flex-wrap">
+      <va-counter v-model="value" readonly />
 
-    <va-counter class="mx-6 my-2" v-model="value" buttons readonly />
-  </div>
+      <va-counter v-model="value" buttons readonly />
+    </div>
 
-  <div class="row">
-    <va-counter class="mx-6 my-2" v-model="value" disabled />
+    <div class="flex gap-5 flex-wrap">
+      <va-counter v-model="value" disabled />
 
-    <va-counter class="mx-6 my-2" v-model="value" buttons disabled />
+      <va-counter v-model="value" buttons disabled />
+    </div>
   </div>
 </template>
 

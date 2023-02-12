@@ -1,15 +1,10 @@
 <template>
-  <div class="row">
-    <va-counter class="mx-6 my-2" v-model="value" messages="Default" />
+  <div class="flex gap-5 flex-wrap">
+    <va-counter v-model="value" messages="Default" />
 
-    <va-counter class="mx-6 my-2" stateful messages="Stateful" />
+    <va-counter stateful messages="Stateful" />
 
-    <va-counter
-      class="mx-6 my-2"
-      v-model="value"
-      manual-input
-      messages="Manual-input"
-    />
+    <va-counter v-model="value" manual-input messages="Manual-input" />
   </div>
 </template>
 
@@ -22,3 +17,4 @@ export default {
   },
 };
 </script>
+Í
