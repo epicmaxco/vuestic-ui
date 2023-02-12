@@ -19,19 +19,28 @@
 <script setup lang="ts">
 import { useDocsScroll } from '../composables/useDocsScroll';
 
-const isSidebarVisible = ref(true)
-
 const breakpoints = useBreakpoint()
 
-watch(() => breakpoints.sm, (newValue, oldValue) => {
+const isSidebarVisible = ref(!breakpoints.smDown)
+
+watch(() => breakpoints.smDown, (newValue, oldValue) => {
   if (newValue && !oldValue) {
     isSidebarVisible.value = false
+  }
+  if (!newValue && oldValue) {
+    isSidebarVisible.value = true
   }
 })
 
 const { afterEach } = useRouter()
 const { scrollToElement } = useDocsScroll()
-afterEach(scrollToElement)
+afterEach(() => {
+  scrollToElement()
+
+  if (breakpoints.smDown) {
+    isSidebarVisible.value = false
+  }
+})
 onMounted(scrollToElement)
 
 useHead({
