@@ -3,6 +3,7 @@ import {
   VaDropdownPlugin,
   VaToastPlugin,
   VaModalPlugin,
+  ColorsClassesPlugin,
   BreakpointConfigPlugin,
 } from 'vuestic-ui'
 import { ref, watchEffect } from 'vue'
@@ -33,6 +34,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       VaDropdownPlugin,
       VaToastPlugin,
       VaModalPlugin,
+      ColorsClassesPlugin,
     },
     /** Do not import any components. Nuxt will import them automatically */
     components: {}
@@ -55,6 +57,17 @@ export default defineNuxtPlugin((nuxtApp) => {
         head.addHeadObjs(ref({
           htmlAttrs: {
             style: renderCSSVariables()
+          }
+        }))
+      }
+    }, { flush: 'pre' })
+
+    watchEffect(() => {
+      const colorsClasses = getGlobalProperty(app, '$vaColorsClasses')
+      if (colorsClasses) {
+        head.addHeadObjs(ref({
+          htmlAttrs: {
+            style: colorsClasses.renderColorHelpers()
           }
         }))
       }
