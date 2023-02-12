@@ -10,10 +10,18 @@
             {{$t('landing.preview.buttons.start')}}
           </va-button>
 
-          <a class="preview__buttons--link" href="https://github.com/epicmaxco/vuestic-ui" target="_blank">
-            <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
+          <va-button
+            preset="secondary"
+            size="large"
+            href="https://github.com/epicmaxco/vuestic-ui"
+            target="_blank"
+            class="preview__buttons--button"
+          >
+            <template #prepend>
+              <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
+            </template>
             {{ $t('landing.preview.buttons.github') }}
-          </a>
+          </va-button>
         </div>
 <!--        <div class="preview__image">-->
 <!--          <div class="components-slideshow">-->
@@ -139,15 +147,6 @@ const textColor = useElementTextColor('background-primary')
 
       margin-top: 1rem;
       height: 3rem;
-
-      @include xs(width, 100%);
-    }
-
-    &--link {
-      @include button-font();
-      @include xs(width, 100%);
-
-      margin-top: 0.75rem;
     }
 
     &--button:nth-child(1) {
