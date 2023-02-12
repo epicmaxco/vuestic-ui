@@ -41,7 +41,7 @@ export const useComponentPlayground = (options: Record<string, Omit<PlaygroundOp
   const renderAttrs = () => {
     if (attrs.value.length == 0) { return '' }
 
-    return '\n    ' + attrs.value
+    return '\n  ' + attrs.value
       .sort((aO, bO) => {
         const a = typeof aO.value
         const b = typeof bO.value
@@ -73,7 +73,7 @@ export const useComponentPlayground = (options: Record<string, Omit<PlaygroundOp
         return `:${name}="${value}"`
       })
       .filter(Boolean)
-      .join('\n    ')
+      .join('\n  ')
   }
 
   const renderSlots = () => {
@@ -96,7 +96,7 @@ export const useComponentPlayground = (options: Record<string, Omit<PlaygroundOp
     }
 
     if (attrs.length > 0) {
-      attrs = `${attrs}\n  `
+      attrs = `${attrs}\n`
     }
 
     return `<${componentName}${attrs}>

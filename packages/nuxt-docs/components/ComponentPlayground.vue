@@ -29,7 +29,7 @@ const optionValues = computed(() => {
 </script>
 
 <template>
-  <div class="component-playground">
+  <div class="component-playground flex-col sm:flex-row">
     <div class="component-playground__example">
       <slot v-bind="{ bind: optionValues, slots }" />
     </div>
@@ -90,6 +90,7 @@ const optionValues = computed(() => {
     border: 1px solid var(--va-background-primary);
     position: relative;
     z-index: 0;
+    font-size: 0.8rem;
 
     &:deep(.DocsCode) {
       background: transparent;

@@ -140,7 +140,7 @@ $radius: 0.25rem;
 .DocsCode {
   margin-bottom: 0.2rem !important;
   background: var(--va-background-element);
-  font-size: 1rem !important;
+  font-size: 0.8rem !important;
   border-radius: $radius;
 
   code[class*="language-"],
