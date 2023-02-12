@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, computed, PropType } from 'vue'
+import { defineComponent, onMounted, ref, computed, PropType, onBeforeUnmount } from 'vue'
 import { useBem, useColors } from '../../composables'
 
 export default defineComponent({
@@ -33,10 +33,14 @@ export default defineComponent({
   setup (props, { attrs }) {
     const doShow = ref(false)
 
+    let timeoutId: ReturnType<typeof setTimeout>
     onMounted(() => {
       setTimeout(() => {
         doShow.value = true
       }, props.delay)
+    })
+    onBeforeUnmount(() => {
+      clearTimeout(timeoutId)
     })
 
     const heightComputed = computed(() => {

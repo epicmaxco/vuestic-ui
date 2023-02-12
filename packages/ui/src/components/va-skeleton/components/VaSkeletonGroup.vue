@@ -7,14 +7,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, ref, onMounted } from 'vue'
+import { defineComponent, PropType, computed, ref, onMounted, onBeforeMount } from 'vue'
 import { useBem } from '../../../composables'
 import { VaConfig } from '../../va-config'
 
 export default defineComponent({
   name: 'VaSkeletonGroup',
-
-  inheritAttrs: true,
 
   components: {
     VaConfig,
@@ -28,18 +26,24 @@ export default defineComponent({
 
     lines: { type: Number, default: 1 },
     lineGap: { type: String, default: '8px' },
-    textWidth: { type: [Number, String], default: '75%' },
+    textWidth: { type: [String], default: '75%' },
   },
 
   setup (props) {
     const doShow = ref(false)
 
+    let timeoutId: ReturnType<typeof setTimeout>
+
     onMounted(() => {
       // We can sync this way animations, wait until all blocks are rendered
       // This can be done with provide/inject to sync all animations, but for now we don't need it
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         doShow.value = true
       }, props.delay)
+    })
+
+    onBeforeMount(() => {
+      clearTimeout(timeoutId)
     })
 
     const bem = useBem('va-skeleton-group', () => ({
@@ -58,7 +62,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .va-skeleton-group {
   position: relative;
-  // overflow: hidden;
 
   &--hidden {
     display: none;
