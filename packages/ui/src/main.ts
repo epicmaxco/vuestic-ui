@@ -9,6 +9,10 @@ export {
   VuesticIconAliases,
 } from './services/icon'
 
+// needed for the @vuestic/tailwind package
+export { presets as colorsPreset } from './services/color/presets'
+export { defaultThresholds as thresholdsPreset } from './services/breakpoint'
+
 // Export all components and their composables
 export * from './components'
 

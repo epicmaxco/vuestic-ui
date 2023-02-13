@@ -1567,6 +1567,7 @@
     "accordion": "Accordion",
     "chip": "Chip",
     "grid": "Grid",
+    "tailwind": "Tailwind Support",
     "input": "Input",
     "list": "List",
     "select": "Select",
@@ -3131,6 +3132,7 @@
   },
   "grid": {
     "title": "Grid System",
+    "deprecated": "CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed.",
     "summaryText": "Vuestic UI provides you with some flexbox helper classes. Of course, you can opt out using CSS Grid instead (or any other layout-scheme you'd like), but if you prefer using flexbox, we've got you covered. Still, the final decision is totally up to you.",
     "examples": {
       "default": {
@@ -3210,6 +3212,35 @@
           "`.justify-self-end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
           "`.justify-self-center` - For items that are not children of a flex container, this value is treated as `.justify-self-start`.",
           "`.justify-self-baseline` - The items are aligned according to baselines"
+        ]
+      }
+    }
+  },
+  "tailwind": {
+    "title": "Tailwind CSS Support",
+    "summaryText": "We recommend our users to use [Tailwind CSS](https://tailwindcss.com/)[[target=_blank]] as the most convenient and modern solution to the CSS helpers issue.",
+    "deprecated": "CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed.",
+    "preparation": {
+      "title": "Preparations",
+      "text": "Before we start with integration - please ensure you have both Tailwind CSS and Vuestic UI installed. If that's not the case - here are installation guide [for Vuestic UI](/getting-started/installation) and for [Tailwind CSS](https://tailwindcss.com/docs/installation/using-postcss)[[target=_blank]]."
+    },
+    "features": {
+      "integration": {
+        "title": "Syncing configs",
+        "text": "To create a tight bind between Vuestic with Tailwind we have a `@vuestic/tailwind` package: it syncs [breakpoint](/services/breakpoints)[[target=_blank]] and [color](/services/colors)[[target=_blank]] settings. You can sync from Vuestic UI to Tailwind or backwards!",
+        "instructionIntro": "Here's what you have to do to make it work:",
+        "extendAlert": "We're not overriding Tailwind CSS settings, but extending them.",
+        "instruction": [
+          "1.&nbsp;Install this package:",
+          "2.&nbsp;After installation, three commands become available to you:",
+          "`npx sync-tailwind-with-vuestic` - formats and transfers the color and breakpoints settings from the `tailwind.config.*` file (and in its absence, it uses the default Tailwind CSS configuration) to the root file `vuestic.config.js` (also added by this command);",
+          "`npx watch-tailwind` - watches `tailwind.config.*` in background and synchronizes the Vuestic UI configuration on the fly;",
+          "`npx sync-vuestic-with-tailwind` - transfers color and breakpoint settings from default Vuestic UI config to the Tailwind's configuration file (`tailwind.config.cjs`).",
+          "3A.&nbsp;`[Tailwind CSS -> Vuestic UI]` import the `config` configuration in your `main.*` and specify it when initializing the application:",
+          "Also, you may want to synchronize the configuration partially (in the example - only Tailwind CSS colors will be taken):",
+          "3B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Nothing more is needed.",
+          "4A.&nbsp;`[Tailwind CSS -> Vuestic UI]` As a result you will be able to use Tailwind colors and breakpoints setting in Vuestic. For example, the result of synchronization default Tailwind settings will be a Vuestic settings file:",
+          "4B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Vuestic UI setting will be available in the Tailwind CSS scope. Output format follows the requirements, located [here](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]] and [here](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]]."
         ]
       }
     }
@@ -3367,6 +3398,7 @@
   "reset": {
     "title": "CSS Reset",
     "description": "We use `reset.scss` to reset and normalize basic CSS styles",
+    "deprecated": "CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed.",
     "features": {
       "title": "Reset features",
       "info": "Below is a list of features that are provided by reset.scss:",
