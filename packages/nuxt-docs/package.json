@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "build": "nuxt build --max_old_space_size=4096",
-    "dev": "nuxt dev",
+    "serve": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "test": "vitest"

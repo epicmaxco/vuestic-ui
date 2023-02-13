@@ -453,7 +453,7 @@ const copyText = () => {
   position: relative;
   padding-top: 8.5rem;
   padding-bottom: 12rem;
-  background-image: url("../../assets/images/landing/vector-bg.svg");
+  background-image: url("/landing/vector-bg.svg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
