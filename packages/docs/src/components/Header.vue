@@ -1,5 +1,5 @@
 <template lang="html">
-  <header-banner class="header-banner--docs"></header-banner>
+  <header-banner class="header-banner--docs" closeable></header-banner>
   <va-navbar class="header" color="background-secondary">
     <template #left>
       <header-selector
