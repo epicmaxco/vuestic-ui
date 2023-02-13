@@ -4,7 +4,6 @@
     v-model="showDropdownContentComputed"
     class="va-select va-select__dropdown va-select-dropdown"
     v-bind="dropdownPropsComputed"
-    @close="focus"
   >
     <template #anchor>
       <va-input-wrapper
@@ -611,7 +610,7 @@ export default defineComponent({
 
     // public methods
     const focus = () => {
-      if (props.disabled || props.autocomplete) { return }
+      if (props.disabled) { return }
       input.value?.focus()
     }
 
