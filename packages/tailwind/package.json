@@ -16,8 +16,8 @@
     "bin"
   ],
   "bin": {
-    "sync-tailwind": "./bin/sync-tailwind",
-    "sync-vuestic": "./bin/sync-vuestic",
+    "sync-tailwind-with-vuestic": "./bin/sync-tailwind",
+    "sync-vuestic-with-tailwind": "./bin/sync-vuestic",
     "watch-tailwind": "./bin/watch-tailwind"
   },
   "scripts": {
