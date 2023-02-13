@@ -50,6 +50,12 @@ const config: ApiDocsBlock[] = [
     'Lazy',
   ),
 
+  ...block.exampleBlock(
+    'image.examples.viewer.title',
+    'image.examples.viewer.text',
+    'Viewer',
+  ),
+
   block.subtitle('all.api'),
   block.api(VaImage, apiOptions),
 
