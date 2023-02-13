@@ -111,7 +111,7 @@ export default defineComponent({
     tabindex: { type: Number, default: 0 },
     hoveredOption: { type: [String, Number, Object] as PropType<SelectOption | null>, default: null },
     virtualScroller: { type: Boolean, default: true },
-    highlightMatchedText: { type: Boolean, default: false },
+    highlightMatchedText: { type: Boolean, default: true },
     minSearchChars: { type: Number, default: 0 },
     autoSelectFirstOption: { type: Boolean, default: false },
   },

@@ -33,11 +33,8 @@
       :disabled="$props.disabled"
       autocomplete="off"
       @keydown.up.stop.prevent="$emit('focus-prev')"
-      @keydown.left.stop.prevent="$emit('focus-prev')"
       @keydown.down.stop.prevent="$emit('focus-next')"
-      @keydown.right.stop.prevent="$emit('focus-next')"
       @keydown.enter.stop.prevent="$emit('select-option')"
-      @keydown.space.stop.prevent="$emit('select-option')"
       @keydown="handleBackspace"
     />
   </div>
@@ -144,7 +141,12 @@ export default defineComponent({
     watch(focused, (newValue) => {
       if (!props.autocomplete || !newValue) { return }
 
-      autocompleteInput.value?.focus()
+      if (autocompleteInputValueComputed.value) {
+        // native select method doesn't work in mobile Safari, so we need this instead
+        autocompleteInput.value?.setSelectionRange(0, autocompleteInputValueComputed.value.length)
+      } else {
+        autocompleteInput.value?.focus()
+      }
     })
 
     const handleBackspace = (e: KeyboardEvent) => {

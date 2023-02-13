@@ -18,10 +18,8 @@
       <va-select
         v-model="defaultSingleSelect.value"
         class="mb-6"
-        placeholder="Start to write..."
         :options="defaultSingleSelect.options"
         autocomplete
-        highlight-matched-text
       />
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
@@ -32,11 +30,9 @@
       <va-select
         v-model="defaultMultiSelect.value"
         class="mb-6"
-        placeholder="Start to write..."
         :options="defaultMultiSelect.options"
         multiple
         autocomplete
-        highlight-matched-text
       />
       <p>Value: {{ defaultMultiSelect.value }}</p>
     </VbCard>
@@ -47,14 +43,26 @@
       <va-select
         v-model="defaultMultiSelect.value"
         class="mb-6"
-        placeholder="Start to write..."
         :options="defaultMultiSelect.options"
         :max-visible-options="2"
         multiple
         autocomplete
-        highlight-matched-text
       />
       <p>Value: {{ defaultMultiSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Autocomplete with create new option"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="allowCreateSelect.value"
+        class="mb-6"
+        :options="allowCreateSelect.options"
+        autocomplete
+        allow-create
+        @create-new="addNewOption"
+      />
+      <p>Value: {{ allowCreateSelect.value }}</p>
     </VbCard>
     <VbCard
       title="Multiple autocomplete with content slot"
@@ -63,11 +71,9 @@
       <va-select
         v-model="defaultMultiSelect.value"
         class="mb-6"
-        placeholder="Start to write..."
         :options="defaultMultiSelect.options"
         multiple
         autocomplete
-        highlight-matched-text
       >
         <template #content="{ value }">
           <va-chip
@@ -89,11 +95,9 @@
       <va-select
         v-model="defaultSingleSelect.value"
         class="mb-6"
-        placeholder="Start to write..."
         :options="defaultSingleSelect.options"
         :min-search-chars="2"
         autocomplete
-        highlight-matched-text
       />
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
@@ -104,10 +108,8 @@
       <va-select
         v-model="defaultSingleSelect.value"
         class="mb-6"
-        placeholder="Start to write..."
         :options="defaultSingleSelect.options"
         autocomplete
-        highlight-matched-text
         auto-select-first-option
       />
       <p>Value: {{ defaultSingleSelect.value }}</p>

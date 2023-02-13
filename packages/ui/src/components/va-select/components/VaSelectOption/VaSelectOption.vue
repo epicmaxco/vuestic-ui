@@ -53,7 +53,7 @@ export default defineComponent({
     currentOption: { type: [String, Number, Object] as PropType<SelectableOption | null>, default: null },
     getSelectedState: { type: Function as PropType<(option: SelectableOption) => boolean>, required: true },
     search: { type: String, default: '' },
-    highlightMatchedText: { type: Boolean, default: false },
+    highlightMatchedText: { type: Boolean, default: true },
     inputFocused: { type: Boolean, default: false },
     minSearchChars: { type: Number, default: 0 },
   },

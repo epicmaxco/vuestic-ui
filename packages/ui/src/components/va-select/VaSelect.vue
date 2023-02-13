@@ -61,7 +61,7 @@
             @autocomplete-input="setAutocompleteValue"
             @focus-prev="focusPreviousOption"
             @focus-next="focusNextOption"
-            @select-option="selectHoveredOption"
+            @select-option="selectOrAddOption"
             @delete-last-selected="deleteLastSelected"
           >
             <template
@@ -225,7 +225,7 @@ export default defineComponent({
     tabindex: { type: Number, default: 0 },
     virtualScroller: { type: Boolean, default: false },
     selectedTopShown: { type: Boolean, default: false },
-    highlightMatchedText: { type: Boolean, default: false },
+    highlightMatchedText: { type: Boolean, default: true },
     minSearchChars: { type: Number, default: 0 },
     autoSelectFirstOption: { type: Boolean, default: false },
 
@@ -250,7 +250,7 @@ export default defineComponent({
     const onScrollBottom = () => emit('scroll-bottom')
 
     const searchInput = ref('')
-    const showSearchInput = computed(() => props.searchable || props.allowCreate)
+    const showSearchInput = computed(() => props.searchable || (props.allowCreate && !props.autocomplete))
 
     watch(searchInput, (value) => {
       emit('update-search', value)
@@ -396,11 +396,12 @@ export default defineComponent({
 
     const addNewOption = () => {
       // Do not emit if option already exist and allow create is `unique`
-      const hasAddedOption = props.options?.some((option: SelectOption) => getText(option) === searchInput.value)
+      const hasAddedOption = props.options?.some((option: SelectOption) => [searchInput.value, autocompleteValue.value].includes(getText(option)))
 
       if (!(props.allowCreate === 'unique' && hasAddedOption)) {
-        emit('create-new', searchInput.value)
+        emit('create-new', searchInput.value || autocompleteValue.value)
         searchInput.value = ''
+        autocompleteValue.value = ''
       }
     }
 
@@ -421,7 +422,7 @@ export default defineComponent({
     }
 
     const selectOrAddOption = () => {
-      const allowedToCreate = !!props.allowCreate && searchInput.value !== ''
+      const allowedToCreate = !!props.allowCreate && (searchInput.value || autocompleteValue.value)
 
       if (hoveredOption.value !== null) {
         selectHoveredOption()
@@ -610,7 +611,7 @@ export default defineComponent({
 
     // public methods
     const focus = () => {
-      if (props.disabled) { return }
+      if (props.disabled || props.autocomplete) { return }
       input.value?.focus()
     }
 
@@ -639,6 +640,7 @@ export default defineComponent({
         e?.stopImmediatePropagation()
 
         isInputFocused.value = true
+        showDropdownContent.value = true
       }
     }
 
