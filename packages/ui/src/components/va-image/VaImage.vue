@@ -69,6 +69,7 @@ import {
   onBeforeUnmount,
   type PropType,
 } from 'vue'
+import pick from 'lodash/pick.js'
 
 import { VaAspectRatio } from '../va-aspect-ratio'
 import { VaFallback } from '../va-fallback'
@@ -111,6 +112,11 @@ export default defineComponent({
     fit: {
       type: String as PropType<'contain' | 'fill' | 'cover' | 'scale-down' | 'none'>,
       default: 'cover',
+    },
+    maxWidth: {
+      type: Number,
+      default: 0,
+      validator: (v: number) => v >= 0,
     },
     lazy: { type: Boolean, default: false },
     placeholderSrc: { type: String, default: '' },
@@ -220,9 +226,9 @@ export default defineComponent({
     const imgAttributesComputed = useNativeImgAttributes(props)
 
     const aspectRationAttributesComputed = computed(() => ({
+      ...pick(props, ['ratio', 'maxWidth']),
       contentWidth: imgWidth.value,
       contentHeight: imgHeight.value,
-      ratio: props.ratio,
     }))
 
     const fallbackProps = filterComponentProps(VaFallbackProps)
@@ -263,17 +269,10 @@ export default defineComponent({
 <style lang="scss">
 @import 'variables';
 
-@mixin absolute {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
 .va-image {
   &__content {
-    @include absolute;
+    position: var(--va-image-position);
+    inset: 0;
 
     img {
       width: 100%;
@@ -284,7 +283,8 @@ export default defineComponent({
   }
 
   &__overlay {
-    @include absolute;
+    position: absolute;
+    inset: 0;
   }
 
   &__placeholder,

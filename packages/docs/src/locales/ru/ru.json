@@ -546,11 +546,13 @@
         "title": "Проксирует свойство `title` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
         "lazy": "Включает ленивую загрузку изображения.",
         "draggable": "Проксирует свойство `draggable` в изображение [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
-        "placeholderSrc": "Значение аттрибута `src` для тега `img` в плейсхолдере (который может быть перезаписан с помощью слота `placeholder`)."
+        "placeholderSrc": "Значение аттрибута `src` для тега `img` в плейсхолдере (который может быть перезаписан с помощью слота `placeholder`).",
+        "maxWidth": "Максимальная ширина обертки компонента."
       },
       "events": {
         "loaded": "Событие вызывается, когда загрузка изображения окончена.",
-        "error": "Событие вызывается при ошибке загрузки изображения."
+        "error": "Событие вызывается при ошибке загрузки изображения.",
+        "fallback": "Событие вызывается при срабатывании фолбэка."
       },
       "slots": {
         "sources": "Слот для передачи одного или нескольких тегов `source` [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/picture)[[target=_blank]].",
@@ -1434,8 +1436,8 @@
     "introduction": "Введение",
     "gettingStarted": "Начало работы",
     "styles": "Стили",
-    "reset": "Сброс CSS",
     "uiElements": "Элементы UI",
+    "reset": "Сброс CSS",
     "contribution": "Помощь в разработке",
     "extensions": "Расширения",
     "documentationPage": "Документация",
@@ -1470,6 +1472,7 @@
     "accordion": "Accordion",
     "chip": "Chip",
     "grid": "Grid",
+    "tailwind": "Поддержка Tailwind",
     "input": "Input",
     "list": "List",
     "select": "Select",
@@ -2518,6 +2521,10 @@
         "title": "Ленивая загрузка",
         "text": "Свойство `lazy` позволяет задать компоненту поведение ленивой загрузки. В этом случае изображение будет загружено лишь тогда, когда войдет в видимую область экрана пользователя."
       },
+      "viewer": {
+        "title": "Highslide",
+        "text": "Использовав компонент-обертку `va-viewer` с `va-image` вы получите эффект highslide."
+      },
       "ratio": {
         "title": "Соотношение сторон",
         "text": "Свойство `ratio` изменяет исходное соотношение сторон изображения."
@@ -2989,8 +2996,20 @@
       }
     }
   },
+  "reset": {
+    "title": "Сброс CSS",
+    "description": "Мы используем `reset.scss` чтобы сбросить и нормализовать базовые `CSS` стили",
+    "deprecated": "CSS-хелперы и файл сброса CSS (CSS reset) останутся в бандле Vuestic UI вплоть до версии 1.7.0, после чего будут окончательно убраны.",
+    "features": {
+      "title": "Reset возможности",
+      "info": "Ниже находится список возможностей, которые предоставляет reset.scss:",
+      "list": "* Margin и padding reset. \n * Border reset. \n * Hide quotes. \n * Font reset. \n * Hidden-attribute fix для более новых браузеров. \n * HTML5 display-role reset для более старых браузеров",
+      "more": "Полный список всех примененных стилей можно посмотреть здесь [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/styles/global/reset.scss)[[target=_blank]] stylesheet."
+    }
+  },
   "grid": {
     "title": "Grid Layout",
+    "deprecated": "CSS-хелперы и файл сброса CSS (CSS reset) останутся в бандле Vuestic UI вплоть до версии 1.7.0, после чего будут окончательно убраны.",
     "summaryText": "Мы предоставляем вам вспомогательные классы для [flex](https://developer.mozilla.org/ru/docs/Web/CSS/flex)[[target=_blank]]. Для [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)[[target=_blank]] встроенных классов не предоставляется. Это не означает, что вам *нужно* использовать `flex`, но он остается мощным инструментом.",
     "examples": {
       "default": {
@@ -3070,6 +3089,35 @@
           "`.justify-self-end` - элементы расположены на одном уровне друг с другом в конце выравнивающего контейнера по соответствующей оси",
           "`.justify-self-center` - для элементов, которые не являются дочерними по отношению к flex контейнеру, это значение обрабатывается как начало (start)",
           "`.justify-self-baseline` - элементы выравниваются согласно базовых линий (baselines)"
+        ]
+      }
+    }
+  },
+  "tailwind": {
+    "title": "Поддержка Tailwind CSS",
+    "summaryText": "Мы рекомендуем нашим пользователям использовать [Tailwind CSS](https://tailwindcss.com/)[[target=_blank]] как наиболее удобное и современное решение вопроса CSS хелперов.",
+    "deprecated": "CSS-хелперы и файл сброса CSS (CSS reset) останутся в бандле Vuestic UI вплоть до версии 1.7.0, после чего будут окончательно убраны.",
+    "preparation": {
+      "title": "Подготовка",
+      "text": "Прежде всего, необходимо убедиться, что к вашему проекту подключен как Tailwind CSS, так и Vuestic UI. Для Vuestic UI следуйте нашей [инструкции](/getting-started/installation). Порядок подключения Tailwind CSS вы можете найти [здесь](https://tailwindcss.com/docs/installation/using-postcss)[[target=_blank]]."
+    },
+    "features": {
+      "integration": {
+        "title": "Синхронизация конфигураций",
+        "text": "Чтобы повысить комфорт от использования Vuestic совместно с Tailwind, мы сформировали отдельный пакет `@vuestic/tailwind`, который позволит синхронизировать конфигурации и использовать настройки брейкпоинтов (например, в [Breakpoint Service](/services/breakpoints)[[target=_blank]]) и цветов Tailwind в компонентах Vuestic. Также, наоборот, пакет позволяет импортировать настройки цветов и экранов из Tailwind во Vuestic.",
+        "instructionIntro": "Для начала использования необходимо:",
+        "extendAlert": "Мы не заменяем цветовые схемы или настройки экранов Tailwind, а расширяем их.",
+        "instruction": [
+          "1.&nbsp;Установите пакет, используя команды ниже:",
+          "2.&nbsp;После установки вам становятся доступны три команды::",
+          "`npx sync-tailwind-with-vuestic` - осуществляет форматирование и перенос настроек цветов и брейкпоинтов из файла `tailwind.config.*` (а при его отсутствии &mdash; из конфигурации Tailwind CSS по умолчанию) в корневой файл `vuestic.config.js` (также добавляемый этой командой);",
+          "`npx watch-tailwind` - запускает процесс слежения за файлом `tailwind.config.*` для синхронизации конфигурации Vuestic UI на лету;",
+          "`npx sync-vuestic-with-tailwind` - похожа на первую команду, с той лишь разницей, что перенос цветов и настроек экранов осуществляется из Vuestic UI в Tailwind CSS.",
+          "3A.&nbsp;`[Tailwind CSS -> Vuestic UI]` Импортируйте конфигурацию `config` в вашем `main.*` и укажите ее при инициализации приложения:",
+          "Также, возможно, вы захотите синхронизировать конфигурацию частично (в примере ниже из Tailwind CSS были взяты только цвета):",
+          "3B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Никаких дополнительных действий не требуется.",
+          "4A.&nbsp;`[Tailwind CSS -> Vuestic UI]` Итогом станет возможность применения цветов и текущих значений порогов экрана Tailwind в Vuestic. Например, итогом синхронизации дефолтных настроек Tailwind станет файл настроек Vuestic подобного содержания:",
+          "4B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Цвета и экраны Vuestic UI смогут использоваться в Tailwind CSS. Конечный формат представлен требованиями, изложенными [тут](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]] and [тут](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]]."
         ]
       }
     }
@@ -3223,16 +3271,6 @@
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-backtop/_variables.scss)[[target=_blank]]"
-  },
-  "reset": {
-    "title": "Сброс CSS",
-    "description": "Мы используем `reset.scss` чтобы сбросить и нормализовать базовые `CSS` стили",
-    "features": {
-      "title": "Reset возможности",
-      "info": "Ниже находится список возможностей, которые предоставляет reset.scss:",
-      "list": "* Margin и padding reset. \n * Border reset. \n * Hide quotes. \n * Font reset. \n * Hidden-attribute fix для более новых браузеров. \n * HTML5 display-role reset для более старых браузеров",
-      "more": "Полный список всех примененных стилей можно посмотреть здесь [reset.scss](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/styles/global/reset.scss)[[target=_blank]] stylesheet."
-    }
   },
   "colorInput": {
     "title": "Color Input",
@@ -3520,8 +3558,8 @@
         "checkbox": "`VaCheckbox` стал `inline-block` вместо `block`.",
         "services": "Сервисы",
         "colors": "Цвета",
-        "colors_0": "Версия `1.5.0` внесла множество измнений для работы темной темы.",
-        "colors_1": "Цвета из конфига сайчас дополняются css переменными. Пропали цвета `dark`, `white`, `background`, `gray`. Цвет текста в компонентах сейчас высчитывается автоматически, но можно жестко установить его как `textDark` или `textLight`. Сейчас осталось 4 цвета фона: `backgroundPrimary`, `backgroundSecondary`, `backgroundTertiary`, `backgroundElement`. Читать дальше: [colors](https://vuestic.dev/styles/colors)[[target=_blank]].",
+        "colors_0": "Версия `1.5.0` внесла множество изменений для работы темной темы.",
+        "colors_1": "Цвета из конфига сейчас дополняются css переменными. Пропали цвета `dark`, `white`, `background`, `gray`. Цвет текста в компонентах сейчас высчитывается автоматически, но можно жестко установить его как `textDark` или `textLight`. Сейчас осталось 4 цвета фона: `backgroundPrimary`, `backgroundSecondary`, `backgroundTertiary`, `backgroundElement`. Читать дальше: [colors](https://vuestic.dev/styles/colors)[[target=_blank]].",
         "colors_2": "* вместо `useTheme` используете `useColor` - методы остались прежними.",
         "styles": "Стили",
         "stylesDescription": "* Все классы типографии получили префикс `va`. Например, `link` переименован в `va-link` `text--right` переименован в `va-text-right`",
