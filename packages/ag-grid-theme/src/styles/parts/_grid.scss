@@ -1,3 +1,5 @@
+@import '../variables';
+
 //
 // See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_grid-borders.scss
 // See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_grid-layout.scss
@@ -27,27 +29,22 @@
   @include vuestic-theme-clickable();
 }
 
-
-$backgroundElement: #EBF1F4;
-
 ////////////////////////////////////////
 // STRIPED MODE
 ////////////////////////////////////////
 @mixin vuestic-theme-striped {
   &--striped {
-    --ag-odd-row-background-color: #{$backgroundElement};
+    --ag-odd-row-background-color: var(--va-background-element, #{$backgroundElement});
     --ag-selected-row-background-color: var(--ag-selected-row-background-color);
   }
 }
-
-$backgroundHoverable: #d4d9dc;
 
 ////////////////////////////////////////
 // HOVERABlE MODE
 ////////////////////////////////////////
 @mixin vuestic-theme-hoverable {
   &--hoverable {
-    --ag-row-hover-color: #{$backgroundHoverable};
+    --ag-row-hover-color: var(--va-background-hoverable, #{$backgroundHoverable});
   }
 }
 
