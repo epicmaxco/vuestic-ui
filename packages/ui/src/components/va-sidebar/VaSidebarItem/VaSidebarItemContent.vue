@@ -21,6 +21,7 @@ export default defineComponent({
   align-items: center;
   padding: var(--va-sidebar-item-content-padding);
   min-height: 58px;
+  box-sizing: border-box;
 
   & > * {
     margin-right: var(--va-sidebar-item-content-gap);

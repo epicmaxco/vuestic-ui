@@ -148,6 +148,7 @@ export default defineComponent({
     }))
 
     const colorComputed = computed(() => getColor(props.color))
+    const backgroundComputed = computed(() => getColor(props.background))
     const borderColorComputed = computed(() => props.focused ? colorComputed.value : undefined)
 
     const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
@@ -186,6 +187,7 @@ export default defineComponent({
       isCounterVisible,
       counterComputed,
       colorComputed,
+      backgroundComputed,
       borderColorComputed,
       messagesColor,
       messagesComputed,
@@ -207,6 +209,8 @@ export default defineComponent({
 @import './variables';
 
 .va-input-wrapper {
+  --va-input-wrapper-background: v-bind(backgroundComputed);
+
   position: relative;
   cursor: var(--va-input-cursor);
   font-family: var(--va-font-family);
@@ -310,7 +314,8 @@ export default defineComponent({
       }
 
       &::placeholder {
-        color: var(--va-input-placeholder-text-color);
+        color: inherit;
+        opacity: 0.5;
       }
     }
   }

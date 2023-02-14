@@ -3,6 +3,7 @@ export {
   VaAffix,
   VaAlert,
   VaAppBar,
+  VaAspectRatio,
   VaAvatar,
   VaAvatarGroup,
   VaBacktop,
@@ -34,6 +35,7 @@ export {
   VaDivider,
   VaDropdown,
   VaDropdownContent,
+  VaFallback,
   VaFileUpload,
   VaForm,
   VaHover,
@@ -76,5 +78,6 @@ export {
   VaToast,
   VaTreeView,
   VaScrollContainer,
+  VaViewer,
   VaVirtualScroller,
 } from '../../components'

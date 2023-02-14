@@ -304,7 +304,7 @@ export default defineComponent({
 
     const iconProps = computed(() => ({
       role: 'button',
-      ariaHidden: false,
+      'aria-hidden': false,
       size: 'small',
       name: props.icon,
       color: props.color,
@@ -318,10 +318,10 @@ export default defineComponent({
       disabled: props.disabled,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
-      ariaLabel: props.label || t('selectedTime'),
-      ariaRequired: props.requiredMark,
-      ariaDisabled: props.disabled,
-      ariaReadOnly: props.readonly,
+      'aria-label': props.label || t('selectedTime'),
+      'aria-required': props.requiredMark,
+      'aria-disabled': props.disabled,
+      'aria-readonly': props.readonly,
       ...validationAriaAttributes.value,
       ...omit(attrs, ['class', 'style']),
     }))

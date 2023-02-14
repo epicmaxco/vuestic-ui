@@ -6,6 +6,7 @@ const block = new PageGenerationHelper(__dirname)
 const config: ApiDocsBlock[] = [
   block.title('grid.title'),
   block.paragraph('grid.summaryText'),
+  block.alert('grid.deprecated', 'primary'),
 
   block.headline('grid.examples.default.title'),
   block.example('Default'),

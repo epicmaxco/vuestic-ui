@@ -315,7 +315,7 @@
       </button>
 
       <va-modal v-model="showModalNested1" :message="message" hide-default-actions>
-        <button class="mt-5" @click="showModalNested2 = !showModalNested2" color="secondary">
+        <button class="mt-8" @click="showModalNested2 = !showModalNested2" color="secondary">
           Show second modal
         </button>
 
@@ -346,7 +346,7 @@
         <a tabindex="0" target="_blank" href="https://google.com">
           Google
         </a>
-        <va-button class="mt-5" @click="showModalFocusTrap2 = !showModalFocusTrap2" color="secondary">
+        <va-button class="mt-8" @click="showModalFocusTrap2 = !showModalFocusTrap2" color="secondary">
           Show second modal
         </va-button>
         <input type="text" />

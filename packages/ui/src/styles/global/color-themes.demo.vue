@@ -2,13 +2,13 @@
   <VbDemo>
     <VbCard title="All of these share `info` theme">
       <va-button
-        class="mb-5"
+        class="mb-8"
         color="info"
       >
         Default Button
       </va-button>
       <va-alert
-        class="mb-5"
+        class="mb-8"
         color="info"
       >
         <va-badge
@@ -18,12 +18,12 @@
         You successfully read this important alert message.
       </va-alert>
       <va-progress-bar
-        class="mb-5"
+        class="mb-8"
         indeterminate
         color="info"
       />
       <va-slider
-        class="mb-5"
+        class="mb-8"
         :modelValue="60"
         value-visible
         label="Label"
@@ -33,7 +33,7 @@
     </VbCard>
     <VbCard style="position: relative;">
       <va-rating
-        class="mb-5"
+        class="mb-8"
         color="info"
         :modelValue="3"
       >

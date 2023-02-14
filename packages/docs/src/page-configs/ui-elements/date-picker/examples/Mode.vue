@@ -1,16 +1,16 @@
 <template>
   <div class="flex row">
-    <div class="flex">
+    <div class="flex flex-col">
       <h6>Single mode</h6>
       <va-date-picker mode="single" v-model="single" />
     </div>
 
-    <div class="flex">
+    <div class="flex flex-col">
       <h6>Multiple mode</h6>
       <va-date-picker mode="multiple" v-model="multiple" />
     </div>
 
-    <div  class="flex">
+    <div  class="flex flex-col">
       <h6>Range mode</h6>
       <va-date-picker mode="range" v-model="range" />
     </div>

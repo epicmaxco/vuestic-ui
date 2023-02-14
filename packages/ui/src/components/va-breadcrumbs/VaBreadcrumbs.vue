@@ -41,7 +41,7 @@ export default defineComponent({
       const separatorNode = slots.separator ? slots.separator() : [props.separator]
 
       return h('span', {
-        ariaHidden: true,
+        'aria-hidden': true,
         class: ['va-breadcrumbs__separator'],
         style: [{ color: computedThemesSeparatorColor.value }],
       }, separatorNode)
@@ -62,7 +62,7 @@ export default defineComponent({
 
     const isAllChildLinks = ref(true)
     const getChildren = () => {
-      const childNodes = (slots as any)?.default()?.reduce(childNodeFilter, []) || []
+      const childNodes = (slots as any)?.default?.reduce(childNodeFilter, []) || []
       const childNodesLength = childNodes.length
       const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
       const isChildLink = (child: VNode) => {
@@ -77,7 +77,7 @@ export default defineComponent({
       const createChildComponent = (child: VNode, index: number) => h(
         'span', {
           class: 'va-breadcrumbs__item',
-          ariaCurrent: (isLastIndexChildNodes(index) && isChildLink(child)) ? 'location' : false,
+          'aria-current': (isLastIndexChildNodes(index) && isChildLink(child)) ? 'location' : false,
           style: {
             color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? computedThemesActiveColor.value : null,
           },
@@ -110,7 +110,7 @@ export default defineComponent({
       class: 'va-breadcrumbs',
       style: alignComputed.value,
       role: isAllChildLinks.value ? 'navigation' : undefined,
-      ariaLabel: isAllChildLinks.value ? t('breadcrumbs') : undefined,
+      'aria-label': isAllChildLinks.value ? t('breadcrumbs') : undefined,
     }, getChildren())
   },
 })

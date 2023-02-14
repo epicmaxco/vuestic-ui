@@ -110,23 +110,23 @@
     <VbCard title="Loading">
       <va-button @click="isLoading = !isLoading" class="mb-2">Toggle loading</va-button>
       <br />
-      <va-avatar class="mr-4" :loading="isLoading" />
+      <va-avatar class="mr-6" :loading="isLoading" />
 
-      <va-avatar class="mr-4" :loading="isLoading">
+      <va-avatar class="mr-6" :loading="isLoading">
         J.D.
       </va-avatar>
 
-      <va-avatar class="mr-4" :loading="isLoading" icon="warning" />
+      <va-avatar class="mr-6" :loading="isLoading" icon="warning" />
 
       <va-avatar :loading="isLoading" src="https://randomuser.me/api/portraits/women/5.jpg" />
       <p class="mt-2 mb-2">Squared</p>
-      <va-avatar class="mr-4" :loading="isLoading" square />
+      <va-avatar class="mr-6" :loading="isLoading" square />
 
-      <va-avatar class="mr-4" :loading="isLoading" square>
+      <va-avatar class="mr-6" :loading="isLoading" square>
         J.D.
       </va-avatar>
 
-      <va-avatar class="mr-4" :loading="isLoading" square icon="warning" />
+      <va-avatar class="mr-6" :loading="isLoading" square icon="warning" />
 
       <va-avatar :loading="isLoading" square src="https://randomuser.me/api/portraits/women/5.jpg" />
     </VbCard>
@@ -142,16 +142,23 @@
         fallback-src="https://randomuser.me/api/portraits/women/5.jpg"
       />
       <va-avatar
-        square
         src="https://void"
-        fallback-src="https://randomuser.me/api/portraits/women/5.jpg"
+        fallback-text="J.D."
+      />
+      <va-avatar
+        src="https://void"
+        fallback-icon="info_outline"
+      />
+      <va-avatar
+        src="https://void"
+        :fallback-render="fallbackRender"
       />
     </VbCard>
   </VbDemo>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, h } from 'vue'
 
 import { VaIcon, VaButton } from '../index'
 import { VaAvatar } from './'
@@ -164,4 +171,10 @@ const hasError = ref(false)
 const onError = () => {
   hasError.value = true
 }
+
+const fallbackRender = () => h('b', {
+  style: {
+    color: 'red',
+  },
+}, 'Text')
 </script>

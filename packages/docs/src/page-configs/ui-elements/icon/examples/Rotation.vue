@@ -1,6 +1,6 @@
 <template>
   <va-button-toggle
-    class="mb-4"
+    class="mb-6"
     v-model="flip"
     :options="flipOptions"
     preset="secondary"
@@ -15,7 +15,7 @@
   />
 
   <va-slider
-    class="mb-4"
+    class="mb-6"
     :step="5"
     :min="-180"
     :max="180"

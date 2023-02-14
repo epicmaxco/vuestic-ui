@@ -3,7 +3,7 @@
     v-model="value"
     preset="darkPagination"
     :pages="5"
-    class="mb-4"
+    class="mb-6"
   />
   <va-pagination
     v-model="value"

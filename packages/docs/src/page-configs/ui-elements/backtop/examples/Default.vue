@@ -16,7 +16,7 @@
              false-inner-label="right"
              label="Horizontal Position:"
              left-label
-             class="pt-2 pb-4"
+             class="pt-2 pb-6"
   />
   <br />
   <va-slider

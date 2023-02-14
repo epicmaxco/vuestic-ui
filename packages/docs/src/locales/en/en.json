@@ -12,7 +12,9 @@
         "blog": "Blog"
       },
       "banner": {
-        "text": "Vuestic UI is live on Product Hunt! \uD83D\uDE80"
+        "partner": "Official Partner of",
+        "and": "and",
+        "hire": "\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hire us"
       }
     },
     "preview": {
@@ -179,7 +181,13 @@
         "plain": "Applies `plain` styling.",
         "round": "Adds rounded corners (or make a button fully rounded if only icon is passed).",
         "iconRight": "The icon to be displayed to the right of a title.",
-        "keyboardNavigation": "Enables keyboard navigation for the component."
+        "keyboardNavigation": "Enables keyboard navigation for the component.",
+        "fallbackSrc": "Shows an alternative image if original image failed to load or src doesn't specified.",
+        "fallbackText": "Shows an alternative text if image failed to load or src doesn't specified.",
+        "fallbackIcon": "Shows an icon if image failed to load or src doesn't specified.",
+        "fallbackRender": "Allows to use render function to render custom contents if image failed to load or src doesn't specified",
+        "delay": "Sets throttling delay (ms) for the components any data change (useful for huge data).",
+        "ratio": "Aspect ratio of the component's wrapper."
       }
     },
     "VaBadge": {
@@ -204,9 +212,9 @@
       },
       "slots": {
         "default": "Default slot for button's content.",
-        "append": "Slot to input before button's content. Slot scope properties available: `{ icon, iconAttributes }`.",
-        "prepend": "Slot to input after button's content. Slot scope properties available: `{ icon, iconAttributes }`.",
-        "loading": "Slot for loading state. Slot scope properties available: `{ icon, iconAttributes }`."
+        "append": "Slot to input before button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
+        "prepend": "Slot to input after button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
+        "loading": "Slot for loading state. Slot scope properties available: `{'{ icon, iconAttributes }'}`."
       },
       "events": {
         "click": "Emitted when user clicks on button"
@@ -264,6 +272,12 @@
         "prepend": "Slot for input before slider.",
         "label": "Replaces the default label.",
         "trackLabel": "The content of the `track-label`. Slot scope has access to `value` and `order` (for `range` type) variables."
+      }
+    },
+    "VaAspectRatio": {
+      "props": {
+        "contentWidth": "Wrapper width, it's used with `content-height` to replace the `ratio` property.",
+        "contentHeight": "Wrapper height, it's used with `content-width` to replace the `ratio` property."
       }
     },
     "VaAffix": {
@@ -521,18 +535,34 @@
     },
     "VaImage": {
       "props": {
-        "alt": "Specifies an alternate text for an image.",
-        "ratio": "Width to height ratio.",
-        "contain": "Scales the image while maintaining the proportions so that the whole image fits inside the block."
+        "src": "Initial image URL.",
+        "alt": "Image alternative text.",
+        "ratio": "Image width to height ratio.",
+        "fit": "Proxies the `object-fit` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/CSS/object-fit)[[target=_blank]].",
+        "crossorigin": "Proxies the `crossorigin` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-crossorigin)[[target=_blank]].",
+        "decoding": "Proxies the `decoding` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-decoding)[[target=_blank]].",
+        "fetchpriority": "Proxies the `fetchpriority` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-fetchpriority)[[target=_blank]].",
+        "loading": "Proxies the `loading` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-loading)[[target=_blank]].",
+        "referrerpolicy": "Proxies the `referrerpolicy` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-referrerpolicy)[[target=_blank]].",
+        "sizes": "Proxies the `sizes` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
+        "srcset": "Proxies the `srcset` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
+        "title": "Proxies the `title` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
+        "lazy": "Enables lazy load for the image.",
+        "draggable": "Proxies the `draggable` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
+        "placeholderSrc": "`src` value for the placeholder image (can be replaced with `placeholder` slot).",
+        "maxWidth": "Max width of the components wrapper."
       },
       "events": {
         "loaded": "Emitted when image loading is finished.",
-        "error": "Emitted on loading error."
+        "error": "Emitted on loading error.",
+        "fallback": "Emitted on fallback shown."
       },
       "slots": {
+        "sources": "Slot for passing one or more `source` tags [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/picture)[[target=_blank]].",
         "loading": "Shown when image is loading.",
-        "error": "Is shown if loading gives an error.",
-        "default": "Image overlay for you to add content. Doesn't show on loading or error."
+        "error": "Shown if loading returns an error.",
+        "default": "Image overlay content. Won't be shown on loading or error.",
+        "placeholder": "Shown in case of loading/error and if no specific for these states slots were passed."
       }
     },
     "VaOptionList": {
@@ -843,7 +873,11 @@
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
         "bordered": "Applies style with bottom border",
         "requiredMark": "Adds required mark to the label",
-        "separator": "Text to separate selected values"
+        "separator": "Text to separate selected values",
+        "maxVisibleOptions": "Max selected options amount, that will be shown inside of input wrapper.",
+        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
+        "selectedTopShown": "Selected options will be shown at the top of the options list.",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction."
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -860,7 +894,9 @@
         "append": "Adds an item outside the input and after input content",
         "appendInner": "Adds an item inside the input and after input content",
         "content": "Adds an item instead the input",
-        "option": "Allows to specify option template"
+        "option": "Allows to specify option template",
+        "hiddenOptionsBadge": "Replaces default badge with hidden options counter (see `maxVisibleOptions` prop).",
+        "hideOptionsButton": "Replaces default button for hiding selected options that are over the limit (see `maxVisibleOptions` prop)."
       }
     },
     "VaParallax": {
@@ -913,7 +949,7 @@
         "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
         "trigger": "Action that will open and close dropdown.",
         "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
-        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
         "isContentHoverable": "If true, dropdown content will be hoverable",
         "innerAnchorSelector": "Anchor CSS selector inside passed slot.",
         "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
@@ -963,6 +999,8 @@
         "sortingOrder": "Sets the sorting order. Works through the `v-model`",
         "sortingOptions": "An array from a set of values (`'asc'`, `'desc'`, `null`) that specifies the order and allowed sort directions.",
         "selectable": "Sets whether the `va-data-table` should have selectable rows or not",
+        "grid": "Enables grid view for the component",
+        "gridColumns": "Sets the amount of columns for grid view. By default is ruled by adaptive CSS variables.",
         "clickable": "Sets whether the `va-data-table` should have clickable (the click events will be emitted) rows or not",
         "selectMode": "Sets the select mode. `'single'` selection allows for only a single row to be selected at a time, while `'multiple'` mode allows to select multiple rows by clicking on checkboxes or using the **ctrl**/**shift** keys when clicking rows",
         "selectedColor": "Sets the highlighting color of the selected row",
@@ -1446,7 +1484,8 @@
         "checked": "Array of pre-selected tree nodes.",
         "checkedBy": "The key to set the checked field in the tree view model.",
         "color": "The checkboxes color.",
-        "expanded": "Array of pre-expanded tree nodes."
+        "expanded": "Array of pre-expanded tree nodes.",
+        "expandNodeBy": "Click target to expand node, can be `node` or `leaf` icon."
       },
       "slots": {
         "notFound": "No matching nodes to the filter message.",
@@ -1474,6 +1513,10 @@
       "updated": {
         "text": "updated",
         "title": "Recently updated"
+      },
+      "beta": {
+        "text": "beta",
+        "title": "Not production ready"
       }
     },
     "categories": {
@@ -1509,6 +1552,7 @@
     "form": "Form",
     "hover": "Hover",
     "image": "Image",
+    "aspectRatio": "Aspect Ratio",
     "optionList": "Option List",
     "divider": "Divider",
     "checkbox": "Checkbox",
@@ -1523,6 +1567,7 @@
     "accordion": "Accordion",
     "chip": "Chip",
     "grid": "Grid",
+    "tailwind": "Tailwind Support",
     "input": "Input",
     "list": "List",
     "select": "Select",
@@ -1583,7 +1628,9 @@
     "virtualScroller": "Virtual Scroller",
     "treeView": "Tree view",
     "team": "Meet The Team",
-    "i18n": "I18n"
+    "i18n": "I18n",
+    "webComponents": "Web Components",
+    "colorsClasses": "Colors Classes"
   },
   "all": {
     "examples": "Examples",
@@ -1620,6 +1667,9 @@
     },
     "examplesTexts": {
       "button": "Your button"
+    },
+    "alerts": {
+      "beta": "This feature is currently in test mode. You can use it, but there can be unexpected bugs or we can change API in future. Help use improve it!"
     }
   },
   "docsNavigation": {
@@ -2471,6 +2521,10 @@
       "image": {
         "title": "Image"
       },
+      "ratio": {
+        "title": "Aspect ratio",
+        "text": "Combination of the `va-card` and `va-aspect-ratio` allows you to set aspect ratio of the component."
+      },
       "actions": {
         "title": "Actions",
         "purpose": "The `VaCardActions` component is designed to apply margins and alignment to content (`VaButtons` expected).",
@@ -2572,6 +2626,20 @@
       }
     }
   },
+  "aspectRatio": {
+    "title": "Aspect Ratio",
+    "summaryText": "The `va-aspect-ratio` is a wrapper, that may help you to view your block with the required width to height ratio.",
+    "examples": {
+      "default": {
+        "title": "Default"
+      },
+      "withOtherComponents": {
+        "title": "With other components",
+        "text": "You're able to combine the `va-aspect-ratio` components with others. By default it's already used in `va-image`, but also will be useful in, for example, `va-card`."
+      }
+    },
+    "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-aspect-ratio/_variables.scss)[[target=_blank]]"
+  },
   "image": {
     "title": "Image",
     "summaryText": "The `va-image` component is used to display responsive images. It has some features to make your work with images easier.",
@@ -2579,25 +2647,33 @@
       "default": {
         "title": "Default"
       },
-      "contain": {
-        "title": "Contain",
-        "text": "It is used to show a full image while ignoring its original ratio and size."
+      "fit": {
+        "title": "Object Fit",
+        "text": "Proxies `object-fit` CSS property. Available values are: `contain`, `fill`, `cover`, `scale-down`, `none`."
+      },
+      "viewer": {
+        "title": "Highslide",
+        "text": "Wrap the `va-image` with `va-viewer` component and you will gain highslide effect."
+      },
+      "lazy": {
+        "title": "Lazy Load",
+        "text": "The `lazy` prop allows you to use lazy-load behavior. In this case the image will be loaded only when it becomes visible (intersection)."
       },
       "ratio": {
         "title": "Ratio",
-        "text": "Change image original ratio, show part of image to fit new ratio."
+        "text": "The `ratio` prop changes image original ratio, showing part of image to fit new ratio."
       },
       "defaultSlot": {
         "title": "Default slot",
-        "text": "Always shown by default."
+        "text": "Useful for, for example, overlays."
       },
-      "loaderSlot": {
-        "title": "Loader slot",
-        "text": "Is visible when image is loading."
+      "slots": {
+        "title": "Status slots",
+        "text": "We're providing 3 status slots: `error` (visible when `src` path is incorrect), `loading` (visible when image is loading) and `placeholder` (works as both previous). As an alternative for error handling, we provide the `fallback-icon`, `fallback-text`, `fallback-image` and `fallback-renderer` props, that will be called if error slot wasn't passed. Also you're able to set global fallback settings via [components config](/getting-started/configuration-guide#components-config)."
       },
-      "errorSlot": {
-        "title": "Error slot",
-        "text": "Is visible when `src` path is incorrect."
+      "srcSet": {
+        "title": "Srcset",
+        "text": "The `srcset` and `sizes` properties allows you to use native srcset attribute with our component."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-image/_variables.scss)[[target=_blank]]"
@@ -3056,6 +3132,7 @@
   },
   "grid": {
     "title": "Grid System",
+    "deprecated": "CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed.",
     "summaryText": "Vuestic UI provides you with some flexbox helper classes. Of course, you can opt out using CSS Grid instead (or any other layout-scheme you'd like), but if you prefer using flexbox, we've got you covered. Still, the final decision is totally up to you.",
     "examples": {
       "default": {
@@ -3135,6 +3212,35 @@
           "`.justify-self-end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
           "`.justify-self-center` - For items that are not children of a flex container, this value is treated as `.justify-self-start`.",
           "`.justify-self-baseline` - The items are aligned according to baselines"
+        ]
+      }
+    }
+  },
+  "tailwind": {
+    "title": "Tailwind CSS Support",
+    "summaryText": "We recommend our users to use [Tailwind CSS](https://tailwindcss.com/)[[target=_blank]] as the most convenient and modern solution to the CSS helpers issue.",
+    "deprecated": "CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed.",
+    "preparation": {
+      "title": "Preparations",
+      "text": "Before we start with integration - please ensure you have both Tailwind CSS and Vuestic UI installed. If that's not the case - here are installation guide [for Vuestic UI](/getting-started/installation) and for [Tailwind CSS](https://tailwindcss.com/docs/installation/using-postcss)[[target=_blank]]."
+    },
+    "features": {
+      "integration": {
+        "title": "Syncing configs",
+        "text": "To create a tight bind between Vuestic with Tailwind we have a `@vuestic/tailwind` package: it syncs [breakpoint](/services/breakpoints)[[target=_blank]] and [color](/services/colors)[[target=_blank]] settings. You can sync from Vuestic UI to Tailwind or backwards!",
+        "instructionIntro": "Here's what you have to do to make it work:",
+        "extendAlert": "We're not overriding Tailwind CSS settings, but extending them.",
+        "instruction": [
+          "1.&nbsp;Install this package:",
+          "2.&nbsp;After installation, three commands become available to you:",
+          "`npx sync-tailwind-with-vuestic` - formats and transfers the color and breakpoints settings from the `tailwind.config.*` file (and in its absence, it uses the default Tailwind CSS configuration) to the root file `vuestic.config.js` (also added by this command);",
+          "`npx watch-tailwind` - watches `tailwind.config.*` in background and synchronizes the Vuestic UI configuration on the fly;",
+          "`npx sync-vuestic-with-tailwind` - transfers color and breakpoint settings from default Vuestic UI config to the Tailwind's configuration file (`tailwind.config.cjs`).",
+          "3A.&nbsp;`[Tailwind CSS -> Vuestic UI]` import the `config` configuration in your `main.*` and specify it when initializing the application:",
+          "Also, you may want to synchronize the configuration partially (in the example - only Tailwind CSS colors will be taken):",
+          "3B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Nothing more is needed.",
+          "4A.&nbsp;`[Tailwind CSS -> Vuestic UI]` As a result you will be able to use Tailwind colors and breakpoints setting in Vuestic. For example, the result of synchronization default Tailwind settings will be a Vuestic settings file:",
+          "4B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Vuestic UI setting will be available in the Tailwind CSS scope. Output format follows the requirements, located [here](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]] and [here](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]]."
         ]
       }
     }
@@ -3243,6 +3349,14 @@
       "styles": {
         "title": "Styles",
         "text": "Select styles inherit from input styles"
+      },
+      "maxVisibleOptions": {
+        "title": "Max visible selected options",
+        "text": "The `max-visible-options` props sets amount of selected options, that will be shown inside of input wrapper. The rest will be hidden, but may be shown after clicking the badge with hidden options counter."
+      },
+      "selectedTopShown": {
+        "title": "Displaying selected options at the top of the list",
+        "text": "The `selected-top-shown` prop forces to display selected options at the top of the options list."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-select/_variables.scss)[[target=_blank]]"
@@ -3284,6 +3398,7 @@
   "reset": {
     "title": "CSS Reset",
     "description": "We use `reset.scss` to reset and normalize basic CSS styles",
+    "deprecated": "CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed.",
     "features": {
       "title": "Reset features",
       "info": "Below is a list of features that are provided by reset.scss:",
@@ -3557,7 +3672,7 @@
   },
   "installation": {
     "title": "Installation",
-    "description": "You can create a new project or integrate Vuestic UI into an existing application. The installation process is mostly the same for both cases: you can either *install Vuestic UI manually* or use specifically designed *Vue CLI plugin*. Both ways provide you with a **full tree-shaking support**. Choose the one that fits your needs the most.",
+    "description": "You can create a new project or integrate Vuestic UI into an existing application. There are three ways to create new Vuestic App. All of them mostly the same and provides the same features.",
     "fonts": {
       "title": "Assets installation",
       "description": "By default Vuestic UI uses `Source Sans Pro` and `Material Icons` fonts. You should manually add them into your project. In order to do so you can either:",
@@ -3568,9 +3683,14 @@
       "title": "Modify your application's entry point",
       "description": "Import both the styles and the plugin into your entry file. The plugin is used to automatically register all the components, directives and other stuff globally. If you don't want to register everything globally then check out the tree-shaking section below."
     },
+    "createVuestic": {
+      "title": "Create Vuestic",
+      "description": "`create-vuestic` is CLI based tool to create new Vuestic App. This is a recomended way to scaffold new Vue apps with Vuestic",
+      "templates": "`create-vuestic` provides three template: Vuestic Admin, create-vue and Nuxt. Templates can be configured to use specific features like tree-shaking or AG Grid theme."
+    },
     "cli": {
       "title": "Vue CLI installation",
-      "description": "Recommended way to install Vuestic UI is using the Vue CLI plugin. Works fine with vite or webpack.",
+      "description": "If you have app based on Vue CLI this is a way to install Vuestic UI. Works fine with vite or webpack. Prefer `create-vuestic` for new projects",
       "attention": "Installing Vuestic UI via the plugin would modify your `package.json` and `main.(js`&#124;`ts)` files, so make sure you’ve committed your code before proceeding to avoid data loss.",
       "prepare": "First, make sure you've got [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] installed globally:",
       "upgrade": "Notice also that the minimum supported version of Vue CLI is v4.0.0. In case you've got an older version installed, please, consider [upgrading](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] it.",
@@ -3626,6 +3746,10 @@
     "css": {
       "title": "CSS Code Split",
       "description": "We separated our CSS into modules: `essential`, `typography`, `grid` and `reset`. Instead of import `vuestic/css` you can import `vuestic/styles/essential.css` - module without typography, grid and normalize. This is usually need if you already using some CSS framework to prevent style conflicts."
+    },
+    "bundleSize": {
+      "title": "Bundle Size",
+      "description": "Statistics of the space occupied in the project bundle (without gzip):"
     }
   },
   "roadmap": {
@@ -3697,6 +3821,12 @@
       "description": "You can easily modify the colors used by Vuestic UI components (and even add custom ones):",
       "defaultColors": "Default colors",
       "customColors": "Custom colors"
+    },
+    "colorsClasses": {
+      "title": "Custom classes for the colors",
+      "description": "By default, Vuestic UI creates custom classes for coloring the text and background colors of elements relative to the global color configuration.",
+      "subtitle": "Configuring the custom classes",
+      "subDescription": "With custom classes configuration you can create and/or use classes with styles associated with the global color configuration"
     },
     "icons": {
       "title": "Icon fonts",
@@ -3953,7 +4083,8 @@
       "readMore": "More on configuration",
       "icons": "Icons config",
       "components": "Components config",
-      "colors": "Colors config"
+      "colors": "Colors config",
+      "colorsClasses": "Custom classes for the colors"
     },
     "useInRuntime": "The global configuration object might be made reactive:",
     "api": {
@@ -4062,7 +4193,7 @@
     },
     "reactivity": {
       "subtitle": "Reactivity",
-      "about": "As you can see, methods like `getColor`, `getColors` don’t return `Proxy`. If you want to use color as reactive Proxy, use computed properties like in the example above."
+      "about": "Methods like `getColors` return a computed reactives that can also be accessed by variable `colors`. The advantage is allow to change properties, instead of rewriting whole colors variable. For example, you can change `primary` color by writing `colors.primary = '#ff0'`. Multiple properties changes are also supported, you can write `setColors({ primary: '#00f', secondary: '#0ff' })`."
     },
     "otherServices": {
       "subtitle": "Colors config with other services",
@@ -4076,7 +4207,7 @@
       "ColorConfig": "An object where the keys are the color names and the values are valid CSS colors.",
       "ColorInput": "A valid CSS color",
       "methods": "Methods",
-      "useColor": "Return colors methods",
+      "useColors": "Return colors methods and variables",
       "setColors": "Used to merge new colors into config or update existing colors.",
       "getColors": "Returns current color config",
       "getColor": "Return color by name",
@@ -4084,7 +4215,9 @@
       "getHoverColor": "Return a color that you can use as a `hover` color.",
       "getFocusColor": "Return a color that you can use as a `focus` color.",
       "getGradientBackground": "Return a gradient-color that you can use as a `background-image` CSS property's value.",
-      "hookMethods": "useColors hook methods"
+      "hookMethods": "useColors hook methods.",
+      "hookVariables": "useColors hook variables.",
+      "colors": "A computed reactive where the keys are color names and values are valid CSS colors."
     }
   },
   "breakpoints": {
@@ -4312,6 +4445,10 @@
       "default": {
         "title": "Basic usage",
         "text": "The standard `va-data-table` will by default render your data as simple rows."
+      },
+      "grid": {
+        "title": "Grid mode",
+        "text": "The `grid` property set the grid display mode for the table."
       },
       "slots": {
         "title": "Slots",
@@ -4580,8 +4717,13 @@
   "nuxt": {
     "title": "Nuxt integration",
     "description": "Vuestic UI is fully compatible with Nuxt3. You can use Vuestic UI in your Nuxt3 project.",
+    "createVuestic": {
+      "title": "Scaffold new Nuxt app with Vuestic",
+      "description": "The easiest way to create new Nuxt project with integrated Vuestic is to use `create-vuestic` tool. Create new project and select `Nuxt` template.",
+      "link": "See detailed guide here."
+    },
     "installation": {
-      "title": "Installation",
+      "title": "Manual Installation",
       "plugin": "Install integration module:",
       "nuxtConfig": "Then you need to update nuxt-config.ts file:",
       "moreAboutConfig": "More about configuration"
@@ -4636,7 +4778,8 @@
         "title": "Filters"
       },
       "selectable": {
-        "title": "Selectable"
+        "title": "Selectable",
+        "coloredTitle": "Colored checkboxes"
       }
     }
   },
@@ -4781,7 +4924,7 @@
       "changeDefault": {
         "title": "Change default messages",
         "description": "Default messages can be set in `GlobalConfig`. Config is fully typed, so you can use autocomplete to find messages you want to change."
-       }
+      }
     },
     "runtimeUpdate": {
       "title": "Changing language in runtime",
@@ -4791,6 +4934,57 @@
       "title": "Using with vue-i18n",
       "description": "If you use vue-i18n we can recommend to store VuesticUI messages under specific key",
       "exampleConfig": "Recommended config structure"
+    }
+  },
+  "webComponents": {
+    "title": "Web components",
+    "description": "Vuestic UI provides web-components build, so you can pick some component and use them without Vue application",
+    "installation": {
+      "title": "Installation",
+      "description": "Web components build shiped within `vuestic-ui` package and can be imported with suffix `vuestic-ui/web-components`.",
+      "create": "Before you can use web-components they must be registered with `window.customElement`. We provide a nice helper, so you can register specific components:",
+      "installVuestic": "See \"Install Vuestic UI\""
+    },
+    "css": {
+      "title": "CSS",
+      "description": "Since Custom Elements have their own scoped CSS in Shadow DOM, there might be a case when you want to provide some CSS to components. You can do this with `css` property in `registerVuesticWebComponents`. For example, if you want to use Font Awesome in Vuestic components you need provide this CSS:"
+    },
+    "example": {
+      "title": "Usage example",
+      "description": "We use Vuestic web component with vanilla Vite project here",
+      "steps": [
+        "First, we need to register Custom Elements",
+        "Then we can use them in our HTML",
+        "You can also use Global Config with VaConfig element"
+      ],
+      "seeMore": "See more detailed example in our Sandbox"
+    },
+    "treeShaking": {
+      "title": "Tree shaking",
+      "description": "You can import and register only specific components that you need and your bundler will tree-shake other components. It also removes our default CSS in case you don't want ot use Material Icons."
+    }
+  },
+  "colorsClasses": {
+    "title": "Custom classes for the colors",
+    "about": "By default, Vuestic UI creates custom classes for coloring the text and background colors of elements relative to the global color configuration. To expand the number of generated classes, you need to add the `colorsClasses` configuration to the `GlobalConfig`.",
+    "default": "Here is format of custom classes for the colors generated by Vuestic UI:",
+    "defaultColors": "The values for `colorVariableName` and `colorValue` are taken from the global color config.",
+    "readMoreAboutDefaultColor": "Read more about CSS Variables for colors generated by Vuestic UI by default [here](/services/colors-config).",
+    "configDescription": "An array of `ColorsClassesConfig` type objects. Used to define new helper classes",
+    "setup": {
+      "title": "Let's create our config",
+      "about": "We need to update the colors classes configuration in the our global configuration. The colors classes are an array of objects with class names and CSS properties. For example:",
+      "explanation": "The example above shows us the `ColorsClassesConfig` configuration structure. It's important to note that styleProperty can take either a string or an array of strings as its value.",
+      "example": "An example of using the classes we created:"
+    },
+    "examples": {
+      "custom": {
+        "example1": "Now I'm have a green color on the borders and text colors",
+        "example2": "I have a red background"
+      }
+    },
+    "api": {
+      "title": "Helper classes configuration API"
     }
   }
 }

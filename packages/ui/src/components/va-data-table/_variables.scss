@@ -14,7 +14,7 @@
   --va-data-table-tfoot-color: currentColor;
   --va-data-table-header-background: var(--va-background-primary);
 
-  /* hover */
+  /* Hover */
   --va-data-table-hover-th-opacity: 0.3;
 
   /* Striped */
@@ -33,4 +33,13 @@
 
   /* Animated */
   --va-data-table-transition: var(--va-transition);
+
+  /* Grid */
+  --va-data-table-grid-tbody-gap: 0.5rem;
+  --va-data-table-grid-tbody-margin-top: 1rem;
+  --va-data-table-grid-tr-padding: 1rem;
+  --va-data-table-grid-tr-border-radius: 0.5rem;
+  --va-data-table-grid-tr-border: 1px solid var(--va-background-border);
+  --va-data-table-grid-tr-header-font-weight: 600;
+  --va-data-table-grid-tr-header-color: var(--va-text-primary);
 }

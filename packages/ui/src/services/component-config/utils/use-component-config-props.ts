@@ -1,5 +1,5 @@
 import type { VuesticComponent, VuesticComponentName, Props } from '../types'
-import { useLocalConfig } from '../../../components/va-config/VaConfig'
+import { useLocalConfig } from '../../../components/va-config/hooks/useLocalConfig'
 import { useGlobalConfig } from '../../global-config/global-config'
 import { computed } from 'vue'
 

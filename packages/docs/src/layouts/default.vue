@@ -28,7 +28,7 @@
 <!--          </template>-->
 <!--        </va-breadcrumbs>-->
 
-        <div class="layout va-gutter-5 pb-6">
+        <div class="layout va-gutter-5">
           <router-view />
         </div>
       </div>
@@ -42,7 +42,7 @@ import { provide, reactive, watch } from 'vue'
 import { Options, Vue, setup } from 'vue-class-component'
 import type { RouteLocationNormalized } from 'vue-router'
 import Sidebar from '../components/sidebar/Sidebar.vue'
-import Header from '../components/header/Header.vue'
+import Header from '../components/Header.vue'
 import { COLOR_THEMES, ThemeName } from '../config/theme-config'
 import { useColors } from '../../../ui/src/main'
 import { navigationRoutes } from '../components/sidebar/navigationRoutes'

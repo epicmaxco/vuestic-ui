@@ -1,21 +1,23 @@
-import { Ref, watch, computed } from 'vue'
+import { Ref, watch, computed, PropType, ExtractPropTypes } from 'vue'
+
+import { useThrottleValue, useThrottleProps } from '../../../composables'
 
 import type { DataTableRow, DataTableFilterMethod, DataTableItem } from '../types'
 
-interface useFilterableProps {
-  filter: string
-  filterMethod: DataTableFilterMethod | undefined
-  [prop: string]: unknown
+export const useFilterableProps = {
+  ...useThrottleProps,
+  filter: { type: String, default: '' },
+  filterMethod: { type: Function as PropType<DataTableFilterMethod | undefined> },
 }
 
 export type TFilteredArgs = { items: DataTableItem[], itemsIndexes: number[] }
 export type TFilterableEmits = (event: 'filtered', arg: TFilteredArgs) => void
 
-export default function useFilterable (
+export const useFilterable = (
   rawRows: Ref<DataTableRow[]>,
-  props: useFilterableProps,
+  props: ExtractPropTypes<typeof useFilterableProps>,
   emit: TFilterableEmits,
-) {
+) => {
   const filteredRows = computed<DataTableRow[]>(() => {
     if (!rawRows.value.length) {
       return rawRows.value
@@ -32,14 +34,16 @@ export default function useFilterable (
     }))
   })
 
-  watch(filteredRows, () => {
+  const filteredRowsThrottled = useThrottleValue(filteredRows, props)
+
+  watch(filteredRowsThrottled, () => {
     emit('filtered', {
-      items: filteredRows.value.map(row => row.source),
-      itemsIndexes: filteredRows.value.map(row => row.initialIndex),
+      items: filteredRowsThrottled.value.map(row => row.source),
+      itemsIndexes: filteredRowsThrottled.value.map(row => row.initialIndex),
     })
   })
 
   return {
-    filteredRows,
+    filteredRows: filteredRowsThrottled,
   }
 }

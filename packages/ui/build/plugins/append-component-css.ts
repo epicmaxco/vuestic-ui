@@ -1,6 +1,6 @@
-import { existsSync, readdirSync, readFileSync, writeFileSync, lstatSync } from 'fs'
+import { existsSync } from 'fs'
 import { extname, dirname, basename } from 'path'
-import { Plugin } from 'vite'
+import { createDistTransformPlugin } from './fabrics/create-dist-transform-plugin'
 
 const parsePath = (path: string) => {
   const ext = extname(path).replace('.', '')
@@ -22,44 +22,20 @@ const appendBeforeSourceMapComment = (content: string, append: string): string =
   return content.replace(SOURCE_MAP_COMMENT_FRAGMENT, `${append}\n${SOURCE_MAP_COMMENT_FRAGMENT}`)
 }
 
-const appendCssImportToComponent = (componentPath: string) => {
-  if (!existsSync(componentPath)) { return }
+export const appendComponentCss = createDistTransformPlugin({
+  name: 'vuestic:append-component-css',
 
-  const { name, dir } = parsePath(componentPath)
+  dir: (outDir) => `${outDir}/src/components`,
 
-  const cssFilePath = `${dir}/${name}.css`
-  if (!existsSync(cssFilePath)) { return }
+  transform: (componentContent, path) => {
+    if (!isVuesticComponent(path)) { return }
 
-  const componentContent = readFileSync(componentPath, 'utf8')
+    const { name, dir } = parsePath(path)
 
-  writeFileSync(componentPath, appendBeforeSourceMapComment(componentContent, `\nimport './${name}.css';`))
-}
+    const cssFilePath = `${dir}/${name}.css`
 
-export const appendCssImportToComponentsDir = (componentsDir: string) => {
-  readdirSync(componentsDir)
-    .forEach((entryName) => {
-      const currentPath = `${componentsDir}/${entryName}`
+    if (!existsSync(cssFilePath)) { return }
 
-      if (lstatSync(currentPath).isDirectory()) {
-        return appendCssImportToComponentsDir(currentPath)
-      }
-
-      if (!isVuesticComponent(entryName)) { return }
-
-      appendCssImportToComponent(currentPath)
-    })
-}
-
-export const appendComponentCss = (): Plugin => {
-  let outDir = ''
-
-  return {
-    name: 'vuestic:append-component-css',
-    configResolved: (config) => {
-      outDir = config.build.outDir
-    },
-    closeBundle: () => {
-      appendCssImportToComponentsDir(`${outDir}/src/components`)
-    },
-  }
-}
+    return appendBeforeSourceMapComment(componentContent, `\nimport './${name}.css';`)
+  },
+})

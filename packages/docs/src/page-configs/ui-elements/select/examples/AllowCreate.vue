@@ -1,7 +1,7 @@
 <template>
   <div style="max-width: 300px;">
     <va-select
-      class="mb-4"
+      class="mb-6"
       label="'true' mode and single select"
       :options="options"
       :track-by="(option) => option.id"
@@ -10,7 +10,7 @@
       @create-new="addNewOption"
     />
     <va-select
-      class="mb-4"
+      class="mb-6"
       label="'unique' mode and single select"
       :options="options"
       :track-by="(option) => option.id"
@@ -19,7 +19,7 @@
       @create-new="addNewOption"
     />
     <va-select
-      class="mb-4"
+      class="mb-6"
       label="'true' mode and multi select"
       :options="options"
       v-model="valueMultiple"

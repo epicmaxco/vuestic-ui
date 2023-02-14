@@ -5,6 +5,9 @@ export default defineManualApi({
     loaded: {
       types: 'Boolean',
     },
+    fallback: {
+      types: 'Boolean',
+    },
     error: {
       types: 'Boolean',
     },
@@ -13,5 +16,7 @@ export default defineManualApi({
     loading: { },
     error: { },
     default: { },
+    placeholder: { },
+    sources: { },
   },
 })

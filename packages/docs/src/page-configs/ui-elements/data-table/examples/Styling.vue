@@ -1,6 +1,6 @@
 <template>
-  <div class='row mb-4'>
-    <div class='flex md4'>
+  <div class='row mb-6'>
+    <div class='flex flex-col md4'>
       <va-select
         v-model="columns[0].thAlign"
         label="First heading align"
@@ -20,7 +20,7 @@
         clearable
       />
     </div>
-    <div class='flex md4'>
+    <div class='flex flex-col md4'>
       <va-select
         v-model="columns[1].thAlign"
         label="Second heading align"
@@ -40,7 +40,7 @@
         clearable
       />
     </div>
-    <div class='flex md4'>
+    <div class='flex flex-col md4'>
       <va-select
         v-model="columns[2].thAlign"
         label="Third heading align"
@@ -62,8 +62,8 @@
     </div>
   </div>
 
-  <div class='row mb-4'>
-    <div class='flex md4'>
+  <div class='row mb-6'>
+    <div class='flex flex-col md4'>
       <va-select
         v-model="columns[0].tdAlign"
         label="First column align"
@@ -78,7 +78,7 @@
         color="#990099"
       />
     </div>
-    <div class='flex md4'>
+    <div class='flex flex-col md4'>
       <va-select
         v-model="columns[1].tdAlign"
         label="Second column align"
@@ -93,7 +93,7 @@
         color="#990099"
       />
     </div>
-    <div class='flex md4'>
+    <div class='flex flex-col md4'>
       <va-select
         v-model="columns[2].tdAlign"
         label="Third column align"
@@ -110,14 +110,14 @@
     </div>
   </div>
 
-  <div class='row mb-4'>
+  <div class='row mb-6'>
     <va-checkbox
-      class="flex mb-1 md6"
+      class="flex flex-col mb-1 md6"
       label="Use additional class to cells of first column"
       v-model="useAdditionalClass"
     />
     <va-checkbox
-      class="flex mb-1 md6"
+      class="flex flex-col mb-1 md6"
       label="Use additional styles to cells of second column"
       v-model="useAdditionalStyle"
     />

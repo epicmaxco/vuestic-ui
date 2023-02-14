@@ -1,7 +1,7 @@
 <template>
   <div style="max-width: 300px;">
     <va-select
-      class="mb-4"
+      class="mb-6"
       label="Custom chips (first 3)"
       :options="options"
       v-model="value"

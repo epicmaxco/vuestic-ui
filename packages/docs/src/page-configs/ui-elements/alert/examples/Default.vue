@@ -1,6 +1,6 @@
 <template>
   <va-alert
-    class="mb-4"
+    class="mb-6"
     :description="$t('alert.misc.primary')"
   />
   <va-alert>
