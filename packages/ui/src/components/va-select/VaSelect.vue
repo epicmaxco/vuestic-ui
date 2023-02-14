@@ -397,8 +397,10 @@ export default defineComponent({
       // Do not emit if option already exist and allow create is `unique`
       const hasAddedOption = props.options?.some((option: SelectOption) => [searchInput.value, autocompleteValue.value].includes(getText(option)))
 
-      if (!(props.allowCreate === 'unique' && hasAddedOption)) {
+      const allowedToCreateCheck = !((props.allowCreate === 'unique' || props.autocomplete) && hasAddedOption)
+      if (allowedToCreateCheck) {
         emit('create-new', searchInput.value || autocompleteValue.value)
+
         searchInput.value = ''
         autocompleteValue.value = ''
       }
@@ -567,7 +569,8 @@ export default defineComponent({
     }))
 
     const optionsListPropsComputed = computed(() => ({
-      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'autoSelectFirstOption', 'delay']),
+      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'delay']),
+      autoSelectFirstOption: props.autoSelectFirstOption || props.autocomplete,
       search: searchInput.value || autocompleteValue.value,
       tabindex: tabIndexComputed.value,
       selectedValue: valueComputed.value,

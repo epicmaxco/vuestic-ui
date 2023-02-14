@@ -102,19 +102,6 @@
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
     <VbCard
-      title="Autocomplete with auto select first option"
-      style="width: 400px;"
-    >
-      <va-select
-        v-model="defaultSingleSelect.value"
-        class="mb-6"
-        :options="defaultSingleSelect.options"
-        autocomplete
-        auto-select-first-option
-      />
-      <p>Value: {{ defaultSingleSelect.value }}</p>
-    </VbCard>
-    <VbCard
       title="Selected options at the top"
       style="width: 400px;"
     >
