@@ -38,6 +38,8 @@ const config: ApiDocsBlock[] = [
     'Custom',
   ),
 
+  block.alert('stepper.alerts.slots', 'info'),
+
   ...block.exampleBlock(
     'stepper.examples.minimal.title',
     'stepper.examples.minimal.text',

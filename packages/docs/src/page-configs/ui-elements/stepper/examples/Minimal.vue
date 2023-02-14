@@ -2,8 +2,7 @@
   <va-stepper
     v-model="step"
     :steps="steps"
-    noControls
-    noContent
+    controlsHidden
   />
 </template>
 

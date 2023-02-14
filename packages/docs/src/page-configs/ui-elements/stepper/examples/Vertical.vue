@@ -4,26 +4,26 @@
     :steps="steps"
     vertical
   >
-    <template #[`content-${0}`]>
+    <template #step-content-0>
       <ul>
         <li>Select a category</li>
         <li>Browse products</li>
         <li>Add to cart</li>
       </ul>
     </template>
-    <template #[`content-${1}`]>
+    <template #step-content-1>
       <ul>
         <li>Fill out shipping information</li>
         <li>Choose payment method</li>
       </ul>
     </template>
-    <template #[`content-${2}`]>
+    <template #step-content-2>
       <ul>
         <li>View order summary</li>
         <li>Edit shipping information</li>
       </ul>
     </template>
-    <template #[`content-${3}`]>
+    <template #step-content-3>
       <ul>
         <li>Review order details</li>
         <li>Complete payment</li>

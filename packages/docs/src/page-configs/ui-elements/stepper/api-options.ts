@@ -5,8 +5,8 @@ export default defineManualApi({
     steps: { types: '{ label: string, icon?: string, disabled?: boolean }' },
   },
   slots: {
-    step: { },
-    content: { },
+    stepButton: { },
+    stepContent: { },
     controls: { },
     divider: { },
   },

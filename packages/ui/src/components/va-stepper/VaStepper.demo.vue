@@ -8,7 +8,7 @@
         <template
           v-for="step, i in steps"
           :key="step.label"
-          #[`content-${i}`]
+          #[`step-content-${i}`]
         >
           This is {{ step.label }} content.
         </template>
@@ -22,7 +22,7 @@
         <template
           v-for="step, i in stepsWithDisabled"
           :key="step.label"
-          #[`content-${i}`]
+          #[`step-content-${i}`]
         >
           This is {{ step.label }} content.
         </template>
@@ -32,7 +32,7 @@
       <VaStepper
         v-model="step"
         :steps="stepsWithCustomIcons"
-        noControls
+        controlsHidden
       />
     </VbCard>
     <VbCard title="Navigation disabled">
@@ -44,7 +44,7 @@
         <template
           v-for="step, i in steps"
           :key="step.label"
-          #[`content-${i}`]
+          #[`step-content-${i}`]
         >
           This is {{ step.label }} content.
         </template>
@@ -59,7 +59,7 @@
         <template
           v-for="step, i in steps"
           :key="step.label"
-          #[`content-${i}`]
+          #[`step-content-${i}`]
         >
           This is {{ step.label }} content.
         </template>
@@ -74,7 +74,7 @@
         <template
           v-for="step, i in steps"
           :key="step.label"
-          #[`content-${i}`]
+          #[`step-content-${i}`]
         >
           This is {{ step.label }} content.
         </template>

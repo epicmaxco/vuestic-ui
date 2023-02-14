@@ -3,46 +3,50 @@
     v-model="step"
     :steps="steps"
     color="danger"
-    noControls
+    controlsHidden
   >
     <template #divider>
-      💸💸💸
+      <div class="divider gradient" />
     </template>
 
     <template
       v-for="step, i in steps"
       :key="step.label"
-      #[`step-${i}`]="{ setStep, isActive }"
+      #[`step-button-${i}`]="{ setStep, isActive, isCompleted }"
     >
-      <span
-        class="step"
-        :class="{ 'step--active': isActive }"
+      <div
+        class="step-button"
+        :class="{
+          'step-button--active': isActive,
+          'step-button--completed': isCompleted,
+        }"
         @click="setStep(i)"
       >
+        <va-icon :name="step.icon" />
         {{ step.label }}
-      </span>
+      </div>
     </template>
 
-    <template #[`content-${0}`]>
+    <template #step-content-0>
       <ul>
         <li>Select a category</li>
         <li>Browse products</li>
         <li>Add to cart</li>
       </ul>
     </template>
-    <template #[`content-${1}`]>
+    <template #step-content-1>
       <ul>
         <li>Fill out shipping information</li>
         <li>Choose payment method</li>
       </ul>
     </template>
-    <template #[`content-${2}`]>
+    <template #step-content-2>
       <ul>
         <li>View order summary</li>
         <li>Edit shipping information</li>
       </ul>
     </template>
-    <template #[`content-${3}`]>
+    <template #step-content-3>
       <ul>
         <li>Review order details</li>
         <li>Complete payment</li>
@@ -59,6 +63,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import VaIcon from 'vuestic-ui/src/components/va-icon/VaIcon.vue'
 
 const step = ref(0)
 
@@ -71,18 +76,43 @@ const steps = [
 </script>
 
 <style scoped>
-.step {
-  font-size: 1.5rem;
-  color: blueviolet;
+
+.gradient {
+  background:
+    linear-gradient(
+      90deg,
+      rgb(131, 58, 180) 0%,
+      rgb(253, 29, 29) 50%,
+      rgb(241, 170, 48) 100%
+    );
+}
+
+.divider {
+  flex-grow: 1;
+  margin: 0 1rem;
+  height: 2px;
+  width: 4rem;
+  border-radius: 1rem;
+}
+
+.step-button {
+  display: flex;
+  gap: 1rem;
+  color: rgb(241, 170, 48);
   cursor: pointer;
   padding: 1rem;
+  transition: all 0.2s;
 }
 
-.step:hover {
-  color: blue;
+.step-button:hover {
+  color: rgb(253, 29, 29);
 }
 
-.step--active {
-  color: red;
+.step-button--active {
+  color: rgba(253, 29, 29);
+}
+
+.step-button--completed {
+  color: rgb(131, 58, 180);
 }
 </style>
