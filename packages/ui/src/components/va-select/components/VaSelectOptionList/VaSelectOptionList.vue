@@ -111,6 +111,9 @@ export default defineComponent({
     tabindex: { type: Number, default: 0 },
     hoveredOption: { type: [String, Number, Object] as PropType<SelectOption | null>, default: null },
     virtualScroller: { type: Boolean, default: true },
+    highlightMatchedText: { type: Boolean, default: true },
+    minSearchChars: { type: Number, default: 0 },
+    autoSelectFirstOption: { type: Boolean, default: false },
   },
 
   setup (props, { emit }) {
@@ -140,8 +143,20 @@ export default defineComponent({
 
     const { getText, getGroupBy, getTrackBy, getDisabled } = useSelectableList(props)
 
+    const currentSelectedOptionText = computed(() => {
+      const selected = props.options?.find((option) => props.getSelectedState(option))
+
+      return selected ? getText(selected) : ''
+    })
+
+    const isSearchedOptionSelected = computed(() => {
+      return currentSelectedOptionText.value.toLowerCase() === props.search?.toLowerCase()
+    })
+
     const filteredOptions = computed(() => {
-      if (!props.search) { return props.options }
+      if (!props.search || props.search.length < props.minSearchChars || isSearchedOptionSelected.value) {
+        return props.options
+      }
 
       return props.options.filter((option: SelectOption) => {
         const optionText = getText(option).toString().toUpperCase()
@@ -166,10 +181,10 @@ export default defineComponent({
       }, { _noGroup: [] }))
     const optionGroupsThrottled = useThrottleValue(optionGroups, props)
 
-    const isValueExists = (value: SelectOption | null | undefined) => !!value || value === 0
+    const isValueExists = (value: SelectOption | null | undefined): value is SelectOption => !!value || value === 0
 
     const updateHoveredOption = (option?: SelectOption) => {
-      if (option === currentOptionComputed.value || (isValueExists(option) && getDisabled(option!))) { return }
+      if (option === currentOptionComputed.value || (isValueExists(option) && getDisabled(option))) { return }
 
       updateCurrentOption(option ?? null, 'mouse')
     }
@@ -182,11 +197,11 @@ export default defineComponent({
       filteredOptions.value.some((el) => getGroupBy(el)) ? groupedOptions.value : filteredOptions.value)
 
     const currentOptionIndex = computed(() => currentOptions.value.findIndex((option) => {
-      return isValueExists(currentOptionComputed.value) && getTrackBy(option) === getTrackBy(currentOptionComputed.value!)
+      return isValueExists(currentOptionComputed.value) && getTrackBy(option) === getTrackBy(currentOptionComputed.value)
     }))
 
     const selectOptionProps = computed(() => ({
-      ...pick(props, ['getSelectedState', 'color']),
+      ...pick(props, ['getSelectedState', 'color', 'search', 'highlightMatchedText', 'minSearchChars']),
       getText,
       getTrackBy,
     }))
@@ -254,8 +269,15 @@ export default defineComponent({
     }
 
     watch(() => props.hoveredOption, (newOption: SelectOption | null) => {
-      (!lastInteractionSource.value || lastInteractionSource.value === 'keyboard') && (isValueExists(newOption)) && scrollToOption(newOption!)
+      (!lastInteractionSource.value || lastInteractionSource.value === 'keyboard') &&
+      (isValueExists(newOption)) && scrollToOption(newOption)
     })
+
+    watch(filteredOptions, () => {
+      if (!props.autoSelectFirstOption) { return }
+
+      focusFirstOption()
+    }, { immediate: true })
 
     return {
       root,

@@ -6,6 +6,7 @@
       v-model="value"
       multiple
       searchable
+      highlight-matched-text
     />
   </div>
 </template>
