@@ -8,7 +8,7 @@
       :class="{ 'va-stepper__navigation--vertical': $props.vertical }"
     >
       <template
-        v-for="step, i in $props.steps"
+        v-for="(step, i) in $props.steps"
         :key="i"
       >
         <slot
@@ -43,7 +43,7 @@
       :class="{ 'va-stepper__step-content-wrapper--vertical': $props.vertical }"
     >
       <template
-        v-for="step, i in $props.steps"
+        v-for="(step, i) in $props.steps"
         :key="i"
       >
         <div

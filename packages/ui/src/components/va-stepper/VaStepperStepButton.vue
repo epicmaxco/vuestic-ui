@@ -1,11 +1,7 @@
 <template>
   <li
     class="va-stepper__step-button"
-    :class="{
-      'va-stepper__step-button--active': $props.modelValue >= $props.stepIndex,
-      'va-stepper__step-button--disabled': step.disabled || isNextStepDisabled($props.stepIndex),
-      'va-stepper__step-button--navigation-disabled': $props.navigationDisabled,
-    }"
+    :class="computedClass"
     @click="!$props.navigationDisabled && $props.stepControls.setStep($props.stepIndex)"
   >
     <div class="va-stepper__step-button__icon">
@@ -24,7 +20,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import { VaIcon } from '../va-icon'
-import { useColors } from '../../composables'
+import { useBem, useColors } from '../../composables'
 import type { Step, StepControls } from './types'
 
 export default defineComponent({
@@ -49,10 +45,17 @@ export default defineComponent({
 
     const isNextStepDisabled = (index: number) => props.nextDisabled && index > props.modelValue
 
+    const computedClass = useBem('va-stepper__step-button', () => ({
+      active: props.modelValue >= props.stepIndex,
+      disabled: props.step.disabled || isNextStepDisabled(props.stepIndex),
+      'navigation-disabled': props.navigationDisabled,
+    }))
+
     return {
       isNextStepDisabled,
       stepperColor,
       getColor,
+      computedClass,
     }
   },
 })

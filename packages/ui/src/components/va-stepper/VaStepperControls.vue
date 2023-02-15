@@ -5,19 +5,20 @@
       :disabled="$props.modelValue <= 0"
       @click="$props.stepControls.prevStep()"
     >
-      Back
+      {{ t('Back') }}
     </va-button>
     <va-button
       v-if="isNextButtonVisible"
       @click="$props.stepControls.nextStep()"
       :disabled="$props.nextDisabled"
     >
-      Next
+      {{ t('Next') }}
     </va-button>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { VaButton } from '../va-button'
 import type { Step, StepControls } from './types'
 
@@ -34,12 +35,15 @@ export default defineComponent({
     stepControls: { type: Object as PropType<StepControls>, required: true },
   },
   setup (props) {
+    const { t } = useI18n()
+
     const isNextButtonVisible = computed(() => {
       const lastEnabledStepIndex = props.steps.length - 1 - [...props.steps].reverse().findIndex((step) => !step.disabled)
       return props.modelValue < lastEnabledStepIndex
     })
 
     return {
+      t,
       isNextButtonVisible,
     }
   },
