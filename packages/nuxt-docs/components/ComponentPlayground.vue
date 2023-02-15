@@ -47,28 +47,35 @@ const copyCode = async () => {
     <div class="component-playground__example">
       <slot v-bind="{ bind: optionValues, slots }" />
     </div>
-    <va-card class="component-playground__options" square>
+    <va-card
+      class="component-playground__options"
+      square
+    >
       <va-card-content>
-        <div class="mb-2" v-for="option in options">
+        <div
+          v-for="option in options"
+          :key="option.key"
+          class="mb-2"
+        >
           <va-input
-            class="w-full"
             v-if="option.type === 'input'"
             v-model="option.value"
+            class="w-full"
             :label="option.key"
           />
           <va-select
-            class="w-full"
             v-if="option.type === 'select'"
             v-model="option.value"
+            class="w-full"
             :options="option.options"
             :label="option.key"
             clearable
             prevent-overflow
           />
           <va-select
-            class="w-full"
             v-if="option.type === 'multiselect'"
             v-model="option.value"
+            class="w-full"
             :options="option.options"
             :label="option.key"
             clearable
@@ -87,8 +94,14 @@ const copyCode = async () => {
     </va-card>
   </div>
   <div class="component-playground">
-    <div class="component-playground__code" ref="codeEl">
-      <CodeView :code="code" language="html" />
+    <div
+      ref="codeEl"
+      class="component-playground__code"
+    >
+      <CodeView
+        :code="code"
+        language="html"
+      />
     </div>
     <VaButton
       class="component-playground__copy-code-button"

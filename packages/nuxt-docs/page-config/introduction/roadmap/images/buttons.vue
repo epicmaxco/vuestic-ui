@@ -1,5 +1,9 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 88" fill="none">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 160 88"
+    fill="none"
+  >
     <path
       fill="#154EC1"
       d="M0 4c0-2 2-4 4-4h96c2 0 4 2 4 4v28c0 2-2 4-4 4H4c-2 0-4-2-4-4V4z"

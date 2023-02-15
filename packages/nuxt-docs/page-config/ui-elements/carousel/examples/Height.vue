@@ -1,5 +1,9 @@
 <template>
-  <va-carousel :items="items" v-model="value" height="222px" />
+  <va-carousel
+    v-model="value"
+    :items="items"
+    height="222px"
+  />
 </template>
 
 <script>

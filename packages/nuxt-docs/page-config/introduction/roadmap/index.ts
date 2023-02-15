@@ -10,7 +10,7 @@ export default definePageConfig({
     block.headline("roadmap.1-5.title"),
     block.paragraph("roadmap.1-5.description"),
 
-    block.component("roadmap", {
+    block.component("Roadmap", {
       roadmap: [
         {
           title: "Dark theme",

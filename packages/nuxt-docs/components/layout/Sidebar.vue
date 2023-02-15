@@ -1,7 +1,7 @@
 <template>
   <va-sidebar
-    class="sidebar"
     v-model="writableVisible"
+    class="sidebar"
     :width="sidebarWidth"
   >
     <va-accordion
@@ -39,7 +39,7 @@
           <va-sidebar-item
             :to="`/${locale}/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
-            :activeColor="activeColor"
+            :active-color="activeColor"
             :hover-color="hoverColor"
             border-color="primary"
             @click="onSidebarItemClick"

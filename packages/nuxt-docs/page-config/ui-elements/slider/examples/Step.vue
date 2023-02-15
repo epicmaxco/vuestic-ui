@@ -1,5 +1,8 @@
 <template>
-  <va-slider v-model="value" :step="10" />
+  <va-slider
+    v-model="value"
+    :step="10"
+  />
 </template>
 
 <script>

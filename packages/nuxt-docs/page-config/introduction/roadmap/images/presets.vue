@@ -5,9 +5,16 @@
     height="301.9"
     viewBox="0 0 539.2 301.9"
   >
-    <path fill="#fff" d="M0 0h539v302H0z" />
+    <path
+      fill="#fff"
+      d="M0 0h539v302H0z"
+    />
     <g stroke-linecap="round">
-      <path fill="#4c6ef5" stroke-width="0" d="M10 71h249v80H10" />
+      <path
+        fill="#4c6ef5"
+        stroke-width="0"
+        d="M10 71h249v80H10"
+      />
       <path
         fill="none"
         stroke="#000"
@@ -80,25 +87,55 @@
     >
       home
     </text>
-    <g font-family="Virgil, Segoe UI Emoji" font-size="30">
-      <text y="27.3" style="white-space: pre" transform="translate(20 175)">
+    <g
+      font-family="Virgil, Segoe UI Emoji"
+      font-size="30"
+    >
+      <text
+        y="27.3"
+        style="white-space: pre"
+        transform="translate(20 175)"
+      >
         &lt;va-button
       </text>
-      <text y="65.6" style="white-space: pre" transform="translate(20 175)">
+      <text
+        y="65.6"
+        style="white-space: pre"
+        transform="translate(20 175)"
+      >
         preset=&quot;default&quot;
       </text>
-      <text y="103.9" style="white-space: pre" transform="translate(20 175)">
+      <text
+        y="103.9"
+        style="white-space: pre"
+        transform="translate(20 175)"
+      >
         /&gt;
       </text>
     </g>
-    <g font-family="Virgil, Segoe UI Emoji" font-size="31.9">
-      <text y="28.7" style="white-space: pre" transform="translate(286 170)">
+    <g
+      font-family="Virgil, Segoe UI Emoji"
+      font-size="31.9"
+    >
+      <text
+        y="28.7"
+        style="white-space: pre"
+        transform="translate(286 170)"
+      >
         &lt;va-button
       </text>
-      <text y="69.5" style="white-space: pre" transform="translate(286 170)">
+      <text
+        y="69.5"
+        style="white-space: pre"
+        transform="translate(286 170)"
+      >
         preset=&quot;home&quot;
       </text>
-      <text y="110.2" style="white-space: pre" transform="translate(286 170)">
+      <text
+        y="110.2"
+        style="white-space: pre"
+        transform="translate(286 170)"
+      >
         /&gt;
       </text>
     </g>

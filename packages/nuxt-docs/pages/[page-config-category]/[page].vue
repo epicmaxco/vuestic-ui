@@ -1,6 +1,9 @@
 <template>
   <div class="page-config">
-    <PageConfig v-if="config" :pageConfig="config" />
+    <PageConfig
+      v-if="config"
+      :page-config="config"
+    />
     <PageConfigSkeleton v-else />
   </div>
 </template>

@@ -1,15 +1,25 @@
 <template>
   <div class="flex justify-between">
-    <p class="inline-flex items-center py-2 px-4" :style="{ background: 'var(--va-background-element)'}">
+    <p
+      class="inline-flex items-center py-2 px-4"
+      :style="{ background: 'var(--va-background-element)'}"
+    >
       Color preset
-      <va-button-toggle v-model="theme" :options="themeOptions" class="ml-2" />
+      <va-button-toggle
+        v-model="theme"
+        :options="themeOptions"
+        class="ml-2"
+      />
     </p>
 
-    <p class="inline-flex items-center py-2 px-4" :style="{ background: 'var(--va-background-element)'}">
+    <p
+      class="inline-flex items-center py-2 px-4"
+      :style="{ background: 'var(--va-background-element)'}"
+    >
       Primary color
       <va-color-palette
-        class="ml-2"
         v-model="primaryColor"
+        class="ml-2"
         :palette="primaryColorVariants"
       />
     </p>

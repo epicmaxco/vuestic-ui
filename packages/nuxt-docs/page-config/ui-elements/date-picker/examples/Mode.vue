@@ -2,17 +2,26 @@
   <div class="flex gap-5 flex-wrap">
     <div>
       <h6>Single mode</h6>
-      <va-date-picker mode="single" v-model="single" />
+      <va-date-picker
+        v-model="single"
+        mode="single"
+      />
     </div>
 
     <div>
       <h6>Multiple mode</h6>
-      <va-date-picker mode="multiple" v-model="multiple" />
+      <va-date-picker
+        v-model="multiple"
+        mode="multiple"
+      />
     </div>
 
     <div>
       <h6>Range mode</h6>
-      <va-date-picker mode="range" v-model="range" />
+      <va-date-picker
+        v-model="range"
+        mode="range"
+      />
     </div>
   </div>
 </template>

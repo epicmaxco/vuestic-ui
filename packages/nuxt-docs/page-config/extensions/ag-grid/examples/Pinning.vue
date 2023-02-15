@@ -3,10 +3,10 @@
     <ag-grid-vue
       class="ag-theme-vuestic"
       style="width: 100%; height: 100%"
-      :columnDefs="columnDefs"
-      :rowData="rowData"
-      :pinnedTopRowData="pinnedTopRowData"
-      :pinnedBottomRowData="pinnedBottomRowData"
+      :column-defs="columnDefs"
+      :row-data="rowData"
+      :pinned-top-row-data="pinnedTopRowData"
+      :pinned-bottom-row-data="pinnedBottomRowData"
       :modules="modules"
     />
   </div>

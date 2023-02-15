@@ -2,22 +2,31 @@
   <div class="docs-roadmap flex flex-wrap">
     <div class="docs-roadmap__columns">
       <div
-        class="docs-roadmap__column-wrapper"
         v-for="col in columns"
         :key="col.title"
+        class="docs-roadmap__column-wrapper"
       >
         <div class="docs-roadmap__column">
           <h5>{{ col.title }}</h5>
 
-          <va-card v-for="item in col.items" :key="item.title">
-            <a :href="item.link" target="_blank">
+          <va-card
+            v-for="item in col.items"
+            :key="item.title"
+          >
+            <a
+              :href="item.link"
+              target="_blank"
+            >
               <va-card-content class="px-6 py-2">
                 <h6 class="link">{{ item.title }}</h6>
 
-                <div class="docs-roadmap__image" v-if="item.image">
+                <div
+                  v-if="item.image"
+                  class="docs-roadmap__image"
+                >
                   <component
-                    style="width: 100%; height: auto"
                     :is="item.image"
+                    style="width: 100%; height: auto"
                   />
                 </div>
               </va-card-content>

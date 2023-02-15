@@ -1,5 +1,8 @@
 <template>
-  <va-date-input v-model="value" :format="formatFn" />
+  <va-date-input
+    v-model="value"
+    :format="formatFn"
+  />
 </template>
 
 <script>

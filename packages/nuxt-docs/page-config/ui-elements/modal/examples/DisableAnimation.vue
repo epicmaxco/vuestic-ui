@@ -2,7 +2,11 @@
   <va-button @click="showModal = !showModal">
     Show modal (without animations)
   </va-button>
-  <va-modal v-model="showModal" without-transitions :message="message" />
+  <va-modal
+    v-model="showModal"
+    without-transitions
+    :message="message"
+  />
 </template>
 
 <script>

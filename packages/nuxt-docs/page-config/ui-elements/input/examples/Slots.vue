@@ -1,21 +1,37 @@
 <template>
   <div style="max-width: 300px">
-    <va-input class="mb-6" v-model="value" label="Icon prepend">
+    <va-input
+      v-model="value"
+      class="mb-6"
+      label="Icon prepend"
+    >
       <template #prepend>
         <va-icon name="share" />
       </template>
     </va-input>
-    <va-input class="mb-6" v-model="value" label="Icon prepend inner">
+    <va-input
+      v-model="value"
+      class="mb-6"
+      label="Icon prepend inner"
+    >
       <template #prependInner>
         <va-icon name="share" />
       </template>
     </va-input>
-    <va-input class="mb-6" v-model="value" label="Icon append">
+    <va-input
+      v-model="value"
+      class="mb-6"
+      label="Icon append"
+    >
       <template #append>
         <va-icon name="share" />
       </template>
     </va-input>
-    <va-input class="mb-6" v-model="value" label="Icon append inner">
+    <va-input
+      v-model="value"
+      class="mb-6"
+      label="Icon append inner"
+    >
       <template #appendInner>
         <va-icon name="share" />
       </template>

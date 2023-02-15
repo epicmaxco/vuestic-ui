@@ -11,19 +11,21 @@
       <va-button
         preset="primary"
         :disabled="disabled"
-        @click="onClick"
         aria-label="go prev page"
-        >Previous</va-button
+        @click="onClick"
       >
+        Previous
+      </va-button>
     </template>
     <template #nextPageLink="{ onClick, disabled }">
       <va-button
         preset="primary"
         :disabled="disabled"
-        @click="onClick"
         aria-label="go next page"
-        >Next</va-button
+        @click="onClick"
       >
+        Next
+      </va-button>
     </template>
   </va-pagination>
 

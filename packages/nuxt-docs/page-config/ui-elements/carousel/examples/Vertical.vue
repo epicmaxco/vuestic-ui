@@ -1,5 +1,11 @@
 <template>
-  <va-carousel :items="items" v-model="value" vertical arrows indicators />
+  <va-carousel
+    v-model="value"
+    :items="items"
+    vertical
+    arrows
+    indicators
+  />
 </template>
 
 <script>

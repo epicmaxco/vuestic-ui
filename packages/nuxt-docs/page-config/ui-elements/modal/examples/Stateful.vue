@@ -1,6 +1,12 @@
 <template>
-  <va-button @click="$refs.modal.show()"> Show modal (stateful) </va-button>
-  <va-modal ref="modal" stateful :message="message" />
+  <va-button @click="$refs.modal.show()">
+    Show modal (stateful)
+  </va-button>
+  <va-modal
+    ref="modal"
+    stateful
+    :message="message"
+  />
 </template>
 
 <script>

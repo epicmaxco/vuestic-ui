@@ -1,7 +1,18 @@
 <template>
-  <va-rating class="mb-2" v-model="value" size="small" />
-  <va-rating class="mb-2" v-model="value" size="large" />
-  <va-rating v-model="value" :size="40" />
+  <va-rating
+    v-model="value"
+    class="mb-2"
+    size="small"
+  />
+  <va-rating
+    v-model="value"
+    class="mb-2"
+    size="large"
+  />
+  <va-rating
+    v-model="value"
+    :size="40"
+  />
 </template>
 
 <script>

@@ -1,17 +1,23 @@
 <template>
-  <va-button @click="shuffleItems">Shuffle and update items</va-button>
+  <va-button @click="shuffleItems">
+    Shuffle and update items
+  </va-button>
 
   <va-data-table
+    v-model="selectedItems"
     :items="items"
     items-track-by="username"
     :columns="columns"
     selectable
-    v-model="selectedItems"
     select-mode="multiple"
     @selection-change="selectedItemsEmitted = $event.currentSelectedItems"
   />
 
-  <va-alert class="mt-3" color="info" outline>
+  <va-alert
+    class="mt-3"
+    color="info"
+    outline
+  >
     <span>
       Selected items (click to unselect):
       <va-chip

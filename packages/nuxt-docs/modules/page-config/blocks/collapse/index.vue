@@ -21,7 +21,7 @@ const { t } = useI18n()
     flat
   >
     <div class="page-config-collapse__content p-6">
-      <PageConfigBlocks :blocks="blocks"/>
+      <PageConfigBlocks :blocks="blocks" />
     </div>
   </va-collapse>
 </template>

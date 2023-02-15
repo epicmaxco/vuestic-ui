@@ -1,10 +1,10 @@
 <template>
   <a
     :id="anchor"
+    ref="el"
     :href="`#${anchor}`"
     :class="{ 'page-config-anchor--force-show': forceShow }"
     class="page-config-anchor"
-    ref="el"
   >#</a>
 </template>
 

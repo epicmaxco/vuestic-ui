@@ -1,5 +1,11 @@
 <template>
-  <va-carousel :items="items" stateful indicators infinite swipable />
+  <va-carousel
+    :items="items"
+    stateful
+    indicators
+    infinite
+    swipable
+  />
 </template>
 
 <script setup lang="ts">

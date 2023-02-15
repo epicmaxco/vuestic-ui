@@ -7,7 +7,10 @@
       :label="name"
       class="mb-3"
     />
-    <va-button style="width: max-content" @click="reset">
+    <va-button
+      style="width: max-content"
+      @click="reset"
+    >
       {{ $t("componentsConfig.resetConfig") }}
     </va-button>
   </div>

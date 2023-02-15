@@ -1,8 +1,11 @@
 <template>
-  <va-content v-show="doShow" class="va-skeleton page-config">
-    <h1 class="page-config-title short" /><br/>
+  <va-content
+    v-show="doShow"
+    class="va-skeleton page-config"
+  >
+    <h1 class="page-config-title short" /><br>
     <p class="two-lines long" />
-    <br/>
+    <br>
     <h3 class="page-config-subtitle medium" />
     <p class="three-lines short" />
 

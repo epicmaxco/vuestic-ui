@@ -1,8 +1,20 @@
 <template>
   <div style="max-width: 300px">
-    <va-input class="mb-6" v-model="value" />
-    <va-input class="mb-6" v-model="value" placeholder="Placeholder" />
-    <va-input class="mb-6" v-model="value" label="Name" placeholder="Label" />
+    <va-input
+      v-model="value"
+      class="mb-6"
+    />
+    <va-input
+      v-model="value"
+      class="mb-6"
+      placeholder="Placeholder"
+    />
+    <va-input
+      v-model="value"
+      class="mb-6"
+      label="Name"
+      placeholder="Label"
+    />
   </div>
 </template>
 

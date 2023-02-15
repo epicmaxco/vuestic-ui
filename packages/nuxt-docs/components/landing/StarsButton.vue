@@ -6,7 +6,11 @@
     color="textPrimary"
     size="small"
   >
-    <va-icon name="star_empty" class="mr-1" size="small" /> {{ stars }}
+    <va-icon
+      name="star_empty"
+      class="mr-1"
+      size="small"
+    /> {{ stars }}
   </va-button>
 </template>
 

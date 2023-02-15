@@ -1,46 +1,48 @@
 <template>
   <div style="max-width: 300px">
     <va-select
+      v-model="value"
       class="mb-6"
       label="Default"
-      v-model="value"
       :options="options"
     />
 
     <va-select
+      v-model="value"
       class="mb-6"
       label="Text by"
-      v-model="value"
       :options="options"
       text-by="textBy"
     />
 
     <va-select
+      v-model="value"
       class="mb-6"
       label="Text by (function)"
-      v-model="value"
       :options="options"
       :text-by="(option) => option.textBy"
     />
 
     <va-select
+      v-model="value"
       class="mb-6"
       label="value by"
-      v-model="value"
       :options="options"
       value-by="valueBy"
     />
 
     <va-select
+      v-model="value"
       class="mb-6"
       label="value by (function)"
-      v-model="value"
       :options="options"
       :value-by="(option) => option.valueBy"
     />
 
     <va-alert color="info">
-      <template #title> Value </template>
+      <template #title>
+        Value
+      </template>
       {{ value }}
     </va-alert>
   </div>

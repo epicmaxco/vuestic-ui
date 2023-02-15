@@ -1,8 +1,17 @@
 <template>
   <div class="sticky-table-example">
-    <va-data-table :items="items" footer-clone height="180px" />
+    <va-data-table
+      :items="items"
+      footer-clone
+      height="180px"
+    />
 
-    <va-data-table :items="items" sticky-header footer-clone height="180px" />
+    <va-data-table
+      :items="items"
+      sticky-header
+      footer-clone
+      height="180px"
+    />
 
     <va-data-table
       :items="items"
@@ -18,14 +27,22 @@
     >
       <template #headerAppend>
         <tr>
-          <th colspan="1">#</th>
-          <th colspan="2">User info</th>
-          <th colspan="3">Contact info</th>
+          <th colspan="1">
+            #
+          </th>
+          <th colspan="2">
+            User info
+          </th>
+          <th colspan="3">
+            Contact info
+          </th>
         </tr>
       </template>
       <template #footerPrepend>
         <tr>
-          <th colspan="6">Additional data in the footer prepend slot</th>
+          <th colspan="6">
+            Additional data in the footer prepend slot
+          </th>
         </tr>
       </template>
     </va-data-table>
@@ -37,19 +54,27 @@
       sticky-header
       footer-clone
       sticky-footer
-      :scrollBottomMargin="20"
+      :scroll-bottom-margin="20"
       @scroll:top="logger"
       @scroll:bottom="onScrollDown"
     >
       <template #headerPrepend>
         <tr>
-          <th colspan="6">With scroll events</th>
+          <th colspan="6">
+            With scroll events
+          </th>
         </tr>
       </template>
-      <template #bodyAppend v-if="isLoading">
+      <template
+        v-if="isLoading"
+        #bodyAppend
+      >
         <tr>
           <td colspan="6">
-            <va-inner-loading :loading="isLoading" style="height: 2rem" />
+            <va-inner-loading
+              :loading="isLoading"
+              style="height: 2rem"
+            />
           </td>
         </tr>
       </template>

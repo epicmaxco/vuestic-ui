@@ -8,30 +8,43 @@
     :message="firstMessage"
     hide-default-actions
   >
-    <va-button class="mr-2" @click="$vaToast.init('Hello')"
-      >Basic notification</va-button
+    <va-button
+      class="mr-2"
+      @click="$vaToast.init('Hello')"
     >
-    <va-popover message="Popover text"
-      ><va-button>Hover me</va-button></va-popover
-    >
+      Basic notification
+    </va-button>
+    <va-popover message="Popover text">
+      <va-button>Hover me</va-button>
+    </va-popover>
     <va-date-input class="mt-2" />
 
     <va-button
       class="mt-8"
-      @click="showSecondModal = !showSecondModal"
       color="secondary"
+      @click="showSecondModal = !showSecondModal"
     >
       Show second modal
     </va-button>
 
-    <va-modal v-model="showSecondModal" :message="secondMessage">
-      <va-button class="mr-2" @click="$vaToast.init('Hello')"
-        >Show notification</va-button
+    <va-modal
+      v-model="showSecondModal"
+      :message="secondMessage"
+    >
+      <va-button
+        class="mr-2"
+        @click="$vaToast.init('Hello')"
       >
-      <va-popover message="Popover text"
-        ><va-button>Hover me</va-button></va-popover
-      >
-      <va-select class="mt-2" v-model="value" :options="options" />
+        Show notification
+      </va-button>
+      <va-popover message="Popover text">
+        <va-button>Hover me</va-button>
+      </va-popover>
+      <va-select
+        v-model="value"
+        class="mt-2"
+        :options="options"
+      />
     </va-modal>
   </va-modal>
 </template>

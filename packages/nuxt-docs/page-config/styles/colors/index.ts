@@ -6,8 +6,8 @@ export default definePageConfig({
     block.subtitle("colors.theme.title"),
     block.paragraph("colors.theme.description"),
     block.paragraph("colors.theme.autoTextColor"),
-    block.component("theme", { hideTemplate: true }),
-    block.component("theme-examples", { hideCode: true }),
+    block.component("Theme", { hideTemplate: true }),
+    block.component("ThemeExamples", { hideCode: true }),
 
     block.subtitle("colors.syntax.title"),
     block.paragraph("colors.syntax.description"),

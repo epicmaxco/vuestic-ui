@@ -3,8 +3,8 @@
     <ag-grid-vue
       class="ag-theme-vuestic"
       style="width: 100%; height: 100%"
-      :columnDefs="columnDefs"
-      :rowData="rowData"
+      :column-defs="columnDefs"
+      :row-data="rowData"
       :modules="modules"
     />
   </div>

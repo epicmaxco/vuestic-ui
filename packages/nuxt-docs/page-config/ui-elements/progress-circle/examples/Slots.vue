@@ -1,9 +1,11 @@
 <template>
   <div class="flex flex-col gap-2">
-    <va-progress-circle :modelValue="value">
+    <va-progress-circle :model-value="value">
       {{ value + "%" }}
     </va-progress-circle>
-    <va-progress-circle indeterminate> ... </va-progress-circle>
+    <va-progress-circle indeterminate>
+      ...
+    </va-progress-circle>
   </div>
 </template>
 

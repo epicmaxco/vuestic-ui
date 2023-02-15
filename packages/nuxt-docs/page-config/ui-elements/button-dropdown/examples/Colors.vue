@@ -7,7 +7,11 @@
   >
     Content
   </va-button-dropdown>
-  <va-button-dropdown class="mr-2 mb-2" color="danger" label="danger">
+  <va-button-dropdown
+    class="mr-2 mb-2"
+    color="danger"
+    label="danger"
+  >
     Content
   </va-button-dropdown>
   <va-button-dropdown
@@ -20,10 +24,20 @@
   >
     Content
   </va-button-dropdown>
-  <va-button-dropdown preset="secondary" color="info" label="info" split>
+  <va-button-dropdown
+    preset="secondary"
+    color="info"
+    label="info"
+    split
+  >
     Content
   </va-button-dropdown>
-  <va-button-dropdown preset="plain" color="success" label="success" split>
+  <va-button-dropdown
+    preset="plain"
+    color="success"
+    label="success"
+    split
+  >
     Content
   </va-button-dropdown>
 </template>

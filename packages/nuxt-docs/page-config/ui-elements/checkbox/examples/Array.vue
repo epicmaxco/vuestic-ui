@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-col">
-    <div class="mb-6">{{ selection }}</div>
+    <div class="mb-6">
+      {{ selection }}
+    </div>
     <va-checkbox
       v-model="selection"
       array-value="one"
@@ -19,7 +21,11 @@
       label="three"
       class="mb-6"
     />
-    <va-checkbox v-model="selection" array-value="four" label="four" />
+    <va-checkbox
+      v-model="selection"
+      array-value="four"
+      label="four"
+    />
   </div>
 </template>
 

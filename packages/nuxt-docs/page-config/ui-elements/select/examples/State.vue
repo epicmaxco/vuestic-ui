@@ -1,52 +1,52 @@
 <template>
   <div style="max-width: 300px">
     <va-select
+      v-model="value"
       class="mb-6"
       label="Readonly"
       :options="options"
-      v-model="value"
       readonly
     />
     <va-select
+      v-model="value"
       class="mb-6"
       label="Disabled"
       :options="options"
-      v-model="value"
       disabled
     />
     <va-select
+      v-model="value"
       class="mb-6"
       label="Loading"
       :options="options"
-      v-model="value"
       loading
     />
     <va-select
+      v-model="value"
       class="mb-6"
       label="Error state"
       :options="options"
-      v-model="value"
       error
     />
     <va-select
+      v-model="value"
       class="mb-6"
       label="Error state with messages"
       :options="options"
-      v-model="value"
       error
       :error-messages="['Error message']"
     />
     <va-select
+      v-model="value"
       class="mb-6"
       label="Success state"
       :options="options"
-      v-model="value"
       success
     />
     <va-select
+      v-model="value"
       label="Success state with messages"
       :options="options"
-      v-model="value"
       success
       :messages="['Success message']"
     />

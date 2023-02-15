@@ -2,37 +2,45 @@
   <div class="DocsTable">
     <table class="DocsTable__table">
       <thead>
-      <tr>
-        <th v-for="c in columnsComputed" :key="c.title">{{ t(c.title) }}</th>
-      </tr>
+        <tr>
+          <th
+            v-for="c in columnsComputed"
+            :key="c.title"
+          >
+            {{ t(c.title) }}
+          </th>
+        </tr>
       </thead>
       <tbody>
-      <tr
-        v-for="row in tableData"
-        :key="row.toString()"
-        class="DocsTable__table__row"
-      >
-        <td v-for="(colData, index) in row" :key="colData">
-          <template v-if="columnsComputed[index].type === 'strong'">
-            <strong>{{ colData }}</strong>
-          </template>
-          <template v-else-if="columnsComputed[index].type === 'markdown'">
-            <MarkdownView :content="t(colData)" />
-          </template>
-          <template v-else-if="columnsComputed[index].type === 'code'">
-            <MarkdownView :content="`\`${colData}\``" />
-          </template>
-          <template v-else-if="columnsComputed[index].type === 'pre'">
-            <pre>{{ colData }}</pre>
-          </template>
-          <template v-else-if="columnsComputed[index].type === 'translationString'">
-            {{ t(colData) }}
-          </template>
-          <template v-else>
-            {{ t(colData) }}
-          </template>
-        </td>
-      </tr>
+        <tr
+          v-for="row in tableData"
+          :key="row.toString()"
+          class="DocsTable__table__row"
+        >
+          <td
+            v-for="(colData, index) in row"
+            :key="colData"
+          >
+            <template v-if="columnsComputed[index].type === 'strong'">
+              <strong>{{ colData }}</strong>
+            </template>
+            <template v-else-if="columnsComputed[index].type === 'markdown'">
+              <MarkdownView :content="t(colData)" />
+            </template>
+            <template v-else-if="columnsComputed[index].type === 'code'">
+              <MarkdownView :content="`\`${colData}\``" />
+            </template>
+            <template v-else-if="columnsComputed[index].type === 'pre'">
+              <pre>{{ colData }}</pre>
+            </template>
+            <template v-else-if="columnsComputed[index].type === 'translationString'">
+              {{ t(colData) }}
+            </template>
+            <template v-else>
+              {{ t(colData) }}
+            </template>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>

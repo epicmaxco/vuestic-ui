@@ -9,8 +9,8 @@
   </p>
 
   <va-tree-view
-    :nodes="nodes"
     v-model:checked="selectedNodes"
+    :nodes="nodes"
     :color="selectedColor"
     selectable
     expand-all

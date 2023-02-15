@@ -1,24 +1,47 @@
 <template>
-  <section class="opensource" :style="{ color: textColor }">
+  <section
+    class="opensource"
+    :style="{ color: textColor }"
+  >
     <div class="opensource__wrapper">
       <div class="opensource__inner">
         <div class="opensource__info">
           <div class="opensource__icon">
-            <nuxt-img src="/landing/icon-open-source.svg" alt=""/>
+            <nuxt-img
+              src="/landing/icon-open-source.svg"
+              alt=""
+            />
           </div>
-          <h2 class="opensource__title">{{$t('landing.opensource.title')}}</h2>
+          <h2 class="opensource__title">
+            {{ $t('landing.opensource.title') }}
+          </h2>
           <div class="opensource__text">
-            {{$t('landing.opensource.text[0]')}}
-            <a class="text--primary" href="https://github.com/epicmaxco/vuestic-ui/issues" target="_blank">{{$t('landing.opensource.text[1]')}}</a>,
+            {{ $t('landing.opensource.text[0]') }}
+            <a
+              class="text--primary"
+              href="https://github.com/epicmaxco/vuestic-ui/issues"
+              target="_blank"
+            >{{ $t('landing.opensource.text[1]') }}</a>,
             <router-link :to="`/${locale}/contribution/documentation-page`">
-              {{$t('landing.opensource.text[2]')}}
+              {{ $t('landing.opensource.text[2]') }}
             </router-link>
-            {{$t('landing.opensource.text[3]')}}
-            <a class="text--primary" href="https://discord.gg/u7fQdqQt8c" target="_blank">{{$t('landing.opensource.text[4]')}}</a>
-            {{$t('landing.opensource.text[5]')}}</div>
+            {{ $t('landing.opensource.text[3]') }}
+            <a
+              class="text--primary"
+              href="https://discord.gg/u7fQdqQt8c"
+              target="_blank"
+            >{{ $t('landing.opensource.text[4]') }}</a>
+            {{ $t('landing.opensource.text[5]') }}
+          </div>
         </div>
         <div class="opensource__actions">
-          <nuxt-img width="632px" height="446px" format="webp" src="/landing/image-open-source.png" alt="open-source"/>
+          <nuxt-img
+            width="632px"
+            height="446px"
+            format="webp"
+            src="/landing/image-open-source.png"
+            alt="open-source"
+          />
         </div>
       </div>
     </div>

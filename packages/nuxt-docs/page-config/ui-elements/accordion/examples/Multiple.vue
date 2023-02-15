@@ -1,5 +1,9 @@
 <template>
-  <va-accordion v-model="value" style="max-width: 400px" multiple>
+  <va-accordion
+    v-model="value"
+    style="max-width: 400px"
+    multiple
+  >
     <va-collapse
       v-for="(collapse, index) in collapses"
       :key="index"

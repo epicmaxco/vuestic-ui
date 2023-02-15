@@ -2,8 +2,8 @@
   <va-date-input
     v-model="value"
     :readonly="false"
-    :formatDate="formatDate"
-    :parseDate="parseDate"
+    :format-date="formatDate"
+    :parse-date="parseDate"
   />
 </template>
 

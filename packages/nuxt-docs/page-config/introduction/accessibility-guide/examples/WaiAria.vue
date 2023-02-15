@@ -1,5 +1,9 @@
 <template>
-  <va-input v-model="text" bordered label="Input Name" />
+  <va-input
+    v-model="text"
+    bordered
+    label="Input Name"
+  />
 </template>
 
 <script setup lang="ts">

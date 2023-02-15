@@ -1,6 +1,10 @@
 <template>
   <div class="rounded-checkbox-demo py-2">
-    <va-checkbox stateful label="Rounded checkbox" class="mb-2" />
+    <va-checkbox
+      stateful
+      label="Rounded checkbox"
+      class="mb-2"
+    />
     <va-input placeholder="Rounded input" />
   </div>
 </template>

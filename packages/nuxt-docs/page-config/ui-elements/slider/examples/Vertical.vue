@@ -1,17 +1,25 @@
 <template>
-  <div class="flex flex-wrap justify-center" style="height: 200px">
-    <va-slider class="mr-8" v-model="value" vertical track-label-visible />
+  <div
+    class="flex flex-wrap justify-center"
+    style="height: 200px"
+  >
     <va-slider
-      class="mr-8"
       v-model="value"
+      class="mr-8"
+      vertical
+      track-label-visible
+    />
+    <va-slider
+      v-model="value"
+      class="mr-8"
       vertical
       track-label-visible
       pins
       :step="5"
     />
     <va-slider
-      class="mr-8"
       v-model="rangeValue"
+      class="mr-8"
       vertical
       range
       pins
@@ -19,7 +27,10 @@
       track-label-visible
     >
       <template #trackLabel="{ value, order }">
-        <va-chip size="small" :color="order === 0 ? 'success' : 'danger'">
+        <va-chip
+          size="small"
+          :color="order === 0 ? 'success' : 'danger'"
+        >
           {{ value }}
         </va-chip>
       </template>

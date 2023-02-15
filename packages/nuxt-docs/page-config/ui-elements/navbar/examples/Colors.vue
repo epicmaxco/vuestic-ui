@@ -1,24 +1,40 @@
 <template>
-  <va-navbar color="primary" class="mb-3">
+  <va-navbar
+    color="primary"
+    class="mb-3"
+  >
     <template #left>
-      <va-navbar-item class="logo">LOGO</va-navbar-item>
+      <va-navbar-item class="logo">
+        LOGO
+      </va-navbar-item>
     </template>
     <template #right>
       <va-navbar-item>Dashboard</va-navbar-item>
       <va-navbar-item>Reports</va-navbar-item>
       <va-navbar-item>Users</va-navbar-item>
       <va-navbar-item>
-        <va-icon name="mdi-magnify" color="textInverted" />
+        <va-icon
+          name="mdi-magnify"
+          color="textInverted"
+        />
       </va-navbar-item>
       <va-navbar-item>
-        <va-icon name="mdi-account-circle-outline" color="textInverted" />
+        <va-icon
+          name="mdi-account-circle-outline"
+          color="textInverted"
+        />
       </va-navbar-item>
     </template>
   </va-navbar>
 
-  <va-navbar color="warning" class="mb-3">
+  <va-navbar
+    color="warning"
+    class="mb-3"
+  >
     <template #left>
-      <va-navbar-item class="logo">LOGO</va-navbar-item>
+      <va-navbar-item class="logo">
+        LOGO
+      </va-navbar-item>
     </template>
     <template #right>
       <va-navbar-item>Dashboard</va-navbar-item>
@@ -33,16 +49,24 @@
     </template>
   </va-navbar>
 
-  <va-navbar v-bind="darkNavbarColors" class="mb-3">
+  <va-navbar
+    v-bind="darkNavbarColors"
+    class="mb-3"
+  >
     <template #left>
-      <va-navbar-item class="logo">LOGO</va-navbar-item>
+      <va-navbar-item class="logo">
+        LOGO
+      </va-navbar-item>
     </template>
     <template #right>
       <va-navbar-item>Dashboard</va-navbar-item>
       <va-navbar-item>Reports</va-navbar-item>
       <va-navbar-item>Users</va-navbar-item>
       <va-navbar-item>
-        <va-icon :color="darkNavbarColors.textColor" name="mdi-magnify" />
+        <va-icon
+          :color="darkNavbarColors.textColor"
+          name="mdi-magnify"
+        />
       </va-navbar-item>
       <va-navbar-item>
         <va-icon

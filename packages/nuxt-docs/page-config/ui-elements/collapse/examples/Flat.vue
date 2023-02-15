@@ -6,6 +6,8 @@
     flat
     style="width: 400px"
   >
-    <div style="padding: 0 1rem 0.75rem">Collapse content</div>
+    <div style="padding: 0 1rem 0.75rem">
+      Collapse content
+    </div>
   </va-collapse>
 </template>

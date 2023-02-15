@@ -1,6 +1,9 @@
 <template>
   <div style="height: 13rem">
-    <va-sidebar hoverable minimizedWidth="64px">
+    <va-sidebar
+      hoverable
+      minimized-width="64px"
+    >
       <va-sidebar-item
         v-for="item in items"
         :key="item.title"

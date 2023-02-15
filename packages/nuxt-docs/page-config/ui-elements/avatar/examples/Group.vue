@@ -1,5 +1,8 @@
 <template>
-  <va-avatar-group :options="avatars" :max="3" />
+  <va-avatar-group
+    :options="avatars"
+    :max="3"
+  />
 </template>
 
 <script>

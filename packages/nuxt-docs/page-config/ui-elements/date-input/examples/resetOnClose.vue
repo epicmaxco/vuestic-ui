@@ -7,7 +7,10 @@
 
     <div>
       <h6>Don't reset on close (resetOnClose = false)</h6>
-      <va-date-input :reset-on-close="false" v-model="range" />
+      <va-date-input
+        v-model="range"
+        :reset-on-close="false"
+      />
     </div>
   </div>
 </template>

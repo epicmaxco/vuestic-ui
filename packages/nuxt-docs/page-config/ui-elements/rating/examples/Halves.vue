@@ -1,5 +1,8 @@
 <template>
-  <va-rating v-model="value" halves />
+  <va-rating
+    v-model="value"
+    halves
+  />
   <span> Value: {{ value }}</span>
 </template>
 

@@ -1,5 +1,9 @@
 <template>
-  <va-card class="user-card" color="#25272c" gradient>
+  <va-card
+    class="user-card"
+    color="#25272c"
+    gradient
+  >
     <va-card-content class="flex">
       <div>
         <va-avatar
@@ -10,7 +14,9 @@
 
       <div class="pl-2 flex flex-col justify-end">
         <span class="title">Profile</span>
-        <div class="text-2xl font-bold">User</div>
+        <div class="text-2xl font-bold">
+          User
+        </div>
 
         <div class="flex flex-wrap">
           <span class="mr-2 text--no-wrap">29 public playlists</span>
@@ -23,19 +29,20 @@
             preset="secondary"
             color="#fff"
             style="margin-left: -0.5rem"
-            >Follow</va-button
           >
+            Follow
+          </va-button>
           <va-spacer />
           <va-button
             preset="secondary"
             color="#fff"
             icon="message"
-          ></va-button>
+          />
           <va-button
             preset="secondary"
             color="#fff"
             icon="play_arrow"
-          ></va-button>
+          />
         </va-card-actions>
       </div>
     </va-card-content>

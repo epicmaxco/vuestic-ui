@@ -1,5 +1,8 @@
 <template>
-  <va-rating v-model="value" class="demo-rating">
+  <va-rating
+    v-model="value"
+    class="demo-rating"
+  >
     <template #item="{ value, index }">
       <span
         class="demo-rating__item"

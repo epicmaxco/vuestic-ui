@@ -1,23 +1,23 @@
 <template>
   <div class="flex">
     <va-date-input
-      class="mr-6"
       v-model="value"
       v-model:view="dayView"
+      class="mr-6"
       label="Day"
     />
 
     <va-date-input
-      class="mr-6"
       v-model="value"
       v-model:view="monthView"
+      class="mr-6"
       label="Month"
     />
 
     <va-date-input
-      class="mr-6"
       v-model="value"
       v-model:view="yearView"
+      class="mr-6"
       label="Year"
     />
   </div>

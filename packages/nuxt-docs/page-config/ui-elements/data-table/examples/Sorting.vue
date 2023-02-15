@@ -1,15 +1,15 @@
 <template>
   <div class="row">
     <va-select
-      class="flex flex-col mb-2 md6"
       v-model="sortBy"
+      class="flex flex-col mb-2 md6"
       label="Sort by"
       :options="sortByOptions()"
     />
 
     <va-select
-      class="flex flex-col mb-2 md6"
       v-model="sortingOrder"
+      class="flex flex-col mb-2 md6"
       label="Sorting order"
       :options="sortingOrderOptions"
       :value-by="(option) => option.value"
@@ -17,11 +17,11 @@
   </div>
 
   <va-data-table
+    v-model:sort-by="sortBy"
+    v-model:sorting-order="sortingOrder"
     :items="items"
     :columns="columns"
     :hoverable="true"
-    v-model:sort-by="sortBy"
-    v-model:sorting-order="sortingOrder"
     @sorted="
       sortedRowsEmitted = $event.items.map(row => row.id),
       sortingOrderEmitted = $event.sortingOrder,
@@ -29,7 +29,11 @@
     "
   />
 
-  <va-alert class="mt-3" color="info" outline>
+  <va-alert
+    class="mt-3"
+    color="info"
+    outline
+  >
     <span v-if="sortingOrder">
       Sorted items order (showing id):
       <va-chip v-show="!!sortedRowsEmitted.length">{{

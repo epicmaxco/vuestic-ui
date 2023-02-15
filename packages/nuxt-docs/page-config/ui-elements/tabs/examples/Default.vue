@@ -1,7 +1,10 @@
 <template>
   <va-tabs v-model="value">
     <template #tabs>
-      <va-tab v-for="tab in ['One', 'Two', 'Three']" :key="tab">
+      <va-tab
+        v-for="tab in ['One', 'Two', 'Three']"
+        :key="tab"
+      >
         {{ tab }}
       </va-tab>
     </template>

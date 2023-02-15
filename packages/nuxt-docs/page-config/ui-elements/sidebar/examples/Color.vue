@@ -1,5 +1,8 @@
 <template>
-  <div class="mb-6" style="height: 16rem; overflow: hidden">
+  <div
+    class="mb-6"
+    style="height: 16rem; overflow: hidden"
+  >
     <va-sidebar
       color="primary"
       minimized-width="64px"
@@ -29,7 +32,10 @@
     </va-sidebar>
   </div>
 
-  <div class="mb-6" style="height: 16rem; overflow: hidden">
+  <div
+    class="mb-6"
+    style="height: 16rem; overflow: hidden"
+  >
     <va-sidebar
       color="background-element"
       minimized-width="64px"
@@ -58,7 +64,10 @@
     </va-sidebar>
   </div>
 
-  <div class="mb-6" style="height: 16rem; overflow: hidden">
+  <div
+    class="mb-6"
+    style="height: 16rem; overflow: hidden"
+  >
     <va-sidebar
       color="#F0F7ED"
       text-color="#009600"
@@ -91,7 +100,10 @@
     </va-sidebar>
   </div>
 
-  <div class="mb-6" style="height: 16rem">
+  <div
+    class="mb-6"
+    style="height: 16rem"
+  >
     <va-sidebar
       color="#FFD300"
       active-color="#FFD300"

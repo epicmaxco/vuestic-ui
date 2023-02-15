@@ -1,5 +1,8 @@
 <template>
-  <va-accordion v-model="value" style="max-width: 400px">
+  <va-accordion
+    v-model="value"
+    style="max-width: 400px"
+  >
     <va-collapse
       v-for="(item, idx) in items"
       :key="idx"
@@ -8,7 +11,9 @@
       color="textInverted"
       flat
     >
-      <div style="padding: 0 1rem 0.75rem">{{ item.description }}</div>
+      <div style="padding: 0 1rem 0.75rem">
+        {{ item.description }}
+      </div>
     </va-collapse>
   </va-accordion>
 </template>

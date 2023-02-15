@@ -1,10 +1,18 @@
 <template>
   <div class="cards">
     <va-card class="card card-1">
-      <va-card-title><h3 class="display-2 m-0">Get started</h3></va-card-title>
+      <va-card-title>
+        <h3 class="display-2 m-0">
+          Get started
+        </h3>
+      </va-card-title>
 
       <va-card-content>
-        <va-input stateful label="Email" class="mb-2" />
+        <va-input
+          stateful
+          label="Email"
+          class="mb-2"
+        />
         <va-input
           stateful
           label="City"
@@ -20,7 +28,12 @@
       </va-card-content>
 
       <va-card-actions align="between">
-        <va-button preset="secondary" color="secondary">Go back</va-button>
+        <va-button
+          preset="secondary"
+          color="secondary"
+        >
+          Go back
+        </va-button>
         <va-button>Login</va-button>
       </va-card-actions>
     </va-card>
@@ -30,7 +43,12 @@
         <table style="width: 100%">
           <tr>
             <td>Amount</td>
-            <td><va-slider :model-value="40" stateful /></td>
+            <td>
+              <va-slider
+                :model-value="40"
+                stateful
+              />
+            </td>
           </tr>
           <tr>
             <td>Package</td>
@@ -38,11 +56,24 @@
           </tr>
           <tr>
             <td>Review</td>
-            <td><va-rating stateful :model-value="4.5" halves /></td>
+            <td>
+              <va-rating
+                stateful
+                :model-value="4.5"
+                halves
+              />
+            </td>
           </tr>
         </table>
-        <va-file-upload stateful dropzone drop-zone-text="Send us photo" />
-        <va-checkbox stateful label="I agree with all terms!!!" />
+        <va-file-upload
+          stateful
+          dropzone
+          drop-zone-text="Send us photo"
+        />
+        <va-checkbox
+          stateful
+          label="I agree with all terms!!!"
+        />
       </va-card-content>
       <va-card-actions align="between">
         <div />
@@ -79,9 +110,16 @@
     </div>
 
     <div class="card card-7">
-      <va-tabs stateful :model-value="0" grow>
+      <va-tabs
+        stateful
+        :model-value="0"
+        grow
+      >
         <template #tabs>
-          <va-tab v-for="tab in ['One', 'Two', 'Three']" :key="tab">
+          <va-tab
+            v-for="tab in ['One', 'Two', 'Three']"
+            :key="tab"
+          >
             {{ tab }}
           </va-tab>
         </template>
@@ -89,9 +127,14 @@
     </div>
 
     <div class="card card-8">
-      <va-card color="primary" gradient>
+      <va-card
+        color="primary"
+        gradient
+      >
         <va-card-content>
-          <h2 class="m-0">12:00 pm</h2>
+          <h2 class="m-0">
+            12:00 pm
+          </h2>
         </va-card-content>
       </va-card>
     </div>

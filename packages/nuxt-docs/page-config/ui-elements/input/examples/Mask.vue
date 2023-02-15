@@ -1,46 +1,46 @@
 <template>
   <div style="max-width: 300px">
     <va-input
+      v-model="maskCreditCardValue"
       class="mb-6"
       :style="{ paddingTop: '4px' }"
       label="Credit card mask"
-      v-model="maskCreditCardValue"
       type="input"
       mask="creditCard"
     />
     <va-input
-      class="mb-6"
       v-model="maskDateValue"
+      class="mb-6"
       label="Date mask"
       mask="date"
     />
     <va-input
-      class="mb-6"
       v-model="maskTimeValue"
+      class="mb-6"
       label="Time mask"
       mask="time"
     />
     <va-input
-      class="mb-6"
       v-model="maskNumeralsValue"
+      class="mb-6"
       label="Only numerals mask"
       mask="numeral"
     />
     <va-input
-      class="mb-6"
       v-model="maskCustomBlocksValue"
+      class="mb-6"
       label="Custom blocks mask"
       placeholder="# ##### #####"
       :mask="{ blocks: [1, 5, 5] }"
     />
     <va-input
-      class="mb-6"
       v-model="maskReturnFormattedValue"
+      class="mb-6"
       label="Date mask, return formatted"
-      :returnRaw="false"
+      :return-raw="false"
       mask="date"
     />
-    <br />
+    <br>
     Value: {{ maskReturnFormattedValue }}
   </div>
 </template>

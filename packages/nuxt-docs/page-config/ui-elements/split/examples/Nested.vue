@@ -1,5 +1,8 @@
 <template>
-  <va-split class="split-demo" v-model="value">
+  <va-split
+    v-model="value"
+    class="split-demo"
+  >
     <template #start>
       <va-split>
         <template #start>
@@ -15,7 +18,10 @@
       </va-split>
     </template>
     <template #end>
-      <va-split vertical style="height: 25rem">
+      <va-split
+        vertical
+        style="height: 25rem"
+      >
         <template #start>
           <div class="p-6">
             {{ lorem }}

@@ -1,11 +1,22 @@
 <template>
-  <va-button-dropdown class="mr-2 mb-2" size="small" label="small">
+  <va-button-dropdown
+    class="mr-2 mb-2"
+    size="small"
+    label="small"
+  >
     Content
   </va-button-dropdown>
-  <va-button-dropdown class="mr-2 mb-2" label="medium (default)">
+  <va-button-dropdown
+    class="mr-2 mb-2"
+    label="medium (default)"
+  >
     Content
   </va-button-dropdown>
-  <va-button-dropdown class="mr-2 mb-2" size="large" label="large">
+  <va-button-dropdown
+    class="mr-2 mb-2"
+    size="large"
+    label="large"
+  >
     Content
   </va-button-dropdown>
 </template>

@@ -10,7 +10,10 @@
 
     <va-card>
       <va-card-title>Stretch vertical alignment</va-card-title>
-      <va-card-actions align="stretch" vertical>
+      <va-card-actions
+        align="stretch"
+        vertical
+      >
         <va-button>Action 1</va-button>
         <va-button>Action 2</va-button>
       </va-card-actions>

@@ -11,12 +11,16 @@
         />
       </div>
 
-      <div class="col" style="width: 100%">
+      <div
+        class="col"
+        style="width: 100%"
+      >
         <div class="va-code-snippet">
-          <span class="tag"
-            >va-icon name="<CodeInput class="code-input" v-model="iconName" />"
-            /</span
-          >
+          <span class="tag">va-icon name="<CodeInput
+            v-model="iconName"
+            class="code-input"
+          />"
+            /</span>
         </div>
       </div>
     </div>
@@ -25,11 +29,17 @@
       const fonts = [{
       <div class="ml-6">
         <div>
-          name: '<CodeInput class="code-input" v-model="configName" />',
+          name: '<CodeInput
+            v-model="configName"
+            class="code-input"
+          />',
         </div>
-        {{ resolveFnName }}: (<span class="params">{{ args }}</span
-        >) => ({
-        <div class="ml-6 mb-1" v-for="key in Object.keys(resolve)" :key="key">
+        {{ resolveFnName }}: (<span class="params">{{ args }}</span>) => ({
+        <div
+          v-for="key in Object.keys(resolve)"
+          :key="key"
+          class="ml-6 mb-1"
+        >
           {{ key }}: <CodeInput v-model="(resolve as any)[key]" />,
         </div>
         })
@@ -50,13 +60,20 @@
           class="va-code-snippet va-code-snippet--icon mr-2"
           v-html="renderHTML(iconName)"
         />
-        <div class="va-code-snippet" style="width: 100%">
+        <div
+          class="va-code-snippet"
+          style="width: 100%"
+        >
           {{ renderHTML(iconName) }}
         </div>
       </div>
     </div>
 
-    <MarkdownView class="mt-2" v-if="description" :value="description" />
+    <MarkdownView
+      v-if="description"
+      class="mt-2"
+      :value="description"
+    />
   </div>
 </template>
 

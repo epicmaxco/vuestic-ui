@@ -2,71 +2,71 @@
   <div class="row">
     <div class="flex flex-col lg4 mb-2">
       <va-switch
+        v-model="isTableStriped"
         class="mt-2"
         label="Striped style"
         size="small"
-        v-model="isTableStriped"
       />
-      <br />
+      <br>
       <va-switch
+        v-model="animated"
         class="mt-2"
         label="Animated rows"
         size="small"
-        v-model="animated"
       />
-      <br />
+      <br>
       <va-switch
+        v-model="isTableRowsClickable"
         class="mt-2"
         label="Clickable rows"
         size="small"
-        v-model="isTableRowsClickable"
       />
     </div>
 
     <div class="flex flex-col lg4 mb-2">
       <va-switch
+        v-model="isTableLoading"
         class="mt-2"
         label="Loading state"
         size="small"
-        v-model="isTableLoading"
       />
-      <br />
+      <br>
       <va-switch
+        v-model="prependSlot"
         class="mt-2"
         label="Add (prepend) slots"
         size="small"
-        v-model="prependSlot"
       />
-      <br />
+      <br>
       <va-switch
+        v-model="appendSlot"
         class="mt-2"
         label="Add (append) slots"
         size="small"
-        v-model="appendSlot"
       />
     </div>
 
     <div class="flex flex-col lg4 mb-2">
       <va-switch
+        v-model="hideDefaultHeader"
         class="mt-2"
         label="Hide default header"
         size="small"
-        v-model="hideDefaultHeader"
       />
-      <br />
+      <br>
       <va-switch
+        v-model="footerClone"
         class="mt-2"
         label="Clone header to footer"
         size="small"
-        v-model="footerClone"
         :disabled="hideDefaultHeader"
       />
-      <br />
+      <br>
       <va-switch
+        v-model="footerSorting"
         class="mt-2"
         label="Allow foot sorting"
         size="small"
-        v-model="footerSorting"
         :disabled="hideDefaultHeader || !footerClone"
       />
     </div>
@@ -87,41 +87,76 @@
     @row:dblclick="handleClick"
     @row:contextmenu="handleClick"
   >
-    <template #headerPrepend v-if="prependSlot">
+    <template
+      v-if="prependSlot"
+      #headerPrepend
+    >
       <tr>
-        <th colspan="8">Custom cell which span 8 cells (headPrepend slot)</th>
+        <th colspan="8">
+          Custom cell which span 8 cells (headPrepend slot)
+        </th>
       </tr>
     </template>
-    <template #headerAppend v-if="appendSlot">
+    <template
+      v-if="appendSlot"
+      #headerAppend
+    >
       <tr>
-        <th colspan="8">Custom cell which span 8 cells (headAppend slot)</th>
+        <th colspan="8">
+          Custom cell which span 8 cells (headAppend slot)
+        </th>
       </tr>
     </template>
 
-    <template #bodyPrepend v-if="prependSlot">
+    <template
+      v-if="prependSlot"
+      #bodyPrepend
+    >
       <tr>
-        <td colspan="8">Custom cell which span 8 cells (bodyPrepend slot)</td>
+        <td colspan="8">
+          Custom cell which span 8 cells (bodyPrepend slot)
+        </td>
       </tr>
     </template>
-    <template #bodyAppend v-if="appendSlot">
+    <template
+      v-if="appendSlot"
+      #bodyAppend
+    >
       <tr>
-        <td colspan="8">Custom cell which span 8 cells (bodyAppend slot)</td>
+        <td colspan="8">
+          Custom cell which span 8 cells (bodyAppend slot)
+        </td>
       </tr>
     </template>
 
-    <template #footerPrepend v-if="prependSlot">
+    <template
+      v-if="prependSlot"
+      #footerPrepend
+    >
       <tr>
-        <th colspan="8">Custom cell which span 8 cells (footPrepend slot)</th>
+        <th colspan="8">
+          Custom cell which span 8 cells (footPrepend slot)
+        </th>
       </tr>
     </template>
-    <template #footerAppend v-if="appendSlot">
+    <template
+      v-if="appendSlot"
+      #footerAppend
+    >
       <tr>
-        <th colspan="8">Custom cell which span 8 cells (footAppend slot)</th>
+        <th colspan="8">
+          Custom cell which span 8 cells (footAppend slot)
+        </th>
       </tr>
     </template>
   </va-data-table>
 
-  <va-alert v-if="isTableRowsClickable" class="mt-3" color="info" outline>
+  <va-alert
+    v-if="isTableRowsClickable"
+    class="mt-3"
+    color="info"
+    outline
+  >
     <span>
       Last row click event (id, event type):
       <va-chip v-if="rowId">{{ rowId }}</va-chip>

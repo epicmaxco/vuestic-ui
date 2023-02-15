@@ -1,9 +1,9 @@
 <template>
   <div class="color-grid">
     <div
-      class="color-grid__item-wrapper sm:w-1/2 w-full"
       v-for="[name, value] in colorsComputed"
       :key="name"
+      class="color-grid__item-wrapper sm:w-1/2 w-full"
     >
       <ColorsGridCard
         class="color-grid__item"

@@ -4,9 +4,16 @@
   </h6>
 
   <div class="flex gap-5 flex-wrap">
-    <va-time-picker v-model="value" ampm />
+    <va-time-picker
+      v-model="value"
+      ampm
+    />
     <va-divider vertical />
-    <va-time-picker v-model="value" ampm :period-updates-model-value="false" />
+    <va-time-picker
+      v-model="value"
+      ampm
+      :period-updates-model-value="false"
+    />
   </div>
 </template>
 

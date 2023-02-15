@@ -1,8 +1,14 @@
 <template>
-  <div class="demo-viewport" style="overflow: hidden">
-    <div class="demo-ignore-overflow" style="overflow: hidden">
+  <div
+    class="demo-viewport"
+    style="overflow: hidden"
+  >
+    <div
+      class="demo-ignore-overflow"
+      style="overflow: hidden"
+    >
       <va-dropdown
-        :modelValue="true"
+        :model-value="true"
         :auto-placement="false"
         trigger="none"
         placement="top"
@@ -11,7 +17,9 @@
       >
         <div class="demo-square" />
 
-        <template #anchor> Anchor </template>
+        <template #anchor>
+          Anchor
+        </template>
       </va-dropdown>
     </div>
   </div>

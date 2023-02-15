@@ -1,16 +1,22 @@
 <template>
-  <va-scroll-container style="max-height: 200px" vertical>
+  <va-scroll-container
+    style="max-height: 200px"
+    vertical
+  >
     <va-list>
       <va-list-label> Contacts </va-list-label>
 
       <va-list-item
-        class="list__item"
         v-for="(contact, index) in contacts"
         :key="index"
+        class="list__item"
       >
         <va-list-item-section avatar>
           <va-avatar>
-            <img :src="contact.img" alt="" />
+            <img
+              :src="contact.img"
+              alt=""
+            >
           </va-avatar>
         </va-list-item-section>
 
@@ -25,7 +31,10 @@
         </va-list-item-section>
 
         <va-list-item-section icon>
-          <va-icon name="remove_red_eye" color="background-tertiary" />
+          <va-icon
+            name="remove_red_eye"
+            color="background-tertiary"
+          />
         </va-list-item-section>
       </va-list-item>
     </va-list>

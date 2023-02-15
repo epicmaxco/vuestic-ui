@@ -7,14 +7,21 @@
         onClose: closeHandler,
       })
     "
-    >notification with custom onClose handler</va-button
   >
-  <va-button class="mr-2 mb-2" @click="$vaToast.close('notification_4')"
-    >Close #4 toast</va-button
+    notification with custom onClose handler
+  </va-button>
+  <va-button
+    class="mr-2 mb-2"
+    @click="$vaToast.close('notification_4')"
   >
-  <va-button class="mr-2 mb-2" @click="$vaToast.closeAll()"
-    >Close all toasts</va-button
+    Close #4 toast
+  </va-button>
+  <va-button
+    class="mr-2 mb-2"
+    @click="$vaToast.closeAll()"
   >
+    Close all toasts
+  </va-button>
 </template>
 
 <script>

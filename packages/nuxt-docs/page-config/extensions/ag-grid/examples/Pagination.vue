@@ -3,10 +3,10 @@
     <ag-grid-vue
       class="ag-theme-vuestic"
       style="width: 100%; height: 100%"
-      :paginationAutoPageSize="true"
+      :pagination-auto-page-size="true"
       :pagination="true"
-      :columnDefs="columnDefs"
-      :rowData="rowData"
+      :column-defs="columnDefs"
+      :row-data="rowData"
       :modules="modules"
     />
   </div>

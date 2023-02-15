@@ -1,5 +1,8 @@
 <template>
-  <div id="docsearch" class="docsearch-container" />
+  <div
+    id="docsearch"
+    class="docsearch-container"
+  />
 </template>
 
 <script lang="ts" setup>

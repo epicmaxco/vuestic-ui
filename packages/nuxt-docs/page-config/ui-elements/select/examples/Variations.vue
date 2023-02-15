@@ -1,22 +1,22 @@
 <template>
   <div style="max-width: 300px">
     <va-select
+      v-model="valueSingle"
       class="mb-6"
       label="Single select"
       :options="options"
-      v-model="valueSingle"
     />
     <va-select
+      v-model="valueMultiple"
       class="mb-6"
       label="Multiple select"
       :options="options"
-      v-model="valueMultiple"
       multiple
     />
     <va-select
+      v-model="valueMultipleMax"
       label="Multiple select, Max 2 selections"
       :options="options"
-      v-model="valueMultipleMax"
       multiple
       max-selections="2"
     />

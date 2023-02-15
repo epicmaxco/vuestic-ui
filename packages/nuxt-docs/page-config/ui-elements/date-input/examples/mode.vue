@@ -2,17 +2,26 @@
   <div class="flex justify-around">
     <div>
       <h6>Single mode</h6>
-      <va-date-input mode="single" v-model="single" />
+      <va-date-input
+        v-model="single"
+        mode="single"
+      />
     </div>
 
     <div>
       <h6>Multiple mode</h6>
-      <va-date-input mode="multiple" v-model="multiple" />
+      <va-date-input
+        v-model="multiple"
+        mode="multiple"
+      />
     </div>
 
     <div>
       <h6>Range mode</h6>
-      <va-date-input mode="range" v-model="range" />
+      <va-date-input
+        v-model="range"
+        mode="range"
+      />
     </div>
   </div>
 </template>

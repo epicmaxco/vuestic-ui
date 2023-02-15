@@ -1,6 +1,12 @@
 <template>
-  <va-button @click="showModal = !showModal"> Show modal </va-button>
-  <VaModal v-model="showModal" :message="message" :before-close="beforeClose" />
+  <va-button @click="showModal = !showModal">
+    Show modal
+  </va-button>
+  <VaModal
+    v-model="showModal"
+    :message="message"
+    :before-close="beforeClose"
+  />
 </template>
 
 <script>

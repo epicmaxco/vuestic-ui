@@ -6,7 +6,10 @@
     </div>
     <div>
       <h5>Monday</h5>
-      <va-date-picker stateful first-weekday="Monday" />
+      <va-date-picker
+        stateful
+        first-weekday="Monday"
+      />
     </div>
   </div>
 </template>

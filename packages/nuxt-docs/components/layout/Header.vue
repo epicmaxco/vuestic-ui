@@ -1,12 +1,19 @@
 <template>
-  <va-navbar class="header" color="background-secondary">
+  <va-navbar
+    class="header"
+    color="background-secondary"
+  >
     <template #left>
       <header-selector
         class="mr-3"
         :minimized="isSidebarVisible"
         @toggleSidebar="toggleSidebar"
       />
-      <NuxtLink :to="landing.to" custom v-slot="{ navigate, href }">
+      <NuxtLink
+        v-slot="{ navigate, href }"
+        :to="landing.to"
+        custom
+      >
         <a
           :href="href"
           :aria-label="landing.text"
@@ -37,7 +44,10 @@
         {{ link.text }}
       </va-button>
       <color-dropdown class="mr-2" />
-      <language-dropdown class="mr-3" preset="secondary" />
+      <language-dropdown
+        class="mr-3"
+        preset="secondary"
+      />
       <theme-switch />
       <version-dropdown />
     </template>

@@ -7,7 +7,10 @@
       class="mr-3"
       style="flex: 0 200px"
     />
-    <va-checkbox v-model="isFilterCaseSensitive" label="Case sensitive" />
+    <va-checkbox
+      v-model="isFilterCaseSensitive"
+      label="Case sensitive"
+    />
   </div>
   <va-tree-view
     :nodes="nodes"

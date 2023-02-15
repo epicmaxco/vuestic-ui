@@ -6,11 +6,28 @@
       shadow-color="danger"
       target="#va-app-bar-shadow"
     >
-      <va-button icon="home" color="textInverted" preset="plain" />
-      <va-button icon="info" color="textInverted" preset="plain" />
-      <va-button icon="battery" color="textInverted" preset="plain" />
+      <va-button
+        icon="home"
+        color="textInverted"
+        preset="plain"
+      />
+      <va-button
+        icon="info"
+        color="textInverted"
+        preset="plain"
+      />
+      <va-button
+        icon="battery"
+        color="textInverted"
+        preset="plain"
+      />
       <va-spacer />
-      <va-button color="textInverted" preset="plain">Login</va-button>
+      <va-button
+        color="textInverted"
+        preset="plain"
+      >
+        Login
+      </va-button>
       <va-button-dropdown
         preset="plain"
         color="textInverted"
@@ -21,7 +38,9 @@
       </va-button-dropdown>
     </va-app-bar>
 
-    <div id="va-app-bar-shadow">.</div>
+    <div id="va-app-bar-shadow">
+      .
+    </div>
   </div>
 </template>
 

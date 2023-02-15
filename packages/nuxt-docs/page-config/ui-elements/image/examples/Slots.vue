@@ -1,10 +1,17 @@
 <template>
   <div class="mb-4 w-1/3 flex">
-    <va-button class="mr-2" color="success" @click="newImage">
+    <va-button
+      class="mr-2"
+      color="success"
+      @click="newImage"
+    >
       New image
     </va-button>
 
-    <va-button color="warning" @click="wrongPath">
+    <va-button
+      color="warning"
+      @click="wrongPath"
+    >
       Wrong path
     </va-button>
   </div>
@@ -21,7 +28,11 @@
 
       <template #error>
         <div class="p-8 flex items-center justify-center bg-red-300 rounded-3xl">
-          <va-icon name="close" color="danger" :size="32" />
+          <va-icon
+            name="close"
+            color="danger"
+            :size="32"
+          />
         </div>
       </template>
     </va-image>

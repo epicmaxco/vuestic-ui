@@ -2,8 +2,12 @@
   <section class="admin">
     <div class="admin__wrapper">
       <div class="admin__inner">
-        <h2 class="admin__title">{{ $t('landing.admin.title') }}</h2>
-        <div class="admin__subtitle">{{ $t('landing.admin.text') }}</div>
+        <h2 class="admin__title">
+          {{ $t('landing.admin.title') }}
+        </h2>
+        <div class="admin__subtitle">
+          {{ $t('landing.admin.text') }}
+        </div>
         <div class="admin__buttons">
           <va-button
             class="admin__buttons--button"
@@ -11,7 +15,10 @@
             target="blank"
           >
             <template #prepend>
-              <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
+              <va-icon
+                class="fa fa-github"
+                style="margin-right: 0.5rem;"
+              />
             </template>
             {{ $t('landing.admin.buttons.github') }}
           </va-button>
@@ -30,37 +37,71 @@
         </div>
         <div class="admin__content">
           <div class="admin__content__item admin__content__item--first">
-            <nuxt-img height="555px" width="875px" src="/landing/admin/admin.png" format="webp" alt="vuestic-admin"/>
+            <nuxt-img
+              height="555px"
+              width="875px"
+              src="/landing/admin/admin.png"
+              format="webp"
+              alt="vuestic-admin"
+            />
           </div>
           <div class="admin__content__item admin__content__item--second">
             <!-- items -->
             <div class="items">
               <div class="item item--first">
                 <div class="item__frame">
-                  <nuxt-img height="32px" width="32px" src="/landing/admin/open-source.svg" alt="open-source"/>
+                  <nuxt-img
+                    height="32px"
+                    width="32px"
+                    src="/landing/admin/open-source.svg"
+                    alt="open-source"
+                  />
                 </div>
-                <h2 class="item__title">{{ $t('landing.admin.features.opensource') }}</h2>
+                <h2 class="item__title">
+                  {{ $t('landing.admin.features.opensource') }}
+                </h2>
               </div>
 
               <div class="item">
                 <div class="item__frame">
-                  <nuxt-img height="32px" width="32px" src="/landing/admin/themes.svg" alt="themes"/>
+                  <nuxt-img
+                    height="32px"
+                    width="32px"
+                    src="/landing/admin/themes.svg"
+                    alt="themes"
+                  />
                 </div>
-                <h2 class="item__title">{{ $t('landing.admin.features.themes') }}</h2>
+                <h2 class="item__title">
+                  {{ $t('landing.admin.features.themes') }}
+                </h2>
               </div>
 
               <div class="item">
                 <div class="item__frame">
-                  <nuxt-img height="32px" width="32px" src="/landing/admin/responsive.svg" alt="responsive"/>
+                  <nuxt-img
+                    height="32px"
+                    width="32px"
+                    src="/landing/admin/responsive.svg"
+                    alt="responsive"
+                  />
                 </div>
-                <h2 class="item__title">{{ $t('landing.admin.features.responsive') }}</h2>
+                <h2 class="item__title">
+                  {{ $t('landing.admin.features.responsive') }}
+                </h2>
               </div>
 
               <div class="item">
                 <div class="item__frame">
-                  <nuxt-img height="32px" width="32px" src="/landing/admin/i18n.svg" alt="i18n"/>
+                  <nuxt-img
+                    height="32px"
+                    width="32px"
+                    src="/landing/admin/i18n.svg"
+                    alt="i18n"
+                  />
                 </div>
-                <h2 class="item__title">{{ $t('landing.admin.features.i18n') }}</h2>
+                <h2 class="item__title">
+                  {{ $t('landing.admin.features.i18n') }}
+                </h2>
               </div>
             </div>
             <!-- /items -->

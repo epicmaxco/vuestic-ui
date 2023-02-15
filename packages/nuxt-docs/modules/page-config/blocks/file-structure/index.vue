@@ -24,15 +24,31 @@ const nodes = computed(() => props.files.map(compileNode))
 </script>
 
 <template>
-  <va-tree-view :nodes="nodes" expand-all>
+  <va-tree-view
+    :nodes="nodes"
+    expand-all
+  >
     <template #content="node">
       <div class="d-flex align-center">
-        <va-icon class="mr-2" :name="nodeIcon(node)" :color="nodeColor(node)" />
+        <va-icon
+          class="mr-2"
+          :name="nodeIcon(node)"
+          :color="nodeColor(node)"
+        />
 
         <span>{{ node.label }}</span>
 
-        <va-popover v-if="node.description" :message="node.description" stick-to-edges>
-          <va-icon class="ml-2" name="help" size="small" color="secondary" />
+        <va-popover
+          v-if="node.description"
+          :message="node.description"
+          stick-to-edges
+        >
+          <va-icon
+            class="ml-2"
+            name="help"
+            size="small"
+            color="secondary"
+          />
         </va-popover>
       </div>
     </template>

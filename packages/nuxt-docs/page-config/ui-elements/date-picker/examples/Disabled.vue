@@ -1,8 +1,20 @@
 <template>
   <div class="flex gap-5 flex-wrap">
-    <va-date-picker v-model="value" type="day" disabled />
-    <va-date-picker v-model="value" type="month" disabled />
-    <va-date-picker v-model="value" type="year" disabled />
+    <va-date-picker
+      v-model="value"
+      type="day"
+      disabled
+    />
+    <va-date-picker
+      v-model="value"
+      type="month"
+      disabled
+    />
+    <va-date-picker
+      v-model="value"
+      type="year"
+      disabled
+    />
   </div>
 </template>
 

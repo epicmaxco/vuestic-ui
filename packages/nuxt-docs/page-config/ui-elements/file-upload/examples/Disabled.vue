@@ -1,9 +1,21 @@
 <template>
-  <va-file-upload v-model="basic" type="single" disabled />
+  <va-file-upload
+    v-model="basic"
+    type="single"
+    disabled
+  />
   <va-divider horizontal />
-  <va-file-upload v-model="basic" type="list" disabled />
+  <va-file-upload
+    v-model="basic"
+    type="list"
+    disabled
+  />
   <va-divider horizontal />
-  <va-file-upload v-model="basic" type="gallery" disabled />
+  <va-file-upload
+    v-model="basic"
+    type="gallery"
+    disabled
+  />
 </template>
 
 <script>

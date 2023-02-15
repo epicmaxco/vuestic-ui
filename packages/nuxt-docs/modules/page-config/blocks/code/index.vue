@@ -12,5 +12,8 @@ const props = defineProps({
 </script>
 
 <template>
-  <CodeView :code="content" :language="language" />
+  <CodeView
+    :code="content"
+    :language="language"
+  />
 </template>

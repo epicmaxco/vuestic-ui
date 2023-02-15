@@ -1,14 +1,21 @@
 <template>
   <div>
     <input
-      class="inp-seamless-another-checkbox"
       id="seamless-another-checkbox"
+      class="inp-seamless-another-checkbox"
       type="checkbox"
       style="display: none;"
-    />
-    <label class="seamless-another-checkbox" for="seamless-another-checkbox">
+    >
+    <label
+      class="seamless-another-checkbox"
+      for="seamless-another-checkbox"
+    >
       <span>
-        <svg width="12px" height="10px" viewbox="0 0 12 10">
+        <svg
+          width="12px"
+          height="10px"
+          viewbox="0 0 12 10"
+        >
           <polyline points="1.5 6 4.5 9 10.5 1" />
         </svg>
       </span>

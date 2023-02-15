@@ -1,5 +1,8 @@
 <template>
-  <footer class="footer" :style="{ color: textColor }">
+  <footer
+    class="footer"
+    :style="{ color: textColor }"
+  >
     <div class="footer__wrapper">
       <div class="footer__inner">
         <LandingEpicmaxBanner class="mb-6 " />
@@ -69,12 +72,15 @@
         </div>
         <div class="footer__subtitle">
           © {{ currentYear }} {{ $t("landing.footer.text") }}
-          <a :style="{ color: primaryColor }" href="mailto:hello@epicmax.co">
+          <a
+            :style="{ color: primaryColor }"
+            href="mailto:hello@epicmax.co"
+          >
             hello@epicmax.co
           </a>
         </div>
       </div>
-<!--      <LandingNewsBanner />-->
+      <!--      <LandingNewsBanner />-->
     </div>
   </footer>
 </template>

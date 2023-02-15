@@ -1,13 +1,28 @@
 <template>
-  <va-tabs v-model="value" vertical grow>
+  <va-tabs
+    v-model="value"
+    vertical
+    grow
+  >
     <template #tabs>
-      <va-tab v-for="tab in tabs" :key="tab.title" :name="tab.title">
-        <va-icon :name="tab.icon" size="small" class="mr-2" />
+      <va-tab
+        v-for="tab in tabs"
+        :key="tab.title"
+        :name="tab.title"
+      >
+        <va-icon
+          :name="tab.icon"
+          size="small"
+          class="mr-2"
+        />
         {{ tab.title }}
       </va-tab>
     </template>
 
-    <va-card square outlined>
+    <va-card
+      square
+      outlined
+    >
       <va-card-title>
         <va-icon
           :name="currentTab.icon"

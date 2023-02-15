@@ -1,8 +1,8 @@
 <template>
   <div
-    v-html="text"
     class="MarkdownView"
     :class="{ 'MarkdownView--inline': inline || text }"
+    v-html="text"
   />
 </template>
 

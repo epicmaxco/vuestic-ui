@@ -2,16 +2,16 @@
   <div class="flex gap-5 flex-wrap">
     <va-counter
       v-model="value"
-      increaseIcon="add_circle_outline"
-      decreaseIcon="remove_circle_outline"
+      increase-icon="add_circle_outline"
+      decrease-icon="remove_circle_outline"
       color="#6938D1"
     />
 
     <va-counter
       v-model="value"
       outline
-      increaseIcon="arrow_upward"
-      decreaseIcon="arrow_downward"
+      increase-icon="arrow_upward"
+      decrease-icon="arrow_downward"
       color="#0FB58D"
     />
 

@@ -6,7 +6,10 @@
     viewBox="0 0 663 429"
   >
     <defs />
-    <path fill="#fff" d="M0 0h663v429H0z" />
+    <path
+      fill="#fff"
+      d="M0 0h663v429H0z"
+    />
     <text
       y="33"
       font-family="Virgil, Segoe UI Emoji"
@@ -47,7 +50,11 @@
       />
     </g>
     <g stroke-linecap="round">
-      <path fill="#ced4da" stroke-width="0" d="m286 376 277-2-1 41-276-1" />
+      <path
+        fill="#ced4da"
+        stroke-width="0"
+        d="m286 376 277-2-1 41-276-1"
+      />
       <path
         fill="none"
         stroke="#000"

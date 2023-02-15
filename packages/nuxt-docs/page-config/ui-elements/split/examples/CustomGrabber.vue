@@ -1,5 +1,8 @@
 <template>
-  <va-split class="split-demo" style="height: 22rem">
+  <va-split
+    class="split-demo"
+    style="height: 22rem"
+  >
     <template #start>
       <div class="p-6">
         {{ lorem }}

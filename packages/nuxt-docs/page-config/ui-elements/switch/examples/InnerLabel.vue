@@ -6,8 +6,13 @@
       false-inner-label="Disagree"
       class="mr-6"
     />
-    <va-switch v-model="value" class="mr-6">
-      <template #innerLabel> Inner Label slot </template>
+    <va-switch
+      v-model="value"
+      class="mr-6"
+    >
+      <template #innerLabel>
+        Inner Label slot
+      </template>
     </va-switch>
     <va-switch
       v-model="value"
@@ -17,7 +22,10 @@
     >
       <template #innerLabel>
         <div class="va-text-center">
-          <va-icon size="24px" :name="value ? 'dark_mode' : 'light_mode'" />
+          <va-icon
+            size="24px"
+            :name="value ? 'dark_mode' : 'light_mode'"
+          />
         </div>
       </template>
     </va-switch>

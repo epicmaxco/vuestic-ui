@@ -1,25 +1,25 @@
 <template>
   <div class="row">
     <va-input
+      v-model.number="perPage"
       class="flex flex-col mb-2 md3"
       type="number"
       placeholder="Items..."
       label="Items per page"
-      v-model.number="perPage"
     />
 
     <va-input
+      v-model.number="currentPage"
       class="flex flex-col mb-2 md3"
       type="number"
       placeholder="Page..."
       label="Current page"
-      v-model.number="currentPage"
     />
 
     <va-input
+      v-model="filter"
       class="flex flex-col mb-2 md6"
       placeholder="Filter..."
-      v-model="filter"
     />
   </div>
 
@@ -36,7 +36,11 @@
       <tr>
         <td colspan="8">
           <div class="table-example--pagination">
-            <va-pagination v-model="currentPage" input :pages="pages" />
+            <va-pagination
+              v-model="currentPage"
+              input
+              :pages="pages"
+            />
           </div>
         </td>
       </tr>

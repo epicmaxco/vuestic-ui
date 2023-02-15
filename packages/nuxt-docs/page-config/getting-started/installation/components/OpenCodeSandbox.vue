@@ -1,8 +1,20 @@
 <template>
   <div>
-    <form :action="sandboxDefineUrl" method="POST" target="_blank">
-      <input type="hidden" name="parameters" :value="sandboxParams" />
-      <va-button type="submit" preset="secondary" border-color="primary">
+    <form
+      :action="sandboxDefineUrl"
+      method="POST"
+      target="_blank"
+    >
+      <input
+        type="hidden"
+        name="parameters"
+        :value="sandboxParams"
+      >
+      <va-button
+        type="submit"
+        preset="secondary"
+        border-color="primary"
+      >
         {{ $t("installation.codesandbox.button") }}
       </va-button>
     </form>

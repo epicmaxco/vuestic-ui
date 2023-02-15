@@ -5,7 +5,10 @@
     class="mb-6"
     icon-color="warning"
   />
-  <va-button-toggle v-model="model" :options="optionsOnlyIcons" />
+  <va-button-toggle
+    v-model="model"
+    :options="optionsOnlyIcons"
+  />
 </template>
 
 <script>

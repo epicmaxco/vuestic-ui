@@ -1,16 +1,20 @@
 <template>
   <va-checkbox
-    :label="$t('alert.misc.toggleVisibility')"
     v-model="isCloseableAlertVisible"
+    :label="$t('alert.misc.toggleVisibility')"
     class="mb-6"
   />
-  <va-alert v-model="isCloseableAlertVisible" closeable class="mb-6">
+  <va-alert
+    v-model="isCloseableAlertVisible"
+    closeable
+    class="mb-6"
+  >
     {{ $t("alert.misc.defaultCloseIcon") }}
   </va-alert>
 
   <va-alert
-    color="info"
     v-model="isCloseableAlertVisible"
+    color="info"
     closeable
     close-icon="info"
     class="mb-6"
@@ -19,8 +23,8 @@
   </va-alert>
 
   <va-alert
-    color="warning"
     v-model="isCloseableAlertVisible"
+    color="warning"
     closeable
     :close-text="$t('alert.misc.close')"
     class="mb-6"
@@ -29,8 +33,8 @@
   </va-alert>
 
   <va-alert
-    color="success"
     v-model="isCloseableAlertVisible"
+    color="success"
     closeable
     class="mb-6"
   >

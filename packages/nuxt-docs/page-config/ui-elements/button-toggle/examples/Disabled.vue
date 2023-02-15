@@ -1,5 +1,10 @@
 <template>
-  <va-button-toggle disabled v-model="model" :options="options" class="mb-6" />
+  <va-button-toggle
+    v-model="model"
+    disabled
+    :options="options"
+    class="mb-6"
+  />
 </template>
 
 <script>

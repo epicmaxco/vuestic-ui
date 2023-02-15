@@ -1,5 +1,8 @@
 <template>
-  <va-parallax :src="imageSrc" reversed />
+  <va-parallax
+    :src="imageSrc"
+    reversed
+  />
 </template>
 
 <script>

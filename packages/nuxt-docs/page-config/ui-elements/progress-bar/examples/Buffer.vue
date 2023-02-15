@@ -1,6 +1,9 @@
 <template>
   <div class="flex flex-col gap-2">
-    <va-progress-bar :model-value="value" :buffer="bufferValue" />
+    <va-progress-bar
+      :model-value="value"
+      :buffer="bufferValue"
+    />
 
     <va-slider
       v-model="value"

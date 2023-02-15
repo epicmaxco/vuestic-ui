@@ -4,12 +4,13 @@
       <select>
         <option
           v-for="option of options"
+          :key="option"
           :value="option"
         >
           {{ option }}
         </option>
       </select>
-      <span class="focus"></span>
+      <span class="focus" />
     </div>
   </div>
 </template>

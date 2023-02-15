@@ -40,23 +40,31 @@ const linkHref = computed(() => {
 <template>
   <p class="docs-link">
     <MarkdownView
+      v-if="preText"
       class="docs-link__pre"
       inline
       tag="span"
-      v-if="preText"
       :content="t(preText)"
     />
-    <a v-if="externalLink" class="MarkdownView__link--external" :href="href" target="_blank">
+    <a
+      v-if="externalLink"
+      class="MarkdownView__link--external"
+      :href="href"
+      target="_blank"
+    >
       {{ t(text) }}
     </a>
-    <NuxtLink v-else :to="linkHref">
+    <NuxtLink
+      v-else
+      :to="linkHref"
+    >
       {{ t(text) }}
     </NuxtLink>
     <MarkdownView
+      v-if="afterText"
       class="docs-link__after"
       inline
       tag="span"
-      v-if="afterText"
       :content="t(afterText)"
     />
   </p>

@@ -1,5 +1,8 @@
 <template>
-  <va-rating v-model="value" clearable />
+  <va-rating
+    v-model="value"
+    clearable
+  />
 </template>
 
 <script>

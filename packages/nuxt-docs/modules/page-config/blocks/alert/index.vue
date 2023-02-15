@@ -16,7 +16,11 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <va-alert class="page-config-alert my-2" :color="color" outline>
+  <va-alert
+    class="page-config-alert my-2"
+    :color="color"
+    outline
+  >
     <MarkdownView :content="t(text)" />
   </va-alert>
 </template>

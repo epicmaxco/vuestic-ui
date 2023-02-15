@@ -1,5 +1,9 @@
 <template>
-  <va-carousel :items="items" v-model="value" :ratio="21 / 9" />
+  <va-carousel
+    v-model="value"
+    :items="items"
+    :ratio="21 / 9"
+  />
 </template>
 
 <script>

@@ -5,21 +5,27 @@
       size="small"
       style="width: 33%; max-height: 200px"
     >
-      <div style="padding: 1rem">{{ lorem }}</div>
+      <div style="padding: 1rem">
+        {{ lorem }}
+      </div>
     </va-scroll-container>
     <va-scroll-container
       vertical
       size="medium"
       style="margin: 0 1rem; width: 33%; max-height: 200px"
     >
-      <div style="padding: 1rem">{{ lorem }}</div>
+      <div style="padding: 1rem">
+        {{ lorem }}
+      </div>
     </va-scroll-container>
     <va-scroll-container
       vertical
       size="large"
       style="width: 33%; max-height: 200px"
     >
-      <div style="padding: 1rem">{{ lorem }}</div>
+      <div style="padding: 1rem">
+        {{ lorem }}
+      </div>
     </va-scroll-container>
   </div>
 </template>

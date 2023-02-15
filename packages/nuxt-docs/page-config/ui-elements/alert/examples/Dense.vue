@@ -1,8 +1,17 @@
 <template>
-  <va-alert dense color="info" class="mb-6">
+  <va-alert
+    dense
+    color="info"
+    class="mb-6"
+  >
     {{ $t("alert.misc.color") }}
   </va-alert>
-  <va-alert dense color="warning" outline class="mb-6">
+  <va-alert
+    dense
+    color="warning"
+    outline
+    class="mb-6"
+  >
     {{ $t("alert.misc.outlined") }}
   </va-alert>
   <va-alert

@@ -8,7 +8,9 @@
     {{ icon }}
   </va-chip>
 
-  <va-chip class="mr-6 mb-2">without icon</va-chip>
+  <va-chip class="mr-6 mb-2">
+    without icon
+  </va-chip>
 </template>
 
 <script>

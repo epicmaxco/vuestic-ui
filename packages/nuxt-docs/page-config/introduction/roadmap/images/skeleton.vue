@@ -6,9 +6,16 @@
     viewBox="0 0 481 423"
   >
     <defs />
-    <path fill="#fff" d="M0 0h481v423H0z" />
+    <path
+      fill="#fff"
+      d="M0 0h481v423H0z"
+    />
     <g stroke-linecap="round">
-      <path fill="#ced4da" stroke-width="0" d="m115 8 352 5 2 35-354-3" />
+      <path
+        fill="#ced4da"
+        stroke-width="0"
+        d="m115 8 352 5 2 35-354-3"
+      />
       <path
         fill="none"
         stroke="#000"
@@ -30,7 +37,11 @@
       />
     </g>
     <g stroke-linecap="round">
-      <path fill="#ced4da" stroke-width="0" d="m25 130 443-2-2 59-444 1" />
+      <path
+        fill="#ced4da"
+        stroke-width="0"
+        d="m25 130 443-2-2 59-444 1"
+      />
       <path
         fill="none"
         stroke="#000"
@@ -39,7 +50,11 @@
       />
     </g>
     <g stroke-linecap="round">
-      <path fill="#ced4da" stroke-width="0" d="m17 227 219 3 5 183-219-3" />
+      <path
+        fill="#ced4da"
+        stroke-width="0"
+        d="m17 227 219 3 5 183-219-3"
+      />
       <path
         fill="none"
         stroke="#000"
@@ -48,7 +63,11 @@
       />
     </g>
     <g stroke-linecap="round">
-      <path fill="#ced4da" stroke-width="0" d="m261 222 202-1-5 186-198 4" />
+      <path
+        fill="#ced4da"
+        stroke-width="0"
+        d="m261 222 202-1-5 186-198 4"
+      />
       <path
         fill="none"
         stroke="#000"
@@ -57,7 +76,11 @@
       />
     </g>
     <g stroke-linecap="round">
-      <path fill="#ced4da" stroke-width="0" d="m119 70 350-4v34l-349 5" />
+      <path
+        fill="#ced4da"
+        stroke-width="0"
+        d="m119 70 350-4v34l-349 5"
+      />
       <path
         fill="none"
         stroke="#000"

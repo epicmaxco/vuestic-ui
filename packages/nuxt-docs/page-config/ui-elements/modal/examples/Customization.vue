@@ -3,7 +3,11 @@
     Show modal (custom rendering)
   </va-button>
 
-  <va-modal v-model="showModal" hide-default-actions overlay-opacity="0.2">
+  <va-modal
+    v-model="showModal"
+    hide-default-actions
+    overlay-opacity="0.2"
+  >
     <template #header>
       <h2>Custom header</h2>
     </template>

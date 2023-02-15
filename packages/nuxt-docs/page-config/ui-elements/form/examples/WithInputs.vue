@@ -1,27 +1,41 @@
 <template>
   <div style="width: 300px">
-    <va-button class="mb-3" @click="$refs.form.validate()">
+    <va-button
+      class="mb-3"
+      @click="$refs.form.validate()"
+    >
       Validate
     </va-button>
 
-    <va-form ref="form" @validation="validation = $event">
-      <va-input label="Name" v-model="inputValue" :rules="inputRules" />
+    <va-form
+      ref="form"
+      @validation="validation = $event"
+    >
+      <va-input
+        v-model="inputValue"
+        label="Name"
+        :rules="inputRules"
+      />
       <va-select
+        v-model="selectValue"
         class="mt-3"
         label="City"
-        v-model="selectValue"
         :rules="selectRules"
         :options="options"
       />
       <va-date-input
+        v-model="inputDate"
         class="mt-3"
         label="Date"
-        v-model="inputDate"
         :rules="dateRules"
       />
     </va-form>
 
-    <va-alert v-if="validation !== null" class="mt-6" border="left">
+    <va-alert
+      v-if="validation !== null"
+      class="mt-6"
+      border="left"
+    >
       <span>
         Validate form:
         <va-chip>{{ validation }}</va-chip>

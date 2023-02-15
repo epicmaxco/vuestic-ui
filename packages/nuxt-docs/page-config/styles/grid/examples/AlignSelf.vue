@@ -1,24 +1,35 @@
 <template>
-  <va-card color="background-element" style="padding: 0.75rem">
+  <va-card
+    color="background-element"
+    style="padding: 0.75rem"
+  >
     <div class="row">
       <!-- align-self-start -->
       <div class="flex flex-col xs3 align-self-start">
-        <div class="item">align-self-start</div>
+        <div class="item">
+          align-self-start
+        </div>
       </div>
 
       <!-- align-self-end -->
       <div class="flex flex-col xs3 align-self-end">
-        <div class="item">align-self-end</div>
+        <div class="item">
+          align-self-end
+        </div>
       </div>
 
       <!-- align-self-center -->
       <div class="flex flex-col xs3 align-self-center">
-        <div class="item">align-self-center</div>
+        <div class="item">
+          align-self-center
+        </div>
       </div>
 
       <!-- align-self-baseline -->
       <div class="flex flex-col xs3 align-self-baseline">
-        <div class="item">align-self-baseline</div>
+        <div class="item">
+          align-self-baseline
+        </div>
       </div>
     </div>
   </va-card>

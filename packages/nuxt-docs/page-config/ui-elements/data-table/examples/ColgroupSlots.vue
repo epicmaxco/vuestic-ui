@@ -1,8 +1,11 @@
 <template>
-  <va-data-table :items="items" :columns="columns">
+  <va-data-table
+    :items="items"
+    :columns="columns"
+  >
     <template #colgroup>
-      <col span="5" />
-      <col class="table-example--slots" />
+      <col span="5">
+      <col class="table-example--slots">
     </template>
   </va-data-table>
 </template>

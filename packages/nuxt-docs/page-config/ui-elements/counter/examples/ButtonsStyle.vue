@@ -1,6 +1,11 @@
 <template>
   <div class="flex gap-5 flex-wrap">
-    <va-counter v-model="value" buttons :flat="false" rounded />
+    <va-counter
+      v-model="value"
+      buttons
+      :flat="false"
+      rounded
+    />
 
     <va-counter
       v-model="value"
@@ -11,9 +16,19 @@
       rounded
     />
 
-    <va-counter v-model="value" buttons :flat="false" />
+    <va-counter
+      v-model="value"
+      buttons
+      :flat="false"
+    />
 
-    <va-counter v-model="value" outline buttons :flat="false" margins="0" />
+    <va-counter
+      v-model="value"
+      outline
+      buttons
+      :flat="false"
+      margins="0"
+    />
   </div>
 </template>
 

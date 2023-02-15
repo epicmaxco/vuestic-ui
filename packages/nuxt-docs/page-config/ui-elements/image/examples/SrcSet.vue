@@ -1,6 +1,6 @@
 <template>
   <va-image
-    className="w-full md:w-1/2 lg:w-1/3"
+    class-name="w-full md:w-1/2 lg:w-1/3"
     :src="getImagePath(200)"
     :srcset="`${getImagePath(201)} 400w,
                 ${getImagePath(202)} 800w,

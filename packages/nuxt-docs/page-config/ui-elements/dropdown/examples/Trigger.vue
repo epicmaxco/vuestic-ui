@@ -1,7 +1,9 @@
 <template>
   <va-dropdown>
     <template #anchor>
-      <va-button class="mr-2"> Click </va-button>
+      <va-button class="mr-2">
+        Click
+      </va-button>
     </template>
 
     <va-dropdown-content> Dropped down! </va-dropdown-content>
@@ -9,7 +11,9 @@
 
   <va-dropdown trigger="right-click">
     <template #anchor>
-      <va-button class="mr-2"> Right click </va-button>
+      <va-button class="mr-2">
+        Right click
+      </va-button>
     </template>
 
     <va-dropdown-content> Dropped down! </va-dropdown-content>
@@ -28,7 +32,7 @@
       v-model="doShowDropdown"
       trigger="none"
       class="mr-2"
-      :closeOnClickOutside="false"
+      :close-on-click-outside="false"
     >
       <template #anchor>
         <va-button> None </va-button>

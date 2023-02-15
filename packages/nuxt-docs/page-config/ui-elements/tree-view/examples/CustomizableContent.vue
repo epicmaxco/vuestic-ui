@@ -1,5 +1,8 @@
 <template>
-  <va-tree-view :nodes="nodes" class="customizable-content">
+  <va-tree-view
+    :nodes="nodes"
+    class="customizable-content"
+  >
     <template #content="node">
       <div class="flex items-center">
         <va-avatar
@@ -9,8 +12,14 @@
         />
 
         <div style="margin-right: 0.5rem">
-          <b v-if="node.label" class="display-6">{{ node.label }}</b>
-          <p v-if="node.description" class="text--secondary mb-0">
+          <b
+            v-if="node.label"
+            class="display-6"
+          >{{ node.label }}</b>
+          <p
+            v-if="node.description"
+            class="text--secondary mb-0"
+          >
             {{ node.description }}
           </p>
         </div>

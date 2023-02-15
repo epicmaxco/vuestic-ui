@@ -14,5 +14,8 @@ const props = defineProps({
 </script>
 
 <template>
-  <component :is="component" v-bind="bind" />
+  <component
+    :is="component"
+    v-bind="bind"
+  />
 </template>

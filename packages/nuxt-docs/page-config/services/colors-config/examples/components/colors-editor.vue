@@ -1,9 +1,16 @@
 <template>
   <div class="colors-editor">
-    <div class="r" v-for="color in colors" :key="color.name">
+    <div
+      v-for="color in colors"
+      :key="color.name"
+      class="r"
+    >
       <span class="name">{{ color.name }}:</span>
 
-      <va-color-palette v-model="color.value" :palette="colorsPalette" />
+      <va-color-palette
+        v-model="color.value"
+        :palette="colorsPalette"
+      />
     </div>
   </div>
 </template>
@@ -12,10 +19,10 @@
 import { ref, toRefs, watch } from "vue";
 
 export default {
-  emits: ["update:modelValue"],
   props: {
     modelValue: { type: Array },
   },
+  emits: ["update:modelValue"],
   setup(props, ctx) {
     const { modelValue } = toRefs(props);
 

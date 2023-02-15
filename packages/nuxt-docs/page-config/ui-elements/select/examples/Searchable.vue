@@ -1,9 +1,9 @@
 <template>
   <div style="max-width: 300px">
     <va-select
+      v-model="value"
       label="Searchable multi select"
       :options="options"
-      v-model="value"
       multiple
       searchable
     />

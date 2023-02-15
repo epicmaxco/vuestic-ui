@@ -1,12 +1,22 @@
 <template>
   <div style="display: flex; align-items: flex-start">
-    <va-date-input class="mr-6" label="Success" v-model="value" success />
-
-    <va-date-input class="mr-6" label="Error" v-model="value" error />
+    <va-date-input
+      v-model="value"
+      class="mr-6"
+      label="Success"
+      success
+    />
 
     <va-date-input
-      label="With rules"
       v-model="value"
+      class="mr-6"
+      label="Error"
+      error
+    />
+
+    <va-date-input
+      v-model="value"
+      label="With rules"
       :rules="validationRules"
       clearable
     />

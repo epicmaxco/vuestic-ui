@@ -1,10 +1,10 @@
 <template>
   <div style="max-width: 300px">
     <va-select
+      v-model="value"
       class="mb-6"
       label="Custom chips (first 3)"
       :options="options"
-      v-model="value"
       multiple
     >
       <template #content="{ value }">
@@ -20,9 +20,9 @@
     </va-select>
 
     <va-select
+      v-model="value"
       label="Removable chips"
       :options="options"
-      v-model="value"
       multiple
     >
       <template #content="{ value }">

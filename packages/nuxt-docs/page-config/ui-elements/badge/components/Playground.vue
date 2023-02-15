@@ -1,9 +1,18 @@
 <template>
-  <ComponentPlayground :options="options" :code="renderComponent('va-badge')" :slots="slots"
-    #default="{ bind, slots }">
+  <ComponentPlayground
+    v-slot="{ bind, slots }"
+    :options="options"
+    :code="renderComponent('va-badge')"
+    :slots="slots"
+  >
     <div>
       <va-badge v-bind="bind">
-        <va-button v-if="bind.withContent" size="small">Button</va-button>
+        <va-button
+          v-if="bind.withContent"
+          size="small"
+        >
+          Button
+        </va-button>
       </va-badge>
     </div>
   </ComponentPlayground>

@@ -1,15 +1,21 @@
 <template>
   <div class="docs-layout">
-    <div class="docs-layout__header" ref="header">
+    <div
+      ref="header"
+      class="docs-layout__header"
+    >
       <LayoutHeader v-model:isSidebarVisible="isSidebarVisible" />
     </div>
     <section class="docs-layout__main-section">
       <aside class="docs-layout__sidebar">
-        <LayoutSidebar v-model:visible="isSidebarVisible" :mobile="breakpoints.sm" />
+        <LayoutSidebar
+          v-model:visible="isSidebarVisible"
+          :mobile="breakpoints.sm"
+        />
       </aside>
       <main class="docs-layout__main-content">
         <article class="docs-layout__page-content va-typography-block">
-            <slot />
+          <slot />
         </article>
       </main>
     </section>

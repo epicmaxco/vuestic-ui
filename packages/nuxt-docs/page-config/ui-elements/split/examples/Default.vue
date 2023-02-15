@@ -1,5 +1,8 @@
 <template>
-  <va-split class="split-demo split-demo--image" :limits="[10, 10]">
+  <va-split
+    class="split-demo split-demo--image"
+    :limits="[10, 10]"
+  >
     <template #start="{ containerSize }">
       <div class="img-block">
         <nuxt-img

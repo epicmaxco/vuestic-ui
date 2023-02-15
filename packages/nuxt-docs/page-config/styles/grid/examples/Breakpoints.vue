@@ -1,26 +1,41 @@
 <template>
-  <va-card color="background-element" style="padding: 0.75rem">
+  <va-card
+    color="background-element"
+    style="padding: 0.75rem"
+  >
     <div class="row">
       <div class="flex flex-col md12">
-        <div class="item">md12</div>
+        <div class="item">
+          md12
+        </div>
       </div>
       <div class="flex flex-col md6">
-        <div class="item">md6</div>
+        <div class="item">
+          md6
+        </div>
       </div>
       <div class="flex flex-col md6">
-        <div class="item">md6</div>
+        <div class="item">
+          md6
+        </div>
       </div>
     </div>
-    <br />
+    <br>
     <div class="row">
       <div class="flex flex-col md12">
-        <div class="item">md12</div>
+        <div class="item">
+          md12
+        </div>
       </div>
       <div class="flex flex-col md9">
-        <div class="item">md9</div>
+        <div class="item">
+          md9
+        </div>
       </div>
       <div class="flex flex-col md3">
-        <div class="item">md3</div>
+        <div class="item">
+          md3
+        </div>
       </div>
     </div>
   </va-card>

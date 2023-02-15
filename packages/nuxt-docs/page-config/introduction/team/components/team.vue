@@ -2,18 +2,41 @@
   <div class="docs-team flex flex-wrap">
     <div class="docs-team__row flex flex-wrap">
       <div
-        class="docs-team__avatar-wrapper"
         v-for="item in items"
+        :key="item.image"
+        class="docs-team__avatar-wrapper"
       >
-        <va-avatar :size="146" class="docs-team__avatar">
-          <img :src="item.image" :alt="item.name" height="140px" width="140px" />
+        <va-avatar
+          :size="146"
+          class="docs-team__avatar"
+        >
+          <img
+            :src="item.image"
+            :alt="item.name"
+            height="140px"
+            width="140px"
+          >
         </va-avatar>
         <strong class="mt-3 mb-1">{{ item.name }}</strong>
         <div>{{ item.jobTitle }}</div>
-        <div v-if="item.socNetworks" class="flex">
-          <div v-for="icon in item.socNetworks">
-            <a :href="icon.url" :title="item.name" target="_blank">
-              <va-icon :class="icon.name" class="mr-1" size="small" />
+        <div
+          v-if="item.socNetworks"
+          class="flex"
+        >
+          <div
+            v-for="icon in item.socNetworks"
+            :key="icon.url"
+          >
+            <a
+              :href="icon.url"
+              :title="item.name"
+              target="_blank"
+            >
+              <va-icon
+                :class="icon.name"
+                class="mr-1"
+                size="small"
+              />
             </a>
           </div>
         </div>

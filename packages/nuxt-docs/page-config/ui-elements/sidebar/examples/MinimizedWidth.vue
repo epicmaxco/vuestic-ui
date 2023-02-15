@@ -1,6 +1,9 @@
 <template>
   <div style="height: 13rem">
-    <va-sidebar :minimized="minimized" minimizedWidth="0">
+    <va-sidebar
+      :minimized="minimized"
+      minimized-width="0"
+    >
       <va-sidebar-item
         v-for="item in items"
         :key="item.title"
@@ -16,7 +19,11 @@
     </va-sidebar>
   </div>
 
-  <va-checkbox class="mt-2" v-model="minimized" label="Minimized" />
+  <va-checkbox
+    v-model="minimized"
+    class="mt-2"
+    label="Minimized"
+  />
 </template>
 
 <script>

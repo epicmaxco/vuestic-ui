@@ -1,9 +1,15 @@
 <template>
-  <va-popover placement="right" trigger="click">
+  <va-popover
+    placement="right"
+    trigger="click"
+  >
     <va-button>Click me</va-button>
 
     <template #icon>
-      <va-button icon="create" size="small" />
+      <va-button
+        icon="create"
+        size="small"
+      />
     </template>
 
     <template #title>

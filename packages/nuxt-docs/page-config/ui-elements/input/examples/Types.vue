@@ -1,5 +1,10 @@
 <template>
-  <va-input v-model="email" type="email" label="Email" class="mr-6 mb-6" />
+  <va-input
+    v-model="email"
+    type="email"
+    label="Email"
+    class="mr-6 mb-6"
+  />
   <va-input
     v-model="password"
     type="password"
@@ -21,7 +26,12 @@
       />
     </template>
   </va-input>
-  <va-input v-model="phone" type="tel" label="Phone number" class="mr-6 mb-6" />
+  <va-input
+    v-model="phone"
+    type="tel"
+    label="Phone number"
+    class="mr-6 mb-6"
+  />
   <va-input
     v-model="search"
     type="search"
@@ -29,7 +39,12 @@
     clearable
     class="mr-6 mb-6"
   />
-  <va-input v-model="url" type="url" label="url" class="mr-6 mb-6" />
+  <va-input
+    v-model="url"
+    type="url"
+    label="url"
+    class="mr-6 mb-6"
+  />
 </template>
 
 <script>

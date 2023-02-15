@@ -20,6 +20,12 @@ watchEffect(() => {
 </script>
 
 <template>
-  <PageConfigBlocks v-if="loadedBlocks" :blocks="loadedBlocks"/>
-  <PageConfigSkeleton class="mt-24" v-else />
+  <PageConfigBlocks
+    v-if="loadedBlocks"
+    :blocks="loadedBlocks"
+  />
+  <PageConfigSkeleton
+    v-else
+    class="mt-24"
+  />
 </template>

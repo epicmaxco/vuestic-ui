@@ -1,8 +1,15 @@
 <template>
-  <ComponentPlayground :options="options" :code="renderComponent('va-chip')" :slots="slots"
-    #default="{ bind, slots }">
+  <ComponentPlayground
+    v-slot="{ bind, slots }"
+    :options="options"
+    :code="renderComponent('va-chip')"
+    :slots="slots"
+  >
     <VaChip v-bind="bind">
-      <template v-for="slot in slots" #[slot.name]>
+      <template
+        v-for="slot in slots"
+        #[slot.name]
+      >
         {{ slot.value }}
       </template>
     </VaChip>

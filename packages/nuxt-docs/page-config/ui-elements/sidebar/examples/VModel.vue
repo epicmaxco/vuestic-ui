@@ -16,7 +16,11 @@
     </va-sidebar>
   </div>
 
-  <va-checkbox class="mt-2" v-model="enabled" label="Shown" />
+  <va-checkbox
+    v-model="enabled"
+    class="mt-2"
+    label="Shown"
+  />
 </template>
 
 <script>

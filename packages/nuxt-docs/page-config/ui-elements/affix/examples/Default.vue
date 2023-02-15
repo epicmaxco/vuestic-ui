@@ -1,9 +1,16 @@
 <template>
-  <div style="height: 300px; overflow-y: scroll" ref="target">
+  <div
+    ref="target"
+    style="height: 300px; overflow-y: scroll"
+  >
     <p>
       {{ text }}
     </p>
-    <va-affix :offset-top="30" :offset-bottom="0" :target="() => $refs.target">
+    <va-affix
+      :offset-top="30"
+      :offset-bottom="0"
+      :target="() => $refs.target"
+    >
       <div
         style="
           padding: 10px 30px;

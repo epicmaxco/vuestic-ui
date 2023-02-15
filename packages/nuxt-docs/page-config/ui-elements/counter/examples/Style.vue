@@ -2,9 +2,15 @@
   <div class="flex gap-5 flex-wrap">
     <va-counter v-model="value" />
 
-    <va-counter v-model="value" outline />
+    <va-counter
+      v-model="value"
+      outline
+    />
 
-    <va-counter v-model="value" bordered />
+    <va-counter
+      v-model="value"
+      bordered
+    />
   </div>
 </template>
 

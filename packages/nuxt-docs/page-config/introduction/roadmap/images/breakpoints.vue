@@ -6,9 +6,16 @@
     viewBox="0 0 674 391"
   >
     <defs />
-    <path fill="#fff" d="M0 0h674v391H0z" />
+    <path
+      fill="#fff"
+      d="M0 0h674v391H0z"
+    />
     <g stroke-linecap="round">
-      <path fill="#ced4da" stroke-width="0" d="m11 9 655 2-2 370-654 1" />
+      <path
+        fill="#ced4da"
+        stroke-width="0"
+        d="m11 9 655 2-2 370-654 1"
+      />
       <path
         fill="none"
         stroke="#000"
@@ -17,7 +24,11 @@
       />
     </g>
     <g stroke-linecap="round">
-      <path fill="#868e96" stroke-width="0" d="m107 11 456-1-1 371-455-1" />
+      <path
+        fill="#868e96"
+        stroke-width="0"
+        d="m107 11 456-1-1 371-455-1"
+      />
       <path
         fill="none"
         stroke="#000"
@@ -26,7 +37,11 @@
       />
     </g>
     <g stroke-linecap="round">
-      <path fill="#444" stroke-width="0" d="m223 10 220-2 3 371-223 3" />
+      <path
+        fill="#444"
+        stroke-width="0"
+        d="m223 10 220-2 3 371-223 3"
+      />
       <path
         fill="none"
         stroke="#000"

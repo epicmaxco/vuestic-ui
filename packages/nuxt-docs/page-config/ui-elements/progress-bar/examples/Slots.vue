@@ -8,14 +8,21 @@
     <div>
       When you use a 'content-inside' prop:
     </div>
-    <va-progress-bar :model-value="value" size="large" content-inside>
+    <va-progress-bar
+      :model-value="value"
+      size="large"
+      content-inside
+    >
       {{ value }}
     </va-progress-bar>
 
     <div>
       When you use a 'show-percent' prop:
     </div>
-    <va-progress-bar :model-value="value" show-percent />
+    <va-progress-bar
+      :model-value="value"
+      show-percent
+    />
     <va-progress-bar
       :model-value="value"
       size="1.5rem"

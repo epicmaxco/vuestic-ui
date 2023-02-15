@@ -1,6 +1,13 @@
 <template>
   <div class="seamless-another-range-slider">
-    <input type="range" min="0" max="40" value="20" aria-hidden="true" tabindex="-1" />
+    <input
+      type="range"
+      min="0"
+      max="40"
+      value="20"
+      aria-hidden="true"
+      tabindex="-1"
+    >
   </div>
 </template>
 

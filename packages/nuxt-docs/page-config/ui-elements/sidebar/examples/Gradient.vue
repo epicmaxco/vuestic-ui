@@ -1,6 +1,14 @@
 <template>
-  <div class="mb-6" style="height: 16rem">
-    <va-sidebar color="primary" gradient minimizedWidth="64px" width="18rem">
+  <div
+    class="mb-6"
+    style="height: 16rem"
+  >
+    <va-sidebar
+      color="primary"
+      gradient
+      minimized-width="64px"
+      width="18rem"
+    >
       <va-sidebar-item
         v-for="item in items"
         :key="item.title"

@@ -1,41 +1,41 @@
 <template>
   <div style="max-width: 300px">
     <va-select
+      v-model="value"
       class="mb-6"
       label="'true' mode and single select"
       :options="options"
       :track-by="(option) => option.id"
-      v-model="value"
-      allowCreate
+      allow-create
       @create-new="addNewOption"
     />
     <va-select
+      v-model="allowUniqueValue"
       class="mb-6"
       label="'unique' mode and single select"
       :options="options"
       :track-by="(option) => option.id"
-      v-model="allowUniqueValue"
-      allowCreate="unique"
+      allow-create="unique"
       @create-new="addNewOption"
     />
     <va-select
+      v-model="valueMultiple"
       class="mb-6"
       label="'true' mode and multi select"
       :options="options"
-      v-model="valueMultiple"
       :track-by="(option) => option.id"
-      allowCreate
+      allow-create
       multiple
       @create-new="addNewOption"
     />
     <va-select
+      v-model="allowUniqueValueMultiple"
       label="'unique' mode and multi select"
       :options="options"
       :track-by="(option) => option.id"
-      v-model="allowUniqueValueMultiple"
-      allowCreate="unique"
-      @create-new="addNewOption"
+      allow-create="unique"
       multiple
+      @create-new="addNewOption"
     />
   </div>
 </template>

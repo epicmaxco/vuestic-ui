@@ -1,10 +1,13 @@
 <template>
-  <va-tabs v-model="value" vertical>
+  <va-tabs
+    v-model="value"
+    vertical
+  >
     <template #tabs>
       <va-tab
         v-for="title in ['One', 'Two', 'Three']"
-        :name="title"
         :key="title"
+        :name="title"
       >
         {{ title }}
       </va-tab>

@@ -1,8 +1,15 @@
 <template>
-  <ComponentPlayground :options="options" :code="renderComponent('va-avatar')" :slots="slots"
-    #default="{ bind, slots }">
+  <ComponentPlayground
+    v-slot="{ bind, slots }"
+    :options="options"
+    :code="renderComponent('va-avatar')"
+    :slots="slots"
+  >
     <va-avatar v-bind="bind">
-      <template v-for="slot in slots" #[slot.name]>
+      <template
+        v-for="slot in slots"
+        #[slot.name]
+      >
         {{ slot.value }}
       </template>
     </va-avatar>

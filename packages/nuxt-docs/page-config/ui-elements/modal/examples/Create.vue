@@ -14,7 +14,10 @@
     Create modal (Options API)
   </va-button>
 
-  <va-button class="mr-6 my-1" @click="init('Modal from hook')">
+  <va-button
+    class="mr-6 my-1"
+    @click="init('Modal from hook')"
+  >
     Create modal (Composition API)
   </va-button>
 </template>

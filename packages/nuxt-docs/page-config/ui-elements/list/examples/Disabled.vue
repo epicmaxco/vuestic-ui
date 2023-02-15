@@ -1,16 +1,18 @@
 <template>
   <va-list>
-    <va-list-label color="#ff0000"> Blocked </va-list-label>
+    <va-list-label color="#ff0000">
+      Blocked
+    </va-list-label>
 
     <va-list-item
-      class="list__item"
       v-for="(contact, index) in contacts"
       :key="index"
+      class="list__item"
       disabled
     >
       <va-list-item-section avatar>
         <va-avatar>
-          <img :src="contact.img" />
+          <img :src="contact.img">
         </va-avatar>
       </va-list-item-section>
 
@@ -25,7 +27,10 @@
       </va-list-item-section>
 
       <va-list-item-section icon>
-        <va-icon name="remove_red_eye" color="background-tertiary" />
+        <va-icon
+          name="remove_red_eye"
+          color="background-tertiary"
+        />
       </va-list-item-section>
     </va-list-item>
   </va-list>

@@ -6,7 +6,10 @@
       class="mt-2"
     >
       <va-list-item-section avatar>
-        <va-icon :name="name" size="32px" />
+        <va-icon
+          :name="name"
+          size="32px"
+        />
       </va-list-item-section>
       <va-list-item-section>
         <va-list-item-label>

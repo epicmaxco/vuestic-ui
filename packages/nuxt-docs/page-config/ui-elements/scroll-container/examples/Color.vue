@@ -1,5 +1,9 @@
 <template>
-  <va-scroll-container style="max-height: 200px" :color="currentColor" vertical>
+  <va-scroll-container
+    style="max-height: 200px"
+    :color="currentColor"
+    vertical
+  >
     <va-list>
       <va-list-item
         v-for="color in colorsArray"
@@ -7,7 +11,10 @@
         style="display: flex; cursor: pointer"
         @click="currentColor = color.name"
       >
-        <va-color-indicator style="margin-right: 0.5rem" :color="color.name" />
+        <va-color-indicator
+          style="margin-right: 0.5rem"
+          :color="color.name"
+        />
         {{ color.title }}
       </va-list-item>
     </va-list>

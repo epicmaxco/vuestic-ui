@@ -5,7 +5,11 @@
     :pages="5"
     class="mb-6"
   />
-  <va-pagination v-model="value" preset="redPagination" :pages="5" />
+  <va-pagination
+    v-model="value"
+    preset="redPagination"
+    :pages="5"
+  />
 </template>
 
 <script setup>

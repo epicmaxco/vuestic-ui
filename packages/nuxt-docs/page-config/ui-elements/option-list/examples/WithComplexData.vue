@@ -1,10 +1,10 @@
 <template>
   <va-option-list
-    :options="options"
     v-model="listValue"
-    valueBy="altValue"
-    disabledBy="altDisabled"
-    :textBy="(option) => option.altText"
+    :options="options"
+    value-by="altValue"
+    disabled-by="altDisabled"
+    :text-by="(option) => option.altText"
   />
   Selected:
   <pre>{{ listValue }}</pre>

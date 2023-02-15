@@ -1,6 +1,8 @@
 <template>
   <div style="height: 13rem; position: relative">
-    <div class="content">Content</div>
+    <div class="content">
+      Content
+    </div>
 
     <va-sidebar
       v-model="enabled"
@@ -23,8 +25,16 @@
     </va-sidebar>
   </div>
 
-  <va-checkbox class="mt-2" v-model="minimized" label="Minimized" />
-  <va-checkbox class="mt-2" v-model="enabled" label="Show" />
+  <va-checkbox
+    v-model="minimized"
+    class="mt-2"
+    label="Minimized"
+  />
+  <va-checkbox
+    v-model="enabled"
+    class="mt-2"
+    label="Show"
+  />
 </template>
 
 <script>

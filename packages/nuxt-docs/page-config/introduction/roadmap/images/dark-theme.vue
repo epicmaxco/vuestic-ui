@@ -6,7 +6,10 @@
     viewBox="0 0 386 348"
   >
     <defs />
-    <path fill="#fff" d="M0 0h386v348H0z" />
+    <path
+      fill="#fff"
+      d="M0 0h386v348H0z"
+    />
     <text
       y="53"
       font-family="Virgil, Segoe UI Emoji"
@@ -17,7 +20,10 @@
       Hea
     </text>
     <g stroke-linecap="round">
-      <path stroke-width="0" d="m191 16 170 16-37 300-173-16" />
+      <path
+        stroke-width="0"
+        d="m191 16 170 16-37 300-173-16"
+      />
       <path
         fill="none"
         stroke="transparent"
@@ -56,7 +62,11 @@
       d="M164 330h5l5-1h9l5-1h5l4-1h5l5-1h10l4-1h10l6 1h11l5 1h21l4 1h21l5 1h19l5-1h5l5-1 4-2h9q2 0 1 1-2 2-1-1l1-6 1-6-1-4 1-5 1-6 1-6v-5l1-6v-6l1-6v-5l1-6v-15l-1-5v-6l-1-5v-5l-1-4v-5l-1-5v-5l-2-4-2-4v-5l1-2 2-1 2-1h5l2 1 2 2 1 3v2l-1 3-1 2-2 1-3 1h-2l-3-1-1-2-2-2v-5l1-2 2-2 2-1h5l2 1 1 2 1 1 1 1 1 4 3 5 1 6v4l-1 5q-1 2 1 5l1 6 1 5v5l1 5v13l-1 5v10l-1 6v6l-1 6v10l-1 6-1 5-1 5-1 5v5l-1 6-2 5-2 4-6 2h-6l-6 1-5 1-5 1-5 1h-27l-5-1h-21l-5-1h-19l-5-1h-10l-4-1h-15l-4 1h-20l-5 1-5-1h-14l-4-1h-3l-1-1-1-1-1-1v-4l1-1 1-1 1-1h2Z"
     />
     <g stroke-linecap="round">
-      <path fill="#4c6ef5" stroke-width="0" d="m201 250 128-6 5 61-137-3" />
+      <path
+        fill="#4c6ef5"
+        stroke-width="0"
+        d="m201 250 128-6 5 61-137-3"
+      />
       <path
         fill="none"
         stroke="#000"

@@ -1,14 +1,20 @@
 <template>
-  <ComponentPlayground :options="options" :code="renderComponent('va-carousel')" :slots="slots"
-    #default="{ bind, slots }">
+  <ComponentPlayground
+    v-slot="{ bind, slots }"
+    :options="options"
+    :code="renderComponent('va-carousel')"
+    :slots="slots"
+  >
     <div class="w-full h-full">
       <VaCarousel v-bind="bind">
-        <template v-for="slot in slots" #[slot.name]>
+        <template
+          v-for="slot in slots"
+          #[slot.name]
+        >
           {{ slot.value }}
         </template>
       </VaCarousel>
     </div>
-
   </ComponentPlayground>
 </template>
 

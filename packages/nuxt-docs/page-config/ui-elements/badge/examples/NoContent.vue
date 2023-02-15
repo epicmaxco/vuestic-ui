@@ -1,3 +1,6 @@
 <template>
-  <va-badge color="danger" visible-empty />
+  <va-badge
+    color="danger"
+    visible-empty
+  />
 </template>

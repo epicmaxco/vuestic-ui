@@ -1,5 +1,10 @@
 <template>
-  <va-carousel :items="items" v-model="value" infinite indicators />
+  <va-carousel
+    v-model="value"
+    :items="items"
+    infinite
+    indicators
+  />
 </template>
 
 <script>

@@ -1,6 +1,10 @@
 <template>
-  <va-switch v-model="value" indeterminate :label="String(value)" />
-  <br />
+  <va-switch
+    v-model="value"
+    indeterminate
+    :label="String(value)"
+  />
+  <br>
   <va-switch
     v-model="value2"
     indeterminate

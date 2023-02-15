@@ -4,8 +4,13 @@
       v-model="valueComputed"
       class="code-input__input"
       :style="{ width: `${textDivWidth}px` }"
-    />
-    <div class="code-input__text" ref="textDiv">{{ valueComputed }}</div>
+    >
+    <div
+      ref="textDiv"
+      class="code-input__text"
+    >
+      {{ valueComputed }}
+    </div>
   </div>
 </template>
 

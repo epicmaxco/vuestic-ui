@@ -1,7 +1,18 @@
 <template>
-  <va-rating class="mb-2" v-model="value" color="success" />
-  <va-rating class="mb-2" v-model="value" color="info" />
-  <va-rating v-model="value" color="danger" />
+  <va-rating
+    v-model="value"
+    class="mb-2"
+    color="success"
+  />
+  <va-rating
+    v-model="value"
+    class="mb-2"
+    color="info"
+  />
+  <va-rating
+    v-model="value"
+    color="danger"
+  />
 </template>
 
 <script>

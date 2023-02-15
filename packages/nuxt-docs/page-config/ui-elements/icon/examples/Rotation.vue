@@ -1,17 +1,17 @@
 <template>
   <va-button-toggle
-    class="mb-6"
     v-model="flip"
+    class="mb-6"
     :options="flipOptions"
     preset="secondary"
     border-color="primary"
   />
 
   <va-switch
+    v-model="isRotation"
     class="mb-2"
     label="Enable rotation"
     size="small"
-    v-model="isRotation"
   />
 
   <va-slider
@@ -26,7 +26,11 @@
   />
 
   <div>
-    <va-icon class="mr-3" name="thumb_up" size="large" />
+    <va-icon
+      class="mr-3"
+      name="thumb_up"
+      size="large"
+    />
     <va-icon
       name="thumb_up"
       size="large"

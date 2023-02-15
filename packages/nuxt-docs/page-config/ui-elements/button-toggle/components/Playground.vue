@@ -1,8 +1,15 @@
 <template>
-  <ComponentPlayground :options="options" :code="renderComponent('va-button-toggle')" :slots="slots"
-    #default="{ bind, slots }">
+  <ComponentPlayground
+    v-slot="{ bind, slots }"
+    :options="options"
+    :code="renderComponent('va-button-toggle')"
+    :slots="slots"
+  >
     <VaButtonToggle v-bind="bind">
-      <template v-for="slot in slots" #[slot.name]>
+      <template
+        v-for="slot in slots"
+        #[slot.name]
+      >
         {{ slot.value }}
       </template>
     </VaButtonToggle>

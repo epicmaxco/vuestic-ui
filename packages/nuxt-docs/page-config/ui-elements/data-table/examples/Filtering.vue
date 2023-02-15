@@ -1,22 +1,22 @@
 <template>
   <div class="row">
     <va-input
+      v-model="input"
       class="flex flex-col mb-2 md6 xs12"
       placeholder="Filter..."
-      v-model="input"
     />
 
     <div class="flex flex-col mb-2 md6 xs12">
       <va-checkbox
+        v-model="useCustomFilteringFn"
         class="mb-3 d-block"
         label="Use custom filtering function (looks for an exact match)"
-        v-model="useCustomFilteringFn"
       />
 
       <va-checkbox
+        v-model="isDebounceInput"
         class="d-block"
         label="Debounce input"
-        v-model="isDebounceInput"
       />
     </div>
   </div>
@@ -29,7 +29,11 @@
     @filtered="filteredCount = $event.items.length"
   />
 
-  <va-alert class="mt-3" color="info" outline>
+  <va-alert
+    class="mt-3"
+    color="info"
+    outline
+  >
     <span>
       Number of filtered items:
       <va-chip>{{ filteredCount }}</va-chip>

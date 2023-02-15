@@ -1,24 +1,47 @@
 <template>
   <header class="header">
-<!--    <div class="header__banner">-->
-<!--      <div>-->
-<!--        🔥🔥🔥-->
-<!--        <span class="pl-2">-->
-<!--          {{ $t('landing.header.banner.text') }}-->
-<!--        </span>-->
-<!--      </div>-->
-<!--      <a href="https://www.producthunt.com/posts/vuestic-ui" target="_blank" class="header__banner-btn">Launch page 🚀-->
-<!--      </a>-->
-<!--    </div>-->
+    <!--    <div class="header__banner">-->
+    <!--      <div>-->
+    <!--        🔥🔥🔥-->
+    <!--        <span class="pl-2">-->
+    <!--          {{ $t('landing.header.banner.text') }}-->
+    <!--        </span>-->
+    <!--      </div>-->
+    <!--      <a href="https://www.producthunt.com/posts/vuestic-ui" target="_blank" class="header__banner-btn">Launch page 🚀-->
+    <!--      </a>-->
+    <!--    </div>-->
     <div class="header__wrapper">
       <div class="header__inner">
         <div class="header__logo">
-          <a href="/" aria-label="go to the main page">
-            <layout-header-vuestic-logo height="30" width="150" aria-hidden="true" />
+          <a
+            href="/"
+            aria-label="go to the main page"
+          >
+            <layout-header-vuestic-logo
+              height="30"
+              width="150"
+              aria-hidden="true"
+            />
           </a>
-          <div class="menu" @click="isHidden = !isHidden" :style="{position: !isHidden ? 'fixed' : 'absolute'}">
-            <nuxt-img height="24px" width="24px" v-if="!isHidden" src="/landing/hamburger.svg" alt="menu"/>
-            <nuxt-img height="24px" width="24px" v-else src="/landing/cross.svg" alt="menu"/>
+          <div
+            class="menu"
+            :style="{position: !isHidden ? 'fixed' : 'absolute'}"
+            @click="isHidden = !isHidden"
+          >
+            <nuxt-img
+              v-if="!isHidden"
+              height="24px"
+              width="24px"
+              src="/landing/hamburger.svg"
+              alt="menu"
+            />
+            <nuxt-img
+              v-else
+              height="24px"
+              width="24px"
+              src="/landing/cross.svg"
+              alt="menu"
+            />
           </div>
         </div>
         <nav class="header__links">
@@ -54,36 +77,58 @@
           >
             {{ $t('landing.header.buttons.blog') }}
           </va-button>
-          <layout-header-language-dropdown class="header__links--link" preset="landingHeader" />
+          <layout-header-language-dropdown
+            class="header__links--link"
+            preset="landingHeader"
+          />
           <!-- <LandingThemeSwitchButton class="ml-2" /> -->
-          <landing-stars-button class="ml-2" repo="epicmaxco/vuestic-ui" />
+          <landing-stars-button
+            class="ml-2"
+            repo="epicmaxco/vuestic-ui"
+          />
         </nav>
         <!-- mobile -->
-        <nav class="mobile-menu" :class="{'mobile-menu--open': !isHidden}">
+        <nav
+          class="mobile-menu"
+          :class="{'mobile-menu--open': !isHidden}"
+        >
           <va-list>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <router-link :to="`/${locale}/introduction/overview`">{{ $t('landing.header.buttons.overview') }}</router-link>
+                <router-link :to="`/${locale}/introduction/overview`">
+                  {{ $t('landing.header.buttons.overview') }}
+                </router-link>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <router-link :to="`/${locale}/introduction/overview`">{{ $t('landing.header.buttons.docs') }}</router-link>
+                <router-link :to="`/${locale}/introduction/overview`">
+                  {{ $t('landing.header.buttons.docs') }}
+                </router-link>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="https://discord.gg/u7fQdqQt8c" target="_blank">
+                <a
+                  href="https://discord.gg/u7fQdqQt8c"
+                  target="_blank"
+                >
                   {{ $t('landing.header.buttons.discord') }}</a>
               </va-list-item-section>
             </va-list-item>
             <va-list-item>
               <va-list-item-section class="mobile-menu__link">
-                <a href="https://epicmax.co/blog" target="_blank">
+                <a
+                  href="https://epicmax.co/blog"
+                  target="_blank"
+                >
                   {{ $t('landing.header.buttons.blog') }}</a>
               </va-list-item-section>
             </va-list-item>
-            <va-list-label color="#757B83" class="mobile-menu__label">
+            <va-list-label
+              color="#757B83"
+              class="mobile-menu__label"
+            >
               {{ $t('landing.header.buttons.language') }}
             </va-list-label>
             <div class="mobile-menu__languages">

@@ -7,9 +7,9 @@
     <VaTimePicker
       v-model="value"
       view="seconds"
-      :hoursFilter="(h) => h >= 9 && h <= 19"
-      :minutesFilter="(m) => m % 10 === 0"
-      :secondsFilter="(s) => s % 20 === 0"
+      :hours-filter="(h) => h >= 9 && h <= 19"
+      :minutes-filter="(m) => m % 10 === 0"
+      :seconds-filter="(s) => s % 20 === 0"
     />
 
     <va-divider vertical />
@@ -18,9 +18,9 @@
       v-model="value"
       view="seconds"
       ampm
-      :hoursFilter="(h) => h >= 9 && h <= 19"
-      :minutesFilter="(m) => m % 10 === 0"
-      :secondsFilter="(s) => s % 20 === 0"
+      :hours-filter="(h) => h >= 9 && h <= 19"
+      :minutes-filter="(m) => m % 10 === 0"
+      :seconds-filter="(s) => s % 20 === 0"
     />
   </div>
 </template>

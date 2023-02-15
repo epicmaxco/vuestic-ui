@@ -1,32 +1,32 @@
 <template>
   <va-button-toggle
+    v-model="model"
     gradient
     color="primary"
-    v-model="model"
     :options="options"
     class="mb-6"
   />
 
   <va-button-toggle
+    v-model="model"
     gradient
     color="success"
-    v-model="model"
     :options="options"
     class="mb-6"
   />
 
   <va-button-toggle
+    v-model="model"
     gradient
     color="danger"
-    v-model="model"
     :options="options"
     class="mb-6"
   />
 
   <va-button-toggle
+    v-model="model"
     gradient
     color="#7e06ae"
-    v-model="model"
     :options="options"
   />
 </template>

@@ -1,5 +1,8 @@
 <template>
-  <va-checkbox v-model="value" indeterminate />
+  <va-checkbox
+    v-model="value"
+    indeterminate
+  />
 </template>
 
 <script>

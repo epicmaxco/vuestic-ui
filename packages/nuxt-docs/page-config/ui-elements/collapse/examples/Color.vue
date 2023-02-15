@@ -7,7 +7,9 @@
       color="success"
       class="mb-6"
     >
-      <div style="padding: 8px">Collapse content</div>
+      <div style="padding: 8px">
+        Collapse content
+      </div>
     </va-collapse>
     <va-collapse
       v-model="value[1]"
@@ -16,7 +18,9 @@
       color="secondary"
       class="mb-6"
     >
-      <div style="padding: 8px">Collapse content</div>
+      <div style="padding: 8px">
+        Collapse content
+      </div>
     </va-collapse>
     <va-collapse
       v-model="value[2]"
@@ -26,7 +30,9 @@
       color-all
       class="mb-6"
     >
-      <div style="padding: 8px">Collapse content</div>
+      <div style="padding: 8px">
+        Collapse content
+      </div>
     </va-collapse>
     <va-collapse
       v-model="value[3]"
@@ -38,7 +44,9 @@
       icon="info"
       class="mb-6"
     >
-      <div style="padding: 8px">Collapse content</div>
+      <div style="padding: 8px">
+        Collapse content
+      </div>
     </va-collapse>
   </div>
 </template>

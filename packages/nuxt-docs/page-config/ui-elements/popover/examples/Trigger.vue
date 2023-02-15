@@ -1,5 +1,9 @@
 <template>
-  <va-popover class="mr-2 mb-2" message="popover text" trigger="click">
+  <va-popover
+    class="mr-2 mb-2"
+    message="popover text"
+    trigger="click"
+  >
     <va-button>Click me</va-button>
   </va-popover>
   <va-popover

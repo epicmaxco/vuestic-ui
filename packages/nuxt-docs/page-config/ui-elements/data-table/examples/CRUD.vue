@@ -7,11 +7,22 @@
   >
     <template #headerAppend>
       <tr class="table-crud-example__slot">
-        <th v-for="key in Object.keys(createdItem)" :key="key" class="p-1">
-          <va-input :placeholder="key" v-model="createdItem[key]" />
+        <th
+          v-for="key in Object.keys(createdItem)"
+          :key="key"
+          class="p-1"
+        >
+          <va-input
+            v-model="createdItem[key]"
+            :placeholder="key"
+          />
         </th>
         <th class="p-1">
-          <va-button @click="addNewItem" :disabled="!isNewData" block>
+          <va-button
+            :disabled="!isNewData"
+            block
+            @click="addNewItem"
+          >
             Add
           </va-button>
         </th>
@@ -43,9 +54,9 @@
     <va-input
       v-for="key in Object.keys(editedItem)"
       :key="key"
+      v-model="editedItem[key]"
       class="my-3"
       :label="key"
-      v-model="editedItem[key]"
     />
   </va-modal>
 </template>

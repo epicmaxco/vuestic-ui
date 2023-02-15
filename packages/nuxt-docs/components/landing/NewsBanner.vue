@@ -5,15 +5,21 @@
       closeable
       class="epicmax-news_banner-content"
     >
-        <div class="epicmax-news_banner-text">
-          <nuxt-img src="https://media.tenor.com/kxzr3-r6XoIAAAAM/lets-get-this-party-started-yeah.gif" alt="" /><br />
-              <span>
-               {{ $t("landing.footer.newsBannerText") }}
-              </span><br />
-          <a :style="{ color: 'orange' }" href="https://www.producthunt.com/posts/vuestic-ui">
-            {{ $t("landing.footer.newsBannerLink") }}
-          </a>
-        </div>
+      <div class="epicmax-news_banner-text">
+        <nuxt-img
+          src="https://media.tenor.com/kxzr3-r6XoIAAAAM/lets-get-this-party-started-yeah.gif"
+          alt=""
+        /><br>
+        <span>
+          {{ $t("landing.footer.newsBannerText") }}
+        </span><br>
+        <a
+          :style="{ color: 'orange' }"
+          href="https://www.producthunt.com/posts/vuestic-ui"
+        >
+          {{ $t("landing.footer.newsBannerLink") }}
+        </a>
+      </div>
     </va-alert>
   </div>
 </template>

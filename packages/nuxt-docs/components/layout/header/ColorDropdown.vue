@@ -9,12 +9,22 @@
       :close-on-content-click="false"
     >
       <div class="color-dropdown__content px-1">
-        <div v-for="color in colorsArray" :key="color.name" class="color my-3 d-flex align-center">
-          <va-color-indicator size="1.25rem" :color="color.name" /> <span class="color__title">{{ color.title }}</span>
+        <div
+          v-for="color in colorsArray"
+          :key="color.name"
+          class="color my-3 d-flex align-center"
+        >
+          <va-color-indicator
+            size="1.25rem"
+            :color="color.name"
+          /> <span class="color__title">{{ color.title }}</span>
         </div>
       </div>
       <div class="color-dropdown__content px-1 mt-2">
-        <va-button class="w-full" :to="`${locale ? ('/' + locale) : ''}/styles/colors`">
+        <va-button
+          class="w-full"
+          :to="`${locale ? ('/' + locale) : ''}/styles/colors`"
+        >
           Learn about colors
         </va-button>
       </div>

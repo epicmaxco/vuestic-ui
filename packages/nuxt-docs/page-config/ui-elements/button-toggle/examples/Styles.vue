@@ -1,26 +1,35 @@
 <template>
-  <va-button-toggle v-model="model" :options="options" class="mb-6" />
+  <va-button-toggle
+    v-model="model"
+    :options="options"
+    class="mb-6"
+  />
 
   <va-button-toggle
+    v-model="model"
     preset="primary"
-    v-model="model"
     :options="options"
     class="mb-6"
   />
 
   <va-button-toggle
+    v-model="model"
     preset="plain"
-    v-model="model"
     :options="options"
     class="mb-6"
   />
 
-  <va-button-toggle round v-model="model" :options="options" class="mb-6" />
+  <va-button-toggle
+    v-model="model"
+    round
+    :options="options"
+    class="mb-6"
+  />
 
   <va-button-toggle
+    v-model="model"
     preset="secondary"
     border-color="primary"
-    v-model="model"
     :options="options"
   />
 </template>

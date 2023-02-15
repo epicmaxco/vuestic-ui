@@ -1,6 +1,7 @@
 <template>
   <div style="max-width: 300px">
     <va-select
+      v-model="value"
       label="Exactly 2 options should be selected"
       :options="options"
       :rules="[
@@ -8,7 +9,6 @@
           (Array.isArray(v) && v.length === 2) ||
           '2 options should be selected',
       ]"
-      v-model="value"
       multiple
     />
   </div>

@@ -2,11 +2,16 @@
   <table>
     <tr>
       <td colspan="2">
-        <div class="title text--center mb-2">Offset direction</div>
+        <div class="title text--center mb-2">
+          Offset direction
+        </div>
       </td>
     </tr>
     <tr>
-      <td colspan="2" style="padding: 4rem">
+      <td
+        colspan="2"
+        style="padding: 4rem"
+      >
         <div class="flex flex-col items-center">
           <va-dropdown
             :model-value="true"
@@ -28,16 +33,33 @@
     <tr>
       <td>Placement:</td>
       <td>
-        <va-select :options="placements" v-model="placementWIthAlias" />
+        <va-select
+          v-model="placementWIthAlias"
+          :options="placements"
+        />
       </td>
     </tr>
     <tr>
-      <td style="color: var(--va-primary)">Main:</td>
-      <td><va-counter v-model="offset[0]" manual-input /></td>
+      <td style="color: var(--va-primary)">
+        Main:
+      </td>
+      <td>
+        <va-counter
+          v-model="offset[0]"
+          manual-input
+        />
+      </td>
     </tr>
     <tr>
-      <td style="color: var(--va-secondary)">Cross:</td>
-      <td><va-counter v-model="offset[1]" manual-input /></td>
+      <td style="color: var(--va-secondary)">
+        Cross:
+      </td>
+      <td>
+        <va-counter
+          v-model="offset[1]"
+          manual-input
+        />
+      </td>
     </tr>
   </table>
 </template>
@@ -63,10 +85,6 @@ const aliases = [
 export default {
   components: { Coordinates },
 
-  data: () => ({
-    offset: [10, 0],
-  }),
-
   setup: () => {
     const placementWIthAlias = ref("auto");
     return {
@@ -90,5 +108,9 @@ export default {
         .concat(aliases),
     };
   },
+
+  data: () => ({
+    offset: [10, 0],
+  }),
 };
 </script>

@@ -1,9 +1,15 @@
 <template>
-  <p class="va-text-left">Left</p>
+  <p class="va-text-left">
+    Left
+  </p>
 
-  <p class="va-text-center">Center</p>
+  <p class="va-text-center">
+    Center
+  </p>
 
-  <p class="va-text-right">Right</p>
+  <p class="va-text-right">
+    Right
+  </p>
 
   <p class="va-text-justify">
     Justify Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet neque

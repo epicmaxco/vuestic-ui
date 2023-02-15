@@ -23,13 +23,25 @@ const { getTextColor, getColor } = useColors()
   <div class="page-config-cards">
     <div
       v-for="card in cordsArray"
+      :key="card.title"
       class="page-config-cards__card-wrapper"
       :style="{ width: `${100 * (Number(card.cols) || 1)}%`}"
     >
-      <va-card :color="card.color || 'backgroundElement'" :shadow="false" class="flex flex-col">
+      <va-card
+        :color="card.color || 'backgroundElement'"
+        :shadow="false"
+        class="flex flex-col"
+      >
         <va-card-content class="flex-1">
-          <h4 class="va-h4" v-if="card.title">{{ t(card.title )}}</h4>
-          <p v-if="card.text">{{ t(card.text) }}</p>
+          <h4
+            v-if="card.title"
+            class="va-h4"
+          >
+            {{ t(card.title ) }}
+          </h4>
+          <p v-if="card.text">
+            {{ t(card.text) }}
+          </p>
         </va-card-content>
         <va-card-actions v-if="card.link">
           <va-button

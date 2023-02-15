@@ -1,7 +1,14 @@
 <template>
-  <va-tabs class="DocsCode__tabs" v-if="!isString" v-model="index">
+  <va-tabs
+    v-if="!isString"
+    v-model="index"
+    class="DocsCode__tabs"
+  >
     <template #tabs>
-      <va-tab v-for="tab in tabs" :key="tab">
+      <va-tab
+        v-for="tab in tabs"
+        :key="tab"
+      >
         {{ tab }}
       </va-tab>
     </template>

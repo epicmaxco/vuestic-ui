@@ -1,8 +1,20 @@
 <template>
   <div class="flex flex-col">
-    <va-checkbox class="mb-6" v-model="value" :label="label" />
-    <va-checkbox class="mb-6" v-model="value" :label="longLabel" />
-    <va-checkbox v-model="value" :label="leftLabel" left-label />
+    <va-checkbox
+      v-model="value"
+      class="mb-6"
+      :label="label"
+    />
+    <va-checkbox
+      v-model="value"
+      class="mb-6"
+      :label="longLabel"
+    />
+    <va-checkbox
+      v-model="value"
+      :label="leftLabel"
+      left-label
+    />
   </div>
 </template>
 

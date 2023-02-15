@@ -1,13 +1,17 @@
 <template>
   <h6>On click</h6>
-  <va-carousel :items="items" v-model="value" indicators />
+  <va-carousel
+    v-model="value"
+    :items="items"
+    indicators
+  />
 
   <h6>On hover</h6>
   <va-carousel
-    :items="items"
     v-model="value"
+    :items="items"
     indicators
-    indicatorTrigger="hover"
+    indicator-trigger="hover"
   />
 </template>
 

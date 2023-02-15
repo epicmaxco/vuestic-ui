@@ -8,7 +8,11 @@
       color="secondary"
       @click="showCodeComputed = !showCodeComputed"
     >
-      <va-icon class="docs-navigation__button__icon" name="fa4-code" size="13px" />
+      <va-icon
+        class="docs-navigation__button__icon"
+        name="fa4-code"
+        size="13px"
+      />
       <span class="docs-navigation__button__text"> {{ showCode ? $t('docsExample.hideCode') : $t('docsExample.showCode') }}</span>
     </va-button>
 
@@ -19,7 +23,11 @@
       color="secondary"
       @click="copy"
     >
-      <va-icon class="docs-navigation__button__icon" :name="copyButton.icon" size="13px" />
+      <va-icon
+        class="docs-navigation__button__icon"
+        :name="copyButton.icon"
+        size="13px"
+      />
       <span class="docs-navigation__button__text">{{ copyButton.text }}</span>
     </va-button>
 
@@ -31,12 +39,24 @@
       :href="gitLink"
       target="_blank"
     >
-      <va-icon class="docs-navigation__button__icon fa fa-github" size="13px" />
+      <va-icon
+        class="docs-navigation__button__icon fa fa-github"
+        size="13px"
+      />
       <span class="docs-navigation__button__text">{{ $t('docsNavigation.openGithub') }}</span>
     </va-button>
 
-    <form :action="sandboxDefineUrl" method="POST" target="_blank" class="mobile-hidden">
-      <input type="hidden" name="parameters" :value="sandboxParams" />
+    <form
+      :action="sandboxDefineUrl"
+      method="POST"
+      target="_blank"
+      class="mobile-hidden"
+    >
+      <input
+        type="hidden"
+        name="parameters"
+        :value="sandboxParams"
+      >
       <va-button
         preset="secondary"
         type="submit"
@@ -44,14 +64,39 @@
         class="docs-navigation__button"
         color="secondary"
       >
-        <va-icon class="docs-navigation__button__icon" size="13px">
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#737373" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-codesandbox" id="IconChangeColor">
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" id="mainIconPathAttribute" fill="transparent" stroke="#737373"></path>
-            <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
-            <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
-            <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
-            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        <va-icon
+          class="docs-navigation__button__icon"
+          size="13px"
+        >
+          <svg
+            id="IconChangeColor"
+            xmlns="http://www.w3.org/2000/svg"
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#737373"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-codesandbox"
+          >
+            <path
+              id="mainIconPathAttribute"
+              d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+              fill="transparent"
+              stroke="#737373"
+            />
+            <polyline points="7.5 4.21 12 6.81 16.5 4.21" />
+            <polyline points="7.5 19.79 7.5 14.6 3 12" />
+            <polyline points="21 12 16.5 14.6 16.5 19.79" />
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+            <line
+              x1="12"
+              y1="22.08"
+              x2="12"
+              y2="12"
+            />
           </svg>
         </va-icon>
         <span class="docs-navigation__button__text">{{ $t('docsNavigation.openCodeSandbox') }}</span>

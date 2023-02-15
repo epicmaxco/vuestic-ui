@@ -11,7 +11,10 @@
     </va-sidebar-item-content>
   </va-sidebar-item>
 
-  <va-sidebar-item active active-color="warning">
+  <va-sidebar-item
+    active
+    active-color="warning"
+  >
     <va-sidebar-item-content>
       <va-sidebar-item-title>
         Warning active color (active)

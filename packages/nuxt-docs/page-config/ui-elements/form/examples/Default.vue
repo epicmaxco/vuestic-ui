@@ -1,14 +1,14 @@
 <template>
   <va-form style="width: 300px">
     <va-input
-      label="First Name"
       v-model="inputValue1"
+      label="First Name"
       :rules="[(value) => (value && value.length > 0) || 'Field is required']"
     />
     <va-input
+      v-model="inputValue2"
       class="mt-3"
       label="Last Name"
-      v-model="inputValue2"
       :rules="[(value) => (value && value.length > 0) || 'Field is required']"
     />
   </va-form>

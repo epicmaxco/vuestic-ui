@@ -1,10 +1,17 @@
 <template>
-  <section class="customize__bg" :style="bgGradientStyle">
+  <section
+    class="customize__bg"
+    :style="bgGradientStyle"
+  >
     <div class="customize">
       <div class="customize__wrapper">
         <div class="customize__inner">
-          <h2 class="customize__title">{{ t('landing.customize.title') }}</h2>
-          <div class="customize__subtitle">{{ t('landing.customize.text') }}</div>
+          <h2 class="customize__title">
+            {{ t('landing.customize.title') }}
+          </h2>
+          <div class="customize__subtitle">
+            {{ t('landing.customize.text') }}
+          </div>
           <div class="customize__content">
             <!-- Tabs -->
             <div class="tabs-wrapper">
@@ -16,9 +23,9 @@
               >
                 <template #tabs>
                   <va-tab
-                    class="tabs__tab"
                     v-for="tab in tabs"
                     :key="tab"
+                    class="tabs__tab"
                   >
                     {{ tab }}
                   </va-tab>
@@ -28,7 +35,10 @@
 
             <!-- First block -->
             <div class="customize__content--first">
-              <div class="block__components" v-if="tabValue === 0">
+              <div
+                v-if="tabValue === 0"
+                class="block__components"
+              >
                 <div class="component">
                   <va-button @click="btnClick()">
                     Submit
@@ -57,38 +67,61 @@
                 </div>
               </div>
 
-              <div v-else-if="tabValue === 1" class="table-wrapper">
-                <table class="va-table va-table--striped va-table--hoverable" style="width: 100%;">
+              <div
+                v-else-if="tabValue === 1"
+                class="table-wrapper"
+              >
+                <table
+                  class="va-table va-table--striped va-table--hoverable"
+                  style="width: 100%;"
+                >
                   <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Country</th>
-                    <th>Status</th>
-                  </tr>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Country</th>
+                      <th>Status</th>
+                    </tr>
                   </thead>
                   <tbody>
-                  <tr v-for="user in users" :key="user.id">
-                    <td>{{ user.fullName }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.country }}</td>
-                    <td>
-                      <va-badge
-                        :text="user.status"
-                        :color="user.status"
-                      />
-                    </td>
-                  </tr>
+                    <tr
+                      v-for="user in users"
+                      :key="user.id"
+                    >
+                      <td>{{ user.fullName }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>{{ user.country }}</td>
+                      <td>
+                        <va-badge
+                          :text="user.status"
+                          :color="user.status"
+                        />
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
-              <div class="block__components" v-else-if="tabValue === 2">
-                <div class="component" style="display: flex; justify-content: center;">
-                  <va-button-toggle size="small" v-model="theme" :color="themeColor" :options="themeToggleOptions" />
+              <div
+                v-else-if="tabValue === 2"
+                class="block__components"
+              >
+                <div
+                  class="component"
+                  style="display: flex; justify-content: center;"
+                >
+                  <va-button-toggle
+                    v-model="theme"
+                    size="small"
+                    :color="themeColor"
+                    :options="themeToggleOptions"
+                  />
                 </div>
 
                 <div class="component">
-                  <va-switch v-model="switchValue" :color="themeColor" />
+                  <va-switch
+                    v-model="switchValue"
+                    :color="themeColor"
+                  />
                 </div>
 
                 <div class="component">
@@ -108,13 +141,28 @@
 
             <!-- Second block -->
             <div class="customize__content--second">
-              <div class="code-wrapper" @click="copyText">
+              <div
+                class="code-wrapper"
+                @click="copyText"
+              >
                 <div class="code-subwrapper">
-                  <prism class="code" :code="code" />
-                  <input type="hidden" ref="codeInput" :value="code">
+                  <prism
+                    class="code"
+                    :code="code"
+                  />
+                  <input
+                    ref="codeInput"
+                    type="hidden"
+                    :value="code"
+                  >
                 </div>
               </div>
-              <div class="clipboard" ref="message">{{ t('landing.customize.copy') }}</div>
+              <div
+                ref="message"
+                class="clipboard"
+              >
+                {{ t('landing.customize.copy') }}
+              </div>
             </div>
             <!-- /Second block -->
 

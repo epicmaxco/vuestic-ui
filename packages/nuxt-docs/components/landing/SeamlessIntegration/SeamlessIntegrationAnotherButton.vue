@@ -1,5 +1,7 @@
 <template>
-  <button class="seamless-another-button">Télécharger</button>
+  <button class="seamless-another-button">
+    Télécharger
+  </button>
 </template>
 
 <style lang="scss">

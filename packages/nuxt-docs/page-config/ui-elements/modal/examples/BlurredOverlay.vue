@@ -1,7 +1,13 @@
 <template>
-  <va-button @click="showModal = !showModal"> Show modal </va-button>
+  <va-button @click="showModal = !showModal">
+    Show modal
+  </va-button>
 
-  <va-modal v-model="showModal" :message="message" blur />
+  <va-modal
+    v-model="showModal"
+    :message="message"
+    blur
+  />
 </template>
 
 <script>

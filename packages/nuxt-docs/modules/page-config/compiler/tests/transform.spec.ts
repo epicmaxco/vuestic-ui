@@ -21,7 +21,7 @@ export default {
 
 describe('page-config/compiler/transform', () => {
   const caller = import.meta.url.replace('file://', '')
-  let importer: Importer = createImporter({
+  const importer: Importer = createImporter({
     resolve: (path: string) => new Promise((resolve) => resolve({ id: '' + path }))
   } as unknown as any, caller)
 

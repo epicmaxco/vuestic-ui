@@ -1,5 +1,10 @@
 <template>
-  <va-slider v-model="value3" track-label-visible :min="15" :max="75" />
+  <va-slider
+    v-model="value3"
+    track-label-visible
+    :min="15"
+    :max="75"
+  />
 </template>
 
 <script>

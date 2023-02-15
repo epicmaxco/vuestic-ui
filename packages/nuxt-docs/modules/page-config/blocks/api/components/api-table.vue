@@ -27,7 +27,12 @@ defineProps({
     <table class="ApiDocs__table">
       <thead>
         <tr>
-          <th v-for="col in columns">{{ col }}</th>
+          <th
+            v-for="col in columns"
+            :key="col"
+          >
+            {{ col }}
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -36,9 +41,18 @@ defineProps({
           :key="key"
           class="ApiDocs__table__row"
         >
-          <td v-for="(data, key) in row">
-            <slot :name="key" v-bind="{ key, data }">
-              <MarkdownView v-if="data" :content="data.toString()" />
+          <td
+            v-for="(data, key) in row"
+            :key="data"
+          >
+            <slot
+              :name="key"
+              v-bind="{ key, data }"
+            >
+              <MarkdownView
+                v-if="data"
+                :content="data.toString()"
+              />
             </slot>
           </td>
         </tr>

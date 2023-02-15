@@ -1,14 +1,20 @@
 <template>
   <div class="flex flex-col flex-wrap gap-5">
     <va-card>
-      <va-card-block class="flex-nowrap" horizontal>
+      <va-card-block
+        class="flex-nowrap"
+        horizontal
+      >
         <div style="flex: auto">
           <va-card-title>Title</va-card-title>
           <va-card-content>
             {{ lorem }}
           </va-card-content>
         </div>
-        <va-image style="flex: 0 0 200px" src="https://picsum.photos/200" />
+        <va-image
+          style="flex: 0 0 200px"
+          src="https://picsum.photos/200"
+        />
       </va-card-block>
     </va-card>
 

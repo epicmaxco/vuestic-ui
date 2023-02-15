@@ -1,5 +1,8 @@
 <template>
-  <va-accordion v-model="accordionValue" multiple>
+  <va-accordion
+    v-model="accordionValue"
+    multiple
+  >
     <va-collapse
       v-for="(route, idx) in items"
       :key="idx"

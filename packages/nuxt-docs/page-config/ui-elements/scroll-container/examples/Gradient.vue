@@ -6,7 +6,10 @@
     gradient
   >
     <va-list>
-      <va-list-item v-for="character in starWarsCharacters" :key="character">
+      <va-list-item
+        v-for="character in starWarsCharacters"
+        :key="character"
+      >
         <va-icon
           name="star"
           color="primary"

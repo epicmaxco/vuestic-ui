@@ -1,40 +1,66 @@
 <template>
-  <va-data-table :items="items" :columns="columns" footer-clone>
+  <va-data-table
+    :items="items"
+    :columns="columns"
+    footer-clone
+  >
     <template #headerPrepend>
       <tr class="table-example-slots__head">
-        <th colspan="6">Custom cell which span all cells (headPrepend slot)</th>
+        <th colspan="6">
+          Custom cell which span all cells (headPrepend slot)
+        </th>
       </tr>
     </template>
     <template #headerAppend>
       <tr class="table-example-slots__head">
-        <th colspan="1">#</th>
-        <th colspan="2">User info</th>
-        <th colspan="3">Contact info</th>
+        <th colspan="1">
+          #
+        </th>
+        <th colspan="2">
+          User info
+        </th>
+        <th colspan="3">
+          Contact info
+        </th>
       </tr>
     </template>
 
     <template #bodyPrepend>
       <tr class="table-example-slots__body">
-        <td colspan="4">Custom cell which span 4 cells (bodyPrepend slot)</td>
-        <td colspan="2">Custom cell which span 2 cells (bodyPrepend slot)</td>
+        <td colspan="4">
+          Custom cell which span 4 cells (bodyPrepend slot)
+        </td>
+        <td colspan="2">
+          Custom cell which span 2 cells (bodyPrepend slot)
+        </td>
       </tr>
     </template>
     <template #bodyAppend>
       <tr class="table-example-slots__body">
-        <td colspan="6">Custom cell which span all cells (bodyAppend slot)</td>
+        <td colspan="6">
+          Custom cell which span all cells (bodyAppend slot)
+        </td>
       </tr>
     </template>
 
     <template #footerPrepend>
       <tr class="table-example-slots__foot">
-        <th colspan="3">Span 3 cells</th>
-        <th colspan="2">Span 2 cells</th>
-        <th colspan="1">Span 1 cells</th>
+        <th colspan="3">
+          Span 3 cells
+        </th>
+        <th colspan="2">
+          Span 2 cells
+        </th>
+        <th colspan="1">
+          Span 1 cells
+        </th>
       </tr>
     </template>
     <template #footerAppend>
       <tr class="table-example-slots__foot">
-        <th colspan="6">Span all cells (footAppend slot)</th>
+        <th colspan="6">
+          Span all cells (footAppend slot)
+        </th>
       </tr>
     </template>
   </va-data-table>

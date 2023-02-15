@@ -1,6 +1,9 @@
 <template>
   <div style="max-width: 300px">
-    <va-select v-model="value" :options="options" />
+    <va-select
+      v-model="value"
+      :options="options"
+    />
   </div>
 </template>
 

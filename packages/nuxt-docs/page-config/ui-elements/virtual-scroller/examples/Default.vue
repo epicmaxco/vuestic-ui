@@ -1,8 +1,8 @@
 <template>
   <va-virtual-scroller
+    v-slot="{ item, index }"
     :items="hugeArray"
     :wrapper-size="200"
-    v-slot="{ item, index }"
   >
     <va-badge
       class="pb-2"

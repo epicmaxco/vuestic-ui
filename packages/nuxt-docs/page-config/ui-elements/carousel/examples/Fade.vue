@@ -1,5 +1,11 @@
 <template>
-  <va-carousel :items="items" stateful indicators infinite effect="fade" />
+  <va-carousel
+    :items="items"
+    stateful
+    indicators
+    infinite
+    effect="fade"
+  />
 </template>
 
 <script>

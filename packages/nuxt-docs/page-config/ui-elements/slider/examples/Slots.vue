@@ -2,24 +2,26 @@
   <va-slider v-model="value1">
     <template #prepend>
       <va-input
+        v-model.number="value1"
         style="width: 70px"
         type="number"
-        v-model.number="value1"
-      ></va-input>
+      />
     </template>
   </va-slider>
   <va-slider v-model="value2">
     <template #append>
       <va-input
+        v-model.number="value2"
         style="width: 70px"
         type="number"
-        v-model.number="value2"
-      ></va-input>
+      />
     </template>
   </va-slider>
   <va-slider v-model="value3">
     <template #label>
-      <div style="font-style: italic; color: black">LABEL SLOT</div>
+      <div style="font-style: italic; color: black">
+        LABEL SLOT
+      </div>
     </template>
   </va-slider>
 </template>

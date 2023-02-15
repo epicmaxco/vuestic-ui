@@ -1,31 +1,45 @@
 <template>
   <div style="max-width: 300px">
-    <va-input class="mb-6" v-model="value" placeholder="Default (solid)" />
-    <va-input class="mb-6" v-model="value" placeholder="Outline" outline />
-    <va-input class="mb-6" v-model="value" placeholder="Bordered" bordered />
     <va-input
-      class="mb-6"
       v-model="value"
+      class="mb-6"
+      placeholder="Default (solid)"
+    />
+    <va-input
+      v-model="value"
+      class="mb-6"
+      placeholder="Outline"
+      outline
+    />
+    <va-input
+      v-model="value"
+      class="mb-6"
+      placeholder="Bordered"
+      bordered
+    />
+    <va-input
+      v-model="value"
+      class="mb-6"
       placeholder="Default"
       label="Default"
     />
     <va-input
-      class="mb-6"
       v-model="value"
+      class="mb-6"
       placeholder="Outline"
       label="Outline"
       outline
     />
     <va-input
-      class="mb-6"
       v-model="value"
+      class="mb-6"
       placeholder="Bordered"
       label="Bordered"
       bordered
     />
     <va-input
-      class="mb-4"
       v-model="value"
+      class="mb-4"
       placeholder="Background"
       label="Background"
       color="#000"

@@ -1,7 +1,19 @@
 <template>
-  <va-slider label="Disabled" v-model="value1" :disabled="isState" />
-  <va-slider label="Readonly" v-model="value2" :readonly="isState" />
-  <va-checkbox class="mt-2" v-model="isState" label="States enabled" />
+  <va-slider
+    v-model="value1"
+    label="Disabled"
+    :disabled="isState"
+  />
+  <va-slider
+    v-model="value2"
+    label="Readonly"
+    :readonly="isState"
+  />
+  <va-checkbox
+    v-model="isState"
+    class="mt-2"
+    label="States enabled"
+  />
 </template>
 
 <script>

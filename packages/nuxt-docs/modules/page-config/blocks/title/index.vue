@@ -14,8 +14,12 @@ const { t } = useI18n()
 
 <template>
   <h1 class="page-config-title">
-    <MarkdownView :content="t(text)" text class="mr-2" />
-    <Anchor :text="text"/>
+    <MarkdownView
+      :content="t(text)"
+      text
+      class="mr-2"
+    />
+    <Anchor :text="text" />
   </h1>
 </template>
 

@@ -6,8 +6,9 @@
         onClick: clickHandler,
       })
     "
-    >notification with custom onClick handler</va-button
   >
+    notification with custom onClick handler
+  </va-button>
 </template>
 
 <script>

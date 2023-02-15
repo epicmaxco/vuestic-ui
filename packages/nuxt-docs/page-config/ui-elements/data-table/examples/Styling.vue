@@ -7,14 +7,14 @@
         :options="alignOptions"
       />
       <va-select
-        class="mt-2"
         v-model="columns[0].thVerticalAlign"
+        class="mt-2"
         label="First heading vertical align"
         :options="verticalAlignOptions"
       />
       <va-select
-        class="mt-2"
         v-model="columns[0].width"
+        class="mt-2"
         label="First heading width"
         :options="widthOptions"
         clearable
@@ -27,14 +27,14 @@
         :options="alignOptions"
       />
       <va-select
-        class="mt-2"
         v-model="columns[1].thVerticalAlign"
+        class="mt-2"
         label="Second heading vertical align"
         :options="verticalAlignOptions"
       />
       <va-select
-        class="mt-2"
         v-model="columns[1].width"
+        class="mt-2"
         label="Second heading width"
         :options="widthOptions"
         clearable
@@ -47,14 +47,14 @@
         :options="alignOptions"
       />
       <va-select
-        class="mt-2"
         v-model="columns[2].thVerticalAlign"
+        class="mt-2"
         label="Third heading vertical align"
         :options="verticalAlignOptions"
       />
       <va-select
-        class="mt-2"
         v-model="columns[2].width"
+        class="mt-2"
         label="Third heading width"
         :options="widthOptions"
         clearable
@@ -71,8 +71,8 @@
         color="#990099"
       />
       <va-select
-        class="mt-2"
         v-model="columns[0].tdVerticalAlign"
+        class="mt-2"
         label="First column vertical align"
         :options="verticalAlignOptions"
         color="#990099"
@@ -86,8 +86,8 @@
         color="#990099"
       />
       <va-select
-        class="mt-2"
         v-model="columns[1].tdVerticalAlign"
+        class="mt-2"
         label="Second column vertical align"
         :options="verticalAlignOptions"
         color="#990099"
@@ -101,8 +101,8 @@
         color="#990099"
       />
       <va-select
-        class="mt-2"
         v-model="columns[2].tdVerticalAlign"
+        class="mt-2"
         label="Third column vertical align"
         :options="verticalAlignOptions"
         color="#990099"
@@ -112,18 +112,22 @@
 
   <div class="row mb-6">
     <va-checkbox
+      v-model="useAdditionalClass"
       class="flex flex-col mb-1 md6"
       label="Use additional class to cells of first column"
-      v-model="useAdditionalClass"
     />
     <va-checkbox
+      v-model="useAdditionalStyle"
       class="flex flex-col mb-1 md6"
       label="Use additional styles to cells of second column"
-      v-model="useAdditionalStyle"
     />
   </div>
 
-  <va-data-table class="table-example" :items="items" :columns="columns" />
+  <va-data-table
+    class="table-example"
+    :items="items"
+    :columns="columns"
+  />
 </template>
 
 <script>

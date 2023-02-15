@@ -18,13 +18,13 @@
     <va-time-input
       v-model="value"
       error
-      :errorMessages="['Bye world!']"
+      :error-messages="['Bye world!']"
       manual-input
       class="mr-3"
     />
     <va-time-input
-      label="accept only hours < 12"
       v-model="value"
+      label="accept only hours < 12"
       :rules="[
         (date) =>
           (date && date.getHours && date.getHours() < 12) ||

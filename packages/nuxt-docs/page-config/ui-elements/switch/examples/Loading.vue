@@ -1,5 +1,8 @@
 <template>
-  <va-switch v-model="value" loading />
+  <va-switch
+    v-model="value"
+    loading
+  />
 </template>
 
 <script>

@@ -1,15 +1,18 @@
 <template>
   <div class="row">
     <div
-      style="height: 200px"
       ref="infiniteScrollTarget"
+      style="height: 200px"
       class="flex flex-col md6 lg4"
     >
       <va-infinite-scroll
         :load="appendRecordsAsyncRef"
         :scroll-target="$refs.infiniteScrollTarget"
       >
-        <div v-for="(record, index) in recordsRef" :key="index">
+        <div
+          v-for="(record, index) in recordsRef"
+          :key="index"
+        >
           List item and some text #{{ index }}
         </div>
       </va-infinite-scroll>
@@ -18,15 +21,18 @@
     <va-divider vertical />
 
     <div
-      style="height: 200px"
       id="infinite-scroll-custom-target"
+      style="height: 200px"
       class="flex flex-col md6 lg4"
     >
       <va-infinite-scroll
         :load="appendRecordsAsyncId"
         scroll-target="#infinite-scroll-custom-target"
       >
-        <div v-for="(record, index) in recordsId" :key="index">
+        <div
+          v-for="(record, index) in recordsId"
+          :key="index"
+        >
           List item and some text #{{ index }}
         </div>
       </va-infinite-scroll>

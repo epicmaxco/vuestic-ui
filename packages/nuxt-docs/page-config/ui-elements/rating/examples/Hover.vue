@@ -1,5 +1,8 @@
 <template>
-  <va-rating v-model="value" hover />
+  <va-rating
+    v-model="value"
+    hover
+  />
   <span> Value: {{ value }}</span>
 </template>
 

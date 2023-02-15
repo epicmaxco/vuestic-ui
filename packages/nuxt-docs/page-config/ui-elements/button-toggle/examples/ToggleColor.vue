@@ -1,8 +1,8 @@
 <template>
   <va-button-toggle
+    v-model="model"
     toggle-color="textPrimary"
     color="#7e06ae"
-    v-model="model"
     :options="options"
   />
 </template>

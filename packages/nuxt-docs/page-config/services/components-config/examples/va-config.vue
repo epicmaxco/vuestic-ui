@@ -8,9 +8,17 @@
     >
       <div class="alert-content">
         <p>Read this important demo message!</p>
-        <va-button icon="hearing"> Ok </va-button>
-        <va-button icon="visibility"> I already read it before </va-button>
-        <va-button color="danger" icon="close" icon-color="warning">
+        <va-button icon="hearing">
+          Ok
+        </va-button>
+        <va-button icon="visibility">
+          I already read it before
+        </va-button>
+        <va-button
+          color="danger"
+          icon="close"
+          icon-color="warning"
+        >
           Close
         </va-button>
       </div>

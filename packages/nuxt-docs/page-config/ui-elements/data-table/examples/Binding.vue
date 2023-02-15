@@ -1,15 +1,15 @@
 <template>
   <div class="row mb-6">
     <va-checkbox
+      v-model="isRowBind"
       class="flex flex-col md3 sm4 xs6"
       label="Row bind"
-      v-model="isRowBind"
     />
 
     <va-checkbox
+      v-model="isCellBind"
       class="flex flex-col md3 sm4 xs6"
       label="Cell bind"
-      v-model="isCellBind"
     />
   </div>
 
