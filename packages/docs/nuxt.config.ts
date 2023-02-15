@@ -77,7 +77,13 @@ export default defineNuxtConfig({
   },
 
   // TODO: hydration mismatch issues; tailwind doesn't work properly
-  ssr: false,
+  // ssr: false,
+  // nitro: {
+  //   prerender: {
+  //     routes: ['/'],
+  //     ignore: ['/*']
+  //   }
+  // },
 
   modules: [
     './modules/banner',

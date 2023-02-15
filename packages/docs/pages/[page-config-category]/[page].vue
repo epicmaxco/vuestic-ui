@@ -1,11 +1,13 @@
 <template>
-  <div class="page-config">
-    <PageConfig
-      v-if="config"
-      :page-config="config"
-    />
-    <PageConfigSkeleton v-else />
-  </div>
+  <ClientOnly>
+    <div class="page-config">
+      <PageConfig
+        v-if="config"
+        :page-config="config"
+      />
+      <PageConfigSkeleton v-else />
+    </div>
+  </ClientOnly>
 </template>
 
 <script lang="ts" setup>
@@ -13,6 +15,7 @@ import { ConcreteBlock } from '../../modules/page-config/runtime';
 
 definePageMeta({
   layout: 'default',
+  scrollToTop: true,
 })
 
 const route = useRoute();
