@@ -33,8 +33,8 @@ export const useFloatingPosition = (
 ) => {
   if (!floating.value) { return {} }
 
-  const parsedPlacementAlias = usePlacementAliases(props)
-  const centerAlignment = computed(() => parsedPlacementAlias.value.align === 'center' ? '-50%' : '0%')
+  const { position, align } = usePlacementAliases(props)
+  const centerAlignment = computed(() => align.value === 'center' ? '-50%' : '0%')
   const transformComputed = computed(() => {
     const options = {
       top: { transform: `translateX(${centerAlignment.value}) translateY(-100%)` },
@@ -43,23 +43,23 @@ export const useFloatingPosition = (
       right: { transform: `translateX(100%) translateY(${centerAlignment.value})` },
     }
 
-    return options[parsedPlacementAlias.value.position]
+    return options[position.value]
   })
 
   const getOverlapMargin = computed(() => {
     if (!props.overlap) { return {} }
 
-    const result = { [`margin-${parsedPlacementAlias.value.position}`]: 'var(--va-badge-overlap)' }
+    const result = { [`margin-${position.value}`]: 'var(--va-badge-overlap)' }
 
     const alignComplianceTable = {
       top: { end: 'left', multiplier: -1 },
       bottom: { start: 'left', multiplier: 1 },
     } as AlignComplianceTable
 
-    const alignComplianceValue = alignComplianceTable[parsedPlacementAlias.value.position]?.[parsedPlacementAlias.value.align]
+    const alignComplianceValue = alignComplianceTable[position.value]?.[align.value]
     if (alignComplianceValue) {
       Object.assign(result, {
-        [`margin-${alignComplianceValue}`]: `calc(${alignComplianceTable[parsedPlacementAlias.value.position].multiplier} * var(--va-badge-overlap))`,
+        [`margin-${alignComplianceValue}`]: `calc(${alignComplianceTable[position.value].multiplier} * var(--va-badge-overlap))`,
       })
     }
 
@@ -67,15 +67,15 @@ export const useFloatingPosition = (
   })
 
   const getAlignment = computed(() => {
-    const baseSide = ['left', 'right'].includes(parsedPlacementAlias.value.position) ? 'top' : 'left'
+    const baseSide = ['left', 'right'].includes(position.value) ? 'top' : 'left'
     const alignmentOptions = { start: { [baseSide]: 0 }, center: { [baseSide]: '50%' }, end: { [baseSide]: '100%' } }
-    return alignmentOptions[parsedPlacementAlias.value.align]
+    return alignmentOptions[align.value]
   })
 
   const offset = toRef(props, 'offset')
 
   return computed(() => ({
-    [parsedPlacementAlias.value.position]: `${parseSizeValue(offset)}px`,
+    [position.value]: `${parseSizeValue(offset)}px`,
     ...transformComputed.value,
     ...getAlignment.value,
     ...getOverlapMargin.value,
