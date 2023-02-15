@@ -29,9 +29,17 @@ export const useCompiler = (options: any) => {
       importer.importNamed('definePageConfig', (await this.resolve(runtimePath))!.id)
       importer.importNamed('defineManualApi', (await this.resolve(runtimePath))!.id)
 
-      code = await transform(code, importer)
+      try {
+        code = await transform(code, importer)
+      } catch (e: any) {
+        throw new Error(`Error transforming page-config: ${id}\n${e.message}`)
+      }
 
-      return importer.imports + code
+      try {
+        return importer.imports + code
+      } catch (e: any) {
+        throw new Error(`Error resolving imports in page-config: ${id}\n${e.message}`)
+      }
     },
   })
 }

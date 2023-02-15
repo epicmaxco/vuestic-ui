@@ -120,6 +120,10 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
 
     get imports() {
       return Object.entries(pathImports).map(([path, imports]) => {
+        if (path === undefined) {
+          throw new Error(`Unable to resolve imports "${imports.map((i) => i.name).join(', ')}}`)
+        }
+
         const defaultImport = imports.find((i) => i.type === 'default')?.alias
         const namedImports = imports
           .filter((i) => i.type === 'named')

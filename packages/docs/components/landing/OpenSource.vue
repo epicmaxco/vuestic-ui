@@ -75,7 +75,7 @@ export default defineComponent({
   position: relative;
   padding-top: 10rem;
   padding-bottom: 10rem;
-  background-image: url("@/landing/pattern-2.svg");
+  background-image: url("@/public/landing/pattern-2.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;

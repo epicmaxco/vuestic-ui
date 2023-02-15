@@ -24,7 +24,11 @@ export const transform = async (code: string, importer: Importer) => {
 
   for (const block of blocks) {
     for (const transform of transformers) {
-      code = (await transform.call(ctx, block)) || code
+      try {
+        code = (await transform.call(ctx, block)) || code
+      } catch (e: any) {
+        throw new Error(`Error transforming block: ${block.type}\n${e.message}`)
+      }
     }
   }
 

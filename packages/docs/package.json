@@ -1,9 +1,10 @@
 {
   "private": true,
-  "name": "nuxt-docs",
+  "name": "docs",
   "version": "0.0.1",
   "scripts": {
     "build": "nuxt build --max_old_space_size=4096",
+    "build:ci": "nuxt build --max_old_space_size=4096 --standalone",
     "serve": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -32,8 +33,12 @@
     "vue-tsc": "^1.0.24"
   },
   "dependencies": {
+    "@docsearch/js": "^3.2.1",
     "@types/acorn": "^6.0.0",
     "acorn": "^8.8.1",
+    "markdown-it": "^12.3.2",
+    "codesandbox": "^2.2.3",
+    "markdown-it-attrs": "^4.0.0",
     "prismjs": "^1.29.0"
   }
 }
