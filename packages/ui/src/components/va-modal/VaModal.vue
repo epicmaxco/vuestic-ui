@@ -139,6 +139,7 @@ import {
   useModalLevel,
   useTranslation,
   useClickOutside,
+  useDocument,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -170,6 +171,7 @@ export default defineComponent({
     ...useStatefulProps,
     modelValue: { type: Boolean, default: false },
     attachElement: { type: String, default: 'body' },
+    fixBody: { type: Boolean, default: false },
     disableAttachment: { type: Boolean, default: false },
     title: { type: String, default: '' },
     message: { type: String, default: '' },
@@ -295,14 +297,25 @@ export default defineComponent({
 
     useBlur(toRef(props, 'blur'), valueComputed)
 
+    const documentRef = useDocument()
+    const setBodyPosition = (position: string) => {
+      if (!documentRef.value || !props.fixBody) { return }
+
+      documentRef.value.body.style.position = position
+    }
+    const setFixedBodyPosition = () => setBodyPosition('fixed')
+    const resetBodyPosition = () => setBodyPosition('')
+
     watch(valueComputed, newValueComputed => { // watch for open/close modal
       if (newValueComputed) {
         registerModal()
+        setFixedBodyPosition()
         return
       }
 
       if (isLowestLevelModal.value) {
         freeFocus()
+        resetBodyPosition()
       }
       unregisterModal()
     })
