@@ -118,9 +118,15 @@
             </div>
             <!-- /Second block -->
 
-            <router-link class="customize__content__link" :to="`/${locale}/getting-started/configuration-guide`">
+            <va-button
+              :to="`/${locale}/getting-started/configuration-guide`"
+              preset="plain"
+              icon="mdi-format-list-bulleted"
+              color="textInverted"
+              class="customize__content__link"
+            >
               {{ t('landing.customize.configuration') }}
-            </router-link>
+            </va-button>
           </div>
         </div>
       </div>

@@ -5,19 +5,23 @@
         <h2 class="admin__title">{{ $t('landing.admin.title') }}</h2>
         <div class="admin__subtitle">{{ $t('landing.admin.text') }}</div>
         <div class="admin__buttons">
-          <va-button class="admin__buttons--button"
-                     href="https://vuestic.epicmax.co/admin/dashboard"
-                     target="blank"
+          <va-button
+            class="admin__buttons--button"
+            href="https://github.com/epicmaxco/vuestic-admin"
+            target="blank"
+          >
+            <template #prepend>
+              <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
+            </template>
+            {{ $t('landing.admin.buttons.github') }}
+          </va-button>
+          <va-button
+            class="admin__buttons--button"
+            href="https://vuestic.epicmax.co/admin/dashboard"
+            target="blank"
+            preset="secondary"
           >
             {{ $t('landing.admin.buttons.demo') }}
-          </va-button>
-          <va-button class="admin__buttons--button"
-                     href="https://github.com/epicmaxco/vuestic-admin"
-                     target="blank"
-                     preset="plain"
-          >
-            <va-icon class="fa fa-github" style="margin-right: 0.5rem;" />
-            {{ $t('landing.admin.buttons.github') }}
           </va-button>
 
           <div class="admin__buttons--button">
@@ -232,5 +236,4 @@ export default class Admin extends Vue {}
   color: #ffffff !important;
   height: 1.75rem;
 }
-
 </style>

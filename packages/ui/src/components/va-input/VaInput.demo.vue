@@ -558,6 +558,18 @@
         mask="date"
       />
       Value: {{ maskReturnFormattedValue }}
+      <va-input
+        v-model="maskObjectReturnFormattedValue"
+        :style="{paddingTop: '4px'}"
+        label="Phone mask, return formatted"
+        :return-raw="false"
+        type="input"
+        :mask="{
+          phone: true,
+          phoneRegionCode: 'US'
+        }"
+      />
+      Value: {{ maskObjectReturnFormattedValue }}
     </VbCard>
     <VbCard title="Number input">
       <va-input
@@ -660,6 +672,7 @@ import { VaButton } from './../va-button'
 import { VaIcon } from './../va-icon'
 import VaInputValidation from './VaInput-validation.vue'
 import { VaCheckbox } from '../va-checkbox'
+import 'cleave.js/dist/addons/cleave-phone.us'
 
 export default {
   components: {
@@ -687,6 +700,7 @@ export default {
       maskNumeralsValue: '',
       maskCustomBlocksValue: '',
       maskReturnFormattedValue: '',
+      maskObjectReturnFormattedValue: '',
       num: 10,
 
       isClearable: true,

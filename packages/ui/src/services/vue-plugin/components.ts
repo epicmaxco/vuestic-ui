@@ -78,5 +78,6 @@ export {
   VaToast,
   VaTreeView,
   VaScrollContainer,
+  VaViewer,
   VaVirtualScroller,
 } from '../../components'

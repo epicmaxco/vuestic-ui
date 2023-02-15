@@ -28,6 +28,11 @@ export default defineComponent({
     },
     contentHeight: { type: Number, default: 1 },
     contentWidth: { type: Number, default: 1 },
+    maxWidth: {
+      type: Number,
+      default: 0,
+      validator: (v: number) => v >= 0,
+    },
   },
 
   setup (props) {
@@ -43,7 +48,9 @@ export default defineComponent({
       return { paddingBottom: `${1 / aspectRatio.value * 100}%` }
     })
 
-    return { stylesComputed }
+    const maxWidthComputed = computed(() => props.maxWidth ? `${props.maxWidth}px` : undefined)
+
+    return { stylesComputed, maxWidthComputed }
   },
 })
 </script>
@@ -55,5 +62,6 @@ export default defineComponent({
   position: var(--va-aspect-ratio-position);
   overflow: var(--va-aspect-ratio-overflow);
   display: flex;
+  max-width: v-bind(maxWidthComputed);
 }
 </style>
