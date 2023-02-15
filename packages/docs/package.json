@@ -7,7 +7,7 @@
     "build:ci": "nuxt generate --max_old_space_size=4096",
     "serve": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "npx serve ./.output/public",
     "test": "vitest",
     "lint": "eslint --ext .js,.ts,.vue .",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}'"
