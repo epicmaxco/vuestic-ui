@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'fs/promises';
+import { versions } from '../../versions'
 
 import { resolvePath } from './../../utils/resolve-path';
 import { useUserAnswers } from './../../composables/useUserAnswers';
@@ -13,7 +14,7 @@ export const addVuesticToVue3App = async () => {
 
   // Install vuestic-ui
   const { addDependency } = await usePackageJson()
-  addDependency('vuestic-ui', 'latest')
+  addDependency('vuestic-ui', versions['vuestic-ui'])
 
   // Add plugin
   const mainPath = resolvePath(process.cwd(), projectName, 'src/main.js') || resolvePath(process.cwd(), projectName, 'src/main.ts')

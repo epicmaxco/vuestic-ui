@@ -14,8 +14,8 @@
   --va-modal-z-index: var(--va-z-index-teleport-overlay);
   --va-modal-container-z-index: 100;
   --va-modal-basic-duration: 0.3s;
-  --va-modal-opacity-transition: opacity calc(var(--va-modal-basic-duration) * 0.5) cubic-bezier(1, 0.5, 0.8, 1);
-  --va-modal-transform-transition: transform var(--va-modal-basic-duration) ease;
+  --va-modal-opacity-transition: calc(var(--va-modal-basic-duration) * 0.5) cubic-bezier(1, 0.5, 0.8, 1);
+  --va-modal-transform-transition: var(--va-modal-basic-duration) ease;
   --va-modal-overlay-background-blur-radius: 4px;
   --va-modal-padding: var(--va-modal-padding-top) var(--va-modal-padding-right) var(--va-modal-padding-bottom) var(--va-modal-padding-left);
   --va-modal-padding-top: 1.25rem;

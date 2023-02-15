@@ -180,7 +180,6 @@ export default defineComponent({
       width: 100%;
     }
 
-    &__center,
     &__background-shape {
       display: none;
     }

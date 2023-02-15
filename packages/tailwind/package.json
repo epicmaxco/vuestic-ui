@@ -1,0 +1,37 @@
+{
+  "name": "@vuestic/tailwind",
+  "description": "Script for config syncing between Tailwind CSS and Vuestic UI.",
+  "keywords": [
+    "vuesticui",
+    "vuestic",
+    "tailwindcss",
+    "tailwind",
+    "uikit",
+    "uiframework"
+  ],
+  "version": "0.1.2",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "bin": {
+    "sync-tailwind-with-vuestic": "./bin/sync-tailwind",
+    "sync-vuestic-with-tailwind": "./bin/sync-vuestic",
+    "watch-tailwind": "./bin/watch-tailwind"
+  },
+  "scripts": {
+    "build": "node ./build.mjs",
+    "build:vite": "vite build"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^3.2.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "devDependencies": {
+    "vite": "^2.9.8"
+  }
+}

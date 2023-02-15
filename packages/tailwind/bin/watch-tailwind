@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+const sync = require('../dist/watch-tailwind.cjs')
+const { watchTailwindConfigFile } = sync
+
+watchTailwindConfigFile()
