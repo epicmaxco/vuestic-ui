@@ -17,7 +17,7 @@ export default definePageConfig({
     block.paragraph('team.description'),
     block.subtitle('team.coreTeam'),
     block.paragraph('team.coreTeamDescription'),
-    block.component('Team', {
+    block.component('team', {
       team: [
         {
           name: 'Andrey Hrabouski',
