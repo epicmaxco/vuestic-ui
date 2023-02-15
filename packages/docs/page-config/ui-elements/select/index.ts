@@ -21,6 +21,7 @@ export default definePageConfig({
     block.example("Validation"),
     block.example("MaxVisibleOptions"),
     block.example("SelectedTopShown"),
+    block.example("Autocomplete"),
 
     block.headline("select.examples.keyboardNavigation.title"),
     block.paragraph("select.examples.keyboardNavigation.moves"),

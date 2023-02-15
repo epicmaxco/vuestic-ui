@@ -13,7 +13,7 @@ const parsePath = (path: string) => {
 }
 
 const isVuesticComponent = (filename: string) => {
-  return /^Va.*\.(js|mjs)$/.test(filename)
+  return /Va.*\.(js|mjs)$/.test(filename)
 }
 
 const SOURCE_MAP_COMMENT_FRAGMENT = '//# sourceMappingURL='

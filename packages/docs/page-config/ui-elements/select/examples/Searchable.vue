@@ -6,6 +6,7 @@
       :options="options"
       multiple
       searchable
+      highlight-matched-text
     />
   </div>
 </template>

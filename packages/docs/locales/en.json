@@ -875,7 +875,10 @@
         "maxVisibleOptions": "Max selected options amount, that will be shown inside of input wrapper.",
         "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
         "selectedTopShown": "Selected options will be shown at the top of the options list.",
-        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction."
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
+        "autocomplete": "Enables the autocomplete behaviour.",
+        "highlightMatchedText": "Highlight chars in options that are match the input value (search or autocomplete).",
+        "minSearchChars": "Minimal amount of chars in input value to initiate search or autocomplete."
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -3298,6 +3301,10 @@
       "state": {
         "title": "State",
         "text": "Includes error, success, disabled or loading state"
+      },
+      "autocomplete": {
+        "title": "Autocomplete",
+        "text": "The `autocomplete` prop enables autocomplete behaviour for the `va-select`."
       },
       "searchable": {
         "title": "Searchable",

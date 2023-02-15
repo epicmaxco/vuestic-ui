@@ -272,5 +272,4 @@ import LandingStarsButton from './StarsButton.vue'
   color: #ffffff !important;
   height: 1.75rem;
 }
-
 </style>
