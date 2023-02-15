@@ -45,3 +45,5 @@ export type ProvidedGlobalConfig = {
   setGlobalConfig: (updater: GlobalConfig | GlobalConfigUpdater<GlobalConfig>) => void,
   mergeGlobalConfig: (updater: PartialGlobalConfig | GlobalConfigUpdater<PartialGlobalConfig>) => void
 }
+
+export const defineVuesticConfig = (config: PartialGlobalConfig) => config
