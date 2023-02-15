@@ -1,7 +1,7 @@
 <template>
   <va-accordion
     v-model="value"
-    style="max-width: 400px"
+    style="max-width: 400px;"
   >
     <va-collapse
       v-for="(group, idx) in items"
@@ -11,7 +11,7 @@
       color="textInverted"
       flat
     >
-      <div style="padding: 0 1rem 0.75rem">
+      <div style="padding: 0 1rem 0.75rem;">
         <router-link
           v-for="(navItem, idx) in group.items"
           :key="idx"

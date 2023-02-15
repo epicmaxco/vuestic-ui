@@ -27,17 +27,17 @@ const { t } = useI18n()
 </template>
 
 <style lang="scss" scoped>
-  @import 'vuestic-ui/styles/resources';
+@import 'vuestic-ui/styles/resources';
 
-  .page-config-collapse {
-    .va-collapse__header {
-      --va-collapse-header-content-border-radius: 0.25rem;
-    }
-
-    &__content {
-      position: relative;
-
-      @include va-background(var(--va-background-element), 0.5);
-    }
+.page-config-collapse {
+  .va-collapse__header {
+    --va-collapse-header-content-border-radius: 0.25rem;
   }
+
+  &__content {
+    position: relative;
+
+    @include va-background(var(--va-background-element), 0.5);
+  }
+}
 </style>

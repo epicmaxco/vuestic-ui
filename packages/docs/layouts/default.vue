@@ -64,66 +64,65 @@ useHead({
 </script>
 
 <style lang="scss">
-  @import 'vuestic-ui/styles/resources';
-  @import '@/assets/fonts-imports.scss';
-  @import '@/assets/smart-grid.scss';
-  // Need to import tailwind in layout, because otherwise Vuestic component's css will has a higher priority
-  // @import '~/assets/css/tailwind.css';
+@import 'vuestic-ui/styles/resources';
+@import '@/assets/fonts-imports.scss';
+@import '@/assets/smart-grid.scss';
+// Need to import tailwind in layout, because otherwise Vuestic component's css will has a higher priority
+// @import '~/assets/css/tailwind.css';
 
-  html {
-    font-family: var(--va-font-family);
-    color: var(--va-text-primary);
-    background: var(--va-background-primary);
+html {
+  font-family: var(--va-font-family);
+  color: var(--va-text-primary);
+  background: var(--va-background-primary);
+}
+
+.docs-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--va-font-family);
+
+  &__header {
+    width: 100%;
+    background: var(--va-white);
+    z-index: 99;
   }
 
-  .docs-layout {
-    height: 100vh;
+  &__main-section {
     display: flex;
-    flex-direction: column;
-    overflow: hidden;
-
-    font-family: var(--va-font-family);
-
-    &__header {
-      width: 100%;
-      background: var(--va-white);
-      z-index: 99;
-    }
-
-    &__main-section {
-      display: flex;
-      flex-grow: 2;
-      overflow: auto;
-      position: relative;
-    }
-
-    &__sidebar {
-      height: 100%;
-      min-width: fit-content;
-      overflow-y: auto;
-      overflow-x: unset;
-
-      @include va-scroll(var(--va-primary));
-    }
-
-    &__main-content {
-      width: 100%;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      display: flex;
-      justify-content: center;
-      background: var(--va-background-primary);
-
-      @include va-scroll(var(--va-primary));
-    }
-
-    &__page-content {
-      width: 100%;
-      max-width: 1080px;
-      padding: 1.75rem 3.5rem;
-      box-sizing: border-box;
-
-      @include sm(padding, 2em);
-    }
+    flex-grow: 2;
+    overflow: auto;
+    position: relative;
   }
+
+  &__sidebar {
+    height: 100%;
+    min-width: fit-content;
+    overflow-y: auto;
+    overflow-x: unset;
+
+    @include va-scroll(var(--va-primary));
+  }
+
+  &__main-content {
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    background: var(--va-background-primary);
+
+    @include va-scroll(var(--va-primary));
+  }
+
+  &__page-content {
+    width: 100%;
+    max-width: 1080px;
+    padding: 1.75rem 3.5rem;
+    box-sizing: border-box;
+
+    @include sm(padding, 2em);
+  }
+}
 </style>

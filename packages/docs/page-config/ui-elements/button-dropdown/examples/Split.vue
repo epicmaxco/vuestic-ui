@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; align-items: center">
+  <div style="display: flex; align-items: center;">
     <va-button-dropdown
       class="mr-2 mb-2"
       split

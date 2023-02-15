@@ -8,7 +8,7 @@
     <VaSlider
       v-model="value"
       v-bind="bind"
-      style="width: 200px; height: 200px"
+      style="width: 200px; height: 200px;"
     >
       <template
         v-for="slot in slots"

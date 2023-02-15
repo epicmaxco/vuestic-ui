@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 280px">
+  <div style="width: 280px;">
     <va-tabs
       v-model="value"
       color="danger"

@@ -66,12 +66,13 @@ export default {
 .primary-danger-gradient {
   width: 100%;
   height: 4rem;
-  background: linear-gradient(
-    90deg,
-    var(--va-primary) 0%,
-    var(--va-success) 50%,
-    var(--va-danger) 100%
-  );
+  background:
+    linear-gradient(
+      90deg,
+      var(--va-primary) 0%,
+      var(--va-success) 50%,
+      var(--va-danger) 100%
+    );
 
   span {
     background: var(--secondary);

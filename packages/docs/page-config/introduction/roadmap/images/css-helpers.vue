@@ -23,7 +23,7 @@
       y="33"
       font-family="Virgil, Segoe UI Emoji"
       font-size="36"
-      style="white-space: pre"
+      style="white-space: pre;"
       fill="white"
       transform="translate(35 258)"
     >
@@ -46,7 +46,7 @@
       y="33"
       font-family="Virgil, Segoe UI Emoji"
       font-size="36"
-      style="white-space: pre"
+      style="white-space: pre;"
       transform="translate(50 28)"
     >
       bg-success rounded

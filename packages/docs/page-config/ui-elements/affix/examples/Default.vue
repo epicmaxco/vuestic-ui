@@ -1,7 +1,7 @@
 <template>
   <div
     ref="target"
-    style="height: 300px; overflow-y: scroll"
+    style="height: 300px; overflow-y: scroll;"
   >
     <p>
       {{ text }}
@@ -13,9 +13,9 @@
     >
       <div
         style="
-          padding: 10px 30px;
-          background-color: var(--va-background-element);
-        "
+padding: 10px 30px;
+background-color: var(--va-background-element);
+"
       >
         Custom target: top 30, bottom 0.
       </div>

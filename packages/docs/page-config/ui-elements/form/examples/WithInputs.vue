@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 300px">
+  <div style="width: 300px;">
     <va-button
       class="mb-3"
       @click="$refs.form.validate()"

@@ -57,20 +57,21 @@ const { getTextColor, getColor } = useColors()
 </template>
 
 <style lang="scss" scoped>
-  .page-config-cards {
-    display: flex;
-    flex-wrap: wrap;
+.page-config-cards {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.5rem;
 
-    margin: 0 -0.5rem;
-    &__card-wrapper {
-      padding: 0.5rem;
-      &:deep(.va-card) {
-        height: 100%;
-      }
-    }
+  &__card-wrapper {
+    padding: 0.5rem;
 
-    p:last-child {
-      margin-bottom: 0;
+    &:deep(.va-card) {
+      height: 100%;
     }
   }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
   <va-form
-    style="width: 300px"
+    style="width: 300px;"
     tag="form"
     @submit.prevent="handleSubmit"
   >

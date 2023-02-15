@@ -1,19 +1,19 @@
 <template>
-  <div style="display: flex; gap: 1rem">
+  <div style="display: flex; gap: 1rem;">
     <va-scroll-container
       vertical
-      style="width: 50%; max-height: 200px"
+      style="width: 50%; max-height: 200px;"
     >
-      <div style="padding: 1rem">
+      <div style="padding: 1rem;">
         {{ lorem }}
       </div>
     </va-scroll-container>
     <va-scroll-container
       vertical
       rtl
-      style="width: 50%; max-height: 200px"
+      style="width: 50%; max-height: 200px;"
     >
-      <div style="padding: 1rem">
+      <div style="padding: 1rem;">
         {{ lorem }}
       </div>
     </va-scroll-container>

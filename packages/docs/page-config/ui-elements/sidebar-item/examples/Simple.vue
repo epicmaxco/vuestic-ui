@@ -7,7 +7,7 @@
 
   <va-sidebar-item>
     <va-sidebar-item-content>
-      <va-sidebar-item-title style="text-align: center">
+      <va-sidebar-item-title style="text-align: center;">
         I'm centered!
       </va-sidebar-item-title>
     </va-sidebar-item-content>

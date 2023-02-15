@@ -28,7 +28,7 @@
           <va-button
             preset="secondary"
             color="#fff"
-            style="margin-left: -0.5rem"
+            style="margin-left: -0.5rem;"
           >
             Follow
           </va-button>

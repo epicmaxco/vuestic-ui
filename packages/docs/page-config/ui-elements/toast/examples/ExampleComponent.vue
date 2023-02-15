@@ -4,7 +4,7 @@
     name="clock"
     color="danger"
   />
-  <span style="font-weight: bold">Bold message with icon</span>
+  <span style="font-weight: bold;">Bold message with icon</span>
 </template>
 
 <script>

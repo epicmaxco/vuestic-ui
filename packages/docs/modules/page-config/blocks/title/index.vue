@@ -24,11 +24,11 @@ const { t } = useI18n()
 </template>
 
 <style lang="scss">
-  .page-config-title {
-    --code-bg: transparent;
+.page-config-title {
+  --code-bg: transparent;
 
-    @media screen and (max-width: 767px) {
-      font-size: 2rem !important;    
-    }
+  @media screen and (max-width: 767px) {
+    font-size: 2rem !important;
   }
+}
 </style>

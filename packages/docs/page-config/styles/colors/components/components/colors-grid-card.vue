@@ -7,7 +7,7 @@
       <p>
         {{ name }}
       </p>
-      <p style="font-size: 14px">
+      <p style="font-size: 14px;">
         var(--va-{{ kebabCase(name) }})<span class="ml-2">{{ value }}</span>
       </p>
     </div>

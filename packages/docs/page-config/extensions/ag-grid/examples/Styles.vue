@@ -7,14 +7,14 @@
     v-model="isHoverable"
     label="Hoverable"
   />
-  <div style="height: 300px; width: 100%">
+  <div style="height: 300px; width: 100%;">
     <ag-grid-vue
       class="ag-theme-vuestic"
       :class="{
         'ag-theme-vuestic--striped': isStriped,
         'ag-theme-vuestic--hoverable': isHoverable,
       }"
-      style="width: 100%; height: 100%"
+      style="width: 100%; height: 100%;"
       :column-defs="columnDefs"
       :row-data="rowData"
       :modules="modules"

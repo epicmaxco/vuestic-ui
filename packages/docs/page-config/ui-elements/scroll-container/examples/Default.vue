@@ -1,6 +1,6 @@
 <template>
   <va-scroll-container
-    style="max-height: 200px"
+    style="max-height: 200px;"
     vertical
   >
     <va-list>

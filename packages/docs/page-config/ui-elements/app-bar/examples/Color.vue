@@ -1,5 +1,5 @@
 <template>
-  <div style="position: relative">
+  <div style="position: relative;">
     <va-app-bar color="danger">
       <va-button
         icon="home"
@@ -36,7 +36,7 @@
 
   <div
     class="mt-2"
-    style="position: relative"
+    style="position: relative;"
   >
     <va-app-bar
       color="info"

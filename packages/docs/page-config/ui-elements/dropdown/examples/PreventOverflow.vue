@@ -1,11 +1,11 @@
 <template>
   <div
     class="demo-viewport"
-    style="overflow: hidden"
+    style="overflow: hidden;"
   >
     <div
       class="demo-ignore-overflow"
-      style="overflow: hidden"
+      style="overflow: hidden;"
     >
       <va-dropdown
         :model-value="true"

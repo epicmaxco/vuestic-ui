@@ -47,6 +47,7 @@ const getImagePath = (width, height = 0) => `https://picsum.photos/${width}/${he
 .overlay {
   @apply absolute left-0 right-0 p-4 flex justify-center items-center bg-gray-400 bg-opacity-50 text-white;
 }
+
 .gradient {
   background: linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0.3) 100%);
 }

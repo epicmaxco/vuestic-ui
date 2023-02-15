@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 300px">
+  <div style="width: 300px;">
     <va-switch
       v-model="isGalleryViewEnabled"
       :label="$t('fileUpload.examples.undo.galleryViewLabel')"

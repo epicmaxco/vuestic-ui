@@ -115,10 +115,10 @@ const description = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-  .page-config-example {
-    &__card {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+.page-config-example {
+  &__card {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
+}
 </style>

@@ -26,7 +26,7 @@
                 >
                   <component
                     :is="item.image"
-                    style="width: 100%; height: auto"
+                    style="width: 100%; height: auto;"
                   />
                 </div>
               </va-card-content>

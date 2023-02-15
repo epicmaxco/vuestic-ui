@@ -1,5 +1,5 @@
 <template>
-  <va-form style="width: 300px">
+  <va-form style="width: 300px;">
     <va-input
       v-model="inputValue1"
       label="First Name"

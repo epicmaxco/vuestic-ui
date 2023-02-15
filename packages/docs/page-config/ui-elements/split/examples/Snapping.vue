@@ -3,7 +3,7 @@
     class="split-demo"
     :snapping="[20, 80]"
     :snapping-range="5"
-    style="height: 22rem"
+    style="height: 22rem;"
   >
     <template #start>
       <div class="p-6">

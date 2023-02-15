@@ -2,7 +2,7 @@
   <va-split
     class="split-demo"
     vertical
-    style="height: 22rem"
+    style="height: 22rem;"
   >
     <template #start>
       <div class="p-6">

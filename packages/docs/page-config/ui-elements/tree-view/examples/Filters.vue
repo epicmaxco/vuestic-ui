@@ -5,7 +5,7 @@
       placeholder="Filter..."
       clearable
       class="mr-3"
-      style="flex: 0 200px"
+      style="flex: 0 200px;"
     />
     <va-checkbox
       v-model="isFilterCaseSensitive"

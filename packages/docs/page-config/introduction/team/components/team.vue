@@ -83,7 +83,8 @@ $gap: 1rem;
 
   &__avatar {
     padding: 3px;
-    background: linear-gradient(
+    background:
+      linear-gradient(
         108.62deg,
         #e9439d,
         #e5419e,
@@ -91,7 +92,8 @@ $gap: 1rem;
         #ffffff
       )
       border-box;
-    -webkit-mask: linear-gradient(
+    -webkit-mask:
+      linear-gradient(
         108.62deg,
         #e9439d,
         #e5419e,

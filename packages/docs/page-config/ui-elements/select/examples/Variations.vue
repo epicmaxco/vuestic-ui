@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 300px">
+  <div style="max-width: 300px;">
     <va-select
       v-model="valueSingle"
       class="mb-6"

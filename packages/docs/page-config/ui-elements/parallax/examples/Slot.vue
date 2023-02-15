@@ -2,7 +2,7 @@
   <va-parallax :src="imageSrc">
     <div
       class="flex items-center justify-center"
-      style="height: 100%"
+      style="height: 100%;"
     >
       <va-icon
         class="mr-8"

@@ -26,9 +26,9 @@ const { t } = useI18n()
 </template>
 
 <style lang="scss">
-  .page-config-alert {
-    p {
-      margin: 0;
-    }
+.page-config-alert {
+  p {
+    margin: 0;
   }
+}
 </style>

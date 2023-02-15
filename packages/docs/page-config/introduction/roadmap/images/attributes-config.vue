@@ -14,7 +14,7 @@
       y="33"
       font-family="Virgil, Segoe UI Emoji"
       font-size="36"
-      style="white-space: pre"
+      style="white-space: pre;"
       transform="translate(18 371)"
     >
       &lt;va-component
@@ -30,7 +30,7 @@
       y="83"
       font-family="Virgil, Segoe UI Emoji"
       font-size="91.2"
-      style="white-space: pre"
+      style="white-space: pre;"
       transform="translate(192 31)"
     >
       Config
@@ -66,7 +66,7 @@
       y="33"
       font-family="Virgil, Segoe UI Emoji"
       font-size="36"
-      style="white-space: pre"
+      style="white-space: pre;"
       transform="translate(587 373)"
     >
       /&gt;

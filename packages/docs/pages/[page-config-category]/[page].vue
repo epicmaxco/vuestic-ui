@@ -53,10 +53,9 @@ watchEffect(() => {
 .page-config-title,
 .page-config-subtitle,
 .page-config-headline {
-
-  .page-config-title+&,
-  .page-config-subtitle+&,
-  .page-config-headline+& {
+  .page-config-title + &,
+  .page-config-subtitle + &,
+  .page-config-headline + & {
     margin-top: 1rem !important;
   }
 }
@@ -69,9 +68,9 @@ watchEffect(() => {
   .page-config-headline {
     margin-top: 4rem;
 
-    .page-config-title+&,
-    .page-config-subtitle+&,
-    .page-config-headline+& {
+    .page-config-title + &,
+    .page-config-subtitle + &,
+    .page-config-headline + & {
       margin-top: 2rem;
     }
 

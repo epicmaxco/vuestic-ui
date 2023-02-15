@@ -24,8 +24,8 @@ const { t } = useI18n()
 </template>
 
 <style lang="scss" scoped>
-  .page-config-headline {
-    font-size: 1.5rem;
-    line-height: 1.75rem;
-  }
+.page-config-headline {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+}
 </style>

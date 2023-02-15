@@ -42,18 +42,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  .page-config-anchor {
-    opacity: 0;
-    font-family: monospace !important;
-    font-size: 95%;
-    transition: opacity 0.1s ease-in-out;
+.page-config-anchor {
+  opacity: 0;
+  font-family: monospace !important;
+  font-size: 95%;
+  transition: opacity 0.1s ease-in-out;
 
-    &--force-show {
-      opacity: 1;
-    }
+  &--force-show {
+    opacity: 1;
   }
+}
 
-  *:hover > .page-config-anchor {
-    opacity: 0.8;
-  }
+*:hover > .page-config-anchor {
+  opacity: 0.8;
+}
 </style>

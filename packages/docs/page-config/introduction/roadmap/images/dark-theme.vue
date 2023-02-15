@@ -14,7 +14,7 @@
       y="53"
       font-family="Virgil, Segoe UI Emoji"
       font-size="59"
-      style="white-space: pre"
+      style="white-space: pre;"
       transform="translate(84 31)"
     >
       Hea
@@ -36,7 +36,7 @@
       fill="#fff"
       font-family="Virgil, Segoe UI Emoji"
       font-size="60.2"
-      style="white-space: pre"
+      style="white-space: pre;"
       transform="translate(191 31)"
     >
       ding
@@ -80,7 +80,7 @@
       fill="#fff"
       font-family="Virgil, Segoe UI Emoji"
       font-size="36"
-      style="white-space: pre"
+      style="white-space: pre;"
       text-anchor="middle"
       transform="translate(204 252)"
     >

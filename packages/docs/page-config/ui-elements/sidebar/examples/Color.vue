@@ -1,7 +1,7 @@
 <template>
   <div
     class="mb-6"
-    style="height: 16rem; overflow: hidden"
+    style="height: 16rem; overflow: hidden;"
   >
     <va-sidebar
       color="primary"
@@ -11,7 +11,7 @@
     >
       <va-sidebar-item active-color="backgroundPrimary">
         <va-sidebar-item-content>
-          <va-sidebar-item-title style="white-space: normal">
+          <va-sidebar-item-title style="white-space: normal;">
             background primary and white text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>
@@ -34,7 +34,7 @@
 
   <div
     class="mb-6"
-    style="height: 16rem; overflow: hidden"
+    style="height: 16rem; overflow: hidden;"
   >
     <va-sidebar
       color="background-element"
@@ -44,7 +44,7 @@
     >
       <va-sidebar-item>
         <va-sidebar-item-content>
-          <va-sidebar-item-title style="white-space: normal">
+          <va-sidebar-item-title style="white-space: normal;">
             background dark and auto text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>
@@ -66,7 +66,7 @@
 
   <div
     class="mb-6"
-    style="height: 16rem; overflow: hidden"
+    style="height: 16rem; overflow: hidden;"
   >
     <va-sidebar
       color="#F0F7ED"
@@ -77,7 +77,7 @@
     >
       <va-sidebar-item active-color="#F0F7ED">
         <va-sidebar-item-content>
-          <va-sidebar-item-title style="white-space: normal">
+          <va-sidebar-item-title style="white-space: normal;">
             background success and auto text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>
@@ -102,7 +102,7 @@
 
   <div
     class="mb-6"
-    style="height: 16rem"
+    style="height: 16rem;"
   >
     <va-sidebar
       color="#FFD300"
@@ -114,7 +114,7 @@
     >
       <va-sidebar-item>
         <va-sidebar-item-content>
-          <va-sidebar-item-title style="white-space: normal">
+          <va-sidebar-item-title style="white-space: normal;">
             background danger and success text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>

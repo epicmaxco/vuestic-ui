@@ -228,7 +228,7 @@ import LandingStarsButton from './StarsButton.vue'
   @include row-flex();
 
   .item {
-    $color: #6C7898;
+    $color: #6c7898;
 
     @include col();
     @include size(12);

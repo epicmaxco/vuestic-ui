@@ -1,7 +1,7 @@
 <template>
   <va-card
     color="background-element"
-    style="padding: 0.75rem"
+    style="padding: 0.75rem;"
   >
     <div class="row">
       <div class="flex flex-col xs1 offset-md3 offset-lg2">

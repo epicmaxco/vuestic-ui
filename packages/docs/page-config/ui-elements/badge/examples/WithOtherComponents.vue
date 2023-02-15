@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; align-items: center">
+  <div style="display: flex; align-items: center;">
     <va-badge
       class="mr-6"
       text="New"

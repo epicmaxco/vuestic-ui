@@ -1,7 +1,7 @@
 <template>
   <va-accordion
     v-model="value"
-    style="max-width: 400px"
+    style="max-width: 400px;"
     popout
   >
     <va-collapse

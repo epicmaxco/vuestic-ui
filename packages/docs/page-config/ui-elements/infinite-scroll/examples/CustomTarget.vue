@@ -2,7 +2,7 @@
   <div class="row">
     <div
       ref="infiniteScrollTarget"
-      style="height: 200px"
+      style="height: 200px;"
       class="flex flex-col md6 lg4"
     >
       <va-infinite-scroll
@@ -22,7 +22,7 @@
 
     <div
       id="infinite-scroll-custom-target"
-      style="height: 200px"
+      style="height: 200px;"
       class="flex flex-col md6 lg4"
     >
       <va-infinite-scroll

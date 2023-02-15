@@ -5,7 +5,7 @@
       [10, 'any'],
       ['50px', '30rem'],
     ]"
-    style="height: 22rem"
+    style="height: 22rem;"
   >
     <template #start>
       <div class="p-6">

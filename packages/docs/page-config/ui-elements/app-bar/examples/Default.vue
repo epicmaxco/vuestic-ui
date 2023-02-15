@@ -1,5 +1,5 @@
 <template>
-  <div style="position: relative">
+  <div style="position: relative;">
     <va-app-bar>
       <va-button
         icon="home"

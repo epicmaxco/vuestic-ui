@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 13rem">
+  <div style="height: 13rem;">
     <va-sidebar v-model="enabled">
       <va-sidebar-item
         v-for="item in items"

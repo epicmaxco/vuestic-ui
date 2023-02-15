@@ -8,7 +8,7 @@
       class="mb-3"
     />
     <va-button
-      style="width: max-content"
+      style="width: max-content;"
       @click="reset"
     >
       {{ $t("componentsConfig.resetConfig") }}

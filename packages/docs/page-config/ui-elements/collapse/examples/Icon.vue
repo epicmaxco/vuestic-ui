@@ -1,7 +1,7 @@
 <template>
   <va-collapse
     v-model="value"
-    style="width: 400px"
+    style="width: 400px;"
     header="Collapse header"
     icon="home"
   >

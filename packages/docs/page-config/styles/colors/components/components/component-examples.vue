@@ -40,7 +40,7 @@
 
     <va-card class="card card-2">
       <va-card-content>
-        <table style="width: 100%">
+        <table style="width: 100%;">
           <tr>
             <td>Amount</td>
             <td>

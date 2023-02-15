@@ -17,7 +17,7 @@
     <va-sidebar-item-content>
       <va-icon name="cake" />
       <va-icon name="celebration" />
-      <va-sidebar-item-title style="text-align: center">
+      <va-sidebar-item-title style="text-align: center;">
         GO TO PARTY!
       </va-sidebar-item-title>
       <va-icon name="cake" />

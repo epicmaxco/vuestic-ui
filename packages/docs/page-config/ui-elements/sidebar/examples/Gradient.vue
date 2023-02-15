@@ -1,7 +1,7 @@
 <template>
   <div
     class="mb-6"
-    style="height: 16rem"
+    style="height: 16rem;"
   >
     <va-sidebar
       color="primary"

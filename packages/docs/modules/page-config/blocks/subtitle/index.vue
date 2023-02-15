@@ -24,9 +24,10 @@ const { t } = useI18n()
 </template>
 
 <style lang="scss" scoped>
-  .page-config-subtitle {
-    --code-bg: transparent;
-    font-size: 2rem;
-    line-height: 2.5rem;
-  }
+.page-config-subtitle {
+  --code-bg: transparent;
+
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
 </style>

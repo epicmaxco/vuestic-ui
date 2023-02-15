@@ -40,7 +40,7 @@
       fill="#fff"
       font-family="Virgil, Segoe UI Emoji"
       font-size="36"
-      style="white-space: pre"
+      style="white-space: pre;"
       transform="translate(74 89)"
     >
       Button
@@ -50,7 +50,7 @@
       fill="#fff"
       font-family="Virgil, Segoe UI Emoji"
       font-size="36"
-      style="white-space: pre"
+      style="white-space: pre;"
       transform="translate(375 87)"
     >
       Button
@@ -73,7 +73,7 @@
       y="33"
       font-family="Virgil, Segoe UI Emoji"
       font-size="36"
-      style="white-space: pre"
+      style="white-space: pre;"
       transform="translate(62 10)"
     >
       default
@@ -82,7 +82,7 @@
       y="33"
       font-family="Virgil, Segoe UI Emoji"
       font-size="36"
-      style="white-space: pre"
+      style="white-space: pre;"
       transform="translate(357 10)"
     >
       home
@@ -93,21 +93,21 @@
     >
       <text
         y="27.3"
-        style="white-space: pre"
+        style="white-space: pre;"
         transform="translate(20 175)"
       >
         &lt;va-button
       </text>
       <text
         y="65.6"
-        style="white-space: pre"
+        style="white-space: pre;"
         transform="translate(20 175)"
       >
         preset=&quot;default&quot;
       </text>
       <text
         y="103.9"
-        style="white-space: pre"
+        style="white-space: pre;"
         transform="translate(20 175)"
       >
         /&gt;
@@ -119,21 +119,21 @@
     >
       <text
         y="28.7"
-        style="white-space: pre"
+        style="white-space: pre;"
         transform="translate(286 170)"
       >
         &lt;va-button
       </text>
       <text
         y="69.5"
-        style="white-space: pre"
+        style="white-space: pre;"
         transform="translate(286 170)"
       >
         preset=&quot;home&quot;
       </text>
       <text
         y="110.2"
-        style="white-space: pre"
+        style="white-space: pre;"
         transform="translate(286 170)"
       >
         /&gt;

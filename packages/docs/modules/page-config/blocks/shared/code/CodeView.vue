@@ -154,8 +154,13 @@ $radius: 0.25rem;
   pre[class*="language-"] {
     color: currentColor;
     background: none;
-    font-family: Source Code Pro, Consolas, Monaco, "Andale Mono",
-      "Ubuntu Mono", monospace;
+    font-family:
+      Source Code Pro,
+      Consolas,
+      Monaco,
+      "Andale Mono",
+      "Ubuntu Mono",
+      monospace;
     font-size: 1rem;
     text-align: left;
     white-space: pre;
@@ -169,8 +174,13 @@ $radius: 0.25rem;
   }
 
   .token {
-    font-family: Source Code Pro, Consolas, Monaco, "Andale Mono",
-      "Ubuntu Mono", monospace;
+    font-family:
+      Source Code Pro,
+      Consolas,
+      Monaco,
+      "Andale Mono",
+      "Ubuntu Mono",
+      monospace;
   }
 
   :not(pre) > code[class*="language-"],
