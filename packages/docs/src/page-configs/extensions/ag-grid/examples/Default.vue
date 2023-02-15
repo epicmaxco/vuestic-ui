@@ -43,5 +43,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../../../../../../../node_modules/@vuestic/ag-grid-theme/index";
+@import '../../../../../../ag-grid-theme/src/styles';
 </style>
