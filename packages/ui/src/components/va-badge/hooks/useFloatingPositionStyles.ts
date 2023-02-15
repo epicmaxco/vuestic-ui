@@ -25,9 +25,6 @@ export const useFloatingPositionProps = {
       return !isNaN(value)
     },
   },
-  // TODO: remove `left` and `bottom` props in 1.6.0
-  left: { type: Boolean, default: false },
-  bottom: { type: Boolean, default: false },
 }
 
 export const useFloatingPosition = (
@@ -36,19 +33,8 @@ export const useFloatingPosition = (
 ) => {
   if (!floating.value) { return {} }
 
-  let { position, align } = usePlacementAliases(props)
-
-  // TODO: remove `left` and `bottom` props in 1.6.0
-  if (props.left) {
-    position = 'left'
-    align = 'start'
-  }
-  if (props.bottom) {
-    position = 'bottom'
-    align = 'end'
-  }
-
-  const centerAlignment = computed(() => align === 'center' ? '-50%' : '0%')
+  const { position, align } = usePlacementAliases(props)
+  const centerAlignment = computed(() => align.value === 'center' ? '-50%' : '0%')
   const transformComputed = computed(() => {
     const options = {
       top: { transform: `translateX(${centerAlignment.value}) translateY(-100%)` },
@@ -57,23 +43,23 @@ export const useFloatingPosition = (
       right: { transform: `translateX(100%) translateY(${centerAlignment.value})` },
     }
 
-    return options[position]
+    return options[position.value]
   })
 
   const getOverlapMargin = computed(() => {
     if (!props.overlap) { return {} }
 
-    const result = { [`margin-${position}`]: 'var(--va-badge-overlap)' }
+    const result = { [`margin-${position.value}`]: 'var(--va-badge-overlap)' }
 
     const alignComplianceTable = {
       top: { end: 'left', multiplier: -1 },
       bottom: { start: 'left', multiplier: 1 },
     } as AlignComplianceTable
 
-    const alignComplianceValue = alignComplianceTable[position]?.[align]
+    const alignComplianceValue = alignComplianceTable[position.value]?.[align.value]
     if (alignComplianceValue) {
       Object.assign(result, {
-        [`margin-${alignComplianceValue}`]: `calc(${alignComplianceTable[position].multiplier} * var(--va-badge-overlap))`,
+        [`margin-${alignComplianceValue}`]: `calc(${alignComplianceTable[position.value].multiplier} * var(--va-badge-overlap))`,
       })
     }
 
@@ -81,15 +67,15 @@ export const useFloatingPosition = (
   })
 
   const getAlignment = computed(() => {
-    const baseSide = ['left', 'right'].includes(position) ? 'top' : 'left'
+    const baseSide = ['left', 'right'].includes(position.value) ? 'top' : 'left'
     const alignmentOptions = { start: { [baseSide]: 0 }, center: { [baseSide]: '50%' }, end: { [baseSide]: '100%' } }
-    return alignmentOptions[align]
+    return alignmentOptions[align.value]
   })
 
   const offset = toRef(props, 'offset')
 
   return computed(() => ({
-    [position]: `${parseSizeValue(offset)}px`,
+    [position.value]: `${parseSizeValue(offset)}px`,
     ...transformComputed.value,
     ...getAlignment.value,
     ...getOverlapMargin.value,

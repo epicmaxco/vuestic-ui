@@ -5,8 +5,9 @@
     :href="url"
     color="textPrimary"
     size="small"
+    icon="star_empty"
   >
-    <va-icon name="star_empty" class="mr-1" size="small" /> {{ stars }}
+    {{ stars }}
   </va-button>
 </template>
 

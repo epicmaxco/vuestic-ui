@@ -6,6 +6,7 @@ const block = new PageGenerationHelper(__dirname)
 const config: ApiDocsBlock[] = [
   block.title('reset.title'),
   block.paragraph('reset.description'),
+  block.alert('tailwind.deprecated', 'primary'),
 
   block.headline('reset.features.title'),
   block.paragraph('reset.features.info'),

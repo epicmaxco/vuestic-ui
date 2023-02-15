@@ -194,8 +194,7 @@
           "transparent": "Makes badge semi-transparent.",
           "multiLine": "Badge text will wrap to next line.",
           "visibleEmpty": "Badge will be shown even when there is no text.",
-          "dot": "Shows dot instead of full badge. Useful to notify user without grabbing too much attention.",
-          "left": "Position badge to the left"
+          "dot": "Shows dot instead of full badge. Useful to notify user without grabbing too much attention."
         }
       },
       "VaButton": {
