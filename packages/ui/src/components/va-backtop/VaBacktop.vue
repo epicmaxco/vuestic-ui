@@ -1,26 +1,28 @@
 <template>
-  <div
-    v-if="visible"
-    class="va-backtop"
-    role="button"
-    :aria-label="t('backToTop')"
-    :style="computedStyle"
-    @click="scrollToTop"
-    @keydown.enter.stop="scrollToTop"
-  >
-    <slot>
-      <va-button
-        aria-hidden="true"
-        icon="va-arrow-up"
-        :color="color"
-      />
-    </slot>
-  </div>
+  <transition :name="transition">
+    <div
+      v-if="visible"
+      class="va-backtop"
+      role="button"
+      :aria-label="t('backToTop')"
+      :style="computedStyle"
+      @click="scrollToTop"
+      @keydown.enter.stop="scrollToTop"
+    >
+      <slot>
+        <va-button
+          aria-hidden="true"
+          icon="va-arrow-up"
+          :color="color"
+        />
+      </slot>
+    </div>
+  </transition>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useComponentPresetProp, useTranslation } from '../../composables'
+import { useComponentPresetProp, useTransitionProp, useTranslation } from '../../composables'
 import { VaButton } from '../va-button'
 import { isServer } from '../../utils/ssr'
 import { warn } from '../../utils/console'
@@ -30,6 +32,7 @@ export default defineComponent({
   components: { VaButton },
   props: {
     ...useComponentPresetProp,
+    ...useTransitionProp,
     target: {
       type: [Object, String] as PropType<Element | string | undefined>,
       default: undefined,
