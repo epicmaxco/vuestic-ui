@@ -108,7 +108,7 @@ export default defineComponent({
   components: { VaBadge, VaIcon },
 
   props: {
-    value: { type: Array as PropType<SelectOption[]> },
+    value: { type: Array as PropType<SelectOption[]>, default: [] as SelectOption[] },
     valueString: { type: String },
     placeholder: { type: String, default: '' },
     tabindex: { type: Number, default: 0 },

@@ -3021,6 +3021,7 @@
   },
   "grid": {
     "title": "Grid System",
+    "deprecated": "CSS-хелперы и файл сброса CSS (CSS reset) останутся в бандле Vuestic UI вплоть до версии 1.7.0, после чего будут окончательно убраны.",
     "summaryText": "Мы предоставляем вам вспомогательные классы для [flex](https://developer.mozilla.org/ru/docs/Web/CSS/flex)[[target=_blank]]. Для [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)[[target=_blank]] встроенных классов не предоставляется. Это не означает, что вам *нужно* использовать `flex`, но он остается мощным инструментом.",
     "examples": {
       "default": {
@@ -3311,6 +3312,7 @@
   "reset": {
     "title": "Сброс CSS",
     "description": "Мы используем `reset.scss` чтобы сбросить и нормализовать базовые `CSS` стили",
+    "deprecated": "CSS-хелперы и файл сброса CSS (CSS reset) останутся в бандле Vuestic UI вплоть до версии 1.7.0, после чего будут окончательно убраны.",
     "features": {
       "title": "Reset возможности",
       "info": "Ниже находится список возможностей, которые предоставляет reset.scss:",

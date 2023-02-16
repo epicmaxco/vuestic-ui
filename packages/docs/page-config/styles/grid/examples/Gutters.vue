@@ -44,6 +44,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "vuestic-ui/src/styles/resources";
+@import "vuestic-ui/src/styles/grid/grid.scss";
 
 .layout {
   background-color: var(--va-secondary);
