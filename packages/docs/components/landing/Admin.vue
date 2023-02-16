@@ -170,6 +170,8 @@ import LandingStarsButton from './StarsButton.vue'
     padding-top: 1.5rem;
 
     &--button {
+      --va-button-content-px: 1.5rem;
+
       @include button-font();
       @include md(margin-bottom, 1rem);
       @include md(justify-content, center);
