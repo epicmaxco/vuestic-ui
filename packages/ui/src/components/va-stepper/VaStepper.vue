@@ -14,7 +14,7 @@
         <slot
           v-if="i > 0"
           name="divider"
-          v-bind="stepControls"
+          v-bind="getIterableSlotData(step, i)"
         >
           <span
             class="va-stepper__divider"
@@ -24,12 +24,7 @@
 
         <slot
           :name="`step-button-${i}`"
-          v-bind="{
-            ...stepControls,
-            step,
-            isActive: modelValue === i,
-            isCompleted: modelValue > i,
-          }"
+          v-bind="getIterableSlotData(step, i)"
         >
           <va-stepper-step-button
             v-bind="{...$props, step, stepControls }"
@@ -52,7 +47,7 @@
         >
           <slot
             :name="`step-content-${i}`"
-            v-bind="{ ...stepControls, step }"
+            v-bind="getIterableSlotData(step, i)"
           />
         </div>
       </template>
@@ -132,12 +127,19 @@ export default defineComponent({
     }
 
     const stepControls: StepControls = { setStep, nextStep, prevStep }
+    const getIterableSlotData = (step: Step, index: number) => ({
+      ...stepControls,
+      step,
+      isActive: props.modelValue === index,
+      isCompleted: props.modelValue > index,
+    })
 
     return {
       isNextStepDisabled,
       stepperColor,
       getColor,
       stepControls,
+      getIterableSlotData,
     }
   },
 })

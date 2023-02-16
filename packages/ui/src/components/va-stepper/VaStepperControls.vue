@@ -15,7 +15,7 @@
       {{ t('Next') }}
     </va-button>
     <va-button
-      v-else-if="$props.finishButtonHidden"
+      v-else-if="!$props.finishButtonHidden"
       @click="$emit('finish')"
     >
       {{ t('Finish') }}
