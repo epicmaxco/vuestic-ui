@@ -197,19 +197,18 @@ export const useDropdown = (
     position: 'absolute',
   }
 
+  const { position, align } = usePlacementAliases(props)
   watchPostEffect(() => {
-    const { position, align } = usePlacementAliases(props)
-
     if (!rootRef.value || !anchorDomRect.value || !contentDomRect.value) { return }
 
     const { offset, keepAnchorWidth, autoPlacement, stickToEdges } = unref(options)
 
     // calculate coords (x and y) of content left-top corner
-    let coords = calculateContentCoords(position, align, anchorDomRect.value, contentDomRect.value)
+    let coords = calculateContentCoords(position.value, align.value, anchorDomRect.value, contentDomRect.value)
 
     let offsetCoords: Coords = { x: 0, y: 0 }
     if (offset) {
-      offsetCoords = calculateOffsetCoords(position, offset)
+      offsetCoords = calculateOffsetCoords(position.value, offset)
       coords = mapObject(coords, (c, key) => c + offsetCoords[key])
     }
 
@@ -217,9 +216,9 @@ export const useDropdown = (
     const viewportRect = unref(options).viewport?.getBoundingClientRect() ?? rootRect
 
     if (autoPlacement) {
-      const { position: newPosition, align: newAlign } = getAutoPlacement(position, align, coords, contentDomRect.value, viewportRect)
+      const { position: newPosition, align: newAlign } = getAutoPlacement(position.value, align.value, coords, contentDomRect.value, viewportRect)
 
-      if (newPosition !== position || newAlign !== align) {
+      if (newPosition !== position.value || newAlign !== align.value) {
         coords = calculateContentCoords(newPosition, newAlign, anchorDomRect.value, contentDomRect.value)
 
         if (offset) {

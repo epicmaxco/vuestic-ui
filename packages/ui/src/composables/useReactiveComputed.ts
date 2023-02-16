@@ -3,7 +3,7 @@ import { computed, unref, WritableComputedOptions, ComputedGetter, isRef, reacti
 export const useReactiveComputed = <T extends object>(obj: WritableComputedOptions<T> | ComputedGetter<T>) => {
   const objectRef = typeof obj === 'function' ? computed(obj as ComputedGetter<T>) : computed(obj as WritableComputedOptions<T>)
 
-  const proxy = new Proxy({}, {
+  const proxy = new Proxy(objectRef, {
     get (target, p: string, receiver) {
       return unref(Reflect.get(objectRef.value, p, receiver))
     },
