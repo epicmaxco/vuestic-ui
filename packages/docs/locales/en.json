@@ -1502,7 +1502,6 @@
     },
     "VaSkeleton": {
       "props": {
-        "inline": "Makes skeleton inline element.",
         "width": "Skeleton width.",
         "height": "Skeleton height.",
         "animation": "Skeleton animation. Can be `pulse`, `wave` or `none`.",

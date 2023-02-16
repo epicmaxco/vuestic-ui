@@ -12,6 +12,9 @@
         <VaSkeleton variant="circle" />
         <VaSkeleton variant="text" />
       </VbCard>
+      <VbCard title="Rounded border radius" style="min-width: 200px;">
+        <VaSkeleton variant="rounded" style="--va-skeleton-border-radius: 4px;" />
+      </VbCard>
       <VbCard title="Text lines" style="min-width: 200px;">
         <VaSkeleton variant="text" lines="4" />
       </VbCard>

@@ -1,7 +1,7 @@
 <template>
   <component class="va-skeleton" :class="classes" :is="tag">
     <slot />
-    <div class="va-skeleton-wave" v-if="animation === 'wave'" />
+    <div class="va-skeleton__wave" v-if="animation === 'wave'" />
   </component>
 </template>
 
@@ -17,12 +17,11 @@ export default defineComponent({
     delay: { type: Number, default: 100 },
 
     tag: { type: String, default: 'div' },
-    inline: { type: Boolean, default: false },
 
     animation: { type: String as PropType<'pulse' | 'wave' | 'none'>, default: 'pulse' },
 
     lines: { type: Number, default: 1 },
-    height: { type: [Number, String], default: '5em' },
+    height: { type: [String], default: '5em' },
     width: { type: [String], default: '100%' },
     lineGap: { type: String, default: '8px' },
     lastLineWidth: { type: [String], default: '75%' },
@@ -55,10 +54,6 @@ export default defineComponent({
         return heightComputed.value
       }
 
-      if (typeof props.width === 'number') {
-        return `calc(100% * ${props.width})`
-      }
-
       return props.width
     })
 
@@ -72,14 +67,13 @@ export default defineComponent({
       text: props.variant === 'text',
       circle: props.variant === 'circle',
       hidden: !doShow.value,
-      inline: props.inline,
       pulse: props.animation === 'pulse',
       wave: props.animation === 'wave',
     }))
 
     const borderRadius = computed(() => {
       if (props.variant === 'circle') { return '50%' }
-      if (props.variant === 'rounded') { return `calc(${heightComputed.value} / 5)` }
+      if (props.variant === 'rounded') { return `var(--va-skeleton-border-radius, calc(${heightComputed.value} / 5))` }
 
       return '0px'
     })
@@ -102,6 +96,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import 'variables.scss';
+
 @keyframes pulse {
   0% {
     filter: brightness(1);
@@ -139,13 +135,13 @@ export default defineComponent({
   border-radius: v-bind(borderRadius);
 
   &--pulse {
-    animation: 2s ease-in-out 0.5s infinite normal none running pulse;
+    animation: var(--va-skeleton-animation-duration) ease-in-out 0.5s infinite normal none running pulse;
   }
 
   &--wave {
     mask-image: -webkit-radial-gradient(white, black);
 
-    .va-skeleton-wave {
+    .va-skeleton__wave {
       position: absolute;
       overflow: hidden;
       left: 0;
@@ -162,15 +158,14 @@ export default defineComponent({
         top: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(100, 100, 100, 0.08), transparent);
-        animation: 1.6s linear 0.5s infinite normal none running wave;
+        opacity: var(--va-skeleton-wave-opacity, 0.5);
+        background: linear-gradient(90deg, transparent, var(--va-skeleton-wave-color), transparent);
+        animation: var(--va-skeleton-animation-duration) linear 0.5s infinite normal none running wave;
       }
     }
   }
 
   &--hidden { display: none; }
-
-  &--inline { display: inline-block; }
 
   &--lines {
     // Stripes background, so it looks like a lot of lines

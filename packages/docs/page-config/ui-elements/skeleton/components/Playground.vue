@@ -45,10 +45,6 @@ const { options, renderComponent, slots } = useComponentPlayground({
     type: "input",
     value: "",
   },
-  inline: {
-    type: "checkbox",
-    value: false,
-  },
   animation: {
     type: "select",
     value: "pulse",

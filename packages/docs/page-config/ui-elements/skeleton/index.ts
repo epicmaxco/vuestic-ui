@@ -20,7 +20,8 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaSkeleton", apiOptions),
-    // block.subtitle("all.cssVariables"),
-    // block.file("vuestic-ui/src/components/va-skeleton/_variables.scss"),
+  
+    block.subtitle("all.cssVariables"),
+    block.file("vuestic-ui/src/components/va-skeleton/_variables.scss"),
   ],
 });
