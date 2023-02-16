@@ -2832,6 +2832,10 @@
         "title": "Readonly, disabled, symbols counter",
         "text": "It can also be disabled, readonly and have symbols counter."
       },
+      "htmlAttributes": {
+        "title": "Supported HTML attributes",
+        "text": "Be default we support these HTML Input attributes: `type`, `disabled`, `readonly`, `placeholder`, `pattern`, `inputmode`, `minlength`, `maxlength`. Read more on the [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)."
+      },
       "hint": {
         "title": "Hint messages",
         "text": "Support single/multi line messages to give some hint for improve UX"
