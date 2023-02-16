@@ -30,5 +30,10 @@
     "theme",
     "vue3",
     "vue"
-  ]
+  ],
+  "main": "dist/ag-theme-vuestic.css",
+  "exports": {
+    ".": "./dist/ag-theme-vuestic.css",
+    "./scss": "./src/styles/index.scss"
+  }
 }
