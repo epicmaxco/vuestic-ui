@@ -129,6 +129,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "vuestic-ui/src/styles/resources";
+@import "vuestic-ui/src/styles/grid/grid.scss";
 
 .row + .row {
   border-top: 1px solid var(--va-background-border);

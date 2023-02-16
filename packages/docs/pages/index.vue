@@ -25,6 +25,7 @@ useHead({
 
 <style lang="scss">
 @import "vuestic-ui/src/styles/typography/typography.scss";
+@import "vuestic-ui/src/styles/smart-helpers/smart-helpers.scss";
 
 .landing {
   font-family: Source Sans Pro;
