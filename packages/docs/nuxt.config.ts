@@ -117,13 +117,6 @@ export default defineNuxtConfig({
         translationPath: 'translation.language.ru',
         file: 'ru.json',
       },
-      {
-        code: 'zh-cn',
-        name: '简体中文',
-        status: 'part',
-        translationPath: 'translation.language.zh-CN',
-        file: 'zh-cn.json',
-      },
       // GENERATOR_ADD - language
     ],
 
