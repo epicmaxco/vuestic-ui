@@ -24,3 +24,14 @@
 .va-expand-transition-move {
   transition: transform 0.6s;
 }
+
+
+.va-fade-transition-enter-active,
+.va-fade-transition-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.va-fade-transition-enter-from,
+.va-fade-transition-leave-to {
+  opacity: 0;
+}
