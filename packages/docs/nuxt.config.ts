@@ -101,6 +101,20 @@ export default defineNuxtConfig({
     css: ['typography']
   },
 
+  tailwindcss: {
+    config: {
+      content: [
+        "./components/**/*.{js,vue,ts}",
+        "./page-config/**/*.{js,vue,ts}",
+        "./layouts/**/*.vue",
+        "./pages/**/*.vue",
+        "./modules/**/*.{js,ts}",
+        "./nuxt.config.{js,ts}",
+        "./app.vue",
+      ]
+    }
+  },
+
   i18n: {
     locales: [
       {
@@ -133,6 +147,7 @@ export default defineNuxtConfig({
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
+      ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
     },
   },
 
