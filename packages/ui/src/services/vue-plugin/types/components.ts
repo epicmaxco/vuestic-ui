@@ -1,4 +1,5 @@
-import type * as vuesticComponents from '../components'
+// import type * as vuesticComponents from '../components'
+type vuesticComponents = Record<string, any>
 
 /** Utility type: Show type instead of import word */
 type Map<O extends Record<any, any>> = { [K in keyof O]: O[K] }
@@ -6,7 +7,7 @@ type Map<O extends Record<any, any>> = { [K in keyof O]: O[K] }
 type SafeAccess<O, K> = K extends keyof O ? O[K] : never
 
 /** List of all exported components */
-export type VuesticComponentsMap = Map<typeof vuesticComponents>
+export type VuesticComponentsMap = Map<vuesticComponents>
 /** Component names */
 export type VuesticComponentName = keyof VuesticComponentsMap
 

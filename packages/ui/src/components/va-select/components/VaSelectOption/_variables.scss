@@ -7,6 +7,9 @@
   --va-select-option-list-option-min-height: 2.25rem;
   --va-select-option-list-option-word-break: break-word;
 
+  /* Empty options list */
+  --va-select-option-list-empty-block-padding: 0.375rem 0.75rem;
+
   /* Icon */
   --va-select-option-list-option-icon-margin-right: 0.5rem;
 
@@ -16,4 +19,16 @@
 
   /* Disabled Option */
   --va-select-option-list-option-disabled-opacity: 0.7;
+
+  /* Highlighted Chars */
+  --va-select-option-list-option-highlighted-color: var(--va-text-inverted);
+  --va-select-option-list-option-highlighted-background-color: var(--va-primary);
+  --va-select-option-list-option-highlighted-border-radius: 0.1rem;
+  --va-select-option-list-option-highlighted-margin: 0 1px;
+  --va-select-option-list-option-highlighted-padding: 0 1px;
+
+  /* Autocomplete */
+  --va-select-content-autocomplete-gap: 0.25rem;
+  --va-select-content-autocomplete-color: var(--va-text-primary);
+  --va-select-content-autocomplete-line-height: calc(var(--va-input-font-size) + 2px);
 }
