@@ -142,7 +142,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
 @import "variables";
 
 .va-stepper {

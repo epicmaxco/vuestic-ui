@@ -263,6 +263,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.timeInput",
       },
       {
+        name: 'stepper',
+        displayName: 'menu.stepper',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
         category: "menu.categories.layout",
         name: "card",
         displayName: "menu.card",

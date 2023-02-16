@@ -1,5 +1,3 @@
-import { defineManualApi } from '../../../components/DocsApi/ManualApiOptions'
-
 export default defineManualApi({
   props: {
     steps: { types: '{ label: string, icon?: string, disabled?: boolean }' },
