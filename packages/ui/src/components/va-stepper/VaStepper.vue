@@ -60,6 +60,7 @@
         <va-stepper-controls
           v-if="!controlsHidden"
           v-bind="{ ...$props, stepControls }"
+          @finish="$emit('finish')"
         />
         <slot
           name="controls"
@@ -92,8 +93,9 @@ export default defineComponent({
     navigationDisabled: { type: Boolean, default: false },
     controlsHidden: { type: Boolean, default: false },
     nextDisabled: { type: Boolean, default: false },
+    finishButtonHidden: { type: Boolean, default: false },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'finish'],
   setup (props, { emit }) {
     const { valueComputed: modelValue }: { valueComputed: Ref<number> } = useStateful(props, emit, 'modelValue', { defaultValue: 0 })
 

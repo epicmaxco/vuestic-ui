@@ -91,7 +91,7 @@ const steps = [
   flex-grow: 1;
   margin: 0 1rem;
   height: 2px;
-  width: 4rem;
+  width: 2rem;
   border-radius: 1rem;
 }
 

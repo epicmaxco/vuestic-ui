@@ -8,11 +8,17 @@
       {{ t('Back') }}
     </va-button>
     <va-button
-      v-if="isNextButtonVisible"
+      v-if="!isLastStep"
       @click="$props.stepControls.nextStep()"
       :disabled="$props.nextDisabled"
     >
       {{ t('Next') }}
+    </va-button>
+    <va-button
+      v-else-if="$props.finishButtonHidden"
+      @click="$emit('finish')"
+    >
+      {{ t('Finish') }}
     </va-button>
   </div>
 </template>
@@ -33,18 +39,19 @@ export default defineComponent({
     },
     nextDisabled: { type: Boolean, required: true },
     stepControls: { type: Object as PropType<StepControls>, required: true },
+    finishButtonHidden: { type: Boolean, default: false },
   },
   setup (props) {
     const { t } = useI18n()
 
-    const isNextButtonVisible = computed(() => {
+    const isLastStep = computed(() => {
       const lastEnabledStepIndex = props.steps.length - 1 - [...props.steps].reverse().findIndex((step) => !step.disabled)
-      return props.modelValue < lastEnabledStepIndex
+      return props.modelValue >= lastEnabledStepIndex
     })
 
     return {
       t,
-      isNextButtonVisible,
+      isLastStep,
     }
   },
 })

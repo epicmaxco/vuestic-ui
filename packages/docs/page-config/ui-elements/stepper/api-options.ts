@@ -8,6 +8,9 @@ export default defineManualApi({
     controls: { },
     divider: { },
   },
+  events: {
+    finish: { types: '' }
+  },
   methods: {
     setStep: { types: '`(stepNumber: number) => void`' },
     nextStep: { types: '`(stepsToSkip: number) => void`' },

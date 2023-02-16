@@ -78,5 +78,6 @@ export default [
   'VaTimePicker',
   'VaTreeView',
   'VaScrollContainer',
-  'VaVirtualScroller'
+  'VaVirtualScroller',
+  'VaStepper'
 ]
