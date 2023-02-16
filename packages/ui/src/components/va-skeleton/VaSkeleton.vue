@@ -25,7 +25,7 @@ export default defineComponent({
     height: { type: [Number, String], default: '5em' },
     width: { type: [String], default: '100%' },
     lineGap: { type: String, default: '8px' },
-    textWidth: { type: [String], default: '75%' },
+    lastLineWidth: { type: [String], default: '75%' },
 
     variant: { type: String as PropType<'text' | 'circle' | 'rounded' | 'squared'>, default: 'squared' },
   },
@@ -101,7 +101,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @keyframes pulse {
   0% {
     filter: brightness(1);
@@ -191,12 +191,12 @@ export default defineComponent({
       polygon(
         0% 0%,
         0% 100%,
-        v-bind(textWidth) 100%,
-        v-bind(textWidth) calc(100% - $line-height),
+        v-bind(lastLineWidth) 100%,
+        v-bind(lastLineWidth) calc(100% - $line-height),
         100% calc(100% - $line-height),
         100% 100%,
         $line-height 100%,
-        v-bind(textWidth) 100%,
+        v-bind(lastLineWidth) 100%,
         100% 100%,
         100% 0%
       );

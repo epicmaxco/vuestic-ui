@@ -26,7 +26,7 @@ export default defineComponent({
 
     lines: { type: Number, default: 1 },
     lineGap: { type: String, default: '8px' },
-    textWidth: { type: [String], default: '75%' },
+    lastLineWidth: { type: [String], default: '75%' },
   },
 
   setup (props) {

@@ -65,7 +65,7 @@ const { options, renderComponent, slots } = useComponentPlayground({
     hidden: (props) => props.variant !== "text",
     rules: [(v: string) => /\d$/.test(v) || "Must must be a number"],
   },
-  textWidth: {
+  lastLineWidth: {
     type: "input",
     value: "",
     hidden: (props) => props.variant !== "text",
