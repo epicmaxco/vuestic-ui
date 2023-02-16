@@ -34,7 +34,7 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
     return props.options.find((option: SelectableOption) => value === getValue(option)) || value
   }
 
-  const getText = (option: SelectableOption) => getOptionProperty(option, props.textBy)
+  const getText = (option: SelectableOption) => String(getOptionProperty(option, props.textBy))
 
   const getDisabled = (option: SelectableOption) =>
     isStringOrNumber(option) ? false : getOptionProperty(option, props.disabledBy)

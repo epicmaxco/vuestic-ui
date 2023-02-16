@@ -392,7 +392,7 @@ export default defineComponent({
 
   &-enter-active &__container,
   &-leave-active &__container {
-    transition: var(--va-modal-opacity-transition), var(--va-modal-transform-transition);
+    transition: opacity var(--va-modal-opacity-transition), transform var(--va-modal-transform-transition);
   }
 
   &__dialog {

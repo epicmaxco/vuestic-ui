@@ -2,7 +2,7 @@ import { watch } from 'vue'
 
 import { isServer } from '../../../utils/ssr'
 import { useGlobalConfig } from '../../global-config'
-import { defineVuesticPlugin } from '../../vue-plugin/utils'
+import { defineGlobalProperty, defineVuesticPlugin } from '../../vue-plugin/utils'
 import { addOrUpdateStyleElement } from '../../../utils/dom'
 
 import type { ColorVariables } from '../../color'
@@ -43,22 +43,40 @@ const handleConfigUpdate = (helpers: ColorsClassesConfig, colors: ColorVariables
   )
 }
 
+const createColorHelpersPlugin = () => {
+  if (isServer()) { return }
+
+  const { globalConfig } = useGlobalConfig()
+
+  watch(() => globalConfig.value.colorsClasses, (newHelpers: ColorsClassesConfig) => {
+    if (newHelpers.length) {
+      handleConfigUpdate(newHelpers, globalConfig.value.colors.variables)
+    }
+  }, { immediate: true, deep: true })
+
+  watch(() => globalConfig.value.colors.variables, (newColors: ColorVariables) => {
+    if (!newColors) { return }
+
+    handleConfigUpdate(globalConfig.value.colorsClasses, newColors)
+  }, { immediate: true, deep: true })
+
+  return {
+    renderColorHelpers: () => {
+      const coloredHelpers = getColorsClassesHelpers(globalConfig.value.colorsClasses, globalConfig.value.colors.variables)
+
+      return getColorsClassesStyles(coloredHelpers)
+    },
+  }
+}
+
 export const ColorsClassesPlugin = defineVuesticPlugin(() => ({
-  install () {
-    if (isServer()) { return }
-
-    const { globalConfig } = useGlobalConfig()
-
-    watch(() => globalConfig.value.colorsClasses, (newHelpers: ColorsClassesConfig) => {
-      if (newHelpers.length) {
-        handleConfigUpdate(newHelpers, globalConfig.value.colors.variables)
-      }
-    }, { immediate: true, deep: true })
-
-    watch(() => globalConfig.value.colors.variables, (newColors: ColorVariables) => {
-      if (!newColors) { return }
-
-      handleConfigUpdate(globalConfig.value.colorsClasses, newColors)
-    }, { immediate: true, deep: true })
+  install (app) {
+    defineGlobalProperty(app, '$vaColorsClasses', createColorHelpersPlugin())
   },
 }))
+
+declare module 'vue' {
+  export interface ComponentCustomProperties {
+    $vaColorsClasses: ReturnType<typeof createColorHelpersPlugin>
+  }
+}

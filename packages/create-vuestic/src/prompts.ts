@@ -75,7 +75,7 @@ const questions = definePrompts([
     initial: 0,
     choices: [
       { title: 'AG Grid', value: 'agGrid' as const, description: 'Install Vuestic AG Grid theme for complex data tables' },
-      { title: 'Tree shaking', value: 'treeShaking' as const, description: 'You will need to register each component manually, but it will decrees bundle size' },
+      { title: 'Tree shaking', value: 'treeShaking' as const, description: 'You will need to register each component manually, but it will decrease bundle size' },
     ],
   },
   {

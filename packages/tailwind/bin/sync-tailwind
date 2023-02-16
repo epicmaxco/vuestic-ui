@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+const sync = require('../dist/sync-tailwind.cjs')
+const { integrateTailwindConfig } = sync
+
+integrateTailwindConfig()

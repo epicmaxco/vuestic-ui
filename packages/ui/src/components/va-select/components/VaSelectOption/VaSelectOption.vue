@@ -12,7 +12,14 @@
       class="va-select-option__icon"
       :name="optionIcon"
     />
-    {{ optionText }}
+    {{ optionTextSplitted.start }}
+    <span
+      v-if="optionTextSplitted.searchedSubString"
+      class="va-select-option__highlighted"
+    >
+      {{ optionTextSplitted.searchedSubString }}
+    </span>
+    {{ optionTextSplitted.end }}
     <va-icon
       v-show="isSelected"
       class="va-select-option__selected-icon"
@@ -24,11 +31,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, computed, type PropType } from 'vue'
 
-import { useColors, useColorProps, useBem, SelectableOption } from '../../../../composables'
+import { useColors, useColorProps, useBem } from '../../../../composables'
 
 import { VaIcon } from '../../../va-icon'
+
+import type { SelectableOption } from '../../../../composables'
 
 export default defineComponent({
   name: 'VaSelectOption',
@@ -43,6 +52,10 @@ export default defineComponent({
     getTrackBy: { type: Function as PropType<(option: SelectableOption) => number>, required: true },
     currentOption: { type: [String, Number, Object] as PropType<SelectableOption | null>, default: null },
     getSelectedState: { type: Function as PropType<(option: SelectableOption) => boolean>, required: true },
+    search: { type: String, default: '' },
+    highlightMatchedText: { type: Boolean, default: true },
+    inputFocused: { type: Boolean, default: false },
+    minSearchChars: { type: Number, default: 0 },
   },
 
   setup (props) {
@@ -52,6 +65,23 @@ export default defineComponent({
     const optionIconColor = computed(() => getColor(props.color))
 
     const optionText = computed(() => props.getText(props.option))
+    const optionTextSplitted = computed(() => {
+      const defaultSplit = { start: optionText.value, searchedSubString: '', end: '' }
+
+      if (!optionText.value || !props.search || !props.highlightMatchedText || props.search.length < props.minSearchChars) {
+        return defaultSplit
+      }
+
+      const substringStartIndex = optionText.value.toLowerCase().indexOf(props.search.toLowerCase())
+
+      if (substringStartIndex < 0) { return defaultSplit }
+
+      const start = optionText.value.slice(0, substringStartIndex)
+      const searchedSubString = optionText.value.slice(substringStartIndex, substringStartIndex + props.search.length)
+      const end = optionText.value.slice(substringStartIndex + props.search.length)
+
+      return { start, searchedSubString, end }
+    })
 
     const isSelected = computed(() => props.getSelectedState(props.option))
     const isFocused = computed(() => {
@@ -78,10 +108,10 @@ export default defineComponent({
       isFocused,
       optionIcon,
       isSelected,
-      optionText,
       optionStyle,
       optionClass,
       optionIconColor,
+      optionTextSplitted,
     }
   },
 })
@@ -105,6 +135,14 @@ export default defineComponent({
   &__selected-icon {
     margin-left: var(--va-select-option-list-option-selected-icon-margin-left);
     font-size: var(--va-select-option-list-option-selected-icon-font-size);
+  }
+
+  &__highlighted {
+    color: var(--va-select-option-list-option-highlighted-color);
+    background-color: var(--va-select-option-list-option-highlighted-background-color);
+    border-radius: var(--va-select-option-list-option-highlighted-border-radius);
+    margin: var(--va-select-option-list-option-highlighted-margin);
+    padding: var(--va-select-option-list-option-highlighted-padding);
   }
 }
 </style>
