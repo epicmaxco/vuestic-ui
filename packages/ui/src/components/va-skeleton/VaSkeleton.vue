@@ -22,7 +22,7 @@ export default defineComponent({
     animation: { type: String as PropType<'pulse' | 'wave' | 'none'>, default: 'pulse' },
 
     lines: { type: Number, default: 1 },
-    height: { type: [Number, String], default: '1em' },
+    height: { type: [Number, String], default: '5em' },
     width: { type: [String], default: '100%' },
     lineGap: { type: String, default: '8px' },
     textWidth: { type: [String], default: '75%' },

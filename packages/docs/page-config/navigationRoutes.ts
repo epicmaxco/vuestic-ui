@@ -268,6 +268,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.card",
       },
       {
+        name: "skeleton",
+        displayName: "menu.skeleton",
+      },
+      {
         name: "divider",
         displayName: "menu.divider",
       },

@@ -67,6 +67,8 @@ export default [
   'VaSidebarItemContent',
   'VaSidebarItemTitle',
   'VaSlider',
+  'VaSkeleton',
+  'VaSkeletonGroup',
   'VaSpacer',
   'VaSplit',
   'VaSwitch',

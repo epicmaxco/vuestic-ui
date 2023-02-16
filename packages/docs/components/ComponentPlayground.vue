@@ -30,6 +30,8 @@ const optionValues = computed(() => {
   return values;
 });
 
+const filteredOptions = computed(() => props.options.filter((option) => !option.hidden?.(optionValues.value)));
+
 const codeEl = ref<HTMLElement>();
 const copyButtonIcon = ref('content_copy')
 
@@ -53,7 +55,7 @@ const copyCode = async () => {
     >
       <va-card-content>
         <div
-          v-for="option in options"
+          v-for="option in filteredOptions"
           :key="option.key"
           class="mb-2"
         >
@@ -62,6 +64,7 @@ const copyCode = async () => {
             v-model="option.value"
             class="w-full"
             :label="option.key"
+            :rules="option.rules"
           />
           <va-select
             v-if="option.type === 'select'"
@@ -69,6 +72,7 @@ const copyCode = async () => {
             class="w-full"
             :options="option.options"
             :label="option.key"
+            :rules="option.rules"
             clearable
             prevent-overflow
           />
@@ -78,6 +82,7 @@ const copyCode = async () => {
             class="w-full"
             :options="option.options"
             :label="option.key"
+            :rules="option.rules"
             clearable
             multiple
             prevent-overflow
@@ -88,6 +93,7 @@ const copyCode = async () => {
             :label="option.key"
             :true-value="true"
             :false-value="false"
+            :rules="option.rules"
           />
         </div>
       </va-card-content>
