@@ -1,9 +1,5 @@
 <template>
   <va-alert
-    class="mb-6"
-    :description="$t('alert.misc.primary')"
+    :description="$t('alert.misc.default')"
   />
-  <va-alert>
-    {{ $t("alert.misc.primarySlotted") }}
-  </va-alert>
 </template>
