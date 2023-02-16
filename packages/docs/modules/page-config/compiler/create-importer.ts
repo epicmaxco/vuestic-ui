@@ -3,6 +3,8 @@ import { type TransformPluginContext } from 'rollup'
 import { resolveAlias } from '@nuxt/kit';
 import { readdirSync, existsSync } from 'fs'
 import javascriptKeywords from './javascript-keywords';
+import kebabCase from 'lodash/kebabCase'
+import camelCase from 'lodash/camelCase'
 
 const resolveFromFolder = (dir: string, file: string) => {
   if (!existsSync(dir)) { return null }
@@ -28,8 +30,31 @@ type Imports = {
 export const createImporter = (ctx: TransformPluginContext, caller: string) => {
   const pathImports: Record<string, Imports[]> = {}
 
-  const resolveWithAlias = (path: string) => {
-    return ctx.resolve(resolveWithoutExtension(resolveAlias(path)))
+  const resolveWithAlias = async (path: string) => {
+    let foundPath = await ctx.resolve(resolveWithoutExtension(resolveAlias(path)))
+    if (foundPath) {
+      return foundPath
+    }
+
+    foundPath = await ctx.resolve(resolveWithoutExtension(resolveAlias(path)).toLowerCase())
+
+    if (foundPath) {
+      return foundPath
+    }
+
+    foundPath = await ctx.resolve(kebabCase(resolveWithoutExtension(resolveAlias(path))))
+
+    if (foundPath) {
+      return foundPath
+    }
+
+    foundPath = await ctx.resolve(camelCase(resolveWithoutExtension(resolveAlias(path))))
+
+    if (foundPath) {
+      return foundPath
+    }
+
+    return null
   }
 
   const fixFileNameImport = (path: string) => {
@@ -136,6 +161,10 @@ export const createImporter = (ctx: TransformPluginContext, caller: string) => {
           }).join(', ')
 
         const allImports = [defaultImport, namedImports ? `{ ${namedImports} }` : null].filter(Boolean).join(', ')
+
+        if (allImports === "undefined") {
+          throw new Error(`Unable to resolve import from ${path}`)
+        }
 
         return `import ${allImports} from '${path}';`
       }).join('\n')
