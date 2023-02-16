@@ -1642,7 +1642,8 @@
     "team": "Meet The Team",
     "i18n": "I18n",
     "webComponents": "Web Components",
-    "colorsClasses": "Colors Classes"
+    "colorsClasses": "Colors Classes",
+    "skeleton": "Skeleton"
   },
   "all": {
     "examples": "Examples",

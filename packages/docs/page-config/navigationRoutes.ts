@@ -270,6 +270,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "skeleton",
         displayName: "menu.skeleton",
+        meta: {
+          badge: "new",
+        }
       },
       {
         name: "divider",
