@@ -94,7 +94,7 @@ export default defineComponent({
     const isDisabledVirtualTable = computed(() => props.table && props.disabled)
 
     const wrapperStyleComputed = computed(() => ({
-      [sizeAttribute.value]: isDisabledVirtualTable.value ? undefined : `${wrapperSize.value}px`,
+      [sizeAttribute.value]: isDisabledVirtualTable.value || !wrapperSize.value ? undefined : `${wrapperSize.value}px`,
     }))
     const wrapperClassComputed = useBem('va-virtual-scroller', () => ({
       ...pick(props, ['horizontal']),
@@ -140,10 +140,14 @@ export default defineComponent({
 <style lang="scss">
 .va-virtual-scroller {
   overflow: auto;
+  width: 100%;
+  height: 100%;
 
   &__container {
     position: relative;
     overflow: hidden;
+    min-width: 100%;
+    min-height: 100%;
   }
 
   &__list {

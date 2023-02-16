@@ -148,6 +148,7 @@ export default defineComponent({
     }))
 
     const colorComputed = computed(() => getColor(props.color))
+    const backgroundComputed = computed(() => getColor(props.background))
     const borderColorComputed = computed(() => props.focused ? colorComputed.value : undefined)
 
     const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
@@ -186,6 +187,7 @@ export default defineComponent({
       isCounterVisible,
       counterComputed,
       colorComputed,
+      backgroundComputed,
       borderColorComputed,
       messagesColor,
       messagesComputed,
@@ -207,6 +209,8 @@ export default defineComponent({
 @import './variables';
 
 .va-input-wrapper {
+  --va-input-wrapper-background: v-bind(backgroundComputed);
+
   position: relative;
   cursor: var(--va-input-cursor);
   font-family: var(--va-font-family);
@@ -231,16 +235,6 @@ export default defineComponent({
     overflow: hidden;
 
     @include va-background(var(--va-input-color), null, -1);
-
-    /* Creates gap between prepend, content, validation icons, append */
-    & > * {
-      padding-right: var(--va-input-content-items-gap);
-      line-height: 0;
-
-      &:last-child {
-        padding-right: 0;
-      }
-    }
 
     input,
     textarea {
@@ -310,7 +304,8 @@ export default defineComponent({
       }
 
       &::placeholder {
-        color: var(--va-input-placeholder-text-color);
+        color: inherit;
+        opacity: 0.5;
       }
     }
   }
@@ -319,14 +314,6 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: center;
-
-    & > * {
-      margin-right: calc(var(--va-input-content-items-gap) / 4);
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
 
     &__reset {
       &:focus {

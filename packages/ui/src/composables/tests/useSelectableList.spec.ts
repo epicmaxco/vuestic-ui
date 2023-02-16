@@ -19,7 +19,7 @@ describe('useSelectableList', () => {
       {
         getGroupBy: 1,
         getOptionByValue: 1,
-        getText: 1,
+        getText: '1',
         getTrackBy: 1,
         getValue: 1,
         getDisabled: false,

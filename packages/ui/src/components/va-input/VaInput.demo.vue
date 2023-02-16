@@ -558,6 +558,18 @@
         mask="date"
       />
       Value: {{ maskReturnFormattedValue }}
+      <va-input
+        v-model="maskObjectReturnFormattedValue"
+        :style="{paddingTop: '4px'}"
+        label="Phone mask, return formatted"
+        :return-raw="false"
+        type="input"
+        :mask="{
+          phone: true,
+          phoneRegionCode: 'US'
+        }"
+      />
+      Value: {{ maskObjectReturnFormattedValue }}
     </VbCard>
     <VbCard title="Number input">
       <va-input
@@ -569,19 +581,19 @@
       <va-input
         v-model="counterOrMaxLengthValue"
         counter
-        class="mb-4"
+        class="mb-6"
       />
       <va-input
         v-model="counterOrMaxLengthValue"
         counter
         label="Name"
         type="textarea"
-        class="mb-4"
+        class="mb-6"
       />
       <va-input
         v-model="counterOrMaxLengthValue"
         counter
-        class="mb-4"
+        class="mb-6"
       >
         <template #counter="{ valueLength }">
           Additional message, {{ valueLength }}
@@ -610,13 +622,13 @@
         counter
         label="Name"
         type="textarea"
-        class="mb-4"
+        class="mb-6"
       />
       <va-input
         v-model="counterOrMaxLengthValue"
         :max-length="maxLength"
         counter
-        class="mb-4"
+        class="mb-6"
       >
         <template #counter="{ valueLength, maxLength }">
           Additional message, {{ `${valueLength}/${maxLength}` }}
@@ -640,7 +652,7 @@
       style="width: 66%;"
     >
       <va-input
-        class="mb-4"
+        class="mb-6"
         input-class="red text--right"
         model-value="This input must have margin bottom and right-aligned red text."
       />
@@ -660,6 +672,7 @@ import { VaButton } from './../va-button'
 import { VaIcon } from './../va-icon'
 import VaInputValidation from './VaInput-validation.vue'
 import { VaCheckbox } from '../va-checkbox'
+import 'cleave.js/dist/addons/cleave-phone.us'
 
 export default {
   components: {
@@ -687,6 +700,7 @@ export default {
       maskNumeralsValue: '',
       maskCustomBlocksValue: '',
       maskReturnFormattedValue: '',
+      maskObjectReturnFormattedValue: '',
       num: 10,
 
       isClearable: true,
@@ -704,7 +718,7 @@ export default {
     margin-bottom: 1rem;
   }
 
-  .mb-4 {
+  .mb-6 {
     margin-bottom: 4rem;
   }
 

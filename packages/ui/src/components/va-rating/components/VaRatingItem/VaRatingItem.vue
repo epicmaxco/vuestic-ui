@@ -18,7 +18,6 @@
         :name="computedIconName"
         :size="$props.size"
         :color="computedColor"
-        @click="onClick"
       />
     </slot>
   </div>

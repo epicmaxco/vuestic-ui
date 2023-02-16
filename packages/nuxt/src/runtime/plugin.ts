@@ -3,12 +3,16 @@ import {
   VaDropdownPlugin,
   VaToastPlugin,
   VaModalPlugin,
+  ColorsClassesPlugin,
   BreakpointConfigPlugin,
 } from 'vuestic-ui'
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 
 import type { VuesticOptions } from '../types'
+// @ts-ignore: nuxt import alias
 import { defineNuxtPlugin } from '#app'
+// @ts-ignore: use-config-file import alias
+import configFromFile from '#vuestic-config'
 
 function getGlobalProperty (app, key) {
   return app.config.globalProperties[key]
@@ -22,7 +26,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   /** Use tree-shaking by default and do not register any component. Components will be registered by nuxt in use-components. */
   app.use(createVuesticEssential({
-    config,
+    config: configFromFile || config,
     // TODO: Would be nice to tree-shake plugins, but they're small so we don't cant for now.
     // Should be synced with create-vuestic.ts
     plugins: {
@@ -30,6 +34,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       VaDropdownPlugin,
       VaToastPlugin,
       VaModalPlugin,
+      ColorsClassesPlugin,
     },
     /** Do not import any components. Nuxt will import them automatically */
     components: {}
@@ -42,18 +47,30 @@ export default defineNuxtPlugin((nuxtApp) => {
   const head = getGlobalProperty(app, '$head')
 
   if (head) {
-    const colorConfig = getGlobalProperty(app, '$vaColorConfig')
+    watchEffect(() => {
+      const colorConfig = getGlobalProperty(app, '$vaColorConfig')
 
-    if (colorConfig) {
-      // TODO: Remove. This is a temporary fix for the issue with vuestic-ui.
-      const renderCSSVariables = colorConfig.renderCSSVariables || colorConfig.renderCSSVarialbes
+      if (colorConfig) {
+        const renderCSSVariables = colorConfig.renderCSSVariables
 
-      // Add reactive CSS variables to head so they are taken from colorConfig
-      head.addHeadObjs(ref({
-        htmlAttrs: {
-          style: renderCSSVariables()
-        }
-      }))
-    }
+        // Add reactive CSS variables to head so they are taken from colorConfig
+        head.addHeadObjs(ref({
+          htmlAttrs: {
+            style: renderCSSVariables()
+          }
+        }))
+      }
+    }, { flush: 'pre' })
+
+    watchEffect(() => {
+      const colorsClasses = getGlobalProperty(app, '$vaColorsClasses')
+      if (colorsClasses) {
+        head.addHeadObjs(ref({
+          htmlAttrs: {
+            style: colorsClasses.renderColorHelpers()
+          }
+        }))
+      }
+    }, { flush: 'pre' })
   }
 })

@@ -1,13 +1,13 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
-      <va-avatar-group :options="avatars" :max="3" class="mb-4" />
+      <va-avatar-group :options="avatars" :max="3" class="mb-6" />
       <va-avatar-group :options="avatars" :max="3" square />
     </VbCard>
     <VbCard title="Vertical">
       <div class="d-flex">
-        <va-avatar-group :options="avatars" :max="3" vertical class="mr-4" />
-        <va-avatar-group :options="avatars" :max="3" vertical square class="mr-4" />
+        <va-avatar-group :options="avatars" :max="3" vertical class="mr-6" />
+        <va-avatar-group :options="avatars" :max="3" vertical square class="mr-6" />
       </div>
     </VbCard>
   </VbDemo>

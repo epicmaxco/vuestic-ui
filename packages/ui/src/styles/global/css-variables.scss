@@ -1,4 +1,5 @@
-:root {
+:root,
+:host {
   /* Primary */
   --va-border: 0;
   --va-font-family: 'Source Sans Pro', sans-serif;
@@ -50,4 +51,27 @@
   /* Sizes */
   --va-form-element-min-width: 50px;
   --va-form-element-default-width: 250px;
+
+  /* Colors */
+  // Accent
+  --va-primary: #154ec1;
+  --va-secondary: #767c88;
+  --va-success: #3d9209;
+  --va-info: #158de3;
+  --va-danger: #e42222;
+  --va-warning: #ffd43a;
+
+  // Background Colors
+  --va-background-primary: #f6f6f6;
+  --va-background-secondary: #ffffff;
+  --va-background-element: #ebf1f4;
+  --va-background-border: #dee5f2;
+
+  // Text Colors
+  --va-text-primary: #262824;
+  --va-text-inverted: #ffffff;
+
+  // Misc
+  --va-shadow: rgba(0, 0, 0, 0.12);
+  --va-focus: #ffff00;
 }

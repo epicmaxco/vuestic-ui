@@ -1,4 +1,5 @@
-:root {
+:root,
+:host {
   --va-input-color: var(--va-background-element);
   --va-input-scroll-color: var(--va-background-secondary, #e1e9f8);
   --va-input-bordered-color: var(--va-background-border, #e1e9f8);
@@ -34,7 +35,6 @@
   --va-input-font-style: normal;
   --va-input-font-stretch: normal;
   --va-input-letter-spacing: normal;
-  --va-input-placeholder-text-color: var(--va-secondary);
   --va-input-disabled-opacity: 0.4;
 
   /* Label */

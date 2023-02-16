@@ -1,21 +1,16 @@
-import { computed } from 'vue'
+import { computed, ExtractPropTypes, PropType } from 'vue'
 import startCase from 'lodash/startCase.js'
 import merge from 'lodash/merge.js'
 
+import { useItemsProp } from './useCommonProps'
+
 import { warn } from '../../../utils/console'
+
 import type {
   DataTableColumnSource,
   DataTableColumnInternal,
-  DataTableItem,
   DataTableSortingOptions,
 } from '../types'
-
-interface useColumnsProps {
-  columns: DataTableColumnSource[]
-  items: DataTableItem[]
-  sortingOptions: DataTableSortingOptions
-  [prop: string]: unknown
-}
 
 export const sortingOptionsValidator = (options: DataTableSortingOptions) => {
   const isAllowedOptionsLength = options.length === 2 || options.length === 3
@@ -25,10 +20,22 @@ export const sortingOptionsValidator = (options: DataTableSortingOptions) => {
   return isAllowedOptionsLength && isAvailableOptions && isUniqueOptions
 }
 
+export const useColumnsProps = {
+  ...useItemsProp,
+  columns: { type: Array as PropType<DataTableColumnSource[]>, default: () => [] as DataTableColumnSource[] },
+  sortingOptions: {
+    type: Array as PropType<DataTableSortingOptions>,
+    default: () => ['asc', 'desc', null],
+    validator: sortingOptionsValidator,
+  },
+}
+
+type useColumnsPropsType = ExtractPropTypes<typeof useColumnsProps>
+
 export const buildTableColumn = (
   source: DataTableColumnSource,
   initialIndex: number,
-  props: useColumnsProps,
+  props: useColumnsPropsType,
 ): DataTableColumnInternal => {
   const input = typeof source === 'string' ? { key: source } : source
 
@@ -62,15 +69,15 @@ export const buildTableColumn = (
   }
 }
 
-const buildColumnsFromItems = (props: useColumnsProps) => {
+const buildColumnsFromItems = (props: useColumnsPropsType) => {
   return Object.keys(merge({}, ...props.items)).map((item, index) => buildTableColumn(item, index, props))
 }
 
-const buildNormalizedColumns = (props: useColumnsProps) => {
+const buildNormalizedColumns = (props: useColumnsPropsType) => {
   return props.columns.map((item, index) => buildTableColumn(item, index, props))
 }
 
-export default function useColumns (props: useColumnsProps) {
+export const useColumns = (props: useColumnsPropsType) => {
   const columnsComputed = computed(() => {
     if (props.columns.length === 0) {
       // if no column definitions provided then build them based on provided rawItems

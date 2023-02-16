@@ -24,6 +24,15 @@
       </va-alert>
     </VbCard>
 
+    <VbCard title="Grid mode">
+      <va-data-table
+        :items="items"
+        :columns="columns"
+        selectable
+        grid
+      />
+    </VbCard>
+
     <VbCard title="With virtual scroll">
       <va-data-table
         :items="itemsHuge"
@@ -108,6 +117,19 @@
 
         <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
         <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="Throttling (in the example below - for columns sorting)">
+      <va-data-table
+        v-model:sort-by="sortBy"
+        v-model:sorting-order="sortingOrder"
+        :items="items"
+        :columns="columns"
+        :delay="1000"
+      >
+        <template #header(street)="{ label }">{{ label }}</template>
+        <template #header(companyName)>Company Name</template>
       </va-data-table>
     </VbCard>
 

@@ -1,24 +1,12 @@
-import { mount } from '@vue/test-utils'
+import noop from 'lodash/noop.js'
 import { describe, it, expect } from 'vitest'
+import { mountWithGlobalConfig } from '../../../utils/unit-test-utils'
 
 import VaNavbar from '../VaNavbar.vue'
-import {
-  createGlobalConfig,
-  GLOBAL_CONFIG,
-} from '../../../services/global-config/global-config'
 
 describe('VaNavbar', () => {
   it('should render without an error', () => {
-    const wrapper = mount(
-      VaNavbar,
-      {
-        global: {
-          provide: {
-            [GLOBAL_CONFIG]: createGlobalConfig(),
-          },
-        },
-      },
-    )
-    expect(wrapper.findComponent('VaNavbar')).toBeTruthy()
+    const wrapper = mountWithGlobalConfig(VaNavbar)
+    expect(wrapper.exists()).toBeTruthy()
   })
 })

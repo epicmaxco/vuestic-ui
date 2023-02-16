@@ -27,7 +27,8 @@ import { defineComponent, computed, ref, onMounted } from 'vue'
 import { useBem, useStrictInject } from '../../../composables'
 import { VaFileUploadKey } from '../types'
 
-import { VaButton, VaProgressBar } from '../../index'
+import { VaButton } from '../../va-button'
+import { VaProgressBar } from '../../va-progress-bar'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadUndo component should be used in the context of VaFileUpload component'
 

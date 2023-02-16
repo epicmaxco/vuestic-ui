@@ -163,13 +163,11 @@ export default defineComponent({
       })),
 
       contentStyle: computed(() => {
-        const hasContent = computedModelValue.value && !!slots.default?.()[0]
-
         return {
-          visibility: hasContent ? 'visible' as const : 'hidden' as const,
+          visibility: computedModelValue.value ? 'visible' as const : 'hidden' as const,
           height: `${height.value}px`,
           transitionDuration: getTransition(),
-          background: hasContent ? getBackground() : '',
+          background: computedModelValue.value ? getBackground() : '',
         }
       }),
     }
@@ -258,9 +256,8 @@ export default defineComponent({
 
   &--flat {
     .va-collapse__header {
-      box-shadow: none;
-      border: 0;
-      border-radius: 0;
+      --va-collapse-solid-header-content-border-radius: 0;
+      --va-collapse-header-content-box-shadow: none;
     }
   }
 
