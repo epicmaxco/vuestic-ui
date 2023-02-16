@@ -79,8 +79,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-
 .va-color-input {
   display: flex;
   align-items: center !important;
@@ -100,7 +98,12 @@ export default defineComponent({
   }
 
   &__hidden-input {
-    @include visually-hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    pointer-events: none;
   }
 }
 </style>
