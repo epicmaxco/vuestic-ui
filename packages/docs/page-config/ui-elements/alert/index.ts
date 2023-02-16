@@ -7,6 +7,12 @@ export default definePageConfig({
 
     block.component('Playground'),
 
+    block.subtitle("alert.whenToUseTitle"),
+    block.list([
+      'alert.whenToUseList.show',
+      'alert.whenToUseList.static',
+    ]),
+
     block.subtitle("all.examples"),
     block.example("Default"),
     block.example("Styles"),

@@ -9,10 +9,10 @@
     color="warning"
     closeable
     :title="$t('alert.misc.title')"
-    icon="info"
+    icon="favorite"
     center
     class="mb-6"
   >
-    {{ $t("alert.misc.centered") }}
+    {{ $t('alert.misc.centered') }}
   </va-alert>
 </template>
