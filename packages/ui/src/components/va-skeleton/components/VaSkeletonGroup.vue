@@ -1,6 +1,6 @@
 <template>
   <VaConfig :components="{ VaSkeleton: config }">
-    <div class="va-skeleton-group" :class="bem">
+    <div class="va-skeleton-group" :class="bem" v-bind="$attrs">
       <slot />
     </div>
   </VaConfig>

@@ -1,48 +1,39 @@
 <template>
   <VaContent>
     <VbDemo>
-      <VbCard title="Headline" style="min-width: 200px;">
-        <VaSkeleton tag="h1" variant="text" class="va-h1" />
+      <VbCard title="Default" style="min-width: 200px;">
+        <VaSkeleton />
       </VbCard>
-      <VbCard title="Paragraph" style="min-width: 200px;">
-        <VaSkeleton tag="p" variant="text" :lines="2" />
-        <VaSkeleton tag="p" variant="text" :lines="3" text-width="50%" />
+      <VbCard title="width\height">
+        <VaSkeleton height="2rem" width="2rem" />
       </VbCard>
-      <VbCard title="Avatar" style="min-width: 200px;">
-        <VaSkeleton variant="circle" width="1rem" height="48px" />
+      <VbCard title="Variant" style="min-width: 200px;">
+        <VaSkeleton variant="rounded" />
+        <VaSkeleton variant="circle" />
+        <VaSkeleton variant="text" />
       </VbCard>
-      <VbCard title="Image" style="min-width: 200px;">
-        <VaSkeleton variant="squared" />
+      <VbCard title="Text lines" style="min-width: 200px;">
+        <VaSkeleton variant="text" lines="4" />
       </VbCard>
-      <VbCard title="Card" style="min-width: 400px;">
-        <VaSkeletonGroup>
-          <VaCard>
-            <VaSkeleton variant="squared" height="120px" />
-            <va-card-content class="d-flex align-center">
-              <VaSkeleton variant="circle" width="1rem" height="48px" />
-              <VaSkeleton variant="text" class="ml-2" :lines="2" />
-            </va-card-content>
-            <va-card-actions style="display: flex; justify-content: end;">
-              <VaSkeleton class="mr-2" variant="rounded" inline width="64px" height="32px" />
-              <VaSkeleton variant="rounded" inline width="64px" height="32px" />
-            </va-card-actions>
-          </VaCard>
+      <VbCard title="Text last line width">
+        <VaSkeleton variant="text" lines="2" last-line-width="25%" />
+      </VbCard>
+      <VbCard title="Text line gap">
+        <VaSkeleton variant="text" lines="2" line-gap="16px" />
+      </VbCard>
+      <VbCard title="Typography class with text variant">
+        <VaSkeleton class="va-h1" variant="text" />
+      </VbCard>
+
+      <VbCard title="Group" style="min-width: 400px;">
+        <VaSkeletonGroup class="flex gap-5">
+            <VaSkeleton v-for="i in 4" :key="i" />
         </VaSkeletonGroup>
       </VbCard>
 
-      <VbCard title="Wave animation" style="min-width: 400px;">
-        <VaSkeletonGroup animation="wave">
-          <VaCard>
-            <VaSkeleton variant="squared" height="120px" />
-            <va-card-content class="d-flex align-center">
-              <VaSkeleton variant="circle" width="1rem" height="48px" />
-              <VaSkeleton variant="text" class="ml-2" :lines="2" />
-            </va-card-content>
-            <va-card-actions style="display: flex; justify-content: end;">
-              <VaSkeleton class="mr-2" variant="rounded" inline width="64px" height="32px" />
-              <VaSkeleton variant="rounded" inline width="64px" height="32px" />
-            </va-card-actions>
-          </VaCard>
+      <VbCard title="Group with wave animation" style="min-width: 400px;">
+        <VaSkeletonGroup animation="wave" class="flex gap-5">
+            <VaSkeleton v-for="i in 4" :key="i" />
         </VaSkeletonGroup>
       </VbCard>
     </VbDemo>
@@ -52,15 +43,11 @@
 <script>
 import { VaSkeleton, VaSkeletonGroup } from '.'
 import { VaContent } from '../va-content'
-import { VaCard, VaCardContent, VaCardActions } from '../va-card'
 
 export default {
   components: {
     VaSkeleton,
     VaContent,
-    VaCard,
-    VaCardContent,
-    VaCardActions,
     VaSkeletonGroup,
   },
 }
