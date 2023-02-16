@@ -1,7 +1,1 @@
-
-| Bundle                     | Vuestic UI                                |
-| -------------------------- | :---------------------------------------: |
-| Full                       | ~ 1030 Kb         |
-| Core + VaButton            | ~ 171 Kb       |
-| Core + VaButton + VaSelect | ~ 373 Kb |
-    
+No cache was found. Please, run `yarn build:analysis && vue-cli-service serve` if you want to have bundle size data in dev.

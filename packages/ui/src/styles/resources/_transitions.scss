@@ -1,0 +1,18 @@
+
+.va-scale-transition-enter-active, .va-scale-transition-leave-active {
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1) !important;
+}
+.va-scale-transition-move {
+  transition: transform 0.6s;
+}
+.va-scale-transition-enter, .va-scale-transition-leave, .va-scale-transition-leave-to {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.va-expand-transition-enter-active, .va-expand-transition-leave-active {
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1) !important;
+}
+.va-expand-transition-move {
+  transition: transform 0.6s;
+}
