@@ -19,7 +19,6 @@
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/i18n-edge": "^8.0.0-beta.7-27893843.b72135e",
     "@nuxtjs/tailwindcss": "^6.3.0",
-    "@tailwindcss/postcss7-compat": "^2.2.17",
     "@types/escodegen": "^0.0.7",
     "@types/estree": "^1.0.0",
     "acorn": "^8.8.1",

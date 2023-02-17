@@ -55,12 +55,14 @@ const text = computed(() => {
 
 const { getColor, setHSLAColor, getTextColor, colors } = useColors()
 
-const codeRed = computed(() =>
-  getTextColor(getColor(props.background || colors.backgroundPrimary), "#990055", "#FF006E")
-);
+const codeBackground = computed(() => {
+  return setHSLAColor(colors.backgroundElement, { })
+})
 
-const dangerWithOpacity = computed(() => {
-  return setHSLAColor(codeRed.value, { a: 0.1 })
+const codeBorder = computed(() => {
+  const textColor = getColor(getTextColor(codeBackground.value))
+
+  return setHSLAColor(textColor, { a: 0.2 })
 })
 </script>
 
@@ -79,14 +81,14 @@ const dangerWithOpacity = computed(() => {
   }
 
   code {
-    display: inline;
-    margin: 0.1rem 0;
-    color: v-bind(codeRed);
+    display: inline-block;
     font-family: Source Code Pro, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-    // TODO: Fancy code background. IDK if we need it.
-    // background: var(--code-bg, v-bind(dangerWithOpacity));
-    // font-size: 0.9rem;
-    // padding: 0.15rem 0.3rem;
+    background: var(--code-bg, v-bind(codeBackground));
+    font-size: 0.85rem;
+    line-height: 100%;
+    padding: 0.3rem 0.3rem;
+    transform: translateY(-0.05rem);
+    border: 1px solid v-bind(codeBorder);
     border-radius: 4px;
     z-index: 0;
   }
