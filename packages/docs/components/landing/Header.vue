@@ -34,11 +34,15 @@
                 v-if="!isHidden"
                 src="/landing/hamburger.svg"
                 alt="Open menu"
+                height="24px"
+                width="24px"
               >
               <img
                 v-else
                 src="/landing/cross.svg"
                 alt="Close menu"
+                height="24px"
+                width="24px"
               >
             </div>
           </div>

@@ -10,6 +10,8 @@
             <img
               src="/landing/icon-open-source.svg"
               alt="Open source"
+              height="100px"
+              width="100px"
             >
           </div>
           <h2 class="opensource__title">
@@ -38,6 +40,8 @@
           <img
             src="/landing/image-open-source.png"
             alt="Open source"
+            height="446px"
+            width="632px"
           >
         </div>
       </div>
