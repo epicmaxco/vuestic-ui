@@ -3,6 +3,7 @@ export default [
   'VaAffix',
   'VaAlert',
   'VaAppBar',
+  'VaAspectRatio',
   'VaAvatar',
   'VaAvatarGroup',
   'VaBacktop',

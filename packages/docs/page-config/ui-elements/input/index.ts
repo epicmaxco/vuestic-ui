@@ -9,6 +9,7 @@ export default definePageConfig({
 
     block.example("Default"),
     block.example("ExtendedDefault"),
+    block.example("HtmlAttributes"),
     block.example("Styles"),
     block.example("Hint"),
     block.example("Validate"),

@@ -5,11 +5,11 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'icon', type: 'image/png', href: '/favicon.png' },
-        { rel: 'stylesheet', href: "https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css" },
-        { rel: 'stylesheet', href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
+        { rel: 'stylesheet', href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&display=swap" },
         { rel: 'stylesheet', href: "https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap" },
-        { rel: 'stylesheet', href: "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" },
-        { rel: 'stylesheet', href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" },
+        { rel: 'stylesheet', href: "https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" },
+        { rel: 'stylesheet', href: "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=swap" },
       ],
 
       script: [
@@ -98,7 +98,21 @@ export default defineNuxtConfig({
   ],
 
   vuestic: {
-    css: ['typography']
+    css: ['typography'],
+    fonts: false,
+  },
+
+  tailwindcss: {
+    config: {
+      content: [
+        "./components/**/*.{js,vue,ts}",
+        "./page-config/**/*.{js,vue,ts}",
+        "./layouts/**/*.vue",
+        "./pages/**/*.vue",
+        "./modules/page-config/blocks/**/*.{js,ts}",
+        "./app.vue",
+      ]
+    }
   },
 
   i18n: {
@@ -117,13 +131,6 @@ export default defineNuxtConfig({
         translationPath: 'translation.language.ru',
         file: 'ru.json',
       },
-      {
-        code: 'zh-cn',
-        name: '简体中文',
-        status: 'part',
-        translationPath: 'translation.language.zh-CN',
-        file: 'zh-cn.json',
-      },
       // GENERATOR_ADD - language
     ],
 
@@ -140,6 +147,7 @@ export default defineNuxtConfig({
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
+      ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
     },
   },
 

@@ -1,12 +1,21 @@
+@import '../variables';
+
 //
 // See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_header.scss
 //
 @mixin ag-vuestic-theme-part-header {
   .ag-header {
     border-bottom-width: 2px;
+
     .ag-header-cell-label {
       padding: 0;
       border: none;
+    }
+
+    .ag-floating-filter-body {
+      input[class^=ag-][type=text] {
+        border-radius: var(--va-input-border-radius, #{ $inputBorderRadius });
+      }
     }
   }
 
@@ -22,7 +31,7 @@
 
   .ag-keyboard-focus .ag-header-cell {
     &:focus {
-      background: var(--va-background-secondary);
+      background: var(--va-background-secondary, #{$backgroundSecondary});
 
       &::after {
         display: none;
