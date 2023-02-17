@@ -1,57 +1,60 @@
 <template>
-  <va-navbar
-    class="header"
-    color="background-secondary"
-  >
-    <template #left>
-      <header-selector
-        class="mr-3"
-        :minimized="isSidebarVisible"
-        @toggleSidebar="toggleSidebar"
-      />
-      <NuxtLink
-        v-slot="{ navigate, href }"
-        :to="landing.to"
-        custom
-      >
-        <a
-          :href="href"
-          :aria-label="landing.text"
-          :title="landing.text"
-          class="header-logo"
+  <div>
+    <HeaderBanner closeable />
+    <va-navbar
+      class="header"
+      color="background-secondary"
+    >
+      <template #left>
+        <header-selector
+          class="mr-3"
+          :minimized="isSidebarVisible"
+          @toggleSidebar="toggleSidebar"
+        />
+        <NuxtLink
+          v-slot="{ navigate, href }"
+          :to="landing.to"
+          custom
         >
-          <vuestic-logo
-            class="header-logo__image"
-            height="30"
-            width="150"
-            aria-hidden="true"
-            @click="navigate"
-          />
-        </a>
-      </NuxtLink>
-      <algolia-search class="header__searchbar" />
-    </template>
-    <template #right>
-      <va-button
-        v-for="(link, index) in links"
-        :key="index"
-        preset="secondary"
-        class="mr-1"
-        :to="link.to"
-        :href="link.url"
-        :target="link.target"
-      >
-        {{ link.text }}
-      </va-button>
-      <color-dropdown class="mr-2" />
-      <language-dropdown
-        class="mr-3"
-        preset="secondary"
-      />
-      <theme-switch />
-      <version-dropdown />
-    </template>
-  </va-navbar>
+          <a
+            :href="href"
+            :aria-label="landing.text"
+            :title="landing.text"
+            class="header-logo"
+          >
+            <vuestic-logo
+              class="header-logo__image"
+              height="30"
+              width="150"
+              aria-hidden="true"
+              @click="navigate"
+            />
+          </a>
+        </NuxtLink>
+        <algolia-search class="header__searchbar" />
+      </template>
+      <template #right>
+        <va-button
+          v-for="(link, index) in links"
+          :key="index"
+          preset="secondary"
+          class="mr-1"
+          :to="link.to"
+          :href="link.url"
+          :target="link.target"
+        >
+          {{ link.text }}
+        </va-button>
+        <color-dropdown class="mr-2" />
+        <language-dropdown
+          class="mr-3"
+          preset="secondary"
+        />
+        <theme-switch />
+        <version-dropdown />
+      </template>
+    </va-navbar>
+  </div>
 </template>
 
 <script lang="ts" setup>
