@@ -22,6 +22,7 @@ export default defineNuxtModule<VuesticOptions>({
   },
 
   setup (options, nuxt) {
+    nuxt.options.alias['@vuestic/ag-grid-theme'] = resolve(__dirname, '../../ag-grid-theme/src/styles/index.scss');
     nuxt.options.alias['vuestic-ui/styles/typography.css'] = resolve(__dirname, '../../ui/src/styles/typography/typography.scss');
     nuxt.options.alias['vuestic-ui/styles/essential.css'] = resolve(__dirname, '../../ui/src/styles/essential.scss');
     nuxt.options.alias['vuestic-ui/src'] = resolve(__dirname, '../../ui/src/');

@@ -11,24 +11,29 @@
     event-pubsub "4.3.0"
     js-message "1.0.7"
 
-"@ag-grid-community/client-side-row-model@^28.1.1":
-  version "28.1.1"
-  resolved "https://registry.yarnpkg.com/@ag-grid-community/client-side-row-model/-/client-side-row-model-28.1.1.tgz#ad9f42978199fe6983b93827d34af11f4bf8dcb8"
-  integrity sha512-5lzXsdNzMQjRWYTI9VLn9KjhSyTc6TPBf63CoBWsBxxG5pSRbtKCVsx512SDxiRYZsrf/B/zImVyvHCoTBZ+Dg==
+"@ag-grid-community/client-side-row-model@^29.0.0":
+  version "29.0.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/client-side-row-model/-/client-side-row-model-29.0.0.tgz#dcb3fec92681b94d2bdd56f6c8eaeade2a53ba1e"
+  integrity sha512-e+/888QYu/k+UBD74Ke6+e4Fc8/gxXmkcgF7cM4+EB941YDZ9j+gIR6ltI29B8T2n63OwTGWqNkwSooh1ed1nw==
   dependencies:
-    "@ag-grid-community/core" "~28.1.0"
+    "@ag-grid-community/core" "~29.0.0"
 
-"@ag-grid-community/core@^28.1.1", "@ag-grid-community/core@~28.1.0":
-  version "28.1.1"
-  resolved "https://registry.yarnpkg.com/@ag-grid-community/core/-/core-28.1.1.tgz#b0454ee818dd960d68b3bdd2bfaa80516f054dfe"
-  integrity sha512-0Mrvg1lERglcFd4oQijxvGpECnx1ZX1L/fPlmfxYPGAFMJzIKxfXtF1tL2h20QrntTZSHuDnm3aWkTFB1ybp2A==
+"@ag-grid-community/core@^29.0.0", "@ag-grid-community/core@~29.0.0":
+  version "29.0.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/core/-/core-29.0.0.tgz#b4ef6ac3c05d21e65f83e2c1ed46b1c2bac30f25"
+  integrity sha512-qj5H9tAZtikpjFL9f7VmJLPS8tx/PUfIjt5DPtqDA01GZ9dYt3XwPuHdLKzpA5E9Yevhwk1m+TXCCz5Al7WWSw==
 
-"@ag-grid-community/vue3@^28.1.1":
-  version "28.1.1"
-  resolved "https://registry.yarnpkg.com/@ag-grid-community/vue3/-/vue3-28.1.1.tgz#d5878fccb88d2b107ceedbb382b82df584c54417"
-  integrity sha512-uTI3GErkThmWJ/UPGZE2JbttsMbEjG54dTA18EzVuih56kHOKt/drmPmLh9OCwn2hO7R+JykgPdKf9y6gBJVNw==
+"@ag-grid-community/styles@^29.0.0":
+  version "29.0.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/styles/-/styles-29.0.0.tgz#07c5013c090aa0cb425580240e6511f1c67cb2e5"
+  integrity sha512-Wl7q1IxhDjwfyPrnEvAT6m107Um/TaMyzJjWrRax9f30QTb7dVMTe6B5/JXq6HPbMrcvQfcAgS6TlpEsJGtVbg==
+
+"@ag-grid-community/vue3@^29.0.0":
+  version "29.0.0"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/vue3/-/vue3-29.0.0.tgz#53c8e41b34360c7f6c11f0c0648883b22222c1d4"
+  integrity sha512-0AqUbjgD+fRuPB7kDrxOxTu8Usv2nwSB1GNkmR915y4727IVvCyfEKFtk4bp9fioNNEzJM0NBTbQfY51NG9JEQ==
   dependencies:
-    "@ag-grid-community/core" "~28.1.0"
+    "@ag-grid-community/core" "~29.0.0"
     vue "^3.0.0"
 
 "@algolia/autocomplete-core@1.7.4":
@@ -16448,6 +16453,13 @@ rollup-plugin-postcss@^4.0.0:
     safe-identifier "^0.4.2"
     style-inject "^0.3.0"
 
+rollup-plugin-scss@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-scss/-/rollup-plugin-scss-4.0.0.tgz#ae36d737fada444dc24c75d107abc7a893a5b7d6"
+  integrity sha512-wxasNXDYC2m+fDxCMgK00WebVWYmeFvShyNABmjvSJZ6D1/SepwqFeaMFMQromveI79gfvb64yJjiZZxSZxEIA==
+  dependencies:
+    rollup-pluginutils "^2.3.3"
+
 rollup-plugin-terser@^7.0.2:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/rollup-plugin-terser/-/rollup-plugin-terser-7.0.2.tgz#e8fbba4869981b2dc35ae7e8a502d5c6c04d324d"
@@ -16498,7 +16510,7 @@ rollup-plugin-vue@^6.0.0:
     hash-sum "^2.0.0"
     rollup-pluginutils "^2.8.2"
 
-rollup-pluginutils@^2.8.2:
+rollup-pluginutils@^2.3.3, rollup-pluginutils@^2.8.2:
   version "2.8.2"
   resolved "https://registry.yarnpkg.com/rollup-pluginutils/-/rollup-pluginutils-2.8.2.tgz#72f2af0748b592364dbd3389e600e5a9444a351e"
   integrity sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==
@@ -16526,10 +16538,10 @@ rollup@^2.79.1:
   optionalDependencies:
     fsevents "~2.3.2"
 
-rollup@^3.10.0, rollup@^3.2.5, rollup@^3.7.0:
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-3.12.1.tgz#2975b97713e4af98c15e7024b88292d7fddb3853"
-  integrity sha512-t9elERrz2i4UU9z7AwISj3CQcXP39cWxgRWLdf4Tm6aKm1eYrqHIgjzXBgb67GNY1sZckTFFi0oMozh3/S++Ig==
+rollup@^3.10.0, rollup@^3.15.0, rollup@^3.7.0:
+  version "3.15.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-3.15.0.tgz#6f4105e8c4b8145229657b74ad660b02fbfacc05"
+  integrity sha512-F9hrCAhnp5/zx/7HYmftvsNBkMfLfk/dXUh73hPSM2E3CRgap65orDNJbLetoiUFwSAk6iHPLvBrZ5iHYvzqsg==
   optionalDependencies:
     fsevents "~2.3.2"
 
@@ -16537,6 +16549,13 @@ rollup@^3.10.1, rollup@^3.12.0:
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-3.12.0.tgz#813d88ec11e36108da788fc471b3c81b365a7c29"
   integrity sha512-4MZ8kA2HNYahIjz63rzrMMRvDqQDeS9LoriJvMuV0V6zIGysP36e9t4yObUfwdT9h/szXoHQideICftcdZklWg==
+  optionalDependencies:
+    fsevents "~2.3.2"
+
+rollup@^3.2.5:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-3.10.0.tgz#6eb19196d8b3b375ca651cb78261faac48e24cd6"
+  integrity sha512-JmRYz44NjC1MjVF2VKxc0M1a97vn+cDxeqWmnwyAF4FvpjK8YFdHpaqvQB+3IxCvX05vJxKZkoMDU8TShhmJVA==
   optionalDependencies:
     fsevents "~2.3.2"
 
@@ -16638,6 +16657,15 @@ sass@^1.54.4:
   version "1.54.4"
   resolved "https://registry.yarnpkg.com/sass/-/sass-1.54.4.tgz#803ff2fef5525f1dd01670c3915b4b68b6cba72d"
   integrity sha512-3tmF16yvnBwtlPrNBHw/H907j8MlOX8aTBnlNX1yrKx24RKcJGPyLhFUwkoKBKesR3unP93/2z14Ll8NicwQUA==
+  dependencies:
+    chokidar ">=3.0.0 <4.0.0"
+    immutable "^4.0.0"
+    source-map-js ">=0.6.2 <2.0.0"
+
+sass@^1.57.1:
+  version "1.58.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.58.0.tgz#ee8aea3ad5ea5c485c26b3096e2df6087d0bb1cc"
+  integrity sha512-PiMJcP33DdKtZ/1jSjjqVIKihoDc6yWmYr9K/4r3fVVIEDAluD0q7XZiRKrNJcPK3qkLRF/79DND1H5q1LBjgg==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"

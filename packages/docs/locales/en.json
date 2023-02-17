@@ -4393,7 +4393,7 @@
     "textBlock": "Text block",
     "textHelpers": "Text helpers"
   },
-  "ag-grid": {
+  "agGrid": {
     "title": "AG Grid Theme",
     "description": "If you need more flexible customization of the display of tables, we recommend using the [AG Grid](https://www.ag-grid.com/vue-data-grid/getting-started)[[target=_blank]] library. Vuestic UI provides a ready-made style theme for this library.",
     "otherTables": {
@@ -4403,7 +4403,10 @@
     },
     "installation": "AG Grid installation",
     "dependencies": "To start using AG Grid, install the dependencies in your project.",
-    "importStyles": "Then import the stylesheet that define the grid \"structure\" and apply the `ag-theme-vuestic` theme on the grid component.",
+    "importStyles": [
+      "Then import the stylesheet that defines the grid \"structure\" into the `main.*` file and apply the `ag-theme-vuestic` theme on the grid component.",
+      "Depending on your project setup and or your purposes you can import pre-compiled CSS styles `{'@'}vuestic/ag-grid-theme` or `{'@'}vuestic/ag-grid-theme/scss` to use our SCSS mixins."
+    ],
     "examples": {
       "default": {
         "title": "Default usage",

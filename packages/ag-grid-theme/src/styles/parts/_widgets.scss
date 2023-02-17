@@ -1,3 +1,5 @@
+@import '../variables';
+
 //
 // See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_widgets.scss
 //
@@ -9,13 +11,13 @@
   input[class^=ag-][type=date],
   input[class^=ag-][type=datetime-local],
   textarea[class^=ag-] {
-    background: var(--va-input-color);
+    background: var(--va-input-color, #{ $backgroundElement });
     padding: 0 9px;
-    font-family: ag-param(font-family);
-    border: 1px solid var(--va-input-color);
+    font-family: var(--ag-font-family);
+    border: 1px solid var(--va-input-color, #{ $backgroundElement });
 
     &:focus {
-      border: 1px solid var(--va-background-secondary); // keyboard focus color
+      border: 1px solid var(--va-background-secondary, #{ $focus }); // keyboard focus color
     }
   }
 
@@ -24,7 +26,7 @@
   ////////////////////////////////////////
   .ag-list-item {
     &.ag-active-item {
-      background-color: var(--va-background-element);
+      background-color: var(--va-background-element, #{ $backgroundElement });
     }
   }
 
@@ -40,10 +42,10 @@
   .ag-select {
     .ag-picker-field-wrapper {
       cursor: pointer;
-      padding: 0 var(--va-input-content-horizontal-padding);
-      background: var(--va-input-color);
-      border: 1px solid var(--va-background-secondary);
-      border-radius: var(--va-input-border-radius);
+      padding: 0 var(--va-input-content-horizontal-padding, #{ $inputHorizontalPadding });
+      background: var(--va-input-color, #{ $backgroundElement });
+      border: 1px solid var(--va-background-secondary, #{ $backgroundSecondary });
+      border-radius: var(--va-input-border-radius, #{ $inputBorderRadius });
     }
 
     .ag-picker-field-display {
@@ -76,15 +78,17 @@
   // Popup
   ////////////////////////////////////////
   .ag-popup-child {
+    --ag-background-color: var(--va-background-secondary, #{ $backgroundSecondary });
+
     padding: 0;
-    border-radius: var(--va-dropdown-content-border-radius);
+    border-radius: var(--va-dropdown-content-border-radius, #{ $dropdownContentBorderRadius });
 
     &:not(.ag-tooltip-custom) {
-      box-shadow: var(--va-dropdown-content-box-shadow);
+      box-shadow: var(--va-dropdown-content-box-shadow, #{ $dropdownContentBoxShadow });
     }
 
     .ag-simple-filter-body-wrapper {
-      padding: var(--va-dropdown-content-padding);
+      padding: var(--va-dropdown-content-padding, #{ $dropdownContentPadding });
 
       input[class^=ag-]:not([type]),
       input[class^=ag-][type=text],
@@ -93,10 +97,10 @@
       input[class^=ag-][type=date],
       input[class^=ag-][type=datetime-local],
       textarea[class^=ag-] {
-        height: ag-param(list-item-height);
+        height: var(--ag-list-item-height);
         padding: 0 12px;
-        border-radius: var(--va-input-border-radius);
-        border: 1px solid var(--va-input-color);
+        border-radius: var(--va-input-border-radius, #{ $inputBorderRadius });
+        border: 1px solid var(--va-input-color, #{ $backgroundElement });
       }
     }
   }
@@ -109,7 +113,7 @@
   // Ghost Element (Drag and Drop)
   ////////////////////////////////////////
   &.ag-dnd-ghost {
-    box-shadow: var(--va-dropdown-content-box-shadow);
+    box-shadow: var(--va-dropdown-content-box-shadow, #{ $dropdownContentBoxShadow });
   }
 
   .ag-dnd-ghost-icon {
