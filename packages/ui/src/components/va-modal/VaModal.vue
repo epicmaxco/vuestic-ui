@@ -171,7 +171,7 @@ export default defineComponent({
     ...useStatefulProps,
     modelValue: { type: Boolean, default: false },
     attachElement: { type: String, default: 'body' },
-    preventBodyScroll: { type: Boolean, default: false },
+    allowBodyScroll: { type: Boolean, default: false },
     disableAttachment: { type: Boolean, default: false },
     title: { type: String, default: '' },
     message: { type: String, default: '' },
@@ -298,22 +298,22 @@ export default defineComponent({
     useBlur(toRef(props, 'blur'), valueComputed)
 
     const documentRef = useDocument()
-    const setBodyPosition = (position: string) => {
-      if (!documentRef.value || !props.preventBodyScroll) { return }
+    const setBodyOverflow = (overflow: string) => {
+      if (!documentRef.value || props.allowBodyScroll) { return }
 
-      documentRef.value.body.style.position = position
+      documentRef.value.body.style.overflow = overflow
     }
 
     watch(valueComputed, newValueComputed => { // watch for open/close modal
       if (newValueComputed) {
         registerModal()
-        setBodyPosition('fixed')
+        setBodyOverflow('scroll hidden')
         return
       }
 
       if (isLowestLevelModal.value) {
         freeFocus()
-        setBodyPosition('')
+        setBodyOverflow('')
       }
       unregisterModal()
     })
