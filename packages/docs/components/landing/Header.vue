@@ -1,168 +1,171 @@
 <template>
-  <header class="header">
-    <!--    <div class="header__banner">-->
-    <!--      <div>-->
-    <!--        🔥🔥🔥-->
-    <!--        <span class="pl-2">-->
-    <!--          {{ $t('landing.header.banner.text') }}-->
-    <!--        </span>-->
-    <!--      </div>-->
-    <!--      <a href="https://www.producthunt.com/posts/vuestic-ui" target="_blank" class="header__banner-btn">Launch page 🚀-->
-    <!--      </a>-->
-    <!--    </div>-->
-    <div class="header__wrapper">
-      <div class="header__inner">
-        <div class="header__logo">
-          <a
-            href="/"
-            aria-label="go to the main page"
-          >
-            <layout-header-vuestic-logo
-              height="30"
-              width="150"
-              aria-hidden="true"
-            />
-          </a>
-          <div
-            class="menu"
-            :style="{position: !isHidden ? 'fixed' : 'absolute'}"
-            @click="isHidden = !isHidden"
-          >
-            <nuxt-img
-              v-if="!isHidden"
-              height="24px"
-              width="24px"
-              src="/landing/hamburger.svg"
-              alt="menu"
-            />
-            <nuxt-img
-              v-else
-              height="24px"
-              width="24px"
-              src="/landing/cross.svg"
-              alt="menu"
-            />
-          </div>
-        </div>
-        <nav class="header__links">
-          <!-- vuestic buttons -->
-          <va-button
-            :to="`/${locale}/introduction/overview`"
-            class="header__links--link"
-            preset="landingHeader"
-          >
-            {{ $t('landing.header.buttons.docs') }}
-          </va-button>
-          <va-button
-            href="https://discord.gg/u7fQdqQt8c"
-            class="header__links--link"
-            target="_blank"
-            preset="landingHeader"
-          >
-            {{ $t('landing.header.buttons.discord') }}
-          </va-button>
-          <va-button
-            :to="`/${locale}/introduction/team`"
-            class="header__links--link"
-            preset="landingHeader"
-            target="_blank"
-          >
-            {{ $t('landing.header.buttons.team') }}
-          </va-button>
-          <va-button
-            href="https://epicmax.co/blog"
-            class="header__links--link"
-            preset="landingHeader"
-            target="_blank"
-          >
-            {{ $t('landing.header.buttons.blog') }}
-          </va-button>
-          <layout-header-language-dropdown
-            class="header__links--link"
-            preset="landingHeader"
-          />
-          <!-- <LandingThemeSwitchButton class="ml-2" /> -->
-          <landing-stars-button
-            class="ml-2"
-            repo="epicmaxco/vuestic-ui"
-          />
-        </nav>
-        <!-- mobile -->
-        <nav
-          class="mobile-menu"
-          :class="{'mobile-menu--open': !isHidden}"
-        >
-          <va-list>
-            <va-list-item>
-              <va-list-item-section class="mobile-menu__link">
-                <router-link :to="`/${locale}/introduction/overview`">
-                  {{ $t('landing.header.buttons.overview') }}
-                </router-link>
-              </va-list-item-section>
-            </va-list-item>
-            <va-list-item>
-              <va-list-item-section class="mobile-menu__link">
-                <router-link :to="`/${locale}/introduction/overview`">
-                  {{ $t('landing.header.buttons.docs') }}
-                </router-link>
-              </va-list-item-section>
-            </va-list-item>
-            <va-list-item>
-              <va-list-item-section class="mobile-menu__link">
-                <a
-                  href="https://discord.gg/u7fQdqQt8c"
-                  target="_blank"
-                >
-                  {{ $t('landing.header.buttons.discord') }}</a>
-              </va-list-item-section>
-            </va-list-item>
-            <va-list-item>
-              <va-list-item-section class="mobile-menu__link">
-                <a
-                  href="https://epicmax.co/blog"
-                  target="_blank"
-                >
-                  {{ $t('landing.header.buttons.blog') }}</a>
-              </va-list-item-section>
-            </va-list-item>
-            <va-list-label
-              color="#757B83"
-              class="mobile-menu__label"
+  <div>
+    <HeaderBanner />
+    <header class="header">
+      <!--    <div class="header__banner">-->
+      <!--      <div>-->
+      <!--        🔥🔥🔥-->
+      <!--        <span class="pl-2">-->
+      <!--          {{ $t('landing.header.banner.text') }}-->
+      <!--        </span>-->
+      <!--      </div>-->
+      <!--      <a href="https://www.producthunt.com/posts/vuestic-ui" target="_blank" class="header__banner-btn">Launch page 🚀-->
+      <!--      </a>-->
+      <!--    </div>-->
+      <div class="header__wrapper">
+        <div class="header__inner">
+          <div class="header__logo">
+            <a
+              href="/"
+              aria-label="go to the main page"
             >
-              {{ $t('landing.header.buttons.language') }}
-            </va-list-label>
-            <div class="mobile-menu__languages">
-              <va-list-item
-                v-for="(language, id) in languages"
-                :key="id"
-                class="mobile-menu__language"
-                :class="{ active: language.code === locale }"
-                @click="setLanguage(language.code)"
+              <layout-header-vuestic-logo
+                height="30"
+                width="150"
+                aria-hidden="true"
+              />
+            </a>
+            <div
+              class="menu"
+              :style="{position: !isHidden ? 'fixed' : 'absolute'}"
+              @click="isHidden = !isHidden"
+            >
+              <img
+                v-if="!isHidden"
+                src="/landing/hamburger.svg"
+                alt="Open menu"
+                height="24px"
+                width="24px"
               >
+              <img
+                v-else
+                src="/landing/cross.svg"
+                alt="Close menu"
+                height="24px"
+                width="24px"
+              >
+            </div>
+          </div>
+          <nav class="header__links">
+            <!-- vuestic buttons -->
+            <va-button
+              :to="`/${locale}/introduction/overview`"
+              class="header__links--link"
+              preset="landingHeader"
+            >
+              {{ $t('landing.header.buttons.docs') }}
+            </va-button>
+            <va-button
+              href="https://discord.gg/u7fQdqQt8c"
+              class="header__links--link"
+              target="_blank"
+              preset="landingHeader"
+            >
+              {{ $t('landing.header.buttons.discord') }}
+            </va-button>
+            <va-button
+              :to="`/${locale}/introduction/team`"
+              class="header__links--link"
+              preset="landingHeader"
+              target="_blank"
+            >
+              {{ $t('landing.header.buttons.team') }}
+            </va-button>
+            <va-button
+              href="https://epicmax.co/blog"
+              class="header__links--link"
+              preset="landingHeader"
+              target="_blank"
+            >
+              {{ $t('landing.header.buttons.blog') }}
+            </va-button>
+            <layout-header-language-dropdown
+              class="header__links--link"
+              preset="landingHeader"
+            />
+            <!-- <LandingThemeSwitchButton class="ml-2" /> -->
+            <landing-stars-button
+              class="ml-2"
+              repo="epicmaxco/vuestic-ui"
+            />
+          </nav>
+          <!-- mobile -->
+          <nav
+            class="mobile-menu"
+            :class="{'mobile-menu--open': !isHidden}"
+          >
+            <va-list>
+              <va-list-item>
                 <va-list-item-section class="mobile-menu__link">
-                  <span class="language">{{ language.name }}</span>
+                  <router-link :to="`/${locale}/introduction/overview`">
+                    {{ $t('landing.header.buttons.overview') }}
+                  </router-link>
                 </va-list-item-section>
               </va-list-item>
               <va-list-item>
                 <va-list-item-section class="mobile-menu__link">
-                  <router-link
-                    class="mobile-menu__language"
-                    :to="`/${locale}/contribution/translation`"
-                  >
-                    {{ $t('landing.header.buttons.translation') }}
+                  <router-link :to="`/${locale}/introduction/overview`">
+                    {{ $t('landing.header.buttons.docs') }}
                   </router-link>
                 </va-list-item-section>
               </va-list-item>
-            </div>
+              <va-list-item>
+                <va-list-item-section class="mobile-menu__link">
+                  <a
+                    href="https://discord.gg/u7fQdqQt8c"
+                    target="_blank"
+                  >
+                    {{ $t('landing.header.buttons.discord') }}</a>
+                </va-list-item-section>
+              </va-list-item>
+              <va-list-item>
+                <va-list-item-section class="mobile-menu__link">
+                  <a
+                    href="https://epicmax.co/blog"
+                    target="_blank"
+                  >
+                    {{ $t('landing.header.buttons.blog') }}</a>
+                </va-list-item-section>
+              </va-list-item>
+              <va-list-label
+                color="#757B83"
+                class="mobile-menu__label"
+              >
+                {{ $t('landing.header.buttons.language') }}
+              </va-list-label>
+              <div class="mobile-menu__languages">
+                <va-list-item
+                  v-for="(language, id) in languages"
+                  :key="id"
+                  class="mobile-menu__language"
+                  :class="{ active: language.code === locale }"
+                  @click="setLanguage(language.code)"
+                >
+                  <va-list-item-section class="mobile-menu__link">
+                    <span class="language">{{ language.name }}</span>
+                  </va-list-item-section>
+                </va-list-item>
+                <va-list-item>
+                  <va-list-item-section class="mobile-menu__link">
+                    <router-link
+                      class="mobile-menu__language"
+                      :to="`/${locale}/contribution/translation`"
+                    >
+                      {{ $t('landing.header.buttons.translation') }}
+                    </router-link>
+                  </va-list-item-section>
+                </va-list-item>
+              </div>
 
-            <div class="stars-button-wrapper">
-              <landing-stars-button repo="epicmaxco/vuestic-ui" />
-            </div>
-          </va-list>
-        </nav>
+              <div class="stars-button-wrapper">
+                <landing-stars-button repo="epicmaxco/vuestic-ui" />
+              </div>
+            </va-list>
+          </nav>
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
+  </div>
 </template>
 
 <script lang="ts">
@@ -198,9 +201,6 @@ export default defineComponent({
   --va-button-font-size: 1.1rem;
 
   z-index: 2000;
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   background: transparent;
   box-shadow: 0 2px 8px var(--va-shadow);

@@ -1,3 +1,5 @@
+@import '../variables';
+
 //
 // See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_footer.scss
 //
@@ -16,7 +18,7 @@
     border-radius: 50%;
 
     &:hover {
-      background: var(--va-background-secondary);
+      background: var(--va-background-secondary, #{$backgroundSecondary});
     }
   }
 
@@ -24,11 +26,11 @@
     opacity: 0.5;
 
     &:hover {
-      background: ag-param(background-color);
+      background: var(--ag-background-color);
     }
 
     &:focus {
-      background: ag-param(background-color);
+      background: var(--ag-background-color);
 
       &::after {
         display: none;
@@ -39,7 +41,7 @@
   .ag-keyboard-focus {
     .ag-paging-button {
       &:focus {
-        background: var(--va-background-secondary);
+        background: var(--va-background-secondary, #{$backgroundSecondary});
 
         &::after {
           display: none;
@@ -49,7 +51,8 @@
 
     .ag-paging-button.ag-disabled {
       &:focus {
-        background: ag-param(background-color);
+        background: var(--va-background-color, #{$backgroundElement});
+        opacity: 0.75;
 
         &::after {
           display: none;

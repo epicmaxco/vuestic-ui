@@ -97,21 +97,6 @@ export const navigationRoutes: NavigationRoute[] = [
     disabled: true,
     children: [
       {
-        name: "reset",
-        displayName: "menu.reset",
-      },
-      {
-        name: "grid",
-        displayName: "menu.grid",
-      },
-      {
-        name: "smart-helpers",
-        displayName: "menu.smartHelpers",
-        meta: {
-          badge: "new",
-        },
-      },
-      {
         name: "colors",
         displayName: "menu.colors",
         meta: {
@@ -125,6 +110,28 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "typography",
         displayName: "menu.typography",
+      },
+      {
+        name: "grid",
+        displayName: "menu.grid",
+      },
+      {
+        name: 'tailwind',
+        displayName: 'menu.tailwind',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
+        name: "smart-helpers",
+        displayName: "menu.smartHelpers",
+        meta: {
+          badge: "new",
+        },
+      },
+      {
+        name: "reset",
+        displayName: "menu.reset",
       },
       // GENERATOR_ADD - styles
     ],
@@ -266,6 +273,14 @@ export const navigationRoutes: NavigationRoute[] = [
         category: "menu.categories.layout",
         name: "card",
         displayName: "menu.card",
+      },
+      {
+        category: 'menu.categories.layout',
+        name: 'aspect-ratio',
+        displayName: 'menu.aspectRatio',
+        meta: {
+          badge: 'new',
+        },
       },
       {
         name: "divider",

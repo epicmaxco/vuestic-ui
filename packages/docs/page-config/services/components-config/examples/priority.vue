@@ -1,11 +1,10 @@
 <template>
   <div class="flex justify-center">
     <div class="flex flex-col lg6">
-      <nuxt-img
+      <img
         src="/docs/props-values-priority.png"
-        alt=""
-        class="fill-width"
-      />
+        alt="Properties values priorities"
+      >
     </div>
   </div>
 </template>

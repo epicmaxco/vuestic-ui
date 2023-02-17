@@ -276,7 +276,8 @@
     "VaAspectRatio": {
       "props": {
         "contentWidth": "Ширина обертки компонента. Используется совместно с `content-height` вместо свойства `ratio`.",
-        "contentHeight": "Высота обертки компонента. Используется совместно с `content-width` вместо свойства `ratio`."
+        "contentHeight": "Высота обертки компонента. Используется совместно с `content-width` вместо свойства `ratio`.",
+        "maxWidth": "Максимальная ширина компонента."
       }
     },
     "VaAffix": {
@@ -331,6 +332,7 @@
         "overlayOpacity": "Прозрачность оверлея",
         "anchorClass": "Назначение имени класса для контейнера слота `anchor`",
         "zIndex": " CSS свойство `z-index`",
+        "allowBodyScroll": "Разрешает прокрутку документа при открытом модальном окне.",
         "blur": "Устанавливает `blur` фильтр оверлея. Рутовая `css` переменная `--va-modal-overlay-background-blur-radius` устанавливает радиус `blur` фильтра"
       },
       "events": {
@@ -1485,6 +1487,7 @@
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
+    "tailwind": "Интеграция Tailwind",
     "popover": "Popover",
     "backtop": "Backtop",
     "colorPicker": "Color Picker",
@@ -3157,6 +3160,35 @@
       }
     }
   },
+  "tailwind": {
+    "title": "Поддержка Tailwind CSS",
+    "summaryText": "Мы рекомендуем нашим пользователям использовать [Tailwind CSS](https://tailwindcss.com/)[[target=_blank]] как наиболее удобное и современное решение вопроса CSS хелперов.",
+    "deprecated": "CSS-хелперы и файл сброса CSS (CSS reset) останутся в бандле Vuestic UI вплоть до версии 1.7.0, после чего будут окончательно убраны.",
+    "preparation": {
+      "title": "Подготовка",
+      "text": "Прежде всего, необходимо убедиться, что к вашему проекту подключен как Tailwind CSS, так и Vuestic UI. Для Vuestic UI следуйте нашей [инструкции](/getting-started/installation). Порядок подключения Tailwind CSS вы можете найти [здесь](https://tailwindcss.com/docs/installation/using-postcss)[[target=_blank]]."
+    },
+    "features": {
+      "integration": {
+        "title": "Синхронизация конфигураций",
+        "text": "Чтобы повысить комфорт от использования Vuestic совместно с Tailwind, мы сформировали отдельный пакет {'`@vuestic/tailwind`'}, который позволит синхронизировать конфигурации и использовать настройки брейкпоинтов (например, в [Breakpoint Service](/services/breakpoints)[[target=_blank]]) и цветов Tailwind в компонентах Vuestic. Также, наоборот, пакет позволяет импортировать настройки цветов и экранов из Tailwind во Vuestic.",
+        "instructionIntro": "Для начала использования необходимо:",
+        "extendAlert": "Мы не заменяем цветовые схемы или настройки экранов Tailwind, а расширяем их.",
+        "instruction": [
+          "1.&nbsp;Установите пакет, используя команды ниже:",
+          "2.&nbsp;После установки вам становятся доступны три команды::",
+          "`npx sync-tailwind-with-vuestic` - осуществляет форматирование и перенос настроек цветов и брейкпоинтов из файла `tailwind.config.*` (а при его отсутствии &mdash; из конфигурации Tailwind CSS по умолчанию) в корневой файл `vuestic.config.js` (также добавляемый этой командой);",
+          "`npx watch-tailwind` - запускает процесс слежения за файлом `tailwind.config.*` для синхронизации конфигурации Vuestic UI на лету;",
+          "`npx sync-vuestic-with-tailwind` - похожа на первую команду, с той лишь разницей, что перенос цветов и настроек экранов осуществляется из Vuestic UI в Tailwind CSS.",
+          "3A.&nbsp;`[Tailwind CSS -> Vuestic UI]` Импортируйте конфигурацию `config` в вашем `main.*` и укажите ее при инициализации приложения:",
+          "Также, возможно, вы захотите синхронизировать конфигурацию частично (в примере ниже из Tailwind CSS были взяты только цвета):",
+          "3B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Никаких дополнительных действий не требуется.",
+          "4A.&nbsp;`[Tailwind CSS -> Vuestic UI]` Итогом станет возможность применения цветов и текущих значений порогов экрана Tailwind в Vuestic. Например, итогом синхронизации дефолтных настроек Tailwind станет файл настроек Vuestic подобного содержания:",
+          "4B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Цвета и экраны Vuestic UI смогут использоваться в Tailwind CSS. Конечный формат представлен требованиями, изложенными [тут](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]] and [тут](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]]."
+        ]
+      }
+    }
+  },
   "list": {
     "title": "List",
     "summaryText": "Компонент `va-list` используется для отображения информации в виде списка.",
@@ -4320,7 +4352,7 @@
     "textBlock": "Текстовый блок",
     "textHelpers": "Текстовые утилиты"
   },
-  "ag-grid": {
+  "agGrid": {
     "title": "Тема для AG Grid",
     "description": "Если нужна более гибкая настройка отображения таблиц, то мы рекомендуем воспользоваться библиотекой [AG Grid](https://www.ag-grid.com/vue-data-grid/getting-started)[[target=_blank]]. Vuestic UI предостовляет готовую тему стилей для этой библиотеки.",
     "otherTables": {
@@ -4331,6 +4363,10 @@
     "installation": "Установка AG Grid",
     "dependencies": "Для того чтобы начать пользоваться AG Grid, установите зависимости в свой проект.",
     "importStyles": "Затем сделайте импорт стилей, которые задают каркас таблиц и примените тему `ag-theme-vuestic` на компоненте таблицы.",
+    "importStyles": [
+      "Затем сделайте импорт стилей в файл `main.*`, которые задают каркас таблиц и примените тему `ag-theme-vuestic` на компоненте таблицы.",
+      "В зависимости от настроек вашего проекта или ваших целей вы можете импортировать заранее скомпилированные стили `{'@'}vuestic/ag-grid-theme` или `{'@'}vuestic/ag-grid-theme/scss` для использования наших SCSS-миксинов."
+    ],
     "examples": {
       "default": {
         "title": "Базовое использование",

@@ -277,7 +277,8 @@
     "VaAspectRatio": {
       "props": {
         "contentWidth": "Wrapper width, it's used with `content-height` to replace the `ratio` property.",
-        "contentHeight": "Wrapper height, it's used with `content-width` to replace the `ratio` property."
+        "contentHeight": "Wrapper height, it's used with `content-width` to replace the `ratio` property.",
+        "maxWidth": "Maximal component's width."
       }
     },
     "VaAffix": {
@@ -332,6 +333,7 @@
         "overlayOpacity": "Set the overlay's opacity",
         "anchorClass": "Set class name to the `anchor` slot container",
         "zIndex": "Set the modal's `z-index`",
+        "allowBodyScroll": "Allows the document scroll while modal is open.",
         "blur": "Use `blur` filter to overlay. Root `css` variable `--va-modal-overlay-background-blur-radius` sets the blur radius"
       },
       "events": {
@@ -1572,6 +1574,7 @@
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
+    "tailwind": "Tailwind Integration",
     "popover": "Popover",
     "backtop": "Backtop",
     "colorPicker": "Color Picker",
@@ -3151,7 +3154,7 @@
   },
   "grid": {
     "title": "Grid System",
-    "deprecated": "CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed.",
+    "deprecated": "CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed. We suggest to use Tailwind CSS instead.",
     "summaryText": "Vuestic UI provides you with some flexbox helper classes. Of course, you can opt out using CSS Grid instead (or any other layout-scheme you'd like), but if you prefer using flexbox, we've got you covered. Still, the final decision is totally up to you.",
     "examples": {
       "default": {
@@ -3229,6 +3232,35 @@
           "`.justify-self-end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
           "`.justify-self-center` - For items that are not children of a flex container, this value is treated as `.justify-self-start`.",
           "`.justify-self-baseline` - The items are aligned according to baselines"
+        ]
+      }
+    }
+  },
+  "tailwind": {
+    "title": "Tailwind CSS Support",
+    "summaryText": "We recommend our users to use [Tailwind CSS](https://tailwindcss.com/)[[target=_blank]] as the most convenient and modern solution to the CSS helpers issue.",
+    "deprecated": "CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed.",
+    "preparation": {
+      "title": "Preparations",
+      "text": "Before we start with integration - please ensure you have both Tailwind CSS and Vuestic UI installed. If that's not the case - here are installation guide [for Vuestic UI](/getting-started/installation) and for [Tailwind CSS](https://tailwindcss.com/docs/installation/using-postcss)[[target=_blank]]."
+    },
+    "features": {
+      "integration": {
+        "title": "Syncing configs",
+        "text": "To create a tight bind between Vuestic with Tailwind we have a {'`@vuestic/tailwind`'} package: it syncs [breakpoint](/services/breakpoints)[[target=_blank]] and [color](/services/colors)[[target=_blank]] settings. You can sync from Vuestic UI to Tailwind or backwards!",
+        "instructionIntro": "Here's what you have to do to make it work:",
+        "extendAlert": "We're not overriding Tailwind CSS settings, but extending them.",
+        "instruction": [
+          "1.&nbsp;Install this package:",
+          "2.&nbsp;After installation, three commands become available to you:",
+          "`npx sync-tailwind-with-vuestic` - formats and transfers the color and breakpoints settings from the `tailwind.config.*` file (and in its absence, it uses the default Tailwind CSS configuration) to the root file `vuestic.config.js` (also added by this command);",
+          "`npx watch-tailwind` - watches `tailwind.config.*` in background and synchronizes the Vuestic UI configuration on the fly;",
+          "`npx sync-vuestic-with-tailwind` - transfers color and breakpoint settings from default Vuestic UI config to the Tailwind's configuration file (`tailwind.config.cjs`).",
+          "3A.&nbsp;`[Tailwind CSS -> Vuestic UI]` import the `config` configuration in your `main.*` and specify it when initializing the application:",
+          "Also, you may want to synchronize the configuration partially (in the example - only Tailwind CSS colors will be taken):",
+          "3B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Nothing more is needed.",
+          "4A.&nbsp;`[Tailwind CSS -> Vuestic UI]` As a result you will be able to use Tailwind colors and breakpoints setting in Vuestic. For example, the result of synchronization default Tailwind settings will be a Vuestic settings file:",
+          "4B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Vuestic UI setting will be available in the Tailwind CSS scope. Output format follows the requirements, located [here](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]] and [here](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]]."
         ]
       }
     }
@@ -4393,7 +4425,7 @@
     "textBlock": "Text block",
     "textHelpers": "Text helpers"
   },
-  "ag-grid": {
+  "agGrid": {
     "title": "AG Grid Theme",
     "description": "If you need more flexible customization of the display of tables, we recommend using the [AG Grid](https://www.ag-grid.com/vue-data-grid/getting-started)[[target=_blank]] library. Vuestic UI provides a ready-made style theme for this library.",
     "otherTables": {
@@ -4403,7 +4435,10 @@
     },
     "installation": "AG Grid installation",
     "dependencies": "To start using AG Grid, install the dependencies in your project.",
-    "importStyles": "Then import the stylesheet that define the grid \"structure\" and apply the `ag-theme-vuestic` theme on the grid component.",
+    "importStyles": [
+      "Then import the stylesheet that defines the grid \"structure\" into the `main.*` file and apply the `ag-theme-vuestic` theme on the grid component.",
+      "Depending on your project setup and or your purposes you can import pre-compiled CSS styles `{'@'}vuestic/ag-grid-theme` or `{'@'}vuestic/ag-grid-theme/scss` to use our SCSS mixins."
+    ],
     "examples": {
       "default": {
         "title": "Default usage",
