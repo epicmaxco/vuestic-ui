@@ -6,31 +6,33 @@
         :key="col.title"
         class="docs-roadmap__column-wrapper"
       >
-        <div class="docs-roadmap__column">
-          <h5>{{ col.title }}</h5>
+        <div class="docs-roadmap__column text-center">
+          <h5 class="mb-[20px]">
+            {{ col.title }}
+          </h5>
 
           <va-card
             v-for="item in col.items"
             :key="item.title"
+            :href="item.link"
+            target="_blank"
+            text-color="primary"
           >
-            <a
-              :href="item.link"
-              target="_blank"
-            >
-              <va-card-content class="px-6 py-2">
-                <h6 class="link">{{ item.title }}</h6>
+            <va-card-content class="px-6 py-2">
+              <h6 class="link">
+                {{ item.title }}
+              </h6>
 
-                <div
-                  v-if="item.image"
-                  class="docs-roadmap__image"
-                >
-                  <component
-                    :is="item.image"
-                    style="width: 100%; height: auto;"
-                  />
-                </div>
-              </va-card-content>
-            </a>
+              <div
+                v-if="item.image"
+                class="docs-roadmap__image"
+              >
+                <component
+                  :is="item.image"
+                  style="width: 100%; min-height: 100px;"
+                />
+              </div>
+            </va-card-content>
           </va-card>
         </div>
       </div>
@@ -116,20 +118,19 @@ $gap: 1rem;
     width: 100%;
 
     .docs-roadmap__column {
+      background-color: var(--va-background);
+      height: 100%;
+
       &-wrapper {
         width: 100%;
-        min-width: 300px;
+        max-width: 300px;
         flex: 1;
-        padding: calc($gap / 2);
+        margin: calc($gap / 2);
       }
 
       & > *:not(h6) {
         margin-bottom: $gap;
       }
-
-      background-color: var(--va-background);
-      padding: $gap;
-      height: 100%;
 
       .docs-roadmap__image {
         display: flex;
@@ -138,6 +139,8 @@ $gap: 1rem;
         svg {
           max-height: 150px;
           max-width: 200px;
+          height: 100%;
+          width: 200%;
         }
       }
     }

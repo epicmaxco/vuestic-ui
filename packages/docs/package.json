@@ -14,7 +14,6 @@
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.1.1",
-    "@nuxt/image-edge": "^1.0.0-27919678.2f5b64b",
     "@nuxt/postcss8": "^1.1.3",
     "@nuxtjs/color-mode": "^3.2.0",
     "@nuxtjs/i18n-edge": "^8.0.0-beta.7-27893843.b72135e",
