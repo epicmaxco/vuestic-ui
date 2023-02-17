@@ -1,0 +1,70 @@
+// variables for runtime calculations, --va-media-ratio variable is overwritten by breakpoint service
+:root,
+:host {
+  --va-media-ratio-default: var(--va-media-ratio, 1);
+  --va-grid-gutter-default: 0.5rem;
+  --va-grid-gutter-base: calc(var(--va-media-ratio-default) * var(--va-grid-gutter-default));
+  --va-grid-spacing-default: 1rem;
+  --va-grid-spacing-base: calc(var(--va-media-ratio-default) * var(--va-grid-spacing-default));
+}
+
+// gutters are depending on the current breakpoint (provided by breakpoint service via --va-media-ratio)
+$grid-gutters: (
+  1: #{calc(var(--va-grid-gutter-base) * 0.25)},
+  2: #{calc(var(--va-grid-gutter-base) * 0.5)},
+  3: #{var(--va-grid-gutter-base)},
+  4: #{calc(var(--va-grid-gutter-base) * 2)},
+  5: #{calc(var(--va-grid-gutter-base) * 3)},
+) !default;
+
+// spacers are used for various paddings and typings to make them consistent, also depending on current breakpoint
+$spacers: (
+  0: 0,
+  1: #{calc(var(--va-grid-spacing-base) * 0.25)},
+  2: #{calc(var(--va-grid-spacing-base) * 0.5)},
+  3: #{var(--va-grid-spacing-base)},
+  4: #{calc(var(--va-grid-spacing-base) * 2)},
+  5: #{calc(var(--va-grid-spacing-base) * 3)},
+);
+
+// generating gutter classes
+@each $size, $gutter in $grid-gutters {
+  .va-gutter-#{$size} {
+    padding: $gutter;
+
+    &:only-child {
+      margin: #{calc($gutter * (-0.5))};
+    }
+
+    &:not(:only-child) {
+      margin: auto #{calc($gutter * (-0.5))};
+
+      &:first-child {
+        margin-top: #{calc($gutter * (-0.5))};
+      }
+
+      &:last-child {
+        margin-bottom: #{calc($gutter * (-0.5))};
+      }
+    }
+
+    & > * {
+      padding: #{calc($gutter * 0.5)};
+    }
+  }
+}
+
+// spacings between items in the block
+@each $prop, $direction in (x: right, y: bottom) {
+  @each $level, $spacer in $spacers {
+    .va-spacing-#{$prop}-#{$level} {
+      & > * {
+        margin-#{$direction}: $spacer;
+
+        &:last-child {
+          margin-#{$direction}: 0;
+        }
+      }
+    }
+  }
+}

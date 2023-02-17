@@ -1,18 +1,19 @@
 <template>
   <va-alert
-    color="success"
+    color="info"
     :title="$t('alert.misc.title')"
     class="mb-6"
   >
-    {{ $t("alert.misc.primary") }}
+    {{ $t('alert.misc.titleContent') }}
   </va-alert>
   <va-alert
-    color="info"
+    color="#265c83"
     class="mb-6"
   >
     <template #title>
-      {{ $t("alert.misc.slottedTitle") }}
+      <h4>{{ $t('alert.misc.slottedTitle') }}</h4>
     </template>
-    {{ $t("alert.misc.primary") }}
+    <va-divider />
+    {{ $t('alert.misc.slottedTitleContent') }}
   </va-alert>
 </template>

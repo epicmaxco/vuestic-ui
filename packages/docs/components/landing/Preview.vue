@@ -18,7 +18,6 @@
 
           <va-button
             preset="secondary"
-            size="large"
             href="https://github.com/epicmaxco/vuestic-ui"
             target="_blank"
             class="preview__buttons--button"
@@ -179,6 +178,7 @@ const textColor = useElementTextColor('background-primary')
     padding-top: 1.5rem;
 
     &--button {
+      --va-button-content-px: 1.5rem;
       --va-button-font-size: 1.1rem;
 
       @include button-font();
@@ -188,8 +188,7 @@ const textColor = useElementTextColor('background-primary')
     }
 
     &--button:nth-child(1) {
-      margin-right: 2rem;
-      padding: 0 3rem;
+      margin-right: 1rem;
 
       @include xs(margin-right, 0);
     }
