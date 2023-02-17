@@ -144,8 +144,10 @@ const toggleSidebar = () => {
     @include sm(display, block);
   }
 
-  @media screen and (max-width: $break_xs) {
-    padding: 0.75rem 22px;
+  &.va-navbar {
+    @media screen and (max-width: $break_xs) {
+      padding: 0.75rem 22px;
+    }
   }
 }
 </style>

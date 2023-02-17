@@ -1,14 +1,30 @@
 <template>
-  <va-button
-    class="stars-button"
-    target="blank"
-    :href="url"
-    color="textPrimary"
-    size="small"
-    icon="star_empty"
-  >
-    {{ stars }}
-  </va-button>
+  <client-only>
+    <va-button
+      :href="url"
+      size="small"
+      target="blank"
+      color="textPrimary"
+      class="stars-button"
+    >
+      <template #prepend>
+        <va-icon
+          name="star_empty"
+          size="small"
+        />
+      </template>
+      {{ stars }}
+    </va-button>
+
+    <template #fallback>
+      <va-button
+        loading
+        size="small"
+        color="textPrimary"
+        class="stars-button"
+      />
+    </template>
+  </client-only>
 </template>
 
 <script lang="ts">
@@ -21,11 +37,20 @@ export default defineComponent({
     repo: { type: String, required: true },
   },
   setup (props) {
-    const stars = ref('57')
+    const stars = ref('Star')
     const apiUrl = `https://api.github.com/repos/${props.repo}`
     const url = `https://github.com/${props.repo}`
 
+    const getStarsStorageKey = (repo: string) => `stars_${repo}`
+
     onBeforeMount(async () => {
+      const storedStars = window.sessionStorage.getItem(getStarsStorageKey(props.repo))
+
+      if (storedStars) {
+        stars.value = storedStars
+        return
+      }
+
       try {
         const rawResponse = await fetch(apiUrl)
         const response = await rawResponse.json()
@@ -42,14 +67,13 @@ export default defineComponent({
         }
 
         stars.value = response.stargazers_count
+        window.sessionStorage.setItem(getStarsStorageKey(props.repo), response.stargazers_count)
       } catch (error) {
         console.log(error)
       }
     })
 
-    return {
-      stars, url,
-    }
+    return { url, stars }
   },
 })
 </script>
@@ -59,8 +83,7 @@ export default defineComponent({
 
 .stars-button {
   .va-icon {
-    @include sm(padding-right, 0.25rem);
-    @include xs(padding-right, 0.25rem);
+    padding-right: 0.25rem;
   }
 }
 </style>

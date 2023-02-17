@@ -2710,6 +2710,10 @@
         "title": "Счетчик символов, неактивное состояние, доступ только для чтения",
         "text": "Его также можно сделать неактивным, доступным только для чтения и добавить счетчик символов."
       },
+      "htmlAttributes": {
+        "title": "Поддерживаемые HTML атрибуты",
+        "text": "По умолчанию мы поддерживаем следующие атрибуты html-тега Input: `type`, `disabled`, `readonly`, `placeholder`, `pattern`, `inputmode`, `minlength`, `maxlength`. Узнать больше на [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)."
+      },
       "hint": {
         "title": "Подсказка",
         "text": "Поддерживаются -одно или -много строчные сообщения, чтобы отобразить подсказку для улучшения UX."
@@ -3022,6 +3026,7 @@
   },
   "grid": {
     "title": "Grid System",
+    "deprecated": "CSS-хелперы и файл сброса CSS (CSS reset) останутся в бандле Vuestic UI вплоть до версии 1.7.0, после чего будут окончательно убраны.",
     "summaryText": "Мы предоставляем вам вспомогательные классы для [flex](https://developer.mozilla.org/ru/docs/Web/CSS/flex)[[target=_blank]]. Для [css grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)[[target=_blank]] встроенных классов не предоставляется. Это не означает, что вам *нужно* использовать `flex`, но он остается мощным инструментом.",
     "examples": {
       "default": {
@@ -3312,6 +3317,7 @@
   "reset": {
     "title": "Сброс CSS",
     "description": "Мы используем `reset.scss` чтобы сбросить и нормализовать базовые `CSS` стили",
+    "deprecated": "CSS-хелперы и файл сброса CSS (CSS reset) останутся в бандле Vuestic UI вплоть до версии 1.7.0, после чего будут окончательно убраны.",
     "features": {
       "title": "Reset возможности",
       "info": "Ниже находится список возможностей, которые предоставляет reset.scss:",
