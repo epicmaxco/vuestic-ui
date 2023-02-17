@@ -7,9 +7,15 @@ const setClass = `<template>
   <ag-grid-vue class='ag-theme-vuestic' ... />
 </template>`;
 
-const importStyles = `<style lang="scss">
-  @import "~@vuestic/ag-grid-theme";
-</style>`;
+const importStyles = `
+// main.*
+import { createApp } from 'vue'
+import App from './App.vue'
+
+import '@vuestic/ag-grid-theme'
+// OR
+import '@vuestic/ag-grid-theme/scss'
+`;
 
 const dependencies = {
   "@vuestic/ag-grid-theme": "latest",
@@ -25,8 +31,9 @@ export default definePageConfig({
     block.headline("agGrid.installation"),
     block.paragraph("agGrid.dependencies"),
     block.code(installCommandObject, "bash"),
-    block.paragraph("agGrid.importStyles"),
+    block.paragraph("agGrid.importStyles[0]"),
     block.code(setClass, "html"),
+    block.paragraph("agGrid.importStyles[1]"),
     block.code(importStyles, "scss"),
     block.alert("agGrid.attention", "warning"),
     block.example("Default", { codesandboxConfig: { dependencies } }),

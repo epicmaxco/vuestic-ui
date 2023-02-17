@@ -4397,7 +4397,10 @@
     },
     "installation": "AG Grid installation",
     "dependencies": "To start using AG Grid, install the dependencies in your project.",
-    "importStyles": "Then import the stylesheet that define the grid \"structure\" and apply the `ag-theme-vuestic` theme on the grid component.",
+    "importStyles": [
+      "Then import the stylesheet that defines the grid \"structure\" into the `main.*` file and apply the `ag-theme-vuestic` theme on the grid component.",
+      "Depending on your project setup and or your purposes you can import pre-compiled CSS styles `{'@'}vuestic/ag-grid-theme` or `{'@'}vuestic/ag-grid-theme/scss` to use our SCSS mixins."
+    ],
     "examples": {
       "default": {
         "title": "Default usage",
