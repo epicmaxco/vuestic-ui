@@ -54,6 +54,7 @@ export default defineComponent({
 
   props: {
     ...VaDropdownProps,
+    transition: { type: String, default: 'va-fade-transition' },
     ...useComponentPresetProp,
     trigger: { default: 'hover' },
     color: { type: String, default: '#1b1a1f' }, // TODO: Make sure add this color to pallete
