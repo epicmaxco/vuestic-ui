@@ -18,7 +18,7 @@ export interface VuesticOptions {
    *
    * @see https://vuestic.dev/en/getting-started/tree-shaking#css-code-split
    */
-  css: Array<'typography' | 'grid' | 'reset'> | boolean,
+  css: Array<'typography' | 'grid' | 'reset' | 'smart-helpers'> | boolean,
 
   /**
    * Use vuestic default fonts.
