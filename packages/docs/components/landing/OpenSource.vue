@@ -10,6 +10,8 @@
             <nuxt-img
               src="/landing/icon-open-source.svg"
               alt=""
+              height="100px"
+              width="100px"
             />
           </div>
           <h2 class="opensource__title">
