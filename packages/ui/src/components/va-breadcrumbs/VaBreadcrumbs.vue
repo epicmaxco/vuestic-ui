@@ -3,6 +3,7 @@ import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
 
 import { useComponentPresetProp, useAlign, useAlignProps, useColors, useTranslation } from '../../composables'
 import { hasOwnProperty } from '../../utils/has-own-property'
+import result from 'lodash/result'
 
 export default defineComponent({
   name: 'VaBreadcrumbs',
@@ -62,7 +63,9 @@ export default defineComponent({
 
     const isAllChildLinks = ref(true)
     const getChildren = () => {
-      const childNodes = (slots as any)?.default?.reduce(childNodeFilter, []) || []
+      const defaultSlotContent = result(slots, 'default', slots.default) as any
+      if (!defaultSlotContent) { return }
+      const childNodes = defaultSlotContent.reduce(childNodeFilter, []) || []
       const childNodesLength = childNodes.length
       const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
       const isChildLink = (child: VNode) => {

@@ -4,17 +4,17 @@
     v-model="showDropdownContentComputed"
     class="va-select va-select__dropdown va-select-dropdown"
     v-bind="dropdownPropsComputed"
-    @close="focus"
   >
     <template #anchor>
       <va-input-wrapper
         ref="input"
         class="va-select__anchor va-select-anchor__input"
         :class="inputWrapperClassComputed"
-        :model-value="valueComputedString"
+        :model-value="valueString"
         v-bind="inputWrapperPropsComputed"
         @focus="onInputFocus"
         @blur="onInputBlur"
+        @click="focusAutocompleteInput"
       >
         <template
           v-for="(_, name) in $slots"
@@ -35,12 +35,21 @@
             @keydown.enter.stop="reset"
             @keydown.space.stop="reset"
           />
+
+          <va-icon
+            v-if="$props.loading"
+            :color="$props.color"
+            size="small"
+            name="va-loading"
+            spin="counter-clockwise"
+          />
         </template>
 
         <template #appendInner>
           <va-icon
             :color="toggleIconColor"
             :name="toggleIcon"
+            @click.stop="toggleDropdown"
           />
         </template>
 
@@ -48,6 +57,11 @@
           <va-select-content
             v-bind="selectContentPropsComputed"
             @toggle-hidden="toggleHiddenOptionsState"
+            @autocomplete-input="setAutocompleteValue"
+            @focus-prev="focusPreviousOption"
+            @focus-next="focusNextOption"
+            @select-option="selectOrAddOption"
+            @delete-last-selected="deleteLastSelected"
           >
             <template
               v-for="(_, name) in $slots"
@@ -135,6 +149,8 @@ import { VaSelectContent } from './components/VaSelectContent'
 
 import { useMaxVisibleOptions, useMaxVisibleOptionsProps } from './hooks/useMaxVisibleOptions'
 import { useToggleIcon, useToggleIconProps } from './hooks/useToggleIcon'
+import { useStringValue, useStringValueProps } from './hooks/useStringValue'
+import { useAutocomplete, useAutocompleteProps } from './hooks/useAutocomplete'
 
 import type { SelectOption, Placement } from './types'
 import type { DropdownOffsetProp } from '../va-dropdown/types'
@@ -177,6 +193,8 @@ export default defineComponent({
     ...useMaxVisibleOptionsProps,
     ...useToggleIconProps,
     ...useThrottleProps,
+    ...useStringValueProps,
+    ...useAutocompleteProps,
 
     modelValue: {
       type: [String, Number, Array, Object] as PropType<SelectOption | SelectOption[]>,
@@ -199,7 +217,6 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
     multiple: { type: Boolean, default: false },
     searchable: { type: Boolean, default: false },
-    separator: { type: String, default: ', ' },
     width: { type: String, default: '100%' },
     maxHeight: { type: String, default: '256px' },
     noOptionsText: { type: String, default: '$t:noOptions' },
@@ -207,6 +224,9 @@ export default defineComponent({
     tabindex: { type: Number, default: 0 },
     virtualScroller: { type: Boolean, default: false },
     selectedTopShown: { type: Boolean, default: false },
+    highlightMatchedText: { type: Boolean, default: true },
+    minSearchChars: { type: Number, default: 0 },
+    autoSelectFirstOption: { type: Boolean, default: false },
 
     // Input style
     outline: { type: Boolean, default: false },
@@ -229,7 +249,7 @@ export default defineComponent({
     const onScrollBottom = () => emit('scroll-bottom')
 
     const searchInput = ref('')
-    const showSearchInput = computed(() => props.searchable || props.allowCreate)
+    const showSearchInput = computed(() => props.searchable || (props.allowCreate && !props.autocomplete))
 
     watch(searchInput, (value) => {
       emit('update-search', value)
@@ -255,7 +275,7 @@ export default defineComponent({
           warn('Model value should be a string or a number for a single Select.')
 
           if (value.length) {
-            return value[value.length - 1]
+            return value.at(-1)
           }
         }
 
@@ -271,17 +291,7 @@ export default defineComponent({
       },
     })
 
-    const valueComputedString = computed<string>(() => {
-      if (!valueComputed.value && valueComputed.value !== 0) { return props.clearValue }
-
-      if (typeof valueComputed.value === 'string' || typeof valueComputed.value === 'number') { return valueComputed.value }
-
-      if (Array.isArray(valueComputed.value)) {
-        return visibleSelectedOptions.value.map((value) => getText(value)).join(props.separator) || props.clearValue
-      }
-
-      return getText(valueComputed.value)
-    })
+    const valueString = useStringValue(props, visibleSelectedOptions, getText)
 
     // icons
     const {
@@ -379,15 +389,20 @@ export default defineComponent({
         valueComputed.value = typeof option === 'string' || typeof option === 'number' ? option : { ...option }
         hideAndFocus()
       }
+
+      focusAutocompleteInput()
     }
 
     const addNewOption = () => {
       // Do not emit if option already exist and allow create is `unique`
-      const hasAddedOption = props.options?.some((option: SelectOption) => getText(option) === searchInput.value)
+      const hasAddedOption = props.options?.some((option: SelectOption) => [searchInput.value, autocompleteValue.value].includes(getText(option)))
 
-      if (!(props.allowCreate === 'unique' && hasAddedOption)) {
-        emit('create-new', searchInput.value)
+      const allowedToCreateCheck = !((props.allowCreate === 'unique' || props.autocomplete) && hasAddedOption)
+      if (allowedToCreateCheck) {
+        emit('create-new', searchInput.value || autocompleteValue.value)
+
         searchInput.value = ''
+        autocompleteValue.value = ''
       }
     }
 
@@ -400,7 +415,7 @@ export default defineComponent({
 
       if (!showDropdownContent.value) {
         // We can not select options if they are hidden
-        showDropdown()
+        handleDropdownOpen()
         return
       }
 
@@ -408,7 +423,7 @@ export default defineComponent({
     }
 
     const selectOrAddOption = () => {
-      const allowedToCreate = !!props.allowCreate && searchInput.value !== ''
+      const allowedToCreate = !!props.allowCreate && (searchInput.value || autocompleteValue.value)
 
       if (hoveredOption.value !== null) {
         selectHoveredOption()
@@ -428,7 +443,7 @@ export default defineComponent({
     const showDropdownContentComputed = computed({
       get: () => showDropdownContent.value,
       set: (show: boolean) => {
-        show ? showDropdown() : hideDropdown()
+        show ? handleDropdownOpen() : handleDropdownClose()
       },
     })
 
@@ -436,7 +451,7 @@ export default defineComponent({
       return !(props.multiple || props.searchable || props.allowCreate)
     })
 
-    const showDropdown = () => {
+    const handleDropdownOpen = () => {
       if (props.disabled || props.readonly) { return }
 
       showDropdownContent.value = true
@@ -444,14 +459,13 @@ export default defineComponent({
       focusSearchOrOptions()
     }
 
-    const hideDropdown = () => {
+    const handleDropdownClose = () => {
       showDropdownContent.value = false
       searchInput.value = ''
       validate()
     }
-
     const hideAndFocus = () => {
-      hideDropdown()
+      handleDropdownClose()
       isInputFocused.value = true
     }
 
@@ -555,8 +569,9 @@ export default defineComponent({
     }))
 
     const optionsListPropsComputed = computed(() => ({
-      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'disabledBy', 'color', 'virtualScroller', 'delay']),
-      search: searchInput.value,
+      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'delay']),
+      autoSelectFirstOption: props.autoSelectFirstOption || props.autocomplete,
+      search: searchInput.value || autocompleteValue.value,
       tabindex: tabIndexComputed.value,
       selectedValue: valueComputed.value,
       options: filteredOptions.value,
@@ -572,7 +587,7 @@ export default defineComponent({
       nowrap: !!(props.maxVisibleOptions && !slots.content),
     }))
     const inputWrapperPropsComputed = computed(() => ({
-      ...pick(props, ['messages', 'requiredMark', 'bordered', 'outline', 'loading', 'label', 'color', 'success']),
+      ...pick(props, ['messages', 'requiredMark', 'bordered', 'outline', 'label', 'color', 'success']),
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
       focused: isFocused.value,
@@ -581,13 +596,20 @@ export default defineComponent({
 
     // select content
     const selectContentPropsComputed = computed(() => ({
-      ...pick(props, ['placeholder']),
+      ...pick(props, ['placeholder', 'autocomplete', 'multiple', 'disabled']),
       tabindex: tabIndexComputed.value,
       value: visibleSelectedOptions.value,
-      valueString: valueComputedString.value,
+      valueString: valueString.value,
       hiddenSelectedOptionsAmount: hiddenSelectedOptionsAmount.value,
       isAllOptionsShown: isAllOptionsShown.value,
+      focused: isInputFocused.value,
+      autocompleteInputValue: autocompleteValue.value,
+      getText,
     }))
+
+    // autocomplete
+    const autocompleteValue = useAutocomplete(props, visibleSelectedOptions, showDropdownContent, getText)
+    const setAutocompleteValue = (v: string) => (autocompleteValue.value = v)
 
     // public methods
     const focus = () => {
@@ -615,6 +637,27 @@ export default defineComponent({
       resetValidation()
     })
 
+    const focusAutocompleteInput = (e?: Event) => {
+      if (props.autocomplete) {
+        e?.stopImmediatePropagation()
+
+        isInputFocused.value = true
+        showDropdownContent.value = true
+      }
+    }
+
+    const toggleDropdown = () => {
+      if (props.disabled || props.readonly) { return }
+
+      showDropdownContentComputed.value = !showDropdownContentComputed.value
+    }
+
+    const deleteLastSelected = () => {
+      if (!Array.isArray(valueComputed.value)) { return }
+
+      valueComputed.value = valueComputed.value.slice(0, -1)
+    }
+
     const {
       validate,
       computedError,
@@ -631,6 +674,10 @@ export default defineComponent({
       reset,
       focus,
       blur,
+      toggleDropdown,
+      deleteLastSelected,
+
+      focusAutocompleteInput,
 
       tp,
       t,
@@ -643,7 +690,7 @@ export default defineComponent({
       showSearchInput,
       hoveredOption,
       tabIndexComputed,
-      valueComputedString,
+      valueString,
       showClearIcon,
       toggleIcon,
       selectOption,
@@ -652,8 +699,8 @@ export default defineComponent({
       focusPreviousOption,
       focusNextOption,
       showDropdownContentComputed,
-      showDropdown,
-      hideDropdown,
+      handleDropdownOpen,
+      handleDropdownClose,
       hideAndFocus,
       toggleIconColor,
       onHintedSearch,
@@ -663,6 +710,7 @@ export default defineComponent({
       visibleSelectedOptions,
       optionsListPropsComputed,
       toggleHiddenOptionsState,
+      setAutocompleteValue,
 
       inputWrapperPropsComputed,
       inputWrapperClassComputed,
