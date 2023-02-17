@@ -1,5 +1,14 @@
 <template>
-  <component class="va-skeleton" :class="classes" :is="tag">
+  <component
+    class="va-skeleton"
+    role="status"
+    aria-busy="true"
+    aria-live="polite"
+    aria-label="Loading"
+    aria-atomic="true"
+    :class="classes"
+    :is="tag"
+  >
     <slot />
     <div class="va-skeleton__wave" v-if="animation === 'wave'" />
   </component>
@@ -133,6 +142,7 @@ export default defineComponent({
   height: v-bind(heightComputed);
   width: v-bind(widthComputed);
   border-radius: v-bind(borderRadius);
+  cursor: wait;
 
   &--pulse {
     animation: var(--va-skeleton-animation-duration) ease-in-out 0.5s infinite normal none running pulse;
