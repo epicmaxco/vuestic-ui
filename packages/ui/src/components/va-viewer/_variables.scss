@@ -1,0 +1,8 @@
+:root {
+  --va-viewer-content-overlay-background-color: rgba(0, 0, 0, 0.45);
+  --va-viewer-content-overlay-z-index: var(--va-z-index-teleport-overlay);
+  --va-viewer-content-controls-panel-padding: 0.75rem;
+  --va-viewer-content-controls-panel-justify-content: flex-end;
+  --va-viewer-content-controls-panel-background-color: rgba(0, 0, 0, 0.1);
+  --va-viewer-content-controls-panel-z-index: calc(var(--va-z-index-teleport-overlay) + 50);
+}

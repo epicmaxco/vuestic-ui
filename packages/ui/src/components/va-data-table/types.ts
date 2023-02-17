@@ -9,9 +9,9 @@ export type DataTableSortingOptions = DataTableSortingOrder[]
 
 // provided column definitions (<va-data-table `:columns="myColumns"` />)
 // should look like an array of the following objects (and/or strings)
-export type DataTableColumn = {
+export type DataTableColumn<T = string> = {
   [key: string]: any
-  key: string // name of an item's property: 'userName', 'address.zipCode'
+  key: T // name of an item's property: 'userName', 'address.zipCode'
   name?: string // column unique name (used in slots)
   label?: string // what to display in the respective heading
   thTitle?: string // <th>'s `title` attribute's value

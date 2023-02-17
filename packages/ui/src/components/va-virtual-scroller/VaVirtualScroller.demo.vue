@@ -28,8 +28,19 @@
         :wrapper-size="200"
         v-slot="{item, index}"
       >
-        <div>{{ index }} - {{ item }} |&nbsp;</div>
+        <div class="whitespace-nowrap">{{ index }} - {{ item }} |&nbsp;</div>
       </va-virtual-scroller>
+    </VbCard>
+    <VbCard title="auto wrapper size">
+      <div style="height: 200px;">
+        <va-virtual-scroller
+          :items="hugeArray"
+          wrapper-size="auto"
+          v-slot="{item}"
+        >
+          <div>{{ item }}</div>
+        </va-virtual-scroller>
+      </div>
     </VbCard>
     <VbCard title="without bench (less nodes less smooth)">
       <va-virtual-scroller
@@ -101,7 +112,7 @@
 import { VaBadge, VaButton } from '../'
 import { VaVirtualScroller } from './'
 
-const hugeArrayBase = new Array(10000)
+const hugeArrayBase = new Array(1000)
 const hugeArray = hugeArrayBase.fill(null).map((_, index) => index)
 const hugeObjectsArray = hugeArrayBase.fill(null).map((el, index) => ({ value: index }))
 </script>

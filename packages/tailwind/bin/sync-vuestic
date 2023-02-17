@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+const sync = require('../dist/sync-vuestic.cjs')
+const { integrateVuesticConfig } = sync
+
+integrateVuesticConfig()
