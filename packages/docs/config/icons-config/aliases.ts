@@ -27,7 +27,7 @@ export const aliases: IconConfiguration[] = [
   },
   {
     name: 'star_empty',
-    to: 'fa4-star-o',
+    to: 'star',
   },
   {
     name: 'warning',
