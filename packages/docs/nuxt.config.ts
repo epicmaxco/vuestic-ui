@@ -8,8 +8,8 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
         { rel: 'stylesheet', href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&display=swap" },
         { rel: 'stylesheet', href: "https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap" },
+        { rel: 'stylesheet', href: "https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" },
         { rel: 'stylesheet', href: "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=swap" },
-        { rel: 'stylesheet', href: "https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css" },
       ],
 
       script: [
@@ -109,8 +109,7 @@ export default defineNuxtConfig({
         "./page-config/**/*.{js,vue,ts}",
         "./layouts/**/*.vue",
         "./pages/**/*.vue",
-        "./modules/**/*.{js,ts}",
-        "./nuxt.config.{js,ts}",
+        "./modules/page-config/blocks/**/*.{js,ts}",
         "./app.vue",
       ]
     }
