@@ -7,12 +7,10 @@
       <div class="opensource__inner">
         <div class="opensource__info">
           <div class="opensource__icon">
-            <nuxt-img
+            <img
               src="/landing/icon-open-source.svg"
-              alt=""
-              height="100px"
-              width="100px"
-            />
+              alt="Open source"
+            >
           </div>
           <h2 class="opensource__title">
             {{ $t('landing.opensource.title') }}
@@ -37,13 +35,10 @@
           </div>
         </div>
         <div class="opensource__actions">
-          <nuxt-img
-            width="632px"
-            height="446px"
-            format="webp"
+          <img
             src="/landing/image-open-source.png"
-            alt="open-source"
-          />
+            alt="Open source"
+          >
         </div>
       </div>
     </div>

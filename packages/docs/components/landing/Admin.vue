@@ -37,25 +37,20 @@
         </div>
         <div class="admin__content">
           <div class="admin__content__item admin__content__item--first">
-            <nuxt-img
-              height="555px"
-              width="875px"
+            <img
               src="/landing/admin/admin.png"
-              format="webp"
-              alt="vuestic-admin"
-            />
+              alt="Vuestic Admin"
+            >
           </div>
           <div class="admin__content__item admin__content__item--second">
             <!-- items -->
             <div class="items">
               <div class="item item--first">
                 <div class="item__frame">
-                  <nuxt-img
-                    height="32px"
-                    width="32px"
+                  <img
                     src="/landing/admin/open-source.svg"
-                    alt="open-source"
-                  />
+                    alt="Open source"
+                  >
                 </div>
                 <h2 class="item__title">
                   {{ $t('landing.admin.features.opensource') }}
@@ -64,12 +59,10 @@
 
               <div class="item">
                 <div class="item__frame">
-                  <nuxt-img
-                    height="32px"
-                    width="32px"
+                  <img
                     src="/landing/admin/themes.svg"
-                    alt="themes"
-                  />
+                    alt="Themes"
+                  >
                 </div>
                 <h2 class="item__title">
                   {{ $t('landing.admin.features.themes') }}
@@ -78,12 +71,10 @@
 
               <div class="item">
                 <div class="item__frame">
-                  <nuxt-img
-                    height="32px"
-                    width="32px"
+                  <img
                     src="/landing/admin/responsive.svg"
-                    alt="responsive"
-                  />
+                    alt="Responsive"
+                  >
                 </div>
                 <h2 class="item__title">
                   {{ $t('landing.admin.features.responsive') }}
@@ -92,12 +83,10 @@
 
               <div class="item">
                 <div class="item__frame">
-                  <nuxt-img
-                    height="32px"
-                    width="32px"
+                  <img
                     src="/landing/admin/i18n.svg"
                     alt="i18n"
-                  />
+                  >
                 </div>
                 <h2 class="item__title">
                   {{ $t('landing.admin.features.i18n') }}

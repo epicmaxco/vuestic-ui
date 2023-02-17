@@ -5,24 +5,24 @@
   >
     <template #start="{ containerSize }">
       <div class="img-block">
-        <nuxt-img
+        <img
           src="https://picsum.photos/seed/picsum/1536/800"
           :style="{ width: `${containerSize}px` }"
           draggable="false"
           class="img img--start"
-          alt=""
-        />
+          alt="Random image"
+        >
       </div>
     </template>
     <template #end="{ containerSize }">
       <div class="img-block">
-        <nuxt-img
+        <img
           src="https://picsum.photos/seed/picsum/1536/800?grayscale"
           :style="{ width: `${containerSize}px` }"
           draggable="false"
           class="img img--end"
-          alt=""
-        />
+          alt="Random image"
+        >
       </div>
     </template>
   </va-split>

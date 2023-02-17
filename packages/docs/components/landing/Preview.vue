@@ -40,7 +40,7 @@
           <!-- items -->
           <!--          <div class="item">-->
           <!--            <div class="item__frame">-->
-          <!--              <nuxt-img height="48px" width="48px" src="/landing/features/nuxt-support.svg" alt="nuxt-support" />-->
+          <!--              <img src="/landing/features/nuxt-support.svg" alt="nuxt-support" />-->
           <!--            </div>-->
           <!--            <h2 class="item__title">{{$t('landing.preview.features.nuxt.title')}}</h2>-->
           <!--            <router-link class="item__link" :to="`/${$root.$i18n.locale}/getting-started/nuxt-integration`">-->
@@ -50,12 +50,10 @@
 
           <div class="item">
             <div class="item__frame">
-              <nuxt-img
-                height="48px"
-                width="48px"
+              <img
                 src="/landing/features/components.svg"
-                alt="responsive-components"
-              />
+                alt="Responsive components"
+              >
             </div>
             <h2 class="item__title">
               {{ $t('landing.preview.features.components.title') }}
@@ -70,12 +68,10 @@
 
           <div class="item">
             <div class="item__frame">
-              <nuxt-img
-                height="48px"
-                width="48px"
+              <img
                 src="/landing/features/keyboard-navigation.svg"
-                alt="accessibility"
-              />
+                alt="Accessibility"
+              >
             </div>
             <h2 class="item__title">
               {{ $t('landing.preview.features.accessibility.title') }}
@@ -90,12 +86,10 @@
 
           <div class="item">
             <div class="item__frame">
-              <nuxt-img
-                height="48px"
-                width="48px"
+              <img
                 src="/landing/features/modern-browsers.svg"
-                alt="modern-browsers"
-              />
+                alt="Modern browsers"
+              >
             </div>
             <h2 class="item__title">
               {{ $t('landing.preview.features.browsers.title') }}

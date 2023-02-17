@@ -28,20 +28,16 @@
             :style="{position: !isHidden ? 'fixed' : 'absolute'}"
             @click="isHidden = !isHidden"
           >
-            <nuxt-img
+            <img
               v-if="!isHidden"
-              height="24px"
-              width="24px"
               src="/landing/hamburger.svg"
-              alt="menu"
-            />
-            <nuxt-img
+              alt="Open menu"
+            >
+            <img
               v-else
-              height="24px"
-              width="24px"
               src="/landing/cross.svg"
-              alt="menu"
-            />
+              alt="Close menu"
+            >
           </div>
         </div>
         <nav class="header__links">
