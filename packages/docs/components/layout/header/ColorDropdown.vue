@@ -1,6 +1,7 @@
 <template>
   <div class="color-dropdown">
     <va-button-dropdown
+      v-model="doShowDropdown"
       class="color-dropdown__icon"
       preset="secondary"
       label="Colors"
@@ -22,6 +23,7 @@
       </div>
       <div class="color-dropdown__content px-1 mt-2">
         <va-button
+          @click="doShowDropdown = false"
           class="w-full"
           :to="`${locale ? ('/' + locale) : ''}/styles/colors`"
         >
@@ -43,10 +45,13 @@ export default defineComponent({
             const colorNames = Object.keys(colorsPresets.light);
             return colorNames.map((c) => ({ name: c, title: capitalizeFirstLetter(c) }));
         });
+        
+        const doShowDropdown = ref(false)
 
         const { locale } = useI18n()
 
         return {
+            doShowDropdown,
             colorsArray,
             locale,
         };

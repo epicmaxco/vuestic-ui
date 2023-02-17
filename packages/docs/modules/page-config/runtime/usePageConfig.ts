@@ -33,6 +33,7 @@ export const usePageConfig = async (name: string | Ref<string>) => {
 
     watchEffect(async () => {
       try {
+        config.value = null
         config.value = await getConfig(unref(name))
       }
       catch (e) {
