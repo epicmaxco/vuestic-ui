@@ -332,6 +332,7 @@
         "overlayOpacity": "Прозрачность оверлея",
         "anchorClass": "Назначение имени класса для контейнера слота `anchor`",
         "zIndex": " CSS свойство `z-index`",
+        "allowBodyScroll": "Разрешает прокрутку документа при открытом модальном окне.",
         "blur": "Устанавливает `blur` фильтр оверлея. Рутовая `css` переменная `--va-modal-overlay-background-blur-radius` устанавливает радиус `blur` фильтра"
       },
       "events": {
