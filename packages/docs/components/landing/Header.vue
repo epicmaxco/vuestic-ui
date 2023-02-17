@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeaderBanner />
+    <HeaderBanner wrapped />
     <header class="header">
       <!--    <div class="header__banner">-->
       <!--      <div>-->

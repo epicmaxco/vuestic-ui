@@ -3,6 +3,9 @@
     <div
       v-if="!isHidden"
       class="header-banner"
+      :class="{
+        'header-banner--wrapped': wrapped,
+      }"
     >
       <div class="header__wrapper">
         <div class="header-banner__left">
@@ -104,6 +107,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  wrapped: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const closeable = ref(props.closeable)
@@ -131,20 +138,18 @@ const hide = () => {
   opacity: 0;
 }
 
-.header__wrapper {
-  @include wrapper();
-}
-
-.header-banner--docs .header__wrapper {
-  max-width: 100%;
-}
-
 .header-banner {
   min-height: 40px;
-  padding: 7px 0;
+  padding: 7px 1rem;
   background-color: #012875;
   font-size: 0.9rem;
   color: white;
+
+  &--wrapped {    
+    .header__wrapper {
+      @include wrapper();
+    }
+  }
 
   &__button {
     z-index: 10;
