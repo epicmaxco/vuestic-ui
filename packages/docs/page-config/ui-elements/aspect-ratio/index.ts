@@ -7,12 +7,9 @@ export default definePageConfig({
 
     block.subtitle("all.examples"),
 
-    block.headline("aspectRatio.examples.default.title"),
-    block.example("Default", { hideTitle: true }),
+    block.example("Default"),
 
-    block.headline("aspectRatio.examples.withOtherComponents.title"),
-    block.paragraph("aspectRatio.examples.withOtherComponents.text"),
-    block.example("WithOtherComponents", { hideTitle: true }),
+    block.example("WithOtherComponents"),
 
     block.subtitle("all.api"),
     block.api("VaAspectRatio", apiOptions),

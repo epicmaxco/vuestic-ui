@@ -1573,7 +1573,7 @@
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
-    "tailwind": "Tailwind Support",
+    "tailwind": "Tailwind Integration",
     "popover": "Popover",
     "backtop": "Backtop",
     "colorPicker": "Color Picker",

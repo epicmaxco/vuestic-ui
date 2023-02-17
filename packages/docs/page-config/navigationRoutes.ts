@@ -97,28 +97,6 @@ export const navigationRoutes: NavigationRoute[] = [
     disabled: true,
     children: [
       {
-        name: 'tailwind',
-        displayName: 'menu.tailwind',
-        meta: {
-          badge: 'new',
-        },
-      },
-      {
-        name: "reset",
-        displayName: "menu.reset",
-      },
-      {
-        name: "grid",
-        displayName: "menu.grid",
-      },
-      {
-        name: "smart-helpers",
-        displayName: "menu.smartHelpers",
-        meta: {
-          badge: "new",
-        },
-      },
-      {
         name: "colors",
         displayName: "menu.colors",
         meta: {
@@ -132,6 +110,28 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "typography",
         displayName: "menu.typography",
+      },
+      {
+        name: "grid",
+        displayName: "menu.grid",
+      },
+      {
+        name: 'tailwind',
+        displayName: 'menu.tailwind',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
+        name: "smart-helpers",
+        displayName: "menu.smartHelpers",
+        meta: {
+          badge: "new",
+        },
+      },
+      {
+        name: "reset",
+        displayName: "menu.reset",
       },
       // GENERATOR_ADD - styles
     ],

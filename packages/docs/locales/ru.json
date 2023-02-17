@@ -1486,7 +1486,7 @@
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
-    "tailwind": "Поддержка Tailwind",
+    "tailwind": "Интеграция Tailwind",
     "popover": "Popover",
     "backtop": "Backtop",
     "colorPicker": "Color Picker",
