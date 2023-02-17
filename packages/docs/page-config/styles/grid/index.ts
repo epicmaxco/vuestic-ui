@@ -2,6 +2,7 @@ export default definePageConfig({
   blocks: [
     block.title("grid.title"),
     block.paragraph("grid.summaryText"),
+    block.alert("grid.deprecated", "primary"),
 
     block.example("Default"),
 
@@ -53,6 +54,6 @@ export default definePageConfig({
     block.paragraph("grid.examples.justify.variants[3]"),
     block.paragraph("grid.examples.justify.variants[4]"),
     block.paragraph("grid.examples.justify.variants[5]"),
-    block.example("AlignJustify", { hideTitle: true }),
-  ],
+    block.example("AlignJustify", { hideTitle: true })
+  ]
 });

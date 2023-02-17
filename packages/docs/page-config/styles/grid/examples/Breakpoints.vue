@@ -42,6 +42,9 @@
 </template>
 
 <style lang="scss" scoped>
+@import "vuestic-ui/src/styles/resources";
+@import "vuestic-ui/src/styles/grid/grid.scss";
+
 .item {
   border: 1px solid var(--va-background-border);
   background-color: var(--va-background-primary);

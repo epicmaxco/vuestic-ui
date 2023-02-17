@@ -156,7 +156,7 @@
             </div>
 
             <div class="stars-button-wrapper">
-              <landing-stars-button repo="epicmaxco/vuestic-admin" />
+              <landing-stars-button repo="epicmaxco/vuestic-ui" />
             </div>
           </va-list>
         </nav>

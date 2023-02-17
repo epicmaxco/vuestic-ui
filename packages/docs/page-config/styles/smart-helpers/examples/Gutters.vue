@@ -3,87 +3,70 @@
     class="gutters-demo"
     color="background-primary"
   >
-    <div class="layout va-gutter-1">
-      <div class="row">
+    <div class="p-6">
+      <div class="va-gutter-1 flex gap-6 bg-gray-200">
         <div
-          v-for="i in 2"
-          :key="i"
-          class="flex flex-col xs6"
+          class="item"
         >
-          <div class="item">
-            va-gutter-1
-          </div>
+          va-gutter-1
         </div>
       </div>
-    </div>
-    <br>
-    <div class="layout va-gutter-2">
-      <div class="row">
+
+      <br>
+
+      <div class="va-gutter-2 flex gap-6 bg-gray-200">
         <div
           v-for="i in 2"
           :key="i"
-          class="flex flex-col xs6"
+          class="item"
         >
-          <div class="item">
-            va-gutter-2
-          </div>
+          va-gutter-2
         </div>
       </div>
-    </div>
-    <br>
-    <div class="layout va-gutter-3">
-      <div class="row">
+
+      <br>
+
+      <div class="va-gutter-3 flex gap-6 bg-gray-200">
         <div
           v-for="i in 2"
           :key="i"
-          class="flex flex-col xs6"
+          class="item"
         >
-          <div class="item">
-            va-gutter-3
-          </div>
+          va-gutter-3
         </div>
       </div>
-    </div>
-    <br>
-    <div class="layout va-gutter-4">
-      <div class="row">
+
+      <br>
+
+      <div class="va-gutter-4 flex gap-6 bg-gray-200">
         <div
-          v-for="i in 2"
+          v-for="i in 3"
           :key="i"
-          class="flex flex-col xs6"
+          class="item"
         >
-          <div class="item">
-            va-gutter-4
-          </div>
+          va-gutter-4
         </div>
       </div>
-    </div>
-    <br>
-    <div class="layout va-gutter-5">
-      <div class="row">
+
+      <br>
+
+      <div class="va-gutter-5 flex gap-6 bg-gray-200">
         <div
-          v-for="i in 2"
+          v-for="i in 4"
           :key="i"
-          class="flex flex-col xs6"
+          class="item"
         >
-          <div class="item">
-            va-gutter-5
-          </div>
+          va-gutter-5
         </div>
       </div>
     </div>
   </va-card>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .gutters-demo {
-  padding: 0.75rem;
-
-  .layout {
-    background-color: var(--va-background-element);
-  }
-
   .item {
+    flex-grow: 1;
     background-color: var(--va-background-primary);
     border: 1px solid var(--va-background-border);
     text-align: center;
