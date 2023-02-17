@@ -74,9 +74,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "kitchensink",
         displayName: "menu.kitchensink",
-        meta: {
-          badge: "new",
-        },
       },
       {
         name: 'web-components',
@@ -99,9 +96,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "colors",
         displayName: "menu.colors",
-        meta: {
-          badge: "updated",
-        },
       },
       {
         name: "css-variables",
@@ -156,9 +150,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "button",
         displayName: "menu.button",
-        meta: {
-          badge: "updated",
-        },
       },
       {
         name: "button-group",
@@ -293,9 +284,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "split",
         displayName: "menu.split",
-        meta: {
-          badge: "new",
-        },
       },
       {
         name: "collapse",
@@ -308,9 +296,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "scroll-container",
         displayName: "menu.scrollContainer",
-        meta: {
-          badge: "new",
-        },
       },
       {
         category: "menu.categories.navigation",
@@ -414,9 +399,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "tree-view",
         displayName: "menu.treeView",
-        meta: {
-          badge: "new",
-        },
       },
       // GENERATOR_ADD - uiElements
     ],
@@ -459,9 +441,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "components-config",
         displayName: "menu.componentsConfig",
-        meta: {
-          badge: "updated",
-        },
       },
       {
         name: "icons-config",
@@ -486,16 +465,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "breakpoints",
         displayName: "menu.breakpoints",
-        meta: {
-          badge: "new",
-        },
       },
       {
         name: "i18n",
         displayName: "menu.i18n",
-        meta: {
-          badge: "new",
-        },
       },
       // GENERATOR_ADD - services
     ],
@@ -511,6 +484,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "ag-grid",
         displayName: "menu.agGrid",
+        meta: {
+          badge: "updated",
+        }
       },
       // GENERATOR_ADD - extensions
     ],
