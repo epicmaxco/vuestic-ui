@@ -116,7 +116,7 @@ on [vuestic.dev](https://vuestic.dev)
     <img src="./.github/assets/epicmax.svg" loading="lazy" alt="">
   </a>
   <a href="https://www.jetbrains.com/" target="_blank" title="JetBrains: Essential tools for software developers and teams">
-    <img src="./.github/assets/jb_beam.svg" loading="lazy" alt="">
+    <img hspace="15"  src="./.github/assets/jb_square.svg" loading="lazy" alt="">
   </a>
   <br />
   <br />
