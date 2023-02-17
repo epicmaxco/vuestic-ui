@@ -1,4 +1,4 @@
-import { PartialGlobalConfig } from 'vuestic-ui'
+import { defineVuesticConfig } from 'vuestic-ui'
 import { icons } from './icons-config/icons-config'
 
 const scrollWrapperSelector = '.docs-layout__main-content'
@@ -16,7 +16,7 @@ const VaButtonLandingHeader = {
 
 const theme = 'light'
 
-export const VuesticConfig: PartialGlobalConfig = {
+export const VuesticConfig = defineVuesticConfig({
   icons,
   components: {
     VaParallax: {
@@ -57,4 +57,4 @@ export const VuesticConfig: PartialGlobalConfig = {
       },
     },
   },
-}
+})

@@ -4774,6 +4774,11 @@
         "css": "Choose which CSS modules will be added to nuxt. If `true` all CSS modules will be added",
         "fonts": "Adds Vuestic default fonts to head"
       }
+    },
+    "vuesticConfig": {
+      "title": "vuestic.config.ts",
+      "description": "Because of nuxt config limitation, it is impossible to pass functions trough `nuxt.config.ts`. But you can create `vuestic.config.ts` which will be passed to { '`@vuestic\/nuxt`' }. Use `defineVuesticConfig` to define type safe configuration for Vuestic UI.",
+      "iconsConfig": "Read more about Icons Config"
     }
   },
   "ssrGuide": {
