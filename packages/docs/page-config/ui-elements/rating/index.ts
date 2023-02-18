@@ -21,8 +21,6 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaRating", apiOptions),
 
-        
-
     block.subtitle("all.faq"),
 
     block.headline("rating.faq.questions[0].question"),

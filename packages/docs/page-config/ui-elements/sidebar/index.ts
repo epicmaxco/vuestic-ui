@@ -20,8 +20,6 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaSidebar", apiOptions),
 
-        
-
     block.subtitle("all.faq"),
     block.headline("sidebar.faq.questions[0].question"),
     block.paragraph("sidebar.faq.questions[0].answer"),

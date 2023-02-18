@@ -21,7 +21,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaImage", apiOptions),
-
-    block.subtitle("all.cssVariables"), 
   ],
 });

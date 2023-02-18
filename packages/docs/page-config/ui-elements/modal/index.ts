@@ -34,8 +34,6 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaModal", apiOptions),
 
-    block.subtitle("all.cssVariables"),
-
     block.subtitle("modal.examples.functionalApi.title"),
     block.paragraph("modal.examples.functionalApi.text"),
     block.code(apiExamplesObject),

@@ -26,8 +26,7 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaInput", apiOptions),
 
-        block.paragraph("VaInput:"),
-    
+    // TODO: Move variable from VaInputWrapper to VaInput
     block.paragraph("VaInputWrapper:"),
     block.file(
       "vuestic-ui/src/components/va-input/components/VaInputWrapper/_variables.scss"

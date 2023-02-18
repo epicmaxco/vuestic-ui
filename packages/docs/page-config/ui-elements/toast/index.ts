@@ -25,8 +25,6 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaToast", apiOptions),
 
-        
-
     block.subtitle("all.faq"),
     block.headline("toast.faq.questions[0].question"),
     block.paragraph("toast.faq.questions[0].answer"),

@@ -26,8 +26,6 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaCard", apiOptions),
 
-    block.subtitle("all.cssVariables"),
-
     block.subtitle("all.faq"),
     block.headline("card.faq.questions[0].question"),
     block.paragraph("card.faq.questions[0].answer"),
