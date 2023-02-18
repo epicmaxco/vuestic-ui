@@ -101,7 +101,7 @@ const methodsOptions = Object
   }))
 
 const cssVariablesOptions = props.cssVariables.map(([name, value, comment]) => ({
-  name, 'Default Value': '`' + value + '`', /* comment */ // TODO: Enable comment when everywhere is used correct comments
+  name, value, /* comment */ // TODO: Enable comment when everywhere is used correct comments
   // TODO: Or add tanslations after i18n splitted
 }))
 </script>
@@ -151,6 +151,13 @@ const cssVariablesOptions = props.cssVariables.map(([name, value, comment]) => (
       title="CSS variables"
       :columns="['Name', 'Default Value']"
       :data="cssVariablesOptions"
-    />
+    >
+      <template #name="{ data }">
+        <strong class="va-text-code">{{ data }}</strong>
+      </template>
+      <template #value="{ data }">
+        <span class="va-text-code va-text-secondary">{{ data }}</span>
+      </template>
+    </ApiTable>
   </va-content>
 </template>

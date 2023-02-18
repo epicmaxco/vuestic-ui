@@ -12,7 +12,7 @@ const parseCssVariables = (css: string | undefined): CssVariables => {
   const variables: CssVariables = []
 
   lines.forEach((line, index, lines) => {
-    const variable = (line.match(/--va-(.*)?:(.*)?;/) || []).slice(1)
+    const variable = (line.match(/(--va-.*)?:(.*)?;/) || []).slice(1)
 
     if (variable.length) {
       const comment = parseCssComment(lines[index - 1] || '')
