@@ -49,3 +49,6 @@ export type ManualApiOptions = {
   events?: Record<string, ManualEventApiOptions>;
   slots?: Record<string, ManualSlotApiOptions>;
 }
+
+/** Name, Value, Comment */
+export type CssVariables = [string, string, string | undefined][]
