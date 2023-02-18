@@ -25,8 +25,7 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaToast", apiOptions),
 
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-toast/_variables.scss"),
+        
 
     block.subtitle("all.faq"),
     block.headline("toast.faq.questions[0].question"),

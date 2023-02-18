@@ -30,8 +30,5 @@ export default definePageConfig({
     block.example("Swipe"),
 
     block.api("VaCarousel", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-carousel/_variables.scss"),
   ],
 });

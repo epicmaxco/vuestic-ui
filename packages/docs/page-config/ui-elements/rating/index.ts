@@ -21,8 +21,7 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaRating", apiOptions),
 
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-rating/_variables.scss"),
+        
 
     block.subtitle("all.faq"),
 

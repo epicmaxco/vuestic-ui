@@ -1,7 +1,4 @@
-import { PageGenerationHelper } from "../../../helpers/DocsHelper";
-import { ToastOptions } from "../../../../../ui/src/components/va-toast/types";
-
-export const methodsApi = (block: PageGenerationHelper) =>
+export const methodsApi = (block: any) =>
   block.table(
     [
       "Method name",
@@ -32,7 +29,7 @@ export const methodsApi = (block: PageGenerationHelper) =>
     ]
   );
 
-const optionsTableData: [keyof ToastOptions, string][] = [
+const optionsTableData = [
   ["title", "string"],
   ["message", "string | VNode"],
   ["iconClass", "string"],
@@ -50,7 +47,7 @@ const optionsTableData: [keyof ToastOptions, string][] = [
   ["color", "string"],
 ];
 
-export const optionsApi = (block: PageGenerationHelper) =>
+export const optionsApi = (block: any) =>
   block.table(["name", { title: "type", type: "code" }], optionsTableData);
 
 const optionsApiExample = `

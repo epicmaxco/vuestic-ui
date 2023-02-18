@@ -22,7 +22,6 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaImage", apiOptions),
 
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-image/_variables.scss"),
+    block.subtitle("all.cssVariables"), 
   ],
 });

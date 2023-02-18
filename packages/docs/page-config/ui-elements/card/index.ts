@@ -27,7 +27,6 @@ export default definePageConfig({
     block.api("VaCard", apiOptions),
 
     block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-card/_variables.scss"),
 
     block.subtitle("all.faq"),
     block.headline("card.faq.questions[0].question"),

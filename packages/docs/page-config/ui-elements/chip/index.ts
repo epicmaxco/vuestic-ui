@@ -22,8 +22,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaChip", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-chip/_variables.scss"),
   ],
 });

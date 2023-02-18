@@ -26,9 +26,8 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaInput", apiOptions),
 
-    block.subtitle("all.cssVariables"),
-    block.paragraph("VaInput:"),
-    block.file("vuestic-ui/src/components/va-input/_variables.scss"),
+        block.paragraph("VaInput:"),
+    
     block.paragraph("VaInputWrapper:"),
     block.file(
       "vuestic-ui/src/components/va-input/components/VaInputWrapper/_variables.scss"

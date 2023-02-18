@@ -31,8 +31,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaAvatar", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-avatar/_variables.scss"),
   ],
 });

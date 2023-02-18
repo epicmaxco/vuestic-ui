@@ -16,8 +16,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaButtonGroup", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-button-group/_variables.scss"),
   ],
 });

@@ -23,8 +23,5 @@ export default definePageConfig({
     block.example("filter"),
 
     block.api("VaTimePicker", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-time-picker/_variables.scss"),
   ],
 });

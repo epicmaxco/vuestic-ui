@@ -22,7 +22,6 @@ export default definePageConfig({
     block.api("VaBreadcrumbsItem", vaBreadcrumbsItemApiOptions),
 
     block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-breadcrumbs/_variables.scss"),
 
     block.subtitle("all.faq"),
     block.headline("breadcrumbs.faq.questions[0].question"),

@@ -21,8 +21,5 @@ export default definePageConfig({
     block.example("Rtl"),
 
     block.api("VaScrollContainer", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-scroll-container/_variables.scss"),
   ],
 });
