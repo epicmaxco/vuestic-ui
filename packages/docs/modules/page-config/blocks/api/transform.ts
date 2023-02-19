@@ -16,6 +16,7 @@ const parseCssVariables = (css: string | undefined): CssVariables => {
 
     if (variable.length) {
       const comment = parseCssComment(lines[index - 1] || '')
+      if (!variable[0] || !variable[1]) { return }
       variables.push([variable[0], variable[1], comment])
     }
   })
