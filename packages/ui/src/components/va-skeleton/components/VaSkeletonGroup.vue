@@ -62,6 +62,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .va-skeleton-group {
   position: relative;
+  cursor: progress;
 
   &--hidden {
     display: none;

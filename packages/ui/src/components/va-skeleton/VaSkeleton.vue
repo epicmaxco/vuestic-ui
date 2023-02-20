@@ -2,7 +2,6 @@
   <component
     class="va-skeleton"
     role="status"
-    aria-busy="true"
     aria-live="polite"
     aria-label="Loading"
     aria-atomic="true"
@@ -145,7 +144,7 @@ export default defineComponent({
   cursor: wait;
 
   &--pulse {
-    animation: var(--va-skeleton-animation-duration) ease-in-out 0.5s infinite normal none running pulse;
+    animation: var(--va-skeleton-animation-duration) ease-in-out 0s infinite normal none running pulse;
   }
 
   &--wave {
@@ -155,12 +154,10 @@ export default defineComponent({
       position: absolute;
       overflow: hidden;
       left: 0;
-      top: 0;
       height: 100%;
       width: 100%;
 
       &::after {
-        mask-image: -webkit-radial-gradient(white, black);
         display: block;
         position: relative;
         content: '';
@@ -170,24 +167,43 @@ export default defineComponent({
         height: 100%;
         opacity: var(--va-skeleton-wave-opacity, 0.5);
         background: linear-gradient(90deg, transparent, var(--va-skeleton-wave-color), transparent);
-        animation: var(--va-skeleton-animation-duration) linear 0.5s infinite normal none running wave;
+        animation: var(--va-skeleton-animation-duration) linear 0s infinite normal none running wave;
       }
     }
   }
 
-  &--hidden { display: none; }
+  &--hidden {
+    // Hide visually and from screen readers
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+  }
 
   &--lines {
-    // Stripes background, so it looks like a lot of lines
     background:
       repeating-linear-gradient(
-        0deg,
+        180deg,
         v-bind(colorComputed),
         v-bind(colorComputed) calc($line-height - v-bind(lineGap) / 2),
         transparent calc($line-height - v-bind(lineGap) / 2),
         transparent $line-height,
       );
-    background-position-y: calc(v-bind(lineGap) / -2);
+
+    .va-skeleton__wave::after {
+      mask-image:
+        repeating-linear-gradient(
+          180deg,
+          black,
+          black calc($line-height - v-bind(lineGap) / 2),
+          transparent calc($line-height - v-bind(lineGap) / 2),
+          transparent $line-height,
+        );
+    }
   }
 
   &--text {
