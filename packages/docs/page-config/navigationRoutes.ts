@@ -336,6 +336,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.sidebarItem",
       },
       {
+        name: 'stepper',
+        displayName: 'menu.stepper',
+        meta: {
+          badge: 'new',
+        }
+      },
+      {
         category: "menu.categories.other",
         name: "affix",
         displayName: "menu.affix",

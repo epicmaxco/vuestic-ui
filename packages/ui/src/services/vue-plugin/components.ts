@@ -74,6 +74,7 @@ export {
   VaSplit,
   VaSwitch,
   VaTabs, VaTab,
+  VaStepper,
   VaTimeInput,
   VaTimeline, VaTimelineItem,
   VaTimePicker,
