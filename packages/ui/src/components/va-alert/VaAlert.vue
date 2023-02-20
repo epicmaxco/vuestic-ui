@@ -85,7 +85,7 @@ import { generateUniqueId } from '../../utils/uuid'
 import {
   useComponentPresetProp,
   useStateful, useStatefulProps, useStatefulEmits,
-  useTranslation, useTransitionProp,
+  useTranslation,
 } from '../../composables'
 
 import { useAlertStyles } from './useAlertStyles'
@@ -99,7 +99,7 @@ export default defineComponent({
   props: {
     ...useStatefulProps,
     ...useComponentPresetProp,
-    ...useTransitionProp,
+    transition: { type: String, default: 'va-scale-transition' },
     modelValue: { type: Boolean, default: true },
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: '' },

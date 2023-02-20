@@ -62,7 +62,6 @@ import {
   useTextColor,
   useBem,
   useTranslation,
-  useTransitionProp,
 } from '../../composables'
 
 import { VaIcon } from '../va-icon'
@@ -79,7 +78,7 @@ export default defineComponent({
     ...useColorProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
-    ...useTransitionProp,
+    transition: { type: String, default: 'va-scale-transition' },
     modelValue: { type: Boolean, default: true },
     closeable: { type: Boolean, default: false },
     outline: { type: Boolean, default: false },

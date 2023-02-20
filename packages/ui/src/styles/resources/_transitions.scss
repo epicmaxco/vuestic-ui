@@ -17,16 +17,19 @@
 }
 
 .va-expand-transition-enter-active {
-  transition: transform 0.2s ease-in, opacity 0.3s cubic-bezier(1,-0.01,0,.99);
+  transition: transform 0.2s ease-in, opacity 0.3s cubic-bezier(1, -0.01, 0, 0.99);
 }
+
 .va-expand-transition-leave-active {
   transition: transform 0.2s ease-in, opacity 0.1s ease-in;
 }
+
 .va-expand-transition-enter-from,
 .va-expand-transition-leave-to {
   opacity: 0;
   transform: translateY(-25%);
 }
+
 .va-expand-transition-enter-to,
 .va-expand-transition-leave-from {
   opacity: 1;
