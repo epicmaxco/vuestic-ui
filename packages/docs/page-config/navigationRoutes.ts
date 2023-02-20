@@ -119,9 +119,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "smart-helpers",
         displayName: "menu.smartHelpers",
-        meta: {
-          badge: "new",
-        },
       },
       {
         name: "reset",
@@ -170,6 +167,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "image",
         displayName: "menu.image",
+        meta: {
+          badge: "updated",
+        }
       },
       {
         name: "carousel",
