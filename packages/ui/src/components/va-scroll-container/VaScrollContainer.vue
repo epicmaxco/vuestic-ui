@@ -9,7 +9,6 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
 
-import { __DEV__ } from '../../utils/env'
 import { useColors, useSize, useSizeProps } from '../../composables'
 
 export default defineComponent({
@@ -47,15 +46,7 @@ export default defineComponent({
         const color = getColor(props.color)
         return props.gradient ? `linear-gradient(0deg, var(--va-scroll-container-scrollbar-gradient-to) 0%, ${color} 100%)` : color
       }),
-      scrollbarSize: computed(() => {
-        if (typeof props.size === 'string' && ['thin', 'default', 'none'].includes(props.size)) {
-          // TODO: remove in 1.6.0
-          __DEV__ && console.warn('`VaScrollbar` `size` property acceptable values list was changed. Please, check the documentation (https://vuestic.dev/ui-elements/scroll-container).')
-          return '4px'
-        }
-
-        return sizeComputed.value
-      }),
+      scrollbarSize: computed(() => sizeComputed.value),
       scrollbarPosition: computed(() => props.rtl ? 'rtl' : 'ltr'),
     }
   },

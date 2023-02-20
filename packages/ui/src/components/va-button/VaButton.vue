@@ -109,10 +109,7 @@ export default defineComponent({
     iconRight: { type: String, default: '' },
     iconColor: { type: String, default: '' },
   },
-  setup (props, { slots }) {
-    // TODO: Remove deprecated props in 1.6.0
-    useDeprecated(['flat', 'outline'])
-
+  setup (props) {
     // colors
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
