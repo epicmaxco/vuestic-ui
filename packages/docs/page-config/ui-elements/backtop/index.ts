@@ -10,8 +10,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaBacktop", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-backtop/_variables.scss"),
   ],
 });

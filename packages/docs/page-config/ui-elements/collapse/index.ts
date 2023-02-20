@@ -20,8 +20,5 @@ export default definePageConfig({
     block.example("Flat"),
 
     block.api("VaCollapse", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-collapse/_variables.scss"),
   ],
 });

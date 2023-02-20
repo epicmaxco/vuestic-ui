@@ -44,8 +44,5 @@ export default definePageConfig({
     block.subtitle("list.api.listItemSection.title"),
     block.paragraph("list.api.listItemSection.text"),
     block.api("VaListItemSection", listItemSectionApiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-list/_variables.scss"),
   ],
 });

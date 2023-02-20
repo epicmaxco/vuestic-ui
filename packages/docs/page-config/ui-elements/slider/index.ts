@@ -25,8 +25,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaSlider", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-slider/_variables.scss"),
   ],
 });

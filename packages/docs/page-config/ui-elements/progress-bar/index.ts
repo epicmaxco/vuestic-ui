@@ -17,8 +17,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaProgressBar", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-progress-bar/_variables.scss"),
   ],
 });

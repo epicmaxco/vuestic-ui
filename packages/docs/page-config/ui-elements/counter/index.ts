@@ -1,6 +1,3 @@
-import { ApiDocsBlock } from "../../../types/configTypes";
-import { PageGenerationHelper } from "../../../helpers/DocsHelper";
-
 import apiOptions from "./api-options";
 
 export default definePageConfig({
@@ -22,8 +19,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaCounter", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-counter/_variables.scss"),
   ],
 });

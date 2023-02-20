@@ -24,8 +24,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaSwitch", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-switch/_variables.scss"),
   ],
 });
