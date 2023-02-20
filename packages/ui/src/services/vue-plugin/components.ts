@@ -63,6 +63,8 @@ export {
   VaRating,
   VaSelect,
   VaSeparator,
+  VaSkeleton,
+  VaSkeletonGroup,
   VaSidebar,
   VaSidebarItem,
   VaSidebarItemContent,

@@ -1501,6 +1501,18 @@
         "updateChecked": "The array of checked tree nodes.",
         "updateExpanded": "The array of expanded tree nodes."
       }
+    },
+    "VaSkeleton": {
+      "props": {
+        "width": "Skeleton width.",
+        "height": "Skeleton height.",
+        "animation": "Skeleton animation. Can be `pulse`, `wave` or `none`.",
+        "variant": "Skeleton variant. Can be `squared`, `rounded`, `circle` or `text`.",
+        "lines": "Lines count if `variant` is `text`",
+        "lineGap": "Gap between lines in `px`, `rem`, `em` if `variant` is `text`",
+        "lastLineWidth": "Width of last line in `px`, `rem`, `em`, `%` if `variant` is `text`",
+        "tag": "Skeleton tag."
+      }
     }
   },
   "menu": {
@@ -1633,7 +1645,8 @@
     "team": "Meet The Team",
     "i18n": "I18n",
     "webComponents": "Web Components",
-    "colorsClasses": "Colors Classes"
+    "colorsClasses": "Colors Classes",
+    "skeleton": "Skeleton"
   },
   "all": {
     "examples": "Examples",
@@ -5028,6 +5041,48 @@
     },
     "api": {
       "title": "Helper classes configuration API"
+    }
+  },
+  "skeleton": {
+    "title": "Skeleton",
+    "description": "Skeleton is a component that is used to show the user that the content is loading. It is used to improve the user experience and to show the user that the content is loading.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "The default skeleton is a `squared` reactable with a width of 100% and a height of 5rem."
+      },
+      "text": {
+        "title": "Text",
+        "text": "The skeleton with `text` variant looks like a text line. Count of lines can be configured with `lines` prop. The last line can be shorter than others with `lastLineWidth` prop."
+      },
+      "headline": {
+        "title": "Headline",
+        "text": "You can apply typography or any other classes to the skeleton. For example, `va-h1` class will make the skeleton look like a headline."
+      },
+      "circle": {
+        "title": "Circle",
+        "text": "The skeleton with `circle` variant looks like a circle. The size of the circle can be configured with `height` and `width` prop. Usualy used as avatar placeholder."
+      },
+      "rounded": {
+        "title": "Rounded",
+        "text": "The skeleton with `rounded` variant looks like a rounded rectangle. The size of the rectangle can be configured with `height` and `width` prop. Can be used as button or input placeholder."
+      },
+      "square": {
+        "title": "Square",
+        "text": "The skeleton with `square` variant looks like a square. The size of the square can be configured with `height` and `width` prop. Can be used as card or image placeholder."
+      },
+      "group": {
+        "title": "Group",
+        "text": "Skeletons can be grouped in `VaSekeletonGroup` component to sync their animations. For example, you can use it to create a card, list or table placeholder."
+      },
+      "groupWave": {
+        "title": "Wave animation",
+        "text": "You can use `wave` animation for `VaSkeletonGroup` to make it look like a wave. VaSkeletonGroup will sync animations."
+      },
+      "loading": {
+        "title": "Loading",
+        "text": "Down bellow is an example how you can use skeleton in your application. We use `isLoading` ref to indicate if content is loading. Don't forget to add `aria-busy` attribute to the content to indicate that it is loading to sreen reader."
+      }
     }
   }
 }
