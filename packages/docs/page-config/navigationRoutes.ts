@@ -270,9 +270,8 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.timeInput",
       },
       {
-        category: "menu.categories.layout",
-        name: "card",
-        displayName: "menu.card",
+        name: "color-input",
+        displayName: "menu.colorInput",
       },
       {
         category: 'menu.categories.layout',
@@ -288,6 +287,10 @@ export const navigationRoutes: NavigationRoute[] = [
         meta: {
           badge: "new",
         }
+      },
+      {
+        name: "card",
+        displayName: "menu.card",
       },
       {
         name: "divider",
@@ -402,10 +405,6 @@ export const navigationRoutes: NavigationRoute[] = [
       //   name: 'color-slider',
       //   displayName: 'menu.colorSlider',
       // },
-      {
-        name: "color-input",
-        displayName: "menu.colorInput",
-      },
       {
         name: "color-palette",
         displayName: "menu.colorPalette",
