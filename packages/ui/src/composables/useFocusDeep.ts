@@ -42,9 +42,9 @@ export const useFocusDeep = (el?: Ref<HTMLElement | DefineComponent | undefined>
       }
 
       if (value) {
-        focusElement(target)
+        (target)?.focus()
       } else {
-        blurElement(target)
+        (target)?.blur()
       }
     },
   })
