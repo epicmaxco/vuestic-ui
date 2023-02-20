@@ -65,7 +65,7 @@ export default defineComponent({
     ...createStatefulProps(Boolean, true),
     ...useComponentPresetProp,
     ...usePlacementAliasesProps,
-    transition: { type: String, default: '' },
+    transition: { type: String, default: 'va-fade-transition' },
     disabled: { type: Boolean },
     readonly: { type: Boolean },
     anchorSelector: { type: String, default: '' },
