@@ -42,10 +42,15 @@ const copyCode = async () => {
     copyButtonIcon.value = 'content_copy'
   }, 1000)
 };
+
+const doShowComponent = false; // TODO: Temporarily disabled
 </script>
 
 <template>
-  <div class="component-playground flex-col sm:flex-row">
+  <div
+    v-if="doShowComponent"
+    class="component-playground flex-col sm:flex-row"
+  >
     <div class="component-playground__example">
       <slot v-bind="{ bind: optionValues, slots }" />
     </div>
@@ -99,7 +104,7 @@ const copyCode = async () => {
       </va-card-content>
     </va-card>
   </div>
-  <div class="component-playground">
+  <div v-if="doShowComponent" class="component-playground">
     <div
       ref="codeEl"
       class="component-playground__code"
