@@ -7,4 +7,4 @@
 - **ui** - source code for `Vuestic-UI`
 - **vue-cli-plugin** - plugin for [Vue CLI](https://cli.vuejs.org/) to simplify installation of `Vuestic-UI`
 - **create-vuestic** - CLI for scaffolding new projects
-- **tailwind** tailwind integration.
+- **tailwind** tailwind integration

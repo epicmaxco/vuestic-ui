@@ -67,10 +67,6 @@ jobs:
               rm -f ~/tmp/dist.tar.gz
             EOF
 
-
-
-
-
   deploy-docs:
     <<: *defaults
     steps:
