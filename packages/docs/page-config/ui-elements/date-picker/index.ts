@@ -36,8 +36,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaDatePicker", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-date-picker/_variables.scss"),
   ],
 });

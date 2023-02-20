@@ -4,17 +4,24 @@ import { parseComponent } from './component-parser'
 import merge from 'lodash/merge'
 import camelCase from 'lodash/camelCase'
 import ApiTable from './components/api-table.vue';
-import { ManualApiOptions } from './types';
+import { CssVariables, ManualApiOptions } from './types';
 
 const props = defineProps({
   componentName: {
     type: String,
+    required: true,
   },
   component: {
-    type: Object as PropType<DefineComponent>
+    type: Object as PropType<DefineComponent>,
+    required: true,
   },
   manual: {
-    type: Object as PropType<ManualApiOptions>
+    type: Object as PropType<ManualApiOptions>,
+    default: () => {},
+  },
+  cssVariables: {
+    type: Array as PropType<CssVariables>,
+    required: true,
   }
 })
 
@@ -75,23 +82,28 @@ const eventsOptions = Object
   .entries(withManual.events || {})
   .filter(([key, prop]) => !prop.hidden)
   .map(([key, prop]) => ({
-    name: { name: key, ...prop },
+    name: key,
     description: t(getTranslation('events', key)),
   }))
 
 const slotsOptions = Object
   .entries(withManual.slots || {})
   .map(([key, prop]) => ({
-    name: { name: key, ...prop },
+    name: key,
     description: t(getTranslation('slots', key)),
   }))
 
 const methodsOptions = Object
   .entries(withManual.methods || {})
   .map(([key, prop]) => ({
-    name: { name: key, ...prop },
+    name: key,
     description: t(getTranslation('methods', key)),
   }))
+
+const cssVariablesOptions = props.cssVariables.map(([name, value, comment]) => ({
+  name, value, /* comment */ // TODO: Enable comment when everywhere is used correct comments
+  // TODO: Or add tanslations after i18n splitted
+}))
 </script>
 
 <template>
@@ -118,49 +130,33 @@ const methodsOptions = Object
       title="Events"
       :columns="['Name', 'Description']"
       :data="eventsOptions"
-    >
-      <template #name="{ data }">
-        <strong>{{ data.name }}</strong>
-        <va-badge
-          v-if="data.required"
-          class="ml-2"
-          text="required"
-          color="primary"
-        />
-      </template>
-    </ApiTable>
+    />
 
     <ApiTable
       v-if="slotsOptions.length > 0"
       title="Slots"
       :columns="['Name', 'Description']"
       :data="slotsOptions"
-    >
-      <template #name="{ data }">
-        <strong>{{ data.name }}</strong>
-        <va-badge
-          v-if="data.required"
-          class="ml-2"
-          text="required"
-          color="primary"
-        />
-      </template>
-    </ApiTable>
+    />
 
     <ApiTable
       v-if="methodsOptions.length > 0"
       title="Methods"
       :columns="['Name', 'Description']"
       :data="methodsOptions"
+    />
+
+    <ApiTable
+      v-if="cssVariablesOptions.length > 0"
+      title="CSS variables"
+      :columns="['Name', 'Default Value']"
+      :data="cssVariablesOptions"
     >
       <template #name="{ data }">
-        <strong>{{ data.name }}</strong>
-        <va-badge
-          v-if="data.required"
-          class="ml-2"
-          text="required"
-          color="primary"
-        />
+        <strong class="va-text-code">{{ data }}</strong>
+      </template>
+      <template #value="{ data }">
+        <span class="va-text-code va-text-secondary">{{ data }}</span>
       </template>
     </ApiTable>
   </va-content>

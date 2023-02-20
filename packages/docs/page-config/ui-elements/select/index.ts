@@ -30,8 +30,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaSelect", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-select/_variables.scss"),
   ],
 });

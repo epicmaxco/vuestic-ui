@@ -14,7 +14,5 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaAspectRatio", apiOptions),
 
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-aspect-ratio/_variables.scss")
-  ]
+      ]
 });

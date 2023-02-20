@@ -17,8 +17,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaFileUpload", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-file-upload/_variables.scss"),
   ],
 });

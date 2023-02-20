@@ -13,8 +13,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaAppBar", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-app-bar/_variables.scss"),
   ],
 });

@@ -62,7 +62,7 @@ const codeBackground = computed(() => {
 const codeBorder = computed(() => {
   const textColor = getColor(getTextColor(codeBackground.value))
 
-  return setHSLAColor(textColor, { a: 0.2 })
+  return setHSLAColor(textColor, { a: 0.1 })
 })
 </script>
 
@@ -86,11 +86,11 @@ const codeBorder = computed(() => {
     background: var(--code-bg, v-bind(codeBackground));
     font-size: 0.85rem;
     line-height: 100%;
-    padding: 0.3rem 0.3rem;
-    transform: translateY(-0.05rem);
+    padding: 0.25rem 0.35rem 0.25em 0.35rem;
     border: 1px solid v-bind(codeBorder);
     border-radius: 4px;
     z-index: 0;
+    user-select: text;
   }
 
   h1,
