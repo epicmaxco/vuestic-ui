@@ -1,15 +1,17 @@
 <template>
-  <a
+  <NuxtLink
     :id="anchor"
     ref="el"
-    :href="`#${anchor}`"
+    :to="`#${anchor}`"
     :class="{ 'page-config-anchor--force-show': forceShow }"
     class="page-config-anchor"
-  >#</a>
+  >
+    #
+  </NuxtLink>
 </template>
 
 <script lang='ts'>
-import { defineComponent, computed, onMounted } from 'vue'
+import { defineComponent, computed, onMounted, ComponentOptions } from 'vue'
 import { kebabCase } from 'lodash'
 
 export default defineComponent({
@@ -17,7 +19,7 @@ export default defineComponent({
     text: { type: String },
   },
   setup: (props) => {
-    const el = ref<HTMLElement>()
+    const el = ref<ComponentOptions>()
     const route = useRoute()
 
     const anchor = computed(() => kebabCase(props.text))
@@ -28,7 +30,7 @@ export default defineComponent({
 
     onMounted(() => {
       if (active.value) {
-        el.value?.scrollIntoView()
+        el.value?.$el.scrollIntoView()
       }
     })
 

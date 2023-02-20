@@ -614,11 +614,19 @@ const copyText = () => {
       @include col();
       @include size(3);
 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       // lg
       @include size-lg(6);
       @include lg(padding-bottom, 1rem);
       // sm
       @include size-sm(12);
+
+      .va-slider {
+        width: 100%;
+      }
     }
   }
 }
@@ -669,6 +677,7 @@ const copyText = () => {
 .code {
   @include code-font();
 
+  font-size: 1rem;
   color: #ffffff;
   line-height: 1.4;
   white-space: pre;

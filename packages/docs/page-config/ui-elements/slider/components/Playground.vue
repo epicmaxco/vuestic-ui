@@ -22,9 +22,9 @@
 
 <script setup lang="ts">
 import { useComponentPlayground } from '@/composables/useComponentPlayground'
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
-const value = ref([0, 0])
+const value = ref<number | number[]>(0)
 
 const { options, renderComponent, slots } = useComponentPlayground({
   label: {
@@ -35,10 +35,11 @@ const { options, renderComponent, slots } = useComponentPlayground({
     type: 'input',
     value: ''
   },
-  range: {
-    type: 'checkbox',
-    value: false,
-  },
+  // TODO: Range prop isn't reactive
+  // range: {
+  //   type: 'checkbox',
+  //   value: false,
+  // },
   iconPrepend: {
     type: 'input',
     value: ''

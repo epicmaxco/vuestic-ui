@@ -5,14 +5,21 @@
   >
     <div class="footer__wrapper">
       <div class="footer__inner">
-        <LandingEpicmaxBanner style="margin-bottom: 1.5rem;" />
+        <LandingEpicmaxBanner style="margin-bottom: 2rem;" />
         <div class="footer__buttons">
           <va-button
             class="footer__buttons__button"
             href="https://epicmax.co/about"
             target="blank"
             preset="plain"
+            size="large"
           >
+            <template #prepend>
+              <va-icon
+                class="button-icon"
+                :component="IconEpicmaxRaw"
+              />
+            </template>
             {{ $t("landing.footer.buttons.epicmax") }}
           </va-button>
           <va-button
@@ -20,7 +27,14 @@
             href="https://github.com/epicmaxco/vuestic-admin"
             target="blank"
             preset="plain"
+            size="large"
           >
+            <template #prepend>
+              <va-icon
+                class="button-icon"
+                :component="IconAdminRaw"
+              />
+            </template>
             {{ $t("landing.footer.buttons.admin") }}
           </va-button>
           <va-button
@@ -28,7 +42,14 @@
             href="https://github.com/epicmaxco/epic-spinners"
             target="blank"
             preset="plain"
+            size="large"
           >
+            <template #prepend>
+              <va-icon
+                class="button-icon"
+                :component="IconSpinnersRaw"
+              />
+            </template>
             {{ $t("landing.footer.buttons.spinners") }}
           </va-button>
         </div>
@@ -86,7 +107,13 @@
 </template>
 
 <script lang="ts" setup>
+import {markRaw} from 'vue'
+
 import { useColors, useElementTextColor } from 'vuestic-ui'
+
+import IconEpicmax from './icons/IconEpicmax.vue'
+import IconAdmin from './icons/IconAdmin.vue'
+import IconSpinners from './icons/IconSpinners.vue'
 import LandingEpicmaxBanner from './EpicmaxBanner.vue'
 // import LandingNewsBanner from './NewsBanner.vue'
 
@@ -95,6 +122,10 @@ const { getComputedColor } = useColors()
 const textColor = useElementTextColor('background-primary')
 const primaryColor = getComputedColor('primary')
 const currentYear = new Date().getFullYear()
+
+const IconEpicmaxRaw = markRaw(IconEpicmax)
+const IconAdminRaw = markRaw(IconAdmin)
+const IconSpinnersRaw = markRaw(IconSpinners)
 </script>
 
 <style lang="scss" scoped>
@@ -149,35 +180,32 @@ const currentYear = new Date().getFullYear()
     @include size(8);
     @include shift-left(2);
 
-    display: flex;
     justify-content: center;
     align-items: center;
-
-    // lg
-    @include size-lg(10);
-    @include shift-lg-left(1);
-    // md
-    @include size-md(4);
-    @include shift-md-left(4);
-    // sm
-    @include size-md(6);
-    @include shift-md-left(3);
-    // xs
-    @include size-xs(12);
-    @include shift-xs-left(0);
+    margin: 0 auto;
 
     &__button {
+      --va-button-font-size: 1.2rem;
+
       @include col();
       @include size(4);
       @include button-font();
 
       // md
-      @include size-md(12);
       @include md(margin-bottom, 1rem);
 
-      .button-icon {
-        margin-right: 0.5rem;
+      width: auto;
+
+      .va-icon {
+        margin-right: 0.75rem;
       }
+    }
+
+    &__button + &__button {
+      margin-left: 3rem;
+
+      @include md(margin-left, 1rem);
+      @include sm(margin-left, 1rem);
     }
   }
 

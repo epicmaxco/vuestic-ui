@@ -15,7 +15,8 @@ export default definePageConfig({
 
     block.example("Size"),
 
-    block.example("Gradient"),
+    // TODO: Doesn't work in Firefox
+    // block.example("Gradient"),
 
     block.example("Rtl"),
 

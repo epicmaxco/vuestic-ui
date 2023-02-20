@@ -97,21 +97,6 @@ export const navigationRoutes: NavigationRoute[] = [
     disabled: true,
     children: [
       {
-        name: "reset",
-        displayName: "menu.reset",
-      },
-      {
-        name: "grid",
-        displayName: "menu.grid",
-      },
-      {
-        name: "smart-helpers",
-        displayName: "menu.smartHelpers",
-        meta: {
-          badge: "new",
-        },
-      },
-      {
         name: "colors",
         displayName: "menu.colors",
         meta: {
@@ -125,6 +110,28 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "typography",
         displayName: "menu.typography",
+      },
+      {
+        name: "grid",
+        displayName: "menu.grid",
+      },
+      {
+        name: 'tailwind',
+        displayName: 'menu.tailwind',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
+        name: "smart-helpers",
+        displayName: "menu.smartHelpers",
+        meta: {
+          badge: "new",
+        },
+      },
+      {
+        name: "reset",
+        displayName: "menu.reset",
       },
       // GENERATOR_ADD - styles
     ],
@@ -263,14 +270,18 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.timeInput",
       },
       {
-        name: 'stepper',
-        displayName: 'menu.stepper',
+        name: "color-input",
+        displayName: "menu.colorInput",
+      },
+      {
+        category: 'menu.categories.layout',
+        name: 'aspect-ratio',
+        displayName: 'menu.aspectRatio',
         meta: {
           badge: 'new',
         },
       },
       {
-        category: "menu.categories.layout",
         name: "card",
         displayName: "menu.card",
       },
@@ -330,6 +341,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.sidebarItem",
       },
       {
+        name: 'stepper',
+        displayName: 'menu.stepper',
+        meta: {
+          badge: 'new',
+        }
+      },
+      {
         category: "menu.categories.other",
         name: "affix",
         displayName: "menu.affix",
@@ -387,10 +405,6 @@ export const navigationRoutes: NavigationRoute[] = [
       //   name: 'color-slider',
       //   displayName: 'menu.colorSlider',
       // },
-      {
-        name: "color-input",
-        displayName: "menu.colorInput",
-      },
       {
         name: "color-palette",
         displayName: "menu.colorPalette",

@@ -10,7 +10,7 @@ export default definePageConfig({
     block.headline("roadmap.1-5.title"),
     block.paragraph("roadmap.1-5.description"),
 
-    block.component("roadmap", {
+    block.component("Roadmap", {
       roadmap: [
         {
           title: "Dark theme",
@@ -37,16 +37,22 @@ export default definePageConfig({
           image: "TreeView",
         },
         {
-          title: "SplitPanel",
+          title: "Dropdown",
           type: "component",
-          link: "https://github.com/epicmaxco/vuestic-ui/pull/2068",
-          image: "SplitPanel",
+          link: "https://github.com/epicmaxco/vuestic-ui/pull/2109",
+          image: "Dropdown",
         },
         {
           title: "Skeleton",
           type: "component",
           link: "https://github.com/epicmaxco/vuestic-ui/pull/2068",
           image: "Skeleton",
+        },
+        {
+          title: "SplitPanel",
+          type: "component",
+          link: "https://github.com/epicmaxco/vuestic-ui/pull/2068",
+          image: "SplitPanel",
         },
         {
           title: "Button redesign",
@@ -60,12 +66,6 @@ export default definePageConfig({
         //   link: 'https://github.com/epicmaxco/vuestic-ui/pull/1945',
         //   image: 'Breakpoints',
         // },
-        {
-          title: "Dropdown",
-          type: "component",
-          link: "https://github.com/epicmaxco/vuestic-ui/pull/2109",
-          image: "Dropdown",
-        },
         {
           title: "Attributes Config",
           type: "service",

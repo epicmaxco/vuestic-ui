@@ -44,7 +44,7 @@ export const presets: Record<string, EssentialVariables> = {
     textInverted: '#0B121A',
 
     // Misc
-    shadow: 'rgba(0, 0, 0, 0.37)',
+    shadow: 'rgba(255, 255, 255, 0.12)',
     focus: '#49A8FF',
   },
 }

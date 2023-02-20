@@ -139,6 +139,7 @@ import {
   useModalLevel,
   useTranslation,
   useClickOutside,
+  useDocument,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -170,6 +171,7 @@ export default defineComponent({
     ...useStatefulProps,
     modelValue: { type: Boolean, default: false },
     attachElement: { type: String, default: 'body' },
+    allowBodyScroll: { type: Boolean, default: false },
     disableAttachment: { type: Boolean, default: false },
     title: { type: String, default: '' },
     message: { type: String, default: '' },
@@ -295,14 +297,23 @@ export default defineComponent({
 
     useBlur(toRef(props, 'blur'), valueComputed)
 
+    const documentRef = useDocument()
+    const setBodyOverflow = (overflow: string) => {
+      if (!documentRef.value || props.allowBodyScroll) { return }
+
+      documentRef.value.body.style.overflow = overflow
+    }
+
     watch(valueComputed, newValueComputed => { // watch for open/close modal
       if (newValueComputed) {
         registerModal()
+        setBodyOverflow('scroll hidden')
         return
       }
 
       if (isLowestLevelModal.value) {
         freeFocus()
+        setBodyOverflow('')
       }
       unregisterModal()
     })
