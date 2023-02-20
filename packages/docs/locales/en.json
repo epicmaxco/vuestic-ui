@@ -5078,6 +5078,10 @@
       "groupWave": {
         "title": "Wave animation",
         "text": "You can use `wave` animation for `VaSkeletonGroup` to make it look like a wave. VaSkeletonGroup will sync animations."
+      },
+      "loading": {
+        "title": "Loading",
+        "text": "Down bellow is an example how you can use skeleton in your application. We use `isLoading` ref to indicate if content is loading. Don't forget to add `aria-busy` attribute to the content to indicate that it is loading to sreen reader."
       }
     }
   }

@@ -17,6 +17,7 @@ export default definePageConfig({
     block.example("Square"),
     block.example("Group"),
     block.example("GroupWave"),
+    block.example("Loading"),
 
     block.subtitle("all.api"),
     block.api("VaSkeleton", apiOptions),
