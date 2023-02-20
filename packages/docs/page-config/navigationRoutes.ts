@@ -231,6 +231,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "select",
         displayName: "menu.select",
+        meta: {
+          badge: "updated",
+        }
       },
       {
         name: "rating",
