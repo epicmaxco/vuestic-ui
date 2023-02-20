@@ -21,8 +21,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaStepper", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-stepper/_variables.scss"),
   ],
 });
