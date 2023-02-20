@@ -86,6 +86,7 @@ export default defineComponent({
       background: v-bind(stepperColor);
       transition: opacity 0.3s;
       opacity: 0;
+      border-radius: var(--va-stepper-step-border-radius);
     }
 
     &__icon {
