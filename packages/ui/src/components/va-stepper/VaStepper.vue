@@ -27,8 +27,13 @@
           v-bind="getIterableSlotData(step, i)"
         >
           <va-stepper-step-button
-            v-bind="{...$props, step, stepControls }"
             :stepIndex="i"
+            :color="stepperColor"
+            :modelValue="modelValue"
+            :nextDisabled="nextDisabled"
+            :step="step"
+            :stepControls="stepControls"
+            :navigationDisabled="navigationDisabled"
           />
         </slot>
       </template>
@@ -54,7 +59,10 @@
       <div class="va-stepper__controls">
         <va-stepper-controls
           v-if="!controlsHidden"
-          v-bind="{ ...$props, stepControls }"
+          :modelValue="modelValue"
+          :nextDisabled="nextDisabled"
+          :steps="steps"
+          :stepControls="stepControls"
           @finish="$emit('finish')"
         />
         <slot
