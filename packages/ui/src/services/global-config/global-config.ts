@@ -21,6 +21,7 @@ export const createGlobalConfig = () => {
     breakpoint: getBreakpointDefaultConfig(),
     i18n: getI18nConfigDefaults(),
     colorsClasses: getColorsClassesDefaultConfig(),
+    routerComponent: undefined,
   })
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value
