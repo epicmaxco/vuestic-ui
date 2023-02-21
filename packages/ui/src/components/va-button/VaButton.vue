@@ -205,7 +205,6 @@ export default defineComponent({
 
 .va-button {
   position: relative;
-  margin: var(--va-button-margin);
   padding: var(--va-button-padding);
   display: var(--va-button-display);
   justify-content: var(--va-button-justify-content);
