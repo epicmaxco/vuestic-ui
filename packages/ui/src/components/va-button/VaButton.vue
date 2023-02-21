@@ -317,8 +317,8 @@ export default defineComponent({
 
     &.va-button--icon-only {
       .va-button__content {
-        padding-right: var(--va-button-sm-content-px);
-        padding-left: var(--va-button-sm-content-px);
+        padding-right: var(--va-button-sm-only-icon-content-px);
+        padding-left: var(--va-button-sm-only-icon-content-px);
       }
     }
   }
@@ -378,8 +378,8 @@ export default defineComponent({
 
     &.va-button--icon-only {
       .va-button__content {
-        padding-right: var(--va-button-content-px);
-        padding-left: var(--va-button-content-px);
+        padding-right: var(--va-button-only-icon-content-px);
+        padding-left: var(--va-button-only-icon-content-px);
       }
     }
   }
@@ -436,8 +436,8 @@ export default defineComponent({
 
     &.va-button--icon-only {
       .va-button__content {
-        padding-right: var(--va-button-lg-content-px);
-        padding-left: var(--va-button-lg-content-px);
+        padding-right: var(--va-button-lg-only-icon-content-px);
+        padding-left: var(--va-button-lg-only-icon-content-px);
       }
     }
   }
