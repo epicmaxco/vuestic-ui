@@ -25,7 +25,6 @@ import pick from 'lodash/pick.js'
 import {
   useColors, useTextColor,
   useComponentPresetProp,
-  useDeprecated,
   useBem,
 } from '../../composables'
 import { useFloatingPosition, useFloatingPositionProps } from './hooks/useFloatingPositionStyles'
@@ -46,9 +45,6 @@ export default defineComponent({
   },
 
   setup (props, { slots }) {
-    // TODO: remove `left` and `bottom` props in 1.6.0
-    useDeprecated(['left', 'bottom'])
-
     const isEmpty = computed(() => !(props.text || props.visibleEmpty || props.dot || slots.text))
 
     const isFloating = computed(() => !!(slots.default || props.dot))

@@ -92,6 +92,8 @@ import type { AnyStringPropType } from '../../utils/types/prop-type'
 import VaInputWrapper from './components/VaInputWrapper/VaInputWrapper.vue'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
+import { focusElement, blurElement } from '../../utils/focus'
+import { unwrapEl } from '../../utils/unwrapEl'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -164,11 +166,11 @@ export default defineComponent({
     })
 
     const focus = () => {
-      input.value?.focus()
+      focusElement(unwrapEl(input.value))
     }
 
     const blur = () => {
-      input.value?.blur()
+      blurElement(unwrapEl(input.value))
     }
 
     const filterSlots = computed(() => {
@@ -233,7 +235,7 @@ export default defineComponent({
 
     const computedInputAttributes = computed(() => ({
       ...computedChildAttributes.value,
-      ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
+      ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'minlength', 'maxlength']),
     }) as InputHTMLAttributes)
 
     const valueLengthComputed = computed(() =>

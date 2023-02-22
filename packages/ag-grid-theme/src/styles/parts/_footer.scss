@@ -1,0 +1,63 @@
+@import '../variables';
+
+//
+// See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_footer.scss
+//
+@mixin ag-vuestic-theme-part-footer {
+  .ag-paging-panel {
+    //va-title mixin
+    font-size: 0.625rem;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .ag-paging-button {
+    padding: 5px;
+    border-radius: 50%;
+
+    &:hover {
+      background: var(--va-background-secondary, #{$backgroundSecondary});
+    }
+  }
+
+  .ag-paging-button.ag-disabled {
+    opacity: 0.5;
+
+    &:hover {
+      background: var(--ag-background-color);
+    }
+
+    &:focus {
+      background: var(--ag-background-color);
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .ag-keyboard-focus {
+    .ag-paging-button {
+      &:focus {
+        background: var(--va-background-secondary, #{$backgroundSecondary});
+
+        &::after {
+          display: none;
+        }
+      }
+    }
+
+    .ag-paging-button.ag-disabled {
+      &:focus {
+        background: var(--va-background-color, #{$backgroundElement});
+        opacity: 0.75;
+
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+}

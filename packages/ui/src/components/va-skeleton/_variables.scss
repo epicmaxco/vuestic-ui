@@ -1,0 +1,8 @@
+:root,
+:host {
+  --va-skeleton-wave-color: rgb(100, 100, 100);
+  --va-skeleton-wave-opacity: 0.2;
+  // By default it is `height / 5`. Works only for `rounded` variant.
+  --va-skeleton-border-radius: unset;
+  --va-skeleton-animation-duration: 2.5s;
+}

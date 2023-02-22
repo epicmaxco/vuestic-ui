@@ -558,6 +558,18 @@
         mask="date"
       />
       Value: {{ maskReturnFormattedValue }}
+      <va-input
+        v-model="maskObjectReturnFormattedValue"
+        :style="{paddingTop: '4px'}"
+        label="Phone mask, return formatted"
+        :return-raw="false"
+        type="input"
+        :mask="{
+          phone: true,
+          phoneRegionCode: 'US'
+        }"
+      />
+      Value: {{ maskObjectReturnFormattedValue }}
     </VbCard>
     <VbCard title="Number input">
       <va-input
@@ -651,17 +663,32 @@
         type="textarea"
       />
     </VbCard>
+    <VbCard
+      title="Focus FN"
+      class="va-input-css-classes-demo"
+      style="width: 66%;"
+    >
+      <va-input
+        ref="input"
+        model-value="This input must have margin bottom and right-aligned red text."
+      />
+      <button @click="focusInput">
+        Focus programmatically
+      </button>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 import { VaInput } from './index'
 import { VaButton } from './../va-button'
 import { VaIcon } from './../va-icon'
 import VaInputValidation from './VaInput-validation.vue'
 import { VaCheckbox } from '../va-checkbox'
+import 'cleave.js/dist/addons/cleave-phone.us'
 
-export default {
+export default defineComponent({
   components: {
     VaInputValidation,
     VaInput,
@@ -687,6 +714,7 @@ export default {
       maskNumeralsValue: '',
       maskCustomBlocksValue: '',
       maskReturnFormattedValue: '',
+      maskObjectReturnFormattedValue: '',
       num: 10,
 
       isClearable: true,
@@ -695,7 +723,12 @@ export default {
       maxLength: 30,
     }
   },
-}
+  methods: {
+    focusInput () {
+      (this.$refs.input as any).focus()
+    },
+  },
+})
 </script>
 
 <style lang="scss">
