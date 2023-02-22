@@ -1,4 +1,4 @@
-FROM local-packages:latest as build
+FROM local-packages-16:latest as build
 
 RUN yarn create vite vite-app --template vue
 

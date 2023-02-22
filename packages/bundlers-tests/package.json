@@ -9,8 +9,8 @@
     "build:test-page": "tsx ./kitchensink-builder/create-test-page.ts",
     "run:vite": "docker-compose --profile run-vite up",
     "run:cli": "docker-compose --profile run-cli up",
-    "run:nuxt-ssr": "docker-compose --profile run-nuxt-ssr up",
-    "run:nuxt-spa": "docker-compose --profile run-nuxt-spa up",
+    "run:nuxt-ssr": "docker-compose --profile nuxt-ssr up",
+    "run:nuxt-spa": "docker-compose --profile nuxt-spa up",
     "test:vite": "docker-compose --profile vite up --build --exit-code-from cypress_vite",
     "test:vite-cjs": "docker-compose --profile vite-cjs up --build --exit-code-from cypress_vite_cjs",
     "test:cli": "docker-compose --profile cli up --build --exit-code-from cypress_cli",
@@ -18,7 +18,7 @@
     "test:webpack": "docker-compose --profile webpack up --build --exit-code-from cypress_webpack",
     "test:nuxt-ssr": "docker-compose --profile nuxt-ssr up --build --exit-code-from cypress_nuxt_ssr",
     "test:nuxt-spa": "docker-compose --profile nuxt-spa up --build --exit-code-from cypress_nuxt_spa",
-    "test": "yarn build:test-page && yarn build:local-packages-lts && yarn test:vite && yarn test:nuxt && yarn test:cli && yarn test:webpack && yarn test:16",
+    "test": "yarn build:test-page && yarn build:local-packages-16 && yarn build:local-packages-lts && yarn test:vite && yarn test:nuxt && yarn test:cli && yarn test:webpack && yarn test:16",
     "test:16": "yarn build:local-packages-16 && yarn test:vite"
   },
   "dependencies": {

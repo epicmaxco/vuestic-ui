@@ -1,4 +1,4 @@
-FROM local-packages:latest as build
+FROM local-packages-lts:latest as build
 
 RUN npx nuxi init nuxt-app
 
