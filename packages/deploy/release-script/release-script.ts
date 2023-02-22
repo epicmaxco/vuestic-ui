@@ -185,7 +185,7 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
   }
 
   // **** run e2e tests
-  
+
   await runTests()
 
   // **** Update version strings ****
@@ -253,7 +253,7 @@ const checkIfTooLate = async () => {
     }
     return result
   }
-const runTests= async () => {
+const runTests = async () => {
   await executeAndLog('cd ./../bundlers-tests && npm run test')
 }
 

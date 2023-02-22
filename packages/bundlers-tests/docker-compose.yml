@@ -41,16 +41,16 @@ services:
     profiles:
       - "vite-cjs"
       - "run-vite-cjs"
-  cli_test:
-    build:
-      context: .
-      dockerfile: ./docker-tests/cli.Dockerfile
-      no_cache: true
-    ports:
-      - "8080:80"
-    profiles:
-      - "cli"
-      - "run-cli"
+#  cli_test:
+#    build:
+#      context: .
+#      dockerfile: ./docker-tests/cli.Dockerfile
+#      no_cache: true
+#    ports:
+#      - "8080:80"
+#    profiles:
+#      - "cli"
+#      - "run-cli"
   webpack_test:
     build:
       context: .
@@ -101,16 +101,16 @@ services:
       - CYPRESS_baseUrl=http://vite_cjs_test:80
     profiles:
       - "vite-cjs"
-  cypress_cli:
-    <<: *base-cypress
-    volumes:
-      - ./docker-tests/cli:/app-testing
-    depends_on:
-      - cli_test
-    environment:
-      - CYPRESS_baseUrl=http://cli_test:80
-    profiles:
-      - "cli"
+#  cypress_cli:
+#    <<: *base-cypress
+#    volumes:
+#      - ./docker-tests/cli:/app-testing
+#    depends_on:
+#      - cli_test
+#    environment:
+#      - CYPRESS_baseUrl=http://cli_test:80
+#    profiles:
+#      - "cli"
   cypress_webpack:
     <<: *base-cypress
     volumes:

@@ -13,7 +13,7 @@ import {processFile} from "./process-file";
 
 const uiElementsPath = resolve(
   __dirname,
-  "./../../docs/src/page-configs/ui-elements"
+  "./../../docs/page-config/ui-elements"
 );
 const testPageLocation = resolve(__dirname, "./../templates/src");
 

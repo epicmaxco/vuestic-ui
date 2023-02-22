@@ -4,7 +4,8 @@ RUN npx nuxi init nuxt-app
 
 WORKDIR /nuxt-app
 
-RUN yarn add @vuestic/nuxt@file:/local-nuxt
+RUN yarn add @vuestic/nuxt
+RUN yarn add sass
 RUN yarn add vuestic-ui@file:/local-vuestic
 RUN yarn add material-design-icons-iconfont -D
 

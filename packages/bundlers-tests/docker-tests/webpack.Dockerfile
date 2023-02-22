@@ -11,7 +11,8 @@ RUN yarn add material-design-icons-iconfont -D
 
 WORKDIR /app-webpack/src
 COPY ./../templates/src .
-COPY ./../templates/configs/main-base.js ./main.js
+COPY ./../templates/configs/shims-vue.d.ts ./shims-vue.d.ts
+COPY ./../templates/configs/main-base.js ./main.ts
 
 WORKDIR /app-webpack
 RUN yarn build
