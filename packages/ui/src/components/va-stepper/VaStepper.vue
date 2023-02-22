@@ -2,6 +2,7 @@
   <div
     class="va-stepper"
     :class="{ 'va-stepper--vertical': $props.vertical }"
+    v-bind="ariaAttributesComputed"
   >
     <ol
       class="va-stepper__navigation"
@@ -19,6 +20,7 @@
           <span
             class="va-stepper__divider"
             :class="{ 'va-stepper__divider--vertical': $props.vertical }"
+            aria-hidden="true"
           />
         </slot>
 
@@ -74,8 +76,8 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, Ref } from 'vue'
-import { useColors, useStateful, useStatefulProps } from '../../composables'
+import {computed, defineComponent, PropType, Ref} from 'vue'
+import {useColors, useStateful, useStatefulProps, useTranslation} from '../../composables'
 import type { Step, StepControls } from './types'
 import VaStepperControls from './VaStepperControls.vue'
 import VaStepperStepButton from './VaStepperStepButton.vue'
@@ -106,6 +108,8 @@ export default defineComponent({
     const stepperColor = getColor(props.color)
 
     const isNextStepDisabled = (index: number) => props.nextDisabled && index > modelValue.value
+
+    const { t } = useTranslation()
 
     const setStep = (index: number) => {
       if (props.steps[index].disabled) { return }
@@ -148,6 +152,11 @@ export default defineComponent({
       getColor,
       stepControls,
       getIterableSlotData,
+      ariaAttributesComputed: computed(() => ({
+        role: 'group',
+        'aria-label': t('progress'),
+        'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
+      })),
     }
   },
 })
