@@ -66,7 +66,6 @@ export default definePageConfig({
       block.paragraph("installation.migrationGuide.1_5.typography_1"),
     ]),
     block.collapse("1.5 -> 1.6", [
-      block.alert("installation.migrationGuide.1_6.tailwind", "info"),
       block.subtitle("installation.migrationGuide.1_6.components"),
       block.headline("VaNavbar"),
       block.paragraph("installation.migrationGuide.1_6.navbar"),
@@ -77,6 +76,8 @@ export default definePageConfig({
       block.subtitle("installation.migrationGuide.1_6.extensions"),
       block.headline("installation.migrationGuide.1_6.aggrid_0"),
       block.paragraph("installation.migrationGuide.1_6.aggrid_1"),
+      block.subtitle("installation.migrationGuide.1_6.styles"),
+      block.paragraph("installation.migrationGuide.1_6.grid"),
     ]),
 
     block.subtitle("installation.codesandbox.title"),

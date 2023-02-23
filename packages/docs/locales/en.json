@@ -3792,7 +3792,8 @@
         "extensions": "Extensions",
         "aggrid_0": "Ag Grid",
         "aggrid_1": "Removed SCSS mixins for Vuestic UI theme customization.",
-        "tailwind": "Added {'@vuestic/tailwind'} package for config syncing between Vuestic UI and Tailwind CSS."
+        "styles": "Styles",
+        "grid": "Vuestic UI grid helpers were deprecated. Use Tailwind CSS instead."
       }
     }
   },
