@@ -15,20 +15,11 @@
       </template>
       {{ stars }}
     </va-button>
-
-    <template #fallback>
-      <va-button
-        loading
-        size="small"
-        color="textPrimary"
-        class="stars-button"
-      />
-    </template>
   </client-only>
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'LandingStarsButton',
@@ -43,7 +34,7 @@ export default defineComponent({
 
     const getStarsStorageKey = (repo: string) => `stars_${repo}`
 
-    onBeforeMount(async () => {
+    onMounted(async () => {
       const storedStars = window.sessionStorage.getItem(getStarsStorageKey(props.repo))
 
       if (storedStars) {

@@ -125,7 +125,7 @@ onMounted(() => {
     flex-grow: 1;
     max-width: 320px;
     border-radius: var(--va-input-border-radius);
-    background-color: var(--va-input-wrapper-background);
+    background-color: var(--va-background-element);
 
     @media screen and (max-width: $break_xs) {
       background: transparent;

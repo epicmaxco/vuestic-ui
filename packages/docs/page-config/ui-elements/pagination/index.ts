@@ -24,9 +24,6 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaPagination", apiOptions),
 
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-pagination/_variables.scss"),
-
     block.subtitle("all.faq"),
 
     block.headline("pagination.faq.questions[0].question"),

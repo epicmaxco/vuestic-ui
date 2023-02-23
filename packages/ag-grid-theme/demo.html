@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>@vuestic/ag-grid-theme</title>
+  <!-- Include the JS for AG Grid -->
+  <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+  <link rel="stylesheet" href="dist/ag-theme-vuestic.css">
+  <style>
+    details {
+      border: 1px solid;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    details summary,
+    details label {
+      font-family: sans-serif;
+    }
+
+    details form {
+      margin-left: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <details>
+    <summary>Filters</summary>
+    <form id="filtersForm">
+      <label><input type="checkbox" name="filter" id="filter" value="filter" /> Filterable</label>
+      <br />
+      <label><input type="checkbox" name="floatingFilter" id="floatingFilter" value="floatingFilter" /> Floating filters</label>
+      <br />
+      <label><input type="checkbox" name="sortable" value="sortable" /> Sortable</label>
+    </form>
+  </details>
+  <details>
+    <summary>Styles</summary>
+    <form id="stylesForm">
+      <label><input type="checkbox" value="striped" name="striped"/> Striped</label>
+      <br />
+      <label><input type="checkbox" value="hoverable" name="hoverable"/> Hoverable</label>
+    </form>
+  </details>
+
+  <!-- Ag grid root div -->
+  <div id="grid" class="ag-theme-vuestic" style="height: 50vh;"></div>
+
+  <script type="text/javascript">
+    const getColumnDefs = () => [
+      { field: 'athlete' },
+      { field: 'age' },
+      { field: 'country' },
+      { field: 'year' },
+      { field: 'date' },
+      { field: 'sport' },
+      { field: 'gold' },
+      { field: 'silver' },
+      { field: 'bronze' },
+      { field: 'total' },
+    ];
+
+    // Grid Options are properties passed to the grid
+    const gridOptions = {
+      // each entry here represents one column
+      columnDefs: getColumnDefs(),
+      // default col def properties get applied to all columns
+      defaultColDef: {
+        filter: false,
+        floatingFilter: false,
+        sortable: false,
+      },
+      // allow rows to be selected
+      rowSelection: 'multiple',
+      // have rows animate to new positions when sorted
+      animateRows: true,
+    };
+
+    // get div to host the grid
+    const eGridDiv = document.getElementById('grid');
+    // new grid instance, passing in the hosting DIV and Grid Options
+    const agGridInstance = new agGrid.Grid(eGridDiv, gridOptions);
+
+    const filterCheckboxEl = document.getElementById('filter');
+    const floatingFilterEl = document.getElementById('floatingFilter');
+
+    const onColumnOptionClick = (event) => {
+      const optionName = event.target.value;
+      const currentColumnDefs = agGridInstance.gridOptions.columnDefs;
+      const columnDefs = getColumnDefs();
+
+      columnDefs.forEach((columnDef, idx) => {
+        columnDef[optionName] = typeof currentColumnDefs[idx][optionName] !== 'undefined'
+          ? !currentColumnDefs[idx][optionName]
+          : true;
+
+        if (!columnDef.filter && optionName === 'floatingFilter') {
+          columnDef.filter = columnDef.floatingFilter;
+        }
+
+        if (!columnDef.floatingFilter && optionName === 'filter') {
+          columnDef.floatingFilter = columnDef.filter;
+        }
+      });
+
+      if (optionName === 'floatingFilter') {
+        filterCheckboxEl.checked = columnDefs[0].floatingFilter;
+      }
+
+      if (optionName === 'filter') {
+        floatingFilterEl.checked = columnDefs[0].filter;
+      }
+
+      agGridInstance.gridOptions.api.setColumnDefs(columnDefs);
+      agGridInstance.gridOptions.api.refreshHeader();
+    }
+
+    const onStylesChange = (event) => {
+      eGridDiv.classList.toggle(`ag-theme-vuestic--${event.target.value}`)
+    }
+
+    const addEvents = (elements, cb, eventName) => {
+      elements.forEach(element => element.addEventListener(eventName, cb));
+    }
+
+    const removeEvents = (elements, cb, eventName) => {
+      elements.forEach(element => element.removeEventListener(eventName, cb));
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Filters and misc form
+      addEvents(
+        document.querySelectorAll('#filtersForm input[type="checkbox"], #miscForm input[type="checkbox"]'),
+        onColumnOptionClick,
+        'change'
+      );
+
+      // Styles form
+      addEvents(
+        document.querySelectorAll('#stylesForm input[type="checkbox"]'),
+        onStylesChange,
+        'change',
+      );
+    });
+
+    window.addEventListener('beforeunload', () => {
+      // Filters form
+      removeEvents(
+        document.querySelectorAll('#filtersForm input[type="checkbox"], #miscForm input[type="checkbox"]'),
+        onColumnOptionClick,
+        'change',
+      );
+
+      // Styles form
+      removeEvents(
+        document.querySelectorAll('#stylesForm input[type="checkbox"]'),
+        onStylesChange,
+        'change',
+      );
+    });
+
+    fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
+      .then(response => response.json())
+      .then(data => {
+        // load fetched data into grid
+        gridOptions.api.setRowData(data);
+      });
+  </script>
+</body>
+</html>

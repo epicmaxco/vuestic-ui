@@ -74,9 +74,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "kitchensink",
         displayName: "menu.kitchensink",
-        meta: {
-          badge: "new",
-        },
       },
       {
         name: 'web-components',
@@ -97,26 +94,8 @@ export const navigationRoutes: NavigationRoute[] = [
     disabled: true,
     children: [
       {
-        name: "reset",
-        displayName: "menu.reset",
-      },
-      {
-        name: "grid",
-        displayName: "menu.grid",
-      },
-      {
-        name: "smart-helpers",
-        displayName: "menu.smartHelpers",
-        meta: {
-          badge: "new",
-        },
-      },
-      {
         name: "colors",
         displayName: "menu.colors",
-        meta: {
-          badge: "updated",
-        },
       },
       {
         name: "css-variables",
@@ -125,6 +104,25 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "typography",
         displayName: "menu.typography",
+      },
+      {
+        name: "grid",
+        displayName: "menu.grid",
+      },
+      {
+        name: 'tailwind',
+        displayName: 'menu.tailwind',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
+        name: "smart-helpers",
+        displayName: "menu.smartHelpers",
+      },
+      {
+        name: "reset",
+        displayName: "menu.reset",
       },
       // GENERATOR_ADD - styles
     ],
@@ -149,9 +147,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "button",
         displayName: "menu.button",
-        meta: {
-          badge: "updated",
-        },
       },
       {
         name: "button-group",
@@ -172,6 +167,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "image",
         displayName: "menu.image",
+        meta: {
+          badge: "updated",
+        }
       },
       {
         name: "carousel",
@@ -233,6 +231,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "select",
         displayName: "menu.select",
+        meta: {
+          badge: "updated",
+        }
       },
       {
         name: "rating",
@@ -263,7 +264,25 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.timeInput",
       },
       {
-        category: "menu.categories.layout",
+        name: "color-input",
+        displayName: "menu.colorInput",
+      },
+      {
+        category: 'menu.categories.layout',
+        name: 'aspect-ratio',
+        displayName: 'menu.aspectRatio',
+        meta: {
+          badge: 'new',
+        },
+      },
+      {
+        name: "skeleton",
+        displayName: "menu.skeleton",
+        meta: {
+          badge: "new",
+        }
+      },
+      {
         name: "card",
         displayName: "menu.card",
       },
@@ -278,9 +297,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "split",
         displayName: "menu.split",
-        meta: {
-          badge: "new",
-        },
       },
       {
         name: "collapse",
@@ -293,9 +309,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "scroll-container",
         displayName: "menu.scrollContainer",
-        meta: {
-          badge: "new",
-        },
       },
       {
         category: "menu.categories.navigation",
@@ -321,6 +334,13 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "sidebar-item",
         displayName: "menu.sidebarItem",
+      },
+      {
+        name: 'stepper',
+        displayName: 'menu.stepper',
+        meta: {
+          badge: 'new',
+        }
       },
       {
         category: "menu.categories.other",
@@ -381,10 +401,6 @@ export const navigationRoutes: NavigationRoute[] = [
       //   displayName: 'menu.colorSlider',
       // },
       {
-        name: "color-input",
-        displayName: "menu.colorInput",
-      },
-      {
         name: "color-palette",
         displayName: "menu.colorPalette",
       },
@@ -399,9 +415,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "tree-view",
         displayName: "menu.treeView",
-        meta: {
-          badge: "new",
-        },
       },
       // GENERATOR_ADD - uiElements
     ],
@@ -444,9 +457,6 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "components-config",
         displayName: "menu.componentsConfig",
-        meta: {
-          badge: "updated",
-        },
       },
       {
         name: "icons-config",
@@ -471,16 +481,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "breakpoints",
         displayName: "menu.breakpoints",
-        meta: {
-          badge: "new",
-        },
       },
       {
         name: "i18n",
         displayName: "menu.i18n",
-        meta: {
-          badge: "new",
-        },
       },
       // GENERATOR_ADD - services
     ],
@@ -496,6 +500,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "ag-grid",
         displayName: "menu.agGrid",
+        meta: {
+          badge: "updated",
+        }
       },
       // GENERATOR_ADD - extensions
     ],

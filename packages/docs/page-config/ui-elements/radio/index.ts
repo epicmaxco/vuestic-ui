@@ -14,8 +14,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaRadio", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-radio/_variables.scss"),
   ],
 });

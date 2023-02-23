@@ -1,4 +1,4 @@
-// import bundleSizeData from './tree-shaking.md'
+import bundleSizeData from "./tree-shaking.md?raw";
 
 export default definePageConfig({
   meta: {
@@ -29,6 +29,6 @@ export default definePageConfig({
 
     block.subtitle("treeShaking.bundleSize.title"),
     block.paragraph("treeShaking.bundleSize.description"),
-    // block.markdown(bundleSizeData),
+    block.markdown(bundleSizeData),
   ],
 });

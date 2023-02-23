@@ -17,8 +17,7 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaTabs", apiOptions),
 
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-tabs/_variables.scss"),
+        
 
     block.subtitle("all.faq"),
     block.headline("tabs.faq.questions[0].question"),

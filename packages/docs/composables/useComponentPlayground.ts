@@ -1,13 +1,18 @@
-export type PlaygroundOption = {
+import { ValidationRule } from "vuestic-ui/src/composables"
+
+export type PlaygroundOption<T extends string = string> = {
   key: string,
   type: 'select' | 'input' | 'color' | 'checkbox' | 'multiselect' | 'none',
   options?: string[],
+  /** In case you want value to be clear, but provide default value */
   defaultValue?: any,
-  value?: string | boolean | string[]
+  value?: string | boolean | string[],
+  hidden?: (options: Record<T, any>) => boolean,
+  rules?: ValidationRule[]
 }
 
-export const useComponentPlayground = (options: Record<string, Omit<PlaygroundOption, 'key'>>) => {
-  const optionsRef = reactive(Object.keys(options).map((key) => reactive({ ...options[key], key })))
+export const useComponentPlayground = <Options extends string>(options: Record<Options, Omit<PlaygroundOption<Options>, 'key'>>) => {
+  const optionsRef = reactive(Object.keys(options).map((key) => reactive({ ...options[key as Options], key })))
 
   const slots = computed(() => {
     return optionsRef
@@ -17,7 +22,7 @@ export const useComponentPlayground = (options: Record<string, Omit<PlaygroundOp
       .map(({ key, value }) => {
         return {
           name: key.replace('slot:', ''),
-          value: value
+          value: String(value)
         }
       })
   })
@@ -105,7 +110,7 @@ ${slots}
   }
 
   return {
-    options: optionsRef,
+    options: optionsRef as unknown as (PlaygroundOption & { value: any })[],
     attrs,
     slots,
     renderAttrs,

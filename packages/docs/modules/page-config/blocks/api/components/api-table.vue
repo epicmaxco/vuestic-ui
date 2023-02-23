@@ -101,7 +101,6 @@ defineProps({
       & .MarkdownView {
         code,
         p {
-          font-size: inherit;
           margin-bottom: 0;
         }
       }

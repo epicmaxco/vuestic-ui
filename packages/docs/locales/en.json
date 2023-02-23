@@ -96,12 +96,7 @@
       "contactUs": "Contact us",
       "newsBannerText": " \uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hi there, we're celebrating our launch on Product Hunt this week! \uD83D\uDE80 We'd love to get your feedback and support! \uD83D\uDE4F",
       "newsBannerLink": "Visit the launch page",
-      "bannerText": [
-        "expert",
-        "s",
-        "available in",
-        "to build and launch your product"
-      ]
+      "bannerText": ["expert", "s", "available in", "to build and launch your product"]
     }
   },
   "api": {
@@ -212,9 +207,9 @@
       },
       "slots": {
         "default": "Default slot for button's content.",
-        "append": "Slot to input before button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
-        "prepend": "Slot to input after button's content. Slot scope properties available: `{'{ icon, iconAttributes }'}`.",
-        "loading": "Slot for loading state. Slot scope properties available: `{'{ icon, iconAttributes }'}`."
+        "append": "Slot to input before button's content. Slot scope properties available: `{ '{ icon, iconAttributes }' }`.",
+        "prepend": "Slot to input after button's content. Slot scope properties available: `{ '{ icon, iconAttributes }' }`.",
+        "loading": "Slot for loading state. Slot scope properties available: `{ '{ icon, iconAttributes }' }`."
       },
       "events": {
         "click": "Emitted when user clicks on button"
@@ -277,7 +272,8 @@
     "VaAspectRatio": {
       "props": {
         "contentWidth": "Wrapper width, it's used with `content-height` to replace the `ratio` property.",
-        "contentHeight": "Wrapper height, it's used with `content-width` to replace the `ratio` property."
+        "contentHeight": "Wrapper height, it's used with `content-width` to replace the `ratio` property.",
+        "maxWidth": "Maximal component's width."
       }
     },
     "VaAffix": {
@@ -332,6 +328,7 @@
         "overlayOpacity": "Set the overlay's opacity",
         "anchorClass": "Set class name to the `anchor` slot container",
         "zIndex": "Set the modal's `z-index`",
+        "allowBodyScroll": "Allows the document scroll while modal is open.",
         "blur": "Use `blur` filter to overlay. Root `css` variable `--va-modal-overlay-background-blur-radius` sets the blur radius"
       },
       "events": {
@@ -1499,6 +1496,43 @@
         "updateChecked": "The array of checked tree nodes.",
         "updateExpanded": "The array of expanded tree nodes."
       }
+    },
+    "VaStepper": {
+      "props": {
+        "modelValue": "Value of current step starting from `0`.",
+        "steps": "Array of step configs. `Label` is text displayed under each step in timeline, `Icon` if set, replaces step icon with specified icon, `disabled` makes step inaccessible without removing it from the timeline.",
+        "navigationDisabled": "Disables navigation via pressing on steps.",
+        "nextDisabled": "Disables navigation to steps further than `model-value`.",
+        "controlsHidden": "Removes 'Back' and 'Next' buttons.",
+        "vertical": "Changes stepper orientation to vertical.",
+        "finishButtonHidden": "Hides 'Finish' button"
+      },
+      "events": {
+        "finish": "Emits when 'Finish' button is getting pressed"
+      },
+      "slots": {
+        "stepButton": "Replaces the step in timeline with provided template. Step slots are enumerable and should be used with step number postfix (i.e. step-button-0, step-button-1, etc). Slot scope properties and methods available: `{'{ setStep, nextStep, prevStep, step, isActive, isCompleted }'}`.",
+        "stepContent": "Replaces step content with provided template. Content slots are enumerable and should be used with step number postfix (i.e. step-content-0, step-content-1, etc). Slot scope properties and methods available: `{'{ setStep, nextStep, prevStep }'}`.",
+        "controls": "Inserts provided template after default controls. If you want to replace default controls set `controls-hidden` prop to `true`. Slot scope properties and methods available: `{'{ setStep, nextStep, prevStep }'}`.",
+        "divider": "Replaces step divider in the timeline with provided template."
+      },
+      "methods": {
+        "setStep": "Activates step at specified index.",
+        "nextStep": "By default activates next step. If target step is disabled activates the step after it.",
+        "prevStep": "By default activates previous step. If target step is disabled activates the step before it."
+      }
+    },
+    "VaSkeleton": {
+      "props": {
+        "width": "Skeleton width.",
+        "height": "Skeleton height.",
+        "animation": "Skeleton animation. Can be `pulse`, `wave` or `none`.",
+        "variant": "Skeleton variant. Can be `squared`, `rounded`, `circle` or `text`.",
+        "lines": "Lines count if `variant` is `text`",
+        "lineGap": "Gap between lines in `px`, `rem`, `em` if `variant` is `text`",
+        "lastLineWidth": "Width of last line in `px`, `rem`, `em`, `%` if `variant` is `text`",
+        "tag": "Skeleton tag."
+      }
     }
   },
   "menu": {
@@ -1572,6 +1606,7 @@
     "list": "List",
     "select": "Select",
     "parallax": "Parallax",
+    "tailwind": "Tailwind Integration",
     "popover": "Popover",
     "backtop": "Backtop",
     "colorPicker": "Color Picker",
@@ -1615,6 +1650,7 @@
     "colors": "Colors",
     "timePicker": "Time Picker",
     "timeInput": "Time Input",
+    "stepper": "Stepper",
     "carousel": "Carousel",
     "treeShaking": "Tree Shaking",
     "counter": "Counter",
@@ -1630,7 +1666,8 @@
     "team": "Meet The Team",
     "i18n": "I18n",
     "webComponents": "Web Components",
-    "colorsClasses": "Colors Classes"
+    "colorsClasses": "Colors Classes",
+    "skeleton": "Skeleton"
   },
   "all": {
     "examples": "Examples",
@@ -3151,7 +3188,7 @@
   },
   "grid": {
     "title": "Grid System",
-    "deprecated": "CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed.",
+    "deprecated": "CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed. We suggest to use Tailwind CSS instead.",
     "summaryText": "Vuestic UI provides you with some flexbox helper classes. Of course, you can opt out using CSS Grid instead (or any other layout-scheme you'd like), but if you prefer using flexbox, we've got you covered. Still, the final decision is totally up to you.",
     "examples": {
       "default": {
@@ -3229,6 +3266,35 @@
           "`.justify-self-end` - The item is packed flush to each other toward the end edge of the alignment container in the appropriate axis.",
           "`.justify-self-center` - For items that are not children of a flex container, this value is treated as `.justify-self-start`.",
           "`.justify-self-baseline` - The items are aligned according to baselines"
+        ]
+      }
+    }
+  },
+  "tailwind": {
+    "title": "Tailwind CSS Support",
+    "summaryText": "We recommend our users to use [Tailwind CSS](https://tailwindcss.com/)[[target=_blank]] as the most convenient and modern solution to the CSS helpers issue.",
+    "deprecated": "CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed.",
+    "preparation": {
+      "title": "Preparations",
+      "text": "Before we start with integration - please ensure you have both Tailwind CSS and Vuestic UI installed. If that's not the case - here are installation guide [for Vuestic UI](/getting-started/installation) and for [Tailwind CSS](https://tailwindcss.com/docs/installation/using-postcss)[[target=_blank]]."
+    },
+    "features": {
+      "integration": {
+        "title": "Syncing configs",
+        "text": "To create a tight bind between Vuestic with Tailwind we have a {'`@vuestic/tailwind`'} package: it syncs [breakpoint](/services/breakpoints)[[target=_blank]] and [color](/services/colors)[[target=_blank]] settings. You can sync from Vuestic UI to Tailwind or backwards!",
+        "instructionIntro": "Here's what you have to do to make it work:",
+        "extendAlert": "We're not overriding Tailwind CSS settings, but extending them.",
+        "instruction": [
+          "1.&nbsp;Install this package:",
+          "2.&nbsp;After installation, three commands become available to you:",
+          "`npx sync-tailwind-with-vuestic` - formats and transfers the color and breakpoints settings from the `tailwind.config.*` file (and in its absence, it uses the default Tailwind CSS configuration) to the root file `vuestic.config.js` (also added by this command);",
+          "`npx watch-tailwind` - watches `tailwind.config.*` in background and synchronizes the Vuestic UI configuration on the fly;",
+          "`npx sync-vuestic-with-tailwind` - transfers color and breakpoint settings from default Vuestic UI config to the Tailwind's configuration file (`tailwind.config.cjs`).",
+          "3A.&nbsp;`[Tailwind CSS -> Vuestic UI]` import the `config` configuration in your `main.*` and specify it when initializing the application:",
+          "Also, you may want to synchronize the configuration partially (in the example - only Tailwind CSS colors will be taken):",
+          "3B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Nothing more is needed.",
+          "4A.&nbsp;`[Tailwind CSS -> Vuestic UI]` As a result you will be able to use Tailwind colors and breakpoints setting in Vuestic. For example, the result of synchronization default Tailwind settings will be a Vuestic settings file:",
+          "4B.&nbsp;`[Vuestic UI -> Tailwind CSS]` Vuestic UI setting will be available in the Tailwind CSS scope. Output format follows the requirements, located [here](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]] and [here](https://tailwindcss.com/docs/screens#adding-larger-breakpoints)[[target=_blank]]."
         ]
       }
     }
@@ -4393,7 +4459,7 @@
     "textBlock": "Text block",
     "textHelpers": "Text helpers"
   },
-  "ag-grid": {
+  "agGrid": {
     "title": "AG Grid Theme",
     "description": "If you need more flexible customization of the display of tables, we recommend using the [AG Grid](https://www.ag-grid.com/vue-data-grid/getting-started)[[target=_blank]] library. Vuestic UI provides a ready-made style theme for this library.",
     "otherTables": {
@@ -4403,7 +4469,10 @@
     },
     "installation": "AG Grid installation",
     "dependencies": "To start using AG Grid, install the dependencies in your project.",
-    "importStyles": "Then import the stylesheet that define the grid \"structure\" and apply the `ag-theme-vuestic` theme on the grid component.",
+    "importStyles": [
+      "Then import the stylesheet that defines the grid \"structure\" into the `main.*` file and apply the `ag-theme-vuestic` theme on the grid component.",
+      "Depending on your project setup and or your purposes you can import pre-compiled CSS styles `{'@'}vuestic/ag-grid-theme` or `{'@'}vuestic/ag-grid-theme/scss` to use our SCSS mixins."
+    ],
     "examples": {
       "default": {
         "title": "Default usage",
@@ -4623,6 +4692,35 @@
       }
     }
   },
+  "stepper": {
+    "title": "Stepper",
+    "description": "Stepper allows users to separate content into several steps and navigate through it using buttons or timeline.",
+    "examples": {
+      "default": {
+        "title": "Basic usage",
+        "text": ""
+      },
+      "vertical": {
+        "title": "Vertical",
+        "text": ""
+      },
+      "icons": {
+        "title": "Custom icons",
+        "text": "Each step config could have icon name specified, check `va-icon` for more details."
+      },
+      "custom": {
+        "title": "Customized with slots",
+        "text": ""
+      },
+      "minimal": {
+        "title": "Navigation only",
+        "text": "You can hide controls and use stepper navigation independently"
+      }
+    },
+    "alerts": {
+      "slots": "You can iterate through slots using template literals in slot name. \n Example: ``{'#[`step-button-${i}`]=\"{ setStep, isActive, isCompleted }\"'}``"
+    }
+  },
   "colors": {
     "title": "Colors",
     "description": "Vuestic UI defines `CSS variables` of the colors that are used in your application. This allows you to easily build your selectors using the colors you specified in the [Colors Config](https://vuestic.dev/en/services/colors-config).",
@@ -4739,6 +4837,11 @@
         "css": "Choose which CSS modules will be added to nuxt. If `true` all CSS modules will be added",
         "fonts": "Adds Vuestic default fonts to head"
       }
+    },
+    "vuesticConfig": {
+      "title": "vuestic.config.ts",
+      "description": "Because of nuxt config limitation, it is impossible to pass functions trough `nuxt.config.ts`. But you can create `vuestic.config.ts` which will be passed to { '`@vuestic\/nuxt`' }. Use `defineVuesticConfig` to define type safe configuration for Vuestic UI.",
+      "iconsConfig": "Read more about Icons Config"
     }
   },
   "ssrGuide": {
@@ -4988,6 +5091,48 @@
     },
     "api": {
       "title": "Helper classes configuration API"
+    }
+  },
+  "skeleton": {
+    "title": "Skeleton",
+    "description": "Skeleton is a component that is used to show the user that the content is loading. It is used to improve the user experience and to show the user that the content is loading.",
+    "examples": {
+      "default": {
+        "title": "Default",
+        "text": "The default skeleton is a `squared` reactable with a width of 100% and a height of 5rem."
+      },
+      "text": {
+        "title": "Text",
+        "text": "The skeleton with `text` variant looks like a text line. Count of lines can be configured with `lines` prop. The last line can be shorter than others with `lastLineWidth` prop."
+      },
+      "headline": {
+        "title": "Headline",
+        "text": "You can apply typography or any other classes to the skeleton. For example, `va-h1` class will make the skeleton look like a headline."
+      },
+      "circle": {
+        "title": "Circle",
+        "text": "The skeleton with `circle` variant looks like a circle. The size of the circle can be configured with `height` and `width` prop. Usualy used as avatar placeholder."
+      },
+      "rounded": {
+        "title": "Rounded",
+        "text": "The skeleton with `rounded` variant looks like a rounded rectangle. The size of the rectangle can be configured with `height` and `width` prop. Can be used as button or input placeholder."
+      },
+      "square": {
+        "title": "Square",
+        "text": "The skeleton with `square` variant looks like a square. The size of the square can be configured with `height` and `width` prop. Can be used as card or image placeholder."
+      },
+      "group": {
+        "title": "Group",
+        "text": "Skeletons can be grouped in `VaSekeletonGroup` component to sync their animations. For example, you can use it to create a card, list or table placeholder."
+      },
+      "groupWave": {
+        "title": "Wave animation",
+        "text": "You can use `wave` animation for `VaSkeletonGroup` to make it look like a wave. VaSkeletonGroup will sync animations."
+      },
+      "loading": {
+        "title": "Loading",
+        "text": "Down bellow is an example how you can use skeleton in your application. We use `isLoading` ref to indicate if content is loading. Don't forget to add `aria-busy` attribute to the content to indicate that it is loading to sreen reader."
+      }
     }
   }
 }

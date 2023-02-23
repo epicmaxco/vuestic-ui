@@ -6,10 +6,10 @@
       class="epicmax-news_banner-content"
     >
       <div class="epicmax-news_banner-text">
-        <nuxt-img
+        <img
           src="https://media.tenor.com/kxzr3-r6XoIAAAAM/lets-get-this-party-started-yeah.gif"
-          alt=""
-        /><br>
+          alt="Party gif"
+        ><br>
         <span>
           {{ $t("landing.footer.newsBannerText") }}
         </span><br>

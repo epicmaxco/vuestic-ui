@@ -108,7 +108,7 @@ export default defineComponent({
   components: { VaBadge, VaIcon },
 
   props: {
-    value: { type: Array as PropType<SelectOption[]>, default: [] as SelectOption[] },
+    value: { type: Array as PropType<SelectOption[]>, required: true },
     valueString: { type: String },
     placeholder: { type: String, default: '' },
     tabindex: { type: Number, default: 0 },
@@ -150,7 +150,7 @@ export default defineComponent({
     })
 
     const handleBackspace = (e: KeyboardEvent) => {
-      if (props.multiple && value.value?.length && e.key === 'Backspace' && !autocompleteInputValueComputed.value) {
+      if (props.multiple && value.value.length && e.key === 'Backspace' && !autocompleteInputValueComputed.value) {
         emit('delete-last-selected')
       }
     }

@@ -53,5 +53,10 @@ export default definePageConfig({
         ["fonts", "nuxt.options.option.fonts", "boolean", "true"],
       ]
     ),
+
+    block.subtitle("nuxt.vuesticConfig.title"),
+    block.paragraph("nuxt.vuesticConfig.description"),
+    block.code("vuestic-config"),
+    block.link("nuxt.vuesticConfig.iconsConfig", "/services/icons-config"),
   ],
 });

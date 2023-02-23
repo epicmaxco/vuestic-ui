@@ -54,8 +54,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaDataTable", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-data-table/_variables.scss"),
   ],
 });

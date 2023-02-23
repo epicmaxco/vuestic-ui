@@ -154,6 +154,8 @@ import { useAutocomplete, useAutocompleteProps } from './hooks/useAutocomplete'
 
 import type { SelectOption, Placement } from './types'
 import type { DropdownOffsetProp } from '../va-dropdown/types'
+import { blurElement, focusElement } from '../../utils/focus'
+import { unwrapEl } from '../../utils/unwrapEl'
 
 const VaDropdownProps = extractComponentProps(VaDropdown,
   ['keyboardNavigation', 'offset', 'stateful', 'keepAnchorWidth', 'closeOnContentClick', 'innerAnchorSelector', 'modelValue'],
@@ -614,7 +616,7 @@ export default defineComponent({
     // public methods
     const focus = () => {
       if (props.disabled) { return }
-      input.value?.focus()
+      focusElement(unwrapEl(input.value))
     }
 
     const blur = () => {
@@ -622,7 +624,10 @@ export default defineComponent({
         showDropdownContentComputed.value = false
       }
 
-      nextTick(input.value?.blur)
+      nextTick(() => {
+        if (props.disabled) { return }
+        blurElement(unwrapEl(input.value))
+      })
     }
 
     const reset = () => withoutValidation(() => {

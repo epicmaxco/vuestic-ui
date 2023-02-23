@@ -1,3 +1,5 @@
+import { unwrapEl } from './../utils/unwrapEl'
+import { focusElement, blurElement } from './../utils/focus'
 import { ref, onMounted, onBeforeUnmount, Ref } from 'vue'
 
 export const useFocusEmits = ['focus', 'blur']
@@ -19,11 +21,13 @@ export function useFocus (
   }
 
   const focus = (): void => {
-    el?.value?.focus()
+    if (!el?.value) { return }
+    focusElement(unwrapEl(el?.value))
   }
 
   const blur = (): void => {
-    el?.value?.blur()
+    if (!el?.value) { return }
+    blurElement(unwrapEl(el?.value))
   }
 
   let element: any

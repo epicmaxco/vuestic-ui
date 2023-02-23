@@ -15,13 +15,11 @@ export default definePageConfig({
 
     block.example("Size"),
 
-    block.example("Gradient"),
+    // TODO: Doesn't work in Firefox
+    // block.example("Gradient"),
 
     block.example("Rtl"),
 
     block.api("VaScrollContainer", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-scroll-container/_variables.scss"),
   ],
 });

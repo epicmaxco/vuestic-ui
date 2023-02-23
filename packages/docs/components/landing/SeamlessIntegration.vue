@@ -43,10 +43,10 @@
                 />
               </div>
             </div>
-            <nuxt-img
+            <img
               src="/landing/plus.svg"
-              alt=""
-            />
+              alt="Plus icon"
+            >
           </div>
           <!-- /First block -->
 

@@ -25,8 +25,5 @@ export default definePageConfig({
 
     block.subtitle("all.api"),
     block.api("VaSplit", apiOptions),
-
-    block.subtitle("all.cssVariables"),
-    block.file("vuestic-ui/src/components/va-split/_variables.scss"),
   ],
 });
