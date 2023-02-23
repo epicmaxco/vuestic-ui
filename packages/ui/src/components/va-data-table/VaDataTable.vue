@@ -136,10 +136,10 @@
                 </slot>
                   </td>
                 </tr>
-                <tr v-if="row.isRowDetailsVisible">
+                <tr v-if="row.isExpandableRowVisible">
                   <td :colspan="row.cells.length">
                     <slot
-                      name="rowDetails"
+                      name="expandableRow"
                       v-bind="row"
                     />
                   </td>

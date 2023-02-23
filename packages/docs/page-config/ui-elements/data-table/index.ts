@@ -52,6 +52,8 @@ export default definePageConfig({
     block.paragraph("dataTable.examples.other.text[1]"),
     block.example("CRUD", { hideTitle: true }),
 
+    block.example("ExpandableRow"),
+
     block.subtitle("all.api"),
     block.api("VaDataTable", apiOptions),
   ],

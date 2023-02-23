@@ -61,19 +61,19 @@ export const useRows = (
   columns: Ref<DataTableColumnInternal[]>,
   props: ExtractPropTypes<typeof useRowsProps>,
 ) => {
-  const expandedRowDetails = ref<Record<number, boolean>>({})
+  const expandableRows = ref<Record<number, boolean>>({})
 
   const rowsComputed = computed(() => props.items
     .map((rawItem, index) => ({
       ...buildTableRow(rawItem, index, props.itemsTrackBy, columns.value),
       toggleRowDetails: (show?: boolean) => {
         if (typeof show === 'boolean') {
-          expandedRowDetails.value[index] = show
+          expandableRows.value[index] = show
         } else {
-          expandedRowDetails.value[index] = !expandedRowDetails.value[index]
+          expandableRows.value[index] = !expandableRows.value[index]
         }
       },
-      isRowDetailsVisible: !!expandedRowDetails.value[index],
+      isExpandableRowVisible: !!expandableRows.value[index],
     })))
 
   return {
