@@ -36,7 +36,6 @@ export default defineNuxtModule<VuesticOptions>({
     originalNuxtModule(options, nuxt)
 
     nuxt.options.build.transpile.push('lodash')
-    nuxt.options.vite.optimizeDeps?.exclude?.push('vuestic-ui')
   }
 })
 
