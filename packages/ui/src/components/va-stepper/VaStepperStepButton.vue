@@ -1,8 +1,11 @@
 <template>
   <li
+    ref="stepElement"
     class="va-stepper__step-button"
     :class="computedClass"
     @click="!$props.navigationDisabled && $props.stepControls.setStep($props.stepIndex)"
+    @keyup.enter="!$props.navigationDisabled && $props.stepControls.setStep($props.stepIndex)"
+    @keyup.space="!$props.navigationDisabled && $props.stepControls.setStep($props.stepIndex)"
     v-bind="ariaAttributesComputed"
   >
     <div class="va-stepper__step-button__icon">
@@ -19,7 +22,7 @@
   </li>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, nextTick, PropType, shallowRef, watch } from 'vue'
 import { VaIcon } from '../va-icon'
 import { useBem, useColors, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
@@ -37,10 +40,12 @@ export default defineComponent({
     stepIndex: { type: Number, required: true },
     navigationDisabled: { type: Boolean, required: true },
     nextDisabled: { type: Boolean, required: true },
+    isFocused: { type: Boolean, required: true },
     stepControls: { type: Object as PropType<StepControls>, required: true },
   },
   emits: ['update:modelValue'],
   setup (props) {
+    const stepElement = shallowRef<HTMLElement>()
     const { getColor } = useColors()
     const stepperColor = getColor(props.color)
 
@@ -54,13 +59,20 @@ export default defineComponent({
       'navigation-disabled': props.navigationDisabled,
     }))
 
+    watch(() => props.isFocused, () => {
+      if (props.isFocused) {
+        nextTick(() => stepElement.value?.focus())
+      }
+    })
+
     return {
+      stepElement,
       isNextStepDisabled,
       stepperColor,
       getColor,
       computedClass,
       ariaAttributesComputed: computed(() => ({
-        tabindex: props.step.disabled || isNextStepDisabled(props.stepIndex) ? -1 : 0,
+        tabindex: props.isFocused ? 0 : undefined,
         'aria-disabled': props.step.disabled || isNextStepDisabled(props.stepIndex) ? true : undefined,
         'aria-current': props.modelValue === props.stepIndex ? t('step') : undefined,
       })),

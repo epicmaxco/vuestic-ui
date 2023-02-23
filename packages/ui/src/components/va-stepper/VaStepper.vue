@@ -6,7 +6,17 @@
   >
     <ol
       class="va-stepper__navigation"
+      ref="stepperNavigation"
       :class="{ 'va-stepper__navigation--vertical': $props.vertical }"
+
+      @click="onNavigationClick()"
+      @keyup.enter="onNavigationClick()"
+      @keyup.space="onNavigationClick()"
+      @keyup.left="onArrowKeyPress('prev')"
+      @keyup.up="onArrowKeyPress('prev')"
+      @keyup.right="onArrowKeyPress('next')"
+      @keyup.down="onArrowKeyPress('next')"
+      @focusout="resetFocus"
     >
       <template
         v-for="(step, i) in $props.steps"
@@ -36,6 +46,8 @@
             :step="step"
             :stepControls="stepControls"
             :navigationDisabled="navigationDisabled"
+
+            :isFocused="i === focusedStep"
           />
         </slot>
       </template>
@@ -76,8 +88,8 @@
   </div>
 </template>
 <script lang="ts">
-import {computed, defineComponent, PropType, Ref} from 'vue'
-import {useColors, useStateful, useStatefulProps, useTranslation} from '../../composables'
+import { computed, defineComponent, nextTick, PropType, ref, Ref, shallowRef, watch } from 'vue'
+import { useColors, useStateful, useStatefulProps, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
 import VaStepperControls from './VaStepperControls.vue'
 import VaStepperStepButton from './VaStepperStepButton.vue'
@@ -102,7 +114,10 @@ export default defineComponent({
   },
   emits: ['update:modelValue', 'finish'],
   setup (props, { emit }) {
+    const stepperNavigation = shallowRef<HTMLElement>()
     const { valueComputed: modelValue }: { valueComputed: Ref<number> } = useStateful(props, emit, 'modelValue', { defaultValue: 0 })
+
+    const focusedStep = ref(props.navigationDisabled ? -1 : props.modelValue)
 
     const { getColor } = useColors()
     const stepperColor = getColor(props.color)
@@ -114,7 +129,58 @@ export default defineComponent({
     const setStep = (index: number) => {
       if (props.steps[index].disabled) { return }
       emit('update:modelValue', index)
+
+      // if (!props.navigationDisabled) {
+      //   focusedStep.value = index
+      // }
     }
+
+    const setFocus = (direction: 'prev' | 'next') => {
+      if (props.navigationDisabled) { return }
+      if (direction === 'next') {
+        setFocusNextStep(1)
+      } else {
+        setFocusPrevStep(1)
+      }
+    }
+    const setFocusNextStep = (idx: number) => {
+      const newValue = focusedStep.value + idx
+
+      if (isNextStepDisabled(newValue)) { return }
+
+      if (newValue < props.steps.length) {
+        if (props.steps[newValue].disabled) {
+          setFocusNextStep(idx + 1)
+          return
+        }
+        focusedStep.value = newValue
+      }
+    }
+    const setFocusPrevStep = (idx: number) => {
+      const newValue = focusedStep.value - idx
+      if (newValue >= 0) {
+        if (props.steps[newValue].disabled) {
+          setFocusPrevStep(idx + 1)
+          return
+        }
+        focusedStep.value = newValue
+      }
+    }
+
+    const resetFocus = (e: any) => {
+      // requestAnimationFrame(() => {
+      //   console.log(stepperNavigation.value?.relatedTarget)
+      // })
+      // requestAnimationFrame(() => {
+      //   if (!stepperNavigation.value?.contains(document.activeElement)) {
+      //     focusedStep.value = -1
+      //   }
+      // })
+      // focusedStep.value = props.modelValue
+    }
+    // watch(() => props.modelValue, () => {
+      // focusedStep.value = props.modelValue
+    // })
 
     const nextStep = (stepsToSkip = 0) => {
       const targetIndex = modelValue.value + 1 + stepsToSkip
@@ -147,11 +213,20 @@ export default defineComponent({
     })
 
     return {
+      stepperNavigation,
+      resetFocus,
+      focusedStep,
       isNextStepDisabled,
       stepperColor,
       getColor,
       stepControls,
       getIterableSlotData,
+      onArrowKeyPress: (direction: 'prev' | 'next') => {
+        setFocus(direction)
+      },
+      onNavigationClick: () => {
+        focusedStep.value = props.modelValue
+      },
       ariaAttributesComputed: computed(() => ({
         role: 'group',
         'aria-label': t('progress'),
