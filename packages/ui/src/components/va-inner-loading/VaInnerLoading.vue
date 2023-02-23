@@ -1,19 +1,21 @@
 <template>
   <div class="inner-loading">
     <slot />
-    <div
-      v-if="$props.loading"
-      class="inner-loading__overlay"
-      aria-hidden="true"
-    >
-      <va-icon
-        class="inner-loading__spinner"
-        spin
-        :color="colorComputed"
-        :size="$props.size"
-        :name="$props.icon"
-      />
-    </div>
+    <transition :name="transition">
+      <div
+        v-if="$props.loading"
+        class="inner-loading__overlay"
+        aria-hidden="true"
+      >
+        <va-icon
+          class="inner-loading__spinner"
+          spin
+          :color="colorComputed"
+          :size="$props.size"
+          :name="$props.icon"
+        />
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -30,6 +32,7 @@ export default defineComponent({
   props: {
     ...useLoadingProps,
     ...useComponentPresetProp,
+    transition: { type: String, default: 'va-fade-transition' },
     color: { type: String },
     icon: { type: String, default: 'autorenew' },
     size: { type: Number, default: 30 },

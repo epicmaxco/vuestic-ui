@@ -1,9 +1,9 @@
 <template>
   <transition
-    v-if="valueComputed"
-    name="fade"
+    :name="transition"
   >
     <div
+      v-if="valueComputed"
       class="va-alert"
       :style="alertStyle"
       :role="closeable ? 'alertdialog' : 'alert'"
@@ -99,6 +99,7 @@ export default defineComponent({
   props: {
     ...useStatefulProps,
     ...useComponentPresetProp,
+    transition: { type: String, default: 'va-scale-transition' },
     modelValue: { type: Boolean, default: true },
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: '' },

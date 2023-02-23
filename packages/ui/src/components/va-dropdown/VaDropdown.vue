@@ -13,17 +13,19 @@
     <slot name="anchor" v-bind="{ value: valueComputed, hide, show }" />
 
     <teleport v-if="isMounted" :to="teleportTargetComputed" :disabled="teleportDisabled">
-      <div
-        v-if="valueComputed"
-        ref="contentRef"
-        class="va-dropdown__content-wrapper"
-        :id="idComputed"
-        @mouseover="$props.isContentHoverable && onMouseEnter()"
-        @mouseout="onMouseLeave"
-        @click.stop="emitAndClose('content-click', closeOnContentClick)"
-      >
-        <slot v-bind="{ value: valueComputed, hide, show }" />
-      </div>
+      <transition :name="transition">
+        <div
+          v-if="valueComputed"
+          ref="contentRef"
+          class="va-dropdown__content-wrapper"
+          :id="idComputed"
+          @mouseover="$props.isContentHoverable && onMouseEnter()"
+          @mouseout="onMouseLeave"
+          @click.stop="emitAndClose('content-click', closeOnContentClick)"
+        >
+          <slot v-bind="{ value: valueComputed, hide, show }" />
+        </div>
+      </transition>
     </teleport>
   </div>
 </template>
@@ -63,6 +65,7 @@ export default defineComponent({
     ...createStatefulProps(Boolean, true),
     ...useComponentPresetProp,
     ...usePlacementAliasesProps,
+    transition: { type: String, default: 'va-fade-transition' },
     disabled: { type: Boolean },
     readonly: { type: Boolean },
     anchorSelector: { type: String, default: '' },

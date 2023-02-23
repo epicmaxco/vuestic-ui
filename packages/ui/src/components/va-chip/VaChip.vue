@@ -1,18 +1,19 @@
 <template>
-  <component
-    v-if="valueComputed"
-    class="va-chip"
-    :is="tagComputed"
-    :href="hrefComputed"
-    :target="target"
-    :to="to"
-    :replace="replace"
-    :exact="exact"
-    :active-class="activeClass"
-    :exact-active-class="exactActiveClass"
-    :class="computedClass"
-    :style="computedStyle"
-  >
+  <transition :name="transition">
+    <component
+      v-if="valueComputed"
+      class="va-chip"
+      :is="tagComputed"
+      :href="hrefComputed"
+      :target="target"
+      :to="to"
+      :replace="replace"
+      :exact="exact"
+      :active-class="activeClass"
+      :exact-active-class="exactActiveClass"
+      :class="computedClass"
+      :style="computedStyle"
+    >
     <span
       class="va-chip__inner"
       @focus="$emit('focus')"
@@ -42,7 +43,8 @@
         @keydown.space.stop="close"
       />
     </span>
-  </component>
+    </component>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -76,6 +78,7 @@ export default defineComponent({
     ...useColorProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
+    transition: { type: String, default: 'va-scale-transition' },
     modelValue: { type: Boolean, default: true },
     closeable: { type: Boolean, default: false },
     outline: { type: Boolean, default: false },

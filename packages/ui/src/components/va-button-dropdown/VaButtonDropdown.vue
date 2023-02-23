@@ -115,6 +115,7 @@ export default defineComponent({
     ...useComponentPresetProp,
     ...VaButtonProps,
     ...VaDropdownProps,
+    transition: { type: String, default: 'va-fade-transition' },
     ...useStatefulProps,
     ...usePlacementAliasesProps,
     modelValue: { type: Boolean, default: false },

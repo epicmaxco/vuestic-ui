@@ -1,0 +1,47 @@
+
+.va-scale-transition-enter-active,
+.va-scale-transition-leave-active {
+  transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1) !important;
+}
+
+.va-scale-transition-move {
+  transition: transform 0.6s;
+}
+
+.va-scale-transition-enter,
+.va-scale-transition-enter-from,
+.va-scale-transition-leave,
+.va-scale-transition-leave-to {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.va-expand-transition-enter-active {
+  transition: transform 0.2s ease-in, opacity 0.3s cubic-bezier(1, -0.01, 0, 0.99);
+}
+
+.va-expand-transition-leave-active {
+  transition: transform 0.2s ease-in, opacity 0.1s ease-in;
+}
+
+.va-expand-transition-enter-from,
+.va-expand-transition-leave-to {
+  opacity: 0;
+  transform: translateY(-25%);
+}
+
+.va-expand-transition-enter-to,
+.va-expand-transition-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.va-fade-transition-enter-active,
+.va-fade-transition-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.va-fade-transition-enter-from,
+.va-fade-transition-leave-to {
+  opacity: 0;
+}
