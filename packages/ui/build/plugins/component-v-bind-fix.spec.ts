@@ -3,7 +3,10 @@ import { transformVueComponent } from './component-v-bind-fix'
 
 describe('component-v-bind-fix', () => {
   describe('transformVueComponent', () => {
-    const expectedStyleString = '--va-0-color: color;--va-1-background: background'
+    // eslint-disable-next-line no-template-curly-in-string
+    const expectedStyleString = '--va-0-color: ${String(color)};--va-1-background: ${String(background)}'
+
+    const expectedObjectStyleString = (styleContent: string) => `typeof ${styleContent} === 'object' ? { ...${styleContent}, '--va-0-color': String(color),'--va-1-background': String(background) } : ${styleContent} + \`;${expectedStyleString}\``
 
     const componentCode = (attrs = '', nestedAttrs = '') => `
 <template>
@@ -51,6 +54,10 @@ const background = 'yellow'
 </style>
 `
 
+    test('expectedObjectStyleString', () => {
+      expect(expectedObjectStyleString('style')).toBe(`typeof style === 'object' ? { ...style, '--va-0-color': String(color),'--va-1-background': String(background) } : style + \`;${expectedStyleString}\``)
+    })
+
     test('replace v-bind() with var(--va-index-name)', () => {
       const code = transformVueComponent(componentCode())
 
@@ -65,7 +72,7 @@ const background = 'yellow'
       const code = transformVueComponent(componentCode())
 
       expect(code).toBe(expectedComponentCode(
-        `style="${expectedStyleString}"`,
+        `:style="\`${expectedStyleString}\`"`,
       ))
     })
 
@@ -75,7 +82,7 @@ const background = 'yellow'
       ))
 
       expect(code).toBe(expectedComponentCode(
-        `style="color: red;${expectedStyleString}"`,
+        `:style="\`color: red;${expectedStyleString}\`"`,
       ))
     })
 
@@ -84,8 +91,12 @@ const background = 'yellow'
         ':style="{ background: yellow }"',
       ))
 
+      const obj = "{ ...{ background: yellow }, '--va-0-color': color,'--va-1-background': background }"
+      // eslint-disable-next-line no-template-curly-in-string
+      const str = '{ background: yellow } + `;--va-0-color: ${color};--va-1-background: ${background}`'
+
       expect(code).toBe(expectedComponentCode(
-        `:style="{ background: yellow }" style="${expectedStyleString}"`,
+        `:style="${expectedObjectStyleString('{ background: yellow }')}"`,
       ))
     })
 
@@ -96,7 +107,7 @@ const background = 'yellow'
       ))
 
       expect(code).toBe(expectedComponentCode(
-        `style="color: blue;${expectedStyleString}" :style="{ background: yellow }"`,
+        `style="color: blue" :style="${expectedObjectStyleString('{ background: yellow }')}"`,
       ))
     })
 
@@ -107,7 +118,7 @@ const background = 'yellow'
       ))
 
       expect(code).toBe(expectedComponentCode(
-        `:style="{ background: yellow }" style="${expectedStyleString}"`,
+        `:style="${expectedObjectStyleString('{ background: yellow }')}"`,
         'style="color: blue"',
       ))
     })
@@ -119,7 +130,7 @@ const background = 'yellow'
       ))
 
       expect(code).toBe(expectedComponentCode(
-        `:style="{ background: yellow }" style="${expectedStyleString}"`,
+        `:style="${expectedObjectStyleString('{ background: yellow }')}"`,
         ':style="{ color: blue }"',
       ))
     })
@@ -127,7 +138,7 @@ const background = 'yellow'
     test('if root node doesn\'t have any style we add it as string and nested elements stay the same', () => {
       const code = transformVueComponent(componentCode('', ':style="{ color: blue }"'))
 
-      expect(code).toBe(expectedComponentCode(`style="${expectedStyleString}"`, ':style="{ color: blue }"'))
+      expect(code).toBe(expectedComponentCode(`:style="\`${expectedStyleString}\`"`, ':style="{ color: blue }"'))
     })
 
     test('if root node has a lot of attrs we still add style', () => {
@@ -142,7 +153,7 @@ const background = 'yellow'
         role="button"
         id="submit"
         class="btn btn-primary"
-        :class="{ active: isActive }" style="${expectedStyleString}"
+        :class="{ active: isActive }" :style="\`${expectedStyleString}\`"
       `.trim()))
     })
 
@@ -159,7 +170,7 @@ const background = 'yellow'
         role="button"
         id="submit"
         class="btn btn-primary"
-        style="cursor: pointer;${expectedStyleString}"
+        :style="\`cursor: pointer;${expectedStyleString}\`"
         :class="{ active: isActive }"
       `.trim()))
     })

@@ -1,9 +1,10 @@
 import { Plugin } from 'vite'
+import kebabCase from 'lodash/kebabCase'
 
 const parseVBinds = (style: string) => {
   return style
     .match(/v-bind\((.*)\)/g)
-    ?.map((line) => line.match(/v-bind\((.*)\)/)![1]) ?? []
+    ?.map((line) => line.match(/v-bind\(([^)]*)\)/)![1]) ?? []
 }
 
 const getRootNodeCode = (code: string) => {
@@ -14,8 +15,16 @@ const getRootNodeCode = (code: string) => {
 
 const renderCssVariablesString = (vBinds: string[]) => {
   return vBinds.map((vBind, index) => {
-    return `--va-${index}-${vBind}: ${vBind}`
+    return `--va-${index}-${kebabCase(vBind)}: \${String(${vBind})}`
   }, '').join(';')
+}
+
+const renderObjectGuard = (styleContent: string, binds: string[]) => {
+  const cssVariablesString = renderCssVariablesString(binds)
+  const cssVariablesObject = binds.map((vBind, index) => {
+    return `'--va-${index}-${kebabCase(vBind)}': String(${vBind})`
+  }, '').join(',')
+  return `typeof ${styleContent} === 'object' ? { ...${styleContent}, ${cssVariablesObject} } : ${styleContent} + \`;${cssVariablesString}\``
 }
 
 export const transformVueComponent = (code: string) => {
@@ -30,19 +39,35 @@ export const transformVueComponent = (code: string) => {
 
   // Replace each v-bind() with var(--va-index-name)
   vBinds.forEach((vBind, index) => {
-    code = code.replace(new RegExp(`v-bind\\(${vBind}\\)`, 'gm'), `var(--va-${index}-${vBind})`)
+    try {
+      code = code.replace(new RegExp(`v-bind\\(${vBind}\\)`, 'gm'), `var(--va-${index}-${kebabCase(vBind)})`)
+    } catch (e) {
+      console.log(vBind)
+      throw e
+    }
   })
 
-  const existingStyle = rootNode?.match(/[^:]style="([^"]*)"/)?.[1]
+  const [vBindCode, vBindContent] = rootNode?.match(/:style="([^"]*)"/) || []
+  const [attrCode, attrContent] = rootNode?.match(/[^:]style="([^"]*)"/) || []
   const cssVariablesString = renderCssVariablesString(vBinds)
+  const hasVBind = Boolean(vBindCode)
 
   // If style attr already exists simply add css variables to it
-  if (existingStyle) {
-    return code.replace(/style="([^"]*)"/, `style="$1;${cssVariablesString}"`)
-  } else {
-    const newRootNode = rootNode.replace('>', ` style="${cssVariablesString}">`)
+  if (vBindContent || attrContent) {
+    if (hasVBind) {
+      return code.replace(/:style="([^"]*)"/, `:style="${renderObjectGuard(vBindContent, vBinds)}"`)
+    }
+
+    return code.replace(/style="([^"]*)"/, `:style="\`$1;${cssVariablesString}\`"`)
+  }
+
+  if (/\/>$/.test(rootNode)) {
+    const newRootNode = rootNode.replace('/>', ` :style="\`${cssVariablesString}\`"/>`)
     return code.replace(rootNode, newRootNode)
   }
+
+  const newRootNode = rootNode.replace('>', ` :style="\`${cssVariablesString}\`">`)
+  return code.replace(rootNode, newRootNode)
 }
 
 export const componentVBindFix = (): Plugin => {
@@ -50,7 +75,7 @@ export const componentVBindFix = (): Plugin => {
     name: 'vuestic:component-v-bind-fix',
     enforce: 'pre',
     transform (code, id) {
-      if (/\.vue$/.test(id)) {
+      if (!/\.vue$/.test(id)) {
         return
       }
 
