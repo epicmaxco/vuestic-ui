@@ -1,3 +1,4 @@
+import { componentVBindFix } from './plugins/component-v-bind-fix';
 import { readFileSync, lstatSync, readdirSync } from 'fs'
 import vue from '@vitejs/plugin-vue'
 import { resolve as resolver } from 'path'
@@ -102,6 +103,7 @@ export default function createViteConfig (format: BuildFormat) {
   isEsm && config.plugins.push(chunkSplitPlugin({ strategy: 'unbundle' }))
   isEsm && !isNode && config.plugins.push(appendComponentCss())
   isEsm && config.plugins.push(removeSideEffectedChunks())
+  isEsm && config.plugins.push(componentVBindFix())
 
   config.build.rollupOptions = isNode ? { ...external, ...rollupMjsBuildOptions } : external
 
