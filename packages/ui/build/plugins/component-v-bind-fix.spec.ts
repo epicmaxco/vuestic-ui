@@ -2,37 +2,9 @@ import { describe, test, expect } from 'vitest'
 import { transformVueComponent } from './component-v-bind-fix'
 
 describe('component-v-bind-fix', () => {
-  describe('style guard', () => {
-    test('should use object if object', () => {
-      const styleValue: any = { color: 'red' }
-
-      expect(typeof styleValue === 'object'
-        ? { ...styleValue, ...{ background: 'blue' } }
-        : styleValue + ';background: blue')
-        .toEqual({ color: 'red', background: 'blue' })
-    })
-
-    test('should use string if string', () => {
-      const styleValue: any = 'color: red'
-
-      expect(typeof styleValue === 'object'
-        ? { ...styleValue, ...{ background: 'blue' } }
-        : styleValue + ';background: blue')
-        .toEqual('color: red;background: blue')
-    })
-
-    test('should use string if string with ;', () => {
-      const styleValue: any = 'color: red;'
-
-      expect(typeof styleValue === 'object'
-        ? { ...styleValue, ...{ background: 'blue' } }
-        : styleValue + ';background: blue')
-        // TODO: Not sure, but it looks like a correct CSS
-        .toEqual('color: red;;background: blue')
-    })
-  })
-
   describe('transformVueComponent', () => {
+    const expectedStyleString = '--va-0-color: color;--va-1-background: background'
+
     const componentCode = (attrs = '', nestedAttrs = '') => `
 <template>
   <button${attrs ? ' ' + attrs : ''}>
@@ -78,12 +50,6 @@ const background = 'yellow'
   }
 </style>
 `
-    const stringStyle = '--va-0-color: color;--va-1-background: background'
-
-    const objectGuardStyle = (exstingStyle: string) => {
-      // If exstingStyle is object, we should use spread operator, but if it is string, we should use semicolon
-      return `typeof ${exstingStyle} === 'object' ? { ...${exstingStyle}, ...{ '--va-0-color': color,'--va-1-background': background } } : ${exstingStyle} + ';${stringStyle}'`
-    }
 
     test('replace v-bind() with var(--va-index-name)', () => {
       const code = transformVueComponent(componentCode())
@@ -99,7 +65,7 @@ const background = 'yellow'
       const code = transformVueComponent(componentCode())
 
       expect(code).toBe(expectedComponentCode(
-        `style="${stringStyle}"`,
+        `style="${expectedStyleString}"`,
       ))
     })
 
@@ -109,51 +75,51 @@ const background = 'yellow'
       ))
 
       expect(code).toBe(expectedComponentCode(
-        `style="color: red;${stringStyle}"`,
+        `style="color: red;${expectedStyleString}"`,
       ))
     })
 
-    test('if root node have a style object vbind, we replace it with object guard', () => {
+    test('if root node have a style object vbind, but no style tag we add style attr with css variables', () => {
       const code = transformVueComponent(componentCode(
         ':style="{ background: yellow }"',
       ))
 
       expect(code).toBe(expectedComponentCode(
-        `:style="${objectGuardStyle('{ background: yellow }')}"`,
+        `:style="{ background: yellow }" style="${expectedStyleString}"`,
       ))
     })
 
     // TODO: Maybe better just use style string
-    test('if root node have both style attr and vbind we replace only vbind with object guard', () => {
+    test('if root node have both style attr and vbind we add to style attr css variables', () => {
       const code = transformVueComponent(componentCode(
         'style="color: blue" :style="{ background: yellow }"',
       ))
 
       expect(code).toBe(expectedComponentCode(
-        `style="color: blue" :style="${objectGuardStyle('{ background: yellow }')}"`,
+        `style="color: blue;${expectedStyleString}" :style="{ background: yellow }"`,
       ))
     })
 
-    test('if root node have vbind and nested element has style attr, we replace only root node', () => {
+    test('if root node have vbind and nested element has style attr, we still add style attr on root node', () => {
       const code = transformVueComponent(componentCode(
         ':style="{ background: yellow }"',
         'style="color: blue"',
       ))
 
       expect(code).toBe(expectedComponentCode(
-        `:style="${objectGuardStyle('{ background: yellow }')}"`,
+        `:style="{ background: yellow }" style="${expectedStyleString}"`,
         'style="color: blue"',
       ))
     })
 
-    test('if root node have vbind and nested element has style vbind, we replace only root node', () => {
+    test('if root node have vbind and nested element has style vbind, we add css variables only to root node', () => {
       const code = transformVueComponent(componentCode(
         ':style="{ background: yellow }"',
         ':style="{ color: blue }"',
       ))
 
       expect(code).toBe(expectedComponentCode(
-        `:style="${objectGuardStyle('{ background: yellow }')}"`,
+        `:style="{ background: yellow }" style="${expectedStyleString}"`,
         ':style="{ color: blue }"',
       ))
     })
@@ -161,7 +127,41 @@ const background = 'yellow'
     test('if root node doesn\'t have any style we add it as string and nested elements stay the same', () => {
       const code = transformVueComponent(componentCode('', ':style="{ color: blue }"'))
 
-      expect(code).toBe(expectedComponentCode(`style="${stringStyle}"`, ':style="{ color: blue }"'))
+      expect(code).toBe(expectedComponentCode(`style="${expectedStyleString}"`, ':style="{ color: blue }"'))
+    })
+
+    test('if root node has a lot of attrs we still add style', () => {
+      const code = transformVueComponent(componentCode(`
+        role="button"
+        id="submit"
+        class="btn btn-primary"
+        :class="{ active: isActive }"
+      `.trim()))
+
+      expect(code).toBe(expectedComponentCode(`
+        role="button"
+        id="submit"
+        class="btn btn-primary"
+        :class="{ active: isActive }" style="${expectedStyleString}"
+      `.trim()))
+    })
+
+    test('if root node has a lot of attrs', () => {
+      const code = transformVueComponent(componentCode(`
+        role="button"
+        id="submit"
+        class="btn btn-primary"
+        style="cursor: pointer"
+        :class="{ active: isActive }"
+      `.trim()))
+
+      expect(code).toBe(expectedComponentCode(`
+        role="button"
+        id="submit"
+        class="btn btn-primary"
+        style="cursor: pointer;${expectedStyleString}"
+        :class="{ active: isActive }"
+      `.trim()))
     })
   })
 })
