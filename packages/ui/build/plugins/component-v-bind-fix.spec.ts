@@ -6,7 +6,7 @@ describe('component-v-bind-fix', () => {
     // eslint-disable-next-line no-template-curly-in-string
     const expectedStyleString = '--va-0-color: ${String(color)};--va-1-background: ${String(background)}'
 
-    const expectedObjectStyleString = (styleContent: string) => `typeof ${styleContent} === 'object' ? { ...${styleContent}, '--va-0-color': String(color),'--va-1-background': String(background) } : ${styleContent} + \`;${expectedStyleString}\``
+    const expectedObjectStyleString = (styleContent: string) => `typeof ${styleContent} === 'object' ? (Array.isArray(${styleContent}) ? [...${styleContent}, \`${expectedStyleString}\`] : { ...${styleContent}, '--va-0-color': String(color),'--va-1-background': String(background) }) : ${styleContent} + \`;${expectedStyleString}\``
 
     const componentCode = (attrs = '', nestedAttrs = '') => `
 <template>
@@ -55,7 +55,7 @@ const background = 'yellow'
 `
 
     test('expectedObjectStyleString', () => {
-      expect(expectedObjectStyleString('style')).toBe(`typeof style === 'object' ? { ...style, '--va-0-color': String(color),'--va-1-background': String(background) } : style + \`;${expectedStyleString}\``)
+      expect(expectedObjectStyleString('style')).toBe(`typeof style === 'object' ? (Array.isArray(style) ? [...style, \`${expectedStyleString}\`] : { ...style, '--va-0-color': String(color),'--va-1-background': String(background) }) : style + \`;${expectedStyleString}\``)
     })
 
     test('replace v-bind() with var(--va-index-name)', () => {

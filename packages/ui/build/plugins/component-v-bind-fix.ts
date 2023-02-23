@@ -24,7 +24,14 @@ const renderObjectGuard = (styleContent: string, binds: string[]) => {
   const cssVariablesObject = binds.map((vBind, index) => {
     return `'--va-${index}-${kebabCase(vBind)}': String(${vBind})`
   }, '').join(',')
-  return `typeof ${styleContent} === 'object' ? { ...${styleContent}, ${cssVariablesObject} } : ${styleContent} + \`;${cssVariablesString}\``
+
+  // Merge existing style with css variables
+  const arrayStyle = `[...${styleContent}, \`${cssVariablesString}\`]`
+  const objectStyle = `{ ...${styleContent}, ${cssVariablesObject} }`
+  const stringStyle = `${styleContent} + \`;${cssVariablesString}\``
+
+  // Handle if style is an object, array or string
+  return `typeof ${styleContent} === 'object' ? (Array.isArray(${styleContent}) ? ${arrayStyle} : ${objectStyle}) : ${stringStyle}`
 }
 
 export const transformVueComponent = (code: string) => {
