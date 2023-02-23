@@ -40,7 +40,7 @@ export default defineComponent({
     stepIndex: { type: Number, required: true },
     navigationDisabled: { type: Boolean, required: true },
     nextDisabled: { type: Boolean, required: true },
-    isFocused: { type: Boolean, required: true },
+    focus: { type: Object, required: true },
     stepControls: { type: Object as PropType<StepControls>, required: true },
   },
   emits: ['update:modelValue'],
@@ -59,11 +59,11 @@ export default defineComponent({
       'navigation-disabled': props.navigationDisabled,
     }))
 
-    watch(() => props.isFocused, () => {
-      if (props.isFocused) {
+    watch(() => props.focus, () => {
+      if (props.focus.force) {
         nextTick(() => stepElement.value?.focus())
       }
-    })
+    }, { deep: true })
 
     return {
       stepElement,
@@ -71,8 +71,9 @@ export default defineComponent({
       stepperColor,
       getColor,
       computedClass,
+
       ariaAttributesComputed: computed(() => ({
-        tabindex: props.isFocused ? 0 : undefined,
+        tabindex: props.focus.stepIndex === props.stepIndex && !props.navigationDisabled ? 0 : undefined,
         'aria-disabled': props.step.disabled || isNextStepDisabled(props.stepIndex) ? true : undefined,
         'aria-current': props.modelValue === props.stepIndex ? t('step') : undefined,
       })),
