@@ -2,16 +2,6 @@
   <div>
     <HeaderBanner wrapped />
     <header class="header">
-      <!--    <div class="header__banner">-->
-      <!--      <div>-->
-      <!--        🔥🔥🔥-->
-      <!--        <span class="pl-2">-->
-      <!--          {{ $t('landing.header.banner.text') }}-->
-      <!--        </span>-->
-      <!--      </div>-->
-      <!--      <a href="https://www.producthunt.com/posts/vuestic-ui" target="_blank" class="header__banner-btn">Launch page 🚀-->
-      <!--      </a>-->
-      <!--    </div>-->
       <div class="header__wrapper">
         <div class="header__inner">
           <div class="header__logo">
@@ -25,26 +15,6 @@
                 aria-hidden="true"
               />
             </a>
-            <div
-              class="menu"
-              :style="{position: !isHidden ? 'fixed' : 'absolute'}"
-              @click="isHidden = !isHidden"
-            >
-              <img
-                v-if="!isHidden"
-                src="/landing/hamburger.svg"
-                alt="Open menu"
-                height="24px"
-                width="24px"
-              >
-              <img
-                v-else
-                src="/landing/cross.svg"
-                alt="Close menu"
-                height="24px"
-                width="24px"
-              >
-            </div>
           </div>
           <nav class="header__links">
             <!-- vuestic buttons -->
@@ -90,10 +60,29 @@
             />
           </nav>
           <!-- mobile -->
+          <div
+            class="menu"
+            v-if="isHidden"
+            @click="isHidden = false"
+          >
+            <img
+              src="/landing/hamburger.svg"
+              alt="Open menu"
+            >
+          </div>
           <nav
             class="mobile-menu"
             :class="{'mobile-menu--open': !isHidden}"
           >
+            <div
+              class="menu"
+              @click="isHidden = true"
+            >
+              <img
+                src="/landing/cross.svg"
+                alt="Close menu"
+              >
+            </div>
             <va-list>
               <va-list-item>
                 <va-list-item-section class="mobile-menu__link">
@@ -288,6 +277,8 @@ export default defineComponent({
   right: 1.5rem;
   top: 1.5rem;
   z-index: 1000;
+  height: 24px;
+  width: 24px;
   display: none;
   cursor: pointer;
 
@@ -349,8 +340,12 @@ export default defineComponent({
   @include sm(background-color, #fff);
   @include sm(padding, 1rem 0);
   @include sm(position, fixed);
+  @include sm(z-index, 10);
   @include sm(top, 0);
   @include sm(left, 0);
+  &__close-btn {
+
+  }
 
   .va-list-item {
     margin-bottom: 0.5rem;
