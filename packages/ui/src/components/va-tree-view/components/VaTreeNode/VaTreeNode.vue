@@ -48,7 +48,7 @@
             <va-icon :name="iconComputed" size="small" />
           </slot>
         </div>
-        <div class="va-tree-node-content__body">
+        <div class="va-tree-node-content__body" :class="cursorClassComputed">
           <slot name="content" v-bind="$props.node">{{ labelComputed }}</slot>
         </div>
       </div>
@@ -126,6 +126,10 @@ export default defineComponent({
       indent: props.node.hasChildren === false,
     }))
 
+    const cursorClassComputed = useBem('va-tree-node-content', () => ({
+      cursor: (props.node.hasChildren === true && expandNodeBy === 'node'),
+    }))
+
     const tabIndexComputed = computed(() => props.node.disabled ? -1 : 0)
 
     const onNodeClick = (type: typeof expandNodeBy) => {
@@ -158,6 +162,7 @@ export default defineComponent({
       isExpandedComputed,
       expandedClassComputed,
       treeNodeClassComputed,
+      cursorClassComputed,
     }
   },
 })
@@ -239,6 +244,10 @@ export default defineComponent({
       cursor: pointer;
       pointer-events: all;
     }
+  }
+
+  &--cursor {
+    cursor: var(--va-tree-node-cursor-type);
   }
 
   &:focus-visible > .va-tree-node-root {
