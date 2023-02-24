@@ -3782,6 +3782,18 @@
         "styles": "Styles",
         "stylesDescription": "* All typography classes now have `va` prefix. For instance: link renamed to `va-link`, `text--right` renamed to `va-text-right`",
         "typography_1": "* `display-1` has been renamed to `va-h1`, same for 2 to 6"
+      },
+      "1_6": {
+        "components": "Components",
+        "navbar": "* `center` slot was replaced with default one;\n * default (`center`) slot is now visible on mobiles.",
+        "innerLoading": "CSS variables names were changed.",
+        "scrollContainer": "`size` prop acceptable values names were changed.",
+        "image": "Component was reworked. Suggest to check all places of usage.",
+        "extensions": "Extensions",
+        "aggrid_0": "Ag Grid",
+        "aggrid_1": "Removed SCSS mixins for Vuestic UI theme customization.",
+        "styles": "Styles",
+        "grid": "Vuestic UI grid helpers were deprecated. Use Tailwind CSS instead."
       }
     }
   },
