@@ -127,7 +127,7 @@ export default defineComponent({
     }))
 
     const cursorClassComputed = useBem('va-tree-node-content', () => ({
-      cursor: (props.node.hasChildren === true && expandNodeBy === 'node'),
+      expandable: (props.node.hasChildren === true && expandNodeBy === 'node'),
     }))
 
     const tabIndexComputed = computed(() => props.node.disabled ? -1 : 0)
@@ -246,8 +246,8 @@ export default defineComponent({
     }
   }
 
-  &--cursor {
-    cursor: var(--va-tree-node-cursor-type);
+  &--expandable {
+    cursor: pointer;
   }
 
   &:focus-visible > .va-tree-node-root {
