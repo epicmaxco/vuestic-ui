@@ -61,7 +61,7 @@
             target="blank"
             preset="plain"
           >
-            <va-icon class="mdi mdi-github" />
+            <va-icon class="fa fa-github" />
           </va-button>
           <va-button
             class="footer__social__item"
@@ -70,7 +70,7 @@
             target="blank"
             preset="plain"
           >
-            <va-icon class="mdi mdi-discord" />
+            <va-icon class="fa fa-discord" />
           </va-button>
           <va-button
             class="footer__social__item"
@@ -79,7 +79,7 @@
             target="blank"
             preset="plain"
           >
-            <va-icon class="mdi mdi-facebook" />
+            <va-icon class="fa fa-facebook" />
           </va-button>
           <va-button
             class="footer__social__item"
@@ -88,7 +88,7 @@
             target="blank"
             preset="plain"
           >
-            <va-icon class="mdi mdi-twitter" />
+            <va-icon class="fa fa-twitter" />
           </va-button>
         </div>
         <div class="footer__subtitle">
@@ -126,6 +126,12 @@ const currentYear = new Date().getFullYear()
 const IconEpicmaxRaw = markRaw(IconEpicmax)
 const IconAdminRaw = markRaw(IconAdmin)
 const IconSpinnersRaw = markRaw(IconSpinners)
+
+useHead({
+  link: [
+    { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" },
+  ]
+})
 </script>
 
 <style lang="scss" scoped>
