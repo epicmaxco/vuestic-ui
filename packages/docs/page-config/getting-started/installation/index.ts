@@ -50,6 +50,22 @@ export default definePageConfig({
     block.code("quick-start.ts"),
 
     block.headline("installation.migrationGuide.title"),
+
+    // Follow migration guide order from newer to older
+    block.collapse("1.5 -> 1.6", [
+      block.subtitle("installation.migrationGuide.1_6.components"),
+      block.headline("VaNavbar"),
+      block.paragraph("installation.migrationGuide.1_6.navbar"),
+      block.headline("VaInnerLoading"),
+      block.paragraph("installation.migrationGuide.1_6.innerLoading"),
+      block.headline("VaScrollContainer"),
+      block.paragraph("installation.migrationGuide.1_6.scrollContainer"),
+      block.subtitle("installation.migrationGuide.1_6.extensions"),
+      block.headline("installation.migrationGuide.1_6.aggrid_0"),
+      block.paragraph("installation.migrationGuide.1_6.aggrid_1"),
+      block.subtitle("installation.migrationGuide.1_6.styles"),
+      block.paragraph("installation.migrationGuide.1_6.grid"),
+    ]),
     block.collapse("1.4 -> 1.5", [
       block.subtitle("installation.migrationGuide.1_5.components"),
       block.headline("VaButton"),
@@ -64,20 +80,6 @@ export default definePageConfig({
       block.subtitle("installation.migrationGuide.1_5.styles"),
       block.paragraph("installation.migrationGuide.1_5.stylesDescription"),
       block.paragraph("installation.migrationGuide.1_5.typography_1"),
-    ]),
-    block.collapse("1.5 -> 1.6", [
-      block.subtitle("installation.migrationGuide.1_6.components"),
-      block.headline("VaNavbar"),
-      block.paragraph("installation.migrationGuide.1_6.navbar"),
-      block.headline("VaInnerLoading"),
-      block.paragraph("installation.migrationGuide.1_6.innerLoading"),
-      block.headline("VaScrollContainer"),
-      block.paragraph("installation.migrationGuide.1_6.scrollContainer"),
-      block.subtitle("installation.migrationGuide.1_6.extensions"),
-      block.headline("installation.migrationGuide.1_6.aggrid_0"),
-      block.paragraph("installation.migrationGuide.1_6.aggrid_1"),
-      block.subtitle("installation.migrationGuide.1_6.styles"),
-      block.paragraph("installation.migrationGuide.1_6.grid"),
     ]),
 
     block.subtitle("installation.codesandbox.title"),
