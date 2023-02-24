@@ -273,7 +273,7 @@ export default defineComponent({
   &__content {
     position: var(--va-image-content-position);
     inset: 0;
-    width: var(--va-image-content-width);
+    width: 100%;
 
     img {
       width: 100%;
