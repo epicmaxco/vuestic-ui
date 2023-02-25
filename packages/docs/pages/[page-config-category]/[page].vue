@@ -19,7 +19,7 @@ definePageMeta({
 })
 
 const route = useRoute();
-const { locale, t } = useI18n()
+const { locale, t, mergeLocaleMessage } = useI18n()
 
 const pageConfigName = computed(() => {
   const path = route.path
@@ -39,6 +39,12 @@ watchEffect(() => {
   const configTitle = config.value?.blocks.find((block) => block.type === 'title') as ConcreteBlock<'title'> | undefined
 
   const tabTitle = configTitle?.text || config.value?.meta?.title
+
+  const translationKey = pageConfigName.value.split('/').slice(-1)[0]
+
+  mergeLocaleMessage(locale.value, {
+    [translationKey]: config.value?.translations?.[locale.value]
+  })
 
   useHead({
     title: tabTitle ? `${tabTitlePrefix} - ${t(tabTitle)}` : tabTitlePrefix,
