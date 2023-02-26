@@ -2,7 +2,7 @@
   <div class="va-input-css-example">
     <va-input
       class="mr-3"
-      input-class="text--right color mb-2"
+      input-class="va-text-right color mb-2"
       :model-value="$t('input.examples.inputClass.exampleTexts[0]')"
     />
     <va-input
