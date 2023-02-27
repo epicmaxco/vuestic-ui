@@ -127,7 +127,7 @@ export default defineComponent({
     }))
 
     const cursorClassComputed = useBem('va-tree-node-content', () => ({
-      expandable: (props.node.hasChildren === true && expandNodeBy === 'node'),
+      clickable: (props.node.hasChildren === true && expandNodeBy === 'node'),
     }))
 
     const tabIndexComputed = computed(() => props.node.disabled ? -1 : 0)
@@ -220,6 +220,10 @@ export default defineComponent({
     &--indent {
       margin-left: var(--va-tree-node-indent);
     }
+
+    &--clickable {
+      cursor: pointer;
+    }
   }
 
   &-children {
@@ -244,10 +248,6 @@ export default defineComponent({
       cursor: pointer;
       pointer-events: all;
     }
-  }
-
-  &--expandable {
-    cursor: pointer;
   }
 
   &:focus-visible > .va-tree-node-root {
