@@ -2894,7 +2894,7 @@
       },
       "inputClass": {
         "title": "Input Class",
-        "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `text--center` and `text--right` to align the center or right.",
+        "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `va-text-center` and `va-text-right` to align the center or right.",
         "exampleTexts": [
           "This input must have right-aligned green text with bottom indent.",
           "Native input element must have green text. VaInput wrapper has a gray border."

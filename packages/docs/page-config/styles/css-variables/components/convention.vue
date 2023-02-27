@@ -12,7 +12,7 @@
   color: var(--va-dark);
 }
 
-.text--highlighted {
+.va-text-highlighted {
   padding: 0 4px;
 }
 </style>
