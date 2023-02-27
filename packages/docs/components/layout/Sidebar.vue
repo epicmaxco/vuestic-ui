@@ -238,8 +238,5 @@ export default defineComponent({
       }
     }
   }
-
-  // two safari mobile panels, 44px each, can be both bottom
-  @include md(padding-bottom, 5.5rem);
 }
 </style>
