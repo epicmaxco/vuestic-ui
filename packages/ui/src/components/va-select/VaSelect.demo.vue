@@ -265,6 +265,19 @@
         label="No options"
         :options="[]"
       />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        label="Existing falsy options"
+        :options="[false, 0]"
+      />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        label="Existing falsy options object"
+        value-by="value"
+        :options="[{ text: 0, value: false }, { value: 0, text: false }]"
+      />
     </VbCard>
     <VbCard title="html select for example">
       <select>

@@ -199,7 +199,7 @@ export default defineComponent({
     ...useAutocompleteProps,
 
     modelValue: {
-      type: [String, Number, Array, Object] as PropType<SelectOption | SelectOption[]>,
+      type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>,
       default: '',
     },
 
@@ -274,7 +274,7 @@ export default defineComponent({
         const value = getOptionByValue(props.modelValue)
 
         if (Array.isArray(value)) {
-          warn('Model value should be a string or a number for a single Select.')
+          warn('Model value should be a string, number, boolean or an object for a single Select.')
 
           if (value.length) {
             return value.at(-1)
@@ -284,11 +284,11 @@ export default defineComponent({
         return value
       },
 
-      set (value: SelectOption | SelectOption[]) {
-        if (Array.isArray(value)) {
-          emit('update:modelValue', value.map(getValue))
+      set (option: SelectOption | SelectOption[]) {
+        if (Array.isArray(option)) {
+          emit('update:modelValue', option.map(getValue))
         } else {
-          emit('update:modelValue', getValue(value))
+          emit('update:modelValue', getValue(option))
         }
       },
     })
@@ -378,17 +378,17 @@ export default defineComponent({
       if (props.multiple && isValueComputedArray(valueComputed)) {
         const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections))
 
-        const isSelected = checkIsOptionSelected(getValue(option))
+        const isSelected = checkIsOptionSelected(option)
 
         if (isSelected) {
           // Unselect
-          valueComputed.value = valueComputed.value.filter((optionSelected) => !compareOptions(getValue(option), getValue(optionSelected)))
+          valueComputed.value = valueComputed.value.filter((optionSelected) => !compareOptions(option, optionSelected))
         } else {
           if (exceedsMaxSelections()) { return }
           valueComputed.value = addOption(option)
         }
       } else {
-        valueComputed.value = typeof option === 'string' || typeof option === 'number' ? option : { ...option }
+        valueComputed.value = typeof option !== 'object' ? option : { ...option }
         hideAndFocus()
       }
 
@@ -413,7 +413,7 @@ export default defineComponent({
     const hoveredOption = ref<SelectOption | null>(null)
 
     const selectHoveredOption = () => {
-      if (!hoveredOption.value && hoveredOption.value !== 0) { return }
+      if (!hoveredOption.value && hoveredOption.value !== 0 && hoveredOption.value !== false) { return }
 
       if (!showDropdownContent.value) {
         // We can not select options if they are hidden
@@ -571,7 +571,7 @@ export default defineComponent({
     }))
 
     const optionsListPropsComputed = computed(() => ({
-      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'delay']),
+      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'valueBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'delay']),
       autoSelectFirstOption: props.autoSelectFirstOption || props.autocomplete,
       search: searchInput.value || autocompleteValue.value,
       tabindex: tabIndexComputed.value,

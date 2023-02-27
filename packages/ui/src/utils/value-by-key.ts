@@ -7,7 +7,12 @@ K extends keyof T
         ? GetTypeByPath<T[TKey], Rest>
         : undefined
 
-// Find value in the object with an array of keys
+/**
+ * Resolve the path to the target property inside the provided object.
+ *
+ * @param option - Object to look properties inside.
+ * @param propsArray - Ordered array of strings, where each string should correspond to one of the property names at the current level of the object.
+ */
 export const getNestedValue = (option: Record<string, any>, propsArray: string[]): any => {
   if (propsArray.length === 0) { return option }
 
@@ -24,8 +29,8 @@ export const getNestedValue = (option: Record<string, any>, propsArray: string[]
 /**
  * Finds value in the object using string with dots 'key.key.key'
  *
- * @param option
- * @param prop
+ * @param option - Object to look properties inside.
+ * @param prop - String that contains a path to the property.
  */
 export const getValueByPath = <
   Key extends string, T extends Record<string | Key, unknown>
@@ -46,10 +51,10 @@ export const getValueByPath = <
 export const getValueByKey = <
   Option extends Record<string, unknown>, R
 >(
-    option: Option | string | number | ((...args: any[]) => any),
+    option: Option | string | boolean | number | ((...args: any[]) => any),
     prop: string | ((option: Option) => R),
   ) => {
-  if (!option || typeof option !== 'object' || Array.isArray(option)) { return undefined }
+  if ((!option && option !== 0 && option !== false) || typeof option !== 'object' || Array.isArray(option)) { return undefined }
 
   if (!prop) { return option }
   if (typeof prop === 'string') { return getValueByPath(option, prop) }

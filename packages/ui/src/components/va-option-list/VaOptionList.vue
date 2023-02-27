@@ -7,7 +7,7 @@
     <ul class="va-option-list__list">
       <li
         v-for="option in $props.options"
-        :key="getKey(option)"
+        :key="getTrackBy(option)"
       >
         <slot v-bind="{ option, selectedValue, isDisabled, getText, getValue }">
           <va-radio
@@ -45,7 +45,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, onMounted } from 'vue'
-import pick from 'lodash/pick'
+import pick from 'lodash/pick.js'
 
 import { __DEV__ } from '../../utils/env'
 import {
@@ -119,8 +119,6 @@ export default defineComponent({
       },
     })
 
-    const getKey = (option: SelectableOption) => getTrackBy(option)
-
     const isDisabled = (option: SelectableOption) => props.disabled || getDisabled(option)
 
     const reset = () => withoutValidation(() => {
@@ -158,7 +156,7 @@ export default defineComponent({
       computedErrorMessages,
       getValue,
       getText,
-      getKey,
+      getTrackBy,
       isDisabled,
       reset,
       focus,
