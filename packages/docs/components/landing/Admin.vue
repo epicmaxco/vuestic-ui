@@ -40,8 +40,8 @@
             <img
               src="/landing/admin/admin.png"
               alt="Vuestic Admin"
-              height="555px"
-              width="875px"
+              height="555"
+              width="875"
             >
           </div>
           <div class="admin__content__item admin__content__item--second">
@@ -52,8 +52,8 @@
                   <img
                     src="/landing/admin/open-source.svg"
                     alt="Open source"
-                    height="32px"
-                    width="32px"
+                    height="32"
+                    width="32"
                   >
                 </div>
                 <h2 class="item__title">
@@ -66,8 +66,8 @@
                   <img
                     src="/landing/admin/themes.svg"
                     alt="Themes"
-                    height="32px"
-                    width="32px"
+                    height="32"
+                    width="32"
                   >
                 </div>
                 <h2 class="item__title">
@@ -80,8 +80,8 @@
                   <img
                     src="/landing/admin/responsive.svg"
                     alt="Responsive"
-                    height="32px"
-                    width="32px"
+                    height="32"
+                    width="32"
                   >
                 </div>
                 <h2 class="item__title">
@@ -94,8 +94,8 @@
                   <img
                     src="/landing/admin/i18n.svg"
                     alt="i18n"
-                    height="32px"
-                    width="32px"
+                    height="32"
+                    width="32"
                   >
                 </div>
                 <h2 class="item__title">
