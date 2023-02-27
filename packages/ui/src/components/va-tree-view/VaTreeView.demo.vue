@@ -159,6 +159,15 @@
         </template>
       </va-tree-view>
     </VbCard>
+
+    <VbCard title="Expand by node">
+      <va-tree-view
+        :nodes="nodesChecked"
+        expand-all
+        selectable
+        expand-node-by="node"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
