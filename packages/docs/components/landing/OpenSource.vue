@@ -10,8 +10,8 @@
             <img
               src="/landing/icon-open-source.svg"
               alt="Open source"
-              height="100px"
-              width="100px"
+              height="100"
+              width="100"
             >
           </div>
           <h2 class="opensource__title">
@@ -40,8 +40,8 @@
           <img
             src="/landing/image-open-source.png"
             alt="Open source"
-            height="446px"
-            width="632px"
+            height="446"
+            width="632"
           >
         </div>
       </div>
@@ -76,7 +76,7 @@ export default defineComponent({
   position: relative;
   padding-top: 10rem;
   padding-bottom: 10rem;
-  background-image: url("@/public/landing/pattern-2.svg");
+  background-image: url("/landing/pattern-2.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top;
