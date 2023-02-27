@@ -3,103 +3,65 @@
     class="va-form"
     :is="tag"
   >
-    <slot />
+    <slot v-bind="{ isValid }" />
   </component>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, onMounted, onUnmounted, nextTick, provide, inject } from 'vue'
+import { defineComponent, watch, PropType } from 'vue'
 
 import { FormServiceKey, FormChild, Form } from './consts'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useForm } from './composables/useForm'
 
 const isVaForm = (value: any): value is Form => !!value.focusInvalid
 
 export default defineComponent({
   name: 'VaForm',
-  emits: ['validation'],
   props: {
     ...useComponentPresetProp,
     autofocus: { type: Boolean, default: false },
     tag: { type: String, default: 'div' },
+    trigger: { type: String as PropType<'blur' | 'change'>, default: 'blur' },
+    modelValue: { type: Boolean, default: true },
   },
 
+  emits: ['update:modelValue'],
+
   setup (props, { emit }) {
-    const nestedFormElements: Ref<(FormChild | Form)[]> = ref([])
+    const {
+      isValid,
+      reset,
+      resetValidation,
+      focus,
+      focusInvalid,
+      validate,
+    } = useForm()
 
-    const parentFormProvider = () => inject(FormServiceKey, undefined)
-
-    provide(FormServiceKey, {
-      onChildMounted: (child: FormChild | Form) => childMountedHandler(child),
-      onChildUnmounted: (removableChild: FormChild | Form) => childUnmountedHandler(removableChild),
+    watch(isValid, (value) => {
+      emit('update:modelValue', value)
     })
 
-    const childMountedHandler = (child: FormChild | Form) => {
-      nestedFormElements.value.push(child)
-    }
-
-    const childUnmountedHandler = (removableChild: FormChild | Form) => {
-      nestedFormElements.value = nestedFormElements.value.filter(child => child !== removableChild)
-    }
-
-    /** @public */
-    const reset = () => {
-      nestedFormElements.value
-        .filter(({ reset }) => reset)
-        .forEach((item) => { item.reset() })
-    }
-
-    const resetValidation = () => {
-      nestedFormElements.value
-        .filter(({ resetValidation }) => resetValidation)
-        .forEach((item: any) => { item.resetValidation() })
-    }
-
-    const focus = () => { nestedFormElements.value.find(({ focus }) => focus)?.focus() }
-
-    const focusInvalid = () => {
-      const invalidComponent = nestedFormElements.value
-        .find((item) => !isVaForm(item) && item.hasError())
-
-      if (invalidComponent) {
-        invalidComponent.focus()
-      } else {
-        nestedFormElements.value
-          .forEach(item => isVaForm(item) && item.focusInvalid())
+    watch(() => props.autofocus, (value) => {
+      if (value) {
+        focus()
       }
-    }
+    })
 
-    // validation for every nested child
-    const validate = () => { // NOTE: temporarily synchronous validation
-      const formValid = nestedFormElements.value
-        .filter(({ validate }) => validate)
-        .map((child) => child.validate()) // more readable than with 'forEach'
-        .every((isValid) => isValid)
+    watch(() => props.modelValue, (value) => {
+      if (!value) {
+        reset()
+      }
+    })
 
-      emit('validation', formValid)
-
-      return formValid
-    }
-
-    const publicMethods: Form = {
+    return {
+      isValid,
       reset,
       resetValidation,
       focus,
       focusInvalid,
       validate,
     }
-
-    onMounted(() => {
-      parentFormProvider()?.onChildMounted?.(publicMethods)
-
-      if (props.autofocus) { nextTick(focus) }
-    })
-
-    onUnmounted(() => {
-      parentFormProvider()?.onChildUnmounted?.(publicMethods)
-    })
-
-    return publicMethods
   },
 })
 </script>
