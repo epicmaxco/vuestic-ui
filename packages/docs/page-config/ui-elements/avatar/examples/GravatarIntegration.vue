@@ -19,7 +19,7 @@ const EMAIL_LIST = [
 
 const AVATAR_OPTIONS = ['404', 'mp', 'identicon', 'monsterid', 'wavatar', 'retro', 'robohash', 'blank']
 
-const getRandomAvatarOption = () => AVATAR_OPTIONS[Math.floor(Math.random(0) * AVATAR_OPTIONS.length)]
+const getRandomAvatarOption = () => AVATAR_OPTIONS[Math.floor(Math.random() * AVATAR_OPTIONS.length)]
 
 // See Gravatar image request parameters here: https://en.gravatar.com/site/implement/images/
 const getGravatarUrl = (hash) => `https://gravatar.com/avatar/${hash}?s=200&d=${getRandomAvatarOption()}&r=g`
