@@ -14,9 +14,12 @@ COPY ./../templates/configs/main-base.js ./main.js
 WORKDIR /vite-app
 RUN yarn build
 
-FROM nginx:stable-alpine
-COPY --from=build /vite-app/dist /usr/share/nginx/html
-COPY ./../templates/configs/nginx.conf /etc/nginx/conf.d/default.conf
+FROM node:lts-alpine as serve
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+WORKDIR /server
+RUN yarn global add serve
+
+COPY --from=build /vite-app/dist /server/dist
+
+EXPOSE 3000
+CMD ["serve", "./dist"]

@@ -6,20 +6,20 @@ COPY ./../templates/configs/vuerc.json /vuerc.json
 RUN vue create --preset /vuerc.json app-webpack
 
 WORKDIR /app-webpack
+COPY ./../templates/src src
+COPY ./../templates/configs/shims-vue.d.ts src/shims-vue.d.ts
+COPY ./../templates/configs/main-base.js src/main.ts
+
 RUN yarn add vuestic-ui@file:/local-vuestic
 RUN yarn add material-design-icons-iconfont -D
-
-WORKDIR /app-webpack/src
-COPY ./../templates/src .
-COPY ./../templates/configs/shims-vue.d.ts ./shims-vue.d.ts
-COPY ./../templates/configs/main-base.js ./main.ts
-
-WORKDIR /app-webpack
 RUN yarn build
 
-FROM nginx:stable-alpine
-COPY --from=build /app-webpack/dist /usr/share/nginx/html
-COPY ./../templates/configs/nginx.conf /etc/nginx/conf.d/default.conf
+FROM node:lts-alpine as serve
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+WORKDIR /server
+RUN yarn global add serve
+
+COPY --from=build /app-webpack/dist /server/dist
+
+EXPOSE 3000
+CMD ["serve", "./dist"]

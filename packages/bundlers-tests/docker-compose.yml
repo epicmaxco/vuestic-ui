@@ -27,7 +27,7 @@ services:
       dockerfile: ./docker-tests/vite.Dockerfile
       no_cache: true
     ports:
-      - "8080:80"
+      - "8080:3000"
     profiles:
       - "vite"
       - "run-vite"
@@ -37,7 +37,7 @@ services:
       dockerfile: ./docker-tests/vite-cjs.Dockerfile
       no_cache: true
     ports:
-      - "8080:80"
+      - "8080:3000"
     profiles:
       - "vite-cjs"
       - "run-vite-cjs"
@@ -57,7 +57,7 @@ services:
       dockerfile: ./docker-tests/webpack.Dockerfile
       no_cache: true
     ports:
-      - "8080:80"
+      - "8080:3000"
     profiles:
       - "webpack"
       - "run-webpack"
@@ -88,7 +88,7 @@ services:
     depends_on:
       - vite_test
     environment:
-      - CYPRESS_baseUrl=http://vite_test:80
+      - CYPRESS_baseUrl=http://vite_test:3000
     profiles:
       - "vite"
   cypress_vite_cjs:
@@ -98,7 +98,7 @@ services:
     depends_on:
       - vite_cjs_test
     environment:
-      - CYPRESS_baseUrl=http://vite_cjs_test:80
+      - CYPRESS_baseUrl=http://vite_cjs_test:3000
     profiles:
       - "vite-cjs"
 #  cypress_cli:
@@ -118,7 +118,7 @@ services:
     depends_on:
       - webpack_test
     environment:
-      - CYPRESS_baseUrl=http://webpack_test:80
+      - CYPRESS_baseUrl=http://webpack_test:3000
     profiles:
       - "webpack"
   cypress_nuxt_ssr:

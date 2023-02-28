@@ -3,9 +3,4 @@ describe("Home Page", () => {
     cy.visit("/")
     cy.screenshot()
   });
-
-  it("Visit tmp page", () => {
-    cy.visit("/tmp")
-    cy.screenshot()
-  });
 })
