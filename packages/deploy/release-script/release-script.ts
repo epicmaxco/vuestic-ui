@@ -216,6 +216,11 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
   await executeAndLog('git reset --hard HEAD')
 
   console.log(chalk.green('Released - 😎 GLORIOUS SUCCESS 😎'))
+
+  console.log(chalk.redBright('You next todo list:'))
+  console.log(chalk.white('- Update and release other packages (like nuxt, create-vuestic, etc)'))
+  console.log(chalk.white('- Merge docs to master'))
+  console.log(chalk.white('- Make release notes on github'))
 }
 
 const simplePrompt = async <T> (question: DistinctQuestion<T>): Promise<T> => {
