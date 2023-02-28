@@ -17,7 +17,7 @@ const EMAIL_LIST = [
   'example@domain.com',
 ]
 
-const AVATAR_OPTIONS = ['404', 'mp', 'identicon', 'monsterid', 'wavatar', 'retro', 'robohash', 'blank']
+const AVATAR_OPTIONS = ['mp', 'identicon', 'monsterid', 'wavatar', 'retro', 'robohash']
 
 const getRandomAvatarOption = () => AVATAR_OPTIONS[Math.floor(Math.random() * AVATAR_OPTIONS.length)]
 
