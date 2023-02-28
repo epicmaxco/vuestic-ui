@@ -20,8 +20,11 @@ export const main = async () => {
   const answers = await useUserAnswers()
 
   await scaffoldProject(answers)
-  await addVuestic(answers)
-  await addAgGrid(answers)
+
+  if (['create-vue', 'nuxt'].includes(answers.projectType)) {
+    await addVuestic(answers)
+    await addAgGrid(answers)
+  }
   await initGit()
   await installDeps()
 
