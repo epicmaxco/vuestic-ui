@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "types": ["cypress", "node"]
+  },
+  "exclude": ["./docker-tests"]
+}

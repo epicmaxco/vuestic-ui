@@ -13,6 +13,8 @@ import semver from 'semver'
 
 import inquirer, { DistinctQuestion } from 'inquirer'
 import chalk from 'chalk'
+import * as path from "path";
+import {spawn} from "node:child_process";
 
 export type ReleaseType = 'large' | 'tiny' | 'next' | 'experimental'
 
@@ -184,6 +186,10 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
     await executeAndLog('cd ../ui && npm run build')
   }
 
+  // **** run e2e tests
+
+  await runTests()
+
   // **** Update version strings ****
 
   console.log(chalk.white(`Bumping version to ${version}`))
@@ -249,6 +255,36 @@ const checkIfTooLate = async () => {
     }
     return result
   }
+
+const runTests = () => {
+  let resolve: any;
+  let reject: any
+  // can't use execCommand because of buffer output size, need spawn
+  const process = spawn("npm", ["run", "test"], {
+    cwd: path.resolve(__dirname, "../../bundlers-tests"),
+  });
+
+  process.stdout.on("data", (data: any) => console.log(data.toString()));
+
+  process.on("exit", (code: any) => {
+    if (code === 0) {
+      console.log(chalk.green('Tests passed, nice!'))
+      resolve()
+    } else {
+      console.log(chalk.red(`Something is wrong with tests. Tests exit code - ${code}`))
+      reject()
+    }
+  });
+  process.on('error', () => {
+    console.log(chalk.red('Tests failed!'))
+    reject()
+  })
+
+  return new Promise((res, rej) => {
+    resolve = res
+    reject = rej
+  });
+};
 
 ;(async () => {
   const releaseType = await inquireReleaseType()

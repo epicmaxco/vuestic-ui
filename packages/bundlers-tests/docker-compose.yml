@@ -1,0 +1,143 @@
+version: '3.2'
+
+x-base-cypress: &base-cypress
+  image: "cypress/included:10.11.0"
+  working_dir: /app-testing
+
+services:
+  local-packages-lts:
+    build:
+      context: ./../
+      dockerfile: ./bundlers-tests/docker-tests/packages-lts.Dockerfile
+      no_cache: true
+    image: "local-packages-lts:latest"
+    profiles:
+      - "local-packages-lts"
+  local-packages-16:
+    build:
+      context: ./../
+      dockerfile: ./bundlers-tests/docker-tests/packages-16.Dockerfile
+      no_cache: true
+    image: "local-packages-16:latest"
+    profiles:
+      - "local-packages-16"
+  vite_test:
+    build:
+      context: .
+      dockerfile: ./docker-tests/vite.Dockerfile
+      no_cache: true
+    ports:
+      - "8080:3000"
+    profiles:
+      - "vite"
+      - "run-vite"
+  vite_cjs_test:
+    build:
+      context: .
+      dockerfile: ./docker-tests/vite-cjs.Dockerfile
+      no_cache: true
+    ports:
+      - "8080:3000"
+    profiles:
+      - "vite-cjs"
+      - "run-vite-cjs"
+#  cli_test:
+#    build:
+#      context: .
+#      dockerfile: ./docker-tests/cli.Dockerfile
+#      no_cache: true
+#    ports:
+#      - "8080:80"
+#    profiles:
+#      - "cli"
+#      - "run-cli"
+  webpack_test:
+    build:
+      context: .
+      dockerfile: ./docker-tests/webpack.Dockerfile
+      no_cache: true
+    ports:
+      - "8080:3000"
+    profiles:
+      - "webpack"
+      - "run-webpack"
+  nuxt_ssr_test:
+    build:
+      context: .
+      dockerfile: ./docker-tests/nuxt-ssr.Dockerfile
+      no_cache: true
+    ports:
+      - "8080:3000"
+    profiles:
+      - "nuxt-ssr"
+      - "run-nuxt"
+  nuxt_spa_test:
+    build:
+      context: .
+      dockerfile: ./docker-tests/nuxt-spa.Dockerfile
+      no_cache: true
+    ports:
+      - "8080:3000"
+    profiles:
+      - "nuxt-spa"
+      - "run-nuxt"
+  cypress_vite:
+    <<: *base-cypress
+    volumes:
+      - ./docker-tests/vite:/app-testing
+    depends_on:
+      - vite_test
+    environment:
+      - CYPRESS_baseUrl=http://vite_test:3000
+    profiles:
+      - "vite"
+  cypress_vite_cjs:
+    <<: *base-cypress
+    volumes:
+      - ./docker-tests/vite-cjs:/app-testing
+    depends_on:
+      - vite_cjs_test
+    environment:
+      - CYPRESS_baseUrl=http://vite_cjs_test:3000
+    profiles:
+      - "vite-cjs"
+#  cypress_cli:
+#    <<: *base-cypress
+#    volumes:
+#      - ./docker-tests/cli:/app-testing
+#    depends_on:
+#      - cli_test
+#    environment:
+#      - CYPRESS_baseUrl=http://cli_test:80
+#    profiles:
+#      - "cli"
+  cypress_webpack:
+    <<: *base-cypress
+    volumes:
+      - ./docker-tests/webpack:/app-testing
+    depends_on:
+      - webpack_test
+    environment:
+      - CYPRESS_baseUrl=http://webpack_test:3000
+    profiles:
+      - "webpack"
+  cypress_nuxt_ssr:
+    <<: *base-cypress
+    volumes:
+      - ./docker-tests/nuxt-ssr:/app-testing
+    depends_on:
+      - nuxt_ssr_test
+    environment:
+      - CYPRESS_baseUrl=http://nuxt_ssr_test:3000
+    profiles:
+      - "nuxt-ssr"
+  cypress_nuxt_spa:
+    <<: *base-cypress
+    volumes:
+      - ./docker-tests/nuxt-spa:/app-testing
+    depends_on:
+      - nuxt_spa_test
+    environment:
+      - CYPRESS_baseUrl=http://nuxt_spa_test:3000
+    profiles:
+      - "nuxt-spa"
