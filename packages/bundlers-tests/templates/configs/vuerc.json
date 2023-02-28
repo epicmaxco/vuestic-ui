@@ -1,6 +1,7 @@
 {
   "useConfigFiles": false,
   "cssPreprocessor": "sass",
+  "useTaobaoRegistry": false,
   "plugins": {
     "@vue/cli-plugin-babel": {},
     "@vue/cli-plugin-typescript": {}

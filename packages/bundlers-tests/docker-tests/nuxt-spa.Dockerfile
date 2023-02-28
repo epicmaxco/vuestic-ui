@@ -9,8 +9,8 @@ RUN yarn add sass
 RUN yarn add vuestic-ui@file:/local-vuestic
 RUN yarn add material-design-icons-iconfont -D
 
-COPY ./../templates/src .
-COPY ./../templates/configs/nuxt-spa.config.ts ./nuxt.config.ts
+COPY /templates/src .
+COPY /templates/configs/nuxt-spa.config.ts ./nuxt.config.ts
 
 RUN yarn build
 

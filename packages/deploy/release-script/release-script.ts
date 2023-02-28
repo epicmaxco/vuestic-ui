@@ -13,6 +13,8 @@ import semver from 'semver'
 
 import inquirer, { DistinctQuestion } from 'inquirer'
 import chalk from 'chalk'
+import * as path from "path";
+import {spawn} from "node:child_process";
 
 export type ReleaseType = 'large' | 'tiny' | 'next' | 'experimental'
 
@@ -253,9 +255,33 @@ const checkIfTooLate = async () => {
     }
     return result
   }
-const runTests = async () => {
-  await executeAndLog('cd ./../bundlers-tests && npm run test')
-}
+
+const runTests = () => {
+  let resolve: any;
+  let reject: any
+  const { spawn } = require("node:child_process");
+
+  // can't use execCommand because of buffer output size, need spawn
+  const process = spawn("npm", ["run", "test"], {
+    cwd: path.resolve(__dirname, "../../bundlers-tests"),
+  });
+
+  process.stdout.on("data", (data: any) => console.log(data.toString()));
+
+  process.on("close", () => {
+    console.log(chalk.green('Tests passed, nice!'))
+    resolve()
+  });
+  process.on('error', () => {
+    console.log(chalk.red('Tests failed!'))
+    reject()
+  })
+
+  return new Promise((res, rej) => {
+    resolve = res
+    reject = rej
+  });
+};
 
 ;(async () => {
   const releaseType = await inquireReleaseType()

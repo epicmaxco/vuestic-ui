@@ -8,8 +8,8 @@ RUN yarn add material-design-icons-iconfont -D
 RUN yarn add sass
 
 WORKDIR /vite-app/src
-COPY ./../templates/src .
-COPY ./../templates/configs/main-cjs.js ./main.js
+COPY /templates/src .
+COPY /templates/configs/main-cjs.js ./main.js
 
 WORKDIR /vite-app
 RUN yarn build
