@@ -268,9 +268,14 @@ const runTests = () => {
 
   process.stdout.on("data", (data: any) => console.log(data.toString()));
 
-  process.on("close", () => {
-    console.log(chalk.green('Tests passed, nice!'))
-    resolve()
+  process.on("exit", (code: any) => {
+    if (code === 0) {
+      console.log(chalk.green('Tests passed, nice!'))
+      resolve()
+    } else {
+      console.log(chalk.red(`Something is wrong with tests. Tests exit code - ${code}`))
+      reject()
+    }
   });
   process.on('error', () => {
     console.log(chalk.red('Tests failed!'))
