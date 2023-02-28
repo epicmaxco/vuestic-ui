@@ -259,8 +259,6 @@ const checkIfTooLate = async () => {
 const runTests = () => {
   let resolve: any;
   let reject: any
-  const { spawn } = require("node:child_process");
-
   // can't use execCommand because of buffer output size, need spawn
   const process = spawn("npm", ["run", "test"], {
     cwd: path.resolve(__dirname, "../../bundlers-tests"),
