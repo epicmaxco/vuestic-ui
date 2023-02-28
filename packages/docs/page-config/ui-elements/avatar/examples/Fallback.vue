@@ -17,7 +17,7 @@ const { mergeGlobalConfig } = useGlobalConfig()
 mergeGlobalConfig({
   components: {
     VaAvatar: {
-      fallbackSrc: 'https://gravatar.com/avatar/',
+      fallbackSrc: 'https://randomuser.me/api/portraits/men/1.jpg',
     },
   },
 })
