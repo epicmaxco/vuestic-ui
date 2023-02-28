@@ -495,11 +495,12 @@
 
     <VbCard title="Expandable rows" class="demo">
       <va-data-table :items="evenItems">
-        <template #cell(id)="{ row }">
-          <va-button @click="row.toggleRowDetails()">Expand</va-button>
+        <template #cell(id)="{ row, isExpanded }">
+          <va-button @click="row.toggleRowDetails()">{{  isExpanded ? 'Collapse': 'Expand' }}</va-button>
         </template>
-        <template #rowDetails="row">
-          This is {{ row.cells[1].value }} details
+
+        <template #expandableRow="row">
+            This is {{ row.cells[0].value }} details.
         </template>
       </va-data-table>
     </VbCard>

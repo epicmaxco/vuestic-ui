@@ -4,8 +4,8 @@
     :columns="columns"
     striped
   >
-    <template #cell(actions)="{ row }">
-      <va-button @click="row.toggleRowDetails()">Expand</va-button>
+    <template #cell(actions)="{ row, isExpanded }">
+      <va-button @click="row.toggleRowDetails()">{{  isExpanded ? 'Collapse': 'Expand' }}</va-button>
     </template>
 
     <template #expandableRow="row">
