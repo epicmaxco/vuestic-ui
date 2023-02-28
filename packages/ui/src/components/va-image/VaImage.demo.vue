@@ -119,7 +119,8 @@
     <VbCard title="Landscape">
       <va-image
         class="image"
-        :src="getImagePath(100, 200)"
+        style="height: 100px;"
+        :src="getImagePath(200, 100)"
       />
     </VbCard>
 
