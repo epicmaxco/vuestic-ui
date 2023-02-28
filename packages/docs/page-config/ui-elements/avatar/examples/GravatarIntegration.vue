@@ -2,15 +2,40 @@
   <va-avatar-group
     :options="avatars"
     :max="3"
+    :loading="isLoading"
   />
 </template>
 
 <script setup>
-const avatars = [
-  { src: "https://gravatar.com/avatar/3838b0add3e16681872d58bc58707a82?s=400&d=retro&r=x" },
-  { src: "https://gravatar.com/avatar/358a8bdc1b84cb5c7328a3c35f63ed92?s=400&d=retro&r=x" },
-  { src: "https://gravatar.com/avatar/f2a8e4f4b863fb1f491cccccd43efc91?s=400&d=retro&r=x" },
-  { src: "https://gravatar.com/avatar/0a482032d3d01e3088270716ade64294?s=400&d=retro&r=x" },
-  { src: "https://gravatar.com/avatar/8288afc6dd30634665a7429c246104fc?s=400&d=retro&r=x" },
+import { onBeforeMount, ref } from 'vue'
+
+const EMAIL_LIST = [
+  'hello@epicmax.co',
+  'foo@bar.com',
+  'fizz@buzz.net',
+  'user@domain.com',
+  'example@domain.com',
 ]
+
+const AVATAR_OPTIONS = ['404', 'mp', 'identicon', 'monsterid', 'wavatar', 'retro', 'robohash', 'blank']
+
+const getRandomAvatarOption = () => AVATAR_OPTIONS[Math.floor(Math.random(0) * AVATAR_OPTIONS.length)]
+
+// See Gravatar image request parameters here: https://en.gravatar.com/site/implement/images/
+const getGravatarUrl = (hash) => `https://gravatar.com/avatar/${hash}?s=200&d=${getRandomAvatarOption()}&r=g`
+
+// Generate MD5 hash online here, but you can do it locally with any library you want to use
+const requestHash = (email) => fetch(`https://api.hashify.net/hash/md5/hex?=value${email}`).then(res => res.json())
+
+const isLoading = ref(true)
+const avatars = ref([])
+
+onBeforeMount(async () => {
+  const promised = await Promise.all(EMAIL_LIST.map(requestHash))
+
+  avatars.value = promised.map(({ Digest }) => ({
+    src: getGravatarUrl(Digest),
+  }))
+  isLoading.value = false
+})
 </script>
