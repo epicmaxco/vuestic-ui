@@ -42,11 +42,11 @@
 
 <style>
   .va-data-table__table-tr--expanded td {
-    background-color: var(--va-background-element);
+    background: var(--va-background-border);
   }
 
   .va-data-table__table-expanded-content td {
-    background: var(--va-background-border);
+    background-color: var(--va-background-element);
   }
 </style>
 
