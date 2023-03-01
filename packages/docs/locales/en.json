@@ -1048,6 +1048,7 @@
         "headerAppend": "Appends custom rows inside table header (`thead`)",
         "bodyPrepend": "Prepends `tbody` with custom rows",
         "cell": "Targets all the cells. Is bound to the current cell (to it internal representation)",
+        "expandableRow": "Targets all the row. Adds an expandable row underneath. To trigger expansion use `row.toggleExpandableRow`",
         "cellKey": "Allows to target only cells of a specified by the given `key` column. Is bound to the current cell",
         "bodyAppend": "Appends rows to the table's `tbody`",
         "footerPrepend": "Prepends rows to the table's `tfoot`",
@@ -4583,6 +4584,10 @@
       "virtualScroll": {
         "title": "Virtual scroll",
         "text": "The `virtual-scroller` prop enables virtual scroll for `tbody` rows ([read more](/ui-elements/virtual-scroll)). Pay your attention, that CSS transition is disabled here because of possible performance problems."
+      },
+      "expandableRow": {
+        "title": "Expandable rows",
+        "text": "Each row could can be additionally expanded by providing `expandableRow` slot. Slot expansion is triggered by `row.toggleExpandableRow` slot property"
       },
       "other": {
         "title": "Other",
