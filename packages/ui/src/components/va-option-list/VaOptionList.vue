@@ -47,7 +47,6 @@
 import { computed, defineComponent, PropType, onMounted } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { __DEV__ } from '../../utils/env'
 import {
   useComponentPresetProp,
   useSelectableList, useSelectableListProps, SelectableOption,
@@ -55,6 +54,8 @@ import {
   useStateful, useStatefulProps, useStatefulEmits,
   useArrayRefs,
 } from '../../composables'
+
+import { __DEV__ } from '../../utils/env'
 
 import { VaMessageListWrapper } from '../va-input'
 import { VaCheckbox } from '../va-checkbox'
