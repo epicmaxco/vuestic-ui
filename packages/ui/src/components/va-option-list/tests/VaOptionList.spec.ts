@@ -12,48 +12,59 @@ describe('VaOptionList', () => {
     expect(wrapper.exists()).toBeTruthy()
   })
 
-  describe('`selectedValue` should use `defaultValue` and interpret `useSelectableProps`', () => {
-    const entries = [
-      {
-        defaultValue: { id: 1, name: 'one', value: 2, disabled: true },
-        expected: [true, 'one', 2, 2],
+  it('should correctly set the new selected value', () => {
+    const wrapper: VueWrapper<any> = shallowMountWithGlobalConfig(VaOptionList, {
+      attrs: {
+        stateful: true,
+        valueBy: 'value',
+        type: 'radio',
       },
-      {
-        defaultValue: 'one',
-        expected: [false, 'one', 'one', 'one'],
-      },
-      {
-        defaultValue: 0,
-        expected: [false, '0', 0, 0],
-      },
-      {
-        defaultValue: false,
-        expected: [false, 'false', false, false],
-      },
-    ]
+    })
 
-    entries.forEach(({ defaultValue, expected }) => {
-      const wrapper: VueWrapper<any> = shallowMountWithGlobalConfig(VaOptionList, {
-        attrs: {
-          stateful: true,
-          disabledBy: 'disabled',
-          textBy: 'name',
-          valueBy: 'value',
-          defaultValue,
-          type: 'radio',
-        },
-      })
+    wrapper.vm.selectedValue = { value: 3 }
+    expect(wrapper.vm.selectedValue).toBe(3)
+  })
 
-      it('should return `defaultValue`', async () => {
-        expect(wrapper.vm.selectedValue).toEqual(defaultValue)
-      })
+  const entries = [
+    {
+      defaultValue: { id: 1, name: 'one', value: 2, disabled: true },
+      expected: [true, 'one', 2, 2],
+    },
+    {
+      defaultValue: 'one',
+      expected: [false, 'one', 'one', 'one'],
+    },
+    {
+      defaultValue: 0,
+      expected: [false, '0', 0, 0],
+    },
+    {
+      defaultValue: false,
+      expected: [false, 'false', false, false],
+    },
+  ]
 
-      it('should correctly interpret `useSelectableProps`', () => {
-        expect(wrapper.vm.isDisabled(wrapper.vm.selectedValue)).toBe(expected[0])
-        expect(wrapper.vm.getText(wrapper.vm.selectedValue)).toBe(expected[1])
-        expect(wrapper.vm.getValue(wrapper.vm.selectedValue)).toBe(expected[2])
-        expect(wrapper.vm.getTrackBy(wrapper.vm.selectedValue)).toBe(expected[3])
-      })
+  entries.forEach(({ defaultValue, expected }) => {
+    const wrapper: VueWrapper<any> = shallowMountWithGlobalConfig(VaOptionList, {
+      attrs: {
+        stateful: true,
+        disabledBy: 'disabled',
+        textBy: 'name',
+        valueBy: 'value',
+        defaultValue,
+        type: 'radio',
+      },
+    })
+
+    it(`should return ${JSON.stringify(defaultValue)}`, async () => {
+      expect(wrapper.vm.selectedValue).toEqual(defaultValue)
+    })
+
+    it('should correctly interpret `useSelectableProps`', () => {
+      expect(wrapper.vm.isDisabled(wrapper.vm.selectedValue)).toBe(expected[0])
+      expect(wrapper.vm.getText(wrapper.vm.selectedValue)).toBe(expected[1])
+      expect(wrapper.vm.getValue(wrapper.vm.selectedValue)).toBe(expected[2])
+      expect(wrapper.vm.getTrackBy(wrapper.vm.selectedValue)).toBe(expected[3])
     })
   })
 
