@@ -3,7 +3,7 @@
     :items="items"
     :columns="columns"
   >
-    <template #header(street)="{ cell }">
+    <template #header(street)="{ label }">
       <va-chip size="small">
         {{ label }}
       </va-chip>
@@ -11,9 +11,9 @@
     <template #header(companyName)>
       Company Name
     </template>
-    <template #cell(street)="{ cell }">
+    <template #cell(street)="{ value }">
       <va-chip size="small">
-        {{ cell.value }}
+        {{ value }}
       </va-chip>
     </template>
   </va-data-table>

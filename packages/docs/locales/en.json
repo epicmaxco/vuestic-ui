@@ -4576,7 +4576,6 @@
       "expandableRow": {
         "title": "Expandable rows",
         "text": "Each row could can be additionally expanded by providing `expandableRow` slot. Slot expansion is triggered by `row.toggleExpandableRow` slot property"
-
       },
       "other": {
         "title": "Other",

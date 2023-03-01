@@ -50,8 +50,8 @@
         <template #header(address)>Street</template>
         <template #header(company)>Company Name</template>
 
-        <template #cell(address)="{ cell }">{{ cell.rowData.address.street }}</template>
-        <template #cell(company)="{ cell }">{{ cell.rowData.company.name }}</template>
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
       </va-data-table>
     </VbCard>
 
@@ -60,8 +60,8 @@
         <template #header(address)>Street</template>
         <template #header(company)>Company Name</template>
 
-        <template #cell(address)="{ cell }">{{ cell.rowData.address.street }}</template>
-        <template #cell(company)="{ cell }">{{ cell.rowData.company.name }}</template>
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
 
         <template #headerAppend>
           <tr>
@@ -89,8 +89,8 @@
         <template #header(address)>Street</template>
         <template #header(company)>Company Name</template>
 
-        <template #cell(address)="{ cell }">{{ cell.rowData.address.street }}</template>
-        <template #cell(company)="{ cell }">{{ cell.rowData.company.name }}</template>
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
 
         <template #colgroup>
           <col>
@@ -115,8 +115,8 @@
         <template #header(address)>Street</template>
         <template #header(company)>Company Name</template>
 
-        <template #cell(address)="{ cell }">{{ cell.rowData.address.street }}</template>
-        <template #cell(company)="{ cell }">{{ cell.rowData.company.name }}</template>
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
       </va-data-table>
     </VbCard>
 
@@ -202,8 +202,8 @@
         <template #header(address)>Street</template>
         <template #header(company)>Company Name</template>
 
-        <template #cell(address)="{ cell }">{{ cell.rowData.address.street }}</template>
-        <template #cell(company)="{ cell }">{{ cell.rowData.company.name }}</template>
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
       </va-data-table>
     </VbCard>
 
@@ -222,8 +222,8 @@
         <template #header(address)>Street</template>
         <template #header(company)>Company Name</template>
 
-        <template #cell(address)="{ cell }">{{ cell.rowData.address.street }}</template>
-        <template #cell(company)="{ cell }">{{ cell.rowData.company.name }}</template>
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
       </va-data-table>
     </VbCard>
 
@@ -239,8 +239,8 @@
         <template #header(address)>Street</template>
         <template #header(company)>Company Name</template>
 
-        <template #cell(address)="{ cell }">{{ cell.rowData.address.street }}</template>
-        <template #cell(company)="{ cell }">{{ cell.rowData.company.name }}</template>
+        <template #cell(address)="{ rowData }">{{ rowData.address.street }}</template>
+        <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
       </va-data-table>
     </VbCard>
   </VbDemo>

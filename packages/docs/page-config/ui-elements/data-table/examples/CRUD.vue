@@ -29,16 +29,16 @@
       </tr>
     </template>
 
-    <template #cell(actions)="{ cell }">
+    <template #cell(actions)="{ rowIndex }">
       <va-button
         preset="plain"
         icon="edit"
-        @click="openModalToEditItemById(cell.rowIndex)"
+        @click="openModalToEditItemById(rowIndex)"
       />
       <va-button
         preset="plain"
         icon="delete"
-        @click="deleteItemById(cell.rowIndex)"
+        @click="deleteItemById(rowIndex)"
       />
     </template>
   </va-data-table>

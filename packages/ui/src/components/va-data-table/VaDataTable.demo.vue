@@ -499,8 +499,8 @@
           <va-button @click="row.toggleRowDetails()">{{  isExpanded ? 'Collapse': 'Expand' }}</va-button>
         </template>
 
-        <template #expandableRow="row">
-            This is {{ row.cells[0].value }} details.
+        <template #expandableRow="{ cells }">
+            This is {{ cells[0].value }} details.
         </template>
       </va-data-table>
     </VbCard>

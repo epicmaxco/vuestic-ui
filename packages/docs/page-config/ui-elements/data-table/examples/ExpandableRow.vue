@@ -8,9 +8,9 @@
       <va-button @click="row.toggleRowDetails()">{{  isExpanded ? 'Collapse': 'Expand' }}</va-button>
     </template>
 
-    <template #expandableRow="row">
+    <template #expandableRow="{ cells }">
       <va-alert outline>
-        This is {{ row.cells[0].value }} details.
+        This is {{ cells[0].value }} details.
       </va-alert>
     </template>
   </va-data-table>
