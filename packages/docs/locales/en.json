@@ -1668,7 +1668,8 @@
     "i18n": "I18n",
     "webComponents": "Web Components",
     "colorsClasses": "Colors Classes",
-    "skeleton": "Skeleton"
+    "skeleton": "Skeleton",
+    "unoCss": "UnoCSS"
   },
   "all": {
     "examples": "Examples",
@@ -5151,5 +5152,8 @@
         "text": "Down bellow is an example how you can use skeleton in your application. We use `isLoading` ref to indicate if content is loading. Don't forget to add `aria-busy` attribute to the content to indicate that it is loading to sreen reader."
       }
     }
+  },
+  "unoCss": {
+    "title": "Integration with UnoCSS"
   }
 }

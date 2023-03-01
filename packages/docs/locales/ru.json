@@ -1558,7 +1558,8 @@
     "team": "Команда разработчиков",
     "i18n": "I18n",
     "webComponents": "Web Components",
-    "colorsClasses": "Colors Classes"
+    "colorsClasses": "Colors Classes",
+    "unoCss": "UnoCSS"
   },
   "all": {
     "examples": "Примеры",
@@ -5036,5 +5037,8 @@
     "api": {
       "title": "API конфигуратора цветовых классов"
     }
+  },
+  "unoCss": {
+    "title": "Интеграция с UnoCSS"
   }
 }
