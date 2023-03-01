@@ -47,7 +47,7 @@ describe('VaOptionList', () => {
         expect(wrapper.vm.selectedValue).toEqual(defaultValue)
       })
 
-      it('should correctly interpret `useSelectableProps`', async () => {
+      it('should correctly interpret `useSelectableProps`', () => {
         expect(wrapper.vm.isDisabled(wrapper.vm.selectedValue)).toBe(expected[0])
         expect(wrapper.vm.getText(wrapper.vm.selectedValue)).toBe(expected[1])
         expect(wrapper.vm.getValue(wrapper.vm.selectedValue)).toBe(expected[2])
