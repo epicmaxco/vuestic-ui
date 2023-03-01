@@ -54,6 +54,7 @@ const buildTableRow = (
     itemKey,
     source,
     cells: columns.map(column => buildTableCell(initialIndex, itemKey, source, column)),
+    rowData: source,
   }
 }
 

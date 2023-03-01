@@ -93,7 +93,7 @@
               >
                 <tr
                   class="va-data-table__table-tr"
-                  :class="[{ selected: isRowSelected(row) }]"
+                  :class="[{ selected: isRowSelected(row), 'va-data-table__table-tr--expanded': row.isExpandableRowVisible }]"
                   v-bind="getRowBind(row)"
                   @click="onRowClickHandler('row:click', $event, row)"
                   @dblclick="onRowClickHandler('row:dblclick', $event, row)"
@@ -127,16 +127,19 @@
                     <slot
                       v-if="`cell(${cell.column.name})` in $slots"
                       :name="`cell(${cell.column.name})`"
-                      v-bind="{ ...cell, row }"
+                      v-bind="{ ...cell, row, isExpanded: row.isExpandableRowVisible }"
                     />
 
                     <slot v-else name="cell" v-bind="{ cell, row }">
-                  <span v-if="$props.grid" class="va-data-table__grid-column-header">{{ columnsComputed[cellIndex].label }}</span>
-                  {{ cell.value }}
-                </slot>
+                      <span v-if="$props.grid" class="va-data-table__grid-column-header">{{ columnsComputed[cellIndex].label }}</span>
+                      {{ cell.value }}
+                    </slot>
                   </td>
                 </tr>
-                <tr v-if="row.isExpandableRowVisible">
+                <tr
+                  v-show="row.isExpandableRowVisible"
+                  class="va-data-table__table-tr--expanded va-data-table__table-expanded-content"
+                >
                   <td :colspan="row.cells.length">
                     <slot
                       name="expandableRow"
