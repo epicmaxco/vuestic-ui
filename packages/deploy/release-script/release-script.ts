@@ -27,6 +27,7 @@ export type ReleaseConfig = {
   commit: string, // '12345678'
   shouldCommit: boolean,
   showSleepCheck: boolean,
+  todoList?: string[],
 }
 
 const gitTagFromVersion = (version: string) => `v${version}`
@@ -59,6 +60,11 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       shouldCommit: true,
       requiredBranch: 'master',
       showSleepCheck: true,
+      todoList: [
+        'Update and release other packages (like nuxt, create-vuestic, etc)',
+        'Merge docs to master',
+        'Make release notes on github',
+      ]
     }
   }
   if (releaseType === 'tiny') {
@@ -70,6 +76,11 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       shouldCommit: true,
       requiredBranch: 'develop',
       showSleepCheck: true,
+      todoList: [
+        'Update and release other packages (like nuxt, create-vuestic, etc)',
+        'Merge docs to master',
+        'Make release notes on github',
+      ]
     }
   }
   if (releaseType === 'next') {
@@ -222,6 +233,14 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
   await executeAndLog('git reset --hard HEAD')
 
   console.log(chalk.green('Released - 😎 GLORIOUS SUCCESS 😎'))
+
+  if (releaseConfig.todoList) {
+    console.log(chalk.redBright('You next todo list:'))
+
+    releaseConfig.todoList.forEach((todo) => {
+      console.log(chalk.redBright('- ' + todo))
+    })
+  }
 }
 
 const simplePrompt = async <T> (question: DistinctQuestion<T>): Promise<T> => {
