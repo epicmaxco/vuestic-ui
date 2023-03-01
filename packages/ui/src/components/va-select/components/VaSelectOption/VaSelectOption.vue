@@ -37,6 +37,8 @@ import { useColors, useColorProps, useBem } from '../../../../composables'
 
 import { VaIcon } from '../../../va-icon'
 
+import { isNilValue } from '../../../../utils/isNilValue'
+
 import type { SelectableOption } from '../../../../composables'
 
 export default defineComponent({
@@ -85,7 +87,7 @@ export default defineComponent({
 
     const isSelected = computed(() => props.getSelectedState(props.option))
     const isFocused = computed(() => {
-      if (!props.currentOption && props.currentOption !== 0 && props.currentOption !== false) { return false }
+      if (isNilValue(props.currentOption)) { return false }
       if (typeof props.option === 'string') { return props.option === props.currentOption }
 
       return props.getTrackBy(props.currentOption) === props.getTrackBy(props.option)

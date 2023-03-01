@@ -83,6 +83,8 @@ import { scrollToElement } from '../../../../utils/scroll-to-element'
 import { VaVirtualScroller } from '../../../va-virtual-scroller'
 import { VaSelectOption } from '../VaSelectOption'
 
+import { isNilValue } from '../../../../utils/isNilValue'
+
 import type { SelectOption, EventSource } from '../../types'
 
 export default defineComponent({
@@ -176,7 +178,7 @@ export default defineComponent({
       }, { _noGroup: [] }))
     const optionGroupsThrottled = useThrottleValue(optionGroups, props)
 
-    const isValueExists = (value: SelectOption | null | undefined): value is SelectOption => !!value || value === 0 || value === false
+    const isValueExists = (value: SelectOption | null | undefined): value is SelectOption => !isNilValue(value)
 
     const updateHoveredOption = (option?: SelectOption) => {
       if (option === currentOptionComputed.value || (isValueExists(option) && getDisabled(option))) { return }

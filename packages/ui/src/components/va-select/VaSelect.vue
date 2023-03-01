@@ -120,7 +120,6 @@
 import { defineComponent, ref, shallowRef, computed, watch, nextTick, type PropType, type Ref } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { warn } from '../../utils/console'
 import {
   useComponentPresetProp,
   useSelectableList, useSelectableListProps,
@@ -152,10 +151,13 @@ import { useToggleIcon, useToggleIconProps } from './hooks/useToggleIcon'
 import { useStringValue, useStringValueProps } from './hooks/useStringValue'
 import { useAutocomplete, useAutocompleteProps } from './hooks/useAutocomplete'
 
-import type { SelectOption, Placement } from './types'
-import type { DropdownOffsetProp } from '../va-dropdown/types'
 import { blurElement, focusElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
+import { isNilValue } from '../../utils/isNilValue'
+import { warn } from '../../utils/console'
+
+import type { SelectOption, Placement } from './types'
+import type { DropdownOffsetProp } from '../va-dropdown/types'
 
 const VaDropdownProps = extractComponentProps(VaDropdown,
   ['keyboardNavigation', 'offset', 'stateful', 'keepAnchorWidth', 'closeOnContentClick', 'innerAnchorSelector', 'modelValue'],
@@ -246,7 +248,7 @@ export default defineComponent({
 
     const isInputFocused = useFocusDeep(input as any)
 
-    const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
+    const { getValue, getText, getTrackBy } = useSelectableList(props)
 
     const onScrollBottom = () => emit('scroll-bottom')
 
@@ -265,6 +267,21 @@ export default defineComponent({
       hiddenSelectedOptionsAmount,
       allSelectedOptions,
     } = useMaxVisibleOptions(props)
+
+    const getOptionByValue = (value: SelectOption): SelectOption => {
+      // if value is an object, it should be selectable option itself
+      if (isNilValue(value) || typeof value === 'object') { return value }
+
+      const optionByValue = props.options.find((option) => value === getValue(option))
+
+      if (optionByValue === undefined) {
+        warn(`[VaSelect]: can not find option in options list (${props.options}) by provided value (${value})!`)
+
+        return value
+      }
+
+      return optionByValue
+    }
 
     // select value
     const valueComputed = computed<SelectOption | SelectOption[]>({
@@ -413,7 +430,7 @@ export default defineComponent({
     const hoveredOption = ref<SelectOption | null>(null)
 
     const selectHoveredOption = () => {
-      if (!hoveredOption.value && hoveredOption.value !== 0 && hoveredOption.value !== false) { return }
+      if (isNilValue(hoveredOption.value)) { return }
 
       if (!showDropdownContent.value) {
         // We can not select options if they are hidden
