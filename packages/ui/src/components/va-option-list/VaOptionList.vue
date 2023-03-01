@@ -84,11 +84,11 @@ export default defineComponent({
     },
     disabled: ({ type: Boolean, default: false }),
     readonly: ({ type: Boolean, default: false }),
-    defaultValue: ({ type: [String, Number, Object, Array] as PropType<OptionListValue | null> }),
+    defaultValue: ({ type: [String, Number, Boolean, Object, Array] as PropType<OptionListValue | null> }),
     name: ({ type: String, default: '' }),
     color: ({ type: String, default: 'primary' }),
     leftLabel: ({ type: Boolean, default: false }),
-    modelValue: ({ type: [String, Number, Object, Array] as PropType<OptionListValue | null> }),
+    modelValue: ({ type: [String, Number, Boolean, Object, Array] as PropType<OptionListValue | null> }),
   },
 
   setup (props, { emit }) {
@@ -104,7 +104,7 @@ export default defineComponent({
       get () {
         const value = isRadio.value ? null : []
 
-        return valueComputed.value || value as OptionListValue
+        return valueComputed.value ?? value as OptionListValue
       },
       set (value: OptionListValue) {
         if (props.readonly) { return }
