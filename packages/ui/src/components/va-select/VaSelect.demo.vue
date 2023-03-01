@@ -12,6 +12,17 @@
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
     <VbCard
+      title="Basic numeric usage"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultNumericSingleSelect.value"
+        class="mb-6"
+        :options="defaultNumericSingleSelect.options"
+      />
+      <p>Value: {{ defaultNumericSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
       title="Autocomplete"
       style="width: 400px;"
     >
@@ -809,7 +820,11 @@ export default {
       disabledValue: 'Selected option',
       defaultSingleSelect: {
         options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
-        value: '',
+        value: 'one',
+      },
+      defaultNumericSingleSelect: {
+        options: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+        value: 0,
       },
       withVirtualScroller: {
         options: new Array(1000).fill(null).map((_, index) => index),

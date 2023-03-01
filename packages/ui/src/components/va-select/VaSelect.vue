@@ -737,6 +737,11 @@ export default defineComponent({
       inputWrapperPropsComputed,
       inputWrapperClassComputed,
       selectContentPropsComputed,
+
+      // for e2e tests
+      getOptionByValue,
+      compareOptions,
+      getText,
     }
   },
 })
