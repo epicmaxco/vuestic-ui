@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { useBreakpoint } from "vuestic-ui/src/composables";
+import { useBreakpoint } from "vuestic-ui";
 
 const breakpoint = useBreakpoint();
 </script>
