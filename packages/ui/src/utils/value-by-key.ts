@@ -1,5 +1,7 @@
 import isObject from 'lodash/isObject.js'
 
+import { isNilValue } from './isNilValue'
+
 type GetTypeByPath<T extends Record<string, any>, K extends string> =
 K extends keyof T
     ? T[K]
@@ -54,7 +56,7 @@ export const getValueByKey = <
     option: Option | string | boolean | number | ((...args: any[]) => any),
     prop: string | ((option: Option) => R),
   ) => {
-  if ((!option && option !== 0 && option !== false) || typeof option !== 'object' || Array.isArray(option)) { return undefined }
+  if (isNilValue(option) || typeof option !== 'object' || Array.isArray(option)) { return undefined }
 
   if (!prop) { return option }
   if (typeof prop === 'string') { return getValueByPath(option, prop) }
