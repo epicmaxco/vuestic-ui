@@ -40,6 +40,7 @@ describe('VaOptionList', () => {
           textBy: 'name',
           valueBy: 'value',
           defaultValue,
+          type: 'radio',
         },
       })
 
