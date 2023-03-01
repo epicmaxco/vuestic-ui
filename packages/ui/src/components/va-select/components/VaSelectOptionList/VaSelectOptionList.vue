@@ -164,11 +164,11 @@ export default defineComponent({
 
     const optionGroups = computed(() => filteredOptions.value
       .reduce((groups: Record<string, SelectOption[]>, option) => {
-        if (typeof option !== 'object' || !getGroupBy(option)) {
+        const groupBy = getGroupBy(option)
+
+        if (!groupBy) {
           groups._noGroup.push(option)
         } else {
-          const groupBy = getGroupBy(option)
-
           if (!groups[groupBy]) { groups[groupBy] = [] }
 
           groups[groupBy].push(option)
@@ -191,7 +191,7 @@ export default defineComponent({
 
     const groupedOptions = computed(() => Object.values(optionGroupsThrottled.value).flat())
     const currentOptions = computed(() =>
-      filteredOptions.value.some((el) => typeof el === 'object' && getGroupBy(el)) ? groupedOptions.value : filteredOptions.value)
+      filteredOptions.value.some((el) => getGroupBy(el)) ? groupedOptions.value : filteredOptions.value)
 
     const currentOptionIndex = computed(() => currentOptions.value.findIndex((option) => {
       return isValueExists(currentOptionComputed.value) && getTrackBy(option) === getTrackBy(currentOptionComputed.value)

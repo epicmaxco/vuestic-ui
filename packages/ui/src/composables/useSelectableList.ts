@@ -1,10 +1,8 @@
 import type { ExtractPropTypes, PropType } from 'vue'
 
 import { getValueByKey } from '../utils/value-by-key'
-import { warn } from '../utils/console'
 
-type AnyObject = Record<string, any>
-export type SelectableOption = string | number | boolean | AnyObject
+export type SelectableOption = string | number | boolean | Record<string, any>
 export type StringOrFunction = string | ((option: SelectableOption) => unknown)
 
 export const useSelectableListProps = {
@@ -24,23 +22,7 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
     return getValueByKey(option, prop)
   }
 
-  const getOptionByValue = (value: SelectableOption): SelectableOption => {
-    // if value is an object, it should be selectable option itself
-    if ((!value && value !== 0 && value !== false) || typeof value === 'object') { return value }
-
-    const optionByValue = props.options.find((option) => value === getValue(option))
-
-    if (optionByValue === undefined) {
-      warn(`[useSelectableList]: can not find option in options list (${props.options}) by provided value (${value})!`)
-
-      return value
-    }
-
-    return optionByValue
-  }
-
   const getTrackBy = (option: SelectableOption): string | number => {
-    console.log()
     return props.trackBy ? getOptionProperty(option, props.trackBy) : getValue(option)
   }
 
@@ -61,7 +43,9 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
   }
 
   // group by is used as object's key, so it can be only string or number
-  const getGroupBy = (option: AnyObject): string | number => {
+  const getGroupBy = (option: SelectableOption): string | number | undefined => {
+    if (!option || typeof option !== 'object') { return undefined }
+
     return getOptionProperty(option, props.groupBy)
   }
 
@@ -70,7 +54,6 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
 
   return {
     getValue,
-    getOptionByValue,
     getText,
     getDisabled,
     getTrackBy,
