@@ -18,19 +18,19 @@ describe('VaButtonToggle', () => {
     expect(wrapper.exists()).toBeTruthy()
   })
 
-  it('should interpret `useSelectableProps`', () => {
-    const entries = [
-      {
-        value: options[0],
-        expected: [true, 'one'],
-      },
-      {
-        value: options[1],
-        expected: [false, 'false'],
-      },
-    ]
+  const entries = [
+    {
+      value: options[0],
+      expected: [true, 'one'],
+    },
+    {
+      value: options[1],
+      expected: [false, 'false'],
+    },
+  ]
 
-    entries.forEach(({ value, expected }) => {
+  entries.forEach(({ value, expected }) => {
+    it('should interpret `useSelectableProps`', () => {
       const wrapper: VueWrapper<any> = shallowMountWithGlobalConfig(VaButtonToggle, {
         attrs: {
           options,
