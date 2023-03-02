@@ -1,4 +1,3 @@
-import { defineNuxtConfig } from 'nuxt'
 import { resolve } from 'pathe'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config

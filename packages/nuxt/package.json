@@ -24,11 +24,7 @@
   ],
   "scripts": {
     "build": "nuxt-module-build",
-    "prepack": "nuxt-module-build",
-    "dev": "nuxi dev playground",
-    "dev:build": "nuxi build playground",
-    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
-    "dependenciesInstalled": "node ./scripts/stud-nuxt.mjs"
+    "prepack": "nuxt-module-build"
   },
   "dependencies": {
     "@nuxt/kit": "^3.0.0",
@@ -42,7 +38,6 @@
     "@nuxt/schema": "latest",
     "@nuxt/vite-builder": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
-    "eslint": "latest",
-    "when-dependencies-installed": "^1.0.0"
+    "eslint": "latest"
   }
 }
