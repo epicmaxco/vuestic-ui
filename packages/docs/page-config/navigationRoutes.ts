@@ -506,7 +506,7 @@ export const navigationRoutes: NavigationRoute[] = [
       },
       {
         name: "unocss",
-        displayName: "menu.unoCss",
+        displayName: "menu.unocss",
         meta: {
           badge: "new",
         }
