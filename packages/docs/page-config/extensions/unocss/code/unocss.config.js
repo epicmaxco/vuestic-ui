@@ -1,16 +1,15 @@
+// unocss.config.*
 import { defineConfig, presetIcons, presetUno } from 'unocss'
 import presetTheme from 'unocss-preset-theme'
 import { colorsPreset, thresholdsPreset } from 'vuestic-ui'
 
-import type { Theme } from 'unocss/preset-uno'
-
-const convertNumbersToCssUnits = (obj: Record<string, unknown>, unit = 'px') =>
+const convertNumbersToCssUnits = (obj, unit = 'px') =>
   Object.entries(obj).reduce((acc, [key, value]) => ({
     ...acc,
     [key]: `${value}${unit}`,
   }), {})
 
-export default defineConfig<Theme>({
+export default defineConfig({
   theme: {
     colors: colorsPreset.light,
     breakpoints: convertNumbersToCssUnits(thresholdsPreset),
@@ -20,7 +19,7 @@ export default defineConfig<Theme>({
       dark: 'media',
     }),
     presetIcons(),
-    presetTheme<Theme>({
+    presetTheme({
       theme: {
         dark: {
           colors: colorsPreset.dark,
