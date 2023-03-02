@@ -164,11 +164,12 @@ export default defineComponent({
 
     const {
       backgroundColor,
-      backgroundColorOpacity,
-      backgroundMaskOpacity,
-      backgroundMaskColor,
-    } = useButtonBackground(colorComputed, isPressed, isHovered)
+      hoverBackgroundColor,
+      pressedBackgroundColor,
+    } = useButtonBackground(colorComputed)
     const contentColorComputed = useButtonTextColor(textColorComputed, colorComputed, isPressed, isHovered)
+
+    console.log(contentColorComputed.value)
 
     const computedStyle = computed(() => ({
       borderColor: props.borderColor ? getColor(props.borderColor) : 'transparent',
@@ -189,9 +190,8 @@ export default defineComponent({
       iconAttributesComputed,
 
       backgroundColor,
-      backgroundMaskColor,
-      backgroundMaskOpacity,
-      backgroundColorOpacity,
+      hoverBackgroundColor,
+      pressedBackgroundColor,
 
       ...publicMethods,
     }
@@ -212,7 +212,7 @@ export default defineComponent({
   border-width: var(--va-button-border-width);
   border-color: var(--va-button-border-color);
   border-style: var(--va-button-border-style);
-  background-image: var(--va-button-background-image);
+  background: var(--va-button-background-image), v-bind(backgroundColor);
   box-shadow: var(--va-button-box-shadow);
   font-family: var(--va-font-family);
   font-weight: var(--va-button-font-weight);
@@ -222,23 +222,12 @@ export default defineComponent({
   box-sizing: border-box;
   cursor: var(--va-button-cursor);
 
-  &::after,
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
+  &:hover {
+    background: var(--va-button-background-image), v-bind(hoverBackgroundColor);
   }
 
-  &::before {
-    background: v-bind(backgroundColor);
-    opacity: v-bind(backgroundColorOpacity);
-  }
-
-  &::after {
-    background-color: v-bind(backgroundMaskColor);
-    opacity: v-bind(backgroundMaskOpacity);
+  &:active {
+    background: var(--va-button-background-image), v-bind(pressedBackgroundColor);
   }
 
   &__content {
