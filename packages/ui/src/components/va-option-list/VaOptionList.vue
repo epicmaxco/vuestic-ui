@@ -105,7 +105,7 @@ export default defineComponent({
       get () {
         const value = isRadio.value ? null : []
 
-        return valueComputed.value ?? value as OptionListValue
+        return valueComputed.value || value as OptionListValue
       },
       set (value: OptionListValue) {
         if (props.readonly) { return }

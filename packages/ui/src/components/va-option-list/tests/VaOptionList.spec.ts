@@ -15,9 +15,9 @@ describe('VaOptionList', () => {
   it('should correctly set the new selected value', () => {
     const wrapper: VueWrapper<any> = shallowMountWithGlobalConfig(VaOptionList, {
       attrs: {
-        stateful: true,
-        valueBy: 'value',
+        stateful: 3,
         type: 'radio',
+        valueBy: 'value',
       },
     })
 
@@ -27,44 +27,31 @@ describe('VaOptionList', () => {
 
   const entries = [
     {
-      defaultValue: { id: 1, name: 'one', value: 2, disabled: true },
+      options: [{ id: 1, name: 'one', value: 2, disabled: true }],
       expected: [true, 'one', 2, 2],
     },
     {
-      defaultValue: 'one',
-      expected: [false, 'one', 'one', 'one'],
-    },
-    {
-      defaultValue: 0,
-      expected: [false, '0', 0, 0],
-    },
-    {
-      defaultValue: false,
-      expected: [false, 'false', false, false],
+      options: [{ id: 0, name: 0, value: false, disabled: false }],
+      expected: [false, '0', false, false],
     },
   ]
 
-  entries.forEach(({ defaultValue, expected }) => {
+  entries.forEach(({ options, expected }) => {
     const wrapper: VueWrapper<any> = shallowMountWithGlobalConfig(VaOptionList, {
       attrs: {
-        stateful: true,
+        type: 'radio',
+        options,
         disabledBy: 'disabled',
         textBy: 'name',
         valueBy: 'value',
-        defaultValue,
-        type: 'radio',
       },
     })
 
-    it(`should return ${JSON.stringify(defaultValue)}`, async () => {
-      expect(wrapper.vm.selectedValue).toEqual(defaultValue)
-    })
-
     it('should correctly interpret `useSelectableProps`', () => {
-      expect(wrapper.vm.isDisabled(wrapper.vm.selectedValue)).toBe(expected[0])
-      expect(wrapper.vm.getText(wrapper.vm.selectedValue)).toBe(expected[1])
-      expect(wrapper.vm.getValue(wrapper.vm.selectedValue)).toBe(expected[2])
-      expect(wrapper.vm.getTrackBy(wrapper.vm.selectedValue)).toBe(expected[3])
+      expect(wrapper.vm.isDisabled(wrapper.props().options[0])).toBe(expected[0])
+      expect(wrapper.vm.getText(wrapper.props().options[0])).toBe(expected[1])
+      expect(wrapper.vm.getValue(wrapper.props().options[0])).toBe(expected[2])
+      expect(wrapper.vm.getTrackBy(wrapper.props().options[0])).toBe(expected[3])
     })
   })
 
