@@ -1722,6 +1722,10 @@
       "fallback": {
         "title": "Fallback",
         "text": "Вы можете задать изображение, которое заменит отсутствующее основное."
+      },
+      "gravatarIntegration": {
+        "title": "Интеграция с Gravatar",
+        "text": "Вы можете с легкостью интегрировать Gravatar с компонентом `VaAvatar`."
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"
