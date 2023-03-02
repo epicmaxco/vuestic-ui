@@ -1,7 +1,18 @@
 export default definePageConfig({
   blocks: [
-    block.title("unoCss.title"),
+    block.title('unocss.title'),
+    block.paragraph('unocss.text'),
 
-    block.code("unocss.config.ts"),
+    block.headline('unocss.preparation.title'),
+    block.paragraph('unocss.preparation.text[0]'),
+    block.paragraph('unocss.preparation.text[1]'),
+    block.code({
+      npm: 'npm i -D unocss-preset-theme',
+      yarn: 'yarn add -D unocss-preset-theme',
+    }, 'bash'),
+
+    block.headline('unocss.setup.title'),
+    block.paragraph('unocss.setup.text'),
+    block.code('unocss.config.js'),
   ]
 })
