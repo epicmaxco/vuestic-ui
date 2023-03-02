@@ -5,6 +5,21 @@
   />
   <va-avatar
     src="https://not-exist"
-    fallback-src="https://randomuser.me/api/portraits/men/1.jpg"
+    fallback-icon="warning"
   />
 </template>
+
+<script setup>
+import { useGlobalConfig } from 'vuestic-ui/src/services/global-config';
+
+const { mergeGlobalConfig } = useGlobalConfig()
+
+mergeGlobalConfig({
+  components: {
+    VaAvatar: {
+      fallbackSrc: 'https://randomuser.me/api/portraits/men/1.jpg',
+    },
+  },
+})
+</script>
+

@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { useColors } from "vuestic-ui/src/main";
+import { useColors } from "vuestic-ui";
 import ColorsGridCard from "./colors-grid-card.vue";
 import { presets } from 'vuestic-ui/src/services/color/presets'
 
