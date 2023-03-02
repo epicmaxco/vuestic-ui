@@ -63,7 +63,7 @@ export type PageConfigOptions = {
 
   blocks: Block[],
 
-  translations?: Record<string, string>,
+  translations?: Record<string, Record<string, string>>,
 }
 
 export const defineManualApi = (options: ManualApiOptions) => options
