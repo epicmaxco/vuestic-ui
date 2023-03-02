@@ -39,7 +39,7 @@ export const useMaxVisibleOptions = (
       belowLimitSelectedOptions.value = Array.isArray(value) ? [...value] : [value]
       hiddenSelectedOptions.value = []
     }
-  })
+  }, { immediate: true })
 
   const toggleHiddenOptionsState = () => (isAllOptionsShown.value = !isAllOptionsShown.value)
 
