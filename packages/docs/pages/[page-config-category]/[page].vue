@@ -19,7 +19,7 @@ definePageMeta({
 })
 
 const route = useRoute();
-const { locale, t, mergeLocaleMessage } = useI18n()
+const { locale, t, mergeLocaleMessage, fallbackLocale } = useI18n()
 
 const pageConfigName = computed(() => {
   const path = route.path
@@ -48,12 +48,30 @@ const mergeTranslations = () => {
   })
 }
 
+const mergeFallbackTranslations = () => {
+  if (!fallbackLocale.value && typeof fallbackLocale.value !== 'string') { return }
+
+  const language = fallbackLocale.value as string
+
+  const configTranslations = config.value?.translations?.[language]
+
+  if (!configTranslations) { return }
+
+  // extract installation from getting-started/installation
+  const [translationKey] = pageConfigName.value.split('/').slice(-1)
+
+  mergeLocaleMessage(language, {
+    [translationKey]: configTranslations,
+  })
+}
+
 watchEffect(() => {
   const configTitle = config.value?.blocks.find((block) => block.type === 'title') as ConcreteBlock<'title'> | undefined
 
   const tabTitle = configTitle?.text || config.value?.meta?.title
 
   mergeTranslations()
+  mergeFallbackTranslations()
 
   useHead({
     title: tabTitle ? `${tabTitlePrefix} - ${t(tabTitle)}` : tabTitlePrefix,
