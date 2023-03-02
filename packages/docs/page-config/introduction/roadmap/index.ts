@@ -7,6 +7,77 @@ export default definePageConfig({
     block.subtitle("roadmap.inDevelopment.title"),
     block.paragraph("roadmap.inDevelopment.description"),
 
+    block.headline("roadmap.1-7.title"),
+    block.paragraph("roadmap.1-7.description"),
+
+    block.component("Roadmap", {
+      roadmap: [
+        {
+          title: "Color Picker",
+          type: "component",
+          image: "colorPicker",
+        },
+        {
+          title: "Accessability Improvements",
+          type: "other",
+        },
+        {
+          title: "Docs Improvements",
+          type: "other",
+        }
+      ] as RoadmapItem[],
+    }),
+
+    block.subtitle("roadmap.released.title"),
+
+    block.headline("roadmap.1-6.title"),
+    block.paragraph("roadmap.1-6.description"),
+
+    block.component("Roadmap", {
+      roadmap: [
+        {
+          title: "Create Vuestic",
+          type: "service",
+          link: "https://github.com/epicmaxco/vuestic-ui/pull/2828",
+          image: "createVuestic",
+        },
+        {
+          title: "Skeleton",
+          type: "component",
+          link: "https://github.com/epicmaxco/vuestic-ui/pull/2918",
+          image: "Skeleton",
+        },
+        {
+          title: "Auto Complete",
+          type: "component",
+          link: "https://github.com/epicmaxco/vuestic-ui/issues/2228",
+          image: "autoComplete",
+        },
+        {
+          title: "Breakpoints",
+          type: "service",
+          link: "https://github.com/epicmaxco/vuestic-ui/pull/2189",
+          image: "breakpoints",
+        },
+        {
+          title: "Stepper",
+          type: "component",
+          link: "https://github.com/epicmaxco/vuestic-ui/pull/2906",
+          image: "stepper",
+        },
+        {
+          title: "Tailwind Integration",
+          type: "other",
+          link: "https://github.com/epicmaxco/vuestic-ui/pull/2745",
+          image: "tailwind",
+        },
+        {
+          title: "Docs improvements",
+          type: "other",
+        },
+      ] as RoadmapItem[],
+    }),
+
     block.headline("roadmap.1-5.title"),
     block.paragraph("roadmap.1-5.description"),
 
@@ -43,12 +114,6 @@ export default definePageConfig({
           image: "Dropdown",
         },
         {
-          title: "Skeleton",
-          type: "component",
-          link: "https://github.com/epicmaxco/vuestic-ui/pull/2068",
-          image: "Skeleton",
-        },
-        {
           title: "SplitPanel",
           type: "component",
           link: "https://github.com/epicmaxco/vuestic-ui/pull/2068",
@@ -74,8 +139,6 @@ export default definePageConfig({
         },
       ] as RoadmapItem[],
     }),
-
-    block.subtitle("roadmap.released.title"),
 
     block.headline("roadmap.1-4.title"),
     block.paragraph("roadmap.1-4.description"),
