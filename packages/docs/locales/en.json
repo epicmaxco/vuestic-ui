@@ -1669,7 +1669,7 @@
     "webComponents": "Web Components",
     "colorsClasses": "Colors Classes",
     "skeleton": "Skeleton",
-    "unoCss": "UnoCSS"
+    "unocss": "UnoCSS Integration"
   },
   "all": {
     "examples": "Examples",
@@ -5153,7 +5153,19 @@
       }
     }
   },
-  "unoCss": {
-    "title": "Integration with UnoCSS"
+  "unocss": {
+    "title": "Integration with UnoCSS",
+    "text": "Here is guide how to integrate Vuestic UI colors and breakpoints into UnoCSS configuration.",
+    "preparation": {
+      "title": "Preparations",
+      "text": [
+        "Before we start with integration, please ensure you have both UnoCSS and Vuestic UI installed. If that's not the case - here are installation guide for the [Vuestic UI](/getting-started/installation) and for the [UnoCSS]((https://github.com/unocss/unocss#installation))[[target=_blank]].",
+        "Also you need to install `unocss-preset-theme` preset."
+      ]
+    },
+    "setup": {
+      "title": "Setup",
+      "text": "Configure configuration file for the UnoCSS as shown below."
+    }
   }
 }
