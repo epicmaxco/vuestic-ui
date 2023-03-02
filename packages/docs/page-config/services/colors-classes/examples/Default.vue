@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { useGlobalConfig } from 'vuestic-ui/src/services/global-config/global-config'
+import { useGlobalConfig } from 'vuestic-ui'
 
 export default {
   setup () {

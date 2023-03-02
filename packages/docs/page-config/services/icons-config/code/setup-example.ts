@@ -1,4 +1,4 @@
-import { createVuestic, createIconsConfig } from "vuestic-ui/src/main";
+import { createVuestic, createIconsConfig } from "vuestic-ui";
 
 const aliases = [
   /*...*/
