@@ -18,7 +18,6 @@ export const useStringValue = (
       return props.clearValue
     }
 
-    return visibleSelectedOptions.value.map((value) =>
-      getText(value)).join(props.separator) || props.clearValue
+    return visibleSelectedOptions.value.map(getText).join(props.separator) || props.clearValue
   })
 }

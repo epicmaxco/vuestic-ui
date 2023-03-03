@@ -260,14 +260,6 @@ export default defineComponent({
       hoveredOption.value = null
     })
 
-    const {
-      toggleHiddenOptionsState,
-      isAllOptionsShown,
-      visibleSelectedOptions,
-      hiddenSelectedOptionsAmount,
-      allSelectedOptions,
-    } = useMaxVisibleOptions(props)
-
     const getOptionByValue = (value: SelectOption): SelectOption => {
       // if value is an object, it should be selectable option itself
       if (isNilValue(value) || typeof value === 'object') { return value }
@@ -275,13 +267,21 @@ export default defineComponent({
       const optionByValue = props.options.find((option) => value === getValue(option))
 
       if (optionByValue === undefined) {
-        warn(`[VaSelect]: can not find option in options list (${props.options}) by provided value (${value})!`)
+        warn(`[VaSelect]: can not find option in options list (${JSON.stringify(props.options)}) by provided value (${JSON.stringify(value)})!`)
 
         return value
       }
 
       return optionByValue
     }
+
+    const {
+      toggleHiddenOptionsState,
+      isAllOptionsShown,
+      visibleSelectedOptions,
+      hiddenSelectedOptionsAmount,
+      allSelectedOptions,
+    } = useMaxVisibleOptions(props, getOptionByValue)
 
     // select value
     const valueComputed = computed<SelectOption | SelectOption[]>({
