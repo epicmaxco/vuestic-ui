@@ -1,39 +1,21 @@
-<template>
-  <div
-    class="va-dropdown"
-    :class="computedClass"
-    ref="anchorRef"
-    role="button"
-    :aria-label="t('toggleDropdown')"
-    :aria-disabled="$props.disabled"
-    :aria-expanded="!!valueComputed"
-    :aria-controls="idComputed"
-    style="position: relative;"
-  >
-    <slot name="anchor" v-bind="{ value: valueComputed, hide, show }" />
-
-    <teleport v-if="isMounted" :to="teleportTargetComputed" :disabled="teleportDisabled">
-      <div
-        v-if="valueComputed"
-        ref="contentRef"
-        class="va-dropdown__content-wrapper"
-        :id="idComputed"
-        @mouseover="$props.isContentHoverable && onMouseEnter()"
-        @mouseout="onMouseLeave"
-        @click.stop="emitAndClose('content-click', closeOnContentClick)"
-      >
-        <slot v-bind="{ value: valueComputed, hide, show }" />
-      </div>
-    </teleport>
-  </div>
-</template>
-
 <script lang="ts">
-import { computed, defineComponent, nextTick, PropType, shallowRef, toRef } from 'vue'
+import {
+  computed,
+  defineComponent,
+  h,
+  nextTick,
+  type PropType,
+  renderSlot,
+  shallowRef,
+  toRef,
+  watch,
+  type VNodeArrayChildren,
+  Fragment,
+  Teleport,
+} from 'vue'
+
 import pick from 'lodash/pick.js'
 import kebabCase from 'lodash/kebabCase.js'
-
-import { generateUniqueId } from '../../utils/uuid'
 
 import {
   useComponentPresetProp,
@@ -58,6 +40,8 @@ import type { DropdownOffsetProp } from './types'
 
 export default defineComponent({
   name: 'VaDropdown',
+
+  inheritAttrs: false,
 
   props: {
     ...createStatefulProps(Boolean, true),
@@ -92,7 +76,7 @@ export default defineComponent({
 
   emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'close', 'open'],
 
-  setup (props, { emit }) {
+  setup (props, { emit, slots, attrs }) {
     const contentRef = shallowRef<HTMLElement>()
 
     const { valueComputed: statefulVal } = useStateful(props, emit)
@@ -136,7 +120,11 @@ export default defineComponent({
       if (close && props.trigger !== 'none') { valueComputed.value = false }
     }
 
-    const elRef = useHTMLElement('anchorRef')
+    // const anchorRef = shallowRef<HTMLElement>()
+    const elRef = useHTMLElement('computedAnchorRef')
+    // watch(elRef, (v) => {
+    //   computedAnchorRef.value = v
+    // })
 
     if (props.keyboardNavigation) {
       useKeyboardNavigation(elRef, valueComputed)
@@ -214,7 +202,6 @@ export default defineComponent({
 
     const teleportDisabled = computed(() => props.disabled || !isPopoverFloating.value)
 
-    // TODO: may be move keepAnchorWidth, ..., autoPlacement to useDropdownProps
     useDropdown(
       computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value),
       contentRef,
@@ -229,30 +216,69 @@ export default defineComponent({
       props,
     )
 
-    const idComputed = computed(generateUniqueId)
-
-    // useEvent('blur', () => {
-    //   if (props.closeOnClickOutside && valueComputed.value) {
-    //     emitAndClose('click-outside', props.closeOnClickOutside)
-    //   }
-    // })
+    const { t } = useTranslation()
+    const isMounted = useIsMounted()
 
     return {
-      ...useTranslation(),
-      teleportTargetComputed,
-      teleportDisabled,
-      isMounted: useIsMounted(),
-      anchorRef: computedAnchorRef,
-      valueComputed,
-      contentRef,
-      computedClass,
-      idComputed,
-      emitAndClose,
-      onMouseEnter,
-      onMouseLeave,
-      hide: () => { valueComputed.value = false },
-      show: () => { valueComputed.value = true },
+      t, isMounted, valueComputed, computedAnchorRef, computedClass, onMouseEnter,
+      teleportTargetComputed, teleportDisabled, onMouseLeave, emitAndClose, contentRef,
     }
+  },
+
+  render () {
+    const anchorSlotChildren = renderSlot(this.$slots, 'anchor').children as VNodeArrayChildren[]
+    const defaultSlotChildren = renderSlot(this.$slots, 'default').children as VNodeArrayChildren[]
+      // we expect only one node to be passed to the every slot
+    const anchorSlotVNode = anchorSlotChildren[0]
+    const defaultSlotVNode = defaultSlotChildren[0]
+
+    const getAriaAttributes = () => ({
+      'aria-label': this.t('toggleDropdown'),
+      'aria-disabled': this.$props.disabled,
+      'aria-expanded': !!this.valueComputed.value,
+    })
+
+    const getSlotProps = () => ({
+      slotProps: {
+        value: this.valueComputed.value,
+        hide: () => { this.valueComputed.value = false },
+        show: () => { this.valueComputed.value = true },
+      },
+    })
+
+    return h(Fragment, {}, [
+      h(anchorSlotVNode, {
+        ref: 'computedAnchorRef',
+        role: 'button',
+        class: ['va-dropdown', ...this.computedClass.asArray.value],
+        style: { position: 'relative' },
+        ...this.$attrs,
+        ...getSlotProps(),
+        ...getAriaAttributes(),
+      }),
+
+      this.isMounted
+        ? h(
+          Teleport,
+          {
+            to: this.teleportTargetComputed,
+            disabled: this.teleportDisabled,
+          },
+          [this.valueComputed
+            ? h('div',
+              {
+                ref: 'contentRef',
+                class: 'va-dropdown__content-wrapper',
+                onMouseOver: () => this.$props.isContentHoverable && this.onMouseEnter(),
+                onMouseOut: () => this.onMouseLeave(),
+                onClick: () => this.emitAndClose('content-click', this.$props.closeOnContentClick),
+              },
+              h(defaultSlotVNode, { ...getSlotProps() }),
+            )
+            : null],
+        )
+        : null,
+    ])
   },
 })
 </script>

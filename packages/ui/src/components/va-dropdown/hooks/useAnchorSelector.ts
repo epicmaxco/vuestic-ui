@@ -1,5 +1,5 @@
 import { computed, ref, watch } from 'vue'
-import { useDocument } from './../../../composables'
+import { useDocument, useHTMLElement, extractHTMLElement } from './../../../composables'
 
 export const useAnchorSelector = (
   props: {
@@ -12,7 +12,7 @@ export const useAnchorSelector = (
 
   const computedAnchorRef = computed<HTMLElement | undefined>({
     set (v: HTMLElement | undefined) {
-      anchorRef.value = v
+      anchorRef.value = extractHTMLElement(v)
     },
     get () {
       if (props.anchorSelector) {
