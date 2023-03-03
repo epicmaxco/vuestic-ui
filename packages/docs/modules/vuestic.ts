@@ -25,8 +25,10 @@ export default defineNuxtModule<VuesticOptions>({
     nuxt.options.alias['@vuestic/ag-grid-theme'] = resolve(__dirname, '../../ag-grid-theme/src/styles/index.scss');
     nuxt.options.alias['vuestic-ui/styles/typography.css'] = resolve(__dirname, '../../ui/src/styles/typography/typography.scss');
     nuxt.options.alias['vuestic-ui/styles/grid'] = resolve(__dirname, '../../ui/src/styles/grid/grid.scss');
+    nuxt.options.alias['vuestic-ui/styles/grid.css'] = resolve(__dirname, '../../ui/src/styles/grid/grid.scss');
     nuxt.options.alias['vuestic-ui/styles/essential.css'] = resolve(__dirname, '../../ui/src/styles/essential.scss');
     nuxt.options.alias['vuestic-ui/styles/smart-helpers'] = resolve(__dirname, '../../ui/src/styles/smart-helpers/smart-helpers.scss');
+    nuxt.options.alias['vuestic-ui/styles/smart-helpers.css'] = resolve(__dirname, '../../ui/src/styles/smart-helpers/smart-helpers.scss');
     nuxt.options.alias['vuestic-ui/src'] = resolve(__dirname, '../../ui/src/');
     nuxt.options.alias['vuestic-ui/styles'] = resolve(__dirname, '../../ui/src/styles/');
     nuxt.options.alias['vuestic-ui/css'] =  resolve(__dirname, '../../ui/src/styles/index.scss');
