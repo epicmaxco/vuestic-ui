@@ -195,7 +195,8 @@ export default defineComponent({
 
     const teleportTargetComputed = computed(() => {
       if (!isPopoverFloating.value) {
-        return elRef.value
+        // If not floating just render inside the parent element
+        return elRef.value?.parentElement || undefined
       }
       return targetComputed.value
     })
@@ -220,8 +221,17 @@ export default defineComponent({
     const isMounted = useIsMounted()
 
     return {
-      t, isMounted, valueComputed, computedAnchorRef, computedClass, onMouseEnter,
-      teleportTargetComputed, teleportDisabled, onMouseLeave, emitAndClose, contentRef,
+      t,
+      isMounted,
+      valueComputed,
+      computedAnchorRef,
+      computedClass,
+      onMouseEnter,
+      teleportTargetComputed,
+      teleportDisabled,
+      onMouseLeave,
+      emitAndClose,
+      contentRef,
     }
   },
 
