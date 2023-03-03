@@ -3,7 +3,7 @@ export type TreeViewEmitsFunc = (event: string, newValues: unknown) => void
 
 export interface TreeNode {
   id: number | string
-  children: TreeNode[]
+  children?: TreeNode[]
   level?: number
   checked?: boolean | null
   disabled?: boolean
