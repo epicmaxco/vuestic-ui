@@ -35,6 +35,24 @@ const pageConfigName = computed(() => {
 const config = await usePageConfig(pageConfigName);
 const tabTitlePrefix = 'Vuestic UI'
 
+const compileTranslations = (translations: Record<string, any>): any => {
+  if (Array.isArray(translations)) {
+    return translations.map((translation) => compileTranslations(translation))
+  }
+
+  const compiledTranslations: Record<string, any> = {}
+
+  Object.keys(translations).forEach((key) => {
+    if (typeof translations[key] === 'string') { 
+      compiledTranslations[key] = translations[key].replaceAll(/\{['|"|`](.*)['|"|`]\}/g, '$1')
+    } else {
+      compiledTranslations[key] = compileTranslations(translations[key])
+    }
+  })
+
+  return compiledTranslations
+}
+
 const mergeTranslations = () => {
   const configTranslations = config.value?.translations?.[locale.value]
 
@@ -44,7 +62,7 @@ const mergeTranslations = () => {
   const [translationKey] = pageConfigName.value.split('/').slice(-1)
 
   mergeLocaleMessage(locale.value, {
-    [translationKey]: configTranslations,
+    [translationKey]: compileTranslations(configTranslations),
   })
 }
 
@@ -61,7 +79,7 @@ const mergeFallbackTranslations = () => {
   const [translationKey] = pageConfigName.value.split('/').slice(-1)
 
   mergeLocaleMessage(language, {
-    [translationKey]: configTranslations,
+    [translationKey]: compileTranslations(configTranslations),
   })
 }
 
