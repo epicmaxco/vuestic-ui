@@ -12,6 +12,7 @@ import type {
   UsePlacementAliasesProps,
   ParsedPlacement,
 } from './usePlacementAliases'
+import { unwrapEl } from '../utils/unwrapEl'
 
 export type Offset = number | [number, number]
 
@@ -235,14 +236,14 @@ export const useDropdown = (
     coords.x -= rootRect.x
     coords.y -= rootRect.y
 
-    if (contentRef.value) {
+    if (unwrapEl(contentRef.value)) {
       let widthCss = {}
       if (keepAnchorWidth) {
         const { width } = anchorDomRect.value
         widthCss = { width: `${width}px`, maxWidth: `${width}px` }
       }
 
-      Object.assign(contentRef.value.style, {
+      Object.assign(unwrapEl(contentRef.value)!.style, {
         ...css,
         ...coordsToCss(coords),
         ...widthCss,

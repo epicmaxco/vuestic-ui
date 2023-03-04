@@ -5,11 +5,8 @@ import {
   h,
   nextTick,
   type PropType,
-  renderSlot,
   shallowRef,
   toRef,
-  watch,
-  type VNodeArrayChildren,
   Fragment,
   Teleport,
 } from 'vue'
@@ -37,6 +34,8 @@ import { useCursorAnchor } from './hooks/useCursorAnchor'
 import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
 
 import type { DropdownOffsetProp } from './types'
+import { renderSlotNode } from '../../utils/headless'
+import { warn } from '../../utils/console'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -193,7 +192,7 @@ export default defineComponent({
       return target.value
     })
 
-    const teleportTargetComputed = computed(() => {
+    const teleportTargetComputed = computed<HTMLElement | undefined>(() => {
       if (!isPopoverFloating.value) {
         // If not floating just render inside the parent element
         return elRef.value?.parentElement || undefined
@@ -236,58 +235,52 @@ export default defineComponent({
   },
 
   render () {
-    const anchorSlotChildren = renderSlot(this.$slots, 'anchor').children as VNodeArrayChildren[]
-    const defaultSlotChildren = renderSlot(this.$slots, 'default').children as VNodeArrayChildren[]
-      // we expect only one node to be passed to the every slot
-    const anchorSlotVNode = anchorSlotChildren[0]
-    const defaultSlotVNode = defaultSlotChildren[0]
+    const slotBinds = {
+      value: this.valueComputed.value,
+      hide: () => { this.valueComputed.value = false },
+      show: () => { this.valueComputed.value = true },
+    }
 
-    const getAriaAttributes = () => ({
+    const defaultSlotVNode = renderSlotNode(this.$slots.default, slotBinds, {
+      ref: 'contentRef',
+      class: 'va-dropdown__content-wrapper',
+      onMouseOver: () => this.$props.isContentHoverable && this.onMouseEnter(),
+      onMouseOut: () => this.onMouseLeave(),
+      onClick: () => this.emitAndClose('content-click', this.$props.closeOnContentClick),
+    })
+
+    const anchorSlotVNode = renderSlotNode(this.$slots.anchor, slotBinds, {
+      ref: 'computedAnchorRef',
+      role: 'button',
+      class: ['va-dropdown', ...this.computedClass.asArray.value],
+      style: { position: 'relative' },
       'aria-label': this.t('toggleDropdown'),
       'aria-disabled': this.$props.disabled,
       'aria-expanded': !!this.valueComputed.value,
+      ...this.$attrs,
     })
 
-    const getSlotProps = () => ({
-      slotProps: {
-        value: this.valueComputed.value,
-        hide: () => { this.valueComputed.value = false },
-        show: () => { this.valueComputed.value = true },
-      },
-    })
+    if (!anchorSlotVNode) {
+      warn('VaDropdown: You must provide an anchor slot')
+      return
+    }
+
+    if (!defaultSlotVNode) {
+      warn('VaDropdown: default slot is missing')
+      return h(anchorSlotVNode)
+    }
 
     return h(Fragment, {}, [
-      h(anchorSlotVNode, {
-        ref: 'computedAnchorRef',
-        role: 'button',
-        class: ['va-dropdown', ...this.computedClass.asArray.value],
-        style: { position: 'relative' },
-        ...this.$attrs,
-        ...getSlotProps(),
-        ...getAriaAttributes(),
-      }),
+      anchorSlotVNode,
 
-      this.isMounted
-        ? h(
-          Teleport,
-          {
-            to: this.teleportTargetComputed,
-            disabled: this.teleportDisabled,
-          },
-          [this.valueComputed
-            ? h('div',
-              {
-                ref: 'contentRef',
-                class: 'va-dropdown__content-wrapper',
-                onMouseOver: () => this.$props.isContentHoverable && this.onMouseEnter(),
-                onMouseOut: () => this.onMouseLeave(),
-                onClick: () => this.emitAndClose('content-click', this.$props.closeOnContentClick),
-              },
-              h(defaultSlotVNode, { ...getSlotProps() }),
-            )
-            : null],
-        )
-        : null,
+      (this.isMounted && this.valueComputed) && h(
+        Teleport,
+        {
+          to: this.teleportTargetComputed,
+          disabled: this.teleportDisabled,
+        },
+        [defaultSlotVNode],
+      ),
     ])
   },
 })
