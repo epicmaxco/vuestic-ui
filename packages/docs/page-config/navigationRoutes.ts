@@ -82,6 +82,13 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: 'new',
         },
       },
+      {
+        name: 'testing',
+        displayName: 'menu.testing',
+        meta: {
+          badge: 'new',
+        },
+      },
       // GENERATOR_ADD - gettingStarted
     ],
   },

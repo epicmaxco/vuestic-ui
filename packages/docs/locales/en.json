@@ -1668,7 +1668,8 @@
     "i18n": "I18n",
     "webComponents": "Web Components",
     "colorsClasses": "Colors Classes",
-    "skeleton": "Skeleton"
+    "skeleton": "Skeleton",
+    "testing": "Testing"
   },
   "all": {
     "examples": "Examples",
