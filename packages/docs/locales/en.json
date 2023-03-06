@@ -1669,7 +1669,8 @@
     "webComponents": "Web Components",
     "colorsClasses": "Colors Classes",
     "skeleton": "Skeleton",
-    "unocss": "UnoCSS Integration"
+    "unocss": "UnoCSS Integration",
+    "testing": "Testing"
   },
   "all": {
     "examples": "Examples",
@@ -1860,6 +1861,10 @@
       "fallback": {
         "title": "Fallback",
         "text": "You can set fallback image."
+      },
+      "gravatarIntegration": {
+        "title": "Integrate with Gravatar",
+        "text": "You can easily use Gravatar with `VaAvatar` component."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"

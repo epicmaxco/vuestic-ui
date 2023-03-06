@@ -1,0 +1,18 @@
+{
+  // ...
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "vue-jest"
+    },
+    "testURL": "http://localhost/",
+    "setupFile": [
+      "./tests/setup.js"
+    ]
+  }
+}

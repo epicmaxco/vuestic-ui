@@ -63,7 +63,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import VaIcon from 'vuestic-ui/src/components/va-icon/VaIcon.vue'
+import { VaIcon } from 'vuestic-ui'
 
 const step = ref(0)
 

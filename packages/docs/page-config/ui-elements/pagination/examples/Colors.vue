@@ -14,7 +14,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { useGlobalConfig } from "vuestic-ui/src/services/global-config";
+import { useGlobalConfig } from "vuestic-ui";
 
 const value = ref(3);
 const { mergeGlobalConfig } = useGlobalConfig();

@@ -10,7 +10,7 @@
 
 <script setup>
 import { computed } from "vue";
-import { useColors } from "vuestic-ui/src/main";
+import { useColors } from "vuestic-ui";
 
 const { getColors } = useColors();
 const colors = computed(getColors);

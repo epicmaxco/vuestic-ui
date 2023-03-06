@@ -20,7 +20,7 @@ export default defineNuxtModule<VuesticOptions>({
 
   defaults: {
     config: {},
-    css: true,
+    css: ['smart-helpers', 'typography'],
     fonts: true,
   },
 

@@ -1,4 +1,4 @@
-import { useToast } from "vuestic-ui/src/main";
+import { useToast } from "vuestic-ui";
 import { getWindow } from "vuestic-ui/src/utils/ssr";
 
 export const useCopyToClipboard = () => {

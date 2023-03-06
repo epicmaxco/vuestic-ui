@@ -61,7 +61,9 @@ export type PageConfigOptions = {
     visibility?: boolean
   },
 
-  blocks: Block[]
+  blocks: Block[],
+
+  translations?: Record<string, Record<string, string>>,
 }
 
 export const defineManualApi = (options: ManualApiOptions) => options

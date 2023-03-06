@@ -1,7 +1,6 @@
 <template>
-  <div class="mb-4 w-1/3 flex">
+  <div class="mb-4 flex gap-2">
     <va-button
-      class="mr-2"
       color="success"
       @click="newImage"
     >
@@ -15,9 +14,9 @@
       Wrong path
     </va-button>
   </div>
-  <div class="row space-x-4">
+
+  <div class="flex gap-4">
     <va-image
-      class="flex flex-col md6 lg4"
       :src="slotImagePath"
       @loaded="consoleLog"
       @error="consoleLog"
@@ -38,7 +37,6 @@
     </va-image>
 
     <va-image
-      class="flex flex-col md6 lg4"
       :src="slotImagePath"
       fallback-text="Fallback will work if error slot wasn't passed"
     />
@@ -49,7 +47,6 @@
 import { ref, computed } from 'vue'
 
 const slotImageSize = ref(1500)
-
 const getImagePath = (width, height = 0) => `https://picsum.photos/${width}/${height || width}`
 const newImage = () => (slotImageSize.value = slotImageSize.value !== 1500 ? 1500 : 1501)
 const wrongPath = () => (slotImageSize.value = -1)

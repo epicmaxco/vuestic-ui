@@ -1,7 +1,7 @@
 import { type Ref, unref, watchEffect } from 'vue'
 import { type PageConfigOptions } from "."
 
-type PageConfigJSModule = { default: PageConfigOptions }
+type PageConfigJSModule = { default: PageConfigOptions, translations?: Record<string, string> }
 
 const files = Object.entries(import.meta.glob<false, string, PageConfigJSModule>('@/page-config/**/index.ts'))
   .reduce((acc, [key, fn]) => {
@@ -22,7 +22,11 @@ const getConfig = async (name: string) => {
     return null
   }
 
-  return await (file().then((module) => module.default).catch((e) => { throw e }))
+  return await (file().then((module) => {
+    const m = module.default
+    m.translations = module.translations || {}
+    return m
+  }).catch((e) => { throw e }))
 }
 
 export const usePageConfigs = () => files
