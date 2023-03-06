@@ -1,5 +1,5 @@
 // unocss.config.*
-import { defineConfig, presetIcons, presetUno } from 'unocss'
+import { defineConfig, presetUno } from 'unocss'
 import presetTheme from 'unocss-preset-theme'
 import { colorsPreset, thresholdsPreset } from 'vuestic-ui'
 
@@ -18,7 +18,6 @@ export default defineConfig({
     presetUno({
       dark: 'media',
     }),
-    presetIcons(),
     presetTheme({
       theme: {
         dark: {
