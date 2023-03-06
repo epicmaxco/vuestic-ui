@@ -18,7 +18,7 @@
         <div class="demo-square" />
 
         <template #anchor>
-          Anchor
+          <button>Anchor</button>
         </template>
       </va-dropdown>
     </div>

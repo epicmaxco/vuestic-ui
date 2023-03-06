@@ -22,7 +22,7 @@
             :offset="offset"
           >
             <template #anchor>
-              <Coordinates :placement="placement" />
+              <div><Coordinates :placement="placement" /></div>
             </template>
 
             <va-dropdown-content> Dropdown </va-dropdown-content>

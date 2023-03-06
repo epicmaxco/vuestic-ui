@@ -436,7 +436,7 @@
       <div class="target" ref="target">
         <va-dropdown keep-anchor-width :target="target" placement="left" prevent-overflow>
           <template #anchor>
-            Position left, but parent is target
+            <div>Position left, but parent is target</div>
           </template>
 
           <va-dropdown-content>
