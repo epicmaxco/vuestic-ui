@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import chalk from "chalk"
 import { logo, primaryColor } from "./arts"
 import { onError } from './on-error'
@@ -18,11 +19,12 @@ export const main = async () => {
 
   const answers = await useUserAnswers()
 
-  console.log('')
-
   await scaffoldProject(answers)
-  await addVuestic(answers)
-  await addAgGrid(answers)
+
+  if (['create-vue', 'nuxt'].includes(answers.projectType)) {
+    await addVuestic(answers)
+    await addAgGrid(answers)
+  }
   await initGit()
   await installDeps()
 

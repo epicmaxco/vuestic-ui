@@ -1,0 +1,54 @@
+@import '../variables';
+
+//
+// See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_header.scss
+//
+@mixin ag-vuestic-theme-part-header {
+  .ag-header {
+    border-bottom-width: 2px;
+
+    .ag-header-cell-label {
+      padding: 0;
+      border: none;
+    }
+
+    .ag-floating-filter-body {
+      input[class^=ag-][type=text] {
+        border-radius: var(--va-input-border-radius, #{ $inputBorderRadius });
+      }
+    }
+  }
+
+  .ag-header-cell-label,
+  .ag-header-group-cell-label {
+    //va-title mixin
+    font-size: 0.625rem;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .ag-keyboard-focus .ag-header-cell {
+    &:focus {
+      background: var(--va-background-secondary, #{$backgroundSecondary});
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .ag-ltr,
+  .ag-rtl {
+    .ag-floating-filter-button {
+      margin: 0;
+      height: 70%;
+    }
+
+    .ag-floating-filter-button-button {
+      height: 100%;
+      width: 20px;
+    }
+  }
+}

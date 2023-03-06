@@ -13,7 +13,7 @@ export const presets: Record<string, EssentialVariables> = {
     // Background Colors
     backgroundPrimary: '#f6f6f6',
     backgroundSecondary: '#FFFFFF',
-    backgroundElement: '#EBF1F4',
+    backgroundElement: '#ECF0F1',
     backgroundBorder: '#DEE5F2',
 
     // Text Colors
@@ -22,7 +22,7 @@ export const presets: Record<string, EssentialVariables> = {
 
     // Misc
     shadow: 'rgba(0, 0, 0, 0.12)',
-    focus: '#FFFF00',
+    focus: '#49A8FF',
   },
   dark: {
     // Accent
@@ -44,7 +44,7 @@ export const presets: Record<string, EssentialVariables> = {
     textInverted: '#0B121A',
 
     // Misc
-    shadow: 'rgba(0, 0, 0, 0.37)',
-    focus: '#FF0',
+    shadow: 'rgba(255, 255, 255, 0.12)',
+    focus: '#49A8FF',
   },
 }

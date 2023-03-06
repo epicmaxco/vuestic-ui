@@ -9,6 +9,7 @@ module.exports = {
     'color-hex-case': 'lower',
     'at-rule-no-unknown': null,
     'value-list-max-empty-lines': 1,
+    'function-calc-no-unspaced-operator': null,
     'value-keyword-case': null,
     indentation: [2, { baseIndentLevel: 0 }],
   },

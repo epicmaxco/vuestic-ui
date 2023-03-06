@@ -7,7 +7,7 @@ import { getColorDefaultConfig } from '../color'
 import { getI18nConfigDefaults } from '../i18n'
 import { getBreakpointDefaultConfig } from '../breakpoint'
 import { getGlobalProperty } from '../vue-plugin/utils'
-import { inject } from '../current-app'
+import { getCurrentApp, inject } from '../current-app'
 import { mergeDeep } from '../../utils/merge-deep'
 import { getColorsClassesDefaultConfig } from '../colors-classes/config/default'
 
@@ -21,6 +21,12 @@ export const createGlobalConfig = () => {
     breakpoint: getBreakpointDefaultConfig(),
     i18n: getI18nConfigDefaults(),
     colorsClasses: getColorsClassesDefaultConfig(),
+    /**
+     * global config variable to pass nuxt-link component to vuestic-ui via @vuestic/nuxt
+     * TODO: give a try to integrate inertia js router components via this option
+     * TODO: if this try won't be success, may be remake to provide/inject
+     */
+    routerComponent: undefined,
   })
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value
@@ -42,26 +48,24 @@ export const createGlobalConfig = () => {
   }
 }
 
-/** Use this function if you don't want to throw error if hook used outside setup function by useGlobalConfig */
-export function useGlobalConfigSafe () {
-  return inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
+const provideForCurrentApp = <T>(provide: T) => {
+  const provides = getCurrentInstance()?.appContext.provides || getCurrentApp()?._context.provides
+
+  if (!provides) { throw new Error('Vue app not found for provide') }
+
+  provides[GLOBAL_CONFIG] = provide
+
+  return provide
 }
 
-export const useGlobalConfig = (): ProvidedGlobalConfig => {
-  const injected = inject<ProvidedGlobalConfig>(GLOBAL_CONFIG)
+/** Use this function if you don't want to throw error if hook used outside setup function by useGlobalConfig */
+export function useGlobalConfig () {
+  let injected = inject<ProvidedGlobalConfig>(GLOBAL_CONFIG) as ProvidedGlobalConfig
 
   if (!injected) {
-    // TODO: Hotfix, maybe deal with inject
-    const vm = getCurrentInstance()
-    if (!vm) { throw new Error('useGlobalConfig must be called in setup function') }
+    injected = createGlobalConfig()
 
-    const config = getGlobalProperty(vm.appContext, '$vaConfig')
-
-    if (!config) {
-      throw new Error('Vuestic GlobalConfigPlugin is not registered')
-    }
-
-    return config
+    provideForCurrentApp(injected)
   }
 
   return injected

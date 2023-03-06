@@ -4,11 +4,10 @@ dist
 .nuxt
 packages/create-vuestic/vuestic-app
 
-/tests/e2e/videos/
-/tests/e2e/screenshots/
-
-/tests/e2e/videos/
-/tests/e2e/screenshots/
+/packages/bundlers-tests/**/screenshots
+/packages/bundlers-tests/**/video
+/packages/bundlers-tests/templates/src/kitchensink.vue
+/packages/bundlers-tests/templates/src/custom-components
 
 # local env files
 .env.local

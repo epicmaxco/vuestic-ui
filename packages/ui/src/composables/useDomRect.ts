@@ -1,4 +1,5 @@
 import { Ref, ref, watch } from 'vue'
+import { unwrapEl } from '../utils/unwrapEl'
 import { useRequestAnimationFrame } from './useRequestAnimationFrame'
 
 const keys = ['x', 'y', 'width', 'height', 'top', 'left', 'right', 'bottom']
@@ -16,8 +17,9 @@ export const useDomRect = (target: Ref<HTMLElement | undefined>) => {
 
   let prev = {}
   useRequestAnimationFrame(() => {
-    if (!target.value) { return }
-    const rect = target.value.getBoundingClientRect()
+    const el = unwrapEl(target.value)
+    if (!el) { return }
+    const rect = el.getBoundingClientRect()
     if (!isDomRectEqual(rect, prev)) {
       domRect.value = rect
     }
@@ -25,8 +27,9 @@ export const useDomRect = (target: Ref<HTMLElement | undefined>) => {
   })
 
   watch(target, (newVal) => {
-    if (newVal) {
-      domRect.value = newVal.getBoundingClientRect()
+    const el = unwrapEl(newVal)
+    if (el) {
+      domRect.value = el.getBoundingClientRect()
     } else {
       domRect.value = null
     }

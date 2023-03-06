@@ -79,4 +79,11 @@ export const getI18nConfigDefaults = () => ({
   selectedTime: 'selected time',
   progressState: 'progress state',
   color: 'color',
+
+  /** Stepper next button text */
+  next: 'Next',
+  /** Stepper previous button text */
+  back: 'Previous',
+  /** Stepper finish button text */
+  finish: 'Finish',
 })

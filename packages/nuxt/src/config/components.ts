@@ -3,7 +3,9 @@ export default [
   'VaAffix',
   'VaAlert',
   'VaAppBar',
+  'VaAspectRatio',
   'VaAvatar',
+  'VaAvatarGroup',
   'VaBacktop',
   'VaBadge',
   'VaBreadcrumbs',
@@ -16,6 +18,7 @@ export default [
   'VaCardActions',
   'VaCardContent',
   'VaCardTitle',
+  'VaCardBlock',
   'VaCarousel',
   'VaCheckbox',
   'VaChip',
@@ -65,6 +68,8 @@ export default [
   'VaSidebarItemContent',
   'VaSidebarItemTitle',
   'VaSlider',
+  'VaSkeleton',
+  'VaSkeletonGroup',
   'VaSpacer',
   'VaSplit',
   'VaSwitch',
@@ -76,5 +81,6 @@ export default [
   'VaTimePicker',
   'VaTreeView',
   'VaScrollContainer',
-  'VaVirtualScroller'
+  'VaVirtualScroller',
+  'VaStepper'
 ]

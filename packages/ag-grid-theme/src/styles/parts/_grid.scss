@@ -1,0 +1,60 @@
+@import '../variables';
+
+//
+// See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_grid-borders.scss
+// See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_grid-layout.scss
+//
+@mixin ag-vuestic-theme-part-grid {
+  // ltr - left to right languages
+  // rtl - right to left languages
+  .ag-ltr,
+  .ag-rtl {
+    .ag-cell {
+      border: none;
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+    .ag-cell-inline-editing {
+      padding: 0;
+    }
+    // keyboard focus
+    .ag-has-focus .ag-cell-focus:not(.ag-cell-range-selected) {
+      border: none;
+      background-color: var(--va-background-secondary);
+    }
+  }
+
+  @include vuestic-theme-striped();
+  @include vuestic-theme-hoverable();
+  @include vuestic-theme-clickable();
+}
+
+////////////////////////////////////////
+// STRIPED MODE
+////////////////////////////////////////
+@mixin vuestic-theme-striped {
+  &--striped {
+    --ag-odd-row-background-color: var(--va-background-element, #{$backgroundElement});
+    --ag-selected-row-background-color: var(--ag-selected-row-background-color);
+  }
+}
+
+////////////////////////////////////////
+// HOVERABlE MODE
+////////////////////////////////////////
+@mixin vuestic-theme-hoverable {
+  &--hoverable {
+    --ag-row-hover-color: var(--va-background-hoverable, #{$backgroundHoverable});
+  }
+}
+
+////////////////////////////////////////
+// CLICKABLE MODE
+////////////////////////////////////////
+@mixin vuestic-theme-clickable {
+  &--clickable {
+    .ag-cell {
+      cursor: pointer;
+    }
+  }
+}

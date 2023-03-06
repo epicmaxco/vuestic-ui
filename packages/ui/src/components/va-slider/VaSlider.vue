@@ -695,7 +695,7 @@ export default defineComponent({
       'aria-valuemax': props.max,
       'aria-label': !slots.label && !props.label ? `current slider value is ${String(props.modelValue)}` : undefined,
       'aria-labelledby': slots.label || props.label ? ariaLabelIdComputed.value : undefined,
-      'aria-orientation': (props.vertical ? 'vertical' : 'horizontal') as 'vertical' | 'horizontal',
+      'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
       'aria-disabled': props.disabled,
       'aria-readonly': props.readonly,
       'aria-valuenow': !Array.isArray(props.modelValue) ? props.modelValue : undefined,
@@ -803,6 +803,7 @@ export default defineComponent({
     outline: var(--va-slider-handler-outline);
     left: var(--va-slider-handler-left);
     transition: var(--va-slider-handler-transition);
+    box-sizing: border-box;
 
     &__dot--focus {
       transform: var(--va-slider-dot-transform);

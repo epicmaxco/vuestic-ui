@@ -28,6 +28,7 @@
     "sandbox:vite": "yarn workspace sandbox dev:vite",
     "sandbox:nuxt": "yarn workspace sandbox dev:nuxt",
     "sandbox:vue-cli": "yarn workspace sandbox dev:vue-cli",
+    "sandbox:web-components": "yarn workspace sandbox dev:web-components",
     "release": "yarn workspace deploy release"
   },
   "workspaces": {
@@ -40,6 +41,9 @@
     "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD"
   },
   "resolutions": {
-    "vue": "3.2.37"
+    "nuxt": "3.1.1",
+    "vue": "3.2.37",
+    "vue-router": "4.1.6",
+    "@nuxt/schema": "3.0.0"
   }
 }
