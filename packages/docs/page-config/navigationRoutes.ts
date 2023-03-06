@@ -511,6 +511,13 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: "updated",
         }
       },
+      {
+        name: "unocss",
+        displayName: "menu.unocss",
+        meta: {
+          badge: "new",
+        }
+      },
       // GENERATOR_ADD - extensions
     ],
   },

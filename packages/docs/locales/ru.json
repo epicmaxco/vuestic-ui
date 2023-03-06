@@ -1558,7 +1558,8 @@
     "team": "Команда разработчиков",
     "i18n": "I18n",
     "webComponents": "Web Components",
-    "colorsClasses": "Colors Classes"
+    "colorsClasses": "Colors Classes",
+    "unocss": "Интеграция с UnoCSS"
   },
   "all": {
     "examples": "Примеры",
