@@ -109,7 +109,7 @@ export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>)
   const getDisabled = (node: TreeNode) => getNodeProperty(node, props.disabledBy)
   const getExpanded = (node: TreeNode) => getNodeProperty(node, props.expandedBy)
   const getTrackBy = (node: TreeNode) => getNodeProperty(node, props.trackBy)
-  const getChildren = (node: TreeNode) => getNodeProperty(node, props.childrenBy) || []
+  const getChildren = (node: TreeNode) => getNodeProperty(node, props.childrenBy) ?? []
 
   const iterateNodes = (nodes: TreeNode[], cb: (node: TreeNode) => unknown) => {
     nodes.forEach((node: TreeNode) => {
