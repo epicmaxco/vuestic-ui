@@ -36,7 +36,7 @@ describe('VaOptionList', () => {
     },
   ]
 
-  entries.forEach(({ options, expected }, index) => {
+  entries.forEach(({ options, expected }) => {
     const wrapper: VueWrapper<any> = mountWithGlobalConfig(VaOptionList, {
       attrs: {
         options,
@@ -53,7 +53,11 @@ describe('VaOptionList', () => {
       expect(wrapper.vm.getValue(wrapper.props().options[0])).toBe(expected[2])
       expect(wrapper.vm.getTrackBy(wrapper.props().options[0])).toBe(expected[3])
 
-      expect(wrapper.find('.va-checkbox--selected').find('.va-checkbox__label').text()).toBe(expected[1])
+      // checking if checked option is correct (relies on getTrackBy and getText)
+      expect(wrapper
+        .find('.va-checkbox--selected')
+        .find('.va-checkbox__label')
+        .text()).toBe(expected[1])
     })
   })
 

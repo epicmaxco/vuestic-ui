@@ -43,6 +43,7 @@ describe('VaButtonToggle', () => {
       expect(wrapper.vm.isToggled(value)).toBe(true)
       expect(wrapper.vm.getText(value)).toBe(expected[1])
 
+      // checking if selected option is correct (relies on getTrackBy and getText)
       expect(wrapper.find('button[aria-pressed="true"]').text()).toBe(expected[1])
     })
   })

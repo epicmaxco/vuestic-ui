@@ -30,6 +30,7 @@ describe('VaSelect', () => {
     expect(wrapper.vm.compareOptions(options[0], options[1])).toBe(false)
     expect(wrapper.vm.compareOptions(options[0], options[0])).toBe(true)
 
+    // checking if selected option in the options list is correct (relies on getTrackBy and getText)
     wrapper.vm.showDropdownContentComputed = true
     await wrapper.vm.$nextTick()
     expect(wrapper.find('.va-select-option--selected').text()).toBe(`${options[1].label}   check`)
@@ -62,6 +63,7 @@ describe('VaSelect', () => {
       expect(wrapper.vm.getText(options[value])).toBe(expected[0])
       expect(wrapper.vm.getOptionByValue(value)).toEqual(options[value])
 
+      // checking if selected option output is correct (relies on getText and getValue)
       expect(wrapper.find('.va-input-wrapper__text').text()).toBe(expected[0])
     })
   })
