@@ -1,10 +1,11 @@
-import { computed, Ref, unref, watchPostEffect } from 'vue'
-
-import { mapObject } from '../utils/map-object'
+import { computed, unref, watchPostEffect, type Ref } from 'vue'
 
 import { useDomRect } from './useDomRect'
 import { useDocument } from './useDocument'
 import { usePlacementAliases } from './usePlacementAliases'
+
+import { unwrapEl } from '../utils/unwrapEl'
+import { mapObject } from '../utils/map-object'
 
 import type {
   PlacementAlignment,
@@ -12,7 +13,6 @@ import type {
   UsePlacementAliasesProps,
   ParsedPlacement,
 } from './usePlacementAliases'
-import { unwrapEl } from '../utils/unwrapEl'
 
 export type Offset = number | [number, number]
 

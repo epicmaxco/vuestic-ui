@@ -1,5 +1,6 @@
-import { computed, ref, watch } from 'vue'
-import { useDocument, useHTMLElement, extractHTMLElement } from './../../../composables'
+import { computed, ref } from 'vue'
+
+import { useDocument, extractHTMLElement } from '../../../composables'
 
 export const useAnchorSelector = (
   props: {

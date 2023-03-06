@@ -33,9 +33,10 @@ import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
 import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
 
-import type { DropdownOffsetProp } from './types'
 import { renderSlotNode } from '../../utils/headless'
 import { warn } from '../../utils/console'
+
+import type { DropdownOffsetProp } from './types'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -119,11 +120,7 @@ export default defineComponent({
       if (close && props.trigger !== 'none') { valueComputed.value = false }
     }
 
-    // const anchorRef = shallowRef<HTMLElement>()
     const elRef = useHTMLElement('computedAnchorRef')
-    // watch(elRef, (v) => {
-    //   computedAnchorRef.value = v
-    // })
 
     if (props.keyboardNavigation) {
       useKeyboardNavigation(elRef, valueComputed)
