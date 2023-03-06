@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { VaFileUpload, VaInput, VaSwitch } from "vuestic-ui/src/components";
+import { VaFileUpload, VaInput, VaSwitch } from "vuestic-ui";
 
 export default {
   components: { VaFileUpload, VaInput, VaSwitch },

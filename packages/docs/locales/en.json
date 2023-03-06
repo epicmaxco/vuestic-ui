@@ -1048,6 +1048,7 @@
         "headerAppend": "Appends custom rows inside table header (`thead`)",
         "bodyPrepend": "Prepends `tbody` with custom rows",
         "cell": "Targets all the cells. Is bound to the current cell (to it internal representation)",
+        "expandableRow": "Targets all the row. Adds an expandable row underneath. To trigger expansion use `row.toggleExpandableRow`",
         "cellKey": "Allows to target only cells of a specified by the given `key` column. Is bound to the current cell",
         "bodyAppend": "Appends rows to the table's `tbody`",
         "footerPrepend": "Prepends rows to the table's `tfoot`",
@@ -1667,7 +1668,8 @@
     "i18n": "I18n",
     "webComponents": "Web Components",
     "colorsClasses": "Colors Classes",
-    "skeleton": "Skeleton"
+    "skeleton": "Skeleton",
+    "testing": "Testing"
   },
   "all": {
     "examples": "Examples",
@@ -1858,6 +1860,10 @@
       "fallback": {
         "title": "Fallback",
         "text": "You can set fallback image."
+      },
+      "gravatarIntegration": {
+        "title": "Integrate with Gravatar",
+        "text": "You can easily use Gravatar with `VaAvatar` component."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/ui/src/components/va-avatar/_variables.scss)[[target=_blank]]"
@@ -2894,7 +2900,7 @@
       },
       "inputClass": {
         "title": "Input Class",
-        "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `text--center` and `text--right` to align the center or right.",
+        "text": "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `va-text-center` and `va-text-right` to align the center or right.",
         "exampleTexts": [
           "This input must have right-aligned green text with bottom indent.",
           "Native input element must have green text. VaInput wrapper has a gray border."
@@ -3782,6 +3788,18 @@
         "styles": "Styles",
         "stylesDescription": "* All typography classes now have `va` prefix. For instance: link renamed to `va-link`, `text--right` renamed to `va-text-right`",
         "typography_1": "* `display-1` has been renamed to `va-h1`, same for 2 to 6"
+      },
+      "1_6": {
+        "components": "Components",
+        "navbar": "* `center` slot was replaced with default one;\n * default (`center`) slot is now visible on mobiles.",
+        "innerLoading": "CSS variables names were changed.",
+        "scrollContainer": "`size` prop acceptable values names were changed.",
+        "image": "Component was reworked. Suggest to check all places of usage.",
+        "extensions": "Extensions",
+        "aggrid_0": "Ag Grid",
+        "aggrid_1": "Removed SCSS mixins for Vuestic UI theme customization.",
+        "styles": "Styles",
+        "grid": "Vuestic UI grid helpers were deprecated. Use Tailwind CSS instead."
       }
     }
   },
@@ -4571,6 +4589,10 @@
       "virtualScroll": {
         "title": "Virtual scroll",
         "text": "The `virtual-scroller` prop enables virtual scroll for `tbody` rows ([read more](/ui-elements/virtual-scroll)). Pay your attention, that CSS transition is disabled here because of possible performance problems."
+      },
+      "expandableRow": {
+        "title": "Expandable rows",
+        "text": "Each row could can be additionally expanded by providing `expandableRow` slot. Slot expansion is triggered by `row.toggleExpandableRow` slot property"
       },
       "other": {
         "title": "Other",

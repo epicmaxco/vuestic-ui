@@ -13,8 +13,8 @@
           <img
             :src="item.image"
             :alt="item.name"
-            height="140px"
-            width="140px"
+            height="140"
+            width="140"
           >
         </va-avatar>
         <strong class="mt-3 mb-1">{{ item.name }}</strong>

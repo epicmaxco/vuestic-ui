@@ -14,7 +14,7 @@ export interface VuesticOptions {
    * If `true`, all CSS modules will be added. If `false`, no CSS modules will be added.
    * If an array, only CSS modules from this array will be added.
    *
-   * @default true
+   * @default ['smart-helpers', 'typography']
    *
    * @see https://vuestic.dev/en/getting-started/tree-shaking#css-code-split
    */

@@ -140,6 +140,10 @@ export default defineNuxtConfig({
     lazy: true,
 
     langDir: 'locales/',
+
+    vueI18n: {
+      fallbackLocale: 'en',
+    }
   },
 
   postcss: {

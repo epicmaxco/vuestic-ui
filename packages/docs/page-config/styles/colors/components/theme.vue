@@ -28,7 +28,7 @@
 
 <script>
 import { ref, watchEffect, toRef } from "vue";
-import { useColors } from "vuestic-ui/src/main";
+import { useColors } from "vuestic-ui";
 
 export default {
   setup() {

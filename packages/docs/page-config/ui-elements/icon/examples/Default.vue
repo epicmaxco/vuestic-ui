@@ -23,7 +23,7 @@
   </p>
 </template>
 
-<style lang="scss">
+<style>
 .va-icon + .va-icon {
   margin-left: 2rem;
 }

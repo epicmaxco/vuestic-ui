@@ -492,6 +492,18 @@
       <input type="text" v-model="filterValue">
       <va-data-table :items="evenItems" :filter="filterValue" />
     </VbCard>
+
+    <VbCard title="Expandable rows" class="demo">
+      <va-data-table :items="evenItems">
+        <template #cell(id)="{ row, isExpanded }">
+          <va-button @click="row.toggleRowDetails()">{{  isExpanded ? 'Collapse': 'Expand' }}</va-button>
+        </template>
+
+        <template #expandableRow="{ cells }">
+            This is {{ cells[0].value }} details.
+        </template>
+      </va-data-table>
+    </VbCard>
   </VbDemo>
 </template>
 

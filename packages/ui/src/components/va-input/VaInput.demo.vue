@@ -653,7 +653,7 @@
     >
       <va-input
         class="mb-6"
-        input-class="red text--right"
+        input-class="red va-text-right"
         model-value="This input must have margin bottom and right-aligned red text."
       />
       <va-input

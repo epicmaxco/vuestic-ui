@@ -271,14 +271,15 @@ export default defineComponent({
 
 .va-image {
   &__content {
-    position: var(--va-image-position);
+    position: var(--va-image-content-position);
     inset: 0;
+    width: 100%;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: v-bind(fitComputed);
-      object-position: var(--va-image-object-position);
+      object-position: var(--va-image-content-img-object-position);
     }
   }
 

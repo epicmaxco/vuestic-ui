@@ -15,6 +15,8 @@ export default definePageConfig({
 
     block.example("Fallback"),
 
+    block.example("GravatarIntegration"),
+
     block.example("WithIcon"),
 
     block.example("Color"),

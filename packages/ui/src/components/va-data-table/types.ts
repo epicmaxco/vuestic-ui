@@ -99,7 +99,9 @@ export interface DataTableRow {
   initialIndex: number
   itemKey: DataTableItemKey
   source: DataTableItem
-  cells: DataTableCell[]
+  cells: DataTableCell[],
+  /** Same rowData as in DataTableCell */
+  rowData: DataTableItem
 }
 
 export type DataTableFilterMethod = (source: any) => boolean

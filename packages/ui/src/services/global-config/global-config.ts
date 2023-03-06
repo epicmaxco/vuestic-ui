@@ -21,6 +21,12 @@ export const createGlobalConfig = () => {
     breakpoint: getBreakpointDefaultConfig(),
     i18n: getI18nConfigDefaults(),
     colorsClasses: getColorsClassesDefaultConfig(),
+    /**
+     * global config variable to pass nuxt-link component to vuestic-ui via @vuestic/nuxt
+     * TODO: give a try to integrate inertia js router components via this option
+     * TODO: if this try won't be success, may be remake to provide/inject
+     */
+    routerComponent: undefined,
   })
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value

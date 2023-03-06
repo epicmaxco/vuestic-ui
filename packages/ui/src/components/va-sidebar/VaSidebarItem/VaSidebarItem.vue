@@ -8,6 +8,7 @@
     :href="hrefComputed"
     :to="$props.to"
     :is="tagComputed"
+    v-bind="linkAttributesComputed"
     v-on="keyboardFocusListeners"
   >
     <slot />
@@ -91,7 +92,7 @@ export default defineComponent({
       return style
     })
 
-    const { tagComputed, hrefComputed } = useRouterLink(props)
+    const { tagComputed, hrefComputed, linkAttributesComputed } = useRouterLink(props)
 
     return {
       rootElement,
@@ -103,6 +104,7 @@ export default defineComponent({
       backgroundColorComputed,
       bg: getColor(sidebar?.color),
       textBackground,
+      linkAttributesComputed,
     }
   },
 })

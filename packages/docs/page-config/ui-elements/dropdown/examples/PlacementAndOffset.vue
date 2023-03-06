@@ -2,7 +2,7 @@
   <table>
     <tr>
       <td colspan="2">
-        <div class="title text--center mb-2">
+        <div class="title va-text-center mb-2">
           Offset direction
         </div>
       </td>
@@ -22,7 +22,7 @@
             :offset="offset"
           >
             <template #anchor>
-              <Coordinates :placement="placement" />
+              <div><Coordinates :placement="placement" /></div>
             </template>
 
             <va-dropdown-content> Dropdown </va-dropdown-content>
