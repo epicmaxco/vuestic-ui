@@ -54,10 +54,9 @@ export const useButtonTextColor: UseButtonTextColor = (
 
   const props = instance.props as Required<ButtonPropsTypes>
 
-  const { getColor, colorToRgba, getStateMaskGradientBackground } = useColors()
+  const { getColor, colorToRgba } = useColors()
 
   const plainColorStyles = computed(() => ({
-    // background: 'transparent',
     color: textColorComputed.value,
     '-webkit-background-clip': 'text' as const,
     'background-clip': 'text' as const,
@@ -72,7 +71,6 @@ export const useButtonTextColor: UseButtonTextColor = (
       stateStyles = { color: colorToRgba(textColorComputed.value, stateOpacity) }
     } else {
       stateStyles = {
-        // background: getStateMaskGradientBackground(colorComputed.value, maskStateColor, stateOpacity),
         color: stateOpacity < 1 ? colorToRgba(textColorComputed.value, getOpacity(stateOpacity)) : maskStateColor,
       }
     }
@@ -97,10 +95,8 @@ export const useButtonTextColor: UseButtonTextColor = (
   return computed(() => {
     const defaultColorStyles = {
       color: textColorComputed.value,
-      // background: 'transparent',
     }
     props.plain && Object.assign(defaultColorStyles, plainColorStyles.value)
-    // props.plain && Object.assign(defaultColorStyles, plainColorStyles.value, { background: textColorComputed.value })
 
     if (!props.plain) { return defaultColorStyles }
     if (isPressed.value) { return pressedTextColorComputed.value }

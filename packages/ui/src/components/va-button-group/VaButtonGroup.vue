@@ -81,14 +81,9 @@ export default defineComponent({
     margin: var(--va-button-group-button-margin);
     width: var(--va-button-group-button-width);
     box-shadow: none;
-    outline: none;
 
     &:focus-visible {
-      outline: none !important;
-
-      &::before {
-        @include focus-outline($offset: -2px, $radius: 'inherit');
-      }
+      @include focus-outline($offset: -2px, $radius: 'inherit');
     }
   }
 

@@ -169,8 +169,6 @@ export default defineComponent({
     } = useButtonBackground(colorComputed)
     const contentColorComputed = useButtonTextColor(textColorComputed, colorComputed, isPressed, isHovered)
 
-    console.log(contentColorComputed.value)
-
     const computedStyle = computed(() => ({
       borderColor: props.borderColor ? getColor(props.borderColor) : 'transparent',
       ...contentColorComputed.value,

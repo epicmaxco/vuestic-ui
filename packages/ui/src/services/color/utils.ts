@@ -106,6 +106,13 @@ export const getGradientBackground = (color: string) => {
   return `linear-gradient(to right, ${colorLeft}, ${colorRight})`
 }
 
+export const getGradientBackgroundWithOpacity = (color: string, opacity = 1) => {
+  const colorLeft = new ColorTranslator(shiftGradientColor(color)).setA(opacity).HSLA
+  const colorRight = new ColorTranslator(color).setA(opacity).HSLA
+
+  return `linear-gradient(to right, ${colorLeft}, ${colorRight})`
+}
+
 export const getStateMaskGradientBackground = (color: string, maskColor: string, maskOpacity: number) => {
   const mask = colorToRgba(maskColor, maskOpacity)
 

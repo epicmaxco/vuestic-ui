@@ -10,6 +10,7 @@
             <va-button preset="secondary">Secondary</va-button>
             <va-button preset="plain">Plain</va-button>
             <va-button preset="plainOpacity">Plain with opacity</va-button>
+            <va-button color="info" gradient>Gradient</va-button>
           </td>
         </tr>
 
@@ -30,6 +31,8 @@
             <va-button preset="plain" hoverBehavior="mask" hoverMaskColor="warning" :hoverOpacity="1">
               Hover me
             </va-button>
+            <va-button color="info" gradient hoverBehavior="opacity" :hoverOpacity="0.4">Hover me</va-button>
+            <va-button preset="plain" color="info" gradient hoverBehavior="opacity" :hoverOpacity="0.4">Hover me</va-button>
           </td>
         </tr>
 
@@ -50,6 +53,8 @@
             <va-button preset="plain" hoverBehavior="mask" hoverMaskColor="warning" :hoverOpacity="1">
               Press me
             </va-button>
+            <va-button color="info" gradient pressedBehavior="opacity" :pressedOpacity="0.4">Press me</va-button>
+            <va-button preset="plain" color="info" gradient pressedBehavior="opacity" :pressedOpacity="0.4">Press me</va-button>
           </td>
         </tr>
 
