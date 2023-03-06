@@ -1476,6 +1476,7 @@
         "trackBy": "The key to index nodes.",
         "iconBy": "The key where is node placed.",
         "disabledBy": "The key which describes the disabled property.",
+        "childrenBy": "Child nodes key.",
         "expandedBy": "The where is placed the expanded property.",
         "expandAll": "Expand or hide all nodes by default.",
         "filter": "Tree view filter.",
