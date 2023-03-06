@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { mountWithGlobalConfig, shallowMountWithGlobalConfig } from '../../../utils/unit-test-utils'
+import { mountWithGlobalConfig } from '../../../utils/unit-test-utils'
 
 import VaOptionList from '../VaOptionList.vue'
 
@@ -13,7 +13,7 @@ describe('VaOptionList', () => {
   })
 
   it('should correctly set the new selected value', () => {
-    const wrapper: VueWrapper<any> = shallowMountWithGlobalConfig(VaOptionList, {
+    const wrapper: VueWrapper<any> = mountWithGlobalConfig(VaOptionList, {
       attrs: {
         stateful: 3,
         type: 'radio',
@@ -36,13 +36,13 @@ describe('VaOptionList', () => {
     },
   ]
 
-  entries.forEach(({ options, expected }) => {
-    const wrapper: VueWrapper<any> = shallowMountWithGlobalConfig(VaOptionList, {
+  entries.forEach(({ options, expected }, index) => {
+    const wrapper: VueWrapper<any> = mountWithGlobalConfig(VaOptionList, {
       attrs: {
-        type: 'radio',
         options,
         disabledBy: 'disabled',
         textBy: 'name',
+        modelValue: [options[0].value],
         valueBy: 'value',
       },
     })
@@ -52,6 +52,8 @@ describe('VaOptionList', () => {
       expect(wrapper.vm.getText(wrapper.props().options[0])).toBe(expected[1])
       expect(wrapper.vm.getValue(wrapper.props().options[0])).toBe(expected[2])
       expect(wrapper.vm.getTrackBy(wrapper.props().options[0])).toBe(expected[3])
+
+      expect(wrapper.find('.va-checkbox--selected').find('.va-checkbox__label').text()).toBe(expected[1])
     })
   })
 

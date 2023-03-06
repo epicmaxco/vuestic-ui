@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { mountWithGlobalConfig, shallowMountWithGlobalConfig } from '../../../utils/unit-test-utils'
+import { mountWithGlobalConfig } from '../../../utils/unit-test-utils'
 
 import VaSelect from '../VaSelect.vue'
 
@@ -17,17 +17,22 @@ describe('VaSelect', () => {
     { id: 0, label: false, value: 1, disabled: false, group: 1 },
   ]
 
-  it('should compare options correctly', () => {
-    const wrapper: VueWrapper<any> = shallowMountWithGlobalConfig(VaSelect, {
+  it('should compare options correctly', async () => {
+    const wrapper: VueWrapper<any> = mountWithGlobalConfig(VaSelect, {
       attrs: {
         options,
         valueBy: 'value',
+        textBy: 'label',
+        modelValue: 1,
       },
     })
 
-    // get track by / get value
     expect(wrapper.vm.compareOptions(options[0], options[1])).toBe(false)
     expect(wrapper.vm.compareOptions(options[0], options[0])).toBe(true)
+
+    wrapper.vm.showDropdownContentComputed = true
+    await wrapper.vm.$nextTick()
+    expect(wrapper.find('.va-select-option--selected').text()).toBe(`${options[1].label}   check`)
   })
 
   const entries = [
@@ -43,7 +48,7 @@ describe('VaSelect', () => {
 
   entries.forEach(({ value, expected }) => {
     it('should interpret `useSelectableProps`', () => {
-      const wrapper: VueWrapper<any> = shallowMountWithGlobalConfig(VaSelect, {
+      const wrapper: VueWrapper<any> = mountWithGlobalConfig(VaSelect, {
         attrs: {
           options,
           textBy: 'label',
@@ -55,8 +60,9 @@ describe('VaSelect', () => {
       })
 
       expect(wrapper.vm.getText(options[value])).toBe(expected[0])
-      // getValue
       expect(wrapper.vm.getOptionByValue(value)).toEqual(options[value])
+
+      expect(wrapper.find('.va-input-wrapper__text').text()).toBe(expected[0])
     })
   })
 

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { mountWithGlobalConfig, shallowMountWithGlobalConfig } from '../../../utils/unit-test-utils'
+import { mountWithGlobalConfig } from '../../../utils/unit-test-utils'
 
 import VaButtonToggle from '../VaButtonToggle.vue'
 
@@ -31,17 +31,19 @@ describe('VaButtonToggle', () => {
 
   entries.forEach(({ value, expected }) => {
     it('should interpret `useSelectableProps`', () => {
-      const wrapper: VueWrapper<any> = shallowMountWithGlobalConfig(VaButtonToggle, {
+      const wrapper: VueWrapper<any> = mountWithGlobalConfig(VaButtonToggle, {
         attrs: {
           options,
           textBy: 'name',
           valueBy: 'value',
-          modelValue: options[0].value,
+          modelValue: value.value,
         },
       })
 
-      expect(wrapper.vm.isToggled(value)).toBe(expected[0])
+      expect(wrapper.vm.isToggled(value)).toBe(true)
       expect(wrapper.vm.getText(value)).toBe(expected[1])
+
+      expect(wrapper.find('button[aria-pressed="true"]').text()).toBe(expected[1])
     })
   })
 })
