@@ -90,6 +90,12 @@
         selectable
       />
     </VbCard>
+    <VbCard title="childrenBy">
+      <va-tree-view
+        :nodes="nodesChildrenBy"
+        children-by="items"
+      />
+    </VbCard>
     <VbCard title="textBy">
       <va-tree-view
         :nodes="nodesTextBy"
@@ -325,6 +331,25 @@ export default {
         ],
       },
       { id: 6, label: 'Item' },
+    ],
+    nodesChildrenBy: [
+      {
+        id: 1,
+        label: 'Category',
+        items: [
+          { id: 2, label: 'Item' },
+          {
+            id: 3,
+            label: 'Subcategory',
+            items: [
+              { id: 4, label: 'Item' },
+              { id: 5, label: 'Item' },
+            ],
+          },
+          { id: 6, label: 'Item' },
+        ],
+      },
+      { id: 7, label: 'Item' },
     ],
     filterableNodes: [
       {
