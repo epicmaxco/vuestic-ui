@@ -27,6 +27,27 @@ describe('value by key', () => {
     },
     {
       props: {
+        option: { prop: null },
+        prop: 'prop',
+      },
+      expected: null,
+    },
+    {
+      props: {
+        option: { prop: 0 },
+        prop: 'prop',
+      },
+      expected: 0,
+    },
+    {
+      props: {
+        option: { prop: undefined },
+        prop: 'prop',
+      },
+      expected: undefined,
+    },
+    {
+      props: {
         option: { prop: 'string' },
         prop: undefined,
       },
@@ -38,6 +59,13 @@ describe('value by key', () => {
         prop: 1,
       },
       expected: { prop: 'string' },
+    },
+    {
+      props: {
+        option: { prop: 'string' },
+        prop: 'does not exist',
+      },
+      expected: undefined,
     },
     {
       props: {

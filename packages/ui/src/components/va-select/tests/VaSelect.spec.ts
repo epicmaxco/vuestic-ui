@@ -15,6 +15,7 @@ describe('VaSelect', () => {
   const options = [
     { id: 1, label: 'one', value: 0, disabled: true, group: '1' },
     { id: 0, label: false, value: 1, disabled: false, group: 1 },
+    { id: 0, label: false, value: 1, disabled: false, group: 1 },
   ]
 
   it('should compare options correctly', async () => {
@@ -29,11 +30,13 @@ describe('VaSelect', () => {
 
     expect(wrapper.vm.compareOptions(options[0], options[1])).toBe(false)
     expect(wrapper.vm.compareOptions(options[0], options[0])).toBe(true)
+    expect(wrapper.vm.compareOptions(options[1], options[2])).toBe(true)
 
     // checking if selected option in the options list is correct (relies on getTrackBy and getText)
     wrapper.vm.showDropdownContentComputed = true
     await wrapper.vm.$nextTick()
     expect(wrapper.find('.va-select-option--selected').text()).toBe(`${options[1].label}   check`)
+    expect(wrapper.find('.va-input-wrapper__text').text()).toBe(String(options[1].label))
   })
 
   const entries = [
@@ -66,6 +69,30 @@ describe('VaSelect', () => {
       // checking if selected option output is correct (relies on getText and getValue)
       expect(wrapper.find('.va-input-wrapper__text').text()).toBe(expected[0])
     })
+  })
+
+  it('should interpret `useSelectableProps`', () => {
+    const wrapper: VueWrapper<any> = mountWithGlobalConfig(VaSelect, {
+      attrs: {
+        options: ['Text1', 'Text2'],
+        textBy: 'label',
+        modelValue: 'Text1',
+      },
+    })
+
+    expect(wrapper.find('.va-input-wrapper__text').text()).toBe('Text1')
+  })
+
+  it('should interpret `useSelectableProps`', () => {
+    const wrapper: VueWrapper<any> = mountWithGlobalConfig(VaSelect, {
+      attrs: {
+        options,
+        textBy: 'label',
+        modelValue: 'Not a object',
+      },
+    })
+
+    expect(wrapper.find('.va-input-wrapper__text').text()).toBe('Not a object')
   })
 
   // it('reset() should clear value on single select', async () => {
