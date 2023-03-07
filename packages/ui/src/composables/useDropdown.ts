@@ -194,7 +194,6 @@ export const useDropdown = (
   const { domRect: contentDomRect } = useDomRect(contentRef)
 
   const css = {
-    width: 'max-content',
     position: 'absolute',
   }
 
@@ -233,8 +232,8 @@ export const useDropdown = (
       coords = calculateClipToEdge(coords, offsetCoords, contentDomRect.value, anchorDomRect.value, viewportRect)
     }
 
-    coords.x -= rootRect.x
-    coords.y -= rootRect.y
+    coords.x -= rootRect.x + rootRef.value.clientLeft
+    coords.y -= rootRect.y + rootRef.value.clientTop
 
     if (unwrapEl(contentRef.value)) {
       let widthCss = {}

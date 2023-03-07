@@ -476,6 +476,20 @@
         </va-dropdown>
       </div>
     </VbCard>
+
+    <VbCard style="border: 2rem solid blue; position: relative; margin: 6rem;">
+      <div style="border: 2rem solid red; box-sizing: border-box;">
+        <va-dropdown :target="autoPlacementTarget">
+          <template #anchor>
+            <button>Click</button>
+          </template>
+
+          <va-dropdown-content>
+            rrrrrrrrrrrrrrrrrrrr
+          </va-dropdown-content>
+        </va-dropdown>
+      </div>
+    </VbCard>
   </VbDemo>
 </template>
 
