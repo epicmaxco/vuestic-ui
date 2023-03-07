@@ -179,7 +179,7 @@ export default defineComponent({
 
     const cursorAnchor = useCursorAnchor(computedAnchorRef, valueComputed)
     const document = useDocument()
-    const isPopoverFloating = computed(() => props.preventOverflow || props.cursor)
+    const isPopoverFloating = computed(() => props.preventOverflow)
 
     const target = useHTMLElementSelector(computed(() => props.target || 'body'))
 
@@ -305,6 +305,7 @@ export default defineComponent({
     font-family: var(--va-font-family);
     top: 0;
     left: 0;
+    position: absolute;
   }
 }
 </style>
