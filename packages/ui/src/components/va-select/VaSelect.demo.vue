@@ -106,13 +106,13 @@
       style="width: 400px;"
     >
       <va-select
-        v-model="defaultMultiSelect.value"
+        v-model="largeMultiSelect.value"
         class="mb-4"
-        :options="defaultMultiSelect.options"
+        :options="largeMultiSelect.options"
         selected-top-shown
         multiple
       />
-      <p>Value: {{ defaultMultiSelect.value }}</p>
+      <p>Value: {{ largeMultiSelect.value }}</p>
     </VbCard>
     <VbCard
       title="Max visible options"
@@ -806,6 +806,10 @@ export default {
         options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
         value: [],
       },
+      largeMultiSelect: {
+        options: new Array(100).fill(null).map((_, index) => index),
+        value: [],
+      },
       preloadable: {
         options: [random(), random(), random(), random(), random(), random(), random(), random(), random(), random()],
         value: '',
@@ -826,8 +830,8 @@ export default {
       },
       disabledOptions: {
         options: [
-          { id: '0', text: 'one', value: 'one', disabled: true },
-          { id: '1', text: 'two', value: 'two' },
+          { id: '0', text: 'one', value: 'one' },
+          { id: '1', text: 'two', value: 'two', disabled: true },
           { id: '2', text: 'three', value: 'three', disabled: true },
           { id: '3', text: 'four', value: 'four' },
           { id: '4', text: 'five', value: 'five' },
