@@ -266,6 +266,7 @@ export default defineComponent({
     virtualTrackBy: { type: [String, Number] as PropType<string | number>, default: 'initialIndex' },
     grid: { type: Boolean, default: false },
     gridColumns: { type: Number, default: 0 },
+    wrapperSize: { type: [Number, String] as PropType<number | string | 'auto'>, default: 'auto' },
   },
 
   emits: [
@@ -343,7 +344,7 @@ export default defineComponent({
     }) as TableHTMLAttributes)
 
     const virtualScrollerPropsComputed = computed(() => ({
-      ...pick(props, ['wrapperSize', 'itemSize', 'bench']),
+      ...filterComponentProps(VaVirtualScrollerProps).value,
       items: paginatedRows.value,
       trackBy: props.virtualTrackBy,
       disabled: !props.virtualScroller,
