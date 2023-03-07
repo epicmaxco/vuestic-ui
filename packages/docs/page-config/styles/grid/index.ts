@@ -2,7 +2,7 @@ export default definePageConfig({
   blocks: [
     block.title("grid.title"),
     block.paragraph("grid.summaryText"),
-    block.alert("grid.deprecated", "warning", false),
+    block.alert("grid.deprecated", "warning", true),
 
     block.example("Default"),
 
