@@ -9,6 +9,10 @@ const props = defineProps({
   color: {
     type: String,
     default: 'info'
+  },
+  outline: {
+    type: Boolean,
+    default: true,
   }
 })
 
@@ -19,7 +23,7 @@ const { t } = useI18n()
   <va-alert
     class="page-config-alert my-2"
     :color="color"
-    outline
+    :outline="outline"
   >
     <MarkdownView :content="t(text)" />
   </va-alert>
