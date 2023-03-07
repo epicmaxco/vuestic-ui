@@ -134,8 +134,6 @@ import {
   useThrottleProps,
 } from '../../composables'
 
-import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-
 import {
   VaDropdown,
   VaDropdownContent,
@@ -151,6 +149,7 @@ import { useToggleIcon, useToggleIconProps } from './hooks/useToggleIcon'
 import { useStringValue, useStringValueProps } from './hooks/useStringValue'
 import { useAutocomplete, useAutocompleteProps } from './hooks/useAutocomplete'
 
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { blurElement, focusElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
 import { isNilValue } from '../../utils/isNilValue'
@@ -350,10 +349,10 @@ export default defineComponent({
     })
 
     const checkIsOptionSelected = (option: SelectOption) => {
-      if (!valueComputed.value) { return false }
+      if (isNilValue(valueComputed.value)) { return false }
 
       if (Array.isArray(valueComputed.value)) {
-        return !!valueComputed.value.find((valueItem) => compareOptions(valueItem, option))
+        return !isNilValue(valueComputed.value.find((valueItem) => compareOptions(valueItem, option)))
       }
 
       return compareOptions(valueComputed.value, option)

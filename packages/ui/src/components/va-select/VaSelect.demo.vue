@@ -117,13 +117,13 @@
       style="width: 400px;"
     >
       <va-select
-        v-model="defaultMultiSelect.value"
+        v-model="largeMultiSelect.value"
         class="mb-4"
-        :options="defaultMultiSelect.options"
+        :options="largeMultiSelect.options"
         selected-top-shown
         multiple
       />
-      <p>Value: {{ defaultMultiSelect.value }}</p>
+      <p>Value: {{ largeMultiSelect.value }}</p>
     </VbCard>
     <VbCard
       title="Max visible options"
@@ -676,7 +676,7 @@
         multiple
         searchable
       />
-       <va-select
+      <va-select
         v-model="defaultSingleSelect.value"
         class="mb-6"
         label="Searchable changed text"
@@ -832,6 +832,10 @@ export default {
       },
       defaultMultiSelect: {
         options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
+        value: [],
+      },
+      largeMultiSelect: {
+        options: new Array(100).fill(null).map((_, index) => index),
         value: [],
       },
       preloadable: {
