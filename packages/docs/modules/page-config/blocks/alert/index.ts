@@ -2,11 +2,12 @@ import { definePageConfigBlock } from '../../types'
 import Component from './index.vue'
 
 export default definePageConfigBlock({
-  setup: (text: string, color?: string) => {
+  setup: (text: string, color?: string, solid?: boolean) => {
     return {
       type: 'alert' as const,
       text,
-      color
+      color,
+      solid,
     }
   },
   component: Component,
