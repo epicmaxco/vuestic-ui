@@ -1,5 +1,7 @@
 import { computed, ref, toRef, watch, type ExtractPropTypes } from 'vue'
 
+import { isNilValue } from '../../../utils/isNilValue'
+
 import type { SelectOption } from '../types'
 
 export const useMaxVisibleOptionsProps = {
@@ -10,6 +12,7 @@ type UseMaxVisibleOptionsProps = ExtractPropTypes<typeof useMaxVisibleOptionsPro
 
 export const useMaxVisibleOptions = (
   props: UseMaxVisibleOptionsProps,
+  getOptionByValue: (v: SelectOption) => SelectOption,
 ) => {
   const modelValue = toRef(props, 'modelValue')
   const isAllOptionsShown = ref(false)
@@ -26,20 +29,21 @@ export const useMaxVisibleOptions = (
 
   watch(modelValue, () => {
     if (!Array.isArray(modelValue.value)) {
-      belowLimitSelectedOptions.value = [modelValue.value]
+      belowLimitSelectedOptions.value = [getOptionByValue(modelValue.value)]
       hiddenSelectedOptions.value = []
+      return
     }
 
-    const value = modelValue.value as SelectOption[]
+    const value = modelValue.value.filter((v) => !isNilValue(v)).map(getOptionByValue)
 
     if (props.maxVisibleOptions) {
       belowLimitSelectedOptions.value = value.slice(0, props.maxVisibleOptions)
       hiddenSelectedOptions.value = value.slice(props.maxVisibleOptions)
     } else {
-      belowLimitSelectedOptions.value = Array.isArray(value) ? [...value] : [value]
+      belowLimitSelectedOptions.value = [...value]
       hiddenSelectedOptions.value = []
     }
-  })
+  }, { immediate: true })
 
   const toggleHiddenOptionsState = () => (isAllOptionsShown.value = !isAllOptionsShown.value)
 

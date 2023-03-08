@@ -12,6 +12,17 @@
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
     <VbCard
+      title="Basic numeric usage"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultNumericSingleSelect.value"
+        class="mb-6"
+        :options="defaultNumericSingleSelect.options"
+      />
+      <p>Value: {{ defaultNumericSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
       title="Autocomplete"
       style="width: 400px;"
     >
@@ -106,13 +117,13 @@
       style="width: 400px;"
     >
       <va-select
-        v-model="defaultMultiSelect.value"
+        v-model="largeMultiSelect.value"
         class="mb-4"
-        :options="defaultMultiSelect.options"
+        :options="largeMultiSelect.options"
         selected-top-shown
         multiple
       />
-      <p>Value: {{ defaultMultiSelect.value }}</p>
+      <p>Value: {{ largeMultiSelect.value }}</p>
     </VbCard>
     <VbCard
       title="Max visible options"
@@ -264,6 +275,19 @@
         class="mb-6"
         label="No options"
         :options="[]"
+      />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        label="Existing falsy options"
+        :options="[false, 0]"
+      />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        label="Existing falsy options object"
+        value-by="value"
+        :options="[{ text: 0, value: false }, { value: 0, text: false }]"
       />
     </VbCard>
     <VbCard title="html select for example">
@@ -652,7 +676,7 @@
         multiple
         searchable
       />
-       <va-select
+      <va-select
         v-model="defaultSingleSelect.value"
         class="mb-6"
         label="Searchable changed text"
@@ -796,7 +820,11 @@ export default {
       disabledValue: 'Selected option',
       defaultSingleSelect: {
         options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
-        value: '',
+        value: 'one',
+      },
+      defaultNumericSingleSelect: {
+        options: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+        value: 0,
       },
       withVirtualScroller: {
         options: new Array(1000).fill(null).map((_, index) => index),
@@ -804,6 +832,10 @@ export default {
       },
       defaultMultiSelect: {
         options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
+        value: [],
+      },
+      largeMultiSelect: {
+        options: new Array(100).fill(null).map((_, index) => index),
         value: [],
       },
       preloadable: {

@@ -74,7 +74,6 @@ import {
   useColorProps,
   extractHTMLElement,
   useObjectRefs,
-  useSlotPassed,
   useSelectableList, useSelectableListProps,
   useThrottleValue, useThrottleProps,
 } from '../../../../composables'
@@ -83,6 +82,8 @@ import { scrollToElement } from '../../../../utils/scroll-to-element'
 
 import { VaVirtualScroller } from '../../../va-virtual-scroller'
 import { VaSelectOption } from '../VaSelectOption'
+
+import { isNilValue } from '../../../../utils/isNilValue'
 
 import type { SelectOption, EventSource } from '../../types'
 
@@ -105,7 +106,7 @@ export default defineComponent({
     multiple: { type: Boolean, default: false },
     search: { type: String, default: '' },
     tabindex: { type: Number, default: 0 },
-    hoveredOption: { type: [String, Number, Object] as PropType<SelectOption | null>, default: null },
+    hoveredOption: { type: [String, Number, Boolean, Object] as PropType<SelectOption | null>, default: null },
     virtualScroller: { type: Boolean, default: true },
     highlightMatchedText: { type: Boolean, default: true },
     minSearchChars: { type: Number, default: 0 },
@@ -155,7 +156,7 @@ export default defineComponent({
       }
 
       return props.options.filter((option: SelectOption) => {
-        const optionText = getText(option).toString().toUpperCase()
+        const optionText = getText(option).toUpperCase()
         const search = props.search.toUpperCase()
         return optionText.includes(search)
       })
@@ -163,11 +164,11 @@ export default defineComponent({
 
     const optionGroups = computed(() => filteredOptions.value
       .reduce((groups: Record<string, SelectOption[]>, option) => {
-        if (typeof option !== 'object' || !getGroupBy(option)) {
+        const groupBy = getGroupBy(option)
+
+        if (!groupBy) {
           groups._noGroup.push(option)
         } else {
-          const groupBy = getGroupBy(option)
-
           if (!groups[groupBy]) { groups[groupBy] = [] }
 
           groups[groupBy].push(option)
@@ -177,7 +178,7 @@ export default defineComponent({
       }, { _noGroup: [] }))
     const optionGroupsThrottled = useThrottleValue(optionGroups, props)
 
-    const isValueExists = (value: SelectOption | null | undefined): value is SelectOption => !!value || value === 0
+    const isValueExists = (value: SelectOption | null | undefined): value is SelectOption => !isNilValue(value)
 
     const updateHoveredOption = (option?: SelectOption) => {
       if (option === currentOptionComputed.value || (isValueExists(option) && getDisabled(option))) { return }

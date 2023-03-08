@@ -120,7 +120,6 @@
 import { defineComponent, ref, shallowRef, computed, watch, nextTick, type PropType, type Ref } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { warn } from '../../utils/console'
 import {
   useComponentPresetProp,
   useSelectableList, useSelectableListProps,
@@ -134,8 +133,6 @@ import {
   useBem,
   useThrottleProps,
 } from '../../composables'
-
-import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import {
   VaDropdown,
@@ -152,10 +149,14 @@ import { useToggleIcon, useToggleIconProps } from './hooks/useToggleIcon'
 import { useStringValue, useStringValueProps } from './hooks/useStringValue'
 import { useAutocomplete, useAutocompleteProps } from './hooks/useAutocomplete'
 
-import type { SelectOption, Placement } from './types'
-import type { DropdownOffsetProp } from '../va-dropdown/types'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { blurElement, focusElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
+import { isNilValue } from '../../utils/isNilValue'
+import { warn } from '../../utils/console'
+
+import type { SelectOption, Placement } from './types'
+import type { DropdownOffsetProp } from '../va-dropdown/types'
 
 const VaDropdownProps = extractComponentProps(VaDropdown,
   ['keyboardNavigation', 'offset', 'stateful', 'keepAnchorWidth', 'closeOnContentClick', 'innerAnchorSelector', 'modelValue'],
@@ -199,7 +200,7 @@ export default defineComponent({
     ...useAutocompleteProps,
 
     modelValue: {
-      type: [String, Number, Array, Object] as PropType<SelectOption | SelectOption[]>,
+      type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>,
       default: '',
     },
 
@@ -246,7 +247,7 @@ export default defineComponent({
 
     const isInputFocused = useFocusDeep(input as any)
 
-    const { getOptionByValue, getValue, getText, getTrackBy } = useSelectableList(props)
+    const { getValue, getText, getTrackBy } = useSelectableList(props)
 
     const onScrollBottom = () => emit('scroll-bottom')
 
@@ -258,13 +259,28 @@ export default defineComponent({
       hoveredOption.value = null
     })
 
+    const getOptionByValue = (value: SelectOption): SelectOption => {
+      // if value is an object, it should be selectable option itself
+      if (isNilValue(value) || typeof value === 'object') { return value }
+
+      const optionByValue = props.options.find((option) => value === getValue(option))
+
+      if (optionByValue === undefined) {
+        warn(`[VaSelect]: can not find option in options list (${JSON.stringify(props.options)}) by provided value (${JSON.stringify(value)})!`)
+
+        return value
+      }
+
+      return optionByValue
+    }
+
     const {
       toggleHiddenOptionsState,
       isAllOptionsShown,
       visibleSelectedOptions,
       hiddenSelectedOptionsAmount,
       allSelectedOptions,
-    } = useMaxVisibleOptions(props)
+    } = useMaxVisibleOptions(props, getOptionByValue)
 
     // select value
     const valueComputed = computed<SelectOption | SelectOption[]>({
@@ -274,7 +290,7 @@ export default defineComponent({
         const value = getOptionByValue(props.modelValue)
 
         if (Array.isArray(value)) {
-          warn('Model value should be a string or a number for a single Select.')
+          warn('Model value should be a string, number, boolean or an object for a single Select.')
 
           if (value.length) {
             return value.at(-1)
@@ -284,11 +300,11 @@ export default defineComponent({
         return value
       },
 
-      set (value: SelectOption | SelectOption[]) {
-        if (Array.isArray(value)) {
-          emit('update:modelValue', value.map(getValue))
+      set (option: SelectOption | SelectOption[]) {
+        if (Array.isArray(option)) {
+          emit('update:modelValue', option.map(getValue))
         } else {
-          emit('update:modelValue', getValue(value))
+          emit('update:modelValue', getValue(option))
         }
       },
     })
@@ -333,10 +349,10 @@ export default defineComponent({
     })
 
     const checkIsOptionSelected = (option: SelectOption) => {
-      if (!valueComputed.value) { return false }
+      if (isNilValue(valueComputed.value)) { return false }
 
       if (Array.isArray(valueComputed.value)) {
-        return !!valueComputed.value.find((valueItem) => compareOptions(valueItem, option))
+        return !isNilValue(valueComputed.value.find((valueItem) => compareOptions(valueItem, option)))
       }
 
       return compareOptions(valueComputed.value, option)
@@ -378,17 +394,17 @@ export default defineComponent({
       if (props.multiple && isValueComputedArray(valueComputed)) {
         const { exceedsMaxSelections, addOption } = useMaxSelections(valueComputed, ref(props.maxSelections))
 
-        const isSelected = checkIsOptionSelected(getValue(option))
+        const isSelected = checkIsOptionSelected(option)
 
         if (isSelected) {
           // Unselect
-          valueComputed.value = valueComputed.value.filter((optionSelected) => !compareOptions(getValue(option), getValue(optionSelected)))
+          valueComputed.value = valueComputed.value.filter((optionSelected) => !compareOptions(option, optionSelected))
         } else {
           if (exceedsMaxSelections()) { return }
           valueComputed.value = addOption(option)
         }
       } else {
-        valueComputed.value = typeof option === 'string' || typeof option === 'number' ? option : { ...option }
+        valueComputed.value = typeof option !== 'object' ? option : { ...option }
         hideAndFocus()
       }
 
@@ -413,7 +429,7 @@ export default defineComponent({
     const hoveredOption = ref<SelectOption | null>(null)
 
     const selectHoveredOption = () => {
-      if (!hoveredOption.value && hoveredOption.value !== 0) { return }
+      if (isNilValue(hoveredOption.value)) { return }
 
       if (!showDropdownContent.value) {
         // We can not select options if they are hidden
@@ -571,7 +587,7 @@ export default defineComponent({
     }))
 
     const optionsListPropsComputed = computed(() => ({
-      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'delay']),
+      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'valueBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'delay']),
       autoSelectFirstOption: props.autoSelectFirstOption || props.autocomplete,
       search: searchInput.value || autocompleteValue.value,
       tabindex: tabIndexComputed.value,
@@ -720,6 +736,11 @@ export default defineComponent({
       inputWrapperPropsComputed,
       inputWrapperClassComputed,
       selectContentPropsComputed,
+
+      // for e2e tests
+      getOptionByValue,
+      compareOptions,
+      getText,
     }
   },
 })
