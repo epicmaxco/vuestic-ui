@@ -2696,6 +2696,12 @@
   "image": {
     "title": "Image",
     "summaryText": "The `va-image` component is used to display responsive images. It has some features to make your work with images easier.",
+    "imagesInNuxt": {
+      "title": "How to deal with images in nuxt apps",
+      "problemStatement": "When you will work with `va-image` component, you possibly can meet an issue with missing images in nuxt applications.",
+      "resolveByImport": "To resolve this issue, you need to import your image in the your script tag and use it import as a source for the `va-image` component.",
+      "resolveByPublicDir": "Also, you can place your images in the `public` directory, as it is written in the nuxt [docs](https://nuxt.com/docs/getting-started/assets)[[target=_blank]]."
+    },
     "examples": {
       "default": {
         "title": "Default"
