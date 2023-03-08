@@ -520,6 +520,7 @@ export default defineComponent({
     }
 
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
+    const inputWrapperTabIndexComputed = computed(() => props.disabled || props.autocomplete ? -1 : 0)
 
     const scrollToSelected = () => {
       const selected = valueComputed.value
@@ -609,7 +610,7 @@ export default defineComponent({
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
       focused: isFocused.value,
-      tabindex: tabIndexComputed.value,
+      tabindex: inputWrapperTabIndexComputed.value,
     }))
 
     // select content
