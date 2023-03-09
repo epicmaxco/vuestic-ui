@@ -1,5 +1,6 @@
 import { Plugin } from 'vite'
 import kebabCase from 'lodash/kebabCase'
+import { parse } from 'vue/compiler-sfc'
 
 /**
  * Parse css and extract all variable names used in `v-bind`
@@ -16,14 +17,7 @@ import kebabCase from 'lodash/kebabCase'
  * Returns`['colorComputed', 'getBg()']`
  */
 const parseCssVBindCode = (style: string) => {
-  return style
-    .match(/v-bind\((.*)\)/g)
-    // ?.map((line) => line.match(/v-bind\(['|"]?([^)]*)['|"]?\)/)![1]) ?? []
-    ?.map((line) => {
-      return line
-        .replace(/v-bind\((.*)\)/, '$1') // Extract from v-bind()
-        .replace(/['|"]?([^'|^"]*)['|"]?/, '$1') // Remove quotes
-    }) || []
+  return parse(style).descriptor.cssVars
 }
 
 /**
