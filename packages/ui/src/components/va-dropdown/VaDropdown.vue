@@ -51,8 +51,10 @@ export default defineComponent({
     readonly: { type: Boolean },
     anchorSelector: { type: String, default: '' },
     innerAnchorSelector: { type: String, default: '' },
-    /** Element where dropdown content will be rendered */
+    /** Viewport where dropdown will be rendered if preventOverflow is true. Autoplacement will be calculated relative to `target` */
     target: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
+    /** Element where dropdown content will be rendered. */
+    teleport: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
     preventOverflow: { type: Boolean, default: false },
     keepAnchorWidth: { type: Boolean, default: false },
     isContentHoverable: { type: Boolean, default: true },
@@ -182,6 +184,7 @@ export default defineComponent({
     const isPopoverFloating = computed(() => props.preventOverflow)
 
     const target = useHTMLElementSelector(computed(() => props.target || 'body'))
+    const teleport = useHTMLElementSelector(computed(() => props.teleport))
 
     const targetComputed = computed(() => {
       if (computedAnchorRef.value && !target.value?.contains?.(computedAnchorRef.value)) { return document.value?.body }
@@ -190,14 +193,22 @@ export default defineComponent({
     })
 
     const teleportTargetComputed = computed<HTMLElement | undefined>(() => {
+      if (teleport.value) {
+        return teleport.value
+      }
+
       if (!isPopoverFloating.value) {
         // If not floating just render inside the parent element
         return elRef.value?.parentElement || undefined
       }
+
       return targetComputed.value
     })
 
-    const teleportDisabled = computed(() => props.disabled || !isPopoverFloating.value)
+    const teleportDisabled = computed(() => {
+      if (teleport.value) { return false }
+      return props.disabled || !isPopoverFloating.value
+    })
 
     useDropdown(
       computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value),
