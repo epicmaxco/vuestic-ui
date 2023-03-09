@@ -35,14 +35,6 @@
             @keydown.enter.stop="reset"
             @keydown.space.stop="reset"
           />
-
-          <va-icon
-            v-if="$props.loading"
-            :color="$props.color"
-            size="small"
-            name="va-loading"
-            spin="counter-clockwise"
-          />
         </template>
 
         <template #appendInner>
@@ -50,6 +42,7 @@
             :color="toggleIconColor"
             :name="toggleIcon"
             @click.stop="toggleDropdown"
+            class="va-select__toggle-icon"
           />
         </template>
 
@@ -604,7 +597,7 @@ export default defineComponent({
       nowrap: !!(props.maxVisibleOptions && !slots.content),
     }))
     const inputWrapperPropsComputed = computed(() => ({
-      ...pick(props, ['messages', 'requiredMark', 'bordered', 'outline', 'label', 'color', 'success', 'readonly', 'disabled', 'error']),
+      ...pick(props, ['messages', 'requiredMark', 'bordered', 'outline', 'label', 'color', 'success', 'readonly', 'disabled', 'error', 'loading']),
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
       focused: isFocused.value,
