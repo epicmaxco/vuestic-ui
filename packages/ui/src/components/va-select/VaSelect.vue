@@ -604,7 +604,7 @@ export default defineComponent({
       nowrap: !!(props.maxVisibleOptions && !slots.content),
     }))
     const inputWrapperPropsComputed = computed(() => ({
-      ...pick(props, ['messages', 'requiredMark', 'bordered', 'outline', 'label', 'color', 'success']),
+      ...pick(props, ['messages', 'requiredMark', 'bordered', 'outline', 'label', 'color', 'success', 'readonly', 'disabled', 'error']),
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
       focused: isFocused.value,
@@ -750,8 +750,6 @@ export default defineComponent({
 @import "variables";
 
 .va-select {
-  min-width: var(--va-select-min-width);
-
   & .va-input-wrapper__text {
     line-height: normal;
     flex-wrap: wrap;
