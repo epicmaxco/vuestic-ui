@@ -101,10 +101,8 @@
         v-model:hoveredOption="hoveredOption"
         :style="{ maxHeight: $props.maxHeight }"
         v-bind="optionsListPropsComputed"
-        @select-option="selectOption"
+        @select-option="selectHoveredOption"
         @no-previous-option-to-hover="focusSearchBar"
-        @keydown.enter.stop.prevent="selectHoveredOption"
-        @keydown.space.stop.prevent="selectHoveredOption"
         @keydown.tab.stop.prevent="searchBar && searchBar.focus()"
         @keydown="onHintedSearch"
         @scroll-bottom="onScrollBottom"
@@ -588,7 +586,7 @@ export default defineComponent({
     }))
 
     const optionsListPropsComputed = computed(() => ({
-      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'valueBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'delay']),
+      ...pick(props, ['textBy', 'trackBy', 'groupBy', 'valueBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'delay', 'selectedTopShown']),
       autoSelectFirstOption: props.autoSelectFirstOption || props.autocomplete,
       search: searchInput.value || autocompleteValue.value,
       tabindex: tabIndexComputed.value,

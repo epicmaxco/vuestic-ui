@@ -858,8 +858,8 @@ export default {
       },
       disabledOptions: {
         options: [
-          { id: '0', text: 'one', value: 'one', disabled: true },
-          { id: '1', text: 'two', value: 'two' },
+          { id: '0', text: 'one', value: 'one' },
+          { id: '1', text: 'two', value: 'two', disabled: true },
           { id: '2', text: 'three', value: 'three', disabled: true },
           { id: '3', text: 'four', value: 'four' },
           { id: '4', text: 'five', value: 'five' },

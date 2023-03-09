@@ -7,6 +7,8 @@
     @keydown.left.stop.prevent="focusPreviousOption"
     @keydown.down.stop.prevent="focusNextOption"
     @keydown.right.stop.prevent="focusNextOption"
+    @keydown.enter.stop.prevent="selectOption"
+    @keydown.space.stop.prevent="selectOption"
     @scroll.passive="onScroll"
   >
     <template
@@ -34,8 +36,9 @@
             :current-option="currentOptionComputed"
             :disabled="getDisabled(option)"
             v-bind="selectOptionProps"
-            @click.stop="selectOption(option)"
-            @mousemove="updateHoveredOption(option)"
+            @click.stop="selectOption"
+            @mouseenter="handleMouseEnter(option)"
+            @mousemove="handleMouseMove(option)"
           />
         </slot>
       </va-virtual-scroller>
@@ -49,8 +52,9 @@
               :option="option"
               :disabled="getDisabled(option)"
               v-bind="selectOptionProps"
-              @click.stop="selectOption(option)"
-              @mousemove="updateHoveredOption(option)"
+              @click.stop="selectOption"
+              @mouseenter="handleMouseEnter(option)"
+              @mousemove="handleMouseMove(option)"
             />
           </slot>
         </template>
@@ -111,6 +115,7 @@ export default defineComponent({
     highlightMatchedText: { type: Boolean, default: true },
     minSearchChars: { type: Number, default: 0 },
     autoSelectFirstOption: { type: Boolean, default: false },
+    selectedTopShown: { type: Boolean, default: false },
   },
 
   setup (props, { emit }) {
@@ -150,7 +155,7 @@ export default defineComponent({
       return currentSelectedOptionText.value.toLowerCase() === props.search?.toLowerCase()
     })
 
-    const filteredOptions = computed(() => {
+    const filteredOptions = computed((): SelectOption[] => {
       if (!props.search || props.search.length < props.minSearchChars || isSearchedOptionSelected.value) {
         return props.options
       }
@@ -187,7 +192,18 @@ export default defineComponent({
     }
     const updateFocusedOption = (option?: SelectOption) => { updateCurrentOption(option ?? null, 'keyboard') }
 
-    const selectOption = (option: SelectOption) => !getDisabled(option) && emit('select-option', option)
+    const selectOption = () => {
+      const previousOption =
+        previousOptionComputed.value && typeof previousOptionComputed.value === 'object'
+          ? { ...previousOptionComputed.value }
+          : previousOptionComputed.value
+
+      emit('select-option')
+
+      if (props.selectedTopShown) {
+        updateHoveredOption(previousOption)
+      }
+    }
 
     const groupedOptions = computed(() => Object.values(optionGroupsThrottled.value).flat())
     const currentOptions = computed(() =>
@@ -211,6 +227,26 @@ export default defineComponent({
       return searchBaseOrdered.slice(startIndex).find((option) => !getDisabled(option))
     }
 
+    const previousOptionComputed = computed((): SelectOption | undefined => {
+      const previousOptionIndex = currentOptionIndex.value - 1
+      const previousOption = currentOptions.value[previousOptionIndex]
+      const previousOptionCheck = isValueExists(previousOption) && !(previousOptionIndex === 0 && getDisabled(previousOption))
+
+      if (previousOptionCheck) {
+        return findNextActiveOption(currentOptionIndex.value - 1, true)
+      }
+
+      return undefined
+    })
+
+    const handleMouseMove = (option: SelectOption) => {
+      if (!props.selectedTopShown) { updateHoveredOption(option) }
+    }
+
+    const handleMouseEnter = (option: SelectOption) => {
+      if (props.selectedTopShown) { updateHoveredOption(option) }
+    }
+
     // public
     const focusPreviousOption = () => {
       if (!isValueExists(currentOptionComputed.value)) {
@@ -218,11 +254,8 @@ export default defineComponent({
         return
       }
 
-      const previousOptionIndex = currentOptionIndex.value - 1
-      const previousOption = currentOptions.value[previousOptionIndex]
-      const previousOptionCheck = isValueExists(previousOption) && !(previousOptionIndex === 0 && getDisabled(previousOption))
-      if (previousOptionCheck) {
-        updateFocusedOption(findNextActiveOption(currentOptionIndex.value - 1, true))
+      if (isValueExists(previousOptionComputed.value)) {
+        updateFocusedOption(previousOptionComputed.value)
       } else {
         emit('no-previous-option-to-hover')
       }
@@ -289,6 +322,8 @@ export default defineComponent({
       setItemRef,
       getDisabled,
       selectOption,
+      handleMouseMove,
+      handleMouseEnter,
       updateHoveredOption,
       handleScrollToBottom,
 
