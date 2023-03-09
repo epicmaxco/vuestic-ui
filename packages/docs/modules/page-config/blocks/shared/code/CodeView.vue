@@ -13,7 +13,7 @@
       </va-tab>
     </template>
   </va-tabs>
-  <prism-wrapper
+  <code-highlight-wrapper
     :code="escapeVuesticImport(contents[index])"
     :lang="$props.language"
     class="DocsCode"
@@ -22,12 +22,13 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed, ref, watch, nextTick } from "vue";
-import PrismWrapper from "./PrismWrapper.vue";
 import { useCode } from "./useCode";
+
+import CodeHighlightWrapper from "./CodeHighlightWrapper.vue";
 
 export default defineComponent({
   name: "DocsCode",
-  components: { PrismWrapper },
+  components: { CodeHighlightWrapper },
   props: {
     language: { type: String as PropType<string>, default: "javascript" },
     code: {
