@@ -1,8 +1,12 @@
 <template>
   <li
+    ref="stepElement"
     class="va-stepper__step-button"
     :class="computedClass"
     @click="!$props.navigationDisabled && $props.stepControls.setStep($props.stepIndex)"
+    @keyup.enter="!$props.navigationDisabled && $props.stepControls.setStep($props.stepIndex)"
+    @keyup.space="!$props.navigationDisabled && $props.stepControls.setStep($props.stepIndex)"
+    v-bind="ariaAttributesComputed"
   >
     <div class="va-stepper__step-button__icon">
       <va-icon
@@ -18,9 +22,9 @@
   </li>
 </template>
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { computed, defineComponent, nextTick, PropType, shallowRef, watch } from 'vue'
 import { VaIcon } from '../va-icon'
-import { useBem, useColors } from '../../composables'
+import { useBem, useColors, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
 
 export default defineComponent({
@@ -36,14 +40,18 @@ export default defineComponent({
     stepIndex: { type: Number, required: true },
     navigationDisabled: { type: Boolean, required: true },
     nextDisabled: { type: Boolean, required: true },
+    focus: { type: Object, required: true },
     stepControls: { type: Object as PropType<StepControls>, required: true },
   },
   emits: ['update:modelValue'],
   setup (props) {
+    const stepElement = shallowRef<HTMLElement>()
     const { getColor } = useColors()
     const stepperColor = getColor(props.color)
 
     const isNextStepDisabled = (index: number) => props.nextDisabled && index > props.modelValue
+
+    const { t } = useTranslation()
 
     const computedClass = useBem('va-stepper__step-button', () => ({
       active: props.modelValue >= props.stepIndex,
@@ -51,11 +59,24 @@ export default defineComponent({
       'navigation-disabled': props.navigationDisabled,
     }))
 
+    watch(() => props.focus, () => {
+      if (props.focus.force) {
+        nextTick(() => stepElement.value?.focus())
+      }
+    }, { deep: true })
+
     return {
+      stepElement,
       isNextStepDisabled,
       stepperColor,
       getColor,
       computedClass,
+
+      ariaAttributesComputed: computed(() => ({
+        tabindex: props.focus.stepIndex === props.stepIndex && !props.navigationDisabled ? 0 : undefined,
+        'aria-disabled': props.step.disabled || isNextStepDisabled(props.stepIndex) ? true : undefined,
+        'aria-current': props.modelValue === props.stepIndex ? t('step') : undefined,
+      })),
     }
   },
 })
@@ -74,6 +95,8 @@ export default defineComponent({
     gap: var(--va-stepper-step-button-gap);
     flex-shrink: 0;
     padding: var(--va-stepper-step-button-padding);
+
+    @include keyboard-focus-outline;
 
     &::after {
       content: "";

@@ -2,10 +2,21 @@
   <div
     class="va-stepper"
     :class="{ 'va-stepper--vertical': $props.vertical }"
+    v-bind="ariaAttributesComputed"
   >
     <ol
       class="va-stepper__navigation"
+      ref="stepperNavigation"
       :class="{ 'va-stepper__navigation--vertical': $props.vertical }"
+
+      @click="onNavigationValueChange()"
+      @keyup.enter="onNavigationValueChange()"
+      @keyup.space="onNavigationValueChange()"
+      @keyup.left="onArrowKeyPress('prev')"
+      @keyup.up="onArrowKeyPress('prev')"
+      @keyup.right="onArrowKeyPress('next')"
+      @keyup.down="onArrowKeyPress('next')"
+      @focusout="resetFocus"
     >
       <template
         v-for="(step, i) in $props.steps"
@@ -19,6 +30,7 @@
           <span
             class="va-stepper__divider"
             :class="{ 'va-stepper__divider--vertical': $props.vertical }"
+            aria-hidden="true"
           />
         </slot>
 
@@ -34,6 +46,8 @@
             :step="step"
             :stepControls="stepControls"
             :navigationDisabled="navigationDisabled"
+
+            :focus="focusedStep"
           />
         </slot>
       </template>
@@ -74,8 +88,8 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, Ref } from 'vue'
-import { useColors, useStateful, useStatefulProps } from '../../composables'
+import { computed, defineComponent, nextTick, PropType, ref, Ref, shallowRef, watch } from 'vue'
+import { useColors, useStateful, useStatefulProps, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
 import VaStepperControls from './VaStepperControls.vue'
 import VaStepperStepButton from './VaStepperStepButton.vue'
@@ -100,17 +114,69 @@ export default defineComponent({
   },
   emits: ['update:modelValue', 'finish'],
   setup (props, { emit }) {
+    const stepperNavigation = shallowRef<HTMLElement>()
     const { valueComputed: modelValue }: { valueComputed: Ref<number> } = useStateful(props, emit, 'modelValue', { defaultValue: 0 })
+
+    const focusedStep = ref({ force: false, stepIndex: props.navigationDisabled ? -1 : props.modelValue })
 
     const { getColor } = useColors()
     const stepperColor = getColor(props.color)
 
     const isNextStepDisabled = (index: number) => props.nextDisabled && index > modelValue.value
 
+    const { t } = useTranslation()
+
     const setStep = (index: number) => {
       if (props.steps[index].disabled) { return }
       emit('update:modelValue', index)
     }
+
+    const setFocus = (direction: 'prev' | 'next') => {
+      if (props.navigationDisabled) { return }
+      if (direction === 'next') {
+        setFocusNextStep(1)
+      } else {
+        setFocusPrevStep(1)
+      }
+    }
+    const setFocusNextStep = (idx: number) => {
+      const newValue = focusedStep.value.stepIndex + idx
+
+      if (isNextStepDisabled(newValue)) { return }
+
+      if (newValue < props.steps.length) {
+        if (props.steps[newValue].disabled) {
+          setFocusNextStep(idx + 1)
+          return
+        }
+        focusedStep.value.stepIndex = newValue
+        focusedStep.value.force = true
+      }
+    }
+    const setFocusPrevStep = (idx: number) => {
+      const newValue = focusedStep.value.stepIndex - idx
+      if (newValue >= 0) {
+        if (props.steps[newValue].disabled) {
+          setFocusPrevStep(idx + 1)
+          return
+        }
+        focusedStep.value.stepIndex = newValue
+        focusedStep.value.force = true
+      }
+    }
+
+    const resetFocus = (e: any) => {
+      requestAnimationFrame(() => {
+        if (!stepperNavigation.value?.contains(document.activeElement)) {
+          focusedStep.value.stepIndex = props.modelValue
+          focusedStep.value.force = false
+        }
+      })
+    }
+    watch(() => props.modelValue, () => {
+      focusedStep.value.stepIndex = props.modelValue
+      focusedStep.value.force = false
+    })
 
     const nextStep = (stepsToSkip = 0) => {
       const targetIndex = modelValue.value + 1 + stepsToSkip
@@ -138,16 +204,32 @@ export default defineComponent({
     const getIterableSlotData = (step: Step, index: number) => ({
       ...stepControls,
       step,
+      focus: focusedStep,
       isActive: props.modelValue === index,
       isCompleted: props.modelValue > index,
     })
 
     return {
+      stepperNavigation,
+      resetFocus,
+      focusedStep,
       isNextStepDisabled,
       stepperColor,
       getColor,
       stepControls,
       getIterableSlotData,
+      onArrowKeyPress: (direction: 'prev' | 'next') => {
+        setFocus(direction)
+      },
+      onNavigationValueChange: () => {
+        focusedStep.value.stepIndex = props.modelValue
+        focusedStep.value.force = true
+      },
+      ariaAttributesComputed: computed(() => ({
+        role: 'group',
+        'aria-label': t('progress'),
+        'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
+      })),
     }
   },
 })
