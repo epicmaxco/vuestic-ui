@@ -2696,6 +2696,12 @@
   "image": {
     "title": "Image",
     "summaryText": "The `va-image` component is used to display responsive images. It has some features to make your work with images easier.",
+    "imagesInNuxt": {
+      "title": "How to deal with images in Vite based apps",
+      "problemStatement": "When you will work with `va-image` component, you possibly can meet an issue with missing images in Vite based applications.",
+      "resolveByImport": "To resolve this issue, you need to import your image into the script tag and use imported image as a source for the `va-image` component.",
+      "resolveByPublicDir": "Also, you can place your images under your `public` directory to avoid importing images."
+    },
     "examples": {
       "default": {
         "title": "Default"
