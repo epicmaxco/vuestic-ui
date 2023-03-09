@@ -3839,6 +3839,14 @@
       "title": "In development",
       "description": "The following features are currently being in development:"
     },
+    "1-7": {
+      "title": "[v1.7](https://github.com/epicmaxco/vuestic-ui/milestone/27)",
+      "description": "We still plan things to do in 1.7, but here is what we decided to do for now:"
+    },
+    "1-6": {
+      "title": "[v1.6](https://github.com/epicmaxco/vuestic-ui/milestone/19)",
+      "description": "We focus on new services, components and integration with CSS frameworks."
+    },
     "1-5": {
       "title": "[v1.5](https://github.com/epicmaxco/vuestic-ui/milestone/11)",
       "description": "We focus on new services, components, testing and automation."
