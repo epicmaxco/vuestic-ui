@@ -613,7 +613,7 @@ export default defineComponent({
 
     // select content
     const selectContentPropsComputed = computed(() => ({
-      ...pick(props, ['placeholder', 'autocomplete', 'multiple', 'disabled']),
+      ...pick(props, ['placeholder', 'autocomplete', 'multiple', 'disabled', 'readonly']),
       tabindex: tabIndexComputed.value,
       value: visibleSelectedOptions.value,
       valueString: valueString.value,
@@ -658,7 +658,7 @@ export default defineComponent({
     })
 
     const focusAutocompleteInput = (e?: Event) => {
-      if (props.autocomplete) {
+      if (props.autocomplete && !props.disabled && !props.readonly) {
         e?.stopImmediatePropagation()
 
         isInputFocused.value = true

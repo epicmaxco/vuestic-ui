@@ -35,6 +35,32 @@
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
     <VbCard
+      title="Autocomplete readonly"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        :options="defaultSingleSelect.options"
+        autocomplete
+        readonly
+      />
+      <p>Value: {{ defaultSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Autocomplete disabled"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        :options="defaultSingleSelect.options"
+        autocomplete
+        disabled
+      />
+      <p>Value: {{ defaultSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
       title="Multiple autocomplete"
       style="width: 400px;"
     >
