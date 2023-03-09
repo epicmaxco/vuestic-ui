@@ -75,7 +75,7 @@ export default defineComponent({
       ariaAttributesComputed: computed(() => ({
         tabindex: props.focus.stepIndex === props.stepIndex && !props.navigationDisabled ? 0 : undefined,
         'aria-disabled': props.step.disabled || isNextStepDisabled(props.stepIndex) ? true : undefined,
-        'aria-current': props.modelValue === props.stepIndex ? t('step') : undefined,
+        'aria-current': props.modelValue === props.stepIndex ? t('step') as 'step' : undefined,
       })),
     }
   },
