@@ -7,7 +7,7 @@
     <ul class="va-option-list__list">
       <li
         v-for="option in $props.options"
-        :key="getKey(option)"
+        :key="getTrackBy(option)"
       >
         <slot v-bind="{ option, selectedValue, isDisabled, getText, getValue }">
           <va-radio
@@ -45,9 +45,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, onMounted } from 'vue'
-import pick from 'lodash/pick'
+import pick from 'lodash/pick.js'
 
-import { __DEV__ } from '../../utils/env'
 import {
   useComponentPresetProp,
   useSelectableList, useSelectableListProps, SelectableOption,
@@ -55,6 +54,8 @@ import {
   useStateful, useStatefulProps, useStatefulEmits,
   useArrayRefs,
 } from '../../composables'
+
+import { __DEV__ } from '../../utils/env'
 
 import { VaMessageListWrapper } from '../va-input'
 import { VaCheckbox } from '../va-checkbox'
@@ -84,11 +85,11 @@ export default defineComponent({
     },
     disabled: ({ type: Boolean, default: false }),
     readonly: ({ type: Boolean, default: false }),
-    defaultValue: ({ type: [String, Number, Object, Array] as PropType<OptionListValue | null> }),
+    defaultValue: ({ type: [String, Number, Boolean, Object, Array] as PropType<OptionListValue | null> }),
     name: ({ type: String, default: '' }),
     color: ({ type: String, default: 'primary' }),
     leftLabel: ({ type: Boolean, default: false }),
-    modelValue: ({ type: [String, Number, Object, Array] as PropType<OptionListValue | null> }),
+    modelValue: ({ type: [String, Number, Boolean, Object, Array] as PropType<OptionListValue | null> }),
   },
 
   setup (props, { emit }) {
@@ -118,8 +119,6 @@ export default defineComponent({
         }
       },
     })
-
-    const getKey = (option: SelectableOption) => getTrackBy(option)
 
     const isDisabled = (option: SelectableOption) => props.disabled || getDisabled(option)
 
@@ -158,7 +157,7 @@ export default defineComponent({
       computedErrorMessages,
       getValue,
       getText,
-      getKey,
+      getTrackBy,
       isDisabled,
       reset,
       focus,

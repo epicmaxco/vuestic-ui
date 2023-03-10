@@ -2696,6 +2696,12 @@
   "image": {
     "title": "Image",
     "summaryText": "The `va-image` component is used to display responsive images. It has some features to make your work with images easier.",
+    "imagesInNuxt": {
+      "title": "How to deal with images in Vite based apps",
+      "problemStatement": "When you will work with `va-image` component, you possibly can meet an issue with missing images in Vite based applications.",
+      "resolveByImport": "To resolve this issue, you need to import your image into the script tag and use imported image as a source for the `va-image` component.",
+      "resolveByPublicDir": "Also, you can place your images under your `public` directory to avoid importing images."
+    },
     "examples": {
       "default": {
         "title": "Default"
@@ -3839,6 +3845,14 @@
       "title": "In development",
       "description": "The following features are currently being in development:"
     },
+    "1-7": {
+      "title": "[v1.7](https://github.com/epicmaxco/vuestic-ui/milestone/27)",
+      "description": "We still plan things to do in 1.7, but here is what we decided to do for now:"
+    },
+    "1-6": {
+      "title": "[v1.6](https://github.com/epicmaxco/vuestic-ui/milestone/19)",
+      "description": "We focus on new services, components and integration with CSS frameworks."
+    },
     "1-5": {
       "title": "[v1.5](https://github.com/epicmaxco/vuestic-ui/milestone/11)",
       "description": "We focus on new services, components, testing and automation."
@@ -4918,32 +4932,6 @@
       "default": {
         "title": "Basic usage",
         "text": "`va-spacer` adding a div with the `.va-spacer` class."
-      }
-    }
-  },
-  "dropdown": {
-    "title": "Dropdown",
-    "text": "Dropdown component is a component that allow you to show some content near anchor. It is more utility component. You can use it with `VaDropdownContent` or `VaCard` component. This component looks like popover, but without any additional styling as `VaPopover` has.",
-    "examples": {
-      "default": {
-        "title": "Default usage",
-        "text": ""
-      },
-      "placementAndOffset": {
-        "title": "Placement and Offset",
-        "text": "You can place dropdown any direction you want. Offset is calculated relative to `placement` prop. We use `main` and `cross` offset. Means `main` will be relative to `placement` direction while `cross` is perpendicular. `auto` placement will be `bottom` by default, but will change to `top` if it is not possible to display on bottom."
-      },
-      "trigger": {
-        "title": "Trigger",
-        "text": "You can use `click`, `hover` or `none` trigger which will open dropdown. If you want dropdown to be opened only programmatically use `none` trigger"
-      },
-      "cursor": {
-        "title": "Place on cursor",
-        "text": "You can render dropdown content on cursor position. It is useful to use `cursor` props with `auto-placement` so if content do not fit target it will be placed somewhere else."
-      },
-      "preventOverflow": {
-        "title": "Prevent overflow",
-        "text": "By default dropdown content is rendered as body child. This way we prevent any overflow. In example below `overflow: hidden` of green box is ignored. But we still able to respec overflow by changing `target` prop. In example below `overflow: hidden` of red box is hiding dropdown content."
       }
     }
   },
