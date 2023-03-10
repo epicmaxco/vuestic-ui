@@ -679,6 +679,7 @@ const copyText = () => {
   font-size: 1rem;
   color: #ffffff;
   line-height: 1.4;
+  white-space: pre;
 }
 
 .tabs-wrapper {
