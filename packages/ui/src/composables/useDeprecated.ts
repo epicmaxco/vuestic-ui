@@ -1,6 +1,6 @@
 import { unref, Ref, getCurrentInstance } from 'vue'
 
-import { __DEV__ } from '../utils/env'
+import { isDev } from '../utils/env'
 
 type DeprecationSource = 'slots' | 'props' | 'attrs'
 
@@ -14,7 +14,7 @@ export const useDeprecated = (
   deprecatedList: Ref<string[]> | string[],
   deprecationSource: DeprecationSource[] = ['props', 'attrs'],
 ) => {
-  if (!__DEV__) { return undefined }
+  if (!isDev) { return undefined }
 
   const instance = getCurrentInstance()
 

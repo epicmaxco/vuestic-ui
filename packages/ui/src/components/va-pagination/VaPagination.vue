@@ -108,7 +108,7 @@ import {
 import clamp from 'lodash/clamp.js'
 import pick from 'lodash/pick.js'
 
-import { __DEV__ } from '../../utils/env'
+import { isDev } from '../../utils/env'
 import {
   useBem,
   useComponentPresetProp,
@@ -265,7 +265,7 @@ export default defineComponent({
     }))
 
     watch([usesTotal, () => props.pages], () => {
-      if (__DEV__ && usesTotal.value && props.pages) {
+      if (isDev && usesTotal.value && props.pages) {
         throw new Error('Please, use either `total` and `page-size` props, or `pages`.')
       }
     })

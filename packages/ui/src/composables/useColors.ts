@@ -21,7 +21,7 @@ import {
   cssVariableName,
   normalizeColorName,
 } from '../services/color/utils'
-import { __DEV__ } from '../utils/env'
+import { isDev } from '../utils/env'
 
 /**
  * You can add these props to any component by destructuring them inside props option.
@@ -94,7 +94,7 @@ export const useColors = () => {
       return prop
     }
 
-    if (__DEV__) {
+    if (isDev) {
       console.warn(`'${prop}' is not a proper color! Use HEX or default color themes
       names (https://vuestic.dev/en/styles/colors#default-color-themes)`)
     }
