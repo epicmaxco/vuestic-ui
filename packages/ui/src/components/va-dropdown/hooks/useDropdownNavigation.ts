@@ -1,5 +1,6 @@
 import { Ref } from 'vue'
-import { useEvent } from '../../../composables'
+
+import { useEvent, useTouch } from '../../../composables'
 
 const isTyping = (e: Event) => {
   const target = e.target as HTMLElement
@@ -30,9 +31,15 @@ export const useKeyboardNavigation = (anchorRef: Ref<HTMLElement | undefined>, i
 
 type MouseEventName = 'mouseleave' | 'mouseenter' | 'click' | 'dblclick' | 'contextmenu'
 export const useMouseNavigation = (
-  anchorRef: Ref<HTMLElement | undefined>,
-  listeners: Record<MouseEventName, (e: MouseEvent) => any>,
+  anchorRef: Ref<HTMLElement>,
+  listeners: Record<MouseEventName, (e: TouchEvent | MouseEvent) => void>,
 ) => {
+  useTouch(anchorRef, {
+    short: listeners.click,
+    long: listeners.contextmenu,
+    double: listeners.dblclick,
+  })
+
   useEvent(['click', 'contextmenu', 'dblclick'], (e: MouseEvent) => {
     if (isTyping(e)) { return }
 

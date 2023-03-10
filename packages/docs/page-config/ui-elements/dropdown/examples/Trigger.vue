@@ -19,6 +19,16 @@
     <va-dropdown-content> Dropped down! </va-dropdown-content>
   </va-dropdown>
 
+  <va-dropdown trigger="dblclick">
+    <template #anchor>
+      <va-button class="mr-2">
+        Double click
+      </va-button>
+    </template>
+
+    <va-dropdown-content> Dropped down! </va-dropdown-content>
+  </va-dropdown>
+
   <va-dropdown trigger="hover">
     <template #anchor>
       <va-button> Hover </va-button>
