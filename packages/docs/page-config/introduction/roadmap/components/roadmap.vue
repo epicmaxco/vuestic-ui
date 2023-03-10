@@ -7,7 +7,7 @@
         class="docs-roadmap__column-wrapper"
       >
         <div class="docs-roadmap__column text-center">
-          <h5 class="mb-[20px]">
+          <h5 v-if="col.items.length > 0" class="mb-[20px]">
             {{ col.title }}
           </h5>
 
@@ -43,7 +43,8 @@
 <script setup lang="ts">
 import { PropType, computed } from "vue";
 import { RoadmapItem } from "../types";
-import images from "../images";
+import * as images from "../images";
+
 
 const props = defineProps({
   roadmap: {
@@ -68,7 +69,7 @@ const items = computed(() => {
       title: typeof item === "string" ? item : item.title,
       type: typeof item === "string" ? "" : item.type,
       color: colors[index],
-      image: item.image ? (images[item.image] as any) : undefined,
+      image: item.image ? ((images as Record<string, any>)[item.image]) : undefined,
     };
   });
 });

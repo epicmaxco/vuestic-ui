@@ -19,6 +19,13 @@ export default definePageConfig({
     block.example("SrcSet"),
     block.example("Lazy"),
 
+    block.headline('image.imagesInNuxt.title'),
+    block.paragraph('image.imagesInNuxt.problemStatement'),
+    block.paragraph('image.imagesInNuxt.resolveByImport'),
+    block.code('import-image.vue', 'html'),
+    block.paragraph('image.imagesInNuxt.resolveByPublicDir'),
+    block.code('use-public-dir.vue', 'html'),
+
     block.subtitle("all.api"),
     block.api("VaImage", apiOptions),
   ],

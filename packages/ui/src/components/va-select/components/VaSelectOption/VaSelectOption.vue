@@ -37,6 +37,8 @@ import { useColors, useColorProps, useBem } from '../../../../composables'
 
 import { VaIcon } from '../../../va-icon'
 
+import { isNilValue } from '../../../../utils/isNilValue'
+
 import type { SelectableOption } from '../../../../composables'
 
 export default defineComponent({
@@ -47,10 +49,10 @@ export default defineComponent({
   props: {
     ...useColorProps,
     disabled: { type: Boolean, default: false },
-    option: { type: [Number, String, Object] as PropType<SelectableOption>, default: () => ({}) },
+    option: { type: [Number, String, Boolean, Object] as PropType<SelectableOption>, default: () => ({}) },
     getText: { type: Function as PropType<(option: SelectableOption) => string>, required: true },
-    getTrackBy: { type: Function as PropType<(option: SelectableOption) => number>, required: true },
-    currentOption: { type: [String, Number, Object] as PropType<SelectableOption | null>, default: null },
+    getTrackBy: { type: Function as PropType<(option: SelectableOption) => number | string>, required: true },
+    currentOption: { type: [String, Number, Boolean, Object] as PropType<SelectableOption | null>, default: null },
     getSelectedState: { type: Function as PropType<(option: SelectableOption) => boolean>, required: true },
     search: { type: String, default: '' },
     highlightMatchedText: { type: Boolean, default: true },
@@ -85,10 +87,9 @@ export default defineComponent({
 
     const isSelected = computed(() => props.getSelectedState(props.option))
     const isFocused = computed(() => {
-      if (!props.currentOption && props.currentOption !== 0) { return false }
+      if (isNilValue(props.currentOption)) { return false }
       if (typeof props.option === 'string') { return props.option === props.currentOption }
 
-      if (!props.getTrackBy) { return false }
       return props.getTrackBy(props.currentOption) === props.getTrackBy(props.option)
     })
 
@@ -105,7 +106,6 @@ export default defineComponent({
 
     return {
       getColor,
-      isFocused,
       optionIcon,
       isSelected,
       optionStyle,

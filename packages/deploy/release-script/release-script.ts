@@ -8,6 +8,7 @@ import {
   getCommitHash,
   getRecommendedNodeVersion,
 } from './utils'
+import omit from 'lodash/omit'
 
 import semver from 'semver'
 
@@ -310,7 +311,7 @@ const runTests = () => {
   const dryRun = await inquireDryRun()
   const releaseConfig = await getReleaseConfig(releaseType)
 
-  console.table(releaseConfig)
+  console.table(omit(releaseConfig, 'todoList'))
 
   if (!(await runReleaseChecks(releaseConfig, dryRun))) {
     return

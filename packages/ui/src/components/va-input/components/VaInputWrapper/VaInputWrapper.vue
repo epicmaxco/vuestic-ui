@@ -49,12 +49,22 @@
           color="success"
           name="va-check-circle"
           size="small"
+          class="va-input-wrapper__icon va-input-wrapper__icon--success"
         />
         <va-icon
           v-if="error"
           color="danger"
           name="va-warning"
           size="small"
+          class="va-input-wrapper__icon va-input-wrapper__icon--error"
+        />
+        <va-icon
+          v-if="$props.loading"
+          :color="$props.color"
+          size="small"
+          name="va-loading"
+          spin="counter-clockwise"
+          class="va-input-wrapper__icon va-input-wrapper__icon--loading"
         />
         <slot name="icon" />
 
@@ -123,6 +133,7 @@ export default defineComponent({
     focused: { type: Boolean, default: false },
     error: { type: Boolean, default: false },
     success: { type: Boolean, default: false },
+    loading: { type: Boolean, default: false },
     requiredMark: { type: Boolean, default: false },
   },
 

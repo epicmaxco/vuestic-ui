@@ -175,4 +175,58 @@ const background = 'yellow'
       `.trim()))
     })
   })
+
+  test('transform string v-bind in css', () => {
+    const componentCode = (attrs = '', nestedAttrs = '') => `
+    <template>
+      <button>
+        <span>
+          Hello
+        </span>
+        world!
+      </button>
+    </template>
+    
+    <script setup>
+    const theme = {
+      color: 'blue',
+      background: 'yellow',
+    }
+    </script>
+    
+    <style>
+      button {
+        color: v-bind('theme.color');
+        background: v-bind("theme.background");
+      }
+    </style>
+    `
+
+    const expectedComponentCode = () => `
+    <template>
+      <button :style="\`--va-0-theme-color: \${String(theme.color)};--va-1-theme-background: \${String(theme.background)}\`">
+        <span>
+          Hello
+        </span>
+        world!
+      </button>
+    </template>
+    
+    <script setup>
+    const theme = {
+      color: 'blue',
+      background: 'yellow',
+    }
+    </script>
+    
+    <style>
+      button {
+        color: var(--va-0-theme-color);
+        background: var(--va-1-theme-background);
+      }
+    </style>
+    `
+
+    expect(transformVueComponent(componentCode())).toBe(expectedComponentCode())
+  })
 })
