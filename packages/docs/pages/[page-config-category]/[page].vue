@@ -21,14 +21,20 @@ definePageMeta({
 const route = useRoute();
 const { locale, t, mergeLocaleMessage, fallbackLocale, localeCodes } = useI18n()
 
-const localeRegExp = computed(() => new RegExp(`^(${localeCodes.value.join('|')}|${localeCodes.value.map(l => `\/${l}\/`).join('|')})`, 'i'))
+const getLocaleRegExp = (): RegExp => {
+  const defaultLocaleCodes = localeCodes.value.join('|')
+  const localeCodesWithSlashes = localeCodes.value.map((locale: string) => `\/${locale}\/`).join('|')
+
+  return new RegExp(`^(${defaultLocaleCodes}|${localeCodesWithSlashes})`, 'i')
+}
 
 const pageConfigName = computed(() => {
+  const localeRegExp = getLocaleRegExp()
   const path = route.path
 
   // Detect if path contains locale key
-  if (localeRegExp.value.test(path)) {
-    return path.replace(localeRegExp.value, '')
+  if (localeRegExp.test(path)) {
+    return path.replace(localeRegExp, '')
   }
 
   return path.slice(1)
