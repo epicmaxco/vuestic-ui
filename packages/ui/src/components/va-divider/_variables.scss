@@ -2,6 +2,7 @@
 :host {
   --va-divider-display: flex;
   --va-divider-color: var(--va-background-border);
+  --va-divider-border-color: var(--va-divider-color);
 
   /* Margin around divider, not the same as CSS margin. Should be one value. */
   --va-divider-margin: 0.5rem;
