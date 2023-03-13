@@ -19,17 +19,24 @@ definePageMeta({
 })
 
 const route = useRoute();
-const { locale, t, mergeLocaleMessage, fallbackLocale } = useI18n()
+const { locale, t, mergeLocaleMessage, fallbackLocale, availableLocales, localeCodes } = useI18n()
+
+const localeRegExp = computed(() => new RegExp(`^(${localeCodes.value.join('|')}|${localeCodes.value.map(l => `\/${l}\/`).join('|')})`, 'i'))
 
 const pageConfigName = computed(() => {
   const path = route.path
-  const localePrefix = `/${locale.value}/`
 
-  if (path.startsWith(localePrefix)) {
-    return path.replace(localePrefix, '')
+  // Detect if path contains locale key
+  if (localeRegExp.value.test(path)) {
+    return path.replace(localeRegExp.value, '')
   }
 
-  return path.slice(1)
+  // If user removes local key from address bar
+  if (path.startsWith('/')) {
+    return path.replace('/', '')
+  }
+
+  return path
 })
 
 const config = await usePageConfig(pageConfigName);
@@ -43,7 +50,7 @@ const compileTranslations = (translations: Record<string, any>): any => {
   const compiledTranslations: Record<string, any> = {}
 
   Object.keys(translations).forEach((key) => {
-    if (typeof translations[key] === 'string') { 
+    if (typeof translations[key] === 'string') {
       compiledTranslations[key] = translations[key].replaceAll(/\{['|"|`](.*)['|"|`]\}/g, '$1')
     } else {
       compiledTranslations[key] = compileTranslations(translations[key])
