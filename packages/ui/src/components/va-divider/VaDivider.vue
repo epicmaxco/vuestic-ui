@@ -4,6 +4,7 @@
     class="va-divider"
     :class="classComputed"
     :aria-orientation="vertical ? 'vertical' : 'horizontal'"
+    :style="`color: ${color}; --va-divider-border-top-color: ${color}`"
   >
     <div
       v-if="hasSlot && !vertical"
@@ -32,6 +33,7 @@ export default defineComponent({
       default: 'center',
       validator: (value: string) => ['left', 'right', 'center'].includes(value),
     },
+    color: { type: String, default: '' }
   },
   setup: (props, { slots }) => ({
     hasSlot: computed(() => !!slots.default),
@@ -81,7 +83,7 @@ export default defineComponent({
     flex: 1;
     border-top-width: var(--va-divider-line-width);
     border-top-style: var(--va-divider-border-top-style);
-    border-top-color: var(--va-divider-border-top-color);
+    border-top-color: var(--va-divider-border-top-color)
   }
 
   &--dashed {
