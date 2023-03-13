@@ -19,7 +19,7 @@ definePageMeta({
 })
 
 const route = useRoute();
-const { locale, t, mergeLocaleMessage, fallbackLocale, availableLocales, localeCodes } = useI18n()
+const { locale, t, mergeLocaleMessage, fallbackLocale, localeCodes } = useI18n()
 
 const localeRegExp = computed(() => new RegExp(`^(${localeCodes.value.join('|')}|${localeCodes.value.map(l => `\/${l}\/`).join('|')})`, 'i'))
 
