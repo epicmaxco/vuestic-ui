@@ -31,13 +31,17 @@
 
   <va-dropdown trigger="hover">
     <template #anchor>
-      <va-button> Hover </va-button>
+      <va-button class="max-sm:mt-2 max-sm:mr-2">
+        Hover
+      </va-button>
     </template>
 
     <va-dropdown-content> Dropped down! </va-dropdown-content>
   </va-dropdown>
 
-  <div class="mt-2">
+  <div
+    class="mt-2 max-sm:inline-block max-sm:leading-none max-sm:align-middle"
+  >
     <va-dropdown
       v-model="doShowDropdown"
       trigger="none"
@@ -64,3 +68,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.va-button {
+  --va-button-line-height: var(--va-dropdown-line-height);
+
+  vertical-align: middle;
+}
+</style>
