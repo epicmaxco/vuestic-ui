@@ -24,7 +24,7 @@ const getConfig = async (name: string) => {
 
   return await (file().then((module) => {
     const m = module.default
-    m.translations = module.default.translations || {}
+    m.translations = module.translations || {}
     return m
   }).catch((e) => { throw e }))
 }
