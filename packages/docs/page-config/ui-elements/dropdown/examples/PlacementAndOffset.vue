@@ -36,6 +36,7 @@
         <va-select
           v-model="placementWIthAlias"
           :options="placements"
+          style="--va-form-element-default-width: 100%; width: 100%;"
         />
       </td>
     </tr>
