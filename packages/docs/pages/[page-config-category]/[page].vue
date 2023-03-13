@@ -31,12 +31,7 @@ const pageConfigName = computed(() => {
     return path.replace(localeRegExp.value, '')
   }
 
-  // If user removes local key from address bar
-  if (path.startsWith('/')) {
-    return path.replace('/', '')
-  }
-
-  return path
+  return path.slice(1)
 })
 
 const config = await usePageConfig(pageConfigName);
