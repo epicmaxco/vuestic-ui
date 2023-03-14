@@ -1,13 +1,11 @@
 <template>
-  <ClientOnly>
-    <div class="page-config">
-      <PageConfig
-        v-if="config"
-        :page-config="config"
-      />
-      <PageConfigSkeleton v-else />
-    </div>
-  </ClientOnly>
+  <div class="page-config">
+    <PageConfig
+      v-if="config"
+      :page-config="config"
+    />
+    <PageConfigSkeleton v-else />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -23,7 +21,7 @@ const { locale, t, mergeLocaleMessage, fallbackLocale, localeCodes } = useI18n()
 
 const getLocaleRegExp = (): RegExp => {
   const defaultLocaleCodes = localeCodes.value.join('|')
-  const localeCodesWithSlashes = localeCodes.value.map((locale: string) => `\/${locale}\/`).join('|')
+  const localeCodesWithSlashes = localeCodes.value.map((locale: string) => `/${locale}/`).join('|')
 
   return new RegExp(`^(${defaultLocaleCodes}|${localeCodesWithSlashes})`, 'i')
 }

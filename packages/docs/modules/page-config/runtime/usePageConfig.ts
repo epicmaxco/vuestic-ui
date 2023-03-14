@@ -1,4 +1,4 @@
-import { type Ref, unref, watchEffect } from 'vue'
+import { type Ref, unref, watch } from 'vue'
 import { type PageConfigOptions } from "."
 
 type PageConfigJSModule = { default: PageConfigOptions, translations?: Record<string, string> }
@@ -35,8 +35,9 @@ export const usePageConfig = async (name: string | Ref<string>) => {
   try {
     const config = ref<PageConfigOptions | null>(await getConfig(unref(name)))
 
-    watchEffect(async () => {
+    watch(config, async (newConfig) => {
       try {
+        if (!newConfig) { return }
         config.value = null
         config.value = await getConfig(unref(name))
       }
