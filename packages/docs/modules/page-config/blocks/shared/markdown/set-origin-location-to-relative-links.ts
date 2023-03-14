@@ -27,28 +27,22 @@ export const setOriginLocationToRelativeLinks = (
     if (token.attrIndex('href') >= 0) {
       const hrefAttrValue: string = token.attrGet('href')
 
-      const isInternalLink = localeOptions.externalLinkStartWith.reduce(
-        (is, item) => {
-          if (hrefAttrValue.startsWith(item)) {
-            return (is = false)
-          }
-          return is
-        },
-        true,
+      if (hrefAttrValue.startsWith(`/${localeOptions.currentLocale}/`)) { return }
+
+      const isExternalLink = localeOptions.externalLinkStartWith.every((item) => hrefAttrValue.startsWith(item))
+
+      if (isExternalLink) { return }
+
+      const normalizedHref = hrefAttrValue.startsWith('/')
+        ? hrefAttrValue.substring(1)
+        : hrefAttrValue
+
+      token.attrSet(
+        'href',
+        `/${localeOptions.currentLocale}/${normalizedHref}`,
       )
 
-      if (isInternalLink) {
-        const normalizedHref = hrefAttrValue.startsWith('/')
-          ? hrefAttrValue.substring(1)
-          : hrefAttrValue
-
-        token.attrSet(
-          'href',
-          `${location.origin}/${localeOptions.currentLocale}/${normalizedHref}`,
-        )
-      }
+      return defaultRender(tokens, idx, options, env, self)
     }
-
-    return defaultRender(tokens, idx, options, env, self)
   }
 }

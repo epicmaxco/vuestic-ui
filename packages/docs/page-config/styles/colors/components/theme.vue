@@ -34,8 +34,10 @@ export default {
   setup() {
     const { presets, applyPreset, colors } = useColors();
 
+    const savedTheme = (typeof localStorage !== 'undefined' && localStorage.getItem("vuestic-docs-theme")?.toLowerCase())
+
     const theme = ref(
-      localStorage.getItem("vuestic-docs-theme")?.toLowerCase() || "light"
+      savedTheme || "light"
     );
 
     watchEffect(() => {
