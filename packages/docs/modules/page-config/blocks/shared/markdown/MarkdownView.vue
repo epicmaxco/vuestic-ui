@@ -8,7 +8,6 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import { useMarkdownIt } from "./useMarkdownIt";
 import { useColors, useElementTextColor } from 'vuestic-ui'
 
 const props = defineProps({
@@ -33,10 +32,6 @@ const props = defineProps({
 const { locale } = useI18n();
 
 const md = useMarkdownIt();
-
-// watch(locale, (newValue) => {
-//   localeOptions.currentLocale = newValue
-// })
 
 const text = computed(() => {
   try {

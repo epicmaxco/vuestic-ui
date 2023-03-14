@@ -1,10 +1,12 @@
+// @ts-ignore
 import MarkdownIt from 'markdown-it'
+// @ts-ignore
 import markdownItAttrs from 'markdown-it-attrs'
-import { setClassAttributeToExternalLinks, AttributesOptions } from './set-class-attribute-to-external-links'
 import {
   setOriginLocationToRelativeLinks,
-  LocaleOptions,
-} from './set-origin-location-to-relative-links'
+} from './rules/set-origin-location-to-relative-links'
+import { setClassAttributeToExternalLinks, AttributesOptions } from './rules/set-class-attribute-to-external-links'
+import { useMarkdownProvideKey } from './useMarkdownIt';
 
 const md = new MarkdownIt({
   breaks: true,
@@ -16,11 +18,10 @@ export const attributesOptions: AttributesOptions = {
   className: '',
 }
 
-export const useMarkdownIt = () => {
-  const { locale } = useI18n()
-
-  const localeOptions: LocaleOptions = {
-    currentLocale: locale.value,
+export default defineNuxtPlugin((nuxtApp) => {
+  const localeOptions = {
+    // Reactive access to locale
+    get currentLocale() { return nuxtApp.vueApp.config.globalProperties.$i18n.locale }
   }
 
   md.use(setOriginLocationToRelativeLinks, localeOptions)
@@ -30,9 +31,5 @@ export const useMarkdownIt = () => {
       rightDelimiter: ']]',
     })
 
-  watch(locale, () => {
-    localeOptions.currentLocale = locale.value
-  })
-
-  return md
-}
+  nuxtApp.vueApp.provide(useMarkdownProvideKey, md)
+})
