@@ -4,7 +4,6 @@ import { setClassAttributeToExternalLinks, AttributesOptions } from './set-class
 import {
   setOriginLocationToRelativeLinks,
   LocaleOptions,
-  ExternalLinkStartWith,
 } from './set-origin-location-to-relative-links'
 
 const md = new MarkdownIt({
@@ -12,8 +11,6 @@ const md = new MarkdownIt({
   typographer: true,
   html: true,
 })
-
-export const externalLinkStartWith: ExternalLinkStartWith = ['http://', 'https://']
 
 export const attributesOptions: AttributesOptions = {
   className: '',
@@ -24,7 +21,6 @@ export const useMarkdownIt = () => {
 
   const localeOptions: LocaleOptions = {
     currentLocale: locale.value,
-    externalLinkStartWith,
   }
 
   md.use(setOriginLocationToRelativeLinks, localeOptions)

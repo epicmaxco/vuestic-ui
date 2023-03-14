@@ -1,8 +1,7 @@
-export type ExternalLinkStartWith = Array<string>;
+export const externalLinkStartWith = ['http://', 'https://']
 
 export type LocaleOptions = {
   currentLocale: string;
-  externalLinkStartWith: ExternalLinkStartWith;
 };
 
 export const setOriginLocationToRelativeLinks = (
@@ -24,25 +23,31 @@ export const setOriginLocationToRelativeLinks = (
   ) {
     const token = tokens[idx]
 
-    if (token.attrIndex('href') >= 0) {
-      const hrefAttrValue: string = token.attrGet('href')
-
-      if (hrefAttrValue.startsWith(`/${localeOptions.currentLocale}/`)) { return }
-
-      const isExternalLink = localeOptions.externalLinkStartWith.every((item) => hrefAttrValue.startsWith(item))
-
-      if (isExternalLink) { return }
-
-      const normalizedHref = hrefAttrValue.startsWith('/')
-        ? hrefAttrValue.substring(1)
-        : hrefAttrValue
-
-      token.attrSet(
-        'href',
-        `/${localeOptions.currentLocale}/${normalizedHref}`,
-      )
-
+    if (token.attrIndex('href') < 0) {
       return defaultRender(tokens, idx, options, env, self)
     }
+
+    const hrefAttrValue: string = token.attrGet('href')
+
+    if (hrefAttrValue.startsWith(`/${localeOptions.currentLocale}/`)) {
+      return defaultRender(tokens, idx, options, env, self)
+    }
+
+    const isExternalLink = externalLinkStartWith.some((item) => hrefAttrValue.startsWith(item))
+
+    if (isExternalLink) {
+      return defaultRender(tokens, idx, options, env, self)
+    }
+
+    const normalizedHref = hrefAttrValue.startsWith('/')
+      ? hrefAttrValue.substring(1)
+      : hrefAttrValue
+
+    token.attrSet(
+      'href',
+      `/${localeOptions.currentLocale}/${normalizedHref}`,
+    )
+
+    return defaultRender(tokens, idx, options, env, self)
   }
 }
