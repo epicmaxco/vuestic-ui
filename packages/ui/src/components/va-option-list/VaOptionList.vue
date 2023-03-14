@@ -55,7 +55,7 @@ import {
   useArrayRefs,
 } from '../../composables'
 
-import { __DEV__ } from '../../utils/env'
+import { isDev } from '../../utils/env'
 
 import { VaMessageListWrapper } from '../va-input'
 import { VaCheckbox } from '../va-checkbox'
@@ -146,7 +146,7 @@ export default defineComponent({
     const computedProps = computed(() => pick(props, ['name', 'color', 'readonly', 'leftLabel']))
 
     onMounted(() => {
-      if (__DEV__ && props.type !== 'radio' && !Array.isArray(props.modelValue)) {
+      if (isDev && props.type !== 'radio' && !Array.isArray(props.modelValue)) {
         console.warn(`Prop 'modelValue = ${props.modelValue}' has not a proper type!\n For component property 'type = ${props.type}' it must be of type 'array'.`)
       }
     })
