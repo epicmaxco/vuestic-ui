@@ -41,14 +41,16 @@
 
             <slot name="headerPrepend" />
 
-            <va-data-table-th-row
-              v-if="!hideDefaultHeader"
-              v-bind="thAttributesComputed"
-              v-on:toggleBulkSelection="toggleBulkSelection"
-              v-on:toggleSorting="toggleSorting"
-            >
-            <template v-for="(_, slot) of $slots" v-slot:[slot]="scope"><slot :name="slot" v-bind="scope" /></template>
-            </va-data-table-th-row>
+            <slot name="header">
+              <va-data-table-th-row
+                v-if="!hideDefaultHeader"
+                v-bind="thAttributesComputed"
+                v-on:toggleBulkSelection="toggleBulkSelection"
+                v-on:toggleSorting="toggleSorting"
+              >
+                <template v-for="(_, slot) of $slots" v-slot:[slot]="scope"><slot :name="slot" v-bind="scope" /></template>
+              </va-data-table-th-row>
+            </slot>
 
             <slot name="headerAppend" />
           </thead>
@@ -154,22 +156,24 @@
           </tbody>
 
           <tfoot
-            v-if="footerClone && !$props.grid"
+            v-if="$slots.footer || (footerClone && !$props.grid)"
             class="va-data-table__table-tfoot"
             :class="{ 'va-data-table__table-tfoot--sticky': $props.stickyFooter }"
             :style="{ bottom: isVirtualScroll && $props.stickyFooter ? `${currentListOffset}px` : undefined }"
           >
             <slot name="footerPrepend" />
 
-            <va-data-table-th-row
-              v-if="!hideDefaultHeader"
-              v-bind="thAttributesComputed"
-              is-footer
-              v-on:toggleBulkSelection="toggleBulkSelection"
-              v-on:toggleSorting="toggleSorting"
-            >
-            <template v-for="(_, slot) of $slots" v-slot:[slot]="scope"><slot :name="slot" v-bind="scope" /></template>
-            </va-data-table-th-row>
+            <slot name="footer">
+              <va-data-table-th-row
+                v-if="!hideDefaultHeader"
+                v-bind="thAttributesComputed"
+                is-footer
+                v-on:toggleBulkSelection="toggleBulkSelection"
+                v-on:toggleSorting="toggleSorting"
+              >
+                <template v-for="(_, slot) of $slots" v-slot:[slot]="scope"><slot :name="slot" v-bind="scope" /></template>
+              </va-data-table-th-row>
+            </slot>
 
             <slot name="footerAppend" />
           </tfoot>
