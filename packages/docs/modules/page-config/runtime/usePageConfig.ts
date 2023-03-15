@@ -1,5 +1,9 @@
+import { languages } from '../../../locales'
+
 import { type Ref, unref, watch } from 'vue'
-import { type PageConfigOptions } from "."
+import { type PageConfigOptions } from '.'
+
+const languagesCodes = languages.map(({ code }) => code)
 
 type PageConfigJSModule = { default: PageConfigOptions, translations?: Record<string, string> }
 
@@ -10,6 +14,13 @@ const files = Object.entries(import.meta.glob<false, string, PageConfigJSModule>
     if (name.split('/').length > 2) { return acc }
 
     acc[name] = fn
+
+    // Somehow routing fails to resolve path' with locale
+    languagesCodes.forEach(code => {
+      acc[`/${code}/${name}`] = fn
+      acc[`${code}/${name}`] = fn
+    })
+
     return acc
   }, {} as Record<string, () => Promise<PageConfigJSModule>>)
 
