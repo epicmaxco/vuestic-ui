@@ -160,6 +160,8 @@ export default defineComponent({
     modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },
 
     resetOnClose: { type: Boolean, default: true },
+    closeOnContentClick: { type: Boolean, default: false },
+    offset: { ...VaDropdownProps.offset, default: () => [2, 0] },
     isOpen: { type: Boolean, default: undefined },
 
     format: { type: Function as PropType<(date: DateInputModelValue) => string> },
@@ -391,12 +393,11 @@ export default defineComponent({
       ...omit(attrs, ['class', 'style']),
     }))
 
+    const filteredProps = filterComponentProps(VaDropdownProps)
     const dropdownPropsComputed = computed(() => ({
-      ...filterComponentProps(VaDropdownProps).value,
-      offset: [2, 0] as DropdownOffsetProp,
+      ...filteredProps.value,
       stateful: false,
       keyboardNavigation: true,
-      closeOnContentClick: false,
       innerAnchorSelector: '.va-input-wrapper__field',
     }))
 
