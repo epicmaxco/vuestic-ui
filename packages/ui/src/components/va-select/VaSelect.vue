@@ -28,7 +28,7 @@
           <va-icon
             v-if="showClearIcon"
             role="button"
-            :aria-label="tp($props.ariaResetLabel)"
+            :aria-label="tp($props.ariaClearLabel)"
             tabindex="0"
             v-bind="clearIconProps"
             @click.stop="reset"
@@ -232,7 +232,7 @@ export default defineComponent({
 
     ariaLabel: { type: String, default: undefined },
     ariaSearchLabel: { type: String, default: '$t:optionsFilter' },
-    ariaResetLabel: { type: String, default: '$t:reset' },
+    ariaClearLabel: { type: String, default: '$t:reset' },
   },
 
   setup (props, { emit, slots }) {
