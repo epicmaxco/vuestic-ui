@@ -47,6 +47,7 @@ export default defineComponent({
     indeterminate: { type: Boolean, default: false },
     thickness: { type: Number, default: 0.06 },
     color: { type: String, default: 'primary' },
+    ariaLabel: { type: String, default: '$t:progressState' },
   },
 
   setup (props) {
@@ -60,7 +61,7 @@ export default defineComponent({
     const dashoffset = computed(() => dasharray.value * (1 - clamp(props.modelValue, 0, 100) / 100))
     const colorComputed = computed(() => getColor(props.color, undefined, true))
 
-    const { t } = useTranslation()
+    const { tp } = useTranslation()
 
     return {
       infoStyle: computed(() => ({ color: colorComputed.value })),
@@ -73,7 +74,7 @@ export default defineComponent({
       })),
       ariaAttributesComputed: computed(() => ({
         role: 'progressbar',
-        'aria-label': t('progressState'),
+        'aria-label': tp(props.ariaLabel),
         'aria-valuenow': !props.indeterminate ? props.modelValue : undefined,
       })),
 

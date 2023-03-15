@@ -41,6 +41,7 @@
     >
     <va-file-upload-list
       v-if="files.length && !$props.hideFileList"
+      v-bind="fileUploadListProps"
       :type="type"
       :files="files"
       :color="colorComputed"
@@ -65,6 +66,9 @@ import { VaFileUploadKey, VaFile } from './types'
 
 import { VaButton, VaModal } from '../index'
 import { VaFileUploadList } from './VaFileUploadList'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
+
+const VaFileUploadListProps = extractComponentProps(VaFileUploadList)
 
 export default defineComponent({
   name: 'VaFileUpload',
@@ -77,6 +81,7 @@ export default defineComponent({
 
   props: {
     ...useComponentPresetProp,
+    ...VaFileUploadListProps,
     fileTypes: { type: String, default: '' },
     dropzone: { type: Boolean, default: false },
     hideFileList: { type: Boolean, default: false },
@@ -212,6 +217,7 @@ export default defineComponent({
     })
 
     return {
+      fileUploadListProps: filterComponentProps(VaFileUploadListProps),
       modal,
       dropzoneHighlight,
       fileInputRef,

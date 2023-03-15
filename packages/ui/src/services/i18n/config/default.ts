@@ -89,4 +89,13 @@ export const getI18nConfigDefaults = () => ({
 
   step: 'step',
   progress: 'progress',
+
+  /** Skeleton aria label */
+  loading: 'Loading',
+
+  /** Slider aria label */
+  sliderValue: 'Current slider value is {value}',
+
+  /** Switch aria label */
+  switch: 'Switch',
 })

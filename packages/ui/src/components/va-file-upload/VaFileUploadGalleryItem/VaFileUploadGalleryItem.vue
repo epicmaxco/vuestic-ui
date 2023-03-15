@@ -37,7 +37,7 @@
           color="danger"
           icon="va-delete"
           class="va-file-upload-gallery-item__delete"
-          :aria-label="t('removeFile')"
+          :aria-label="tp($props.ariaRemoveFileLabel)"
           @click="removeImage"
           @focus="onFocus"
           @blur="onBlur"
@@ -76,6 +76,8 @@ export default defineComponent({
   props: {
     file: { type: Object as PropType<ConvertedFile>, default: null },
     color: { type: String, default: 'success' },
+
+    ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
   },
 
   setup (props, { emit }) {

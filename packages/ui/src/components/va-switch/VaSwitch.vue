@@ -116,7 +116,7 @@ export default defineComponent({
     falseLabel: { type: String, default: null },
     trueInnerLabel: { type: String, default: null },
     falseInnerLabel: { type: String, default: null },
-    ariaLabel: { type: String, default: 'Switch' },
+    ariaLabel: { type: String, default: '$t:switch' },
     color: { type: String, default: 'primary' },
     offColor: { type: String, default: 'background-element' },
     size: {

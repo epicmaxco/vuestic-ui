@@ -35,7 +35,7 @@
       <va-icon
         v-if="canBeCleared"
         role="button"
-        :aria-label="t('reset')"
+        :aria-label="tp($props.ariaResetLabel)"
         :tabindex="tabIndexComputed"
         v-bind="clearIconProps"
         @click.stop="reset"
@@ -142,6 +142,7 @@ export default defineComponent({
     outline: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
     requiredMark: { type: Boolean, default: false },
+    ariaResetLabel: { type: String, default: '$t:reset' },
   },
 
   emits: [

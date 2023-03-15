@@ -44,7 +44,7 @@
                 name="va-close"
                 class="va-modal__close"
                 role="button"
-                :aria-label="t('close')"
+                :aria-label="tp($props.ariaCloseLabel)"
                 tabindex="0"
                 @click="cancel"
                 @keydown.space="cancel"
@@ -200,6 +200,7 @@ export default defineComponent({
     backgroundColor: { type: String, default: 'background-secondary' },
     noPadding: { type: Boolean, default: false },
     beforeClose: { type: Function as PropType<(hide: () => void) => any> },
+    ariaCloseLabel: { type: String, default: '$t:close' },
   },
   setup (props, { emit }) {
     const rootElement = shallowRef<HTMLElement>()
