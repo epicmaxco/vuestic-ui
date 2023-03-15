@@ -134,6 +134,9 @@ export default defineComponent({
     ...useValidationProps as ValidationProps<Date>,
 
     isOpen: { type: Boolean, default: undefined },
+    closeOnContentClick: { type: Boolean, default: false },
+    offset: { ...VaDropdownProps.offset, default: () => [2, 0] },
+    placement: { ...VaDropdownProps.placement, default: 'bottom-start' },
     modelValue: { type: Date, default: undefined },
     clearValue: { type: Date, default: undefined },
     format: { type: Function as PropType<(date?: Date) => string> },
@@ -326,12 +329,10 @@ export default defineComponent({
       ...omit(attrs, ['class', 'style']),
     }))
 
+    const filteredProps = filterComponentProps(VaDropdownProps)
     const dropdownPropsComputed = computed(() => ({
-      ...filterComponentProps(VaDropdownProps).value,
-      closeOnContentClick: false,
-      offset: [2, 0] as DropdownOffsetProp,
+      ...filteredProps.value,
       keyboardNavigation: true,
-      placement: 'bottom-start' as Placement,
       innerAnchorSelector: '.va-input-wrapper__field',
     }))
 
