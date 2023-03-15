@@ -104,6 +104,13 @@ export default defineComponent({
         scrollTop / props.cellHeight,
       )
 
+      if (calculatedIndex >= props.items.length) {
+        return props.items.length - 1
+      }
+      if (calculatedIndex < 0) {
+        return 0
+      }
+
       if (syncActiveItemIndex.value * props.cellHeight < scrollTop) {
         return Math.ceil(calculatedIndex)
       } else if (syncActiveItemIndex.value * props.cellHeight > scrollTop) {
@@ -120,6 +127,7 @@ export default defineComponent({
     }, 200)
 
     return {
+      syncActiveItemIndex,
       rootElement,
 
       makeActiveNext,
