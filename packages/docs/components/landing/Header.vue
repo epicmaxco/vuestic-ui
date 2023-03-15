@@ -128,11 +128,11 @@
               </va-list-label>
               <div class="mobile-menu__languages">
                 <va-list-item
-                  v-for="(language, id) in languages"
+                  v-for="(language, id) in locales"
                   :key="id"
                   class="mobile-menu__language"
                   :class="{ active: language.code === locale }"
-                  @click="setLanguage(language.code)"
+                  @click="setLocale(language.code)"
                 >
                   <va-list-item-section class="mobile-menu__link">
                     <span class="language">{{ language.name }}</span>
@@ -170,17 +170,19 @@ import LandingStarsButton from './StarsButton.vue'
 export default defineComponent({
   name: 'LandingHeader',
 
-  setup () {
-    const { locale } = useI18n()
-    const isHidden = ref(true)
+  components: {
+    LandingStarsButton,
+  },
 
-    const { languages, setLanguage } = useSharedLanguageSwitcher()
+  setup () {
+    const { locale, locales, setLocale } = useI18n()
+    const isHidden = ref(true)
 
     return {
       locale,
-      languages,
+      locales,
+      setLocale,
       isHidden,
-      setLanguage,
     }
   },
 })

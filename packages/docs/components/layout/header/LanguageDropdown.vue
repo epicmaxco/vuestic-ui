@@ -8,11 +8,11 @@
   >
     <div class="language-dropdown__content">
       <va-list-item
-        v-for="(language, id) in languages"
+        v-for="(language, id) in locales"
         :key="id"
         class="language-dropdown__item row align-center va-link"
         :class="{ active: language.code === locale }"
-        @click="setLanguage(language.code)"
+        @click="setLocale(language.code)"
       >
         <va-list-item-section :style="{ color: language.code === locale ? colors.textPrimary : colors.primary }">
           <span class="dropdown-item__text">{{ language.name }}</span>
@@ -37,25 +37,22 @@ import { defineComponent, computed } from 'vue'
 import { useColors } from 'vuestic-ui/src/main'
 import { useI18n } from 'vue-i18n'
 
-import { useSharedLanguageSwitcher } from '@/composables/useLanguageSwitcher'
-
 export default defineComponent({
   name: 'DocsLanguageDropdown',
   setup () {
-    const { locale, t } = useI18n()
+    const { t, locale, locales, localeProperties, setLocale } = useI18n()
 
     const { getColors } = useColors()
     const colors = computed(getColors)
-
-    const { currentLanguageName, languages, setLanguage } = useSharedLanguageSwitcher()
+    const currentLanguageName = computed(() => localeProperties.value.name)
 
     return {
       t,
       colors,
       locale,
-      languages,
+      locales,
       currentLanguageName,
-      setLanguage,
+      setLocale,
     }
   },
 })
