@@ -441,6 +441,9 @@ export default defineComponent({
   }
 
   &__checker-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: var(--va-switch-checker-height);
     width: var(--va-switch-checker-width);
     background-color: var(--va-switch-checker-background-color);
