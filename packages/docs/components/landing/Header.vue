@@ -49,7 +49,7 @@
             >
               {{ $t('landing.header.buttons.blog') }}
             </va-button>
-            <layout-header-language-dropdown
+            <language-dropdown
               class="header__links--link"
               preset="landingHeader"
             />
@@ -166,6 +166,7 @@ import { ref } from 'vue'
 
 import { useSharedLanguageSwitcher } from '../../composables/useLanguageSwitcher'
 
+import LanguageDropdown from '../layout/LanguageDropdown.vue'
 import LandingStarsButton from './StarsButton.vue'
 
 const isHidden = ref(true)
