@@ -25,7 +25,7 @@ const props = defineProps({
   },
   visualOptions: {
     type: Object as PropType<VisualOptions>,
-    default: () => {},
+    default: () => ({}),
   }
 })
 
