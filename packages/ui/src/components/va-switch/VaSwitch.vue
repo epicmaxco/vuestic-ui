@@ -266,7 +266,6 @@ export default defineComponent({
     width: var(--va-switch-inner-width);
     min-width: var(--va-switch-inner-min-width);
     border-radius: var(--va-switch-inner-border-radius);
-    overflow: hidden;
 
     &:focus {
       outline: 0;
