@@ -342,8 +342,7 @@ export default defineComponent({
   &--checked {
     .va-switch {
       &__checker {
-        margin: auto -0.3rem;
-        transform: translateX(-100%);
+        transform: translateX(calc(-100% - 0.3rem));
       }
 
       &__checker-circle {
