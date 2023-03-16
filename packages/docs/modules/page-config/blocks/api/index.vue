@@ -4,7 +4,7 @@ import { parseComponent } from './component-parser'
 import merge from 'lodash/merge'
 import camelCase from 'lodash/camelCase'
 import ApiTable from './components/api-table.vue';
-import { CssVariables, ManualApiOptions } from './types';
+import { CssVariables, ManualApiOptions, VisualOptions } from './types';
 
 const props = defineProps({
   componentName: {
@@ -22,6 +22,10 @@ const props = defineProps({
   cssVariables: {
     type: Array as PropType<CssVariables>,
     required: true,
+  },
+  visualOptions: {
+    type: Object as PropType<VisualOptions>,
+    default: () => ({}),
   }
 })
 
@@ -109,8 +113,8 @@ const cssVariablesOptions = props.cssVariables.map(([name, value, comment]) => (
 <template>
   <va-content>
     <ApiTable
-      v-if="propsOptions.length > 0"
-      title="Props"
+      v-if="propsOptions.length > 0 && !visualOptions.hideProps"
+      :title="visualOptions.hidePropsTitle ? '' : 'Props'"
       :columns="['Name', 'Description', 'Types', 'Default']"
       :data="propsOptions"
     >
@@ -126,29 +130,29 @@ const cssVariablesOptions = props.cssVariables.map(([name, value, comment]) => (
     </ApiTable>
 
     <ApiTable
-      v-if="eventsOptions.length > 0"
-      title="Events"
+      v-if="eventsOptions.length > 0 && !visualOptions.hideEvents"
+      :title="visualOptions.hideEventsTitle ? '' : 'Events'"
       :columns="['Name', 'Description']"
       :data="eventsOptions"
     />
 
     <ApiTable
-      v-if="slotsOptions.length > 0"
-      title="Slots"
+      v-if="slotsOptions.length > 0 && !visualOptions.hideSlots"
+      :title="visualOptions.hideEventsTitle ? '' : 'Slots'"
       :columns="['Name', 'Description']"
       :data="slotsOptions"
     />
 
     <ApiTable
-      v-if="methodsOptions.length > 0"
-      title="Methods"
+      v-if="methodsOptions.length > 0 && !visualOptions.hideMethods"
+      :title="visualOptions.hideEventsTitle ? '' : 'Methods'"
       :columns="['Name', 'Description']"
       :data="methodsOptions"
     />
 
     <ApiTable
-      v-if="cssVariablesOptions.length > 0"
-      title="CSS variables"
+      v-if="cssVariablesOptions.length > 0 && !visualOptions.hideCssVariables"
+      :title="visualOptions.hideEventsTitle ? '' : 'Css Variables'"
       :columns="['Name', 'Default Value']"
       :data="cssVariablesOptions"
     >

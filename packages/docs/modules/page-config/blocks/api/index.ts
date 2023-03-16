@@ -1,13 +1,14 @@
 import { DefineComponent } from 'vue';
 import { definePageConfigBlock } from '../../types'
 import Component from './index.vue'
-import { type ManualApiOptions } from './types';
+import { VisualOptions, type ManualApiOptions } from './types';
 
 const setup = (
   componentName: string, 
   component: DefineComponent,
   cssVariables: string,
-  manual?: ManualApiOptions
+  manual?: ManualApiOptions,
+  visualOptions?: VisualOptions,
 ) => {
   return {
     type: 'api' as const,
@@ -15,11 +16,12 @@ const setup = (
     component,
     cssVariables,
     manual,
+    visualOptions,
   }
 }
 
 export default definePageConfigBlock({
-  setup: setup as unknown as (componentName: string, manual?: ManualApiOptions) => ReturnType<typeof setup>,
+  setup: setup as unknown as (componentName: string, manual?: ManualApiOptions, visualOptions?: VisualOptions) => ReturnType<typeof setup>,
   component: Component,
 })
 

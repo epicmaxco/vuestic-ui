@@ -1671,7 +1671,8 @@
     "colorsClasses": "Colors Classes",
     "skeleton": "Skeleton",
     "unocss": "UnoCSS Integration",
-    "testing": "Testing"
+    "testing": "Testing",
+    "confirm": "Confirm"
   },
   "all": {
     "examples": "Examples",
