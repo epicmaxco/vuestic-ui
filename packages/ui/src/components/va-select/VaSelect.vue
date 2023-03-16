@@ -567,8 +567,9 @@ export default defineComponent({
 
     const { tp, t } = useTranslation()
 
+    const filteredDropdownProps = filterComponentProps(VaDropdownProps)
     const dropdownPropsComputed = computed(() => ({
-      ...filterComponentProps(VaDropdownProps).value,
+      ...filteredDropdownProps.value,
       closeOnContentClick: closeOnContentClick.value,
       stateful: false,
       offset: [1, 0] as DropdownOffsetProp,
