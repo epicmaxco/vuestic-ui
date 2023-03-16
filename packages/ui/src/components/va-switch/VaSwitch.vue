@@ -187,12 +187,12 @@ export default defineComponent({
     })
 
     const trackStyle = computed(() => ({
-      borderColor: props.error ? getColor('danger') : '',
+      borderColor: computedError.value ? getColor('danger') : '',
       backgroundColor: computedBackground.value,
     }))
 
     const labelStyle = computed(() => ({
-      color: props.error ? getColor('danger') : '',
+      color: computedError.value ? getColor('danger') : '',
     }))
 
     const trackLabelStyle = computed(() => ({
