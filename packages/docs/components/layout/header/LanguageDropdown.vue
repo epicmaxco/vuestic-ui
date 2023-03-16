@@ -1,6 +1,6 @@
 <template>
   <va-button-dropdown
-    :label="currentLanguageName"
+    :label="currentLocaleName"
     :offset="[16, 0]"
     class="language-dropdown"
     prevent-overflow
@@ -8,14 +8,14 @@
   >
     <div class="language-dropdown__content">
       <va-list-item
-        v-for="(language, id) in languages"
+        v-for="({ code, name }, id) in locales"
         :key="id"
         class="language-dropdown__item row align-center va-link"
-        :class="{ active: language.code === locale }"
-        @click="setLanguage(language.code)"
+        :class="{ active: code === locale }"
+        @click="setLocale(code)"
       >
-        <va-list-item-section :style="{ color: language.code === locale ? colors.textPrimary : colors.primary }">
-          <span class="dropdown-item__text">{{ language.name }}</span>
+        <va-list-item-section :style="{ color: code === locale ? colors.textPrimary : colors.primary }">
+          <span class="dropdown-item__text">{{ name }}</span>
         </va-list-item-section>
       </va-list-item>
       <va-list-item
@@ -24,7 +24,7 @@
       >
         <va-list-item-section :style="{color: colors.primary}">
           <span class="dropdown-item__text">
-            {{ $t('landing.header.buttons.translation') }}
+            {{ t('landing.header.buttons.translation') }}
           </span>
         </va-list-item-section>
       </va-list-item>
@@ -32,33 +32,12 @@
   </va-button-dropdown>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useColors } from 'vuestic-ui/src/main'
-import { useI18n } from 'vue-i18n'
-
+<script lang="ts" setup>
+import { useColors } from 'vuestic-ui'
 import { useSharedLanguageSwitcher } from '@/composables/useLanguageSwitcher'
 
-export default defineComponent({
-  name: 'DocsLanguageDropdown',
-  setup () {
-    const { locale, t } = useI18n()
-
-    const { getColors } = useColors()
-    const colors = computed(getColors)
-
-    const { currentLanguageName, languages, setLanguage } = useSharedLanguageSwitcher()
-
-    return {
-      t,
-      colors,
-      locale,
-      languages,
-      currentLanguageName,
-      setLanguage,
-    }
-  },
-})
+const { colors } = useColors()
+const { t, locale, locales, currentLocaleName, setLocale } = useSharedLanguageSwitcher()
 </script>
 
 <style lang="scss">

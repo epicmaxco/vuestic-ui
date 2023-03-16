@@ -1,21 +1,21 @@
 <template>
   <div class="language-dropdown">
     <va-button-dropdown
-      :label="currentLanguageName"
+      :label="currentLocaleName"
       :offset="[0, 25]"
       color="primary"
       flat
     >
       <div class="language-dropdown__content">
         <va-list-item
-          v-for="(option, index) in options"
+          v-for="({code, name}, index) in locales"
           :key="index"
-          :class="{ active: option.code === locale }"
+          :class="{ active: code === locale }"
           class="language-dropdown__item row align--center py-2"
-          @click="setLanguage(option.code)"
+          @click="setLocale(code)"
         >
           <va-list-item-section :style="{color: colors.primary}">
-            <span class="dropdown-item__text">{{ option.name }}</span>
+            <span class="dropdown-item__text">{{ name }}</span>
           </va-list-item-section>
         </va-list-item>
         <va-list-item class="language-dropdown__item row align--center py-2">
@@ -36,15 +36,10 @@
 
 <script lang="ts" setup>
 import { useColors } from 'vuestic-ui'
-import { languages } from '../../locales'
+import { useSharedLanguageSwitcher } from '../../composables/useLanguageSwitcher'
 
-const { locale, t } = useI18n()
-
-const setLanguage = (newLocale: string) => { locale.value = newLocale }
-
-const options = languages
 const { colors } = useColors()
-const currentLanguageName = computed(() => options.find(({ code }) => code === locale.value)?.name)
+const { t, locale, locales, currentLocaleName, setLocale } = useSharedLanguageSwitcher()
 </script>
 
 <style lang="scss">
