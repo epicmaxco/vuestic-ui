@@ -135,7 +135,7 @@ export default defineComponent({
     min: { type: Number, default: undefined },
     max: { type: Number, default: undefined },
     step: { type: Number, default: 1 },
-    label: { type: String, default: '$t:counterValue' },
+    label: { type: String, default: '' },
     // hint
     messages: { type: [Array, String] as PropType<string[] | string>, default: () => [] },
     // style
@@ -152,6 +152,7 @@ export default defineComponent({
     margins: { type: [String, Number], default: '4px' },
     textColor: { type: String, default: undefined },
 
+    ariaLabel: { type: String, default: '$t:counterValue' },
     ariaDecreaseLabel: { type: String, default: '$t:decreaseCounter' },
     ariaIncreaseLabel: { type: String, default: '$t:increaseCounter' },
   },
@@ -295,7 +296,7 @@ export default defineComponent({
 
     const inputAttributesComputed = computed(() => ({
       tabindex: tabIndexComputed.value,
-      'aria-label': tp(props.label),
+      'aria-label': tp(props.ariaLabel),
       'aria-valuemin': min.value,
       'aria-valuemax': max.value,
       ...omit(attrs, ['class', 'style']),

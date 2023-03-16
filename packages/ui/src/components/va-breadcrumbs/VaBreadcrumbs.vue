@@ -109,13 +109,13 @@ export default defineComponent({
       return children
     }
 
-    const { t } = useTranslation()
+    const { tp } = useTranslation()
 
     return () => h('div', {
       class: 'va-breadcrumbs',
       style: alignComputed.value,
       role: isAllChildLinks.value ? 'navigation' : undefined,
-      'aria-label': (isAllChildLinks.value ? t(props.ariaLabel) : undefined),
+      'aria-label': (isAllChildLinks.value ? tp(props.ariaLabel) : undefined),
     }, getChildren())
   },
 })
