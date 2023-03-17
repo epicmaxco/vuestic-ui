@@ -139,7 +139,7 @@ export default defineNuxtConfig({
     strategy: 'prefix_and_default',
 
     detectBrowserLanguage: {
-      redirectOn: 'root',
+      redirectOn: 'all',
       alwaysRedirect: true,
       useCookie: true,
       cookieKey: 'i18n_locale',
