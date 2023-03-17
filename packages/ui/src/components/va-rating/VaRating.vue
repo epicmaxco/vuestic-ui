@@ -95,7 +95,15 @@ export default defineComponent({
       tabIndexComputed: computed(() => isInteractionsEnabled.value ? 0 : undefined),
       onArrowKeyPress: (direction: 1 | -1) => {
         const step = props.halves ? RatingValue.HALF : RatingValue.FULL
-        rating.onItemValueUpdate(rating.visibleValue.value, step * direction)
+        const nextStep = rating.visibleValue.value + step * direction
+        const min = props.clearable ? 0 : step
+        if (nextStep >= min && nextStep <= props.max) {
+          rating.onItemValueUpdate(rating.visibleValue.value, step * direction)
+        } else if (nextStep < min) {
+          rating.onItemValueUpdate(min, 0)
+        } else {
+          rating.onItemValueUpdate(props.max, direction === -1 ? step * direction : 0)
+        }
       },
     }
   },
