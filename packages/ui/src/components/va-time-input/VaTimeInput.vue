@@ -105,9 +105,8 @@ import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-import type { DropdownOffsetProp } from '../va-dropdown/types'
 
-const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue', 'disabled'])
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDropdownProps = extractComponentProps(VaDropdown,
   ['keyboardNavigation', 'offset', 'placement', 'closeOnContentClick', 'innerAnchorSelector', 'modelValue'],
 )
@@ -240,8 +239,9 @@ export default defineComponent({
       canBeCleared.value && valueText.value !== format(props.clearValue)
     ))
 
+    const filteredWrapperProps = filterComponentProps(VaInputWrapperProps)
     const computedInputWrapperProps = computed(() => ({
-      ...filterComponentProps(VaInputWrapperProps).value,
+      ...filteredWrapperProps.value,
       focused: isFocused.value,
       error: computedError.value,
       errorMessages: computedErrorMessages.value,

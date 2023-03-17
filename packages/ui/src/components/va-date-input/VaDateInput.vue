@@ -131,7 +131,7 @@ import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaInputWrapper } from '../va-input'
 import { VaIcon } from '../va-icon'
 
-const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue', 'disabled'])
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
 const VaDropdownProps = extractComponentProps(VaDropdown,
   ['innerAnchorSelector', 'stateful', 'offset', 'keyboardNavigation', 'closeOnContentClick', 'modelValue'],
@@ -349,8 +349,9 @@ export default defineComponent({
       tabindex: iconTabindexComputed.value,
     }))
 
+    const filteredWrapperProps = filterComponentProps(VaInputWrapperProps)
     const computedInputWrapperProps = computed(() => ({
-      ...filterComponentProps(VaInputWrapperProps).value,
+      ...filteredWrapperProps.value,
       focused: isFocused.value,
       error: hasError.value,
       errorMessages: computedErrorMessages.value,
