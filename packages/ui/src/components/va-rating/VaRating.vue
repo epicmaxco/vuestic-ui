@@ -16,7 +16,7 @@
         :key="itemNumber"
         class="va-rating__item"
         v-bind="VaRatingItemProps"
-        :aria-label="t('voteRating', { max: $props.max, value: $props.modelValue })"
+        :aria-label="t('voteRating', { max: $props.max, value: itemNumber })"
         :model-value="getItemValue(itemNumber - 1)"
         :tabindex="tabIndexComputed"
         :disabled="$props.disabled"
