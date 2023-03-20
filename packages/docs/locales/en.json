@@ -2929,6 +2929,12 @@
           "With a `type` property you can set the type of the input which will render native `<input type=\"text/password/search/etc\" />`.",
           "Watch available types [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) (some types aren't supported or have implemented as a Vuestic UI component)."
         ]
+      },
+      "customize": {
+        "title": "Customizable",
+        "text": "You can create `preset` for your input components, but sometimes requirements can be out of boundaries of pre-defined `presets`. To solve this problem component allows to customize it with `slots` and its `props`.",
+        "labelFrom": "From",
+        "labelTo": "To"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-input/_variables.scss)[[target=_blank]]"
