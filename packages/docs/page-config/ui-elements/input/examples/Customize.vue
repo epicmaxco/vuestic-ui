@@ -1,44 +1,36 @@
 <template>
-  <div class="grid grid-flow-col gap-4 max-w-xl">
-    <div class="inline-grid">
-      <b class="va-text-primary">{{ $t('input.examples.customize.labelFrom') }}</b>
-      <va-input
-        v-model="fromValue"
-        placeholder="0,00"
-        mask="numeral"
-      >
-        <template #prependInner>
-          <span v-html="fromFieldMeta.icon" />
-        </template>
-        <template #appendInner>
-          <span>{{ fromFieldMeta.text }}</span>
-        </template>
-      </va-input>
-    </div>
-    <span class="self-end justify-self-center h-[36px] flex items-center">
-      <va-icon
-        name="fa4-exchange-alt"
-        size="small"
-        color="secondary"
-        @click="replaceCurrencies"
-      />
-    </span>
-    <div class="inline-grid">
-      <b class="va-text-primary">{{ $t('input.examples.customize.labelTo') }}</b>
-      <va-input
-        v-model="convertedValue"
-        placeholder="0,00"
-        readonly
-        mask="numeral"
-      >
-        <template #prependInner>
-          <span v-html="toFieldMeta.icon" />
-        </template>
-        <template #appendInner>
-          <span>{{ toFieldMeta.text }}</span>
-        </template>
-      </va-input>
-    </div>
+  <div class="flex items-center gap-4 max-w-xl">
+    <va-input
+      v-model="fromValue"
+      placeholder="0.00"
+      :label="$t('input.examples.customize.labelFrom')"
+    >
+      <template #prependInner>
+        <span v-html="fromFieldMeta.icon" />
+      </template>
+      <template #appendInner>
+        <span>{{ fromFieldMeta.text }}</span>
+      </template>
+    </va-input>
+    <va-icon
+      name="fa4-exchange-alt"
+      size="small"
+      color="secondary"
+      @click="replaceCurrencies"
+    />
+    <va-input
+      v-model="convertedValue"
+      placeholder="0.00"
+      readonly
+      :label="$t('input.examples.customize.labelTo')"
+    >
+      <template #prependInner>
+        <span v-html="toFieldMeta.icon" />
+      </template>
+      <template #appendInner>
+        <span>{{ toFieldMeta.text }}</span>
+      </template>
+    </va-input>
   </div>
 </template>
 
@@ -58,7 +50,7 @@ export default {
     return {
       exchangeFrom: CURRENCIES.EUR,
       usdToEurRate: 0.94,
-      eurToUsdRate: 1.07,
+      eurToUsdRate: 1 / 0.94,
       fromValue: '',
     }
   },
