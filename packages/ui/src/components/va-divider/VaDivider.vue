@@ -17,6 +17,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useColors } from '../../composables/useColors'
 
 const prefixClass = 'va-divider'
 
@@ -34,15 +35,22 @@ export default defineComponent({
     },
     color: { type: String, default: 'backgroundBorder' },
   },
-  setup: (props, { slots }) => ({
-    hasSlot: computed(() => !!slots.default),
-    classComputed: computed(() => ({
-      [`${prefixClass}--vertical`]: props.vertical,
-      [`${prefixClass}--inset`]: props.inset,
-      [`${prefixClass}--${props.orientation}`]: props.orientation && !props.vertical,
-      [`${prefixClass}--dashed`]: props.dashed,
-    })),
-  }),
+  setup (props, { slots }) {
+    const { getColor } = useColors()
+
+    const colorComputed = computed(() => getColor(props.color))
+
+    return {
+      colorComputed,
+      hasSlot: computed(() => !!slots.default),
+      classComputed: computed(() => ({
+        [`${prefixClass}--vertical`]: props.vertical,
+        [`${prefixClass}--inset`]: props.inset,
+        [`${prefixClass}--${props.orientation}`]: props.orientation && !props.vertical,
+        [`${prefixClass}--dashed`]: props.dashed,
+      })),
+    }
+  },
 })
 </script>
 
@@ -59,7 +67,7 @@ export default defineComponent({
     border-top: 0;
     border-right-width: var(--va-divider-line-width);
     border-right-style: var(--va-divider-border-style);
-    border-right-color: v-bind(color);
+    border-right-color: v-bind(colorComputed);
     display: var(--va-divider-vertical-display);
     vertical-align: top;
 
@@ -82,7 +90,7 @@ export default defineComponent({
     flex: 1;
     border-top-width: var(--va-divider-line-width);
     border-top-style: var(--va-divider-border-style);
-    border-top-color: v-bind(color);
+    border-top-color: v-bind(colorComputed);
   }
 
   &--dashed {
