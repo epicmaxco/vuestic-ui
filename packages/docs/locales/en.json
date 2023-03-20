@@ -4304,8 +4304,10 @@
     "api": {
       "title": "Colors config service API",
       "types": "Types",
-      "ColorConfig": "An object where the keys are the color names and the values are valid CSS colors.",
-      "ColorInput": "A valid CSS color",
+      "colorConfig": "Configuration object where is defined color variables, threshold, presets and current preset name.",
+      "cssColor": "A valid CSS color.",
+      "essentialVariables": "An object where the keys are the color names and values are valid CSS colors.",
+      "colorVariables": "An object where the keys are the color names and values are valid CSS colors.",
       "methods": "Methods",
       "applyPreset": "Applies preset by its name to the colors config.",
       "useColors": "Return colors methods and variables.",
