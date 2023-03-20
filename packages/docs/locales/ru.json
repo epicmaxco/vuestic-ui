@@ -2778,6 +2778,12 @@
           "С помощью атрибута `type` вы можете задать тип input, который будет отрендерен как нативный элемент`<input type=\"text/password/search/etc\" />`.",
           "Смотрите доступные типы [здесь](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) (некоторые не поддерживаются или реализованы как отдельные компоненты Vuestic UI)."
         ]
+      },
+      "customize": {
+        "title": "Настраиваемость",
+        "text": "Вы можете создать `preset` для ваших компонентов ввода, но иногда требования могут выйти за рамки возможностей `preset`. Для решения этой проблемы компонент предоставляет вам возможность настраивания с помощью слотов и параметров компонента.",
+        "labelFrom": "Из валюты",
+        "labelTo": "В валюту"
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-input/_variables.scss)[[target=_blank]]"
