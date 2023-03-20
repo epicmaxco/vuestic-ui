@@ -1676,6 +1676,7 @@
   },
   "all": {
     "examples": "Examples",
+    "accessibility": "Accessibility",
     "api": "API",
     "methods": "Methods",
     "options": "Options",
@@ -4756,6 +4757,7 @@
         "text": "You can hide controls and use stepper navigation independently"
       }
     },
+    "accessibility": "The component itself has a [role=\"group\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role)[[target=_blank]] with aria attributes like an [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]] attribute that depends on the `vertical` property. The current step element has the attribute [aria-current=\"step\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current#values)[[target=_blank]]. Keyboard navigation for this component is based on the [w3 tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)[[target=_blank]].",
     "alerts": {
       "slots": "You can iterate through slots using template literals in slot name. \n Example: ``{'#[`step-button-${i}`]=\"{ setStep, isActive, isCompleted }\"'}``"
     }

@@ -1564,6 +1564,7 @@
   },
   "all": {
     "examples": "Примеры",
+    "accessibility": "Доступность",
     "api": "API",
     "methods": "Methods",
     "options": "Options",
@@ -4625,6 +4626,7 @@
   "stepper": {
     "title": "Stepper",
     "description": "Stepper позволяет пользователям разделять контент на несколько шагов и перемещаться по нему с помощью кнопок или навигации.",
+    "accessibility": "Сам компонент имеет [role=\"group\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role)[[target=_blank]] с такими атрибутами aria, как атрибут [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]], который зависит от свойства `vertical`. Элемент текущего шага имеет атрибут [aria-current=\"step\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current#values)[[target =_пусто]]. Навигация с помощью клавиатуры для этого компонента основана на [шаблоне вкладок w3](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)[[target=_blank]].",
     "examples": {
       "default": {
         "title": "Основное использование",
