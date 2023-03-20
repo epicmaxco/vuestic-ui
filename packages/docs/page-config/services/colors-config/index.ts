@@ -1,3 +1,12 @@
+import {
+  colorToRgba,
+  getBoxShadowColor,
+  getBoxShadowColorFromBg,
+  getFocusColor,
+  getGradientBackground,
+  getHoverColor, getStateMaskGradientBackground, setHSLAColor, shiftHSLAColor,
+} from 'vuestic-ui/src/services/color';
+
 const columnsApiTypes = [
   "name",
   { title: "type", type: "code" },
@@ -44,35 +53,84 @@ const tableDataApiMethods = [
 
 const tableDataApiHookMethods = [
   [
-    "setColors",
-    "(colors: Record<string, string>) => void",
-    "colorsConfig.api.setColors",
-  ],
-  ["getColors", "() => ColorConfig", "colorsConfig.api.getColors"],
-  [
-    "getColor",
-    "(prop?: string | undefined, defaultColor?: string) => string",
-    "colorsConfig.api.getColor",
+    'applyPreset',
+    '(presetName: string) => void',
+    'colorsConfig.api.applyPreset',
   ],
   [
-    "getBoxShadowColor",
-    "(color: ColorInput) => string",
-    "colorsConfig.api.getBoxShadowColor",
+    'setColors',
+    '(colors: Partial<ColorVariables>) => void',
+    'colorsConfig.api.setColors',
   ],
   [
-    "getHoverColor",
-    "(color: ColorInput) => string",
-    "colorsConfig.api.getHoverColor",
+    'getColors',
+    '() => ColorVariables',
+    'colorsConfig.api.getColors',
   ],
   [
-    "getFocusColor",
-    "(color: ColorInput) => string",
-    "colorsConfig.api.getFocusColor",
+    'getColor',
+    '(prop?: string, defaultColor?: string, preferVariables?: boolean) => CssColor',
+    'colorsConfig.api.getColor',
   ],
   [
-    "getGradientBackground",
-    "(color: string) => string",
-    "colorsConfig.api.getGradientBackground",
+    'getComputedColor',
+    '(color: string) => ComputedRef(CssColor)',
+    'colorsConfig.api.getComputedColor',
+  ],
+  [
+    'getBoxShadowColor',
+    '(color: ColorInput, opacity = 0.4) => string',
+    'colorsConfig.api.getBoxShadowColor',
+  ],
+  [
+    'getBoxShadowColorFromBg',
+    '(background: ColorInput, opacity = 0.4) => string',
+    'colorsConfig.api.getBoxShadowColorFromBg',
+  ],
+  [
+    'getHoverColor',
+    '(color: ColorInput, opacity = 0.2) => string',
+    'colorsConfig.api.getHoverColor',
+  ],
+  [
+    'getFocusColor',
+    '(color: ColorInput, opacity = 0.3) => string',
+    'colorsConfig.api.getFocusColor',
+  ],
+  [
+    'getGradientBackground',
+    '(color: string) => string',
+    'colorsConfig.api.getGradientBackground',
+  ],
+  [
+    'getTextColor',
+    '(color: ColorInput, darkColor?: string, lightColor?: string) => string',
+    'colorsConfig.api.getTextColor',
+  ],
+  [
+    'shiftHSLAColor',
+    '(color: ColorInput, offset: { h?: number; s?: number; l?: number; a?: number }) => string',
+    'colorsConfig.api.shiftHSLAColor',
+  ],
+  [
+    'setHSLAColor',
+    '(color: ColorInput, newColor: { h?: number; s?: number; l?: number; a?: number }) => string',
+    'colorsConfig.api.setHSLAColor',
+  ],
+  [
+    'colorsToCSSVariable',
+    `(colors: { [colorName: string]: string | undefined }, prefix = 'va') => Record<string, string>`,
+    'colorsConfig.api.colorsToCSSVariable',
+  ],
+  [
+    'colorToRgba',
+    '(color: string, maskColor: string, maskOpacity: number) => string',
+    'colorsConfig.api.colorToRgba',
+  ],
+  [
+    'getStateMaskGradientBackground',
+    '(color: string, maskColor: string, maskOpacity: number) => string',
+    'colorsConfig.api.getStateMaskGradientBackground',
   ],
 ];
 
