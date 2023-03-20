@@ -1,13 +1,13 @@
 <template>
-  <div class="inner-loading">
+  <div class="va-inner-loading" :class="computedClass" v-bind="ariaAttributesComputed">
     <slot />
     <div
       v-if="$props.loading"
-      class="inner-loading__overlay"
+      class="va-inner-loading__overlay"
       aria-hidden="true"
     >
       <va-icon
-        class="inner-loading__spinner"
+        class="va-inner-loading__spinner"
         spin
         :color="colorComputed"
         :size="$props.size"
@@ -38,7 +38,16 @@ export default defineComponent({
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
-    return { colorComputed }
+    return {
+      colorComputed,
+      computedClass: computed(() => ({
+        'va-inner-loading--active': props.loading,
+      })),
+      ariaAttributesComputed: computed(() => ({
+        'aria-live': 'polite',
+        'aria-busy': props.loading,
+      })),
+    }
   },
 })
 </script>
@@ -46,11 +55,15 @@ export default defineComponent({
 <style lang="scss">
 @import "variables";
 
-.inner-loading {
+.va-inner-loading {
   position: var(--va-inner-loading-position);
   min-width: var(--va-inner-loading-min-width);
   width: var(--va-inner-loading-width);
   font-family: var(--va-font-family);
+
+  &--active {
+    pointer-events: none;
+  }
 
   &__overlay {
     display: var(--va-inner-loading-overlay-display);
