@@ -9,9 +9,9 @@
       ref="stepperNavigation"
       :class="{ 'va-stepper__navigation--vertical': $props.vertical }"
 
-      @click="onValueChange(false)"
-      @keyup.enter="onValueChange(true)"
-      @keyup.space="onValueChange(true)"
+      @click="onValueChange"
+      @keyup.enter="onValueChange"
+      @keyup.space="onValueChange"
       @keyup.left="onArrowKeyPress('prev')"
       @keyup.right="onArrowKeyPress('next')"
       @focusout="resetFocus"
@@ -235,9 +235,9 @@ export default defineComponent({
       onArrowKeyPress: (direction: 'prev' | 'next') => {
         setFocus(direction)
       },
-      onValueChange: (focus: boolean) => {
+      onValueChange: () => {
         focusedStep.value.stepIndex = props.modelValue
-        focusedStep.value.trigger = focus
+        focusedStep.value.trigger = true
       },
       ariaAttributesComputed: computed(() => ({
         role: 'group',
