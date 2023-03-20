@@ -10,12 +10,12 @@
       :class="{ 'va-stepper__navigation--vertical': $props.vertical }"
 
       @click="onNavigationValueChange()"
-      @keyup.enter="onNavigationValueChange()"
-      @keyup.space="onNavigationValueChange()"
-      @keyup.left="onArrowKeyPress('prev')"
-      @keyup.up="onArrowKeyPress('prev')"
-      @keyup.right="onArrowKeyPress('next')"
-      @keyup.down="onArrowKeyPress('next')"
+      @keydown.enter="onNavigationValueChange()"
+      @keydown.space="onNavigationValueChange()"
+      @keydown.left="onArrowKeyPress('prev')"
+      @keydown.up.prevent="onArrowKeyPress('prev')"
+      @keydown.right="onArrowKeyPress('next')"
+      @keydown.down.prevent="onArrowKeyPress('next')"
       @focusout="resetFocus"
     >
       <template
@@ -151,6 +151,14 @@ export default defineComponent({
         }
         focusedStep.value.stepIndex = newValue
         focusedStep.value.force = true
+      } else {
+        for (let availableIdx = 0; availableIdx < props.steps.length; availableIdx++) {
+          if (!props.steps[availableIdx].disabled) {
+            focusedStep.value.stepIndex = availableIdx
+            focusedStep.value.force = true
+            break
+          }
+        }
       }
     }
     const setFocusPrevStep = (idx: number) => {
@@ -162,6 +170,14 @@ export default defineComponent({
         }
         focusedStep.value.stepIndex = newValue
         focusedStep.value.force = true
+      } else {
+        for (let availableIdx = props.steps.length - 1; availableIdx >= 0; availableIdx--) {
+          if (!props.steps[availableIdx].disabled && !(isNextStepDisabled(availableIdx))) {
+            focusedStep.value.stepIndex = availableIdx
+            focusedStep.value.force = true
+            break
+          }
+        }
       }
     }
 
