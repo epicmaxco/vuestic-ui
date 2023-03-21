@@ -2320,6 +2320,7 @@
   "divider": {
     "title": "Divider",
     "summaryText": "Компонент `va-divider` используется для разделения разделов списков или макетов.",
+    "accessibility": "Имеет [role=\"separator\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/separator_role)[[target=_blank]]. Его атрибут [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]] зависит от свойства `vertical`. Полностью игнорируется программами чтения с экрана из-за  атрибута [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank ]].",
     "examples": {
       "default": {
         "title": "Базовое использование",

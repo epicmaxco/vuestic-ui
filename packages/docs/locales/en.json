@@ -2471,6 +2471,7 @@
   "divider": {
     "title": "Divider",
     "summaryText": "The `va-divider` component is used to separate sections of lists or layouts.",
+    "accessibility": "Has a [role=\"separator\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/separator_role)[[target=_blank]]. Its attribute [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]] depends on `vertical` property. Completely ignored by screen readers because of [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]] attribute.",
     "examples": {
       "default": {
         "title": "Simple divider",
