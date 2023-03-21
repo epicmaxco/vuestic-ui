@@ -221,18 +221,13 @@ export default defineComponent({
   transition: var(--va-button-transition);
   box-sizing: border-box;
   cursor: var(--va-button-cursor);
-  z-index: 0;
 
   &::after,
   &::before {
     content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     border-radius: inherit;
-    left: 0;
-    top: 0;
-    z-index: -1;
   }
 
   &::before {
@@ -246,6 +241,7 @@ export default defineComponent({
   }
 
   &__content {
+    position: relative;
     height: 100%;
     display: flex;
     align-items: center;
