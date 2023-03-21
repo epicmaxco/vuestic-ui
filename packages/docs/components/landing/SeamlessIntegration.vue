@@ -46,6 +46,8 @@
             <img
               src="/landing/plus.svg"
               alt="Plus icon"
+              height="96"
+              width="96"
             >
           </div>
           <!-- /First block -->
@@ -101,7 +103,7 @@ const options = ref(['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'P
   position: relative;
   padding-top: 8.5rem;
   padding-bottom: 12rem;
-  background-image: url("@/public/landing/pattern-3.svg");
+  background-image: url("/landing/pattern-3.svg");
   background-size: cover;
   background-color: var(--va-background-landing);
   color: var(--va-on-background-landing);

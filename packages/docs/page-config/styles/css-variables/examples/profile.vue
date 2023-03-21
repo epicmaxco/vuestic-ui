@@ -19,9 +19,9 @@
         </div>
 
         <div class="flex flex-wrap">
-          <span class="mr-2 text--no-wrap">29 public playlists</span>
-          <span class="mr-2 text--no-wrap">10 followers</span>
-          <span class="mr-2 text--no-wrap">16 following</span>
+          <span class="mr-2 va-text-no-wrap">29 public playlists</span>
+          <span class="mr-2 va-text-no-wrap">10 followers</span>
+          <span class="mr-2 va-text-no-wrap">16 following</span>
         </div>
 
         <va-card-actions class="flex pt-2">

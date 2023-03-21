@@ -1,4 +1,4 @@
-import { Ref, computed, ExtractPropTypes } from 'vue'
+import { Ref, ref, computed, ExtractPropTypes } from 'vue'
 
 import { useItemsProp, useItemsTrackByProp } from './useCommonProps'
 
@@ -54,6 +54,7 @@ const buildTableRow = (
     itemKey,
     source,
     cells: columns.map(column => buildTableCell(initialIndex, itemKey, source, column)),
+    rowData: source,
   }
 }
 
@@ -61,8 +62,20 @@ export const useRows = (
   columns: Ref<DataTableColumnInternal[]>,
   props: ExtractPropTypes<typeof useRowsProps>,
 ) => {
+  const expandableRows = ref<Record<number, boolean>>({})
+
   const rowsComputed = computed(() => props.items
-    .map((rawItem, index) => buildTableRow(rawItem, index, props.itemsTrackBy, columns.value)))
+    .map((rawItem, index) => ({
+      ...buildTableRow(rawItem, index, props.itemsTrackBy, columns.value),
+      toggleRowDetails: (show?: boolean) => {
+        if (typeof show === 'boolean') {
+          expandableRows.value[index] = show
+        } else {
+          expandableRows.value[index] = !expandableRows.value[index]
+        }
+      },
+      isExpandableRowVisible: !!expandableRows.value[index],
+    })))
 
   return {
     rowsComputed,

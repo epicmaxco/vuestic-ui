@@ -67,7 +67,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style>
 .list__item + .list__item {
   margin-top: 20px;
 }

@@ -8,11 +8,14 @@ import {
   getCommitHash,
   getRecommendedNodeVersion,
 } from './utils'
+import omit from 'lodash/omit'
 
 import semver from 'semver'
 
 import inquirer, { DistinctQuestion } from 'inquirer'
 import chalk from 'chalk'
+import * as path from "path";
+import {spawn} from "node:child_process";
 
 export type ReleaseType = 'large' | 'tiny' | 'next' | 'experimental'
 
@@ -25,6 +28,7 @@ export type ReleaseConfig = {
   commit: string, // '12345678'
   shouldCommit: boolean,
   showSleepCheck: boolean,
+  todoList?: string[],
 }
 
 const gitTagFromVersion = (version: string) => `v${version}`
@@ -57,6 +61,11 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       shouldCommit: true,
       requiredBranch: 'master',
       showSleepCheck: true,
+      todoList: [
+        'Update and release other packages (like nuxt, create-vuestic, etc)',
+        'Merge docs to master',
+        'Make release notes on github',
+      ]
     }
   }
   if (releaseType === 'tiny') {
@@ -68,6 +77,11 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       shouldCommit: true,
       requiredBranch: 'develop',
       showSleepCheck: true,
+      todoList: [
+        'Update and release other packages (like nuxt, create-vuestic, etc)',
+        'Merge docs to master',
+        'Make release notes on github',
+      ]
     }
   }
   if (releaseType === 'next') {
@@ -184,6 +198,10 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
     await executeAndLog('cd ../ui && npm run build')
   }
 
+  // **** run e2e tests
+
+  await runTests()
+
   // **** Update version strings ****
 
   console.log(chalk.white(`Bumping version to ${version}`))
@@ -216,6 +234,14 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
   await executeAndLog('git reset --hard HEAD')
 
   console.log(chalk.green('Released - 😎 GLORIOUS SUCCESS 😎'))
+
+  if (releaseConfig.todoList) {
+    console.log(chalk.redBright('You next todo list:'))
+
+    releaseConfig.todoList.forEach((todo) => {
+      console.log(chalk.redBright('- ' + todo))
+    })
+  }
 }
 
 const simplePrompt = async <T> (question: DistinctQuestion<T>): Promise<T> => {
@@ -250,12 +276,42 @@ const checkIfTooLate = async () => {
     return result
   }
 
+const runTests = () => {
+  let resolve: any;
+  let reject: any
+  // can't use execCommand because of buffer output size, need spawn
+  const process = spawn("npm", ["run", "test"], {
+    cwd: path.resolve(__dirname, "../../bundlers-tests"),
+  });
+
+  process.stdout.on("data", (data: any) => console.log(data.toString()));
+
+  process.on("exit", (code: any) => {
+    if (code === 0) {
+      console.log(chalk.green('Tests passed, nice!'))
+      resolve()
+    } else {
+      console.log(chalk.red(`Something is wrong with tests. Tests exit code - ${code}`))
+      reject()
+    }
+  });
+  process.on('error', () => {
+    console.log(chalk.red('Tests failed!'))
+    reject()
+  })
+
+  return new Promise((res, rej) => {
+    resolve = res
+    reject = rej
+  });
+};
+
 ;(async () => {
   const releaseType = await inquireReleaseType()
   const dryRun = await inquireDryRun()
   const releaseConfig = await getReleaseConfig(releaseType)
 
-  console.table(releaseConfig)
+  console.table(omit(releaseConfig, 'todoList'))
 
   if (!(await runReleaseChecks(releaseConfig, dryRun))) {
     return

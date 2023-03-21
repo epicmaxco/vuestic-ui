@@ -1,0 +1,23 @@
+{
+  "name": "bundler-test",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "build:local-packages-16": "docker image prune -f && docker container prune -f && docker-compose --profile local-packages-16 build --no-cache",
+    "build:local-packages-lts": "docker image prune -f && docker container prune -f && docker-compose --profile local-packages-lts build --no-cache",
+    "build:test-page": "tsx ./kitchensink-builder/create-test-page.ts",
+    "run:vite": "docker-compose --profile run-vite up",
+    "run:webpack": "docker-compose --profile run-webpack up",
+    "run:nuxt-ssr": "docker-compose --profile nuxt-ssr up",
+    "run:nuxt-spa": "docker-compose --profile nuxt-spa up",
+    "test:vite": "docker-compose --profile vite up --build --exit-code-from cypress_vite",
+    "test:vite-cjs": "docker-compose --profile vite-cjs up --build --exit-code-from cypress_vite_cjs",
+    "test:cli": "docker-compose --profile cli up --build --exit-code-from cypress_cli",
+    "test:nuxt": "yarn test:nuxt-ssr && yarn test:nuxt-spa",
+    "test:webpack": "docker-compose --profile webpack up --build --exit-code-from cypress_webpack",
+    "test:nuxt-ssr": "docker-compose --profile nuxt-ssr up --build --exit-code-from cypress_nuxt_ssr",
+    "test:nuxt-spa": "docker-compose --profile nuxt-spa up --build --exit-code-from cypress_nuxt_spa",
+    "test": "yarn build:test-page && yarn build:local-packages-16 && yarn build:local-packages-lts && yarn test:vite && yarn test:nuxt && yarn test:webpack && yarn test:16",
+    "test:16": "yarn build:local-packages-16 && yarn test:vite"
+  }
+}

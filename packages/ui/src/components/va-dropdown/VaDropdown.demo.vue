@@ -436,7 +436,7 @@
       <div class="target" ref="target">
         <va-dropdown keep-anchor-width :target="target" placement="left" prevent-overflow>
           <template #anchor>
-            Position left, but parent is target
+            <div>Position left, but parent is target</div>
           </template>
 
           <va-dropdown-content>
@@ -468,6 +468,20 @@
             <va-badge bottom text="horizontal overflow">
               rrrrrrrrrrrrrrrrrr
             </va-badge>
+          </template>
+
+          <va-dropdown-content>
+            rrrrrrrrrrrrrrrrrrrr
+          </va-dropdown-content>
+        </va-dropdown>
+      </div>
+    </VbCard>
+
+    <VbCard style="border: 2rem solid blue; position: relative; margin: 6rem;">
+      <div style="border: 2rem solid red; box-sizing: border-box;">
+        <va-dropdown :target="autoPlacementTarget">
+          <template #anchor>
+            <button>Click</button>
           </template>
 
           <va-dropdown-content>

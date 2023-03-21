@@ -18,7 +18,7 @@
           >{{ node.label }}</b>
           <p
             v-if="node.description"
-            class="text--secondary mb-0"
+            class="va-text-secondary mb-0"
           >
             {{ node.description }}
           </p>

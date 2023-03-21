@@ -52,3 +52,16 @@ export type ManualApiOptions = {
 
 /** Name, Value, Comment */
 export type CssVariables = [string, string, string | undefined][]
+
+export type VisualOptions = {
+  hideProps?: boolean
+  hidePropsTitle?: boolean
+  hideEvents?: boolean
+  hideEventsTitle?: boolean
+  hideMethods?: boolean
+  hideMethodsTitle?: boolean
+  hideSlots?: boolean
+  hideSlotsTitle?: boolean
+  hideCssVariables?: boolean
+  hideCssVariablesTitle?: boolean
+}

@@ -86,4 +86,7 @@ export const getI18nConfigDefaults = () => ({
   back: 'Previous',
   /** Stepper finish button text */
   finish: 'Finish',
+
+  step: 'step',
+  progress: 'progress',
 })

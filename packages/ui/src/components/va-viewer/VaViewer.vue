@@ -116,7 +116,7 @@ export default defineComponent({
   background-color: var(--va-viewer-content-overlay-background-color);
 
   &__main-area {
-    --va-image-position: relative;
+    --va-image-content-position: relative;
 
     display: flex;
 

@@ -1,10 +1,11 @@
-import { computed, Ref, unref, watchPostEffect } from 'vue'
-
-import { mapObject } from '../utils/map-object'
+import { computed, unref, watchPostEffect, type Ref } from 'vue'
 
 import { useDomRect } from './useDomRect'
 import { useDocument } from './useDocument'
 import { usePlacementAliases } from './usePlacementAliases'
+
+import { unwrapEl } from '../utils/unwrapEl'
+import { mapObject } from '../utils/map-object'
 
 import type {
   PlacementAlignment,
@@ -193,7 +194,6 @@ export const useDropdown = (
   const { domRect: contentDomRect } = useDomRect(contentRef)
 
   const css = {
-    width: 'max-content',
     position: 'absolute',
   }
 
@@ -232,17 +232,17 @@ export const useDropdown = (
       coords = calculateClipToEdge(coords, offsetCoords, contentDomRect.value, anchorDomRect.value, viewportRect)
     }
 
-    coords.x -= rootRect.x
-    coords.y -= rootRect.y
+    coords.x -= rootRect.x + rootRef.value.clientLeft
+    coords.y -= rootRect.y + rootRef.value.clientTop
 
-    if (contentRef.value) {
+    if (unwrapEl(contentRef.value)) {
       let widthCss = {}
       if (keepAnchorWidth) {
         const { width } = anchorDomRect.value
         widthCss = { width: `${width}px`, maxWidth: `${width}px` }
       }
 
-      Object.assign(contentRef.value.style, {
+      Object.assign(unwrapEl(contentRef.value)!.style, {
         ...css,
         ...coordsToCss(coords),
         ...widthCss,

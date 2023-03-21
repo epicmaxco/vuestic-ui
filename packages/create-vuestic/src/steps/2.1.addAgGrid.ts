@@ -9,8 +9,8 @@ export const addAgGrid = async (options: UserAnswers) => {
   }
 
   const { addDependency } = await usePackageJson()
-  // TODO: Not sure about versions here
-  addDependency('ag-grid-community', versions['ag-grid-community'])
-  addDependency('ag-grid-vue', versions['ag-grid-vue'])
-  addDependency('@vuestic/ag-grid-theme',  versions['@vuestic/ag-grid-theme'])
+  
+  await Promise.all([
+    addDependency('@vuestic/ag-grid-theme',  versions['@vuestic/ag-grid-theme'])
+  ])
 }

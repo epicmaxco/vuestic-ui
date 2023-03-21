@@ -61,13 +61,15 @@
           </nav>
           <!-- mobile -->
           <div
-            class="menu"
             v-if="isHidden"
+            class="menu"
             @click="isHidden = false"
           >
             <img
               src="/landing/hamburger.svg"
               alt="Open menu"
+              height="24"
+              width="24"
             >
           </div>
           <nav
@@ -81,6 +83,8 @@
               <img
                 src="/landing/cross.svg"
                 alt="Close menu"
+                height="24"
+                width="24"
               >
             </div>
             <va-list>

@@ -10,13 +10,13 @@
   </va-card>
 </template>
 
-<style lang="scss">
+<style>
 .spacer {
   text-align: center;
   border: 2px dashed var(--va-secondary);
+}
 
-  &::after {
-    content: "VaSpacer is here!";
-  }
+.spacer::after {
+  content: "VaSpacer is here!";
 }
 </style>

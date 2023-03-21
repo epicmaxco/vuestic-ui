@@ -40,7 +40,7 @@
           <!-- items -->
           <!--          <div class="item">-->
           <!--            <div class="item__frame">-->
-          <!--              <img src="/landing/features/nuxt-support.svg" alt="nuxt-support" height="48px" width="48px" />-->
+          <!--              <img src="/landing/features/nuxt-support.svg" alt="nuxt-support" height="48" width="48" />-->
           <!--            </div>-->
           <!--            <h2 class="item__title">{{$t('landing.preview.features.nuxt.title')}}</h2>-->
           <!--            <router-link class="item__link" :to="`/${$root.$i18n.locale}/getting-started/nuxt-integration`">-->
@@ -53,8 +53,8 @@
               <img
                 src="/landing/features/components.svg"
                 alt="Responsive components"
-                height="48px"
-                width="48px"
+                height="48"
+                width="48"
               >
             </div>
             <h2 class="item__title">
@@ -73,8 +73,8 @@
               <img
                 src="/landing/features/keyboard-navigation.svg"
                 alt="Accessibility"
-                height="48px"
-                width="48px"
+                height="48"
+                width="48"
               >
             </div>
             <h2 class="item__title">
@@ -93,8 +93,8 @@
               <img
                 src="/landing/features/modern-browsers.svg"
                 alt="Modern browsers"
-                height="48px"
-                width="48px"
+                height="48"
+                width="48"
               >
             </div>
             <h2 class="item__title">

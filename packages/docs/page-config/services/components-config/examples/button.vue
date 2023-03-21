@@ -19,7 +19,7 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 
-import { useGlobalConfig } from "vuestic-ui/src/main";
+import { useGlobalConfig } from "vuestic-ui";
 
 const getDefaultButtonProps = () => ({
   round: false,

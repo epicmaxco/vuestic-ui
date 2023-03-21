@@ -131,7 +131,7 @@ import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaInputWrapper } from '../va-input'
 import { VaIcon } from '../va-icon'
 
-const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue', 'disabled'])
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
 const VaDropdownProps = extractComponentProps(VaDropdown,
   ['innerAnchorSelector', 'stateful', 'offset', 'keyboardNavigation', 'closeOnContentClick', 'modelValue'],
@@ -160,6 +160,8 @@ export default defineComponent({
     modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },
 
     resetOnClose: { type: Boolean, default: true },
+    closeOnContentClick: { type: Boolean, default: false },
+    offset: { ...VaDropdownProps.offset, default: () => [2, 0] },
     isOpen: { type: Boolean, default: undefined },
 
     format: { type: Function as PropType<(date: DateInputModelValue) => string> },
@@ -347,8 +349,9 @@ export default defineComponent({
       tabindex: iconTabindexComputed.value,
     }))
 
+    const filteredWrapperProps = filterComponentProps(VaInputWrapperProps)
     const computedInputWrapperProps = computed(() => ({
-      ...filterComponentProps(VaInputWrapperProps).value,
+      ...filteredWrapperProps.value,
       focused: isFocused.value,
       error: hasError.value,
       errorMessages: computedErrorMessages.value,
@@ -391,12 +394,11 @@ export default defineComponent({
       ...omit(attrs, ['class', 'style']),
     }))
 
+    const filteredProps = filterComponentProps(VaDropdownProps)
     const dropdownPropsComputed = computed(() => ({
-      ...filterComponentProps(VaDropdownProps).value,
-      offset: [2, 0] as DropdownOffsetProp,
+      ...filteredProps.value,
       stateful: false,
       keyboardNavigation: true,
-      closeOnContentClick: false,
       innerAnchorSelector: '.va-input-wrapper__field',
     }))
 

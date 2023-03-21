@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import VaCard from "vuestic-ui/src/components/va-card/VaCard";
+import { VaCard } from "vuestic-ui";
 
 export default {
   components: { VaCard },
@@ -109,8 +109,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "vuestic-ui/src/styles/resources";
-@import "vuestic-ui/src/styles/grid/grid.scss";
+@import "vuestic-ui/styles/grid";
 
 .row {
   min-height: 10rem;

@@ -24,7 +24,7 @@
 
 <script>
 import { defineComponent } from "vue";
-import { useModal } from "vuestic-ui/src/main";
+import { useModal } from "vuestic-ui";
 import message from "./popup-message";
 
 export default defineComponent({

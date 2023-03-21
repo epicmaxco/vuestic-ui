@@ -82,6 +82,13 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: 'new',
         },
       },
+      {
+        name: 'testing',
+        displayName: 'menu.testing',
+        meta: {
+          badge: 'new',
+        },
+      },
       // GENERATOR_ADD - gettingStarted
     ],
   },
@@ -384,6 +391,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.toast",
       },
       {
+        name: "confirm",
+        displayName: "menu.confirm",
+        meta: {
+          badge: "new",
+        }
+      },
+      {
         name: "virtual-scroller",
         displayName: "menu.virtualScroller",
         meta: {
@@ -502,6 +516,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.agGrid",
         meta: {
           badge: "updated",
+        }
+      },
+      {
+        name: "unocss",
+        displayName: "menu.unocss",
+        meta: {
+          badge: "new",
         }
       },
       // GENERATOR_ADD - extensions

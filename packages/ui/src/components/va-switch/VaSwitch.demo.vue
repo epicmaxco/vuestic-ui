@@ -174,6 +174,11 @@
         v-model="value"
         :rules="[(v) => !!v || 'required']"
       />
+      <va-switch
+        v-model="value"
+        label="Label"
+        :rules="[(v) => !!v || 'required']"
+      />
     </VbCard>
     <VbCard title="Error">
       <va-switch

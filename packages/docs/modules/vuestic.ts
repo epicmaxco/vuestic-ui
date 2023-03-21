@@ -2,6 +2,7 @@ import { defineNuxtModule, addVitePlugin, addPluginTemplate } from '@nuxt/kit';
 import { resolve } from 'pathe'
 import { VuesticOptions } from './../../nuxt/src/types';
 import originalNuxtModule from '../../nuxt/src/module'
+import { componentVBindFix } from '../../ui/build/plugins/component-v-bind-fix'
 
 /**
  * @vuestic/nuxt module wrapper with relative resolved vuestic from packages/ui
@@ -22,9 +23,16 @@ export default defineNuxtModule<VuesticOptions>({
   },
 
   setup (options, nuxt) {
+    // Fix CSS variables made by v-bind in component: they're not rendered in cjs (SSG).
+    addVitePlugin(componentVBindFix())
+
     nuxt.options.alias['@vuestic/ag-grid-theme'] = resolve(__dirname, '../../ag-grid-theme/src/styles/index.scss');
     nuxt.options.alias['vuestic-ui/styles/typography.css'] = resolve(__dirname, '../../ui/src/styles/typography/typography.scss');
+    nuxt.options.alias['vuestic-ui/styles/grid'] = resolve(__dirname, '../../ui/src/styles/grid/grid.scss');
+    nuxt.options.alias['vuestic-ui/styles/grid.css'] = resolve(__dirname, '../../ui/src/styles/grid/grid.scss');
     nuxt.options.alias['vuestic-ui/styles/essential.css'] = resolve(__dirname, '../../ui/src/styles/essential.scss');
+    nuxt.options.alias['vuestic-ui/styles/smart-helpers'] = resolve(__dirname, '../../ui/src/styles/smart-helpers/smart-helpers.scss');
+    nuxt.options.alias['vuestic-ui/styles/smart-helpers.css'] = resolve(__dirname, '../../ui/src/styles/smart-helpers/smart-helpers.scss');
     nuxt.options.alias['vuestic-ui/src'] = resolve(__dirname, '../../ui/src/');
     nuxt.options.alias['vuestic-ui/styles'] = resolve(__dirname, '../../ui/src/styles/');
     nuxt.options.alias['vuestic-ui/css'] =  resolve(__dirname, '../../ui/src/styles/index.scss');

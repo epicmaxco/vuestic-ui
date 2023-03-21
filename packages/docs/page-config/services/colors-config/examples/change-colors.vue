@@ -14,7 +14,7 @@
 
 <script>
 import { computed } from "vue";
-import { useColors } from "vuestic-ui/src/main";
+import { useColors } from "vuestic-ui";
 
 export default {
   props: {
