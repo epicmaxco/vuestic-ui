@@ -4299,7 +4299,7 @@
     },
     "reactivity": {
       "subtitle": "Reactivity",
-      "about": "Methods like `getColors` return a computed reactives that can also be accessed by variable `colors`. The advantage is allow to change properties, instead of rewriting whole colors variable. For example, you can change `primary` color by writing `colors.primary = '#ff0'`. Multiple properties changes are also supported, you can write `setColors({'{ primary: `#00f`, secondary: `#0ff` }'})`."
+      "about": "Methods like `getColors` return a computed reactives that can also be accessed by variable `colors`. The advantage is allow to change properties, instead of rewriting whole colors variable. For example, you can change `primary` color by writing `colors.primary = \"#ff0\"`. Multiple properties changes are also supported, you can write `setColors({'{ primary: \"#00f\", secondary: \"#0ff\" }'})`."
     },
     "otherServices": {
       "subtitle": "Colors config with other services",
@@ -4308,19 +4308,30 @@
       "css": "CSS-variables do also respect the color config and dynamically change their values!"
     },
     "api": {
-      "title": "Icon config service API",
+      "title": "Colors config service API",
       "types": "Types",
-      "ColorConfig": "An object where the keys are the color names and the values are valid CSS colors.",
-      "ColorInput": "A valid CSS color",
+      "colorConfig": "Configuration object where is defined color variables, threshold, presets and current preset name.",
+      "cssColor": "A valid CSS color.",
+      "essentialVariables": "An object where the keys are the color names and values are valid CSS colors.",
+      "colorVariables": "An object where the keys are the color names and values are valid CSS colors.",
       "methods": "Methods",
-      "useColors": "Return colors methods and variables",
+      "applyPreset": "Applies preset by its name to the colors config.",
+      "useColors": "Return colors methods and variables.",
       "setColors": "Used to merge new colors into config or update existing colors.",
-      "getColors": "Returns current color config",
-      "getColor": "Return color by name",
+      "getColors": "Returns current color config.",
+      "getColor": "Return color by name.",
+      "getComputedColor": "Returns compute color from colors variables.",
       "getBoxShadowColor": "Return a color that is appropriate to be used for the `box-shadow`.",
+      "getBoxShadowColorFromBg": "Return a color that is appropriate to be used for the `box-shadow`.",
       "getHoverColor": "Return a color that you can use as a `hover` color.",
       "getFocusColor": "Return a color that you can use as a `focus` color.",
       "getGradientBackground": "Return a gradient-color that you can use as a `background-image` CSS property's value.",
+      "getTextColor": "Returns a color depending on the background lightness.",
+      "shiftHSLAColor": "Returns shifted HSLA color.",
+      "setHSLAColor": "Sets HSLA color.",
+      "colorsToCSSVariable": "Converts object of colors to the object of named css variables.",
+      "colorToRgba": "Converts named color to the `rgba` string.",
+      "getStateMaskGradientBackground": "Returns a CSS linear-background value for the `background-image` property.",
       "hookMethods": "useColors hook methods.",
       "hookVariables": "useColors hook variables.",
       "colors": "A computed reactive where the keys are color names and values are valid CSS colors."
