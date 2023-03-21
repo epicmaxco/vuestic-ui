@@ -18,7 +18,7 @@ defineProps({
 </script>
 
 <template>
-  <h4 class="ApiDocs__header">
+  <h4 v-if="title" class="ApiDocs__header">
     {{ title }}
     <Anchor :text="title" />
   </h4>

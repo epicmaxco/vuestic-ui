@@ -17,6 +17,7 @@ export default definePageConfig({
     block.example("Textarea"),
     block.example("Mask"),
     block.example("InputClass"),
+    block.example("Customize"),
 
     block.headline("input.examples.types.title"),
     block.paragraph("input.examples.types.description[0]"),

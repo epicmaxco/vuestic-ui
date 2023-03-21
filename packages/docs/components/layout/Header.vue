@@ -58,7 +58,7 @@
 </template>
 
 <script lang="ts" setup>
-import LanguageDropdown from './header/LanguageDropdown.vue'
+import LanguageDropdown from './LanguageDropdown.vue'
 import VersionDropdown from './header/VersionDropdown.vue'
 import ColorDropdown from './header/ColorDropdown.vue'
 import HeaderSelector from './header/HeaderSelector.vue'

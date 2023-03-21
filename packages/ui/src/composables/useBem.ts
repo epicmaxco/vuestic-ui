@@ -3,7 +3,7 @@ import { computed, Ref, unref, ComputedRef } from 'vue'
 import isFunction from 'lodash/isFunction.js'
 import kebab from 'lodash/kebabCase.js'
 
-import { __DEV__ } from '../utils/env'
+import { isDev } from '../utils/env'
 
 type Key<Prefix extends string, ModifierKey extends string> = `${Prefix}--${ModifierKey | string}`
 
@@ -34,7 +34,7 @@ export const useBem = <ModifierKey extends string, Prefix extends string>(
   prefix: Prefix,
   modifiers: Record<ModifierKey, boolean> | Ref<Record<ModifierKey, boolean>> | (() => Record<ModifierKey, boolean>),
 ) => {
-  if (__DEV__ && !prefix) {
+  if (isDev && !prefix) {
     console.warn('You must pass the @param "prefix" to the useBem hook!')
   }
 

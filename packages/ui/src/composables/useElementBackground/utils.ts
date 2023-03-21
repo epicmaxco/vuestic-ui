@@ -1,6 +1,6 @@
 import { getWindow } from '../../utils/ssr'
 import { isCSSVariable } from '../useColors'
-import { __DEV__ } from '../../utils/env'
+import { isDev } from '../../utils/env'
 
 export type ColorArray = [number, number, number, number]
 
@@ -37,7 +37,7 @@ export const getElementBackgroundFromCSS = (el: HTMLElement) => {
       try {
         if (!el.matches(selectorText)) { return bg }
       } catch (error) {
-        if (__DEV__) {
+        if (isDev) {
           console.warn(error, selectorText)
         }
       }
