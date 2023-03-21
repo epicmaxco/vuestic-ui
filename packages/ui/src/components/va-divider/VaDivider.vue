@@ -4,6 +4,7 @@
     class="va-divider"
     :class="classComputed"
     :aria-orientation="vertical ? 'vertical' : 'horizontal'"
+    :aria-hidden="true"
   >
     <div
       v-if="hasSlot && !vertical"
