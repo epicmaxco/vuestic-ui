@@ -2,9 +2,24 @@
   <VbDemo>
     <VbCard
       width="500px"
+      title="stateful"
+    >
+      <va-slider stateful />
+      <va-slider stateful range />
+    </VbCard>
+    <VbCard
+      width="500px"
+      title="model-value"
+    >
+      <va-slider :model-value="30" />
+      <va-slider :model-value="[20, 40]" range />
+    </VbCard>
+    <VbCard
+      width="500px"
       title="default"
     >
       <va-slider v-model="value" />
+      <va-slider v-model="value2" range />
     </VbCard>
     <VbCard
       width="500px"
