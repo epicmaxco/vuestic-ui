@@ -27,9 +27,10 @@ export const useForm = (ref: string | Ref<typeof VaForm>): ReturnType<typeof use
     : ref
 
   return {
-    isValid: computed(() => form.value?.isValid),
+    isValid: computed(() => form.value?.isValid || false),
     fields: computed(() => form.value?.fields),
-    errorMessages: computed(() => form.value?.errorMessages),
+    errorMessages: computed(() => form.value?.errorMessages || []),
+    errorMessagesNamed: computed(() => form.value?.errorMessagesNamed || {}),
     validate: () => form.value?.validate(),
     reset: () => {
       form.value?.reset()

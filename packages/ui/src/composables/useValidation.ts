@@ -28,6 +28,7 @@ const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArg
 }
 
 export const useValidationProps = {
+  name: { type: String, default: undefined },
   modelValue: { required: false },
   error: { type: Boolean, default: undefined },
   errorMessages: { type: [Array, String] as PropType<string[] | string>, default: undefined },
@@ -120,6 +121,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     focus,
     reset,
     value: props.modelValue,
+    name: props.name,
   }))
 
   return {

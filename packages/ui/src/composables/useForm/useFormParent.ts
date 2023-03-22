@@ -34,6 +34,12 @@ export const useFormParent = (options: FormParentOptions) => {
 
   const isValid = computed(() => fields.value.every((field) => field.isValid))
   const errorMessages = computed(() => fields.value.map((field) => field.errorMessages).flat())
+  const errorMessagesNamed = computed(() => fields.value.reduce((acc, field) => {
+    if (field.name) {
+      acc[field.name] = field.errorMessages
+    }
+    return acc
+  }, {} as Record<string, any>))
 
   const validate = () => {
     // Validate each filed to get the error messages
@@ -75,6 +81,7 @@ export const useFormParent = (options: FormParentOptions) => {
     fields,
     isValid,
     errorMessages,
+    errorMessagesNamed,
     validate,
     reset,
     resetValidation,

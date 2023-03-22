@@ -1,0 +1,12 @@
+{
+  "examples": {
+    "default": {
+      "title": "Default usage",
+      "text": "`VaForm` component in pair with `useForm` composable provides a simple way to validate multiple form fields. It gives you `isValid`, `errorMessages` computeds and `validate` method to validate all form fields at once. You can also reset validation with `resetValidation` method or reset whole form and it's values with `reset` method."
+    },
+    "hideErrors": {
+      "title": "Named fields",
+      "text": "If you don't like when form jumps you can name each form field and access it's error messages with `errorMessagesNamed` with `useForm` composable and hide errors under form fields using `hide-error-messages` props, so you can display them in a custom way."
+    }
+  }
+}

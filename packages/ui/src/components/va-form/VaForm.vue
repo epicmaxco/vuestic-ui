@@ -41,8 +41,8 @@ export default defineComponent({
       }
     }, { immediate: true })
 
-    watch(() => props.immediate, (value) => {
-      if (value) {
+    watch(context.fields, (newVal) => {
+      if (newVal.length && props.immediate) {
         context.validate()
       }
     }, { immediate: true })

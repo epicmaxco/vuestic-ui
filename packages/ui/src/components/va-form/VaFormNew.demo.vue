@@ -12,7 +12,15 @@
           v-model="form.date"
           :rules="[(v) => !!v || 'Required']"
         />
+        <va-date-picker
+          v-model="form.date"
+          :rules="[(v) => !!v || 'Required']"
+        />
         <va-time-input
+          v-model="form.time"
+          :rules="[(v) => !!v || 'Required']"
+        />
+        <va-time-picker
           v-model="form.time"
           :rules="[(v) => !!v || 'Required']"
         />
@@ -22,40 +30,48 @@
           :rules="[(v) => !!v || 'Required']"
           :options="['1', '2']"
         />
+        <va-counter
+          v-model="form.counter"
+          :rules="[(v) => !!v || 'Required']"
+        />
+        <va-rating v-model="form.rating" :rules="[(v) => !!v || 'Required']" />
+        <va-slider v-model="form.slider" :rules="[(v) => !!v || 'Required']" />
+        <va-file-upload />
       </va-form>
 
       <span>Is Valid: {{ isValid }}</span>
 
       <div class="flex gap-2">
-        <va-button @click="validate">
-          Validate
-        </va-button>
-        <va-button @click="resetValidation">
-          Reset validation
-        </va-button>
-        <va-button @click="reset">
-          Reset
-        </va-button>
+        <va-button @click="validate"> Validate </va-button>
+        <va-button @click="resetValidation"> Reset validation </va-button>
+        <va-button @click="reset"> Reset </va-button>
       </div>
 
-      <pre>
-        {{ errorMessages }}
-      </pre>
+      <pre>{{ errorMessages }}</pre>
     </VbCard>
   </VbDemo>
 </template>
 
 <script setup lang="ts">
 import { useForm } from '../../composables/useForm'
-import { VaForm } from './index'
-import { VaInput } from '../va-input'
-import { VaSelect } from '../va-select'
-import { VaButton } from '../va-button'
-import { VaCheckbox } from '../va-checkbox'
-import { VaDateInput } from '../va-date-input'
-import { VaTimeInput } from '../va-time-input'
-import { VaSwitch } from '../va-switch'
-import { VaOptionList } from '../va-option-list'
+
+import {
+  VaForm,
+  VaFileUpload,
+  VaInput,
+  VaSelect,
+  VaButton,
+  VaCheckbox,
+  VaDateInput,
+  VaTimeInput,
+  VaSwitch,
+  VaOptionList,
+  VaCounter,
+  VaRating,
+  VaSlider,
+  VaDatePicker,
+  VaTimePicker,
+} from '../'
 import { reactive } from 'vue'
 
 const form = reactive({
@@ -66,7 +82,11 @@ const form = reactive({
   time: undefined,
   switch: false,
   optionsList: '',
+  counter: 0,
+  rating: 0,
+  slider: 0,
 })
 
-const { validate, isValid, reset, resetValidation, errorMessages } = useForm('formEl')
+const { validate, isValid, reset, resetValidation, errorMessages } =
+  useForm('formEl')
 </script>
