@@ -36,7 +36,6 @@
       ref="sliderContainer"
       class="va-slider__container"
       @mousedown="clickOnContainer"
-      @mouseup="hasMouseDown = false"
       @touchstart="clickOnContainer"
     >
       <div
@@ -159,11 +158,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef, CSSProperties } from 'vue'
+import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef, CSSProperties, WritableComputedRef } from 'vue'
 import pick from 'lodash/pick.js'
 
 import { generateUniqueId } from '../../utils/uuid'
-import { useComponentPresetProp, useColors, useArrayRefs, useBem } from '../../composables'
+import { useComponentPresetProp, useColors, useArrayRefs, useBem, useStateful, useStatefulProps } from '../../composables'
 import { validateSlider } from './validateSlider'
 
 import { VaIcon } from '../va-icon'
@@ -173,6 +172,7 @@ export default defineComponent({
   components: { VaIcon },
   emits: ['drag-start', 'drag-end', 'change', 'update:modelValue'],
   props: {
+    ...useStatefulProps,
     ...useComponentPresetProp,
     range: { type: Boolean, default: false },
     modelValue: ({ type: [Number, Array] as PropType<number | number[]>, default: 0 }),
@@ -206,8 +206,8 @@ export default defineComponent({
     const offset = ref(0)
     const size = ref(0)
 
-    // setting up initial value, don't change to `ref(props.modelValue)` because of https://github.com/epicmaxco/vuestic-ui/issues/2073
-    const currentValue = ref(Array.isArray(props.modelValue) ? [...props.modelValue] : props.modelValue)
+    const defaultValue: number | number[] = props.range ? [0, 0] : 0
+    const { valueComputed }: { valueComputed: WritableComputedRef<number | number[]> } = useStateful(props, emit, 'modelValue', { defaultValue })
 
     const currentSliderDotIndex = ref(0)
     const hasMouseDown = ref(false)
@@ -244,11 +244,9 @@ export default defineComponent({
     }))
 
     const processedStyles = computed(() => {
-      const validatedValue = limitValue(props.modelValue)
-
-      if (Array.isArray(validatedValue)) {
-        const val0 = ((validatedValue[0] - props.min) / (props.max - props.min)) * 100
-        const val1 = ((validatedValue[1] - props.min) / (props.max - props.min)) * 100
+      if (Array.isArray(val.value)) {
+        const val0 = ((val.value[0] - props.min) / (props.max - props.min)) * 100
+        const val1 = ((val.value[1] - props.min) / (props.max - props.min)) * 100
 
         return {
           [pinPositionStyle.value]: `${val0}%`,
@@ -257,10 +255,10 @@ export default defineComponent({
           visibility: props.showTrack ? 'visible' : 'hidden',
         } as CSSProperties
       } else {
-        const val = ((validatedValue - props.min) / (props.max - props.min)) * 100
+        const val0 = ((val.value - props.min) / (props.max - props.min)) * 100
 
         return {
-          [trackSizeStyle.value]: `${val}%`,
+          [trackSizeStyle.value]: `${val0}%`,
           backgroundColor: getColor(props.color),
           visibility: props.showTrack ? 'visible' : 'hidden',
         } as CSSProperties
@@ -268,11 +266,9 @@ export default defineComponent({
     })
 
     const dottedStyles = computed(() => {
-      const validatedValue = limitValue(props.modelValue)
-
-      if (Array.isArray(validatedValue)) {
-        const val0 = ((validatedValue[0] - props.min) / (props.max - props.min)) * 100
-        const val1 = ((validatedValue[1] - props.min) / (props.max - props.min)) * 100
+      if (Array.isArray(val.value)) {
+        const val0 = ((val.value[0] - props.min) / (props.max - props.min)) * 100
+        const val1 = ((val.value[1] - props.min) / (props.max - props.min)) * 100
 
         return [
           {
@@ -287,10 +283,10 @@ export default defineComponent({
           },
         ] as CSSProperties[]
       } else {
-        const val = ((validatedValue - props.min) / (props.max - props.min)) * 100
+        const val0 = ((val.value - props.min) / (props.max - props.min)) * 100
 
         return {
-          [pinPositionStyle.value]: `${val}%`,
+          [pinPositionStyle.value]: `${val0}%`,
           backgroundColor: isActiveDot(0) ? getColor(props.color) : '#ffffff',
           borderColor: getColor(props.color),
         } as CSSProperties
@@ -302,17 +298,15 @@ export default defineComponent({
       : dottedStyles.value
 
     const val = computed({
-      get: () => props.modelValue,
-      set: (val) => {
-        if (!props.range) {
-          val = limitValue(val)
-        }
+      get: () => valueComputed.value,
+      set: (v) => {
+        const val = limitValue(v)
 
         if (!flag.value) {
           emit('change', val)
         }
 
-        emit('update:modelValue', val)
+        valueComputed.value = val
       },
     })
 
@@ -335,9 +329,9 @@ export default defineComponent({
     const pinsCol = computed(() => ((props.max - props.min) / props.step) - 1)
 
     const position = computed(() => {
-      return Array.isArray(props.modelValue)
-        ? [(props.modelValue[0] - props.min) / props.step * gap.value, (props.modelValue[1] - props.min) / props.step * gap.value]
-        : ((props.modelValue - props.min) / props.step * gap.value)
+      return Array.isArray(val.value)
+        ? [(val.value[0] - props.min) / props.step * gap.value, (val.value[1] - props.min) / props.step * gap.value]
+        : ((val.value - props.min) / props.step * gap.value)
     })
 
     const limit = computed(() => [0, size.value])
@@ -366,11 +360,11 @@ export default defineComponent({
         }
       }
 
-      if (Array.isArray(props.modelValue)) {
+      if (Array.isArray(val.value)) {
         currentSliderDotIndex.value = index
       }
 
-      Array.isArray(props.modelValue)
+      Array.isArray(val.value)
         ? dots.value[index]?.focus()
         : dot.value?.focus()
 
@@ -395,9 +389,7 @@ export default defineComponent({
       if (!props.disabled && !props.readonly) {
         if (flag.value) {
           emit('drag-end')
-          emit('change', props.modelValue)
-        } else {
-          return false
+          emit('change', val.value)
         }
 
         flag.value = false
@@ -423,44 +415,15 @@ export default defineComponent({
           0 - left dot
           1 - right dot
         */
-      const moveDot = (isRange: boolean, where: number, which: number) => {
-        if (isRange && Array.isArray(val.value)) {
-          if (!props.pins) {
-            return val.value.splice(which, 1, val.value[which] + (where ? props.step : -props.step))
-          }
-
-          // how many value units one pin occupies
-          const onePinInterval = (props.max - props.min) / (pinsCol.value + 1)
-          // how many full pins are to the left of the dot now
-          const fullPinsNow = val.value[which] / onePinInterval | 0
-          // the value of the nearest pin
-          let nearestPinVal = fullPinsNow * onePinInterval
-
-          if (val.value[which] !== nearestPinVal) { // if the dot's not pinned already
-            nearestPinVal += where ? onePinInterval : 0 // take one more pin if moving right
-            val.value.splice(which, 1, nearestPinVal)
-          } else {
-            val.value.splice(which, 1, val.value[which] + (where ? props.step : -props.step))
-          }
+      const moveDot = (where: number, which: number) => {
+        if (Array.isArray(val.value)) {
+          const value = val.value[which] + (where ? props.step : -props.step)
+          val.value = [
+            which === 0 ? value : val.value[0],
+            which === 1 ? value : val.value[1],
+          ]
         } else {
-          if (!props.pins && !Array.isArray(val.value)) {
-            val.value += where ? props.step : -props.step
-            return
-          }
-
-          // how many value units one pin occupies
-          const onePinInterval = (props.max - props.min) / (pinsCol.value + 1)
-          // how many full pins are to the left of the dot now
-          const fullPinsNow = !Array.isArray(val.value) ? val.value / onePinInterval | 0 : 0
-          // the value of the nearest pin
-          let nearestPinVal = fullPinsNow * onePinInterval
-
-          if (val.value !== nearestPinVal) { // if the dot's not pinned already
-            nearestPinVal += where ? onePinInterval : 0 // take one more pin if moving right
-            val.value = nearestPinVal
-          } else {
-            val.value += where ? props.step : -props.step
-          }
+          val.value += where ? props.step : -props.step
         }
       }
 
@@ -484,23 +447,23 @@ export default defineComponent({
         switch (true) {
           case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && moreToLess.value && val.value[0] !== props.min:
             dots.value[0]?.focus()
-            moveDot(true, 0, 0)
+            moveDot(0, 0)
             break
           case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && lessToMore.value && val.value[1] !== props.max:
             dots.value[1]?.focus()
-            moveDot(true, 1, 1)
+            moveDot(1, 1)
             break
           case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && val.value[0] !== props.min:
-            moveDot(true, 0, 0)
+            moveDot(0, 0)
             break
           case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && val.value[1] !== props.max:
-            moveDot(true, 1, 1)
+            moveDot(1, 1)
             break
           case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && val.value[1] !== props.min:
-            moveDot(true, 0, 1)
+            moveDot(0, 1)
             break
           case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && val.value[0] !== props.max:
-            moveDot(true, 1, 0)
+            moveDot(1, 0)
             break
           default:
             break
@@ -508,17 +471,17 @@ export default defineComponent({
       } else {
         if (props.vertical) {
           if (event.key === 'ArrowDown') {
-            moveDot(false, 0, 0)
+            moveDot(0, 0)
           }
           if (event.key === 'ArrowUp') {
-            moveDot(false, 1, 0)
+            moveDot(1, 0)
           }
         } else {
           if (event.key === 'ArrowLeft') {
-            moveDot(false, 0, 0)
+            moveDot(0, 0)
           }
           if (event.key === 'ArrowRight') {
-            moveDot(false, 1, 0)
+            moveDot(1, 0)
           }
         }
       }
@@ -568,23 +531,20 @@ export default defineComponent({
     const setCurrentValue = (newValue: number) => {
       const slider = currentSliderDotIndex.value
 
-      if (Array.isArray(val.value) && Array.isArray(currentValue.value) && Array.isArray(props.modelValue)) {
-        if (isDiff(currentValue.value[slider], newValue)) {
-          currentValue.value.splice(slider, 1, newValue)
+      if (Array.isArray(val.value)) {
+        if (isDiff(val.value[slider], newValue)) {
           if (slider === 0) {
-            val.value = [currentValue.value.splice(slider, 1, newValue)[0], props.modelValue[1]]
-            currentValue.value = [...val.value]
+            val.value = [newValue, val.value[1]]
           } else {
-            val.value = [props.modelValue[0], currentValue.value.splice(slider, 1, newValue)[0]]
-            currentValue.value = [...val.value]
+            val.value = [val.value[0], newValue]
           }
         }
       } else {
-        if (newValue < props.min || newValue > props.max) {
-          return false
-        }
-        if (isDiff(currentValue.value, newValue)) {
-          currentValue.value = newValue
+        if (newValue < props.min) {
+          val.value = props.min
+        } else if (newValue > props.max) {
+          val.value = props.max
+        } else if (isDiff(val.value, newValue)) {
           val.value = newValue
         }
       }
@@ -595,7 +555,7 @@ export default defineComponent({
       const valueRange = valueLimit.value
 
       // set focus on current thumb
-      const dotToFocus = Array.isArray(props.modelValue)
+      const dotToFocus = Array.isArray(val.value)
         ? dots.value[currentSliderDotIndex.value]
         : dot.value
 
@@ -693,13 +653,13 @@ export default defineComponent({
       role: 'slider',
       'aria-valuemin': props.min,
       'aria-valuemax': props.max,
-      'aria-label': !slots.label && !props.label ? `current slider value is ${String(props.modelValue)}` : undefined,
+      'aria-label': !slots.label && !props.label ? `current slider value is ${String(val.value)}` : undefined,
       'aria-labelledby': slots.label || props.label ? ariaLabelIdComputed.value : undefined,
       'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
       'aria-disabled': props.disabled,
       'aria-readonly': props.readonly,
-      'aria-valuenow': !Array.isArray(props.modelValue) ? props.modelValue : undefined,
-      'aria-valuetext': Array.isArray(props.modelValue) ? String(props.modelValue) : undefined,
+      'aria-valuenow': !Array.isArray(val.value) ? val.value : undefined,
+      'aria-valuetext': Array.isArray(val.value) ? String(val.value) : undefined,
     }))
 
     onMounted(() => {
