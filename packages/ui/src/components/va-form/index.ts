@@ -2,6 +2,3 @@ import withConfigTransport from '../../services/config-transport/withConfigTrans
 import _VaForm from './VaForm.vue'
 
 export const VaForm = withConfigTransport(_VaForm)
-
-export { useFormField } from './composables/useForm'
-export { useForm } from './composables/useForm'

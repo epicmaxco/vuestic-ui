@@ -24,7 +24,7 @@
         />
       </va-form>
 
-      <span>{{ isValid }}</span>
+      <span>Is Valid: {{ isValid }}</span>
 
       <div class="flex gap-2">
         <va-button @click="validate">
@@ -37,12 +37,17 @@
           Reset
         </va-button>
       </div>
+
+      <pre>
+        {{ errorMessages }}
+      </pre>
     </VbCard>
   </VbDemo>
 </template>
 
 <script setup lang="ts">
-import { VaForm, useForm } from './index'
+import { useForm } from '../../composables/useForm'
+import { VaForm } from './index'
 import { VaInput } from '../va-input'
 import { VaSelect } from '../va-select'
 import { VaButton } from '../va-button'
@@ -63,5 +68,5 @@ const form = reactive({
   optionsList: '',
 })
 
-const { validate, isValid, reset, resetValidation, fields } = useForm('formEl')
+const { validate, isValid, reset, resetValidation, errorMessages } = useForm('formEl')
 </script>

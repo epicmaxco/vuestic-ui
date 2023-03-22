@@ -10,11 +10,8 @@
 <script lang="ts">
 import { defineComponent, watch, PropType } from 'vue'
 
-import { FormServiceKey, FormChild, Form } from './consts'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
-import { useFormProvider } from './composables/useForm'
-
-const isVaForm = (value: any): value is Form => !!value.focusInvalid
+import { useFormParent } from '../../composables/useForm'
 
 export default defineComponent({
   name: 'VaForm',
@@ -29,7 +26,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup (props, { emit }) {
-    const context = useFormProvider()
+    const context = useFormParent()
 
     watch(context.isValid, (value) => {
       emit('update:modelValue', value)

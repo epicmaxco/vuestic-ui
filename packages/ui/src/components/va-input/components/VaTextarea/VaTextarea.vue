@@ -12,7 +12,7 @@
 import { computed, defineComponent, onMounted, ref, watch, nextTick, CSSProperties, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useFormProps, useEmitProxy } from '../../../../composables'
+import { useFormFieldProps, useEmitProxy } from '../../../../composables'
 import { useTextareaRowHeight } from './useTextareaRowHeight'
 
 const positiveNumberValidator = (val: number) => {
@@ -30,7 +30,7 @@ export default defineComponent({
   name: 'VaTextarea',
 
   props: {
-    ...useFormProps,
+    ...useFormFieldProps,
     modelValue: { type: [String, Number], default: '' },
     placeholder: { type: String },
     autosize: { type: Boolean, default: false },

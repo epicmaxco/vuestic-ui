@@ -11,7 +11,7 @@ import isString from 'lodash/isString.js'
 
 import { useSyncProp } from './useSyncProp'
 import { useFocus } from './useFocus'
-import { useFormField } from '../components/va-form'
+import { useFormChild } from './useForm'
 
 export type ValidationRule<V extends any = any> = ((v: V) => any | string)
 
@@ -55,6 +55,13 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 
   const [computedError] = useSyncProp('error', props, emit, false)
   const [computedErrorMessages] = useSyncProp('errorMessages', props, emit, [] as string[])
+
+  const validationAriaAttributes = computed(() => ({
+    'aria-invalid': !!computedErrorMessages.value.length,
+    'aria-errormessage': typeof computedErrorMessages.value === 'string'
+      ? computedErrorMessages.value
+      : computedErrorMessages.value.join(', '),
+  }))
 
   const resetValidation = () => {
     computedError.value = false
@@ -102,8 +109,12 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     { immediate: props.immediateValidation },
   )
 
-  useFormField(() => ({
+  const {
+    doShowErrorMessages,
+    doShowError,
+  } = useFormChild(() => ({
     isValid: !computedError.value,
+    errorMessages: computedErrorMessages.value,
     validate,
     resetValidation,
     focus,
@@ -111,16 +122,9 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     value: props.modelValue,
   }))
 
-  const validationAriaAttributes = computed(() => ({
-    'aria-invalid': !!computedErrorMessages.value.length,
-    'aria-errormessage': typeof computedErrorMessages.value === 'string'
-      ? computedErrorMessages.value
-      : computedErrorMessages.value.join(', '),
-  }))
-
   return {
-    computedError,
-    computedErrorMessages,
+    computedError: computed(() => doShowError.value ? computedError.value : false),
+    computedErrorMessages: computed(() => doShowErrorMessages.value ? computedErrorMessages.value : []),
     listeners: { onFocus, onBlur },
     validate,
     resetValidation,

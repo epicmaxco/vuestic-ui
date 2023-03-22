@@ -89,7 +89,6 @@ export const useSelectable = (
   const onBlur = (event: FocusEvent) => {
     if ((input.value === event.target) && !isElementRelated(event.relatedTarget as HTMLElement)) {
       isFocused.value = false
-      computedError.value = false
       validate()
       emit('blur', event)
     }

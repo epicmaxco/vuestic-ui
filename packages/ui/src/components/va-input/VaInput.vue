@@ -78,7 +78,7 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 
 import {
   useComponentPresetProp,
-  useFormProps,
+  useFormFieldProps,
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
   useEmitProxy,
   useClearable, useClearableProps, useClearableEmits,
@@ -115,7 +115,7 @@ export default defineComponent({
   components: { VaInputWrapper, VaTextarea, VaIcon },
 
   props: {
-    ...useFormProps,
+    ...useFormFieldProps,
     ...useValidationProps as ValidationProps<string>,
     ...useClearableProps,
     ...useCleaveProps,
