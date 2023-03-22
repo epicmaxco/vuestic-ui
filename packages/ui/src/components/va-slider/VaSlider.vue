@@ -206,7 +206,7 @@ export default defineComponent({
     const offset = ref(0)
     const size = ref(0)
 
-    const defaultValue: number | number[] = props.range ? [0, 0] : 0
+    const defaultValue: number | number[] = props.range ? [0, 100] : 0
     const { valueComputed }: { valueComputed: WritableComputedRef<number | number[]> } = useStateful(props, emit, 'modelValue', { defaultValue })
 
     const currentSliderDotIndex = ref(0)
@@ -293,15 +293,13 @@ export default defineComponent({
       }
     })
 
-    const getDottedStyles = (index?: number) => props.range && index !== undefined
+    const getDottedStyles = (index: number) => props.range
       ? (dottedStyles.value as CSSProperties[])[index]
       : dottedStyles.value
 
     const val = computed({
       get: () => valueComputed.value,
-      set: (v) => {
-        const val = limitValue(v)
-
+      set: (val) => {
         if (!flag.value) {
           emit('change', val)
         }
@@ -564,14 +562,14 @@ export default defineComponent({
       if (pixelPosition >= range[0] && pixelPosition <= range[1]) {
         if (currentSliderDotIndex.value) {
           if (Array.isArray(position.value) && Array.isArray(val.value) && pixelPosition <= position.value[0]) {
-            val.value[1] = val.value[0]
+            val.value = [val.value[0], val.value[0]]
             currentSliderDotIndex.value = 0
           }
           const v = getValueByIndex(Math.round(pixelPosition / gap.value))
           setCurrentValue(v)
         } else {
           if (Array.isArray(position.value) && Array.isArray(val.value) && pixelPosition >= position.value[1]) {
-            val.value[0] = val.value[1]
+            val.value = [val.value[1], val.value[1]]
             currentSliderDotIndex.value = 1
           }
           const v = getValueByIndex(Math.round(pixelPosition / gap.value))
@@ -581,31 +579,6 @@ export default defineComponent({
         setCurrentValue(valueRange[0])
       } else {
         setCurrentValue(valueRange[1])
-      }
-    }
-
-    const limitValue = (val: number | number[]) => {
-      const inRange = (v: number) => {
-        if (v < props.min) {
-          return props.min
-        } else if (v > props.max) {
-          return props.max
-        }
-        return v
-      }
-
-      if (Array.isArray(val)) {
-        if (val[0] >= val[1] && currentSliderDotIndex.value === 0) {
-          const v = inRange(val[1])
-          return [v, v]
-        }
-        if (val[0] >= val[1] && currentSliderDotIndex.value === 1) {
-          const v = inRange(val[0])
-          return [v, v]
-        }
-        return val.map((v) => inRange(v))
-      } else {
-        return inRange(val)
       }
     }
 
