@@ -3,14 +3,19 @@ import { FormServiceKey } from './consts'
 import { FormFiled } from './types'
 import { useFormChild } from './useFormChild'
 
-export const createFormContext = () => {
+type FormParentOptions = {
+  hideErrors: boolean
+  hideErrorMessages: boolean
+}
+
+export const createFormContext = (options: FormParentOptions) => {
   const fields: Ref<Record<number, Ref<FormFiled>>> = ref({})
 
   return {
     // Vue unwrap ref automatically, but types are not for some reason
     fields: computed(() => Object.values(fields.value) as any as FormFiled[]),
-    doShowError: computed(() => false),
-    doShowErrorMessages: computed(() => false),
+    doShowError: computed(() => !options.hideErrors),
+    doShowErrorMessages: computed(() => !options.hideErrorMessages),
     registerField: (uid: number, field: Ref<FormFiled>) => {
       fields.value[uid] = field
     },
@@ -20,8 +25,8 @@ export const createFormContext = () => {
   }
 }
 
-export const useFormParent = () => {
-  const formContext = createFormContext()
+export const useFormParent = (options: FormParentOptions) => {
+  const formContext = createFormContext(options)
 
   provide(FormServiceKey, formContext)
 

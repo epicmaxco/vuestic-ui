@@ -18,15 +18,18 @@ export default defineComponent({
   props: {
     ...useComponentPresetProp,
     autofocus: { type: Boolean, default: false },
+    immediate: { type: Boolean, default: false },
     tag: { type: String, default: 'div' },
     trigger: { type: String as PropType<'blur' | 'change'>, default: 'blur' },
     modelValue: { type: Boolean, default: true },
+    hideErrors: { type: Boolean, default: false },
+    hideErrorMessages: { type: Boolean, default: false },
   },
 
   emits: ['update:modelValue'],
 
   setup (props, { emit }) {
-    const context = useFormParent()
+    const context = useFormParent(props)
 
     watch(context.isValid, (value) => {
       emit('update:modelValue', value)
@@ -36,7 +39,13 @@ export default defineComponent({
       if (value) {
         context.focus()
       }
-    })
+    }, { immediate: true })
+
+    watch(() => props.immediate, (value) => {
+      if (value) {
+        context.validate()
+      }
+    }, { immediate: true })
 
     return {
       ...context,
