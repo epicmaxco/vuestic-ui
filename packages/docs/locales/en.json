@@ -4102,7 +4102,7 @@
     "description": "This guide describes the possible ways in which you can become a part of the ongoing development of Vuestic UI. We are really excited that you are interested in helping us make Vuestic better!",
     "quickStart": {
       "title": "Quick start",
-      "description": "If you want to make some changes get a local copy of VausticUI:",
+      "description": "If you want to make some changes get a local copy of VuesticUI:",
       "steps": {
         "1": "Fork Vuestic repository",
         "2": "Clone your fork",

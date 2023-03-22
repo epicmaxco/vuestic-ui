@@ -3983,7 +3983,7 @@
     "description": "В этом руководстве описаны способы, с помощью которых вы можете стать частью непрерывного развития пользовательского интерфейса Vuestic. Мы очень рады, что вы хотите внести свой вклад в Vuestic UI.",
     "quickStart": {
       "title": "Quick start",
-      "description": "If you want to make some changes get a local copy of VausticUI:",
+      "description": "If you want to make some changes get a local copy of VuesticUI:",
       "steps": {
         "1": "Fork Vuestic repository",
         "2": "Clone your fork",
