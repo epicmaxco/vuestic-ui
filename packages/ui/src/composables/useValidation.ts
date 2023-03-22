@@ -1,11 +1,9 @@
 import {
   watch,
-  inject,
   computed,
-  onMounted,
-  onBeforeUnmount,
   PropType,
   ExtractPropTypes,
+  nextTick,
 } from 'vue'
 import flatten from 'lodash/flatten.js'
 import isFunction from 'lodash/isFunction.js'
@@ -13,7 +11,7 @@ import isString from 'lodash/isString.js'
 
 import { useSyncProp } from './useSyncProp'
 import { useFocus } from './useFocus'
-import { FormServiceKey } from '../components/va-form/consts'
+import { useFormField } from '../components/va-form'
 
 export type ValidationRule<V extends any = any> = ((v: V) => any | string)
 
@@ -54,7 +52,6 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 ) => {
   const { reset, focus } = options
   const { isFocused, onFocus, onBlur } = useFocus()
-  let canValidate = true
 
   const [computedError] = useSyncProp('error', props, emit, false)
   const [computedErrorMessages] = useSyncProp('errorMessages', props, emit, [] as string[])
@@ -64,15 +61,8 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     computedErrorMessages.value = []
   }
 
-  const withoutValidation = (cb: () => any): void => {
-    canValidate = false
-    cb()
-  }
-
   const validate = (): boolean => {
-    if (!props.rules || !props.rules.length || !canValidate) {
-      canValidate = true
-
+    if (!props.rules || !props.rules.length) {
       return true
     }
 
@@ -99,17 +89,27 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 
   watch(isFocused, (newVal) => !newVal && validate())
 
-  watch(() => props.modelValue, () => validate(), { immediate: props.immediateValidation })
+  let canValidate = true
+  const withoutValidation = (cb: () => any): void => {
+    canValidate = false
+    cb()
+    // NextTick because we update props in the same tick, but they are updated in the next one
+    nextTick(() => { canValidate = true })
+  }
+  watch(
+    () => props.modelValue,
+    () => canValidate && validate(),
+    { immediate: props.immediateValidation },
+  )
 
-  const context = {
+  useFormField(() => ({
+    isValid: !computedError.value,
+    validate,
     resetValidation,
     focus,
-    validate,
     reset,
-    hasError: () => computedError.value,
-  }
-
-  const form = inject(FormServiceKey, undefined)
+    value: props.modelValue,
+  }))
 
   const validationAriaAttributes = computed(() => ({
     'aria-invalid': !!computedErrorMessages.value.length,
@@ -117,14 +117,6 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
       ? computedErrorMessages.value
       : computedErrorMessages.value.join(', '),
   }))
-
-  onMounted(() => {
-    form?.onChildMounted(context as any)
-  })
-
-  onBeforeUnmount(() => {
-    form?.onChildUnmounted(context as any)
-  })
 
   return {
     computedError,

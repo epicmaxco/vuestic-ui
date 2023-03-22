@@ -3,7 +3,7 @@
     class="va-form"
     :is="tag"
   >
-    <slot v-bind="{ isValid }" />
+    <slot v-bind="{ isValid, validate }" />
   </component>
 </template>
 
@@ -12,7 +12,7 @@ import { defineComponent, watch, PropType } from 'vue'
 
 import { FormServiceKey, FormChild, Form } from './consts'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
-import { useForm } from './composables/useForm'
+import { useFormProvider } from './composables/useForm'
 
 const isVaForm = (value: any): value is Form => !!value.focusInvalid
 
@@ -29,38 +29,21 @@ export default defineComponent({
   emits: ['update:modelValue'],
 
   setup (props, { emit }) {
-    const {
-      isValid,
-      reset,
-      resetValidation,
-      focus,
-      focusInvalid,
-      validate,
-    } = useForm()
+    const context = useFormProvider()
 
-    watch(isValid, (value) => {
+    watch(context.isValid, (value) => {
       emit('update:modelValue', value)
     })
 
     watch(() => props.autofocus, (value) => {
       if (value) {
-        focus()
-      }
-    })
-
-    watch(() => props.modelValue, (value) => {
-      if (!value) {
-        reset()
+        context.focus()
       }
     })
 
     return {
-      isValid,
-      reset,
-      resetValidation,
-      focus,
-      focusInvalid,
-      validate,
+      ...context,
+      context: context,
     }
   },
 })

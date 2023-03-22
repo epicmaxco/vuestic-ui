@@ -1,4 +1,7 @@
 import { computed, inject, InjectionKey, onBeforeUnmount, onMounted, provide, Ref, ref } from 'vue'
+import { type VaForm } from '..'
+import { useComponentUuid } from '../../../composables/useComponentUuid'
+import { useTemplateRef } from './../../../composables/useTemplateRef'
 
 type FormFiled = {
   name?: string;
@@ -11,40 +14,72 @@ type FormFiled = {
 }
 
 const createFormContext = () => {
+  const fields: Ref<Record<number, Ref<FormFiled>>> = ref({})
+
   return {
-    formFields: [] as Ref<FormFiled>[],
+    // Vue unwrap ref automatically, but types are not for some reason
+    fields: computed(() => Object.values(fields.value) as any as FormFiled[]),
+    registerField: (uid: number, field: Ref<FormFiled>) => {
+      fields.value[uid] = field
+    },
+    unregisterField: (uid: number) => {
+      delete fields.value[uid]
+    },
   }
 }
 
 export const FormServiceKey: InjectionKey<ReturnType<(typeof createFormContext)>> = Symbol('FormService')
 
-export const useForm = () => {
+export const useForm = (ref: string | Ref<typeof VaForm>): ReturnType<typeof useFormProvider> => {
+  const form = typeof ref === 'string'
+    ? useTemplateRef(ref) as any as Ref<typeof VaForm>
+    : ref
+
+  return {
+    isValid: computed(() => form.value?.isValid),
+    fields: computed(() => form.value?.fields),
+    validate: () => form.value?.validate(),
+    reset: () => {
+      form.value?.reset()
+    },
+    resetValidation: () => form.value?.resetValidation(),
+    focus: () => form.value?.focus(),
+    focusInvalid: () => form.value?.focusInvalid(),
+  }
+}
+
+export const useFormProvider = () => {
   const formContext = createFormContext()
 
   provide(FormServiceKey, formContext)
 
-  const isValid = computed(() => formContext.formFields.every((field) => field.value.isValid))
+  const { fields } = formContext
+
+  const isValid = computed(() => fields.value.every((field) => field.isValid))
 
   const validate = () => {
-    return formContext.formFields.every((field) => field.value.validate())
+    // Validate each filed to get the error messages
+    return fields.value.reduce((acc, field) => {
+      return field.validate() && acc
+    }, true)
   }
 
   const reset = () => {
-    formContext.formFields.forEach((field) => field.value.reset())
+    fields.value.forEach((field) => field.reset())
   }
 
   const resetValidation = () => {
-    formContext.formFields.forEach((field) => field.value.resetValidation())
+    fields.value.forEach((field) => field.resetValidation())
   }
 
   const focus = () => {
-    formContext.formFields[0]?.value.focus()
+    fields.value[0]?.focus()
   }
 
   const focusInvalid = () => {
-    const invalidField = formContext.formFields.find((field) => !field.value.isValid)
+    const invalidField = fields.value.find((field) => !field.isValid)
 
-    invalidField?.value.focus()
+    invalidField?.focus()
   }
 
   useFormField(() => ({
@@ -58,6 +93,7 @@ export const useForm = () => {
   }))
 
   return {
+    fields,
     isValid,
     validate,
     reset,
@@ -75,13 +111,13 @@ export const useFormField = (createContext: () => FormFiled) => {
   }
 
   const context = computed(createContext)
+  const uid = useComponentUuid()
 
   onMounted(() => {
-    formContext.formFields.push(context)
+    formContext.registerField(uid, context)
   })
 
   onBeforeUnmount(() => {
-    // eslint-disable-next-line vue/no-ref-as-operand
-    formContext.formFields = formContext.formFields.filter((field) => field !== context)
+    formContext.unregisterField(uid)
   })
 }

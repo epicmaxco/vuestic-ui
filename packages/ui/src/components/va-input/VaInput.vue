@@ -94,7 +94,6 @@ import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { focusElement, blurElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
-import { useFormField } from '../va-form'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -243,15 +242,6 @@ export default defineComponent({
     const valueLengthComputed = computed(() =>
       props.counter && typeof computedValue.value === 'string' ? computedValue.value.length : undefined,
     )
-
-    useFormField(() => ({
-      value: computedValue.value,
-      focus,
-      reset,
-      validate,
-      resetValidation,
-      isValid: !computedError.value,
-    }))
 
     return {
       ...useTranslation(),
