@@ -10,10 +10,10 @@
   --va-checkbox-line-height: 20px;
 
   /* Square */
-  --va-checkbox-square-width: 1.35rem;
-  --va-checkbox-square-min-width: 1.35rem;
-  --va-checkbox-square-height: 1.35rem;
-  --va-checkbox-square-background-color: var(--va-background-element);
-  --va-checkbox-square-border: solid 0.125rem var(--va-background-border);
-  --va-checkbox-square-border-radius: 0.25rem;
+  --va-checkbox-square-width: 1.25rem;
+  --va-checkbox-square-min-width: 1.25rem;
+  --va-checkbox-square-height: 1.25rem;
+  --va-checkbox-square-background-color: transparent;
+  --va-checkbox-square-border: solid 0.0625rem var(--va-background-border);
+  --va-checkbox-square-border-radius: 0.125rem;
 }
