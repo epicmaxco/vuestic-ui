@@ -565,20 +565,21 @@ export default defineComponent({
       dotToFocus?.focus()
 
       if (pixelPosition >= range[0] && pixelPosition <= range[1]) {
+        const v = getValueByIndex(Math.round(pixelPosition / gap.value))
         if (currentSliderDotIndex.value) {
           if (Array.isArray(position.value) && Array.isArray(val.value) && pixelPosition <= position.value[0]) {
-            val.value = [val.value[0], val.value[0]]
+            val.value = [v, val.value[0]]
             currentSliderDotIndex.value = 0
+          } else {
+            setCurrentValue(v)
           }
-          const v = getValueByIndex(Math.round(pixelPosition / gap.value))
-          setCurrentValue(v)
         } else {
           if (Array.isArray(position.value) && Array.isArray(val.value) && pixelPosition >= position.value[1]) {
-            val.value = [val.value[1], val.value[1]]
+            val.value = [val.value[1], v]
             currentSliderDotIndex.value = 1
+          } else {
+            setCurrentValue(v)
           }
-          const v = getValueByIndex(Math.round(pixelPosition / gap.value))
-          setCurrentValue(v)
         }
       } else if (pixelPosition < range[0]) {
         setCurrentValue(valueRange[0])
@@ -641,7 +642,7 @@ export default defineComponent({
     }))
 
     onMounted(() => {
-      if (validateSlider(props.modelValue, props.step, props.min, props.max, props.range)) {
+      if (validateSlider(val.value, props.step, props.min, props.max, props.range)) {
         getStaticData()
         bindEvents()
       }
