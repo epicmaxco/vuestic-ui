@@ -678,7 +678,7 @@ export default defineComponent({
       computedErrorMessages,
       withoutValidation,
       resetValidation,
-    } = useValidation(props, emit, { reset, focus })
+    } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
     return {
       input,

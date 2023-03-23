@@ -141,7 +141,7 @@ export default defineComponent({
       computedErrorMessages,
       withoutValidation,
       resetValidation,
-    } = useValidation(props, emit, { reset, focus })
+    } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
     const computedProps = computed(() => pick(props, ['name', 'color', 'readonly', 'leftLabel']))
 

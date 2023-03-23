@@ -1,7 +1,7 @@
 import { type Ref, computed } from 'vue'
-import { useFormParent } from './useFormParent'
 import { type VaForm } from '../../components'
 import { useTemplateRef } from '../useTemplateRef'
+import { Form } from './types'
 
 // EXPOSED API: TS support for Form instance
 /**
@@ -21,14 +21,16 @@ import { useTemplateRef } from '../useTemplateRef'
  * </script>
  * ```
  */
-export const useForm = (ref: string | Ref<typeof VaForm>): ReturnType<typeof useFormParent> => {
+export const useForm = <Names extends string = string>(ref: string | Ref<typeof VaForm>): Form<Names> => {
   const form = typeof ref === 'string'
     ? useTemplateRef(ref) as any as Ref<typeof VaForm>
     : ref
 
   return {
     isValid: computed(() => form.value?.isValid || false),
-    fields: computed(() => form.value?.fields),
+    fields: computed(() => form.value?.fields ?? []),
+    fieldNames: computed(() => form.value?.fieldNames ?? []),
+    formData: computed(() => form.value?.formData ?? {}),
     errorMessages: computed(() => form.value?.errorMessages || []),
     errorMessagesNamed: computed(() => form.value?.errorMessagesNamed || {}),
     validate: () => form.value?.validate(),

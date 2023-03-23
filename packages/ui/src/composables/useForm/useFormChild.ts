@@ -16,6 +16,8 @@ export const useFormChild = (createContext: () => FormFiled) => {
   const context = computed(createContext)
   const uid = useComponentUuid()
 
+  formContext.registerField(uid, context)
+
   onMounted(() => {
     formContext.registerField(uid, context)
   })

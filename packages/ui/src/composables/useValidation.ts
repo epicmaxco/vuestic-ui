@@ -4,6 +4,7 @@ import {
   PropType,
   ExtractPropTypes,
   nextTick,
+  type WritableComputedRef,
 } from 'vue'
 import flatten from 'lodash/flatten.js'
 import isFunction from 'lodash/isFunction.js'
@@ -18,6 +19,7 @@ export type ValidationRule<V extends any = any> = ((v: V) => any | string)
 type UseValidationOptions = {
   reset: () => void
   focus: () => void
+  value: WritableComputedRef<any>
 }
 
 const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArguments: unknown = null) => {
@@ -120,7 +122,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     resetValidation,
     focus,
     reset,
-    value: props.modelValue,
+    value: options.value || props.modelValue,
     name: props.name,
   }))
 

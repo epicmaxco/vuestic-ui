@@ -84,6 +84,7 @@ import {
   useClearable, useClearableProps, useClearableEmits,
   useFocusDeep,
   useTranslation,
+  useStateful, useStatefulProps, useStatefulEmits,
 } from '../../composables'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
@@ -121,11 +122,12 @@ export default defineComponent({
     ...useCleaveProps,
     ...VaTextareaProps,
     ...useComponentPresetProp,
+    ...useStatefulProps,
 
     // input
     placeholder: { type: String, default: '' },
     tabindex: { type: Number, default: 0 },
-    modelValue: { type: [String, Number], default: '' },
+    modelValue: { type: [String, Number] },
     label: { type: String, default: '' },
     type: { type: String as AnyStringPropType<'textarea' | 'text' | 'password'>, default: 'text' },
     loading: { type: Boolean, default: false },
@@ -150,12 +152,15 @@ export default defineComponent({
     ...useClearableEmits,
     ...createInputEmits(),
     ...createFieldEmits(),
+    ...useStatefulEmits,
   ],
 
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
     const input = shallowRef<HTMLInputElement | typeof VaTextarea>()
+
+    const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: '' })
 
     const isFocused = useFocusDeep()
 
@@ -185,8 +190,7 @@ export default defineComponent({
       validationAriaAttributes,
       withoutValidation,
       resetValidation,
-      validate,
-    } = useValidation(props, emit, { reset, focus })
+    } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
     const { modelValue } = toRefs(props)
     const {
@@ -199,7 +203,7 @@ export default defineComponent({
       ? undefined
       : input.value as HTMLInputElement | undefined)
 
-    const { computedValue, onInput } = useCleave(computedCleaveTarget, props, emit)
+    const { computedValue, onInput } = useCleave(computedCleaveTarget, props, valueComputed)
 
     const inputListeners = createInputListeners(emit)
 

@@ -9,6 +9,7 @@ export default definePageConfig({
 
     block.example("Default"),
     block.example("HideErrors"),
+    block.example("FormData"),
     block.example("Submit"),
 
     block.subtitle("all.api"),

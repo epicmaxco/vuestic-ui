@@ -2,19 +2,40 @@
   <component
     class="va-form"
     :is="tag"
+    v-bind="$attrs"
   >
     <slot v-bind="{ isValid, validate }" />
   </component>
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, PropType } from 'vue'
+import { defineComponent, watch, PropType, computed } from 'vue'
 
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { useFormParent } from '../../composables/useForm'
+import { useLocalConfigProvider } from '../../composables/useLocalConfig'
+
+const props = { stateful: true }
+
+const statefulConfig = {
+  VaInput: props,
+  VaSelect: props,
+  VaCheckbox: props,
+  VaRadio: props,
+  VaDatePicker: props,
+  VaTimePicker: props,
+  VaColorPicker: props,
+  VaSlider: props,
+  VaSwitch: props,
+  VaFileUpload: props,
+  VaRating: props,
+  VaDateInput: props,
+  VaTimeInput: props,
+}
 
 export default defineComponent({
   name: 'VaForm',
+
   props: {
     ...useComponentPresetProp,
     autofocus: { type: Boolean, default: false },
@@ -24,6 +45,7 @@ export default defineComponent({
     modelValue: { type: Boolean, default: true },
     hideErrors: { type: Boolean, default: false },
     hideErrorMessages: { type: Boolean, default: false },
+    stateful: { type: Boolean, default: false },
   },
 
   emits: ['update:modelValue'],
@@ -46,6 +68,12 @@ export default defineComponent({
         context.validate()
       }
     }, { immediate: true })
+
+    useLocalConfigProvider(computed(() => {
+      if (!props.stateful) { return {} }
+
+      return statefulConfig
+    }))
 
     return {
       ...context,
