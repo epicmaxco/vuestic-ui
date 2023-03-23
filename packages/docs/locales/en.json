@@ -3734,6 +3734,7 @@
   "innerLoading": {
     "title": "Inner Loading",
     "summaryText": "You can handle the loading state of the wrapped component by using the `va-inner-loading` component.",
+    "accessibility": "The component has the [aria-live=\"polite\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions)[[target=_blank]] and [aria-busy](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy)[[target=_blank]] attributes. It blocks any interaction with the content until the loading state is disabled.",
     "examples": {
       "default": {
         "title": "Basic usage",
