@@ -395,6 +395,8 @@ export default defineComponent({
       }
     }
 
+    const clamp = (min: number, v: number, max: number) => Math.max(Math.min(v, max), min)
+
     const moveWithKeys = (event: KeyboardEvent) => {
       // don't do anything if a dot isn't focused or if the slider's disabled or readonly
       if (![dots.value[0], dots.value[1], dot.value].includes(document.activeElement as HTMLElement)) {
@@ -416,12 +418,15 @@ export default defineComponent({
       const moveDot = (where: number, which: number) => {
         if (Array.isArray(val.value)) {
           const value = val.value[which] + (where ? props.step : -props.step)
+          const limitedValue = clamp(props.min, value, props.max)
           val.value = [
-            which === 0 ? value : val.value[0],
-            which === 1 ? value : val.value[1],
+            which === 0 ? limitedValue : val.value[0],
+            which === 1 ? limitedValue : val.value[1],
           ]
         } else {
-          val.value += where ? props.step : -props.step
+          const value = val.value + (where ? props.step : -props.step)
+          const limitedValue = clamp(props.min, value, props.max)
+          val.value = limitedValue
         }
       }
 
