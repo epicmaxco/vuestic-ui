@@ -447,7 +447,7 @@
        <template #prepend>
         <va-input
           style="width: 70px;"
-          v-model="value"
+          v-model.number="value"
         />
        </template>
      </va-slider>
@@ -456,12 +456,12 @@
       width="500px"
       title="Range With Inputs"
     >
-     <va-slider v-model="value2" range>
+     <va-slider v-model="value2r" range>
        <template #prepend>
-        <va-input style="width: 70px;" v-model="value2[0]" />
+        <va-input style="width: 70px;" v-model.number="value20" />
        </template>
        <template #append>
-        <va-input style="width: 70px;" v-model="value2[1]" />
+        <va-input style="width: 70px;" v-model.number="value21" />
        </template>
      </va-slider>
     </VbCard>
@@ -538,11 +538,18 @@ export default {
     return {
       value: 90,
       value2: [20, 60],
+      value2r: [20, 60],
+      value20: 20,
+      value21: 60,
       value3: 1500,
       value4: [1100, 1320],
       min: 1000,
       max: 2000,
     }
+  },
+  watch: {
+    value20 (v) { this.value2r = [v, this.value2r[1]] },
+    value21 (v) { this.value2r = [this.value2r[0], v] },
   },
   methods: {
     processTrackLabel (value, order) {
