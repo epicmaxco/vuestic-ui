@@ -10,11 +10,11 @@
     },
     "asyncValidation": {
       "title": "Async validation",
-      "text": "You can use `asyncValidate` method to validate form fields asynchronously. It will return `Promise` which will be resolved with `true` if form is valid and `false` if form is invalid. By default if you return `Promise` in validation rule it will be treated as async, set field in `loading` state and show error after promise resolved."
+      "text": "By default if you return `Promise` in validation rule it will be treated as async, set field in `loading` state and show error after promise resolved. If there is error in synchronous rule it will be shown immediately and async validation will not be triggered to prevent extra backend calls. You can use `hide-loading` `VaForm` prop to hide loading state of form fields. You also can use `asyncValidate` method to validate form fields asynchronously. "
     },
     "formData": {
       "title": "FormData",
-      "text": "You can access `formData` to get access to value of named fields. Notice, that `formData` is not the same as native implementation of [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData), instead it is a reactive object which can contain `string`, `number` or `Date` values of form fields. You can use `hide-loading` `VaForm` prop to hide loading state of form fields."
+      "text": "You can access `formData` to get access to value of named fields. Notice, that `formData` is not the same as native implementation of [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData), instead it is a reactive object which can contain `string`, `number` or `Date` values of form fields."
     }
   }
 }
