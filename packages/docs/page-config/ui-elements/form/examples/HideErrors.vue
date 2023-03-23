@@ -18,16 +18,14 @@
     />
   </va-form>
 
-  <va-alert color="warning" v-if="!isValid">
-    <div v-for="errors, fieldName in errorMessagesNamed" :key="fieldName">
-      <span class="va-title">{{ fieldName }}</span>
-      <ul>
-        <li v-for="error in errors" :key="error">
-          {{ error }}
-        </li>
-      </ul>
-    </div>
-  </va-alert>
+  <div v-for="errors, fieldName in errorMessagesNamed" :key="fieldName">
+    <span class="va-title" v-if="errors.length > 0">{{ fieldName }}</span>
+    <ul>
+      <li v-for="error in errors" :key="error">
+        {{ error }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup lang="ts">
