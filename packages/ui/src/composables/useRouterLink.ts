@@ -4,14 +4,14 @@ import { useGlobalConfig } from '../services/global-config'
 
 export const useRouterLinkProps = {
   tag: { type: String, default: 'span' },
-  to: { type: [String, Object] as PropType<string | Record<string, any>>, default: '' },
-  replace: { type: Boolean, default: false },
-  append: { type: Boolean, default: false },
-  exact: { type: Boolean, default: false },
-  activeClass: { type: String, default: '' },
-  exactActiveClass: { type: String, default: '' },
-  href: { type: String, default: '' },
-  target: { type: String, default: '' },
+  to: { type: [String, Object] as PropType<string | Record<string, any>>, default: undefined },
+  replace: { type: Boolean, default: undefined },
+  append: { type: Boolean, default: undefined },
+  exact: { type: Boolean, default: undefined },
+  activeClass: { type: String, default: undefined },
+  exactActiveClass: { type: String, default: undefined },
+  href: { type: String, default: undefined },
+  target: { type: String, default: undefined },
   disabled: { type: Boolean, default: false },
 }
 
@@ -71,7 +71,7 @@ export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>
     // to resolve href on server for SEO optimization
     // https://github.com/nuxt/nuxt.js/issues/8204
     // @ts-ignore
-    return props.href || (props.to ? vueRouter.value?.resolve(props.to, vueRoute.value).href : '')
+    return props.href || (props.to ? vueRouter.value?.resolve(props.to, vueRoute.value).href : undefined)
   })
 
   return {
