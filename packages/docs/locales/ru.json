@@ -1564,6 +1564,7 @@
   },
   "all": {
     "examples": "Примеры",
+    "accessibility": "Доступность",
     "api": "API",
     "methods": "Methods",
     "options": "Options",
@@ -1894,6 +1895,7 @@
   "slider": {
     "title": "Slider",
     "summaryText": "Компонента `va-slider` визуализирует поле ввода для числа. Пользователь может перетащить ползунок в фиксированном диапазоне, чтобы получить необходимое значение.",
+    "accessibility": "Компонент отвечает всем требованиям [шаблона слайдера w3](https://www.w3.org/WAI/ARIA/apg/patterns/slider/#wai-ariaroles,states,andproperties)[[target=_blank]]. Он имеет [role=\"slider\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/slider_role)[[target=_blank]] и следующие атрибуты: [aria-valuemin](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin)[[target=_blank]], [aria-valuemax](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax)[[target=_blank]], [aria-valuenow](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow)[[target=_blank]], [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)[[target=_blank]], [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]], [aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled)[[target=_blank]], [aria-readonly](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly)[[target=_blank]].",
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -2319,6 +2321,7 @@
   "divider": {
     "title": "Divider",
     "summaryText": "Компонент `va-divider` используется для разделения разделов списков или макетов.",
+    "accessibility": "Имеет [role=\"separator\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/separator_role)[[target=_blank]]. Его атрибут [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]] зависит от свойства `vertical`. Полностью игнорируется программами чтения с экрана из-за  атрибута [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank ]].",
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -4641,6 +4644,7 @@
   "stepper": {
     "title": "Stepper",
     "description": "Stepper позволяет пользователям разделять контент на несколько шагов и перемещаться по нему с помощью кнопок или навигации.",
+    "accessibility": "Сам компонент имеет [role=\"group\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role)[[target=_blank]] с такими атрибутами aria, как атрибут [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]], который зависит от свойства `vertical`. Элемент текущего шага имеет атрибут [aria-current=\"step\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current#values)[[target =_пусто]]. Навигация с помощью клавиатуры для этого компонента основана на [шаблоне вкладок w3](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)[[target=_blank]].",
     "examples": {
       "default": {
         "title": "Основное использование",

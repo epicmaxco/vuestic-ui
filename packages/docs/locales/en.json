@@ -1676,6 +1676,7 @@
   },
   "all": {
     "examples": "Examples",
+    "accessibility": "Accessibility",
     "api": "API",
     "methods": "Methods",
     "options": "Options",
@@ -2033,6 +2034,7 @@
   "slider": {
     "title": "Slider",
     "summaryText": "The slider component is a visualization for the number input. A user can drag a slider within a fixed range to get the required value.",
+    "accessibility": "The component covers all the requirements of [w3 slider template](https://www.w3.org/WAI/ARIA/apg/patterns/slider/#wai-ariaroles,states,andproperties)[[target=_blank]]. It has [role=\"slider\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/slider_role)[[target=_blank]] and the following attributes: [aria-valuemin](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin)[[target=_blank]], [aria-valuemax](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax)[[target=_blank]], [aria-valuenow](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow)[[target=_blank]], [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)[[target=_blank]], [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]], [aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled)[[target=_blank]], [aria-readonly](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly)[[target=_blank]].",
     "examples": {
       "default": {
         "title": "Default",
@@ -2470,6 +2472,7 @@
   "divider": {
     "title": "Divider",
     "summaryText": "The `va-divider` component is used to separate sections of lists or layouts.",
+    "accessibility": "Has a [role=\"separator\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/separator_role)[[target=_blank]]. Its attribute [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]] depends on `vertical` property. Completely ignored by screen readers because of [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]] attribute.",
     "examples": {
       "default": {
         "title": "Simple divider",
@@ -4773,6 +4776,7 @@
         "text": "You can hide controls and use stepper navigation independently"
       }
     },
+    "accessibility": "The component itself has a [role=\"group\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role)[[target=_blank]] with aria attributes like an [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]] attribute that depends on the `vertical` property. The current step element has the attribute [aria-current=\"step\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current#values)[[target=_blank]]. Keyboard navigation for this component is based on the [w3 tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)[[target=_blank]].",
     "alerts": {
       "slots": "You can iterate through slots using template literals in slot name. \n Example: ``{'#[`step-button-${i}`]=\"{ setStep, isActive, isCompleted }\"'}``"
     }
