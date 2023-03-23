@@ -3629,6 +3629,7 @@
   "innerLoading": {
     "title": "Inner Loading",
     "summaryText": "Вы можете управлять состоянием загрузки обернутого компонента с помощью компонента `va-inner-loading`",
+    "accessibility": "Компонент имеет атрибуты [aria-live=\"polite\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions)[[target=_blank]] и [aria-busy](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy)[[target=_blank]]. Он блокирует любое взаимодействие с контентом до тех пор, пока состояние загрузки не будет отключено.",
     "examples": {
       "default": {
         "title": "Базовое использование",
