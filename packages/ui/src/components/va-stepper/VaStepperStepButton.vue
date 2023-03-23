@@ -60,7 +60,7 @@ export default defineComponent({
     }))
 
     watch(() => props.focus, () => {
-      if (props.focus.force) {
+      if (props.focus.trigger) {
         nextTick(() => stepElement.value?.focus())
       }
     }, { deep: true })
@@ -96,7 +96,7 @@ export default defineComponent({
     flex-shrink: 0;
     padding: var(--va-stepper-step-button-padding);
 
-    @include keyboard-focus-outline;
+    @include keyboard-focus-outline($radius: var(--va-stepper-step-border-radius));
 
     &::after {
       content: "";
