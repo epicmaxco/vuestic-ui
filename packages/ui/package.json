@@ -110,7 +110,7 @@
     "stylelint-config-standard": "^22.0.0",
     "ts-loader": "^8.0.14",
     "typescript": "4.7.4",
-    "vite": "^4.2.0",
+    "vite": "^4.2.1",
     "vite-plugin-chunk-split": "^0.4.7",
     "vitest": "^0.18.1",
     "vue": "^3.0.4",
