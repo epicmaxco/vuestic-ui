@@ -105,10 +105,12 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     const asyncPromiseResults = results.filter((result) => isPromise(result))
     const syncRules = results.filter((result) => !isPromise(result))
 
+    if (!asyncPromiseResults.length) { return processResults(syncRules) }
+
     isLoading.value = true
     return Promise.all(asyncPromiseResults).then((asyncResults) => {
       isLoading.value = false
-      return processResults([...asyncResults, ...syncRules])
+      return processResults([...syncRules, ...asyncResults])
     })
   }
 
@@ -122,13 +124,16 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     const results = normalizeValidationRules(rules, options.value.value)
     const asyncPromiseResults = results.filter((result) => isPromise(result))
     const syncRules = results.filter((result) => !isPromise(result))
+    const isSyncedError = syncRules.some((result: string | boolean) => isString(result) ? result : result === false)
 
-    if (asyncPromiseResults.length) {
+    // Prevent async rules from being executed if sync rules are invalid
+    if (asyncPromiseResults.length && !isSyncedError) {
       isLoading.value = true
       Promise.all(asyncPromiseResults).then((asyncResults) => {
-        processResults([...asyncResults, ...syncRules])
+        processResults([...syncRules, ...asyncResults]) // Process sync rules and async rules at the same time
         isLoading.value = false
       })
+      return isSyncedError
     }
 
     return processResults(syncRules)
