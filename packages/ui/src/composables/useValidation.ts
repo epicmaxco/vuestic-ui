@@ -5,6 +5,7 @@ import {
   ExtractPropTypes,
   nextTick,
   type WritableComputedRef,
+  ref,
 } from 'vue'
 import flatten from 'lodash/flatten.js'
 import isFunction from 'lodash/isFunction.js'
@@ -14,7 +15,7 @@ import { useSyncProp } from './useSyncProp'
 import { useFocus } from './useFocus'
 import { useFormChild } from './useForm'
 
-export type ValidationRule<V extends any = any> = ((v: V) => any | string)
+export type ValidationRule<V extends any = any> = ((v: V) => any | string) | Promise<((v: V) => any | string)>
 
 type UseValidationOptions = {
   reset: () => void
@@ -48,6 +49,10 @@ export type ValidationProps<V extends any> = typeof useValidationProps & {
 
 export const useValidationEmits = ['update:error', 'update:errorMessages']
 
+const isPromise = (value: any): value is Promise<any> => {
+  return typeof value === 'object' && typeof value.then === 'function'
+}
+
 export const useValidation = <V, P extends ExtractPropTypes<typeof useValidationProps>>(
   props: P,
   emit: (event: any, ...args: any[]) => void,
@@ -56,8 +61,9 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
   const { reset, focus } = options
   const { isFocused, onFocus, onBlur } = useFocus()
 
-  const [computedError] = useSyncProp('error', props, emit, false)
+  const [computedError] = useSyncProp('error', props, emit, false as boolean)
   const [computedErrorMessages] = useSyncProp('errorMessages', props, emit, [] as string[])
+  const isLoading = ref(false)
 
   const validationAriaAttributes = computed(() => ({
     'aria-invalid': !!computedErrorMessages.value.length,
@@ -71,30 +77,61 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     computedErrorMessages.value = []
   }
 
-  const validate = (): boolean => {
-    if (!props.rules || !props.rules.length) {
-      return true
-    }
-
+  const processResults = (results: any[]) => {
     let error = false
     let errorMessages: string[] = []
 
-    const rules = flatten(props.rules)
-
-    normalizeValidationRules(rules, props.modelValue)
-      .forEach((validationResult: boolean | string) => {
-        if (isString(validationResult)) {
-          errorMessages = [...errorMessages, validationResult]
-          error = true
-        } else if (validationResult === false) {
-          error = true
-        }
-      })
+    results.forEach((result: any) => {
+      if (isString(result)) {
+        errorMessages = [...errorMessages, result]
+        error = true
+      } else if (result === false) {
+        error = true
+      } // Ignore if result is Promise
+    })
 
     computedErrorMessages.value = errorMessages
     computedError.value = error
 
     return !error
+  }
+
+  const validateAsync = async (): Promise<boolean> => {
+    if (!props.rules || !props.rules.length) {
+      return true
+    }
+
+    const results = normalizeValidationRules(flatten(props.rules), options.value.value)
+    const asyncPromiseResults = results.filter((result) => isPromise(result))
+    const syncRules = results.filter((result) => !isPromise(result))
+
+    isLoading.value = true
+    return Promise.all(asyncPromiseResults).then((asyncResults) => {
+      isLoading.value = false
+      return processResults([...asyncResults, ...syncRules])
+    })
+  }
+
+  const validate = (): boolean => {
+    if (!props.rules || !props.rules.length) {
+      return true
+    }
+
+    const rules = flatten(props.rules)
+
+    const results = normalizeValidationRules(rules, options.value.value)
+    const asyncPromiseResults = results.filter((result) => isPromise(result))
+    const syncRules = results.filter((result) => !isPromise(result))
+
+    if (asyncPromiseResults.length) {
+      isLoading.value = true
+      Promise.all(asyncPromiseResults).then((asyncResults) => {
+        processResults([...asyncResults, ...syncRules])
+        isLoading.value = false
+      })
+    }
+
+    return processResults(syncRules)
   }
 
   watch(isFocused, (newVal) => !newVal && validate())
@@ -108,17 +145,24 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
   }
   watch(
     () => props.modelValue,
-    () => canValidate && validate(),
+    () => {
+      if (!canValidate) { return }
+
+      return validate()
+    },
     { immediate: props.immediateValidation },
   )
 
   const {
     doShowErrorMessages,
     doShowError,
+    doShowLoading,
   } = useFormChild(() => ({
     isValid: !computedError.value,
+    isLoading: isLoading.value,
     errorMessages: computedErrorMessages.value,
     validate,
+    validateAsync,
     resetValidation,
     focus,
     reset,
@@ -129,6 +173,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
   return {
     computedError: computed(() => doShowError.value ? computedError.value : false),
     computedErrorMessages: computed(() => doShowErrorMessages.value ? computedErrorMessages.value : []),
+    isLoading: computed(() => doShowLoading.value ? isLoading.value : false),
     listeners: { onFocus, onBlur },
     validate,
     resetValidation,

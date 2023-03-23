@@ -10,6 +10,7 @@
     :disabled="$props.disabled"
     :success="$props.success"
     :messages="$props.messages"
+    :loading="$props.loading || isLoading"
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
@@ -188,6 +189,7 @@ export default defineComponent({
       computedErrorMessages,
       listeners: validationListeners,
       validationAriaAttributes,
+      isLoading,
       withoutValidation,
       resetValidation,
     } = useValidation(props, emit, { reset, focus, value: valueComputed })
@@ -251,6 +253,7 @@ export default defineComponent({
       ...useTranslation(),
       input,
       inputEvents,
+      isLoading,
 
       valueLengthComputed,
       computedChildAttributes,

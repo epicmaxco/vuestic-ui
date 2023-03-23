@@ -36,5 +36,5 @@ const form = reactive({
   password: "",
 });
 
-const { isValid, errorMessagesNamed } = useForm("myForm");
+const { errorMessagesNamed } = useForm("myForm");
 </script>

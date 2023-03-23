@@ -10,6 +10,7 @@ export const useFormChild = (createContext: () => FormFiled) => {
     return {
       doShowError: ref(true),
       doShowErrorMessages: ref(true),
+      doShowLoading: ref(true),
     }
   }
 
@@ -29,5 +30,6 @@ export const useFormChild = (createContext: () => FormFiled) => {
   return {
     doShowError: formContext.doShowError,
     doShowErrorMessages: formContext.doShowErrorMessages,
+    doShowLoading: formContext.doShowLoading,
   }
 }

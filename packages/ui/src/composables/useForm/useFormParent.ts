@@ -4,6 +4,7 @@ import { Form, FormFiled } from './types'
 import { useFormChild } from './useFormChild'
 
 type FormParentOptions = {
+  hideLoading: boolean
   hideErrors: boolean
   hideErrorMessages: boolean
 }
@@ -16,6 +17,7 @@ export const createFormContext = <Names extends string>(options: FormParentOptio
     fields: computed(() => Object.values(fields.value) as any as FormFiled<Names>[]),
     doShowError: computed(() => !options.hideErrors),
     doShowErrorMessages: computed(() => !options.hideErrorMessages),
+    doShowLoading: computed(() => !options.hideLoading),
     registerField: (uid: number, field: Ref<FormFiled>) => {
       fields.value[uid] = field
     },
@@ -41,6 +43,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
     return acc
   }, {} as Record<Names, any>))
   const isValid = computed(() => fields.value.every((field) => field.isValid))
+  const isLoading = computed(() => fields.value.some((field) => field.isLoading))
   const errorMessages = computed(() => fields.value.map((field) => field.errorMessages).flat())
   const errorMessagesNamed = computed(() => fields.value.reduce((acc, field) => {
     if (field.name) {
@@ -54,6 +57,12 @@ export const useFormParent = <Names extends string = string>(options: FormParent
     return fields.value.reduce((acc, field) => {
       return field.validate() && acc
     }, true)
+  }
+
+  const validateAsync = () => {
+    return Promise.all(fields.value.map((field) => field.validateAsync())).then((results) => {
+      return results.every((result) => result)
+    })
   }
 
   const reset = () => {
@@ -78,7 +87,9 @@ export const useFormParent = <Names extends string = string>(options: FormParent
     name: '',
     value: undefined,
     isValid: isValid.value,
+    isLoading: isLoading.value,
     validate,
+    validateAsync,
     reset,
     resetValidation,
     focus,
@@ -90,6 +101,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
     fields,
     fieldNames,
     isValid,
+    isLoading,
     errorMessages,
     errorMessagesNamed,
     validate,

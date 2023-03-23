@@ -45,6 +45,7 @@ export default defineComponent({
     modelValue: { type: Boolean, default: true },
     hideErrors: { type: Boolean, default: false },
     hideErrorMessages: { type: Boolean, default: false },
+    hideLoading: { type: Boolean, default: false },
     stateful: { type: Boolean, default: false },
   },
 
