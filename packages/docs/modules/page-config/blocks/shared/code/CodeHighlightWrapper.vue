@@ -1,7 +1,7 @@
 <script>
 import { defineComponent, h, computed } from 'vue'
 
-import hljs from 'highlight.js';
+import hljs from 'highlight.js'
 
 export default defineComponent({
   props: {
@@ -46,7 +46,6 @@ export default defineComponent({
 <style lang="scss">
 .hljs-container {
   font-family: monospace;
-  //white-space: pre;
   white-space: nowrap;
   padding: 0.75rem 1.5rem;
 
