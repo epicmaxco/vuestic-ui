@@ -15,8 +15,14 @@
 
       <va-checkbox
         v-model="isDebounceInput"
-        class="d-block"
+        class="mb-3 d-block"
         label="Debounce input"
+      />
+
+      <va-checkbox
+        v-model="useFilterByColumn"
+        class="d-block"
+        label="Filter by column"
       />
     </div>
   </div>
@@ -27,7 +33,27 @@
     :filter="filter"
     :filter-method="customFilteringFn"
     @filtered="filteredCount = $event.items.length"
-  />
+  >
+    <template #header>
+      <tr>
+        <td
+          v-for="column in columns"
+          :key="column.id"
+          class="capitalize font-bold"
+        >
+          <va-checkbox
+            v-if="useFilterByColumn"
+            v-model="column.filterable"
+            :label="column.label || column.key"
+            left-label
+          />
+          <span v-else>
+            {{ column.label || column.key }}
+          </span>
+        </td>
+      </tr>
+    </template>
+  </va-data-table>
 
   <va-alert
     class="mt-3"
@@ -42,7 +68,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, reactive } from "vue";
 import debounce from "lodash/debounce.js";
 
 export default defineComponent({
@@ -165,13 +191,13 @@ export default defineComponent({
       },
     ];
 
-    const columns = [
-      { key: "id", sortable: true },
-      { key: "username", sortable: true },
-      { key: "name", sortable: true },
-      { key: "email", sortable: true },
-      { key: "address.zipcode", label: "Zipcode" },
-    ];
+    const columns = reactive([
+      { key: "id", sortable: true, filterable: true },
+      { key: "username", sortable: true, filterable: true },
+      { key: "name", sortable: true, filterable: true },
+      { key: "email", sortable: true, filterable: true },
+      { key: "address.zipcode", label: "Zipcode", filterable: true },
+    ]);
 
     const input = "";
 
@@ -182,6 +208,7 @@ export default defineComponent({
       filter: input,
       isDebounceInput: false,
       useCustomFilteringFn: false,
+      useFilterByColumn: false,
       filteredCount: users.length,
     };
   },
