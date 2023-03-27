@@ -6,7 +6,9 @@
     :style="styleComputed"
     :focused="isFocused"
     @keydown.up.prevent="increaseCount"
+    @keydown.right.prevent="increaseCount"
     @keydown.down.prevent="decreaseCount"
+    @keydown.left.prevent="decreaseCount"
   >
     <template v-if="$props.buttons" #prepend="slotScope">
       <div class="va-counter__prepend-wrapper"
@@ -25,14 +27,17 @@
     </template>
 
     <template v-else #prependInner="slotScope">
-      <div @mousedown.prevent="focus" class="va-counter__prepend-inner">
+      <div
+        class="va-counter__prepend-inner"
+        @mousedown.prevent="focus"
+      >
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button v-bind="decreaseIconProps" />
         </slot>
       </div>
     </template>
 
-    <template v-if="$props.buttons"  #append="slotScope">
+    <template v-if="$props.buttons" #append="slotScope">
       <div class="va-counter__append-wrapper"
         :style="{ marginLeft: marginComputed }"
         @mousedown.prevent="focus"
@@ -49,7 +54,10 @@
     </template>
 
     <template v-else #appendInner="slotScope">
-      <div @mousedown.prevent="focus" class="va-counter__append-inner">
+      <div
+        class="va-counter__append-inner"
+        @mousedown.prevent="focus"
+      >
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button v-bind="increaseIconProps" />
         </slot>
@@ -106,7 +114,7 @@ import {
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
 import { VaInputWrapper } from '../va-input'
-import VaButton from '../va-button/VaButton.vue'
+import { VaButton } from '../va-button'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change'],
@@ -162,7 +170,7 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  setup (props, { emit, attrs }) {
+  setup (props, { emit, attrs, slots }) {
     const input = shallowRef<HTMLInputElement | HTMLDivElement>()
     const { min, max, step } = toRefs(props)
 
@@ -199,10 +207,7 @@ export default defineComponent({
       if (max.value && (counterValue > max.value)) {
         // since the `props.step` may not be a multiple of `(props.max - props.min)`,
         // we must round the result taking into account the allowable value
-        valueComputed.value = (typeof min.value !== 'undefined' && step.value)
-          ? getRoundDownWithStep(max.value)
-          : max.value
-
+        valueComputed.value = getRoundDownWithStep(max.value)
         return
       }
 
@@ -271,9 +276,10 @@ export default defineComponent({
     ))
 
     const buttonProps = computed(() => ({
-      ...pick(props, ['rounded', 'color', 'textColor']),
-      flat: props.flat && !props.outline,
-      outline: props.flat && props.outline,
+      ...pick(props, ['color', 'textColor']),
+      round: props.rounded,
+      preset: props.flat ? 'secondary' : '',
+      borderColor: (props.outline && props.flat) ? props.color : '',
     }))
 
     const decreaseButtonProps = computed(() => ({
@@ -307,6 +313,7 @@ export default defineComponent({
     const classComputed = computed(() => ([
       attrs.class,
       { 'va-counter--input-square': isSquareCorners.value },
+      { 'va-counter--content-slot': slots.content && props.buttons },
     ]))
 
     const styleComputed: ComputedRef<Partial<CSSStyleDeclaration>> = computed(() => ({
@@ -355,16 +362,30 @@ export default defineComponent({
 @import "variables";
 
 .va-counter {
-  --va-input-wrapper-min-width: none;
+  &.va-input-wrapper {
+    min-width: unset;
+    flex: none;
+
+    .va-input-wrapper__field {
+      width: unset;
+    }
+  }
+
+  .va-input-wrapper__field > *,
+  .va-input-wrapper__container > * {
+    margin-right: 0;
+  }
 
   &.va-counter--input-square {
-    .va-input__container {
+    .va-input-wrapper__field {
       border-radius: 0;
       border-left: none;
       border-right: none;
     }
 
     .va-counter__prepend-wrapper {
+      z-index: 1;
+
       .va-counter__button-decrease {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
@@ -381,6 +402,8 @@ export default defineComponent({
     }
 
     .va-counter__append-wrapper {
+      z-index: 1;
+
       .va-counter__button-increase {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
@@ -397,14 +420,12 @@ export default defineComponent({
     }
   }
 
-  &:not(.va-counter--input-square) {
-    .va-counter__prepend-wrapper,
-    .va-counter__append-wrapper {
-      .va-counter__button-decrease,
-      .va-counter__button-increase {
-        .va-button__content {
-          padding: unset;
-        }
+  .va-counter__prepend-wrapper,
+  .va-counter__append-wrapper {
+    .va-counter__button-decrease,
+    .va-counter__button-increase {
+      .va-button__content {
+        padding: unset;
       }
     }
   }
@@ -413,6 +434,10 @@ export default defineComponent({
     width: 100%;
     display: flex;
     justify-content: center;
+
+    &:focus-visible {
+      outline: none;
+    }
   }
 
   .va-input__content__input {
