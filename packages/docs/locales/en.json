@@ -3055,6 +3055,7 @@
         "text": "With the `tag` prop you can attach the icon to another tag."
       }
     },
+    "accessibility": "The component completely ignored by screen readers because of [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]] attribute.",
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-icon/_variables.scss)[[target=_blank]]"
   },
   "radio": {

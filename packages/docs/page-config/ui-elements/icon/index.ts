@@ -24,6 +24,10 @@ export default definePageConfig({
     block.example("Text"),
     block.example("Tag"),
 
+
+    block.subtitle('all.accessibility'),
+    block.paragraph('icon.accessibility'),
+
     block.subtitle("all.api"),
     block.api("VaIcon", apiOptions),
   ],

@@ -2904,6 +2904,7 @@
         "text": "Свойство `tag` позволяет обернуть иконку в произвольный тег."
       }
     },
+    "accessibility": "Компонент полностью игнорируется программами чтения с экрана из-за атрибута [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]].",
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-icon/_variables.scss)[[target=_blank]]"
   },
   "radio": {
