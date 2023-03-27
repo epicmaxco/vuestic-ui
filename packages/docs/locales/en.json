@@ -3467,6 +3467,7 @@
         "text": "You can provide some kind of content over the parallax."
       }
     },
+    "accessibility": "Parralax effect is harmful to people with vestibular disorders and should be avoided or used with extreme caution and restraint. If you must use parralax, you should limit usage to one per page and decrease `height` and `speed` for each component.",
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-parallax/_variables.scss)[[target=_blank]]"
   },
   "backtop": {
