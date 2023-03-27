@@ -28,9 +28,15 @@ export const useFilterable = (
     }
 
     return rawRows.value.filter(row => row.cells.some(cell => {
-      return typeof props.filterMethod === 'function'
-        ? props.filterMethod(cell.source)
-        : cell.value.toLowerCase().includes(props.filter.toLowerCase())
+      if (typeof props.filterMethod === 'function') {
+        return props.filterMethod(cell.source)
+      }
+
+      if (!cell.column.filterable) {
+        return false
+      }
+
+      return cell.value.toLowerCase().includes(props.filter.toLowerCase())
     }))
   })
 

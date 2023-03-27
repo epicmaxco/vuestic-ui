@@ -67,6 +67,7 @@ export interface DataTableColumnInternal {
   name: string
   label: string
   thTitle: string
+  filterable: boolean
   sortable: boolean
   sortingFn: ((a: any, b: any) => number) | undefined
   sortingOptions: DataTableSortingOptions
