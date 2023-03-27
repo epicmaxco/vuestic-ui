@@ -4628,7 +4628,7 @@
       },
       "virtualScroll": {
         "title": "Virtual scroll",
-        "text": "The `virtual-scroller` prop enables virtual scroll for `tbody` rows ([read more](/ui-elements/virtual-scroll)). Pay your attention, that CSS transition is disabled here because of possible performance problems."
+        "text": "The `virtual-scroller` prop enables virtual scroll for `tbody` rows ([read more](/ui-elements/virtual-scroller)). Pay your attention, that CSS transition is disabled here because of possible performance problems."
       },
       "expandableRow": {
         "title": "Expandable rows",
