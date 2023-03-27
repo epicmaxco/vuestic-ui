@@ -4874,7 +4874,8 @@
         "title": "Базовое использование",
         "text": "`va-spacer` добавляет div с классом `.va-spacer`."
       }
-    }
+    },
+    "accessibility": "Компонент полностью игнорируется программами чтения с экрана из-за атрибута [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]]."
   },
   "dropdown": {
     "title": "Dropdown",
