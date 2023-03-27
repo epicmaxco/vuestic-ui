@@ -4958,7 +4958,8 @@
         "title": "Basic usage",
         "text": "`va-spacer` adding a div with the `.va-spacer` class."
       }
-    }
+    },
+    "accessibility": "The component completely ignored by screen readers because of [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]] attribute."
   },
   "scrollContainer": {
     "title": "Scroll container",
