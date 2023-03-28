@@ -109,16 +109,13 @@ export default defineComponent({
   // &_in-range { // should be like a the line above if the `range` value
   // will exclude not allows dates
   &_in-range {
-    color: var(--va-date-picker-color);
-
     &::after {
-      background-color: var(--va-date-picker-selected-background);
-      opacity: var(--va-date-picker-cell-background-opacity-hover);
+      background-color: v-bind(bg);
+      opacity: var(--va-date-picker-cell-background-opacity-in-range);
     }
   }
 
   &_today {
-    color: var(--va-date-picker-color);
     font-weight: bold;
 
     &::before {
@@ -143,8 +140,6 @@ export default defineComponent({
       .va-date-picker-cell_readonly):not(
         .va-date-picker-cell_disabled):not(
           .va-date-picker-cell_other-month) {
-      color: var(--va-date-picker-color);
-
       &::after {
         background-color: var(--va-date-picker-selected-background);
         opacity: var(--va-date-picker-cell-background-opacity-hover);
