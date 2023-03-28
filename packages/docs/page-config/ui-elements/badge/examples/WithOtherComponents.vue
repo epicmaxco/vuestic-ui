@@ -1,9 +1,10 @@
 <template>
-  <div style="display: flex; align-items: center;">
+  <div class="flex items-center">
     <va-badge
-      class="mr-6"
+      placement="top-left"
       text="New"
       overlap
+      class="mr-6"
     >
       <va-card>
         <va-card-content>
@@ -13,33 +14,30 @@
     </va-badge>
 
     <va-badge
-      color="primary"
-      text="3"
+      placement="bottom-center"
       overlap
-      class="mr-6"
+      dot
+      class="mr-8"
     >
-      <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg" />
+      <va-icon name="mail_outlined" />
     </va-badge>
 
     <va-badge
-      class="mr-6"
-      color="success"
+      placement="top-left"
       dot
       overlap
+      class="mr-8"
     >
       <va-avatar
-        square
         src="https://randomuser.me/api/portraits/women/8.jpg"
+        square
       />
     </va-badge>
 
-    <va-badge overlap>
-      <template #text>
-        <va-icon
-          name="mdi-bell"
-          size="12px"
-        /> 5+
-      </template>
+    <va-badge
+      text="5+"
+      overlap
+    >
       <va-button preset="primary">
         Profile
       </va-button>

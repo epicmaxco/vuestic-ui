@@ -8,23 +8,23 @@ export default definePageConfig({
     block.component("Playground"),
 
     block.subtitle("all.examples"),
-    block.example("Default"),
 
-    block.example("Position"),
+    block.example("Default"),
 
     block.example("Color"),
 
     block.example("Dot"),
 
-    block.example("Overlap"),
+    block.example("Position"),
 
-    block.example("Transparent"),
+    block.example("Overlap"),
 
     block.example("WithOtherComponents"),
 
     block.example("NoContent"),
 
     block.subtitle("all.api"),
+
     block.api("VaBadge", apiOptions),
   ],
 });
