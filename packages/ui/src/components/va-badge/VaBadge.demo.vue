@@ -22,26 +22,7 @@
         </td>
       </tr>
       <tr>
-        <td>
-          <VbCard title="Transparent">
-            Dot: <va-badge
-            dot
-            transparent
-          /><br>
-            Default: <va-badge
-            text="label"
-            transparent
-          /><br>
-            <br>
-            Slotted: <va-badge
-            text="label"
-            transparent
-          >
-            content
-          </va-badge><br>
-          </VbCard>
-        </td>
-        <td>
+        <td colspan="2">
           <VbCard title="Slotted label">
             <va-badge text="I am Label">
               <template #text>
@@ -60,7 +41,7 @@
             </va-badge><br><br>
           </VbCard>
         </td>
-        <td>
+        <td colspan="2">
           <VbCard title="MultiLine badges" style="width: 200px;">
             <div>
               Without multi-line prop:
@@ -141,7 +122,7 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td colspan="2">
           <VbCard title="Dotted badges">
             <va-badge
               dot
@@ -178,7 +159,7 @@
             </va-badge><br><br>
           </VbCard>
         </td>
-        <td>
+        <td colspan="2">
           <VbCard title="VisibleEmpty">
             Empty: <va-badge /><br>
             Empty dot: <va-badge dot /><br>
