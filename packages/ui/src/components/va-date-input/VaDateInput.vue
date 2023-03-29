@@ -398,6 +398,7 @@ export default defineComponent({
     const dropdownPropsComputed = computed(() => ({
       ...filteredProps.value,
       stateful: false,
+      closeOnAnchorClick: false,
       keyboardNavigation: true,
       innerAnchorSelector: '.va-input-wrapper__field',
     }))
