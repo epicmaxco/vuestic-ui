@@ -134,7 +134,7 @@ import { VaIcon } from '../va-icon'
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
 const VaDropdownProps = extractComponentProps(VaDropdown,
-  ['innerAnchorSelector', 'stateful', 'offset', 'keyboardNavigation', 'closeOnContentClick', 'modelValue'],
+  ['innerAnchorSelector', 'stateful', 'keyboardNavigation', 'modelValue'],
 )
 
 export default defineComponent({
