@@ -23,10 +23,13 @@ import { defineComponent, computed, unref } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
-  useColors, useTextColor,
-  useComponentPresetProp,
   useBem,
+  useColors,
+  useTextColor,
+  useDeprecated,
+  useComponentPresetProp,
 } from '../../composables'
+
 import { useFloatingPosition, useFloatingPositionProps } from './hooks/useFloatingPositionStyles'
 
 export default defineComponent({
@@ -41,10 +44,14 @@ export default defineComponent({
     multiLine: { type: Boolean, default: false },
     visibleEmpty: { type: Boolean, default: false },
     dot: { type: Boolean, default: false },
+    // TODO: Remove after 1.6.4
     transparent: { type: Boolean, default: false },
   },
 
   setup (props, { slots }) {
+    // TODO: Remove after 1.6.4
+    useDeprecated(['transparent'])
+
     const isEmpty = computed(() => !(props.text || props.visibleEmpty || props.dot || slots.text))
 
     const isFloating = computed(() => !!(slots.default || props.dot))
@@ -65,7 +72,6 @@ export default defineComponent({
       color: textColorComputed.value,
       borderColor: colorComputed.value,
       backgroundColor: colorComputed.value,
-      opacity: props.transparent ? 0.5 : 1,
       ...unref(positionStylesComputed),
     }))
 
