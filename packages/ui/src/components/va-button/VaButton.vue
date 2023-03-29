@@ -62,7 +62,6 @@ import {
   useLoadingProps,
   useSize, useSizeProps,
   useRouterLink, useRouterLinkProps,
-  useDeprecated,
   useComponentPresetProp,
   useSlotPassed,
 } from '../../composables'
@@ -135,7 +134,6 @@ export default defineComponent({
     // icon attributes
     const iconColorComputed = computed(() => props.iconColor ? getColor(props.iconColor) : textColorComputed.value)
     const iconAttributesComputed = computed(() => ({
-      size: props.size,
       color: iconColorComputed.value,
     }))
 
@@ -251,15 +249,6 @@ export default defineComponent({
     align-items: center;
     z-index: 1;
 
-    &__title,
-    &__icon {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: auto;
-      white-space: nowrap;
-    }
-
     &--loading {
       opacity: 0;
     }
@@ -277,14 +266,12 @@ export default defineComponent({
       padding: var(--va-button-sm-content-py) var(--va-button-sm-content-px);
     }
 
-    &.va-button--bordered {
-      line-height: calc(var(--va-button-sm-line-height) - 2 * var(--va-button-bordered-border));
-    }
-
+    // set icons the same size as text
     .va-button__left-icon,
     .va-button__right-icon {
-      // until we haven't size config for icons
       font-size: var(--va-button-sm-line-height) !important;
+      height: var(--va-button-sm-line-height) !important;
+      line-height: var(--va-button-sm-line-height) !important;
     }
 
     .va-button__left-icon {
@@ -295,30 +282,22 @@ export default defineComponent({
       margin-left: var(--va-button-sm-icons-spacing);
     }
 
+    &.va-button--bordered {
+      .va-button__content {
+        padding-top: calc(var(--va-button-sm-content-py) - var(--va-button-bordered-border));
+        padding-bottom: calc(var(--va-button-sm-content-py) - var(--va-button-bordered-border));
+      }
+    }
+
     &.va-button--left-icon {
       .va-button__content {
         padding-left: var(--va-button-sm-icon-side-padding);
-      }
-
-      .va-button__left-icon {
-        margin-right: 2px;
       }
     }
 
     &.va-button--right-icon {
       .va-button__content {
         padding-right: var(--va-button-sm-icon-side-padding);
-      }
-
-      .va-button__right-icon {
-        margin-left: 2px;
-      }
-    }
-
-    &.va-button--icon-only {
-      .va-button__content {
-        padding-right: var(--va-button-sm-content-px);
-        padding-left: var(--va-button-sm-content-px);
       }
     }
   }
@@ -336,16 +315,12 @@ export default defineComponent({
       line-height: var(--va-button-line-height);
     }
 
-    &.va-button--bordered {
-      & .va-button__content {
-        line-height: calc(var(--va-button-line-height) - 2 * var(--va-button-bordered-border));
-      }
-    }
-
+    // set icons the same size as text
     .va-button__left-icon,
     .va-button__right-icon {
-      // until we haven't size config for icons
       font-size: var(--va-button-line-height) !important;
+      height: var(--va-button-line-height) !important;
+      line-height: var(--va-button-line-height) !important;
     }
 
     .va-button__left-icon {
@@ -356,30 +331,22 @@ export default defineComponent({
       margin-left: var(--va-button-icons-spacing);
     }
 
+    &.va-button--bordered {
+      .va-button__content {
+        padding-top: calc(var(--va-button-content-py) - var(--va-button-bordered-border));
+        padding-bottom: calc(var(--va-button-content-py) - var(--va-button-bordered-border));
+      }
+    }
+
     &.va-button--left-icon {
       .va-button__content {
         padding-left: var(--va-button-icon-side-padding);
-      }
-
-      .va-button__left-icon {
-        margin-right: 4px;
       }
     }
 
     &.va-button--right-icon {
       .va-button__content {
         padding-right: var(--va-button-icon-side-padding);
-      }
-
-      .va-button__right-icon {
-        margin-left: 4px;
-      }
-    }
-
-    &.va-button--icon-only {
-      .va-button__content {
-        padding-right: var(--va-button-content-px);
-        padding-left: var(--va-button-content-px);
       }
     }
   }
@@ -396,14 +363,12 @@ export default defineComponent({
       padding: var(--va-button-lg-content-py) var(--va-button-lg-content-px);
     }
 
-    &.va-button--bordered {
-      line-height: calc(var(--va-button-lg-line-height) - 2 * var(--va-button-bordered-border));
-    }
-
+    // set icons the same size as text
     .va-button__left-icon,
     .va-button__right-icon {
-      // until we haven't size config for icons
       font-size: var(--va-button-lg-line-height) !important;
+      height: var(--va-button-lg-line-height) !important;
+      line-height: var(--va-button-lg-line-height) !important;
     }
 
     .va-button__left-icon {
@@ -414,13 +379,16 @@ export default defineComponent({
       margin-left: var(--va-button-lg-icons-spacing);
     }
 
+    &.va-button--bordered {
+      .va-button__content {
+        padding-top: calc(var(--va-button-lg-content-py) - var(--va-button-bordered-border));
+        padding-bottom: calc(var(--va-button-lg-content-py) - var(--va-button-bordered-border));
+      }
+    }
+
     &.va-button--left-icon {
       .va-button__content {
         padding-left: var(--va-button-lg-icon-side-padding);
-      }
-
-      .va-button__left-icon {
-        margin-right: 4px;
       }
     }
 
@@ -428,16 +396,16 @@ export default defineComponent({
       .va-button__content {
         padding-right: var(--va-button-lg-icon-side-padding);
       }
-
-      .va-button__right-icon {
-        margin-left: 4px;
-      }
     }
+  }
 
+  &--small,
+  &--normal,
+  &--large {
     &.va-button--icon-only {
       .va-button__content {
-        padding-right: var(--va-button-lg-content-px);
-        padding-left: var(--va-button-lg-content-px);
+        padding-right: 0;
+        padding-left: 0;
       }
     }
   }
@@ -446,7 +414,7 @@ export default defineComponent({
     min-width: auto;
     min-height: auto;
 
-    & .va-button__content {
+    .va-button__content {
       padding: 0;
       z-index: unset;
     }
