@@ -19,26 +19,24 @@
             class="va-counter__button-decrease"
             :aria-label="t('decreaseCounter')"
             v-bind="decreaseButtonProps"
-            @click="decreaseCount"
             @mousedown.prevent="startDecreasing"
             @mouseup.prevent="stopDecreasing"
+            @mouseleave.prevent="stopDecreasing"
+            ref="decreaseButtonRef"
           />
-
         </slot>
       </div>
     </template>
 
     <template v-else #prependInner="slotScope">
-      <div
-        @mousedown.prevent="focus"
-        class="va-counter__prepend-inner"
-      >
+      <div @mousedown.prevent="focus" class="va-counter__prepend-inner">
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
             v-bind="decreaseIconProps"
-            @click="decreaseCount"
             @mousedown.prevent="startDecreasing"
             @mouseup.prevent="stopDecreasing"
+            @mouseleave.prevent="stopDecreasing"
+            ref="decreaseButtonRef"
           />
         </slot>
       </div>
@@ -55,26 +53,24 @@
             class="va-counter__button-increase"
             :aria-label="t('increaseCounter')"
             v-bind="increaseButtonProps"
-            @click="increaseCount"
             @mousedown.prevent="startIncreasing"
             @mouseup.prevent="stopIncreasing"
+            @mouseleave.prevent="stopIncreasing"
+            ref="increaseButtonRef"
           />
-
         </slot>
       </div>
     </template>
 
     <template v-else #appendInner="slotScope">
-      <div
-        @mousedown.prevent="focus"
-        class="va-counter__append-inner"
-      >
+      <div @mousedown.prevent="focus" class="va-counter__append-inner">
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
             v-bind="increaseIconProps"
-            @click="increaseCount"
             @mousedown.prevent="startIncreasing"
             @mouseup.prevent="stopIncreasing"
+            @mouseleave.prevent="stopIncreasing"
+            ref="increaseButtonRef"
           />
         </slot>
       </div>
@@ -112,6 +108,7 @@ import {
   InputHTMLAttributes,
   PropType,
   ComputedRef,
+  ref
 } from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
@@ -125,6 +122,7 @@ import {
   useStateful, useStatefulProps,
   useColors,
   useTranslation,
+  useLongPress
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
@@ -185,7 +183,7 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  setup (props, { emit, attrs }) {
+  setup(props, { emit, attrs }) {
     let decreaseInterval: number | undefined
     let increaseInterval: number | undefined
 
@@ -269,22 +267,43 @@ export default defineComponent({
       calculateCounterValue(Number(valueComputed.value) + step.value)
     }
     const startDecreasing = () => {
-      decreaseCount()
-      decreaseInterval = setInterval(decreaseCount, 100) as any
-    }
+      if (isDecreaseActionDisabled.value) return;
+      decreaseCount();
+      decreaseInterval = setInterval(decreaseCount, 100) as any;
+    };
 
     const stopDecreasing = () => {
-      clearInterval(decreaseInterval)
-    }
+      clearInterval(decreaseInterval);
+    };
 
     const startIncreasing = () => {
-      increaseCount()
-      increaseInterval = setInterval(increaseCount, 100) as any
-    }
-    const stopIncreasing = () => {
-      clearInterval(increaseInterval)
-    }
+      if (isIncreaseActionDisabled.value) return;
+      increaseCount();
+      increaseInterval = setInterval(increaseCount, 100) as any;
+    };
 
+    const stopIncreasing = () => {
+      clearInterval(increaseInterval);
+    };
+    const decreaseButtonRef = ref(null);
+    useLongPress(decreaseButtonRef, {
+      onStart: () => { },
+      onEnd: () => { },
+      onUpdate: () => {
+        decreaseCount();
+      },
+    });
+
+    const increaseButtonRef = ref(null);
+    useLongPress(increaseButtonRef, {
+      onStart: () => { },
+      onEnd: () => { },
+      onUpdate: () => {
+        increaseCount();
+      },
+      delay: 500,
+      interval: 2000,
+    });
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
@@ -445,8 +464,10 @@ export default defineComponent({
   }
 
   &:not(.va-counter--input-square) {
+
     .va-counter__prepend-wrapper,
     .va-counter__append-wrapper {
+
       .va-counter__button-decrease,
       .va-counter__button-increase {
         .va-button__content {
