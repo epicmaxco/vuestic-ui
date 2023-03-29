@@ -34,11 +34,23 @@ export const useFloatingPosition = (
   if (!floating.value) { return {} }
 
   const { position, align } = usePlacementAliases(props)
-  const centerAlignment = computed(() => align.value === 'center' ? '-50%' : '0%')
+
+  const centerAlignment = computed(() => {
+    switch (align.value) {
+      case 'start':
+        return '-100%'
+      case 'center':
+        return '-50%'
+      case 'end':
+      default:
+        return '0%'
+    }
+  })
+
   const transformComputed = computed(() => {
     const options = {
       top: { transform: `translateX(${centerAlignment.value}) translateY(-100%)` },
-      bottom: { transform: 'translateX(0) translateY(100%)' },
+      bottom: { transform: `translateX(${centerAlignment.value}) translateY(100%)` },
       left: { transform: 'translateX(-100%) translateY(-50%)' },
       right: { transform: `translateX(100%) translateY(${centerAlignment.value})` },
     }
@@ -68,7 +80,11 @@ export const useFloatingPosition = (
 
   const getAlignment = computed(() => {
     const baseSide = ['left', 'right'].includes(position.value) ? 'top' : 'left'
-    const alignmentOptions = { start: { [baseSide]: 0 }, center: { [baseSide]: '50%' }, end: { [baseSide]: '100%' } }
+    const alignmentOptions = {
+      start: { [baseSide]: 0 },
+      center: { [baseSide]: '50%' },
+      end: { [baseSide]: '100%' },
+    }
     return alignmentOptions[align.value]
   })
 
