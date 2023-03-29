@@ -304,7 +304,7 @@ export default {
           {
             id: 2,
             label: 'Subcategory',
-            image: 'mail',
+            image: 'mail_outlined',
             children: [
               { id: 3, label: 'Item' },
             ],
