@@ -1,53 +1,105 @@
 <template>
-  <va-input-wrapper class="va-counter" v-bind="{ ...fieldListeners, ...inputWrapperPropsComputed }" :class="classComputed"
-    :style="styleComputed" :focused="isFocused" @keydown.up.prevent="increaseCount" @keydown.down.prevent="decreaseCount">
+  <va-input-wrapper
+    class="va-counter"
+    v-bind="{ ...fieldListeners, ...inputWrapperPropsComputed }"
+    :class="classComputed"
+    :style="styleComputed"
+    :focused="isFocused"
+    @keydown.up.prevent="increaseCount"
+    @keydown.down.prevent="decreaseCount"
+  >
     <template v-if="$props.buttons" #prepend="slotScope">
-      <div class="va-counter__prepend-wrapper" :style="{ marginRight: marginComputed }" @mousedown.prevent="focus">
+      <div
+        class="va-counter__prepend-wrapper"
+        :style="{ marginRight: marginComputed }"
+        @mousedown.prevent="focus"
+      >
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
-          <va-button class="va-counter__button-decrease" :aria-label="t('decreaseCounter')" v-bind="decreaseButtonProps"
-            @click="decreaseCount" @mousedown.prevent="startDecreasing" @mouseup.prevent="stopDecreasing" />
+          <va-button
+            class="va-counter__button-decrease"
+            :aria-label="t('decreaseCounter')"
+            v-bind="decreaseButtonProps"
+            @click="decreaseCount"
+            @mousedown.prevent="startDecreasing"
+            @mouseup.prevent="stopDecreasing"
+          />
 
         </slot>
       </div>
     </template>
 
     <template v-else #prependInner="slotScope">
-      <div @mousedown.prevent="focus" class="va-counter__prepend-inner">
+      <div
+        @mousedown.prevent="focus"
+        class="va-counter__prepend-inner"
+      >
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
-          <va-button v-bind="decreaseIconProps" @click="decreaseCount" @mousedown.prevent="startDecreasing"
-            @mouseup.prevent="stopDecreasing" />
+          <va-button
+            v-bind="decreaseIconProps"
+            @click="decreaseCount"
+            @mousedown.prevent="startDecreasing"
+            @mouseup.prevent="stopDecreasing"
+          />
         </slot>
       </div>
     </template>
 
     <template v-if="$props.buttons" #append="slotScope">
-      <div class="va-counter__append-wrapper" :style="{ marginLeft: marginComputed }" @mousedown.prevent="focus">
+      <div
+        class="va-counter__append-wrapper"
+        :style="{ marginLeft: marginComputed }"
+        @mousedown.prevent="focus"
+      >
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
-          <va-button class="va-counter__button-increase" :aria-label="t('increaseCounter')" v-bind="increaseButtonProps"
-            @click="increaseCount" @mousedown.prevent="startIncreasing" @mouseup.prevent="stopIncreasing" />
+          <va-button
+            class="va-counter__button-increase"
+            :aria-label="t('increaseCounter')"
+            v-bind="increaseButtonProps"
+            @click="increaseCount"
+            @mousedown.prevent="startIncreasing"
+            @mouseup.prevent="stopIncreasing"
+          />
 
         </slot>
       </div>
     </template>
 
     <template v-else #appendInner="slotScope">
-      <div @mousedown.prevent="focus" class="va-counter__append-inner">
+      <div
+        @mousedown.prevent="focus"
+        class="va-counter__append-inner"
+      >
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
-          <va-button v-bind="increaseIconProps" @click="increaseCount" @mousedown.prevent="startIncreasing"
-            @mouseup.prevent="stopIncreasing" />
+          <va-button
+            v-bind="increaseIconProps"
+            @click="increaseCount"
+            @mousedown.prevent="startIncreasing"
+            @mouseup.prevent="stopIncreasing"
+          />
         </slot>
       </div>
     </template>
 
     <template v-if="$slots.content" #default="slotScope">
       <div ref="input" tabindex="0" class="va-counter__content-wrapper">
-        <slot name="content" v-bind="{ ...slotScope, value: Number(valueComputed) }" />
+        <slot
+          name="content"
+          v-bind="{ ...slotScope, value: Number(valueComputed) }"
+        />
       </div>
     </template>
 
-    <input v-if="!$slots.content" ref="input" class="va-input__content__input" type="number" inputmode="decimal"
-      v-bind="{ ...inputAttributesComputed, ...inputListeners }" :value="valueComputed" @input="setCountInput"
-      @change="setCountChange">
+    <input
+      v-if="!$slots.content"
+      ref="input"
+      class="va-input__content__input"
+      type="number"
+      inputmode="decimal"
+      v-bind="{ ...inputAttributesComputed, ...inputListeners }"
+      :value="valueComputed"
+      @input="setCountInput"
+      @change="setCountChange"
+    />
   </va-input-wrapper>
 </template>
 
