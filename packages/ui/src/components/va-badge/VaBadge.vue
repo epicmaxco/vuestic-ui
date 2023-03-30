@@ -1,7 +1,8 @@
 <template>
   <div
     class="va-badge"
-    role="alert"
+    role="status"
+    :aria-labelledby="ariaLabelledByComputed"
     :class="badgeClass"
   >
     <span
@@ -75,7 +76,13 @@ export default defineComponent({
       ...unref(positionStylesComputed),
     }))
 
-    return { badgeClass, stylesComputed }
+    const ariaLabelledByComputed = computed(() => props.text ? props.text : undefined)
+
+    return {
+      badgeClass,
+      stylesComputed,
+      ariaLabelledByComputed,
+    }
   },
 })
 </script>
