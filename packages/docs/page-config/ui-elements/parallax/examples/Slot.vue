@@ -6,30 +6,30 @@
     >
       <va-icon
         class="mr-8"
-        name="mdi-calendar-blank-outline"
+        name="shuffle"
         size="36px"
         color="#fff"
       />
       <va-icon
         class="mr-8"
-        name="mdi-close"
+        name="skip_previous"
         size="36px"
         color="#fff"
       />
       <va-icon
         class="mr-8"
-        name="mdi-heart-outline"
-        size="36px"
+        name="play_circle"
+        size="48px"
         color="#fff"
       />
       <va-icon
         class="mr-8"
-        name="mdi-folder-outline"
+        name="skip_next"
         size="36px"
         color="#fff"
       />
       <va-icon
-        name="mdi-alarm"
+        name="repeat"
         size="36px"
         color="#fff"
       />

@@ -1,5 +1,10 @@
 <template>
-  <div class="va-inner-loading" :class="computedClass" v-bind="ariaAttributesComputed">
+  <div
+    class="va-inner-loading"
+    aria-live="polite"
+    :class="computedClass"
+    v-bind="ariaAttributesComputed"
+  >
     <slot />
     <div
       v-if="$props.loading"
@@ -44,7 +49,6 @@ export default defineComponent({
         'va-inner-loading--active': props.loading,
       })),
       ariaAttributesComputed: computed(() => ({
-        'aria-live': 'polite',
         'aria-busy': props.loading,
       })),
     }

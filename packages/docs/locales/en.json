@@ -3055,6 +3055,7 @@
         "text": "With the `tag` prop you can attach the icon to another tag."
       }
     },
+    "accessibility": "The component completely ignored by screen readers because of [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]] attribute.",
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-icon/_variables.scss)[[target=_blank]]"
   },
   "radio": {
@@ -3466,6 +3467,7 @@
         "text": "You can provide some kind of content over the parallax."
       }
     },
+    "accessibility": "Parralax effect is harmful to people with vestibular disorders and should be avoided or used with extreme caution and restraint. If you must use parralax, you should limit usage to one per page and decrease `height` and `speed` for each component.",
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-parallax/_variables.scss)[[target=_blank]]"
   },
   "backtop": {
@@ -4626,7 +4628,7 @@
       },
       "virtualScroll": {
         "title": "Virtual scroll",
-        "text": "The `virtual-scroller` prop enables virtual scroll for `tbody` rows ([read more](/ui-elements/virtual-scroll)). Pay your attention, that CSS transition is disabled here because of possible performance problems."
+        "text": "The `virtual-scroller` prop enables virtual scroll for `tbody` rows ([read more](/ui-elements/virtual-scroller)). Pay your attention, that CSS transition is disabled here because of possible performance problems."
       },
       "expandableRow": {
         "title": "Expandable rows",
@@ -4956,7 +4958,8 @@
         "title": "Basic usage",
         "text": "`va-spacer` adding a div with the `.va-spacer` class."
       }
-    }
+    },
+    "accessibility": "The component completely ignored by screen readers because of [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]] attribute."
   },
   "scrollContainer": {
     "title": "Scroll container",

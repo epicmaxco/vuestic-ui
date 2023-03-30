@@ -18,6 +18,7 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useColors } from '../../composables/useColors'
 
 const prefixClass = 'va-divider'
 
@@ -33,16 +34,24 @@ export default defineComponent({
       default: 'center',
       validator: (value: string) => ['left', 'right', 'center'].includes(value),
     },
+    color: { type: String, default: 'backgroundBorder' },
   },
-  setup: (props, { slots }) => ({
-    hasSlot: computed(() => !!slots.default),
-    classComputed: computed(() => ({
-      [`${prefixClass}--vertical`]: props.vertical,
-      [`${prefixClass}--inset`]: props.inset,
-      [`${prefixClass}--${props.orientation}`]: props.orientation && !props.vertical,
-      [`${prefixClass}--dashed`]: props.dashed,
-    })),
-  }),
+  setup (props, { slots }) {
+    const { getColor } = useColors()
+
+    const colorComputed = computed(() => getColor(props.color))
+
+    return {
+      colorComputed,
+      hasSlot: computed(() => !!slots.default),
+      classComputed: computed(() => ({
+        [`${prefixClass}--vertical`]: props.vertical,
+        [`${prefixClass}--inset`]: props.inset,
+        [`${prefixClass}--${props.orientation}`]: props.orientation && !props.vertical,
+        [`${prefixClass}--dashed`]: props.dashed,
+      })),
+    }
+  },
 })
 </script>
 
@@ -56,10 +65,10 @@ export default defineComponent({
 
   &--vertical {
     margin: 0 var(--va-divider-margin);
-    border-top: var(--va-divider-vertical-border-top);
-    border-right-width: var(--va-divider-vertical-border-right-width);
-    border-right-style: var(--va-divider-vertical-border-right-style);
-    border-right-color: var(--va-divider-vertical-border-right-color);
+    border-top: 0;
+    border-right-width: var(--va-divider-line-width);
+    border-right-style: var(--va-divider-border-style);
+    border-right-color: v-bind(colorComputed);
     display: var(--va-divider-vertical-display);
     vertical-align: top;
 
@@ -81,8 +90,8 @@ export default defineComponent({
     content: "";
     flex: 1;
     border-top-width: var(--va-divider-line-width);
-    border-top-style: var(--va-divider-border-top-style);
-    border-top-color: var(--va-divider-border-top-color);
+    border-top-style: var(--va-divider-border-style);
+    border-top-color: v-bind(colorComputed);
   }
 
   &--dashed {
