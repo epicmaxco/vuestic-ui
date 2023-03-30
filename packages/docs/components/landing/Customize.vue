@@ -146,9 +146,10 @@
                 @click="copyText"
               >
                 <div class="code-subwrapper">
-                  <prism
-                    class="code"
+                  <code-highlight-wrapper
+                    lang="html"
                     :code="code"
+                    class="code"
                   />
                   <input
                     ref="codeInput"
@@ -184,15 +185,12 @@
 
 <script lang="ts" setup>
 import { ref, computed, shallowRef } from 'vue'
-import 'prismjs'
-import dedent from 'dedent'
 
 import { shiftHSLAColor } from 'vuestic-ui/src/services/color'
 import { useColors } from 'vuestic-ui/src/composables'
 import { useI18n } from 'vue-i18n'
 
-// TODO: Replace with some global component
-import Prism from '@/modules/page-config/blocks/shared/code/PrismWrapper.vue'
+import CodeHighlightWrapper from '~/modules/page-config/blocks/shared/code/CodeHighlightWrapper.vue';
 
 const { t, locale } = useI18n()
 
@@ -270,198 +268,198 @@ const btnClick = () => {
 const code = computed(() => {
   switch (tabValue.value) {
     case 0:
-      return dedent`
-      <template>
-            <div class="components">
-              <div class="component">
-                <va-button @click="btnClick">Submit</va-button>
-              </div>
+      return `
+<template>
+  <div class="components">
+    <div class="component">
+      <va-button @click="btnClick">Submit</va-button>
+    </div>
 
-              <div class="component">
-                <va-select
-                  v-model="selectValue"
-                  :options="options"
-                  label="Country"
-                />
-              </div>
+    <div class="component">
+      <va-select
+        v-model="selectValue"
+        :options="options"
+        label="Country"
+      />
+    </div>
 
-              <div class="component">
-                <va-slider v-model="sliderValue" />
-              </div>
+    <div class="component">
+      <va-slider v-model="sliderValue" />
+    </div>
 
-              <div class="component">
-                <va-checkbox
-                  v-model="checkboxValue"
-                  label="Checkbox"
-                />
-              </div>
-            </div>
-          </template>\n
+    <div class="component">
+      <va-checkbox
+        v-model="checkboxValue"
+        label="Checkbox"
+      />
+    </div>
+  </div>
+</template>
 
-          ${'<' + 'script>'}
-          export default {
-            data() {
-              return {
-                clicksCount: ${clicksCount.value},
-                checkboxValue: ${checkboxValue.value},
-                sliderValue: ${sliderValue.value},
-                selectValue: ${selectValue.value},
-                options = [
-                  'Spain',
-                  'Germany',
-                  'France',
-                  'Italy',
-                  'China',
-                  'Japan',
-                  'Poland',
-                  'Belarus',
-                  'USA'
-                ]
-              }
-            },
+${'<' + 'script>'}
+  export default {
+    data() {
+      return {
+        clicksCount: ${clicksCount.value},
+        checkboxValue: ${checkboxValue.value},
+        sliderValue: ${sliderValue.value},
+        selectValue: ${selectValue.value},
+        options = [
+          'Spain',
+          'Germany',
+          'France',
+          'Italy',
+          'China',
+          'Japan',
+          'Poland',
+          'Belarus',
+          'USA'
+        ]
+      }
+    },
 
-            methods: {
-              btnClick() {
-                this.clicksCount++
-              }
-            }
-          }
-          ${'</' + 'script>'}
-        `
+    methods: {
+      btnClick() {
+        this.clicksCount++
+      }
+    }
+  }
+${'</' + 'script>'}
+`
     case 1:
-      return dedent`
-      <template>
-            <table class="va-table va-table--striped va-table--hoverable">
-              <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Country</th>
-                <th>Status</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr v-for="user in users" :key="user.id">
-                <td>{{ user.fullName }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.country }}</td>
-                <td>
-                  <va-badge
-                    :text="user.status"
-                    :color="user.status"
-                  />
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </template>
+      return `
+<template>
+  <table class="va-table va-table--striped va-table--hoverable">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Country</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="user in users" :key="user.id">
+      <td>{{ user.fullName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.country }}</td>
+      <td>
+        <va-badge
+          :text="user.status"
+          :color="user.status"
+        />
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</template>
 
-          ${'<' + 'script>'}
-          export default {
-            data() {
-              return {
-                users: [{
-                  id: 1,
-                  fullName: 'Ashley Mcdaniel',
-                  email: 'ashleymcdaniel@nebulean.com',
-                  country: 'Cayman Islands',
-                  status: 'warning',
-                },
-                {
-                  id: 2,
-                  fullName: 'Todd Sellers',
-                  email: 'sellerstodd@nebulean.com',
-                  country: 'Togo',
-                  status: 'info',
-                },
-                {
-                  id: 3,
-                  fullName: 'Sherman Knowles',
-                  email: 'shermanknowles@nebulean.com',
-                  country: 'Central African Republic',
-                  status: 'warning',
-                },
-                {
-                  id: 4,
-                  fullName: 'Vasquez Lawson',
-                  email: 'vasquezlawson@nebulean.com',
-                  country: 'Bouvet Island',
-                  status: 'info',
-                }]
-              }
-            }
-          }
-          ${'</' + 'script>'}
-      `
+${'<' + 'script>'}
+  export default {
+    data() {
+      return {
+        users: [{
+          id: 1,
+          fullName: 'Ashley Mcdaniel',
+          email: 'ashleymcdaniel@nebulean.com',
+          country: 'Cayman Islands',
+          status: 'warning',
+        },
+        {
+          id: 2,
+          fullName: 'Todd Sellers',
+          email: 'sellerstodd@nebulean.com',
+          country: 'Togo',
+          status: 'info',
+        },
+        {
+          id: 3,
+          fullName: 'Sherman Knowles',
+          email: 'shermanknowles@nebulean.com',
+          country: 'Central African Republic',
+          status: 'warning',
+        },
+        {
+          id: 4,
+          fullName: 'Vasquez Lawson',
+          email: 'vasquezlawson@nebulean.com',
+          country: 'Bouvet Island',
+          status: 'info',
+        }]
+      }
+    }
+  }
+${'</' + 'script>'}
+`
     case 2:
-      return dedent`
-      <template>
-            <div class="components">
-              <div class="component">
-                <va-button-toggle
-                  v-model="theme"
-                  :options="themeToggleOptions"
-                  @input="updateTheme"
-                />
-              </div>
+      return `
+<template>
+  <div class="components">
+    <div class="component">
+      <va-button-toggle
+        v-model="theme"
+        :options="themeToggleOptions"
+        @input="updateTheme"
+      />
+    </div>
 
-              <div class="component">
-                <va-switch
-                  v-model="switchValue"
-                  color="primary"
-                />
-              </div>
+    <div class="component">
+      <va-switch
+        v-model="switchValue"
+        color="primary"
+      />
+    </div>
 
-              <div class="component">
-                <va-alert color="primary">
-                  Important alert message
-                </va-alert>
-              </div>
+    <div class="component">
+      <va-alert color="primary">
+        Important alert message
+      </va-alert>
+    </div>
 
-              <div class="component">
-                <va-button>
-                  Submit
-                </va-button>
-              </div>
-            </div>
-          </template>
+    <div class="component">
+      <va-button>
+        Submit
+      </va-button>
+    </div>
+  </div>
+</template>
 
-          ${'<' + 'script>'}
-          import { useColors } from 'vuestic-ui'
+${'<' + 'script>'}
+  import { useColors } from 'vuestic-ui'
 
-          export default {
-            setup () {
-              const { getTheme, setTheme } = useColors()
+  export default {
+    setup () {
+      const { getTheme, setTheme } = useColors()
 
-              return {
-                getTheme,
-                setTheme
-              }
-            },
+      return {
+        getTheme,
+        setTheme
+      }
+    },
 
-            data() {
-              return {
-                theme: ${theme.value},
-                themeToggleOptions: [{
-                  label: 'Light',
-                  value: 'light',
-                }, {
-                  label: 'Dark',
-                  value: 'dark',
-                }]
-              }
-            },
+    data() {
+      return {
+        theme: ${theme.value},
+        themeToggleOptions: [{
+          label: 'Light',
+          value: 'light',
+        }, {
+          label: 'Dark',
+          value: 'dark',
+        }]
+      }
+    },
 
-            methods: {
-              updateTheme (value) {
-                this.setTheme({
-                  primary: value === 'light' ? '#2c82e0' : '#042f83'
-                })
-              }
-            }
-          }
-          ${'</' + 'script>'}
-      `
+    methods: {
+      updateTheme (value) {
+        this.setTheme({
+          primary: value === 'light' ? '#2c82e0' : '#042f83'
+        })
+      }
+    }
+  }
+${'</' + 'script>'}
+`
     default:
       return ''
   }
@@ -677,6 +675,7 @@ const copyText = () => {
 .code {
   @include code-font();
 
+  font-family: monospace;
   font-size: 1rem;
   color: #ffffff;
   line-height: 1.4;
