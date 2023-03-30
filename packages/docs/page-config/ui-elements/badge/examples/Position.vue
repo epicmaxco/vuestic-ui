@@ -47,7 +47,7 @@
       text="5"
       placement="bottom-center"
     >
-      <va-icon name="mail_outlined" />
+      <va-icon name="&#xe0e1;" />
     </va-badge>
   </div>
 </template>

@@ -19,7 +19,7 @@
       dot
       class="mr-8"
     >
-      <va-icon name="mail_outlined" />
+      <va-icon name="&#xe0e1;" />
     </va-badge>
 
     <va-badge
