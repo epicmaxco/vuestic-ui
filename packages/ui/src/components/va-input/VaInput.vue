@@ -124,7 +124,7 @@ export default defineComponent({
 
     // input
     placeholder: { type: String, default: '' },
-    tabindex: { type: Number, default: 0 },
+    tabindex: { type: [String, Number], default: 0 },
     modelValue: { type: [String, Number], default: '' },
     label: { type: String, default: '' },
     type: { type: String as AnyStringPropType<'textarea' | 'text' | 'password'>, default: 'text' },

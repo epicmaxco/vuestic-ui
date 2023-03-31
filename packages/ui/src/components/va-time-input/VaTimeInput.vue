@@ -105,9 +105,8 @@ import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-import type { DropdownOffsetProp } from '../va-dropdown/types'
 
-const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue', 'disabled'])
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDropdownProps = extractComponentProps(VaDropdown,
   ['keyboardNavigation', 'offset', 'placement', 'closeOnContentClick', 'innerAnchorSelector', 'modelValue'],
 )
@@ -134,6 +133,9 @@ export default defineComponent({
     ...useValidationProps as ValidationProps<Date>,
 
     isOpen: { type: Boolean, default: undefined },
+    closeOnContentClick: { type: Boolean, default: false },
+    offset: { ...VaDropdownProps.offset, default: () => [2, 0] },
+    placement: { ...VaDropdownProps.placement, default: 'bottom-start' },
     modelValue: { type: Date, default: undefined },
     clearValue: { type: Date, default: undefined },
     format: { type: Function as PropType<(date?: Date) => string> },
@@ -237,8 +239,9 @@ export default defineComponent({
       canBeCleared.value && valueText.value !== format(props.clearValue)
     ))
 
+    const filteredWrapperProps = filterComponentProps(VaInputWrapperProps)
     const computedInputWrapperProps = computed(() => ({
-      ...filterComponentProps(VaInputWrapperProps).value,
+      ...filteredWrapperProps.value,
       focused: isFocused.value,
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
@@ -326,12 +329,10 @@ export default defineComponent({
       ...omit(attrs, ['class', 'style']),
     }))
 
+    const filteredProps = filterComponentProps(VaDropdownProps)
     const dropdownPropsComputed = computed(() => ({
-      ...filterComponentProps(VaDropdownProps).value,
-      closeOnContentClick: false,
-      offset: [2, 0] as DropdownOffsetProp,
+      ...filteredProps.value,
       keyboardNavigation: true,
-      placement: 'bottom-start' as Placement,
       innerAnchorSelector: '.va-input-wrapper__field',
     }))
 

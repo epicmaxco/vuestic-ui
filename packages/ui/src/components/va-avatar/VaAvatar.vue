@@ -1,6 +1,7 @@
 <template>
   <div
     class="va-avatar"
+    :class="classesComputed"
     :style="computedStyle"
     :aria-hidden="!$props.src"
     aria-live="polite"
@@ -31,8 +32,10 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch, computed } from 'vue'
+import pick from 'lodash/pick'
 
 import {
+  useBem,
   useSize,
   useColors,
   useTextColor,
@@ -82,8 +85,11 @@ export default defineComponent({
     const { textColorComputed } = useTextColor()
 
     const computedStyle = computed(() => ({
-      borderRadius: props.square ? 0 : '',
       fontSize: props.fontSize || fontSizeComputed.value,
+    }))
+
+    const classesComputed = useBem('va-avatar', () => ({
+      ...pick(props, ['square']),
     }))
 
     const hasLoadError = ref(false)
@@ -108,6 +114,7 @@ export default defineComponent({
       avatarOptions,
       computedStyle,
       colorComputed,
+      classesComputed,
       textColorComputed,
       backgroundColorComputed,
       VaFallbackProps: filterComponentProps(VaFallbackProps),
@@ -136,6 +143,10 @@ export default defineComponent({
   width: v-bind(sizeComputed);
   min-width: v-bind(sizeComputed);  // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
   height: v-bind(sizeComputed);
+
+  &--square {
+    --va-avatar-border-radius: 0;
+  }
 
   img,
   svg {

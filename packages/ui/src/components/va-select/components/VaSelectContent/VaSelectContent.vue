@@ -31,6 +31,7 @@
       v-model="autocompleteInputValueComputed"
       :placeholder="$props.placeholder"
       :disabled="$props.disabled"
+      :readonly="$props.readonly"
       autocomplete="off"
       @keydown.up.stop.prevent="$emit('focus-prev')"
       @keydown.down.stop.prevent="$emit('focus-next')"
@@ -98,6 +99,8 @@
 <script lang="ts">
 import { defineComponent, ref, toRefs, computed, watch, type PropType } from 'vue'
 
+import { useFormProps } from '../../../../composables'
+
 import { VaBadge, VaIcon } from '../../../index'
 
 import type { SelectOption } from '../../../index'
@@ -108,16 +111,17 @@ export default defineComponent({
   components: { VaBadge, VaIcon },
 
   props: {
+    ...useFormProps,
+
     value: { type: Array as PropType<SelectOption[]>, required: true },
     valueString: { type: String },
     placeholder: { type: String, default: '' },
-    tabindex: { type: Number, default: 0 },
+    tabindex: { type: [String, Number], default: 0 },
     hiddenSelectedOptionsAmount: { type: Number, default: 0 },
     isAllOptionsShown: { type: Boolean, default: false },
     autocomplete: { type: Boolean, default: false },
     focused: { type: Boolean, default: false },
     multiple: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
     getText: { type: Function as PropType<(option: SelectOption) => string>, required: true },
     autocompleteInputValue: { type: String, default: '' },
   },

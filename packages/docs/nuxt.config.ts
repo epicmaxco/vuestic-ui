@@ -92,6 +92,7 @@ export default defineNuxtConfig({
     // "./modules/i18n",
     // TODO: remove after i18n is released https://github.com/nuxt-modules/i18n/pull/1712
     '@nuxtjs/i18n-edge',
+    './modules/markdown',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
   ],
@@ -136,6 +137,13 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
 
     strategy: 'prefix_and_default',
+
+    detectBrowserLanguage: {
+      redirectOn: 'all',
+      alwaysRedirect: true,
+      useCookie: true,
+      cookieKey: 'i18n_locale',
+    },
 
     lazy: true,
 

@@ -3,7 +3,7 @@ export default definePageConfig({
     block.title("tailwind.title"),
     block.paragraph("tailwind.summaryText"),
 
-    block.alert("tailwind.deprecated", "warning"),
+    block.alert("tailwind.deprecated", "warning", true),
 
     block.headline("tailwind.preparation.title"),
     block.paragraph("tailwind.preparation.text"),

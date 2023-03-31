@@ -51,6 +51,28 @@
           </td>
         </tr>
         <tr>
+          <td>Custom properties</td>
+          <td>
+            <va-button-toggle
+              v-model="model"
+              text-by="id"
+              :options="options"
+            />
+            <va-button-toggle
+              size="small"
+              value-by="id"
+              v-model="model"
+              :options="options"
+            />
+            <va-button-toggle
+              size="large"
+              track-by="id"
+              v-model="model"
+              :options="options"
+            />
+          </td>
+        </tr>
+        <tr>
           <td>Default State Colors</td>
           <td>
             <va-button-toggle
@@ -213,9 +235,9 @@ export default {
   },
   data: () => ({
     options: [
-      { label: 'One', value: 'one' },
-      { label: 'Two', value: 'two' },
-      { label: 'Three', value: 'three' },
+      { id: 1, label: 'One', value: 'one' },
+      { id: 2, label: 'Two', value: 'two' },
+      { id: 3, label: 'Three', value: 'three' },
     ],
     optionsWithIcons: [
       { label: 'One', value: 'one', icon: 'home' },

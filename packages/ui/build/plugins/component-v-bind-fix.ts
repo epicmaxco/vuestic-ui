@@ -1,5 +1,6 @@
 import { Plugin } from 'vite'
 import kebabCase from 'lodash/kebabCase'
+import { parse } from 'vue/compiler-sfc'
 
 /**
  * Parse css and extract all variable names used in `v-bind`
@@ -16,9 +17,7 @@ import kebabCase from 'lodash/kebabCase'
  * Returns`['colorComputed', 'getBg()']`
  */
 const parseCssVBindCode = (style: string) => {
-  return style
-    .match(/v-bind\((.*)\)/g)
-    ?.map((line) => line.match(/v-bind\(([^)]*)\)/)![1]) ?? []
+  return parse(style).descriptor.cssVars
 }
 
 /**
@@ -89,7 +88,7 @@ const addStyleToRootNode = (rootNode: string, vBinds: string[]) => {
 const replaceVueVBindWithCssVariables = (code: string, vBinds: string[]) => {
   vBinds.forEach((vBind, index) => {
     try {
-      code = code.replace(new RegExp(`v-bind\\(${vBind}\\)`, 'gm'), `var(--va-${index}-${kebabCase(vBind)})`)
+      code = code.replace(new RegExp(`v-bind\\(['|"]?${vBind}['|"]?\\)`, 'gm'), `var(--va-${index}-${kebabCase(vBind)})`)
     } catch (e) {
       console.log(vBind)
       throw e
@@ -114,6 +113,7 @@ export const transformVueComponent = (code: string) => {
   return code.replace(rootNode, addStyleToRootNode(rootNode, vBinds))
 }
 
+/** We need this plugin to support CSS vbind in SSR. Vue useCssVars is disabled for cjs build */
 export const componentVBindFix = (): Plugin => {
   return {
     name: 'vuestic:component-v-bind-fix',

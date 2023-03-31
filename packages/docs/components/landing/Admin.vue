@@ -203,6 +203,9 @@ import LandingStarsButton from './StarsButton.vue'
         @include size-md(12);
         @include shift-md-right(0);
 
+        user-select: none;
+        pointer-events: none;
+
         img {
           object-fit: contain;
           max-width: 100%;
@@ -255,6 +258,8 @@ import LandingStarsButton from './StarsButton.vue'
       padding: 0.75rem;
       border: 1px dashed $color;
       border-radius: 1rem;
+      user-select: none;
+      pointer-events: none;
     }
 
     &__title {
