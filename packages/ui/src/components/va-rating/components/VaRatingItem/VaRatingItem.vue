@@ -44,7 +44,7 @@ export default defineComponent({
     emptyIcon: { type: String, default: 'star_outline' },
     halves: { type: Boolean, default: false },
     hover: { type: Boolean, default: false },
-    tabindex: { type: Number, default: 0 },
+    tabindex: { type: [String, Number], default: 0 },
     disabled: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
     size: { type: [String, Number], default: 'medium' },
