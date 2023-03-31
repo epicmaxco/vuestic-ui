@@ -1783,7 +1783,7 @@
       },
       "code": {
         "title": "Code",
-        "text": "For the code previews we use [prism](https://prismjs.com/)[[target=_blank]]."
+        "text": "For the code previews we use [highlight.js](https://highlightjs.org/)[[target=_blank]]."
       },
       "example": {
         "title": "Example",

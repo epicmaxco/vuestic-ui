@@ -1644,7 +1644,7 @@
       },
       "code": {
         "title": "Код",
-        "text": "Предварительный просмотр кода. Мы используем [prism](https://prismjs.com/)[[target=_blank]]."
+        "text": "Предварительный просмотр кода. Мы используем [highlight.js](https://highlightjs.org/)[[target=_blank]]."
       },
       "example": {
         "title": "Пример",
