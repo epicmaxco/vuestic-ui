@@ -1,37 +1,34 @@
 <template>
-  <div>
-    <va-tabs
-      v-if="!isString"
-      v-model="index"
-      class="DocsCode__tabs"
-    >
-      <template #tabs>
-        <va-tab
-          v-for="tab in tabs"
-          :key="tab"
-        >
-          {{ tab }}
-        </va-tab>
-      </template>
-    </va-tabs>
-    <client-only>
-      <prism-wrapper
-        :code="escapeVuesticImport(contents[index])"
-        :lang="$props.language"
-        class="DocsCode"
-      />
-    </client-only>
-  </div>
+  <va-tabs
+    v-if="!isString"
+    v-model="index"
+    class="DocsCode__tabs"
+  >
+    <template #tabs>
+      <va-tab
+        v-for="tab in tabs"
+        :key="tab"
+      >
+        {{ tab }}
+      </va-tab>
+    </template>
+  </va-tabs>
+  <code-highlight-wrapper
+    :code="escapeVuesticImport(contents[index])"
+    :lang="$props.language"
+    class="DocsCode"
+  />
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, computed, ref, watch, nextTick } from "vue";
-import PrismWrapper from "./PrismWrapper.vue";
 import { useCode } from "./useCode";
+
+import CodeHighlightWrapper from "./CodeHighlightWrapper.vue";
 
 export default defineComponent({
   name: "DocsCode",
-  components: { PrismWrapper },
+  components: { CodeHighlightWrapper },
   props: {
     language: { type: String as PropType<string>, default: "javascript" },
     code: {
@@ -78,25 +75,19 @@ export default defineComponent({
     const { getTextColor, colors, currentPresetName } = useColors();
 
     const codeRed = computed(() =>
-      getTextColor(colors.backgroundSecondary, "#990055", "#FF006E")
+      getTextColor(colors.backgroundSecondary, "#c02d2e", "#FF006E")
     );
     const codeGreen = computed(() =>
-      getTextColor(colors.backgroundSecondary, "#3A5700", "#7EBD00")
-    );
-    const codeYellow = computed(() =>
-      getTextColor(colors.backgroundSecondary, "#896334", "#C79E6B")
+      getTextColor(colors.backgroundSecondary, "#54790d", "#7EBD00")
     );
     const codeCyan = computed(() =>
-      getTextColor(colors.backgroundSecondary, "#005980", "#00AFFA")
+      getTextColor(colors.backgroundSecondary, "#015692", "#00AFFA")
     );
     const codeOrange = computed(() =>
-      getTextColor(colors.backgroundSecondary, "#9B3303", "#FC834A")
+      getTextColor(colors.backgroundSecondary, "#b75501", "#FC834A")
     );
     const codeGray = computed(() =>
-      getTextColor(colors.backgroundSecondary, "#596273", "#A0A6B6")
-    );
-    const codeGrayMuted = computed(() =>
-      getTextColor(colors.backgroundSecondary, "#6B6B6B", "#A6A6A6")
+      getTextColor(colors.backgroundSecondary, "#656e77", "#A0A6B6")
     );
 
     const tabsColor = computed(() => currentPresetName.value === 'dark' ? colors.backgroundSecondary : colors.backgroundBorder)
@@ -104,11 +95,9 @@ export default defineComponent({
     return {
       codeRed,
       codeGreen,
-      codeYellow,
       codeCyan,
       codeOrange,
       codeGray,
-      codeGrayMuted,
       tabsColor,
       isString,
       tabs,
@@ -121,7 +110,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-$prism-background: var(--va-background-element);
 $radius: 0.25rem;
 
 .DocsCode__tabs {
@@ -135,19 +123,6 @@ $radius: 0.25rem;
   }
 }
 
-/* PrismJS 1.20.0
-  https://prismjs.com/download.html#themes=prism&languages=css */
-
-/**
- * prism.js default theme for JavaScript, CSS and HTML
- * Based on dabblet (http://dabblet.com)
- * @author Lea Verou
- */
-// @TODO After removing vue-prism-component need to update markup
-// This pre is a bit weird here and exists because of how vue-prism-component applies class
-// The structure is temporarily saved.
-// Notably it has structure like this: pre.DocsCode > code.DocsCode.
-// Here class is being applied twice, while it should have been applied only on external container
 .DocsCode {
   margin-bottom: 0.2rem !important;
   background: var(--va-background-element);
@@ -177,19 +152,9 @@ $radius: 0.25rem;
     border-radius: 0.25rem;
   }
 
-  .token {
-    font-family:
-      Source Code Pro,
-      Consolas,
-      Monaco,
-      "Andale Mono",
-      "Ubuntu Mono",
-      monospace;
-  }
-
   :not(pre) > code[class*="language-"],
   pre[class*="language-"] {
-    background: $prism-background;
+    background: var(--va-background-element);
   }
 
   /* Inline code */
@@ -199,74 +164,89 @@ $radius: 0.25rem;
     white-space: normal;
   }
 
-  .token.comment,
-  .token.block-comment,
-  .token.prolog,
-  .token.doctype,
-  .token.cdata {
+  /*!
+   * Based on StackOverflow.com style
+   *
+   * @stackoverflow/stacks v0.56.0
+   * https://github.com/StackExchange/Stacks
+   */
+  .hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    color: var(--va-text-primary);
+    background: var(--va-background-element);
+    font-family:
+      Source Code Pro,
+      Consolas,
+      Monaco,
+      "Andale Mono",
+      "Ubuntu Mono",
+      monospace;
+  }
+
+  .hljs-comment {
     color: v-bind(codeGray);
   }
 
-  .token.punctuation {
-    color: v-bind(codeGrayMuted);
-  }
-
-  .token.namespace {
-    opacity: 0.7;
-  }
-
-  .token.property,
-  .token.tag,
-  .token.boolean,
-  .token.number,
-  .token.constant,
-  .token.symbol,
-  .token.function,
-  .token.class-name,
-  .token.deleted {
-    color: v-bind(codeRed);
-  }
-
-  .token.selector,
-  .token.attr-name,
-  .token.string,
-  .token.char,
-  .token.builtin,
-  .token.inserted {
-    color: v-bind(codeGreen);
-  }
-
-  .token.operator,
-  .token.entity,
-  .token.url,
-  .language-css .token.string,
-  .style .token.string {
-    color: v-bind(codeYellow);
-  }
-
-  .token.atrule,
-  .token.attr-value,
-  .token.keyword {
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-meta-keyword,
+  .hljs-doctag,
+  .hljs-section,
+  .hljs-selector-class,
+  .hljs-meta,
+  .hljs-selector-pseudo,
+  .hljs-attr {
     color: v-bind(codeCyan);
   }
 
-  .token.regex,
-  .token.important,
-  .token.variable {
+  .hljs-attribute {
+    color: #803378;
+  }
+
+  .hljs-name,
+  .hljs-type,
+  .hljs-number,
+  .hljs-selector-id,
+  .hljs-quote,
+  .hljs-template-tag,
+  .hljs-built_in,
+  .hljs-title,
+  .hljs-literal {
     color: v-bind(codeOrange);
   }
 
-  .token.important,
-  .token.bold {
-    font-weight: bold;
+  .hljs-string,
+  .hljs-regexp,
+  .hljs-symbol,
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-link,
+  .hljs-selector-attr,
+  .hljs-meta-string {
+    color: v-bind(codeGreen);
   }
 
-  .token.italic {
+  .hljs-bullet,
+  .hljs-code {
+    color: #535a60;
+  }
+
+  .hljs-deletion {
+    color: v-bind(codeRed);
+  }
+
+  .hljs-addition {
+    color: v-bind(codeGreen);
+  }
+
+  .hljs-emphasis {
     font-style: italic;
   }
 
-  .token.entity {
-    cursor: help;
+  .hljs-strong {
+    font-weight: bold;
   }
 }
 </style>
