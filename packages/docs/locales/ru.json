@@ -1644,7 +1644,7 @@
       },
       "code": {
         "title": "Код",
-        "text": "Предварительный просмотр кода. Мы используем [prism](https://prismjs.com/)[[target=_blank]]."
+        "text": "Предварительный просмотр кода. Мы используем [highlight.js](https://highlightjs.org/)[[target=_blank]]."
       },
       "example": {
         "title": "Пример",
@@ -4522,7 +4522,7 @@
       },
       "virtualScroll": {
         "title": "Виртуальный скроллинг",
-        "text": "Свойство `virtual-scroller` включает виртуальный скроллинг для строк `tbody` ([дополнительная информация](/ui-elements/virtual-scroll)). Обратите внимание, что в данном режиме отключен `CSS transition` из-за возможных проблем с производительностью."
+        "text": "Свойство `virtual-scroller` включает виртуальный скроллинг для строк `tbody` ([дополнительная информация](/ui-elements/virtual-scroller)). Обратите внимание, что в данном режиме отключен `CSS transition` из-за возможных проблем с производительностью."
       },
       "other": {
         "title": "Другое",
@@ -4874,7 +4874,8 @@
         "title": "Базовое использование",
         "text": "`va-spacer` добавляет div с классом `.va-spacer`."
       }
-    }
+    },
+    "accessibility": "Компонент полностью игнорируется программами чтения с экрана из-за атрибута [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]]."
   },
   "dropdown": {
     "title": "Dropdown",
