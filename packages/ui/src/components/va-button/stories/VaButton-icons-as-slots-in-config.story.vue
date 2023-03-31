@@ -1,5 +1,5 @@
 <template>
-  <story title="va-button/icons-as-slots-in-config">
+  <Story title="va-button/icons-as-slots-in-config">
     <va-config :components="{ VaIcon: { color: '#f00' } }">
       <va-button color="danger">
         <va-icon name="gavel" color="textInverted" />
@@ -12,11 +12,17 @@
         <va-icon name="shield" color="warning" />
       </va-button>
     </va-config>
-  </story>
+  </Story>
 </template>
 
 <script lang="ts" setup>
 import { VaButton } from '../index'
 import { VaConfig } from '../../va-config/index'
-import { VaIcon } from '../../va-icon/index'
+import { VaIcon } from '../../va-icon'
 </script>
+
+<style scoped>
+.va-button + .va-button {
+  margin-left: 1rem;
+}
+</style>

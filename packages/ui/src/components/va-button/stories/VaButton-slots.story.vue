@@ -1,5 +1,5 @@
 <template>
-  <story title="va-button/slots">
+  <Story title="va-button/slots">
     <va-button icon-right="alarm" @click="isChecked = !isChecked">
       <template #prepend>
         <va-checkbox v-model="isChecked" color="secondary" readonly />
@@ -12,13 +12,19 @@
       -
       <template #append>append</template>
     </va-button>
-  </story>
+  </Story>
 </template>
 
 <script lang="ts" setup>
 import { VaButton } from '../index'
-import { VaCheckbox } from '../../va-checkbox/index'
+import { VaCheckbox } from '../../va-checkbox'
 import { ref } from 'vue'
 
 const isChecked = ref(false)
 </script>
+
+<style scoped>
+.va-button + .va-button {
+  margin-left: 1rem;
+}
+</style>
