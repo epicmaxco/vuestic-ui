@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 dist
+.histoire
 .nuxt
 packages/create-vuestic/vuestic-app
 
