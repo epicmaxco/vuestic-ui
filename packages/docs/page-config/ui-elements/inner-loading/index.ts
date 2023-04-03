@@ -12,6 +12,10 @@ export default definePageConfig({
     block.example("Size"),
     block.example("Icon"),
 
+
+    block.subtitle('all.accessibility'),
+    block.paragraph('innerLoading.accessibility'),
+
     block.subtitle("all.api"),
     block.api("VaInnerLoading", apiOptions),
   ],

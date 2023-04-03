@@ -1,13 +1,11 @@
 :root,
 :host {
   --va-divider-display: flex;
-  --va-divider-color: var(--va-background-border);
 
   /* Margin around divider, not the same as CSS margin. Should be one value. */
   --va-divider-margin: 0.5rem;
   --va-divider-line-width: 1px;
-  --va-divider-border-top-style: solid;
-  --va-divider-border-top-color: var(--va-divider-color);
+  --va-divider-border-style: solid;
   --va-divider-text-font-size: 0.875rem;
   --va-divider-text-line-height: 0;
   --va-divider-text-height: 0;
@@ -18,10 +16,6 @@
   --va-divider-text-horizontal-offset: 1.25rem;
 
   /* Vertical */
-  --va-divider-vertical-border-top: 0;
-  --va-divider-vertical-border-right-width: 1px;
-  --va-divider-vertical-border-right-style: solid;
-  --va-divider-vertical-border-right-color: var(--va-divider-color);
   --va-divider-vertical-display: inline-flex;
 
   /* Inset */

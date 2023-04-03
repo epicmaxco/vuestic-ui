@@ -58,7 +58,7 @@ export default defineComponent({
     label: { type: String, default: '' },
     leftLabel: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },
-    tabindex: { type: Number, default: 0 },
+    tabindex: { type: [String, Number], default: 0 },
   },
   setup (props, { emit }) {
     const { getColor } = useColors()

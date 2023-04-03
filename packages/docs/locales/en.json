@@ -1676,6 +1676,7 @@
   },
   "all": {
     "examples": "Examples",
+    "accessibility": "Accessibility",
     "api": "API",
     "methods": "Methods",
     "options": "Options",
@@ -1782,7 +1783,7 @@
       },
       "code": {
         "title": "Code",
-        "text": "For the code previews we use [prism](https://prismjs.com/)[[target=_blank]]."
+        "text": "For the code previews we use [highlight.js](https://highlightjs.org/)[[target=_blank]]."
       },
       "example": {
         "title": "Example",
@@ -2033,6 +2034,7 @@
   "slider": {
     "title": "Slider",
     "summaryText": "The slider component is a visualization for the number input. A user can drag a slider within a fixed range to get the required value.",
+    "accessibility": "The component covers all the requirements of [w3 slider template](https://www.w3.org/WAI/ARIA/apg/patterns/slider/#wai-ariaroles,states,andproperties)[[target=_blank]]. It has [role=\"slider\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/slider_role)[[target=_blank]] and the following attributes: [aria-valuemin](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin)[[target=_blank]], [aria-valuemax](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax)[[target=_blank]], [aria-valuenow](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow)[[target=_blank]], [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)[[target=_blank]], [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]], [aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled)[[target=_blank]], [aria-readonly](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly)[[target=_blank]].",
     "examples": {
       "default": {
         "title": "Default",
@@ -2470,6 +2472,7 @@
   "divider": {
     "title": "Divider",
     "summaryText": "The `va-divider` component is used to separate sections of lists or layouts.",
+    "accessibility": "Has a [role=\"separator\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/separator_role)[[target=_blank]]. Its attribute [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]] depends on `vertical` property. Completely ignored by screen readers because of [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]] attribute.",
     "examples": {
       "default": {
         "title": "Simple divider",
@@ -2929,6 +2932,12 @@
           "With a `type` property you can set the type of the input which will render native `<input type=\"text/password/search/etc\" />`.",
           "Watch available types [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) (some types aren't supported or have implemented as a Vuestic UI component)."
         ]
+      },
+      "customize": {
+        "title": "Customizable",
+        "text": "You can create `preset` for your input components, but sometimes requirements can be out of boundaries of pre-defined `presets`. To solve this problem component allows to customize it with `slots` and its `props`.",
+        "labelFrom": "From",
+        "labelTo": "To"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-input/_variables.scss)[[target=_blank]]"
@@ -3046,6 +3055,7 @@
         "text": "With the `tag` prop you can attach the icon to another tag."
       }
     },
+    "accessibility": "The component completely ignored by screen readers because of [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]] attribute.",
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-icon/_variables.scss)[[target=_blank]]"
   },
   "radio": {
@@ -3457,6 +3467,7 @@
         "text": "You can provide some kind of content over the parallax."
       }
     },
+    "accessibility": "Parralax effect is harmful to people with vestibular disorders and should be avoided or used with extreme caution and restraint. If you must use parralax, you should limit usage to one per page and decrease `height` and `speed` for each component.",
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-parallax/_variables.scss)[[target=_blank]]"
   },
   "backtop": {
@@ -3725,6 +3736,7 @@
   "innerLoading": {
     "title": "Inner Loading",
     "summaryText": "You can handle the loading state of the wrapped component by using the `va-inner-loading` component.",
+    "accessibility": "The component has the [aria-live=\"polite\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions)[[target=_blank]] and [aria-busy](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy)[[target=_blank]] attributes. It blocks any interaction with the content until the loading state is disabled.",
     "examples": {
       "default": {
         "title": "Basic usage",
@@ -4096,7 +4108,7 @@
     "description": "This guide describes the possible ways in which you can become a part of the ongoing development of Vuestic UI. We are really excited that you are interested in helping us make Vuestic better!",
     "quickStart": {
       "title": "Quick start",
-      "description": "If you want to make some changes get a local copy of VausticUI:",
+      "description": "If you want to make some changes get a local copy of VuesticUI:",
       "steps": {
         "1": "Fork Vuestic repository",
         "2": "Clone your fork",
@@ -4293,7 +4305,7 @@
     },
     "reactivity": {
       "subtitle": "Reactivity",
-      "about": "Methods like `getColors` return a computed reactives that can also be accessed by variable `colors`. The advantage is allow to change properties, instead of rewriting whole colors variable. For example, you can change `primary` color by writing `colors.primary = '#ff0'`. Multiple properties changes are also supported, you can write `setColors({'{ primary: `#00f`, secondary: `#0ff` }'})`."
+      "about": "Methods like `getColors` return a computed reactives that can also be accessed by variable `colors`. The advantage is allow to change properties, instead of rewriting whole colors variable. For example, you can change `primary` color by writing `colors.primary = \"#ff0\"`. Multiple properties changes are also supported, you can write `setColors({'{ primary: \"#00f\", secondary: \"#0ff\" }'})`."
     },
     "otherServices": {
       "subtitle": "Colors config with other services",
@@ -4302,19 +4314,30 @@
       "css": "CSS-variables do also respect the color config and dynamically change their values!"
     },
     "api": {
-      "title": "Icon config service API",
+      "title": "Colors config service API",
       "types": "Types",
-      "ColorConfig": "An object where the keys are the color names and the values are valid CSS colors.",
-      "ColorInput": "A valid CSS color",
+      "colorConfig": "Configuration object where is defined color variables, threshold, presets and current preset name.",
+      "cssColor": "A valid CSS color.",
+      "essentialVariables": "An object where the keys are the color names and values are valid CSS colors.",
+      "colorVariables": "An object where the keys are the color names and values are valid CSS colors.",
       "methods": "Methods",
-      "useColors": "Return colors methods and variables",
+      "applyPreset": "Applies preset by its name to the colors config.",
+      "useColors": "Return colors methods and variables.",
       "setColors": "Used to merge new colors into config or update existing colors.",
-      "getColors": "Returns current color config",
-      "getColor": "Return color by name",
+      "getColors": "Returns current color config.",
+      "getColor": "Return color by name.",
+      "getComputedColor": "Returns compute color from colors variables.",
       "getBoxShadowColor": "Return a color that is appropriate to be used for the `box-shadow`.",
+      "getBoxShadowColorFromBg": "Return a color that is appropriate to be used for the `box-shadow`.",
       "getHoverColor": "Return a color that you can use as a `hover` color.",
       "getFocusColor": "Return a color that you can use as a `focus` color.",
       "getGradientBackground": "Return a gradient-color that you can use as a `background-image` CSS property's value.",
+      "getTextColor": "Returns a color depending on the background lightness.",
+      "shiftHSLAColor": "Returns shifted HSLA color.",
+      "setHSLAColor": "Sets HSLA color.",
+      "colorsToCSSVariable": "Converts object of colors to the object of named css variables.",
+      "colorToRgba": "Converts named color to the `rgba` string.",
+      "getStateMaskGradientBackground": "Returns a CSS linear-background value for the `background-image` property.",
       "hookMethods": "useColors hook methods.",
       "hookVariables": "useColors hook variables.",
       "colors": "A computed reactive where the keys are color names and values are valid CSS colors."
@@ -4605,7 +4628,7 @@
       },
       "virtualScroll": {
         "title": "Virtual scroll",
-        "text": "The `virtual-scroller` prop enables virtual scroll for `tbody` rows ([read more](/ui-elements/virtual-scroll)). Pay your attention, that CSS transition is disabled here because of possible performance problems."
+        "text": "The `virtual-scroller` prop enables virtual scroll for `tbody` rows ([read more](/ui-elements/virtual-scroller)). Pay your attention, that CSS transition is disabled here because of possible performance problems."
       },
       "expandableRow": {
         "title": "Expandable rows",
@@ -4756,6 +4779,7 @@
         "text": "You can hide controls and use stepper navigation independently"
       }
     },
+    "accessibility": "The component itself has a [role=\"group\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role)[[target=_blank]] with aria attributes like an [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]] attribute that depends on the `vertical` property. The current step element has the attribute [aria-current=\"step\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current#values)[[target=_blank]]. Keyboard navigation for this component is based on the [w3 tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)[[target=_blank]].",
     "alerts": {
       "slots": "You can iterate through slots using template literals in slot name. \n Example: ``{'#[`step-button-${i}`]=\"{ setStep, isActive, isCompleted }\"'}``"
     }
@@ -4934,7 +4958,8 @@
         "title": "Basic usage",
         "text": "`va-spacer` adding a div with the `.va-spacer` class."
       }
-    }
+    },
+    "accessibility": "The component completely ignored by screen readers because of [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]] attribute."
   },
   "scrollContainer": {
     "title": "Scroll container",

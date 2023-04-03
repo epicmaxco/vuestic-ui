@@ -14,6 +14,9 @@ export default definePageConfig({
     block.example("Dashed"),
     block.example("WithList"),
 
+    block.subtitle('all.accessibility'),
+    block.paragraph('divider.accessibility'),
+
     block.subtitle("all.api"),
     block.api("VaDivider", apiOptions),
   ],

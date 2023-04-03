@@ -1564,6 +1564,7 @@
   },
   "all": {
     "examples": "Примеры",
+    "accessibility": "Доступность",
     "api": "API",
     "methods": "Methods",
     "options": "Options",
@@ -1643,7 +1644,7 @@
       },
       "code": {
         "title": "Код",
-        "text": "Предварительный просмотр кода. Мы используем [prism](https://prismjs.com/)[[target=_blank]]."
+        "text": "Предварительный просмотр кода. Мы используем [highlight.js](https://highlightjs.org/)[[target=_blank]]."
       },
       "example": {
         "title": "Пример",
@@ -1894,6 +1895,7 @@
   "slider": {
     "title": "Slider",
     "summaryText": "Компонента `va-slider` визуализирует поле ввода для числа. Пользователь может перетащить ползунок в фиксированном диапазоне, чтобы получить необходимое значение.",
+    "accessibility": "Компонент отвечает всем требованиям [шаблона слайдера w3](https://www.w3.org/WAI/ARIA/apg/patterns/slider/#wai-ariaroles,states,andproperties)[[target=_blank]]. Он имеет [role=\"slider\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/slider_role)[[target=_blank]] и следующие атрибуты: [aria-valuemin](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin)[[target=_blank]], [aria-valuemax](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax)[[target=_blank]], [aria-valuenow](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow)[[target=_blank]], [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)[[target=_blank]], [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]], [aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled)[[target=_blank]], [aria-readonly](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly)[[target=_blank]].",
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -2319,6 +2321,7 @@
   "divider": {
     "title": "Divider",
     "summaryText": "Компонент `va-divider` используется для разделения разделов списков или макетов.",
+    "accessibility": "Имеет [role=\"separator\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/separator_role)[[target=_blank]]. Его атрибут [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]] зависит от свойства `vertical`. Полностью игнорируется программами чтения с экрана из-за  атрибута [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank ]].",
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -2778,6 +2781,12 @@
           "С помощью атрибута `type` вы можете задать тип input, который будет отрендерен как нативный элемент`<input type=\"text/password/search/etc\" />`.",
           "Смотрите доступные типы [здесь](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) (некоторые не поддерживаются или реализованы как отдельные компоненты Vuestic UI)."
         ]
+      },
+      "customize": {
+        "title": "Настраиваемость",
+        "text": "Вы можете создать `preset` для ваших компонентов ввода, но иногда требования могут выйти за рамки возможностей `preset`. Для решения этой проблемы компонент предоставляет вам возможность настраивания с помощью слотов и параметров компонента.",
+        "labelFrom": "Из валюты",
+        "labelTo": "В валюту"
       }
     },
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-input/_variables.scss)[[target=_blank]]"
@@ -2895,6 +2904,7 @@
         "text": "Свойство `tag` позволяет обернуть иконку в произвольный тег."
       }
     },
+    "accessibility": "Компонент полностью игнорируется программами чтения с экрана из-за атрибута [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]].",
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-icon/_variables.scss)[[target=_blank]]"
   },
   "radio": {
@@ -3356,6 +3366,7 @@
         "text": "Вы можете добавить любой контент поверх параллакса."
       }
     },
+    "accessibility": "Эффект паралакса вреден для людей с вестибулярными расстройствами, и его следует избегать или использовать с особой осторожностью и сдержанностью. Если вы должны использовать парралакс, вам следует ограничить использование до одного на странице и уменьшить `height` и `speed` для каждого компонента.",
     "variables": "[Страница с переменными на GitHub](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-parallax/_variables.scss)[[target=_blank]]"
   },
   "backtop": {
@@ -3620,6 +3631,7 @@
   "innerLoading": {
     "title": "Inner Loading",
     "summaryText": "Вы можете управлять состоянием загрузки обернутого компонента с помощью компонента `va-inner-loading`",
+    "accessibility": "Компонент имеет атрибуты [aria-live=\"polite\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions)[[target=_blank]] и [aria-busy](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy)[[target=_blank]]. Он блокирует любое взаимодействие с контентом до тех пор, пока состояние загрузки не будет отключено.",
     "examples": {
       "default": {
         "title": "Базовое использование",
@@ -3977,7 +3989,7 @@
     "description": "В этом руководстве описаны способы, с помощью которых вы можете стать частью непрерывного развития пользовательского интерфейса Vuestic. Мы очень рады, что вы хотите внести свой вклад в Vuestic UI.",
     "quickStart": {
       "title": "Quick start",
-      "description": "If you want to make some changes get a local copy of VausticUI:",
+      "description": "If you want to make some changes get a local copy of VuesticUI:",
       "steps": {
         "1": "Fork Vuestic repository",
         "2": "Clone your fork",
@@ -4195,23 +4207,33 @@
       "css": "Также переменные CSS имеют те же цветовые переменные, которые вы определяете в конфигурации цвета, которые динамически меняются вместе с конфигурацией цветов:"
     },
     "api": {
-      "title": "API конфигурации иконок",
+      "title": "API конфигурации цветов",
       "types": "Типы",
-      "ColorConfig": "Объект, где ключ - это имя цвета, а значение - валидный цвет CSS",
-      "ColorInput": " Валидный цвет CSS",
+      "colorConfig": "Объект конфигурации где указываются такие свойства как переменные цветов, пороговое значение для определения яркости цвета (threshold), пресеты и название текущего пресета.",
+      "cssColor": "Валидный CSS цвет.",
+      "essentialVariables": "Объект, где ключ - это название или имя цвета, а значение - валидный цвет CSS.",
+      "colorVariables": "Объект, где ключ - это название или имя цвета, а значение - валидный цвет CSS.",
       "methods": "Методы",
-      "useColor": "Возвращает методы для работы с цветом",
-      "setColors": "Используется для объединения новых цветов в конфигурацию или обновления существующих цветов",
-      "getColors": "Возвращает текущую конфигурацию цветов",
-      "getColor": "Возвращает цвет по имени",
-      "getBoxShadowColor": "Возвращает цвет, который вы можете использовать как цвет для `box-shadow`",
-      "getHoverColor": "Возвращает цвет, который вы можете использовать как цвет для `hover`",
-      "getFocusColor": "Возвращает цвет, который вы можете использовать как цвет для `focus`",
-      "getGradientBackground": "Возвращает цвет, который вы можете использовать как цвет для css атрибута `background`",
-      "hookMethods": "useColors хуки",
-      "useColors": "Return colors methods and variables",
-      "hookVariables": "useColors hook variables.",
-      "colors": "A computed reactive where the keys are color names and values are valid CSS colors."
+      "applyPreset": "Применяет именновый цветовой пресет к цветовой конфигурации.",
+      "useColor": "Возвращает методы для работы с цветом.",
+      "setColors": "Используется для объединения новых цветов в конфигурацию или обновления существующих цветов.",
+      "getColors": "Возвращает текущую конфигурацию цветов.",
+      "getColor": "Возвращает цвет по имени.",
+      "getBoxShadowColor": "Возвращает цвет, который вы можете использовать как цвет для `box-shadow`.",
+      "getBoxShadowColorFromBg": "Возвращает цвет, который вы можете использовать как цвет для `box-shadow`.",
+      "getHoverColor": "Возвращает цвет, который вы можете использовать как цвет для `hover`.",
+      "getFocusColor": "Возвращает цвет, который вы можете использовать как цвет для `focus`.",
+      "getGradientBackground": "Возвращает цвет, который вы можете использовать как цвет для css атрибута `background`.",
+      "getTextColor": "Возвращает цвет зависимый от яркости фонового цвета.",
+      "shiftHSLAColor": "Задает и возвращает смещение HSLA цвета.",
+      "setHSLAColor": "Задает HSLA цвет.",
+      "colorsToCSSVariable": "Конвертируерт объект с именноваными цветами в объект с CSS переменными.",
+      "colorToRgba": "Конвертирует именнованный цвет в `rgba` строку.",
+      "getStateMaskGradientBackground": "Возвращает линейный градиент.",
+      "hookMethods": "useColors хуки.",
+      "useColors": "Возвращает методы и переменные цветового конфигуратора.",
+      "hookVariables": "Переменные хука useColors.",
+      "colors": "Реактивная вычисляемая переменная, где ключами являются названия цветов, а значения это валидные CSS цвета."
     }
   },
   "breakpoints": {
@@ -4500,7 +4522,7 @@
       },
       "virtualScroll": {
         "title": "Виртуальный скроллинг",
-        "text": "Свойство `virtual-scroller` включает виртуальный скроллинг для строк `tbody` ([дополнительная информация](/ui-elements/virtual-scroll)). Обратите внимание, что в данном режиме отключен `CSS transition` из-за возможных проблем с производительностью."
+        "text": "Свойство `virtual-scroller` включает виртуальный скроллинг для строк `tbody` ([дополнительная информация](/ui-elements/virtual-scroller)). Обратите внимание, что в данном режиме отключен `CSS transition` из-за возможных проблем с производительностью."
       },
       "other": {
         "title": "Другое",
@@ -4625,6 +4647,7 @@
   "stepper": {
     "title": "Stepper",
     "description": "Stepper позволяет пользователям разделять контент на несколько шагов и перемещаться по нему с помощью кнопок или навигации.",
+    "accessibility": "Сам компонент имеет [role=\"group\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role)[[target=_blank]] с такими атрибутами aria, как атрибут [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]], который зависит от свойства `vertical`. Элемент текущего шага имеет атрибут [aria-current=\"step\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current#values)[[target =_пусто]]. Навигация с помощью клавиатуры для этого компонента основана на [шаблоне вкладок w3](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)[[target=_blank]].",
     "examples": {
       "default": {
         "title": "Основное использование",
@@ -4851,7 +4874,8 @@
         "title": "Базовое использование",
         "text": "`va-spacer` добавляет div с классом `.va-spacer`."
       }
-    }
+    },
+    "accessibility": "Компонент полностью игнорируется программами чтения с экрана из-за атрибута [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]]."
   },
   "dropdown": {
     "title": "Dropdown",

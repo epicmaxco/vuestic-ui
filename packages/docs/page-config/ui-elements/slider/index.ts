@@ -23,6 +23,9 @@ export default definePageConfig({
     block.example("TrackLabel"),
     block.example("Vertical"),
 
+    block.subtitle('all.accessibility'),
+    block.paragraph('slider.accessibility'),
+
     block.subtitle("all.api"),
     block.api("VaSlider", apiOptions),
   ],

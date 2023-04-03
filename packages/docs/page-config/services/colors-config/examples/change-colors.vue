@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center">
+  <div class="flex items-center gap-4">
     <va-button>{{ buttonText }}</va-button>
 
     <va-color-palette

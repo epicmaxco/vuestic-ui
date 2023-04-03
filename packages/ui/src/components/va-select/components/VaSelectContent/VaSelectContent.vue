@@ -116,7 +116,7 @@ export default defineComponent({
     value: { type: Array as PropType<SelectOption[]>, required: true },
     valueString: { type: String },
     placeholder: { type: String, default: '' },
-    tabindex: { type: Number, default: 0 },
+    tabindex: { type: [String, Number], default: 0 },
     hiddenSelectedOptionsAmount: { type: Number, default: 0 },
     isAllOptionsShown: { type: Boolean, default: false },
     autocomplete: { type: Boolean, default: false },

@@ -17,7 +17,7 @@
       <div class="va-input-wrapper__field">
         <div
           v-if="$slots.prependInner"
-          class="va-input__container"
+          class="va-input-wrapper__prepend-inner"
           ref="container"
           :style="containerStyle"
           @click="$emit('click-prepend-inner', $event)"
