@@ -1,0 +1,10 @@
+{
+  "examples": {
+    "accessibility": {
+      "title": "Accessibility advices",
+      "advice0": "When image used as source, provide its description to the `alt` prop.",
+      "advice1": "Use `title` attribute when icon name is passed.",
+      "advice2": "Use `aria-hidden=\"true\"` attribute, if associated text is quite descriptive."
+    }
+  }
+}

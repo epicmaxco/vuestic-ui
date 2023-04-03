@@ -31,6 +31,13 @@ export default definePageConfig({
 
     block.example("Group"),
 
+    block.example("Accessibility"),
+    block.list([
+      "avatar.examples.accessibility.advice0",
+      "avatar.examples.accessibility.advice1",
+      "avatar.examples.accessibility.advice2",
+    ]),
+
     block.subtitle("all.api"),
     block.api("VaAvatar", apiOptions),
   ],
