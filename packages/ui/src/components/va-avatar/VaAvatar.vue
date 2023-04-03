@@ -3,7 +3,6 @@
     class="va-avatar"
     :class="classesComputed"
     :style="computedStyle"
-    :title="titleAttributeComputed"
   >
     <va-progress-circle
       v-if="$props.loading"
@@ -83,12 +82,6 @@ export default defineComponent({
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
     const { textColorComputed } = useTextColor()
 
-    const titleAttributeComputed = computed(() => {
-      if (props.src) { return }
-
-      return props.icon ? props.icon : undefined
-    })
-
     const computedStyle = computed(() => ({
       fontSize: props.fontSize || fontSizeComputed.value,
     }))
@@ -121,7 +114,6 @@ export default defineComponent({
       colorComputed,
       classesComputed,
       textColorComputed,
-      titleAttributeComputed,
       backgroundColorComputed,
       VaFallbackProps: filterComponentProps(VaFallbackProps),
 
