@@ -247,7 +247,6 @@ export default defineComponent({
     .va-switch__container {
       display: inline-flex;
       align-items: center;
-      height: 100%;
       width: 100%;
     }
   }
