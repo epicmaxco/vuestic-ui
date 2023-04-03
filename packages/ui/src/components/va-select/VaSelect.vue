@@ -215,7 +215,7 @@ export default defineComponent({
     maxHeight: { type: String, default: '256px' },
     noOptionsText: { type: String, default: '$t:noOptions' },
     hideSelected: { type: Boolean, default: false },
-    tabindex: { type: Number, default: 0 },
+    tabindex: { type: [String, Number], default: 0 },
     virtualScroller: { type: Boolean, default: false },
     selectedTopShown: { type: Boolean, default: false },
     highlightMatchedText: { type: Boolean, default: true },

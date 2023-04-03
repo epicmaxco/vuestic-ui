@@ -1,23 +1,25 @@
 <template>
-  <va-tabs
-    v-if="!isString"
-    v-model="index"
-    class="DocsCode__tabs"
-  >
-    <template #tabs>
-      <va-tab
-        v-for="tab in tabs"
-        :key="tab"
-      >
-        {{ tab }}
-      </va-tab>
-    </template>
-  </va-tabs>
-  <code-highlight-wrapper
-    :code="escapeVuesticImport(contents[index])"
-    :lang="$props.language"
-    class="DocsCode"
-  />
+  <div>
+    <va-tabs
+      v-if="!isString"
+      v-model="index"
+      class="DocsCode__tabs"
+    >
+      <template #tabs>
+        <va-tab
+          v-for="tab in tabs"
+          :key="tab"
+        >
+          {{ tab }}
+        </va-tab>
+      </template>
+    </va-tabs>
+    <code-highlight-wrapper
+      :code="escapeVuesticImport(contents[index])"
+      :lang="$props.language"
+      class="DocsCode"
+    />
+  </div>
 </template>
 
 <script lang="ts">
