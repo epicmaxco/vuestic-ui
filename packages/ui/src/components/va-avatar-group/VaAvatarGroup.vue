@@ -9,12 +9,11 @@
       :key="idx"
       v-bind="{ ...avatarProps, ...option }"
       role="listitem"
-      tabindex="0"
     />
     <slot name="rest" v-bind="avatarProps">
       <va-avatar
-        color="secondary"
         v-bind="avatarProps"
+        color="secondary"
         role="listitem"
       >
         +{{ restOptionsCount }}
@@ -29,8 +28,8 @@ import { defineComponent, computed, PropType } from 'vue'
 import { VaAvatar } from '../va-avatar'
 
 import pick from 'lodash/pick.js'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { useBem, useComponentPresetProp, useSize, useSizeProps } from '../../composables'
-import { useAvatarProps } from '../va-avatar/hooks/useAvatarProps'
 
 export default defineComponent({
   name: 'VaAvatarGroup',
@@ -42,7 +41,7 @@ export default defineComponent({
   props: {
     ...useSizeProps,
     ...useComponentPresetProp,
-    ...useAvatarProps,
+    ...extractComponentProps(VaAvatar),
 
     max: {
       type: Number,
@@ -69,7 +68,7 @@ export default defineComponent({
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatarGroup')
 
     const avatarProps = computed(() => ({
-      ...props,
+      ...filterComponentProps(extractComponentProps(VaAvatar)),
       fontSize: fontSizeComputed.value,
       size: sizeComputed.value,
     }))
