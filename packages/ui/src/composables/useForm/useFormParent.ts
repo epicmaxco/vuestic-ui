@@ -1,4 +1,4 @@
-import { computed, provide, ref, Ref } from 'vue'
+import { computed, provide, ref, type Ref } from 'vue'
 import { FormServiceKey } from './consts'
 import { Form, FormFiled } from './types'
 import { useFormChild } from './useFormChild'
@@ -34,21 +34,16 @@ export const useFormParent = <Names extends string = string>(options: FormParent
 
   const { fields } = formContext
 
-  const fieldNames = computed(() => fields.value.map((field) => field.name).filter((name) => name) as Names[])
+  const fieldNames = computed(() => fields.value.map((field) => field.name).filter(Boolean) as Names[])
   const formData = computed(() => fields.value.reduce((acc, field) => {
-    if (field.name) {
-      acc[field.name] = field.value
-    }
-
+    if (field.name) { acc[field.name] = field.value }
     return acc
   }, {} as Record<Names, any>))
   const isValid = computed(() => fields.value.every((field) => field.isValid))
   const isLoading = computed(() => fields.value.some((field) => field.isLoading))
   const errorMessages = computed(() => fields.value.map((field) => field.errorMessages).flat())
   const errorMessagesNamed = computed(() => fields.value.reduce((acc, field) => {
-    if (field.name) {
-      acc[field.name] = field.errorMessages
-    }
+    if (field.name) { acc[field.name] = field.errorMessages }
     return acc
   }, {} as Record<Names, any>))
 
@@ -61,7 +56,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
 
   const validateAsync = () => {
     return Promise.all(fields.value.map((field) => field.validateAsync())).then((results) => {
-      return results.every((result) => result)
+      return results.every(Boolean)
     })
   }
 

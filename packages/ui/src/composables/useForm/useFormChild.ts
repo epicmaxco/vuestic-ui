@@ -1,7 +1,7 @@
 import { inject, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useComponentUuid } from '../useComponentUuid'
 import { FormServiceKey } from './consts'
-import { FormFiled } from './types'
+import { type FormFiled } from './types'
 
 export const useFormChild = (createContext: () => FormFiled) => {
   const formContext = inject(FormServiceKey, null)
@@ -16,8 +16,6 @@ export const useFormChild = (createContext: () => FormFiled) => {
 
   const context = computed(createContext)
   const uid = useComponentUuid()
-
-  formContext.registerField(uid, context)
 
   onMounted(() => {
     formContext.registerField(uid, context)
