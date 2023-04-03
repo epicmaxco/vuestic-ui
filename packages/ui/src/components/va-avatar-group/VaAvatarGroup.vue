@@ -31,6 +31,8 @@ import pick from 'lodash/pick.js'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { useBem, useComponentPresetProp, useSize, useSizeProps } from '../../composables'
 
+const VaAvatarProps = extractComponentProps(VaAvatar)
+
 export default defineComponent({
   name: 'VaAvatarGroup',
 
@@ -41,7 +43,7 @@ export default defineComponent({
   props: {
     ...useSizeProps,
     ...useComponentPresetProp,
-    ...extractComponentProps(VaAvatar),
+    ...VaAvatarProps,
 
     max: {
       type: Number,
@@ -67,8 +69,9 @@ export default defineComponent({
     const restOptionsCount = computed(() => props.options.length - (props.max || 0))
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatarGroup')
 
+    const filteredAvatarProps = filterComponentProps(VaAvatarProps)
     const avatarProps = computed(() => ({
-      ...filterComponentProps(extractComponentProps(VaAvatar)),
+      ...filteredAvatarProps.value,
       fontSize: fontSizeComputed.value,
       size: sizeComputed.value,
     }))
