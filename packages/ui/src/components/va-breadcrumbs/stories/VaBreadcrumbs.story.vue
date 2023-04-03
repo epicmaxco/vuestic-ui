@@ -1,14 +1,14 @@
 <template>
-  <VbDemo>
-    <VbCard title="default">
+  <Story title="va-breadcrumbs" :layout="{ type: 'grid', width: '100%' }">
+    <Variant title="default">
       <va-breadcrumbs>
         <va-breadcrumbs-item label="One" />
         <va-breadcrumbs-item label="Two" />
         <va-breadcrumbs-item label="Three" />
       </va-breadcrumbs>
-    </VbCard>
+    </Variant>
 
-    <VbCard title="default (v-for)">
+    <Variant title="default (v-for)">
       <va-breadcrumbs>
         <va-breadcrumbs-item
           v-for="(item, index) in items"
@@ -16,9 +16,9 @@
           :label="item"
         />
       </va-breadcrumbs>
-    </VbCard>
+    </Variant>
 
-    <VbCard title="routes">
+    <Variant title="routes">
       <va-breadcrumbs>
         <va-breadcrumbs-item
           label="One"
@@ -33,9 +33,9 @@
           to="#three"
         />
       </va-breadcrumbs>
-    </VbCard>
+    </Variant>
 
-    <VbCard
+    <Variant
       title="Align"
       style="width: 500px;"
     >
@@ -73,9 +73,9 @@
         <va-breadcrumbs-item label="Two" />
         <va-breadcrumbs-item label="Three" />
       </va-breadcrumbs>
-    </VbCard>
+    </Variant>
 
-    <VbCard
+    <Variant
       title="Vertical"
     >
       <va-breadcrumbs vertical>
@@ -83,9 +83,9 @@
         <va-breadcrumbs-item label="Two" />
         <va-breadcrumbs-item label="Three" />
       </va-breadcrumbs>
-    </VbCard>
+    </Variant>
 
-    <VbCard title="Color">
+    <Variant title="Color">
       Color:
       <va-breadcrumbs color="danger">
         <va-breadcrumbs-item label="One" />
@@ -107,9 +107,9 @@
         <va-breadcrumbs-item label="Three" />
       </va-breadcrumbs>
       <br>
-    </VbCard>
+    </Variant>
 
-    <VbCard title="Separator">
+    <Variant title="Separator">
       Custom separator:
       <va-breadcrumbs separator=">">
         <va-breadcrumbs-item label="One" />
@@ -128,9 +128,9 @@
         <va-breadcrumbs-item label="Three" />
       </va-breadcrumbs>
       <br>
-    </VbCard>
+    </Variant>
 
-    <VbCard title="Disabled">
+    <Variant title="Disabled">
       <va-breadcrumbs>
         <va-breadcrumbs-item
           disabled
@@ -172,23 +172,12 @@
         <va-breadcrumbs-item label="Two" />
         <va-breadcrumbs-item label="Three" />
       </va-breadcrumbs>
-    </VbCard>
-  </VbDemo>
+    </Variant>
+  </Story>
 </template>
 
-<script>
-import { VaBreadcrumbs, VaBreadcrumbsItem } from './index'
+<script lang="ts" setup>
+import { VaBreadcrumbs, VaBreadcrumbsItem } from '../index'
 
-export default {
-  data () {
-    return {
-      items: ['One', 'Two', 'Three'],
-    }
-  },
-
-  components: {
-    VaBreadcrumbs,
-    VaBreadcrumbsItem,
-  },
-}
+const items = ['One', 'Two', 'Three']
 </script>

@@ -6,4 +6,10 @@ export default defineConfig({
     HstVue(),
   ],
   setupFile: '/src/histoire/histoire.setup.ts',
+  autoApplyContrastColor: true,
+  defaultStoryProps: {
+    layout: {
+      type: 'grid',
+    },
+  },
 })
