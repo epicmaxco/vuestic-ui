@@ -50,7 +50,7 @@
           </td>
           <td>
             <va-icon
-              name="mdi-cancel"
+              name="block"
               color="backgroundBorder"
             />
           </td>
@@ -61,7 +61,7 @@
           </td>
           <td>
             <va-icon
-              name="mdi-cancel"
+              name="block"
               color="backgroundBorder"
             />
           </td>

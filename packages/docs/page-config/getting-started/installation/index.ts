@@ -52,7 +52,7 @@ export default definePageConfig({
     block.headline("installation.migrationGuide.title"),
 
     // Follow migration guide order from newer to older
-    block.collapse("1.5 -> 1.6", [
+    block.collapse("v1.5 ➝ v1.6", [
       block.subtitle("installation.migrationGuide.1_6.components"),
       block.headline("VaNavbar"),
       block.paragraph("installation.migrationGuide.1_6.navbar"),
@@ -66,7 +66,7 @@ export default definePageConfig({
       block.subtitle("installation.migrationGuide.1_6.styles"),
       block.paragraph("installation.migrationGuide.1_6.grid"),
     ]),
-    block.collapse("1.4 -> 1.5", [
+    block.collapse("v1.4 ➝ v1.5", [
       block.subtitle("installation.migrationGuide.1_5.components"),
       block.headline("VaButton"),
       block.paragraph("installation.migrationGuide.1_5.button"),

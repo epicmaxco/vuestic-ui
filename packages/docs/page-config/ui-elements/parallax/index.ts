@@ -12,6 +12,9 @@ export default definePageConfig({
     block.example("Reversed"),
     block.example("Slot"),
 
+    block.subtitle('all.accessibility'),
+    block.paragraph('parallax.accessibility'),
+
     block.subtitle("all.api"),
     block.api("VaParallax", apiOptions),
   ],

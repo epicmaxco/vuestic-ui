@@ -308,7 +308,7 @@ export default defineComponent({
     watch(valueComputed, newValueComputed => { // watch for open/close modal
       if (newValueComputed) {
         registerModal()
-        setBodyOverflow('scroll hidden')
+        setBodyOverflow('hidden')
         return
       }
 

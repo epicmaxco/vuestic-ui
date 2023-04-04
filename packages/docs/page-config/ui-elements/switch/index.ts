@@ -18,7 +18,6 @@ export default definePageConfig({
     block.example("State"),
     block.example("Loading"),
     block.example("CustomValue"),
-    block.headline("switch.examples.indeterminate.title"),
     block.example("Indeterminate"),
     block.example("Error"),
 

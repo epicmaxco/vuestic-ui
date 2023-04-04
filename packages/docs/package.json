@@ -41,6 +41,6 @@
     "codesandbox": "^2.2.3",
     "markdown-it": "^12.3.2",
     "markdown-it-attrs": "^4.0.0",
-    "prismjs": "^1.29.0"
+    "highlight.js": "^11.7.0"
   }
 }

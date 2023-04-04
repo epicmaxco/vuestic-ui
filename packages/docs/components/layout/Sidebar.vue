@@ -117,8 +117,11 @@ export default defineComponent({
       set: (v: boolean) => emit('update:visible', v),
     })
 
-    const isActiveChildRoute = (child: NavigationRoute, parent: NavigationRoute) =>
-      route.path.includes(`/${String(parent.name)}/${String(child.name)}`)
+    const isActiveChildRoute = (child: NavigationRoute, parent: NavigationRoute) => {
+      const path = `/${i18n.locale.value}/${String(parent.name)}/${String(child.name)}`
+
+      return path === route.path
+    }
 
     const routeHasActiveChild = (section: NavigationRoute) =>
       section.children?.some(({ name }) => route.path.endsWith(`/${name}`))

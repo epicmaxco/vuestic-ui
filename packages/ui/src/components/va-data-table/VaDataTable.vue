@@ -350,8 +350,9 @@ export default defineComponent({
       class: pick(props, ['striped', 'selectable', 'hoverable', 'clickable']),
     }) as TableHTMLAttributes)
 
+    const filteredVirtualScrollerProps = filterComponentProps(VaVirtualScrollerProps)
     const virtualScrollerPropsComputed = computed(() => ({
-      ...filterComponentProps(VaVirtualScrollerProps).value,
+      ...filteredVirtualScrollerProps.value,
       items: paginatedRows.value,
       trackBy: props.virtualTrackBy,
       disabled: !props.virtualScroller,
@@ -370,8 +371,9 @@ export default defineComponent({
       ...virtualScrollerPropsComputed.value,
     }))
 
+    const filteredThProps = filterComponentProps(VaDataTableThRowProps)
     const thAttributesComputed = computed(() => ({
-      ...filterComponentProps(VaDataTableThRowProps).value,
+      ...filteredThProps.value,
       columns: columnsComputed.value,
       sortingOrderIconName: sortingOrderIconName.value,
       severalRowsSelected: severalRowsSelected.value,

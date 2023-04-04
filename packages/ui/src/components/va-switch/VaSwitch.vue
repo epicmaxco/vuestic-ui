@@ -187,12 +187,12 @@ export default defineComponent({
     })
 
     const trackStyle = computed(() => ({
-      borderColor: props.error ? getColor('danger') : '',
+      borderColor: computedError.value ? getColor('danger') : '',
       backgroundColor: computedBackground.value,
     }))
 
     const labelStyle = computed(() => ({
-      color: props.error ? getColor('danger') : '',
+      color: computedError.value ? getColor('danger') : '',
     }))
 
     const trackLabelStyle = computed(() => ({
@@ -266,7 +266,6 @@ export default defineComponent({
     width: var(--va-switch-inner-width);
     min-width: var(--va-switch-inner-min-width);
     border-radius: var(--va-switch-inner-border-radius);
-    overflow: hidden;
 
     &:focus {
       outline: 0;
@@ -343,8 +342,7 @@ export default defineComponent({
   &--checked {
     .va-switch {
       &__checker {
-        margin: auto -0.3rem;
-        transform: translateX(-100%);
+        transform: translateX(calc(-100% - 0.3rem));
       }
 
       &__checker-circle {
@@ -443,6 +441,9 @@ export default defineComponent({
   }
 
   &__checker-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: var(--va-switch-checker-height);
     width: var(--va-switch-checker-width);
     background-color: var(--va-switch-checker-background-color);
