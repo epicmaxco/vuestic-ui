@@ -16,7 +16,7 @@
         :key="itemNumber"
         class="va-rating__item"
         v-bind="VaRatingItemProps"
-        :aria-label="t('voteRating', { max: $props.max, value: $props.modelValue })"
+        :aria-label="t('voteRating', { max: $props.max, value: itemNumber })"
         :model-value="getItemValue(itemNumber - 1)"
         :tabindex="tabIndexComputed"
         :disabled="$props.disabled"
@@ -95,7 +95,15 @@ export default defineComponent({
       tabIndexComputed: computed(() => isInteractionsEnabled.value ? 0 : undefined),
       onArrowKeyPress: (direction: 1 | -1) => {
         const step = props.halves ? RatingValue.HALF : RatingValue.FULL
-        rating.onItemValueUpdate(rating.visibleValue.value, step * direction)
+        const nextStep = rating.visibleValue.value + step * direction
+        const min = props.clearable ? 0 : step
+        if (nextStep >= min && nextStep <= props.max) {
+          rating.onItemValueUpdate(rating.visibleValue.value, step * direction)
+        } else if (nextStep < min) {
+          rating.onItemValueUpdate(min, 0)
+        } else {
+          rating.onItemValueUpdate(props.max, direction === -1 ? step * direction : 0)
+        }
       },
     }
   },

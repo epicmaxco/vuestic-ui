@@ -9,13 +9,11 @@
       ref="stepperNavigation"
       :class="{ 'va-stepper__navigation--vertical': $props.vertical }"
 
-      @click="onNavigationValueChange()"
-      @keyup.enter="onNavigationValueChange()"
-      @keyup.space="onNavigationValueChange()"
+      @click="onValueChange"
+      @keyup.enter="onValueChange"
+      @keyup.space="onValueChange"
       @keyup.left="onArrowKeyPress('prev')"
-      @keyup.up="onArrowKeyPress('prev')"
       @keyup.right="onArrowKeyPress('next')"
-      @keyup.down="onArrowKeyPress('next')"
       @focusout="resetFocus"
     >
       <template
@@ -117,7 +115,7 @@ export default defineComponent({
     const stepperNavigation = shallowRef<HTMLElement>()
     const { valueComputed: modelValue }: { valueComputed: Ref<number> } = useStateful(props, emit, 'modelValue', { defaultValue: 0 })
 
-    const focusedStep = ref({ force: false, stepIndex: props.navigationDisabled ? -1 : props.modelValue })
+    const focusedStep = ref({ trigger: false, stepIndex: props.navigationDisabled ? -1 : props.modelValue })
 
     const { getColor } = useColors()
     const stepperColor = getColor(props.color)
@@ -150,7 +148,15 @@ export default defineComponent({
           return
         }
         focusedStep.value.stepIndex = newValue
-        focusedStep.value.force = true
+        focusedStep.value.trigger = true
+      } else {
+        for (let availableIdx = 0; availableIdx < props.steps.length; availableIdx++) {
+          if (!props.steps[availableIdx].disabled) {
+            focusedStep.value.stepIndex = availableIdx
+            focusedStep.value.trigger = true
+            break
+          }
+        }
       }
     }
     const setFocusPrevStep = (idx: number) => {
@@ -161,21 +167,29 @@ export default defineComponent({
           return
         }
         focusedStep.value.stepIndex = newValue
-        focusedStep.value.force = true
+        focusedStep.value.trigger = true
+      } else {
+        for (let availableIdx = props.steps.length - 1; availableIdx >= 0; availableIdx--) {
+          if (!props.steps[availableIdx].disabled && !(isNextStepDisabled(availableIdx))) {
+            focusedStep.value.stepIndex = availableIdx
+            focusedStep.value.trigger = true
+            break
+          }
+        }
       }
     }
 
-    const resetFocus = (e: any) => {
+    const resetFocus = () => {
       requestAnimationFrame(() => {
         if (!stepperNavigation.value?.contains(document.activeElement)) {
           focusedStep.value.stepIndex = props.modelValue
-          focusedStep.value.force = false
+          focusedStep.value.trigger = false
         }
       })
     }
     watch(() => props.modelValue, () => {
       focusedStep.value.stepIndex = props.modelValue
-      focusedStep.value.force = false
+      focusedStep.value.trigger = false
     })
 
     const nextStep = (stepsToSkip = 0) => {
@@ -221,9 +235,9 @@ export default defineComponent({
       onArrowKeyPress: (direction: 'prev' | 'next') => {
         setFocus(direction)
       },
-      onNavigationValueChange: () => {
+      onValueChange: () => {
         focusedStep.value.stepIndex = props.modelValue
-        focusedStep.value.force = true
+        focusedStep.value.trigger = true
       },
       ariaAttributesComputed: computed(() => ({
         role: 'group',

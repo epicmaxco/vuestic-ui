@@ -3,7 +3,7 @@ import { readdir, readFile, writeFile, lstat } from 'fs/promises'
 
 type Nothing = null | undefined | void
 type TransformFnResult = string | Nothing
-type TransformFn = (content: string, path: string) => TransformFnResult | Promise<TransformFnResult>
+type TransformFn = (this: { outDir: string }, content: string, path: string) => TransformFnResult | Promise<TransformFnResult>
 
 export const createDistTransformPlugin = (options: {
   name: string,
@@ -23,7 +23,7 @@ export const createDistTransformPlugin = (options: {
 
         const content = await readFile(currentPath, 'utf8')
 
-        const result = await options.transform(content, currentPath)
+        const result = await options.transform.call({ outDir }, content, currentPath)
 
         if (!result) { return }
 

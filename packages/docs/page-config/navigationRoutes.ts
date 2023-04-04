@@ -410,6 +410,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.toast",
       },
       {
+        name: "confirm",
+        displayName: "menu.confirm",
+        meta: {
+          badge: "new",
+        }
+      },
+      {
         name: "virtual-scroller",
         displayName: "menu.virtualScroller",
         meta: {

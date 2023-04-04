@@ -48,6 +48,7 @@
               alt="Plus icon"
               height="96"
               width="96"
+              сlass="block__icon"
             >
           </div>
           <!-- /First block -->
@@ -174,6 +175,8 @@ const options = ref(['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'P
       @include xs(padding, 1rem 2rem 2rem 2rem);
 
       img {
+        user-select: none;
+        pointer-events: none;
         position: absolute;
         bottom: 0;
         left: 50%;

@@ -6,7 +6,7 @@
       <span class="px-2">Danger</span>
     </div>
 
-    <div class="controls flex items-center mt-2">
+    <div class="controls flex items-center gap-4 mt-2">
       <va-color-palette
         v-model="primaryColor"
         :palette="colorsToChange"
