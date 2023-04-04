@@ -3,7 +3,7 @@
     ref="splitPanelsContainer"
     class="va-split"
     :class="classComputed"
-    :aria-label="t('splitPanels')"
+    :aria-label="tp($props.ariaLabel)"
   >
     <div
       class="va-split__panel"
@@ -84,6 +84,8 @@ export default defineComponent({
       default: undefined,
     },
     snappingRange: { type: [Number, String] as PropType<number | string>, default: 4 },
+
+    ariaLabel: { type: String, default: '$t:splitPanels' },
   },
 
   emits: useStatefulEmits,

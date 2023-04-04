@@ -875,7 +875,10 @@
         "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
         "autocomplete": "Enables the autocomplete behaviour.",
         "highlightMatchedText": "Highlight chars in options that are match the input value (search or autocomplete).",
-        "minSearchChars": "Minimal amount of chars in input value to initiate search or autocomplete."
+        "minSearchChars": "Minimal amount of chars in input value to initiate search or autocomplete.",
+        "ariaLabel": "Set aria label. By default it `$t:selectOption` is value is selected and `$t:noSelectedOption` if value is empty.",
+        "ariaClearLabel": "Set aria label for clear button",
+        "ariaSearchLabel": "Set aria label for search input"
       },
       "events": {
         "clear": "Emitted if select value has been cleared",

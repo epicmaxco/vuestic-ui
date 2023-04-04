@@ -38,7 +38,7 @@
             <slot name="prependInner" v-bind="slotScope" />
             <va-icon
               v-if="$props.leftIcon"
-              :aria-label="t('toggleDropdown')"
+              :aria-label="tp($props.ariaToggleDropdownLabel)"
               v-bind="iconProps"
               @click.stop="showDropdown"
               @keydown.enter.stop="showDropdown"
@@ -49,7 +49,7 @@
           <template #icon>
             <va-icon
               v-if="canBeCleared"
-              :aria-label="t('resetDate')"
+              :aria-label="tp($props.ariaResetLabel)"
               v-bind="{ ...iconProps, ...clearIconProps }"
               @click.stop="reset"
               @keydown.enter.stop="reset"
@@ -57,7 +57,7 @@
             />
             <va-icon
               v-else-if="!$props.leftIcon && $props.icon"
-              :aria-label="t('toggleDropdown')"
+              :aria-label="tp($props.ariaToggleDropdownLabel)"
               v-bind="iconProps"
               @click.stop="showDropdown"
               @keydown.enter.stop="showDropdown"
@@ -177,6 +177,10 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
     leftIcon: { type: Boolean, default: false },
     icon: { type: String, default: 'va-calendar' },
+
+    ariaToggleDropdownLabel: { type: String, default: '$t:toggleDropdown' },
+    ariaResetLabel: { type: String, default: '$t:resetDate' },
+    ariaSelectedDateLabel: { type: String, default: '$t:selectedDate' },
   },
 
   emits: [
@@ -379,14 +383,14 @@ export default defineComponent({
       },
     }))
 
-    const { t } = useTranslation()
+    const { tp } = useTranslation()
 
     const inputAttributesComputed = computed(() => ({
       readonly: props.readonly || !props.manualInput,
       disabled: props.disabled,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
-      ariaLabel: props.label || t('selectedDate'),
+      ariaLabel: props.label || tp('selectedDate'),
       ariaRequired: props.requiredMark,
       ariaDisabled: props.disabled,
       ariaReadOnly: props.readonly,
@@ -404,7 +408,7 @@ export default defineComponent({
     }))
 
     return {
-      t,
+      tp,
       datePicker,
       valueText,
       valueWithoutText,
