@@ -41,7 +41,7 @@
           />
           <va-icon
             v-if="$props.leftIcon"
-            :aria-label="t('toggleDropdown')"
+            :aria-label="tp($props.ariaToggleDropdownLabel)"
             v-bind="iconProps"
             @click.stop="showDropdown"
             @keydown.enter.stop="showDropdown"
@@ -53,14 +53,14 @@
           <va-icon
             v-if="canBeClearedComputed"
             v-bind="{ ...iconProps, ...clearIconProps }"
-            :aria-label="t('resetTime')"
+            :aria-label="tp($props.ariaResetLabel)"
             @click.stop="reset"
             @keydown.enter.stop="reset"
             @keydown.space.stop="reset"
           />
           <va-icon
             v-else-if="!$props.leftIcon && $props.icon"
-            :aria-label="t('toggleDropdown')"
+            :aria-label="tp($props.ariaToggleDropdownLabel)"
             @click.stop="showDropdown"
             @keydown.enter.stop="showDropdown"
             @keydown.space.stop="showDropdown"
@@ -143,6 +143,10 @@ export default defineComponent({
     manualInput: { type: Boolean, default: false },
     leftIcon: { type: Boolean, default: false },
     icon: { type: String, default: 'schedule' },
+
+    ariaLabel: { type: String, default: '$t:selectedTime' },
+    ariaResetLabel: { type: String, default: '$t:resetTime' },
+    ariaToggleDropdownLabel: { type: String, default: '$t:toggleDropdown' },
   },
 
   inheritAttrs: false,
@@ -151,7 +155,7 @@ export default defineComponent({
     const input = shallowRef<HTMLInputElement>()
     const timePicker = shallowRef<typeof VaTimePicker>()
 
-    const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
+    const [isOpenSync] = useSyncProp('isOpen', props, emit, false as boolean)
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
 
     const { parse, isValid } = useTimeParser(props)
@@ -314,14 +318,14 @@ export default defineComponent({
       tabindex: iconTabindexComputed.value,
     }))
 
-    const { t } = useTranslation()
+    const { tp } = useTranslation()
 
     const inputAttributesComputed = computed(() => ({
       readonly: props.readonly || !props.manualInput,
       disabled: props.disabled,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
-      'aria-label': props.label || t('selectedTime'),
+      'aria-label': props.label || tp(props.ariaLabel),
       'aria-required': props.requiredMark,
       'aria-disabled': props.disabled,
       'aria-readonly': props.readonly,
@@ -337,7 +341,7 @@ export default defineComponent({
     }))
 
     return {
-      t,
+      tp,
       input,
       timePicker,
 

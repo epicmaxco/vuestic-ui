@@ -11,7 +11,7 @@
         <va-color-indicator
           class="va-color-input__dot"
           role="button"
-          :aria-label="t('openColorPicker')"
+          :aria-label="tp($props.ariaOpenColorPickerLabel)"
           :aria-disabled="$props.disabled"
           :tabindex="tabIndexComputed"
           :color="valueComputed"
@@ -57,6 +57,7 @@ export default defineComponent({
       default: 'dot',
       validator: (value: string) => ['dot', 'square'].includes(value),
     },
+    ariaOpenColorPickerLabel: { type: String, default: '$t:openColorPicker' },
   },
   setup: (props, { emit }) => {
     const colorPicker = shallowRef<HTMLInputElement>()

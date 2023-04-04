@@ -111,7 +111,7 @@
                       class="va-data-table__table-cell-checkbox"
                       :model-value="isRowSelected(row)"
                       :color="selectedColor"
-                      :aria-label="t(`selectRowByIndex`, { index: row.initialIndex })"
+                      :aria-label="tp($props.ariaSelectRowLabel, { index: row.initialIndex })"
                       @click.shift.exact.stop="shiftSelectRows(row)"
                       @click.ctrl.exact.stop="ctrlSelectRow(row)"
                       @click.exact.stop="ctrlSelectRow(row)"
@@ -257,6 +257,7 @@ export default defineComponent({
     ...useRowsProps,
     ...useSelectableProps,
     ...useThrottleProps,
+    ...pick(VaDataTableThRowProps, ['ariaSelectAllRowsLabel', 'ariaSortColumnByLabel']),
     hoverable: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },
     loading: { type: Boolean, default: false },
@@ -271,6 +272,8 @@ export default defineComponent({
     grid: { type: Boolean, default: false },
     gridColumns: { type: Number, default: 0 },
     wrapperSize: { type: [Number, String] as PropType<number | string | 'auto'>, default: 'auto' },
+
+    ariaSelectRowLabel: { type: String, default: '$t:selectRowByIndex' },
   },
 
   emits: [

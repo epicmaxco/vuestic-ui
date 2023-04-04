@@ -16,7 +16,7 @@
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
             class="va-counter__button-decrease"
-            :aria-label="t('decreaseCounter')"
+            :aria-label="tp($props.ariaDecreaseLabel)"
             v-bind="decreaseButtonProps"
             @click="decreaseCount"
           />
@@ -40,7 +40,7 @@
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
             class="va-counter__button-increase"
-            :aria-label="t('increaseCounter')"
+            :aria-label="tp($props.ariaIncreaseLabel)"
             v-bind="increaseButtonProps"
             @click="increaseCount"
           />
@@ -151,6 +151,10 @@ export default defineComponent({
     rounded: { type: Boolean, default: false },
     margins: { type: [String, Number], default: '4px' },
     textColor: { type: String, default: undefined },
+
+    ariaLabel: { type: String, default: '$t:counterValue' },
+    ariaDecreaseLabel: { type: String, default: '$t:decreaseCounter' },
+    ariaIncreaseLabel: { type: String, default: '$t:increaseCounter' },
   },
 
   emits: [
@@ -288,11 +292,11 @@ export default defineComponent({
       disabled: isIncreaseActionDisabled.value,
     }))
 
-    const { t } = useTranslation()
+    const { tp } = useTranslation()
 
     const inputAttributesComputed = computed(() => ({
       tabindex: tabIndexComputed.value,
-      'aria-label': props.label || t('counterValue'),
+      'aria-label': tp(props.ariaLabel),
       'aria-valuemin': min.value,
       'aria-valuemax': max.value,
       ...omit(attrs, ['class', 'style']),
@@ -319,7 +323,7 @@ export default defineComponent({
     useCounterPropsValidation(props)
 
     return {
-      ...useTranslation(),
+      tp,
       input,
       valueComputed,
       isFocused,
