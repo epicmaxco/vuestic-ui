@@ -17,7 +17,10 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
     if (!colors) { return }
 
     const colorNames = Object.keys(colors)
-    return colorNames.map((key) => `${cssVariableName(key)}: ${colors[key]}`).join(';')
+    const renderedColors = colorNames.map((key) => `${cssVariableName(key)}: ${colors[key]}`).join(';')
+    const renderedOnColors = colorNames.map((key) => `${cssVariableName(`on-${key}`)}: ${getColor(getTextColor(colors[key]))}`).join(';')
+
+    return `${renderedColors};${renderedOnColors}`
   }
 
   const updateColors = (newValue: ColorVariables | undefined) => {

@@ -5,15 +5,16 @@ import {
   h,
   Fragment,
   type Ref,
+  type PropType,
 } from 'vue'
 
-import { renderSlotNode } from '../../utils/headless'
+import { renderSlotNodes } from '../../utils/headless'
 
 export default defineComponent({
   name: 'VaValue',
 
   props: {
-    defaultValue: { required: true },
+    defaultValue: { type: [] as PropType<any>, required: false, default: false },
   },
 
   setup (props, { slots }) {
@@ -38,7 +39,7 @@ export default defineComponent({
     })
 
     return () => {
-      return h(Fragment, [renderSlotNode(slots.default, slotBind)])
+      return h(Fragment, [renderSlotNodes(slots.default, slotBind)])
     }
   },
 })
