@@ -1,7 +1,10 @@
 <template>
-  <div class="flex gap-5 flex-wrap">
+  <div class="flex gap-8 flex-wrap">
     <va-counter
       v-model="value"
+      buttons
+      rounded
+      :flat="false"
       width="220px"
     >
       <template #content="{ value }">
@@ -13,48 +16,32 @@
 
     <va-counter
       v-model="value"
-      width="220px"
-    >
-      <template #decreaseAction="{ decreaseCount }">
-        <VaButton
-          size="small"
-          outline
-          @click="decreaseCount"
-        >
-          dec
-        </VaButton>
-      </template>
-      <template #increaseAction="{ increaseCount }">
-        <VaButton
-          size="small"
-          outline
-          @click="increaseCount"
-        >
-          inc
-        </VaButton>
-      </template>
-    </va-counter>
-
-    <va-counter
-      v-model="value"
-      width="220px"
       buttons
+      width="360px"
     >
-      <template #decreaseAction="{ decreaseCount }">
-        <VaButton
-          :rounded="false"
-          @click="decreaseCount"
-        >
-          dec
-        </VaButton>
-      </template>ß
-      <template #increaseAction="{ increaseCount }">
-        <VaButton
-          :rounded="false"
-          @click="increaseCount"
-        >
-          inc
-        </VaButton>
+      <template #decreaseAction>
+        <va-button-group>
+          <va-button
+            v-for="step in steps"
+            :key="step"
+            class="!px-0"
+            @click="value -= step"
+          >
+            -{{ step }}
+          </va-button>
+        </va-button-group>
+      </template>
+      <template #increaseAction>
+        <va-button-group>
+          <va-button
+            v-for="step in steps"
+            :key="step"
+            class="!px-0"
+            @click="value += step"
+          >
+            +{{ step }}
+          </va-button>
+        </va-button-group>
       </template>
     </va-counter>
   </div>
@@ -65,6 +52,7 @@ export default {
   data() {
     return {
       value: 10,
+      steps: [1, 10, 100],
     };
   },
 };

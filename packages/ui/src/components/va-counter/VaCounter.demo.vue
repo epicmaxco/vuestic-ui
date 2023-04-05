@@ -44,12 +44,12 @@
     </VbCard>
 
     <VbCard title="styles (buttons, outline)">
-      <va-counter v-model="value" outline button />
+      <va-counter v-model="value" buttons outline />
       <va-counter v-model="value" outline buttons rounded />
       <va-counter v-model="value" buttons outline :flat="false" />
       <va-counter v-model="value" buttons outline :flat="false" rounded />
-      <va-counter v-model="value" buttons outline :flat="false" margins="0" />
-      <va-counter v-model="value" buttons outline :flat="false" margins="0" rounded />
+      <va-counter v-model="value" buttons outline margins="0" />
+      <va-counter v-model="value" buttons outline margins="0" rounded />
     </VbCard>
 
     <VbCard title="styles (buttons, bordered)">
@@ -247,10 +247,10 @@
         width="100%"
       >
         <template #decreaseAction="{ decreaseCount }">
-          <VaButton size="small" flat @click="decreaseCount">decrease</VaButton>
+          <VaButton size="small" class="ma-2" flat @click="decreaseCount">decrease</VaButton>
         </template>
         <template #increaseAction="{ increaseCount }">
-          <VaButton size="small" flat @click="increaseCount">increase</VaButton>
+          <VaButton size="small" class="ma-2" flat @click="increaseCount">increase</VaButton>
         </template>
       </va-counter>
 
@@ -277,6 +277,35 @@
         :style="{ backgroundColor: 'pink', width: '200px' }"
       />
     </VbCard>
+
+    <VbCard title="Steps">
+      <va-counter v-model="stepsValue" buttons width="340px">
+        <template #decreaseAction>
+          <va-button-group>
+            <VaButton
+              v-for="step in steps"
+              :key="step"
+              class="px-0"
+              @click="stepsValue -= step"
+            >
+              -{{ step }}
+            </VaButton>
+          </va-button-group>
+        </template>
+        <template #increaseAction>
+          <va-button-group>
+            <VaButton
+              v-for="step in steps"
+              :key="step"
+              class="px-0"
+              @click="stepsValue += step"
+            >
+              +{{ step }}
+            </VaButton>
+          </va-button-group>
+        </template>
+      </va-counter>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -286,16 +315,19 @@ import { VaCounter } from './index'
 import { VaButton } from '../va-button'
 import { VaChip } from '../va-chip'
 import { VaIcon } from '../va-icon'
+import { VaButtonGroup } from '../va-button-group'
 
 export default {
   components: {
     VaCounter,
     VaButton,
+    VaButtonGroup,
     VaChip,
     VaIcon,
   },
   setup () {
     const value = ref(10)
+    const stepsValue = ref(0)
     const minMaxValue = ref(15)
     const minMaxValue2 = ref(15)
     const emptyValue = ref()
@@ -330,6 +362,9 @@ export default {
       focusCounter,
       focusContentCounter,
 
+      stepsValue,
+      steps: [1, 10, 100],
+
       logger,
     }
   },
@@ -347,7 +382,7 @@ export default {
   }
 
   .va-counter {
-    margin-bottom: 1.5rem;
+    margin: 1rem 0.5rem;
   }
 }
 </style>
