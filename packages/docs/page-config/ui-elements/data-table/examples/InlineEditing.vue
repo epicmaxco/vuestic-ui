@@ -10,19 +10,21 @@
       #[getSlotName(item.key)]="{ rowIndex, value }"
     >
       <div class="table-inline-example__cell">
-        <va-input
-          v-if="flag"
-          autofocus
-          :model-value="value"
-          @change="updateAndBlur(item.key, rowIndex, $event.target.value)"
-          @blur="flag = false"
-        />
-        <span
-          :class="flag ? 'table-inline-example__item--hidden' : 'table-inline-example__item'"
-          @click="flag = true"
-        >
-          {{ value }}
-        </span>
+        <va-value #default="v">
+          <va-input
+            v-if="v.value"
+            :model-value="value"
+            @change="updateItems(item.key, rowIndex, $event.target.value), v.value = false"
+            @blur="v.value = false"
+            @vue:mounted="$event.component.ctx.focus()"
+          />
+          <span
+            :class="v.value ? 'table-inline-example__item--hidden' : 'table-inline-example__item'"
+            @click="v.value = true"
+          >
+            {{ value }}
+          </span>
+        </va-value>
       </div>
     </template>
   </va-data-table>
@@ -63,7 +65,6 @@ export default defineComponent({
     ];
 
     return {
-      flag: false,
       items,
       columns,
     };
@@ -72,10 +73,6 @@ export default defineComponent({
   methods: {
     getSlotName(name) {
       return `cell(${name})`
-    },
-    updateAndBlur(key, index, value) {
-      this.updateItems(key, index, value)
-      this.flag = false
     },
     updateItems(key, index, value) {
       this.items = [
