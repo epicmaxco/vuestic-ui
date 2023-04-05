@@ -1,12 +1,14 @@
-import { ShallowRef } from 'vue'
+import { Ref, ShallowRef, unref } from 'vue'
 import { useEvent } from './useEvent'
-import { useHTMLElement } from '.'
+import { MaybeElement, useHTMLElement } from '.'
+
+type MaybeRef<T> = Ref<T> | T
 
 interface LongPressOptions {
   onStart: () => void;
   onEnd: () => void;
   onUpdate: () => void;
-  delay?: number;
+  delay?: MaybeRef<number>;
   interval?: number;
 }
 
@@ -18,7 +20,7 @@ export function useLongPress (el: ShallowRef<HTMLElement | undefined>, options: 
     options.onStart?.()
     timeoutId = setTimeout(() => {
       intervalId = setInterval(() => options.onUpdate?.(), options.interval || 100) as any
-    }, options.delay || 500) as unknown as number
+    }, unref(options.delay) || 500) as unknown as number
   }
 
   const handleMouseUp = () => {

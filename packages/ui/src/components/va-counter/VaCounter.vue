@@ -96,7 +96,7 @@ import {
   InputHTMLAttributes,
   PropType,
   ComputedRef,
-  ref,
+  toRef,
 } from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
@@ -161,6 +161,7 @@ export default defineComponent({
     rounded: { type: Boolean, default: false },
     margins: { type: [String, Number], default: '4px' },
     textColor: { type: String, default: undefined },
+    longPressDelay: { type: Number, default: 500 },
   },
 
   emits: [
@@ -276,16 +277,15 @@ export default defineComponent({
     }
 
     useLongPress(useTemplateRef('decreaseButtonRef'), {
-      onUpdate: () => {
-        decreaseCount()
-      },
+      onUpdate: decreaseCount,
+      delay: toRef(props, 'longPressDelay'),
     })
 
     useLongPress(useTemplateRef('increaseButtonRef'), {
-      onUpdate: () => {
-        increaseCount()
-      },
+      onUpdate: increaseCount,
+      delay: toRef(props, 'longPressDelay'),
     })
+
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
