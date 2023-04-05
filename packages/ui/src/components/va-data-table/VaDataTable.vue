@@ -139,7 +139,7 @@
                   </td>
                 </tr>
                 <tr
-                  v-show="row.isExpandableRowVisible"
+                  v-if="row.isExpandableRowVisible"
                   class="va-data-table__table-tr--expanded va-data-table__table-expanded-content"
                 >
                   <td :colspan="row.cells.length">
@@ -431,8 +431,8 @@ export default defineComponent({
 @import "../../styles/resources/index.scss";
 @import "variables";
 
-// we set vatiables below via the `useStylable` hook
 .va-data-table {
+  // we set variables below via the `useStylable` hook
   --va-data-table-selected-color: v-bind('CSSVariables.selectedColor');
   --va-data-table-hover-color: v-bind('CSSVariables.hoverColor');
   --va-data-table-height--computed: v-bind('CSSVariables.tableHeight');
@@ -547,13 +547,14 @@ export default defineComponent({
     }
 
     &.striped {
-      .va-data-table__table-tr {
-        position: relative;
-        z-index: 0;
+      .va-data-table__table-tbody {
+        .va-data-table__table-tr {
+          &:nth-child(even) {
+            &:not(.selected) {
+              position: relative;
 
-        &:nth-child(2n) {
-          &:not(.selected) {
-            @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped-tr-opacity), -1);
+              @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped-tr-opacity), -1);
+            }
           }
         }
       }
@@ -561,18 +562,13 @@ export default defineComponent({
 
     &.selectable,
     &.hoverable {
-      :not(thead, tfoot) {
-        .va-data-table__table-tr {
+      .va-data-table__table-tbody {
+        .va-data-table__table-tr,
+        .va-data-table__table-tr:nth-child(even) {
           &:hover {
-            background-color: var(--va-data-table-hover-color);
-          }
-        }
+            position: relative;
 
-        .va-data-table__table-tr:nth-child(2n) {
-          &:hover {
-            background-color: var(--va-data-table-hover-color);
-
-            @include va-background-opacity(transparent);
+            @include va-background(var(--va-data-table-hover-color), 1, -1);
           }
         }
       }
