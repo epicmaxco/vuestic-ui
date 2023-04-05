@@ -4639,6 +4639,10 @@
         "title": "Expandable rows",
         "text": "Each row could can be additionally expanded by providing `expandableRow` slot. Slot expansion is triggered by `row.toggleExpandableRow` slot property"
       },
+      "inlineEditing": {
+        "title": "Inline Editing",
+        "text": "Example of `va-data-table` using the `va-value` component to editing each cell inline."
+      },
       "other": {
         "title": "Other",
         "text": [
