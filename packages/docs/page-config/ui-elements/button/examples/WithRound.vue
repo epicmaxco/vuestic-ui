@@ -1,20 +1,13 @@
 <template>
-  <div style="display: flex; align-items: center;">
-    <va-button
-      size="large"
-      class="mr-6 mb-2"
-      round
-    >
+  <div class="flex items-center gap-8 flex-wrap">
+    <va-button round>
       Label
     </va-button>
     <va-button
-      size="small"
-      class="mr-6 mb-2"
       round
-      icon="close"
+      icon="thumb_up"
     />
     <va-button
-      class="mr-6 mb-2"
       round
       icon="close"
     >
