@@ -45,38 +45,6 @@ export const useFloatingPosition = (
     return alignOptions[align.value]
   })
 
-  const getOverlapMargin = computed(() => {
-    if (!props.overlap) { return {} }
-
-    const result = { [`margin-${position.value}`]: 'var(--va-badge-overlap)' }
-
-    const alignComplianceTable = {
-      top: { end: 'left', multiplier: -1 },
-      bottom: { start: 'left', multiplier: 1 },
-    } as AlignComplianceTable
-
-    const alignComplianceValue = alignComplianceTable[position.value]?.[align.value]
-    if (alignComplianceValue) {
-      Object.assign(result, {
-        [`margin-${alignComplianceValue}`]: `calc(${alignComplianceTable[position.value].multiplier} * var(--va-badge-overlap))`,
-      })
-    }
-
-    return result
-  })
-
-  const getAlignment = computed(() => {
-    const baseSide = ['left', 'right'].includes(position.value) ? 'top' : 'left'
-    const alignmentOptions = {
-      start: { [baseSide]: 0 },
-      center: { [baseSide]: '50%' },
-      end: { [baseSide]: '100%' },
-    }
-    return alignmentOptions[align.value]
-  })
-
-  const offset = toRef(props, 'offset')
-
   const alignmentComputed = computed(() => {
     const mainAxis = ['left', 'right'].includes(position.value) ? 'top' : 'left'
     const crossAxis = mainAxis === 'top' ? 'left' : 'top'
