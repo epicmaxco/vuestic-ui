@@ -34,29 +34,11 @@ export const useFloatingPosition = (
   if (!floating.value) { return {} }
 
   const { position, align } = usePlacementAliases(props)
-
-  const centerAlignment = computed(() => {
-    switch (align.value) {
-      case 'start':
-        return '-100%'
-      case 'center':
-        return '-50%'
-      case 'end':
-      default:
-        return '0%'
-    }
-  })
-
-  const transformComputed = computed(() => {
-    const options = {
-      top: { transform: `translateX(${centerAlignment.value}) translateY(-100%)` },
-      bottom: { transform: `translateX(${centerAlignment.value}) translateY(100%)` },
-      left: { transform: 'translateX(-100%) translateY(-50%)' },
-      right: { transform: `translateX(100%) translateY(${centerAlignment.value})` },
-    }
-
-    return options[position.value]
-  })
+  const alignOptions = {
+    start: '-100%',
+    center: '-50%',
+    end: '0%',
+  }
 
   const getOverlapMargin = computed(() => {
     if (!props.overlap) { return {} }
@@ -90,10 +72,50 @@ export const useFloatingPosition = (
 
   const offset = toRef(props, 'offset')
 
+  const alignmentComputed = computed(() => {
+    const mainAxis = ['left', 'right'].includes(position.value) ? 'top' : 'left'
+    const crossAxis = mainAxis === 'top' ? 'left' : 'top'
+    let shiftValue: number | string = 0
+
+    if (crossAxis === 'top' && position.value === 'bottom') {
+      shiftValue = '100%'
+    }
+
+    if (crossAxis === 'left' && position.value === 'right') {
+      shiftValue = '100%'
+    }
+
+    const alignmentOptions = {
+      start: {
+        [mainAxis]: 0,
+        [crossAxis]: shiftValue,
+      },
+      center: {
+        [mainAxis]: '50%',
+        [crossAxis]: shiftValue,
+      },
+      end: {
+        [mainAxis]: '100%',
+        [crossAxis]: shiftValue,
+      },
+    }
+
+    return alignmentOptions[align.value]
+  })
+
+  const transformComputed = computed(() => {
+    const transformOptions = {
+      top: { transform: `translateX(${alignOptions[align.value]}) translateY(-100%)` },
+      bottom: { transform: `translateX(${alignOptions[align.value]}) translateY(0%)` },
+      left: { transform: `translateX(-100%) translateY(${alignOptions[align.value]})` },
+      right: { transform: `translateX(0%) translateY(${alignOptions[align.value]})` },
+    }
+
+    return transformOptions[position.value]
+  })
+
   return computed(() => ({
-    [position.value]: `${parseSizeValue(offset)}px`,
+    ...alignmentComputed.value,
     ...transformComputed.value,
-    ...getAlignment.value,
-    ...getOverlapMargin.value,
   }))
 }
