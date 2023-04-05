@@ -1,6 +1,6 @@
 {
   "title": "Value",
-  "description": "Value is headless utility a component that provides you a reactive variable in template. This is useful when you want to have a state in HTML you passed to slot.",
+  "description": "Value is a headless utility component that provides you a reactive variable in template. This is useful when you want to have a state in HTML you passed to slot.",
   "examples": {
     "default": {
       "title": "Default",
@@ -8,7 +8,7 @@
     },
     "withInputs": {
       "title": "Inline editing",
-      "text": "Great example where `VaValue` can be useful is v-for or v-slot. In example below we render form data with v-for and for each item `VaValue` creates state, which we use to change if it is in edit mode or not."
+      "text": "Great example where `VaValue` can be useful is `v-for` or `v-slot`. In example below we render form data with `v-for` and for each item `VaValue` creates state, which we use to change if it is in edit mode or not."
     },
     "string": {
       "title": "Default value",

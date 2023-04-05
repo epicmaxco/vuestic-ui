@@ -1,14 +1,14 @@
 <template>
   <VbDemo>
     <VbCard title="V reactive">
-      <VaValue :default-value="false" #default="v">
+      <VaValue #default="v">
         <button @click="v.value = !v.value">
           {{ v.value ? 'clicked' : 'unclicked' }}
         </button>
       </VaValue>
     </VbCard>
     <VbCard title="Show/Hide">
-      <VaValue :default-value="false" #default="v">
+      <VaValue #default="v">
         <div>
           <button @click="v.value = !v.value">
             {{ v.value ? 'Hide' : 'Show' }}
@@ -25,7 +25,7 @@
       </VaValue>
     </VbCard>
     <VbCard title="Expand input">
-      <VaValue :default-value="false" #default="v">
+      <VaValue #default="v">
         <div style="height: 24px; position: relative;">
           <input
             :value="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet eaque deserunt maiores voluptatibus vitae hic ullam, asperiores, veritatis voluptatem eum obcaecati saepe quibusdam libero porro dolores et nobis! Possimus, labore?'"
