@@ -70,16 +70,16 @@
 
     <va-dropdown-content class="va-date-input__dropdown-content">
       <va-date-picker
-          ref="datePicker"
-          v-bind="datePickerProps"
-          v-model="valueWithoutText"
-          @click:day="$emit('click:day', $event)"
-          @click:month="$emit('click:month', $event)"
-          @click:year="$emit('click:year', $event)"
-          @hover:day="$emit('hover:day', $event)"
-          @hover:month="$emit('hover:month', $event)"
-          @hover:year="$emit('hover:year', $event)"
-          @update:view="$emit('update:view', $event)"
+        ref="datePicker"
+        v-bind="datePickerProps"
+        v-model="valueWithoutText"
+        @click:day="$emit('click:day', $event)"
+        @click:month="$emit('click:month', $event)"
+        @click:year="$emit('click:year', $event)"
+        @hover:day="$emit('hover:day', $event)"
+        @hover:month="$emit('hover:month', $event)"
+        @hover:year="$emit('hover:year', $event)"
+        @update:view="$emit('update:view', $event)"
       >
         <template
           v-for="(_, name) in $slots"
@@ -124,7 +124,6 @@ import { parseModelValue } from './hooks/model-value-parser'
 import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
 
 import type { DateInputModelValue, DateInputValue } from './types'
-import type { DropdownOffsetProp } from '../va-dropdown/types'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
@@ -134,7 +133,7 @@ import { VaIcon } from '../va-icon'
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
 const VaDropdownProps = extractComponentProps(VaDropdown,
-  ['innerAnchorSelector', 'stateful', 'offset', 'keyboardNavigation', 'closeOnContentClick', 'modelValue'],
+  ['innerAnchorSelector', 'stateful', 'keyboardNavigation', 'modelValue'],
 )
 
 export default defineComponent({
