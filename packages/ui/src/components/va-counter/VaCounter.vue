@@ -287,8 +287,6 @@ export default defineComponent({
     }
     const decreaseButtonRef = ref(null)
     useLongPress(decreaseButtonRef, {
-      onStart: () => { },
-      onEnd: () => { },
       onUpdate: () => {
         decreaseCount()
       },
@@ -296,8 +294,6 @@ export default defineComponent({
 
     const increaseButtonRef = ref(null)
     useLongPress(increaseButtonRef, {
-      onStart: () => { },
-      onEnd: () => { },
       onUpdate: () => {
         increaseCount()
       },

@@ -8,21 +8,21 @@ interface LongPressOptions {
   interval?: number;
 }
 
-export function useLongPress (el: Ref<HTMLElement | null>, options: LongPressOptions) {
-  const timeoutId = ref<number | null>(null)
-  const intervalId = ref<number | null>(null)
+export function useLongPress (el: Ref<HTMLElement | null>, options: Partial<LongPressOptions>) {
+  let timeoutId = -1
+  let intervalId = -1
 
   const handleMouseDown = () => {
-    options.onStart()
-    timeoutId.value = setTimeout(() => {
-      intervalId.value = setInterval(options.onUpdate, options.interval || 100) as any
-    }, options.delay || 500) as any
+    options.onStart?.()
+    timeoutId = setTimeout(() => {
+      intervalId = setInterval(() => options.onUpdate?.(), options.interval || 100) as any
+    }, options.delay || 500) as unknown as number
   }
 
   const handleMouseUp = () => {
-    clearTimeout(timeoutId.value as any)
-    clearInterval(intervalId.value as any)
-    options.onEnd()
+    clearTimeout(timeoutId)
+    clearInterval(intervalId)
+    options.onEnd?.()
   }
 
   onMounted(() => {
