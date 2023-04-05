@@ -17,7 +17,7 @@
       <div class="va-input-wrapper__field">
         <div
           v-if="$slots.prependInner"
-          class="va-input__container"
+          class="va-input-wrapper__prepend-inner"
           ref="container"
           :style="containerStyle"
           @click="$emit('click-prepend-inner', $event)"
@@ -49,12 +49,22 @@
           color="success"
           name="va-check-circle"
           size="small"
+          class="va-input-wrapper__icon va-input-wrapper__icon--success"
         />
         <va-icon
           v-if="error"
           color="danger"
           name="va-warning"
           size="small"
+          class="va-input-wrapper__icon va-input-wrapper__icon--error"
+        />
+        <va-icon
+          v-if="$props.loading"
+          :color="$props.color"
+          size="small"
+          name="va-loading"
+          spin="counter-clockwise"
+          class="va-input-wrapper__icon va-input-wrapper__icon--loading"
         />
         <slot name="icon" />
 
@@ -123,6 +133,7 @@ export default defineComponent({
     focused: { type: Boolean, default: false },
     error: { type: Boolean, default: false },
     success: { type: Boolean, default: false },
+    loading: { type: Boolean, default: false },
     requiredMark: { type: Boolean, default: false },
   },
 
@@ -234,24 +245,17 @@ export default defineComponent({
     z-index: 0;
     overflow: hidden;
 
-    @include va-background(var(--va-input-color), null, -1);
-
-    /* Creates gap between prepend, content, validation icons, append */
-    & > * {
-      padding-right: var(--va-input-content-items-gap);
-      line-height: 0;
-
-      &:last-child {
-        padding-right: 0;
-      }
-    }
-
     input,
     textarea {
       color: v-bind(textColorComputed);
     }
-    // TODO: Choose va-background
-    @include va-background(var(--va-input-wrapper-background), var(--va-input-wrapper-background-opacity), -1);
+  }
+
+  &--solid,
+  &--bordered {
+    .va-input-wrapper__field {
+      @include va-background(var(--va-input-wrapper-background), var(--va-input-wrapper-background-opacity), -1);
+    }
   }
 
   &__container {
@@ -324,14 +328,6 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: center;
-
-    & > * {
-      margin-right: calc(var(--va-input-content-items-gap) / 4);
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
 
     &__reset {
       &:focus {
@@ -412,21 +408,18 @@ export default defineComponent({
   }
 
   &--bordered {
-    &::after {
-      content: '';
-      border-color: var(--va-input-wrapper-border-color);
-      position: absolute;
-      height: 0;
-      border-bottom-width: var(--va-input-border-width);
-      border-bottom-style: solid;
-      width: 100%;
-      bottom: 0;
-    }
-
     .va-input-wrapper__field {
       border-top-left-radius: var(--va-input-border-radius);
       border-top-right-radius: var(--va-input-border-radius);
-      border-color: transparent !important;
+      border-left-width: 0;
+      border-right-width: 0;
+      border-top-width: 0;
+
+      &::after {
+        bottom: 0;
+        border-color: var(--va-input-wrapper-border-color);
+        border-bottom-style: solid;
+      }
     }
   }
 

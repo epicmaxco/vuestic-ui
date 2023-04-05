@@ -2,7 +2,9 @@
 import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
 
 import { useComponentPresetProp, useAlign, useAlignProps, useColors, useTranslation } from '../../composables'
+
 import { hasOwnProperty } from '../../utils/has-own-property'
+import { resolveSlot } from '../../utils/resolveSlot'
 
 export default defineComponent({
   name: 'VaBreadcrumbs',
@@ -13,6 +15,7 @@ export default defineComponent({
     color: { type: String, default: 'secondary' },
     activeColor: { type: String, default: null },
     separatorColor: { type: String, default: null },
+    ariaLabel: { type: String, default: '$t:breadcrumbs' },
   },
   setup (props, { slots }) {
     const { alignComputed } = useAlign(props)
@@ -25,7 +28,7 @@ export default defineComponent({
       return props.activeColor ? getColor(props.activeColor) : getColor(props.color)
     })
 
-    const childNodeFilter = (result: VNode[], node?: VNode) => {
+    const childNodeFilter = (result: VNode[], node: VNode) => {
       const nodes = node && node.type === Fragment && node.children ? node.children as VNode[] : [node]
 
       return [
@@ -38,7 +41,7 @@ export default defineComponent({
       // Temp fix for https://github.com/intlify/vue-i18n-next/issues/412
       // `separatorNode` can be moved outside this method after update vuestic's minimal vue version to 3.1.0
       // testing: have to monitor errors after leaving breadcrumbs page in doc
-      const separatorNode = slots.separator ? slots.separator() : [props.separator]
+      const separatorNode = resolveSlot(slots.separator) || [props.separator]
 
       return h('span', {
         'aria-hidden': true,
@@ -62,7 +65,9 @@ export default defineComponent({
 
     const isAllChildLinks = ref(true)
     const getChildren = () => {
-      const childNodes = (slots as any)?.default?.reduce(childNodeFilter, []) || []
+      const defaultSlotContent = resolveSlot(slots.default)
+      if (!defaultSlotContent) { return }
+      const childNodes = defaultSlotContent.reduce(childNodeFilter, []) || []
       const childNodesLength = childNodes.length
       const isLastIndexChildNodes = (index: number) => index === childNodesLength - 1
       const isChildLink = (child: VNode) => {
@@ -104,13 +109,13 @@ export default defineComponent({
       return children
     }
 
-    const { t } = useTranslation()
+    const { tp } = useTranslation()
 
     return () => h('div', {
       class: 'va-breadcrumbs',
       style: alignComputed.value,
       role: isAllChildLinks.value ? 'navigation' : undefined,
-      'aria-label': isAllChildLinks.value ? t('breadcrumbs') : undefined,
+      'aria-label': (isAllChildLinks.value ? tp(props.ariaLabel) : undefined),
     }, getChildren())
   },
 })

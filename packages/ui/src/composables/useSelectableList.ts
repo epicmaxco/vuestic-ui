@@ -1,10 +1,9 @@
-import { PropType, ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 
 import { getValueByKey } from '../utils/value-by-key'
 
-export type SelectableOption = string | number | Record<string, any>
-
-type StringOrFunction = string | ((option: SelectableOption) => unknown)
+export type SelectableOption = string | number | boolean | Record<string, any>
+export type StringOrFunction = string | ((option: SelectableOption) => unknown)
 
 export const useSelectableListProps = {
   options: { type: Array as PropType<SelectableOption[]>, default: () => [] },
@@ -16,38 +15,45 @@ export const useSelectableListProps = {
 }
 
 export function useSelectableList (props: ExtractPropTypes<typeof useSelectableListProps>) {
-  const isStringOrNumber = (option: SelectableOption): option is (string | number) => {
-    const typeOfOption = typeof option
-    return typeOfOption === 'string' || typeOfOption === 'number'
+  const getOptionProperty = (option: SelectableOption, prop: StringOrFunction) => {
+    // if option is a primitive value, we return itself
+    if (typeof option !== 'object') { return option }
+
+    return getValueByKey(option, prop)
   }
 
-  const getOptionProperty = (option: SelectableOption, selector: StringOrFunction) => {
-    return !selector || isStringOrNumber(option)
-      ? option
-      : getValueByKey(option, selector)
+  const getTrackBy = (option: SelectableOption): string | number => {
+    return props.trackBy ? getOptionProperty(option, props.trackBy) : getValue(option)
   }
 
+  const getDisabled = (option: SelectableOption): boolean => {
+    // any non-object options should return `false`
+    if (typeof option !== 'object') { return false }
+
+    return getOptionProperty(option, props.disabledBy)
+  }
+
+  const getText = (option: SelectableOption): string => {
+    const optionText = getOptionProperty(option, props.textBy)
+
+    // `String` should prevent wrong type errors in case of number/boolean value
+    if (['number', 'boolean'].includes(typeof optionText)) { return String(optionText) }
+
+    return optionText
+  }
+
+  // group by is used as object's key, so it can be only string or number
+  const getGroupBy = (option: SelectableOption): string | number | undefined => {
+    if (!option || typeof option !== 'object') { return undefined }
+
+    return getOptionProperty(option, props.groupBy)
+  }
+
+  // value can be any type except array
   const getValue = (option: SelectableOption) => getOptionProperty(option, props.valueBy)
-
-  const getOptionByValue = (value: SelectableOption) => {
-    if (!props.valueBy) { return value }
-    return props.options.find((option: SelectableOption) => value === getValue(option)) || value
-  }
-
-  const getText = (option: SelectableOption) => getOptionProperty(option, props.textBy)
-
-  const getDisabled = (option: SelectableOption) =>
-    isStringOrNumber(option) ? false : getOptionProperty(option, props.disabledBy)
-
-  const getTrackBy = (option: SelectableOption) => {
-    if (props.trackBy) { return getOptionProperty(option, props.trackBy) }
-    return getValue(option)
-  }
-  const getGroupBy = (option: SelectableOption) => getOptionProperty(option, props.groupBy)
 
   return {
     getValue,
-    getOptionByValue,
     getText,
     getDisabled,
     getTrackBy,

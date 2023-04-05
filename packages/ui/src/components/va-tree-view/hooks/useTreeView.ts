@@ -18,7 +18,7 @@ import useTreeKeyboardNavigation from './useTreeKeyboardNavigation'
 type CreateNodeProps = {
   node: TreeNode
   level: number
-  children: TreeNode[]
+  children?: TreeNode[]
   computedFilterMethod: ComputedRef<TreeViewFilterMethod>
 }
 
@@ -42,6 +42,7 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     getValue,
     getChecked,
     getTrackBy,
+    getChildren,
     getDisabled,
     getExpanded,
     iterateNodes,
@@ -87,13 +88,15 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
         nodes.forEach((node: TreeNode) => {
           if (node.disabled) { return }
 
-          if (node.children?.length) { toggleChildren(node.children) }
+          const children = getChildren(node)
+
+          if (children.length) { toggleChildren(children) }
 
           values.push(getValue(node))
         })
       }
 
-      toggleChildren(node.children)
+      toggleChildren(getChildren(node))
     }
 
     updateModel(checkedList, values, stateValue)
@@ -146,17 +149,19 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
   })
 
   const buildTree: TreeBuilderFunc = (nodes: TreeNode[], level = 0) => nodes.map((node: TreeNode) => {
-    if (node.children?.length) {
-      const children = buildTree(node.children, level + 1)
+    const treeItemChildren = getChildren(node)
+
+    if (treeItemChildren.length) {
+      const children = buildTree(treeItemChildren, level + 1)
 
       return createNode({ node, level, children, computedFilterMethod })
     }
 
-    return createNode({ node, level, computedFilterMethod, children: [] })
+    return createNode({ node, level, computedFilterMethod })
   })
 
   const getFilteredNodes = (nodes: TreeNode[]): TreeNode[] => nodes.slice().filter((node) => {
-    if (node.hasChildren) { getFilteredNodes(node.children.slice()) }
+    if (node.hasChildren) { getFilteredNodes(getChildren(node)) }
 
     return node.matchesFilter ? node : false
   })

@@ -1,0 +1,122 @@
+@import '../variables';
+
+//
+// See: https://github.com/ag-grid/ag-grid/blob/latest/community-modules/core/src/styles/ag-theme-base/sass/parts/_widgets.scss
+//
+@mixin ag-vuestic-theme-part-widgets {
+  input[class^=ag-]:not([type]),
+  input[class^=ag-][type=text],
+  input[class^=ag-][type=number],
+  input[class^=ag-][type=tel],
+  input[class^=ag-][type=date],
+  input[class^=ag-][type=datetime-local],
+  textarea[class^=ag-] {
+    background: var(--va-input-color, #{ $backgroundElement });
+    padding: 0 9px;
+    font-family: var(--ag-font-family);
+    border: 1px solid var(--va-input-color, #{ $backgroundElement });
+
+    &:focus {
+      border: 1px solid var(--va-background-secondary, #{ $focus }); // keyboard focus color
+    }
+  }
+
+  ////////////////////////////////////////
+  // Lists
+  ////////////////////////////////////////
+  .ag-list-item {
+    &.ag-active-item {
+      background-color: var(--va-background-element, #{ $backgroundElement });
+    }
+  }
+
+  .ag-select-list-item {
+    padding-left: 12px;
+    padding-right: 12px;
+    cursor: pointer;
+  }
+
+  ////////////////////////////////////////
+  // Picker
+  ////////////////////////////////////////
+  .ag-select {
+    .ag-picker-field-wrapper {
+      cursor: pointer;
+      padding: 0 var(--va-input-content-horizontal-padding, #{ $inputHorizontalPadding });
+      background: var(--va-input-color, #{ $backgroundElement });
+      border: 1px solid var(--va-background-secondary, #{ $backgroundSecondary });
+      border-radius: var(--va-input-border-radius, #{ $inputBorderRadius });
+    }
+
+    .ag-picker-field-display {
+      margin: 0;
+    }
+  }
+
+  ////////////////////////////////////////
+  // Radio
+  ////////////////////////////////////////
+  .ag-radio-button-input-wrapper {
+    $radio-size: 22px;
+
+    width: $radio-size;
+    height: $radio-size;
+
+    &::after {
+      font-size: $radio-size;
+      color: var(--va-background-primary);
+      line-height: $radio-size;
+    }
+
+    &.ag-checked::after {
+      font-size: $radio-size;
+      color: currentColor;
+    }
+  }
+
+  ////////////////////////////////////////
+  // Popup
+  ////////////////////////////////////////
+  .ag-popup-child {
+    --ag-background-color: var(--va-background-secondary, #{ $backgroundSecondary });
+
+    padding: 0;
+    border-radius: var(--va-dropdown-content-border-radius, #{ $dropdownContentBorderRadius });
+
+    &:not(.ag-tooltip-custom) {
+      box-shadow: var(--va-dropdown-content-box-shadow, #{ $dropdownContentBoxShadow });
+    }
+
+    .ag-simple-filter-body-wrapper {
+      padding: var(--va-dropdown-content-padding, #{ $dropdownContentPadding });
+
+      input[class^=ag-]:not([type]),
+      input[class^=ag-][type=text],
+      input[class^=ag-][type=number],
+      input[class^=ag-][type=tel],
+      input[class^=ag-][type=date],
+      input[class^=ag-][type=datetime-local],
+      textarea[class^=ag-] {
+        height: var(--ag-list-item-height);
+        padding: 0 12px;
+        border-radius: var(--va-input-border-radius, #{ $inputBorderRadius });
+        border: 1px solid var(--va-input-color, #{ $backgroundElement });
+      }
+    }
+  }
+  // add more space for radio section
+  .ag-filter-condition {
+    padding: 10px 0;
+  }
+
+  ////////////////////////////////////////
+  // Ghost Element (Drag and Drop)
+  ////////////////////////////////////////
+  &.ag-dnd-ghost {
+    box-shadow: var(--va-dropdown-content-box-shadow, #{ $dropdownContentBoxShadow });
+  }
+
+  .ag-dnd-ghost-icon {
+    color: currentColor;
+  }
+}

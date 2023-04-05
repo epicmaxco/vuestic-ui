@@ -1,4 +1,7 @@
+:root,
 :host {
-  --va-image-position: absolute;
-  --va-image-object-position: 50% 50%;
+  // the relative position is used to render va-image inside va-viewer
+  // can also be suitable if you want to leave size and position control to external classes
+  --va-image-content-position: absolute;
+  --va-image-content-img-object-position: 50% 50%;
 }

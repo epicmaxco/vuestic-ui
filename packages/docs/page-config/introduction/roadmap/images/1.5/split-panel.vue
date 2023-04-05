@@ -1,0 +1,22 @@
+<template>
+  <svg
+    width="200"
+    height="100"
+    viewBox="0 0 200 100"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      width="200"
+      height="100"
+      rx="4"
+      fill="#F5F6FA"
+    />
+    <rect
+      x="64.5"
+      width="1"
+      height="100"
+      fill="#767C88"
+    />
+  </svg>
+</template>

@@ -1,13 +1,18 @@
 <template>
-  <div class="inner-loading">
+  <div
+    class="va-inner-loading"
+    aria-live="polite"
+    :class="computedClass"
+    v-bind="ariaAttributesComputed"
+  >
     <slot />
     <div
       v-if="$props.loading"
-      class="inner-loading__overlay"
+      class="va-inner-loading__overlay"
       aria-hidden="true"
     >
       <va-icon
-        class="inner-loading__spinner"
+        class="va-inner-loading__spinner"
         spin
         :color="colorComputed"
         :size="$props.size"
@@ -38,7 +43,15 @@ export default defineComponent({
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
-    return { colorComputed }
+    return {
+      colorComputed,
+      computedClass: computed(() => ({
+        'va-inner-loading--active': props.loading,
+      })),
+      ariaAttributesComputed: computed(() => ({
+        'aria-busy': props.loading,
+      })),
+    }
   },
 })
 </script>
@@ -46,20 +59,24 @@ export default defineComponent({
 <style lang="scss">
 @import "variables";
 
-.inner-loading {
-  position: var(--inner-loading-position);
-  min-width: var(--inner-loading-min-width);
-  width: var(--inner-loading-width);
+.va-inner-loading {
+  position: var(--va-inner-loading-position);
+  min-width: var(--va-inner-loading-min-width);
+  width: var(--va-inner-loading-width);
   font-family: var(--va-font-family);
 
+  &--active {
+    pointer-events: none;
+  }
+
   &__overlay {
-    display: var(--inner-loading-overlay-display);
-    align-items: var(--inner-loading-overlay-align-items);
-    justify-content: var(--inner-loading-overlay-justify-content);
-    position: var(--inner-loading-overlay-position);
-    top: var(--inner-loading-overlay-top);
-    bottom: var(--inner-loading-overlay-bottom);
-    width: var(--inner-loading-overlay-width);
+    display: var(--va-inner-loading-overlay-display);
+    align-items: var(--va-inner-loading-overlay-align-items);
+    justify-content: var(--va-inner-loading-overlay-justify-content);
+    position: var(--va-inner-loading-overlay-position);
+    top: var(--va-inner-loading-overlay-top);
+    bottom: var(--va-inner-loading-overlay-bottom);
+    width: var(--va-inner-loading-overlay-width);
     z-index: 0;
 
     &::after {
@@ -69,7 +86,7 @@ export default defineComponent({
       height: 100%;
       top: 0;
       left: 0;
-      background: var(--inner-loading-overlay-background);
+      background: var(--va-inner-loading-overlay-background);
       opacity: 0.3;
       z-index: -1;
     }

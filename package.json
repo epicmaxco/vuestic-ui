@@ -41,6 +41,9 @@
     "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD"
   },
   "resolutions": {
-    "vue": "3.2.37"
+    "nuxt": "3.1.1",
+    "vue": "3.2.37",
+    "vue-router": "4.1.6",
+    "@nuxt/schema": "3.0.0"
   }
 }

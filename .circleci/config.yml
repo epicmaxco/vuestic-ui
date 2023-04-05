@@ -67,6 +67,7 @@ jobs:
               rm -f ~/tmp/dist.tar.gz
             EOF
 
+
   deploy-docs:
     <<: *defaults
     steps:
@@ -84,7 +85,7 @@ jobs:
       - run:
           name: Deploy to hosting
           command: |
-            tar -czf dist.tar.gz ~/repo/packages/docs/dist -C ~/repo/packages/docs/dist .
+            tar -czf dist.tar.gz ~/repo/packages/docs/.output/public -C ~/repo/packages/docs/.output/public .
             scp ~/repo/dist.tar.gz $SERVER_USER@$SERVER_IP:~/tmp
             ssh $SERVER_USER@$SERVER_IP /bin/bash << EOF
               rm -rf $DEPLOY_PATH/*

@@ -23,7 +23,7 @@
           color="danger"
           icon="clear"
           class="va-file-upload-list-item__delete"
-          :aria-label="t('removeFile')"
+          :aria-label="tp($props.ariaRemoveFileLabel)"
           @click.stop="removeFile"
           @keydown.enter.stop="removeFile"
           @keydown.space.stop="removeFile"
@@ -41,7 +41,8 @@ import { defineComponent, ref, PropType } from 'vue'
 import { useBem, useFocus, useStrictInject, useTranslation } from '../../../composables'
 import { VaFileUploadKey, ConvertedFile } from '../types'
 
-import { VaListItem, VaListItemSection, VaButton } from '../../index'
+import { VaButton } from '../../va-button'
+import { VaListItem, VaListItemSection } from '../../va-list'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadListItem component should be used in the context of VaFileUpload component'
@@ -61,6 +62,8 @@ export default defineComponent({
   props: {
     file: { type: Object as PropType<ConvertedFile | null>, default: null },
     color: { type: String, default: 'success' },
+
+    ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
   },
 
   setup (props, { emit }) {

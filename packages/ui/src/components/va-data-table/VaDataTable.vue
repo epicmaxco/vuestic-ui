@@ -4,15 +4,13 @@
     v-bind="computedAttributes"
     ref="scrollContainer"
   >
-    <template
-      #content="{
+    <template #content="{
         uniqueKey,
         renderBuffer,
         currentListOffset,
         listStyleComputed,
         containerStyleComputed,
-      }"
-    >
+      }">
       <va-inner-loading
         aria-live="polite"
         :style="containerStyleComputed"
@@ -41,18 +39,20 @@
             :style="{ top: isVirtualScroll && $props.stickyHeader ? `-${currentListOffset}px` : undefined }"
           >
 
-          <slot name="headerPrepend" />
+            <slot name="headerPrepend" />
 
-          <va-data-table-th-row
-            v-if="!hideDefaultHeader"
-            v-bind="thAttributesComputed"
-            v-on:toggleBulkSelection="toggleBulkSelection"
-            v-on:toggleSorting="toggleSorting"
-          >
-            <template v-for="(_, slot) of $slots" v-slot:[slot]="scope"><slot :name="slot" v-bind="scope" /></template>
-          </va-data-table-th-row>
+            <slot name="header">
+              <va-data-table-th-row
+                v-if="!hideDefaultHeader"
+                v-bind="thAttributesComputed"
+                v-on:toggleBulkSelection="toggleBulkSelection"
+                v-on:toggleSorting="toggleSorting"
+              >
+                <template v-for="(_, slot) of $slots" v-slot:[slot]="scope"><slot :name="slot" v-bind="scope" /></template>
+              </va-data-table-th-row>
+            </slot>
 
-          <slot name="headerAppend" />
+            <slot name="headerAppend" />
           </thead>
 
           <tbody
@@ -60,106 +60,122 @@
             class="va-data-table__table-tbody"
           >
 
-          <slot name="bodyPrepend" />
+            <slot name="bodyPrepend" />
 
-          <transition-group
-            :name="isVirtualScroll ? '' : animationName"
-            :css="!$props.virtualScroller"
-            :appear="!$props.virtualScroller"
-          >
-            <tr
-              v-if="showNoDataHtml"
-              key="showNoDataHtml"
+            <transition-group
+              :name="isVirtualScroll ? '' : animationName"
+              :css="!$props.virtualScroller"
+              :appear="!$props.virtualScroller"
             >
-              <td
-                class="no-data"
-                :colspan="columnsComputed.length + (selectable ? 1 : 0)"
-                v-html="noDataHtml"
-              />
-            </tr>
-
-            <tr
-              v-else-if="showNoDataFilteredHtml"
-              key="showNoDataFilteredHtml"
-            >
-              <td
-                class="no-data"
-                :colspan="columnsComputed.length + (selectable ? 1 : 0)"
-                v-html="noDataFilteredHtml"
-              />
-            </tr>
-
-            <tr
-              v-for="(row, index) in renderBuffer"
-              :key="`table-row_${uniqueKey(row, index)}`"
-              class="va-data-table__table-tr"
-              :class="[{ selected: isRowSelected(row) }]"
-              v-bind="getRowBind(row)"
-              @click="onRowClickHandler('row:click', $event, row)"
-              @dblclick="onRowClickHandler('row:dblclick', $event, row)"
-              @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
-            >
-              <td
-                v-if="selectable && !$props.grid"
-                class="va-data-table__table-td va-data-table__table-cell-select"
-                :key="`selectable_${uniqueKey(row, index)}`"
-                @selectstart.prevent
+              <tr
+                v-if="showNoDataHtml"
+                key="showNoDataHtml"
               >
-                <va-checkbox
-                  class="va-data-table__table-cell-checkbox"
-                  :model-value="isRowSelected(row)"
-                  :color="selectedColor"
-                  :aria-label="t(`selectRowByIndex`, { index: row.initialIndex })"
-                  @click.shift.exact.stop="shiftSelectRows(row)"
-                  @click.ctrl.exact.stop="ctrlSelectRow(row)"
-                  @click.exact.stop="ctrlSelectRow(row)"
+                <td
+                  class="no-data"
+                  :colspan="columnsComputed.length + (selectable ? 1 : 0)"
+                  v-html="noDataHtml"
                 />
-              </td>
+              </tr>
 
-              <td
-                v-for="(cell, cellIndex) in row.cells"
-                :key="`table-cell_${cell.column.name + cell.rowIndex}`"
-                class="va-data-table__table-td"
-                :class="getClass(cell.column.tdClass)"
-                :style="[getCellCSSVariables(cell), getStyle(cell.column.tdStyle)]"
-                v-bind="getCellBind(cell, row)"
+              <tr
+                v-else-if="showNoDataFilteredHtml"
+                key="showNoDataFilteredHtml"
               >
-                <slot
-                  v-if="`cell(${cell.column.name})` in $slots"
-                  :name="`cell(${cell.column.name})`"
-                  v-bind="cell"
+                <td
+                  class="no-data"
+                  :colspan="columnsComputed.length + (selectable ? 1 : 0)"
+                  v-html="noDataFilteredHtml"
                 />
+              </tr>
 
-                <slot v-else name="cell" v-bind="cell">
-                  <span v-if="$props.grid" class="va-data-table__grid-column-header">{{ columnsComputed[cellIndex].label }}</span>
-                  {{ cell.value }}
-                </slot>
-              </td>
-            </tr>
-          </transition-group>
+              <template
+                v-for="(row, index) in renderBuffer"
+                :key="`table-row_${uniqueKey(row, index)}`"
+              >
+                <tr
+                  class="va-data-table__table-tr"
+                  :class="[{ selected: isRowSelected(row), 'va-data-table__table-tr--expanded': row.isExpandableRowVisible }]"
+                  v-bind="getRowBind(row)"
+                  @click="onRowClickHandler('row:click', $event, row)"
+                  @dblclick="onRowClickHandler('row:dblclick', $event, row)"
+                  @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
+                >
+                  <td
+                    v-if="selectable && !$props.grid"
+                    class="va-data-table__table-td va-data-table__table-cell-select"
+                    :key="`selectable_${uniqueKey(row, index)}`"
+                    @selectstart.prevent
+                  >
+                    <va-checkbox
+                      class="va-data-table__table-cell-checkbox"
+                      :model-value="isRowSelected(row)"
+                      :color="selectedColor"
+                      :aria-label="tp($props.ariaSelectRowLabel, { index: row.initialIndex })"
+                      @click.shift.exact.stop="shiftSelectRows(row)"
+                      @click.ctrl.exact.stop="ctrlSelectRow(row)"
+                      @click.exact.stop="ctrlSelectRow(row)"
+                    />
+                  </td>
 
-          <slot name="bodyAppend" />
+                  <td
+                    v-for="(cell, cellIndex) in row.cells"
+                    :key="`table-cell_${cell.column.name + cell.rowIndex}`"
+                    class="va-data-table__table-td"
+                    :class="getClass(cell.column.tdClass)"
+                    :style="[getCellCSSVariables(cell), getStyle(cell.column.tdStyle)]"
+                    v-bind="getCellBind(cell, row)"
+                  >
+                    <slot
+                      v-if="`cell(${cell.column.name})` in $slots"
+                      :name="`cell(${cell.column.name})`"
+                      v-bind="{ ...cell, row, isExpanded: row.isExpandableRowVisible }"
+                    />
+
+                    <slot v-else name="cell" v-bind="{ cell, row }">
+                      <span v-if="$props.grid" class="va-data-table__grid-column-header">{{ columnsComputed[cellIndex].label }}</span>
+                      {{ cell.value }}
+                    </slot>
+                  </td>
+                </tr>
+                <tr
+                  v-if="row.isExpandableRowVisible"
+                  class="va-data-table__table-tr--expanded va-data-table__table-expanded-content"
+                >
+                  <td :colspan="row.cells.length">
+                    <slot
+                      name="expandableRow"
+                      v-bind="row"
+                    />
+                  </td>
+                </tr>
+              </template>
+            </transition-group>
+
+            <slot name="bodyAppend" />
           </tbody>
 
           <tfoot
-            v-if="footerClone && !$props.grid"
+            v-if="$slots.footer || (footerClone && !$props.grid)"
             class="va-data-table__table-tfoot"
             :class="{ 'va-data-table__table-tfoot--sticky': $props.stickyFooter }"
             :style="{ bottom: isVirtualScroll && $props.stickyFooter ? `${currentListOffset}px` : undefined }"
           >
-          <slot name="footerPrepend" />
+            <slot name="footerPrepend" />
 
-          <va-data-table-th-row
-            v-if="!hideDefaultHeader"
-            v-bind="thAttributesComputed"
-            is-footer
-            v-on:toggleBulkSelection="toggleBulkSelection"
-            v-on:toggleSorting="toggleSorting"
-          >
-            <template v-for="(_, slot) of $slots" v-slot:[slot]="scope"><slot :name="slot" v-bind="scope" /></template>
-          </va-data-table-th-row>
+            <slot name="footer">
+              <va-data-table-th-row
+                v-if="!hideDefaultHeader"
+                v-bind="thAttributesComputed"
+                is-footer
+                v-on:toggleBulkSelection="toggleBulkSelection"
+                v-on:toggleSorting="toggleSorting"
+              >
+                <template v-for="(_, slot) of $slots" v-slot:[slot]="scope"><slot :name="slot" v-bind="scope" /></template>
+              </va-data-table-th-row>
+            </slot>
 
-          <slot name="footerAppend" />
+            <slot name="footerAppend" />
           </tfoot>
         </table>
 
@@ -241,6 +257,7 @@ export default defineComponent({
     ...useRowsProps,
     ...useSelectableProps,
     ...useThrottleProps,
+    ...pick(VaDataTableThRowProps, ['ariaSelectAllRowsLabel', 'ariaSortColumnByLabel']),
     hoverable: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },
     loading: { type: Boolean, default: false },
@@ -254,6 +271,9 @@ export default defineComponent({
     virtualTrackBy: { type: [String, Number] as PropType<string | number>, default: 'initialIndex' },
     grid: { type: Boolean, default: false },
     gridColumns: { type: Number, default: 0 },
+    wrapperSize: { type: [Number, String] as PropType<number | string | 'auto'>, default: 'auto' },
+
+    ariaSelectRowLabel: { type: String, default: '$t:selectRowByIndex' },
   },
 
   emits: [
@@ -330,8 +350,9 @@ export default defineComponent({
       class: pick(props, ['striped', 'selectable', 'hoverable', 'clickable']),
     }) as TableHTMLAttributes)
 
+    const filteredVirtualScrollerProps = filterComponentProps(VaVirtualScrollerProps)
     const virtualScrollerPropsComputed = computed(() => ({
-      ...pick(props, ['wrapperSize', 'itemSize', 'bench']),
+      ...filteredVirtualScrollerProps.value,
       items: paginatedRows.value,
       trackBy: props.virtualTrackBy,
       disabled: !props.virtualScroller,
@@ -350,8 +371,9 @@ export default defineComponent({
       ...virtualScrollerPropsComputed.value,
     }))
 
+    const filteredThProps = filterComponentProps(VaDataTableThRowProps)
     const thAttributesComputed = computed(() => ({
-      ...filterComponentProps(VaDataTableThRowProps).value,
+      ...filteredThProps.value,
       columns: columnsComputed.value,
       sortingOrderIconName: sortingOrderIconName.value,
       severalRowsSelected: severalRowsSelected.value,
@@ -409,8 +431,8 @@ export default defineComponent({
 @import "../../styles/resources/index.scss";
 @import "variables";
 
-// we set vatiables below via the `useStylable` hook
 .va-data-table {
+  // we set variables below via the `useStylable` hook
   --va-data-table-selected-color: v-bind('CSSVariables.selectedColor');
   --va-data-table-hover-color: v-bind('CSSVariables.hoverColor');
   --va-data-table-height--computed: v-bind('CSSVariables.tableHeight');
@@ -525,13 +547,14 @@ export default defineComponent({
     }
 
     &.striped {
-      .va-data-table__table-tr {
-        position: relative;
-        z-index: 0;
+      .va-data-table__table-tbody {
+        .va-data-table__table-tr {
+          &:nth-child(even) {
+            &:not(.selected) {
+              position: relative;
 
-        &:nth-child(2n) {
-          &:not(.selected) {
-            @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped-tr-opacity), -1);
+              @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped-tr-opacity), -1);
+            }
           }
         }
       }
@@ -539,18 +562,13 @@ export default defineComponent({
 
     &.selectable,
     &.hoverable {
-      :not(thead, tfoot) {
-        .va-data-table__table-tr {
+      .va-data-table__table-tbody {
+        .va-data-table__table-tr,
+        .va-data-table__table-tr:nth-child(even) {
           &:hover {
-            background-color: var(--va-data-table-hover-color);
-          }
-        }
+            position: relative;
 
-        .va-data-table__table-tr:nth-child(2n) {
-          &:hover {
-            background-color: var(--va-data-table-hover-color);
-
-            @include va-background-opacity(transparent);
+            @include va-background(var(--va-data-table-hover-color), 1, -1);
           }
         }
       }

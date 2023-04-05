@@ -34,10 +34,10 @@ export const useVaRatingColors = (props: ExtractPropTypes<typeof useVaRatingColo
 
   const textColorComputed = computed(() => {
     if (props.modelValue === RatingValue.FULL) {
-      return getTextColor(computedColor.value)
+      return getColor(getTextColor(computedColor.value))
     }
 
-    return getTextColor(backgroundColor.value)
+    return getColor(getTextColor(backgroundColor.value))
   })
 
   return {

@@ -2,6 +2,7 @@ import { shallowRef, computed, Ref, onMounted, DefineComponent } from 'vue'
 import { useHTMLElement } from './useHTMLElement'
 import { useCaptureEvent } from './useCaptureEvent'
 import { useCurrentElement } from './useCurrentElement'
+import { blurElement, focusElement } from '../utils/focus'
 
 const useActiveElement = () => {
   const activeEl = shallowRef<HTMLElement>()
@@ -41,9 +42,9 @@ export const useFocusDeep = (el?: Ref<HTMLElement | DefineComponent | undefined>
       }
 
       if (value) {
-        target?.focus()
+        (target)?.focus()
       } else {
-        target?.blur()
+        (target)?.blur()
       }
     },
   })

@@ -50,6 +50,10 @@ export const useTreeViewProps = {
     type: [String, Function] as PropType<TreeViewPropKey>,
     default: 'checked',
   },
+  childrenBy: {
+    type: [String, Function] as PropType<TreeViewPropKey>,
+    default: 'children',
+  },
   expandAll: {
     type: Boolean,
     default: false,
@@ -105,6 +109,7 @@ export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>)
   const getDisabled = (node: TreeNode) => getNodeProperty(node, props.disabledBy)
   const getExpanded = (node: TreeNode) => getNodeProperty(node, props.expandedBy)
   const getTrackBy = (node: TreeNode) => getNodeProperty(node, props.trackBy)
+  const getChildren = (node: TreeNode) => getNodeProperty(node, props.childrenBy) ?? []
 
   const iterateNodes = (nodes: TreeNode[], cb: (node: TreeNode) => unknown) => {
     nodes.forEach((node: TreeNode) => {
@@ -121,6 +126,7 @@ export const useTreeHelpers = (props: ExtractPropTypes<typeof useTreeViewProps>)
     getValue,
     getChecked,
     getTrackBy,
+    getChildren,
     getDisabled,
     getExpanded,
     iterateNodes,

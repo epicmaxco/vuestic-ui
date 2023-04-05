@@ -8,6 +8,7 @@
     >
       <template #anchor>
         <va-button
+          :aria-label="tp($props.ariaLabel)"
           v-bind="{ ...computedButtonIcons, ...buttonPropsComputed }"
           v-on="listeners"
           @keydown.esc.prevent="hideDropdown"
@@ -27,7 +28,6 @@
 
     <va-button-group
       v-else
-      :class="splitButtonClassComputed"
       v-bind="buttonPropsComputed"
     >
       <va-button
@@ -45,10 +45,11 @@
         v-model="valueComputed"
         v-bind="vaDropdownProps"
         :disabled="$props.disabled || $props.disableDropdown"
+        :teleport="$el"
       >
         <template #anchor>
           <va-button
-            :aria-label="t('toggleDropdown')"
+            :aria-label="$props.ariaLabel || t('toggleDropdown')"
             :disabled="$props.disabled || $props.disableDropdown"
             :icon="computedIcon"
             :icon-color="$props.iconColor"
@@ -76,14 +77,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, PropType, computed, ref } from 'vue'
 import omit from 'lodash/omit.js'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import {
   useBem,
-  useDeprecated,
   useComponentPresetProp,
   useStateful, useStatefulProps,
   useEmitProxy,
@@ -141,12 +141,11 @@ export default defineComponent({
 
     loading: { type: Boolean, default: false },
     label: { type: String },
+
+    ariaLabel: { type: String, default: '$t:toggleDropdown' },
   },
 
   setup (props, { emit, slots }) {
-    // TODO(1.6.0): Remove deprecated props
-    useDeprecated(['flat', 'outline'])
-
     const { valueComputed } = useStateful(props, emit)
 
     const computedIcon = computed(() => valueComputed.value ? props.openedIcon : props.icon)
@@ -193,8 +192,6 @@ export default defineComponent({
       loading: props.loading,
     }))
 
-    const splitButtonClassComputed = computed(() => ({ 'va-button-group__left-icon': props.leftIcon }))
-
     const hideDropdown = () => { valueComputed.value = false }
 
     return {
@@ -207,7 +204,6 @@ export default defineComponent({
       computedButtonIcons,
       buttonPropsComputed,
       computedMainButtonProps,
-      splitButtonClassComputed,
       listeners: createListeners(emit),
       mainButtonListeners: createMainButtonListeners(emit),
     }
@@ -229,36 +225,6 @@ export default defineComponent({
   }
 
   &--split {
-    .va-dropdown {
-      .va-dropdown__anchor {
-        margin: var(--va-button-dropdown-button-margin);
-      }
-    }
-
-    .va-button-group__left-icon {
-      .va-dropdown {
-        .va-button {
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
-        }
-      }
-
-      > .va-button {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-left: none;
-      }
-    }
-
-    :not(.va-button-group__left-icon) {
-      .va-dropdown {
-        .va-button {
-          border-top-left-radius: 0;
-          border-bottom-left-radius: 0;
-        }
-      }
-    }
-
     .va-button {
       @include keyboard-focus-outline($offset: -2px);
     }

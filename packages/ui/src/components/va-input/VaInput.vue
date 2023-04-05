@@ -35,7 +35,7 @@
       <va-icon
         v-if="canBeCleared"
         role="button"
-        :aria-label="t('reset')"
+        :aria-label="tp($props.ariaResetLabel)"
         :tabindex="tabIndexComputed"
         v-bind="clearIconProps"
         @click.stop="reset"
@@ -92,6 +92,8 @@ import type { AnyStringPropType } from '../../utils/types/prop-type'
 import VaInputWrapper from './components/VaInputWrapper/VaInputWrapper.vue'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import VaIcon from '../va-icon/VaIcon.vue'
+import { focusElement, blurElement } from '../../utils/focus'
+import { unwrapEl } from '../../utils/unwrapEl'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -122,7 +124,7 @@ export default defineComponent({
 
     // input
     placeholder: { type: String, default: '' },
-    tabindex: { type: Number, default: 0 },
+    tabindex: { type: [String, Number], default: 0 },
     modelValue: { type: [String, Number], default: '' },
     label: { type: String, default: '' },
     type: { type: String as AnyStringPropType<'textarea' | 'text' | 'password'>, default: 'text' },
@@ -140,6 +142,7 @@ export default defineComponent({
     outline: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
     requiredMark: { type: Boolean, default: false },
+    ariaResetLabel: { type: String, default: '$t:reset' },
   },
 
   emits: [
@@ -164,11 +167,11 @@ export default defineComponent({
     })
 
     const focus = () => {
-      input.value?.focus()
+      focusElement(unwrapEl(input.value))
     }
 
     const blur = () => {
-      input.value?.blur()
+      blurElement(unwrapEl(input.value))
     }
 
     const filterSlots = computed(() => {
@@ -233,7 +236,7 @@ export default defineComponent({
 
     const computedInputAttributes = computed(() => ({
       ...computedChildAttributes.value,
-      ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode']),
+      ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'minlength', 'maxlength']),
     }) as InputHTMLAttributes)
 
     const valueLengthComputed = computed(() =>

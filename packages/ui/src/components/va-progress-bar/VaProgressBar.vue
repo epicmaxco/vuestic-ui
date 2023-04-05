@@ -65,6 +65,7 @@ export default defineComponent({
     contentInside: { type: Boolean, default: false },
     showPercent: { type: Boolean, default: false },
     max: { type: Number, default: 100 },
+    ariaLabel: { type: String, default: '$t:progressState' },
   },
 
   setup (props) {
@@ -81,7 +82,7 @@ export default defineComponent({
       return props.size
     }
 
-    const { t } = useTranslation()
+    const { tp } = useTranslation()
 
     const progressBarValue = computed(() => 100 / props.max * props.modelValue)
 
@@ -117,7 +118,7 @@ export default defineComponent({
 
       ariaAttributesComputed: computed(() => ({
         role: 'progressbar',
-        'aria-label': t('progressState'),
+        'aria-label': tp(props.ariaLabel),
         'aria-valuenow': !props.indeterminate ? props.modelValue : undefined,
       })),
     }

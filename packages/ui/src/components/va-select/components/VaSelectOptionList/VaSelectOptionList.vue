@@ -7,6 +7,8 @@
     @keydown.left.stop.prevent="focusPreviousOption"
     @keydown.down.stop.prevent="focusNextOption"
     @keydown.right.stop.prevent="focusNextOption"
+    @keydown.enter.stop.prevent="selectOption"
+    @keydown.space.stop.prevent="selectOption"
     @scroll.passive="onScroll"
   >
     <template
@@ -28,35 +30,33 @@
         @scroll:bottom="handleScrollToBottom"
         v-slot="{ item: option, index }"
       >
-        <va-select-option
-          v-if="!isSlotContentPassed"
-          :option="option"
-          :current-option="currentOptionComputed"
-          :disabled="getDisabled(option)"
-          v-bind="selectOptionProps"
-          @click.stop="selectOption(option)"
-          @mousemove="updateHoveredOption(option)"
-        />
-        <template v-else>
-          <slot v-bind="{ option, index, selectOption }" />
-        </template>
+        <slot v-bind="{ option, index, selectOption }">
+          <va-select-option
+            :option="option"
+            :current-option="currentOptionComputed"
+            :disabled="getDisabled(option)"
+            v-bind="selectOptionProps"
+            @click.stop="selectOption"
+            @mouseenter="handleMouseEnter(option)"
+            @mousemove="handleMouseMove(option)"
+          />
+        </slot>
       </va-virtual-scroller>
 
       <template v-else>
         <template v-for="(option, index) in options" :key="getTrackBy(option)">
-          <va-select-option
-            v-if="!isSlotContentPassed"
-            :ref="setItemRef(getTrackBy(option))"
-            :current-option="currentOptionComputed"
-            :option="option"
-            :disabled="getDisabled(option)"
-            v-bind="selectOptionProps"
-            @click.stop="selectOption(option)"
-            @mousemove="updateHoveredOption(option)"
-          />
-          <template v-else>
-            <slot v-bind="{ option, index, selectOption }" />
-          </template>
+          <slot v-bind="{ option, index, selectOption }">
+            <va-select-option
+              :ref="setItemRef(getTrackBy(option))"
+              :current-option="currentOptionComputed"
+              :option="option"
+              :disabled="getDisabled(option)"
+              v-bind="selectOptionProps"
+              @click.stop="selectOption"
+              @mouseenter="handleMouseEnter(option)"
+              @mousemove="handleMouseMove(option)"
+            />
+          </slot>
         </template>
       </template>
     </template>
@@ -78,7 +78,6 @@ import {
   useColorProps,
   extractHTMLElement,
   useObjectRefs,
-  useSlotPassed,
   useSelectableList, useSelectableListProps,
   useThrottleValue, useThrottleProps,
 } from '../../../../composables'
@@ -87,6 +86,8 @@ import { scrollToElement } from '../../../../utils/scroll-to-element'
 
 import { VaVirtualScroller } from '../../../va-virtual-scroller'
 import { VaSelectOption } from '../VaSelectOption'
+
+import { isNilValue } from '../../../../utils/isNilValue'
 
 import type { SelectOption, EventSource } from '../../types'
 
@@ -108,9 +109,13 @@ export default defineComponent({
     getSelectedState: { type: Function as PropType<(option: SelectOption) => boolean>, required: true },
     multiple: { type: Boolean, default: false },
     search: { type: String, default: '' },
-    tabindex: { type: Number, default: 0 },
-    hoveredOption: { type: [String, Number, Object] as PropType<SelectOption | null>, default: null },
+    tabindex: { type: [String, Number], default: 0 },
+    hoveredOption: { type: [String, Number, Boolean, Object] as PropType<SelectOption | null>, default: null },
     virtualScroller: { type: Boolean, default: true },
+    highlightMatchedText: { type: Boolean, default: true },
+    minSearchChars: { type: Number, default: 0 },
+    autoSelectFirstOption: { type: Boolean, default: false },
+    selectedTopShown: { type: Boolean, default: false },
   },
 
   setup (props, { emit }) {
@@ -140,11 +145,23 @@ export default defineComponent({
 
     const { getText, getGroupBy, getTrackBy, getDisabled } = useSelectableList(props)
 
-    const filteredOptions = computed(() => {
-      if (!props.search) { return props.options }
+    const currentSelectedOptionText = computed(() => {
+      const selected = props.options?.find((option) => props.getSelectedState(option))
+
+      return selected ? getText(selected) : ''
+    })
+
+    const isSearchedOptionSelected = computed(() => {
+      return currentSelectedOptionText.value.toLowerCase() === props.search?.toLowerCase()
+    })
+
+    const filteredOptions = computed((): SelectOption[] => {
+      if (!props.search || props.search.length < props.minSearchChars || isSearchedOptionSelected.value) {
+        return props.options
+      }
 
       return props.options.filter((option: SelectOption) => {
-        const optionText = getText(option).toString().toUpperCase()
+        const optionText = getText(option).toUpperCase()
         const search = props.search.toUpperCase()
         return optionText.includes(search)
       })
@@ -152,11 +169,11 @@ export default defineComponent({
 
     const optionGroups = computed(() => filteredOptions.value
       .reduce((groups: Record<string, SelectOption[]>, option) => {
-        if (typeof option !== 'object' || !getGroupBy(option)) {
+        const groupBy = getGroupBy(option)
+
+        if (!groupBy) {
           groups._noGroup.push(option)
         } else {
-          const groupBy = getGroupBy(option)
-
           if (!groups[groupBy]) { groups[groupBy] = [] }
 
           groups[groupBy].push(option)
@@ -166,32 +183,41 @@ export default defineComponent({
       }, { _noGroup: [] }))
     const optionGroupsThrottled = useThrottleValue(optionGroups, props)
 
-    const isValueExists = (value: SelectOption | null | undefined) => !!value || value === 0
+    const isValueExists = (value: SelectOption | null | undefined): value is SelectOption => !isNilValue(value)
 
     const updateHoveredOption = (option?: SelectOption) => {
-      if (option === currentOptionComputed.value || (isValueExists(option) && getDisabled(option!))) { return }
+      if (option === currentOptionComputed.value || (isValueExists(option) && getDisabled(option))) { return }
 
       updateCurrentOption(option ?? null, 'mouse')
     }
     const updateFocusedOption = (option?: SelectOption) => { updateCurrentOption(option ?? null, 'keyboard') }
 
-    const selectOption = (option: SelectOption) => !getDisabled(option) && emit('select-option', option)
+    const selectOption = () => {
+      const previousOption =
+        previousOptionComputed.value && typeof previousOptionComputed.value === 'object'
+          ? { ...previousOptionComputed.value }
+          : previousOptionComputed.value
+
+      emit('select-option')
+
+      if (props.selectedTopShown) {
+        updateHoveredOption(previousOption)
+      }
+    }
 
     const groupedOptions = computed(() => Object.values(optionGroupsThrottled.value).flat())
     const currentOptions = computed(() =>
       filteredOptions.value.some((el) => getGroupBy(el)) ? groupedOptions.value : filteredOptions.value)
 
     const currentOptionIndex = computed(() => currentOptions.value.findIndex((option) => {
-      return isValueExists(currentOptionComputed.value) && getTrackBy(option) === getTrackBy(currentOptionComputed.value!)
+      return isValueExists(currentOptionComputed.value) && getTrackBy(option) === getTrackBy(currentOptionComputed.value)
     }))
 
     const selectOptionProps = computed(() => ({
-      ...pick(props, ['getSelectedState', 'color']),
+      ...pick(props, ['getSelectedState', 'color', 'search', 'highlightMatchedText', 'minSearchChars']),
       getText,
       getTrackBy,
     }))
-
-    const isSlotContentPassed = useSlotPassed()
 
     const findNextActiveOption = (startSearchIndex: number, reversedSearch = false) => {
       const searchBase = [...(currentOptions.value || [])]
@@ -201,6 +227,26 @@ export default defineComponent({
       return searchBaseOrdered.slice(startIndex).find((option) => !getDisabled(option))
     }
 
+    const previousOptionComputed = computed((): SelectOption | undefined => {
+      const previousOptionIndex = currentOptionIndex.value - 1
+      const previousOption = currentOptions.value[previousOptionIndex]
+      const previousOptionCheck = isValueExists(previousOption) && !(previousOptionIndex === 0 && getDisabled(previousOption))
+
+      if (previousOptionCheck) {
+        return findNextActiveOption(currentOptionIndex.value - 1, true)
+      }
+
+      return undefined
+    })
+
+    const handleMouseMove = (option: SelectOption) => {
+      if (!props.selectedTopShown) { updateHoveredOption(option) }
+    }
+
+    const handleMouseEnter = (option: SelectOption) => {
+      if (props.selectedTopShown) { updateHoveredOption(option) }
+    }
+
     // public
     const focusPreviousOption = () => {
       if (!isValueExists(currentOptionComputed.value)) {
@@ -208,11 +254,8 @@ export default defineComponent({
         return
       }
 
-      const previousOptionIndex = currentOptionIndex.value - 1
-      const previousOption = currentOptions.value[previousOptionIndex]
-      const previousOptionCheck = isValueExists(previousOption) && !(previousOptionIndex === 0 && getDisabled(previousOption))
-      if (previousOptionCheck) {
-        updateFocusedOption(findNextActiveOption(currentOptionIndex.value - 1, true))
+      if (isValueExists(previousOptionComputed.value)) {
+        updateFocusedOption(previousOptionComputed.value)
       } else {
         emit('no-previous-option-to-hover')
       }
@@ -254,8 +297,15 @@ export default defineComponent({
     }
 
     watch(() => props.hoveredOption, (newOption: SelectOption | null) => {
-      (!lastInteractionSource.value || lastInteractionSource.value === 'keyboard') && (isValueExists(newOption)) && scrollToOption(newOption!)
+      (!lastInteractionSource.value || lastInteractionSource.value === 'keyboard') &&
+      (isValueExists(newOption)) && scrollToOption(newOption)
     })
+
+    watch(filteredOptions, () => {
+      if (!props.autoSelectFirstOption) { return }
+
+      focusFirstOption()
+    }, { immediate: true })
 
     return {
       root,
@@ -265,7 +315,6 @@ export default defineComponent({
       optionGroups: optionGroupsThrottled,
       filteredOptions,
       selectOptionProps,
-      isSlotContentPassed,
       currentOptionComputed,
 
       onScroll,
@@ -273,6 +322,8 @@ export default defineComponent({
       setItemRef,
       getDisabled,
       selectOption,
+      handleMouseMove,
+      handleMouseEnter,
       updateHoveredOption,
       handleScrollToBottom,
 

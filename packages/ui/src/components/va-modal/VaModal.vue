@@ -44,7 +44,7 @@
                 name="va-close"
                 class="va-modal__close"
                 role="button"
-                :aria-label="t('close')"
+                :aria-label="tp($props.ariaCloseLabel)"
                 tabindex="0"
                 @click="cancel"
                 @keydown.space="cancel"
@@ -139,6 +139,7 @@ import {
   useModalLevel,
   useTranslation,
   useClickOutside,
+  useDocument,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -170,6 +171,7 @@ export default defineComponent({
     ...useStatefulProps,
     modelValue: { type: Boolean, default: false },
     attachElement: { type: String, default: 'body' },
+    allowBodyScroll: { type: Boolean, default: false },
     disableAttachment: { type: Boolean, default: false },
     title: { type: String, default: '' },
     message: { type: String, default: '' },
@@ -198,6 +200,7 @@ export default defineComponent({
     backgroundColor: { type: String, default: 'background-secondary' },
     noPadding: { type: Boolean, default: false },
     beforeClose: { type: Function as PropType<(hide: () => void) => any> },
+    ariaCloseLabel: { type: String, default: '$t:close' },
   },
   setup (props, { emit }) {
     const rootElement = shallowRef<HTMLElement>()
@@ -295,14 +298,23 @@ export default defineComponent({
 
     useBlur(toRef(props, 'blur'), valueComputed)
 
+    const documentRef = useDocument()
+    const setBodyOverflow = (overflow: string) => {
+      if (!documentRef.value || props.allowBodyScroll) { return }
+
+      documentRef.value.body.style.overflow = overflow
+    }
+
     watch(valueComputed, newValueComputed => { // watch for open/close modal
       if (newValueComputed) {
         registerModal()
+        setBodyOverflow('hidden')
         return
       }
 
       if (isLowestLevelModal.value) {
         freeFocus()
+        setBodyOverflow('')
       }
       unregisterModal()
     })

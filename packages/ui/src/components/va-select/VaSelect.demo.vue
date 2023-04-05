@@ -12,17 +12,144 @@
       <p>Value: {{ defaultSingleSelect.value }}</p>
     </VbCard>
     <VbCard
-      title="Selected options at the top"
+      title="Basic numeric usage"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultNumericSingleSelect.value"
+        class="mb-6"
+        :options="defaultNumericSingleSelect.options"
+      />
+      <p>Value: {{ defaultNumericSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Autocomplete"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        :options="defaultSingleSelect.options"
+        autocomplete
+      />
+      <p>Value: {{ defaultSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Autocomplete readonly"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        :options="defaultSingleSelect.options"
+        autocomplete
+        readonly
+      />
+      <p>Value: {{ defaultSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Autocomplete disabled"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        :options="defaultSingleSelect.options"
+        autocomplete
+        disabled
+      />
+      <p>Value: {{ defaultSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Multiple autocomplete"
       style="width: 400px;"
     >
       <va-select
         v-model="defaultMultiSelect.value"
-        class="mb-4"
+        class="mb-6"
         :options="defaultMultiSelect.options"
+        multiple
+        autocomplete
+      />
+      <p>Value: {{ defaultMultiSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Multiple autocomplete with max visible options"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultMultiSelect.value"
+        class="mb-6"
+        :options="defaultMultiSelect.options"
+        :max-visible-options="2"
+        multiple
+        autocomplete
+      />
+      <p>Value: {{ defaultMultiSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Autocomplete with create new option"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="allowCreateSelect.value"
+        class="mb-6"
+        :options="allowCreateSelect.options"
+        autocomplete
+        allow-create
+        @create-new="addNewOption"
+      />
+      <p>Value: {{ allowCreateSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Multiple autocomplete with content slot"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultMultiSelect.value"
+        class="mb-6"
+        :options="defaultMultiSelect.options"
+        multiple
+        autocomplete
+      >
+        <template #content="{ value }">
+          <va-chip
+            v-for="chip in value"
+            :key="chip"
+            class="mr-1"
+            size="small"
+          >
+            {{ chip }}
+          </va-chip>
+        </template>
+      </va-select>
+      <p>Value: {{ defaultMultiSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Min chars (2) to trigger autocomplete"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        :options="defaultSingleSelect.options"
+        :min-search-chars="2"
+        autocomplete
+      />
+      <p>Value: {{ defaultSingleSelect.value }}</p>
+    </VbCard>
+    <VbCard
+      title="Selected options at the top"
+      style="width: 400px;"
+    >
+      <va-select
+        v-model="largeMultiSelect.value"
+        class="mb-4"
+        :options="largeMultiSelect.options"
         selected-top-shown
         multiple
       />
-      <p>Value: {{ defaultMultiSelect.value }}</p>
+      <p>Value: {{ largeMultiSelect.value }}</p>
     </VbCard>
     <VbCard
       title="Max visible options"
@@ -175,6 +302,19 @@
         label="No options"
         :options="[]"
       />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        label="Existing falsy options"
+        :options="[false, 0]"
+      />
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        label="Existing falsy options object"
+        value-by="value"
+        :options="[{ text: 0, value: false }, { value: 0, text: false }]"
+      />
     </VbCard>
     <VbCard title="html select for example">
       <select>
@@ -209,14 +349,6 @@
         :options="defaultMultiSelect.options"
         multiple
         :max-selections="3"
-      />
-      <va-select
-        v-model="defaultMultiSelect.value"
-        class="mb-6"
-        label="Tags"
-        :options="defaultMultiSelect.options"
-        multiple
-        tags
       />
     </VbCard>
     <VbCard
@@ -428,10 +560,10 @@
         </template>
       </va-select>
       <va-select
-        v-model="defaultSingleSelect.value"
+        v-model="defaultMultiSelect.value"
         class="mb-6"
         label="Content slot"
-        :options="defaultSingleSelect.options"
+        :options="defaultMultiSelect.options"
         multiple
       >
         <template #content="{ value }">
@@ -570,7 +702,7 @@
         multiple
         searchable
       />
-       <va-select
+      <va-select
         v-model="defaultSingleSelect.value"
         class="mb-6"
         label="Searchable changed text"
@@ -714,7 +846,11 @@ export default {
       disabledValue: 'Selected option',
       defaultSingleSelect: {
         options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
-        value: '',
+        value: 'one',
+      },
+      defaultNumericSingleSelect: {
+        options: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+        value: 0,
       },
       withVirtualScroller: {
         options: new Array(1000).fill(null).map((_, index) => index),
@@ -722,6 +858,10 @@ export default {
       },
       defaultMultiSelect: {
         options: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
+        value: [],
+      },
+      largeMultiSelect: {
+        options: new Array(100).fill(null).map((_, index) => index),
         value: [],
       },
       preloadable: {
@@ -744,8 +884,8 @@ export default {
       },
       disabledOptions: {
         options: [
-          { id: '0', text: 'one', value: 'one', disabled: true },
-          { id: '1', text: 'two', value: 'two' },
+          { id: '0', text: 'one', value: 'one' },
+          { id: '1', text: 'two', value: 'two', disabled: true },
           { id: '2', text: 'three', value: 'three', disabled: true },
           { id: '3', text: 'four', value: 'four' },
           { id: '4', text: 'five', value: 'five' },

@@ -41,7 +41,7 @@
           />
           <va-icon
             v-if="$props.leftIcon"
-            :aria-label="t('toggleDropdown')"
+            :aria-label="tp($props.ariaToggleDropdownLabel)"
             v-bind="iconProps"
             @click.stop="showDropdown"
             @keydown.enter.stop="showDropdown"
@@ -53,14 +53,14 @@
           <va-icon
             v-if="canBeClearedComputed"
             v-bind="{ ...iconProps, ...clearIconProps }"
-            :aria-label="t('resetTime')"
+            :aria-label="tp($props.ariaResetLabel)"
             @click.stop="reset"
             @keydown.enter.stop="reset"
             @keydown.space.stop="reset"
           />
           <va-icon
             v-else-if="!$props.leftIcon && $props.icon"
-            :aria-label="t('toggleDropdown')"
+            :aria-label="tp($props.ariaToggleDropdownLabel)"
             @click.stop="showDropdown"
             @keydown.enter.stop="showDropdown"
             @keydown.space.stop="showDropdown"
@@ -95,7 +95,6 @@ import {
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useClearable, useClearableEmits, useClearableProps,
   useFocus, useFocusEmits,
-  Placement,
   useTranslation,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
@@ -105,11 +104,10 @@ import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import { VaInputWrapper } from '../va-input'
 import VaIcon from '../va-icon/VaIcon.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-import type { DropdownOffsetProp } from '../va-dropdown/types'
 
-const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue', 'disabled'])
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDropdownProps = extractComponentProps(VaDropdown,
-  ['keyboardNavigation', 'offset', 'placement', 'closeOnContentClick', 'innerAnchorSelector', 'modelValue'],
+  ['keyboardNavigation', 'innerAnchorSelector', 'modelValue'],
 )
 
 export default defineComponent({
@@ -134,6 +132,9 @@ export default defineComponent({
     ...useValidationProps as ValidationProps<Date>,
 
     isOpen: { type: Boolean, default: undefined },
+    closeOnContentClick: { type: Boolean, default: false },
+    offset: { ...VaDropdownProps.offset, default: () => [2, 0] },
+    placement: { ...VaDropdownProps.placement, default: 'bottom-start' },
     modelValue: { type: Date, default: undefined },
     clearValue: { type: Date, default: undefined },
     format: { type: Function as PropType<(date?: Date) => string> },
@@ -141,6 +142,10 @@ export default defineComponent({
     manualInput: { type: Boolean, default: false },
     leftIcon: { type: Boolean, default: false },
     icon: { type: String, default: 'schedule' },
+
+    ariaLabel: { type: String, default: '$t:selectedTime' },
+    ariaResetLabel: { type: String, default: '$t:resetTime' },
+    ariaToggleDropdownLabel: { type: String, default: '$t:toggleDropdown' },
   },
 
   inheritAttrs: false,
@@ -149,7 +154,7 @@ export default defineComponent({
     const input = shallowRef<HTMLInputElement>()
     const timePicker = shallowRef<typeof VaTimePicker>()
 
-    const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
+    const [isOpenSync] = useSyncProp('isOpen', props, emit, false as boolean)
     const [modelValueSync] = useSyncProp('modelValue', props, emit)
 
     const { parse, isValid } = useTimeParser(props)
@@ -237,8 +242,9 @@ export default defineComponent({
       canBeCleared.value && valueText.value !== format(props.clearValue)
     ))
 
+    const filteredWrapperProps = filterComponentProps(VaInputWrapperProps)
     const computedInputWrapperProps = computed(() => ({
-      ...filterComponentProps(VaInputWrapperProps).value,
+      ...filteredWrapperProps.value,
       focused: isFocused.value,
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
@@ -311,14 +317,14 @@ export default defineComponent({
       tabindex: iconTabindexComputed.value,
     }))
 
-    const { t } = useTranslation()
+    const { tp } = useTranslation()
 
     const inputAttributesComputed = computed(() => ({
       readonly: props.readonly || !props.manualInput,
       disabled: props.disabled,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
-      'aria-label': props.label || t('selectedTime'),
+      'aria-label': props.label || tp(props.ariaLabel),
       'aria-required': props.requiredMark,
       'aria-disabled': props.disabled,
       'aria-readonly': props.readonly,
@@ -326,17 +332,15 @@ export default defineComponent({
       ...omit(attrs, ['class', 'style']),
     }))
 
+    const filteredProps = filterComponentProps(VaDropdownProps)
     const dropdownPropsComputed = computed(() => ({
-      ...filterComponentProps(VaDropdownProps).value,
-      closeOnContentClick: false,
-      offset: [2, 0] as DropdownOffsetProp,
+      ...filteredProps.value,
       keyboardNavigation: true,
-      placement: 'bottom-start' as Placement,
       innerAnchorSelector: '.va-input-wrapper__field',
     }))
 
     return {
-      t,
+      tp,
       input,
       timePicker,
 
@@ -378,5 +382,4 @@ export default defineComponent({
     flex: 1;
   }
 }
-
 </style>

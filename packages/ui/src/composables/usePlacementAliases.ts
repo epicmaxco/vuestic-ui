@@ -1,4 +1,4 @@
-import { PropType, ExtractPropTypes, Ref, toRef } from 'vue'
+import { PropType, ExtractPropTypes, computed } from 'vue'
 
 type verticalPlacement = 'top' | 'bottom'
 type horizontalPlacement = 'left' | 'right'
@@ -47,12 +47,6 @@ export const aliasToPlacement: Record<PlacementAlias, Placement> = {
   'right-bottom': 'bottom-end',
 }
 
-const parsePlacementWithAlias = (placementWithAlias: Ref<PlacementAlias | PlacementWithAlias>): ParsedPlacement => {
-  const placement = aliasToPlacement[placementWithAlias.value as PlacementAlias] || placementWithAlias.value as PlacementWithAlias
-  const [position, align = 'center' as PlacementAlignment] = placement.split('-') as [PlacementPositionWithDefault, PlacementAlignment]
-  return { position: position === 'auto' ? 'bottom' : position, align }
-}
-
 export const usePlacementAliasesProps = {
   placement: {
     type: String as PropType<PlacementWithAlias>,
@@ -64,6 +58,19 @@ export const usePlacementAliasesProps = {
 export type UsePlacementAliasesProps = ExtractPropTypes<typeof usePlacementAliasesProps>
 
 export const usePlacementAliases = (props: UsePlacementAliasesProps) => {
-  const placement = toRef(props, 'placement')
-  return { ...parsePlacementWithAlias(placement) }
+  const placementArray = computed(() => {
+    const placement = aliasToPlacement[props.placement as PlacementAlias] || props.placement as PlacementWithAlias
+    return placement.split('-')
+  })
+
+  const position = computed(() => {
+    const position = placementArray.value[0]
+    return (position === 'auto' ? 'bottom' : position) as PlacementPosition
+  })
+
+  const align = computed(() => {
+    return (placementArray.value[1] || 'center') as PlacementAlignment
+  })
+
+  return { position, align }
 }

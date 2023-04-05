@@ -79,7 +79,7 @@ import * as process from 'process'
       console.warn(`[bundle analysis] Result was successfully written to ${devMdFilePath}.`)
     }
   } else {
-    writeFileSync(mdFilePath, 'No cache was found. Please, run `yarn build:analysis && vue-cli-service serve` if you want to have bundle size data in dev.')
+    writeFileSync(mdFilePath, 'No cache was found. Please, run `yarn build:analysis && nuxt dev` if you want to have bundle size data in dev.')
     console.warn(`[bundle analysis] Blank file was written to ${mdFilePath}.`)
   }
 })()

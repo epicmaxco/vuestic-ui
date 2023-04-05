@@ -5,28 +5,29 @@
   >
     <va-button
       v-for="option in options"
-      :key="option.value"
-      :aria-pressed="isToggled(option.value)"
+      :key="getTrackBy(option)"
+      :aria-pressed="isToggled(option)"
       v-bind.prop="getButtonProps(option)"
-      @click="changeValue(option.value)"
+      @click="changeValue(option)"
     >
-      {{ option.label }}
+      {{ getText(option) }}
     </va-button>
   </va-button-group>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
+import omit from 'lodash/omit.js'
+
 import { extractComponentProps } from '../../utils/component-options'
 
-import { useDeprecated, useComponentPresetProp, useColors } from '../../composables'
-
-import { ButtonOption } from './types'
+import { useComponentPresetProp, useColors, useSelectableList, useSelectableListProps } from '../../composables'
 
 import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
 
-import omit from 'lodash/omit.js'
+import type { ButtonOption } from './types'
+import type { StringOrFunction } from '../../composables'
 
 const VaButtonGroupProps = extractComponentProps(VaButtonGroup)
 
@@ -40,24 +41,25 @@ export default defineComponent({
   props: {
     ...VaButtonGroupProps,
     ...useComponentPresetProp,
-    modelValue: { type: [String, Number], default: '' },
+    ...useSelectableListProps,
+    modelValue: { type: [String, Number, Boolean], default: '' },
     options: {
       type: Array as PropType<ButtonOption[]>,
       required: true,
     },
     activeButtonTextColor: { type: String },
     toggleColor: { type: String, default: '' },
+
+    textBy: { type: [String, Function] as PropType<StringOrFunction>, default: 'label' },
+    valueBy: { type: [String, Function] as PropType<StringOrFunction>, default: 'value' },
   },
 
   setup (props, { emit }) {
-    // TODO(1.6.0): Remove deprecated props
-    useDeprecated(['flat', 'outline'])
-
+    const { getText, getTrackBy } = useSelectableList(props)
     const { getColor, shiftHSLAColor } = useColors()
-    const p = VaButtonGroupProps.color
     const colorComputed = computed(() => getColor(props.color))
 
-    const isToggled = (value: any) => value === props.modelValue
+    const isToggled = (value: any) => getTrackBy(value) === props.modelValue
 
     const activeButtonColor = computed(() => {
       if (props.toggleColor) { return getColor(props.toggleColor) }
@@ -78,9 +80,9 @@ export default defineComponent({
     const getButtonProps = (option: ButtonOption = {} as ButtonOption) => {
       const iconsProps = { icon: option.icon, iconRight: option.iconRight }
 
-      if (!isToggled(option.value)) { return iconsProps }
+      if (!isToggled(option)) { return iconsProps }
       return {
-        ...(isToggled(option.value) && activeButtonPropsComputed.value),
+        ...(isToggled(option) && activeButtonPropsComputed.value),
         ...iconsProps,
       }
     }
@@ -89,13 +91,15 @@ export default defineComponent({
       omit(props, ['modelValue', 'options', 'activeButtonTextColor', 'toggleColor']),
     )
 
-    const changeValue = (value: any) => emit('update:modelValue', value)
+    const changeValue = (value: any) => emit('update:modelValue', getTrackBy(value))
 
     return {
       buttonGroupPropsComputed,
       getButtonProps,
       changeValue,
       isToggled,
+      getText,
+      getTrackBy,
     }
   },
 })
