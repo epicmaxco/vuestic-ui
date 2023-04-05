@@ -1565,6 +1565,7 @@
       "layout": "Layout",
       "navigation": "Navigation",
       "color": "Color",
+      "utils": "Utility",
       "other": "Other"
     },
     "home": "Home",
@@ -1675,6 +1676,7 @@
     "skeleton": "Skeleton",
     "unocss": "UnoCSS Integration",
     "testing": "Testing",
+    "value": "Value",
     "confirm": "Confirm"
   },
   "all": {
