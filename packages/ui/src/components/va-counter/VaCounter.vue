@@ -108,7 +108,7 @@ import {
   InputHTMLAttributes,
   PropType,
   ComputedRef,
-  ref
+  ref,
 } from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
@@ -122,7 +122,7 @@ import {
   useStateful, useStatefulProps,
   useColors,
   useTranslation,
-  useLongPress
+  useLongPress,
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
@@ -183,7 +183,7 @@ export default defineComponent({
 
   inheritAttrs: false,
 
-  setup(props, { emit, attrs }) {
+  setup (props, { emit, attrs }) {
     let decreaseInterval: number | undefined
     let increaseInterval: number | undefined
 
@@ -267,43 +267,43 @@ export default defineComponent({
       calculateCounterValue(Number(valueComputed.value) + step.value)
     }
     const startDecreasing = () => {
-      if (isDecreaseActionDisabled.value) return;
-      decreaseCount();
-      decreaseInterval = setInterval(decreaseCount, 100) as any;
-    };
+      if (isDecreaseActionDisabled.value) { return }
+      decreaseCount()
+      decreaseInterval = setInterval(decreaseCount, 100) as any
+    }
 
     const stopDecreasing = () => {
-      clearInterval(decreaseInterval);
-    };
+      clearInterval(decreaseInterval)
+    }
 
     const startIncreasing = () => {
-      if (isIncreaseActionDisabled.value) return;
-      increaseCount();
-      increaseInterval = setInterval(increaseCount, 100) as any;
-    };
+      if (isIncreaseActionDisabled.value) { return }
+      increaseCount()
+      increaseInterval = setInterval(increaseCount, 100) as any
+    }
 
     const stopIncreasing = () => {
-      clearInterval(increaseInterval);
-    };
-    const decreaseButtonRef = ref(null);
+      clearInterval(increaseInterval)
+    }
+    const decreaseButtonRef = ref(null)
     useLongPress(decreaseButtonRef, {
       onStart: () => { },
       onEnd: () => { },
       onUpdate: () => {
-        decreaseCount();
+        decreaseCount()
       },
-    });
+    })
 
-    const increaseButtonRef = ref(null);
+    const increaseButtonRef = ref(null)
     useLongPress(increaseButtonRef, {
       onStart: () => { },
       onEnd: () => { },
       onUpdate: () => {
-        increaseCount();
+        increaseCount()
       },
       delay: 500,
       interval: 2000,
-    });
+    })
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
 
