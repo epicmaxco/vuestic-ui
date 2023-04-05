@@ -77,29 +77,27 @@ export const useFloatingPosition = (
   })
 
   const transformComputed = computed(() => {
-    const alignmentShift = alignmentShiftComputed.value
     const coords = {
       top: {
-        x: alignmentShift,
+        x: alignmentShiftComputed.value,
         y: props.overlap ? '-50%' : '-100%',
       },
       bottom: {
-        x: alignmentShift,
+        x: alignmentShiftComputed.value,
         y: props.overlap ? '-50%' : '0%',
       },
       left: {
         x: props.overlap ? '-50%' : '-100%',
-        y: alignmentShift,
+        y: alignmentShiftComputed.value,
       },
       right: {
         x: props.overlap ? '-50%' : '0%',
-        y: alignmentShift,
+        y: alignmentShiftComputed.value,
       },
     }
+    const { x, y } = coords[position.value]
 
-    return {
-      transform: `translateX(${coords[position.value].x}) translateY(${coords[position.value].y})`,
-    }
+    return { transform: `translateX(${x}) translateY(${y})` }
   })
 
   return computed(() => ({
