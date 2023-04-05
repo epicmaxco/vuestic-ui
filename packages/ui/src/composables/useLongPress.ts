@@ -1,4 +1,6 @@
-import { ref, onMounted, onUnmounted, Ref } from 'vue'
+import { ShallowRef } from 'vue'
+import { useEvent } from './useEvent'
+import { useHTMLElement } from '.'
 
 interface LongPressOptions {
   onStart: () => void;
@@ -8,7 +10,7 @@ interface LongPressOptions {
   interval?: number;
 }
 
-export function useLongPress (el: Ref<HTMLElement | null>, options: Partial<LongPressOptions>) {
+export function useLongPress (el: ShallowRef<HTMLElement | undefined>, options: Partial<LongPressOptions>) {
   let timeoutId = -1
   let intervalId = -1
 
@@ -25,17 +27,8 @@ export function useLongPress (el: Ref<HTMLElement | null>, options: Partial<Long
     options.onEnd?.()
   }
 
-  onMounted(() => {
-    if (el.value) {
-      el.value.addEventListener('mousedown', handleMouseDown)
-      el.value.addEventListener('mouseup', handleMouseUp)
-    }
-  })
+  const htmlElement = useHTMLElement(el)
 
-  onUnmounted(() => {
-    if (el.value) {
-      el.value.removeEventListener('mousedown', handleMouseDown)
-      el.value.removeEventListener('mouseup', handleMouseUp)
-    }
-  })
+  useEvent('mousedown', handleMouseDown, htmlElement)
+  useEvent('mouseup', handleMouseUp, htmlElement)
 }

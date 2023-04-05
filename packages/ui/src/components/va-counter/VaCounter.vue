@@ -19,9 +19,6 @@
             class="va-counter__button-decrease"
             :aria-label="t('decreaseCounter')"
             v-bind="decreaseButtonProps"
-            @mousedown.prevent="startDecreasing"
-            @mouseup.prevent="stopDecreasing"
-            @mouseleave.prevent="stopDecreasing"
             ref="decreaseButtonRef"
           />
         </slot>
@@ -33,9 +30,6 @@
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
             v-bind="decreaseIconProps"
-            @mousedown.prevent="startDecreasing"
-            @mouseup.prevent="stopDecreasing"
-            @mouseleave.prevent="stopDecreasing"
             ref="decreaseButtonRef"
           />
         </slot>
@@ -53,9 +47,6 @@
             class="va-counter__button-increase"
             :aria-label="t('increaseCounter')"
             v-bind="increaseButtonProps"
-            @mousedown.prevent="startIncreasing"
-            @mouseup.prevent="stopIncreasing"
-            @mouseleave.prevent="stopIncreasing"
             ref="increaseButtonRef"
           />
         </slot>
@@ -67,9 +58,6 @@
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
             v-bind="increaseIconProps"
-            @mousedown.prevent="startIncreasing"
-            @mouseup.prevent="stopIncreasing"
-            @mouseleave.prevent="stopIncreasing"
             ref="increaseButtonRef"
           />
         </slot>
@@ -123,6 +111,7 @@ import {
   useColors,
   useTranslation,
   useLongPress,
+  useTemplateRef,
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
@@ -285,20 +274,17 @@ export default defineComponent({
     const stopIncreasing = () => {
       clearInterval(increaseInterval)
     }
-    const decreaseButtonRef = ref(null)
-    useLongPress(decreaseButtonRef, {
+
+    useLongPress(useTemplateRef('decreaseButtonRef'), {
       onUpdate: () => {
         decreaseCount()
       },
     })
 
-    const increaseButtonRef = ref(null)
-    useLongPress(increaseButtonRef, {
+    useLongPress(useTemplateRef('increaseButtonRef'), {
       onUpdate: () => {
         increaseCount()
       },
-      delay: 500,
-      interval: 2000,
     })
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
