@@ -34,11 +34,16 @@ export const useFloatingPosition = (
   if (!floating.value) { return {} }
 
   const { position, align } = usePlacementAliases(props)
-  const alignOptions = {
-    start: '-100%',
-    center: '-50%',
-    end: '0%',
-  }
+
+  const alignmentShiftComputed = computed(() => {
+    const alignOptions = {
+      start: props.overlap ? '-50%' : '-100%',
+      center: '-50%',
+      end: props.overlap ? '-50%' : '0%',
+    }
+
+    return alignOptions[align.value]
+  })
 
   const getOverlapMargin = computed(() => {
     if (!props.overlap) { return {} }
@@ -104,14 +109,29 @@ export const useFloatingPosition = (
   })
 
   const transformComputed = computed(() => {
-    const transformOptions = {
-      top: { transform: `translateX(${alignOptions[align.value]}) translateY(-100%)` },
-      bottom: { transform: `translateX(${alignOptions[align.value]}) translateY(0%)` },
-      left: { transform: `translateX(-100%) translateY(${alignOptions[align.value]})` },
-      right: { transform: `translateX(0%) translateY(${alignOptions[align.value]})` },
+    const alignmentShift = alignmentShiftComputed.value
+    const coords = {
+      top: {
+        x: alignmentShift,
+        y: props.overlap ? '-50%' : '-100%',
+      },
+      bottom: {
+        x: alignmentShift,
+        y: props.overlap ? '-50%' : '0%',
+      },
+      left: {
+        x: props.overlap ? '-50%' : '-100%',
+        y: alignmentShift,
+      },
+      right: {
+        x: props.overlap ? '-50%' : '0%',
+        y: alignmentShift,
+      },
     }
 
-    return transformOptions[position.value]
+    return {
+      transform: `translateX(${coords[position.value].x}) translateY(${coords[position.value].y})`,
+    }
   })
 
   return computed(() => ({
