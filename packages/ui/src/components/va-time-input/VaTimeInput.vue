@@ -95,7 +95,6 @@ import {
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useClearable, useClearableEmits, useClearableProps,
   useFocus, useFocusEmits,
-  Placement,
   useTranslation,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
@@ -108,7 +107,7 @@ import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDropdownProps = extractComponentProps(VaDropdown,
-  ['keyboardNavigation', 'offset', 'placement', 'closeOnContentClick', 'innerAnchorSelector', 'modelValue'],
+  ['keyboardNavigation', 'innerAnchorSelector', 'modelValue'],
 )
 
 export default defineComponent({
@@ -383,5 +382,4 @@ export default defineComponent({
     flex: 1;
   }
 }
-
 </style>
