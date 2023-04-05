@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-5 flex-wrap">
+  <div class="flex gap-8 flex-wrap">
     <va-counter v-model="value" />
 
     <va-counter

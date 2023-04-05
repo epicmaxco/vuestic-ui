@@ -74,6 +74,8 @@ export default defineComponent({
     },
     /** Not reactive */
     keyboardNavigation: { type: Boolean, default: false },
+
+    ariaLabel: { type: String, default: '$t:toggleDropdown' },
   },
 
   emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'close', 'open'],
@@ -224,11 +226,10 @@ export default defineComponent({
       props,
     )
 
-    const { t } = useTranslation()
     const isMounted = useIsMounted()
 
     return {
-      t,
+      ...useTranslation(),
       isMounted,
       valueComputed,
       computedAnchorRef,
@@ -262,7 +263,7 @@ export default defineComponent({
       role: 'button',
       class: ['va-dropdown', ...this.computedClass.asArray.value],
       style: { position: 'relative' },
-      'aria-label': this.t('toggleDropdown'),
+      'aria-label': this.tp(this.$props.ariaLabel),
       'aria-disabled': this.$props.disabled,
       'aria-expanded': !!this.valueComputed.value,
       ...this.$attrs,

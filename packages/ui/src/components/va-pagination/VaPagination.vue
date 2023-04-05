@@ -2,7 +2,7 @@
   <nav
     v-if="showPagination"
     class="va-pagination"
-    :aria-label="t('pagination')"
+    :aria-label="tp($props.ariaLabel)"
     :class="classComputed"
     @keydown.left.stop="goPrevPage"
     @keydown.right.stop="goNextPage"
@@ -15,7 +15,7 @@
     >
       <va-button
         v-if="showBoundaryLinks"
-        :aria-label="t('goToTheFirstPage')"
+        :aria-label="tp($props.ariaGoToTheFirstPageLabel)"
         :disabled="$props.disabled || currentValue === 1"
         :icon="$props.boundaryIconLeft"
         v-bind="buttonPropsComputed"
@@ -28,7 +28,7 @@
     >
       <va-button
         v-if="showDirectionLinks"
-        :aria-label="t('goToPreviousPage')"
+        :aria-label="tp($props.ariaGoToPreviousPageLabel)"
         :disabled="$props.disabled || currentValue === 1"
         :icon="$props.directionIconLeft"
         v-bind="buttonPropsComputed"
@@ -41,7 +41,7 @@
         v-for="(n, i) in paginationRange" :key="i"
         :ref="setItemRefByIndex(i)"
         :class="{ 'va-button--ellipsis': n === '...', 'va-button--current': n === currentValue}"
-        :aria-label="t(`goToSpecificPage`, { page: n })"
+        :aria-label="tp($props.ariaGoToSpecificPageLabel, { page: n })"
         :aria-current="n === currentValue"
         :disabled="$props.disabled || n === '...'"
         v-bind="getPageButtonProps(n)"
@@ -55,7 +55,7 @@
       v-model="inputValue"
       ref="htmlInput"
       class="va-pagination__input va-button"
-      :aria-label="t('goToSpecificPageInput')"
+      :aria-label="tp($props.ariaGoToSpecificPageInputLabel)"
       :style="inputStyleComputed"
       :class="inputClassComputed"
       v-bind="inputAttributesComputed"
@@ -70,7 +70,7 @@
     >
       <va-button
         v-if="showDirectionLinks"
-        :aria-label="t('goNextPage')"
+        :aria-label="tp($props.ariaGoNextPageLabel)"
         :disabled="$props.disabled || currentValue === lastPage"
         :icon="$props.directionIconRight"
         v-bind="buttonPropsComputed"
@@ -83,7 +83,7 @@
     >
       <va-button
         v-if="showBoundaryLinks"
-        :aria-label="t('goLastPage')"
+        :aria-label="tp($props.ariaGoLastPageLabel)"
         :disabled="$props.disabled || currentValue === lastPage"
         :icon="$props.boundaryIconRight"
         v-bind="buttonPropsComputed"
@@ -154,6 +154,14 @@ export default defineComponent({
     rounded: { type: Boolean, default: false },
     activePageColor: { type: String, default: '' },
     buttonsPreset: { type: String, default: 'primary' },
+
+    ariaLabel: { type: String, default: '$t:pagination' },
+    ariaGoToTheFirstPageLabel: { type: String, default: '$t:goToTheFirstPage' },
+    ariaGoToPreviousPageLabel: { type: String, default: '$t:goToPreviousPage' },
+    ariaGoToSpecificPageLabel: { type: String, default: '$t:goToSpecificPage' },
+    ariaGoToSpecificPageInputLabel: { type: String, default: '$t:goToSpecificPageInput' },
+    ariaGoNextPageLabel: { type: String, default: '$t:goNextPage' },
+    ariaGoLastPageLabel: { type: String, default: '$t:goLastPage' },
   },
 
   setup (props, { emit }) {

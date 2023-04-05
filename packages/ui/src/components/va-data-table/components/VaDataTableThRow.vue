@@ -9,7 +9,7 @@
         v-if="multiplySelectAvailable"
         class="va-data-table__table-cell-checkbox"
         :model-value="$props.severalRowsSelected ? 'idl' : $props.allRowsSelected"
-        :aria-label="t('selectAllRows')"
+        :aria-label="tp($props.ariaSelectAllRowsLabel)"
         :true-value="true"
         :false-value="false"
         :color="$props.selectedColor"
@@ -98,6 +98,9 @@ export default defineComponent({
     sortBySync: { type: String, required: true },
     sortingOrderIconName: { type: String as PropType<TSortIcon>, required: true },
     sortingOrderSync: { type: String as PropType<DataTableSortingOrder | null>, default: null },
+
+    ariaSelectAllRowsLabel: { type: String, default: '$t:selectAllRows' },
+    ariaSortColumnByLabel: { type: String, default: '$t:sortColumnBy' },
   },
 
   emits: [
@@ -106,7 +109,7 @@ export default defineComponent({
   ],
 
   setup (props, { emit }) {
-    const { t } = useTranslation()
+    const { t, tp } = useTranslation()
 
     const {
       getFooterCSSVariables,
@@ -120,7 +123,7 @@ export default defineComponent({
         ? props.sortingOrderSync === 'asc' ? 'ascending' : 'descending'
         : 'none') as 'none' | 'ascending' | 'descending'
 
-      const ariaLabel = column.sortable ? t('sortColumnBy', { name: column.label }) : undefined
+      const ariaLabel = column.sortable ? tp(props.ariaSortColumnByLabel, { name: column.label }) : undefined
 
       return {
         'aria-sort': ariaSort,
@@ -145,7 +148,7 @@ export default defineComponent({
     const multiplySelectAvailable = computed(() => props.selectMode === 'multiple')
 
     return {
-      t,
+      tp,
       getClass,
       sortByColumn,
       getColumnStyles,

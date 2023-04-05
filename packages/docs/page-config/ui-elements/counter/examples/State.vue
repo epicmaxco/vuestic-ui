@@ -1,6 +1,6 @@
 <template>
-  <div class="flex gap-5 flex-wrap">
-    <div class="flex gap-5 flex-wrap">
+  <div class="flex gap-8 flex-wrap">
+    <div class="flex gap-8 flex-wrap">
       <va-counter
         v-model="value"
         readonly
@@ -13,7 +13,7 @@
       />
     </div>
 
-    <div class="flex gap-5 flex-wrap">
+    <div class="flex gap-8 flex-wrap">
       <va-counter
         v-model="value"
         disabled

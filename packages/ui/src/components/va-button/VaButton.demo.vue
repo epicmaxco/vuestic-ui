@@ -18,7 +18,7 @@
             Custom hover behavior
           </td>
           <td>
-            <va-button :backgroundOpacity="0.9" hoverBehavior="opacity" :hoverOpacity="0.4">
+            <va-button hoverBehavior="opacity" :hoverOpacity="0.4">
               Hover me
             </va-button>
             <va-button preset="primary" hoverBehavior="mask" hoverMaskColor="warning" :hoverOpacity="1">
@@ -38,20 +38,51 @@
             Custom press behavior
           </td>
           <td>
-            <va-button :backgroundOpacity="0.9" pressedBehaviur="opacity" :hoverOpacity="0.4">
+            <va-button pressedBehavior="opacity" :pressedOpacity="0.4">
               Press me
             </va-button>
-            <va-button preset="primary" pressedBehavior="mask" :hoverOpacity="0.2">
+            <va-button preset="primary" pressedBehavior="mask" pressedMaskColor="warning">
               Press me
             </va-button>
-            <va-button preset="secondary" pressedBehavior="opacity" :hoverOpacity="0.4">
+            <va-button preset="secondary" pressedBehavior="opacity" :pressedOpacity="0.4">
               Press me
             </va-button>
-            <va-button preset="plain" hoverBehavior="mask" hoverMaskColor="warning" :hoverOpacity="1">
+            <va-button preset="plain" pressedBehavior="mask" pressedMaskColor="warning">
               Press me
             </va-button>
           </td>
         </tr>
+
+        <tr>
+          <td>Sizes</td>
+          <td>
+            <va-button size="small">Labely</va-button>
+            <va-button size="small" round>Labely</va-button>
+            <va-button size="small" round icon="block"></va-button>
+            <va-button size="small" round icon="block">Labely</va-button>
+            <va-button size="small" round icon-right="block">Labely</va-button>
+            <va-button size="small" round icon="block" icon-right="thumb_up">Labely</va-button>
+            <va-button size="small" round icon="block" icon-right="thumb_up" border-color="warning">Labely</va-button>
+          </td>
+          <td>
+            <va-button>Labely</va-button>
+            <va-button round>Labely</va-button>
+            <va-button round icon="block"></va-button>
+            <va-button round icon="block">Labely</va-button>
+            <va-button round icon-right="block">Labely</va-button>
+            <va-button round icon="block" icon-right="thumb_up">Labely</va-button>
+            <va-button round icon="block" icon-right="thumb_up" border-color="warning">Labely</va-button>
+          </td>
+        </tr>
+        <td>
+          <va-button size="large">Labely</va-button>
+          <va-button size="large" round>Labely</va-button>
+          <va-button size="large" round icon="block"></va-button>
+          <va-button size="large" round icon="block">Labely</va-button>
+          <va-button size="large" round icon-right="block">Labely</va-button>
+          <va-button size="large" round icon="block" icon-right="thumb_up">Labely</va-button>
+          <va-button size="large" round icon="block" icon-right="thumb_up" border-color="warning">Labely</va-button>
+        </td>
 
         <tr>
           <td>Small size</td>
@@ -177,9 +208,14 @@
           </td>
           <td>
             <va-button round>Label</va-button>
+            <va-button round icon="block" size="small" />
             <va-button round icon="block" />
+            <va-button round icon="block" size="large" />
             <va-button preset="primary" round icon="block" />
+            <va-button preset="secondary" round icon="block" />
             <va-button preset="primary" border-color="warning" round>Label</va-button>
+            <va-button preset="primary" border-color="warning" round icon="block">Label</va-button>
+            <va-button round icon="thumb_up">Label</va-button>
           </td>
         </tr>
 
@@ -220,7 +256,7 @@
             </va-button>
             <va-button>
               <template #prepend>prepend</template>
-              -
+              LABEL
               <template #append>append</template>
             </va-button>
           </td>

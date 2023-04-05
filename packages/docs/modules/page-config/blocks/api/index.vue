@@ -81,6 +81,9 @@ const propsOptions = Object
     types: '`' + prop.types + '`',
     default: cleanDefaultValue(prop.default),
   }))
+  .sort((a, b) => {
+    return a.name.name.localeCompare(b.name.name)
+  })
 
 const eventsOptions = Object
   .entries(withManual.events || {})
@@ -89,6 +92,9 @@ const eventsOptions = Object
     name: key,
     description: t(getTranslation('events', key)),
   }))
+  .sort((a, b) => {
+    return a.name.localeCompare(b.name)
+  })
 
 const slotsOptions = Object
   .entries(withManual.slots || {})
@@ -96,6 +102,9 @@ const slotsOptions = Object
     name: key,
     description: t(getTranslation('slots', key)),
   }))
+  .sort((a, b) => {
+    return a.name.localeCompare(b.name)
+  })
 
 const methodsOptions = Object
   .entries(withManual.methods || {})
@@ -103,6 +112,9 @@ const methodsOptions = Object
     name: key,
     description: t(getTranslation('methods', key)),
   }))
+  .sort((a, b) => {
+    return a.name.localeCompare(b.name)
+  })
 
 const cssVariablesOptions = props.cssVariables.map(([name, value, comment]) => ({
   name, value, /* comment */ // TODO: Enable comment when everywhere is used correct comments

@@ -27,7 +27,7 @@
           v-if="$props.closeable"
           class="va-toast__close-icon"
           role="button"
-          :aria-label="t('closeToast')"
+          :aria-label="tp($props.ariaCloseLabel)"
           tabindex="0"
           size="small"
           :name="$props.icon"
@@ -81,6 +81,7 @@ export default defineComponent({
       validator: (value: string) => ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value),
     },
     render: { type: Function },
+    ariaCloseLabel: { type: String, default: '$t:close' },
   },
   setup (props, { emit }) {
     const rootElement = shallowRef<HTMLElement>()

@@ -86,7 +86,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, nextTick, PropType, ref, Ref, shallowRef, watch } from 'vue'
+import { computed, defineComponent, PropType, ref, Ref, shallowRef, watch } from 'vue'
 import { useColors, useStateful, useStatefulProps, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
 import VaStepperControls from './VaStepperControls.vue'
@@ -109,6 +109,7 @@ export default defineComponent({
     controlsHidden: { type: Boolean, default: false },
     nextDisabled: { type: Boolean, default: false },
     finishButtonHidden: { type: Boolean, default: false },
+    ariaLabel: { type: String, default: '$t:progress' },
   },
   emits: ['update:modelValue', 'finish'],
   setup (props, { emit }) {
@@ -121,8 +122,6 @@ export default defineComponent({
     const stepperColor = getColor(props.color)
 
     const isNextStepDisabled = (index: number) => props.nextDisabled && index > modelValue.value
-
-    const { t } = useTranslation()
 
     const setStep = (index: number) => {
       if (props.steps[index].disabled) { return }
@@ -223,6 +222,8 @@ export default defineComponent({
       isCompleted: props.modelValue > index,
     })
 
+    const { tp } = useTranslation()
+
     return {
       stepperNavigation,
       resetFocus,
@@ -241,7 +242,7 @@ export default defineComponent({
       },
       ariaAttributesComputed: computed(() => ({
         role: 'group',
-        'aria-label': t('progress'),
+        'aria-label': tp(props.ariaLabel),
         'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
       })),
     }

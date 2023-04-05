@@ -8,6 +8,7 @@
     >
       <template #anchor>
         <va-button
+          :aria-label="tp($props.ariaLabel)"
           v-bind="{ ...computedButtonIcons, ...buttonPropsComputed }"
           v-on="listeners"
           @keydown.esc.prevent="hideDropdown"
@@ -48,7 +49,7 @@
       >
         <template #anchor>
           <va-button
-            :aria-label="t('toggleDropdown')"
+            :aria-label="$props.ariaLabel || t('toggleDropdown')"
             :disabled="$props.disabled || $props.disableDropdown"
             :icon="computedIcon"
             :icon-color="$props.iconColor"
@@ -140,6 +141,8 @@ export default defineComponent({
 
     loading: { type: Boolean, default: false },
     label: { type: String },
+
+    ariaLabel: { type: String, default: '$t:toggleDropdown' },
   },
 
   setup (props, { emit, slots }) {

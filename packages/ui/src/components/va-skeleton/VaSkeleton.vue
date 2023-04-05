@@ -3,7 +3,7 @@
     class="va-skeleton"
     role="status"
     aria-live="polite"
-    aria-label="Loading"
+    :aria-label="tp($props.ariaLabel)"
     aria-atomic="true"
     :class="classes"
     :is="tag"
@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref, computed, PropType, onBeforeUnmount } from 'vue'
-import { useBem, useColors } from '../../composables'
+import { useBem, useColors, useTranslation } from '../../composables'
 
 export default defineComponent({
   name: 'VaSkeleton',
@@ -35,6 +35,7 @@ export default defineComponent({
     lastLineWidth: { type: [String], default: '75%' },
 
     variant: { type: String as PropType<'text' | 'circle' | 'rounded' | 'squared'>, default: 'squared' },
+    ariaLabel: { type: String, default: '$t:loading' },
   },
 
   setup (props, { attrs }) {
@@ -87,6 +88,7 @@ export default defineComponent({
     })
 
     return {
+      ...useTranslation(),
       classes: computed(() => [
         ...Object.keys(bem),
         (attrs as { class: string }).class,
