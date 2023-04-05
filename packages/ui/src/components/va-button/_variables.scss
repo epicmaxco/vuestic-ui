@@ -23,7 +23,8 @@
   --va-button-sm-letter-spacing: 0;
   --va-button-sm-line-height: 1rem;
   --va-button-sm-border-radius: 0.125rem;
-  --va-button-sm-icon-side-padding: 0.188rem;
+  --va-button-sm-icon-side-padding: var(--va-button-sm-content-py);
+  --va-button-sm-icons-spacing: 0.125rem;
 
   /* Medium */
   --va-button-size: 2.25rem;
@@ -34,7 +35,8 @@
   --va-button-letter-spacing: 0;
   --va-button-line-height: 1.25rem;
   --va-button-border-radius: 0.25rem;
-  --va-button-icon-side-padding: 0.375rem;
+  --va-button-icon-side-padding: var(--va-button-content-py);
+  --va-button-icons-spacing: 0.25rem;
 
   /* Large */
   --va-button-lg-size: 3rem;
@@ -45,7 +47,8 @@
   --va-button-lg-letter-spacing: 0;
   --va-button-lg-line-height: 1.5rem;
   --va-button-lg-border-radius: 0.5rem;
-  --va-button-lg-icon-side-padding: 0.5rem;
+  --va-button-lg-icon-side-padding: var(--va-button-lg-content-py);
+  --va-button-lg-icons-spacing: 0.25rem;
 
   /* Bordered */
   --va-button-bordered-border: 1px;
