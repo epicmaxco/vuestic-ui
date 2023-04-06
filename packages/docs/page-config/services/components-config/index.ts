@@ -45,6 +45,7 @@ export default definePageConfig({
     block.paragraph("componentsConfig.vaConfig.subtitle"),
     block.example("va-config", { hideTitle: true }),
     block.paragraph("componentsConfig.vaConfig.explain"),
+    block.link("componentsConfig.vaConfig.vaConfigComponentLink", "/ui-elements/config"),
 
     block.subtitle("componentsConfig.priority.title"),
     block.paragraph("componentsConfig.priority.description"),
