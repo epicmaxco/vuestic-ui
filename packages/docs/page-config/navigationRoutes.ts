@@ -360,6 +360,13 @@ export const navigationRoutes: NavigationRoute[] = [
         }
       },
       {
+        name: "config",
+        displayName: "menu.config",
+        meta: {
+          badge: "new",
+        }
+      },
+      {
         name: "hover",
         displayName: "menu.hover",
       },
