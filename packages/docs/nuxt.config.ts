@@ -5,11 +5,8 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'icon', type: 'image/png', href: '/favicon.png' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
-        { rel: 'stylesheet', href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&display=swap" },
-        { rel: 'stylesheet', href: "https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap" },
-        { rel: 'stylesheet', href: "https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" },
-        { rel: 'stylesheet', href: "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=swap" },
+        { rel: 'dns-prefetch', as: 'script', href: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js' },
+        { rel: 'dns-prefetch', as: 'script', href: 'https://kit.fontawesome.com/5460c87b2a.js' },
       ],
 
       script: [
@@ -76,14 +73,10 @@ export default defineNuxtConfig({
     },
   },
 
-  // TODO: hydration mismatch issues; tailwind doesn't work properly
-  // ssr: false,
-  // nitro: {
-  //   prerender: {
-  //     routes: ['/'],
-  //     ignore: ['/*']
-  //   }
-  // },
+  ssr: true,
+  nitro: {
+    compressPublicAssets: true,
+  },
 
   modules: [
     // './modules/banner',
@@ -91,6 +84,7 @@ export default defineNuxtConfig({
     './modules/page-config',
     // "./modules/i18n",
     // TODO: remove after i18n is released https://github.com/nuxt-modules/i18n/pull/1712
+    '@nuxtjs/google-fonts',
     '@nuxtjs/i18n-edge',
     './modules/markdown',
     '@nuxtjs/tailwindcss',
@@ -100,6 +94,21 @@ export default defineNuxtConfig({
   vuestic: {
     css: ['typography'],
     fonts: false,
+  },
+
+  googleFonts: {
+    preload: true,
+    swap: true,
+    families: {
+      'Source+Sans+Pro': {
+        wght: [400, 600, 700],
+      },
+      'Source+Code+Pro': {
+        wght: [400],
+      },
+      'Material+Icons': true,
+      'Material+Icons+Outlined': true,
+    },
   },
 
   tailwindcss: {
