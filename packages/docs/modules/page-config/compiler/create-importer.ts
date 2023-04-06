@@ -1,4 +1,4 @@
-import { resolve, dirname, parse } from 'path'
+import { resolve, dirname, parse } from 'pathe'
 import { type TransformPluginContext } from 'rollup'
 import { resolveAlias } from '@nuxt/kit';
 import { readdirSync, existsSync } from 'fs'
