@@ -35,11 +35,10 @@ export const useTouch = (
 
   if (!window.value || !('ontouchstart' in window.value)) { return }
 
-  const previousTouchTime = ref(0)
+  let previousTouchTime = 0
+  let shortTouchTimer: ReturnType<typeof setTimeout> | undefined
 
-  let shortTouchTimer: NodeJS.Timeout | undefined
-
-  const touch = (event: TouchEvent) => {
+  const onTouchStart = (event: TouchEvent) => {
     // preventing same (click, dblclick, contextmenu) mouse events to be triggered
     event.preventDefault()
     event.stopPropagation()
@@ -66,23 +65,23 @@ export const useTouch = (
         return
       }
 
-      const isDoubleClick = previousTouchTime.value && (Date.now() - previousTouchTime.value < timings.double)
+      const isDoubleClick = previousTouchTime && (Date.now() - previousTouchTime < timings.double)
       if (isDoubleClick) {
         callbacks.double && callbacks.double(event)
 
-        previousTouchTime.value = 0
+        previousTouchTime = 0
       } else {
         shortTouchTimer = setTimeout(() => {
           callbacks.short(event)
         }, timings.double)
 
-        previousTouchTime.value = Date.now()
+        previousTouchTime = Date.now()
       }
     }
 
     const { removeListeners: removeTouchCancelListeners } = useEvent(['touchmove', 'touchend', 'touchcancel'], cancelTouch, true)
   }
 
-  const { removeListeners: removeTouchStartListeners } = useEvent('touchstart', touch, target)
+  const { removeListeners: removeTouchStartListeners } = useEvent('touchstart', onTouchStart, target)
   onBeforeUnmount(removeTouchStartListeners)
 }
