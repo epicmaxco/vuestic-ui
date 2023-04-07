@@ -54,7 +54,7 @@ export const getI18nConfigDefaults = () => ({
   /** Rating aria-label */
   currentRating: 'current rating {value} of {max}',
   /** Rating item aria-label */
-  voteRating: '`vote rating {value} of {max}`',
+  voteRating: 'vote rating {value} of {max}',
   /** Select search input aria-label */
   optionsFilter: 'options filter',
   splitPanels: 'split panels',
@@ -89,4 +89,13 @@ export const getI18nConfigDefaults = () => ({
 
   step: 'step',
   progress: 'progress',
+
+  /** Skeleton aria label */
+  loading: 'Loading',
+
+  /** Slider aria label */
+  sliderValue: 'Current slider value is {value}',
+
+  /** Switch aria label */
+  switch: 'Switch',
 })

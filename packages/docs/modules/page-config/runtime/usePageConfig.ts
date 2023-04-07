@@ -1,9 +1,9 @@
-import { type Ref, unref, watchEffect } from 'vue'
+import { type Ref, unref, watch } from 'vue'
 import { type PageConfigOptions } from "."
 
-type PageConfigJSModule = { default: PageConfigOptions, translations?: Record<string, string> }
+type PageConfigJSModule = { default: PageConfigOptions, translations?: Record<string, Record<string, string>> }
 
-const files = Object.entries(import.meta.glob<false, string, PageConfigJSModule>('@/page-config/**/index.ts'))
+const files = Object.entries(import.meta.glob<PageConfigJSModule>('@/page-config/**/index.ts'))
   .reduce((acc, [key, fn]) => {
     const name = key.replace('/page-config/', '').replace('/index.ts', '')
 
@@ -31,11 +31,11 @@ const getConfig = async (name: string) => {
 
 export const usePageConfigs = () => files
 
-export const usePageConfig = async (name: string | Ref<string>) => {
+export const usePageConfig = async (name: Ref<string>) => {
   try {
     const config = ref<PageConfigOptions | null>(await getConfig(unref(name)))
 
-    watchEffect(async () => {
+    watch(name, async () => {
       try {
         config.value = null
         config.value = await getConfig(unref(name))

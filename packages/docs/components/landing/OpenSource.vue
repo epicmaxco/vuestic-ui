@@ -116,6 +116,8 @@ export default defineComponent({
 
   &__icon {
     display: flex;
+    user-select: none;
+    pointer-events: none;
     // sm
     @include sm(justify-content, center);
   }
@@ -144,6 +146,9 @@ export default defineComponent({
     // xs
     @include size-xs(12);
     @include shift-xs-left(0);
+
+    user-select: none;
+    pointer-events: none;
 
     img {
       max-width: 100%;

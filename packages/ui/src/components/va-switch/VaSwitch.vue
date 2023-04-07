@@ -46,7 +46,7 @@
             </slot>
           </div>
           <div class="va-switch__checker-wrapper">
-            <span class="va-switch__checker">
+            <div class="va-switch__checker">
               <slot name="checker" v-bind="{ value: isChecked }">
                 <div class="va-switch__checker-circle">
                   <va-progress-circle
@@ -57,7 +57,7 @@
                   />
                 </div>
               </slot>
-            </span>
+            </div>
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@ export default defineComponent({
     falseLabel: { type: String, default: null },
     trueInnerLabel: { type: String, default: null },
     falseInnerLabel: { type: String, default: null },
-    ariaLabel: { type: String, default: 'Switch' },
+    ariaLabel: { type: String, default: '$t:switch' },
     color: { type: String, default: 'primary' },
     offColor: { type: String, default: 'background-element' },
     size: {
@@ -187,12 +187,12 @@ export default defineComponent({
     })
 
     const trackStyle = computed(() => ({
-      borderColor: props.error ? getColor('danger') : '',
+      borderColor: computedError.value ? getColor('danger') : '',
       backgroundColor: computedBackground.value,
     }))
 
     const labelStyle = computed(() => ({
-      color: props.error ? getColor('danger') : '',
+      color: computedError.value ? getColor('danger') : '',
     }))
 
     const trackLabelStyle = computed(() => ({
@@ -247,7 +247,6 @@ export default defineComponent({
     .va-switch__container {
       display: inline-flex;
       align-items: center;
-      height: 100%;
       width: 100%;
     }
   }
@@ -266,7 +265,6 @@ export default defineComponent({
     width: var(--va-switch-inner-width);
     min-width: var(--va-switch-inner-min-width);
     border-radius: var(--va-switch-inner-border-radius);
-    overflow: hidden;
 
     &:focus {
       outline: 0;
@@ -343,8 +341,7 @@ export default defineComponent({
   &--checked {
     .va-switch {
       &__checker {
-        margin: auto -0.3rem;
-        transform: translateX(-100%);
+        transform: translateX(calc(-100% - 0.3rem));
       }
 
       &__checker-circle {
@@ -443,6 +440,9 @@ export default defineComponent({
   }
 
   &__checker-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: var(--va-switch-checker-height);
     width: var(--va-switch-checker-width);
     background-color: var(--va-switch-checker-background-color);

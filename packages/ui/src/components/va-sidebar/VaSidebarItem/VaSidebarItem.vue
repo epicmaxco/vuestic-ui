@@ -5,8 +5,6 @@
     tabindex="0"
     :class="{ 'va-sidebar-item--active': $props.active }"
     :style="computedStyle"
-    :href="hrefComputed"
-    :to="$props.to"
     :is="tagComputed"
     v-bind="linkAttributesComputed"
     v-on="keyboardFocusListeners"

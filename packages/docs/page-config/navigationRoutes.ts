@@ -274,6 +274,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "color-input",
         displayName: "menu.colorInput",
       },
+  
       {
         category: 'menu.categories.layout',
         name: 'aspect-ratio',
@@ -349,14 +350,32 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: 'new',
         }
       },
+
       {
-        category: "menu.categories.other",
-        name: "affix",
-        displayName: "menu.affix",
+        category: "menu.categories.utils",
+        name: "value",
+        displayName: "menu.value",
+        meta: {
+          badge: "new",
+        }
       },
       {
         name: "hover",
         displayName: "menu.hover",
+      },
+      {
+        name: "dropdown",
+        displayName: "menu.dropdown",
+      },
+      {
+        name: "spacer",
+        displayName: "menu.spacer",
+      },
+  
+      {
+        category: "menu.categories.other",
+        name: "affix",
+        displayName: "menu.affix",
       },
       {
         name: "infinite-scroll",
@@ -391,6 +410,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.toast",
       },
       {
+        name: "confirm",
+        displayName: "menu.confirm",
+        meta: {
+          badge: "new",
+        }
+      },
+      {
         name: "virtual-scroller",
         displayName: "menu.virtualScroller",
         meta: {
@@ -411,14 +437,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "color-palette",
         displayName: "menu.colorPalette",
       },
-      {
-        name: "spacer",
-        displayName: "menu.spacer",
-      },
-      {
-        name: "dropdown",
-        displayName: "menu.dropdown",
-      },
+
       {
         name: "tree-view",
         displayName: "menu.treeView",

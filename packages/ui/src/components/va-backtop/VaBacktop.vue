@@ -3,7 +3,7 @@
     v-if="visible"
     class="va-backtop"
     role="button"
-    :aria-label="t('backToTop')"
+    :aria-label="tp($props.ariaLabel)"
     :style="computedStyle"
     @click="scrollToTop"
     @keydown.enter.stop="scrollToTop"
@@ -49,6 +49,7 @@ export default defineComponent({
       default: 'bottom',
       validator: (value: string) => ['bottom', 'top'].includes(value),
     },
+    ariaLabel: { type: String, default: '$t:backToTop' },
   },
   setup (props) {
     const targetScrollValue = ref(0)

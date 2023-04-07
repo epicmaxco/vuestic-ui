@@ -504,6 +504,24 @@
         </template>
       </va-data-table>
     </VbCard>
+
+    <VbCard title="Header/Footer slots" class="demo">
+      <va-data-table :items="evenItems">
+        <template #header>
+          <tr>
+            <td class="text-center" :colspan="Object.keys(evenItems[0]).length">Header</td>
+          </tr>
+        </template>
+
+        <template #footer>
+          <tr>
+            <td style="border: 1px solid red; box-sizing: border-box;" v-for="item in Object.keys(evenItems[0]).length" :key="item">
+              {{ item }}
+            </td>
+          </tr>
+        </template>
+      </va-data-table>
+    </VbCard>
   </VbDemo>
 </template>
 

@@ -244,6 +244,8 @@ const textColor = useElementTextColor('background-primary')
     padding: 0.75rem;
     border: 1px dashed var(--va-background-border);
     border-radius: 1rem;
+    user-select: none;
+    pointer-events: none;
   }
 
   &__title {

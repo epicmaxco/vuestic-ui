@@ -12,7 +12,7 @@
       <va-button
         v-if="!disabled"
         class="va-file-upload-single-item__button"
-        :aria-label="t('removeFile')"
+        :aria-label="tp($props.ariaRemoveFileLabel)"
         size="small"
         color="danger"
         flat
@@ -46,6 +46,7 @@ export default defineComponent({
 
   props: {
     file: { type: Object as PropType<ConvertedFile | null>, default: null },
+    ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
   },
 
   setup: () => ({

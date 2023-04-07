@@ -34,7 +34,7 @@
         role="button"
         name="va-close"
         class="va-chip__close-icon"
-        :aria-label="t('close')"
+        :aria-label="tp($props.ariaCloseLabel)"
         :tabindex="tabIndexComputed"
         :size="iconSize"
         @click.stop="close"
@@ -91,6 +91,8 @@ export default defineComponent({
       default: 'medium',
       validator: (value: string) => ['small', 'medium', 'large'].includes(value),
     },
+
+    ariaCloseLabel: { type: String, default: '$t:close' },
   },
 
   setup (props, { emit }) {

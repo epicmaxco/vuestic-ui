@@ -1,13 +1,11 @@
 <template>
-  <ClientOnly>
-    <div class="page-config">
-      <PageConfig
-        v-if="config"
-        :page-config="config"
-      />
-      <PageConfigSkeleton v-else />
-    </div>
-  </ClientOnly>
+  <div class="page-config">
+    <PageConfig
+      v-if="config"
+      :page-config="config"
+    />
+    <PageConfigSkeleton v-else />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -19,14 +17,22 @@ definePageMeta({
 })
 
 const route = useRoute();
-const { locale, t, mergeLocaleMessage, fallbackLocale } = useI18n()
+const { locale, t, mergeLocaleMessage, fallbackLocale, localeCodes } = useI18n()
+
+const getLocaleRegExp = (): RegExp => {
+  const defaultLocaleCodes = localeCodes.value.join('|')
+  const localeCodesWithSlashes = localeCodes.value.map((locale: string) => `/${locale}/`).join('|')
+
+  return new RegExp(`^(${defaultLocaleCodes}|${localeCodesWithSlashes})`, 'i')
+}
 
 const pageConfigName = computed(() => {
+  const localeRegExp = getLocaleRegExp()
   const path = route.path
-  const localePrefix = `/${locale.value}/`
 
-  if (path.startsWith(localePrefix)) {
-    return path.replace(localePrefix, '')
+  // Detect if path contains locale key
+  if (localeRegExp.test(path)) {
+    return path.replace(localeRegExp, '')
   }
 
   return path.slice(1)
@@ -43,7 +49,7 @@ const compileTranslations = (translations: Record<string, any>): any => {
   const compiledTranslations: Record<string, any> = {}
 
   Object.keys(translations).forEach((key) => {
-    if (typeof translations[key] === 'string') { 
+    if (typeof translations[key] === 'string') {
       compiledTranslations[key] = translations[key].replaceAll(/\{['|"|`](.*)['|"|`]\}/g, '$1')
     } else {
       compiledTranslations[key] = compileTranslations(translations[key])

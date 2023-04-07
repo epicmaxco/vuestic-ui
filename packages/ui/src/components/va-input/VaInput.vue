@@ -35,7 +35,7 @@
       <va-icon
         v-if="canBeCleared"
         role="button"
-        :aria-label="t('reset')"
+        :aria-label="tp($props.ariaResetLabel)"
         :tabindex="tabIndexComputed"
         v-bind="clearIconProps"
         @click.stop="reset"
@@ -124,7 +124,7 @@ export default defineComponent({
 
     // input
     placeholder: { type: String, default: '' },
-    tabindex: { type: Number, default: 0 },
+    tabindex: { type: [String, Number], default: 0 },
     modelValue: { type: [String, Number], default: '' },
     label: { type: String, default: '' },
     type: { type: String as AnyStringPropType<'textarea' | 'text' | 'password'>, default: 'text' },
@@ -142,6 +142,7 @@ export default defineComponent({
     outline: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
     requiredMark: { type: Boolean, default: false },
+    ariaResetLabel: { type: String, default: '$t:reset' },
   },
 
   emits: [

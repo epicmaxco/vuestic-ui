@@ -49,7 +49,7 @@
             >
               {{ $t('landing.header.buttons.blog') }}
             </va-button>
-            <layout-header-language-dropdown
+            <language-dropdown
               class="header__links--link"
               preset="landingHeader"
             />
@@ -128,14 +128,14 @@
               </va-list-label>
               <div class="mobile-menu__languages">
                 <va-list-item
-                  v-for="(language, id) in languages"
+                  v-for="({ code, name }, id) in locales"
                   :key="id"
                   class="mobile-menu__language"
-                  :class="{ active: language.code === locale }"
-                  @click="setLanguage(language.code)"
+                  :class="{ active: code === locale }"
+                  @click="setLocale(code)"
                 >
                   <va-list-item-section class="mobile-menu__link">
-                    <span class="language">{{ language.name }}</span>
+                    <span class="language">{{ name }}</span>
                   </va-list-item-section>
                 </va-list-item>
                 <va-list-item>
@@ -144,7 +144,7 @@
                       class="mobile-menu__language"
                       :to="`/${locale}/contribution/translation`"
                     >
-                      {{ $t('landing.header.buttons.translation') }}
+                      {{ t('landing.header.buttons.translation') }}
                     </router-link>
                   </va-list-item-section>
                 </va-list-item>
@@ -161,29 +161,16 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+<script lang="ts" setup>
+import { ref } from 'vue'
 
+import { useSharedLanguageSwitcher } from '../../composables/useLanguageSwitcher'
+
+import LanguageDropdown from '../layout/LanguageDropdown.vue'
 import LandingStarsButton from './StarsButton.vue'
 
-export default defineComponent({
-  name: 'LandingHeader',
-
-  setup () {
-    const { locale } = useI18n()
-    const isHidden = ref(true)
-
-    const { languages, setLanguage } = useSharedLanguageSwitcher()
-
-    return {
-      locale,
-      languages,
-      isHidden,
-      setLanguage,
-    }
-  },
-})
+const isHidden = ref(true)
+const { t, locale, locales, setLocale } = useSharedLanguageSwitcher()
 </script>
 
 <style lang="scss" scoped>

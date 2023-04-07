@@ -2,7 +2,7 @@
   <div
     class="va-rating"
     :class="rootClass"
-    :aria-label="t('currentRating', { max: $props.max, value: $props.modelValue })"
+    :aria-label="tp($props.ariaLabel, { max: $props.max, value: $props.modelValue })"
   >
     <div
       class="va-rating__item-wrapper"
@@ -16,7 +16,7 @@
         :key="itemNumber"
         class="va-rating__item"
         v-bind="VaRatingItemProps"
-        :aria-label="t('voteRating', { max: $props.max, value: $props.modelValue })"
+        :aria-label="tp($props.ariaItemLabel, { max: $props.max, value: itemNumber })"
         :model-value="getItemValue(itemNumber - 1)"
         :tabindex="tabIndexComputed"
         :disabled="$props.disabled"
@@ -76,6 +76,9 @@ export default defineComponent({
     halves: { type: Boolean, default: false },
     max: { type: Number, default: 5 },
     texts: { type: Array as PropType<string[]>, default: () => [] },
+
+    ariaLabel: { type: String, default: '$t:currentRating' },
+    ariaItemLabel: { type: String, default: '$t:voteRating' },
   },
   emits: ['update:modelValue'],
   components: { VaRatingItem, VaRatingItemNumberButton },
@@ -95,7 +98,15 @@ export default defineComponent({
       tabIndexComputed: computed(() => isInteractionsEnabled.value ? 0 : undefined),
       onArrowKeyPress: (direction: 1 | -1) => {
         const step = props.halves ? RatingValue.HALF : RatingValue.FULL
-        rating.onItemValueUpdate(rating.visibleValue.value, step * direction)
+        const nextStep = rating.visibleValue.value + step * direction
+        const min = props.clearable ? 0 : step
+        if (nextStep >= min && nextStep <= props.max) {
+          rating.onItemValueUpdate(rating.visibleValue.value, step * direction)
+        } else if (nextStep < min) {
+          rating.onItemValueUpdate(min, 0)
+        } else {
+          rating.onItemValueUpdate(props.max, direction === -1 ? step * direction : 0)
+        }
       },
     }
   },

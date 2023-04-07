@@ -19,6 +19,10 @@ export default definePageConfig({
 
     block.example('Minimal'),
 
+    block.subtitle('all.accessibility'),
+
+    block.paragraph('stepper.accessibility'),
+
     block.subtitle("all.api"),
     block.api("VaStepper", apiOptions),
   ],

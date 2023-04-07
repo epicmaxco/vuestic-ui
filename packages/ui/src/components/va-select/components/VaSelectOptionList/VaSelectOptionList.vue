@@ -109,7 +109,7 @@ export default defineComponent({
     getSelectedState: { type: Function as PropType<(option: SelectOption) => boolean>, required: true },
     multiple: { type: Boolean, default: false },
     search: { type: String, default: '' },
-    tabindex: { type: Number, default: 0 },
+    tabindex: { type: [String, Number], default: 0 },
     hoveredOption: { type: [String, Number, Boolean, Object] as PropType<SelectOption | null>, default: null },
     virtualScroller: { type: Boolean, default: true },
     highlightMatchedText: { type: Boolean, default: true },
