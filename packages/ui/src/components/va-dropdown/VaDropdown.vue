@@ -44,7 +44,7 @@ import {
   offset as offsetFn,
   autoUpdate,
   flip,
-  autoPlacement,
+  // autoPlacement,
   shift,
 } from '@floating-ui/vue'
 
