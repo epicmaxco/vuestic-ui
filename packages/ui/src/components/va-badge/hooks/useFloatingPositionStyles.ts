@@ -59,18 +59,9 @@ export const useFloatingPosition = (
     }
 
     const alignmentOptions = {
-      start: {
-        [mainAxis]: 0,
-        [crossAxis]: shiftValue,
-      },
-      center: {
-        [mainAxis]: '50%',
-        [crossAxis]: shiftValue,
-      },
-      end: {
-        [mainAxis]: '100%',
-        [crossAxis]: shiftValue,
-      },
+      start: { [mainAxis]: 0, [crossAxis]: shiftValue },
+      center: { [mainAxis]: '50%', [crossAxis]: shiftValue },
+      end: { [mainAxis]: '100%', [crossAxis]: shiftValue },
     }
 
     return alignmentOptions[align.value]
@@ -97,7 +88,7 @@ export const useFloatingPosition = (
     }
     const { x, y } = coords[position.value]
 
-    return { transform: `translateX(${x}) translateY(${y})` }
+    return { transform: `translate(${x}, ${y})` }
   })
 
   return computed(() => ({
