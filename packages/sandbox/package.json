@@ -47,7 +47,7 @@
     "vue-tsc": "^0.38.2",
     "webpack": "5",
     "webpack-cli": "^4.9.2",
-    "when-dependencies-installed": "^1.0.0"
+    "when-dependencies-installed": "^1.0.1"
   },
   "workspaces": {
     "nohoist": [
