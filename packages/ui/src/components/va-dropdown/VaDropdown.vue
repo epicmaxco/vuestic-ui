@@ -45,6 +45,7 @@ import {
   autoUpdate,
   flip,
   autoPlacement,
+  shift,
 } from '@floating-ui/vue'
 
 export default defineComponent({
@@ -221,24 +222,45 @@ export default defineComponent({
       return props.disabled || !isPopoverFloating.value
     })
 
+    const computedPlacement = computed(() => props.placement === 'auto' ? 'bottom' : props.placement as Placement)
     const anchorRef = computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value)
     const { x, y, strategy } = useFloating(anchorRef, contentRef, {
-      placement: props.placement as Placement,
+      placement: computedPlacement.value,
       whileElementsMounted: autoUpdate,
       middleware: computed(() => {
-        let middleware: Middleware[] = []
+        const middleware: Middleware[] = []
         const offset = props.offset
-        console.log(offset, 'offset')
         if (offset) {
-          middleware = [
-            offsetFn({
-              mainAxis: 100,
-              crossAxis: 100,
-            }),
-          ]
+          middleware.push(offsetFn(Array.isArray(offset)
+            ? {
+              mainAxis: offset[0],
+              crossAxis: offset[1],
+            }
+            : {
+              mainAxis: offset,
+              crossAxis: 0,
+            }))
         }
 
-        middleware.push(props.autoPlacement ? autoPlacement() : flip())
+        // TODO: I found the original autoPlacement eq flip
+        // middleware.push(props.autoPlacement
+        //   ? autoPlacement()
+        //   : flip({
+        //     crossAxis: !isPopoverFloating.value,
+        //   }))
+
+        if (props.autoPlacement) {
+          middleware.push(flip({
+            crossAxis: !isPopoverFloating.value,
+          }))
+        }
+
+        if (isPopoverFloating.value) {
+          // preventOverflow renamed to flip now
+          middleware.push(shift({
+            padding: 5,
+          }))
+        }
         return middleware
       }),
     })
