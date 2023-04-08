@@ -2,13 +2,13 @@
   <ul
     class="va-color-palette"
     role="listbox"
-    :aria-label="t('colorSelection')"
+    :aria-label="tp($props.ariaLabel)"
   >
     <va-color-indicator
       v-for="(color, index) in palette"
       :key="index"
       role="option"
-      :aria-label="t('color', { color })"
+      :aria-label="tp($props.ariaIndicatorLabel, { color })"
       :aria-selected="isSelected(color)"
       tabindex="0"
       :modelValue="isSelected(color)"
@@ -40,6 +40,8 @@ export default defineComponent({
       default: 'dot',
       validator: (value: string) => ['dot', 'square'].includes(value),
     },
+    ariaLabel: { type: String, default: '$t:colorSelection' },
+    ariaIndicatorLabel: { type: String, default: '$t:color' },
   },
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)

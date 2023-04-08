@@ -4,9 +4,9 @@
     :columns="columns"
   >
     <template #cell(actions)="{ row, isExpanded }">
-      <va-button 
+      <va-button
         @click="row.toggleRowDetails()"
-        :icon="row.isExpanded ? 'va-arrow-up': 'va-arrow-down'"
+        :icon="isExpanded ? 'va-arrow-up': 'va-arrow-down'"
         preset="secondary"
         class="w-full"
       >

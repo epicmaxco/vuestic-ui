@@ -23,7 +23,7 @@
           color="danger"
           icon="clear"
           class="va-file-upload-list-item__delete"
-          :aria-label="t('removeFile')"
+          :aria-label="tp($props.ariaRemoveFileLabel)"
           @click.stop="removeFile"
           @keydown.enter.stop="removeFile"
           @keydown.space.stop="removeFile"
@@ -62,6 +62,8 @@ export default defineComponent({
   props: {
     file: { type: Object as PropType<ConvertedFile | null>, default: null },
     color: { type: String, default: 'success' },
+
+    ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
   },
 
   setup (props, { emit }) {

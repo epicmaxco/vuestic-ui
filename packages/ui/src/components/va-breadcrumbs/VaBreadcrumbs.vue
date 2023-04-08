@@ -15,6 +15,7 @@ export default defineComponent({
     color: { type: String, default: 'secondary' },
     activeColor: { type: String, default: null },
     separatorColor: { type: String, default: null },
+    ariaLabel: { type: String, default: '$t:breadcrumbs' },
   },
   setup (props, { slots }) {
     const { alignComputed } = useAlign(props)
@@ -108,13 +109,13 @@ export default defineComponent({
       return children
     }
 
-    const { t } = useTranslation()
+    const { tp } = useTranslation()
 
     return () => h('div', {
       class: 'va-breadcrumbs',
       style: alignComputed.value,
       role: isAllChildLinks.value ? 'navigation' : undefined,
-      'aria-label': isAllChildLinks.value ? t('breadcrumbs') : undefined,
+      'aria-label': (isAllChildLinks.value ? tp(props.ariaLabel) : undefined),
     }, getChildren())
   },
 })

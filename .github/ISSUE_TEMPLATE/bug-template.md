@@ -1,7 +1,7 @@
 ---
 name: Bug Report
 about: Report a bug for Vuestic UI
-labels: ["BUG", "EXTERNAL"]
+labels: ["BUG"]
 assignees: ''
 
 ---

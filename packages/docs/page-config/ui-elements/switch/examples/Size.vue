@@ -1,21 +1,20 @@
 <template>
-  <va-switch
-    v-model="value"
-    label="small"
-    size="small"
-    class="mr-6"
-  />
-  <va-switch
-    v-model="value"
-    label="default"
-    class="mr-6"
-  />
-  <va-switch
-    v-model="value"
-    label="large"
-    size="large"
-    class="mr-6"
-  />
+  <div class="flex gap-8 flex-wrap">
+    <va-switch
+      v-model="value"
+      label="small"
+      size="small"
+    />
+    <va-switch
+      v-model="value"
+      label="default"
+    />
+    <va-switch
+      v-model="value"
+      label="large"
+      size="large"
+    />
+  </div>
 </template>
 
 <script>
