@@ -27,7 +27,7 @@ import {
   useHTMLElement,
   MaybeHTMLElementOrSelector,
   useTranslation,
-  useDomRect,
+  useDropdown,
 } from '../../composables'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
@@ -37,16 +37,6 @@ import { renderSlotNode } from '../../utils/headless'
 import { warn } from '../../utils/console'
 
 import type { DropdownOffsetProp } from './types'
-import {
-  type Middleware,
-  type Placement,
-  useFloating,
-  offset as offsetFn,
-  autoUpdate,
-  flip,
-  // autoPlacement,
-  shift,
-} from '@floating-ui/vue'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -222,69 +212,20 @@ export default defineComponent({
       return props.disabled || !isPopoverFloating.value
     })
 
-    const computedPlacement = computed(() => props.placement === 'auto' ? 'bottom' : props.placement as Placement)
-    const anchorRef = computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value)
-    const { x, y, strategy } = useFloating(anchorRef, contentRef, {
-      placement: computedPlacement.value,
-      whileElementsMounted: autoUpdate,
-      middleware: computed(() => {
-        const middleware: Middleware[] = []
-        const offset = props.offset
-        if (offset) {
-          middleware.push(offsetFn(Array.isArray(offset)
-            ? {
-              mainAxis: offset[0],
-              crossAxis: offset[1],
-            }
-            : {
-              mainAxis: offset,
-              crossAxis: 0,
-            }))
-        }
-
-        // TODO: I found the original autoPlacement eq flip
-        // middleware.push(props.autoPlacement
-        //   ? autoPlacement()
-        //   : flip({
-        //     crossAxis: !isPopoverFloating.value,
-        //   }))
-
-        if (props.autoPlacement) {
-          middleware.push(flip({
-            crossAxis: !isPopoverFloating.value,
-          }))
-        }
-
-        if (isPopoverFloating.value) {
-          // preventOverflow renamed to flip now
-          middleware.push(shift({
-            padding: 5,
-          }))
-        }
-        return middleware
-      }),
-    })
-
-    const { domRect: anchorDomRect } = useDomRect(anchorRef)
-
-    const contentStyle = computed(() => {
-      if (props.keepAnchorWidth) {
-        const { width } = anchorDomRect.value || {}
-        return {
-          position: strategy.value,
-          top: `${y.value}px`,
-          left: `${x.value}px`,
-          width: `${width}px`,
-          maxWidth: `${width}px`,
-        }
-      }
-
-      return {
-        position: strategy.value,
-        top: `${y.value}px`,
-        left: `${x.value}px`,
-      }
-    })
+    useDropdown(
+      computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value),
+      contentRef,
+      computed(() => ({
+        keepAnchorWidth: props.keepAnchorWidth,
+        offset: props.offset,
+        stickToEdges: props.stickToEdges,
+        autoPlacement: props.autoPlacement,
+        root: teleportTargetComputed.value,
+        viewport: targetComputed.value,
+        shift: props.preventOverflow,
+      })),
+      props,
+    )
 
     const isMounted = useIsMounted()
 
@@ -300,7 +241,6 @@ export default defineComponent({
       onMouseLeave,
       emitAndClose,
       contentRef,
-      contentStyle,
     }
   },
 
@@ -314,7 +254,6 @@ export default defineComponent({
     const defaultSlotVNode = renderSlotNode(this.$slots.default, slotBinds, {
       ref: 'contentRef',
       class: 'va-dropdown__content-wrapper',
-      style: this.contentStyle,
       onMouseOver: () => this.$props.isContentHoverable && this.onMouseEnter(),
       onMouseOut: () => this.onMouseLeave(),
       onClick: () => this.emitAndClose('content-click', this.$props.closeOnContentClick),

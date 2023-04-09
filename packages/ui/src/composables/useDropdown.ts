@@ -2,10 +2,8 @@ import { computed, unref, watchPostEffect, type Ref } from 'vue'
 
 import { useDomRect } from './useDomRect'
 import { useDocument } from './useDocument'
-import { usePlacementAliases } from './usePlacementAliases'
 
 import { unwrapEl } from '../utils/unwrapEl'
-import { mapObject } from '../utils/map-object'
 
 import type {
   PlacementAlignment,
@@ -13,6 +11,17 @@ import type {
   UsePlacementAliasesProps,
   ParsedPlacement,
 } from './usePlacementAliases'
+
+import {
+  type Middleware,
+  type Placement,
+  useFloating,
+  offset as offsetFn,
+  autoPlacement as autoPlacementFn,
+  shift as shiftFn,
+  autoUpdate,
+  flip,
+} from '@floating-ui/vue'
 
 export type Offset = number | [number, number]
 
@@ -156,6 +165,7 @@ export type usePopoverOptions = {
   /** Root element selector */
   root?: string | HTMLElement,
   viewport?: HTMLElement,
+  shift?: boolean,
 }
 
 /**
@@ -191,60 +201,57 @@ export const useDropdown = (
     return documentRef.value.body
   })
   const { domRect: anchorDomRect } = useDomRect(anchorRef)
-  const { domRect: contentDomRect } = useDomRect(contentRef)
 
-  const css = {
-    position: 'absolute',
-  }
+  const computedPlacement = computed(() => props.placement === 'auto' ? 'bottom' : props.placement as Placement)
 
-  const { position, align } = usePlacementAliases(props)
-  watchPostEffect(() => {
-    if (!rootRef.value || !anchorDomRect.value || !contentDomRect.value) { return }
-
-    const { offset, keepAnchorWidth, autoPlacement, stickToEdges } = unref(options)
-
-    // calculate coords (x and y) of content left-top corner
-    let coords = calculateContentCoords(position.value, align.value, anchorDomRect.value, contentDomRect.value)
-
-    let offsetCoords: Coords = { x: 0, y: 0 }
-    if (offset) {
-      offsetCoords = calculateOffsetCoords(position.value, offset)
-      coords = mapObject(coords, (c, key) => c + offsetCoords[key])
-    }
-
-    const rootRect = rootRef.value.getBoundingClientRect()
-    const viewportRect = unref(options).viewport?.getBoundingClientRect() ?? rootRect
-
-    if (autoPlacement) {
-      const { position: newPosition, align: newAlign } = getAutoPlacement(position.value, align.value, coords, contentDomRect.value, viewportRect)
-
-      if (newPosition !== position.value || newAlign !== align.value) {
-        coords = calculateContentCoords(newPosition, newAlign, anchorDomRect.value, contentDomRect.value)
-
-        if (offset) {
-          offsetCoords = calculateOffsetCoords(newPosition, offset)
-          coords = mapObject(coords, (c, key) => c + offsetCoords[key])
-        }
+  const { x, y, strategy, update } = useFloating(anchorRef, contentRef, {
+    placement: computedPlacement.value,
+    whileElementsMounted: autoUpdate,
+    middleware: computed(() => {
+      const middleware: Middleware[] = []
+      const { offset, autoPlacement, shift } = unref(options)
+      if (offset) {
+        middleware.push(offsetFn(Array.isArray(offset)
+          ? {
+            mainAxis: offset[0],
+            crossAxis: offset[1],
+          }
+          : {
+            mainAxis: offset,
+            crossAxis: 0,
+          }))
       }
-    }
 
-    if (stickToEdges) {
-      coords = calculateClipToEdge(coords, offsetCoords, contentDomRect.value, anchorDomRect.value, viewportRect)
-    }
+      middleware.push(autoPlacement
+        ? autoPlacementFn()
+        : flip({
+          crossAxis: !shift,
+        }))
 
-    coords.x -= rootRect.x + rootRef.value.clientLeft
-    coords.y -= rootRect.y + rootRef.value.clientTop
+      if (shift) {
+        // preventOverflow renamed to flip now
+        middleware.push(shiftFn({
+          padding: 5,
+        }))
+      }
+      return middleware
+    }),
+  })
+
+  watchPostEffect(() => {
+    if (!rootRef.value || !anchorDomRect.value || x.value === null || y.value === null) { return }
 
     if (unwrapEl(contentRef.value)) {
       let widthCss = {}
+      const { keepAnchorWidth } = unref(options)
       if (keepAnchorWidth) {
-        const { width } = anchorDomRect.value
+        const { width } = anchorDomRect.value || {}
         widthCss = { width: `${width}px`, maxWidth: `${width}px` }
       }
 
       Object.assign(unwrapEl(contentRef.value)!.style, {
-        ...css,
-        ...coordsToCss(coords),
+        position: strategy.value,
+        ...coordsToCss({ x: x.value, y: y.value }),
         ...widthCss,
       })
     }
@@ -252,6 +259,9 @@ export const useDropdown = (
 
   return {
     anchorDomRect,
-    contentDomRect,
+    x,
+    y,
+    strategy,
+    update,
   }
 }
