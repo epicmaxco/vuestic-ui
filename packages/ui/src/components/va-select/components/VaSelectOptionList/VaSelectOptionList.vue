@@ -7,8 +7,8 @@
     @keydown.left.stop.prevent="focusPreviousOption"
     @keydown.down.stop.prevent="focusNextOption"
     @keydown.right.stop.prevent="focusNextOption"
-    @keydown.enter.stop.prevent="selectPreviousOption"
-    @keydown.space.stop.prevent="selectPreviousOption"
+    @keydown.enter.stop.prevent="selectHoveredOption"
+    @keydown.space.stop.prevent="selectHoveredOption"
     @scroll.passive="onScroll"
   >
     <template
@@ -36,7 +36,7 @@
             :current-option="currentOptionComputed"
             :disabled="getDisabled(option)"
             v-bind="selectOptionProps"
-            @click.stop="selectPreviousOption"
+            @click.stop="selectHoveredOption"
             @mouseenter="handleMouseEnter(option)"
             @mousemove="handleMouseMove(option)"
           />
@@ -52,7 +52,7 @@
               :option="option"
               :disabled="getDisabled(option)"
               v-bind="selectOptionProps"
-              @click.stop="selectPreviousOption"
+              @click.stop="selectHoveredOption"
               @mouseenter="handleMouseEnter(option)"
               @mousemove="handleMouseMove(option)"
             />
@@ -192,7 +192,7 @@ export default defineComponent({
     }
     const updateFocusedOption = (option?: SelectOption) => { updateCurrentOption(option ?? null, 'keyboard') }
 
-    const selectPreviousOption = () => {
+    const selectHoveredOption = () => {
       const previousOption =
         previousOptionComputed.value && typeof previousOptionComputed.value === 'object'
           ? { ...previousOptionComputed.value }
@@ -326,7 +326,7 @@ export default defineComponent({
       getTrackBy,
       setItemRef,
       getDisabled,
-      selectPreviousOption,
+      selectHoveredOption,
       handleMouseMove,
       handleMouseEnter,
       updateHoveredOption,
