@@ -63,7 +63,7 @@
       <tr>
         <td>
           <VbCard title="Overlapped badges">
-            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 2.5rem;">
               <va-badge
                 v-for="placement in placementsPositionsWithAliases"
                 :key="placement"
@@ -71,14 +71,14 @@
                 :placement="placement"
                 overlap
               >
-                Float at
+                <va-button>{{placement}}</va-button>
               </va-badge>
             </div>
           </VbCard>
         </td>
         <td>
           <VbCard title="Overlapped badges with dot">
-            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 2rem;">
               <va-badge
                 v-for="placement in placementsPositionsWithAliases"
                 :key="placement"
@@ -86,28 +86,28 @@
                 overlap
                 dot
               >
-                <div style="background-color: wheat;">{{ placement }}</div>
+                <va-button>{{ placement }}</va-button>
               </va-badge>
             </div>
           </VbCard>
         </td>
         <td>
           <VbCard title="Floated badges">
-            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 2.5rem;">
               <va-badge
                 v-for="placement in placementsPositionsWithAliases"
                 :key="placement"
                 :text="placement"
                 :placement="placement"
               >
-                Float at
+                <va-button>{{ placement }}</va-button>
               </va-badge>
             </div>
           </VbCard>
         </td>
         <td>
           <VbCard title="Floated badges with huge offset">
-            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 2.5rem;">
               <va-badge
                 v-for="placement in placementsPositionsWithAliases"
                 :key="placement"
@@ -115,7 +115,7 @@
                 :placement="placement"
                 offset="1rem"
               >
-                Float at
+                <va-button>{{ placement }}</va-button>
               </va-badge>
             </div>
           </VbCard>
