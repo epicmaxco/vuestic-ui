@@ -1,9 +1,11 @@
-import { PropType, Ref, computed, ExtractPropTypes, toRef } from 'vue'
+import type { ExtractPropTypes, PropType, Ref } from 'vue'
+
+import type { PlacementWithAlias } from '../../../composables'
+import type { BadgeOffsetProp } from '../types'
+
+import { computed } from 'vue'
 
 import { usePlacementAliases, placementsPositionsWithAliases, useParsableMeasure } from '../../../composables'
-
-import type { PlacementAlignment, PlacementPosition, PlacementWithAlias } from '../../../composables'
-type AlignComplianceTable = Record<PlacementPosition, Record<PlacementAlignment, string> & { multiplier: number }>
 
 const { isParsableMeasure, parseSizeValue } = useParsableMeasure()
 
@@ -15,9 +17,13 @@ export const useFloatingPositionProps = {
     validator: (position: PlacementWithAlias) => placementsPositionsWithAliases.includes(position),
   },
   offset: {
-    type: [Number, String] as PropType<string | number>,
+    type: [Number, String, Array] as PropType<BadgeOffsetProp>,
     default: 0,
-    validator: (value: string | number) => {
+    validator: (value: keyof BadgeOffsetProp) => {
+      if (Array.isArray(value)) {
+        return value.every(isParsableMeasure)
+      }
+
       if (typeof value === 'string') {
         return isParsableMeasure(value)
       }
@@ -45,10 +51,33 @@ export const useFloatingPosition = (
     return alignOptions[align.value]
   })
 
+  const offsetMarginComputed = computed(() => {
+    if (!props.offset) { return {} }
+
+    const mainAxis = ['left', 'right'].includes(position.value) ? 'top' : 'left'
+    const crossAxis = mainAxis === 'top' ? 'left' : 'top'
+
+    if (Array.isArray(props.offset)) {
+      const [x, y] = props.offset.map(parseSizeValue)
+
+      return {
+        [`margin-${mainAxis}`]: `${x}px`,
+        [`margin-${crossAxis}`]: `${y}px`,
+      }
+    }
+
+    const offset = parseSizeValue(props.offset)
+
+    return {
+      [`margin-${mainAxis}`]: `${offset}px`,
+      [`margin-${crossAxis}`]: `${offset}px`,
+    }
+  })
+
   const alignmentComputed = computed(() => {
     const mainAxis = ['left', 'right'].includes(position.value) ? 'top' : 'left'
     const crossAxis = mainAxis === 'top' ? 'left' : 'top'
-    let shiftValue: number | string = 0
+    let shiftValue = '0%'
 
     if (crossAxis === 'top' && position.value === 'bottom') {
       shiftValue = '100%'
@@ -59,7 +88,7 @@ export const useFloatingPosition = (
     }
 
     const alignmentOptions = {
-      start: { [mainAxis]: 0, [crossAxis]: shiftValue },
+      start: { [mainAxis]: '0%', [crossAxis]: shiftValue },
       center: { [mainAxis]: '50%', [crossAxis]: shiftValue },
       end: { [mainAxis]: '100%', [crossAxis]: shiftValue },
     }
@@ -86,6 +115,7 @@ export const useFloatingPosition = (
         y: alignmentShiftComputed.value,
       },
     }
+
     const { x, y } = coords[position.value]
 
     return { transform: `translate(${x}, ${y})` }
@@ -94,5 +124,6 @@ export const useFloatingPosition = (
   return computed(() => ({
     ...alignmentComputed.value,
     ...transformComputed.value,
+    ...offsetMarginComputed.value,
   }))
 }

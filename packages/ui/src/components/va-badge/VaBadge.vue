@@ -39,6 +39,7 @@ export default defineComponent({
   props: {
     ...useComponentPresetProp,
     ...useFloatingPositionProps,
+
     color: { type: String, default: 'danger' },
     textColor: { type: String },
     text: { type: [String, Number], default: '' },
