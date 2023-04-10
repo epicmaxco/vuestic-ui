@@ -69,7 +69,6 @@ export const useFloatingPosition = (
     const offset = parseSizeValue(props.offset)
 
     return {
-      [`margin-${mainAxis}`]: `${offset}px`,
       [`margin-${crossAxis}`]: `${offset}px`,
     }
   })
