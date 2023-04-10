@@ -71,7 +71,7 @@
                 :placement="placement"
                 overlap
               >
-                <va-button>{{placement}}</va-button>
+                {{ placement }}
               </va-badge>
             </div>
           </VbCard>
@@ -86,7 +86,7 @@
                 overlap
                 dot
               >
-                <va-button>{{ placement }}</va-button>
+                {{ placement }}
               </va-badge>
             </div>
           </VbCard>
@@ -100,7 +100,7 @@
                 :text="placement"
                 :placement="placement"
               >
-                <va-button>{{ placement }}</va-button>
+                {{ placement }}
               </va-badge>
             </div>
           </VbCard>
@@ -115,7 +115,7 @@
                 :placement="placement"
                 offset="1rem"
               >
-                <va-button>{{ placement }}</va-button>
+                {{ placement }}
               </va-badge>
             </div>
           </VbCard>
