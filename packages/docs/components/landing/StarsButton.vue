@@ -1,21 +1,19 @@
 <template>
-  <client-only>
-    <va-button
-      :href="url"
-      size="small"
-      target="blank"
-      color="textPrimary"
-      class="stars-button"
-    >
-      <template #prepend>
-        <va-icon
-          name="star_empty"
-          size="small"
-        />
-      </template>
-      {{ stars }}
-    </va-button>
-  </client-only>
+  <va-button
+    :href="url"
+    size="small"
+    target="blank"
+    color="textPrimary"
+    class="stars-button"
+  >
+    <template #prepend>
+      <va-icon
+        name="star_empty"
+        size="small"
+      />
+    </template>
+    {{ stars }}
+  </va-button>
 </template>
 
 <script lang="ts">
