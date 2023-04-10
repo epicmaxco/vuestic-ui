@@ -49,7 +49,7 @@
                 <va-badge
                   placement="right-center"
                   size="small"
-                  offset="-5px"
+                  :offset="['0px', '5px']"
                   :text="childRoute.meta && t(`menu.badges.${childRoute.meta.badge}.text`)"
                   :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge]"
                   :visible-empty="false"
