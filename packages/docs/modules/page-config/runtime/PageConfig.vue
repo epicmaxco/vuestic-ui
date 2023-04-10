@@ -9,6 +9,10 @@ const props = defineProps({
     required: true
   }
 })
+
+if (props.pageConfig.head) {
+  useHead(props.pageConfig.head)
+}
 </script>
 
 <template>
