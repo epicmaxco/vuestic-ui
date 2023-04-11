@@ -78,7 +78,7 @@
       <va-time-picker
         ref="timePicker"
         v-bind="timePickerProps"
-        v-model="modelValueSync"
+        v-model="valueComputed"
       />
     </va-dropdown-content>
   </va-dropdown>
@@ -95,6 +95,7 @@ import {
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useClearable, useClearableEmits, useClearableProps,
   useFocus, useFocusEmits,
+  useStateful, useStatefulEmits, useStatefulProps,
   useTranslation,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
@@ -119,6 +120,7 @@ export default defineComponent({
     ...useFocusEmits,
     ...useValidationEmits,
     ...useClearableEmits,
+    ...useStatefulEmits,
     'update:modelValue',
     'update:isOpen',
   ],
@@ -130,6 +132,7 @@ export default defineComponent({
     ...VaInputWrapperProps,
     ...extractComponentProps(VaTimePicker),
     ...useValidationProps as ValidationProps<Date>,
+    ...useStatefulProps,
 
     isOpen: { type: Boolean, default: undefined },
     closeOnContentClick: { type: Boolean, default: false },
@@ -155,12 +158,12 @@ export default defineComponent({
     const timePicker = shallowRef<typeof VaTimePicker>()
 
     const [isOpenSync] = useSyncProp('isOpen', props, emit, false as boolean)
-    const [modelValueSync] = useSyncProp('modelValue', props, emit)
+    const { valueComputed } = useStateful(props, emit)
 
     const { parse, isValid } = useTimeParser(props)
     const { format } = useTimeFormatter(props)
 
-    const valueText = computed<string>(() => format(modelValueSync.value || props.clearValue))
+    const valueText = computed<string>(() => format(valueComputed.value || props.clearValue))
 
     const doShowDropdown = computed({
       get () {
@@ -192,24 +195,24 @@ export default defineComponent({
       const v = parse(val)
 
       if (isValid.value && v) {
-        modelValueSync.value = v
+        valueComputed.value = v
       } else {
-        modelValueSync.value = undefined
+        valueComputed.value = undefined
         isValid.value = true
       }
     }
 
     // --- not used yet ---
     // const changePeriod = (isPM: boolean) => {
-    //   if (!modelValueSync.value) { return }
+    //   if (!valueComputed.value) { return }
 
     //   const halfDayPeriod = 12
-    //   const h = modelValueSync.value.getHours()
+    //   const h = valueComputed.value.getHours()
 
     //   if (isPM && h <= halfDayPeriod) {
-    //     modelValueSync.value = new Date(modelValueSync.value.setHours(h + halfDayPeriod))
+    //     valueComputed.value = new Date(valueComputed.value.setHours(h + halfDayPeriod))
     //   } else if (!isPM && h >= halfDayPeriod) {
-    //     modelValueSync.value = new Date(modelValueSync.value.setHours(h - halfDayPeriod))
+    //     valueComputed.value = new Date(valueComputed.value.setHours(h - halfDayPeriod))
     //   }
     // }
 
@@ -229,7 +232,7 @@ export default defineComponent({
       validationAriaAttributes,
       withoutValidation,
       resetValidation,
-    } = useValidation(props, emit, { reset, focus })
+    } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
     const {
       canBeCleared,
@@ -350,7 +353,7 @@ export default defineComponent({
       computedInputListeners,
       isOpenSync,
       doShowDropdown,
-      modelValueSync,
+      valueComputed,
       valueText,
       onInputTextChanged,
       canBeClearedComputed,

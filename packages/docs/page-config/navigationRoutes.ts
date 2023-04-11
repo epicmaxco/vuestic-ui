@@ -206,6 +206,9 @@ export const navigationRoutes: NavigationRoute[] = [
         category: "menu.categories.form",
         name: "form",
         displayName: "menu.form",
+        meta: {
+          badge: "updated",
+        }
       },
       {
         name: "switch",

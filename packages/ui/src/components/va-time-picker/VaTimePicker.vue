@@ -31,8 +31,8 @@ import {
   useStatefulProps,
   useStatefulEmits,
   useStateful,
-  useFormProps,
-  useForm,
+  useFormFieldProps,
+  useFormField,
   useArrayRefs,
   useCSSVariables,
 } from '../../composables'
@@ -44,7 +44,7 @@ export default defineComponent({
 
   props: {
     ...useStatefulProps,
-    ...useFormProps,
+    ...useFormFieldProps,
     ...useComponentPresetProp,
     modelValue: { type: Date, required: false },
     ampm: { type: Boolean, default: false },
@@ -77,7 +77,7 @@ export default defineComponent({
       idx ? pickers.value[idx]?.blur() : pickers.value.forEach((el) => el?.blur())
     }
 
-    const { computedClasses: computedFormClasses } = useForm('va-time-picker', props)
+    const { computedClasses: computedFormClasses } = useFormField('va-time-picker', props)
 
     const focusNext = () => {
       const nextIndex = (activeColumnIndex?.value || 0) + 1

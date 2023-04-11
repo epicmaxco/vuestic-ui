@@ -112,7 +112,7 @@ import pick from 'lodash/pick'
 import { safeCSSLength } from '../../utils/css'
 import {
   useComponentPresetProp,
-  useFormProps,
+  useFormFieldProps,
   useEmitProxy,
   useFocus, useFocusEmits,
   useStateful, useStatefulProps,
@@ -143,7 +143,7 @@ export default defineComponent({
   components: { VaInputWrapper, VaButton },
 
   props: {
-    ...useFormProps,
+    ...useFormFieldProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
     // input
