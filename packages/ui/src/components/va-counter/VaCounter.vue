@@ -11,7 +11,8 @@
     @keydown.left.prevent="decreaseCount"
   >
     <template v-if="$props.buttons" #prepend="slotScope">
-      <div class="va-counter__prepend-wrapper"
+      <div
+        class="va-counter__prepend-wrapper"
         :style="{ marginRight: marginComputed }"
         @mousedown.prevent="focus"
       >
@@ -20,7 +21,7 @@
             class="va-counter__button-decrease"
             :aria-label="tp($props.ariaDecreaseLabel)"
             v-bind="decreaseButtonProps"
-            @click="decreaseCount"
+            ref="decreaseButtonRef"
           />
         </slot>
       </div>
@@ -32,13 +33,17 @@
         @mousedown.prevent="focus"
       >
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
-          <va-button v-bind="decreaseIconProps" />
+          <va-button
+            v-bind="decreaseIconProps"
+            ref="decreaseButtonRef"
+          />
         </slot>
       </div>
     </template>
 
     <template v-if="$props.buttons" #append="slotScope">
-      <div class="va-counter__append-wrapper"
+      <div
+        class="va-counter__append-wrapper"
         :style="{ marginLeft: marginComputed }"
         @mousedown.prevent="focus"
       >
@@ -47,7 +52,7 @@
             class="va-counter__button-increase"
             :aria-label="tp($props.ariaIncreaseLabel)"
             v-bind="increaseButtonProps"
-            @click="increaseCount"
+            ref="increaseButtonRef"
           />
         </slot>
       </div>
@@ -59,18 +64,20 @@
         @mousedown.prevent="focus"
       >
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
-          <va-button v-bind="increaseIconProps" />
+          <va-button
+            v-bind="increaseIconProps"
+            ref="increaseButtonRef"
+          />
         </slot>
       </div>
     </template>
 
     <template v-if="$slots.content" #default="slotScope">
-      <div
-        ref="input"
-        tabindex="0"
-        class="va-counter__content-wrapper"
-      >
-        <slot name="content" v-bind="{ ...slotScope, value: Number(valueComputed) }" />
+      <div ref="input" tabindex="0" class="va-counter__content-wrapper">
+        <slot
+          name="content"
+          v-bind="{ ...slotScope, value: Number(valueComputed) }"
+        />
       </div>
     </template>
 
@@ -84,7 +91,7 @@
       :value="valueComputed"
       @input="setCountInput"
       @change="setCountChange"
-    >
+    />
   </va-input-wrapper>
 </template>
 
@@ -97,6 +104,7 @@ import {
   InputHTMLAttributes,
   PropType,
   ComputedRef,
+  toRef,
 } from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
@@ -110,6 +118,8 @@ import {
   useStateful, useStatefulProps,
   useColors,
   useTranslation,
+  useLongPress,
+  useTemplateRef,
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
@@ -159,6 +169,7 @@ export default defineComponent({
     rounded: { type: Boolean, default: false },
     margins: { type: [String, Number], default: '4px' },
     textColor: { type: String, default: undefined },
+    longPressDelay: { type: Number, default: 500 },
 
     ariaLabel: { type: String, default: '$t:counterValue' },
     ariaDecreaseLabel: { type: String, default: '$t:decreaseCounter' },
@@ -190,7 +201,7 @@ export default defineComponent({
       valueComputed.value = Number((target as HTMLInputElement | null)?.value)
     }
 
-    const setCountChange = ({ target } : Event) => {
+    const setCountChange = ({ target }: Event) => {
       calculateCounterValue(Number((target as HTMLInputElement | null)?.value))
     }
 
@@ -251,6 +262,16 @@ export default defineComponent({
       if (isIncreaseActionDisabled.value) { return }
       calculateCounterValue(Number(valueComputed.value) + step.value)
     }
+
+    useLongPress(useTemplateRef('decreaseButtonRef'), {
+      onUpdate: decreaseCount,
+      delay: toRef(props, 'longPressDelay'),
+    })
+
+    useLongPress(useTemplateRef('increaseButtonRef'), {
+      onUpdate: increaseCount,
+      delay: toRef(props, 'longPressDelay'),
+    })
 
     const { getColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
@@ -453,6 +474,7 @@ export default defineComponent({
       -webkit-appearance: none;
       margin: 0;
     }
+
     // Firefox
     &[type=number] {
       -moz-appearance: textfield;
