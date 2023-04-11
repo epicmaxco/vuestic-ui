@@ -1,6 +1,7 @@
 import { Plugin } from 'vite'
 import kebabCase from 'lodash/kebabCase'
-import { parse } from 'vue/compiler-sfc'
+import { type SFCParseResult, parse } from 'vue/compiler-sfc'
+import MagicString from 'magic-string'
 
 /**
  * Parse css and extract all variable names used in `v-bind`
@@ -16,8 +17,24 @@ import { parse } from 'vue/compiler-sfc'
  *
  * Returns`['colorComputed', 'getBg()']`
  */
-const parseCssVBindCode = (style: string) => {
-  return parse(style).descriptor.cssVars
+const getVBinds = (sfc: SFCParseResult) => {
+  return sfc.descriptor.cssVars
+}
+
+/** Returns start and end indexes of v-bind used in style */
+const getStyleVBindLocs = (source: string, vBind: string) => {
+  // Regex for v-bind(color), v-bind('color'), v-bind("color")
+  const regex = new RegExp(`v-bind\\(['|"]?${vBind}['|"]?\\)`, 'gm')
+  const indexes = [] as { start: number, end: number }[]
+  let match
+
+  // The same variable can be used multiple times vBind in css
+  // replace all of them until there are no more matches
+  while ((match = regex.exec(source)) !== null) {
+    indexes.push({ start: match.index, end: match.index + match[0].length })
+  }
+
+  return indexes
 }
 
 /**
@@ -30,12 +47,23 @@ const parseCssVBindCode = (style: string) => {
  *   </va-button>
  * </template>
  * ```
- * Returns `<va-button>`
+ * Returns loc for `<va-button>`
  */
-const getRootNodeOpenTagCode = (code: string) => {
-  const template = code.match(/<template[^>]*>([\s\S]*)<\/template>/)?.[1]
-  const rootNode = template?.match(/<[^>]*>/)?.[0]
-  return rootNode
+const getRootNodesOpenTags = (sfc: SFCParseResult) => {
+  const ast = sfc.descriptor.template?.ast
+  const rootNodes = ast?.children.filter(node => node.type === 1 /* ELEMENT */)
+
+  return rootNodes?.map(({ loc }) => {
+    const openTag = loc.source.match(/<[^>]*>/)?.[0]
+    if (!openTag) { return undefined }
+
+    return {
+      ...loc,
+      end: { ...loc.start, offset: loc.start.offset + openTag.length },
+
+      source: openTag,
+    }
+  })
 }
 
 const renderCssVariablesAsStringCode = (vBinds: string[]) => {
@@ -63,7 +91,7 @@ const renderObjectGuardCode = (existingContent: string, binds: string[]) => {
   return `typeof ${existingContent} === 'object' ? (Array.isArray(${existingContent}) ? ${arrayStyle} : ${objectStyle}) : ${stringStyle}`
 }
 
-const addStyleToRootNode = (rootNode: string, vBinds: string[]) => {
+const addStyleAttrToTag = (rootNode: string, vBinds: string[]) => {
   const [vBindCode, vBindContent] = rootNode?.match(/:style="([^"]*)"/) || []
   const [attrCode, attrContent] = rootNode?.match(/[^:]style="([^"]*)"/) || []
   const cssVariablesString = renderCssVariablesAsStringCode(vBinds)
@@ -84,33 +112,37 @@ const addStyleToRootNode = (rootNode: string, vBinds: string[]) => {
   return rootNode.replace(/(\/?>)$/, ` :style="\`${cssVariablesString}\`"$1`)
 }
 
-/** Replace each v-bind() with var(--va-index-name) */
-const replaceVueVBindWithCssVariables = (code: string, vBinds: string[]) => {
-  vBinds.forEach((vBind, index) => {
-    try {
-      code = code.replace(new RegExp(`v-bind\\(['|"]?${vBind}['|"]?\\)`, 'gm'), `var(--va-${index}-${kebabCase(vBind)})`)
-    } catch (e) {
-      console.log(vBind)
-      throw e
-    }
-  })
-
-  return code
-}
-
 export const transformVueComponent = (code: string) => {
-  const style = code.match(/<style[^>]*>([\s\S]*)<\/style>/)
-  if (!style) { return }
+  const sfc = parse(code)
 
-  const vBinds = parseCssVBindCode(style[0])
+  const vBinds = getVBinds(sfc)
   if (!vBinds.length) { return }
 
-  const rootNode = getRootNodeOpenTagCode(code)
-  if (!rootNode) { throw new Error('Root node not found in template') }
+  const rootNodes = getRootNodesOpenTags(sfc)
+  if (!rootNodes?.length) { return }
 
-  code = replaceVueVBindWithCssVariables(code, vBinds)
+  const s = new MagicString(code)
 
-  return code.replace(rootNode, addStyleToRootNode(rootNode, vBinds))
+  rootNodes?.forEach((nodeOpenTag) => {
+    if (!nodeOpenTag) { return }
+
+    const newStartTagCode = addStyleAttrToTag(nodeOpenTag.source, vBinds)
+
+    s.overwrite(nodeOpenTag.start.offset, nodeOpenTag.end.offset, newStartTagCode)
+  })
+
+  vBinds.forEach((vBind, index) => {
+    const locs = getStyleVBindLocs(s.original, vBind)
+
+    locs.forEach((loc) => {
+      s.overwrite(loc.start, loc.end, `var(--va-${index}-${kebabCase(vBind)})`)
+    })
+  })
+
+  return {
+    code: s.toString(),
+    map: s.generateMap(),
+  }
 }
 
 /** We need this plugin to support CSS vbind in SSR. Vue useCssVars is disabled for cjs build */
