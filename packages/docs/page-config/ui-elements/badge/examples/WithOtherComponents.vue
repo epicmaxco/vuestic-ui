@@ -36,7 +36,7 @@
     <va-badge overlap>
       <template #text>
         <va-icon
-          name="mdi-bell"
+          name="notifications"
           size="12px"
         /> 5+
       </template>
