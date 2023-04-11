@@ -1538,6 +1538,11 @@
         "lastLineWidth": "Width of last line in `px`, `rem`, `em`, `%` if `variant` is `text`",
         "tag": "Skeleton tag."
       }
+    },
+    "VaConfig": {
+      "props": {
+        "components": "Components configuration object."
+      }
     }
   },
   "menu": {
@@ -1677,6 +1682,7 @@
     "unocss": "UnoCSS Integration",
     "testing": "Testing",
     "value": "Value",
+    "config": "Config",
     "confirm": "Confirm"
   },
   "all": {
@@ -4283,7 +4289,8 @@
     "vaConfig": {
       "title": "Scoped config",
       "subtitle": "You can use the `<va-config>` component to overwrite the default props values for the components inside that tag. Take a look at the demo below:",
-      "explain": "Look at the code. In this demo we have changed the default color for all the `VaButton` and `VaIcon` inside the `VaConfig`. We also have passed a different value to the third button's `color` prop (direct component's prop takes precedence over the one specified on the `VaConfig`)."
+      "explain": "Look at the code. In this demo we have changed the default color for all the `VaButton` and `VaIcon` inside the `VaConfig`. We also have passed a different value to the third button's `color` prop (direct component's prop takes precedence over the one specified on the `VaConfig`).",
+      "vaConfigComponentLink": "Find out more about VaConfig component"
     },
     "priority": {
       "title": "Props values priority",
