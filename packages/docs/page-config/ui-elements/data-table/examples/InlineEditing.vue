@@ -7,20 +7,24 @@
     <template
       v-for="item in columns"
       :key="item.key"
-      #[getSlotName(item.key)]="{ rowIndex, value }"
+      #[`cell(${item.key})`]="{ value, row }"
     >
       <div class="table-inline-example__cell">
-        <va-value #default="v">
+        <va-value #default="doShowInput">
           <va-input
-            v-if="v.value"
+            v-if="doShowInput.value"
             :model-value="value"
-            @change="updateItems(item.key, rowIndex, $event.target.value), v.value = false"
-            @blur="v.value = false"
+            @change="() => { 
+              row.rowData[item.key] = $event.target.value
+              doShowInput.value = false
+            }"
+            @blur="doShowInput.value = false"
             @vue:mounted="$event.component.ctx.focus()"
           />
           <span
-            :class="v.value ? 'table-inline-example__item--hidden' : 'table-inline-example__item'"
-            @click="v.value = true"
+            class="table-inline-example__item"
+            :class="doShowInput.value ? 'table-inline-example__item--hidden' : ''"
+            @click="doShowInput.value = true"
           >
             {{ value }}
           </span>
@@ -68,19 +72,6 @@ export default defineComponent({
       items,
       columns,
     };
-  },
-
-  methods: {
-    getSlotName(name) {
-      return `cell(${name})`
-    },
-    updateItems(key, index, value) {
-      this.items = [
-        ...this.items.slice(0, index),
-        { ...this.items[index], [key]: value },
-        ...this.items.slice(index + 1),
-      ]
-    },
   },
 });
 </script>
