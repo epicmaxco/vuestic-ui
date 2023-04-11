@@ -1,4 +1,5 @@
 import { DefineComponent } from 'vue'
+import { MetaObject } from '#head';
 import example from '../blocks/example'
 import title from '../blocks/title'
 import paragraph from '../blocks/paragraph'
@@ -53,6 +54,8 @@ export type Block = ReturnType<GlobalBlock[keyof typeof block]>
 export type ConcreteBlock<T extends string, B = Block> = B extends { type: T } ? B : never
 
 export type PageConfigOptions = {
+  head?: MetaObject,
+
   meta?: {
     title?: string;
     // TODO: Add more

@@ -1,5 +1,10 @@
 import { describe, test, expect } from 'vitest'
-import { transformVueComponent } from './component-v-bind-fix'
+import { transformVueComponent as o } from './component-v-bind-fix'
+
+const transformVueComponent = (code: string) => {
+  if (!code) { return undefined }
+  return o(code)?.code
+}
 
 describe('component-v-bind-fix', () => {
   describe('transformVueComponent', () => {
@@ -223,6 +228,118 @@ const background = 'yellow'
       button {
         color: var(--va-0-theme-color);
         background: var(--va-1-theme-background);
+      }
+    </style>
+    `
+
+    expect(transformVueComponent(componentCode())).toBe(expectedComponentCode())
+  })
+
+  test('transform multiple nodes', () => {
+    const componentCode = (attrs = '', nestedAttrs = '') => `
+    <template>
+      <button>
+        <span>
+          Hello
+        </span>
+        world!
+      </button>
+      <div>
+        Label
+      </div>
+    </template>
+    
+    <script setup>
+    const theme = {
+      color: 'blue',
+      background: 'yellow',
+    }
+    </script>
+    
+    <style>
+      button {
+        color: v-bind('theme.color');
+        background: v-bind("theme.background");
+      }
+    </style>
+    `
+
+    const expectedComponentCode = () => `
+    <template>
+      <button :style="\`--va-0-theme-color: \${String(theme.color)};--va-1-theme-background: \${String(theme.background)}\`">
+        <span>
+          Hello
+        </span>
+        world!
+      </button>
+      <div :style="\`--va-0-theme-color: \${String(theme.color)};--va-1-theme-background: \${String(theme.background)}\`">
+        Label
+      </div>
+    </template>
+    
+    <script setup>
+    const theme = {
+      color: 'blue',
+      background: 'yellow',
+    }
+    </script>
+    
+    <style>
+      button {
+        color: var(--va-0-theme-color);
+        background: var(--va-1-theme-background);
+      }
+    </style>
+    `
+
+    expect(transformVueComponent(componentCode())).toBe(expectedComponentCode())
+  })
+
+  test('transform multiple v-bind the same variable', () => {
+    const componentCode = (attrs = '', nestedAttrs = '') => `
+    <template>
+      <button>
+        <span>
+          Hello
+        </span>
+        world!
+      </button>
+    </template>
+    
+    <script setup>
+    const theme = {
+      color: 'blue',
+    }
+    </script>
+    
+    <style>
+      button {
+        color: v-bind('theme.color');
+        fill: v-bind("theme.color");
+      }
+    </style>
+    `
+
+    const expectedComponentCode = () => `
+    <template>
+      <button :style="\`--va-0-theme-color: \${String(theme.color)}\`">
+        <span>
+          Hello
+        </span>
+        world!
+      </button>
+    </template>
+    
+    <script setup>
+    const theme = {
+      color: 'blue',
+    }
+    </script>
+    
+    <style>
+      button {
+        color: var(--va-0-theme-color);
+        fill: var(--va-0-theme-color);
       }
     </style>
     `

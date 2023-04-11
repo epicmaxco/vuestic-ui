@@ -25,6 +25,18 @@ const tableData = [
 ];
 
 export default definePageConfig({
+  head: {
+    link: [
+      { rel: 'dns-prefetch', as: 'script', href: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js' },
+      { rel: 'dns-prefetch', as: 'script', href: 'https://kit.fontawesome.com/5460c87b2a.js' },
+    ],
+
+    script: [
+      { crossorigin: 'anonymous', src: 'https://kit.fontawesome.com/5460c87b2a.js' },
+      { type: 'module', src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js' },
+    ],
+  },
+
   blocks: [
     block.title("iconsConfig.title"),
     block.paragraph("iconsConfig.about"),

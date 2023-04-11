@@ -13,7 +13,7 @@
           {{ tab }}
         </va-tab>
         <va-tab
-          icon="fas-home"
+          icon="home"
           label="Tab with icon"
           name="icon"
         />
