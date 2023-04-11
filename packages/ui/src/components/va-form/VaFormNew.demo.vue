@@ -14,7 +14,7 @@
         />
         <va-date-picker
           v-model="form.date"
-          :rules="[(v) => !!v || 'Required']"
+          :rules="[(v: any) => !!v || 'Required']"
         />
         <va-time-input
           v-model="form.time"
@@ -22,7 +22,7 @@
         />
         <va-time-picker
           v-model="form.time"
-          :rules="[(v) => !!v || 'Required']"
+          :rules="[(v: any) => !!v || 'Required']"
         />
         <va-switch v-model="form.switch" :rules="[(v) => !!v || 'Required']" />
         <va-option-list
@@ -32,10 +32,10 @@
         />
         <va-counter
           v-model="form.counter"
-          :rules="[(v) => !!v || 'Required']"
+          :rules="[(v: any) => !!v || 'Required']"
         />
-        <va-rating v-model="form.rating" :rules="[(v) => !!v || 'Required']" />
-        <va-slider v-model="form.slider" :rules="[(v) => !!v || 'Required']" />
+        <va-rating v-model="form.rating" :rules="[(v: any) => !!v || 'Required']" />
+        <va-slider v-model="form.slider" :rules="[(v: any) => !!v || 'Required']" />
         <va-file-upload />
       </va-form>
 
