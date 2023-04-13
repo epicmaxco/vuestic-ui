@@ -153,7 +153,7 @@ export default defineNuxtConfig({
 
     vueI18n: {
       fallbackLocale: 'en',
-    }
+    },
   },
 
   postcss: {
@@ -169,6 +169,10 @@ export default defineNuxtConfig({
   ],
 
   vite: {
+    define: {
+      __VUE_I18N_FULL_INSTALL__: true,
+    },
+    optimizeDeps: { exclude: ["fsevents"] },
     resolve: {
       alias: [
         { find: '~@ag-grid-community', replacement: ('@ag-grid-community') }
