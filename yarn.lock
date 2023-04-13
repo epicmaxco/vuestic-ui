@@ -8692,7 +8692,7 @@ esbuild@^0.14.14, esbuild@~0.14.47:
     esbuild-windows-64 "0.14.49"
     esbuild-windows-arm64 "0.14.49"
 
-esbuild@^0.15.1, esbuild@^0.15.14, esbuild@^0.15.9, esbuild@~0.15.10:
+esbuild@^0.15.1, esbuild@^0.15.14, esbuild@~0.15.10:
   version "0.15.18"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.15.18.tgz#ea894adaf3fbc036d32320a00d4d6e4978a2f36d"
   integrity sha512-x/R72SmW3sSFRm5zrrIjAhCeQSAWoni3CmHEqfQrZIQTM3lVCdehdwuIqaOtfC2slvpdlLa62GYoN8SxT23m6Q==
@@ -19207,19 +19207,7 @@ vite-plugin-chunk-split@^0.4.7:
     es-module-lexer "^1.0.3"
     magic-string "^0.26.3"
 
-"vite@^2.9.12 || ^3.0.0-0", vite@~3.2.4:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-3.2.5.tgz#dee5678172a8a0ab3e547ad4148c3d547f90e86a"
-  integrity sha512-4mVEpXpSOgrssFZAOmGIr85wPHKvaDAcXqxVxVRZhljkJOMZi1ibLibzjLHzJvcok8BMguLc7g1W6W/GqZbLdQ==
-  dependencies:
-    esbuild "^0.15.9"
-    postcss "^8.4.18"
-    resolve "^1.22.1"
-    rollup "^2.79.1"
-  optionalDependencies:
-    fsevents "~2.3.2"
-
-"vite@^3.0.0 || ^4.0.0", vite@^4.2.1, vite@~4.2.1:
+"vite@^2.9.12 || ^3.0.0-0", "vite@^3.0.0 || ^4.0.0", vite@^4, vite@^4.2.1, vite@~3.2.4, vite@~4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/vite/-/vite-4.2.1.tgz#6c2eb337b0dfd80a9ded5922163b94949d7fc254"
   integrity sha512-7MKhqdy0ISo4wnvwtqZkjke6XN4taqQ2TBaTccLIpOKv7Vp2h4Y+NpmWCnGDeSvvn45KxvWgGyb0MkHvY1vgbg==
