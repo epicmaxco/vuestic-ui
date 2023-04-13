@@ -3,7 +3,7 @@ import { useComponentUuid } from '../useComponentUuid'
 import { FormServiceKey } from './consts'
 import { type FormFiled } from './types'
 
-export const useFormChild = (createContext: () => FormFiled) => {
+export const useFormChild = (context: FormFiled) => {
   const formContext = inject(FormServiceKey, null)
 
   if (!formContext) {
@@ -14,7 +14,6 @@ export const useFormChild = (createContext: () => FormFiled) => {
     }
   }
 
-  const context = computed(createContext)
   const uid = useComponentUuid()
 
   onMounted(() => {

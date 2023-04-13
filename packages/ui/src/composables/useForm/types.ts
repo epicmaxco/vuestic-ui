@@ -1,11 +1,11 @@
-import { ComputedRef } from 'vue'
+import { ComputedRef, Ref } from 'vue'
 
 export type FormFiled<Name extends string = string> = {
-  name?: Name;
-  value: unknown;
-  isValid: boolean;
-  isLoading: boolean;
-  errorMessages: string[];
+  name: Ref<Name | undefined>;
+  value?: Ref<unknown>;
+  isValid: Ref<boolean>;
+  isLoading: Ref<boolean>;
+  errorMessages: Ref<string[]>;
   validate: () => boolean;
   validateAsync: () => Promise<boolean>;
   reset: () => void;
