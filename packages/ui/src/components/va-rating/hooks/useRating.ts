@@ -1,7 +1,7 @@
 import { ref, getCurrentInstance, computed, ExtractPropTypes } from 'vue'
 import clamp from 'lodash/clamp.js'
 
-import { useHover, useStateful, useStatefulProps, useFormProps } from '../../../composables'
+import { useHover, useStateful, useStatefulProps, useFormFieldProps } from '../../../composables'
 
 import { RatingValue } from '../types'
 
@@ -24,7 +24,7 @@ export const useRatingProps = {
   hover: { type: Boolean, default: false },
 }
 
-export const useRating = (props: ExtractPropTypes<typeof useRatingProps> & ExtractPropTypes<typeof useFormProps>) => {
+export const useRating = (props: ExtractPropTypes<typeof useRatingProps> & ExtractPropTypes<typeof useFormFieldProps>) => {
   const { emit } = getContext()
   const { isHovered, onMouseEnter, onMouseLeave } = useHover()
   const { valueComputed: modelValue } = useStateful(props, emit)

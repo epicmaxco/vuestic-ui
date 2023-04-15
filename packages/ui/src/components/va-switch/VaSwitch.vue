@@ -46,7 +46,7 @@
             </slot>
           </div>
           <div class="va-switch__checker-wrapper">
-            <span class="va-switch__checker">
+            <div class="va-switch__checker">
               <slot name="checker" v-bind="{ value: isChecked }">
                 <div class="va-switch__checker-circle">
                   <va-progress-circle
@@ -57,7 +57,7 @@
                   />
                 </div>
               </slot>
-            </span>
+            </div>
           </div>
         </div>
       </div>
@@ -247,7 +247,6 @@ export default defineComponent({
     .va-switch__container {
       display: inline-flex;
       align-items: center;
-      height: 100%;
       width: 100%;
     }
   }

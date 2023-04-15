@@ -6,7 +6,7 @@ import {
   ColorsClassesPlugin,
   BreakpointConfigPlugin,
 } from 'vuestic-ui'
-import { ref, watchEffect, markRaw } from 'vue'
+import { markRaw, computed } from 'vue'
 
 import type { VuesticOptions } from '../types'
 // @ts-ignore: nuxt import alias
@@ -15,6 +15,8 @@ import { defineNuxtPlugin } from '#app'
 import NuxtLink from '#app/components/nuxt-link'
 // @ts-ignore: use-config-file import alias
 import configFromFile from '#vuestic-config'
+// @ts-ignore: use-head import alias
+import { useHead } from '#imports'
 
 function getGlobalProperty (app, key) {
   return app.config.globalProperties[key]
@@ -43,37 +45,25 @@ export default defineNuxtPlugin((nuxtApp) => {
     components: {}
   }))
 
-  /**
-   * Nuxt uses @vueuse/head so we can inject css variables in head.
-   * @see https://github.com/vueuse/head
-   */
-  const head = getGlobalProperty(app, '$head')
-
-  if (head) {
-    watchEffect(() => {
-      const colorConfig = getGlobalProperty(app, '$vaColorConfig')
-
-      if (colorConfig) {
-        const renderCSSVariables = colorConfig.renderCSSVariables
-
-        // Add reactive CSS variables to head so they are taken from colorConfig
-        head.addHeadObjs(ref({
-          htmlAttrs: {
-            style: renderCSSVariables()
-          }
-        }))
+  const colorConfig = getGlobalProperty(app, '$vaColorConfig')
+  if (colorConfig) {
+    useHead(computed(() => {
+      return {
+        htmlAttrs: {
+          style: colorConfig.renderCSSVariables()
+        }
       }
-    }, { flush: 'pre' })
+    }))
+  }
 
-    watchEffect(() => {
-      const colorsClasses = getGlobalProperty(app, '$vaColorsClasses')
-      if (colorsClasses) {
-        head.addHeadObjs(ref({
-          htmlAttrs: {
-            style: colorsClasses.renderColorHelpers()
-          }
-        }))
+  const colorsClasses = getGlobalProperty(app, '$vaColorsClasses')
+  if (colorsClasses) {
+    useHead(computed(() => {
+      return {
+        htmlAttrs: {
+          style: colorsClasses.renderColorHelpers()
+        }
       }
-    }, { flush: 'pre' })
+    }))
   }
 })

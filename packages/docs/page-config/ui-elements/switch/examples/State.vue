@@ -1,18 +1,18 @@
 <template>
-  <div class="flex items-center">
+  <va-checkbox
+    v-model="isState"
+    label="States enabled"
+    class="mb-4"
+  />
+
+  <div class="flex gap-8 flex-wrap">
     <va-switch
       v-model="value"
       :disabled="isState"
-      class="mr-6"
     />
     <va-switch
       v-model="value"
       :readonly="isState"
-      class="mr-6"
-    />
-    <va-checkbox
-      v-model="isState"
-      label="States enabled"
     />
   </div>
 </template>

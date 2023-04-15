@@ -1,4 +1,4 @@
-import { computed, onBeforeUnmount, onMounted, PropType, ref, Ref, watch, ExtractPropTypes } from 'vue'
+import { computed, onBeforeUnmount, onMounted, PropType, ref, Ref, watch, ExtractPropTypes, WritableComputedRef } from 'vue'
 import Cleave from 'cleave.js'
 import { CleaveOptions } from 'cleave.js/options'
 
@@ -24,13 +24,12 @@ const DEFAULT_MASK_TOKENS: Record<string, Record<string, unknown>> = {
 export const useCleaveProps = {
   mask: { type: [String, Object] as PropType<string | Record<string, number[]> | CleaveOptions>, default: '' },
   returnRaw: { type: Boolean, default: true },
-  modelValue: { type: [String, Number], default: '' },
 }
 
 export const useCleave = (
   element: Ref<HTMLInputElement | undefined>,
   props: ExtractPropTypes<typeof useCleaveProps>,
-  emit: (event: 'update:modelValue' | any, ...args: any[]) => any,
+  syncValue: WritableComputedRef<string | number>,
 ) => {
   const cleave = ref<Cleave>()
 
@@ -60,34 +59,34 @@ export const useCleave = (
 
   const computedValue = computed<string | number>(() => {
     if (cleave.value) {
-      if (props.returnRaw && props.modelValue === cleave.value.getRawValue()) {
+      if (props.returnRaw && syncValue.value === cleave.value.getRawValue()) {
         return cleave.value.getFormattedValue()
       }
     }
 
-    return props.modelValue
+    return syncValue.value
   })
 
   const onInput = (event: Event) => {
     const value = (event.target as HTMLInputElement).value
 
     if (props.mask !== 'string' && !Object.keys(props.mask).length) {
-      emit('update:modelValue', value)
+      syncValue.value = value
       return
     }
 
     if (cleave.value) {
       cleave.value.setRawValue(value)
       if (props.returnRaw) {
-        emit('update:modelValue', cleave.value.getRawValue())
+        syncValue.value = cleave.value.getRawValue()
         return
       }
 
-      emit('update:modelValue', cleave.value.getFormattedValue())
+      syncValue.value = cleave.value.getFormattedValue()
       return
     }
 
-    emit('update:modelValue', value)
+    syncValue.value = value
   }
 
   return {

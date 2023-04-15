@@ -2,104 +2,84 @@
   <component
     class="va-form"
     :is="tag"
+    v-bind="$attrs"
   >
-    <slot />
+    <slot v-bind="{ isValid, validate }" />
   </component>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref, onMounted, onUnmounted, nextTick, provide, inject } from 'vue'
+import { defineComponent, watch, PropType, computed } from 'vue'
 
-import { FormServiceKey, FormChild, Form } from './consts'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useFormParent } from '../../composables/useForm'
+import { useLocalConfigProvider } from '../../composables/useLocalConfig'
 
-const isVaForm = (value: any): value is Form => !!value.focusInvalid
+const props = { stateful: true }
+
+const statefulConfig = {
+  VaInput: props,
+  VaSelect: props,
+  VaCheckbox: props,
+  VaRadio: props,
+  VaDatePicker: props,
+  VaTimePicker: props,
+  VaColorPicker: props,
+  VaSlider: props,
+  VaSwitch: props,
+  VaFileUpload: props,
+  VaRating: props,
+  VaDateInput: props,
+  VaTimeInput: props,
+}
 
 export default defineComponent({
   name: 'VaForm',
-  emits: ['validation'],
+
   props: {
     ...useComponentPresetProp,
     autofocus: { type: Boolean, default: false },
+    immediate: { type: Boolean, default: false },
     tag: { type: String, default: 'div' },
+    trigger: { type: String as PropType<'blur' | 'change'>, default: 'blur' },
+    modelValue: { type: Boolean, default: true },
+    hideErrors: { type: Boolean, default: false },
+    hideErrorMessages: { type: Boolean, default: false },
+    hideLoading: { type: Boolean, default: false },
+    stateful: { type: Boolean, default: false },
   },
 
+  emits: ['update:modelValue'],
+
   setup (props, { emit }) {
-    const nestedFormElements: Ref<(FormChild | Form)[]> = ref([])
+    const context = useFormParent(props)
 
-    const parentFormProvider = () => inject(FormServiceKey, undefined)
-
-    provide(FormServiceKey, {
-      onChildMounted: (child: FormChild | Form) => childMountedHandler(child),
-      onChildUnmounted: (removableChild: FormChild | Form) => childUnmountedHandler(removableChild),
+    watch(context.isValid, (value) => {
+      emit('update:modelValue', value)
     })
 
-    const childMountedHandler = (child: FormChild | Form) => {
-      nestedFormElements.value.push(child)
-    }
-
-    const childUnmountedHandler = (removableChild: FormChild | Form) => {
-      nestedFormElements.value = nestedFormElements.value.filter(child => child !== removableChild)
-    }
-
-    /** @public */
-    const reset = () => {
-      nestedFormElements.value
-        .filter(({ reset }) => reset)
-        .forEach((item) => { item.reset() })
-    }
-
-    const resetValidation = () => {
-      nestedFormElements.value
-        .filter(({ resetValidation }) => resetValidation)
-        .forEach((item: any) => { item.resetValidation() })
-    }
-
-    const focus = () => { nestedFormElements.value.find(({ focus }) => focus)?.focus() }
-
-    const focusInvalid = () => {
-      const invalidComponent = nestedFormElements.value
-        .find((item) => !isVaForm(item) && item.hasError())
-
-      if (invalidComponent) {
-        invalidComponent.focus()
-      } else {
-        nestedFormElements.value
-          .forEach(item => isVaForm(item) && item.focusInvalid())
+    watch(() => props.autofocus, (value) => {
+      if (value) {
+        context.focus()
       }
+    }, { immediate: true })
+
+    watch(context.fields, (newVal) => {
+      if (newVal.length && props.immediate) {
+        context.validate()
+      }
+    }, { immediate: true })
+
+    useLocalConfigProvider(computed(() => {
+      if (!props.stateful) { return {} }
+
+      return statefulConfig
+    }))
+
+    return {
+      ...context,
+      context: context,
     }
-
-    // validation for every nested child
-    const validate = () => { // NOTE: temporarily synchronous validation
-      const formValid = nestedFormElements.value
-        .filter(({ validate }) => validate)
-        .map((child) => child.validate()) // more readable than with 'forEach'
-        .every((isValid) => isValid)
-
-      emit('validation', formValid)
-
-      return formValid
-    }
-
-    const publicMethods: Form = {
-      reset,
-      resetValidation,
-      focus,
-      focusInvalid,
-      validate,
-    }
-
-    onMounted(() => {
-      parentFormProvider()?.onChildMounted?.(publicMethods)
-
-      if (props.autofocus) { nextTick(focus) }
-    })
-
-    onUnmounted(() => {
-      parentFormProvider()?.onChildUnmounted?.(publicMethods)
-    })
-
-    return publicMethods
   },
 })
 </script>
