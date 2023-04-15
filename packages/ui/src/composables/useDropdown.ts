@@ -210,6 +210,7 @@ export const useDropdown = (
     middleware: computed(() => {
       const middleware: Middleware[] = []
       const { offset, autoPlacement, shift } = unref(options)
+
       if (offset) {
         middleware.push(offsetFn(Array.isArray(offset)
           ? {
@@ -222,16 +223,23 @@ export const useDropdown = (
           }))
       }
 
-      middleware.push(autoPlacement
-        ? autoPlacementFn()
-        : flip({
-          crossAxis: !shift,
-        }))
+      if (autoPlacement) {
+        middleware.push(flip({ crossAxis: !shift }))
+      }
+      // if (autoPlacement) {
+      //   middleware.push(autoPlacementFn())
+      // } else {
+      //   middleware.push(flip({
+      //     crossAxis: !shift,
+      //   }))
+      // }
 
       if (shift) {
-        // preventOverflow renamed to flip now
+        // preventOverflow renamed to shift now
         middleware.push(shiftFn({
           padding: 5,
+          // TODO: the rootBoundary should be the rootRef, but it doesn't work
+          // rootBoundary: anchorRef.value ? useDomRect(anchorRef).domRect.value as Rect : 'viewport',
         }))
       }
       return middleware
@@ -239,7 +247,7 @@ export const useDropdown = (
   })
 
   watchPostEffect(() => {
-    if (!rootRef.value || !anchorDomRect.value || x.value === null || y.value === null) { return }
+    if (!rootRef.value || !contentRef.value) { return }
 
     if (unwrapEl(contentRef.value)) {
       let widthCss = {}
@@ -251,7 +259,7 @@ export const useDropdown = (
 
       Object.assign(unwrapEl(contentRef.value)!.style, {
         position: strategy.value,
-        ...coordsToCss({ x: x.value, y: y.value }),
+        ...coordsToCss({ x: x.value || 0, y: y.value || 0 }),
         ...widthCss,
       })
     }

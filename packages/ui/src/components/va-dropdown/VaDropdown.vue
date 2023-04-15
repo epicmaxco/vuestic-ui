@@ -212,8 +212,15 @@ export default defineComponent({
       return props.disabled || !isPopoverFloating.value
     })
 
+    const anchorRef = computed(() => {
+      if (props.target) {
+        return target.value
+      }
+
+      return props.cursor ? cursorAnchor.value : computedAnchorRef.value
+    })
     useDropdown(
-      computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value),
+      anchorRef,
       contentRef,
       computed(() => ({
         keepAnchorWidth: props.keepAnchorWidth,
