@@ -10,6 +10,7 @@ export default defineConfig({
   defaultStoryProps: {
     layout: {
       type: 'grid',
+      width: '30%',
     },
   },
 })

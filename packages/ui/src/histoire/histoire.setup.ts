@@ -3,6 +3,7 @@ import { defineSetupVue3 } from '@histoire/plugin-vue'
 import demoIconAliases from '../vue-book/vuestic-config/demo-icon-aliases'
 import demoIconFonts from '../vue-book/vuestic-config/demo-icon-fonts'
 import './vuestic.css'
+import '../styles/essential.scss'
 
 import {
   createIconsConfig,
