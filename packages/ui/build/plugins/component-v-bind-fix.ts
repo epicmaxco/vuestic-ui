@@ -146,7 +146,9 @@ export const transformVueComponent = (code: string) => {
 }
 
 /** We need this plugin to support CSS vbind in SSR. Vue useCssVars is disabled for cjs build */
-export const componentVBindFix = (): Plugin => {
+export const componentVBindFix = (o: {
+  sourcemap?: boolean
+} = { sourcemap: false }): Plugin => {
   return {
     name: 'vuestic:component-v-bind-fix',
     enforce: 'pre',
@@ -155,7 +157,13 @@ export const componentVBindFix = (): Plugin => {
         return
       }
 
-      return transformVueComponent(code)
+      const result = transformVueComponent(code)
+
+      if (o.sourcemap) {
+        return result
+      }
+
+      return transformVueComponent(code)?.code
     },
   }
 }

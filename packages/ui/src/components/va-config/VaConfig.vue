@@ -7,7 +7,7 @@ import { computed, defineComponent, PropType } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { ComponentConfig } from '../../services/component-config'
 
-import { provideLocalConfig, useLocalConfig } from './hooks/useLocalConfig'
+import { provideLocalConfig, useLocalConfig } from '../../composables/useLocalConfig'
 
 export default defineComponent({
   name: 'VaConfig',

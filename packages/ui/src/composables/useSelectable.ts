@@ -72,6 +72,8 @@ export const useSelectable = (
     input.value?.focus()
   }
 
+  const { valueComputed } = useStateful(props, emit)
+
   const {
     computedError,
     computedErrorMessages,
@@ -79,8 +81,7 @@ export const useSelectable = (
     validationAriaAttributes,
     withoutValidation,
     resetValidation,
-  } = useValidation(props, emit, { reset, focus })
-  const { valueComputed } = useStateful(props, emit)
+  } = useValidation(props, emit, { reset, focus, value: valueComputed })
   const { isFocused } = useFocus()
 
   const isElementRelated = (element: HTMLElement | undefined) => {
@@ -89,7 +90,6 @@ export const useSelectable = (
   const onBlur = (event: FocusEvent) => {
     if ((input.value === event.target) && !isElementRelated(event.relatedTarget as HTMLElement)) {
       isFocused.value = false
-      computedError.value = false
       validate()
       emit('blur', event)
     }

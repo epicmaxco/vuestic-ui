@@ -1,0 +1,11 @@
+{
+  "title": "Scoped Config",
+  "description": "`VaConfig` is a utility component that allows you to configure components (provide specific default prop values to components) locally in a section of your application. This is useful when you have a local scope where your components have props other than global ones.",
+  "link": "Find out more about components config",
+  "examples": {
+    "default": {
+      "title": "Default usage",
+      "text": "By default, `VaConfig` does nothing. You must provide the `components` prop with the `vuestic` components configuration."
+    }
+  }
+}
