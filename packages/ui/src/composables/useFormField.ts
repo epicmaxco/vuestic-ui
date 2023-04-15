@@ -3,13 +3,13 @@ import pick from 'lodash/pick.js'
 
 import { useBem } from './useBem'
 
-export const useFormProps = {
+export const useFormFieldProps = {
   disabled: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
 }
 
-export const useFormPropsWithId = {
-  ...useFormProps,
+export const useFormFieldPropsWithId = {
+  ...useFormFieldProps,
   id: { type: [String, Number], default: undefined },
   name: { type: [String, Number], default: undefined },
 }
@@ -20,9 +20,9 @@ export const useFormPropsWithId = {
  * @param props component props.
  * @returns computed classes object starting with `prefix` and ending with form state BEM modifier.
  */
-export const useForm = <Prefix extends string = ''>(
+export const useFormField = <Prefix extends string = ''>(
   prefix: Prefix,
-  props: ExtractPropTypes<typeof useFormProps>,
+  props: ExtractPropTypes<typeof useFormFieldProps>,
 ) => {
   const computedClasses = useBem<'disabled' | 'readonly', Prefix>(prefix, computed(() => pick(props, ['disabled', 'readonly'])))
   return { computedClasses }

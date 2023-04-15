@@ -44,13 +44,13 @@
 import { defineComponent, PropType, computed } from 'vue'
 
 import { generateUniqueId } from '../../utils/uuid'
-import { useComponentPresetProp, useColors, useFormProps, useForm } from '../../composables'
+import { useComponentPresetProp, useColors, useFormFieldProps, useFormField } from '../../composables'
 
 export default defineComponent({
   name: 'VaRadio',
   emits: ['update:modelValue', 'focus'],
   props: {
-    ...useFormProps,
+    ...useFormFieldProps,
     ...useComponentPresetProp,
     modelValue: { type: [Boolean, Array, String, Object, Number] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>, default: null },
     option: { type: [String, Boolean, Object, Number] as PropType<any>, default: null },
@@ -65,7 +65,7 @@ export default defineComponent({
 
     const isActive = computed(() => props.modelValue === props.option)
 
-    const { computedClasses } = useForm('va-radio', props)
+    const { computedClasses } = useFormField('va-radio', props)
 
     const computedClass = computed(() => ({
       'va-radio--left-label': props.leftLabel,

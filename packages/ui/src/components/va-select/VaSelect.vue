@@ -115,7 +115,7 @@ import {
   useComponentPresetProp,
   useSelectableList, useSelectableListProps,
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
-  useFormProps,
+  useFormFieldProps,
   useLoadingProps,
   useMaxSelections, useMaxSelectionsProps,
   useClearableProps, useClearable, useClearableEmits,
@@ -183,7 +183,7 @@ export default defineComponent({
     ...useLoadingProps,
     ...useMaxSelectionsProps,
     ...useClearableProps,
-    ...useFormProps,
+    ...useFormFieldProps,
     ...useMaxVisibleOptionsProps,
     ...useToggleIconProps,
     ...useThrottleProps,
@@ -682,7 +682,7 @@ export default defineComponent({
       computedErrorMessages,
       withoutValidation,
       resetValidation,
-    } = useValidation(props, emit, { reset, focus })
+    } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
     return {
       input,

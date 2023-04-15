@@ -26,7 +26,7 @@
     "autoprefixer": "^10.4.13",
     "escodegen": "^2.0.0",
     "eslint": "7",
-    "nuxt": "^3.1.1",
+    "nuxt": "latest",
     "postcss": "^7",
     "postcss-custom-properties": "^13.1.1",
     "stylelint": "^13.13.1",

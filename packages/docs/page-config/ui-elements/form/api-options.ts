@@ -1,4 +1,9 @@
 export default defineManualApi({
+  props: {
+    trigger: {
+      hidden: true,
+    }
+  },
   methods: {
     validate: {
       types: "`() => boolean`",

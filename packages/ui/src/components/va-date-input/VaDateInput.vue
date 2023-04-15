@@ -316,7 +316,7 @@ export default defineComponent({
       validationAriaAttributes,
       withoutValidation,
       resetValidation,
-    } = useValidation(props, emit, { reset, focus })
+    } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
     const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
 
