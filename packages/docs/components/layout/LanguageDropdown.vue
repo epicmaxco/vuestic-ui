@@ -1,7 +1,7 @@
 <template>
   <va-button-dropdown
     :label="currentLocaleName"
-    :offset="[16, 0]"
+    :offset="[8, 0]"
     class="language-dropdown"
     prevent-overflow
     v-bind="$attrs"
@@ -22,7 +22,7 @@
         class="language-dropdown__item va-link row align-center"
         :to="`/${locale}/contribution/translation`"
       >
-        <va-list-item-section :style="{color: colors.primary}">
+        <va-list-item-section :style="{ color: colors.primary }">
           <span class="dropdown-item__text">
             {{ t('landing.header.buttons.translation') }}
           </span>
@@ -42,7 +42,7 @@ const { t, locale, locales, currentLocaleName, setLocale } = useSharedLanguageSw
 
 <style lang="scss">
 .language-dropdown {
-  cursor: pointer;
+  display: flex;
 
   .va-button__content {
     font-weight: 600;
