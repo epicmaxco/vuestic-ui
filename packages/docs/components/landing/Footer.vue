@@ -22,7 +22,7 @@
                 <component
                   :is="item.component"
                   :[item.prop]="item.value"
-                  :target="item.component === 'a' ? '_blank' : undefined"
+                  :target="item.component === 'a' && !item.value.startsWith('mailto:') ? '_blank' : undefined"
                   class="footer__sitemap-item__list-item"
                 >
                   {{ $t(item.label) }}
@@ -107,33 +107,33 @@ const sitemap = [
   {
     title: 'landing.footer.sitemap.resources[0]',
     items: [
-      { label: 'landing.footer.sitemap.resources[1]', component: 'router-link', prop: 'to', value: `/${locale.value}/contribution/translation` },
-      { label: 'landing.footer.sitemap.resources[2]', component: 'router-link', prop: 'to', value: `/${locale.value}/contribution/translation` },
-      { label: 'landing.footer.sitemap.resources[3]', component: 'router-link', prop: 'to', value: `/${locale.value}/contribution/translation` },
+      { label: 'landing.footer.sitemap.resources[1]', component: 'router-link', prop: 'to', value: `/${locale.value}/getting-started/installation` },
+      { label: 'landing.footer.sitemap.resources[2]', component: 'router-link', prop: 'to', value: `/${locale.value}/introduction/roadmap` },
+      { label: 'landing.footer.sitemap.resources[3]', component: 'router-link', prop: 'to', value: `/${locale.value}/introduction/accessibility-guide` },
     ]
   },
   {
-    title: 'landing.footer.sitemap.help[0]',
+    title: 'landing.footer.sitemap.support[0]',
     items: [
-      { label: 'landing.footer.sitemap.help[1]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui' },
-      { label: 'landing.footer.sitemap.help[2]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui' },
-      { label: 'landing.footer.sitemap.help[3]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui' },
+      { label: 'landing.footer.sitemap.support[1]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui/' },
+      { label: 'landing.footer.sitemap.support[2]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui/issues/new/choose' },
+      { label: 'landing.footer.sitemap.support[3]', component: 'router-link', prop: 'to', value: `/${locale.value}/contribution/guide` },
     ]
   },
   {
     title: 'landing.footer.sitemap.community[0]',
     items: [
-      { label: 'landing.footer.sitemap.community[1]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui' },
-      { label: 'landing.footer.sitemap.community[2]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui' },
-      { label: 'landing.footer.sitemap.community[3]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui' },
-      { label: 'landing.footer.sitemap.community[4]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui' },
+      { label: 'landing.footer.sitemap.community[1]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui/' },
+      { label: 'landing.footer.sitemap.community[2]', component: 'a', prop: 'href', value: 'https://discord.com/invite/u7fQdqQt8c' },
+      { label: 'landing.footer.sitemap.community[3]', component: 'a', prop: 'href', value: 'https://twitter.com/vuestic_ui' },
     ]
   },
   {
-    title: 'landing.footer.sitemap.contactUs[0]',
+    title: 'landing.footer.sitemap.about[0]',
     items: [
-      { label: 'landing.footer.sitemap.contactUs[1]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui' },
-      { label: 'landing.footer.sitemap.contactUs[2]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui' },
+      { label: 'landing.footer.sitemap.about[1]', component: 'router-link', prop: 'to', value: `/${locale.value}/introduction/team` },
+      { label: 'landing.footer.sitemap.about[2]', component: 'a', prop: 'href', value: 'mailto:hello@epicmax.co' },
+      { label: 'landing.footer.sitemap.about[3]', component: 'a', prop: 'href', value: 'mailto:hello@epicmax.co?subject=VuesticUI Partnership' },
     ]
   },
 ]

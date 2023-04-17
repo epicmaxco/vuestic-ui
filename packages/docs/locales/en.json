@@ -103,27 +103,27 @@
       "sitemap": {
         "resources": [
           "Resources",
-          "Design Resources",
-          "Icon Library",
-          "Third-Party Libraries"
+          "Getting Started",
+          "Roadmap",
+          "Accessibility"
         ],
-        "help": [
-          "Help",
-          "Common Issues",
-          "Change Log",
-          "Report Bug"
+        "support": [
+          "Support",
+          "Give us a star",
+          "Report an issue",
+          "Contribute"
         ],
         "community": [
           "Community",
           "GitHub",
           "Discord",
-          "Facebook",
           "Twitter"
         ],
-        "contactUs": [
-          "Contact Us",
-          "Write Us",
-          "Join Us"
+        "about": [
+          "About",
+          "Meet the Team",
+          "Contact us",
+          "Become a Partner"
         ]
       },
       "contactUs": "Contact us",
