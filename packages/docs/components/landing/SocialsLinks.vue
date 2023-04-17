@@ -54,7 +54,7 @@ const styleComputed = computed(() => {
 const socials = [
   { href: 'https://github.com/epicmaxco/vuestic-ui/', label: 'landing.socials.github', icon: 'fa fa-github' },
   { href: 'https://discord.gg/u7fQdqQt8c', label: 'landing.socials.discord', icon: 'fa fa-discord' },
-  { href: 'https://www.facebook.com/epicmaxco/', label: 'landing.socials.facebook', icon: 'fab fa-facebook' },
+  // { href: 'https://www.facebook.com/epicmaxco/', label: 'landing.socials.facebook', icon: 'fab fa-facebook' },
   { href: 'https://twitter.com/epicmaxco', label: 'landing.socials.twitter', icon: 'fa fa-twitter' },
 ]
 </script>
