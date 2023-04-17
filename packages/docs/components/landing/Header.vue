@@ -160,8 +160,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, defineEmits } from 'vue'
-
 import { useSharedLanguageSwitcher } from '../../composables/useLanguageSwitcher'
 
 import LanguageDropdown from '../layout/LanguageDropdown.vue'

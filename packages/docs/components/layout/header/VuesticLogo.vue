@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from 'vue'
+import { computed } from 'vue'
 import { useColors } from 'vuestic-ui/src/composables'
 
 const props = defineProps({
