@@ -1,4 +1,4 @@
-import { computed, provide, ref, type Ref } from 'vue'
+import { computed, provide, ref, shallowRef, type Ref, unref } from 'vue'
 import { FormServiceKey } from './consts'
 import { Form, FormFiled } from './types'
 import { useFormChild } from './useFormChild'
@@ -10,19 +10,19 @@ type FormParentOptions = {
 }
 
 export const createFormContext = <Names extends string>(options: FormParentOptions) => {
-  const fields: Ref<Record<number, Ref<FormFiled>>> = ref({})
+  const fields = ref(new Map<number, FormFiled<Names>>())
 
   return {
     // Vue unwrap ref automatically, but types are not for some reason
-    fields: computed(() => Object.values(fields.value) as any as FormFiled<Names>[]),
+    fields: computed(() => [...fields.value.values()]),
     doShowError: computed(() => !options.hideErrors),
     doShowErrorMessages: computed(() => !options.hideErrorMessages),
     doShowLoading: computed(() => !options.hideLoading),
-    registerField: (uid: number, field: Ref<FormFiled>) => {
-      fields.value[uid] = field
+    registerField: (uid: number, field: FormFiled) => {
+      fields.value.set(uid, field as FormFiled<Names>)
     },
     unregisterField: (uid: number) => {
-      delete fields.value[uid]
+      fields.value.delete(uid)
     },
   }
 }
@@ -34,16 +34,16 @@ export const useFormParent = <Names extends string = string>(options: FormParent
 
   const { fields } = formContext
 
-  const fieldNames = computed(() => fields.value.map((field) => field.name).filter(Boolean) as Names[])
+  const fieldNames = computed(() => fields.value.map((field) => unref(field.name)).filter(Boolean) as Names[])
   const formData = computed(() => fields.value.reduce((acc, field) => {
-    if (field.name) { acc[field.name] = field.value }
+    if (unref(field.name)) { acc[unref(field.name) as Names] = field }
     return acc
-  }, {} as Record<Names, any>))
-  const isValid = computed(() => fields.value.every((field) => field.isValid))
-  const isLoading = computed(() => fields.value.some((field) => field.isLoading))
-  const errorMessages = computed(() => fields.value.map((field) => field.errorMessages).flat())
+  }, {} as Record<Names, FormFiled>))
+  const isValid = computed(() => fields.value.every((field) => unref(field.isValid)))
+  const isLoading = computed(() => fields.value.some((field) => unref(field.isLoading)))
+  const errorMessages = computed(() => fields.value.map((field) => unref(field.errorMessages)).flat())
   const errorMessagesNamed = computed(() => fields.value.reduce((acc, field) => {
-    if (field.name) { acc[field.name] = field.errorMessages }
+    if (unref(field.name)) { acc[unref(field.name) as Names] = unref(field.errorMessages) }
     return acc
   }, {} as Record<Names, any>))
 
@@ -78,18 +78,17 @@ export const useFormParent = <Names extends string = string>(options: FormParent
     invalidField?.focus()
   }
 
-  useFormChild(() => ({
-    name: '',
-    value: undefined,
-    isValid: isValid.value,
-    isLoading: isLoading.value,
+  useFormChild({
+    name: ref(undefined),
+    isValid: isValid,
+    isLoading: isLoading,
     validate,
     validateAsync,
     reset,
     resetValidation,
     focus,
-    errorMessages: errorMessages.value,
-  }))
+    errorMessages: errorMessages,
+  })
 
   return {
     formData,
