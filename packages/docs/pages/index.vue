@@ -15,14 +15,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onBeforeUnmount } from 'vue'
-import { useColors } from "vuestic-ui"
+import { ref, onBeforeUnmount, onMounted } from 'vue'
+import { useColors } from 'vuestic-ui'
 
 const colorMode = useColorMode()
 const cookie = useCookie('vuestic-theme')
-
 const { applyPreset } = useColors()
-applyPreset('landing')
 
 definePageMeta({
   layout: 'landing',
@@ -31,11 +29,15 @@ definePageMeta({
 useHead({
   title: 'Vuestic UI — Vue 3 UI framework',
   link: [
-    { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" },
+    { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" },
   ]
 })
 
 const isMobileMenuOpen = ref(false)
+
+onMounted(() => {
+  applyPreset('landing')
+})
 
 onBeforeUnmount(() => {
   applyPreset(cookie.value || colorMode.preference)

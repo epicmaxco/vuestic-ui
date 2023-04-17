@@ -25,7 +25,7 @@
           >
             <template #prepend>
               <va-icon
-                class="fa fa-github"
+                class="fa-brands fa-github"
                 style="margin-right: 0.5rem;"
               />
             </template>

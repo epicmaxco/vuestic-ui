@@ -11,7 +11,7 @@
   >
     <template #prepend>
       <va-icon
-        class="fas fa-star"
+        class="fa-solid fa-star"
         size="small"
         color="#F1E05A"
       />
