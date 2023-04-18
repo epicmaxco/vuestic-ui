@@ -39,9 +39,9 @@ const props = defineProps({
 const sizesConfig = {
   defaultSize: 20,
   sizes: {
-    small: 16,
-    medium: 20,
-    large: 32,
+    small: 20,
+    medium: 24,
+    large: 30,
   },
 }
 

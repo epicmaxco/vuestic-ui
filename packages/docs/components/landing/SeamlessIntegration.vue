@@ -11,8 +11,17 @@
         </div>
 
         <div class="seamless__content">
+          <div class="seamless__content-image">
+            <va-aspect-ratio :ratio="829/434">
+              <img
+                src="/landing/seamless-integration.svg"
+                alt=""
+              >
+            </va-aspect-ratio>
+          </div>
+
           <!-- First block -->
-          <div class="seamless__content--first">
+          <!-- <div class="seamless__content--first">
             <h3 class="block__label block__label--vuestic">
               {{ $t('landing.seamless.compare.vuestic') }}
             </h3>
@@ -47,10 +56,10 @@
               width="72"
               class="block__icon"
             >
-          </div>
+          </div> -->
 
           <!-- Second block -->
-          <div class="seamless__content--second">
+          <!-- <div class="seamless__content--second">
             <h3 class="block__label">
               {{ $t('landing.seamless.compare.other') }}
             </h3>
@@ -72,7 +81,7 @@
                 <seamless-integration-another-checkbox />
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -80,17 +89,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+// import { ref } from 'vue'
 
-import SeamlessIntegrationAnotherButton from './SeamlessIntegration/SeamlessIntegrationAnotherButton.vue'
-import SeamlessIntegrationAnotherSelect from './SeamlessIntegration/SeamlessIntegrationAnotherSelect.vue'
-import SeamlessIntegrationAnotherRangeSlider from './SeamlessIntegration/SeamlessIntegrationAnotherRangeSlider.vue'
-import SeamlessIntegrationAnotherCheckbox from './SeamlessIntegration/SeamlessIntegrationAnotherCheckbox.vue'
+// import SeamlessIntegrationAnotherButton from './SeamlessIntegration/SeamlessIntegrationAnotherButton.vue'
+// import SeamlessIntegrationAnotherSelect from './SeamlessIntegration/SeamlessIntegrationAnotherSelect.vue'
+// import SeamlessIntegrationAnotherRangeSlider from './SeamlessIntegration/SeamlessIntegrationAnotherRangeSlider.vue'
+// import SeamlessIntegrationAnotherCheckbox from './SeamlessIntegration/SeamlessIntegrationAnotherCheckbox.vue'
 
-const value = ref(true)
-const value2 = ref(75)
-const value3 = ref('Spain')
-const options = ref(['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'Poland', 'Ukraine', 'USA'])
+// const value = ref(true)
+// const value2 = ref(75)
+// const value3 = ref('Spain')
+// const options = ref(['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'Poland', 'Ukraine', 'USA'])
 </script>
 
 <style lang="scss" scoped>
@@ -144,10 +153,19 @@ const options = ref(['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'P
 
     margin-top: 2rem;
     max-width: 60rem;
-    background: var(--va-background-secondary);
-    color: var(--va-on-background-secondary);
-    box-shadow: 0 47px 72px -39px var(--va-background-landing-border);
-    border-radius: 1rem;
+    // background: var(--va-background-secondary);
+    // color: var(--va-on-background-secondary);
+    // box-shadow: 0 47px 72px -39px var(--va-background-landing-border);
+    // border-radius: 1rem;
+
+    &-image {
+      width: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
 
     &--first {
       position: relative;

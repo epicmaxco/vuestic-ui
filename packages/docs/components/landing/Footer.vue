@@ -56,10 +56,7 @@
           </va-button>
         </div>
 
-        <SocialsLinks
-          class="footer__socials"
-          size="large"
-        />
+        <SocialsLinks class="footer__socials" />
 
         <div class="footer__subtitle">
           © {{ currentYear }} {{ $t("landing.footer.text") }}
@@ -143,8 +140,8 @@ const sitemap = [
 @import "@/assets";
 
 .footer {
-  $section-padding: 2rem 0 2.5rem;
-  $section-xs-padding: 1rem 0 1.5rem;
+  $section-padding: 2rem 0 3.5rem;
+  $section-xs-padding: 1rem 0 3.5rem;
 
   width: 100%;
   position: relative;
@@ -202,6 +199,10 @@ const sitemap = [
       &:visited,
       &:hover {
         color: unset;
+        filter: unset;
+      }
+      &:hover {
+        text-decoration: underline;
       }
     }
   }

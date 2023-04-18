@@ -51,6 +51,7 @@
             <SocialsLinks
               class="header__links--link"
               color="textInverted"
+              size="small"
             />
             <div class="header__links--link">
               <StarsButton

@@ -13,7 +13,7 @@
       <va-icon
         class="fa-solid fa-star"
         size="small"
-        color="#F1E05A"
+        color="#EAC54F"
       />
     </template>
     {{ stars }}
@@ -85,6 +85,10 @@ export default defineComponent({
   &::after,
   &::before {
     border-radius: calc(var(--border-radius) - var(--va-button-bordered-border));
+  }
+
+  &:hover {
+    filter: unset;
   }
 
   &.va-button--normal {
