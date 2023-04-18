@@ -22,6 +22,7 @@
                 height="24"
                 width="24"
                 viewBox="-39.26295 -56.672 340.2789 340.032"
+                aria-hidden="true"
               ><path
                 fill="#41b883"
                 d="M161.101 0l-30.224 52.35L100.652 0H0l130.877 226.688L261.753 0z"
@@ -45,6 +46,7 @@
                 width="24"
                 height="24"
                 viewBox="0 0 400 303"
+                aria-hidden="true"
               >
                 <g
                   fill="none"
