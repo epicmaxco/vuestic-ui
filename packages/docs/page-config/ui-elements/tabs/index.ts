@@ -17,8 +17,6 @@ export default definePageConfig({
     block.subtitle("all.api"),
     block.api("VaTabs", apiOptions),
 
-        
-
     block.subtitle("all.faq"),
     block.headline("tabs.faq.questions[0].question"),
     block.paragraph("tabs.faq.questions[0].answer"),
