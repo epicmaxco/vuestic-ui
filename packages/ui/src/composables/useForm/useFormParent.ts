@@ -36,9 +36,9 @@ export const useFormParent = <Names extends string = string>(options: FormParent
 
   const fieldNames = computed(() => fields.value.map((field) => unref(field.name)).filter(Boolean) as Names[])
   const formData = computed(() => fields.value.reduce((acc, field) => {
-    if (unref(field.name)) { acc[unref(field.name) as Names] = field }
+    if (unref(field.name)) { acc[unref(field.name) as Names] = field.value }
     return acc
-  }, {} as Record<Names, FormFiled>))
+  }, {} as Record<Names, FormFiled['value']>))
   const isValid = computed(() => fields.value.every((field) => unref(field.isValid)))
   const isLoading = computed(() => fields.value.some((field) => unref(field.isLoading)))
   const errorMessages = computed(() => fields.value.map((field) => unref(field.errorMessages)).flat())
