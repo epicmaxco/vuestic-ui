@@ -22,12 +22,12 @@
         </div>
 
         <div class="customize__image">
-          <va-image
-            :ratio="1337/192"
-            fit="contain"
-            src="/landing/customize-everything.svg"
-            :alt="$t('landing.customize.image')"
-          />
+          <va-aspect-ratio :ratio="1337/192">
+            <img
+              src="/landing/customize-everything.svg"
+              :alt="$t('landing.customize.image')"
+            >
+          </va-aspect-ratio>
         </div>
       </div>
     </div>
@@ -107,6 +107,11 @@ const { locale } = useI18n()
     @include size(12);
 
     padding-top: 3.5rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>

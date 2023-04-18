@@ -34,12 +34,12 @@
         </div>
 
         <div class="preview__features">
-          <va-image
-            :ratio="1024/316"
-            fit="contain"
-            src="/landing/preview-features.svg"
-            :alt="$t('landing.preview.image')"
-          />
+          <va-aspect-ratio :ratio="1024/316">
+            <img
+              src="/landing/preview-features.svg"
+              :alt="$t('landing.preview.image')"
+            >
+          </va-aspect-ratio>
         </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { useBreakpoint } from "vuestic-ui";
+import { useBreakpoint } from 'vuestic-ui'
 
 const breakpoint = useBreakpoint()
 const { locale } = useI18n()
@@ -120,6 +120,11 @@ const { locale } = useI18n()
     padding-top: 6rem;
 
     @include xs(padding-top, 4rem);
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>

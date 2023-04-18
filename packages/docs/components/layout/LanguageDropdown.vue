@@ -42,16 +42,16 @@ const { t, locale, locales, currentLocaleName, setLocale } = useSharedLanguageSw
 
 <style lang="scss">
 .language-dropdown {
-  display: flex;
+  .va-dropdown {
+    vertical-align: text-bottom;
+  }
 
   .va-button__content {
     font-weight: 600;
   }
 
   &__item {
-    @apply py-1.5;
-
-    cursor: pointer;
+    padding: 0.5rem 0;
     flex-wrap: nowrap;
     font-weight: 600;
   }

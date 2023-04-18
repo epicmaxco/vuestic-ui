@@ -98,7 +98,7 @@ const options = ref(['Spain', 'Germany', 'France', 'Italy', 'China', 'Japan', 'P
 
 .seamless {
   $section-padding: 7.5rem 0;
-  $section-xs-padding: 4.5rem 0;
+  $section-xs-padding: 3.5rem 0;
 
   width: 100%;
   position: relative;

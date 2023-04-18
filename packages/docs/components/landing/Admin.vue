@@ -80,7 +80,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useBreakpoint } from "vuestic-ui"
+import { useBreakpoint } from 'vuestic-ui'
 import LandingStarsButton from './StarsButton.vue'
 
 const breakpoint = useBreakpoint()
@@ -98,7 +98,7 @@ const items = [
 
 .admin {
   $section-padding: 7.5rem 0 10rem;
-  $section-xs-padding: 3rem 0 4rem;
+  $section-xs-padding: 3.5rem 0 4rem;
 
   width: 100%;
   position: relative;

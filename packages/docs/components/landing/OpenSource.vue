@@ -57,7 +57,7 @@ const textColor = useElementTextColor('background-primary')
 
 .opensource {
   $section-padding: 5rem 0 7rem;
-  $section-xs-padding: 3rem 0 4rem;
+  $section-xs-padding: 3.5rem 0 4rem;
 
   width: 100%;
   position: relative;
