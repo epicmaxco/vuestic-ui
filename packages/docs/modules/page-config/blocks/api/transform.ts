@@ -52,13 +52,22 @@ const stringifyMeta = (meta: ComponentMeta) => {
         types: slot.type
       })
     }), {}),
-    emits: meta.events.reduce((acc, event) => ({
+    events: meta.events.reduce((acc, event) => ({
       ...acc,
       [event.name]: ({
         types: event,
       })
     }), {}),
     methods: {},
+    // TODO: We need to use exposed in components before
+    // methods: meta.exposed
+    //   .filter((method) => /^\(.*\)\s?=>.*$/.test(method.type))
+    //   .reduce((acc, method) => ({
+    //     ...acc,
+    //     [method.name]: ({
+    //       types: method.type,
+    //     }),
+    //   }), {})
   })
 }
 
