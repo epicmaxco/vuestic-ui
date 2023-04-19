@@ -1,9 +1,13 @@
+import pick from 'lodash/pick.js';
 import kebabCase from 'lodash/kebabCase';
 import { readFile } from 'fs/promises';
 import { defineBlockTransform } from "../../compiler/define-block-transform";
 import { CssVariables } from "./types";
+import { checker } from './component-parser/meta'
+import { ComponentMeta } from 'vue-component-meta';
+import ts from 'typescript/lib/tsserverlibrary';
 
-const parseCssComment = (line: string) => 
+const parseCssComment = (line: string) =>
   (line.match(/\/\/(.*)|\/\*(.*)\*\//) || []).slice(1).filter((s) => Boolean(s)).join('').trim()
 const parseCssVariables = (css: string | undefined): CssVariables => {
   if (!css) { return [] }
@@ -20,13 +24,42 @@ const parseCssVariables = (css: string | undefined): CssVariables => {
       variables.push([variable[0], variable[1], comment])
     }
   })
-  
+
   return variables
 }
 
 const readCssVariables = async (path: string | undefined) => {
   if (!path) { return '' }
   return (await readFile(path, 'utf-8')).toString()
+}
+
+const stringifyMeta = (meta: ComponentMeta) => {
+  return JSON.stringify({
+    props: meta.props
+      .filter((prop) => !prop.global)
+      .sort((prop1, prop2) => Number(prop1.required) > Number(prop2.required) ? -1 : 1)
+      .reduce((acc, prop) => ({
+        ...acc,
+        [prop.name]: ({
+          types: prop.type.replace(' | undefined', ''),
+          default: prop.default,
+          required: prop.required,
+        })
+      }), {}),
+    slots: meta.slots.reduce((acc, slot) => ({
+      ...acc,
+      [slot.name]: ({
+        types: slot.type
+      })
+    }), {}),
+    emits: meta.events.reduce((acc, event) => ({
+      ...acc,
+      [event.name]: ({
+        types: event,
+      })
+    }), {}),
+    methods: {},
+  })
 }
 
 export default defineBlockTransform(async function (block) {
@@ -40,5 +73,6 @@ export default defineBlockTransform(async function (block) {
   const cssVariablesFile = await readCssVariables(cssVariablesPath)
   const cssVariables = JSON.stringify(parseCssVariables(cssVariablesFile))
 
-  return block.replaceArgCode(0, `'${importName}', ${importComponent}, ${cssVariables}`)
+  const meta = checker.getComponentMeta(importPath, importName)
+  return block.replaceArgCode(0, `'${importName}', ${importComponent}, ${cssVariables}, ${stringifyMeta(meta)}`)
 })
