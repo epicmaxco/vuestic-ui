@@ -116,7 +116,7 @@
     "vue": "^3.0.4",
     "vue-book": "0.2.0-alpha.0",
     "vue-loader": "^16.3.0",
-    "vue-tsc": "^0.38.2",
+    "vue-tsc": "^1.2.0",
     "vuelidate": "^0.7.5",
     "webpack": "^5.4.1",
     "webpack-bundle-analyzer": "^4.1.0",
