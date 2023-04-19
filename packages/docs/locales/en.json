@@ -45,13 +45,14 @@
         "and that is what Vuestic UI today."
       ],
       "items": [
-        "Fully Vue 3 compatible",
-        "Accessible — because it’s important",
-        "Fully responsive and supports modern browsers (no IE11, sorry)",
-        "Configure components globally via config and CSS variables",
-        "Dark Theme ready to make your app look sexy ",
-        "Integrates seamlessly with i18n",
-        "Fast & professional technical support from",
+        "Vue 3 compatible: Seamless Vue.js integration\u00A0\uD83E\uDD18",
+        "Accessible: designed for all users\u00A0❗",
+        "Responsive: Adapts to various screens and devices",
+        "Global config: Customize components effortlessly",
+        "Dark Theme: Stylish built-in dark mode\u00A0\uD83D\uDDA4",
+        "i18n integration: Simplifies app localization",
+        "Customizable: Adapt components to your design\u00A0\uD83D\uDC85",
+        "Professional support: Fast and reliable assistance from",
         "the core team"
       ]
     },
@@ -4021,14 +4022,16 @@
     "title": "What is Vuestic UI",
     "description": "Vuestic UI is an OpenSource Vue 3 based UI framework. It is a MIT-licensed UI framework that provides ready-to-use frontend components that are easily configurable and speed up development of responsive and fast-loading web interfaces. It was initially released in May 2021 by [Epicmax](https://epicmax.co/)[[target=_blank]] and that is what Vuestic UI today:\n\n",
     "featuresOverview": "Features overview",
-    "vueThreeCompatible": "Fully Vue 3 compatible \uD83E\uDD18",
-    "featureRich": "Contains 60+ ready-to-use classy UI components that can be used in any design solution \uD83D\uDC85",
-    "darkTheme": "Dark Theme ready to make your app look sexy \uD83D\uDDA4",
-    "accessibility": "Accessible - because it’s important❗",
-    "configurable": "Allows to configure components globally via config and CSS variables",
-    "responsive": "Fully responsive and supports modern browsers (no IE11, sorry)",
-    "translatable": "Integrates seamlessly with i18n",
-    "support": "Fast & professional technical support from [the core team](https://vuestic.dev/en/introduction/team)[[target=_blank]] \uD83E\uDEC2"
+    "features": [
+      "Vue 3 compatible: Easy integration with the latest Vue.js\u00A0\uD83E\uDD18",
+      "Contains 60+ ready-to-use classy UI components that can be used in any design solution\u00A0\uD83D\uDC85",
+      "Dark Theme: Stylish built-in dark mode\u00A0\uD83D\uDDA4",
+      "Accessible: designed for all users\u00A0❗",
+      "Global config: Customize components effortlessly",
+      "Responsive: Adapts to various screens and devices",
+      "i18n integration: Simplify app internationalization",
+      "Fast & professional technical support from [the core team](/introduction/team)\u00A0\uD83E\uDEC2"
+    ]
   },
   "team": {
     "title": "Meet the Team",

@@ -44,10 +44,11 @@
               class="features__item-icon"
             >
             <p class="features__item-description">
-              {{ $t('landing.features.items[6]') }}
+              {{ $t('landing.features.items[7]') }}
               <router-link :to="`/${locale}/introduction/team`">
-                {{ $t('landing.features.items[7]') }}
+                {{ $t('landing.features.items[8]') }}
               </router-link>
+              &#160;&#x1fac2;
             </p>
           </div>
         </div>
@@ -69,6 +70,7 @@ const features = [
   { icon: '/landing/features/features-configure.svg', description: 'landing.features.items[3]' },
   { icon: '/landing/features/features-theme.svg', description: 'landing.features.items[4]' },
   { icon: '/landing/features/features-integrates.svg', description: 'landing.features.items[5]' },
+  { icon: '/landing/features/features-customizable.svg', description: 'landing.features.items[6]' },
 ]
 </script>
 
