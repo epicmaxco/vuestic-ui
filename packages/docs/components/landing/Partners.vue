@@ -62,9 +62,9 @@
           </a>
         </div>
 
-        <h3 class="partners__subtitle">
+        <h2 class="partners__subtitle">
           {{ $t('landing.partners.title') }}
-        </h3>
+        </h2>
       </div>
     </div>
   </section>
