@@ -7,9 +7,7 @@ import { useColors } from 'vuestic-ui'
 
 const { applyPreset } = useColors()
 
-onBeforeMount(() => {
-  applyPreset('landing')
-})
+applyPreset('landing')
 
 useHead({
   title: 'Vuestic UI — Vue 3 UI framework',

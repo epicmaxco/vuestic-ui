@@ -33,6 +33,8 @@ const breakpoints = useBreakpoint()
 
 const isSidebarVisible = ref(!breakpoints.smDown)
 
+applyPreset(cookie.value || colorMode.preference)
+
 watch(() => breakpoints.smDown, (newValue, oldValue) => {
   if (newValue && !oldValue) {
     isSidebarVisible.value = false
@@ -50,10 +52,6 @@ afterEach(() => {
   if (breakpoints.smDown) {
     isSidebarVisible.value = false
   }
-})
-
-onBeforeMount(() => {
-  applyPreset(cookie.value || colorMode.preference)
 })
 
 onMounted(scrollToElement)
