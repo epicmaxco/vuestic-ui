@@ -2,13 +2,18 @@
   <section class="partners">
     <div class="partners__wrapper">
       <div class="partners__inner">
-        <h2 class="partners__title">
-          {{ $t('landing.partners.title') }}
-        </h2>
-
         <div class="partners__logos">
           <a
-            href="https://nuxt.com/"
+            href="https://vuejs.org/partners/epicmax"
+            target="_blank"
+            title="Vue.js - The Progressive JavaScript Framework"
+            class="partners__logo logo__vue-js"
+          >
+            <LandingIconsIconVuejs />
+          </a>
+
+          <a
+            href="https://nuxt.com/support/agencies/epicmax"
             target="_blank"
             title="Nuxt - The Intuitive Web Framework"
             class="partners__logo"
@@ -27,12 +32,12 @@
 
           <a
             href="https://vuejobs.com/"
-            class="partners__logo"
             target="_blank"
             title="Vue.js jobs – Browse through dozens of Vue.js openings"
+            class="partners__logo logo__vue-jobs"
           >
             <LandingIconsIconVueJobs />
-            <span class="partners__logo-text">Hire Vue.js developers</span>
+            <span class="logo__vue-jobs-text">Hire Vue.js developers</span>
           </a>
 
           <a
@@ -41,18 +46,25 @@
             title="Epicmax - Top Vue.js Development Company"
             class="partners__logo"
           >
-            <LandingIconsIconEpicmaxGradient />
+            <LandingIconsIconEpicmaxColor
+              height="19"
+              width="102"
+            />
           </a>
 
           <a
             href="https://www.ag-grid.com/"
             target="_blank"
-            title=" Data Grid: AG Grid: High-Performance React Grid, Angular Grid, JavaScript Grid"
+            title="Data Grid: AG Grid: High-Performance React Grid, Angular Grid, JavaScript Grid"
             class="partners__logo"
           >
             <LandingIconsIconAgGrid />
           </a>
         </div>
+
+        <h2 class="partners__subtitle">
+          {{ $t('landing.partners.title') }}
+        </h2>
       </div>
     </div>
   </section>
@@ -65,25 +77,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/smart-grid";
+@import "@/assets";
 
 .partners {
+  $section-padding: 2.5rem 0 3.5rem;
+  $section-xs-padding: 1rem 0 2.5rem;
+
   width: 100%;
   position: relative;
-  padding: 3rem 0;
-  border-top: 1px solid var(--va-background-border);
-  border-bottom: 1px solid var(--va-background-border);
-  backdrop-filter: blur(2px);
+  padding: $section-padding;
+  color: var(--va-text-inverted);
+  background-color: var(--bg-partners);
 
-  &::after {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--va-background-landing);
-    opacity: 0.8;
-  }
+  @include xs(padding, $section-xs-padding);
 
   &__wrapper {
     @include wrapper();
@@ -93,35 +99,35 @@ export default {
     @include row-flex();
 
     align-items: center;
+    flex-direction: column;
   }
 
-  &__title {
+  &__subtitle {
+    @include col();
+    @include size(12);
+    @include text-font();
+
+    margin-top: 1.75rem;
     text-align: center;
-    width: 100%;
-    font-size: 1.4rem;
   }
 
   &__logos {
+    @include col();
     @include size(12);
+    @include row-flex();
 
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    display: flex;
     justify-content: center;
+    align-items: flex-end;
     flex-wrap: wrap;
   }
 
   &__logo {
-    margin-top: 1.3rem;
-    word-wrap: break-word;
-    margin-left: 15px;
-    margin-right: 15px;
+    margin: 1.3rem 1rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    color: unset;
+    color: inherit;
 
     &:active,
     &:visited,
@@ -129,11 +135,20 @@ export default {
       color: unset;
     }
 
-    &-text {
+    &.logo__vue-js {
       position: relative;
-      bottom: -2px;
-      font-size: 12px;
-      color: var(--va-secondary);
+      bottom: -6px;
+    }
+
+    &.logo__vue-jobs {
+      position: relative;
+
+      .logo__vue-jobs-text {
+        position: absolute;
+        bottom: -10px;
+        font-size: 8px;
+        color: inherit;
+      }
     }
   }
 }

@@ -8,7 +8,7 @@
 $gap: 1rem;
 
 .docs-team {
-  margin: 0 -$gap;
+  margin: 0 (-$gap);
 }
 
 .team-banner .epicmax__banner-content {

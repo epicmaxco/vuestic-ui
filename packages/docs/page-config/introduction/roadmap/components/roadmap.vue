@@ -110,7 +110,7 @@ const columns = computed(() =>
 $gap: 1rem;
 
 .docs-roadmap {
-  margin: 0 -$gap;
+  margin: 0 (-$gap);
 
   &__columns {
     margin: calc($gap / 2);

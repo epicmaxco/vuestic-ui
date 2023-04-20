@@ -1,9 +1,17 @@
 {
   "landing": {
+    "socials": {
+      "github": "go to the vuestic ui github page",
+      "discord": "go to the vuestic ui discord channel",
+      "facebook": "go to the vuestic ui facebook page",
+      "twitter": "go to the vuestic ui twitter page"
+    },
     "header": {
       "buttons": {
         "overview": "Overview",
         "docs": "Docs",
+        "contribute": "Contribute",
+        "contactUs": "Contact Us",
         "github": "GitHub",
         "discord": "Discord",
         "translation": "Add translation...",
@@ -14,33 +22,39 @@
       "banner": {
         "partner": "Official Partner of",
         "and": "and",
-        "hire": "\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hire us"
+        "hire": "\uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hire us",
+        "close": "close banner"
       }
     },
     "preview": {
       "title": "Vue 3 UI Framework",
       "buttons": {
-        "start": "Get started",
+        "start": "Get Started",
         "github": "View on GitHub",
         "askForStars": "Star on Github will help people to discover Vuestic"
       },
-      "features": {
-        "components": {
-          "title": "60 Responsive Components",
-          "text": "Available components docs"
-        },
-        "accessibility": {
-          "title": "Accessibility",
-          "text": "Accessibility guides"
-        },
-        "browsers": {
-          "title": "Modern Browsers Support",
-          "text": "Supported browsers list"
-        }
-      }
+      "image": "Component examples"
     },
     "partners": {
-      "title": "Partners & Sponsors ❤️"
+      "title": "Our beloved Partners & Sponsors that support us ❤️"
+    },
+    "features": {
+      "title": "Features",
+      "description": [
+        "Vuestic UI is an OpenSource Vue 3 based UI framework. It is a MIT-licensed UI framework that provides ready-to-use frontend components that are easily configurable and speed up development of responsive and fast-loading web interfaces. It was initially released in May 2021 by",
+        "and that is what Vuestic UI today."
+      ],
+      "items": [
+        "Vue 3 compatible: Seamless Vue.js integration\u00A0\uD83E\uDD18",
+        "Accessible: designed for all users\u00A0❗",
+        "Responsive: Adapts to various screens and devices",
+        "Global config: Customize components effortlessly",
+        "Dark Theme: Stylish built-in dark mode\u00A0\uD83D\uDDA4",
+        "i18n integration: Simplifies app localization",
+        "Customizable: Adapt components to your design\u00A0\uD83D\uDC85",
+        "Professional support: Fast and reliable assistance from",
+        "the core team"
+      ]
     },
     "seamless": {
       "title": "Seamless Integration",
@@ -53,13 +67,7 @@
     "customize": {
       "title": "Customize Everything",
       "text": "Make Vuestic UI components match your designs with powerful dynamic configs.",
-      "tabs": [
-        "Form elements",
-        "Table",
-        "Misc"
-      ],
-      "copy": "Copied to clipboard",
-      "configuration": "See our configuration guides"
+      "image": "Vuestic UI components"
     },
     "opensource": {
       "title": "Open Source",
@@ -93,7 +101,34 @@
         "admin": "Vuestic Admin",
         "spinners": "Epic Spinners"
       },
+      "sitemap": {
+        "resources": [
+          "Resources",
+          "Getting Started",
+          "Roadmap",
+          "Accessibility"
+        ],
+        "support": [
+          "Support",
+          "Give us a star\u00A0\u2B50",
+          "Report an issue",
+          "Contribute"
+        ],
+        "community": [
+          "Community",
+          "GitHub",
+          "Discord",
+          "Twitter"
+        ],
+        "about": [
+          "About",
+          "Meet the Team",
+          "Contact us",
+          "Become a Partner"
+        ]
+      },
       "contactUs": "Contact us",
+      "epicmaxLink": "Visit Epicmax web-site",
       "newsBannerText": " \uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hi there, we're celebrating our launch on Product Hunt this week! \uD83D\uDE80 We'd love to get your feedback and support! \uD83D\uDE4F",
       "newsBannerLink": "Visit the launch page",
       "bannerText": ["expert", "s", "available in", "to build and launch your product"]
@@ -3987,14 +4022,16 @@
     "title": "What is Vuestic UI",
     "description": "Vuestic UI is an OpenSource Vue 3 based UI framework. It is a MIT-licensed UI framework that provides ready-to-use frontend components that are easily configurable and speed up development of responsive and fast-loading web interfaces. It was initially released in May 2021 by [Epicmax](https://epicmax.co/)[[target=_blank]] and that is what Vuestic UI today:\n\n",
     "featuresOverview": "Features overview",
-    "vueThreeCompatible": "Fully Vue 3 compatible \uD83E\uDD18",
-    "featureRich": "Contains 60+ ready-to-use classy UI components that can be used in any design solution \uD83D\uDC85",
-    "darkTheme": "Dark Theme ready to make your app look sexy \uD83D\uDDA4",
-    "accessibility": "Accessible - because it’s important❗",
-    "configurable": "Allows to configure components globally via config and CSS variables",
-    "responsive": "Fully responsive and supports modern browsers (no IE11, sorry)",
-    "translatable": "Integrates seamlessly with i18n",
-    "support": "Fast & professional technical support from [the core team](https://vuestic.dev/en/introduction/team)[[target=_blank]] \uD83E\uDEC2"
+    "features": [
+      "Vue 3 compatible: Easy integration with the latest Vue.js\u00A0\uD83E\uDD18",
+      "Contains 60+ ready-to-use classy UI components that can be used in any design solution\u00A0\uD83D\uDC85",
+      "Dark Theme: Stylish built-in dark mode\u00A0\uD83D\uDDA4",
+      "Accessible: designed for all users\u00A0❗",
+      "Global config: Customize components effortlessly",
+      "Responsive: Adapts to various screens and devices",
+      "i18n integration: Simplify app internationalization",
+      "Fast & professional technical support from [the core team](/introduction/team)\u00A0\uD83E\uDEC2"
+    ]
   },
   "team": {
     "title": "Meet the Team",

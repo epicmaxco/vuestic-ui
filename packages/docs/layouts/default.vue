@@ -23,11 +23,17 @@
 </template>
 
 <script setup lang="ts">
+import { useColors } from 'vuestic-ui'
 import { useDocsScroll } from '../composables/useDocsScroll';
 
+const colorMode = useColorMode()
+const cookie = useCookie('vuestic-theme')
+const { applyPreset } = useColors()
 const breakpoints = useBreakpoint()
 
 const isSidebarVisible = ref(!breakpoints.smDown)
+
+applyPreset(cookie.value || colorMode.preference)
 
 watch(() => breakpoints.smDown, (newValue, oldValue) => {
   if (newValue && !oldValue) {
@@ -47,19 +53,18 @@ afterEach(() => {
     isSidebarVisible.value = false
   }
 })
+
 onMounted(scrollToElement)
 
 useHead({
-  meta: {
-    link: [
-      { href: 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css', rel: 'stylesheet' },
-      { href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', rel: 'stylesheet' },
-    ],
-    script: [
-      { src: 'https://kit.fontawesome.com/5460c87b2a.js', crossorigin: 'anonymous' },
-      { src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js', type: 'module' },
-    ],
-  } as any
+  link: [
+    { href: 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css', rel: 'stylesheet' },
+    { href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', rel: 'stylesheet' },
+  ],
+  script: [
+    { src: 'https://kit.fontawesome.com/5460c87b2a.js', crossorigin: 'anonymous' },
+    { src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js', type: 'module' },
+  ],
 })
 </script>
 

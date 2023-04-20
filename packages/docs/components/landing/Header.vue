@@ -1,6 +1,7 @@
 <template>
   <div>
     <HeaderBanner wrapped />
+
     <header class="header">
       <div class="header__wrapper">
         <div class="header__inner">
@@ -9,13 +10,15 @@
               href="/"
               aria-label="go to the main page"
             >
-              <layout-header-vuestic-logo
-                height="30"
-                width="150"
+              <LayoutHeaderVuesticLogo
+                height="32"
+                width="160"
                 aria-hidden="true"
+                color="textInverted"
               />
             </a>
           </div>
+
           <nav class="header__links">
             <!-- vuestic buttons -->
             <va-button
@@ -26,75 +29,70 @@
               {{ $t('landing.header.buttons.docs') }}
             </va-button>
             <va-button
-              href="https://discord.gg/u7fQdqQt8c"
+              :to="`/${locale}/contribution/guide`"
               class="header__links--link"
-              target="_blank"
               preset="landingHeader"
             >
-              {{ $t('landing.header.buttons.discord') }}
+              {{ $t('landing.header.buttons.contribute') }}
             </va-button>
             <va-button
-              :to="`/${locale}/introduction/team`"
+              href="mailto:hello@epicmax.co"
+              target="_blank"
               class="header__links--link"
               preset="landingHeader"
-              target="_blank"
             >
-              {{ $t('landing.header.buttons.team') }}
+              {{ $t('landing.header.buttons.contactUs') }}
             </va-button>
-            <va-button
-              href="https://epicmax.co/blog"
-              class="header__links--link"
-              preset="landingHeader"
-              target="_blank"
-            >
-              {{ $t('landing.header.buttons.blog') }}
-            </va-button>
-            <language-dropdown
-              class="header__links--link"
+            <LanguageDropdown
+              class="ml-8"
               preset="landingHeader"
             />
-            <!-- <LandingThemeSwitchButton class="ml-2" /> -->
-            <landing-stars-button
-              class="ml-2"
-              repo="epicmaxco/vuestic-ui"
+            <!-- vuestic socials -->
+            <SocialsLinks
+              class="header__links--link"
+              color="textInverted"
+              size="small"
             />
+            <div class="header__links--link">
+              <StarsButton
+                repo="epicmaxco/vuestic-ui"
+                size="small"
+              />
+            </div>
           </nav>
-          <!-- mobile -->
-          <div
-            v-if="isHidden"
-            class="menu"
-            @click="isHidden = false"
+
+          <!-- mobile menu -->
+          <va-button
+            v-if="!modelValue"
+            class="menu-button"
+            aria-label="Open menu"
+            preset="plain"
+            color="textInverted"
+            @click="$emit('update:modelValue', true)"
           >
-            <img
-              src="/landing/hamburger.svg"
-              alt="Open menu"
-              height="24"
-              width="24"
-            >
-          </div>
+            <va-icon class="fas fa-bars" />
+          </va-button>
+
+          <!-- mobile -->
           <nav
             class="mobile-menu"
-            :class="{'mobile-menu--open': !isHidden}"
+            :class="{ 'mobile-menu--open': modelValue }"
           >
-            <div
-              class="menu"
-              @click="isHidden = true"
-            >
-              <img
-                src="/landing/cross.svg"
-                alt="Close menu"
-                height="24"
-                width="24"
+            <HeaderBanner wrapped />
+
+            <div class="mobile-menu__menu-button-wrapper">
+              <va-button
+                v-if="modelValue"
+                class="menu-button mobile-menu__menu-button"
+                aria-label="Close menu"
+                preset="plain"
+                @click="$emit('update:modelValue', false)"
               >
+                <va-icon class="fas fa-times" />
+              </va-button>
             </div>
-            <va-list>
-              <va-list-item>
-                <va-list-item-section class="mobile-menu__link">
-                  <router-link :to="`/${locale}/introduction/overview`">
-                    {{ $t('landing.header.buttons.overview') }}
-                  </router-link>
-                </va-list-item-section>
-              </va-list-item>
+
+            <va-list class="mobile-menu__list">
               <va-list-item>
                 <va-list-item-section class="mobile-menu__link">
                   <router-link :to="`/${locale}/introduction/overview`">
@@ -104,24 +102,21 @@
               </va-list-item>
               <va-list-item>
                 <va-list-item-section class="mobile-menu__link">
-                  <a
-                    href="https://discord.gg/u7fQdqQt8c"
-                    target="_blank"
-                  >
-                    {{ $t('landing.header.buttons.discord') }}</a>
+                  <router-link :to="`/${locale}/contribution/guide`">
+                    {{ $t('landing.header.buttons.contribute') }}
+                  </router-link>
                 </va-list-item-section>
               </va-list-item>
               <va-list-item>
                 <va-list-item-section class="mobile-menu__link">
-                  <a
-                    href="https://epicmax.co/blog"
-                    target="_blank"
-                  >
-                    {{ $t('landing.header.buttons.blog') }}</a>
+                  <router-link :to="`/${locale}/introduction/team`">
+                    {{ $t('landing.header.buttons.contactUs') }}
+                  </router-link>
                 </va-list-item-section>
               </va-list-item>
+
               <va-list-label
-                color="#757B83"
+                color="secondary"
                 class="mobile-menu__label"
               >
                 {{ $t('landing.header.buttons.language') }}
@@ -140,18 +135,22 @@
                 </va-list-item>
                 <va-list-item>
                   <va-list-item-section class="mobile-menu__link">
-                    <router-link
-                      class="mobile-menu__language"
-                      :to="`/${locale}/contribution/translation`"
-                    >
-                      {{ t('landing.header.buttons.translation') }}
+                    <router-link :to="`/${locale}/contribution/translation`">
+                      {{ $t('landing.header.buttons.translation') }}
                     </router-link>
                   </va-list-item-section>
                 </va-list-item>
               </div>
 
-              <div class="stars-button-wrapper">
-                <landing-stars-button repo="epicmaxco/vuestic-ui" />
+              <SocialsLinks
+                class="mobile-menu__socials"
+                size="large"
+              />
+
+              <div class="mobile-menu__stars">
+                <StarsButton
+                  repo="epicmaxco/vuestic-ui"
+                />
               </div>
             </va-list>
           </nav>
@@ -162,48 +161,31 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-
 import { useSharedLanguageSwitcher } from '../../composables/useLanguageSwitcher'
 
 import LanguageDropdown from '../layout/LanguageDropdown.vue'
-import LandingStarsButton from './StarsButton.vue'
+import SocialsLinks from './SocialsLinks.vue'
+import StarsButton from './StarsButton.vue'
 
-const isHidden = ref(true)
-const { t, locale, locales, setLocale } = useSharedLanguageSwitcher()
+defineProps({
+  modelValue: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+defineEmits(['update:modelValue'])
+
+const { locale, locales, setLocale } = useSharedLanguageSwitcher()
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets";
 
 .header {
-  --header-nav-font-size: 1rem;
-  --va-button-font-size: 1.1rem;
-
-  z-index: 2000;
   width: 100%;
-  background: transparent;
-  box-shadow: 0 2px 8px var(--va-shadow);
-
-  &__banner {
-    display: flex;
-    min-height: 50px;
-    padding: 10px 20px;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    background-color: #ef6c05;
-    font-size: 1rem;
-    color: white;
-
-    &-btn {
-      padding: 10px;
-      border-radius: 5px;
-      background-color: #fdfdfd;
-      color: #e06301 !important;
-      margin-left: 15px;
-    }
-  }
+  background: var(--bg-preview-1);
+  z-index: var(--header-z-index);
 
   &__wrapper {
     @include wrapper();
@@ -214,7 +196,7 @@ const { t, locale, locales, setLocale } = useSharedLanguageSwitcher()
 
     position: relative;
     align-items: center;
-    height: 4.5rem;
+    height: var(--header-height);
   }
 
   &__logo {
@@ -226,100 +208,39 @@ const { t, locale, locales, setLocale } = useSharedLanguageSwitcher()
     justify-content: space-between;
   }
 
-  ::v-deep(.va-dropdown__content) {
-    background: #f6f8f9 !important;
-  }
-
   &__links {
     @include col();
     @include size(9);
+    @include sm(display, none);
 
     display: flex;
     justify-content: flex-end;
     align-items: center;
 
-    @include sm(display, none);
-
-    ::v-deep(.va-button--flat) {
-      background: transparent !important;
-    }
-
     &--link {
-      @include link-font();
-      @include sm(width, 100%);
-
-      border-radius: 0;
       white-space: nowrap;
-      margin-left: 1.25rem;
+      margin-left: 2rem;
 
       &:first-child {
         margin-left: 0;
       }
     }
-
-    &--dropdown {
-      @include sm(width, 100%);
-    }
   }
 }
 
-.menu {
-  position: absolute;
-  right: 1.5rem;
-  top: 1.5rem;
-  z-index: 1000;
-  height: 24px;
-  width: 24px;
-  display: none;
-  cursor: pointer;
-
+.menu-button {
   @include sm(display, block);
 
-  img {
-    display: block;
-  }
-}
-
-.language-dropdown {
-  cursor: pointer;
-  // TODO: fix dropdown
-  max-height: 36px; // temporary solution
-
-  @include sm(width, 100%);
-
-  &__content {
-    background-color: #f6f8f9;
-    border-radius: 0.5rem;
-    // min-width: 12rem;
-    padding: 0.5rem 0;
-  }
-
-  &__item {
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    flex-wrap: nowrap;
-    color: green;
-
-    &:hover,
-    &.active {
-      .dropdown-item__text {
-        color: #1b1a1f;
-      }
-    }
-  }
-
-  .dropdown-item__text {
-    color: #2550c0;
-    font-size: var(--header-nav-font-size);
-  }
-
-  .va-dropdown__anchor {
-    display: inline-block;
-  }
+  position: absolute;
+  display: none;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .mobile-menu {
   display: none;
+  overflow: auto;
 
   @include col();
   @include size-sm(12);
@@ -327,81 +248,80 @@ const { t, locale, locales, setLocale } = useSharedLanguageSwitcher()
   @include sm(width, 100%);
   @include sm(height, 100vh);
   @include sm(flex-direction, column);
-  @include sm(justify-content, center);
-  @include sm(background-color, #fff);
-  @include sm(padding, 1rem 0);
+  @include sm(justify-content, flex-start);
+  @include sm(background-color, var(--va-background-secondary));
   @include sm(position, fixed);
   @include sm(z-index, 10);
   @include sm(top, 0);
   @include sm(left, 0);
-  &__close-btn {
-
-  }
-
-  .va-list-item {
-    margin-bottom: 0.5rem;
-  }
 
   &--open {
     @include sm(display, flex);
   }
 
-  &__languages {
-    overflow: auto;
-    height: 35vh;
+  &__menu-button-wrapper {
+    position: relative;
+    height: var(--header-height);
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  &__menu-button {
+    right: 1.5rem;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    padding: 0 2rem 2rem;
   }
 
   &__language {
+    cursor: pointer;
+
     &.active {
       .language {
-        color: #1b1a1f;
+        color: var(--va-text-primary);
       }
     }
   }
 
   &__label {
-    font-size: 10px;
-    padding-top: 4.5rem;
-    padding-bottom: 0.5rem;
+    font-size: 0.625rem;
+    margin-top: 4.5rem;
+    margin-bottom: 1rem;
   }
 
   &__link {
-    @include link-font();
     @include sm(font-size, 1.2rem);
     @include xs(font-size, 1.2rem);
 
+    font-weight: 600;
     text-align: center;
 
     span,
     a {
-      color: #2550c0;
+      color: var(--va-primary);
       padding: 0.5rem 0;
       display: flex;
       align-items: center;
       justify-content: center;
 
       &:hover {
-        color: #1b1a1f;
+        color: var(--va-text-primary);
       }
     }
   }
-}
 
-.stars-button-wrapper {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 1rem;
-  padding-top: 0.5rem;
-}
+  &__socials {
+    margin-top: 4.5rem;
+  }
 
-.stars-button {
-  @include code-font();
-
-  min-height: 1.8rem;
-  padding: 0 !important;
-
-  &--desktop {
-    margin-left: 0.5rem;
+  &__stars {
+    margin-top: 4.5rem;
+    text-align: center;
   }
 }
 </style>
