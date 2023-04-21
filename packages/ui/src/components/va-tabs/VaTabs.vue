@@ -76,6 +76,7 @@ import {
   shallowRef,
   StyleValue,
   WritableComputedRef,
+  onMounted,
 } from 'vue'
 
 import {
@@ -205,17 +206,38 @@ export default defineComponent({
 
     const moveToTab = (tab: TabComponent) => {
       const containerClientWidth = getClientWidth(container.value)
-      const tabsClientWidth = getClientWidth(tabs.value)
       const leftSidePosition = unref(tab.leftSidePosition)
       const rightSidePosition = unref(tab.rightSidePosition)
 
-      if (showPagination.value && leftSidePosition + containerClientWidth <= tabsClientWidth) {
-        tabsContentOffset.value = leftSidePosition
-      } else if (showPagination.value && rightSidePosition >= containerClientWidth) {
-        tabsContentOffset.value = rightSidePosition - containerClientWidth
-      } else {
+      // tabsContainer must be at the beginning of container
+      if (!showPagination.value) {
         tabsContentOffset.value = 0
+        return
       }
+
+      // tab is completely placed in the container - no need to move tabsContainer
+      if (
+        (leftSidePosition - tabsContentOffset.value >= 0) &&
+        (rightSidePosition - tabsContentOffset.value <= containerClientWidth)
+      ) {
+        return
+      }
+
+      // tab does not fit at the beginning of the container -
+      // move tabsContainer so that the beginning of the tab is at the beginning of the container
+      if (leftSidePosition - tabsContentOffset.value < 0) {
+        tabsContentOffset.value = leftSidePosition
+        return
+      }
+
+      // tab does not fit at the end of the container -
+      // move tabsContainer so that the end of the tab is at the end of the container
+      if (rightSidePosition - tabsContentOffset.value > containerClientWidth) {
+        tabsContentOffset.value = rightSidePosition - containerClientWidth
+        return
+      }
+
+      tabsContentOffset.value = 0
     }
 
     const updateStartingXPoint = () => {
@@ -251,13 +273,6 @@ export default defineComponent({
         }
       })
 
-      const containerClientWidth = getClientWidth(container.value)
-      const tabsClientWidth = getClientWidth(tabs.value)
-
-      if (tabsContentOffset.value + containerClientWidth > tabsClientWidth && tabsList.value.length) {
-        moveToTab(tabsList.value[0])
-      }
-
       updateStartingXPoint()
     }
 
@@ -265,7 +280,10 @@ export default defineComponent({
       const tabsClientWidth = getClientWidth(tabs.value)
       const wrapperClientWidth = getClientWidth(wrapper.value)
 
-      showPagination.value = !!(tabs.value && wrapper.value && tabsClientWidth > wrapperClientWidth)
+      // we use requestAnimationFrame to prevent error "ResizeObserver loop limit exceeded"
+      requestAnimationFrame(() => {
+        showPagination.value = !!(tabs.value && wrapper.value && tabsClientWidth > wrapperClientWidth)
+      })
     }
 
     const movePaginationLeft = () => {
@@ -347,22 +365,6 @@ export default defineComponent({
       }
     }
 
-    const redrawTabs = () => {
-      const oldShowPaginationValue = showPagination.value
-
-      updatePagination()
-
-      if (oldShowPaginationValue === showPagination.value) {
-        updateTabsState()
-        includeAnimation()
-      } else {
-        requestAnimationFrame(() => {
-          updateTabsState()
-          includeAnimation()
-        })
-      }
-    }
-
     const selectTab = (tab: TabComponent) => {
       if (!tab) { return }
 
@@ -395,10 +397,16 @@ export default defineComponent({
       unregisterTab,
     })
 
-    // Lifecycle hooks
     watch(() => props.modelValue, updateTabsState)
 
-    useResizeObserver([wrapper, tabs], redrawTabs)
+    useResizeObserver([wrapper], updatePagination)
+    useResizeObserver([container], updateTabsState)
+
+    onMounted(() => {
+      requestAnimationFrame(() => {
+        includeAnimation()
+      })
+    })
 
     return {
       ...useTranslation(),
@@ -432,7 +440,6 @@ export default defineComponent({
       movePaginationRight,
       updateSlider,
       includeAnimation,
-      redrawTabs,
       selectTab,
     }
   },
