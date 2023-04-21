@@ -155,6 +155,8 @@
         "name": "Applies `name` to internal input component. Useful for native forms.",
         "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
         "size": "Specify size for component. `\"small\"`, `\"medium\"`, `\"large\"` sizes are available. If you want more control, you can provide number (will be used as `px`) or string value (`rem` and `px` sizes are supported).",
+        "sizesConfig": "Provide a set of sizes as a global component specific setting.",
+        "fontSizesConfig": "Provide a set of sizes for fonts as a global component specific setting.",
         "disabled": "Applies `disabled` style and removes all user interaction effects.",
         "readonly": "Doesn't look disabled, but acts like one. Mostly useful for wrapper components.",
         "success": "Show component in success state.",
