@@ -24,7 +24,7 @@
         <div class="customize__image">
           <va-aspect-ratio :ratio="1337/192">
             <img
-              src="/landing/customize-everything.svg"
+              src="/landing/customize-everything.png"
               :alt="$t('landing.customize.image')"
             >
           </va-aspect-ratio>
