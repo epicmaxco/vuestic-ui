@@ -4945,8 +4945,8 @@
         "text": "You can place dropdown any direction you want. Offset is calculated relative to `placement` prop. We use `main` and `cross` offset. Means `main` will be relative to `placement` direction while `cross` is perpendicular. `auto` placement will be `bottom` by default, but will change to `top` if it is not possible to display on bottom."
       },
       "trigger": {
-        "title": "Trigger",
-        "text": "You can use `click`, `hover` or `none` trigger which will open dropdown. If you want dropdown to be opened only programmatically use `none` trigger"
+        "title": "Триггер",
+        "text": "Триггерами (свойство `trigger`) для раскрытия компонента могут служить события `click`, `dblclick`, `right-click` или `hover`. Если вы не хотите, чтобы компонент раскрывался через пользовательское взаимодействие, используйте значение `none`."
       },
       "cursor": {
         "title": "Place on cursor",

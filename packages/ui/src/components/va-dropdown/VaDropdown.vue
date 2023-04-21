@@ -78,7 +78,7 @@ export default defineComponent({
     ariaLabel: { type: String, default: '$t:toggleDropdown' },
   },
 
-  emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'close', 'open'],
+  emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'anchor-dblclick', 'content-click', 'click-outside', 'close', 'open'],
 
   setup (props, { emit, slots, attrs }) {
     const contentRef = shallowRef<HTMLElement>()

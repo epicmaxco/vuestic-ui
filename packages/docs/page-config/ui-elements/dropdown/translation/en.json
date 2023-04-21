@@ -12,7 +12,7 @@
     },
     "trigger": {
       "title": "Trigger",
-      "text": "You can use `click`, `hover` or `none` trigger which will open dropdown. If you want dropdown to be opened only programmatically use `none` trigger"
+      "text": "You can use `click`, `hover`, `dblclick` or `right-click` trigger to open dropdown. If you want dropdown to be opened only programmatically, use `none` trigger."
     },
     "cursor": {
       "title": "Place on cursor",

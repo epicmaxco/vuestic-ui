@@ -490,6 +490,54 @@
         </va-dropdown>
       </div>
     </VbCard>
+
+    <VbCard title="Trigger">
+      <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
+        <va-dropdown>
+          <template #anchor>
+            Default
+          </template>
+
+          Dropdown text
+        </va-dropdown>
+        <va-dropdown trigger="right-click">
+          <template #anchor>
+            Right click
+          </template>
+
+          Dropdown text
+        </va-dropdown>
+        <va-dropdown trigger="dblclick">
+          <template #anchor>
+            Double click
+          </template>
+
+          Dropdown text
+        </va-dropdown>
+        <va-dropdown trigger="hover">
+          <template #anchor>
+            Hover
+          </template>
+
+          Dropdown text
+        </va-dropdown>
+        <va-dropdown
+          v-model="isTriggerDropdownShown"
+          trigger="none"
+          class="mr-2"
+          :close-on-click-outside="false"
+        >
+          <template #anchor>
+            None
+          </template>
+
+          Dropdown text
+        </va-dropdown>
+        <va-button @click="isTriggerDropdownShown = !isTriggerDropdownShown">
+          {{ isTriggerDropdownShown ? "hide" : "show" }} dropdown
+        </va-button>
+      </div>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -523,6 +571,7 @@ export default {
       redrawContentSize: 100,
       anchorDefaultValue: true,
       keepAnchorWidth: true,
+      isTriggerDropdownShown: false,
     }
   },
 
