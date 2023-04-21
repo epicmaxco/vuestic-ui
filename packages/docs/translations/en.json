@@ -219,7 +219,8 @@
         "fallbackIcon": "Shows an icon if image failed to load or src doesn't specified.",
         "fallbackRender": "Allows to use render function to render custom contents if image failed to load or src doesn't specified",
         "delay": "Sets throttling delay (ms) for the components any data change (useful for huge data).",
-        "ratio": "Aspect ratio of the component's wrapper."
+        "ratio": "Aspect ratio of the component's wrapper.",
+        "groupBy": "When `options` prop is an object, this key will be used to group up options. Can be string (path to the key) or function of type: `(option) => option.group`"
       }
     },
     "VaBadge": {
@@ -891,7 +892,7 @@
         "valueBy": "When `options` prop is an object, this key will be used as `modelValue`. Can be string (path to the key) or function of type: `(option) => option.value`",
         "trackBy": "When `options` prop is an object, this key will be used to track selected `options`. Can be string (path to the key) or function of type: `(option) => option.track`",
         "textBy": "When `options` prop is an object, this key will be used as displayed text. Can be string (path to the key) or function of type: `(option) => option.text`",
-        "groupBy": "When `options` prop is an object, this key will be used to group up options. Can be string (path to the key) or function of type: `(option) => option.group`",
+        // "groupBy": "When `options` prop is an object, this key will be used to group up options. Can be string (path to the key) or function of type: `(option) => option.group`",
         "placeholder": "Sets the placeholder text to input",
         "placement": "Sets option list placement. [More about placements](/ui-elements/dropdown#placement-and-offset)",
         "tagMax": "Sets maximum tag count after whom selection will be cropped",
