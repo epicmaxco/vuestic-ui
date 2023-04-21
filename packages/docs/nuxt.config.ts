@@ -140,11 +140,14 @@ export default defineNuxtConfig({
 
     strategy: 'prefix_and_default',
 
-    detectBrowserLanguage: {
-      redirectOn: 'root',
-      useCookie: true,
-      cookieKey: 'i18n_locale',
-    },
+    // TODO Browser detection was working extremely poorly and caused multiple redirects.
+    //  Let's enable it after thorough testing.
+    detectBrowserLanguage: false,
+    // detectBrowserLanguage: {
+    //   redirectOn: 'root',
+    //   useCookie: true,
+    //   cookieKey: 'i18n_locale',
+    // },
 
     lazy: true,
 
