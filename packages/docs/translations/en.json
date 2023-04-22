@@ -1425,7 +1425,12 @@
         "fadeKeyframe": "Custom keyframe name for fade animation",
         "swipable": "Enables swiping behavior.",
         "swipeDirection": "Allowed directions for swiping: `all, horizontal, vertical, left, right, up, down`.",
-        "swipeDistance": "Distance in `px` considered sufficient for the swipe event."
+        "swipeDistance": "Distance in `px` considered sufficient for the swipe event.",
+        "ariaLabel": "The aria-label of carousel.",
+        "ariaGoToSlideLabel": "The aria-label of go to slide button.",
+        "ariaNextLabel": "The aria-label of next button.",
+        "ariaPreviousLabel": "The aria-label of previous button.",
+        "ariaSlideOfLabel": "The aria-label of the slide."
       },
       "events": {},
       "methods": {},
