@@ -1,3 +1,5 @@
+// Notice, can not be moved to translations dir.
+
 export type TranslationStatusPath = { [key in 'full' | 'part']: string }
 
 export const languages = [
