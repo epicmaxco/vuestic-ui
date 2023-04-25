@@ -147,6 +147,7 @@ export default defineNuxtConfig({
     //   cookieKey: 'i18n_locale',
     // },
 
+
     // lazy: true,
 
     langDir: 'translations/',
