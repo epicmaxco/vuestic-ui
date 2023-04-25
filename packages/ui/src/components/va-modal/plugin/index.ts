@@ -11,7 +11,7 @@ const createVaModalPlugin = (app: App) => ({
   confirm (options: string | ModalOptions) {
     if (typeof options === 'string') {
       return new Promise<boolean>((resolve) => {
-        createModalInstance({
+        modalInstance = createModalInstance({
           message: options as string,
           onOk () {
             resolve(true)
@@ -24,7 +24,7 @@ const createVaModalPlugin = (app: App) => ({
     }
 
     return new Promise<boolean>((resolve) => {
-      createModalInstance({
+      modalInstance = createModalInstance({
         ...options,
         onOk () {
           options?.onOk?.()
@@ -37,8 +37,13 @@ const createVaModalPlugin = (app: App) => ({
       }, app?._context)
     })
   },
-  close () {
+  close (ok: boolean) {
     modalInstance.props!.onClose()
+    if (ok === true) {
+      modalInstance.props!.onOk()
+    } else if (ok === false) {
+      modalInstance.props!.onCancel()
+    }
   },
 })
 

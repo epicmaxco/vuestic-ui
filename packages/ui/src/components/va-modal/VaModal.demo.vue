@@ -369,6 +369,16 @@
         Show modal and close after 3 sec
       </button>
     </VbCard>
+    <VbCard title="programmaticallyClose">
+      <button @click="programmaticallyClose('confirm', true)">
+        Show confirm and close after 3 sec using button "ok"
+      </button>
+    </VbCard>
+    <VbCard title="programmaticallyClose">
+      <button @click="programmaticallyClose('confirm', false)">
+        Show confirm and close after 3 sec using button "cancel"
+      </button>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -454,11 +464,17 @@ export default {
       }
     },
 
-    programmaticallyClose () {
+    async programmaticallyClose (typeModal, typeOk) {
       const modal = this.$vaModal
-      modal.init('Wait a 3 seconds')
+      if (typeModal === 'confirm') {
+        modal.confirm('Wait a 3 seconds for close').then((ok) => {
+          ok ? alert('ok') : alert('cancel')
+        })
+      } else {
+        modal.init('Wait a 3 seconds for close')
+      }
       setTimeout(() => {
-        modal.close()
+        modal.close(typeOk)
       }, 3000)
     },
   },

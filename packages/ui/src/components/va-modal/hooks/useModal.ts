@@ -25,7 +25,7 @@ export const useModal = () => {
   const confirm = (options: string | ModalOptions) => {
     if (typeof options === 'string') {
       return new Promise<boolean>((resolve, reject) => {
-        createModalInstance({
+        modalInstance = createModalInstance({
           message: options as string,
           onOk () {
             resolve(true)
@@ -38,7 +38,7 @@ export const useModal = () => {
     }
 
     return new Promise<boolean>((resolve, reject) => {
-      createModalInstance({
+      modalInstance = createModalInstance({
         ...options,
         onOk () {
           options?.onOk?.()
@@ -52,8 +52,16 @@ export const useModal = () => {
     })
   }
 
-  const close = () => {
+  /**
+   * @param type can be true or false
+   */
+  const close = (ok: boolean) => {
     modalInstance.props!.onClose()
+    if (ok === true) {
+      modalInstance.props!.onOk()
+    } else if (ok === false) {
+      modalInstance.props!.onCancel()
+    }
   }
 
   return { init, confirm, close }
