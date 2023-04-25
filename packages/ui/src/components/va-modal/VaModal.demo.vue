@@ -364,6 +364,11 @@
 
       <va-modal v-model="showBeforeHideModal" :message="message" :beforeClose="beforeClose" />
     </VbCard>
+    <VbCard title="programmaticallyClose">
+      <button @click="programmaticallyClose">
+        Show modal and close after 3 sec
+      </button>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -447,6 +452,14 @@ export default {
       if (window.confirm('Are you sure?')) {
         hide()
       }
+    },
+
+    programmaticallyClose () {
+      const modal = this.$vaModal
+      modal.init('Wait a 3 seconds')
+      setTimeout(() => {
+        modal.close()
+      }, 3000)
     },
   },
 }

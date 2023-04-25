@@ -3,9 +3,10 @@ import { defineVuesticPlugin, defineGlobalProperty } from '../../../services/vue
 import { createModalInstance } from '../modal'
 import { ModalOptions } from '../types'
 
+let modalInstance: any
 const createVaModalPlugin = (app: App) => ({
   init (options: string | ModalOptions) {
-    return createModalInstance(options, app?._context)
+    modalInstance = createModalInstance(options, app?._context)
   },
   confirm (options: string | ModalOptions) {
     if (typeof options === 'string') {
@@ -35,6 +36,9 @@ const createVaModalPlugin = (app: App) => ({
         },
       }, app?._context)
     })
+  },
+  close () {
+    modalInstance.props!.onClose()
   },
 })
 

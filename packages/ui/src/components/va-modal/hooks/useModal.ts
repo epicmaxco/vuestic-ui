@@ -13,8 +13,9 @@ export const useModal = () => {
   /**
    * @param options can be message string or options object
    */
+  let modalInstance: any
   const init = (options: string | ModalOptions) => {
-    return createModalInstance(options, appContext)
+    modalInstance = createModalInstance(options, appContext)
   }
 
   /**
@@ -51,5 +52,9 @@ export const useModal = () => {
     })
   }
 
-  return { init, confirm }
+  const close = () => {
+    modalInstance.props!.onClose()
+  }
+
+  return { init, confirm, close }
 }
