@@ -22,7 +22,7 @@ declare type ExtractDefineComponentPropsType<T> = true extends boolean ? {
 export type ExtractComponentProps<T extends DefineComponentOptions> = true extends boolean ? ExtractDefineComponentPropsType<T> : never
 export type ExtractComponentEmits<T> = T extends ComponentOptionsBase<any, any, any, any, any, any, any, infer E> ? E: []
 
-type UnPropType<T> = T extends PropType<infer P> ? P : never
-export type ExtractComponentPropTypes<T extends DefineComponentOptions> = {
-  [K in keyof ExtractComponentProps<T>]: UnPropType<ExtractComponentProps<T>[K]['type']>
-}
+export type ExtractComponentPropTypes<T> =
+  T extends (props: infer P, ...args: any) => any ? P :
+  T extends new () => { $props: infer P } ? NonNullable<P> :
+  {}
