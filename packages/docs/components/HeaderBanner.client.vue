@@ -11,7 +11,7 @@
         <div class="header-banner__left">
           <strong>{{ $t("landing.header.banner.partner") }}</strong>
           <div class="header-banner__left-links">
-            <a
+            <!-- <a
               href="https://vuejs.org/partners/epicmax.html"
               title="Epicmax creates high performance Vue.js interfaces"
               target="_blank"
@@ -31,9 +31,9 @@
                 d="M161.101 0l-30.224 52.35L100.652 0H52.351l78.526 136.01L209.403 0z"
               /></svg>
               <strong>Vue.js</strong>
-            </a>
+            </a> -->
 
-            <strong>{{ $t("landing.header.banner.and") }}</strong>
+            <!-- <strong>{{ $t("landing.header.banner.and") }}</strong> -->
 
             <a
               href="https://nuxtjs.org/partners/epicmax"
