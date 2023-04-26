@@ -31,7 +31,7 @@ const cookie = useCookie('vuestic-theme')
 const { applyPreset } = useColors()
 const breakpoints = useBreakpoint()
 
-const isSidebarVisible = ref(!breakpoints.smDown)
+const isSidebarVisible = ref(false)
 
 applyPreset(cookie.value || colorMode.preference)
 
@@ -42,7 +42,7 @@ watch(() => breakpoints.smDown, (newValue, oldValue) => {
   if (!newValue && oldValue) {
     isSidebarVisible.value = true
   }
-})
+}, { immediate: true })
 
 const { afterEach } = useRouter()
 const { scrollToElement } = useDocsScroll()
