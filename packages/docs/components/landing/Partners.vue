@@ -3,14 +3,14 @@
     <div class="partners__wrapper">
       <div class="partners__inner">
         <div class="partners__logos">
-          <a
+          <!-- <a
             href="https://vuejs.org/partners/epicmax"
             target="_blank"
             title="Vue.js - The Progressive JavaScript Framework"
             class="partners__logo logo__vue-js"
           >
             <LandingIconsIconVuejs />
-          </a>
+          </a> -->
 
           <a
             href="https://nuxt.com/support/agencies/epicmax"
