@@ -12,7 +12,7 @@
         v-for="(route, key) in navigationRoutes"
         :key="key"
       >
-        <template #header="{ value, hasKeyboardFocus }">
+        <template #header="{ value: isCollapsed, hasKeyboardFocus }">
           <va-sidebar-item
             class="sidebar__collapse-custom-header"
             :class="{
@@ -21,7 +21,7 @@
             }"
           >
             {{ t(route.displayName) }}
-            <va-icon :name="value ? 'va-arrow-up' : 'va-arrow-down'" />
+            <va-icon :name="isCollapsed ? 'va-arrow-up' : 'va-arrow-down'" />
           </va-sidebar-item>
         </template>
         <div
@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, ref, computed, PropType } from 'vue'
+import { defineComponent, watch, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
@@ -106,6 +106,7 @@ export default defineComponent({
     visible: { type: Boolean, default: false },
     mobile: { type: Boolean, default: false },
   },
+  emits: ['update:visible'],
   setup: (props, { emit }) => {
     const i18n = useI18n()
     const route = useRoute()
@@ -147,7 +148,6 @@ export default defineComponent({
     return {
       ...i18n,
       navigationRoutes: getSortedNavigationRoutes(navigationRoutes),
-      route,
       getColor,
       writableVisible,
       sidebarWidth,

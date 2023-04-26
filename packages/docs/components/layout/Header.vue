@@ -9,7 +9,7 @@
         <header-selector
           class="mr-3"
           :minimized="isSidebarVisible"
-          @toggleSidebar="toggleSidebar"
+          @toggle-sidebar="toggleSidebar"
         />
         <NuxtLink
           v-slot="{ navigate, href }"
