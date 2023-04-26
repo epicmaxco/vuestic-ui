@@ -10,6 +10,7 @@
       <div class="header__wrapper">
         <div class="header-banner__left">
           <strong>{{ $t("landing.header.banner.partner") }}</strong>
+
           <div class="header-banner__left-links">
             <!-- <a
               href="https://vuejs.org/partners/epicmax.html"
@@ -45,7 +46,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
-                viewBox="0 0 400 303"
+                viewBox="0 0 400 420"
                 aria-hidden="true"
               >
                 <g
@@ -204,6 +205,10 @@ const hide = () => {
   &__link {
     display: flex;
     align-items: center;
+
+    strong {
+      margin-left: 0.25em;
+    }
   }
 }
 </style>
