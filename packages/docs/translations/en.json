@@ -1432,7 +1432,12 @@
         "ariaNextLabel": "The aria-label of next button.",
         "ariaPreviousLabel": "The aria-label of previous button.",
         "ariaSlideOfLabel": "The aria-label of the slide.",
-        "contain": "The image is scaled to maintain its aspect ratio while fitting within the carousel's content box."
+        "contain": "The image is scaled to maintain its aspect ratio while fitting within the carousel's content box.",
+        "crossorigin":"Proxies the `crossorigin` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-crossorigin)[[target=_blank]].",
+        "decoding": "Proxies the `decoding` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-decoding)[[target=_blank]].",
+        "draggable": "Proxies the `draggable` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
+        "fetchpriority": "Proxies the `fetchpriority` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-fetchpriority)[[target=_blank]].",
+        "fit": "Proxies the `object-fit` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/CSS/object-fit)[[target=_blank]]."
       },
       "events": {},
       "methods": {},
