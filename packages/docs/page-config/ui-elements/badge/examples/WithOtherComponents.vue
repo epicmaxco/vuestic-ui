@@ -4,6 +4,7 @@
       placement="top-left"
       text="New"
       overlap
+      :offset="['2rem', '1rem']"
       class="mr-6"
     >
       <va-card>
@@ -15,9 +16,11 @@
 
     <va-badge
       placement="bottom-center"
+      :offset="[0, -5]"
       overlap
       dot
       class="mr-8"
+      style="--va-badge-text-wrapper-border: 2px solid white;"
     >
       <va-icon name="&#xe0e1;" />
     </va-badge>
