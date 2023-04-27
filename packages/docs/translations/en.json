@@ -1441,7 +1441,8 @@
         "fit": "Proxies the `object-fit` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/CSS/object-fit)[[target=_blank]].",
         "lazy": "Enables lazy load for the image of the component.",
         "maxWidth": "Maximal the width of the image of the component",
-        "placeholderSrc": "`src` value for the placeholder image of the component."
+        "placeholderSrc": "`src` value for the placeholder image of the component.",
+        "referrerpolicy": "Proxies the `referrerpolicy` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-referrerpolicy)[[target=_blank]]."
       },
       "events": {},
       "methods": {},
