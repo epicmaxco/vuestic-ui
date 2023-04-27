@@ -591,7 +591,8 @@
         "lazy": "Enables lazy load for the image.",
         "draggable": "Proxies the `draggable` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
         "placeholderSrc": "`src` value for the placeholder image (can be replaced with `placeholder` slot).",
-        "contain": "The image is scaled to maintain its aspect ratio while fitting within the element's content box."
+        "contain": "The image is scaled to maintain its aspect ratio while fitting within the element's content box.",
+        "maxWidth": "Maximal image's width"
       },
       "events": {
         "loaded": "Emitted when image loading is finished.",
@@ -1438,7 +1439,8 @@
         "draggable": "Proxies the `draggable` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
         "fetchpriority": "Proxies the `fetchpriority` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-fetchpriority)[[target=_blank]].",
         "fit": "Proxies the `object-fit` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/CSS/object-fit)[[target=_blank]].",
-        "lazy": "Enables lazy load for the image of the component."
+        "lazy": "Enables lazy load for the image of the component.",
+        "maxWidth": "Maximal the width of the image of the component"
       },
       "events": {},
       "methods": {},
