@@ -590,7 +590,8 @@
         "title": "Proxies the `title` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
         "lazy": "Enables lazy load for the image.",
         "draggable": "Proxies the `draggable` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
-        "placeholderSrc": "`src` value for the placeholder image (can be replaced with `placeholder` slot)."
+        "placeholderSrc": "`src` value for the placeholder image (can be replaced with `placeholder` slot).",
+        "contain": "The image is scaled to maintain its aspect ratio while fitting within the element's content box."
       },
       "events": {
         "loaded": "Emitted when image loading is finished.",
@@ -1430,7 +1431,8 @@
         "ariaGoToSlideLabel": "The aria-label of go to slide button.",
         "ariaNextLabel": "The aria-label of next button.",
         "ariaPreviousLabel": "The aria-label of previous button.",
-        "ariaSlideOfLabel": "The aria-label of the slide."
+        "ariaSlideOfLabel": "The aria-label of the slide.",
+        "contain": "The image is scaled to maintain its aspect ratio while fitting within the carousel's content box."
       },
       "events": {},
       "methods": {},
