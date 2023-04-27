@@ -1437,7 +1437,8 @@
         "decoding": "Proxies the `decoding` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-decoding)[[target=_blank]].",
         "draggable": "Proxies the `draggable` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
         "fetchpriority": "Proxies the `fetchpriority` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-fetchpriority)[[target=_blank]].",
-        "fit": "Proxies the `object-fit` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/CSS/object-fit)[[target=_blank]]."
+        "fit": "Proxies the `object-fit` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/CSS/object-fit)[[target=_blank]].",
+        "lazy": "Enables lazy load for the image of the component."
       },
       "events": {},
       "methods": {},
