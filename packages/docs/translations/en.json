@@ -1442,7 +1442,10 @@
         "lazy": "Enables lazy load for the image of the component.",
         "maxWidth": "Maximal the width of the image of the component",
         "placeholderSrc": "`src` value for the placeholder image of the component.",
-        "referrerpolicy": "Proxies the `referrerpolicy` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-referrerpolicy)[[target=_blank]]."
+        "referrerpolicy": "Proxies the `referrerpolicy` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-referrerpolicy)[[target=_blank]].",
+        "sizes": "Proxies the `sizes` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
+        "srcset": "Proxies the `srcset` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
+        "title": "Proxies the `title` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]]."
       },
       "events": {},
       "methods": {},
