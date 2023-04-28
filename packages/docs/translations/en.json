@@ -1074,7 +1074,10 @@
         "wrapperSize": "Size (width or height) of the component's viewport (can be number or string with \"px\"/\"rem\" value). Suitable only for the state with the virtual scrolling enabled.",
         "cellBind": "Adds attributes to a table cell using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. As arguments, the function receives a table cell element (`any` type), a row (`DataTableItem` type), a column (`TableColumn` type), and a row index",
         "scrollTopMargin": "Sets the threshold (`px`) for scrolling up when the `scroll:top` event is enabled.",
-        "scrollBottomMargin": "Sets the threshold (`px`) for scrolling down when the `scroll:bottom` event is enabled."
+        "scrollBottomMargin": "Sets the threshold (`px`) for scrolling down when the `scroll:bottom` event is enabled.",
+        "ariaSelectAllRowsLabel": "The aria-label of \"Select all rows\" checkbox",
+        "ariaSelectRowLabel": "The aria-label of \"Select row\" checkbox",
+        "ariaSortColumnByLabel": "The aria-label describing how the columns are sorted by"
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
