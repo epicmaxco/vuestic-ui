@@ -44,7 +44,7 @@
     "vite": "^4.2.1",
     "vitest": "*",
     "vue-bundle-renderer": "0.4.1",
-    "vue-tsc": "^0.38.2",
+    "vue-tsc": "^1.2.0",
     "webpack": "5",
     "webpack-cli": "^4.9.2",
     "when-dependencies-installed": "^1.0.1"
