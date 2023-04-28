@@ -13,9 +13,10 @@ export const useTheme = () => {
     }
 
     if (cookie.value) {
-      applyPreset(colorMode.value)
+      applyPreset(cookie.value)
       return
     }
+
     if (!colorMode.unknown) {
       applyPreset(colorMode.value)
     }
