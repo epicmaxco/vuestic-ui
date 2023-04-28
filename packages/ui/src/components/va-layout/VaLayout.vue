@@ -1,5 +1,4 @@
 <template>
-  {{  templateArea }}
   <div class="va-layout">
     <div class="va-layout__top">
       <slot name="top" />
@@ -13,23 +12,9 @@
     <div class="va-layout__bottom">
       <slot name="bottom" />
     </div>
-
     <div class="va-layout__content">
       <slot name="content" />
     </div>
-    <!-- <slot name="top" />
-    <main class="va-layout__main">
-      <div class="va-layout__sidebar va-layout__child">
-        <slot name="left" />
-      </div>
-      <div class="va-layout__content va-layout__child">
-        <slot name="content" />
-      </div>
-      <div class="va-layout__sidebar va-layout__child">
-        <slot name="right" />
-      </div>
-    </main>
-    <slot name="bottom" /> -->
   </div>
 </template>
 
@@ -69,8 +54,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .va-layout {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  grid-template-columns: v-bind(verticalTemplate);
+  grid-template-rows: v-bind(horizontalTemplate);
   grid-template-areas: v-bind(templateArea);
   gap: 0;
   height: 100%;
@@ -96,25 +81,5 @@ export default defineComponent({
     grid: content;
     overflow: auto;
   }
-
-  // &__main {
-  //   display: grid;
-  //   grid-template-columns: v-bind(horizontalTemplate);
-  //   grid-template-rows: 1fr;
-  //   height: 100%;
-
-  //   & > .va-layout__child {
-  //     height: 100%;
-  //     overflow: hidden;
-
-  //     &:empty {
-  //       display: none;
-  //     }
-  //   }
-
-  //   .va-layout__content {
-  //     overflow: auto;
-  //   }
-  // }
 }
 </style>
