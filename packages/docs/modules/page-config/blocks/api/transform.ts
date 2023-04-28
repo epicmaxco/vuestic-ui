@@ -5,7 +5,6 @@ import { defineBlockTransform } from "../../compiler/define-block-transform";
 import { CssVariables } from "./types";
 import { checker } from './component-parser/meta'
 import { ComponentMeta } from 'vue-component-meta';
-import ts from 'typescript/lib/tsserverlibrary';
 
 const parseCssComment = (line: string) =>
   (line.match(/\/\/(.*)|\/\*(.*)\*\//) || []).slice(1).filter((s) => Boolean(s)).join('').trim()
