@@ -1724,7 +1724,9 @@
     "testing": "Testing",
     "value": "Value",
     "config": "Config",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "openOptionsMenu": "Open options menu",
+    "closeOptionsMenu": "Close options menu"
   },
   "all": {
     "examples": "Examples",

@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-4">
+  <div>
     <va-switch
       v-model="isDark"
       color="#5123a1"
