@@ -29,6 +29,7 @@
     "nuxt": "^3.1.1",
     "postcss": "^7",
     "postcss-custom-properties": "^13.1.1",
+    "serve": "^14.2.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "vitest": "^0.18.1",
