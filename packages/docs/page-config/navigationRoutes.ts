@@ -277,9 +277,16 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "color-input",
         displayName: "menu.colorInput",
       },
-  
+      
       {
         category: 'menu.categories.layout',
+        name: 'layout',
+        displayName: 'menu.layout',
+        meta: {
+          badge: 'new',
+        }
+      },
+      {
         name: 'aspect-ratio',
         displayName: 'menu.aspectRatio',
         meta: {

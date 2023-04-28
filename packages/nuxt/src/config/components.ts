@@ -43,6 +43,7 @@ export default [
   'VaInfiniteScroll',
   'VaInnerLoading',
   'VaInput',
+  'VaLayout',
   'VaList',
   'VaListItem',
   'VaListItemLabel',
