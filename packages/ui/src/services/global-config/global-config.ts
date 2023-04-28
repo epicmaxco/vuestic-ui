@@ -1,5 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep.js'
-import { ref, getCurrentInstance } from 'vue'
+import { ref, getCurrentInstance, Ref } from 'vue'
 import { GlobalConfig, GlobalConfigUpdater, PartialGlobalConfig, ProvidedGlobalConfig } from './types'
 import { getComponentsDefaultConfig } from '../component-config'
 import { getIconDefaultConfig } from '../icon'
@@ -27,7 +27,7 @@ export const createGlobalConfig = () => {
      * TODO: if this try won't be success, may be remake to provide/inject
      */
     routerComponent: undefined,
-  })
+  }) as Ref<GlobalConfig>
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value
   const setGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater<GlobalConfig>) => {
