@@ -6,7 +6,7 @@
     fill="none"
     viewBox="0 0 180 20"
   ><path
-    :fill="colors.primary"
+    :fill="colorComputed"
     d="M170.47 8.9c-1.14 0-1.99-.33-2.54-.99-.56-.66-.83-1.7-.83-3.08V.63h2.15v4.45c0 .72.1 1.23.29 1.53.2.3.51.44.94.44.42 0 .73-.15.93-.44.21-.3.31-.81.31-1.54V.63h2.08v4.2c0 1.4-.27 2.43-.81 3.1-.55.65-1.38.98-2.52.98ZM176.8 8.75V.62h2.15v8.13h-2.15Z"
   /><path
     fill="url(#paint0_linear)"
@@ -18,14 +18,23 @@
     y1="10"
     y2="10"
     gradientUnits="userSpaceOnUse"
-  ><stop :stop-color="colors.primary" /><stop
-    :stop-color="colors.primary"
+  ><stop :stop-color="colorComputed" /><stop
+    :stop-color="colorComputed"
     offset="1"
   /></linearGradient></defs></svg>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { useColors } from 'vuestic-ui/src/composables'
 
-const { colors } = useColors()
+const props = defineProps({
+  color: {
+    type: String,
+    default: 'primary',
+  },
+})
+
+const { getColor } = useColors()
+const colorComputed = computed(() => getColor(props.color))
 </script>

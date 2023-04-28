@@ -1,5 +1,5 @@
 import { defineBlockTransform } from "../../compiler/define-block-transform";
-import { extname } from 'path'
+import { extname } from 'pathe'
 import { readFile } from 'fs/promises'
 
 export default defineBlockTransform(async function (block) {

@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rm -rf ./dist && yarn build:vite && yarn build:vue-cli && yarn build:nuxt",
     "build:vite": "vue-tsc --noEmit && vite build --config ./configs/vite/vite.base.ts",
-    "build:analysis": "tsx ./scripts/bundle-analysis.ts",
+    "build:analysis": "node ./scripts/stud-nuxt.mjs && tsx ./scripts/bundle-analysis.ts",
     "build:vue-cli": "vue-cli-service build",
     "build:nuxt": "nuxt build",
     "build:web-components": "vue-tsc --noEmit && vite build --config ./web-components/vite.config.ts",
@@ -47,9 +47,11 @@
     "vue-tsc": "^0.38.2",
     "webpack": "5",
     "webpack-cli": "^4.9.2",
-    "when-dependencies-installed": "^1.0.0"
+    "when-dependencies-installed": "^1.0.1"
   },
   "workspaces": {
-    "nohoist": ["vite"]
+    "nohoist": [
+      "vite"
+    ]
   }
 }

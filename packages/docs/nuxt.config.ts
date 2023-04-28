@@ -1,5 +1,12 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
+  // TEST Config
+  routeRules: {
+    '/': {static: true},
+    '/en/**': {static: true},
+    '/ru/**': {static: true},
+    '/_nuxt/**': { headers: { 'cache-control': 's-maxage=0' } },
+  },
   app: {
     head: {
       link: [
@@ -75,10 +82,8 @@ export default defineNuxtConfig({
     // './modules/banner',
     './modules/vuestic',
     './modules/page-config',
-    // "./modules/i18n",
-    // TODO: remove after i18n is released https://github.com/nuxt-modules/i18n/pull/1712
     '@nuxtjs/google-fonts',
-    '@nuxtjs/i18n-edge',
+    '@nuxtjs/i18n',
     './modules/markdown',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
@@ -140,19 +145,23 @@ export default defineNuxtConfig({
 
     strategy: 'prefix_and_default',
 
-    detectBrowserLanguage: {
-      redirectOn: 'all',
-      alwaysRedirect: true,
-      useCookie: true,
-      cookieKey: 'i18n_locale',
-    },
+    // TODO Browser detection was working extremely poorly and caused multiple redirects.
+    //  Let's enable it after thorough testing.
+    detectBrowserLanguage: false,
+    // detectBrowserLanguage: {
+    //   redirectOn: 'root',
+    //   useCookie: true,
+    //   cookieKey: 'i18n_locale',
+    // },
 
-    lazy: true,
 
-    langDir: 'locales/',
+    // lazy: true,
 
-    vueI18n: {
-      fallbackLocale: 'en',
+    langDir: 'translations/',
+
+    precompile: {
+      strictMessage: false,
+      escapeHtml: true
     },
   },
 

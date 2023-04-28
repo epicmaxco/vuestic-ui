@@ -4,8 +4,7 @@ import { icons } from './icons-config/icons-config'
 const scrollWrapperSelector = '.docs-layout__main-content'
 
 const VaButtonLandingHeader = {
-  round: false,
-  size: 'large',
+  color: 'textInverted',
   plain: true,
   'hover-behavior': 'mask',
   'hover-mask-color': 'textPrimary',
@@ -54,6 +53,28 @@ export const VuesticConfig = defineVuesticConfig({
         secondary: '#818992',
         backgroundLanding: '#070d14',
         backgroundLandingBorder: 'rgba(43, 49, 56, 0.8)',
+      },
+      landing: {
+        primary: '#1827A7',
+        secondary: '#767C88',
+        success: '#3D9209',
+        info: '#158DE3',
+        danger: '#E42222',
+        warning: '#FFD43A',
+
+        // Background Colors
+        backgroundPrimary: '#f6f6f6',
+        backgroundSecondary: '#FFFFFF',
+        backgroundElement: '#ECF0F1',
+        backgroundBorder: '#DEE5F2',
+
+        // Text Colors
+        textPrimary: '#262824',
+        textInverted: '#FFFFFF',
+
+        // Misc
+        shadow: 'rgba(0, 0, 0, 0.12)',
+        focus: '#49A8FF',
       },
     },
   },

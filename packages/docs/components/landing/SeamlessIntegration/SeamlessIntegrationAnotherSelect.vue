@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <div class="seamless-another-select">
-      <select>
-        <option
-          v-for="option of options"
-          :key="option"
-          :value="option"
-        >
-          {{ option }}
-        </option>
-      </select>
-      <span class="focus" />
-    </div>
+  <div class="seamless-another-select">
+    <select>
+      <option
+        v-for="option of options"
+        :key="option"
+        :value="option"
+      >
+        {{ option }}
+      </option>
+    </select>
+    <span class="focus" />
   </div>
 </template>
 
@@ -29,7 +27,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .seamless-another-select {
   display: grid;
   grid-template-areas: "select";

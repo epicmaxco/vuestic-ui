@@ -74,13 +74,14 @@ export default definePageConfig({
 
     block.subtitle("overview.featuresOverview"),
     block.list([
-      "overview.vueThreeCompatible",
-      "overview.darkTheme",
-      "overview.accessibility",
-      "overview.configurable",
-      "overview.responsive",
-      "overview.translatable",
-      "overview.support",
+      "overview.features[0]",
+      "overview.features[1]",
+      "overview.features[2]",
+      "overview.features[3]",
+      "overview.features[4]",
+      "overview.features[5]",
+      "overview.features[6]",
+      "overview.features[7]",
     ]),
   ],
 });

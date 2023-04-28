@@ -4,13 +4,13 @@
   </button>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $button-color: #117763;
 
 .seamless-another-button {
   cursor: pointer;
   position: relative;
-  background-color: #117763;
+  background-color: $button-color;
   border: none;
   color: #ffffff;
   transition-duration: 0.4s;
