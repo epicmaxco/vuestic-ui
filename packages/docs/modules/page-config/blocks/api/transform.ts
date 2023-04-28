@@ -1,4 +1,3 @@
-import pick from 'lodash/pick.js';
 import kebabCase from 'lodash/kebabCase';
 import { readFile } from 'fs/promises';
 import { defineBlockTransform } from "../../compiler/define-block-transform";
@@ -39,7 +38,7 @@ const stringifyMeta = (meta: ComponentMeta) => {
       .sort((prop1, prop2) => Number(prop1.required) > Number(prop2.required) ? -1 : 1)
       .reduce((acc, prop) => ({
         ...acc,
-        [prop.name]: ({
+        [kebabCase(prop.name)]: ({
           types: prop.type.replace(' | undefined', ''),
           default: prop.default,
           required: prop.required,
