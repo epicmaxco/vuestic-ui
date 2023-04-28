@@ -221,7 +221,8 @@
         "delay": "Sets throttling delay (ms) for the components any data change (useful for huge data).",
         "ratio": "Aspect ratio of the component's wrapper.",
         "groupBy": "When `options` prop is an object, this key will be used to group up options. Can be string (path to the key) or function of type: `(option) => option.group`",
-        "grow": "Take all container width"
+        "grow": "Take all container width",
+        "immediateValidation": "Sets the validation to be performed when the component is mounted"
       }
     },
     "VaBadge": {
@@ -647,7 +648,8 @@
       "props": {
         "value": "The value of the checkbox",
         "checkedIcon": "Overrides the `checked` icon",
-        "indeterminateIcon": "Overrides the `indeterminate` icon"
+        "indeterminateIcon": "Overrides the `indeterminate` icon",
+        "ariaLabel": "The aria-label of the checkbox"
       },
       "events": {
         "input": "Emitted when the component needs to change the value"
@@ -811,7 +813,6 @@
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
         "requiredMark": "Adds required mark to the label",
-        "immediateValidation": "Sets the validation to be performed when the component is mounted",
         "inputClass": "Classes for `input` (not its wrapper)",
         "pattern": "The pattern prop specifies a regular expression the input value should match",
         "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an apropriate virtual keyboard",
