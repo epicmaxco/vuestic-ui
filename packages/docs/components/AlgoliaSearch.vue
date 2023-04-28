@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import docsearch from '@docsearch/js'
 import { useI18n } from 'vue-i18n'
-import { onMounted, unref as _unref } from 'vue'
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 const { locale } = useI18n()
@@ -120,10 +120,12 @@ onMounted(() => {
   flex-grow: 1;
   display: flex;
 
+  @include xs(flex-grow, 0);
+
   .DocSearch-Button {
     margin-left: 0;
     flex-grow: 1;
-    max-width: 320px;
+    max-width: 20rem;
     border-radius: var(--va-input-border-radius);
     background-color: var(--va-background-element);
 
@@ -136,11 +138,10 @@ onMounted(() => {
   }
 
   .DocSearch-Button-Placeholder {
+    color: v-bind(placeholderColor);
+
     @include md(display, block);
     @include xs(display, none);
-
-    // TODO: This Vbind breaks build !
-    color: v-bind(placeholderColor);
   }
 
   .DocSearch-Button-Keys {
@@ -152,10 +153,6 @@ onMounted(() => {
     svg {
       @include sm(color, var(--va-primary));
     }
-  }
-
-  @media screen and (max-width: $break_xs) {
-    flex-grow: 0;
   }
 }
 
