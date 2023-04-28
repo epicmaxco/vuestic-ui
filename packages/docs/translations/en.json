@@ -1404,7 +1404,11 @@
         "width": "Sets a component width",
         "margins": "Sets the margin of the outside buttons",
         "increaseIcon": "Sets an increase icon",
-        "decreaseIcon": "Sets a decrease icon"
+        "decreaseIcon": "Sets a decrease icon",
+        "ariaDecreaseLabel": "The aria-label of decrease button",
+        "ariaIncreaseLabel": "The aria-label of increase button",
+        "ariaLabel": "The aria-label of content of counter",
+        "longPressDelay": "The number of milliseconds after which another event will be sent when you are long pressing the button"
       },
       "events": {
         "clickDecreaseButton": "The event is triggered when clicked decrease outside button",
