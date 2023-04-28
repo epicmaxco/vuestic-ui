@@ -99,24 +99,28 @@ Information, guides and tutorials are available
 on [vuestic.dev](https://vuestic.dev)
 
 ### Partners & Sponsors ❤️
+
 <div>
-  <a href="https://vuejs.org/partners/epicmax.html" target="_blank" title="VueJS - The Progressive JavaScript Framework">
+  <!-- <a href="https://vuejs.org/partners/epicmax.html" target="_blank" title="VueJS - The Progressive JavaScript Framework">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/vuejs-light.svg" />
       <img src="./.github/assets/vuejs.svg" loading="lazy" alt=""/>
     </picture>
-  </a>
+  </a> -->
   <a href="https://nuxt.com/support/agencies/epicmax" target="_blank" title="Nuxt - The Intuitive Web Framework">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/nuxt-light.svg" />
-      <img hspace="15" src="./.github/assets/nuxt.svg" loading="lazy" alt=""/>
+      <img src="./.github/assets/nuxt.svg" loading="lazy" alt=""/>
     </picture>
   </a>
   <a href="https://epicmax.co/" target="_blank" title="Epicmax - Top Vue.js Development Company">
-    <img src="./.github/assets/epicmax.svg" loading="lazy" alt="">
+    <img hspace="24" src="./.github/assets/epicmax.svg" loading="lazy" alt="">
   </a>
-  <a href="https://www.jetbrains.com/" target="_blank" title="JetBrains: Essential tools for software developers and teams">
-    <img hspace="15"  src="./.github/assets/jb_square.svg" loading="lazy" alt="">
+  <a href="https://vuejobs.com/" target="_blank" title="Vue.js jobs – Browse through dozens of Vue.js openings">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/vuejobs-light.svg" />
+      <img src="./.github/assets/vuejobs.svg" loading="lazy" alt=""/>
+    </picture>
   </a>
   <br />
   <br />
@@ -126,17 +130,14 @@ on [vuestic.dev](https://vuestic.dev)
       <img src="./.github/assets/aggrid.svg" loading="lazy" alt=""/>
     </picture>
   </a>
-  <a href="https://vuejobs.com/" target="_blank" title="Vue.js jobs – Browse through dozens of Vue.js openings">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/vuejobs-light.svg" />
-      <img hspace="15" src="./.github/assets/vuejobs.svg" loading="lazy" alt=""/>
-    </picture>
-  </a>
   <a href="https://flatlogic.com/" target="_blank" title="Flatlogic - The best way to create React, Angular and Vue full-stack web applications">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="./.github/assets/flatlogic-light.svg" />
-      <img src="./.github/assets/flatlogic.svg" loading="lazy" alt=""/>
+      <img hspace="24" src="./.github/assets/flatlogic.svg" loading="lazy" alt=""/>
     </picture>
+  </a>
+  <a href="https://www.jetbrains.com/" target="_blank" title="JetBrains: Essential tools for software developers and teams">
+    <img src="./.github/assets/jb_square.svg" loading="lazy" alt="">
   </a>
 </div>
 <br />
@@ -157,10 +158,12 @@ example of a real-world web application based on Vuestic UI.
 ### Contributing
 
 Thanks for all your wonderful PRs, issues and ideas.
+
 <a href="https://github.com/epicmaxco/vuestic-ui/graphs/contributors">
-<img src="https://opencollective.com/vuestic-ui/contributors.svg?width=890&button=false" />
+  <img src="https://opencollective.com/vuestic-ui/contributors.svg?width=890&button=false" />
 </a>
-<br>
+<br />
+
 You’re always welcome to join: check out
 our <a href="https://vuestic.dev/en/contribution/guide">
 contribution guides</a>
