@@ -1025,7 +1025,8 @@
     "VaColorInput": {
       "props": {
         "value": "Current color.",
-        "selected": "Select the indicator."
+        "selected": "Select the indicator.",
+        "ariaOpenColorPickerLabel": "The aria-label of \"open color picker\" button."
       },
       "events": {},
       "methods": {},
