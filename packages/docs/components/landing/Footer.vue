@@ -5,165 +5,252 @@
   >
     <div class="footer__wrapper">
       <div class="footer__inner">
-        <LandingEpicmaxBanner style="margin-bottom: 2rem;" />
+        <div class="footer__sitemap">
+          <div
+            v-for="{ title, items } in sitemap"
+            :key="title"
+            class="footer__sitemap-item"
+          >
+            <h4 class="footer__sitemap-item__title">
+              {{ $t(title) }}
+            </h4>
+            <ul class="footer__sitemap-item__list">
+              <li
+                v-for="item in items"
+                :key="item.label"
+              >
+                <component
+                  :is="item.component"
+                  :[item.prop]="item.value"
+                  :target="item.component === 'a' && !item.value.startsWith('mailto:') ? '_blank' : undefined"
+                  class="footer__sitemap-item__list-item"
+                >
+                  {{ $t(item.label) }}
+                </component>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer__banner">
+          <LandingEpicmaxBanner />
+        </div>
+
         <div class="footer__buttons">
           <va-button
+            v-for="{ href, icon, label } in buttons"
+            :key="label"
             class="footer__buttons__button"
-            href="https://epicmax.co/about"
+            :href="href"
             target="blank"
-            preset="plain"
+            :preset="breakpoint.xs ? `primary` : `secondary`"
             size="large"
           >
             <template #prepend>
               <va-icon
-                class="button-icon"
-                :component="IconEpicmaxRaw"
+                class="footer__buttons__icon"
+                :component="icon"
               />
             </template>
-            {{ $t("landing.footer.buttons.epicmax") }}
-          </va-button>
-          <va-button
-            class="footer__buttons__button"
-            href="https://github.com/epicmaxco/vuestic-admin"
-            target="blank"
-            preset="plain"
-            size="large"
-          >
-            <template #prepend>
-              <va-icon
-                class="button-icon"
-                :component="IconAdminRaw"
-              />
-            </template>
-            {{ $t("landing.footer.buttons.admin") }}
-          </va-button>
-          <va-button
-            class="footer__buttons__button"
-            href="https://github.com/epicmaxco/epic-spinners"
-            target="blank"
-            preset="plain"
-            size="large"
-          >
-            <template #prepend>
-              <va-icon
-                class="button-icon"
-                :component="IconSpinnersRaw"
-              />
-            </template>
-            {{ $t("landing.footer.buttons.spinners") }}
+            {{ $t(label) }}
           </va-button>
         </div>
-        <div class="footer__social">
-          <va-button
-            class="footer__social__item"
-            href="https://github.com/epicmaxco/vuestic-ui/"
-            aria-label="go to the vuestic ui github page"
-            target="blank"
-            preset="plain"
-          >
-            <va-icon class="fa fa-github" />
-          </va-button>
-          <va-button
-            class="footer__social__item"
-            href="https://discord.gg/u7fQdqQt8c"
-            aria-label="go to the vuestic ui discord channel"
-            target="blank"
-            preset="plain"
-          >
-            <va-icon class="fa fa-discord" />
-          </va-button>
-          <va-button
-            class="footer__social__item"
-            href="https://www.facebook.com/epicmaxco/"
-            aria-label="go to the vuestic ui facebook page"
-            target="blank"
-            preset="plain"
-          >
-            <va-icon class="fa fa-facebook" />
-          </va-button>
-          <va-button
-            class="footer__social__item"
-            href="https://twitter.com/epicmaxco"
-            aria-label="go to the vuestic ui twitter page"
-            target="blank"
-            preset="plain"
-          >
-            <va-icon class="fa fa-twitter" />
-          </va-button>
-        </div>
+
+        <SocialsLinks class="footer__socials" />
+
         <div class="footer__subtitle">
           © {{ currentYear }} {{ $t("landing.footer.text") }}
           <a
-            :style="{ color: primaryColor }"
             href="mailto:hello@epicmax.co"
+            target="_blank"
           >
             hello@epicmax.co
           </a>
         </div>
       </div>
-      <!--      <LandingNewsBanner />-->
+      <!--<LandingNewsBanner />-->
     </div>
   </footer>
 </template>
 
 <script lang="ts" setup>
-import {markRaw} from 'vue'
+import { markRaw } from 'vue'
 
-import { useColors, useElementTextColor } from 'vuestic-ui'
+import { useElementTextColor, useBreakpoint } from 'vuestic-ui'
 
 import IconEpicmax from './icons/IconEpicmax.vue'
 import IconAdmin from './icons/IconAdmin.vue'
 import IconSpinners from './icons/IconSpinners.vue'
 import LandingEpicmaxBanner from './EpicmaxBanner.vue'
+import SocialsLinks from './SocialsLinks.vue'
 // import LandingNewsBanner from './NewsBanner.vue'
 
-const { getComputedColor } = useColors()
-
-const textColor = useElementTextColor('background-primary')
-const primaryColor = getComputedColor('primary')
+const { locale } = useI18n()
+const breakpoint = useBreakpoint()
+const textColor = useElementTextColor('background-secondary')
 const currentYear = new Date().getFullYear()
 
 const IconEpicmaxRaw = markRaw(IconEpicmax)
 const IconAdminRaw = markRaw(IconAdmin)
 const IconSpinnersRaw = markRaw(IconSpinners)
 
-useHead({
-  link: [
-    { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" },
-  ]
-})
+const buttons = [
+  { href: 'https://epicmax.co/about', icon: IconEpicmaxRaw, label: 'landing.footer.buttons.epicmax' },
+  { href: 'https://github.com/epicmaxco/vuestic-admin', icon: IconAdminRaw, label: 'landing.footer.buttons.admin' },
+  { href: 'https://github.com/epicmaxco/epic-spinners', icon: IconSpinnersRaw, label: 'landing.footer.buttons.spinners' },
+]
+
+const sitemap = [
+  {
+    title: 'landing.footer.sitemap.resources[0]',
+    items: [
+      { label: 'landing.footer.sitemap.resources[1]', component: 'router-link', prop: 'to', value: `/${locale.value}/getting-started/installation` },
+      { label: 'landing.footer.sitemap.resources[2]', component: 'router-link', prop: 'to', value: `/${locale.value}/introduction/roadmap` },
+      { label: 'landing.footer.sitemap.resources[3]', component: 'router-link', prop: 'to', value: `/${locale.value}/introduction/accessibility-guide` },
+    ]
+  },
+  {
+    title: 'landing.footer.sitemap.support[0]',
+    items: [
+      { label: 'landing.footer.sitemap.support[1]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui/' },
+      { label: 'landing.footer.sitemap.support[2]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui/issues/new/choose' },
+      { label: 'landing.footer.sitemap.support[3]', component: 'router-link', prop: 'to', value: `/${locale.value}/contribution/guide` },
+    ]
+  },
+  {
+    title: 'landing.footer.sitemap.community[0]',
+    items: [
+      { label: 'landing.footer.sitemap.community[1]', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui/' },
+      { label: 'landing.footer.sitemap.community[2]', component: 'a', prop: 'href', value: 'https://discord.com/invite/u7fQdqQt8c' },
+      { label: 'landing.footer.sitemap.community[3]', component: 'a', prop: 'href', value: 'https://twitter.com/vuestic_ui' },
+    ]
+  },
+  {
+    title: 'landing.footer.sitemap.about[0]',
+    items: [
+      { label: 'landing.footer.sitemap.about[1]', component: 'router-link', prop: 'to', value: `/${locale.value}/introduction/team` },
+      { label: 'landing.footer.sitemap.about[2]', component: 'a', prop: 'href', value: 'mailto:hello@epicmax.co' },
+      { label: 'landing.footer.sitemap.about[3]', component: 'a', prop: 'href', value: 'mailto:hello@epicmax.co?subject=VuesticUI Partnership' },
+    ]
+  },
+]
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets";
 
 .footer {
+  $section-padding: 2rem 0 3.5rem;
+  $section-xs-padding: 1rem 0 3.5rem;
+
   width: 100%;
   position: relative;
-  padding-top: 4.5rem;
+  padding: $section-padding;
   background: var(--va-background-secondary);
 
-  // sm
-  @include sm(padding-top, 1rem);
+  @include xs(padding, $section-xs-padding);
 
   &__wrapper {
-    @include wrapper();
+    @include wrapper(1024px);
   }
 
   &__inner {
     @include row-flex();
 
+    flex-direction: column;
     align-items: center;
   }
 
-  &__image {
+  &__sitemap {
+    @include col();
+    @include size(12);
+    @include row-flex();
+
+    justify-content: center;
+  }
+
+  &__sitemap-item {
+    @include col();
+    @include size(3);
+
+    margin-top: 3rem;
+
+    @include size-sm(6);
+
+    &__title {
+      @include text-font();
+
+      font-weight: 600;
+    }
+
+    &__list {
+      li {
+        margin-top: 1rem;
+      }
+    }
+
+    &__list-item {
+      @include text-font();
+
+      color: inherit;
+      line-height: 1;
+
+      &:active,
+      &:visited,
+      &:hover {
+        color: unset;
+        filter: unset;
+      }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__banner {
     @include col();
     @include size(12);
 
-    display: flex;
-    align-items: center;
+    margin-top: 2.5rem;
+  }
+
+  &__buttons {
+    @include col();
+    @include size(12);
+    @include row-flex();
+
     justify-content: center;
-    padding-top: 3.5rem;
+    align-items: center;
+    margin-top: 1.25rem;
+
+    &__button {
+      --va-button-content-px: 1.5rem;
+
+      @include button-font();
+
+      margin: 1rem 0.5rem 0;
+      height: 3rem;
+
+      @include xs(width, 100%);
+      @include xs(margin, 1rem 1rem 0);
+
+      :deep(.va-button__content) {
+        font-size: inherit;
+      }
+    }
+
+    &__icon {
+      margin-right: 0.5rem;
+    }
+  }
+
+  &__socials {
+    @include col();
+    @include size(12);
+
+    margin-top: 2.5rem;
+
+    @include xs(margin-top, 2rem);
   }
 
   &__subtitle {
@@ -171,101 +258,10 @@ useHead({
     @include size(12);
     @include text-font();
 
-    line-height: 1.5;
-    padding: 3rem 0 4rem;
+    margin-top: 2.5rem;
     text-align: center;
 
-    // sm
-    @include sm(padding-top, 2rem);
-    @include sm(padding-bottom, 3rem);
-  }
-
-  &__buttons {
-    @include row-flex();
-    @include col();
-    @include size(8);
-    @include shift-left(2);
-
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-
-    &__button {
-      --va-button-font-size: 1.2rem;
-
-      @include col();
-      @include size(4);
-      @include button-font();
-
-      // md
-      @include md(margin-bottom, 1rem);
-
-      width: auto;
-
-      .va-icon {
-        margin-right: 0.75rem;
-      }
-    }
-
-    &__button + &__button {
-      margin-left: 3rem;
-
-      @include md(margin-left, 1rem);
-      @include sm(margin-left, 1rem);
-    }
-  }
-
-  &__social {
-    @include col();
-    @include size(12);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 3rem;
-
-    // sm
-    @include sm(padding-top, 1.5rem);
-
-    &__item {
-      font-weight: 600;
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
-      font-size: 1rem;
-    }
-  }
-
-  &__banner {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-
-    &-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: calc(100% - 4rem);
-      background: linear-gradient(180.81deg, #182879 0.7%, #5b3c9b 99.3%);
-      max-width: 53rem;
-      margin: 0 2rem 2rem 2rem;
-      padding: 1.7rem;
-      color: #ffffff;
-      border-radius: 0.5rem;
-
-      @include sm(flex-direction, column);
-      @include sm(align-items, start);
-    }
-
-    &-text {
-      line-height: 1.5;
-    }
-
-    &-logo {
-      margin-left: 3rem;
-
-      @include sm(margin-top, 1rem);
-      @include sm(align-self, end);
-    }
+    @include xs(margin-top, 2rem);
   }
 }
 </style>

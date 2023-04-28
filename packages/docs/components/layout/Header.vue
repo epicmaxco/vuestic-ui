@@ -31,8 +31,7 @@
             />
           </a>
         </NuxtLink>
-        <span style="font-size: 1rem" class="ml-3 opacity-50" title="will be back in a bit">Search under reassembly 🤖</span>
-<!--        <algolia-search class="header__searchbar" />-->
+        <algolia-search class="header__searchbar" />
       </template>
       <template #right>
         <va-button
