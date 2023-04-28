@@ -1,7 +1,11 @@
 import { ManualApiOptions } from "@/components/DocsApi/ManualApiOptions";
 
 export default {
-  props: {},
+  props: {
+    contain: {
+      hidden: true
+    }
+  },
   events: {},
   methods: {},
   slots: {
