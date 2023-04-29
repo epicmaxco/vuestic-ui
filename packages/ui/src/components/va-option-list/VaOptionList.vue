@@ -72,7 +72,7 @@ export default defineComponent({
     VaSwitch,
     VaMessageListWrapper,
   },
-  emits: [...useStatefulEmits],
+  emits: [...useStatefulEmits, 'clear'],
   props: {
     ...useComponentPresetProp,
     ...useSelectableListProps,

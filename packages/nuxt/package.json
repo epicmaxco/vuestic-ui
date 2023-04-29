@@ -29,9 +29,9 @@
   "dependencies": {
     "@nuxt/kit": "^3.0.0",
     "chokidar": "*",
-    "nuxt": "^3.0.0",
+    "nuxt": "^3.1.1",
     "pathe": "^0.3.5",
-    "vuestic-ui": "^1.4.10"
+    "vuestic-ui": "1.6.4"
   },
   "devDependencies": {
     "@nuxt/module-builder": "latest",

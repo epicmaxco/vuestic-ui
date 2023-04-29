@@ -123,7 +123,7 @@ export default defineComponent({
     const { syncView } = useView(props, emit, { type: props.type })
 
     const classComputed = computed(() => ({
-      'va-date-picker_without-week-days': props.hideWeekDays,
+      // 'va-date-picker_without-week-days': props.hideWeekDays,
       'va-date-picker_disabled': props.disabled,
     }))
 
