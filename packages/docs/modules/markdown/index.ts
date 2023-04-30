@@ -1,5 +1,5 @@
 import { defineNuxtModule, addImports } from '@nuxt/kit';
-import { resolve } from 'path'
+import { resolve } from 'pathe'
 
 export default defineNuxtModule({
   meta: {

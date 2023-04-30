@@ -2,7 +2,7 @@ import MagicString from 'magic-string';
 import { addVitePlugin } from '@nuxt/kit';
 import { createFilter } from '@rollup/pluginutils'
 import { createImporter } from '../compiler/create-importer'
-import { resolve } from 'path'
+import { resolve } from 'pathe'
 import { transform } from '../compiler/transform'
 import { exportTranslations } from '../i18n/export-translations'
 

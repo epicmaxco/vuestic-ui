@@ -1,5 +1,5 @@
 import { existsSync } from 'fs'
-import { extname, dirname, basename, relative, resolve } from 'path'
+import { extname, dirname, basename, relative, resolve } from 'pathe'
 import { createDistTransformPlugin } from './fabrics/create-dist-transform-plugin'
 
 const parsePath = (path: string) => {

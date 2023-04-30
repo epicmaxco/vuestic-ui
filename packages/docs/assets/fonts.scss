@@ -2,22 +2,24 @@
 @mixin title-font() {
   font-weight: 900;
   font-size: 4.5rem;
+  line-height: 1;
 
-  @include lg(font-size, 4rem);
-  @include md(font-size, 3rem);
-  @include sm(font-size, 2.5rem);
+  @include lg(font-size, 4.5rem);
+  @include md(font-size, 4rem);
+  @include sm(font-size, 3.0rem);
   @include xs(font-size, 2rem);
 }
 
 // sub headers
 @mixin subtitle-font() {
-  font-weight: 700;
-  font-size: 1.4rem;
+  font-weight: 900;
+  font-size: 4rem;
+  line-height: 1;
 
-  @include lg(font-size, 1.4rem);
-  @include md(font-size, 1.3rem);
-  @include sm(font-size, 1.25rem);
-  @include xs(font-size, 1.2rem);
+  @include lg(font-size, 4rem);
+  @include md(font-size, 3.5rem);
+  @include sm(font-size, 2.5rem);
+  @include xs(font-size, 2.0rem);
 }
 
 // text
@@ -25,10 +27,10 @@
   font-weight: normal;
   font-size: 1.2rem;
 
-  @include lg(font-size, 1rem);
-  @include md(font-size, 0.95rem);
-  @include sm(font-size, 0.925rem);
-  @include xs(font-size, 0.9rem);
+  @include lg(font-size, 1.2rem);
+  @include md(font-size, 1.2rem);
+  @include sm(font-size, 1.2rem);
+  @include xs(font-size, 1.2rem);
 }
 
 // link
@@ -45,12 +47,12 @@
 // button
 @mixin button-font() {
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 
-  @include lg(font-size, 1rem);
-  @include md(font-size, 0.95rem);
-  @include sm(font-size, 0.925rem);
-  @include xs(font-size, 0.9rem);
+  @include lg(font-size, 1.2rem);
+  @include md(font-size, 1.2rem);
+  @include sm(font-size, 1.2rem);
+  @include xs(font-size, 1.2rem);
 }
 
 // code
