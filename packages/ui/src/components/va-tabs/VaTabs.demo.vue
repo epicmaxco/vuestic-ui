@@ -388,30 +388,36 @@
         <template #tabs>
           <va-tab
             v-for="title in tabDynamic"
-            :name="title"
             :key="title"
           >
             {{ title }}
           </va-tab>
         </template>
       </va-tabs>
-      Value: {{ tabValue2 }}
-      <div>
-        <button @click="tabDynamic.push(`Tab #${tabDynamic.length + 1}`)">
+      Value: {{ tabDynamic[tabValue2] }}
+      <div class="mt-2">
+        <va-button
+          preset="primary"
+          @click="tabDynamic = [...tabDynamic, `Tab #${tabDynamic.length + 1}`]"
+        >
           Add tab
-        </button>
+        </va-button>
 
-        <input style="width: 50px;" v-model="deletedTabIndex" placeholder="Index">
-        <button @click="tabDynamic.splice(deletedTabIndex || 0,1)">
+        <va-input class="ml-10 mr-1" style="width: 70px;" v-model="deletedTabIndex" placeholder="Index" />
+        <va-button
+          preset="primary"
+          :disabled="!deletedTabIndex"
+          @click="removeTab"
+        >
           Remove tab
-        </button>
+        </va-button>
       </div>
     </VbCard>
   </VbDemo>
 </template>
 
 <script>
-import { VaCard, VaCardTitle, VaCardContent, VaIcon } from '../index'
+import { VaCard, VaCardTitle, VaCardContent, VaIcon, VaButton, VaInput } from '../index'
 import { VaTabs, VaTab } from './index'
 
 const TABS_WITH_CONTENT = [
@@ -429,6 +435,8 @@ export default {
     VaCard,
     VaCardTitle,
     VaCardContent,
+    VaButton,
+    VaInput,
   },
 
   data () {
@@ -437,7 +445,7 @@ export default {
       tabDynamic: ['One', 'Two', 'Three'],
       tabValue: 2,
       tabValue1: 'One',
-      tabValue2: 'One',
+      tabValue2: 0,
       tabValue3: 0,
       tabValue4: 'share',
       tabValueWithPagination: 'Four',
@@ -453,6 +461,26 @@ export default {
   computed: {
     currentTabWithContent () {
       return this.tabsWithContent.find(tab => tab.title === this.tabsWithContentValue)
+    },
+  },
+  methods: {
+    removeTab () {
+      const index = Number(this.deletedTabIndex)
+      if (index < this.tabDynamic.length) {
+        this.tabDynamic = [
+          ...this.tabDynamic.slice(0, index),
+          ...this.tabDynamic.slice(index + 1),
+        ]
+
+        if (this.tabValue2 > this.tabDynamic.length - 1) {
+          this.tabValue2 = this.tabDynamic.length - 1
+          return
+        }
+
+        if (this.tabValue2 >= index) {
+          this.tabValue2 = this.tabValue2 - 1
+        }
+      }
     },
   },
 }
