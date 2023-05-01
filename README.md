@@ -141,6 +141,8 @@ on [vuestic.dev](https://vuestic.dev)
 </div>
 <br />
 
+This project is tested with BrowserStack.
+
 Become a partner: [hello@epicmax.co](mailto:hello@epicmax.co)
 
 ### Community
