@@ -8,15 +8,12 @@ import {
 } from 'vuestic-ui'
 import { markRaw, computed } from 'vue'
 
-import type { VuesticOptions } from '../types'
-// @ts-ignore: nuxt import alias
 import { defineNuxtPlugin } from '#app'
-// @ts-ignore: direct nuxt-link import
-import NuxtLink from '#app/components/nuxt-link'
-// @ts-ignore: use-config-file import alias
-import configFromFile from '#vuestic-config'
-// @ts-ignore: use-head import alias
 import { useHead } from '#imports'
+import NuxtLink from '#app/components/nuxt-link'
+import configFromFile from '#vuestic-config'
+
+import type { VuesticOptions } from '../types'
 
 function getGlobalProperty (app, key) {
   return app.config.globalProperties[key]
@@ -32,7 +29,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   /** Use tree-shaking by default and do not register any component. Components will be registered by nuxt in use-components. */
   app.use(createVuesticEssential({
     config: { ...userConfig, routerComponent: markRaw(NuxtLink) },
-    // TODO: Would be nice to tree-shake plugins, but they're small so we don't cant for now.
+    // TODO: Would be nice to tree-shake plugins, but they're small so we can let it be for now.
     // Should be synced with create-vuestic.ts
     plugins: {
       BreakpointConfigPlugin,
