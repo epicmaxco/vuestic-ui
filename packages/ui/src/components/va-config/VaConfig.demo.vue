@@ -70,6 +70,18 @@
         </va-button>
       </va-config>
     </VbCard>
+
+    <VbCard title="Colors">
+      <va-config :colors="{ variables: {
+        primary: '#f0f',
+      } }">
+        <va-button>
+          Button inside va-config
+        </va-button>
+
+        <div style="background-color: var(--va-primary); color: var(--va-on-primary);">CSS variables</div>
+       </va-config>
+    </VbCard>
   </VbDemo>
 </template>
 
