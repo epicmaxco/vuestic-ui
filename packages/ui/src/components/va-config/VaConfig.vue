@@ -40,6 +40,7 @@ export default defineComponent({
     ...useComponentPresetProp,
     components: { type: Object as PropType<ComponentConfig>, default: () => ({}) },
     colors: { type: Object as PropType<PartialGlobalConfig['colors']>, default: () => ({}) },
+    i18n: { type: Object as PropType<PartialGlobalConfig['i18n']>, default: () => ({}) },
   },
   inheritAttrs: false,
   setup (props) {
@@ -52,6 +53,7 @@ export default defineComponent({
     const newConfig = useGlobalConfigProvider(computed(() => {
       return {
         colors: props.colors,
+        i18n: props.i18n,
       }
     }))
 
