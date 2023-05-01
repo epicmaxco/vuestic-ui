@@ -177,6 +177,12 @@ export default defineNuxtConfig({
     '@/assets/css/tailwind.css',
   ],
 
+  build: {
+    transpile: [
+      'markdown-it',
+    ]
+  },
+
   vite: {
     define: {
       __VUE_I18N_FULL_INSTALL__: true,
