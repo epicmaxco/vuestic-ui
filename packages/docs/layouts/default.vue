@@ -32,7 +32,6 @@
 import { useColors } from 'vuestic-ui'
 import { useDocsScroll } from '../composables/useDocsScroll';
 
-const colorMode = useColorMode()
 const cookie = useCookie('vuestic-theme')
 const { applyPreset } = useColors()
 const breakpoints = useBreakpoint()
@@ -40,7 +39,7 @@ const breakpoints = useBreakpoint()
 const isSidebarVisible = ref(!breakpoints.smDown)
 const isOptionsVisible = ref(false)
 
-applyPreset(cookie.value || colorMode.preference)
+applyPreset(cookie.value || 'light')
 
 watch(() => breakpoints.smDown, (newValue, oldValue) => {
   if (newValue && !oldValue) {
