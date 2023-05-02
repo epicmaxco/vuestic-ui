@@ -35,14 +35,9 @@ const isSidebarVisible = ref(false)
 
 applyPreset(cookie.value || colorMode.preference)
 
-watch(() => breakpoints.smDown, (newValue, oldValue) => {
-  if (newValue && !oldValue) {
-    isSidebarVisible.value = false
-  }
-  if (!newValue && oldValue) {
-    isSidebarVisible.value = true
-  }
-}, { immediate: true })
+watch(() => breakpoints.smDown, (newValue: boolean) => {
+  isSidebarVisible.value = !newValue
+})
 
 const { afterEach } = useRouter()
 const { scrollToElement } = useDocsScroll()
@@ -54,7 +49,13 @@ afterEach(() => {
   }
 })
 
-onMounted(scrollToElement)
+onMounted(() => {
+  scrollToElement()
+
+  if (!breakpoints.smDown) {
+    isSidebarVisible.value = true
+  }
+})
 
 useHead({
   link: [
