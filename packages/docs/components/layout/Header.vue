@@ -31,7 +31,7 @@
 
       <template #right>
         <div
-          v-if="!isOptionsMenuVisible"
+          v-if="isOptionsListVisible"
           class="header__options"
         >
           <va-button
@@ -172,6 +172,7 @@ const { t, locale, locales, setLocale } = useSharedLanguageSwitcher()
 const breakpoints = useBreakpoint()
 
 const isOptionsMenuVisible = ref(false)
+const isOptionsListVisible = ref(false)
 
 const landing = computed(() => ({
   text: t('menu.home'),
@@ -200,10 +201,12 @@ const toggleOptions = () => {
 
 watch(() => breakpoints.smDown, (newValue: boolean) => {
   isOptionsMenuVisible.value = newValue
+  isOptionsListVisible.value = !newValue
 })
 
 onMounted(() => {
   isOptionsMenuVisible.value = breakpoints.smDown
+  isOptionsListVisible.value = !breakpoints.smDown
 })
 </script>
 
