@@ -31,7 +31,7 @@
 
       <template #right>
         <div
-          v-if="breakpoint.mdUp"
+          v-if="!isOptionMenuVisible"
           class="header__options"
         >
           <va-button
@@ -56,7 +56,7 @@
 
         <!-- options mobile menu -->
         <va-button
-          v-if="breakpoint.smDown"
+          v-if="isOptionMenuVisible"
           :aria-label="$t('menu.openOptionsMenu')"
           preset="plain"
           @click="toggleOptions"
@@ -141,7 +141,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useBreakpoint } from 'vuestic-ui'
 
 import LanguageDropdown from './LanguageDropdown.vue'
@@ -156,7 +156,7 @@ import StarsButton from '../landing/StarsButton.vue'
 import { useSharedLanguageSwitcher } from '@/composables/useLanguageSwitcher'
 
 const { t, locale, locales, setLocale } = useSharedLanguageSwitcher()
-const breakpoint = useBreakpoint()
+const breakpoints = useBreakpoint()
 
 const landing = computed(() => ({
   text: t('menu.home'),
@@ -195,6 +195,16 @@ const toggleSidebar = () => {
 const toggleOptions = () => {
   emit('update:isOptionsVisible', !props.isOptionsVisible)
 }
+
+const isOptionMenuVisible = ref(false)
+
+watch(() => breakpoints.smDown, (newValue: boolean) => {
+  isOptionMenuVisible.value = newValue
+})
+
+onMounted(() => {
+  isOptionMenuVisible.value = breakpoints.smDown
+})
 </script>
 
 <style lang="scss">

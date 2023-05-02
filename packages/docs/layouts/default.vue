@@ -50,19 +50,13 @@ const { afterEach } = useRouter()
 const { scrollToElement } = useDocsScroll()
 afterEach(() => {
   scrollToElement()
+  isSidebarVisible.value = !breakpoints.smDown
   isOptionsVisible.value = false
-
-  if (breakpoints.smDown) {
-    isSidebarVisible.value = false
-  }
 })
 
 onMounted(() => {
   scrollToElement()
-
-  if (!breakpoints.smDown) {
-    isSidebarVisible.value = true
-  }
+  isSidebarVisible.value = !breakpoints.smDown
 })
 
 useHead({
