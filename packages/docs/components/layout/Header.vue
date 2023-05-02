@@ -31,7 +31,7 @@
 
       <template #right>
         <div
-          v-if="!isOptionMenuVisible"
+          v-if="!isOptionsMenuVisible"
           class="header__options"
         >
           <va-button
@@ -56,7 +56,7 @@
 
         <!-- options mobile menu -->
         <va-button
-          v-if="isOptionMenuVisible"
+          v-if="isOptionsMenuVisible"
           :aria-label="$t('menu.openOptionsMenu')"
           preset="plain"
           @click="toggleOptions"
@@ -171,7 +171,7 @@ const emit = defineEmits(['update:isSidebarVisible', 'update:isOptionsVisible'])
 const { t, locale, locales, setLocale } = useSharedLanguageSwitcher()
 const breakpoints = useBreakpoint()
 
-const isOptionMenuVisible = ref(false)
+const isOptionsMenuVisible = ref(false)
 
 const landing = computed(() => ({
   text: t('menu.home'),
@@ -199,11 +199,11 @@ const toggleOptions = () => {
 }
 
 watch(() => breakpoints.smDown, (newValue: boolean) => {
-  isOptionMenuVisible.value = newValue
+  isOptionsMenuVisible.value = newValue
 })
 
 onMounted(() => {
-  isOptionMenuVisible.value = breakpoints.smDown
+  isOptionsMenuVisible.value = breakpoints.smDown
 })
 </script>
 
