@@ -155,8 +155,23 @@ import SocialsLinks from '../landing/SocialsLinks.vue'
 import StarsButton from '../landing/StarsButton.vue'
 import { useSharedLanguageSwitcher } from '@/composables/useLanguageSwitcher'
 
+const props = defineProps({
+  isSidebarVisible: {
+    type: Boolean,
+    default: false,
+  },
+  isOptionsVisible: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const emit = defineEmits(['update:isSidebarVisible', 'update:isOptionsVisible'])
+
 const { t, locale, locales, setLocale } = useSharedLanguageSwitcher()
 const breakpoints = useBreakpoint()
+
+const isOptionMenuVisible = ref(false)
 
 const landing = computed(() => ({
   text: t('menu.home'),
@@ -175,19 +190,6 @@ const links = computed(() => [
   },
 ])
 
-const props = defineProps({
-  isSidebarVisible: {
-    type: Boolean,
-    default: false,
-  },
-  isOptionsVisible: {
-    type: Boolean,
-    default: false,
-  },
-})
-
-const emit = defineEmits(['update:isSidebarVisible', 'update:isOptionsVisible'])
-
 const toggleSidebar = () => {
   emit('update:isSidebarVisible', !props.isSidebarVisible)
 }
@@ -195,8 +197,6 @@ const toggleSidebar = () => {
 const toggleOptions = () => {
   emit('update:isOptionsVisible', !props.isOptionsVisible)
 }
-
-const isOptionMenuVisible = ref(false)
 
 watch(() => breakpoints.smDown, (newValue: boolean) => {
   isOptionMenuVisible.value = newValue
