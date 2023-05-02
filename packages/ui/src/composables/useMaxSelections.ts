@@ -19,7 +19,7 @@ export function useMaxSelections (
 ) {
   const exceedsMaxSelections = (): boolean => {
     if (maxSelections.value === undefined || isNaN(+maxSelections.value)) { return false }
-    return selections.value.length >= maxSelections.value
+    return selections.value.length >= Number(maxSelections.value)
   }
 
   const addOption = <T>(optionToAdd: T) => {
