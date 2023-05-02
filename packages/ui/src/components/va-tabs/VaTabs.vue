@@ -446,6 +446,7 @@ export default defineComponent({
 .va-tabs {
   display: var(--va-tabs-display);
   align-items: var(--va-tabs-align-items-horizontal);
+  flex-direction: column;
   position: relative;
   font-family: var(--va-font-family);
 
@@ -454,6 +455,7 @@ export default defineComponent({
     contain: content;
     display: flex;
     flex: 1 1 auto;
+    width: 100%;
   }
 
   .va-tabs__pagination {
@@ -510,9 +512,11 @@ export default defineComponent({
 
   &--vertical {
     align-items: var(--va-tabs-align-items-vertical);
+    flex-direction: row;
 
     .va-tabs__wrapper {
       flex: 0 0 auto;
+      width: unset;
     }
 
     .va-tabs__container {

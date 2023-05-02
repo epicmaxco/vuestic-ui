@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-4">
+  <div>
     <va-switch
       v-model="isDark"
       color="#5123a1"
@@ -25,13 +25,11 @@
 import { computed } from 'vue'
 import { useColors } from 'vuestic-ui'
 
-const { currentPresetName } = useColors()
-
-const { setTheme } = useTheme()
+const { currentPresetName, applyPreset } = useColors()
 
 const isDark = computed({
   get: () => currentPresetName.value === 'dark',
-  set: (value) => setTheme(value ? 'dark' : 'light'),
+  set: (value) => applyPreset(value ? 'dark' : 'light'),
 })
 </script>
 
