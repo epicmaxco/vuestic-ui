@@ -3,20 +3,30 @@ export default definePageConfig({
     block.title("colors.title"),
     block.paragraph("colors.description"),
 
-    block.subtitle("colors.theme.title"),
-    block.paragraph("colors.theme.description"),
-    block.paragraph("colors.theme.autoTextColor"),
-    block.component("theme", { hideTemplate: true }),
-    block.component("theme-examples", { hideCode: true }),
+    block.subtitle("colors.palette.title"),
+    block.paragraph("colors.palette.description"),
+    block.component("PaletteGrid", { hideCode: true }),
 
-    block.subtitle("colors.syntax.title"),
-    block.paragraph("colors.syntax.description"),
+    block.subtitle("colors.customization.title"),
+    block.paragraph("colors.customization.description"),
     block.code("scheme"),
-    block.paragraph("colors.syntax.colorsUsed"),
-    block.example("CustomAlert", { hideTitle: true }),
+    block.link("colors.customization.link", "/services/colors-config"),
 
-    block.subtitle("colors.reactivity.subtitle"),
-    block.paragraph("colors.reactivity.about"),
-    block.paragraph("colors.reactivity.additional"),
+    block.subtitle("colors.guide.global.title"),
+    block.paragraph("colors.guide.global.description"),
+    block.component("Components", { hideTemplate: true }),
+    block.example("ThemeSwitcher", { hideTitle: true }),
+
+    // block.subtitle("colors.guide.local.title"),
+    // block.paragraph("colors.guide.local.description"),
+    // block.example("LocalThemeSwitcher", { hideTitle: true }),
+
+    block.subtitle("colors.guide.cssVariables.title"),
+    block.paragraph("colors.guide.cssVariables.description"),
+    block.example("CssVariables", { hideTitle: true }),
+
+    block.subtitle("colors.guide.utility.title"),
+    block.paragraph("colors.guide.utility.description"),
+    block.example("Utility", { hideTitle: true }),
   ],
 });
