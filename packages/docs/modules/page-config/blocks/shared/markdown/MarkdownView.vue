@@ -31,17 +31,18 @@ const props = defineProps({
 
 const { locale } = useI18n();
 
-const md = useMarkdownIt();
+const { parse } = useMarkdownIt();
 
 const text = computed(() => {
+  // return props.content
   try {
     if (!props.content) { return '' }
 
     if (props.text) {
-      return md.render(props.content).match(/<p>(.*)<\/p>/)?.[1]
+      return (parse(props.content)).match(/<p>(.*)<\/p>/)?.[1] || ''
     }
 
-    return md.render(props.content);
+    return (parse(props.content));
   } catch (e) {
     console.error(e, props.content)
     return ''

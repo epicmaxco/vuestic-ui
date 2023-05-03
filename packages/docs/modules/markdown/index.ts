@@ -7,8 +7,7 @@ export default defineNuxtModule({
   },
 
   setup(_, nuxt) {
-    nuxt.options.plugins.push(resolve(__dirname, 'runtime/plugin.ts'))
-
+    // nuxt.options.plugins.push(resolve(__dirname, 'runtime/plugin.ts'))
 
     addImports({
       name: 'useMarkdownIt',
