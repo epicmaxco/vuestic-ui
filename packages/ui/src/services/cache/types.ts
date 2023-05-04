@@ -1,4 +1,4 @@
-import { TempMap } from '../../composables/useElementBackground/TempMap'
+import { TempMap } from '../../utils/temp-map'
 
 export type AppCache = {
   colorContrast: Record<string, number>,
