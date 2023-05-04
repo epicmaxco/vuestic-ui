@@ -9,7 +9,6 @@
 <script lang="ts" setup>
 import { useColors } from 'vuestic-ui'
 
-const { presets } = useColors()
 
 useHead({
   title: 'Vuestic UI — Vue 3 UI framework',
