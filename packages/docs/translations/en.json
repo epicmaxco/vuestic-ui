@@ -230,7 +230,10 @@
         "closeOnClickOutside": "Dropdown will be closed when clicked outside dropdown content and anchor",
         "cursor": "Dropdown will be rendered relative to cursor position",
         "isContentHoverable": "If true, dropdown content will be hoverable",
-        "leftIcon": "Sets the icon position to the left."
+        "leftIcon": "Sets the icon position to the left.",
+        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
+        "requiredMark": "Adds required mark to the label",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction."
       }
     },
     "VaBadge": {
@@ -820,7 +823,6 @@
         "bordered": "Applies underscore",
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
-        "requiredMark": "Adds required mark to the label",
         "inputClass": "Classes for `input` (not its wrapper)",
         "pattern": "The pattern prop specifies a regular expression the input value should match",
         "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an apropriate virtual keyboard",
@@ -926,12 +928,9 @@
         "clearIcon": "Sets the clear icon",
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
         "bordered": "Applies style with bottom border",
-        "requiredMark": "Adds required mark to the label",
         "separator": "Text to separate selected values",
-        "maxVisibleOptions": "Max selected options amount, that will be shown inside of input wrapper.",
-        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
+        "maxVisibleOptions": "Max selected options amount, that will be shown inside of input wrapper.",        
         "selectedTopShown": "Selected options will be shown at the top of the options list.",
-        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
         "autocomplete": "Enables the autocomplete behaviour.",
         "highlightMatchedText": "Highlight chars in options that are match the input value (search or autocomplete).",
         "minSearchChars": "Minimal amount of chars in input value to initiate search or autocomplete.",
@@ -1007,8 +1006,6 @@
         "closeOnContentClick": "Sets dropdown content on click behavior.",
         "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
         "trigger": "Action that will open and close dropdown.",
-        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
-        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
         "innerAnchorSelector": "Anchor CSS selector inside passed slot.",
         "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
         "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened"
@@ -1219,7 +1216,12 @@
         "delimiter": "The delimiter used when turning model value to string",
         "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
         "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
-        "keepAnchorWidth": "If true, dropdown content will have exact same width as anchor"
+        "keepAnchorWidth": "If true, dropdown content will have exact same width as anchor",
+        "offset": "Dropdown content will be moved by main and cross axis according to current `placement`",
+        "placement": "Sets the placement of the dropdown content. [More about placements](/ui-elements/dropdown#placement-and-offset)",
+        "rangeDelimiter": "The delimiter used when turning model value to string",
+        "teleport": "Element where dropdown content will be rendered",
+        "trigger": "Action that will open and close dropdown"
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -1390,8 +1392,7 @@
         "bordered": "Applies underscore",
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
-        "icon": "Sets an icon. The default icon position is on the right",
-        "requiredMark": "Adds required mark to the label"
+        "icon": "Sets an icon. The default icon position is on the right"
       },
       "events": {},
       "methods": {},
@@ -1497,10 +1498,8 @@
         "keepAnchorWidth": "If true, dropdown content will have exact same width as anchor",
         "offset": "Dropdown content will be moved by main and cross axis according to current `placement`",
         "placement": "Dropdown content will be placed on `placement` side of anchor",
-        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction",
-        "trigger": "Action which will open and close dropdown",
-        "target": "Dropdown content parent. Dropdown content will be attached to `target` to prevent overflow",
-        "preventOverflow": "If true, dropdown will be teleported to `target` ignoring `overflow: hidden` on relative position elements"
+        "trigger": "Action that will open and close dropdown",
+        "target": "Dropdown content parent. Dropdown content will be attached to `target` to prevent overflow"
       },
       "events": {
         "anchorClick": "The event is triggered when anchor is clicked",
