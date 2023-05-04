@@ -9,7 +9,7 @@ import { getBreakpointDefaultConfig } from '../breakpoint'
 import { getGlobalProperty } from '../vue-plugin/utils'
 import { getCurrentApp, inject } from '../current-app'
 import { mergeDeep } from '../../utils/merge-deep'
-import { getColorsClassesDefaultConfig } from '../colors-classes'
+import { getColorsClassesDefaultConfig } from '../colors-classes/config/default'
 
 export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
 
@@ -36,7 +36,7 @@ export const createGlobalConfig = () => {
   }
 
   const mergeGlobalConfig = (updater: PartialGlobalConfig | GlobalConfigUpdater<PartialGlobalConfig>) => {
-    const config = typeof updater === 'function' ? updater(globalConfig.value) : updater
+    const config = typeof updater === 'function' ? updater(globalConfig.value as PartialGlobalConfig) : updater
     globalConfig.value = mergeDeep(cloneDeep(globalConfig.value), config)
   }
 
@@ -48,7 +48,7 @@ export const createGlobalConfig = () => {
   }
 }
 
-const provideForCurrentApp = <T>(provide: T) => {
+export const provideForCurrentApp = <T>(provide: T) => {
   const provides = getCurrentInstance()?.appContext.provides || getCurrentApp()?._context.provides
 
   if (!provides) { throw new Error('Vue app not found for provide') }
@@ -58,17 +58,6 @@ const provideForCurrentApp = <T>(provide: T) => {
   return provide
 }
 
-/** Use this function if you don't want to throw error if hook used outside setup function by useGlobalConfig */
-export function useGlobalConfig () {
-  let injected = inject<ProvidedGlobalConfig>(GLOBAL_CONFIG) as ProvidedGlobalConfig
-
-  if (!injected) {
-    injected = createGlobalConfig()
-
-    provideForCurrentApp(injected)
-  }
-
-  return injected
-}
+export { useGlobalConfig } from '../../composables/useGlobalConfig'
 
 export * from './types'
