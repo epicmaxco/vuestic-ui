@@ -39,7 +39,7 @@ export const usePageConfigs = () => files
 
 export const usePageConfig = async (name: Ref<string>) => {
   try {
-    const config = ref<PageConfigOptions | null>(await getConfig(unref(name)))
+    const config = ref<PageConfigOptions | null>(await getConfig(unref(name))) as Ref<PageConfigOptions | null>
 
     watch(name, async () => {
       try {
