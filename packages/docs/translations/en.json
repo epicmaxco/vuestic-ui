@@ -233,7 +233,9 @@
         "leftIcon": "Sets the icon position to the left.",
         "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
         "requiredMark": "Adds required mark to the label",
-        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction."
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
+        "ariaNextPeriodLabel": "The aria-label of the \"next period\" button",
+        "ariaPreviousPeriodLabel": "The aria-label of the \"previous period\" button"
       }
     },
     "VaBadge": {
@@ -1206,8 +1208,6 @@
         "parseDate": "Function that transforms input field text to date",
         "parseValue": "Function that transforms string value to date, date array or date period",
         "ariaLabel": "The aria-label of the input",
-        "ariaNextPeriodLabel": "The aria-label of the \"next period\" button",
-        "ariaPreviousPeriodLabel": "The aria-label of the \"previous period\" button",
         "ariaResetLabel": "The aria-label of the \"reset\" button",
         "ariaSelectedDateLabel": "The aria-label of the input of the component",
         "background": "The color name of the backgound color",
