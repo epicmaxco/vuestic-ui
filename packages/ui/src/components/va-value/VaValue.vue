@@ -14,7 +14,7 @@ export default defineComponent({
   name: 'VaValue',
 
   props: {
-    defaultValue: { type: [] as PropType<any>, required: false, default: false },
+    defaultValue: { type: null as unknown as PropType<any>, required: false, default: false },
   },
 
   setup (props, { slots }) {
