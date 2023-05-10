@@ -165,48 +165,50 @@ export default defineComponent({
 @import "../../../styles/resources/index.scss";
 @import "../variables";
 
-.va-data-table__table-th {
-  padding: var(--va-data-table-cell-padding);
-  width: var(--va-data-table-width);
-  min-width: var(--va-data-table-width);
-  text-align: var(--va-data-table-align);
-  vertical-align: var(--va-data-table-vertical-align);
-  font-size: var(--va-data-table-thead-font-size);
-  line-height: var(--va-data-table-thead-line-height);
-  font-weight: var(--va-data-table-thead-font-weight);
-  text-transform: var(--va-data-table-thead-text-transform);
-  letter-spacing: var(--va-data-table-thead-letter-spacing);
-  cursor: var(--va-data-table-cursor);
+.va-data-table .va-data-table__table {
+  .va-data-table__table-th {
+    padding: var(--va-data-table-cell-padding);
+    width: var(--va-data-table-width);
+    min-width: var(--va-data-table-width);
+    text-align: var(--va-data-table-align);
+    vertical-align: var(--va-data-table-vertical-align);
+    font-size: var(--va-data-table-thead-font-size);
+    line-height: var(--va-data-table-thead-line-height);
+    font-weight: var(--va-data-table-thead-font-weight);
+    text-transform: var(--va-data-table-thead-text-transform);
+    letter-spacing: var(--va-data-table-thead-letter-spacing);
+    cursor: var(--va-data-table-cursor);
 
-  .va-data-table__table-th-wrapper {
-    display: flex;
-    align-items: center;
+    .va-data-table__table-th-wrapper {
+      display: flex;
+      align-items: center;
 
-    @include keyboard-focus-outline($offset: 2px);
-  }
-
-  .va-data-table__table-th-sorting-icon {
-    opacity: 0;
-    user-select: none;
-    pointer-events: none;
-
-    &.active {
-      opacity: 1;
-      pointer-events: initial;
+      @include keyboard-focus-outline($offset: 2px);
     }
 
-    &:focus-visible {
-      opacity: 1;
+    .va-data-table__table-th-sorting-icon {
+      opacity: 0;
+      user-select: none;
+      pointer-events: none;
+
+      &.active {
+        opacity: 1;
+        pointer-events: initial;
+      }
+
+      &:focus-visible {
+        opacity: 1;
+      }
     }
-  }
 
-  span {
-    flex-grow: 1;
-  }
+    span {
+      flex-grow: 1;
+    }
 
-  &:hover {
-    .va-data-table__table-th-sorting-icon:not(.active, :focus-visible) {
-      opacity: var(--va-data-table-hover-th-opacity);
+    &:hover {
+      .va-data-table__table-th-sorting-icon:not(.active, :focus-visible) {
+        opacity: var(--va-data-table-hover-th-opacity);
+      }
     }
   }
 }

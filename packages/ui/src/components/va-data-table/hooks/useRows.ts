@@ -46,7 +46,7 @@ const buildTableRow = (
   initialIndex: number,
   itemsTrackBy: string | ((item: DataTableItem) => any),
   columns: DataTableColumnInternal[],
-): DataTableRow => {
+) => {
   const itemKey = getItemKey(source, itemsTrackBy)
 
   return {
@@ -64,7 +64,7 @@ export const useRows = (
 ) => {
   const expandableRows = ref<Record<number, boolean>>({})
 
-  const rowsComputed = computed(() => props.items
+  const rowsComputed = computed<DataTableRow[]>(() => props.items
     .map((rawItem, index) => ({
       ...buildTableRow(rawItem, index, props.itemsTrackBy, columns.value),
       toggleRowDetails: (show?: boolean) => {
