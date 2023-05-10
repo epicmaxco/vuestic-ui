@@ -76,7 +76,7 @@ const description = computed(() => {
     />
   </template>
 
-  <div class="page-config-example mb-3">
+  <div class="page-config-example">
     <va-card
       outlined
       class="page-config-example__card"
@@ -116,6 +116,8 @@ const description = computed(() => {
 
 <style lang="scss" scoped>
 .page-config-example {
+  margin-bottom: 2rem;
+
   &__card {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
