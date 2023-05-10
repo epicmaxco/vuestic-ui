@@ -1,130 +1,122 @@
 <template>
-  <div class="row mb-6">
-    <div class="flex flex-col md4">
-      <va-select
-        v-model="columns[0].thAlign"
-        label="First heading align"
-        :options="alignOptions"
-      />
-      <va-select
-        v-model="columns[0].thVerticalAlign"
-        class="mt-2"
-        label="First heading vertical align"
-        :options="verticalAlignOptions"
-      />
-      <va-select
-        v-model="columns[0].width"
-        class="mt-2"
-        label="First heading width"
-        :options="widthOptions"
-        clearable
-      />
+  <div class="grid md:grid-cols-3 gap-6 mb-6">
+    <div>
+      First heading
+      <div class="grid grid-cols-2 md:grid-cols-1 gap-1 sm:gap-3">
+        <va-select
+          v-model="columns[0].thAlign"
+          label="Align"
+          :options="alignOptions"
+        />
+        <va-select
+          v-model="columns[0].width"
+          label="Width"
+          :options="widthOptions"
+          clearable
+        />
+      </div>
     </div>
-    <div class="flex flex-col md4">
-      <va-select
-        v-model="columns[1].thAlign"
-        label="Second heading align"
-        :options="alignOptions"
-      />
-      <va-select
-        v-model="columns[1].thVerticalAlign"
-        class="mt-2"
-        label="Second heading vertical align"
-        :options="verticalAlignOptions"
-      />
-      <va-select
-        v-model="columns[1].width"
-        class="mt-2"
-        label="Second heading width"
-        :options="widthOptions"
-        clearable
-      />
+    <div>
+      Second heading
+      <div class="grid grid-cols-2 md:grid-cols-1 gap-1 sm:gap-3">
+        <va-select
+          v-model="columns[1].thAlign"
+          label="Align"
+          :options="alignOptions"
+        />
+        <va-select
+          v-model="columns[1].width"
+          label="Width"
+          :options="widthOptions"
+          clearable
+        />
+      </div>
     </div>
-    <div class="flex flex-col md4">
-      <va-select
-        v-model="columns[2].thAlign"
-        label="Third heading align"
-        :options="alignOptions"
-      />
-      <va-select
-        v-model="columns[2].thVerticalAlign"
-        class="mt-2"
-        label="Third heading vertical align"
-        :options="verticalAlignOptions"
-      />
-      <va-select
-        v-model="columns[2].width"
-        class="mt-2"
-        label="Third heading width"
-        :options="widthOptions"
-        clearable
-      />
+    <div>
+      Third heading
+      <div class="grid grid-cols-2 md:grid-cols-1 gap-1 sm:gap-3">
+        <va-select
+          v-model="columns[2].thAlign"
+          label="Align"
+          :options="alignOptions"
+        />
+        <va-select
+          v-model="columns[2].width"
+          label="Width"
+          :options="widthOptions"
+          clearable
+        />
+      </div>
     </div>
   </div>
 
-  <div class="row mb-6">
-    <div class="flex flex-col md4">
-      <va-select
-        v-model="columns[0].tdAlign"
-        label="First column align"
-        :options="alignOptions"
-        color="#990099"
-      />
-      <va-select
-        v-model="columns[0].tdVerticalAlign"
-        class="mt-2"
-        label="First column vertical align"
-        :options="verticalAlignOptions"
-        color="#990099"
-      />
+  <div class="grid md:grid-cols-3 gap-6 mb-6">
+    <div>
+      First column
+      <div class="grid grid-cols-2 md:grid-cols-1 gap-1 sm:gap-3">
+        <va-select
+          v-model="columns[0].tdAlign"
+          label="Align"
+          :options="alignOptions"
+          color="#8338EC"
+        />
+        <va-select
+          v-model="columns[0].tdVerticalAlign"
+          label="V. align"
+          :options="verticalAlignOptions"
+          color="#8338EC"
+        />
+      </div>
     </div>
-    <div class="flex flex-col md4">
-      <va-select
-        v-model="columns[1].tdAlign"
-        label="Second column align"
-        :options="alignOptions"
-        color="#990099"
-      />
-      <va-select
-        v-model="columns[1].tdVerticalAlign"
-        class="mt-2"
-        label="Second column vertical align"
-        :options="verticalAlignOptions"
-        color="#990099"
-      />
+    <div>
+      Second column
+      <div class="grid grid-cols-2 md:grid-cols-1 gap-1 sm:gap-3">
+        <va-select
+          v-model="columns[1].tdAlign"
+          label="Align"
+          :options="alignOptions"
+          color="#8338EC"
+        />
+        <va-select
+          v-model="columns[1].tdVerticalAlign"
+          label="V. align"
+          :options="verticalAlignOptions"
+          color="#8338EC"
+        />
+      </div>
     </div>
-    <div class="flex flex-col md4">
-      <va-select
-        v-model="columns[2].tdAlign"
-        label="Third column align"
-        :options="alignOptions"
-        color="#990099"
-      />
-      <va-select
-        v-model="columns[2].tdVerticalAlign"
-        class="mt-2"
-        label="Third column vertical align"
-        :options="verticalAlignOptions"
-        color="#990099"
-      />
+    <div>
+      Third column
+      <div class="grid grid-cols-2 md:grid-cols-1 gap-1 sm:gap-3">
+        <va-select
+          v-model="columns[2].tdAlign"
+          label="Align"
+          :options="alignOptions"
+          color="#8338EC"
+        />
+        <va-select
+          v-model="columns[2].tdVerticalAlign"
+          label="V. align"
+          :options="verticalAlignOptions"
+          color="#8338EC"
+        />
+      </div>
     </div>
   </div>
 
-  <div class="row mb-6">
+  <div class="grid grid-cols-2 gap-6 mb-6">
     <va-checkbox
       v-model="useAdditionalClass"
-      class="flex flex-col mb-1 md6"
-      label="Use additional class to cells of first column"
+      label="Use additional class"
     />
     <va-checkbox
       v-model="useAdditionalStyle"
-      class="flex flex-col mb-1 md6"
-      label="Use additional styles to cells of second column"
+      label="Use additional style"
     />
   </div>
 
   <va-data-table
-    class="table-example"
+    class="table"
     :items="items"
     :columns="columns"
   />
@@ -158,7 +150,6 @@ export default defineComponent({
         key: "id",
         label: "ID",
         thAlign: "left",
-        thVerticalAlign: "top",
         tdAlign: "left",
         tdVerticalAlign: "top",
         sortable: true,
@@ -167,7 +158,6 @@ export default defineComponent({
         key: "text",
         label: "Text",
         thAlign: "center",
-        thVerticalAlign: "middle",
         tdAlign: "center",
         tdVerticalAlign: "middle",
         sortable: true,
@@ -176,7 +166,6 @@ export default defineComponent({
         key: "target",
         label: "Target",
         thAlign: "right",
-        thVerticalAlign: "bottom",
         tdAlign: "right",
         tdVerticalAlign: "bottom",
         sortable: true,
@@ -201,13 +190,13 @@ export default defineComponent({
   watch: {
     useAdditionalClass: {
       handler(value) {
-        this.columns[0].tdClass = value && "additionalClass";
+        this.columns[0].tdClass = value && "additional-class";
       },
       immediate: true,
     },
     useAdditionalStyle: {
       handler(value) {
-        this.columns[1].tdStyle = value && { color: "blue", fontWeight: 900 };
+        this.columns[1].tdStyle = value && { color: "#EF467F" };
       },
       immediate: true,
     },
@@ -215,26 +204,22 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
-.table-example {
-  th {
-    background-color: var(--va-background-element);
-    border: 1px solid currentColor;
-    height: 50px;
+<style lang="scss" scoped>
+.table {
+  ::v-deep(th) {
+    border: 1px solid var(--va-background-border);
   }
 
-  tr {
-    border-bottom: 1px solid currentColor;
+  ::v-deep(tr) {
+    border-bottom: 1px solid var(--va-background-border);
 
     td {
-      height: 70px;
+      height: 4.5rem;
     }
   }
 }
 
-.additionalClass {
-  color: orange;
-  font-style: italic;
-  font-weight: 900;
+::v-deep(.additional-class) {
+  color: #8338EC;
 }
 </style>

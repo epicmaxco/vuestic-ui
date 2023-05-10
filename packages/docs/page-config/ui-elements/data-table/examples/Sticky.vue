@@ -1,11 +1,5 @@
 <template>
-  <div class="sticky-table-example">
-    <va-data-table
-      :items="items"
-      footer-clone
-      height="180px"
-    />
-
+  <div class="grid gap-10">
     <va-data-table
       :items="items"
       sticky-header
@@ -17,38 +11,28 @@
       :items="items"
       :style="{
         '--va-data-table-height': '300px',
-        '--va-data-table-thead-background': 'var(--va-secondary)',
+        '--va-data-table-thead-background': 'var(--va-background-element)',
         '--va-data-table-tfoot-background': 'var(--va-background-element)',
-        '--va-data-table-thead-color': 'var(--va-warning)',
+        '--va-data-table-thead-color': '#2C82E0',
       }"
       sticky-header
       footer-clone
       sticky-footer
     >
-      <template #headerAppend>
+      <template #headerPrepend>
         <tr>
-          <th colspan="1">
-            #
-          </th>
-          <th colspan="2">
-            User info
-          </th>
-          <th colspan="3">
-            Contact info
-          </th>
+          <th colspan="6">Additional data in the header prepend slot</th>
         </tr>
       </template>
-      <template #footerPrepend>
+      <template #footerAppend>
         <tr>
-          <th colspan="6">
-            Additional data in the footer prepend slot
-          </th>
+          <th colspan="6">Additional data in the footer append slot</th>
         </tr>
       </template>
     </va-data-table>
 
     <va-data-table
-      class="my-custom-table-class"
+      class="custom-table"
       :items="items"
       height="100%"
       sticky-header
@@ -60,9 +44,7 @@
     >
       <template #headerPrepend>
         <tr>
-          <th colspan="6">
-            With scroll events
-          </th>
+          <th colspan="6">With scroll events</th>
         </tr>
       </template>
       <template
@@ -87,7 +69,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   data() {
-    const users = [
+    const items = [
       {
         id: 1,
         name: "Leanne Graham",
@@ -155,7 +137,7 @@ export default defineComponent({
     ];
 
     return {
-      items: users,
+      items,
       isLoading: false,
     };
   },
@@ -193,32 +175,22 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
-.sticky-table-example {
-  .va-data-table {
-    border: 1px solid var(--va-background-element);
-  }
-
-  .va-data-table + .va-data-table {
-    margin-top: 2rem;
-  }
-
-  .my-custom-table-class {
-    --va-data-table-thead-background:
-      linear-gradient(
-        0deg,
-        var(--va-primary),
-        var(--va-info)
-      );
-    --va-data-table-tfoot-background:
-      linear-gradient(
-        0deg,
-        var(--va-info),
-        var(--va-primary)
-      );
-    --va-data-table-max-height: 250px;
-    --va-data-table-thead-color: var(--va-text-inverted);
-    --va-data-table-tfoot-color: var(--va-text-inverted);
-  }
+<style lang="scss" scoped>
+::v-deep(.custom-table) {
+  --va-data-table-thead-background:
+    linear-gradient(
+      0deg,
+      var(--va-primary),
+      var(--va-info)
+    );
+  --va-data-table-tfoot-background:
+    linear-gradient(
+      0deg,
+      var(--va-info),
+      var(--va-primary)
+    );
+  --va-data-table-max-height: 300px;
+  --va-data-table-thead-color: var(--va-text-inverted);
+  --va-data-table-tfoot-color: var(--va-text-inverted);
 }
 </style>

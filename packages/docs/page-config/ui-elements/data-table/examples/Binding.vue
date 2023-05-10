@@ -1,14 +1,12 @@
 <template>
-  <div class="row mb-6">
+  <div class="flex flex-wrap gap-6 mb-6">
     <va-checkbox
       v-model="isRowBind"
-      class="flex flex-col md3 sm4 xs6"
       label="Row bind"
     />
 
     <va-checkbox
       v-model="isCellBind"
-      class="flex flex-col md3 sm4 xs6"
       label="Cell bind"
     />
   </div>
@@ -27,7 +25,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   data() {
-    const users = [
+    const items = [
       {
         id: 1,
         name: "Leanne Graham",
@@ -74,7 +72,7 @@ export default defineComponent({
     ];
 
     return {
-      items: users,
+      items,
       columns,
       isCellBind: true,
       isRowBind: true,
@@ -83,18 +81,16 @@ export default defineComponent({
 
   methods: {
     getRowBind(row) {
-      const classes = ["customRowClass_1"];
       if (row.name === "Ervin Howell") {
-        classes.push(["customRowClass_2", "customRowClass_3"]);
-      } else if (row.phone.startsWith("(")) {
-        classes.push({ customRowClass_4: true });
+        return {
+          class: ["custom-class"]
+        };
       }
-      return { class: classes };
     },
     getCellBind(cell, row, column) {
-      if (column.key === "username" && cell.startsWith("S")) {
+      if (column.key === "username") {
         return {
-          style: { fontWeight: "bold" },
+          style: { color: "#EF476F" },
           onClick: () => console.log(cell),
         };
       }
@@ -103,20 +99,10 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
-.customRowClass_1 {
-  color: darkblue;
-}
-
-.customRowClass_2 {
-  background-color: rgb(205, 242, 174);
-}
-
-.customRowClass_3 {
-  color: rgb(244, 10, 10);
-}
-
-.customRowClass_4 {
-  background-color: rgb(213, 187, 241);
+<style lang="scss" scoped>
+::v-deep(.custom-class) {
+  text-decoration: line-through;
+  pointer-events: none;
+  background-color: var(--va-background-element);
 }
 </style>

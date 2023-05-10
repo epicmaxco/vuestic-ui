@@ -1,71 +1,62 @@
 <template>
-  <div class="row">
-    <div class="flex flex-col lg4 mb-2">
+  <div class="grid sm:grid-cols-3 gap-6 mb-6">
+    <div>
       <va-switch
         v-model="isTableStriped"
-        class="mt-2"
-        label="Striped style"
+        label="Striped"
         size="small"
       />
       <br>
       <va-switch
         v-model="animated"
-        class="mt-2"
-        label="Animated rows"
+        label="Animated"
         size="small"
       />
       <br>
       <va-switch
         v-model="isTableRowsClickable"
-        class="mt-2"
-        label="Clickable rows"
+        label="Clickable"
         size="small"
       />
     </div>
 
-    <div class="flex flex-col lg4 mb-2">
+    <div>
       <va-switch
         v-model="isTableLoading"
-        class="mt-2"
-        label="Loading state"
+        label="Loading"
         size="small"
       />
       <br>
       <va-switch
         v-model="prependSlot"
-        class="mt-2"
-        label="Add (prepend) slots"
+        label="Prepend slots"
         size="small"
       />
       <br>
       <va-switch
         v-model="appendSlot"
-        class="mt-2"
-        label="Add (append) slots"
+        label="Append slots"
         size="small"
       />
     </div>
 
-    <div class="flex flex-col lg4 mb-2">
+    <div>
       <va-switch
         v-model="hideDefaultHeader"
-        class="mt-2"
-        label="Hide default header"
+        label="Hide header"
         size="small"
       />
       <br>
       <va-switch
         v-model="footerClone"
-        class="mt-2"
-        label="Clone header to footer"
+        label="Clone footer"
         size="small"
         :disabled="hideDefaultHeader"
       />
       <br>
       <va-switch
         v-model="footerSorting"
-        class="mt-2"
-        label="Allow foot sorting"
+        label="Foot sorting"
         size="small"
         :disabled="hideDefaultHeader || !footerClone"
       />
@@ -76,7 +67,7 @@
     :items="items"
     :columns="columns"
     :striped="isTableStriped"
-    :selectable="true"
+    selectable
     :clickable="isTableRowsClickable"
     :loading="isTableLoading"
     :hide-default-header="hideDefaultHeader"
@@ -153,7 +144,7 @@
 
   <va-alert
     v-if="isTableRowsClickable"
-    class="mt-3"
+    class="!mt-6"
     color="info"
     outline
   >
@@ -170,7 +161,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   data() {
-    const users = [
+    const items = [
       {
         id: 1,
         name: "Leanne Graham",
@@ -217,7 +208,7 @@ export default defineComponent({
     ];
 
     return {
-      items: users,
+      items,
       columns,
       isTableLoading: false,
       isTableStriped: true,

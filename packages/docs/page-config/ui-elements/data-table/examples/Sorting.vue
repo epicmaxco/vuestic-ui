@@ -1,15 +1,12 @@
 <template>
-  <div class="row">
+  <div class="grid sm:grid-cols-2 gap-6 mb-6">
     <va-select
       v-model="sortBy"
-      class="flex flex-col mb-2 md6"
       label="Sort by"
       :options="sortByOptions()"
     />
-
     <va-select
       v-model="sortingOrder"
-      class="flex flex-col mb-2 md6"
       label="Sorting order"
       :options="sortingOrderOptions"
       :value-by="(option) => option.value"
@@ -21,7 +18,7 @@
     v-model:sorting-order="sortingOrder"
     :items="items"
     :columns="columns"
-    :hoverable="true"
+    hoverable
     @sorted="
       sortedRowsEmitted = $event.items.map(row => row.id),
       sortingOrderEmitted = $event.sortingOrder,
@@ -30,25 +27,19 @@
   />
 
   <va-alert
-    class="mt-3"
+    class="!mt-6"
     color="info"
     outline
   >
     <span v-if="sortingOrder">
       Sorted items order (showing id):
-      <va-chip v-show="!!sortedRowsEmitted.length">{{
-        sortedRowsEmitted.join(" --> ")
-      }}</va-chip>
-      <va-chip v-show="!!sortingOrderEmitted">{{
-        sortingOrderEmitted
-      }}</va-chip>
+      <va-chip v-show="!!sortedRowsEmitted.length">{{ sortedRowsEmitted.join(" --> ") }}</va-chip>
+      <va-chip v-show="!!sortingOrderEmitted">{{ sortingOrderEmitted }}</va-chip>
       <va-chip v-show="!!sortByEmitted">{{ sortByEmitted }}</va-chip>
     </span>
     <span v-else>
       Unsorted items order (showing id):
-      <va-chip v-show="!!sortedRowsEmitted.length">{{
-        sortedRowsEmitted.join(", ")
-      }}</va-chip>
+      <va-chip v-show="!!sortedRowsEmitted.length">{{ sortedRowsEmitted.join(", ") }}</va-chip>
     </span>
   </va-alert>
 </template>

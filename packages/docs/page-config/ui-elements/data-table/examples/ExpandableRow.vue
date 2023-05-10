@@ -40,22 +40,12 @@
   </va-data-table>
 </template>
 
-<style>
-  .va-data-table__table-tr--expanded td {
-    background: var(--va-background-border);
-  }
-
-  .va-data-table__table-expanded-content td {
-    background-color: var(--va-background-element);
-  }
-</style>
-
 <script>
 import { defineComponent } from "vue";
 
 export default defineComponent({
   data() {
-    const users = [
+    const items = [
       {
         id: 1,
         name: "Leanne Graham",
@@ -106,9 +96,19 @@ export default defineComponent({
     ];
 
     return {
-      items: users,
+      items,
       columns
     };
   },
 });
 </script>
+
+<style>
+  .va-data-table__table-tr--expanded td {
+    background: var(--va-background-border);
+  }
+
+  .va-data-table__table-expanded-content td {
+    background-color: var(--va-background-element);
+  }
+</style>

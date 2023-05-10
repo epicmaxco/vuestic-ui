@@ -5,7 +5,7 @@
   >
     <template #colgroup>
       <col span="5">
-      <col class="table-example--slots">
+      <col class="table-slots">
     </template>
   </va-data-table>
 </template>
@@ -15,7 +15,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   data() {
-    const users = [
+    const items = [
       {
         id: 1,
         name: "Leanne Graham",
@@ -52,7 +52,7 @@ export default defineComponent({
     ];
 
     return {
-      items: users,
+      items,
       columns,
     };
   },
@@ -60,7 +60,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.table-example--slots {
+.table-slots {
   background-color: var(--va-background-element);
+  color: var(--va-on-background-element);
 }
 </style>

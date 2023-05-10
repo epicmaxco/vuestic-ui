@@ -1,6 +1,6 @@
 <template>
   <va-data-table
-    class="table-inline-example"
+    class="table-inline"
     :items="items"
     :columns="columns"
   >
@@ -9,12 +9,12 @@
       :key="item.key"
       #[`cell(${item.key})`]="{ value, row }"
     >
-      <div class="table-inline-example__cell">
+      <div class="table-inline__cell">
         <va-value #default="doShowInput">
           <va-input
             v-if="doShowInput.value"
             :model-value="value"
-            @change="() => { 
+            @change="($event) => {
               row.rowData[item.key] = $event.target.value
               doShowInput.value = false
             }"
@@ -22,8 +22,8 @@
             @vue:mounted="$event.component.ctx.focus()"
           />
           <span
-            class="table-inline-example__item"
-            :class="doShowInput.value ? 'table-inline-example__item--hidden' : ''"
+            class="table-inline__item"
+            :class="doShowInput.value ? 'table-inline__item--hidden' : ''"
             @click="doShowInput.value = true"
           >
             {{ value }}
@@ -77,8 +77,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.table-inline-example {
-  .table-inline-example__cell {
+.table-inline {
+  &__cell {
     position: relative;
     height: 100%;
     width: 100%;
@@ -86,7 +86,7 @@ export default defineComponent({
     align-items: center;
   }
 
-  .table-inline-example__item {
+  &__item {
     cursor: pointer;
 
     &--hidden {
