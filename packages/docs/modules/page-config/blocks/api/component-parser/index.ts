@@ -1,5 +1,7 @@
 import type { DefineComponent, ComponentOptions } from "vue"
 import { isArray, isObject, isFunction, kebabCase } from 'lodash'
+import * as components from 'vuestic-ui'
+import { EventMeta, PropertyMeta } from "vue-component-meta"
 
 function getComponentOptions (component: DefineComponent): ComponentOptions {
   if (component.options) {
@@ -10,7 +12,7 @@ function getComponentOptions (component: DefineComponent): ComponentOptions {
     return { ...component.__vccOpts, ...component.__b }
   }
 
-  return component
+  return component as ComponentOptions
 }
 
 /**
@@ -58,8 +60,8 @@ export type EventOptionsCompiled = Record<string, any> & {
 }
 
 export type CompiledComponentOptions = {
-  props: Record<string, PropOptionsCompiled>,
-  emits: Record<string, EventOptionsCompiled>,
+  props: PropertyMeta[],
+  emits: EventMeta[],
 }
 
 /**
@@ -95,14 +97,17 @@ function getDefaultValue (propOptions: Record<string, any>, types: Array<string>
   return defaultValue + ''
 }
 
-function convertComponentPropToApiDocs<T extends string> (propName: T, propOptionsRecord: Record<string, any>): PropOptionsCompiled {
+function convertComponentPropToApiDocs<T extends string> (propName: T, propOptionsRecord: Record<string, any>): PropertyMeta {
   const types = getTypes(propOptionsRecord[propName])
 
   return {
-    types,
+    name: propName,
+    global: false,
+    description: '',
+    type: types.join(' | '),
     required: !!propOptionsRecord[propName].required,
     default: getDefaultValue(propOptionsRecord[propName], types),
-  }
+  } as any
 }
 
 function normalizeProps (props: any) {
@@ -146,24 +151,30 @@ export function resolveProps (options: ComponentOptions, optionsType = 'props') 
 }
 
 export type ResolvedEvent = { types: 'any' }
-export function resolveEmits (options: ComponentOptions): Record<string, EventOptionsCompiled> {
+export function resolveEmits (options: ComponentOptions): EventMeta[] {
   if (!options.emits) {
-    return {}
+    return []
   }
 
   return (options.emits as string[])
-    .reduce((acc: Record<string, EventOptionsCompiled>, event: string) => {
-      acc[event] = { types: 'any' }
-      return acc
-    }, {})
+    .map((e) => ({
+      name: kebabCase(e),
+      description: '',
+      arguments: [],
+      type: 'any',
+    }) as any)
+    // .reduce((acc: Record<string, EventOptionsCompiled>, event: string) => {
+    //   acc[event] = { types: 'any' }
+    //   return acc
+    // }, {})
 }
 
 export function compileComponentOptions (componentOptions: ComponentOptions): CompiledComponentOptions {
   const resolvedProps = resolveProps(componentOptions)
 
-  const props: any = {}
+  const props: PropertyMeta[] = []
   for (const propName in resolvedProps) {
-    props[kebabCase(propName)] = convertComponentPropToApiDocs(propName, resolvedProps)
+    props.push(convertComponentPropToApiDocs(propName, resolvedProps))
   }
 
   const emits = resolveEmits(componentOptions)
@@ -171,7 +182,11 @@ export function compileComponentOptions (componentOptions: ComponentOptions): Co
   return { props, emits }
 }
 
-export const parseComponent = (component: DefineComponent) => {
+export const parseComponent = (component: DefineComponent | string) => {
+  if (typeof component === 'string') {
+    component = components[component as keyof typeof components] as unknown as DefineComponent
+  }
+
   const options = getComponentOptions(component)
 
   return compileComponentOptions(options)

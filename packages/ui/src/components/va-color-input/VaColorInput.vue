@@ -46,7 +46,7 @@ export default defineComponent({
     VaInput,
     VaColorIndicator,
   },
-  emits: useStatefulEmits,
+  emits: [...useStatefulEmits],
   props: {
     ...useStatefulProps,
     ...useComponentPresetProp,

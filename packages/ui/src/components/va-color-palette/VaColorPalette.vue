@@ -29,7 +29,7 @@ import { VaColorIndicator } from '../va-color-indicator'
 export default defineComponent({
   name: 'VaColorPalette',
   components: { VaColorIndicator },
-  emits: useStatefulEmits,
+  emits: [...useStatefulEmits],
   props: {
     ...useStatefulProps,
     ...useComponentPresetProp,
