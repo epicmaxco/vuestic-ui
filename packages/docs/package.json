@@ -26,7 +26,7 @@
     "acorn-walk": "^8.2.0",
     "autoprefixer": "^10.4.13",
     "escodegen": "^2.0.0",
-    "eslint": "7",
+    "eslint": "^7",
     "nuxt": "^3.1.1",
     "postcss": "^8.2.1",
     "postcss-custom-properties": "^13.1.1",
