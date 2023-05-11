@@ -236,7 +236,10 @@
         "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
         "ariaNextPeriodLabel": "The aria-label of the \"next period\" button",
         "ariaPreviousPeriodLabel": "The aria-label of the \"previous period\" button",
-        "ariaRemoveFileLabel": "The aria-label of the \"remove file\" button"
+        "ariaRemoveFileLabel": "The aria-label of the \"remove file\" button",
+        "ariaResetLabel": "The aria-label of the \"reset\" button",
+        "background": "The color name of the backgound color",
+        "innerAnchorSelector": "Anchor CSS selector inside passed slot"
       }
     },
     "VaBadge": {
@@ -831,7 +834,8 @@
         "pattern": "The pattern prop specifies a regular expression the input value should match",
         "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an apropriate virtual keyboard",
         "counter": "Show a counter of value length",
-        "maxLength": "Specify a max length of value"
+        "maxLength": "Specify a max length of value",
+        "ariaLabel": "The aria-label of input or text area depend on `type` prop of the component"
       },
       "events": {
         "change": "Emitted when the input loose focus or on `enter`",
@@ -1010,7 +1014,6 @@
         "closeOnContentClick": "Sets dropdown content on click behavior.",
         "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
         "trigger": "Action that will open and close dropdown.",
-        "innerAnchorSelector": "Anchor CSS selector inside passed slot.",
         "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
         "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened"
       },
@@ -1209,10 +1212,8 @@
         "parse": "Function that transforms input field text to date, date array or date period",
         "parseDate": "Function that transforms input field text to date",
         "parseValue": "Function that transforms string value to date, date array or date period",
-        "ariaLabel": "The aria-label of the input",
-        "ariaResetLabel": "The aria-label of the \"reset\" button",
-        "ariaSelectedDateLabel": "The aria-label of the input of the component",
-        "background": "The color name of the backgound color",
+        "ariaLabel": "The aria-label of the anchor slot",
+        "ariaSelectedDateLabel": "The aria-label of the input of the component if aria-label is not set",
         "closeOnAnchorClick": "Dropdown will be closed when anchor is clicked",
         "closeOnContentClick": "Dropdown will be closed when clicked inside dropdown content",
         "delimiter": "The delimiter used when turning model value to string",
@@ -1331,7 +1332,13 @@
         "placement": "Sets a popover position. [More about placements](/ui-elements/dropdown#placement-and-offset)",
         "autoHide": "Adds the ability to hide popover when clicked outside",
         "hoverOverTimeout": "Delay before opening",
-        "hoverOutTimeout": "Delay before closing"
+        "hoverOutTimeout": "Delay before closing",
+        "ariaLabel": "the aria-label of anchor slot of dropdown of the component",
+        "closeOnAnchorClick": "Popover will be closed when anchor is clicked",
+        "closeOnContentClick": "Popover will be closed when clicked inside popover content",
+        "keepAnchorWidth": "If true, popover content will have exact same width as anchor",
+        "offset": "Dropdown content will be moved by main and cross axis according to current `placement`",
+        "teleport": "Element where popover content will be rendered"
       },
       "events": {},
       "methods": {},
@@ -1493,7 +1500,6 @@
     },
     "VaDropdown": {
       "props": {
-        "innerAnchorSelector": "Anchor CSS selector inside passed slot",
         "closeOnContentClick": "Dropdown will be closed when clicked inside dropdown content",
         "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
         "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
