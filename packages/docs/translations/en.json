@@ -434,7 +434,9 @@
         "hover": "Adds visual feedback when hovering on items",
         "texts": "The array of captions to be used with each value. The array length should be equal to **`max`** prop",
         "textColor": "Color of text captions",
-        "unselectedColor": "Specifies the color of unselected items (by default **`color`** prop is used)"
+        "unselectedColor": "Specifies the color of unselected items (by default **`color`** prop is used)",
+        "ariaLabel": "The aria-label of the component",
+        "ariaItemLabel": "The aria-label of rating items of the component"
       }
     },
     "VaPagination": {
