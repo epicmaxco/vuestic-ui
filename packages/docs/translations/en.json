@@ -235,7 +235,8 @@
         "requiredMark": "Adds required mark to the label",
         "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
         "ariaNextPeriodLabel": "The aria-label of the \"next period\" button",
-        "ariaPreviousPeriodLabel": "The aria-label of the \"previous period\" button"
+        "ariaPreviousPeriodLabel": "The aria-label of the \"previous period\" button",
+        "ariaRemoveFileLabel": "The aria-label of the \"remove file\" button"
       }
     },
     "VaBadge": {
@@ -515,7 +516,8 @@
         "undo": "Enables the canceling of the removing action for the added files",
         "undoDuration": "Undoing action duration",
         "undoButtonText": "Cancel button text",
-        "deletedFileMessage": "Deleted file message"
+        "deletedFileMessage": "Deleted file message",
+        "files": "Files to be uploaded"
       },
       "events": {
         "fileAdded": "Emits after files are added",
