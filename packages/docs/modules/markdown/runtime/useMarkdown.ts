@@ -1,13 +1,13 @@
 import { InjectionKey } from "vue"
 import { marked } from 'marked';
-import { externalLinkMarkedPlugin, fixTargetLinks } from "./plugins/external-links";
+import { fixTargetLinks } from "./plugins/external-links";
 import { localizedLinkMarkedPlugin } from './plugins/localized-links'
 
 let localizePlugin: null | ReturnType<typeof localizedLinkMarkedPlugin> = null
 
 export const useMarkdownProvideKey = 'vuestic:markdown' as unknown as InjectionKey<ReturnType<typeof marked>>
 
-export const useMarkdownIt = () => {
+export const useMarkdown = () => {
   const { locale } = useI18n()
 
   if (!localizePlugin) {

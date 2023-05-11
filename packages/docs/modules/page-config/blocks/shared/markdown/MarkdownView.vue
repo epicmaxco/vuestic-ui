@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import { useColors, useElementTextColor } from 'vuestic-ui'
+import { useColors } from "vuestic-ui";
 
 const props = defineProps({
   content: {
@@ -26,40 +26,43 @@ const props = defineProps({
   background: {
     type: String,
     default: undefined,
-  }
+  },
 });
 
-const { locale } = useI18n();
-
-const { parse } = useMarkdownIt();
+const { parse, parseInline } = useMarkdown();
 
 const text = computed(() => {
-  // return props.content
   try {
-    if (!props.content) { return '' }
-
-    if (props.text) {
-      return (parse(props.content)).match(/<p>(.*)<\/p>/)?.[1] || ''
+    if (!props.content) {
+      return "";
     }
 
-    return (parse(props.content));
+    if (props.inline) {
+      return parseInline(props.content);
+    }
+
+    if (props.text) {
+      return parse(props.content).match(/<p>(.*)<\/p>/)?.[1] || "";
+    }
+
+    return parse(props.content);
   } catch (e) {
-    console.error(e, props.content)
-    return ''
+    console.error(e, props.content);
+    return "";
   }
 });
 
-const { getColor, setHSLAColor, getTextColor, colors } = useColors()
+const { getColor, setHSLAColor, getTextColor, colors } = useColors();
 
 const codeBackground = computed(() => {
-  return setHSLAColor(colors.backgroundElement, { })
-})
+  return setHSLAColor(colors.backgroundElement, {});
+});
 
 const codeBorder = computed(() => {
-  const textColor = getColor(getTextColor(codeBackground.value))
+  const textColor = getColor(getTextColor(codeBackground.value));
 
-  return setHSLAColor(textColor, { a: 0.1 })
-})
+  return setHSLAColor(textColor, { a: 0.1 });
+});
 </script>
 
 <style lang="scss">
@@ -78,7 +81,8 @@ const codeBorder = computed(() => {
 
   code {
     display: inline-block;
-    font-family: Source Code Pro, Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-family: Source Code Pro, Consolas, Monaco, "Andale Mono", "Ubuntu Mono",
+      monospace;
     background: var(--code-bg, v-bind(codeBackground));
     font-size: 0.85rem;
     line-height: 100%;
@@ -100,17 +104,17 @@ const codeBorder = computed(() => {
   span {
     color: currentColor;
   }
-}
 
-a[target="_blank"] {
-  position: relative;
-
-  &::after {
-    content: "\279A";
+  a[target="_blank"] {
     position: relative;
-    opacity: 0.35;
-    line-height: 1;
-    vertical-align: text-top;
+
+    &::after {
+      content: "\279A";
+      position: relative;
+      opacity: 0.35;
+      line-height: 1;
+      vertical-align: text-top;
+    }
   }
 }
 </style>

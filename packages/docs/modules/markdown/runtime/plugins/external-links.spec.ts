@@ -1,13 +1,11 @@
 import { it, describe, expect } from 'vitest';
 import { marked } from 'marked';
-import { externalLinkMarkedPlugin } from './external-links';
+import { fixTargetLinks } from './external-links';
 
 describe('externalLinkMarkedPlugin', () => {
   it('targetBlankPlugin: adds target="_blank" to links', () => {
-    marked.use(externalLinkMarkedPlugin());
-
     const markdown = `[vue-press](https://vuepress.vuejs.org/)[[target=_blank]]`;
-    const html = marked(markdown);
+    const html = fixTargetLinks(marked(markdown));
 
     expect(/target="_blank"/.test(html)).toBeTruthy();
   });

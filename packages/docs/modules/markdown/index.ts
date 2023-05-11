@@ -8,9 +8,9 @@ export default defineNuxtModule({
 
   setup() {
     addImports({
-      name: 'useMarkdownIt',
-      as: 'useMarkdownIt',
-      from: resolve(__dirname, './runtime/useMarkdownIt'),
+      name: 'useMarkdown',
+      as: 'useMarkdown',
+      from: resolve(__dirname, './runtime/useMarkdown'),
     })
   }
 })
