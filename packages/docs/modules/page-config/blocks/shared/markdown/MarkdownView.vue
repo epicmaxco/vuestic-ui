@@ -102,7 +102,7 @@ const codeBorder = computed(() => {
   }
 }
 
-.MarkdownView__link--external {
+a[target="_blank"] {
   position: relative;
 
   &::after {

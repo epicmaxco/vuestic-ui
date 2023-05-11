@@ -29,7 +29,6 @@ export const createVuestic = defineVuesticPlugin((options: { config?: PartialGlo
 
     // These plugins have dependant plugins, so have to be registered first.
     usePlugin(app, GlobalConfigPlugin(config))
-    console.log('usePlugin(app, CachePlugin)', app)
     usePlugin(app, CachePlugin)
     usePlugin(app, ColorConfigPlugin(config))
     usePlugin(app, ColorsClassesPlugin)
