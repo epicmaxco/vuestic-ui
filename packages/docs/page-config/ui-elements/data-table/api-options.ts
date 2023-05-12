@@ -13,7 +13,7 @@ const cellScope = `
 // types description
 
 type DataTableCellScope {
-  rowIndex: number,
+  rowIndex: number, // the same as "initialIndex" in "DataTableRowScope" type
   rowKey: any,
   rowData: DataTableItem,
   column: DataTableColumnScope,
