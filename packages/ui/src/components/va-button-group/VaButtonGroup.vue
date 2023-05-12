@@ -62,7 +62,6 @@ export default defineComponent({
 @import '../../styles/resources';
 
 .va-button-group {
-  position: relative;
   display: var(--va-button-group-display);
   justify-content: var(--va-button-group-justify-content);
   border-radius: var(--va-button-group-border-radius);
