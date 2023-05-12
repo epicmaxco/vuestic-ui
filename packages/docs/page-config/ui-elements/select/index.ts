@@ -7,6 +7,7 @@ export default definePageConfig({
 
     block.subtitle("all.examples"),
 
+    block.example("IconOptions"),
     block.example("Default"),
     block.example("Styles"),
     block.example("Variations"),
