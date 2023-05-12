@@ -94,9 +94,9 @@ const eventsOptions = computed(() => Object
   .filter(([key, prop]) => !prop.hidden)
   .map(([key, prop]) => ({
     name: key,
-    description: prop.types
+    description: prop.types && typeof prop.types === 'string'
       ? {
-          text: t(getTranslation('events', key)) + '\n' + t(getTranslation('events', 'eventArgument')),
+          text: t(getTranslation('events', key)) + '. ' + t(getTranslation('events', 'eventArgument')),
           code: prop.types
         }
       : t(getTranslation('events', key))
@@ -112,7 +112,7 @@ const slotsOptions = computed(() => Object
     name: key,
     description: prop.types
       ? {
-          text: t(getTranslation('slots', key)) + '\n' + t(getTranslation('slots', 'scopeAvailable')),
+          text: t(getTranslation('slots', key)) + '. ' + t(getTranslation('slots', 'scopeAvailable')),
           code: prop.types
         }
       : t(getTranslation('slots', key))
