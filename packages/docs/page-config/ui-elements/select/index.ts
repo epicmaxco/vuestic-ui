@@ -7,7 +7,6 @@ export default definePageConfig({
 
     block.subtitle("all.examples"),
 
-    block.example("IconOptions"),
     block.example("Default"),
     block.example("Styles"),
     block.example("Variations"),
@@ -23,6 +22,7 @@ export default definePageConfig({
     block.example("MaxVisibleOptions"),
     block.example("SelectedTopShown"),
     block.example("Autocomplete"),
+    block.example("IconOptions"),
 
     block.headline("select.examples.keyboardNavigation.title"),
     block.paragraph("select.examples.keyboardNavigation.moves"),
