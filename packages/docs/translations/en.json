@@ -946,7 +946,15 @@
         "minSearchChars": "Minimal amount of chars in input value to initiate search or autocomplete.",
         "ariaLabel": "Set aria label. By default it `$t:selectOption` is value is selected and `$t:noSelectedOption` if value is empty.",
         "ariaClearLabel": "Set aria label for clear button",
-        "ariaSearchLabel": "Set aria label for search input"
+        "ariaSearchLabel": "Set aria label for search input",
+        "autoSelectFirstOption": "Automatically select the first option",
+        "closeOnAnchorClick":"Dropdown will be closed when anchor is clicked",
+        "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
+        "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
+        "searchPlaceholderText": "The text of placeholder of the search input",
+        "teleport": "Element where dropdown content will be rendered",
+        "trigger": "Action that will triggered when open and close dropdown.",
+        "virtualScroller": "Enables virtual scrolling"
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -1015,7 +1023,7 @@
         "modelValue": "Sets a dropdown state.",
         "closeOnContentClick": "Sets dropdown content on click behavior.",
         "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
-        "trigger": "Action that will open and close dropdown.",
+        "trigger": "Action that will triggered when open and close dropdown.",
         "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
         "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened"
       },
@@ -1226,7 +1234,7 @@
         "placement": "Sets the placement of the dropdown content. [More about placements](/ui-elements/dropdown#placement-and-offset)",
         "rangeDelimiter": "The delimiter used when turning model value to string",
         "teleport": "Element where dropdown content will be rendered",
-        "trigger": "Action that will open and close dropdown"
+        "trigger": "Action that will triggered when open and close dropdown."
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -1508,7 +1516,7 @@
         "keepAnchorWidth": "If true, dropdown content will have exact same width as anchor",
         "offset": "Dropdown content will be moved by main and cross axis according to current `placement`",
         "placement": "Dropdown content will be placed on `placement` side of anchor",
-        "trigger": "Action that will open and close dropdown",
+        "trigger": "Action that will triggered when open and close dropdown.",
         "target": "Dropdown content parent. Dropdown content will be attached to `target` to prevent overflow"
       },
       "events": {
