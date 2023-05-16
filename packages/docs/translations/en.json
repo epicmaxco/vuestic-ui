@@ -503,7 +503,9 @@
         "value": "Switch value",
         "trueValue": "Value when checked",
         "falseValue": "Value when unchecked",
-        "arrayValue": "Takes the value of a switch in an array of switches"
+        "arrayValue": "Takes the value of a switch in an array of switches",
+        "ariaLabel": "The aria-label of the component",
+        "offColor": "The background color when switch is off"
       },
       "slots": {
         "default": "Slot for label.",
