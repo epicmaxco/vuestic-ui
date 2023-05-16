@@ -17,7 +17,7 @@
   "guide": {
     "global": {
       "title": "Making a global theme switcher",
-      "description": "You can use `useColors` composable function to make a theme switcher. `applyPreset` method will change theme globally. You can check example bellow:"
+      "description": "You can use `useColors` composable function to make a theme switcher. `applyPreset` method will change theme globally. You can check example below:"
     },
     "local": {
       "title": "Making a local theme switcher",
@@ -29,7 +29,7 @@
     },
     "utility": {
       "title": "Modify colors",
-      "description": "You can modify colors using utilities from `useColors`. You can check example bellow:"
+      "description": "You can modify colors using utilities from `useColors`. You can check example below:"
     }
   },
   "theme": {

@@ -10,7 +10,6 @@ const switchValue = computed({
   set(value) { applyPreset(value) }
 })
 </script>
-Í˛
 <template>
   <div>
     <div class="flex items-center gap-3">
