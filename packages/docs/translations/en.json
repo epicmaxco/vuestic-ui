@@ -239,7 +239,11 @@
         "ariaRemoveFileLabel": "The aria-label of the \"remove file\" button",
         "ariaResetLabel": "The aria-label of the \"reset\" button",
         "background": "The color name of the backgound color",
-        "innerAnchorSelector": "Anchor CSS selector inside passed slot"
+        "innerAnchorSelector": "Anchor CSS selector inside passed slot",
+        "cellHeight": "Height of the time cell",
+        "teleport": "Element where content will be rendered",
+        "visibleCellsCount": "Count of time cells to display",
+        "hidePeriodSwitch": "Hide period column",
       }
     },
     "VaBadge": {
@@ -954,8 +958,6 @@
         "closeOnAnchorClick":"Dropdown will be closed when anchor is clicked",
         "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
         "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
-        "searchPlaceholderText": "The text of placeholder of the search input",
-        "teleport": "Element where dropdown content will be rendered",
         "trigger": "Action that will triggered when open and close dropdown.",
         "virtualScroller": "Enables virtual scrolling"
       },
@@ -1236,7 +1238,6 @@
         "offset": "Dropdown content will be moved by main and cross axis according to current `placement`",
         "placement": "Sets the placement of the dropdown content. [More about placements](/ui-elements/dropdown#placement-and-offset)",
         "rangeDelimiter": "The delimiter used when turning model value to string",
-        "teleport": "Element where dropdown content will be rendered",
         "trigger": "Action that will triggered when open and close dropdown."
       },
       "events": {
@@ -1350,8 +1351,7 @@
         "closeOnAnchorClick": "Popover will be closed when anchor is clicked",
         "closeOnContentClick": "Popover will be closed when clicked inside popover content",
         "keepAnchorWidth": "If true, popover content will have exact same width as anchor",
-        "offset": "Dropdown content will be moved by main and cross axis according to current `placement`",
-        "teleport": "Element where popover content will be rendered"
+        "offset": "Dropdown content will be moved by main and cross axis according to current `placement`"
       },
       "events": {},
       "methods": {},
@@ -1369,9 +1369,7 @@
         "secondsFilter": "Function that allows you to hide some specific seconds",
         "view": "View specifying which columns will be shown",
         "periodUpdatesModelValue": "If user will change period it will automatically update model value. You can turn off it and am/pm switch will only change view.",
-        "framed": "Adds borders to center of the picker",
-        "cellHeight": "Height of the time cell",
-        "visibleCellsCount": "Count of time cells to display"
+        "framed": "Adds borders to center of the picker"
       },
       "events": {},
       "methods": {},
@@ -1414,7 +1412,17 @@
         "bordered": "Applies underscore",
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
-        "icon": "Sets an icon. The default icon position is on the right"
+        "icon": "Sets an icon. The default icon position is on the right",
+        "ariaLabel": "The aria-label of the component",
+        "closeOnAnchorClick": "Dropdown will be closed when anchor is clicked",
+        "closeOnContentClick": "Dropdown will be closed when clicked inside dropdown content",
+        "framed": "Adds borders to center of the picker",
+        "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
+        "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
+        "keepAnchorWidth": "If true, dropdown content will have exact same width as anchor",
+        "offset": "Dropdown content will be moved by main and cross axis according to current `placement`",
+        "placement": "Sets the placement of the dropdown content. [More about placements](/ui-elements/dropdown#placement-and-offset)",
+        "trigger": "Action that will triggered when open and close dropdown."
       },
       "events": {},
       "methods": {},
