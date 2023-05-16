@@ -317,7 +317,8 @@
         "iconPrepend": "Icon at the start of slider.",
         "iconAppend": "Icon at the end of slider.",
         "vertical": "Makes slider vertical.",
-        "showTrack": "Toggles track display."
+        "showTrack": "Toggles track display.",
+        "ariaLabel": "The aria-label of the component"
       },
       "events": {
         "dragStart": "Emitted on drag start.",
