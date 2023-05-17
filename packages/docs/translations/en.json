@@ -1555,7 +1555,8 @@
         "maximization": "End panel size maximization via separator double click.",
         "maximizeStart": "Maximize size of the start panel instead of end one.",
         "snapping": "Marks array the splitter will be 'jumping' to.",
-        "snapping-range": "Distance (% of components container size, px or rem) between splitter and snapping mark, which will call 'jumping' to it."
+        "snappingRange": "Distance (% of components container size, px or rem) between splitter and snapping mark, which will call 'jumping' to it.",
+        "ariaLabel": "The aria-label of the component"
       },
       "events": {},
       "methods": {},
