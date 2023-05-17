@@ -243,7 +243,7 @@
         "cellHeight": "Height of the time cell",
         "teleport": "Element where content will be rendered",
         "visibleCellsCount": "Count of time cells to display",
-        "hidePeriodSwitch": "Hide period column",
+        "hidePeriodSwitch": "Hide period column"
       }
     },
     "VaBadge": {
