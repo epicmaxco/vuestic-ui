@@ -465,7 +465,14 @@
         "size": "Specify size for component. `small`, `medium`, `large` sizes are available.",
         "activePageColor": "Specifies color of the currently active page button.",
         "gapped": "Enables gaps between page buttons.",
-        "buttonsPreset": "Value of the `preset` prop for passing it to the `VaButton` component ([read more](/ui-elements/button))."
+        "buttonsPreset": "Value of the `preset` prop for passing it to the `VaButton` component ([read more](/ui-elements/button)).",
+        "ariaGoToLastPageLabel": "The aria-label of the \"go to last page\" button",
+        "ariaGoToNextPageLabel": "The aria-label of the \"go to next page\" button",
+        "ariaGoToPreviousPageLabel": "The aria-label of the \"go to previous page\" button",
+        "ariaGoToSpecificPageInputLabel": "The aria-label of the \"go to specific page\" input",
+        "ariaGoToSpecificPageLabel": "The aria-label of the \"go to specific page\" button",
+        "ariaGoToTheFirstPageLabel": "The aria-label of the \"go to the first page\" button",
+        "ariaLabel": "The aria-label of the component"
       },
       "slots": {
         "firstPageLink": "For the first page link content",

@@ -70,7 +70,7 @@
     >
       <va-button
         v-if="showDirectionLinks"
-        :aria-label="tp($props.ariaGoNextPageLabel)"
+        :aria-label="tp($props.ariaGoToNextPageLabel)"
         :disabled="$props.disabled || currentValue === lastPage"
         :icon="$props.directionIconRight"
         v-bind="buttonPropsComputed"
@@ -83,7 +83,7 @@
     >
       <va-button
         v-if="showBoundaryLinks"
-        :aria-label="tp($props.ariaGoLastPageLabel)"
+        :aria-label="tp($props.ariaGoToLastPageLabel)"
         :disabled="$props.disabled || currentValue === lastPage"
         :icon="$props.boundaryIconRight"
         v-bind="buttonPropsComputed"
@@ -160,8 +160,8 @@ export default defineComponent({
     ariaGoToPreviousPageLabel: { type: String, default: '$t:goToPreviousPage' },
     ariaGoToSpecificPageLabel: { type: String, default: '$t:goToSpecificPage' },
     ariaGoToSpecificPageInputLabel: { type: String, default: '$t:goToSpecificPageInput' },
-    ariaGoNextPageLabel: { type: String, default: '$t:goNextPage' },
-    ariaGoLastPageLabel: { type: String, default: '$t:goLastPage' },
+    ariaGoToNextPageLabel: { type: String, default: '$t:goNextPage' },
+    ariaGoToLastPageLabel: { type: String, default: '$t:goLastPage' },
   },
 
   setup (props, { emit }) {
