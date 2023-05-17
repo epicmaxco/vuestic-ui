@@ -358,7 +358,9 @@
       "props": {
         "activeColor": "Color of active links (theme string or HEX string).",
         "separator": "Element to separate breadcrumbs items.",
-        "separatorColor": "Color of the separator icon (theme string or HEX string)."
+        "separatorColor": "Color of the separator icon (theme string or HEX string).",
+        "ariaLabel": "The aria-label of the component",
+        "vertical": "Displays vertically"
       },
       "slots": {
         "default": "One or more `va-breadcrumbs-item` elements.",
