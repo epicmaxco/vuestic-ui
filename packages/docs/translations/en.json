@@ -1069,7 +1069,9 @@
     "VaColorPalette": {
       "props": {
         "value": "Current color",
-        "palette": "An array of colors"
+        "palette": "An array of colors",
+        "ariaIndicatorLabel": "The aria-label of the indicator",
+        "ariaLabel": "The aria-label of the component"
       },
       "events": {},
       "methods": {},
