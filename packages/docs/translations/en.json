@@ -403,7 +403,14 @@
         "ariaCloseLabel": "The aria-label of the close button",
         "backgroundColor": "The background color of the modal dialog",
         "beforeClose": "Function run before closing the modal",
-        "noPadding": "Disable padding in the modal dialog"
+        "noPadding": "Disable padding in the modal dialog",
+        "onBeforeClose": "Function to be called before closing",
+        "onBeforeOpen": "Function to be called before opening",
+        "onCancel": "Function to be called after cancel button is been pressed",
+        "onClickOutside": "Function to be called after clicking outside the modal",
+        "onClose": "Function to be called after closing",
+        "onOk": "Function to be called after pressing the \"ok\" button",
+        "onOpen": "Functiong to be called after opening the modal"
       },
       "events": {
         "updateModelValue": "The event is triggered when the component needs to change visibility",
