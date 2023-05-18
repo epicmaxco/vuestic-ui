@@ -491,7 +491,9 @@
         "vertical": "Align all items vertically",
         "prevIcon": "Icon to be used for scrolling backward in pagination",
         "nextIcon": "Icon to be used for scrolling forward in pagination",
-        "hidePagination": "Hide or show pagination arrows"
+        "hidePagination": "Hide or show pagination arrows",
+        "ariaMoveLeftLabel": "The aria-label of the \"move left\" button",
+        "ariaMoveRightLabel": "The aria-label of the \"move right\" button"
       },
       "events": {
         "clickNext": "Emits when pagination **next** is clicked",
