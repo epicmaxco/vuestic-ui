@@ -1526,6 +1526,11 @@
         "prevArrow": "Custom style for previous button"
       }
     },
+    "VaValue": {
+      "props": {
+        "defaultValue": "The default value of the component"
+      }
+    },
     "VaSpacer": {
       "props": {},
       "events": {},
