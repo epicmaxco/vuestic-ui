@@ -6,14 +6,11 @@ export default defineNuxtModule({
     mame: 'vuestic:markdown',
   },
 
-  setup(_, nuxt) {
-    nuxt.options.plugins.push(resolve(__dirname, 'runtime/plugin.ts'))
-
-
+  setup() {
     addImports({
-      name: 'useMarkdownIt',
-      as: 'useMarkdownIt',
-      from: resolve(__dirname, './runtime/useMarkdownIt'),
+      name: 'useMarkdown',
+      as: 'useMarkdown',
+      from: resolve(__dirname, './runtime/useMarkdown'),
     })
   }
 })

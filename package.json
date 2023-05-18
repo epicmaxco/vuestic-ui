@@ -5,6 +5,7 @@
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "devDependencies": {
     "lerna": "^3.20.2",
+    "syncpack": "^9.8.6",
     "yorkie": "^2.0.0"
   },
   "private": true,
@@ -17,6 +18,7 @@
     "build:book": "yarn workspace vuestic-ui build:book",
     "build:types": "yarn workspace vuestic-ui build:types",
     "test:unit": "yarn workspace vuestic-ui test:unit",
+    "test:bundlers": "yarn workspace bundler-test test",
     "lint:style": "yarn workspace vuestic-ui lint:style",
     "serve:docs": "yarn workspace docs serve",
     "build:docs": "yarn workspace docs build",
@@ -39,12 +41,5 @@
   },
   "gitHooks": {
     "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD"
-  },
-  "resolutions": {
-    "nuxt": "3.1.1",
-    "vue": "3.2.37",
-    "vite": "^4",
-    "vue-router": "4.1.6",
-    "@nuxt/schema": "3.0.0"
   }
 }

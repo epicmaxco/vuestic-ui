@@ -7,7 +7,7 @@
     "build:ci": "yarn build:analysis && nuxt build --max_old_space_size=4096",
     "build:analysis": "yarn workspace sandbox build:analysis ../docs/page-config/getting-started/tree-shaking",
     "serve": "yarn build:analysis --use-cache && nuxt dev",
-    "generate": "nuxt generate",
+    "generate": "yarn build:analysis && nuxt generate --max_old_space_size=4096",
     "preview": "npx serve ./.output/public",
     "test": "vitest",
     "lint": "eslint --ext .js,.ts,.vue .",
@@ -20,22 +20,24 @@
     "@nuxtjs/i18n": "^8.0.0-beta.11",
     "@nuxtjs/tailwindcss": "^6.3.0",
     "@types/escodegen": "^0.0.7",
+    "@types/marked": "^4.3.0",
     "@types/estree": "^1.0.0",
     "acorn": "^8.8.1",
     "acorn-walk": "^8.2.0",
     "autoprefixer": "^10.4.13",
     "escodegen": "^2.0.0",
-    "eslint": "7",
+    "eslint": "^7",
     "nuxt": "^3.1.1",
-    "postcss": "^7",
+    "postcss": "^8.2.1",
     "postcss-custom-properties": "^13.1.1",
+    "serve": "^14.2.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "vitest": "^0.18.1",
     "vue-component-meta": "^1.2.0",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6",
-    "vue-tsc": "^1.0.24"
+    "vue-tsc": "^1.2.0"
   },
   "dependencies": {
     "@docsearch/js": "^3.2.1",
@@ -44,7 +46,6 @@
     "acorn": "^8.8.1",
     "codesandbox": "^2.2.3",
     "highlight.js": "^11.7.0",
-    "markdown-it": "^12.3.2",
-    "markdown-it-attrs": "^4.0.0"
+    "marked": "^4.3.0"
   }
 }

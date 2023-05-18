@@ -3496,6 +3496,10 @@
       "selectedTopShown": {
         "title": "Displaying selected options at the top of the list",
         "text": "The `selected-top-shown` prop forces to display selected options at the top of the options list."
+      },
+      "iconOptions": {
+        "title":"Icon-selection",
+        "text": "The 'iconOption' property allows the addition of custom options to the select dropdown menu, each with an icon and a name."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-select/_variables.scss)[[target=_blank]]"
