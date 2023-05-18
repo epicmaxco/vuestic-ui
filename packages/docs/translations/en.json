@@ -612,7 +612,9 @@
         "width": "Width of component in maximized state.",
         "minimizedWidth": "Width of component in minimized state.",
         "value": "The current visibility state of `va-sidebar`.",
-        "animated": "Sets css `transition` to component"
+        "animated": "Sets css `transition` to component",
+        "activeColor": "The color for active `VaSidebarItem` in the sidebar menu",
+        "hoverColor": "The color for hovered `VaSidebarItem` in the sidebar menu"
       }
     },
     "VaImage": {
