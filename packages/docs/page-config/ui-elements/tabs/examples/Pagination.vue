@@ -1,7 +1,7 @@
 <template>
   <va-tabs
     v-model="value"
-    style="width: 280px;"
+    style="max-width: 280px;"
   >
     <template #tabs>
       <va-tab
@@ -12,7 +12,7 @@
         {{ title }}
       </va-tab>
       <va-tab
-        icon="fas-home"
+        icon="home"
         label="Tab with icon"
         name="icon"
       />

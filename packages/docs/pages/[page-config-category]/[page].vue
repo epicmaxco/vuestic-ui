@@ -50,7 +50,7 @@ const compileTranslations = (translations: Record<string, any>): any => {
 
   Object.keys(translations).forEach((key) => {
     if (typeof translations[key] === 'string') {
-      compiledTranslations[key] = translations[key].replaceAll(/\{['|"|`](.*)['|"|`]\}/g, '$1')
+      compiledTranslations[key] = translations[key]
     } else {
       compiledTranslations[key] = compileTranslations(translations[key])
     }

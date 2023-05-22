@@ -23,7 +23,7 @@ export default defineComponent({
     modelValue: { type: Boolean, default: false },
   },
 
-  emits: useStatefulEmits,
+  emits: [...useStatefulEmits],
 
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)

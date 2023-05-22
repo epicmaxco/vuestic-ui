@@ -5,9 +5,11 @@
         <h2 class="admin__title">
           {{ $t('landing.admin.title') }}
         </h2>
+
         <div class="admin__subtitle">
           {{ $t('landing.admin.text') }}
         </div>
+
         <div class="admin__buttons">
           <va-button
             class="admin__buttons--button"
@@ -16,25 +18,30 @@
           >
             <template #prepend>
               <va-icon
-                class="fa fa-github"
+                class="fa-brands fa-github"
                 style="margin-right: 0.5rem;"
               />
             </template>
             {{ $t('landing.admin.buttons.github') }}
           </va-button>
+
           <va-button
             class="admin__buttons--button"
             href="https://vuestic.epicmax.co/admin/dashboard"
             target="blank"
-            preset="secondary"
+            :preset="breakpoint.xs ? `primary` : `secondary`"
           >
             {{ $t('landing.admin.buttons.demo') }}
           </va-button>
 
-          <div class="admin__buttons--button">
-            <landing-stars-button repo="epicmaxco/vuestic-admin" />
+          <div class="admin__buttons--button stars-button">
+            <landing-stars-button
+              repo="epicmaxco/vuestic-admin"
+              border-radius="0.5rem"
+            />
           </div>
         </div>
+
         <div class="admin__content">
           <div class="admin__content__item admin__content__item--first">
             <img
@@ -44,66 +51,27 @@
               width="875"
             >
           </div>
+
           <div class="admin__content__item admin__content__item--second">
-            <!-- items -->
             <div class="items">
-              <div class="item item--first">
+              <div
+                v-for="{ icon, description } in items"
+                :key="description"
+                class="item"
+              >
                 <div class="item__frame">
                   <img
-                    src="/landing/admin/open-source.svg"
-                    alt="Open source"
+                    :src="icon"
+                    alt=""
                     height="32"
                     width="32"
                   >
                 </div>
-                <h2 class="item__title">
-                  {{ $t('landing.admin.features.opensource') }}
-                </h2>
-              </div>
-
-              <div class="item">
-                <div class="item__frame">
-                  <img
-                    src="/landing/admin/themes.svg"
-                    alt="Themes"
-                    height="32"
-                    width="32"
-                  >
-                </div>
-                <h2 class="item__title">
-                  {{ $t('landing.admin.features.themes') }}
-                </h2>
-              </div>
-
-              <div class="item">
-                <div class="item__frame">
-                  <img
-                    src="/landing/admin/responsive.svg"
-                    alt="Responsive"
-                    height="32"
-                    width="32"
-                  >
-                </div>
-                <h2 class="item__title">
-                  {{ $t('landing.admin.features.responsive') }}
-                </h2>
-              </div>
-
-              <div class="item">
-                <div class="item__frame">
-                  <img
-                    src="/landing/admin/i18n.svg"
-                    alt="i18n"
-                    height="32"
-                    width="32"
-                  >
-                </div>
-                <h2 class="item__title">
-                  {{ $t('landing.admin.features.i18n') }}
-                </h2>
+                <h3 class="item__title">
+                  {{ $t(description) }}
+                </h3>
               </div>
             </div>
-            <!-- /items -->
           </div>
         </div>
       </div>
@@ -112,23 +80,33 @@
 </template>
 
 <script lang="ts" setup>
+import { useBreakpoint } from 'vuestic-ui'
 import LandingStarsButton from './StarsButton.vue'
+
+const breakpoint = useBreakpoint()
+
+const items = [
+  { icon: '/landing/admin/open-source.svg', description: 'landing.admin.features.opensource' },
+  { icon: '/landing/admin/themes.svg', description: 'landing.admin.features.themes' },
+  { icon: '/landing/admin/responsive.svg', description: 'landing.admin.features.responsive' },
+  { icon: '/landing/admin/i18n.svg', description: 'landing.admin.features.i18n' },
+]
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets';
 
 .admin {
+  $section-padding: 7.5rem 0 10rem;
+  $section-xs-padding: 3.5rem 0 4rem;
+
   width: 100%;
   position: relative;
-  padding-top: 4.5rem;
-  padding-bottom: 8.5rem;
-  background-color: var(--va-background-landing);
-  color: var(--va-on-background-landing);
+  padding: $section-padding;
+  color: var(--va-text);
+  background-color: var(--bg-admin);
 
-  // sm
-  @include sm(padding-top, 3rem);
-  @include sm(padding-bottom, 5rem);
+  @include xs(padding, $section-xs-padding);
 
   &__wrapper {
     @include wrapper();
@@ -137,15 +115,15 @@ import LandingStarsButton from './StarsButton.vue'
   &__inner {
     @include row-flex();
 
+    flex-direction: column;
     align-items: center;
   }
 
   &__title {
     @include col();
     @include size(12);
-    @include title-font();
+    @include subtitle-font();
 
-    padding-top: 3.5rem;
     text-align: center;
   }
 
@@ -154,60 +132,63 @@ import LandingStarsButton from './StarsButton.vue'
     @include size(12);
     @include text-font();
 
-    padding-top: 1rem;
-    line-height: 1.5;
+    margin-top: 1rem;
     text-align: center;
   }
 
   &__buttons {
+    @include col();
+    @include size(12);
     @include row-flex();
 
-    margin: 0 auto;
-    display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 1.5rem;
+    margin-top: 1.5rem;
 
     &--button {
       --va-button-content-px: 1.5rem;
 
       @include button-font();
-      @include md(margin-bottom, 1rem);
-      @include md(justify-content, center);
-      @include xs(width, 100%);
-      @include xs(margin, 0 1rem 1rem 1rem);
 
+      margin: 1rem 0.5rem 0;
       height: 3rem;
-      margin-right: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+
+      @include xs(width, 100%);
+      @include xs(margin, 1rem 1rem 0);
+
+      :deep(.va-button__content) {
+        font-size: inherit;
+      }
+
+      &.stars-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
 
   &__content {
-    @include row-flex();
     @include col();
     @include size(12);
+    @include row-flex();
 
-    padding-top: 4rem;
+    margin-top: 4rem;
     justify-content: center;
+
+    @include xs(margin-top, 2.5rem);
 
     &__item {
       &--first {
         @include col();
         @include size(8);
-        @include shift-right(1);
 
-        // md
-        @include size-md(12);
-        @include shift-md-right(0);
+        display: flex;
+        justify-content: center;
 
-        user-select: none;
-        pointer-events: none;
+        @include size-sm(12);
 
         img {
-          object-fit: contain;
           max-width: 100%;
           max-height: 100%;
         }
@@ -221,8 +202,7 @@ import LandingStarsButton from './StarsButton.vue'
         flex-direction: column;
         justify-content: center;
 
-        // md
-        @include size-md(12);
+        @include size-sm(12);
       }
     }
   }
@@ -233,49 +213,44 @@ import LandingStarsButton from './StarsButton.vue'
 
   .item {
     $color: #6c7898;
+    $icon-size: 4rem;
+    $icon-size-xs: 3.5rem;
 
     @include col();
     @include size(12);
 
     display: flex;
     align-items: center;
-    padding-top: 2.2rem;
+    margin-top: 2rem;
 
-    // md
-    @include size-md(6);
-    // xs
+    @include size-sm(6);
     @include size-xs(12);
 
-    &--first {
-      padding-top: 0;
+    &:first-child {
+      margin-top: 0;
 
-      // md
-      @include md(padding-top, 2.2rem);
+      @include sm(margin-top, 2rem);
     }
 
     &__frame {
-      display: inline-block;
-      padding: 0.75rem;
+      width: $icon-size;
+      height: $icon-size;
+      display: inline-flex;
+      flex-shrink: 0;
+      justify-content: center;
+      align-items: center;
       border: 1px dashed $color;
-      border-radius: 1rem;
-      user-select: none;
-      pointer-events: none;
+      border-radius: 0.75rem;
+
+      @include xs(width, $icon-size-xs);
+      @include xs(height, $icon-size-xs);
     }
 
     &__title {
       @include text-font();
 
       padding-left: 1rem;
-      line-height: 1.5;
     }
   }
-}
-
-.stars-button {
-  @include code-font();
-
-  padding: 0 !important;
-  color: #ffffff !important;
-  height: 1.75rem;
 }
 </style>

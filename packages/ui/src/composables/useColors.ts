@@ -1,4 +1,3 @@
-import type { ColorInput } from 'colortranslator/dist/@types'
 import type { ColorVariables, CssColor } from '../services/color'
 import { computed } from 'vue'
 import { useGlobalConfig } from '../services/global-config/global-config'
@@ -20,6 +19,7 @@ import {
   getColorLightness,
   cssVariableName,
   normalizeColorName,
+  type ColorInput,
 } from '../services/color/utils'
 import { isDev } from '../utils/env'
 

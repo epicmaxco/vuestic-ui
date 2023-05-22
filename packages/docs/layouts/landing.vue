@@ -3,10 +3,18 @@
 </template>
 
 <script lang="ts" setup>
+import { useColors } from 'vuestic-ui'
+
 const { applyPreset } = useColors()
 
-// TODO: Temp force light mode in landing
-applyPreset('light')
+applyPreset('landing')
+
+useHead({
+  title: 'Vuestic UI — Vue 3 UI framework',
+  link: [
+    { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" },
+  ]
+})
 </script>
 
 <style lang="scss">

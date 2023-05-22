@@ -50,7 +50,7 @@
 import { defineComponent, computed, PropType } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import { useForm, useFormProps, useTranslation } from '../../composables'
+import { useFormField, useFormFieldProps, useTranslation } from '../../composables'
 import { useRating, useRatingProps } from './hooks/useRating'
 import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
 
@@ -68,7 +68,7 @@ export default defineComponent({
   props: {
     ...useRatingProps,
     ...useVaRatingColorsProps,
-    ...useFormProps,
+    ...useFormFieldProps,
     ...VaRatingItemProps,
     ...VaRatingItemNumberButtonProps,
     ...useComponentPresetProp,
@@ -83,7 +83,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   components: { VaRatingItem, VaRatingItemNumberButton },
   setup (props) {
-    const { computedClasses: rootClass } = useForm('va-rating', props)
+    const { computedClasses: rootClass } = useFormField('va-rating', props)
     const rating = useRating(props)
     const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
 

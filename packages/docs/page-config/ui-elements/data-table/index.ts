@@ -54,6 +54,8 @@ export default definePageConfig({
 
     block.example("ExpandableRow"),
 
+    block.example("InlineEditing"),
+
     block.subtitle("all.api"),
     block.api("VaDataTable", apiOptions),
   ],

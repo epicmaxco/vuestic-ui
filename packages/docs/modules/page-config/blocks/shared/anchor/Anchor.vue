@@ -46,7 +46,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .page-config-anchor {
   opacity: 0;
-  font-family: monospace !important;
   font-size: 95%;
   transition: opacity 0.1s ease-in-out;
 

@@ -162,7 +162,7 @@ export default defineComponent({
     ariaSlideOfLabel: { type: String, default: '$t:slideOf' },
   },
 
-  emits: useStatefulEmits,
+  emits: [...useStatefulEmits],
 
   setup (props, { emit }) {
     const { valueComputed: currentSlide } = useStateful(props, emit, 'modelValue', { defaultValue: 0 })

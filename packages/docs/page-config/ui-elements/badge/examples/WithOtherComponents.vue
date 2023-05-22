@@ -37,10 +37,13 @@
       />
     </va-badge>
 
-    <va-badge
-      text="5+"
-      overlap
-    >
+    <va-badge overlap>
+      <template #text>
+        <va-icon
+          name="notifications"
+          size="12px"
+        /> 5+
+      </template>
       <va-button preset="primary">
         Profile
       </va-button>

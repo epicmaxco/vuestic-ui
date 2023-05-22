@@ -24,7 +24,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .seamless-another-checkbox {
   margin: auto;
   -webkit-user-select: none;
@@ -89,7 +89,6 @@
     &:first-child {
       background: #506eec;
       border-color: #506eec;
-      animation: wave 0.4s ease;
 
       svg {
         stroke-dashoffset: 0;

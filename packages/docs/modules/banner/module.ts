@@ -19,6 +19,8 @@ export default defineNuxtModule<any>({
   },
 
   setup(options) {
+    return // Disabled for railway
+
     addPluginTemplate({
       src: resolve(__dirname, './runtime/banner.ts'),
 

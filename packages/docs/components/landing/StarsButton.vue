@@ -1,31 +1,38 @@
 <template>
-  <client-only>
-    <va-button
-      :href="url"
-      size="small"
-      target="blank"
-      color="textPrimary"
-      class="stars-button"
-    >
-      <template #prepend>
-        <va-icon
-          name="star_empty"
-          size="small"
-        />
-      </template>
-      {{ stars }}
-    </va-button>
-  </client-only>
+  <va-button
+    :href="url"
+    target="blank"
+    color="textInverted"
+    text-color="textPrimary"
+    border-color="backgroundBorder"
+    class="stars-button"
+    :style="`--border-radius: ${borderRadius};`"
+    v-bind="$attrs"
+  >
+    <template #prepend>
+      <va-icon
+        class="fa-solid fa-star"
+        size="small"
+        color="#EAC54F"
+      />
+    </template>
+    {{ stars }}
+  </va-button>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 
 export default defineComponent({
   name: 'LandingStarsButton',
+  inheritAttrs: false,
   props: {
     /** @example epicmaxco/vuestic-ui */
     repo: { type: String, required: true },
+    borderRadius: {
+      type: String,
+      default: '0.25rem',
+    },
   },
   setup (props) {
     const stars = ref('Star')
@@ -70,11 +77,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/smart-grid.scss";
-
 .stars-button {
+  --border-radius: 0.25rem;
+
+  border-radius: var(--border-radius);
+
+  &::after,
+  &::before {
+    border-radius: calc(var(--border-radius) - var(--va-button-bordered-border));
+  }
+
+  &:hover {
+    filter: unset;
+  }
+
+  &.va-button--normal {
+    :deep(.va-button__content) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
   .va-icon {
-    padding-right: 0.25rem;
+    margin-right: 0.5rem;
   }
 }
 </style>

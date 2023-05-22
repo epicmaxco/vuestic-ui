@@ -14,7 +14,13 @@ const files = Object.entries(import.meta.glob<PageConfigJSModule>('@/page-config
   }, {} as Record<string, () => Promise<PageConfigJSModule>>)
 
 const getConfig = async (name: string) => {
-  const file = files[unref(name)]
+  name = unref(name)
+
+  if (name.endsWith('/')) {
+    name = name.slice(0, -1)
+  }
+
+  const file = files[name]
 
   if (!file) {
     console.log(`Page config ${name} not found`)
@@ -33,7 +39,7 @@ export const usePageConfigs = () => files
 
 export const usePageConfig = async (name: Ref<string>) => {
   try {
-    const config = ref<PageConfigOptions | null>(await getConfig(unref(name)))
+    const config = ref<PageConfigOptions | null>(await getConfig(unref(name))) as Ref<PageConfigOptions | null>
 
     watch(name, async () => {
       try {

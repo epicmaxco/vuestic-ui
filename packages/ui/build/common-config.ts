@@ -1,4 +1,4 @@
-import { componentVBindFix } from './plugins/component-v-bind-fix';
+import { componentVBindFix } from './plugins/component-v-bind-fix'
 import { readFileSync, lstatSync, readdirSync } from 'fs'
 import vue from '@vitejs/plugin-vue'
 import { resolve as resolver } from 'path'
