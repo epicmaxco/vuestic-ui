@@ -46,12 +46,12 @@ export const useColors = () => {
   const { setGlobalConfig, globalConfig } = gc
 
   const colors = useReactiveComputed<ColorVariables>({
-    get: () => globalConfig.value.colors!.variables,
+    get: () => globalConfig.value.colors!.presets[globalConfig.value.colors!.currentPresetName],
     set: (v: ColorVariables) => { setColors(v) },
   })
 
   const setColors = (colors: Partial<ColorVariables>): void => {
-    globalConfig.value.colors!.variables = {
+    globalConfig.value.colors!.presets[globalConfig.value.colors!.currentPresetName] = {
       ...globalConfig.value.colors.variables,
       ...colors,
     } as ColorVariables
@@ -153,7 +153,6 @@ export const useColors = () => {
     if (!globalConfig.value.colors!.presets[presetName]) {
       return warn(`Preset ${presetName} does not exist`)
     }
-    globalConfig.value.colors!.variables = { ...globalConfig.value.colors!.presets[presetName] }
   }
 
   return {
