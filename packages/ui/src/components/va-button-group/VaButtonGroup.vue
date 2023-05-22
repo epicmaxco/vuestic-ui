@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { extractComponentProps } from '../../utils/component-options'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import omit from 'lodash/omit.js'
 
 import { useBem, useComponentPresetProp, useColors, useTextColor } from '../../composables'
@@ -33,9 +33,10 @@ export default defineComponent({
     const colorComputed = computed(() => getColor(props.color))
     const { textColorComputed } = useTextColor(colorComputed)
 
+    const filteredProps = filterComponentProps(VaButtonProps)
     const buttonConfig = computed(() => ({
       VaButton: {
-        ...omit(props, 'gradient', 'grow'),
+        ...filteredProps.value,
         ...(props.gradient && {
           color: '#00000000',
           textColor: textColorComputed.value,
