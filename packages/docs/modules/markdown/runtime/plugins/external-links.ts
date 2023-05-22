@@ -1,11 +1,11 @@
 const addAttrToLink = (str: string, attr: string) => {
-  const [start, end] = str.split('<a')
-  return start + '<a ' + attr + end
+  const [start, ...rest] = str.split('<a')
+  return start + '<a ' + attr + rest.join('<a')
 }
 
 export const fixTargetLinks = (textToRender: string) => {
-  const targetRegex = /\[\[(.*?)\]\]/g;  // Search for the [[target="_blank"]] in the markdown.
-  const linkRegexPattern = /<a[^>]*>.*<\/a>\[\[(.*)\]\]/g; // Searching for all <a href=""> tags
+  const targetRegex = /\[\[([^\]]*?)\]\]/g;  // Search for the [[target="_blank"]] in the markdown.
+  const linkRegexPattern = /<a[^>]*>[^<]*<\/a>\[\[([^\]]*)\]\]/g; // Searching for all <a href=""> tags
 
   let matchedTarget;
 
@@ -16,8 +16,11 @@ export const fixTargetLinks = (textToRender: string) => {
     }
     const [link] = matchedTarget
 
-    textToRender = addAttrToLink(textToRender
-      .replace(link, link.replace(targetRegex, '')), target)
+    const newLink = addAttrToLink(link, target)
+
+    textToRender = textToRender
+      .replace(link, newLink)
+      .replace(newLink, newLink.replace(targetRegex, ''))
   }
 
   return textToRender;
