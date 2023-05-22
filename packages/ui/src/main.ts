@@ -5,6 +5,7 @@ export {
   useI18nConfig,
   useIcon as useIcons,
   type ValidationRule,
+  useForm,
 } from './composables'
 
 export * from './services/vue-plugin'

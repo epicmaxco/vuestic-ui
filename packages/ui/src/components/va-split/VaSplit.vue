@@ -3,7 +3,7 @@
     ref="splitPanelsContainer"
     class="va-split"
     :class="classComputed"
-    :aria-label="t('splitPanels')"
+    :aria-label="tp($props.ariaLabel)"
   >
     <div
       class="va-split__panel"
@@ -84,9 +84,11 @@ export default defineComponent({
       default: undefined,
     },
     snappingRange: { type: [Number, String] as PropType<number | string>, default: 4 },
+
+    ariaLabel: { type: String, default: '$t:splitPanels' },
   },
 
-  emits: useStatefulEmits,
+  emits: [...useStatefulEmits],
 
   setup: (props, { emit }) => {
     const splitPanelsContainer = shallowRef<HTMLElement>()
@@ -200,7 +202,7 @@ export default defineComponent({
       const checkSnappingRange = () => {
         return result.every((el, index, array) => {
           if (!array[index + 1]) { return true }
-          return Math.abs(el - array[index + 1]) > props.snappingRange
+          return Math.abs(el - array[index + 1]) > Number(props.snappingRange)
         })
       }
 

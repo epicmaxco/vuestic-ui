@@ -74,9 +74,11 @@ export default defineComponent({
     },
     /** Not reactive */
     keyboardNavigation: { type: Boolean, default: false },
+
+    ariaLabel: { type: String, default: '$t:toggleDropdown' },
   },
 
-  emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'close', 'open'],
+  emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'close', 'open', 'anchor-dblclick'],
 
   setup (props, { emit, slots, attrs }) {
     const contentRef = shallowRef<HTMLElement>()
@@ -117,7 +119,7 @@ export default defineComponent({
       cancelHoverDebounce()
     }
 
-    const emitAndClose = (eventName: string, close?: boolean, e?: Event) => {
+    const emitAndClose = (eventName: Parameters<typeof emit>[0], close?: boolean, e?: Event) => {
       emit(eventName, e)
       if (close && props.trigger !== 'none') { valueComputed.value = false }
     }
@@ -224,11 +226,10 @@ export default defineComponent({
       props,
     )
 
-    const { t } = useTranslation()
     const isMounted = useIsMounted()
 
     return {
-      t,
+      ...useTranslation(),
       isMounted,
       valueComputed,
       computedAnchorRef,
@@ -262,7 +263,7 @@ export default defineComponent({
       role: 'button',
       class: ['va-dropdown', ...this.computedClass.asArray.value],
       style: { position: 'relative' },
-      'aria-label': this.t('toggleDropdown'),
+      'aria-label': this.tp(this.$props.ariaLabel),
       'aria-disabled': this.$props.disabled,
       'aria-expanded': !!this.valueComputed.value,
       ...this.$attrs,

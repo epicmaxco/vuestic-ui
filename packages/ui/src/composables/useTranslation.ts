@@ -21,14 +21,14 @@ export const useTranslation = () => {
 
   return {
     /** Translate prop. Translate only if key has `$t:` prefix */
-    tp: <Key extends string | undefined>(key: Key): Key => {
-      if (!key) { return undefined as Key }
+    tp: <Key extends string | undefined>(key: Key, values?: Record<string, Stringable>): string => {
+      if (!key) { return '' }
 
       if (key.startsWith('$t:')) {
-        return (config.value[key.slice(3) as keyof I18nConfig] || key) as Key
+        key = (config.value[key.slice(3) as keyof I18nConfig] || key) as NonNullable<Key>
       }
 
-      return key
+      return (applyI18nTemplate(key, values) || key)
     },
     t (key: string, values?: Record<string, Stringable>) {
       const translated = config.value[key as keyof I18nConfig]

@@ -28,7 +28,7 @@
           <va-icon
             v-if="showClearIcon"
             role="button"
-            :aria-label="t('reset')"
+            :aria-label="tp($props.ariaClearLabel)"
             tabindex="0"
             v-bind="clearIconProps"
             @click.stop="reset"
@@ -77,7 +77,7 @@
         ref="searchBar"
         class="va-select-dropdown__content-search-input"
         v-model="searchInput"
-        :aria-label="t('optionsFilter')"
+        :aria-label="tp($props.ariaSearchLabel)"
         :tabindex="tabIndexComputed"
         :placeholder="tp($props.searchPlaceholderText)"
         bordered
@@ -115,7 +115,7 @@ import {
   useComponentPresetProp,
   useSelectableList, useSelectableListProps,
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
-  useFormProps,
+  useFormFieldProps,
   useLoadingProps,
   useMaxSelections, useMaxSelectionsProps,
   useClearableProps, useClearable, useClearableEmits,
@@ -183,7 +183,7 @@ export default defineComponent({
     ...useLoadingProps,
     ...useMaxSelectionsProps,
     ...useClearableProps,
-    ...useFormProps,
+    ...useFormFieldProps,
     ...useMaxVisibleOptionsProps,
     ...useToggleIconProps,
     ...useThrottleProps,
@@ -229,6 +229,10 @@ export default defineComponent({
     placeholder: { type: String, default: '' },
     searchPlaceholderText: { type: String, default: '$t:search' },
     requiredMark: { type: Boolean, default: false },
+
+    ariaLabel: { type: String, default: undefined },
+    ariaSearchLabel: { type: String, default: '$t:optionsFilter' },
+    ariaClearLabel: { type: String, default: '$t:reset' },
   },
 
   setup (props, { emit, slots }) {
@@ -576,7 +580,7 @@ export default defineComponent({
       keepAnchorWidth: true,
       keyboardNavigation: true,
       innerAnchorSelector: '.va-input-wrapper__field',
-      'aria-label': props.modelValue ? `${t('selectedOption')}: ${props.modelValue}` : t('noSelectedOption'),
+      'aria-label': props.ariaLabel || (props.modelValue ? `${t('selectedOption')}: ${props.modelValue}` : t('noSelectedOption')),
     }))
 
     const optionsListPropsComputed = computed(() => ({
@@ -678,7 +682,7 @@ export default defineComponent({
       computedErrorMessages,
       withoutValidation,
       resetValidation,
-    } = useValidation(props, emit, { reset, focus })
+    } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
     return {
       input,

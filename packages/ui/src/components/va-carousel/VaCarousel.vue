@@ -7,7 +7,7 @@
     }"
     :style="{ height: ratio ? 'auto' : height }"
     role="region"
-    :aria-label="t('carousel')"
+    :aria-label="tp($props.ariaLabel)"
   >
     <template v-if="$props.arrows">
       <div
@@ -21,7 +21,7 @@
             <va-button
               :color="hover ? computedHoverColor : computedColor"
               :icon="vertical ? 'va-arrow-up' : 'va-arrow-left'"
-              :aria-label="t('goPreviousSlide')"
+              :aria-label="tp($props.ariaPreviousLabel)"
             />
           </va-hover>
         </slot>
@@ -37,7 +37,7 @@
             <va-button
               :color="hover ? computedHoverColor : computedColor"
               :icon="vertical ? 'va-arrow-down' : 'va-arrow-right'"
-              :aria-label="t('goNextSlide')"
+              :aria-label="tp($props.ariaNextLabel)"
             />
           </va-hover>
         </slot>
@@ -54,7 +54,7 @@
         <slot name="indicator" v-bind="{ item, index, goTo, isActive: isCurrentSlide(index) }">
           <va-hover #default="{ hover }" stateful>
             <va-button
-              :aria-label="t(`goSlide`, { index: index + 1 })"
+              :aria-label="tp($props.ariaGoToSlideLabel, { index: index + 1 })"
               round
               :color="isCurrentSlide(index) ? computedActiveColor : (hover ? computedHoverColor : computedColor)"
             >
@@ -79,7 +79,7 @@
           :style="slideStyleComputed"
           :aria-hidden="!isCurrentSlide(index)"
           :aria-current="isCurrentSlide(index)"
-          :aria-label="t('slideOf', { index: index + 1, length: slides.length })"
+          :aria-label="tp($props.ariaSlideOfLabel, { index: index + 1, length: slides.length })"
         >
           <slot v-bind="{ item, index, goTo, isActive: isCurrentSlide(index) }">
             <va-image
@@ -154,9 +154,15 @@ export default defineComponent({
     },
     color: { type: String, default: 'primary' },
     ratio: { type: Number },
+
+    ariaLabel: { type: String, default: '$t:carousel' },
+    ariaPreviousLabel: { type: String, default: '$t:goPreviousSlide' },
+    ariaNextLabel: { type: String, default: '$t:goNextSlide' },
+    ariaGoToSlideLabel: { type: String, default: '$t:goSlide' },
+    ariaSlideOfLabel: { type: String, default: '$t:slideOf' },
   },
 
-  emits: useStatefulEmits,
+  emits: [...useStatefulEmits],
 
   setup (props, { emit }) {
     const { valueComputed: currentSlide } = useStateful(props, emit, 'modelValue', { defaultValue: 0 })

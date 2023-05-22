@@ -109,7 +109,7 @@
 import { computed, defineComponent, toRef } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useBem, useFormProps, useValidationProps, useColors, useTextColor, useCSSVariables } from '../../../../composables'
+import { useBem, useFormFieldProps, useValidationProps, useColors, useTextColor, useCSSVariables } from '../../../../composables'
 
 import { VaMessageList } from '../VaMessageList'
 import { VaIcon } from '../../../va-icon'
@@ -120,7 +120,7 @@ export default defineComponent({
   components: { VaMessageList, VaIcon },
 
   props: {
-    ...useFormProps,
+    ...useFormFieldProps,
     ...useValidationProps,
     counterValue: { type: Number, default: undefined },
     maxLength: { type: Number, default: undefined },
@@ -245,14 +245,17 @@ export default defineComponent({
     z-index: 0;
     overflow: hidden;
 
-    @include va-background(var(--va-input-color), null, -1);
-
     input,
     textarea {
       color: v-bind(textColorComputed);
     }
-    // TODO: Choose va-background
-    @include va-background(var(--va-input-wrapper-background), var(--va-input-wrapper-background-opacity), -1);
+  }
+
+  &--solid,
+  &--bordered {
+    .va-input-wrapper__field {
+      @include va-background(var(--va-input-wrapper-background), var(--va-input-wrapper-background-opacity), -1);
+    }
   }
 
   &__container {
@@ -405,21 +408,18 @@ export default defineComponent({
   }
 
   &--bordered {
-    &::after {
-      content: '';
-      border-color: var(--va-input-wrapper-border-color);
-      position: absolute;
-      height: 0;
-      border-bottom-width: var(--va-input-border-width);
-      border-bottom-style: solid;
-      width: 100%;
-      bottom: 0;
-    }
-
     .va-input-wrapper__field {
       border-top-left-radius: var(--va-input-border-radius);
       border-top-right-radius: var(--va-input-border-radius);
-      border-color: transparent !important;
+      border-left-width: 0;
+      border-right-width: 0;
+      border-top-width: 0;
+
+      &::after {
+        bottom: 0;
+        border-color: var(--va-input-wrapper-border-color);
+        border-bottom-style: solid;
+      }
     }
   }
 

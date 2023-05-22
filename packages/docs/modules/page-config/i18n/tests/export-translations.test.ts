@@ -1,6 +1,6 @@
 import { exportTranslations } from '../export-translations';
 import { describe, test, expect } from 'vitest'
-import { resolve } from 'path'
+import { resolve } from 'pathe'
 import { createImporter } from '../../compiler/create-importer';
 
 describe('export-translations', () => {

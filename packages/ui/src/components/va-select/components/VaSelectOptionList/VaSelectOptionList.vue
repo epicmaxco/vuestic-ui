@@ -7,8 +7,8 @@
     @keydown.left.stop.prevent="focusPreviousOption"
     @keydown.down.stop.prevent="focusNextOption"
     @keydown.right.stop.prevent="focusNextOption"
-    @keydown.enter.stop.prevent="selectOption"
-    @keydown.space.stop.prevent="selectOption"
+    @keydown.enter.stop.prevent="selectHoveredOption"
+    @keydown.space.stop.prevent="selectHoveredOption"
     @scroll.passive="onScroll"
   >
     <template
@@ -36,7 +36,7 @@
             :current-option="currentOptionComputed"
             :disabled="getDisabled(option)"
             v-bind="selectOptionProps"
-            @click.stop="selectOption"
+            @click.stop="selectHoveredOption"
             @mouseenter="handleMouseEnter(option)"
             @mousemove="handleMouseMove(option)"
           />
@@ -52,7 +52,7 @@
               :option="option"
               :disabled="getDisabled(option)"
               v-bind="selectOptionProps"
-              @click.stop="selectOption"
+              @click.stop="selectHoveredOption"
               @mouseenter="handleMouseEnter(option)"
               @mousemove="handleMouseMove(option)"
             />
@@ -192,7 +192,7 @@ export default defineComponent({
     }
     const updateFocusedOption = (option?: SelectOption) => { updateCurrentOption(option ?? null, 'keyboard') }
 
-    const selectOption = () => {
+    const selectHoveredOption = () => {
       const previousOption =
         previousOptionComputed.value && typeof previousOptionComputed.value === 'object'
           ? { ...previousOptionComputed.value }
@@ -238,6 +238,11 @@ export default defineComponent({
 
       return undefined
     })
+
+    const selectOption = (option: SelectOption) => {
+      updateHoveredOption(option)
+      emit('select-option')
+    }
 
     const handleMouseMove = (option: SelectOption) => {
       if (!props.selectedTopShown) { updateHoveredOption(option) }
@@ -321,11 +326,12 @@ export default defineComponent({
       getTrackBy,
       setItemRef,
       getDisabled,
-      selectOption,
+      selectHoveredOption,
       handleMouseMove,
       handleMouseEnter,
       updateHoveredOption,
       handleScrollToBottom,
+      selectOption,
 
       ...publicMethods,
     }

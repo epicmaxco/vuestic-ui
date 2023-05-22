@@ -41,7 +41,7 @@
           />
           <va-icon
             v-if="$props.leftIcon"
-            :aria-label="t('toggleDropdown')"
+            :aria-label="tp($props.ariaToggleDropdownLabel)"
             v-bind="iconProps"
             @click.stop="showDropdown"
             @keydown.enter.stop="showDropdown"
@@ -53,14 +53,14 @@
           <va-icon
             v-if="canBeClearedComputed"
             v-bind="{ ...iconProps, ...clearIconProps }"
-            :aria-label="t('resetTime')"
+            :aria-label="tp($props.ariaResetLabel)"
             @click.stop="reset"
             @keydown.enter.stop="reset"
             @keydown.space.stop="reset"
           />
           <va-icon
             v-else-if="!$props.leftIcon && $props.icon"
-            :aria-label="t('toggleDropdown')"
+            :aria-label="tp($props.ariaToggleDropdownLabel)"
             @click.stop="showDropdown"
             @keydown.enter.stop="showDropdown"
             @keydown.space.stop="showDropdown"
@@ -78,7 +78,7 @@
       <va-time-picker
         ref="timePicker"
         v-bind="timePickerProps"
-        v-model="modelValueSync"
+        v-model="valueComputed"
       />
     </va-dropdown-content>
   </va-dropdown>
@@ -95,7 +95,7 @@ import {
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useClearable, useClearableEmits, useClearableProps,
   useFocus, useFocusEmits,
-  Placement,
+  useStateful, useStatefulEmits, useStatefulProps,
   useTranslation,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
@@ -108,7 +108,7 @@ import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDropdownProps = extractComponentProps(VaDropdown,
-  ['keyboardNavigation', 'offset', 'placement', 'closeOnContentClick', 'innerAnchorSelector', 'modelValue'],
+  ['keyboardNavigation', 'innerAnchorSelector', 'modelValue'],
 )
 
 export default defineComponent({
@@ -120,6 +120,7 @@ export default defineComponent({
     ...useFocusEmits,
     ...useValidationEmits,
     ...useClearableEmits,
+    ...useStatefulEmits,
     'update:modelValue',
     'update:isOpen',
   ],
@@ -131,6 +132,7 @@ export default defineComponent({
     ...VaInputWrapperProps,
     ...extractComponentProps(VaTimePicker),
     ...useValidationProps as ValidationProps<Date>,
+    ...useStatefulProps,
 
     isOpen: { type: Boolean, default: undefined },
     closeOnContentClick: { type: Boolean, default: false },
@@ -143,6 +145,10 @@ export default defineComponent({
     manualInput: { type: Boolean, default: false },
     leftIcon: { type: Boolean, default: false },
     icon: { type: String, default: 'schedule' },
+
+    ariaLabel: { type: String, default: '$t:selectedTime' },
+    ariaResetLabel: { type: String, default: '$t:resetTime' },
+    ariaToggleDropdownLabel: { type: String, default: '$t:toggleDropdown' },
   },
 
   inheritAttrs: false,
@@ -151,13 +157,13 @@ export default defineComponent({
     const input = shallowRef<HTMLInputElement>()
     const timePicker = shallowRef<typeof VaTimePicker>()
 
-    const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
-    const [modelValueSync] = useSyncProp('modelValue', props, emit)
+    const [isOpenSync] = useSyncProp('isOpen', props, emit, false as boolean)
+    const { valueComputed } = useStateful(props, emit)
 
     const { parse, isValid } = useTimeParser(props)
     const { format } = useTimeFormatter(props)
 
-    const valueText = computed<string>(() => format(modelValueSync.value || props.clearValue))
+    const valueText = computed<string>(() => format(valueComputed.value || props.clearValue))
 
     const doShowDropdown = computed({
       get () {
@@ -189,24 +195,24 @@ export default defineComponent({
       const v = parse(val)
 
       if (isValid.value && v) {
-        modelValueSync.value = v
+        valueComputed.value = v
       } else {
-        modelValueSync.value = undefined
+        valueComputed.value = undefined
         isValid.value = true
       }
     }
 
     // --- not used yet ---
     // const changePeriod = (isPM: boolean) => {
-    //   if (!modelValueSync.value) { return }
+    //   if (!valueComputed.value) { return }
 
     //   const halfDayPeriod = 12
-    //   const h = modelValueSync.value.getHours()
+    //   const h = valueComputed.value.getHours()
 
     //   if (isPM && h <= halfDayPeriod) {
-    //     modelValueSync.value = new Date(modelValueSync.value.setHours(h + halfDayPeriod))
+    //     valueComputed.value = new Date(valueComputed.value.setHours(h + halfDayPeriod))
     //   } else if (!isPM && h >= halfDayPeriod) {
-    //     modelValueSync.value = new Date(modelValueSync.value.setHours(h - halfDayPeriod))
+    //     valueComputed.value = new Date(valueComputed.value.setHours(h - halfDayPeriod))
     //   }
     // }
 
@@ -226,7 +232,7 @@ export default defineComponent({
       validationAriaAttributes,
       withoutValidation,
       resetValidation,
-    } = useValidation(props, emit, { reset, focus })
+    } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
     const {
       canBeCleared,
@@ -314,14 +320,14 @@ export default defineComponent({
       tabindex: iconTabindexComputed.value,
     }))
 
-    const { t } = useTranslation()
+    const { tp } = useTranslation()
 
     const inputAttributesComputed = computed(() => ({
       readonly: props.readonly || !props.manualInput,
       disabled: props.disabled,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
-      'aria-label': props.label || t('selectedTime'),
+      'aria-label': props.label || tp(props.ariaLabel),
       'aria-required': props.requiredMark,
       'aria-disabled': props.disabled,
       'aria-readonly': props.readonly,
@@ -337,7 +343,7 @@ export default defineComponent({
     }))
 
     return {
-      t,
+      tp,
       input,
       timePicker,
 
@@ -347,7 +353,7 @@ export default defineComponent({
       computedInputListeners,
       isOpenSync,
       doShowDropdown,
-      modelValueSync,
+      valueComputed,
       valueText,
       onInputTextChanged,
       canBeClearedComputed,
@@ -379,5 +385,4 @@ export default defineComponent({
     flex: 1;
   }
 }
-
 </style>

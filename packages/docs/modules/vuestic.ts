@@ -24,7 +24,7 @@ export default defineNuxtModule<VuesticOptions>({
 
   setup (options, nuxt) {
     // Fix CSS variables made by v-bind in component: they're not rendered in cjs (SSG).
-    addVitePlugin(componentVBindFix())
+    addVitePlugin(componentVBindFix({ sourcemap: false }))
 
     nuxt.options.alias['@vuestic/ag-grid-theme'] = resolve(__dirname, '../../ag-grid-theme/src/styles/index.scss');
     nuxt.options.alias['vuestic-ui/styles/typography.css'] = resolve(__dirname, '../../ui/src/styles/typography/typography.scss');

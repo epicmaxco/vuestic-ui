@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 280px;">
+  <div style="max-width: 280px;">
     <va-tabs
       v-model="value"
       color="danger"
@@ -13,7 +13,7 @@
           {{ tab }}
         </va-tab>
         <va-tab
-          icon="fas-home"
+          icon="home"
           label="Tab with icon"
           name="icon"
         />

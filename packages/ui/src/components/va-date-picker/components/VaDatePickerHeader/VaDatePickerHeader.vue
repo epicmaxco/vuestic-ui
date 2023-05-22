@@ -12,7 +12,7 @@
         size="small"
         :color="color"
         :textColor="textColor"
-        :aria-label="t('nextPeriod')"
+        :aria-label="tp($props.ariaPreviousPeriodLabel)"
         round
         @click="prev"
       />
@@ -26,7 +26,7 @@
           size="small"
           :color="color"
           :textColor="textColor"
-          :aria-label="t('switchView')"
+          :aria-label="tp($props.ariaSwitchViewLabel)"
           @click="switchView"
         >
           <slot name="year" v-bind="{ year: syncView.year }">{{ syncView.year }}</slot>
@@ -46,7 +46,7 @@
         size="small"
         :color="color"
         :textColor="textColor"
-        :aria-label="t('previousPeriod')"
+        :aria-label="tp($props.ariaNextPeriodLabel)"
         @click="next"
         round
       />
@@ -74,6 +74,10 @@ export default defineComponent({
     color: { type: String },
     textColor: { type: String },
     disabled: { type: Boolean, default: false },
+
+    ariaNextPeriodLabel: { type: String, default: '$t:nextPeriod' },
+    ariaPreviousPeriodLabel: { type: String, default: '$t:previousPeriod' },
+    ariaSwitchViewLabel: { type: String, default: '$t:switchView' },
   },
 
   setup (props, { emit }) {

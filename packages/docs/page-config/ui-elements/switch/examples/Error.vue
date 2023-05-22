@@ -1,9 +1,8 @@
 <template>
-  <div class="flex items-start">
+  <div class="flex gap-8 flex-wrap">
     <va-switch
       v-model="value"
       error
-      class="mr-6"
     />
     <va-switch
       v-model="value"

@@ -162,7 +162,7 @@ import { defineComponent, watch, PropType, ref, computed, onMounted, onBeforeUnm
 import pick from 'lodash/pick.js'
 
 import { generateUniqueId } from '../../utils/uuid'
-import { useComponentPresetProp, useColors, useArrayRefs, useBem, useStateful, useStatefulProps } from '../../composables'
+import { useComponentPresetProp, useColors, useArrayRefs, useBem, useStateful, useStatefulProps, useTranslation } from '../../composables'
 import { validateSlider } from './validateSlider'
 
 import { VaIcon } from '../va-icon'
@@ -193,6 +193,7 @@ export default defineComponent({
     iconAppend: { type: String, default: '' },
     vertical: { type: Boolean, default: false },
     showTrack: { type: Boolean, default: true },
+    ariaLabel: { type: String, default: '$t:sliderValue' },
   },
   setup (props, { emit, slots }) {
     const { getColor, getHoverColor } = useColors()
@@ -628,11 +629,13 @@ export default defineComponent({
 
     const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
 
+    const { tp } = useTranslation()
+
     const ariaAttributesComputed = computed(() => ({
       role: 'slider',
       'aria-valuemin': props.min,
       'aria-valuemax': props.max,
-      'aria-label': !slots.label && !props.label ? `current slider value is ${String(val.value)}` : undefined,
+      'aria-label': !slots.label && !props.label ? tp(props.ariaLabel, { value: String(val.value) }) : undefined,
       'aria-labelledby': slots.label || props.label ? ariaLabelIdComputed.value : undefined,
       'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
       'aria-disabled': props.disabled,

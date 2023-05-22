@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="$props.tag"
+    :is="$props.tag as 'div'"
     ref="element"
     role="feed"
     class="va-infinite-scroll"

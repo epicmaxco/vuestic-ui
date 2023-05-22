@@ -1,24 +1,22 @@
 <template>
-  <va-switch
-    v-model="value"
-    color="success"
-    class="mr-6"
-  />
-  <va-switch
-    v-model="value"
-    color="info"
-    class="mr-6"
-  />
-  <va-switch
-    v-model="value"
-    color="danger"
-    class="mr-6"
-  />
-  <va-switch
-    v-model="value"
-    color="warning"
-    class="mr-6"
-  />
+  <div class="flex gap-8 flex-wrap">
+    <va-switch
+      v-model="value"
+      color="success"
+    />
+    <va-switch
+      v-model="value"
+      color="info"
+    />
+    <va-switch
+      v-model="value"
+      color="danger"
+    />
+    <va-switch
+      v-model="value"
+      color="warning"
+    />
+  </div>
 </template>
 
 <script>

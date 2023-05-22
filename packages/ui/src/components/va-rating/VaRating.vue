@@ -2,7 +2,7 @@
   <div
     class="va-rating"
     :class="rootClass"
-    :aria-label="t('currentRating', { max: $props.max, value: $props.modelValue })"
+    :aria-label="tp($props.ariaLabel, { max: $props.max, value: $props.modelValue })"
   >
     <div
       class="va-rating__item-wrapper"
@@ -16,7 +16,7 @@
         :key="itemNumber"
         class="va-rating__item"
         v-bind="VaRatingItemProps"
-        :aria-label="t('voteRating', { max: $props.max, value: itemNumber })"
+        :aria-label="tp($props.ariaItemLabel, { max: $props.max, value: itemNumber })"
         :model-value="getItemValue(itemNumber - 1)"
         :tabindex="tabIndexComputed"
         :disabled="$props.disabled"
@@ -50,7 +50,7 @@
 import { defineComponent, computed, PropType } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import { useForm, useFormProps, useTranslation } from '../../composables'
+import { useFormField, useFormFieldProps, useTranslation } from '../../composables'
 import { useRating, useRatingProps } from './hooks/useRating'
 import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
 
@@ -68,7 +68,7 @@ export default defineComponent({
   props: {
     ...useRatingProps,
     ...useVaRatingColorsProps,
-    ...useFormProps,
+    ...useFormFieldProps,
     ...VaRatingItemProps,
     ...VaRatingItemNumberButtonProps,
     ...useComponentPresetProp,
@@ -76,11 +76,14 @@ export default defineComponent({
     halves: { type: Boolean, default: false },
     max: { type: Number, default: 5 },
     texts: { type: Array as PropType<string[]>, default: () => [] },
+
+    ariaLabel: { type: String, default: '$t:currentRating' },
+    ariaItemLabel: { type: String, default: '$t:voteRating' },
   },
   emits: ['update:modelValue'],
   components: { VaRatingItem, VaRatingItemNumberButton },
   setup (props) {
-    const { computedClasses: rootClass } = useForm('va-rating', props)
+    const { computedClasses: rootClass } = useFormField('va-rating', props)
     const rating = useRating(props)
     const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
 

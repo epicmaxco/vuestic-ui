@@ -1,15 +1,11 @@
 <template>
-  <div style="display: flex; align-items: center;">
+  <div class="flex gap-8 flex-wrap">
     <va-switch
       v-model="value"
       true-inner-label="Agree"
       false-inner-label="Disagree"
-      class="mr-6"
     />
-    <va-switch
-      v-model="value"
-      class="mr-6"
-    >
+    <va-switch v-model="value">
       <template #innerLabel>
         Inner Label slot
       </template>

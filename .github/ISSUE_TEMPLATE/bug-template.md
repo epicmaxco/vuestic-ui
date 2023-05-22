@@ -1,12 +1,12 @@
 ---
 name: Bug Report
 about: Report a bug for Vuestic UI
-labels: ["BUG", "EXTERNAL"]
+labels: ["BUG"]
 assignees: ''
 
 ---
 
-**Vuestic-ui version:** 1.6.3
+**Vuestic-ui version:** 1.6.4
 
 **Steps to reproduce**
 

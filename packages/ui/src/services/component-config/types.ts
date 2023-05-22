@@ -12,7 +12,7 @@ export type ComponentConfig = Partial<{
   // key-value hack to avoid generics in type (like Omit, PropTypes, etc.)
   // `key: type` as result
   [componentName in VuesticComponentName]: {
-    [key in keyof PropTypes<VuesticComponentsMap[componentName]>]: PropTypes<VuesticComponentsMap[componentName]>[key]
+    [key in keyof PropTypes<VuesticComponentsMap[componentName]>]?: PropTypes<VuesticComponentsMap[componentName]>[key]
   }
 } & { all: Props, presets: Presets }>
 

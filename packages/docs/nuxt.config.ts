@@ -1,20 +1,17 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
+  // TEST Config
+  routeRules: {
+    '/': {static: true},
+    '/en/**': {static: true},
+    '/ru/**': {static: true},
+    '/_nuxt/**': { headers: { 'cache-control': 's-maxage=0' } },
+  },
   app: {
     head: {
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'icon', type: 'image/png', href: '/favicon.png' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
-        { rel: 'stylesheet', href: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&display=swap" },
-        { rel: 'stylesheet', href: "https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap" },
-        { rel: 'stylesheet', href: "https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" },
-        { rel: 'stylesheet', href: "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=swap" },
-      ],
-
-      script: [
-        { crossorigin: 'anonymous', src: 'https://kit.fontawesome.com/5460c87b2a.js' },
-        { type: 'module', src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js' },
       ],
 
       meta: [
@@ -76,22 +73,17 @@ export default defineNuxtConfig({
     },
   },
 
-  // TODO: hydration mismatch issues; tailwind doesn't work properly
-  // ssr: false,
-  // nitro: {
-  //   prerender: {
-  //     routes: ['/'],
-  //     ignore: ['/*']
-  //   }
-  // },
+  ssr: true,
+  nitro: {
+    compressPublicAssets: true,
+  },
 
   modules: [
     // './modules/banner',
     './modules/vuestic',
     './modules/page-config',
-    // "./modules/i18n",
-    // TODO: remove after i18n is released https://github.com/nuxt-modules/i18n/pull/1712
-    '@nuxtjs/i18n-edge',
+    '@nuxtjs/google-fonts',
+    '@nuxtjs/i18n',
     './modules/markdown',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
@@ -100,6 +92,21 @@ export default defineNuxtConfig({
   vuestic: {
     css: ['typography'],
     fonts: false,
+  },
+
+  googleFonts: {
+    preload: true,
+    swap: true,
+    families: {
+      'Source+Sans+Pro': {
+        wght: [400, 600, 700],
+      },
+      'Source+Code+Pro': {
+        wght: [400],
+      },
+      'Material+Icons': true,
+      'Material+Icons+Outlined': true,
+    },
   },
 
   tailwindcss: {
@@ -138,20 +145,24 @@ export default defineNuxtConfig({
 
     strategy: 'prefix_and_default',
 
-    detectBrowserLanguage: {
-      redirectOn: 'all',
-      alwaysRedirect: true,
-      useCookie: true,
-      cookieKey: 'i18n_locale',
+    // TODO Browser detection was working extremely poorly and caused multiple redirects.
+    //  Let's enable it after thorough testing.
+    detectBrowserLanguage: false,
+    // detectBrowserLanguage: {
+    //   redirectOn: 'root',
+    //   useCookie: true,
+    //   cookieKey: 'i18n_locale',
+    // },
+
+
+    // lazy: true,
+
+    langDir: 'translations/',
+
+    precompile: {
+      strictMessage: false,
+      escapeHtml: true
     },
-
-    lazy: true,
-
-    langDir: 'locales/',
-
-    vueI18n: {
-      fallbackLocale: 'en',
-    }
   },
 
   postcss: {
@@ -167,6 +178,10 @@ export default defineNuxtConfig({
   ],
 
   vite: {
+    define: {
+      __VUE_I18N_FULL_INSTALL__: true,
+    },
+    optimizeDeps: { exclude: ["fsevents"] },
     resolve: {
       alias: [
         { find: '~@ag-grid-community', replacement: ('@ag-grid-community') }

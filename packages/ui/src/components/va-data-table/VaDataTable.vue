@@ -111,7 +111,7 @@
                       class="va-data-table__table-cell-checkbox"
                       :model-value="isRowSelected(row)"
                       :color="selectedColor"
-                      :aria-label="t(`selectRowByIndex`, { index: row.initialIndex })"
+                      :aria-label="tp($props.ariaSelectRowLabel, { index: row.initialIndex })"
                       @click.shift.exact.stop="shiftSelectRows(row)"
                       @click.ctrl.exact.stop="ctrlSelectRow(row)"
                       @click.exact.stop="ctrlSelectRow(row)"
@@ -139,7 +139,7 @@
                   </td>
                 </tr>
                 <tr
-                  v-show="row.isExpandableRowVisible"
+                  v-if="row.isExpandableRowVisible"
                   class="va-data-table__table-tr--expanded va-data-table__table-expanded-content"
                 >
                   <td :colspan="row.cells.length">
@@ -257,6 +257,7 @@ export default defineComponent({
     ...useRowsProps,
     ...useSelectableProps,
     ...useThrottleProps,
+    ...pick(VaDataTableThRowProps, ['ariaSelectAllRowsLabel', 'ariaSortColumnByLabel']),
     hoverable: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },
     loading: { type: Boolean, default: false },
@@ -271,6 +272,8 @@ export default defineComponent({
     grid: { type: Boolean, default: false },
     gridColumns: { type: Number, default: 0 },
     wrapperSize: { type: [Number, String] as PropType<number | string | 'auto'>, default: 'auto' },
+
+    ariaSelectRowLabel: { type: String, default: '$t:selectRowByIndex' },
   },
 
   emits: [
@@ -428,8 +431,8 @@ export default defineComponent({
 @import "../../styles/resources/index.scss";
 @import "variables";
 
-// we set vatiables below via the `useStylable` hook
 .va-data-table {
+  // we set variables below via the `useStylable` hook
   --va-data-table-selected-color: v-bind('CSSVariables.selectedColor');
   --va-data-table-hover-color: v-bind('CSSVariables.hoverColor');
   --va-data-table-height--computed: v-bind('CSSVariables.tableHeight');
@@ -544,13 +547,14 @@ export default defineComponent({
     }
 
     &.striped {
-      .va-data-table__table-tr {
-        position: relative;
-        z-index: 0;
+      .va-data-table__table-tbody {
+        .va-data-table__table-tr {
+          &:nth-child(even) {
+            &:not(.selected) {
+              position: relative;
 
-        &:nth-child(2n) {
-          &:not(.selected) {
-            @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped-tr-opacity), -1);
+              @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped-tr-opacity), -1);
+            }
           }
         }
       }
@@ -558,18 +562,13 @@ export default defineComponent({
 
     &.selectable,
     &.hoverable {
-      :not(thead, tfoot) {
-        .va-data-table__table-tr {
+      .va-data-table__table-tbody {
+        .va-data-table__table-tr,
+        .va-data-table__table-tr:nth-child(even) {
           &:hover {
-            background-color: var(--va-data-table-hover-color);
-          }
-        }
+            position: relative;
 
-        .va-data-table__table-tr:nth-child(2n) {
-          &:hover {
-            background-color: var(--va-data-table-hover-color);
-
-            @include va-background-opacity(transparent);
+            @include va-background(var(--va-data-table-hover-color), 1, -1);
           }
         }
       }

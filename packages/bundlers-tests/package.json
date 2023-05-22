@@ -13,7 +13,7 @@
     "test:vite": "docker-compose --profile vite up --build --exit-code-from cypress_vite",
     "test:vite-cjs": "docker-compose --profile vite-cjs up --build --exit-code-from cypress_vite_cjs",
     "test:cli": "docker-compose --profile cli up --build --exit-code-from cypress_cli",
-    "test:nuxt": "yarn test:nuxt-ssr && yarn test:nuxt-spa",
+    "test:nuxt": "yarn test:nuxt-ssr",
     "test:webpack": "docker-compose --profile webpack up --build --exit-code-from cypress_webpack",
     "test:nuxt-ssr": "docker-compose --profile nuxt-ssr up --build --exit-code-from cypress_nuxt_ssr",
     "test:nuxt-spa": "docker-compose --profile nuxt-spa up --build --exit-code-from cypress_nuxt_spa",

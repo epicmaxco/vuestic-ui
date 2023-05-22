@@ -19,7 +19,7 @@
       Primary color
       <va-color-palette
         v-model="primaryColor"
-        class="ml-2"
+        class="!ml-2"
         :palette="primaryColorVariants"
       />
     </p>
@@ -32,13 +32,9 @@ import { useColors } from "vuestic-ui";
 
 export default {
   setup() {
-    const { presets, applyPreset, colors } = useColors();
+    const { presets, applyPreset, colors, currentPresetName } = useColors();
 
-    const savedTheme = (typeof localStorage !== 'undefined' && localStorage.getItem("vuestic-docs-theme")?.toLowerCase())
-
-    const theme = ref(
-      savedTheme || "light"
-    );
+    const theme = ref(currentPresetName.value || "light");
 
     watchEffect(() => {
       applyPreset(theme.value);
@@ -56,10 +52,12 @@ export default {
 
     return {
       theme,
-      themeOptions: Object.keys(presets.value).map((themeName) => ({
-        value: themeName,
-        label: themeName,
-      })),
+      themeOptions: Object.keys(presets.value)
+        .filter((themeName) => themeName !== 'landing')
+        .map((themeName) => ({
+          value: themeName,
+          label: themeName,
+        })),
 
       primaryColor,
       primaryColorVariants,

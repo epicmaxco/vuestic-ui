@@ -12,7 +12,7 @@
       <va-button
         v-if="showPagination && !$props.hidePagination"
         class="va-tabs__pagination"
-        :aria-label="t('movePaginationLeft')"
+        :aria-label="tp($props.ariaMoveLeftLabel)"
         size="medium"
         :disabled="disablePaginationLeft"
         :color="color"
@@ -48,7 +48,7 @@
       <va-button
         v-if="showPagination && !$props.hidePagination"
         class="va-tabs__pagination"
-        :aria-label="t('movePaginationRight')"
+        :aria-label="tp($props.ariaMoveRightLabel)"
         size="medium"
         :color="color"
         :disabled="disablePaginationRight"
@@ -113,6 +113,8 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
     prevIcon: { type: String, default: 'va-arrow-left' },
     nextIcon: { type: String, default: 'va-arrow-right' },
+    ariaMoveRightLabel: { type: String, default: '$t:movePaginationLeft' },
+    ariaMoveLeftLabel: { type: String, default: '$t:movePaginationRight' },
   },
 
   setup: (props, { emit }) => {
@@ -444,6 +446,7 @@ export default defineComponent({
 .va-tabs {
   display: var(--va-tabs-display);
   align-items: var(--va-tabs-align-items-horizontal);
+  flex-direction: column;
   position: relative;
   font-family: var(--va-font-family);
 
@@ -452,6 +455,7 @@ export default defineComponent({
     contain: content;
     display: flex;
     flex: 1 1 auto;
+    width: 100%;
   }
 
   .va-tabs__pagination {
@@ -508,9 +512,11 @@ export default defineComponent({
 
   &--vertical {
     align-items: var(--va-tabs-align-items-vertical);
+    flex-direction: row;
 
     .va-tabs__wrapper {
       flex: 0 0 auto;
+      width: unset;
     }
 
     .va-tabs__container {

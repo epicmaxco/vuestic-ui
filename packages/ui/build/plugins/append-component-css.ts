@@ -1,5 +1,5 @@
 import { existsSync } from 'fs'
-import { extname, dirname, basename, relative, resolve } from 'path'
+import { extname, dirname, basename, relative, resolve } from 'pathe'
 import { createDistTransformPlugin } from './fabrics/create-dist-transform-plugin'
 
 const parsePath = (path: string) => {
@@ -36,9 +36,17 @@ export const appendComponentCss = createDistTransformPlugin({
     const relativeDistPath = relative(dir, distPath)
     const relativeFilePath = relativeDistPath + '/' + name.replace(/-.*$/, '') + '.css'
 
-    if (!existsSync(resolve(dir, relativeFilePath))) { return }
+    // There are few cases how vite can store css files (depends on vite version, but we handle both for now):
+    // CSS stored in dist folder (root)
+    if (existsSync(resolve(dir, relativeFilePath))) {
+      return appendBeforeSourceMapComment(componentContent, `\nimport '${relativeFilePath}';`)
+    }
 
-    return appendBeforeSourceMapComment(componentContent, `\nimport '${relativeFilePath}';`)
+    // CSS stored in component folder
+    const cssFilePath = `${dir}/${name}.css`
+
+    if (existsSync(cssFilePath)) {
+      return appendBeforeSourceMapComment(componentContent, `\nimport './${name}.css';`)
+    }
   },
-
 })

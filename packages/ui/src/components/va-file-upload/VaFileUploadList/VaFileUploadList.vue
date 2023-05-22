@@ -8,8 +8,8 @@
       <va-file-upload-list-item
         v-for="(file, index) in filesList"
         :key="file.name"
+        v-bind="itemProps"
         :file="file"
-        :color="color"
         role="listitem"
         @remove="$emit('remove', index)"
       />
@@ -17,15 +17,16 @@
     <template v-if="type === 'gallery'">
       <va-file-upload-gallery-item
         v-for="(file, index) in filesList"
+        v-bind="galleryItemProps"
         :key="file.name"
         :file="file"
-        :color="color"
         role="listitem"
         @remove="$emit('remove', index)"
       />
     </template>
     <template v-if="type === 'single' && filesList.length">
       <va-file-upload-single-item
+        v-bind="singleItemProps"
         :file="filesList[filesList.length - 1]"
         @remove="$emit('removeSingle')"
       />
@@ -43,6 +44,12 @@ import { VaFileUploadSingleItem } from '../VaFileUploadSingleItem'
 
 import type { VaFile, ConvertedFile } from '../types'
 
+import { extractComponentProps, filterComponentProps } from '../../../utils/component-options'
+
+const VaFileUploadGalleryItemProps = extractComponentProps(VaFileUploadGalleryItem)
+const VaFileUploadListItemProps = extractComponentProps(VaFileUploadListItem)
+const VaFileUploadSingleItemProps = extractComponentProps(VaFileUploadSingleItem)
+
 export default defineComponent({
   name: 'VaFileUploadList',
   components: {
@@ -55,7 +62,9 @@ export default defineComponent({
   props: {
     type: { type: String, default: '' },
     files: { type: Array as PropType<VaFile[]>, default: null },
-    color: { type: String, default: 'success' },
+    ...VaFileUploadGalleryItemProps,
+    ...VaFileUploadListItemProps,
+    ...VaFileUploadSingleItemProps,
   },
   setup (props) {
     const filesList = computed(() => props.files.map(convertFile))
@@ -89,6 +98,9 @@ export default defineComponent({
     }
 
     return {
+      galleryItemProps: filterComponentProps(VaFileUploadGalleryItemProps),
+      itemProps: filterComponentProps(VaFileUploadListItemProps),
+      singleItemProps: filterComponentProps(VaFileUploadSingleItemProps),
       filesList,
     }
   },
