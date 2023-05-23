@@ -1,13 +1,8 @@
 import type { ColorConfig } from '../types'
 import { presets } from '../presets'
+import { makeColorsConfig } from './make-config'
 
-export const getColorDefaultConfig = (): ColorConfig => ({
-  get variables () {
-    return this.presets[this.currentPresetName]
-  },
-  set variables (value) {
-    this.presets[this.currentPresetName] = value
-  },
+export const getColorDefaultConfig = (): ColorConfig => makeColorsConfig({
   threshold: 150,
   presets: {
     light: presets.light,

@@ -37,7 +37,7 @@ const toNode = (v: any, attrs: NodeAttributes): VNode | null => {
 
   if (v.type === Fragment) {
     if (v.children === null) { return v }
-    return toNode(v.children[0], attrs)
+    return h(Fragment, v.props, v.children.map((v: any) => toNode(v, attrs)))
   }
 
   return h(v, attrs)
