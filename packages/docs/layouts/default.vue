@@ -16,7 +16,7 @@
       <aside class="docs-layout__sidebar">
         <LayoutSidebar
           v-model:visible="isSidebarVisible"
-          :mobile="breakpoints.sm"
+          :mobile="isMobileSidebar"
         />
       </aside>
       <main class="docs-layout__main-content">
@@ -38,12 +38,14 @@ const breakpoints = useBreakpoint()
 
 const isSidebarVisible = ref(false)
 const isOptionsVisible = ref(false)
+const isMobileSidebar = ref(false)
 
 applyPreset(cookie.value || 'light')
 
 watch(() => breakpoints.smDown, (newValue: boolean) => {
   isSidebarVisible.value = !newValue
   isOptionsVisible.value = false
+  isMobileSidebar.value = newValue
 })
 
 const { afterEach } = useRouter()
@@ -57,6 +59,7 @@ afterEach(() => {
 onMounted(() => {
   scrollToElement()
   isSidebarVisible.value = !breakpoints.smDown
+  isMobileSidebar.value = breakpoints.smDown
 })
 
 useHead({
