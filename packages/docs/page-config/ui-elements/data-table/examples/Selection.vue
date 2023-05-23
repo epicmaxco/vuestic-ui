@@ -108,7 +108,7 @@ export default defineComponent({
       selectedItems: [items[1]],
       selectedItemsEmitted: [],
       selectMode: "multiple",
-      selectedColor: "#EF467F",
+      selectedColor: "primary",
       selectModeOptions: ["single", "multiple"],
       selectColorOptions: ["primary", "danger", "warning", "#EF467F"],
     };
