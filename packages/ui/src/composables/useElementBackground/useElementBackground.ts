@@ -3,7 +3,7 @@ import { getElementBackground } from './utils'
 import { ref, Ref, onMounted } from 'vue'
 import { applyColors, useColors } from '../useColors'
 import { useEl } from '../useEl'
-import { TempMap } from './TempMap'
+import { useCache } from '../useCache'
 
 type Maybe<T> = T | null | undefined
 type Cache = Map<HTMLElement, string>
@@ -19,13 +19,13 @@ const withCache = (cb: (element: HTMLElement, cache: Cache) => string) => {
   }
 }
 
-const tempCache = new TempMap<HTMLElement, string>()
-
 /** Can be null before component is mounted */
 export const useElementBackground = (element?: Ref<HTMLElement | undefined>) => {
   const el = element || useEl()
   const { getColor } = useColors()
   const background = ref(getColor('background-primary'))
+
+  const { bgTempCache: tempCache } = useCache()
 
   const recursiveGetBackground = withCache((element, cache): string => {
     if (!element) { return '#fff' } // Likely doesn't have a color, so let's just return white

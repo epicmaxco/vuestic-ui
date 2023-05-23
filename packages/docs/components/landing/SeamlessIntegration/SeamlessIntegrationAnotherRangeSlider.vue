@@ -11,14 +11,14 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .seamless-another-range-slider {
   height: 2rem;
   border-radius: 5rem;
 
   input[type="range"] {
     -webkit-appearance: none;
-    width: 80%;
+    width: 100%;
     height: 100%;
     background: transparent;
 
@@ -40,7 +40,7 @@
 
     &::-webkit-slider-runnable-track {
       width: 60%;
-      height: 9px;
+      height: 6px;
       background: #bdbdbd;
       border-radius: 3rem;
       transition: all 0.5s;
@@ -56,7 +56,7 @@
     &::-ms-track {
       width: 60%;
       cursor: pointer;
-      height: 9px;
+      height: 6px;
       transition: all 0.5s;
 
       /* Hides the slider so custom styles can be added */
@@ -106,7 +106,7 @@
 
     &::-moz-range-track {
       width: 60%;
-      height: 9px;
+      height: 6px;
       background: #bdbdbd;
       border-radius: 3rem;
       transition: all 0.5s;

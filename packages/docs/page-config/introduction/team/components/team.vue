@@ -78,7 +78,7 @@ useHead({
 $gap: 1rem;
 
 .docs-team {
-  margin: 0 -$gap;
+  margin: 0 (-$gap);
 
   &__avatar-wrapper {
     display: flex;

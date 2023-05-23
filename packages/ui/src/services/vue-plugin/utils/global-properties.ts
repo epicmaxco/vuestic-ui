@@ -1,7 +1,7 @@
 import { App, AppContext, ComponentCustomProperties } from 'vue'
 
 /** Type safe return app global properties for assign */
-export const extractGlobalProperties = (app: App | AppContext) => app.config.globalProperties as ComponentCustomProperties
+export const extractGlobalProperties = (app: App | AppContext) => app.config.globalProperties
 
 /**
  * Type safe set vue global property

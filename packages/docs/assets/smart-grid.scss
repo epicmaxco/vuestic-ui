@@ -2,12 +2,12 @@
 
 $columns: 12;
 
-$break_lg: 1100px;
-$break_md: 960px;
-$break_sm: 780px;
-$break_xs: 560px;
+$break_lg: 1920px;
+$break_md: 1440px;
+$break_sm: 1024px;
+$break_xs: 640px;
 
-$offset: 30px;
+$offset: 32px;
 $offset_lg: $offset;
 $offset_md: $offset;
 $offset_sm: $offset;
@@ -19,7 +19,7 @@ $offset_md_one_side: ($offset_md * 0.5);
 $offset_sm_one_side: ($offset_sm * 0.5);
 $offset_xs_one_side: ($offset_xs * 0.5);
 
-$fields: 15px;
+$fields: 1rem;
 
 @mixin wrapper-full() {
   padding-left: $fields;
@@ -36,8 +36,8 @@ $fields: 15px;
   #{$type}-right: $offset_one_side;
 }
 
-@mixin wrapper() {
-  max-width: 1280px;
+@mixin wrapper($width: 1440px) {
+  max-width: $width;
   margin: 0 auto;
 
   @include wrapper-full();
@@ -121,6 +121,12 @@ $fields: 15px;
   $val: math.div(100%, $columns) * $n;
 
   @include sm(margin-left, #{calc(#{$val} + #{$offset_sm_one_side})});
+}
+
+@mixin shift-sm-right($n) {
+  $val: math.div(100%, $columns) * $n;
+
+  @include md(margin-right, #{calc(#{$val} + #{$offset_sm_one_side})});
 }
 
 @mixin shift-xs-left($n) {

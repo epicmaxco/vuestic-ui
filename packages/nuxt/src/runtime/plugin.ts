@@ -5,34 +5,41 @@ import {
   VaModalPlugin,
   ColorsClassesPlugin,
   BreakpointConfigPlugin,
+  type GlobalConfig,
+  type PartialGlobalConfig
 } from 'vuestic-ui'
-import { markRaw, computed } from 'vue'
+import { markRaw, computed, watch, type Ref } from 'vue'
+
+import { defineNuxtPlugin, useCookie } from '#app'
+import { useHead } from '#imports'
+import NuxtLink from '#app/components/nuxt-link'
+import configFromFile from '#vuestic-config'
 
 import type { VuesticOptions } from '../types'
-// @ts-ignore: nuxt import alias
-import { defineNuxtPlugin } from '#app'
-// @ts-ignore: direct nuxt-link import
-import NuxtLink from '#app/components/nuxt-link'
-// @ts-ignore: use-config-file import alias
-import configFromFile from '#vuestic-config'
-// @ts-ignore: use-head import alias
-import { useHead } from '#imports'
 
 function getGlobalProperty (app, key) {
   return app.config.globalProperties[key]
 }
 
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(async (nuxtApp) => {
   const { vueApp: app } = nuxtApp
 
   // It's important to use `, because TS will compile qoutes to " and JSON will not be parsed...
-  const { config }: VuesticOptions = JSON.parse(`<%= options.value %>`)
-  const userConfig = configFromFile || config
+  const moduleOptions: VuesticOptions = JSON.parse(`<%= options.value %>`)
+  const themeCookie = useCookie(moduleOptions.themeCookieKey)
+  const userConfig = configFromFile || moduleOptions.config || {}
+  const configWithColors: PartialGlobalConfig = {
+    ...userConfig,
+    colors: {
+      currentPresetName: themeCookie.value || userConfig.colors?.currentPresetName,
+      ...userConfig.colors,
+    }
+  }
 
   /** Use tree-shaking by default and do not register any component. Components will be registered by nuxt in use-components. */
   app.use(createVuesticEssential({
-    config: { ...userConfig, routerComponent: markRaw(NuxtLink) },
-    // TODO: Would be nice to tree-shake plugins, but they're small so we don't cant for now.
+    config: { ...configWithColors, routerComponent: markRaw(NuxtLink) },
+    // TODO: Would be nice to tree-shake plugins, but they're small so we can let it be for now.
     // Should be synced with create-vuestic.ts
     plugins: {
       BreakpointConfigPlugin,
@@ -66,4 +73,10 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
     }))
   }
+
+  // Watch for preset name change and update cookie
+  const { globalConfig } = getGlobalProperty(app, '$vaConfig') as { globalConfig: Ref<GlobalConfig> }
+  watch(() => globalConfig.value.colors.currentPresetName, (newTheme) => {
+    themeCookie.value = newTheme
+  }, { immediate: true })
 })

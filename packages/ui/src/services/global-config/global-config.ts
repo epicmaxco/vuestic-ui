@@ -1,5 +1,5 @@
 import cloneDeep from 'lodash/cloneDeep.js'
-import { ref, getCurrentInstance } from 'vue'
+import { ref, getCurrentInstance, Ref } from 'vue'
 import { GlobalConfig, GlobalConfigUpdater, PartialGlobalConfig, ProvidedGlobalConfig } from './types'
 import { getComponentsDefaultConfig } from '../component-config'
 import { getIconDefaultConfig } from '../icon'
@@ -9,7 +9,7 @@ import { getBreakpointDefaultConfig } from '../breakpoint'
 import { getGlobalProperty } from '../vue-plugin/utils'
 import { getCurrentApp, inject } from '../current-app'
 import { mergeDeep } from '../../utils/merge-deep'
-import { getColorsClassesDefaultConfig } from '../colors-classes'
+import { getColorsClassesDefaultConfig } from '../colors-classes/config/default'
 
 export const GLOBAL_CONFIG = Symbol('GLOBAL_CONFIG')
 
@@ -27,7 +27,7 @@ export const createGlobalConfig = () => {
      * TODO: if this try won't be success, may be remake to provide/inject
      */
     routerComponent: undefined,
-  })
+  }) as Ref<GlobalConfig>
 
   const getGlobalConfig = (): GlobalConfig => globalConfig.value
   const setGlobalConfig = (updater: GlobalConfig | GlobalConfigUpdater<GlobalConfig>) => {
@@ -36,7 +36,7 @@ export const createGlobalConfig = () => {
   }
 
   const mergeGlobalConfig = (updater: PartialGlobalConfig | GlobalConfigUpdater<PartialGlobalConfig>) => {
-    const config = typeof updater === 'function' ? updater(globalConfig.value) : updater
+    const config = typeof updater === 'function' ? updater(globalConfig.value as PartialGlobalConfig) : updater
     globalConfig.value = mergeDeep(cloneDeep(globalConfig.value), config)
   }
 
@@ -48,7 +48,7 @@ export const createGlobalConfig = () => {
   }
 }
 
-const provideForCurrentApp = <T>(provide: T) => {
+export const provideForCurrentApp = <T>(provide: T) => {
   const provides = getCurrentInstance()?.appContext.provides || getCurrentApp()?._context.provides
 
   if (!provides) { throw new Error('Vue app not found for provide') }
@@ -58,17 +58,6 @@ const provideForCurrentApp = <T>(provide: T) => {
   return provide
 }
 
-/** Use this function if you don't want to throw error if hook used outside setup function by useGlobalConfig */
-export function useGlobalConfig () {
-  let injected = inject<ProvidedGlobalConfig>(GLOBAL_CONFIG) as ProvidedGlobalConfig
-
-  if (!injected) {
-    injected = createGlobalConfig()
-
-    provideForCurrentApp(injected)
-  }
-
-  return injected
-}
+export { useGlobalConfig } from '../../composables/useGlobalConfig'
 
 export * from './types'

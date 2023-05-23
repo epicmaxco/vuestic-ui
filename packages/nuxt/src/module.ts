@@ -22,6 +22,7 @@ export default defineNuxtModule<VuesticOptions>({
     config: {},
     css: ['smart-helpers', 'typography'],
     fonts: true,
+    themeCookieKey: 'vuestic-theme',
   },
 
   setup (options) {

@@ -67,7 +67,7 @@ const isCloseableAlertVisible = ref(true)
     @include sm(align-self, end);
   }
 
-  ::v-deep .va-alert__close {
+  :deep(.va-alert__close) {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;

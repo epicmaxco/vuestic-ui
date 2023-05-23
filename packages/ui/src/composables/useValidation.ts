@@ -6,6 +6,7 @@ import {
   nextTick,
   type WritableComputedRef,
   ref,
+  toRef,
 } from 'vue'
 import flatten from 'lodash/flatten.js'
 import isFunction from 'lodash/isFunction.js'
@@ -47,7 +48,7 @@ export type ValidationProps<V extends any> = typeof useValidationProps & {
   rules: { type: PropType<ValidationRule<V>[]> }
 }
 
-export const useValidationEmits = ['update:error', 'update:errorMessages']
+export const useValidationEmits = ['update:error', 'update:errorMessages'] as const
 
 const isPromise = (value: any): value is Promise<any> => {
   return typeof value === 'object' && typeof value.then === 'function'
@@ -162,18 +163,18 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     doShowErrorMessages,
     doShowError,
     doShowLoading,
-  } = useFormChild(() => ({
-    isValid: !computedError.value,
-    isLoading: isLoading.value,
-    errorMessages: computedErrorMessages.value,
+  } = useFormChild({
+    isValid: computed(() => !computedError.value),
+    isLoading: isLoading,
+    errorMessages: computedErrorMessages,
     validate,
     validateAsync,
     resetValidation,
     focus,
     reset,
-    value: options.value || props.modelValue,
-    name: props.name,
-  }))
+    value: computed(() => options.value || props.modelValue),
+    name: toRef(props, 'name'),
+  })
 
   return {
     computedError: computed(() => doShowError.value ? computedError.value : false),
