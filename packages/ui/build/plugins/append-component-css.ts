@@ -12,8 +12,17 @@ const parsePath = (path: string) => {
   }
 }
 
+/**
+ * Checks if file is Vuestic component script source
+ * Component always have script which is stored in file with name like Va[ComponentName].vue_vue_type_script_lang
+ */
 const isVuesticComponent = (filename: string) => {
-  return /Va.*\.(js|mjs)$/.test(filename)
+  // Va[ComponentName].vue_vue_type_script_lang
+  return /Va\w*.vue_vue_type_script_lang.*\.mjs$/.test(filename)
+}
+
+const extractVuesticComponentName = (filename: string) => {
+  return filename.match(/(Va\w*).vue_vue_type_script_lang.*/)?.[1]
 }
 
 const SOURCE_MAP_COMMENT_FRAGMENT = '//# sourceMappingURL='
@@ -32,9 +41,15 @@ export const appendComponentCss = createDistTransformPlugin({
 
     const { name, dir } = parsePath(path)
 
+    const componentName = extractVuesticComponentName(name)
+
+    if (!componentName) {
+      throw new Error(`Can't extract component name from ${name}`)
+    }
+
     const distPath = resolve(this.outDir, '..', '..')
     const relativeDistPath = relative(dir, distPath)
-    const relativeFilePath = relativeDistPath + '/' + name.replace(/-.*$/, '') + '.css'
+    const relativeFilePath = relativeDistPath + '/' + componentName.replace(/-.*$/, '') + '.css'
 
     // There are few cases how vite can store css files (depends on vite version, but we handle both for now):
     // CSS stored in dist folder (root)
@@ -43,10 +58,10 @@ export const appendComponentCss = createDistTransformPlugin({
     }
 
     // CSS stored in component folder
-    const cssFilePath = `${dir}/${name}.css`
+    const cssFilePath = `${dir}/${componentName}.css`
 
     if (existsSync(cssFilePath)) {
-      return appendBeforeSourceMapComment(componentContent, `\nimport './${name}.css';`)
+      return appendBeforeSourceMapComment(componentContent, `\nimport './${componentName}.css';`)
     }
   },
 })
