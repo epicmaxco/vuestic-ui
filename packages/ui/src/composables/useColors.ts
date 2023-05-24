@@ -146,8 +146,10 @@ export const useColors = () => {
     return getColorLightnessFromCache(color) > globalConfig.value.colors.threshold ? darkColor : lightColor
   }
 
-  const currentPresetName = computed(() => globalConfig.value.colors!.currentPresetName)
-
+  const currentPresetName = computed<string>({
+    get: () => globalConfig.value.colors!.currentPresetName,
+    set: (v: string) => { applyPreset(v) },
+  })
   const presets = computed(() => globalConfig.value.colors!.presets)
 
   const applyPreset = (presetName: string) => {
