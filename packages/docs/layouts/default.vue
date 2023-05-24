@@ -105,13 +105,7 @@ html {
     width: 100%;
     height: 100%;
     z-index: 9999999;
-    background:
-      linear-gradient(
-        90deg,
-        var(--va-background-primary) 0%,
-        var(--va-background-secondary) 50%,
-        var(--va-background-primary) 100%
-      );
+    background: var(--va-background-primary);
   }
 
   &__header {
