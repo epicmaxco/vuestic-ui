@@ -146,7 +146,7 @@ export const useColors = () => {
 
   const currentPresetName = computed<string>({
     get: () => globalConfig.value.colors!.currentPresetName,
-    set: (v:string) => { globalConfig.value.colors!.currentPresetName = v },
+    set: (v: string) => { applyPreset(v) },
   })
   const presets = computed(() => globalConfig.value.colors!.presets)
 
