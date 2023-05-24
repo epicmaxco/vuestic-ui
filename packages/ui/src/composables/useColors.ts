@@ -22,6 +22,7 @@ import {
   type ColorInput,
 } from '../services/color/utils'
 import { isDev } from '../utils/env'
+import kebabCase from 'lodash/kebabCase'
 
 /**
  * You can add these props to any component by destructuring them inside props option.
@@ -111,7 +112,8 @@ export const useColors = () => {
       .keys(colors)
       .filter((key) => colors[key] !== undefined)
       .reduce((acc: Record<string, any>, colorName: string) => {
-        acc[`--${prefix}-${colorName}`] = getColor(colors[colorName], undefined, true)
+        acc[`--${prefix}-${kebabCase(colorName)}`] = getColor(colors[colorName], undefined, true)
+        acc[`--${prefix}-on-${kebabCase(colorName)}`] = getColor(getTextColor(getColor(colors[colorName]!)), undefined, true)
         return acc
       }, {})
   }
