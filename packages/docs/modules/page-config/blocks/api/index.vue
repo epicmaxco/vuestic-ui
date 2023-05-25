@@ -34,7 +34,7 @@ const props = defineProps({
 
 const withManual = computed(() => {
   return merge(props.meta, props.manual as ManualApiOptions)
-}) 
+})
 
 const { t, te, fallbackLocale } = useI18n()
 
@@ -94,7 +94,12 @@ const eventsOptions = computed(() => Object
   .filter(([key, prop]) => !prop.hidden)
   .map(([key, prop]) => ({
     name: key,
-    description: t(getTranslation('events', key)),
+    description: prop.types && typeof prop.types === 'string'
+      ? {
+          text: t(getTranslation('events', key)) + '. ' + t(getTranslation('events', 'eventArgument')),
+          code: prop.types
+        }
+      : t(getTranslation('events', key))
   }))
   .sort((a, b) => {
     return a.name.localeCompare(b.name)
@@ -105,7 +110,12 @@ const slotsOptions = computed(() => Object
   .entries(withManual.value.slots || {})
   .map(([key, prop]) => ({
     name: key,
-    description: t(getTranslation('slots', key)),
+    description: prop.types
+      ? {
+          text: t(getTranslation('slots', key)) + '. ' + t(getTranslation('slots', 'scopeAvailable')),
+          code: prop.types
+        }
+      : t(getTranslation('slots', key))
   }))
   .sort((a, b) => {
     return a.name.localeCompare(b.name)

@@ -8,13 +8,13 @@
         {{ label }}
       </va-chip>
     </template>
-    <template #header(companyName)>
-      Company Name
-    </template>
     <template #cell(street)="{ value }">
       <va-chip size="small">
         {{ value }}
       </va-chip>
+    </template>
+    <template #cell(username)="{ value }">
+      <strong>{{ value }}</strong>
     </template>
   </va-data-table>
 </template>
@@ -24,7 +24,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   data() {
-    const users = [
+    const items = [
       {
         id: 1,
         name: "Leanne Graham",
@@ -108,7 +108,7 @@ export default defineComponent({
     ];
 
     return {
-      items: users,
+      items,
       columns,
     };
   },
