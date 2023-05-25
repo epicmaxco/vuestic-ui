@@ -48,12 +48,8 @@ export default definePageConfig({
     block.example("Sticky", { hideTitle: true }),
 
     block.example("Other"),
-
-    block.paragraph("dataTable.examples.other.text[1]"),
-    block.example("CRUD", { hideTitle: true }),
-
+    block.example("CRUD"),
     block.example("ExpandableRow"),
-
     block.example("InlineEditing"),
 
     block.subtitle("all.api"),

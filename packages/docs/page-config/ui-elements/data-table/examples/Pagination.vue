@@ -1,24 +1,20 @@
 <template>
-  <div class="row">
+  <div class="grid sm:grid-cols-2 md:grid-cols-5 gap-6 mb-6">
     <va-input
       v-model.number="perPage"
-      class="flex flex-col mb-2 md3"
       type="number"
       placeholder="Items..."
       label="Items per page"
     />
-
     <va-input
       v-model.number="currentPage"
-      class="flex flex-col mb-2 md3"
       type="number"
       placeholder="Page..."
       label="Current page"
     />
-
     <va-input
       v-model="filter"
-      class="flex flex-col mb-2 md6"
+      class="sm:col-span-2 md:col-span-3"
       placeholder="Filter..."
     />
   </div>
@@ -28,17 +24,16 @@
     :columns="columns"
     :per-page="perPage"
     :current-page="currentPage"
-    :selectable="true"
+    selectable
     :filter="filter"
     @filtered="filtered = $event.items"
   >
     <template #bodyAppend>
       <tr>
-        <td colspan="8">
-          <div class="table-example--pagination">
+        <td colspan="6">
+          <div class="flex justify-center mt-4">
             <va-pagination
               v-model="currentPage"
-              input
               :pages="pages"
             />
           </div>
@@ -123,10 +118,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss" scoped>
-.table-example--pagination {
-  display: flex;
-  justify-content: center;
-}
-</style>

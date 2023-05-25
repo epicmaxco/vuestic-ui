@@ -5,62 +5,33 @@
     footer-clone
   >
     <template #headerPrepend>
-      <tr class="table-example-slots__head">
-        <th colspan="6">
-          Custom cell which span all cells (headPrepend slot)
-        </th>
+      <tr class="table-slots">
+        <th colspan="6"><span>#headerPrepend</span> slot</th>
       </tr>
     </template>
     <template #headerAppend>
-      <tr class="table-example-slots__head">
-        <th colspan="1">
-          #
-        </th>
-        <th colspan="2">
-          User info
-        </th>
-        <th colspan="3">
-          Contact info
-        </th>
+      <tr class="table-slots">
+        <th colspan="6"><span>#headerAppend</span> slot</th>
       </tr>
     </template>
-
     <template #bodyPrepend>
-      <tr class="table-example-slots__body">
-        <td colspan="4">
-          Custom cell which span 4 cells (bodyPrepend slot)
-        </td>
-        <td colspan="2">
-          Custom cell which span 2 cells (bodyPrepend slot)
-        </td>
+      <tr class="table-slots">
+        <td colspan="6"><span>#bodyPrepend</span> slot</td>
       </tr>
     </template>
     <template #bodyAppend>
-      <tr class="table-example-slots__body">
-        <td colspan="6">
-          Custom cell which span all cells (bodyAppend slot)
-        </td>
+      <tr class="table-slots">
+        <td colspan="6"><span>#bodyAppend</span> slot</td>
       </tr>
     </template>
-
     <template #footerPrepend>
-      <tr class="table-example-slots__foot">
-        <th colspan="3">
-          Span 3 cells
-        </th>
-        <th colspan="2">
-          Span 2 cells
-        </th>
-        <th colspan="1">
-          Span 1 cells
-        </th>
+      <tr class="table-slots">
+        <th colspan="6"><span>#footerPrepend</span> slot</th>
       </tr>
     </template>
     <template #footerAppend>
-      <tr class="table-example-slots__foot">
-        <th colspan="6">
-          Span all cells (footAppend slot)
-        </th>
+      <tr class="table-slots">
+        <th colspan="6"><span>#footerAppend</span> slot</th>
       </tr>
     </template>
   </va-data-table>
@@ -71,7 +42,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   data() {
-    const users = [
+    const items = [
       {
         id: 1,
         name: "Leanne Graham",
@@ -108,7 +79,7 @@ export default defineComponent({
     ];
 
     return {
-      items: users,
+      items,
       columns,
     };
   },
@@ -116,15 +87,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.table-example-slots__head {
-  background-color: var(--va-info);
-}
-
-.table-example-slots__body {
+.table-slots {
   background-color: var(--va-background-element);
-}
+  color: var(--va-on-background-element);
 
-.table-example-slots__foot {
-  background-color: var(--va-background-element);
+  th, td {
+    text-transform: none !important;
+    font-size: 0.8rem;
+    font-weight: unset;
+  }
+
+  span {
+    font-weight: bold;
+    color: var(--va-primary);
+  }
 }
 </style>

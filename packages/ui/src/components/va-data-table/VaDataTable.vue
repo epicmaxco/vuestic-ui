@@ -48,7 +48,9 @@
                 v-on:toggleBulkSelection="toggleBulkSelection"
                 v-on:toggleSorting="toggleSorting"
               >
-                <template v-for="(_, slot) of $slots" v-slot:[slot]="scope"><slot :name="slot" v-bind="scope" /></template>
+                <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
+                  <slot :name="slot" v-bind="scope" />
+                </template>
               </va-data-table-th-row>
             </slot>
 
@@ -59,7 +61,6 @@
             ref="list"
             class="va-data-table__table-tbody"
           >
-
             <slot name="bodyPrepend" />
 
             <transition-group
@@ -171,7 +172,9 @@
                 v-on:toggleBulkSelection="toggleBulkSelection"
                 v-on:toggleSorting="toggleSorting"
               >
-                <template v-for="(_, slot) of $slots" v-slot:[slot]="scope"><slot :name="slot" v-bind="scope" /></template>
+                <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
+                  <slot :name="slot" v-bind="scope" />
+                </template>
               </va-data-table-th-row>
             </slot>
 

@@ -147,7 +147,8 @@
         "clickAppend": "The event is triggered by clicking on the `append` slot",
         "clickAppendInner": "The event is triggered by clicking on the `appendInner` slot",
         "updateModelValue": "The event is triggered when the component needs to change the model. Is also used by `v-model`",
-        "updateFocused": "The event is triggered when the component needs to toggle the focus"
+        "updateFocused": "The event is triggered when the component needs to toggle the focus",
+        "eventArgument": "The event argument is:"
       },
       "props": {
         "align": "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
@@ -218,6 +219,9 @@
         "fallbackRender": "Allows to use render function to render custom contents if image failed to load or src doesn't specified",
         "delay": "Sets throttling delay (ms) for the components any data change (useful for huge data).",
         "ratio": "Aspect ratio of the component's wrapper."
+      },
+      "slots": {
+        "scopeAvailable": "Slot scope available:"
       }
     },
     "VaBadge": {
@@ -1069,17 +1073,20 @@
         "wrapperSize": "Size (width or height) of the component's viewport (can be number or string with \"px\"/\"rem\" value). Suitable only for the state with the virtual scrolling enabled.",
         "cellBind": "Adds attributes to a table cell using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. As arguments, the function receives a table cell element (`any` type), a row (`DataTableItem` type), a column (`TableColumn` type), and a row index",
         "scrollTopMargin": "Sets the threshold (`px`) for scrolling up when the `scroll:top` event is enabled.",
-        "scrollBottomMargin": "Sets the threshold (`px`) for scrolling down when the `scroll:bottom` event is enabled."
+        "scrollBottomMargin": "Sets the threshold (`px`) for scrolling down when the `scroll:bottom` event is enabled.",
+        "ariaSelectAllRowsLabel": "The area label for header checkbox, if table is selectable.",
+        "ariaSelectRowLabel": "The area label for the checkbox on each row, if available for selection.",
+        "ariaSortColumnByLabel": "The aria label for each header column if it's sortable."
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
         "updateSortingOrder": "Emits when `sorting-order` changed",
-        "filtered": "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared), with the following param: `FilteredEmit` = \n &#123;\n &nbsp; `items: DataTableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
-        "sorted": "Each time the table's sorting changes, the `sorted` event is thrown, with the following param: `SortedEmit` = \n &#123;\n &nbsp; `sortBy: string`,\n &nbsp; `sortingOrder: DataTableSortingOrder`,\n &nbsp; `items: DataTableItem[]`,\n &nbsp; `itemsIndexes: number[]`\n &#125;",
-        "rowClick": "When row clicked the event is thrown with the following param: `RowClickEmit` = \n &#123;\n &nbsp; `event: Event`,\n &nbsp; `item: DataTableItem`,\n &nbsp; `itemIndex: number`\n &#125;",
-        "rowDblclick": "Double-clicking a row raises an event with the `RowClickEmit` param",
-        "rowContextmenu": "When the context menu is clicked on a row, an event is raised with the `RowClickEmit` param",
-        "selectionChange": "The `selectionChange` event is thrown each time the selection changes. It provides the following object: `SelectionChangeEmit` = \n&#123;\n &nbsp; `currentSelectedItems: (DataTableItem | DataTableItemKey)[]`,\n &nbsp; `previousSelectedItems: (DataTableItem | DataTableItemKey)[]`\n &#125;",
+        "filtered": "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared)",
+        "sorted": "Each time the table's sorting changes, the `sorted` event is thrown",
+        "rowClick": "When row clicked the event is thrown",
+        "rowDblclick": "Double-clicking a row raises an event",
+        "rowContextmenu": "When the context menu is clicked on a row, an event is raised",
+        "selectionChange": "The `selectionChange` event is thrown each time the selection changes",
         "scrollBottom": "Emits when table scroll down reaches `scrollBottomMargin`.",
         "scrollTop": "Emits when table scroll top reaches `scrollTopMargin`."
       },
@@ -1092,7 +1099,7 @@
         "headerAppend": "Appends custom rows inside table header (`thead`)",
         "bodyPrepend": "Prepends `tbody` with custom rows",
         "cell": "Targets all the cells. Is bound to the current cell (to it internal representation)",
-        "expandableRow": "Targets all the row. Adds an expandable row underneath. To trigger expansion use `row.toggleExpandableRow`",
+        "expandableRow": "Targets all the row. Adds an expandable row underneath. To trigger expansion use `row.toggleRowDetails`",
         "cellKey": "Allows to target only cells of a specified by the given `key` column. Is bound to the current cell",
         "bodyAppend": "Appends rows to the table's `tbody`",
         "footerPrepend": "Prepends rows to the table's `tfoot`",
@@ -4641,10 +4648,10 @@
         "title": "Slots",
         "text": [
           "Slots allow you to control the display of data and their views in different parts of the table. The examples below demonstrate some of these slots and what you can do with each of them.",
-          "**Using custom slots**. Custom slots (*username*, *street* and *company name*) display certain data.",
+          "**Using custom slots**. Custom slots (`username`, `street`) display certain data.",
           "**Showing header, body and footer's prepend and append static rows**. For added (prepended and appended) static rows an additional `className` with a background color is set.",
           "**Using `colgroup` slot to set specific attributes to columns**. For last column an additional `className` with a background color is set.",
-          "Slot names that are not in `columns` will be omitted."
+          "Slot names that are not in `columns` prop will be omitted."
         ]
       },
       "filtering": {
@@ -4693,7 +4700,7 @@
       },
       "expandableRow": {
         "title": "Expandable rows",
-        "text": "Each row could can be additionally expanded by providing `expandableRow` slot. Slot expansion is triggered by `row.toggleExpandableRow` slot property"
+        "text": "Each row could can be additionally expanded by providing `expandableRow` slot. Slot expansion is triggered by `row.toggleRowDetails` slot property"
       },
       "inlineEditing": {
         "title": "Inline Editing",
@@ -4701,10 +4708,11 @@
       },
       "other": {
         "title": "Other",
-        "text": [
-          "The component has many different properties, some of them are shown below with an example.",
-          "Example of `va-data-table` with **CRUD** actions using a `va-modal` component for editing each row:"
-        ]
+        "text": "The component has many different properties, some of them are shown below with an example."
+      },
+      "crud": {
+        "title": "CRUD actions",
+        "text": "Example of `va-data-table` with **CRUD** actions using a `va-modal` component for editing each row:"
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-data-table/_variables.scss)[[target=_blank]]"
