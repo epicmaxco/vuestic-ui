@@ -18,6 +18,7 @@ export function useLongPress (el: ShallowRef<HTMLElement | undefined>, options: 
 
   const handleMouseDown = () => {
     options.onStart?.()
+    clearTimeout(timeoutId)
     timeoutId = setTimeout(() => {
       intervalId = setInterval(() => options.onUpdate?.(), options.interval || 100) as any
     }, unref(options.delay) || 500) as unknown as number
