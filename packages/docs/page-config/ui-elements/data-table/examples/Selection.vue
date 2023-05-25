@@ -1,14 +1,4 @@
 <template>
-  <div class="flex justify-between gap-6 mb-6">
-    <va-checkbox
-      v-model="selectable"
-      label="Selectable"
-    />
-    <va-button @click="shuffleItems">
-      Shuffle items
-    </va-button>
-  </div>
-
   <div class="grid sm:grid-cols-2 gap-6 mb-6">
     <va-select
       v-model="selectMode"
@@ -26,7 +16,7 @@
     v-model="selectedItems"
     :items="items"
     :columns="columns"
-    :selectable="selectable"
+    selectable
     :select-mode="selectMode"
     :selected-color="selectedColor"
     @selectionChange="selectedItemsEmitted = $event.currentSelectedItems"
@@ -51,7 +41,6 @@
 
 <script>
 import { defineComponent } from "vue";
-import shuffle from "lodash/shuffle.js";
 
 export default defineComponent({
   data() {
@@ -104,7 +93,6 @@ export default defineComponent({
     return {
       items,
       columns,
-      selectable: true,
       selectedItems: [items[1]],
       selectedItemsEmitted: [],
       selectMode: "multiple",
@@ -114,22 +102,11 @@ export default defineComponent({
     };
   },
 
-  watch: {
-    selectable(value) {
-      if (!value) {
-        this.selectedItems = [];
-      }
-    },
-  },
-
   methods: {
     unselectItem(item) {
       this.selectedItems = this.selectedItems.filter(
         (selectedItem) => selectedItem !== item
       );
-    },
-    shuffleItems() {
-      this.items = shuffle(this.items);
     },
   },
 });

@@ -1,117 +1,12 @@
 <template>
-  <div class="grid md:grid-cols-3 gap-6 mb-6">
-    <div>
-      First heading
-      <div class="grid grid-cols-2 md:grid-cols-1 gap-1 sm:gap-3">
-        <va-select
-          v-model="columns[0].thAlign"
-          label="Align"
-          :options="alignOptions"
-        />
-        <va-select
-          v-model="columns[0].width"
-          label="Width"
-          :options="widthOptions"
-          clearable
-        />
-      </div>
-    </div>
-    <div>
-      Second heading
-      <div class="grid grid-cols-2 md:grid-cols-1 gap-1 sm:gap-3">
-        <va-select
-          v-model="columns[1].thAlign"
-          label="Align"
-          :options="alignOptions"
-        />
-        <va-select
-          v-model="columns[1].width"
-          label="Width"
-          :options="widthOptions"
-          clearable
-        />
-      </div>
-    </div>
-    <div>
-      Third heading
-      <div class="grid grid-cols-2 md:grid-cols-1 gap-1 sm:gap-3">
-        <va-select
-          v-model="columns[2].thAlign"
-          label="Align"
-          :options="alignOptions"
-        />
-        <va-select
-          v-model="columns[2].width"
-          label="Width"
-          :options="widthOptions"
-          clearable
-        />
-      </div>
-    </div>
-  </div>
-
-  <div class="grid md:grid-cols-3 gap-6 mb-6">
-    <div>
-      First column
-      <div class="grid grid-cols-2 md:grid-cols-1 gap-1 sm:gap-3">
-        <va-select
-          v-model="columns[0].tdAlign"
-          label="Align"
-          :options="alignOptions"
-          color="#8338EC"
-        />
-        <va-select
-          v-model="columns[0].tdVerticalAlign"
-          label="V. align"
-          :options="verticalAlignOptions"
-          color="#8338EC"
-        />
-      </div>
-    </div>
-    <div>
-      Second column
-      <div class="grid grid-cols-2 md:grid-cols-1 gap-1 sm:gap-3">
-        <va-select
-          v-model="columns[1].tdAlign"
-          label="Align"
-          :options="alignOptions"
-          color="#8338EC"
-        />
-        <va-select
-          v-model="columns[1].tdVerticalAlign"
-          label="V. align"
-          :options="verticalAlignOptions"
-          color="#8338EC"
-        />
-      </div>
-    </div>
-    <div>
-      Third column
-      <div class="grid grid-cols-2 md:grid-cols-1 gap-1 sm:gap-3">
-        <va-select
-          v-model="columns[2].tdAlign"
-          label="Align"
-          :options="alignOptions"
-          color="#8338EC"
-        />
-        <va-select
-          v-model="columns[2].tdVerticalAlign"
-          label="V. align"
-          :options="verticalAlignOptions"
-          color="#8338EC"
-        />
-      </div>
-    </div>
-  </div>
-
-  <div class="grid grid-cols-2 gap-6 mb-6">
+  <div class="flex flex-wrap gap-6 mb-6">
     <va-checkbox
       v-model="useAdditionalClass"
-      label="Use additional class"
+      label="Additional class"
     />
     <va-checkbox
       v-model="useAdditionalStyle"
-      label="Use additional style"
+      label="Additional style"
     />
   </div>
 
@@ -130,58 +25,48 @@ export default defineComponent({
     const items = [
       {
         id: 1,
-        text: "Some text 1",
-        target: "Some prop 1",
+        props: "thAlign, thVerticalAlign, thClass, thStyle",
+        description: 'Set css rules "align" and "vertical-align", "class" and "style" for header and footer cells',
       },
       {
         id: 2,
-        text: "Some text 2",
-        target: "Some prop 2",
+        props: "tdAlign, tdVerticalAlign, tdClass, tdStyle",
+        description: 'Set css rules "align" and "vertical-align", "class" and "style" for body cells',
       },
       {
         id: 3,
-        text: "Some text 3",
-        target: "Some prop 3",
+        props: "width",
+        description: 'Set "width" for a column',
       },
     ];
 
     const columns = [
       {
         key: "id",
-        label: "ID",
-        thAlign: "left",
-        tdAlign: "left",
-        tdVerticalAlign: "top",
-        sortable: true,
-      },
-      {
-        key: "text",
-        label: "Text",
+        label: "#",
         thAlign: "center",
         tdAlign: "center",
-        tdVerticalAlign: "middle",
-        sortable: true,
+        tdVerticalAlign: "top",
+        width: "40px",
       },
       {
-        key: "target",
-        label: "Target",
-        thAlign: "right",
-        tdAlign: "right",
-        tdVerticalAlign: "bottom",
-        sortable: true,
+        key: "props",
+        label: "Props",
+        thAlign: "center",
+        tdVerticalAlign: "top",
+        width: "25%"
+      },
+      {
+        key: "description",
+        label: "Description",
+        thAlign: "center",
+        tdVerticalAlign: "top",
       },
     ];
-
-    const verticalAlignOptions = ["top", "middle", "bottom"];
-    const alignOptions = ["left", "center", "right"];
-    const widthOptions = ["25%", "200px", 300];
 
     return {
       items,
       columns,
-      verticalAlignOptions,
-      alignOptions,
-      widthOptions,
       useAdditionalClass: true,
       useAdditionalStyle: true,
     };
@@ -190,7 +75,7 @@ export default defineComponent({
   watch: {
     useAdditionalClass: {
       handler(value) {
-        this.columns[0].tdClass = value && "additional-class";
+        this.columns[2].tdClass = value && "additional-class";
       },
       immediate: true,
     },
@@ -214,12 +99,13 @@ export default defineComponent({
     border-bottom: 1px solid var(--va-background-border);
 
     td {
-      height: 4.5rem;
+      height: 4rem;
+      white-space: normal;
     }
   }
 }
 
 ::v-deep(.additional-class) {
-  color: #8338EC;
+  font-weight: bolder;
 }
 </style>

@@ -61,7 +61,6 @@
             ref="list"
             class="va-data-table__table-tbody"
           >
-
             <slot name="bodyPrepend" />
 
             <transition-group

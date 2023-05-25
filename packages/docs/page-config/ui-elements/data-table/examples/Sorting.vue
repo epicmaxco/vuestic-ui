@@ -19,29 +19,7 @@
     :items="items"
     :columns="columns"
     hoverable
-    @sorted="
-      sortedRowsEmitted = $event.items.map(row => row.id),
-      sortingOrderEmitted = $event.sortingOrder,
-      sortByEmitted = $event.sortBy
-    "
   />
-
-  <va-alert
-    class="!mt-6"
-    color="info"
-    outline
-  >
-    <span v-if="sortingOrder">
-      Sorted items order (showing id):
-      <va-chip v-show="!!sortedRowsEmitted.length">{{ sortedRowsEmitted.join(" --> ") }}</va-chip>
-      <va-chip v-show="!!sortingOrderEmitted">{{ sortingOrderEmitted }}</va-chip>
-      <va-chip v-show="!!sortByEmitted">{{ sortByEmitted }}</va-chip>
-    </span>
-    <span v-else>
-      Unsorted items order (showing id):
-      <va-chip v-show="!!sortedRowsEmitted.length">{{ sortedRowsEmitted.join(", ") }}</va-chip>
-    </span>
-  </va-alert>
 </template>
 
 <script>
@@ -188,9 +166,6 @@ export default defineComponent({
       sortBy: "username",
       sortingOrder: "asc",
       sortingOrderOptions,
-      sortByEmitted: "",
-      sortingOrderEmitted: "",
-      sortedRowsEmitted: [],
     };
   },
 

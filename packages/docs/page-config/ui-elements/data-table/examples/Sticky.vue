@@ -18,18 +18,7 @@
       sticky-header
       footer-clone
       sticky-footer
-    >
-      <template #headerPrepend>
-        <tr>
-          <th colspan="6">Additional data in the header prepend slot</th>
-        </tr>
-      </template>
-      <template #footerAppend>
-        <tr>
-          <th colspan="6">Additional data in the footer append slot</th>
-        </tr>
-      </template>
-    </va-data-table>
+    />
 
     <va-data-table
       class="custom-table"
@@ -39,25 +28,12 @@
       footer-clone
       sticky-footer
       :scroll-bottom-margin="20"
-      @scroll:top="logger"
-      @scroll:bottom="onScrollDown"
+      @scroll:top="logger('--- scroll top ---')"
+      @scroll:bottom="logger('--- scroll bottom ---')"
     >
       <template #headerPrepend>
         <tr>
           <th colspan="6">With scroll events</th>
-        </tr>
-      </template>
-      <template
-        v-if="isLoading"
-        #bodyAppend
-      >
-        <tr>
-          <td colspan="6">
-            <va-inner-loading
-              :loading="isLoading"
-              style="height: 2rem;"
-            />
-          </td>
         </tr>
       </template>
     </va-data-table>
@@ -138,38 +114,12 @@ export default defineComponent({
 
     return {
       items,
-      isLoading: false,
     };
   },
 
   methods: {
-    logger() {
-      console.log("--- scroll top ---");
-    },
-    onScrollDown() {
-      if (this.isLoading) {
-        return;
-      }
-      this.isLoading = true;
-      setTimeout(() => {
-        this.loadUsers();
-        this.isLoading = false;
-      }, 1500);
-    },
-    loadUsers() {
-      const lastId = this.items[this.items.length - 1].id;
-      const uploadedUser = {
-        name: "New User",
-        username: "NewUser",
-        email: "newUser@nebulean.com",
-        phone: "(254)954-5289",
-        website: "nebulean.info",
-      };
-      const loadedUsers = [1, 2, 3].map((id) => ({
-        ...uploadedUser,
-        id: lastId + id,
-      }));
-      this.items = [...this.items, ...loadedUsers];
+    logger(msg) {
+      console.log(msg);
     },
   },
 });

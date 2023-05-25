@@ -34,7 +34,6 @@
           <div class="flex justify-center mt-4">
             <va-pagination
               v-model="currentPage"
-              input
               :pages="pages"
             />
           </div>
