@@ -1,0 +1,53 @@
+{
+  "title": "Colors",
+  "description": "Developing an effective and user-friendly color scheme can be a challenging task. The Vuestic UI component library aims to make this process simpler and more convenient by providing a versatile set of colors that are easy to customize and manage.",
+  "palette": {
+    "title": "Color Palette",
+    "description": "Vuestic UI library offers a color palette consisting of 14 colors. These colors are divided into accent colors, background colors, text colors and utility colors. By default, there are two color presets available: light and dark.",
+    "accent": "Accent colors are used to highlight interactive elements such as buttons, links, and other interactive elements.",
+    "background": "Background colors are used to define the background of the page, cards, modals, dropdowns, and other elements.",
+    "text": "Text colors are used to define the main and alternative text colors. Vuestic automatically choose correct text color based on background color.",
+    "utility": "Utility colors are used to define the color of shadows and keyboard focus outline."
+  },
+  "customization": {
+    "title": "Customization",
+    "description": "There is the flexibility to modify or expand upon the existing color set, as well as define own custom color presets. The color scheme can be applied globally using a [Colors Config](https://vuestic.dev/en/services/colors-config) or set for specific sections of an application using [VaConfig](https://vuestic.dev/en/ui-elements/config) component.",
+    "link": "Read more about Colors Config"
+  },
+  "guide": {
+    "global": {
+      "title": "Making a global theme switcher",
+      "description": "You can use `useColors` composable function to make a theme switcher. `applyPreset` method will change theme globally. You can check example below:"
+    },
+    "local": {
+      "title": "Making a local theme switcher",
+      "description": "Color preset can be provided using [VaConfig](https://vuestic.dev/en/ui-elements/config) for specific part of application:"
+    },
+    "cssVariables": {
+      "title": "CSS Variables",
+      "description": "In case you need custom component that will follow Vuestic theme, you can use CSS variables. CSS variables are reactive and can be also scoped using [VaConfig](https://vuestic.dev/en/ui-elements/config)."
+    },
+    "utility": {
+      "title": "Modify colors",
+      "description": "You can modify colors using utilities from `useColors`. You can check example below:"
+    }
+  },
+  "theme": {
+    "colors": {
+      "primary": "Accent color used on button, links and other interactive elements",
+      "secondary": "Accent color used on non important interactive elements",
+      "success": "Accent color for success validation, alerts or toasts",
+      "danger": "Accent color for error validation, alerts or toasts",
+      "info": "Accent color for info toasts or alerts",
+      "warning": "Accent color for warning toasts or alerts",
+      "backgroundPrimary": "Page background",
+      "backgroundSecondary": "Card, Modal, Dropdown background",
+      "backgroundElement": "Input, switch, divider background colors",
+      "backgroundBorder": "Used as border color in elements like input, switch etc.",
+      "textPrimary": "Main text used on page. Used as default color on background colors.",
+      "textInverted": "Used as text color, if textPrimary doesn't have enough contrast with background color.",
+      "shadow": "Color of shadows that used in elements like cards, modals etc.",
+      "focus": "Keyboard focus outline color"
+    }
+  }
+}

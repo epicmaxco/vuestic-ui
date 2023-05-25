@@ -104,7 +104,10 @@ export const useColors = () => {
   }
 
   const getComputedColor = (color: string) => {
-    return computed(() => getColor(color))
+    return computed({
+      get () { return getColor(color) },
+      set (v: string) { setColors({ [color]: v }) },
+    })
   }
 
   const colorsToCSSVariable = (colors: { [colorName: string]: string | undefined }, prefix = 'va') => {
