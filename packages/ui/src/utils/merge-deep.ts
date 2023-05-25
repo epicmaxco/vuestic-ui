@@ -14,7 +14,10 @@ export const mergeDeep = (target: any, source: any): any => {
     const sourceValue = source[key]
 
     if (isObject(targetValue) && isObject(sourceValue)) {
-      target[key] = mergeDeep(Object.assign({}, targetValue), sourceValue)
+      target[key] = mergeDeep(Object.create(
+        Object.getPrototypeOf(targetValue),
+        Object.getOwnPropertyDescriptors(targetValue),
+      ), sourceValue)
     } else {
       target[key] = sourceValue
     }
