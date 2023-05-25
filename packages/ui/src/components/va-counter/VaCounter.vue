@@ -396,9 +396,16 @@ export default defineComponent({
     }
   }
 
+
+
+
+
+
+
   .va-input-wrapper__field > *,
   .va-input-wrapper__container > * {
     margin-right: 0;
+    margin: 0.25rem;
   }
 
   &.va-counter--input-square {
