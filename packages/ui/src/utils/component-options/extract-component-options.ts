@@ -1,4 +1,3 @@
-import type { DefineComponent } from 'vue'
 import type { ExtractComponentEmits, ExtractComponentProps, DefineComponentOptions } from './types'
 import { getComponentProps } from './resolve-component-props'
 

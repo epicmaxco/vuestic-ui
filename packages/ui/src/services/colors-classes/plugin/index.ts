@@ -1,16 +1,12 @@
 import { watch } from 'vue'
 
 import { isServer } from '../../../utils/ssr'
-import { useGlobalConfig } from '../../global-config'
+import { useGlobalConfig } from '../../../composables/useGlobalConfig'
 import { defineGlobalProperty, defineVuesticPlugin } from '../../vue-plugin/utils'
 import { addOrUpdateStyleElement } from '../../../utils/dom'
 
 import type { ColorVariables } from '../../color'
 import type { ColorsClassesConfig, ColorsClassesConfigItem } from '../types'
-
-import { ColorsClassesPresets } from '../config/default'
-
-export const getColorsClassesDefaultConfig = () => ColorsClassesPresets
 
 const getColorsClassesHelpers = (helpers: ColorsClassesConfig, colors: ColorVariables) => {
   const colorsEntries = Object.entries(colors)

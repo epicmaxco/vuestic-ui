@@ -78,7 +78,7 @@ export default defineComponent({
     ariaLabel: { type: String, default: '$t:toggleDropdown' },
   },
 
-  emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'close', 'open'],
+  emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'close', 'open', 'anchor-dblclick'],
 
   setup (props, { emit, slots, attrs }) {
     const contentRef = shallowRef<HTMLElement>()
@@ -119,7 +119,7 @@ export default defineComponent({
       cancelHoverDebounce()
     }
 
-    const emitAndClose = (eventName: string, close?: boolean, e?: Event) => {
+    const emitAndClose = (eventName: Parameters<typeof emit>[0], close?: boolean, e?: Event) => {
       emit(eventName, e)
       if (close && props.trigger !== 'none') { valueComputed.value = false }
     }

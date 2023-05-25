@@ -1,7 +1,9 @@
 import kebabCase from 'lodash/kebabCase.js'
 import camelCase from 'lodash/camelCase.js'
 import { ColorTranslator } from 'colortranslator'
-import type { HSLObject, ColorInput } from 'colortranslator/dist/@types'
+import type { HSLObject, HEXObject, RGBObject } from 'colortranslator'
+
+export type ColorInput = string | HEXObject | HSLObject | RGBObject
 
 export const isCSSVariable = (strColor: string): boolean => /var\(--.+\)/.test(strColor)
 export const cssVariableName = (colorName: string) => `--va-${kebabCase(colorName)}`

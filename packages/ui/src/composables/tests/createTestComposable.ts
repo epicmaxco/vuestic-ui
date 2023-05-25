@@ -1,6 +1,6 @@
-import { defineComponent, h } from 'vue'
+import { createApp, defineComponent, h } from 'vue'
 import { mount } from '@vue/test-utils'
-import { createGlobalConfig, GLOBAL_CONFIG } from '../../services/global-config/global-config'
+import { createVuestic } from '../../main'
 
 export type Composable = (...args: any[]) => any
 
@@ -21,9 +21,7 @@ export function createTestComposable (composable: Composable) {
 
   const appWrapper = mount(App, {
     global: {
-      provide: {
-        [GLOBAL_CONFIG]: createGlobalConfig(),
-      },
+      plugins: [createVuestic()],
     },
   })
 

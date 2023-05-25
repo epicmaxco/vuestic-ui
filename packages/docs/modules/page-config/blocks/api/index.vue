@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { DefineComponent, PropType } from 'vue';
-import { parseComponent } from './component-parser'
 import merge from 'lodash/merge'
 import camelCase from 'lodash/camelCase'
 import ApiTable from './components/api-table.vue';
@@ -23,15 +22,19 @@ const props = defineProps({
     type: Array as PropType<CssVariables>,
     required: true,
   },
+  meta: {
+    type: Object as PropType<ManualApiOptions>,
+    required: true
+  },
   visualOptions: {
     type: Object as PropType<VisualOptions>,
     default: () => ({}),
   }
 })
 
-const options = parseComponent(props.component)
-
-const withManual = merge(options, props.manual as ManualApiOptions)
+const withManual = computed(() => {
+  return merge(props.meta, props.manual as ManualApiOptions)
+}) 
 
 const { t, te, fallbackLocale } = useI18n()
 
@@ -72,8 +75,8 @@ const cleanDefaultValue = (o: Record<string, any> | string) => {
   return str
 }
 
-const propsOptions = Object
-  .entries(withManual.props || {})
+const propsOptions = computed(() => Object
+  .entries(withManual.value.props || {})
   .filter(([key, prop]) => !prop.hidden)
   .map(([key, prop]) => ({
     name: { name: key, ...prop },
@@ -84,9 +87,10 @@ const propsOptions = Object
   .sort((a, b) => {
     return a.name.name.localeCompare(b.name.name)
   })
+)
 
-const eventsOptions = Object
-  .entries(withManual.events || {})
+const eventsOptions = computed(() => Object
+  .entries(withManual.value.events || {})
   .filter(([key, prop]) => !prop.hidden)
   .map(([key, prop]) => ({
     name: key,
@@ -95,9 +99,10 @@ const eventsOptions = Object
   .sort((a, b) => {
     return a.name.localeCompare(b.name)
   })
+)
 
-const slotsOptions = Object
-  .entries(withManual.slots || {})
+const slotsOptions = computed(() => Object
+  .entries(withManual.value.slots || {})
   .map(([key, prop]) => ({
     name: key,
     description: t(getTranslation('slots', key)),
@@ -105,9 +110,10 @@ const slotsOptions = Object
   .sort((a, b) => {
     return a.name.localeCompare(b.name)
   })
+)
 
-const methodsOptions = Object
-  .entries(withManual.methods || {})
+const methodsOptions = computed(() => Object
+  .entries(withManual.value.methods || {})
   .map(([key, prop]) => ({
     name: key,
     description: t(getTranslation('methods', key)),
@@ -115,11 +121,12 @@ const methodsOptions = Object
   .sort((a, b) => {
     return a.name.localeCompare(b.name)
   })
+)
 
-const cssVariablesOptions = props.cssVariables.map(([name, value, comment]) => ({
+const cssVariablesOptions = computed(() => props.cssVariables.map(([name, value, comment]) => ({
   name, value, /* comment */ // TODO: Enable comment when everywhere is used correct comments
   // TODO: Or add tanslations after i18n splitted
-}))
+})))
 </script>
 
 <template>

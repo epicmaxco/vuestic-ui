@@ -2,7 +2,6 @@ import { ref, computed, watch, PropType, Ref } from 'vue'
 
 export type StatefulProps = {
   stateful: boolean
-  [key: string]: any
 }
 
 export type StatefulOptions<T> = {
@@ -28,7 +27,7 @@ export const createStatefulProps = <T>(modelValueType?: T, statefulDefault = fal
   }
 }
 
-export const useStatefulEmits = ['update:modelValue']
+export const useStatefulEmits = ['update:modelValue'] as const
 
 /**
  * Returns `valueComputed` that is proxy for `modelValue` or given key of the props

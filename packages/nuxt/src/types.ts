@@ -32,11 +32,12 @@ export interface VuesticOptions {
    * @see https://vuestic.dev/en/getting-started/installation#assets-installation
    */
   fonts: boolean
-}
 
-/** Declare Vuestic module options in NuxtConfig */
- declare module '@nuxt/schema' {
-  interface NuxtConfig {
-    vuestic?: Partial<VuesticOptions>
-  }
+
+  /**
+   * Vuestic will automatically store its theme in cookies. If you want to change the key, you can do it here.
+   * 
+   * @default 'vuestic-theme'
+   */
+  themeCookieKey: string
 }

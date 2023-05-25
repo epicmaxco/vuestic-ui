@@ -2,7 +2,7 @@ import { unwrapEl } from './../utils/unwrapEl'
 import { focusElement, blurElement } from './../utils/focus'
 import { ref, onMounted, onBeforeUnmount, Ref } from 'vue'
 
-export const useFocusEmits = ['focus', 'blur']
+export const useFocusEmits = ['focus', 'blur'] as const
 
 export function useFocus (
   el?: Ref<HTMLElement | null | undefined>,

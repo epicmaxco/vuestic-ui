@@ -10,3 +10,5 @@ export const ColorsClassesPresets: ColorsClassesConfig = [
     property: ['color', 'fill'],
   },
 ]
+
+export const getColorsClassesDefaultConfig = () => ColorsClassesPresets

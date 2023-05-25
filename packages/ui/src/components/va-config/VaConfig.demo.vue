@@ -70,6 +70,26 @@
         </va-button>
       </va-config>
     </VbCard>
+
+    <VbCard title="Colors">
+      <va-config :colors="{ variables: {
+        primary: '#f0f',
+      } }">
+        <va-button>
+          Button inside va-config
+        </va-button>
+
+        <div style="background-color: var(--va-primary); color: var(--va-on-primary);">CSS variables</div>
+       </va-config>
+    </VbCard>
+
+    <VbCard title="i18n">
+      <va-config :i18n="{
+        dropzone: 'Завантажити файл',
+      }">
+        <va-file-upload  dropzone  />
+       </va-config>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -82,6 +102,7 @@ import { VaRating } from '../va-rating/'
 import { VaChip } from '../va-chip'
 import { VaConfig } from './'
 import { VaColorInput } from '../va-color-input/'
+import { VaFileUpload } from '../va-file-upload'
 
 export default {
   components: {
@@ -90,6 +111,7 @@ export default {
     VaConfig,
     VaChip,
     VaColorInput,
+    VaFileUpload,
   },
   data () {
     return {

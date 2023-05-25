@@ -88,7 +88,7 @@ export default defineComponent({
     const formatCell = (n: number | string): string => {
       if (!Number.isInteger(n)) { return n as string }
 
-      return n < 10 ? `0${n}` : `${n}`
+      return Number(n) < 10 ? `0${n}` : `${n}`
     }
 
     const { background } = useElementBackground(rootElement)

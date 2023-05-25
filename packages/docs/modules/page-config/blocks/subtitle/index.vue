@@ -13,11 +13,11 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <h2 class="page-config-subtitle">
+  <h2 class="page-config-subtitle flex">
     <MarkdownView
       :content="t(text)"
       text
-      class="mr-2"
+      class="mr-1"
     />
     <Anchor :text="text" />
   </h2>

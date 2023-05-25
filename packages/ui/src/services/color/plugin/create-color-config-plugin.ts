@@ -42,10 +42,6 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
     updateColors(newValue)
   }, { immediate: true, deep: true })
 
-  if (config?.colors?.currentPresetName) {
-    applyPreset(config.colors.currentPresetName)
-  }
-
   return {
     renderCSSVariables,
     updateColors,

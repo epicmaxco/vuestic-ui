@@ -112,6 +112,8 @@ const features = [
 
     max-width: 40rem;
     margin-top: 1rem;
+
+    @include sm(max-width, unset);
   }
 
   &__items {
@@ -135,8 +137,9 @@ const features = [
     margin-top: 2rem;
     margin-right: 2rem;
     min-height: 10rem;
-    min-width: 14rem;
+    min-width: 8rem;
 
+    @include size-sm(4);
     @include size-xs(12);
     @include xs(margin-right, 0);
     @include xs(min-height, 8rem);

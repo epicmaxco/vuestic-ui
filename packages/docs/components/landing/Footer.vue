@@ -74,7 +74,7 @@
 </template>
 
 <script lang="ts" setup>
-import { markRaw } from 'vue'
+import { markRaw, computed } from 'vue'
 
 import { useElementTextColor, useBreakpoint } from 'vuestic-ui'
 
@@ -100,7 +100,7 @@ const buttons = [
   { href: 'https://github.com/epicmaxco/epic-spinners', icon: IconSpinnersRaw, label: 'landing.footer.buttons.spinners' },
 ]
 
-const sitemap = [
+const sitemap = computed(() => ([
   {
     title: 'landing.footer.sitemap.resources[0]',
     items: [
@@ -133,7 +133,7 @@ const sitemap = [
       { label: 'landing.footer.sitemap.about[3]', component: 'a', prop: 'href', value: 'mailto:hello@epicmax.co?subject=VuesticUI Partnership' },
     ]
   },
-]
+]))
 </script>
 
 <style lang="scss" scoped>

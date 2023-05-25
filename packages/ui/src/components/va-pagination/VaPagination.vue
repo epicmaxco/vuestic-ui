@@ -124,7 +124,7 @@ import { VaButton } from '../va-button'
 export default defineComponent({
   name: 'VaPagination',
   components: { VaButton },
-  emits: useStatefulEmits,
+  emits: [...useStatefulEmits],
   props: {
     ...useStatefulProps,
     ...useComponentPresetProp,

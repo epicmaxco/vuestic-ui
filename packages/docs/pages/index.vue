@@ -4,7 +4,6 @@
     <div v-show="!isMobileMenuOpen">
       <LandingPreview />
       <LandingPartners />
-      <LandingBannersVuejsForgeConference />
       <LandingFeatures />
       <LandingCustomize />
       <LandingSeamlessIntegration />

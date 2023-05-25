@@ -1,15 +1,3 @@
-import {
-  colorToRgba,
-  setHSLAColor,
-  getFocusColor,
-  getHoverColor,
-  shiftHSLAColor,
-  getBoxShadowColor,
-  getGradientBackground,
-  getBoxShadowColorFromBg,
-  getStateMaskGradientBackground,
-} from 'vuestic-ui/src/services/color';
-
 const columnsApiTypes = [
   "name",
   { title: "type", type: "code" },
@@ -53,34 +41,6 @@ const tableDataApiTypes = [
       currentPresetName: string,
     }`,
     "colorsConfig.api.colorConfig",
-  ],
-];
-
-const tableDataApiMethods = [
-  [
-    "useColors",
-    `() => {
-      colors,
-      currentPresetName,
-      presets,
-      applyPreset,
-      setColors,
-      getColors,
-      getColor,
-      getComputedColor,
-      getBoxShadowColor,
-      getBoxShadowColorFromBg,
-      getHoverColor,
-      getFocusColor,
-      getGradientBackground,
-      getTextColor,
-      shiftHSLAColor,
-      setHSLAColor,
-      colorsToCSSVariable,
-      colorToRgba,
-      getStateMaskGradientBackground,
-    }`,
-    "colorsConfig.api.useColors",
   ],
 ];
 
@@ -195,17 +155,11 @@ export default definePageConfig({
     block.paragraph("colorsConfig.otherServices.icons"),
     block.code("icons-config"),
 
-    block.paragraph("colorsConfig.otherServices.css"),
-    block.example("css-variable", { hideTitle: true }),
-
     // api
     block.subtitle("colorsConfig.api.title"),
 
     block.headline("colorsConfig.api.types"),
     block.table(columnsApiTypes, tableDataApiTypes),
-
-    block.headline("colorsConfig.api.methods"),
-    block.table(columnsApiMethods, tableDataApiMethods),
 
     block.headline("colorsConfig.api.hookMethods"),
     block.table(columnsApiMethods, tableDataApiHookMethods),

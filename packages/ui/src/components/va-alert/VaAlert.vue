@@ -95,7 +95,7 @@ import { VaIcon } from '../va-icon'
 export default defineComponent({
   name: 'VaAlert',
   components: { VaIcon },
-  emits: useStatefulEmits,
+  emits: [...useStatefulEmits],
   props: {
     ...useStatefulProps,
     ...useComponentPresetProp,

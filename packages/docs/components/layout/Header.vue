@@ -1,74 +1,162 @@
 <template>
-  <div>
+  <div
+    class="header-wrapper"
+    :class="isOptionsVisible && 'header-wrapper--expanded'"
+  >
     <HeaderBanner closeable />
+
     <va-navbar
+      v-show="!isOptionsVisible"
       class="header"
       color="background-secondary"
     >
       <template #left>
-        <header-selector
+        <HeaderSelector
           class="mr-3"
           :minimized="isSidebarVisible"
-          @toggleSidebar="toggleSidebar"
+          @toggle-sidebar="toggleSidebar"
         />
         <NuxtLink
-          v-slot="{ navigate, href }"
           :to="landing.to"
-          custom
+          :aria-label="landing.text"
         >
-          <a
-            :href="href"
-            :aria-label="landing.text"
-            :title="landing.text"
-            class="header-logo"
-          >
-            <vuestic-logo
-              class="header-logo__image"
-              height="30"
-              width="150"
-              aria-hidden="true"
-              @click="navigate"
-            />
-          </a>
+          <VuesticLogo
+            height="32"
+            width="160"
+            aria-hidden="true"
+          />
         </NuxtLink>
-        <algolia-search class="header__searchbar" />
+        <AlgoliaSearch class="header__searchbar" />
       </template>
+
       <template #right>
-        <va-button
-          v-for="(link, index) in links"
-          :key="index"
-          preset="secondary"
-          class="mr-1"
-          :to="link.to"
-          :href="link.url"
-          :target="link.target"
+        <div
+          v-if="breakpoint.mdUp"
+          class="header__options"
         >
-          {{ link.text }}
+          <va-button
+            v-for="(link, index) in links"
+            :key="index"
+            preset="secondary"
+            class="mr-1"
+            :to="link.to"
+            :href="link.url"
+            :target="link.target"
+          >
+            {{ link.text }}
+          </va-button>
+          <ColorDropdown class="mr-2" />
+          <LanguageDropdown
+            class="mr-3"
+            preset="secondary"
+          />
+          <ThemeSwitch class="mr-4" />
+          <VersionDropdown />
+        </div>
+
+        <!-- options mobile menu -->
+        <va-button
+          v-if="breakpoint.smDown"
+          :aria-label="$t('menu.openOptionsMenu')"
+          preset="plain"
+          @click="toggleOptions"
+        >
+          <va-icon class="fas fa-bars" />
         </va-button>
-        <color-dropdown class="mr-2" />
-        <language-dropdown
-          class="mr-3"
-          preset="secondary"
-        />
-        <theme-switch />
-        <version-dropdown />
       </template>
     </va-navbar>
+
+    <!-- mobile options -->
+    <nav
+      v-show="isOptionsVisible"
+      class="header__mobile-options"
+    >
+      <div class="mobile-options__menu-button-wrapper">
+        <va-button
+          v-if="isOptionsVisible"
+          :aria-label="$t('menu.closeOptionsMenu')"
+          preset="plain"
+          @click="toggleOptions"
+        >
+          <va-icon class="fas fa-times" />
+        </va-button>
+      </div>
+
+      <va-list class="mobile-options__list">
+        <va-list-item
+          v-for="(link, index) in links"
+          :key="index"
+        >
+          <va-list-item-section class="mobile-options__link">
+            <va-button
+              preset="plain"
+              :to="link.to"
+              :href="link.url"
+              :target="link.target"
+              class="mobile-options__link-button"
+            >
+              {{ link.text }}
+            </va-button>
+          </va-list-item-section>
+        </va-list-item>
+
+        <div class="mobile-options__languages">
+          <va-list-label
+            color="secondary"
+            class="mobile-options__label"
+          >
+            {{ $t('landing.header.buttons.language') }}
+          </va-list-label>
+
+          <va-list-item
+            v-for="({ code, name }, id) in locales"
+            :key="id"
+            class="mobile-options__language"
+            :class="{ active: code === locale }"
+            @click="setLocale(code)"
+          >
+            <va-list-item-section class="mobile-options__link">
+              <span class="language">{{ name }}</span>
+            </va-list-item-section>
+          </va-list-item>
+
+          <va-list-item>
+            <va-list-item-section class="mobile-options__link">
+              <router-link :to="`/${locale}/contribution/translation`">
+                {{ $t('landing.header.buttons.translation') }}
+              </router-link>
+            </va-list-item-section>
+          </va-list-item>
+        </div>
+
+        <div class="mobile-options__items">
+          <ThemeSwitch class="mb-8" />
+          <SocialsLinks size="large" />
+          <StarsButton repo="epicmaxco/vuestic-ui" />
+          <VersionDropdown />
+        </div>
+      </va-list>
+    </nav>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue'
+import { useBreakpoint } from 'vuestic-ui'
+
 import LanguageDropdown from './LanguageDropdown.vue'
 import VersionDropdown from './header/VersionDropdown.vue'
 import ColorDropdown from './header/ColorDropdown.vue'
 import HeaderSelector from './header/HeaderSelector.vue'
 import VuesticLogo from './header/VuesticDocsLogo.vue'
-import AlgoliaSearch from '@/components/AlgoliaSearch.vue'
+import AlgoliaSearch from '../AlgoliaSearch.vue'
 import ThemeSwitch from './header/ThemeSwitch.vue'
-import { useI18n } from 'vue-i18n'
-import { computed } from 'vue'
+import SocialsLinks from '../landing/SocialsLinks.vue'
+import StarsButton from '../landing/StarsButton.vue'
+import { useSharedLanguageSwitcher } from '@/composables/useLanguageSwitcher'
 
-const { locale, t } = useI18n()
+const { t, locale, locales, setLocale } = useSharedLanguageSwitcher()
+const breakpoint = useBreakpoint()
 
 const landing = computed(() => ({
   text: t('menu.home'),
@@ -92,12 +180,20 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  isOptionsVisible: {
+    type: Boolean,
+    default: false,
+  },
 })
 
-const emit = defineEmits(['update:isSidebarVisible'])
+const emit = defineEmits(['update:isSidebarVisible', 'update:isOptionsVisible'])
 
 const toggleSidebar = () => {
   emit('update:isSidebarVisible', !props.isSidebarVisible)
+}
+
+const toggleOptions = () => {
+  emit('update:isOptionsVisible', !props.isOptionsVisible)
 }
 </script>
 
@@ -105,51 +201,155 @@ const toggleSidebar = () => {
 @import "vuestic-ui/src/styles/resources";
 @import "@/assets/smart-grid.scss";
 
-.header {
+.header-wrapper {
   --va-navbar-mobile-height: auto;
+  --navbar-padding: 1.2rem 1rem;
+  --navbar-padding-xs: 0.75rem 1rem;
 
+  &--expanded {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+}
+
+.header {
   box-shadow: 0 2px 8px var(--va-shadow);
+
+  &.va-navbar {
+    padding: var(--navbar-padding);
+
+    @include sm(display, flex);
+    @include sm(flex-direction, row);
+    @include sm(justify-content, space-between);
+    @include sm(align-items, center);
+    @include sm(height, unset);
+
+    @include xs(padding, var(--navbar-padding-xs));
+  }
 
   .va-navbar__left {
     align-items: center;
-    flex: 50%;
+    flex-grow: 1;
+  }
 
-    @include sm(justify-content, space-between);
+  .va-navbar__center {
+    @include sm(width, unset);
   }
 
   .va-navbar__right {
     align-items: center;
-    flex: 50%;
 
-    @include sm(display, none);
+    @include sm(width, unset);
   }
 
   &__searchbar {
     margin-left: 1.5rem;
 
-    @include sm(margin-left, 0);
+    @include sm(margin-left, 1rem);
+    @include xs(margin-left, auto);
+    @include xs(margin-right, 1rem);
   }
 
-  &-logo {
-    &__image {
-      min-width: 160px;
-      max-width: 160px;
-    }
-
-    @media screen and (max-width: 945px) {
-      display: none;
-    }
-
-    @include media-breakpoint-down(sm) {
-      display: block;
-    }
-
-    @include sm(display, block);
+  &__options {
+    display: flex;
+    align-items: center;
   }
 
-  &.va-navbar {
-    @media screen and (max-width: $break_xs) {
-      padding: 0.75rem 22px;
+  &__mobile-options {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: auto;
+  }
+}
+
+.mobile-options {
+  &__menu-button-wrapper {
+    width: 100%;
+    flex-shrink: 0;
+    text-align: right;
+    padding: var(--navbar-padding);
+
+    @include xs(padding, var(--navbar-padding-xs));
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    padding: 0 2rem 2rem;
+    max-width: 25rem;
+    align-self: center;
+  }
+
+  &__languages {
+    margin-top: 3.5rem;
+  }
+
+  &__label {
+    font-size: 0.625rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__language {
+    cursor: pointer;
+
+    &.active {
+      .language {
+        color: var(--va-text-primary);
+      }
+    }
+  }
+
+  &__link {
+    @include sm(font-size, 1.2rem);
+
+    align-self: center;
+    font-weight: 600;
+    text-align: center;
+
+    span,
+    a {
+      color: var(--va-primary);
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        color: var(--va-text-primary);
+      }
+    }
+  }
+
+  &__link-button {
+    margin-top: 0.5rem;
+
+    .va-button__content {
+      @include sm(font-size, 1.2rem);
+    }
+  }
+
+  &__items {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > * {
+      margin-top: 2rem;
     }
   }
 }

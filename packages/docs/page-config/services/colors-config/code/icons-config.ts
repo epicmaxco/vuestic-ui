@@ -5,9 +5,8 @@ createApp(App)
     config: {
       colors: {
         variables: {
-          primary: '#ff00ff',
-          'player-icon': '#aaa',
           success: '#0fb'
+          'player-icon': '#aaa',
         }
       },
       icons: createIconsConfig({
@@ -15,16 +14,6 @@ createApp(App)
           {
             name: 'prev',
             to: 'fa4-prev',
-            color: 'player-icon'
-          },
-          {
-            name: 'next',
-            to: 'fa4-next',
-            color: 'player-icon'
-          },
-          {
-            name: 'pause',
-            to: 'fa4-pause',
             color: 'player-icon'
           },
           {

@@ -4,7 +4,6 @@ export default defineNuxtConfig({
     head: {
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
       ],
 
       meta: [
@@ -146,6 +145,7 @@ export default defineNuxtConfig({
     //   useCookie: true,
     //   cookieKey: 'i18n_locale',
     // },
+
 
     // lazy: true,
 

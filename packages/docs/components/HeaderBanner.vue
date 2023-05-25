@@ -10,8 +10,9 @@
       <div class="header__wrapper">
         <div class="header-banner__left">
           <strong>{{ $t("landing.header.banner.partner") }}</strong>
+
           <div class="header-banner__left-links">
-            <a
+            <!-- <a
               href="https://vuejs.org/partners/epicmax.html"
               title="Epicmax creates high performance Vue.js interfaces"
               target="_blank"
@@ -31,9 +32,9 @@
                 d="M161.101 0l-30.224 52.35L100.652 0H52.351l78.526 136.01L209.403 0z"
               /></svg>
               <strong>Vue.js</strong>
-            </a>
+            </a> -->
 
-            <strong>{{ $t("landing.header.banner.and") }}</strong>
+            <!-- <strong>{{ $t("landing.header.banner.and") }}</strong> -->
 
             <a
               href="https://nuxtjs.org/partners/epicmax"
@@ -45,7 +46,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
-                viewBox="0 0 400 303"
+                viewBox="0 0 400 420"
                 aria-hidden="true"
               >
                 <g
@@ -100,6 +101,8 @@ import { ref } from 'vue'
 
 import { useElementTextColor } from 'vuestic-ui'
 
+const officialPartnerCookie = useCookie('banner')
+
 const props = defineProps({
   closeable: {
     type: Boolean,
@@ -114,11 +117,11 @@ const props = defineProps({
 const textColor = useElementTextColor('primary')
 
 const closeable = ref(props.closeable)
-const isHidden = ref(closeable.value && localStorage.getItem('banner') === 'official-partner')
+const isHidden = ref(closeable.value && officialPartnerCookie.value === 'official-partner')
 
 const hide = () => {
   if (closeable.value) {
-    localStorage.setItem('banner', 'official-partner')
+    officialPartnerCookie.value = 'official-partner'
     isHidden.value = true
   }
 }
@@ -204,6 +207,10 @@ const hide = () => {
   &__link {
     display: flex;
     align-items: center;
+
+    strong {
+      margin-left: 0.25em;
+    }
   }
 }
 </style>

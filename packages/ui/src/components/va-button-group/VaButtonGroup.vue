@@ -8,15 +8,15 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-import { extractComponentProps } from '../../utils/component-options'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import omit from 'lodash/omit.js'
 
-import { useBem, useComponentPresetProp } from '../../composables'
+import { useBem, useComponentPresetProp, useColors, useTextColor } from '../../composables'
 
 import { VaConfig } from '../va-config'
 import { VaButton } from '../va-button'
 
-const VaButtonProps = omit(extractComponentProps(VaButton), ['block'])
+const VaButtonProps = omit(extractComponentProps(VaButton), ['block', 'gradient'])
 
 export default defineComponent({
   name: 'VaButtonGroup',
@@ -24,22 +24,36 @@ export default defineComponent({
   props: {
     ...VaButtonProps,
     ...useComponentPresetProp,
-    grow: {
-      type: Boolean,
-      default: false,
-    },
+    grow: { type: Boolean, default: false },
+    gradient: { type: Boolean, default: false },
   },
 
   setup: (props) => {
-    const buttonConfig = computed(() => ({ VaButton: { ...props } }))
+    const { getColor, getGradientBackground } = useColors()
+    const colorComputed = computed(() => getColor(props.color))
+    const { textColorComputed } = useTextColor(colorComputed)
+
+    const filteredProps = filterComponentProps(VaButtonProps)
+    const buttonConfig = computed(() => ({
+      VaButton: {
+        ...filteredProps.value,
+        ...(props.gradient && {
+          color: '#00000000',
+          textColor: textColorComputed.value,
+        }),
+      },
+    }))
     const computedClass = useBem('va-button-group', () => ({
       square: !props.round,
       grow: props.grow,
       small: props.size === 'small',
       large: props.size === 'large',
     }))
+    const backgroundColor = computed(() =>
+      props.gradient ? getGradientBackground(colorComputed.value) : 'transparent',
+    )
 
-    return { buttonConfig, computedClass }
+    return { buttonConfig, computedClass, backgroundColor }
   },
 })
 </script>
@@ -54,6 +68,7 @@ export default defineComponent({
   border-radius: var(--va-button-group-border-radius);
   font-family: var(--va-font-family);
   width: max-content;
+  background: v-bind(backgroundColor);
 
   &--grow {
     width: 100%;

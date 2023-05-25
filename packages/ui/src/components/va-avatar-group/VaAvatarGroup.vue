@@ -13,7 +13,6 @@
     />
     <slot name="rest" v-bind="avatarProps">
       <va-avatar
-        color="secondary"
         v-bind="avatarProps"
         role="listitem"
       >

@@ -10,13 +10,13 @@
 
     <pre>{{ form }}</pre>
 
-    <button @click="$refs.resetFormRef.reset()">
+    <button @click="resetFormRef.reset()">
       Reset
     </button>
   </VbCard>
 
   <VbCard title="reset form">
-    <va-button @click="$refs.resetForm.reset()">Reset form</va-button>
+    <va-button @click="resetFormRef.reset()">Reset form</va-button>
     <va-form ref="resetForm">
       <va-checkbox
         v-model="resetForm.checkbox"
@@ -49,7 +49,7 @@
   </VbCard>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { VaInput } from '../va-input'
 import { VaCheckbox } from '../va-checkbox'
 import { VaForm } from './index'
@@ -58,39 +58,25 @@ import { VaButton } from '../va-button'
 import { VaDateInput } from '../va-date-input'
 import { VaTimeInput } from '../va-time-input'
 import { VaOptionList } from '../va-option-list'
+import { reactive, ref } from 'vue'
 
 const OPTIONS = ['One', 'Two', 'Three']
 
-export default {
-  name: 'VaFormReset',
-  components: {
-    VaForm,
-    VaCheckbox,
-    VaInput,
-    VaSelect,
-    VaButton,
-    VaDateInput,
-    VaTimeInput,
-    VaOptionList,
-  },
-  data () {
-    return {
-      form: {
-        input: 'some text',
-        checkbox: true,
-      },
+const resetFormRef = ref()
 
-      resetForm: {
-        input: 'value',
-        checkbox: true,
-        date: new Date(),
-        time: new Date(),
-        options: OPTIONS,
-        select: OPTIONS[0],
-        optionsListValue: OPTIONS[0],
-        validationRules: [(value: any) => !!value || 'Field is required'],
-      },
-    }
-  },
-}
+const form = reactive({
+  input: 'some text',
+  checkbox: true,
+})
+
+const resetForm = reactive({
+  input: 'value',
+  checkbox: true,
+  date: new Date(),
+  time: new Date(),
+  options: OPTIONS,
+  select: OPTIONS[0],
+  optionsListValue: OPTIONS[0],
+  validationRules: [(value: any) => !!value || 'Field is required'],
+})
 </script>
