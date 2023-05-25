@@ -17,7 +17,7 @@ export default definePageConfig({
     block.subtitle("ssrGuide.solutions.title"),
     block.paragraph("ssrGuide.solutions.description"),
 
-    block.link("ssrGuide.solutions.nuxt", "/en/getting-started/nuxt"),
+    block.link("ssrGuide.solutions.nuxt", "/getting-started/nuxt"),
 
     block.headline("ssrGuide.solutions.viteSsrPlugin.title"),
     block.paragraph("ssrGuide.solutions.viteSsrPlugin.description"),
