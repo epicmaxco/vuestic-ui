@@ -101,6 +101,8 @@ import { ref } from 'vue'
 
 import { useElementTextColor } from 'vuestic-ui'
 
+const officialPartnerCookie = useCookie('banner')
+
 const props = defineProps({
   closeable: {
     type: Boolean,
@@ -115,11 +117,11 @@ const props = defineProps({
 const textColor = useElementTextColor('primary')
 
 const closeable = ref(props.closeable)
-const isHidden = ref(closeable.value && localStorage.getItem('banner') === 'official-partner')
+const isHidden = ref(closeable.value && officialPartnerCookie.value === 'official-partner')
 
 const hide = () => {
   if (closeable.value) {
-    localStorage.setItem('banner', 'official-partner')
+    officialPartnerCookie.value = 'official-partner'
     isHidden.value = true
   }
 }

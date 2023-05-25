@@ -31,7 +31,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const configWithColors: PartialGlobalConfig = {
     ...userConfig,
     colors: {
-      currentPresetName: themeCookie.value || userConfig.colors?.currentPresetName,
+      currentPresetName: themeCookie.value || userConfig.colors?.currentPresetName || 'light',
       ...userConfig.colors,
     }
   }

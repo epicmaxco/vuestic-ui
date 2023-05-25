@@ -38,23 +38,19 @@ const getConfig = async (name: string) => {
 export const usePageConfigs = () => files
 
 export const usePageConfig = async (name: Ref<string>) => {
-  try {
-    const config = ref<PageConfigOptions | null>(await getConfig(unref(name))) as Ref<PageConfigOptions | null>
+  const isLoading = ref(false)
+  const config = ref<PageConfigOptions | null>(await getConfig(unref(name))) as Ref<PageConfigOptions | null>
 
-    watch(name, async () => {
-      try {
-        config.value = null
-        config.value = await getConfig(unref(name))
-      }
-      catch (e) {
-        console.error(e)
-      }
-    })
+  watch(name, async () => {
+    try {
+      isLoading.value = true
+      config.value = await getConfig(unref(name))
+      isLoading.value = false
+    }
+    catch (e) {
+      console.error(e)
+    }
+  })
 
-    return config
-  }
-  catch (e) {
-    console.log(e)
-    return ref(null)
-  }
+  return  { config, isLoading }
 }

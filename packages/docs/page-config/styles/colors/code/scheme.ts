@@ -1,14 +1,12 @@
-const app = createApp(App)
-  .use(
-    createVuestic({
-      config: {
-        colors: {
-          variables: {
-            primary: "#B456C0",
-            custom: "#A35600",
-          },
-        },
-      },
-    })
-  )
-  .mount("#app");
+createVuestic({
+  config: {
+    colors: {
+      presets: {
+        light: {
+          primary: '#f0f0f0',
+          myCoolColor: '#f00f0f',
+        }
+      }
+    },
+  },
+})

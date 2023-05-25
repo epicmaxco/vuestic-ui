@@ -7,9 +7,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useColors } from 'vuestic-ui'
-
-
 useHead({
   title: 'Vuestic UI — Vue 3 UI framework',
   link: [
@@ -19,9 +16,6 @@ useHead({
 </script>
 
 <style lang="scss" scoped>
-// Need to import tailwind in layout, because otherwise Vuestic component's css will has a higher priority
-// @import '~/assets/css/tailwind.css';
-
 .landing {
   background: var(--va-background-secondary);
   color: var(--va-on-background-secondary)
