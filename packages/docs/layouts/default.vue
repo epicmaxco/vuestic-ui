@@ -1,5 +1,6 @@
 <template>
-  <div class="docs-layout">
+  <div class="docs-layout" :key="currentPresetName + isMounted">
+    <div v-if="!isMounted" class="docs-layout__loader" />
     <div
       ref="header"
       class="docs-layout__header"
@@ -31,15 +32,13 @@
 <script setup lang="ts">
 import { useColors } from 'vuestic-ui'
 import { useDocsScroll } from '../composables/useDocsScroll';
+import { useIsMounted } from 'vuestic-ui/src/composables/useIsMounted'
 
-const cookie = useCookie('vuestic-theme')
-const { applyPreset } = useColors()
+const { currentPresetName } = useColors()
 const breakpoints = useBreakpoint()
 
 const isSidebarVisible = ref(!breakpoints.smDown)
 const isOptionsVisible = ref(false)
-
-applyPreset(cookie.value || 'light')
 
 watch(() => breakpoints.smDown, (newValue, oldValue) => {
   if (newValue && !oldValue) {
@@ -75,6 +74,8 @@ useHead({
     { src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js', type: 'module' },
   ],
 })
+
+const isMounted = useIsMounted()
 </script>
 
 <style lang="scss">
@@ -96,6 +97,16 @@ html {
   flex-direction: column;
   overflow: hidden;
   font-family: var(--va-font-family);
+
+  &__loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999999;
+    background: var(--va-background-primary);
+  }
 
   &__header {
     width: 100%;

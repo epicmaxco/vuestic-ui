@@ -3,7 +3,7 @@
   "text": "На этой странице представлено описание интеграции цветов и брейкпоинтов Vuestic UI в файл конфигурации UnoCSS.",
   "preparation": {
     "title": "Подготовка",
-    "text0": "Прежде чем начать интеграцию, пожалуйста, убедитесь что вы установили и UnoCSS, и Vuestic UI. Если же нет, то вот инструкция по установке для [Vuestic UI](/getting-started/installation) и [UnoCSS]((https://github.com/unocss/unocss#installation))[[target=_blank]].",
+    "text0": "Прежде чем начать интеграцию, пожалуйста, убедитесь что вы установили и UnoCSS, и Vuestic UI. Если же нет, то вот инструкция по установке для [Vuestic UI](/getting-started/installation) и [UnoCSS](https://github.com/unocss/unocss#installation)[[target=_blank]].",
     "text1": "Также вам нужно установить пресет `unocss-preset-theme`."
   },
   "setup": {

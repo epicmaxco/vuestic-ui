@@ -1,17 +1,9 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  // TEST Config
-  routeRules: {
-    '/': {static: true},
-    '/en/**': {static: true},
-    '/ru/**': {static: true},
-    '/_nuxt/**': { headers: { 'cache-control': 's-maxage=0' } },
-  },
   app: {
     head: {
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
       ],
 
       meta: [
