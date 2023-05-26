@@ -10,8 +10,8 @@ export default definePageConfig({
 
     block.example("Components"),
     block.link('config.examples.components.see', '/services/components-config'),
-    block.example("Colors"),
-    block.link('config.examples.colors.see', '/services/colors-config'),
+    // block.example("Colors"),
+    // block.link('config.examples.colors.see', '/services/colors-config'),
     block.example("Internalization"),
     block.link('config.examples.internalization.see', '/services/i18n'),
 
