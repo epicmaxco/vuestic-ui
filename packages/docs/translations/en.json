@@ -131,7 +131,7 @@
       "epicmaxLink": "Visit Epicmax web-site",
       "newsBannerText": " \uD83D\uDD25\uD83D\uDD25\uD83D\uDD25 Hi there, we're celebrating our launch on Product Hunt this week! \uD83D\uDE80 We'd love to get your feedback and support! \uD83D\uDE4F",
       "newsBannerLink": "Visit the launch page",
-      "bannerText": ["expert", "s", "available in", "to build and launch your product"]
+      "bannerText": [ "expert", "s", "available in", "to build and launch your product" ]
     }
   },
   "api": {
@@ -156,6 +156,8 @@
         "name": "Applies `name` to internal input component. Useful for native forms.",
         "tag": "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
         "size": "Specify size for component. `\"small\"`, `\"medium\"`, `\"large\"` sizes are available. If you want more control, you can provide number (will be used as `px`) or string value (`rem` and `px` sizes are supported).",
+        "sizesConfig": "Provide a set of sizes as a global component specific setting.",
+        "fontSizesConfig": "Provide a set of sizes for fonts as a global component specific setting.",
         "disabled": "Applies `disabled` style and removes all user interaction effects.",
         "readonly": "Doesn't look disabled, but acts like one. Mostly useful for wrapper components.",
         "success": "Show component in success state.",
@@ -218,6 +220,31 @@
         "fallbackIcon": "Shows an icon if image failed to load or src doesn't specified.",
         "fallbackRender": "Allows to use render function to render custom contents if image failed to load or src doesn't specified",
         "delay": "Sets throttling delay (ms) for the components any data change (useful for huge data).",
+        "ratio": "Aspect ratio of the component's wrapper.",
+        "groupBy": "When `options` prop is an object, this key will be used to group up options. Can be string (path to the key) or function of type: `(option) => option.group`",
+        "grow": "Take all container width",
+        "immediateValidation": "Sets the validation to be performed when the component is mounted",
+        "anchorSelector": "Anchor CSS selector instead of passing slot",
+        "ariaSwitchViewLabel": "The aria-label of the \"switch view\" button",
+        "ariaToggleDropdownLabel": "The aria-label of the \"toggle dropdown list\" button",
+        "autoPlacement": "If dropdown doesn't fit viewport, it will be placed automatically to fit viewport",
+        "closeOnClickOutside": "Dropdown will be closed when clicked outside dropdown content and anchor",
+        "cursor": "Dropdown will be rendered relative to cursor position",
+        "isContentHoverable": "If true, dropdown content will be hoverable",
+        "leftIcon": "Sets the icon position to the left.",
+        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
+        "requiredMark": "Adds required mark to the label",
+        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
+        "ariaNextPeriodLabel": "The aria-label of the \"next period\" button",
+        "ariaPreviousPeriodLabel": "The aria-label of the \"previous period\" button",
+        "ariaRemoveFileLabel": "The aria-label of the \"remove file\" button",
+        "ariaResetLabel": "The aria-label of the \"reset\" button",
+        "background": "The color name of the backgound color",
+        "innerAnchorSelector": "Anchor CSS selector inside passed slot",
+        "cellHeight": "Height of the time cell",
+        "teleport": "Element where content will be rendered",
+        "visibleCellsCount": "Count of time cells to display",
+        "hidePeriodSwitch": "Hide period column",
         "ratio": "Aspect ratio of the component's wrapper."
       },
       "slots": {
@@ -299,7 +326,8 @@
         "iconPrepend": "Icon at the start of slider.",
         "iconAppend": "Icon at the end of slider.",
         "vertical": "Makes slider vertical.",
-        "showTrack": "Toggles track display."
+        "showTrack": "Toggles track display.",
+        "ariaLabel": "The aria-label of the component"
       },
       "events": {
         "dragStart": "Emitted on drag start.",
@@ -335,7 +363,9 @@
       "props": {
         "activeColor": "Color of active links (theme string or HEX string).",
         "separator": "Element to separate breadcrumbs items.",
-        "separatorColor": "Color of the separator icon (theme string or HEX string)."
+        "separatorColor": "Color of the separator icon (theme string or HEX string).",
+        "ariaLabel": "The aria-label of the component",
+        "vertical": "Displays vertically"
       },
       "slots": {
         "default": "One or more `va-breadcrumbs-item` elements.",
@@ -374,7 +404,18 @@
         "anchorClass": "Set class name to the `anchor` slot container",
         "zIndex": "Set the modal's `z-index`",
         "allowBodyScroll": "Allows the document scroll while modal is open.",
-        "blur": "Use `blur` filter to overlay. Root `css` variable `--va-modal-overlay-background-blur-radius` sets the blur radius"
+        "blur": "Use `blur` filter to overlay. Root `css` variable `--va-modal-overlay-background-blur-radius` sets the blur radius",
+        "ariaCloseLabel": "The aria-label of the close button",
+        "backgroundColor": "The background color of the modal dialog",
+        "beforeClose": "Function run before closing the modal",
+        "noPadding": "Disable padding in the modal dialog",
+        "onBeforeClose": "Function to be called before closing",
+        "onBeforeOpen": "Function to be called before opening",
+        "onCancel": "Function to be called after cancel button is been pressed",
+        "onClickOutside": "Function to be called after clicking outside the modal",
+        "onClose": "Function to be called after closing",
+        "onOk": "Function to be called after pressing the \"ok\" button",
+        "onOpen": "Functiong to be called after opening the modal"
       },
       "events": {
         "updateModelValue": "The event is triggered when the component needs to change visibility",
@@ -412,7 +453,9 @@
         "hover": "Adds visual feedback when hovering on items",
         "texts": "The array of captions to be used with each value. The array length should be equal to **`max`** prop",
         "textColor": "Color of text captions",
-        "unselectedColor": "Specifies the color of unselected items (by default **`color`** prop is used)"
+        "unselectedColor": "Specifies the color of unselected items (by default **`color`** prop is used)",
+        "ariaLabel": "The aria-label of the component",
+        "ariaItemLabel": "The aria-label of rating items of the component"
       }
     },
     "VaPagination": {
@@ -434,7 +477,14 @@
         "size": "Specify size for component. `small`, `medium`, `large` sizes are available.",
         "activePageColor": "Specifies color of the currently active page button.",
         "gapped": "Enables gaps between page buttons.",
-        "buttonsPreset": "Value of the `preset` prop for passing it to the `VaButton` component ([read more](/ui-elements/button))."
+        "buttonsPreset": "Value of the `preset` prop for passing it to the `VaButton` component ([read more](/ui-elements/button)).",
+        "ariaGoToLastPageLabel": "The aria-label of the \"go to last page\" button",
+        "ariaGoToNextPageLabel": "The aria-label of the \"go to next page\" button",
+        "ariaGoToPreviousPageLabel": "The aria-label of the \"go to previous page\" button",
+        "ariaGoToSpecificPageInputLabel": "The aria-label of the \"go to specific page\" input",
+        "ariaGoToSpecificPageLabel": "The aria-label of the \"go to specific page\" button",
+        "ariaGoToTheFirstPageLabel": "The aria-label of the \"go to the first page\" button",
+        "ariaLabel": "The aria-label of the component"
       },
       "slots": {
         "firstPageLink": "For the first page link content",
@@ -449,12 +499,13 @@
         "left": "Align all items to the left",
         "right": "Align all items to the right",
         "center": "Align all items to the center",
-        "grow": "Take all container width",
         "hideSlider": "Remove slider which underlines selected item",
         "vertical": "Align all items vertically",
         "prevIcon": "Icon to be used for scrolling backward in pagination",
         "nextIcon": "Icon to be used for scrolling forward in pagination",
-        "hidePagination": "Hide or show pagination arrows"
+        "hidePagination": "Hide or show pagination arrows",
+        "ariaMoveLeftLabel": "The aria-label of the \"move left\" button",
+        "ariaMoveRightLabel": "The aria-label of the \"move right\" button"
       },
       "events": {
         "clickNext": "Emits when pagination **next** is clicked",
@@ -479,7 +530,9 @@
         "value": "Switch value",
         "trueValue": "Value when checked",
         "falseValue": "Value when unchecked",
-        "arrayValue": "Takes the value of a switch in an array of switches"
+        "arrayValue": "Takes the value of a switch in an array of switches",
+        "ariaLabel": "The aria-label of the component",
+        "offColor": "The background color when switch is off"
       },
       "slots": {
         "default": "Slot for label.",
@@ -498,7 +551,8 @@
         "undo": "Enables the canceling of the removing action for the added files",
         "undoDuration": "Undoing action duration",
         "undoButtonText": "Cancel button text",
-        "deletedFileMessage": "Deleted file message"
+        "deletedFileMessage": "Deleted file message",
+        "files": "Files to be uploaded"
       },
       "events": {
         "fileAdded": "Emits after files are added",
@@ -545,7 +599,8 @@
         "position": "Sets the position of the notification",
         "render": "Render function to use a custom content",
         "multiLine": "Sets more space for the Toast component",
-        "dangerouslyUseHtmlString": "Sets the ability to use `message` as innerHtml. **Please note that this can lead to XSS attacks**, so make sure that you sanitize the `message` by yourself"
+        "dangerouslyUseHtmlString": "Sets the ability to use `message` as innerHtml. **Please note that this can lead to XSS attacks**, so make sure that you sanitize the `message` by yourself",
+        "ariaCloseLabel": "The aria-label of the close button"
       },
       "events": {
         "onClick": "Emits when toast is clicked",
@@ -572,7 +627,9 @@
         "width": "Width of component in maximized state.",
         "minimizedWidth": "Width of component in minimized state.",
         "value": "The current visibility state of `va-sidebar`.",
-        "animated": "Sets css `transition` to component"
+        "animated": "Sets css `transition` to component",
+        "activeColor": "The color for active `VaSidebarItem` in the sidebar menu",
+        "hoverColor": "The color for hovered `VaSidebarItem` in the sidebar menu"
       }
     },
     "VaImage": {
@@ -591,7 +648,9 @@
         "title": "Proxies the `title` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]].",
         "lazy": "Enables lazy load for the image.",
         "draggable": "Proxies the `draggable` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
-        "placeholderSrc": "`src` value for the placeholder image (can be replaced with `placeholder` slot)."
+        "placeholderSrc": "`src` value for the placeholder image (can be replaced with `placeholder` slot).",
+        "contain": "The image is scaled to maintain its aspect ratio while fitting within the element's content box.",
+        "maxWidth": "Maximal image's width"
       },
       "events": {
         "loaded": "Emitted when image loading is finished.",
@@ -642,7 +701,8 @@
       "props": {
         "value": "The value of the checkbox",
         "checkedIcon": "Overrides the `checked` icon",
-        "indeterminateIcon": "Overrides the `indeterminate` icon"
+        "indeterminateIcon": "Overrides the `indeterminate` icon",
+        "ariaLabel": "The aria-label of the checkbox"
       },
       "events": {
         "input": "Emitted when the component needs to change the value"
@@ -657,7 +717,8 @@
         "rounded": "Add a border radius to the `va-progress-bar` component (default: true)",
         "contentInside": "Sets the content of the slot inside the progress bar",
         "showPercent": "Shows the indicator value with a percent sign",
-        "max": "Maximum value"
+        "max": "Maximum value",
+        "ariaLabel": "The aria-label of the component"
       },
       "slots": {
         "default": "Display any additional info about the progress"
@@ -667,7 +728,8 @@
       "props": {
         "value": "The progress value",
         "indeterminate": "Using the `indeterminate` prop, the `va-progress-circle` continues to  animate indefinitely.",
-        "thickness": "Circle border size between 0 and 1"
+        "thickness": "Circle border size between 0 and 1",
+        "ariaLabel": "The aria-label of the component"
       },
       "slots": {
         "default": "Display any additional info about the progress"
@@ -768,6 +830,7 @@
     "VaChip": {
       "props": {
         "closeable": "Provides the ability to close the tag",
+        "ariaCloseLabel": "The aria-label of close button",
         "outline": "Applies outline styling",
         "flat": "Applies flat styling",
         "icon": "The icon to be displayed inside a tag",
@@ -804,13 +867,12 @@
         "bordered": "Applies underscore",
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
-        "requiredMark": "Adds required mark to the label",
-        "immediateValidation": "Sets the validation to be performed when the component is mounted",
         "inputClass": "Classes for `input` (not its wrapper)",
         "pattern": "The pattern prop specifies a regular expression the input value should match",
         "inputmode": "The inputmode prop is an enumerated prop that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an apropriate virtual keyboard",
         "counter": "Show a counter of value length",
-        "maxLength": "Specify a max length of value"
+        "maxLength": "Specify a max length of value",
+        "ariaLabel": "The aria-label of input or text area depend on `type` prop of the component"
       },
       "events": {
         "change": "Emitted when the input loose focus or on `enter`",
@@ -893,7 +955,6 @@
         "valueBy": "When `options` prop is an object, this key will be used as `modelValue`. Can be string (path to the key) or function of type: `(option) => option.value`",
         "trackBy": "When `options` prop is an object, this key will be used to track selected `options`. Can be string (path to the key) or function of type: `(option) => option.track`",
         "textBy": "When `options` prop is an object, this key will be used as displayed text. Can be string (path to the key) or function of type: `(option) => option.text`",
-        "groupBy": "When `options` prop is an object, this key will be used to group up options. Can be string (path to the key) or function of type: `(option) => option.group`",
         "placeholder": "Sets the placeholder text to input",
         "placement": "Sets option list placement. [More about placements](/ui-elements/dropdown#placement-and-offset)",
         "tagMax": "Sets maximum tag count after whom selection will be cropped",
@@ -912,18 +973,22 @@
         "clearIcon": "Sets the clear icon",
         "dropdownIcon": "Sets the dropdown icon. Can be object if you want to sets different open/close icons",
         "bordered": "Applies style with bottom border",
-        "requiredMark": "Adds required mark to the label",
         "separator": "Text to separate selected values",
-        "maxVisibleOptions": "Max selected options amount, that will be shown inside of input wrapper.",
-        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
+        "maxVisibleOptions": "Max selected options amount, that will be shown inside of input wrapper.",        
         "selectedTopShown": "Selected options will be shown at the top of the options list.",
-        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
         "autocomplete": "Enables the autocomplete behaviour.",
         "highlightMatchedText": "Highlight chars in options that are match the input value (search or autocomplete).",
         "minSearchChars": "Minimal amount of chars in input value to initiate search or autocomplete.",
         "ariaLabel": "Set aria label. By default it `$t:selectOption` is value is selected and `$t:noSelectedOption` if value is empty.",
         "ariaClearLabel": "Set aria label for clear button",
-        "ariaSearchLabel": "Set aria label for search input"
+        "ariaSearchLabel": "Set aria label for search input",
+        "autoSelectFirstOption": "Automatically select the first option",
+        "closeOnAnchorClick":"Dropdown will be closed when anchor is clicked",
+        "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
+        "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
+        "trigger": "Action that will triggered when open and close dropdown.",
+        "virtualScroller": "Enables virtual scrolling",
+        "searchPlaceholderText": "The text of placeholder of the search input"
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -966,7 +1031,8 @@
         "horizontalPosition": "Sets the horizontal position of the component",
         "verticalPosition": "Sets the vertical position of the component",
         "horizontalOffset": "Sets the horizontal offset of the component from the border of the monitor",
-        "verticalOffset": "Sets the vertical offset of the component from the border of the monitor"
+        "verticalOffset": "Sets the vertical offset of the component from the border of the monitor",
+        "ariaLabel": "The aria-label of the component"
       },
       "events": {
         "click": "Emitted when user clicked on backtop"
@@ -984,7 +1050,6 @@
         "splitTo": "Sets a vue navigation link in a split component.",
         "splitHref": "Sets a native navigation link in a split component.",
         "icon": "Applies a custom icon in the dropdown section.",
-        "leftIcon": "Sets the icon position to the left.",
         "hideIcon": "Hide icon (when `split` is disabled).",
         "openedIcon": "Applies a custom icon in the dropdown section when the dropdown is opened.",
         "placement": "Sets the placement of the dropdown content. [More about placements](/ui-elements/dropdown#placement-and-offset)",
@@ -993,18 +1058,11 @@
         "modelValue": "Sets a dropdown state.",
         "closeOnContentClick": "Sets dropdown content on click behavior.",
         "gradient": "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
-        "trigger": "Action that will open and close dropdown.",
-        "preventOverflow": "If true, dropdown will be teleported to target ignoring `overflow: hidden` on relative position elements.",
-        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction.",
-        "isContentHoverable": "If true, dropdown content will be hoverable",
-        "innerAnchorSelector": "Anchor CSS selector inside passed slot.",
+        "trigger": "Action that will triggered when open and close dropdown.",
         "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
         "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
-        "cursor": "Dropdown will be rendered relative to cursor position",
-        "closeOnAnchorClick": "Dropdown will be closed when anchor is clicked",
-        "closeOnClickOutside": "Dropdown will be closed when clicked outside dropdown content and anchor",
-        "anchorSelector": "Anchor CSS selector instead of passing slot",
-        "autoPlacement": "If dropdown doesn't fit viewport, it will be placed automatically to fit viewport"
+        "closeOnAnchorClick":"Dropdown will be closed when anchor is clicked",
+        "ariaLabel": "The aria-label of the component"
       },
       "events": {
         "click": "Emitted when user clicks on button.",
@@ -1019,7 +1077,8 @@
     "VaColorInput": {
       "props": {
         "value": "Current color.",
-        "selected": "Select the indicator."
+        "selected": "Select the indicator.",
+        "ariaOpenColorPickerLabel": "The aria-label of \"open color picker\" button."
       },
       "events": {},
       "methods": {},
@@ -1028,7 +1087,9 @@
     "VaColorPalette": {
       "props": {
         "value": "Current color",
-        "palette": "An array of colors"
+        "palette": "An array of colors",
+        "ariaIndicatorLabel": "The aria-label of the indicator",
+        "ariaLabel": "The aria-label of the component"
       },
       "events": {},
       "methods": {},
@@ -1073,10 +1134,7 @@
         "wrapperSize": "Size (width or height) of the component's viewport (can be number or string with \"px\"/\"rem\" value). Suitable only for the state with the virtual scrolling enabled.",
         "cellBind": "Adds attributes to a table cell using `v-bind`. This can be an object type (with attributes that vue supports) or a function that returns such an object. As arguments, the function receives a table cell element (`any` type), a row (`DataTableItem` type), a column (`TableColumn` type), and a row index",
         "scrollTopMargin": "Sets the threshold (`px`) for scrolling up when the `scroll:top` event is enabled.",
-        "scrollBottomMargin": "Sets the threshold (`px`) for scrolling down when the `scroll:bottom` event is enabled.",
-        "ariaSelectAllRowsLabel": "The area label for header checkbox, if table is selectable.",
-        "ariaSelectRowLabel": "The area label for the checkbox on each row, if available for selection.",
-        "ariaSortColumnByLabel": "The aria label for each header column if it's sortable."
+        "scrollBottomMargin": "Sets the threshold (`px`) for scrolling down when the `scroll:bottom` event is enabled."
       },
       "events": {
         "updateSortBy": "Emits when `sort-by` changed",
@@ -1199,7 +1257,19 @@
         "manualInput": "Allows user to manually input date in VaInput",
         "parse": "Function that transforms input field text to date, date array or date period",
         "parseDate": "Function that transforms input field text to date",
-        "parseValue": "Function that transforms string value to date, date array or date period"
+        "parseValue": "Function that transforms string value to date, date array or date period",
+        "ariaLabel": "The aria-label of the anchor slot",
+        "ariaSelectedDateLabel": "The aria-label of the input of the component if aria-label is not set",
+        "closeOnAnchorClick": "Dropdown will be closed when anchor is clicked",
+        "closeOnContentClick": "Dropdown will be closed when clicked inside dropdown content",
+        "delimiter": "The delimiter used when turning model value to string",
+        "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
+        "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
+        "keepAnchorWidth": "If true, dropdown content will have exact same width as anchor",
+        "offset": "Dropdown content will be moved by main and cross axis according to current `placement`",
+        "placement": "Sets the placement of the dropdown content. [More about placements](/ui-elements/dropdown#placement-and-offset)",
+        "rangeDelimiter": "The delimiter used when turning model value to string",
+        "trigger": "Action that will triggered when open and close dropdown."
       },
       "events": {
         "clear": "Emitted if select value has been cleared",
@@ -1229,7 +1299,11 @@
         "value": "Current toggle state",
         "size": "Specify size for component. \"small\", \"medium\", \"large\" sizes are available",
         "toggleColor": "Color of the toggle button",
-        "activeButtonTextColor": "The color of the button text with the selected value"
+        "activeButtonTextColor": "The color of the button text with the selected value",
+        "textBy": "When `options` prop is an object, this key will be used as displayed text. Can be string (path to the key) or function of type: `(option) => option.text`",
+        "trackBy": "When `options` prop is an object, this key will be used to track selected `options`. Can be string (path to the key) or function of type: `(option) => option.track`",
+        "valueBy": "When `options` prop is an object, this key will be used as `modelValue`. Can be string (path to the key) or function of type: `(option) => option.value`",
+        "disabledBy": "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`"
       },
       "events": {
         "input": "Emits when toggling to the different button"
@@ -1304,7 +1378,12 @@
         "placement": "Sets a popover position. [More about placements](/ui-elements/dropdown#placement-and-offset)",
         "autoHide": "Adds the ability to hide popover when clicked outside",
         "hoverOverTimeout": "Delay before opening",
-        "hoverOutTimeout": "Delay before closing"
+        "hoverOutTimeout": "Delay before closing",
+        "ariaLabel": "the aria-label of anchor slot of dropdown of the component",
+        "closeOnAnchorClick": "Popover will be closed when anchor is clicked",
+        "closeOnContentClick": "Popover will be closed when clicked inside popover content",
+        "keepAnchorWidth": "If true, popover content will have exact same width as anchor",
+        "offset": "Dropdown content will be moved by main and cross axis according to current `placement`"
       },
       "events": {},
       "methods": {},
@@ -1322,9 +1401,7 @@
         "secondsFilter": "Function that allows you to hide some specific seconds",
         "view": "View specifying which columns will be shown",
         "periodUpdatesModelValue": "If user will change period it will automatically update model value. You can turn off it and am/pm switch will only change view.",
-        "framed": "Adds borders to center of the picker",
-        "cellHeight": "Height of the time cell",
-        "visibleCellsCount": "Count of time cells to display"
+        "framed": "Adds borders to center of the picker"
       },
       "events": {},
       "methods": {},
@@ -1368,8 +1445,16 @@
         "focused": "Applies focus style",
         "canBeFocused": "If false, then input can not be focused using mouse or keyboard",
         "icon": "Sets an icon. The default icon position is on the right",
-        "requiredMark": "Adds required mark to the label",
-        "leftIcon": "Sets the icon position to the left"
+        "ariaLabel": "The aria-label of the component",
+        "closeOnAnchorClick": "Dropdown will be closed when anchor is clicked",
+        "closeOnContentClick": "Dropdown will be closed when clicked inside dropdown content",
+        "framed": "Adds borders to center of the picker",
+        "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
+        "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
+        "keepAnchorWidth": "If true, dropdown content will have exact same width as anchor",
+        "offset": "Dropdown content will be moved by main and cross axis according to current `placement`",
+        "placement": "Sets the placement of the dropdown content. [More about placements](/ui-elements/dropdown#placement-and-offset)",
+        "trigger": "Action that will triggered when open and close dropdown."
       },
       "events": {},
       "methods": {},
@@ -1394,7 +1479,11 @@
         "width": "Sets a component width",
         "margins": "Sets the margin of the outside buttons",
         "increaseIcon": "Sets an increase icon",
-        "decreaseIcon": "Sets a decrease icon"
+        "decreaseIcon": "Sets a decrease icon",
+        "ariaDecreaseLabel": "The aria-label of decrease button",
+        "ariaIncreaseLabel": "The aria-label of increase button",
+        "ariaLabel": "The aria-label of content of counter",
+        "longPressDelay": "The number of milliseconds after which another event will be sent when you are long pressing the button"
       },
       "events": {
         "clickDecreaseButton": "The event is triggered when clicked decrease outside button",
@@ -1427,7 +1516,25 @@
         "fadeKeyframe": "Custom keyframe name for fade animation",
         "swipable": "Enables swiping behavior.",
         "swipeDirection": "Allowed directions for swiping: `all, horizontal, vertical, left, right, up, down`.",
-        "swipeDistance": "Distance in `px` considered sufficient for the swipe event."
+        "swipeDistance": "Distance in `px` considered sufficient for the swipe event.",
+        "ariaLabel": "The aria-label of carousel.",
+        "ariaGoToSlideLabel": "The aria-label of go to slide button.",
+        "ariaNextLabel": "The aria-label of next button.",
+        "ariaPreviousLabel": "The aria-label of previous button.",
+        "ariaSlideOfLabel": "The aria-label of the slide.",
+        "contain": "The image is scaled to maintain its aspect ratio while fitting within the carousel's content box.",
+        "crossorigin": "Proxies the `crossorigin` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-crossorigin)[[target=_blank]].",
+        "decoding": "Proxies the `decoding` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-decoding)[[target=_blank]].",
+        "draggable": "Proxies the `draggable` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
+        "fetchpriority": "Proxies the `fetchpriority` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-fetchpriority)[[target=_blank]].",
+        "fit": "Proxies the `object-fit` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/CSS/object-fit)[[target=_blank]].",
+        "lazy": "Enables lazy load for the image of the component.",
+        "maxWidth": "Maximal the width of the image of the component",
+        "placeholderSrc": "`src` value for the placeholder image of the component.",
+        "referrerpolicy": "Proxies the `referrerpolicy` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#attr-referrerpolicy)[[target=_blank]].",
+        "sizes": "Proxies the `sizes` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
+        "srcset": "Proxies the `srcset` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#using_the_srcset_and_sizes_attributes)[[target=_blank]].",
+        "title": "Proxies the `title` attribute to the image of the component [MDN](https://developer.mozilla.org/docs/Web/HTML/Element/img#the_title_attribute)[[target=_blank]]."
       },
       "events": {},
       "methods": {},
@@ -1438,6 +1545,11 @@
         "prevArrow": "Custom style for previous button"
       }
     },
+    "VaValue": {
+      "props": {
+        "defaultValue": "The default value of the component"
+      }
+    },
     "VaSpacer": {
       "props": {},
       "events": {},
@@ -1446,23 +1558,16 @@
     },
     "VaDropdown": {
       "props": {
-        "anchorSelector": "Anchor CSS selector instead of passing slot",
-        "innerAnchorSelector": "Anchor CSS selector inside passed slot",
-        "autoPlacement": "If dropdown doesn't fit viewport, it will be placed automatically to fit viewport",
-        "closeOnAnchorClick": "Dropdown will be closed when anchor is clicked",
-        "closeOnClickOutside": "Dropdown will be closed when clicked outside dropdown content and anchor",
         "closeOnContentClick": "Dropdown will be closed when clicked inside dropdown content",
-        "cursor": "Dropdown will be rendered relative to cursor position",
         "hoverOutTimeout": "Time in `ms` after mouse leave dropdown before it will be closed",
         "hoverOverTimeout": "Time in `ms` after mouse enter dropdown before it will be opened",
-        "isContentHoverable": "If true, dropdown content will be hoverable",
         "keepAnchorWidth": "If true, dropdown content will have exact same width as anchor",
         "offset": "Dropdown content will be moved by main and cross axis according to current `placement`",
         "placement": "Dropdown content will be placed on `placement` side of anchor",
-        "stickToEdges": "Dropdown will not be rendered outside of viewport. It will be moved in opposite direction",
-        "trigger": "Action which will open and close dropdown",
+        "trigger": "Action that will triggered when open and close dropdown.",
         "target": "Dropdown content parent. Dropdown content will be attached to `target` to prevent overflow",
-        "preventOverflow": "If true, dropdown will be teleported to `target` ignoring `overflow: hidden` on relative position elements"
+        "closeOnAnchorClick":"Dropdown will be closed when anchor is clicked",
+        "ariaLabel": "The aria-label of the component"
       },
       "events": {
         "anchorClick": "The event is triggered when anchor is clicked",
@@ -1489,7 +1594,8 @@
         "maximization": "End panel size maximization via separator double click.",
         "maximizeStart": "Maximize size of the start panel instead of end one.",
         "snapping": "Marks array the splitter will be 'jumping' to.",
-        "snapping-range": "Distance (% of components container size, px or rem) between splitter and snapping mark, which will call 'jumping' to it."
+        "snappingRange": "Distance (% of components container size, px or rem) between splitter and snapping mark, which will call 'jumping' to it.",
+        "ariaLabel": "The aria-label of the component"
       },
       "events": {},
       "methods": {},
@@ -1558,7 +1664,8 @@
         "nextDisabled": "Disables navigation to steps further than `model-value`.",
         "controlsHidden": "Removes 'Back' and 'Next' buttons.",
         "vertical": "Changes stepper orientation to vertical.",
-        "finishButtonHidden": "Hides 'Finish' button"
+        "finishButtonHidden": "Hides 'Finish' button",
+        "ariaLabel": "The aria-label of the component"
       },
       "events": {
         "finish": "Emits when 'Finish' button is getting pressed"
@@ -1584,7 +1691,8 @@
         "lines": "Lines count if `variant` is `text`",
         "lineGap": "Gap between lines in `px`, `rem`, `em` if `variant` is `text`",
         "lastLineWidth": "Width of last line in `px`, `rem`, `em`, `%` if `variant` is `text`",
-        "tag": "Skeleton tag."
+        "tag": "Skeleton tag.",
+        "ariaLabel": "The aria-label of the component"
       }
     },
     "VaConfig": {
