@@ -129,8 +129,13 @@ const confirmTagAvailable = async (tagName: string): Promise<boolean> => {
   return !result.match(new RegExp(`refs\\/tags\\/${tagName}\\b`))
 }
 
-const confirmNpmVersionAvailable = async (distTag: string): Promise<boolean> => {
-  return !await executeCommand(`npm view vuestic-ui@${distTag}`)
+const checkIfNpmVersionExists = async (distTag: string): Promise<boolean> => {
+  try {
+    await executeCommand(`npm view vuestic-ui@${distTag}`)
+    return true
+  } catch (e) {
+    return false
+  }
 }
 
 // Check if we have correct state to go for release
@@ -162,7 +167,7 @@ const runReleaseChecks = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
     console.log(chalk.red(`Tag ${gitTag} is already on upstream. You can remove it if it was by mistake.`))
     return false
   }
-  if (!await confirmNpmVersionAvailable(version)) {
+  if (await checkIfNpmVersionExists(version)) {
     console.log(chalk.red(`Version ${version} is already on NPM, you can bump version manually to fix that.`))
     return false
   }
