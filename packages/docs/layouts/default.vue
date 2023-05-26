@@ -1,5 +1,5 @@
 <template>
-  <div class="docs-layout" :key="currentPresetName + isMounted">
+  <div class="docs-layout" :key="isMounted + ''">
     <div v-if="!isMounted" class="docs-layout__loader" />
     <div
       ref="header"

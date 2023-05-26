@@ -15,7 +15,16 @@ export const useGlobalConfigProvider = (next: Ref<PartialGlobalConfig>) => {
       colors: makeColorsConfig(gcCopy.colors),
     }
 
-    return mergeDeep(compiledCopy, next.value) as GlobalConfig
+    const config = mergeDeep(compiledCopy, next.value) as GlobalConfig
+
+    // Variables is a virtual property, so we need to merge it manually after preset in chosen!
+    if (next.value.colors?.variables) {
+      Object.keys(next.value.colors.variables).forEach((key) => {
+        config.colors.variables[key] = next.value.colors!.variables![key]!
+      })
+    }
+
+    return config
   })
 
   provide(GLOBAL_CONFIG, {

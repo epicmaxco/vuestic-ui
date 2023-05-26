@@ -1,5 +1,7 @@
 export type ButtonOption = {
   icon?: string,
   iconRight?: string
-  [prop: string]: string | number | boolean | undefined
+  label?: string,
+  value?: unknown,
+  [prop: string]: any
 }
