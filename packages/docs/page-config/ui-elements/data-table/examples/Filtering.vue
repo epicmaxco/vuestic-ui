@@ -1,21 +1,18 @@
 <template>
-  <div class="row">
+  <div class="grid md:grid-cols-2 gap-6 mb-6">
     <va-input
       v-model="input"
-      class="flex flex-col mb-2 md6 xs12"
       placeholder="Filter..."
+      class="w-full"
     />
 
-    <div class="flex flex-col mb-2 md6 xs12">
+    <div class="flex flex-col gap-6">
       <va-checkbox
-        v-model="useCustomFilteringFn"
-        class="mb-3 d-block"
+        v-model="isCustomFilteringFn"
         label="Use custom filtering function (looks for an exact match)"
       />
-
       <va-checkbox
         v-model="isDebounceInput"
-        class="d-block"
         label="Debounce input"
       />
     </div>
@@ -30,14 +27,12 @@
   />
 
   <va-alert
-    class="mt-3"
+    class="!mt-6"
     color="info"
     outline
   >
-    <span>
-      Number of filtered items:
-      <va-chip>{{ filteredCount }}</va-chip>
-    </span>
+    Number of filtered items:
+    <va-chip>{{ filteredCount }}</va-chip>
   </va-alert>
 </template>
 
@@ -47,7 +42,7 @@ import debounce from "lodash/debounce.js";
 
 export default defineComponent({
   data() {
-    const users = [
+    const items = [
       {
         id: 1,
         name: "Leanne Graham",
@@ -176,19 +171,19 @@ export default defineComponent({
     const input = "";
 
     return {
-      items: users,
+      items,
       columns,
       input,
       filter: input,
       isDebounceInput: false,
-      useCustomFilteringFn: false,
-      filteredCount: users.length,
+      isCustomFilteringFn: false,
+      filteredCount: items.length,
     };
   },
 
   computed: {
     customFilteringFn() {
-      return this.useCustomFilteringFn ? this.filterExact : undefined;
+      return this.isCustomFilteringFn ? this.filterExact : undefined;
     },
   },
 
