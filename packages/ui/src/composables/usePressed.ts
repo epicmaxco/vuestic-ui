@@ -8,12 +8,10 @@ export function usePressed (el?: Ref<HTMLElement | undefined>) {
   const onMouseDown = () => { isPressed.value = true }
   const onMouseUp = () => { isPressed.value = false }
 
-  onMounted(() => {
-    if (!el?.value) { return }
-    const getTarget = useHTMLElement(el as Ref<HTMLElement>)
-    useEvent('mousedown', onMouseDown, getTarget)
-    useEvent(['mouseup', 'mouseleave'], onMouseUp, getTarget)
-  })
+  const target = useHTMLElement(el as Ref<HTMLElement>)
+
+  useEvent('mousedown', onMouseDown, target)
+  useEvent(['mouseup', 'mouseleave'], onMouseUp, target)
 
   return { isPressed, onMouseDown, onMouseUp }
 }
