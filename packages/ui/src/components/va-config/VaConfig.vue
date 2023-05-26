@@ -1,7 +1,8 @@
 <template>
-  <CssVarsRenderer v-bind="$attrs">
+  <CssVarsRenderer v-if="doRenderCssVars" v-bind="$attrs">
     <slot />
   </CssVarsRenderer>
+  <slot v-else />
 </template>
 
 <script lang="ts">
@@ -39,8 +40,8 @@ export default defineComponent({
   props: {
     ...useComponentPresetProp,
     components: { type: Object as PropType<ComponentConfig>, default: () => ({}) },
-    colors: { type: Object as PropType<PartialGlobalConfig['colors']>, default: () => ({}) },
-    i18n: { type: Object as PropType<PartialGlobalConfig['i18n']>, default: () => ({}) },
+    colors: { type: Object as PropType<PartialGlobalConfig['colors']> },
+    i18n: { type: Object as PropType<PartialGlobalConfig['i18n']> },
   },
   inheritAttrs: false,
   setup (props) {
@@ -51,14 +52,26 @@ export default defineComponent({
     provideLocalConfig(nextChain)
 
     const newConfig = useGlobalConfigProvider(computed(() => {
-      return {
-        colors: props.colors,
-        i18n: props.i18n,
+      const config = {} as any
+
+      if (props.colors) {
+        config.colors = props.colors
       }
+
+      if (props.i18n) {
+        config.i18n = props.i18n
+      }
+
+      return config
     }))
+
+    const doRenderCssVars = computed(() => {
+      return Boolean(props.colors)
+    })
 
     return {
       newConfig,
+      doRenderCssVars,
     }
   },
 })
