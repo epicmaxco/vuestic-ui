@@ -405,7 +405,7 @@ export default defineComponent({
   .va-input-wrapper__field > *,
   .va-input-wrapper__container > * {
     margin-right: 0;
-    margin: 0.25rem;
+
   }
 
   &.va-counter--input-square {
@@ -503,6 +503,7 @@ export default defineComponent({
     display: flex;
     align-items: stretch;
     height: 100%;
+    margin: 0 0.5rem;
   }
 }
 </style>
