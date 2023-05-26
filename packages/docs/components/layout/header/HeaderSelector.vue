@@ -39,7 +39,7 @@ export default defineComponent({
   props: {
     minimized: {
       type: Boolean,
-      default: false,
+      required: true,
     },
   },
   emits: ['toggle-sidebar'],
