@@ -1,7 +1,7 @@
 <template>
   <va-card
     color="background-element"
-    style="padding: 0.75rem;"
+    class="p-3"
   >
     <!-- justify--start -->
     <div class="row justify-start">
