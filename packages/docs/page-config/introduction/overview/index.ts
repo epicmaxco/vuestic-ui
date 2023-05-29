@@ -5,8 +5,8 @@ export default definePageConfig({
   },
 
   blocks: [
-    block.title("overview.title"),
-    block.paragraph("overview.description"),
+    block.title("What is Vuestic UI"),
+    block.paragraph("Vuestic UI is an OpenSource Vue 3 based UI framework. It is a MIT-licensed UI framework that provides ready-to-use frontend components that are easily configurable and speed up development of responsive and fast-loading web interfaces. It was initially released in May 2021 by [Epicmax](https://epicmax.co/)[[target=_blank]] and that is what Vuestic UI today:\n\n"),
 
     // TODO: uncomment when we have more content
     // block.cards([
@@ -72,16 +72,16 @@ export default definePageConfig({
     //   }
     // ]),
 
-    block.subtitle("overview.featuresOverview"),
+    block.subtitle("Features overview"),
     block.list([
-      "overview.features[0]",
-      "overview.features[1]",
-      "overview.features[2]",
-      "overview.features[3]",
-      "overview.features[4]",
-      "overview.features[5]",
-      "overview.features[6]",
-      "overview.features[7]",
+      "Vue 3 compatible: Easy integration with the latest Vue.js\u00A0\uD83E\uDD18",
+      "Contains 60+ ready-to-use classy UI components that can be used in any design solution\u00A0\uD83D\uDC85",
+      "Dark Theme: Stylish built-in dark mode\u00A0\uD83D\uDDA4",
+      "Accessible: designed for all users\u00A0❗",
+      "Global config: Customize components effortlessly",
+      "Responsive: Adapts to various screens and devices",
+      "i18n integration: Simplify app internationalization",
+      "Fast & professional technical support from [the core team](/introduction/team)\u00A0\uD83E\uDEC2",
     ]),
   ],
 });

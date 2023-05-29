@@ -5,12 +5,12 @@ export default definePageConfig({
     block.title("colorPalette.title"),
     block.paragraph("colorPalette.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
     block.example("Indicator"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaColorPalette", apiOptions),
   ],
 });

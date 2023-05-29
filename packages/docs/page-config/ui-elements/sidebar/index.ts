@@ -5,7 +5,7 @@ export default definePageConfig({
     block.title("sidebar.title"),
     block.paragraph("sidebar.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
     block.example("Minimized"),
@@ -17,10 +17,10 @@ export default definePageConfig({
     block.example("Hoverable"),
     block.example("VModel"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaSidebar", apiOptions),
 
-    block.subtitle("all.faq"),
+    block.subtitle("FAQ"),
     block.headline("sidebar.faq.questions[0].question"),
     block.paragraph("sidebar.faq.questions[0].answer"),
   ],

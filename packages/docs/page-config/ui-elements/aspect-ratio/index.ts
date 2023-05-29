@@ -5,13 +5,13 @@ export default definePageConfig({
     block.title("aspectRatio.title"),
     block.paragraph("aspectRatio.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
 
     block.example("WithOtherComponents"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaAspectRatio", apiOptions),
 
       ]

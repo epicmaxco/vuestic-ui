@@ -5,7 +5,7 @@ export default definePageConfig({
     block.title("progressCircle.title"),
     block.paragraph("progressCircle.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
     block.example("Default"),
     block.example("Indeterminate"),
     block.example("Coloring"),
@@ -13,7 +13,7 @@ export default definePageConfig({
     block.example("Slots"),
     block.example("Thickness"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaProgressCircle", apiOptions),
   ],
 });

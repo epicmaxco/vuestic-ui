@@ -5,14 +5,14 @@ export default definePageConfig({
     block.title("infiniteScroll.title"),
     block.paragraph("infiniteScroll.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
     block.example("Reverse"),
     block.example("Disabled"),
     block.example("CustomTarget"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaInfiniteScroll", apiOptions),
   ],
 });

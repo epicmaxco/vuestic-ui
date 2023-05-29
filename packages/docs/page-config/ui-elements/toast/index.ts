@@ -62,7 +62,7 @@ export default definePageConfig({
       ]
     ),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
     block.example("Color"),
@@ -71,10 +71,10 @@ export default definePageConfig({
     block.example("Close"),
     block.example("Click"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaToast", apiOptions),
 
-    block.subtitle("all.faq"),
+    block.subtitle("FAQ"),
     block.headline("toast.faq.questions[0].question"),
     block.paragraph("toast.faq.questions[0].answer"),
   ],

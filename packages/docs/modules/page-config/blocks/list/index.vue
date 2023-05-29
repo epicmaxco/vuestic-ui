@@ -13,7 +13,7 @@ const { t } = useI18n()
 
 const translateAndMark = (translations: string[]): string => {
   return translations
-    .map((text: string): string => `- ${t(text)}`)
+    .map((text: string): string => `- ${text}`)
     .join('\n')
 }
 </script>

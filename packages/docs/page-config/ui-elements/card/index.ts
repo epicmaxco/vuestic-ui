@@ -5,7 +5,7 @@ export default definePageConfig({
     block.title("card.title"),
     block.paragraph("card.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
     block.example("ColorAndGradient"),
@@ -23,10 +23,10 @@ export default definePageConfig({
     block.paragraph("card.examples.actions.values"),
     block.example("Actions", { hideTitle: true }),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaCard", apiOptions),
 
-    block.subtitle("all.faq"),
+    block.subtitle("FAQ"),
     block.headline("card.faq.questions[0].question"),
     block.paragraph("card.faq.questions[0].answer"),
 

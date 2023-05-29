@@ -17,23 +17,9 @@ definePageMeta({
 })
 
 const route = useRoute();
-const { locale, t, mergeLocaleMessage, fallbackLocale, localeCodes } = useI18n()
-
-const getLocaleRegExp = (): RegExp => {
-  const defaultLocaleCodes = localeCodes.value.join('|')
-  const localeCodesWithSlashes = localeCodes.value.map((locale: string) => `/${locale}/`).join('|')
-
-  return new RegExp(`^(${defaultLocaleCodes}|${localeCodesWithSlashes})`, 'i')
-}
 
 const pageConfigName = computed(() => {
-  const localeRegExp = getLocaleRegExp()
   const path = route.path
-
-  // Detect if path contains locale key
-  if (localeRegExp.test(path)) {
-    return path.replace(localeRegExp, '')
-  }
 
   return path.slice(1)
 })
@@ -101,13 +87,13 @@ watchEffect(() => {
 
   const tabTitle = configTitle?.text || config.value?.meta?.title
 
-  mergeTranslations()
-  mergeFallbackTranslations()
+  // mergeTranslations()
+  // mergeFallbackTranslations()
 
   useHead({
-    title: tabTitle ? `${tabTitlePrefix} - ${t(tabTitle)}` : tabTitlePrefix,
+    title: tabTitle ? `${tabTitlePrefix} - ${tabTitle}` : tabTitlePrefix,
     meta: {
-      description: tabTitle ? `${tabTitlePrefix} ${t(tabTitle)} documentation page` : `${tabTitlePrefix} documentation page`
+      description: tabTitle ? `${tabTitlePrefix} ${tabTitle} documentation page` : `${tabTitlePrefix} documentation page`
     } as any
   });
 })

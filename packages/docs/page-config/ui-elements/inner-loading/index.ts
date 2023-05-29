@@ -5,7 +5,7 @@ export default definePageConfig({
     block.title("innerLoading.title"),
     block.paragraph("innerLoading.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
     block.example("Color"),
@@ -13,10 +13,10 @@ export default definePageConfig({
     block.example("Icon"),
 
 
-    block.subtitle('all.accessibility'),
+    block.subtitle('Accessibility'),
     block.paragraph('innerLoading.accessibility'),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaInnerLoading", apiOptions),
   ],
 });

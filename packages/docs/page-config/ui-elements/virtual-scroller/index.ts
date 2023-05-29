@@ -5,7 +5,7 @@ export default definePageConfig({
     block.title("virtualScroller.title"),
     block.paragraph("virtualScroller.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
 
@@ -19,7 +19,7 @@ export default definePageConfig({
 
     block.example("DifferentContent"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaVirtualScroller", apiOptions),
   ],
 });

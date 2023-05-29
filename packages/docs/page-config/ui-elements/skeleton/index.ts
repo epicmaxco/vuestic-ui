@@ -7,7 +7,7 @@ export default definePageConfig({
 
     block.component('Playground'),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
     block.example("Text"),
@@ -19,7 +19,7 @@ export default definePageConfig({
     block.example("GroupWave"),
     block.example("Loading"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaSkeleton", apiOptions),
   ],
 });

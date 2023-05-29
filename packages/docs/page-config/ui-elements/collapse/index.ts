@@ -6,7 +6,7 @@ export default definePageConfig({
 
     block.paragraph("collapse.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     // examples
     block.example("Default"),

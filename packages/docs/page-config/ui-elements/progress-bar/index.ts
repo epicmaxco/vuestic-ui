@@ -5,7 +5,7 @@ export default definePageConfig({
     block.title("progressBar.title"),
     block.paragraph("progressBar.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
     block.example("Indeterminate"),
@@ -15,7 +15,7 @@ export default definePageConfig({
     block.example("Buffer"),
     block.example("Max"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaProgressBar", apiOptions),
   ],
 });

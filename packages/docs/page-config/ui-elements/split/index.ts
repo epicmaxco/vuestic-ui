@@ -5,7 +5,7 @@ export default definePageConfig({
     block.title("split.title"),
     block.paragraph("split.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
 
@@ -23,7 +23,7 @@ export default definePageConfig({
 
     block.example("Disabled"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaSplit", apiOptions),
   ],
 });

@@ -9,7 +9,7 @@
     >
       <div class="header__wrapper">
         <div class="header-banner__left">
-          <strong>{{ $t("landing.header.banner.partner") }}</strong>
+          <strong>Official Partner of</strong>
 
           <div class="header-banner__left-links">
             <!-- <a
@@ -34,7 +34,7 @@
               <strong>Vue.js</strong>
             </a> -->
 
-            <!-- <strong>{{ $t("landing.header.banner.and") }}</strong> -->
+            <!-- <strong>and</strong> -->
 
             <a
               href="https://nuxtjs.org/partners/epicmax"
@@ -78,7 +78,7 @@
             href="https://epicmax.co/?ref=vuestic-header"
             target="blank"
           >
-            {{ $t("landing.header.banner.hire") }}
+            🔥🔥🔥 Hire us
           </va-button>
           <va-button
             v-if="closeable"
@@ -87,7 +87,7 @@
             round
             :text-color="textColor"
             class="header-banner__buttons--close"
-            :aria-label="$t('landing.header.banner.close')"
+            aria-label="close banner"
             @click="hide"
           />
         </div>

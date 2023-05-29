@@ -5,7 +5,7 @@ export default definePageConfig({
     block.title("accordion.title"),
     block.paragraph("accordion.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
 
@@ -19,7 +19,7 @@ export default definePageConfig({
 
     block.example("Menu"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaAccordion", apiOptions),
   ],
 });

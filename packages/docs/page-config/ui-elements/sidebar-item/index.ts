@@ -5,7 +5,7 @@ export default definePageConfig({
     block.title("sidebarItem.title"),
     block.paragraph("sidebarItem.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Simple"),
     block.example("Colors"),
@@ -13,7 +13,7 @@ export default definePageConfig({
     block.example("Icons"),
     block.example("Components"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaSidebarItem", apiOptions),
   ],
 });

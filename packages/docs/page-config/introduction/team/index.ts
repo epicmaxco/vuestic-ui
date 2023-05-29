@@ -13,10 +13,10 @@ import AntonImage from './images/anton.jpg'
 
 export default definePageConfig({
   blocks: [
-    block.title('team.title'),
-    block.paragraph('team.description'),
-    block.subtitle('team.coreTeam'),
-    block.paragraph('team.coreTeamDescription'),
+    block.title('Meet the Team'),
+    block.paragraph('Hi there, we are really pleased to meet you too!\n\nVuestic started as a small admin template back in 2017. It was released on GitHub and was warmly embraced by the Vue.js community. Since then we’ve been contributing to Vuestic daily and today it’s grown into a full-fledged framework with a decent ecosystem around it.\n\nThe team behind Vuestic is in ❤️ with Vue.js and Open Source. We’re doing our best to make developers’ lives easier and  joyful.'),
+    block.subtitle('Core Team 🤓'),
+    block.paragraph('Established in 2017, [Epicmax](https://epicmax.co/)[[target=_blank]] is a Vue.js development company with over 55 successfully completed projects for it’s clients all over the world.\n\nThe company is committed to Open Source from its beginning. Vuestic was created and backed by Epicmax, and is supported through all the years. You can request a consultation or order web development services by Epicmax via this [form](https://epicmax.co/contacts)[[target=_blank]]\n\nAnd now, please meet the core contributors 🎉'),
     block.component('team', {
       team: [
         {
@@ -111,7 +111,7 @@ export default definePageConfig({
       ] satisfies TeamItem[],
     }),
     block.component('team-banner'),
-    block.subtitle('team.specialThanks'),
-    block.paragraph('team.specialThanksDescription'),
+    block.subtitle('Special Thanks 🙌'),
+    block.paragraph('We’d like to thank all contributors and users of Vuestic. Your constant assistance, insights and feedback not only help Vuestic to get a better ecosystem, but also charges the core team with energy and enthusiasm to go an extra mile. With you everything is possible.'),
   ]
 })

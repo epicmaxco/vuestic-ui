@@ -67,3 +67,8 @@ export type VisualOptions = {
   hideCssVariables?: boolean
   hideCssVariablesTitle?: boolean
 }
+
+export type APIDescriptionType = 'props' | 'events' | 'slots' | 'methods';
+export type APIDescriptionOptions = {
+  [k in APIDescriptionType]?: Record<string, string>;
+}

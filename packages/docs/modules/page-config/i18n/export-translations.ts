@@ -5,6 +5,7 @@ import { existsSync } from 'fs'
 
 export const exportTranslations = async (importer: Importer, configPath: string) => {
   const translations = dirname(configPath) + '/translation'
+  console.log(translations);
 
   if (!existsSync(translations)) { return '' }
 

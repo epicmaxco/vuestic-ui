@@ -5,7 +5,7 @@ export default definePageConfig({
     block.title("divider.title"),
     block.paragraph("divider.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
     block.example("CustomContent"),
@@ -14,10 +14,10 @@ export default definePageConfig({
     block.example("Dashed"),
     block.example("WithList"),
 
-    block.subtitle('all.accessibility'),
+    block.subtitle('Accessibility'),
     block.paragraph('divider.accessibility'),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaDivider", apiOptions),
   ],
 });

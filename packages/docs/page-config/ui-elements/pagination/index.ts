@@ -5,7 +5,7 @@ export default definePageConfig({
     block.title("pagination.title"),
     block.paragraph("pagination.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
     block.example("LimitVisible"),
@@ -21,10 +21,10 @@ export default definePageConfig({
     block.example("TotalAndPageSize"),
     block.example("PrevAndNextLinks"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaPagination", apiOptions),
 
-    block.subtitle("all.faq"),
+    block.subtitle("FAQ"),
 
     block.headline("pagination.faq.questions[0].question"),
     block.paragraph("pagination.faq.questions[0].answer"),

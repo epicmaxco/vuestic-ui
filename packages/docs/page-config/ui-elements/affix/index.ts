@@ -5,12 +5,12 @@ export default definePageConfig({
     block.title("affix.title"),
     block.paragraph("affix.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
     block.example("Top"),
     block.example("Bottom"),
     block.example("Default"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaAffix", apiOptions),
   ],
 });

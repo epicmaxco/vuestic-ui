@@ -6,7 +6,7 @@ export default definePageConfig({
     block.paragraph("config.description"),
     block.link("config.link", "/services/components-config"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Components"),
     block.link('config.examples.components.see', '/services/components-config'),
@@ -15,7 +15,7 @@ export default definePageConfig({
     block.example("Internalization"),
     block.link('config.examples.internalization.see', '/services/i18n'),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaConfig", apiOptions),
   ],
 });

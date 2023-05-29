@@ -40,7 +40,7 @@ export default definePageConfig({
     block.link("globalConfig.links.icons", "/services/icons-config"),
 
     // api
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.table(columns, tableData),
   ],
 });

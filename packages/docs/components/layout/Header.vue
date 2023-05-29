@@ -46,10 +46,6 @@
             {{ link.text }}
           </va-button>
           <ColorDropdown class="mr-2" />
-          <LanguageDropdown
-            class="mr-3"
-            preset="secondary"
-          />
           <ThemeSwitch class="mr-4" />
           <VersionDropdown />
         </div>
@@ -57,7 +53,7 @@
         <!-- options mobile menu -->
         <va-button
           v-if="isOptionsMenuVisible"
-          :aria-label="$t('menu.openOptionsMenu')"
+          aria-label="Open options menu"
           preset="plain"
           @click="toggleOptions"
         >
@@ -74,7 +70,7 @@
       <div class="mobile-options__menu-button-wrapper">
         <va-button
           v-if="isOptionsVisible"
-          :aria-label="$t('menu.closeOptionsMenu')"
+          aria-label="Close options menu"
           preset="plain"
           @click="toggleOptions"
         >
@@ -100,35 +96,6 @@
           </va-list-item-section>
         </va-list-item>
 
-        <div class="mobile-options__languages">
-          <va-list-label
-            color="secondary"
-            class="mobile-options__label"
-          >
-            {{ $t('landing.header.buttons.language') }}
-          </va-list-label>
-
-          <va-list-item
-            v-for="({ code, name }, id) in locales"
-            :key="id"
-            class="mobile-options__language"
-            :class="{ active: code === locale }"
-            @click="setLocale(code)"
-          >
-            <va-list-item-section class="mobile-options__link">
-              <span class="language">{{ name }}</span>
-            </va-list-item-section>
-          </va-list-item>
-
-          <va-list-item>
-            <va-list-item-section class="mobile-options__link">
-              <router-link :to="`/${locale}/contribution/translation`">
-                {{ $t('landing.header.buttons.translation') }}
-              </router-link>
-            </va-list-item-section>
-          </va-list-item>
-        </div>
-
         <div class="mobile-options__items">
           <ThemeSwitch class="mb-8" />
           <SocialsLinks size="large" />
@@ -144,7 +111,6 @@
 import { computed, ref } from 'vue'
 import { useBreakpoint } from 'vuestic-ui'
 
-import LanguageDropdown from './LanguageDropdown.vue'
 import VersionDropdown from './header/VersionDropdown.vue'
 import ColorDropdown from './header/ColorDropdown.vue'
 import HeaderSelector from './header/HeaderSelector.vue'
@@ -175,18 +141,18 @@ const isOptionsMenuVisible = ref(false)
 const isOptionsListVisible = ref(false)
 
 const landing = computed(() => ({
-  text: t('menu.home'),
+  text: 'Home',
   to: `/${locale.value}`,
 }))
 
 const links = computed(() => [
   {
-    text: t('menu.github'),
+    text: 'GitHub',
     url: 'https://github.com/epicmaxco/vuestic-ui',
     target: '_blank',
   },
   {
-    text: t('menu.contribution'),
+    text: 'Contribution',
     to: `/${locale.value}/contribution/guide`,
   },
 ])

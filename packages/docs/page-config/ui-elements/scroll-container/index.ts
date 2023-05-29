@@ -5,7 +5,7 @@ export default definePageConfig({
     block.title("scrollContainer.title"),
     block.paragraph("scrollContainer.description"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
 

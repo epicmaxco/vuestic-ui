@@ -9,13 +9,12 @@ const props = defineProps({
   }
 })
 
-const { t } = useI18n()
 </script>
 
 <template>
   <h2 class="page-config-subtitle flex">
     <MarkdownView
-      :content="t(text)"
+      :content="text"
       text
       class="mr-1"
     />

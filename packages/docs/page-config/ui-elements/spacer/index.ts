@@ -3,11 +3,11 @@ export default definePageConfig({
     block.title("spacer.title"),
     block.paragraph("spacer.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
 
-    block.subtitle('all.accessibility'),
+    block.subtitle('Accessibility'),
     block.paragraph('spacer.accessibility'),
   ],
 });

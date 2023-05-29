@@ -5,17 +5,17 @@ export default definePageConfig({
     block.title("parallax.title"),
     block.paragraph("parallax.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
     block.example("Custom"),
     block.example("Reversed"),
     block.example("Slot"),
 
-    block.subtitle('all.accessibility'),
+    block.subtitle('Accessibility'),
     block.paragraph('parallax.accessibility'),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaParallax", apiOptions),
   ],
 });

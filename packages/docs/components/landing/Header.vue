@@ -26,14 +26,14 @@
               class="header__links--link"
               preset="landingHeader"
             >
-              {{ $t('landing.header.buttons.docs') }}
+              Docs
             </va-button>
             <va-button
               :to="`/${locale}/contribution/guide`"
               class="header__links--link"
               preset="landingHeader"
             >
-              {{ $t('landing.header.buttons.contribute') }}
+              Contribute
             </va-button>
             <va-button
               href="mailto:hello@epicmax.co"
@@ -41,12 +41,8 @@
               class="header__links--link"
               preset="landingHeader"
             >
-              {{ $t('landing.header.buttons.contactUs') }}
+              Contact Us
             </va-button>
-            <LanguageDropdown
-              class="ml-8"
-              preset="landingHeader"
-            />
             <!-- vuestic socials -->
             <SocialsLinks
               class="header__links--link"
@@ -98,21 +94,21 @@
               <va-list-item>
                 <va-list-item-section class="mobile-menu__link">
                   <router-link :to="`/${locale}/introduction/overview`">
-                    {{ $t('landing.header.buttons.docs') }}
+                    Docs
                   </router-link>
                 </va-list-item-section>
               </va-list-item>
               <va-list-item>
                 <va-list-item-section class="mobile-menu__link">
                   <router-link :to="`/${locale}/contribution/guide`">
-                    {{ $t('landing.header.buttons.contribute') }}
+                    Contribute
                   </router-link>
                 </va-list-item-section>
               </va-list-item>
               <va-list-item>
                 <va-list-item-section class="mobile-menu__link">
                   <router-link :to="`/${locale}/introduction/team`">
-                    {{ $t('landing.header.buttons.contactUs') }}
+                    Contact Us
                   </router-link>
                 </va-list-item-section>
               </va-list-item>
@@ -121,7 +117,7 @@
                 color="secondary"
                 class="mobile-menu__label"
               >
-                {{ $t('landing.header.buttons.language') }}
+                Language
               </va-list-label>
               <div class="mobile-menu__languages">
                 <va-list-item
@@ -133,13 +129,6 @@
                 >
                   <va-list-item-section class="mobile-menu__link">
                     <span class="language">{{ name }}</span>
-                  </va-list-item-section>
-                </va-list-item>
-                <va-list-item>
-                  <va-list-item-section class="mobile-menu__link">
-                    <router-link :to="`/${locale}/contribution/translation`">
-                      {{ $t('landing.header.buttons.translation') }}
-                    </router-link>
                   </va-list-item-section>
                 </va-list-item>
               </div>

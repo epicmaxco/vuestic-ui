@@ -4,14 +4,14 @@ export default definePageConfig({
   blocks: [
     block.title("navbar.title"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
     block.example("Colors"),
     block.example("Height"),
     block.example("Shape"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
     block.api("VaNavbar", apiOptions),
   ],
 });

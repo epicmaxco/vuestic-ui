@@ -12,7 +12,7 @@ export default definePageConfig({
     block.title("list.title"),
     block.paragraph("list.summaryText"),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     block.example("Default"),
     block.example("Disabled"),
@@ -20,7 +20,7 @@ export default definePageConfig({
     block.example("Fit"),
     block.example("Lines"),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
 
     block.paragraph("list.api.list.text"),
     block.api("VaList", listApiOptions),

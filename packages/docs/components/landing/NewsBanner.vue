@@ -11,13 +11,13 @@
           alt="Party gif"
         ><br>
         <span>
-          {{ $t("landing.footer.newsBannerText") }}
+           🔥🔥🔥 Hi there, we're celebrating our launch on Product Hunt this week! 🚀 We'd love to get your feedback and support! 🙏
         </span><br>
         <a
           :style="{ color: 'orange' }"
           href="https://www.producthunt.com/posts/vuestic-ui"
         >
-          {{ $t("landing.footer.newsBannerLink") }}
+          Visit the launch page
         </a>
       </div>
     </va-alert>

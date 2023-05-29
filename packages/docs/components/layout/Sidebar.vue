@@ -20,7 +20,7 @@
               'sidebar__collapse-custom-header--keyboard-focused': hasKeyboardFocus
             }"
           >
-            {{ t(route.displayName) }}
+            {{ route.displayName }}
             <va-icon :name="isCollapsed ? 'va-arrow-up' : 'va-arrow-down'" />
           </va-sidebar-item>
         </template>
@@ -34,10 +34,10 @@
             class="va-sidebar__child__label"
             color="secondary"
           >
-            {{ t(childRoute.category) }}
+            {{ childRoute.category }}
           </va-list-label>
           <va-sidebar-item
-            :to="`/${locale}/${route.name}/${childRoute.name}`"
+            :to="`/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
             :active-color="activeColor"
             :hover-color="hoverColor"
@@ -50,11 +50,11 @@
                   placement="right-center"
                   size="small"
                   offset="-5px"
-                  :text="childRoute.meta && t(`menu.badges.${childRoute.meta.badge}.text`)"
-                  :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge]"
+                  :text="childRoute.meta && childRoute.meta.badge.text"
+                  :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge.type]"
                   :visible-empty="false"
                 >
-                  {{ t(childRoute.displayName) }}
+                  {{ childRoute.displayName }}
                 </va-badge>
               </va-sidebar-item-title>
             </va-sidebar-item-content>
@@ -119,7 +119,7 @@ export default defineComponent({
     })
 
     const isActiveChildRoute = (child: NavigationRoute, parent: NavigationRoute) => {
-      const path = `/${i18n.locale.value}/${String(parent.name)}/${String(child.name)}`
+      const path = `/${String(parent.name)}/${String(child.name)}`
 
       return path === route.path
     }
