@@ -1,7 +1,7 @@
 <template>
   <div class="page-config">
     <PageConfig
-      v-if="config"
+      v-if="!isLoading && config"
       :page-config="config"
     />
     <PageConfigSkeleton v-else />
@@ -38,8 +38,15 @@ const pageConfigName = computed(() => {
   return path.slice(1)
 })
 
-const config = await usePageConfig(pageConfigName);
+const { config, isLoading } = await usePageConfig(pageConfigName);
 const tabTitlePrefix = 'Vuestic UI'
+
+const router = useRouter()
+watch(config, () => {
+  if (!config.value) {
+    router.push('/404')
+  }
+}, { immediate: true })
 
 const compileTranslations = (translations: Record<string, any>): any => {
   if (Array.isArray(translations)) {

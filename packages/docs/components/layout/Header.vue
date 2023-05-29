@@ -31,7 +31,7 @@
 
       <template #right>
         <div
-          v-if="breakpoint.mdUp"
+          v-if="isOptionsListVisible"
           class="header__options"
         >
           <va-button
@@ -56,7 +56,7 @@
 
         <!-- options mobile menu -->
         <va-button
-          v-if="breakpoint.smDown"
+          v-if="isOptionsMenuVisible"
           :aria-label="$t('menu.openOptionsMenu')"
           preset="plain"
           @click="toggleOptions"
@@ -141,7 +141,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useBreakpoint } from 'vuestic-ui'
 
 import LanguageDropdown from './LanguageDropdown.vue'
@@ -155,8 +155,24 @@ import SocialsLinks from '../landing/SocialsLinks.vue'
 import StarsButton from '../landing/StarsButton.vue'
 import { useSharedLanguageSwitcher } from '@/composables/useLanguageSwitcher'
 
+const props = defineProps({
+  isSidebarVisible: {
+    type: Boolean,
+    default: false,
+  },
+  isOptionsVisible: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const emit = defineEmits(['update:isSidebarVisible', 'update:isOptionsVisible'])
+
 const { t, locale, locales, setLocale } = useSharedLanguageSwitcher()
-const breakpoint = useBreakpoint()
+const breakpoints = useBreakpoint()
+
+const isOptionsMenuVisible = ref(false)
+const isOptionsListVisible = ref(false)
 
 const landing = computed(() => ({
   text: t('menu.home'),
@@ -175,19 +191,6 @@ const links = computed(() => [
   },
 ])
 
-const props = defineProps({
-  isSidebarVisible: {
-    type: Boolean,
-    default: false,
-  },
-  isOptionsVisible: {
-    type: Boolean,
-    default: false,
-  },
-})
-
-const emit = defineEmits(['update:isSidebarVisible', 'update:isOptionsVisible'])
-
 const toggleSidebar = () => {
   emit('update:isSidebarVisible', !props.isSidebarVisible)
 }
@@ -195,6 +198,16 @@ const toggleSidebar = () => {
 const toggleOptions = () => {
   emit('update:isOptionsVisible', !props.isOptionsVisible)
 }
+
+watch(() => breakpoints.smDown, (newValue: boolean) => {
+  isOptionsMenuVisible.value = newValue
+  isOptionsListVisible.value = !newValue
+})
+
+onMounted(() => {
+  isOptionsMenuVisible.value = breakpoints.smDown
+  isOptionsListVisible.value = !breakpoints.smDown
+})
 </script>
 
 <style lang="scss">

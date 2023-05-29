@@ -496,6 +496,7 @@ export default defineComponent({
     display: flex;
     align-items: stretch;
     height: 100%;
+    margin: 0 0.5rem;
   }
 }
 </style>

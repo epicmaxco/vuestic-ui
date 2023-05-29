@@ -3,9 +3,20 @@
   "description": "`VaConfig` is a utility component that allows you to configure components (provide specific default prop values to components) locally in a section of your application. This is useful when you have a local scope where your components have props other than global ones.",
   "link": "Find out more about components config",
   "examples": {
-    "default": {
-      "title": "Default usage",
-      "text": "By default, `VaConfig` does nothing. You must provide the `components` prop with the `vuestic` components configuration."
+    "components": {
+      "title": "Components",
+      "text": "By default, `VaConfig` does nothing. You must provide the `components` prop with the `vuestic` components configuration.",
+      "see": "Learn more about Components Config"
+    },
+    "colors": {
+      "title": "Colors",
+      "text": "You can configure colors for components. For example, you can change color whole preset name.",
+      "see": "Learn more about Colors Config"
+    },
+    "internalization": {
+      "title": "i18n",
+      "text": "You can configure i18n translations for components.",
+      "see": "Learn more about i18n Config"
     }
   }
 }

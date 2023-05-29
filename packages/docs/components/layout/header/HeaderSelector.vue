@@ -1,9 +1,9 @@
 <template>
   <div
-    class="header-selector flex-center"
+    class="header-selector"
     role="button"
     tabindex="0"
-    :aria-label="`${minimized ? `expand` : `minimize`} navigation menu`"
+    :aria-label="`${minimized ? 'expand' : 'minimize'} navigation menu`"
     @click="toggleSidebar"
     @keydown.enter="toggleSidebar"
   >
@@ -42,15 +42,14 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ['toggle-sidebar'],
 
   setup (props, { emit }) {
     const { getColors } = useColors()
 
-    const toggleSidebar = () => emit('toggleSidebar', !props.minimized)
-
     return {
       colors: computed(getColors),
-      toggleSidebar,
+      toggleSidebar: () => emit('toggle-sidebar', !props.minimized),
     }
   },
 })
@@ -65,25 +64,11 @@ export default defineComponent({
   width: 1.5rem;
 }
 
-.i-menu-expanded {
-  @extend .i-nav;
-
-  background: url("@/public/layout/menu-collapsed.svg") no-repeat center;
-}
-
-.i-menu-collapsed {
-  @extend .i-nav;
-
-  background: url("@/public/layout/menu-expanded.svg") no-repeat center;
-}
-
 .header-selector {
   cursor: pointer;
-  max-width: 55px;
 
-  &:focus {
+  &:focus-visible {
     @include focus-outline(2px, 2px, 2px);
   }
 }
-
 </style>

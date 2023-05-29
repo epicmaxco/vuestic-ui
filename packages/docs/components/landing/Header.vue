@@ -81,15 +81,17 @@
             <HeaderBanner wrapped />
 
             <div class="mobile-menu__menu-button-wrapper">
-              <va-button
-                v-if="modelValue"
-                class="menu-button mobile-menu__menu-button"
-                aria-label="Close menu"
-                preset="plain"
-                @click="$emit('update:modelValue', false)"
-              >
-                <va-icon class="fas fa-times" />
-              </va-button>
+              <div class="mobile-menu__menu-button-container">
+                <va-button
+                  v-if="modelValue"
+                  class="menu-button mobile-menu__menu-button"
+                  aria-label="Close menu"
+                  preset="plain"
+                  @click="$emit('update:modelValue', false)"
+                >
+                  <va-icon class="fas fa-times" />
+                </va-button>
+              </div>
             </div>
 
             <va-list class="mobile-menu__list">
@@ -260,6 +262,12 @@ const { locale, locales, setLocale } = useSharedLanguageSwitcher()
   }
 
   &__menu-button-wrapper {
+    @include wrapper();
+
+    width: 100%;
+  }
+
+  &__menu-button-container {
     position: relative;
     height: var(--header-height);
     width: 100%;
@@ -267,7 +275,7 @@ const { locale, locales, setLocale } = useSharedLanguageSwitcher()
   }
 
   &__menu-button {
-    right: 1.5rem;
+    right: 0.5rem;
   }
 
   &__list {

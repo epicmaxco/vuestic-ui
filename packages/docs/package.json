@@ -3,8 +3,9 @@
   "name": "docs",
   "version": "0.0.1",
   "scripts": {
-    "build": "yarn build:analysis && nuxt build --max_old_space_size=4096",
-    "build:ci": "yarn build:analysis && nuxt build --max_old_space_size=4096",
+    "build": "yarn build:analysis && nuxt generate --max_old_space_size=4096",
+    "build:ci": "yarn build:analysis && nuxt generate",
+    "start:ci": "yarn preview",
     "build:analysis": "yarn workspace sandbox build:analysis ../docs/page-config/getting-started/tree-shaking",
     "serve": "yarn build:analysis --use-cache && nuxt dev",
     "generate": "yarn build:analysis && nuxt generate --max_old_space_size=4096",

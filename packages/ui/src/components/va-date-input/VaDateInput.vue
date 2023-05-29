@@ -389,7 +389,7 @@ export default defineComponent({
       disabled: props.disabled,
       tabindex: props.disabled ? -1 : 0,
       value: valueText.value,
-      ariaLabel: props.label || tp('selectedDate'),
+      ariaLabel: props.label || tp(props.ariaSelectedDateLabel),
       ariaRequired: props.requiredMark,
       ariaDisabled: props.disabled,
       ariaReadOnly: props.readonly,
