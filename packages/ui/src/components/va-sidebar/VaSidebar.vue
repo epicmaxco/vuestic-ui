@@ -58,8 +58,6 @@ export default defineComponent({
   components: { VaConfig },
 
   setup (props, { emit }) {
-    const rootElement = shallowRef<HTMLElement>()
-
     const { getColor } = useColors()
     useSidebar(props)
 
@@ -98,6 +96,8 @@ export default defineComponent({
     const updateHoverState = (newHoverState: boolean) => {
       isHovered.value = props.hoverable && newHoverState
     }
+
+    const rootElement = shallowRef<HTMLElement>()
 
     useClickOutside([rootElement], () => {
       if (props.closeOnClickOutside && props.modelValue) {
