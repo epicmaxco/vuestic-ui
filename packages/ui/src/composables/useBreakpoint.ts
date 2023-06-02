@@ -1,10 +1,17 @@
-import { inject, ref, onMounted } from 'vue'
+import { inject, computed, ComputedRef } from 'vue'
 
+import { warn } from '../utils/console'
 import { vaBreakpointSymbol } from '../services/breakpoint'
 import { useReactiveComputed } from './useReactiveComputed'
 import { useGlobalConfig } from './useGlobalConfig'
+import { useIsMounted } from './useIsMounted'
 
-import type { BreakpointServiceObject, BreakpointHelpersKeys, BreakpointHelpers } from '../services/breakpoint'
+import type {
+  BreakpointServiceObject,
+  BreakpointHelpersKeys,
+  BreakpointHelpers,
+  BreakpointConfig,
+} from '../services/breakpoint'
 
 const helpersKeys: BreakpointHelpersKeys[] = ['xs', 'sm', 'md', 'lg', 'xl', 'smUp', 'mdUp', 'lgUp', 'smDown', 'mdDown', 'lgDown']
 const defaultHelpers = helpersKeys.reduce((acc, key) => {
@@ -15,20 +22,25 @@ const defaultHelpers = helpersKeys.reduce((acc, key) => {
 export const useBreakpoint = (): BreakpointServiceObject => {
   const injected = inject(vaBreakpointSymbol, {}) as BreakpointServiceObject
 
-  const globalConfig = useGlobalConfig().globalConfig.value.breakpoint
+  const isMounted = useIsMounted()
 
-  const defaultBreakpoint = globalConfig.enabled
+  const { globalConfig } = useGlobalConfig()
+
+  const breakpointConfig: ComputedRef<BreakpointConfig> = computed(() => {
+    const breakpoint = globalConfig.value.breakpoint
+    if (!breakpoint) { warn('useBreakpoint: breakpointConfig is not defined!') }
+    return breakpoint ?? {} as BreakpointConfig
+  })
+
+  const defaultBreakpoint = breakpointConfig.value.enabled
     ? {
       width: undefined,
       height: undefined,
       current: undefined,
-      thresholds: globalConfig.thresholds,
+      thresholds: breakpointConfig.value.thresholds,
       ...defaultHelpers,
     }
     : {} as BreakpointServiceObject
-
-  const isMounted = ref(false)
-  onMounted(() => { isMounted.value = true })
 
   return useReactiveComputed(() => isMounted.value ? injected : defaultBreakpoint)
 }
