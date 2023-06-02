@@ -162,6 +162,8 @@ export const useColors = () => {
     }
   }
 
+  const styleTag = computed(() => globalConfig.value.colors?.styleTag ?? false)
+
   return {
     colors,
     currentPresetName,
@@ -182,6 +184,7 @@ export const useColors = () => {
     colorsToCSSVariable,
     colorToRgba,
     getStateMaskGradientBackground,
+    styleTag,
   }
 }
 
