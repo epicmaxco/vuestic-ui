@@ -116,6 +116,7 @@ export default defineComponent({
 
     const treeNodeClassComputed = useBem('va-tree-node', () => ({
       disabled: !!props.node.disabled,
+      active: selectedNodeComputed.value === props.node.id,
     }))
 
     const expandedClassComputed = useBem('va-tree-node-children', () => ({
@@ -194,6 +195,11 @@ export default defineComponent({
     &:hover::before {
       opacity: var(--va-tree-node-interactive-bg-opacity);
     }
+  }
+
+  &--active > &-root::before {
+    border-radius: var(--va-tree-node-border-radius);
+    opacity: var(--va-tree-node-interactive-bg-opacity);
   }
 
   &-content {
