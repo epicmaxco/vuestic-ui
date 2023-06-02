@@ -19,18 +19,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, nextTick } from 'vue'
+import { defineComponent, PropType, computed, nextTick, ref } from 'vue'
 import { useFloating, autoUpdate, flip, shift, Placement, offset, size } from '@floating-ui/vue'
 import kebabCase from 'lodash/kebabCase'
 import {
   createStatefulProps,
-  MaybeHTMLElementOrSelector, useClickOutside, useHTMLElement,
+  MaybeHTMLElementOrSelector, useClickOutside, useDomRect, useHTMLElement,
   useHTMLElementSelector,
   useIsMounted, useStateful,
 } from '../../composables'
 import { useMouseNavigation } from '../va-dropdown/hooks/useDropdownNavigation'
 import { DropdownOffsetProp } from '../va-dropdown/types'
-import { useCursorAnchor } from '../va-dropdown/hooks/useCursorAnchor'
+import { useCursorAnchor } from './useCursorAnchor'
 
 // TODO
 // cursor
@@ -51,6 +51,8 @@ export default defineComponent({
     keepAnchorWidth: { type: Boolean, default: false },
     target: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
     cursor: { type: Boolean, default: false },
+    anchorSelector: { type: String, default: '' },
+    innerAnchorSelector: { type: String, default: '' },
   },
   setup (props, { emit }) {
     const { valueComputed: statefulVal } = useStateful(props, emit)
@@ -67,9 +69,9 @@ export default defineComponent({
     })
 
     const anchor = useHTMLElement('anchor')
-    // const cursorAnchor = useCursorAnchor(anchor, valueComputed)
     const floating = useHTMLElement('floating')
     const targetElement = useHTMLElementSelector(computed(() => props.target || 'body'))
+    const cursorAnchor = props.cursor ? useCursorAnchor(anchor, valueComputed) : ref(undefined)
 
     const onClick = (e: MouseEvent) => {
       if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click')) { return } // || props.disabled) { return }
@@ -179,9 +181,13 @@ export default defineComponent({
       return result
     })
 
-    const { floatingStyles } = useFloating(anchor, floating, {
+    const anchorComputed = computed(() => {
+      return props.cursor ? cursorAnchor.value : anchor.value
+    })
+
+    const { floatingStyles } = useFloating(anchorComputed, floating, {
       placement: placementComputed,
-      whileElementsMounted: autoUpdate,
+      whileElementsMounted: autoUpdate, // !props.cursor ? autoUpdate : undefined,
       middleware: middlewareComputed,
     })
 
@@ -193,6 +199,7 @@ export default defineComponent({
       floating,
       floatingStyles,
       isMounted,
+      anchorComputed,
     }
   },
 })

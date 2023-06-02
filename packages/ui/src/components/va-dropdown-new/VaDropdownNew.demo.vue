@@ -58,6 +58,37 @@
         Looooong Dropdown
       </va-dropdown-new>
     </VbCard>
+    <VbCard title="Cursor">
+      <va-dropdown-new
+        trigger="right-click"
+        placement="bottom-start"
+        cursor
+      >
+        <template #anchor>
+          <div class="w-32 h-32 border-2 border-gray-1000 border-dashed">
+            Right click
+          </div>
+        </template>
+        Ctx dropdown
+      </va-dropdown-new>
+    </VbCard>
+    <VbCard title="Cursor + target">
+      <va-dropdown-new
+        trigger="right-click"
+        placement="top-end"
+        :target="cursorTarget"
+        cursor
+      >
+        <template #anchor>
+          <div
+            class="w-32 h-32 border-2 border-gray-1000 border-dashed"
+            ref="cursorTarget"
+          >
+          </div>
+        </template>
+        Ctx dropdown
+      </va-dropdown-new>
+    </VbCard>
     <VbCard title="Flip + target">
       Scroll up
       <div class="overflow-hidden">
@@ -125,6 +156,7 @@ export default {
   },
   setup () {
     return {
+      cursorTarget: ref(null),
       targetFlip: ref(null),
       targetFlipShift: ref(null),
     }
