@@ -32,7 +32,7 @@ export const useBreakpoint = (): BreakpointServiceObject => {
     return breakpoint ?? {} as BreakpointConfig
   })
 
-  const defaultBreakpoint = breakpointConfig.value.enabled
+  const defaultBreakpoint = computed(() => breakpointConfig.value.enabled
     ? {
       width: undefined,
       height: undefined,
@@ -40,7 +40,7 @@ export const useBreakpoint = (): BreakpointServiceObject => {
       thresholds: breakpointConfig.value.thresholds,
       ...defaultHelpers,
     }
-    : {} as BreakpointServiceObject
+    : {} as BreakpointServiceObject)
 
-  return useReactiveComputed(() => isMounted.value ? injected : defaultBreakpoint)
+  return useReactiveComputed(() => isMounted.value ? injected : defaultBreakpoint.value)
 }
