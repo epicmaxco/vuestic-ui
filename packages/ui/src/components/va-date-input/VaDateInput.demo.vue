@@ -192,6 +192,10 @@
       <va-button @click="focusDateInput">Focus</va-button>
       <va-button @click="blurDateInput">Blur</va-button>
     </VbCard>
+
+    <VbCard title="Close on value update">
+      <va-date-input v-model="value" close-on-value-update />
+    </VbCard>
   </VbDemo>
 </template>
 
