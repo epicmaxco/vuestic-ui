@@ -13,7 +13,7 @@
         style="padding: 4rem;"
       >
         <div class="flex flex-col items-center">
-          <va-dropdown
+          <va-dropdown-new
             :model-value="true"
             :placement="placementWIthAlias"
             :close-on-click-outside="false"
@@ -26,7 +26,7 @@
             </template>
 
             <va-dropdown-content> Dropdown </va-dropdown-content>
-          </va-dropdown>
+          </va-dropdown-new>
         </div>
       </td>
     </tr>

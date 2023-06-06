@@ -12,12 +12,12 @@ export default definePageConfig({
 
     block.example("PlacementAndOffset"),
 
-    // block.example("Trigger"),
-    //
-    // block.example("Cursor"),
-    //
-    // block.example("PreventOverflow"),
-    //
+    block.example("Trigger"),
+
+    block.example("Cursor"),
+
+    block.example("PreventOverflow"),
+
     // block.api("VaDropdown", apiOptions),
     //
     // block.collapse("useDropdown hook specs", [block.markdown(specs)]),

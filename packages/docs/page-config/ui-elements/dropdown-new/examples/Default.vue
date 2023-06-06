@@ -3,8 +3,7 @@
     <template #anchor>
       <va-button> Dropdownable </va-button>
     </template>
-    Dropped down!
 
-<!--    <va-dropdown-content> Dropped down! </va-dropdown-content>-->
+    <va-dropdown-content> Dropped down! </va-dropdown-content>
   </va-dropdown-new>
 </template>

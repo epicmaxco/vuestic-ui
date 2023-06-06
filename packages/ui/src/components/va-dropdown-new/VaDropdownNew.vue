@@ -2,6 +2,8 @@
   <div
     ref="anchor"
     :class="$attrs.class"
+    class="va-dropdown"
+    style="position: relative;"
   >
     <slot
       name="anchor"
@@ -16,6 +18,7 @@
     <div
       ref="floating"
       :style="floatingStyles"
+      class="va-dropdown__content-wrapper"
     >
       <slot
       ></slot>
@@ -52,7 +55,7 @@ export default defineComponent({
       validator: (value: string) => ['click', 'right-click', 'hover', 'dblclick', 'none'].includes(value),
     },
     closeOnClickOutside: { type: Boolean, default: true },
-    placement: { type: String as PropType<Placement>, default: 'bottom' },
+    placement: { type: String as PropType<Placement | 'auto'>, default: 'bottom' },
     offset: { type: [Array, Number] as PropType<DropdownOffsetProp>, default: 0 },
     keepAnchorWidth: { type: Boolean, default: false },
     target: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
@@ -165,6 +168,10 @@ export default defineComponent({
     })
 
     const placementComputed = computed(() => {
+      if (props.placement === 'auto') {
+        return 'bottom'
+      }
+
       return props.placement
     })
 
@@ -217,8 +224,6 @@ export default defineComponent({
       middleware: middlewareComputed,
     })
 
-    // const floatingStyles = ref({})
-
     return {
       anchor,
       floating,
@@ -230,3 +235,30 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss">
+@import '../../styles/resources';
+@import 'variables';
+
+.va-dropdown {
+  /* Solved the alignment problem (if we try to align inline and block elements) */
+  line-height: var(--va-dropdown-line-height);
+  font-family: var(--va-font-family);
+  display: var(--va-dropdown-display);
+  position: relative;
+  max-width: 100%;
+  vertical-align: middle;
+
+  &--disabled {
+    @include va-disabled;
+  }
+
+  &__content-wrapper {
+    z-index: var(--va-dropdown-content-wrapper-z-index);
+    font-family: var(--va-font-family);
+    top: 0;
+    left: 0;
+    position: absolute;
+  }
+}
+</style>
