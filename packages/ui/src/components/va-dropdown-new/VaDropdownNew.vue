@@ -42,19 +42,19 @@ import { useMouseNavigation } from '../va-dropdown/hooks/useDropdownNavigation'
 import { DropdownOffsetProp } from '../va-dropdown/types'
 import { useCursorAnchor } from './useCursorAnchor'
 
-// TODO
-// teleport
-
 export default defineComponent({
   name: 'VaDropdownNew',
   props: {
     ...createStatefulProps(Boolean, true),
+    disabled: { type: Boolean },
+    readonly: { type: Boolean },
     trigger: {
       type: String as PropType<'click' | 'right-click' | 'hover' | 'dblclick' | 'none'>,
       default: 'click',
       validator: (value: string) => ['click', 'right-click', 'hover', 'dblclick', 'none'].includes(value),
     },
     closeOnClickOutside: { type: Boolean, default: true },
+    closeOnAnchorClick: { type: Boolean, default: true },
     placement: { type: String as PropType<Placement | 'auto'>, default: 'bottom' },
     offset: { type: [Array, Number] as PropType<DropdownOffsetProp>, default: 0 },
     keepAnchorWidth: { type: Boolean, default: false },
@@ -66,7 +66,7 @@ export default defineComponent({
   setup (props, { emit }) {
     const { valueComputed: statefulVal } = useStateful(props, emit)
     const valueComputed = computed({
-      get: () => statefulVal.value, // && !props.disabled && !props.readonly,
+      get: () => statefulVal.value && !props.disabled && !props.readonly,
       set (val) {
         statefulVal.value = val
         if (val) {
@@ -106,7 +106,7 @@ export default defineComponent({
       if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click')) { return } // || props.disabled) { return }
 
       if (valueComputed.value) {
-        // emitAndClose('anchor-click', props.closeOnAnchorClick, e)
+        emitAndClose('anchor-click', props.closeOnAnchorClick, e)
       } else {
         if (props.trigger !== 'click') { return }
         valueComputed.value = true
@@ -114,11 +114,11 @@ export default defineComponent({
       }
     }
     const onContextmenu = (e: MouseEvent) => {
-      if (kebabCase(props.trigger) !== 'right-click') { return } // || props.disabled) { return }
+      if (kebabCase(props.trigger) !== 'right-click' || props.disabled) { return }
       e.preventDefault()
 
       if (valueComputed.value) {
-        // emitAndClose('anchor-right-click', props.closeOnAnchorClick, e)
+        emitAndClose('anchor-right-click', props.closeOnAnchorClick, e)
 
         if (props.cursor) {
           nextTick(() => { valueComputed.value = true })
@@ -130,14 +130,14 @@ export default defineComponent({
     }
     const onDblclick = () => { return undefined }
     const onMouseenter = () => {
-      if (props.trigger !== 'hover') { return } // || props.disabled) { return }
+      if (props.trigger !== 'hover' || props.disabled) { return }
       valueComputed.value = true
 
       // debounceHover(() => { valueComputed.value = true })
       // cancelUnHoverDebounce()
     }
     const onMouseleave = () => {
-      if (props.trigger !== 'hover') { return } // || props.disabled) { return }
+      if (props.trigger !== 'hover' || props.disabled) { return }
       valueComputed.value = false
 
       // if (props.isContentHoverable) {
@@ -191,6 +191,7 @@ export default defineComponent({
       const result = [
         offset(offsetComputed.value),
         // flip element, works for -start, -end
+        // boundary doesn't work with ssr (trying to access document)
         flip({
           boundary: isMounted.value ? target.value : undefined,
         }),
