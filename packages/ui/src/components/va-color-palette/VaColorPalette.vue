@@ -58,8 +58,6 @@ export default defineComponent({
 <style lang="scss">
 .va-color-palette {
   display: flex;
-  padding-left: 0;
-  margin: 0;
 
   & > * {
     margin-right: 0.25rem;

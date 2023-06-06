@@ -40,10 +40,11 @@ export default defineComponent({
   },
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)
-    const { getColor } = useColors()
+    const { getColor, getTextColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
     const colorComputed = computed(() => getColor(props.color))
+    const borderColorComputed = computed(() => getTextColor(getColor(props.color), getColor('backgroundBorder'), getColor(props.color)))
     const borderRadiusComputed = computed(() => props.square ? '0px' : '50%')
 
     const computedStyle = computed(() => ({
@@ -63,6 +64,7 @@ export default defineComponent({
       valueComputed,
       computedStyle,
       computedClass,
+      borderColorComputed,
       borderRadiusComputed,
       keyboardFocusListeners,
       toggleModelValue,
@@ -82,7 +84,7 @@ export default defineComponent({
   border-radius: v-bind(borderRadiusComputed);
   text-align: center;
   background-color: var(--va-background-element);
-  border: 0.125rem solid var(--va-background-border);
+  border: 0.0625rem solid v-bind(borderColorComputed);
   box-sizing: content-box;
 
   &__core {
