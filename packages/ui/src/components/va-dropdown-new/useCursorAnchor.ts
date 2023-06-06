@@ -35,6 +35,7 @@ export const useCursorAnchor = (anchorRef: Ref<HTMLElement | undefined>, noUpdat
           left: resX,
         }
       },
+      contextElement: anchorRef.value,
     }
   })
 }
