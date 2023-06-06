@@ -101,8 +101,8 @@
             <div class="vertical-space"></div>
             <va-dropdown-new
               :model-value="true"
+              :stateful="false"
               :target="targetFlip"
-              class="grid place-items-center"
             >
               <template #anchor>
                 <div class="grid place-items-center h-24 w-24 border-2 border-gray-1000 border-dashed">
@@ -128,6 +128,7 @@
             <div class="vertical-space horizontal-space"></div>
             <va-dropdown-new
               :model-value="true"
+              :stateful="false"
               :target="targetFlipShift"
             >
               <template #anchor>
