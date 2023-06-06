@@ -41,18 +41,21 @@ import {
 import { useMouseNavigation } from '../va-dropdown/hooks/useDropdownNavigation'
 import { DropdownOffsetProp } from '../va-dropdown/types'
 import { useCursorAnchor } from './useCursorAnchor'
+import { useAnchorSelector } from '../va-dropdown/hooks/useAnchorSelector'
 
 export default defineComponent({
   name: 'VaDropdownNew',
   props: {
     ...createStatefulProps(Boolean, true),
-    disabled: { type: Boolean },
-    readonly: { type: Boolean },
+    anchorSelector: { type: String, default: '' },
+    innerAnchorSelector: { type: String, default: '' },
     trigger: {
       type: String as PropType<'click' | 'right-click' | 'hover' | 'dblclick' | 'none'>,
       default: 'click',
       validator: (value: string) => ['click', 'right-click', 'hover', 'dblclick', 'none'].includes(value),
     },
+    disabled: { type: Boolean },
+    readonly: { type: Boolean },
     closeOnClickOutside: { type: Boolean, default: true },
     closeOnAnchorClick: { type: Boolean, default: true },
     placement: { type: String as PropType<Placement | 'auto'>, default: 'bottom' },
@@ -79,7 +82,7 @@ export default defineComponent({
 
     const isMounted = useIsMounted()
 
-    const anchor = useHTMLElement('anchor')
+    const { anchorRef: anchor } = useAnchorSelector(props)
     const floating = useHTMLElement('floating')
     const target = useHTMLElementSelector(computed(() => props.target || 'body'))
     const teleport = useHTMLElementSelector(computed(() => props.teleport))

@@ -89,6 +89,38 @@
         Ctx dropdown
       </va-dropdown-new>
     </VbCard>
+    <VbCard title="Anchor selector">
+      <div>
+        <div
+          class="border-2 border-gray-1000 border-dashed"
+          id="anchor-selector"
+        >
+          Click me
+        </div>
+        <va-dropdown-new
+          :anchorSelector="'#anchor-selector'"
+        >
+          Anchor selector
+        </va-dropdown-new>
+      </div>
+    </VbCard>
+    <VbCard title="Inner anchor selector">
+      <va-dropdown-new
+        :anchorSelector="'#inner-anchor-selector'"
+      >
+        <template #anchor>
+          <div class="border-2 border-gray-1000 border-dashed">
+            <div
+              class="border-2 border-gray-1000 border-dashed m-4"
+              id="inner-anchor-selector"
+            >
+              Click me
+            </div>
+          </div>
+        </template>
+        Inner anchor selector
+      </va-dropdown-new>
+    </VbCard>
     <VbCard title="Flip + target">
       Scroll up
       <div class="overflow-hidden">
