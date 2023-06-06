@@ -6,6 +6,7 @@ import { cssVariableName } from '../utils'
 import { useColors } from '../../../composables'
 import { generateUniqueId } from '../../../utils/uuid'
 import { addOrUpdateStyleElement } from '../../../utils/dom'
+import { useGlobalConfig } from '../../global-config/global-config'
 
 export const setCSSVariable = (name: string, value: string, root: HTMLElement) => {
   root.style.setProperty(cssVariableName(name), value)
@@ -16,7 +17,10 @@ export const generateCSSVariable = (key: string, value: string) => {
 }
 
 export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) => {
-  const { colors: configColors, getTextColor, getColor, currentPresetName, applyPreset, styleTag: newStyleTag } = useColors()
+  const { colors: configColors, getTextColor, getColor, currentPresetName, applyPreset } = useColors()
+  const { globalConfig } = useGlobalConfig()
+
+  const newStyleTag = computed(() => globalConfig.value.colors?.styleTag ?? false)
 
   /** Renders CSS variables string. Use this in SSR mode */
   const renderCSSVariables = (colors: ColorVariables | undefined = configColors) => {
