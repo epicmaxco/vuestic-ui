@@ -1,4 +1,4 @@
-import { createApp, defineComponent, h } from 'vue'
+import { defineComponent, h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { createVuestic } from '../../main'
 

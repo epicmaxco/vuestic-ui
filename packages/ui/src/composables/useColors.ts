@@ -44,7 +44,7 @@ export const useColors = () => {
     throw new Error('useColors must be used in setup function or Vuestic GlobalConfigPlugin is not registered!')
   }
 
-  const { setGlobalConfig, globalConfig } = gc
+  const { globalConfig } = gc
 
   const colors = useReactiveComputed<ColorVariables>({
     get: () => globalConfig.value.colors!.presets[globalConfig.value.colors!.currentPresetName],
