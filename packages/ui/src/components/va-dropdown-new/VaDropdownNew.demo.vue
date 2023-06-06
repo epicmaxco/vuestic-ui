@@ -3,7 +3,9 @@
     <VbCard title="Click">
       <va-dropdown-new>
         <template #anchor>
-          Click me
+          <div>
+            Click me
+          </div>
         </template>
         Clicked
       </va-dropdown-new>
@@ -11,6 +13,17 @@
     <VbCard title="Hover">
       <va-dropdown-new
         trigger="hover"
+      >
+        <template #anchor>
+          Hover me
+        </template>
+        Hovered
+      </va-dropdown-new>
+    </VbCard>
+    <VbCard title="Content not hoverable">
+      <va-dropdown-new
+        trigger="hover"
+        :is-content-hoverable="false"
       >
         <template #anchor>
           Hover me

@@ -19,6 +19,7 @@
       ref="floating"
       :style="floatingStyles"
       class="va-dropdown__content-wrapper"
+      v-on="floatingListeners"
     >
       <slot
       ></slot>
@@ -27,18 +28,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, nextTick, ref } from 'vue'
+import { defineComponent, PropType, computed, nextTick, ref, toRef } from 'vue'
 import { useFloating, autoUpdate, flip, shift, Placement, offset, size } from '@floating-ui/vue'
 import kebabCase from 'lodash/kebabCase'
 import {
   createStatefulProps,
   MaybeHTMLElementOrSelector,
-  useClickOutside,
+  useClickOutside, useDebounceFn,
   useHTMLElement,
   useHTMLElementSelector,
   useIsMounted, useStateful,
 } from '../../composables'
-import { useMouseNavigation } from '../va-dropdown/hooks/useDropdownNavigation'
+import { useKeyboardNavigation, useMouseNavigation } from '../va-dropdown/hooks/useDropdownNavigation'
 import { DropdownOffsetProp } from '../va-dropdown/types'
 import { useCursorAnchor } from './useCursorAnchor'
 import { useAnchorSelector } from '../va-dropdown/hooks/useAnchorSelector'
@@ -58,6 +59,10 @@ export default defineComponent({
     readonly: { type: Boolean },
     closeOnClickOutside: { type: Boolean, default: true },
     closeOnAnchorClick: { type: Boolean, default: true },
+    closeOnContentClick: { type: Boolean, default: true },
+    hoverOverTimeout: { type: Number, default: 30 },
+    hoverOutTimeout: { type: Number, default: 200 },
+    isContentHoverable: { type: Boolean, default: true },
     placement: { type: String as PropType<Placement | 'auto'>, default: 'bottom' },
     offset: { type: [Array, Number] as PropType<DropdownOffsetProp>, default: 0 },
     keepAnchorWidth: { type: Boolean, default: false },
@@ -65,6 +70,8 @@ export default defineComponent({
     cursor: { type: Boolean, default: false },
     preventOverflow: { type: Boolean, default: false },
     teleport: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
+    /** Not reactive */
+    keyboardNavigation: { type: Boolean, default: false },
   },
   setup (props, { emit }) {
     const { valueComputed: statefulVal } = useStateful(props, emit)
@@ -105,6 +112,9 @@ export default defineComponent({
     const teleportDisabled = computed(() => !teleport.value)
     const showFloating = computed(() => isMounted.value && valueComputed.value)
 
+    const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(toRef(props, 'hoverOverTimeout'))
+    const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(toRef(props, 'hoverOutTimeout'))
+
     const onClick = (e: MouseEvent) => {
       if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click')) { return } // || props.disabled) { return }
 
@@ -134,21 +144,19 @@ export default defineComponent({
     const onDblclick = () => { return undefined }
     const onMouseenter = () => {
       if (props.trigger !== 'hover' || props.disabled) { return }
-      valueComputed.value = true
 
-      // debounceHover(() => { valueComputed.value = true })
-      // cancelUnHoverDebounce()
+      debounceHover(() => { valueComputed.value = true })
+      cancelUnHoverDebounce()
     }
     const onMouseleave = () => {
       if (props.trigger !== 'hover' || props.disabled) { return }
-      valueComputed.value = false
 
-      // if (props.isContentHoverable) {
-      //   debounceUnHover(() => { valueComputed.value = false })
-      // } else {
-      //   valueComputed.value = false
-      // }
-      // cancelHoverDebounce()
+      if (props.isContentHoverable) {
+        debounceUnHover(() => { valueComputed.value = false })
+      } else {
+        valueComputed.value = false
+      }
+      cancelHoverDebounce()
     }
 
     useMouseNavigation(anchor, {
@@ -159,9 +167,19 @@ export default defineComponent({
       mouseleave: onMouseleave,
     })
 
+    if (props.keyboardNavigation) {
+      useKeyboardNavigation(anchor, valueComputed)
+    }
+
     const emitAndClose = (eventName: Parameters<typeof emit>[0], close?: boolean, e?: Event) => {
       emit(eventName, e)
       if (close && props.trigger !== 'none') { valueComputed.value = false }
+    }
+
+    const floatingListeners = {
+      mouseover: () => props.isContentHoverable && onMouseenter(),
+      mouseout: () => onMouseleave(),
+      click: () => emitAndClose('content-click', props.closeOnContentClick),
     }
 
     useClickOutside([anchor, floating], () => {
@@ -235,6 +253,7 @@ export default defineComponent({
       teleportDisabled,
       showFloating,
       teleportTarget,
+      floatingListeners,
     }
   },
 })
