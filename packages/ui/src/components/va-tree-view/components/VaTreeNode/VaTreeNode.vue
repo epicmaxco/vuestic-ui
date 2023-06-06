@@ -178,6 +178,7 @@ export default defineComponent({
     display: flex;
     padding: var(--va-tree-node-padding);
     position: relative;
+    cursor: pointer;
 
     &::before {
       content: "";
@@ -212,10 +213,6 @@ export default defineComponent({
       flex: var(--va-tree-node-content-item-flex);
       min-width: var(--va-tree-node-indent);
       line-height: 1;
-
-      &--leaf {
-        cursor: pointer;
-      }
     }
 
     &__body {
