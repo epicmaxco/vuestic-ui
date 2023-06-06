@@ -29,7 +29,9 @@ import { useFloating, autoUpdate, flip, shift, Placement, offset, size } from '@
 import kebabCase from 'lodash/kebabCase'
 import {
   createStatefulProps,
-  MaybeHTMLElementOrSelector, useClickOutside, useDomRect, useHTMLElement,
+  MaybeHTMLElementOrSelector,
+  useClickOutside,
+  useHTMLElement,
   useHTMLElementSelector,
   useIsMounted, useStateful,
 } from '../../composables'
@@ -95,7 +97,7 @@ export default defineComponent({
     })
 
     const teleportDisabled = computed(() => !teleport.value)
-    const showFloating = computed(() => valueComputed.value && isMounted.value)
+    const showFloating = computed(() => isMounted.value && valueComputed.value)
 
     const onClick = (e: MouseEvent) => {
       if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click')) { return } // || props.disabled) { return }
@@ -183,7 +185,7 @@ export default defineComponent({
         offset(offsetComputed.value),
         // flip element, works for -start, -end
         flip({
-          boundary: target.value,
+          boundary: isMounted.value ? target.value : undefined,
         }),
         // shift the element into the view
         shift(),
@@ -214,6 +216,8 @@ export default defineComponent({
       whileElementsMounted: autoUpdate,
       middleware: middlewareComputed,
     })
+
+    // const floatingStyles = ref({})
 
     return {
       anchor,

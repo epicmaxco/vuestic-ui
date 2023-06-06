@@ -277,7 +277,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "color-input",
         displayName: "menu.colorInput",
       },
-  
+
       {
         category: 'menu.categories.layout',
         name: 'aspect-ratio',
@@ -378,10 +378,14 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.dropdown",
       },
       {
+        name: "dropdown-new",
+        displayName: "menu.dropdownNew",
+      },
+      {
         name: "spacer",
         displayName: "menu.spacer",
       },
-  
+
       {
         category: "menu.categories.other",
         name: "affix",
