@@ -8,14 +8,19 @@
     >
     </slot>
   </div>
-  <div
-    v-if="isMounted && valueComputed"
-    ref="floating"
-    :style="floatingStyles"
+  <Teleport
+    v-if="showFloating"
+    :to="teleportTarget ?? undefined"
+    :disabled="teleportDisabled"
   >
-    <slot
-    ></slot>
-  </div>
+    <div
+      ref="floating"
+      :style="floatingStyles"
+    >
+      <slot
+      ></slot>
+    </div>
+  </Teleport>
 </template>
 
 <script lang="ts">
@@ -33,7 +38,6 @@ import { DropdownOffsetProp } from '../va-dropdown/types'
 import { useCursorAnchor } from './useCursorAnchor'
 
 // TODO
-// cursor
 // teleport
 
 export default defineComponent({
@@ -51,8 +55,8 @@ export default defineComponent({
     keepAnchorWidth: { type: Boolean, default: false },
     target: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
     cursor: { type: Boolean, default: false },
-    anchorSelector: { type: String, default: '' },
-    innerAnchorSelector: { type: String, default: '' },
+    preventOverflow: { type: Boolean, default: false },
+    teleport: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
   },
   setup (props, { emit }) {
     const { valueComputed: statefulVal } = useStateful(props, emit)
@@ -68,10 +72,30 @@ export default defineComponent({
       },
     })
 
+    const isMounted = useIsMounted()
+
     const anchor = useHTMLElement('anchor')
     const floating = useHTMLElement('floating')
-    const targetElement = useHTMLElementSelector(computed(() => props.target || 'body'))
+    const target = useHTMLElementSelector(computed(() => props.target || 'body'))
+    const teleport = useHTMLElementSelector(computed(() => props.teleport))
     const cursorAnchor = props.cursor ? useCursorAnchor(anchor, valueComputed) : ref(undefined)
+
+    const isPopoverFloating = computed(() => props.preventOverflow)
+    const teleportTarget = computed<HTMLElement | undefined>(() => {
+      if (teleport.value) {
+        return teleport.value
+      }
+
+      if (!isPopoverFloating.value) {
+        // If not floating just render inside the parent element
+        return undefined
+      }
+
+      return target.value
+    })
+
+    const teleportDisabled = computed(() => !teleport.value)
+    const showFloating = computed(() => valueComputed.value && isMounted.value)
 
     const onClick = (e: MouseEvent) => {
       if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click')) { return } // || props.disabled) { return }
@@ -159,7 +183,7 @@ export default defineComponent({
         offset(offsetComputed.value),
         // flip element, works for -start, -end
         flip({
-          boundary: targetElement.value,
+          boundary: target.value,
         }),
         // shift the element into the view
         shift(),
@@ -187,19 +211,17 @@ export default defineComponent({
 
     const { floatingStyles } = useFloating(anchorComputed, floating, {
       placement: placementComputed,
-      whileElementsMounted: autoUpdate, // !props.cursor ? autoUpdate : undefined,
+      whileElementsMounted: autoUpdate,
       middleware: middlewareComputed,
     })
 
-    const isMounted = useIsMounted()
-
     return {
-      valueComputed,
       anchor,
       floating,
       floatingStyles,
-      isMounted,
-      anchorComputed,
+      teleportDisabled,
+      showFloating,
+      teleportTarget,
     }
   },
 })
