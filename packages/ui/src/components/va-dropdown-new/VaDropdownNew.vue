@@ -2,9 +2,10 @@
 import { h, defineComponent, PropType, computed, nextTick, ref, toRef, Fragment, Teleport } from 'vue'
 import { useFloating, autoUpdate, flip, shift, Placement, offset, size } from '@floating-ui/vue'
 import kebabCase from 'lodash/kebabCase'
+import pick from 'lodash/pick'
 import {
   createStatefulProps,
-  MaybeHTMLElementOrSelector,
+  MaybeHTMLElementOrSelector, useBem,
   useClickOutside, useDebounceFn,
   useHTMLElement,
   useHTMLElementSelector,
@@ -68,6 +69,7 @@ export default defineComponent({
     const teleport = useHTMLElementSelector(computed(() => props.teleport))
     const cursorAnchor = props.cursor ? useCursorAnchor(anchor, valueComputed) : ref(undefined)
 
+    const anchorClass = useBem('va-dropdown', () => pick(props, ['disabled']))
     const isPopoverFloating = computed(() => props.preventOverflow)
     const teleportTarget = computed<HTMLElement | undefined>(() => {
       if (teleport.value) {
@@ -153,9 +155,7 @@ export default defineComponent({
     const floatingListeners = {
       onMouseover: () => props.isContentHoverable && onMouseenter(),
       onMouseout: () => onMouseleave(),
-      click: () => { console.log('floating click') },
-      onClick: () => { console.log('floating click') },
-      // onClick: () => emitAndClose('content-click', props.closeOnContentClick),
+      onClick: () => emitAndClose('content-click', props.closeOnContentClick),
     }
 
     useClickOutside([anchor, floating], () => {
@@ -225,6 +225,7 @@ export default defineComponent({
     return {
       ...useTranslation(),
       anchor,
+      anchorClass,
       floating,
       floatingStyles,
       teleportDisabled,
@@ -246,13 +247,12 @@ export default defineComponent({
     const anchorSlotVNode = renderSlotNode(this.$slots.anchor, {}, {
       ref: 'anchor',
       role: 'button',
-      class: ['va-dropdown'],
+      class: ['va-dropdown', ...this.anchorClass.asArray.value],
       style: { position: 'relative' },
       'aria-label': this.tp(this.$props.ariaLabel),
       'aria-disabled': this.$props.disabled,
       'aria-expanded': !!this.showFloating.value,
       ...this.$attrs,
-      // class: ['va-dropdown', ...this.computedClass.asArray.value],
     })
 
     return h(Fragment, {}, [
@@ -266,10 +266,6 @@ export default defineComponent({
         [floatingSlotNode],
       ),
     ])
-    // return [
-    //   h('div', {}, 'aaaa'),
-    //   h('div', {}, 'bbbb'),
-    // ]
   },
 })
 </script>
