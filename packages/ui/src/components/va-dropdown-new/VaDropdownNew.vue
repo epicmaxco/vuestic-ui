@@ -1,34 +1,5 @@
-<template>
-  <div
-    ref="anchor"
-    :class="$attrs.class"
-    class="va-dropdown"
-    style="position: relative;"
-  >
-    <slot
-      name="anchor"
-    >
-    </slot>
-  </div>
-  <Teleport
-    v-if="showFloating"
-    :to="teleportTarget ?? undefined"
-    :disabled="teleportDisabled"
-  >
-    <div
-      ref="floating"
-      :style="floatingStyles"
-      class="va-dropdown__content-wrapper"
-      v-on="floatingListeners"
-    >
-      <slot
-      ></slot>
-    </div>
-  </Teleport>
-</template>
-
 <script lang="ts">
-import { defineComponent, PropType, computed, nextTick, ref, toRef } from 'vue'
+import { h, defineComponent, PropType, computed, nextTick, ref, toRef, Fragment, Teleport } from 'vue'
 import { useFloating, autoUpdate, flip, shift, Placement, offset, size } from '@floating-ui/vue'
 import kebabCase from 'lodash/kebabCase'
 import {
@@ -37,12 +8,13 @@ import {
   useClickOutside, useDebounceFn,
   useHTMLElement,
   useHTMLElementSelector,
-  useIsMounted, useStateful,
+  useIsMounted, useStateful, useTranslation,
 } from '../../composables'
 import { useKeyboardNavigation, useMouseNavigation } from '../va-dropdown/hooks/useDropdownNavigation'
 import { DropdownOffsetProp } from '../va-dropdown/types'
 import { useCursorAnchor } from './useCursorAnchor'
 import { useAnchorSelector } from '../va-dropdown/hooks/useAnchorSelector'
+import { renderSlotNode } from '../../utils/headless'
 
 export default defineComponent({
   name: 'VaDropdownNew',
@@ -61,7 +33,7 @@ export default defineComponent({
     closeOnAnchorClick: { type: Boolean, default: true },
     closeOnContentClick: { type: Boolean, default: true },
     hoverOverTimeout: { type: Number, default: 30 },
-    hoverOutTimeout: { type: Number, default: 200 },
+    hoverOutTimeout: { type: Number, default: 22200 },
     isContentHoverable: { type: Boolean, default: true },
     placement: { type: String as PropType<Placement | 'auto'>, default: 'bottom' },
     offset: { type: [Array, Number] as PropType<DropdownOffsetProp>, default: 0 },
@@ -72,6 +44,7 @@ export default defineComponent({
     teleport: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
     /** Not reactive */
     keyboardNavigation: { type: Boolean, default: false },
+    ariaLabel: { type: String, default: '$t:toggleDropdown' },
   },
   setup (props, { emit }) {
     const { valueComputed: statefulVal } = useStateful(props, emit)
@@ -116,6 +89,7 @@ export default defineComponent({
     const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(toRef(props, 'hoverOutTimeout'))
 
     const onClick = (e: MouseEvent) => {
+      console.log('click')
       if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click')) { return } // || props.disabled) { return }
 
       if (valueComputed.value) {
@@ -177,9 +151,11 @@ export default defineComponent({
     }
 
     const floatingListeners = {
-      mouseover: () => props.isContentHoverable && onMouseenter(),
-      mouseout: () => onMouseleave(),
-      click: () => emitAndClose('content-click', props.closeOnContentClick),
+      onMouseover: () => props.isContentHoverable && onMouseenter(),
+      onMouseout: () => onMouseleave(),
+      click: () => { console.log('floating click') },
+      onClick: () => { console.log('floating click') },
+      // onClick: () => emitAndClose('content-click', props.closeOnContentClick),
     }
 
     useClickOutside([anchor, floating], () => {
@@ -247,6 +223,7 @@ export default defineComponent({
     })
 
     return {
+      ...useTranslation(),
       anchor,
       floating,
       floatingStyles,
@@ -254,7 +231,45 @@ export default defineComponent({
       showFloating,
       teleportTarget,
       floatingListeners,
+      isMounted,
+      valueComputed,
     }
+  },
+  render () {
+    const floatingSlotNode = renderSlotNode(this.$slots.default, {}, {
+      ref: 'floating',
+      class: 'va-dropdown__content-wrapper',
+      style: this.floatingStyles,
+      ...this.floatingListeners,
+    })
+
+    const anchorSlotVNode = renderSlotNode(this.$slots.anchor, {}, {
+      ref: 'anchor',
+      role: 'button',
+      class: ['va-dropdown'],
+      style: { position: 'relative' },
+      'aria-label': this.tp(this.$props.ariaLabel),
+      'aria-disabled': this.$props.disabled,
+      'aria-expanded': !!this.showFloating.value,
+      ...this.$attrs,
+      // class: ['va-dropdown', ...this.computedClass.asArray.value],
+    })
+
+    return h(Fragment, {}, [
+      anchorSlotVNode,
+      (this.isMounted && this.valueComputed) && h(
+        Teleport,
+        {
+          to: this.teleportTarget,
+          disabled: this.teleportDisabled,
+        },
+        [floatingSlotNode],
+      ),
+    ])
+    // return [
+    //   h('div', {}, 'aaaa'),
+    //   h('div', {}, 'bbbb'),
+    // ]
   },
 })
 </script>

@@ -17,7 +17,7 @@ export const useCursorAnchor = (anchorRef: Ref<HTMLElement | undefined>, noUpdat
   return computed(() => {
     return {
       getBoundingClientRect () {
-        const { x, y } = anchorRef.value!.getBoundingClientRect()
+        const { x, y } = anchorRef.value?.getBoundingClientRect() ?? { x: 0, y: 0 }
         const { x: mx, y: my } = mouse
         const { x: ax, y: ay } = anchor
         const shiftX = ax - x

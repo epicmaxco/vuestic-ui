@@ -1,5 +1,20 @@
 <template>
   <VbDemo>
+    <VbCard title="Cursor">
+      <va-dropdown
+        trigger="right-click"
+        placement="bottom-start"
+        cursor
+        teleport="body"
+      >
+        <template #anchor>
+          <div class="w-32 h-32 border-2 border-gray-1000 border-dashed">
+            Right click
+          </div>
+        </template>
+        Ctx dropdown
+      </va-dropdown>
+    </VbCard>
     <VbCard title="Click">
       <va-dropdown>
         <template #anchor>
