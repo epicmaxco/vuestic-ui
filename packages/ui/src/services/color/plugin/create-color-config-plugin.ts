@@ -20,7 +20,7 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
   const { colors: configColors, getTextColor, getColor, currentPresetName, applyPreset } = useColors()
   const { globalConfig } = useGlobalConfig()
 
-  const newStyleTag = computed(() => globalConfig.value.colors?.styleTag ?? false)
+  const isStyleTag = computed(() => globalConfig.value.colors?.styleTag ?? false)
 
   /** Renders CSS variables string. Use this in SSR mode */
   const renderCSSVariables = (colors: ColorVariables | undefined = configColors) => {
@@ -33,15 +33,30 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
     return `${renderedColors};${renderedOnColors}`
   }
 
+  const renderCSSVariablesStyleContent = (colors: ColorVariables = configColors) => {
+    const colorNames = Object.keys(colors)
+
+    let result = ':root {\n'
+    colorNames.forEach((key) => {
+      result += generateCSSVariable(key, colors[key])
+    })
+    colorNames.forEach((key) => {
+      result += generateCSSVariable(`on-${key}`, getColor(getTextColor(colors[key])))
+    })
+    result += '}\n'
+
+    return result
+  }
+
   const uniqueId = computed(generateUniqueId)
 
   const updateColors = (newValue: ColorVariables | undefined) => {
     if (!newValue) { return }
     if (isServer()) { return }
 
-    const colorNames = Object.keys(newValue)
+    if (!isStyleTag.value) {
+      const colorNames = Object.keys(newValue)
 
-    if (!newStyleTag.value) {
       const root = document.documentElement
       colorNames.forEach((key) => {
         setCSSVariable(key, newValue[key], root)
@@ -50,20 +65,9 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
         setCSSVariable(`on-${key}`, getColor(getTextColor(newValue[key])), root)
       })
     } else {
-      const generateColorVariables = () => {
-        let result = ':root {\n'
-        colorNames.forEach((key) => {
-          result += generateCSSVariable(key, newValue[key])
-        })
-        colorNames.forEach((key) => {
-          result += generateCSSVariable(`on-${key}`, getColor(getTextColor(newValue[key])))
-        })
-        result += '}\n'
+      const styleContent = renderCSSVariablesStyleContent(newValue)
 
-        return result
-      }
-
-      addOrUpdateStyleElement(`va-color-variables-${uniqueId.value}`, generateColorVariables)
+      addOrUpdateStyleElement(`va-color-variables-${uniqueId.value}`, () => styleContent)
     }
   }
 
@@ -72,7 +76,11 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
   }, { immediate: true, deep: true })
 
   return {
+    isStyleTag,
+    colors: configColors,
+    currentPresetName,
     renderCSSVariables,
     updateColors,
+    renderCSSVariablesStyleContent,
   }
 }
