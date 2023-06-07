@@ -100,7 +100,7 @@ export default defineComponent({
 
     const onClick = (e: MouseEvent) => {
       console.log('click')
-      if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click')) { return } // || props.disabled) { return }
+      if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click') || props.disabled) { return }
 
       if (valueComputed.value) {
         emitAndClose('anchor-click', props.closeOnAnchorClick, e)
