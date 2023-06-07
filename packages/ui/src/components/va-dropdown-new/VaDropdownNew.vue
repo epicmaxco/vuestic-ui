@@ -9,7 +9,7 @@ import {
   useClickOutside, useDebounceFn,
   useHTMLElement,
   useHTMLElementSelector,
-  useIsMounted, useStateful, useTranslation,
+  useIsMounted, useStateful, useStatefulEmits, useTranslation,
 } from '../../composables'
 import { useKeyboardNavigation, useMouseNavigation } from '../va-dropdown/hooks/useDropdownNavigation'
 import { DropdownOffsetProp } from '../va-dropdown/types'
@@ -39,14 +39,21 @@ export default defineComponent({
     placement: { type: String as PropType<Placement | 'auto'>, default: 'bottom' },
     offset: { type: [Array, Number] as PropType<DropdownOffsetProp>, default: 0 },
     keepAnchorWidth: { type: Boolean, default: false },
-    target: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
     cursor: { type: Boolean, default: false },
-    preventOverflow: { type: Boolean, default: false },
+    autoPlacement: { type: Boolean, default: true },
+    stickToEdges: { type: Boolean, default: false },
+    /** Viewport where dropdown will be rendered if preventOverflow is true. Autoplacement will be calculated relative to `target` */
+    target: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
+    /** Element where dropdown content will be rendered. */
     teleport: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
+    preventOverflow: { type: Boolean, default: false },
     /** Not reactive */
     keyboardNavigation: { type: Boolean, default: false },
     ariaLabel: { type: String, default: '$t:toggleDropdown' },
   },
+
+  emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'close', 'open', 'anchor-dblclick'],
+
   setup (props, { emit }) {
     const { valueComputed: statefulVal } = useStateful(props, emit)
     const valueComputed = computed({
@@ -64,6 +71,7 @@ export default defineComponent({
     const isMounted = useIsMounted()
 
     const { anchorRef: anchor } = useAnchorSelector(props)
+    console.log('anchor', anchor)
     const floating = useHTMLElement('floating')
     const target = useHTMLElementSelector(computed(() => props.target || 'body'))
     const teleport = useHTMLElementSelector(computed(() => props.teleport))
@@ -187,14 +195,22 @@ export default defineComponent({
     const middlewareComputed = computed(() => {
       const result = [
         offset(offsetComputed.value),
-        // flip element, works for -start, -end
-        // boundary doesn't work with ssr (trying to access document)
-        flip({
-          boundary: isMounted.value ? target.value : undefined,
-        }),
-        // shift the element into the view
-        shift(),
       ]
+
+      if (props.autoPlacement) {
+        result.push(
+          // boundary doesn't work with ssr (trying to access document)
+          flip({
+            boundary: isMounted.value ? target.value : undefined,
+          }),
+        )
+      }
+
+      if (props.stickToEdges) {
+        result.push(
+          shift(),
+        )
+      }
 
       if (props.keepAnchorWidth) {
         result.push(size({

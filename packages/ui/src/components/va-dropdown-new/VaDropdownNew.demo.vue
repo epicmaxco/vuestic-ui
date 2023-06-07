@@ -111,7 +111,7 @@
           Click me
         </div>
         <va-dropdown-new
-          :anchorSelector="'#anchor-selector'"
+          anchorSelector="#anchor-selector"
         >
           Anchor selector
         </va-dropdown-new>
@@ -119,7 +119,7 @@
     </VbCard>
     <VbCard title="Inner anchor selector">
       <va-dropdown-new
-        :anchorSelector="'#inner-anchor-selector'"
+        anchorSelector="#inner-anchor-selector"
       >
         <template #anchor>
           <div class="border-2 border-gray-1000 border-dashed">
@@ -134,12 +134,12 @@
         Inner anchor selector
       </va-dropdown-new>
     </VbCard>
-    <VbCard title="Flip + target">
+    <VbCard title="Autoplacement + target">
       Scroll up
       <div class="overflow-hidden">
         <div
           class="scroll-container"
-          ref="targetFlip"
+          ref="autoplacementTargetRef"
           v-scroll-to-middle-y
         >
           <div class="content-container">
@@ -147,7 +147,7 @@
             <va-dropdown-new
               :model-value="true"
               :stateful="false"
-              :target="targetFlip"
+              :target="autoplacementTargetRef"
             >
               <template #anchor>
                 <div class="grid place-items-center h-24 w-24 border-2 border-gray-1000 border-dashed">
@@ -160,12 +160,12 @@
         </div>
       </div>
     </VbCard>
-    <VbCard title="Autoplacement main and cross axis + target">
+    <VbCard title="Autoplacement and Stick to Edges + target">
       Scroll around
       <div class="overflow-hidden">
         <div
           class="scroll-container"
-          ref="targetFlipShift"
+          ref="autoplacementTargetStickRef"
           v-scroll-to-middle-y
           v-scroll-to-middle-x
         >
@@ -174,7 +174,8 @@
             <va-dropdown-new
               :model-value="true"
               :stateful="false"
-              :target="targetFlipShift"
+              :target="autoplacementTargetStickRef"
+              stick-to-edges
             >
               <template #anchor>
                 <div class="grid place-items-center h-24 w-24 border-2 border-gray-1000 border-dashed">
@@ -203,8 +204,8 @@ export default {
   setup () {
     return {
       cursorTarget: ref(null),
-      targetFlip: ref(null),
-      targetFlipShift: ref(null),
+      autoplacementTargetRef: ref(null),
+      autoplacementTargetStickRef: ref(null),
     }
   },
   directives: {
