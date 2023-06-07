@@ -70,8 +70,13 @@ export default defineNuxtConfig({
     compressPublicAssets: true,
   },
 
+  googleAnalytics: {
+    id: 'G-G4S900KP26'
+  },
+
   modules: [
     // './modules/banner',
+    './modules/google-analytics',
     './modules/vuestic',
     './modules/page-config',
     '@nuxtjs/google-fonts',

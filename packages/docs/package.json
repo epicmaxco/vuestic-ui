@@ -21,8 +21,8 @@
     "@nuxtjs/i18n": "^8.0.0-beta.11",
     "@nuxtjs/tailwindcss": "^6.3.0",
     "@types/escodegen": "^0.0.7",
-    "@types/marked": "^4.3.0",
     "@types/estree": "^1.0.0",
+    "@types/marked": "^4.3.0",
     "acorn": "^8.8.1",
     "acorn-walk": "^8.2.0",
     "autoprefixer": "^10.4.13",
@@ -47,6 +47,7 @@
     "acorn": "^8.8.1",
     "codesandbox": "^2.2.3",
     "highlight.js": "^11.7.0",
-    "marked": "^4.3.0"
+    "marked": "^4.3.0",
+    "vue-gtag": "^2.0.1"
   }
 }
