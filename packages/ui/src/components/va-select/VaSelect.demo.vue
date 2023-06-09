@@ -840,6 +840,25 @@
       <p>{{ longSelect.value }}</p>
       <p>{{ validationSelect.value }}</p>
     </VbCard>
+    <VbCard title="Close on value update" :style="{ 'width': '100%' }">
+      <va-select
+        label="shouldn't close on value select"
+        v-model="defaultSingleSelect.value"
+        :close-on-value-update="false"
+        class="mb-6"
+        :options="defaultSingleSelect.options"
+      />
+      <va-select
+        label="Multiple"
+        v-model="defaultMultiSelect.value"
+        :options="defaultMultiSelect.options"
+        class="mb-6"
+        :max-visible-options="2"
+        multiple
+        autocomplete
+        :close-on-value-update="false"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
