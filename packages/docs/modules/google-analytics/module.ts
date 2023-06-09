@@ -12,6 +12,11 @@ export default defineNuxtModule<any>({
   },
 
   setup(options) {
+    if (!options.id) {
+      console.warn('Google Analytics ID is not specified. Disabling module.')
+      return
+    }
+
     addPluginTemplate({
       src: resolve(__dirname, './runtime/plugin.ts'),
 

@@ -71,7 +71,7 @@ export default defineNuxtConfig({
   },
 
   googleAnalytics: {
-    id: 'G-G4S900KP26'
+    id: process.env.GOOGLE_ANALYTICS_ID,
   },
 
   modules: [
