@@ -1,7 +1,8 @@
-import { computed, reactive, Ref } from 'vue'
+import { computed, ComputedRef, reactive, Ref } from 'vue'
 import { useEvent } from '../../../composables'
+import { CursorAnchor } from '../types'
 
-export const useCursorAnchor = (anchorRef: Ref<HTMLElement | undefined>, noUpdate: Ref<boolean>) => {
+export const useCursorAnchor = (anchorRef: Ref<HTMLElement | undefined>, noUpdate: Ref<boolean>): ComputedRef<CursorAnchor> => {
   const anchor = reactive({ x: 0, y: 0 })
   const mouse = reactive({ x: 0, y: 0 })
 
@@ -9,7 +10,7 @@ export const useCursorAnchor = (anchorRef: Ref<HTMLElement | undefined>, noUpdat
     if (noUpdate.value) { return }
     mouse.x = e.clientX
     mouse.y = e.clientY
-    const { x, y } = anchorRef.value!.getBoundingClientRect()
+    const { x, y } = anchorRef.value?.getBoundingClientRect() ?? { x: 0, y: 0 }
     anchor.x = x
     anchor.y = y
   }, anchorRef)

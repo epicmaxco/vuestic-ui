@@ -1,21 +1,24 @@
 <script lang="ts">
 import { h, defineComponent, PropType, computed, nextTick, ref, toRef, Fragment, Teleport } from 'vue'
-import { useFloating, autoUpdate, flip, shift, Placement, offset, size } from '@floating-ui/vue'
+import { Placement } from '@floating-ui/vue'
 import kebabCase from 'lodash/kebabCase'
 import pick from 'lodash/pick'
 import {
+  MaybeHTMLElementOrSelector,
   createStatefulProps,
-  MaybeHTMLElementOrSelector, useBem,
-  useClickOutside, useDebounceFn,
+  useBem,
+  useClickOutside,
+  useDebounceFn,
   useHTMLElement,
   useHTMLElementSelector,
   useIsMounted, useStateful, useStatefulEmits, useTranslation,
 } from '../../composables'
-import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
-import { useAnchorSelector } from '../va-dropdown/hooks/useAnchorSelector'
-import { useCursorAnchor } from './hooks/useCursorAnchor'
-import { DropdownOffsetProp } from '../va-dropdown/types'
 import { renderSlotNode } from '../../utils/headless'
+import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
+import { useAnchorSelector } from './hooks/useAnchorSelector'
+import { useCursorAnchor } from './hooks/useCursorAnchor'
+import { DropdownOffsetProp } from './types'
+import { useDropdown } from './hooks/useDropdown'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -170,71 +173,23 @@ export default defineComponent({
       }
     })
 
-    const placementComputed = computed(() => {
-      if (props.placement === 'auto') {
-        return 'bottom'
-      }
-
-      return props.placement
-    })
-
-    const offsetComputed = computed(() => {
-      const result = { mainAxis: 0, crossAxis: 0 }
-      if (Array.isArray(props.offset)) {
-        result.mainAxis = props.offset[0]
-        result.crossAxis = props.offset[1]
-      } else {
-        result.mainAxis = props.offset
-      }
-
-      return result
-    })
-
-    const middlewareComputed = computed(() => {
-      const result = [
-        offset(offsetComputed.value),
-      ]
-
-      if (props.autoPlacement) {
-        result.push(
-          // boundary doesn't work with ssr (trying to access document)
-          flip({
-            boundary: isMounted.value ? target.value : undefined,
-          }),
-        )
-      }
-
-      if (props.stickToEdges) {
-        result.push(
-          shift(),
-        )
-      }
-
-      if (props.keepAnchorWidth) {
-        result.push(size({
-          apply ({ elements }) {
-            const reference = elements.reference
-            const availableWidth = reference.getBoundingClientRect().width
-            Object.assign(elements.floating.style, {
-              maxWidth: `${availableWidth}px`,
-            })
-          },
-        }),
-        )
-      }
-
-      return result
-    })
-
     const anchorComputed = computed(() => {
       return props.cursor ? cursorAnchor.value : anchor.value
     })
 
-    const { floatingStyles } = useFloating(anchorComputed, floating, {
-      placement: placementComputed,
-      whileElementsMounted: autoUpdate,
-      middleware: middlewareComputed,
-    })
+    const { floatingStyles } = useDropdown(
+      anchorComputed,
+      floating,
+      target,
+      isMounted,
+      computed(() => ({
+        placement: props.placement,
+        offset: props.offset,
+        autoPlacement: props.autoPlacement,
+        stickToEdges: props.stickToEdges,
+        keepAnchorWidth: props.keepAnchorWidth,
+      })),
+    )
 
     const hide = () => { valueComputed.value = false }
     const show = () => { valueComputed.value = true }
