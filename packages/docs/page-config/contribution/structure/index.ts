@@ -1,5 +1,8 @@
 export default definePageConfig({
   blocks: [
+    block.title('Structure'),
+    block.paragraph(`Here you can learn about Vuestic UI file structure and understand how to keep your work synced with our conventions. It's great to check when you're unsure, though sometimes it's easier to understand just by looking on file contents.`),
+
     block.subtitle('Components'),
     block.fileStructure([
       {
@@ -8,7 +11,7 @@ export default definePageConfig({
         children: [
           {
             name: "components",
-            description: "inner components specific to this component",
+            description: "Inner components specific to this component.",
             children: [
               {
                 name: "Va[SubComposableName].vue",
@@ -17,7 +20,7 @@ export default definePageConfig({
           },
           {
             name: "hooks",
-            description: "specific composables to this component",
+            description: "Composables specific to this component.",
             children: [
               {
                 name: "use[ComposableName].ts",
@@ -26,11 +29,11 @@ export default definePageConfig({
           },
           {
             name: "plugins",
-            description: " plugins that required for this component (usually you don't need plugin)",
+            description: "Plugins that are required for this component (usually you don't need plugin).",
             children: [
               {
                 name: "index.ts",
-                description: "here should be exported all plugins using named exports",
+                description: "Just plugin exports (using named exports).",
               },
             ],
           },
@@ -39,95 +42,96 @@ export default definePageConfig({
             children: [
               {
                 name: "Va[ComponentName].spec.js",
+                description: "Generally not recommended to test components. It's better value to use story interactions. But do if you must.",
               },
               {
                 name: "use[ComposableName].spec.js",
+                description: "Composables are recommended to unit test. Consider handling all edge cases.",
               },
             ],
           },
           {
             name: "utils",
-            description: "Prefer using composables, but store here stuff to make component clean (not recommended folder)",
+            description: "Component helpers (if possible - use composables instead).",
           },
           {
             name: "_variables.scss",
-            description: "Component css variables. Store here all that can be possible used for customization",
+            description: "Component css variables. Store here everything that could be used for customization.",
           },
           {
             name: "index.ts",
-            description: "all stuff that will be exported from `vuestic-ui`",
+            description: "Everything that will be exported from `vuestic-ui`.",
           },
           {
             name: "types.ts",
-            description: "specific types for this component  ",
+            description: "Component specific files.",
           },
           {
             name: "Va[ComponentName].demo.vue",
-            description: "Component demo",
+            description: "Component demo. Most of the development on component happens in context of demo.",
           },
           {
             name: "Va[ComponentName].vue",
-            description: "Component code itself",
+            description: "Component main file.",
           },
         ],
       },
     ]),
-    block.paragraph('From `./types.ts` must be exported all types, that you need to have. e.g. prop types, emit events etc.'),
-    block.paragraph("From `./index.ts` must be exported (using named exports) component and it's subcomponents. All from this file must be exported in `/src/components/index.ts`"),
-    block.paragraph("From `./plugin/index.ts` must be exported plugin, that use `defineVuesticPlugin` with named export. This plugin will be available in `vuestic-ui` root exports. "),
-    block.alert("`./plugins` is still experimental folder, you likely don't need to use it. ", 'warning'),
-    block.paragraph('We write all component in Composition API. This allows use to re-use a lot of functional from composables.'),
+    block.paragraph('From `./types.ts` export all types: prop types, emit events etc.'),
+    block.paragraph("From `./index.ts` export both component and its sub-components using named exports. Then you should also connect it in `/src/components/index.ts` - all components should be registered there."),
+    block.paragraph("From `./plugin/index.ts` export plugin with named export. It should use `defineVuesticPlugin`. This plugin will be available in `vuestic-ui` root exports."),
+    block.alert("`./plugins` is still experimental folder, you likely don't need it.", 'warning'),
+    block.paragraph('We write all component with Composition API. Key reason is high reuse value of composables.'),
     block.markdown(`
-Checklist:
-- Provide component name with \`Va\` prefix;
-- Provide \`va-\` prefix for CSS variables;
-- CSS variables must be used to change look of component. E.g. don't use css variables for styles that are not going to be changed by user;
-- Use props from composables if needed;
-- Type complex types with \`PropType\`;
-- Prefer default value for props, instead of \`required\`;
-- Make sure component support \`stateful\` mode;
-- Explicitly provide \`emits\` filed. We use it in documentation later;
-- Use as much composables as you can.;
-- Remember about SSR. Use SSR-friendly composables like \`useClickOnly\`, \`useDocument\`, \`useEvent\` etc;
-- Remember that user can access component methods with \`ref\`. Return methods like \`focus\`, \`validate\` from setup function;
-- Follow CSS variables guide;
-- Use \`css-variables\` only if you think that this can be helpful for user:
-  - good: color, font, border
-  - bad:  align-items, top, left
-- Use BEM;
-- Use SCSS mixins;
-- Do not use \`scoped\` styles in components;
-- Follow Accessibility guide e.g. do not forget about hover state, aria attributes, use semantic html;
-    `),
+Here's a checklist you can go through when working on component:
+
+- Component name should always have \`Va\` prefix.
+- All CSS varisables should have \`va-\` prefix.
+- CSS variables are meant as a part of interface. We expect users to change them. CSS variables are pretty expensive though, so please don't use them on styles that are unlikely to be changed by user (also user can directly override class if it's a must). Here's some examples:
+  - good: color, font, border;
+  - bad: align-items, top, left.
+- Use props from composables if needed.
+- Provide typing for complex types via \`PropType\`.
+- Don't use \`required\` for props, use \`default\` instead. User expects component to work with as few props as possible.
+- Make sure component supports \`stateful\` mode.
+- Explicitly define \`emits\` so that typescript would be able to derive type. We also use emits in documentation.
+- Check existing composables before creating new one.
+- Remember about SSR. Use SSR-friendly composables like \`useClickOnly\`, \`useDocument\`, \`useEvent\` etc.
+- Remember that user can access component methods with \`ref\`. Expose methods like \`focus\`, \`validate\` from setup function.
+- Follow CSS variables guide.
+- Use BEM for component classes. We support tailwind, but it's only for external usage.
+- Use SCSS mixins.
+- Do not use \`scoped\` styles in components.
+- Follow Accessibility best practices: use semantic tags, aria attributes, hover state etc.
+`),
 
 
     block.subtitle('Composables'),
-    block.paragraph('Composable - function, that will be injected in component in setup function. Usually it provides reactive variables, computeds or methods.'),
-    block.paragraph('Great example of composables: https://vueuse.org/ - Make sure to check it out first'),
+    block.paragraph('Composable - function that is used inside of component \`setup\` block. Usually it provides reactive variables, computeds or methods.'),
+    block.paragraph('Check https://vueuse.org/ when you work with composables. They already have a lot of functionality we need. You also may check how they implement composables.'),
     block.markdown(`
-Checklist:
-- Start composable name with \`use\`;
-- Write composable in one file. If you have large composable, split it in multiple small composables. If these composables useless without each other, use folder with \`index.ts\` and export one composable from here;
-- Composable can return one object (reactive or ref) or object that contain refs, methods, computeds;
-- It's okay to reuse composables:
-\`\`\`ts
-export useDocument = () => useClientOnly(() => document)
-\`\`\`
+Here's a checklist you can go through when working on composable:
+
+- Start composable name with \`use\`.
+- Write composable in one file. If you have large composable, split it in multiple small composables. If these composables are useless without each other, use folder with \`index.ts\` and export one composable from here.
+- Composable can return one object (reactive or ref) or object that contains refs, methods computeds.
+- Reuse composables if possible.
 - Export (or even re-export) types in composable.
-- Export all in \`/src/composables/index.ts\`;
-- Write tests under \`/src/composables/tests/use[ComposableName].spec.ts\`
+- Attach your composable to \`/src/composables/index.ts\`;
+- Write tests under \`/src/composables/tests/use[ComposableName].spec.ts\`. It's a great idea to uint-test composables.
     `),
+
     block.subtitle('Styles'),
     block.markdown(`
-There are three types of style
-- CSS modules - css file with styles, usually with global styles. CSS modules must be independent and produce one feature. e.g. typography, grid-system, normalize;
-- SCSS resources - there must be only SCSS variables (! prefer CSS variables instead) or SCSS mixins. They can be split in modules, but no style must be included in these files. 
-- Essential - css, that must be included in user's app. e.g. css-variables.
+There are three types of styles:
+- **CSS modules** - css file with global styles. CSS modules must be independent and focus on one feature. For example: typography, grid, normalize.
+- **SCSS resources** - there must be only SCSS variables (! prefer CSS variables instead) or SCSS mixins. Resources can be used in modules, but they should never expose global styles by themselves.
+- **Essential** - css that must be included in user's app or components will break. For example - CSS variables.
     `),
     block.fileStructure([
       {
         name: "styles",
-        description: "Folder with all styles which not related to specific components",
+        description: "Folder with styles that are not related to specific components.",
         children: [
           {
             name: "essential.scss",
@@ -135,35 +139,35 @@ There are three types of style
           },
           {
             name: "[module]",
-            description: "Module with styles that can be removed. e.g. typography, grid-system, normalize",
+            description: "Module with optional style helpers. For example: typography, grid-system, normalize.",
             children: [
               {
                 name: "index.scss",
               },
               {
                 name: "mixins.scss",
-                description: "Mixins for this module. Mustn't contain any runtime CSS",
+                description: "Mixins for this module. Shouldn't contain any runtime CSS",
               },
               {
                 name: "variables.scss",
-                description: "Variables for this module. Mustn't contain any runtime CSS",
+                description: "Variables for this module. Shouldn't contain any runtime CSS",
               }
             ],
           },
           {
             name: "resources",
-            description: "Folder with SCSS variables and mixins. Mustn't contain any runtime CSS",
+            description: "Folder with SCSS variables and mixins. Shouldn't contain any runtime CSS",
             children: [
               {
                 name: "index.scss",
               },
               {
                 name: "mixins.scss",
-                description: "Mixins that can be used in any module. Mustn't contain any runtime CSS",
+                description: "Mixins that can be used in any module. Shouldn't contain any runtime CSS",
               },
               {
                 name: "variables.scss",
-                description: "Variables that can be used in any module. Mustn't contain any runtime CSS",
+                description: "Variables that can be used in any module. Shouldn't contain any runtime CSS",
               },
             ],
           }
@@ -171,7 +175,7 @@ There are three types of style
       }
     ]),
     block.subtitle('Services'),
-    block.paragraph('Ideally all services must be independent and user must be able to remove them easily, but here two exceptions: GlobalConfig, ColorConfig - these two are essential for vuestic components, at least for now. Mostly services made by the member of the core team and highly discussed.'),
+    block.paragraph('Ideally all services must be independent so that user is able to use only what they want. But we have two exceptions: GlobalConfig, ColorConfig - these are essential for Vuestic components, at least for now. Please don\'t implement services without planning or discussion with team.'),
     block.fileStructure([
       {
         name: "services",
@@ -183,6 +187,7 @@ There are three types of style
             children: [
               {
                 name: 'tests',
+                description: 'It\'s a great idea to test services.',
                 children: [],
               },
               {
@@ -190,7 +195,7 @@ There are three types of style
                 children: [
                   {
                     name: 'index.ts',
-                    description: 'plugin with `defineVuesticPlugin`. Plugin later will be used by user in tree-shaking',
+                    description: 'Plugin with `defineVuesticPlugin`. Plugin later will be used by user in tree-shaking.',
                   },
                 ]
               },
@@ -199,7 +204,7 @@ There are three types of style
                 children: [
                   {
                     name: 'index.ts',
-                    description: 'defaults for global config',
+                    description: 'Defaults for global config.',
                   },
                 ]
               },
@@ -214,8 +219,9 @@ There are three types of style
         ],
       }
     ]),
+
     block.subtitle('Utils'),
-    block.paragraph('Utils are functions that can be used in multiple places. Usually utils are not related to vuestic-ui. e.g. `isDefined`'),
-    block.alert('Make sure to check out all utils and reuse them if possible', 'info'),
+    block.paragraph('Utils are helper functions that can be used in multiple places. Usually utils are not related to Vuestic UI. e.g. `isDefined`'),
+    block.alert('Make sure to keep all utils in mind and reuse them when possible', 'info'),
   ]
 })
