@@ -35,7 +35,6 @@ export default [
   'VaDivider',
   'VaDropdown',
   'VaDropdownContent',
-  'VaDropdownNew',
   'VaFileUpload',
   'VaForm',
   'VaHover',

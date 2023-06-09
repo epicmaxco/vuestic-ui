@@ -1,54 +1,41 @@
-import { computed, reactive, Ref, watchEffect } from 'vue'
-import { useEvent } from '../../../composables/useEvent'
+import { computed, reactive, Ref } from 'vue'
+import { useEvent } from '../../../composables'
 
-/** Returns fake HTML Element which `getBoundingClientRect` method returns mouse position */
 export const useCursorAnchor = (anchorRef: Ref<HTMLElement | undefined>, noUpdate: Ref<boolean>) => {
+  const anchor = reactive({ x: 0, y: 0 })
   const mouse = reactive({ x: 0, y: 0 })
 
   useEvent(['mousemove', 'mousedown', 'mouseup'], (e: MouseEvent) => {
+    if (noUpdate.value) { return }
+    mouse.x = e.clientX
+    mouse.y = e.clientY
     const { x, y } = anchorRef.value!.getBoundingClientRect()
-    mouse.x = e.clientX - x
-    mouse.y = e.clientY - y
+    anchor.x = x
+    anchor.y = y
   }, anchorRef)
 
-  const mouseOffset = {
-    x: 0,
-    y: 0,
-  }
-
-  watchEffect(() => {
-    if (noUpdate.value) { return }
-    mouseOffset.x = mouse.x
-    mouseOffset.y = mouse.y
-  })
-
   return computed(() => {
-    if (!anchorRef.value) { return undefined }
-
-    const target = anchorRef.value
-
-    const getBoundingClientRect = () => {
-      const rect = target.getBoundingClientRect()
-      const x = rect.left + mouseOffset.x
-      const y = rect.top + mouseOffset.y
-
-      return {
-        ...rect,
-        width: 1,
-        height: 1,
-        x: x,
-        y: y,
-        bottom: y + 1,
-        right: x + 1,
-        left: x,
-        top: y,
-      }
-    }
-
     return {
       getBoundingClientRect () {
-        return getBoundingClientRect()
+        const { x, y } = anchorRef.value?.getBoundingClientRect() ?? { x: 0, y: 0 }
+        const { x: mx, y: my } = mouse
+        const { x: ax, y: ay } = anchor
+        const shiftX = ax - x
+        const shiftY = ay - y
+        const resX = mx - shiftX
+        const resY = my - shiftY
+        return {
+          width: 0,
+          height: 0,
+          x: resX,
+          y: resY,
+          top: resY,
+          right: resX,
+          bottom: resY,
+          left: resX,
+        }
       },
-    } as unknown as HTMLElement // TODO: Change to DOMRectable instead of HTMLElement
+      contextElement: anchorRef.value,
+    }
   })
 }
