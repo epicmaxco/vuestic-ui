@@ -18002,11 +18002,6 @@ vue-component-type-helpers@1.6.1:
   resolved "https://registry.yarnpkg.com/vue-component-type-helpers/-/vue-component-type-helpers-1.6.1.tgz#3c1636e3b900807dab71cce0bfa1b7ec0aa42b46"
   integrity sha512-3UoSEAU2pGcmO4Ir36YkFm6OosyMhwXRtt+7+XjqUnCgGzjT256nHViYhJT692DSW1V1/v4Zd4z1GoZJNhF3GQ==
 
-vue-demi@>=0.13.0:
-  version "0.14.5"
-  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.14.5.tgz#676d0463d1a1266d5ab5cba932e043d8f5f2fbd9"
-  integrity sha512-o9NUVpl/YlsGJ7t+xuqJKx8EBGf1quRhCiT6D/J0pfwmk9zUwYkC7yrF4SZCe6fETvSM3UNL2edcbYrSyc4QHA==
-
 vue-demi@^0.13.11, vue-demi@^0.13.5:
   version "0.13.11"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.13.11.tgz#7d90369bdae8974d87b1973564ad390182410d99"

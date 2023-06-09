@@ -12,7 +12,7 @@ const isDomRectEqual = (a: any, b: any) => {
   return true
 }
 
-export const useDomRect = (target: Ref<HTMLElement | undefined>) => {
+export const useDomRect = (target: Ref<Element | undefined>) => {
   const domRect = ref<DOMRect | null>(null)
 
   let prev = {}

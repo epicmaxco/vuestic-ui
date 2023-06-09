@@ -1,6 +1,7 @@
-import { computed, reactive, Ref, watch, watchEffect } from 'vue'
+import { computed, reactive, Ref, watchEffect } from 'vue'
 import { useEvent } from '../../../composables/useEvent'
 
+/** Returns fake HTML Element which `getBoundingClientRect` method returns mouse position */
 export const useCursorAnchor = (anchorRef: Ref<HTMLElement | undefined>, noUpdate: Ref<boolean>) => {
   const mouse = reactive({ x: 0, y: 0 })
 
@@ -33,6 +34,8 @@ export const useCursorAnchor = (anchorRef: Ref<HTMLElement | undefined>, noUpdat
 
       return {
         ...rect,
+        width: 1,
+        height: 1,
         x: x,
         y: y,
         bottom: y + 1,
@@ -42,14 +45,10 @@ export const useCursorAnchor = (anchorRef: Ref<HTMLElement | undefined>, noUpdat
       }
     }
 
-    return new Proxy<HTMLElement>(target, {
-      get (target, key: keyof typeof target) {
-        if (key === 'getBoundingClientRect') {
-          return getBoundingClientRect
-        }
-
-        return target[key]
+    return {
+      getBoundingClientRect () {
+        return getBoundingClientRect()
       },
-    })
+    } as unknown as HTMLElement // TODO: Change to DOMRectable instead of HTMLElement
   })
 }

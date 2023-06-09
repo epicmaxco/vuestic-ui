@@ -18,7 +18,6 @@ import {
   useComponentPresetProp,
   useStateful, useStatefulEmits, createStatefulProps,
   useDebounceFn,
-  useDropdown,
   usePlacementAliasesProps,
   useClickOutside,
   useBem,
@@ -28,6 +27,7 @@ import {
   useHTMLElement,
   MaybeHTMLElementOrSelector,
   useTranslation,
+  useDropdown,
 } from '../../composables'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
@@ -212,8 +212,15 @@ export default defineComponent({
       return props.disabled || !isPopoverFloating.value
     })
 
+    const anchorRef = computed(() => {
+      if (props.target) {
+        return target.value
+      }
+
+      return props.cursor ? cursorAnchor.value : computedAnchorRef.value
+    })
     useDropdown(
-      computed(() => props.cursor ? cursorAnchor.value : computedAnchorRef.value),
+      anchorRef,
       contentRef,
       computed(() => ({
         keepAnchorWidth: props.keepAnchorWidth,
@@ -222,6 +229,7 @@ export default defineComponent({
         autoPlacement: props.autoPlacement,
         root: teleportTargetComputed.value,
         viewport: targetComputed.value,
+        shift: props.preventOverflow,
       })),
       props,
     )
