@@ -14,6 +14,7 @@ import {
   useIsMounted, useStateful, useStatefulEmits, useTranslation,
 } from '../../composables'
 import { renderSlotNode } from '../../utils/headless'
+import { warn } from '../../utils/console'
 import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
@@ -228,6 +229,16 @@ export default defineComponent({
       'aria-expanded': !!this.showFloating.value,
       ...this.$attrs,
     })
+
+    if (!anchorSlotVNode) {
+      warn('VaDropdown: You must provide an anchor slot')
+      return
+    }
+
+    if (!floatingSlotNode) {
+      warn('VaDropdown: default slot is missing')
+      return h(anchorSlotVNode)
+    }
 
     return h(Fragment, {}, [
       anchorSlotVNode,
