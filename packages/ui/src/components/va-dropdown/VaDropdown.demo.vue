@@ -111,7 +111,7 @@
           Click me
         </div>
         <va-dropdown
-          anchorSelector="#anchor-selector"
+          anchor-selector="#anchor-selector"
         >
           Anchor selector
         </va-dropdown>
@@ -119,7 +119,7 @@
     </VbCard>
     <VbCard title="Inner anchor selector">
       <va-dropdown
-        anchorSelector="#inner-anchor-selector"
+        inner-anchor-selector="#inner-anchor-selector"
       >
         <template #anchor>
           <div class="border-2 border-gray-1000 border-dashed">
@@ -132,6 +132,16 @@
           </div>
         </template>
         Inner anchor selector
+      </va-dropdown>
+    </VbCard>
+    <VbCard title="Plugin">
+      <va-dropdown>
+        <template #anchor>
+          <div>
+            Click me
+          </div>
+        </template>
+        <DropdownCloseButton />
       </va-dropdown>
     </VbCard>
     <VbCard title="Autoplacement + target">
@@ -196,10 +206,12 @@
 <script>
 import { ref } from 'vue'
 import VaDropdown from './VaDropdown.vue'
+import DropdownCloseButton from '@/components/va-dropdown/__demo__/DropdownCloseButton.vue'
 
 export default {
   components: {
     VaDropdown,
+    DropdownCloseButton,
   },
   setup () {
     return {

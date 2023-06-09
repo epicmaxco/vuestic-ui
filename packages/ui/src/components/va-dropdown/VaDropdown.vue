@@ -18,7 +18,7 @@ import { DropdownOffsetProp } from '../va-dropdown/types'
 import { renderSlotNode } from '../../utils/headless'
 
 export default defineComponent({
-  name: 'VaDropdownNew',
+  name: 'VaDropdown',
   props: {
     ...createStatefulProps(Boolean, true),
     anchorSelector: { type: String, default: '' },
@@ -71,7 +71,6 @@ export default defineComponent({
     const isMounted = useIsMounted()
 
     const { anchorRef: anchor } = useAnchorSelector(props)
-    console.log('anchor', anchor)
     const floating = useHTMLElement('floating')
     const target = useHTMLElementSelector(computed(() => props.target || 'body'))
     const teleport = useHTMLElementSelector(computed(() => props.teleport))
@@ -99,7 +98,6 @@ export default defineComponent({
     const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(toRef(props, 'hoverOutTimeout'))
 
     const onClick = (e: MouseEvent) => {
-      console.log('click')
       if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click') || props.disabled) { return }
 
       if (valueComputed.value) {
@@ -238,6 +236,9 @@ export default defineComponent({
       middleware: middlewareComputed,
     })
 
+    const hide = () => { valueComputed.value = false }
+    const show = () => { valueComputed.value = true }
+
     return {
       ...useTranslation(),
       anchor,
@@ -250,6 +251,8 @@ export default defineComponent({
       floatingListeners,
       isMounted,
       valueComputed,
+      hide,
+      show,
     }
   },
   render () {
