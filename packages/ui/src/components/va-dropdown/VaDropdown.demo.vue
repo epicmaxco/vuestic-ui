@@ -113,6 +113,9 @@
         <va-dropdown
           anchor-selector="#anchor-selector"
         >
+          <template #anchor>
+            <div></div>
+          </template>
           Anchor selector
         </va-dropdown>
       </div>
