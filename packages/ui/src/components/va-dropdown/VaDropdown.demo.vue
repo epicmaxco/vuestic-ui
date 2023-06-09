@@ -88,7 +88,7 @@
     <VbCard title="Cursor + target">
       <va-dropdown
         trigger="right-click"
-        placement="top-end"
+        placement="bottom-start"
         :target="cursorTarget"
         cursor
       >
