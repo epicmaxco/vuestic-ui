@@ -79,8 +79,8 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       gitTag: gitTagFromVersion(version),
       distTag: 'latest',
       shouldCommit: true,
-      allowSkipTests: true,
-      allowUncommitted: true,
+      allowSkipTests: false,
+      allowUncommitted: false,
       requiredBranch: 'develop',
       showSleepCheck: true,
       todoList: [
