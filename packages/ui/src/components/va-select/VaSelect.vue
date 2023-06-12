@@ -476,7 +476,11 @@ export default defineComponent({
       showDropdownContent.value = false
       searchInput.value = ''
       validate()
+      nextTick(() => {
+        isInputFocused.focusIfNothingIfFocused()
+      })
     }
+
     const hideAndFocus = () => {
       handleDropdownClose()
       isInputFocused.value = true
