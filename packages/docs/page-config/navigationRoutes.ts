@@ -527,10 +527,6 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "Documentation Guide",
       },
       {
-        name: "translation",
-        displayName: "Translation",
-      },
-      {
         name: "tree-shaking-requirements",
         displayName: "Tree Shaking Requirements",
       },

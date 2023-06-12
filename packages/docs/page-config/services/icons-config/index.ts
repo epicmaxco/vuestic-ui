@@ -5,22 +5,22 @@ const columns = [
 ];
 
 const tableData = [
-  ["class", "string | undefined", "iconsConfig.api.iconClass"],
-  ["content", "string | undefined", "iconsConfig.api.content"],
-  ["component", "`VueComponent | undefined`", "iconsConfig.api.component"],
+  ["class", "string | undefined", "Class that will be applied to the icon. Can be a string or a function that accepts dynamic segment value and returns a string."],
+  ["content", "string | undefined", "Content that will be inside the icon. Can be a string or a function that accepts dynamic segment value and returns a string."],
+  ["component", "`VueComponent | undefined`", "VueComponent that will be used instead of a tag."],
   [
     "attrs",
     "`Record<string, any> | undefined`",
-    "iconsConfig.api.componentProps",
+    "Props that will be bound to `component`. Can be an object or a function that accepts dynamic segment value and returns an object.",
   ],
-  ["to", "`string | undefined`", "iconsConfig.api.to"],
-  ["tag", "`string | undefined`", "iconsConfig.api.tag"],
-  ["color", "`string | undefined`", "iconsConfig.api.color"],
-  ["rotation", "`number | string | undefined`", "iconsConfig.api.rotation"],
+  ["to", "`string | undefined`", "Here you can define name of a config which values will be merged to this config"],
+  ["tag", "`string | undefined`", "A tag to render icon with. By default - `i`"],
+  ["color", "`string | undefined`", "Sets the CSS `color` property to a given value"],
+  ["rotation", "`number | string | undefined`", "Rotates the icon by specified angle (in degrees)"],
   [
     "spin",
     "`'clockwise' | 'counter-clockwise' | undefined`",
-    "iconsConfig.api.spin",
+    "Applies the spin animation to the icon",
   ],
 ];
 
@@ -38,42 +38,42 @@ export default definePageConfig({
   },
 
   blocks: [
-    block.title("iconsConfig.title"),
-    block.paragraph("iconsConfig.about"),
-    block.paragraph("iconsConfig.problem.definition"),
-    block.link("iconsConfig.readBeforeStart", "/ui-elements/icon"),
+    block.title("Icons config"),
+    block.paragraph("By default Vuestic UI uses [Material Design icons](https://fonts.google.com/icons)[[target=_blank]]. If that's too basic for you - vuestic has powerful icon config."),
+    block.paragraph("Depending on icon library, they could use classes, ligatures or components. So you have to configure vuestic icons to work with your icon solution."),
+    block.link("Find out more about the VaIcon component", "/ui-elements/icon"),
 
     // fonts
-    block.subtitle("iconsConfig.fonts.title"),
-    block.paragraph("iconsConfig.fonts.about"),
+    block.subtitle("Fonts"),
+    block.paragraph("We want to use the `<va-icon name='icon-name' />` pattern. We can setup a config for a specific icon name pattern. In that config we provide an icon class, attributes, tag, contents (innerHTML) or a Vue component relative to icon name."),
 
-    block.headline("iconsConfig.fonts.fontNamePattern.title"),
-    block.paragraph("iconsConfig.fonts.fontNamePattern.about"),
+    block.headline("Font name pattern"),
+    block.paragraph("Font name pattern is similar to vue dynamic routes. We can use dynamic segments to dynamically generate `IconConfig` in resolve function. Dynamic segments should be written in curly brackets."),
 
-    block.headline("iconsConfig.fonts.example.title"),
-    block.paragraph("iconsConfig.fonts.example.about"),
-    block.alert("iconsConfig.fonts.example.alert", "info"),
+    block.headline("Interactive playground"),
+    block.paragraph("Here you can see how your code will be transformed with different icon configs. You can change icon config params to see how it impact on final render. See our presets before play."),
+    block.alert("By default Vuestic require only Material Icons. Other icon libraries you need to setup yourself.", "info"),
     block.component("playground"),
 
     // aliases
-    block.subtitle("iconsConfig.aliases.title"),
-    block.paragraph("iconsConfig.aliases.about"),
+    block.subtitle("Aliases"),
+    block.paragraph("To make code simpler we can use aliases. Alias has a `to` prop which would change the name of a given icon to the value of `to` and look for an appropriate font config. All the props from resolved font would be applied to that icon if they were not defined in alias config."),
 
-    block.headline("iconsConfig.aliases.example.title"),
+    block.headline("Example aliases config"),
     block.code("alias-example"),
 
-    block.headline("iconsConfig.aliases.vaAliases.title"),
-    block.paragraph("iconsConfig.aliases.vaAliases.text"),
+    block.headline("Vuestic component alises"),
+    block.paragraph("We use some icons in our components by default. You can redefine them by changing it's alias."),
     block.component("icon-aliases"),
 
     // setup
-    block.subtitle("iconsConfig.setup.title"),
-    block.paragraph("iconsConfig.setup.about"),
+    block.subtitle("Let's build our config"),
+    block.paragraph("We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use the `createIconsConfig()` helper to create a new config with Vuestic defaults and our custom fonts and aliases merged together. For example:"),
     block.code("setup-example"),
 
     // api
-    block.subtitle("iconsConfig.api.title"),
-    block.paragraph("iconsConfig.api.description"),
+    block.subtitle("IconConfig"),
+    block.paragraph("You can use IconConfig properties in aliases, fonts and as return in resolve function."),
     block.table(columns, tableData),
   ],
 });

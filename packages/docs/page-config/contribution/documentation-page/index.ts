@@ -1,10 +1,3 @@
-import {
-  codeForCodeblock,
-  codeForListBlock,
-  linkOptionsBlock,
-  tableDataBlock,
-} from "./code/blocks";
-
 export const columns = [
   "col1",
   { title: "col2", type: "strong" },
@@ -25,15 +18,15 @@ export const tableData = [
 
 export default definePageConfig({
   blocks: [
-    block.title("documentationPage.title"),
-    block.paragraph("documentationPage.description"),
+    block.title("Working with documentation"),
+    block.paragraph("This page is intended for Vuestic-UI contributors. It explains the ways to create and modify the documentation."),
 
-    block.subtitle("documentationPage.introduction.title"),
-    block.paragraph("documentationPage.introduction.description"),
+    block.subtitle("Introduction"),
+    block.paragraph("Instead of using the established documentation system, such as [vue-press](https://vuepress.vuejs.org/)[[target=_blank]] or [docsify](https://docsify.js.org/#/)[[target=_blank]], we decided to build a system specifically tailored for Vuestic. It’s meant to provide an excellent flexibility for the future growth."),
 
     // Page Config
-    block.subtitle("documentationPage.pageConfig.title"),
-    block.paragraph("documentationPage.pageConfig.descriptionStructure"),
+    block.subtitle("Page Config"),
+    block.paragraph("The page configuration must be located in a specific path, which is similar to the page URL. The folder with the page configuration must include the `components` folders for blocks with components and` examples` for blocks with examples. These folders should contain the `* .vue` files. An example of the structure and directory of the configuration folder for the current page:"),
     block.fileStructure([
       {
         name: "code-examples",
@@ -79,96 +72,96 @@ export default definePageConfig({
         description: "Entry file where docs page defined",
       },
     ]),
-    block.paragraph("documentationPage.pageConfig.descriptionFile"),
+    block.paragraph("The configuration file contains `config`, which is an array of page blocks that perform specific functions."),
 
     // Generators
-    block.subtitle("documentationPage.generators.title"),
-    block.paragraph("documentationPage.generators.description"),
-    block.paragraph("documentationPage.generators.generateDocsPage"),
-    block.paragraph("documentationPage.generators.generateComponent"),
+    block.subtitle("Generators"),
+    block.paragraph("We have created custom generators to facilitate and automate the creation of new pages.."),
+    block.paragraph("* The `yarn generate:docspage` command will generate a page with the specified name in the category selected from the list.."),
+    block.paragraph("* The `yarn generate:component` command will generate a complete structure for a new component: create a component, connect it to a library, make a configuration file for it, and add a clean example to the examples folder."),
 
     // BlockTypes
-    block.subtitle("documentationPage.blocktypes.title"),
+    block.subtitle("Block Types"),
 
-    block.headline("documentationPage.blocktypes.titleBlock.title"),
-    block.paragraph("documentationPage.blocktypes.titleBlock.text"),
-    block.code("block.title('translation.path')"),
-    block.paragraph("documentationPage.compilesTo"),
-    block.title("documentationPage.blocktypes.titleBlock.example"),
+    block.headline("Title"),
+    block.paragraph("Page title is **mandatory** for documentation pages."),
+    block.code("block.title('Title (example)')"),
+    block.paragraph("Compiles to:"),
+    block.title("Title (example)"),
 
-    block.headline("documentationPage.blocktypes.subtitle.title"),
-    block.paragraph("documentationPage.blocktypes.subtitle.text"),
-    block.code("block.subtitle('translation.path')"),
-    block.paragraph("documentationPage.compilesTo"),
-    block.subtitle("documentationPage.blocktypes.subtitle.example"),
+    block.headline("Subtitle"),
+    block.paragraph("Used for examples, API, FAQ. Think `h2`."),
+    block.code("block.subtitle('Subtitle (example)')"),
+    block.paragraph("Compiles to:"),
+    block.subtitle("Subtitle (example)"),
 
-    block.headline("documentationPage.blocktypes.headline.title"),
-    block.paragraph("documentationPage.blocktypes.headline.text"),
-    block.code("block.headline('translation.path')"),
-    block.paragraph("documentationPage.compilesTo"),
-    block.headline("documentationPage.blocktypes.headline.example"),
+    block.headline("Headline"),
+    block.paragraph("The `headline` block is used to mark the titles of examples and the FAQs. Think `h3`."),
+    block.code("block.headline('Headline (example)')"),
+    block.paragraph("Compiles to:"),
+    block.headline("Headline (example)"),
 
-    block.headline("documentationPage.blocktypes.paragraph.title"),
-    block.paragraph("documentationPage.blocktypes.paragraph.text"),
-    block.code("block.paragraph('translation.path')"),
-    block.paragraph("documentationPage.compilesTo"),
-    block.paragraph("documentationPage.blocktypes.paragraph.example"),
+    block.headline("Paragraph"),
+    block.paragraph("Should be used for all the regular text blocks. For links to external resources you can specify the **target** attribute in markdown markup as follows: `[name](href)[[target=_blank]]`."),
+    block.code("block.paragraph('Paragraph (example). Link in the text leading to an external resource: [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs)[[target=_blank]].')"),
+    block.paragraph("Compiles to:"),
+    block.paragraph("Paragraph (example). Link in the text leading to an external resource: [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs)[[target=_blank]]."),
 
-    block.headline("documentationPage.blocktypes.list.title"),
-    block.paragraph("documentationPage.blocktypes.list.text"),
-    block.code("block.list(['translation1.path', 'translation2.path'])"),
-    block.paragraph("documentationPage.compilesTo"),
+    block.headline("List"),
+    block.paragraph("Should be used for lists."),
+    block.code("block.list(['Value of list item 1', 'Value of list item 2'])"),
+    block.paragraph("Compiles to:"),
     block.list([
-      "documentationPage.blocktypes.list.listExample1",
-      "documentationPage.blocktypes.list.listExample2",
+      "Value of list item 1",
+      "Value of list item 2",
     ]),
-    block.paragraph("documentationPage.blocktypes.list.inCode"),
+    block.paragraph("Here's the resulting markup for the code above:"),
     block.code("list"),
 
-    block.headline("documentationPage.blocktypes.code.title"),
-    block.paragraph("documentationPage.blocktypes.code.text"),
+    block.headline("Code"),
+    block.paragraph("For the code previews we use [highlight.js](https://highlightjs.org/)[[target=_blank]]."),
     block.code("block"),
-    block.paragraph("documentationPage.compilesTo"),
+    block.paragraph("Compiles to:"),
     block.code("<div>Code string</div>"),
 
-    block.headline("documentationPage.blocktypes.example.title"),
-    block.paragraph("documentationPage.blocktypes.example.text"),
+    block.headline("Example"),
+    block.paragraph("Shows a component with code preview. Component can use all global services: css classes, colors etc. Mostly used in the ui-elements section to show examples of use."),
     block.code("block.example('ComponentName')"),
 
-    block.headline("documentationPage.blocktypes.component.title"),
-    block.paragraph("documentationPage.blocktypes.component.text"),
+    block.headline("Component"),
+    block.paragraph("Shows a component that has some logic and is not an example of use."),
     block.code("block.component('ComponentName')"),
 
-    block.headline("documentationPage.blocktypes.api.title"),
-    block.paragraph("documentationPage.blocktypes.api.text"),
-    block.code("block.api(VaComponent, apiOptions)"),
+    block.headline("API"),
+    block.paragraph("The API-documentation for a component. Combines component options with manual declarations."),
+    block.code("block.api(VaComponent, apiDescription, apiOptions)"),
 
-    block.headline("documentationPage.apiOptionsTitle"),
-    block.paragraph("documentationPage.apiOptions.text"),
-    block.paragraph("documentationPage.apiOptions.hidden"),
-    block.paragraph("documentationPage.apiOptions.types"),
-    block.paragraph("documentationPage.apiOptions.version"),
+    block.headline("API Options"),
+    block.paragraph("We can't go too far with the help of automated code analysis. Most of the API documentation has to be declared explicitly. API options allow you to configure things such as: version, props, events, methods and slots."),
+    block.paragraph("`hidden` - allows you to hide the prop from the API section of the documentation page. Might become quite useful for some props which are intended for internal use solely."),
+    block.paragraph("`types` - the documentation engine can automatically infer simple prop types (such as `String`, `Number`, etc.) right from the component options. Almost any other type should be defined explicitly."),
+    block.paragraph("`version` - specifies the version of Vuestic UI that this component or feature has been introduced at."),
     block.code("api-options"),
 
-    block.headline("documentationPage.blocktypes.table.title"),
-    block.paragraph("documentationPage.blocktypes.table.text"),
+    block.headline("Table"),
+    block.paragraph("Used to display tabular data. Requires a flat column-definitions array and yet another two-dimensional-array with the actual cells' data."),
     block.code("tabledata"),
     block.code("block.table(columns, tableData)"),
-    block.paragraph("documentationPage.compilesTo"),
+    block.paragraph("Compiles to:"),
     block.table(columns, tableData),
 
-    block.headline("documentationPage.blocktypes.link.title"),
-    block.paragraph("documentationPage.blocktypes.link.text"),
+    block.headline("Link"),
+    block.paragraph("Used for relative (local) links processed by the router (with *options* or without them)."),
     block.code("options"),
     block.code(
-      "block.link('translation.path', '/contribution/documentation-page#introduction', options)"
+      "block.link('Link with options (example)', '/contribution/documentation-page#introduction', options)"
     ),
     block.code(
-      "block.link('translation.path', '/getting-started/configuration-guide#components-config')"
+      "block.link('Link (example)', '/getting-started/configuration-guide#components-config')"
     ),
-    block.paragraph("documentationPage.compilesTo"),
+    block.paragraph("Compiles to:"),
     block.link(
-      "documentationPage.blocktypes.link.exampleWithOptions",
+      "Link with options (example)",
       "/contribution/documentation-page#introduction",
       {
         preText: "prefix with **markdown** text",
@@ -176,14 +169,14 @@ export default definePageConfig({
       }
     ),
     block.link(
-      "documentationPage.blocktypes.link.example",
+      "Link (example)",
       "/getting-started/configuration-guide#components-config"
     ),
 
-    block.headline("documentationPage.blocktypes.alert.title"),
-    block.paragraph("documentationPage.blocktypes.alert.text"),
-    block.code("block.alert('translation.path', 'danger')"),
-    block.paragraph("documentationPage.compilesTo"),
-    block.alert("documentationPage.blocktypes.alert.example", "danger"),
+    block.headline("Alert"),
+    block.paragraph("Used to display an important message."),
+    block.code("block.alert('Alert (example)', 'danger')"),
+    block.paragraph("Compiles to:"),
+    block.alert("Alert (example)", "danger"),
   ],
 });

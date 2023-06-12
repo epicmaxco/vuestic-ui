@@ -2,27 +2,27 @@ import { getI18nConfigDefaults } from "vuestic-ui/src/services/i18n";
 
 export default definePageConfig({
   blocks: [
-    block.title("i18n.title"),
-    block.paragraph("i18n.description"),
+    block.title("i18n"),
+    block.paragraph("We made a separated config for i18n messages, so you can redefine messages we use in components."),
 
-    block.collapse("i18n.config.title", [
+    block.collapse("i18n default messages", [
       block.code(JSON.stringify(getI18nConfigDefaults(), null, 2)),
     ]),
 
-    block.subtitle("i18n.config.changeDefault.title"),
-    block.paragraph("i18n.config.changeDefault.description"),
+    block.subtitle("Change default messages"),
+    block.paragraph("Default messages can be set in `GlobalConfig`. Config is fully typed, so you can use autocomplete to find messages you want to change."),
     block.code("setup"),
 
-    block.subtitle("i18n.runtimeUpdate.title"),
-    block.paragraph("i18n.runtimeUpdate.description"),
+    block.subtitle("Changing language in runtime"),
+    block.paragraph("If you have more than one language, you can update messages in runtime with `useI18nConfig` hook from VuesticUI."),
 
     block.code("runtime"),
 
-    block.subtitle("i18n.useWithVueI18n.title"),
-    block.paragraph("i18n.useWithVueI18n.description"),
+    block.subtitle("Using with vue-i18n"),
+    block.paragraph("If you use vue-i18n we can recommend to store VuesticUI messages under specific key"),
 
     block.code("vue-i18n-runtime"),
-    block.collapse("i18n.useWithVueI18n.exampleConfig", [
+    block.collapse("Recommended config structure", [
       block.code("vue-i18n-config"),
     ]),
   ],
