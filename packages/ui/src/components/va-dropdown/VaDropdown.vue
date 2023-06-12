@@ -78,7 +78,9 @@ export default defineComponent({
     const floating = useHTMLElement('floating')
     const target = useHTMLElementSelector(computed(() => props.target || 'body'))
     const teleport = useHTMLElementSelector(computed(() => props.teleport))
-    const cursorAnchor = props.cursor ? useCursorAnchor(anchor, valueComputed) : ref(undefined)
+    const cursorAnchor = computed(() => props.cursor
+      ? useCursorAnchor(anchor, valueComputed)
+      : ref(undefined))
 
     const anchorClass = useBem('va-dropdown', () => pick(props, ['disabled']))
     const isPopoverFloating = computed(() => props.preventOverflow)
@@ -174,15 +176,15 @@ export default defineComponent({
       }
     })
 
+    const cursorAnchorValue = cursorAnchor.value
     const anchorComputed = computed(() => {
-      return props.cursor ? cursorAnchor.value : anchor.value
+      return props.cursor ? cursorAnchorValue.value : anchor.value
     })
 
     const { floatingStyles } = useDropdown(
       anchorComputed,
       floating,
       target,
-      isMounted,
       computed(() => ({
         placement: props.placement,
         offset: props.offset,
@@ -212,7 +214,9 @@ export default defineComponent({
     }
   },
   render () {
-    const floatingSlotNode = renderSlotNode(this.$slots.default, {}, {
+    const showFloating = this.isMounted && this.valueComputed
+
+    const floatingSlotNode = showFloating && renderSlotNode(this.$slots.default, {}, {
       ref: 'floating',
       class: 'va-dropdown__content-wrapper',
       style: this.floatingStyles,
@@ -235,14 +239,9 @@ export default defineComponent({
       return
     }
 
-    if (!floatingSlotNode) {
-      warn('VaDropdown: default slot is missing')
-      return h(anchorSlotVNode)
-    }
-
     return h(Fragment, {}, [
       anchorSlotVNode,
-      (this.isMounted && this.valueComputed) && h(
+      (floatingSlotNode) && h(
         Teleport,
         {
           to: this.teleportTarget,

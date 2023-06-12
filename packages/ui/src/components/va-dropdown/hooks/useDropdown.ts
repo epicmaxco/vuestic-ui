@@ -22,7 +22,6 @@ export const useDropdown = (
   anchorComputed: Ref<HTMLElement| CursorAnchor | undefined>,
   floating: Ref<HTMLElement | undefined>,
   target: Ref<HTMLElement | undefined>,
-  isMounted: Ref<boolean>,
   options: Ref<useDropdownOptions>,
 ) => {
   const {
@@ -64,7 +63,7 @@ export const useDropdown = (
       result.push(
         // boundary doesn't work with ssr (trying to access document)
         flip({
-          boundary: isMounted.value ? target.value : undefined,
+          boundary: typeof document === undefined ? target.value : undefined,
         }),
       )
     }
