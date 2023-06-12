@@ -8,12 +8,12 @@ describe('applyPreset function', () => {
   const {
     composableWrapper: { applyPreset, globalConfig },
   } = createTestComposable([useColors, useGlobalConfig])
+  vi.mock('../../utils/console', () => ({
+    warn: vi.fn(),
+  }))
   it(
     'Given a non-existing preset name, the current preset name is changed and the warn function is called once',
     () => {
-      vi.mock('../../utils/console', () => ({
-        warn: vi.fn(),
-      }))
       // Since this test's goal is to trigger a warning
       // by passing the wrong value to a function, we mock
       // useReactiveComputed to prevent it from throwing an unwanted error
@@ -38,6 +38,17 @@ describe('applyPreset function', () => {
 })
 
 describe('currentPresetName computed', () => {
-  it.todo("Given that the currentPresetName property in the global config is 'foo', the currentPresetName computed returns 'foo'")
-  it.todo("Given that the currentPresetName computed is assigned a value, the 'applyPreset' function is called once with the given value")
+  it('Given that the currentPresetName property in globalConfig has a value, the currentPresetName computed in useColors returns that same value', () => {
+    const {
+      composableWrapper: { currentPresetName, globalConfig },
+    } = createTestComposable([useColors, useGlobalConfig])
+    expect(currentPresetName.value).toBe(globalConfig.value.colors.currentPresetName)
+  })
+  it('Given that the currentPresetName computed is assigned a value, the the currentPresetName property in globalConfig gets the same value', () => {
+    const {
+      composableWrapper: { currentPresetName, globalConfig },
+    } = createTestComposable([useColors, useGlobalConfig])
+    currentPresetName.value = 'dark'
+    expect(globalConfig.value.colors.currentPresetName).toBe('dark')
+  })
 })

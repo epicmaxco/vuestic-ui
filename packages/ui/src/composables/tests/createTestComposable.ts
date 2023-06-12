@@ -7,7 +7,11 @@ export type Composable = (...args: any[]) => any
 /**
  * Most of the composables are not going to work outside a setup script.
  * This function creates a wrapper component to use composables in a tests
- * environment
+ * environment.
+ * If you want two or more composables to share the same state, pass them
+ * as an array.
+ * Keep in mind that calling this function two times with a different
+ * composables as parameter won't make those composables share the state.
  * @param composables a composable or an array of composables
  * @returns { composableWrapper } a composableWrapper object containing the values returned by the composables
  */
