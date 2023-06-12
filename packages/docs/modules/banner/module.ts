@@ -22,7 +22,8 @@ export default defineNuxtModule<any>({
 
   setup(options) {
     if (!process.env.RAILWAY_GIT_COMMIT_SHA) {
-      throw new Error('Banner module should run only on railway')
+      console.warn("Banner module is disabled because RAILWAY_GIT_COMMIT_SHA is not present in .env")
+      return
     }
 
     addPluginTemplate({
