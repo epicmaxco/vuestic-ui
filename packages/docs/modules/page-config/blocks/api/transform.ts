@@ -2,8 +2,6 @@ import kebabCase from 'lodash/kebabCase';
 import { readFile } from 'fs/promises';
 import { defineBlockTransform } from "../../compiler/define-block-transform";
 import { CssVariables } from "./types";
-import { checker } from './component-parser/meta'
-import { parseComponent } from './component-parser/index'
 import { type ComponentMeta } from 'vue-component-meta';
 
 const parseCssComment = (line: string) =>
@@ -81,21 +79,6 @@ export default defineBlockTransform(async function (block) {
   const cssVariablesFile = await readCssVariables(cssVariablesPath)
   const cssVariables = JSON.stringify(parseCssVariables(cssVariablesFile))
 
-  let meta = checker.getComponentMeta(importPath, importName)
-  // TODO: Remove this when vue-component-meta will be able to parse our components
-  const parsed = parseComponent(importName)
 
-  meta = {
-    ...meta,
-    props: [      
-      ...parsed.props,
-      ...meta.props,
-    ],
-    events: [
-      ...parsed.emits,
-      ...meta.events,
-    ],
-  }
-
-  return block.replaceArgCode(0, `'${importName}', ${importComponent}, ${cssVariables}, ${stringifyMeta(meta)}`)
+  return block.replaceArgCode(0, `'${importName}', ${importComponent}, ${cssVariables}`)
 })

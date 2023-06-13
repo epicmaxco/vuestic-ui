@@ -3,12 +3,12 @@ import { definePageConfigBlock } from '../../types'
 import Component from './index.vue'
 import { VisualOptions, type ManualApiOptions, APIDescriptionOptions } from './types';
 import type { ComponentMeta } from 'vue-component-meta'
+import { parseComponent } from './component-parser'
 
 const setup = (
   componentName: string,
   component: DefineComponent,
   cssVariables: string,
-  meta: ComponentMeta,
   translations: APIDescriptionOptions,
   manual?: ManualApiOptions,
   visualOptions?: VisualOptions,
@@ -18,7 +18,7 @@ const setup = (
     componentName,
     component,
     cssVariables,
-    meta,
+    meta: parseComponent(componentName),
     manual,
     visualOptions,
     translations,

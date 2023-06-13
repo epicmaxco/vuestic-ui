@@ -25,6 +25,7 @@ const nodes = computed(() => props.files.map(compileNode))
 
 <template>
   <va-tree-view
+    class="mb-4"
     :nodes="nodes"
     expand-all
   >

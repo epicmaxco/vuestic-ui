@@ -523,6 +523,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "UI Element Guide",
       },
       {
+        name: "structure",
+        displayName: "menu.structure",
+      },
+      {
         name: "documentation-page",
         displayName: "Documentation Guide",
       },
