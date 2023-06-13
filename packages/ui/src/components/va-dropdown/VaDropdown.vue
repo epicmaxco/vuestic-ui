@@ -1,5 +1,5 @@
 <script lang="ts">
-import { h, defineComponent, PropType, computed, nextTick, ref, toRef, Fragment, Teleport } from 'vue'
+import { h, defineComponent, PropType, computed, nextTick, toRef, Fragment, Teleport } from 'vue'
 import { Placement } from '@floating-ui/vue'
 import kebabCase from 'lodash/kebabCase'
 import pick from 'lodash/pick'
@@ -78,9 +78,6 @@ export default defineComponent({
     const floating = useHTMLElement('floating')
     const target = useHTMLElementSelector(computed(() => props.target || 'body'))
     const teleport = useHTMLElementSelector(computed(() => props.teleport))
-    const cursorAnchor = computed(() => props.cursor
-      ? useCursorAnchor(anchor, valueComputed)
-      : ref(undefined))
 
     const anchorClass = useBem('va-dropdown', () => pick(props, ['disabled']))
     const isPopoverFloating = computed(() => props.preventOverflow)
@@ -176,9 +173,10 @@ export default defineComponent({
       }
     })
 
-    const cursorAnchorValue = cursorAnchor.value
     const anchorComputed = computed(() => {
-      return props.cursor ? cursorAnchorValue.value : anchor.value
+      if (!props.cursor) { return anchor.value }
+
+      return useCursorAnchor(anchor, valueComputed).value
     })
 
     const { floatingStyles } = useDropdown(
