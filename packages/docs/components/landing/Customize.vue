@@ -15,7 +15,7 @@
             class="customize__buttons-item"
             color="textInverted"
             text-color="primary"
-            :to="`/${locale}/getting-started/installation`"
+            to="/getting-started/installation"
           >
             Get Started
           </va-button>
@@ -33,10 +33,6 @@
     </div>
   </section>
 </template>
-
-<script lang="ts" setup>
-const { locale } = useI18n()
-</script>
 
 <style lang="scss" scoped>
 @import "@/assets";

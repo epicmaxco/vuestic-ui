@@ -45,7 +45,7 @@
             >
             <p class="features__item-description">
               Professional support: Fast and reliable assistance from
-              <router-link :to="`/${locale}/introduction/team`">
+              <router-link to="/introduction/team">
                 the core team
               </router-link>
               &#160;&#x1fac2;
@@ -60,7 +60,6 @@
 <script setup lang="ts">
 import { useElementTextColor } from 'vuestic-ui'
 
-const { locale } = useI18n()
 const textColor = useElementTextColor('background-secondary')
 
 const features = [

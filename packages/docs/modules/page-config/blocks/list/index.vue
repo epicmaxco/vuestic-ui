@@ -9,9 +9,7 @@ const props = defineProps({
   }
 })
 
-const { t } = useI18n()
-
-const translateAndMark = (translations: string[]): string => {
+const mark = (translations: string[]): string => {
   return translations
     .map((text: string): string => `- ${text}`)
     .join('\n')
@@ -19,5 +17,5 @@ const translateAndMark = (translations: string[]): string => {
 </script>
 
 <template>
-  <MarkdownView :content="translateAndMark(props.text)" />
+  <MarkdownView :content="mark(props.text)" />
 </template>

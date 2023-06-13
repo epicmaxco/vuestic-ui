@@ -18,7 +18,7 @@
             >
               issues
             </a>,
-            <router-link :to="`/${locale}/contribution/documentation-page`">
+            <router-link to="/contribution/documentation-page">
               contributing guide
             </router-link>
             and
@@ -48,7 +48,6 @@
 <script setup lang="ts">
 import { useElementTextColor } from 'vuestic-ui'
 
-const { locale } = useI18n()
 const textColor = useElementTextColor('background-primary')
 </script>
 

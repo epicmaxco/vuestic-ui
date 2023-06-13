@@ -33,9 +33,6 @@ We use `@nuxtjs/tailwindcss` plugin.
 Try to use as much as you can less of tailwind in demos that will be visible to user, so demo can be easy copied into user's project
 without Tailwind.
 
-## i18n
-We use `@nuxtjs/i18n` nuxt module.
-All locales stored in `~/locales/`. Locales structure for now a little mess, but it looks like this:
 ```ts
 {
   // All translations used in landing

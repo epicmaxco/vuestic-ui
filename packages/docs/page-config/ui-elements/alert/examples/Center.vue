@@ -8,7 +8,7 @@
   <va-alert
     color="warning"
     closeable
-    :title="$t('alert.misc.title')"
+    title="Hello World!"
     icon="favorite"
     center
     class="mb-6"

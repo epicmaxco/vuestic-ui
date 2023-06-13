@@ -34,10 +34,10 @@
 
 <script lang="ts" setup>
 import { useColors } from 'vuestic-ui'
-import { useSharedLanguageSwitcher } from '@/composables/useLanguageSwitcher'
+// import { useSharedLanguageSwitcher } from '@/composables/useLanguageSwitcher'
 
 const { colors } = useColors()
-const { t, locale, locales, currentLocaleName, setLocale } = useSharedLanguageSwitcher()
+// const { t, locale, locales, currentLocaleName, setLocale } = useSharedLanguageSwitcher()
 </script>
 
 <style lang="scss">

@@ -24,10 +24,9 @@ export default definePageConfig({
       description: "`VaSidebarTitle` used to fill all remaining free space in `VaSidebarItem`. We can also add any other components (like `VaIcon`, `VaChip` or `VaButton`)."
     }),
     block.example("Components", {
-        title: "Advanced case with `VaAccordion`",
-        description: "`VaSidebarItem` can be used with `VaAccordion` and `VaCollapses`."
-      }
-    ),
+      title: "Advanced case with `VaAccordion`",
+      description: "`VaSidebarItem` can be used with `VaAccordion` and `VaCollapses`."
+    }),
 
     block.subtitle("API"),
     block.api("VaSidebarItem", {

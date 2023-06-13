@@ -68,7 +68,6 @@
 <script lang="ts">
 import { defineComponent, watch, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useI18n } from 'vue-i18n'
 
 import { useColors } from 'vuestic-ui/src/main'
 
@@ -108,7 +107,6 @@ export default defineComponent({
   },
   emits: ['update:visible'],
   setup: (props, { emit }) => {
-    const i18n = useI18n()
     const route = useRoute()
     const { getColor, getFocusColor, getHoverColor } = useColors()
 
@@ -146,7 +144,6 @@ export default defineComponent({
     watch(() => route, setActiveExpand, { immediate: true })
 
     return {
-      ...i18n,
       navigationRoutes: getSortedNavigationRoutes(navigationRoutes),
       getColor,
       writableVisible,

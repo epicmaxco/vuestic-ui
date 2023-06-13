@@ -119,7 +119,6 @@ import AlgoliaSearch from '../AlgoliaSearch.vue'
 import ThemeSwitch from './header/ThemeSwitch.vue'
 import SocialsLinks from '../landing/SocialsLinks.vue'
 import StarsButton from '../landing/StarsButton.vue'
-import { useSharedLanguageSwitcher } from '@/composables/useLanguageSwitcher'
 
 const props = defineProps({
   isSidebarVisible: {
@@ -134,7 +133,6 @@ const props = defineProps({
 
 const emit = defineEmits(['update:isSidebarVisible', 'update:isOptionsVisible'])
 
-const { t, locale, locales, setLocale } = useSharedLanguageSwitcher()
 const breakpoints = useBreakpoint()
 
 const isOptionsMenuVisible = ref(false)
@@ -142,7 +140,7 @@ const isOptionsListVisible = ref(false)
 
 const landing = computed(() => ({
   text: 'Home',
-  to: `/${locale.value}`,
+  to: '/',
 }))
 
 const links = computed(() => [
@@ -153,7 +151,7 @@ const links = computed(() => [
   },
   {
     text: 'Contribution',
-    to: `/${locale.value}/contribution/guide`,
+    to: '/contribution/guide',
   },
 ])
 

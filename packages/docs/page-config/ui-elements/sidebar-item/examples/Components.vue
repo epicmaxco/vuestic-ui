@@ -15,7 +15,7 @@
         >
           <va-sidebar-item-content>
             <va-sidebar-item-title>
-              {{ $t(route.displayName) }}
+              {{ route.displayName }}
             </va-sidebar-item-title>
             <va-icon
               v-if="route.children"
@@ -32,7 +32,7 @@
       >
         <va-sidebar-item-content>
           <va-sidebar-item-title>
-            {{ $t(child.displayName) }}
+            {{ child.displayName }}
           </va-sidebar-item-title>
         </va-sidebar-item-content>
       </va-sidebar-item>

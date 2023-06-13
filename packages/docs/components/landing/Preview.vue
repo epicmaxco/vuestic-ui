@@ -11,7 +11,7 @@
             class="preview__buttons--button"
             color="textInverted"
             text-color="primary"
-            :to="`/${locale}/getting-started/installation`"
+            to="/getting-started/installation"
           >
             Get Started
           </va-button>
@@ -50,7 +50,6 @@
 import { useBreakpoint } from 'vuestic-ui'
 
 const breakpoint = useBreakpoint()
-const { locale } = useI18n()
 </script>
 
 <style lang="scss" scoped>

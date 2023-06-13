@@ -85,7 +85,6 @@ import LandingEpicmaxBanner from './EpicmaxBanner.vue'
 import SocialsLinks from './SocialsLinks.vue'
 // import LandingNewsBanner from './NewsBanner.vue'
 
-const { locale } = useI18n()
 const breakpoint = useBreakpoint()
 const textColor = useElementTextColor('background-secondary')
 const currentYear = new Date().getFullYear()
@@ -104,9 +103,9 @@ const sitemap = computed(() => ([
   {
     title: 'Resources',
     items: [
-      { label: 'Getting Started', component: 'router-link', prop: 'to', value: `/${locale.value}/getting-started/installation` },
-      { label: 'Roadmap', component: 'router-link', prop: 'to', value: `/${locale.value}/introduction/roadmap` },
-      { label: 'Accessibility', component: 'router-link', prop: 'to', value: `/${locale.value}/introduction/accessibility-guide` },
+      { label: 'Getting Started', component: 'router-link', prop: 'to', value: '/getting-started/installation' },
+      { label: 'Roadmap', component: 'router-link', prop: 'to', value: '/introduction/roadmap' },
+      { label: 'Accessibility', component: 'router-link', prop: 'to', value: '/introduction/accessibility-guide' },
     ]
   },
   {
@@ -114,7 +113,7 @@ const sitemap = computed(() => ([
     items: [
       { label: 'Give us a star\u00A0\u2B50', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui/' },
       { label: 'Report an issue', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui/issues/new/choose' },
-      { label: 'Contribute', component: 'router-link', prop: 'to', value: `/${locale.value}/contribution/guide` },
+      { label: 'Contribute', component: 'router-link', prop: 'to', value: '/contribution/guide' },
     ]
   },
   {
@@ -128,7 +127,7 @@ const sitemap = computed(() => ([
   {
     title: 'About',
     items: [
-      { label: 'Meet the Team', component: 'router-link', prop: 'to', value: `/${locale.value}/introduction/team` },
+      { label: 'Meet the Team', component: 'router-link', prop: 'to', value: '/introduction/team' },
       { label: 'Contact us', component: 'a', prop: 'href', value: 'mailto:hello@epicmax.co' },
       { label: 'Become a Partner', component: 'a', prop: 'href', value: 'mailto:hello@epicmax.co?subject=VuesticUI Partnership' },
     ]
