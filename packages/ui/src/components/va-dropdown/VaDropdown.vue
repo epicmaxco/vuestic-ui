@@ -14,12 +14,12 @@ import {
   useIsMounted, useStateful, useStatefulEmits, useTranslation,
 } from '../../composables'
 import { renderSlotNode } from '../../utils/headless'
-import { warn } from '../../utils/console'
 import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
 import { DropdownOffsetProp } from './types'
 import { useDropdown } from './hooks/useDropdown'
+import { warn } from '../../utils/console'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -89,7 +89,7 @@ export default defineComponent({
 
       if (!isPopoverFloating.value) {
         // If not floating just render inside the parent element
-        return anchor.value?.parentElement || undefined
+        return undefined
       }
 
       return target.value
@@ -232,8 +232,13 @@ export default defineComponent({
       ...this.$attrs,
     })
 
-    if (!anchorSlotVNode) {
-      warn('VaDropdown: You must provide an anchor slot')
+    if (!this.$props.anchorSelector && !anchorSlotVNode) {
+      warn('VaDropdown: #anchor slot is missing')
+      return
+    }
+
+    if (this.showFloating && !floatingSlotNode) {
+      warn('VaDropdown: default slot is missing')
       return
     }
 

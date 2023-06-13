@@ -1,4 +1,4 @@
-import { computed, Ref, unref } from 'vue'
+import { computed, Ref } from 'vue'
 import {
   autoUpdate,
   flip,
@@ -24,23 +24,16 @@ export const useDropdown = (
   target: Ref<HTMLElement | undefined>,
   options: Ref<useDropdownOptions>,
 ) => {
-  const {
-    placement,
-    offset: dropdownOffset,
-    autoPlacement,
-    stickToEdges,
-    keepAnchorWidth,
-  } = unref(options)
-
   const placementComputed = computed(() => {
-    if (placement === 'auto') {
+    if (options.value.placement === 'auto') {
       return 'bottom'
     }
 
-    return placement
+    return options.value.placement
   })
 
   const offsetComputed = computed(() => {
+    const dropdownOffset = options.value.offset
     const result = { mainAxis: 0, crossAxis: 0 }
     if (Array.isArray(dropdownOffset)) {
       result.mainAxis = dropdownOffset[0]
@@ -55,6 +48,7 @@ export const useDropdown = (
   })
 
   const middlewareComputed = computed(() => {
+    const { autoPlacement, stickToEdges, keepAnchorWidth } = options.value
     const result = [
       offset(offsetComputed.value),
     ]
