@@ -4825,7 +4825,7 @@
       },
       "columnWidth": {
         "title": "Column Width",
-        "text": "You can freeze column width with `width` property in column."
+        "text": "You can freeze column width with `width` property in column. You can use it with `virtual-scroller` to prevent column size shifting on different data."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-data-table/_variables.scss)[[target=_blank]]"

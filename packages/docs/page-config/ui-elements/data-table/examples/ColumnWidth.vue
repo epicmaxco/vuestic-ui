@@ -6,7 +6,7 @@
       { key: 'username', label: '200px', width: '200px' },
       { key: 'email', label: '400px', width: '300px' },
     ]"
-    :items="items" 
+    :items="items"
   />
 </template>
 
@@ -42,5 +42,9 @@
       username: "Kamren",
       email: "Lucio_Hettinger@annie.ca",
     },
-  ];
+  ]
+
+  for (let i = 0; i < 10; i++) {
+    items.push(...items)
+  }
 </script>
