@@ -215,9 +215,7 @@ export default defineComponent({
     }
   },
   render () {
-    const showFloating = this.isMounted && this.valueComputed
-
-    const floatingSlotNode = showFloating && renderSlotNode(this.$slots.default, {}, {
+    const floatingSlotNode = this.showFloating && renderSlotNode(this.$slots.default, {}, {
       ref: 'floating',
       class: 'va-dropdown__content-wrapper',
       style: this.floatingStyles,
@@ -231,7 +229,7 @@ export default defineComponent({
       style: { position: 'relative' },
       'aria-label': this.tp(this.$props.ariaLabel),
       'aria-disabled': this.$props.disabled,
-      'aria-expanded': !!this.showFloating.value,
+      'aria-expanded': !!this.showFloating,
       ...this.$attrs,
     })
 

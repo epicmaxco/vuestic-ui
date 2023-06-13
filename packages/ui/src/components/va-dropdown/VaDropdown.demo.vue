@@ -97,6 +97,7 @@
             class="w-32 h-32 border-2 border-gray-1000 border-dashed"
             ref="cursorTarget"
           >
+            Right click
           </div>
         </template>
         Ctx dropdown
