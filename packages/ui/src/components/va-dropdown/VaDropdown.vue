@@ -1,5 +1,5 @@
 <script lang="ts">
-import { h, defineComponent, PropType, computed, nextTick, toRef, Fragment, Teleport } from 'vue'
+import { h, defineComponent, PropType, computed, nextTick, toRef, ref, Fragment, Teleport } from 'vue'
 import { Placement } from '@floating-ui/vue'
 import kebabCase from 'lodash/kebabCase'
 import pick from 'lodash/pick'
@@ -75,6 +75,7 @@ export default defineComponent({
     const isMounted = useIsMounted()
 
     const { anchorRef: anchor } = useAnchorSelector(props)
+    const cursorAnchor = computed(() => props.cursor ? useCursorAnchor(anchor, valueComputed).value : undefined)
     const floating = useHTMLElement('floating')
     const target = useHTMLElementSelector(computed(() => props.target || 'body'))
     const teleport = useHTMLElementSelector(computed(() => props.teleport))
@@ -177,9 +178,7 @@ export default defineComponent({
     })
 
     const anchorComputed = computed(() => {
-      if (!props.cursor) { return anchor.value }
-
-      return useCursorAnchor(anchor, valueComputed).value
+      return cursorAnchor.value || anchor.value
     })
 
     const { floatingStyles } = useDropdown(
