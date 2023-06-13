@@ -88,13 +88,16 @@ export default defineComponent({
 
       if (!isPopoverFloating.value) {
         // If not floating just render inside the parent element
-        return undefined
+        return anchor.value?.parentElement || undefined
       }
 
       return target.value
     })
 
-    const teleportDisabled = computed(() => !teleport.value)
+    const teleportDisabled = computed(() => {
+      if (teleport.value) { return false }
+      return props.disabled || !isPopoverFloating.value
+    })
     const showFloating = computed(() => isMounted.value && valueComputed.value)
 
     const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(toRef(props, 'hoverOverTimeout'))
