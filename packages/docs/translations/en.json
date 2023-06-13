@@ -4822,6 +4822,10 @@
       "crud": {
         "title": "CRUD actions",
         "text": "Example of `va-data-table` with **CRUD** actions using a `va-modal` component for editing each row:"
+      },
+      "columnWidth": {
+        "title": "Column Width",
+        "text": "You can freeze column width with `width` property in column."
       }
     },
     "variables": "[GitHub Variables Page](https://github.com/epicmaxco/vuestic-ui/blob/develop/packages/ui/src/components/va-data-table/_variables.scss)[[target=_blank]]"
