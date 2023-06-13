@@ -43,8 +43,4 @@
       email: "Lucio_Hettinger@annie.ca",
     },
   ]
-
-  for (let i = 0; i < 10; i++) {
-    items.push(...items)
-  }
 </script>
