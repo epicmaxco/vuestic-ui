@@ -5,7 +5,7 @@ import { CursorAnchor } from '../types'
 /**
  * Returns floating-ui compatible virtual element (https://floating-ui.com/docs/virtual-elements)
  * Floating UI can't automatically update position of the element that is not in the DOM, so we need to update it manually
- * We save mouse position relatively to the anchor element and recalculate it once anchor position changes
+ * We save mouse position relatively to the anchor element and recalculate it once anchor position changes (after scroll/resize/...)
  * @param anchorRef anchor element ref
  * @param noUpdate flag that indicates that we should not update the position of the dropdown
  */
