@@ -75,8 +75,8 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    // './modules/banner',
     './modules/google-analytics',
+    './modules/banner',
     './modules/vuestic',
     './modules/page-config',
     '@nuxtjs/google-fonts',

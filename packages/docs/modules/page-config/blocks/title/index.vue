@@ -28,7 +28,7 @@ const { t } = useI18n()
   --code-bg: transparent;
 
   @media screen and (max-width: 767px) {
-    font-size: 2rem !important;
+    font-size: 2.5rem !important;
   }
 }
 </style>

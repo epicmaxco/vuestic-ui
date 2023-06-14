@@ -1841,7 +1841,8 @@
     "config": "Config",
     "confirm": "Confirm",
     "openOptionsMenu": "Open options menu",
-    "closeOptionsMenu": "Close options menu"
+    "closeOptionsMenu": "Close options menu",
+    "structure": "Structure"
   },
   "all": {
     "examples": "Examples",

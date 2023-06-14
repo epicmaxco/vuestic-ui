@@ -468,6 +468,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "menu.uiElementGuide",
       },
       {
+        name: "structure",
+        displayName: "menu.structure",
+      },
+      {
         name: "documentation-page",
         displayName: "menu.documentationPage",
       },
