@@ -2,20 +2,21 @@ import { computed, Ref } from 'vue'
 import {
   autoUpdate,
   flip,
-  offset,
-  Placement,
+  offset, Placement,
   shift,
   size,
   useFloating,
 } from '@floating-ui/vue'
 import { CursorAnchor, DropdownOffsetProp } from '../types'
+import { PlacementWithAlias, usePlacementAliases } from '../../../composables'
 
 type useDropdownOptions = {
-  placement: Placement | 'auto',
+  placement: PlacementWithAlias,
   offset: DropdownOffsetProp,
   autoPlacement: boolean,
   stickToEdges: boolean,
   keepAnchorWidth: boolean,
+  keepAnchorHeight: boolean,
 }
 
 export const useDropdown = (
@@ -25,12 +26,12 @@ export const useDropdown = (
   options: Ref<useDropdownOptions>,
 ) => {
   const placementComputed = computed(() => {
-    if (options.value.placement === 'auto') {
-      return 'bottom'
-    }
+    const { position, align } = usePlacementAliases({ placement: options.value.placement })
 
-    return options.value.placement
+    return `${position.value}-${align.value}` as Placement
   })
+
+  console.log('placementComputed', placementComputed.value)
 
   const offsetComputed = computed(() => {
     const dropdownOffset = options.value.offset
@@ -48,7 +49,7 @@ export const useDropdown = (
   })
 
   const middlewareComputed = computed(() => {
-    const { autoPlacement, stickToEdges, keepAnchorWidth } = options.value
+    const { autoPlacement, stickToEdges, keepAnchorWidth, keepAnchorHeight } = options.value
     const result = [
       offset(offsetComputed.value),
     ]
@@ -68,14 +69,22 @@ export const useDropdown = (
       )
     }
 
-    if (keepAnchorWidth) {
+    if (keepAnchorWidth || keepAnchorHeight) {
       result.push(size({
-        apply ({ elements }) {
-          const reference = elements.reference
-          const availableWidth = reference.getBoundingClientRect().width
-          Object.assign(elements.floating.style, {
-            maxWidth: `${availableWidth}px`,
-          })
+        apply ({ elements, availableHeight }) {
+          if (keepAnchorWidth) {
+            const reference = elements.reference
+            const availableWidth = reference.getBoundingClientRect().width
+            Object.assign(elements.floating.style, {
+              maxWidth: `${availableWidth}px`,
+            })
+          }
+
+          if (keepAnchorHeight) {
+            Object.assign(elements.floating.style, {
+              maxHeight: `${availableHeight}px`,
+            })
+          }
         },
       }))
     }
