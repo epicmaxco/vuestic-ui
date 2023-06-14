@@ -70,7 +70,12 @@ export default defineNuxtConfig({
     compressPublicAssets: true,
   },
 
+  googleAnalytics: {
+    id: process.env.GOOGLE_ANALYTICS_ID,
+  },
+
   modules: [
+    './modules/google-analytics',
     './modules/banner',
     './modules/vuestic',
     './modules/page-config',
