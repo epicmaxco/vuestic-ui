@@ -29,5 +29,11 @@ const { t } = useI18n()
 
   font-size: 2rem;
   line-height: 2.5rem;
+
+  @media screen and (max-width: 767px) {
+    font-size: 1.5rem !important;
+    line-height: 2rem;
+    margin-top: 2rem;
+  }
 }
 </style>
