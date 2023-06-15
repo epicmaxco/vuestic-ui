@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     bench: "Amount of items will be rendered before and after visible part of the list (for smooth scrolling).",
     horizontal: "Sets component state to horizontal orientation.",
@@ -15,4 +17,4 @@ export default {
     default: "Slot for repeating content template.",
     content: "Slot to overwrite entire component's template (in case of complicated integrations)."
   }
-}
+});

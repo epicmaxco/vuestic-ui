@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     value: "Model of the component. Must be Array if using 'multiple' prop",
     clearValue: "Sets value that should be set after clearing",
@@ -61,4 +63,4 @@ export default {
     hiddenOptionsBadge: "Replaces default badge with hidden options counter (see `maxVisibleOptions` prop).",
     hideOptionsButton: "Replaces default button for hiding selected options that are over the limit (see `maxVisibleOptions` prop)."
   }
-}
+});

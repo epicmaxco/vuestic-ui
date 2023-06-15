@@ -1,4 +1,5 @@
 import apiOptions from "./api-options";
+import { defineApiDescription } from "~/modules/page-config/runtime";
 
 export default definePageConfig({
   blocks: [
@@ -17,13 +18,13 @@ export default definePageConfig({
     }),
 
     block.subtitle("API"),
-    block.api("VaColorPalette", {
+    block.api("VaColorPalette", defineApiDescription({
       props: {
         value: "Current color",
         palette: "An array of colors",
         ariaIndicatorLabel: "The aria-label of the indicator",
         ariaLabel: "The aria-label of the component"
       },
-    },  apiOptions),
+    }),  apiOptions),
   ],
 });

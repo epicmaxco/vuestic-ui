@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     icon: "The icon to be displayed inside a container",
     src: "URL to the image (will be placed inside `src` attribute of image tag)",
@@ -12,4 +14,4 @@ export default {
   events: {
     error: "Triggers when failed to load an image"
   }
-}
+});

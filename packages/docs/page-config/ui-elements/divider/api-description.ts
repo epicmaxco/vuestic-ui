@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     vertical: "Displays divider vertically",
     dashed: "If set to true, the divider line is dashed",
@@ -8,4 +10,4 @@ export default {
   slots: {
     default: "Insert content (for horizontal only)"
   }
-}
+});

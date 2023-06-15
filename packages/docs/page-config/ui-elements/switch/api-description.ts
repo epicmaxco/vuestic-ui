@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     color: "Color of switch",
     size: "Specify size for component. `\"small\"`, `\"medium\"`, `\"large\"` sizes are available",
@@ -20,4 +22,4 @@ export default {
     default: "Slot for label.",
     innerLabel: "Slot for inner label."
   }
-}
+});

@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     modelValue: "Date, date array or date period",
     monthNames: "Array of 12 month names",
@@ -37,4 +39,4 @@ export default {
     weekday: "Used to change how weekday will be displayed in picker cell.",
     day: "Used to change how day will be displayed in picker cell."
   }
-}
+});

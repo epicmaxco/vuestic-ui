@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     width: "Skeleton width.",
     height: "Skeleton height.",
@@ -10,4 +12,4 @@ export default {
     tag: "Skeleton tag.",
     ariaLabel: "The aria-label of the component"
   }
-}
+});

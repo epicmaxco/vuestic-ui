@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     closeOnContentClick: "Dropdown will be closed when clicked inside dropdown content",
     hoverOutTimeout: "Time in `ms` after mouse leave dropdown before it will be closed",
@@ -16,4 +18,4 @@ export default {
     clickOutside: "The event is triggered when clicked outside dropdown content and anchor",
     contentClick: "The event is triggered when clicked inside dropdown content"
   },
-}
+});

@@ -1,4 +1,5 @@
 import apiOptions from "./api-options";
+import { defineApiDescription } from "~/modules/page-config/runtime";
 
 export default definePageConfig({
   blocks: [
@@ -25,8 +26,8 @@ export default definePageConfig({
     block.link('Learn more about i18n Config', '/services/i18n'),
 
     block.subtitle("API"),
-    block.api("VaConfig", {
+    block.api("VaConfig", defineApiDescription({
       props: { components: "Components configuration object." }
-    }, apiOptions),
+    }), apiOptions),
   ],
 });

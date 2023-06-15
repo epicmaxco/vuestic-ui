@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     options: "The array of objects with `label` and `value` properties",
     value: "Current toggle state",
@@ -13,4 +15,4 @@ export default {
   events: {
     input: "Emits when toggling to the different button"
   },
-}
+});

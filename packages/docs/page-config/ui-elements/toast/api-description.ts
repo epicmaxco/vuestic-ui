@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     title: "Sets the title for the notification",
     offsetY: "Sets the Y offset",
@@ -20,4 +22,4 @@ export default {
     onClick: "Emits when toast is clicked",
     onClose: "Emits when close button is clicked"
   },
-}
+});

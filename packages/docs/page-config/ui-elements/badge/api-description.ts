@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     text: "Badge text.",
     overlap: "Allows badge to overlap with element.",
@@ -9,4 +11,4 @@ export default {
     placement: "Badge will be placed on `placement` side of the base element.",
     offset: "Moves badge relatively to main axis."
   }
-}
+});

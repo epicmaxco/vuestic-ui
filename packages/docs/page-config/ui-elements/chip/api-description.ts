@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     closeable: "Provides the ability to close the tag",
     ariaCloseLabel: "The aria-label of close button",
@@ -7,4 +9,4 @@ export default {
     icon: "The icon to be displayed inside a tag",
     shadow: "Applies box-shadow to the component"
   },
-}
+});

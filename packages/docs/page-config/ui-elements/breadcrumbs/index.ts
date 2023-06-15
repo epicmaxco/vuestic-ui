@@ -1,5 +1,6 @@
 import vaBreadcrumbsApiOptions from "./va-breadcrumbs-api-options";
 import vaBreadcrumbsItemApiOptions from "./va-breadcrumbs-item-api-options";
+import { defineApiDescription } from "~/modules/page-config/runtime";
 
 export default definePageConfig({
   blocks: [
@@ -34,7 +35,7 @@ export default definePageConfig({
     ),
 
     block.subtitle("API"),
-    block.api("VaBreadcrumbs", {
+    block.api("VaBreadcrumbs", defineApiDescription({
       props: {
         activeColor: "Color of active links (theme string or HEX string).",
         separator: "Element to separate breadcrumbs items.",
@@ -46,14 +47,14 @@ export default definePageConfig({
         default: "One or more `va-breadcrumbs-item` elements.",
         separator: "Separator element. Can be string or vue component."
       }
-    }, vaBreadcrumbsApiOptions),
+    }), vaBreadcrumbsApiOptions),
 
     block.subtitle("Item API"),
     block.paragraph("API for `va-breadcrumb-item` component."),
-    block.api("VaBreadcrumbsItem", {
+    block.api("VaBreadcrumbsItem", defineApiDescription({
       props: { label: "Component content (string)." },
       slots: { default: "Component content." }
-    }, vaBreadcrumbsItemApiOptions),
+    }), vaBreadcrumbsItemApiOptions),
 
     block.subtitle("FAQ"),
     block.headline("Can `separator` prop work with `separator` slot?"),

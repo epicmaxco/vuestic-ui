@@ -1,4 +1,5 @@
 import apiOptions from "./api-options";
+import { defineApiDescription } from "~/modules/page-config/runtime";
 
 export default definePageConfig({
   blocks: [
@@ -32,7 +33,7 @@ export default definePageConfig({
     }),
 
     block.subtitle("API"),
-    block.api("VaProgressCircle", {
+    block.api("VaProgressCircle", defineApiDescription({
       props: {
         value: "The progress value",
         indeterminate: "Using the `indeterminate` prop, the `va-progress-circle` continues to  animate indefinitely.",
@@ -42,6 +43,6 @@ export default definePageConfig({
       slots: {
         default: "Display any additional info about the progress"
       }
-    }, apiOptions),
+    }), apiOptions),
   ],
 });

@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     modelValue: "Date, date array or date period",
     weekDays: "Adds days to the table",
@@ -76,4 +78,4 @@ export default {
     clickMonth: "The event is triggered when clicked the month cell",
     clickYear: "The event is triggered when clicked the year cell"
   },
-}
+});

@@ -1,4 +1,5 @@
 import apiOptions from "./api-options";
+import { defineApiDescription } from "~/modules/page-config/runtime";
 
 export default definePageConfig({
   blocks: [
@@ -29,8 +30,8 @@ export default definePageConfig({
     block.paragraph('The component has the [aria-live=\"polite\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions)[[target=_blank]] and [aria-busy](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy)[[target=_blank]] attributes. It blocks any interaction with the content until the loading state is disabled.'),
 
     block.subtitle("API"),
-    block.api("VaInnerLoading", {
+    block.api("VaInnerLoading", defineApiDescription({
       slots: { default: "Slot for the component to which you want to apply loading styles" }
-    }, apiOptions),
+    }), apiOptions),
   ],
 });

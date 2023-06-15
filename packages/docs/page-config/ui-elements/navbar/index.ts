@@ -1,4 +1,5 @@
 import apiOptions from "./api-options";
+import { defineApiDescription } from "~/modules/page-config/runtime";
 
 export default definePageConfig({
   blocks: [
@@ -21,7 +22,7 @@ export default definePageConfig({
     }),
 
     block.subtitle("API"),
-    block.api("VaNavbar", {
+    block.api("VaNavbar", defineApiDescription({
       props: {
         shape: "If true, shape will be drawn at navbar background.",
         fixed: "Switches component position to `fixed`."
@@ -31,6 +32,6 @@ export default definePageConfig({
         default: "Place VaNavbar items on the center (default)",
         right: "Place VaNavbar items on the right"
       },
-    }, apiOptions),
+    }), apiOptions),
   ],
 });

@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     nodes: "Tree nodes array.",
     selectable: "Selectable.",
@@ -30,4 +32,4 @@ export default {
     updateChecked: "The array of checked tree nodes.",
     updateExpanded: "The array of expanded tree nodes."
   }
-}
+});

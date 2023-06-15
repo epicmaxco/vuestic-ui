@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     modelValue: "Value of current step starting from `0`.",
     steps: "Array of step configs. `Label` is text displayed under each step in timeline, `Icon` if set, replaces step icon with specified icon, `disabled` makes step inaccessible without removing it from the timeline.",
@@ -23,4 +25,4 @@ export default {
     nextStep: "By default activates next step. If target step is disabled activates the step after it.",
     prevStep: "By default activates previous step. If target step is disabled activates the step before it."
   }
-}
+});

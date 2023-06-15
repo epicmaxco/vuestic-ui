@@ -1,5 +1,5 @@
 import apiOptions from "./api-options";
-
+import apiDescription from './api-description';
 import specs from "./specs.md?raw";
 
 export default definePageConfig({
@@ -30,7 +30,7 @@ export default definePageConfig({
       description: "By default dropdown content is rendered as body child. This way we prevent any overflow. In example below `overflow: hidden` of green box is ignored. But we still able to respec overflow by changing `target` prop. In example below `overflow: hidden` of red box is hiding dropdown content."
     }),
 
-    block.api("VaDropdown", apiOptions),
+    block.api("VaDropdown", apiDescription, apiOptions),
 
     block.collapse("useDropdown hook specs", [block.markdown(specs)]),
   ],

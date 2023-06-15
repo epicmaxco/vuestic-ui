@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     autofocus: "Focus on first form-component on render",
     hideErrorMessages: "Hide error messages for all form-components. Can be used if you want to display messages separately",
@@ -18,4 +20,4 @@ export default {
     resetValidation: "Reset validation for all validateable <!-- TODO Add link --> form-components.",
     reset: "Reset values and validation state for all form-components"
   }
-}
+});

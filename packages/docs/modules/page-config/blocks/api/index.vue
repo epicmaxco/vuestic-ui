@@ -10,7 +10,7 @@ import {
   APIDescriptionOptions,
   APIDescriptionType,
 } from './types';
-import allTranslations from "./allTranslations";
+import commonDescription from "./common-description";
 
 const props = defineProps({
   componentName: {
@@ -37,7 +37,7 @@ const props = defineProps({
     type: Object as PropType<VisualOptions>,
     default: () => ({}),
   },
-  translations: {
+  descriptionOptions: {
     type: Object as PropType<APIDescriptionOptions>,
     required: true,
   }
@@ -47,11 +47,11 @@ const withManual = computed(() => {
   return merge(props.meta, props.manual as ManualApiOptions)
 })
 
-function getTranslation (type: APIDescriptionType, name: string): string {
+function getDescription (type: APIDescriptionType, name: string): string {
   const nameCamel = camelCase(name)
 
-  return props.translations?.[type]?.[nameCamel]
-    || allTranslations?.[type]?.[nameCamel]
+  return props.descriptionOptions?.[type]?.[nameCamel]
+    || commonDescription?.[type]?.[nameCamel]
     || '';
 }
 
@@ -77,7 +77,7 @@ const propsOptions = computed(() => Object
   .filter(([key, prop]) => !prop.hidden)
   .map(([key, prop]) => ({
     name: { name: key, ...prop },
-    description: getTranslation('props', key),
+    description: getDescription('props', key),
     types: '`' + prop.types + '`',
     default: cleanDefaultValue(prop.default),
   }))
@@ -93,10 +93,10 @@ const eventsOptions = computed(() => Object
     name: key,
     description: prop.types && typeof prop.types === 'string'
       ? {
-          text: getTranslation('events', key) + '. ' + getTranslation('events', 'eventArgument'),
+          text: getDescription('events', key) + '. ' + getDescription('events', 'eventArgument'),
           code: prop.types
         }
-      : getTranslation('events', key)
+      : getDescription('events', key)
   }))
   .sort((a, b) => {
     return a.name.localeCompare(b.name)
@@ -109,10 +109,10 @@ const slotsOptions = computed(() => Object
     name: key,
     description: prop.types
       ? {
-          text: getTranslation('slots', key) + '. ' + getTranslation('slots', 'scopeAvailable'),
+          text: getDescription('slots', key) + '. ' + getDescription('slots', 'scopeAvailable'),
           code: prop.types
         }
-      : getTranslation('slots', key)
+      : getDescription('slots', key)
   }))
   .sort((a, b) => {
     return a.name.localeCompare(b.name)
@@ -123,7 +123,7 @@ const methodsOptions = computed(() => Object
   .entries(withManual.value.methods || {})
   .map(([key, prop]) => ({
     name: key,
-    description: getTranslation('methods', key),
+    description: getDescription('methods', key),
   }))
   .sort((a, b) => {
     return a.name.localeCompare(b.name)

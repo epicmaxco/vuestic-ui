@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     disableDropdown: "Disables the dropdown menu.",
     disableButton: "Disables the button.",
@@ -29,4 +31,4 @@ export default {
     default: "Dropdown content slot.",
     label: "Content for dropdown button."
   }
-}
+});

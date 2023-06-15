@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     value: "The rating value",
     icon: "The icon displayed when icon is filled",
@@ -16,4 +18,4 @@ export default {
     ariaLabel: "The aria-label of the component",
     ariaItemLabel: "The aria-label of rating items of the component"
   }
-}
+});

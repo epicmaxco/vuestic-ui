@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     src: "Initial image URL.",
     alt: "Image alternative text.",
@@ -29,4 +31,4 @@ export default {
     default: "Image overlay content. Won't be shown on loading or error.",
     placeholder: "Shown in case of loading/error and if no specific for these states slots were passed."
   }
-}
+});

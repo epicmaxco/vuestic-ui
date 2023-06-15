@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     value: "The current visibility state of the alert",
     title: "The text content placed in the title",
@@ -21,4 +23,4 @@ export default {
     icon: "Alert icon area content",
     close: "Alert close area content"
   }
-}
+});

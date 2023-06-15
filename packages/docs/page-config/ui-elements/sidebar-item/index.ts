@@ -1,4 +1,5 @@
 import apiOptions from "./api-options";
+import { defineApiDescription } from "~/modules/page-config/runtime";
 
 export default definePageConfig({
   blocks: [
@@ -29,13 +30,13 @@ export default definePageConfig({
     }),
 
     block.subtitle("API"),
-    block.api("VaSidebarItem", {
+    block.api("VaSidebarItem", defineApiDescription({
       props: {
         activeColor: "Used to set accent color for active `VaSidebarItem`",
         hoverColor: "Used to set accent color for hovered `VaSidebarItem`",
         hoverOpacity: "Used to set opacity of the color for hovered `VaSidebarItem`",
         active: "If `true` this sidebar item will be highlighted"
       },
-    }, apiOptions),
+    }), apiOptions),
   ],
 });

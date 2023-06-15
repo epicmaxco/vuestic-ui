@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     target: "Applies the selector to which the backtop is bound",
     visibilityHeight: "The minimum height after which the backtop is displayed",
@@ -15,4 +17,4 @@ export default {
   slots: {
     default: "Slot for backtop content"
   }
-}
+});

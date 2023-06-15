@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     value: "The *name* of selected tab or *index* (if `name` prop is not specified)",
     left: "Align all items to the left",
@@ -20,4 +22,4 @@ export default {
     default: "For a content",
     tabs: "For a list of tabs"
   }
-}
+});

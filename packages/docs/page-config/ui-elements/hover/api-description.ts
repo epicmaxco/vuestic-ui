@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     value: "Hover state."
   },
@@ -8,4 +10,4 @@ export default {
   slots: {
     default: "Vue default slot."
   }
-}
+});

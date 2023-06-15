@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     title: "Sets the title of the popover",
     message: "Message which showed in a popover",
@@ -19,4 +21,4 @@ export default {
     title: "Custom title slot",
     body: "Custom body slot"
   }
-}
+});

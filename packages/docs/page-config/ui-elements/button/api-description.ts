@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     icon: "The icon to be displayed to the left of the title.",
     gradient: "Makes the button background color a gradient (only if `backgroundColor` prop is equal to `1`).",
@@ -19,4 +21,4 @@ export default {
     focus: "Sets focus on button",
     blur: "Removes focus from button"
   }
-};
+});;

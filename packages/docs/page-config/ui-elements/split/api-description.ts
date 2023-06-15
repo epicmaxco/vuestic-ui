@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     vertical: "Changes `va-split` orientation to vertical.",
     limits: "Min-max size limits of the each panel.",
@@ -13,4 +15,4 @@ export default {
     start: "Start panel content.",
     end: "End panel content."
   }
-}
+});

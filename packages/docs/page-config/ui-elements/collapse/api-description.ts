@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     value: "Current collapse state",
     header: "Text content to place in the header",
@@ -15,4 +17,4 @@ export default {
     header: "Replaces the whole component's header block",
     headerContent: "Replaces component's header block inner content"
   }
-}
+});

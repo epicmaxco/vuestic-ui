@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     columns: "The property `columns` must be an array, that configures the columns of the table",
     items: "Array of objects with table data (`DataTableItem` type). The `va-data-table` automatically calculates the amount and the titles of columns (if not specified otherwise with the `columns` prop) based on these object's keys. When calculating the columns' names based on the item's objects' keys `va-data-table` uses [Lodash's startCase](https://lodash.com/docs/4.17.15#startCase)[[target=_blank]] internally. Faulty values are replaced with an empty string",
@@ -67,4 +69,4 @@ export default {
     footerKey: "A specific header in `tfoot`. Is bound to the column (to it internal representation) with the given `key`. Works if there's a `footer-clone` prop set to `true`",
     footerAppend: "Appends rows to the `tfoot`"
   }
-}
+});

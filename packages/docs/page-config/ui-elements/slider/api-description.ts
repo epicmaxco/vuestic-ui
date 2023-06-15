@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     range: "Transforms single value slider into range slider.",
     value: "Numeric value(s) of slider.",
@@ -33,4 +35,4 @@ export default {
     label: "Replaces the default label.",
     trackLabel: "The content of the `track-label`. Slot scope has access to `value` and `order` (for `range` type) variables."
   }
-}
+});

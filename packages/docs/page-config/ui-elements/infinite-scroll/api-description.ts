@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     offset: "Number of pixels to the end of `va-infinite-scroll` container at which the component should start loading more content in advance.",
     reverse: "Instead of bottom, top of the container would trigger loading.",
@@ -16,4 +18,4 @@ export default {
     loading: "Shown when content is fetching.",
     default: "The content to be scrolled"
   }
-}
+});

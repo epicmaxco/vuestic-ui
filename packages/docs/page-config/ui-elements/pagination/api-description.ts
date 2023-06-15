@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     value: "Current page (or item if `total` is issued) value.",
     visiblePages: "The amount of displayed pages (when set to 0 all pages are displayed).",
@@ -32,4 +34,4 @@ export default {
     nextPageLink: "For the next page link content",
     lastPageLink: "For the last page link content"
   }
-}
+});

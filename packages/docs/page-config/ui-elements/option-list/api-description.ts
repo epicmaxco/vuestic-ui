@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     disabledBy: "Specify the key in the object to be used as item `disabled` prop. Can be string (path to the key) or function of type: `(option) => option.disabled`",
     valueBy: "When `options` prop is an object, this key will be used as `modelValue`. Can be string (path to the key) or function of type: `(option) => option.value`",
@@ -15,4 +17,4 @@ export default {
   slots: {
     default: "Used to render items. Available props are:\n`option: String `&#124;` Object`,\n`isDisabled: Boolean`,\n`name: String`,\n`color: String`,\n`leftLabel: Boolean`,\n`getText: (option: String `&#124;` Object) => String`,\n`selectedValue: Array<String `&#124;` Object>`,\n`index: Number`"
   }
-}
+});

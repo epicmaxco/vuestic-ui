@@ -2,14 +2,13 @@ import { DefineComponent } from 'vue';
 import { definePageConfigBlock } from '../../types'
 import Component from './index.vue'
 import { VisualOptions, type ManualApiOptions, APIDescriptionOptions } from './types';
-import type { ComponentMeta } from 'vue-component-meta'
 import { parseComponent } from './component-parser'
 
 const setup = (
   componentName: string,
   component: DefineComponent,
   cssVariables: string,
-  translations: APIDescriptionOptions,
+  descriptionOptions: APIDescriptionOptions,
   manual?: ManualApiOptions,
   visualOptions?: VisualOptions,
 ) => {
@@ -21,12 +20,12 @@ const setup = (
     meta: parseComponent(componentName),
     manual,
     visualOptions,
-    translations,
+    descriptionOptions,
   }
 }
 
 export default definePageConfigBlock({
-  setup: setup as unknown as (componentName: string, description: APIDescriptionOptions, manual?: ManualApiOptions, visualOptions?: VisualOptions) => ReturnType<typeof setup>,
+  setup: setup as unknown as (componentName: string, descriptionOptions: APIDescriptionOptions, manual?: ManualApiOptions, visualOptions?: VisualOptions) => ReturnType<typeof setup>,
   component: Component,
 })
 

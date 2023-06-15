@@ -1,4 +1,5 @@
 import apiOptions from "./api-options";
+import { defineApiDescription } from "~/modules/page-config/runtime";
 
 export default definePageConfig({
   blocks: [
@@ -27,7 +28,7 @@ export default definePageConfig({
     }),
 
     block.subtitle("API"),
-    block.api("VaAppBar", {
+    block.api("VaAppBar", defineApiDescription({
       props: {
         gradient: "Applies gradient style to background.",
         shadowOnScroll: "Applies box-shadow to the component when scrolling target.",
@@ -38,6 +39,6 @@ export default definePageConfig({
       slots: {
         default: "Slot for app-bar content"
       }
-    }, apiOptions),
+    }), apiOptions),
   ],
 });

@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     manualInput: "Allows user to manually input value",
     label: "Sets component label",
@@ -35,4 +37,4 @@ export default {
     increaseAction: "Adds an item instead of increase icon or button",
     content: "Adds an item instead the input"
   }
-}
+});

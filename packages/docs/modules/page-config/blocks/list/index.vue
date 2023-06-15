@@ -9,8 +9,8 @@ const props = defineProps({
   }
 })
 
-const mark = (translations: string[]): string => {
-  return translations
+const mark = (strings: string[]): string => {
+  return strings
     .map((text: string): string => `- ${text}`)
     .join('\n')
 }

@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     type: "Specify the format of component. Supported types are `single`, `list` and `gallery`",
     fileTypes: "Specify supported file formats",
@@ -20,4 +22,4 @@ export default {
   slots: {
     default: "Default slot allows to create custom file upload area."
   }
-}
+});

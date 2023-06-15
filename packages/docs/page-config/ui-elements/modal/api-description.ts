@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     title: "Text content to place in the title",
     message: "Content of modal body",
@@ -56,4 +58,4 @@ export default {
     header: "Modal header content",
     footer: "Modal footer content"
   }
-}
+});

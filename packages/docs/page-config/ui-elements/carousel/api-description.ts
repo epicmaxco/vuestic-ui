@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     arrows: "Show or hide next and previous button.",
     autoscroll: "Enable autoscroll animation.",
@@ -42,4 +44,4 @@ export default {
     nextArrow: "Custom style for next button",
     prevArrow: "Custom style for previous button"
   }
-}
+});

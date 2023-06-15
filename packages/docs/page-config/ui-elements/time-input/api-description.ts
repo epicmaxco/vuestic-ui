@@ -1,4 +1,6 @@
-export default {
+import { defineApiDescription } from "~/modules/page-config/runtime";
+
+export default defineApiDescription({
   props: {
     ampm: "Use 12-hours time format.",
     hoursFilter: "Function that allows you to hide some specific hours",
@@ -47,4 +49,4 @@ export default {
     placement: "Sets the placement of the dropdown content. [More about placements](/ui-elements/dropdown#placement-and-offset)",
     trigger: "Action that will triggered when open and close dropdown."
   },
-}
+});
