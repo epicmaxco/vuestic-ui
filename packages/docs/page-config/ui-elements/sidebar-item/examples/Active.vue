@@ -7,7 +7,7 @@
   >
     <va-sidebar-item-content>
       <va-sidebar-item-title>
-        {{ $t(route.name) }}
+        {{ route.name }}
       </va-sidebar-item-title>
     </va-sidebar-item-content>
   </va-sidebar-item>

@@ -1,6 +1,6 @@
-import { BaseBlock, Block } from "../../../modules/page-config/runtime";
+import { BaseBlock } from "../../../modules/page-config/runtime";
 
-const EXCLUDED_COMPONENTS: string[] = ["backtop.title"];
+const EXCLUDED_COMPONENTS: string[] = ["Backtop"];
 
 const pageConfigs = usePageConfigs();
 
@@ -39,7 +39,7 @@ const resolveConfigs = async () => {
         return [
           titleBlock,
           {...exampleBlock, hideTitle: true },
-          block.link("kitchensink.seeMore", path),
+          block.link("See more", path),
         ];
       })
     )
@@ -55,8 +55,8 @@ export default definePageConfig({
   },
 
   blocks: [
-    block.title("kitchensink.title"),
-    block.paragraph("kitchensink.description"),
+    block.title("Kitchensink"),
+    block.paragraph("At this page you can see examples for all components, this is a great place to get started with `Vuestic`. For even more examples you can check `UI Elements` tab in menu."),
     block.async(resolveConfigs()),
   ],
 });

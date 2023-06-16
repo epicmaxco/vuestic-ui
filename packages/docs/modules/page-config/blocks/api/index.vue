@@ -3,7 +3,14 @@ import { DefineComponent, PropType } from 'vue';
 import merge from 'lodash/merge'
 import camelCase from 'lodash/camelCase'
 import ApiTable from './components/api-table.vue';
-import { CssVariables, ManualApiOptions, VisualOptions } from './types';
+import {
+  CssVariables,
+  ManualApiOptions,
+  VisualOptions,
+  APIDescriptionOptions,
+  APIDescriptionType,
+} from './types';
+import commonDescription from "./common-description";
 
 const props = defineProps({
   componentName: {
@@ -29,6 +36,10 @@ const props = defineProps({
   visualOptions: {
     type: Object as PropType<VisualOptions>,
     default: () => ({}),
+  },
+  descriptionOptions: {
+    type: Object as PropType<APIDescriptionOptions>,
+    required: true,
   }
 })
 
@@ -36,26 +47,12 @@ const withManual = computed(() => {
   return merge(props.meta, props.manual as ManualApiOptions)
 })
 
-const { t, te, fallbackLocale } = useI18n()
-
-const translateIfExistsWithFallback = (key: string) => te(key) || te(key, fallbackLocale.value as string)
-
-function getTranslation (type: string, name: string): string {
+function getDescription (type: APIDescriptionType, name: string): string {
   const nameCamel = camelCase(name)
-  // if (custom && translateIfExistsWithFallback(custom)) { return custom }
 
-  const componentTranslation = `api.${props.componentName}.${type}.${nameCamel}`
-
-  if (translateIfExistsWithFallback(componentTranslation)) {
-    return componentTranslation
-  }
-
-  const allTranslation = `api.all.${type}.${nameCamel}`
-  if (translateIfExistsWithFallback(allTranslation)) {
-    return allTranslation
-  }
-
-  return ''
+  return props.descriptionOptions?.[type]?.[nameCamel]
+    || commonDescription?.[type]?.[nameCamel]
+    || '';
 }
 
 const cleanDefaultValue = (o: Record<string, any> | string) => {
@@ -80,7 +77,7 @@ const propsOptions = computed(() => Object
   .filter(([key, prop]) => !prop.hidden)
   .map(([key, prop]) => ({
     name: { name: key, ...prop },
-    description: t(getTranslation('props', key)),
+    description: getDescription('props', key),
     types: '`' + prop.types + '`',
     default: cleanDefaultValue(prop.default),
   }))
@@ -96,10 +93,10 @@ const eventsOptions = computed(() => Object
     name: key,
     description: prop.types && typeof prop.types === 'string'
       ? {
-          text: t(getTranslation('events', key)) + '. ' + t(getTranslation('events', 'eventArgument')),
+          text: getDescription('events', key) + '. ' + getDescription('events', 'eventArgument'),
           code: prop.types
         }
-      : t(getTranslation('events', key))
+      : getDescription('events', key)
   }))
   .sort((a, b) => {
     return a.name.localeCompare(b.name)
@@ -112,10 +109,10 @@ const slotsOptions = computed(() => Object
     name: key,
     description: prop.types
       ? {
-          text: t(getTranslation('slots', key)) + '. ' + t(getTranslation('slots', 'scopeAvailable')),
+          text: getDescription('slots', key) + '. ' + getDescription('slots', 'scopeAvailable'),
           code: prop.types
         }
-      : t(getTranslation('slots', key))
+      : getDescription('slots', key)
   }))
   .sort((a, b) => {
     return a.name.localeCompare(b.name)
@@ -126,7 +123,7 @@ const methodsOptions = computed(() => Object
   .entries(withManual.value.methods || {})
   .map(([key, prop]) => ({
     name: key,
-    description: t(getTranslation('methods', key)),
+    description: getDescription('methods', key),
   }))
   .sort((a, b) => {
     return a.name.localeCompare(b.name)

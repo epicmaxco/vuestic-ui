@@ -1,21 +1,31 @@
 import apiOptions from "./api-options";
+import apiDescription from './api-description';
 
 export default definePageConfig({
   blocks: [
-    block.title("hover.title"),
-    block.paragraph("hover.summaryText"),
+    block.title("Hover"),
+    block.paragraph("The `va-hover` component provides easy access to hover states for any component. To work with hover states you can use either `v-model` or slot-scoped `hover` property."),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
-    block.example("VModel"),
-    block.example("Slot"),
-    block.example("Disabled"),
+    block.example("VModel", {
+      title: "Default usage",
+      description: "You can use `v-model` to get access to hover state."
+    }),
+    block.example("Slot", {
+      title: "Slot based access",
+      description: "You are also free to use Vue default slot."
+    }),
+    block.example("Disabled", {
+      title: "Disabled",
+      description: "Won't change value if disabled."
+    }),
 
-    block.subtitle("all.api"),
-    block.api("VaHover", apiOptions),
+    block.subtitle("API"),
+    block.api("VaHover", apiDescription, apiOptions),
 
-    block.subtitle("all.faq"),
-    block.headline("hover.faq.questions[0].question"),
-    block.paragraph("hover.faq.questions[0].answer"),
+    block.subtitle("FAQ"),
+    block.headline("Can I wrap multiple elements with `va-hover`?"),
+    block.paragraph("Yes, but they will share the hover state value."),
   ],
 });

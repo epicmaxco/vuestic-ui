@@ -63,7 +63,7 @@
         </div>
 
         <h2 class="partners__subtitle">
-          {{ $t('landing.partners.title') }}
+          Our beloved Partners & Sponsors that support us ❤️
         </h2>
       </div>
     </div>

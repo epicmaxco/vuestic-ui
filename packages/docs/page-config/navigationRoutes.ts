@@ -1,10 +1,14 @@
 export type NavigationRoute = {
   name: string;
-  category?: `menu.categories.${string}`;
-  displayName: `menu.${string}`;
+  category?: string;
+  displayName: string;
   meta?: {
     iconClass?: string;
-    badge?: "wip" | "new" | "updated";
+    badge?: {
+      type: "wip" | "new" | "updated";
+      text: string;
+      title: string;
+    };
   };
   disabled?: boolean;
   children?: NavigationRoute[];
@@ -14,7 +18,7 @@ export type NavigationRoute = {
 export const navigationRoutes: NavigationRoute[] = [
   {
     name: "introduction",
-    displayName: "menu.introduction",
+    displayName: "Introduction",
     meta: {
       iconClass: "vuestic-iconset-image",
     },
@@ -22,30 +26,30 @@ export const navigationRoutes: NavigationRoute[] = [
     children: [
       {
         name: "overview",
-        displayName: "menu.overview",
+        displayName: "Overview",
       },
       {
         name: "team",
-        displayName: "menu.team",
+        displayName: "Meet The Team",
       },
       {
         name: "roadmap",
-        displayName: "menu.roadmap",
+        displayName: "Roadmap",
       },
       {
         name: "browser-support",
-        displayName: "menu.browserSupport",
+        displayName: "Browser Support",
       },
       {
         name: "accessibility-guide",
-        displayName: "menu.accessibilityGuide",
+        displayName: "Accessibility Guide",
       },
       // GENERATOR_ADD - introduction
     ],
   },
   {
     name: "getting-started",
-    displayName: "menu.gettingStarted",
+    displayName: "Getting Started",
     meta: {
       iconClass: "vuestic-iconset-image",
     },
@@ -53,40 +57,48 @@ export const navigationRoutes: NavigationRoute[] = [
     children: [
       {
         name: "installation",
-        displayName: "menu.installation",
+        displayName: "Installation",
       },
       {
         name: "configuration-guide",
-        displayName: "menu.configurationGuide",
+        displayName: "Configuration Guide",
       },
       {
         name: "tree-shaking",
-        displayName: "menu.treeShaking",
+        displayName: "Tree Shaking",
       },
       {
         name: "nuxt",
-        displayName: "menu.nuxt",
+        displayName: "Nuxt",
       },
       {
         name: "ssr-guide",
-        displayName: "menu.ssrGuide",
+        displayName: "SSR",
       },
       {
         name: "kitchensink",
-        displayName: "menu.kitchensink",
+        displayName: "Kitchen Sink",
       },
       {
         name: 'web-components',
-        displayName: 'menu.webComponents',
+        displayName: 'Web Components',
         meta: {
-          badge: 'new',
+          badge: {
+            type: 'new',
+            text: 'new',
+            title: 'Recently added',
+          },
         },
       },
       {
         name: 'testing',
-        displayName: 'menu.testing',
+        displayName: 'Testing',
         meta: {
-          badge: 'new',
+          badge: {
+            type: 'new',
+            text: 'new',
+            title: 'Recently added',
+          },
         },
       },
       // GENERATOR_ADD - gettingStarted
@@ -94,7 +106,7 @@ export const navigationRoutes: NavigationRoute[] = [
   },
   {
     name: "styles",
-    displayName: "menu.styles",
+    displayName: "Styles",
     meta: {
       iconClass: "vuestic-iconset-image",
     },
@@ -102,370 +114,413 @@ export const navigationRoutes: NavigationRoute[] = [
     children: [
       {
         name: "colors",
-        displayName: "menu.colors",
+        displayName: "Colors",
       },
       {
         name: "css-variables",
-        displayName: "menu.cssVariables",
+        displayName: "CSS Variables",
       },
       {
         name: "typography",
-        displayName: "menu.typography",
+        displayName: "Typography",
       },
       {
         name: "grid",
-        displayName: "menu.grid",
+        displayName: "Grid",
       },
       {
         name: 'tailwind',
-        displayName: 'menu.tailwind',
+        displayName: 'Tailwind Integration',
         meta: {
-          badge: 'new',
+          badge: {
+            type: 'new',
+            text: 'new',
+            title: 'Recently added',
+          },
         },
       },
       {
         name: "smart-helpers",
-        displayName: "menu.smartHelpers",
+        displayName: "Smart Helpers",
       },
       {
         name: "reset",
-        displayName: "menu.reset",
+        displayName: "CSS Reset",
       },
       // GENERATOR_ADD - styles
     ],
   },
   {
     name: "ui-elements",
-    displayName: "menu.uiElements",
+    displayName: "UI Elements",
     meta: {
       iconClass: "vuestic-iconset-ui-elements",
     },
     disabled: true,
     children: [
       {
-        category: "menu.categories.view",
+        category: "View",
         name: "avatar",
-        displayName: "menu.avatar",
+        displayName: "Avatar",
       },
       {
         name: "badge",
-        displayName: "menu.badge",
+        displayName: "Badge",
       },
       {
         name: "button",
-        displayName: "menu.button",
+        displayName: "Button",
       },
       {
         name: "button-group",
-        displayName: "menu.buttonGroup",
+        displayName: "Button Group",
       },
       {
         name: "button-toggle",
-        displayName: "menu.buttonToggle",
+        displayName: "Button Toggle",
       },
       {
         name: "button-dropdown",
-        displayName: "menu.buttonDropdown",
+        displayName: "Button Dropdown",
       },
       {
         name: "icon",
-        displayName: "menu.icon",
+        displayName: "Icon",
       },
       {
         name: "image",
-        displayName: "menu.image",
+        displayName: "Image",
         meta: {
-          badge: "updated",
+          badge: {
+            type: 'updated',
+            text: 'updated',
+            title: 'Recently updated',
+          },
         }
       },
       {
         name: "carousel",
-        displayName: "menu.carousel",
+        displayName: "Carousel",
       },
       {
         name: "chip",
-        displayName: "menu.chip",
+        displayName: "Chip",
       },
       {
         name: "alert",
-        displayName: "menu.alert",
+        displayName: "Alert",
       },
       {
         name: "modal",
-        displayName: "menu.modal",
+        displayName: "Modal",
       },
       {
         name: "table",
-        displayName: "menu.table",
+        displayName: "Table",
       },
       {
         name: "data-table",
-        displayName: "menu.dataTable",
+        displayName: "Data Table",
       },
       {
-        category: "menu.categories.form",
+        category: "Form",
         name: "form",
-        displayName: "menu.form",
+        displayName: "Form",
         meta: {
-          badge: "updated",
+          badge: {
+            type: 'updated',
+            text: 'updated',
+            title: 'Recently updated',
+          },
         }
       },
       {
         name: "switch",
-        displayName: "menu.switch",
+        displayName: "Switch",
       },
       {
         name: "slider",
-        displayName: "menu.slider",
+        displayName: "Slider",
       },
       {
         name: "checkbox",
-        displayName: "menu.checkbox",
+        displayName: "Checkbox",
       },
       {
         name: "counter",
-        displayName: "menu.counter",
+        displayName: "Counter",
       },
       {
         name: "radio",
-        displayName: "menu.radio",
+        displayName: "Radio",
       },
       {
         name: "option-list",
-        displayName: "menu.optionList",
+        displayName: "Option List",
       },
       {
         name: "input",
-        displayName: "menu.input",
+        displayName: "Input",
       },
       {
         name: "select",
-        displayName: "menu.select",
+        displayName: "Select",
         meta: {
-          badge: "updated",
+          badge: {
+            type: 'updated',
+            text: 'updated',
+            title: 'Recently updated',
+          },
         }
       },
       {
         name: "rating",
-        displayName: "menu.rating",
+        displayName: "Rating",
       },
       {
         name: "file-upload",
-        displayName: "menu.fileUpload",
+        displayName: "File Upload",
       },
       {
         name: "popover",
-        displayName: "menu.popover",
+        displayName: "Popover",
       },
       {
         name: "date-picker",
-        displayName: "menu.datePicker",
+        displayName: "Date Picker",
       },
       {
         name: "date-input",
-        displayName: "menu.dateInput",
+        displayName: "Date Input",
       },
       {
         name: "time-picker",
-        displayName: "menu.timePicker",
+        displayName: "Time Picker",
       },
       {
         name: "time-input",
-        displayName: "menu.timeInput",
+        displayName: "Time Input",
       },
       {
         name: "color-input",
-        displayName: "menu.colorInput",
+        displayName: "Color Input",
       },
 
       {
-        category: 'menu.categories.layout',
+        category: 'Layout',
         name: 'aspect-ratio',
-        displayName: 'menu.aspectRatio',
+        displayName: 'Aspect Ratio',
         meta: {
-          badge: 'new',
+          badge: {
+            type: 'new',
+            text: 'new',
+            title: 'Recently added',
+          },
         },
       },
       {
         name: "skeleton",
-        displayName: "menu.skeleton",
+        displayName: "Skeleton",
         meta: {
-          badge: "new",
+          badge: {
+            type: 'new',
+            text: 'new',
+            title: 'Recently added',
+          },
         }
       },
       {
         name: "card",
-        displayName: "menu.card",
+        displayName: "Card",
       },
       {
         name: "divider",
-        displayName: "menu.divider",
+        displayName: "Divider",
       },
       {
         name: "list",
-        displayName: "menu.list",
+        displayName: "List",
       },
       {
         name: "split",
-        displayName: "menu.split",
+        displayName: "Split",
       },
       {
         name: "collapse",
-        displayName: "menu.collapse",
+        displayName: "Collapse",
       },
       {
         name: "accordion",
-        displayName: "menu.accordion",
+        displayName: "Accordion",
       },
       {
         name: "scroll-container",
-        displayName: "menu.scrollContainer",
+        displayName: "Scroll Container",
       },
       {
-        category: "menu.categories.navigation",
+        category: "Navigation",
         name: "pagination",
-        displayName: "menu.pagination",
+        displayName: "Pagination",
       },
       {
         name: "tabs",
-        displayName: "menu.tabs",
+        displayName: "Tabs",
       },
       {
         name: "breadcrumbs",
-        displayName: "menu.breadcrumbs",
+        displayName: "Breadcrumbs",
       },
       {
         name: "navbar",
-        displayName: "menu.navbar",
+        displayName: "Navbar",
       },
       {
         name: "sidebar",
-        displayName: "menu.sidebar",
+        displayName: "Sidebar",
       },
       {
         name: "sidebar-item",
-        displayName: "menu.sidebarItem",
+        displayName: "Sidebar Item",
       },
       {
         name: 'stepper',
-        displayName: 'menu.stepper',
+        displayName: 'Stepper',
         meta: {
-          badge: 'new',
+          badge: {
+            type: 'new',
+            text: 'new',
+            title: 'Recently added',
+          },
         }
       },
-
       {
-        category: "menu.categories.utils",
+        category: "Utility",
         name: "value",
-        displayName: "menu.value",
+        displayName: "Value",
         meta: {
-          badge: "new",
+          badge: {
+            type: 'new',
+            text: 'new',
+            title: 'Recently added',
+          },
         }
       },
       {
         name: "config",
-        displayName: "menu.config",
+        displayName: "Config",
         meta: {
-          badge: "new",
+          badge: {
+            type: 'new',
+            text: 'new',
+            title: 'Recently added',
+          },
         }
       },
       {
         name: "hover",
-        displayName: "menu.hover",
+        displayName: "Hover",
       },
       {
         name: "dropdown",
-        displayName: "menu.dropdown",
+        displayName: "Dropdown",
       },
       {
         name: "spacer",
-        displayName: "menu.spacer",
+        displayName: "Spacer",
       },
 
       {
-        category: "menu.categories.other",
+        category: "Other",
         name: "affix",
-        displayName: "menu.affix",
+        displayName: "Affix",
       },
       {
         name: "infinite-scroll",
-        displayName: "menu.infiniteScroll",
+        displayName: "Infinite Scroll",
       },
       {
         name: "parallax",
-        displayName: "menu.parallax",
+        displayName: "Parallax",
       },
       {
         name: "backtop",
-        displayName: "menu.backtop",
+        displayName: "Backtop",
       },
       {
         name: "inner-loading",
-        displayName: "menu.innerLoading",
+        displayName: "Inner Loading",
       },
       {
         name: "app-bar",
-        displayName: "menu.appBar",
+        displayName: "App Bar",
       },
       {
         name: "progress-bar",
-        displayName: "menu.progressBar",
+        displayName: "Progress Bar",
       },
       {
         name: "progress-circle",
-        displayName: "menu.progressCircle",
+        displayName: "Progress Circle",
       },
       {
         name: "toast",
-        displayName: "menu.toast",
+        displayName: "Toast",
       },
       {
         name: "confirm",
-        displayName: "menu.confirm",
+        displayName: "Confirm",
         meta: {
-          badge: "new",
+          badge: {
+            type: 'new',
+            text: 'new',
+            title: 'Recently added',
+          },
         }
       },
       {
         name: "virtual-scroller",
-        displayName: "menu.virtualScroller",
+        displayName: "Virtual Scroller",
         meta: {
-          badge: "new",
+          badge: {
+            type: 'new',
+            text: 'new',
+            title: 'Recently added',
+          },
         },
       },
       // TODO: Color components not released yet
       // {
-      //   category: 'menu.categories.color',
+      //   category: 'Color',
       //   name: 'color-picker',
-      //   displayName: 'menu.colorPicker',
+      //   displayName: 'Color Picker',
       // },
       // {
       //   name: 'color-slider',
-      //   displayName: 'menu.colorSlider',
+      //   displayName: 'Color Slider',
       // },
       {
         name: "color-palette",
-        displayName: "menu.colorPalette",
+        displayName: "Color Palette",
       },
 
       {
         name: "tree-view",
-        displayName: "menu.treeView",
+        displayName: "Tree view",
       },
       // GENERATOR_ADD - uiElements
     ],
   },
   {
     name: "contribution",
-    displayName: "menu.contribution",
+    displayName: "Contribution",
     children: [
       {
         name: "guide",
-        displayName: "menu.guide",
+        displayName: "Guide",
       },
       {
         name: "ui-element-guide",
-        displayName: "menu.uiElementGuide",
+        displayName: "UI Element Guide",
       },
       {
         name: "structure",
@@ -473,65 +528,65 @@ export const navigationRoutes: NavigationRoute[] = [
       },
       {
         name: "documentation-page",
-        displayName: "menu.documentationPage",
-      },
-      {
-        name: "translation",
-        displayName: "menu.translation",
+        displayName: "Documentation Guide",
       },
       {
         name: "tree-shaking-requirements",
-        displayName: "menu.treeShakingRequirements",
+        displayName: "Tree Shaking Requirements",
       },
       // GENERATOR_ADD - contribution
     ],
   },
   {
     name: "services",
-    displayName: "menu.services",
+    displayName: "Services",
     children: [
       {
         name: "global-config",
-        displayName: "menu.globalConfig",
+        displayName: "Global Config",
       },
       {
         name: "components-config",
-        displayName: "menu.componentsConfig",
+        displayName: "Components Config",
       },
       {
         name: "icons-config",
-        displayName: "menu.iconsConfig",
+        displayName: "Icons Config",
       },
       // TODO: next
       // {
       //   name: 'advanced-icons-config',
-      //   displayName: 'menu.advancedIconsConfig',
+      //   displayName: 'Advanced Icons Config',
       // },
       {
         name: "colors-config",
-        displayName: "menu.colorsConfig",
+        displayName: "Colors Config",
       },
       {
         name: "colors-classes",
-        displayName: "menu.colorsClasses",
+        displayName: "Colors Classes",
         meta: {
-          badge: 'new',
+          badge: {
+            type: 'new',
+            text: 'new',
+            title: 'Recently added',
+          },
         }
       },
       {
         name: "breakpoints",
-        displayName: "menu.breakpoints",
+        displayName: "Breakpoint Service",
       },
       {
         name: "i18n",
-        displayName: "menu.i18n",
+        displayName: "I18n",
       },
       // GENERATOR_ADD - services
     ],
   },
   {
     name: "extensions",
-    displayName: "menu.extensions",
+    displayName: "Extensions",
     meta: {
       iconClass: "vuestic-iconset-image",
     },
@@ -539,16 +594,24 @@ export const navigationRoutes: NavigationRoute[] = [
     children: [
       {
         name: "ag-grid",
-        displayName: "menu.agGrid",
+        displayName: "AG Grid Theme",
         meta: {
-          badge: "updated",
+          badge: {
+            type: 'updated',
+            text: 'updated',
+            title: 'Recently updated',
+          },
         }
       },
       {
         name: "unocss",
-        displayName: "menu.unocss",
+        displayName: "UnoCSS Integration",
         meta: {
-          badge: "new",
+          badge: {
+            type: 'new',
+            text: 'new',
+            title: 'Recently added',
+          },
         }
       },
       // GENERATOR_ADD - extensions
