@@ -83,6 +83,7 @@ export default defineNuxtConfig({
     './modules/markdown',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
+    '@funken-studio/sitemap-nuxt-3'
   ],
 
   vuestic: {
@@ -141,4 +142,8 @@ export default defineNuxtConfig({
       ]
     }
   },
+
+  sitemap: {
+    hostname: 'https://example.com',
+  }
 });
