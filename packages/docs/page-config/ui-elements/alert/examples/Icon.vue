@@ -4,7 +4,7 @@
     icon="warning"
     class="mb-6"
   >
-    {{ $t('alert.misc.icon') }}
+    You read this important alert message with an icon
   </va-alert>
   <va-alert
     color="info"
@@ -13,7 +13,7 @@
     <template #icon>
       <va-icon name="info" />
     </template>
-    {{ $t('alert.misc.slottedIcon') }}
+    You read this important alert message with a slotted icon
   </va-alert>
   <va-alert
     color="warning"
@@ -26,7 +26,7 @@
         color="warning"
       />
     </template>
-    {{ $t('alert.misc.starVuestic') }}
+    If you like Vuestic UI, please give us a star on
     <a
       href="https://github.com/epicmaxco/vuestic-ui"
       target="_blank"

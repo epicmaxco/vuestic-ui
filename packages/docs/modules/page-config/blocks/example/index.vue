@@ -5,7 +5,6 @@ import { CodeView } from "../shared/code";
 import ExampleFooter from './example-footer.vue';
 import Headline from '../headline/index.vue'
 import Paragraph from '../paragraph/index.vue'
-import camelCase from 'lodash/camelCase'
 
 const props = defineProps({
   component: {
@@ -19,6 +18,14 @@ const props = defineProps({
   path: {
     type: String as PropType<string>,
     required: true,
+  },
+  title: {
+    type: String as PropType<string>,
+    default: '',
+  },
+  description: {
+    type: String as PropType<string>,
+    default: '',
   },
   hideCode: { type: Boolean, default: false, },
   hideTitle: { type: Boolean, default: false, },
@@ -44,24 +51,6 @@ const style = computed(() => parseTemplate('style', props.source))
 const gitLink = computed(
   () => `https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/docs/${props.path}`,
 )
-
-const exampleName = computed(() => camelCase(props.path.split('/').pop()?.replace('.vue', '') || ''))
-
-const configName = computed(() => {
-  const fullName = props.path.match(/\/(.*)\/examples/)?.[1] || undefined
-  return camelCase(fullName?.split('/').pop())
-})
-
-const { t, te } = useI18n()
-
-const title = computed(() => {
-  return t(`${configName.value}.examples.${exampleName.value}.title`)
-})
-
-const description = computed(() => {
-  const key = `${configName.value}.examples.${exampleName.value}.text`
-  return  te(key) ? t(key) : ''
-})
 </script>
 
 <template>
@@ -76,7 +65,7 @@ const description = computed(() => {
     />
   </template>
 
-  <div class="page-config-example mb-3">
+  <div class="page-config-example">
     <va-card
       outlined
       class="page-config-example__card"
@@ -116,6 +105,8 @@ const description = computed(() => {
 
 <style lang="scss" scoped>
 .page-config-example {
+  margin-bottom: 2rem;
+
   &__card {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;

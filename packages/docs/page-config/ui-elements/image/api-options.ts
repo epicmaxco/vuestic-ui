@@ -1,4 +1,9 @@
 export default defineManualApi({
+  props: {
+    contain: {
+      hidden: true
+    }
+  },
   events: {
     loaded: {
       types: "Boolean",

@@ -1,5 +1,8 @@
 <template>
-  <va-button @click="shuffleItems">
+  <va-button
+    class="mb-6"
+    @click="shuffleItems"
+  >
     Shuffle and update items
   </va-button>
 
@@ -14,21 +17,19 @@
   />
 
   <va-alert
-    class="mt-3"
+    class="!mt-6"
     color="info"
     outline
   >
-    <span>
-      Selected items (click to unselect):
-      <va-chip
-        v-for="item in selectedItemsEmitted"
-        :key="item"
-        class="ml-2"
-        @click="unselectItem(item)"
-      >
-        {{ item }}
-      </va-chip>
-    </span>
+    Selected items (click to unselect):
+    <va-chip
+      v-for="item in selectedItemsEmitted"
+      :key="item"
+      class="ml-2"
+      @click="unselectItem(item)"
+    >
+      {{ item }}
+    </va-chip>
   </va-alert>
 </template>
 
@@ -38,7 +39,7 @@ import shuffle from "lodash/shuffle.js";
 
 export default defineComponent({
   data() {
-    const users = [
+    const items = [
       {
         id: 1,
         name: "Leanne Graham",
@@ -85,7 +86,7 @@ export default defineComponent({
     ];
 
     return {
-      items: users,
+      items,
       columns,
       selectedItems: ["Antonette"],
       selectedItemsEmitted: [],

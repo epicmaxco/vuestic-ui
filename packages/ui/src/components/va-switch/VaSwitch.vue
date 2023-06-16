@@ -109,7 +109,7 @@ export default defineComponent({
     id: { type: String, default: '' },
     name: { type: String, default: '' },
     modelValue: {
-      type: [Boolean, Array, String, Object] as PropType<boolean | unknown[] | string | number | Record<string, unknown> | null>,
+      type: [Number, Boolean, Array, String, Object] as PropType<boolean | unknown[] | string | number | Record<string, unknown> | null>,
       default: false,
     },
     trueLabel: { type: String, default: null },

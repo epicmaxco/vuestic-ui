@@ -7,11 +7,9 @@
 
 <script lang="ts" setup>
 import docsearch from '@docsearch/js'
-import { useI18n } from 'vue-i18n'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
-const { locale } = useI18n()
 const router = useRouter()
 
 const { getTextColor, setHSLAColor, colors, getColor } = useColors()
@@ -26,14 +24,13 @@ onMounted(() => {
 
     return pathFromAbsoluteUrl || pathFromRelativeUrl || ''
   }
-  const createPathWithCurrentLocale = (path: string) => `/${locale.value}/${path}`
   const navigateToPath = (path: string) => {
     if (!path.length) {
       return
     }
 
     router.push({
-      path: createPathWithCurrentLocale(path),
+      path: `/${path}`,
     })
   }
 
@@ -49,7 +46,7 @@ onMounted(() => {
       return {
         type: 'a',
         props: {
-          href: createPathWithCurrentLocale(path),
+          href: `/${path}`,
           target: '_blank',
           onClick: (event: MouseEvent) => {
             event.preventDefault()

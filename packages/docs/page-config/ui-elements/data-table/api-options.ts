@@ -1,3 +1,96 @@
+const headerScope = `
+{
+  key: string,
+  label: string,
+}`
+
+const cellScope = `
+{
+  cell: DataTableCellScope,
+  row: DataTableRowScope,
+}
+
+// types description
+
+type DataTableCellScope {
+  rowIndex: number, // the same as "initialIndex" in "DataTableRowScope" type
+  rowKey: any,
+  rowData: DataTableItem,
+  column: DataTableColumnScope,
+  source: any,
+  value: string,
+}
+
+type DataTableRowScope {
+  initialIndex: number,
+  itemKey: any,
+  cells: DataTableCellScope[],
+  /** Same rowData as in DataTableCellScope */
+  rowData: DataTableItem,
+}
+
+type DataTableColumnScope {
+  source: DataTableColumn | string,
+  initialIndex: number,
+  key: string,
+  name: string,
+  label: string,
+}
+
+type DataTableItem = Record<string, any>
+`
+
+const cellKeyScope = `
+{
+  rowIndex: number,
+  rowKey: any,
+  rowData: DataTableItem, // the same as in the "cell" slot
+  column: DataTableColumnScope, // the same as in the "cell" slot
+  source: any,
+  value: string,
+  row: DataTableRowScope, // the same as in the "cell" slot
+  isExpanded: boolean,
+}`
+
+const expandableRowScope = `
+{
+  initialIndex: number,
+  itemKey: any,
+  cells: DataTableRowScope[], // the same as in the "cell" slot
+  /** Same rowData as in DataTableRowScope */
+  rowData: DataTableItem, // the same as in the "cell" slot
+  toggleRowDetails: (show?: boolean) => void,
+  isExpandableRowVisible: boolean,
+}`
+
+const filteredEvent = `
+{
+  items: DataTableItem[],
+  itemsIndexes: number[],
+}`
+
+const rowClickEvent = `
+// type RowClickEvent
+{
+  event: Event, // native mouse event
+  item: DataTableItem,
+  itemIndex: number,
+}`
+
+const selectionChangeEvent = `
+{
+  currentSelectedItems: (DataTableItem | DataTableItemKey)[],
+  previousSelectedItems: (DataTableItem | DataTableItemKey)[],
+}`
+
+const sortedEvent = `
+{
+  sortBy: string,
+  sortingOrder: DataTableSortingOrder,
+  items: DataTableItem[],
+  itemsIndexes: number[],
+}`
+
 export default defineManualApi({
   props: {
     columns: {
@@ -21,49 +114,62 @@ export default defineManualApi({
   },
   events: {
     filtered: {
-      types: "`() => FilteredEmit`",
+      types: filteredEvent,
     },
     selectionChange: {
-      types: "`() => SelectionChangeEmit`",
+      types: selectionChangeEvent,
     },
     sorted: {
-      types: "`() => SortedEmit`",
+      types: sortedEvent,
     },
     "update:sortBy": {
-      types: "`() => String`",
+      types: 'type String',
     },
     "update:sortingOrder": {
-      types: "`() => DataTableSortingOrder`",
+      types: 'type DataTableSortingOrder',
     },
     "row:click": {
-      types: "`() => RowClickEmit`",
+      types: rowClickEvent,
     },
     "row:contextmenu": {
-      types: "`() => RowClickEmit`",
+      types: 'type RowClickEvent',
     },
     "row:dblclick": {
-      types: "`() => RowClickEmit`",
+      types: 'type RowClickEvent',
     },
-    "scroll:bottom": {
-      types: "`() => Event`",
-    },
-    "scroll:top": {
-      types: "`() => Event`",
-    },
+    "scroll:bottom": {},
+    "scroll:top": {},
   },
   slots: {
-    colgroup: {},
+    colgroup: {
+      types: 'type DataTableColumnScope[]',
+    },
     headerPrepend: {},
-    header: {},
-    "header(key)": {},
+    header: {
+      types: headerScope,
+    },
+    "header(key)": {
+      types: headerScope,
+    },
     headerAppend: {},
     bodyPrepend: {},
-    cell: {},
-    "cell(key)": {},
+    cell: {
+      types: cellScope,
+    },
+    "cell(key)": {
+      types: cellKeyScope,
+    },
     bodyAppend: {},
     footerPrepend: {},
-    footer: {},
-    "footer(key)": {},
+    footer: {
+      types: headerScope,
+    },
+    "footer(key)": {
+      types: headerScope,
+    },
     footerAppend: {},
+    expandableRow: {
+      types: expandableRowScope,
+    },
   },
 });

@@ -22,7 +22,6 @@ In future we also plan to be :
     
 ### Small things to note
 
-* Translations are done with `$t('key')` syntax, not `'key' | translate`.
 * `prop="string-value"` is used instead of `:prop="'string-value'"`.
 * Short syntax is used for boolean props where possible (`hide` instead of `:hide="true"`).
 * Self closing tags are used where possible (`<slot/>` instead of `<slot></slot>`).
