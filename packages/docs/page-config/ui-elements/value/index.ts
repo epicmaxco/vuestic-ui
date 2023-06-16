@@ -1,5 +1,3 @@
-import {defineApiDescription} from "~/modules/page-config/runtime";
-
 export default definePageConfig({
   blocks: [
     block.title('Value'),
@@ -17,6 +15,6 @@ export default definePageConfig({
       description: "You can pass any type of value to `VaValue` and it will be reactive. In example below we pass `string` and `object` values and use it to render description."
     }),
 
-    block.api('VaValue', defineApiDescription({ props: { defaultValue: "The default value of the component" }})),
+    block.api('VaValue', { props: { defaultValue: "The default value of the component" }}),
   ],
 })

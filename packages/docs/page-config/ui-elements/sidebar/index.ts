@@ -1,5 +1,4 @@
 import apiOptions from "./api-options";
-import { defineApiDescription } from "~/modules/page-config/runtime";
 
 export default definePageConfig({
   blocks: [
@@ -47,7 +46,7 @@ export default definePageConfig({
     }),
 
     block.subtitle("API"),
-    block.api("VaSidebar", defineApiDescription({
+    block.api("VaSidebar", {
       props: {
         minimized: "Minimized state of sidebar.",
         hoverable: "Expand sidebar on hover.",
@@ -59,7 +58,7 @@ export default definePageConfig({
         activeColor: "The color for active `VaSidebarItem` in the sidebar menu",
         hoverColor: "The color for hovered `VaSidebarItem` in the sidebar menu"
       }
-    }), apiOptions),
+    }, apiOptions),
 
     block.subtitle("FAQ"),
     block.headline("What if `minimized` conflicts with `hoverable`?"),

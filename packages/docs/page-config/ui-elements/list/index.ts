@@ -6,7 +6,6 @@ import {
   listItemLabelApiOptions,
   listItemSectionApiOptions,
 } from "./api-options";
-import { defineApiDescription } from "~/modules/page-config/runtime";
 
 export default definePageConfig({
   blocks: [
@@ -41,10 +40,10 @@ export default definePageConfig({
     block.paragraph("API for `va-list` component."),
     block.api(
       "VaList",
-      defineApiDescription({
+      {
         props: { fit: "Stretches list by its content width" },
         slots: { default: "Contains list items" },
-      }),
+      },
       listApiOptions
     ),
 
@@ -52,7 +51,7 @@ export default definePageConfig({
     block.paragraph("API for `va-list-label` component."),
     block.api(
       "VaListLabel",
-      defineApiDescription({ slots: { default: "Contains the label text"} }),
+      { slots: { default: "Contains the label text"} },
       listLabelApiOptions
     ),
 
@@ -60,10 +59,7 @@ export default definePageConfig({
     block.paragraph("API for `va-list-separator` component."),
     block.api(
       "VaListSeparator",
-      defineApiDescription({ props: {
-        fit: "Adds space on the left side",
-        spaced: "Adds spaces over and under the separator"
-      }}),
+      { props: { fit: "Adds space on the left side", spaced: "Adds spaces over and under the separator" }},
       listSeparatorApiOptions
     ),
 
@@ -71,13 +67,13 @@ export default definePageConfig({
     block.paragraph("API for `va-list-item` component."),
     block.api(
       "VaListItem",
-      defineApiDescription({
+      {
         events: {
           focus: "Emitted when item is focused",
           click: "Emitted when user clicked on item"
         },
         slots: { default: "For a list item content" }
-      }),
+      },
       listItemApiOptions
     ),
 
@@ -85,13 +81,13 @@ export default definePageConfig({
     block.paragraph("API for `va-list-item-label` component."),
     block.api(
       "VaListItemLabel",
-      defineApiDescription({
+      {
         props: {
           caption: "Applies another style to text",
           lines: "Divides item label content on a custom count of lines"
         },
         slots: { default: "Contains the label text" }
-      })
+      },
       listItemLabelApiOptions
     ),
 
@@ -99,13 +95,13 @@ export default definePageConfig({
     block.paragraph("API for `va-list-item-section` component."),
     block.api(
       "VaListItemSection",
-      defineApiDescription({
+      {
         props: {
           icon: "Makes section for icon",
           avatar: "Makes section for avatar"
         },
         slots: { default: "For a section content" }
-      }),
+      },
       listItemSectionApiOptions
     ),
   ],

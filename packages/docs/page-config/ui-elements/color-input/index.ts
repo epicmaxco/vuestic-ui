@@ -1,5 +1,4 @@
 import apiOptions from "./api-options";
-import { defineApiDescription } from "~/modules/page-config/runtime";
 
 export default definePageConfig({
   blocks: [
@@ -18,12 +17,12 @@ export default definePageConfig({
     }),
 
     block.subtitle("API"),
-    block.api("VaColorInput", defineApiDescription({
+    block.api("VaColorInput", {
       props: {
         value: "Current color.",
         selected: "Select the indicator.",
         ariaOpenColorPickerLabel: "The aria-label of \"open color picker\" button."
       },
-    }), apiOptions),
+    }, apiOptions),
   ],
 });

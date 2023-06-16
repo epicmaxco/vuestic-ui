@@ -1,5 +1,4 @@
 import apiOptions from "./api-options";
-import { defineApiDescription } from "~/modules/page-config/runtime";
 
 export default definePageConfig({
   blocks: [
@@ -38,7 +37,7 @@ export default definePageConfig({
     }),
 
     block.subtitle("API"),
-    block.api("VaProgressBar", defineApiDescription({
+    block.api("VaProgressBar", {
       props: {
         value: "The progress value",
         indeterminate: "Create a indeterminate loading bar",
@@ -53,6 +52,6 @@ export default definePageConfig({
       slots: {
         default: "Display any additional info about the progress"
       }
-    }), apiOptions),
+    }, apiOptions),
   ],
 });

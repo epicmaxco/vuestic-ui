@@ -1,5 +1,4 @@
 import apiOptions from "./api-options";
-import { defineApiDescription } from "~/modules/page-config/runtime";
 
 export default definePageConfig({
   blocks: [
@@ -29,7 +28,7 @@ export default definePageConfig({
     block.paragraph('Parallax effect is harmful to people with vestibular disorders and should be avoided or used with extreme caution and restraint. If you must use parallax, you should limit usage to one per page and decrease `height` and `speed` for each component.'),
 
     block.subtitle("API"),
-    block.api("VaParallax", defineApiDescription({
+    block.api("VaParallax", {
       props: {
         target: "The element relative to which the component is fixed",
         src: "URL to the image",
@@ -41,6 +40,6 @@ export default definePageConfig({
       slots: {
         default: "For a content over the parallax"
       }
-    }), apiOptions),
+    }, apiOptions),
   ],
 });
