@@ -1,11 +1,10 @@
 <template>
   <va-split
-    class="split-demo"
+    class="split-demo h-[22rem]"
     :limits="[
       [10, 'any'],
       ['50px', '30rem'],
     ]"
-    style="height: 22rem;"
   >
     <template #start>
       <div class="p-6">

@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 13rem;">
+  <div class="h-52">
     <va-sidebar
       hoverable
       minimized-width="64px"

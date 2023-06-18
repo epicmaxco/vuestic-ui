@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; align-items: flex-start;">
+  <div class="flex items-start">
     <va-date-input
       v-model="value"
       class="mr-6"

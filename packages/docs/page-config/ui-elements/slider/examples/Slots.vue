@@ -3,7 +3,7 @@
     <template #prepend>
       <va-input
         v-model.number="value1"
-        style="width: 70px;"
+        class="w-[70px]"
         type="number"
       />
     </template>
@@ -12,14 +12,14 @@
     <template #append>
       <va-input
         v-model.number="value2"
-        style="width: 70px;"
+        class="w-[70px]"
         type="number"
       />
     </template>
   </va-slider>
   <va-slider v-model="value3">
     <template #label>
-      <div style="font-style: italic; color: black;">
+      <div class="italic text-black">
         LABEL SLOT
       </div>
     </template>
