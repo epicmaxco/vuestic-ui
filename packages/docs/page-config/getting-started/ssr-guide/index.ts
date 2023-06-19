@@ -7,23 +7,23 @@ export default definePageConfig({
   },
 
   blocks: [
-    block.title("ssrGuide.title"),
-    block.paragraph("ssrGuide.description"),
+    block.title("SSR"),
+    block.paragraph("Vuestic is fully compatible with server-side rendering."),
 
-    block.subtitle("ssrGuide.cssVariables.title"),
-    block.paragraph("ssrGuide.cssVariables.description"),
+    block.subtitle("CSS variables"),
+    block.paragraph("Vuestic is fully compatible with server-side rendering."),
     block.code("css-variables"),
 
-    block.subtitle("ssrGuide.solutions.title"),
-    block.paragraph("ssrGuide.solutions.description"),
+    block.subtitle("Examples"),
+    block.paragraph("Here are two examples how you can add CSS variables to html head"),
 
-    block.link("ssrGuide.solutions.nuxt", "/en/getting-started/nuxt"),
+    block.link("Look at Nuxt3 guide", "/getting-started/nuxt"),
 
-    block.headline("ssrGuide.solutions.viteSsrPlugin.title"),
-    block.paragraph("ssrGuide.solutions.viteSsrPlugin.description"),
+    block.headline("Vite SSR Plugin"),
+    block.paragraph("Learn more about [Vite SSR Plugin](https://vite-plugin-ssr.com/vue-tour)"),
     block.code("vite-ssr-plugin"),
-    block.headline("ssrGuide.solutions.vitesse.title"),
-    block.paragraph("ssrGuide.solutions.vitesse.description"),
+    block.headline("Vitesse"),
+    block.paragraph("Learn more about [Vitesse](https://github.com/antfu/vitesse) and [useHead](https://github.com/vueuse/head#server-side-rendering)"),
     block.code(vitesse),
   ],
 });

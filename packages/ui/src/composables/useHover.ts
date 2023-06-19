@@ -12,12 +12,10 @@ export function useHover (el?: Ref<HTMLElement | null | undefined>, disabled?: R
     if (v) { isHovered.value = false }
   })
 
-  onMounted(() => {
-    if (!el?.value) { return }
-    const getTarget = useHTMLElement(el as Ref<HTMLElement>)
-    useEvent('mouseenter', onMouseEnter, getTarget)
-    useEvent('mouseleave', onMouseLeave, getTarget)
-  })
+  const target = useHTMLElement(el as Ref<HTMLElement>)
+
+  useEvent('mouseenter', onMouseEnter, target)
+  useEvent('mouseleave', onMouseLeave, target)
 
   return { isHovered, onMouseEnter, onMouseLeave }
 }

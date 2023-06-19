@@ -7,7 +7,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   data() {
-    const users = [
+    const items = [
       {
         id: 1,
         name: "Leanne Graham",
@@ -51,7 +51,7 @@ export default defineComponent({
     ];
 
     return {
-      items: users,
+      items,
     };
   },
 });

@@ -31,13 +31,14 @@ export type ManualMethodApiOptions = ManualApiOptionsItem & {
 }
 
 export type ManualEventApiOptions = ManualApiOptionsItem & {
-  types: string;
+  types?: string;
   hidden?: boolean; // Won't appear in documentation. Intended for internal usage events.
   isDOMEvent?: boolean;
   // add more here
 }
 
 export type ManualSlotApiOptions = ManualApiOptionsItem & {
+  types?: string;
   // add more here
 }
 
@@ -65,4 +66,9 @@ export type VisualOptions = {
   hideSlotsTitle?: boolean
   hideCssVariables?: boolean
   hideCssVariablesTitle?: boolean
+}
+
+export type APIDescriptionType = 'props' | 'events' | 'slots' | 'methods';
+export type APIDescriptionOptions = {
+  [k in APIDescriptionType]?: Record<string, string>;
 }

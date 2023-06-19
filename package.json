@@ -12,6 +12,7 @@
   "scripts": {
     "serve": "yarn workspace vuestic-ui serve",
     "serve:book": "yarn workspace vuestic-ui serve",
+    "start:docs:ci": "yarn workspace docs start:ci",
     "serve:production": "yarn workspace vuestic-ui serve:production",
     "lint": "yarn workspace vuestic-ui lint",
     "build": "yarn workspace vuestic-ui build",

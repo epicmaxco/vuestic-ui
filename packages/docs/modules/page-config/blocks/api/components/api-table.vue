@@ -3,22 +3,29 @@
 import { type PropType } from 'vue'
 import { MarkdownView } from '../../shared/markdown'
 import { Anchor } from '../../shared/anchor'
+import { CodeView } from '../../shared/code';
 
 defineProps({
   data: {
-    type: Array as PropType<Record<string, any>[]>
+    type: Array as PropType<Record<string, any>[]>,
+    default: () => ([]),
   },
   columns: {
-    type: Array as PropType<string[]>
+    type: Array as PropType<string[]>,
+    default: () => ([]),
   },
   title: {
     type: String,
+    default: '',
   }
 })
 </script>
 
 <template>
-  <h4 v-if="title" class="ApiDocs__header">
+  <h4
+    v-if="title"
+    class="ApiDocs__header"
+  >
     {{ title }}
     <Anchor :text="title" />
   </h4>
@@ -37,22 +44,33 @@ defineProps({
       </thead>
       <tbody>
         <tr
-          v-for="(row, key) in data"
-          :key="key"
+          v-for="(row, index) in data"
+          :key="index"
           class="ApiDocs__table__row"
         >
           <td
-            v-for="(data, key) in row"
-            :key="data"
+            v-for="(value, key) in row"
+            :key="key"
           >
             <slot
               :name="key"
-              v-bind="{ key, data }"
+              v-bind="{ key, data: value }"
             >
               <MarkdownView
-                v-if="data"
-                :content="data.toString()"
+                v-if="typeof value === 'string'"
+                :content="value.toString()"
               />
+              <div v-if="typeof value === 'object'">
+                <MarkdownView
+                  v-if="value.text"
+                  :content="value.text.toString()"
+                />
+                <CodeView
+                  v-if="value.code"
+                  :code="value.code"
+                  language="typescript"
+                />
+              </div>
             </slot>
           </td>
         </tr>

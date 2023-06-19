@@ -1,7 +1,7 @@
 import { type Ref, unref, watch } from 'vue'
 import { type PageConfigOptions } from "."
 
-type PageConfigJSModule = { default: PageConfigOptions, translations?: Record<string, Record<string, string>> }
+type PageConfigJSModule = { default: PageConfigOptions }
 
 const files = Object.entries(import.meta.glob<PageConfigJSModule>('@/page-config/**/index.ts'))
   .reduce((acc, [key, fn]) => {
@@ -29,32 +29,26 @@ const getConfig = async (name: string) => {
   }
 
   return await (file().then((module) => {
-    const m = module.default
-    m.translations = module.translations || {}
-    return m
+    return module.default
   }).catch((e) => { throw e }))
 }
 
 export const usePageConfigs = () => files
 
 export const usePageConfig = async (name: Ref<string>) => {
-  try {
-    const config = ref<PageConfigOptions | null>(await getConfig(unref(name))) as Ref<PageConfigOptions | null>
+  const isLoading = ref(false)
+  const config = ref<PageConfigOptions | null>(await getConfig(unref(name))) as Ref<PageConfigOptions | null>
 
-    watch(name, async () => {
-      try {
-        config.value = null
-        config.value = await getConfig(unref(name))
-      }
-      catch (e) {
-        console.error(e)
-      }
-    })
+  watch(name, async () => {
+    try {
+      isLoading.value = true
+      config.value = await getConfig(unref(name))
+      isLoading.value = false
+    }
+    catch (e) {
+      console.error(e)
+    }
+  })
 
-    return config
-  }
-  catch (e) {
-    console.log(e)
-    return ref(null)
-  }
+  return  { config, isLoading }
 }
