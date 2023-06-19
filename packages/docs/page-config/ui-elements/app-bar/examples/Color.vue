@@ -27,7 +27,6 @@
         preset="plain"
         color="secondary"
         icon-color="#fff"
-        prevent-overflow
       >
         Content
       </va-button-dropdown>

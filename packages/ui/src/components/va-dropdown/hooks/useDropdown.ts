@@ -56,7 +56,7 @@ export const useDropdown = (
       result.push(
         // boundary doesn't work with ssr (trying to access document)
         flip({
-          boundary: typeof document === 'undefined' ? undefined : target.value,
+          boundary: target.value,
         }),
       )
     }
@@ -90,11 +90,13 @@ export const useDropdown = (
     return result
   })
 
-  const { floatingStyles } = useFloating(anchorComputed, floating, {
-    placement: placementComputed,
-    whileElementsMounted: autoUpdate,
-    middleware: middlewareComputed,
-  })
+  const { floatingStyles } = typeof document === 'undefined'
+    ? { floatingStyles: {} }
+    : useFloating(anchorComputed, floating, {
+      placement: placementComputed,
+      whileElementsMounted: autoUpdate,
+      middleware: middlewareComputed,
+    })
 
   return {
     floatingStyles,

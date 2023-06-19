@@ -11,7 +11,6 @@
         trigger="none"
         placement="top"
         target=".demo-viewport"
-        prevent-overflow
       >
         <div class="h-screen w-24 bg-[var(--va-primary)]" />
 
