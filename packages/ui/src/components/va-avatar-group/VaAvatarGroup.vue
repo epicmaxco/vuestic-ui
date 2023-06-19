@@ -13,7 +13,8 @@
     <slot name="rest" v-bind="avatarProps">
       <va-avatar
         v-bind="avatarProps"
-        color="secondary"
+        :color="restColor"
+        class="va-avatar-group__rest"
         role="listitem"
       >
         +{{ restOptionsCount }}
@@ -56,6 +57,11 @@ export default defineComponent({
     options: {
       type: Array as PropType<Record<string, unknown>[]>,
       default: () => [],
+    },
+    /** If there are more avatars that can be displayed we show rest number. This prop changes color of rest indicator. */
+    restColor: {
+      type: String,
+      default: 'secondary',
     },
   },
 
