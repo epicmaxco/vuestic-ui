@@ -33,41 +33,6 @@ We use `@nuxtjs/tailwindcss` plugin.
 Try to use as much as you can less of tailwind in demos that will be visible to user, so demo can be easy copied into user's project
 without Tailwind.
 
-## i18n
-We use `@nuxtjs/i18n` nuxt module.
-All locales stored in `~/locales/`. Locales structure for now a little mess, but it looks like this:
-```ts
-{
-  // All translations used in landing
-  landing: { ... }, 
-  // Component API translations
-  api: {
-    [VaComponentName]: {
-      props: { ... },
-      slots: { ... },
-      events: { ... },
-      methods: { ... }
-    }
-    all: { // Fallback if component name not found
-      props: { ... },
-      slots: { ... },
-      events: { ... },
-      methods: { ... }
-    },
-  },
-  [pageConfigName]: {
-    title: ... ,
-    summaryText: ... ,
-    examples: {
-      [exampleName]: {
-        title: ... ,
-        text: ... ,
-      }
-    }
-  }
-}
-```
-
 ## Assets
 
 We use nuxt-img to load images from `~/assets/images`. Example:

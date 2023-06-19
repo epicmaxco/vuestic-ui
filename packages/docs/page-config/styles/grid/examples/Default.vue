@@ -8,7 +8,7 @@
         class="flex flex-col w-full"
       >
         <div class="item">
-          {{ $t("grid.examples.default.example") }}
+          Now I'm flexible
         </div>
       </div>
     </div>

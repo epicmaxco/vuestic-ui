@@ -11,7 +11,7 @@
       class="w-max"
       @click="reset"
     >
-      {{ $t("componentsConfig.resetConfig") }}
+      Reset config
     </va-button>
   </div>
 </template>

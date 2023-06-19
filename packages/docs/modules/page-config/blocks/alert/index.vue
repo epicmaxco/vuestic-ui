@@ -16,7 +16,6 @@ const props = defineProps({
   }
 })
 
-const { t } = useI18n()
 </script>
 
 <template>
@@ -25,7 +24,7 @@ const { t } = useI18n()
     :color="color"
     :outline="!solid"
   >
-    <MarkdownView :content="t(text)" />
+    <MarkdownView :content="text" />
   </va-alert>
 </template>
 
