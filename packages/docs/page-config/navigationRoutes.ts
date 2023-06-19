@@ -524,7 +524,7 @@ export const navigationRoutes: NavigationRoute[] = [
       },
       {
         name: "structure",
-        displayName: "menu.structure",
+        displayName: "Structure",
       },
       {
         name: "documentation-page",
