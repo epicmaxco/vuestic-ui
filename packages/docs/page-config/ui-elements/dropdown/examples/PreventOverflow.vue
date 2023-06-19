@@ -1,6 +1,6 @@
 <template>
   <div
-    class="overflow-hidden relative p-16 border-2 border-solid border-[var(--va-danger)]"
+    class="demo-viewport overflow-hidden relative p-16 border-2 border-solid border-[var(--va-danger)]"
   >
     <div
       class="overflow-hidden p-16 border-2 border-solid border-[var(--va-success)]"
