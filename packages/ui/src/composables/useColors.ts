@@ -21,7 +21,6 @@ import {
   normalizeColorName,
   type ColorInput,
 } from '../services/color/utils'
-import { isDev } from '../utils/env'
 import kebabCase from 'lodash/kebabCase'
 
 /**
@@ -44,7 +43,7 @@ export const useColors = () => {
     throw new Error('useColors must be used in setup function or Vuestic GlobalConfigPlugin is not registered!')
   }
 
-  const { setGlobalConfig, globalConfig } = gc
+  const { globalConfig } = gc
 
   const colors = useReactiveComputed<ColorVariables>({
     get: () => globalConfig.value.colors!.presets[globalConfig.value.colors!.currentPresetName],
@@ -95,10 +94,8 @@ export const useColors = () => {
       return prop
     }
 
-    if (isDev) {
-      console.warn(`'${prop}' is not a proper color! Use HEX or default color themes
+    warn(`'${prop}' is not a proper color! Use HEX or default color themes
       names (https://vuestic.dev/en/styles/colors#default-color-themes)`)
-    }
 
     return getColor(defaultColor)
   }

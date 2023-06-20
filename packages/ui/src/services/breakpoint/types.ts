@@ -9,9 +9,9 @@ export type BodyClass = `va-screen-${ThresholdsKey}`
 export type ThresholdsConfig = { [key in ThresholdsKey]: number }
 
 export type BreakpointServiceObject = {
-  width: number,
-  height: number,
-  current: ThresholdsKey,
+  width: number | undefined,
+  height: number | undefined,
+  current: ThresholdsKey | undefined,
   thresholds: ThresholdsConfig,
 } & BreakpointHelpers
 

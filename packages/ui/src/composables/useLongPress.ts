@@ -32,6 +32,10 @@ export function useLongPress (el: ShallowRef<HTMLElement | undefined>, options: 
 
   const htmlElement = useHTMLElement(el)
 
-  useEvent('mousedown', handleMouseDown, htmlElement)
-  useEvent('mouseup', handleMouseUp, htmlElement)
+  useEvent(['mousedown', 'touchstart', 'dragstart'], handleMouseDown, htmlElement)
+  useEvent([
+    'mouseup', 'mouseleave',
+    'touchend', 'touchcancel',
+    'drop', 'dragend',
+  ], handleMouseUp, true)
 }

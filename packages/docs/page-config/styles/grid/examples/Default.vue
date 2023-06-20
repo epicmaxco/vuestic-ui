@@ -9,7 +9,7 @@
         style="width: 100%;"
       >
         <div class="item">
-          {{ $t("grid.examples.default.example") }}
+          Now I'm flexible
         </div>
       </div>
     </div>
