@@ -124,7 +124,11 @@
                     :key="`table-cell_${cell.column.name + cell.rowIndex}`"
                     class="va-data-table__table-td"
                     :class="getClass(cell.column.tdClass)"
-                    :style="[getCellCSSVariables(cell), getStyle(cell.column.tdStyle)]"
+                    :style="[
+                      cell.column.width ? { minWidth: cell.column.width, maxWidth: cell.column.width } : {},
+                      getCellCSSVariables(cell),
+                      getStyle(cell.column.tdStyle),
+                    ]"
                     v-bind="getCellBind(cell, row)"
                   >
                     <slot

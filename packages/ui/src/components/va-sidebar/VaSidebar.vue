@@ -1,5 +1,6 @@
 <template>
   <aside
+    ref="rootElement"
     class="va-sidebar"
     :class="computedClass"
     :style="computedStyle"
@@ -15,11 +16,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, PropType } from 'vue'
+import { defineComponent, computed, ref, PropType, shallowRef } from 'vue'
 
 import { VaConfig } from '../va-config'
 import { getGradientBackground } from '../../services/color'
-import { useColors, useTextColor, useBem } from '../../composables'
+import { useColors, useTextColor, useBem, useClickOutside } from '../../composables'
 import { useSidebar } from './hooks/useSidebar'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
@@ -49,11 +50,14 @@ export default defineComponent({
     minimizedWidth: { type: String, default: '4rem' },
     modelValue: { type: Boolean, default: true },
     animated: { type: Boolean, default: true },
+    closeOnClickOutside: { type: Boolean, default: false },
   },
+
+  emits: ['update:modelValue'],
 
   components: { VaConfig },
 
-  setup (props) {
+  setup (props, { emit }) {
     const { getColor } = useColors()
     useSidebar(props)
 
@@ -93,11 +97,22 @@ export default defineComponent({
       isHovered.value = props.hoverable && newHoverState
     }
 
+    const rootElement = shallowRef<HTMLElement>()
+
+    useClickOutside([rootElement], () => {
+      if (props.closeOnClickOutside && props.modelValue) {
+        setTimeout(() => {
+          emit('update:modelValue', false)
+        }, 0)
+      }
+    })
+
     return {
       computedWidth,
       computedClass,
       computedStyle,
       updateHoverState,
+      rootElement,
       vaSidebarItemProps: computed(() => ({
         textColor: props.textColor,
         activeColor: props.activeColor,

@@ -476,7 +476,11 @@ export default defineComponent({
       showDropdownContent.value = false
       searchInput.value = ''
       validate()
+      nextTick(() => {
+        isInputFocused.focusIfNothingIfFocused()
+      })
     }
+
     const hideAndFocus = () => {
       handleDropdownClose()
       isInputFocused.value = true
@@ -498,11 +502,6 @@ export default defineComponent({
         focusOptionList()
       }
     })
-
-    const onInputFocus = () => {
-      isInputFocused.value = true
-      onFocus()
-    }
 
     const onInputBlur = () => {
       if (showDropdownContentComputed.value) { return }
@@ -653,6 +652,9 @@ export default defineComponent({
       searchInput.value = ''
       emit('clear')
       resetValidation()
+      nextTick(() => {
+        isInputFocused.value = true
+      })
     })
 
     const focusAutocompleteInput = (e?: Event) => {
@@ -700,7 +702,7 @@ export default defineComponent({
       tp,
       t,
 
-      onInputFocus,
+      onInputFocus: onFocus,
       onInputBlur,
       focusOptionList,
       focusSearchBar,
