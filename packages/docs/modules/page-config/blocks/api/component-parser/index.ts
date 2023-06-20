@@ -1,9 +1,9 @@
 import type { DefineComponent, ComponentOptions } from "vue"
-import { isArray, isObject, isFunction, kebabCase } from 'lodash'
+import { isArray, isObject, isFunction, camelCase } from 'lodash'
 import * as components from 'vuestic-ui'
 import { EventMeta, PropertyMeta } from "vue-component-meta"
 
-function getComponentOptions (component: DefineComponent): ComponentOptions {
+function getComponentOptions(component: DefineComponent): ComponentOptions {
   if (component.options) {
     return component.options
   }
@@ -20,7 +20,7 @@ function getComponentOptions (component: DefineComponent): ComponentOptions {
  * because a simple equality check will fail when running
  * across different vms / iframes.
  */
-export function getType (fn: () => any) {
+export function getType(fn: () => any) {
   const match = fn && fn.toString().match(/^\s*function (\w+)/)
   return match ? match[1] : ''
 }
@@ -61,13 +61,13 @@ export type EventOptionsCompiled = Record<string, any> & {
 
 export type CompiledComponentOptions = {
   props: PropertyMeta[],
-  emits: EventMeta[],
+  events: Record<string, { types: string }>,
 }
 
 /**
  * Employ vue native functionality to get defaults for prop
  */
-function getDefaultValue (propOptions: Record<string, any>, types: Array<string>) {
+function getDefaultValue(propOptions: Record<string, any>, types: Array<string>) {
   const defaultValue = !types.includes('Function') && isFunction(propOptions.default) ? propOptions.default() : propOptions.default
 
   if (typeof window !== 'undefined' && defaultValue === window) {
@@ -97,7 +97,7 @@ function getDefaultValue (propOptions: Record<string, any>, types: Array<string>
   return defaultValue + ''
 }
 
-function convertComponentPropToApiDocs<T extends string> (propName: T, propOptionsRecord: Record<string, any>): PropertyMeta {
+function convertComponentPropToApiDocs<T extends string>(propName: T, propOptionsRecord: Record<string, any>): PropertyMeta {
   const types = getTypes(propOptionsRecord[propName])
 
   return {
@@ -110,7 +110,7 @@ function convertComponentPropToApiDocs<T extends string> (propName: T, propOptio
   } as any
 }
 
-function normalizeProps (props: any) {
+function normalizeProps(props: any) {
   switch (true) {
     case isArray(props):
       return props.reduce((acc: Record<string, unknown>, prop: string) => ({ ...acc, [prop]: null }), {})
@@ -121,7 +121,7 @@ function normalizeProps (props: any) {
   }
 }
 
-function mergeProps (to: Record<string, any>, from: Record<string, any>, optionsType = 'props') {
+function mergeProps(to: Record<string, any>, from: Record<string, any>, optionsType = 'props') {
   const { mixins, extends: extendsOptions } = from
 
   extendsOptions && mergeProps(to, extendsOptions, optionsType)
@@ -134,7 +134,7 @@ function mergeProps (to: Record<string, any>, from: Record<string, any>, options
   }
 }
 
-export function resolveProps (options: ComponentOptions, optionsType = 'props') {
+export function resolveProps(options: ComponentOptions, optionsType = 'props') {
   const mixins = options.mixins ?? []
   const extendsOptions = options.extends ?? []
   const result = {}
@@ -151,25 +151,26 @@ export function resolveProps (options: ComponentOptions, optionsType = 'props') 
 }
 
 export type ResolvedEvent = { types: 'any' }
-export function resolveEmits (options: ComponentOptions): EventMeta[] {
+export function resolveEmits(options: ComponentOptions): EventMeta[] {
   if (!options.emits) {
     return []
   }
 
   return (options.emits as string[])
     .map((e) => ({
-      name: kebabCase(e),
+      name: e,
       description: '',
       arguments: [],
-      type: 'any',
+      types: undefined,
     }) as any)
-    // .reduce((acc: Record<string, EventOptionsCompiled>, event: string) => {
-    //   acc[event] = { types: 'any' }
-    //   return acc
-    // }, {})
 }
 
-export function compileComponentOptions (componentOptions: ComponentOptions): CompiledComponentOptions {
+const eventNameToCamelCase = (eventName: string) => {
+  const parts = eventName.split(':')
+  return parts.map((s) => camelCase(s)).join(':')
+}
+
+export function compileComponentOptions(componentOptions: ComponentOptions): CompiledComponentOptions {
   const resolvedProps = resolveProps(componentOptions)
 
   const props: PropertyMeta[] = []
@@ -179,7 +180,18 @@ export function compileComponentOptions (componentOptions: ComponentOptions): Co
 
   const emits = resolveEmits(componentOptions)
 
-  return { props, emits }
+  return {
+    props: props.map((prop) => ({
+      ...prop,
+      types: prop.type,
+    })), 
+    events: emits.reduce((acc, event) => ({
+      ...acc,
+      [eventNameToCamelCase(event.name)]: ({
+        types: event.type,
+      })
+    }), {} as CompiledComponentOptions['events']),
+  }
 }
 
 export const parseComponent = (component: DefineComponent | string) => {

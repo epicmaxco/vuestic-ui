@@ -1,14 +1,14 @@
 <template>
   <div class="color-grid">
     <div
-      v-for="{ type, colors } in colorNames"
+      v-for="{ type, colors, description } in colorNames"
       :key="type"
       class="flex flex-wrap mb-8"
     >
       <div class="px-4">
         <h6 class="va-text-capitalize">{{ type }}</h6>
         <p>
-          {{ $t('colors.palette.' + type) }}
+          {{ description }}
         </p>
       </div>
       <div
@@ -35,10 +35,12 @@ const { getColor } = useColors();
 const colorNames = [
   {
     type: "accent",
+    description: "Accent colors are used to highlight interactive elements such as buttons, links, and other interactive elements.",
     colors: ["primary", "secondary", "success", "warning", "danger", "info"],
   },
   {
     type: "background",
+    description: "Background colors are used to define the background of the page, cards, modals, dropdowns, and other elements.",
     colors: [
       "backgroundPrimary",
       "backgroundSecondary",
@@ -48,10 +50,12 @@ const colorNames = [
   },
   {
     type: "text",
+    description: "Text colors are used to define the main and alternative text colors. Vuestic automatically choose correct text color based on background color.",
     colors: ["textPrimary", "textInverted"],
   },
   {
     type: "utility",
+    description: "Utility colors are used to define the color of shadows and keyboard focus outline.",
     colors: ["shadow", "focus"],
   },
 ];

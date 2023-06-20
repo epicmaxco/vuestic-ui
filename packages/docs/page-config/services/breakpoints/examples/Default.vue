@@ -1,6 +1,6 @@
 <template>
   <p>
-    {{ $t("breakpoints.examples.default") }}
+    Current breakpoint is:
     <strong>{{ breakpoint.current }}</strong>
   </p>
 </template>
