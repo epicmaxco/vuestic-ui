@@ -116,7 +116,7 @@ export default defineComponent({
 
     const treeNodeClassComputed = useBem('va-tree-node', () => ({
       disabled: !!props.node.disabled,
-      active: selectedNodeComputed.value === props.node.id,
+      [`expand-by-${expandNodeBy}`]: true,
     }))
 
     const expandedClassComputed = useBem('va-tree-node-children', () => ({
@@ -178,7 +178,6 @@ export default defineComponent({
     display: flex;
     padding: var(--va-tree-node-padding);
     position: relative;
-    cursor: pointer;
 
     &::before {
       content: "";
@@ -196,11 +195,6 @@ export default defineComponent({
     &:hover::before {
       opacity: var(--va-tree-node-interactive-bg-opacity);
     }
-  }
-
-  &--active > &-root::before {
-    border-radius: var(--va-tree-node-border-radius);
-    opacity: var(--va-tree-node-interactive-bg-opacity);
   }
 
   &-content {
@@ -258,6 +252,18 @@ export default defineComponent({
 
     &::before {
       opacity: var(--va-tree-node-interactive-bg-opacity);
+    }
+  }
+
+  &--expand-by-node {
+    .va-tree-node-content {
+      cursor: pointer;
+    }
+  }
+
+  &--expand-by-leaf {
+    .va-tree-node-content__item--leaf {
+      cursor: pointer;
     }
   }
 }
