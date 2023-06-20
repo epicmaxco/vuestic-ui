@@ -2,7 +2,7 @@
   <va-file-upload v-model="basic">
     <div class="custom-upload-file-area">
       <p class="mb-2">
-        {{ $t("fileUpload.examples.dragAndDrop.exampleText") }}
+        This is slot, click or drag'n'drop file to upload
       </p>
       <img
         src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"

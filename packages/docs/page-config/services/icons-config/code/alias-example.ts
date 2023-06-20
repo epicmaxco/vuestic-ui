@@ -8,7 +8,7 @@ const aliases = [
   {
     name: "twitter",
     to: "fa4-twitter",
-    color: "#1da1f2", // {{ $t('all.code.aliasAndFontExample.twitterColor') }}
+    color: "#1da1f2", // Twitter blue brand color
   },
   {
     name: "vuestic-logo",

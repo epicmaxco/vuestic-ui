@@ -22,18 +22,8 @@ const props = defineProps({
   },
 })
 
-const { t, locale } = useI18n()
-
 const externalLink = computed(() => {
   return /^(http:\/\/|https:\/\/)/.test(props.href)
-})
-
-const linkHref = computed(() => {
-  if (props.href.startsWith('/')) {
-    return `/${locale.value}${props.href}`
-  }
-
-  return `/${locale.value}/${props.href}`
 })
 </script>
 
@@ -44,7 +34,7 @@ const linkHref = computed(() => {
       class="docs-link__pre"
       inline
       tag="span"
-      :content="t(preText)"
+      :content="preText"
     />
     <a
       v-if="externalLink"
@@ -52,20 +42,20 @@ const linkHref = computed(() => {
       :href="href"
       target="_blank"
     >
-      {{ t(text) }}
+      {{ text }}
     </a>
     <NuxtLink
       v-else
-      :to="linkHref"
+      :to="href"
     >
-      {{ t(text) }}
+      {{ text }}
     </NuxtLink>
     <MarkdownView
       v-if="afterText"
       class="docs-link__after"
       inline
       tag="span"
-      :content="t(afterText)"
+      :content="afterText"
     />
   </p>
 </template>

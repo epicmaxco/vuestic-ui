@@ -1,4 +1,5 @@
 import { VaTreeViewOptions } from "./api-options";
+import apiDescription from './api-description';
 
 const treeNodeType = `
 interface TreeNode {
@@ -17,21 +18,24 @@ interface TreeNode {
 
 export default definePageConfig({
   blocks: [
-    block.title("treeView.title"),
-    block.paragraph("treeView.description"),
+    block.title("Tree view"),
+    block.paragraph("Component for the hierarchical and nested data"),
 
-    block.example("Default"),
+    block.example("Default", { title: "Basic usage" }),
 
-    block.example("CustomizableContent"),
+    block.example("CustomizableContent", {
+      title: "Customizable content",
+      description: "You can customize the body of node"
+    }),
 
-    block.example("Filters"),
+    block.example("Filters", { title: "Filters" }),
 
-    block.example("Selectable"),
+    block.example("Selectable", { title: "Selectable" }),
 
-    block.example("SelectableColored"),
+    block.example("SelectableColored", { title: "Colored checkboxes" }),
 
     // API
-    block.api("VaTreeView", VaTreeViewOptions),
+    block.api("VaTreeView", apiDescription, VaTreeViewOptions),
     block.collapse("TreeNode type", [block.code(treeNodeType)]),
   ],
 });

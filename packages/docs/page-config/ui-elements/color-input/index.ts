@@ -2,15 +2,27 @@ import apiOptions from "./api-options";
 
 export default definePageConfig({
   blocks: [
-    block.title("colorInput.title"),
-    block.paragraph("colorInput.summaryText"),
+    block.title("Color Input"),
+    block.paragraph("Input component that allows you to select a color."),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
-    block.example("Default"),
-    block.example("Disabled"),
+    block.example("Default", {
+      title: "Basic usage",
+      description: "By default use this component with `v-model`."
+    }),
+    block.example("Disabled", {
+      title: "Disabled",
+      description: "All user interactions can be disabled."
+    }),
 
-    block.subtitle("all.api"),
-    block.api("VaColorInput", apiOptions),
+    block.subtitle("API"),
+    block.api("VaColorInput", {
+      props: {
+        value: "Current color.",
+        selected: "Select the indicator.",
+        ariaOpenColorPickerLabel: "The aria-label of \"open color picker\" button."
+      },
+    }, apiOptions),
   ],
 });
