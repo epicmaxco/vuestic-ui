@@ -115,8 +115,10 @@ export default defineComponent({
     const roleComputed = computed(() => props.node.hasChildren ? 'group' : 'treeitem')
 
     const treeNodeClassComputed = useBem('va-tree-node', () => ({
-      disabled: !!props.node.disabled,
-      active: selectedNodeComputed.value === props.node.id,
+      disabled: Boolean(props.node.disabled),
+      checked: Boolean(props.node.checked),
+      hasChildren: Boolean(props.node.hasChildren),
+      [`level-${props.node.level}`]: true,
     }))
 
     const expandedClassComputed = useBem('va-tree-node-children', () => ({
@@ -195,11 +197,6 @@ export default defineComponent({
     &:hover::before {
       opacity: var(--va-tree-node-interactive-bg-opacity);
     }
-  }
-
-  &--active > &-root::before {
-    border-radius: var(--va-tree-node-border-radius);
-    opacity: var(--va-tree-node-interactive-bg-opacity);
   }
 
   &-content {
