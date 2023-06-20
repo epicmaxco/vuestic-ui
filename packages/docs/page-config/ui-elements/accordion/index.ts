@@ -1,25 +1,41 @@
 import apiOptions from "./api-options";
+import apiDescription from './api-description';
 
 export default definePageConfig({
   blocks: [
-    block.title("accordion.title"),
-    block.paragraph("accordion.summaryText"),
+    block.title("Accordion"),
+    block.paragraph("Allows you to control group of [collapses](ui-elements/collapse)."),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
-    block.example("Default"),
+    block.example("Default", {
+      title: "Default",
+      description: "Default usage  of the `va-accordion` component."
+    }),
 
-    block.example("Multiple"),
+    block.example("Multiple", {
+      title: "Multiple",
+      description: "Accordion component allows you to select multiple collapses."
+    }),
 
-    block.example("Inset"),
+    block.example("Inset", {
+      title: "Inset",
+      description: "Active collapse component becomes smaller."
+    }),
 
-    block.example("Popout"),
+    block.example("Popout", {
+      title: "Popout",
+      description: "Active collapse component becomes bigger."
+    }),
 
-    block.example("Flat"),
+    block.example("Flat", { title: "Flat" }),
 
-    block.example("Menu"),
+    block.example("Menu", {
+      title: "Menu",
+      description: "One of the interesting ways to use the component is a collapsing menu."
+    }),
 
-    block.subtitle("all.api"),
-    block.api("VaAccordion", apiOptions),
+    block.subtitle("API"),
+    block.api("VaAccordion", apiDescription, apiOptions),
   ],
 });

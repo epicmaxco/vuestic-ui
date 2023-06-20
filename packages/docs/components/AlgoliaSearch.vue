@@ -7,34 +7,30 @@
 
 <script lang="ts" setup>
 import docsearch from '@docsearch/js'
-import { useI18n } from 'vue-i18n'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
-const { locale } = useI18n()
 const router = useRouter()
 
 const { getTextColor, setHSLAColor, colors, getColor } = useColors()
 
 const placeholderColor = computed(() => setHSLAColor(getColor(getTextColor(colors.backgroundElement)), { a: 0.7 }))
 
-onMounted(() => {
-  const getPathFromAlgoliaResponse = (url: string): string => {
-    // sometimes is response we have relative url,
-    // so this regexp try to parse absolute url, then try to parse relative url
-    const [, pathFromAbsoluteUrl, pathFromRelativeUrl] = /^https.+?\/[a-z]{2}\/(.*)|^\/[a-z]{2}\/(.*)/.exec(url) || []
+const getUrlObject = (fullPath: string): {pathname: string, hash: string} => {
+  // Algolia sends us urls like this: https://ui.vuestic.dev/ui-elements/table
+  // But vue router doesn't like full urls, so we need to split it apart.
+  const { pathname, hash } = new URL(fullPath)
 
-    return pathFromAbsoluteUrl || pathFromRelativeUrl || ''
+  if (!pathname) {
+    // TODO Report to Sentry.
   }
-  const createPathWithCurrentLocale = (path: string) => `/${locale.value}/${path}`
-  const navigateToPath = (path: string) => {
-    if (!path.length) {
-      return
-    }
 
-    router.push({
-      path: createPathWithCurrentLocale(path),
-    })
+  return { pathname, hash }
+}
+
+onMounted(() => {
+  const navigateToPath = ({ pathname, hash }: {pathname: string, hash: string}) => {
+    router.push({ path: pathname, hash })
   }
 
   docsearch({
@@ -45,15 +41,16 @@ onMounted(() => {
     // absolutely kekw but docsearch is based on React, so we simulate React.createElement()
     // @ts-ignore
     hitComponent ({ hit, children }) {
-      const path = getPathFromAlgoliaResponse(hit.url)
+      const url = getUrlObject(hit.url)
+
       return {
         type: 'a',
         props: {
-          href: createPathWithCurrentLocale(path),
+          href: `${url.pathname}#${url.hash}`,
           target: '_blank',
           onClick: (event: MouseEvent) => {
             event.preventDefault()
-            navigateToPath(path)
+            navigateToPath(url)
           },
           children,
         },
@@ -64,10 +61,9 @@ onMounted(() => {
     },
     navigator: { // keyboard navigation
       navigate ({ itemUrl }) {
-        const path = getPathFromAlgoliaResponse(itemUrl)
-        navigateToPath(path)
+        navigateToPath(getUrlObject(itemUrl))
       },
-    },
+    }
   })
 })
 </script>

@@ -1,10 +1,9 @@
 <template>
   <va-dropdown
+    :auto-placement="false"
     placement="right-start"
     cursor
     trigger="right-click"
-    auto-placement
-    stick-to-edges
   >
     <va-dropdown-content> Contextual popover! </va-dropdown-content>
 

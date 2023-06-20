@@ -24,7 +24,6 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed, ref, watch, nextTick } from "vue";
-import { useCode } from "./useCode";
 
 import CodeHighlightWrapper from "./CodeHighlightWrapper.vue";
 
@@ -39,7 +38,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { applyTranslations } = useCode();
     const isString = computed(() => typeof props.code === "string");
 
     const tabs = computed(() =>
@@ -48,12 +46,8 @@ export default defineComponent({
 
     const contents = computed(() =>
       isString.value
-        ? [applyTranslations((props.code as string).trim())]
-        : tabs.value.map((tab) =>
-            applyTranslations(
-              (props.code as Record<string, string>)[tab].trim()
-            )
-          )
+        ? [(props.code as string).trim()]
+        : tabs.value.map((tab) => (props.code as Record<string, string>)[tab].trim())
     );
 
     const index = ref(0);

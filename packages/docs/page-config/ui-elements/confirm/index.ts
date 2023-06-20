@@ -1,7 +1,9 @@
+import apiDescription from './api-description';
+
 export default definePageConfig({
   blocks: [
-    block.title("confirm.title"),
-    block.paragraph("confirm.description"),
+    block.title("Confirm"),
+    block.paragraph("A simple modal with message and ok and cancel buttons. Returns promise with `true` if ok clicked and `false` if cancel is clicked."),
 
     block.code({
       "Options Api": "options-api",
@@ -9,9 +11,12 @@ export default definePageConfig({
     }),
 
     block.example('Default', { hideTitle: true }),
-    block.example('Props'),
+    block.example('Props', {
+      title: "Props",
+      description: "Any prop from VaModal can be passed to confirm. Event listeners can be passed with `on` prefix. For example, `onClickOutside`."
+    }),
 
-    block.api('VaModal', {
+    block.api('VaModal', apiDescription, {
       props: {
         stateful: { hidden: true },
         modelValue: { hidden: true },

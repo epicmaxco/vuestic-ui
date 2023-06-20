@@ -3,7 +3,7 @@
     <div class="preview__wrapper">
       <div class="preview__inner">
         <h1 class="preview__title">
-          {{ $t('landing.preview.title') }}
+          Vue 3 UI Framework
         </h1>
 
         <div class="preview__buttons">
@@ -11,9 +11,9 @@
             class="preview__buttons--button"
             color="textInverted"
             text-color="primary"
-            :to="`/${locale}/getting-started/installation`"
+            to="/getting-started/installation"
           >
-            {{ $t('landing.preview.buttons.start') }}
+            Get Started
           </va-button>
 
           <va-button
@@ -29,7 +29,7 @@
                 style="margin-right: 0.5rem;"
               />
             </template>
-            {{ $t('landing.preview.buttons.github') }}
+            View on GitHub
           </va-button>
         </div>
 
@@ -37,7 +37,7 @@
           <va-aspect-ratio :ratio="1024/316">
             <img
               src="/landing/preview-features.svg"
-              :alt="$t('landing.preview.image')"
+              alt="Component examples"
             >
           </va-aspect-ratio>
         </div>
@@ -50,7 +50,6 @@
 import { useBreakpoint } from 'vuestic-ui'
 
 const breakpoint = useBreakpoint()
-const { locale } = useI18n()
 </script>
 
 <style lang="scss" scoped>

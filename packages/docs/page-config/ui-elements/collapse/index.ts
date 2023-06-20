@@ -1,24 +1,37 @@
 import apiOptions from "./api-options";
+import apiDescription from './api-description';
 
 export default definePageConfig({
   blocks: [
-    block.title("collapse.title"),
+    block.title("Collapse"),
 
-    block.paragraph("collapse.summaryText"),
+    block.paragraph("Toggles the visibility of content."),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
     // examples
-    block.example("Default"),
+    block.example("Default", {
+      title: "Default",
+      description: "Default usage  of the `va-collapse` component."
+    }),
 
-    block.example("Solid"),
+    block.example("Solid", {
+      title: "Solid",
+      description: "Add borders to your collapse component by using the `solid` property."
+    }),
 
-    block.example("Icon"),
+    block.example("Icon", {
+      title: "Icon",
+      description: "You can add an icon to the header."
+    }),
 
-    block.example("Color"),
+    block.example("Color", {
+      title: "Color",
+      description: "Use two color schemes."
+    }),
 
-    block.example("Flat"),
+    block.example("Flat", { title: "Flat" }),
 
-    block.api("VaCollapse", apiOptions),
+    block.api("VaCollapse", apiDescription, apiOptions),
   ],
 });

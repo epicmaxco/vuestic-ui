@@ -3,7 +3,7 @@
     <va-input
       v-model="fromValue"
       placeholder="0.00"
-      :label="$t('input.examples.customize.labelFrom')"
+      label="From"
     >
       <template #prependInner>
         <span v-html="fromFieldMeta.icon" />
@@ -22,7 +22,7 @@
       v-model="convertedValue"
       placeholder="0.00"
       readonly
-      :label="$t('input.examples.customize.labelTo')"
+      label="To"
     >
       <template #prependInner>
         <span v-html="toFieldMeta.icon" />

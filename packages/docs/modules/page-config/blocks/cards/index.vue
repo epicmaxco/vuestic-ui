@@ -9,8 +9,6 @@ const props = defineProps({
   }
 })
 
-const { t } = useI18n()
-
 const cordsArray = computed(() => {
   if (Array.isArray(props.cards)) { return props.cards }
   return [props.cards]
@@ -37,10 +35,10 @@ const { getTextColor, getColor } = useColors()
             v-if="card.title"
             class="va-h4"
           >
-            {{ t(card.title ) }}
+            {{ card.title }}
           </h4>
           <p v-if="card.text">
-            {{ t(card.text) }}
+            {{ card.text }}
           </p>
         </va-card-content>
         <va-card-actions v-if="card.link">
@@ -48,7 +46,7 @@ const { getTextColor, getColor } = useColors()
             :href="card.link.href"
             :color="getTextColor(getColor(card.color || 'backgroundElement'))"
           >
-            {{ t(card.link.text) }}
+            {{ card.link.text }}
           </va-button>
         </va-card-actions>
       </va-card>

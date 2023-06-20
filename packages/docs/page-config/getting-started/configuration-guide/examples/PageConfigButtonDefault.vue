@@ -1,5 +1,5 @@
 <template>
   <va-button>
-    {{ $t("all.examplesTexts.button") }}
+    Your button
   </va-button>
 </template>
