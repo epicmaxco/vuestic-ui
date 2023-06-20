@@ -50,9 +50,11 @@ export const getTypes = (componentProp: any): string[] => {
 }
 
 export type PropOptionsCompiled = {
+  name: string;
   types: string[];
   required: boolean;
   default: any;
+  hidden: boolean; // TODO Not sure if hidden works at all right now.
 }
 
 export type EventOptionsCompiled = Record<string, any> & {
@@ -184,7 +186,7 @@ export function compileComponentOptions(componentOptions: ComponentOptions): Com
     props: props.map((prop) => ({
       ...prop,
       types: prop.type,
-    })), 
+    })),
     events: emits.reduce((acc, event) => ({
       ...acc,
       [eventNameToCamelCase(event.name)]: ({
