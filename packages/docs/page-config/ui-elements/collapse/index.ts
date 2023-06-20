@@ -32,6 +32,9 @@ export default definePageConfig({
 
     block.example("Flat", { title: "Flat" }),
 
+    block.subtitle("Accessibility"),
+    block.paragraph("The component has a role [button](https://w3c.github.io/aria/#button)[[target=_blank]] in header, and role [heading](https://w3c.github.io/aria/#heading)[[target=_blank]] in each header's wrapping element. The header's attribute [aria-expand](https://w3c.github.io/aria/#aria-expanded)[[target=_blank]] set to true when it's content is visible, set to false when the content is invisible. header also has an [aria-controls](https://w3c.github.io/aria/#aria-controls)[[target=_blank]] identify element whose contents are controlled by this header, [aria-disabled](https://w3c.github.io/aria/#aria-disabled)[[target=_blank]] is depend on `disabled` property."),
+
     block.api("VaCollapse", apiDescription, apiOptions),
   ],
 });
