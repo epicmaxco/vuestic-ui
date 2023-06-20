@@ -35,7 +35,6 @@ const tableDataApiTypes = [
   [
     "ColorConfig",
     `{
-      styleTag: boolean,
       variables: ColorVariables,
       threshold: number,
       presets: Record<string, ColorVariables>,
@@ -143,10 +142,6 @@ export default definePageConfig({
     block.paragraph("colorsConfig.example.demo"),
     block.example("change-colors", { hideTitle: true }),
 
-    // styleTag
-    block.subtitle("colorsConfig.generateLocation.subtitle"),
-    block.paragraph("colorsConfig.generateLocation.about"),
-    
     // reactivity
     block.subtitle("colorsConfig.reactivity.subtitle"),
     block.paragraph("colorsConfig.reactivity.about"),

@@ -4479,10 +4479,6 @@
       "about": "For example, you can change the `primary` color that is used by almost all Vuestic components.",
       "demo": "Pick a different primary color below and notice how the colors are changing all over the page."
     },
-    "generateLocation": {
-      "subtitle": "Color variables generate location",
-      "about": "By default the color variables are generated to the style attribute of the root element (`html`). It might affect the use of the browser console when there are a lot of variables, so we provide an optional configuration `styleTag` to determine whether the variables are generated to the root element or to a new style tag. The default `styleTag` is `false`, which means that the variables will be generated to the root element, and when it is `true`, a new style tag will be created and the variables will be generated to it."
-    },
     "reactivity": {
       "subtitle": "Reactivity",
       "about": "Methods like `getColors` return a computed reactives that can also be accessed by variable `colors`. The advantage is allow to change properties, instead of rewriting whole colors variable. For example, you can change `primary` color by writing `colors.primary = \"#ff0\"`. Multiple properties changes are also supported, you can write `setColors({'{ primary: \"#00f\", secondary: \"#0ff\" }'})`."
@@ -4496,7 +4492,7 @@
     "api": {
       "title": "Colors config service API",
       "types": "Types",
-      "colorConfig": "Configuration object where is defined styleTag, color variables, threshold, presets and current preset name.",
+      "colorConfig": "Configuration object where is defined color variables, threshold, presets and current preset name.",
       "cssColor": "A valid CSS color.",
       "essentialVariables": "An object where the keys are the color names and values are valid CSS colors.",
       "colorVariables": "An object where the keys are the color names and values are valid CSS colors.",
