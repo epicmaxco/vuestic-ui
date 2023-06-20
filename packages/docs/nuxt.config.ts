@@ -107,7 +107,9 @@ export default defineNuxtConfig({
   },
 
   tailwindcss: {
+    viewer: false,
     config: {
+      important: true,
       content: [
         "./components/**/*.{js,vue,ts}",
         "./page-config/**/*.{js,vue,ts}",
