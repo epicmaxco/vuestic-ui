@@ -76,10 +76,6 @@ export default definePageConfig({
       title: "Inline Editing",
       description: "Inline cell editing example. We provide a `#cell` slot for each column. The [VaValue](/ui-elements/value) component provides a boolean variable, which we can use to show/hide input. To change cell data we need access it by reference using `row.rowData[item.key]` - this way vue can track reactivity. Additional CSS is used to make the table look better. This way you can use [VaInput](/ui-elements/input), [VaSelect](/ui-elements/select) or any other component to edit data inline."
     }),
-    block.example("ColumnWidth", {
-      title: "Column width",
-      description: "You can freeze column width with `width` property in column. You can use it with `virtual-scroller` to prevent column size shifting on different data."
-    }),
 
     block.subtitle("API"),
     block.api("VaDataTable", apiDescription, apiOptions),

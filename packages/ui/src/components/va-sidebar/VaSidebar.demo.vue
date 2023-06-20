@@ -155,25 +155,6 @@
         </va-sidebar>
       </div>
     </VbCard>
-    <VbCard title="close on click outside">
-      <va-checkbox v-model="doShowVmodelClickOutside" />
-      <br />
-      <div class="demo__sidebar-container-2x">
-        <va-sidebar
-          v-model="doShowVmodelClickOutside"
-          close-on-click-outside
-        >
-          <div>Item</div>
-          <div>Item</div>
-        </va-sidebar>
-      </div>
-      <div class="demo__sidebar-container-2x">
-        <va-sidebar v-model="doShowVmodelClickOutside" position="right">
-          <div>Item</div>
-          <div>Item</div>
-        </va-sidebar>
-      </div>
-    </VbCard>
   </VbDemo>
 </template>
 
@@ -200,7 +181,6 @@ export default {
       minimized: true,
       minimizedWithWidth: true,
       doShowVmodelDemoSidebar: true,
-      doShowVmodelClickOutside: true,
     }
   },
 }

@@ -243,25 +243,6 @@
         <template #cell(company)="{ rowData }">{{ rowData.company.name }}</template>
       </va-data-table>
     </VbCard>
-
-    <VbCard title="row-bind">
-      <va-data-table
-        :items="items"
-        :columns="[
-          { key: 'username', sortable: true, width: '30px' },
-          { key: 'email', sortable: true, width: '200px' },
-          { key: 'name', sortable: true },
-        ]"
-        :selectable="selectable"
-        :select-mode="selectMode"
-        :row-bind="getCustomRowClass"
-        v-model="selectedItems"
-      >
-        <template #header(username)>U</template>
-
-        <template #cell(username)="{ rowData }">{{ rowData.username[0] }}</template>
-      </va-data-table>
-    </VbCard>
   </VbDemo>
 </template>
 
