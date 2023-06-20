@@ -36,11 +36,6 @@ export default definePageConfig({
       description: "The `overlap` property allows badge to overlap the base element."
     }),
 
-    block.example("Transparent", {
-      title: "Transparent",
-      description: "The `transparent` property adds transparency to the component."
-    }),
-
     block.example("WithOtherComponents", {
       title: "Usage with other components",
       description: "By combining a component with others, you can add information to them or focus attention on them."
