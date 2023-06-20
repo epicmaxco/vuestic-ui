@@ -16,7 +16,7 @@ type useDropdownOptions = {
   autoPlacement: boolean,
   stickToEdges: boolean,
   keepAnchorWidth: boolean,
-  keepAnchorHeight: boolean,
+  verticalScrollOnOverflow: boolean,
 }
 
 export const useDropdown = (
@@ -47,7 +47,7 @@ export const useDropdown = (
   })
 
   const middlewareComputed = computed(() => {
-    const { autoPlacement, stickToEdges, keepAnchorWidth, keepAnchorHeight } = options.value
+    const { autoPlacement, stickToEdges, keepAnchorWidth, verticalScrollOnOverflow } = options.value
     const result = [
       offset(offsetComputed.value),
     ]
@@ -56,7 +56,7 @@ export const useDropdown = (
       result.push(
         // boundary doesn't work with ssr (trying to access document)
         flip({
-          boundary: typeof document === undefined ? target.value : undefined,
+          boundary: typeof document === 'undefined' ? undefined : target.value,
         }),
       )
     }
@@ -67,7 +67,7 @@ export const useDropdown = (
       )
     }
 
-    if (keepAnchorWidth || keepAnchorHeight) {
+    if (keepAnchorWidth || verticalScrollOnOverflow) {
       result.push(size({
         apply ({ elements, availableHeight }) {
           if (keepAnchorWidth) {
@@ -78,7 +78,7 @@ export const useDropdown = (
             })
           }
 
-          if (keepAnchorHeight) {
+          if (verticalScrollOnOverflow) {
             Object.assign(elements.floating.style, {
               maxHeight: `${availableHeight}px`,
             })
