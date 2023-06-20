@@ -35,7 +35,6 @@ export const VuesticConfig = defineVuesticConfig({
     },
   },
   colors: {
-    styleTag: true,
     presets: {
       light: {
         secondary: '#666E75',

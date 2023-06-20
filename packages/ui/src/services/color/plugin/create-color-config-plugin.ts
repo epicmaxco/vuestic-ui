@@ -6,7 +6,6 @@ import { cssVariableName } from '../utils'
 import { useColors } from '../../../composables'
 import { generateUniqueId } from '../../../utils/uuid'
 import { addOrUpdateStyleElement } from '../../../utils/dom'
-import { useGlobalConfig } from '../../global-config/global-config'
 
 export const setCSSVariable = (name: string, value: string, root: HTMLElement) => {
   root.style.setProperty(cssVariableName(name), value)
@@ -18,9 +17,6 @@ export const generateCSSVariable = (key: string, value: string) => {
 
 export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) => {
   const { colors: configColors, getTextColor, getColor, currentPresetName, applyPreset } = useColors()
-  const { globalConfig } = useGlobalConfig()
-
-  const isStyleTag = computed(() => globalConfig.value.colors?.styleTag ?? false)
 
   /** Renders CSS variables string. Use this in SSR mode */
   const renderCSSVariables = (colors: ColorVariables | undefined = configColors) => {
@@ -54,21 +50,9 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
     if (!newValue) { return }
     if (isServer()) { return }
 
-    if (!isStyleTag.value) {
-      const colorNames = Object.keys(newValue)
+    const styleContent = renderCSSVariablesStyleContent(newValue)
 
-      const root = document.documentElement
-      colorNames.forEach((key) => {
-        setCSSVariable(key, newValue[key], root)
-      })
-      colorNames.forEach((key) => {
-        setCSSVariable(`on-${key}`, getColor(getTextColor(newValue[key])), root)
-      })
-    } else {
-      const styleContent = renderCSSVariablesStyleContent(newValue)
-
-      addOrUpdateStyleElement(`va-color-variables-${uniqueId.value}`, () => styleContent)
-    }
+    addOrUpdateStyleElement(`va-color-variables-${uniqueId.value}`, () => styleContent)
   }
 
   watch(configColors, (newValue) => {
@@ -76,7 +60,6 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
   }, { immediate: true, deep: true })
 
   return {
-    isStyleTag,
     colors: configColors,
     currentPresetName,
     renderCSSVariables,

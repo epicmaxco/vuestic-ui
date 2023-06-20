@@ -55,20 +55,12 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const colorConfig = getGlobalProperty(app, '$vaColorConfig')
   if (colorConfig) {
     useHead(computed(() => {
-      if (colorConfig.isStyleTag) {
-        return {
-          style: [
-            {
-              innerHTML: colorConfig.renderCSSVariablesStyleContent()
-            }
-          ]
-        } satisfies ReactiveHead
-      }
-
       return {
-        htmlAttrs: {
-          style: colorConfig.renderCSSVariables()
-        }
+        style: [
+          {
+            innerHTML: colorConfig.renderCSSVariablesStyleContent()
+          }
+        ]
       } satisfies ReactiveHead
     }))
   }

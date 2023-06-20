@@ -27,7 +27,6 @@ export type EssentialVariables = {
 export type ColorVariables = { [colorName: string]: CssColor } & EssentialVariables
 
 export type ColorConfig = {
-  styleTag?: boolean,
   variables: ColorVariables,
   threshold: number,
   presets: {
