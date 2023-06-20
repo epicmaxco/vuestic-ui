@@ -55,7 +55,7 @@ export default defineComponent({
     isContentHoverable: { type: Boolean, default: true },
     offset: { type: [Array, Number] as PropType<DropdownOffsetProp>, default: 0 },
     keepAnchorWidth: { type: Boolean, default: false },
-    keepAnchorHeight: { type: Boolean, default: true },
+    verticalScrollOnOverflow: { type: Boolean, default: true },
     cursor: { type: Boolean, default: false },
     autoPlacement: { type: Boolean, default: true },
     stickToEdges: { type: Boolean, default: false },
@@ -204,7 +204,7 @@ export default defineComponent({
         autoPlacement: props.autoPlacement,
         stickToEdges: props.stickToEdges,
         keepAnchorWidth: props.keepAnchorWidth,
-        keepAnchorHeight: props.keepAnchorHeight,
+        verticalScrollOnOverflow: props.verticalScrollOnOverflow,
       })),
     )
 
