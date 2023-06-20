@@ -140,7 +140,11 @@ export default defineComponent({
     const toggleBulkSelection = () => emit('toggleBulkSelection')
 
     const getColumnStyles = (column: DataTableColumnInternal) => {
-      return [props.isFooter ? getFooterCSSVariables(column) : getHeaderCSSVariables(column), getStyle(column.thStyle)]
+      return [
+        column.width ? { minWidth: column.width, maxWidth: column.width } : {},
+        props.isFooter ? getFooterCSSVariables(column) : getHeaderCSSVariables(column),
+        getStyle(column.thStyle),
+      ]
     }
 
     const slotNameComputed = computed(() => props.isFooter ? 'footer' : 'header')
