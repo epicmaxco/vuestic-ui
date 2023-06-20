@@ -10,11 +10,7 @@
 useHead({
   title: 'Vuestic UI — Vue 3 UI framework',
   link: [
-    { 
-      rel: "preload",
-      href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
-      as: "style"
-    },
+    { rel: "stylesheet", href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" },
   ]
 })
 </script>
