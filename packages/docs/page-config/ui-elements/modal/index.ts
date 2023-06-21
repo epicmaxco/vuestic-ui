@@ -21,23 +21,13 @@ export default definePageConfig({
       title: "Full screen",
       description: "Add the `fullscreen` prop to cover the whole page.\n\nNote that `va-modal` is full screen on mobile viewports by default. You can change it by setting the `mobile-fullscreen` prop to `false`."
     }),
-
+  
     block.headline("Toggle modal visibility"),
     block.paragraph("There are several methods that you can employ to toggle the visibility of `va-modal`."),
-    block.headline("Using `v-model` property"),
     block.paragraph("`v-model` property is always automatically synced with `va-modal` visible state and you can show/hide using `v-model`."),
-    block.headline("Using `show()`, `hide()`, and `toggle()` component methods"),
     block.paragraph("You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."),
     block.example("ToggleVisibility", { hideTitle: true }),
-
-    block.example("Anchor", {
-      title: "Slot: `anchor`",
-      description: "Using the `anchor` slot, the user can access the `show()`, `hide()` and `toggle()` methods."
-    }),
-    block.example("CustomContent", {
-      title: "Custom content",
-      description: "You can remove default padding with `no-padding` prop and change default action buttons with `content` slot."
-    }),
+  
     block.example("DisableAnimation", {
       title: "Disable open and close animation",
       description: "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
@@ -61,6 +51,12 @@ export default definePageConfig({
     block.example("Customization", {
       title: "Customization",
       description: "`va-modal` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.\n\nYou can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.\n\n`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
+    }),
+    block.example("Anchor", {
+      description: "Using the `anchor` slot, the user can access the `show()`, `hide()` and `toggle()` methods."
+    }),
+    block.example("CustomContent", {
+      description: "You can remove default padding with `no-padding` prop and change default action buttons with `content` slot."
     }),
     block.example("NestedModals", {
       title: "Nested modals",

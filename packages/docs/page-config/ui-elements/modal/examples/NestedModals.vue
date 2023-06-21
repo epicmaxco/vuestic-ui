@@ -1,52 +1,27 @@
 <template>
-  <va-button @click="showFirstModal = !showFirstModal">
-    Show first modal
-  </va-button>
+  <va-button @click="showFirstModal = !showFirstModal"> Show modal </va-button>
 
-  <va-modal
-    v-model="showFirstModal"
-    :message="firstMessage"
-    hide-default-actions
-  >
-    <va-button
-      class="mr-2"
-      @click="$vaToast.init('Hello')"
-    >
-      Basic notification
-    </va-button>
-    <va-popover message="Popover text">
-      <va-button>Hover me</va-button>
-    </va-popover>
-    <va-date-input class="mt-2" />
+  <va-modal v-model="showFirstModal" hide-default-actions>
+    <div class="flex flex-col items-start gap-2">
+      <h2 class="va-h2">Nested Modal</h2>
 
-    <va-button
-      class="mt-8"
-      color="secondary"
-      @click="showSecondModal = !showSecondModal"
-    >
-      Show second modal
-    </va-button>
+      <va-date-input prevent-overflow />
 
-    <va-modal
-      v-model="showSecondModal"
-      :message="secondMessage"
-    >
+      <p class="va-text-secondary opacity-50">
+        This example shows how overlapping modals work after you click save.
+      </p>
+    </div>
+
+    <div class="flex justify-end mt-2">
       <va-button
-        class="mr-2"
-        @click="$vaToast.init('Hello')"
+        @click="showSecondModal = !showSecondModal"
       >
-        Show notification
+        Save
       </va-button>
-      <va-popover message="Popover text">
-        <va-button>Hover me</va-button>
-      </va-popover>
-      <va-select
-        v-model="value"
-        class="mt-2"
-        :options="options"
-      />
-    </va-modal>
+    </div>
   </va-modal>
+
+  <va-modal v-model="showSecondModal" message="Would you like to save?" @ok="showFirstModal = false" />
 </template>
 
 <script>
@@ -55,10 +30,6 @@ export default {
     return {
       showFirstModal: false,
       showSecondModal: false,
-      firstMessage: "First modal message",
-      secondMessage: "Second modal message",
-      value: "",
-      options: ["one", "two", "three"],
     };
   },
 };
