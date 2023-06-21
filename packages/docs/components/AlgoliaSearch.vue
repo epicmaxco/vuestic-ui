@@ -38,6 +38,7 @@ onMounted(() => {
     appId: 'DVNV64RN9R',
     indexName: 'vuestic',
     apiKey: '8b7272f0ee34e6e6c6e1b257c8fc054d',
+    disableUserPersonalization: true,
     // absolutely kekw but docsearch is based on React, so we simulate React.createElement()
     // @ts-ignore
     hitComponent ({ hit, children }) {
