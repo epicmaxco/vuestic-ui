@@ -2,13 +2,14 @@
 import { DefineComponent, PropType } from 'vue';
 import merge from 'lodash/merge'
 import camelCase from 'lodash/camelCase'
-import ApiTable from './components/api-table.vue';
+import ApiTable from './components/ApiDocs.vue';
 import {
   CssVariables,
   ManualApiOptions,
   VisualOptions,
   APIDescriptionOptions,
   APIDescriptionType,
+  ComponentMeta,
 } from './types';
 import commonDescription from "./common-description";
 
@@ -30,7 +31,7 @@ const props = defineProps({
     required: true,
   },
   meta: {
-    type: Object as PropType<ManualApiOptions>,
+    type: Object as PropType<ComponentMeta>,
     required: true
   },
   visualOptions: {
@@ -44,15 +45,15 @@ const props = defineProps({
 })
 
 const withManual = computed(() => {
-  return merge(props.meta, props.manual as ManualApiOptions)
+  return merge(props.meta, props.manual as ManualApiOptions) as ComponentMeta
 })
 
 function getDescription (type: APIDescriptionType, name: string): string {
   const nameCamel = camelCase(name)
 
   return props.descriptionOptions?.[type]?.[nameCamel]
-    || commonDescription?.[type]?.[nameCamel]
-    || '';
+    ?? (commonDescription[type] as Record<string, string>)[nameCamel]
+    ?? '';
 }
 
 const cleanDefaultValue = (o: Record<string, any> | string) => {
@@ -72,18 +73,20 @@ const cleanDefaultValue = (o: Record<string, any> | string) => {
   return str
 }
 
-const propsOptions = computed(() => Object
-  .entries(withManual.value.props || {})
-  .filter(([key, prop]) => !prop.hidden)
-  .map(([key, prop]) => ({
-    name: { name: key, ...prop },
-    description: getDescription('props', key),
-    types: '`' + prop.types + '`',
-    default: cleanDefaultValue(prop.default),
-  }))
-  .sort((a, b) => {
-    return a.name.name.localeCompare(b.name.name)
-  })
+const propsOptions = computed(() => {
+  if (!withManual.value.props) { return [] }
+
+  return Object
+    .values(withManual.value.props)
+    .filter(prop => !prop.hidden)
+    .map((prop) => ({
+      name: prop.name,
+      description: getDescription('props', prop.name),
+      types: '`' + prop.types + '`',
+      default: cleanDefaultValue(prop.default),
+    }))
+    .sort((a, b) => (a.name || '').localeCompare(b.name))
+  }
 )
 
 const eventsOptions = computed(() => Object
@@ -144,10 +147,10 @@ const cssVariablesOptions = computed(() => props.cssVariables.map(([name, value,
       :columns="['Name', 'Description', 'Types', 'Default']"
       :data="propsOptions"
     >
-      <template #name="{ data }">
-        <strong>{{ data.name }}</strong>
+      <template #name="{ value, row }">
+        <strong>{{ value }}</strong>
         <va-badge
-          v-if="data.required"
+          v-if="row.required"
           class="ml-2"
           text="required"
           color="primary"
@@ -182,11 +185,11 @@ const cssVariablesOptions = computed(() => props.cssVariables.map(([name, value,
       :columns="['Name', 'Default Value']"
       :data="cssVariablesOptions"
     >
-      <template #name="{ data }">
-        <strong class="va-text-code">{{ data }}</strong>
+      <template #name="{ value }">
+        <strong class="va-text-code">{{ value }}</strong>
       </template>
-      <template #value="{ data }">
-        <span class="va-text-code va-text-secondary">{{ data }}</span>
+      <template #value="{ value }">
+        <span class="va-text-code va-text-secondary">{{ value }}</span>
       </template>
     </ApiTable>
   </va-content>
