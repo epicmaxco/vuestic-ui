@@ -196,9 +196,11 @@ export default defineComponent({
     const input = shallowRef<HTMLInputElement>()
     const datePicker = ref<typeof VaDatePicker>()
 
-    const { isOpen, resetOnClose } = toRefs(props)
+    const { resetOnClose } = toRefs(props)
     const { valueComputed: statefulValue }: { valueComputed: WritableComputedRef<DateInputModelValue> } = useStateful(props, emit)
-    const { isOpenSync, dropdownProps } = useDropdownable(props, emit)
+    const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
+      defaultCloseOnValueUpdate: computed(() => !Array.isArray(statefulValue.value)),
+    })
 
     const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
 

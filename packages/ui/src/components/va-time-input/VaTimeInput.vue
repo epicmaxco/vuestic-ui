@@ -154,7 +154,9 @@ export default defineComponent({
     const input = shallowRef<HTMLInputElement>()
     const timePicker = shallowRef<typeof VaTimePicker>()
 
-    const { isOpenSync, dropdownProps } = useDropdownable(props, emit)
+    const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
+      defaultCloseOnValueUpdate: computed(() => Array.isArray(props.view) && props.view.length === 1),
+    })
     const { valueComputed } = useStateful(props, emit)
 
     const { parse, isValid } = useTimeParser(props)

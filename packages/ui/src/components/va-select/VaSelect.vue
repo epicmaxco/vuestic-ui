@@ -448,11 +448,13 @@ export default defineComponent({
 
     // Dropdown content
 
-    const { isOpenSync, dropdownProps } = useDropdownable(props, emit)
+    const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
+      defaultCloseOnValueUpdate: computed(() => !props.multiple),
+    })
 
     const dropdownPropsComputed = computed(() => ({
       ...dropdownProps.value,
-      closeOnContentClick: closeOnContentClick.value,
+      closeOnContentClick: false,
       stateful: false,
       offset: [1, 0] as DropdownOffsetProp,
       keepAnchorWidth: true,
@@ -466,10 +468,6 @@ export default defineComponent({
       set: (show: boolean) => {
         show ? handleDropdownOpen() : handleDropdownClose()
       },
-    })
-
-    const closeOnContentClick = computed(() => {
-      return !(props.multiple || props.searchable || props.allowCreate)
     })
 
     const handleDropdownOpen = () => {
