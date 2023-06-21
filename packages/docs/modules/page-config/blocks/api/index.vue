@@ -9,11 +9,9 @@ import {
   VisualOptions,
   APIDescriptionOptions,
   APIDescriptionType,
+  ComponentMeta,
 } from './types';
 import commonDescription from "./common-description";
-import {
-  PropOptionsCompiled
-} from '~/modules/page-config/blocks/api/component-parser'
 
 const props = defineProps({
   componentName: {
@@ -33,7 +31,7 @@ const props = defineProps({
     required: true,
   },
   meta: {
-    type: Object as PropType<ManualApiOptions>,
+    type: Object as PropType<ComponentMeta>,
     required: true
   },
   visualOptions: {
@@ -47,15 +45,15 @@ const props = defineProps({
 })
 
 const withManual = computed(() => {
-  return merge(props.meta, props.manual as ManualApiOptions)
+  return merge(props.meta, props.manual as ManualApiOptions) as ComponentMeta
 })
 
 function getDescription (type: APIDescriptionType, name: string): string {
   const nameCamel = camelCase(name)
 
   return props.descriptionOptions?.[type]?.[nameCamel]
-    || commonDescription?.[type]?.[nameCamel]
-    || '';
+    ?? (commonDescription[type] as Record<string, string>)[nameCamel]
+    ?? '';
 }
 
 const cleanDefaultValue = (o: Record<string, any> | string) => {
@@ -76,8 +74,10 @@ const cleanDefaultValue = (o: Record<string, any> | string) => {
 }
 
 const propsOptions = computed(() => {
+  if (!withManual.value.props) { return [] }
+
   return Object
-    .values<PropOptionsCompiled>(withManual.value.props || {})
+    .values(withManual.value.props)
     .filter(prop => !prop.hidden)
     .map((prop) => ({
       name: prop.name,
@@ -148,7 +148,7 @@ const cssVariablesOptions = computed(() => props.cssVariables.map(([name, value,
       :data="propsOptions"
     >
       <template #name="{ value, row }">
-        <strong>{{ value }} {{row}}</strong>
+        <strong>{{ value }}</strong>
         <va-badge
           v-if="row.required"
           class="ml-2"
