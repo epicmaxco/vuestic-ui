@@ -1,18 +1,18 @@
 export default definePageConfig({
   blocks: [
-    block.title('testing.title'),
-    block.paragraph('testing.description'),
+    block.title('Testing'),
+    block.paragraph('Here is guide how to setup testing with {\'`@vue/test-utils`\'} using Vitest or Jest. To get tests working with VuesticUI you need to install vuestic plugin.'),
 
-    block.subtitle('testing.setupFile.title'),
-    block.paragraph('testing.setupFile.description'),
+    block.subtitle('Setup file'),
+    block.paragraph('First, we need to create a file called `setup`. It can be placed anywhere in your project. Here we need to register VuesticPlugin. in {\'`@vue/test-utils`\'}.'),
     block.code('setup-file'),
 
-    block.subtitle('testing.vitest.title'),
-    block.paragraph("testing.vitest.description"),
+    block.subtitle('Vitest'),
+    block.paragraph("Register `setup` file into vitest config. Here is an example of `vitest.config.ts` file:"),
     block.code('vitest.config.js'),
 
-    block.subtitle('testing.jest.title'),
-    block.paragraph('testing.jest.description'),
+    block.subtitle('Jest'),
+    block.paragraph('Register `setup` file into jest config. You will need to edit of `package.json` file and `jest` filed:'),
     block.code('jest.json'),
   ]
 })

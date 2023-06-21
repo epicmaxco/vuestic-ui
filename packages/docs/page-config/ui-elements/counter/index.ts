@@ -1,23 +1,51 @@
 import apiOptions from "./api-options";
+import apiDescription from './api-description';
 
 export default definePageConfig({
   blocks: [
-    block.title("counter.title"),
-    block.paragraph("counter.summaryText"),
+    block.title("Counter"),
+    block.paragraph("The `va-counter` component is intended to be used as a simple counter."),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
-    block.example("Default"),
-    block.example("Style"),
-    block.example("Buttons"),
-    block.example("Width"),
-    block.example("ButtonsStyle"),
-    block.example("IconsColors"),
-    block.example("State"),
-    block.example("MaxMinStep"),
-    block.example("Slots"),
+    block.example("Default", {
+      title: "Basic usage",
+      description: "By default, `va-counter` has `v-model` prop, and may also include `stateful` state. With `manual-input` the user can manually enter a value."
+    }),
+    block.example("Style", {
+      title: "Style",
+      description: "There are tree styles for component: default (solid), outline, bordered."
+    }),
+    block.example("Buttons", {
+      title: "Buttons",
+      description: "By default, `va-counter` uses internal icons. The component with prop `buttons` will use external buttons."
+    }),
+    block.example("Width", {
+      title: "Width",
+      description: "You can set the width of the entire component with `width`, as well as the indentation of external buttons with `margins`."
+    }),
+    block.example("ButtonsStyle", {
+      title: "Buttons style",
+      description: "You can select different button styles using properties `flat` (by default `flat = true`), `rounded` (by default `rounded = false`) and `margins`."
+    }),
+    block.example("IconsColors", {
+      title: "Custom icons and colors",
+      description: "You can select different icons using the `increaseIcon` and `decreaseIcon` properties, and you can also select colors using `color` and `text-color`."
+    }),
+    block.example("State", {
+      title: "State",
+      description: "Component can be `disabled` or `readonly`."
+    }),
+    block.example("MaxMinStep", {
+      title: "Max, min, step",
+      description: "You can define `min`, `max` and `step` values."
+    }),
+    block.example("Slots", {
+      title: "Slots",
+      description: "You can use slots for pass custom elements: `content` (you can access to **value**) instead of **input** element, `decreaseAction` (you can access to **decrease** function) instead of decrease icon or button and `increaseAction` (you can access to **increase** function) instead of increase icon or button."
+    }),
 
-    block.subtitle("all.api"),
-    block.api("VaCounter", apiOptions),
+    block.subtitle("API"),
+    block.api("VaCounter", apiDescription, apiOptions),
   ],
 });

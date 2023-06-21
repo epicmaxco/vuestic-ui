@@ -3,14 +3,14 @@
     color="#6775c1"
     class="mb-6"
   >
-    {{ $t('alert.misc.color') }}
+    Colored background. You can use our colors - primary, secondary, info, success, warning, danger, or choose yours using HEX code.
   </va-alert>
   <va-alert
     color="info"
     outline
     class="mb-6"
   >
-    {{ $t('alert.misc.outlined') }}
+    Outline
   </va-alert>
   <va-alert
     color="primary"
@@ -18,6 +18,6 @@
     border-color="primary"
     class="mb-6"
   >
-    {{ $t('alert.misc.border') }}
+    Colored border
   </va-alert>
 </template>

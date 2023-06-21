@@ -3,11 +3,11 @@
     <div class="seamless__wrapper">
       <div class="seamless__inner">
         <h2 class="seamless__title">
-          {{ $t('landing.seamless.title') }}
+          Seamless Integration
         </h2>
 
         <div class="seamless__subtitle">
-          {{ $t('landing.seamless.text') }}
+          Use Vuestic UI with other component libraries without any conflicts.
         </div>
 
         <div class="seamless__content">
@@ -23,7 +23,7 @@
           <!-- First block -->
           <!-- <div class="seamless__content--first">
             <h3 class="block__label block__label--vuestic">
-              {{ $t('landing.seamless.compare.vuestic') }}
+              Vuestic UI components
             </h3>
             <div class="block__components">
               <div class="component">
@@ -61,7 +61,7 @@
           <!-- Second block -->
           <!-- <div class="seamless__content--second">
             <h3 class="block__label">
-              {{ $t('landing.seamless.compare.other') }}
+              Other components
             </h3>
 
             <div class="block__components">
