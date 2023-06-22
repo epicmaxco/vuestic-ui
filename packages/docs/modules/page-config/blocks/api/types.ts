@@ -74,8 +74,8 @@ export type APIDescriptionOptions = {
 }
 
 export type ComponentMeta = {
-  props: Required<ManualPropApiOptions>[];
-  events: Required<ManualEventApiOptions>[];
-  methods: Required<ManualMethodApiOptions>[];
-  slots: Required<ManualSlotApiOptions>[];
+  props: Record<string, ManualPropApiOptions>;
+  events: Record<string, ManualEventApiOptions>;
+  methods: Record<string, ManualMethodApiOptions>;
+  slots: Record<string, ManualSlotApiOptions>;
 }
