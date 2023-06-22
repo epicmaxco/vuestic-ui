@@ -89,7 +89,7 @@ onMounted(() => {
 }
 
 .DocSearch-Container {
-  z-index: 99;
+  z-index: 10000;
 
   &::after,
   &::before {
