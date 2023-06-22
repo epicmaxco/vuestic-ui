@@ -2,6 +2,7 @@ import type { DefineComponent, ComponentOptions } from "vue"
 import { isArray, isObject, isFunction, camelCase } from 'lodash'
 import * as components from 'vuestic-ui'
 import { EventMeta, PropertyMeta } from "vue-component-meta"
+import { ComponentMeta } from "../types"
 
 function getComponentOptions(component: DefineComponent): ComponentOptions {
   if (component.options) {
@@ -62,8 +63,8 @@ export type EventOptionsCompiled = Record<string, any> & {
 }
 
 export type CompiledComponentOptions = {
-  props: PropertyMeta[],
-  events: Record<string, { types: string }>,
+  props: ComponentMeta['props'],
+  events: ComponentMeta['events'],
 }
 
 /**
@@ -183,10 +184,10 @@ export function compileComponentOptions(componentOptions: ComponentOptions): Com
   const emits = resolveEmits(componentOptions)
 
   return {
-    props: props.map((prop) => ({
-      ...prop,
-      types: prop.type,
-    })),
+    props: props.reduce((acc, prop) => {
+      acc[prop.name] = prop
+      return acc
+    }, {} as CompiledComponentOptions['props']),
     events: emits.reduce((acc, event) => ({
       ...acc,
       [eventNameToCamelCase(event.name)]: ({

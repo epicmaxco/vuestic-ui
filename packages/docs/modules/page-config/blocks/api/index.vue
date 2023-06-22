@@ -45,7 +45,7 @@ const props = defineProps({
 })
 
 const withManual = computed(() => {
-  return merge(props.meta, props.manual as ManualApiOptions) as ComponentMeta
+  return merge(props.meta, props.manual as ManualApiOptions)
 })
 
 function getDescription (type: APIDescriptionType, name: string): string {
@@ -77,11 +77,11 @@ const propsOptions = computed(() => {
   if (!withManual.value.props) { return [] }
 
   return Object
-    .values(withManual.value.props)
-    .filter(prop => !prop.hidden)
-    .map((prop) => ({
-      name: prop.name,
-      description: getDescription('props', prop.name),
+    .entries(withManual.value.props)
+    .filter(([name, prop]) => !prop.hidden)
+    .map(([name, prop]) => ({
+      name: name,
+      description: getDescription('props', name),
       types: '`' + prop.types + '`',
       default: cleanDefaultValue(prop.default),
     }))
