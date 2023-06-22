@@ -78,7 +78,6 @@ import { useNativeImgAttributes, useNativeImgAttributesProps } from './hooks/use
 import {
   useComponentPresetProp,
   useIsMounted,
-  useDeprecated,
   useIntersectionObserver,
   useGlobalConfig,
 } from '../../composables'
@@ -120,14 +119,9 @@ export default defineComponent({
     },
     lazy: { type: Boolean, default: false },
     placeholderSrc: { type: String, default: '' },
-    // TODO: delete in 1.7.0
-    contain: { type: Boolean, default: false },
   },
 
   setup (props, { emit, slots }) {
-    // TODO: delete in 1.7.0
-    useDeprecated(['contain'])
-
     const root = ref<HTMLElement>()
     const image = ref<HTMLImageElement>()
 
@@ -236,11 +230,7 @@ export default defineComponent({
     const hasFallbackGlobalConfig = computed(() => checkObjectNonEmptyValues(useGlobalConfig()?.globalConfig?.value?.components?.VaFallback))
     const isAnyFallbackPassed = computed(() => checkObjectNonEmptyValues(fallbackProps.value) || hasFallbackGlobalConfig.value)
 
-    // TODO: refactor (just v-bind fit prop to CSS) in 1.7.0
-    const fitComputed = computed(() => {
-      if (props.contain) { return 'contain' }
-      return props.fit
-    })
+    const fitComputed = computed(() => props.fit)
 
     return {
       fitComputed,

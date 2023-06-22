@@ -17,7 +17,6 @@ export default defineApiDescription({
     lazy: "Enables lazy load for the image.",
     draggable: "Proxies the `draggable` attribute to the image [MDN](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/draggable)[[target=_blank]].",
     placeholderSrc: "`src` value for the placeholder image (can be replaced with `placeholder` slot).",
-    contain: "The image is scaled to maintain its aspect ratio while fitting within the element's content box.",
     maxWidth: "Maximal image's width"
   },
   events: {
