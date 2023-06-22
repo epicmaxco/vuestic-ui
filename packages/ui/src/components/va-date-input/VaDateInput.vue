@@ -133,7 +133,7 @@ import { VaIcon } from '../va-icon'
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
 const VaDropdownProps = extractComponentProps(VaDropdown,
-  ['innerAnchorSelector', 'stateful', 'keyboardNavigation', 'modelValue'],
+  ['innerAnchorSelector', 'stateful', 'keyboardNavigation', 'modelValue', 'trigger'],
 )
 
 export default defineComponent({
@@ -404,6 +404,7 @@ export default defineComponent({
       closeOnAnchorClick: false,
       keyboardNavigation: true,
       innerAnchorSelector: '.va-input-wrapper__field',
+      trigger: 'none' as const,
     }))
 
     return {

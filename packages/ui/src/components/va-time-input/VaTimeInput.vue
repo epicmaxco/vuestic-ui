@@ -11,7 +11,6 @@
         class="va-time-input__anchor"
         :style="cursorStyleComputed"
         v-bind="computedInputWrapperProps"
-        @click.stop="toggleDropdown"
       >
         <template #default>
           <input
@@ -108,7 +107,7 @@ import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDropdownProps = extractComponentProps(VaDropdown,
-  ['keyboardNavigation', 'innerAnchorSelector', 'modelValue'],
+  ['keyboardNavigation', 'innerAnchorSelector', 'modelValue', 'trigger'],
 )
 
 export default defineComponent({
@@ -340,6 +339,7 @@ export default defineComponent({
       ...filteredProps.value,
       keyboardNavigation: true,
       innerAnchorSelector: '.va-input-wrapper__field',
+      trigger: 'none' as const,
     }))
 
     return {
