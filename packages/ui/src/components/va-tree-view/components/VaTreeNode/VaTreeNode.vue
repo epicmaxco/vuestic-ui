@@ -115,7 +115,10 @@ export default defineComponent({
     const roleComputed = computed(() => props.node.hasChildren ? 'group' : 'treeitem')
 
     const treeNodeClassComputed = useBem('va-tree-node', () => ({
-      disabled: !!props.node.disabled,
+      disabled: Boolean(props.node.disabled),
+      checked: Boolean(props.node.checked),
+      hasChildren: Boolean(props.node.hasChildren),
+      [`level-${props.node.level}`]: true,
     }))
 
     const expandedClassComputed = useBem('va-tree-node-children', () => ({
