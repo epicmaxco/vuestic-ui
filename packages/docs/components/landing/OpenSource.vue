@@ -7,28 +7,28 @@
       <div class="opensource__inner">
         <div class="opensource__info">
           <h2 class="opensource__title">
-            {{ $t('landing.opensource.title') }}
+            Open Source
           </h2>
 
           <div class="opensource__text">
-            {{ $t('landing.opensource.text[0]') }}
+            Vuestic UI is forever free and open to contributions. See our
             <a
               href="https://github.com/epicmaxco/vuestic-ui/issues"
               target="_blank"
             >
-              {{ $t('landing.opensource.text[1]') }}
+              issues
             </a>,
-            <router-link :to="`/${locale}/contribution/documentation-page`">
-              {{ $t('landing.opensource.text[2]') }}
+            <router-link to="/contribution/documentation-page">
+              contributing guide
             </router-link>
-            {{ $t('landing.opensource.text[3]') }}
+            and
             <a
               href="https://discord.gg/u7fQdqQt8c"
               target="_blank"
             >
-              {{ $t('landing.opensource.text[4]') }}
+              discord server
             </a>
-            {{ $t('landing.opensource.text[5]') }}
+            to help us improve Vuestic UI experience.
           </div>
         </div>
 
@@ -48,7 +48,6 @@
 <script setup lang="ts">
 import { useElementTextColor } from 'vuestic-ui'
 
-const { locale } = useI18n()
 const textColor = useElementTextColor('background-primary')
 </script>
 

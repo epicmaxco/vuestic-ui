@@ -3,11 +3,11 @@
     <div class="admin__wrapper">
       <div class="admin__inner">
         <h2 class="admin__title">
-          {{ $t('landing.admin.title') }}
+          Vuestic Admin
         </h2>
 
         <div class="admin__subtitle">
-          {{ $t('landing.admin.text') }}
+          Check out Vuestic UI Framework in action.
         </div>
 
         <div class="admin__buttons">
@@ -22,7 +22,7 @@
                 style="margin-right: 0.5rem;"
               />
             </template>
-            {{ $t('landing.admin.buttons.github') }}
+            View on GitHub
           </va-button>
 
           <va-button
@@ -31,7 +31,7 @@
             target="blank"
             :preset="breakpoint.xs ? `primary` : `secondary`"
           >
-            {{ $t('landing.admin.buttons.demo') }}
+            Live Demo
           </va-button>
 
           <div class="admin__buttons--button stars-button">
@@ -68,7 +68,7 @@
                   >
                 </div>
                 <h3 class="item__title">
-                  {{ $t(description) }}
+                  {{ description }}
                 </h3>
               </div>
             </div>
@@ -86,10 +86,10 @@ import LandingStarsButton from './StarsButton.vue'
 const breakpoint = useBreakpoint()
 
 const items = [
-  { icon: '/landing/admin/open-source.svg', description: 'landing.admin.features.opensource' },
-  { icon: '/landing/admin/themes.svg', description: 'landing.admin.features.themes' },
-  { icon: '/landing/admin/responsive.svg', description: 'landing.admin.features.responsive' },
-  { icon: '/landing/admin/i18n.svg', description: 'landing.admin.features.i18n' },
+  { icon: '/landing/admin/open-source.svg', description: 'Open source MIT license' },
+  { icon: '/landing/admin/themes.svg', description: 'Two built-in color schemes' },
+  { icon: '/landing/admin/responsive.svg', description: 'Cross-browser & responsive' },
+  { icon: '/landing/admin/i18n.svg', description: 'i18n-ready' },
 ]
 </script>
 

@@ -1,9 +1,8 @@
 <template>
   <va-split
-    class="split-demo"
+    class="split-demo h-[22-rem]"
     :snapping="[20, 80]"
     :snapping-range="5"
-    style="height: 22rem;"
   >
     <template #start>
       <div class="p-6">

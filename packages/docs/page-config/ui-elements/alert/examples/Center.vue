@@ -3,16 +3,16 @@
     center
     class="mb-6"
   >
-    {{ $t("alert.misc.centered") }}
+    You read this important centered alert message
   </va-alert>
   <va-alert
     color="warning"
     closeable
-    :title="$t('alert.misc.title')"
+    title="Hello World!"
     icon="favorite"
     center
     class="mb-6"
   >
-    {{ $t('alert.misc.centered') }}
+    You read this important centered alert message
   </va-alert>
 </template>

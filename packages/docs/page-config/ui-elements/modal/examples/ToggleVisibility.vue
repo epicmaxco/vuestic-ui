@@ -1,36 +1,24 @@
 <template>
   <va-button
-    class="mr-6 my-1"
-    @click="$refs.statefulModal.show()"
+    @click="$refs.modal.show()"
   >
-    Show modal (stateful)
+    Show modal
   </va-button>
-  <va-button
-    class="mr-6 my-1"
-    @click="$refs.statelessModal.show()"
-  >
-    Show modal (stateless)
-  </va-button>
-  <va-modal
-    ref="statefulModal"
-    :message="message"
-    stateful
-  />
-  <va-modal
-    ref="statelessModal"
-    v-model="showStatefulModal"
-    :message="message"
-  />
+
+  <va-modal v-model="doShowModal" ref="modal">
+    <h2 class="va-h2">Title</h2>
+    <p>
+      Classic modal overlay which represents a dialog box or other interactive
+      component, such as a dismissible alert, sub-window, etc.
+    </p>
+  </va-modal>
 </template>
 
 <script>
-import message from "./popup-message";
-
 export default {
   data() {
     return {
-      showStatefulModal: false,
-      message,
+      doShowModal: false,
     };
   },
 };

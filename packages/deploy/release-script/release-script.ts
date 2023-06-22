@@ -24,6 +24,8 @@ export type ReleaseConfig = {
   distTag: 'latest' | 'next' | 'experimental',
   gitTag: string, // v1.2.3
   branch: string, // 'develop'
+  allowSkipTests: boolean,
+  allowUncommitted: boolean,
   requiredBranch: string // 'develop'
   commit: string, // '12345678'
   shouldCommit: boolean,
@@ -59,6 +61,8 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       gitTag: gitTagFromVersion(version),
       distTag: 'latest',
       shouldCommit: true,
+      allowSkipTests: false,
+      allowUncommitted: false,
       requiredBranch: 'master',
       showSleepCheck: true,
       todoList: [
@@ -75,6 +79,8 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       gitTag: gitTagFromVersion(version),
       distTag: 'latest',
       shouldCommit: true,
+      allowSkipTests: false,
+      allowUncommitted: false,
       requiredBranch: 'develop',
       showSleepCheck: true,
       todoList: [
@@ -91,6 +97,8 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       gitTag: undefined,
       distTag: 'next',
       shouldCommit: false,
+      allowSkipTests: false,
+      allowUncommitted: false,
       requiredBranch: 'develop',
       showSleepCheck: false,
     }
@@ -101,6 +109,8 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       gitTag: undefined,
       distTag: 'experimental',
       shouldCommit: false,
+      allowSkipTests: true,
+      allowUncommitted: true,
       requiredBranch: undefined,
       showSleepCheck: false,
     }
@@ -146,6 +156,7 @@ const runReleaseChecks = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
     showSleepCheck,
     gitTag,
     distTag,
+    allowUncommitted,
     version
   } = releaseConfig
 
@@ -171,11 +182,13 @@ const runReleaseChecks = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
     console.log(chalk.red(`Version ${version} is already on NPM, you can bump version manually to fix that.`))
     return false
   }
-  try {
-    await executeCommand('git diff-index --quiet HEAD --')
-  } catch (e) {
-    console.log(chalk.red('You have uncommited changes, please commit before attempting to release.'))
-    return false
+  if (!allowUncommitted) {
+    try {
+      await executeCommand('git diff-index --quiet HEAD --')
+    } catch (e) {
+      console.log(chalk.red('You have uncommited changes, please commit before attempting to release.'))
+      return false
+    }
   }
   if (!await confirmRelease()) {
     return false
@@ -192,6 +205,7 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
     gitTag,
     distTag,
     shouldCommit,
+    allowSkipTests,
   } = releaseConfig
 
   // **** Attempt building dist ****
@@ -205,7 +219,10 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
 
   // **** run e2e tests
 
-  await runTests()
+  if (!(allowSkipTests && await inquireSkipTests())) {
+    await runTests()
+  }
+
 
   // **** Update version strings ****
 
@@ -267,6 +284,11 @@ const inquireDryRun = async () => simplePrompt<boolean>({
   type: 'confirm',
   default: false,
   message: 'Do you want a dry-run? (there won\'t be any non reversible changes)',
+})
+const inquireSkipTests = async () => simplePrompt<boolean>({
+  type: 'confirm',
+  default: false,
+  message: 'Do you want a skip tests?',
 })
 const checkIfTooLate = async () => {
     const result = await simplePrompt<boolean | undefined>({

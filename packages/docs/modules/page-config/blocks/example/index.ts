@@ -8,6 +8,8 @@ type Options = Partial<{
   hideTitle: boolean,
   hideTemplate: boolean,
   forceShowCode: boolean,
+  description: string,
+  title: string;
   codesandboxConfig: CodeSandboxConfig
 }>
 

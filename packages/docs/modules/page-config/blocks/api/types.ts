@@ -67,3 +67,15 @@ export type VisualOptions = {
   hideCssVariables?: boolean
   hideCssVariablesTitle?: boolean
 }
+
+export type APIDescriptionType = 'props' | 'events' | 'slots' | 'methods';
+export type APIDescriptionOptions = {
+  [k in APIDescriptionType]?: Record<string, string>;
+}
+
+export type ComponentMeta = {
+  props: Required<ManualPropApiOptions>[];
+  events: Required<ManualEventApiOptions>[];
+  methods: Required<ManualMethodApiOptions>[];
+  slots: Required<ManualSlotApiOptions>[];
+}
