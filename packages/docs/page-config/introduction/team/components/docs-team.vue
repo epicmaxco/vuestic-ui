@@ -1,10 +1,9 @@
 <template>
-  <div class="docs-team flex flex-wrap">
-    <div class="docs-team__row flex flex-wrap">
+      <div class="docs-team grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 -mb-4 mt-8">
       <div
-        v-for="item in items"
+        v-for="item in team"
         :key="item.image"
-        class="docs-team__avatar-wrapper"
+        class="docs-team__avatar-wrapper mb-8"
       >
         <va-avatar
           :size="146"
@@ -20,11 +19,11 @@
         <strong class="mt-3 mb-1">{{ item.name }}</strong>
         <div>{{ item.jobTitle }}</div>
         <div
-          v-if="item.socNetworks"
+          v-if="item.socialNetworks"
           class="flex"
         >
           <div
-            v-for="icon in item.socNetworks"
+            v-for="icon in item.socialNetworks"
             :key="icon.url"
           >
             <a
@@ -42,7 +41,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -52,19 +50,8 @@ import { TeamItem } from "../types";
 const props = defineProps({
   team: {
     type: Array as PropType<TeamItem[]>,
-    default: () => [],
+    required: true,
   },
-});
-
-const items = computed(() => {
-  return props.team.map((item, index) => {
-    return {
-      ...item,
-      name: typeof item === "string" ? item : item.name,
-      jobTitle: typeof item === "string" ? item : item.jobTitle,
-      image: item.image,
-    };
-  });
 });
 
 useHead({
@@ -75,16 +62,11 @@ useHead({
 </script>
 
 <style lang="scss">
-$gap: 1rem;
-
 .docs-team {
-  margin: 0 (-$gap);
-
   &__avatar-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem;
   }
 
   &__avatar {

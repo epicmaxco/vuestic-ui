@@ -2,7 +2,7 @@ export type TeamItem = {
   name: string;
   jobTitle: string;
   image: string;
-  socNetworks: {
+  socialNetworks: {
     name: string;
     url: string;
   }[];
