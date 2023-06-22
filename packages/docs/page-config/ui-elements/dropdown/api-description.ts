@@ -5,6 +5,7 @@ export default defineApiDescription({
     closeOnContentClick: "Dropdown will be closed when clicked inside dropdown content",
     hoverOutTimeout: "Time in `ms` after mouse leave dropdown before it will be closed",
     hoverOverTimeout: "Time in `ms` after mouse enter dropdown before it will be opened",
+    verticalScrollOnOverflow: "If true, dropdown content will adjust its height when the content is larger than available space",
     keepAnchorWidth: "If true, dropdown content will have exact same width as anchor",
     offset: "Dropdown content will be moved by main and cross axis according to current `placement`",
     placement: "Dropdown content will be placed on `placement` side of anchor",

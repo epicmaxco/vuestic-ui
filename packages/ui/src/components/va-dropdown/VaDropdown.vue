@@ -1,6 +1,14 @@
 <script lang="ts">
-import { h, defineComponent, PropType, computed, nextTick, toRef, ref, Fragment, Teleport } from 'vue'
-import { Placement } from '@floating-ui/vue'
+import {
+  h,
+  defineComponent,
+  PropType,
+  computed,
+  nextTick,
+  toRef,
+  Fragment,
+  Teleport,
+} from 'vue'
 import kebabCase from 'lodash/kebabCase'
 import pick from 'lodash/pick'
 import {
@@ -11,7 +19,11 @@ import {
   useDebounceFn,
   useHTMLElement,
   useHTMLElementSelector,
-  useIsMounted, useStateful, useStatefulEmits, useTranslation,
+  useIsMounted,
+  useStateful,
+  useStatefulEmits,
+  useTranslation,
+  usePlacementAliasesProps,
 } from '../../composables'
 import { renderSlotNode } from '../../utils/headless'
 import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
@@ -24,6 +36,7 @@ import { warn } from '../../utils/console'
 export default defineComponent({
   name: 'VaDropdown',
   props: {
+    ...usePlacementAliasesProps,
     ...createStatefulProps(Boolean, true),
     anchorSelector: { type: String, default: '' },
     innerAnchorSelector: { type: String, default: '' },
@@ -40,9 +53,9 @@ export default defineComponent({
     hoverOverTimeout: { type: Number, default: 30 },
     hoverOutTimeout: { type: Number, default: 200 },
     isContentHoverable: { type: Boolean, default: true },
-    placement: { type: String as PropType<Placement | 'auto'>, default: 'bottom' },
     offset: { type: [Array, Number] as PropType<DropdownOffsetProp>, default: 0 },
     keepAnchorWidth: { type: Boolean, default: false },
+    verticalScrollOnOverflow: { type: Boolean, default: true },
     cursor: { type: Boolean, default: false },
     autoPlacement: { type: Boolean, default: true },
     stickToEdges: { type: Boolean, default: false },
@@ -191,6 +204,7 @@ export default defineComponent({
         autoPlacement: props.autoPlacement,
         stickToEdges: props.stickToEdges,
         keepAnchorWidth: props.keepAnchorWidth,
+        verticalScrollOnOverflow: props.verticalScrollOnOverflow,
       })),
     )
 
