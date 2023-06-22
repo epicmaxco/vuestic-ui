@@ -25,6 +25,7 @@ import {
   useStatefulEmits,
   useTranslation,
   usePlacementAliasesProps,
+  useDeprecated,
 } from '../../composables'
 import { renderSlotNode } from '../../utils/headless'
 import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
@@ -64,6 +65,7 @@ export default defineComponent({
     target: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
     /** Element where dropdown content will be rendered. */
     teleport: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
+    preventOverflow: { type: Boolean, default: false },
     /** Not reactive */
     keyboardNavigation: { type: Boolean, default: false },
     ariaLabel: { type: String, default: '$t:toggleDropdown' },
@@ -72,6 +74,9 @@ export default defineComponent({
   emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'close', 'open', 'anchor-dblclick'],
 
   setup (props, { emit }) {
+    // TODO: delete in 1.8.0
+    useDeprecated(['preventOverflow'])
+
     const { valueComputed: statefulVal } = useStateful(props, emit)
     const valueComputed = computed({
       get: () => statefulVal.value && !props.disabled && !props.readonly,
