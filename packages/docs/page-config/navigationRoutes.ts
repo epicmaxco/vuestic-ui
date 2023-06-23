@@ -82,7 +82,6 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "accessibility-guide",
         displayName: "Accessibility Guide",
       },
-      // GENERATOR_ADD - introduction
     ],
   },
   {
@@ -131,7 +130,6 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: navigationBadge.new('1.8.0'),
         },
       },
-      // GENERATOR_ADD - gettingStarted
     ],
   },
   {
@@ -173,7 +171,6 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "reset",
         displayName: "CSS Reset",
       },
-      // GENERATOR_ADD - styles
     ],
   },
   {
@@ -493,7 +490,6 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "tree-view",
         displayName: "Tree view",
       },
-      // GENERATOR_ADD - uiElements
     ],
   },
   {
@@ -520,7 +516,6 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "tree-shaking-requirements",
         displayName: "Tree Shaking Requirements",
       },
-      // GENERATOR_ADD - contribution
     ],
   },
   {
@@ -563,7 +558,6 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "i18n",
         displayName: "I18n",
       },
-      // GENERATOR_ADD - services
     ],
   },
   {
@@ -588,7 +582,6 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: navigationBadge.new('1.8.0'),
         }
       },
-      // GENERATOR_ADD - extensions
     ],
   },
 ];
