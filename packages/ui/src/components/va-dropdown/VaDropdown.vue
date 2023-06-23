@@ -162,7 +162,7 @@ export default defineComponent({
 
     const emitAndClose = (eventName: Parameters<typeof emit>[0], close?: boolean, e?: Event) => {
       emit(eventName, e)
-      if (close && props.trigger !== 'none') { valueComputed.value = false }
+      if (close) { valueComputed.value = false }
     }
 
     const floatingListeners = {
