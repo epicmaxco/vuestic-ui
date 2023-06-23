@@ -1,15 +1,16 @@
 <template>
-  <va-dropdown v-model="doShowDropdown" :stateful="false">
+  <va-dropdown class="va-dropdown" v-model="doShowDropdown" :stateful="false">
     <template #anchor>
       <VaButton>
         Слава Україні!!!
       </VaButton>
     </template>
     <template #default>
-      <VaDropdownContent>
+      <VaDropdownContent :no-padding="true">
         <va-menu-list
-          v-slot="slotData">
-          <slot name="options" v-bind="slotData || {}"></slot>
+          :options="options"
+          @option-click="$emit('option-click', $event)"
+        >
         </va-menu-list>
       </VaDropdownContent>
     </template>
@@ -18,14 +19,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { VaButton } from '../va-button'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown/'
-import { VaMenuList } from './components/VaMenuList'
+import VaMenuList from './components/VaMenuList.vue'
+import { useSelectableList, useSelectableListProps } from '../../composables'
+
 export default defineComponent({
   name: 'VaMenu',
-  components: { VaDropdown, VaDropdownContent, VaButton },
+  components: { VaDropdown, VaDropdownContent, VaButton, VaMenuList },
   props: {
+    ...useSelectableListProps,
 
   },
   setup (props) {
@@ -38,5 +42,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-
+.va-dropdown {
+  margin: 0;
+  padding: 0;
+}
 </style>
