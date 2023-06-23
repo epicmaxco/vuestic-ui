@@ -48,7 +48,11 @@ export default defineComponent({
   opacity: 0;
   font-size: 95%;
   transition: opacity 0.1s ease-in-out;
-
+  
+  &:focus {
+    opacity: 1;
+  }
+  
   &--force-show {
     opacity: 1;
   }
