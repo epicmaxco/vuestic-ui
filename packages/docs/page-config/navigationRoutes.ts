@@ -1,14 +1,52 @@
+import packageUi from 'vuestic-ui/package.json'
+
+const uiVersion = packageUi.version
+
+class navigationBadge {
+  static new(version: string) {
+    // version format: x.y.z (major.minor.patch)
+    // return new until ui minor version is smaller than docs minor version
+    const uiMinorVersion = parseInt(uiVersion.split('.')[1], 10);
+    const docsMinorVersion = parseInt(version.split('.')[1], 10);
+    if (uiMinorVersion < docsMinorVersion) {
+      return {
+        type: 'new',
+        text: 'new',
+        title: 'Recently added',
+      }
+    }
+    // return default 
+    return {
+      type: '',
+      text: '',
+      title: '',
+    };
+  }
+
+  static updated() {
+    return {
+      type: 'updated',
+      text: 'updated',
+      title: 'Recently updated',
+    }  
+  }
+
+  static wip() {
+    return {
+      type: 'wip',
+      text: 'wip',
+      title: 'Work in progress',
+    }
+  }
+}
+
 export type NavigationRoute = {
   name: string;
   category?: string;
   displayName: string;
   meta?: {
     iconClass?: string;
-    badge?: {
-      type: "wip" | "new" | "updated";
-      text: string;
-      title: string;
-    };
+    badge?: navigationBadge;
   };
   disabled?: boolean;
   children?: NavigationRoute[];
@@ -83,22 +121,14 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'web-components',
         displayName: 'Web Components',
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge: navigationBadge.new('1.8.0'),
         },
       },
       {
         name: 'testing',
         displayName: 'Testing',
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge: navigationBadge.new('1.8.0'),
         },
       },
       // GENERATOR_ADD - gettingStarted
@@ -132,11 +162,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'tailwind',
         displayName: 'Tailwind Integration',
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge: navigationBadge.new('1.8.0'),
         },
       },
       {
@@ -191,11 +217,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "image",
         displayName: "Image",
         meta: {
-          badge: {
-            type: 'updated',
-            text: 'updated',
-            title: 'Recently updated',
-          },
+          badge : navigationBadge.updated(),
         }
       },
       {
@@ -227,11 +249,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "form",
         displayName: "Form",
         meta: {
-          badge: {
-            type: 'updated',
-            text: 'updated',
-            title: 'Recently updated',
-          },
+          badge : navigationBadge.updated(),
         }
       },
       {
@@ -266,11 +284,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "select",
         displayName: "Select",
         meta: {
-          badge: {
-            type: 'updated',
-            text: 'updated',
-            title: 'Recently updated',
-          },
+          badge : navigationBadge.updated(),
         }
       },
       {
@@ -311,22 +325,14 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'aspect-ratio',
         displayName: 'Aspect Ratio',
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.8.0'),
         },
       },
       {
         name: "skeleton",
         displayName: "Skeleton",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.8.0'),
         }
       },
       {
@@ -386,11 +392,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'stepper',
         displayName: 'Stepper',
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.8.0'),
         }
       },
       {
@@ -398,22 +400,14 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "value",
         displayName: "Value",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.8.0'),
         }
       },
       {
         name: "config",
         displayName: "Config",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.8.0 '),
         }
       },
       {
@@ -470,22 +464,14 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "confirm",
         displayName: "Confirm",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.8.0'),
         }
       },
       {
         name: "virtual-scroller",
         displayName: "Virtual Scroller",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.8.0'),
         },
       },
       // TODO: Color components not released yet
@@ -566,11 +552,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "colors-classes",
         displayName: "Colors Classes",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge: navigationBadge.new('1.8.0'),
         }
       },
       {
@@ -596,22 +578,14 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "ag-grid",
         displayName: "AG Grid Theme",
         meta: {
-          badge: {
-            type: 'updated',
-            text: 'updated',
-            title: 'Recently updated',
-          },
+          badge: navigationBadge.updated(),
         }
       },
       {
         name: "unocss",
         displayName: "UnoCSS Integration",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge: navigationBadge.new('1.8.0'),
         }
       },
       // GENERATOR_ADD - extensions
