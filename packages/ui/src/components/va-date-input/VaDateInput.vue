@@ -341,7 +341,11 @@ export default defineComponent({
       return { cursor: 'pointer' }
     })
 
-    const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
+    const iconTabindexComputed = computed(() => {
+      if (!props.manualInput) { return -1 }
+
+      return props.disabled || props.readonly ? -1 : 0
+    })
 
     const iconProps = computed(() => ({
       role: 'button',
