@@ -51,6 +51,9 @@ export default definePageConfig({
       description: "The `center` property allows you to center title and description areas."
     }),
 
+    block.subtitle("Accessibility"),
+    block.paragraph("The component has a [alert](https://w3c.github.io/aria/#alert)[[target=_blank]] role. It's communicating an important message, and different from [alertdialog](https://w3c.github.io/aria/#alertdialog)[[target=_blank]] role, it doesn't interrupt the user's workflow."),
+
     block.subtitle("API"),
     block.api("VaAlert", apiDescription, apiOptions),
   ],
