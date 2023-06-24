@@ -23,7 +23,18 @@ class navigationBadge {
     };
   }
 
-  static updated() {
+  static updated(version: string) {
+    // version format: x.y.z (major.minor.patch)
+    // return new until ui minor version is smaller than docs minor version
+    const uiMinorVersion = parseInt(uiVersion.split('.')[1], 10);
+    const docsMinorVersion = parseInt(version.split('.')[1], 10);
+    if (uiMinorVersion < docsMinorVersion) {
+      return {
+        type: 'updated',
+        text: 'updated',
+        title: 'Recently updated',
+      }
+    }
     return {
       type: 'updated',
       text: 'updated',
@@ -31,7 +42,18 @@ class navigationBadge {
     }  
   }
 
-  static wip() {
+  static wip(version: string) {
+    // version format: x.y.z (major.minor.patch)
+    // return new until ui minor version is smaller than docs minor version
+    const uiMinorVersion = parseInt(uiVersion.split('.')[1], 10);
+    const docsMinorVersion = parseInt(version.split('.')[1], 10);
+    if (uiMinorVersion < docsMinorVersion) {
+      return {
+        type: 'wip',
+        text: 'wip',
+        title: 'Work in progress',
+      }
+    }
     return {
       type: 'wip',
       text: 'wip',
@@ -214,7 +236,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "image",
         displayName: "Image",
         meta: {
-          badge : navigationBadge.updated(),
+          badge : navigationBadge.updated('1.8.0'),
         }
       },
       {
@@ -246,7 +268,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "form",
         displayName: "Form",
         meta: {
-          badge : navigationBadge.updated(),
+          badge : navigationBadge.updated('1..8.0'),
         }
       },
       {
@@ -281,7 +303,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "select",
         displayName: "Select",
         meta: {
-          badge : navigationBadge.updated(),
+          badge : navigationBadge.updated('1.8.0'),
         }
       },
       {
@@ -572,7 +594,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "ag-grid",
         displayName: "AG Grid Theme",
         meta: {
-          badge: navigationBadge.updated(),
+          badge: navigationBadge.updated('1.8.0'),
         }
       },
       {
