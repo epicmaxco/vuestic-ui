@@ -268,7 +268,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "form",
         displayName: "Form",
         meta: {
-          badge : navigationBadge.updated('1..8.0'),
+          badge : navigationBadge.updated('1.8.0'),
         }
       },
       {
