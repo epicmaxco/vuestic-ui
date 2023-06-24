@@ -6,9 +6,7 @@
     <div
       class="va-alert"
       :style="alertStyle"
-      :role="closeable ? 'alertdialog' : 'alert'"
-      :aria-labelledby="titleIdComputed"
-      :aria-describedby="descriptionIdComputed"
+      role='alert'
     >
       <div
         :style="borderStyle"
@@ -35,14 +33,13 @@
           v-if="hasTitle"
           :style="titleStyle"
           class="va-alert__title"
-          :id="titleIdComputed"
         >
           <slot name="title">
             {{ title }}
           </slot>
         </div>
 
-        <span :id="descriptionIdComputed">
+        <span>
           <slot>
             {{ $props.description }}
           </slot>
@@ -132,10 +129,6 @@ export default defineComponent({
 
     const closeIcon = computed(() => props.closeText || 'close')
 
-    const uniqueId = computed(generateUniqueId)
-    const titleIdComputed = computed(() => `aria-title-${uniqueId.value}`)
-    const descriptionIdComputed = computed(() => `aria-description-${uniqueId.value}`)
-
     return {
       ...useTranslation(),
       ...alertStyles,
@@ -145,8 +138,6 @@ export default defineComponent({
       borderClass,
       closeIcon,
       hide,
-      titleIdComputed,
-      descriptionIdComputed,
     }
   },
 })
