@@ -18,7 +18,7 @@
           ref="input"
           class="va-radio__input"
           type="radio"
-          :value="option"
+          :value="$props.modelValue"
           v-bind="inputAttributesComputed"
           :checked="$props.modelValue === option"
           :aria-checked="$props.modelValue === option"
@@ -99,7 +99,6 @@ export default defineComponent({
       computedError,
       computedErrorMessages,
       validationAriaAttributes,
-      radioSelection,
       onBlur,
       onFocus,
     } = useSelectable(props, emit, elements)
@@ -184,7 +183,6 @@ export default defineComponent({
       onBlur,
       inputAttributesComputed,
       computedName,
-      radioSelection,
     }
   },
 })

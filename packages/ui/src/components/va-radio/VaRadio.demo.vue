@@ -2,7 +2,6 @@
   <VbDemo>
     <VbCard title="Default">
       <va-radio
-        :key="index"
         v-model="selectedOptionString"
         :options="options"
       />
@@ -11,11 +10,8 @@
       </div>
       <br>
       <va-radio
-        v-for="option in objectOptions"
-        :key="option.name"
         v-model="selectedOptionObject"
-        :option="option"
-        :label="option.name"
+        :options="options"
       />
       <div>
         {{ selectedOptionObject }}
@@ -23,69 +19,59 @@
     </VbCard>
     <VbCard title="Custom label">
       <va-radio
-        v-for="(option, index) in options"
-        :key="index"
         v-model="selectedOptionString"
-        :option="option"
-        :label="`((${option}))`"
+        :options="options"
+        :labels="options.map((o) => `((${o}))`)"
       />
       <br>
       <va-radio
-        v-for="(option) in options"
-        :key="option"
         v-model="selectedOptionString"
-        :option="option"
+        :options="options"
+        :labels="options.map((o) => `Slotted label: ${o}`)"
       >
-        Slotted label: {{ option }}
       </va-radio>
     </VbCard>
     <VbCard title="Disabled">
       <va-radio
-        v-for="(option, index) in options"
-        :key="index"
         v-model="selectedOptionString"
-        :option="option"
+        :options="options"
         :disabled="isDisabled"
       />
       <va-checkbox class="mt-2" v-model="isDisabled" label="is Disabled" />
     </VbCard>
     <VbCard title="Readonly">
       <va-radio
-        v-for="(option, index) in options"
-        :key="index"
         v-model="selectedOptionString"
-        :option="option"
+        :options="options"
         :readonly="isReadonly"
       />
       <va-checkbox class="mt-2" v-model="isReadonly" label="is Readonly" />
     </VbCard>
     <VbCard title="Left label">
       <va-radio
-        v-for="(option, index) in options"
-        :key="index"
         v-model="selectedOptionString"
-        :option="option"
+        :options="options"
         left-label
       />
     </VbCard>
     <VbCard title="Colored">
       <va-radio
         v-model="selectedOptionString"
-        :option="options[0]"
+        :options="[options[0]]"
+        :labels="['warning']"
         color="warning"
-        label="warning"
       />
       <va-radio
         v-model="selectedOptionString"
-        :option="options[1]"
+        :options="[options[1]]"
+        :labels="['danger']"
         color="danger"
-        label="danger"
       />
       <va-radio
         v-model="selectedOptionString"
-        :option="options[2]"
+        :options="[options[2]]"
         color="info"
-        label="info"
+        :labels="['info']"
       />
     </VbCard>
     <VaRadioValidation />
