@@ -1,84 +1,150 @@
 <template>
-  <label
-    class="va-radio"
+  <VaMessageListWrapper
     :class="computedClass"
+    :disabled="disabled"
+    :success="success"
+    :messages="messages"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
+    :error-count="errorCount"
   >
-    <input
-      class="va-radio__input"
-      type="radio"
-      :checked="isActive"
-      :disabled="$props.disabled"
-      :readonly="$props.readonly"
-      :name="computedName"
-      :value="computedLabel"
-      :aria-checked="isActive"
-      :tabindex="tabIndexComputed"
-      @change="onClick"
-      @focus="onFocus"
-    >
+    <div ref="container" @blur="onBlur">
+      <label
+        v-for="(option, index) in options"
+        :key="index"
+        class="va-radio"
+      >
+        <input
+          ref="input"
+          class="va-radio__input"
+          type="radio"
+          :value="option"
+          v-bind="inputAttributesComputed"
+          :checked="$props.modelValue === option"
+          :aria-checked="$props.modelValue === option"
+          @change="selectOption(option)"
+          @focus="onFocus"
+          @blur="onBlur"
+        />
 
-    <span
-      aria-hidden="true"
-      class="va-radio__icon"
-      :style="iconComputedStyles"
-    >
-      <span
-        class="va-radio__icon__background"
-        :style="iconBackgroundComputedStyles"
-      />
-      <span
-        class="va-radio__icon__dot"
-        :style="iconDotComputedStyles"
-      />
-    </span>
+        <span
+          aria-hidden="true"
+          class="va-radio__icon"
+          :style="iconComputedStyles"
+        >
+          <span
+            class="va-radio__icon__background"
+            :style="iconBackgroundComputedStyles"
+          />
+          <span class="va-radio__icon__dot" :style="iconDotComputedStyles" />
+        </span>
 
-    <span class="va-radio__text">
-      <slot>
-        {{ computedLabel }}
-      </slot>
-    </span>
-  </label>
+        <span ref="label" class="va-radio__text">
+          <slot>
+            {{ computedLabel(index) }}
+          </slot>
+        </span>
+      </label>
+    </div>
+  </VaMessageListWrapper>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, PropType, computed, shallowRef } from 'vue'
 
 import { generateUniqueId } from '../../utils/uuid'
-import { useComponentPresetProp, useColors, useFormFieldProps, useFormField } from '../../composables'
+import {
+  useComponentPresetProp,
+  useColors,
+  useSelectable,
+  Elements,
+  useSelectableProps,
+  useSelectableEmits,
+} from '../../composables'
+import { VaMessageListWrapper } from '../va-input'
 
 export default defineComponent({
   name: 'VaRadio',
-  emits: ['update:modelValue', 'focus'],
+  components: { VaMessageListWrapper },
+  emits: useSelectableEmits,
   props: {
-    ...useFormFieldProps,
+    ...useSelectableProps,
     ...useComponentPresetProp,
-    modelValue: { type: [Boolean, Array, String, Object, Number] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>, default: null },
-    option: { type: [String, Boolean, Object, Number] as PropType<any>, default: null },
+    modelValue: {
+      type: [Boolean, Array, String, Object, Number] as PropType<
+        boolean | null | string | number | Record<any, unknown> | unknown[]
+      >,
+      default: null,
+    },
+    options: {
+      type: Array as PropType<any>,
+      default: () => [],
+    },
     name: { type: String, default: '' },
-    label: { type: String, default: '' },
+    labels: { type: Array, default: null },
     leftLabel: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },
-    tabindex: { type: [String, Number], default: 0 },
+    ariaLabel: { type: String, default: undefined },
   },
   setup (props, { emit }) {
     const { getColor } = useColors()
+    const elements: Elements = {
+      container: shallowRef<HTMLElement>(),
+      input: shallowRef<HTMLElement>(),
+      label: shallowRef<HTMLElement>(),
+    }
 
-    const isActive = computed(() => props.modelValue === props.option)
-
-    const { computedClasses } = useFormField('va-radio', props)
+    const {
+      isChecked,
+      computedError,
+      computedErrorMessages,
+      validationAriaAttributes,
+      radioSelection,
+      onBlur,
+      onFocus,
+    } = useSelectable(props, emit, elements)
 
     const computedClass = computed(() => ({
       'va-radio--left-label': props.leftLabel,
-      ...computedClasses,
+      'va-radio--selected': isChecked.value,
+      'va-radio--readonly': props.readonly,
+      'va-radio--disabled': props.disabled,
+      'va-radio--indeterminate': props.indeterminate,
+      'va-radio--error': computedError.value,
     }))
+
+    const selectOption = (option: string) => {
+      emit('update:modelValue', option)
+    }
+    const labelStyle = computed(() => {
+      return {
+        color: computedError.value ? getColor('danger') : '',
+        padding: !props.label
+          ? ''
+          : props.leftLabel
+            ? '0 0.5rem 0 0'
+            : '0 0 0 0.5rem',
+      }
+    })
+
+    const inputStyle = computed(() => {
+      const style = {
+        background: getColor(props.color),
+        borderColor: getColor(props.color),
+      }
+
+      if (computedError.value) {
+        style.borderColor = getColor('danger')
+      }
+
+      return style
+    })
 
     const iconBackgroundComputedStyles = computed(() => ({
       backgroundColor: getColor(props.color),
     }))
 
     const iconDotComputedStyles = computed(() => {
-      if (!isActive.value) { return }
-
       return {
         borderColor: getColor(props.color),
         backgroundColor: getColor(props.color),
@@ -86,31 +152,39 @@ export default defineComponent({
     })
 
     const iconComputedStyles = computed(() => {
-      if (!isActive.value) { return }
-
       return { borderColor: getColor(props.color) }
     })
 
-    const computedLabel = computed(() => props.label || props.option)
+    const computedLabel = (index: number) =>
+      props.labels ? props.labels[index] : props.options[index]
 
-    const onClick = (e: Event) => {
-      if (props.readonly || props.disabled) { return }
-      emit('update:modelValue', props.option, e)
-    }
-
-    const onFocus = (e: Event) => emit('focus', e)
-
+    const computedName = computed(() => props.name || generateUniqueId())
+    const inputAttributesComputed = computed(() => ({
+      name: computedName.value,
+      disabled: props.disabled,
+      readonly: props.readonly,
+      tabindex: props.disabled ? -1 : 0,
+      'aria-label': props.ariaLabel,
+      'aria-disabled': props.disabled,
+      'aria-readOnly': props.readonly,
+      ...validationAriaAttributes.value,
+    }))
     return {
       computedClass,
-      isActive,
+      labelStyle,
+      inputStyle,
+      computedError,
+      computedErrorMessages,
       iconBackgroundComputedStyles,
       iconDotComputedStyles,
       iconComputedStyles,
       computedLabel,
-      onClick,
+      selectOption,
       onFocus,
-      computedName: computed(() => props.name || generateUniqueId()),
-      tabIndexComputed: computed(() => props.disabled ? -1 : props.tabindex),
+      onBlur,
+      inputAttributesComputed,
+      computedName,
+      radioSelection,
     }
   },
 })

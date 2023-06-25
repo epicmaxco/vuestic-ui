@@ -2,10 +2,9 @@
   <VbDemo>
     <VbCard title="Default">
       <va-radio
-        v-for="(option, index) in options"
         :key="index"
         v-model="selectedOptionString"
-        :option="option"
+        :options="options"
       />
       <div>
         Selected: {{ selectedOptionString }}
@@ -89,15 +88,17 @@
         label="info"
       />
     </VbCard>
+    <VaRadioValidation />
   </VbDemo>
 </template>
 
 <script>
 import { VaRadio } from './index'
 import { VaCheckbox } from '../va-checkbox'
+import VaRadioValidation from './VaRadio-validation'
 
 export default {
-  components: { VaRadio, VaCheckbox },
+  components: { VaRadio, VaCheckbox, VaRadioValidation },
   data () {
     const objectOptions = [
       { key: 1, name: 'one' },
