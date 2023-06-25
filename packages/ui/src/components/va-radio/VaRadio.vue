@@ -143,10 +143,9 @@ export default defineComponent({
     }))
 
     const iconDotComputedStyles = computed(() => {
-      const color = computedError.value ? getColor('danger') : getColor(props.color)
       return {
-        borderColor: color,
-        backgroundColor: color,
+        borderColor: computedError.value ? getColor('danger') : getColor(props.color),
+        backgroundColor: getColor(props.color),
       }
     })
 

@@ -24,7 +24,7 @@ export default defineComponent({
         { value: 'two', label: 'second label' },
         { value: 'three', label: 'third label' },
       ],
-      selectedOption: ref('two'),
+      selectedOption: ref('one'),
     }
   },
 })

@@ -1,13 +1,8 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
-      <va-radio
-        v-model="selectedOptionString"
-        :options="options"
-      />
-      <div>
-        Selected: {{ selectedOptionString }}
-      </div>
+      <va-radio v-model="selectedOptionString" :options="options" />
+      <div>Selected: {{ selectedOptionString }}</div>
     </VbCard>
     <VbCard title="Disabled">
       <va-radio
@@ -26,11 +21,7 @@
       <va-checkbox class="mt-2" v-model="isReadonly" label="is Readonly" />
     </VbCard>
     <VbCard title="Left label">
-      <va-radio
-        v-model="selectedOptionString"
-        :options="options"
-        left-label
-      />
+      <va-radio v-model="selectedOptionString" :options="options" left-label />
     </VbCard>
     <VbCard title="Colored">
       <va-radio
@@ -50,18 +41,14 @@
       />
     </VbCard>
     <VbCard title="Error">
-      <va-radio
-        v-model="selectedOptionString"
-        :options="options"
-        error
-      />
+      <va-radio v-model="selectedOptionString" :options="options" error />
     </VbCard>
-    <VbCard title="Error message">
+    <VbCard title="String error message">
       <va-radio
         v-model="selectedOptionString"
         :options="options"
         error
-        error-messages="Error message"
+        :error-messages="stringErrorMessage"
       />
     </VbCard>
     <VaRadioValidation />
@@ -86,6 +73,11 @@ export default {
 
       isDisabled: true,
       isReadonly: true,
+      stringErrorMessage: 'String error message',
+      arrayErrorMessages: [
+        'Error message',
+        'Another error message',
+      ],
     }
   },
 }
