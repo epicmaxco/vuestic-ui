@@ -3,7 +3,6 @@
     <va-radio
       v-model="selectedOption"
       :options="options"
-      :labels="labels"
       :rules="rules"
     />
   </VbCard>
@@ -20,8 +19,11 @@ export default defineComponent({
   setup () {
     return {
       rules: [(v: unknown) => v === 'one' || 'Value should be one'],
-      options: ['one', 'two', 'three'],
-      labels: ['first label', 'second label', 'third label'],
+      options: [
+        { value: 'one', label: 'first label' },
+        { value: 'two', label: 'second label' },
+        { value: 'three', label: 'third label' },
+      ],
       selectedOption: ref('two'),
     }
   },

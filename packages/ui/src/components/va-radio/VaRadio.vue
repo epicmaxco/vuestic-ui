@@ -20,9 +20,9 @@
           type="radio"
           :value="$props.modelValue"
           v-bind="inputAttributesComputed"
-          :checked="$props.modelValue === option"
-          :aria-checked="$props.modelValue === option"
-          @change="selectOption(option)"
+          :checked="$props.modelValue === option.value"
+          :aria-checked="$props.modelValue === option.value"
+          @change="selectOption(option.value)"
           @focus="onFocus"
           @blur="onBlur"
         />
@@ -41,7 +41,7 @@
 
         <span ref="label" class="va-radio__text">
           <slot>
-            {{ computedLabel(index) }}
+            {{ option.label || option.value }}
           </slot>
         </span>
       </label>
@@ -62,6 +62,7 @@ import {
   useSelectableEmits,
 } from '../../composables'
 import { VaMessageListWrapper } from '../va-input'
+import type { option } from './types'
 
 export default defineComponent({
   name: 'VaRadio',
@@ -71,17 +72,14 @@ export default defineComponent({
     ...useSelectableProps,
     ...useComponentPresetProp,
     modelValue: {
-      type: [Boolean, Array, String, Object, Number] as PropType<
-        boolean | null | string | number | Record<any, unknown> | unknown[]
-      >,
+      type: Object as PropType<option>,
       default: null,
     },
     options: {
-      type: Array as PropType<any>,
+      type: Array<option>,
       default: () => [],
     },
     name: { type: String, default: '' },
-    labels: { type: Array, default: null },
     leftLabel: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },
     ariaLabel: { type: String, default: undefined },
@@ -112,9 +110,10 @@ export default defineComponent({
       'va-radio--error': computedError.value,
     }))
 
-    const selectOption = (option: string) => {
+    const selectOption = (option: option['value']) => {
       emit('update:modelValue', option)
     }
+
     const labelStyle = computed(() => {
       return {
         color: computedError.value ? getColor('danger') : '',
@@ -154,9 +153,6 @@ export default defineComponent({
       return { borderColor: getColor(props.color) }
     })
 
-    const computedLabel = (index: number) =>
-      props.labels ? props.labels[index] : props.options[index]
-
     const computedName = computed(() => props.name || generateUniqueId())
     const inputAttributesComputed = computed(() => ({
       name: computedName.value,
@@ -177,7 +173,6 @@ export default defineComponent({
       iconBackgroundComputedStyles,
       iconDotComputedStyles,
       iconComputedStyles,
-      computedLabel,
       selectOption,
       onFocus,
       onBlur,
