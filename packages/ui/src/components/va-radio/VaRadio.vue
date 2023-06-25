@@ -12,10 +12,12 @@
       <label
         v-for="(option, index) in options"
         :key="index"
-        class="va-radio"
+        class="va-radio va-radio__square"
+        :style="labelStyle"
       >
         <input
           ref="input"
+          :style="inputStyle"
           class="va-radio__input"
           type="radio"
           :value="$props.modelValue"
@@ -72,7 +74,9 @@ export default defineComponent({
     ...useSelectableProps,
     ...useComponentPresetProp,
     modelValue: {
-      type: Object as PropType<option>,
+      type: [Boolean, Array, String, Object, Number] as PropType<
+        option['value']
+      >,
       default: null,
     },
     options: {
@@ -117,11 +121,7 @@ export default defineComponent({
     const labelStyle = computed(() => {
       return {
         color: computedError.value ? getColor('danger') : '',
-        padding: !props.label
-          ? ''
-          : props.leftLabel
-            ? '0 0.5rem 0 0'
-            : '0 0 0 0.5rem',
+        padding: props.leftLabel ? '0 0.5rem 0 0' : '0 0 0 0.5rem',
       }
     })
 
@@ -143,14 +143,15 @@ export default defineComponent({
     }))
 
     const iconDotComputedStyles = computed(() => {
+      const color = computedError.value ? getColor('danger') : getColor(props.color)
       return {
-        borderColor: getColor(props.color),
-        backgroundColor: getColor(props.color),
+        borderColor: color,
+        backgroundColor: color,
       }
     })
 
     const iconComputedStyles = computed(() => {
-      return { borderColor: getColor(props.color) }
+      return { borderColor: computedError.value ? getColor('danger') : getColor(props.color) }
     })
 
     const computedName = computed(() => props.name || generateUniqueId())
@@ -211,7 +212,7 @@ export default defineComponent({
     .va-radio--left-label,
     .va-radio__text {
       cursor: initial;
-      pointer-events: auto;
+      pointer-events: none;
     }
   }
 

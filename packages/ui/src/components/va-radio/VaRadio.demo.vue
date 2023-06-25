@@ -49,6 +49,21 @@
         color="info"
       />
     </VbCard>
+    <VbCard title="Error">
+      <va-radio
+        v-model="selectedOptionString"
+        :options="options"
+        error
+      />
+    </VbCard>
+    <VbCard title="Error message">
+      <va-radio
+        v-model="selectedOptionString"
+        :options="options"
+        error
+        error-messages="Error message"
+      />
+    </VbCard>
     <VaRadioValidation />
   </VbDemo>
 </template>
