@@ -1,5 +1,10 @@
 <template>
-  <div class="va-menu-item">
+  <div class="va-menu-item"
+    :class="{
+      'va-menu-item--disabled': disabled
+    }"
+    @click.stop="disabled ? '' : $emit('option-click', $event)"
+  >
     <VaIcon class="va-menu-item__icon--left" v-if="icon" :name="icon" />
     <a class="va-menu-item__content" :style="{
       paddingLeft: icon ? '' : '24px',
@@ -14,7 +19,6 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
 import { VaIcon } from '../../va-icon/'
-// import {  } from '../../composables/'
 
 export default defineComponent({
   name: 'VaMenuItem',
@@ -23,6 +27,7 @@ export default defineComponent({
     name: { type: String, default: '' },
     icon: { type: String, defatult: '' },
     rightIcon: { type: String, defatult: '' },
+    disabled: { type: Boolean, default: false },
   },
   setup (props) {
     return {}
@@ -43,6 +48,11 @@ export default defineComponent({
 
   &:hover {
     background-color: lightgray;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   &__icon {

@@ -17,10 +17,10 @@ export default {
       defeaultOptions: {
         value: true,
         options: [
-          { id: '0', text: 'one', value: 'one', icon: 'accessible_forward', rightIcon: '' },
+          { id: '0', text: 'one', value: 'one', icon: 'accessible_forward', rightIcon: '', disabled: true },
           { id: '1', text: 'two', value: 'two', icon: '', rightIcon: 'accessible_forward' },
           { id: '2', text: 'three', value: 'three', icon: 'accessible_forward', rightIcon: '' },
-          { id: '3', text: 'four', value: 'four', icon: '', rightIcon: 'accessible_forward' },
+          { id: '3', text: 'four', value: 'four', icon: '', rightIcon: 'accessible_forward', disabled: true },
           { id: '4', text: 'five', value: 'five', icon: 'accessible_forward', rightIcon: '' },
         ],
       },

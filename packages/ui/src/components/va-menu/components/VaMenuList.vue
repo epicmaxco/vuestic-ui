@@ -7,7 +7,8 @@
         :name="getText(option)"
         :icon="option.icon"
         :right-icon="option.rightIcon"
-        @click="$emit('option-click', getValue(option))"
+        :disabled="getDisabled(option)"
+        @option-click="$emit('option-click', getValue(option))"
       />
     </template>
   </div>
@@ -27,11 +28,12 @@ export default defineComponent({
     options: { type: Array as PropType<VaMenuOption[]>, default: () => [] },
   },
   setup (props) {
-    const { getText, getValue } = useSelectableList(props)
+    const { getText, getValue, getDisabled } = useSelectableList(props)
 
     return {
       getText,
       getValue,
+      getDisabled,
     }
   },
 })
