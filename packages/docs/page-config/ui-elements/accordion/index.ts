@@ -36,7 +36,7 @@ export default definePageConfig({
     }),
 
     block.subtitle("Accessibility"),
-    block.paragraph("Expand/collapse of accordion item in focus is dependent on `mutilple` prop, for other accessbility information see [VaCollapse accessibility section](ui-elements/collapse#all-accessibility)[[target=_blank]]."),
+    block.paragraph("Expand/collapse of accordion item in focus is dependent on `mutilple` prop, for other accessbility information see [VaCollapse accessibility section](/ui-elements/collapse#all-accessibility)[[target=_blank]]."),
 
     block.subtitle("API"),
     block.api("VaAccordion", apiDescription, apiOptions),
