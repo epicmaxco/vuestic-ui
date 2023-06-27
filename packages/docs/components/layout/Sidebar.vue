@@ -50,7 +50,7 @@
                   placement="right-center"
                   size="small"
                   offset="-5px"
-                  :text="childRoute.meta && childRoute.meta.badge.text"
+                  :text="childRoute.meta?.badge?.text"
                   :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge.type]"
                   :visible-empty="false"
                 >
