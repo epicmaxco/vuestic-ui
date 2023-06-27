@@ -17,9 +17,6 @@ export const navigationRoutes: NavigationRoute[] = [
   {
     name: "introduction",
     displayName: "Introduction",
-    meta: {
-      iconClass: "vuestic-iconset-image",
-    },
     disabled: true,
     children: [
       {
@@ -47,9 +44,6 @@ export const navigationRoutes: NavigationRoute[] = [
   {
     name: "getting-started",
     displayName: "Getting Started",
-    meta: {
-      iconClass: "vuestic-iconset-image",
-    },
     disabled: true,
     children: [
       {
@@ -95,9 +89,6 @@ export const navigationRoutes: NavigationRoute[] = [
   {
     name: "styles",
     displayName: "Styles",
-    meta: {
-      iconClass: "vuestic-iconset-image",
-    },
     disabled: true,
     children: [
       {
@@ -136,9 +127,6 @@ export const navigationRoutes: NavigationRoute[] = [
   {
     name: "ui-elements",
     displayName: "UI Elements",
-    meta: {
-      iconClass: "vuestic-iconset-ui-elements",
-    },
     disabled: true,
     children: [
       {
@@ -503,11 +491,6 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "icons-config",
         displayName: "Icons Config",
       },
-      // TODO: next
-      // {
-      //   name: 'advanced-icons-config',
-      //   displayName: 'Advanced Icons Config',
-      // },
       {
         name: "colors-config",
         displayName: "Colors Config",
@@ -531,18 +514,28 @@ export const navigationRoutes: NavigationRoute[] = [
   },
   {
     name: "extensions",
-    displayName: "Extensions",
-    meta: {
-      iconClass: "vuestic-iconset-image",
-    },
+    displayName: "Integrations",
     disabled: true,
     children: [
+      {
+        name: "nuxt",
+        displayName: "Nuxt",
+        path: "/getting-started/nuxt"
+      },
       {
         name: "ag-grid",
         displayName: "AG Grid Theme",
         meta: {
           badge: navigationBadge.updated('1.6.0'),
         }
+      },
+      {
+        name: 'tailwind',
+        displayName: 'Tailwind Integration',
+        meta: {
+          badge: navigationBadge.new('1.6.0'),
+        },
+        path: '/styles/tailwind'
       },
       {
         name: "unocss",

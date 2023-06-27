@@ -37,7 +37,7 @@
             {{ childRoute.category }}
           </va-list-label>
           <va-sidebar-item
-            :to="`/${route.name}/${childRoute.name}`"
+            :to="childRoute.path ? childRoute.path : `/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
             :active-color="activeColor"
             :hover-color="hoverColor"
@@ -117,6 +117,10 @@ export default defineComponent({
     })
 
     const isActiveChildRoute = (child: NavigationRoute, parent: NavigationRoute) => {
+      if (child.path) {
+        return route.path === child.path
+      }
+
       const path = `/${String(parent.name)}/${String(child.name)}`
 
       return path === route.path
