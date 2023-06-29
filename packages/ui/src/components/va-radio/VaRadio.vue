@@ -7,47 +7,47 @@
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
+    @blur="onBlur"
+    ref="container"
   >
-    <div ref="container" @blur="onBlur">
-      <label
-        v-for="(option, index) in options"
-        :key="index"
-        class="va-radio va-radio__square"
-        :style="labelStyle"
+    <label
+      v-for="(option, index) in options"
+      :key="index"
+      class="va-radio va-radio__square"
+      :style="labelStyle"
+    >
+      <input
+        ref="input"
+        :style="inputStyle"
+        class="va-radio__input"
+        type="radio"
+        :value="$props.modelValue"
+        v-bind="inputAttributesComputed"
+        :checked="$props.modelValue === option.value"
+        :aria-checked="$props.modelValue === option.value"
+        @change="selectOption(option.value)"
+        @focus="onFocus"
+        @blur="onBlur"
+      />
+
+      <span
+        aria-hidden="true"
+        class="va-radio__icon"
+        :style="iconComputedStyles"
       >
-        <input
-          ref="input"
-          :style="inputStyle"
-          class="va-radio__input"
-          type="radio"
-          :value="$props.modelValue"
-          v-bind="inputAttributesComputed"
-          :checked="$props.modelValue === option.value"
-          :aria-checked="$props.modelValue === option.value"
-          @change="selectOption(option.value)"
-          @focus="onFocus"
-          @blur="onBlur"
-        />
-
         <span
-          aria-hidden="true"
-          class="va-radio__icon"
-          :style="iconComputedStyles"
-        >
-          <span
-            class="va-radio__icon__background"
-            :style="iconBackgroundComputedStyles"
-          />
-          <span class="va-radio__icon__dot" :style="iconDotComputedStyles" />
-        </span>
+          class="va-radio__icon__background"
+          :style="iconBackgroundComputedStyles"
+        />
+        <span class="va-radio__icon__dot" :style="iconDotComputedStyles" />
+      </span>
 
-        <span ref="label" class="va-radio__text">
-          <slot>
-            {{ option.label || option.value }}
-          </slot>
-        </span>
-      </label>
-    </div>
+      <span ref="label" class="va-radio__text">
+        <slot>
+          {{ option.label || option.value }}
+        </slot>
+      </span>
+    </label>
   </VaMessageListWrapper>
 </template>
 
