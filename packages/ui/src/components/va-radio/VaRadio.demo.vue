@@ -51,17 +51,22 @@
         :error-messages="stringErrorMessage"
       />
     </VbCard>
-    <VaRadioValidation />
+    <VbCard title="Validation with rules">
+      <va-radio
+        v-model="selectedOption"
+        :options="options"
+        :rules="rules"
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import { VaRadio } from './index'
 import { VaCheckbox } from '../va-checkbox'
-import VaRadioValidation from './VaRadio-validation'
 
 export default {
-  components: { VaRadio, VaCheckbox, VaRadioValidation },
+  components: { VaRadio, VaCheckbox },
   data () {
     return {
       options: [
@@ -78,6 +83,8 @@ export default {
         'Error message',
         'Another error message',
       ],
+      rules: [(v) => v === 'one' || 'Value should be one'],
+      selectedOption: 'one',
     }
   },
 }
