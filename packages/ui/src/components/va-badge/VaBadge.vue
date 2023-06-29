@@ -46,12 +46,12 @@ export default defineComponent({
     multiLine: { type: Boolean, default: false },
     visibleEmpty: { type: Boolean, default: false },
     dot: { type: Boolean, default: false },
-    // TODO: Remove after 1.6.4
+    // TODO: Remove after 1.8.0
     transparent: { type: Boolean, default: false },
   },
 
   setup (props, { slots }) {
-    // TODO: Remove after 1.6.4
+    // TODO: Remove after 1.8.0
     useDeprecated(['transparent'])
 
     const isEmpty = computed(() => !(props.text || props.visibleEmpty || props.dot || slots.text))
@@ -74,6 +74,7 @@ export default defineComponent({
       color: textColorComputed.value,
       borderColor: colorComputed.value,
       backgroundColor: colorComputed.value,
+      opacity: props.transparent ? 0.5 : 1,
       ...unref(positionStylesComputed),
     }))
 

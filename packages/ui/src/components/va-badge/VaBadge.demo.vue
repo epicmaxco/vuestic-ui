@@ -183,10 +183,6 @@
               type="checkbox"
               v-model="dot"
             ><br>
-            Transparent: <input
-              type="checkbox"
-              v-model="transparent"
-            ><br>
             VisibleEmpty: <input
               type="checkbox"
               v-model="visibleEmpty"
