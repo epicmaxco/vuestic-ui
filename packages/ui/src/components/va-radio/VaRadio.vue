@@ -64,7 +64,7 @@ import {
   useSelectableEmits,
 } from '../../composables'
 import { VaMessageListWrapper } from '../va-input'
-import type { option } from './types'
+import type { VaRadioOption } from './types'
 
 export default defineComponent({
   name: 'VaRadio',
@@ -75,12 +75,12 @@ export default defineComponent({
     ...useComponentPresetProp,
     modelValue: {
       type: [Boolean, Array, String, Object, Number] as PropType<
-        option['value']
+        VaRadioOption['value']
       >,
       default: null,
     },
     options: {
-      type: Array<option>,
+      type: Array<VaRadioOption>,
       default: () => [],
     },
     name: { type: String, default: '' },
@@ -114,7 +114,7 @@ export default defineComponent({
       'va-radio--error': computedError.value,
     }))
 
-    const selectOption = (option: option['value']) => {
+    const selectOption = (option: VaRadioOption['value']) => {
       emit('update:modelValue', option)
     }
 
