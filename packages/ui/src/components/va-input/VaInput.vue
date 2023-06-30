@@ -93,7 +93,7 @@ import type { AnyStringPropType } from '../../utils/types/prop-type'
 
 import VaInputWrapper from './components/VaInputWrapper/VaInputWrapper.vue'
 import VaTextarea from './components/VaTextarea/VaTextarea.vue'
-import VaIcon from '../va-icon/VaIcon.vue'
+import { VaIcon } from '../va-icon'
 import { focusElement, blurElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
 
