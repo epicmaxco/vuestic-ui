@@ -37,7 +37,7 @@
             {{ childRoute.category }}
           </va-list-label>
           <va-sidebar-item
-            :to="`/${route.name}/${childRoute.name}`"
+            :to="childRoute.path ? childRoute.path : `/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
             :active-color="activeColor"
             :hover-color="hoverColor"
@@ -50,7 +50,7 @@
                   placement="right-center"
                   size="small"
                   offset="5px"
-                  :text="childRoute.meta && childRoute.meta.badge?.text"
+                  :text="childRoute.meta?.badge?.text"
                   :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge.type]"
                 >
                   {{ childRoute.displayName }}
@@ -116,6 +116,10 @@ export default defineComponent({
     })
 
     const isActiveChildRoute = (child: NavigationRoute, parent: NavigationRoute) => {
+      if (child.path) {
+        return route.path === child.path
+      }
+
       const path = `/${String(parent.name)}/${String(child.name)}`
 
       return path === route.path

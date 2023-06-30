@@ -1,5 +1,5 @@
 <template>
-  <div style="position: relative;">
+  <div class="relative">
     <va-app-bar color="danger">
       <va-button
         icon="home"
@@ -27,7 +27,6 @@
         preset="plain"
         color="secondary"
         icon-color="#fff"
-        prevent-overflow
       >
         Content
       </va-button-dropdown>
@@ -35,8 +34,7 @@
   </div>
 
   <div
-    class="mt-2"
-    style="position: relative;"
+    class="mt-2 relative"
   >
     <va-app-bar
       color="info"

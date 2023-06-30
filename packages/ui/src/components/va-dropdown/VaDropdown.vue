@@ -1,6 +1,15 @@
 <script lang="ts">
-import { h, defineComponent, PropType, computed, nextTick, toRef, ref, Fragment, Teleport } from 'vue'
-import { Placement } from '@floating-ui/vue'
+import {
+  h,
+  defineComponent,
+  PropType,
+  computed,
+  nextTick,
+  ref,
+  toRef,
+  Fragment,
+  Teleport,
+} from 'vue'
 import kebabCase from 'lodash/kebabCase'
 import pick from 'lodash/pick'
 import {
@@ -11,7 +20,11 @@ import {
   useDebounceFn,
   useHTMLElement,
   useHTMLElementSelector,
-  useIsMounted, useStateful, useStatefulEmits, useTranslation,
+  useIsMounted,
+  useStateful,
+  useStatefulEmits,
+  useTranslation,
+  usePlacementAliasesProps,
 } from '../../composables'
 import { renderSlotNode } from '../../utils/headless'
 import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
@@ -24,6 +37,7 @@ import { warn } from '../../utils/console'
 export default defineComponent({
   name: 'VaDropdown',
   props: {
+    ...usePlacementAliasesProps,
     ...createStatefulProps(Boolean, true),
     anchorSelector: { type: String, default: '' },
     innerAnchorSelector: { type: String, default: '' },
@@ -40,17 +54,16 @@ export default defineComponent({
     hoverOverTimeout: { type: Number, default: 30 },
     hoverOutTimeout: { type: Number, default: 200 },
     isContentHoverable: { type: Boolean, default: true },
-    placement: { type: String as PropType<Placement | 'auto'>, default: 'bottom' },
     offset: { type: [Array, Number] as PropType<DropdownOffsetProp>, default: 0 },
     keepAnchorWidth: { type: Boolean, default: false },
+    verticalScrollOnOverflow: { type: Boolean, default: true },
     cursor: { type: Boolean, default: false },
     autoPlacement: { type: Boolean, default: true },
     stickToEdges: { type: Boolean, default: false },
-    /** Viewport where dropdown will be rendered if preventOverflow is true. Autoplacement will be calculated relative to `target` */
+    /** Viewport where dropdown will be rendered. Autoplacement will be calculated relative to `target` */
     target: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
     /** Element where dropdown content will be rendered. */
     teleport: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
-    preventOverflow: { type: Boolean, default: false },
     /** Not reactive */
     keyboardNavigation: { type: Boolean, default: false },
     ariaLabel: { type: String, default: '$t:toggleDropdown' },
@@ -77,27 +90,25 @@ export default defineComponent({
     const { anchorRef: anchor } = useAnchorSelector(props)
     const cursorAnchor = computed(() => props.cursor ? useCursorAnchor(anchor, valueComputed).value : undefined)
     const floating = useHTMLElement('floating')
-    const target = useHTMLElementSelector(computed(() => props.target || 'body'))
+    const body = useHTMLElementSelector(ref('body'))
+    const target = useHTMLElementSelector(computed(() => props.target))
     const teleport = useHTMLElementSelector(computed(() => props.teleport))
 
     const anchorClass = useBem('va-dropdown', () => pick(props, ['disabled']))
-    const isPopoverFloating = computed(() => props.preventOverflow)
     const teleportTarget = computed<HTMLElement | undefined>(() => {
       if (teleport.value) {
         return teleport.value
       }
 
-      if (!isPopoverFloating.value) {
-        // If not floating just render inside the parent element
-        return undefined
+      if (target.value) {
+        return target.value
       }
 
-      return target.value
+      return body.value
     })
 
     const teleportDisabled = computed(() => {
-      if (teleport.value) { return false }
-      return props.disabled || !isPopoverFloating.value
+      return props.disabled
     })
     const showFloating = computed(() => isMounted.value && valueComputed.value)
 
@@ -191,6 +202,7 @@ export default defineComponent({
         autoPlacement: props.autoPlacement,
         stickToEdges: props.stickToEdges,
         keepAnchorWidth: props.keepAnchorWidth,
+        verticalScrollOnOverflow: props.verticalScrollOnOverflow,
       })),
     )
 

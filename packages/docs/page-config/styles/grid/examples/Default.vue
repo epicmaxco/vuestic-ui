@@ -1,12 +1,11 @@
 <template>
   <va-card
     color="background-element"
-    style="padding: 0.75rem;"
+    class="p"
   >
     <div class="row">
       <div
-        class="flex flex-col"
-        style="width: 100%;"
+        class="flex flex-col w-full"
       >
         <div class="item">
           Now I'm flexible

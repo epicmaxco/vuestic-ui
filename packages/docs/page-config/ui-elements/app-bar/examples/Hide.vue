@@ -1,5 +1,7 @@
 <template>
-  <div class="wrapper">
+  <div
+    class="relative max-h-32 border border-solid border-black overflow-hidden flex flex-col"
+  >
     <va-app-bar
       absolute
       hide-on-scroll
@@ -42,15 +44,6 @@
 </template>
 
 <style scope>
-.wrapper {
-  position: relative;
-  max-height: 120px;
-  border: 1px solid black;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
 #va-app-bar-hide {
   background: var(--va-background-primary);
   padding-bottom: 500px;

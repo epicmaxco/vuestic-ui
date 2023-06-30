@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 300px;">
+  <div class="max-w-xs">
     <va-input
       v-model="value"
       class="mb-6"
@@ -47,7 +47,7 @@
     >
       <template #counter="{ valueLength, maxLength }">
         <b
-          style="margin-left: auto;"
+          class="ml-auto"
           :style="{
             color:
               valueLength > maxLength

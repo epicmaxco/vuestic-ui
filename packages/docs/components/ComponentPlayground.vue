@@ -79,7 +79,6 @@ const doShowComponent = false; // TODO: Temporarily disabled
             :label="option.key"
             :rules="option.rules"
             clearable
-            prevent-overflow
           />
           <va-select
             v-if="option.type === 'multiselect'"
@@ -90,7 +89,6 @@ const doShowComponent = false; // TODO: Temporarily disabled
             :rules="option.rules"
             clearable
             multiple
-            prevent-overflow
           />
           <va-checkbox
             v-if="option.type === 'checkbox'"

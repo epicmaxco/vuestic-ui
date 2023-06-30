@@ -72,3 +72,10 @@ export type APIDescriptionType = 'props' | 'events' | 'slots' | 'methods';
 export type APIDescriptionOptions = {
   [k in APIDescriptionType]?: Record<string, string>;
 }
+
+export type ComponentMeta = {
+  props: Record<string, ManualPropApiOptions>;
+  events: Record<string, ManualEventApiOptions>;
+  methods: Record<string, ManualMethodApiOptions>;
+  slots: Record<string, ManualSlotApiOptions>;
+}

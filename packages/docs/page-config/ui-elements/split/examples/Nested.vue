@@ -20,7 +20,7 @@
     <template #end>
       <va-split
         vertical
-        style="height: 25rem;"
+        class="h-[25rem]"
       >
         <template #start>
           <div class="p-6">

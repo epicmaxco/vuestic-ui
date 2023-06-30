@@ -1,8 +1,7 @@
 <template>
-  <div style="height: 300px; width: 100%;">
+  <div class="h-[300px] w-full">
     <ag-grid-vue
-      class="ag-theme-vuestic"
-      style="width: 100%; height: 100%;"
+      class="ag-theme-vuestic w-full h-full"
       :columnDefs="columnDefs"
       :rowData="rowData"
       :modules="modules"

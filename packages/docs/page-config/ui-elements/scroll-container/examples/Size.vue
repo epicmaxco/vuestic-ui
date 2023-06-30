@@ -1,29 +1,29 @@
 <template>
-  <div style="display: flex;">
+  <div class="flex">
     <va-scroll-container
       vertical
       size="small"
-      style="width: 33%; max-height: 200px;"
+      class="w-1/3 max-h-[200px]"
     >
-      <div style="padding: 1rem;">
+      <div class="p-4">
         {{ lorem }}
       </div>
     </va-scroll-container>
     <va-scroll-container
       vertical
       size="medium"
-      style="margin: 0 1rem; width: 33%; max-height: 200px;"
+      class="m-0 w-1/3 max-h-[200px]"
     >
-      <div style="padding: 1rem;">
+      <div class="p-4">
         {{ lorem }}
       </div>
     </va-scroll-container>
     <va-scroll-container
       vertical
       size="large"
-      style="width: 33%; max-height: 200px;"
+      class="w-1/3 max-h-[200px]"
     >
-      <div style="padding: 1rem;">
+      <div class="p-4">
         {{ lorem }}
       </div>
     </va-scroll-container>

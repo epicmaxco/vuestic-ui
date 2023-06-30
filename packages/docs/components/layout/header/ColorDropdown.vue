@@ -6,7 +6,6 @@
       preset="secondary"
       label="Colors"
       :offset="[16, 0]"
-      prevent-overflow
       :close-on-content-click="false"
     >
       <div class="color-dropdown__content px-1">

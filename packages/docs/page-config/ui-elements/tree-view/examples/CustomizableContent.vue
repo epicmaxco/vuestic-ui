@@ -8,10 +8,10 @@
         <va-avatar
           v-if="node.image"
           :src="node.image"
-          style="margin-right: 0.5rem;"
+          class="mr-2"
         />
 
-        <div style="margin-right: 0.5rem;">
+        <div class="mr-2">
           <b
             v-if="node.label"
             class="display-6"
@@ -29,7 +29,7 @@
           preset="secondary"
           icon="add"
           size="small"
-          style="margin-left: auto;"
+          class="ml-auto"
         />
       </div>
     </template>

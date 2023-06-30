@@ -7,8 +7,7 @@ import YauheniImage from './images/jenia.jpg'
 import MaksimImage from './images/maksim.jpg'
 import VitalyImage from './images/vitalik.jpg'
 import OlegImage from './images/oleg.jpg'
-import RustemImage from './images/rustem.jpg'
-import AntonImage from './images/anton.jpg'
+import AnastasiiaImage from './images/anastasiia.png'
 
 
 export default definePageConfig({
@@ -17,13 +16,13 @@ export default definePageConfig({
     block.paragraph('Hi there, we are really pleased to meet you too!\n\nVuestic started as a small admin template back in 2017. It was released on GitHub and was warmly embraced by the Vue.js community. Since then we’ve been contributing to Vuestic daily and today it’s grown into a full-fledged framework with a decent ecosystem around it.\n\nThe team behind Vuestic is in ❤️ with Vue.js and Open Source. We’re doing our best to make developers’ lives easier and  joyful.'),
     block.subtitle('Core Team 🤓'),
     block.paragraph('Established in 2017, [Epicmax](https://epicmax.co/)[[target=_blank]] is a Vue.js development company with over 55 successfully completed projects for it’s clients all over the world.\n\nThe company is committed to Open Source from its beginning. Vuestic was created and backed by Epicmax, and is supported through all the years. You can request a consultation or order web development services by Epicmax via this [form](https://epicmax.co/contacts)[[target=_blank]]\n\nAnd now, please meet the core contributors 🎉'),
-    block.component('team', {
+    block.component('docs-team', {
       team: [
         {
           name: 'Andrey Hrabouski',
-          jobTitle: 'CEO',
+          jobTitle: 'CEO - Epicmax',
           image: AndreiImage,
-          socNetworks: [
+          socialNetworks: [
             {
               name: 'fa fa-github',
               url: 'https://github.com/smartapant',
@@ -42,10 +41,14 @@ export default definePageConfig({
           name: 'Yauheni Prakopchyk',
           jobTitle: 'CTO - Vuestic core',
           image: YauheniImage,
-          socNetworks: [
+          socialNetworks: [
             {
               name: 'fa fa-github',
               url: 'https://github.com/asvae',
+            },
+            {
+              name: 'fa fa-linkedin',
+              url: 'https://www.linkedin.com/in/yauheni-prakopchyk/',
             },
             {
               name: 'fa fa-discord',
@@ -57,7 +60,7 @@ export default definePageConfig({
           name: 'Maksim Nedoshev',
           jobTitle: 'Developer - Vuestic core',
           image: MaksimImage,
-          socNetworks: [
+          socialNetworks: [
             {
               name: 'fa fa-github',
               url: 'https://github.com/m0ksem',
@@ -66,9 +69,9 @@ export default definePageConfig({
         },
         {
           name: 'Vitaly Raichev',
-          jobTitle: 'Developer - Vuestic UI',
+          jobTitle: 'Developer - Vuestic',
           image: VitalyImage,
-          socNetworks: [
+          socialNetworks: [
             {
               name: 'fa fa-github',
               url: 'https://github.com/RVitaly1978',
@@ -77,9 +80,9 @@ export default definePageConfig({
         },
         {
           name: 'Oleg Kirillov',
-          jobTitle: 'Developer - Vuestic UI',
+          jobTitle: 'Developer - Vuestic',
           image: OlegImage,
-          socNetworks: [
+          socialNetworks: [
             {
               name: 'fa fa-github',
               url: 'https://github.com/aluarius',
@@ -87,24 +90,17 @@ export default definePageConfig({
           ],
         },
         {
-          name: 'Rustem Nasyrov',
-          jobTitle: 'Developer - Vuestic UI',
-          image: RustemImage,
-          socNetworks: [
+          name: 'Anastasiia Zvenigorodskaia',
+          jobTitle: 'Marketing Strategy - Vuestic',
+          image: AnastasiiaImage,
+          socialNetworks: [
             {
               name: 'fa fa-github',
-              url: 'https://github.com/rustem-nasyrov',
+              url: 'https://github.com/zvenigorodskaia',
             },
-          ],
-        },
-        {
-          name: 'Anton Shapovalov',
-          jobTitle: 'Developer - Vuestic UI',
-          image: AntonImage,
-          socNetworks: [
             {
-              name: 'fa fa-github',
-              url: 'https://github.com/Azgiliat',
+              name: 'fa fa-linkedin',
+              url: 'https://www.linkedin.com/in/zvenigorodskaia/',
             },
           ],
         },
@@ -113,5 +109,5 @@ export default definePageConfig({
     block.component('team-banner'),
     block.subtitle('Special Thanks 🙌'),
     block.paragraph('We’d like to thank all contributors and users of Vuestic. Your constant assistance, insights and feedback not only help Vuestic to get a better ecosystem, but also charges the core team with energy and enthusiasm to go an extra mile. With you everything is possible.'),
-  ]
+  ],
 })

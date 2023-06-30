@@ -1,7 +1,7 @@
 <template>
   <va-card
     color="background-element"
-    style="padding: 0.75rem;"
+    class="p-3"
   >
     <!-- align--start -->
     <div class="row align-start">

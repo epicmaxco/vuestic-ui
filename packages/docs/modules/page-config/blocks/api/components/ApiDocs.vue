@@ -54,7 +54,7 @@ defineProps({
           >
             <slot
               :name="key"
-              v-bind="{ key, data: value }"
+              v-bind="{ key, value, row }"
             >
               <MarkdownView
                 v-if="typeof value === 'string'"

@@ -93,7 +93,9 @@ export default defineNuxtConfig({
 
   googleFonts: {
     preload: true,
-    swap: true,
+    prefetch: true,
+    preconnect: true,
+    display: 'swap',
     families: {
       'Source+Sans+Pro': {
         wght: [400, 600, 700],
@@ -107,7 +109,9 @@ export default defineNuxtConfig({
   },
 
   tailwindcss: {
+    viewer: false,
     config: {
+      important: true,
       content: [
         "./components/**/*.{js,vue,ts}",
         "./page-config/**/*.{js,vue,ts}",

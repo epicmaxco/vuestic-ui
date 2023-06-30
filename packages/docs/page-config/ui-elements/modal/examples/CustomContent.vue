@@ -13,13 +13,11 @@
       />
       <va-card-title> Title! </va-card-title>
       <va-card-content>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Id perferendis,
-        illum rem dolorum obcaecati dolorem. Laborum, odio ipsum qui quaerat
-        itaque reiciendis error nemo tenetur beatae. Vel obcaecati magni maxime!
+        Classic modal overlay which represents a dialog box or other interactive
+        component, such as a dismissible alert, sub-window, etc.
       </va-card-content>
       <va-card-actions>
         <va-button
-          color="warning"
           @click="ok"
         >
           Ok!
