@@ -14,11 +14,9 @@
       v-for="(option, index) in options"
       :key="index"
       class="va-radio va-radio__square"
-      :style="labelStyle"
     >
       <input
         ref="input"
-        :style="inputStyle"
         class="va-radio__input"
         type="radio"
         :value="$props.modelValue"
@@ -33,13 +31,11 @@
       <span
         aria-hidden="true"
         class="va-radio__icon"
-        :style="iconComputedStyles"
       >
         <span
           class="va-radio__icon__background"
-          :style="iconBackgroundComputedStyles"
         />
-        <span class="va-radio__icon__dot" :style="iconDotComputedStyles" />
+        <span class="va-radio__icon__dot" />
       </span>
 
       <span ref="label" class="va-radio__text">
@@ -195,6 +191,7 @@ export default defineComponent({
   margin-right: var(--va-radio-margin-right);
   transition: var(--va-radio-transition, var(--va-swing-transition));
   font-family: var(--va-font-family);
+  color: v-bind("labelStyle.color");
 
   & + & {
     margin-top: 0.5rem;
@@ -230,6 +227,7 @@ export default defineComponent({
     align-items: center;
     width: var(--va-radio-icon-width);
     height: var(--va-radio-icon-height);
+    border-color: v-bind("iconComputedStyles.borderColor");
     border-radius: var(--va-radio-icon-border-radius);
     position: relative;
     border: var(--va-radio-icon-border);
@@ -251,8 +249,9 @@ export default defineComponent({
       right: var(--va-radio-dot-right);
       bottom: var(--va-radio-dot-bottom);
       border-radius: var(--va-radio-dot-border-radius);
-      background-color: var(--va-radio-dot-background-color);
       opacity: var(--va-radio-dot-opacity);
+      border-color: v-bind("iconDotComputedStyles.borderColor");
+      background-color: v-bind("iconDotComputedStyles.backgroundColor");
 
       .va-radio__input:checked + .va-radio__icon & {
         opacity: 1;
@@ -274,10 +273,10 @@ export default defineComponent({
       left: var(--va-radio-background-left);
       right: var(--va-radio-background-right);
       bottom: var(--va-radio-background-bottom);
-      background-color: var(--va-radio-background-background-color);
       border-radius: var(--va-radio-background-border-radius);
       z-index: var(--va-radio-background-z-index);
       opacity: var(--va-radio-background-opacity);
+      background-color: v-bind("iconBackgroundComputedStyles.backgroundColor");
 
       .va-radio:hover & {
         opacity: 0.2;
