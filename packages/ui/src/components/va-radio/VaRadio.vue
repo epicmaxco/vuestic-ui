@@ -121,7 +121,6 @@ export default defineComponent({
     const labelStyle = computed(() => {
       return {
         color: computedError.value ? getColor('danger') : '',
-        padding: props.leftLabel ? '0 0.5rem 0 0' : '0 0 0 0.5rem',
       }
     })
 
@@ -218,6 +217,7 @@ export default defineComponent({
   &--left-label {
     flex-direction: row-reverse;
     display: inline-flex;
+    align-items: baseline;
   }
 
   &__input {
@@ -296,11 +296,6 @@ export default defineComponent({
 
     .va-radio--disabled & {
       @include va-disabled;
-    }
-
-    .va-radio--left-label & {
-      margin-left: 0;
-      margin-right: 0.5rem;
     }
   }
 }
