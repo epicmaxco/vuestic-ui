@@ -1,9 +1,11 @@
 <template>
   <div class="flex items-center">
     <va-badge
-      class="mr-6"
+      placement="top-left"
       text="New"
       overlap
+      :offset="['2rem', '1rem']"
+      class="mr-6"
     >
       <va-card>
         <va-card-content>
@@ -13,23 +15,25 @@
     </va-badge>
 
     <va-badge
-      color="primary"
-      text="3"
+      placement="bottom-center"
+      :offset="[0, -5]"
       overlap
-      class="mr-6"
+      dot
+      class="mr-8"
+      style="--va-badge-text-wrapper-border: 2px solid white;"
     >
-      <va-avatar src="https://randomuser.me/api/portraits/women/5.jpg" />
+      <va-icon name="&#xe0e1;" />
     </va-badge>
 
     <va-badge
-      class="mr-6"
-      color="success"
+      placement="top-left"
       dot
       overlap
+      class="mr-8"
     >
       <va-avatar
-        square
         src="https://randomuser.me/api/portraits/women/8.jpg"
+        square
       />
     </va-badge>
 
