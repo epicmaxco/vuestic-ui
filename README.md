@@ -100,7 +100,7 @@ on [vuestic.dev](https://vuestic.dev)
 
 ### Partners & Sponsors ❤️
 
-<img src="./.github/assets/sponsors.jpg" loading="lazy" alt="Epicmax, vuejobs, ag-grid, flatlogic, browserstack and jetbrains">
+<img src="./.github/assets/sponsors.jpg" loading="lazy" alt="Epicmax, vuejobs, ag-grid, flatlogic, browserstack and jetbrains" width="400px">
 
 <br />
 
