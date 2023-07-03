@@ -8,7 +8,7 @@
     :class="$props.anchorClass"
   >
     <div v-if="$slots.anchor" class="va-modal__anchor">
-      <slot name="anchor" v-bind="{ show, hide, toggle }" />
+      <slot name="anchor" v-bind="slotBind" />
     </div>
 
     <teleport :to="attachElement" :disabled="$props.disableAttachment">
@@ -55,7 +55,7 @@
                 :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
               >
                 <div v-if="$slots.content">
-                  <slot name="content" v-bind="{ show, hide, toggle }" />
+                  <slot name="content" v-bind="slotBind" />
                 </div>
                 <template v-if="!$slots.content">
                   <div
@@ -69,7 +69,7 @@
                     v-if="$slots.header"
                     class="va-modal__header"
                   >
-                    <slot name="header" v-bind="{ show, hide, toggle }" />
+                    <slot name="header" v-bind="slotBind" />
                   </div>
                   <div
                     v-if="$props.message"
@@ -81,7 +81,7 @@
                     v-if="$slots.default"
                     class="va-modal__message"
                   >
-                    <slot v-bind="{ show, hide, toggle }" />
+                    <slot v-bind="slotBind" />
                   </div>
                   <div
                     v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
@@ -104,7 +104,7 @@
                     v-if="$slots.footer"
                     class="va-modal__footer"
                   >
-                    <slot name="footer" v-bind="{ show, hide, toggle }" />
+                    <slot name="footer" v-bind="slotBind" />
                   </div>
                 </template>
               </div>
@@ -355,6 +355,7 @@ export default defineComponent({
       computedDialogStyle,
       computedModalContainerStyle,
       computedOverlayStyles,
+      slotBind: { show, hide, toggle, cancel, ok },
       ...publicMethods,
     }
   },
