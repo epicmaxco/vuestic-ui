@@ -1,7 +1,6 @@
 <template>
   <div
-    class="mb-6"
-    style="height: 16rem; overflow: hidden;"
+    class="mb-6 h-64 overflow-hidden"
   >
     <va-sidebar
       color="primary"
@@ -33,8 +32,7 @@
   </div>
 
   <div
-    class="mb-6"
-    style="height: 16rem; overflow: hidden;"
+    class="mb-6 h-64 overflow-hidden"
   >
     <va-sidebar
       color="background-element"
@@ -44,7 +42,7 @@
     >
       <va-sidebar-item>
         <va-sidebar-item-content>
-          <va-sidebar-item-title style="white-space: normal;">
+          <va-sidebar-item-title class="whitespace-normal">
             background dark and auto text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>
@@ -65,8 +63,7 @@
   </div>
 
   <div
-    class="mb-6"
-    style="height: 16rem; overflow: hidden;"
+    class="mb-6 h-52 overflow-hidden"
   >
     <va-sidebar
       color="#F0F7ED"
@@ -77,7 +74,7 @@
     >
       <va-sidebar-item active-color="#F0F7ED">
         <va-sidebar-item-content>
-          <va-sidebar-item-title style="white-space: normal;">
+          <va-sidebar-item-title class="whitespace-normal">
             background success and auto text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>
@@ -101,8 +98,7 @@
   </div>
 
   <div
-    class="mb-6"
-    style="height: 16rem;"
+    class="mb-6 h-52"
   >
     <va-sidebar
       color="#FFD300"
@@ -114,7 +110,7 @@
     >
       <va-sidebar-item>
         <va-sidebar-item-content>
-          <va-sidebar-item-title style="white-space: normal;">
+          <va-sidebar-item-title class="whitespace-normal">
             background danger and success text color
           </va-sidebar-item-title>
         </va-sidebar-item-content>

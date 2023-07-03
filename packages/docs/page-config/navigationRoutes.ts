@@ -1,14 +1,12 @@
+import { navigationBadge, type NavigationBadge } from "../utils/navigation/badge";
+
 export type NavigationRoute = {
   name: string;
   category?: string;
   displayName: string;
   meta?: {
     iconClass?: string;
-    badge?: {
-      type: "wip" | "new" | "updated";
-      text: string;
-      title: string;
-    };
+    badge?: NavigationBadge;
   };
   disabled?: boolean;
   children?: NavigationRoute[];
@@ -19,9 +17,6 @@ export const navigationRoutes: NavigationRoute[] = [
   {
     name: "introduction",
     displayName: "Introduction",
-    meta: {
-      iconClass: "vuestic-iconset-image",
-    },
     disabled: true,
     children: [
       {
@@ -44,15 +39,11 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "accessibility-guide",
         displayName: "Accessibility Guide",
       },
-      // GENERATOR_ADD - introduction
     ],
   },
   {
     name: "getting-started",
     displayName: "Getting Started",
-    meta: {
-      iconClass: "vuestic-iconset-image",
-    },
     disabled: true,
     children: [
       {
@@ -83,33 +74,21 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'web-components',
         displayName: 'Web Components',
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge: navigationBadge.new('1.6.0'),
         },
       },
       {
         name: 'testing',
         displayName: 'Testing',
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge: navigationBadge.new('1.6.0'),
         },
       },
-      // GENERATOR_ADD - gettingStarted
     ],
   },
   {
     name: "styles",
     displayName: "Styles",
-    meta: {
-      iconClass: "vuestic-iconset-image",
-    },
     disabled: true,
     children: [
       {
@@ -132,11 +111,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'tailwind',
         displayName: 'Tailwind Integration',
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge: navigationBadge.new('1.6.0'),
         },
       },
       {
@@ -147,15 +122,11 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "reset",
         displayName: "CSS Reset",
       },
-      // GENERATOR_ADD - styles
     ],
   },
   {
     name: "ui-elements",
     displayName: "UI Elements",
-    meta: {
-      iconClass: "vuestic-iconset-ui-elements",
-    },
     disabled: true,
     children: [
       {
@@ -191,11 +162,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "image",
         displayName: "Image",
         meta: {
-          badge: {
-            type: 'updated',
-            text: 'updated',
-            title: 'Recently updated',
-          },
+          badge : navigationBadge.updated('1.6.0'),
         }
       },
       {
@@ -227,11 +194,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "form",
         displayName: "Form",
         meta: {
-          badge: {
-            type: 'updated',
-            text: 'updated',
-            title: 'Recently updated',
-          },
+          badge: navigationBadge.updated('1.6.5'),
         }
       },
       {
@@ -266,11 +229,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "select",
         displayName: "Select",
         meta: {
-          badge: {
-            type: 'updated',
-            text: 'updated',
-            title: 'Recently updated',
-          },
+          badge : navigationBadge.updated('1.7.0'),
         }
       },
       {
@@ -311,22 +270,14 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'aspect-ratio',
         displayName: 'Aspect Ratio',
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.6.0'),
         },
       },
       {
         name: "skeleton",
         displayName: "Skeleton",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.6.0'),
         }
       },
       {
@@ -348,10 +299,16 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "collapse",
         displayName: "Collapse",
+        meta: {
+          badge: navigationBadge.updated('1.7.0'),
+        }
       },
       {
         name: "accordion",
         displayName: "Accordion",
+        meta: {
+          badge: navigationBadge.updated('1.7.0'),
+        }
       },
       {
         name: "scroll-container",
@@ -386,11 +343,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'stepper',
         displayName: 'Stepper',
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.6.0'),
         }
       },
       {
@@ -398,22 +351,14 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "value",
         displayName: "Value",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.6.0'),
         }
       },
       {
         name: "config",
         displayName: "Config",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.6.0 '),
         }
       },
       {
@@ -423,6 +368,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "dropdown",
         displayName: "Dropdown",
+        meta: {
+          badge : navigationBadge.updated('1.7.0'),
+        }
       },
       {
         name: "spacer",
@@ -470,22 +418,14 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "confirm",
         displayName: "Confirm",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.6.0'),
         }
       },
       {
         name: "virtual-scroller",
         displayName: "Virtual Scroller",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge : navigationBadge.new('1.6.0'),
         },
       },
       // TODO: Color components not released yet
@@ -507,7 +447,6 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "tree-view",
         displayName: "Tree view",
       },
-      // GENERATOR_ADD - uiElements
     ],
   },
   {
@@ -534,7 +473,6 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "tree-shaking-requirements",
         displayName: "Tree Shaking Requirements",
       },
-      // GENERATOR_ADD - contribution
     ],
   },
   {
@@ -553,11 +491,6 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "icons-config",
         displayName: "Icons Config",
       },
-      // TODO: next
-      // {
-      //   name: 'advanced-icons-config',
-      //   displayName: 'Advanced Icons Config',
-      // },
       {
         name: "colors-config",
         displayName: "Colors Config",
@@ -566,11 +499,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "colors-classes",
         displayName: "Colors Classes",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge: navigationBadge.new('1.6.0'),
         }
       },
       {
@@ -581,40 +510,40 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "i18n",
         displayName: "I18n",
       },
-      // GENERATOR_ADD - services
     ],
   },
   {
     name: "extensions",
-    displayName: "Extensions",
-    meta: {
-      iconClass: "vuestic-iconset-image",
-    },
+    displayName: "Integrations",
     disabled: true,
     children: [
+      {
+        name: "nuxt",
+        displayName: "Nuxt",
+        path: "/getting-started/nuxt"
+      },
       {
         name: "ag-grid",
         displayName: "AG Grid Theme",
         meta: {
-          badge: {
-            type: 'updated',
-            text: 'updated',
-            title: 'Recently updated',
-          },
+          badge: navigationBadge.updated('1.6.0'),
         }
+      },
+      {
+        name: 'tailwind',
+        displayName: 'Tailwind Integration',
+        meta: {
+          badge: navigationBadge.new('1.6.0'),
+        },
+        path: '/styles/tailwind'
       },
       {
         name: "unocss",
         displayName: "UnoCSS Integration",
         meta: {
-          badge: {
-            type: 'new',
-            text: 'new',
-            title: 'Recently added',
-          },
+          badge: navigationBadge.new('1.6.0'),
         }
       },
-      // GENERATOR_ADD - extensions
     ],
   },
 ];

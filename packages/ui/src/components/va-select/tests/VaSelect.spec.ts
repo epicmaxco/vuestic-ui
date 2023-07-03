@@ -3,6 +3,7 @@ import { describe, it, expect } from 'vitest'
 import { mountWithGlobalConfig } from '../../../utils/unit-test-utils'
 
 import VaSelect from '../VaSelect.vue'
+import VaDropdownContent from '../../va-dropdown/components/VaDropdownContent/VaDropdownContent.vue'
 
 import type { VueWrapper } from '@vue/test-utils'
 
@@ -35,7 +36,8 @@ describe('VaSelect', () => {
     // checking if selected option in the options list is correct (relies on getTrackBy and getText)
     wrapper.vm.showDropdownContentComputed = true
     await wrapper.vm.$nextTick()
-    expect(wrapper.find('.va-select-option--selected').text()).toBe(`${options[1].label}   check`)
+    const dropdownContent = wrapper.getComponent(VaDropdownContent)
+    expect(dropdownContent.find('.va-select-option--selected').text()).toBe(`${options[1].label}   check`)
     expect(wrapper.find('.va-input-wrapper__text').text()).toBe(String(options[1].label))
   })
 

@@ -29,7 +29,7 @@
               >
                 <component
                   :is="item.image"
-                  style="width: 100%; min-height: 100px;"
+                  class="w-full min-h-[100px]"
                 />
               </div>
             </va-card-content>

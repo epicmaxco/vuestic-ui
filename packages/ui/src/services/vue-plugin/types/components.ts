@@ -16,7 +16,7 @@ export type VuesticComponentName = keyof VuesticComponentsMap
  * @example
  * This will register all vuestic components globally:
  * ```
- * declare module 'vue' {
+ * declare module '@vue/runtime-core' {
  *   export interface GlobalComponents extends VuesticComponents {}
  * }
  * ```
@@ -24,7 +24,7 @@ export type VuesticComponentName = keyof VuesticComponentsMap
  * @example
  * If you using tree-shaking and want to register only specific components:
  * ```
- * declare module 'vue' {
+ * declare module '@vue/runtime-core' {
  *   export interface GlobalComponents extends VuesticComponents<'VaButton' | 'VaInput'> {}
  * }
  * ```

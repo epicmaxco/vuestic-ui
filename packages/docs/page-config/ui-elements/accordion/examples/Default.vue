@@ -1,7 +1,7 @@
 <template>
   <va-accordion
     v-model="value"
-    style="max-width: 400px;"
+    class="max-w-sm"
   >
     <va-collapse
       v-for="(collapse, index) in collapses"

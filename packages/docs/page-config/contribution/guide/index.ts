@@ -59,6 +59,7 @@ export default definePageConfig({
       "Always link a PR to its related issue (via `close #123`).",
       "When you start working on a task - please self-assign the related issue. We don't want a lot of people working simultaneously on the same thing (except when intentional).",
       "For small issues you may push to the `develop` branch directly while adding `close #123` to the commit message.",
+      "For breaking changes add the word BREAKING to PR name, that would allow us to automatically find it before release.",
       "Create a single PR for one issue. If we have several PRs - move all the code into a single PR and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.",
       "Make sure to assign an issue to only a single person.",
       "Check your code: [conventions](https://github.com/epicmaxco/vuestic-ui/blob/master/packages/docs/conventions.md)[[target=_blank]].",

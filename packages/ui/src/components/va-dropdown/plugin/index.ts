@@ -21,7 +21,7 @@ export const VaDropdownPlugin = defineVuesticPlugin(() => ({
   },
 }))
 
-declare module 'vue' {
+declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
     $vaDropdown: typeof vaDropdownPlugin
 

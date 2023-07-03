@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 300px;">
+  <div class="w-80">
     <va-switch
       v-model="isGalleryViewEnabled"
       label="Enable gallery view"

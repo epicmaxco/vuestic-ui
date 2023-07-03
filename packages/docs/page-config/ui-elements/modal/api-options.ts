@@ -10,16 +10,16 @@ export default defineManualApi({
       types: "() => void",
     },
     beforeOpen: {
-      types: "() => HTMLElement",
+      types: "(el: HTMLElement) => void",
     },
     open: {
-      types: "() => HTMLElement",
+      types: "(el: HTMLElement) => void",
     },
     beforeClose: {
-      types: "() => HTMLElement",
+      types: "(el: HTMLElement) => void",
     },
     close: {
-      types: "() => HTMLElement",
+      types: "(el: HTMLElement) => void",
     },
   },
   methods: {

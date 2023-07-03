@@ -30,6 +30,20 @@
           :rules="[(v) => !!v || 'Required']"
           :options="['1', '2']"
         />
+        <va-radio v-model="form.radio" label="radio" :rules="[(v) => !!v || 'Required']" :options="[
+          {
+            value: 'one',
+            label: 'one',
+          },
+          {
+            value: 'two',
+            label: 'two',
+          },
+          {
+            value: 'three',
+            label: 'three',
+          }
+        ]" />
         <va-counter
           v-model="form.counter"
           :rules="[(v: any) => !!v || 'Required']"
@@ -71,6 +85,7 @@ import {
   VaSlider,
   VaDatePicker,
   VaTimePicker,
+  VaRadio,
 } from '../'
 import { reactive } from 'vue'
 
@@ -85,6 +100,7 @@ const form = reactive({
   counter: 0,
   rating: 0,
   slider: 0,
+  radio: false,
 })
 
 const { validate, isValid, reset, resetValidation, errorMessages } =

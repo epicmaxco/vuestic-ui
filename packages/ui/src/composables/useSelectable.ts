@@ -4,6 +4,7 @@ import { useStateful, useStatefulProps, StatefulProps } from './useStateful'
 import { useLoadingProps, LoadingProps } from './useLoading'
 import { useValidation, useValidationProps, ValidationProps, useValidationEmits } from './useValidation'
 import { useFocus } from './useFocus'
+import { unwrapEl } from '../utils/unwrapEl'
 
 export type SelectableProps<V = any> = StatefulProps & LoadingProps & ExtractPropTypes<ValidationProps<V>> & {
   arrayValue: V | undefined,
@@ -69,7 +70,7 @@ export const useSelectable = (
   })
 
   const focus = () => {
-    input.value?.focus()
+    unwrapEl(input.value)?.focus()
   }
 
   const { valueComputed } = useStateful(props, emit)
@@ -85,7 +86,7 @@ export const useSelectable = (
   const { isFocused } = useFocus()
 
   const isElementRelated = (element: HTMLElement | undefined) => {
-    return !!element && [label.value, container.value].includes(element)
+    return !!element && [unwrapEl(label.value), unwrapEl(container.value)].includes(element)
   }
   const onBlur = (event: FocusEvent) => {
     if ((input.value === event.target) && !isElementRelated(event.relatedTarget as HTMLElement)) {

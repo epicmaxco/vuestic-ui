@@ -9,7 +9,7 @@
     overlay-opacity="0.2"
   >
     <template #header>
-      <h2>Custom header</h2>
+      <h3>Custom header</h3>
     </template>
     <div>{{ message }}</div>
     <template #footer>

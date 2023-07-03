@@ -14,26 +14,29 @@ export default definePageConfig({
       description: "Useful for information views and tables."
     }),
 
-    block.example("Position", {
-      title: "Position",
+    block.example("Placement", {
+      title: "Placement",
       description: "The `placement` allows you to set placement of the badge relatively to the base element. Available values: `top/bottom/left/right - start/center/end`. The `offset` prop allows you to amend the selected position - it moves badge forward or backward relatively to the main axis (`top/bottom/left/right`)."
     }),
 
-    block.example("Color"),
+    block.example("Color", {
+      title: "Color",
+      description: "The `color` prop is used to change the color of the component."
+    }),
 
     block.example("Dot", {
       title: "Dot",
       description: "The `dot` property puts the component in a minimalist mode in order to accentuate the base element."
     }),
 
+    block.example("Offset", {
+      title: "Offset",
+      description: "The `offset` is used to set a distance between the base element and the badge."
+    }),
+
     block.example("Overlap", {
       title: "Overlap",
       description: "The `overlap` property allows badge to overlap the base element."
-    }),
-
-    block.example("Transparent", {
-      title: "Transparent",
-      description: "The `transparent` property adds transparency to the component."
     }),
 
     block.example("WithOtherComponents", {

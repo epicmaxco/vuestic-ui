@@ -12,7 +12,8 @@
     />
     <va-breadcrumbs-item label="Four" />
     <va-breadcrumbs-item label="Five">
-      <span style="font-style: italic; color: var(--va-danger);">Slotted content</span>
+      <span class="italic text-[var(--va-danger)]">
+        Slotted content</span>
     </va-breadcrumbs-item>
   </va-breadcrumbs>
 </template>

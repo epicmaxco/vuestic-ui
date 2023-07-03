@@ -1,92 +1,61 @@
 <template>
   <VbDemo>
     <VbCard title="Default">
-      <va-radio
-        v-for="(option, index) in options"
-        :key="index"
-        v-model="selectedOptionString"
-        :option="option"
-      />
-      <div>
-        Selected: {{ selectedOptionString }}
-      </div>
-      <br>
-      <va-radio
-        v-for="option in objectOptions"
-        :key="option.name"
-        v-model="selectedOptionObject"
-        :option="option"
-        :label="option.name"
-      />
-      <div>
-        {{ selectedOptionObject }}
-      </div>
-    </VbCard>
-    <VbCard title="Custom label">
-      <va-radio
-        v-for="(option, index) in options"
-        :key="index"
-        v-model="selectedOptionString"
-        :option="option"
-        :label="`((${option}))`"
-      />
-      <br>
-      <va-radio
-        v-for="(option) in options"
-        :key="option"
-        v-model="selectedOptionString"
-        :option="option"
-      >
-        Slotted label: {{ option }}
-      </va-radio>
+      <va-radio v-model="selectedOptionString" :options="options" />
+      <div>Selected: {{ selectedOptionString }}</div>
     </VbCard>
     <VbCard title="Disabled">
       <va-radio
-        v-for="(option, index) in options"
-        :key="index"
         v-model="selectedOptionString"
-        :option="option"
+        :options="options"
         :disabled="isDisabled"
       />
       <va-checkbox class="mt-2" v-model="isDisabled" label="is Disabled" />
     </VbCard>
     <VbCard title="Readonly">
       <va-radio
-        v-for="(option, index) in options"
-        :key="index"
         v-model="selectedOptionString"
-        :option="option"
+        :options="options"
         :readonly="isReadonly"
       />
       <va-checkbox class="mt-2" v-model="isReadonly" label="is Readonly" />
     </VbCard>
     <VbCard title="Left label">
-      <va-radio
-        v-for="(option, index) in options"
-        :key="index"
-        v-model="selectedOptionString"
-        :option="option"
-        left-label
-      />
+      <va-radio v-model="selectedOptionString" :options="options" left-label />
     </VbCard>
     <VbCard title="Colored">
       <va-radio
         v-model="selectedOptionString"
-        :option="options[0]"
+        :options="[options[0]]"
         color="warning"
-        label="warning"
       />
       <va-radio
         v-model="selectedOptionString"
-        :option="options[1]"
+        :options="[options[1]]"
         color="danger"
-        label="danger"
       />
       <va-radio
         v-model="selectedOptionString"
-        :option="options[2]"
+        :options="[options[2]]"
         color="info"
-        label="info"
+      />
+    </VbCard>
+    <VbCard title="Error">
+      <va-radio v-model="selectedOptionString" :options="options" error />
+    </VbCard>
+    <VbCard title="String error message">
+      <va-radio
+        v-model="selectedOptionString"
+        :options="options"
+        error
+        :error-messages="stringErrorMessage"
+      />
+    </VbCard>
+    <VbCard title="Validation with rules">
+      <va-radio
+        v-model="selectedOption"
+        :options="options"
+        :rules="rules"
       />
     </VbCard>
   </VbDemo>
@@ -99,24 +68,23 @@ import { VaCheckbox } from '../va-checkbox'
 export default {
   components: { VaRadio, VaCheckbox },
   data () {
-    const objectOptions = [
-      { key: 1, name: 'one' },
-      { key: 2, name: 'two' },
-      { key: 3, name: 'three' },
-    ]
-
     return {
       options: [
-        'one',
-        'two',
-        'three',
+        { value: 'one', label: 'one' },
+        { value: 'two', label: 'two' },
+        { value: 'three', label: 'three' },
       ],
       selectedOptionString: 'one',
 
-      objectOptions,
-      selectedOptionObject: objectOptions[0],
       isDisabled: true,
       isReadonly: true,
+      stringErrorMessage: 'String error message',
+      arrayErrorMessages: [
+        'Error message',
+        'Another error message',
+      ],
+      rules: [(v) => v === 'one' || 'Value should be one'],
+      selectedOption: 'one',
     }
   },
 }

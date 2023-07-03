@@ -3,24 +3,6 @@
     <div class="partners__wrapper">
       <div class="partners__inner">
         <div class="partners__logos">
-          <!-- <a
-            href="https://vuejs.org/partners/epicmax"
-            target="_blank"
-            title="Vue.js - The Progressive JavaScript Framework"
-            class="partners__logo logo__vue-js"
-          >
-            <LandingIconsIconVuejs />
-          </a> -->
-
-          <a
-            href="https://nuxt.com/support/agencies/epicmax"
-            target="_blank"
-            title="Nuxt - The Intuitive Web Framework"
-            class="partners__logo"
-          >
-            <LandingIconsIconNuxt />
-          </a>
-
           <a
             href="https://flatlogic.com/"
             target="_blank"
