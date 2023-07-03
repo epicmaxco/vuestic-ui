@@ -6,7 +6,6 @@
     :style="$attrs.style"
     v-bind="dropdownPropsComputed"
     @open="focusDatePicker"
-    @close="focus"
   >
     <template #anchor>
       <slot name="input" v-bind="{ valueText, inputAttributes: inputAttributesComputed, inputWrapperProps, inputListeners }">
@@ -114,7 +113,7 @@ import {
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useStateful, useStatefulEmits,
   useParsable,
-  useFocus, useFocusEmits, useTranslation,
+  useFocus, useFocusEmits, useTranslation, useFocusDeep,
 } from '../../composables'
 import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
@@ -202,7 +201,8 @@ export default defineComponent({
     const { valueComputed: statefulValue }: { valueComputed: WritableComputedRef<DateInputModelValue> } = useStateful(props, emit)
     const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
 
-    const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
+    const { isFocused: isInputFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
+    const isPickerFocused = useFocusDeep(datePicker)
 
     const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
 
@@ -359,7 +359,7 @@ export default defineComponent({
     const filteredWrapperProps = filterComponentProps(VaInputWrapperProps)
     const computedInputWrapperProps = computed(() => ({
       ...filteredWrapperProps.value,
-      focused: isFocused.value,
+      focused: isInputFocused.value || isPickerFocused.value,
       error: hasError.value,
       errorMessages: computedErrorMessages.value,
       readonly: props.readonly || !props.manualInput,
@@ -420,7 +420,8 @@ export default defineComponent({
       isOpenSync,
       onInputTextChanged,
 
-      isFocused,
+      isInputFocused,
+      isPickerFocused,
 
       input,
       inputWrapperProps: computedInputWrapperProps,

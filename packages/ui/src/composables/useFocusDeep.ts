@@ -1,25 +1,9 @@
-import { shallowRef, computed, Ref, onMounted, DefineComponent } from 'vue'
+import { computed, Ref, DefineComponent, Component } from 'vue'
 import { useHTMLElement } from './useHTMLElement'
-import { useCaptureEvent } from './useCaptureEvent'
 import { useCurrentElement } from './useCurrentElement'
-import { blurElement, focusElement } from '../utils/focus'
+import { useActiveElement } from './useActiveElement'
 
-const useActiveElement = () => {
-  const activeEl = shallowRef<HTMLElement>()
-
-  const updateActiveElement = () => {
-    activeEl.value = document.activeElement as HTMLElement
-  }
-
-  onMounted(updateActiveElement)
-
-  useCaptureEvent('focus', updateActiveElement)
-  useCaptureEvent('blur', updateActiveElement)
-
-  return activeEl
-}
-
-export const useFocusDeep = (el?: Ref<HTMLElement | DefineComponent | undefined>) => {
+export const useFocusDeep = (el?: Ref<HTMLElement | DefineComponent | undefined | Component>) => {
   const focused = useActiveElement()
   const current = useCurrentElement(el ? useHTMLElement(el) : undefined)
   // Cache previouslyFocusedElement, so we can simply come back to it
