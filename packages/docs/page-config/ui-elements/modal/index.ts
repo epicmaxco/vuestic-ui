@@ -15,14 +15,14 @@ export default definePageConfig({
     }),
     block.example("Stateful", {
       title: "Stateful",
-      description: "By default `va-modal` is stateless. You can change it by setting the `stateful` prop"
+      description: "By default `va-modal` is stateless. You can change it by setting the `stateful` prop."
     }),
     block.example("Fullscreen", {
       title: "Full screen",
       description: "Add the `fullscreen` prop to cover the whole page.\n\nNote that `va-modal` is full screen on mobile viewports by default. You can change it by setting the `mobile-fullscreen` prop to `false`."
     }),
   
-    block.headline("Toggle modal visibility"),
+    block.headline("Modal methods"),
     block.paragraph("There are several methods that you can employ to toggle the visibility of `va-modal`."),
     block.paragraph("`v-model` property is always automatically synced with `va-modal` visible state and you can show/hide using `v-model`."),
     block.paragraph("You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."),
@@ -58,13 +58,13 @@ export default definePageConfig({
     block.example("CustomContent", {
       description: "You can remove default padding with `no-padding` prop and change default action buttons with `content` slot."
     }),
-    block.example("NestedModals", {
-      title: "Nested modals",
-      description: "Modals can be nested: you can open one modal from another."
-    }),
     block.example("BeforeClose", {
       title: "Before close",
       description: "You can set custom before close event to prevent modal from closing."
+    }),
+    block.example("NestedModals", {
+      title: "Nested modals",
+      description: "Modals can be nested: you can open one modal from another."
     }),
 
     block.subtitle("API"),

@@ -55,7 +55,7 @@
                 :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
               >
                 <div v-if="$slots.content">
-                  <slot name="content" v-bind="{ cancel, ok }" />
+                  <slot name="content" v-bind="{ show, hide, toggle }" />
                 </div>
                 <template v-if="!$slots.content">
                   <div
@@ -69,7 +69,7 @@
                     v-if="$slots.header"
                     class="va-modal__header"
                   >
-                    <slot name="header" />
+                    <slot name="header" v-bind="{ show, hide, toggle }" />
                   </div>
                   <div
                     v-if="$props.message"
@@ -81,7 +81,7 @@
                     v-if="$slots.default"
                     class="va-modal__message"
                   >
-                    <slot />
+                    <slot v-bind="{ show, hide, toggle }" />
                   </div>
                   <div
                     v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
@@ -104,7 +104,7 @@
                     v-if="$slots.footer"
                     class="va-modal__footer"
                   >
-                    <slot name="footer" />
+                    <slot name="footer" v-bind="{ show, hide, toggle }" />
                   </div>
                 </template>
               </div>
@@ -514,7 +514,7 @@ export default defineComponent({
   }
 
   &__inner {
-    overflow: visible;
+    overflow: auto;
     display: flex;
     position: relative;
     flex-flow: column;
