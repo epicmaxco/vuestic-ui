@@ -13,37 +13,65 @@
     Show modal size medium (default)
   </va-button>
 
-  <va-button class="my-1" @click="showModalSizeLarge = !showModalSizeLarge">
+  <va-button
+    class="my-1"
+    @click="showModalSizeLarge = !showModalSizeLarge"
+  >
     Show modal size large
   </va-button>
 
-  <va-modal v-model="showModalSizeSmall" message="Would you like to save?" />
+  <va-modal
+    v-model="showModalSizeSmall"
+    message="Would you like to save?"
+    ok-text="Save"
+  />
 
-  <va-modal v-model="showModalSizeMedium" size="small">
-    <h2 class="va-h2">Medium</h2>
+  <va-modal
+    v-model="showModalSizeMedium"
+    size="small"
+  >
+    <h3 class="va-h3">
+      Medium
+    </h3>
     <p>
       Classic modal overlay which represents a dialog box or other interactive
       component, such as a dismissible alert, sub-window, etc.
     </p>
   </va-modal>
 
-  <va-modal v-model="showModalSizeLarge" size="large">
-    <h2 class="va-h2">Party Hard</h2>
+  <va-modal
+    v-model="showModalSizeLarge"
+    size="large"
+  >
+    <h3 class="va-h3">
+      Party Hard
+    </h3>
 
-    <p>Select users to go to a party.</p>
+    <p class="va-text">
+      Select users to go to a party.
+    </p>
 
     <va-data-table
       style="width: 1000px"
       :items="[
-        { name: 'John', age: 21, email: 'john@example.com', verified: true },
-        { name: 'Jane', age: 22, email: 'jane@example.com', verified: false },
-        { name: 'Joe', age: 23, email: 'joe@example.com', verified: true },
+        { name: 'Marcus Claus', email: 'marcus@epicmax.co', status: 'verified', balance: '$34.15' },
+        { name: 'Moo Farah', email: 'moo@epicmax.co', status: 'pending', balance: '$199.0' },
+        { name: 'Stan Brass', email: 'stan@epicmax.co', status: 'blocked', balance: '$0.00' },
+        { name: 'Usan Jahallah', email: 'usan@epicmax.co', status: 'verified', balance: '$23 000.00' },
       ]"
     >
-      <template #cell(verified)="{ rowData }">
-        <va-chip :color="rowData.verified ? 'success' : 'danger'">
-          <va-icon name="check" v-if="rowData.verified" />
-          <va-icon name="close" v-else />
+      <template #cell(status)="{ rowData }">
+        <va-chip
+          :color="({
+            verified: 'primary',
+            pending: 'secondary',
+            blocked: 'danger',
+          })[rowData.status]"
+          class="va-text-uppercase"
+          size="small"
+          square
+        >
+          {{ rowData.status }}
         </va-chip>
       </template>
     </va-data-table>

@@ -6,7 +6,7 @@
   </va-button>
 
   <va-modal v-model="doShowModal" ref="modal">
-    <h2 class="va-h2">Title</h2>
+    <h3 class="va-h3">Title</h3>
     <p>
       Classic modal overlay which represents a dialog box or other interactive
       component, such as a dismissible alert, sub-window, etc.

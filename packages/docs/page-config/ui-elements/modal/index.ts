@@ -15,39 +15,47 @@ export default definePageConfig({
     }),
     block.example("Stateful", {
       title: "Stateful",
-      description: "By default `va-modal` is stateless. You can change it by setting the `stateful` prop"
+      description: "By default `va-modal` is stateless. You can change it by setting the `stateful` prop."
     }),
     block.example("Fullscreen", {
       title: "Full screen",
       description: "Add the `fullscreen` prop to cover the whole page.\n\nNote that `va-modal` is full screen on mobile viewports by default. You can change it by setting the `mobile-fullscreen` prop to `false`."
     }),
+    block.example("CloseButton", {
+      title: "Close button",
+      description: "By default modal can be closed by clicking on the overlay or pressing the `Esc` key. You can add a close button by setting the `close-button` prop to `true`."
+    }),
   
-    block.headline("Toggle modal visibility"),
+    // Methods and utils
+    block.headline("Modal methods"),
     block.paragraph("There are several methods that you can employ to toggle the visibility of `va-modal`."),
     block.paragraph("`v-model` property is always automatically synced with `va-modal` visible state and you can show/hide using `v-model`."),
     block.paragraph("You can access modal using `ref` attribute and then call the `show()`, `hide()` or `toggle()` methods."),
     block.example("ToggleVisibility", { hideTitle: true }),
-  
-    block.example("DisableAnimation", {
-      title: "Disable open and close animation",
-      description: "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
+    block.example("BeforeClose", {
+      title: "Before close",
+      description: "You can set custom `before-close` prop to dynamically prevent modal from closing. Function accept `hide` method, so you can call it whenever you need. This way you can make API calls or show additional confirm window before closing modal."
     }),
-    block.example("ModalSizing", {
-      title: "Modal sizing",
-      description: "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `small`, `medium` (default), and `large`."
+  
+    // Overlay
+    block.example("BlurredOverlay", {
+      title: "Blurred overlay",
+      description: "Use the `blur` CSS filter for the overlay layer by setting the `blur` property to `true`. You can override the root CSS variable `--va-modal-overlay-background-blur-radius` to set your own blur radius."
     }),
     block.example("HidingOverlay", {
       title: "Hiding the overlay",
       description: "Hide the modal's overlay via setting the `overlay` prop to `false`.\n\nNote that clicking outside of the modal will still close the modal even though the overlay is hidden. You can disable this behavior by setting the `no-outside-dismiss` prop on `va-modal`."
     }),
-    block.example("BlurredOverlay", {
-      title: "Blurred overlay",
-      description: "Use the `blur` CSS filter for the overlay layer by setting the `blur` property to `true`. You can override the root CSS variable `--va-modal-overlay-background-blur-radius` to set your own blur radius."
+    block.example("DisableAnimation", {
+      title: "Disable open and close animation",
+      description: "To disable the transition/animation when modal opens and closes, set the prop `without-transitions`."
     }),
+
     block.example("ScrollingLongContent", {
       title: "Scrolling long content",
       description: "When modals become too long for the user's viewport or device, they allow the scrolling of the modal body. Try the demo below to see what we mean.\n\nYou can also allow scrolling only content in modal via setting the `fixed-layout` prop. Title and actions will be fixed."
     }),
+    // Customization
     block.example("Customization", {
       title: "Customization",
       description: "`va-modal` provides several slots (`default`, `header` and `footer`), that you can use to customize the content of various sections of the modal.\n\nYou can set custom text for **Cancel** and **Ok** buttons via `ok-text` and `cancel-text` props respectively, or you can hide them via `hide-default-actions` prop.\n\n`va-modal` also supports custom `overlay-opacity` as well as `z-index`, `max-width` and `max-height` for a modal."
@@ -58,13 +66,14 @@ export default definePageConfig({
     block.example("CustomContent", {
       description: "You can remove default padding with `no-padding` prop and change default action buttons with `content` slot."
     }),
+    block.example("ModalSizing", {
+      title: "Modal sizing",
+      description: "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `small`, `medium` (default), and `large`."
+    }),
+
     block.example("NestedModals", {
       title: "Nested modals",
       description: "Modals can be nested: you can open one modal from another."
-    }),
-    block.example("BeforeClose", {
-      title: "Before close",
-      description: "You can set custom before close event to prevent modal from closing."
     }),
 
     block.subtitle("API"),

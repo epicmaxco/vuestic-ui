@@ -8,7 +8,7 @@
     :class="$props.anchorClass"
   >
     <div v-if="$slots.anchor" class="va-modal__anchor">
-      <slot name="anchor" v-bind="{ show, hide, toggle }" />
+      <slot name="anchor" v-bind="slotBind" />
     </div>
 
     <teleport :to="attachElement" :disabled="$props.disableAttachment">
@@ -40,7 +40,7 @@
               :style="computedDialogStyle"
             >
               <va-icon
-                v-if="$props.fullscreen"
+                v-if="$props.fullscreen || $props.closeButton"
                 name="va-close"
                 class="va-modal__close"
                 role="button"
@@ -55,7 +55,7 @@
                 :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
               >
                 <div v-if="$slots.content">
-                  <slot name="content" v-bind="{ cancel, ok }" />
+                  <slot name="content" v-bind="slotBind" />
                 </div>
                 <template v-if="!$slots.content">
                   <div
@@ -69,7 +69,7 @@
                     v-if="$slots.header"
                     class="va-modal__header"
                   >
-                    <slot name="header" />
+                    <slot name="header" v-bind="slotBind" />
                   </div>
                   <div
                     v-if="$props.message"
@@ -81,7 +81,7 @@
                     v-if="$slots.default"
                     class="va-modal__message"
                   >
-                    <slot />
+                    <slot v-bind="slotBind" />
                   </div>
                   <div
                     v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
@@ -104,7 +104,7 @@
                     v-if="$slots.footer"
                     class="va-modal__footer"
                   >
-                    <slot name="footer" />
+                    <slot name="footer" v-bind="slotBind" />
                   </div>
                 </template>
               </div>
@@ -179,6 +179,7 @@ export default defineComponent({
     cancelText: { type: String, default: '$t:cancel' },
     hideDefaultActions: { type: Boolean, default: false },
     fullscreen: { type: Boolean, default: false },
+    closeButton: { type: Boolean, default: false },
     mobileFullscreen: { type: Boolean, default: true },
     noDismiss: { type: Boolean, default: false },
     noOutsideDismiss: { type: Boolean, default: false },
@@ -354,6 +355,7 @@ export default defineComponent({
       computedDialogStyle,
       computedModalContainerStyle,
       computedOverlayStyles,
+      slotBind: { show, hide, toggle, cancel, ok },
       ...publicMethods,
     }
   },
@@ -514,7 +516,7 @@ export default defineComponent({
   }
 
   &__inner {
-    overflow: visible;
+    overflow: auto;
     display: flex;
     position: relative;
     flex-flow: column;
@@ -547,7 +549,7 @@ export default defineComponent({
     min-height: fit-content;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: var(--va-modal-footer-justify-content);
 
     &:last-of-type {
       margin-bottom: 0;
