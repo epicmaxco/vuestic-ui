@@ -27,7 +27,7 @@ const currentMonthName = date.toLocaleString('en', { month: 'long' })
 
 const currentMonth = new Date().getUTCMonth()
 const developersCount = currentMonth % 3 + 1
-const phrase = `🔥 ${developersCount} Vue.js expert${developersCount > 1 ? 's' : ''} available available in ${currentMonthName} to build and launch your product.`
+const phrase = `🔥 ${developersCount} Vue.js expert${developersCount > 1 ? 's' : ''} available in ${currentMonthName} to build and launch your product.`
 </script>
 
 <style lang="scss" scoped>
