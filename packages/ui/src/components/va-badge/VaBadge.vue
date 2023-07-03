@@ -78,7 +78,7 @@ export default defineComponent({
       ...unref(positionStylesComputed),
     }))
 
-    const ariaLabelledByComputed = computed(() => props.text ? props.text : undefined)
+    const ariaLabelledByComputed = computed(() => props.text ? String(props.text) : undefined)
 
     return {
       badgeClass,
