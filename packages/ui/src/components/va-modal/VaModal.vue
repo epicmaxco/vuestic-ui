@@ -40,7 +40,7 @@
               :style="computedDialogStyle"
             >
               <va-icon
-                v-if="$props.fullscreen"
+                v-if="$props.fullscreen || $props.closeButton"
                 name="va-close"
                 class="va-modal__close"
                 role="button"
@@ -179,6 +179,7 @@ export default defineComponent({
     cancelText: { type: String, default: '$t:cancel' },
     hideDefaultActions: { type: Boolean, default: false },
     fullscreen: { type: Boolean, default: false },
+    closeButton: { type: Boolean, default: false },
     mobileFullscreen: { type: Boolean, default: true },
     noDismiss: { type: Boolean, default: false },
     noOutsideDismiss: { type: Boolean, default: false },
@@ -547,7 +548,7 @@ export default defineComponent({
     min-height: fit-content;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: var(--va-modal-footer-justify-content);
 
     &:last-of-type {
       margin-bottom: 0;

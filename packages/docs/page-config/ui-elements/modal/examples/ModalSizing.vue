@@ -30,9 +30,9 @@
     v-model="showModalSizeMedium"
     size="small"
   >
-    <h2 class="va-h2">
+    <h3 class="va-h3">
       Medium
-    </h2>
+    </h3>
     <p>
       Classic modal overlay which represents a dialog box or other interactive
       component, such as a dismissible alert, sub-window, etc.

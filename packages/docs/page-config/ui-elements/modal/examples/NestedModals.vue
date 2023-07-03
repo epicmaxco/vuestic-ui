@@ -9,9 +9,9 @@
     hide-default-actions
   >
     <div class="flex flex-col items-start gap-2">
-      <h2 class="va-h2">
+      <h3 class="va-h3">
         Nested Modal
-      </h2>
+      </h3>
 
       <va-date-input prevent-overflow />
 

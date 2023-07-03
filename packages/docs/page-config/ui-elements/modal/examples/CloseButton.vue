@@ -1,10 +1,10 @@
 <template>
-  <va-button @click="$refs.modal.show()">
-    Show modal (stateful)
+  <va-button @click="showModal = true">
+    Show modal with close icon
   </va-button>
   <va-modal
-    ref="modal"
-    stateful
+    v-model="showModal"
+    close-button
   >
     <h3 class="va-h3">
       Title
@@ -15,3 +15,13 @@
     </p>
   </va-modal>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      showModal: false,
+    };
+  },
+};
+</script>
