@@ -96,6 +96,7 @@ export default defineNuxtConfig({
     prefetch: true,
     preconnect: true,
     display: 'swap',
+    download: false,
     families: {
       'Source+Sans+Pro': {
         wght: [400, 600, 700],
