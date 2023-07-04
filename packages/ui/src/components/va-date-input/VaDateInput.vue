@@ -128,6 +128,7 @@ import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaInputWrapper } from '../va-input'
 import { VaIcon } from '../va-icon'
+import { useKeyboardFocusOut } from '../../composables/useKeyboardFocusOut'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
@@ -203,6 +204,10 @@ export default defineComponent({
 
     const { isFocused: isInputFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
     const isPickerFocused = useFocusDeep(datePicker)
+
+    useKeyboardFocusOut(datePicker, () => {
+      focus()
+    })
 
     const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
 
