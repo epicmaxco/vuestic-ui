@@ -300,11 +300,17 @@ export default defineComponent({
       (typeof props.margins === 'string' ? parseFloat(props.margins) : props.margins) === 0
     ))
 
+    const buttonsColor = () => {
+      if (isFocused.value) { return props.color }
+
+      return 'background-border'
+    }
+
     const buttonProps = computed(() => ({
       ...pick(props, ['color', 'textColor']),
       round: props.rounded,
       preset: props.flat ? 'secondary' : '',
-      borderColor: (props.outline && props.flat) ? props.color : '',
+      borderColor: (props.outline && props.flat) ? buttonsColor() : '',
     }))
 
     const decreaseButtonProps = computed(() => ({
