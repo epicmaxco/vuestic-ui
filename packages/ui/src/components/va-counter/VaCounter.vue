@@ -311,12 +311,16 @@ export default defineComponent({
       ...buttonProps.value,
       icon: props.decreaseIcon,
       disabled: isDecreaseActionDisabled.value,
+      ariaLabel: tp(props.ariaDecreaseLabel),
+      ...(!isDecreaseActionDisabled.value && { onClick: decreaseCount }),
     }))
 
     const increaseButtonProps = computed(() => ({
       ...buttonProps.value,
       icon: props.increaseIcon,
       disabled: isIncreaseActionDisabled.value,
+      ariaLabel: tp(props.ariaIncreaseLabel),
+      ...(!isIncreaseActionDisabled.value && { onClick: increaseCount }),
     }))
 
     const { tp } = useTranslation()
