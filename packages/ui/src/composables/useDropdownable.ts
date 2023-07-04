@@ -14,7 +14,7 @@ export const useDropdownableProps = {
    * Close dropdown on value updated.
    * @default null - behavior controlled by component
    */
-  closeOnValueUpdate: { type: Boolean, default: null },
+  closeOnChange: { type: Boolean, default: null },
   isOpen: { type: Boolean, default: undefined },
 }
 
@@ -31,7 +31,7 @@ export const useDropdownable = function (
 ) {
   const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
 
-  const doWatch = computed(() => props.closeOnValueUpdate !== null ? props.closeOnValueUpdate : unref(options.defaultCloseOnValueUpdate || false))
+  const doWatch = computed(() => props.closeOnChange !== null ? props.closeOnChange : unref(options.defaultCloseOnValueUpdate || false))
 
   watch(() => props.modelValue, () => {
     if (doWatch.value) {
