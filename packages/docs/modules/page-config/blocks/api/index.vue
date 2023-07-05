@@ -3,6 +3,7 @@ import { DefineComponent, PropType } from 'vue';
 import merge from 'lodash/merge'
 import camelCase from 'lodash/camelCase'
 import ApiTable from './components/ApiDocs.vue';
+import { MarkdownView } from '../shared/markdown'
 import {
   CssVariables,
   ManualApiOptions,
@@ -83,7 +84,7 @@ const propsOptions = computed(() => {
       name: name,
       description: getDescription('props', name),
       types: '`' + prop.types + '`',
-      default: cleanDefaultValue(prop.default),
+      default: cleanDefaultValue(prop.default) ?? '',
     }))
     .sort((a, b) => (a.name || '').localeCompare(b.name))
   }
@@ -137,6 +138,10 @@ const cssVariablesOptions = computed(() => props.cssVariables.map(([name, value,
   name, value, /* comment */ // TODO: Enable comment when everywhere is used correct comments
   // TODO: Or add tanslations after i18n splitted
 })))
+
+const isValueIsDefaultTranslation = (value: String) => {
+  return value.startsWith('`"$t:');
+}
 </script>
 
 <template>
@@ -155,6 +160,28 @@ const cssVariablesOptions = computed(() => props.cssVariables.map(([name, value,
           text="required"
           color="primary"
         />
+      </template>
+      <template
+        #default="{value}"
+      >
+        <div class="flex items-center gap-1">
+          <markdown-view :content="value" />        
+          <va-popover
+            placement="right"
+            trigger="click"
+          >
+            <va-icon
+              v-if="isValueIsDefaultTranslation(value)"
+              name="info"
+              color="secondary"
+            />
+            <template #body>
+              <nuxt-link to="/services/i18n#translations">
+                Read more
+              </nuxt-link>
+            </template>
+          </va-popover>
+        </div> 
       </template>
     </ApiTable>
 

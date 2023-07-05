@@ -1,13 +1,16 @@
 import { getI18nConfigDefaults } from "vuestic-ui/src/services/i18n";
 
+const configTranslations = Object
+  .entries(getI18nConfigDefaults())
+  .sort((a, b) => a[0].localeCompare(b[0]))
+
 export default definePageConfig({
   blocks: [
     block.title("i18n"),
     block.paragraph("We made a separated config for i18n messages, so you can redefine messages we use in components."),
 
-    block.collapse("i18n default messages", [
-      block.code(JSON.stringify(getI18nConfigDefaults(), null, 2)),
-    ]),
+    block.subtitle("Translations"),
+    block.table([{ title: "Key", type: 'code'}, "Value"], configTranslations),
 
     block.subtitle("Change default messages"),
     block.paragraph("Default messages can be set in `GlobalConfig`. Config is fully typed, so you can use autocomplete to find messages you want to change."),
