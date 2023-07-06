@@ -191,6 +191,10 @@
       <va-date-input ref="dateInputRef" v-model="value" :rules="validationRules1" clearable />
       <va-button @click="focusDateInput">Focus</va-button>
       <va-button @click="blurDateInput">Blur</va-button>
+
+      <va-button @click="($refs.otherElement as any).focus()">Focus other element</va-button>
+
+      <input value="Other element" ref="otherElement" />
     </VbCard>
   </VbDemo>
 </template>

@@ -33,6 +33,7 @@ import { useCursorAnchor } from './hooks/useCursorAnchor'
 import { DropdownOffsetProp } from './types'
 import { useDropdown } from './hooks/useDropdown'
 import { warn } from '../../utils/console'
+import { useFocusOutside } from '../../composables/useFocusOutside'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -49,6 +50,7 @@ export default defineComponent({
     disabled: { type: Boolean },
     readonly: { type: Boolean },
     closeOnClickOutside: { type: Boolean, default: true },
+    closeOnFocusOutside: { type: Boolean, default: true },
     closeOnAnchorClick: { type: Boolean, default: true },
     closeOnContentClick: { type: Boolean, default: true },
     hoverOverTimeout: { type: Number, default: 30 },
@@ -69,7 +71,7 @@ export default defineComponent({
     ariaLabel: { type: String, default: '$t:toggleDropdown' },
   },
 
-  emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'close', 'open', 'anchor-dblclick'],
+  emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'focus-outside', 'close', 'open', 'anchor-dblclick'],
 
   setup (props, { emit }) {
     const { valueComputed: statefulVal } = useStateful(props, emit)
@@ -173,7 +175,7 @@ export default defineComponent({
 
     const emitAndClose = (eventName: Parameters<typeof emit>[0], close?: boolean, e?: Event) => {
       emit(eventName, e)
-      if (close && props.trigger !== 'none') { valueComputed.value = false }
+      if (close) { valueComputed.value = false }
     }
 
     const floatingListeners = {
@@ -185,6 +187,12 @@ export default defineComponent({
     useClickOutside([anchor, floating], () => {
       if (props.closeOnClickOutside && valueComputed.value) {
         emitAndClose('click-outside', props.closeOnClickOutside)
+      }
+    })
+
+    useFocusOutside([floating], () => {
+      if (props.closeOnFocusOutside && valueComputed.value) {
+        emitAndClose('focus-outside', props.closeOnFocusOutside)
       }
     })
 
@@ -225,6 +233,7 @@ export default defineComponent({
       show,
     }
   },
+
   render () {
     const floatingSlotNode = this.showFloating && renderSlotNode(this.$slots.default, {}, {
       ref: 'floating',

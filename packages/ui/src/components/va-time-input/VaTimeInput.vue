@@ -11,7 +11,6 @@
         class="va-time-input__anchor"
         :style="cursorStyleComputed"
         v-bind="computedInputWrapperProps"
-        @click.stop="toggleDropdown"
       >
         <template #default>
           <input
@@ -73,7 +72,7 @@
     <va-dropdown-content
       no-padding
       @keydown.esc.prevent="hideDropdown"
-      @keypress.enter.prevent="hideDropdown"
+      @keydown.enter.prevent="hideDropdown"
     >
       <va-time-picker
         ref="timePicker"
@@ -108,7 +107,7 @@ import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDropdownProps = extractComponentProps(VaDropdown,
-  ['keyboardNavigation', 'innerAnchorSelector', 'modelValue'],
+  ['keyboardNavigation', 'innerAnchorSelector', 'modelValue', 'trigger'],
 )
 
 export default defineComponent({
@@ -309,7 +308,11 @@ export default defineComponent({
       return { cursor: 'pointer' }
     })
 
-    const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
+    const iconTabindexComputed = computed(() => {
+      if (!props.manualInput) { return -1 }
+
+      return props.disabled || props.readonly ? -1 : 0
+    })
 
     const iconProps = computed(() => ({
       role: 'button',
@@ -340,6 +343,7 @@ export default defineComponent({
       ...filteredProps.value,
       keyboardNavigation: true,
       innerAnchorSelector: '.va-input-wrapper__field',
+      trigger: 'none' as const,
     }))
 
     return {

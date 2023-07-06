@@ -49,6 +49,7 @@ export const useClearable = (
     name: props.clearableIcon,
     color: clearIconColor.value,
     size: 'small',
+    tabindex: canBeCleared.value ? 0 : -1,
   }))
 
   return {

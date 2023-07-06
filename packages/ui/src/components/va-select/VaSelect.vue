@@ -15,6 +15,8 @@
         @focus="onInputFocus"
         @blur="onInputBlur"
         @click="focusAutocompleteInput"
+        @keydown.enter="toggleDropdown"
+        @keydown.space.stop.prevent="toggleDropdown"
       >
         <template
           v-for="(_, name) in $slots"
@@ -71,6 +73,7 @@
     <va-dropdown-content
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
+      @keydown.esc="hideAndFocus"
     >
       <va-input
         v-if="showSearchInput"
@@ -666,8 +669,10 @@ export default defineComponent({
       }
     }
 
-    const toggleDropdown = () => {
+    const toggleDropdown = (e: KeyboardEvent) => {
       if (props.disabled || props.readonly) { return }
+
+      if (e.code === 'Space' && props.autocomplete) { return }
 
       showDropdownContentComputed.value = !showDropdownContentComputed.value
     }
