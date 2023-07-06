@@ -74,6 +74,7 @@
           :nextDisabled="nextDisabled"
           :steps="steps"
           :stepControls="stepControls"
+          :finishButtonHidden="finishButtonHidden"
           @finish="$emit('finish')"
         />
         <slot
