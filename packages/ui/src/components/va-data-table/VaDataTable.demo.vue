@@ -505,6 +505,14 @@
       </va-data-table>
     </VbCard>
 
+    <VbCard title="Expandable rows (without slots)" class="demo">
+      <va-data-table :items="evenItems" @row:click="({ row }) => row.toggleRowDetails()">
+         <template #expandableRow="{ cells }">
+            This is {{ cells[0].value }} details.
+        </template>
+      </va-data-table>
+    </VbCard>
+
     <VbCard title="Header/Footer slots" class="demo">
       <va-data-table :items="evenItems">
         <template #header>
