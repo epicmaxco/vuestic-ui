@@ -31,7 +31,6 @@
             v-if="showClearIcon"
             role="button"
             :aria-label="tp($props.ariaClearLabel)"
-            tabindex="0"
             v-bind="clearIconProps"
             @click.stop="reset"
             @keydown.enter.stop="reset"
