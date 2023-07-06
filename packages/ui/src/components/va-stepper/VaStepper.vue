@@ -44,7 +44,6 @@
             :step="step"
             :stepControls="stepControls"
             :navigationDisabled="navigationDisabled"
-
             :focus="focusedStep"
           />
         </slot>
@@ -79,7 +78,7 @@
         />
         <slot
           name="controls"
-          v-bind="stepControls"
+          v-bind="getIterableSlotData(steps[modelValue], modelValue)"
         />
       </div>
     </div>
