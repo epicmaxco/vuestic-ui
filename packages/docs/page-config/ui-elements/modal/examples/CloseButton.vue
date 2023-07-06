@@ -4,6 +4,7 @@
   </va-button>
   <va-modal
     v-model="showModal"
+    ok-text="Apply"
     close-button
   >
     <h3 class="va-h3">

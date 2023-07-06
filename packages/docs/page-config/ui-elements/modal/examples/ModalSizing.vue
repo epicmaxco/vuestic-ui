@@ -24,11 +24,12 @@
     v-model="showModalSizeSmall"
     message="Would you like to save?"
     ok-text="Save"
+    size="small"
   />
 
   <va-modal
     v-model="showModalSizeMedium"
-    size="small"
+    ok-text="Apply"
   >
     <h3 class="va-h3">
       Medium

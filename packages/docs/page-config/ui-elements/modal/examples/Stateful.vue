@@ -4,6 +4,7 @@
   </va-button>
   <va-modal
     ref="modal"
+    ok-text="Apply"
     stateful
   >
     <h3 class="va-h3">

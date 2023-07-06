@@ -16,6 +16,7 @@
   <va-modal
     v-model="showModal"
     max-height="300px"
+    ok-text="Confirm"
   >
     <va-data-table
       :items="items"
@@ -30,6 +31,7 @@
   <va-modal
     v-model="showModalWithFixedLayout"
     max-height="300px"
+    ok-text="Confirm"
     fixed-layout
   >
     <h3 class="va-h3">Contacts</h3>
