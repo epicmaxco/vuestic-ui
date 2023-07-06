@@ -216,10 +216,13 @@ export default defineComponent({
     const stepControls: StepControls = { setStep, nextStep, prevStep }
     const getIterableSlotData = (step: Step, index: number) => ({
       ...stepControls,
-      step,
       focus: focusedStep,
       isActive: props.modelValue === index,
       isCompleted: props.modelValue > index,
+      isLastStep: props.steps.length - 1 === index,
+      isNextStepDisabled: isNextStepDisabled(index),
+      index,
+      step,
     })
 
     const { tp } = useTranslation()
