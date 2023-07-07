@@ -88,6 +88,10 @@
       <va-button @click="blurTimeInput">Blur</va-button>
     </VbCard>
 
+    <VbCard title="Close on value select">
+      <va-time-input label="On value update" v-model="value" close-on-change />
+      <va-time-input label="default" v-model="value" />
+    </VbCard>
   </VbDemo>
 </template>
 

@@ -125,6 +125,7 @@ import {
   useTranslation,
   useBem,
   useThrottleProps,
+  useDropdownable, useDropdownableEmits, useDropdownableProps,
 } from '../../composables'
 
 import {
@@ -142,18 +143,13 @@ import { useToggleIcon, useToggleIconProps } from './hooks/useToggleIcon'
 import { useStringValue, useStringValueProps } from './hooks/useStringValue'
 import { useAutocomplete, useAutocompleteProps } from './hooks/useAutocomplete'
 
-import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { blurElement, focusElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
 import { isNilValue } from '../../utils/isNilValue'
 import { warn } from '../../utils/console'
 
-import type { SelectOption, Placement } from './types'
+import type { SelectOption } from './types'
 import type { DropdownOffsetProp } from '../va-dropdown/types'
-
-const VaDropdownProps = extractComponentProps(VaDropdown,
-  ['keyboardNavigation', 'offset', 'stateful', 'keepAnchorWidth', 'closeOnContentClick', 'innerAnchorSelector', 'modelValue'],
-)
 
 export default defineComponent({
   name: 'VaSelect',
@@ -173,12 +169,12 @@ export default defineComponent({
     'update-search',
     'create-new',
     'scroll-bottom',
+    ...useDropdownableEmits,
     ...useValidationEmits,
     ...useClearableEmits,
   ],
 
   props: {
-    ...VaDropdownProps,
     ...useComponentPresetProp,
     ...useSelectableListProps,
     ...useValidationProps as ValidationProps<SelectOption>,
@@ -191,6 +187,7 @@ export default defineComponent({
     ...useThrottleProps,
     ...useStringValueProps,
     ...useAutocompleteProps,
+    ...useDropdownableProps,
 
     modelValue: {
       type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>,
@@ -199,9 +196,8 @@ export default defineComponent({
 
     // Dropdown placement
     placement: {
-      type: String as PropType<Placement>,
+      ...useDropdownableProps.placement,
       default: 'bottom',
-      validator: (placement: string) => ['top', 'bottom'].includes(placement),
     },
 
     allowCreate: {
@@ -232,12 +228,13 @@ export default defineComponent({
     searchPlaceholderText: { type: String, default: '$t:search' },
     requiredMark: { type: Boolean, default: false },
 
-    ariaLabel: { type: String, default: undefined },
     ariaSearchLabel: { type: String, default: '$t:optionsFilter' },
     ariaClearLabel: { type: String, default: '$t:reset' },
   },
 
   setup (props, { emit, slots }) {
+    const { tp, t } = useTranslation()
+
     const optionList = shallowRef<typeof VaSelectOptionList>()
     const input = shallowRef<typeof VaInputWrapper>()
     const searchBar = shallowRef<typeof VaInput>()
@@ -428,7 +425,7 @@ export default defineComponent({
     const selectHoveredOption = () => {
       if (isNilValue(hoveredOption.value)) { return }
 
-      if (!showDropdownContent.value) {
+      if (!isOpenSync.value) {
         // We can not select options if they are hidden
         handleDropdownOpen()
         return
@@ -453,29 +450,38 @@ export default defineComponent({
 
     // Dropdown content
 
-    const showDropdownContent = ref(false)
+    const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
+      defaultCloseOnValueUpdate: computed(() => !props.multiple),
+    })
+
+    const dropdownPropsComputed = computed(() => ({
+      ...dropdownProps.value,
+      closeOnContentClick: false,
+      stateful: false,
+      offset: [1, 0] as DropdownOffsetProp,
+      keepAnchorWidth: true,
+      keyboardNavigation: true,
+      innerAnchorSelector: '.va-input-wrapper__field',
+      'aria-label': props.ariaLabel || (props.modelValue ? `${t('selectedOption')}: ${props.modelValue}` : t('noSelectedOption')),
+    }))
 
     const showDropdownContentComputed = computed({
-      get: () => showDropdownContent.value,
+      get: () => isOpenSync.value,
       set: (show: boolean) => {
         show ? handleDropdownOpen() : handleDropdownClose()
       },
     })
 
-    const closeOnContentClick = computed(() => {
-      return !(props.multiple || props.searchable || props.allowCreate)
-    })
-
     const handleDropdownOpen = () => {
       if (props.disabled || props.readonly) { return }
 
-      showDropdownContent.value = true
+      isOpenSync.value = true
       scrollToSelected()
       focusSearchOrOptions()
     }
 
     const handleDropdownClose = () => {
-      showDropdownContent.value = false
+      isOpenSync.value = false
       searchInput.value = ''
       validate()
       nextTick(() => {
@@ -570,20 +576,6 @@ export default defineComponent({
       hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
     }
 
-    const { tp, t } = useTranslation()
-
-    const filteredDropdownProps = filterComponentProps(VaDropdownProps)
-    const dropdownPropsComputed = computed(() => ({
-      ...filteredDropdownProps.value,
-      closeOnContentClick: closeOnContentClick.value,
-      stateful: false,
-      offset: [1, 0] as DropdownOffsetProp,
-      keepAnchorWidth: true,
-      keyboardNavigation: true,
-      innerAnchorSelector: '.va-input-wrapper__field',
-      'aria-label': props.ariaLabel || (props.modelValue ? `${t('selectedOption')}: ${props.modelValue}` : t('noSelectedOption')),
-    }))
-
     const optionsListPropsComputed = computed(() => ({
       ...pick(props, ['textBy', 'trackBy', 'groupBy', 'valueBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'delay', 'selectedTopShown']),
       autoSelectFirstOption: props.autoSelectFirstOption || props.autocomplete,
@@ -595,10 +587,10 @@ export default defineComponent({
       noOptionsText: tp(props.noOptionsText),
     }))
 
-    const { toggleIcon, toggleIconColor } = useToggleIcon(props, showDropdownContent)
+    const { toggleIcon, toggleIconColor } = useToggleIcon(props, isOpenSync)
 
     // input wrapper
-    const isFocused = computed(() => isInputFocused.value || showDropdownContent.value)
+    const isFocused = computed(() => isInputFocused.value || isOpenSync.value)
     const inputWrapperClassComputed = useBem('va-select-anchor', () => ({
       nowrap: !!(props.maxVisibleOptions && !slots.content),
     }))
@@ -624,7 +616,7 @@ export default defineComponent({
     }))
 
     // autocomplete
-    const autocompleteValue = useAutocomplete(props, visibleSelectedOptions, showDropdownContent, getText)
+    const autocompleteValue = useAutocomplete(props, visibleSelectedOptions, isOpenSync, getText)
     const setAutocompleteValue = (v: string) => (autocompleteValue.value = v)
 
     // public methods
@@ -664,7 +656,7 @@ export default defineComponent({
         e?.stopImmediatePropagation()
 
         isInputFocused.value = true
-        showDropdownContent.value = true
+        isOpenSync.value = true
       }
     }
 

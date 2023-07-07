@@ -113,9 +113,11 @@ import {
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useStateful, useStatefulEmits,
   useParsable,
+  useDropdownable,
+  useDropdownableProps,
+  useDropdownableEmits,
   useFocus, useFocusEmits, useTranslation, useFocusDeep, useTrapFocus,
 } from '../../composables'
-import { useSyncProp } from '../va-date-picker/hooks/sync-prop'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
 import { parseModelValue } from './hooks/model-value-parser'
@@ -148,7 +150,7 @@ export default defineComponent({
   },
 
   props: {
-    ...VaDropdownProps,
+    ...useDropdownableProps,
     ...useClearableProps,
     ...VaInputWrapperProps,
     ...VaDatePickerProps,
@@ -160,8 +162,7 @@ export default defineComponent({
 
     resetOnClose: { type: Boolean, default: true },
     closeOnContentClick: { type: Boolean, default: false },
-    offset: { ...VaDropdownProps.offset, default: () => [2, 0] },
-    isOpen: { type: Boolean, default: undefined },
+    offset: { ...useDropdownableProps.offset, default: () => [2, 0] },
 
     format: { type: Function as PropType<(date: DateInputModelValue) => string> },
     formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
@@ -188,7 +189,7 @@ export default defineComponent({
     ...useClearableEmits,
     ...useValidationEmits,
     ...useStatefulEmits,
-    'update:is-open',
+    ...useDropdownableEmits,
     'update:text',
   ],
 
@@ -198,6 +199,7 @@ export default defineComponent({
     const input = shallowRef<HTMLInputElement>()
     const datePicker = ref<typeof VaDatePicker>()
 
+    const { resetOnClose } = toRefs(props)
     const { trapFocusIn, freeFocus } = useTrapFocus()
 
     watch(datePicker, (ref) => {
@@ -210,9 +212,10 @@ export default defineComponent({
       trapFocusIn(el)
     })
 
-    const { isOpen, resetOnClose } = toRefs(props)
     const { valueComputed: statefulValue }: { valueComputed: WritableComputedRef<DateInputModelValue> } = useStateful(props, emit)
-    const { syncProp: isOpenSync } = useSyncProp(isOpen, 'is-open', emit, false)
+    const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
+      defaultCloseOnValueUpdate: computed(() => !Array.isArray(statefulValue.value)),
+    })
 
     const { isFocused: isInputFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
     const isPickerFocused = useFocusDeep(datePicker)
@@ -414,9 +417,8 @@ export default defineComponent({
       ...omit(attrs, ['class', 'style']),
     }))
 
-    const filteredProps = filterComponentProps(VaDropdownProps)
     const dropdownPropsComputed = computed(() => ({
-      ...filteredProps.value,
+      ...dropdownProps.value,
       stateful: false,
       closeOnAnchorClick: false,
       keyboardNavigation: true,

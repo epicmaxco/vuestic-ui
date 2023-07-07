@@ -66,32 +66,32 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import { VaStepper } from "./index";
+import { ref } from 'vue'
+import { VaStepper } from './index'
 
-const step = ref(2);
+const step = ref(2)
 
 const steps = [
-  { label: "One" },
-  { label: "Two" },
-  { label: "Three" },
-  { label: "Four" },
-  { label: "Five" },
-];
+  { label: 'One' },
+  { label: 'Two' },
+  { label: 'Three' },
+  { label: 'Four' },
+  { label: 'Five' },
+]
 
 const stepsWithDisabled = [
-  { label: "One" },
-  { label: "Two", disabled: true },
-  { label: "Three" },
-  { label: "Four", disabled: true },
-  { label: "Five" },
-];
+  { label: 'One' },
+  { label: 'Two', disabled: true },
+  { label: 'Three' },
+  { label: 'Four', disabled: true },
+  { label: 'Five' },
+]
 
 const stepsWithCustomIcons = [
-  { label: "One", icon: "search" },
-  { label: "Two", icon: "home" },
-  { label: "Three", icon: "delete" },
-  { label: "Four", icon: "grade" },
-  { label: "Five", icon: "list" },
-];
+  { label: 'One', icon: 'search' },
+  { label: 'Two', icon: 'home' },
+  { label: 'Three', icon: 'delete' },
+  { label: 'Four', icon: 'grade' },
+  { label: 'Five', icon: 'list' },
+]
 </script>
