@@ -34,6 +34,7 @@ import { DropdownOffsetProp } from './types'
 import { useDropdown } from './hooks/useDropdown'
 import { warn } from '../../utils/console'
 import { useFocusOutside } from '../../composables/useFocusOutside'
+import { useTeleported } from '../../composables/useTeleported'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -194,7 +195,7 @@ export default defineComponent({
       if (props.closeOnFocusOutside && valueComputed.value) {
         emitAndClose('focus-outside', props.closeOnFocusOutside)
       }
-    })
+    }, { onlyKeyboard: true })
 
     const anchorComputed = computed(() => {
       return cursorAnchor.value || anchor.value
@@ -219,6 +220,7 @@ export default defineComponent({
 
     return {
       ...useTranslation(),
+      ...useTeleported(),
       anchor,
       anchorClass,
       floating,
@@ -239,6 +241,7 @@ export default defineComponent({
       ref: 'floating',
       class: 'va-dropdown__content-wrapper',
       style: this.floatingStyles,
+      ...this.teleportedAttrs,
       ...this.floatingListeners,
     })
 
@@ -250,6 +253,7 @@ export default defineComponent({
       'aria-label': this.tp(this.$props.ariaLabel),
       'aria-disabled': this.$props.disabled,
       'aria-expanded': !!this.showFloating,
+      ...this.teleportFromAttrs,
       ...this.$attrs,
     })
 
