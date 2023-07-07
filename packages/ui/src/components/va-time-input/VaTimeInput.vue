@@ -11,6 +11,7 @@
         class="va-time-input__anchor"
         :style="cursorStyleComputed"
         v-bind="computedInputWrapperProps"
+        @click.stop="toggleDropdown"
       >
         <template #default>
           <input
