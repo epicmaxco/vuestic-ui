@@ -20,6 +20,16 @@
         Alert promise result
       </va-button>
     </VaCard>
+    <VaCard>
+      <va-button @click="programmaticallyClose(true)">
+        Programmatically close using button "ok"
+      </va-button>
+    </VaCard>
+    <VaCard>
+      <va-button @click="programmaticallyClose(false)">
+        Programmatically close using button "cancel"
+      </va-button>
+    </VaCard>
   </VbDemo>
 </template>
 
@@ -27,8 +37,25 @@
 import { VaButton } from '../va-button'
 import { useModal } from './'
 
-const { confirm } = useModal()
+const { confirm, close } = useModal()
 const alert = (...args) => window.alert(...args)
+
+const programmaticallyClose = async (type) => {
+  setTimeout(() => {
+    close(type)
+  }, 3000)
+  const result = await confirm({
+    message: 'Wait a 3 seconds for close',
+    title: 'Programmatically close',
+    okText: 'approved',
+    cancelText: 'canceled',
+  })
+  if (result) {
+    alert('approved')
+  } else {
+    alert('canceled')
+  }
+}
 </script>
 
 <style lang="scss">
