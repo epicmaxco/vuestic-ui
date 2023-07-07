@@ -78,7 +78,7 @@
         @hover:day="$emit('hover:day', $event)"
         @hover:month="$emit('hover:month', $event)"
         @hover:year="$emit('hover:year', $event)"
-        @update:view="$emit('update:view', $event)"
+        @update:view="($event) => { $nextTick(() => trapFocus()); $emit('update:view', $event) }"
       >
         <template
           v-for="(_, name) in $slots"
@@ -202,14 +202,18 @@ export default defineComponent({
     const { resetOnClose } = toRefs(props)
     const { trapFocusIn, freeFocus } = useTrapFocus()
 
-    watch(datePicker, (ref) => {
-      const el = unwrapEl(ref)
+    const trapFocus = () => {
+      const el = unwrapEl(datePicker.value)
       if (!el) {
         freeFocus()
         return
       }
 
       trapFocusIn(el)
+    }
+
+    watch([datePicker], () => {
+      trapFocus()
     })
 
     const { valueComputed: statefulValue }: { valueComputed: WritableComputedRef<DateInputModelValue> } = useStateful(props, emit)
@@ -434,6 +438,7 @@ export default defineComponent({
       valueComputed,
       isOpenSync,
       onInputTextChanged,
+      trapFocus,
 
       isInputFocused,
       isPickerFocused,
