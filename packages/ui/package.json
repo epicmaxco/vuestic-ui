@@ -107,7 +107,7 @@
     "sass-loader": "^10.1.0",
     "semver": "^7.3.5",
     "style-loader": "^2.0.0",
-    "stylelint": "^13.13.1",
+    "stylelint": "^15.10.1",
     "stylelint-config-standard": "^22.0.0",
     "ts-loader": "^9.3.0",
     "typescript": "^5",

@@ -31,7 +31,7 @@
     "postcss": "^8.2.1",
     "postcss-custom-properties": "^13.1.1",
     "serve": "^14.2.0",
-    "stylelint": "^13.13.1",
+    "stylelint": "^15.10.1",
     "stylelint-config-standard": "^22.0.0",
     "vitest": "^0.18.1",
     "vue-component-meta": "^1.2.0",
