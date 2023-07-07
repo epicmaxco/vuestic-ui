@@ -31,7 +31,7 @@
       >
         Cancel
       </va-button>
-      <va-button preset="secondary" @click="setDefault">
+      <va-button preset="primary" @click="setDefault">
         Set default
       </va-button>
       <va-button
