@@ -1,7 +1,7 @@
 <template>
   <va-affix :offset-top="100">
     <div
-      style="padding: 10px 30px; background-color: var(--va-background-element);"
+      class="py-2.5 px-8 bg-[var(--va-background-element)]"
     >
       Fixed at the top: 100
     </div>

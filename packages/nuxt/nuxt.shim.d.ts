@@ -13,7 +13,7 @@ declare module 'vuestci-ui' {
 }
 
 declare module '#imports' {
-  export * from 'nuxt/dist/head/runtime/composables.ts'
+  export * from '@unhead/vue'
 }
 
 declare module '#vuestic-config' {

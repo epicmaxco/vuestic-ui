@@ -4,7 +4,7 @@ import { extractComponentProps, filterComponentProps } from '../utils/component-
 import { VaDropdown } from '../components/va-dropdown'
 
 const VaDropdownProps = extractComponentProps(VaDropdown,
-  ['innerAnchorSelector', 'stateful', 'keyboardNavigation', 'modelValue', 'ariaLabel'],
+  ['innerAnchorSelector', 'stateful', 'keyboardNavigation', 'modelValue'],
 )
 
 export const useDropdownableProps = {

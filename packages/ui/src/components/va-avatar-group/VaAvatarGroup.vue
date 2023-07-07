@@ -9,11 +9,12 @@
       :key="idx"
       v-bind="{ ...avatarProps, ...option }"
       role="listitem"
-      tabindex="0"
     />
     <slot name="rest" v-bind="avatarProps">
       <va-avatar
         v-bind="avatarProps"
+        :color="restColor"
+        class="va-avatar-group__rest"
         role="listitem"
       >
         +{{ restOptionsCount }}
@@ -28,8 +29,10 @@ import { defineComponent, computed, PropType } from 'vue'
 import { VaAvatar } from '../va-avatar'
 
 import pick from 'lodash/pick.js'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { useBem, useComponentPresetProp, useSize, useSizeProps } from '../../composables'
-import { useAvatarProps } from '../va-avatar/hooks/useAvatarProps'
+
+const VaAvatarProps = extractComponentProps(VaAvatar)
 
 export default defineComponent({
   name: 'VaAvatarGroup',
@@ -41,7 +44,7 @@ export default defineComponent({
   props: {
     ...useSizeProps,
     ...useComponentPresetProp,
-    ...useAvatarProps,
+    ...VaAvatarProps,
 
     max: {
       type: Number,
@@ -55,6 +58,11 @@ export default defineComponent({
       type: Array as PropType<Record<string, unknown>[]>,
       default: () => [],
     },
+    /** If there are more avatars that can be displayed we show rest number. This prop changes color of rest indicator. */
+    restColor: {
+      type: String,
+      default: 'secondary',
+    },
   },
 
   setup (props) {
@@ -67,8 +75,9 @@ export default defineComponent({
     const restOptionsCount = computed(() => props.options.length - (props.max || 0))
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatarGroup')
 
+    const filteredAvatarProps = filterComponentProps(VaAvatarProps)
     const avatarProps = computed(() => ({
-      ...props,
+      ...filteredAvatarProps.value,
       fontSize: fontSizeComputed.value,
       size: sizeComputed.value,
     }))

@@ -1,7 +1,7 @@
 <template>
   <va-navbar
     color="#282F69"
-    style="height: 100px;"
+    class="h-24"
   >
     <template #left>
       <va-navbar-item class="logo">

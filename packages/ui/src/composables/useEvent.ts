@@ -1,5 +1,7 @@
-import { Ref, unref, watch } from 'vue'
+import { Component, Ref, unref, watch } from 'vue'
 import { useWindow } from './useWindow'
+import { unwrapEl } from '../utils/unwrapEl'
+import { addEventListener, removeEventListener } from '../utils/add-event-listener'
 
 type MaybeRef<T> = Ref<T> | T
 
@@ -21,19 +23,19 @@ type UseEventEvent<N extends UseEventEventName, D> = N extends keyof GlobalEvent
 export const useEvent = <N extends UseEventEventName, E extends Event>(
   event: N,
   listener: (this: GlobalEventHandlers, event: UseEventEvent<N, E>) => any,
-  target?: MaybeRef<GlobalEventHandlers | undefined | null> | boolean,
+  target?: MaybeRef<unknown> | boolean,
 ) => {
-  const source = target && typeof target !== 'boolean' ? target : useWindow()
+  const source = (target && typeof target !== 'boolean') ? target : useWindow()
   const capture = typeof target === 'boolean' ? target : false
 
   watch(source, (newValue, oldValue) => {
     if (!Array.isArray(event)) {
-      unref(newValue)?.addEventListener(event, listener as any, capture)
-      unref(oldValue)?.removeEventListener(event, listener as any, capture)
+      addEventListener(unwrapEl(unref(newValue)), event, listener as any, capture)
+      removeEventListener(unwrapEl(unref(oldValue)), event, listener as any, capture)
     } else {
       event.forEach((e) => {
-        unref(newValue)?.addEventListener(e, listener as any, capture)
-        unref(oldValue)?.removeEventListener(e, listener as any, capture)
+        addEventListener(unwrapEl(unref(newValue)), e, listener as any, capture)
+        removeEventListener(unwrapEl(unref(oldValue)), e, listener as any, capture)
       })
     }
   }, { immediate: true })

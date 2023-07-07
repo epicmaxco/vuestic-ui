@@ -15,6 +15,8 @@
         @focus="onInputFocus"
         @blur="onInputBlur"
         @click="focusAutocompleteInput"
+        @keydown.enter="toggleDropdown"
+        @keydown.space.stop.prevent="toggleDropdown"
       >
         <template
           v-for="(_, name) in $slots"
@@ -29,7 +31,6 @@
             v-if="showClearIcon"
             role="button"
             :aria-label="tp($props.ariaClearLabel)"
-            tabindex="0"
             v-bind="clearIconProps"
             @click.stop="reset"
             @keydown.enter.stop="reset"
@@ -71,6 +72,7 @@
     <va-dropdown-content
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
+      @keydown.esc="hideAndFocus"
     >
       <va-input
         v-if="showSearchInput"
@@ -482,7 +484,11 @@ export default defineComponent({
       isOpenSync.value = false
       searchInput.value = ''
       validate()
+      nextTick(() => {
+        isInputFocused.focusIfNothingIfFocused()
+      })
     }
+
     const hideAndFocus = () => {
       handleDropdownClose()
       isInputFocused.value = true
@@ -504,11 +510,6 @@ export default defineComponent({
         focusOptionList()
       }
     })
-
-    const onInputFocus = () => {
-      isInputFocused.value = true
-      onFocus()
-    }
 
     const onInputBlur = () => {
       if (showDropdownContentComputed.value) { return }
@@ -645,6 +646,9 @@ export default defineComponent({
       searchInput.value = ''
       emit('clear')
       resetValidation()
+      nextTick(() => {
+        isInputFocused.value = true
+      })
     })
 
     const focusAutocompleteInput = (e?: Event) => {
@@ -656,8 +660,10 @@ export default defineComponent({
       }
     }
 
-    const toggleDropdown = () => {
+    const toggleDropdown = (e: KeyboardEvent) => {
       if (props.disabled || props.readonly) { return }
+
+      if (e.code === 'Space' && props.autocomplete) { return }
 
       showDropdownContentComputed.value = !showDropdownContentComputed.value
     }
@@ -692,7 +698,7 @@ export default defineComponent({
       tp,
       t,
 
-      onInputFocus,
+      onInputFocus: onFocus,
       onInputBlur,
       focusOptionList,
       focusSearchBar,

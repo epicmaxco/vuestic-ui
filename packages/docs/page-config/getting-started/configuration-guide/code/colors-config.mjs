@@ -8,7 +8,7 @@ createApp(App)
       config: {
         colors: {
           variables: {
-            // {{ $t('configurationGuide.examples.colors.defaultColors') }}
+            // Default colors
             primary: "#23e066",
             secondary: "#002c85",
             success: "#40e583",
@@ -18,7 +18,7 @@ createApp(App)
             gray: "#babfc2",
             dark: "#34495e",
 
-            // {{ $t('configurationGuide.examples.colors.customColors') }}
+            // Custom colors
             yourCustomColor: "#d0f55d",
           },
         },

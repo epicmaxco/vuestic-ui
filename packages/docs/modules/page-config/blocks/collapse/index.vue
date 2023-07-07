@@ -11,13 +11,12 @@ const props = defineProps({
   },
 })
 
-const { t } = useI18n()
 </script>
 
 <template>
   <va-collapse
     class="page-config-collapse"
-    :header="t(header)"
+    :header="header"
     flat
   >
     <div class="page-config-collapse__content p-6">

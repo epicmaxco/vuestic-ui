@@ -54,3 +54,11 @@ app.use(createVuesticEssential({
 }))
 
 app.mount('#app')
+
+// If you need to test components in multiapp mode
+// const app2 = createApp(App)
+
+// app2.use(createVuesticEssential({}))
+// const d = document.createElement('div')
+// document.body.appendChild(d)
+// app2.mount(d)

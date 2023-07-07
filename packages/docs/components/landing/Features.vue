@@ -6,11 +6,11 @@
     <div class="features__wrapper">
       <div class="features__inner">
         <h2 class="features__title">
-          {{ $t('landing.features.title') }}
+          Features
         </h2>
 
         <div class="features__description">
-          {{ $t('landing.features.description[0]') }}
+          Vuestic UI is an OpenSource Vue 3 based UI framework. It is a MIT-licensed UI framework that provides ready-to-use frontend components that are easily configurable and speed up development of responsive and fast-loading web interfaces. It was initially released in May 2021 by
           <a
             href="https://epicmax.co/"
             target="_blank"
@@ -18,7 +18,7 @@
           >
             Epicmax
           </a>
-          {{ $t('landing.features.description[1]') }}
+          and that is what Vuestic UI today.
         </div>
 
         <div class="features__items">
@@ -33,7 +33,7 @@
               class="features__item-icon"
             >
             <p class="features__item-description">
-              {{ $t(description) }}
+              {{ description }}
             </p>
           </div>
 
@@ -44,9 +44,9 @@
               class="features__item-icon"
             >
             <p class="features__item-description">
-              {{ $t('landing.features.items[7]') }}
-              <router-link :to="`/${locale}/introduction/team`">
-                {{ $t('landing.features.items[8]') }}
+              Professional support: Fast and reliable assistance from
+              <router-link to="/introduction/team">
+                the core team
               </router-link>
               &#160;&#x1fac2;
             </p>
@@ -60,17 +60,16 @@
 <script setup lang="ts">
 import { useElementTextColor } from 'vuestic-ui'
 
-const { locale } = useI18n()
 const textColor = useElementTextColor('background-secondary')
 
 const features = [
-  { icon: '/landing/features/features-compatible.svg', description: 'landing.features.items[0]' },
-  { icon: '/landing/features/features-accessible.svg', description: 'landing.features.items[1]' },
-  { icon: '/landing/features/features-responsive.svg', description: 'landing.features.items[2]' },
-  { icon: '/landing/features/features-configure.svg', description: 'landing.features.items[3]' },
-  { icon: '/landing/features/features-theme.svg', description: 'landing.features.items[4]' },
-  { icon: '/landing/features/features-integrates.svg', description: 'landing.features.items[5]' },
-  { icon: '/landing/features/features-customizable.svg', description: 'landing.features.items[6]' },
+  { icon: '/landing/features/features-compatible.svg', description: 'Vue 3 compatible: Seamless Vue.js integration\u00A0\uD83E\uDD18' },
+  { icon: '/landing/features/features-accessible.svg', description: 'Accessible: designed for all users\u00A0❗' },
+  { icon: '/landing/features/features-responsive.svg', description: 'Responsive: Adapts to various screens and devices' },
+  { icon: '/landing/features/features-configure.svg', description: 'Global config: Customize components effortlessly' },
+  { icon: '/landing/features/features-theme.svg', description: 'Dark Theme: Stylish built-in dark mode\u00A0\uD83D\uDDA4' },
+  { icon: '/landing/features/features-integrates.svg', description: 'i18n integration: Simplifies app localization' },
+  { icon: '/landing/features/features-customizable.svg', description: 'Customizable: Adapt components to your design\u00A0\uD83D\uDC85' },
 ]
 </script>
 

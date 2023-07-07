@@ -6,7 +6,6 @@
     :style="$attrs.style"
     v-bind="dropdownPropsComputed"
     @open="focusDatePicker"
-    @close="focus"
   >
     <template #anchor>
       <slot name="input" v-bind="{ valueText, inputAttributes: inputAttributesComputed, inputWrapperProps, inputListeners }">
@@ -68,7 +67,7 @@
       </slot>
     </template>
 
-    <va-dropdown-content class="va-date-input__dropdown-content">
+    <va-dropdown-content class="va-date-input__dropdown-content" @keydown.esc="focus()">
       <va-date-picker
         ref="datePicker"
         v-bind="datePickerProps"
@@ -114,10 +113,10 @@ import {
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useStateful, useStatefulEmits,
   useParsable,
-  useFocus, useFocusEmits, useTranslation,
   useDropdownable,
   useDropdownableProps,
   useDropdownableEmits,
+  useFocus, useFocusEmits, useTranslation, useFocusDeep, useTrapFocus,
 } from '../../composables'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
@@ -131,9 +130,13 @@ import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaInputWrapper } from '../va-input'
 import { VaIcon } from '../va-icon'
+import { unwrapEl } from '../../utils/unwrapEl'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDatePickerProps = extractComponentProps(VaDatePicker)
+const VaDropdownProps = extractComponentProps(VaDropdown,
+  ['innerAnchorSelector', 'stateful', 'keyboardNavigation', 'modelValue', 'trigger'],
+)
 
 export default defineComponent({
   name: 'VaDateInput',
@@ -197,12 +200,25 @@ export default defineComponent({
     const datePicker = ref<typeof VaDatePicker>()
 
     const { resetOnClose } = toRefs(props)
+    const { trapFocusIn, freeFocus } = useTrapFocus()
+
+    watch(datePicker, (ref) => {
+      const el = unwrapEl(ref)
+      if (!el) {
+        freeFocus()
+        return
+      }
+
+      trapFocusIn(el)
+    })
+
     const { valueComputed: statefulValue }: { valueComputed: WritableComputedRef<DateInputModelValue> } = useStateful(props, emit)
     const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
       defaultCloseOnValueUpdate: computed(() => !Array.isArray(statefulValue.value)),
     })
 
-    const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
+    const { isFocused: isInputFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
+    const isPickerFocused = useFocusDeep(datePicker)
 
     const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
 
@@ -341,7 +357,11 @@ export default defineComponent({
       return { cursor: 'pointer' }
     })
 
-    const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
+    const iconTabindexComputed = computed(() => {
+      if (!props.manualInput) { return -1 }
+
+      return props.disabled || props.readonly ? -1 : 0
+    })
 
     const iconProps = computed(() => ({
       role: 'button',
@@ -355,7 +375,7 @@ export default defineComponent({
     const filteredWrapperProps = filterComponentProps(VaInputWrapperProps)
     const computedInputWrapperProps = computed(() => ({
       ...filteredWrapperProps.value,
-      focused: isFocused.value,
+      focused: isInputFocused.value || isPickerFocused.value,
       error: hasError.value,
       errorMessages: computedErrorMessages.value,
       readonly: props.readonly || !props.manualInput,
@@ -403,6 +423,7 @@ export default defineComponent({
       closeOnAnchorClick: false,
       keyboardNavigation: true,
       innerAnchorSelector: '.va-input-wrapper__field',
+      trigger: 'none' as const,
     }))
 
     return {
@@ -414,7 +435,8 @@ export default defineComponent({
       isOpenSync,
       onInputTextChanged,
 
-      isFocused,
+      isInputFocused,
+      isPickerFocused,
 
       input,
       inputWrapperProps: computedInputWrapperProps,
