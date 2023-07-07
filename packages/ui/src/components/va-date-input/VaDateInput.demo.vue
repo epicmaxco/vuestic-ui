@@ -194,9 +194,9 @@
     </VbCard>
 
     <VbCard title="Close on value update">
-      <va-date-input v-model="value" close-on-value-update label="Single value" />
-      <va-date-input v-model="range" close-on-value-update label="Range" />
-      <va-date-input v-model="value" manual-input close-on-value-update label="Manual input" />
+      <va-date-input v-model="value" close-on-change label="Single value" />
+      <va-date-input v-model="range" close-on-change label="Range" />
+      <va-date-input v-model="value" manual-input close-on-change label="Manual input" />
     </VbCard>
   </VbDemo>
 </template>

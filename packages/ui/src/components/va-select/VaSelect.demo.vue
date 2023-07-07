@@ -824,6 +824,7 @@
         v-model="defaultSingleSelect.value"
         class="mb-6"
         :options="defaultSingleSelect.options"
+        close-on-change
       />
       <p>Mustn't close on value update, because multiple prop is on</p>
       <va-select

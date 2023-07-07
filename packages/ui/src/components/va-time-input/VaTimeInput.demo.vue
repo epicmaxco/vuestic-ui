@@ -89,7 +89,7 @@
     </VbCard>
 
     <VbCard title="Close on value select">
-      <va-time-input label="On value update" v-model="value" close-on-value-update />
+      <va-time-input label="On value update" v-model="value" close-on-change />
       <va-time-input label="default" v-model="value" />
     </VbCard>
   </VbDemo>
