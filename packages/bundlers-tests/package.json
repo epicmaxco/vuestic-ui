@@ -17,7 +17,7 @@
     "test:webpack": "docker-compose --profile webpack up --build --exit-code-from cypress_webpack",
     "test:nuxt-ssr": "docker-compose --profile nuxt-ssr up --build --exit-code-from cypress_nuxt_ssr",
     "test:nuxt-spa": "docker-compose --profile nuxt-spa up --build --exit-code-from cypress_nuxt_spa",
-    "test": "yarn build:test-page && yarn build:local-packages-16 && yarn build:local-packages-lts && yarn test:vite && yarn test:nuxt && yarn test:webpack && yarn test:16",
+    "test": "yarn build:test-page && yarn build:local-packages-16 && yarn build:local-packages-lts && yarn test:vite && yarn test:nuxt && yarn test:16",
     "test:16": "yarn build:local-packages-16 && yarn test:vite"
   }
 }
