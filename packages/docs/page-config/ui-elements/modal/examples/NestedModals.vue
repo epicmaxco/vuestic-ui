@@ -13,21 +13,26 @@
         Nested Modal
       </h3>
 
-      <va-date-input prevent-overflow />
+      <va-date-input
+        v-model="date"
+        outline
+      />
 
       <p class="va-text-secondary opacity-50">
         This example shows how overlapping modals work after you click save.
       </p>
     </div>
 
-    <div class="flex justify-end mt-2">
+    <div class="flex justify-end mt-2 gap-2">
       <va-button
         preset="secondary"
         color="secondary"
-        class="mr-2"
         @click="hide()"
       >
         Cancel
+      </va-button>
+      <va-button preset="primary" @click="setDefault">
+        Set default
       </va-button>
       <va-button
         @click="showSecondModal = !showSecondModal"
@@ -51,7 +56,17 @@ export default {
     return {
       showFirstModal: false,
       showSecondModal: false,
+      date: new Date(),
     };
   },
+  methods: {
+    setDefault() {
+      this.date = new Date();
+      this.$vaToast.init({
+        message: 'Date was set to default',
+        color: '#222222',
+      })
+    }
+  }
 };
 </script>

@@ -2,6 +2,7 @@ import { Ref, unref } from 'vue'
 
 import { useCaptureEvent } from './useCaptureEvent'
 import { extractHTMLElement } from './useHTMLElement'
+import { findTeleportedFrom } from './useTeleported'
 
 const checkIfElementChild = (parent: HTMLElement, child: HTMLElement | null | undefined): boolean => {
   if (!child) { return false }
@@ -23,11 +24,18 @@ export const useClickOutside = (elements: MaybeArray<MaybeRef<HTMLElement | unde
       return
     }
 
-    const isClickInside = safeArray(elements)
-      .some((element) => {
-        const el = extractHTMLElement(unref(element))
-        return el && checkIfElementChild(el, clickTarget)
-      })
+    // Handle floating UI teleport
+    const teleportParent = findTeleportedFrom(clickTarget)
+
+    const isClickInside = safeArray(elements).some((element) => {
+      const el = extractHTMLElement(unref(element))
+
+      if (!el) { return false }
+
+      if (!teleportParent) { return checkIfElementChild(el, clickTarget) }
+
+      return checkIfElementChild(el, clickTarget) || checkIfElementChild(el, teleportParent)
+    })
 
     if (!isClickInside) { cb(clickTarget) }
   })
