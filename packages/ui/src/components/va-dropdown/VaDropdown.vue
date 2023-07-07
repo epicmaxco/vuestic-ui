@@ -195,7 +195,7 @@ export default defineComponent({
       if (props.closeOnFocusOutside && valueComputed.value) {
         emitAndClose('focus-outside', props.closeOnFocusOutside)
       }
-    })
+    }, { onlyKeyboard: true })
 
     const anchorComputed = computed(() => {
       return cursorAnchor.value || anchor.value
