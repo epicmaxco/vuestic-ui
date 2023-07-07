@@ -364,6 +364,15 @@
 
       <va-modal v-model="showBeforeHideModal" :message="message" :beforeClose="beforeClose" />
     </VbCard>
+    <VbCard title="closeOutside">
+      <button @click="showModalCloseOutside = !showModalCloseOutside">
+        Show modal
+      </button>
+
+      <va-modal v-model="showModalCloseOutside">
+        <VaDateInput />
+      </va-modal>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -373,9 +382,10 @@ import { VaButton } from '../va-button'
 import { VaCollapse } from '../va-collapse'
 import { VaInput } from '../va-input'
 import { VaDatePicker } from '../va-date-picker'
+import { VaDateInput } from '../va-date-input'
 
 export default {
-  components: { VaModal, VaButton, VaCollapse, VaInput, VaDatePicker },
+  components: { VaModal, VaButton, VaCollapse, VaInput, VaDatePicker, VaDateInput },
   data () {
     return {
       showModalSizeSmall: false,
@@ -411,6 +421,8 @@ export default {
       showModalFocusTrap1: false,
       showModalFocusTrap2: false,
       showBeforeHideModal: false,
+      showModalCloseOutside: false,
+      c: false,
       message: this.$vb.lorem(),
       longMessage: this.$vb.lorem(5000),
       collapseValue: false,

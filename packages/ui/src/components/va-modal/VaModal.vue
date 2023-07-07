@@ -7,7 +7,7 @@
     :aria-labelledby="title"
     :class="$props.anchorClass"
   >
-    <div v-if="$slots.anchor" class="va-modal__anchor">
+    <div v-if="$slots.anchor" class="va-modal__anchor" v-bind="teleportFromAttrs">
       <slot name="anchor" v-bind="slotBind" />
     </div>
 
@@ -17,7 +17,7 @@
         :isTransition="!$props.withoutTransitions"
         appear
         :duration="300"
-        v-bind="$attrs"
+        v-bind="{ ...$attrs, ...teleportedAttrs }"
         @beforeEnter="onBeforeEnterTransition"
         @afterEnter="onAfterEnterTransition"
         @beforeLeave="onBeforeLeaveTransition"
@@ -140,6 +140,7 @@ import {
   useTranslation,
   useClickOutside,
   useDocument,
+  useTeleported,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -357,6 +358,7 @@ export default defineComponent({
       computedOverlayStyles,
       slotBind: { show, hide, toggle, cancel, ok },
       ...publicMethods,
+      ...useTeleported(),
     }
   },
 })
