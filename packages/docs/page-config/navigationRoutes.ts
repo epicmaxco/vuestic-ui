@@ -216,6 +216,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "radio",
         displayName: "Radio",
+        meta: {
+          badge : navigationBadge.updated('1.7.0'),
+        }
       },
       {
         name: "option-list",

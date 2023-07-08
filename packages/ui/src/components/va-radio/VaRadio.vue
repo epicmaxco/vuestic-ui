@@ -15,35 +15,47 @@
       :key="index"
       :class="radioClass(option)"
       class="va-radio va-radio__square"
-      role="radio"
-      @click="selectOption(getValue(option))"
-      @keydown.space.prevent="selectOption(getValue(option))"
     >
       <input
         ref="input"
         class="va-radio__input"
         type="radio"
+        role="radio"
         :value="isChecked(option)"
-        v-bind="inputAttributesComputed"
         :checked="isChecked(option)"
         :aria-checked="isChecked(option)"
+        v-bind="inputAttributesComputed(option)"
+        @change="selectOption(getValue(option), $event)"
         @focus="onFocus"
         @blur="onBlur"
       />
 
-      <span
-        aria-hidden="true"
-        class="va-radio__icon"
-        @click.stop
-      >
+      <slot name="icon" v-bind="{
+        value: isChecked(option),
+        text: getText(option),
+        disabled: getDisabled(option),
+      }">
         <span
-          class="va-radio__icon__background"
-        />
-        <span class="va-radio__icon__dot" />
-      </span>
+          aria-hidden="true"
+          class="va-radio__icon"
+        >
+          <span
+            class="va-radio__icon__background"
+          />
+          <span class="va-radio__icon__dot" />
+        </span>
+      </slot>
 
-      <span v-if="getText(option)" ref="label" class="va-radio__text">
-        <slot>
+      <span
+        v-if="getText(option) || $slots.default"
+        ref="label"
+        class="va-radio__text"
+      >
+         <slot v-bind="{
+          value: isChecked(option),
+          text: getText(option),
+          disabled: getDisabled(option),
+        }">
           {{ getText(option) }}
         </slot>
       </span>
@@ -89,7 +101,6 @@ export default defineComponent({
     name: { type: String, default: '' },
     leftLabel: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },
-    ariaLabel: { type: String, default: undefined },
 
     option: {
       type: [Object, String, Number] as PropType<VaRadioOption>,
@@ -112,13 +123,15 @@ export default defineComponent({
       onFocus,
     } = useSelectable(props, emit, elements)
 
-    const { getText, getValue } = useSelectableList(props)
+    const { getText, getValue, getDisabled: originalGetDisabled } = useSelectableList(props)
+
+    const getDisabled = (option: Parameters<typeof originalGetDisabled>[0]) => originalGetDisabled(option) || props.disabled
 
     const isNoOption = computed(() => props.options.length === 0 && !props.option)
 
     const isChecked = (option: VaRadioOption) => {
       if (isNoOption.value) {
-        return Boolean(props.modelValue)
+        return props.modelValue
       }
 
       return props.modelValue === getValue(option)
@@ -145,9 +158,9 @@ export default defineComponent({
       'va-radio--error': computedError.value,
     })
 
-    const selectOption = (option: any) => {
+    const selectOption = (option: any, event?: any) => {
       if (isNoOption.value) {
-        emit('update:modelValue', !props.modelValue)
+        emit('update:modelValue', event?.target?.checked || false)
         return
       }
 
@@ -189,17 +202,21 @@ export default defineComponent({
     })
 
     const computedName = computed(() => props.name || generateUniqueId())
-    const inputAttributesComputed = computed(() => ({
-      name: computedName.value,
-      disabled: props.disabled,
-      readonly: props.readonly,
-      tabindex: props.disabled ? -1 : 0,
-      'aria-label': props.ariaLabel,
-      'aria-disabled': props.disabled,
-      'aria-readOnly': props.readonly,
-      ...validationAriaAttributes.value,
-    }))
+    const inputAttributesComputed = (option: any) => {
+      const disabled = getDisabled(option)
+      return {
+        name: computedName.value,
+        disabled: disabled,
+        readonly: props.readonly,
+        tabindex: disabled ? -1 : 0,
+        'aria-disabled': disabled,
+        'aria-readOnly': props.readonly,
+        ...validationAriaAttributes.value,
+      }
+    }
+
     return {
+      getDisabled,
       isChecked,
       computedOptions,
       radioClass,
@@ -259,7 +276,7 @@ export default defineComponent({
   &--left-label {
     flex-direction: row-reverse;
     display: inline-flex;
-    align-items: baseline;
+    align-items: center;
   }
 
   &__input {
@@ -340,6 +357,11 @@ export default defineComponent({
 
     .va-radio--disabled & {
       @include va-disabled;
+    }
+
+    .va-radio--left-label & {
+      margin-right: var(--va-radio-text-margin-left);
+      margin-left: var(--va-radio-text-margin-right);
     }
   }
 }

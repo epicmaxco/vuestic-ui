@@ -1,6 +1,10 @@
 <template>
   <va-radio
     v-model="value"
+    :rules="[
+      (v) => v !== null || 'Required',
+      (v) => !!v || 'You must be 18 or older',
+    ]"
     :options="[
       {
         text: 'I\'m 18 or older',
@@ -12,10 +16,6 @@
       },
     ]"
     value-by="value"
-    :rules="[
-      (v) => v !== null || 'Required',
-      (v) => !!v || 'You must be 18 or older',
-    ]"
   />
 </template>
 
