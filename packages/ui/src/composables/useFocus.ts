@@ -3,6 +3,7 @@ import { focusElement, blurElement } from './../utils/focus'
 import { ref, onMounted, onBeforeUnmount, Ref, Component, computed } from 'vue'
 import { useEvent } from './useEvent'
 import { useActiveElement } from './useActiveElement'
+import isNil from 'lodash/isNil'
 
 export const useFocusEmits = ['focus', 'blur'] as const
 
@@ -13,6 +14,9 @@ export function useFocus (
   const activeElement = useActiveElement()
   const isFocused = computed({
     get: () => {
+      if (isNil(activeElement.value)) { return false }
+      if (isNil(el?.value)) { return false }
+
       return activeElement.value === el?.value
     },
     set: (value) => {
