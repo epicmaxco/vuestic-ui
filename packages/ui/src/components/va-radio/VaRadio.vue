@@ -6,8 +6,8 @@
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
+    :role="roleComputed"
     @blur="onBlur"
-    :role="($props.options?.length || 0) > 0 ? 'radiogroup' : ''"
     ref="container"
   >
     <label
@@ -232,7 +232,7 @@ export default defineComponent({
       onBlur,
       inputAttributesComputed,
       computedName,
-
+      roleComputed: computed(() => props.options?.length > 0 ? 'radiogroup' : ''),
       getText,
       getValue,
     }
