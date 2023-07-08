@@ -9,7 +9,14 @@
  * @notice this exports used in `vuestic-ui` package. Make sure add component to vuestic-plugin as well.
  */
 
+// Components used in other components
+export * from './va-input'
 export * from './va-fallback'
+export * from './va-collapse'
+export * from './va-card'
+export * from './va-button'
+
+// Other components
 export * from './va-accordion'
 export * from './va-affix'
 export * from './va-alert'
@@ -23,12 +30,9 @@ export * from './va-breadcrumbs'
 export * from './va-button-dropdown'
 export * from './va-button-group'
 export * from './va-button-toggle'
-export * from './va-button'
-export * from './va-card'
 export * from './va-carousel'
 export * from './va-checkbox'
 export * from './va-chip'
-export * from './va-collapse'
 export * from './va-color-indicator'
 export * from './va-color-input'
 export * from './va-color-palette'
@@ -46,7 +50,6 @@ export * from './va-icon'
 export * from './va-image'
 export * from './va-infinite-scroll'
 export * from './va-inner-loading'
-export * from './va-input'
 export * from './va-list'
 export * from './va-modal'
 export * from './va-navbar'

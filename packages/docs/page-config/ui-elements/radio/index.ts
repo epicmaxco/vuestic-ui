@@ -12,6 +12,19 @@ export default definePageConfig({
       title: "Default",
       description: "Default usage  of the `va-radio` component."
     }),
+
+    block.example("Options", {
+      title: "Multiple Options",
+      description: "You can use `options` prop to pass an array of options to the component. Then multiple components will be rendered."
+    }),
+
+    block.example("ComplexOptions", {
+      description: "You can use more complex options with `textBy` and `valueBy` props if needed."
+    }),
+    block.example("Validation", {
+      description: "Passing multiple `options` at the same time allows you to use validation `rules`.",
+    }),
+
     block.example("Color", {
       title: "Colors",
       description: "With `color` prop you can change the color of the component."

@@ -1,6 +1,5 @@
 <template>
   <VaMessageListWrapper
-    :class="computedClass"
     :disabled="disabled"
     :success="success"
     :messages="messages"
@@ -11,19 +10,20 @@
     ref="container"
   >
     <label
-      v-for="(option, index) in options"
+      v-for="(option, index) in computedOptions"
       :key="index"
       class="va-radio va-radio__square"
+      :class="radioClass(option)"
     >
       <input
         ref="input"
         class="va-radio__input"
         type="radio"
-        :value="$props.modelValue"
+        :value="isChecked(option)"
         v-bind="inputAttributesComputed"
-        :checked="$props.modelValue === option.value"
-        :aria-checked="$props.modelValue === option.value"
-        @change="selectOption(option.value)"
+        :checked="isChecked(option)"
+        :aria-checked="isChecked(option)"
+        @change="selectOption(getValue(option), $event)"
         @focus="onFocus"
         @blur="onBlur"
       />
@@ -38,9 +38,9 @@
         <span class="va-radio__icon__dot" />
       </span>
 
-      <span ref="label" class="va-radio__text">
+      <span v-if="getText(option)" ref="label" class="va-radio__text">
         <slot>
-          {{ option.label || option.value }}
+          {{ getText(option) }}
         </slot>
       </span>
     </label>
@@ -58,6 +58,8 @@ import {
   Elements,
   useSelectableProps,
   useSelectableEmits,
+  useSelectableList,
+  useSelectableListProps,
 } from '../../composables'
 import { VaMessageListWrapper } from '../va-input'
 import type { VaRadioOption } from './types'
@@ -69,6 +71,7 @@ export default defineComponent({
   props: {
     ...useSelectableProps,
     ...useComponentPresetProp,
+    ...useSelectableListProps,
     modelValue: {
       type: [Boolean, Array, String, Object, Number] as PropType<
         VaRadioOption['value']
@@ -83,6 +86,11 @@ export default defineComponent({
     leftLabel: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },
     ariaLabel: { type: String, default: undefined },
+
+    option: {
+      type: [Object, String, Number] as PropType<VaRadioOption>,
+      default: undefined,
+    },
   },
   setup (props, { emit }) {
     const { getColor } = useColors()
@@ -93,7 +101,6 @@ export default defineComponent({
     }
 
     const {
-      isChecked,
       computedError,
       computedErrorMessages,
       validationAriaAttributes,
@@ -101,16 +108,45 @@ export default defineComponent({
       onFocus,
     } = useSelectable(props, emit, elements)
 
-    const computedClass = computed(() => ({
+    const { getText, getValue } = useSelectableList(props)
+
+    const isNoOption = computed(() => props.options.length === 0 && !props.option)
+
+    const isChecked = (option: VaRadioOption) => {
+      if (isNoOption.value) {
+        return Boolean(props.modelValue)
+      }
+
+      return props.modelValue === getValue(option)
+    }
+
+    const computedOptions = computed(() => {
+      if (isNoOption.value) {
+        return [{}]
+      }
+
+      if (props.option) {
+        return [props.option]
+      } else {
+        return props.options
+      }
+    })
+
+    const radioClass = (option: VaRadioOption) => ({
       'va-radio--left-label': props.leftLabel,
-      'va-radio--selected': isChecked.value,
+      'va-radio--selected': isChecked(option),
       'va-radio--readonly': props.readonly,
       'va-radio--disabled': props.disabled,
       'va-radio--indeterminate': props.indeterminate,
       'va-radio--error': computedError.value,
-    }))
+    })
 
-    const selectOption = (option: VaRadioOption['value']) => {
+    const selectOption = (option: any, e: Event) => {
+      if (isNoOption.value) {
+        emit('update:modelValue', !props.modelValue)
+        return
+      }
+
       emit('update:modelValue', option)
     }
 
@@ -160,7 +196,9 @@ export default defineComponent({
       ...validationAriaAttributes.value,
     }))
     return {
-      computedClass,
+      isChecked,
+      computedOptions,
+      radioClass,
       labelStyle,
       inputStyle,
       computedError,
@@ -173,6 +211,9 @@ export default defineComponent({
       onBlur,
       inputAttributesComputed,
       computedName,
+
+      getText,
+      getValue,
     }
   },
 })
@@ -276,7 +317,7 @@ export default defineComponent({
       border-radius: var(--va-radio-background-border-radius);
       z-index: var(--va-radio-background-z-index);
       opacity: var(--va-radio-background-opacity);
-      background-color: v-bind("iconBackgroundComputedStyles.backgroundColor");
+      background-color: v-bind('iconBackgroundComputedStyles.backgroundColor');
 
       .va-radio:hover & {
         opacity: 0.2;
