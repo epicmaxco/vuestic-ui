@@ -1,8 +1,7 @@
 import { Ref, unref } from 'vue'
 
-import { useCaptureEvent } from './useCaptureEvent'
-import { extractHTMLElement } from './useHTMLElement'
 import { useEvent } from './useEvent'
+import { unwrapEl } from '../utils/unwrapEl'
 
 const checkIfElementChild = (
   parent: HTMLElement,
@@ -55,7 +54,7 @@ export const useFocusOutside = (
     }
 
     const isFocusInside = safeArray(elements).some((element) => {
-      const el = extractHTMLElement(unref(element))
+      const el = unwrapEl(unref(element))
       return el && checkIfElementChild(el, focusTarget)
     })
 
