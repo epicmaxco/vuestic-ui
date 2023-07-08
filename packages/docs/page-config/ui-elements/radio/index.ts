@@ -15,14 +15,19 @@ export default definePageConfig({
 
     block.example("Options", {
       title: "Multiple Options",
-      description: "You can use `options` prop to pass an array of options to the component. Then multiple components will be rendered."
+      description: "You can use `options` prop to pass an array of options to the component. Then multiple components will be rendered.`"
     }),
-
+    block.alert('Prefer using `options` prop over `option`, because it will handle keyboard navigation automatically.'),
     block.example("ComplexOptions", {
       description: "You can use more complex options with `textBy` and `valueBy` props if needed."
     }),
     block.example("Validation", {
       description: "Passing multiple `options` at the same time allows you to use validation `rules`.",
+    }),
+
+    block.example("NoOption", {
+      title: "Without option",
+      description: "In case you just need a radio input without option and want to handle everything manually `v-model` will be used as Boolean and represent if radio is checked."
     }),
 
     block.example("Color", {

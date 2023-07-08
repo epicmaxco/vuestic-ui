@@ -7,13 +7,17 @@
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
     @blur="onBlur"
+    :role="($props.options?.length || 0) > 0 ? 'radiogroup' : ''"
     ref="container"
   >
     <label
       v-for="(option, index) in computedOptions"
       :key="index"
-      class="va-radio va-radio__square"
       :class="radioClass(option)"
+      class="va-radio va-radio__square"
+      role="radio"
+      @click="selectOption(getValue(option))"
+      @keydown.space.prevent="selectOption(getValue(option))"
     >
       <input
         ref="input"
@@ -23,7 +27,6 @@
         v-bind="inputAttributesComputed"
         :checked="isChecked(option)"
         :aria-checked="isChecked(option)"
-        @change="selectOption(getValue(option), $event)"
         @focus="onFocus"
         @blur="onBlur"
       />
@@ -31,6 +34,7 @@
       <span
         aria-hidden="true"
         class="va-radio__icon"
+        @click.stop
       >
         <span
           class="va-radio__icon__background"
@@ -141,7 +145,7 @@ export default defineComponent({
       'va-radio--error': computedError.value,
     })
 
-    const selectOption = (option: any, e: Event) => {
+    const selectOption = (option: any) => {
       if (isNoOption.value) {
         emit('update:modelValue', !props.modelValue)
         return
