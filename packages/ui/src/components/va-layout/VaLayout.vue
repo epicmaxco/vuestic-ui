@@ -1,18 +1,20 @@
 <template>
   <div class="va-layout">
-    <div class="va-layout__top">
+    <div class="va-layout__area va-layout__area--top">
       <slot name="top" />
     </div>
-    <div class="va-layout__left">
+    <div
+      class="va-layout__area va-layout__area--left"
+    >
       <slot name="left" />
     </div>
-    <div class="va-layout__right">
+    <div class="va-layout__area va-layout__area--right">
       <slot name="right" />
     </div>
-    <div class="va-layout__bottom">
+    <div class="va-layout__area va-layout__area--bottom">
       <slot name="bottom" />
     </div>
-    <div class="va-layout__content">
+    <div class="va-layout__area va-layout__area--content">
       <slot name="content" />
     </div>
   </div>
@@ -60,26 +62,31 @@ export default defineComponent({
   gap: 0;
   height: 100%;
   width: 100%;
+  position: relative;
+  overflow: hidden;
 
-  &__top {
-    grid-area: top;
-  }
+  &__area {
+    &--top {
+      grid-area: top;
+    }
 
-  &__left {
-    grid-area: left;
-  }
+    &--left {
+      grid-area: left;
+      position: relative;
+    }
 
-  &__right {
-    grid-area: right;
-  }
+    &--right {
+      grid-area: right;
+    }
 
-  &__bottom {
-    grid-area: bottom;
-  }
+    &--bottom {
+      grid-area: bottom;
+    }
 
-  &__content {
-    grid-area: content;
-    overflow: auto;
+    &--content {
+      grid-area: content;
+      overflow: auto;
+    }
   }
 }
 </style>
