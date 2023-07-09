@@ -75,10 +75,37 @@ export default definePageConfig({
     block.paragraph("The configuration file contains `config`, which is an array of page blocks that perform specific functions."),
 
     // Generators
-    block.subtitle("Generators"),
-    block.paragraph("We have created custom generators to facilitate and automate the creation of new pages.."),
-    block.paragraph("* The `yarn generate:docspage` command will generate a page with the specified name in the category selected from the list.."),
-    block.paragraph("* The `yarn generate:component` command will generate a complete structure for a new component: create a component, connect it to a library, make a configuration file for it, and add a clean example to the examples folder."),
+    // block.subtitle("Generators"),
+    // block.paragraph("We have created custom generators to facilitate and automate the creation of new pages.."),
+    // block.paragraph("* The `yarn generate:docspage` command will generate a page with the specified name in the category selected from the list.."),
+    // block.paragraph("* The `yarn generate:component` command will generate a complete structure for a new component: create a component, connect it to a library, make a configuration file for it, and add a clean example to the examples folder."),
+
+    block.subtitle("Component page structure"),
+    block.paragraph("It is example of perfect component page structure. You can use it as a template for your component page. Not all blocks here required of course, but better to have them all."),
+
+    block.list([
+      "`title` - page title, component name",
+      "`paragraph` - page description",
+      "`subtitle` - \"When to use\"",
+      "`list` - List of examples",
+      "`subtitle` - \"Examples\"",
+      "`example` - List of examples",
+      "`subtitle` - \"Accessibility\"",
+      "`paragraph` - keyboard navigation",
+      "`paragraph` - additional information",
+      "`subtitle` - \"API\"",
+      "`api` - component api or `table` for manual api",
+      "`subtitle` - \"FAQ\"",
+      "`headline` - List of questions covered by `paragraph` with the answer", 
+    ]),
+
+    block.paragraph("Pages in Services, Getting Started, e.g. don't actually have a structure, but here are general rules"),
+
+    block.list([
+      "Add description paragraph after `title` and `subtitle`",
+      "Provide examples as much as you can",
+      "Keep it simple",
+    ]),
 
     // BlockTypes
     block.subtitle("Block Types"),
