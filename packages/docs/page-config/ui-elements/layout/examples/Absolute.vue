@@ -1,28 +1,23 @@
 <script setup lang="ts">
-  const showLeftSidebar = ref(true)
-  const showRightSidebar = ref(true)
+  const showSidebar = ref(true)
 </script>
 
 <template>
   <VaLayout 
-    :left="{ order: 1 }"
-    :top="{ order: 2 }"
     style="height: 300px"
+    :left="{ absolute: true}"
   >
     <template #top>
       <VaNavbar color="primary" class="py-2">
         <template #left>
-          <VaButton @click="showLeftSidebar = !showLeftSidebar" :icon="showLeftSidebar ? 'menu_open' : 'menu'" />
+          <VaButton @click="showSidebar = !showSidebar" :icon="showSidebar ? 'menu_open' : 'menu'" />
         </template>
         <h4>LOGO</h4>
-        <template #right>
-          <VaButton @click="showRightSidebar = !showRightSidebar" :icon="showRightSidebar ? 'menu_open' : 'menu'" />
-        </template>
       </VaNavbar>
     </template>
 
     <template #left>
-      <VaSidebar v-model="showLeftSidebar">
+      <VaSidebar v-model="showSidebar">
         <VaSidebarItem>
           <VaSidebarItemContent>
             <VaIcon name="home" /> 
@@ -50,27 +45,6 @@
         <p>For example, you can place here your router view, add sidebar with navigation in #left slot.</p>
         <p>If you're using VaSidebar for page navigation don't forget to wrap it in nav tag.</p>
       </main>
-    </template>
-
-    <template #right>
-      <VaSidebar v-model="showRightSidebar">
-        <VaSidebarItem>
-          <VaSidebarItemContent>
-            <VaIcon name="home" /> Home
-          </VaSidebarItemContent>
-        </VaSidebarItem>
-        <VaSidebarItem>
-          <VaSidebarItemContent>
-            <VaIcon name="phone" /> About
-          </VaSidebarItemContent>
-        </VaSidebarItem>
-      </VaSidebar>
-    </template>
-
-    <template #bottom>
-      <footer class="p-4 bg-[var(--va-primary)] text-[var(--va-on-primary)] text-right">
-        Footer
-      </footer>
     </template>
   </VaLayout>
 </template>

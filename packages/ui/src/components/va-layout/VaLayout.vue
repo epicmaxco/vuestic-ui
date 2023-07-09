@@ -76,6 +76,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import '../../styles/resources';
+
 .va-layout {
   display: grid;
   grid-template-columns: v-bind(horizontalTemplate);
@@ -88,6 +90,11 @@ export default defineComponent({
   overflow: hidden;
 
   &__area {
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @include va-scroll();
+
     &--top {
       grid-area: top;
     }
@@ -107,7 +114,6 @@ export default defineComponent({
 
     &--content {
       grid-area: content;
-      overflow: auto;
     }
   }
 
