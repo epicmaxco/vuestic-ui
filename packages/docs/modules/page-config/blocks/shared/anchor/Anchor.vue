@@ -4,7 +4,7 @@
     ref="el"
     :to="`#${anchor}`"
     :class="{ 'page-config-anchor--force-show': forceShow }"
-    class="page-config-anchor"
+    class="page-config-anchor va-link"
   >
     #
   </NuxtLink>

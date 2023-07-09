@@ -21,7 +21,7 @@
         />
       </aside>
       <main class="docs-layout__main-content">
-        <article class="docs-layout__page-content va-typography-block">
+        <article class="docs-layout__page-content">
           <slot />
         </article>
       </main>
