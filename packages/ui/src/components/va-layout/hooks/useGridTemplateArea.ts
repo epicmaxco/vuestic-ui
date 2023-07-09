@@ -1,23 +1,5 @@
-import { ExtractPropTypes, computed } from 'vue'
-
-export const useGridTemplateAreaProps = {
-  topOrder: {
-    type: Number,
-    default: 0,
-  },
-  leftOrder: {
-    type: Number,
-    default: 0,
-  },
-  rightOrder: {
-    type: Number,
-    default: 0,
-  },
-  bottomOrder: {
-    type: Number,
-    default: 0,
-  },
-}
+import { computed } from 'vue'
+import { type LayoutProps } from './useLayout'
 
 const areaIndexes = {
   top: [0, 1, 2],
@@ -26,13 +8,13 @@ const areaIndexes = {
   bottom: [6, 7, 8],
 }
 
-type AreaName = 'top' | 'left' | 'right' | 'bottom'
+export type AreaName = 'top' | 'left' | 'right' | 'bottom'
 const areaElements = (['left', 'right', 'top', 'bottom'] as const)
 
-export const useGridTemplateArea = (props: ExtractPropTypes< typeof useGridTemplateAreaProps>) => {
+export const useGridTemplateArea = (props: LayoutProps) => {
   const sort = () => {
     return [...areaElements].sort((a, b) => {
-      return props[`${a}Order`] - props[`${b}Order`]
+      return (props[a].order ?? 0) - (props[b].order ?? 0)
     })
   }
 

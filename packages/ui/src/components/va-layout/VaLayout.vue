@@ -1,52 +1,74 @@
 <template>
   <div class="va-layout">
-    <div class="va-layout__area va-layout__area--top">
-      <slot name="top" />
-    </div>
     <div
-      class="va-layout__area va-layout__area--left"
+      v-for="area in areaNames"
+      :key="area"
+      :class="
+        isAbsolute(area) ?
+        'va-layout__area-wrapper' :
+        `va-layout__area va-layout__area--${area}`
+      "
     >
-      <slot name="left" />
+      <div v-if="isAbsolute(area)" :class="`va-layout__area va-layout__area--${area}`">
+        <slot :name="area" />
+      </div>
+      <slot v-else :name="area" />
     </div>
-    <div class="va-layout__area va-layout__area--right">
-      <slot name="right" />
-    </div>
-    <div class="va-layout__area va-layout__area--bottom">
-      <slot name="bottom" />
-    </div>
+
     <div class="va-layout__area va-layout__area--content">
-      <slot name="content" />
+      <slot>
+        <slot name="content" />
+      </slot>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useGridTemplateArea, useGridTemplateAreaProps } from './hooks/useGridTemplateArea'
+import { defineComponent, computed, PropType } from 'vue'
+import {
+  useGridTemplateArea,
+  AreaName,
+} from './hooks/useGridTemplateArea'
+import { useLayoutProps } from './hooks/useLayout'
+
+const areaNames: AreaName[] = [
+  'top',
+  'left',
+  'right',
+  'bottom',
+]
 
 export default defineComponent({
   name: 'VaLayout',
 
   props: {
-    ...useGridTemplateAreaProps,
+    ...useLayoutProps,
   },
 
   setup (props, { slots }) {
     return {
+      areaNames,
+      isAbsolute (area: AreaName) {
+        return props[area]?.absolute || false
+      },
       templateArea: useGridTemplateArea(props),
       verticalTemplate: computed(() => {
         return [
           slots.top ? 'min-content' : '0fr',
           '1fr',
           slots.bottom ? 'min-content' : '0fr',
-        ].filter(Boolean).join(' ')
+        ]
+          .filter(Boolean)
+          .join(' ')
       }),
       horizontalTemplate: computed(() => {
         return [
           slots.left ? 'min-content' : '0fr',
           '1fr',
           slots.right ? 'min-content' : '0fr',
-        ].filter(Boolean).join(' ')
+        ]
+          .filter(Boolean)
+          .join(' ')
       }),
     }
   },
@@ -56,7 +78,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .va-layout {
   display: grid;
-  grid-template-columns:  v-bind(horizontalTemplate);
+  grid-template-columns: v-bind(horizontalTemplate);
   grid-template-rows: v-bind(verticalTemplate);
   grid-template-areas: v-bind(templateArea);
   gap: 0;
@@ -86,6 +108,17 @@ export default defineComponent({
     &--content {
       grid-area: content;
       overflow: auto;
+    }
+  }
+
+  &__area-wrapper {
+    .va-layout__area {
+      position: absolute;
+
+      &--right {
+        right: 0;
+        height: 100%;
+      }
     }
   }
 }

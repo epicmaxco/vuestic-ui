@@ -8,33 +8,33 @@ const state = reactive({
 </script>
 
 <template>
-  <VbDemo>
+  <VbDemo class="layout-demo">
     <VbCard title="All slots">
       <VaLayout style="background-color: var(--va-primary); width: 300px; height: 300px;">
         <template #content>
-          <div style="background-color: #ff00ff; height: 100%;">
+          <div>
             Content
           </div>
         </template>
         <template #left>
-          <div style="background-color: var(--va-secondary); height: 100%;">
+          <div style="height: 100%;">
             Leftbar
           </div>
         </template>
         <template #right>
-          <div style="background-color: var(--va-secondary); height: 100%;">
+          <div style="height: 100%;">
             Rightbar
           </div>
         </template>
 
         <template #top>
-          <div style="background-color: var(--va-primary);">
+          <div>
             Header
           </div>
         </template>
 
         <template #bottom>
-          <div style="background-color: var(--va-danger);">
+          <div>
             Footer
           </div>
         </template>
@@ -42,20 +42,20 @@ const state = reactive({
     </VbCard>
 
     <VbCard title="Top, left, content slots">
-      <VaLayout style="background-color: var(--va-primary); width: 300px; height: 300px;">
+      <VaLayout style="width: 300px; height: 300px;">
         <template #content>
-          <div style="background-color: #ff00ff; height: 100%;">
+          <div>
             Content
           </div>
         </template>
         <template #left>
-          <div style="background-color: var(--va-secondary); height: 100%;">
+          <div style="height: 100%;">
             Leftbar
           </div>
         </template>
 
         <template #top>
-          <div style="background-color: var(--va-primary);">
+          <div>
             Header
           </div>
         </template>
@@ -64,22 +64,22 @@ const state = reactive({
 
     <VbCard title="Left order">
       <VaLayout
-        style="background-color: var(--va-primary); width: 300px; height: 300px;"
-        :left-order="1"
+        style="width: 300px; height: 300px;"
+        :left="{ order: 1 }"
       >
         <template #content>
-          <div style="background-color: #ff00ff; height: 100%;">
+          <div>
             Content
           </div>
         </template>
         <template #left>
-          <div style="background-color: var(--va-secondary); height: 100%;">
+          <div style="height: 100%;">
             Leftbar
           </div>
         </template>
 
         <template #top>
-          <div style="background-color: var(--va-primary);">
+          <div>
             Header
           </div>
         </template>
@@ -88,34 +88,34 @@ const state = reactive({
 
     <VbCard title="Left order 1, bottom order 2">
       <VaLayout
-        style="background-color: var(--va-primary); width: 300px; height: 300px;"
-        :left-order="1"
-        :bottom-order="2"
+        style="width: 300px; height: 300px;"
+        :left="{ order: 1 }"
+        :bottom="{ order: 2 }"
       >
         <template #content>
-          <div style="background-color: #ff00ff; height: 100%;">
+          <div>
             Content
           </div>
         </template>
         <template #left>
-          <div style="background-color: var(--va-secondary); height: 100%;">
+          <div style="height: 100%;">
             Leftbar
           </div>
         </template>
         <template #right>
-          <div style="background-color: var(--va-secondary); height: 100%;">
+          <div style="height: 100%;">
             Rightbar
           </div>
         </template>
 
         <template #top>
-          <div style="background-color: var(--va-primary);">
+          <div>
             Header
           </div>
         </template>
 
         <template #bottom>
-          <div style="background-color: var(--va-danger);">
+          <div>
             Footer
           </div>
         </template>
@@ -124,34 +124,34 @@ const state = reactive({
 
     <VbCard title="Right order 1, bottom order 2">
       <VaLayout
-        style="background-color: var(--va-primary); width: 300px; height: 300px;"
-        :right-order="1"
-        :bottom-order="2"
+        style="width: 300px; height: 300px;"
+        :right="{ order: 1 }"
+        :bottom="{ order: 2 }"
       >
         <template #content>
-          <div style="background-color: #ff00ff; height: 100%;">
+          <div>
             Content
           </div>
         </template>
         <template #left>
-          <div style="background-color: var(--va-secondary); height: 100%;">
+          <div style="height: 100%;">
             Leftbar
           </div>
         </template>
         <template #right>
-          <div style="background-color: var(--va-secondary); height: 100%;">
+          <div style="height: 100%;">
             Rightbar
           </div>
         </template>
 
         <template #top>
-          <div style="background-color: var(--va-primary);">
+          <div>
             Header
           </div>
         </template>
 
         <template #bottom>
-          <div style="background-color: var(--va-danger);">
+          <div>
             Footer
           </div>
         </template>
@@ -161,20 +161,20 @@ const state = reactive({
     <VbCard title="Right order 1">
       <VaLayout
         style="background-color: var(--va-primary); width: 300px; height: 300px;"
-        :right-order="1"
+        :right="{ order: 1 }"
       >
         <template #content>
-          <div style="background-color: #ff00ff; height: 100%;">
+          <div>
             Content
           </div>
         </template>
         <template #right>
-          <div style="background-color: var(--va-secondary); height: 100%; width: 200px;">
+          <div style="height: 100%; width: 200px;">
             Rightbar width 200px
           </div>
         </template>
         <template #bottom>
-          <div style="background-color: var(--va-danger);">
+          <div>
             Footer
           </div>
         </template>
@@ -186,14 +186,13 @@ const state = reactive({
         style="background-color: var(--va-primary); width: 300px; height: 300px;"
       >
         <template #content>
-          <div style="background-color: #ff00ff; height: 100%; width: 100%;">
+          <div>
             Content
           </div>
         </template>
         <template #left>
           <div
             style="
-              background-color: var(--va-secondary);
               height: 100%;
               transition: width 0.3s ease-in-out;
             "
@@ -209,25 +208,24 @@ const state = reactive({
 
     <VbCard title="Absolute">
       <VaLayout
-        style="background-color: var(--va-primary); width: 300px; height: 300px;"
-        :right-order="1"
+        style="width: 300px; height: 300px;"
+        :right="{ order: 1 }"
       >
         <template #top>
-          <div style="background-color: var(--va-primary); color: var(--va-on-primary);">
+          <div>
             <button @click="state.doShowSidebar = !state.doShowSidebar">
               Toggle
             </button>
           </div>
         </template>
         <template #content>
-          <div style="background-color: #ff00ff; height: 100%; width: 100%;">
+          <div>
             Content
           </div>
         </template>
         <template #left>
           <div
             style="
-              background-color: var(--va-secondary);
               height: 100%;
               transition: width 0.3s ease-in-out;
               position: absolute;
@@ -239,29 +237,26 @@ const state = reactive({
       </VaLayout>
 
       <VaLayout
-        style="background-color: var(--va-primary); width: 300px; height: 300px;"
-        :right-order="1"
+        style="width: 300px; height: 300px;"
+        :right="{ absolute: true, order: 1 }"
       >
         <template #top>
-          <div style="background-color: var(--va-primary); color: var(--va-on-primary);">
+          <div>
             <button @click="state.doShowSidebar = !state.doShowSidebar">
               Toggle
             </button>
           </div>
         </template>
         <template #content>
-          <div style="background-color: #ff00ff; height: 100%; width: 100%;">
+          <div>
             Content Order 0
           </div>
         </template>
         <template #right>
           <div
             style="
-              background-color: var(--va-secondary);
               height: 100%;
               transition: width 0.3s ease-in-out;
-              position: absolute;
-              right: 0;
             "
             :style="{ width: state.doShowSidebar ? '200px' : '0px' }"
           >
@@ -270,5 +265,96 @@ const state = reactive({
         </template>
       </VaLayout>
     </VbCard>
+
+    <VbCard title="Absolute Right">
+      <VaLayout
+        style="width: 300px; height: 300px;"
+        :right="{ absolute: true }"
+      >
+        <template #top>
+          <div>
+            <button @click="state.doShowSidebar = !state.doShowSidebar">
+              Toggle
+            </button>
+          </div>
+        </template>
+        <template #content>
+          <div>
+            Content
+          </div>
+        </template>
+        <template #right>
+          <div
+            style="
+              height: 100%;
+              transition: width 0.3s ease-in-out;
+            "
+            :style="{ width: state.doShowSidebar ? '200px' : '0px' }"
+          >
+            Order 0
+          </div>
+        </template>
+      </VaLayout>
+
+      <VaLayout
+        style="width: 300px; height: 300px;"
+        :bottom="{ order: 2 }"
+        :right="{ absolute: true, order: 1 }"
+      >
+        <template #top>
+          <div>
+            <button @click="state.doShowSidebar = !state.doShowSidebar">
+              Toggle
+            </button>
+          </div>
+        </template>
+        <template #content>
+          <div>
+            Content Order 0
+          </div>
+        </template>
+        <template #right>
+          <div
+            style="
+              transition: width 0.3s ease-in-out;
+              height: 100%;
+            "
+            :style="{ width: state.doShowSidebar ? '200px' : '0px' }"
+          >
+            Order 1
+          </div>
+        </template>
+        <template #bottom>
+          Order 2
+        </template>
+      </VaLayout>
+    </VbCard>
   </VbDemo>
 </template>
+
+<style lang="scss">
+  .layout-demo {
+    .va-layout {
+      background: linear-gradient(45deg, var(--va-primary), var(--va-success));
+
+      &__area {
+        &--left {
+          background: #3a86ff;
+        }
+
+        &--top {
+          background: #8338ec;
+          color: white;
+        }
+
+        &--right {
+          background: #ff006e;
+        }
+
+        &--bottom {
+          background: #fb5607;
+        }
+      }
+    }
+  }
+</style>
