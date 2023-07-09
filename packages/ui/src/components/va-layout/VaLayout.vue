@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { defineComponent, computed } from 'vue'
 import {
   useGridTemplateArea,
   AreaName,
@@ -111,12 +111,18 @@ export default defineComponent({
     }
   }
 
+  // Wrapper is responsible for positioning correctly absolute areas
   &__area-wrapper {
     .va-layout__area {
       position: absolute;
 
       &--right {
         right: 0;
+        height: 100%;
+      }
+
+      &--left {
+        left: 0;
         height: 100%;
       }
     }

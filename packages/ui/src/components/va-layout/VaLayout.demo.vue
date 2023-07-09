@@ -208,8 +208,8 @@ const state = reactive({
 
     <VbCard title="Absolute">
       <VaLayout
-        style="width: 300px; height: 300px;"
-        :right="{ order: 1 }"
+        style="width: 300px; height: 300px; margin-bottom: 2rem;"
+        :left="{ absolute: 1 }"
       >
         <template #top>
           <div>
@@ -228,7 +228,6 @@ const state = reactive({
             style="
               height: 100%;
               transition: width 0.3s ease-in-out;
-              position: absolute;
             "
             :style="{ width: state.doShowSidebar ? '200px' : '0px' }"
           >
@@ -238,7 +237,7 @@ const state = reactive({
 
       <VaLayout
         style="width: 300px; height: 300px;"
-        :right="{ absolute: true, order: 1 }"
+        :right="{ absolute: true }"
       >
         <template #top>
           <div>
@@ -266,9 +265,9 @@ const state = reactive({
       </VaLayout>
     </VbCard>
 
-    <VbCard title="Absolute Right">
+    <VbCard title="Absolute with Order">
       <VaLayout
-        style="width: 300px; height: 300px;"
+        style="width: 300px; height: 300px; margin-bottom: 2rem;"
         :right="{ absolute: true }"
       >
         <template #top>
@@ -340,6 +339,7 @@ const state = reactive({
       &__area {
         &--left {
           background: #3a86ff;
+          color: white;
         }
 
         &--top {
@@ -349,10 +349,16 @@ const state = reactive({
 
         &--right {
           background: #ff006e;
+          color: white;
         }
 
         &--bottom {
           background: #fb5607;
+          color: white;
+        }
+
+        &--content {
+          color: white;
         }
       }
     }
