@@ -4,7 +4,7 @@
 
 <template>
   <VaLayout 
-    style="height: 300px"
+    style="height: 500px"
     :left="{ absolute: true}"
   >
     <template #top>

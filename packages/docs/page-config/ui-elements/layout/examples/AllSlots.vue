@@ -4,7 +4,7 @@
 </script>
 
 <template>
-  <VaLayout style="height: 300px">
+  <VaLayout style="height: 500px">
     <template #top>
       <VaNavbar color="primary" class="py-2">
         <template #left>
@@ -86,7 +86,7 @@
     </template>
 
     <template #bottom>
-      <footer class="p-4 bg-[var(--va-primary)] text-[var(--va-on-primary)] text-right">
+      <footer class="p-4 border-[var(--va-background-border)] border-t-2 text-right">
         Footer
       </footer>
     </template>

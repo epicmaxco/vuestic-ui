@@ -1,9 +1,14 @@
 <script setup lang="ts">
-  const showSidebar = ref(false)
+  const showSidebar = ref(true)
+
+  const breakpoints = useBreakpoint()
 </script>
 
 <template>
-  <VaLayout style="height: 500px">
+  <VaLayout 
+    style="height: 500px"
+    :left="{ absolute: breakpoints.smDown }"
+  >
     <template #top>
       <VaNavbar color="primary" class="py-2">
         <template #left>

@@ -1,13 +1,29 @@
 <script setup lang="ts">
   const showLeftSidebar = ref(true)
   const showRightSidebar = ref(true)
+
+  const orders = reactive({
+    left: 2,
+    top: 1,
+    right: 2,
+    bottom: 1,
+  })
 </script>
 
 <template>
+  <div class="mb-4 flex gap-2 justify-between flex-wrap">
+    <VaCounter v-model="orders.top" label="top" />
+    <VaCounter v-model="orders.left" label="left" />
+    <VaCounter v-model="orders.right" label="right" />
+    <VaCounter v-model="orders.bottom" label="bottom" />
+  </div>
+
   <VaLayout 
-    :left="{ order: 1 }"
-    :top="{ order: 2 }"
-    style="height: 300px"
+    :left="{ order: orders.left }"
+    :top="{ order: orders.top }"
+    :right="{ order: orders.right }"
+    :bottom="{ order: orders.bottom }"
+    style="height: 500px"
   >
     <template #top>
       <VaNavbar color="primary" class="py-2">
@@ -68,7 +84,7 @@
     </template>
 
     <template #bottom>
-      <footer class="p-4 bg-[var(--va-primary)] text-[var(--va-on-primary)] text-right">
+      <footer class="p-4 border-[var(--va-background-border)] border-t-2 text-right">
         Footer
       </footer>
     </template>
