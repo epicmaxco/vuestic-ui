@@ -1,7 +1,7 @@
 <template>
   <va-tabs
     v-model="value"
-    style="width: 280px;"
+    class="w-[280px]"
   >
     <template #tabs>
       <va-tab

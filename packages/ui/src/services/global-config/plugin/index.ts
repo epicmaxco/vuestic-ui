@@ -4,11 +4,9 @@ import { PartialGlobalConfig } from '../types'
 import { defineGlobalProperty, defineVuesticPlugin } from '../../vue-plugin/utils'
 
 /** Provides global configuration to Vuestic components */
-export const GlobalConfigPlugin = defineVuesticPlugin((config: PartialGlobalConfig | undefined) => ({
+export const GlobalConfigPlugin = defineVuesticPlugin((config: PartialGlobalConfig | undefined = {}) => ({
   install (app: App) {
-    const globalConfig = createGlobalConfig()
-
-    if (config) { globalConfig.mergeGlobalConfig(config) }
+    const globalConfig = createGlobalConfig(config)
 
     // @ts-ignore
     if (config?.componentsAll) {
@@ -23,7 +21,7 @@ export const GlobalConfigPlugin = defineVuesticPlugin((config: PartialGlobalConf
   },
 }))
 
-declare module 'vue' {
+declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
     $vaConfig: ReturnType<typeof createGlobalConfig>
   }

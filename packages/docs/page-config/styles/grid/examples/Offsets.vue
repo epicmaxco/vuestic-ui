@@ -1,22 +1,22 @@
 <template>
   <va-card
     color="background-element"
-    style="padding: 0.75rem;"
+    class="p-3"
   >
     <div class="row">
       <div class="flex flex-col xs1 offset-md3 offset-lg2">
         <div class="item">
-          {{ $t("grid.examples.offsets.first") }}
+          First
         </div>
       </div>
       <div class="flex flex-col xs1 offset-md1 offset-lg3">
         <div class="item">
-          {{ $t("grid.examples.offsets.second") }}
+          Second
         </div>
       </div>
       <div class="flex flex-col xs1 offset-md2 offset-lg1">
         <div class="item">
-          {{ $t("grid.examples.offsets.last") }}
+          Last
         </div>
       </div>
     </div>
@@ -24,17 +24,17 @@
     <div class="row">
       <div class="flex flex-col xs1 offset-md4 offset-lg1">
         <div class="item">
-          {{ $t("grid.examples.offsets.first") }}
+          First
         </div>
       </div>
       <div class="flex flex-col xs1 offset-md2 offset-lg2">
         <div class="item">
-          {{ $t("grid.examples.offsets.second") }}
+          Second
         </div>
       </div>
       <div class="flex flex-col xs1 offset-md1 offset-lg6">
         <div class="item">
-          {{ $t("grid.examples.offsets.last") }}
+          Last
         </div>
       </div>
     </div>

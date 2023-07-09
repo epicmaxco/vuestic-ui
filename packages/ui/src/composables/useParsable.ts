@@ -13,7 +13,7 @@ export const useParsable = <Text extends string | number, Original, Value extend
       if (typeof value === 'string') {
         return value as any
       }
-      return format(value as Value)
+      return format(value as unknown as Value)
     },
     set (v: Text) {
       if (typeof parsable.value === 'string') {
@@ -30,7 +30,7 @@ export const useParsable = <Text extends string | number, Original, Value extend
         return parse(parsable.value as any)
       }
 
-      return parsable.value as Value
+      return parsable.value as unknown as Value
     },
     set (v: Value) {
       if (typeof parsable.value === 'string') {

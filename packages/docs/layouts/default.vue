@@ -1,16 +1,23 @@
 <template>
-  <div class="docs-layout">
+  <div class="docs-layout" :key="isMounted + ''">
+    <div v-if="!isMounted" class="docs-layout__loader" />
     <div
       ref="header"
       class="docs-layout__header"
     >
-      <LayoutHeader v-model:isSidebarVisible="isSidebarVisible" />
+      <LayoutHeader
+        v-model:isSidebarVisible="isSidebarVisible"
+        v-model:isOptionsVisible="isOptionsVisible"
+      />
     </div>
-    <section class="docs-layout__main-section">
+    <section
+      v-show="!isOptionsVisible"
+      class="docs-layout__main-section"
+    >
       <aside class="docs-layout__sidebar">
         <LayoutSidebar
           v-model:visible="isSidebarVisible"
-          :mobile="breakpoints.sm"
+          :mobile="breakpoints.smDown"
         />
       </aside>
       <main class="docs-layout__main-content">
@@ -25,47 +32,45 @@
 <script setup lang="ts">
 import { useColors } from 'vuestic-ui'
 import { useDocsScroll } from '../composables/useDocsScroll';
+import { useIsMounted } from 'vuestic-ui/src/composables/useIsMounted'
 
-const colorMode = useColorMode()
-const cookie = useCookie('vuestic-theme')
-const { applyPreset } = useColors()
+const { currentPresetName } = useColors()
 const breakpoints = useBreakpoint()
 
-const isSidebarVisible = ref(!breakpoints.smDown)
+const isSidebarVisible = ref(false)
+const isOptionsVisible = ref(false)
 
-applyPreset(cookie.value || colorMode.preference)
-
-watch(() => breakpoints.smDown, (newValue, oldValue) => {
-  if (newValue && !oldValue) {
-    isSidebarVisible.value = false
-  }
-  if (!newValue && oldValue) {
-    isSidebarVisible.value = true
-  }
+watch(() => breakpoints.smDown, (newValue: boolean) => {
+  isSidebarVisible.value = !newValue
+  isOptionsVisible.value = false
 })
 
 const { afterEach } = useRouter()
 const { scrollToElement } = useDocsScroll()
 afterEach(() => {
   scrollToElement()
-
-  if (breakpoints.smDown) {
-    isSidebarVisible.value = false
-  }
+  isSidebarVisible.value = !breakpoints.smDown
+  isOptionsVisible.value = false
 })
 
-onMounted(scrollToElement)
+onMounted(() => {
+  scrollToElement()
+  isSidebarVisible.value = !breakpoints.smDown
+})
 
 useHead({
   link: [
     { href: 'https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css', rel: 'stylesheet' },
     { href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', rel: 'stylesheet' },
+    { href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css", rel: "stylesheet" },
   ],
   script: [
     { src: 'https://kit.fontawesome.com/5460c87b2a.js', crossorigin: 'anonymous' },
     { src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js', type: 'module' },
   ],
 })
+
+const isMounted = useIsMounted()
 </script>
 
 <style lang="scss">
@@ -87,6 +92,16 @@ html {
   flex-direction: column;
   overflow: hidden;
   font-family: var(--va-font-family);
+
+  &__loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999999;
+    background: var(--va-background-primary);
+  }
 
   &__header {
     width: 100%;

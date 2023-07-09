@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 400px;">
+  <div class="w-96">
     <va-collapse
       v-model="value[0]"
       header="Collapse header"
@@ -7,7 +7,7 @@
       color="success"
       class="mb-6"
     >
-      <div style="padding: 8px;">
+      <div class="p-2">
         Collapse content
       </div>
     </va-collapse>
@@ -18,7 +18,7 @@
       color="secondary"
       class="mb-6"
     >
-      <div style="padding: 8px;">
+      <div class="p-2">
         Collapse content
       </div>
     </va-collapse>
@@ -30,7 +30,7 @@
       color-all
       class="mb-6"
     >
-      <div style="padding: 8px;">
+      <div class="p-2">
         Collapse content
       </div>
     </va-collapse>
@@ -44,7 +44,7 @@
       icon="info"
       class="mb-6"
     >
-      <div style="padding: 8px;">
+      <div class="p-2">
         Collapse content
       </div>
     </va-collapse>

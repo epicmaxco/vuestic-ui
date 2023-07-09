@@ -3,11 +3,11 @@
     <div class="customize__wrapper">
       <div class="customize__inner">
         <h2 class="customize__title">
-          {{ $t('landing.customize.title') }}
+          Customize Everything
         </h2>
 
         <div class="customize__subtitle">
-          {{ $t('landing.customize.text') }}
+          Make Vuestic UI components match your designs with powerful dynamic configs.
         </div>
 
         <div class="customize__buttons">
@@ -15,9 +15,9 @@
             class="customize__buttons-item"
             color="textInverted"
             text-color="primary"
-            :to="`/${locale}/getting-started/installation`"
+            to="/getting-started/installation"
           >
-            {{ $t('landing.preview.buttons.start') }}
+            Get Started
           </va-button>
         </div>
 
@@ -25,7 +25,7 @@
           <va-aspect-ratio :ratio="1337/192">
             <img
               src="/landing/customize-everything.png"
-              :alt="$t('landing.customize.image')"
+              alt="Vuestic UI components"
             >
           </va-aspect-ratio>
         </div>
@@ -33,10 +33,6 @@
     </div>
   </section>
 </template>
-
-<script lang="ts" setup>
-const { locale } = useI18n()
-</script>
 
 <style lang="scss" scoped>
 @import "@/assets";

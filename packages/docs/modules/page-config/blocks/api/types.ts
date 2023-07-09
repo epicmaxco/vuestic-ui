@@ -22,6 +22,7 @@ export type ManualApiOptionsItem = {
 export type ManualPropApiOptions = ManualApiOptionsItem & {
   hidden?: boolean; // Won't appear in documentation. Intended for internal usage props, such as icon and color configs.
   types?: string;
+  default?: any;
   // add more here
 }
 
@@ -30,13 +31,14 @@ export type ManualMethodApiOptions = ManualApiOptionsItem & {
 }
 
 export type ManualEventApiOptions = ManualApiOptionsItem & {
-  types: string;
+  types?: string;
   hidden?: boolean; // Won't appear in documentation. Intended for internal usage events.
   isDOMEvent?: boolean;
   // add more here
 }
 
 export type ManualSlotApiOptions = ManualApiOptionsItem & {
+  types?: string;
   // add more here
 }
 
@@ -64,4 +66,16 @@ export type VisualOptions = {
   hideSlotsTitle?: boolean
   hideCssVariables?: boolean
   hideCssVariablesTitle?: boolean
+}
+
+export type APIDescriptionType = 'props' | 'events' | 'slots' | 'methods';
+export type APIDescriptionOptions = {
+  [k in APIDescriptionType]?: Record<string, string>;
+}
+
+export type ComponentMeta = {
+  props: Record<string, ManualPropApiOptions>;
+  events: Record<string, ManualEventApiOptions>;
+  methods: Record<string, ManualMethodApiOptions>;
+  slots: Record<string, ManualSlotApiOptions>;
 }

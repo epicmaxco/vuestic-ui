@@ -22,18 +22,18 @@
           <nav class="header__links">
             <!-- vuestic buttons -->
             <va-button
-              :to="`/${locale}/introduction/overview`"
+              to="/introduction/overview"
               class="header__links--link"
               preset="landingHeader"
             >
-              {{ $t('landing.header.buttons.docs') }}
+              Docs
             </va-button>
             <va-button
-              :to="`/${locale}/contribution/guide`"
+              to="/contribution/guide"
               class="header__links--link"
               preset="landingHeader"
             >
-              {{ $t('landing.header.buttons.contribute') }}
+              Contribute
             </va-button>
             <va-button
               href="mailto:hello@epicmax.co"
@@ -41,12 +41,8 @@
               class="header__links--link"
               preset="landingHeader"
             >
-              {{ $t('landing.header.buttons.contactUs') }}
+              Contact Us
             </va-button>
-            <LanguageDropdown
-              class="ml-8"
-              preset="landingHeader"
-            />
             <!-- vuestic socials -->
             <SocialsLinks
               class="header__links--link"
@@ -81,66 +77,41 @@
             <HeaderBanner wrapped />
 
             <div class="mobile-menu__menu-button-wrapper">
-              <va-button
-                v-if="modelValue"
-                class="menu-button mobile-menu__menu-button"
-                aria-label="Close menu"
-                preset="plain"
-                @click="$emit('update:modelValue', false)"
-              >
-                <va-icon class="fas fa-times" />
-              </va-button>
+              <div class="mobile-menu__menu-button-container">
+                <va-button
+                  v-if="modelValue"
+                  class="menu-button mobile-menu__menu-button"
+                  aria-label="Close menu"
+                  preset="plain"
+                  @click="$emit('update:modelValue', false)"
+                >
+                  <va-icon class="fas fa-times" />
+                </va-button>
+              </div>
             </div>
 
             <va-list class="mobile-menu__list">
               <va-list-item>
                 <va-list-item-section class="mobile-menu__link">
-                  <router-link :to="`/${locale}/introduction/overview`">
-                    {{ $t('landing.header.buttons.docs') }}
+                  <router-link to="/introduction/overview">
+                    Docs
                   </router-link>
                 </va-list-item-section>
               </va-list-item>
               <va-list-item>
                 <va-list-item-section class="mobile-menu__link">
-                  <router-link :to="`/${locale}/contribution/guide`">
-                    {{ $t('landing.header.buttons.contribute') }}
+                  <router-link to="/contribution/guide">
+                    Contribute
                   </router-link>
                 </va-list-item-section>
               </va-list-item>
               <va-list-item>
                 <va-list-item-section class="mobile-menu__link">
-                  <router-link :to="`/${locale}/introduction/team`">
-                    {{ $t('landing.header.buttons.contactUs') }}
+                  <router-link to="/introduction/team">
+                    Contact Us
                   </router-link>
                 </va-list-item-section>
               </va-list-item>
-
-              <va-list-label
-                color="secondary"
-                class="mobile-menu__label"
-              >
-                {{ $t('landing.header.buttons.language') }}
-              </va-list-label>
-              <div class="mobile-menu__languages">
-                <va-list-item
-                  v-for="({ code, name }, id) in locales"
-                  :key="id"
-                  class="mobile-menu__language"
-                  :class="{ active: code === locale }"
-                  @click="setLocale(code)"
-                >
-                  <va-list-item-section class="mobile-menu__link">
-                    <span class="language">{{ name }}</span>
-                  </va-list-item-section>
-                </va-list-item>
-                <va-list-item>
-                  <va-list-item-section class="mobile-menu__link">
-                    <router-link :to="`/${locale}/contribution/translation`">
-                      {{ $t('landing.header.buttons.translation') }}
-                    </router-link>
-                  </va-list-item-section>
-                </va-list-item>
-              </div>
 
               <SocialsLinks
                 class="mobile-menu__socials"
@@ -161,9 +132,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useSharedLanguageSwitcher } from '../../composables/useLanguageSwitcher'
-
-import LanguageDropdown from '../layout/LanguageDropdown.vue'
 import SocialsLinks from './SocialsLinks.vue'
 import StarsButton from './StarsButton.vue'
 
@@ -175,8 +143,6 @@ defineProps({
 })
 
 defineEmits(['update:modelValue'])
-
-const { locale, locales, setLocale } = useSharedLanguageSwitcher()
 </script>
 
 <style lang="scss" scoped>
@@ -260,6 +226,12 @@ const { locale, locales, setLocale } = useSharedLanguageSwitcher()
   }
 
   &__menu-button-wrapper {
+    @include wrapper();
+
+    width: 100%;
+  }
+
+  &__menu-button-container {
     position: relative;
     height: var(--header-height);
     width: 100%;
@@ -267,7 +239,7 @@ const { locale, locales, setLocale } = useSharedLanguageSwitcher()
   }
 
   &__menu-button {
-    right: 1.5rem;
+    right: 0.5rem;
   }
 
   &__list {

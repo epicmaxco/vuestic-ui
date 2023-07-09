@@ -7,7 +7,7 @@
             v-for="c in columnsComputed"
             :key="c.title"
           >
-            {{ t(c.title) }}
+            {{ c.title }}
           </th>
         </tr>
       </thead>
@@ -25,7 +25,7 @@
               <strong>{{ colData }}</strong>
             </template>
             <template v-else-if="columnsComputed[index].type === 'markdown'">
-              <MarkdownView :content="t(colData)" />
+              <MarkdownView :content="colData" />
             </template>
             <template v-else-if="columnsComputed[index].type === 'code'">
               <MarkdownView :content="`\`${colData}\``" />
@@ -34,10 +34,10 @@
               <pre>{{ colData }}</pre>
             </template>
             <template v-else-if="columnsComputed[index].type === 'translationString'">
-              {{ t(colData) }}
+              {{ colData }}
             </template>
             <template v-else>
-              {{ t(colData) }}
+              {{ colData }}
             </template>
           </td>
         </tr>
@@ -52,8 +52,6 @@ import type { TableData, TableColumn } from './types'
 
 import { computed } from 'vue'
 import { MarkdownView } from '../shared/markdown';
-
-const { t } = useI18n()
 
 const props = defineProps({
   columns: { type: Array as PropType<TableColumn[]>, required: true },

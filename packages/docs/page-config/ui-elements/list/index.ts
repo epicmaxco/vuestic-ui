@@ -9,40 +9,100 @@ import {
 
 export default definePageConfig({
   blocks: [
-    block.title("list.title"),
-    block.paragraph("list.summaryText"),
+    block.title("List"),
+    block.paragraph("The `va-list` component is used to display structured information."),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
-    block.example("Default"),
-    block.example("Disabled"),
-    block.example("Clickable"),
-    block.example("Fit"),
-    block.example("Lines"),
+    block.example("Default", {
+      title: "Basic usage",
+      description: "Has no attributes by default. Build a structure by using components `va-list-label`, `va-list-separator`, `va-list-item` and etc."
+    }),
+    block.example("Disabled", {
+      title: "Disabled",
+      description: "You can disable any user interaction by using 'disabled' prop."
+    }),
+    block.example("Clickable", {
+      title: "Clickable",
+      description: "Support a ability to use a list item as a link."
+    }),
+    block.example("Fit", {
+      title: "Fit",
+      description: "Support a fitting of the list item by its content length."
+    }),
+    block.example("Lines", {
+      title: "Lines",
+      description: "You can divide item label content on a custom count of lines."
+    }),
 
-    block.subtitle("all.api"),
+    block.subtitle("API"),
 
-    block.paragraph("list.api.list.text"),
-    block.api("VaList", listApiOptions),
+    block.paragraph("API for `va-list` component."),
+    block.api(
+      "VaList",
+      {
+        props: { fit: "Stretches list by its content width" },
+        slots: { default: "Contains list items" },
+      },
+      listApiOptions
+    ),
 
-    block.subtitle("list.api.listLabel.title"),
-    block.paragraph("list.api.listLabel.text"),
-    block.api("VaListLabel", listLabelApiOptions),
+    block.subtitle("List Label API"),
+    block.paragraph("API for `va-list-label` component."),
+    block.api(
+      "VaListLabel",
+      { slots: { default: "Contains the label text"} },
+      listLabelApiOptions
+    ),
 
-    block.subtitle("list.api.listSeparator.title"),
-    block.paragraph("list.api.listSeparator.text"),
-    block.api("VaListSeparator", listSeparatorApiOptions),
+    block.subtitle("List Separator API"),
+    block.paragraph("API for `va-list-separator` component."),
+    block.api(
+      "VaListSeparator",
+      { props: { fit: "Adds space on the left side", spaced: "Adds spaces over and under the separator" }},
+      listSeparatorApiOptions
+    ),
 
-    block.subtitle("list.api.listItem.title"),
-    block.paragraph("list.api.listItem.text"),
-    block.api("VaListItem", listItemApiOptions),
+    block.subtitle("List Item API"),
+    block.paragraph("API for `va-list-item` component."),
+    block.api(
+      "VaListItem",
+      {
+        events: {
+          focus: "Emitted when item is focused",
+          click: "Emitted when user clicked on item"
+        },
+        slots: { default: "For a list item content" }
+      },
+      listItemApiOptions
+    ),
 
-    block.subtitle("list.api.listItemLabel.title"),
-    block.paragraph("list.api.listItemLabel.text"),
-    block.api("VaListItemLabel", listItemLabelApiOptions),
+    block.subtitle("List Item Label API"),
+    block.paragraph("API for `va-list-item-label` component."),
+    block.api(
+      "VaListItemLabel",
+      {
+        props: {
+          caption: "Applies another style to text",
+          lines: "Divides item label content on a custom count of lines"
+        },
+        slots: { default: "Contains the label text" }
+      },
+      listItemLabelApiOptions
+    ),
 
-    block.subtitle("list.api.listItemSection.title"),
-    block.paragraph("list.api.listItemSection.text"),
-    block.api("VaListItemSection", listItemSectionApiOptions),
+    block.subtitle("List Item Section API"),
+    block.paragraph("API for `va-list-item-section` component."),
+    block.api(
+      "VaListItemSection",
+      {
+        props: {
+          icon: "Makes section for icon",
+          avatar: "Makes section for avatar"
+        },
+        slots: { default: "For a section content" }
+      },
+      listItemSectionApiOptions
+    ),
   ],
 });

@@ -21,9 +21,8 @@ export function useSyncProp<
   PropName extends string,
   Props extends { [key in PropName]?: T },
   Emit extends (event: any, newValue: Props[PropName]) => any,
-  DefaultValue extends Props[PropName],
-  ReturnValue extends DefaultValue extends undefined ? Props[PropName] : DefaultValue
-> (propName: PropName, props: Props, emit: Emit, defaultValue?: NonNullable<DefaultValue>) {
+  ReturnValue extends NonNullable<Props[PropName]>
+> (propName: PropName, props: Props, emit: Emit, defaultValue?: ReturnValue) {
   if (defaultValue === undefined) {
     return [
       computed<ReturnValue>({
@@ -37,7 +36,7 @@ export function useSyncProp<
     ]
   }
 
-  const currentValue = props[propName]
+  const currentValue = props[propName] as ReturnValue
   const statefulValue = ref(currentValue === undefined ? defaultValue : currentValue)
 
   watch(() => props[propName], (newVal) => {

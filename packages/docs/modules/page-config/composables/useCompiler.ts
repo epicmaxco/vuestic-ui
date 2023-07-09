@@ -4,7 +4,6 @@ import { createFilter } from '@rollup/pluginutils'
 import { createImporter } from '../compiler/create-importer'
 import { resolve } from 'pathe'
 import { transform } from '../compiler/transform'
-import { exportTranslations } from '../i18n/export-translations'
 
 export const useCompiler = (options: any) => {
   const filter = createFilter(options.include, options.exclude)
@@ -32,7 +31,6 @@ export const useCompiler = (options: any) => {
         throw new Error(`Error transforming page-config: ${id}\n${e.message}`)
       }
 
-      newCode.append('\n' + await exportTranslations(importer, id))
       newCode.prepend(importer.imports)
 
       try {

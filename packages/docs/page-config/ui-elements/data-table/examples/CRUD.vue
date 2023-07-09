@@ -1,12 +1,12 @@
 <template>
   <va-data-table
-    class="table-crud-example"
+    class="table-crud"
     :items="items"
     :columns="columns"
     striped
   >
     <template #headerAppend>
-      <tr class="table-crud-example__slot">
+      <tr class="table-crud__slot">
         <th
           v-for="key in Object.keys(createdItem)"
           :key="key"
@@ -38,13 +38,14 @@
       <va-button
         preset="plain"
         icon="delete"
+        class="ml-3"
         @click="deleteItemById(rowIndex)"
       />
     </template>
   </va-data-table>
 
   <va-modal
-    class="modal-crud-example"
+    class="modal-crud"
     :model-value="!!editedItem"
     title="Edit item"
     size="small"
@@ -55,7 +56,7 @@
       v-for="key in Object.keys(editedItem)"
       :key="key"
       v-model="editedItem[key]"
-      class="my-3"
+      class="my-6"
       :label="key"
     />
   </va-modal>
@@ -151,7 +152,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.table-crud-example {
+.table-crud {
   --va-form-element-default-width: 0;
 
   .va-input {
@@ -165,7 +166,7 @@ export default defineComponent({
   }
 }
 
-.modal-crud-example {
+.modal-crud {
   .va-input {
     display: block;
   }

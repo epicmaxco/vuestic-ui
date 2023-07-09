@@ -18,7 +18,7 @@ export const useClearableProps = {
   clearValue: { type: String, default: '' },
 }
 
-export const useClearableEmits = ['clear']
+export const useClearableEmits = ['clear'] as const
 
 export const useClearable = (
   props: ClearableProps,
@@ -49,6 +49,7 @@ export const useClearable = (
     name: props.clearableIcon,
     color: clearIconColor.value,
     size: 'small',
+    tabindex: canBeCleared.value ? 0 : -1,
   }))
 
   return {

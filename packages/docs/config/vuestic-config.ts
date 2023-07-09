@@ -11,10 +11,6 @@ const VaButtonLandingHeader = {
   'hover-opacity': '1',
 }
 
-// const cookie = useCookie('vuestic-theme')
-
-const theme = 'light'
-
 export const VuesticConfig = defineVuesticConfig({
   icons,
   components: {
@@ -23,6 +19,7 @@ export const VuesticConfig = defineVuesticConfig({
     },
     VaDropdown: {
       target: scrollWrapperSelector,
+      teleport: 'body',
     },
     VaBacktop: {
       target: scrollWrapperSelector,
@@ -39,7 +36,6 @@ export const VuesticConfig = defineVuesticConfig({
     },
   },
   colors: {
-    currentPresetName: theme,
     presets: {
       light: {
         secondary: '#666E75',

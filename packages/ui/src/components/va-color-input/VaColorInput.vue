@@ -46,7 +46,7 @@ export default defineComponent({
     VaInput,
     VaColorIndicator,
   },
-  emits: useStatefulEmits,
+  emits: [...useStatefulEmits],
   props: {
     ...useStatefulProps,
     ...useComponentPresetProp,
@@ -90,7 +90,6 @@ export default defineComponent({
 
   &__input {
     margin-bottom: 0;
-    margin-left: 0.25rem;
     min-width: 5.6rem;
 
     &__pointer {

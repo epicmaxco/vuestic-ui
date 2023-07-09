@@ -9,15 +9,14 @@ const props = defineProps({
   }
 })
 
-const { t } = useI18n()
 </script>
 
 <template>
-  <h1 class="page-config-title">
+  <h1 class="page-config-title flex">
     <MarkdownView
-      :content="t(text)"
+      :content="text"
       text
-      class="mr-2"
+      class="mr-1"
     />
     <Anchor :text="text" />
   </h1>
@@ -28,7 +27,7 @@ const { t } = useI18n()
   --code-bg: transparent;
 
   @media screen and (max-width: 767px) {
-    font-size: 2rem !important;
+    font-size: 2.5rem !important;
   }
 }
 </style>

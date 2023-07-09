@@ -12,7 +12,7 @@ import { useAccordion } from './hooks/useAccordion'
 
 export default defineComponent({
   name: 'VaAccordion',
-  emits: useStatefulEmits,
+  emits: [...useStatefulEmits],
   props: {
     ...useStatefulProps,
     ...useComponentPresetProp,

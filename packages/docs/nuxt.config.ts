@@ -1,17 +1,9 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  // TEST Config
-  routeRules: {
-    '/': {static: true},
-    '/en/**': {static: true},
-    '/ru/**': {static: true},
-    '/_nuxt/**': { headers: { 'cache-control': 's-maxage=0' } },
-  },
   app: {
     head: {
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'icon', type: 'image/png', href: '/favicon.png' },
       ],
 
       meta: [
@@ -78,15 +70,20 @@ export default defineNuxtConfig({
     compressPublicAssets: true,
   },
 
+  googleAnalytics: {
+    id: process.env.GOOGLE_ANALYTICS_ID,
+  },
+
   modules: [
-    // './modules/banner',
+    './modules/google-analytics',
+    './modules/banner',
     './modules/vuestic',
     './modules/page-config',
     '@nuxtjs/google-fonts',
-    '@nuxtjs/i18n',
     './modules/markdown',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
+    '@funken-studio/sitemap-nuxt-3'
   ],
 
   vuestic: {
@@ -96,7 +93,10 @@ export default defineNuxtConfig({
 
   googleFonts: {
     preload: true,
-    swap: true,
+    prefetch: true,
+    preconnect: true,
+    display: 'swap',
+    download: false,
     families: {
       'Source+Sans+Pro': {
         wght: [400, 600, 700],
@@ -110,7 +110,9 @@ export default defineNuxtConfig({
   },
 
   tailwindcss: {
+    viewer: false,
     config: {
+      important: true,
       content: [
         "./components/**/*.{js,vue,ts}",
         "./page-config/**/*.{js,vue,ts}",
@@ -120,49 +122,6 @@ export default defineNuxtConfig({
         "./app.vue",
       ]
     }
-  },
-
-  i18n: {
-    locales: [
-      {
-        code: 'en',
-        name: 'English',
-        status: 'full',
-        translationPath: 'translation.language.en',
-        file: 'en.json',
-      },
-      {
-        code: 'ru',
-        name: 'Русский',
-        status: 'full',
-        translationPath: 'translation.language.ru',
-        file: 'ru.json',
-      },
-      // GENERATOR_ADD - language
-    ],
-
-    defaultLocale: 'en',
-
-    strategy: 'prefix_and_default',
-
-    // TODO Browser detection was working extremely poorly and caused multiple redirects.
-    //  Let's enable it after thorough testing.
-    detectBrowserLanguage: false,
-    // detectBrowserLanguage: {
-    //   redirectOn: 'root',
-    //   useCookie: true,
-    //   cookieKey: 'i18n_locale',
-    // },
-
-
-    // lazy: true,
-
-    langDir: 'translations/',
-
-    precompile: {
-      strictMessage: false,
-      escapeHtml: true
-    },
   },
 
   postcss: {
@@ -188,4 +147,8 @@ export default defineNuxtConfig({
       ]
     }
   },
+
+  sitemap: {
+    hostname: 'https://example.com',
+  }
 });

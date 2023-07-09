@@ -5,19 +5,17 @@
 
   <va-modal
     v-model="showModal"
-    :message="message"
+    message="Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, sub-window, etc."
+    ok-text="Apply"
     blur
   />
 </template>
 
 <script>
-import message from "./popup-message";
-
 export default {
   data() {
     return {
       showModal: false,
-      message,
     };
   },
 };

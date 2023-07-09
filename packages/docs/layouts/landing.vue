@@ -1,14 +1,12 @@
 <template>
-  <NuxtPage />
+  <VaConfig :colors="{ currentPresetName: 'landing' }">
+    <div class="landing">
+      <NuxtPage />
+    </div>
+  </VaConfig>
 </template>
 
 <script lang="ts" setup>
-import { useColors } from 'vuestic-ui'
-
-const { applyPreset } = useColors()
-
-applyPreset('landing')
-
 useHead({
   title: 'Vuestic UI — Vue 3 UI framework',
   link: [
@@ -17,11 +15,9 @@ useHead({
 })
 </script>
 
-<style lang="scss">
-// Need to import tailwind in layout, because otherwise Vuestic component's css will has a higher priority
-// @import '~/assets/css/tailwind.css';
-
-body {
+<style lang="scss" scoped>
+.landing {
   background: var(--va-background-secondary);
+  color: var(--va-on-background-secondary)
 }
 </style>

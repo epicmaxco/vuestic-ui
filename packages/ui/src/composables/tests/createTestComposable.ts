@@ -1,17 +1,38 @@
 import { defineComponent, h } from 'vue'
 import { mount } from '@vue/test-utils'
-import { createGlobalConfig, GLOBAL_CONFIG } from '../../services/global-config/global-config'
+import { createVuestic } from '../../main'
 
 export type Composable = (...args: any[]) => any
 
-export function createTestComposable (composable: Composable) {
+/**
+ * Most of the composables are not going to work outside a setup script.
+ * This function creates a wrapper component to use composables in a tests
+ * environment.
+ * If you want two or more composables to share the same state, pass them
+ * as an array.
+ * Keep in mind that calling this function two times with a different
+ * composables as parameter won't make those composables share the state.
+ * @param composables a composable or an array of composables
+ * @returns { composableWrapper } a composableWrapper object containing the values returned by the composables
+ */
+export function createTestComposable (composables: Composable | Composable[]) {
   const App = defineComponent({
     setup () {
-      const composableResult = composable()
-      const getComposableResult = () => composableResult
+      if (!Array.isArray(composables)) {
+        composables = [composables]
+      }
+
+      const composableResults = composables.reduce<Record<string, any>>((acc, composable) => {
+        const result = composable()
+        return {
+          ...acc,
+          ...result,
+        }
+      }, {})
+      const getComposableResults = () => composableResults
 
       return {
-        getComposableResult,
+        getComposableResults,
       }
     },
     render () {
@@ -21,13 +42,11 @@ export function createTestComposable (composable: Composable) {
 
   const appWrapper = mount(App, {
     global: {
-      provide: {
-        [GLOBAL_CONFIG]: createGlobalConfig(),
-      },
+      plugins: [createVuestic()],
     },
   })
 
   return {
-    composableWrapper: appWrapper.vm.getComposableResult(),
+    composableWrapper: appWrapper.vm.getComposableResults(),
   }
 }

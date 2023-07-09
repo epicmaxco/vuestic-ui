@@ -815,12 +815,50 @@
         multiple
       />
     </VbCard>
+    <VbCard
+      title="Close on value update"
+      style="width: 400px;"
+    >
+      <p>Must close on value update</p>
+      <va-select
+        v-model="defaultSingleSelect.value"
+        class="mb-6"
+        :options="defaultSingleSelect.options"
+        close-on-change
+      />
+      <p>Mustn't close on value update, because multiple prop is on</p>
+      <va-select
+        v-model="defaultMultiSelect.value"
+        class="mb-6"
+        :options="defaultMultiSelect.options"
+        multiple
+      />
+    </VbCard>
     <VbCard :style="{ 'width': '100%' }">
       <p>{{ defaultSingleSelect.value }}</p>
       <p>{{ objectSingleSelect.value }}</p>
       <p>{{ multipleValue }}</p>
       <p>{{ longSelect.value }}</p>
       <p>{{ validationSelect.value }}</p>
+    </VbCard>
+    <VbCard title="Close on value update" :style="{ 'width': '100%' }">
+      <va-select
+        label="shouldn't close on value select"
+        v-model="defaultSingleSelect.value"
+        :close-on-value-update="false"
+        class="mb-6"
+        :options="defaultSingleSelect.options"
+      />
+      <va-select
+        label="Multiple"
+        v-model="defaultMultiSelect.value"
+        :options="defaultMultiSelect.options"
+        class="mb-6"
+        :max-visible-options="2"
+        multiple
+        autocomplete
+        :close-on-value-update="false"
+      />
     </VbCard>
   </VbDemo>
 </template>

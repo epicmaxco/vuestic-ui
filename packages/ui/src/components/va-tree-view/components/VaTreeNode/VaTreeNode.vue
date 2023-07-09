@@ -115,7 +115,11 @@ export default defineComponent({
     const roleComputed = computed(() => props.node.hasChildren ? 'group' : 'treeitem')
 
     const treeNodeClassComputed = useBem('va-tree-node', () => ({
-      disabled: !!props.node.disabled,
+      disabled: Boolean(props.node.disabled),
+      checked: Boolean(props.node.checked),
+      hasChildren: Boolean(props.node.hasChildren),
+      [`level-${props.node.level}`]: true,
+      [`expand-by-${expandNodeBy}`]: true,
     }))
 
     const expandedClassComputed = useBem('va-tree-node-children', () => ({
@@ -206,10 +210,6 @@ export default defineComponent({
       flex: var(--va-tree-node-content-item-flex);
       min-width: var(--va-tree-node-indent);
       line-height: 1;
-
-      &--leaf {
-        cursor: pointer;
-      }
     }
 
     &__body {
@@ -255,6 +255,18 @@ export default defineComponent({
 
     &::before {
       opacity: var(--va-tree-node-interactive-bg-opacity);
+    }
+  }
+
+  &--expand-by-node {
+    .va-tree-node-content {
+      cursor: pointer;
+    }
+  }
+
+  &--expand-by-leaf {
+    .va-tree-node-content__item--leaf {
+      cursor: pointer;
     }
   }
 }

@@ -1,66 +1,50 @@
 <template>
-  <div class="row">
-    <va-checkbox
-      v-model="selectable"
-      class="flex flex-col mb-2 md4"
-      label="Selectable"
-    />
-
+  <div class="grid sm:grid-cols-2 gap-6 mb-6">
     <va-select
       v-model="selectMode"
-      class="flex flex-col mb-2 md4"
       label="Select mode"
       :options="selectModeOptions"
     />
-
     <va-select
       v-model="selectedColor"
-      class="flex flex-col mb-2 md4"
       label="Selected color"
       :options="selectColorOptions"
     />
   </div>
 
-  <va-button @click="shuffleItems">
-    Shuffle items
-  </va-button>
-
   <va-data-table
     v-model="selectedItems"
     :items="items"
     :columns="columns"
-    :selectable="selectable"
+    selectable
     :select-mode="selectMode"
     :selected-color="selectedColor"
     @selectionChange="selectedItemsEmitted = $event.currentSelectedItems"
   />
 
   <va-alert
-    class="mt-3"
+    class="!mt-6"
     color="info"
     outline
   >
-    <span>
-      Selected items (click to unselect):
-      <va-chip
-        v-for="item in selectedItemsEmitted"
-        :key="item.id"
-        class="ml-2"
-        @click="unselectItem(item)"
-      >
-        {{ item.id }}
-      </va-chip>
-    </span>
+    Selected items (click to unselect):
+    <va-chip
+      v-for="item in selectedItemsEmitted"
+      :key="item.id"
+      class="ml-2"
+      @click="unselectItem(item)"
+    >
+      {{ item.id }}
+    </va-chip>
   </va-alert>
 </template>
 
 <script>
 import { defineComponent } from "vue";
-import shuffle from "lodash/shuffle.js";
 
 export default defineComponent({
   data() {
-    const users = [
+    const items = [
       {
         id: 1,
         name: "Leanne Graham",
@@ -107,24 +91,15 @@ export default defineComponent({
     ];
 
     return {
-      items: users,
+      items,
       columns,
-      selectable: true,
-      selectedItems: [users[1]],
+      selectedItems: [items[1]],
       selectedItemsEmitted: [],
       selectMode: "multiple",
-      selectedColor: "#888888",
+      selectedColor: "primary",
       selectModeOptions: ["single", "multiple"],
-      selectColorOptions: ["primary", "danger", "warning", "#888888"],
+      selectColorOptions: ["primary", "danger", "warning", "#EF467F"],
     };
-  },
-
-  watch: {
-    selectable(value) {
-      if (!value) {
-        this.selectedItems = [];
-      }
-    },
   },
 
   methods: {
@@ -132,9 +107,6 @@ export default defineComponent({
       this.selectedItems = this.selectedItems.filter(
         (selectedItem) => selectedItem !== item
       );
-    },
-    shuffleItems() {
-      this.items = shuffle(this.items);
     },
   },
 });

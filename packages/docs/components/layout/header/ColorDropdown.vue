@@ -6,7 +6,6 @@
       preset="secondary"
       label="Colors"
       :offset="[16, 0]"
-      prevent-overflow
       :close-on-content-click="false"
     >
       <div class="color-dropdown__content px-1">
@@ -25,7 +24,7 @@
         <va-button
           @click="doShowDropdown = false"
           class="w-full"
-          :to="`${locale ? ('/' + locale) : ''}/styles/colors`"
+          to="/styles/colors"
         >
           Learn about colors
         </va-button>
@@ -45,15 +44,12 @@ export default defineComponent({
             const colorNames = Object.keys(colorsPresets.light);
             return colorNames.map((c) => ({ name: c, title: capitalizeFirstLetter(c) }));
         });
-        
-        const doShowDropdown = ref(false)
 
-        const { locale } = useI18n()
+        const doShowDropdown = ref(false)
 
         return {
             doShowDropdown,
             colorsArray,
-            locale,
         };
     },
 })

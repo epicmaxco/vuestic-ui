@@ -4,13 +4,14 @@ import { useStateful, useStatefulProps, StatefulProps } from './useStateful'
 import { useLoadingProps, LoadingProps } from './useLoading'
 import { useValidation, useValidationProps, ValidationProps, useValidationEmits } from './useValidation'
 import { useFocus } from './useFocus'
+import { unwrapEl } from '../utils/unwrapEl'
 
 export type SelectableProps<V = any> = StatefulProps & LoadingProps & ExtractPropTypes<ValidationProps<V>> & {
   arrayValue: V | undefined,
   label: string,
   leftLabel: boolean,
-  trueValue: boolean,
-  falseValue: boolean,
+  trueValue: any,
+  falseValue: any,
   indeterminate: boolean,
   indeterminateValue: V | null,
   disabled: boolean,
@@ -30,8 +31,8 @@ export const useSelectableProps = {
   arrayValue: { type: [String, Boolean, Object, Number], default: undefined },
   label: { type: String, default: '' },
   leftLabel: { type: Boolean, default: false },
-  trueValue: { type: null as any as PropType<unknown>, default: true },
-  falseValue: { type: null as any as PropType<unknown>, default: false },
+  trueValue: { type: null, default: true },
+  falseValue: { type: null, default: false },
   indeterminate: { type: Boolean, default: false },
   indeterminateValue: { type: null as any as PropType<unknown>, default: null },
   disabled: { type: Boolean, default: false },
@@ -69,7 +70,7 @@ export const useSelectable = (
   })
 
   const focus = () => {
-    input.value?.focus()
+    unwrapEl(input.value)?.focus()
   }
 
   const { valueComputed } = useStateful(props, emit)
@@ -85,7 +86,7 @@ export const useSelectable = (
   const { isFocused } = useFocus()
 
   const isElementRelated = (element: HTMLElement | undefined) => {
-    return !!element && [label.value, container.value].includes(element)
+    return !!element && [unwrapEl(label.value), unwrapEl(container.value)].includes(element)
   }
   const onBlur = (event: FocusEvent) => {
     if ((input.value === event.target) && !isElementRelated(event.relatedTarget as HTMLElement)) {

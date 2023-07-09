@@ -59,7 +59,7 @@ export default defineComponent({
     visibleCellsCount: { type: Number, default: 7 },
   },
 
-  emits: useStatefulEmits,
+  emits: [...useStatefulEmits],
 
   setup (props, { emit }) {
     const { valueComputed } = useStateful(props, emit)

@@ -1,6 +1,6 @@
 <template>
   <va-scroll-container
-    style="max-height: 300px;"
+    class="max-h-80"
     color="danger"
     vertical
     gradient
@@ -14,7 +14,7 @@
           name="star"
           color="primary"
           size="small"
-          style="margin-right: 0.5rem;"
+          class="mr-2"
         />
         {{ character }}
       </va-list-item>

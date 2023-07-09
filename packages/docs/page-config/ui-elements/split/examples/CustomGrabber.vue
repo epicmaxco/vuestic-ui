@@ -1,7 +1,6 @@
 <template>
   <va-split
-    class="split-demo"
-    style="height: 22rem;"
+    class="split-demo h-[22rem]"
   >
     <template #start>
       <div class="p-6">

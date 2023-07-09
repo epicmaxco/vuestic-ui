@@ -8,10 +8,10 @@
       class="mb-3"
     />
     <va-button
-      style="width: max-content;"
+      class="w-max"
       @click="reset"
     >
-      {{ $t("componentsConfig.resetConfig") }}
+      Reset config
     </va-button>
   </div>
 </template>

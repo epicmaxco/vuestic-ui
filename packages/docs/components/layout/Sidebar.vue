@@ -12,7 +12,7 @@
         v-for="(route, key) in navigationRoutes"
         :key="key"
       >
-        <template #header="{ value, hasKeyboardFocus }">
+        <template #header="{ value: isCollapsed, hasKeyboardFocus }">
           <va-sidebar-item
             class="sidebar__collapse-custom-header"
             :class="{
@@ -20,8 +20,8 @@
               'sidebar__collapse-custom-header--keyboard-focused': hasKeyboardFocus
             }"
           >
-            {{ t(route.displayName) }}
-            <va-icon :name="value ? 'va-arrow-up' : 'va-arrow-down'" />
+            {{ route.displayName }}
+            <va-icon :name="isCollapsed ? 'va-arrow-up' : 'va-arrow-down'" />
           </va-sidebar-item>
         </template>
         <div
@@ -34,10 +34,10 @@
             class="va-sidebar__child__label"
             color="secondary"
           >
-            {{ t(childRoute.category) }}
+            {{ childRoute.category }}
           </va-list-label>
           <va-sidebar-item
-            :to="`/${locale}/${route.name}/${childRoute.name}`"
+            :to="childRoute.path ? childRoute.path : `/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
             :active-color="activeColor"
             :hover-color="hoverColor"
@@ -49,12 +49,11 @@
                 <va-badge
                   placement="right-center"
                   size="small"
-                  offset="-5px"
-                  :text="childRoute.meta && t(`menu.badges.${childRoute.meta.badge}.text`)"
-                  :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge]"
-                  :visible-empty="false"
+                  offset="5px"
+                  :text="childRoute.meta?.badge?.text"
+                  :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge.type]"
                 >
-                  {{ t(childRoute.displayName) }}
+                  {{ childRoute.displayName }}
                 </va-badge>
               </va-sidebar-item-title>
             </va-sidebar-item-content>
@@ -66,9 +65,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch, ref, computed, PropType } from 'vue'
+import { defineComponent, watch, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useI18n } from 'vue-i18n'
 
 import { useColors } from 'vuestic-ui/src/main'
 
@@ -106,8 +104,8 @@ export default defineComponent({
     visible: { type: Boolean, default: false },
     mobile: { type: Boolean, default: false },
   },
+  emits: ['update:visible'],
   setup: (props, { emit }) => {
-    const i18n = useI18n()
     const route = useRoute()
     const { getColor, getFocusColor, getHoverColor } = useColors()
 
@@ -118,7 +116,11 @@ export default defineComponent({
     })
 
     const isActiveChildRoute = (child: NavigationRoute, parent: NavigationRoute) => {
-      const path = `/${i18n.locale.value}/${String(parent.name)}/${String(child.name)}`
+      if (child.path) {
+        return route.path === child.path
+      }
+
+      const path = `/${String(parent.name)}/${String(child.name)}`
 
       return path === route.path
     }
@@ -145,9 +147,7 @@ export default defineComponent({
     watch(() => route, setActiveExpand, { immediate: true })
 
     return {
-      ...i18n,
       navigationRoutes: getSortedNavigationRoutes(navigationRoutes),
-      route,
       getColor,
       writableVisible,
       sidebarWidth,
@@ -168,6 +168,8 @@ export default defineComponent({
 @import "@/assets/smart-grid.scss";
 
 .sidebar {
+  --va-sidebar-transition: none;
+
   &__collapse-custom-header {
     position: relative;
     padding: 1rem 1.2rem;

@@ -48,7 +48,7 @@ export type ValidationProps<V extends any> = typeof useValidationProps & {
   rules: { type: PropType<ValidationRule<V>[]> }
 }
 
-export const useValidationEmits = ['update:error', 'update:errorMessages']
+export const useValidationEmits = ['update:error', 'update:errorMessages'] as const
 
 const isPromise = (value: any): value is Promise<any> => {
   return typeof value === 'object' && typeof value.then === 'function'

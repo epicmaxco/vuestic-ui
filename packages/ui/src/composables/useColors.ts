@@ -1,4 +1,3 @@
-import type { ColorInput } from 'colortranslator/dist/@types'
 import type { ColorVariables, CssColor } from '../services/color'
 import { computed } from 'vue'
 import { useGlobalConfig } from '../services/global-config/global-config'
@@ -20,8 +19,9 @@ import {
   getColorLightness,
   cssVariableName,
   normalizeColorName,
+  type ColorInput,
 } from '../services/color/utils'
-import { isDev } from '../utils/env'
+import kebabCase from 'lodash/kebabCase'
 
 /**
  * You can add these props to any component by destructuring them inside props option.
@@ -43,15 +43,15 @@ export const useColors = () => {
     throw new Error('useColors must be used in setup function or Vuestic GlobalConfigPlugin is not registered!')
   }
 
-  const { setGlobalConfig, globalConfig } = gc
+  const { globalConfig } = gc
 
   const colors = useReactiveComputed<ColorVariables>({
-    get: () => globalConfig.value.colors!.variables,
+    get: () => globalConfig.value.colors!.presets[globalConfig.value.colors!.currentPresetName],
     set: (v: ColorVariables) => { setColors(v) },
   })
 
   const setColors = (colors: Partial<ColorVariables>): void => {
-    globalConfig.value.colors!.variables = {
+    globalConfig.value.colors!.presets[globalConfig.value.colors!.currentPresetName] = {
       ...globalConfig.value.colors.variables,
       ...colors,
     } as ColorVariables
@@ -94,16 +94,17 @@ export const useColors = () => {
       return prop
     }
 
-    if (isDev) {
-      console.warn(`'${prop}' is not a proper color! Use HEX or default color themes
+    warn(`'${prop}' is not a proper color! Use HEX or default color themes
       names (https://vuestic.dev/en/styles/colors#default-color-themes)`)
-    }
 
     return getColor(defaultColor)
   }
 
   const getComputedColor = (color: string) => {
-    return computed(() => getColor(color))
+    return computed({
+      get () { return getColor(color) },
+      set (v: string) { setColors({ [color]: v }) },
+    })
   }
 
   const colorsToCSSVariable = (colors: { [colorName: string]: string | undefined }, prefix = 'va') => {
@@ -111,7 +112,8 @@ export const useColors = () => {
       .keys(colors)
       .filter((key) => colors[key] !== undefined)
       .reduce((acc: Record<string, any>, colorName: string) => {
-        acc[`--${prefix}-${colorName}`] = getColor(colors[colorName], undefined, true)
+        acc[`--${prefix}-${kebabCase(colorName)}`] = getColor(colors[colorName], undefined, true)
+        acc[`--${prefix}-on-${kebabCase(colorName)}`] = getColor(getTextColor(getColor(colors[colorName]!)), undefined, true)
         return acc
       }, {})
   }
@@ -144,8 +146,10 @@ export const useColors = () => {
     return getColorLightnessFromCache(color) > globalConfig.value.colors.threshold ? darkColor : lightColor
   }
 
-  const currentPresetName = computed(() => globalConfig.value.colors!.currentPresetName)
-
+  const currentPresetName = computed<string>({
+    get: () => globalConfig.value.colors!.currentPresetName,
+    set: (v: string) => { applyPreset(v) },
+  })
   const presets = computed(() => globalConfig.value.colors!.presets)
 
   const applyPreset = (presetName: string) => {
@@ -153,7 +157,6 @@ export const useColors = () => {
     if (!globalConfig.value.colors!.presets[presetName]) {
       return warn(`Preset ${presetName} does not exist`)
     }
-    globalConfig.value.colors!.variables = { ...globalConfig.value.colors!.presets[presetName] }
   }
 
   return {

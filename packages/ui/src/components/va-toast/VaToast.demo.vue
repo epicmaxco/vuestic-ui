@@ -37,6 +37,9 @@
     <VbCard title="useToast hook">
       <button @click="hookTest">Start test</button>
     </VbCard>
+    <VbCard title="outside setup context useToast hook">
+      <button @click="outsideSetupContext">Start test</button>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -44,6 +47,14 @@
 import { h } from 'vue'
 import { useGlobalConfig } from '../../services/global-config/global-config'
 import { useToast } from './hooks/useToast'
+
+const toast = useToast()
+
+const outsideSetupContext = () => {
+  toast.init({
+    message: 'Outside setup context',
+  })
+}
 
 export default {
   setup () {
@@ -89,6 +100,7 @@ export default {
 
     return {
       hookTest,
+      outsideSetupContext,
     }
   },
 

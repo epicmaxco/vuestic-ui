@@ -43,6 +43,7 @@ export default defineComponent({
 
     let timeoutId: ReturnType<typeof setTimeout>
     onMounted(() => {
+      clearTimeout(timeoutId)
       setTimeout(() => {
         doShow.value = true
       }, props.delay)

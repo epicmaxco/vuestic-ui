@@ -3,8 +3,6 @@
     class="va-avatar"
     :class="classesComputed"
     :style="computedStyle"
-    :aria-hidden="!$props.src"
-    aria-live="polite"
   >
     <va-progress-circle
       v-if="$props.loading"
@@ -46,7 +44,6 @@ import {
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import { VaIcon, VaProgressCircle, VaFallback } from '../index'
-import { useAvatarProps } from './hooks/useAvatarProps'
 
 const VaFallbackProps = extractComponentProps(VaFallback)
 
@@ -59,9 +56,12 @@ export default defineComponent({
     ...useLoadingProps,
     ...useSizeProps,
     ...useComponentPresetProp,
-    ...useAvatarProps,
     ...VaFallbackProps,
 
+    color: { type: String, default: 'primary' },
+    textColor: { type: String },
+    square: { type: Boolean, default: false },
+    fontSize: { type: String, default: '' },
     src: { type: String, default: null },
     icon: { type: String, default: '' },
     alt: { type: String, default: '' },

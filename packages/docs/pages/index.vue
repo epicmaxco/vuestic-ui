@@ -4,7 +4,6 @@
     <div v-show="!isMobileMenuOpen">
       <LandingPreview />
       <LandingPartners />
-      <LandingBannersVuejsForgeConference />
       <LandingFeatures />
       <LandingCustomize />
       <LandingSeamlessIntegration />
@@ -28,7 +27,7 @@ const isMobileMenuOpen = ref(false)
 @import "@/assets/variables.scss";
 
 .landing {
-  font-family: Source Sans Pro;
+  font-family: var(--va-font-family);
 
   a {
     @include link(2px);

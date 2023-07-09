@@ -29,7 +29,7 @@ import {
 
 export default defineComponent({
   name: 'VaColorIndicator',
-  emits: useStatefulEmits,
+  emits: [...useStatefulEmits],
   props: {
     ...useStatefulProps,
     ...useComponentPresetProp,

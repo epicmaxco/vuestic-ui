@@ -1,22 +1,27 @@
 <template>
-  <va-button @click="showModal = !showModal">
-    Show modal (default)
+  <va-button @click="showModal = !showModal"> 
+    Show modal
   </va-button>
+
   <va-modal
     v-model="showModal"
-    :message="message"
-    title="Overview"
-  />
+    ok-text="Apply"
+  >
+    <h3 class="va-h3">
+      Title
+    </h3>
+    <p>
+      Classic modal overlay which represents a dialog box or other interactive
+      component, such as a dismissible alert, sub-window, etc.
+    </p>
+  </va-modal>
 </template>
 
 <script>
-import message from "./popup-message";
-
 export default {
   data() {
     return {
       showModal: false,
-      message,
     };
   },
 };

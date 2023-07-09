@@ -16,23 +16,27 @@ const props = defineProps({
   }
 })
 
-const { t } = useI18n()
 </script>
 
 <template>
   <va-alert
-    class="page-config-alert my-2"
+    class="page-config-alert"
     :color="color"
     :outline="!solid"
   >
-    <MarkdownView :content="t(text)" />
+    <MarkdownView :content="text" />
   </va-alert>
 </template>
 
 <style lang="scss">
 .page-config-alert {
-  p {
-    margin: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  .MarkdownView {
+    p {
+      margin: 0;
+    }
   }
 }
 </style>

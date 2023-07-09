@@ -1,9 +1,8 @@
 <template>
-  <div style="max-width: 300px;">
+  <div class="max-w-xs">
     <va-input
       v-model="maskCreditCardValue"
-      class="mb-6"
-      :style="{ paddingTop: '4px' }"
+      class="mb-6 pt-1"
       label="Credit card mask"
       type="input"
       mask="creditCard"
