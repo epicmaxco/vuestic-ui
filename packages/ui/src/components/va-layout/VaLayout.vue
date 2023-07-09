@@ -34,16 +34,16 @@ export default defineComponent({
       templateArea: useGridTemplateArea(props),
       verticalTemplate: computed(() => {
         return [
-          slots.top && 'min-content',
+          slots.top ? 'min-content' : '0fr',
           '1fr',
-          slots.bottom && 'min-content',
+          slots.bottom ? 'min-content' : '0fr',
         ].filter(Boolean).join(' ')
       }),
       horizontalTemplate: computed(() => {
         return [
-          slots.left && 'min-content',
+          slots.left ? 'min-content' : '0fr',
           '1fr',
-          slots.right && 'min-content',
+          slots.right ? 'min-content' : '0fr',
         ].filter(Boolean).join(' ')
       }),
     }
@@ -54,8 +54,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .va-layout {
   display: grid;
-  grid-template-columns: v-bind(verticalTemplate);
-  grid-template-rows: v-bind(horizontalTemplate);
+  grid-template-columns:  v-bind(horizontalTemplate);
+  grid-template-rows: v-bind(verticalTemplate);
   grid-template-areas: v-bind(templateArea);
   gap: 0;
   height: 100%;
@@ -78,7 +78,7 @@ export default defineComponent({
   }
 
   &__content {
-    grid: content;
+    grid-area: content;
     overflow: auto;
   }
 }

@@ -121,5 +121,31 @@ const state = reactive({
         </template>
       </VaLayout>
     </VbCard>
+
+    <VbCard title="With animation">
+      <VaLayout
+        style="background-color: var(--va-primary); width: 300px; height: 300px;"
+      >
+        <template #content>
+          <div style="background-color: #ff00ff; height: 100%; width: 100%;">
+            Content
+          </div>
+        </template>
+        <template #left>
+          <div
+            style="
+              background-color: var(--va-secondary);
+              height: 100%;
+              transition: width 0.3s ease-in-out;
+            "
+            :style="{ width: state.doShowSidebar ? '200px' : '100px' }"
+          >
+            <button @click="state.doShowSidebar = !state.doShowSidebar">
+              Toggle
+            </button>
+          </div>
+        </template>
+      </VaLayout>
+    </VbCard>
   </VbDemo>
 </template>
