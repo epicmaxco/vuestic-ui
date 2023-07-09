@@ -6,6 +6,7 @@ export default definePageConfig({
     block.list([
       "Components should be as user expects them to be. We achieve that by checking refs ([Vuetify](https://vuetifyjs.com)[[target=_blank]], [Quasar](https://quasar.dev)[[target=_blank]], [Ant Design](https://ant.design)[[target=_blank]], [iView](http://iview.talkingdata.com)[[target=_blank]], [Element UI](https://element.eleme.io)[[target=_blank]], etc.).",
       "Components should be of high quality. We achieve that by manually testing edge-cases and by early refactoring.",
+      "Components should be eligible according to [WAI ARIA](https://www.w3.org/WAI/ARIA/apg/patterns/)[[target=_blank]] and [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/)[[target=_blank]].",
     ]),
     block.subtitle("Core Features"),
     block.list([

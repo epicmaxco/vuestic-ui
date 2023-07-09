@@ -16,7 +16,7 @@ export default definePageConfig({
     block.list([
       "`packages/ui` - UI lib with demos. Here all vuestic components stored.",
       "`packages/docs` - [vuestic.dev](https://vuestic.dev) source code.",
-      "`packages/nuxt` - {'`@vuestic/nuxt`'} module for Nuxt3.",
+      "`packages/nuxt` - `@vuestic/nuxt` module for Nuxt3.",
       "`packages/sandbox` - Package for testing build and treeshaking.",
       "`packages/vue-cli-plugin` - vue add vuestic-ui plugin for vue-cli.",
       "`packages/ag-grid-theme` - AgGrid extension styles.",
@@ -51,14 +51,14 @@ export default definePageConfig({
       "**Do not submit PRs against the `master` branch.** Use the `develop` one instead.",
       "Checkout a `feat/*` branch from the `develop`, then create a pull request to `develop`.",
       "It's OK to have multiple small commits as you work on your PR - we will let GitHub automatically squash them into a single one before merging.",
-      "If fixing a bug:\n  * If you are resolving a certain issue, add `close #<xxx>[,#<yyy>]` (<xxx>, <yyy> is the related issues' ids) into the PR's description so that GitHub could [automatically close](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)[[target=_blank]] the related issue(s) as soon as the respective commits are merged into the `master` branch (i.e. as soon as a new version of Vuestic UI is out).\n  * Provide detailed description of the bug inside the PR in case the bug is not arranged in the form of a separate issue."
+      "If fixing a bug:\n  * If you are resolving a certain issue, add `closes #<xxx>[,#<yyy>]` (<xxx>, <yyy> is the related issues' ids) into the PR's description so that GitHub could [automatically close](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)[[target=_blank]] the related issue(s) as soon as the respective commits are merged into the `master` branch (i.e. as soon as a new version of Vuestic UI is out).\n  * Provide detailed description of the bug inside the PR in case the bug is not arranged in the form of a separate issue."
     ]),
 
     block.subtitle("For the core contributors"),
     block.list([
-      "Always link a PR to its related issue (via `close #123`).",
+      "Always link a PR to its related issue (via `closes #123`).",
       "When you start working on a task - please self-assign the related issue. We don't want a lot of people working simultaneously on the same thing (except when intentional).",
-      "For small issues you may push to the `develop` branch directly while adding `close #123` to the commit message.",
+      "For small issues you may push to the `develop` branch directly while adding `closes #123` to the commit message.",
       "For breaking changes add the word BREAKING to PR name, that would allow us to automatically find it before release.",
       "Create a single PR for one issue. If we have several PRs - move all the code into a single PR and close the rest. If one PR covers several issues - either split it in several PRs or mark one of the issues as duplicate.",
       "Make sure to assign an issue to only a single person.",
