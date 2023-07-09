@@ -83,46 +83,69 @@ export default definePageConfig({
     // BlockTypes
     block.subtitle("Block Types"),
 
-    block.headline("Title"),
-    block.paragraph("Page title is **mandatory** for documentation pages."),
-    block.code("block.title('Title (example)')"),
-    block.paragraph("Compiles to:"),
-    block.title("Title (example)"),
+    block.example("Title", {
+      title: "Title",
+      description: "Page title is **mandatory** for documentation pages.",
+      customCode: {
+        source: `block.title('Title (example)')`,
+        lang: "js",
+      },
+      forceShowCode: true,
+    }),
 
-    block.headline("Subtitle"),
-    block.paragraph("Used for examples, API, FAQ. Think `h2`."),
-    block.code("block.subtitle('Subtitle (example)')"),
-    block.paragraph("Compiles to:"),
-    block.subtitle("Subtitle (example)"),
+    block.example("Subtitle", {
+      title: "Subtitle",
+      description: "Used for examples, API, FAQ. Think about it as `h2`.",
+      customCode: {
+        source: `block.subtitle('Subtitle (example)')`,
+        lang: "js",
+      },
+      forceShowCode: true,
+    }),
 
-    block.headline("Headline"),
-    block.paragraph("The `headline` block is used to mark the titles of examples and the FAQs. Think `h3`."),
-    block.code("block.headline('Headline (example)')"),
-    block.paragraph("Compiles to:"),
-    block.headline("Headline (example)"),
+    block.example("Headline", {
+      title: "Headline",
+      description: "The `headline` block is used to mark the titles of examples and the FAQs. Think about it as `h3`.",
+      customCode: {
+        source: `block.subtitle('Headline (example)')`,
+        lang: "js",
+      },
+      forceShowCode: true,
+    }),
 
-    block.headline("Paragraph"),
-    block.paragraph("Should be used for all the regular text blocks. For links to external resources you can specify the **target** attribute in markdown markup as follows: `[name](href)[[target=_blank]]`."),
-    block.code("block.paragraph('Paragraph (example). Link in the text leading to an external resource: [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs)[[target=_blank]].')"),
-    block.paragraph("Compiles to:"),
-    block.paragraph("Paragraph (example). Link in the text leading to an external resource: [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs)[[target=_blank]]."),
+    block.example("Paragraph", {
+      title: "Paragraph",
+      description: "Should be used for all the regular text blocks. For links to external resources you can specify the **target** attribute in markdown markup as follows: `[name](href)[[target=_blank]]`.",
+      customCode: {
+        source: `block.paragraph('Paragraph (example). Link in the text leading to an external resource: [markdown-it-attrs](https://github.com/arve0/markdown-it-attrs)[[target=_blank]].')`,
+        lang: "js",
+      },
+      forceShowCode: true,
+    }),
 
-    block.headline("List"),
-    block.paragraph("Should be used for lists."),
-    block.code("block.list(['Value of list item 1', 'Value of list item 2'])"),
-    block.paragraph("Compiles to:"),
-    block.list([
-      "Value of list item 1",
-      "Value of list item 2",
-    ]),
-    block.paragraph("Here's the resulting markup for the code above:"),
-    block.code("list"),
 
-    block.headline("Code"),
-    block.paragraph("For the code previews we use [highlight.js](https://highlightjs.org/)[[target=_blank]]."),
-    block.code("block"),
-    block.paragraph("Compiles to:"),
-    block.code("<div>Code string</div>"),
+    block.example("List", {
+      title: "List",
+      description: "Should be used for lists.",
+      customCode: {
+        source: `block.list(['Value of list item 1', 'Value of list item 2'])`,
+        lang: "js",
+      },
+      forceShowCode: true,
+    }),
+
+    block.example("Code", {
+      title: "Code",
+      description: "For the code previews we use [highlight.js](https://highlightjs.org/)[[target=_blank]].",
+      customCode: {
+        source: `block.code('
+  <div>Code string</div>
+')`,
+        lang: "js",
+      },
+      forceShowCode: true,
+    }),
+
 
     block.headline("Example"),
     block.paragraph("Shows a component with code preview. Component can use all global services: css classes, colors etc. Mostly used in the ui-elements section to show examples of use."),
@@ -143,40 +166,34 @@ export default definePageConfig({
     block.paragraph("`version` - specifies the version of Vuestic UI that this component or feature has been introduced at."),
     block.code("api-options"),
 
-    block.headline("Table"),
-    block.paragraph("Used to display tabular data. Requires a flat column-definitions array and yet another two-dimensional-array with the actual cells' data."),
-    block.code("tabledata"),
-    block.code("block.table(columns, tableData)"),
-    block.paragraph("Compiles to:"),
-    block.table(columns, tableData),
+    block.example("Table", {
+      title: "Table",
+      description: "Used to display tabular data. Requires a flat column-definitions array and yet another two-dimensional-array with the actual cells' data.",
+      customCode: {
+        source: `block.table(columns, tableData)`,
+        lang: "js",
+      },
+      forceShowCode: true,
+    }),
 
-    block.headline("Link"),
-    block.paragraph("Used for relative (local) links processed by the router (with *options* or without them)."),
-    block.code("options"),
-    block.code(
-      "block.link('Link with options (example)', '/contribution/documentation-page#introduction', options)"
-    ),
-    block.code(
-      "block.link('Link (example)', '/getting-started/configuration-guide#components-config')"
-    ),
-    block.paragraph("Compiles to:"),
-    block.link(
-      "Link with options (example)",
-      "/contribution/documentation-page#introduction",
-      {
-        preText: "prefix with **markdown** text",
-        afterText: "suffix",
-      }
-    ),
-    block.link(
-      "Link (example)",
-      "/getting-started/configuration-guide#components-config"
-    ),
+    block.example("Link", {
+      title: "Link",
+      description: "Used for relative (local) links processed by the router (with *options* or without them).",
+      customCode: {
+        source: `block.link('Link (example)', '/getting-started/configuration-guide#components-config')`,
+        lang: "js",
+      },
+      forceShowCode: true,
+    }),
 
-    block.headline("Alert"),
-    block.paragraph("Used to display an important message."),
-    block.code("block.alert('Alert (example)', 'danger')"),
-    block.paragraph("Compiles to:"),
-    block.alert("Alert (example)", "danger"),
+    block.example("Alert", {
+      title: "Alert",
+      description: "Used to display an important message.",
+      customCode: {
+        source: `block.alert('Alert (example)', 'danger')`,
+        lang: "js",
+      },
+      forceShowCode: true,
+    }),
   ],
 });
