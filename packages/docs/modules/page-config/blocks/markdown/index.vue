@@ -1,5 +1,8 @@
 <template>
-  <MarkdownView :content="text" />
+  <MarkdownView
+    class="va-typography-block"
+    :content="text"
+  />
 </template>
 
 <script setup lang="ts">

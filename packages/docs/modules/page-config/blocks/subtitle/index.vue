@@ -12,7 +12,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <h2 class="page-config-subtitle flex">
+  <h2 class="page-config-subtitle va-h2 flex items-center">
     <MarkdownView
       :content="text"
       text

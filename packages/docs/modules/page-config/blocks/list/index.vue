@@ -17,5 +17,8 @@ const mark = (strings: string[]): string => {
 </script>
 
 <template>
-  <MarkdownView :content="mark(props.text)" />
+  <MarkdownView
+    :content="mark(props.text)"
+    class="va-unordered"
+  />
 </template>

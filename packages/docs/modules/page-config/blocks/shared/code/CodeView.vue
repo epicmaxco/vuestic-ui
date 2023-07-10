@@ -17,7 +17,7 @@
     <code-highlight-wrapper
       :code="escapeVuesticImport(contents[index])"
       :lang="$props.language"
-      class="DocsCode"
+      class="DocsCode va-typography-block"
     />
   </div>
 </template>
