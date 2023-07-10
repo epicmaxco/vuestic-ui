@@ -144,7 +144,7 @@ export default defineComponent({
       }
     }
 
-    watch(() => route, setActiveExpand, { immediate: true })
+    watch(() => route.fullPath, setActiveExpand, { immediate: true })
 
     return {
       navigationRoutes: getSortedNavigationRoutes(navigationRoutes),
