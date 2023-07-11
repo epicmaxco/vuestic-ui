@@ -1,4 +1,3 @@
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { join, resolve } from 'pathe'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
@@ -6,6 +5,7 @@ import { removeSideEffectedChunks } from '../plugins/remove-side-effected-chunks
 import { webComponentsNestedStyles } from '../plugins/web-components-nested-styles'
 import { readFileSync } from 'fs'
 import { readPackage } from '../utils/read-package'
+import { defineViteConfig } from '../utils/define-vite-config'
 
 /**
  * Build web components folder. It is a separated build of vuestic-ui for SPA-only (?: maybe for SPA-only).
@@ -15,8 +15,10 @@ import { readPackage } from '../utils/read-package'
  * Vue makes all custom elements to be in its own isolated Shadow Dom, so we need to inject css into this shadow dom.
  * Vue makes it automatically, but not for child components, so we have web-components-nested-styles plugin here.
  */
-export default (options: {
+export const createWebComponentsViteConfig = (options: {
   cwd: string,
+  entry?: string,
+  outDir?: string,
 }) => {
   const { cwd } = options
   const packageJson = readPackage(join(cwd, 'package.json'))
@@ -26,10 +28,13 @@ export default (options: {
     ...Object.keys(packageJson.peerDependencies || {})
   ]
 
-  return defineConfig({
+  const entry = options.entry || 'src/main.ts'
+  const outDir = options.outDir || 'dist'
+
+  return defineViteConfig({
     build: {
       lib: {
-        entry: resolve(process.cwd(), 'src/main.ts'),
+        entry: join(cwd, entry),
         fileName: () => 'main.js',
         formats: ['es'],
       },
@@ -38,7 +43,7 @@ export default (options: {
 
       cssCodeSplit: true,
 
-      outDir: resolve(process.cwd(), 'dist/web-components'),
+      outDir: join(cwd, outDir, 'web-components'),
 
       rollupOptions: {
         external: dependencies,

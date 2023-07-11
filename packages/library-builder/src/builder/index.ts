@@ -1,9 +1,9 @@
-import { existsSync, rmSync } from 'fs';
 import { LibraryFormat } from "../types/vite"
 import { build as viteBuild } from 'vite'
 import { createViteConfig } from "../vite/config-fabric"
 import { withCwd } from "../utils/with-cwd"
 import { cleanDist } from './clean-dist';
+import { createWebComponentsViteConfig } from "../vite/web-components";
 
 export const build = async (options: {
   formats: (LibraryFormat | 'esm-node' | 'web-components')[],
@@ -59,6 +59,16 @@ export const build = async (options: {
           entry: options.entry,
           cwd: options.cwd,
           outDir: outDir,
+        }))
+      )
+    }
+
+    if (options.formats.includes('web-components')) {
+      console.warn('Web components build is experimental')
+
+      tasks.push(
+        viteBuild(createWebComponentsViteConfig({
+          cwd: options.cwd,
         }))
       )
     }
