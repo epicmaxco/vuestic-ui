@@ -2637,6 +2637,17 @@
     unimport "^3.0.10"
     untyped "^1.3.2"
 
+"@nuxt/module-builder@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@nuxt/module-builder/-/module-builder-0.4.0.tgz#1ace36e1c44d07d410ae78e82bd1178d12800101"
+  integrity sha512-B+UAYgFV1Hkc2ZcD7GaiKZ3SNHhyxFlXzZoBWTc9ulE0Z/+rq6RTa9fNm13BZyGhVhDCl5FN/wF/yYa1O/D2iw==
+  dependencies:
+    consola "^3.1.0"
+    mlly "^1.3.0"
+    mri "^1.2.0"
+    pathe "^1.1.0"
+    unbuild "^1.2.1"
+
 "@nuxt/module-builder@latest":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@nuxt/module-builder/-/module-builder-0.3.0.tgz#77a756f9844a2bd6acd56280f9a27d8e32447936"
@@ -3526,7 +3537,7 @@
   resolved "https://registry.yarnpkg.com/@types/yargs-parser/-/yargs-parser-21.0.0.tgz#0c60e537fa790f5f9472ed2776c2b71ec117351b"
   integrity sha512-iO9ZQHkZxHn4mSakYV0vFHAVDyEOIJQrV2uZ06HxEPcx+mt8swXoZHIbaaJ2crJYFfErySgktuTZ3BeLz+XmFA==
 
-"@types/yargs@^17.0.10":
+"@types/yargs@^17.0.10", "@types/yargs@^17.0.24":
   version "17.0.24"
   resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-17.0.24.tgz#b3ef8d50ad4aa6aecf6ddc97c580a00f5aa11902"
   integrity sha512-6i0aC7jV6QzQB8ne1joVZ0eSFIstHsCrobmOtghM11yGlH0j43FKL2UhWdELkyps0zuf7qVTUVCCR+tgSlyLLw==
@@ -12469,7 +12480,7 @@ mlly@^1.0.0, mlly@^1.1.1, mlly@^1.2.0:
     pkg-types "^1.0.2"
     ufo "^1.1.1"
 
-mlly@^1.4.0:
+mlly@^1.3.0, mlly@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/mlly/-/mlly-1.4.0.tgz#830c10d63f1f97bd8785377b24dc2a15d972832b"
   integrity sha512-ua8PAThnTwpprIaU47EPeZ/bPUVp2QYBbWMphUQpVdBI3Lgqzm5KZQ45Agm3YJedHXaIHl6pBGabaLSUPPSptg==
@@ -17774,7 +17785,7 @@ unbox-primitive@^1.0.2:
     has-symbols "^1.0.3"
     which-boxed-primitive "^1.0.2"
 
-unbuild@^1.2.0:
+unbuild@^1.2.0, unbuild@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/unbuild/-/unbuild-1.2.1.tgz#474de17430bb6aec1c89db24d6d596dd21af1889"
   integrity sha512-J4efk69Aye43tWcBPCsLK7TIRppGrEN4pAlDzRKo3HSE6MgTSTBxSEuE3ccx7ixc62JvGQ/CoFXYqqF2AHozow==

@@ -4,7 +4,16 @@
   "description": "Build tool for vue3 component libraries",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "build:cli": "yarn vite build --config vite.cli.config.ts",
+    "build": "yarn build:cli",
+    "test": "yarn vitest --threads=false"
+  },
+  "bin": {
+    "library-build": "./bin/library-build"
+  },
   "dependencies": {
+    "@nuxt/module-builder": "^0.4.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "fast-glob": "^3.3.0",
     "pathe": "^1.1.1",
@@ -13,12 +22,7 @@
     "vue-tsc": "^1.8.4",
     "yargs": "^17.7.2"
   },
-  "scripts": {
-    "build:cli": "yarn vite build --config vite.cli.config.ts",
-    "build": "yarn build:cli",
-    "test": "yarn vitest --threads=false"
-  },
-  "bin": {
-    "build": "./bin/build"
+  "devDependencies": {
+    "@types/yargs": "^17.0.24"
   }
 }

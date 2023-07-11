@@ -1,4 +1,3 @@
-import { LibraryFormat } from "../types/vite"
 import { buildVite } from './build-vite'
 import { createViteConfig } from "../vite/config-fabric"
 import { withCwd } from "../utils/with-cwd"
@@ -7,11 +6,13 @@ import { createWebComponentsViteConfig } from "../vite/web-components";
 import { buildTypes } from "./build-types";
 import { postBuild } from "./post-build";
 import { generateExports } from "../generator/generate-exports";
+import { buildNuxt } from "./build-nuxt";
+import { BuildTarget } from "../types/targets";
 
 export const build = async (options: {
   cwd: string,
   /** @deprecated not ready to use */
-  targets?: (LibraryFormat | 'esm-node' | 'web-components' | 'types')[],
+  targets?: BuildTarget[],
   outDir?: string,
   entry?: string,
 }) => {
@@ -22,7 +23,7 @@ export const build = async (options: {
       cwd = process.cwd(),
       outDir = 'dist',
       // TODO: Make it possible to build without web-components
-      targets = ['es', 'esm-node', 'cjs', 'iife', 'web-components', 'types'],
+      targets = ['nuxt', 'esm-node', 'cjs', 'iife', 'web-components', 'types', 'es'],
       entry = 'src/main.ts',
     } = options
 
@@ -95,6 +96,16 @@ export const build = async (options: {
       )
     }
 
+    if (targets.includes('nuxt')) {
+      tasks.push(
+        buildNuxt({
+          cwd, 
+          outDir,
+          entry
+        })
+      )
+    }
+
     return Promise.all(tasks)
       .then((r) =>{
         generateExports({ cwd, entry, outDir, targets, append: true })
@@ -109,6 +120,7 @@ export const build = async (options: {
         console.log('Build finished')
       }).catch((error) => {
         console.log('Build failed')
+        console.error(error)
         // TODO: handle error?
       })
   })

@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
 // TODO: Make build here, not in CLI
-require('../dist/cli/index.js')
+import('../dist/cli/index.mjs')

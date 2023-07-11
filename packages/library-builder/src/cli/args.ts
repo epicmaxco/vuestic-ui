@@ -1,7 +1,7 @@
 
 import yargs from "yargs";
 
-export const args = yargs
+export const args = yargs(process.argv)
   // .option('es', {
   //   type: 'boolean',
   //   description: 'Builds the library in ES format',

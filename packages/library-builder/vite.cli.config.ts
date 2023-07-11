@@ -5,7 +5,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: './src/cli/index.ts',
-      formats: ['cjs', 'es'],
+      formats: ['es'],
       name: 'library-builder',
     },
     outDir: 'dist/cli',
