@@ -1,5 +1,5 @@
 import { LibraryFormat } from "../types/vite"
-import { build as viteBuild } from 'vite'
+import { buildVite } from './build-vite'
 import { createViteConfig } from "../vite/config-fabric"
 import { withCwd } from "../utils/with-cwd"
 import { cleanDist } from './clean-dist';
@@ -19,7 +19,7 @@ export const build = async (options: {
     console.log('Building...')
 
     const {
-      cwd,
+      cwd = process.cwd(),
       outDir = 'dist',
       // TODO: Make it possible to build without web-components
       targets = ['es', 'esm-node', 'cjs', 'iife', 'web-components', 'types'],
@@ -32,9 +32,9 @@ export const build = async (options: {
   
     if (targets.includes('es')) {
       tasks.push(
-        viteBuild(createViteConfig({
+        buildVite(createViteConfig({
           format: 'es',
-          entry: options.entry,
+          entry: entry,
           cwd: options.cwd,
           outDir: outDir,
         }))
@@ -43,9 +43,9 @@ export const build = async (options: {
 
     if (targets.includes('esm-node')) {
       tasks.push(
-        viteBuild(createViteConfig({
+        buildVite(createViteConfig({
           format: 'esm-node',
-          entry: options.entry,
+          entry: entry,
           cwd: options.cwd,
           outDir: outDir,
         }))
@@ -54,10 +54,10 @@ export const build = async (options: {
 
     if (targets.includes('cjs')) {
       tasks.push(
-        viteBuild(createViteConfig({
+        buildVite(createViteConfig({
           format: 'cjs',
-          entry: options.entry,
-          cwd: options.cwd,
+          entry: entry,
+          cwd: cwd,
           outDir: outDir,
         }))
       )
@@ -65,22 +65,23 @@ export const build = async (options: {
 
     if (targets.includes('iife')) {
       tasks.push(
-        viteBuild(createViteConfig({
+        buildVite(createViteConfig({
           format: 'iife',
-          entry: options.entry,
-          cwd: options.cwd,
+          entry: entry,
+          cwd: cwd,
           outDir: outDir,
         }))
       )
     }
 
     if (targets.includes('web-components')) {
-      console.warn('Web components build is experimental')
+      console.log('Web components build is experimental')
 
       tasks.push(
-        viteBuild(createWebComponentsViteConfig({
-          cwd: options.cwd,
+        buildVite(createWebComponentsViteConfig({
+          cwd: cwd,
           outDir: outDir,
+          entry: entry,
         }))
       )
     }
@@ -88,25 +89,27 @@ export const build = async (options: {
     if (targets.includes('types')) {
       tasks.push(
         buildTypes({
-          cwd: options.cwd,
+          cwd: cwd,
           outDir: outDir,
         })
       )
     }
 
-    return Promise.all(tasks).then((r) =>{
-      generateExports({ cwd, entry, outDir, targets, append: true })
+    return Promise.all(tasks)
+      .then((r) =>{
+        generateExports({ cwd, entry, outDir, targets, append: true })
 
-      postBuild({
-        cwd: options.cwd,
-        entry: options.entry,
-        outDir: outDir,
-        targets: targets,
+        postBuild({
+          cwd: cwd,
+          entry: entry,
+          outDir: outDir,
+          targets: targets,
+        })
+
+        console.log('Build finished')
+      }).catch((error) => {
+        console.log('Build failed')
+        // TODO: handle error?
       })
-
-      console.log('Build finished')
-    }).catch((error) => {
-      console.error(error)
-    })
   })
 }

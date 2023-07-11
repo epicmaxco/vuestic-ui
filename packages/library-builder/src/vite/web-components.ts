@@ -17,19 +17,16 @@ import { defineViteConfig } from '../utils/define-vite-config'
  */
 export const createWebComponentsViteConfig = (options: {
   cwd: string,
-  entry?: string,
-  outDir?: string,
+  entry: string,
+  outDir: string,
 }) => {
-  const { cwd } = options
+  const { cwd, entry, outDir } = options
   const packageJson = readPackage(join(cwd, 'package.json'))
 
   const dependencies = [
     ...Object.keys(packageJson.dependencies || {}), 
     ...Object.keys(packageJson.peerDependencies || {})
   ]
-
-  const entry = options.entry || 'src/main.ts'
-  const outDir = options.outDir || 'dist'
 
   return defineViteConfig({
     build: {

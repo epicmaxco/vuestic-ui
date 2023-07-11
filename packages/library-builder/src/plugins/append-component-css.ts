@@ -34,8 +34,6 @@ const appendBeforeSourceMapComment = (content: string, append: string): string =
 export const appendComponentCss = createDistTransformPlugin({
   name: 'vuestic:append-component-css',
 
-  dir: (outDir) => `${outDir}/src/components`,
-
   transform (componentContent, path) {
     if (!isComponent(path)) { return }
 

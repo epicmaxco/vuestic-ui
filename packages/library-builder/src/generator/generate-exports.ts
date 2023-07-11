@@ -5,13 +5,13 @@ import { LibraryFormat } from "../types/vite";
 
 export const generateExports = (options: {
   cwd: string,
-  entry?: string,
+  entry: string,
   outDir?: string,
   append?: boolean,
   targets: (LibraryFormat | 'esm-node' | 'web-components' | 'types')[],
 }) => {
   const { cwd, entry } = options
-  const libName = parse((entry || 'src/main.ts').split('/').pop() || 'main.ts').name
+  const libName = parse((entry).split('/').pop() || 'main.ts').name
 
   // TODO: Remove extra exports?
   const json = {

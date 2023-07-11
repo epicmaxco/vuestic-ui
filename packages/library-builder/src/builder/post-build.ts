@@ -13,11 +13,11 @@ import { BuildTarget } from '../types/targets'
 export const postBuild = (options: {
   cwd: string,
   outDir: string,
-  entry?: string,
+  entry: string,
   targets: BuildTarget[]
 }) => {
   const { cwd, entry, outDir, targets } = options
-  const libName = parse((entry || 'src/main.ts').split('/').pop() || 'main.ts').name
+  const libName = parse((entry).split('/').pop() || 'main.ts').name
 
   // moving common css (resources & components styles) to the dist root
   const cjsStylesPath = join(cwd, './dist/cjs/style.css')

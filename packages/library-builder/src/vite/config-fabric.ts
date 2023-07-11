@@ -23,14 +23,14 @@ const normalizeFormat = (format: BuildFormat | 'esm' | 'esm-node'): LibraryForma
 export const createViteConfig = (options: {
   format: BuildFormat | 'esm' | 'esm-node',
   cwd: string,
-  outDir?: string,
-  entry?: string,
+  outDir: string,
+  entry: string,
   name?: string,
   plugins?: {
     componentVBindFix?: boolean,
   }
 }) => {
-  const { cwd, format } = options
+  const { cwd, format, entry, outDir } = options
 
   const packageJson = readPackage(join(cwd, 'package.json'))
 
@@ -41,9 +41,6 @@ export const createViteConfig = (options: {
 
   const isESM = ['es', 'esm-node'].includes(format)
   const isNode = format === 'esm-node'
-
-  const entry = options.entry || 'src/main.ts'
-  const outDir = options.outDir || 'dist'
 
   const config = defineViteConfig({
     root: cwd,
@@ -116,7 +113,7 @@ export const createViteConfig = (options: {
     }
     config.plugins.push(removeSideEffectedChunks())
     config.plugins.push(removeEmptyFiles())
-    if (options.plugins?.componentVBindFix || true) { config.plugins.push(componentVBindFix()) }
+    // if (options.plugins?.componentVBindFix || true) { config.plugins.push(componentVBindFix()) }
   }
 
   return config

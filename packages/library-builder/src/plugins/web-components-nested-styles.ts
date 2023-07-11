@@ -37,9 +37,9 @@ const generateComponentStylesAccessCode = (list: string[]) => {
 export const webComponentsNestedStyles = createDistTransformPlugin({
   name: 'vuestic:web-components-nested-styles',
 
-  dir: (outDir) => `${outDir}/src/components`,
+  transform: async (componentContent, path) => {
+    if (!path.endsWith('.js')) { return }
 
-  transform: async (componentContent) => {
     /** Component store own styles from `<style>` in variables with `_style_` prefix */
     const vars = [...componentContent.matchAll(/[const|var] (_style_.*) = /gm)].map(([a, b]) => b)
 

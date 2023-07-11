@@ -1,5 +1,6 @@
 import type { Plugin } from 'vite'
 import { readdir, readFile, writeFile, lstat } from 'fs/promises'
+import { existsSync } from 'fs'
 
 type Nothing = null | undefined | void
 type TransformFnResult = string | Nothing
@@ -13,6 +14,8 @@ export const createDistTransformPlugin = (options: {
   let outDir = ''
 
   const processFiles = async (dir: string) => {
+    if (!existsSync(dir)) { return }
+
     return (await readdir(dir))
       .map(async (entryName) => {
         const currentPath = `${dir}/${entryName}`
@@ -31,12 +34,18 @@ export const createDistTransformPlugin = (options: {
       })
   }
 
+  let error = false
+
   return (): Plugin => ({
     name: options.name,
     configResolved: (config) => {
       outDir = options.dir?.(config.build.outDir) || config.build.outDir
     },
+    buildEnd(error) {
+      error ||= error
+    },
     closeBundle: async () => {
+      if (error) { return }
       processFiles(outDir)
     },
   })
