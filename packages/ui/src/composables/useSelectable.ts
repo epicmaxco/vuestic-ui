@@ -8,7 +8,6 @@ import { unwrapEl } from '../utils/unwrapEl'
 
 export type SelectableProps<V = any> = StatefulProps & LoadingProps & ExtractPropTypes<ValidationProps<V>> & {
   arrayValue: V | undefined,
-  label: string,
   leftLabel: boolean,
   trueValue: any,
   falseValue: any,

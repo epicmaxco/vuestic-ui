@@ -99,9 +99,9 @@ export default defineComponent({
       default: () => [],
     },
     name: { type: String, default: '' },
+    label: { type: String, default: undefined },
     leftLabel: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },
-
     option: {
       type: [Object, String, Number] as PropType<VaRadioOption>,
       default: undefined,
@@ -123,8 +123,13 @@ export default defineComponent({
       onFocus,
     } = useSelectable(props, emit, elements)
 
-    const { getText, getValue, getDisabled: originalGetDisabled } = useSelectableList(props)
+    const { getText: originalGetText, getDisabled: originalGetDisabled, getValue } = useSelectableList(props)
 
+    const getText = (option: Parameters<typeof originalGetText>[0]) => {
+      if (props.options.length > 0) { return originalGetText(option) }
+
+      return props.label ?? originalGetText(option)
+    }
     const getDisabled = (option: Parameters<typeof originalGetDisabled>[0]) => originalGetDisabled(option) || props.disabled
 
     const isNoOption = computed(() => props.options.length === 0 && !props.option)
@@ -257,6 +262,10 @@ export default defineComponent({
 
   & + & {
     margin-top: 0.5rem;
+  }
+
+  .va-radio:last-child {
+    margin: 0;
   }
 
   &--disabled {
