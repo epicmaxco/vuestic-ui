@@ -8,7 +8,7 @@ export const generateExports = (options: {
   entry: string,
   outDir?: string,
   append?: boolean,
-  targets: (LibraryFormat | 'esm-node' | 'web-components' | 'types')[],
+  targets: (LibraryFormat | 'esm-node' | 'web-components' | 'types' | 'nuxt')[],
 }) => {
   const { cwd, entry } = options
   const libName = parse((entry).split('/').pop() || 'main.ts').name
@@ -35,6 +35,10 @@ export const generateExports = (options: {
     },
     "./iife": `./dist/iife/${libName}.js`,
     "./types": `./dist/types/${libName}.d.ts`,
+    "./nuxt":  {
+      "import": "./dist/nuxt/module.mjs",
+      "require": "./dist/nuxt/module.cjs"
+    },
     "./dist/*": "./dist/*"
   }
 
