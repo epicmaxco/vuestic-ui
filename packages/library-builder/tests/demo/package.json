@@ -1,0 +1,7 @@
+{
+  "name": "my-cool-library",
+  "version": "1.0.0",
+  "dependencies": {
+    "vue": "~3"
+  }
+}

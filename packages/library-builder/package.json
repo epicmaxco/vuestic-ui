@@ -1,0 +1,17 @@
+{
+  "name": "@vuestic/library-builder",
+  "version": "0.0.1",
+  "description": "Build tool for vue3 component libraries",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "pathe": "^1.1.1",
+    "vite-plugin-chunk-split": "^0.4.7",
+    "vitest": "^0.33.0",
+    "yargs": "^17.7.2"
+  },
+  "scripts": {
+    "test": "yarn vitest --threads=false "
+  }
+}
