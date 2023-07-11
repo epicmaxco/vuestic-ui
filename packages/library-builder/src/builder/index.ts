@@ -4,9 +4,11 @@ import { createViteConfig } from "../vite/config-fabric"
 import { withCwd } from "../utils/with-cwd"
 import { cleanDist } from './clean-dist';
 import { createWebComponentsViteConfig } from "../vite/web-components";
+import { buildTypes } from "./build-types";
+import { postBuild } from "./post-build";
 
 export const build = async (options: {
-  formats: (LibraryFormat | 'esm-node' | 'web-components')[],
+  targets: (LibraryFormat | 'esm-node' | 'web-components' | 'types')[],
   cwd: string,
   outDir?: string,
   entry?: string,
@@ -19,7 +21,7 @@ export const build = async (options: {
 
     const tasks: Promise<unknown>[] = []
   
-    if (options.formats.includes('es')) {
+    if (options.targets.includes('es')) {
       tasks.push(
         viteBuild(createViteConfig({
           format: 'es',
@@ -30,7 +32,7 @@ export const build = async (options: {
       )
     }
 
-    if (options.formats.includes('esm-node')) {
+    if (options.targets.includes('esm-node')) {
       tasks.push(
         viteBuild(createViteConfig({
           format: 'esm-node',
@@ -41,7 +43,7 @@ export const build = async (options: {
       )
     }
 
-    if (options.formats.includes('cjs')) {
+    if (options.targets.includes('cjs')) {
       tasks.push(
         viteBuild(createViteConfig({
           format: 'cjs',
@@ -52,7 +54,7 @@ export const build = async (options: {
       )
     }
 
-    if (options.formats.includes('iife')) {
+    if (options.targets.includes('iife')) {
       tasks.push(
         viteBuild(createViteConfig({
           format: 'iife',
@@ -63,19 +65,32 @@ export const build = async (options: {
       )
     }
 
-    if (options.formats.includes('web-components')) {
+    if (options.targets.includes('web-components')) {
       console.warn('Web components build is experimental')
 
       tasks.push(
         viteBuild(createWebComponentsViteConfig({
           cwd: options.cwd,
+          outDir: outDir,
         }))
       )
     }
 
+    if (options.targets.includes('types')) {
+      tasks.push(
+        buildTypes({
+          cwd: options.cwd,
+          outDir: outDir,
+        })
+      )
+    }
+
     return Promise.all(tasks).then((r) =>{
-      console.log(r)
       console.log('Build finished')
+      postBuild({
+        cwd: options.cwd,
+        entry: options.entry,
+      })
     }).catch((error) => {
       console.error(error)
     })
