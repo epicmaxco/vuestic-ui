@@ -13,6 +13,7 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "composite": true,
+    "rootDir": "./src",
     "allowSyntheticDefaultImports": true,
     "paths": {
       "@/*": [

@@ -1,6 +1,7 @@
 import { glob } from 'fast-glob'
 import { join, relative } from 'pathe'
 
+// TODO: Use for Nuxt module generation
 export const generateComponentsList = async (options: {
   componentsDir?: string,
   cwd?: string,

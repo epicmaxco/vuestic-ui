@@ -3,5 +3,28 @@
   "version": "1.0.0",
   "dependencies": {
     "vue": "~3"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/types/main.d.ts",
+      "import": {
+        "node": "./dist/esm-node/main.mjs",
+        "default": "./dist/es/main.js"
+      },
+      "require": "./dist/cjs/main.js"
+    },
+    "./css": {
+      "import": {
+        "node": "./dist/main.css",
+        "default": "./dist/styles/index.css"
+      }
+    },
+    "./web-components": {
+      "types": "./dist/types/main.d.ts",
+      "default": "./dist/web-components/main.js"
+    },
+    "./iife": "./dist/iife/main.js",
+    "./types": "./dist/types/main.d.ts",
+    "./dist/*": "./dist/*"
   }
 }
