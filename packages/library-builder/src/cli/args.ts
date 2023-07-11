@@ -32,6 +32,10 @@ export const args = yargs(process.argv)
     description: 'Entry point of the library',
     default: 'src/main.ts',
   })
+  .option('nuxtDir', {
+    type: 'string',
+    description: 'Directory of the nuxt module',
+  })
   .option('outDir', {
     type: 'string',
     description: 'Output directory of the library',

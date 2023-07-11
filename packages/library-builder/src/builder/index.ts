@@ -1,3 +1,4 @@
+import { join, dirname } from 'pathe';
 import { buildVite } from './build-vite'
 import { createViteConfig } from "../vite/config-fabric"
 import { withCwd } from "../utils/with-cwd"
@@ -10,13 +11,14 @@ import { buildNuxt } from "./build-nuxt";
 import { BuildTarget } from "../types/targets";
 
 export const build = async (options: {
-  cwd: string,
+  cwd?: string,
   /** @deprecated not ready to use */
   targets?: BuildTarget[],
   outDir?: string,
   entry?: string,
+  nuxtDir?: string,
 }) => {
-  return withCwd(options.cwd, async () => {
+  return withCwd(options.cwd || process.cwd(), async () => {
     console.log('Building...')
 
     const {
@@ -25,6 +27,7 @@ export const build = async (options: {
       // TODO: Make it possible to build without web-components
       targets = ['nuxt', 'esm-node', 'cjs', 'iife', 'web-components', 'types', 'es'],
       entry = 'src/main.ts',
+      nuxtDir = join(dirname(entry), 'nuxt'),
     } = options
 
     cleanDist(outDir)
@@ -36,7 +39,7 @@ export const build = async (options: {
         buildVite(createViteConfig({
           format: 'es',
           entry: entry,
-          cwd: options.cwd,
+          cwd: cwd,
           outDir: outDir,
         }))
       )
@@ -47,7 +50,7 @@ export const build = async (options: {
         buildVite(createViteConfig({
           format: 'esm-node',
           entry: entry,
-          cwd: options.cwd,
+          cwd: cwd,
           outDir: outDir,
         }))
       )
@@ -101,7 +104,7 @@ export const build = async (options: {
         buildNuxt({
           cwd, 
           outDir,
-          entry
+          nuxtDir
         })
       )
     }

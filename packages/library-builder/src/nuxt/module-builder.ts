@@ -16,8 +16,8 @@ async function buildModule(opts) {
     stub: opts.stub,
     outDir,
     entries: [
-      "src/module",
-      { input: "src/runtime/", outDir: `${outDir}/runtime`, ext: "mjs" }
+      "module",
+      { input: "runtime/", outDir: `${outDir}/runtime`, ext: "mjs" }
     ],
     rollup: {
       emitCJS: false,
