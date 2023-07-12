@@ -13,6 +13,7 @@ export const nuxtRuntimeDirViteConfig = (options: {
 
   return defineViteConfig({
     root: entryDir,
+
     build: {
       lib: {
         entry: inputs,
@@ -27,17 +28,24 @@ export const nuxtRuntimeDirViteConfig = (options: {
             return true
           }
 
-          const importName = source.split('/')[0]
-
-          if (external.includes(importName)) {
+          if (source.includes('node_modules')) {
             return true
           }
 
-          return false
+          if (source.startsWith('/') || source.startsWith('.')) {
+            return false
+          }
+          return true
         },
       },
 
       outDir: outDir,
+
+      ssr: true,
+    },
+
+    optimizeDeps: {
+      disabled: true,
     },
 
     plugins: [

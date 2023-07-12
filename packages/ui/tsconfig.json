@@ -28,6 +28,11 @@
       "dom",
       "dom.iterable"
     ],
+    "paths": {
+      "vuestic-ui": [
+        "./src/main.ts"
+      ]
+    },
   },
   "include": [
     "src/**/*.ts",

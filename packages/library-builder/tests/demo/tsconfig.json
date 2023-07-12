@@ -17,6 +17,9 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "my-cool-library": [
+        "./src/main.ts"
       ]
     },
   }

@@ -10,10 +10,13 @@ import { replaceNext } from '../plugins/replace-next';
 async function buildModule(opts: {
   cwd: string,
   rootDir: string,
+  externals?: string[],
+  paths?: Record<string, string[]>,
   outDir?: string,
 }) {
   const { build } = await import('unbuild');
   const outDir = opts.outDir || "dist";
+  const { externals = [], paths = {} } = opts
 
   return build(opts.cwd, false, {
     failOnWarn: false, // Disable process.exit(1) on warnings
@@ -30,6 +33,15 @@ async function buildModule(opts: {
       cjsBridge: true,
       dts: {
         tsconfig: join(opts.cwd, "tsconfig.json"),
+        compilerOptions: {
+          moduleResolution: 2,
+          paths: paths,
+          skipLibCheck: true,
+          strict: false,
+          skipDefaultLibCheck: true,
+          rootDir: '',
+          emitDeclarationOnly: true,
+        },
       },
     },
     externals: [
@@ -41,7 +53,8 @@ async function buildModule(opts: {
       "nuxt-edge",
       "nuxt3",
       "vue",
-      "vue-demi"
+      "vue-demi",
+      ...externals,
     ],
     hooks: {
       "rollup:options"(_ctx, options) {
@@ -53,6 +66,22 @@ async function buildModule(opts: {
           options.plugins.unshift(plugin);
         } else {
           options.plugins = [plugin, options.plugins];
+        }
+
+        options.external = (source, importer, isResolved) => {
+          // Resolve '#app' imports
+          if (source.startsWith('#')) {
+            return true
+          }
+
+          if (source.includes('node_modules')) {
+            return true
+          }
+
+          if (source.startsWith('/') || source.startsWith('.')) {
+            return false
+          }
+          return true
         }
       },
       async "rollup:done"(ctx) {

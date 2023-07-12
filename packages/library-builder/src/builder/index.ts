@@ -102,7 +102,8 @@ export const build = async (options: {
     if (targets.includes('nuxt')) {
       tasks.push(
         buildNuxt({
-          cwd, 
+          cwd,
+          entry,
           outDir,
           nuxtDir
         })

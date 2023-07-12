@@ -8,6 +8,7 @@ import { buildModule } from './module-builder';
 
 export async function buildNuxtModule(options: {
   cwd: string,
+  entry: string,
   rootDir: string,
   outDir?: string,
 }) {
@@ -34,6 +35,10 @@ export async function buildNuxtModule(options: {
       cwd: options.cwd,
       rootDir: options.rootDir,
       outDir: outDir,
+      externals: dependencies,
+      paths: packageJson.name ? {
+        [packageJson.name]: [join(options.cwd, options.entry)],
+      } : {}
     })
   ])
 }
