@@ -8,6 +8,7 @@ import { chunkSplitPlugin } from 'vite-plugin-chunk-split';
 import { removeSideEffectedChunks } from '../plugins/remove-side-effected-chunks';
 import { appendComponentCss } from '../plugins/append-component-css';
 import { componentVBindFix } from '../plugins/component-v-bind-fix';
+import { replaceNext } from '../plugins/replace-next'
 import { camelCase } from '../utils/camel-case';
 
 type BuildFormat = 'iife' | 'es' | 'cjs' | 'esm-node'
@@ -69,18 +70,19 @@ export const createViteConfig = (options: {
         external: dependencies,
 
         ...(isNode ? {
-          // TODO: check if we need it
-          // input: join(cwd, options.entry),
-
           output: {
-            // sourcemap: true,
-            // dir: join(cwd, options.outDir, format),
             format: 'esm',
             entryFileNames: '[name].mjs',
             chunkFileNames: '[name].mjs',
             assetFileNames: '[name].[ext]',
           },
-        } : {})
+        } : {
+          output: {
+            entryFileNames: '[name].js',
+            chunkFileNames: '[name].js',
+            assetFileNames: '[name].[ext]',
+          }
+        })
       },
 
       minify: 'terser' as const,
@@ -99,7 +101,8 @@ export const createViteConfig = (options: {
       vue({
         isProduction: true,
         exclude: [/\.md$/, /\.spec\.ts$/, /\.spec\.disabled$/],
-      })
+      }),
+      replaceNext
     ]
   })
 

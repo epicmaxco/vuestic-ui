@@ -23,6 +23,13 @@ export const generateExports = (options: {
       },
       "require": `./dist/cjs/${libName}.js`
     },
+    "./components/*": {
+      "types": `./dist/types/components/*`,
+      "import": {
+        "node": `./dist/esm-node/components/*`,
+        "default": `./dist/es/components/*`
+      },
+    },
     "./css": {
       "import": {
         "node": `./dist/${libName}.css`,

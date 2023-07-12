@@ -12,12 +12,13 @@
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
-    "rootDir": "./src",
+    "composite": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
       "@/*": [
         "src/*"
       ]
     },
-  }
+  },
+  "include": ["src/**/*", "tests/**/*"]
 }

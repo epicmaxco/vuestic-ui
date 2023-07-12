@@ -1,6 +1,6 @@
 import { existsSync } from 'fs'
 import { join } from 'pathe'
-import { buildModule } from '../nuxt/module-builder'
+import { buildNuxtModule } from '../nuxt/builder'
 
 
 export const buildNuxt = async (options: {
@@ -12,14 +12,12 @@ export const buildNuxt = async (options: {
 
   const nuxtModulePath = join(cwd, nuxtDir)
 
-  console.log(nuxtDir, nuxtModulePath)
-
   if (!existsSync(nuxtModulePath)) {
     console.warn('Skipping building nuxt module, because it does not exist')
     return
   }
 
-  return buildModule({
+  return buildNuxtModule({
     rootDir: nuxtModulePath,
     outDir: join(cwd, outDir, '/nuxt'),
     cwd,

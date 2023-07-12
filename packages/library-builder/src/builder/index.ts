@@ -25,7 +25,7 @@ export const build = async (options: {
       cwd = process.cwd(),
       outDir = 'dist',
       // TODO: Make it possible to build without web-components
-      targets = ['nuxt', 'esm-node', 'cjs', 'iife', 'web-components', 'types', 'es'],
+      targets = ['nuxt'], //'esm-node', 'cjs', 'iife', 'web-components', 'types', 'es'],
       entry = 'src/main.ts',
       nuxtDir = join(dirname(entry), 'nuxt'),
     } = options

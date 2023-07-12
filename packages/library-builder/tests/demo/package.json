@@ -4,6 +4,9 @@
   "dependencies": {
     "vue": "~3"
   },
+  "scripts": {
+    "build": "../../bin/library-build"
+  },
   "exports": {
     ".": {
       "types": "./dist/types/main.d.ts",
@@ -25,6 +28,17 @@
     },
     "./iife": "./dist/iife/main.js",
     "./types": "./dist/types/main.d.ts",
-    "./dist/*": "./dist/*"
+    "./dist/*": "./dist/*",
+    "./components/*": {
+      "types": "./dist/types/components/*",
+      "import": {
+        "node": "./dist/esm-node/components/*",
+        "default": "./dist/es/components/*"
+      }
+    },
+    "./nuxt": {
+      "import": "./dist/nuxt/module.mjs",
+      "require": "./dist/nuxt/module.cjs"
+    }
   }
 }

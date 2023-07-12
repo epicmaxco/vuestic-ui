@@ -1,27 +1,36 @@
 // Copy of @nuxt/module-builder with some modifications
 
-
 import { promises, existsSync } from 'fs';
 import { pathToFileURL } from 'url';
-import { resolve } from 'pathe';
+import { join, resolve } from 'pathe';
 import consola from 'consola';
 import { findExports } from 'mlly';
+import { replaceNext } from '../plugins/replace-next';
 
-async function buildModule(opts) {
+async function buildModule(opts: {
+  cwd: string,
+  rootDir: string,
+  outDir?: string,
+}) {
   const { build } = await import('unbuild');
   const outDir = opts.outDir || "dist";
-  await build(opts.rootDir, false, {
+
+  return build(opts.cwd, false, {
     failOnWarn: false, // Disable process.exit(1) on warnings
     declaration: true,
-    stub: opts.stub,
+    stub: false,
     outDir,
     entries: [
-      "module",
-      { input: "runtime/", outDir: `${outDir}/runtime`, ext: "mjs" }
+      join(opts.rootDir, "module"),
+      // Runtime handled by vite in ./runtime-builder.ts
+      // { input: "runtime/**/*", outDir: `${outDir}/runtime`, builder: "rollup" },
     ],
     rollup: {
       emitCJS: false,
-      cjsBridge: true
+      cjsBridge: true,
+      dts: {
+        tsconfig: join(opts.cwd, "tsconfig.json"),
+      },
     },
     externals: [
       "@nuxt/schema",
@@ -35,6 +44,17 @@ async function buildModule(opts) {
       "vue-demi"
     ],
     hooks: {
+      "rollup:options"(_ctx, options) {
+        const plugin = replaceNext
+
+        if (options.plugins === undefined) {
+          options.plugins = [plugin];
+        } else if (Array.isArray(options.plugins)) {
+          options.plugins.unshift(plugin);
+        } else {
+          options.plugins = [plugin, options.plugins];
+        }
+      },
       async "rollup:done"(ctx) {
         await writeCJSStub(ctx.options.outDir);
         const moduleEntryPath = resolve(ctx.options.outDir, "module.mjs");
@@ -60,9 +80,9 @@ async function buildModule(opts) {
         await writeTypes(ctx.options.outDir, moduleMeta);
       }
     }
-  });
+  })
 }
-async function writeTypes(distDir, meta) {
+async function writeTypes(distDir: string, meta: any) {
   const dtsFile = resolve(distDir, "types.d.ts");
   if (existsSync(dtsFile)) {
     return;
@@ -73,7 +93,7 @@ async function writeTypes(distDir, meta) {
   const isStub = moduleTypes.includes("export *");
   const schemaShims: string[] = [];
   const moduleImports: string[] = [];
-  const hasTypeExport = (name) => isStub || typeExports.find((exp) => exp.names.includes(name));
+  const hasTypeExport = (name: string) => isStub || typeExports.find((exp) => exp.names.includes(name));
   if (meta.configKey && hasTypeExport("ModuleOptions")) {
     moduleImports.push("ModuleOptions");
     schemaShims.push(`  interface NuxtConfig { ['${meta.configKey}']?: Partial<ModuleOptions> }`);
@@ -103,7 +123,7 @@ export { ${typeExports[0].names.join(", ")} } from './module'
 `;
   await promises.writeFile(dtsFile, dtsContents, "utf8");
 }
-async function writeCJSStub(distDir) {
+async function writeCJSStub(distDir: string) {
   const cjsStubFile = resolve(distDir, "module.cjs");
   if (existsSync(cjsStubFile)) {
     return;

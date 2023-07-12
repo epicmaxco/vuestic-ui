@@ -16,6 +16,7 @@
     "@nuxt/module-builder": "^0.4.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "fast-glob": "^3.3.0",
+    "magic-string": "^0.30.1",
     "pathe": "^1.1.1",
     "vite-plugin-chunk-split": "^0.4.7",
     "vitest": "^0.33.0",

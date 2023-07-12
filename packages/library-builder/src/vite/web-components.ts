@@ -6,6 +6,7 @@ import { webComponentsNestedStyles } from '../plugins/web-components-nested-styl
 import { readFileSync } from 'fs'
 import { readPackage } from '../utils/read-package'
 import { defineViteConfig } from '../utils/define-vite-config'
+import { replaceNext } from '../plugins/replace-next'
 
 /**
  * Build web components folder. It is a separated build of vuestic-ui for SPA-only (?: maybe for SPA-only).
@@ -58,6 +59,7 @@ export const createWebComponentsViteConfig = (options: {
     },
 
     plugins: [
+      replaceNext,
       vue({
         customElement: true,
       }),
