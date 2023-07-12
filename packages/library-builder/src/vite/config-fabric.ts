@@ -27,9 +27,6 @@ export const createViteConfig = (options: {
   outDir: string,
   entry: string,
   name?: string,
-  plugins?: {
-    componentVBindFix?: boolean,
-  }
 }) => {
   const { cwd, format, entry, outDir } = options
 
@@ -116,7 +113,9 @@ export const createViteConfig = (options: {
     }
     config.plugins.push(removeSideEffectedChunks())
     config.plugins.push(removeEmptyFiles())
-    // if (options.plugins?.componentVBindFix || true) { config.plugins.push(componentVBindFix()) }
+    config.plugins.push(componentVBindFix({
+      sourcemap: true,
+    }))
   }
 
   return config

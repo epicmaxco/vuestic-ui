@@ -4,7 +4,7 @@ import { findExports } from 'mlly';
 import { buildVite } from '../builder/build-vite';
 import { nuxtRuntimeDirViteConfig } from './runtime-builder';
 import { readPackage } from '../utils/read-package';
-import { buildModule } from './module.builder';
+import { buildModule } from './module-builder';
 
 export async function buildNuxtModule(options: {
   cwd: string,
