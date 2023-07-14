@@ -1,7 +1,8 @@
 import { computed, getCurrentInstance, PropType } from 'vue'
 
-import { useGlobalConfig, SizeConfig } from '../services/global-config/global-config'
+import { useGlobalConfig } from '../composables/useGlobalConfig'
 import type { VuesticComponentName } from '../services/vue-plugin/types/components'
+import { type SizeConfig } from '../services/global-config'
 
 export const sizesConfig: SizeConfig = {
   defaultSize: 48,

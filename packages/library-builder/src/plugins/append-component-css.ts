@@ -18,10 +18,10 @@ const parsePath = (path: string) => {
  */
 const isComponent = (filename: string) => {
   // [ComponentName].vue_vue_type_script
-  return /\w*.vue_vue_type_script.*\.mjs$/.test(filename)
+  return /\w*.vue_vue_type_script.*/.test(filename)
 }
 
-const extractVuesticComponentName = (filename: string) => {
+const extractComponentName = (filename: string) => {
   return filename.match(/(\w*).vue_vue_type_script.*/)?.[1]
 }
 
@@ -35,17 +35,15 @@ export const appendComponentCss = createDistTransformPlugin({
   name: 'vuestic:append-component-css',
 
   transform (componentContent, path) {
-    if (!isComponent(path)) { return }
-
     const { name, dir } = parsePath(path)
 
-    const componentName = extractVuesticComponentName(name)
+    const componentName = extractComponentName(name)
 
     if (!componentName) {
-      throw new Error(`Can't extract component name from ${name}`)
+      return
     }
 
-    const distPath = resolve(this.outDir, '..', '..')
+    const distPath = resolve(this.outDir)
     const relativeDistPath = relative(dir, distPath)
     const relativeFilePath = relativeDistPath + '/' + componentName.replace(/-.*$/, '') + '.css'
 

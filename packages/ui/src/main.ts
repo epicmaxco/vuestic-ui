@@ -1,4 +1,4 @@
-export { useGlobalConfig } from './services/global-config'
+export { useGlobalConfig } from './composables/useGlobalConfig'
 export {
   useColors,
   useBreakpoint,
@@ -18,7 +18,7 @@ export {
 
 // needed for the @vuestic/tailwind package
 export { presets as colorsPreset } from './services/color/presets'
-export { defaultThresholds as thresholdsPreset } from './services/breakpoint'
+export { defaultThresholds as thresholdsPreset } from './services/breakpoint/config/default'
 
 // Export all components and their composables
 export * from './components'

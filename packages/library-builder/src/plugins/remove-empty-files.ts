@@ -4,7 +4,7 @@ import { defineVitePlugin } from '../utils/define-vite-plugin';
 import { UserConfig } from 'vite'
 
 export const removeEmptyFiles = () => {
-  let config: UserConfig | null
+  let config: UserConfig = {}
 
   return defineVitePlugin(({
     name: 'vuestic:remove-empty-files',
@@ -13,14 +13,14 @@ export const removeEmptyFiles = () => {
       config = config
     },
   
-    buildEnd() {
-      const outDir = config?.build?.outDir
+    async buildEnd() {
+      const outDir = config.build?.outDir
 
       if (!outDir) {
         return
       }
 
-      readDirRecursive(outDir).forEach(async (file) => {
+      await readDirRecursive(outDir).forEach(async (file) => {
         if (file.endsWith('.js')) {
           const content = await readFile(file).toString()
           if (content === '') {

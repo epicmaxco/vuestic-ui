@@ -9,7 +9,7 @@ import { buildModule } from './module-builder';
 export async function buildNuxtModule(options: {
   cwd: string,
   entry: string,
-  rootDir: string,
+  nuxtDir: string,
   outDir?: string,
 }) {
   const outDir = options.outDir || "dist";
@@ -20,25 +20,24 @@ export async function buildNuxtModule(options: {
     ...Object.keys(packageJson.peerDependencies || {}),
   ]
 
+  console.log('Building Nuxt module...', packageJson.name)
+
   if (packageJson.name) {
     dependencies.push(packageJson.name);
   }
 
-  return Promise.all([
-    buildVite(nuxtRuntimeDirViteConfig({
-      entryDir: join(options.rootDir, "runtime"),
-      outDir: join(outDir, "runtime"),
-      external: dependencies,
-    })),
-
-    buildModule({
-      cwd: options.cwd,
-      rootDir: options.rootDir,
-      outDir: outDir,
-      externals: dependencies,
-      paths: packageJson.name ? {
-        [packageJson.name]: [join(options.cwd, options.entry)],
-      } : {}
-    })
-  ])
+  await buildModule({
+    cwd: options.cwd,
+    rootDir: options.nuxtDir,
+    outDir: outDir,
+    externals: dependencies,
+    paths: packageJson.name ? {
+      [packageJson.name]: [join(options.cwd, options.entry)],
+    } : {}
+  })
+  await buildVite(nuxtRuntimeDirViteConfig({
+    entryDir: resolve(options.cwd, options.nuxtDir, "runtime"),
+    outDir: join(outDir, "runtime"),
+    external: dependencies,
+  }))
 }

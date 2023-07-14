@@ -20,6 +20,8 @@ export const nuxtRuntimeDirViteConfig = (options: {
         formats: ['es'],
       },
 
+      minify: false,
+
       rollupOptions: {
         // Resolve externals and actual lib name
         external(source, importer, isResolved) {
@@ -32,6 +34,10 @@ export const nuxtRuntimeDirViteConfig = (options: {
             return true
           }
 
+          if (external.includes(source)) {
+            return true
+          }
+
           if (source.startsWith('/') || source.startsWith('.')) {
             return false
           }
@@ -40,8 +46,6 @@ export const nuxtRuntimeDirViteConfig = (options: {
       },
 
       outDir: outDir,
-
-      ssr: true,
     },
 
     optimizeDeps: {

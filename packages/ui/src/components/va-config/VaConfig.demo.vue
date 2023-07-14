@@ -95,7 +95,7 @@
 
 <script>
 import { computed } from 'vue'
-import { useGlobalConfig } from '../../services/global-config/global-config'
+import { useGlobalConfig } from '../../composables/useGlobalConfig'
 import { useColors } from '../../composables'
 import { VaButton } from '../va-button'
 import { VaRating } from '../va-rating/'

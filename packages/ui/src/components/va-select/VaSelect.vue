@@ -130,11 +130,11 @@ import {
 
 import {
   VaDropdown,
-  VaDropdownContent,
   VaIcon,
   VaInput,
   VaInputWrapper,
 } from '../index'
+import { VaDropdownContent } from '../va-dropdown/components/VaDropdownContent'
 import { VaSelectOptionList } from './components/VaSelectOptionList'
 import { VaSelectContent } from './components/VaSelectContent'
 

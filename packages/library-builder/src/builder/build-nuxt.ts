@@ -19,7 +19,7 @@ export const buildNuxt = async (options: {
   }
 
   return buildNuxtModule({
-    rootDir: nuxtModulePath,
+    nuxtDir: nuxtModulePath,
     outDir: join(cwd, outDir, '/nuxt'),
     entry,
     cwd,

@@ -21,6 +21,10 @@ const normalizeFormat = (format: BuildFormat | 'esm' | 'esm-node'): LibraryForma
   return format
 }
 
+const packageNameToJS = (name: string) => {
+  return camelCase(name.split('/').at(-1))
+}
+
 export const createViteConfig = (options: {
   format: BuildFormat | 'esm' | 'esm-node',
   cwd: string,
@@ -56,7 +60,7 @@ export const createViteConfig = (options: {
         entry: join(cwd, entry),
         fileName: () => 'main.js',
         formats: [normalizeFormat(format)],
-        name: camelCase(options.name ?? packageJson.name),
+        name: packageNameToJS(options.name ?? packageJson.name ?? 'library'),
       },
 
       outDir: join(cwd, outDir, format),
@@ -64,22 +68,25 @@ export const createViteConfig = (options: {
       sourcemap: true,
 
       rollupOptions: {
-        external: dependencies,
+        output: {
+          globals(name) {
+            return packageNameToJS(name)
+          },
 
-        ...(isNode ? {
-          output: {
+          ...(isNode ? {
             format: 'esm',
             entryFileNames: '[name].mjs',
             chunkFileNames: '[name].mjs',
             assetFileNames: '[name].[ext]',
-          },
-        } : {
-          output: {
+          }: {
             entryFileNames: '[name].js',
             chunkFileNames: '[name].js',
             assetFileNames: '[name].[ext]',
-          }
-        })
+          })
+        },
+
+        external: dependencies,
+
       },
 
       minify: 'terser' as const,
@@ -108,14 +115,15 @@ export const createViteConfig = (options: {
     config.plugins.push(chunkSplitPlugin({ 
       strategy: 'unbundle',
     }))
-    if (!isNode) {
-      config.plugins.push(appendComponentCss())
-    }
-    config.plugins.push(removeSideEffectedChunks())
-    config.plugins.push(removeEmptyFiles())
+    // config.plugins.push(removeSideEffectedChunks())
+    // config.plugins.push(removeEmptyFiles())
     config.plugins.push(componentVBindFix({
       sourcemap: true,
     }))
+
+    if (!isNode) {
+      config.plugins.push(appendComponentCss())
+    }
   }
 
   return config

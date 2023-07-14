@@ -1,14 +1,14 @@
 import { writeFile } from 'fs/promises';
 import { readFileSync } from 'fs';
 import { join, parse } from "pathe";
-import { LibraryFormat } from "../types/vite";
+import { BuildTarget } from '../types/targets';
 
 export const generateExports = (options: {
   cwd: string,
   entry: string,
   outDir?: string,
   append?: boolean,
-  targets: (LibraryFormat | 'esm-node' | 'web-components' | 'types' | 'nuxt')[],
+  targets: BuildTarget[],
 }) => {
   const { cwd, entry } = options
   const libName = parse((entry).split('/').pop() || 'main.ts').name

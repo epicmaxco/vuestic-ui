@@ -144,7 +144,7 @@ export const transformVueComponent = (code: string) => {
 
   return {
     code: s.toString(),
-    map: s.generateMap(),
+    map: s.generateMap({ hires: true, includeContent: true }),
   }
 }
 
@@ -152,15 +152,25 @@ export const transformVueComponent = (code: string) => {
 export const componentVBindFix = (o: {
   sourcemap?: boolean
 } = { sourcemap: false }): Plugin => {
+  let cache = new Map<string, { code: string, map: any }>()
+
   return {
     name: 'vuestic:component-v-bind-fix',
     enforce: 'pre',
     transform (code, id) {
+      if (cache.has(id)) {
+        return cache.get(id)
+      }
+
       if (!/\.vue$/.test(id)) {
         return
       }
 
       const result = transformVueComponent(code)
+
+      if (!result) { return }
+
+      cache.set(id, result)
 
       if (o.sourcemap) {
         return result
