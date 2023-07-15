@@ -3,7 +3,9 @@
     <div
       v-show="visible"
       ref="rootElement"
-      :role="$props.closeable ? 'alertdialog' : 'alert'"
+      :role="$attrs.role ?? $props.closeable ? 'alertdialog' : 'alert'"
+      :aria-live="computedAriaLive"
+      aria-atomic="true"
       class="va-toast"
       :class="toastClasses"
       :style="toastStyles"
@@ -83,7 +85,7 @@ export default defineComponent({
     render: { type: Function },
     ariaCloseLabel: { type: String, default: '$t:close' },
   },
-  setup (props, { emit }) {
+  setup (props, { emit, attrs }) {
     const rootElement = shallowRef<HTMLElement>()
 
     const { getColor } = useColors()
@@ -111,6 +113,17 @@ export default defineComponent({
       backgroundColor: getColor(props.color),
       color: textColorComputed.value,
     }))
+
+    const computedAriaLive = computed(() => {
+      const role = attrs.role
+      if (role === 'alert' || role === 'alertdialog') {
+        return 'assertive'
+      } else if (role === 'status') {
+        return 'polite'
+      } else {
+        return 'off'
+      }
+    })
 
     const computedMessage = computed(() => (typeof props.message === 'function') ? props.message() : props.message)
 
@@ -159,6 +172,7 @@ export default defineComponent({
       visible,
       toastClasses,
       toastStyles,
+      computedAriaLive,
       computedMessage,
       onToastClick,
       onToastClose,
