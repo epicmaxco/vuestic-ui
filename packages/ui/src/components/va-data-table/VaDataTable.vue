@@ -124,7 +124,11 @@
                     :key="`table-cell_${cell.column.name + cell.rowIndex}`"
                     class="va-data-table__table-td"
                     :class="getClass(cell.column.tdClass)"
-                    :style="[getCellCSSVariables(cell), getStyle(cell.column.tdStyle)]"
+                    :style="[
+                      cell.column.width ? { minWidth: cell.column.width, maxWidth: cell.column.width } : {},
+                      getCellCSSVariables(cell),
+                      getStyle(cell.column.tdStyle),
+                    ]"
                     v-bind="getCellBind(cell, row)"
                   >
                     <slot
@@ -335,13 +339,12 @@ export default defineComponent({
     const showNoDataFilteredHtml = computed(() => paginatedRows.value.length === 0)
 
     const onRowClickHandler = (name: emitNames, event: Event, row: DataTableRow) => {
-      if (props.clickable) {
-        emit(name, {
-          event,
-          item: row.source,
-          itemIndex: row.initialIndex,
-        })
-      }
+      emit(name, {
+        event,
+        item: row.source,
+        itemIndex: row.initialIndex,
+        row,
+      })
 
       if (props.selectable && props.grid) {
         toggleRowSelection(row)

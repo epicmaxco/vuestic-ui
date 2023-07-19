@@ -41,7 +41,7 @@
   "dependencies": {
     "@docsearch/js": "^3.2.1",
     "@funken-studio/sitemap-nuxt-3": "^4.0.4",
-    "@nuxtjs/google-fonts": "^3.0.0-1",
+    "@nuxtjs/google-fonts": "^3.0.1",
     "@types/acorn": "^6.0.0",
     "acorn": "^8.8.1",
     "codesandbox": "^2.2.3",

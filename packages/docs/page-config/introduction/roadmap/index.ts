@@ -7,15 +7,31 @@ export default definePageConfig({
     block.subtitle("In development"),
     block.paragraph("The following features are currently being in development:"),
 
-    block.headline("[v1.7](https://github.com/epicmaxco/vuestic-ui/milestone/27)"),
-    block.paragraph("We still plan things to do in 1.7, but here is what we decided to do for now:"),
-
+    block.headline("v1.8"),
     block.component("Roadmap", {
       roadmap: [
         {
           title: "Color Picker",
           type: "component",
           image: "colorPicker",
+        },
+        {
+          title: "Page Layout",
+          type: "component",
+          image: "PageLayout"
+        },
+        {
+          title: "Menu",
+          type: "component",
+          image: "Menu"
+        },
+        {
+          title: "Vuestic Design Kit",
+          type: "other",
+        },
+        {
+          title: "Input redesign",
+          type: "component",
         },
         {
           title: "Accessibility Improvements",
@@ -29,6 +45,33 @@ export default definePageConfig({
     }),
 
     block.subtitle("Released"),
+
+    block.headline("[v1.7](https://github.com/epicmaxco/vuestic-ui/milestone/27)"),
+    block.paragraph("We focus on improving existing components and documentation pages."),
+    block.component("Roadmap", {
+      roadmap: [
+        {
+          title: "Form improvements",
+          type: "component",
+        },
+        {
+          title: "Accessibility Improvements",
+          type: "other",
+        },
+        {
+          title: "Docs Improvements",
+          type: "other",
+        },
+        {
+          title: "Bug fixes",
+          type: "other",
+        },
+        {
+          title: "Performance improvements",
+          type: "other",
+        },
+      ] as RoadmapItem[],
+    }),
 
     block.headline("[v1.6](https://github.com/epicmaxco/vuestic-ui/milestone/19)"),
     block.paragraph("We focus on new services, components and integration with CSS frameworks."),

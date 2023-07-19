@@ -1,6 +1,7 @@
 import { computed, ref } from 'vue'
 
-import { useDocument, extractHTMLElement, useIsMounted } from '../../../composables'
+import { useDocument, useIsMounted } from '../../../composables'
+import { unwrapEl } from '../../../utils/unwrapEl'
 
 export const useAnchorSelector = (
   props: {
@@ -14,7 +15,7 @@ export const useAnchorSelector = (
 
   const computedAnchorRef = computed<HTMLElement | undefined>({
     set (v: HTMLElement | undefined) {
-      anchorRef.value = extractHTMLElement(v)
+      anchorRef.value = unwrapEl(v)
     },
     get () {
       // eslint-disable-next-line no-unused-expressions

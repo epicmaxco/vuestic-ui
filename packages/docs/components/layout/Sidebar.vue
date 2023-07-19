@@ -37,11 +37,11 @@
             {{ childRoute.category }}
           </va-list-label>
           <va-sidebar-item
-            :to="`/${route.name}/${childRoute.name}`"
+            :to="childRoute.path ? childRoute.path : `/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
-            :active-color="activeColor"
             :hover-color="hoverColor"
-            border-color="primary"
+            :border-color="activeColor"
+            active-color="#ffffff00"
             @click="onSidebarItemClick"
           >
             <va-sidebar-item-content>
@@ -49,10 +49,9 @@
                 <va-badge
                   placement="right-center"
                   size="small"
-                  offset="-5px"
-                  :text="childRoute.meta && childRoute.meta.badge.text"
+                  offset="5px"
+                  :text="childRoute.meta?.badge?.text"
                   :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge.type]"
-                  :visible-empty="false"
                 >
                   {{ childRoute.displayName }}
                 </va-badge>
@@ -117,6 +116,10 @@ export default defineComponent({
     })
 
     const isActiveChildRoute = (child: NavigationRoute, parent: NavigationRoute) => {
+      if (child.path) {
+        return route.path === child.path
+      }
+
       const path = `/${String(parent.name)}/${String(child.name)}`
 
       return path === route.path
@@ -141,7 +144,7 @@ export default defineComponent({
       }
     }
 
-    watch(() => route, setActiveExpand, { immediate: true })
+    watch(() => route.fullPath, setActiveExpand, { immediate: true })
 
     return {
       navigationRoutes: getSortedNavigationRoutes(navigationRoutes),
@@ -178,6 +181,7 @@ export default defineComponent({
     font-size: 16px;
     line-height: 20px;
     cursor: pointer;
+    font-weight: bold;
 
     &:hover {
       ::before {
@@ -192,7 +196,7 @@ export default defineComponent({
     }
 
     &--active {
-      color: var(--va-primary);
+      color: var(--va-primary) !important;
     }
   }
 
@@ -212,6 +216,10 @@ export default defineComponent({
 
     .va-sidebar-item {
       cursor: pointer;
+
+      &--active {
+        color: var(--va-primary) !important;
+      }
     }
 
     .va-sidebar-item-title {
@@ -229,6 +237,7 @@ export default defineComponent({
 
     .va-sidebar-item-content {
       padding-left: 3rem;
+      min-height: 52px;
     }
 
     &:first-child {

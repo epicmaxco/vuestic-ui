@@ -1,15 +1,15 @@
-// main.js
+import { createApp } from 'vue'
 import { createVuestic } from 'vuestic-ui'
 import 'vuestic-ui/dist/vuestic-ui.css'
 
-createApp()
+createApp(App)
   .use(createVuestic({
     config: {
-      colors: { ... },
+      colors: { /*...*/ },
       colorsClasses: [
         {
           prefix: 'custom',
-          property: ['border', 'color'],
+          property: ['border-color', 'color'],
         },
         {
           prefix: 'brand',

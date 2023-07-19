@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 13rem; position: relative;">
+  <div class="relative h-52">
     <div class="content">
       Content
     </div>
@@ -8,7 +8,7 @@
       v-model="enabled"
       :minimized="minimized"
       position="right"
-      style="position: absolute;"
+      class="absolute"
     >
       <va-sidebar-item
         v-for="item in items"

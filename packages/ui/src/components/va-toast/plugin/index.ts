@@ -24,7 +24,7 @@ export const VaToastPlugin = defineVuesticPlugin(() => ({
   },
 }))
 
-declare module 'vue' {
+declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
     $vaToast: ReturnType<typeof createVaToastPlugin>
   }

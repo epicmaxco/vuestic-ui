@@ -2,7 +2,7 @@
   <div class="cards">
     <va-card class="card card-1">
       <va-card-title>
-        <h3 class="display-2 m-0">
+        <h3 class="va-h3 m-0">
           Get started
         </h3>
       </va-card-title>
@@ -40,7 +40,7 @@
 
     <va-card class="card card-2">
       <va-card-content>
-        <table style="width: 100%;">
+        <table class="w-full">
           <tr>
             <td>Amount</td>
             <td>

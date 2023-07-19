@@ -22,26 +22,7 @@
         </td>
       </tr>
       <tr>
-        <td>
-          <VbCard title="Transparent">
-            Dot: <va-badge
-            dot
-            transparent
-          /><br>
-            Default: <va-badge
-            text="label"
-            transparent
-          /><br>
-            <br>
-            Slotted: <va-badge
-            text="label"
-            transparent
-          >
-            content
-          </va-badge><br>
-          </VbCard>
-        </td>
-        <td>
+        <td colspan="2">
           <VbCard title="Slotted label">
             <va-badge text="I am Label">
               <template #text>
@@ -60,7 +41,7 @@
             </va-badge><br><br>
           </VbCard>
         </td>
-        <td>
+        <td colspan="2">
           <VbCard title="MultiLine badges" style="width: 200px;">
             <div>
               Without multi-line prop:
@@ -82,7 +63,7 @@
       <tr>
         <td>
           <VbCard title="Overlapped badges">
-            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 2.5rem;">
               <va-badge
                 v-for="placement in placementsPositionsWithAliases"
                 :key="placement"
@@ -90,14 +71,14 @@
                 :placement="placement"
                 overlap
               >
-                Float at
+                {{ placement }}
               </va-badge>
             </div>
           </VbCard>
         </td>
         <td>
           <VbCard title="Overlapped badges with dot">
-            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 2rem;">
               <va-badge
                 v-for="placement in placementsPositionsWithAliases"
                 :key="placement"
@@ -105,28 +86,28 @@
                 overlap
                 dot
               >
-                <div style="background-color: wheat;">{{ placement }}</div>
+                {{ placement }}
               </va-badge>
             </div>
           </VbCard>
         </td>
         <td>
           <VbCard title="Floated badges">
-            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 2.5rem;">
               <va-badge
                 v-for="placement in placementsPositionsWithAliases"
                 :key="placement"
                 :text="placement"
                 :placement="placement"
               >
-                Float at
+                {{ placement }}
               </va-badge>
             </div>
           </VbCard>
         </td>
         <td>
           <VbCard title="Floated badges with huge offset">
-            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="padding: 0 5rem; display: flex; flex-direction: column; gap: 2.5rem;">
               <va-badge
                 v-for="placement in placementsPositionsWithAliases"
                 :key="placement"
@@ -134,14 +115,14 @@
                 :placement="placement"
                 offset="1rem"
               >
-                Float at
+                {{ placement }}
               </va-badge>
             </div>
           </VbCard>
         </td>
       </tr>
       <tr>
-        <td>
+        <td colspan="2">
           <VbCard title="Dotted badges">
             <va-badge
               dot
@@ -178,7 +159,7 @@
             </va-badge><br><br>
           </VbCard>
         </td>
-        <td>
+        <td colspan="2">
           <VbCard title="VisibleEmpty">
             Empty: <va-badge /><br>
             Empty dot: <va-badge dot /><br>
@@ -201,10 +182,6 @@
             Dot: <input
               type="checkbox"
               v-model="dot"
-            ><br>
-            Transparent: <input
-              type="checkbox"
-              v-model="transparent"
             ><br>
             VisibleEmpty: <input
               type="checkbox"

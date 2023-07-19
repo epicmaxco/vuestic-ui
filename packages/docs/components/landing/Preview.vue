@@ -36,7 +36,7 @@
         <div class="preview__features">
           <va-aspect-ratio :ratio="1024/316">
             <img
-              src="/landing/preview-features.svg"
+              src="/landing/preview-features.png"
               alt="Component examples"
             >
           </va-aspect-ratio>

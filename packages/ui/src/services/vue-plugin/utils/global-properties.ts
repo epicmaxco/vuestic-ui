@@ -7,7 +7,7 @@ export const extractGlobalProperties = (app: App | AppContext) => app.config.glo
  * Type safe set vue global property
  * Declare type before use this method.
  * ```
-declare module 'vue' {
+declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
     $vaThing: ThingType
   }

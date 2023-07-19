@@ -6,7 +6,7 @@ export const getI18nConfigDefaults = () => ({
   /** Select no options text */
   noOptions: 'Items not found',
   /** Modal Ok button default text */
-  ok: 'Ok',
+  ok: 'OK',
   /** Modal Cancel button default text */
   cancel: 'Cancel',
   /** FileUpload default button text */

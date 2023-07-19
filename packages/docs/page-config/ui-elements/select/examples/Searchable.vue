@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 300px;">
+  <div class="max-w-xs">
     <va-select
       v-model="value"
       label="Searchable multi select"

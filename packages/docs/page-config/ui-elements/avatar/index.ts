@@ -64,6 +64,13 @@ export default definePageConfig({
       description: "You can use `va-avatar-group` component to group avatars."
     }),
 
+    block.example("Accessibility"),
+    block.list([
+      "When image used as source, provide its description to the `alt` prop.",
+      "Use `title` attribute when icon name is passed.",
+      "Use `aria-hidden=\"true\"` attribute, if associated text is quite descriptive.",
+    ]),
+
     block.subtitle("API"),
     block.api("VaAvatar", apiDescription, apiOptions),
   ],

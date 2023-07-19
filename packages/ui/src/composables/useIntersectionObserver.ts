@@ -1,6 +1,5 @@
 import { ref, unref, computed, watch, onBeforeUnmount, type Ref } from 'vue'
-
-import { extractHTMLElement } from './useHTMLElement'
+import { unwrapEl } from '../utils/unwrapEl'
 
 type MaybeRef<T> = T | Ref<T>
 
@@ -17,7 +16,7 @@ export const useIntersectionObserver = <T extends HTMLElement | undefined>(
   }
 
   const observeTarget = (target: MaybeRef<T>) => {
-    const disclosedTarget = extractHTMLElement(unref(target))
+    const disclosedTarget = unwrapEl(unref(target))
     disclosedTarget && observer.value?.observe(disclosedTarget)
   }
 

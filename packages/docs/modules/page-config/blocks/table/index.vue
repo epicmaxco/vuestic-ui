@@ -1,6 +1,6 @@
 <template>
-  <div class="DocsTable">
-    <table class="DocsTable__table">
+  <div class="DocsTable va-typography-block">
+    <table class="DocsTable__table va-table">
       <thead>
         <tr>
           <th

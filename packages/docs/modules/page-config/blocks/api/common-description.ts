@@ -112,5 +112,8 @@ export default
   },
   slots: {
     scopeAvailable: "Slot scope available:"
+  },
+  methods: {
+    
   }
 }

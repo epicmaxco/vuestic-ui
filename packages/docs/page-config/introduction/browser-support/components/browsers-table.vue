@@ -1,5 +1,5 @@
 <template>
-  <div class="DocsTable">
+  <div class="DocsTable va-table">
     <table class="DocsTable__table">
       <thead>
         <tr>

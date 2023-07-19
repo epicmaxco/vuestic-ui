@@ -1,52 +1,53 @@
 <template>
   <va-button @click="showFirstModal = !showFirstModal">
-    Show first modal
+    Show modal
   </va-button>
 
   <va-modal
+    v-slot="{ hide }"
     v-model="showFirstModal"
-    :message="firstMessage"
     hide-default-actions
   >
-    <va-button
-      class="mr-2"
-      @click="$vaToast.init('Hello')"
-    >
-      Basic notification
-    </va-button>
-    <va-popover message="Popover text">
-      <va-button>Hover me</va-button>
-    </va-popover>
-    <va-date-input class="mt-2" />
+    <div class="flex flex-col items-start gap-2">
+      <h3 class="va-h3">
+        Nested Modal
+      </h3>
 
-    <va-button
-      class="mt-8"
-      color="secondary"
-      @click="showSecondModal = !showSecondModal"
-    >
-      Show second modal
-    </va-button>
-
-    <va-modal
-      v-model="showSecondModal"
-      :message="secondMessage"
-    >
-      <va-button
-        class="mr-2"
-        @click="$vaToast.init('Hello')"
-      >
-        Show notification
-      </va-button>
-      <va-popover message="Popover text">
-        <va-button>Hover me</va-button>
-      </va-popover>
-      <va-select
-        v-model="value"
-        class="mt-2"
-        :options="options"
+      <va-date-input
+        v-model="date"
+        outline
       />
-    </va-modal>
+
+      <p class="va-text-secondary opacity-50">
+        This example shows how overlapping modals work after you click save.
+      </p>
+    </div>
+
+    <div class="flex justify-end mt-2 gap-2">
+      <va-button
+        preset="secondary"
+        color="secondary"
+        @click="hide()"
+      >
+        Cancel
+      </va-button>
+      <va-button preset="primary" @click="setDefault">
+        Set default
+      </va-button>
+      <va-button
+        @click="showSecondModal = !showSecondModal"
+      >
+        Save
+      </va-button>
+    </div>
   </va-modal>
+
+  <va-modal
+    v-model="showSecondModal"
+    message="Are you sure you want to save it?"
+    ok-text="Save"
+    @ok="showFirstModal = false"
+  />
 </template>
 
 <script>
@@ -55,11 +56,17 @@ export default {
     return {
       showFirstModal: false,
       showSecondModal: false,
-      firstMessage: "First modal message",
-      secondMessage: "Second modal message",
-      value: "",
-      options: ["one", "two", "three"],
+      date: new Date(),
     };
   },
+  methods: {
+    setDefault() {
+      this.date = new Date();
+      this.$vaToast.init({
+        message: 'Date was set to default',
+        color: '#222222',
+      })
+    }
+  }
 };
 </script>

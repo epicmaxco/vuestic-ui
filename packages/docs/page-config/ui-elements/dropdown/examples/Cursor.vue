@@ -9,7 +9,7 @@
 
     <template #anchor>
       <va-image
-        style="height: 300px; width: 300px;"
+        class="h-[300px] w-[300px]"
         src="https://picsum.photos/1500"
       >
         <va-badge text="Right click this image" />

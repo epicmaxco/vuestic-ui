@@ -300,23 +300,33 @@ export default defineComponent({
       (typeof props.margins === 'string' ? parseFloat(props.margins) : props.margins) === 0
     ))
 
+    const buttonsColor = () => {
+      if (isFocused.value) { return props.color }
+
+      return 'background-border'
+    }
+
     const buttonProps = computed(() => ({
       ...pick(props, ['color', 'textColor']),
       round: props.rounded,
       preset: props.flat ? 'secondary' : '',
-      borderColor: (props.outline && props.flat) ? props.color : '',
+      borderColor: (props.outline && props.flat) ? buttonsColor() : '',
     }))
 
     const decreaseButtonProps = computed(() => ({
       ...buttonProps.value,
       icon: props.decreaseIcon,
       disabled: isDecreaseActionDisabled.value,
+      ariaLabel: tp(props.ariaDecreaseLabel),
+      ...(!isDecreaseActionDisabled.value && { onClick: decreaseCount }),
     }))
 
     const increaseButtonProps = computed(() => ({
       ...buttonProps.value,
       icon: props.increaseIcon,
       disabled: isIncreaseActionDisabled.value,
+      ariaLabel: tp(props.ariaIncreaseLabel),
+      ...(!isIncreaseActionDisabled.value && { onClick: increaseCount }),
     }))
 
     const { tp } = useTranslation()

@@ -73,7 +73,7 @@
     <va-dropdown-content
       no-padding
       @keydown.esc.prevent="hideDropdown"
-      @keypress.enter.prevent="hideDropdown"
+      @keydown.enter.prevent="hideDropdown"
     >
       <va-time-picker
         ref="timePicker"
@@ -97,19 +97,17 @@ import {
   useFocus, useFocusEmits,
   useStateful, useStatefulEmits, useStatefulProps,
   useTranslation,
+  useDropdownable, useDropdownableProps, useDropdownableEmits,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
 
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import { VaInputWrapper } from '../va-input'
-import VaIcon from '../va-icon/VaIcon.vue'
+import { VaIcon } from '../va-icon'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
-const VaDropdownProps = extractComponentProps(VaDropdown,
-  ['keyboardNavigation', 'innerAnchorSelector', 'modelValue'],
-)
 
 export default defineComponent({
   name: 'VaTimeInput',
@@ -121,12 +119,12 @@ export default defineComponent({
     ...useValidationEmits,
     ...useClearableEmits,
     ...useStatefulEmits,
+    ...useDropdownableEmits,
     'update:modelValue',
-    'update:isOpen',
   ],
 
   props: {
-    ...VaDropdownProps,
+    ...useDropdownableProps,
     ...useComponentPresetProp,
     ...useClearableProps,
     ...VaInputWrapperProps,
@@ -134,10 +132,9 @@ export default defineComponent({
     ...useValidationProps as ValidationProps<Date>,
     ...useStatefulProps,
 
-    isOpen: { type: Boolean, default: undefined },
     closeOnContentClick: { type: Boolean, default: false },
-    offset: { ...VaDropdownProps.offset, default: () => [2, 0] },
-    placement: { ...VaDropdownProps.placement, default: 'bottom-start' },
+    offset: { ...useDropdownableProps.offset, default: () => [2, 0] },
+    placement: { ...useDropdownableProps.placement, default: 'bottom-start' },
     modelValue: { type: Date, default: undefined },
     clearValue: { type: Date, default: undefined },
     format: { type: Function as PropType<(date?: Date) => string> },
@@ -157,7 +154,9 @@ export default defineComponent({
     const input = shallowRef<HTMLInputElement>()
     const timePicker = shallowRef<typeof VaTimePicker>()
 
-    const [isOpenSync] = useSyncProp('isOpen', props, emit, false as boolean)
+    const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
+      defaultCloseOnValueUpdate: computed(() => Array.isArray(props.view) && props.view.length === 1),
+    })
     const { valueComputed } = useStateful(props, emit)
 
     const { parse, isValid } = useTimeParser(props)
@@ -309,7 +308,11 @@ export default defineComponent({
       return { cursor: 'pointer' }
     })
 
-    const iconTabindexComputed = computed(() => props.disabled || props.readonly ? -1 : 0)
+    const iconTabindexComputed = computed(() => {
+      if (!props.manualInput) { return -1 }
+
+      return props.disabled || props.readonly ? -1 : 0
+    })
 
     const iconProps = computed(() => ({
       role: 'button',
@@ -335,11 +338,11 @@ export default defineComponent({
       ...omit(attrs, ['class', 'style']),
     }))
 
-    const filteredProps = filterComponentProps(VaDropdownProps)
     const dropdownPropsComputed = computed(() => ({
-      ...filteredProps.value,
+      ...dropdownProps.value,
       keyboardNavigation: true,
       innerAnchorSelector: '.va-input-wrapper__field',
+      trigger: 'none' as const,
     }))
 
     return {

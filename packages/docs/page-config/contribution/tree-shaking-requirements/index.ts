@@ -7,7 +7,7 @@ export default definePageConfig({
     block.paragraph("We made several build formats:"),
     block.list([
       "esm - used for tree-shaking",
-      "esm-ssr - also used for tree-shaking, but uses {'@'}vue/server-side-renderer.",
+      "esm-ssr - also used for tree-shaking, but uses `@vue/server-side-renderer`.",
       "iife - used by browsers, can be included to page without bundler.",
       "cjs - used for bundlers that use CommonJS (e.g. node) format instead of ESM",
       "styles - SCSS utils, that is not required for components."

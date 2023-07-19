@@ -2,13 +2,15 @@
 import { DefineComponent, PropType } from 'vue';
 import merge from 'lodash/merge'
 import camelCase from 'lodash/camelCase'
-import ApiTable from './components/api-table.vue';
+import ApiTable from './components/ApiDocs.vue';
+import { MarkdownView } from '../shared/markdown'
 import {
   CssVariables,
   ManualApiOptions,
   VisualOptions,
   APIDescriptionOptions,
   APIDescriptionType,
+  ComponentMeta,
 } from './types';
 import commonDescription from "./common-description";
 
@@ -30,7 +32,7 @@ const props = defineProps({
     required: true,
   },
   meta: {
-    type: Object as PropType<ManualApiOptions>,
+    type: Object as PropType<ComponentMeta>,
     required: true
   },
   visualOptions: {
@@ -51,8 +53,8 @@ function getDescription (type: APIDescriptionType, name: string): string {
   const nameCamel = camelCase(name)
 
   return props.descriptionOptions?.[type]?.[nameCamel]
-    || commonDescription?.[type]?.[nameCamel]
-    || '';
+    ?? (commonDescription[type] as Record<string, string>)[nameCamel]
+    ?? '';
 }
 
 const cleanDefaultValue = (o: Record<string, any> | string) => {
@@ -72,18 +74,20 @@ const cleanDefaultValue = (o: Record<string, any> | string) => {
   return str
 }
 
-const propsOptions = computed(() => Object
-  .entries(withManual.value.props || {})
-  .filter(([key, prop]) => !prop.hidden)
-  .map(([key, prop]) => ({
-    name: { name: key, ...prop },
-    description: getDescription('props', key),
-    types: '`' + prop.types + '`',
-    default: cleanDefaultValue(prop.default),
-  }))
-  .sort((a, b) => {
-    return a.name.name.localeCompare(b.name.name)
-  })
+const propsOptions = computed(() => {
+  if (!withManual.value.props) { return [] }
+
+  return Object
+    .entries(withManual.value.props)
+    .filter(([name, prop]) => !prop.hidden)
+    .map(([name, prop]) => ({
+      name: name,
+      description: getDescription('props', name),
+      types: '`' + prop.types + '`',
+      default: cleanDefaultValue(prop.default) ?? '',
+    }))
+    .sort((a, b) => (a.name || '').localeCompare(b.name))
+  }
 )
 
 const eventsOptions = computed(() => Object
@@ -134,6 +138,10 @@ const cssVariablesOptions = computed(() => props.cssVariables.map(([name, value,
   name, value, /* comment */ // TODO: Enable comment when everywhere is used correct comments
   // TODO: Or add tanslations after i18n splitted
 })))
+
+const isValueIsDefaultTranslation = (value: String) => {
+  return value.startsWith('`"$t:');
+}
 </script>
 
 <template>
@@ -144,14 +152,36 @@ const cssVariablesOptions = computed(() => props.cssVariables.map(([name, value,
       :columns="['Name', 'Description', 'Types', 'Default']"
       :data="propsOptions"
     >
-      <template #name="{ data }">
-        <strong>{{ data.name }}</strong>
+      <template #name="{ value, row }">
+        <strong>{{ value }}</strong>
         <va-badge
-          v-if="data.required"
+          v-if="row.required"
           class="ml-2"
           text="required"
           color="primary"
         />
+      </template>
+      <template
+        #default="{value}"
+      >
+        <div class="flex items-center gap-1">
+          <markdown-view :content="value" />        
+          <va-popover
+            placement="right"
+            trigger="click"
+          >
+            <va-icon
+              v-if="isValueIsDefaultTranslation(value)"
+              name="info"
+              color="secondary"
+            />
+            <template #body>
+              <nuxt-link to="/services/i18n#translations">
+                Read more
+              </nuxt-link>
+            </template>
+          </va-popover>
+        </div> 
       </template>
     </ApiTable>
 
@@ -182,11 +212,11 @@ const cssVariablesOptions = computed(() => props.cssVariables.map(([name, value,
       :columns="['Name', 'Default Value']"
       :data="cssVariablesOptions"
     >
-      <template #name="{ data }">
-        <strong class="va-text-code">{{ data }}</strong>
+      <template #name="{ value }">
+        <strong class="va-text-code">{{ value }}</strong>
       </template>
-      <template #value="{ data }">
-        <span class="va-text-code va-text-secondary">{{ data }}</span>
+      <template #value="{ value }">
+        <span class="va-text-code va-text-secondary">{{ value }}</span>
       </template>
     </ApiTable>
   </va-content>

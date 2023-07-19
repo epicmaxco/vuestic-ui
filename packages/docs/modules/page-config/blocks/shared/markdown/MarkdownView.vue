@@ -1,6 +1,6 @@
 <template>
   <div
-    class="MarkdownView"
+    class="MarkdownView va-typography-block"
     :class="{ 'MarkdownView--inline': inline || text }"
     v-html="text"
   />
