@@ -1,4 +1,4 @@
-import { IconConfig } from '../../services/icon/types'
+import { IconConfig } from '../../src/services/icon/types'
 
 const fontsConfig: IconConfig = [
   {

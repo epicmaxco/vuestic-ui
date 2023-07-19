@@ -21657,13 +21657,6 @@ vscode-uri@^3.0.2:
   resolved "https://registry.yarnpkg.com/vscode-uri/-/vscode-uri-3.0.7.tgz#6d19fef387ee6b46c479e5fb00870e15e58c1eb8"
   integrity sha512-eOpPHogvorZRobNqJGhapa0JdwaxpjVvyBp0QIUMRMSf8ZAlqOdEquKuRmw9Qwu0qXtJIWqFtMkmvJjUZmMjVA==
 
-vue-book@0.2.0-alpha.0:
-  version "0.2.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/vue-book/-/vue-book-0.2.0-alpha.0.tgz#a46722bb0932c67cc842cb8e26357b4ddc8a61b6"
-  integrity sha512-pwXVmTpneeAQGZ9q1OtViqGtgAaTIu+7cGGDe+IC+jeb8rWT7pOxOR0WIDJzE5Gl5zxbj2YGP85Hp1aJiNRxNg==
-  dependencies:
-    tslib "^2.0.3"
-
 vue-bundle-renderer@0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/vue-bundle-renderer/-/vue-bundle-renderer-0.4.1.tgz#7eae39e7da8e817dc1d0efb17c323e8f1cfce386"

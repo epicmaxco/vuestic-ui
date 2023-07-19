@@ -27,11 +27,9 @@
     "*.vue"
   ],
   "scripts": {
-    "serve": "vue-cli-service serve --mode book",
     "serve:production": "vue-cli-service serve --mode production",
     "build": "tsx build/build.ts",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
-    "build:book": "vue-cli-service build --mode book",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}' --fix",
     "test:e2e": "vue-cli-service test:e2e",
@@ -41,7 +39,8 @@
     "precommit": "lint-staged --concurrent=false && yarn test:unit --run",
     "server:webapp": "npx http-server dist --push-state",
     "serve:storybook": "storybook dev -p 6006",
-    "build:storybook": "storybook build"
+    "build:storybook": "storybook build",
+    "start:storybook": "serve storybook-static"
   },
   "dependencies": {
     "@floating-ui/vue": "^1.0.1",
@@ -129,7 +128,6 @@
     "vite-plugin-chunk-split": "^0.4.7",
     "vitest": "^0.18.1",
     "vue": "^3.0.4",
-    "vue-book": "0.2.0-alpha.0",
     "vue-loader": "^16.3.0",
     "vue-tsc": "^1.2.0",
     "vuelidate": "^0.7.5",

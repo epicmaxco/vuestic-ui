@@ -1,7 +1,7 @@
 import { type Preview, setup } from "@storybook/vue3";
 import './storybook-main.scss'
-
-import { VueBookComponents } from 'vue-book'
+import VbCard from './components/VbCard.vue'
+import VbDemo from './components/VbDemo.vue'
 
 import {
   createIconsConfig,
@@ -11,12 +11,32 @@ import {
   VaDropdownPlugin,
   BreakpointConfigPlugin,
 } from './../src/main'
-import demoIconAliases from '../src/vue-book/vuestic-config/demo-icon-aliases'
-import demoIconFonts from '../src/vue-book/vuestic-config/demo-icon-fonts'
+import demoIconAliases from './vuestic-config/demo-icon-aliases'
+import demoIconFonts from './vuestic-config/demo-icon-fonts'
+
+
 
 setup((app) => {
-// TODO Remove after transitioning off vue-book
-  app.use(VueBookComponents)
+// TODO Taken from vue-book. We might want to streamline this code.
+  app.component('VbDemo', VbDemo)
+  app.component('VbCard', VbCard)
+  // Register global helpers
+  const loremString = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+  app.config.globalProperties.$vb = {
+    log: (message?: any, ...optionalParams: any[]): void => {
+      // eslint-disable-next-line no-console
+      console.log(message, ...optionalParams)
+    },
+    alert: (message?: any): void => {
+      alert(message)
+    },
+    lorem: (length = loremString.length): string => {
+      return [
+        ...Array(Math.floor(length / loremString.length)).fill(loremString),
+        loremString.slice(0, (length % loremString.length)),
+      ].join(' ')
+    },
+  }
 
   app.use(createVuesticEssential({
     config: {
