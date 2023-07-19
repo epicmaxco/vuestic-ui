@@ -76,7 +76,7 @@
 <script>
 import { ref } from 'vue'
 import { VaDropdown, VaDropdownContent } from './'
-import DropdownCloseButton from './__demo__/DropdownCloseButton'
+import DropdownCloseButton from './__demo__/DropdownCloseButton.vue'
 import { VaInput } from '../va-input'
 import { VaBadge } from '../va-badge'
 import { VaButton } from '../va-button'

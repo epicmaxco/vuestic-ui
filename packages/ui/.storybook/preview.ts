@@ -1,4 +1,7 @@
 import { type Preview, setup } from "@storybook/vue3";
+import './storybook-main.scss'
+
+import { VueBookComponents } from 'vue-book'
 
 import {
   createIconsConfig,
@@ -12,6 +15,9 @@ import demoIconAliases from '../src/vue-book/vuestic-config/demo-icon-aliases'
 import demoIconFonts from '../src/vue-book/vuestic-config/demo-icon-fonts'
 
 setup((app) => {
+// TODO Remove after transitioning off vue-book
+  app.use(VueBookComponents)
+
   app.use(createVuesticEssential({
     config: {
       icons: createIconsConfig({
