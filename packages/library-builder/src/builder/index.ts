@@ -11,6 +11,7 @@ import { buildNuxt } from "./build-nuxt";
 import { BuildTarget } from "../types/targets";
 import { promiseSequence } from '../utils/promise-sequence';
 import { createStylesViteConfig } from '../vite/styles';
+import { fineComponents } from '../generator/generate-components-exports';
 
 export const build = async (options: {
   cwd?: string,
@@ -33,6 +34,9 @@ export const build = async (options: {
     } = options
 
     cleanDist(outDir)
+
+    console.log(fineComponents(entry))
+    return
 
     if (targets.includes('es')) {
       console.log('Building ES module')
