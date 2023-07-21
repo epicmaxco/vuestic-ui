@@ -3,6 +3,7 @@ import { rmSync, statSync } from 'fs';
 import { defineViteConfig } from '../utils/define-vite-config'
 import { readDirRecursive } from '../utils/read-dir-recursive'
 import { dirname, join, } from 'pathe'
+import { strictResolve } from '../utils/strict-resolve';
 
 export const createStylesViteConfig = (options: {
   cwd: string,
@@ -11,7 +12,14 @@ export const createStylesViteConfig = (options: {
 }) => {
   const { cwd, entry, outDir } = options
 
-  const cssInputs = readDirRecursive(join(cwd, dirname(entry), 'styles'))
+  const entryDir = strictResolve(cwd, dirname(entry), 'styles')
+
+  if (!entryDir) {
+    console.log('Skipping building styles, because styles directory does not exist')
+    return
+  }
+
+  const cssInputs = readDirRecursive(entryDir)
     .filter((el) => ['.css', '.scss']
     .some((elem) => el.includes(elem) && !el.includes('/_')))
 

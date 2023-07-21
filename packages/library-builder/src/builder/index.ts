@@ -34,119 +34,101 @@ export const build = async (options: {
 
     cleanDist(outDir)
 
-    const tasks: Promise<unknown>[] = []
-  
     if (targets.includes('es')) {
-      // tasks.push(
-        console.log('Building ES module')
-        await buildVite(createViteConfig({
-          format: 'es',
-          entry: entry,
-          cwd: cwd,
-          outDir: outDir,
-        }))
-      // )
+      console.log('Building ES module')
+      await buildVite(createViteConfig({
+        format: 'es',
+        entry: entry,
+        cwd: cwd,
+        outDir: outDir,
+      }))
     }
 
     if (targets.includes('esm-node')) {
-      // tasks.push(
-        console.log('Building ESM node module')
-        await buildVite(createViteConfig({
-          format: 'esm-node',
-          entry: entry,
-          cwd: cwd,
-          outDir: outDir,
-        }))
-      // )
+      console.log('Building ESM node module')
+      await buildVite(createViteConfig({
+        format: 'esm-node',
+        entry: entry,
+        cwd: cwd,
+        outDir: outDir,
+      }))
     }
 
     if (targets.includes('cjs')) {
-      // tasks.push(
-        console.log('Building CommonJS module')
-        await buildVite(createViteConfig({
-          format: 'cjs',
-          entry: entry,
-          cwd: cwd,
-          outDir: outDir,
-        }))
-      // )
+
+      console.log('Building CommonJS module')
+      await buildVite(createViteConfig({
+        format: 'cjs',
+        entry: entry,
+        cwd: cwd,
+        outDir: outDir,
+      }))
     }
 
     if (targets.includes('iife')) {
-      // tasks.push(
-        console.log('Building IIFE module')
-        await buildVite(createViteConfig({
-          format: 'iife',
-          entry: entry,
-          cwd: cwd,
-          outDir: outDir,
-        }))
-      // )
+      console.log('Building IIFE module')
+      await buildVite(createViteConfig({
+        format: 'iife',
+        entry: entry,
+        cwd: cwd,
+        outDir: outDir,
+      }))
     }
 
     if (targets.includes('web-components')) {
       console.log('Web components build is experimental')
       console.log('Building web components')
 
-      // tasks.push(
-        await buildVite(createWebComponentsViteConfig({
-          cwd: cwd,
-          outDir: outDir,
-          entry: entry,
-        }))
-      // )
+      await buildVite(createWebComponentsViteConfig({
+        cwd: cwd,
+        outDir: outDir,
+        entry: entry,
+      }))
     }
 
     if (targets.includes('types')) {
       console.log('Building types')
-      // tasks.push(
-        await buildTypes({
-          cwd: cwd,
-          outDir: outDir,
-        })
-      // )
+      await buildTypes({
+        cwd: cwd,
+        outDir: outDir,
+      })
     }
 
     if (targets.includes('nuxt')) {
       console.log('Building Nuxt module')
-      // tasks.push(
-        await buildNuxt({
-          cwd,
-          entry,
-          outDir,
-          nuxtDir
-        })
-      // )
+      await buildNuxt({
+        cwd,
+        entry,
+        outDir,
+        nuxtDir
+      })
     }
 
     if (targets.includes('styles')) {
       console.log('Building styles')
 
-      await buildVite(
-        createStylesViteConfig({
-          cwd: cwd,
-          entry: entry,
-          outDir: outDir,
-        })
-      )
+      const stylesViteConfig = createStylesViteConfig({
+        cwd: cwd,
+        entry: entry,
+        outDir: outDir,
+      })
+
+      if (stylesViteConfig) {
+        await buildVite(
+          stylesViteConfig
+        )
+      }
     }
 
-    // return promiseSequence(tasks)
-    //   .then((r) =>{
-        await generateExports({ cwd, entry, outDir, targets, append: true })
+    await generateExports({ cwd, entry, outDir, targets, append: true })
 
-        await postBuild({
-          cwd: cwd,
-          entry: entry,
-          outDir: outDir,
-          targets: targets,
-        })
+    await postBuild({
+      cwd: cwd,
+      entry: entry,
+      outDir: outDir,
+      targets: targets,
+    })
 
-        console.log('Build finished')
-      // }).catch((error) => {
-      //   console.log('Build failed')
-      //   console.error(error)
-      //   // TODO: handle error?
-      // })
+    console.log('Build finished')
   })
 }

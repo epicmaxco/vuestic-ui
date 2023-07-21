@@ -20,8 +20,6 @@ export async function buildNuxtModule(options: {
     ...Object.keys(packageJson.peerDependencies || {}),
   ]
 
-  console.log('Building Nuxt module...', packageJson.name)
-
   if (packageJson.name) {
     dependencies.push(packageJson.name);
   }
@@ -35,9 +33,14 @@ export async function buildNuxtModule(options: {
       [packageJson.name]: [join(options.cwd, options.entry)],
     } : {}
   })
-  await buildVite(nuxtRuntimeDirViteConfig({
+
+  const runtimeViteConfig = nuxtRuntimeDirViteConfig({
     entryDir: resolve(options.cwd, options.nuxtDir, "runtime"),
     outDir: join(outDir, "runtime"),
     external: dependencies,
-  }))
+  })
+
+  if (runtimeViteConfig) {
+    await buildVite(runtimeViteConfig)
+  }
 }

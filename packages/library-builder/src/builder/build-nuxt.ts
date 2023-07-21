@@ -1,6 +1,7 @@
 import { existsSync } from 'fs'
 import { join } from 'pathe'
 import { buildNuxtModule } from '../nuxt/builder'
+import { strictResolve } from '../utils/strict-resolve'
 
 
 export const buildNuxt = async (options: {
@@ -11,9 +12,9 @@ export const buildNuxt = async (options: {
 }) => {
   const { cwd, outDir, nuxtDir, entry } = options
 
-  const nuxtModulePath = join(cwd, nuxtDir)
+  const nuxtModulePath = strictResolve(cwd, nuxtDir)
 
-  if (!existsSync(nuxtModulePath)) {
+  if (!nuxtModulePath) {
     console.warn('Skipping building nuxt module, because it does not exist in ' + nuxtModulePath)
     return
   }

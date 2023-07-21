@@ -1,13 +1,20 @@
 import { readDirRecursive } from './../utils/read-dir-recursive';
 import { defineViteConfig } from "../utils/define-vite-config";
 import { replaceNext } from '../plugins/replace-next';
+import { strictResolve } from '../utils/strict-resolve';
 
 export const nuxtRuntimeDirViteConfig = (options: {
   entryDir: string,
   outDir: string
   external?: string[],
 }) => {
-  const inputs = readDirRecursive(options.entryDir)
+  const nuxtDir = strictResolve(options.entryDir)
+
+  if (!nuxtDir) {
+    return
+  }
+
+  const inputs = readDirRecursive(nuxtDir)
 
   const { external = [], entryDir, outDir } = options
 
@@ -34,6 +41,7 @@ export const nuxtRuntimeDirViteConfig = (options: {
             return true
           }
 
+          console.log('external', source)
           if (external.includes(source)) {
             return true
           }
