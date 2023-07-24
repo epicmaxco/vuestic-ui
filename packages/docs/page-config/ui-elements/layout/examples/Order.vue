@@ -60,7 +60,7 @@
 
     <template #content>
       <main class="p-4">
-        <h3>Page content</h3>
+        <h3 class="va-h3">Page content</h3>
         <p>Page content must be wrapped in main tag. You must do it manually. Here you can place any blocks you need in your application.</p>
 
         <p>For example, you can place here your router view, add sidebar with navigation in #left slot.</p>
