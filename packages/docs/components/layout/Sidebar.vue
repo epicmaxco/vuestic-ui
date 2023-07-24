@@ -210,13 +210,8 @@ export default defineComponent({
       position: absolute;
     }
 
-    .va-sidebar-item-content {
-      cursor: pointer;
-    }
 
     .va-sidebar-item {
-      cursor: pointer;
-
       &--active {
         color: var(--va-primary) !important;
       }

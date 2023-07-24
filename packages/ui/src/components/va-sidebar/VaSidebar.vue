@@ -138,6 +138,7 @@ export default defineComponent({
   z-index: var(--va-sidebar-z-index);
   font-family: var(--va-font-family);
   display: inline-flex;
+  box-sizing: border-box;
 
   &__menu {
     display: flex;
