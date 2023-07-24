@@ -4,17 +4,19 @@
     class="va-navbar"
     :style="computedStyle"
   >
-    <div class="va-navbar__left">
-      <slot name="left" />
-    </div>
+    <slot>
+      <div class="va-navbar__left">
+        <slot name="left" />
+      </div>
 
-    <div class="va-navbar__center">
-      <slot />
-    </div>
+      <div class="va-navbar__center">
+        <slot name="center" />
+      </div>
 
-    <div class="va-navbar__right">
-      <slot name="right" />
-    </div>
+      <div class="va-navbar__right">
+        <slot name="right" />
+      </div>
+    </slot>
 
     <div
       v-if="shape"
