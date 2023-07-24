@@ -104,11 +104,6 @@ export default defineComponent({
         margin-right: 0;
       }
     }
-
-    @include media-breakpoint-down(sm) {
-      justify-content: center;
-      align-items: center;
-    }
   }
 
   &__center {
@@ -142,11 +137,6 @@ export default defineComponent({
         margin-right: 0;
       }
     }
-
-    @include media-breakpoint-down(sm) {
-      justify-content: center;
-      align-items: center;
-    }
   }
 
   &__background-shape {
@@ -165,16 +155,6 @@ export default defineComponent({
   }
 
   @include media-breakpoint-down(sm) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: var(--va-navbar-mobile-height);
-    padding: var(--va-navbar-sm-padding);
-
-    & > * {
-      width: 100%;
-    }
-
     &__background-shape {
       display: none;
     }
