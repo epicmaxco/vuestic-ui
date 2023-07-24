@@ -193,9 +193,9 @@ const state = reactive({
         <template #left>
           <div
             style="
-              height: 100%;
-              transition: width 0.3s ease-in-out;
-            "
+height: 100%;
+transition: width 0.3s ease-in-out;
+"
             :style="{ width: state.doShowSidebar ? '200px' : '100px' }"
           >
             <button @click="state.doShowSidebar = !state.doShowSidebar">
@@ -226,9 +226,9 @@ const state = reactive({
         <template #left>
           <div
             style="
-              height: 100%;
-              transition: width 0.3s ease-in-out;
-            "
+height: 100%;
+transition: width 0.3s ease-in-out;
+"
             :style="{ width: state.doShowSidebar ? '200px' : '0px' }"
           >
           </div>
@@ -254,9 +254,9 @@ const state = reactive({
         <template #right>
           <div
             style="
-              height: 100%;
-              transition: width 0.3s ease-in-out;
-            "
+height: 100%;
+transition: width 0.3s ease-in-out;
+"
             :style="{ width: state.doShowSidebar ? '200px' : '0px' }"
           >
             Order 1
@@ -285,9 +285,9 @@ const state = reactive({
         <template #right>
           <div
             style="
-              height: 100%;
-              transition: width 0.3s ease-in-out;
-            "
+height: 100%;
+transition: width 0.3s ease-in-out;
+"
             :style="{ width: state.doShowSidebar ? '200px' : '0px' }"
           >
             Order 0
@@ -315,9 +315,9 @@ const state = reactive({
         <template #right>
           <div
             style="
-              transition: width 0.3s ease-in-out;
-              height: 100%;
-            "
+transition: width 0.3s ease-in-out;
+height: 100%;
+"
             :style="{ width: state.doShowSidebar ? '200px' : '0px' }"
           >
             Order 1
@@ -332,35 +332,35 @@ const state = reactive({
 </template>
 
 <style lang="scss">
-  .layout-demo {
-    .va-layout {
-      background: linear-gradient(45deg, var(--va-primary), var(--va-success));
+.layout-demo {
+  .va-layout {
+    background: linear-gradient(45deg, var(--va-primary), var(--va-success));
 
-      &__area {
-        &--left {
-          background: #3a86ff;
-          color: white;
-        }
+    &__area {
+      &--left {
+        background: #3a86ff;
+        color: white;
+      }
 
-        &--top {
-          background: #8338ec;
-          color: white;
-        }
+      &--top {
+        background: #8338ec;
+        color: white;
+      }
 
-        &--right {
-          background: #ff006e;
-          color: white;
-        }
+      &--right {
+        background: #ff006e;
+        color: white;
+      }
 
-        &--bottom {
-          background: #fb5607;
-          color: white;
-        }
+      &--bottom {
+        background: #fb5607;
+        color: white;
+      }
 
-        &--content {
-          color: white;
-        }
+      &--content {
+        color: white;
       }
     }
   }
+}
 </style>

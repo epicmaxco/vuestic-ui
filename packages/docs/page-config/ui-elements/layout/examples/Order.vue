@@ -26,19 +26,26 @@
     style="height: 500px"
   >
     <template #top>
-      <VaNavbar color="primary" class="py-2">
-        <template #left>
-          <VaButton @click="showLeftSidebar = !showLeftSidebar" :icon="showLeftSidebar ? 'menu_open' : 'menu'" />
+      <VaNavbar color="primary" class="py-2 h-14">
+        <template v-if="!showLeftSidebar" #left>
+          <VaButton @click="showLeftSidebar = !showLeftSidebar" icon="menu" />
         </template>
-        <h4>LOGO</h4>
-        <template #right>
-          <VaButton @click="showRightSidebar = !showRightSidebar" :icon="showRightSidebar ? 'menu_open' : 'menu'" />
+        <template #center>
+          <va-navbar-item class="font-bold text-lg">
+            LOGO
+          </va-navbar-item>
+        </template>
+        <template v-if="!showRightSidebar" #right>
+          <VaButton @click="showRightSidebar = !showRightSidebar" icon="menu" />
         </template>
       </VaNavbar>
     </template>
 
     <template #left>
       <VaSidebar v-model="showLeftSidebar">
+        <div class="p-2">
+          <VaButton preset="secondary" @click="showLeftSidebar = !showLeftSidebar" icon="menu_open" />
+        </div>
         <VaSidebarItem>
           <VaSidebarItemContent>
             <VaIcon name="home" /> 
@@ -70,6 +77,9 @@
 
     <template #right>
       <VaSidebar v-model="showRightSidebar">
+        <div class="p-2 text-right">
+          <VaButton preset="secondary" @click="showRightSidebar = !showRightSidebar" icon="menu_open" />
+        </div>
         <VaSidebarItem>
           <VaSidebarItemContent>
             <VaIcon name="home" /> Home

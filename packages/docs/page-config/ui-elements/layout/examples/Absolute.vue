@@ -12,7 +12,11 @@
         <template #left>
           <VaButton @click="showSidebar = !showSidebar" :icon="showSidebar ? 'menu_open' : 'menu'" />
         </template>
-        <h4>LOGO</h4>
+        <template #center>
+          <va-navbar-item class="font-bold text-lg">
+            LOGO
+          </va-navbar-item>
+        </template>
       </VaNavbar>
     </template>
 
