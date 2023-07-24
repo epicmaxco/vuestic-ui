@@ -109,7 +109,7 @@ const codeBorder = computed(() => {
     position: relative;
 
     &::after {
-      content: "\279A";
+      content: "";
       position: relative;
       opacity: 0.35;
       line-height: 1;
