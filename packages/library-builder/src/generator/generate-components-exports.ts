@@ -1,34 +1,49 @@
-import { readFile, lstat } from 'fs/promises';
+import { readFile, stat } from 'fs/promises';
 import { findExports, ESMExport } from 'mlly'
 import { dirname, resolve } from 'pathe'
-import { existsSync } from 'fs'
+import { readFileWithCache } from '../utils/read-file-with-cache';
+import { exists } from '../utils/exists';
 
 type ESMExportWithPath = ESMExport & { path: string }
+
+async function findAsync<T>(arr: T[], asyncCallback: (item: T) => Promise<boolean>) {
+  const promises = arr.map(asyncCallback);
+  const results = await Promise.all(promises);
+  const index = results.findIndex(result => result);
+  return arr[index];
+}
+
+const getStat = async (path: string) => {
+  try {
+    return await stat(path)
+  } catch {
+    return null
+  }
+}
+
 
 const resolveFromFile = async (importer: string, from: string) => {
   const importerDir = dirname(importer)
   const path = resolve(importerDir, from)
 
-  if (!existsSync(path)) { return importer }
-
-  const stat = await lstat(path)
-
-  if (stat.isFile()) {
+  const stats = await getStat(path)
+  
+  if (stats?.isFile()) {
     return path
   }
 
   const exts = ['ts', 'vue', 'js', 'mjs', 'mts']
 
-  const correctExt = exts.find((ext) => {
-    return existsSync(path + '.' + ext)
+  const correctExt = await findAsync(exts, (ext) => {
+    return exists(path + '.' + ext)
   })
 
   if (correctExt) {
     return path + '.' + correctExt
   }
 
-  const correctIndex = exts.find((ext) => {
-    return existsSync(resolve(path, 'index.' + ext))
+  const correctIndex = await findAsync(exts, async (ext) => {
+    return exists(resolve(path, 'index.' + ext))
   })
 
 
@@ -40,7 +55,7 @@ const resolveFromFile = async (importer: string, from: string) => {
 }
 
 const recursiveFindExportOriginalFile = async (exp: ESMExport, currentPath: string): Promise<ESMExportWithPath[]> => {
-  const { specifier, type, name } = exp
+  const { specifier, type, name, names } = exp
 
   if (type === 'declaration') {
     return [{
@@ -59,7 +74,11 @@ const recursiveFindExportOriginalFile = async (exp: ESMExport, currentPath: stri
 
   const from = await resolveFromFile(currentPath, specifier)
 
-  const fromContent = (await readFile(from)).toString('utf-8')
+  if (!from) {
+    throw new Error(`Can't resolve ${specifier} from ${currentPath}`)
+  }
+
+  const fromContent = (await readFileWithCache(from))
 
   const childExp = findExports(fromContent)
   
@@ -70,19 +89,23 @@ const recursiveFindExportOriginalFile = async (exp: ESMExport, currentPath: stri
   }
 
   if (type === 'named') {
-    const reExport = childExp.find((exp) => {
-      if (!exp.name) { return }
-      return exp.name === name
+    const reExports = childExp.filter((exp) => {
+      return  names.some((name) => {
+        if ( exp.names && exp.names.includes(name)) { return true }
+        if (exp.type === 'star') { return true }
+        return false
+      })
     })
 
-    if (reExport?.specifier) {
-      return await recursiveFindExportOriginalFile(reExport, resolve(from, reExport.specifier))
-    }
-
-    return [{
-      path: from,
-      ...exp,
-    }]
+    return (await Promise.all(reExports.map(async (exp) => {
+      return await recursiveFindExportOriginalFile(exp, from)
+    }).flat())).flat().filter((exp) => {
+      return names.some((name) => {
+        if ( exp.names && exp.names.includes(name)) { return true }
+        if (exp.type === 'star') { return true }
+        return false
+      })
+    })
   }
 
   if (type === 'default') {

@@ -9,9 +9,8 @@ import { postBuild } from "./post-build";
 import { generateExports } from "../generator/generate-exports";
 import { buildNuxt } from "./build-nuxt";
 import { BuildTarget } from "../types/targets";
-import { promiseSequence } from '../utils/promise-sequence';
 import { createStylesViteConfig } from '../vite/styles';
-import { fineComponents } from '../generator/generate-components-exports';
+import { buildMeta } from './build-meta';
 
 export const build = async (options: {
   cwd?: string,
@@ -28,15 +27,12 @@ export const build = async (options: {
       cwd = process.cwd(),
       outDir = 'dist',
       // TODO: Make it possible to build without web-components
-      targets = ['nuxt', 'esm-node', 'cjs', 'iife', 'web-components', 'types', 'es', 'styles'],
+      targets = ['nuxt', 'esm-node', 'cjs', 'iife', 'web-components', 'types', 'es', 'styles', 'meta'],
       entry = 'src/main.ts',
       nuxtDir = join(dirname(entry), 'nuxt'),
     } = options
 
     cleanDist(outDir)
-
-    console.log(fineComponents(entry))
-    return
 
     if (targets.includes('es')) {
       console.log('Building ES module')
@@ -59,7 +55,6 @@ export const build = async (options: {
     }
 
     if (targets.includes('cjs')) {
-
       console.log('Building CommonJS module')
       await buildVite(createViteConfig({
         format: 'cjs',
@@ -124,6 +119,15 @@ export const build = async (options: {
       }
     }
 
+
+    if (targets.includes('meta')) {
+      console.log('Building meta')
+      await buildMeta({
+        cwd, outDir, entry
+      })
+    }
+
+    console.log('Generating exports in package.json')
     await generateExports({ cwd, entry, outDir, targets, append: true })
 
     await postBuild({
