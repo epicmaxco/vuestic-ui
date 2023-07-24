@@ -28,7 +28,7 @@ const externalLink = computed(() => {
 </script>
 
 <template>
-  <p class="docs-link">
+  <p class="docs-link va-link">
     <MarkdownView
       v-if="preText"
       class="docs-link__pre"

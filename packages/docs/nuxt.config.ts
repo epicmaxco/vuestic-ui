@@ -149,6 +149,6 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
-    hostname: 'https://example.com',
+    hostname: process.env.HOSTNAME,
   }
 });

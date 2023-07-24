@@ -56,6 +56,53 @@
         v-model="selectedOption"
         :options="options"
         :rules="rules"
+        value-by="value"
+      />
+    </VbCard>
+    <VbCard title="Single option">
+      <va-radio
+        v-model="selectedOption"
+        :option="options[0]"
+        :rules="rules"
+        value-by="value"
+      />
+      <va-radio
+        v-model="selectedOption"
+        :option="options[1]"
+        :rules="rules"
+        value-by="value"
+      />
+      <va-radio
+        v-model="selectedOption"
+        :option="options[2]"
+        :rules="rules"
+        value-by="value"
+      />
+    </VbCard>
+
+    <VbCard title="Label prop">
+      <va-radio
+        v-model="selectedOption"
+        :option="options[0]"
+        label="1"
+      />
+      <va-radio
+        v-model="selectedOption"
+        :option="options[1]"
+        label="2"
+      />
+      <va-radio
+        v-model="selectedOption"
+        :option="options[2]"
+        label="3"
+      />
+      <p>{{ selectedOption }}</p>
+    </VbCard>
+    <VbCard title="No label">
+      <va-radio
+        v-model="selectedOption"
+        :option="options[0]"
+        label=""
       />
     </VbCard>
   </VbDemo>
@@ -70,9 +117,9 @@ export default {
   data () {
     return {
       options: [
-        { value: 'one', label: 'one' },
-        { value: 'two', label: 'two' },
-        { value: 'three', label: 'three' },
+        { value: 'one', text: 'one' },
+        { value: 'two', text: 'two' },
+        { value: 'three', text: 'three' },
       ],
       selectedOptionString: 'one',
 

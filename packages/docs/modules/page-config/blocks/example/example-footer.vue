@@ -19,7 +19,7 @@
     <va-button
       preset="secondary"
       size="small"
-      class="docs-navigation__button mobile-hidden"
+      class="docs-navigation__button"
       color="secondary"
       @click="copy"
     >
@@ -50,7 +50,6 @@
       :action="sandboxDefineUrl"
       method="POST"
       target="_blank"
-      class="mobile-hidden"
     >
       <input
         type="hidden"
@@ -186,6 +185,9 @@ const sandboxParams = computed(() => createCodeSandbox(props.code, props.config)
     &__icon {
       font-style: normal !important;
       margin-right: 0.5rem;
+
+      @include sm(margin-left, 0.75rem);
+      @include sm(margin-right, 0.75rem);
     }
   }
 
@@ -193,7 +195,7 @@ const sandboxParams = computed(() => createCodeSandbox(props.code, props.config)
     display: inline-flex;
   }
 
-  .mobile-hidden {
+  .docs-navigation__button__text {
     @include sm(display, none);
   }
 }

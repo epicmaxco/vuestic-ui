@@ -39,9 +39,9 @@
           <va-sidebar-item
             :to="childRoute.path ? childRoute.path : `/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
-            :active-color="activeColor"
             :hover-color="hoverColor"
-            border-color="primary"
+            :border-color="activeColor"
+            active-color="#ffffff00"
             @click="onSidebarItemClick"
           >
             <va-sidebar-item-content>
@@ -144,7 +144,7 @@ export default defineComponent({
       }
     }
 
-    watch(() => route, setActiveExpand, { immediate: true })
+    watch(() => route.fullPath, setActiveExpand, { immediate: true })
 
     return {
       navigationRoutes: getSortedNavigationRoutes(navigationRoutes),
@@ -181,6 +181,7 @@ export default defineComponent({
     font-size: 16px;
     line-height: 20px;
     cursor: pointer;
+    font-weight: bold;
 
     &:hover {
       ::before {
@@ -195,7 +196,7 @@ export default defineComponent({
     }
 
     &--active {
-      color: var(--va-primary);
+      color: var(--va-primary) !important;
     }
   }
 
@@ -215,6 +216,10 @@ export default defineComponent({
 
     .va-sidebar-item {
       cursor: pointer;
+
+      &--active {
+        color: var(--va-primary) !important;
+      }
     }
 
     .va-sidebar-item-title {
@@ -232,6 +237,7 @@ export default defineComponent({
 
     .va-sidebar-item-content {
       padding-left: 3rem;
+      min-height: 52px;
     }
 
     &:first-child {

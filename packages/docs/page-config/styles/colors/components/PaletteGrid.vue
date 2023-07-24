@@ -6,7 +6,7 @@
       class="flex flex-wrap mb-8"
     >
       <div class="px-4">
-        <h6 class="va-text-capitalize">{{ type }}</h6>
+        <h6 class="va-text-capitalize va-h6">{{ type }}</h6>
         <p>
           {{ description }}
         </p>

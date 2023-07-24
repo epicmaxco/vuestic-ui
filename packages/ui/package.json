@@ -1,6 +1,6 @@
 {
   "name": "vuestic-ui",
-  "version": "1.7.1",
+  "version": "1.7.3",
   "description": "Vue 3 UI Framework",
   "license": "MIT",
   "homepage": "https://vuestic.dev",
@@ -148,7 +148,8 @@
     ".": {
       "import": {
         "node": "./dist/esm-node/main.mjs",
-        "default": "./dist/es/main.js"
+        "default": "./dist/es/main.js",
+        "types": "./dist/types/main.d.ts"
       },
       "require": "./dist/cjs/main.js"
     },
