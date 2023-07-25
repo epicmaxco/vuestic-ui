@@ -4,9 +4,9 @@
     text-color="textPrimary"
     color="textInverted"
     flat
-    style="width: 400px;"
+    class="w-96"
   >
-    <div style="padding: 0 1rem 0.75rem;">
+    <div class="pt-0 px-4 pb-3">
       Collapse content
     </div>
   </va-collapse>

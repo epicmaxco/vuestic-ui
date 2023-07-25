@@ -8,11 +8,10 @@ const props = defineProps({
   }
 })
 
-const { t } = useI18n()
 </script>
 
 <template>
   <va-content>
-    <MarkdownView :content="t(text)" />
+    <MarkdownView class="va-text" :content="text" />
   </va-content>
 </template>

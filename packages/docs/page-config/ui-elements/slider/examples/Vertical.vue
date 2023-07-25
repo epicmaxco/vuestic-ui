@@ -1,7 +1,6 @@
 <template>
   <div
-    class="flex flex-wrap justify-center"
-    style="height: 200px;"
+    class="flex flex-wrap justify-center h-48"
   >
     <va-slider
       v-model="value"

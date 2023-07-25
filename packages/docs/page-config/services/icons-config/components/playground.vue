@@ -12,8 +12,7 @@
       </div>
 
       <div
-        class="col"
-        style="width: 100%;"
+        class="col w-full"
       >
         <div class="va-code-snippet">
           <span class="tag">va-icon name="<CodeInput
@@ -56,13 +55,11 @@
     <div class="demo-footer mt-2">
       <div class="flex items-center">
         <div
-          style="width: 64px;"
-          class="va-code-snippet va-code-snippet--icon mr-2"
+          class="va-code-snippet va-code-snippet--icon mr-2 w-[64px]"
           v-html="renderHTML(iconName)"
         />
         <div
-          class="va-code-snippet"
-          style="width: 100%;"
+          class="va-code-snippet w-full"
         >
           {{ renderHTML(iconName) }}
         </div>

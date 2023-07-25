@@ -20,7 +20,7 @@
               'sidebar__collapse-custom-header--keyboard-focused': hasKeyboardFocus
             }"
           >
-            {{ t(route.displayName) }}
+            {{ route.displayName }}
             <va-icon :name="isCollapsed ? 'va-arrow-up' : 'va-arrow-down'" />
           </va-sidebar-item>
         </template>
@@ -34,14 +34,14 @@
             class="va-sidebar__child__label"
             color="secondary"
           >
-            {{ t(childRoute.category) }}
+            {{ childRoute.category }}
           </va-list-label>
           <va-sidebar-item
-            :to="`/${locale}/${route.name}/${childRoute.name}`"
+            :to="childRoute.path ? childRoute.path : `/${route.name}/${childRoute.name}`"
             :active="isActiveChildRoute(childRoute, route)"
-            :active-color="activeColor"
             :hover-color="hoverColor"
-            border-color="primary"
+            :border-color="activeColor"
+            active-color="#ffffff00"
             @click="onSidebarItemClick"
           >
             <va-sidebar-item-content>
@@ -49,12 +49,11 @@
                 <va-badge
                   placement="right-center"
                   size="small"
-                  offset="-5px"
-                  :text="childRoute.meta && t(`menu.badges.${childRoute.meta.badge}.text`)"
-                  :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge]"
-                  :visible-empty="false"
+                  offset="5px"
+                  :text="childRoute.meta?.badge?.text"
+                  :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge.type]"
                 >
-                  {{ t(childRoute.displayName) }}
+                  {{ childRoute.displayName }}
                 </va-badge>
               </va-sidebar-item-title>
             </va-sidebar-item-content>
@@ -68,7 +67,6 @@
 <script lang="ts">
 import { defineComponent, watch, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useI18n } from 'vue-i18n'
 
 import { useColors } from 'vuestic-ui/src/main'
 
@@ -108,7 +106,6 @@ export default defineComponent({
   },
   emits: ['update:visible'],
   setup: (props, { emit }) => {
-    const i18n = useI18n()
     const route = useRoute()
     const { getColor, getFocusColor, getHoverColor } = useColors()
 
@@ -119,7 +116,11 @@ export default defineComponent({
     })
 
     const isActiveChildRoute = (child: NavigationRoute, parent: NavigationRoute) => {
-      const path = `/${i18n.locale.value}/${String(parent.name)}/${String(child.name)}`
+      if (child.path) {
+        return route.path === child.path
+      }
+
+      const path = `/${String(parent.name)}/${String(child.name)}`
 
       return path === route.path
     }
@@ -143,10 +144,9 @@ export default defineComponent({
       }
     }
 
-    watch(() => route, setActiveExpand, { immediate: true })
+    watch(() => route.fullPath, setActiveExpand, { immediate: true })
 
     return {
-      ...i18n,
       navigationRoutes: getSortedNavigationRoutes(navigationRoutes),
       getColor,
       writableVisible,
@@ -181,6 +181,7 @@ export default defineComponent({
     font-size: 16px;
     line-height: 20px;
     cursor: pointer;
+    font-weight: bold;
 
     &:hover {
       ::before {
@@ -195,7 +196,7 @@ export default defineComponent({
     }
 
     &--active {
-      color: var(--va-primary);
+      color: var(--va-primary) !important;
     }
   }
 
@@ -215,6 +216,10 @@ export default defineComponent({
 
     .va-sidebar-item {
       cursor: pointer;
+
+      &--active {
+        color: var(--va-primary) !important;
+      }
     }
 
     .va-sidebar-item-title {
@@ -232,6 +237,7 @@ export default defineComponent({
 
     .va-sidebar-item-content {
       padding-left: 3rem;
+      min-height: 52px;
     }
 
     &:first-child {

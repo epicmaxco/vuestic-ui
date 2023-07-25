@@ -9,15 +9,16 @@ const props = defineProps({
   }
 })
 
-const { t } = useI18n()
-
-const translateAndMark = (translations: string[]): string => {
-  return translations
-    .map((text: string): string => `- ${t(text)}`)
+const mark = (strings: string[]): string => {
+  return strings
+    .map((text: string): string => `- ${text}`)
     .join('\n')
 }
 </script>
 
 <template>
-  <MarkdownView :content="translateAndMark(props.text)" />
+  <MarkdownView
+    :content="mark(props.text)"
+    class="va-unordered"
+  />
 </template>

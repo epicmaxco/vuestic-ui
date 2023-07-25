@@ -2,26 +2,66 @@ import apiOptions from "./api-options";
 
 export default definePageConfig({
   blocks: [
-    block.title("sidebar.title"),
-    block.paragraph("sidebar.summaryText"),
+    block.title("Sidebar"),
+    block.paragraph("`va-sidebar` is a column to store navigation or secondary information of your app."),
 
-    block.subtitle("all.examples"),
+    block.subtitle("Examples"),
 
-    block.example("Default"),
-    block.example("Minimized"),
-    block.example("Width"),
-    block.example("MinimizedWidth"),
-    block.example("Color"),
-    block.example("Gradient"),
-    block.example("Position"),
-    block.example("Hoverable"),
-    block.example("VModel"),
+    block.example("Default", {
+      title: "Default",
+      description: "Default usage of `va-sidebar`"
+    }),
+    block.example("Minimized", {
+      title: "Minimized",
+      description: "You can minimize sidebar using `minimized` prop"
+    }),
+    block.example("Width", {
+      title: "Width",
+      description: "Define custom width of sidebar in maximixed state."
+    }),
+    block.example("MinimizedWidth", {
+      title: "Minimized width",
+      description: "Width of `va-sidebar` when minimized."
+    }),
+    block.example("Color", {
+      title: "Color",
+      description: "Change background color of a sidebar."
+    }),
+    block.example("Gradient", {
+        title: "Gradient background",
+        description: "You can make Navbar background gradient"
+      }
+    ),
+    block.example("Position", {
+      title: "Position",
+      description: "Align `va-sidebar` to the left or right."
+    }),
+    block.example("Hoverable", {
+      title: "Hoverable",
+      description: "Manage your sidebar state using `hoverable` prop. It allows to expand 'va-sidebar' on hover."
+    }),
+    block.example("VModel", {
+      title: "V-model",
+      description: "Use v-model to enable/disable `va-sidebar`."
+    }),
 
-    block.subtitle("all.api"),
-    block.api("VaSidebar", apiOptions),
+    block.subtitle("API"),
+    block.api("VaSidebar", {
+      props: {
+        minimized: "Minimized state of sidebar.",
+        hoverable: "Expand sidebar on hover.",
+        position: "Position of `va-sidebar`, can be `right` or `left`.",
+        width: "Width of component in maximized state.",
+        minimizedWidth: "Width of component in minimized state.",
+        value: "The current visibility state of `va-sidebar`.",
+        animated: "Sets css `transition` to component",
+        activeColor: "The color for active `VaSidebarItem` in the sidebar menu",
+        hoverColor: "The color for hovered `VaSidebarItem` in the sidebar menu"
+      }
+    }, apiOptions),
 
-    block.subtitle("all.faq"),
-    block.headline("sidebar.faq.questions[0].question"),
-    block.paragraph("sidebar.faq.questions[0].answer"),
+    block.subtitle("FAQ"),
+    block.headline("What if `minimized` conflicts with `hoverable`?"),
+    block.paragraph("What if `minimized` conflicts with `hoverable`?"),
   ],
 });

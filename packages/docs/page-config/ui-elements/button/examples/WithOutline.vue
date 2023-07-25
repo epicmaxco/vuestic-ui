@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; align-items: center;">
+  <div class="flex items-center">
     <va-button
       preset="secondary"
       border-color="primary"

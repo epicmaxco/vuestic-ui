@@ -8,7 +8,13 @@ type Options = Partial<{
   hideTitle: boolean,
   hideTemplate: boolean,
   forceShowCode: boolean,
-  codesandboxConfig: CodeSandboxConfig
+  description: string,
+  title: string;
+  codesandboxConfig: CodeSandboxConfig,
+  customCode: {
+    source: string,
+    lang: string,
+  },
 }>
 
 const setup = (component: DefineComponent, source: string, path: string, options: Options) => {

@@ -1,7 +1,7 @@
 <template>
   <div
     ref="target"
-    style="height: 300px; overflow-y: scroll;"
+    class="h-72 overflow-y-scroll"
   >
     <p>
       {{ text }}
@@ -12,10 +12,7 @@
       :target="() => $refs.target"
     >
       <div
-        style="
-padding: 10px 30px;
-background-color: var(--va-background-element);
-"
+        class="py-2.5 px-8 bg-[var(--va-background-element)]"
       >
         Custom target: top 30, bottom 0.
       </div>

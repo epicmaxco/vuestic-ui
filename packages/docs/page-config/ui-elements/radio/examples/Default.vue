@@ -1,18 +1,25 @@
 <template>
   <va-radio
-    v-for="(option, index) in options"
-    :key="index"
     v-model="selectedOption"
-    :option="option"
+    option="One"
+    name="radio-group"
   />
-  <div>Selected: {{ selectedOption }}</div>
+  <va-radio
+    v-model="selectedOption"
+    option="Two"
+    name="radio-group"
+  />
+  <va-radio
+    v-model="selectedOption"
+    option="Three"
+    name="radio-group"
+  />
 </template>
 
 <script>
 export default {
   data() {
     return {
-      options: ["one", "two", "three"],
       selectedOption: "one",
     };
   },

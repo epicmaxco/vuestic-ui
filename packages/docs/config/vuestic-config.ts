@@ -19,6 +19,7 @@ export const VuesticConfig = defineVuesticConfig({
     },
     VaDropdown: {
       target: scrollWrapperSelector,
+      teleport: 'body',
     },
     VaBacktop: {
       target: scrollWrapperSelector,

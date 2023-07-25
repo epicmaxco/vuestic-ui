@@ -2,6 +2,7 @@
   <div class="va-collapse" :class="computedClasses">
     <div
       class="va-collapse__header-wrapper"
+      role="heading"
       @click="toggle"
       @keydown.enter="toggle"
       @keydown.space="toggle"

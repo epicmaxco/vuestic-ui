@@ -3,12 +3,12 @@
     <va-input
       class="mr-3"
       input-class="va-text-right color mb-2"
-      :model-value="$t('input.examples.inputClass.exampleTexts[0]')"
+      model-value="This input must have right-aligned green text with bottom indent."
     />
     <va-input
       class="border-gray"
       input-class="color p-2"
-      :model-value="$t('input.examples.inputClass.exampleTexts[1]')"
+      model-value="Native input element must have green text. VaInput wrapper has a gray border."
       type="textarea"
     />
   </div>

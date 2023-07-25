@@ -10,7 +10,7 @@
     <tr>
       <td
         colspan="2"
-        style="padding: 4rem;"
+        class="p-[4rem]"
       >
         <div class="flex flex-col items-center">
           <va-dropdown
@@ -40,7 +40,7 @@
       </td>
     </tr>
     <tr>
-      <td style="color: var(--va-primary);">
+      <td class="text-[var(--va-primary)]">
         Main:
       </td>
       <td>
@@ -51,7 +51,7 @@
       </td>
     </tr>
     <tr>
-      <td style="color: var(--va-secondary);">
+      <td class="text-[var(--va-secondary)]">
         Cross:
       </td>
       <td>

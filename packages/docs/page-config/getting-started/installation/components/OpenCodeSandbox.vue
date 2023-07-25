@@ -15,7 +15,7 @@
         preset="secondary"
         border-color="primary"
       >
-        {{ $t("installation.codesandbox.button") }}
+        Try Vuestic-UI on CodeSandbox
       </va-button>
     </form>
   </div>

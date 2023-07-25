@@ -13,13 +13,13 @@
         name="fa4-code"
         size="13px"
       />
-      <span class="docs-navigation__button__text"> {{ showCode ? $t('docsExample.hideCode') : $t('docsExample.showCode') }}</span>
+      <span class="docs-navigation__button__text"> {{ showCode ? 'Hide Code' : 'Show Code' }}</span>
     </va-button>
 
     <va-button
       preset="secondary"
       size="small"
-      class="docs-navigation__button mobile-hidden"
+      class="docs-navigation__button"
       color="secondary"
       @click="copy"
     >
@@ -43,14 +43,13 @@
         class="docs-navigation__button__icon fa fa-github"
         size="13px"
       />
-      <span class="docs-navigation__button__text">{{ $t('docsNavigation.openGithub') }}</span>
+      <span class="docs-navigation__button__text">Open in GitHub</span>
     </va-button>
 
     <form
       :action="sandboxDefineUrl"
       method="POST"
       target="_blank"
-      class="mobile-hidden"
     >
       <input
         type="hidden"
@@ -99,7 +98,7 @@
             />
           </svg>
         </va-icon>
-        <span class="docs-navigation__button__text">{{ $t('docsNavigation.openCodeSandbox') }}</span>
+        <span class="docs-navigation__button__text">Open in CodeSandbox</span>
       </va-button>
     </form>
   </div>
@@ -107,9 +106,7 @@
 
 <script lang="ts" setup>
 import { computed, PropType, ref, Ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { type CodeSandboxConfig, createCodeSandbox } from '@/composables/code-sandbox'
-import { useCode } from '../shared/code/useCode'
 import { getWindow } from 'vuestic-ui/src/utils/ssr'
 
 const query = '?query=file=/src/App.vue'
@@ -125,8 +122,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:showCode'])
-
-const { t } = useI18n()
 
 const showCodeComputed = computed({
   get () { return props.showCode },
@@ -148,16 +143,14 @@ const copy = async () => {
 }
 
 const buttonStates = {
-  active: { text: t('docsNavigation.copyCopied'), icon: 'fa4-check' },
-  error: { text: t('docsNavigation.copyFailure'), icon: 'fa4-times' },
-  default: { text: t('docsNavigation.copyCode'), icon: 'fa4-files-o' },
+  active: { text: 'Copied', icon: 'fa4-check' },
+  error: { text: 'Permission failure!', icon: 'fa4-times' },
+  default: { text: 'Copy code', icon: 'fa4-files-o' },
 }
 const copyButton = computed(() => buttonStates[copyButtonState.value])
 
-const { applyTranslations } = useCode()
-
 const sandboxDefineUrl = computed(() => `https://codesandbox.io/api/v1/sandboxes/define${query}`)
-const sandboxParams = computed(() => createCodeSandbox(applyTranslations(props.code), props.config))
+const sandboxParams = computed(() => createCodeSandbox(props.code, props.config))
 </script>
 
 <style lang="scss">
@@ -192,6 +185,9 @@ const sandboxParams = computed(() => createCodeSandbox(applyTranslations(props.c
     &__icon {
       font-style: normal !important;
       margin-right: 0.5rem;
+
+      @include sm(margin-left, 0.75rem);
+      @include sm(margin-right, 0.75rem);
     }
   }
 
@@ -199,7 +195,7 @@ const sandboxParams = computed(() => createCodeSandbox(applyTranslations(props.c
     display: inline-flex;
   }
 
-  .mobile-hidden {
+  .docs-navigation__button__text {
     @include sm(display, none);
   }
 }

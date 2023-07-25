@@ -1,10 +1,10 @@
 <template>
-  <div class="DocsTable">
+  <div class="DocsTable va-table">
     <table class="DocsTable__table">
       <thead>
         <tr>
-          <th>{{ $t("browserSupport.table.browser") }}</th>
-          <th>{{ $t("browserSupport.table.supported") }}</th>
+          <th>Browser</th>
+          <th>Supported</th>
         </tr>
       </thead>
       <tbody>

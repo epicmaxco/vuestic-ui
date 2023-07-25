@@ -5,14 +5,14 @@
         class="flex-nowrap"
         horizontal
       >
-        <div style="flex: auto;">
+        <div class="flex-auto">
           <va-card-title>Title</va-card-title>
           <va-card-content>
             {{ lorem }}
           </va-card-content>
         </div>
         <va-image
-          style="flex: 0 0 200px;"
+          class="flex-grow-0 flex-shrink-0 basis-52"
           src="https://picsum.photos/200"
         />
       </va-card-block>
@@ -20,11 +20,11 @@
 
     <va-card>
       <va-card-block horizontal>
-        <va-card-block style="flex: auto;">
+        <va-card-block class="flex-auto">
           <va-card-content>{{ lorem }}</va-card-content>
         </va-card-block>
         <va-divider vertical />
-        <va-card-block style="flex: auto;">
+        <va-card-block class="flex-auto">
           <va-card-content>{{ lorem }}</va-card-content>
         </va-card-block>
       </va-card-block>

@@ -63,7 +63,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       shouldCommit: true,
       allowSkipTests: false,
       allowUncommitted: false,
-      requiredBranch: 'master',
+      requiredBranch: 'develop',
       showSleepCheck: true,
       todoList: [
         'Update and release other packages (like nuxt, create-vuestic, etc)',
@@ -79,8 +79,8 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       gitTag: gitTagFromVersion(version),
       distTag: 'latest',
       shouldCommit: true,
-      allowSkipTests: true,
-      allowUncommitted: true,
+      allowSkipTests: false,
+      allowUncommitted: false,
       requiredBranch: 'develop',
       showSleepCheck: true,
       todoList: [
@@ -97,7 +97,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       gitTag: undefined,
       distTag: 'next',
       shouldCommit: false,
-      allowSkipTests: false,
+      allowSkipTests: true,
       allowUncommitted: false,
       requiredBranch: 'develop',
       showSleepCheck: false,
@@ -227,17 +227,19 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
   // **** Update version strings ****
 
   console.log(chalk.white(`Bumping version to ${version}`))
-  bumpPackageJsonVersion('../../ui/package.json', version) // ui
-  bumpVersionInGenerators(version) // vue-cli-plugin
-  bumpGithubTemplateVersions(version) // root .github
-
+  const changedFiles: string[] = [
+    bumpPackageJsonVersion('../../ui/package.json', version), // ui
+    bumpVersionInGenerators(version), // vue-cli-plugin
+    bumpGithubTemplateVersions(version), // root .github
+  ]
 
   // **** Git updates ****
 
   console.log(chalk.white('Committing updates'))
   if (!dryRun) {
     if (shouldCommit) {
-      await executeAndLog(`git commit -am "chore: bump version to ${gitTag}"`)
+      await executeAndLog(`git add ${changedFiles.join(' ')}`)
+      await executeAndLog(`git commit -m "chore: bump version to ${gitTag}"`)
       // TODO: Maybe save remote name in .env or pass as arg.
       await executeAndLog(`git push upstream`)
     }

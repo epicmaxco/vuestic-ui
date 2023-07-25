@@ -11,7 +11,7 @@ import {
 import { markRaw, computed, watch, type Ref } from 'vue'
 
 import { defineNuxtPlugin, useCookie } from '#app'
-import { useHead } from '#imports'
+import { useHead, ReactiveHead } from '#imports'
 import NuxtLink from '#app/components/nuxt-link'
 import configFromFile from '#vuestic-config'
 
@@ -56,10 +56,12 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   if (colorConfig) {
     useHead(computed(() => {
       return {
-        htmlAttrs: {
-          style: colorConfig.renderCSSVariables()
-        }
-      }
+        style: [
+          {
+            innerHTML: colorConfig.renderCSSVariablesStyleContent()
+          }
+        ]
+      } satisfies ReactiveHead
     }))
   }
 
@@ -67,10 +69,12 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   if (colorsClasses) {
     useHead(computed(() => {
       return {
-        htmlAttrs: {
-          style: colorsClasses.renderColorHelpers()
-        }
-      }
+        style: [
+          {
+            innerHTML: colorsClasses.renderColorHelpers()
+          }
+        ]
+      } satisfies ReactiveHead
     }))
   }
 

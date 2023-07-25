@@ -1,5 +1,7 @@
 <template>
-  <div class="wrapper">
+  <div
+    class="relative max-h-32 border border-solid border-black overflow-hidden flex flex-col"
+  >
     <va-app-bar
       shadow-on-scroll
       color="background-tertiary"
@@ -45,15 +47,6 @@
 </template>
 
 <style scope>
-.wrapper {
-  position: relative;
-  max-height: 120px;
-  border: 1px solid black;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
 #va-app-bar-shadow {
   padding-bottom: 500px;
   overflow: auto;

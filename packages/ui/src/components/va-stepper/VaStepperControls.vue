@@ -45,7 +45,7 @@ export default defineComponent({
     const { t } = useTranslation()
 
     const isLastStep = computed(() => {
-      const lastEnabledStepIndex = props.steps.length - 1 - [...props.steps].reverse().findIndex((step) => !step.disabled)
+      const lastEnabledStepIndex = props.steps.length - 1
       return props.modelValue >= lastEnabledStepIndex
     })
 

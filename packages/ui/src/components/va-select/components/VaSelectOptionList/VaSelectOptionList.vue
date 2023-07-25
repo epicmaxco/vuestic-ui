@@ -76,7 +76,6 @@ import pick from 'lodash/pick.js'
 import {
   useComponentPresetProp,
   useColorProps,
-  extractHTMLElement,
   useObjectRefs,
   useSelectableList, useSelectableListProps,
   useThrottleValue, useThrottleProps,
@@ -90,6 +89,7 @@ import { VaSelectOption } from '../VaSelectOption'
 import { isNilValue } from '../../../../utils/isNilValue'
 
 import type { SelectOption, EventSource } from '../../types'
+import { unwrapEl } from '../../../../utils/unwrapEl'
 
 export default defineComponent({
   name: 'VaSelectOptionList',
@@ -287,8 +287,8 @@ export default defineComponent({
     const scrollToOption = (option: SelectOption) => {
       if (!isValueExists(option)) { return }
 
-      const element = itemRefs.value[getTrackBy(option)]
-      if (element) { scrollToElement(extractHTMLElement(element)) }
+      const element = unwrapEl(itemRefs.value[getTrackBy(option)])
+      if (element) { scrollToElement(element) }
 
       if (props.virtualScroller) { virtualScrollerRef.value?.[0].virtualScrollTo(currentOptionIndex.value) }
     }
