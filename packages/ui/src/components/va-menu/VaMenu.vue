@@ -1,9 +1,12 @@
 <template>
+
   <va-dropdown class="va-dropdown" v-model="doShowDropdown" :stateful="false">
     <template #anchor>
-      <VaButton>
-        Слава Україні!!!
-      </VaButton>
+      <slot name="anchor">
+        <VaButton>
+          Слава Україні!!!
+        </VaButton>
+      </slot>
     </template>
     <template #default>
       <VaDropdownContent :no-padding="true">

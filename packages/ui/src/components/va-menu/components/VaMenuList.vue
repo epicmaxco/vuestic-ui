@@ -1,15 +1,13 @@
 <template>
   <div class="va-menu-list">
-    <template
-      v-for="(option, index) in options" :key="index"
-    >
-      <va-menu-item
-        :name="getText(option)"
-        :icon="option.icon"
-        :right-icon="option.rightIcon"
-        :disabled="getDisabled(option)"
-        @option-click="$emit('option-click', getValue(option))"
-      />
+    <template v-for="(options, groupName) in optionGroups" :key="groupName">
+      <span v-if="groupName !== '_noGroup'" class="va-select-option-list__group-name">
+        {{ groupName }}
+      </span>
+      <template v-for="(option) in options" :key="getTrackBy(option)">
+        <va-menu-item :name="getText(option)" :icon="option.icon" :right-icon="option.rightIcon"
+          :disabled="getDisabled(option)" @option-click="$emit('option-click', getValue(option))" />
+      </template>
     </template>
   </div>
 </template>
@@ -28,12 +26,29 @@ export default defineComponent({
     options: { type: Array as PropType<VaMenuOption[]>, default: () => [] },
   },
   setup (props) {
-    const { getText, getValue, getDisabled } = useSelectableList(props)
+    const { getText, getValue, getDisabled, getGroupBy, getTrackBy } = useSelectableList(props)
+
+    const optionGroups = computed(() => props.options
+      .reduce((groups: Record<string, VaMenuOption[]>, option) => {
+        const groupBy = getGroupBy(option)
+
+        if (!groupBy) {
+          groups._noGroup.push(option)
+        } else {
+          if (!groups[groupBy]) { groups[groupBy] = [] }
+
+          groups[groupBy].push(option)
+        }
+
+        return groups
+      }, { _noGroup: [] }))
 
     return {
       getText,
       getValue,
       getDisabled,
+      getTrackBy,
+      optionGroups,
     }
   },
 })
@@ -41,11 +56,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-
 .va-menu-list {
   overflow: auto;
   display: flex;
   flex-direction: column;
 }
-
 </style>
