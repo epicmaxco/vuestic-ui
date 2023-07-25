@@ -8,7 +8,7 @@ type PropsType = {
 }
 
 /**
- * @param componentColor component color. By default `props.color`.
+ * @param componentColor component color. By default `props.color`. If undefined passed in ref, `currentColor` will be returned.
  * @param isTransparent if transparent will return component color as text color.
  * @returns Computed text color based on component's color if `props.textColor` if provided.
  */
@@ -19,7 +19,7 @@ export const useTextColor = (componentColor?: Ref<string | undefined> | string |
   const textColorComputed = computed(() => {
     if (props.textColor) { return getColor(props.textColor) }
 
-    const bg = unref(componentColor)
+    const bg = componentColor ? unref(componentColor) : props.color
 
     if (!bg) { return 'currentColor' }
 
