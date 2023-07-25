@@ -2,10 +2,14 @@
   <div
     class="va-input-wrapper"
     :class="wrapperClass"
-    :style="wrapperStyle"
     @click="$emit('click', $event)"
   >
-    <div class="va-input-wrapper__container">
+    <VaInputLabel
+      v-if="$props.label && !$props.innerLabel"
+      class="va-input-wrapper__label va-input-wrapper__label--outer"
+      v-bind="vaInputLabelProps"
+    />
+    <div class="va-input-wrapper__container" :style="wrapperStyle">
       <div
         v-if="$slots.prepend"
         class="va-input-wrapper__prepend-inner"
@@ -26,20 +30,11 @@
         </div>
 
         <div class="va-input-wrapper__text">
-          <label
-            v-if="label"
-            aria-hidden="true"
-            class="va-input-wrapper__label"
-            :style="{ color: colorComputed }"
-          >
-            {{ label }}
-            <span
-              v-if="requiredMark"
-              class="va-input-wrapper__required-mark"
-            >
-              *
-            </span>
-          </label>
+          <VaInputLabel
+            v-if="$props.label && $props.innerLabel"
+            class="va-input-wrapper__label va-input-wrapper__label--inner"
+            v-bind="vaInputLabelProps"
+          />
 
           <slot />
         </div>
@@ -86,9 +81,9 @@
       </div>
     </div>
 
-    <div v-if="isCounterVisible" class="va-input-wrapper__bottom">
+    <div v-if="isCounterVisible" class="va-input-wrapper__counter-wrapper">
       <slot name="counter" v-bind="{ valueLength: $props.counterValue, maxLength: $props.maxLength }">
-        <div class="va-input-wrapper__bottom-counter">
+        <div class="va-input-wrapper__counter">
           {{ counterComputed }}
         </div>
       </slot>
@@ -112,29 +107,33 @@ import pick from 'lodash/pick.js'
 import { useBem, useFormFieldProps, useValidationProps, useColors, useTextColor, useCSSVariables } from '../../../../composables'
 
 import { VaMessageList } from '../VaMessageList'
+import VaInputLabel from './VaInputLabel.vue'
 import { VaIcon } from '../../../va-icon'
+import { extractComponentProps, filterComponentProps } from '../../../../utils/component-options'
+
+const VaInputLabelProps = extractComponentProps(VaInputLabel)
 
 export default defineComponent({
   name: 'VaInputWrapper',
 
-  components: { VaMessageList, VaIcon },
+  components: { VaMessageList, VaIcon, VaInputLabel },
 
   props: {
     ...useFormFieldProps,
     ...useValidationProps,
+    ...VaInputLabelProps,
     counterValue: { type: Number, default: undefined },
     maxLength: { type: Number, default: undefined },
 
     label: { type: String, default: '' },
     color: { type: String, default: 'primary' },
-    background: { type: String, default: 'background-element' },
-    outline: { type: Boolean, default: false },
-    bordered: { type: Boolean, default: false },
+    background: { type: String },
     focused: { type: Boolean, default: false },
     error: { type: Boolean, default: false },
     success: { type: Boolean, default: false },
     loading: { type: Boolean, default: false },
     requiredMark: { type: Boolean, default: false },
+    innerLabel: { type: Boolean, default: false },
   },
 
   emits: [
@@ -149,9 +148,9 @@ export default defineComponent({
     const { getColor } = useColors()
 
     const wrapperClass = useBem('va-input-wrapper', () => ({
-      ...pick(props, ['outline', 'bordered', 'success', 'focused', 'error', 'disabled', 'readonly']),
-      labeled: !!props.label,
-      solid: !props.outline && !props.bordered,
+      ...pick(props, ['success', 'focused', 'error', 'disabled', 'readonly']),
+      labeled: Boolean(props.label),
+      labeledInner: Boolean(props.label) && props.innerLabel,
     }))
 
     const wrapperStyle = useCSSVariables('va-input-wrapper', () => ({
@@ -159,7 +158,7 @@ export default defineComponent({
     }))
 
     const colorComputed = computed(() => getColor(props.color))
-    const backgroundComputed = computed(() => getColor(props.background))
+    const backgroundComputed = computed(() => props.background ? getColor(props.background) : 'transparent')
     const borderColorComputed = computed(() => props.focused ? colorComputed.value : undefined)
 
     const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
@@ -190,6 +189,7 @@ export default defineComponent({
     )
 
     return {
+      vaInputLabelProps: filterComponentProps(VaInputLabelProps),
       containerStyle,
       wrapperClass,
       wrapperStyle,
@@ -222,7 +222,6 @@ export default defineComponent({
 .va-input-wrapper {
   --va-input-wrapper-background: v-bind(backgroundComputed);
 
-  position: relative;
   cursor: var(--va-input-cursor);
   font-family: var(--va-font-family);
   display: var(--va-input-wrapper-display);
@@ -241,36 +240,25 @@ export default defineComponent({
     border-color: var(--va-input-wrapper-border-color);
     border-style: solid;
     border-width: var(--va-input-border-width);
+    border-radius: var(--va-input-border-radius);
     padding: 0 var(--va-input-content-horizontal-padding);
+    gap: var(--va-input-content-items-gap);
     z-index: 0;
     overflow: hidden;
+    color: v-bind(textColorComputed);
+
+    @include va-background(var(--va-input-wrapper-background), var(--va-input-wrapper-background-opacity), -1);
 
     input,
     textarea {
-      color: v-bind(textColorComputed);
-    }
-  }
-
-  &--solid,
-  &--bordered {
-    .va-input-wrapper__field {
-      @include va-background(var(--va-input-wrapper-background), var(--va-input-wrapper-background-opacity), -1);
+      color: inherit;
     }
   }
 
   &__container {
     display: flex;
     align-items: center;
-  }
-
-  // Creates gap between prepend, content, validation icons, append
-  &__field > *,
-  &__container > * {
-    margin-right: var(--va-input-content-items-gap);
-
-    &:last-child {
-      margin-right: 0;
-    }
+    gap: var(--va-input-content-items-gap);
   }
 
   & > .va-message-list {
@@ -336,25 +324,13 @@ export default defineComponent({
     }
   }
 
-  &__required-mark {
-    transform: translate(0, -2px);
-    color: var(--va-danger);
-    font-size: 18px;
-    font-weight: var(--va-input-container-label-font-weight);
-  }
-
-  &__bottom {
-    display: var(--va-input-wrapper-bottom-display);
-    align-items: var(--va-input-wrapper-bottom-align-items);
-    color: var(--va-input-wrapper-bottom-color);
-    font-size: var(--va-input-wrapper-bottom-font-size);
-    line-height: var(--va-input-wrapper-bottom-line-height);
-
-    &-counter {
-      color: var(--va-input-wrapper-counter-color);
-      flex: var(--va-input-wrapper-counter-flex);
-      margin-left: var(--va-input-wrapper-counter-margin-left);
-    }
+  &__counter-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: var(--va-input-wrapper-counter-color);
+    font-size: var(--va-input-wrapper-counter-font-size);
+    line-height: var(--va-input-wrapper-counter-line-height);
   }
 
   textarea {
@@ -362,30 +338,27 @@ export default defineComponent({
     resize: vertical;
   }
 
+  &__label {
+    max-width: var(--va-input-container-label-max-width);
+
+    &--inner {
+      position: absolute;
+      left: 0;
+      top: 0;
+      padding-top: 1px;
+    }
+
+    &--outer {
+      margin-bottom: 4px;
+    }
+  }
+
   // styles
-  &--labeled {
+  &--labeled-inner {
     .va-input-wrapper__text {
       height: 100%;
       padding-top: 12px;
       box-sizing: content-box;
-    }
-
-    .va-input-wrapper__label {
-      @include va-ellipsis();
-
-      height: 12px;
-      position: absolute;
-      left: 0;
-      top: 0;
-      display: flex;
-      padding-top: 1px;
-      max-width: var(--va-input-container-label-max-width);
-      font-size: var(--va-input-container-label-font-size);
-      letter-spacing: var(--va-input-container-label-letter-spacing, var(--va-letter-spacing));
-      line-height: var(--va-input-container-label-line-height);
-      font-weight: var(--va-input-container-label-font-weight);
-      text-transform: var(--va-input-container-label-text-transform);
-      transform-origin: top left;
     }
 
     textarea {
@@ -395,16 +368,6 @@ export default defineComponent({
 
   &--solid {
     --va-input-wrapper-border-color: var(--va-input-color);
-
-    .va-input-wrapper__field {
-      border-radius: var(--va-input-border-radius);
-    }
-  }
-
-  &--outline {
-    .va-input-wrapper__field {
-      border-radius: 0;
-    }
   }
 
   &--bordered {

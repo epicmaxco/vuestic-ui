@@ -1,26 +1,18 @@
 <template>
   <va-input-wrapper
-    v-bind="fieldListeners"
+    v-bind="{
+      ...fieldListeners,
+      ...wrapperProps,
+    }"
     class="va-input"
     :class="$attrs.class"
     :style="$attrs.style"
-    :color="$props.color"
-    :background="$props.background"
-    :readonly="$props.readonly"
-    :disabled="$props.disabled"
-    :success="$props.success"
-    :messages="$props.messages"
     :loading="$props.loading || isLoading"
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
-    :label="$props.label"
-    :bordered="$props.bordered"
-    :outline="$props.outline"
-    :requiredMark="$props.requiredMark"
     :focused="isFocused"
     :counter-value="valueLengthComputed"
-    :max-length="$props.maxLength"
     @click="focus"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
@@ -97,6 +89,7 @@ import { focusElement, blurElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change', 'keyup', 'keypress', 'keydown', 'focus', 'blur'],
@@ -123,27 +116,20 @@ export default defineComponent({
     ...VaTextareaProps,
     ...useComponentPresetProp,
     ...useStatefulProps,
+    ...VaInputWrapperProps,
 
     // input
     placeholder: { type: String, default: '' },
     tabindex: { type: [String, Number], default: 0 },
     modelValue: { type: [String, Number] },
-    label: { type: String, default: '' },
     type: { type: String as AnyStringPropType<'textarea' | 'text' | 'password'>, default: 'text' },
-    loading: { type: Boolean, default: false },
     inputClass: { type: String, default: '' },
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
     ariaLabel: { type: String, default: undefined },
     counter: { type: Boolean, default: false },
-    maxLength: { type: Number, default: undefined },
 
     // style
-    color: { type: String, default: 'primary' },
-    background: { type: String, default: 'background-element' },
-    outline: { type: Boolean, default: false },
-    bordered: { type: Boolean, default: false },
-    requiredMark: { type: Boolean, default: false },
     ariaResetLabel: { type: String, default: '$t:reset' },
   },
 
@@ -259,6 +245,7 @@ export default defineComponent({
       computedChildAttributes,
       computedInputAttributes,
       textareaProps: filterComponentProps(VaTextareaProps),
+      wrapperProps: filterComponentProps(VaInputWrapperProps),
       computedValue,
       tabIndexComputed,
 
