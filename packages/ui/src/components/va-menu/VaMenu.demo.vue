@@ -1,16 +1,18 @@
 <template>
   <va-menu
-    v-model="defeaultOptions.value"
     class="mb-6"
     :options="defeaultOptions.options"
     @option-click="clickHandler"
   />
-  <div style="background-coloror:red">
+  <VbCard title="Custom Anchor">
     <va-menu
-    v-model="defeaultOptions.value"
     class="mb-6"
     :options="defeaultOptions.options"
     @option-click="clickHandler"
+    placement="right-start"
+    cursor
+    trigger="right-click"
+    keyboardNavigation
     >
       <template #anchor>
         <div style="background-color: blue; width: 300px; height: 300px;">
@@ -18,7 +20,7 @@
         </div>
       </template>
     </va-menu>
-  </div>
+  </VbCard>
 </template>
 
 <script lang="ts">
@@ -29,7 +31,6 @@ export default {
   data () {
     return {
       defeaultOptions: {
-        value: true,
         options: [
           { id: '0', text: 'one', value: 'one', icon: 'accessible_forward', rightIcon: '', disabled: true, group: '' },
           { id: '1', text: 'two', value: 'two', icon: '', rightIcon: 'accessible_forward', group: 'A1' },

@@ -1,6 +1,5 @@
 <template>
-
-  <va-dropdown class="va-dropdown" v-model="doShowDropdown" :stateful="false">
+  <va-dropdown class="va-dropdown" v-model="doShowDropdown" v-bind="dropdownProps">
     <template #anchor>
       <slot name="anchor">
         <VaButton>
@@ -10,15 +9,11 @@
     </template>
     <template #default>
       <VaDropdownContent :no-padding="true">
-        <va-menu-list
-          :options="options"
-          @option-click="$emit('option-click', $event)"
-        >
+        <va-menu-list :options="options" @option-click="$emit('option-click', $event)">
         </va-menu-list>
       </VaDropdownContent>
     </template>
   </va-dropdown>
-
 </template>
 
 <script lang="ts">
@@ -27,18 +22,24 @@ import { VaButton } from '../va-button'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown/'
 import VaMenuList from './components/VaMenuList.vue'
 import { useSelectableList, useSelectableListProps } from '../../composables'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
+const VaDropdownProps = extractComponentProps(VaDropdown)
 export default defineComponent({
   name: 'VaMenu',
   components: { VaDropdown, VaDropdownContent, VaButton, VaMenuList },
   props: {
     ...useSelectableListProps,
+    ...VaDropdownProps,
 
   },
   setup (props) {
     const doShowDropdown = ref(false)
 
-    return { doShowDropdown }
+    return {
+      doShowDropdown,
+      dropdownProps: filterComponentProps(VaDropdownProps),
+    }
   },
 })
 
