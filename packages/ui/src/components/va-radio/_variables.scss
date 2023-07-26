@@ -14,7 +14,7 @@
   --va-radio-icon-width: 1.4rem;
   --va-radio-icon-height: 1.4rem;
   --va-radio-icon-border-radius: 100%;
-  --va-radio-icon-border: var(--va-background-border) solid 0.125rem;
+  --va-radio-icon-border: var(--va-background-border) solid var(--va-form-element-border-width);
 
   /* Dot */
   --va-radio-dot-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
