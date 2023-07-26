@@ -19,6 +19,18 @@
       Current value: {{ buttonRoundConfigValue }}
     </VbCard>
 
+    <VbCard title="Attributes">
+      <input v-model="dataText" />
+      <va-config :components="{
+        VaChip: {
+          class: 'text-red append-data-text',
+          'data-text': dataText,
+        }
+      }">
+        <VaChip class="bg-green">Red colored data text: </VaChip>
+       </va-config>
+    </VbCard>
+
     <VbCard title="Partial rewriting global config">
       This button should be primary color, not outlined and rounded.
       <br />
@@ -128,6 +140,7 @@ export default {
       dynamicConfig: '#ff00ff',
       buttonPresetName: 'victory',
       hasPresetsInConfig: true,
+      dataText: 'Hello',
     }
   },
   setup () {
@@ -295,5 +308,19 @@ export default {
 .addScroll {
   overflow-y: auto;
   max-height: 400px;
+}
+
+.text-red {
+  color: rgb(88, 5, 5) !important;
+}
+
+.append-data-text {
+  &::after {
+    content: attr(data-text);
+  }
+}
+
+.bg-green {
+  background-color: rgb(142, 171, 142) !important;
 }
 </style>

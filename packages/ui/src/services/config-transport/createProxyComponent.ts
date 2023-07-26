@@ -1,4 +1,4 @@
-import { getCurrentInstance, ComponentInternalInstance, DefineComponent, SetupContext, Ref, shallowReadonly } from 'vue'
+import { getCurrentInstance, ComponentInternalInstance, DefineComponent, SetupContext, Ref, shallowReadonly, normalizeClass, normalizeStyle } from 'vue'
 import { useComponentConfigProps } from '../component-config/utils/use-component-config-props'
 
 /** Compiled and reactive props. By default they passed to setup fn */
@@ -58,12 +58,52 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
   })
 }
 
-/**
- * Patch instance props with Proxy.
- * This will change props object during render and in Devtools.
- */
-const patchInstanceProps = (instance: ComponentInternalInstance, props: Props) => {
-  instance.props = props
+const mergeStyles = (style1: string | undefined, style2: string | undefined) => {
+  if (!style1) { return style2 }
+  if (!style2) { return style1 }
+  return style1 + style2
+}
+
+const createAttrsWithCustomConfig = (instance: ComponentInternalInstance, propsFromConfig: Ref<Props>) => {
+  // Instance.attrs will be patched later, so we save original object here to prevent recursion
+  const instanceAttrs = instance.attrs
+
+  return new Proxy(instanceAttrs, {
+    get: (target, key: string) => {
+      if (typeof key !== 'string') { return target[key] }
+
+      if (key === 'class') {
+        return (normalizeClass(propsFromConfig.value.class) + ' ' + instanceAttrs.class).trim()
+      }
+
+      if (key === 'style') {
+        return mergeStyles(normalizeStyle(propsFromConfig.value.style) as string, normalizeStyle(instanceAttrs.style) as string)
+      }
+
+      const originalAttr = target[key]
+      const attrFromConfig = propsFromConfig.value?.[key]
+
+      if (attrFromConfig !== undefined) {
+        return attrFromConfig
+      }
+
+      return originalAttr
+    },
+    set (target, key, value) {
+      return Reflect.set(target, key, value)
+    },
+    ownKeys (target) {
+      // TODO: Optimize
+      return [...new Set([...Object.keys(instanceAttrs), ...Object.keys(propsFromConfig.value)])]
+    },
+    getOwnPropertyDescriptor (target, key) {
+      return {
+        ...Reflect.getOwnPropertyDescriptor(propsFromConfig.value, key),
+        enumerable: true,
+        configurable: true,
+      }
+    },
+  })
 }
 
 export const createProxyComponent = <T extends DefineComponent>(component: T) => {
@@ -72,8 +112,14 @@ export const createProxyComponent = <T extends DefineComponent>(component: T) =>
     const propsFromConfig = useComponentConfigProps(component, originalProps)
 
     const props = createPropsWithCustomConfig(instance, propsFromConfig)
+    const attrs = createAttrsWithCustomConfig(instance, propsFromConfig)
 
-    patchInstanceProps(instance, props)
+    /**
+     * Patch instance props with Proxy.
+     * This will change props object during render and in Devtools.
+     */
+    instance.props = props
+    instance.attrs = attrs
 
     return component.setup?.(shallowReadonly(props), ctx)
   }

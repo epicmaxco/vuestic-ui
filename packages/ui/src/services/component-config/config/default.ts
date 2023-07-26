@@ -63,5 +63,16 @@ export const getComponentsDefaultConfig = (): ComponentConfig =>
           pressedOpacity: 0.9,
         },
       },
+      VaInput: {
+        solid: {
+          background: 'backgroundElement',
+        },
+        outline: {
+          background: undefined,
+        },
+        bordered: {
+          class: 'va-input-wrapper--bordered',
+        },
+      },
     },
   })
