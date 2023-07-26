@@ -13,8 +13,7 @@ import {
 } from './../src/main'
 import demoIconAliases from './vuestic-config/demo-icon-aliases'
 import demoIconFonts from './vuestic-config/demo-icon-fonts'
-
-
+import { themes } from '@storybook/theming'
 
 setup((app) => {
 // TODO Taken from vue-book. We might want to streamline this code.
@@ -54,6 +53,7 @@ setup((app) => {
   }))
 })
 
+
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
@@ -61,6 +61,18 @@ const preview: Preview = {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/,
+      },
+    },
+    darkMode: {
+      // Override the default dark theme
+      dark: {
+        ...themes.dark,
+        brandImage: "logo.png"
+      },
+      // Override the default light theme
+      light: {
+        ...themes.light,
+        brandImage: "logo.png",
       },
     },
   },

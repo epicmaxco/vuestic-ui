@@ -66,7 +66,7 @@ export default definePageConfig({
       "We use [yarn](https://yarnpkg.com/lang/en/)[[target=_blank]] for package management.",
       "Be proactive. If you think something is wrong - create an issue or discuss.",
       "Recommended tools: [GitKraken](https://www.gitkraken.com/)[[target=_blank]], [WebStorm](https://www.jetbrains.com/webstorm/)[[target=_blank]], [ShareX](https://getsharex.com/)[[target=_blank]].",
-      "If you work on UI components - work in [storybook](https://storybook.js.org/)[[target=_blank]] environment (`yarn serve:book`). We want to keep global stuff out of components."
+      `If you work on UI components - work in [storybook](${process.env.VITE_STORYBOOK_HOSTNAME})[[target=_blank]] environment (\`yarn serve:book\`). We want to keep global stuff out of components.`
     ]),
 
     block.subtitle("Credits"),

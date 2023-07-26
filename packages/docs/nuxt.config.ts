@@ -148,7 +148,13 @@ export default defineNuxtConfig({
     }
   },
 
+  runtimeConfig: {
+    public: {
+      VITE_STORYBOOK_HOSTNAME: process.env.STORYBOOK_HOSTNAME,
+    },
+  },
+
   sitemap: {
     hostname: 'https://example.com',
-  }
+  },
 });
