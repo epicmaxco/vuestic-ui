@@ -319,7 +319,7 @@ export default defineComponent({
       'aria-hidden': false,
       size: 'small',
       name: props.icon,
-      color: props.color,
+      color: 'secondary',
       tabindex: iconTabindexComputed.value,
     }))
 

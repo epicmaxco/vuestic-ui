@@ -16,6 +16,7 @@
           :tabindex="tabIndexComputed"
           :color="valueComputed"
           :indicator="$props.indicator"
+          size="16px"
           @click="callPickerDialog"
           @keydown.space="callPickerDialog"
           @keydown.enter="callPickerDialog"

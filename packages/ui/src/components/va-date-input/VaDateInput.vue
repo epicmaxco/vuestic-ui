@@ -372,7 +372,7 @@ export default defineComponent({
       ariaHidden: false,
       size: 'small',
       name: props.icon,
-      color: props.color,
+      color: 'secondary',
       tabindex: iconTabindexComputed.value,
     }))
 

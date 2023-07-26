@@ -42,6 +42,7 @@
           <va-icon
             :color="toggleIconColor"
             :name="toggleIcon"
+            size="small"
             @click.stop="toggleDropdown"
             class="va-select__toggle-icon"
           />
