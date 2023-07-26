@@ -125,6 +125,7 @@ import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
 import { VaInputWrapper } from '../va-input'
 import { VaButton } from '../va-button'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change'],
@@ -137,6 +138,8 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
   { listen: 'click-append-inner', emit: 'click:increase-icon' },
 ])
 
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
+
 export default defineComponent({
   name: 'VaCounter',
 
@@ -146,21 +149,16 @@ export default defineComponent({
     ...useFormFieldProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
+    ...VaInputWrapperProps,
     // input
     modelValue: { type: [String, Number], default: 0 },
     manualInput: { type: Boolean, default: false },
-    stateful: { type: Boolean, default: false },
     min: { type: Number, default: undefined },
     max: { type: Number, default: undefined },
     step: { type: Number, default: 1 },
-    label: { type: String, default: '' },
-    // hint
-    messages: { type: [Array, String] as PropType<string[] | string>, default: () => [] },
     // style
     width: { type: [String, Number], default: '160px' },
     color: { type: String, default: 'primary' },
-    outline: { type: Boolean },
-    bordered: { type: Boolean },
     // icons & buttons
     increaseIcon: { type: String, default: 'add' },
     decreaseIcon: { type: String, default: 'remove' },
@@ -168,7 +166,6 @@ export default defineComponent({
     flat: { type: Boolean, default: true },
     rounded: { type: Boolean, default: false },
     margins: { type: [String, Number], default: '4px' },
-    textColor: { type: String, default: undefined },
     longPressDelay: { type: Number, default: 500 },
 
     ariaLabel: { type: String, default: '$t:counterValue' },
@@ -310,7 +307,7 @@ export default defineComponent({
       ...pick(props, ['color', 'textColor']),
       round: props.rounded,
       preset: props.flat ? 'secondary' : '',
-      borderColor: (props.outline && props.flat) ? buttonsColor() : '',
+      borderColor: (props.flat) ? buttonsColor() : '',
     }))
 
     const decreaseButtonProps = computed(() => ({
@@ -341,10 +338,6 @@ export default defineComponent({
       readonly: props.readonly || !props.manualInput,
     }) as InputHTMLAttributes)
 
-    const inputWrapperPropsComputed = computed(() => ({
-      ...pick(props, ['color', 'readonly', 'disabled', 'messages', 'label', 'bordered', 'outline']),
-    }))
-
     const classComputed = computed(() => ([
       attrs.class,
       { 'va-counter--input-square': isSquareCorners.value },
@@ -368,8 +361,8 @@ export default defineComponent({
 
       fieldListeners: createFieldListeners(emit),
       inputListeners: createInputListeners(emit),
+      inputWrapperPropsComputed: filterComponentProps(VaInputWrapperProps),
       inputAttributesComputed,
-      inputWrapperPropsComputed,
       setCountInput,
       setCountChange,
 

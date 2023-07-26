@@ -221,12 +221,8 @@ export default defineComponent({
     autoSelectFirstOption: { type: Boolean, default: false },
 
     // Input style
-    outline: { type: Boolean, default: false },
-    bordered: { type: Boolean, default: false },
-    label: { type: String, default: '' },
     placeholder: { type: String, default: '' },
     searchPlaceholderText: { type: String, default: '$t:search' },
-    requiredMark: { type: Boolean, default: false },
 
     ariaSearchLabel: { type: String, default: '$t:optionsFilter' },
     ariaClearLabel: { type: String, default: '$t:reset' },

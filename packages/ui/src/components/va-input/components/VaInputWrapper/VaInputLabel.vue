@@ -55,6 +55,7 @@ export default defineComponent({
     color: var(--va-danger);
     font-size: 18px;
     font-weight: var(--va-input-container-label-font-weight);
+    vertical-align: middle;
   }
 }
 </style>
