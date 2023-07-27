@@ -7,7 +7,7 @@
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
   >
-    <div class="va-sidebar__menu" :style="`width: ${computedWidth};`">
+    <div v-show="doShowMenu" class="va-sidebar__menu" ref="menu" :style="`width: ${menuWidth};`">
       <va-config :components="{ VaSidebarItem: vaSidebarItemProps }">
         <slot />
       </va-config>
@@ -16,11 +16,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, PropType, shallowRef } from 'vue'
+import { defineComponent, computed, ref, PropType, shallowRef, watch, watchEffect } from 'vue'
 
 import { VaConfig } from '../va-config'
 import { getGradientBackground } from '../../services/color'
-import { useColors, useTextColor, useBem, useClickOutside } from '../../composables'
+import { useColors, useTextColor, useBem, useClickOutside, useElementWidth } from '../../composables'
 import { useSidebar } from './hooks/useSidebar'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
@@ -65,12 +65,40 @@ export default defineComponent({
 
     const isMinimized = computed(() => props.minimized || (props.hoverable && !isHovered.value))
 
-    const computedWidth = computed(() => {
+    const menu = ref<HTMLElement>()
+    const currentMenuWidth = useElementWidth(menu)
+    // Display: none for menu if it closed
+    // Otherwise sidebar items will be focusable when sidebar is hidden
+    const doShowMenu = computed(() => {
+      // Always show menu if sidebar is visible
+      if (props.modelValue === true) {
+        return true
+      }
+
+      // If menu is not rendered yet, ignore and show it
+      if (currentMenuWidth.value === null) {
+        return true
+      }
+
+      return currentMenuWidth.value > 0
+    })
+
+    const menuWidth = ref()
+
+    const getWidth = () => {
       if (!props.modelValue) {
         return 0
       }
 
       return isMinimized.value ? props.minimizedWidth : props.width
+    }
+
+    watchEffect(() => {
+      const width = getWidth()
+      // Set width after doShowMenu is applied, so transition is executed after menu is displayed
+      setTimeout(() => {
+        menuWidth.value = width
+      })
     })
 
     const { textColorComputed } = useTextColor()
@@ -108,7 +136,9 @@ export default defineComponent({
     })
 
     return {
-      computedWidth,
+      menu,
+      doShowMenu,
+      menuWidth,
       computedClass,
       computedStyle,
       updateHoverState,

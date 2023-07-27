@@ -168,8 +168,6 @@ export default defineComponent({
 @import "@/assets/smart-grid.scss";
 
 .sidebar {
-  --va-sidebar-transition: none;
-
   &__collapse-custom-header {
     position: relative;
     padding: 1rem 1.2rem;
