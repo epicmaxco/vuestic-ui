@@ -124,10 +124,10 @@ export default defineComponent({
   ],
 
   props: {
+    ...VaInputWrapperProps,
     ...useDropdownableProps,
     ...useComponentPresetProp,
     ...useClearableProps,
-    ...VaInputWrapperProps,
     ...extractComponentProps(VaTimePicker),
     ...useValidationProps as ValidationProps<Date>,
     ...useStatefulProps,

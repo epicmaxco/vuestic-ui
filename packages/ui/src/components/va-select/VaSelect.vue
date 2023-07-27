@@ -129,12 +129,9 @@ import {
   useDropdownable, useDropdownableEmits, useDropdownableProps,
 } from '../../composables'
 
-import {
-  VaDropdown,
-  VaDropdownContent,
-  VaIcon,
-  VaInputWrapper,
-} from '../index'
+import { VaInputWrapper } from '../va-input-wrapper'
+import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaIcon } from '../va-icon'
 import { VaSelectOptionList } from './components/VaSelectOptionList'
 import { VaSelectContent } from './components/VaSelectContent'
 
@@ -177,6 +174,7 @@ export default defineComponent({
   ],
 
   props: {
+    ...VaInputWrapperProps,
     ...useComponentPresetProp,
     ...useSelectableListProps,
     ...useValidationProps as ValidationProps<SelectOption>,
@@ -190,7 +188,6 @@ export default defineComponent({
     ...useStringValueProps,
     ...useAutocompleteProps,
     ...useDropdownableProps,
-    ...VaInputWrapperProps,
 
     modelValue: {
       type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>,

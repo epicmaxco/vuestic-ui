@@ -2,4 +2,3 @@ import withConfigTransport from '../../services/config-transport/withConfigTrans
 import _VaInputWrapper from './VaInputWrapper.vue'
 
 export const VaInputWrapper = withConfigTransport(_VaInputWrapper)
-// export const VaInputWrapper = _VaInputWrapper

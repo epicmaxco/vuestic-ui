@@ -109,14 +109,14 @@ export default defineComponent({
   components: { VaInputWrapper, VaTextarea, VaIcon },
 
   props: {
+    ...VaInputWrapperProps,
+    ...VaTextareaProps,
     ...useFormFieldProps,
     ...useValidationProps as ValidationProps<string>,
     ...useClearableProps,
     ...useCleaveProps,
-    ...VaTextareaProps,
     ...useComponentPresetProp,
     ...useStatefulProps,
-    ...VaInputWrapperProps,
 
     // input
     placeholder: { type: String, default: '' },
