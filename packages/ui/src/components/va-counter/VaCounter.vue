@@ -123,7 +123,7 @@ import {
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
-import { VaInputWrapper } from '../va-input'
+import { VaInputWrapper } from '../va-input-wrapper'
 import { VaButton } from '../va-button'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 

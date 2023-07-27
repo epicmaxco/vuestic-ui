@@ -103,7 +103,7 @@ import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
 
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
-import { VaInputWrapper } from '../va-input'
+import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 

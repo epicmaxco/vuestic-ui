@@ -10,6 +10,11 @@
  */
 
 // Components used in other components
+/**
+ * @notice: Make sure to export components that used in other components first!
+*/
+export * from './va-icon'
+export * from './va-input-wrapper'
 export * from './va-input'
 export * from './va-fallback'
 export * from './va-collapse'
@@ -46,7 +51,6 @@ export * from './va-divider'
 export * from './va-dropdown'
 export * from './va-form'
 export * from './va-hover'
-export * from './va-icon'
 export * from './va-image'
 export * from './va-infinite-scroll'
 export * from './va-inner-loading'

@@ -128,7 +128,7 @@ import type { DateInputModelValue, DateInputValue } from './types'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-import { VaInputWrapper } from '../va-input'
+import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { unwrapEl } from '../../utils/unwrapEl'
 

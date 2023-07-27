@@ -7,11 +7,11 @@
   >
     <template #anchor>
       <va-input-wrapper
+        v-bind="inputWrapperPropsComputed"
         ref="input"
         class="va-select__anchor va-select-anchor__input"
         :class="inputWrapperClassComputed"
         :model-value="valueString"
-        v-bind="inputWrapperPropsComputed"
         @focus="onInputFocus"
         @blur="onInputBlur"
         @click="focusAutocompleteInput"
@@ -75,7 +75,7 @@
       :style="{ width: $props.width }"
       @keydown.esc="hideAndFocus"
     >
-      <va-input
+      <va-input-wrapper
         v-if="showSearchInput"
         ref="searchBar"
         class="va-select-dropdown__content-search-input"
@@ -133,7 +133,6 @@ import {
   VaDropdown,
   VaDropdownContent,
   VaIcon,
-  VaInput,
   VaInputWrapper,
 } from '../index'
 import { VaSelectOptionList } from './components/VaSelectOptionList'
@@ -151,6 +150,9 @@ import { warn } from '../../utils/console'
 
 import type { SelectOption } from './types'
 import type { DropdownOffsetProp } from '../va-dropdown/types'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
+
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 
 export default defineComponent({
   name: 'VaSelect',
@@ -161,7 +163,6 @@ export default defineComponent({
     VaIcon,
     VaDropdown,
     VaDropdownContent,
-    VaInput,
     VaInputWrapper,
   },
 
@@ -189,6 +190,7 @@ export default defineComponent({
     ...useStringValueProps,
     ...useAutocompleteProps,
     ...useDropdownableProps,
+    ...VaInputWrapperProps,
 
     modelValue: {
       type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>,
@@ -234,7 +236,7 @@ export default defineComponent({
 
     const optionList = shallowRef<typeof VaSelectOptionList>()
     const input = shallowRef<typeof VaInputWrapper>()
-    const searchBar = shallowRef<typeof VaInput>()
+    const searchBar = shallowRef<typeof VaInputWrapper>()
 
     const isInputFocused = useFocusDeep(input as any)
 
@@ -591,8 +593,9 @@ export default defineComponent({
     const inputWrapperClassComputed = useBem('va-select-anchor', () => ({
       nowrap: !!(props.maxVisibleOptions && !slots.content),
     }))
+    const vaInputWrapperProps = filterComponentProps(VaInputWrapperProps)
     const inputWrapperPropsComputed = computed(() => ({
-      ...pick(props, ['messages', 'requiredMark', 'bordered', 'outline', 'label', 'color', 'success', 'readonly', 'disabled', 'error', 'loading']),
+      ...vaInputWrapperProps.value,
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
       focused: isFocused.value,

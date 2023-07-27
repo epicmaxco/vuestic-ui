@@ -36,7 +36,9 @@
             v-bind="vaInputLabelProps"
           />
 
-          <slot />
+          <slot>
+            <input v-model="vModel" />
+          </slot>
         </div>
 
         <va-icon
@@ -101,15 +103,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRef } from 'vue'
+import { computed, defineComponent, getCurrentInstance, toRef } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useBem, useFormFieldProps, useValidationProps, useColors, useTextColor, useCSSVariables } from '../../../../composables'
+import { useBem, useFormFieldProps, useValidationProps, useColors, useTextColor, useCSSVariables, useComponentPresetProp, useSyncProp } from '../../composables'
 
-import { VaMessageList } from '../VaMessageList'
-import VaInputLabel from './VaInputLabel.vue'
-import { VaIcon } from '../../../va-icon'
-import { extractComponentProps, filterComponentProps } from '../../../../utils/component-options'
+import { VaMessageList } from './components/VaMessageList'
+import VaInputLabel from './components/VaInputLabel.vue'
+import { VaIcon } from '../va-icon'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 const VaInputLabelProps = extractComponentProps(VaInputLabel)
 
@@ -119,9 +121,11 @@ export default defineComponent({
   components: { VaMessageList, VaIcon, VaInputLabel },
 
   props: {
+    ...useComponentPresetProp,
     ...useFormFieldProps,
     ...useValidationProps,
     ...VaInputLabelProps,
+    modelValue: { type: null, default: '' },
     counterValue: { type: Number, default: undefined },
     maxLength: { type: Number, default: undefined },
 
@@ -142,10 +146,12 @@ export default defineComponent({
     'click-append',
     'click-prepend-inner',
     'click-append-inner',
+    'update:modelValue',
   ],
 
-  setup (props) {
+  setup (props, { emit }) {
     const { getColor } = useColors()
+    const [vModel] = useSyncProp('modelValue', props, emit, '')
 
     const wrapperClass = useBem('va-input-wrapper', () => ({
       ...pick(props, ['success', 'focused', 'error', 'disabled', 'readonly']),
@@ -189,6 +195,7 @@ export default defineComponent({
     )
 
     return {
+      vModel,
       vaInputLabelProps: filterComponentProps(VaInputLabelProps),
       containerStyle,
       wrapperClass,
@@ -215,8 +222,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '../../../../styles/resources/index.scss';
-@import '../../variables';
+@import '../../styles/resources/index.scss';
 @import './variables';
 
 .va-input-wrapper {

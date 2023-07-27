@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useColors } from '../../../../composables'
+import { useColors } from '../../../composables'
 
 export default defineComponent({
   name: 'VaInputLabel',
@@ -42,7 +42,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '../../../../styles/resources/index.scss';
+@import '../../../styles/resources/index.scss';
 
 .va-input-label {
   @include va-ellipsis();

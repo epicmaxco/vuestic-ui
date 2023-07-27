@@ -9,14 +9,17 @@ import {
   VaRadio,
   VaTimeInput,
   VaColorInput,
-} from '../../..'
+} from '../'
 
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 
 const playground = reactive({
   innerLabel: false,
   onDark: false,
+  solid: false,
 })
+
+const preset = computed(() => (playground.solid ? 'solid' : ''))
 </script>
 
 <template>
@@ -24,6 +27,7 @@ const playground = reactive({
     <VbCard title="default">
       <VaInputWrapper />
     </VbCard>
+
     <VbCard title="label (outer default)">
       <VaInputWrapper label="Label" />
     </VbCard>
@@ -44,14 +48,13 @@ const playground = reactive({
     </VbCard>
 
     <VbCard title="bottom">
-      <VaInputWrapper label="測試" inner-label counterValue="3 / 10" />
+      <VaInputWrapper label="測試" inner-label :counterValue="3" />
     </VbCard>
 
     <VbCard title="Variants">
       <div class="flex flex-col gap-4">
         <VaInput label="Outline" preset="outline" />
         <VaInput label="Solid" preset="solid" />
-        // TODO: Not working for now. Drop?
         <VaInput label="Bordered" preset="bordered" />
       </div>
     </VbCard>
@@ -90,6 +93,7 @@ const playground = reactive({
           InnerLabel: <input v-model="playground.innerLabel" type="checkbox" />
         </div>
         <div>OnDark: <input v-model="playground.onDark" type="checkbox" /></div>
+        <div>Preset: <input v-model="playground.solid" type="checkbox" /></div>
       </div>
       <div
         class="flex flex-col gap-4 pa-4"
@@ -99,32 +103,49 @@ const playground = reactive({
         }"
       >
         <div>
-          <VaInput label="Label" :inner-label="playground.innerLabel" model-value="Example text" />
+          <VaInput
+            label="Label"
+            :inner-label="playground.innerLabel"
+            :preset="preset"
+            model-value="Example text"
+          />
         </div>
         <div>
-          <VaSelect label="Label" :inner-label="playground.innerLabel" model-value="Example text" />
+          <VaSelect
+            label="Label"
+            :inner-label="playground.innerLabel"
+            :preset="preset"
+            model-value="Example text"
+          />
         </div>
         <div>
           <VaCounter
             label="label"
             :model-value="3"
             :inner-label="playground.innerLabel"
+            :preset="preset"
           />
         </div>
         <div>
-          <VaDateInput label="Label" :inner-label="playground.innerLabel" :model-value="new Date()" />
+          <VaDateInput
+            label="Label"
+            :inner-label="playground.innerLabel"
+            :model-value="new Date()"
+            :preset="preset"
+          />
         </div>
         <div>
-          <VaCheckbox label="Label" :inner-label="playground.innerLabel" />
+          <VaCheckbox label="Label" :inner-label="playground.innerLabel" :preset="preset" />
         </div>
         <div>
-          <VaRadio label="Label" :inner-label="playground.innerLabel" />
+          <VaRadio label="Label" :inner-label="playground.innerLabel" :preset="preset" />
         </div>
         <div>
           <VaTimeInput
             label="time input"
             :model-value="new Date()"
             :inner-label="playground.innerLabel"
+            :preset="preset"
           />
         </div>
         <div>
@@ -132,6 +153,7 @@ const playground = reactive({
             label="color input"
             model-value="Example text"
             :inner-label="playground.innerLabel"
+            :preset="preset"
           />
         </div>
       </div>
