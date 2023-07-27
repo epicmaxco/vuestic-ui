@@ -383,14 +383,14 @@ export default defineComponent({
 
   // Validations
   &--error {
-    --va-input-wrapper-border-color: var(--va-input-wrapper-error-background, --va-danger);
-    --va-input-wrapper-background: var(--va-input-wrapper-error-background, --va-danger);
+    --va-input-wrapper-border-color: var(--va-input-wrapper-error-background, var(--va-danger));
+    --va-input-wrapper-background: var(--va-input-wrapper-error-background, var(--va-danger));
     --va-input-wrapper-background-opacity: var(--va-input-wrapper-validation-background-opacity);
   }
 
   &--success {
-    --va-input-wrapper-border-color: var(--va-input-wrapper-success-background, --va-success);
-    --va-input-wrapper-background: var(--va-input-wrapper-success-background, --va-success);
+    --va-input-wrapper-border-color: var(--va-input-wrapper-success-background, var(--va-success));
+    --va-input-wrapper-background: var(--va-input-wrapper-success-background, var(--va-success));
     --va-input-wrapper-background-opacity: var(--va-input-wrapper-validation-background-opacity);
   }
 
