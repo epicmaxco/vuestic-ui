@@ -1,100 +1,51 @@
 <template>
-  <div
-    class="va-stepper"
-    :class="{ 'va-stepper--vertical': $props.vertical }"
-    v-bind="ariaAttributesComputed"
-  >
-    <ol
-      class="va-stepper__navigation"
-      ref="stepperNavigation"
-      :class="{ 'va-stepper__navigation--vertical': $props.vertical }"
+  <VaForm ref="form">
+    <div class="va-stepper" :class="{ 'va-stepper--vertical': $props.vertical }" v-bind="ariaAttributesComputed">
+      <ol class="va-stepper__navigation" ref="stepperNavigation"
+        :class="{ 'va-stepper__navigation--vertical': $props.vertical }" @click="onValueChange"
+        @keyup.enter="onValueChange" @keyup.space="onValueChange" @keyup.left="onArrowKeyPress('prev')"
+        @keyup.right="onArrowKeyPress('next')" @focusout="resetFocus">
+        <template v-for="(step, i) in $props.steps" :key="i">
+          <slot v-if="i > 0" name="divider" v-bind="getIterableSlotData(step, i)">
+            <span class="va-stepper__divider" :class="{ 'va-stepper__divider--vertical': $props.vertical }"
+              aria-hidden="true" />
+          </slot>
 
-      @click="onValueChange"
-      @keyup.enter="onValueChange"
-      @keyup.space="onValueChange"
-      @keyup.left="onArrowKeyPress('prev')"
-      @keyup.right="onArrowKeyPress('next')"
-      @focusout="resetFocus"
-    >
-      <template
-        v-for="(step, i) in $props.steps"
-        :key="i"
-      >
-        <slot
-          v-if="i > 0"
-          name="divider"
-          v-bind="getIterableSlotData(step, i)"
-        >
-          <span
-            class="va-stepper__divider"
-            :class="{ 'va-stepper__divider--vertical': $props.vertical }"
-            aria-hidden="true"
-          />
-        </slot>
-
-        <slot
-          :name="`step-button-${i}`"
-          v-bind="getIterableSlotData(step, i)"
-        >
-          <va-stepper-step-button
-            :stepIndex="i"
-            :color="stepperColor"
-            :modelValue="modelValue"
-            :nextDisabled="nextDisabled"
-            :step="step"
-            :stepControls="stepControls"
-            :navigationDisabled="navigationDisabled"
-            :focus="focusedStep"
-          />
-        </slot>
-      </template>
-    </ol>
-    <div
-      class="va-stepper__step-content-wrapper"
-      :class="{ 'va-stepper__step-content-wrapper--vertical': $props.vertical }"
-    >
-      <template
-        v-for="(step, i) in $props.steps"
-        :key="i"
-      >
-        <div
-          class="va-stepper__step-content"
-          v-if="$slots[`step-content-${i}`] && modelValue === i"
-        >
-          <slot
-            :name="`step-content-${i}`"
-            v-bind="getIterableSlotData(step, i)"
-          />
+          <slot :name="`step-button-${i}`" v-bind="getIterableSlotData(step, i)">
+            <va-stepper-step-button :stepIndex="i" :color="stepperColor" :modelValue="modelValue"
+              :nextDisabled="nextDisabled" :step="step" :stepControls="stepControls"
+              :navigationDisabled="navigationDisabled" :focus="focusedStep" @click="save(i)" />
+          </slot>
+        </template>
+      </ol>
+      <div class="va-stepper__step-content-wrapper"
+        :class="{ 'va-stepper__step-content-wrapper--vertical': $props.vertical }">
+        <template v-for="(step, i) in $props.steps" :key="i">
+          <div class="va-stepper__step-content" v-if="$slots[`step-content-${i}`] && modelValue === i">
+            <slot :name="`step-content-${i}`" v-bind="getIterableSlotData(step, i)" />
+          </div>
+        </template>
+        <div class="va-stepper__controls">
+          <va-stepper-controls v-if="!controlsHidden" :modelValue="modelValue" :nextDisabled="nextDisabled" :steps="steps"
+            :stepControls="stepControls" :finishButtonHidden="finishButtonHidden" @finish="$emit('finish')" />
+          <slot name="controls" v-bind="getIterableSlotData(steps[modelValue], modelValue)" />
         </div>
-      </template>
-      <div class="va-stepper__controls">
-        <va-stepper-controls
-          v-if="!controlsHidden"
-          :modelValue="modelValue"
-          :nextDisabled="nextDisabled"
-          :steps="steps"
-          :stepControls="stepControls"
-          :finishButtonHidden="finishButtonHidden"
-          @finish="$emit('finish')"
-        />
-        <slot
-          name="controls"
-          v-bind="getIterableSlotData(steps[modelValue], modelValue)"
-        />
       </div>
     </div>
-  </div>
+  </VaForm>
 </template>
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, Ref, shallowRef, watch } from 'vue'
-import { useColors, useStateful, useStatefulProps, useTranslation } from '../../composables'
+import { useColors, useForm, useStateful, useStatefulProps, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
 import VaStepperControls from './VaStepperControls.vue'
 import VaStepperStepButton from './VaStepperStepButton.vue'
+import VaForm from '../va-form/VaForm.vue'
+
 
 export default defineComponent({
   name: 'VaStepper',
-  components: { VaStepperControls, VaStepperStepButton },
+  components: { VaStepperControls, VaStepperStepButton, VaForm },
   props: {
     ...useStatefulProps,
     modelValue: { type: Number, default: 0 },
@@ -110,9 +61,10 @@ export default defineComponent({
     nextDisabled: { type: Boolean, default: false },
     finishButtonHidden: { type: Boolean, default: false },
     ariaLabel: { type: String, default: '$t:progress' },
+    linear: { type: Boolean, default: false }
   },
   emits: ['update:modelValue', 'finish'],
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     const stepperNavigation = shallowRef<HTMLElement>()
     const { valueComputed: modelValue }: { valueComputed: Ref<number> } = useStateful(props, emit, 'modelValue', { defaultValue: 0 })
 
@@ -122,6 +74,8 @@ export default defineComponent({
     const stepperColor = getColor(props.color)
 
     const isNextStepDisabled = (index: number) => props.nextDisabled && index > modelValue.value
+
+    const { validate } = useForm('form');
 
     const setStep = (index: number) => {
       if (props.steps[index].disabled) { return }
@@ -199,7 +153,7 @@ export default defineComponent({
         nextStep(stepsToSkip + 1)
       }
 
-      setStep(targetIndex)
+      save(targetIndex)
     }
 
     const prevStep = (stepsToSkip = 0) => {
@@ -210,7 +164,7 @@ export default defineComponent({
         prevStep(stepsToSkip + 1)
       }
 
-      setStep(targetIndex)
+      save(targetIndex)
     }
 
     const stepControls: StepControls = { setStep, nextStep, prevStep }
@@ -225,6 +179,23 @@ export default defineComponent({
       step,
     })
 
+    const save = (targetIndex: number) => {
+      const save = props.steps[modelValue.value].save;
+      let errored = false;
+      if (!validate() && props.linear) {
+        return;
+      }
+      if (save && !errored) {
+        try {
+          save();
+        }
+        catch {
+          errored = true;
+        }
+      }
+      if (!errored)
+        setStep(targetIndex);
+    };
     const { tp } = useTranslation()
 
     return {
@@ -248,6 +219,7 @@ export default defineComponent({
         'aria-label': tp(props.ariaLabel),
         'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
       })),
+      save
     }
   },
 })
