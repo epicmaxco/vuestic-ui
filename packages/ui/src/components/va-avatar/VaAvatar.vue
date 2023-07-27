@@ -15,10 +15,15 @@
         v-if="$props.src && !hasLoadError"
         :src="$props.src"
         :alt="$props.alt"
+        :aria-label="$props.alt"
         @error="onLoadError"
       >
       <slot v-else-if="hasLoadError && $props.src" name="fallback">
-        <va-fallback v-bind="VaFallbackProps" @fallback="$emit('fallback')" />
+        <va-fallback
+          v-bind="VaFallbackProps"
+          :fallback-text="$props.fallbackText || $props.alt"
+          @fallback="$emit('fallback')"
+        />
       </slot>
       <va-icon
         v-else-if="$props.icon"

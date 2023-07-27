@@ -3,6 +3,7 @@
     :options="avatars"
     :max="3"
     :loading="isLoading"
+    alt="Gravatar image"
   />
 </template>
 

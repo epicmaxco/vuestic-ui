@@ -39,6 +39,8 @@ export default defineComponent({
     if (props.fallbackSrc) {
       return () => h('img', {
         src: props.fallbackSrc,
+        alt: props.fallbackText,
+        'aria-label': props.fallbackText,
       })
     }
 

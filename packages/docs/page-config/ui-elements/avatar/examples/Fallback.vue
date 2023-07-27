@@ -2,6 +2,7 @@
   <va-avatar
     src="https://not-exist"
     class="mr-6"
+    alt="Not existing image"
   />
   <va-avatar
     src="https://not-exist"
