@@ -83,7 +83,7 @@
         :aria-label="tp($props.ariaSearchLabel)"
         :tabindex="tabIndexComputed"
         :placeholder="tp($props.searchPlaceholderText)"
-        bordered
+        preset="bordered"
         @keydown.up.stop.prevent="focusPreviousOption"
         @keydown.left.stop.prevent="focusPreviousOption"
         @keydown.down.stop.prevent="focusNextOption"

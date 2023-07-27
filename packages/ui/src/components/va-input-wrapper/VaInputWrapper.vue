@@ -228,10 +228,10 @@ export default defineComponent({
 .va-input-wrapper {
   --va-input-wrapper-background: v-bind(backgroundComputed);
 
-  cursor: var(--va-input-cursor);
+  cursor: var(--va-input-wrapper-cursor);
   font-family: var(--va-font-family);
   display: var(--va-input-wrapper-display);
-  vertical-align: var(--va-input-wrapper-vertical-align);
+  vertical-align: middle;
   min-width: var(--va-input-wrapper-min-width);
   max-width: 100%;
   flex: 1;
@@ -241,14 +241,14 @@ export default defineComponent({
     display: flex;
     align-items: center;
     flex: 1;
-    min-height: var(--va-input-min-height);
+    min-height: var(--va-input-wrapper-min-height);
     width: var(--va-form-element-default-width);
     border-color: var(--va-input-wrapper-border-color);
     border-style: solid;
-    border-width: var(--va-input-border-width);
-    border-radius: var(--va-input-border-radius);
-    padding: 0 var(--va-input-content-horizontal-padding);
-    gap: var(--va-input-content-items-gap);
+    border-width: var(--va-input-wrapper-border-width);
+    border-radius: var(--va-input-wrapper-border-radius);
+    padding: 0 var(--va-input-wrapper-horizontal-padding);
+    gap: var(--va-input-wrapper-items-gap);
     z-index: 0;
     overflow: hidden;
     color: v-bind(textColorComputed);
@@ -345,7 +345,7 @@ export default defineComponent({
   }
 
   &__label {
-    max-width: var(--va-input-container-label-max-width);
+    max-width: calc(100% - 0.75rem);
 
     &--inner {
       position: absolute;
@@ -378,8 +378,10 @@ export default defineComponent({
 
   &--bordered {
     .va-input-wrapper__field {
-      border-top-left-radius: var(--va-input-border-radius);
-      border-top-right-radius: var(--va-input-border-radius);
+      border-top-left-radius: var(--va-input-wrapper-border-radius);
+      border-top-right-radius: var(--va-input-wrapper-border-radius);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
       border-left-width: 0;
       border-right-width: 0;
       border-top-width: 0;
@@ -394,15 +396,15 @@ export default defineComponent({
 
   // Validations
   &--error {
-    --va-input-wrapper-border-color: var(--va-input-error-color, --va-danger);
-    --va-input-wrapper-background: var(--va-input-error-color, --va-danger);
-    --va-input-wrapper-background-opacity: var(--va-input-opacity);
+    --va-input-wrapper-border-color: var(--va-input-wrapper-error-background, --va-danger);
+    --va-input-wrapper-background: var(--va-input-wrapper-error-background, --va-danger);
+    --va-input-wrapper-background-opacity: var(--va-input-wrapper-validation-background-opacity);
   }
 
   &--success {
-    --va-input-wrapper-border-color: var(--va-input-success-color, --va-success);
-    --va-input-wrapper-background: var(--va-input-success-color, --va-success);
-    --va-input-wrapper-background-opacity: var(--va-input-opacity);
+    --va-input-wrapper-border-color: var(--va-input-wrapper-success-background, --va-success);
+    --va-input-wrapper-background: var(--va-input-wrapper-success-background, --va-success);
+    --va-input-wrapper-background-opacity: var(--va-input-wrapper-validation-background-opacity);
   }
 
   // States
