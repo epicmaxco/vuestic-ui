@@ -17,6 +17,15 @@
       :rules="[(v) => validateBirthday(v)]"
       label="Birth Date"
       manual-input
+      clearable
+    />
+
+    <va-time-input 
+      v-model="form.time"
+      :rules="[(v) => v || 'We need to now pick-up time!']"
+      label="Pick-up time"
+      manual-input
+      clearable
     />
 
     <va-select
@@ -85,6 +94,7 @@
     lastName: '',
     country: '',
     birthDate: null as Date | null,
+    time: null as Date | null,
     acknowledgement: false,
     notifications: true,
     paymentMethod: '',

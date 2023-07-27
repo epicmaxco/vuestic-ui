@@ -97,7 +97,7 @@ import {
   useFocus, useFocusEmits,
   useStateful, useStatefulEmits, useStatefulProps,
   useTranslation,
-  useDropdownable, useDropdownableProps, useDropdownableEmits,
+  useDropdownable, useDropdownableProps, useDropdownableEmits, useLongPressKey,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
@@ -253,7 +253,29 @@ export default defineComponent({
       readonly: props.readonly || !props.manualInput,
     }))
 
-    const computedInputListeners = computed(() => ({
+    const viewToNumber = {
+      seconds: 1000,
+      minutes: 1000 * 60,
+      hours: 1000 * 60 * 60,
+    }
+
+    const onKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown') {
+        valueComputed.value = new Date(Number(valueComputed.value) - viewToNumber[props.view])
+      }
+      if (e.key === 'ArrowUp') {
+        valueComputed.value = new Date(Number(valueComputed.value) + viewToNumber[props.view])
+      }
+
+      e.preventDefault()
+    }
+
+    useLongPressKey(input, {
+      onStart: onKeyPress,
+      onUpdate: onKeyPress,
+    })
+
+    const computedInputListeners = ({
       focus: () => {
         if (props.disabled) { return }
 
@@ -272,7 +294,7 @@ export default defineComponent({
         onBlur()
         listeners.onBlur()
       },
-    }))
+    })
 
     const filteredSlots = computed(() => {
       const slotsWithIcons = [
