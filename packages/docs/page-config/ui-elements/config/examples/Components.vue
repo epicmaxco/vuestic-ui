@@ -5,16 +5,14 @@
       {
         label: 'Outline',
         value: {
-          VaInput: { outline: true },
-          VaSelect: { outline: true },
           VaButton: { preset: 'secondary' },
         },
       },
       {
         label: 'Solid',
         value: {
-          VaInput: { bordered: true },
-          VaSelect: { bordred: true },
+          VaInput: { preset: 'solid' },
+          VaSelect: { preset: 'solid' },
         },
       },
     ]"

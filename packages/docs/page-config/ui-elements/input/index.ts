@@ -21,7 +21,7 @@ export default definePageConfig({
     }),
     block.example("Styles", {
       title: "Styles",
-      description: "There are tree styles for input: Default (solid), outline, bordered."
+      description: "There are tree styles for input: Default (outlined), solid, bordered."
     }),
     block.example("Hint", {
       title: "Hint messages",
@@ -58,12 +58,12 @@ export default definePageConfig({
     block.example("Types", { hideTitle: true }),
 
     block.subtitle("API"),
-    block.api("VaInput", apiOptions),
+    block.api("VaInput", {}, apiOptions),
 
     // TODO: Move variable from VaInputWrapper to VaInput
     block.paragraph("VaInputWrapper:"),
     block.file(
-      "vuestic-ui/src/components/va-input/components/VaInputWrapper/_variables.scss"
+      "vuestic-ui/src/components/va-input-wrapper/_variables.scss"
     ),
   ],
 });

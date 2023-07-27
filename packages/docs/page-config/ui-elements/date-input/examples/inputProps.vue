@@ -32,13 +32,13 @@
 
   <va-date-input
     class="mb-6 mr-6"
-    label="outline"
-    outline
+    label="solid"
+    preset="solid"
   />
 
   <va-date-input
     class="mb-6 mr-6"
     label="bordered"
-    bordered
+    preset="bordered"
   />
 </template>

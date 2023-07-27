@@ -14,7 +14,7 @@ export default definePageConfig({
     }),
     block.example("Style", {
       title: "Style",
-      description: "There are tree styles for component: default (solid), outline, bordered."
+      description: "There are tree styles for component: outlined (default), solid and bordered. You can change component looks with `presets` props"
     }),
     block.example("Buttons", {
       title: "Buttons",

@@ -4,12 +4,12 @@
 
     <va-counter
       v-model="value"
-      outline
+      preset="solid"
     />
 
     <va-counter
       v-model="value"
-      bordered
+      preset="bordered"
     />
   </div>
 </template>

@@ -26,16 +26,16 @@
     <va-input
       v-model="value"
       class="mb-6"
-      placeholder="Outline"
-      label="Outline"
-      outline
+      placeholder="Solid"
+      label="Solid"
+      preset="solid"
     />
     <va-input
       v-model="value"
       class="mb-6"
       placeholder="Bordered"
       label="Bordered"
-      bordered
+      preset="bordered"
     />
     <va-input
       v-model="value"
