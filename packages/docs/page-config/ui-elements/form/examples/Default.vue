@@ -38,6 +38,7 @@
       v-model="form.notifications"
       label="Notifications"
       size="small"
+      :rules="[(v) => v || 'You must agree on notifications']"
     />
   
     <div>
@@ -45,6 +46,7 @@
       <va-option-list
         v-model="form.paymentMethod"
         :options="['Visa', 'MasterCard', 'PayPal']"
+        :rules="[(v) => v === 'PayPal' || 'Only PayPal is currently available']"
         type="radio"
       />      
     </div>
