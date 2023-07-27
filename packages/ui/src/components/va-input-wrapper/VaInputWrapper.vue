@@ -9,7 +9,7 @@
       class="va-input-wrapper__label va-input-wrapper__label--outer"
       v-bind="vaInputLabelProps"
     />
-    <div class="va-input-wrapper__container" :style="wrapperStyle">
+    <div class="va-input-wrapper__container">
       <div
         v-if="$slots.prepend"
         class="va-input-wrapper__prepend-inner"
@@ -23,7 +23,6 @@
           v-if="$slots.prependInner"
           class="va-input-wrapper__prepend-inner"
           ref="container"
-          :style="containerStyle"
           @click="$emit('click-prepend-inner', $event)"
         >
           <slot name="prependInner" />
@@ -159,14 +158,8 @@ export default defineComponent({
       labeledInner: Boolean(props.label) && props.innerLabel,
     }))
 
-    const wrapperStyle = useCSSVariables('va-input-wrapper', () => ({
-      color: colorComputed.value,
-    }))
-
     const colorComputed = computed(() => getColor(props.color))
     const backgroundComputed = computed(() => props.background ? getColor(props.background) : 'transparent')
-    const borderColorComputed = computed(() => props.focused ? colorComputed.value : undefined)
-
     const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
 
     const hasMessages = computed(() => Boolean(
@@ -174,13 +167,6 @@ export default defineComponent({
     ))
 
     const { textColorComputed } = useTextColor(toRef(props, 'background'))
-
-    const containerStyle = computed(() => ({
-      color: textColorComputed.value,
-      'caret-color': textColorComputed.value,
-      '--va-input-color': props.background ? getColor(props.background) : undefined,
-      borderColor: borderColorComputed.value,
-    }))
 
     const messagesColor = computed(() => {
       if (props.error) { return 'danger' }
@@ -197,16 +183,13 @@ export default defineComponent({
     return {
       vModel,
       vaInputLabelProps: filterComponentProps(VaInputLabelProps),
-      containerStyle,
       wrapperClass,
-      wrapperStyle,
       textColorComputed,
 
       isCounterVisible,
       counterComputed,
       colorComputed,
       backgroundComputed,
-      borderColorComputed,
       messagesColor,
       messagesComputed,
       hasMessages,
@@ -227,6 +210,8 @@ export default defineComponent({
 
 .va-input-wrapper {
   --va-input-wrapper-background: v-bind(backgroundComputed);
+  --va-input-wrapper-color: v-bind(colorComputed);
+  --va-input-wrapper-text-color: v-bind(textColorComputed);
 
   cursor: var(--va-input-wrapper-cursor);
   font-family: var(--va-font-family);
@@ -286,6 +271,8 @@ export default defineComponent({
     display: flex;
     align-items: center;
     overflow: hidden;
+    caret-color: var(--va-input-wrapper-text-color);
+    color: var(--va-input-wrapper-text-color);
 
     input,
     textarea {
