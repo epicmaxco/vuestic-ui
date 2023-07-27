@@ -3,6 +3,7 @@
     <div
       class="va-collapse__header-wrapper"
       role="heading"
+      :aria-level="$props.ariaLevel"
       @click="toggle"
       @keydown.enter="toggle"
       @keydown.space="toggle"
@@ -89,6 +90,7 @@ export default defineComponent({
     textColor: { type: String, default: '' },
     colorAll: { type: Boolean, default: false },
     flat: { type: Boolean, default: false },
+    ariaLevel: { type: String, default: '1' },
   },
   emits: ['update:modelValue'],
 
