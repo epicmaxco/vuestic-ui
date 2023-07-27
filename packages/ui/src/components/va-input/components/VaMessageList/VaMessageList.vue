@@ -58,6 +58,7 @@ export default defineComponent({
 
 <style lang="scss">
 @import "../../../../styles/resources/index.scss";
+@import "variables";
 
 .va-message-list {
   margin-top: var(--va-message-list-margin-top);
