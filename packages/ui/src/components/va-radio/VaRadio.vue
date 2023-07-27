@@ -300,6 +300,7 @@ export default defineComponent({
     height: var(--va-radio-icon-height);
     border-color: v-bind("iconComputedStyles.borderColor");
     border-radius: var(--va-radio-icon-border-radius);
+    background: var(--va-radio-background);
     position: relative;
     border: var(--va-radio-icon-border);
     box-sizing: border-box;

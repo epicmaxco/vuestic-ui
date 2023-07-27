@@ -67,12 +67,19 @@ export const getComponentsDefaultConfig = (): ComponentConfig =>
         solid: {
           background: 'backgroundElement',
         },
-        outline: {
-          background: undefined,
-        },
         bordered: {
           class: 'va-input-wrapper--bordered',
           background: 'backgroundElement',
+        },
+      },
+      VaCheckbox: {
+        solid: {
+          style: '--va-checkbox-background: var(--va-background-element)',
+        },
+      },
+      VaRadio: {
+        solid: {
+          style: '--va-radio-background: var(--va-background-element)',
         },
       },
     },
