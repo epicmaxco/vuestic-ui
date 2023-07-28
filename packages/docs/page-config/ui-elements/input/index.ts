@@ -65,5 +65,14 @@ export default definePageConfig({
     block.file(
       "vuestic-ui/src/components/va-input-wrapper/_variables.scss"
     ),
+
+    block.changeLog({
+      '1.8.0': [
+        'Inputs have outlined style by default',
+        '`solid` and `bordered` props moved to `preset="solid"` and `preset="bordered"`',
+        'All `--va-input-*` css variables renamed to `--va-input-wrapper-*`',
+        'For outlined style `currentColor` is used for text color, without background color detection'
+      ],
+    })
   ],
 });
