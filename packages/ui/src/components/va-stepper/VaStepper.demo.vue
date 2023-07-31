@@ -46,8 +46,10 @@
     <VbCard title="Linear">
       <VaStepper v-model="linearStep" :steps="steps" linear>
         <template #step-content-0>
-          <va-input v-model="model.a" :rules="[required(model.a)]" label="A">
-          </va-input>
+          <va-form ref="form1">
+            <va-input v-model="model.a" :rules="[required(model.a)]" label="A">
+            </va-input>
+          </va-form>
         </template>
         <template #step-content-1>
           <va-input v-model="model.b" label="B"></va-input>
@@ -78,16 +80,17 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { VaStepper } from './index'
-import { VaInput } from '../va-input';
+import { VaInput } from '../va-input'
 import { required } from '../../utils/validators'
 
 const step = ref(2)
-const linearStep = ref();
-const actionStep = ref();
-const model = ref({ a: '', b: '', c: '' });
+const linearStep = ref()
+const actionStep = ref()
+const model = ref({ a: '', b: '', c: '' })
+const form1 = ref()
 
 const steps = [
-  { label: 'One' },
+  { label: 'One', form: form1 },
   { label: 'Two' },
   { label: 'Three' },
   { label: 'Four' },
@@ -112,12 +115,12 @@ const stepsWithCustomIcons = [
 
 const stepsWithNextAction = [
   { label: 'One' },
-  { label: 'Two', save: () => { step2Next(); } },
-  { label: 'Three', save: () => { alert('Step 3 Action'); } }
+  { label: 'Two', save: () => { step2Next() } },
+  { label: 'Three', save: () => { alert('Step 3 Action') } },
 ]
 
 const step2Next = () => {
-  alert("Step 2 Action");
+  fetch('').then()
 }
 
 </script>

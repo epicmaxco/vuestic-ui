@@ -1,8 +1,12 @@
+import { VaForm } from 'src/services/vue-plugin/components'
+import { Ref } from 'vue'
+
 export type Step = {
   label: string;
   icon?: string;
   disabled?: boolean;
   save?: Function;
+  form?: Ref<typeof VaForm>;
 };
 
 export type StepControls = {

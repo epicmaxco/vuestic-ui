@@ -1,5 +1,4 @@
 <template>
-  <VaForm ref="form">
     <div class="va-stepper" :class="{ 'va-stepper--vertical': $props.vertical }" v-bind="ariaAttributesComputed">
       <ol class="va-stepper__navigation" ref="stepperNavigation"
         :class="{ 'va-stepper__navigation--vertical': $props.vertical }" @click="onValueChange"
@@ -14,7 +13,7 @@
           <slot :name="`step-button-${i}`" v-bind="getIterableSlotData(step, i)">
             <va-stepper-step-button :stepIndex="i" :color="stepperColor" :modelValue="modelValue"
               :nextDisabled="nextDisabled" :step="step" :stepControls="stepControls"
-              :navigationDisabled="navigationDisabled" :focus="focusedStep" @click="save(i)" />
+              :navigationDisabled="navigationDisabled" :focus="focusedStep" />
           </slot>
         </template>
       </ol>
@@ -32,20 +31,17 @@
         </div>
       </div>
     </div>
-  </VaForm>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, Ref, shallowRef, watch } from 'vue'
+import { computed, DefineComponent, defineComponent, PropType, ref, Ref, shallowRef, watch } from 'vue'
 import { useColors, useForm, useStateful, useStatefulProps, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
 import VaStepperControls from './VaStepperControls.vue'
 import VaStepperStepButton from './VaStepperStepButton.vue'
-import VaForm from '../va-form/VaForm.vue'
-
 
 export default defineComponent({
   name: 'VaStepper',
-  components: { VaStepperControls, VaStepperStepButton, VaForm },
+  components: { VaStepperControls, VaStepperStepButton },
   props: {
     ...useStatefulProps,
     modelValue: { type: Number, default: 0 },
@@ -61,10 +57,11 @@ export default defineComponent({
     nextDisabled: { type: Boolean, default: false },
     finishButtonHidden: { type: Boolean, default: false },
     ariaLabel: { type: String, default: '$t:progress' },
-    linear: { type: Boolean, default: false }
+    linear: { type: Boolean, default: false },
+    errored: { type: Boolean, default: false },
   },
   emits: ['update:modelValue', 'finish'],
-  setup(props, { emit }) {
+  setup (props, { emit }) {
     const stepperNavigation = shallowRef<HTMLElement>()
     const { valueComputed: modelValue }: { valueComputed: Ref<number> } = useStateful(props, emit, 'modelValue', { defaultValue: 0 })
 
@@ -75,11 +72,19 @@ export default defineComponent({
 
     const isNextStepDisabled = (index: number) => props.nextDisabled && index > modelValue.value
 
-    const { validate } = useForm('form');
-
     const setStep = (index: number) => {
-      if (props.steps[index].disabled) { return }
-      emit('update:modelValue', index)
+      if (!isValid()) {
+        return
+      }
+      const save = props.steps[modelValue.value].save
+      if (save) {
+        save()
+      }
+
+      if (!props.errored) {
+        if (props.steps[index].disabled) { return }
+        emit('update:modelValue', index)
+      }
     }
 
     const setFocus = (direction: 'prev' | 'next') => {
@@ -153,7 +158,7 @@ export default defineComponent({
         nextStep(stepsToSkip + 1)
       }
 
-      save(targetIndex)
+      setStep(targetIndex)
     }
 
     const prevStep = (stepsToSkip = 0) => {
@@ -164,7 +169,18 @@ export default defineComponent({
         prevStep(stepsToSkip + 1)
       }
 
-      save(targetIndex)
+      setStep(targetIndex)
+    }
+
+    const isValid = () => {
+      debugger
+      const form = props.steps[modelValue.value].form
+      if (props.linear && form) {
+        const { validate } = useForm(form)
+        return validate()
+      } else {
+        return true
+      }
     }
 
     const stepControls: StepControls = { setStep, nextStep, prevStep }
@@ -179,23 +195,6 @@ export default defineComponent({
       step,
     })
 
-    const save = (targetIndex: number) => {
-      const save = props.steps[modelValue.value].save;
-      let errored = false;
-      if (!validate() && props.linear) {
-        return;
-      }
-      if (save && !errored) {
-        try {
-          save();
-        }
-        catch {
-          errored = true;
-        }
-      }
-      if (!errored)
-        setStep(targetIndex);
-    };
     const { tp } = useTranslation()
 
     return {
@@ -219,7 +218,6 @@ export default defineComponent({
         'aria-label': tp(props.ariaLabel),
         'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
       })),
-      save
     }
   },
 })
