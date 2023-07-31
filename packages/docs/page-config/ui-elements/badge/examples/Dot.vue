@@ -3,6 +3,7 @@
     class="mr-6"
     overlap
     dot
+    :offset="[-2, 2]"
   >
     <template #text>
       <va-icon
@@ -19,6 +20,7 @@
   <va-badge
     overlap
     dot
+    :offset="[-2, 2]"
   >
     <template #text>
       <va-icon
@@ -32,3 +34,5 @@
     />
   </va-badge>
 </template>
+<script setup>
+</script>

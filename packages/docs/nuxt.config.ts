@@ -71,6 +71,7 @@ export default defineNuxtConfig({
   },
 
   googleAnalytics: {
+    enabled: process.env.GOOGLE_ANALYTICS_ENABLED === 'true',
     id: process.env.GOOGLE_ANALYTICS_ID,
   },
 
@@ -155,6 +156,6 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
-    hostname: 'https://example.com',
-  },
+    hostname: process.env.HOSTNAME,
+  }
 });

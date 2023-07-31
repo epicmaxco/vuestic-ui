@@ -4,7 +4,7 @@ const fs = require('fs')
 const semver = require('semver')
 const path = require('path')
 
-export const bumpGithubTemplateVersions = (newVersion: string) => {
+export const bumpGithubTemplateVersions = (newVersion: string): string => {
   // Bump patch .version in package.json.
   const bugTemplatePath = path.resolve(__dirname, '../../../.github/ISSUE_TEMPLATE/bug-template.md')
   const bugTemplate = fs.readFileSync(bugTemplatePath, 'utf8')
@@ -16,9 +16,10 @@ export const bumpGithubTemplateVersions = (newVersion: string) => {
   }
   fs.writeFileSync(bugTemplatePath, updatedBugTemplate)
   console.log('.github template version has been updated')
+  return bugTemplatePath
 }
 
-export const bumpVersionInGenerators = (newVersion: string) => {
+export const bumpVersionInGenerators = (newVersion: string): string => {
   // Bump patch .version in package.json.
   const generatorPath = path.resolve(__dirname, '../../../packages/vue-cli-plugin/generator/configs/default.js')
   const generator = fs.readFileSync(generatorPath, 'utf8')
@@ -30,15 +31,17 @@ export const bumpVersionInGenerators = (newVersion: string) => {
   }
   fs.writeFileSync(generatorPath, updatedGenerator)
   console.log('vue-cli-plugin generator version has been updated')
+  return generatorPath
 }
 
-export const bumpPackageJsonVersion = (filePath: string, newVersion: string) => {
+export const bumpPackageJsonVersion = (filePath: string, newVersion: string): string => {
   // Bump patch .version in package.json.
   const packageJsonPath = path.resolve(__dirname, filePath)
   const packageJson: { version: string } = JSON.parse(fs.readFileSync(packageJsonPath))
   packageJson.version = newVersion
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
   console.log('vuestic-ui package.json version has been updated')
+  return packageJsonPath
 }
 
 export const getRecommendedNodeVersion = (): string => {

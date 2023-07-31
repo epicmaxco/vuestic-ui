@@ -61,7 +61,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       gitTag: gitTagFromVersion(version),
       distTag: 'latest',
       shouldCommit: true,
-      allowSkipTests: true,
+      allowSkipTests: false,
       allowUncommitted: false,
       requiredBranch: 'develop',
       showSleepCheck: true,
@@ -227,17 +227,19 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
   // **** Update version strings ****
 
   console.log(chalk.white(`Bumping version to ${version}`))
-  bumpPackageJsonVersion('../../ui/package.json', version) // ui
-  bumpVersionInGenerators(version) // vue-cli-plugin
-  bumpGithubTemplateVersions(version) // root .github
-
+  const changedFiles: string[] = [
+    bumpPackageJsonVersion('../../ui/package.json', version), // ui
+    bumpVersionInGenerators(version), // vue-cli-plugin
+    bumpGithubTemplateVersions(version), // root .github
+  ]
 
   // **** Git updates ****
 
   console.log(chalk.white('Committing updates'))
   if (!dryRun) {
     if (shouldCommit) {
-      await executeAndLog(`git commit -am "chore: bump version to ${gitTag}"`)
+      await executeAndLog(`git add ${changedFiles.join(' ')}`)
+      await executeAndLog(`git commit -m "chore: bump version to ${gitTag}"`)
       // TODO: Maybe save remote name in .env or pass as arg.
       await executeAndLog(`git push upstream`)
     }
