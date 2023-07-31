@@ -174,7 +174,6 @@ export default defineComponent({
     }
 
     const isValid = () => {
-      debugger
       if (props.form) {
         const { validate } = useForm(props.form.ref)
         return validate()
