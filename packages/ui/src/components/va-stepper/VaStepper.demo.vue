@@ -53,10 +53,10 @@
             <template #step-content-1>
               <va-input v-model="model.b" label="B"></va-input>
           </template>
-          <template #step-content-2>
-            <va-input v-model="model.c" label="C"></va-input>
-          </template>
-        </VaStepper>
+        <template #step-content-2>
+          <va-input v-model="model.c" label="C"></va-input>
+        </template>
+      </VaStepper>
     </va-form>
     </VbCard>
 
@@ -67,7 +67,7 @@
           </va-input>
         </template>
         <template #step-content-1>
-          <va-input v-model="model.b" label="B"></va-input>
+          <va-input v-model="model.b" :rules="[(v) => v.length > 0 || 'Required']" label="B"></va-input>
         </template>
         <template #step-content-2>
           <va-input v-model="model.c" label="C"></va-input>
@@ -78,11 +78,11 @@
 </template>
 
 <script lang="ts" setup>
-import { Ref, ref, markRaw } from 'vue'
+import { ref } from 'vue'
 import { VaStepper } from './index'
 import { VaInput } from '../va-input'
 import { required } from '../../utils/validators'
-import { FormRef } from './types'
+import { VaForm } from '../va-form'
 
 const step = ref(2)
 const linearStep = ref()
