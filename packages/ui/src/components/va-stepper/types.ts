@@ -13,3 +13,7 @@ export type StepControls = {
   nextStep: (stepsToSkip?: number) => void;
   prevStep: (stepsToSkip?: number) => void;
 };
+
+export type FormRef = {
+  ref: Ref
+}
