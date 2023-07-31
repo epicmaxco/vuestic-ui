@@ -1,4 +1,5 @@
 <template>
+  <VaForm ref="form">
     <div class="va-stepper" :class="{ 'va-stepper--vertical': $props.vertical }" v-bind="ariaAttributesComputed">
       <ol class="va-stepper__navigation" ref="stepperNavigation"
         :class="{ 'va-stepper__navigation--vertical': $props.vertical }" @click="onValueChange"
@@ -31,6 +32,7 @@
         </div>
       </div>
     </div>
+  </VaForm>
 </template>
 <script lang="ts">
 import { computed, DefineComponent, defineComponent, getCurrentInstance, PropType, ref, Ref, shallowRef, toRaw, toRef, toRefs, watch } from 'vue'
@@ -42,7 +44,7 @@ import { VaForm } from '../va-form'
 
 export default defineComponent({
   name: 'VaStepper',
-  components: { VaStepperControls, VaStepperStepButton },
+  components: { VaStepperControls, VaStepperStepButton, VaForm },
   props: {
     ...useStatefulProps,
     modelValue: { type: Number, default: 0 },
@@ -173,10 +175,11 @@ export default defineComponent({
       setStep(targetIndex)
     }
 
+    const form = toRef(props, 'form') as Ref<typeof VaForm>
+    const { validate } = useForm(form)
     const isValid = () => {
       debugger
-      if (props.form) {
-        const { validate } = useForm(props.form.ref)
+      if (form.value) {
         return validate()
       } else {
         return true
