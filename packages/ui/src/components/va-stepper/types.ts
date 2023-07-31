@@ -1,6 +1,3 @@
-import { VaForm } from 'src/services/vue-plugin/components'
-import { Ref } from 'vue'
-
 export type Step = {
   label: string;
   icon?: string;
@@ -13,7 +10,3 @@ export type StepControls = {
   nextStep: (stepsToSkip?: number) => void;
   prevStep: (stepsToSkip?: number) => void;
 };
-
-export type FormRef = {
-  ref: Ref
-}

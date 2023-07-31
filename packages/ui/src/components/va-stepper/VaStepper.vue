@@ -35,10 +35,10 @@
 <script lang="ts">
 import { computed, DefineComponent, defineComponent, getCurrentInstance, PropType, ref, Ref, shallowRef, toRaw, toRef, toRefs, watch } from 'vue'
 import { useColors, useForm, useStateful, useStatefulProps, useTranslation } from '../../composables'
-import type { Step, StepControls, FormRef } from './types'
+import type { Step, StepControls } from './types'
 import VaStepperControls from './VaStepperControls.vue'
 import VaStepperStepButton from './VaStepperStepButton.vue'
-import { VaForm } from '../va-form'
+import { type VaForm } from '../va-form'
 
 export default defineComponent({
   name: 'VaStepper',
@@ -59,7 +59,7 @@ export default defineComponent({
     finishButtonHidden: { type: Boolean, default: false },
     ariaLabel: { type: String, default: '$t:progress' },
     errored: { type: Boolean, default: false },
-    form: { type: Object as PropType<FormRef> },
+    form: { type: Object as PropType<typeof VaForm> },
   },
   emits: ['update:modelValue', 'finish'],
   setup (props, { emit }) {
@@ -175,7 +175,7 @@ export default defineComponent({
 
     const isValid = () => {
       if (props.form) {
-        return props.form.ref.value?.validate()
+        return props.form.validate()
       } else {
         return true
       }

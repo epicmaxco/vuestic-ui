@@ -82,7 +82,6 @@ import { Ref, ref, markRaw } from 'vue'
 import { VaStepper } from './index'
 import { VaInput } from '../va-input'
 import { required } from '../../utils/validators'
-import { FormRef } from './types'
 import { VaForm } from '../va-form'
 
 const step = ref(2)
@@ -90,7 +89,7 @@ const linearStep = ref()
 const actionStep = ref()
 const model = ref({ a: '', b: '', c: '' })
 const linearForm = ref()
-const form = { ref: linearForm } as FormRef
+const form = linearForm
 
 const steps = [
   { label: 'One' },
