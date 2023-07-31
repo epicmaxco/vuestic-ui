@@ -4,8 +4,10 @@
       placement="top-left"
       text="New"
       overlap
-      :offset="['2rem', '1rem']"
+      :offset="[32, 0]"
       class="mr-6"
+      style="--va-badge-text-wrapper-border-radius: 40px;"
+
     >
       <va-card>
         <va-card-content>
@@ -20,7 +22,6 @@
       overlap
       dot
       class="mr-8"
-      style="--va-badge-text-wrapper-border: 2px solid white;"
     >
       <va-icon name="&#xe0e1;" />
     </va-badge>
@@ -30,6 +31,7 @@
       dot
       overlap
       class="mr-8"
+      :offset="[3, 3]"
     >
       <va-avatar
         src="https://randomuser.me/api/portraits/women/8.jpg"
@@ -37,12 +39,11 @@
       />
     </va-badge>
 
-    <va-badge overlap>
+    <va-badge
+      overlap
+    >
       <template #text>
-        <va-icon
-          name="notifications"
-          size="12px"
-        /> 5+
+        5+
       </template>
       <va-button preset="primary">
         Profile
@@ -50,3 +51,5 @@
     </va-badge>
   </div>
 </template>
+<script setup>
+</script>
