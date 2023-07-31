@@ -33,11 +33,12 @@
     </div>
 </template>
 <script lang="ts">
-import { computed, DefineComponent, defineComponent, PropType, ref, Ref, shallowRef, watch } from 'vue'
+import { computed, DefineComponent, defineComponent, getCurrentInstance, PropType, ref, Ref, shallowRef, watch } from 'vue'
 import { useColors, useForm, useStateful, useStatefulProps, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
 import VaStepperControls from './VaStepperControls.vue'
 import VaStepperStepButton from './VaStepperStepButton.vue'
+import { VaForm } from '../va-form'
 
 export default defineComponent({
   name: 'VaStepper',
@@ -57,8 +58,8 @@ export default defineComponent({
     nextDisabled: { type: Boolean, default: false },
     finishButtonHidden: { type: Boolean, default: false },
     ariaLabel: { type: String, default: '$t:progress' },
-    linear: { type: Boolean, default: false },
     errored: { type: Boolean, default: false },
+    form: { type: Object as PropType<Ref<typeof VaForm>> },
   },
   emits: ['update:modelValue', 'finish'],
   setup (props, { emit }) {
@@ -174,9 +175,8 @@ export default defineComponent({
 
     const isValid = () => {
       debugger
-      const form = props.steps[modelValue.value].form
-      if (props.linear && form) {
-        const { validate } = useForm(form)
+      if (props.form) {
+        const { validate } = useForm(props.form)
         return validate()
       } else {
         return true

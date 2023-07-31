@@ -6,7 +6,6 @@ export type Step = {
   icon?: string;
   disabled?: boolean;
   save?: Function;
-  form?: Ref<typeof VaForm>;
 };
 
 export type StepControls = {

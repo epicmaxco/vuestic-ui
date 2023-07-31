@@ -44,20 +44,20 @@
     </VbCard>
 
     <VbCard title="Linear">
-      <VaStepper v-model="linearStep" :steps="steps" linear>
+      <va-form ref="linearForm">
+      <VaStepper v-model="linearStep" :steps="steps" form="linearForm">
         <template #step-content-0>
-          <va-form ref="form1">
             <va-input v-model="model.a" :rules="[required(model.a)]" label="A">
             </va-input>
-          </va-form>
-        </template>
-        <template #step-content-1>
-          <va-input v-model="model.b" label="B"></va-input>
+          </template>
+          <template #step-content-1>
+            <va-input v-model="model.b" label="B"></va-input>
         </template>
         <template #step-content-2>
           <va-input v-model="model.c" label="C"></va-input>
         </template>
       </VaStepper>
+    </va-form>
     </VbCard>
 
     <VbCard title="Default with unique next commands">
@@ -87,10 +87,10 @@ const step = ref(2)
 const linearStep = ref()
 const actionStep = ref()
 const model = ref({ a: '', b: '', c: '' })
-const form1 = ref()
+const linearForm = ref()
 
 const steps = [
-  { label: 'One', form: form1 },
+  { label: 'One' },
   { label: 'Two' },
   { label: 'Three' },
   { label: 'Four' },
