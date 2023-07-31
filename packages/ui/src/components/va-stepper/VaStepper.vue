@@ -35,7 +35,7 @@
   </VaForm>
 </template>
 <script lang="ts">
-import { computed, DefineComponent, defineComponent, getCurrentInstance, PropType, ref, Ref, shallowRef, toRaw, toRef, toRefs, watch } from 'vue'
+import { computed, defineComponent, PropType, ref, Ref, shallowRef, toRaw, toRef, toRefs, watch } from 'vue'
 import { useColors, useForm, useStateful, useStatefulProps, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
 import VaStepperControls from './VaStepperControls.vue'
@@ -175,8 +175,6 @@ export default defineComponent({
       setStep(targetIndex)
     }
 
-    const form = toRef(props, 'form') as Ref<typeof VaForm>
-    const { validate } = useForm(form)
     const isValid = () => {
       if (props.form) {
         return props.form.validate()

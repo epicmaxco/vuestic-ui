@@ -63,7 +63,7 @@
     <VbCard title="Default with unique next commands">
       <VaStepper v-model="actionStep" :steps="stepsWithNextAction">
         <template #step-content-0>
-          <va-input v-model="model.a" :rules="[required(model.a)]" label="A">
+          <va-input v-model="model.a" label="A">
           </va-input>
         </template>
         <template #step-content-1>
