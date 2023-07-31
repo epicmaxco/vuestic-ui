@@ -148,8 +148,8 @@
     ".": {
       "import": {
         "node": "./dist/esm-node/main.mjs",
-        "default": "./dist/es/main.js",
-        "types": "./dist/types/main.d.ts"
+        "types": "./dist/types/main.d.ts",
+        "default": "./dist/es/main.js"
       },
       "require": "./dist/cjs/main.js"
     },
