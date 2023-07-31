@@ -13,5 +13,5 @@ module.exports = {
     'value-keyword-case': null,
     indentation: [2, { baseIndentLevel: 0 }],
   },
-  ignoreFiles: ['dist/**/*'],
+  ignoreFiles: ['dist/**/*', 'storybook-static/**/*'],
 }

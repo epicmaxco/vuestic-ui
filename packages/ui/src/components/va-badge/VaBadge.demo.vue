@@ -247,7 +247,7 @@
 import { placementsPositionsWithAliases } from '../../composables'
 
 import { VaBadge, VaButton, VaCard, VaCardContent, VaIcon } from '../../components'
-import BadgeAvatarDemo from './BadgeAvatarDemo'
+import BadgeAvatarDemo from './BadgeAvatarDemo.vue'
 
 export default {
   components: {
