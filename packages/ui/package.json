@@ -30,6 +30,7 @@
     "serve": "vue-cli-service serve --mode book",
     "serve:production": "vue-cli-service serve --mode production",
     "build": "tsx build/build.ts",
+    "build:builder": "library-build",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
     "build:book": "vue-cli-service build --mode book",
     "lint": "vue-cli-service lint",
@@ -146,6 +147,7 @@
   },
   "exports": {
     ".": {
+      "types": "./dist/types/main.d.ts",
       "import": {
         "node": "./dist/esm-node/main.mjs",
         "default": "./dist/es/main.js",
@@ -155,15 +157,29 @@
     },
     "./css": {
       "import": {
-        "node": "./dist/vuestic-ui.css",
+        "node": "./dist/main.css",
         "default": "./dist/styles/index.css"
       }
     },
-    "./web-components": "./dist/web-components/main.js",
+    "./web-components": {
+      "types": "./dist/types/main.d.ts",
+      "default": "./dist/web-components/main.js"
+    },
     "./iife": "./dist/iife/main.js",
     "./types": "./dist/types/main.d.ts",
     "./styles/*": "./dist/styles/*",
-    "./dist/*": "./dist/*"
+    "./dist/*": "./dist/*",
+    "./components/*": {
+      "types": "./dist/types/components/*",
+      "import": {
+        "node": "./dist/esm-node/components/*",
+        "default": "./dist/es/components/*"
+      }
+    },
+    "./nuxt": {
+      "import": "./dist/nuxt/module.mjs",
+      "require": "./dist/nuxt/module.cjs"
+    }
   },
   "typesVersions": {
     "*": {

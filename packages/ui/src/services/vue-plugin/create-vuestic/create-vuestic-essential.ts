@@ -1,6 +1,6 @@
 import type { VuesticComponent, VuesticPlugin, VuesticPluginFabric } from '../types'
 import { defineVuesticPlugin } from '../utils/define-vuestic-plugin'
-import type { PartialGlobalConfig } from '../../global-config/global-config'
+import type { PartialGlobalConfig } from '../../global-config'
 import { usePlugin } from '../utils'
 import { setCurrentApp } from '../../current-app'
 

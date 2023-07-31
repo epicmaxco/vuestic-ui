@@ -1,6 +1,6 @@
 import { createVuestic } from '../main'
 import { mount, shallowMount } from '@vue/test-utils'
-import { createGlobalConfig, GLOBAL_CONFIG } from '../services/global-config/global-config'
+import { createGlobalConfig, GLOBAL_CONFIG } from '../services/global-config'
 
 const vuestic = createVuestic()
 

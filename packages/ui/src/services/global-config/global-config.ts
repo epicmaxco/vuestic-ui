@@ -1,11 +1,11 @@
 import cloneDeep from 'lodash/cloneDeep.js'
 import { ref, getCurrentInstance, Ref } from 'vue'
 import { GlobalConfig, GlobalConfigUpdater, PartialGlobalConfig, ProvidedGlobalConfig } from './types'
-import { getComponentsDefaultConfig } from '../component-config'
-import { getIconDefaultConfig } from '../icon'
-import { getColorDefaultConfig } from '../color'
-import { getI18nConfigDefaults } from '../i18n'
-import { getBreakpointDefaultConfig } from '../breakpoint'
+import { getComponentsDefaultConfig } from '../component-config/config/default'
+import { getIconDefaultConfig } from '../icon/config/default'
+import { getColorDefaultConfig } from '../color/config/default'
+import { getI18nConfigDefaults } from '../i18n/config/default'
+import { getBreakpointDefaultConfig } from '../breakpoint/config/default'
 import { getCurrentApp } from '../current-app'
 import { mergeDeep } from '../../utils/merge-deep'
 import { getColorsClassesDefaultConfig } from '../colors-classes/config/default'
@@ -58,7 +58,5 @@ export const provideForCurrentApp = <T>(provide: T) => {
 
   return provide
 }
-
-export { useGlobalConfig } from '../../composables/useGlobalConfig'
 
 export * from './types'

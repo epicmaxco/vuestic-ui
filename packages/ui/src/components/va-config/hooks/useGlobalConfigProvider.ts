@@ -2,7 +2,7 @@ import { mergeDeep } from './../../../utils/merge-deep'
 import cloneDeep from 'lodash/cloneDeep'
 import { provide, computed, Ref } from 'vue'
 import { useGlobalConfig } from '../../../composables'
-import { GLOBAL_CONFIG, GlobalConfig, GlobalConfigUpdater, PartialGlobalConfig } from '../../../services/global-config'
+import { GLOBAL_CONFIG, type GlobalConfig, type GlobalConfigUpdater, type PartialGlobalConfig } from '../../../services/global-config'
 import { makeColorsConfig } from '../../../services/color/config/make-config'
 
 export const useGlobalConfigProvider = (next: Ref<PartialGlobalConfig>) => {

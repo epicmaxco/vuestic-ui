@@ -12,7 +12,7 @@ import { ComponentConfig } from '../../services/component-config'
 
 import { provideLocalConfig, useLocalConfig } from '../../composables/useLocalConfig'
 import { useGlobalConfigProvider } from './hooks/useGlobalConfigProvider'
-import { PartialGlobalConfig } from '../../services/global-config'
+import { type PartialGlobalConfig } from '../../services/global-config'
 import { renderSlotNodes } from '../../utils/headless'
 import { useColors } from '../../composables'
 

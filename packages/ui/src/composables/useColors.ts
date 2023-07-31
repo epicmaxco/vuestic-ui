@@ -1,6 +1,6 @@
 import type { ColorVariables, CssColor } from '../services/color'
 import { computed } from 'vue'
-import { useGlobalConfig } from '../services/global-config/global-config'
+import { useGlobalConfig } from '../composables/useGlobalConfig'
 import { warn } from '../utils/console'
 import { useCache } from './useCache'
 import { useReactiveComputed } from './useReactiveComputed'

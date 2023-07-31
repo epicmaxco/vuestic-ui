@@ -45,7 +45,7 @@
 
 <script>
 import { h } from 'vue'
-import { useGlobalConfig } from '../../services/global-config/global-config'
+import { useGlobalConfig } from '../../composables/useGlobalConfig'
 import { useToast } from './hooks/useToast'
 
 const toast = useToast()

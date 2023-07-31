@@ -1,6 +1,6 @@
 import type { VuesticComponent, VuesticComponentName, Props } from '../types'
 import { useLocalConfig } from '../../../composables/useLocalConfig'
-import { useGlobalConfig } from '../../global-config/global-config'
+import { useGlobalConfig } from '../../../composables/useGlobalConfig'
 import { computed } from 'vue'
 
 export const useComponentConfigProps = <T extends VuesticComponent>(component: T, originalProps: Props) => {

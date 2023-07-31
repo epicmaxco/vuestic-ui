@@ -93,7 +93,8 @@ import {
 
 import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
-import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaDropdown } from '../va-dropdown'
+import { VaDropdownContent } from '../va-dropdown/components/VaDropdownContent'
 
 const { createEmits, createVOnListeners: createListeners } = useEmitProxy(['click'])
 const { createEmits: createMainButtonEmits, createVOnListeners: createMainButtonListeners } = useEmitProxy(
