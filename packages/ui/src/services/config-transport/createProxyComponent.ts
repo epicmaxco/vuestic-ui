@@ -1,4 +1,4 @@
-import { getCurrentInstance, ComponentInternalInstance, DefineComponent, SetupContext, Ref, shallowReadonly, normalizeClass, normalizeStyle } from 'vue'
+import { getCurrentInstance, ComponentInternalInstance, DefineComponent, SetupContext, Ref, shallowReadonly, normalizeClass, normalizeStyle, toRef } from 'vue'
 import { useComponentConfigProps } from '../component-config/utils/use-component-config-props'
 
 /** Compiled and reactive props. By default they passed to setup fn */
@@ -80,7 +80,9 @@ const createAttrsWithCustomConfig = (instance: ComponentInternalInstance, propsF
         return mergeStyles(normalizeStyle(propsFromConfig.value.style) as string, normalizeStyle(instanceAttrs.style) as string)
       }
 
-      const originalAttr = target[key]
+      const incomingProps: RawProps = instance.vnode.props || {}
+
+      const originalAttr = findCamelCased(incomingProps, key)
       const attrFromConfig = propsFromConfig.value?.[key]
 
       if (attrFromConfig !== undefined) {
@@ -97,11 +99,7 @@ const createAttrsWithCustomConfig = (instance: ComponentInternalInstance, propsF
       return [...new Set([...Object.keys(instanceAttrs), ...Object.keys(propsFromConfig.value)])]
     },
     getOwnPropertyDescriptor (target, key) {
-      return {
-        ...Reflect.getOwnPropertyDescriptor(propsFromConfig.value, key),
-        enumerable: true,
-        configurable: true,
-      }
+      return Reflect.getOwnPropertyDescriptor(propsFromConfig.value, key)
     },
   })
 }
@@ -112,7 +110,7 @@ export const createProxyComponent = <T extends DefineComponent>(component: T) =>
     const propsFromConfig = useComponentConfigProps(component, originalProps)
 
     const props = createPropsWithCustomConfig(instance, propsFromConfig)
-    const attrs = createAttrsWithCustomConfig(instance, propsFromConfig)
+    const attrs = createAttrsWithCustomConfig(instance, toRef(ctx, 'attrs'))
 
     /**
      * Patch instance props with Proxy.
