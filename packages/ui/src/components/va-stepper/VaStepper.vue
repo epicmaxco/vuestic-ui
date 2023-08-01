@@ -60,7 +60,6 @@ export default defineComponent({
     nextDisabled: { type: Boolean, default: false },
     finishButtonHidden: { type: Boolean, default: false },
     ariaLabel: { type: String, default: '$t:progress' },
-    // form: { type: Object as PropType<typeof VaForm>, default: null },
     linear: { type: Boolean, default: false },
   },
   emits: ['update:modelValue', 'finish', 'update:steps'],
@@ -80,24 +79,14 @@ export default defineComponent({
     const isNextStepDisabled = (index: number) => props.nextDisabled && index > modelValue.value
 
     const setStep = (index: number) => {
-      //  Will return true if form is valid or form isn't passed
       //  Checks if a save function was passed, if so it will be called
       const save = props.steps[modelValue.value].save
       if (save) {
         save()
       }
 
-      debugger
       if ((props.linear && !props.steps[index - 1]?.completed) || props.steps[index].disabled || props.steps[modelValue.value].hasError) { return }
       emit('update:modelValue', index)
-    }
-
-    const updateStepsValidity = (hasError: boolean) => {
-      const steps = { ...props.steps }
-      steps[modelValue.value].hasError = hasError
-      steps[modelValue.value].completed = !hasError
-
-      emit('update:steps', steps)
     }
 
     const setFocus = (direction: 'prev' | 'next') => {
@@ -184,14 +173,6 @@ export default defineComponent({
 
       setStep(targetIndex)
     }
-
-    // const isValid = () => {
-    //   if (props.form) {
-    //     return props.form.validate()
-    //   } else {
-    //     return true
-    //   }
-    // }
 
     const stepControls: StepControls = { setStep, nextStep, prevStep }
     const getIterableSlotData = (step: Step, index: number) => ({
