@@ -2,7 +2,7 @@
   <div class="va-stepper__default-controls">
     <va-button
       preset="primary"
-      :disabled="$props.modelValue <= 0 || !$props.validForm"
+      :disabled="$props.modelValue <= 0"
       @click="$props.stepControls.prevStep()"
     >
       {{ t('back') }}
@@ -10,7 +10,7 @@
     <va-button
       v-if="!isLastStep"
       @click="$props.stepControls.nextStep()"
-      :disabled="$props.nextDisabled || !$props.validForm"
+      :disabled="$props.nextDisabled"
     >
       {{ t('next') }}
     </va-button>
@@ -40,11 +40,9 @@ export default defineComponent({
     nextDisabled: { type: Boolean, required: true },
     stepControls: { type: Object as PropType<StepControls>, required: true },
     finishButtonHidden: { type: Boolean, default: false },
-    validForm: { type: Boolean, default: true },
   },
   setup (props) {
     const { t } = useTranslation()
-    const validForm = ref(false)
 
     const isLastStep = computed(() => {
       const lastEnabledStepIndex = props.steps.length - 1

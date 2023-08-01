@@ -2,7 +2,7 @@ export default defineManualApi({
   props: {
     steps: {
       types:
-        "{ label: string, icon?: string, disabled?: boolean, save?: Function }",
+        "{ label: string, icon?: string, disabled?: boolean, save?: Function, hasError?: boolean, completed?: boolean }",
     },
   },
   slots: {

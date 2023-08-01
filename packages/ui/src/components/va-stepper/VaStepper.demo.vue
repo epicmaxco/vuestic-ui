@@ -44,31 +44,29 @@
     </VbCard>
 
     <VbCard title="Linear">
-      <va-form ref="linearForm">
-        <VaStepper v-model="linearStep" :steps="steps" :form="linearForm">
+        <VaStepper ref="linearStepper" v-model="linearStep" :steps="linearSteps" linear>
           <template #step-content-0>
-              <va-input v-model="model.a" :rules="[required(model.a)]" label="A"></va-input>
+              <va-input v-model="model.a" label="A"></va-input>
               <br />
-              <va-input v-model="model.b2" :rules="[(v) => v.length > 0 && v == '13' || 'Must be 13']" label="B2"></va-input>
+              <va-input v-model="model.b2" label="B2"></va-input>
             </template>
             <template #step-content-1>
-              <va-input v-model="model.b" :rules="[(v) => v.length > 0 && v == 'test' || 'Must be test']" label="B"></va-input>
+              <va-input v-model="model.b" label="B"></va-input>
           </template>
         <template #step-content-2>
           <va-input v-model="model.c" label="C"></va-input>
         </template>
       </VaStepper>
-    </va-form>
     </VbCard>
 
     <VbCard title="Default with unique next commands">
-      <VaStepper v-model="actionStep" :steps="stepsWithNextAction">
+      <VaStepper ref="actionStepper" v-model="actionStep" :steps="stepsWithNextAction">
         <template #step-content-0>
           <va-input v-model="model.a" label="A">
           </va-input>
         </template>
         <template #step-content-1>
-          <va-input v-model="model.b" :rules="[(v) => v.length > 0 || 'Required']" label="B"></va-input>
+          <va-input v-model="model.b" label="B"></va-input>
         </template>
         <template #step-content-2>
           <va-input v-model="model.c" label="C"></va-input>
@@ -82,14 +80,15 @@
 import { ref } from 'vue'
 import { VaStepper } from './index'
 import { VaInput } from '../va-input'
-import { required } from '../../utils/validators'
-import { VaForm } from '../va-form'
+import { Step } from './types'
 
 const step = ref(2)
 const linearStep = ref()
 const actionStep = ref()
 const model = ref({ a: '', b: '', b2: '', c: '' })
-const linearForm = ref()
+const retryCount = ref(0)
+const linearStepper = ref()
+const actionStepper = ref()
 
 const steps = [
   { label: 'One' },
@@ -98,6 +97,14 @@ const steps = [
   { label: 'Four' },
   { label: 'Five' },
 ]
+
+const linearSteps = ref([
+  { label: 'One', save: () => { completeLinearStep() } },
+  { label: 'Two', save: () => { completeLinearStep() } },
+  { label: 'Three' },
+  { label: 'Four' },
+  { label: 'Five' },
+] as Step[])
 
 const stepsWithDisabled = [
   { label: 'One' },
@@ -115,14 +122,23 @@ const stepsWithCustomIcons = [
   { label: 'Five', icon: 'list' },
 ]
 
-const stepsWithNextAction = [
+const stepsWithNextAction = ref([
   { label: 'One' },
-  { label: 'Two', save: () => { step2Next() } },
+  { label: 'Two', save: () => { setError() } },
   { label: 'Three', save: () => { alert('Step 3 Action') } },
-]
+] as Step[])
 
-const step2Next = () => {
-  fetch('').then()
+const completeLinearStep = () => {
+  (linearStepper as any).value.completeStep()
+}
+
+const setError = () => {
+  if (retryCount.value !== 0) {
+    (actionStepper as any).value.setError(false)
+  } else {
+    (actionStepper as any).value.setError()
+    retryCount.value++
+  }
 }
 
 </script>

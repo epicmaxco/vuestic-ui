@@ -12,7 +12,7 @@
           </slot>
 
           <slot :name="`step-button-${i}`" v-bind="getIterableSlotData(step, i)">
-            <va-stepper-step-button :class="{'invalid-navigation': $props.form?.isValid == false && i === modelValue }" :stepIndex="i" :color="stepperColor" :modelValue="modelValue"
+            <va-stepper-step-button :class="{'invalid-navigation': shouldShowError(i)}" :stepIndex="i" :color="stepperColor" :modelValue="modelValue"
               :nextDisabled="nextDisabled" :step="step" :stepControls="stepControls"
               :navigationDisabled="navigationDisabled" :focus="focusedStep" />
           </slot>
@@ -27,7 +27,7 @@
         </template>
         <div class="va-stepper__controls">
           <va-stepper-controls v-if="!controlsHidden" :modelValue="modelValue" :nextDisabled="nextDisabled" :steps="steps"
-            :stepControls="stepControls" :finishButtonHidden="finishButtonHidden" :valid-form="$props.form?.isValid" @finish="$emit('finish')" />
+            :stepControls="stepControls" :finishButtonHidden="finishButtonHidden" @finish="$emit('finish')" />
           <slot name="controls" v-bind="getIterableSlotData(steps[modelValue], modelValue)" />
         </div>
       </div>
@@ -60,15 +60,19 @@ export default defineComponent({
     nextDisabled: { type: Boolean, default: false },
     finishButtonHidden: { type: Boolean, default: false },
     ariaLabel: { type: String, default: '$t:progress' },
-    errored: { type: Boolean, default: false },
-    form: { type: Object as PropType<typeof VaForm>, default: null },
+    // form: { type: Object as PropType<typeof VaForm>, default: null },
+    linear: { type: Boolean, default: false },
   },
-  emits: ['update:modelValue', 'finish'],
+  emits: ['update:modelValue', 'finish', 'update:steps'],
   setup (props, { emit }) {
     const stepperNavigation = shallowRef<HTMLElement>()
     const { valueComputed: modelValue }: { valueComputed: Ref<number> } = useStateful(props, emit, 'modelValue', { defaultValue: 0 })
 
     const focusedStep = ref({ trigger: false, stepIndex: props.navigationDisabled ? -1 : props.modelValue })
+
+    const shouldShowError = (index: number) => {
+      return focusedStep.value.stepIndex === index && props.steps[index].hasError
+    }
 
     const { getColor } = useColors()
     const stepperColor = getColor(props.color)
@@ -76,18 +80,24 @@ export default defineComponent({
     const isNextStepDisabled = (index: number) => props.nextDisabled && index > modelValue.value
 
     const setStep = (index: number) => {
-      if (!isValid()) {
-        return
-      }
+      //  Will return true if form is valid or form isn't passed
+      //  Checks if a save function was passed, if so it will be called
       const save = props.steps[modelValue.value].save
       if (save) {
         save()
       }
 
-      if (!props.errored) {
-        if (props.steps[index].disabled) { return }
-        emit('update:modelValue', index)
-      }
+      debugger
+      if ((props.linear && !props.steps[index - 1]?.completed) || props.steps[index].disabled || props.steps[modelValue.value].hasError) { return }
+      emit('update:modelValue', index)
+    }
+
+    const updateStepsValidity = (hasError: boolean) => {
+      const steps = { ...props.steps }
+      steps[modelValue.value].hasError = hasError
+      steps[modelValue.value].completed = !hasError
+
+      emit('update:steps', steps)
     }
 
     const setFocus = (direction: 'prev' | 'next') => {
@@ -175,13 +185,13 @@ export default defineComponent({
       setStep(targetIndex)
     }
 
-    const isValid = () => {
-      if (props.form) {
-        return props.form.validate()
-      } else {
-        return true
-      }
-    }
+    // const isValid = () => {
+    //   if (props.form) {
+    //     return props.form.validate()
+    //   } else {
+    //     return true
+    //   }
+    // }
 
     const stepControls: StepControls = { setStep, nextStep, prevStep }
     const getIterableSlotData = (step: Step, index: number) => ({
@@ -218,6 +228,24 @@ export default defineComponent({
         'aria-label': tp(props.ariaLabel),
         'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
       })),
+      shouldShowError,
+      completeStep: (shouldCompleteStep?: boolean) => {
+        const steps = { ...props.steps }
+        if (shouldCompleteStep === true) {
+          steps[props.modelValue].hasError = false
+        }
+
+        steps[props.modelValue].completed = shouldCompleteStep ?? true
+
+        emit('update:steps', steps)
+      },
+      setError: (shouldSetError?: boolean) => {
+        const steps = { ...props.steps }
+        steps[props.modelValue].hasError = shouldSetError ?? true
+        steps[props.modelValue].completed = !shouldSetError ?? false
+
+        emit('update:steps', steps)
+      },
     }
   },
 })

@@ -3,6 +3,8 @@ export type Step = {
   icon?: string;
   disabled?: boolean;
   save?: Function;
+  hasError?: boolean;
+  completed?: boolean;
 };
 
 export type StepControls = {
