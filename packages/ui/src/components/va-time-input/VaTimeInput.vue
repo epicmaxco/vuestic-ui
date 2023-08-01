@@ -259,7 +259,9 @@ export default defineComponent({
       hours: 1000 * 60 * 60,
     }
 
-    const onKeyPress = (e: KeyboardEvent) => {
+    const onKeyPress = (e: KeyboardEvent | FocusEvent) => {
+      if (!('key' in e)) { return }
+
       if (e.key === 'ArrowDown') {
         valueComputed.value = new Date(Number(valueComputed.value) - viewToNumber[props.view])
       }
