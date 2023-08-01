@@ -11,8 +11,8 @@ export default defineApiDescription({
     vertical: "Changes stepper orientation to vertical.",
     finishButtonHidden: "Hides 'Finish' button",
     ariaLabel: "The aria-label of the component",
-    linear:
-      "This ensures that there are no validation error before navigation will occur.",
+    form:
+      "Takes a form ref and enables the stepper to operate in a linear (validation driven) fashion.",
   },
   events: {
     finish: "Emits when 'Finish' button is getting pressed",
