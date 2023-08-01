@@ -1,4 +1,4 @@
-import apiOptions from './api-options';
+import apiOptions from "./api-options";
 import apiDescription from './api-description';
 
 export default definePageConfig({
@@ -8,7 +8,7 @@ export default definePageConfig({
 
     block.subtitle('Examples'),
 
-    block.example('Default', { title: 'Basic usage' }),
+    block.example('Default', { title: "Basic usage" }),
 
     block.example('Vertical', { title: 'Vertical' }),
 
@@ -22,7 +22,7 @@ export default definePageConfig({
         'Each step config could have icon name specified, check `va-icon` for more details.',
     }),
 
-    block.example('Custom', { title: 'Customized with slots' }),
+    block.example('Custom', { title: "Customized with slots" }),
 
     block.alert('You can iterate through slots using template literals in slot name. \n Example: ``{\'#[`step-button-${i}`]=\"{ setStep, isActive, isCompleted }\"\'}``', 'info'),
 

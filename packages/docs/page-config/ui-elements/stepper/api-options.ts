@@ -19,4 +19,4 @@ export default defineManualApi({
     nextStep: { types: '`(stepsToSkip: number) => void`' },
     prevStep: { types: '`(stepsToSkip: number) => void`' },
   },
-});
+})

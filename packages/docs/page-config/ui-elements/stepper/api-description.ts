@@ -13,13 +13,13 @@ export default defineApiDescription({
     linear: "Requires that each step must be manually marked as complete",
   },
   events: {
-    finish: "Emits when 'Finish' button is getting pressed",
+    finish: "Emits when 'Finish' button is getting pressed"
   },
   slots: {
     stepButton: "Replaces the step in timeline with provided template. Step slots are enumerable and should be used with step number postfix (i.e. step-button-0, step-button-1, etc). Slot scope properties and methods available: `{'{ setStep, nextStep, prevStep, step, isActive, isCompleted }'}`.",
     stepContent: "Replaces step content with provided template. Content slots are enumerable and should be used with step number postfix (i.e. step-content-0, step-content-1, etc). Slot scope properties and methods available: `{'{ setStep, nextStep, prevStep }'}`.",
     controls: "Inserts provided template after default controls. If you want to replace default controls set `controls-hidden` prop to `true`. Slot scope properties and methods available: `{'{ setStep, nextStep, prevStep }'}`.",
-    divider: "Replaces step divider in the timeline with provided template.",
+    divider: "Replaces step divider in the timeline with provided template."
   },
   methods: {
     setStep: "Activates step at specified index.",
