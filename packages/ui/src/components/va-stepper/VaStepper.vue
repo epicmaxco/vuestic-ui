@@ -27,7 +27,7 @@
         </template>
         <div class="va-stepper__controls">
           <va-stepper-controls v-if="!controlsHidden" :modelValue="modelValue" :nextDisabled="nextDisabled" :steps="steps"
-            :stepControls="stepControls" :finishButtonHidden="finishButtonHidden" @finish="$emit('finish')" />
+            :stepControls="stepControls" :finishButtonHidden="finishButtonHidden" :valid-form="$props.form?.isValid" @finish="$emit('finish')" />
           <slot name="controls" v-bind="getIterableSlotData(steps[modelValue], modelValue)" />
         </div>
       </div>
@@ -35,8 +35,8 @@
   </VaForm>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType, ref, Ref, shallowRef, toRaw, toRef, toRefs, watch } from 'vue'
-import { useColors, useForm, useStateful, useStatefulProps, useTranslation } from '../../composables'
+import { computed, defineComponent, PropType, ref, Ref, shallowRef, watch } from 'vue'
+import { useColors, useStateful, useStatefulProps, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
 import VaStepperControls from './VaStepperControls.vue'
 import VaStepperStepButton from './VaStepperStepButton.vue'
