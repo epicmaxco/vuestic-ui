@@ -47,8 +47,9 @@
       <va-form ref="linearForm">
         <VaStepper v-model="linearStep" :steps="steps" :form="linearForm">
           <template #step-content-0>
-              <va-input v-model="model.a" :rules="[required(model.a)]" label="A">
-              </va-input>
+              <va-input v-model="model.a" :rules="[required(model.a)]" label="A"></va-input>
+              <br />
+              <va-input v-model="model.b2" :rules="[(v) => v.length > 0 && v == '13' || 'Must be 13']" label="B2"></va-input>
             </template>
             <template #step-content-1>
               <va-input v-model="model.b" label="B"></va-input>
@@ -87,7 +88,7 @@ import { VaForm } from '../va-form'
 const step = ref(2)
 const linearStep = ref()
 const actionStep = ref()
-const model = ref({ a: '', b: '', c: '' })
+const model = ref({ a: '', b: '', b2: '', c: '' })
 const linearForm = ref()
 
 const steps = [

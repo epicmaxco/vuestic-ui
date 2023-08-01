@@ -61,7 +61,7 @@ export default defineComponent({
     finishButtonHidden: { type: Boolean, default: false },
     ariaLabel: { type: String, default: '$t:progress' },
     errored: { type: Boolean, default: false },
-    form: { type: Object as PropType<typeof VaForm> },
+    form: { type: Object as PropType<typeof VaForm>, default: null },
   },
   emits: ['update:modelValue', 'finish'],
   setup (props, { emit }) {
