@@ -24,7 +24,7 @@ export default definePageConfig({
 
     block.example('Icons', {
       title: "Custom icons",
-      description: "Each step config could have icon name specified, check `va-icon` for more details.",
+      description: "Each step config could have icon name specified, check `va-icon` for more details."
     }),
 
     block.example('Custom', { title: "Customized with slots" }),
@@ -33,7 +33,7 @@ export default definePageConfig({
 
     block.example('Minimal', {
       title: "Navigation only",
-      description: "You can hide controls and use stepper navigation independently",
+      description: "You can hide controls and use stepper navigation independently"
     }),
 
     block.subtitle('Accessibility'),
