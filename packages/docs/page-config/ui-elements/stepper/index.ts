@@ -12,13 +12,19 @@ export default definePageConfig({
 
     block.example('Vertical', { title: 'Vertical' }),
 
-    block.example('CustomSave', { title: 'Custom save action for each step' }),
+    block.example('CustomSave', {
+      title: 'Custom save action for each step',
+      description: 'This adds a property of `save` that accepts a function. When you click `next` `previous` or click on a navigation item at the top, your function will be called.'
+    }),
 
-    block.example('Linear', { title: `Linear (Uses Form Validation)` }),
+    block.example('Linear', {
+      title: 'Linear',
+      description: 'This forces each step to be completed. You can call `completeStep()` or `setError()`'
+    }),
 
     block.example('Icons', {
-      title: 'Custom icons',
-      description: 'Each step config could have icon name specified, check `va-icon` for more details.',
+      title: "Custom icons",
+      description: "Each step config could have icon name specified, check `va-icon` for more details.",
     }),
 
     block.example('Custom', { title: "Customized with slots" }),
@@ -26,9 +32,8 @@ export default definePageConfig({
     block.alert('You can iterate through slots using template literals in slot name. \n Example: ``{\'#[`step-button-${i}`]=\"{ setStep, isActive, isCompleted }\"\'}``', 'info'),
 
     block.example('Minimal', {
-      title: 'Navigation only',
-      description:
-        'You can hide controls and use stepper navigation independently',
+      title: "Navigation only",
+      description: "You can hide controls and use stepper navigation independently",
     }),
 
     block.subtitle('Accessibility'),
