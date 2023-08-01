@@ -52,7 +52,7 @@
               <va-input v-model="model.b2" :rules="[(v) => v.length > 0 && v == '13' || 'Must be 13']" label="B2"></va-input>
             </template>
             <template #step-content-1>
-              <va-input v-model="model.b" label="B"></va-input>
+              <va-input v-model="model.b" :rules="[(v) => v.length > 0 && v == 'test' || 'Must be test']" label="B"></va-input>
           </template>
         <template #step-content-2>
           <va-input v-model="model.c" label="C"></va-input>
