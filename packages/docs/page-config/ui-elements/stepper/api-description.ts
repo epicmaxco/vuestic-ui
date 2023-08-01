@@ -24,6 +24,6 @@ export default defineApiDescription({
   methods: {
     setStep: "Activates step at specified index.",
     nextStep: "By default activates next step. If target step is disabled activates the step after it.",
-    prevStep: "By default activates previous step. If target step is disabled activates the step before it.",
-  },
+    prevStep: "By default activates previous step. If target step is disabled activates the step before it."
+  }
 });
