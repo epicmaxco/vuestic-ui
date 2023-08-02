@@ -31,11 +31,7 @@
         :steps="steps"
         navigationDisabled
       >
-        <template
-          v-for="(step, i) in steps"
-          :key="step.label"
-          #[`step-content-${i}`]
-        >
+        <template v-for="(step, i) in steps" :key="step.label" #[`step-content-${i}`]>
           This is {{ step.label }} content.
         </template>
       </VaStepper>
