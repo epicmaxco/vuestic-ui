@@ -26,12 +26,12 @@
       <VaStepper v-model="step" :steps="stepsWithCustomIcons" controlsHidden />
     </VbCard>
     <VbCard title="Navigation disabled">
-      <VaStepper
-        v-model="step"
-        :steps="steps"
-        navigationDisabled
-      >
-        <template v-for="(step, i) in steps" :key="step.label" #[`step-content-${i}`]>
+      <VaStepper v-model="step" :steps="steps" navigationDisabled>
+        <template
+          v-for="(step, i) in steps"
+          :key="step.label"
+          #[`step-content-${i}`]
+        >
           This is {{ step.label }} content.
         </template>
       </VaStepper>
