@@ -105,7 +105,7 @@
 import { computed, defineComponent, getCurrentInstance, toRef } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useBem, useFormFieldProps, useValidationProps, useColors, useTextColor, useCSSVariables, useComponentPresetProp, useSyncProp } from '../../composables'
+import { useBem, useFormFieldProps, useValidationProps, useColors, useTextColor, useCSSVariables, useComponentPresetProp, useSyncProp, useFocusDeep } from '../../composables'
 
 import { VaMessageList } from './components/VaMessageList'
 import VaInputLabel from './components/VaInputLabel.vue'
@@ -131,7 +131,6 @@ export default defineComponent({
     label: { type: String, default: '' },
     color: { type: String, default: 'primary' },
     background: { type: String },
-    focused: { type: Boolean, default: false },
     error: { type: Boolean, default: false },
     success: { type: Boolean, default: false },
     loading: { type: Boolean, default: false },
@@ -152,12 +151,15 @@ export default defineComponent({
     const { getColor } = useColors()
     const [vModel] = useSyncProp('modelValue', props, emit, '')
 
+    const isFocused = useFocusDeep()
+
     const counterValue = computed(() =>
       props.counter && typeof vModel.value === 'string' ? vModel.value.length : undefined,
     )
 
     const wrapperClass = useBem('va-input-wrapper', () => ({
-      ...pick(props, ['success', 'focused', 'error', 'disabled', 'readonly']),
+      ...pick(props, ['success', 'error', 'disabled', 'readonly']),
+      focused: Boolean(isFocused.value),
       labeled: Boolean(props.label),
       labeledInner: Boolean(props.label) && props.innerLabel,
     }))

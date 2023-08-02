@@ -11,7 +11,6 @@
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
-    :focused="isFocused"
     :counter-value="valueLengthComputed"
     @click="focus"
   >
@@ -143,8 +142,6 @@ export default defineComponent({
 
     const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: '' })
 
-    const isFocused = useFocusDeep()
-
     const reset = () => withoutValidation(() => {
       emit('update:modelValue', props.clearValue)
       emit('clear')
@@ -240,7 +237,6 @@ export default defineComponent({
       // Validations
       computedError,
       computedErrorMessages,
-      isFocused,
 
       // Icon
       canBeCleared,
