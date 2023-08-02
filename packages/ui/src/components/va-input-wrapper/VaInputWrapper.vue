@@ -83,7 +83,7 @@
     </div>
 
     <div v-if="isCounterVisible" class="va-input-wrapper__counter-wrapper">
-      <slot name="counter" v-bind="{ valueLength: $props.counterValue, maxLength: $props.maxLength }">
+      <slot name="counter" v-bind="{ valueLength: counterValue, maxLength: $props.maxLength }">
         <div class="va-input-wrapper__counter">
           {{ counterComputed }}
         </div>
@@ -125,7 +125,7 @@ export default defineComponent({
     ...useValidationProps,
     ...VaInputLabelProps,
     modelValue: { type: null, default: '' },
-    counterValue: { type: Number, default: undefined },
+    counter: { type: Boolean },
     maxLength: { type: Number, default: undefined },
 
     label: { type: String, default: '' },
@@ -152,6 +152,10 @@ export default defineComponent({
     const { getColor } = useColors()
     const [vModel] = useSyncProp('modelValue', props, emit, '')
 
+    const counterValue = computed(() =>
+      props.counter && typeof vModel.value === 'string' ? vModel.value.length : undefined,
+    )
+
     const wrapperClass = useBem('va-input-wrapper', () => ({
       ...pick(props, ['success', 'focused', 'error', 'disabled', 'readonly']),
       labeled: Boolean(props.label),
@@ -175,13 +179,14 @@ export default defineComponent({
     })
 
     const errorLimit = computed(() => props.error ? Number(props.errorCount) : 99)
-    const isCounterVisible = computed(() => props.counterValue !== undefined)
+    const isCounterVisible = computed(() => counterValue.value !== undefined)
     const counterComputed = computed(() =>
-      props.maxLength !== undefined ? `${props.counterValue}/${props.maxLength}` : props.counterValue,
+      props.maxLength !== undefined ? `${counterValue.value}/${props.maxLength}` : counterValue.value,
     )
 
     return {
       vModel,
+      counterValue,
       vaInputLabelProps: filterComponentProps(VaInputLabelProps),
       wrapperClass,
       textColorComputed,

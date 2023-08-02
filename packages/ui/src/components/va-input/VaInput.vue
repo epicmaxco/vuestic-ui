@@ -44,15 +44,8 @@
       <slot name="icon" v-bind="slotScope" />
     </template>
 
-    <VaTextarea
-      v-if="type === 'textarea' && !$slots.content"
-      ref="input"
-      v-bind="{ ...computedChildAttributes, ...textareaProps, ...inputEvents }"
-      class="va-input__content__input"
-    />
-
     <input
-      v-else-if="!$slots.content"
+      v-if="!$slots.content"
       ref="input"
       class="va-input__content__input"
       v-bind="{ ...computedInputAttributes, ...inputEvents }"
@@ -76,19 +69,17 @@ import {
   useClearable, useClearableProps, useClearableEmits,
   useFocusDeep,
   useTranslation,
-  useStateful, useStatefulProps, useStatefulEmits,
+  useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
 } from '../../composables'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
 import type { AnyStringPropType } from '../../utils/types/prop-type'
 
 import { VaInputWrapper } from '../va-input-wrapper'
-import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import { VaIcon } from '../va-icon'
 import { focusElement, blurElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
 
-const VaTextareaProps = extractComponentProps(VaTextarea)
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
@@ -106,11 +97,10 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 export default defineComponent({
   name: 'VaInput',
 
-  components: { VaInputWrapper, VaTextarea, VaIcon },
+  components: { VaInputWrapper, VaIcon },
 
   props: {
     ...VaInputWrapperProps,
-    ...VaTextareaProps,
     ...useFormFieldProps,
     ...useValidationProps as ValidationProps<string>,
     ...useClearableProps,
@@ -122,7 +112,7 @@ export default defineComponent({
     placeholder: { type: String, default: '' },
     tabindex: { type: [String, Number], default: 0 },
     modelValue: { type: [String, Number] },
-    type: { type: String as AnyStringPropType<'textarea' | 'text' | 'password'>, default: 'text' },
+    type: { type: String as AnyStringPropType<'text' | 'password'>, default: 'text' },
     inputClass: { type: String, default: '' },
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
@@ -145,7 +135,11 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
-    const input = shallowRef<HTMLInputElement | typeof VaTextarea>()
+    useDeprecatedCondition([
+      () => props.type !== 'textarea' || 'Use VaTextarea component instead of VaInput with type="textarea"',
+    ])
+
+    const input = shallowRef<HTMLInputElement>()
 
     const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: '' })
 
@@ -186,12 +180,7 @@ export default defineComponent({
       clearIconProps,
     } = useClearable(props, modelValue, input, computedError)
 
-    /** Use cleave only if this component is input, because it will break. */
-    const computedCleaveTarget = computed(() => props.type === 'textarea'
-      ? undefined
-      : input.value as HTMLInputElement | undefined)
-
-    const { computedValue, onInput } = useCleave(computedCleaveTarget, props, valueComputed)
+    const { computedValue, onInput } = useCleave(input, props, valueComputed)
 
     const inputListeners = createInputListeners(emit)
 
@@ -244,7 +233,6 @@ export default defineComponent({
       valueLengthComputed,
       computedChildAttributes,
       computedInputAttributes,
-      textareaProps: filterComponentProps(VaTextareaProps),
       wrapperProps: filterComponentProps(VaInputWrapperProps),
       computedValue,
       tabIndexComputed,

@@ -535,7 +535,6 @@
         v-model="counterOrMaxLengthValue"
         counter
         label="Name"
-        type="textarea"
         class="mb-6"
       />
       <va-input
@@ -551,7 +550,6 @@
         v-model="counterOrMaxLengthValue"
         counter
         label="Name"
-        type="textarea"
       >
         <template #counter="{ valueLength }">
           Additional message, {{ valueLength }}
@@ -569,7 +567,6 @@
         :max-length="maxLength"
         counter
         label="Name"
-        type="textarea"
         class="mb-6"
       />
       <va-input
@@ -587,7 +584,6 @@
         :max-length="maxLength"
         counter
         label="Name"
-        type="textarea"
       >
         <template #counter="{ valueLength, maxLength }">
           Additional message, {{ `${valueLength}/${maxLength}` }}
@@ -608,7 +604,6 @@
         class="border-blue"
         input-class="p-2 red"
         model-value="Native input element must have red text and big padding. VaInput wrapper has a blue border."
-        type="textarea"
       />
     </VbCard>
     <VbCard

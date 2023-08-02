@@ -34,7 +34,6 @@ const autosizeValueWithLimits = ref('')
       <VaTextarea
         v-model="autosizeValue"
         label="Name"
-        type="textarea"
         autosize
       />
     </VbCard>
@@ -42,7 +41,6 @@ const autosizeValueWithLimits = ref('')
       <VaTextarea
         v-model="autosizeValueWithLimits"
         label="Name"
-        type="textarea"
         autosize
         :min-rows="2"
         :max-rows="4"
@@ -53,7 +51,6 @@ const autosizeValueWithLimits = ref('')
         id="textarea-id-example"
         placeholder="Try to type in ..."
         label="Readonly"
-        type="textarea"
         readonly
       />
     </VbCard>
@@ -63,8 +60,42 @@ const autosizeValueWithLimits = ref('')
         aria-label="textarea-aria-example"
         placeholder="Try to focus"
         label="Disabled"
-        type="textarea"
         disabled
       />
+    </VbCard>
+    <VbCard title="Counter">
+      <VaTextarea
+        v-model="text"
+        counter
+        label="Name"
+        class="mb-6"
+      />
+      <VaTextarea
+        v-model="text"
+        :max-length="30"
+        counter
+        label="Name"
+        class="mb-6"
+      />
+      <VaTextarea
+        v-model="text"
+        :max-length="30"
+        counter
+        class="mb-6"
+      >
+        <template #counter="{ valueLength, maxLength }">
+          Additional message, {{ `${valueLength}/${maxLength}` }}
+        </template>
+      </VaTextarea>
+      <VaTextarea
+        v-model="text"
+        :max-length="30"
+        counter
+        label="Name"
+      >
+        <template #counter="{ valueLength, maxLength }">
+          Additional message, {{ `${valueLength}/${maxLength}` }}
+        </template>
+      </VaTextarea>
     </VbCard>
 </template>

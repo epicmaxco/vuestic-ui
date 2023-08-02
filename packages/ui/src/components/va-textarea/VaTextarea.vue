@@ -14,10 +14,10 @@
 <script lang="ts">
 import { computed, defineComponent, CSSProperties, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
-import { VaInputWrapper } from '../../../va-input-wrapper'
+import { VaInputWrapper } from '../va-input-wrapper'
 
-import { useFormFieldProps, useEmitProxy, useStateful, useStatefulProps } from '../../../../composables'
-import { extractComponentProps, filterComponentProps } from '../../../../utils/component-options'
+import { useFormFieldProps, useEmitProxy, useStateful, useStatefulProps } from '../../composables'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 const positiveNumberValidator = (val: number) => {
   if (val > 0 && (val | 0) === val) {
@@ -55,7 +55,7 @@ export default defineComponent({
     },
     resize: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
 
@@ -68,7 +68,7 @@ export default defineComponent({
     })
 
     const isResizable = computed(() => {
-      return props.resize || !props.autosize
+      return props.resize && !props.autosize
     })
 
     const computedRowsCount = computed<number | undefined>(() => {
@@ -117,7 +117,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '../../../../styles/resources/index.scss';
+@import '../../styles/resources/index.scss';
 
 .va-textarea {
   &__textarea {
