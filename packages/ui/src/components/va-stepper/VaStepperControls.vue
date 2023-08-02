@@ -23,7 +23,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, computed, ref } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 import { useTranslation } from '../../composables/useTranslation'
 import { VaButton } from '../va-button'
 import type { Step, StepControls } from './types'
@@ -48,6 +48,7 @@ export default defineComponent({
       const lastEnabledStepIndex = props.steps.length - 1
       return props.modelValue >= lastEnabledStepIndex
     })
+
     return {
       t,
       isLastStep,
