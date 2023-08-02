@@ -1,19 +1,23 @@
 <template>
-  <textarea
-    ref="textarea"
-    class="textarea"
-    :style="computedStyle"
-    v-bind="{ ...computedProps, ...listeners }"
-    :value="modelValue"
-  />
+  <VaInputWrapper class="va-textarea" v-bind="vaInputWrapperProps">
+    <textarea
+      v-model="valueComputed"
+      v-bind="{ ...computedProps, ...listeners }"
+      :style="computedStyle"
+      :rows="computedRowsCount"
+      ref="textarea"
+      class="va-textarea__textarea"
+    />
+  </VaInputWrapper>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, watch, nextTick, CSSProperties, shallowRef } from 'vue'
+import { computed, defineComponent, CSSProperties, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
+import { VaInputWrapper } from '../../../va-input-wrapper'
 
-import { useFormFieldProps, useEmitProxy } from '../../../../composables'
-import { useTextareaRowHeight } from './useTextareaRowHeight'
+import { useFormFieldProps, useEmitProxy, useStateful, useStatefulProps } from '../../../../composables'
+import { extractComponentProps, filterComponentProps } from '../../../../utils/component-options'
 
 const positiveNumberValidator = (val: number) => {
   if (val > 0 && (val | 0) === val) {
@@ -26,11 +30,17 @@ const { createEmits, createListeners } = useEmitProxy([
   'input', 'change', 'click', 'update:modelValue',
 ])
 
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
+
 export default defineComponent({
   name: 'VaTextarea',
 
+  components: { VaInputWrapper },
+
   props: {
     ...useFormFieldProps,
+    ...VaInputWrapperProps,
+    ...useStatefulProps,
     modelValue: { type: [String, Number], default: '' },
     placeholder: { type: String },
     autosize: { type: Boolean, default: false },
@@ -43,46 +53,39 @@ export default defineComponent({
       type: Number,
       validator: positiveNumberValidator,
     },
+    resize: {
+      type: Boolean,
+      default: false,
+    },
   },
 
-  emits: createEmits(),
+  emits: [...createEmits()],
 
   setup (props, { emit }) {
     const textarea = shallowRef<HTMLTextAreaElement>()
-
-    const rowHeight = ref(-1)
-    const height = ref(-1)
-    const { calculateRowHeight, calculateHeight } = useTextareaRowHeight(textarea)
+    const { valueComputed } = useStateful(props, emit, 'modelValue', {
+      defaultValue: '',
+    })
 
     const isResizable = computed(() => {
-      return Boolean((props.autosize || props.maxRows || props.minRows !== 1) && textarea.value)
+      return props.resize || !props.autosize
     })
 
-    const updateRowHeight = () => {
-      if (isResizable.value) {
-        rowHeight.value = calculateRowHeight()
+    const computedRowsCount = computed<number | undefined>(() => {
+      if (!props.autosize) {
+        return undefined
       }
-    }
 
-    const updateHeight = () => {
-      if (isResizable.value) {
-        height.value = calculateHeight()
+      const rows = valueComputed.value.toString().split('\n').length
+
+      if (!props.maxRows) {
+        return rows
       }
-    }
 
-    onMounted(() => {
-      updateRowHeight()
-      updateHeight()
-    })
-
-    watch(() => props.modelValue, () => {
-      nextTick(updateHeight)
+      return Math.max(props.minRows, Math.min(rows, props.maxRows))
     })
 
     const computedStyle = computed(() => ({
-      minHeight: rowHeight.value * props.minRows + 'px',
-      maxHeight: props.maxRows ? (rowHeight.value * props.maxRows + 'px') : undefined,
-      height: height.value + 'px',
       resize: isResizable.value ? undefined : 'none',
     }) as CSSProperties)
 
@@ -99,6 +102,9 @@ export default defineComponent({
     }
 
     return {
+      computedRowsCount,
+      valueComputed,
+      vaInputWrapperProps: filterComponentProps(VaInputWrapperProps),
       textarea,
       computedStyle,
       listeners: createListeners(emit),
@@ -111,9 +117,23 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.textarea {
-  padding: 0;
-  border: 0;
-  font-family: var(--va-font-family);
+@import '../../../../styles/resources/index.scss';
+
+.va-textarea {
+  &__textarea {
+    border: 0;
+    font-family: var(--va-font-family);
+    width: 100%;
+    padding: 1px 0;
+    margin: -1px 0;
+    background: transparent;
+    color: currentColor;
+
+    @include va-scroll(transparent);
+
+    &:hover {
+      @include va-scroll-color(var(--va-primary));
+    }
+  }
 }
 </style>

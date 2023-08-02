@@ -274,8 +274,7 @@ export default defineComponent({
     caret-color: var(--va-input-wrapper-text-color);
     color: var(--va-input-wrapper-text-color);
 
-    input,
-    textarea {
+    input {
       @include va-scroll(var(--va-input-scroll-color));
 
       width: 100%;
@@ -293,10 +292,6 @@ export default defineComponent({
       letter-spacing: var(--va-input-letter-spacing);
       transform: translateY(-1px);
       cursor: inherit;
-
-      &::-webkit-scrollbar {
-        width: 10px;
-      }
 
       &::placeholder {
         color: inherit;

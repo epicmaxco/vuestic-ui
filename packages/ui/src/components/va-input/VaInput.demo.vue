@@ -454,59 +454,7 @@
       />
     </VbCard>
     <VaInputValidation />
-    <VbCard title="Textarea">
-      <va-input
-        v-model="text"
-        label="Name"
-        type="textarea"
-      />
-    </VbCard>
-    <VbCard title="Textarea limits (3-8)">
-      <va-input
-        v-model="text"
-        label="Name"
-        type="textarea"
-        :min-rows="3"
-        :max-rows="8"
-      />
-    </VbCard>
-    <VbCard title="Textarea autosize">
-      <va-input
-        v-model="autosizeValue"
-        label="Name"
-        type="textarea"
-        autosize
-      />
-    </VbCard>
-    <VbCard title="Textarea autosize limits (2-4)">
-      <va-input
-        v-model="autosizeValueWithLimits"
-        label="Name"
-        type="textarea"
-        autosize
-        :min-rows="2"
-        :max-rows="4"
-      />
-    </VbCard>
-    <VbCard title="Textarea readonly">
-      <va-input
-        id="textarea-id-example"
-        placeholder="Try to type in ..."
-        label="Readonly"
-        type="textarea"
-        readonly
-      />
-    </VbCard>
-    <VbCard title="Textarea disabled">
-      <va-input
-        name="textarea-name-example"
-        aria-label="textarea-aria-example"
-        placeholder="Try to focus"
-        label="Disabled"
-        type="textarea"
-        disabled
-      />
-    </VbCard>
+
     <VbCard title="Masked input">
       <va-input
         v-model="maskCreditCardValue"

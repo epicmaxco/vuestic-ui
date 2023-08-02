@@ -157,6 +157,15 @@
 
   scrollbar-color: $color transparent;
   scrollbar-width: thin;
+
+  transition: scrollbar-color 0.3s ease-in-out;
+}
+
+@mixin va-scroll-color($color: var(--va-background-element)) {
+  scrollbar-color: $color transparent;
+  &::-webkit-scrollbar-thumb {
+    background: $color;
+  }
 }
 
 @mixin va-background($color, $opacity: 1, $index: -1) {
