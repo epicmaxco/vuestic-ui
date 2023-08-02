@@ -1,85 +1,90 @@
 <template>
-    <div
-      class="va-stepper"
-      :class="{ 'va-stepper--vertical': $props.vertical }"
-      v-bind="ariaAttributesComputed">
-      <ol
-        class="va-stepper__navigation"
-        ref="stepperNavigation"
-        :class="{ 'va-stepper__navigation--vertical': $props.vertical }"
+  <div
+    class="va-stepper"
+    :class="{ 'va-stepper--vertical': $props.vertical }"
+    v-bind="ariaAttributesComputed"
+  >
+    <ol
+      class="va-stepper__navigation"
+      ref="stepperNavigation"
+      :class="{ 'va-stepper__navigation--vertical': $props.vertical }"
 
-        @click="onValueChange"
-        @keyup.enter="onValueChange"
-        @keyup.space="onValueChange"
-        @keyup.left="onArrowKeyPress('prev')"
-        @keyup.right="onArrowKeyPress('next')"
-        @focusout="resetFocus"
+      @click="onValueChange"
+      @keyup.enter="onValueChange"
+      @keyup.space="onValueChange"
+      @keyup.left="onArrowKeyPress('prev')"
+      @keyup.right="onArrowKeyPress('next')"
+      @focusout="resetFocus"
+    >
+      <template
+        v-for="(step, i) in $props.steps"
+        :key="i"
       >
-        <template
-          v-for="(step, i) in $props.steps"
-          :key="i"
+        <slot
+          v-if="i > 0"
+          name="divider"
+          v-bind="getIterableSlotData(step, i)"
         >
-          <slot
-            v-if="i > 0"
-            name="divider"
-            v-bind="getIterableSlotData(step, i)"
-          >
-            <span
-              class="va-stepper__divider"
-              :class="{ 'va-stepper__divider--vertical': $props.vertical }"
-              aria-hidden="true"
-            />
-          </slot>
+          <span
+            class="va-stepper__divider"
+            :class="{ 'va-stepper__divider--vertical': $props.vertical }"
+            aria-hidden="true"
+          />
+        </slot>
 
-          <slot
-            :name="`step-button-${i}`"
-            v-bind="getIterableSlotData(step, i)"
-          >
-            <va-stepper-step-button
-              :class="{'invalid-navigation': shouldShowError(i)}"
-              :stepIndex="i" :color="stepperColor"
-              :modelValue="modelValue"
-              :nextDisabled="nextDisabled"
-              :step="step"
-              :stepControls="stepControls"
-              :navigationDisabled="navigationDisabled"
-              :focus="focusedStep"
-            />
-          </slot>
-        </template>
-      </ol>
-      <div
-        class="va-stepper__step-content-wrapper"
-        :class="{ 'va-stepper__step-content-wrapper--vertical': $props.vertical }"
-      >
-        <template
-          v-for="(step, i) in $props.steps"
-          :key="i"
+        <slot
+          :name="`step-button-${i}`"
+          v-bind="getIterableSlotData(step, i)"
         >
-          <div
-            class="va-stepper__step-content"
-            v-if="$slots[`step-content-${i}`] && modelValue === i"
-          >
-            <slot
-              :name="`step-content-${i}`"
-              v-bind="getIterableSlotData(step, i)"
-            />
-          </div>
-        </template>
-        <div class="va-stepper__controls">
-          <va-stepper-controls
-            v-if="!controlsHidden"
+          <va-stepper-step-button
+            :stepIndex="i"
+            :class="{'invalid-navigation': shouldShowError(i)}"
+            :color="stepperColor"
             :modelValue="modelValue"
             :nextDisabled="nextDisabled"
-            :steps="steps"
+            :step="step"
             :stepControls="stepControls"
-            :finishButtonHidden="finishButtonHidden"
-            @finish="$emit('finish')"
+            :navigationDisabled="navigationDisabled"
+            :focus="focusedStep"
           />
-          <slot name="controls" v-bind="getIterableSlotData(steps[modelValue], modelValue)" />
+        </slot>
+      </template>
+    </ol>
+    <div
+      class="va-stepper__step-content-wrapper"
+      :class="{ 'va-stepper__step-content-wrapper--vertical': $props.vertical }"
+    >
+      <template
+        v-for="(step, i) in $props.steps"
+        :key="i"
+      >
+        <div
+          class="va-stepper__step-content"
+          v-if="$slots[`step-content-${i}`] && modelValue === i"
+        >
+          <slot
+            :name="`step-content-${i}`"
+            v-bind="getIterableSlotData(step, i)"
+          />
         </div>
+      </template>
+      <div class="va-stepper__controls">
+        <va-stepper-controls
+          v-if="!controlsHidden"
+          :modelValue="modelValue"
+          :nextDisabled="nextDisabled"
+          :steps="steps"
+          :stepControls="stepControls"
+          :finishButtonHidden="finishButtonHidden"
+          @finish="$emit('finish')"
+        />
+        <slot
+          name="controls"
+          v-bind="getIterableSlotData(steps[modelValue], modelValue)"
+        />
       </div>
     </div>
+  </div>
 </template>
 <script lang="ts">
 import { computed, defineComponent, PropType, ref, Ref, shallowRef, watch } from 'vue'
