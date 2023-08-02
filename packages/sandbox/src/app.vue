@@ -3,6 +3,8 @@
   {{ text }}
   <va-input v-model="text" />
 
+  <VaSelect v-model="text" :options="['Hello', 'World']"></VaSelect>
+
   <div class="row justify-center">
     <div> We </div>
     <div> are </div>
