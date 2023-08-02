@@ -2,14 +2,22 @@
   <VbDemo>
     <VbCard title="Default">
       <VaStepper v-model="step" :steps="steps">
-        <template v-for="(step, i) in steps" :key="step.label" #[`step-content-${i}`]>
+        <template
+          v-for="(step, i) in steps"
+          :key="step.label"
+          #[`step-content-${i}`]
+        >
           This is {{ step.label }} content.
         </template>
       </VaStepper>
     </VbCard>
     <VbCard title="With disabled steps">
       <VaStepper v-model="step" :steps="stepsWithDisabled">
-        <template v-for="(step, i) in stepsWithDisabled" :key="step.label" #[`step-content-${i}`]>
+        <template
+          v-for="(step, i) in stepsWithDisabled"
+          :key="step.label"
+          #[`step-content-${i}`]
+        >
           This is {{ step.label }} content.
         </template>
       </VaStepper>
@@ -18,22 +26,38 @@
       <VaStepper v-model="step" :steps="stepsWithCustomIcons" controlsHidden />
     </VbCard>
     <VbCard title="Navigation disabled">
-      <VaStepper v-model="step" :steps="steps" navigationDisabled>
-        <template v-for="(step, i) in steps" :key="step.label" #[`step-content-${i}`]>
+      <VaStepper
+        v-model="step"
+        :steps="steps"
+        navigationDisabled
+      >
+        <template
+          v-for="(step, i) in steps"
+          :key="step.label"
+          #[`step-content-${i}`]
+        >
           This is {{ step.label }} content.
         </template>
       </VaStepper>
     </VbCard>
     <VbCard title="Next disabled">
       <VaStepper v-model="step" :steps="steps" nextDisabled>
-        <template v-for="(step, i) in steps" :key="step.label" #[`step-content-${i}`]>
+        <template
+          v-for="(step, i) in steps"
+          :key="step.label"
+          #[`step-content-${i}`]
+        >
           This is {{ step.label }} content.
         </template>
       </VaStepper>
     </VbCard>
     <VbCard title="Vertical">
       <VaStepper v-model="step" :steps="steps" vertical>
-        <template v-for="(step, i) in steps" :key="step.label" #[`step-content-${i}`]>
+        <template
+          v-for="(step, i) in steps"
+          :key="step.label"
+          #[`step-content-${i}`]
+        >
           This is {{ step.label }} content.
         </template>
       </VaStepper>
