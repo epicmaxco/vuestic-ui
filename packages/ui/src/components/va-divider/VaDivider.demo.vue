@@ -116,7 +116,7 @@
 
 <script>
 import { VaDivider } from './index'
-import DividerWithList from './DividerWithList'
+import DividerWithList from './DividerWithList.vue'
 
 export default {
   components: {

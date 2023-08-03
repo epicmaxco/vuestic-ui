@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import VaCarousel from './VaCarousel'
+import VaCarousel from './VaCarousel.vue'
 
 export default {
   components: {
