@@ -3,7 +3,7 @@
     <va-select
       v-model="value"
       class="mb-6"
-      placeholder="Default (solid)"
+      placeholder="Default (outline)"
       :options="options"
     />
     <va-select

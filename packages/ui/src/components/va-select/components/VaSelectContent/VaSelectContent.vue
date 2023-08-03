@@ -17,6 +17,12 @@
           v-for="(option, index) in value"
           :key="$props.getText(option)"
         >
+          <va-icon
+            v-if="getIcon(option)"
+            size="small"
+            class="va-select-option__icon"
+            :name="getIcon(option)"
+          />
           {{ `${$props.getText(option)}${index + 1 === value.length ? '' : ', '}` }}
         </span>
       </template>
@@ -56,6 +62,12 @@
       tabindex: $props.tabindex,
     }"
   >
+    <va-icon
+      v-if="getIcon(value[0])"
+      size="small"
+      class="va-select-option__icon"
+      :name="getIcon(value[0])"
+    />
     {{ $props.valueString }}
   </slot>
 
@@ -101,7 +113,8 @@ import { defineComponent, ref, toRefs, computed, watch, type PropType } from 'vu
 
 import { useFormFieldProps } from '../../../../composables'
 
-import { VaBadge, VaIcon } from '../../../index'
+import { VaIcon } from '../../../va-icon'
+import { VaBadge } from '../../../va-badge'
 
 import type { SelectOption } from '../../../index'
 
@@ -160,6 +173,7 @@ export default defineComponent({
     }
 
     return {
+      getIcon: (option: SelectOption) => typeof option === 'object' ? (option.icon as string) : undefined,
       isPlaceholder,
       toggleHiddenOptionsState,
       autocompleteInputValueComputed,
