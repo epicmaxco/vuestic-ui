@@ -134,7 +134,7 @@ export default defineComponent({
 
     closeOnContentClick: { type: Boolean, default: false },
     offset: { ...useDropdownableProps.offset, default: () => [2, 0] },
-    placement: { ...useDropdownableProps.placement, default: 'bottom-start' },
+    placement: { ...useDropdownableProps.placement, default: 'bottom-end' },
     modelValue: { type: Date, default: undefined },
     clearValue: { type: Date, default: undefined },
     format: { type: Function as PropType<(date?: Date) => string> },
