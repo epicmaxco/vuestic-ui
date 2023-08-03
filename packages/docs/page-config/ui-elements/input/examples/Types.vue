@@ -36,7 +36,6 @@
     v-model="search"
     type="search"
     label="Search"
-    clearable
     class="mr-6 mb-6"
   />
   <va-input

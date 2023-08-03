@@ -3,23 +3,6 @@
     <va-input
       v-model="value"
       class="mb-6"
-      placeholder="Default (solid)"
-    />
-    <va-input
-      v-model="value"
-      class="mb-6"
-      placeholder="Outline"
-      outline
-    />
-    <va-input
-      v-model="value"
-      class="mb-6"
-      placeholder="Bordered"
-      bordered
-    />
-    <va-input
-      v-model="value"
-      class="mb-6"
       placeholder="Default"
       label="Default"
     />
@@ -39,11 +22,18 @@
     />
     <va-input
       v-model="value"
-      class="mb-4"
+      class="mb-6"
       placeholder="Background"
       label="Background"
       color="#000"
       background="warning"
+    />
+    <va-input
+      v-model="value"
+      class="mb-6"
+      placeholder="Inner label"
+      label="Inner label"
+      inner-label
     />
   </div>
 </template>

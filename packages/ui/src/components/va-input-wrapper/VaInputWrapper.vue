@@ -297,7 +297,6 @@ export default defineComponent({
       font-style: var(--va-input-font-style);
       font-stretch: var(--va-input-font-stretch);
       letter-spacing: var(--va-input-letter-spacing);
-      transform: translateY(-1px);
       cursor: inherit;
 
       &::placeholder {
