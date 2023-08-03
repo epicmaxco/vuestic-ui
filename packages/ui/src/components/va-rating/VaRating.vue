@@ -60,18 +60,19 @@ import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import VaRatingItem from './components/VaRatingItem/VaRatingItem.vue'
 import VaRatingItemNumberButton from './components/VaRatingItemNumberButton.vue'
 
-const VaRatingItemProps = extractComponentProps(VaRatingItem)
+const VaRatingItemProps = extractComponentProps(VaRatingItem, ['modelValue', 'itemNumber'])
 const VaRatingItemNumberButtonProps = extractComponentProps(VaRatingItemNumberButton, ['modelValue', 'itemNumber'])
 
 export default defineComponent({
   name: 'VaRating',
   props: {
+    ...VaRatingItemNumberButtonProps,
     ...useRatingProps,
     ...useVaRatingColorsProps,
     ...useFormFieldProps,
     ...VaRatingItemProps,
-    ...VaRatingItemNumberButtonProps,
     ...useComponentPresetProp,
+    modelValue: { type: Number, default: 0 },
     numbers: { type: Boolean, default: false },
     halves: { type: Boolean, default: false },
     max: { type: Number, default: 5 },
