@@ -328,11 +328,6 @@ export default defineComponent({
     line-height: var(--va-input-wrapper-counter-line-height);
   }
 
-  textarea {
-    margin: 12px 0;
-    resize: vertical;
-  }
-
   &__label {
     max-width: calc(100% - 0.75rem);
 

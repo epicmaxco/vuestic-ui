@@ -1,12 +1,20 @@
 <template>
-  <VaInputWrapper class="va-textarea" v-bind="vaInputWrapperProps">
+  <VaInputWrapper
+    class="va-textarea"
+    v-bind="vaInputWrapperProps"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
+  >
     <textarea
       v-model="valueComputed"
-      v-bind="{ ...computedProps, ...listeners }"
+      v-bind="{ ...computedProps, ...listeners, ...validationAriaAttributes }"
       :style="computedStyle"
       :rows="computedRowsCount"
+      :loading="isLoading"
       ref="textarea"
       class="va-textarea__textarea"
+      @focus="validationListeners.onFocus"
+      @blur="validationListeners.onBlur"
     />
   </VaInputWrapper>
 </template>
@@ -16,8 +24,9 @@ import { computed, defineComponent, CSSProperties, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
 import { VaInputWrapper } from '../va-input-wrapper'
 
-import { useFormFieldProps, useEmitProxy, useStateful, useStatefulProps } from '../../composables'
+import { useFormFieldProps, useEmitProxy, useStateful, useStatefulProps, useValidation, useValidationProps, useValidationEmits } from '../../composables'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
+import { blurElement, focusElement } from '../../utils/focus'
 
 const positiveNumberValidator = (val: number) => {
   if (val > 0 && (val | 0) === val) {
@@ -41,6 +50,7 @@ export default defineComponent({
     ...useFormFieldProps,
     ...VaInputWrapperProps,
     ...useStatefulProps,
+    ...useValidationProps,
     modelValue: { type: [String, Number], default: '' },
     placeholder: { type: String },
     autosize: { type: Boolean, default: false },
@@ -57,14 +67,46 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    clearValue: {
+      type: [String],
+      default: '',
+    },
   },
 
-  emits: [...createEmits()],
+  emits: [...createEmits(), ...useValidationEmits],
 
   setup (props, { emit }) {
     const textarea = shallowRef<HTMLTextAreaElement>()
     const { valueComputed } = useStateful(props, emit, 'modelValue', {
       defaultValue: '',
+    })
+
+    const focus = () => {
+      focusElement(textarea.value)
+    }
+
+    const blur = () => {
+      blurElement(textarea.value)
+    }
+
+    const reset = () => withoutValidation(() => {
+      emit('update:modelValue', props.clearValue)
+      emit('clear')
+      resetValidation()
+    })
+
+    const {
+      computedError,
+      computedErrorMessages,
+      listeners: validationListeners,
+      validationAriaAttributes,
+      isLoading,
+      resetValidation,
+      withoutValidation,
+    } = useValidation(props, emit, {
+      value: valueComputed,
+      focus,
+      reset,
     })
 
     const isResizable = computed(() => {
@@ -93,15 +135,12 @@ export default defineComponent({
       ...pick(props, ['disabled', 'readonly', 'placeholder', 'ariaLabel']),
     }))
 
-    const focus = () => {
-      textarea.value?.focus()
-    }
-
-    const blur = () => {
-      textarea.value?.blur()
-    }
-
     return {
+      validationListeners,
+      validationAriaAttributes,
+      computedError,
+      computedErrorMessages,
+      isLoading,
       computedRowsCount,
       valueComputed,
       vaInputWrapperProps: filterComponentProps(VaInputWrapperProps),
@@ -120,6 +159,12 @@ export default defineComponent({
 @import '../../styles/resources/index.scss';
 
 .va-textarea {
+  .va-input-wrapper__field {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    align-items: flex-start;
+  }
+
   &__textarea {
     border: 0;
     font-family: var(--va-font-family);
@@ -128,6 +173,9 @@ export default defineComponent({
     margin: -1px 0;
     background: transparent;
     color: currentColor;
+    resize: vertical;
+    box-sizing: content-box;
+    min-height: 1.15rem;
 
     @include va-scroll(transparent);
 
