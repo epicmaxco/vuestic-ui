@@ -3,7 +3,9 @@
     <div
       v-show="visible"
       ref="rootElement"
-      :role="$props.closeable ? 'alertdialog' : 'alert'"
+      :role="$props.role ?? $props.closeable ? 'alertdialog' : 'alert'"
+      :aria-live="computedAriaLive"
+      aria-atomic="true"
       class="va-toast"
       :class="toastClasses"
       :style="toastStyles"
@@ -46,6 +48,8 @@ import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslati
 
 import { ToastPosition } from './types'
 
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
+
 import VaIcon from '../va-icon/VaIcon.vue'
 
 const VaToastRenderer = defineComponent({
@@ -82,6 +86,7 @@ export default defineComponent({
     },
     render: { type: Function },
     ariaCloseLabel: { type: String, default: '$t:close' },
+    role: { type: String as PropType<StringWithAutocomplete<'alert' | 'alertdialog' | 'status'>>, default: undefined },
   },
   setup (props, { emit }) {
     const rootElement = shallowRef<HTMLElement>()
@@ -111,6 +116,14 @@ export default defineComponent({
       backgroundColor: getColor(props.color),
       color: textColorComputed.value,
     }))
+
+    const computedAriaLive = computed(() => {
+      if (props.role === 'status') {
+        return 'polite'
+      } else {
+        return 'assertive'
+      }
+    })
 
     const computedMessage = computed(() => (typeof props.message === 'function') ? props.message() : props.message)
 
@@ -159,6 +172,7 @@ export default defineComponent({
       visible,
       toastClasses,
       toastStyles,
+      computedAriaLive,
       computedMessage,
       onToastClick,
       onToastClose,

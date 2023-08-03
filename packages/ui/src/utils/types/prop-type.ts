@@ -1,7 +1,7 @@
 import type { PropType } from 'vue'
 
 /** This will accept any string, but will suggest all strings from `T`. Used for better IDE support in component props. */
-type StringWithAutocomplete<T> = T | (string & Record<never, never>)
+export type StringWithAutocomplete<T> = T | (string & Record<never, never>)
 
 // Make sure to make StringType as generic to prevent type unwrapping
 /**
