@@ -16,7 +16,7 @@ import { getComponentProps } from './resolve-component-props'
  * }
  * ```
  */
-export function extractComponentProps<T extends DefineComponentOptions> (component: T, ignoreProps?: string[]): ExtractComponentProps<T> {
+export function extractComponentProps<T extends DefineComponentOptions, IgnoreProps extends string = ''> (component: T, ignoreProps?: IgnoreProps[]): Omit<ExtractComponentProps<T>, IgnoreProps> {
   const props: any = getComponentProps(component as any)
 
   // TODO: Not sure if it is a good idea to handle ignore props here
@@ -25,7 +25,7 @@ export function extractComponentProps<T extends DefineComponentOptions> (compone
     return Object
       .keys(props)
       .reduce<any>((acc, propName) => {
-        if (ignoreProps.includes(propName)) { return acc }
+        if (ignoreProps.includes(propName as unknown as IgnoreProps)) { return acc }
 
         if (props[propName] === undefined) { return acc }
 
