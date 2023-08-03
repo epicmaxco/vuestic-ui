@@ -1,5 +1,5 @@
 <template>
-  <va-form class="flex flex-col gap-6" ref="formRef">
+  <va-form class="flex flex-col items-baseline gap-6" ref="formRef">
     <va-input
       v-model="form.firstName"
       :rules="[(value) => (value && value.length > 0) || 'First name is required']"
@@ -28,6 +28,13 @@
       clearable
     />
 
+    <va-counter 
+      v-model="form.count"
+      label="Amount"
+      :rules="[(v) => v || 'Field is required', (v) => v < 10 || 'You can not buy less than 10 items']"
+      manual-input
+    />
+
     <va-select
       v-model="form.country"
       :options="countries"
@@ -41,6 +48,7 @@
       :max="100"
       :rules="[(v) => v || 'Field is required', (v) => form.country === 'us' && v > 20 || 'Package to US can not be more than 20kg']"
       label="Weight, kg"
+      style="width: 100%"
     />
   
     <va-switch 
@@ -99,6 +107,7 @@
     notifications: true,
     paymentMethod: '',
     amount: 1,
+    count: 1,
   })
 
   const countries = [

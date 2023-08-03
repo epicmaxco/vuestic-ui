@@ -406,10 +406,6 @@ export default defineComponent({
 @import "variables";
 
 .va-time-input {
-  min-width: var(--va-time-input-min-width);
-
-  &__anchor {
-    flex: 1;
-  }
+  --va-input-wrapper-width: var(--va-form-element-default-width-small);
 }
 </style>

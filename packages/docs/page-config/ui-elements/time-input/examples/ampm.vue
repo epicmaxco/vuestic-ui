@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-5 flex-wrap">
+  <div class="flex gap-5 flex-wrap items-baseline">
     <va-time-input
       v-model="value"
       class="mr-3"

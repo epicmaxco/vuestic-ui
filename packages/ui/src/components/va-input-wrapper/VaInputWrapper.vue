@@ -105,7 +105,7 @@
 import { computed, defineComponent, getCurrentInstance, toRef } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useBem, useFormFieldProps, useValidationProps, useColors, useTextColor, useCSSVariables, useComponentPresetProp, useSyncProp, useFocusDeep } from '../../composables'
+import { useBem, useFormFieldProps, useValidationProps, useColors, useTextColor, useComponentPresetProp, useSyncProp, useFocusDeep } from '../../composables'
 
 import { VaMessageList } from './components/VaMessageList'
 import VaInputLabel from './components/VaInputLabel.vue'
@@ -165,14 +165,14 @@ export default defineComponent({
     }))
 
     const colorComputed = computed(() => getColor(props.color))
-    const backgroundComputed = computed(() => props.background ? getColor(props.background) : 'transparent')
+    const backgroundComputed = computed(() => props.background ? getColor(props.background) : '#ffffff00')
     const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
 
     const hasMessages = computed(() => Boolean(
       typeof messagesComputed.value === 'string' ? messagesComputed.value : messagesComputed.value?.length,
     ))
 
-    const { textColorComputed } = useTextColor(toRef(props, 'background'))
+    const { textColorComputed } = useTextColor(backgroundComputed)
 
     const messagesColor = computed(() => {
       if (props.error) { return 'danger' }
@@ -222,11 +222,26 @@ export default defineComponent({
 
   cursor: var(--va-input-wrapper-cursor);
   font-family: var(--va-font-family);
-  display: var(--va-input-wrapper-display);
+  display: inline-flex;
+  flex-direction: column;
   vertical-align: middle;
-  min-width: var(--va-input-wrapper-min-width);
+  min-width: auto;
   max-width: 100%;
-  flex: 1;
+  flex-grow: 0;
+  flex-shrink: 1;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    gap: var(--va-input-content-items-gap);
+    // Following behavior implements similar behavior as <input /> element has.
+    // By default width is set in CSS variable.
+    width: var(--va-input-wrapper-width);
+    // But in case parent element has bigger width, we want to stretch input to parent width (make it bigger).
+    min-width: 100%;
+    // In case parent is smaller that input container, we want to stretch input container to parent width (make it smaller).
+    max-width: 100%;
+  }
 
   &__field {
     position: relative;
@@ -234,7 +249,6 @@ export default defineComponent({
     align-items: center;
     flex: 1;
     min-height: var(--va-input-wrapper-min-height);
-    width: var(--va-form-element-default-width);
     border-color: var(--va-input-wrapper-border-color);
     border-style: solid;
     border-width: var(--va-input-wrapper-border-width);
@@ -251,12 +265,6 @@ export default defineComponent({
     textarea {
       color: inherit;
     }
-  }
-
-  &__container {
-    display: flex;
-    align-items: center;
-    gap: var(--va-input-content-items-gap);
   }
 
   & > .va-message-list {
@@ -328,7 +336,8 @@ export default defineComponent({
   }
 
   &__label {
-    max-width: calc(100% - 0.75rem);
+    max-width: calc(100%);
+    width: 100%;
 
     &--inner {
       position: absolute;

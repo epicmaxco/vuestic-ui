@@ -158,5 +158,38 @@ const preset = computed(() => (playground.solid ? 'solid' : ''))
         </div>
       </div>
     </VbCard>
+
+    <VbCard title="Size">
+      <div style="width: 400px" class="size-demo">
+        <label>Just div</label>
+        <div style="width: 100%">
+          <VaInputWrapper label="Label" />
+        </div>
+        <label>Just div (input 100%)</label>
+        <div style="width: 100%">
+          <VaInputWrapper label="Label" />
+        </div>
+        <label>Flex col div (input 100%)</label>
+        <div style="display: flex; flex-direction: column; width: 100%;">
+          <VaInputWrapper label="Label" />
+        </div>
+        <label>Flex div (input 100%) long label</label>
+        <div style="display: flex; width: 100%;">
+          <VaInputWrapper label="Label Label Label Label Label Label Label Label Label Label Label Label Label " />
+        </div>
+        <label>Just div long label</label>
+        <div style="width: 100%;">
+          <VaInputWrapper label="Label Label Label Label Label Label Label Label Label Label Label Label Label " />
+        </div>
+      </div>
+    </VbCard>
   </VbDemo>
 </template>
+
+<style lang="scss" scoped>
+  .size-demo {
+    .va-input-wrapper {
+      outline: 1px solid red;
+    }
+  }
+</style>

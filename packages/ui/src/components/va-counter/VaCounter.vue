@@ -156,8 +156,6 @@ export default defineComponent({
     min: { type: Number, default: undefined },
     max: { type: Number, default: undefined },
     step: { type: Number, default: 1 },
-    // style
-    width: { type: [String, Number], default: '160px' },
     color: { type: String, default: 'primary' },
     // icons & buttons
     increaseIcon: { type: String, default: 'add' },
@@ -345,7 +343,6 @@ export default defineComponent({
     ]))
 
     const styleComputed: ComputedRef<Partial<CSSStyleDeclaration>> = computed(() => ({
-      width: safeCSSLength(props.width),
       ...((attrs.style as Partial<CSSStyleDeclaration>) || {}),
     }))
 
@@ -390,6 +387,8 @@ export default defineComponent({
 @import "variables";
 
 .va-counter {
+  --va-input-wrapper-width: var(--va-form-element-default-width-small);
+
   &.va-input-wrapper {
     min-width: unset;
     flex: none;

@@ -49,6 +49,7 @@ export default defineComponent({
   @include va-title();
 
   height: 1rem;
+  display: inline-block;
 
   &__required-mark {
     transform: translate(0, -2px);
