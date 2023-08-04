@@ -85,4 +85,5 @@ export {
   VaViewer,
   VaValue,
   VaVirtualScroller,
+  VaTextarea,
 } from '../../components'

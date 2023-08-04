@@ -83,5 +83,6 @@ export default [
   'VaScrollContainer',
   'VaValue',
   'VaVirtualScroller',
-  'VaStepper'
+  'VaStepper',
+  'VaTextarea'
 ]

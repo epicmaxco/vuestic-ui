@@ -176,6 +176,7 @@ export default defineComponent({
     resize: vertical;
     box-sizing: content-box;
     min-height: 1.15rem;
+    outline: none;
 
     @include va-scroll(transparent);
 

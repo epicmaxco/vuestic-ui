@@ -229,6 +229,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "Input",
       },
       {
+        name: "textarea",
+        displayName: "Textarea",
+        meta: {
+          badge : navigationBadge.new('1.8.0'),
+        }
+      },
+      {
         name: "select",
         displayName: "Select",
         meta: {
