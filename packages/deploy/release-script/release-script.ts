@@ -85,8 +85,10 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       showSleepCheck: true,
       todoList: [
         'Update and release other packages (like nuxt, create-vuestic, etc)',
-        'Merge docs to master',
         'Make release notes on github',
+        'Remove labels from docs',
+        'Update docs header',
+        'Merge docs to master',
       ]
     }
   }
@@ -97,7 +99,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       gitTag: undefined,
       distTag: 'next',
       shouldCommit: false,
-      allowSkipTests: true,
+      allowSkipTests: false,
       allowUncommitted: false,
       requiredBranch: 'develop',
       showSleepCheck: false,
