@@ -151,7 +151,7 @@ const preset = computed(() => (playground.solid ? 'solid' : ''))
         <div>
           <VaColorInput
             label="color input"
-            model-value="Example text"
+            model-value="#efefef"
             :inner-label="playground.innerLabel"
             :preset="preset"
           />
@@ -160,24 +160,20 @@ const preset = computed(() => (playground.solid ? 'solid' : ''))
     </VbCard>
 
     <VbCard title="Size">
-      <div style="width: 400px" class="size-demo">
+      <div style="width: 400px;" class="size-demo">
         <label>Just div</label>
-        <div style="width: 100%">
+        <div style="width: 100%;">
           <VaInputWrapper label="Label" />
         </div>
         <label>Just div (input 100%)</label>
-        <div style="width: 100%">
-          <VaInputWrapper label="Label" />
+        <div style="width: 100%;">
+          <VaInputWrapper label="Label" style="width: 100%;" />
         </div>
-        <label>Flex col div (input 100%)</label>
+        <label>Flex col div (must be 100%)</label>
         <div style="display: flex; flex-direction: column; width: 100%;">
           <VaInputWrapper label="Label" />
         </div>
-        <label>Flex div (input 100%) long label</label>
-        <div style="display: flex; width: 100%;">
-          <VaInputWrapper label="Label Label Label Label Label Label Label Label Label Label Label Label Label " />
-        </div>
-        <label>Just div long label</label>
+        <label>Just div long label (must be small)</label>
         <div style="width: 100%;">
           <VaInputWrapper label="Label Label Label Label Label Label Label Label Label Label Label Label Label " />
         </div>
@@ -187,9 +183,9 @@ const preset = computed(() => (playground.solid ? 'solid' : ''))
 </template>
 
 <style lang="scss" scoped>
-  .size-demo {
-    .va-input-wrapper {
-      outline: 1px solid red;
-    }
+.size-demo {
+  .va-input-wrapper {
+    outline: 1px solid red;
   }
+}
 </style>

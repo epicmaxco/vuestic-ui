@@ -474,8 +474,8 @@ export default defineComponent({
 
 .va-date-input {
   --va-date-picker-cell-size: 28px;
-
   --va-input-wrapper-width: var(--va-form-element-default-width-small);
+
   font-family: var(--va-font-family);
 
   &__anchor {

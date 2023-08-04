@@ -4,100 +4,102 @@
     :class="wrapperClass"
     @click="$emit('click', $event)"
   >
-    <VaInputLabel
-      v-if="$props.label && !$props.innerLabel"
-      class="va-input-wrapper__label va-input-wrapper__label--outer"
-      v-bind="vaInputLabelProps"
-    />
-    <div class="va-input-wrapper__container">
-      <div
-        v-if="$slots.prepend"
-        class="va-input-wrapper__prepend-inner"
-        @click="$emit('click-prepend')"
-      >
-        <slot name="prepend" />
-      </div>
-
-      <div class="va-input-wrapper__field">
+    <div class="va-input-wrapper__size-keeper">
+      <VaInputLabel
+        v-if="$props.label && !$props.innerLabel"
+        class="va-input-wrapper__label va-input-wrapper__label--outer"
+        v-bind="vaInputLabelProps"
+      />
+      <div class="va-input-wrapper__container">
         <div
-          v-if="$slots.prependInner"
+          v-if="$slots.prepend"
           class="va-input-wrapper__prepend-inner"
-          ref="container"
-          @click="$emit('click-prepend-inner', $event)"
+          @click="$emit('click-prepend')"
         >
-          <slot name="prependInner" />
+          <slot name="prepend" />
         </div>
 
-        <div class="va-input-wrapper__text">
-          <VaInputLabel
-            v-if="$props.label && $props.innerLabel"
-            class="va-input-wrapper__label va-input-wrapper__label--inner"
-            v-bind="vaInputLabelProps"
+        <div class="va-input-wrapper__field">
+          <div
+            v-if="$slots.prependInner"
+            class="va-input-wrapper__prepend-inner"
+            ref="container"
+            @click="$emit('click-prepend-inner', $event)"
+          >
+            <slot name="prependInner" />
+          </div>
+
+          <div class="va-input-wrapper__text">
+            <VaInputLabel
+              v-if="$props.label && $props.innerLabel"
+              class="va-input-wrapper__label va-input-wrapper__label--inner"
+              v-bind="vaInputLabelProps"
+            />
+
+            <slot>
+              <input v-model="vModel" />
+            </slot>
+          </div>
+
+          <va-icon
+            v-if="success"
+            color="success"
+            name="va-check-circle"
+            size="small"
+            class="va-input-wrapper__icon va-input-wrapper__icon--success"
           />
+          <va-icon
+            v-if="error"
+            color="danger"
+            name="va-warning"
+            size="small"
+            class="va-input-wrapper__icon va-input-wrapper__icon--error"
+          />
+          <va-icon
+            v-if="$props.loading"
+            :color="$props.color"
+            size="small"
+            name="va-loading"
+            spin="counter-clockwise"
+            class="va-input-wrapper__icon va-input-wrapper__icon--loading"
+          />
+          <slot name="icon" />
 
-          <slot>
-            <input v-model="vModel" />
-          </slot>
+          <div
+            v-if="$slots.appendInner"
+            class="va-input-wrapper__append-inner"
+            @click="$emit('click-append-inner', $event)"
+          >
+            <slot name="appendInner" />
+          </div>
         </div>
-
-        <va-icon
-          v-if="success"
-          color="success"
-          name="va-check-circle"
-          size="small"
-          class="va-input-wrapper__icon va-input-wrapper__icon--success"
-        />
-        <va-icon
-          v-if="error"
-          color="danger"
-          name="va-warning"
-          size="small"
-          class="va-input-wrapper__icon va-input-wrapper__icon--error"
-        />
-        <va-icon
-          v-if="$props.loading"
-          :color="$props.color"
-          size="small"
-          name="va-loading"
-          spin="counter-clockwise"
-          class="va-input-wrapper__icon va-input-wrapper__icon--loading"
-        />
-        <slot name="icon" />
 
         <div
-          v-if="$slots.appendInner"
+          v-if="$slots.append"
           class="va-input-wrapper__append-inner"
-          @click="$emit('click-append-inner', $event)"
+          @click="$emit('click-append')"
         >
-          <slot name="appendInner" />
+          <slot name="append" />
         </div>
       </div>
 
-      <div
-        v-if="$slots.append"
-        class="va-input-wrapper__append-inner"
-        @click="$emit('click-append')"
-      >
-        <slot name="append" />
+      <div v-if="isCounterVisible" class="va-input-wrapper__counter-wrapper">
+        <slot name="counter" v-bind="{ valueLength: counterValue, maxLength: $props.maxLength }">
+          <div class="va-input-wrapper__counter">
+            {{ counterComputed }}
+          </div>
+        </slot>
       </div>
-    </div>
 
-    <div v-if="isCounterVisible" class="va-input-wrapper__counter-wrapper">
-      <slot name="counter" v-bind="{ valueLength: counterValue, maxLength: $props.maxLength }">
-        <div class="va-input-wrapper__counter">
-          {{ counterComputed }}
-        </div>
+      <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
+        <va-message-list
+          v-if="hasMessages"
+          :color="messagesColor"
+          :model-value="messagesComputed"
+          :limit="errorLimit"
+        />
       </slot>
     </div>
-
-    <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
-      <va-message-list
-        v-if="hasMessages"
-        :color="messagesColor"
-        :model-value="messagesComputed"
-        :limit="errorLimit"
-      />
-    </slot>
   </div>
 </template>
 
@@ -215,6 +217,16 @@ export default defineComponent({
 @import '../../styles/resources/index.scss';
 @import './variables';
 
+@mixin parentWidthWithDefault {
+  // Following behavior implements similar behavior as <input /> element has.
+  // By default width is set in CSS variable.
+  width: var(--va-input-wrapper-width);
+  // But in case parent element has bigger width, we want to stretch input to parent width (make it bigger).
+  min-width: 100%;
+  // In case parent is smaller that input container, we want to stretch input container to parent width (make it smaller).
+  max-width: 100%;
+}
+
 .va-input-wrapper {
   --va-input-wrapper-background: v-bind(backgroundComputed);
   --va-input-wrapper-color: v-bind(colorComputed);
@@ -222,7 +234,7 @@ export default defineComponent({
 
   cursor: var(--va-input-wrapper-cursor);
   font-family: var(--va-font-family);
-  display: inline-flex;
+  display: inline-block;
   flex-direction: column;
   vertical-align: middle;
   min-width: auto;
@@ -230,17 +242,14 @@ export default defineComponent({
   flex-grow: 0;
   flex-shrink: 1;
 
+  &__size-keeper {
+    @include parentWidthWithDefault();
+  }
+
   &__container {
     display: flex;
     align-items: center;
     gap: var(--va-input-content-items-gap);
-    // Following behavior implements similar behavior as <input /> element has.
-    // By default width is set in CSS variable.
-    width: var(--va-input-wrapper-width);
-    // But in case parent element has bigger width, we want to stretch input to parent width (make it bigger).
-    min-width: 100%;
-    // In case parent is smaller that input container, we want to stretch input container to parent width (make it smaller).
-    max-width: 100%;
   }
 
   &__field {
@@ -338,6 +347,7 @@ export default defineComponent({
   &__label {
     max-width: calc(100%);
     width: 100%;
+    display: block;
 
     &--inner {
       position: absolute;
