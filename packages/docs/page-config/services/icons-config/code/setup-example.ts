@@ -8,9 +8,9 @@ const fonts = [
 ];
 
 createApp(App)
-  .use(createVuestic, {
+  .use(createVuestic({
     config: {
       icons: createIconsConfig({ aliases, fonts }),
     },
-  })
+  }))
   .mount("#app");
