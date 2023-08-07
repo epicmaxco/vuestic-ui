@@ -55,7 +55,7 @@ const socials = [
   { href: 'https://github.com/epicmaxco/vuestic-ui/', label: 'go to the vuestic ui github page', icon: 'fa-brands fa-github' },
   { href: 'https://discord.gg/u7fQdqQt8c', label: 'go to the vuestic ui discord channel', icon: 'fa-brands fa-discord' },
   // { href: 'https://www.facebook.com/epicmaxco/', label: 'go to the vuestic ui facebook page', icon: 'fab fa-facebook' },
-  { href: 'https://twitter.com/epicmaxco', label: 'go to the vuestic ui twitter page', icon: 'fa-brands fa-twitter' },
+  { href: 'https://twitter.com/vuestic_ui', label: 'go to the vuestic ui twitter page', icon: 'fa-brands fa-twitter' },
 ]
 </script>
 
