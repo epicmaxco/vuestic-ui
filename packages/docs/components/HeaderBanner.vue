@@ -9,7 +9,7 @@
     >
       <div class="header__wrapper">
         <div class="header-banner__left">
-          <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/${uiVersion}`">We just released&nbsp;<strong>Vuestic {{ uiVersion }} 🤗</strong></a>
+          <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${uiVersion}`">We just released&nbsp;<strong>Vuestic {{ uiVersion }} 🤗</strong></a>
 
 <!--          <div class="header-banner__left-links">-->
             <!-- <a
