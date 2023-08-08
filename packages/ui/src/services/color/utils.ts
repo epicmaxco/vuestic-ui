@@ -142,3 +142,9 @@ export const applyColors = (color1: ColorInput, color2: ColorInput) => {
 
   return c1.RGBA
 }
+
+export const isColorTransparent = (color: ColorInput) => {
+  if (!color) { return false }
+
+  return new ColorTranslator(color).A <= 0.1
+}

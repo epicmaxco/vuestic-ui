@@ -84,11 +84,9 @@ export default defineComponent({
     disabled: { type: Boolean, default: false },
     header: { type: String, default: '' },
     icon: { type: String, default: '' },
-    solid: { type: Boolean, default: false },
-    color: { type: String, default: 'background-element' },
+    color: { type: String, default: 'transparent' },
     textColor: { type: String, default: '' },
     colorAll: { type: Boolean, default: false },
-    flat: { type: Boolean, default: false },
   },
   emits: ['update:modelValue'],
 
@@ -135,9 +133,9 @@ export default defineComponent({
     }))
 
     const computedClasses = useBem('va-collapse', () => ({
-      ...pick(props, ['disabled', 'solid', 'flat']),
+      ...pick(props, ['disabled']),
       expanded: computedModelValue.value,
-      active: props.solid && computedModelValue.value,
+      active: computedModelValue.value,
       popout: !!(accordionProps.value.popout && computedModelValue.value),
       inset: !!(accordionProps.value.inset && computedModelValue.value),
     }))
@@ -158,7 +156,6 @@ export default defineComponent({
       computedClasses,
 
       headerStyle: computed(() => ({
-        paddingLeft: props.icon && 0,
         color: textColorComputed.value,
         backgroundColor: props.color ? getColor(props.color) : '',
       })),
@@ -167,6 +164,7 @@ export default defineComponent({
         return {
           visibility: computedModelValue.value ? 'visible' as const : 'hidden' as const,
           height: `${height.value}px`,
+          opacity: computedModelValue.value ? 1 : 0,
           transitionDuration: getTransition(),
           background: computedModelValue.value ? getBackground() : '',
         }
@@ -196,19 +194,15 @@ export default defineComponent({
   }
 
   &__header {
-    display: var(--va-collapse-header-content-display);
-    justify-content: var(--va-collapse-header-content-justify-content);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--va-collapse-gap);
     cursor: var(--va-collapse-header-content-cursor);
-    background-color: var(--va-collapse-header-content-background-color);
-    box-shadow: var(--va-collapse-header-content-box-shadow, var(--va-block-box-shadow));
-    border-radius: var(--va-collapse-header-content-border-radius, var(--va-block-border-radius));
-    align-items: var(--va-collapse-header-content-align-items);
-    padding-top: var(--va-collapse-header-content-padding-top);
-    padding-bottom: var(--va-collapse-header-content-padding-bottom);
-    padding-left: var(--va-collapse-header-content-padding-left);
+    padding: var(--va-collapse-padding);
 
     &__text {
-      width: var(--va-collapse-header-content-text-width);
+      width: 100%;
       font-weight: var(--va-collapse-header-content-text-font-weight);
     }
 
@@ -216,35 +210,10 @@ export default defineComponent({
       @include flex-center();
 
       min-width: var(--va-collapse-header-content-icon-min-width);
-      margin-left: var(--va-collapse-header-content-icon-margin-left);
-      margin-right: var(--va-collapse-header-content-icon-margin-right);
       color: var(--va-collapse-header-content-icon-color);
     }
 
     @include keyboard-focus-outline(var(--va-collapse-header-content-border-radius));
-  }
-
-  &--solid {
-    box-shadow: var(--va-collapse-solid-box-shadow);
-    border-radius: var(--va-collapse-solid-border-radius);
-
-    .va-collapse {
-      &__header {
-        border-radius: var(--va-collapse-solid-header-content-border-radius, var(--va-block-border-radius));
-        transition: var(--va-collapse-solid-header-content-transition);
-        box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--va-block-box-shadow));
-        background-color: var(--va-collapse-solid-header-content-background-color);
-      }
-
-      &__body-wrapper {
-        border-radius: var(--va-collapse-solid-border-radius);
-      }
-
-      &__body {
-        border-radius: var(--va-collapse-solid-body-border-radius);
-        margin-top: var(--va-collapse-solid-body-margin-top);
-      }
-    }
   }
 
   &--popout {
@@ -253,13 +222,6 @@ export default defineComponent({
 
   &--inset {
     margin: var(--va-collapse-inset-margin);
-  }
-
-  &--flat {
-    .va-collapse__header {
-      --va-collapse-solid-header-content-border-radius: 0;
-      --va-collapse-header-content-box-shadow: none;
-    }
   }
 
   &--disabled {

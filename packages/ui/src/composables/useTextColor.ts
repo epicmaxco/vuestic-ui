@@ -1,6 +1,6 @@
 import { computed, getCurrentInstance, Ref, unref } from 'vue'
 
-import { useColors } from './useColors'
+import { isColorTransparent, useColors } from './useColors'
 
 type PropsType = {
   textColor: string,
@@ -24,6 +24,9 @@ export const useTextColor = (componentColor?: Ref<string | undefined> | string |
     if (!bg) { return 'currentColor' }
 
     const componentColorHex = getColor(bg)
+
+    if (isColorTransparent(componentColorHex)) { return 'currentColor' }
+
     return unref(isTransparent) ? componentColorHex : getColor(getTextColor(componentColorHex))
   })
 

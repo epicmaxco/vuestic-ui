@@ -22,6 +22,7 @@ export type EssentialVariables = {
   // Misc
   shadow: CssColor,
   focus: CssColor,
+  transparent: CssColor,
 }
 
 export type ColorVariables = { [colorName: string]: CssColor } & EssentialVariables
