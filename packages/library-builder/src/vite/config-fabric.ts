@@ -1,11 +1,9 @@
-import { removeEmptyFiles } from './../plugins/remove-empty-files';
 import vue from '@vitejs/plugin-vue';
 import { dirname, join } from "pathe"
 import { defineViteConfig } from "../utils/define-vite-config"
 import { readPackage } from "../utils/read-package"
 import { LibraryFormat } from "../types/vite"
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split';
-import { removeSideEffectedChunks } from '../plugins/remove-side-effected-chunks';
 import { appendComponentCss } from '../plugins/append-component-css';
 import { componentVBindFix } from '../plugins/component-v-bind-fix';
 import { replaceNext } from '../plugins/replace-next'
@@ -37,7 +35,7 @@ export const createViteConfig = (options: {
   const packageJson = readPackage(join(cwd, 'package.json'))
 
   const dependencies = [
-    ...Object.keys(packageJson.dependencies || {}), 
+    ...Object.keys(packageJson.dependencies || {}),
     ...Object.keys(packageJson.peerDependencies || {})
   ]
 
@@ -85,17 +83,35 @@ export const createViteConfig = (options: {
           })
         },
 
-        external: dependencies,
+        // Resolve externals and actual lib name
+        external(source, importer, isResolved) {
+          // Resolve '#app' imports
+          if (source.startsWith('#')) {
+            return true
+          }
 
+          if (source.includes('node_modules')) {
+            return true
+          }
+
+          if (dependencies.includes(source)) {
+            return true
+          }
+
+          if (source.startsWith('/') || source.startsWith('.')) {
+            return false
+          }
+          return true
+        },
       },
 
       minify: 'terser' as const,
       terserOptions: {
         // https://stackoverflow.com/questions/57720816/rails-webpacker-terser-keep-fnames
-    
+
         // disable mangling class names (for vue class component)
         keep_classnames: true,
-    
+
         // disable mangling functions names
         keep_fnames: true,
       },
@@ -112,7 +128,7 @@ export const createViteConfig = (options: {
 
 
   if (isESM) {
-    config.plugins.push(chunkSplitPlugin({ 
+    config.plugins.push(chunkSplitPlugin({
       strategy: 'unbundle',
     }))
     // config.plugins.push(removeSideEffectedChunks())

@@ -41,7 +41,6 @@ export const nuxtRuntimeDirViteConfig = (options: {
             return true
           }
 
-          console.log('external', source)
           if (external.includes(source)) {
             return true
           }
