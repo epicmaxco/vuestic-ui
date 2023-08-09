@@ -1,6 +1,6 @@
 {
   "name": "@vuestic/library-builder",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha1",
   "description": "Build tool for vue3 component libraries",
   "main": "index.js",
   "license": "MIT",
@@ -26,5 +26,8 @@
   },
   "devDependencies": {
     "@types/yargs": "^17.0.24"
-  }
+  },
+  "files": [
+    "./dist"
+  ]
 }

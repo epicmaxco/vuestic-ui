@@ -22,6 +22,7 @@ export const build = async (options: {
 }) => {
   return withCwd(options.cwd || process.cwd(), async () => {
     console.log('Building...')
+    console.log('Build targets: ' + options.targets?.join(', '))
 
     const {
       cwd = process.cwd(),
