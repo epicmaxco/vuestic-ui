@@ -10,7 +10,7 @@
     "test": "yarn vitest --threads=false"
   },
   "bin": {
-    "library-build": "./bin/library-build"
+    "build-ui-library": "./bin/build-ui-library"
   },
   "dependencies": {
     "@nuxt/module-builder": "^0.4.0",
