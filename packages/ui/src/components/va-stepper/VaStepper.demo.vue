@@ -74,6 +74,7 @@
               <va-input v-model="model.b" label="B"></va-input>
           </template>
         <template #step-content-2>
+          <p>Will not proceed due to error</p>
           <va-input v-model="model.c" label="C"></va-input>
         </template>
       </VaStepper>
@@ -119,9 +120,9 @@ const steps = [
 ]
 
 const linearSteps = ref([
-  { label: 'One', save: () => { completeLinearStep() } },
-  { label: 'Two', save: () => { completeLinearStep() } },
-  { label: 'Three' },
+  { label: 'One', beforeSave: () => { completeLinearStep() } },
+  { label: 'Two', beforeSave: () => { completeLinearStep() } },
+  { label: 'Three', beforeSave: () => { setError() } },
   { label: 'Four' },
   { label: 'Five' },
 ] as Step[])
@@ -144,8 +145,8 @@ const stepsWithCustomIcons = [
 
 const stepsWithNextAction = ref([
   { label: 'One' },
-  { label: 'Two', save: () => { setError() } },
-  { label: 'Three', save: () => { alert('Step 3 Action') } },
+  { label: 'Two', beforeSave: () => { setError() } },
+  { label: 'Three', beforeSave: () => { alert('Step 3 Action') } },
 ] as Step[])
 
 const completeLinearStep = () => {

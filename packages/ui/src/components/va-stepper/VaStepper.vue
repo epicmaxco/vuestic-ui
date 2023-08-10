@@ -131,11 +131,11 @@ export default defineComponent({
 
     const setStep = (index: number) => {
       //  Checks if a save function was passed, if so it will be called
-      const save = props.steps[modelValue.value].save
-      if (save) {
-        save()
+      const beforeSave = props.steps[modelValue.value].beforeSave
+      if (beforeSave) {
+        beforeSave(props.steps[modelValue.value])
       }
-
+      debugger
       if ((props.linear && !props.steps[index - 1]?.completed) || props.steps[index].disabled || props.steps[modelValue.value].hasError) { return }
       emit('update:modelValue', index)
     }

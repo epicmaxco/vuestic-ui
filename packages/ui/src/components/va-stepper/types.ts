@@ -2,8 +2,10 @@ export type Step = {
   label: string
   icon?: string
   disabled?: boolean
-  save?: Function
+  beforeSave?: (step: Omit<Step, 'beforeSave'>) => boolean
+  /** Will be set to true if user completed step with validation error */
   hasError?: boolean
+  /** Will be set to true if user completed step without validation error */
   completed?: boolean
 }
 
