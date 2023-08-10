@@ -107,7 +107,7 @@ function convertComponentPropToApiDocs<T extends string>(propName: T, propOption
     name: propName,
     global: false,
     description: '',
-    type: types.join(' | '),
+    types: types.join(' | '),
     required: !!propOptionsRecord[propName].required,
     default: getDefaultValue(propOptionsRecord[propName], types),
   } as any

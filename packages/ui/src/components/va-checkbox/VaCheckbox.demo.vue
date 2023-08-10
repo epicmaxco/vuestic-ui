@@ -199,7 +199,7 @@
 
 <script>
 import { VaCheckbox } from './index'
-import VaCheckboxValidation from './VaCheckbox-validation'
+import VaCheckboxValidation from './VaCheckbox-validation.vue'
 
 export default {
   components: {
