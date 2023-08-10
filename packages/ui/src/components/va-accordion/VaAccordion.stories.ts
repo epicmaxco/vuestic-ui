@@ -1,36 +1,26 @@
 import { VaAccordion } from './'
 import { VaCollapse } from '../va-collapse'
 
-interface Args {
-  modelValue: boolean[]
-  multiple: boolean
-  inset: boolean
-  popout: boolean
-}
-
-const VaAccordionSetup = {
-  value: [false, false, false],
-  valueArray: [false, true, false],
-  collapses: [
-    { title: 'First collapse', content: 'first collapse content' },
-    { title: 'Second collapse', content: 'second collapse content' },
-    { title: 'Third collapse', content: 'third collapse content' },
-  ],
-}
-
 export default {
   title: 'VaAccordion',
   component: VaAccordion,
   tags: ['autodocs'],
 }
 
-export const Default = (args: Args) => ({
+export const Default = () => ({
   components: { VaAccordion, VaCollapse },
   setup () {
-    return VaAccordionSetup
+    return {
+      state: [false, false, false],
+      collapses: [
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+      ],
+    }
   },
   template: `
-    <va-accordion style="width: 400px;">
+    <va-accordion v-model="state">
       <va-collapse
         v-for="(collapse, index) in collapses"
         :key="index"
@@ -44,35 +34,19 @@ export const Default = (args: Args) => ({
   `,
 })
 
-export const DefaultWithCustomHeader = (args: Args) => ({
+export const Stateful = () => ({
   components: { VaAccordion, VaCollapse },
   setup () {
-    return VaAccordionSetup
+    return {
+      collapses: [
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+      ],
+    }
   },
   template: `
-    <va-accordion v-model="value" style="width: 400px;">
-      <va-collapse
-        v-for="(collapse, index) in collapses"
-        :key="index"
-      >
-        <template #header="{ value }">
-          {{ value ? 'opened' : 'closed' }}
-        </template>
-        <div>
-          {{ collapse.content }}
-        </div>
-      </va-collapse>
-    </va-accordion>
-  `,
-})
-
-export const Multiple = (args: Args) => ({
-  components: { VaAccordion, VaCollapse },
-  setup () {
-    return VaAccordionSetup
-  },
-  template: `
-    <va-accordion v-model="valueArray" multiple style="width: 400px;">
+    <va-accordion stateful>
       <va-collapse
         v-for="(collapse, index) in collapses"
         :key="index"
@@ -86,13 +60,20 @@ export const Multiple = (args: Args) => ({
   `,
 })
 
-export const Inset = (args: Args) => ({
+export const Multiple = () => ({
   components: { VaAccordion, VaCollapse },
   setup () {
-    return VaAccordionSetup
+    return {
+      state: [false, true, false],
+      collapses: [
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+      ],
+    }
   },
   template: `
-    <va-accordion v-model="value" inset style="width: 400px;">
+    <va-accordion v-model="state" multiple>
       <va-collapse
         v-for="(collapse, index) in collapses"
         :key="index"
@@ -106,13 +87,22 @@ export const Inset = (args: Args) => ({
   `,
 })
 
-export const InsetMultiple = (args: Args) => ({
+export const Inset = () => ({
   components: { VaAccordion, VaCollapse },
   setup () {
-    return VaAccordionSetup
+    return {
+      state: [true, true, false, false, true],
+      collapses: [
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+      ],
+    }
   },
   template: `
-    <va-accordion v-model="valueArray" inset multiple style="width: 400px;">
+    <va-accordion v-model="state" inset multiple>
       <va-collapse
         v-for="(collapse, index) in collapses"
         :key="index"
@@ -126,33 +116,22 @@ export const InsetMultiple = (args: Args) => ({
   `,
 })
 
-export const Popout = (args: Args) => ({
+export const Popout = () => ({
   components: { VaAccordion, VaCollapse },
   setup () {
-    return VaAccordionSetup
+    return {
+      state: [true, true, false, false, true],
+      collapses: [
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+        { title: 'Collapse', content: 'Content' },
+      ],
+    }
   },
   template: `
-    <va-accordion v-model="value" popout style="width: 400px;">
-      <va-collapse
-        v-for="(collapse, index) in collapses"
-        :key="index"
-        :header="collapse.title"
-      >
-        <div>
-          {{ collapse.content }}
-        </div>
-      </va-collapse>
-    </va-accordion>
-  `,
-})
-
-export const PopoutMultiple = (args: Args) => ({
-  components: { VaAccordion, VaCollapse },
-  setup () {
-    return VaAccordionSetup
-  },
-  template: `
-    <va-accordion v-model="valueArray" popout multiple style="width: 400px;">
+    <va-accordion v-model="state" popout multiple>
       <va-collapse
         v-for="(collapse, index) in collapses"
         :key="index"
