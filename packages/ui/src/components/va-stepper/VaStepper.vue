@@ -38,8 +38,7 @@
         >
           <va-stepper-step-button
             :stepIndex="i"
-            :class="{'invalid-navigation': shouldShowError(i)}"
-            :color="stepperColor"
+            :color="$props.steps && $props.steps[i].hasError === true ? 'danger' : stepperColor"
             :modelValue="modelValue"
             :nextDisabled="nextDisabled"
             :step="step"
@@ -120,10 +119,6 @@ export default defineComponent({
 
     const focusedStep = ref({ trigger: false, stepIndex: props.navigationDisabled ? -1 : props.modelValue })
 
-    const shouldShowError = (index: number) => {
-      return focusedStep.value.stepIndex === index && props.steps[index].hasError
-    }
-
     const { getColor } = useColors()
     const stepperColor = getColor(props.color)
 
@@ -135,7 +130,6 @@ export default defineComponent({
       if (beforeSave) {
         beforeSave(props.steps[modelValue.value])
       }
-      debugger
       if ((props.linear && !props.steps[index - 1]?.completed) || props.steps[index].disabled || props.steps[modelValue.value].hasError) { return }
       emit('update:modelValue', index)
     }
@@ -260,7 +254,6 @@ export default defineComponent({
         'aria-label': tp(props.ariaLabel),
         'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
       })),
-      shouldShowError,
       completeStep: (shouldCompleteStep?: boolean) => {
         const steps = { ...props.steps }
         if (shouldCompleteStep === true) {
