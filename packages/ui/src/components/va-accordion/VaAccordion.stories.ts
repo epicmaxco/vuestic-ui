@@ -1,5 +1,12 @@
 import { VaAccordion } from './'
 import { VaCollapse } from '../va-collapse'
+import { within, userEvent } from '@storybook/testing-library'
+import { sleep } from '../../utils/sleep'
+
+async function DispatchEventWithDelay (element: HTMLElement, callback: (element: HTMLElement) => void, ms: number) {
+  await callback(element)
+  await sleep(ms)
+}
 
 export default {
   title: 'VaAccordion',
@@ -11,7 +18,7 @@ export const Default = () => ({
   components: { VaAccordion, VaCollapse },
   setup () {
     return {
-      state: [false, false, false],
+      modelValue: [false, false, false],
       collapses: [
         { title: 'Collapse', content: 'Content' },
         { title: 'Collapse', content: 'Content' },
@@ -20,7 +27,7 @@ export const Default = () => ({
     }
   },
   template: `
-    <va-accordion v-model="state">
+    <va-accordion v-model="modelValue">
       <va-collapse
         v-for="(collapse, index) in collapses"
         :key="index"
@@ -33,6 +40,17 @@ export const Default = () => ({
     </va-accordion>
   `,
 })
+
+Default.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const collapses = await canvas.getAllByRole('button', { name: 'Collapse' }) as HTMLElement[]
+  const [lastCollapse] = collapses.slice(-1)
+  collapses.push(lastCollapse)
+
+  for (const collapse of collapses) {
+    await DispatchEventWithDelay(collapse, userEvent.click, 500)
+  }
+}
 
 export const Stateful = () => ({
   components: { VaAccordion, VaCollapse },
@@ -60,11 +78,22 @@ export const Stateful = () => ({
   `,
 })
 
+Stateful.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const collapses = await canvas.getAllByRole('button', { name: 'Collapse' }) as HTMLElement[]
+  const [lastCollapse] = collapses.slice(-1)
+  collapses.push(lastCollapse)
+
+  for (const collapse of collapses) {
+    await DispatchEventWithDelay(collapse, userEvent.click, 500)
+  }
+}
+
 export const Multiple = () => ({
   components: { VaAccordion, VaCollapse },
   setup () {
     return {
-      state: [false, true, false],
+      modelValue: [false, true, false],
       collapses: [
         { title: 'Collapse', content: 'Content' },
         { title: 'Collapse', content: 'Content' },
@@ -73,7 +102,7 @@ export const Multiple = () => ({
     }
   },
   template: `
-    <va-accordion v-model="state" multiple>
+    <va-accordion v-model="modelValue" multiple>
       <va-collapse
         v-for="(collapse, index) in collapses"
         :key="index"
@@ -86,12 +115,28 @@ export const Multiple = () => ({
     </va-accordion>
   `,
 })
+
+Multiple.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const collapses = await canvas.getAllByRole('button', { name: 'Collapse' }) as HTMLElement[]
+  await DispatchEventWithDelay(collapses[1], userEvent.click, 500)
+
+  for (const collapse of collapses) {
+    await DispatchEventWithDelay(collapse, userEvent.click, 500)
+  }
+
+  for (const collapse of collapses.reverse()) {
+    await DispatchEventWithDelay(collapse, userEvent.click, 500)
+  }
+
+  await DispatchEventWithDelay(collapses[1], userEvent.click, 500)
+}
 
 export const Inset = () => ({
   components: { VaAccordion, VaCollapse },
   setup () {
     return {
-      state: [true, true, false, false, true],
+      modelValue: [true, true, false, false, true],
       collapses: [
         { title: 'Collapse', content: 'Content' },
         { title: 'Collapse', content: 'Content' },
@@ -102,7 +147,7 @@ export const Inset = () => ({
     }
   },
   template: `
-    <va-accordion v-model="state" inset multiple>
+    <va-accordion v-model="modelValue" inset multiple>
       <va-collapse
         v-for="(collapse, index) in collapses"
         :key="index"
@@ -116,11 +161,34 @@ export const Inset = () => ({
   `,
 })
 
+Inset.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const collapses = await canvas.getAllByRole('button', { name: 'Collapse' }) as HTMLElement[]
+  const skip = new Set([0, 1, 4])
+  let index = 0
+
+  for (const collapse of collapses) {
+    if (skip.has(index)) {
+      await DispatchEventWithDelay(collapse, userEvent.click, 500)
+    }
+    index++
+  }
+
+  index = 0
+
+  for (const collapse of collapses.reverse()) {
+    if (skip.has(index)) {
+      await DispatchEventWithDelay(collapse, userEvent.click, 500)
+    }
+    index++
+  }
+}
+
 export const Popout = () => ({
   components: { VaAccordion, VaCollapse },
   setup () {
     return {
-      state: [true, true, false, false, true],
+      modelValue: [true, true, false, false, true],
       collapses: [
         { title: 'Collapse', content: 'Content' },
         { title: 'Collapse', content: 'Content' },
@@ -131,7 +199,7 @@ export const Popout = () => ({
     }
   },
   template: `
-    <va-accordion v-model="state" popout multiple>
+    <va-accordion v-model="modelValue" popout multiple>
       <va-collapse
         v-for="(collapse, index) in collapses"
         :key="index"
@@ -144,3 +212,26 @@ export const Popout = () => ({
     </va-accordion>
   `,
 })
+
+Popout.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement)
+  const collapses = await canvas.getAllByRole('button', { name: 'Collapse' }) as HTMLElement[]
+  const skip = new Set([0, 1, 4])
+  let index = 0
+
+  for (const collapse of collapses) {
+    if (skip.has(index)) {
+      await DispatchEventWithDelay(collapse, userEvent.click, 500)
+    }
+    index++
+  }
+
+  index = 0
+
+  for (const collapse of collapses.reverse()) {
+    if (skip.has(index)) {
+      await DispatchEventWithDelay(collapse, userEvent.click, 500)
+    }
+    index++
+  }
+}
