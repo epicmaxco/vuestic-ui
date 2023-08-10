@@ -97,7 +97,6 @@
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-storybook": "^0.6.12",
     "eslint-plugin-vue": "^7.0.1",
-    "friendly-errors-webpack-plugin": "^1.7.0",
     "identity-obj-proxy": "^3.0.0",
     "ionicons": "^3.0.0",
     "jsdom": "^16.2.2",

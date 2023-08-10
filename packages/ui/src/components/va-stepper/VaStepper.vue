@@ -339,14 +339,17 @@ export default defineComponent({
     gap: var(--va-stepper-controls-gap);
   }
 
-  .invalid-navigation.va-stepper__step-button--active{
+  .invalid-navigation.va-stepper__step-button--active {
     color: var(--va-danger);
+
     --30407a18-stepperColor: var(--va-danger) !important;
+
     border-color: var(--va-danger);
     border-style: solid;
     border-width: var(--va-input-border-width);
     border-radius: var(--va-input-border-radius);
-    .va-stepper__step-button__icon{
+
+    .va-stepper__step-button__icon {
       background: var(--va-danger);
     }
   }
