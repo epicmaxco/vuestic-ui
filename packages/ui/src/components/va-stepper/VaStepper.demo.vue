@@ -122,7 +122,7 @@ const steps = [
 const linearSteps = ref([
   { label: 'One', beforeSave: () => { completeLinearStep() } },
   { label: 'Two', beforeSave: () => { completeLinearStep() } },
-  { label: 'Three', beforeSave: () => { setError() } },
+  { label: 'Three', beforeSave: () => { setLinearError() } },
   { label: 'Four' },
   { label: 'Five' },
 ] as Step[])
@@ -153,7 +153,18 @@ const completeLinearStep = () => {
   (linearStepper as any).value.completeStep()
 }
 
+const setLinearError = () => {
+  debugger
+  if (retryCount.value !== 0) {
+    (linearStepper as any).value.setError(false)
+  } else {
+    (linearStepper as any).value.setError()
+    retryCount.value++
+  }
+}
+
 const setError = () => {
+  debugger
   if (retryCount.value !== 0) {
     (actionStepper as any).value.setError(false)
   } else {
