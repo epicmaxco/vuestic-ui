@@ -91,6 +91,7 @@ import { useColors, useStateful, useStatefulProps, useTranslation } from '../../
 import type { Step, StepControls } from './types'
 import VaStepperControls from './VaStepperControls.vue'
 import VaStepperStepButton from './VaStepperStepButton.vue'
+import { unFunction } from '../../utils/un-function'
 
 export default defineComponent({
   name: 'VaStepper',
@@ -149,12 +150,12 @@ export default defineComponent({
       }
 
       //  Checks if a save function was passed, if so it will be called and return boolean
-      if (currentStep.beforeSave?.(currentStep) === false) {
+      if (currentStep.beforeSave?.(currentStep, newStep) === false) {
         // Do not update the modelValue if the beforeSave function returns false
         return false
       }
       // Check if currentStep has error after beforeSave function
-      if (props.linear && currentStep.hasError) { return false }
+      if (props.linear && unFunction(currentStep.hasError, currentStep)) { return false }
 
       // Mark current step as completed, if it is not marked manually by user
       if (currentStep.completed === undefined) {

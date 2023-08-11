@@ -26,6 +26,7 @@ import { computed, defineComponent, nextTick, PropType, shallowRef, watch } from
 import { VaIcon } from '../va-icon'
 import { useBem, useColors, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
+import { unFunction } from '../../utils/un-function'
 
 export default defineComponent({
   name: 'VaStepperStepButton',
@@ -58,7 +59,7 @@ export default defineComponent({
       active: props.modelValue >= props.stepIndex,
       disabled: props.step.disabled || isNextStepDisabled(props.stepIndex),
       'navigation-disabled': props.navigationDisabled,
-      error: hasError.value || false,
+      error: unFunction(hasError.value, props.step) || false,
     }))
 
     watch(() => props.focus, () => {

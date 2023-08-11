@@ -73,9 +73,15 @@
         <template #step-content-1>
           <va-input v-model="model.b" label="B"></va-input>
           <p>Navigation is enabled, because it is not a linear stepper</p>
+          <p>Validated after moved to another pages</p>
         </template>
         <template #step-content-2>
           <va-input v-model="model.c" label="C"></va-input>
+          <p>Navigation is disabled, because beforeSave explicitly returned false</p>
+        </template>
+        <template #step-content-3>
+          <va-input v-model="model.d" label="D"></va-input>
+          <p>Validates on rendering</p>
         </template>
       </VaStepper>
     </VbCard>
@@ -143,7 +149,7 @@ const linearSteps = ref([
   // VaForm can be used here: step.hasError = !form.validate()
   { label: 'Two', beforeSave: (step) => { step.hasError = model.value.b === '' } },
   { label: 'Three', disabled: true },
-  { label: 'Three' },
+  { label: 'Four' },
 ] as Step[])
 
 const stepsWithDisabled = [
@@ -165,6 +171,7 @@ const stepsWithCustomIcons = [
 const stepsWithNextAction = ref([
   { label: 'One' },
   { label: 'Two', beforeSave: (step) => { step.hasError = true } },
-  { label: 'Three' },
+  { label: 'Three', beforeSave: (step) => model.value.c !== '' },
+  { label: 'Four', hasError: (step) => model.value.d === '' },
 ] as Step[])
 </script>
