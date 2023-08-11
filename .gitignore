@@ -2,7 +2,6 @@
 node_modules
 dist
 storybook-static
-build-storybook.log
 .nuxt
 packages/create-vuestic/vuestic-app
 

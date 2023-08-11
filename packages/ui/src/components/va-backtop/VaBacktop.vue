@@ -4,7 +4,6 @@
     class="va-backtop"
     role="button"
     :aria-label="tp($props.ariaLabel)"
-    tabindex="1"
     :style="computedStyle"
     @click="scrollToTop"
     @keydown.enter.stop="scrollToTop"
