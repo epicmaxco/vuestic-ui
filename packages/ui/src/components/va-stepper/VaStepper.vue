@@ -38,7 +38,7 @@
         >
           <va-stepper-step-button
             :stepIndex="i"
-            :color="getStepperColor(i)"
+            :color="getStepperButtonColor(i)"
             :modelValue="modelValue"
             :nextDisabled="nextDisabled"
             :step="step"
@@ -123,13 +123,50 @@ export default defineComponent({
 
     const isNextStepDisabled = (index: number) => props.nextDisabled && index > modelValue.value
 
-    const setStep = (index: number) => {
-      //  Checks if a save function was passed, if so it will be called
-      const beforeSave = props.steps[modelValue.value].beforeSave
-      if (beforeSave) {
-        beforeSave(props.steps[modelValue.value])
+    const findFirstNonDisabled = (from: number, direction: number) => {
+      while (from >= 0 && from < props.steps.length) {
+        from += direction
+        const step = props.steps[from]
+        if (!step) {
+          return
+        }
+        if (!step.disabled) {
+          return step
+        }
       }
-      if ((props.linear && !props.steps[index - 1]?.completed) || props.steps[index].disabled || props.steps[modelValue.value].hasError) { return }
+    }
+
+    const validateMovingToStep = (stepIndex: number): boolean => {
+      const newStep = props.steps[stepIndex]
+      const currentStep = props.steps[modelValue.value]
+      const beforeNewStep = findFirstNonDisabled(stepIndex, -1)
+
+      if (newStep.disabled) { return false }
+
+      //  Do not do anything if user trying to just over few steps and last is not completed
+      if (props.linear && beforeNewStep && currentStep !== beforeNewStep && !beforeNewStep.completed) {
+        return false
+      }
+
+      //  Checks if a save function was passed, if so it will be called and return boolean
+      if (currentStep.beforeSave?.(currentStep) === false) {
+        // Do not update the modelValue if the beforeSave function returns false
+        return false
+      }
+      // Check if currentStep has error after beforeSave function
+      if (props.linear && currentStep.hasError) { return false }
+
+      // Mark current step as completed, if it is not marked manually by user
+      if (currentStep.completed === undefined) {
+        currentStep.completed = true
+      }
+
+      return true
+    }
+
+    const setStep = (index: number) => {
+      if (!validateMovingToStep(index)) { return }
+
       emit('update:modelValue', index)
     }
 
@@ -252,7 +289,7 @@ export default defineComponent({
         'aria-label': tp(props.ariaLabel),
         'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
       })),
-      getStepperColor (index: number) {
+      getStepperButtonColor (index: number) {
         return props.steps[index]?.hasError ? 'danger' : getColor(props.color)
       },
       completeStep: (shouldCompleteStep?: boolean) => {
@@ -331,21 +368,6 @@ export default defineComponent({
   &__controls {
     display: flex;
     gap: var(--va-stepper-controls-gap);
-  }
-
-  .invalid-navigation.va-stepper__step-button--active {
-    color: var(--va-danger);
-
-    --30407a18-stepperColor: var(--va-danger) !important;
-
-    border-color: var(--va-danger);
-    border-style: solid;
-    border-width: var(--va-input-border-width);
-    border-radius: var(--va-input-border-radius);
-
-    .va-stepper__step-button__icon {
-      background: var(--va-danger);
-    }
   }
 }
 </style>

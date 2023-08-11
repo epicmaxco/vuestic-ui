@@ -46,8 +46,9 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup (props) {
     const stepElement = shallowRef<HTMLElement>()
+    const hasError = computed(() => props.step.hasError)
     const { getColor } = useColors()
-    const stepperColor = getColor(props.color)
+    const stepperColor = computed(() => getColor(hasError.value ? 'danger' : props.color))
 
     const isNextStepDisabled = (index: number) => props.nextDisabled && index > props.modelValue
 
@@ -57,6 +58,7 @@ export default defineComponent({
       active: props.modelValue >= props.stepIndex,
       disabled: props.step.disabled || isNextStepDisabled(props.stepIndex),
       'navigation-disabled': props.navigationDisabled,
+      error: hasError.value || false,
     }))
 
     watch(() => props.focus, () => {
@@ -143,6 +145,14 @@ export default defineComponent({
 
     &--navigation-disabled::after {
       display: none;
+    }
+
+    &--error {
+      color: var(--va-danger);
+
+      .va-stepper__step-button__icon {
+        background: var(--va-danger);
+      }
     }
   }
 }

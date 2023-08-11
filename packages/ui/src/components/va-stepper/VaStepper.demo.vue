@@ -63,24 +63,8 @@
       <VaStepper v-model="step" :steps="steps" finishButtonHidden> </VaStepper>
     </VbCard>
 
-    <VbCard title="Linear">
-        <VaStepper ref="linearStepper" v-model="linearStep" :steps="linearSteps" linear>
-          <template #step-content-0>
-              <va-input v-model="model.a" label="A"></va-input>
-              <br />
-              <va-input v-model="model.b2" label="B2"></va-input>
-            </template>
-            <template #step-content-1>
-              <va-input v-model="model.b" label="B"></va-input>
-          </template>
-        <template #step-content-2>
-          <p>Will not proceed due to error</p>
-          <va-input v-model="model.c" label="C"></va-input>
-        </template>
-      </VaStepper>
-    </VbCard>
-
-    <VbCard title="Default with unique next commands">
+    <VbCard title="Step validation">
+      Highlight step is has error
       <VaStepper ref="actionStepper" v-model="actionStep" :steps="stepsWithNextAction">
         <template #step-content-0>
           <va-input v-model="model.a" label="A">
@@ -88,9 +72,29 @@
         </template>
         <template #step-content-1>
           <va-input v-model="model.b" label="B"></va-input>
+          <p>Navigation is enabled, because it is not a linear stepper</p>
         </template>
         <template #step-content-2>
           <va-input v-model="model.c" label="C"></va-input>
+        </template>
+      </VaStepper>
+    </VbCard>
+
+    <VbCard title="Step validation (with linear stepper)">
+      Highlight step is has error. User is not able to navigate if current step has error. User is not able over jump step if previous step has error or wasn't completed.
+      <VaStepper ref="linearStepper" v-model="linearStep" :steps="linearSteps" linear>
+        <template #step-content-0>
+          <va-input v-model="model.a" label="A"></va-input>
+        </template>
+        <template #step-content-1>
+          <va-input v-model="model.b" label="B"></va-input>
+          <p>Navigation is disabled if input is empty</p>
+        </template>
+        <template #step-content-2>
+          <va-input v-model="model.c" label="C"></va-input>
+        </template>
+        <template #step-content-3>
+          <va-input v-model="model.d" label="D"></va-input>
         </template>
       </VaStepper>
     </VbCard>
@@ -106,7 +110,7 @@ import { Step } from './types'
 const step = ref(2)
 const linearStep = ref()
 const actionStep = ref()
-const model = ref({ a: '', b: '', b2: '', c: '' })
+const model = ref({ a: '', b: '', c: '', d: '' })
 const retryCount = ref(0)
 const linearStepper = ref()
 const actionStepper = ref()
@@ -120,11 +124,26 @@ const steps = [
 ]
 
 const linearSteps = ref([
-  { label: 'One', beforeSave: () => { completeLinearStep() } },
-  { label: 'Two', beforeSave: () => { completeLinearStep() } },
-  { label: 'Three', beforeSave: () => { setLinearError() } },
-  { label: 'Four' },
-  { label: 'Five' },
+  {
+    label: 'One',
+    beforeSave: (step) => {
+      if (step.completed) { return }
+
+      retryCount.value++
+
+      if (retryCount.value < 3) {
+        alert('Try again. You need to click next ' + (3 - retryCount.value) + ' more times')
+        return false
+      }
+
+      retryCount.value = 0
+      return true
+    },
+  },
+  // VaForm can be used here: step.hasError = !form.validate()
+  { label: 'Two', beforeSave: (step) => { step.hasError = model.value.b === '' } },
+  { label: 'Three', disabled: true },
+  { label: 'Three' },
 ] as Step[])
 
 const stepsWithDisabled = [
@@ -145,32 +164,7 @@ const stepsWithCustomIcons = [
 
 const stepsWithNextAction = ref([
   { label: 'One' },
-  { label: 'Two', beforeSave: () => { setError() } },
-  { label: 'Three', beforeSave: () => { alert('Step 3 Action') } },
+  { label: 'Two', beforeSave: (step) => { step.hasError = true } },
+  { label: 'Three' },
 ] as Step[])
-
-const completeLinearStep = () => {
-  (linearStepper as any).value.completeStep()
-}
-
-const setLinearError = () => {
-  debugger
-  if (retryCount.value !== 0) {
-    (linearStepper as any).value.setError(false)
-  } else {
-    (linearStepper as any).value.setError()
-    retryCount.value++
-  }
-}
-
-const setError = () => {
-  debugger
-  if (retryCount.value !== 0) {
-    (actionStepper as any).value.setError(false)
-  } else {
-    (actionStepper as any).value.setError()
-    retryCount.value++
-  }
-}
-
 </script>
