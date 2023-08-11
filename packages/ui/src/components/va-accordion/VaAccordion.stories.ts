@@ -54,13 +54,13 @@ Default.play = async ({ canvasElement, step }) => {
 export const Stateful = () => ({
   components: { VaAccordion, VaCollapse },
   template: `
-    <p>[true]</p>
+    <p>[true] - should open</p>
     <va-accordion stateful>
       <va-collapse header="Collapse">
         Content
       </va-collapse>
     </va-accordion>
-    <p>[false]</p>
+    <p>[false] - should not open</p>
     <va-accordion>
       <va-collapse header="Collapse">
         Content
