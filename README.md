@@ -104,7 +104,9 @@ on [vuestic.dev](https://vuestic.dev)
 
 <br />
 
-This project is tested with BrowserStack.
+Thanks to [BrowserStack](https://www.browserstack.com/) for providing the infrastructure that allows us to test in real browsers.
+
+Thanks to [Chromatic](https://www.chromatic.com/) for providing the visual testing platform that helps us review UI changes and catch visual regressions.
 
 Become a partner: [hello@epicmax.co](mailto:hello@epicmax.co)
 
