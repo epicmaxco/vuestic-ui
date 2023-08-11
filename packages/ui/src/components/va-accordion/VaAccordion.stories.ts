@@ -42,6 +42,8 @@ Default.play = async ({ canvasElement, step }) => {
   })
 
   await step('Opening another, closes previous', async () => {
+    userEvent.click(collapses[0])
+    await sleep()
     userEvent.click(collapses[1])
     await sleep()
     expect(collapses[0]).toHaveAttribute('aria-expanded', 'false')
@@ -103,13 +105,9 @@ Multiple.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
   const collapses = canvas.getAllByRole('button', { name: 'Collapse' }) as HTMLElement[]
 
-  await step('Opens on click', async () => {
+  await step('Opening another, doesn\'t close previous', async () => {
     userEvent.click(collapses[0])
     await sleep()
-    expect(collapses[0]).toHaveAttribute('aria-expanded', 'true')
-  })
-
-  await step('Opening another, doesn\'t close previous', async () => {
     userEvent.click(collapses[1])
     await sleep()
     expect(collapses[0]).toHaveAttribute('aria-expanded', 'true')
