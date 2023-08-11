@@ -205,7 +205,7 @@
         <div class="flex flex-col">
           <va-card class="mr-6" style="width: 400px;">
             <va-card-block horizontal>
-              <va-image class="flex flex-col md6" src="https://picsum.photos/200/280" />
+              <va-image class="flex flex-col md6" src="https://picsum.photos/id/450/200/280" />
               <div class="flex flex-col md6">
                 <va-card-title>Title</va-card-title>
                 <va-card-content>
@@ -218,7 +218,7 @@
         <div class="flex flex-col">
           <va-card style="width: 300px;">
             <va-card-block horizontal>
-              <va-image class="flex flex-col" style="flex: 1 0;" src="https://picsum.photos/250/250" />
+              <va-image class="flex flex-col" style="flex: 1 0;" src="https://picsum.photos/id/450/250/250" />
               <va-card-actions class="flex flex-col" vertical align="center">
                 <va-button icon="heart" size="small" color="success" plain />
                 <va-button icon="bookmark" size="small" plain />
@@ -248,7 +248,7 @@
         <va-config :components="{VaCardTitle: {textColor: 'info'}}">
           <va-card style="width: 400px; margin-left: 1rem;">
             <va-image
-              src="https://picsum.photos/400/200"
+              src="https://picsum.photos/id/450/400/200"
               style="height: 200px;"
             />
             <va-card-title>Card w image</va-card-title>

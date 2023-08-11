@@ -3,7 +3,7 @@
     <VbCard title="16/9 for image">
       <va-image
         style="width: 300px;"
-        src="https://picsum.photos/200/200"
+        src="https://picsum.photos/id/450/200/200"
         :ratio="16/9"
       />
     </VbCard>
