@@ -64,6 +64,7 @@
     "storybook-dark-mode": "^3.0.0",
     "@storybook/addon-links": "^7.1.0",
     "@storybook/blocks": "^7.1.0",
+    "@storybook/jest": "^0.1.0",
     "@storybook/testing-library": "^0.0.14-next.2",
     "@storybook/vue3": "^7.1.0",
     "@storybook/vue3-vite": "^7.1.0",
