@@ -13,7 +13,7 @@ export default defineNuxtModule<any>({
   },
 
   setup(options) {
-    if (options.enabled) {
+    if (!options.enabled) {
       return
     }
 

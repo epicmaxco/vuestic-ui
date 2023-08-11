@@ -48,6 +48,8 @@
 import { VaAvatar } from '../va-avatar'
 import { VaBadge } from './index'
 
+// @deprecated already moved to badge demo interactions.
+//  Use the same story for both avatar and badge after avatar demo rework.
 export default {
   name: 'badge-avatar-demo',
   components: { VaBadge, VaAvatar },
