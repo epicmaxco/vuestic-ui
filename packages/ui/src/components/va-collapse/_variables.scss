@@ -5,7 +5,8 @@
   --va-collapse-transition: all 0.3s linear;
   --va-collapse-popout-margin: 0.5rem -0.5rem;
   --va-collapse-inset-margin: 0.5rem 0.5rem;
-  --va-collapse-body-wrapper-transition: all 0.3s linear;
+  --va-collapse-body-transition: opacity 0.1s linear;
+  --va-collapse-body-wrapper-transition: height 0.3s linear, background 0.3s linear;
   --va-collapse-body-width: 100%;
   --va-collapse-header-content-cursor: pointer;
   --va-collapse-header-content-background-color: #f5f8f9;

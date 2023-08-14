@@ -162,9 +162,8 @@ export default defineComponent({
 
       contentStyle: computed(() => {
         return {
-          visibility: computedModelValue.value ? 'visible' as const : 'hidden' as const,
+          visibility: bodyHeight.value > 0 ? 'visible' as const : 'hidden' as const,
           height: `${height.value}px`,
-          opacity: computedModelValue.value ? 1 : 0,
           transitionDuration: getTransition(),
           background: computedModelValue.value ? getBackground() : '',
         }
@@ -191,6 +190,16 @@ export default defineComponent({
     top: 0;
     left: 0;
     width: var(--va-collapse-body-width);
+    transition: var(--va-collapse-body-transition);
+    opacity: 0;
+  }
+
+  &--expanded {
+    .va-collapse {
+      &__body {
+        opacity: 1;
+      }
+    }
   }
 
   &__header {
