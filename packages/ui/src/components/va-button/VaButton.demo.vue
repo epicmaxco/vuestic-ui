@@ -263,13 +263,20 @@
         </tr>
       </table>
     </VbCard>
+    <VbCard>
+      <VaButton>
+        <template #prepend="{ icon }">
+          {{ icon }}
+        </template>
+      </VaButton>
+    </VbCard>
   </VbDemo>
 </template>
 
 <script>
 import { VaIcon, VaCheckbox } from '../index'
 import { VaConfig } from '../va-config'
-import { VaButton } from './index'
+import { VaButton } from './'
 
 export default {
   components: { VaButton, VaIcon, VaConfig, VaCheckbox },

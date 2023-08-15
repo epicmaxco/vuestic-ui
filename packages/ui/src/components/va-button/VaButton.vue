@@ -49,8 +49,8 @@
   </component>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, computed, toRefs, shallowRef } from 'vue'
+<script lang="ts" generic="T">
+import { PropType, computed, toRefs, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -73,7 +73,13 @@ import { useButtonTextColor } from './hooks/useButtonTextColor'
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
 
+import { defineComponent } from '../../utils/define-component'
+
 export default defineComponent({
+  slots: {
+    prepend: {} as { icon: string, iconAttributes: { color: string } },
+    append: {} as { icon: string, iconAttributes: { color: string } },
+  },
   name: 'VaButton',
   components: { VaIcon, VaProgressCircle },
   props: {
