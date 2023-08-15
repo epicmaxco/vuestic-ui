@@ -1,26 +1,14 @@
-import { userEvent, within } from '@storybook/testing-library'
+import { userEvent } from '../../../.storybook/interaction-utils/userEvent'
+import { within } from '@storybook/testing-library'
 import { VaCarousel } from '../va-carousel'
-import { VaSwitch } from '../va-switch'
 import { expect } from '@storybook/jest'
 import { sleep } from '../../utils/sleep'
 
-const carouselSetup = {
-  data () {
-    return {
-      currentSlide: 0,
-      areArrowsVisible: true,
-      areIndicatorsVisible: true,
-      triggerOnHover: true,
-      items: [
-        'https://picsum.photos/id/450/1500',
-        'https://picsum.photos/id/450/1501',
-        'https://picsum.photos/id/450/1502',
-        'https://picsum.photos/id/450/1503',
-        'https://picsum.photos/id/450/1504',
-      ],
-    }
-  },
-}
+const getItems = () => [
+  'https://picsum.photos/id/10/2500',
+  'https://picsum.photos/id/14/2500',
+  'https://picsum.photos/id/18/2500',
+]
 
 export default {
   title: 'VaCarousel',
@@ -30,157 +18,190 @@ export default {
 
 export const Default = () => ({
   components: { VaCarousel },
-  ...carouselSetup,
+  data: () => ({ items: getItems(), current: 0 }),
   template: `
-    <VaCarousel :items="items" v-model="currentSlide" />
-  `,
-})
-
-Default.play = async ({ canvasElement, step }) => {
-  const canvas = within(canvasElement)
-  const carousel = document.querySelectorAll('div.va-carousel__slide')
-  const slideTwo = canvas.getByRole('button', { name: 'go slide 2' }) as HTMLElement
-  const goForward = canvas.getByRole('button', { name: 'go next slide' }) as HTMLElement
-
-  await step('Should head to slide 2', async () => {
-    userEvent.click(slideTwo)
-    await sleep()
-    expect(carousel[1].getAttribute('aria-current')).toEqual('true')
-  })
-
-  await step('Should head to slide 3 by clicking on right arrow', async () => {
-    userEvent.click(goForward)
-    await sleep()
-    expect(carousel[2].getAttribute('aria-current')).toEqual('true')
-  })
-}
-
-export const Stateful = () => ({
-  components: { VaCarousel },
-  ...carouselSetup,
-  template: `
-    [true] - should slide
-    <VaCarousel :items="items" stateful />
-    [false] - should not slide
     <VaCarousel :items="items" />
   `,
 })
 
-Stateful.play = async ({ canvasElement, step }) => {
-  const canvas = within(canvasElement)
-  const carousel = document.querySelectorAll('div.va-carousel__slide')
-  const [statefulslideTwo, slideTwo] = canvas.getAllByRole('button', { name: 'go slide 2' }) as HTMLElement[]
-
-  await step('Should head to slide 2', async () => {
-    userEvent.click(statefulslideTwo)
-    await sleep()
-    expect(carousel[1].getAttribute('aria-current')).toEqual('true')
-  })
-
-  await step('Should do nothing', async () => {
-    userEvent.click(slideTwo)
-    await sleep()
-    expect(carousel[6].getAttribute('aria-current')).toEqual('false')
-  })
-}
-
 export const Vertical = () => ({
-  components: { VaCarousel, VaSwitch },
-  ...carouselSetup,
+  components: { VaCarousel },
+  data: () => ({ items: getItems() }),
   template: `
-    <VaCarousel :items="items" v-model="currentSlide" vertical />
+    <VaCarousel :items="items" vertical />
   `,
 })
 
 export const Arrows = () => ({
-  components: { VaCarousel, VaSwitch },
-  ...carouselSetup,
+  components: { VaCarousel },
+  data: () => ({ items: getItems(), current: 0 }),
   template: `
-    <va-switch
-      v-model="areArrowsVisible"
-      class="mb-6"
-      label="Arrows"
-      size="small"
-    />
-    <VaCarousel :items="items" v-model="currentSlide" :arrows="areArrowsVisible" />
+    [true]
+    <VaCarousel :items="items" :indicators="false" v-model="current"/>
+    [false]
+    <VaCarousel :items="items" :indicators="false" :arrows="false" v-model="current"/>
   `,
 })
+
+Arrows.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const slides = document.querySelectorAll('div.va-carousel__slide')
+  const NavigatesOnArrowClick = canvas.getByRole('button', { name: 'go next slide' }) as HTMLElement
+
+  await step('Should head to slide 2 by clicking on arrow', async () => {
+    await userEvent.click(NavigatesOnArrowClick)
+    expect(slides[1].getAttribute('aria-current')).toEqual('true')
+  })
+}
 
 export const Indicators = () => ({
-  components: { VaCarousel, VaSwitch },
-  ...carouselSetup,
+  components: { VaCarousel },
+  data: () => ({ items: getItems(), current: 0 }),
   template: `
-    <div class="space-x-2 mb-6">
-      <va-switch
-        v-model="areIndicatorsVisible"
-        label="Indicators"
-        size="small"
-      />
-      <va-switch
-        v-model="triggerOnHover"
-        label="Trigger on hover"
-        size="small"
-      />
-    </div>
-    <VaCarousel :items="items" v-model="currentSlide" :indicators="areIndicatorsVisible" :indicatorTrigger="triggerOnHover ? 'hover' : 'click'" />
+    [true]
+    <VaCarousel :items="items" :arrows="false" v-model="current"/>
+    [false]
+    <VaCarousel :items="items" :arrows="false" :indicators="false" v-model="current"/>
   `,
 })
 
-export const Infinite = () => ({
-  components: { VaCarousel, VaSwitch },
-  ...carouselSetup,
+Indicators.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const slides = document.querySelectorAll('div.va-carousel__slide')
+  const NavigatesOnPageClick = canvas.getByRole('button', { name: 'go slide 2' }) as HTMLElement
+
+  await step('Should head to slide 2 by clicking on indicator', async () => {
+    await userEvent.click(NavigatesOnPageClick)
+    expect(slides[1].getAttribute('aria-current')).toEqual('true')
+  })
+}
+
+export const IndicatorsTrigger = () => ({
+  components: { VaCarousel },
+  data: () => ({ items: getItems() }),
   template: `
-    <VaCarousel :items="items" v-model="currentSlide" infinite />
+    [hover]
+    <VaCarousel :items="items" :arrows="false" indicator-trigger="hover"/>
+    [default]
+    <VaCarousel :items="items" :arrows="false" />
+  `,
+})
+
+IndicatorsTrigger.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const slides = document.querySelectorAll('div.va-carousel__slide')
+  const NavigatesOnPageClick = canvas.getAllByRole('button', { name: 'go slide 2' }) as HTMLElement[]
+
+  await step('Should head to slide 2 by hover on indicator', async () => {
+    await userEvent.hover(NavigatesOnPageClick[0])
+    await userEvent.unhover(NavigatesOnPageClick[0])
+    expect(slides[1].getAttribute('aria-current')).toEqual('true')
+  })
+
+  await step('Should remain on slide 1 by hover on indicator', async () => {
+    await userEvent.hover(NavigatesOnPageClick[1])
+    await userEvent.unhover(NavigatesOnPageClick[1])
+    expect(slides[3].getAttribute('aria-current')).toEqual('true')
+  })
+}
+
+export const Infinite = () => ({
+  components: { VaCarousel },
+  data: () => ({ items: getItems() }),
+  template: `
+    [infinite]
+    <VaCarousel :items="items" infinite />
+    [default]
+    <VaCarousel :items="items" />
   `,
 })
 
 Infinite.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const carousel = document.querySelectorAll('div.va-carousel__slide')
-  const slideFive = canvas.getByRole('button', { name: 'go slide 5' }) as HTMLElement
-  const goForward = canvas.getByRole('button', { name: 'go next slide' }) as HTMLElement
+  const slides = document.querySelectorAll('div.va-carousel__slide')
+  const NavigatesOnArrowClick = canvas.getAllByRole('button', { name: 'go previous slide' }) as HTMLElement[]
 
-  await step('Should head to slide 1 from slide 5', async () => {
-    userEvent.click(slideFive)
-    await sleep()
-    userEvent.click(goForward)
-    await sleep()
-    expect(carousel[0].getAttribute('aria-current')).toEqual('true')
+  await step('Should head to slide 3 from slide 1', async () => {
+    await userEvent.click(NavigatesOnArrowClick[0])
+    expect(slides[2].getAttribute('aria-current')).toEqual('true')
+  })
+
+  await step('Should have left arrow disabled', async () => {
+    expect(NavigatesOnArrowClick[1]).toBeUndefined()
+  })
+}
+
+export const Stateful = () => ({
+  components: { VaCarousel },
+  data: () => ({ items: getItems() }),
+  template: `
+    [true] - should slide
+    <VaCarousel :items="items" />
+    [false] - should not slide
+    <VaCarousel :items="items" :stateful="false"/>
+  `,
+})
+
+Stateful.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const slides = document.querySelectorAll('div.va-carousel__slide')
+  const [statefulNavigatesOnPageClick, NavigatesOnPageClick] = canvas.getAllByRole('button', { name: 'go slide 2' }) as HTMLElement[]
+
+  await step('Should head to slide 2', async () => {
+    await userEvent.click(statefulNavigatesOnPageClick)
+    expect(slides[1].getAttribute('aria-current')).toEqual('true')
+  })
+
+  await step('Should do nothing', async () => {
+    await userEvent.click(NavigatesOnPageClick)
+    expect(slides[4].getAttribute('aria-current')).toEqual('false')
   })
 }
 
 export const Autoscroll = () => ({
-  components: { VaCarousel, VaSwitch },
-  ...carouselSetup,
+  components: { VaCarousel },
+  data: () => ({ items: getItems() }),
   template: `
-    [default]
-    <VaCarousel :items="items" stateful autoscroll />
-    [infinite]
-    <VaCarousel :items="items" stateful autoscroll infinite />
+    <VaCarousel :items="items" autoscroll :arrows="false" :indicators="false" />
   `,
 })
 
+Autoscroll.play = async ({ step }) => {
+  const slides = document.querySelectorAll('div.va-carousel__slide')
+
+  await step('Should change slides with no interaction', async () => {
+    expect(slides[0].getAttribute('aria-current')).toEqual('true')
+    await sleep(1000)
+    expect(slides[1].getAttribute('aria-current')).toEqual('true')
+    await sleep(1000)
+    expect(slides[2].getAttribute('aria-current')).toEqual('true')
+  })
+}
+
 export const Fade = () => ({
-  components: { VaCarousel, VaSwitch },
-  ...carouselSetup,
+  components: { VaCarousel },
+  data: () => ({ items: getItems() }),
   template: `
-    <VaCarousel :items="items" v-model="currentSlide" effect="fade" />
+    [fade]
+    <VaCarousel :items="items" effect="fade" />
+    [default]
+    <VaCarousel :items="items" />
   `,
 })
 
 export const Ratio = () => ({
-  components: { VaCarousel, VaSwitch },
-  ...carouselSetup,
+  components: { VaCarousel },
+  data: () => ({ items: getItems() }),
   template: `
-    <VaCarousel :items="items" v-model="currentSlide" :ratio="16 / 9" />
+    <VaCarousel :items="items" :ratio="1 / 1" />
   `,
 })
 
 export const Slots = () => ({
   components: { VaCarousel },
-  ...carouselSetup,
+  data: () => ({ items: getItems() }),
   template: `
-    <VaCarousel :items="items" v-model="currentSlide">
+    <VaCarousel :items="items">
       <template #default="{ item }">
         <a :href="item" target="_blank">
           Open image in new tab 😏

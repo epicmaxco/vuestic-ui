@@ -127,7 +127,7 @@ export default defineComponent({
     ...useComponentPresetProp,
     ...VaImageProps,
 
-    modelValue: { type: Number, default: 0 },
+    stateful: { type: Boolean, default: true },
     items: { type: Array as PropType<any[]>, required: true },
 
     // Animations
