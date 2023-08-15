@@ -406,6 +406,6 @@ export default defineComponent({
 @import "variables";
 
 .va-time-input {
-//   --va-input-wrapper-width: var(--va-form-element-default-width-small);
+  //   --va-input-wrapper-width: var(--va-form-element-default-width-small);
 }
 </style>

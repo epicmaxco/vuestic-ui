@@ -8,9 +8,9 @@
       :key="index"
       :header="collapse.title"
     >
-      <div>
+      <template #content>
         {{ collapse.content }}
-      </div>
+      </template>
     </va-collapse>
   </va-accordion>
 </template>

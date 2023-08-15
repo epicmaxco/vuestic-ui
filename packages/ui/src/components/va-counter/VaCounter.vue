@@ -387,7 +387,7 @@ export default defineComponent({
 @import "variables";
 
 .va-counter {
-//   --va-input-wrapper-width: var(--va-form-element-default-width-small);
+  //   --va-input-wrapper-width: var(--va-form-element-default-width-small);
 
   &.va-input-wrapper {
     min-width: unset;

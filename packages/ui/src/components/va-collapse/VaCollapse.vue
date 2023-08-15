@@ -50,7 +50,11 @@
         :id="panelIdComputed"
         :aria-labelledby="headerIdComputed"
       >
-        <slot />
+        <slot>
+          <div class="va-collapse__content">
+            <slot name="content" />
+          </div>
+        </slot>
       </div>
     </div>
   </div>
@@ -192,6 +196,10 @@ export default defineComponent({
     width: var(--va-collapse-body-width);
     transition: var(--va-collapse-body-transition);
     opacity: 0;
+  }
+
+  &__content {
+    padding: var(--va-collapse-padding);
   }
 
   &--expanded {
