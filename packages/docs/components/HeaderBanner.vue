@@ -9,7 +9,7 @@
     >
       <div class="header__wrapper">
         <div class="header-banner__left">
-          <a href="https://github.com/epicmaxco/vuestic-ui/releases/tag/v1.7.0">We just released&nbsp;<strong>Vuestic 1.7.0 🤗</strong></a>
+          <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${uiVersion}`">We just released&nbsp;<strong>Vuestic {{ uiVersion }} 🤗</strong></a>
 
 <!--          <div class="header-banner__left-links">-->
             <!-- <a
@@ -113,6 +113,10 @@ const props = defineProps({
     default: false,
   },
 })
+
+import packageUi from 'vuestic-ui/package.json'
+
+const uiVersion = packageUi.version
 
 const textColor = useElementTextColor('primary')
 

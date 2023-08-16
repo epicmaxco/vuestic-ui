@@ -68,5 +68,5 @@
 <script setup>
 import { VaImage, VaViewer, VaIcon } from '../'
 
-const getImagePath = (width, height = 0) => `https://picsum.photos/${width}/${height || width}`
+const getImagePath = (width, height = 0) => `https://picsum.photos/id/450/${width}/${height || width}`
 </script>
