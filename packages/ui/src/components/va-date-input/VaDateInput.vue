@@ -13,18 +13,11 @@
           class="va-date-input__anchor"
           :style="cursorStyleComputed"
           v-bind="inputWrapperProps"
+          v-on="inputListeners"
+          :model-value="valueText"
           @click.stop="toggleDropdown"
+          @change="onInputTextChanged"
         >
-          <template #default>
-            <input
-              ref="input"
-              class="va-date-input__input"
-              v-bind="inputAttributesComputed"
-              v-on="inputListeners"
-              @change="onInputTextChanged"
-            />
-          </template>
-
           <template
             v-for="name in filterSlots"
             :key="name"
@@ -412,6 +405,7 @@ export default defineComponent({
       readonly: props.readonly || !props.manualInput,
       disabled: props.disabled,
       tabindex: props.disabled ? -1 : 0,
+      placeholder: props.placeholder,
       value: valueText.value,
       ariaLabel: props.label || tp(props.ariaSelectedDateLabel),
       ariaRequired: props.requiredMark,
