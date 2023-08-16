@@ -1,4 +1,5 @@
 import { userEvent } from '../../../.storybook/interaction-utils/userEvent'
+import { addText } from '../../../.storybook/interaction-utils/addText'
 import { within } from '@storybook/testing-library'
 import { VaCarousel } from '../va-carousel'
 import { expect } from '@storybook/jest'
@@ -32,6 +33,45 @@ export const Vertical = () => ({
   `,
 })
 
+export const ZeroOneTwoSlides = () => ({
+  components: { VaCarousel },
+  data: () => ({ items: getItems() }),
+  template: `
+    [zero]
+    <VaCarousel :items="[]" infinite />
+    [one]
+    <VaCarousel :items="['https://picsum.photos/id/10/2500']" infinite />
+    [two]
+    <VaCarousel :items="['https://picsum.photos/id/10/2500', 'https://picsum.photos/id/14/2500']" infinite />
+  `,
+})
+
+addText(
+  ZeroOneTwoSlides,
+  'Need to fix the case when there are 0 slides and disable the arrows when there is less than 2 slides.',
+  'stale',
+)
+
+ZeroOneTwoSlides.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const NavigatesOnArrowClick = canvas.getAllByRole('button', { name: 'go next slide' }) as HTMLElement[]
+
+  await step('Disabled arrows when less than 2 slides', async () => {
+    expect(NavigatesOnArrowClick[1]).toBeUndefined()
+  })
+}
+
+export const Swipe = () => ({
+  components: { VaCarousel },
+  data: () => ({ items: getItems() }),
+  template: `
+    [true]
+    <VaCarousel :items="items" :swipable="true" />
+    [default]
+    <VaCarousel :items="items" :swipable="false" />
+  `,
+})
+
 export const Arrows = () => ({
   components: { VaCarousel },
   data: () => ({ items: getItems(), current: 0 }),
@@ -48,7 +88,7 @@ Arrows.play = async ({ canvasElement, step }) => {
   const slides = document.querySelectorAll('div.va-carousel__slide')
   const NavigatesOnArrowClick = canvas.getByRole('button', { name: 'go next slide' }) as HTMLElement
 
-  await step('Should head to slide 2 by clicking on arrow', async () => {
+  await step('Change slide on arrow click', async () => {
     await userEvent.click(NavigatesOnArrowClick)
     expect(slides[1].getAttribute('aria-current')).toEqual('true')
   })
@@ -70,7 +110,7 @@ Indicators.play = async ({ canvasElement, step }) => {
   const slides = document.querySelectorAll('div.va-carousel__slide')
   const NavigatesOnPageClick = canvas.getByRole('button', { name: 'go slide 2' }) as HTMLElement
 
-  await step('Should head to slide 2 by clicking on indicator', async () => {
+  await step('Change slide on indicator click', async () => {
     await userEvent.click(NavigatesOnPageClick)
     expect(slides[1].getAttribute('aria-current')).toEqual('true')
   })
@@ -82,26 +122,42 @@ export const IndicatorsTrigger = () => ({
   template: `
     [hover]
     <VaCarousel :items="items" :arrows="false" indicator-trigger="hover"/>
+    [none]
+    <VaCarousel :items="items" :arrows="false" indicator-trigger="none"/>
     [default]
-    <VaCarousel :items="items" :arrows="false" />
+    <VaCarousel :items="items" :arrows="false" indicator-trigger="click"/>
   `,
 })
+
+addText(
+  IndicatorsTrigger,
+  'indicator-trigger="none" is not implemented.',
+  'stale',
+)
 
 IndicatorsTrigger.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
   const slides = document.querySelectorAll('div.va-carousel__slide')
   const NavigatesOnPageClick = canvas.getAllByRole('button', { name: 'go slide 2' }) as HTMLElement[]
 
-  await step('Should head to slide 2 by hover on indicator', async () => {
+  await step('Change slide on indicator hover', async () => {
     await userEvent.hover(NavigatesOnPageClick[0])
     await userEvent.unhover(NavigatesOnPageClick[0])
     expect(slides[1].getAttribute('aria-current')).toEqual('true')
   })
 
-  await step('Should remain on slide 1 by hover on indicator', async () => {
+  await step('Should do nothing on interaction', async () => {
     await userEvent.hover(NavigatesOnPageClick[1])
     await userEvent.unhover(NavigatesOnPageClick[1])
-    expect(slides[3].getAttribute('aria-current')).toEqual('true')
+    expect(slides[4].getAttribute('aria-current')).toEqual('true')
+    await userEvent.click(NavigatesOnPageClick[1])
+    expect(slides[4].getAttribute('aria-current')).toEqual('true')
+  })
+
+  await step('Should do nothing on hover', async () => {
+    await userEvent.hover(NavigatesOnPageClick[2])
+    await userEvent.unhover(NavigatesOnPageClick[2])
+    expect(slides[8].getAttribute('aria-current')).toEqual('true')
   })
 }
 
@@ -110,9 +166,9 @@ export const Infinite = () => ({
   data: () => ({ items: getItems() }),
   template: `
     [infinite]
-    <VaCarousel :items="items" infinite />
+    <VaCarousel :items="items" :infinite="true" />
     [default]
-    <VaCarousel :items="items" />
+    <VaCarousel :items="items" :infinite="false"/>
   `,
 })
 
@@ -121,7 +177,7 @@ Infinite.play = async ({ canvasElement, step }) => {
   const slides = document.querySelectorAll('div.va-carousel__slide')
   const NavigatesOnArrowClick = canvas.getAllByRole('button', { name: 'go previous slide' }) as HTMLElement[]
 
-  await step('Should head to slide 3 from slide 1', async () => {
+  await step('Change slide from last to first on click', async () => {
     await userEvent.click(NavigatesOnArrowClick[0])
     expect(slides[2].getAttribute('aria-current')).toEqual('true')
   })
@@ -136,7 +192,7 @@ export const Stateful = () => ({
   data: () => ({ items: getItems() }),
   template: `
     [true] - should slide
-    <VaCarousel :items="items" />
+    <VaCarousel :items="items" :stateful="true"/>
     [false] - should not slide
     <VaCarousel :items="items" :stateful="false"/>
   `,
@@ -147,14 +203,14 @@ Stateful.play = async ({ canvasElement, step }) => {
   const slides = document.querySelectorAll('div.va-carousel__slide')
   const [statefulNavigatesOnPageClick, NavigatesOnPageClick] = canvas.getAllByRole('button', { name: 'go slide 2' }) as HTMLElement[]
 
-  await step('Should head to slide 2', async () => {
+  await step('Change slide on indicator click', async () => {
     await userEvent.click(statefulNavigatesOnPageClick)
     expect(slides[1].getAttribute('aria-current')).toEqual('true')
   })
 
   await step('Should do nothing', async () => {
     await userEvent.click(NavigatesOnPageClick)
-    expect(slides[4].getAttribute('aria-current')).toEqual('false')
+    expect(slides[4].getAttribute('aria-current')).toEqual('true')
   })
 }
 
@@ -162,7 +218,7 @@ export const Autoscroll = () => ({
   components: { VaCarousel },
   data: () => ({ items: getItems() }),
   template: `
-    <VaCarousel :items="items" autoscroll :arrows="false" :indicators="false" />
+    <VaCarousel :items="items" autoscroll :arrows="false" :indicators="false" :autoscrollInterval="500"/>
   `,
 })
 
@@ -171,9 +227,9 @@ Autoscroll.play = async ({ step }) => {
 
   await step('Should change slides with no interaction', async () => {
     expect(slides[0].getAttribute('aria-current')).toEqual('true')
-    await sleep(1000)
+    await sleep(500)
     expect(slides[1].getAttribute('aria-current')).toEqual('true')
-    await sleep(1000)
+    await sleep(500)
     expect(slides[2].getAttribute('aria-current')).toEqual('true')
   })
 }
@@ -185,9 +241,15 @@ export const Fade = () => ({
     [fade]
     <VaCarousel :items="items" effect="fade" />
     [default]
-    <VaCarousel :items="items" />
+    <VaCarousel :items="items" effect="transition"/>
   `,
 })
+
+addText(
+  Fade,
+  'Fade effect doesnt work.',
+  'stale',
+)
 
 export const Ratio = () => ({
   components: { VaCarousel },
