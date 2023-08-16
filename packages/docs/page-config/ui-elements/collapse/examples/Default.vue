@@ -4,7 +4,7 @@
     class="w-96"
     header="Collapse header"
   >
-    <div>Collapse content</div>
+    <template #content>Collapse content</template>
   </va-collapse>
 </template>
 

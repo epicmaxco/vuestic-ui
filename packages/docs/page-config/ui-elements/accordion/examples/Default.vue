@@ -21,9 +21,9 @@ export default {
     return {
       value: [false, false, false],
       collapses: [
-        { title: "First collapse", content: "first collapse content" },
-        { title: "Second collapse", content: "second collapse content" },
-        { title: "Third collapse", content: "third collapse content" },
+        { title: "First collapse", content: "First collapse content" },
+        { title: "Second collapse", content: "Second collapse content" },
+        { title: "Third collapse", content: "Third collapse content" },
       ],
     };
   },

@@ -89,8 +89,6 @@ export default defineComponent({
   display: flex;
   align-items: center !important;
 
-  //   --va-input-wrapper-width: var(--va-form-element-default-width-small);
-
   .form-group {
     margin-bottom: 0;
   }

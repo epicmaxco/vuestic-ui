@@ -13,6 +13,15 @@
           value: computedModelValue,
           bind: headerAttributes,
           attributes: headerAttributes,
+          attrs: headerAttributes,
+          iconAttrs: {
+            color: iconColorComputed,
+            class: [
+              'va-collapse__expand-icon',
+              computedModelValue ? 'a-collapse__expand-icon--expanded' : 'a-collapse__expand-icon--collapsed'
+            ]
+          },
+          text: header,
         }"
       >
         <div
@@ -31,14 +40,17 @@
             v-bind="{ header }"
           >
             <div class="va-collapse__header__text">
-                {{ header }}
+              {{ header }}
             </div>
           </slot>
-          <va-icon
-            class="va-collapse__header__icon"
-            :name="computedModelValue ? 'va-arrow-up' : 'va-arrow-down'"
-            :color="textColorComputed"
-          />
+          <slot name="expand-icon">
+            <va-icon
+              class="va-collapse__expand-icon"
+              name="va-arrow-down"
+              :class="computedModelValue ? 'a-collapse__expand-icon--expanded' : 'a-collapse__expand-icon--collapsed'"
+              :color="iconColorComputed"
+            />
+          </slot>
         </div>
       </slot>
     </div>
@@ -70,6 +82,7 @@ import {
   useBem,
   useResizeObserver,
   useComponentPresetProp,
+  isColorTransparent,
 } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
@@ -90,6 +103,7 @@ export default defineComponent({
     icon: { type: String, default: '' },
     color: { type: String, default: 'transparent' },
     textColor: { type: String, default: '' },
+    iconColor: { type: String, default: 'secondary' },
     colorAll: { type: Boolean, default: false },
   },
   emits: ['update:modelValue'],
@@ -144,9 +158,16 @@ export default defineComponent({
       inset: !!(accordionProps.value.inset && computedModelValue.value),
     }))
 
+    const iconColorComputed = computed(() => {
+      if (!props.color || isColorTransparent(getColor(props.color))) { return props.iconColor }
+
+      return textColorComputed.value
+    })
+
     return {
       body,
       height,
+      iconColorComputed,
 
       toggle,
       computedModelValue,
@@ -200,6 +221,11 @@ export default defineComponent({
 
   &__content {
     padding: var(--va-collapse-padding);
+    padding-top: 0;
+
+    &:empty {
+      padding: 0;
+    }
   }
 
   &--expanded {
@@ -223,14 +249,15 @@ export default defineComponent({
       font-weight: var(--va-collapse-header-content-text-font-weight);
     }
 
-    &__icon {
-      @include flex-center();
-
-      min-width: var(--va-collapse-header-content-icon-min-width);
-      color: var(--va-collapse-header-content-icon-color);
-    }
-
     @include keyboard-focus-outline(var(--va-collapse-header-content-border-radius));
+  }
+
+  &__expand-icon {
+    transition: var(--va-collapse-expand-icon-transition);
+
+    &--expanded {
+      transform: rotate(180deg);
+    }
   }
 
   &--popout {

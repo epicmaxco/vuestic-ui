@@ -404,8 +404,4 @@ export default defineComponent({
 
 <style lang="scss">
 @import "variables";
-
-.va-time-input {
-  //   --va-input-wrapper-width: var(--va-form-element-default-width-small);
-}
 </style>
