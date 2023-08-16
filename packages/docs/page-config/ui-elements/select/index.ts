@@ -14,11 +14,14 @@ export default definePageConfig({
       description: "Select styles inherit from input styles"
     }),
     block.example("Variations", {
-      title: "Variants",
+      title: "Multiple select",
       description: "Includes single or multiple selects."
     }),
     block.example("Decorators", { title: "Decorators" }),
-    block.example("ObjectOptions", { title: "Objects as options" }),
+    block.example("ObjectOptions", {
+      title: "Objects as options",
+      description: "You can use objects as options. Text will be showing from `text-by` property from object. Value can be also returned from select using `value-by` instead of whole object. Comparing object values is done by `track-by` prop or `value-by` if it is not provided.",
+    }),
     block.example("TrackBy", {
       title: "Track by",
       description: "Track by can be used if you have multiple options with same value."

@@ -12,6 +12,7 @@
         class="va-select__anchor va-select-anchor__input"
         :class="inputWrapperClassComputed"
         :model-value="valueString"
+        :readonly="true"
         @focus="onInputFocus"
         @blur="onInputBlur"
         @click="focusAutocompleteInput"
@@ -43,12 +44,11 @@
             :color="toggleIconColor"
             :name="toggleIcon"
             size="small"
-            @click.stop="toggleDropdown"
             class="va-select__toggle-icon"
           />
         </template>
 
-        <template #default>
+        <template v-if="selectContentPropsComputed.valueString" #default>
           <va-select-content
             v-bind="selectContentPropsComputed"
             @toggle-hidden="toggleHiddenOptionsState"
@@ -479,8 +479,8 @@ export default defineComponent({
     const handleDropdownClose = () => {
       isOpenSync.value = false
       searchInput.value = ''
-      validate()
       nextTick(() => {
+        validate()
         isInputFocused.focusIfNothingIfFocused()
       })
     }

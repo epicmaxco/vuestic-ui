@@ -37,7 +37,7 @@
             />
 
             <slot>
-              <input v-model="vModel" />
+              <input v-model="vModel" :placeholder="$props.placeholder" :readonly="$props.readonly" :disabled="$props.disabled" />
             </slot>
           </div>
 
@@ -131,6 +131,7 @@ export default defineComponent({
     maxLength: { type: Number, default: undefined },
 
     label: { type: String, default: '' },
+    placeholder: { type: String, default: '' },
     color: { type: String, default: 'primary' },
     background: { type: String },
     error: { type: Boolean, default: false },

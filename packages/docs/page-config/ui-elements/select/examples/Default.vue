@@ -3,6 +3,7 @@
     <va-select
       v-model="value"
       :options="options"
+      placeholder="Select an option"
     />
   </div>
 </template>

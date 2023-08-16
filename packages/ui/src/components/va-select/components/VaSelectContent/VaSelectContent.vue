@@ -46,13 +46,6 @@
     />
   </div>
 
-  <span
-    v-else-if="isPlaceholder"
-    class="va-select-content__placeholder"
-  >
-   {{ $props.placeholder }}
-  </span>
-
   <slot
     v-else
     name="content"
