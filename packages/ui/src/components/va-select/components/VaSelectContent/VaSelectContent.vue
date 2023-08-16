@@ -46,6 +46,13 @@
     />
   </div>
 
+  <span
+    v-else-if="isPlaceholder"
+    class="va-select-content__placeholder"
+  >
+   <input :placeholder="$props.placeholder" readonly />
+  </span>
+
   <slot
     v-else
     name="content"

@@ -48,10 +48,6 @@ export default {
     return {
       options: [
         { id: "0", text: "one", value: "one" },
-        { id: "1", text: "two", value: "two" },
-        { id: "2", text: "three", value: "three" },
-        { id: "3", text: "four", value: "four" },
-        { id: "4", text: "five", value: "five" },
       ],
       value: "",
       allowUniqueValue: "",

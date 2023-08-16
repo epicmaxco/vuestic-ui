@@ -48,7 +48,7 @@
           />
         </template>
 
-        <template v-if="selectContentPropsComputed.valueString" #default>
+        <template #default>
           <va-select-content
             v-bind="selectContentPropsComputed"
             @toggle-hidden="toggleHiddenOptionsState"
@@ -126,7 +126,7 @@ import {
   useTranslation,
   useBem,
   useThrottleProps,
-  useDropdownable, useDropdownableEmits, useDropdownableProps,
+  useDropdownable, useDropdownableEmits, useDropdownableProps, useSyncProp,
 } from '../../composables'
 
 import { VaInputWrapper } from '../va-input-wrapper'
@@ -168,6 +168,7 @@ export default defineComponent({
     'update-search',
     'create-new',
     'scroll-bottom',
+    'update:search',
     ...useDropdownableEmits,
     ...useValidationEmits,
     ...useClearableEmits,
@@ -226,6 +227,8 @@ export default defineComponent({
 
     ariaSearchLabel: { type: String, default: '$t:optionsFilter' },
     ariaClearLabel: { type: String, default: '$t:reset' },
+
+    search: { type: String, default: undefined },
   },
 
   setup (props, { emit, slots }) {
@@ -241,12 +244,14 @@ export default defineComponent({
 
     const onScrollBottom = () => emit('scroll-bottom')
 
-    const searchInput = ref('')
+    const [searchVModel] = useSyncProp('search', props, emit, '')
     const showSearchInput = computed(() => props.searchable || (props.allowCreate && !props.autocomplete))
 
-    watch(searchInput, (value) => {
+    watch(searchVModel, (value) => {
       emit('update-search', value)
-      hoveredOption.value = null
+      if (!props.autocomplete) {
+        hoveredOption.value = null
+      }
     })
 
     const getOptionByValue = (value: SelectOption): SelectOption => {
@@ -378,7 +383,7 @@ export default defineComponent({
       }
 
       if (showSearchInput.value) {
-        searchInput.value = ''
+        searchVModel.value = ''
       }
 
       if (props.multiple && isValueComputedArray(valueComputed)) {
@@ -403,13 +408,13 @@ export default defineComponent({
 
     const addNewOption = () => {
       // Do not emit if option already exist and allow create is `unique`
-      const hasAddedOption = props.options?.some((option: SelectOption) => [searchInput.value, autocompleteValue.value].includes(getText(option)))
+      const hasAddedOption = props.options?.some((option: SelectOption) => [searchVModel.value, autocompleteValue.value].includes(getText(option)))
 
       const allowedToCreateCheck = !((props.allowCreate === 'unique' || props.autocomplete) && hasAddedOption)
       if (allowedToCreateCheck) {
-        emit('create-new', searchInput.value || autocompleteValue.value)
+        emit('create-new', searchVModel.value || autocompleteValue.value)
 
-        searchInput.value = ''
+        searchVModel.value = ''
         autocompleteValue.value = ''
       }
     }
@@ -431,7 +436,7 @@ export default defineComponent({
     }
 
     const selectOrAddOption = () => {
-      const allowedToCreate = !!props.allowCreate && (searchInput.value || autocompleteValue.value)
+      const allowedToCreate = !!props.allowCreate && (searchVModel.value || autocompleteValue.value)
 
       if (hoveredOption.value !== null) {
         selectHoveredOption()
@@ -478,7 +483,9 @@ export default defineComponent({
 
     const handleDropdownClose = () => {
       isOpenSync.value = false
-      searchInput.value = ''
+      if (!props.autocomplete) {
+        searchVModel.value = ''
+      }
       nextTick(() => {
         validate()
         isInputFocused.focusIfNothingIfFocused()
@@ -559,7 +566,7 @@ export default defineComponent({
       }
 
       if (showSearchInput.value) {
-        searchInput.value = hintedSearchQuery
+        searchVModel.value = hintedSearchQuery
         return
       }
 
@@ -577,7 +584,7 @@ export default defineComponent({
     const optionsListPropsComputed = computed(() => ({
       ...pick(props, ['textBy', 'trackBy', 'groupBy', 'valueBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'delay', 'selectedTopShown']),
       autoSelectFirstOption: props.autoSelectFirstOption || props.autocomplete,
-      search: searchInput.value || autocompleteValue.value,
+      search: searchVModel.value || autocompleteValue.value,
       tabindex: tabIndexComputed.value,
       selectedValue: valueComputed.value,
       options: filteredOptions.value,
@@ -615,7 +622,7 @@ export default defineComponent({
     }))
 
     // autocomplete
-    const autocompleteValue = useAutocomplete(props, visibleSelectedOptions, isOpenSync, getText)
+    const autocompleteValue = useAutocomplete(searchVModel, props, visibleSelectedOptions, isOpenSync, getText)
     const setAutocompleteValue = (v: string) => (autocompleteValue.value = v)
 
     // public methods
@@ -642,7 +649,7 @@ export default defineComponent({
         valueComputed.value = props.clearValue
       }
 
-      searchInput.value = ''
+      searchVModel.value = ''
       emit('clear')
       resetValidation()
       nextTick(() => {
@@ -701,7 +708,7 @@ export default defineComponent({
       onInputBlur,
       focusOptionList,
       focusSearchBar,
-      searchInput,
+      searchInput: searchVModel,
       showSearchInput,
       hoveredOption,
       tabIndexComputed,
