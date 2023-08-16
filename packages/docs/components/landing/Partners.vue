@@ -42,6 +42,15 @@
           >
             <LandingIconsIconAgGrid />
           </a>
+
+          <a
+            href="https://vuejsforge.com/"
+            target="_blank"
+            title="Vue.js Forge - The largest hands-on Vue.js Event "
+            class="partners__logo"
+          >
+            <LandingIconsIconVueForge />
+          </a>
         </div>
 
         <h2 class="partners__subtitle">
