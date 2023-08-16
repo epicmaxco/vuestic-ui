@@ -499,13 +499,15 @@ export default defineComponent({
       !props.modelValue && optionList.value?.focusFirstOption()
     }
 
-    const focusSearchOrOptions = () => nextTick(() => {
+    const focusSearchOrOptions = async () => {
+      await nextTick()
+
       if (showSearchInput.value) {
         focusSearchBar()
       } else {
         focusOptionList()
       }
-    })
+    }
 
     const onInputBlur = () => {
       if (showDropdownContentComputed.value) { return }

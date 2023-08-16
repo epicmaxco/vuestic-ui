@@ -16,7 +16,7 @@ import { useSyncProp } from './useSyncProp'
 import { useFocus } from './useFocus'
 import { useFormChild } from './useForm'
 
-export type ValidationRule<V extends any = any> = ((v: V) => any | string) | Promise<((v: V) => any | string)>
+export type ValidationRule<V = any> = ((v: V) => any | string) | Promise<((v: V) => any | string)>
 
 type UseValidationOptions = {
   reset: () => void
@@ -43,7 +43,7 @@ export const useValidationProps = {
   immediateValidation: { type: Boolean, default: false },
 }
 
-export type ValidationProps<V extends any> = typeof useValidationProps & {
+export type ValidationProps<V> = typeof useValidationProps & {
   modelValue: { type: PropType<V> }
   rules: { type: PropType<ValidationRule<V>[]> }
 }

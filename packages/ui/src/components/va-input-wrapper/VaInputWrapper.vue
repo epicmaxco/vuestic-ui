@@ -244,6 +244,9 @@ export default defineComponent({
 
   &__size-keeper {
     @include parentWidthWithDefault();
+
+    display: flex;
+    flex-direction: column;
   }
 
   &__container {
@@ -357,7 +360,7 @@ export default defineComponent({
     }
 
     &--outer {
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
   }
 

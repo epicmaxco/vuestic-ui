@@ -1,21 +1,21 @@
 <template>
-  <div class="max-w-xs">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
     <va-input
       v-model="value"
       counter
-      class="mb-6"
+      placeholder="With amount of letters"
     />
     <va-input
       v-model="value"
       :max-length="30"
       counter
-      class="mb-6"
+      placeholder="With max number"
     />
     <va-input
       v-model="value"
       :max-length="30"
       counter
-      class="mb-6"
+      placeholder="Custom counter"
     >
       <template #counter="{ valueLength, maxLength }">
         <b
@@ -36,7 +36,7 @@
 
 <script>
   import { defineComponent } from 'vue'
-  
+
   export default defineComponent({
     data() {
       return {
