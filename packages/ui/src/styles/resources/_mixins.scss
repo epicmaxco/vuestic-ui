@@ -153,6 +153,7 @@
     background: $color;
     opacity: 0.3;
     border-radius: 2px;
+    transition: background 0.3s ease-in-out;
   }
 
   scrollbar-color: $color transparent;

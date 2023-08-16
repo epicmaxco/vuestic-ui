@@ -177,12 +177,6 @@ export default defineComponent({
     box-sizing: content-box;
     min-height: 1.15rem;
     outline: none;
-
-    @include va-scroll(transparent);
-
-    &:hover {
-      @include va-scroll-color(var(--va-primary));
-    }
   }
 }
 </style>

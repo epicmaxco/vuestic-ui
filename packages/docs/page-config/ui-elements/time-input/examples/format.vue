@@ -2,6 +2,7 @@
   <va-time-input
     v-model="value"
     :format="formatFn"
+    view="seconds"
   />
 </template>
 
