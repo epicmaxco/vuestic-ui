@@ -67,7 +67,7 @@ export const Swipe = () => ({
   template: `
     [true]
     <VaCarousel :items="items" :swipable="true" />
-    [default]
+    [false]
     <VaCarousel :items="items" :swipable="false" />
   `,
 })
@@ -124,7 +124,7 @@ export const IndicatorsTrigger = () => ({
     <VaCarousel :items="items" :arrows="false" indicator-trigger="hover"/>
     [none]
     <VaCarousel :items="items" :arrows="false" indicator-trigger="none"/>
-    [default]
+    [click]
     <VaCarousel :items="items" :arrows="false" indicator-trigger="click"/>
   `,
 })
@@ -165,9 +165,9 @@ export const Infinite = () => ({
   components: { VaCarousel },
   data: () => ({ items: getItems() }),
   template: `
-    [infinite]
-    <VaCarousel :items="items" :infinite="true" />
-    [default]
+    [true]
+    <VaCarousel :items="items" />
+    [false]
     <VaCarousel :items="items" :infinite="false"/>
   `,
 })
@@ -192,7 +192,7 @@ export const Stateful = () => ({
   data: () => ({ items: getItems() }),
   template: `
     [true] - should slide
-    <VaCarousel :items="items" :stateful="true"/>
+    <VaCarousel :items="items" />
     [false] - should not slide
     <VaCarousel :items="items" :stateful="false"/>
   `,
@@ -239,15 +239,15 @@ export const Fade = () => ({
   data: () => ({ items: getItems() }),
   template: `
     [fade]
-    <VaCarousel :items="items" effect="fade" />
-    [default]
+    <VaCarousel :items="items" effect="fade"/>
+    [transition]
     <VaCarousel :items="items" effect="transition"/>
   `,
 })
 
 addText(
   Fade,
-  'Fade effect doesnt work.',
+  'Fade effect does not work.',
   'stale',
 )
 
