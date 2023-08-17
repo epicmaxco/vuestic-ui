@@ -2,6 +2,7 @@
   <va-radio
     v-model="value"
     :options="['One', 'Two', 'Three']"
+    vertical
   >
     <template #icon="{ value }">
       <va-icon
@@ -10,7 +11,13 @@
         :color="value ? 'primary': 'secondary'"
       />
     </template>
-    <va-badge>Text</va-badge>
+
+    <template #default="{ index, text }">
+      <div class="flex items-center">
+        <va-avatar class="mr-2" :src="`https://randomuser.me/api/portraits/men/${index}.jpg`" />
+        {{ text }}
+      </div>
+    </template>
   </va-radio>
 </template>
 

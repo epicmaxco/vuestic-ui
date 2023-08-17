@@ -9,12 +9,13 @@
     :role="roleComputed"
     @blur="onBlur"
     ref="container"
+    class="va-radio"
   >
     <label
       v-for="(option, index) in computedOptions"
       :key="index"
       :class="radioClass(option)"
-      class="va-radio va-radio__square"
+      class="va-radio__square"
     >
       <input
         ref="input"
@@ -34,6 +35,7 @@
         value: isChecked(option),
         text: getText(option),
         disabled: getDisabled(option),
+        index,
       }">
         <span
           aria-hidden="true"
@@ -46,7 +48,7 @@
         </span>
       </slot>
 
-      <span
+      <div
         v-if="getText(option) || $slots.default"
         ref="label"
         class="va-radio__text"
@@ -55,10 +57,11 @@
           value: isChecked(option),
           text: getText(option),
           disabled: getDisabled(option),
+          index,
         }">
           {{ getText(option) }}
         </slot>
-      </span>
+      </div>
     </label>
   </VaMessageListWrapper>
 </template>
@@ -106,6 +109,7 @@ export default defineComponent({
       type: [Object, String, Number] as PropType<VaRadioOption>,
       default: undefined,
     },
+    vertical: { type: Boolean, default: false },
   },
   setup (props, { emit }) {
     const { getColor } = useColors()
@@ -220,7 +224,10 @@ export default defineComponent({
       }
     }
 
+    const flexDirection = computed(() => props.vertical ? 'column' : 'row')
+
     return {
+      flexDirection,
       getDisabled,
       isChecked,
       computedOptions,
@@ -250,15 +257,23 @@ export default defineComponent({
 @import "variables";
 
 .va-radio {
-  display: var(--va-radio-display);
-  align-items: center;
-  cursor: var(--va-radio-cursor);
-  position: var(--va-radio-position);
-  margin-top: var(--va-radio-margin-top);
-  margin-right: var(--va-radio-margin-right);
-  transition: var(--va-radio-transition, var(--va-swing-transition));
-  font-family: var(--va-font-family);
-  color: v-bind("labelStyle.color");
+  display: flex;
+  width: max-content;
+  flex-direction: v-bind(flexDirection);
+  gap: var(--va-radio-gap);
+
+  &__square {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    cursor: var(--va-radio-cursor);
+    position: var(--va-radio-position);
+    margin-top: var(--va-radio-margin-top);
+    margin-right: var(--va-radio-margin-right);
+    transition: var(--va-radio-transition, var(--va-swing-transition));
+    font-family: var(--va-font-family);
+    color: v-bind("labelStyle.color");
+  }
 
   & + & {
     margin-top: 0.5rem;
@@ -286,6 +301,10 @@ export default defineComponent({
     flex-direction: row-reverse;
     display: inline-flex;
     align-items: center;
+
+    &.va-radio__square {
+      justify-content: space-between;
+    }
   }
 
   &__input {
@@ -350,11 +369,11 @@ export default defineComponent({
       opacity: var(--va-radio-background-opacity);
       background-color: v-bind('iconBackgroundComputedStyles.backgroundColor');
 
-      .va-radio:hover & {
+      .va-radio__square:hover & {
         opacity: 0.2;
       }
 
-      .va-radio--disabled:hover & {
+      .va-radio--disabled .va-radio__square:hover & {
         opacity: 0;
       }
     }
@@ -364,6 +383,7 @@ export default defineComponent({
     display: var(--va-radio-text-display);
     margin-left: var(--va-radio-text-margin-left);
     margin-right: var(--va-radio-text-margin-right);
+    white-space: nowrap;
 
     .va-radio--disabled & {
       @include va-disabled;

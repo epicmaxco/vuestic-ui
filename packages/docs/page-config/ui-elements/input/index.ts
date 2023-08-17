@@ -11,10 +11,6 @@ export default definePageConfig({
       title: "Basic usage",
       description: "By default `va-input` doesn’t have attributes, but can be combined with a placeholder and/or label."
     }),
-    block.example("HtmlAttributes", {
-      title: "Supported HTML attributes",
-      description: "Be default we support these HTML Input attributes: `type`, `disabled`, `readonly`, `placeholder`, `pattern`, `inputmode`, `minlength`, `maxlength`. Read more on the [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)."
-    }),
     block.example("Styles", {
       title: "Styles",
       description: "There are tree styles for input: Default (outlined), solid, bordered."
@@ -48,6 +44,10 @@ export default definePageConfig({
       description: "You can create `preset` for your input components, but sometimes requirements can be out of boundaries of pre-defined `presets`. To solve this problem component allows to customize it with `slots` and its `props`.",
     }),
 
+    block.example("HtmlAttributes", {
+      title: "Supported HTML attributes",
+      description: "Be default we support these HTML Input attributes: `type`, `disabled`, `readonly`, `placeholder`, `pattern`, `inputmode`, `minlength`, `maxlength`. Read more on the [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)."
+    }),
     block.headline("Input types"),
     block.paragraph("With a `type` property you can set the type of the input which will render native `<input type=\"text/password/search/etc\" />`."),
     block.paragraph("Watch available types [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) (some types aren't supported or have implemented as a Vuestic UI component)."),

@@ -4,6 +4,7 @@
       v-model="value"
       class="mb-6"
       label="Icon prepend"
+      placeholder="Enter email"
     >
       <template #prepend>
         <va-icon
@@ -17,6 +18,7 @@
       v-model="value"
       class="mb-6"
       label="Icon prepend inner"
+      placeholder="Enter email"
     >
       <template #prependInner>
         <va-icon
@@ -29,6 +31,7 @@
       v-model="value"
       class="mb-6"
       label="Icon append"
+      placeholder="Enter email"
     >
       <template #append>
         <va-icon
@@ -42,6 +45,7 @@
       v-model="value"
       class="mb-6"
       label="Icon append inner"
+      placeholder="Enter email"
     >
       <template #appendInner>
         <va-icon

@@ -27,6 +27,7 @@
       class="mb-6"
       label="Only numerals mask"
       mask="numeral"
+      placeholder="####"
     />
   </div>
 </template>

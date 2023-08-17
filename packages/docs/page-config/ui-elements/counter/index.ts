@@ -10,7 +10,11 @@ export default definePageConfig({
 
     block.example("Default", {
       title: "Basic usage",
-      description: "By default, `va-counter` has `v-model` prop, and may also include `stateful` state. With `manual-input` the user can manually enter a value."
+      description: ""
+    }),
+    block.example("ManualInput", {
+      title: "Manual input",
+      description: "With `manual-input` the user can manually enter a value."
     }),
     block.example("Style", {
       title: "Style",

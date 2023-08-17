@@ -1,6 +1,7 @@
 <template>
   <va-counter
     v-model="value"
+    manual-input
   />
 </template>
 

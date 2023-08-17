@@ -3,6 +3,7 @@
     <va-input
       v-model="email"
       type="email"
+      placeholder="hello@epicmax.co"
       label="Email"
     />
     <va-value
@@ -13,6 +14,7 @@
         v-model="password"
         :type="isPasswordVisible.value ? 'text' : 'password'"
         label="Password with toggle"
+        placeholder="#########"
         @click-append-inner="isPasswordVisible.value = !isPasswordVisible.value"
       >
         <template #appendInner>
@@ -28,11 +30,13 @@
       v-model="phone"
       type="tel"
       label="Phone number"
+      placeholder="0 000 000 00 00"
     />
     <va-input
       v-model="url"
       type="url"
       label="url"
+      placeholder="https://ui.vuestic.dev"
     />
   </div>
 </template>
