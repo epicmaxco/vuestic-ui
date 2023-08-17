@@ -5,17 +5,20 @@
     :error="computedError"
     :error-messages="computedErrorMessages"
   >
-    <textarea
-      v-model="valueComputed"
-      v-bind="{ ...computedProps, ...listeners, ...validationAriaAttributes }"
-      :style="computedStyle"
-      :rows="computedRowsCount"
-      :loading="isLoading"
-      ref="textarea"
-      class="va-textarea__textarea"
-      @focus="validationListeners.onFocus"
-      @blur="validationListeners.onBlur"
-    />
+    <div class="va-textarea__resize-wrapper">
+      <textarea
+        v-model="valueComputed"
+        v-bind="{ ...computedProps, ...listeners, ...validationAriaAttributes }"
+        :style="computedStyle"
+        :rows="computedRowsCount"
+        :loading="isLoading"
+        ref="textarea"
+        :ariaLabel="$props.label"
+        class="va-textarea__textarea"
+        @focus="validationListeners.onFocus"
+        @blur="validationListeners.onBlur"
+      />
+    </div>
   </VaInputWrapper>
 </template>
 
@@ -165,21 +168,29 @@ export default defineComponent({
     align-items: flex-start;
   }
 
+  &__resize-wrapper {
+    resize: vertical;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+  }
+
   &__textarea {
     border: 0;
+    flex: 1;
     font-family: var(--va-font-family);
     width: 100%;
     padding: 1px 0;
     margin: -1px 0;
     background: transparent;
     color: currentColor;
-    resize: vertical;
     box-sizing: content-box;
     min-height: 1.15rem;
     outline: none;
     position: relative;
+    resize: none;
 
-    @include va-scroll(var(--va-primary), 10px);
+    @include va-scroll(var(--va-secondary));
   }
 }
 </style>
