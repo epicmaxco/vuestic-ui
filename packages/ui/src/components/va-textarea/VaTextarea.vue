@@ -177,6 +177,9 @@ export default defineComponent({
     box-sizing: content-box;
     min-height: 1.15rem;
     outline: none;
+    position: relative;
+
+    @include va-scroll(var(--va-primary), 10px);
   }
 }
 </style>

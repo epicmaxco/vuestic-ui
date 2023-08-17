@@ -1,5 +1,5 @@
 <template>
-  <va-textarea 
+  <va-textarea
     v-model="value"
     max-length="125"
     label="Short text about something"
@@ -18,8 +18,7 @@ export default {
   data() {
     return {
       value: `
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-Nullam euismod, nisl eget ultricies aliquam, nunc nisl aliquet nunc
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       `.trim(),
     };
   },

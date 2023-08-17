@@ -11,8 +11,7 @@ export default {
   data() {
     return {
       value: `
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-Nullam euismod, nisl eget ultricies aliquam, nunc nisl aliquet nunc, quis ultricies nisl nunc quis nisl.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       `.trim(),
     };
   },
