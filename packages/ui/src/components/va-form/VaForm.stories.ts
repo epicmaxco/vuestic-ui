@@ -18,8 +18,10 @@ export const Default = () => ({
   template: `
     <va-form ref="form">
       <va-input :rules="[value => !!value || 'input is required']"/>
-      <va-button @click.prevent="$refs.form.validate()">Submit</va-button>
     </va-form>
+    <va-button @click.prevent="$refs.form.validate()">
+      Submit
+    </va-button>
   `,
 })
 
