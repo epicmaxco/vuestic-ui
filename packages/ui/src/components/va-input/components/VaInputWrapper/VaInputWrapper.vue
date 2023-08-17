@@ -439,6 +439,7 @@ export default defineComponent({
   // States
   &--focused {
     --va-input-wrapper-border-color: var(--va-input-wrapper-color);
+    --va-input-border-width: 2px;
   }
 
   &--readonly {
