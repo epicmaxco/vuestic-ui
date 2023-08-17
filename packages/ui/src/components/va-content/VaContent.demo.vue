@@ -200,7 +200,7 @@
 </template>
 
 <script>
-import VaContent from './VaContent'
+import VaContent from './VaContent.vue'
 
 export default {
   components: {

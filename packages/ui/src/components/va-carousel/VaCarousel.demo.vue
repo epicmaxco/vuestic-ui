@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import VaCarousel from './VaCarousel'
+import VaCarousel from './VaCarousel.vue'
 
 export default {
   components: {
@@ -77,11 +77,11 @@ export default {
     return {
       currentSlide: 0,
       items: [
-        'https://picsum.photos/1500',
-        'https://picsum.photos/1501',
-        'https://picsum.photos/1502',
-        'https://picsum.photos/1503',
-        'https://picsum.photos/1504',
+        'https://picsum.photos/id/450/1500',
+        'https://picsum.photos/id/450/1501',
+        'https://picsum.photos/id/450/1502',
+        'https://picsum.photos/id/450/1503',
+        'https://picsum.photos/id/450/1504',
       ],
     }
   },

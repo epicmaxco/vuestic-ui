@@ -165,7 +165,7 @@ import { VaImage } from './index'
 
 const slotImageSize = ref(1500)
 
-const getImagePath = (width, height = 0) => `https://picsum.photos/${width}/${height || width}`
+const getImagePath = (width, height = 0) => `https://picsum.photos/id/450/${width}/${height || width}`
 const newImage = () => (slotImageSize.value = slotImageSize.value !== 1500 ? 1500 : 1501)
 const wrongPath = () => (slotImageSize.value = -1)
 

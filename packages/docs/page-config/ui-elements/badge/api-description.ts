@@ -4,7 +4,7 @@ export default defineApiDescription({
   props: {
     text: "Badge text.",
     overlap: "Allows badge to overlap with element.",
-    transparent: "Makes badge semi-transparent.",
+    transparent: "(Deprecated) Makes badge semi-transparent.",
     multiLine: "Badge text will wrap to next line.",
     visibleEmpty: "Badge will be shown even when there is no text.",
     dot: "Shows dot instead of full badge. Useful to notify user without grabbing too much attention.",

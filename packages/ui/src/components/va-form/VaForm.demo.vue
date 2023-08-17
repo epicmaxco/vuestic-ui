@@ -159,7 +159,7 @@ import { VaForm } from './index'
 import { VaInput } from '../va-input'
 import { VaSelect } from '../va-select'
 import { VaButton } from '../va-button'
-import VaFormReset from './VaForm-reset'
+import VaFormReset from './VaForm-reset.vue'
 import { VaDateInput } from '../va-date-input'
 
 export default {
