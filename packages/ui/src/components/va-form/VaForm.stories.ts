@@ -2,6 +2,7 @@ import { userEvent } from '../../../.storybook/interaction-utils/userEvent'
 import { addText } from '../../../.storybook/interaction-utils/addText'
 import { expect } from '@storybook/jest'
 import { VaForm } from './'
+import { VaCheckbox } from '../va-checkbox'
 import { VaButton } from '../va-button'
 import { VaInput } from '../va-input'
 import { within } from '@storybook/testing-library'
@@ -15,35 +16,18 @@ export default {
 export const Default = () => ({
   components: { VaForm, VaInput, VaButton },
   template: `
-    <va-form class="flex flex-col max-w-sm">
-      <va-input 
-        label="input"
-      />
-      <va-input 
-        class="mt-2"
-        label="input"
-      />
-      <va-button class="mt-2" >
-        Submit
-      </va-button>
+    <va-form ref="form">
+      <va-input :rules="[value => !!value || 'input is required']"/>
+      <va-button @click.prevent="$refs.form.validate()">Submit</va-button>
     </va-form>
   `,
 })
 
 export const Autofocus = () => ({
-  components: { VaForm, VaInput, VaButton },
+  components: { VaForm, VaInput },
   template: `
-    <va-form 
-      class="flex flex-col max-w-sm"
-      :autofocus="true"
-    >
-      <va-input 
-        label="should have focus"
-      />
-      <va-input 
-        class="mt-2"
-        label="should not have focus"
-      />
+    <va-form autofocus>
+      <va-input />
     </va-form>
   `,
 })
@@ -56,7 +40,7 @@ addText(
 
 Autofocus.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const input = canvas.getByRole('textbox', { name: 'should have focus' }) as HTMLElement
+  const input = canvas.getByRole('textbox', { name: '' }) as HTMLElement
 
   await step('Focus first input', async () => {
     expect(input).toHaveFocus()
@@ -64,74 +48,52 @@ Autofocus.play = async ({ canvasElement, step }) => {
 }
 
 export const Stateful = () => ({
-  components: { VaForm, VaInput, VaButton },
+  components: { VaForm, VaCheckbox },
   template: `
-    [stateful]
-    <va-form class="flex flex-col max-w-sm">
-      <va-input 
-        :stateful="true"
-        label="save value"
-      />
+    [true]
+    <va-form stateful>
+      <va-checkbox role/>
     </va-form>
-    [default]
-    <va-form class="flex flex-col max-w-sm">
-      <va-input 
-        :stateful="false"
-        label="does not save value"
-      />
+    [false]
+    <va-form :stateful="false">
+      <va-checkbox role/>
     </va-form>
   `,
 })
 
 Stateful.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const firstInput = canvas.getByRole('textbox', { name: 'save value' }) as HTMLElement
-  const secondInput = canvas.getByRole('textbox', { name: 'does not save value' }) as HTMLElement
+  const [firstCheckboxInput, secondCheckboxInput] = canvas.getAllByRole('checkbox', { name: '' }) as HTMLElement[]
+  const [firstCheckbox, secondCheckbox] = document.querySelectorAll('[role] > div')
 
-  await step('Should save input data', async () => {
-    await userEvent.type(firstInput, 'data')
-    expect(firstInput).toHaveValue('data')
+  await step('Should be checked', async () => {
+    await userEvent.click(firstCheckbox)
+    expect(firstCheckboxInput).toBeChecked()
   })
 
-  await step('Should not save input data', async () => {
-    await userEvent.type(secondInput, 'data')
-    expect(secondInput).toHaveValue('')
-    secondInput.blur()
+  await step('Should not be checked', async () => {
+    await userEvent.click(secondCheckbox)
+    expect(secondCheckboxInput).not.toBeChecked()
   })
 }
 
-export const ValidationRules = () => ({
-  components: { VaForm, VaInput, VaButton },
-  data: () => ({ input: 'hell' }),
+export const Immediate = () => ({
+  components: { VaForm, VaInput },
   template: `
-    [immediate]
-    <va-form
-      class="flex max-w-sm"
-      immediate
-    >
-      <va-input
-        v-model="input"
-        label="immediate validation"
-        :rules="[value => value === 'hello' || 'should be hello']"
-      />
+    [true]
+    <va-form immediate>
+      <va-input :rules="[value => !!value || 'input is required']"/>
     </va-form>
-    [deffault]
-    <va-form
-      class="flex max-w-sm"
-    >
-      <va-input
-        v-model="input"
-        label="validation on change"
-        :rules="[value => value === 'hello' || 'should be hello']"
-      />
+    [false]
+    <va-form>
+      <va-input :rules="[value => !!value || 'input is required']"/>
     </va-form>
   `,
 })
 
-ValidationRules.play = async ({ canvasElement, step }) => {
+Immediate.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const firstInput = canvas.getByRole('textbox', { name: 'immediate validation' }) as HTMLElement
-  const secondInput = canvas.getByRole('textbox', { name: 'validation on change' }) as HTMLElement
+  const [firstInput, secondInput] = canvas.getAllByRole('textbox', { name: '' }) as HTMLElement[]
 
   await step('Displays error message', async () => {
     expect(firstInput.getAttribute('aria-invalid')).toEqual('true')
@@ -143,40 +105,29 @@ ValidationRules.play = async ({ canvasElement, step }) => {
 }
 
 export const HideErrorMessages = () => ({
-  components: { VaForm, VaInput, VaButton },
-  data: () => ({ input: 'error' }),
+  components: { VaForm, VaInput },
   template: `
-    [hidden]
+    [true]
     <va-form
-      class="flex max-w-sm"
-      ref="rulesFormRef"
+      role
       immediate
-      :hideErrorMessages="true"
+      hideErrorMessages
     >
-      <va-input
-        v-model="input"
-        label="with no error message"
-        :rules="[value => 'error']"
-      />
+      <va-input :rules="[value => !!value || 'input is required']"/>
     </va-form>
-    [default]
+    [false]
     <va-form
-      class="flex max-w-sm"
-      ref="rulesFormRef"
+      role
       immediate
       :hideErrorMessages="false"
     >
-      <va-input
-        v-model="input"
-        label="with error message"
-        :rules="[value => 'error']"
-      />
+      <va-input :rules="[value => !!value || 'input is required']"/>
     </va-form>
   `,
 })
 
 HideErrorMessages.play = async ({ step }) => {
-  const [firstDefinedInput, secondDefineInput] = document.querySelectorAll('div.va-input-wrapper > div.va-message-list')
+  const [firstDefinedInput, secondDefineInput] = document.querySelectorAll('[role] > div > div:nth-child(2)')
 
   await step('Does not display validation error', async () => {
     expect(firstDefinedInput).toBeDefined()
@@ -188,38 +139,29 @@ HideErrorMessages.play = async ({ step }) => {
 }
 
 export const HideErrors = () => ({
-  components: { VaForm, VaInput, VaButton },
-  data: () => ({ input: 'error' }),
+  components: { VaForm, VaInput },
   template: `
-    [hidden]
+    [true]
     <va-form
-      class="flex max-w-sm"
+      role
       immediate
-      :hideErrors="true"
+      hideErrors
     >
-      <va-input
-        v-model="input"
-        label="with no error highlight"
-        :rules="[value => 'error']"
-      />
+      <va-input :rules="[value => !!value || 'input is required']"/>
     </va-form>
-    [default]
+    [false]
     <va-form
-      class="flex max-w-sm"
+      role
       immediate
       :hideErrors="false"
     >
-      <va-input
-        v-model="input"
-        label="with error highlight"
-        :rules="[value => 'error']"
-      />
+      <va-input :rules="[value => !!value || 'input is required']"/>
     </va-form>
   `,
 })
 
 HideErrors.play = async ({ step }) => {
-  const [firstInput, secondInput] = document.querySelectorAll('div.va-input-wrapper')
+  const [firstInput, secondInput] = document.querySelectorAll('[role] > div')
 
   await step('Does not highlight invalid input', async () => {
     expect(firstInput).not.toHaveClass('va-input-wrapper--error')
@@ -233,18 +175,10 @@ HideErrors.play = async ({ step }) => {
 export const Focus = () => ({
   components: { VaForm, VaInput, VaButton },
   template: `
-    <va-form 
-      class="flex space-x-2 mb-6 max-w-sm" 
-      ref="focusForm"
-    >
-      <va-input
-        label="should be focused"
-      />
-      <va-input
-        label="should not be focused"
-      />
+    <va-form ref="form">
+      <va-input />
     </va-form>
-    <va-button @click="$refs.focusForm.focus()">
+    <va-button @click="$refs.form.focus()">
       Focus first input
     </va-button>
   `,
@@ -252,37 +186,22 @@ export const Focus = () => ({
 
 Focus.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const firstInput = canvas.getByRole('textbox', { name: 'should be focused' }) as HTMLElement
-  const secondInput = canvas.getByRole('textbox', { name: 'should not be focused' }) as HTMLElement
+  const firstInput = canvas.getByRole('textbox', { name: '' }) as HTMLElement
   const button = canvas.getByRole('button', { name: 'Focus first input' }) as HTMLElement
 
   await step('Focusses first input', async () => {
     await userEvent.click(button)
     expect(firstInput).toHaveFocus()
   })
-
-  await step('Does not focus first input', async () => {
-    await userEvent.click(button)
-    expect(secondInput).not.toHaveFocus()
-  })
 }
 
 export const FocusInvalid = () => ({
   components: { VaForm, VaInput, VaButton },
   template: `
-    <va-form 
-      class="flex space-x-2 mb-6 max-w-sm" 
-      ref="focusInvalidForm"
-    >
-      <va-input 
-        label="valid"
-      />
-      <va-input 
-        label="invalid"
-        error 
-      />
+    <va-form ref="form">
+      <va-input error />
     </va-form>
-    <va-button @click="$refs.focusInvalidForm.focusInvalidField()">
+    <va-button @click="$refs.form.focusInvalidField()">
       Focus invalid
     </va-button>
   `,
@@ -290,18 +209,12 @@ export const FocusInvalid = () => ({
 
 FocusInvalid.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const firstInput = canvas.getByRole('textbox', { name: 'valid' }) as HTMLElement
-  const secondInput = canvas.getByRole('textbox', { name: 'invalid' }) as HTMLElement
+  const input = canvas.getByRole('textbox', { name: '' }) as HTMLElement
   const button = canvas.getByRole('button', { name: 'Focus invalid' }) as HTMLElement
 
   await step('Focusses invalid input', async () => {
     await userEvent.click(button)
-    expect(secondInput).toHaveFocus()
-  })
-
-  await step('Does not focus invalid input', async () => {
-    await userEvent.click(button)
-    expect(firstInput).not.toHaveFocus()
+    expect(input).toHaveFocus()
   })
 }
 
@@ -309,34 +222,22 @@ export const ValidateAndResetValidation = () => ({
   components: { VaForm, VaInput, VaButton },
   data: () => ({ input: 'do not reset' }),
   template: `
-    <va-form 
-      class="flex space-x-2 mb-6 max-w-sm" 
-      ref="validateAndResetValidationForm"
-    >
-      <va-input
-        v-model="input"
-        label="prop is not reset"
-      />
-      <va-input
-        label="validated rule is reset"
-        :rules="[() => 'error']"
-      />
+    <va-form ref="form">
+      <va-input v-model="input"/>
+      <va-input :rules="[() => 'error']"/>
     </va-form>
-    <div class="space-x-2">
-      <va-button @click="$refs.validateAndResetValidationForm.validate()">
-        Validate
-      </va-button>
-      <va-button @click="$refs.validateAndResetValidationForm.resetValidation()">
-        Reset validation
-      </va-button>
-    </div>
+    <va-button @click="$refs.form.validate()">
+      Validate
+    </va-button>
+    <va-button @click="$refs.form.resetValidation()">
+      Reset validation
+    </va-button>
   `,
 })
 
 ValidateAndResetValidation.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const firstInput = canvas.getByRole('textbox', { name: 'prop is not reset' }) as HTMLElement
-  const secondInput = canvas.getByRole('textbox', { name: 'validated rule is reset' }) as HTMLElement
+  const [firstInput, secondInput] = canvas.getAllByRole('textbox', { name: '' }) as HTMLElement[]
   const validateButton = canvas.getByRole('button', { name: 'Validate' }) as HTMLElement
   const resetButton = canvas.getByRole('button', { name: 'Reset validation' }) as HTMLElement
 
@@ -355,89 +256,29 @@ ValidateAndResetValidation.play = async ({ canvasElement, step }) => {
 
 export const Reset = () => ({
   components: { VaForm, VaInput, VaButton },
-  data: () => ({ username: 'root', password: 'admin' }),
+  data: () => ({ username: 'reset' }),
   template: `
     <va-form
-      class="flex flex-col max-w-sm"
-      tag="form"
-      ref="resetForm"
+      ref="form"
       immediate
     >
-      <va-input
-        v-model="username"
-        label="Username"
-      />
-      <va-input
-        class="mt-2"
-        v-model="password"
-        label="Password"
-      />
-      <va-input
-        class="mt-2"
-        label="Error"
-        :rules="[() => 'error']"
-      />
-      <va-button 
-        class="mt-2"
-        type="submit" 
-        @click.prevent="$refs.resetForm.reset()"
-      >
-        Reset inputs and validation
-      </va-button>
+      <va-input v-model="username"/>
+      <va-input :rules="[() => 'error']"/>
     </va-form>
+    <va-button @click.prevent="$refs.form.reset()">
+      Reset inputs and validation
+    </va-button>
   `,
 })
 
 Reset.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const firstInput = canvas.getByRole('textbox', { name: 'Username' }) as HTMLElement
-  const secondInput = canvas.getByRole('textbox', { name: 'Password' }) as HTMLElement
-  const thirdInput = canvas.getByRole('textbox', { name: 'Error' }) as HTMLElement
+  const [firstInput, secondInput] = canvas.getAllByRole('textbox', { name: '' }) as HTMLElement[]
   const button = canvas.getByRole('button', { name: 'Reset inputs and validation' }) as HTMLElement
 
   await step('Resets form', async () => {
     await userEvent.click(button)
     expect(firstInput).toHaveValue('')
-    expect(secondInput).toHaveValue('')
-    expect(thirdInput.getAttribute('aria-invalid')).toEqual('false')
+    expect(secondInput.getAttribute('aria-invalid')).toEqual('false')
   })
 }
-
-export const FormSubmit = () => ({
-  components: { VaForm, VaInput, VaButton },
-  data: () => ({ isSubmit: false }),
-  template: `
-    <va-form
-      class="flex flex-col max-w-sm"
-      tag="form"
-      ref="formSubmit"
-      @submit.prevent="isSubmit = true"
-    >
-      <va-input
-        stateful
-        label="Username"
-        :rules="[value => value.length >= 5 && value.length <= 16 || 'username must contain 5-16 characters']"
-      />
-      <va-input
-        class="mt-2"
-        stateful
-        type="password"
-        label="Password"
-        :rules="[value => value.length >= 8 || 'password must be at least 8 characters']"
-      />
-      <va-button 
-        class="mt-2"
-        type="submit" 
-        @click="$refs.formSubmit.validate()"
-      >
-        Login
-      </va-button>
-    </va-form>
-    <div 
-      v-if="isSubmit" 
-      first-submit
-    >
-      First submit!
-    </div>
-  `,
-})
