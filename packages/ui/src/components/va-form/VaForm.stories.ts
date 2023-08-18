@@ -242,15 +242,14 @@ export const Reset = () => ({
   components: { VaForm, VaInput, VaButton },
   data: () => ({ data: '' }),
   methods: {
-    set() {
-      this.data='data'
+    set () {
+      this.data = 'data'
       this.$refs.form.validate()
-    }
+    },
   },
   template: `
     <va-form ref="form">
-      <va-input v-model="data"/>
-      <va-input :rules="[false]"/>
+      <va-input v-model="data" :rules="[false]"/>
     </va-form>
     <va-button @click="set">
       Set inputs and validation
@@ -263,14 +262,14 @@ export const Reset = () => ({
 
 Reset.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const [firstInput, secondInput] = canvas.getAllByRole('textbox', { name: '' }) as HTMLElement[]
+  const input = canvas.getByRole('textbox', { name: '' }) as HTMLElement
   const setButton = canvas.getByRole('button', { name: 'Set inputs and validation' }) as HTMLElement
   const resetButton = canvas.getByRole('button', { name: 'Reset inputs and validation' }) as HTMLElement
 
   await step('Resets form', async () => {
     await userEvent.click(setButton)
     await userEvent.click(resetButton)
-    expect(firstInput).toHaveValue('')
-    expect(secondInput.getAttribute('aria-invalid')).toEqual('false')
+    expect(input).toHaveValue('')
+    expect(input.getAttribute('aria-invalid')).toEqual('false')
   })
 }
