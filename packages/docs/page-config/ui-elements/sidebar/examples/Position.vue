@@ -25,16 +25,16 @@
     </va-sidebar>
   </div>
 
-  <va-checkbox
-    v-model="minimized"
-    class="mt-2"
-    label="Minimized"
-  />
-  <va-checkbox
-    v-model="enabled"
-    class="mt-2"
-    label="Show"
-  />
+  <div class="mt-2 space-x-2">
+    <va-checkbox
+      v-model="minimized"
+      label="Minimized"
+    />
+    <va-checkbox
+      v-model="enabled"
+      label="Show"
+    />
+  </div>
 </template>
 
 <script>

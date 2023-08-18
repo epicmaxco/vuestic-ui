@@ -44,6 +44,8 @@
 
     <va-badge
       overlap
+      dot
+      :offset="-5"
       text="5"
       placement="bottom-center"
     >

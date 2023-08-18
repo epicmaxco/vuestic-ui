@@ -380,14 +380,14 @@ export default {
             id: 2,
             label: 'Photo',
             description: 'This item works so well with the other one.',
-            image: 'https://picsum.photos/100',
+            image: 'https://picsum.photos/id/450/100',
             hasAction: true,
           },
           {
             id: 3,
             label: 'Emoji',
             description: 'This item corresponds the first item perfectly.',
-            image: 'https://picsum.photos/100',
+            image: 'https://picsum.photos/id/450/100',
             hasAction: true,
           },
           {

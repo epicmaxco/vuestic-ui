@@ -21,7 +21,7 @@
 import { defineComponent } from 'vue'
 
 import { VaList, VaListItem } from '../va-list'
-import VaDivider from './VaDivider'
+import VaDivider from './VaDivider.vue'
 
 export default defineComponent({
   name: 'DividerWithList',

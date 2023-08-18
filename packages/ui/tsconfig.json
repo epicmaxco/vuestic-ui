@@ -43,6 +43,9 @@
     "src/**/*.spec.disabled.ts",
     "src/components/wip-*/**.*",
     "src/services/api-docs",
-    "src/**/*.demo.vue"
+    "src/**/*.demo.vue",
+    "src/**/*.stories.ts",
+    "src/**/*.new.stories.ts",
+    ".storybook",
   ]
 }

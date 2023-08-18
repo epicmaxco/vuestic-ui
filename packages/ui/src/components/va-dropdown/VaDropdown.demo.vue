@@ -250,7 +250,7 @@
 import { ref } from 'vue'
 import VaDropdown from './VaDropdown.vue'
 import VaDropdownContent from './components/VaDropdownContent/VaDropdownContent.vue'
-import DropdownCloseButton from '@/components/va-dropdown/__demo__/DropdownCloseButton.vue'
+import DropdownCloseButton from './__demo__/DropdownCloseButton.vue'
 
 export default {
   components: {
