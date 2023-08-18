@@ -17,7 +17,7 @@ export const Default = () => ({
   components: { VaForm, VaInput, VaButton },
   template: `
     <va-form ref="form">
-      <va-input :rules="[value => !!value || 'input is required']"/>
+      <va-input :rules="[false]"/>
     </va-form>
     <va-button @click.prevent="$refs.form.validate()">
       Submit
@@ -54,11 +54,11 @@ export const Stateful = () => ({
   template: `
     [true]
     <va-form stateful>
-      <va-checkbox role/>
+      <va-checkbox />
     </va-form>
     [false]
-    <va-form :stateful="false">
-      <va-checkbox role/>
+    <va-form>
+      <va-checkbox />
     </va-form>
   `,
 })
@@ -66,7 +66,7 @@ export const Stateful = () => ({
 Stateful.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
   const [firstCheckboxInput, secondCheckboxInput] = canvas.getAllByRole('checkbox', { name: '' }) as HTMLElement[]
-  const [firstCheckbox, secondCheckbox] = document.querySelectorAll('[role] > div')
+  const [firstCheckbox, secondCheckbox] = document.querySelectorAll('.va-checkbox__input-container')
 
   await step('Should be checked', async () => {
     await userEvent.click(firstCheckbox)
@@ -84,11 +84,11 @@ export const Immediate = () => ({
   template: `
     [true]
     <va-form immediate>
-      <va-input :rules="[value => !!value || 'input is required']"/>
+      <va-input :rules="[false]"/>
     </va-form>
     [false]
     <va-form>
-      <va-input :rules="[value => !!value || 'input is required']"/>
+      <va-input :rules="[false]"/>
     </va-form>
   `,
 })
@@ -110,32 +110,24 @@ export const HideErrorMessages = () => ({
   components: { VaForm, VaInput },
   template: `
     [true]
-    <va-form
-      role
-      immediate
-      hideErrorMessages
-    >
-      <va-input :rules="[value => !!value || 'input is required']"/>
+    <va-form hideErrorMessages>
+      <va-input error error-messages="message"/>
     </va-form>
     [false]
-    <va-form
-      role
-      immediate
-      :hideErrorMessages="false"
-    >
-      <va-input :rules="[value => !!value || 'input is required']"/>
+    <va-form role>
+      <va-input error error-messages="message"/>
     </va-form>
   `,
 })
 
 HideErrorMessages.play = async ({ step }) => {
-  const [firstDefinedInput, secondDefineInput] = document.querySelectorAll('[role] > div > div:nth-child(2)')
+  const [firstDefinedInput, secondDefineInput] = document.querySelectorAll('.va-message-list__message')
 
-  await step('Does not display validation error', async () => {
+  await step('Does not display error message', async () => {
     expect(firstDefinedInput).toBeDefined()
   })
 
-  await step('Displays validation error', async () => {
+  await step('Displays error message', async () => {
     expect(secondDefineInput).toBeUndefined()
   })
 }
@@ -144,26 +136,18 @@ export const HideErrors = () => ({
   components: { VaForm, VaInput },
   template: `
     [true]
-    <va-form
-      role
-      immediate
-      hideErrors
-    >
-      <va-input :rules="[value => !!value || 'input is required']"/>
+    <va-form hideErrors>
+      <va-input error/>
     </va-form>
     [false]
-    <va-form
-      role
-      immediate
-      :hideErrors="false"
-    >
-      <va-input :rules="[value => !!value || 'input is required']"/>
+    <va-form>
+      <va-input error/>
     </va-form>
   `,
 })
 
 HideErrors.play = async ({ step }) => {
-  const [firstInput, secondInput] = document.querySelectorAll('[role] > div')
+  const [firstInput, secondInput] = document.querySelectorAll('.va-input-wrapper')
 
   await step('Does not highlight invalid input', async () => {
     expect(firstInput).not.toHaveClass('va-input-wrapper--error')
@@ -179,6 +163,7 @@ export const Focus = () => ({
   template: `
     <va-form ref="form">
       <va-input />
+      <va-input />
     </va-form>
     <va-button @click="$refs.form.focus()">
       Focus first input
@@ -188,7 +173,7 @@ export const Focus = () => ({
 
 Focus.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const firstInput = canvas.getByRole('textbox', { name: '' }) as HTMLElement
+  const [firstInput, secondInput] = canvas.getAllByRole('textbox', { name: '' }) as HTMLElement[]
   const button = canvas.getByRole('button', { name: 'Focus first input' }) as HTMLElement
 
   await step('Focusses first input', async () => {
@@ -201,7 +186,8 @@ export const FocusInvalid = () => ({
   components: { VaForm, VaInput, VaButton },
   template: `
     <va-form ref="form">
-      <va-input error />
+      <va-input />
+      <va-input error/>
     </va-form>
     <va-button @click="$refs.form.focusInvalidField()">
       Focus invalid
@@ -211,22 +197,20 @@ export const FocusInvalid = () => ({
 
 FocusInvalid.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const input = canvas.getByRole('textbox', { name: '' }) as HTMLElement
+  const [validInput, invaliInput] = canvas.getAllByRole('textbox', { name: '' }) as HTMLElement[]
   const button = canvas.getByRole('button', { name: 'Focus invalid' }) as HTMLElement
 
   await step('Focusses invalid input', async () => {
     await userEvent.click(button)
-    expect(input).toHaveFocus()
+    expect(invaliInput).toHaveFocus()
   })
 }
 
 export const ValidateAndResetValidation = () => ({
   components: { VaForm, VaInput, VaButton },
-  data: () => ({ input: 'do not reset' }),
   template: `
     <va-form ref="form">
-      <va-input v-model="input"/>
-      <va-input :rules="[() => 'error']"/>
+      <va-input :rules="[false]"/>
     </va-form>
     <va-button @click="$refs.form.validate()">
       Validate
@@ -239,35 +223,39 @@ export const ValidateAndResetValidation = () => ({
 
 ValidateAndResetValidation.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const [firstInput, secondInput] = canvas.getAllByRole('textbox', { name: '' }) as HTMLElement[]
+  const input = canvas.getByRole('textbox', { name: '' }) as HTMLElement
   const validateButton = canvas.getByRole('button', { name: 'Validate' }) as HTMLElement
   const resetButton = canvas.getByRole('button', { name: 'Reset validation' }) as HTMLElement
 
-  await step('Validates input vith error', async () => {
+  await step('Validates input with error', async () => {
     await userEvent.click(validateButton)
-    expect(secondInput.getAttribute('aria-invalid')).toEqual('true')
-    expect(firstInput.getAttribute('aria-invalid')).toEqual('false')
+    expect(input.getAttribute('aria-invalid')).toEqual('true')
   })
 
   await step('Reset inputs validation', async () => {
     await userEvent.click(resetButton)
-    expect(secondInput.getAttribute('aria-invalid')).toEqual('false')
-    expect(firstInput.getAttribute('aria-invalid')).toEqual('false')
+    expect(input.getAttribute('aria-invalid')).toEqual('false')
   })
 }
 
 export const Reset = () => ({
   components: { VaForm, VaInput, VaButton },
-  data: () => ({ username: 'reset' }),
+  data: () => ({ data: '' }),
+  methods: {
+    set() {
+      this.data='data'
+      this.$refs.form.validate()
+    }
+  },
   template: `
-    <va-form
-      ref="form"
-      immediate
-    >
-      <va-input v-model="username"/>
-      <va-input :rules="[() => 'error']"/>
+    <va-form ref="form">
+      <va-input v-model="data"/>
+      <va-input :rules="[false]"/>
     </va-form>
-    <va-button @click.prevent="$refs.form.reset()">
+    <va-button @click="set">
+      Set inputs and validation
+    </va-button>
+    <va-button @click="$refs.form.reset()">
       Reset inputs and validation
     </va-button>
   `,
@@ -276,10 +264,12 @@ export const Reset = () => ({
 Reset.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
   const [firstInput, secondInput] = canvas.getAllByRole('textbox', { name: '' }) as HTMLElement[]
-  const button = canvas.getByRole('button', { name: 'Reset inputs and validation' }) as HTMLElement
+  const setButton = canvas.getByRole('button', { name: 'Set inputs and validation' }) as HTMLElement
+  const resetButton = canvas.getByRole('button', { name: 'Reset inputs and validation' }) as HTMLElement
 
   await step('Resets form', async () => {
-    await userEvent.click(button)
+    await userEvent.click(setButton)
+    await userEvent.click(resetButton)
     expect(firstInput).toHaveValue('')
     expect(secondInput.getAttribute('aria-invalid')).toEqual('false')
   })
