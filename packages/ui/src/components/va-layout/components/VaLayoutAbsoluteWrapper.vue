@@ -23,7 +23,6 @@ export default defineComponent({
     &__absolute-area-wrapper {
       .va-layout__area {
         position: absolute;
-        z-index: 1;
 
         &--top {
           width: 100%;

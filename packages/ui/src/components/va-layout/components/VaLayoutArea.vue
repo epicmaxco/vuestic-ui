@@ -57,5 +57,9 @@ export default defineComponent({
       grid-area: v-bind("$props.area");
       z-index: v-bind("zIndex");
     }
+
+    &__absolute-area-wrapper {
+      z-index: v-bind("zIndex");
+    }
   }
 </style>
