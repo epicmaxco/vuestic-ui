@@ -15,9 +15,13 @@ export default {
 
 export const Default = () => ({
   components: { VaForm, VaInput, VaButton },
+  data: () => ({ input: '' }),
   template: `
     <va-form ref="form">
-      <va-input :rules="[false]"/>
+      <va-input 
+        v-model="input"
+        :rules="[value => !!value || 'required']"
+      />
     </va-form>
     <va-button @click.prevent="$refs.form.validate()">
       Submit
@@ -81,6 +85,7 @@ Stateful.play = async ({ canvasElement, step }) => {
 
 export const Immediate = () => ({
   components: { VaForm, VaInput },
+
   template: `
     [true]
     <va-form immediate>
@@ -97,11 +102,11 @@ Immediate.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
   const [firstInput, secondInput] = canvas.getAllByRole('textbox', { name: '' }) as HTMLElement[]
 
-  await step('Displays error message', async () => {
+  await step('First input displays error message', async () => {
     expect(firstInput.getAttribute('aria-invalid')).toEqual('true')
   })
 
-  await step('Does not display error message', async () => {
+  await step('Second input does not display error message', async () => {
     expect(secondInput.getAttribute('aria-invalid')).toEqual('false')
   })
 }
