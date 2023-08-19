@@ -1,32 +1,13 @@
 <template>
   <div class="va-layout">
-    <div
+    <VaLayoutArea
       v-for="area in areaNames"
       :key="area"
-      :class="[
-        doRenderWrapper(area) ?
-          'va-layout__area-wrapper' :
-          `va-layout__area va-layout__area--${area}`,
-      ]"
+      :area="area"
+      :config="$props[area] || {}"
     >
-      <div
-        v-if="doRenderWrapper(area)"
-        :class="[
-          `va-layout__area va-layout__area--${area}`,
-        ]"
-      >
-        <VaLayoutFixedWrapper v-if="isFixed(area)" :area="area">
-          <slot :name="area" />
-        </VaLayoutFixedWrapper>
-        <slot v-else :name="area" />
-      </div>
-      <template v-else>
-        <VaLayoutFixedWrapper v-if="isFixed(area)" :area="area">
-          <slot :name="area" />
-        </VaLayoutFixedWrapper>
-        <slot v-else :name="area" />
-      </template>
-    </div>
+      <slot :name="area" />
+    </VaLayoutArea>
 
     <div class="va-layout__area va-layout__area--content">
       <slot>
@@ -37,13 +18,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, reactive } from 'vue'
+import { defineComponent, computed } from 'vue'
 import {
   useGridTemplateArea,
   AreaName,
 } from './hooks/useGridTemplateArea'
 import { useLayoutProps } from './hooks/useLayout'
-import VaLayoutFixedWrapper from './components/VaLayoutFixedWrapper.vue'
+import VaLayoutArea from './components/VaLayoutArea.vue'
 
 const areaNames: AreaName[] = [
   'top',
@@ -59,13 +40,11 @@ export default defineComponent({
     ...useLayoutProps,
   },
 
-  components: { VaLayoutFixedWrapper },
+  components: { VaLayoutArea },
 
   setup (props, { slots }) {
     return {
       areaNames,
-      doRenderWrapper: (area: AreaName) => props[area].absolute || false,
-      isFixed: (area: AreaName) => props[area]?.fixed || false,
       templateArea: useGridTemplateArea(props),
       verticalTemplate: computed(() => {
         return [
@@ -102,60 +81,8 @@ export default defineComponent({
   position: relative;
   z-index: 0;
 
-  // Wrapper is responsible for positioning correctly absolute areas
-  &__area-wrapper {
-    .va-layout__area {
-      position: absolute;
-      z-index: 1;
-
-      &--top {
-        width: 100%;
-      }
-
-      &--bottom {
-        width: 100%;
-      }
-
-      &--right {
-        right: 0;
-        height: 100%;
-      }
-
-      &--left {
-        left: 0;
-        height: 100%;
-      }
-
-      &--fixed {
-        position: fixed;
-      }
-    }
-  }
-
   &__area {
     @include va-scroll();
-
-    display: flex;
-
-    &--top {
-      grid-area: top;
-      z-index: v-bind("top.order || '0'");
-    }
-
-    &--left {
-      grid-area: left;
-      z-index: v-bind("left.order || '0'");
-    }
-
-    &--right {
-      grid-area: right;
-      z-index: v-bind("right.order || '0'");
-    }
-
-    &--bottom {
-      grid-area: bottom;
-      z-index: v-bind("bottom.order || '0'");
-    }
 
     &--content {
       grid-area: content;

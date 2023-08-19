@@ -41,9 +41,9 @@ const state = reactive({
       </VaLayout>
     </VbCard>
 
-    <VbCard title="Sticky top">
+    <VbCard title="Fixed top">
       <div class="page" style="height: 300px; overflow: scroll;">
-        <VaLayout style="background-color: var(--va-primary);" :top="{ sticky: true }">
+        <VaLayout style="background-color: var(--va-primary);" :top="{ fixed: true }">
           <template #content>
             <div style="heigh: 800px">
               Content

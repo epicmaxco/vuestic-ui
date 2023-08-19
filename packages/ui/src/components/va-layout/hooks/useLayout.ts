@@ -3,7 +3,7 @@ import { ExtractPropTypes, PropType } from 'vue'
 // Unwrap type, e.g.: removes name from type alias and returns the type
 type UnwrapType<T> = true extends boolean ? T : never
 
-type AreaConfig = UnwrapType<{
+export type AreaConfig = UnwrapType<{
   absolute?: boolean,
   order?: number,
   fixed?: boolean,
