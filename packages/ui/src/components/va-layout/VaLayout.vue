@@ -3,16 +3,29 @@
     <div
       v-for="area in areaNames"
       :key="area"
-      :class="
-        isAbsolute(area) ?
-        'va-layout__area-wrapper' :
-        `va-layout__area va-layout__area--${area}`
-      "
+      :class="[
+        doRenderWrapper(area) ?
+          'va-layout__area-wrapper' :
+          `va-layout__area va-layout__area--${area}`,
+      ]"
     >
-      <div v-if="isAbsolute(area)" :class="`va-layout__area va-layout__area--${area}`">
-        <slot :name="area" />
+      <div
+        v-if="doRenderWrapper(area)"
+        :class="[
+          `va-layout__area va-layout__area--${area}`,
+        ]"
+      >
+        <VaLayoutFixedWrapper v-if="isFixed(area)" :area="area">
+          <slot :name="area" />
+        </VaLayoutFixedWrapper>
+        <slot v-else :name="area" />
       </div>
-      <slot v-else :name="area" />
+      <template v-else>
+        <VaLayoutFixedWrapper v-if="isFixed(area)" :area="area">
+          <slot :name="area" />
+        </VaLayoutFixedWrapper>
+        <slot v-else :name="area" />
+      </template>
     </div>
 
     <div class="va-layout__area va-layout__area--content">
@@ -24,12 +37,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref, reactive } from 'vue'
 import {
   useGridTemplateArea,
   AreaName,
 } from './hooks/useGridTemplateArea'
 import { useLayoutProps } from './hooks/useLayout'
+import VaLayoutFixedWrapper from './components/VaLayoutFixedWrapper.vue'
 
 const areaNames: AreaName[] = [
   'top',
@@ -45,12 +59,13 @@ export default defineComponent({
     ...useLayoutProps,
   },
 
+  components: { VaLayoutFixedWrapper },
+
   setup (props, { slots }) {
     return {
       areaNames,
-      isAbsolute (area: AreaName) {
-        return props[area]?.absolute || false
-      },
+      doRenderWrapper: (area: AreaName) => props[area].absolute || false,
+      isFixed: (area: AreaName) => props[area]?.fixed || false,
       templateArea: useGridTemplateArea(props),
       verticalTemplate: computed(() => {
         return [
@@ -84,43 +99,22 @@ export default defineComponent({
   grid-template-rows: v-bind(verticalTemplate);
   grid-template-areas: v-bind(templateArea);
   gap: 0;
-  height: 100%;
-  width: 100%;
   position: relative;
-  overflow: hidden;
-
-  &__area {
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    @include va-scroll();
-
-    &--top {
-      grid-area: top;
-    }
-
-    &--left {
-      grid-area: left;
-      position: relative;
-    }
-
-    &--right {
-      grid-area: right;
-    }
-
-    &--bottom {
-      grid-area: bottom;
-    }
-
-    &--content {
-      grid-area: content;
-    }
-  }
+  z-index: 0;
 
   // Wrapper is responsible for positioning correctly absolute areas
   &__area-wrapper {
     .va-layout__area {
       position: absolute;
+      z-index: 1;
+
+      &--top {
+        width: 100%;
+      }
+
+      &--bottom {
+        width: 100%;
+      }
 
       &--right {
         right: 0;
@@ -131,6 +125,44 @@ export default defineComponent({
         left: 0;
         height: 100%;
       }
+
+      &--fixed {
+        position: fixed;
+      }
+    }
+  }
+
+  &__area {
+    @include va-scroll();
+
+    display: flex;
+
+    &--top {
+      grid-area: top;
+      z-index: v-bind("top.order || '0'");
+    }
+
+    &--left {
+      grid-area: left;
+      z-index: v-bind("left.order || '0'");
+    }
+
+    &--right {
+      grid-area: right;
+      z-index: v-bind("right.order || '0'");
+    }
+
+    &--bottom {
+      grid-area: bottom;
+      z-index: v-bind("bottom.order || '0'");
+    }
+
+    &--content {
+      grid-area: content;
+      z-index: 0;
+      // Make it possible for content to be smaller than the layout
+      min-width: 0;
+      min-height: 0;
     }
   }
 }

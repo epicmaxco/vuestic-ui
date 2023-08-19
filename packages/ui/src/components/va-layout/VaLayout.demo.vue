@@ -41,6 +41,40 @@ const state = reactive({
       </VaLayout>
     </VbCard>
 
+    <VbCard title="Sticky top">
+      <div class="page" style="height: 300px; overflow: scroll;">
+        <VaLayout style="background-color: var(--va-primary);" :top="{ sticky: true }">
+          <template #content>
+            <div style="heigh: 800px">
+              Content
+            </div>
+          </template>
+          <template #left>
+            <div style="height: 300px;">
+              Leftbar
+            </div>
+          </template>
+          <template #right>
+            <div style="height: 100%;">
+              Rightbar
+            </div>
+          </template>
+
+          <template #top>
+            <div>
+              Header
+            </div>
+          </template>
+
+          <template #bottom>
+            <div>
+              Footer
+            </div>
+          </template>
+        </VaLayout>
+      </div>
+    </VbCard>
+
     <VbCard title="Top, left, content slots">
       <VaLayout style="width: 300px; height: 300px;">
         <template #content>
@@ -209,7 +243,7 @@ transition: width 0.3s ease-in-out;
     <VbCard title="Absolute">
       <VaLayout
         style="width: 300px; height: 300px; margin-bottom: 2rem;"
-        :left="{ absolute: 1 }"
+        :left="{ absolute: true }"
       >
         <template #top>
           <div>
@@ -325,6 +359,38 @@ height: 100%;
         </template>
         <template #bottom>
           Order 2
+        </template>
+      </VaLayout>
+    </VbCard>
+
+    <VbCard title="Large sidebar">
+      <VaLayout style="background-color: var(--va-primary);">
+        <template #content>
+          <div>
+            Content
+          </div>
+        </template>
+        <template #left>
+          <div style="height: 300px;">
+            Leftbar
+          </div>
+        </template>
+        <template #right>
+          <div style="height: 100%;">
+            Rightbar
+          </div>
+        </template>
+
+        <template #top>
+          <div>
+            Header
+          </div>
+        </template>
+
+        <template #bottom>
+          <div>
+            Footer
+          </div>
         </template>
       </VaLayout>
     </VbCard>

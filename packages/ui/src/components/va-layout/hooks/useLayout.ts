@@ -6,6 +6,7 @@ type UnwrapType<T> = true extends boolean ? T : never
 type AreaConfig = UnwrapType<{
   absolute?: boolean,
   order?: number,
+  fixed?: boolean,
 }>
 
 export const useLayoutProps = {
