@@ -22,6 +22,13 @@ VaLayout component could be used in pair with [VaSidebar](/ui-elements/sidebar)[
       title: 'Absolute',
       description: 'You can use absolute area attribute to make area absolute. It will be rendered on top of other areas and overflow them. Absolute respect order prop.',
     }),
+    block.example('Fixed', {
+      title: 'Fixed',
+      description: 'You can use fixed area attribute to make area fixed. Fixed will force area to stay on its place during scrolling. Fixed respect order prop.',
+    }),
+
+    block.alert('Notice that if you\'re using `fixed` VaLayout must be used as a root component for your application. Otherwise, it will not work as expected. This is why example from above opens in fullscreen modal.', 'warning'),
+
     block.example('MobileFriendly', {
       title: 'Mobile friendly',
       description: 'It is recommended to make `left` and `right` areas absolute on mobile devices. You can use `absolute` prop to do it in pair with [useBreakpoint](http://localhost:3000/services/breakpoints)[[target=_blank]] composable.',
@@ -29,7 +36,7 @@ VaLayout component could be used in pair with [VaSidebar](/ui-elements/sidebar)[
 
     block.subtitle('Accessibility'),
     block.paragraph(`
-Layout component is not handling accessibility by default. 
+Layout component is not handling accessibility by default.
 
 You should always wrap content in slot with \`<div role="region" aria-label="...">\` to make it accessible.
 Make sure you have \`main\` role on your main content in \`content\` slot,
