@@ -12,8 +12,9 @@ export default {
 
 export const Default = () => ({
   components: { VaAccordion, VaCollapse },
+  data: () => ({ value: [] }),
   template: `
-    <va-accordion>
+    <va-accordion v-model="value">
       <va-collapse
         v-for="i in 3"
         :key="i"
@@ -88,9 +89,10 @@ Stateful.play = async ({ canvasElement, step }) => {
 
 export const Multiple = () => ({
   components: { VaAccordion, VaCollapse },
+  data: () => ({ value: [] }),
   template: `
-    <va-accordion multiple>
-      <va-collapse 
+    <va-accordion v-model="value" multiple>
+      <va-collapse
         v-for="i in 3"
         :key="i"
         header="Collapse"
@@ -117,13 +119,14 @@ Multiple.play = async ({ canvasElement, step }) => {
 
 export const Inset = () => ({
   components: { VaAccordion, VaCollapse },
+  data: () => ({ value: [true, true, false, false, true] }),
   template: `
-    <va-accordion 
-      :modelValue="[true,true,false,false,true]" 
-      inset 
+    <va-accordion
+      v-model="value"
+      inset
       multiple
     >
-      <va-collapse 
+      <va-collapse
         v-for="i in 5"
         :key="i"
         header="Collapse"
@@ -136,13 +139,14 @@ export const Inset = () => ({
 
 export const Popout = () => ({
   components: { VaAccordion, VaCollapse },
+  data: () => ({ value: [true, true, false, false, true] }),
   template: `
-    <va-accordion 
-      :modelValue="[true,true,false,false,true]" 
-      popout 
+    <va-accordion
+      v-model="value"
+      popout
       multiple
     >
-      <va-collapse 
+      <va-collapse
         v-for="i in 5"
         :key="i"
         header="Collapse"
