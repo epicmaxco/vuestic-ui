@@ -23,7 +23,7 @@ import {
   useGridTemplateArea,
   AreaName,
 } from './hooks/useGridTemplateArea'
-import { useLayoutProps } from './hooks/useLayout'
+import { useLayoutProps, useLayout } from './hooks/useLayout'
 import VaLayoutArea from './components/VaLayoutArea.vue'
 
 const areaNames: AreaName[] = [
@@ -43,6 +43,8 @@ export default defineComponent({
   components: { VaLayoutArea },
 
   setup (props, { slots }) {
+    useLayout()
+
     return {
       areaNames,
       templateArea: useGridTemplateArea(props),

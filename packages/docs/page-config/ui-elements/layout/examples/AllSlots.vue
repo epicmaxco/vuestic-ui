@@ -1,8 +1,3 @@
-<script setup lang="ts">
-  const showLeftSidebar = ref(true)
-  const showRightSidebar = ref(true)
-</script>
-
 <template>
   <VaLayout style="height: 500px">
     <template #top>
@@ -12,9 +7,9 @@
     </template>
 
     <template #left>
-      <VaSidebar v-model="showLeftSidebar" class="p-4">
+      <div class="p-4 h-full bg-[var(--va-background-element)]">
         #left
-      </VaSidebar>
+      </div>
     </template>
 
     <template #content>
@@ -24,9 +19,9 @@
     </template>
 
     <template #right>
-      <VaSidebar v-model="showRightSidebar" class="p-4">
+      <div class="p-4 h-full bg-[var(--va-background-element)]">
         #right
-      </VaSidebar>
+      </div>
     </template>
 
     <template #bottom>

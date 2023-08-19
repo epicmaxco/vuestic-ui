@@ -6,6 +6,10 @@ export default definePageConfig({
 VaLayout component could be used in pair with [VaSidebar](/ui-elements/sidebar)[[target=_blank]], [VaNavbar](/ui-elements/navbar)[[target=_blank]] components.
     `),
 
+    block.subtitle('Ready to use templates'),
+    block.paragraph("Here is a list of common app layouts. You can use them as a starting point for your application."),
+    block.component('Templates'),
+
     block.example('Default', {
       title: 'Default usage',
       description: 'Default usage of Layout component.',

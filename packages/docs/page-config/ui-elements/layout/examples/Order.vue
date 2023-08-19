@@ -8,6 +8,8 @@
     right: 2,
     bottom: 1,
   })
+
+  const breakpoints = useBreakpoint()
 </script>
 
 <template>
@@ -18,12 +20,11 @@
     <VaCounter v-model="orders.bottom" label="bottom" />
   </div>
 
-  <VaLayout 
+  <VaLayout
     :left="{ order: orders.left }"
     :top="{ order: orders.top }"
     :right="{ order: orders.right }"
     :bottom="{ order: orders.bottom }"
-    style="height: 500px"
   >
     <template #top>
       <VaNavbar color="primary" class="py-2 h-14">
@@ -42,13 +43,13 @@
     </template>
 
     <template #left>
-      <VaSidebar v-model="showLeftSidebar">
+      <VaSidebar v-model="showLeftSidebar" :minimized="breakpoints.smDown">
         <div class="p-2">
           <VaButton preset="secondary" @click="showLeftSidebar = !showLeftSidebar" icon="menu_open" />
         </div>
         <VaSidebarItem>
           <VaSidebarItemContent>
-            <VaIcon name="home" /> 
+            <VaIcon name="home" />
             <VaSidebarItemTitle>
               Home
             </VaSidebarItemTitle>
@@ -76,18 +77,24 @@
     </template>
 
     <template #right>
-      <VaSidebar v-model="showRightSidebar">
+      <VaSidebar v-model="showRightSidebar" :minimized="breakpoints.smDown">
         <div class="p-2 text-right">
           <VaButton preset="secondary" @click="showRightSidebar = !showRightSidebar" icon="menu_open" />
         </div>
         <VaSidebarItem>
           <VaSidebarItemContent>
-            <VaIcon name="home" /> Home
+            <VaIcon name="home" />
+            <VaSidebarItemTitle>
+              Home
+            </VaSidebarItemTitle>
           </VaSidebarItemContent>
         </VaSidebarItem>
         <VaSidebarItem>
           <VaSidebarItemContent>
-            <VaIcon name="phone" /> About
+            <VaIcon name="phone" />
+            <VaSidebarItemTitle>
+              About
+            </VaSidebarItemTitle>
           </VaSidebarItemContent>
         </VaSidebarItem>
       </VaSidebar>

@@ -1,7 +1,7 @@
 <template>
   <VaLayoutAbsoluteWrapper v-if="absolute" :area="area">
     <div :class="`va-layout__area va-layout__area--${area}`">
-      <VaLayoutFixedWrapper v-if="fixed" :area="area">
+      <VaLayoutFixedWrapper v-if="fixed" :area="area" :order="config.order || 0">
         <slot />
       </VaLayoutFixedWrapper>
       <slot v-else />
@@ -9,7 +9,7 @@
   </VaLayoutAbsoluteWrapper>
 
   <div v-else :class="`va-layout__area va-layout__area--${area}`">
-    <VaLayoutFixedWrapper v-if="fixed" :area="area">
+    <VaLayoutFixedWrapper v-if="fixed" :area="area" :order="config.order || 0">
       <slot />
     </VaLayoutFixedWrapper>
     <slot v-else />
@@ -45,7 +45,7 @@ export default defineComponent({
       absolute: computed(() => props.config.absolute || false),
       fixed: computed(() => props.config.fixed || false),
       // Content z-index is always 0, other areas must have bigger z-index by 1
-      zIndex: computed(() => (props.config.order + 1) || 1),
+      zIndex: computed(() => (props.config.order || 0) + 1),
     }
   },
 })

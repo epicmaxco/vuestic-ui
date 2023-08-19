@@ -1,10 +1,10 @@
 <template>
   <div
     class="va-layout-fixed-wrapper"
-    :style="{
+    :style="[{
       height: size ? size.height + 'px' : 'auto',
       width: size ? size.width + 'px' : 'auto',
-    }"
+    }]"
   >
     <VaResizeObserver
       class="va-layout-fixed-wrapper__content"
@@ -16,12 +16,13 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, type PropType, computed } from 'vue'
+import { ref, defineComponent, type PropType, computed, toRef } from 'vue'
 import VaResizeObserver from './VaResizeObserver.vue'
 import {
   useGridTemplateArea,
   AreaName,
 } from '../hooks/useGridTemplateArea'
+import { useLayoutChild } from '../hooks/useLayout'
 
 export default defineComponent({
   name: 'VaLayoutFixedWrapper',
@@ -30,6 +31,7 @@ export default defineComponent({
 
   props: {
     area: { type: String as PropType<AreaName>, required: true },
+    order: { type: Number, required: true },
   },
 
   setup (props) {
@@ -43,15 +45,36 @@ export default defineComponent({
       }
     })
 
+    const getPxOrZero = (value: number | null) => {
+      if (!value) { return 0 + 'px' }
+
+      return value + 'px'
+    }
+
     const styles = computed(() => {
       if (direction.value === 'vertical') {
-        return { width: '100%' }
+        return { width: `calc(100% - ${getPxOrZero(paddings.value.left)} - ${getPxOrZero(paddings.value.right)})`, [props.area]: 0 }
       } else {
-        return { height: '100%' }
+        return { height: `calc(100% - ${getPxOrZero(paddings.value.top)} - ${getPxOrZero(paddings.value.bottom)})`, [props.area]: 0 }
       }
     })
 
+    const { paddings } = useLayoutChild(props.area, size, toRef(props, 'order'))
+
+    const computedStyle = computed(() => {
+      return Object.keys(paddings.value).reduce((acc, key) => {
+        if (key === props.area) { return acc }
+
+        return {
+          ...acc,
+          [key]: `${paddings.value[key as AreaName]}px`,
+        }
+      }, {})
+    })
+
     return {
+      computedStyle,
+      paddings,
       size,
       styles,
     }
@@ -68,6 +91,10 @@ export default defineComponent({
     position: fixed;
     width: v-bind("styles.width");
     height: v-bind("styles.height");
+    top: v-bind("styles.top");
+    bottom: v-bind("styles.bottom");
+    left: v-bind("styles.left");
+    right: v-bind("styles.right");
   }
 }
 </style>

@@ -2,6 +2,7 @@
   <header
     ref="scrollRoot"
     class="va-navbar"
+    :class="bemClasses"
     :style="computedStyle"
   >
     <slot>
@@ -36,6 +37,7 @@ import {
   useTextColor,
   useFixedBarProps,
   useComponentPresetProp,
+  useBem,
 } from '../../composables'
 
 export default defineComponent({
@@ -46,6 +48,8 @@ export default defineComponent({
     color: { type: String, default: 'background-secondary' },
     textColor: { type: String },
     shape: { type: Boolean, default: false },
+    shadowed: { type: Boolean, default: false },
+    bordered: { type: Boolean, default: false },
   },
 
   setup (props) {
@@ -67,7 +71,13 @@ export default defineComponent({
       fill: textColorComputed.value,
     }))
 
+    const bemClasses = useBem('va-navbar', () => ({
+      shadowed: props.shadowed,
+      bordered: props.bordered,
+    }))
+
     return {
+      bemClasses,
       scrollRoot,
       computedStyle,
       shapeStyleComputed,
@@ -160,6 +170,14 @@ export default defineComponent({
     &__background-shape {
       display: none;
     }
+  }
+
+  &--shadowed {
+    box-shadow: 0 2px 8px var(--va-shadow);
+  }
+
+  &--bordered {
+    border-bottom: var(--va-background-border);
   }
 }
 </style>
