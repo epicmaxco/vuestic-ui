@@ -16,13 +16,12 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, type PropType, computed, toRef } from 'vue'
+import { ref, defineComponent, type PropType, computed } from 'vue'
 import VaResizeObserver from './VaResizeObserver.vue'
 import {
-  useGridTemplateArea,
   AreaName,
 } from '../hooks/useGridTemplateArea'
-import { useLayoutChild } from '../hooks/useLayout'
+import { useFixedLayoutChild } from '../hooks/useLayout'
 
 export default defineComponent({
   name: 'VaLayoutFixedWrapper',
@@ -31,8 +30,6 @@ export default defineComponent({
 
   props: {
     area: { type: String as PropType<AreaName>, required: true },
-    order: { type: Number, required: true },
-    absolute: { type: Boolean, required: true },
   },
 
   setup (props) {
@@ -60,7 +57,7 @@ export default defineComponent({
       }
     })
 
-    const { paddings } = useLayoutChild(props.area, size, toRef(props, 'order'), toRef(props, 'absolute'))
+    const { paddings } = useFixedLayoutChild(props.area, size)
 
     const computedStyle = computed(() => {
       return Object.keys(paddings.value).reduce((acc, key) => {

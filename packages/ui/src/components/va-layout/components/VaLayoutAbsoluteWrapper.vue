@@ -4,19 +4,6 @@
   </div>
 </template>
 
-<script lang="ts">
-import { PropType, defineComponent } from 'vue'
-import { AreaName } from '../hooks/useGridTemplateArea'
-
-export default defineComponent({
-  name: 'VaLayoutAbsoluteWrapper',
-
-  props: {
-    area: { type: String as PropType<AreaName>, required: true },
-  },
-})
-</script>
-
 <style lang="scss">
   .va-layout {
     // Wrapper is responsible for positioning correctly absolute areas

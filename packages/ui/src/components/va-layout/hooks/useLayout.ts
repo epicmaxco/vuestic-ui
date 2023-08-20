@@ -14,19 +14,19 @@ export type AreaConfig = UnwrapType<{
 export const useLayoutProps = {
   top: {
     type: Object as PropType<AreaConfig>,
-    default: () => ({}),
+    default: () => ({ order: 2 }),
   },
   right: {
     type: Object as PropType<AreaConfig>,
-    default: () => ({}),
+    default: () => ({ order: 1 }),
   },
   left: {
     type: Object as PropType<AreaConfig>,
-    default: () => ({}),
+    default: () => ({ order: 1 }),
   },
   bottom: {
     type: Object as PropType<AreaConfig>,
-    default: () => ({}),
+    default: () => ({ order: 2 }),
   },
 }
 
@@ -34,8 +34,6 @@ export type LayoutProps = ExtractPropTypes<typeof useLayoutProps>
 
 type LayoutItem = {
   sizes: DOMRectReadOnly,
-  order: number,
-  absolute: boolean,
 }
 
 const VaLayoutKey = 'VaLayout' as unknown as InjectionKey<{
@@ -44,7 +42,7 @@ const VaLayoutKey = 'VaLayout' as unknown as InjectionKey<{
   orders: ComputedRef<Record<AreaName, number>>,
 }>
 
-export const useLayout = () => {
+export const useLayout = (props: ExtractPropTypes<typeof useLayoutProps>) => {
   const items = ref<Record<AreaName, LayoutItem | null>>({
     top: null,
     right: null,
@@ -52,18 +50,23 @@ export const useLayout = () => {
     left: null,
   })
 
-  const paddings = computed(() => ({
-    top: items.value.top && !items.value.top.absolute ? items.value.top.sizes.height : 0,
-    right: items.value.right && !items.value.right.absolute ? items.value.right.sizes.width : 0,
-    bottom: items.value.bottom && !items.value.bottom.absolute ? items.value.bottom.sizes.height : 0,
-    left: items.value.left && !items.value.left.absolute ? items.value.left.sizes.width : 0,
-  }))
+  const paddings = computed(() => {
+    const { top, right, bottom, left } = items.value
+    const { top: topConfig, right: rightConfig, bottom: bottomConfig, left: leftConfig } = props
+
+    return {
+      top: top && !topConfig.absolute ? top.sizes.height : 0,
+      right: right && !rightConfig.absolute ? right.sizes.width : 0,
+      bottom: bottom && !bottomConfig.absolute ? bottom.sizes.height : 0,
+      left: left && !leftConfig.absolute ? left.sizes.width : 0,
+    }
+  })
 
   const orders = computed(() => ({
-    top: items.value.top ? items.value.top.order : 0,
-    right: items.value.right ? items.value.right.order : 0,
-    bottom: items.value.bottom ? items.value.bottom.order : 0,
-    left: items.value.left ? items.value.left.order : 0,
+    top: props.top.order || 0,
+    right: props.right.order || 0,
+    bottom: props.bottom.order || 0,
+    left: props.left.order || 0,
   }))
 
   provide(VaLayoutKey, {
@@ -73,7 +76,7 @@ export const useLayout = () => {
   })
 }
 
-export const useLayoutChild = (area: AreaName, sizes: Ref<DOMRectReadOnly | null>, order: Ref<number>, absolute: Ref<boolean>) => {
+export const useFixedLayoutChild = (area: AreaName, sizes: Ref<DOMRectReadOnly | null>) => {
   const layout = inject(VaLayoutKey, null)
 
   if (!layout) {
@@ -83,9 +86,7 @@ export const useLayoutChild = (area: AreaName, sizes: Ref<DOMRectReadOnly | null
   watchEffect(() => {
     if (sizes.value) {
       layout.items.value[area] = {
-        absolute: absolute.value,
         sizes: sizes.value,
-        order: order.value,
       }
     } else {
       layout.items.value[area] = null
@@ -98,12 +99,14 @@ export const useLayoutChild = (area: AreaName, sizes: Ref<DOMRectReadOnly | null
 
   return {
     paddings: computed(() => {
-      return Object.keys(layout.paddings.value).reduce((acc, key) => {
-        if (layout.orders.value[key as AreaName] > order.value) {
-          acc[key as AreaName] = layout.paddings.value[key as AreaName]
-        }
-        return acc
-      }, {} as Record<AreaName, number>)
+      return Object
+        .keys(layout.paddings.value)
+        .reduce((acc, key) => {
+          if (layout.orders.value[key as AreaName] > layout.orders.value[area]) {
+            acc[key as AreaName] = layout.paddings.value[key as AreaName]
+          }
+          return acc
+        }, {} as Record<AreaName, number>)
     }),
   }
 }

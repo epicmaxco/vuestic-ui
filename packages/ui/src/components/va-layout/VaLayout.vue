@@ -51,7 +51,7 @@ export default defineComponent({
   components: { VaLayoutArea },
 
   setup (props, { slots }) {
-    useLayout()
+    useLayout(props)
 
     return {
       areaNames,

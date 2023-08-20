@@ -1,7 +1,7 @@
 <template>
-  <VaLayoutAbsoluteWrapper v-if="absolute" :area="area">
+  <VaLayoutAbsoluteWrapper v-if="absolute">
     <div :class="`va-layout-area va-layout__area va-layout__area--${area}`">
-      <VaLayoutFixedWrapper v-if="fixed" :area="area" :order="config.order || 0" :absolute="absolute">
+      <VaLayoutFixedWrapper v-if="fixed" :area="area">
         <slot />
       </VaLayoutFixedWrapper>
       <slot v-else />
@@ -9,7 +9,7 @@
   </VaLayoutAbsoluteWrapper>
 
   <div v-else :class="`va-layout-area va-layout__area va-layout__area--${area}`">
-    <VaLayoutFixedWrapper v-if="fixed" :area="area" :order="config.order || 0" :absolute="absolute">
+    <VaLayoutFixedWrapper v-if="fixed" :area="area">
       <slot />
     </VaLayoutFixedWrapper>
     <slot v-else />

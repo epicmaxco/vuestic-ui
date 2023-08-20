@@ -6,10 +6,15 @@ export default definePageConfig({
 VaLayout component could be used in pair with [VaSidebar](/ui-elements/sidebar)[[target=_blank]], [VaNavbar](/ui-elements/navbar)[[target=_blank]] components.
     `),
 
-    block.subtitle('Ready to use templates'),
-    block.paragraph("Here is a list of common app layouts. You can use them as a starting point for your application."),
-    block.component('Templates'),
+    block.paragraph('Component provides four slots called `area` (top, right, bottom, left) and content (or default). You can specify area config for each slot which changes its behavior. For example, you can make area fixed or absolute. You can also change order of areas. See examples bellow for more details.'),
 
+    block.subtitle('Ready to use templates'),
+    block.paragraph("Here is a list of common app layouts. You can copy and use them as a starting point for your application. All templates are responsive and mobile friendly."),
+    block.component('Templates'),
+    block.alert('Notice that some templates use `fixed` area option. You need to use `VaLayout` as a root component for your application to make it work as expected. Otherwise remove `fixed` option.', 'warning'),
+
+    block.subtitle("Examples"),
+    block.paragraph('In examples bellow you can learn how to configure Layout component exactly for your needs if you don\'t like templates from above.'),
     block.example('Default', {
       title: 'Default usage',
       description: 'Default usage of Layout component.',
@@ -20,7 +25,7 @@ VaLayout component could be used in pair with [VaSidebar](/ui-elements/sidebar)[
     }),
     block.example('Order', {
       title: 'Rendering order',
-      description: 'You can use order area attribute to change order of slots. By default, order is 0. If order of one area is higher than another, it will be rendered on top of it. For example, if you set `top` order to `0` and `left` to `1`, left will take area from `top`. It is easier to play with it in example bellow.',
+      description: 'You can use order area attribute to change order of slots.If order of one area is higher than another, it will be rendered on top of it. For example, if you set `top` order to `0` and `left` to `1`, left will take area from `top`. It is easier to play with it in example bellow.',
     }),
     block.example('Absolute', {
       title: 'Absolute',
@@ -56,6 +61,12 @@ Notice that if you're using components like VaSidebar, VaHeader the correct role
         right: 'AreaConfig for right slot',
         bottom: 'AreaConfig for bottom slot',
         left: 'AreaConfig for left slot',
+      },
+      events: {
+        bottomOverlayClick: 'Emitted when bottom overlay is clicked.',
+        leftOverlayClick: 'Emitted when left overlay is clicked. Can be used to close sidebar on mobile devices.',
+        rightOverlayClick: 'Emitted when right overlay is clicked. Can be used to close sidebar on mobile devices.',
+        topOverlayClick: 'Emitted when top overlay is clicked',
       }
     },
     {
@@ -72,7 +83,7 @@ Notice that if you're using components like VaSidebar, VaHeader the correct role
         right: {
           types: `{ absolute?: boolean, order?: number, fixed?: boolean, overlay?: boolean }`
         }
-      }
+      },
     })
   ]
 })
