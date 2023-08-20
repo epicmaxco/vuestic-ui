@@ -8,8 +8,8 @@
       class="docs-layout__loader"
     />
     <VaLayout
-      :top="{ fixed: true, order: 1 }"
-      :left="{ fixed: true, absolute: breakpoints.smDown, order: 0 }"
+      :top="{ fixed: true, order: 2 }"
+      :left="{ fixed: true, absolute: breakpoints.smDown, overlay: breakpoints.smDown && isSidebarVisible, order: 1 }"
     >
       <template #top>
         <LayoutHeader

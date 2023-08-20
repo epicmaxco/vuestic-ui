@@ -32,6 +32,7 @@ export default defineComponent({
   props: {
     area: { type: String as PropType<AreaName>, required: true },
     order: { type: Number, required: true },
+    absolute: { type: Boolean, required: true },
   },
 
   setup (props) {
@@ -59,7 +60,7 @@ export default defineComponent({
       }
     })
 
-    const { paddings } = useLayoutChild(props.area, size, toRef(props, 'order'))
+    const { paddings } = useLayoutChild(props.area, size, toRef(props, 'order'), toRef(props, 'absolute'))
 
     const computedStyle = computed(() => {
       return Object.keys(paddings.value).reduce((acc, key) => {

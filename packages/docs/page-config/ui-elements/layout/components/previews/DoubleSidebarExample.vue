@@ -57,7 +57,7 @@
 
       <template #left>
         <div style="display: flex; height: 100%;">
-          <VaSidebar v-model="isSidebarVisible" position="absolute">
+          <VaSidebar v-model="isSidebarVisible">
             <VaSidebarItem
               v-for="{ icon, title } in subMenu"
               :key="icon"

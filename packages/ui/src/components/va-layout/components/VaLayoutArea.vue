@@ -1,19 +1,23 @@
 <template>
   <VaLayoutAbsoluteWrapper v-if="absolute" :area="area">
-    <div :class="`va-layout__area va-layout__area--${area}`">
-      <VaLayoutFixedWrapper v-if="fixed" :area="area" :order="config.order || 0">
+    <div :class="`va-layout-area va-layout__area va-layout__area--${area}`">
+      <VaLayoutFixedWrapper v-if="fixed" :area="area" :order="config.order || 0" :absolute="absolute">
         <slot />
       </VaLayoutFixedWrapper>
       <slot v-else />
     </div>
   </VaLayoutAbsoluteWrapper>
 
-  <div v-else :class="`va-layout__area va-layout__area--${area}`">
-    <VaLayoutFixedWrapper v-if="fixed" :area="area" :order="config.order || 0">
+  <div v-else :class="`va-layout-area va-layout__area va-layout__area--${area}`">
+    <VaLayoutFixedWrapper v-if="fixed" :area="area" :order="config.order || 0" :absolute="absolute">
       <slot />
     </VaLayoutFixedWrapper>
     <slot v-else />
   </div>
+
+  <Transition>
+    <div class="va-layout-area__overlay" v-if="overlay" @click="$emit('overlay-click')" />
+  </Transition>
 </template>
 
 <script lang="ts">
@@ -40,10 +44,13 @@ export default defineComponent({
     config: { type: Object as PropType<AreaConfig>, required: true },
   },
 
+  emits: ['overlay-click'],
+
   setup (props) {
     return {
       absolute: computed(() => props.config.absolute || false),
       fixed: computed(() => props.config.fixed || false),
+      overlay: computed(() => props.config.overlay || false),
       // Content z-index is always 0, other areas must have bigger z-index by 1
       zIndex: computed(() => (props.config.order || 0) + 1),
     }
@@ -60,6 +67,28 @@ export default defineComponent({
 
     &__absolute-area-wrapper {
       z-index: v-bind("zIndex");
+    }
+  }
+
+  .va-layout-area {
+    &__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--va-layout-overlay-color);
+      z-index: v-bind("zIndex - 1");
+
+      &.v-enter-active,
+      &.v-leave-active {
+        transition: opacity 0.5s ease;
+      }
+
+      &.v-enter-from,
+      &.v-leave-to {
+        opacity: 0;
+      }
     }
   }
 </style>

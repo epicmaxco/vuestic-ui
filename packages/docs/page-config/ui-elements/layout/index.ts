@@ -61,16 +61,16 @@ Notice that if you're using components like VaSidebar, VaHeader the correct role
     {
       props: {
         top: {
-          types: `{ absolute?: boolean, order?: number }`
+          types: `{ absolute?: boolean, order?: number, fixed?: boolean, overlay?: boolean }`
         },
         bottom: {
-          types: `{ absolute?: boolean, order?: number }`
+          types: `{ absolute?: boolean, order?: number, fixed?: boolean, overlay?: boolean }`
         },
         left: {
-          types: `{ absolute?: boolean, order?: number }`
+          types: `{ absolute?: boolean, order?: number, fixed?: boolean, overlay?: boolean }`
         },
         right: {
-          types: `{ absolute?: boolean, order?: number }`
+          types: `{ absolute?: boolean, order?: number, fixed?: boolean, overlay?: boolean }`
         }
       }
     })

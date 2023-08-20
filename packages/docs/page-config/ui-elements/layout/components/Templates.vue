@@ -30,24 +30,24 @@
 
   const items = [
     {
-      preview: DocsPreview,
       code: DocsCode,
-      example: DocsExample,
+      preview: markRaw(DocsPreview),
+      example: markRaw(DocsExample),
     },
     {
-      preview: LargeSidebarPreview,
       code: LargeSidebarCode,
-      example: LargeSidebarExample,
+      preview: markRaw(LargeSidebarPreview),
+      example: markRaw(LargeSidebarExample),
     },
     {
-      preview: AllAreasPreview,
       code: AllAreasCode,
-      example: AllAreasExample,
+      preview: markRaw(AllAreasPreview),
+      example: markRaw(AllAreasExample),
     },
     {
-      preview: DoubleSidebar,
       code: DoubleSidebarCode,
-      example: DoubleSidebarExample,
+      preview: markRaw(DoubleSidebar),
+      example: markRaw(DoubleSidebarExample),
     },
   ]
 
@@ -107,21 +107,24 @@
   >
     <component :is="activeItem.example">
       <div class="p-8">
-        <VaButton
-          class="mb-2"
-          :loading="copyButtonState === 'active'"
-          :color="copyButtonState === 'error' ? 'danger' : 'primary'"
-          @click="copyCode"
-          icon="fa4-files-o"
-          preset="secondary"
-        >
-          Copy code example to clipboard
-        </VaButton>
+        <div class="bg-[var(--va-background-element)] rounded-md">
+          <div class="flex justify-end px-4 pt-4">
+            <VaButton
+              :loading="copyButtonState === 'active'"
+              :color="copyButtonState === 'error' ? 'danger' : 'primary'"
+              @click="copyCode"
+              icon="fa4-files-o"
+              preset="secondary"
+            >
+              Copy code example to clipboard
+            </VaButton>
+          </div>
 
-        <CodeView
-          :code="activeItem.code"
-          language="html"
-        />
+          <CodeView
+            :code="activeItem.code"
+            language="html"
+          />
+        </div>
       </div>
     </component>
   </VaModal>

@@ -8,6 +8,7 @@ export type AreaConfig = UnwrapType<{
   absolute?: boolean,
   order?: number,
   fixed?: boolean,
+  overlay?: boolean,
 }>
 
 export const useLayoutProps = {
@@ -34,6 +35,7 @@ export type LayoutProps = ExtractPropTypes<typeof useLayoutProps>
 type LayoutItem = {
   sizes: DOMRectReadOnly,
   order: number,
+  absolute: boolean,
 }
 
 const VaLayoutKey = 'VaLayout' as unknown as InjectionKey<{
@@ -51,10 +53,10 @@ export const useLayout = () => {
   })
 
   const paddings = computed(() => ({
-    top: items.value.top ? items.value.top.sizes.height : 0,
-    right: items.value.right ? items.value.right.sizes.width : 0,
-    bottom: items.value.bottom ? items.value.bottom.sizes.height : 0,
-    left: items.value.left ? items.value.left.sizes.width : 0,
+    top: items.value.top && !items.value.top.absolute ? items.value.top.sizes.height : 0,
+    right: items.value.right && !items.value.right.absolute ? items.value.right.sizes.width : 0,
+    bottom: items.value.bottom && !items.value.bottom.absolute ? items.value.bottom.sizes.height : 0,
+    left: items.value.left && !items.value.left.absolute ? items.value.left.sizes.width : 0,
   }))
 
   const orders = computed(() => ({
@@ -71,7 +73,7 @@ export const useLayout = () => {
   })
 }
 
-export const useLayoutChild = (area: AreaName, sizes: Ref<DOMRectReadOnly | null>, order: Ref<number>) => {
+export const useLayoutChild = (area: AreaName, sizes: Ref<DOMRectReadOnly | null>, order: Ref<number>, absolute: Ref<boolean>) => {
   const layout = inject(VaLayoutKey, null)
 
   if (!layout) {
@@ -81,6 +83,7 @@ export const useLayoutChild = (area: AreaName, sizes: Ref<DOMRectReadOnly | null
   watchEffect(() => {
     if (sizes.value) {
       layout.items.value[area] = {
+        absolute: absolute.value,
         sizes: sizes.value,
         order: order.value,
       }

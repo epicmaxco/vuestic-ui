@@ -5,6 +5,7 @@
       :key="area"
       :area="area"
       :config="$props[area] || {}"
+      @overlay-click="$emit(`${area}-overlay-click`)"
     >
       <slot :name="area" />
     </VaLayoutArea>
@@ -40,6 +41,13 @@ export default defineComponent({
     ...useLayoutProps,
   },
 
+  emits: [
+    'top-overlay-click',
+    'left-overlay-click',
+    'right-overlay-click',
+    'bottom-overlay-click',
+  ],
+
   components: { VaLayoutArea },
 
   setup (props, { slots }) {
@@ -71,8 +79,9 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../../styles/resources';
+@import "variables";
 
 .va-layout {
   display: grid;

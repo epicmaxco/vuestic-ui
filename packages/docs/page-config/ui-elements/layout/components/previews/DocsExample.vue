@@ -4,17 +4,26 @@
 
   const breakpoints = useBreakpoint()
 
-  const isSidebarVisible = ref(breakpoints.smUp)
+  const isSidebarVisible = ref(breakpoints.mdUp)
 
   watchEffect(() => {
     isSidebarVisible.value = breakpoints.smUp
   })
+
+  const menu = [
+    { icon: 'add', title: 'Add' },
+    { icon: 'phone', title: 'Phone' },
+    { icon: 'email', title: 'Email' },
+    { icon: 'settings', title: 'Settings' },
+    { icon: 'logout', title: 'Logout' },
+  ]
 </script>
 
 <template>
   <VaLayout
-    :top="{ fixed: true, order: 1 }"
-    :left="{ fixed: true, absolute: breakpoints.smDown, order: 0 }"
+    :top="{ fixed: true, order: 2 }"
+    :left="{ fixed: true, absolute: breakpoints.smDown, order: 1, overlay: breakpoints.smDown && isSidebarVisible }"
+    @left-overlay-click="isSidebarVisible = false"
   >
     <template #top>
       <VaNavbar shadowed>
@@ -30,19 +39,11 @@
 
     <template #left>
       <VaSidebar v-model="isSidebarVisible">
-        <VaSidebarItem>
+        <VaSidebarItem v-for="{ icon, title } in menu" :key="icon">
           <VaSidebarItemContent>
-            <VaIcon name="home" />
+            <VaIcon :name="icon" />
             <VaSidebarItemTitle>
-              Home
-            </VaSidebarItemTitle>
-          </VaSidebarItemContent>
-        </VaSidebarItem>
-        <VaSidebarItem>
-          <VaSidebarItemContent>
-            <VaIcon name="phone" />
-            <VaSidebarItemTitle>
-              About
+              {{ title }}
             </VaSidebarItemTitle>
           </VaSidebarItemContent>
         </VaSidebarItem>
