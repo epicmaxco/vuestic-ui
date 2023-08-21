@@ -109,13 +109,14 @@ export default defineComponent({
     textColor: { type: String, default: '' },
     iconColor: { type: String, default: 'secondary' },
     colorAll: { type: Boolean, default: false },
+    stateful: { type: Boolean, default: true },
   },
   emits: ['update:modelValue', ...useSelectableEmits],
 
   setup (props, { emit, slots }) {
     const body = shallowRef<HTMLElement>()
 
-    const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: false })
+    const { valueComputed } = useStateful(props, emit, 'modelValue')
 
     const { getColor, getHoverColor } = useColors()
     const { accordionProps, valueProxy: computedModelValue = valueComputed } = useAccordionItem()
