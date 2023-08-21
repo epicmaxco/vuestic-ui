@@ -1,46 +1,56 @@
 <template>
-  <h1>{{ saveResult }}</h1>
-  <br />
-  <va-stepper v-model="step" :steps="steps">
+  <VaStepper
+    ref="actionStepper"
+    v-model="currentStep"
+    :steps="steps"
+  >
     <template #step-content-0>
-      <ul>
-        <li>Select a category</li>
-        <li>Browse products</li>
-        <li>Add to cart</li>
-      </ul>
+      <p>Validate on save</p>
+      <va-input
+        v-model="model.a"
+        label="A"
+      />
     </template>
     <template #step-content-1>
-      <ul>
-        <li>Fill out shipping information</li>
-        <li>Choose payment method</li>
-      </ul>
+      <p>Validate on save and disable navigation</p>
+      <va-input
+        v-model="model.b"
+        label="B"
+        required-mark
+      />
     </template>
     <template #step-content-2>
-      <ul>
-        <li>View order summary</li>
-        <li>Edit shipping information</li>
-      </ul>
+      <p>Validate instantly</p>
+      <va-input
+        v-model="model.c"
+        label="C"
+        required-mark
+      />
     </template>
-    <template #step-content-3>
-      <ul>
-        <li>Review order details</li>
-        <li>Complete payment</li>
-      </ul>
-    </template>
-  </va-stepper>
+  </VaStepper>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue'
-import { Step } from 'vuestic-ui/src/components/va-stepper/types';
+import { defineVaStepperSteps } from 'vuestic-ui'
 
-const step = ref(0);
-const saveResult = ref();
+const currentStep = ref(0)
+const model = ref({ a: '', b: '', c: '', d: '' })
 
-const steps = [
-  { label: 'Choose your product', save: () => { saveResult.value = 'Product saved!'; } },
-  { label: 'Checkout', save: () => { saveResult.value = 'Checkout saved!'; } },
-  { label: 'Review order' },
-  { label: 'Confirm and pay', save: () => { saveResult.value = 'Payment confirmed!'; } },
-] as Step[]
+const steps = ref(defineVaStepperSteps([
+  {
+    label: 'One', beforeSave: (fromStep, toStep) => {
+      if (fromStep !== toStep) {
+        alert('Thanks!')
+      }
+    }
+  },
+  {
+    label: 'Two', beforeSave: (step) => {
+      step.hasError = model.value.b === ''
+      return !step.hasError
+    }
+  },
+  { label: 'Three' },
+]))
 </script>

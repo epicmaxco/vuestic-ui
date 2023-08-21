@@ -4,7 +4,7 @@ export type Step = {
   disabled?: boolean
   beforeSave?: (currentStep: Omit<Step, 'beforeSave'>, toStep: Omit<Step, 'beforeSave'>) => boolean
   /** Will be set to true if user completed step with validation error */
-  hasError?: boolean | ((step: Step) => boolean)
+  hasError?: boolean
   /**
    * Used in linear stepper to indicate if step is complete.
    * You can set it manually to false to prevent moving to next step.

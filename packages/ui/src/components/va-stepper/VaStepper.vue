@@ -18,7 +18,7 @@
     >
       <template
         v-for="(step, i) in $props.steps"
-        :key="i"
+        :key="i + step.label"
       >
         <slot
           v-if="i > 0"
@@ -137,6 +137,19 @@ export default defineComponent({
       }
     }
 
+    const findFirstWithErrorIndex = (from: number, direction: number) => {
+      while (from >= 0 && from < props.steps.length) {
+        from += direction
+        const step = props.steps[from]
+        if (!step) {
+          return
+        }
+        if (step.hasError === true) {
+          return from
+        }
+      }
+    }
+
     const validateMovingToStep = (stepIndex: number): boolean => {
       const newStep = props.steps[stepIndex]
       const currentStep = props.steps[modelValue.value]
@@ -144,8 +157,13 @@ export default defineComponent({
 
       if (newStep.disabled) { return false }
 
-      //  Do not do anything if user trying to just over few steps and last is not completed
-      if (props.linear && beforeNewStep && currentStep !== beforeNewStep && !beforeNewStep.completed) {
+      if (props.linear && stepIndex < modelValue.value) {
+        return true
+      }
+
+      const nextNonError = findFirstWithErrorIndex(modelValue.value, 1)
+
+      if (props.linear && nextNonError !== undefined && nextNonError < stepIndex) {
         return false
       }
 
@@ -154,13 +172,19 @@ export default defineComponent({
         // Do not update the modelValue if the beforeSave function returns false
         return false
       }
-      // Check if currentStep has error after beforeSave function
-      if (props.linear && unFunction(currentStep.hasError, currentStep)) { return false }
 
       // Mark current step as completed, if it is not marked manually by user
       if (currentStep.completed === undefined) {
         currentStep.completed = true
       }
+
+      //  Do not do anything if user trying to just over few steps and last is not completed
+      if (props.linear && beforeNewStep && !beforeNewStep.completed) {
+        return false
+      }
+
+      // Check if currentStep has error after beforeSave function
+      if (props.linear && unFunction(currentStep.hasError, currentStep)) { return false }
 
       return true
     }

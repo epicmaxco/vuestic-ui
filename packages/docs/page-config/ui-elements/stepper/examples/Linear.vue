@@ -1,42 +1,69 @@
 <template>
-  <va-form ref="linearForm">
-    <VaStepper ref="stepper" v-model="step" :steps="steps" linear>
+  <VaForm ref="stepForm">
+    <VaStepper
+      ref="linearStepper"
+      v-model="currentStep"
+      :steps="steps"
+      linear
+    >
       <template #step-content-0>
-        <va-input v-model="model.a" :rules="[required(model.a)]" label="A">
-        </va-input>
+        <va-input
+          v-model="model.a"
+          label="A"
+          :rules="[
+            (v) => !!v || 'Required',
+          ]"
+          required-mark
+        />
       </template>
       <template #step-content-1>
-        <va-input v-model="model.b" label="B"></va-input>
+        <va-input
+          v-model="model.b"
+          label="B"
+          :rules="[
+            (v) => !!v || 'Required',
+          ]"
+          required-mark
+        />
       </template>
       <template #step-content-2>
-        <va-input v-model="model.c" label="C"></va-input>
+        <va-input
+          v-model="model.c"
+          label="C"
+        />
+      </template>
+      <template #step-content-3>
+        <va-input
+          v-model="model.d"
+          label="D"
+          :rules="[
+            (v) => !!v || 'Required',
+          ]"
+          required-mark
+        />
       </template>
     </VaStepper>
-  </va-form>
+  </VaForm>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref } from 'vue';
-import { Step } from 'vuestic-ui/src/components/va-stepper/types';
-import { useForm } from 'vuestic-ui/web-components';
-import { required } from '../../../../../ui/src/utils/validators'
+import { useForm, defineVaStepperSteps } from 'vuestic-ui'
 
-const step = ref()
-const linearForm = ref()
-const { validate } = useForm(linearForm)
-const model = ref({ a: '', b: '', c: '' })
-const stepper = ref()
+const currentStep = ref(0);
+const model = ref({ a: '', b: '', c: '', d: '' })
 
-const steps = ref([
-  { label: 'One', save: () => {
-    if(validate())
-      (stepper as any).value.completeStep()
-    else
-      (stepper as any).value.setError()
-  } },
-  { label: 'Two' },
-  { label: 'Three' },
-  { label: 'Four' },
-  { label: 'Five' },
-] as Step[])
+const { validate } = useForm('stepForm')
+
+const steps = ref(defineVaStepperSteps([
+  {
+    label: 'One',
+    beforeSave: (step) => {
+      step.hasError = !validate()
+    },
+  },
+  { label: 'Two', beforeSave: (step) => { step.hasError = !validate() } },
+  { label: 'Three', beforeSave: (step) => { step.hasError = !validate() } },
+  { label: 'Four', beforeSave: (step) => { step.hasError = !validate() } },
+]))
 </script>
