@@ -59,6 +59,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: var(--va-collapse-padding);
+  transition: all 0.2s ease-in;
 
   &:hover {
     background-color: var(--va-background-element);

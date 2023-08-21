@@ -68,7 +68,6 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       todoList: [
         'Update and release other packages (like nuxt, create-vuestic, etc)',
         'Make release notes on github',
-        'Update docs header',
         'Merge docs to master',
       ]
     }
@@ -87,7 +86,6 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       todoList: [
         'Update and release other packages (like nuxt, create-vuestic, etc)',
         'Make release notes on github',
-        'Update docs header',
         'Merge docs to master',
       ]
     }

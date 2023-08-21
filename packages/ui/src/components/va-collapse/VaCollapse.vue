@@ -83,6 +83,9 @@ import {
   useResizeObserver,
   useComponentPresetProp,
   isColorTransparent,
+  useStateful,
+  useStatefulProps,
+  useSelectableEmits,
 } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
@@ -97,7 +100,8 @@ export default defineComponent({
   },
   props: {
     ...useComponentPresetProp,
-    modelValue: { type: Boolean, default: undefined },
+    ...useStatefulProps,
+    modelValue: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     header: { type: String, default: '' },
     icon: { type: String, default: '' },
@@ -106,15 +110,15 @@ export default defineComponent({
     iconColor: { type: String, default: 'secondary' },
     colorAll: { type: Boolean, default: false },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', ...useSelectableEmits],
 
   setup (props, { emit, slots }) {
     const body = shallowRef<HTMLElement>()
 
-    const [computedModelValue] = useSyncProp('modelValue', props, emit, false)
+    const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: false })
 
     const { getColor, getHoverColor } = useColors()
-    const { accordionProps, toggle } = useAccordionItem(computedModelValue)
+    const { accordionProps, valueProxy: computedModelValue = valueComputed } = useAccordionItem()
 
     const { textColorComputed } = useTextColor()
 
@@ -163,6 +167,11 @@ export default defineComponent({
 
       return textColorComputed.value
     })
+
+    const toggle = () => {
+      if (props.disabled) { return }
+      computedModelValue.value = !computedModelValue.value
+    }
 
     return {
       body,

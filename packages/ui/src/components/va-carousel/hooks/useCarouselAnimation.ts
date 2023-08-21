@@ -11,21 +11,14 @@ export const useCarouselAnimation = (props: {
   fadeKeyframe: string,
 }, currentSlide: Ref<number>) => {
   let animationInterval = -1
-  let direction = 1
 
   const start = () => {
     if (!props.autoscroll) { return }
 
     clearInterval(animationInterval)
     animationInterval = setInterval(() => {
-      if (props.infinite) {
-        currentSlide.value += 1
-        if (currentSlide.value >= props.items.length) { currentSlide.value = 0 }
-      } else {
-        if (currentSlide.value <= 0) { direction = 1 }
-        if (currentSlide.value >= props.items.length - 1) { direction = -1 }
-        currentSlide.value += direction
-      }
+      currentSlide.value += 1
+      if (currentSlide.value >= props.items.length) { currentSlide.value = 0 }
     }, props.autoscrollInterval) as any
   }
 
@@ -137,7 +130,7 @@ export const useCarouselAnimation = (props: {
       return [props.items[currentSlide.value]]
     }
 
-    if (props.infinite) {
+    if (props.infinite || props.autoscroll) {
       return [...props.items, props.items[0]]
     }
 
