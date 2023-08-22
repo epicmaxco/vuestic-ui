@@ -14,16 +14,19 @@
           class="mb-2"
         />
         <va-input
-          stateful
           label="City"
           class="mb-2"
           :rules="[(v) => v.length > 3]"
+          :model-value="'Kyiv'"
+          success
         />
         <va-select
           stateful
           label="Country"
           class="mb-2"
           :options="['Ukraine', 'Georgia', 'Poland']"
+          :error-messages="['Country is required']"
+          error
         />
       </va-card-content>
 
@@ -65,16 +68,15 @@
             </td>
           </tr>
         </table>
-        <va-file-upload
-          stateful
-          dropzone
-          drop-zone-text="Send us photo"
-        />
+        <va-alert class="my-4" color="warning" icon="info">
+          You can't change your review after sending
+        </va-alert>
         <va-checkbox
           stateful
           label="I agree with all terms!!!"
         />
       </va-card-content>
+      <va-divider />
       <va-card-actions align="between">
         <div />
         <va-button>Send review</va-button>
@@ -97,16 +99,8 @@
       </va-sidebar>
     </div>
 
-    <div class="card card-5">
-      <va-option-list
-        type="radio"
-        :model-value="'Option 2'"
-        :options="['Option 1', 'Option 2', 'Option 3']"
-      />
-    </div>
-
     <div class="card card-6">
-      <va-alert>Important message goes here!!!</va-alert>
+      <va-alert color="info">Read this information</va-alert>
     </div>
 
     <div class="card card-7">
