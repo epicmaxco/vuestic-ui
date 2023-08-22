@@ -78,7 +78,6 @@
 <script lang="ts">
 import { defineComponent, computed, PropType } from 'vue'
 
-import { generateUniqueId } from '../../utils/uuid'
 import {
   useComponentPresetProp,
   useStateful, useStatefulProps, useStatefulEmits,
@@ -96,13 +95,16 @@ export default defineComponent({
   props: {
     ...useStatefulProps,
     ...useComponentPresetProp,
+    
     modelValue: { type: Boolean, default: true },
+    stateful: { type: Boolean, default: true },
     color: { type: String, default: 'primary' },
     textColor: { type: String, default: '' },
     title: { type: String, default: '' },
     description: { type: String, default: '' },
     icon: { type: String, default: '' },
     closeText: { type: String, default: '' },
+    closeIcon: { type: String, default: 'close' },
     closeable: { type: Boolean, default: false },
     dense: { type: Boolean, default: false },
     outline: { type: Boolean, default: false },
@@ -121,13 +123,15 @@ export default defineComponent({
 
     const hide = () => { valueComputed.value = false }
 
+    const show = () => { valueComputed.value = true }
+
     const hasIcon = computed(() => props.icon || slots.icon)
 
     const hasTitle = computed(() => props.title || slots.title)
 
     const borderClass = computed(() => `va-alert__border--${props.border}`)
 
-    const closeIcon = computed(() => props.closeText || 'close')
+    const closeIcon = computed(() => props.closeText || props.closeIcon)
 
     return {
       ...useTranslation(),
@@ -138,6 +142,7 @@ export default defineComponent({
       borderClass,
       closeIcon,
       hide,
+      show,
     }
   },
 })

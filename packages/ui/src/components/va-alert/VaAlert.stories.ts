@@ -16,6 +16,13 @@ export const Default = {
   },
 }
 
+export const Outline = {
+  args: {
+    outline: true,
+    description: 'Message',
+  },
+}
+
 export const Dense = {
   args: {
     dense: true,
@@ -30,27 +37,26 @@ export const Title = {
   },
 }
 
-export const Center = {
-  args: {
-    center: true,
-    title: 'Title',
-    description: 'Message',
-  },
-}
+export const Icon = () => ({
+  components: { VaAlert },
+  template: `
+  <va-alert icon="va-warning">
+    Message
+  </va-alert>
+  `,
+})
 
-export const Icon = {
-  args: {
-    icon: 'Icon',
-    description: 'Message',
-  },
-}
-
-export const Outline = {
-  args: {
-    outline: true,
-    description: 'Message',
-  },
-}
+export const Center = () => ({
+  components: { VaAlert },
+  template: `
+  <va-alert center title="Title">
+    Message
+  </va-alert>
+  <va-alert center title="Title" icon="va-warning" closeable>
+    Message
+  </va-alert>
+  `,
+})
 
 export const Closeable = () => ({
   components: { VaAlert },
@@ -69,8 +75,22 @@ export const Closeable = () => ({
 export const CloseText = () => ({
   components: { VaAlert },
   template: `
-    [close]
-    <va-alert closeable close-text="close">
+    [close text]
+    <va-alert closeable close-text="close text">
+      Message
+    </va-alert>
+    [undefined]
+    <va-alert closeable>
+      Message
+    </va-alert>
+  `,
+})
+
+export const CloseIcon = () => ({
+  components: { VaAlert },
+  template: `
+    [va-clear]
+    <va-alert closeable close-icon="va-clear">
       Message
     </va-alert>
     [undefined]
@@ -84,11 +104,11 @@ export const Stateful = () => ({
   components: { VaAlert },
   template: `
     [true]
-    <va-alert stateful closeable>
+    <va-alert closeable>
       Message
     </va-alert>
     [false]
-    <va-alert closeable>
+    <va-alert :stateful="false" closeable>
       Message
     </va-alert>
   `,
@@ -175,7 +195,7 @@ export const BorderColor = () => ({
   `,
 })
 
-export const Sloted = () => ({
+export const Slotted = () => ({
   components: { VaAlert },
   template: `
     <va-alert closeable>
@@ -193,25 +213,36 @@ export const Sloted = () => ({
   `,
 })
 
-export const Hide = () => ({
+export const HideAndShow = () => ({
   components: { VaAlert, VaButton },
+  data: () => ({ isVisible: true }),
   template: `
-    <va-alert stateful ref="alert">
+    <va-alert ref="alert">
       Message
     </va-alert>
+    <va-button @click="$refs.alert.show()">
+      Show
+    </va-button>
     <va-button @click="$refs.alert.hide()">
       Hide
     </va-button>
   `,
 })
 
-Hide.play = async ({ canvasElement, step }) => {
+HideAndShow.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
+  const showButton = canvas.getByRole('button', { name: 'Show' }) as HTMLElement
   const hideButton = canvas.getByRole('button', { name: 'Hide' }) as HTMLElement
 
   await step('Hides on button click', async () => {
     await userEvent.click(hideButton)
     const alert = document.querySelector('[role="alert"]') as HTMLElement | null
     expect(alert).toBeNull()
+  })
+
+  await step('Shows on button click', async () => {
+    await userEvent.click(showButton)
+    const alert = document.querySelector('[role="alert"]') as HTMLElement
+    expect(alert).not.toBeNull()
   })
 }
