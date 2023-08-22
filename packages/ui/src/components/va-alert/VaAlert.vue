@@ -131,8 +131,6 @@ export default defineComponent({
 
     const borderClass = computed(() => `va-alert__border--${props.border}`)
 
-    const closeIcon = computed(() => props.closeText || props.closeIcon)
-
     return {
       ...useTranslation(),
       ...alertStyles,
@@ -140,7 +138,6 @@ export default defineComponent({
       hasIcon,
       hasTitle,
       borderClass,
-      closeIcon,
       hide,
       show,
     }
