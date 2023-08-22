@@ -7,7 +7,10 @@
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
   >
-    <div v-show="doShowMenu" class="va-sidebar__menu" ref="menu" :style="`width: ${menuWidth};`">
+    <div v-show="doShowMenu" class="va-sidebar__menu" ref="menu" :style="{
+      width: menuWidth,
+      minWidth: menuWidth,
+    }">
       <va-config :components="{ VaSidebarItem: vaSidebarItemProps }">
         <slot />
       </va-config>
@@ -16,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, PropType, shallowRef, watch, watchEffect } from 'vue'
+import { defineComponent, computed, ref, shallowRef, watchEffect } from 'vue'
 
 import { VaConfig } from '../va-config'
 import { getGradientBackground } from '../../services/color'
@@ -41,15 +44,10 @@ export default defineComponent({
     gradient: { type: Boolean, default: false },
     minimized: { type: Boolean, default: false },
     hoverable: { type: Boolean, default: false },
-    position: {
-      type: String as PropType<'left' | 'right'>,
-      default: 'left',
-      validator: (v: string) => ['left', 'right'].includes(v),
-    },
     width: { type: String, default: '16rem' },
     minimizedWidth: { type: String, default: '4rem' },
     modelValue: { type: Boolean, default: true },
-    animated: { type: Boolean, default: true },
+    animated: { type: [Boolean, String], default: true },
     closeOnClickOutside: { type: Boolean, default: false },
   },
 
@@ -83,9 +81,9 @@ export default defineComponent({
       return currentMenuWidth.value > 0
     })
 
-    const menuWidth = ref()
+    const sidebarWidth = ref()
 
-    const getWidth = () => {
+    const getSidebarWidth = () => {
       if (!props.modelValue) {
         return 0
       }
@@ -93,11 +91,13 @@ export default defineComponent({
       return isMinimized.value ? props.minimizedWidth : props.width
     }
 
+    const menuWidth = computed(() => isMinimized.value ? props.minimizedWidth : props.width)
+
     watchEffect(() => {
-      const width = getWidth()
+      const width = getSidebarWidth()
       // Set width after doShowMenu is applied, so transition is executed after menu is displayed
       setTimeout(() => {
-        menuWidth.value = width
+        sidebarWidth.value = width
       })
     })
 
@@ -112,13 +112,17 @@ export default defineComponent({
         color,
         backgroundColor,
         backgroundImage: props.gradient ? getGradientBackground(backgroundColor) : undefined,
+        overflowX: currentMenuWidth.value === sidebarWidth.value ? undefined : 'hidden' as const,
+        width: sidebarWidth.value,
+        minWidth: sidebarWidth.value,
       }
     })
 
     const computedClass = useBem('va-sidebar', () => ({
       minimized: isMinimized.value,
-      right: props.position === 'right',
-      animated: props.animated,
+      animated: Boolean(props.animated),
+      'animated-right': props.animated === 'right',
+      'animated-left': props.animated === 'left' || props.animated === true,
     }))
 
     const updateHoverState = (newHoverState: boolean) => {
@@ -137,8 +141,8 @@ export default defineComponent({
 
     return {
       menu,
-      doShowMenu,
       menuWidth,
+      doShowMenu,
       computedClass,
       computedStyle,
       updateHoverState,
@@ -162,23 +166,24 @@ export default defineComponent({
 .va-sidebar {
   min-height: var(--va-sidebar-min-height);
   height: var(--va-sidebar-height);
-  position: var(--va-sidebar-position);
-  top: var(--va-sidebar-top);
-  left: var(--va-sidebar-left);
   z-index: var(--va-sidebar-z-index);
   font-family: var(--va-font-family);
   display: inline-flex;
   box-sizing: border-box;
+  position: relative;
+  top: 0;
 
   &__menu {
     display: flex;
     flex-direction: column;
+    min-width: 100%;
+    flex: 1;
+    height: 100%;
+    right: 0;
     max-height: var(--va-sidebar-menu-max-height);
-    margin-bottom: var(--va-sidebar-menu-margin-bottom);
-    list-style: var(--va-sidebar-menu-list-style);
-    padding-left: var(--va-sidebar-menu-padding-left);
     overflow-y: var(--va-sidebar-menu-overflow-y);
     overflow-x: var(--va-sidebar-menu-overflow-x);
+    margin-left: auto;
 
     @include va-scroll(var(--va-primary));
   }
@@ -191,17 +196,20 @@ export default defineComponent({
     }
   }
 
+  &--animated-right {
+    justify-content: flex-start;
+  }
+
+  &--animated-left {
+    justify-content: flex-end;
+  }
+
   &--minimized {
     left: 0;
 
     .va-sidebar__title {
       display: none;
     }
-  }
-
-  &--right {
-    left: auto;
-    right: 0;
   }
 }
 </style>

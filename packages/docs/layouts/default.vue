@@ -14,12 +14,10 @@
       v-show="!isOptionsVisible"
       class="docs-layout__main-section"
     >
-      <aside class="docs-layout__sidebar">
-        <LayoutSidebar
-          v-model:visible="isSidebarVisible"
-          :mobile="breakpoints.smDown"
-        />
-      </aside>
+      <LayoutSidebar
+        v-model:visible="isSidebarVisible"
+        :mobile="breakpoints.xs"
+      />
       <main class="docs-layout__main-content">
         <article class="docs-layout__page-content">
           <slot />
@@ -114,15 +112,6 @@ html {
     flex-grow: 2;
     overflow: auto;
     position: relative;
-  }
-
-  &__sidebar {
-    height: 100%;
-    min-width: fit-content;
-    overflow-y: auto;
-    overflow-x: unset;
-
-    @include va-scroll(var(--va-primary));
   }
 
   &__main-content {
