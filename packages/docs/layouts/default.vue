@@ -10,6 +10,7 @@
     <VaLayout
       :top="{ fixed: true, order: 2 }"
       :left="{ fixed: true, absolute: breakpoints.smDown, overlay: breakpoints.smDown && isSidebarVisible, order: 1 }"
+      @left-overlay-click="isSidebarVisible = false"
     >
       <template #top>
         <LayoutHeader
@@ -119,7 +120,7 @@ html {
     justify-content: center;
     background: var(--va-background-primary);
 
-    @include va-scroll(var(--va-primary));
+    // @include va-scroll(var(--va-primary));
   }
 
   &__page-content {

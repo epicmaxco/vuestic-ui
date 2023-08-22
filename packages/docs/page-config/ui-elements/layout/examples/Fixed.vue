@@ -1,5 +1,13 @@
 <script setup lang="ts">
   const showSidebar = ref(true)
+
+  const menu = [
+    { icon: 'add', title: 'Add' },
+    { icon: 'phone', title: 'Phone' },
+    { icon: 'email', title: 'Email' },
+    { icon: 'settings', title: 'Settings' },
+    { icon: 'logout', title: 'Logout' },
+  ]
 </script>
 
 <template>
@@ -23,8 +31,8 @@
       >
         <template #top>
           <VaNavbar
-            color="primary"
             class="py-2"
+            shadowed
           >
             <template #left>
               <VaButton
@@ -37,34 +45,20 @@
 
         <template #left>
           <VaSidebar v-model="showSidebar">
-            <div
-              v-for="i in 12"
-              :key="i"
-              class="px-2 py-1"
-            >
-              <VaSkeleton
-                color="#0000000e"
-                style="height: 40px;"
-              />
-            </div>
+            <VaSidebarItem v-for="{ icon, title } in menu" :key="icon">
+              <VaSidebarItemContent>
+                <VaIcon :name="icon" />
+                <VaSidebarItemTitle>
+                  {{ title }}
+                </VaSidebarItemTitle>
+              </VaSidebarItemContent>
+            </VaSidebarItem>
           </VaSidebar>
         </template>
 
         <template #content>
           <main class="p-4">
-            <VaSkeleton
-              variant="text"
-              class="va-h1"
-              lines="1"
-            />
-            <VaSkeleton
-              v-for="i in 12"
-              :key="i"
-              variant="text"
-              :lines="Math.floor(Math.random() * 10)"
-              :last-line-width="Math.floor(Math.random() * 100) + '%'"
-              class="mb-4"
-            />
+            Some text here
           </main>
         </template>
       </VaLayout>
