@@ -10,40 +10,29 @@ export default {
   tags: ['autodocs'],
 }
 
-export const Default = {
-  args: {
-    description: 'Message',
-  },
-}
+export const Default = () => ({
+  components: { VaAlert },
+  template: '<va-alert description="Message" />',
+})
 
-export const Outline = {
-  args: {
-    outline: true,
-    description: 'Message',
-  },
-}
+export const Outline = () => ({
+  components: { VaAlert },
+  template: '<va-alert description="Message" outline />',
+})
 
-export const Dense = {
-  args: {
-    dense: true,
-    description: 'Message',
-  },
-}
+export const Dense = () => ({
+  components: { VaAlert },
+  template: '<va-alert description="Message" dense />',
+})
 
-export const Title = {
-  args: {
-    title: 'Title',
-    description: 'Message',
-  },
-}
+export const Title = () => ({
+  components: { VaAlert },
+  template: '<va-alert title="Title" description="Message" />',
+})
 
 export const Icon = () => ({
   components: { VaAlert },
-  template: `
-  <va-alert icon="va-warning">
-    Message
-  </va-alert>
-  `,
+  template: '<va-alert icon="warning" description="Message" />',
 })
 
 export const Center = () => ({
@@ -79,7 +68,7 @@ export const CloseText = () => ({
     <va-alert closeable close-text="close text">
       Message
     </va-alert>
-    [undefined]
+    ['']
     <va-alert closeable>
       Message
     </va-alert>
@@ -89,11 +78,11 @@ export const CloseText = () => ({
 export const CloseIcon = () => ({
   components: { VaAlert },
   template: `
-    [va-clear]
-    <va-alert closeable close-icon="va-clear">
+    [home]
+    <va-alert closeable close-icon="home">
       Message
     </va-alert>
-    [undefined]
+    [close]
     <va-alert closeable>
       Message
     </va-alert>
@@ -134,12 +123,7 @@ Stateful.play = async ({ canvasElement, step }) => {
 export const Color = () => ({
   components: { VaAlert },
   template: `
-    [warning]
-    <va-alert color="warning">
-      Message
-    </va-alert>
-    [#ce6e67]
-    <va-alert color="#ce6e67">
+    <va-alert color="warning" >
       Message
     </va-alert>
   `,
@@ -148,12 +132,7 @@ export const Color = () => ({
 export const TextColor = () => ({
   components: { VaAlert },
   template: `
-    [warning]
     <va-alert text-color="warning">
-      Message
-    </va-alert>
-    [#ce6e67]
-    <va-alert text-color="#ce6e67">
       Message
     </va-alert>
   `,
@@ -184,12 +163,7 @@ export const Border = () => ({
 export const BorderColor = () => ({
   components: { VaAlert },
   template: `
-    [warning]
     <va-alert border="left" border-color="warning">
-      Message
-    </va-alert>
-    [#ce6e67]
-    <va-alert border="left" border-color="#ce6e67">
       Message
     </va-alert>
   `,
@@ -200,15 +174,15 @@ export const Slotted = () => ({
   template: `
     <va-alert closeable>
       <template #close>
-        Slotted close
+        Close
       </template>
       <template #icon>
-        Slotted icon
+        Icon
       </template>
       <template #title>
-        Slotted title
+        Title
       </template>
-      Slotted message
+      Message
     </va-alert>
   `,
 })
