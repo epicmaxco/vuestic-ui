@@ -22,7 +22,7 @@
       <template #left>
         <LayoutSidebar
           v-model:visible="isSidebarVisible"
-          :mobile="breakpoints.smDown"
+          :mobile="breakpoints.xs"
         />
       </template>
 
