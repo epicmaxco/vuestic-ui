@@ -45,7 +45,7 @@ const state = reactive({
       <div class="page" style="height: 300px; overflow: scroll;">
         <VaLayout style="background-color: var(--va-primary);" :top="{ fixed: true }">
           <template #content>
-            <div style="heigh: 800px">
+            <div style="height: 800px;">
               Content
             </div>
           </template>

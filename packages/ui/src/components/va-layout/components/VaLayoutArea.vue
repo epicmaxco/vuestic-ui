@@ -59,36 +59,36 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-  .va-layout {
-    &__area {
-      grid-area: v-bind("$props.area");
-      z-index: v-bind("zIndex");
-    }
-
-    &__absolute-area-wrapper {
-      z-index: v-bind("zIndex");
-    }
+.va-layout {
+  &__area {
+    grid-area: v-bind("$props.area");
+    z-index: v-bind("zIndex");
   }
 
-  .va-layout-area {
-    &__overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--va-layout-overlay-color);
-      z-index: v-bind("zIndex - 1");
+  &__absolute-area-wrapper {
+    z-index: v-bind("zIndex");
+  }
+}
 
-      &.v-enter-active,
-      &.v-leave-active {
-        transition: opacity 0.5s ease;
-      }
+.va-layout-area {
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--va-layout-overlay-color);
+    z-index: v-bind("zIndex - 1");
 
-      &.v-enter-from,
-      &.v-leave-to {
-        opacity: 0;
-      }
+    &.v-enter-active,
+    &.v-leave-active {
+      transition: opacity 0.5s ease;
+    }
+
+    &.v-enter-from,
+    &.v-leave-to {
+      opacity: 0;
     }
   }
+}
 </style>
