@@ -68,7 +68,6 @@ export default {
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  color: black !important;
   transition: all 0.2s ease-in;
 
   &:hover {
