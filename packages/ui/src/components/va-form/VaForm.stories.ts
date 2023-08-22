@@ -1,11 +1,26 @@
 import { userEvent } from '../../../.storybook/interaction-utils/userEvent'
 import { addText } from '../../../.storybook/interaction-utils/addText'
 import { expect } from '@storybook/jest'
-import { VaForm } from './'
-import { VaCheckbox } from '../va-checkbox'
-import { VaButton } from '../va-button'
-import { VaInput } from '../va-input'
 import { within } from '@storybook/testing-library'
+
+import {
+  VaForm,
+  VaCheckbox,
+  VaButton,
+  VaInput,
+  VaSelect,
+  VaDateInput,
+  VaOptionList,
+  VaTimeInput,
+  VaFileUpload,
+  VaSwitch,
+  VaCounter,
+  VaRating,
+  VaSlider,
+  VaDatePicker,
+  VaTimePicker,
+  VaRadio,
+} from '../'
 
 export default {
   title: 'VaForm',
@@ -247,16 +262,16 @@ export const Reset = () => ({
   components: { VaForm, VaInput, VaButton },
   data: () => ({ data: '' }),
   methods: {
-    set () {
-      this.data = 'data'
+    fillForm () {
+      this.input = 'data'
       this.$refs.form.validate()
     },
   },
   template: `
-    <va-form ref="form">
-      <va-input v-model="data" :rules="[false]"/>
+    <va-form ref="form" stateful>
+      <va-input v-model="input" :rules="[false]"/>
     </va-form>
-    <va-button @click="set">
+    <va-button @click="fillForm">
       Set inputs and validation
     </va-button>
     <va-button @click="$refs.form.reset()">
@@ -268,6 +283,7 @@ export const Reset = () => ({
 Reset.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
   const input = canvas.getByRole('textbox', { name: '' }) as HTMLElement
+
   const setButton = canvas.getByRole('button', { name: 'Set inputs and validation' }) as HTMLElement
   const resetButton = canvas.getByRole('button', { name: 'Reset inputs and validation' }) as HTMLElement
 
@@ -278,3 +294,176 @@ Reset.play = async ({ canvasElement, step }) => {
     expect(input.getAttribute('aria-invalid')).toEqual('false')
   })
 }
+
+const OPTIONS = ['One', 'Two', 'Three']
+
+export const ToDoFormReset = () => ({
+  components: { 
+    VaForm, 
+    VaInput, 
+    VaSelect, 
+    VaDateInput, 
+    VaTimeInput, 
+    VaOptionList, 
+    VaButton 
+  },
+  data: () => ({
+    input: 'value',
+    checkbox: true,
+    date: new Date(0),
+    time: new Date(0),
+    options: OPTIONS,
+    select: OPTIONS[0],
+    optionsListValue: OPTIONS[0],
+    validationRules: [false],
+  }),
+  template: `
+    <va-form ref="form">
+      <va-checkbox
+        v-model="checkbox"
+        :rules="validationRules"
+      />
+      <va-date-input
+        v-model="date"
+        :rules="validationRules"
+      />
+      <va-input
+        v-model="input"
+        :rules="validationRules"
+      />
+      <va-option-list
+        type="radio"
+        v-model="optionsListValue"
+        :options="options"
+        :rules="validationRules"
+      />
+      <va-select
+        v-model="select"
+        :options="options"
+        :rules="validationRules"
+      />
+      <va-time-input
+        v-model="time"
+        :rules="validationRules"
+      />
+    </va-form>
+    <va-button @click="$refs.form.reset()">
+      Reset form
+    </va-button>
+  `,
+})
+
+addText(
+  ToDoFormReset,
+  'to do...',
+  'stale',
+)
+
+
+export const ToDoFormInteractions = () => ({
+  components: { 
+    VaForm, 
+    VaInput, 
+    VaSelect, 
+    VaDateInput, 
+    VaTimeInput, 
+    VaOptionList,  
+    VaFileUpload,
+    VaSwitch,
+    VaCounter,
+    VaRating,
+    VaSlider,
+    VaDatePicker,
+    VaTimePicker, 
+    VaRadio, 
+    VaButton 
+  },
+  data: () => ({
+    input: 'input',
+    select: OPTIONS[0],
+    checkbox: false,
+    date: new Date(0),
+    time: new Date(0),
+    switch1: false,
+    options: OPTIONS,
+    optionsList: '',
+    counter: 13,
+    rating: 4,
+    slider: 29,
+    radio: OPTIONS[1],
+    validationRules: [false]
+  }),
+  template: `
+    <va-form ref="form">
+      <va-input 
+        v-model="input" 
+        :rules="validationRules" 
+      />
+      <va-select 
+        v-model="select"
+        :options="options"
+        :rules="validationRules" 
+      />
+      <va-checkbox
+        v-model="checkbox"
+        :rules="validationRules"
+      />
+      <va-date-input
+        v-model="date"
+        :rules="validationRules"
+      />
+      <va-date-picker
+        v-model="date"
+        :rules="validationRules"
+      />
+      <va-time-input
+        v-model="time"
+        :rules="validationRules"
+      />
+      <va-time-picker
+        v-model="time"
+        :rules="validationRules"
+      />
+      <va-switch 
+        v-model="switch1" 
+        :rules="validationRules" 
+      />
+      <va-option-list
+        v-model="optionsList"
+        :rules="validationRules"
+        :options="options"
+      />
+      <va-radio 
+        v-model="radio" 
+        :options="options"
+        :rules="validationRules"  
+      />
+      <va-counter
+        v-model="counter"
+        :rules="validationRules"
+      />
+      <va-rating v-model="rating" 
+        :rules="validationRules" 
+      />
+      <va-slider v-model="slider" 
+        :rules="validationRules" 
+      />
+      <va-file-upload />
+    </va-form>
+    <va-button @click="$refs.form.validate()"> 
+      Validate 
+    </va-button>
+    <va-button @click="$refs.form.resetValidation()"> 
+      Reset validation 
+    </va-button>
+    <va-button @click="$refs.form.reset()"> 
+      Reset 
+    </va-button>
+  `,
+})
+
+addText(
+  ToDoFormInteractions,
+  'to do...',
+  'stale',
+)
