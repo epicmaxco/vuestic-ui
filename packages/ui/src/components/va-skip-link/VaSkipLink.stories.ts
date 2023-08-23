@@ -1,3 +1,4 @@
+import { VaRadio } from '../va-radio'
 import { VaSkipLink } from './'
 
 export default {
@@ -5,7 +6,7 @@ export default {
   component: VaSkipLink,
 }
 
-export const Target = () => ({
+export const Default = () => ({
   components: { VaSkipLink },
   template: `
     <va-skip-link target="#target">
@@ -23,38 +24,18 @@ export const Target = () => ({
   `,
 })
 
-export const PositionTopLeft = () => ({
-  components: { VaSkipLink },
-  template: `
-    <va-skip-link position="top-left">
-      [top-left]
-    </va-skip-link>
-  `,
-})
+const OPTIONS = ['top-left', 'top-right', 'bottom-left', 'bottom-right']
 
-export const PositionTopRight = () => ({
-  components: { VaSkipLink },
+export const Position = () => ({
+  components: { VaSkipLink, VaRadio },
+  data: () => ({ options: OPTIONS, value: OPTIONS[3] }),
   template: `
-    <va-skip-link position="top-right">
-      [top-right]
+    <va-skip-link 
+      target="#target"
+      :position="value"
+    >
+      [{{ value }}]
     </va-skip-link>
-  `,
-})
-
-export const PositionBottomLeft = () => ({
-  components: { VaSkipLink },
-  template: `
-    <va-skip-link position="bottom-left">
-      [bottom-left]
-    </va-skip-link>
-  `,
-})
-
-export const PositionBottomRight = () => ({
-  components: { VaSkipLink },
-  template: `
-    <va-skip-link position="bottom-right">
-      [bottom-right]
-    </va-skip-link>
+    <va-radio v-model="value" :options="options"/>
   `,
 })

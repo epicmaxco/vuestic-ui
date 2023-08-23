@@ -16,7 +16,7 @@ import { usePosition } from './hooks/usePosition'
 export default defineComponent({
   name: 'VaSkipLink',
   props: {
-    target: { type: String, default: '' },
+    target: { type: String, default: undefined },
     position: {
       type: String as PropType<'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'>,
       default: 'bottom-right',

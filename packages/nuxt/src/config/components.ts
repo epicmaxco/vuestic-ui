@@ -70,6 +70,7 @@ export default [
   'VaSlider',
   'VaSkeleton',
   'VaSkeletonGroup',
+  'VaSkipLink',
   'VaSpacer',
   'VaSplit',
   'VaSwitch',

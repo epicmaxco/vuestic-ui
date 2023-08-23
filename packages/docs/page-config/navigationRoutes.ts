@@ -343,6 +343,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "Sidebar Item",
       },
       {
+        name: "skip-link",
+        displayName: "Skip Link",
+      },
+      {
         name: 'stepper',
         displayName: 'Stepper',
         meta: {
