@@ -135,6 +135,16 @@
         Inner anchor selector
       </va-dropdown>
     </VbCard>
+    <VbCard title="Anchor binded props">
+      <va-dropdown>
+        <template #anchor="{ isOpened }">
+          <div>
+            <va-icon :name="isOpened ? 'va-arrow-up' : 'va-arrow-down'" />
+          </div>
+        </template>
+        Clicked
+      </va-dropdown>
+    </VbCard>
     <VbCard title="Plugin">
       <va-dropdown>
         <template #anchor>
@@ -249,12 +259,14 @@
 <script>
 import { ref } from 'vue'
 import VaDropdown from './VaDropdown.vue'
+import { VaIcon } from '../va-icon/index'
 import VaDropdownContent from './components/VaDropdownContent/VaDropdownContent.vue'
 import DropdownCloseButton from './__demo__/DropdownCloseButton.vue'
 
 export default {
   components: {
     VaDropdown,
+    VaIcon,
     VaDropdownContent,
     DropdownCloseButton,
   },

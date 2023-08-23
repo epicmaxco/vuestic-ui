@@ -237,7 +237,14 @@ export default defineComponent({
   },
 
   render () {
-    const floatingSlotNode = this.showFloating && renderSlotNode(this.$slots.default, {}, {
+    const slotBind = { 
+      isOpened: this.valueComputed, 
+      hide: this.hide, 
+      show: this.show, 
+      toggle: () => this.valueComputed ? this.hide() : this.show() 
+    }
+
+    const floatingSlotNode = this.showFloating && renderSlotNode(this.$slots.default, slotBind, {
       ref: 'floating',
       class: 'va-dropdown__content-wrapper',
       style: this.floatingStyles,
@@ -245,7 +252,7 @@ export default defineComponent({
       ...this.floatingListeners,
     })
 
-    const anchorSlotVNode = renderSlotNode(this.$slots.anchor, {}, {
+    const anchorSlotVNode = renderSlotNode(this.$slots.anchor, slotBind, {
       ref: 'anchor',
       role: 'button',
       class: ['va-dropdown', ...this.anchorClass.asArray.value],
