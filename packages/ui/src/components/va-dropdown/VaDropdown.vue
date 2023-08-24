@@ -237,11 +237,11 @@ export default defineComponent({
   },
 
   render () {
-    const slotBind = { 
-      isOpened: this.valueComputed, 
-      hide: this.hide, 
-      show: this.show, 
-      toggle: () => this.valueComputed ? this.hide() : this.show() 
+    const slotBind = {
+      isOpened: this.valueComputed,
+      hide: this.hide,
+      show: this.show,
+      toggle: () => this.valueComputed ? this.hide() : this.show(),
     }
 
     const floatingSlotNode = this.showFloating && renderSlotNode(this.$slots.default, slotBind, {
