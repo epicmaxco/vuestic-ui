@@ -242,6 +242,8 @@ export default defineComponent({
       hide: this.hide,
       show: this.show,
       toggle: () => this.valueComputed ? this.hide() : this.show(),
+      getAnchorWidth: () => this.anchor?.offsetWidth + 'px',
+      getAnchorHeight: () => this.anchor?.offsetHeight + 'px',
     }
 
     const floatingSlotNode = this.showFloating && renderSlotNode(this.$slots.default, slotBind, {

@@ -90,6 +90,27 @@
         </va-dropdown-content>
       </va-dropdown>
     </VbCard>
+
+    <VbCard title="Custom width">
+      <VaValue #default="v" :default-value="true">
+        <button @click="v.value = !v.value">{{  v.value ? 'Short' : 'Long' }}</button>
+        <br />
+        <va-dropdown placement="bottom-end">
+          <template #anchor>
+            <div>
+              Custom width anchor
+            </div>
+          </template>
+
+          <template #default="{ getAnchorWidth }">
+            <va-dropdown-content :style="{ minWidth: getAnchorWidth() }">
+              {{ v.value ? 'Short' : 'Loooong drooooopdown wwiiiiiidth' }}
+            </va-dropdown-content>
+          </template>
+        </va-dropdown>
+      </VaValue>
+    </VbCard>
+
     <VbCard title="Cursor">
       <va-dropdown
         trigger="right-click"
@@ -279,6 +300,7 @@
 import { ref } from 'vue'
 import VaDropdown from './VaDropdown.vue'
 import { VaIcon } from '../va-icon/index'
+import { VaValue } from '../va-value'
 import VaDropdownContent from './components/VaDropdownContent/VaDropdownContent.vue'
 import DropdownCloseButton from './__demo__/DropdownCloseButton.vue'
 
@@ -288,6 +310,7 @@ export default {
     VaIcon,
     VaDropdownContent,
     DropdownCloseButton,
+    VaValue,
   },
   setup () {
     return {
