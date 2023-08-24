@@ -61,14 +61,33 @@
         Offset
       </va-dropdown>
     </VbCard>
-    <VbCard title="Same width">
+    <VbCard title="keepAnchorWidth">
       <va-dropdown
         keepAnchorWidth
       >
         <template #anchor>
-          Click me
+          <div>
+            Short anchor
+          </div>
         </template>
-        Looooong Dropdown
+        <va-dropdown-content>
+          Loooooooong Dropdown
+        </va-dropdown-content>
+      </va-dropdown>
+
+      <br />
+
+      <va-dropdown
+        keepAnchorWidth
+      >
+        <template #anchor>
+          <div>
+            Loooooooong anchor
+          </div>
+        </template>
+        <va-dropdown-content>
+          Short
+        </va-dropdown-content>
       </va-dropdown>
     </VbCard>
     <VbCard title="Cursor">
