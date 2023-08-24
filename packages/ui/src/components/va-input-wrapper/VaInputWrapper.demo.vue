@@ -64,7 +64,7 @@ const preset = computed(() => (playground.solid ? 'solid' : ''))
         <VaInputWrapper label="loading" loading />
         <VaInputWrapper label="error" error />
         <VaInputWrapper label="success" success />
-        <VaInputWrapper label="success" success loading error />
+        <VaInputWrapper label="all at once" success loading error />
       </div>
     </VbCard>
 
