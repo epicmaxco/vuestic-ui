@@ -95,6 +95,7 @@ import VaTextarea from './components/VaTextarea/VaTextarea.vue'
 import { VaIcon } from '../va-icon'
 import { focusElement, blurElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
+import { combineFunctions } from '../../utils/combine-functions'
 
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
@@ -222,18 +223,9 @@ export default defineComponent({
 
     const inputEvents = {
       ...inputListeners,
-      onFocus: (e: Event) => {
-        inputListeners.onFocus(e)
-        onFocus(e)
-      },
-      onBlur: (e: Event) => {
-        inputListeners.onBlur(e)
-        onBlur(e)
-      },
-      onInput: (e: Event) => {
-        inputListeners.onInput(e)
-        onInput(e)
-      },
+      onFocus: combineFunctions(onFocus, inputListeners.onFocus),
+      onBlur: combineFunctions(onBlur, inputListeners.onBlur),
+      onInput: combineFunctions(onInput, inputListeners.onInput),
     }
 
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
