@@ -774,11 +774,8 @@ export default defineComponent({
 .va-select-dropdown {
   &__content {
     overflow: hidden;
-    border-bottom-right-radius: var(--va-select-dropdown-border-radius);
-    border-bottom-left-radius: var(--va-select-dropdown-border-radius);
     border-top-right-radius: 0;
     border-top-left-radius: 0;
-    box-shadow: var(--va-select-box-shadow);
     padding: 0;
   }
 
