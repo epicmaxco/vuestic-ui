@@ -364,6 +364,20 @@
 
       <va-modal v-model="showBeforeHideModal" :message="message" :beforeClose="beforeClose" />
     </VbCard>
+    <VbCard title="beforeOk">
+      <button @click="showBeforeOkModal = !showBeforeOkModal">
+        Show first modal
+      </button>
+
+      <va-modal v-model="showBeforeOkModal" :message="message" :beforeOk="beforeClose" />
+    </VbCard>
+    <VbCard title="beforeCancel">
+      <button @click="showBeforeCancelModal = !showBeforeCancelModal">
+        Show first modal
+      </button>
+
+      <va-modal v-model="showBeforeCancelModal" :message="message" :beforeCancel="beforeClose" />
+    </VbCard>
     <VbCard title="closeOutside">
       <button @click="showModalCloseOutside = !showModalCloseOutside">
         Show modal
@@ -421,6 +435,8 @@ export default {
       showModalFocusTrap1: false,
       showModalFocusTrap2: false,
       showBeforeHideModal: false,
+      showBeforeOkModal: false,
+      showBeforeCancelModal: false,
       showModalCloseOutside: false,
       c: false,
       message: this.$vb.lorem(),
