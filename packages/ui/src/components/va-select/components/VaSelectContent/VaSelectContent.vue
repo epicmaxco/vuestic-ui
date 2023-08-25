@@ -10,6 +10,7 @@
         value: $props.value,
         valueString: $props.valueString,
         tabindex: $props.tabindex,
+        ariaAttributes,
       }"
     >
       <template v-if="value.length">
@@ -33,6 +34,7 @@
     </slot>
 
     <input
+      v-bind="ariaAttributes"
       ref="autocompleteInput"
       v-model="autocompleteInputValueComputed"
       :placeholder="$props.placeholder"
@@ -50,7 +52,7 @@
     v-else-if="isPlaceholder"
     class="va-select-content__placeholder"
   >
-   <input :placeholder="$props.placeholder" readonly />
+   <input v-bind="ariaAttributes" :placeholder="$props.placeholder" readonly />
   </span>
 
   <slot
@@ -60,6 +62,7 @@
       valueString: $props.valueString,
       value: $props.value,
       tabindex: $props.tabindex,
+      ariaAttributes,
     }"
   >
     <va-icon
@@ -126,6 +129,7 @@ export default defineComponent({
   props: {
     ...useFormFieldProps,
 
+    ariaAttributes: { type: Object },
     value: { type: Array as PropType<SelectOption[]>, required: true },
     valueString: { type: String },
     placeholder: { type: String, default: '' },

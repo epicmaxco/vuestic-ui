@@ -48,9 +48,10 @@
           />
         </template>
 
-        <template #default>
+        <template #default="{ ariaAttributes }">
           <va-select-content
             v-bind="selectContentPropsComputed"
+            :ariaAttributes="ariaAttributes"
             @toggle-hidden="toggleHiddenOptionsState"
             @autocomplete-input="setAutocompleteValue"
             @focus-prev="focusPreviousOption"
