@@ -90,10 +90,6 @@ export default defineComponent({
     position: fixed;
     width: v-bind("styles.width");
     height: v-bind("styles.height");
-    top: v-bind("styles.top");
-    bottom: v-bind("styles.bottom");
-    left: v-bind("styles.left");
-    right: v-bind("styles.right");
   }
 }
 </style>

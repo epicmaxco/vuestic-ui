@@ -43,8 +43,8 @@
 <template>
   <VaLayout
     :top="{ fixed: true, order: 3 }"
-    :left="{ absolute: breakpoints.smDown, order: 2, overlay: breakpoints.smDown && isLeftSidebarVisible }"
-    :right="{ absolute: breakpoints.smDown, order: 2, overlay: breakpoints.smDown && isRightSidebarVisible }"
+    :left="{ fixed: true, absolute: breakpoints.smDown, order: 2, overlay: breakpoints.smDown && isLeftSidebarVisible }"
+    :right="{ fixed: true, absolute: breakpoints.smDown, order: 2, overlay: breakpoints.smDown && isRightSidebarVisible }"
     :bottom="{ fixed: true, order: 4 }"
     @left-overlay-click="isLeftSidebarVisible = false"
     @right-overlay-click="isRightSidebarVisible = false"
@@ -65,11 +65,6 @@
               :icon="isRightSidebarVisible ? 'menu_open' : 'menu'"
               @click="isRightSidebarVisible = !isRightSidebarVisible"
             />
-            <VaInput placeholder="Search">
-              <template #prependInner>
-                <VaIcon name="search" color="secondary" size="small" />
-              </template>
-            </VaInput>
           </div>
         </template>
       </VaNavbar>
@@ -110,6 +105,7 @@
     </template>
 
     <template #bottom>
+      <VaDivider style="margin: 0" />
       <VaNavbar>
         Footer
       </VaNavbar>

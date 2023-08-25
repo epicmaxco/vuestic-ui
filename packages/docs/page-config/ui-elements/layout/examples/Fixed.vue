@@ -57,7 +57,7 @@
         </template>
 
         <template #content>
-          <main class="p-4">
+          <main class="p-4" style="height: 2000px">
             Some text here
           </main>
         </template>

@@ -22,7 +22,7 @@
 <template>
   <VaLayout
     :top="{ fixed: true, order: 2 }"
-    :left="{ fixed: false, absolute: breakpoints.smDown, order: 1, overlay: breakpoints.smDown && isSidebarVisible }"
+    :left="{ fixed: true, absolute: breakpoints.smDown, order: 1, overlay: breakpoints.smDown && isSidebarVisible }"
     @left-overlay-click="isSidebarVisible = false"
   >
     <template #top>

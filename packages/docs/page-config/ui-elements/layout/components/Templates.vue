@@ -137,6 +137,10 @@
       top: 1.5rem !important;
       right: 1.5rem !important;
     }
+
+    .va-navbar__right {
+      padding-right: 3rem;
+    }
   }
 
   .layout-selector {

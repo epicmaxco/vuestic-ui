@@ -27,7 +27,7 @@
 </script>
 
 <template>
-  <VaLayout>
+  <VaLayout :left="{ fixed: true }">
     <template #left>
       <VaSidebar
         width="min-content"
@@ -46,12 +46,13 @@
     </template>
 
     <VaLayout
-      :left="{ absolute: breakpoints.smDown, order: 2 }"
+      :left="{ fixed: true, absolute: breakpoints.smDown, order: 2 }"
+      :top="{ fixed: true }"
     >
       <template #top>
-        <div style="padding: 1rem">
+        <VaNavbar>
           Top content
-        </div>
+        </VaNavbar>
         <va-divider style="margin: 0" />
       </template>
 
