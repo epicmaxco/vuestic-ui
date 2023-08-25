@@ -104,6 +104,7 @@
     hide-default-actions
     style="--va-modal-padding: 0px"
     max-width="100%"
+    class="layout-preview-modal"
   >
     <component :is="activeItem.example">
       <div class="p-8">
@@ -131,6 +132,13 @@
 </template>
 
 <style lang="scss">
+  .layout-preview-modal {
+    .va-modal__close {
+      top: 1.5rem !important;
+      right: 1.5rem !important;
+    }
+  }
+
   .layout-selector {
     position: relative;
     height: 100%;

@@ -2,8 +2,8 @@
   <div
     class="va-layout-fixed-wrapper"
     :style="[{
-      height: size ? size.height + 'px' : 'auto',
-      width: size ? size.width + 'px' : 'auto',
+      height: size && direction === 'vertical' ? size.height + 'px' : 'auto',
+      width: size && direction === 'horizontal' ? size.width + 'px' : 'auto',
     }]"
   >
     <VaResizeObserver
@@ -71,6 +71,7 @@ export default defineComponent({
     })
 
     return {
+      direction,
       computedStyle,
       paddings,
       size,

@@ -43,6 +43,7 @@
                 v-if="$props.fullscreen || $props.closeButton"
                 name="va-close"
                 class="va-modal__close"
+                :class="{ 'va-modal__close--fullscreen': $props.fullscreen }"
                 role="button"
                 :aria-label="tp($props.ariaCloseLabel)"
                 tabindex="0"
@@ -444,6 +445,7 @@ export default defineComponent({
 
   &--fullscreen {
     min-width: 100vw !important;
+    max-width: 100vw;
     min-height: 100vh !important;
     border-radius: 0;
     margin: 0;
@@ -540,6 +542,10 @@ export default defineComponent({
     font-style: normal;
     color: var(--va-secondary);
     z-index: 1;
+
+    &--fullscreen {
+      position: fixed;
+    }
   }
 
   &__default-cancel-button {

@@ -91,6 +91,7 @@ export default defineComponent({
   gap: 0;
   position: relative;
   z-index: 0;
+  max-width: 100%;
 
   &__area {
     @include va-scroll();
