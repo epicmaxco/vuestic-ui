@@ -4,108 +4,113 @@
     :class="wrapperClass"
     @click="$emit('click', $event)"
   >
-    <div class="va-input-wrapper__size-keeper">
-      <VaInputLabel
-        v-if="$props.label && !$props.innerLabel"
-        class="va-input-wrapper__label va-input-wrapper__label--outer"
-        v-bind="vaInputLabelProps"
-        #default="bind"
-      >
-        <slot name="label" v-bind="bind" />
-      </VaInputLabel>
-      <div class="va-input-wrapper__container">
-        <div
-          v-if="$slots.prepend"
-          class="va-input-wrapper__prepend-inner"
-          @click="$emit('click-prepend')"
-        >
-          <slot name="prepend" />
-        </div>
-
-        <div class="va-input-wrapper__field">
-          <div
-            v-if="$slots.prependInner"
-            class="va-input-wrapper__prepend-inner"
-            ref="container"
-            @click="$emit('click-prepend-inner', $event)"
+    <va-message-list
+      :color="messagesColor"
+      :model-value="messagesComputed"
+      :limit="errorLimit"
+    >
+      <template #default="{ ariaAttributes: messagesChildAriaAttributes }">
+        <fieldset class="va-input-wrapper__size-keeper">
+          <VaInputLabel
+            v-if="($props.label && !$props.innerLabel) || $slots.label"
+            class="va-input-wrapper__label va-input-wrapper__label--outer"
+            v-bind="vaInputLabelProps"
+            :id="labelId"
+            #default="bind"
           >
-            <slot name="prependInner" />
+            <slot name="label" v-bind="bind" />
+          </VaInputLabel>
+          <div class="va-input-wrapper__container">
+            <div
+              v-if="$slots.prepend"
+              class="va-input-wrapper__prepend-inner"
+              @click="$emit('click-prepend')"
+            >
+              <slot name="prepend" />
+            </div>
+
+            <div class="va-input-wrapper__field">
+              <div
+                v-if="$slots.prependInner"
+                class="va-input-wrapper__prepend-inner"
+                ref="container"
+                @click="$emit('click-prepend-inner', $event)"
+              >
+                <slot name="prependInner" />
+              </div>
+
+              <div class="va-input-wrapper__text">
+                <VaInputLabel
+                  v-if="($props.label && $props.innerLabel) || $slots.label"
+                  class="va-input-wrapper__label va-input-wrapper__label--inner"
+                  v-bind="vaInputLabelProps"
+                  :id="labelId"
+                  #default="bind"
+                >
+                  <slot name="label" v-bind="bind" />
+                </VaInputLabel>
+
+                <slot v-bind="{ ariaAttributes: { ...messagesChildAriaAttributes, ...ariaAttributes }, value: vModel }">
+                  <input v-bind="{ ...messagesChildAriaAttributes, ...ariaAttributes }" v-model="vModel" :placeholder="$props.placeholder" :readonly="$props.readonly" :disabled="$props.disabled" />
+                </slot>
+              </div>
+
+              <va-icon
+                v-if="success"
+                color="success"
+                name="va-check-circle"
+                size="small"
+                class="va-input-wrapper__icon va-input-wrapper__icon--success"
+              />
+              <va-icon
+                v-if="error"
+                color="danger"
+                name="va-warning"
+                size="small"
+                class="va-input-wrapper__icon va-input-wrapper__icon--error"
+              />
+              <va-icon
+                v-if="$props.loading"
+                :color="$props.color"
+                size="small"
+                name="va-loading"
+                spin="counter-clockwise"
+                class="va-input-wrapper__icon va-input-wrapper__icon--loading"
+              />
+              <slot name="icon" />
+
+              <div
+                v-if="$slots.appendInner"
+                class="va-input-wrapper__append-inner"
+                @click="$emit('click-append-inner', $event)"
+              >
+                <slot name="appendInner" />
+              </div>
+            </div>
+
+            <div
+              v-if="$slots.append"
+              class="va-input-wrapper__append-inner"
+              @click="$emit('click-append')"
+            >
+              <slot name="append" />
+            </div>
           </div>
 
-          <div class="va-input-wrapper__text">
-            <VaInputLabel
-              v-if="$props.label && $props.innerLabel"
-              class="va-input-wrapper__label va-input-wrapper__label--inner"
-              v-bind="vaInputLabelProps"
-              #default="bind"
-            >
-              <slot name="label" v-bind="bind" />
-            </VaInputLabel>
-
-            <slot>
-              <input v-model="vModel" :placeholder="$props.placeholder" :readonly="$props.readonly" :disabled="$props.disabled" />
+          <div v-if="isCounterVisible" class="va-input-wrapper__counter-wrapper" :id="characterCountId">
+            <slot name="counter" v-bind="{ valueLength: counterValue, maxLength: $props.maxLength }">
+              <div class="va-input-wrapper__counter">
+                {{ counterComputed }}
+              </div>
             </slot>
           </div>
+        </fieldset>
+      </template>
 
-          <va-icon
-            v-if="success"
-            color="success"
-            name="va-check-circle"
-            size="small"
-            class="va-input-wrapper__icon va-input-wrapper__icon--success"
-          />
-          <va-icon
-            v-if="error"
-            color="danger"
-            name="va-warning"
-            size="small"
-            class="va-input-wrapper__icon va-input-wrapper__icon--error"
-          />
-          <va-icon
-            v-if="$props.loading"
-            :color="$props.color"
-            size="small"
-            name="va-loading"
-            spin="counter-clockwise"
-            class="va-input-wrapper__icon va-input-wrapper__icon--loading"
-          />
-          <slot name="icon" />
-
-          <div
-            v-if="$slots.appendInner"
-            class="va-input-wrapper__append-inner"
-            @click="$emit('click-append-inner', $event)"
-          >
-            <slot name="appendInner" />
-          </div>
-        </div>
-
-        <div
-          v-if="$slots.append"
-          class="va-input-wrapper__append-inner"
-          @click="$emit('click-append')"
-        >
-          <slot name="append" />
-        </div>
-      </div>
-
-      <div v-if="isCounterVisible" class="va-input-wrapper__counter-wrapper">
-        <slot name="counter" v-bind="{ valueLength: counterValue, maxLength: $props.maxLength }">
-          <div class="va-input-wrapper__counter">
-            {{ counterComputed }}
-          </div>
-        </slot>
-      </div>
-
-      <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }">
-        <va-message-list
-          v-if="hasMessages"
-          :color="messagesColor"
-          :model-value="messagesComputed"
-          :limit="errorLimit"
-        />
-      </slot>
-    </div>
+      <template v-if="$slots.messages" #messages>
+        <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }" />
+      </template>
+    </va-message-list>
   </div>
 </template>
 
@@ -120,6 +125,8 @@ import VaInputLabel from './components/VaInputLabel.vue'
 import { VaIcon } from '../va-icon'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
+import { useInputFieldAria, useInputFieldAriaProps } from './hooks/useInputFieldAria'
+
 const VaInputLabelProps = extractComponentProps(VaInputLabel)
 
 export default defineComponent({
@@ -129,6 +136,7 @@ export default defineComponent({
 
   props: {
     ...useComponentPresetProp,
+    ...useInputFieldAriaProps,
     ...useFormFieldProps,
     ...useValidationProps,
     ...VaInputLabelProps,
@@ -177,10 +185,6 @@ export default defineComponent({
     const backgroundComputed = computed(() => props.background ? getColor(props.background) : '#ffffff00')
     const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
 
-    const hasMessages = computed(() => Boolean(
-      typeof messagesComputed.value === 'string' ? messagesComputed.value : messagesComputed.value?.length,
-    ))
-
     const { textColorComputed } = useTextColor(backgroundComputed)
 
     const messagesColor = computed(() => {
@@ -196,6 +200,7 @@ export default defineComponent({
     )
 
     return {
+      ...useInputFieldAria(props),
       vModel,
       counterValue,
       vaInputLabelProps: filterComponentProps(VaInputLabelProps),
@@ -208,7 +213,6 @@ export default defineComponent({
       backgroundComputed,
       messagesColor,
       messagesComputed,
-      hasMessages,
       errorLimit,
     }
   },

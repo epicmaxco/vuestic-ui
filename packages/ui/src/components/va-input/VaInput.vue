@@ -115,7 +115,6 @@ export default defineComponent({
     inputClass: { type: String, default: '' },
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
-    ariaLabel: { type: String, default: undefined },
     counter: { type: Boolean, default: false },
 
     // style
@@ -203,6 +202,7 @@ export default defineComponent({
 
     const computedChildAttributes = computed(() => ({
       'aria-label': props.ariaLabel || props.label,
+      'aria-labelledby': props.ariaLabeledBy,
       'aria-required': props.requiredMark,
       tabindex: tabIndexComputed.value,
       class: props.inputClass,
