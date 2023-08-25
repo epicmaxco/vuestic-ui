@@ -160,6 +160,7 @@
 <script lang="ts">
 import { VaDatePicker } from './index'
 import { VaChip } from '../va-chip'
+import { getStaticDate } from '../../../.storybook/interaction-utils/addText'
 
 const datePlusDay = (date: Date, days: number) => {
   const d = new Date(date)
@@ -172,13 +173,13 @@ export default {
   components: { VaDatePicker, VaChip },
   data () {
     return {
-      value: new Date(),
-      range: { start: new Date(), end: nextWeek },
-      dates: [new Date(), nextWeek],
+      value: getStaticDate(),
+      range: { start: getStaticDate(), end: nextWeek },
+      dates: [getStaticDate(), nextWeek],
       futureDate: new Date(3000, 2, 3),
-      monthValue: new Date(),
-      monthRange: { start: new Date(), end: datePlusDay(new Date(), 62) },
-      months: [new Date(), datePlusDay(new Date(), 62)],
+      monthValue: getStaticDate(),
+      monthRange: { start: getStaticDate(), end: datePlusDay(getStaticDate(), 62) },
+      months: [getStaticDate(), datePlusDay(getStaticDate(), 62)],
 
       dayView: { type: 'day', month: 6, year: 2020 },
       monthView: { type: 'month' },

@@ -536,11 +536,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import cloneDeep from 'lodash/cloneDeep.js'
-import shuffle from 'lodash/shuffle.js'
 import { DataTableColumn, DataTableSelectMode, DataTableSortingOrder, VaDataTable } from './'
 import { VaSwitch } from '../va-switch'
 import { VaPagination } from '../va-pagination'
 import { VaButton } from '../va-button'
+import { faker } from '@faker-js/faker'
+
+faker.seed(1)
 
 interface EvenItems {
     id?: number;
@@ -577,7 +579,7 @@ export default defineComponent({
     excessiveItems[5].excessiveProp = "Excessive prop's value"
     excessiveItems[5].anotherExcessiveProp = "The other excessive prop's value"
 
-    const evenItemsShuffled = shuffle(evenItems)
+    const evenItemsShuffled = faker.helpers.shuffle(evenItems)
 
     const manyItems = Array.from(Array(1000), (u, i) => {
       return {
@@ -587,7 +589,7 @@ export default defineComponent({
       }
     })
 
-    const manyItemsShuffled = shuffle(manyItems)
+    const manyItemsShuffled = faker.helpers.shuffle(manyItems)
 
     return {
       evenColumns: [

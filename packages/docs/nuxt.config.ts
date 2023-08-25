@@ -119,7 +119,7 @@ export default defineNuxtConfig({
         "./page-config/**/*.{js,vue,ts}",
         "./layouts/**/*.vue",
         "./pages/**/*.vue",
-        "./modules/page-config/blocks/**/*.{js,ts}",
+        "./modules/page-config/blocks/**/*.vue",
         "./app.vue",
       ]
     }

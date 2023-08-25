@@ -31,6 +31,9 @@ export default definePageConfig({
       description: "Use the `thickness` prop to adjust the stroke size."
     }),
 
+    block.subtitle("Accessibility"),
+    block.paragraph("The [role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)[[target=_blank]] of the component is [progressbar](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role)[[target=_blank]], the [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)[[target=_blank]] of the component is `progress state`, if the value of the component is not indeterminate, [aria-valuenow](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow)[[target=_blank]] is set to the `modelValue` prop."),
+
     block.subtitle("API"),
     block.api("VaProgressCircle", {
       props: {

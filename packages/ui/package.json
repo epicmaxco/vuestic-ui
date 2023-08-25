@@ -44,6 +44,7 @@
     "chromatic": "npx chromatic --build-script-name=build:storybook --project-token=chpt_0b6e7d8b20a17cf"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@floating-ui/vue": "^1.0.1",
     "@types/lodash": "^4.14.161",
     "cleave.js": "^1.6.0",

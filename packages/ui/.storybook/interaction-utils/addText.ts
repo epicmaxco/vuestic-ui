@@ -12,3 +12,5 @@ const statusToText = (status?: StoryStatus) => {
 export const addText = (story: any, text?: string, status?: StoryStatus) => {
   set(story, 'parameters.docs.description.story', `${statusToText(status)} ${text || ''}`)
 }
+
+export const getStaticDate = () => new Date('Sat Aug 19 2023')

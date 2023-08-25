@@ -1,8 +1,22 @@
-import { ManualApiOptions } from "@/components/DocsApi/ManualApiOptions";
+const slotBind = `{
+  isOpened: boolean,
+  hide: () => void,
+  show: () => void,
+  toggle: () => void,
+  getAnchorWidth: () => string,
+  getAnchorHeight: () => string,
+}`
 
-export default {
+export default defineManualApi({
   props: {},
   events: {},
   methods: {},
-  slots: {},
-} as ManualApiOptions;
+  slots: {
+    default: {
+      types: slotBind,
+    },
+    anchor: {
+      types: slotBind,
+    }
+  },
+})
