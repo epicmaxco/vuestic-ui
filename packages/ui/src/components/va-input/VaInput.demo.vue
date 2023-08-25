@@ -676,6 +676,22 @@
         Focus programmatically
       </button>
     </VbCard>
+
+    <VbCard
+      title="Input event"
+      class="va-input-css-classes-demo"
+      style="width: 66%;"
+    >
+      Value: {{ numProxy }}
+      <va-input
+        v-model="numProxy"
+        class="mb-6"
+        label="Max number is 10"
+        @input="
+          (e) => (e.target.value = numProxy)
+        "
+      />
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -726,6 +742,12 @@ export default defineComponent({
   methods: {
     focusInput () {
       (this.$refs.input as any).focus()
+    },
+  },
+  computed: {
+    numProxy: {
+      get () { return this.num },
+      set (v) { this.num = v > 10 ? 10 : v },
     },
   },
 })

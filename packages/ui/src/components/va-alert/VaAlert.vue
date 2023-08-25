@@ -95,7 +95,7 @@ export default defineComponent({
   props: {
     ...useStatefulProps,
     ...useComponentPresetProp,
-    
+
     modelValue: { type: Boolean, default: true },
     stateful: { type: Boolean, default: true },
     color: { type: String, default: 'primary' },
