@@ -9,7 +9,10 @@
         v-if="$props.label && !$props.innerLabel"
         class="va-input-wrapper__label va-input-wrapper__label--outer"
         v-bind="vaInputLabelProps"
-      />
+        #default="bind"
+      >
+        <slot name="label" v-bind="bind" />
+      </VaInputLabel>
       <div class="va-input-wrapper__container">
         <div
           v-if="$slots.prepend"
@@ -34,7 +37,10 @@
               v-if="$props.label && $props.innerLabel"
               class="va-input-wrapper__label va-input-wrapper__label--inner"
               v-bind="vaInputLabelProps"
-            />
+              #default="bind"
+            >
+              <slot name="label" v-bind="bind" />
+            </VaInputLabel>
 
             <slot>
               <input v-model="vModel" :placeholder="$props.placeholder" :readonly="$props.readonly" :disabled="$props.disabled" />

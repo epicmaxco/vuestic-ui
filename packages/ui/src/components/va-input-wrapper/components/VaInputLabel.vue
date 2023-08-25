@@ -4,8 +4,10 @@
     class="va-input-label"
     :style="{ color: getColor($props.color, undefined, true) }"
   >
-    {{ label }}
-    <span v-if="requiredMark" class="va-input-label__required-mark"> * </span>
+    <slot v-bind="{ label, requiredMark, color: getColor($props.color) }">
+      {{ label }}
+      <span v-if="requiredMark" class="va-input-label__required-mark"> * </span>
+    </slot>
   </label>
 </template>
 

@@ -43,6 +43,16 @@ const preset = computed(() => (playground.solid ? 'solid' : ''))
       />
     </VbCard>
 
+    <VbCard title="label slot">
+      <VaInputWrapper label="Label">
+        <template #label>Custom label</template>
+      </VaInputWrapper>
+
+      <VaInputWrapper label="Label" inner-label>
+        <template #label>Custom label</template>
+      </VaInputWrapper>
+    </VbCard>
+
     <VbCard title="tall label (chinese characters)">
       <VaInputWrapper label="測試" inner-label />
     </VbCard>
