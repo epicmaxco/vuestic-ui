@@ -19,4 +19,8 @@ export default defineApiDescription({
     clickOutside: "The event is triggered when clicked outside dropdown content and anchor",
     contentClick: "The event is triggered when clicked inside dropdown content"
   },
+  slots: {
+    anchor: "Slot for anchor. When anchor is clicked, dropdown will be opened",
+    default: "Dropdown content",
+  }
 });
