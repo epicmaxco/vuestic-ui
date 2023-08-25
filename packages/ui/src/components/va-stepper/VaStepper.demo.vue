@@ -77,7 +77,7 @@
         </template>
         <template #step-content-2>
           <va-input v-model="model.c" label="C"></va-input>
-          <p>Navigation is disabled, because beforeSave explicitly returned false</p>
+          <p>Navigation is disabled, because beforeLeave explicitly returned false</p>
         </template>
         <template #step-content-3>
           <va-input v-model="model.d" label="D"></va-input>
@@ -132,7 +132,7 @@ const steps = [
 const linearSteps = ref([
   {
     label: 'One',
-    beforeSave: (step) => {
+    beforeLeave: (step) => {
       if (step.completed) { return }
 
       retryCount.value++
@@ -147,7 +147,7 @@ const linearSteps = ref([
     },
   },
   // VaForm can be used here: step.hasError = !form.validate()
-  { label: 'Two', beforeSave: (step) => { step.hasError = model.value.b === '' } },
+  { label: 'Two', beforeLeave: (step) => { step.hasError = model.value.b === '' } },
   { label: 'Three', disabled: true },
   { label: 'Four' },
 ] as Step[])
@@ -170,8 +170,8 @@ const stepsWithCustomIcons = [
 
 const stepsWithNextAction = ref([
   { label: 'One' },
-  { label: 'Two', beforeSave: (step) => { step.hasError = true } },
-  { label: 'Three', beforeSave: (step) => model.value.c !== '' },
+  { label: 'Two', beforeLeave: (step) => { step.hasError = true } },
+  { label: 'Three', beforeLeave: (step) => model.value.c !== '' },
   { label: 'Four', hasError: (step) => model.value.d === '' },
 ] as Step[])
 </script>

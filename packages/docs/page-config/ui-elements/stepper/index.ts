@@ -28,12 +28,12 @@ export default definePageConfig({
 
     block.example('CustomSave', {
       title: 'Custom save action for each step',
-      description: 'This adds a property of `beforeSave` that accepts a function. When you click `next` `previous` or click on a navigation item at the top, your function will be called. If `beforeSave` returns `false` navigation is disabled. You can also set `hasError` using this function.'
+      description: 'This adds a property of `beforeLeave` that accepts a function. When you click `next` `previous` or click on a navigation item at the top, your function will be called. If `beforeLeave` returns `false` navigation is disabled. You can also set `hasError` using this function.'
     }),
 
     block.example('Linear', {
       title: 'Linear',
-      description: 'Prevent navigation to the step if any of previous steps have error. It means that you can\'t go to the next step until you fix the error. You can set `hasError` in `beforeSave` function.'
+      description: 'Prevent navigation to the step if any of previous steps have error. It means that you can\'t go to the next step until you fix the error. You can set `hasError` in `beforeLeave` function.'
     }),
 
     block.subtitle('Accessibility'),

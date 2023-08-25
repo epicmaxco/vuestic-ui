@@ -168,8 +168,8 @@ export default defineComponent({
       }
 
       //  Checks if a save function was passed, if so it will be called and return boolean
-      if (currentStep.beforeSave?.(currentStep, newStep) === false) {
-        // Do not update the modelValue if the beforeSave function returns false
+      if (currentStep.beforeLeave?.(currentStep, newStep) === false) {
+        // Do not update the modelValue if the beforeLeave function returns false
         return false
       }
 
@@ -183,7 +183,7 @@ export default defineComponent({
         return false
       }
 
-      // Check if currentStep has error after beforeSave function
+      // Check if currentStep has error after beforeLeave function
       if (props.linear && unFunction(currentStep.hasError, currentStep)) { return false }
 
       return true

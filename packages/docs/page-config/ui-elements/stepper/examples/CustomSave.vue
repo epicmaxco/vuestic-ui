@@ -39,14 +39,14 @@ const model = ref({ a: '', b: '', c: '', d: '' })
 
 const steps = ref(defineVaStepperSteps([
   {
-    label: 'One', beforeSave: (fromStep, toStep) => {
+    label: 'One', beforeLeave: (fromStep, toStep) => {
       if (fromStep !== toStep) {
         alert('Thanks!')
       }
     }
   },
   {
-    label: 'Two', beforeSave: (step) => {
+    label: 'Two', beforeLeave: (step) => {
       step.hasError = model.value.b === ''
       return !step.hasError
     }

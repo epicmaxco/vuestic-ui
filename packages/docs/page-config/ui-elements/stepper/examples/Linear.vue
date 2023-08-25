@@ -58,12 +58,12 @@ const { validate } = useForm('stepForm')
 const steps = ref(defineVaStepperSteps([
   {
     label: 'One',
-    beforeSave: (step) => {
+    beforeLeave: (step) => {
       step.hasError = !validate()
     },
   },
-  { label: 'Two', beforeSave: (step) => { step.hasError = !validate() } },
-  { label: 'Three', beforeSave: (step) => { step.hasError = !validate() } },
-  { label: 'Four', beforeSave: (step) => { step.hasError = !validate() } },
+  { label: 'Two', beforeLeave: (step) => { step.hasError = !validate() } },
+  { label: 'Three', beforeLeave: (step) => { step.hasError = !validate() } },
+  { label: 'Four', beforeLeave: (step) => { step.hasError = !validate() } },
 ]))
 </script>
