@@ -99,7 +99,7 @@ import { unwrapEl } from '../../utils/unwrapEl'
 const VaTextareaProps = extractComponentProps(VaTextarea)
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
-  ['change', 'keyup', 'keypress', 'keydown', 'focus', 'blur'],
+  ['change', 'keyup', 'keypress', 'keydown', 'focus', 'blur', 'input'],
 )
 
 const { createEmits: createFieldEmits, createListeners: createFieldListeners } = useEmitProxy([
@@ -222,9 +222,18 @@ export default defineComponent({
 
     const inputEvents = {
       ...inputListeners,
-      onFocus,
-      onBlur,
-      onInput,
+      onFocus: (e: Event) => {
+        inputListeners.onFocus(e)
+        onFocus(e)
+      },
+      onBlur: (e: Event) => {
+        inputListeners.onBlur(e)
+        onBlur(e)
+      },
+      onInput: (e: Event) => {
+        inputListeners.onInput(e)
+        onInput(e)
+      },
     }
 
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
