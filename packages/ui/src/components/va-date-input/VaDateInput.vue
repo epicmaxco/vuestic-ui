@@ -6,6 +6,7 @@
     :style="$attrs.style"
     v-bind="dropdownPropsComputed"
     @open="focusDatePicker"
+    role="none"
   >
     <template #anchor>
       <slot name="input" v-bind="{ valueText, inputAttributes: inputAttributesComputed, inputWrapperProps, inputListeners }">
@@ -60,7 +61,7 @@
       </slot>
     </template>
 
-    <va-dropdown-content class="va-date-input__dropdown-content" @keydown.esc="focus()">
+    <va-dropdown-content class="va-date-input__dropdown-content" @keydown.esc="focus()" role="dialog">
       <va-date-picker
         ref="datePicker"
         v-bind="datePickerProps"
@@ -361,8 +362,8 @@ export default defineComponent({
     })
 
     const iconProps = computed(() => ({
-      role: 'button',
-      ariaHidden: false,
+      role: iconTabindexComputed.value === 0 ? 'button' : 'none',
+      ariaHidden: iconTabindexComputed.value === -1,
       size: 'small',
       name: props.icon,
       color: 'secondary',

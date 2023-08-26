@@ -271,7 +271,7 @@ export default defineComponent({
       style: { position: 'relative' },
       'aria-label': this.tp(this.$props.ariaLabel),
       'aria-disabled': this.$props.disabled,
-      'aria-expanded': this.$props.role || this.$props.role !== 'none' ? !!this.showFloating : undefined,
+      'aria-expanded': this.$props.role && this.$props.role !== 'none' ? !!this.showFloating : undefined,
       ...this.teleportFromAttrs,
       ...this.$attrs,
     })
