@@ -345,6 +345,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "skip-link",
         displayName: "Skip Link",
+        meta: {
+          badge: navigationBadge.new('1.7.6'),
+        }
       },
       {
         name: 'stepper',
