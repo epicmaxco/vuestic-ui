@@ -1,5 +1,7 @@
+import { within } from '@storybook/testing-library'
 import { VaRadio } from '../va-radio'
 import { VaSkipLink } from './'
+import { expect } from '@storybook/jest'
 
 export default {
   title: 'VaSkipLink',
@@ -39,3 +41,13 @@ export const Position = () => ({
     <va-radio v-model="value" :options="options"/>
   `,
 })
+
+Position.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const skipLink = canvas.getByRole('link', { name: '[bottom-right]' }) as HTMLElement
+
+  await step('Visible on focus', async () => {
+    skipLink.focus()
+    expect(skipLink.style.opacity).not.toEqual(0)
+  })
+}
