@@ -4,15 +4,20 @@
     v-model="showDropdownContentComputed"
     class="va-select va-select__dropdown va-select-dropdown"
     v-bind="dropdownPropsComputed"
+    role="combobox"
   >
     <template #anchor>
       <va-input-wrapper
         v-bind="inputWrapperPropsComputed"
         ref="input"
         class="va-select__anchor va-select-anchor__input"
+        aria-haspopup="listbox"
         :class="inputWrapperClassComputed"
         :model-value="valueString"
         :readonly="true"
+        :aria-label="$props.ariaLabel"
+        :aria-controls="popupId"
+        :aria-owns="popupId"
         @focus="onInputFocus"
         @blur="onInputBlur"
         @click="focusAutocompleteInput"
@@ -45,6 +50,9 @@
             :name="toggleIcon"
             size="small"
             class="va-select__toggle-icon"
+            role="button"
+            :tabindex="openSelectButtonTabIndexComputed"
+            :aria-expanded="showDropdownContentComputed"
           />
         </template>
 
@@ -75,6 +83,7 @@
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
       @keydown.esc="hideAndFocus"
+      role="dialog"
     >
       <va-input-wrapper
         v-if="showSearchInput"
@@ -97,6 +106,7 @@
         class="va-select-dropdown__options-wrapper"
         v-model:hoveredOption="hoveredOption"
         :style="{ maxHeight: $props.maxHeight }"
+        :id="popupId"
         v-bind="optionsListPropsComputed"
         @select-option="selectHoveredOption"
         @no-previous-option-to-hover="focusSearchBar"
@@ -140,6 +150,7 @@ import { useMaxVisibleOptions, useMaxVisibleOptionsProps } from './hooks/useMaxV
 import { useToggleIcon, useToggleIconProps } from './hooks/useToggleIcon'
 import { useStringValue, useStringValueProps } from './hooks/useStringValue'
 import { useAutocomplete, useAutocompleteProps } from './hooks/useAutocomplete'
+import { useSelectAria } from './hooks/useSelectAria'
 
 import { blurElement, focusElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
@@ -226,6 +237,7 @@ export default defineComponent({
     placeholder: { type: String, default: '' },
     searchPlaceholderText: { type: String, default: '$t:search' },
 
+    ariaLabel: { type: String, default: '$t:select' },
     ariaSearchLabel: { type: String, default: '$t:optionsFilter' },
     ariaClearLabel: { type: String, default: '$t:reset' },
 
@@ -464,7 +476,6 @@ export default defineComponent({
       keepAnchorWidth: true,
       keyboardNavigation: true,
       innerAnchorSelector: '.va-input-wrapper__field',
-      'aria-label': props.ariaLabel || (props.modelValue ? `${t('selectedOption')}: ${props.modelValue}` : t('noSelectedOption')),
     }))
 
     const showDropdownContentComputed = computed({
@@ -528,7 +539,7 @@ export default defineComponent({
     }
 
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
-    const inputWrapperTabIndexComputed = computed(() => props.disabled || props.autocomplete ? -1 : 0)
+    const openSelectButtonTabIndexComputed = computed(() => props.disabled || props.autocomplete ? -1 : 0)
 
     const scrollToSelected = () => {
       const selected = valueComputed.value
@@ -606,7 +617,7 @@ export default defineComponent({
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
       focused: isFocused.value,
-      tabindex: inputWrapperTabIndexComputed.value,
+      'aria-label': props.ariaLabel || (props.modelValue ? `${t('selectedOption')}: ${props.modelValue}` : t('noSelectedOption')),
     }))
 
     // select content
@@ -690,6 +701,7 @@ export default defineComponent({
     } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
     return {
+      ...useSelectAria(),
       input,
       optionList,
       searchBar,
@@ -738,6 +750,7 @@ export default defineComponent({
       inputWrapperPropsComputed,
       inputWrapperClassComputed,
       selectContentPropsComputed,
+      openSelectButtonTabIndexComputed,
 
       // for e2e tests
       getOptionByValue,

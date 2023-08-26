@@ -3,9 +3,9 @@ import { useComponentUuid } from '../../../composables/useComponentUuid'
 
 export const useInputFieldAriaProps = {
   label: { type: String, default: '' },
-  ariaLabel: { type: String, default: '$t:inputField' },
-  ariaLabelledby: { type: String },
-  ariaDescribedby: { type: String },
+  inputAriaLabel: { type: String, default: '$t:inputField' },
+  inputAriaLabelledby: { type: String },
+  inputAriaDescribedby: { type: String },
 }
 
 export const useInputFieldAria = (props: ExtractPropTypes<typeof useInputFieldAriaProps>) => {
@@ -15,9 +15,9 @@ export const useInputFieldAria = (props: ExtractPropTypes<typeof useInputFieldAr
   const characterCountId = `input-character-count-${id}`
 
   const ariaAttributes = computed(() => ({
-    'aria-label': props.label !== '' ? props.label : props.ariaLabel,
-    'aria-labelledby': props.ariaLabelledby ? props.ariaLabelledby : labelId,
-    'aria-describedby': props.ariaDescribedby ? props.ariaDescribedby : characterCountId,
+    'aria-label': props.label !== '' ? props.label : props.inputAriaLabel,
+    'aria-labelledby': props.inputAriaLabelledby ? props.inputAriaLabelledby : labelId,
+    'aria-describedby': props.inputAriaDescribedby ? props.inputAriaDescribedby : characterCountId,
   }))
 
   return {

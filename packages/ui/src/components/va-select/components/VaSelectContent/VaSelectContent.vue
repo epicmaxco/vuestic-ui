@@ -41,6 +41,7 @@
       :disabled="$props.disabled"
       :readonly="$props.readonly"
       autocomplete="off"
+      aria-autocomplete="list"
       @keydown.up.stop.prevent="$emit('focus-prev')"
       @keydown.down.stop.prevent="$emit('focus-next')"
       @keydown.enter.stop.prevent="$emit('select-option')"
