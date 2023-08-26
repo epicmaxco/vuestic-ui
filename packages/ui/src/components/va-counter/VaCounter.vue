@@ -19,7 +19,6 @@
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
             class="va-counter__button-decrease"
-            :aria-label="tp($props.ariaDecreaseLabel)"
             v-bind="decreaseButtonProps"
             ref="decreaseButtonRef"
           />
@@ -50,7 +49,6 @@
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
             class="va-counter__button-increase"
-            :aria-label="tp($props.ariaIncreaseLabel)"
             v-bind="increaseButtonProps"
             ref="increaseButtonRef"
           />
@@ -89,6 +87,7 @@
       inputmode="decimal"
       v-bind="{ ...inputAttributesComputed, ...inputListeners }"
       :value="valueComputed"
+      :aria-live="$props.disabled ? 'off' : 'polite'"
       @input="setCountInput"
       @change="setCountChange"
     />
@@ -278,6 +277,7 @@ export default defineComponent({
       plain: true,
       disabled: isDecreaseActionDisabled.value,
       tabindex: -1,
+      'aria-label': tp(props.ariaDecreaseLabel),
       ...(!isDecreaseActionDisabled.value && { onClick: decreaseCount }),
     }))
 
@@ -288,6 +288,7 @@ export default defineComponent({
       plain: true,
       disabled: isIncreaseActionDisabled.value,
       tabindex: -1,
+      'aria-label': tp(props.ariaIncreaseLabel),
       ...(!isIncreaseActionDisabled.value && { onClick: increaseCount }),
     }))
 
@@ -312,7 +313,7 @@ export default defineComponent({
       ...buttonProps.value,
       icon: props.decreaseIcon,
       disabled: isDecreaseActionDisabled.value,
-      ariaLabel: tp(props.ariaDecreaseLabel),
+      'aria-label': tp(props.ariaDecreaseLabel),
       ...(!isDecreaseActionDisabled.value && { onClick: decreaseCount }),
     }))
 
@@ -320,7 +321,7 @@ export default defineComponent({
       ...buttonProps.value,
       icon: props.increaseIcon,
       disabled: isIncreaseActionDisabled.value,
-      ariaLabel: tp(props.ariaIncreaseLabel),
+      'aria-label': tp(props.ariaIncreaseLabel),
       ...(!isIncreaseActionDisabled.value && { onClick: increaseCount }),
     }))
 
@@ -340,7 +341,7 @@ export default defineComponent({
       attrs.class,
       { 'va-counter--input-square': isSquareCorners.value },
       { 'va-counter--content-slot': slots.content && props.buttons },
-    ]))
+    ].filter(Boolean)))
 
     const styleComputed: ComputedRef<Partial<CSSStyleDeclaration>> = computed(() => ({
       ...((attrs.style as Partial<CSSStyleDeclaration>) || {}),
