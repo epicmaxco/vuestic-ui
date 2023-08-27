@@ -18,6 +18,9 @@
     }"
     @click="onClick"
     @keypress.space.enter.prevent.stop="onClick"
+    :aria-current="$props.today"
+    :aria-selected="$props.selected"
+    :aria-disabled="$props.disabled"
   >
     <slot />
   </div>
