@@ -4,6 +4,7 @@
     class="va-year-picker"
     v-bind="containerAttributes"
     @keydown.space.prevent
+    role="row"
   >
     <va-date-picker-cell
       v-for="(year, index) in years"

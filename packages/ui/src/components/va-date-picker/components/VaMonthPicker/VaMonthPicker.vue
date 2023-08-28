@@ -6,6 +6,7 @@
       class="va-month-picker__month-wrapper"
       @mouseenter="hoveredIndex = monthIndex"
       @mouseleave="hoveredIndex = -1"
+      role="gridcell"
     >
       <va-date-picker-cell
         :in-range="!!isInRange(month)"

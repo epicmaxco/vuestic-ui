@@ -2,6 +2,7 @@
   <div 
     class="va-day-picker" 
     v-bind="containerAttributes"
+    aria-live="assertive"
     role="grid"
   >
     <template v-if="!hideWeekDays">
@@ -22,7 +23,6 @@
       :key="index"
       @mouseenter="hoveredIndex = index"
       @mouseleave="hoveredIndex = -1"
-      :aria-label="date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })"
       role="gridcell"
     >
       <va-date-picker-cell
@@ -37,8 +37,9 @@
         :highlight-today="highlightToday"
         :highlight-weekend="highlightWeekend"
         :readonly="$props.readonly"
+        :date="date"
         :color="color"
-        @click="onClick(date); focusedCellIndex = index"
+        @click="onClick(date); focusedCellIndex = index" 
       >
         <span class="va-date-picker-cell__day">
           <slot name="day" v-bind="{ date }">
