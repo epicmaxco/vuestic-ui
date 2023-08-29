@@ -45,7 +45,6 @@
 import { VaForm } from './index'
 import { VaInput } from '../va-input'
 import { reactive } from 'vue'
-
 import { required, minLength, email, between, numeric } from '@vuelidate/validators'
 import { useVuelidate } from '@vuelidate/core'
 
@@ -54,6 +53,7 @@ const state = reactive({
   age: 0,
   email: '',
 })
+
 const rules = {
   name: {
     required,
@@ -69,5 +69,6 @@ const rules = {
     between: between(10, 100),
   },
 }
+
 const v$ = useVuelidate(rules, state)
 </script>
