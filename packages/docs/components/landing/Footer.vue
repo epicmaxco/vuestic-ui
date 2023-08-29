@@ -66,6 +66,10 @@
           >
             hello@epicmax.co
           </a>
+          <br>
+          <a href="https://www.iubenda.com/privacy-policy/50799764" title="Privacy Policy ">Privacy Policy</a>
+          •
+          <a href="https://www.iubenda.com/privacy-policy/50799764/cookie-policy" title="Privacy Policy ">Cookie Policy</a>
         </div>
       </div>
       <!--<LandingNewsBanner />-->

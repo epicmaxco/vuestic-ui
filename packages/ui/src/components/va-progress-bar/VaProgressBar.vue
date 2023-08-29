@@ -56,7 +56,7 @@ export default defineComponent({
     indeterminate: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },
     size: {
-      type: [Number, String] as PropType<number | 'medium' | 'large' | 'small'>,
+      type: [Number, String] as PropType<number | 'medium' | 'large' | 'small' | string>,
       default: 'medium',
     },
     buffer: { type: Number, default: 100 },
