@@ -33,7 +33,7 @@ export const Default = () => ({
   data: () => ({ input: '' }),
   template: `
     <va-form ref="form">
-      <va-input 
+      <va-input
         v-model="input"
         :rules="[value => !!value || 'required']"
       />
@@ -208,6 +208,7 @@ export const FocusInvalid = () => ({
     <va-form ref="form">
       <va-input />
       <va-input error/>
+      <va-input error/>
     </va-form>
     <va-button @click="$refs.form.focusInvalidField()">
       Focus invalid
@@ -220,7 +221,7 @@ FocusInvalid.play = async ({ canvasElement, step }) => {
   const [validInput, invaliInput] = canvas.getAllByRole('textbox', { name: '' }) as HTMLElement[]
   const button = canvas.getByRole('button', { name: 'Focus invalid' }) as HTMLElement
 
-  await step('Focusses invalid input', async () => {
+  await step('Focuses first invalid input', async () => {
     await userEvent.click(button)
     expect(invaliInput).toHaveFocus()
   })
@@ -298,14 +299,14 @@ Reset.play = async ({ canvasElement, step }) => {
 const OPTIONS = ['One', 'Two', 'Three']
 
 export const ToDoFormReset = () => ({
-  components: { 
-    VaForm, 
-    VaInput, 
-    VaSelect, 
-    VaDateInput, 
-    VaTimeInput, 
-    VaOptionList, 
-    VaButton 
+  components: {
+    VaForm,
+    VaInput,
+    VaSelect,
+    VaDateInput,
+    VaTimeInput,
+    VaOptionList,
+    VaButton,
   },
   data: () => ({
     input: 'value',
@@ -355,28 +356,27 @@ export const ToDoFormReset = () => ({
 
 addText(
   ToDoFormReset,
-  'to do...',
+  'This is old demo resqued to have visual tests, but we want to rewrite it eventually.',
   'stale',
 )
 
-
 export const ToDoFormInteractions = () => ({
-  components: { 
-    VaForm, 
-    VaInput, 
-    VaSelect, 
-    VaDateInput, 
-    VaTimeInput, 
-    VaOptionList,  
+  components: {
+    VaForm,
+    VaInput,
+    VaSelect,
+    VaDateInput,
+    VaTimeInput,
+    VaOptionList,
     VaFileUpload,
     VaSwitch,
     VaCounter,
     VaRating,
     VaSlider,
     VaDatePicker,
-    VaTimePicker, 
-    VaRadio, 
-    VaButton 
+    VaTimePicker,
+    VaRadio,
+    VaButton,
   },
   data: () => ({
     input: 'input',
@@ -391,18 +391,18 @@ export const ToDoFormInteractions = () => ({
     rating: 4,
     slider: 29,
     radio: OPTIONS[1],
-    validationRules: [false]
+    validationRules: [false],
   }),
   template: `
     <va-form ref="form">
-      <va-input 
-        v-model="input" 
-        :rules="validationRules" 
+      <va-input
+        v-model="input"
+        :rules="validationRules"
       />
-      <va-select 
+      <va-select
         v-model="select"
         :options="options"
-        :rules="validationRules" 
+        :rules="validationRules"
       />
       <va-checkbox
         v-model="checkbox"
@@ -424,46 +424,46 @@ export const ToDoFormInteractions = () => ({
         v-model="time"
         :rules="validationRules"
       />
-      <va-switch 
-        v-model="switch1" 
-        :rules="validationRules" 
+      <va-switch
+        v-model="switch1"
+        :rules="validationRules"
       />
       <va-option-list
         v-model="optionsList"
         :rules="validationRules"
         :options="options"
       />
-      <va-radio 
-        v-model="radio" 
+      <va-radio
+        v-model="radio"
         :options="options"
-        :rules="validationRules"  
+        :rules="validationRules"
       />
       <va-counter
         v-model="counter"
         :rules="validationRules"
       />
-      <va-rating v-model="rating" 
-        :rules="validationRules" 
+      <va-rating v-model="rating"
+        :rules="validationRules"
       />
-      <va-slider v-model="slider" 
-        :rules="validationRules" 
+      <va-slider v-model="slider"
+        :rules="validationRules"
       />
       <va-file-upload />
     </va-form>
-    <va-button @click="$refs.form.validate()"> 
-      Validate 
+    <va-button @click="$refs.form.validate()">
+      Validate
     </va-button>
-    <va-button @click="$refs.form.resetValidation()"> 
-      Reset validation 
+    <va-button @click="$refs.form.resetValidation()">
+      Reset validation
     </va-button>
-    <va-button @click="$refs.form.reset()"> 
-      Reset 
+    <va-button @click="$refs.form.reset()">
+      Reset
     </va-button>
   `,
 })
 
 addText(
   ToDoFormInteractions,
-  'to do...',
+  'This is old demo resqued to have visual tests, but we want to rewrite it eventually.',
   'stale',
 )
