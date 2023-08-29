@@ -24,8 +24,6 @@ export const useFiles = async () => {
 
     const dir = dirname(resolvedPath)
 
-    console.log(dir, resolvedPath)
-
     if (!existsSync(dir)) {
       await mkdir(dir, { recursive: true })
     }

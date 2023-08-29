@@ -74,9 +74,9 @@ const questions = definePrompts([
     message: 'Vuestic features (can be manually added later)',
     initial: 0,
     choices: [
+      { title: 'Tailwind', value: 'tailwind' as const, description: 'Install Tailwind CSS for styling. We recommend using tailwind instead of grid.css and normalize.css' },
       { title: 'AG Grid', value: 'agGrid' as const, description: 'Install Vuestic AG Grid theme for complex data tables' },
       { title: 'Tree shaking', value: 'treeShaking' as const, description: 'You will need to register each component manually, but it will decrease bundle size' },
-      { title: 'Tailwind', value: 'tailwind' as const, description: 'Install Tailwind CSS for styling. We recommend using tailwind instead of grid.css and normalize.css' },
     ],
   },
   {
