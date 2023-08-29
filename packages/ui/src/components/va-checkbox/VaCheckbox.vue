@@ -68,7 +68,7 @@ import {
   useSelectable, useSelectableProps, useSelectableEmits, Elements,
 } from '../../composables'
 
-import { VaMessageListWrapper } from '../va-input'
+import { VaMessageListWrapper } from '../va-message-list'
 import { VaIcon } from '../va-icon/'
 
 const VaCheckboxValueType = [Boolean, Array, String, Object] as PropType<boolean | null | string | number | Record<any, unknown> | unknown[]>

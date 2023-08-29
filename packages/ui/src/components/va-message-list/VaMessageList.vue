@@ -1,6 +1,8 @@
 <template>
-  <slot v-bind="{ ariaAttributes: childAttributes }" />
-  <slot name="messages" v-bind="{ ariaAttributes: messageListAttributes }">
+  <WithAttributes>
+    <slot v-bind="{ ariaAttributes: childAttributes, messages }" />
+  </WithAttributes>
+  <slot name="messages" v-bind="{ ariaAttributes: messageListAttributes, messages }">
     <div
       v-if="messages.length > 0"
       class="va-message-list"
@@ -13,12 +15,14 @@
           :key="index"
           class="va-message-list__message"
         >
-          <va-icon
-            v-if="hasError"
-            class="va-message-list__icon"
-            name="va-warning"
-            :size="16"
-          />{{ message }}
+          <slot name="message" v-bind="{ messages, message }">
+            <va-icon
+              v-if="hasError"
+              class="va-message-list__icon"
+              name="va-warning"
+              :size="16"
+            />{{ message }}
+          </slot>
         </li>
       </ul>
     </div>
@@ -28,15 +32,16 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
 
-import { useColors } from '../../../../composables'
+import { useColors } from '../../composables'
 
-import { VaIcon } from '../../../va-icon'
+import { VaIcon } from '../va-icon'
 import { useMessageListAria } from './hooks/useMessageListAria'
+import { WithAttributes } from '../../utils/with-attributes'
 
 export default defineComponent({
   name: 'VaMessageList',
 
-  components: { VaIcon },
+  components: { VaIcon, WithAttributes },
 
   props: {
     modelValue: {
@@ -48,11 +53,16 @@ export default defineComponent({
     hasError: { type: Boolean, default: false },
   },
 
-  setup (props) {
+  inheritAttrs: false,
+
+  setup (props, { slots }) {
     const { getColor } = useColors()
 
+    const { childAttributes, messageListAttributes } = useMessageListAria(props)
+
     return {
-      ...useMessageListAria(props),
+      messageListAttributes,
+      childAttributes: computed(() => childAttributes.value),
       messages: computed<string[]>(() => {
         if (!props.modelValue) { return [] }
         if (!Array.isArray(props.modelValue)) { return [props.modelValue] }
@@ -65,16 +75,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../../styles/resources/index.scss";
+@import "variables";
 
 .va-message-list {
-  margin-top: var(--va-message-list-margin-top);
   color: var(--va-message-list-color);
   list-style: none;
 
   &__message {
     display: flex;
-    vertical-align: var(--va-message-list-vertical-align);
+    align-items: center;
     font-size: var(--va-message-list-font-size);
     line-height: var(--va-message-list-line-height);
   }

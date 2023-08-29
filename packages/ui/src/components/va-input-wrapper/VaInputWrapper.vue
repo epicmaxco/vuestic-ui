@@ -8,6 +8,7 @@
       :color="messagesColor"
       :model-value="messagesComputed"
       :limit="errorLimit"
+      :inherit-slots="['message', 'messages']"
     >
       <template #default="{ ariaAttributes: messagesChildAriaAttributes }">
         <fieldset class="va-input-wrapper__size-keeper">
@@ -106,33 +107,34 @@
           </div>
         </fieldset>
       </template>
-
+<!--
       <template v-if="$slots.messages" #messages>
         <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }" />
-      </template>
+      </template> -->
     </va-message-list>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, getCurrentInstance, toRef } from 'vue'
+import { computed, defineComponent } from 'vue'
 import pick from 'lodash/pick.js'
 
 import { useBem, useFormFieldProps, useValidationProps, useColors, useTextColor, useComponentPresetProp, useSyncProp, useFocusDeep } from '../../composables'
 
-import { VaMessageList } from './components/VaMessageList'
+import { VaMessageList } from '../va-message-list'
 import VaInputLabel from './components/VaInputLabel.vue'
 import { VaIcon } from '../va-icon'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import { useInputFieldAria, useInputFieldAriaProps } from './hooks/useInputFieldAria'
+import { WithSlotInheritance } from '../../utils/with-slot-inheritance'
 
 const VaInputLabelProps = extractComponentProps(VaInputLabel)
 
 export default defineComponent({
   name: 'VaInputWrapper',
 
-  components: { VaMessageList, VaIcon, VaInputLabel },
+  components: { VaMessageList: WithSlotInheritance(VaMessageList), VaIcon, VaInputLabel },
 
   props: {
     ...useComponentPresetProp,
@@ -437,3 +439,4 @@ export default defineComponent({
   }
 }
 </style>
+../VaMessageList

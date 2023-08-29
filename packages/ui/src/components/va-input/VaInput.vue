@@ -66,7 +66,6 @@ import {
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
   useEmitProxy,
   useClearable, useClearableProps, useClearableEmits,
-  useFocusDeep,
   useTranslation,
   useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
 } from '../../composables'
@@ -201,8 +200,8 @@ export default defineComponent({
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
 
     const computedChildAttributes = computed(() => ({
-      'aria-label': props.ariaLabel || props.label,
-      'aria-labelledby': props.ariaLabeledBy,
+      'aria-label': props.inputAriaLabel || props.label,
+      'aria-labelledby': props.inputAriaLabelledby,
       'aria-required': props.requiredMark,
       tabindex: tabIndexComputed.value,
       class: props.inputClass,

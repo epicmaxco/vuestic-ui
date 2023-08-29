@@ -14,6 +14,7 @@
  * @notice: Make sure to export components that used in other components first!
 */
 export * from './va-icon'
+export * from './va-message-list'
 export * from './va-input-wrapper'
 export * from './va-input'
 export * from './va-fallback'

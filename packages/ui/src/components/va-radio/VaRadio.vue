@@ -6,63 +6,69 @@
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
-    :role="roleComputed"
     @blur="onBlur"
-    ref="container"
-    class="va-radio"
+
+    #default="{ ariaAttributes }"
   >
-    <label
-      v-for="(option, index) in computedOptions"
-      :key="index"
-      :class="radioClass(option)"
-      class="va-radio__square"
+    <div
+      ref="container"
+      class="va-radio"
+      :role="roleComputed"
+      v-bind="ariaAttributes"
     >
-      <input
-        ref="input"
-        class="va-radio__input"
-        type="radio"
-        role="radio"
-        :value="isChecked(option)"
-        :checked="isChecked(option)"
-        :aria-checked="isChecked(option)"
-        v-bind="inputAttributesComputed(option)"
-        @change="selectOption(getValue(option), $event)"
-        @focus="onFocus"
-        @blur="onBlur"
-      />
-
-      <slot name="icon" v-bind="{
-        value: isChecked(option),
-        text: getText(option),
-        disabled: getDisabled(option),
-        index,
-      }">
-        <span
-          aria-hidden="true"
-          class="va-radio__icon"
-        >
-          <span
-            class="va-radio__icon__background"
-          />
-          <span class="va-radio__icon__dot" />
-        </span>
-      </slot>
-
-      <div
-        v-if="getText(option) || $slots.default"
-        ref="label"
-        class="va-radio__text"
+      <label
+        v-for="(option, index) in computedOptions"
+        :key="index"
+        :class="radioClass(option)"
+        class="va-radio__square"
       >
-         <slot v-bind="{
+        <input
+          ref="input"
+          class="va-radio__input"
+          type="radio"
+          role="radio"
+          :value="isChecked(option)"
+          :checked="isChecked(option)"
+          :aria-checked="isChecked(option)"
+          v-bind="{ ...inputAttributesComputed(option), ...ariaAttributes }"
+          @change="selectOption(getValue(option), $event)"
+          @focus="onFocus"
+          @blur="onBlur"
+        />
+
+        <slot name="icon" v-bind="{
           value: isChecked(option),
           text: getText(option),
           disabled: getDisabled(option),
           index,
         }">
-          {{ getText(option) }}
+          <span
+            aria-hidden="true"
+            class="va-radio__icon"
+          >
+            <span
+              class="va-radio__icon__background"
+            />
+            <span class="va-radio__icon__dot" />
+          </span>
         </slot>
-      </div>
-    </label>
+
+        <div
+          v-if="getText(option) || $slots.default"
+          ref="label"
+          class="va-radio__text"
+        >
+          <slot v-bind="{
+            value: isChecked(option),
+            text: getText(option),
+            disabled: getDisabled(option),
+            index,
+          }">
+            {{ getText(option) }}
+          </slot>
+        </div>
+      </label>
+    </div>
   </VaMessageListWrapper>
 </template>
 
@@ -80,7 +86,7 @@ import {
   useSelectableList,
   useSelectableListProps,
 } from '../../composables'
-import { VaMessageListWrapper } from '../va-input'
+import { VaMessageListWrapper } from '../va-message-list'
 import type { VaRadioOption } from './types'
 
 export default defineComponent({
@@ -218,9 +224,9 @@ export default defineComponent({
         disabled: disabled,
         readonly: props.readonly,
         tabindex: disabled ? -1 : 0,
-        'aria-disabled': disabled,
-        'aria-readOnly': props.readonly,
-        ...validationAriaAttributes.value,
+        // 'aria-disabled': disabled,
+        // 'aria-readOnly': props.readonly,
+        // ...validationAriaAttributes.value,
       }
     }
 
