@@ -557,9 +557,12 @@ export default defineComponent({
         .va-data-table__table-tr {
           &:nth-child(even) {
             &:not(.selected) {
-              position: relative;
+              td {
+                // Position relative doesn't work on tr in Safari
+                position: relative;
 
-              @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped-tr-opacity), -1);
+                @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped-tr-opacity), -1);
+              }
             }
           }
         }
@@ -569,12 +572,16 @@ export default defineComponent({
     &.selectable,
     &.hoverable {
       .va-data-table__table-tbody {
-        .va-data-table__table-tr,
-        .va-data-table__table-tr:nth-child(even) {
-          &:hover {
+        .va-data-table__table-tr {
+          td {
+            // Position relative doesn't work on Safari on <tr> elements, only on TD.
             position: relative;
+          }
 
-            @include va-background(var(--va-data-table-hover-color), 1, -1);
+          &:hover {
+            td {
+              @include va-background(var(--va-data-table-hover-color), 1, -1);
+            }
           }
         }
       }

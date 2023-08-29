@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createVuestic } from 'vuestic-ui'
-import 'vuestic-ui/dist/vuestic-ui.css'
+import 'vuestic-ui/css'
 
 createApp(App)
   .use(createVuestic({

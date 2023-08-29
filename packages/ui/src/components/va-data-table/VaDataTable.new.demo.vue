@@ -267,11 +267,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import shuffle from 'lodash/shuffle.js'
 import cloneDeep from 'lodash/cloneDeep.js'
 import { DataTableSelectMode, DataTableSortingOrder, VaDataTable } from './'
 import { VaChip } from '../va-chip'
 import { VaAlert } from '../va-alert'
+import { faker } from '@faker-js/faker'
 
 export default defineComponent({
   name: 'VaDataTableNewDemo',
@@ -411,7 +411,7 @@ export default defineComponent({
     ]
 
     return {
-      items: shuffle(cloneDeep(users)),
+      items: faker.seed(1) && faker.helpers.shuffle(cloneDeep(users)),
       itemsHuge: new Array(500).fill(null).map((_, idx) => idx % 2 ? users[0] : users[1]),
       columns,
 
@@ -444,7 +444,7 @@ export default defineComponent({
 
   methods: {
     shuffleItems () {
-      (this as any).items = shuffle((this as any).items)
+      (this as any).items = faker.helpers.shuffle((this as any).items)
     },
 
     filterExact (source: any) {
