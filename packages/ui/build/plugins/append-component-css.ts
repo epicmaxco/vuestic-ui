@@ -17,12 +17,12 @@ const parsePath = (path: string) => {
  * Component always have script which is stored in file with name like Va[ComponentName].vue_vue_type_script_lang
  */
 const isVuesticComponent = (filename: string) => {
-  // Va[ComponentName].vue_vue_type_script_lang
-  return /Va\w*.vue_vue_type_script_lang.*\.mjs$/.test(filename)
+  // Va[ComponentName]-[hash].mjs
+  return /Va\w*-\w*\.mjs$/.test(filename)
 }
 
 const extractVuesticComponentName = (filename: string) => {
-  return filename.match(/(Va\w*).vue_vue_type_script_lang.*/)?.[1]
+  return filename.match(/(Va\w*)-\w*/)?.[1]
 }
 
 const SOURCE_MAP_COMMENT_FRAGMENT = '//# sourceMappingURL='
