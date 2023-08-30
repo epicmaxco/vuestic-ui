@@ -8,6 +8,7 @@
   >
     <VaResizeObserver
       class="va-layout-fixed-wrapper__content"
+      :class="`va-layout-fixed-wrapper__content--${area}`"
       @resize="size = $event"
     >
       <slot />
@@ -90,6 +91,22 @@ export default defineComponent({
     position: fixed;
     width: v-bind("styles.width");
     height: v-bind("styles.height");
+
+    &--top {
+      top: 0;
+    }
+
+    &--bottom {
+      bottom: 0;
+    }
+
+    &--right {
+      right: 0;
+    }
+
+    &--left {
+      left: 0;
+    }
   }
 }
 </style>
