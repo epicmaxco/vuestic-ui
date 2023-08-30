@@ -251,7 +251,6 @@ export default defineComponent({
 
     const show = () => { valueComputed.value = true }
     const hide = (cb?: () => void) => {
-      console.log('hide')
       const _hide = () => {
         valueComputed.value = false
         cb?.()
@@ -263,11 +262,9 @@ export default defineComponent({
       const _hide = () => {
         hide(() => emit('cancel'))
       }
-      console.log(props.beforeCancel, props.beforeOk)
       props.beforeCancel ? props.beforeCancel(_hide) : _hide()
     }
     const ok = () => {
-      console.log('ok')
       const _hide = () => {
         hide(() => emit('ok'))
       }
