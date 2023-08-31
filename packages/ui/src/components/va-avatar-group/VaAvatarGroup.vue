@@ -2,7 +2,7 @@
   <div
     class="va-avatar-group"
     :class="classComputed"
-    role="group"
+    role="list"
   >
     <va-avatar
       v-for="(option, idx) in maxOptions"

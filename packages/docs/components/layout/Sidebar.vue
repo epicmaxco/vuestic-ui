@@ -11,6 +11,7 @@
       <va-collapse
         v-for="(route, key) in navigationRoutes"
         :key="key"
+        aria-level="1"
       >
         <template #header="{ value: isCollapsed, hasKeyboardFocus }">
           <va-sidebar-item
