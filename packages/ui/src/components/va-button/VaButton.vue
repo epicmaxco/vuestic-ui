@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts" generic="T">
-import { PropType, computed, toRefs, shallowRef } from 'vue'
+import { PropType, computed, toRefs, shallowRef, defineComponent } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -73,13 +73,15 @@ import { useButtonTextColor } from './hooks/useButtonTextColor'
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
 
-import { defineComponent } from '../../utils/define-component'
+import { defineSlots } from '../../utils/component-options/define-slots'
 
-export default defineComponent({
-  slots: {
-    prepend: {} as { icon: string, iconAttributes: { color: string } },
-    append: {} as { icon: string, iconAttributes: { color: string } },
-  },
+const withSlots = defineSlots<{
+  prepend: { icon: string, iconAttributes: { color: string } },
+  append: { icon: string, iconAttributes: { color: string } },
+  loading: { size: string, color: string },
+}>()
+
+export default withSlots(defineComponent({
   name: 'VaButton',
   components: { VaIcon, VaProgressCircle },
   props: {
@@ -200,7 +202,7 @@ export default defineComponent({
       ...publicMethods,
     }
   },
-})
+}))
 </script>
 
 <style lang='scss'>

@@ -1,5 +1,5 @@
-import type { ComponentOptionsBase, PropType, ExtractPropTypes, DefineComponent } from 'vue'
-import { VaAlert } from '../../components'
+import type { ComponentOptionsBase, PropType, ExtractPropTypes, DefineComponent, VNodeProps, ComponentPublicInstance } from 'vue'
+import { VaAlert, VaButton } from '../../components'
 
 export type ComponentProps<T> =
   T extends new () => { $props: infer P } ? NonNullable<P> :
@@ -23,6 +23,15 @@ declare type ExtractDefineComponentOptionProp<T> = T extends DefineComponent<inf
 // -readonly removes readonly
 // -? removes undefined from key, so we can be sure that prop exists and should have type.
 declare type ExtractDefineComponentPropsType<T> = T extends DefineComponent<infer P, any, any> ? P : false
+type Not<T, N> = T extends infer Rest & N ? Rest : T
+
+type P = typeof VaButton
+
+// declare type ExtractDefineComponentPropsType<T> = T extends {
+//   new(): ComponentPublicInstance<infer P>
+// } ? Omit<P, keyof VNodeProps | 'style' | 'class'> : never
+
+type T = ExtractDefineComponentPropsType<typeof VaButton>
 
 // true extends boolean ? {
 //   -readonly [K in Exclude<keyof ComponentProps<T>, `on${Capitalize<string>}`>]-?: {
@@ -32,7 +41,7 @@ declare type ExtractDefineComponentPropsType<T> = T extends DefineComponent<infe
 //   }
 // } : never
 
-export type ExtractComponentProps<T extends DefineComponentOptions> = true extends boolean ? ExtractDefineComponentPropsType<T> : never
+export type ExtractComponentProps<T extends DefineComponent<any, any, any, any, any, any, any, any, any, any>> = true extends boolean ? ExtractDefineComponentPropsType<T> : never
 export type ExtractComponentEmits<T> = T extends ComponentOptionsBase<any, any, any, any, any, any, any, infer E> ? E : []
 
 export type ExtractComponentPropTypes<T extends DefineComponentOptions> = ComponentProps<T>

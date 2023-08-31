@@ -1,5 +1,6 @@
 import type { ExtractComponentEmits, ExtractComponentProps, DefineComponentOptions } from './types'
 import { getComponentProps } from './resolve-component-props'
+import { DefineComponent } from 'vue'
 
 /**
  * Returns component props options.
@@ -16,7 +17,7 @@ import { getComponentProps } from './resolve-component-props'
  * }
  * ```
  */
-export function extractComponentProps<T extends DefineComponentOptions, IgnoreProps extends string = ''> (component: T, ignoreProps?: IgnoreProps[]): Omit<ExtractComponentProps<T>, IgnoreProps> {
+export function extractComponentProps<T extends DefineComponent<any, any, any, any, any, any, any, any, any, any, any, any>, IgnoreProps extends string = ''> (component: T, ignoreProps?: IgnoreProps[]): Omit<ExtractComponentProps<T>, IgnoreProps> {
   const props: any = getComponentProps(component as any)
 
   // TODO: Not sure if it is a good idea to handle ignore props here
