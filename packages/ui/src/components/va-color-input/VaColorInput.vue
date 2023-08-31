@@ -40,7 +40,7 @@ import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits
 
 import { VaColorIndicator } from '../va-color-indicator'
 import { VaInput } from '../va-input'
-import { throttle } from 'lodash'
+import throttle from 'lodash/throttle'
 
 export default defineComponent({
   name: 'VaColorInput',
