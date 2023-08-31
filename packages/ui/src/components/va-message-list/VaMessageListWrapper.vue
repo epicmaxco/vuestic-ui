@@ -1,26 +1,31 @@
 <template>
   <div class="va-message-list-wrapper">
-    <slot />
     <va-message-list
       :color="messagesColor"
       :limit="errorLimit"
       :has-error="hasError"
       :model-value="messagesComputed"
-    />
+      :inherit-slots="['message']"
+    >
+      <template #default="bind">
+        <slot name="default" v-bind="bind" />
+      </template>
+    </va-message-list>
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, toRef } from 'vue'
 
-import { useValidationProps } from '../../../composables'
+import { useValidationProps } from '../../composables'
 
 import { VaMessageList } from './VaMessageList'
+import { WithSlotInheritance } from '../../utils/with-slot-inheritance'
 
 export default defineComponent({
   name: 'VaMessageListWrapper',
 
-  components: { VaMessageList },
+  components: { VaMessageList: WithSlotInheritance(VaMessageList) },
 
   props: {
     ...useValidationProps,
@@ -42,7 +47,11 @@ export default defineComponent({
 </script>
 
 <style lang='scss'>
+@import 'variables';
+
 .va-message-list-wrapper {
-  font-family: var(--va-font-family);
+  .va-message-list {
+    margin-top: var(--va-message-wrapper-margin-top);
+  }
 }
 </style>

@@ -52,7 +52,7 @@ declare type DemoRoute = {
 export default defineComponent({
   data() {
     return {
-      accordionValue: [false, true],
+      accordionValue: [false, false, true],
       items: [
         {
           name: "Home",

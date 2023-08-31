@@ -37,7 +37,7 @@ export default defineComponent({
 .va-accordion {
   font-family: var(--va-font-family);
 
-  .va-collapse {
+  & > .va-collapse {
     &:not(:first-child, :last-child) {
       .va-collapse__header {
         border-radius: 0;
@@ -52,10 +52,15 @@ export default defineComponent({
       }
     }
 
+    & .va-collapse__header {
+      border-top: 1px solid var(--va-background-border);
+    }
+
     &:first-child {
       .va-collapse__header {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
+        border-top: none;
       }
     }
 

@@ -1,14 +1,12 @@
 <template>
-  <div class="max-w-xs">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
     <va-select
       v-model="valueSingle"
-      class="mb-6"
       label="Single select"
       :options="options"
     />
     <va-select
       v-model="valueMultiple"
-      class="mb-6"
       label="Multiple select"
       :options="options"
       multiple
@@ -39,9 +37,9 @@ export default {
         "eight",
         "nine",
       ],
-      valueSingle: "",
-      valueMultiple: "",
-      valueMultipleMax: "",
+      valueSingle: "one",
+      valueMultiple: ["one", "two"],
+      valueMultipleMax: ["one", "two"],
     };
   },
 };

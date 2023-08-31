@@ -35,6 +35,7 @@ import { useDropdown } from './hooks/useDropdown'
 import { warn } from '../../utils/console'
 import { useFocusOutside } from '../../composables/useFocusOutside'
 import { useTeleported } from '../../composables/useTeleported'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -70,6 +71,7 @@ export default defineComponent({
     /** Not reactive */
     keyboardNavigation: { type: Boolean, default: false },
     ariaLabel: { type: String, default: '$t:toggleDropdown' },
+    role: { type: String as PropType<StringWithAutocomplete<'button' | 'none'>>, default: 'button' },
   },
 
   emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'focus-outside', 'close', 'open', 'anchor-dblclick'],
@@ -237,6 +239,14 @@ export default defineComponent({
   },
 
   render () {
+    const anchorAriaAttributes = {
+      'aria-haspopup': true,
+      'aria-expanded': this.valueComputed,
+      'aria-disabled': this.$props.disabled,
+      'aria-label': this.tp(this.$props.ariaLabel),
+      role: 'button',
+    }
+
     const slotBind = {
       isOpened: this.valueComputed,
       hide: this.hide,
@@ -256,12 +266,12 @@ export default defineComponent({
 
     const anchorSlotVNode = renderSlotNode(this.$slots.anchor, slotBind, {
       ref: 'anchor',
-      role: 'button',
+      role: this.$props.role,
       class: ['va-dropdown', ...this.anchorClass.asArray.value],
       style: { position: 'relative' },
       'aria-label': this.tp(this.$props.ariaLabel),
       'aria-disabled': this.$props.disabled,
-      'aria-expanded': !!this.showFloating,
+      'aria-expanded': this.$props.role && this.$props.role !== 'none' ? !!this.showFloating : undefined,
       ...this.teleportFromAttrs,
       ...this.$attrs,
     })

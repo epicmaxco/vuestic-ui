@@ -10,7 +10,7 @@
       outline
       buttons
       margins="20px"
-      width="200px"
+      style="width: 200px"
     />
   </div>
 </template>

@@ -16,7 +16,7 @@ export default {
   },
   data() {
     return {
-      value: "",
+      value: { code: 'in', text: 'Information', icon: 'info' },
       options: [
         { code: 'in', text: 'Information', icon: 'info' },
         { code: 'fa', text: 'Face', icon: 'face' },

@@ -21,6 +21,23 @@
         :model-value="stringMessages"
       />
     </VbCard>
+
+    <VbCard title="Inherit attrs">
+      <VaMessageList
+        style="color: blue; font-size: 20px;"
+      >
+        Anchor
+      </VaMessageList>
+    </VbCard>
+
+    <VbCard title="Slot bind">
+      <VaMessageList
+        style="color: blue; font-size: 20px;"
+        #default="{ ariaAttributes }"
+      >
+        {{ ariaAttributes }}
+      </VaMessageList>
+    </VbCard>
   </VbDemo>
 </template>
 

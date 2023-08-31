@@ -11,21 +11,17 @@ export default definePageConfig({
       title: "Basic usage",
       description: "By default `va-input` doesn’t have attributes, but can be combined with a placeholder and/or label."
     }),
-    block.example("ExtendedDefault", {
-      title: "Readonly, disabled, symbols counter",
-      description: "It can also be disabled, readonly and have symbols counter."
-    }),
-    block.example("HtmlAttributes", {
-      title: "Supported HTML attributes",
-      description: "Be default we support these HTML Input attributes: `type`, `disabled`, `readonly`, `placeholder`, `pattern`, `inputmode`, `minlength`, `maxlength`. Read more on the [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)."
-    }),
     block.example("Styles", {
       title: "Styles",
-      description: "There are tree styles for input: Default (solid), outline, bordered."
+      description: "There are tree styles for input: Default (outlined), solid, bordered."
     }),
     block.example("Hint", {
       title: "Hint messages",
       description: "Support single/multi line messages to give some hint for improve UX"
+    }),
+    block.example("Counter", {
+      title: "Counter",
+      description: ""
     }),
     block.example("Validate", {
       title: "Validation and error/success state",
@@ -34,10 +30,6 @@ export default definePageConfig({
     block.example("Slots", {
       title: "Slots",
       description: "You can use slots for pass custom elements to input (inner or outer), such as icons or buttons etc."
-    }),
-    block.example("Textarea", {
-      title: "Textarea",
-      description: "Support a multi-line `va-input`, useful for larger amounts of text. You can make textarea auto-expandable or manually control min/max number of lines."
     }),
     block.example("Mask", {
       title: "Mask",
@@ -52,18 +44,64 @@ export default definePageConfig({
       description: "You can create `preset` for your input components, but sometimes requirements can be out of boundaries of pre-defined `presets`. To solve this problem component allows to customize it with `slots` and its `props`.",
     }),
 
+    block.example("HtmlAttributes", {
+      title: "Supported HTML attributes",
+      description: "Be default we support these HTML Input attributes: `type`, `disabled`, `readonly`, `placeholder`, `pattern`, `inputmode`, `minlength`, `maxlength`. Read more on the [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)."
+    }),
     block.headline("Input types"),
     block.paragraph("With a `type` property you can set the type of the input which will render native `<input type=\"text/password/search/etc\" />`."),
     block.paragraph("Watch available types [here](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types) (some types aren't supported or have implemented as a Vuestic UI component)."),
     block.example("Types", { hideTitle: true }),
 
     block.subtitle("API"),
-    block.api("VaInput", apiOptions),
+    block.api("VaInput", {
+      props: {
+        ariaLabel: 'Specify the `aria-label` attribute for screen readers. By default it is set to the `label` prop.',
+        clearable: 'Specifies whether the input should be clearable.',
+        clearValue: 'Value which will be set after clear.',
+        counter: 'Specifies whether the input should have a counter at the bottom.',
+        innerLabel: 'If true label will be inside the input.',
+        inputClass: 'Class to be applied directly to the input element.',
+        placeholder: 'Placeholder text.',
+        mask: 'Mask for input. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/)[[target=_blank]].',
+        returnRaw: 'If true, the raw value will be returned instead of the formatted one.',
+        pattern: 'Pattern for input in case you want to use native validation.',
+        maxLength: 'Maximum length of input.',
+        minLength: 'Minimum length of input.',
+        inputmode: 'The inputmode global attribute is an enumerated attribute that specifies what kind of input mechanism would be most helpful for users entering content into the form control.',
+      },
+      events: {
+        clear: 'Emitted when the clear button is clicked.',
+        'update:error': 'Emitted when the error prop changes. You can use v-model:error to sync the error prop bidirectionally.',
+        'update:errorMessages': 'Emitted when the error-messages prop changes. You can use v-model:error-messages to sync the error-messages prop bidirectionally.',
+      },
+      slots: {
+        append: 'Slot for append content. It will be placed after input component.',
+        appendInner: 'Slot for append content. It will be placed inside input.',
+        prepend: 'Slot for prepend content. It will be placed before input component.',
+        prependInner: 'Slot for prepend content. It will be placed inside input.',
+      },
+      methods: {
+        blur: 'Removes focus from input.',
+        focus: 'Sets focus on input.',
+        reset: 'Resets input value.',
+      }
+    }, apiOptions),
 
     // TODO: Move variable from VaInputWrapper to VaInput
     block.paragraph("VaInputWrapper:"),
     block.file(
-      "vuestic-ui/src/components/va-input/components/VaInputWrapper/_variables.scss"
+      "vuestic-ui/src/components/va-input-wrapper/_variables.scss"
     ),
+
+    block.changeLog({
+      '1.8.0': [
+        'Inputs have outlined style by default',
+        '`solid` and `bordered` props moved to `preset="solid"` and `preset="bordered"`',
+        'All `--va-input-*` css variables renamed to `--va-input-wrapper-*`',
+        'For outlined style `currentColor` is used for text color, without background color detection',
+        '`type="textarea"` is removed, use VaTextarea component instead',
+      ],
+    })
   ],
 });

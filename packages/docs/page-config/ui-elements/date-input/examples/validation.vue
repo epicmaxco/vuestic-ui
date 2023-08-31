@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-start">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
     <va-date-input
       v-model="value"
       class="mr-6"

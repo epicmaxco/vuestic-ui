@@ -12,7 +12,8 @@ export default defineApiDescription({
     trigger: "Action that will triggered when open and close dropdown.",
     target: "Dropdown content parent. Dropdown content will be attached to `target` to prevent overflow",
     closeOnAnchorClick:"Dropdown will be closed when anchor is clicked",
-    ariaLabel: "The aria-label of the component"
+    ariaLabel: "The aria-label of the component",
+    role: "The `role` attribute applied to the anchor"
   },
   events: {
     anchorClick: "The event is triggered when anchor is clicked",

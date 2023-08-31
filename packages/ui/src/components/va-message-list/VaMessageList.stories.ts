@@ -8,5 +8,5 @@ export default {
 
 export const Default = defineComponent({
   components: { VaMessageList },
-  template: '<VaMessageList/>',
+  template: '<VaMessageList />',
 })

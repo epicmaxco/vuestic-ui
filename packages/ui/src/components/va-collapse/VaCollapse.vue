@@ -13,6 +13,15 @@
           value: computedModelValue,
           bind: headerAttributes,
           attributes: headerAttributes,
+          attrs: headerAttributes,
+          iconAttrs: {
+            color: iconColorComputed,
+            class: [
+              'va-collapse__expand-icon',
+              computedModelValue ? 'a-collapse__expand-icon--expanded' : 'a-collapse__expand-icon--collapsed'
+            ]
+          },
+          text: header,
         }"
       >
         <div
@@ -31,14 +40,17 @@
             v-bind="{ header }"
           >
             <div class="va-collapse__header__text">
-                {{ header }}
+              {{ header }}
             </div>
           </slot>
-          <va-icon
-            class="va-collapse__header__icon"
-            :name="computedModelValue ? 'va-arrow-up' : 'va-arrow-down'"
-            :color="textColorComputed"
-          />
+          <slot name="expand-icon">
+            <va-icon
+              class="va-collapse__expand-icon"
+              name="va-arrow-down"
+              :class="computedModelValue ? 'a-collapse__expand-icon--expanded' : 'a-collapse__expand-icon--collapsed'"
+              :color="iconColorComputed"
+            />
+          </slot>
         </div>
       </slot>
     </div>
@@ -50,7 +62,11 @@
         :id="panelIdComputed"
         :aria-labelledby="headerIdComputed"
       >
-        <slot />
+        <slot>
+          <div class="va-collapse__content">
+            <slot name="content" />
+          </div>
+        </slot>
       </div>
     </div>
   </div>
@@ -66,6 +82,7 @@ import {
   useBem,
   useResizeObserver,
   useComponentPresetProp,
+  isColorTransparent,
   useStateful,
   useStatefulProps,
   useSelectableEmits,
@@ -88,18 +105,18 @@ export default defineComponent({
     disabled: { type: Boolean, default: false },
     header: { type: String, default: '' },
     icon: { type: String, default: '' },
-    solid: { type: Boolean, default: false },
-    color: { type: String, default: 'background-element' },
+    color: { type: String, default: 'transparent' },
     textColor: { type: String, default: '' },
+    iconColor: { type: String, default: 'secondary' },
     colorAll: { type: Boolean, default: false },
-    flat: { type: Boolean, default: false },
+    stateful: { type: Boolean, default: true },
   },
   emits: ['update:modelValue', ...useSelectableEmits],
 
   setup (props, { emit, slots }) {
     const body = shallowRef<HTMLElement>()
 
-    const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: false })
+    const { valueComputed } = useStateful(props, emit, 'modelValue')
 
     const { getColor, getHoverColor } = useColors()
     const { accordionProps, valueProxy: computedModelValue = valueComputed } = useAccordionItem()
@@ -139,12 +156,18 @@ export default defineComponent({
     }))
 
     const computedClasses = useBem('va-collapse', () => ({
-      ...pick(props, ['disabled', 'solid', 'flat']),
+      ...pick(props, ['disabled']),
       expanded: computedModelValue.value,
-      active: props.solid && computedModelValue.value,
+      active: computedModelValue.value,
       popout: !!(accordionProps.value.popout && computedModelValue.value),
       inset: !!(accordionProps.value.inset && computedModelValue.value),
     }))
+
+    const iconColorComputed = computed(() => {
+      if (!props.color || isColorTransparent(getColor(props.color))) { return props.iconColor }
+
+      return textColorComputed.value
+    })
 
     const toggle = () => {
       if (props.disabled) { return }
@@ -154,6 +177,7 @@ export default defineComponent({
     return {
       body,
       height,
+      iconColorComputed,
 
       toggle,
       computedModelValue,
@@ -167,14 +191,13 @@ export default defineComponent({
       computedClasses,
 
       headerStyle: computed(() => ({
-        paddingLeft: props.icon && 0,
         color: textColorComputed.value,
         backgroundColor: props.color ? getColor(props.color) : '',
       })),
 
       contentStyle: computed(() => {
         return {
-          visibility: computedModelValue.value ? 'visible' as const : 'hidden' as const,
+          visibility: bodyHeight.value > 0 ? 'visible' as const : 'hidden' as const,
           height: `${height.value}px`,
           transitionDuration: getTransition(),
           background: computedModelValue.value ? getBackground() : '',
@@ -202,57 +225,48 @@ export default defineComponent({
     top: 0;
     left: 0;
     width: var(--va-collapse-body-width);
+    transition: var(--va-collapse-body-transition);
+    opacity: 0;
+  }
+
+  &__content {
+    padding: var(--va-collapse-padding);
+    padding-top: 0;
+
+    &:empty {
+      padding: 0;
+    }
+  }
+
+  &--expanded {
+    .va-collapse {
+      &__body {
+        opacity: 1;
+      }
+    }
   }
 
   &__header {
-    display: var(--va-collapse-header-content-display);
-    justify-content: var(--va-collapse-header-content-justify-content);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--va-collapse-gap);
     cursor: var(--va-collapse-header-content-cursor);
-    background-color: var(--va-collapse-header-content-background-color);
-    box-shadow: var(--va-collapse-header-content-box-shadow, var(--va-block-box-shadow));
-    border-radius: var(--va-collapse-header-content-border-radius, var(--va-block-border-radius));
-    align-items: var(--va-collapse-header-content-align-items);
-    padding-top: var(--va-collapse-header-content-padding-top);
-    padding-bottom: var(--va-collapse-header-content-padding-bottom);
-    padding-left: var(--va-collapse-header-content-padding-left);
+    padding: var(--va-collapse-padding);
 
     &__text {
-      width: var(--va-collapse-header-content-text-width);
+      width: 100%;
       font-weight: var(--va-collapse-header-content-text-font-weight);
-    }
-
-    &__icon {
-      @include flex-center();
-
-      min-width: var(--va-collapse-header-content-icon-min-width);
-      margin-left: var(--va-collapse-header-content-icon-margin-left);
-      margin-right: var(--va-collapse-header-content-icon-margin-right);
-      color: var(--va-collapse-header-content-icon-color);
     }
 
     @include keyboard-focus-outline(var(--va-collapse-header-content-border-radius));
   }
 
-  &--solid {
-    box-shadow: var(--va-collapse-solid-box-shadow);
-    border-radius: var(--va-collapse-solid-border-radius);
+  &__expand-icon {
+    transition: var(--va-collapse-expand-icon-transition);
 
-    .va-collapse {
-      &__header {
-        border-radius: var(--va-collapse-solid-header-content-border-radius, var(--va-block-border-radius));
-        transition: var(--va-collapse-solid-header-content-transition);
-        box-shadow: var(--va-collapse-solid-header-content-box-shadow, var(--va-block-box-shadow));
-        background-color: var(--va-collapse-solid-header-content-background-color);
-      }
-
-      &__body-wrapper {
-        border-radius: var(--va-collapse-solid-border-radius);
-      }
-
-      &__body {
-        border-radius: var(--va-collapse-solid-body-border-radius);
-        margin-top: var(--va-collapse-solid-body-margin-top);
-      }
+    &--expanded {
+      transform: rotate(180deg);
     }
   }
 
@@ -262,13 +276,6 @@ export default defineComponent({
 
   &--inset {
     margin: var(--va-collapse-inset-margin);
-  }
-
-  &--flat {
-    .va-collapse__header {
-      --va-collapse-solid-header-content-border-radius: 0;
-      --va-collapse-header-content-box-shadow: none;
-    }
   }
 
   &--disabled {

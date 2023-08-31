@@ -1,11 +1,10 @@
 <template>
   <div class="va-color-input">
     <va-input
-      class="va-color-input__input"
-      placeholder="input color"
+      v-bind="vaInputProps"
       v-model="valueComputed"
+      class="va-color-input__input"
       :tabindex="tabIndexComputed"
-      :disabled="$props.disabled"
     >
       <template #appendInner>
         <va-color-indicator
@@ -16,6 +15,7 @@
           :tabindex="tabIndexComputed"
           :color="valueComputed"
           :indicator="$props.indicator"
+          size="16px"
           @click="callPickerDialog"
           @keydown.space="callPickerDialog"
           @keydown.enter="callPickerDialog"
@@ -40,7 +40,10 @@ import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits
 
 import { VaColorIndicator } from '../va-color-indicator'
 import { VaInput } from '../va-input'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import throttle from 'lodash/throttle'
+
+const VaInputProps = extractComponentProps(VaInput)
 
 export default defineComponent({
   name: 'VaColorInput',
@@ -50,6 +53,7 @@ export default defineComponent({
   },
   emits: [...useStatefulEmits],
   props: {
+    ...VaInputProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
     modelValue: { type: String, default: null },
@@ -82,6 +86,7 @@ export default defineComponent({
       callPickerDialog,
       colorPicker,
       tabIndexComputed,
+      vaInputProps: filterComponentProps(VaInputProps),
     }
   },
 })

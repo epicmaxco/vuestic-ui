@@ -83,12 +83,11 @@ export default defineComponent({
   text-align: center;
   background-color: var(--va-background-element);
   border: 0.125rem solid var(--va-background-border);
-  box-sizing: content-box;
+  box-sizing: border-box;
+  overflow: hidden;
 
   &__core {
     border-radius: v-bind(borderRadiusComputed);
-    height: 1rem;
-    width: 1rem;
   }
 
   &--selected {

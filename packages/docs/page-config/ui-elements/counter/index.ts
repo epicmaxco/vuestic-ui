@@ -10,11 +10,15 @@ export default definePageConfig({
 
     block.example("Default", {
       title: "Basic usage",
-      description: "By default, `va-counter` has `v-model` prop, and may also include `stateful` state. With `manual-input` the user can manually enter a value."
+      description: ""
+    }),
+    block.example("ManualInput", {
+      title: "Manual input",
+      description: "With `manual-input` the user can manually enter a value."
     }),
     block.example("Style", {
       title: "Style",
-      description: "There are tree styles for component: default (solid), outline, bordered."
+      description: "There are tree styles for component: outlined (default), solid and bordered. You can change component looks with `presets` props"
     }),
     block.example("Buttons", {
       title: "Buttons",
@@ -47,5 +51,13 @@ export default definePageConfig({
 
     block.subtitle("API"),
     block.api("VaCounter", apiDescription, apiOptions),
+
+    block.changeLog({
+      '1.8.0': [
+        'Removed `width` props, use `style="width: *"` instead',
+        'Changed default size to `--va-form-element-default-width-small` (120px).',
+        '`outline`, `bordered` props are removed. Component is always outlined. `solid` and `bordered` props are moved to `preset` prop (`preset="solid"`, `preset="bordered"`).`',
+      ]
+    })
   ],
 });

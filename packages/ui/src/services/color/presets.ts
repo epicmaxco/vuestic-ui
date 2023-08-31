@@ -23,6 +23,7 @@ export const presets: Record<string, EssentialVariables> = {
     // Misc
     shadow: 'rgba(0, 0, 0, 0.12)',
     focus: '#49A8FF',
+    transparent: 'rgba(0, 0, 0, 0)',
   },
   dark: {
     // Accent
@@ -46,5 +47,6 @@ export const presets: Record<string, EssentialVariables> = {
     // Misc
     shadow: 'rgba(255, 255, 255, 0.12)',
     focus: '#49A8FF',
+    transparent: 'rgba(0, 0, 0, 0)',
   },
 }

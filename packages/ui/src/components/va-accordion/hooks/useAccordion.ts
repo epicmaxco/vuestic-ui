@@ -71,7 +71,7 @@ export const useAccordion = (props: AccordionProps, state: WritableComputedRef<b
  * @param state shows if accordion item is open
  */
 export const useAccordionItem = () => {
-  const accordion = inject<AccordionInject>(AccordionServiceKey)
+  const accordion = inject<AccordionInject | null>(AccordionServiceKey, null)
 
   if (!accordion) {
     return { accordionProps: ref({} as AccordionProps) }
