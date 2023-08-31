@@ -77,11 +77,12 @@ import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { focusElement, blurElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
+import { combineFunctions } from '../../utils/combine-functions'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
-  ['change', 'keyup', 'keypress', 'keydown', 'focus', 'blur'],
+  ['change', 'keyup', 'keypress', 'keydown', 'focus', 'blur', 'input'],
 )
 
 const { createEmits: createFieldEmits, createListeners: createFieldListeners } = useEmitProxy([
@@ -192,9 +193,9 @@ export default defineComponent({
 
     const inputEvents = {
       ...inputListeners,
-      onFocus,
-      onBlur,
-      onInput,
+      onFocus: combineFunctions(onFocus, inputListeners.onFocus),
+      onBlur: combineFunctions(onBlur, inputListeners.onBlur),
+      onInput: combineFunctions(onInput, inputListeners.onInput),
     }
 
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)

@@ -8,7 +8,7 @@ import { insertNuxtModule } from './insert-nuxt-module';
 export const addVuesticToNuxtApp = async () => {
   // Install vuestic-ui
   const { addDevDependency } = await usePackageJson()
-  addDevDependency('@vuestic/nuxt', versions['@vuestic/nuxt'])
+  await addDevDependency('@vuestic/nuxt', versions['@vuestic/nuxt'])
 
   const { projectName, treeShaking } = await useUserAnswers()
 

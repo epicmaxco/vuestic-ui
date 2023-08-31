@@ -1,18 +1,12 @@
-import { existsSync, writeFileSync, readFileSync } from 'fs'
+import { existsSync } from 'fs'
 import { resolveAlias, useNuxt } from '@nuxt/kit';
 import { resolve } from 'pathe'
 import { resolveInRuntime } from './../utils/resolve';
-import { watch } from 'chokidar'
 
 export const useConfigFile = async () => {
   const root = resolveAlias('~/')
   const configPath = resolve(root, 'vuestic.config.ts')
-  const nuxtConfigPath = resolve(root, 'nuxt.config.ts')
   const nuxt = useNuxt()
-
-  const restartNuxt = () => {
-    writeFileSync(nuxtConfigPath, readFileSync(nuxtConfigPath, 'utf-8'))
-  }
 
   if (existsSync(configPath)) {
     nuxt.options.alias['#vuestic-config'] = configPath
@@ -20,11 +14,6 @@ export const useConfigFile = async () => {
     nuxt.options.alias['#vuestic-config'] = resolveInRuntime('./runtime/config.mjs')
   }
 
-  const watcher = watch(configPath)
-    .on('ready', () => {
-      watcher
-        .on('add', restartNuxt)
-        .on('unlink', restartNuxt)
-    })
-
+  // restart nuxt when vuestic config changes
+  nuxt.options.watch.push('vuestic.config.ts')
 }

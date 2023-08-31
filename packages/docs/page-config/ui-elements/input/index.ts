@@ -33,7 +33,7 @@ export default definePageConfig({
     }),
     block.example("Mask", {
       title: "Mask",
-      description: "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/)[[target=_blank]]. By default returning a raw value."
+      description: "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/)[[target=_blank]]. By default returning a raw value. <br />If you need other cleave addons (like phone) you have install cleave.js and just import them in your app. For example, the path is: cleave.js/dist/addons/cleave-phone.{country}.js"
     }),
     block.example("InputClass", {
       title: "Input Class",

@@ -67,7 +67,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
   const isLoading = ref(false)
 
   const validationAriaAttributes = computed(() => ({
-    'aria-invalid': !!computedErrorMessages.value.length,
+    'aria-invalid': computedError.value,
     'aria-errormessage': typeof computedErrorMessages.value === 'string'
       ? computedErrorMessages.value
       : computedErrorMessages.value.join(', '),

@@ -4,7 +4,7 @@ import apiDescription from './api-description';
 export default definePageConfig({
   blocks: [
     block.title("Accordion"),
-    block.paragraph("Allows you to control group of [collapses](ui-elements/collapse)."),
+    block.paragraph("Allows you to control group of [collapses](/ui-elements/collapse)."),
 
     block.subtitle("Examples"),
 
