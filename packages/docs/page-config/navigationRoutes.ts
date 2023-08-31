@@ -1,3 +1,4 @@
+import { navigationBadge } from './../utils/navigation/badge';
 import { navigationBadge, type NavigationBadge } from "../utils/navigation/badge";
 
 export type NavigationRoute = {
@@ -288,6 +289,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "color-input",
         displayName: "Color Input",
+        meta: {
+          badge: navigationBadge.updated('1.8.0'),
+        }
       },
 
       {

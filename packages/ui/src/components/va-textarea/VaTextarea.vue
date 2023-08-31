@@ -5,7 +5,9 @@
     :error="computedError"
     :error-messages="computedErrorMessages"
   >
-    <div class="va-textarea__resize-wrapper">
+    <div class="va-textarea__resize-wrapper" :class="{
+      'va-textarea__resize-wrapper--resizable': isResizable,
+    }">
       <textarea
         v-model="valueComputed"
         v-bind="{ ...computedProps, ...listeners, ...validationAriaAttributes }"
@@ -139,6 +141,7 @@ export default defineComponent({
     }))
 
     return {
+      isResizable,
       validationListeners,
       validationAriaAttributes,
       computedError,
@@ -169,10 +172,13 @@ export default defineComponent({
   }
 
   &__resize-wrapper {
-    resize: vertical;
     display: flex;
     overflow: hidden;
     width: 100%;
+
+    &--resizable {
+      resize: vertical;
+    }
   }
 
   &__textarea {
