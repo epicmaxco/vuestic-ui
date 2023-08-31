@@ -208,16 +208,22 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "checkbox",
         displayName: "Checkbox",
+        meta: {
+          badge: navigationBadge.updated('1.8.0'),
+        }
       },
       {
         name: "counter",
         displayName: "Counter",
+        meta: {
+          badge: navigationBadge.updated('1.8.0'),
+        }
       },
       {
         name: "radio",
         displayName: "Radio",
         meta: {
-          badge : navigationBadge.updated('1.7.0'),
+          badge : navigationBadge.updated('1.8.0'),
         }
       },
       {
@@ -227,6 +233,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "input",
         displayName: "Input",
+        meta: {
+          badge: navigationBadge.updated('1.8.0'),
+        }
       },
       {
         name: "textarea",
@@ -239,7 +248,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "select",
         displayName: "Select",
         meta: {
-          badge : navigationBadge.updated('1.7.0'),
+          badge : navigationBadge.updated('1.8.0'),
         }
       },
       {
@@ -261,6 +270,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "date-input",
         displayName: "Date Input",
+        meta: {
+          badge : navigationBadge.updated('1.8.0'),
+        }
       },
       {
         name: "time-picker",
@@ -269,6 +281,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "time-input",
         displayName: "Time Input",
+        meta: {
+          badge : navigationBadge.updated('1.8.0'),
+        }
       },
       {
         name: "color-input",
