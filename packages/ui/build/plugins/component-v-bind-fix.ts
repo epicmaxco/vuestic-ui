@@ -23,8 +23,9 @@ const getVBinds = (sfc: SFCParseResult) => {
 
 /** Returns start and end indexes of v-bind used in style */
 const getStyleVBindLocs = (source: string, vBind: string) => {
+  const vBindEscaped = vBind.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   // Regex for v-bind(color), v-bind('color'), v-bind("color")
-  const regex = new RegExp(`v-bind\\(['|"]?${vBind}['|"]?\\)`, 'gm')
+  const regex = new RegExp(`v-bind\\(['|"]?${vBindEscaped}['|"]?\\)`, 'gm')
   const indexes = [] as { start: number, end: number }[]
   let match
 

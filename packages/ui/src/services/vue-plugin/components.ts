@@ -44,6 +44,7 @@ export {
   VaInfiniteScroll,
   VaInnerLoading,
   VaInput,
+  VaLayout,
   VaInputWrapper,
   VaList,
   VaListItem,

@@ -7,8 +7,8 @@
     <va-sidebar
       v-model="enabled"
       :minimized="minimized"
-      position="right"
-      class="absolute"
+      class="absolute right-0 left-auto"
+      animated="right"
     >
       <va-sidebar-item
         v-for="item in items"

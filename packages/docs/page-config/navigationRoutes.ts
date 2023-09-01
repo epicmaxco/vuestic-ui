@@ -293,9 +293,16 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: navigationBadge.updated('1.8.0'),
         }
       },
-
+      
       {
         category: 'Layout',
+        name: 'layout',
+        displayName: 'Layout',
+        meta: {
+          badge: navigationBadge.new('1.7.2'),
+        }
+      },
+      {
         name: 'aspect-ratio',
         displayName: 'Aspect Ratio',
         meta: {
