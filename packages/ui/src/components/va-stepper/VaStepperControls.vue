@@ -22,38 +22,28 @@
     </va-button>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+<script lang="ts" setup>
+import { PropType, computed } from 'vue'
 import { useTranslation } from '../../composables/useTranslation'
 import { VaButton } from '../va-button'
 import type { Step, StepControls } from './types'
 
-export default defineComponent({
-  name: 'VaStepperControls',
-  components: { VaButton },
-  props: {
-    modelValue: { type: Number, required: true },
-    steps: {
-      type: Array as PropType<Step[]>,
-      required: true,
-    },
-    nextDisabled: { type: Boolean, required: true },
-    stepControls: { type: Object as PropType<StepControls>, required: true },
-    finishButtonHidden: { type: Boolean, default: false },
+const props = defineProps({
+  modelValue: { type: Number, required: true },
+  steps: {
+    type: Array as PropType<Step[]>,
+    required: true,
   },
-  setup (props) {
-    const { t } = useTranslation()
+  nextDisabled: { type: Boolean, required: true },
+  stepControls: { type: Object as PropType<StepControls>, required: true },
+  finishButtonHidden: { type: Boolean, default: false },
+})
 
-    const isLastStep = computed(() => {
-      const lastEnabledStepIndex = props.steps.length - 1
-      return props.modelValue >= lastEnabledStepIndex
-    })
+const { t } = useTranslation()
 
-    return {
-      t,
-      isLastStep,
-    }
-  },
+const isLastStep = computed(() => {
+  const lastEnabledStepIndex = props.steps.length - 1
+  return props.modelValue >= lastEnabledStepIndex
 })
 </script>
 

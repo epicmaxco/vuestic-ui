@@ -31,61 +31,50 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 import clamp from 'lodash/clamp.js'
 
 import { useComponentPresetProp, useColors, useSize, useSizeProps, useTranslation } from '../../composables'
 
-export default defineComponent({
-  name: 'VaProgressCircle',
-
-  props: {
-    ...useSizeProps,
-    ...useComponentPresetProp,
-    modelValue: { type: Number, default: 0 },
-    indeterminate: { type: Boolean, default: false },
-    thickness: { type: Number, default: 0.06 },
-    color: { type: String, default: 'primary' },
-    ariaLabel: { type: String, default: '$t:progressState' },
-  },
-
-  setup (props) {
-    const { getColor } = useColors()
-    const { sizeComputed } = useSize(props)
-
-    const cappedThickness = computed(() => clamp(props.thickness, 0, 1) / 2 * 100)
-
-    const radius = computed(() => 20 - (20 * cappedThickness.value / 100))
-    const dasharray = computed(() => 2 * Math.PI * radius.value)
-    const dashoffset = computed(() => dasharray.value * (1 - clamp(props.modelValue, 0, 100) / 100))
-    const colorComputed = computed(() => getColor(props.color, undefined, true))
-
-    const { tp } = useTranslation()
-
-    return {
-      infoStyle: computed(() => ({ color: colorComputed.value })),
-      rootStyle: computed(() => ({
-        width: sizeComputed.value,
-        height: sizeComputed.value,
-      })),
-      rootClass: computed(() => ({
-        'va-progress-circle--indeterminate': props.indeterminate,
-      })),
-      ariaAttributesComputed: computed(() => ({
-        role: 'progressbar',
-        'aria-label': tp(props.ariaLabel),
-        'aria-valuenow': !props.indeterminate ? props.modelValue : undefined,
-      })),
-
-      colorComputed,
-      radius,
-      dasharray,
-      dashoffset,
-      cappedThickness,
-    }
-  },
+const props = defineProps({
+  ...useSizeProps,
+  ...useComponentPresetProp,
+  modelValue: { type: Number, default: 0 },
+  indeterminate: { type: Boolean, default: false },
+  thickness: { type: Number, default: 0.06 },
+  color: { type: String, default: 'primary' },
+  ariaLabel: { type: String, default: '$t:progressState' },
 })
+
+const { getColor } = useColors()
+const { sizeComputed } = useSize(props)
+
+const cappedThickness = computed(() => clamp(props.thickness, 0, 1) / 2 * 100)
+
+const radius = computed(() => 20 - (20 * cappedThickness.value / 100))
+const dasharray = computed(() => 2 * Math.PI * radius.value)
+const dashoffset = computed(() => dasharray.value * (1 - clamp(props.modelValue, 0, 100) / 100))
+const colorComputed = computed(() => getColor(props.color, undefined, true))
+
+const { tp } = useTranslation()
+
+const infoStyle = computed(() => ({ color: colorComputed.value }))
+
+const rootStyle = computed(() => ({
+  width: sizeComputed.value,
+  height: sizeComputed.value,
+}))
+
+const rootClass = computed(() => ({
+  'va-progress-circle--indeterminate': props.indeterminate,
+}))
+
+const ariaAttributesComputed = computed(() => ({
+  role: 'progressbar',
+  'aria-label': tp(props.ariaLabel),
+  'aria-valuenow': !props.indeterminate ? props.modelValue : undefined,
+}))
 </script>
 
 <style lang="scss">

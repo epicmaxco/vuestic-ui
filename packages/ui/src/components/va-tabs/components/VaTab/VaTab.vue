@@ -42,8 +42,8 @@
   </component>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, inject, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
+<script lang="ts" setup>
+import { computed, inject, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
 
 import {
   useComponentPresetProp,
@@ -56,133 +56,105 @@ import { TabsViewKey, TabsView, TabComponent } from '../../types'
 
 import { VaIcon } from '../../../va-icon'
 
-export default defineComponent({
-  name: 'VaTab',
-  components: { VaIcon },
-  emits: ['click', 'keydown-enter', 'focus'],
+const props = defineProps({
+  ...useRouterLinkProps,
+  ...useComponentPresetProp,
+  selected: { type: Boolean, default: false },
+  color: { type: String, default: '' },
+  icon: { type: String, default: '' },
+  label: { type: String, default: '' },
+  disabled: { type: Boolean },
+  name: { type: [String, Number] },
+  tag: { type: String, default: 'div' },
+})
 
-  props: {
-    ...useRouterLinkProps,
-    ...useComponentPresetProp,
-    selected: { type: Boolean, default: false },
-    color: { type: String, default: '' },
-    icon: { type: String, default: '' },
-    label: { type: String, default: '' },
-    disabled: { type: Boolean },
-    name: { type: [String, Number] },
-    tag: { type: String, default: 'div' },
-  },
+const emit = defineEmits(['click', 'keydown-enter', 'focus'])
 
-  setup: (props, { emit }) => {
-    const tabElement = shallowRef<HTMLElement>()
+const tabElement = shallowRef<HTMLElement>()
 
-    const isActive = ref(false)
-    const hoverState = ref(false)
-    const rightSidePosition = ref(0)
-    const leftSidePosition = ref(0)
+const isActive = ref(false)
+const hoverState = ref(false)
+const rightSidePosition = ref(0)
+const leftSidePosition = ref(0)
 
-    const { keyboardFocusListeners, hasKeyboardFocus } = useKeyboardOnlyFocus()
+const { keyboardFocusListeners, hasKeyboardFocus } = useKeyboardOnlyFocus()
 
-    const { tagComputed, hrefComputed, isActiveRouterLink } = useRouterLink(props)
-    const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
-    const {
-      parentDisabled,
-      selectTab,
-      moveToTab,
-      registerTab,
-      unregisterTab,
-    } = inject<TabsView>(TabsViewKey, {
-      parentDisabled: false,
-      tabsList: [],
-      selectTab: (tab: TabComponent) => tab,
-      moveToTab: (tab: TabComponent) => tab,
-      registerTab: (tab: TabComponent) => tab,
-      unregisterTab: (tab: TabComponent) => tab,
-    })
-    const tabIndexComputed = computed(() => (props.disabled || parentDisabled) ? -1 : 0)
+const { tagComputed, hrefComputed, isActiveRouterLink } = useRouterLink(props)
+const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
+const {
+  parentDisabled,
+  selectTab,
+  moveToTab,
+  registerTab,
+  unregisterTab,
+} = inject<TabsView>(TabsViewKey, {
+  parentDisabled: false,
+  tabsList: [],
+  selectTab: (tab: TabComponent) => tab,
+  moveToTab: (tab: TabComponent) => tab,
+  registerTab: (tab: TabComponent) => tab,
+  unregisterTab: (tab: TabComponent) => tab,
+})
+const tabIndexComputed = computed(() => (props.disabled || parentDisabled) ? -1 : 0)
 
-    const { getColor } = useColors()
-    const colorComputed = computed(() => getColor(props.color))
+const { getColor } = useColors()
+const colorComputed = computed(() => getColor(props.color))
 
-    const computedStyle = computed(() => ({
-      color: hoverState.value || isActive.value ? colorComputed.value : 'inherit',
-    }))
+const computedStyle = computed(() => ({
+  color: hoverState.value || isActive.value ? colorComputed.value : 'inherit',
+}))
 
-    const updateHoverState = (isHover: boolean) => {
-      hoverState.value = isHover
-    }
+const updateHoverState = (isHover: boolean) => {
+  hoverState.value = isHover
+}
 
-    const updateSidePositions = () => {
-      const componentOffsetLeft = tabElement.value?.offsetLeft || 0
-      const componentOffsetWidth = tabElement.value?.offsetWidth || 0
+const updateSidePositions = () => {
+  const componentOffsetLeft = tabElement.value?.offsetLeft || 0
+  const componentOffsetWidth = tabElement.value?.offsetWidth || 0
 
-      rightSidePosition.value = componentOffsetLeft + componentOffsetWidth
-      leftSidePosition.value = componentOffsetLeft
-    }
+  rightSidePosition.value = componentOffsetLeft + componentOffsetWidth
+  leftSidePosition.value = componentOffsetLeft
+}
 
-    const onTabClick = () => {
-      selectTab(tabComponent)
-      emit('click')
-    }
+const onTabClick = () => {
+  selectTab(tabComponent)
+  emit('click')
+}
 
-    const onTabKeydown = () => {
-      selectTab(tabComponent)
-      emit('keydown-enter')
-    }
+const onTabKeydown = () => {
+  selectTab(tabComponent)
+  emit('keydown-enter')
+}
 
-    const onFocus = () => {
-      if (hasKeyboardFocus.value) {
-        moveToTab(tabComponent)
-      }
+const onFocus = () => {
+  if (hasKeyboardFocus.value) {
+    moveToTab(tabComponent)
+  }
 
-      emit('focus')
-    }
+  emit('focus')
+}
 
-    const tabComponent: TabComponent = {
-      name: computed(() => props.name),
-      id: null,
-      tabElement,
-      isActive,
-      tabIndexComputed,
-      isActiveRouterLink,
-      rightSidePosition,
-      leftSidePosition,
-      onTabClick,
-      onTabKeydown,
-      onFocus,
-      updateSidePositions,
-    }
+const tabComponent: TabComponent = {
+  name: computed(() => props.name),
+  id: null,
+  tabElement,
+  isActive,
+  tabIndexComputed,
+  isActiveRouterLink,
+  rightSidePosition,
+  leftSidePosition,
+  onTabClick,
+  onTabKeydown,
+  onFocus,
+  updateSidePositions,
+}
 
-    onMounted(() => {
-      registerTab(tabComponent)
-    })
+onMounted(() => {
+  registerTab(tabComponent)
+})
 
-    onBeforeUnmount(() => {
-      unregisterTab(tabComponent)
-    })
-
-    return {
-      tabElement,
-      parentDisabled,
-      isActive,
-      hoverState,
-      tagComputed,
-      hrefComputed,
-      isActiveRouterLink,
-      colorComputed,
-      classComputed,
-      computedStyle,
-      tabIndexComputed,
-      rightSidePosition,
-      leftSidePosition,
-      updateHoverState,
-      updateSidePositions,
-      onTabClick,
-      onTabKeydown,
-      onFocus,
-      keyboardFocusListeners,
-    }
-  },
+onBeforeUnmount(() => {
+  unregisterTab(tabComponent)
 })
 </script>
 

@@ -78,11 +78,16 @@ export const createProxyComponent = <T extends DefineComponent>(component: T) =>
     return component.setup?.(shallowReadonly(props), ctx)
   }
 
-  return new Proxy(component, {
-    get (target, key: any) {
-      if (key === 'setup') { return customSetup }
+  return {
+    ...component,
+    setup: customSetup,
+  }
 
-      return target[key]
-    },
-  })
+  // return new Proxy(component, {
+  //   get (target, key: any) {
+  //     if (key === 'setup') { return customSetup }
+
+  //     return target[key]
+  //   },
+  // })
 }

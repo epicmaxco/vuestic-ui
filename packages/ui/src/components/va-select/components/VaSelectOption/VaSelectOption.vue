@@ -30,8 +30,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, type PropType } from 'vue'
+<script lang="ts" setup>
+import { PropType, computed } from 'vue'
 
 import { useColors, useColorProps, useBem } from '../../../../composables'
 
@@ -41,80 +41,62 @@ import { isNilValue } from '../../../../utils/isNilValue'
 
 import type { SelectableOption } from '../../../../composables'
 
-export default defineComponent({
-  name: 'VaSelectOption',
-
-  components: { VaIcon },
-
-  props: {
-    ...useColorProps,
-    disabled: { type: Boolean, default: false },
-    option: { type: [Number, String, Boolean, Object] as PropType<SelectableOption>, default: () => ({}) },
-    getText: { type: Function as PropType<(option: SelectableOption) => string>, required: true },
-    getTrackBy: { type: Function as PropType<(option: SelectableOption) => number | string>, required: true },
-    currentOption: { type: [String, Number, Boolean, Object] as PropType<SelectableOption | null>, default: null },
-    getSelectedState: { type: Function as PropType<(option: SelectableOption) => boolean>, required: true },
-    search: { type: String, default: '' },
-    highlightMatchedText: { type: Boolean, default: true },
-    inputFocused: { type: Boolean, default: false },
-    minSearchChars: { type: Number, default: 0 },
-  },
-
-  setup (props) {
-    const { getColor, getHoverColor } = useColors()
-
-    const optionIcon = computed(() => typeof props.option === 'object' ? (props.option.icon as string) : undefined)
-    const optionIconColor = computed(() => getColor(props.color))
-
-    const optionText = computed(() => props.getText(props.option))
-    const optionTextSplitted = computed(() => {
-      const defaultSplit = { start: optionText.value, searchedSubString: '', end: '' }
-
-      if (!optionText.value || !props.search || !props.highlightMatchedText || props.search.length < props.minSearchChars) {
-        return defaultSplit
-      }
-
-      const substringStartIndex = optionText.value.toLowerCase().indexOf(props.search.toLowerCase())
-
-      if (substringStartIndex < 0) { return defaultSplit }
-
-      const start = optionText.value.slice(0, substringStartIndex)
-      const searchedSubString = optionText.value.slice(substringStartIndex, substringStartIndex + props.search.length)
-      const end = optionText.value.slice(substringStartIndex + props.search.length)
-
-      return { start, searchedSubString, end }
-    })
-
-    const isSelected = computed(() => props.getSelectedState(props.option))
-    const isFocused = computed(() => {
-      if (isNilValue(props.currentOption)) { return false }
-      if (typeof props.option === 'string') { return props.option === props.currentOption }
-
-      return props.getTrackBy(props.currentOption) === props.getTrackBy(props.option)
-    })
-
-    const optionClass = useBem('va-select-option', () => ({
-      selected: isSelected.value,
-    }))
-
-    const optionStyle = computed(() => ({
-      color: isSelected.value ? getColor(props.color) : 'inherit',
-      backgroundColor: isFocused.value ? getHoverColor(getColor(props.color)) : 'transparent',
-      cursor: props.disabled ? 'default' : undefined,
-      opacity: props.disabled ? 'var(--va-select-option-list-option-disabled-opacity)' : undefined,
-    }))
-
-    return {
-      getColor,
-      optionIcon,
-      isSelected,
-      optionStyle,
-      optionClass,
-      optionIconColor,
-      optionTextSplitted,
-    }
-  },
+const props = defineProps({
+  ...useColorProps,
+  disabled: { type: Boolean, default: false },
+  option: { type: [Number, String, Boolean, Object] as PropType<SelectableOption>, default: () => ({}) },
+  getText: { type: Function as PropType<(option: SelectableOption) => string>, required: true },
+  getTrackBy: { type: Function as PropType<(option: SelectableOption) => number | string>, required: true },
+  currentOption: { type: [String, Number, Boolean, Object] as PropType<SelectableOption | null>, default: null },
+  getSelectedState: { type: Function as PropType<(option: SelectableOption) => boolean>, required: true },
+  search: { type: String, default: '' },
+  highlightMatchedText: { type: Boolean, default: true },
+  inputFocused: { type: Boolean, default: false },
+  minSearchChars: { type: Number, default: 0 },
 })
+
+const { getColor, getHoverColor } = useColors()
+
+const optionIcon = computed(() => typeof props.option === 'object' ? (props.option.icon as string) : undefined)
+const optionIconColor = computed(() => getColor(props.color))
+
+const optionText = computed(() => props.getText(props.option))
+const optionTextSplitted = computed(() => {
+  const defaultSplit = { start: optionText.value, searchedSubString: '', end: '' }
+
+  if (!optionText.value || !props.search || !props.highlightMatchedText || props.search.length < props.minSearchChars) {
+    return defaultSplit
+  }
+
+  const substringStartIndex = optionText.value.toLowerCase().indexOf(props.search.toLowerCase())
+
+  if (substringStartIndex < 0) { return defaultSplit }
+
+  const start = optionText.value.slice(0, substringStartIndex)
+  const searchedSubString = optionText.value.slice(substringStartIndex, substringStartIndex + props.search.length)
+  const end = optionText.value.slice(substringStartIndex + props.search.length)
+
+  return { start, searchedSubString, end }
+})
+
+const isSelected = computed(() => props.getSelectedState(props.option))
+const isFocused = computed(() => {
+  if (isNilValue(props.currentOption)) { return false }
+  if (typeof props.option === 'string') { return props.option === props.currentOption }
+
+  return props.getTrackBy(props.currentOption) === props.getTrackBy(props.option)
+})
+
+const optionClass = useBem('va-select-option', () => ({
+  selected: isSelected.value,
+}))
+
+const optionStyle = computed(() => ({
+  color: isSelected.value ? getColor(props.color) : 'inherit',
+  backgroundColor: isFocused.value ? getHoverColor(getColor(props.color)) : 'transparent',
+  cursor: props.disabled ? 'default' : undefined,
+  opacity: props.disabled ? 'var(--va-select-option-list-option-disabled-opacity)' : undefined,
+}))
 </script>
 
 <style lang="scss">

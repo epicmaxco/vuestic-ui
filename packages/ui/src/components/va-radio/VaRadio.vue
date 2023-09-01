@@ -63,8 +63,8 @@
   </VaMessageListWrapper>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, computed, shallowRef } from 'vue'
+<script lang="ts" setup>
+import { PropType, computed, shallowRef } from 'vue'
 
 import { generateUniqueId } from '../../utils/uuid'
 import {
@@ -80,169 +80,145 @@ import {
 import { VaMessageListWrapper } from '../va-input'
 import type { VaRadioOption } from './types'
 
-export default defineComponent({
-  name: 'VaRadio',
-  components: { VaMessageListWrapper },
-  emits: useSelectableEmits,
-  props: {
-    ...useSelectableProps,
-    ...useComponentPresetProp,
-    ...useSelectableListProps,
-    modelValue: {
-      type: [Boolean, Array, String, Object, Number] as PropType<
+const props = defineProps({
+  ...useSelectableProps,
+  ...useComponentPresetProp,
+  ...useSelectableListProps,
+  modelValue: {
+    type: [Boolean, Array, String, Object, Number] as PropType<
         VaRadioOption['value']
       >,
-      default: null,
-    },
-    options: {
-      type: Array<VaRadioOption>,
-      default: () => [],
-    },
-    name: { type: String, default: '' },
-    label: { type: String, default: undefined },
-    leftLabel: { type: Boolean, default: false },
-    color: { type: String, default: 'primary' },
-    option: {
-      type: [Object, String, Number] as PropType<VaRadioOption>,
-      default: undefined,
-    },
+    default: null,
   },
-  setup (props, { emit }) {
-    const { getColor } = useColors()
-    const elements: Elements = {
-      container: shallowRef<HTMLElement>(),
-      input: shallowRef<HTMLElement>(),
-      label: shallowRef<HTMLElement>(),
-    }
-
-    const {
-      computedError,
-      computedErrorMessages,
-      validationAriaAttributes,
-      onBlur,
-      onFocus,
-    } = useSelectable(props, emit, elements)
-
-    const { getText: originalGetText, getDisabled: originalGetDisabled, getValue } = useSelectableList(props)
-
-    const getText = (option: Parameters<typeof originalGetText>[0]) => {
-      if (props.options.length > 0) { return originalGetText(option) }
-
-      return props.label ?? originalGetText(option)
-    }
-    const getDisabled = (option: Parameters<typeof originalGetDisabled>[0]) => originalGetDisabled(option) || props.disabled
-
-    const isNoOption = computed(() => props.options.length === 0 && !props.option)
-
-    const isChecked = (option: VaRadioOption) => {
-      if (isNoOption.value) {
-        return props.modelValue
-      }
-
-      return props.modelValue === getValue(option)
-    }
-
-    const computedOptions = computed(() => {
-      if (isNoOption.value) {
-        return [{}]
-      }
-
-      if (props.option) {
-        return [props.option]
-      } else {
-        return props.options
-      }
-    })
-
-    const radioClass = (option: VaRadioOption) => ({
-      'va-radio--left-label': props.leftLabel,
-      'va-radio--selected': isChecked(option),
-      'va-radio--readonly': props.readonly,
-      'va-radio--disabled': props.disabled,
-      'va-radio--indeterminate': props.indeterminate,
-      'va-radio--error': computedError.value,
-    })
-
-    const selectOption = (option: any, event?: any) => {
-      if (isNoOption.value) {
-        emit('update:modelValue', event?.target?.checked || false)
-        return
-      }
-
-      emit('update:modelValue', option)
-    }
-
-    const labelStyle = computed(() => {
-      return {
-        color: computedError.value ? getColor('danger') : '',
-      }
-    })
-
-    const inputStyle = computed(() => {
-      const style = {
-        background: getColor(props.color),
-        borderColor: getColor(props.color),
-      }
-
-      if (computedError.value) {
-        style.borderColor = getColor('danger')
-      }
-
-      return style
-    })
-
-    const iconBackgroundComputedStyles = computed(() => ({
-      backgroundColor: getColor(props.color),
-    }))
-
-    const iconDotComputedStyles = computed(() => {
-      return {
-        borderColor: computedError.value ? getColor('danger') : getColor(props.color),
-        backgroundColor: getColor(props.color),
-      }
-    })
-
-    const iconComputedStyles = computed(() => {
-      return { borderColor: computedError.value ? getColor('danger') : getColor(props.color) }
-    })
-
-    const computedName = computed(() => props.name || generateUniqueId())
-    const inputAttributesComputed = (option: any) => {
-      const disabled = getDisabled(option)
-      return {
-        name: computedName.value,
-        disabled: disabled,
-        readonly: props.readonly,
-        tabindex: disabled ? -1 : 0,
-        'aria-disabled': disabled,
-        'aria-readOnly': props.readonly,
-        ...validationAriaAttributes.value,
-      }
-    }
-
-    return {
-      getDisabled,
-      isChecked,
-      computedOptions,
-      radioClass,
-      labelStyle,
-      inputStyle,
-      computedError,
-      computedErrorMessages,
-      iconBackgroundComputedStyles,
-      iconDotComputedStyles,
-      iconComputedStyles,
-      selectOption,
-      onFocus,
-      onBlur,
-      inputAttributesComputed,
-      computedName,
-      roleComputed: computed(() => props.options?.length > 0 ? 'radiogroup' : ''),
-      getText,
-      getValue,
-    }
+  options: {
+    type: Array<VaRadioOption>,
+    default: () => [],
+  },
+  name: { type: String, default: '' },
+  label: { type: String, default: undefined },
+  leftLabel: { type: Boolean, default: false },
+  color: { type: String, default: 'primary' },
+  option: {
+    type: [Object, String, Number] as PropType<VaRadioOption>,
+    default: undefined,
   },
 })
+
+const emit = defineEmits(useSelectableEmits)
+
+const { getColor } = useColors()
+const elements: Elements = {
+  container: shallowRef<HTMLElement>(),
+  input: shallowRef<HTMLElement>(),
+  label: shallowRef<HTMLElement>(),
+}
+
+const {
+  computedError,
+  computedErrorMessages,
+  validationAriaAttributes,
+  onBlur,
+  onFocus,
+} = useSelectable(props, emit, elements)
+
+const { getText: originalGetText, getDisabled: originalGetDisabled, getValue } = useSelectableList(props)
+
+const getText = (option: Parameters<typeof originalGetText>[0]) => {
+  if (props.options.length > 0) { return originalGetText(option) }
+
+  return props.label ?? originalGetText(option)
+}
+const getDisabled = (option: Parameters<typeof originalGetDisabled>[0]) => originalGetDisabled(option) || props.disabled
+
+const isNoOption = computed(() => props.options.length === 0 && !props.option)
+
+const isChecked = (option: VaRadioOption) => {
+  if (isNoOption.value) {
+    return props.modelValue
+  }
+
+  return props.modelValue === getValue(option)
+}
+
+const computedOptions = computed(() => {
+  if (isNoOption.value) {
+    return [{}]
+  }
+
+  if (props.option) {
+    return [props.option]
+  } else {
+    return props.options
+  }
+})
+
+const radioClass = (option: VaRadioOption) => ({
+  'va-radio--left-label': props.leftLabel,
+  'va-radio--selected': isChecked(option),
+  'va-radio--readonly': props.readonly,
+  'va-radio--disabled': props.disabled,
+  'va-radio--indeterminate': props.indeterminate,
+  'va-radio--error': computedError.value,
+})
+
+const selectOption = (option: any, event?: any) => {
+  if (isNoOption.value) {
+    emit('update:modelValue', event?.target?.checked || false)
+    return
+  }
+
+  emit('update:modelValue', option)
+}
+
+const labelStyle = computed(() => {
+  return {
+    color: computedError.value ? getColor('danger') : '',
+  }
+})
+
+const inputStyle = computed(() => {
+  const style = {
+    background: getColor(props.color),
+    borderColor: getColor(props.color),
+  }
+
+  if (computedError.value) {
+    style.borderColor = getColor('danger')
+  }
+
+  return style
+})
+
+const iconBackgroundComputedStyles = computed(() => ({
+  backgroundColor: getColor(props.color),
+}))
+
+const iconDotComputedStyles = computed(() => {
+  return {
+    borderColor: computedError.value ? getColor('danger') : getColor(props.color),
+    backgroundColor: getColor(props.color),
+  }
+})
+
+const iconComputedStyles = computed(() => {
+  return { borderColor: computedError.value ? getColor('danger') : getColor(props.color) }
+})
+
+const computedName = computed(() => props.name || generateUniqueId())
+const inputAttributesComputed = (option: any) => {
+  const disabled = getDisabled(option)
+  return {
+    name: computedName.value,
+    disabled: disabled,
+    readonly: props.readonly,
+    tabindex: disabled ? -1 : 0,
+    'aria-disabled': disabled,
+    'aria-readOnly': props.readonly,
+    ...validationAriaAttributes.value,
+  }
+}
+
+const roleComputed = computed(() => props.options?.length > 0 ? 'radiogroup' : '')
 </script>
 
 <style lang="scss">

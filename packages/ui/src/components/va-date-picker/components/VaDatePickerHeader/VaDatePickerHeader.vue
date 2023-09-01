@@ -54,57 +54,44 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
-
+<script lang="ts" setup>
 import { useView } from '../../hooks/view'
 
 import { DatePickerView } from '../../types'
 
 import { VaButton } from '../../../va-button'
 import { useTranslation } from '../../../../composables'
+import { PropType } from 'vue'
 
-export default defineComponent({
-  name: 'VaDatePickerHeader',
-  components: { VaButton },
-  emits: ['update:view'],
-  props: {
-    monthNames: { type: Array, required: true },
-    view: { type: Object as PropType<DatePickerView> },
-    color: { type: String },
-    textColor: { type: String },
-    disabled: { type: Boolean, default: false },
+const props = defineProps({
+  monthNames: { type: Array, required: true },
+  view: { type: Object as PropType<DatePickerView> },
+  color: { type: String },
+  textColor: { type: String },
+  disabled: { type: Boolean, default: false },
 
-    ariaNextPeriodLabel: { type: String, default: '$t:nextPeriod' },
-    ariaPreviousPeriodLabel: { type: String, default: '$t:previousPeriod' },
-    ariaSwitchViewLabel: { type: String, default: '$t:switchView' },
-  },
-
-  setup (props, { emit }) {
-    const { syncView, prev, next } = useView(props, emit)
-
-    const switchView = () => {
-      if (syncView.value.type === 'day') {
-        syncView.value = { ...syncView.value, type: 'month' }
-      } else if (syncView.value.type === 'month') {
-        syncView.value = { ...syncView.value, type: 'year' }
-      }
-    }
-
-    const changeView = (view: DatePickerView) => {
-      syncView.value = view
-    }
-
-    return {
-      ...useTranslation(),
-      prev,
-      next,
-      changeView,
-      switchView,
-      syncView,
-    }
-  },
+  ariaNextPeriodLabel: { type: String, default: '$t:nextPeriod' },
+  ariaPreviousPeriodLabel: { type: String, default: '$t:previousPeriod' },
+  ariaSwitchViewLabel: { type: String, default: '$t:switchView' },
 })
+
+const emit = defineEmits(['update:view'])
+
+const { syncView, prev, next } = useView(props, emit)
+
+const switchView = () => {
+  if (syncView.value.type === 'day') {
+    syncView.value = { ...syncView.value, type: 'month' }
+  } else if (syncView.value.type === 'month') {
+    syncView.value = { ...syncView.value, type: 'year' }
+  }
+}
+
+const changeView = (view: DatePickerView) => {
+  syncView.value = view
+}
+
+const { tp } = useTranslation()
 </script>
 
 <style lang="scss">

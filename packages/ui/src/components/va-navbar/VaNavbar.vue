@@ -24,8 +24,8 @@
   </header>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 
 import {
   useColors,
@@ -36,42 +36,31 @@ import {
   useComponentPresetProp,
 } from '../../composables'
 
-export default defineComponent({
-  name: 'VaNavbar',
-  props: {
-    ...useFixedBarProps,
-    ...useComponentPresetProp,
-    color: { type: String, default: 'background-secondary' },
-    textColor: { type: String },
-    shape: { type: Boolean, default: false },
-  },
-
-  setup (props) {
-    const { scrollRoot, isScrolledDown } = setupScroll(props.fixed)
-    const { fixedBarStyleComputed } = useFixedBar(props, isScrolledDown)
-
-    const { getColor, shiftHSLAColor } = useColors()
-    const { textColorComputed } = useTextColor()
-    const color = computed(() => getColor(props.color))
-
-    const shapeStyleComputed = computed(() => ({
-      borderTopColor: shiftHSLAColor(color.value, { h: -1, s: -11, l: 10 }),
-    }))
-
-    const computedStyle = computed(() => ({
-      ...fixedBarStyleComputed.value,
-      backgroundColor: color.value,
-      color: textColorComputed.value,
-      fill: textColorComputed.value,
-    }))
-
-    return {
-      scrollRoot,
-      computedStyle,
-      shapeStyleComputed,
-    }
-  },
+const props = defineProps({
+  ...useFixedBarProps,
+  ...useComponentPresetProp,
+  color: { type: String, default: 'background-secondary' },
+  textColor: { type: String },
+  shape: { type: Boolean, default: false },
 })
+
+const { scrollRoot, isScrolledDown } = setupScroll(props.fixed)
+const { fixedBarStyleComputed } = useFixedBar(props, isScrolledDown)
+
+const { getColor, shiftHSLAColor } = useColors()
+const { textColorComputed } = useTextColor()
+const color = computed(() => getColor(props.color))
+
+const shapeStyleComputed = computed(() => ({
+  borderTopColor: shiftHSLAColor(color.value, { h: -1, s: -11, l: 10 }),
+}))
+
+const computedStyle = computed(() => ({
+  ...fixedBarStyleComputed.value,
+  backgroundColor: color.value,
+  color: textColorComputed.value,
+  fill: textColorComputed.value,
+}))
 </script>
 
 <style lang="scss">

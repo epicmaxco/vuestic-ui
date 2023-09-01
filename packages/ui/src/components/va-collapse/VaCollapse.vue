@@ -56,8 +56,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, ref, shallowRef } from 'vue'
+<script lang="ts" setup>
+import { computed, ref, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -73,106 +73,83 @@ import { generateUniqueId } from '../../utils/uuid'
 
 import { VaIcon } from '../va-icon'
 
-export default defineComponent({
-  name: 'VaCollapse',
-  components: {
-    VaIcon,
-  },
-  props: {
-    ...useComponentPresetProp,
-    modelValue: { type: Boolean, default: undefined },
-    disabled: { type: Boolean, default: false },
-    header: { type: String, default: '' },
-    icon: { type: String, default: '' },
-    solid: { type: Boolean, default: false },
-    color: { type: String, default: 'background-element' },
-    textColor: { type: String, default: '' },
-    colorAll: { type: Boolean, default: false },
-    flat: { type: Boolean, default: false },
-  },
-  emits: ['update:modelValue'],
+const props = defineProps({
+  ...useComponentPresetProp,
+  modelValue: { type: Boolean, default: undefined },
+  disabled: { type: Boolean, default: false },
+  header: { type: String, default: '' },
+  icon: { type: String, default: '' },
+  solid: { type: Boolean, default: false },
+  color: { type: String, default: 'background-element' },
+  textColor: { type: String, default: '' },
+  colorAll: { type: Boolean, default: false },
+  flat: { type: Boolean, default: false },
+})
 
-  setup (props, { emit, slots }) {
-    const body = shallowRef<HTMLElement>()
+const emit = defineEmits(['update:modelValue'])
 
-    const [computedModelValue] = useSyncProp('modelValue', props, emit, false)
+const body = shallowRef<HTMLElement>()
 
-    const { getColor, getHoverColor } = useColors()
-    const { accordionProps, toggle } = useAccordionItem(computedModelValue)
+const [computedModelValue] = useSyncProp('modelValue', props, emit, false)
 
-    const { textColorComputed } = useTextColor()
+const { getColor, getHoverColor } = useColors()
+const { accordionProps, toggle } = useAccordionItem(computedModelValue)
 
-    const bodyHeight = ref()
-    useResizeObserver([body], () => {
-      bodyHeight.value = body.value?.clientHeight ?? 0
-    })
+const { textColorComputed } = useTextColor()
 
-    const height = computed(() => computedModelValue.value ? bodyHeight.value : 0)
+const bodyHeight = ref()
+useResizeObserver([body], () => {
+  bodyHeight.value = body.value?.clientHeight ?? 0
+})
 
-    const getTransition = () => {
-      const duration = height.value / 1000 * 0.2
-      return `${duration > 0.2 ? duration : 0.2}s`
-    }
+const height = computed(() => computedModelValue.value ? bodyHeight.value : 0)
 
-    const getBackground = () => {
-      return props.color && props.colorAll
-        ? getHoverColor(getColor(props.color))
-        : ''
-    }
+const getTransition = () => {
+  const duration = height.value / 1000 * 0.2
+  return `${duration > 0.2 ? duration : 0.2}s`
+}
 
-    const uniqueId = computed(generateUniqueId)
-    const headerIdComputed = computed(() => `header-${uniqueId.value}`)
-    const panelIdComputed = computed(() => `panel-${uniqueId.value}`)
-    const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
+const getBackground = () => {
+  return props.color && props.colorAll
+    ? getHoverColor(getColor(props.color))
+    : ''
+}
 
-    const headerAttributes = computed(() => ({
-      id: headerIdComputed.value,
-      tabindex: tabIndexComputed.value,
-      'aria-controls': panelIdComputed.value,
-      'aria-expanded': computedModelValue.value,
-      'aria-disabled': props.disabled,
-      role: 'button',
-    }))
+const uniqueId = computed(generateUniqueId)
+const headerIdComputed = computed(() => `header-${uniqueId.value}`)
+const panelIdComputed = computed(() => `panel-${uniqueId.value}`)
+const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
-    const computedClasses = useBem('va-collapse', () => ({
-      ...pick(props, ['disabled', 'solid', 'flat']),
-      expanded: computedModelValue.value,
-      active: props.solid && computedModelValue.value,
-      popout: !!(accordionProps.value.popout && computedModelValue.value),
-      inset: !!(accordionProps.value.inset && computedModelValue.value),
-    }))
+const headerAttributes = computed(() => ({
+  id: headerIdComputed.value,
+  tabindex: tabIndexComputed.value,
+  'aria-controls': panelIdComputed.value,
+  'aria-expanded': computedModelValue.value,
+  'aria-disabled': props.disabled,
+  role: 'button',
+}))
 
-    return {
-      body,
-      height,
+const computedClasses = useBem('va-collapse', () => ({
+  ...pick(props, ['disabled', 'solid', 'flat']),
+  expanded: computedModelValue.value,
+  active: props.solid && computedModelValue.value,
+  popout: !!(accordionProps.value.popout && computedModelValue.value),
+  inset: !!(accordionProps.value.inset && computedModelValue.value),
+}))
 
-      toggle,
-      computedModelValue,
+const headerStyle = computed(() => ({
+  paddingLeft: props.icon && 0,
+  color: textColorComputed.value,
+  backgroundColor: props.color ? getColor(props.color) : '',
+}))
 
-      headerIdComputed,
-      headerAttributes,
-      panelIdComputed,
-      tabIndexComputed,
-
-      textColorComputed,
-      computedClasses,
-
-      headerStyle: computed(() => ({
-        paddingLeft: props.icon && 0,
-        color: textColorComputed.value,
-        backgroundColor: props.color ? getColor(props.color) : '',
-      })),
-
-      contentStyle: computed(() => {
-        return {
-          visibility: computedModelValue.value ? 'visible' as const : 'hidden' as const,
-          height: `${height.value}px`,
-          transitionDuration: getTransition(),
-          background: computedModelValue.value ? getBackground() : '',
-        }
-      }),
-    }
-  },
+const contentStyle = computed(() => {
+  return {
+    visibility: computedModelValue.value ? 'visible' as const : 'hidden' as const,
+    height: `${height.value}px`,
+    transitionDuration: getTransition(),
+    background: computedModelValue.value ? getBackground() : '',
+  }
 })
 </script>
 

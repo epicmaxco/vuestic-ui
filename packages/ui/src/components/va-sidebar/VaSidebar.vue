@@ -15,8 +15,8 @@
   </aside>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ref, PropType, shallowRef } from 'vue'
+<script lang="ts" setup>
+import { PropType, computed, ref, shallowRef } from 'vue'
 
 import { VaConfig } from '../va-config'
 import { getGradientBackground } from '../../services/color'
@@ -24,105 +24,91 @@ import { useColors, useTextColor, useBem, useClickOutside } from '../../composab
 import { useSidebar } from './hooks/useSidebar'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
-export default defineComponent({
-  name: 'VaSidebar',
-  props: {
-    ...useComponentPresetProp,
-    activeColor: { type: String, default: 'primary' },
-    hoverColor: { type: String, default: undefined },
-    hoverOpacity: {
-      type: Number,
-      default: 0.2,
-      validator: (v: number) => v >= 0 && v <= 1,
-    },
-    borderColor: { type: String, default: undefined },
-    color: { type: String, default: 'background-element' },
-    textColor: { type: String },
-    gradient: { type: Boolean, default: false },
-    minimized: { type: Boolean, default: false },
-    hoverable: { type: Boolean, default: false },
-    position: {
-      type: String as PropType<'left' | 'right'>,
-      default: 'left',
-      validator: (v: string) => ['left', 'right'].includes(v),
-    },
-    width: { type: String, default: '16rem' },
-    minimizedWidth: { type: String, default: '4rem' },
-    modelValue: { type: Boolean, default: true },
-    animated: { type: Boolean, default: true },
-    closeOnClickOutside: { type: Boolean, default: false },
+const props = defineProps({
+  ...useComponentPresetProp,
+  activeColor: { type: String, default: 'primary' },
+  hoverColor: { type: String, default: undefined },
+  hoverOpacity: {
+    type: Number,
+    default: 0.2,
+    validator: (v: number) => v >= 0 && v <= 1,
   },
-
-  emits: ['update:modelValue'],
-
-  components: { VaConfig },
-
-  setup (props, { emit }) {
-    const { getColor } = useColors()
-    useSidebar(props)
-
-    const isHovered = ref(false)
-
-    const isMinimized = computed(() => props.minimized || (props.hoverable && !isHovered.value))
-
-    const computedWidth = computed(() => {
-      if (!props.modelValue) {
-        return 0
-      }
-
-      return isMinimized.value ? props.minimizedWidth : props.width
-    })
-
-    const { textColorComputed } = useTextColor()
-
-    const computedStyle = computed(() => {
-      const backgroundColor = getColor(props.color)
-
-      const color = textColorComputed.value
-
-      return {
-        color,
-        backgroundColor,
-        backgroundImage: props.gradient ? getGradientBackground(backgroundColor) : undefined,
-      }
-    })
-
-    const computedClass = useBem('va-sidebar', () => ({
-      minimized: isMinimized.value,
-      right: props.position === 'right',
-      animated: props.animated,
-    }))
-
-    const updateHoverState = (newHoverState: boolean) => {
-      isHovered.value = props.hoverable && newHoverState
-    }
-
-    const rootElement = shallowRef<HTMLElement>()
-
-    useClickOutside([rootElement], () => {
-      if (props.closeOnClickOutside && props.modelValue) {
-        setTimeout(() => {
-          emit('update:modelValue', false)
-        }, 0)
-      }
-    })
-
-    return {
-      computedWidth,
-      computedClass,
-      computedStyle,
-      updateHoverState,
-      rootElement,
-      vaSidebarItemProps: computed(() => ({
-        textColor: props.textColor,
-        activeColor: props.activeColor,
-        hoverColor: props.hoverColor,
-        borderColor: props.borderColor,
-        hoverOpacity: props.hoverOpacity,
-      })),
-    }
+  borderColor: { type: String, default: undefined },
+  color: { type: String, default: 'background-element' },
+  textColor: { type: String },
+  gradient: { type: Boolean, default: false },
+  minimized: { type: Boolean, default: false },
+  hoverable: { type: Boolean, default: false },
+  position: {
+    type: String as PropType<'left' | 'right'>,
+    default: 'left',
+    validator: (v: string) => ['left', 'right'].includes(v),
   },
+  width: { type: String, default: '16rem' },
+  minimizedWidth: { type: String, default: '4rem' },
+  modelValue: { type: Boolean, default: true },
+  animated: { type: Boolean, default: true },
+  closeOnClickOutside: { type: Boolean, default: false },
 })
+
+const emit = defineEmits(['update:modelValue'])
+
+const { getColor } = useColors()
+useSidebar(props)
+
+const isHovered = ref(false)
+
+const isMinimized = computed(() => props.minimized || (props.hoverable && !isHovered.value))
+
+const computedWidth = computed(() => {
+  if (!props.modelValue) {
+    return 0
+  }
+
+  return isMinimized.value ? props.minimizedWidth : props.width
+})
+
+const { textColorComputed } = useTextColor()
+
+const computedStyle = computed(() => {
+  const backgroundColor = getColor(props.color)
+
+  const color = textColorComputed.value
+
+  return {
+    color,
+    backgroundColor,
+    backgroundImage: props.gradient ? getGradientBackground(backgroundColor) : undefined,
+  }
+})
+
+const computedClass = useBem('va-sidebar', () => ({
+  minimized: isMinimized.value,
+  right: props.position === 'right',
+  animated: props.animated,
+}))
+
+const updateHoverState = (newHoverState: boolean) => {
+  isHovered.value = props.hoverable && newHoverState
+}
+
+const rootElement = shallowRef<HTMLElement>()
+
+useClickOutside([rootElement], () => {
+  if (props.closeOnClickOutside && props.modelValue) {
+    setTimeout(() => {
+      emit('update:modelValue', false)
+    }, 0)
+  }
+})
+
+const vaSidebarItemProps = computed(() => ({
+  textColor: props.textColor,
+  activeColor: props.activeColor,
+  hoverColor: props.hoverColor,
+  borderColor: props.borderColor,
+  hoverOpacity: props.hoverOpacity,
+}))
 </script>
 
 <style lang="scss">

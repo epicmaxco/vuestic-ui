@@ -31,8 +31,8 @@
   </component>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, PropType, ref, shallowRef, watch } from 'vue'
+<script lang="ts" setup>
+import { PropType, computed, ref, shallowRef, watch } from 'vue'
 import debounce from 'lodash/debounce.js'
 
 import { sleep } from '../../utils/sleep'
@@ -42,169 +42,153 @@ import { useScroll } from './hooks/useScroll'
 import { VaProgressCircle } from '../va-progress-circle'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
-export default defineComponent({
-  name: 'VaInfiniteScroll',
+const props = defineProps({
+  ...useComponentPresetProp,
+  load: { type: Function, required: true },
+  offset: { type: Number, default: 500 },
+  reverse: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  scrollTarget: { type: [String, Object] as PropType<string | HTMLElement>, default: undefined },
+  debounce: { type: Number, default: 100 },
+  tag: { type: String, default: 'div' },
+})
 
-  components: { VaProgressCircle },
+const emit = defineEmits(['onload', 'onerror'])
 
-  props: {
-    ...useComponentPresetProp,
-    load: { type: Function, required: true },
-    offset: { type: Number, default: 500 },
-    reverse: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
-    scrollTarget: { type: [String, Object] as PropType<string | HTMLElement>, default: undefined },
-    debounce: { type: Number, default: 100 },
-    tag: { type: String, default: 'div' },
-  },
+const element = shallowRef<HTMLElement>()
+const spinnerSlotContainer = shallowRef<HTMLDivElement>()
 
-  emits: ['onload', 'onerror'],
+const fetching = ref(false)
+const error = ref(false)
+const forcedScrolling = ref(false)
+const debouncedLoad = ref()
+const notScrolledContentBeforeLoad = ref(0)
+const prevScrollTop = ref(0)
 
-  setup (props, { emit }) {
-    const element = shallowRef<HTMLElement>()
-    const spinnerSlotContainer = shallowRef<HTMLDivElement>()
+const scrollTargetElement = computed<HTMLElement>(() => {
+  let target
 
-    const fetching = ref(false)
-    const error = ref(false)
-    const forcedScrolling = ref(false)
-    const debouncedLoad = ref()
-    const notScrolledContentBeforeLoad = ref(0)
-    const prevScrollTop = ref(0)
+  if (typeof props.scrollTarget === 'string') {
+    target = document.querySelector(props.scrollTarget)
+  } else {
+    target = props.scrollTarget || element.value?.parentElement
+  }
 
-    const scrollTargetElement = computed<HTMLElement>(() => {
-      let target
+  return (target || document.body) as HTMLElement
+})
 
-      if (typeof props.scrollTarget === 'string') {
-        target = document.querySelector(props.scrollTarget)
-      } else {
-        target = props.scrollTarget || element.value?.parentElement
-      }
+const {
+  addScrollListener,
+  removeScrollListener,
+} = useScroll(props, scrollTargetElement, debouncedLoad)
 
-      return (target || document.body) as HTMLElement
-    })
+const { getColor } = useColors()
 
-    const {
-      addScrollListener,
-      removeScrollListener,
-    } = useScroll(props, scrollTargetElement, debouncedLoad)
+const spinnerColor = computed(() => {
+  return error.value ? getColor('danger') : getColor('primary')
+})
 
-    const { getColor } = useColors()
+const spinnerHeight = computed(() => {
+  return spinnerSlotContainer.value?.offsetHeight || 0
+})
 
-    const spinnerColor = computed(() => {
-      return error.value ? getColor('danger') : getColor('primary')
-    })
+const computedOffset = computed(() => {
+  return props.offset + spinnerHeight.value
+})
 
-    const spinnerHeight = computed(() => {
-      return spinnerSlotContainer.value?.offsetHeight || 0
-    })
+const stop = () => {
+  if (props.disabled) { return }
 
-    const computedOffset = computed(() => {
-      return props.offset + spinnerHeight.value
-    })
+  fetching.value = false
+  removeScrollListener()
+}
 
-    const stop = () => {
-      if (props.disabled) { return }
+const resume = () => {
+  if (props.disabled) { return }
 
-      fetching.value = false
-      removeScrollListener()
-    }
+  addScrollListener()
+}
 
-    const resume = () => {
-      if (props.disabled) { return }
+const onLoad = () => {
+  const { scrollTop, scrollHeight, clientHeight } = scrollTargetElement.value
+  notScrolledContentBeforeLoad.value = scrollHeight - scrollTop
+  const scrollDelta = scrollTop - prevScrollTop.value
+  prevScrollTop.value = scrollTop
 
-      addScrollListener()
-    }
+  if (props.disabled || error.value || fetching.value) { return }
 
-    const onLoad = () => {
-      const { scrollTop, scrollHeight, clientHeight } = scrollTargetElement.value
-      notScrolledContentBeforeLoad.value = scrollHeight - scrollTop
-      const scrollDelta = scrollTop - prevScrollTop.value
-      prevScrollTop.value = scrollTop
+  if (forcedScrolling.value) {
+    forcedScrolling.value = false
+    return
+  }
 
-      if (props.disabled || error.value || fetching.value) { return }
+  const isReverseScrollDirection = (props.reverse && scrollDelta > 0) || (!props.reverse && scrollDelta < 0)
+  if (isReverseScrollDirection) { return }
 
-      if (forcedScrolling.value) {
-        forcedScrolling.value = false
-        return
-      }
+  const offset = props.reverse ? scrollTop : scrollHeight - scrollTop - clientHeight
+  if (offset > computedOffset.value) { return }
 
-      const isReverseScrollDirection = (props.reverse && scrollDelta > 0) || (!props.reverse && scrollDelta < 0)
-      if (isReverseScrollDirection) { return }
+  fetching.value = true
 
-      const offset = props.reverse ? scrollTop : scrollHeight - scrollTop - clientHeight
-      if (offset > computedOffset.value) { return }
+  props.load()
+    .then(finishLoading)
+    .catch(onError)
+}
 
-      fetching.value = true
+const forceSetScrollTopToTarget = (value: number) => {
+  forcedScrolling.value = true
+  scrollTargetElement.value.scrollTop = value
+}
 
-      props.load()
-        .then(finishLoading)
-        .catch(onError)
-    }
+const updateTargetElementScrollTop = () => {
+  const { scrollTop, scrollHeight, clientHeight } = scrollTargetElement.value
 
-    const forceSetScrollTopToTarget = (value: number) => {
-      forcedScrolling.value = true
-      scrollTargetElement.value.scrollTop = value
-    }
+  if (props.reverse) {
+    const isScrolledUp = scrollHeight - scrollTop < notScrolledContentBeforeLoad.value
+    const isSpinnerHidden = scrollTop >= spinnerHeight.value
 
-    const updateTargetElementScrollTop = () => {
-      const { scrollTop, scrollHeight, clientHeight } = scrollTargetElement.value
+    if (isScrolledUp && isSpinnerHidden) { return }
 
-      if (props.reverse) {
-        const isScrolledUp = scrollHeight - scrollTop < notScrolledContentBeforeLoad.value
-        const isSpinnerHidden = scrollTop >= spinnerHeight.value
+    (scrollHeight - notScrolledContentBeforeLoad.value > spinnerHeight.value)
+      ? forceSetScrollTopToTarget(scrollHeight - notScrolledContentBeforeLoad.value)
+      : forceSetScrollTopToTarget(spinnerHeight.value)
+  }
 
-        if (isScrolledUp && isSpinnerHidden) { return }
+  if (!props.reverse) {
+    const isSpinnerHidden = scrollHeight - scrollTop - clientHeight >= spinnerHeight.value
+    !isSpinnerHidden && forceSetScrollTopToTarget(scrollHeight - clientHeight - spinnerHeight.value)
+  }
+}
 
-        (scrollHeight - notScrolledContentBeforeLoad.value > spinnerHeight.value)
-          ? forceSetScrollTopToTarget(scrollHeight - notScrolledContentBeforeLoad.value)
-          : forceSetScrollTopToTarget(spinnerHeight.value)
-      }
+const finishLoading = () => {
+  updateTargetElementScrollTop()
+  fetching.value = false
+  emit('onload')
+}
 
-      if (!props.reverse) {
-        const isSpinnerHidden = scrollHeight - scrollTop - clientHeight >= spinnerHeight.value
-        !isSpinnerHidden && forceSetScrollTopToTarget(scrollHeight - clientHeight - spinnerHeight.value)
-      }
-    }
+const stopErrorDisplay = () => {
+  updateTargetElementScrollTop()
+  forcedScrolling.value = false
+  error.value = false
+  fetching.value = false
+  emit('onerror')
+}
 
-    const finishLoading = () => {
-      updateTargetElementScrollTop()
-      fetching.value = false
-      emit('onload')
-    }
+const onError = () => {
+  stop()
+  error.value = true
 
-    const stopErrorDisplay = () => {
-      updateTargetElementScrollTop()
-      forcedScrolling.value = false
-      error.value = false
-      fetching.value = false
-      emit('onerror')
-    }
+  sleep(1200)
+    .then(stopErrorDisplay)
+    .then(resume)
+}
 
-    const onError = () => {
-      stop()
-      error.value = true
+watch(() => props.debounce, (value) => {
+  debouncedLoad.value = debounce(onLoad, value)
+}, { immediate: true })
 
-      sleep(1200)
-        .then(stopErrorDisplay)
-        .then(resume)
-    }
-
-    watch(() => props.debounce, (value) => {
-      debouncedLoad.value = debounce(onLoad, value)
-    }, { immediate: true })
-
-    watch(() => props.disabled, (value) => {
-      value ? stop() : resume()
-    })
-
-    return {
-      element,
-      spinnerSlotContainer,
-
-      spinnerColor,
-      fetching,
-    }
-  },
+watch(() => props.disabled, (value) => {
+  value ? stop() : resume()
 })
 </script>
 

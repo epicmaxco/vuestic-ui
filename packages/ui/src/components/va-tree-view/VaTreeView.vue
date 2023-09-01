@@ -17,29 +17,17 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
+<script lang="ts" setup>
 import useTreeView from './hooks/useTreeView'
 import { useTreeViewProps, useTreeViewEmits } from './hooks/useTreeHelpers'
 
 import { VaTreeNode } from './components/VaTreeNode'
 
-export default defineComponent({
-  name: 'VaTreeView',
+const props = defineProps({ ...useTreeViewProps })
 
-  props: { ...useTreeViewProps },
+const emit = defineEmits([...useTreeViewEmits])
 
-  emits: [...useTreeViewEmits],
-
-  components: { VaTreeNode },
-
-  setup: (props, { emit }) => {
-    const { treeItems, getTrackBy } = useTreeView(props, emit)
-
-    return { treeItems, getTrackBy }
-  },
-})
+const { treeItems, getTrackBy } = useTreeView(props, emit)
 </script>
 
 <style lang="scss">

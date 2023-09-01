@@ -65,7 +65,7 @@
 <script lang="ts">
 import { useElementBackground } from '../../composables/useElementBackground'
 import { useTextColor } from '../../composables/useTextColor'
-import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
+import { DefineComponent, PropType, computed, nextTick, ref, watch } from 'vue'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/component-options'
 import { useColors, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
@@ -73,7 +73,6 @@ import { useView } from './hooks/view'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { DatePickerModelValue, DatePickerType, DatePickerView } from './types'
-
 import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
 import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
 import VaMonthPicker from './components/VaMonthPicker/VaMonthPicker.vue'
@@ -82,140 +81,115 @@ import VaYearPicker from './components/VaYearPicker/VaYearPicker.vue'
 const DEFAULT_MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DEFAULT_WEEKDAY_NAMES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
 
-export default defineComponent({
-  name: 'VaDatePicker',
+type DatePicker = typeof VaDayPicker
+type T = DatePicker extends DefineComponent ? true : false
+</script>
 
-  components: { VaDayPicker, VaDatePickerHeader, VaMonthPicker, VaYearPicker },
-
-  props: {
-    ...useStatefulProps,
-    ...useComponentPresetProp,
-    ...extractComponentProps(VaDatePickerHeader),
-    ...extractComponentProps(VaDayPicker),
-    ...extractComponentProps(VaMonthPicker),
-    ...extractComponentProps(VaYearPicker),
-    modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
-    monthNames: { type: Array as PropType<string[]>, default: DEFAULT_MONTH_NAMES },
-    weekdayNames: { type: Array as PropType<string[]>, default: DEFAULT_WEEKDAY_NAMES },
-    view: { type: Object as PropType<DatePickerView> },
-    type: { type: String as PropType<DatePickerType>, default: 'day' },
-    readonly: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
+<script lang="ts" setup>
+const props = defineProps({
+  ...useStatefulProps,
+  ...useComponentPresetProp,
+  ...extractComponentProps(VaDatePickerHeader),
+  ...extractComponentProps(VaDayPicker),
+  ...extractComponentProps(VaMonthPicker),
+  ...extractComponentProps(VaYearPicker),
+  modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
+  monthNames: { type: Array as PropType<string[]>, default: DEFAULT_MONTH_NAMES },
+  weekdayNames: { type: Array as PropType<string[]>, default: DEFAULT_WEEKDAY_NAMES },
+  view: { type: Object as PropType<DatePickerView> },
+  type: { type: String as PropType<DatePickerType>, default: 'day' },
+  readonly: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
 
     // Colors
-    color: { type: String, default: undefined },
-    weekendsColor: { type: String, default: undefined },
-  },
-
-  emits: [
-    ...useStatefulEmits,
-    ...extractComponentEmits(VaDatePickerHeader),
-    ...extractComponentEmits(VaYearPicker),
-    ...extractComponentEmits(VaDayPicker),
-    ...extractComponentEmits(VaMonthPicker),
-  ],
-
-  setup (props, { emit }) {
-    const currentPicker = ref<typeof VaDayPicker | typeof VaMonthPicker | typeof VaYearPicker>()
-
-    const { valueComputed } = useStateful(props, emit)
-
-    const { syncView } = useView(props, emit, { type: props.type })
-
-    const classComputed = computed(() => ({
-      'va-date-picker_without-week-days': props.hideWeekDays,
-      'va-date-picker_disabled': props.disabled,
-    }))
-
-    const onDayModelValueUpdate = (modelValue: DatePickerModelValue) => {
-      if (props.readonly) { return }
-
-      // Do not update model value if we just want to change view (We can change it for now, but later we can add here timepicker)
-      if (props.type === 'day') { valueComputed.value = modelValue }
-    }
-
-    const onMonthClick = (date: Date) => {
-      emit('click:month', date)
-      const year = date.getFullYear()
-      const month = date.getMonth()
-      if (props.type !== 'month') {
-        syncView.value = { type: 'day', year, month }
-      }
-    }
-
-    const onMonthModelValueUpdate = (modelValue: DatePickerModelValue) => {
-      // Do not update model value if we just want to change view
-      if (props.type === 'month') { valueComputed.value = modelValue }
-    }
-
-    const onYearClick = (date : Date) => {
-      emit('click:year', date)
-
-      const year = date.getFullYear()
-
-      if (props.type !== 'year') {
-        syncView.value = { type: 'month', year, month: syncView.value.month }
-      }
-    }
-
-    const onYearModelValueUpdate = (modelValue: DatePickerModelValue) => {
-      // Do not update model value if we just want to change view
-      if (props.type === 'year') { valueComputed.value = modelValue }
-    }
-
-    const { colorsToCSSVariable } = useColors()
-    const { background } = useElementBackground()
-    const { textColorComputed } = useTextColor(background)
-
-    const styleComputed = computed(() => ({
-      color: textColorComputed.value,
-      ...colorsToCSSVariable({
-        color: props.color,
-        'weekends-color': props.weekendsColor,
-      }, 'va-date-picker'),
-    }))
-
-    const focusCurrentPicker = () => currentPicker.value?.$el.focus()
-
-    watch(syncView, (newValue, prevValue) => {
-      // Don't focus new picker if user does not change type
-      if (newValue.type === prevValue.type) { return }
-
-      nextTick(focusCurrentPicker)
-    })
-
-    const isPickerReadonly = (pickerName: 'year' | 'month' | 'day') => {
-      return props.readonly && props.type === pickerName
-    }
-
-    return {
-      dayPickerProps: filterComponentProps(extractComponentProps(VaDayPicker)),
-      headerProps: filterComponentProps(extractComponentProps(VaDatePickerHeader)),
-      monthPickerProps: filterComponentProps(extractComponentProps(VaMonthPicker)),
-      yearPickerProps: filterComponentProps(extractComponentProps(VaYearPicker)),
-
-      syncView,
-
-      classComputed,
-      valueComputed,
-
-      onDayModelValueUpdate,
-
-      onMonthClick,
-      onMonthModelValueUpdate,
-
-      onYearClick,
-      onYearModelValueUpdate,
-
-      styleComputed,
-      currentPicker,
-      textColorComputed,
-      focusCurrentPicker,
-
-      isPickerReadonly,
-    }
-  },
+  color: { type: String, default: undefined },
+  weekendsColor: { type: String, default: undefined },
 })
+
+const emit = defineEmits([
+  ...useStatefulEmits,
+  ...extractComponentEmits(VaDatePickerHeader),
+  ...extractComponentEmits(VaYearPicker),
+  ...extractComponentEmits(VaDayPicker),
+  ...extractComponentEmits(VaMonthPicker),
+])
+
+const currentPicker = ref<typeof VaDayPicker | typeof VaMonthPicker | typeof VaYearPicker>()
+
+const { valueComputed } = useStateful(props, emit)
+
+const { syncView } = useView(props, emit, { type: props.type })
+
+const classComputed = computed(() => ({
+  'va-date-picker_without-week-days': props.hideWeekDays,
+  'va-date-picker_disabled': props.disabled,
+}))
+
+const onDayModelValueUpdate = (modelValue: DatePickerModelValue) => {
+  if (props.readonly) { return }
+
+  // Do not update model value if we just want to change view (We can change it for now, but later we can add here timepicker)
+  if (props.type === 'day') { valueComputed.value = modelValue }
+}
+
+const onMonthClick = (date: Date) => {
+  emit('click:month', date)
+  const year = date.getFullYear()
+  const month = date.getMonth()
+  if (props.type !== 'month') {
+    syncView.value = { type: 'day', year, month }
+  }
+}
+
+const onMonthModelValueUpdate = (modelValue: DatePickerModelValue) => {
+  // Do not update model value if we just want to change view
+  if (props.type === 'month') { valueComputed.value = modelValue }
+}
+
+const onYearClick = (date : Date) => {
+  emit('click:year', date)
+
+  const year = date.getFullYear()
+
+  if (props.type !== 'year') {
+    syncView.value = { type: 'month', year, month: syncView.value.month }
+  }
+}
+
+const onYearModelValueUpdate = (modelValue: DatePickerModelValue) => {
+  // Do not update model value if we just want to change view
+  if (props.type === 'year') { valueComputed.value = modelValue }
+}
+
+const { colorsToCSSVariable } = useColors()
+const { background } = useElementBackground()
+const { textColorComputed } = useTextColor(background)
+
+const styleComputed = computed(() => ({
+  color: textColorComputed.value,
+  ...colorsToCSSVariable({
+    color: props.color,
+    'weekends-color': props.weekendsColor,
+  }, 'va-date-picker'),
+}))
+
+const focusCurrentPicker = () => currentPicker.value?.$el.focus()
+
+watch(syncView, (newValue, prevValue) => {
+  // Don't focus new picker if user does not change type
+  if (newValue.type === prevValue.type) { return }
+
+  nextTick(focusCurrentPicker)
+})
+
+const isPickerReadonly = (pickerName: 'year' | 'month' | 'day') => {
+  return props.readonly && props.type === pickerName
+}
+
+const dayPickerProps = filterComponentProps(extractComponentProps(VaDayPicker))
+const headerProps = filterComponentProps(extractComponentProps(VaDatePickerHeader))
+const monthPickerProps = filterComponentProps(extractComponentProps(VaMonthPicker))
+const yearPickerProps = filterComponentProps(extractComponentProps(VaYearPicker))
 </script>
 
 <style lang="scss">

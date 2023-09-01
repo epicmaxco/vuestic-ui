@@ -4,32 +4,26 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, WritableComputedRef } from 'vue'
+<script lang="ts" setup>
+import { PropType, WritableComputedRef } from 'vue'
 
 import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 import { useAccordion } from './hooks/useAccordion'
 
-export default defineComponent({
-  name: 'VaAccordion',
-  emits: [...useStatefulEmits],
-  props: {
-    ...useStatefulProps,
-    ...useComponentPresetProp,
-    modelValue: { type: Array as PropType<boolean[]>, default: () => [] as boolean[] },
-    multiple: { type: Boolean, default: false },
-    inset: { type: Boolean, default: false },
-    popout: { type: Boolean, default: false },
-  },
-
-  setup (props, { emit }) {
-    const { valueComputed }: { valueComputed: WritableComputedRef<boolean[]>} = useStateful(props, emit, 'modelValue', { defaultValue: [] as boolean[] })
-
-    const { items } = useAccordion(props, valueComputed)
-
-    return { collapses: items, value: valueComputed }
-  },
+const props = defineProps({
+  ...useStatefulProps,
+  ...useComponentPresetProp,
+  modelValue: { type: Array as PropType<boolean[]>, default: () => [] as boolean[] },
+  multiple: { type: Boolean, default: false },
+  inset: { type: Boolean, default: false },
+  popout: { type: Boolean, default: false },
 })
+
+const emit = defineEmits([...useStatefulEmits])
+
+const { valueComputed }: { valueComputed: WritableComputedRef<boolean[]>} = useStateful(props, emit, 'modelValue', { defaultValue: [] as boolean[] })
+
+const { items } = useAccordion(props, valueComputed)
 </script>
 
 <style lang="scss">

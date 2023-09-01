@@ -4,25 +4,19 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 
-export default defineComponent({
-  name: 'VaCardBlock',
-
-  props: {
-    horizontal: {
-      type: Boolean,
-      default: false,
-    },
+const props = defineProps({
+  horizontal: {
+    type: Boolean,
+    default: false,
   },
-
-  setup: (props) => ({
-    classComputed: computed(() => ({
-      'va-card-block--horizontal': props.horizontal,
-    })),
-  }),
 })
+
+const classComputed = computed(() => ({
+  'va-card-block--horizontal': props.horizontal,
+}))
 </script>
 
 <style lang="scss">

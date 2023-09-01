@@ -24,8 +24,8 @@
   </va-list-item>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
+<script lang="ts" setup>
+import { PropType } from 'vue'
 import { useStrictInject, useTranslation } from '../../../composables'
 
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
@@ -33,27 +33,16 @@ import { VaFileUploadKey, ConvertedFile } from '../types'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadSingleItem component should be used in the context of VaFileUpload component'
 
-export default defineComponent({
-  name: 'VaFileUploadSingleItem',
-
-  components: {
-    VaButton,
-    VaListItem,
-    VaListItemSection,
-  },
-
-  emits: ['remove'],
-
-  props: {
-    file: { type: Object as PropType<ConvertedFile | null>, default: null },
-    ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
-  },
-
-  setup: () => ({
-    ...useTranslation(),
-    disabled: useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE).disabled,
-  }),
+const props = defineProps({
+  file: { type: Object as PropType<ConvertedFile | null>, default: null },
+  ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
 })
+
+const emit = defineEmits(['remove'])
+
+const { disabled } = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
+
+const { tp } = useTranslation()
 </script>
 
 <style lang='scss'>

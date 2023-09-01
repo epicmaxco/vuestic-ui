@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { computed } from 'vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import omit from 'lodash/omit.js'
 
@@ -16,46 +16,41 @@ import { useBem, useComponentPresetProp, useColors, useTextColor } from '../../c
 import { VaConfig } from '../va-config'
 import { VaButton } from '../va-button'
 
-const VaButtonProps = omit(extractComponentProps(VaButton), ['block', 'gradient'])
+const VaButtonPropsDeclaration = omit(extractComponentProps(VaButton), ['block', 'gradient'])
+</script>
 
-export default defineComponent({
-  name: 'VaButtonGroup',
-  components: { VaConfig },
-  props: {
-    ...VaButtonProps,
-    ...useComponentPresetProp,
-    grow: { type: Boolean, default: false },
-    gradient: { type: Boolean, default: false },
-  },
-
-  setup: (props) => {
-    const { getColor, getGradientBackground } = useColors()
-    const colorComputed = computed(() => getColor(props.color))
-    const { textColorComputed } = useTextColor(colorComputed)
-
-    const filteredProps = filterComponentProps(VaButtonProps)
-    const buttonConfig = computed(() => ({
-      VaButton: {
-        ...filteredProps.value,
-        ...(props.gradient && {
-          color: '#00000000',
-          textColor: textColorComputed.value,
-        }),
-      },
-    }))
-    const computedClass = useBem('va-button-group', () => ({
-      square: !props.round,
-      grow: props.grow,
-      small: props.size === 'small',
-      large: props.size === 'large',
-    }))
-    const backgroundColor = computed(() =>
-      props.gradient ? getGradientBackground(colorComputed.value) : 'transparent',
-    )
-
-    return { buttonConfig, computedClass, backgroundColor }
-  },
+<script lang="ts" setup>
+const props = defineProps({
+  ...VaButtonPropsDeclaration,
+  ...useComponentPresetProp,
+  grow: { type: Boolean, default: false },
+  gradient: { type: Boolean, default: false },
 })
+
+const { getColor, getGradientBackground } = useColors()
+const colorComputed = computed(() => getColor(props.color))
+const { textColorComputed } = useTextColor(colorComputed)
+
+const filteredProps = filterComponentProps(VaButtonPropsDeclaration)
+const buttonConfig = computed(() => ({
+  VaButton: {
+    ...filteredProps.value,
+    ...(props.gradient && {
+      color: '#00000000',
+      textColor: textColorComputed.value,
+    }),
+  },
+}))
+const computedClass = useBem('va-button-group', () => ({
+  square: !props.round,
+  grow: props.grow,
+  small: props.size === 'small',
+  large: props.size === 'large',
+}))
+
+const backgroundColor = computed(() =>
+  props.gradient ? getGradientBackground(colorComputed.value) : 'transparent',
+)
 </script>
 
 <style lang="scss">

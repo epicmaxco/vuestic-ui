@@ -19,40 +19,33 @@
   </ul>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
-
+<script lang="ts" setup>
+import { PropType } from 'vue'
 import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits, useTranslation } from '../../composables'
 
 import { VaColorIndicator } from '../va-color-indicator'
 
-export default defineComponent({
-  name: 'VaColorPalette',
-  components: { VaColorIndicator },
-  emits: [...useStatefulEmits],
-  props: {
-    ...useStatefulProps,
-    ...useComponentPresetProp,
-    modelValue: { type: String, default: null },
-    palette: { type: Array as PropType<string[]>, default: () => [] },
-    indicator: {
-      type: String as PropType<'dot' | 'square'>,
-      default: 'dot',
-      validator: (value: string) => ['dot', 'square'].includes(value),
-    },
-    ariaLabel: { type: String, default: '$t:colorSelection' },
-    ariaIndicatorLabel: { type: String, default: '$t:color' },
+const props = defineProps({
+  ...useStatefulProps,
+  ...useComponentPresetProp,
+  modelValue: { type: String, default: null },
+  palette: { type: Array as PropType<string[]>, default: () => [] },
+  indicator: {
+    type: String as PropType<'dot' | 'square'>,
+    default: 'dot',
+    validator: (value: string) => ['dot', 'square'].includes(value),
   },
-  setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit)
-
-    return {
-      ...useTranslation(),
-      valueComputed,
-      isSelected: (color: string) => valueComputed.value === color,
-    }
-  },
+  ariaLabel: { type: String, default: '$t:colorSelection' },
+  ariaIndicatorLabel: { type: String, default: '$t:color' },
 })
+
+const emit = defineEmits([...useStatefulEmits])
+
+const { valueComputed } = useStateful(props, emit)
+
+const isSelected = (color: string) => valueComputed.value === color
+
+const { tp } = useTranslation()
 </script>
 
 <style lang="scss">

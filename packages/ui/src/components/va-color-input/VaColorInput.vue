@@ -32,51 +32,38 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, shallowRef, computed } from 'vue'
+<script lang="ts" setup>
+import { shallowRef, computed, PropType } from 'vue'
 
 import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits, useTranslation } from '../../composables'
 
 import { VaColorIndicator } from '../va-color-indicator'
 import { VaInput } from '../va-input'
 
-export default defineComponent({
-  name: 'VaColorInput',
-  components: {
-    VaInput,
-    VaColorIndicator,
+const props = defineProps({
+  ...useStatefulProps,
+  ...useComponentPresetProp,
+  modelValue: { type: String, default: null },
+  disabled: { type: Boolean, default: false },
+  indicator: {
+    type: String as PropType<'dot' | 'square'>,
+    default: 'dot',
+    validator: (value: string) => ['dot', 'square'].includes(value),
   },
-  emits: [...useStatefulEmits],
-  props: {
-    ...useStatefulProps,
-    ...useComponentPresetProp,
-    modelValue: { type: String, default: null },
-    disabled: { type: Boolean, default: false },
-    indicator: {
-      type: String as PropType<'dot' | 'square'>,
-      default: 'dot',
-      validator: (value: string) => ['dot', 'square'].includes(value),
-    },
-    ariaOpenColorPickerLabel: { type: String, default: '$t:openColorPicker' },
-  },
-  setup: (props, { emit }) => {
-    const colorPicker = shallowRef<HTMLInputElement>()
-
-    const { valueComputed } = useStateful(props, emit)
-
-    const callPickerDialog = () => !props.disabled && colorPicker.value?.click()
-
-    const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
-
-    return {
-      ...useTranslation(),
-      valueComputed,
-      callPickerDialog,
-      colorPicker,
-      tabIndexComputed,
-    }
-  },
+  ariaOpenColorPickerLabel: { type: String, default: '$t:openColorPicker' },
 })
+
+const emit = defineEmits([...useStatefulEmits])
+
+const colorPicker = shallowRef<HTMLInputElement>()
+
+const { valueComputed } = useStateful(props, emit)
+
+const callPickerDialog = () => !props.disabled && colorPicker.value?.click()
+
+const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
+
+const { tp } = useTranslation()
 </script>
 
 <style lang="scss">

@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+import { PropType, computed, useSlots } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { useComponentPresetProp, useColors, useTextColor } from '../../composables'
@@ -46,56 +46,42 @@ import { useComponentPresetProp, useColors, useTextColor } from '../../composabl
 import { VaDropdown, VaIcon } from '../'
 
 const VaDropdownProps = extractComponentProps(VaDropdown, ['closeOnClickOutside'])
+</script>
 
-export default defineComponent({
-  name: 'VaPopover',
+<script lang="ts" setup>
 
-  components: { VaDropdown, VaIcon },
-
-  props: {
-    ...VaDropdownProps,
-    ...useComponentPresetProp,
-    trigger: { default: 'hover' },
-    color: { type: String, default: '#1b1a1f' }, // TODO: Make sure add this color to pallete
-    textColor: { type: String },
-    icon: { type: String, default: '' },
-    title: { type: String, default: '' },
-    message: { type: String, default: '' },
-    autoHide: { type: Boolean, default: true },
-    offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 4 },
-  },
-
-  setup (props, { slots }) {
-    const VaDropdownPropValues = filterComponentProps(VaDropdownProps)
-
-    const { getColor, getBoxShadowColor } = useColors()
-
-    const { textColorComputed } = useTextColor()
-    const showIconComputed = computed(() => props.icon || slots.icon)
-    const showTitleComputed = computed(() => props.title || slots.title)
-    const showBodyComputed = computed(() => props.message || slots.body)
-    const showPopoverContentComputed = computed(
-      () => showTitleComputed.value || showBodyComputed.value,
-    )
-
-    const computedPopoverStyle = computed(() => ({
-      boxShadow: `var(--va-popover-content-box-shadow) ${getBoxShadowColor(getColor(props.color))}`,
-      backgroundColor: getColor(props.color),
-      color: textColorComputed.value,
-    }))
-
-    return {
-      textColorComputed,
-      VaDropdownPropValues,
-
-      showBodyComputed,
-      showIconComputed,
-      showTitleComputed,
-      computedPopoverStyle,
-      showPopoverContentComputed,
-    }
-  },
+const props = defineProps({
+  ...VaDropdownProps,
+  ...useComponentPresetProp,
+  trigger: { default: 'hover' },
+  color: { type: String, default: '#1b1a1f' }, // TODO: Make sure add this color to pallete
+  textColor: { type: String },
+  icon: { type: String, default: '' },
+  title: { type: String, default: '' },
+  message: { type: String, default: '' },
+  autoHide: { type: Boolean, default: true },
+  offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 4 },
 })
+
+const VaDropdownPropValues = filterComponentProps(VaDropdownProps)
+
+const { getColor, getBoxShadowColor } = useColors()
+
+const { textColorComputed } = useTextColor()
+
+const slots = useSlots()
+const showIconComputed = computed(() => props.icon || slots.icon)
+const showTitleComputed = computed(() => props.title || slots.title)
+const showBodyComputed = computed(() => props.message || slots.body)
+const showPopoverContentComputed = computed(
+  () => showTitleComputed.value || showBodyComputed.value,
+)
+
+const computedPopoverStyle = computed(() => ({
+  boxShadow: `var(--va-popover-content-box-shadow) ${getBoxShadowColor(getColor(props.color))}`,
+  backgroundColor: getColor(props.color),
+  color: textColorComputed.value,
+}))
 </script>
 
 <style lang="scss">

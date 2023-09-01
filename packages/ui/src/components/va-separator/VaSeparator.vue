@@ -2,14 +2,6 @@
   <div class="va-separator" aria-hidden="true" />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'VaSeparator',
-})
-</script>
-
 <style lang="scss">
 @import "../../styles/resources";
 @import "variables";

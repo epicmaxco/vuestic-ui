@@ -27,124 +27,98 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import VaTimePickerColumnCell from '../VaTimePickerColumnCell.vue'
-import { defineComponent, nextTick, shallowRef, watch, onMounted, PropType, computed } from 'vue'
+import { nextTick, shallowRef, watch, onMounted, computed, PropType } from 'vue'
 
 import { useElementBackground, useSyncProp, useFocus, useFocusEmits, useTextColor } from '../../../../composables'
 import debounce from 'lodash/debounce.js'
 
-export default defineComponent({
-  name: 'VaTimePickerColumn',
-
-  components: { VaTimePickerColumnCell },
-
-  props: {
-    items: { type: Array as PropType<string[] | number[]>, default: () => [] },
-    activeItemIndex: { type: Number, default: 0 },
-    cellHeight: { type: Number, default: 30 },
-  },
-
-  emits: ['item-selected', 'update:activeItemIndex', ...useFocusEmits],
-
-  setup (props, { emit }) {
-    const rootElement = shallowRef<HTMLElement>()
-    const { focus, blur } = useFocus(rootElement, emit)
-    const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
-
-    watch(syncActiveItemIndex, (newVal) => { scrollTo(newVal) })
-
-    onMounted(() => scrollTo(syncActiveItemIndex.value, false))
-
-    const scrollTo = (index: number, animated = true) => {
-      nextTick(() => {
-        // see: https://github.com/vuejs/vue-test-utils/issues/319#issuecomment-354667621
-        rootElement.value?.scrollTo?.({
-          behavior: animated ? 'smooth' : 'auto',
-          top: index * props.cellHeight,
-        })
-      })
-    }
-
-    const makeActiveByIndex = (index: number) => {
-      syncActiveItemIndex.value = index
-      nextTick(() => scrollTo(syncActiveItemIndex.value))
-    }
-
-    const makeActiveNext = (times?: number) => {
-      syncActiveItemIndex.value = (syncActiveItemIndex.value + (times || 1)) % props.items.length
-      nextTick(() => scrollTo(syncActiveItemIndex.value))
-    }
-
-    const makeActivePrev = (times?: number) => {
-      syncActiveItemIndex.value = (syncActiveItemIndex.value - (times || 1) + props.items.length) % props.items.length
-      nextTick(() => scrollTo(syncActiveItemIndex.value))
-    }
-
-    const onCellClick = (index: number) => {
-      syncActiveItemIndex.value = index
-    }
-
-    const formatCell = (n: number | string): string => {
-      if (!Number.isInteger(n)) { return n as string }
-
-      return Number(n) < 10 ? `0${n}` : `${n}`
-    }
-
-    const { background } = useElementBackground(rootElement)
-    const { textColorComputed } = useTextColor(background)
-
-    const styleComputed = computed(() => ({
-      color: textColorComputed.value,
-    }))
-    const getIndex = () => {
-      const scrollTop = rootElement.value!.scrollTop
-      const calculatedIndex = Math.max(
-        (scrollTop - scrollTop % props.cellHeight) / props.cellHeight,
-        scrollTop / props.cellHeight,
-      )
-
-      if (calculatedIndex >= props.items.length) {
-        return props.items.length - 1
-      }
-      if (calculatedIndex < 0) {
-        return 0
-      }
-
-      if (syncActiveItemIndex.value * props.cellHeight < scrollTop) {
-        return Math.ceil(calculatedIndex)
-      } else if (syncActiveItemIndex.value * props.cellHeight > scrollTop) {
-        return Math.floor(calculatedIndex)
-      } else {
-        return Math.round(calculatedIndex)
-      }
-    }
-
-    const onScroll = debounce(() => {
-      if (rootElement.value && syncActiveItemIndex.value !== -1) {
-        syncActiveItemIndex.value = getIndex()
-      }
-    }, 200)
-
-    return {
-      syncActiveItemIndex,
-      rootElement,
-
-      makeActiveNext,
-      makeActivePrev,
-      makeActiveByIndex,
-      onScroll,
-
-      onCellClick,
-      formatCell,
-
-      styleComputed,
-
-      focus,
-      blur,
-    }
-  },
+const props = defineProps({
+  items: { type: Array as PropType<string[] | number[]>, default: () => [] },
+  activeItemIndex: { type: Number, default: 0 },
+  cellHeight: { type: Number, default: 30 },
 })
+
+const emit = defineEmits(['item-selected', 'update:activeItemIndex', ...useFocusEmits])
+
+const rootElement = shallowRef<HTMLElement>()
+const { focus, blur } = useFocus(rootElement, emit)
+const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
+
+watch(syncActiveItemIndex, (newVal) => { scrollTo(newVal) })
+
+onMounted(() => scrollTo(syncActiveItemIndex.value, false))
+
+const scrollTo = (index: number, animated = true) => {
+  nextTick(() => {
+    // see: https://github.com/vuejs/vue-test-utils/issues/319#issuecomment-354667621
+    rootElement.value?.scrollTo?.({
+      behavior: animated ? 'smooth' : 'auto',
+      top: index * props.cellHeight,
+    })
+  })
+}
+
+const makeActiveByIndex = (index: number) => {
+  syncActiveItemIndex.value = index
+  nextTick(() => scrollTo(syncActiveItemIndex.value))
+}
+
+const makeActiveNext = (times?: number) => {
+  syncActiveItemIndex.value = (syncActiveItemIndex.value + (times || 1)) % props.items.length
+  nextTick(() => scrollTo(syncActiveItemIndex.value))
+}
+
+const makeActivePrev = (times?: number) => {
+  syncActiveItemIndex.value = (syncActiveItemIndex.value - (times || 1) + props.items.length) % props.items.length
+  nextTick(() => scrollTo(syncActiveItemIndex.value))
+}
+
+const onCellClick = (index: number) => {
+  syncActiveItemIndex.value = index
+}
+
+const formatCell = (n: number | string): string => {
+  if (!Number.isInteger(n)) { return n as string }
+
+  return Number(n) < 10 ? `0${n}` : `${n}`
+}
+
+const { background } = useElementBackground(rootElement)
+const { textColorComputed } = useTextColor(background)
+
+const styleComputed = computed(() => ({
+  color: textColorComputed.value,
+}))
+const getIndex = () => {
+  const scrollTop = rootElement.value!.scrollTop
+  const calculatedIndex = Math.max(
+    (scrollTop - scrollTop % props.cellHeight) / props.cellHeight,
+    scrollTop / props.cellHeight,
+  )
+
+  if (calculatedIndex >= props.items.length) {
+    return props.items.length - 1
+  }
+  if (calculatedIndex < 0) {
+    return 0
+  }
+
+  if (syncActiveItemIndex.value * props.cellHeight < scrollTop) {
+    return Math.ceil(calculatedIndex)
+  } else if (syncActiveItemIndex.value * props.cellHeight > scrollTop) {
+    return Math.floor(calculatedIndex)
+  } else {
+    return Math.round(calculatedIndex)
+  }
+}
+
+const onScroll = debounce(() => {
+  if (rootElement.value && syncActiveItemIndex.value !== -1) {
+    syncActiveItemIndex.value = getIndex()
+  }
+}, 200)
 </script>
 
 <style lang="scss">

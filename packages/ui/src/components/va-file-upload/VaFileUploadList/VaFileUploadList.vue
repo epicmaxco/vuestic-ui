@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { PropType, computed } from 'vue'
 
 import { VaList } from '../../index'
 import { VaFileUploadListItem } from '../VaFileUploadListItem'
@@ -49,62 +49,53 @@ import { extractComponentProps, filterComponentProps } from '../../../utils/comp
 const VaFileUploadGalleryItemProps = extractComponentProps(VaFileUploadGalleryItem)
 const VaFileUploadListItemProps = extractComponentProps(VaFileUploadListItem)
 const VaFileUploadSingleItemProps = extractComponentProps(VaFileUploadSingleItem)
+</script>
 
-export default defineComponent({
-  name: 'VaFileUploadList',
-  components: {
-    VaList,
-    VaFileUploadListItem,
-    VaFileUploadGalleryItem,
-    VaFileUploadSingleItem,
-  },
-  emits: ['remove', 'removeSingle'],
-  props: {
-    type: { type: String, default: '' },
-    files: { type: Array as PropType<VaFile[]>, default: null },
-    ...VaFileUploadGalleryItemProps,
-    ...VaFileUploadListItemProps,
-    ...VaFileUploadSingleItemProps,
-  },
-  setup (props) {
-    const filesList = computed(() => props.files.map(convertFile))
+<script lang="ts" setup>
 
-    const convertFile = (file: VaFile): ConvertedFile => ({
-      name: file.name || file.url || '',
-      size: formatSize(file.size),
-      date: formatDate(new Date()),
-      image: file,
-    })
-
-    const formatSize = (bytes?: number) => {
-      if (bytes === 0) { return '0 Bytes' }
-      if (!bytes) { return '' }
-
-      const k = 1024
-      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-      const i = Math.floor(Math.log(bytes) / Math.log(k))
-
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
-    }
-
-    const formatDate = (date = new Date()) => {
-      return date.toLocaleDateString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
-    }
-
-    return {
-      galleryItemProps: filterComponentProps(VaFileUploadGalleryItemProps),
-      itemProps: filterComponentProps(VaFileUploadListItemProps),
-      singleItemProps: filterComponentProps(VaFileUploadSingleItemProps),
-      filesList,
-    }
-  },
+const props = defineProps({
+  type: { type: String, default: '' },
+  files: { type: Array as PropType<VaFile[]>, default: null },
+  ...VaFileUploadGalleryItemProps,
+  ...VaFileUploadListItemProps,
+  ...VaFileUploadSingleItemProps,
 })
+
+const emit = defineEmits(['remove', 'removeSingle'])
+
+const filesList = computed(() => props.files.map(convertFile))
+
+const convertFile = (file: VaFile): ConvertedFile => ({
+  name: file.name || file.url || '',
+  size: formatSize(file.size),
+  date: formatDate(new Date()),
+  image: file,
+})
+
+const formatSize = (bytes?: number) => {
+  if (bytes === 0) { return '0 Bytes' }
+  if (!bytes) { return '' }
+
+  const k = 1024
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+}
+
+const formatDate = (date = new Date()) => {
+  return date.toLocaleDateString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
+}
+
+const galleryItemProps = filterComponentProps(VaFileUploadGalleryItemProps)
+const itemProps = filterComponentProps(VaFileUploadListItemProps)
+const singleItemProps = filterComponentProps(VaFileUploadSingleItemProps)
 </script>
 
 <style lang='scss'>

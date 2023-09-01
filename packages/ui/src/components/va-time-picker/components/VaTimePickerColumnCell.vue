@@ -4,27 +4,17 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useHover, useColors } from '../../../composables'
-import { computed, defineComponent } from 'vue'
+import { computed } from 'vue'
 
-export default defineComponent({
-  name: 'VaTimePickerColumnCell',
+const { isHovered, onMouseEnter, onMouseLeave } = useHover()
+const { getTextColor, getColor } = useColors()
 
-  setup () {
-    const { isHovered, onMouseEnter, onMouseLeave } = useHover()
-    const { getTextColor, getColor } = useColors()
-
-    const styleComputed = computed(() => isHovered.value
-      ? ({
-        color: getColor(getTextColor(getColor('background-secondary'))),
-        background: getColor('background-secondary'),
-      })
-      : undefined)
-
-    return {
-      onMouseEnter, onMouseLeave, styleComputed,
-    }
-  },
-})
+const styleComputed = computed(() => isHovered.value
+  ? ({
+    color: getColor(getTextColor(getColor('background-secondary'))),
+    background: getColor('background-secondary'),
+  })
+  : undefined)
 </script>

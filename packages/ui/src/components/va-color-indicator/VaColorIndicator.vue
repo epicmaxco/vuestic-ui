@@ -15,8 +15,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 
 import {
   useColors,
@@ -27,48 +27,36 @@ import {
   useComponentPresetProp,
 } from '../../composables'
 
-export default defineComponent({
-  name: 'VaColorIndicator',
-  emits: [...useStatefulEmits],
-  props: {
-    ...useStatefulProps,
-    ...useComponentPresetProp,
-    modelValue: { type: Boolean, default: null },
-    color: { type: String, default: '' },
-    square: { type: Boolean, default: false },
-    size: { type: String, default: '1rem' },
-  },
-  setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit)
-    const { getColor } = useColors()
-    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-
-    const colorComputed = computed(() => getColor(props.color))
-    const borderRadiusComputed = computed(() => props.square ? '0px' : '50%')
-
-    const computedStyle = computed(() => ({
-      backgroundColor: colorComputed.value,
-      height: props.size,
-      width: props.size,
-    }))
-
-    const computedClass = computed(() => ({
-      'va-color-indicator--selected': valueComputed.value,
-      'va-color-indicator--on-keyboard-focus': hasKeyboardFocus.value,
-    }))
-
-    const toggleModelValue = () => { valueComputed.value = !valueComputed.value }
-
-    return {
-      valueComputed,
-      computedStyle,
-      computedClass,
-      borderRadiusComputed,
-      keyboardFocusListeners,
-      toggleModelValue,
-    }
-  },
+const props = defineProps({
+  ...useStatefulProps,
+  ...useComponentPresetProp,
+  modelValue: { type: Boolean, default: null },
+  color: { type: String, default: '' },
+  square: { type: Boolean, default: false },
+  size: { type: String, default: '1rem' },
 })
+
+const emit = defineEmits([...useStatefulEmits])
+
+const { valueComputed } = useStateful(props, emit)
+const { getColor } = useColors()
+const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+
+const colorComputed = computed(() => getColor(props.color))
+const borderRadiusComputed = computed(() => props.square ? '0px' : '50%')
+
+const computedStyle = computed(() => ({
+  backgroundColor: colorComputed.value,
+  height: props.size,
+  width: props.size,
+}))
+
+const computedClass = computed(() => ({
+  'va-color-indicator--selected': valueComputed.value,
+  'va-color-indicator--on-keyboard-focus': hasKeyboardFocus.value,
+}))
+
+const toggleModelValue = () => { valueComputed.value = !valueComputed.value }
 </script>
 
 <style lang="scss">
