@@ -1,7 +1,7 @@
 <template>
   <va-input
     v-model="text"
-    bordered
+    preset="bordered"
     label="Input Name"
   />
 </template>

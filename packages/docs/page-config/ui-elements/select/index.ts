@@ -14,11 +14,14 @@ export default definePageConfig({
       description: "Select styles inherit from input styles"
     }),
     block.example("Variations", {
-      title: "Variants",
+      title: "Multiple select",
       description: "Includes single or multiple selects."
     }),
     block.example("Decorators", { title: "Decorators" }),
-    block.example("ObjectOptions", { title: "Objects as options" }),
+    block.example("ObjectOptions", {
+      title: "Objects as options",
+      description: "You can use objects as options. Text will be showing from `text-by` property from object. Value can be also returned from select using `value-by` instead of whole object. Comparing object values is done by `track-by` prop or `value-by` if it is not provided.",
+    }),
     block.example("TrackBy", {
       title: "Track by",
       description: "Track by can be used if you have multiple options with same value."
@@ -64,6 +67,9 @@ export default definePageConfig({
       description: "The 'iconOption' property allows the addition of custom options to the select dropdown menu, each with an icon and a name."
     }),
 
+    block.subtitle("Accessibility"),
+    block.paragraph("Select has `combobox` role associated with `listbox` in dropdown menu. `aria-expanded` is applied if dropdown is opened. `aria-label` is set to `$t:selectOption` if value is selected and `$t:noSelectedOption` if value is empty. `aria-controls` is set to `combobox-controls-${id}`. `aria-labelledby` is set to `input-label-${id}`. `aria-describedby` is set to `input-character-count-${id}`. `aria-activedescendant` is set to `option-${id}`. `aria-autocomplete` is set to `list` if autocomplete is enabled. `aria-owns` is set to `combobox-controls-${id}`. `aria-haspopup` is set to `listbox`. `aria-disabled` is set to `true` if select is disabled. `aria-required` is set to `true` if select is required. `aria-invalid` is set to `true` if select is invalid. `aria-multiselectable` is set to `true` if select is multiple. `aria-readonly` is set to `true` if select is readonly."),
+
     block.headline("Keyboard navigation"),
     block.paragraph("By using `ARROW DOWN` and `ARROW UP` you can move between options"),
     block.paragraph("By using `ENTER` and `SPACE` you can select current option"),
@@ -71,5 +77,12 @@ export default definePageConfig({
 
     block.subtitle("API"),
     block.api("VaSelect", apiDescription, apiOptions),
+
+    block.changeLog({
+      '1.8.0': [
+        'Select have outlined style by default',
+        '`solid` and `bordered` props moved to `preset="solid"` and `preset="bordered"`',
+      ],
+    })
   ],
 });

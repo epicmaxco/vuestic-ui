@@ -37,5 +37,6 @@ export function useLongPress (el: ShallowRef<HTMLElement | undefined>, options: 
     'mouseup', 'mouseleave',
     'touchend', 'touchcancel',
     'drop', 'dragend',
+    'blur',
   ], handleMouseUp, true)
 }

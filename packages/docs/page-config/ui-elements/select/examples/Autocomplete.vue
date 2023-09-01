@@ -2,12 +2,14 @@
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     <va-select
       v-model="singleSelect"
+      v-model:search="autoCompleteSearchValue"
       class="col-span-1"
       label="Sigle select"
       placeholder="Start to write..."
       :options="options"
       autocomplete
       highlight-matched-text
+      :messages="`Search value: ${autoCompleteSearchValue}`"
     />
 
     <va-select
@@ -48,9 +50,11 @@
 <script setup>
 import { ref } from 'vue'
 
+// Can be used to fetch new options from API
+const autoCompleteSearchValue = ref('')
 const options = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
 
-const singleSelect = ref('')
+const singleSelect = ref('one')
 
 const multiSelect = ref([])
 </script>

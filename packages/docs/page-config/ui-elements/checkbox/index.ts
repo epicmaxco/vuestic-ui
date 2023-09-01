@@ -33,5 +33,13 @@ export default definePageConfig({
 
     block.subtitle("API"),
     block.api("VaCheckbox", apiDescription, apiOptions),
+
+
+    block.changeLog({
+      '1.8.0': [
+        'Checkbox have outlined style by default',
+        'Add `preset="solid"`',
+      ],
+    })
   ],
 });

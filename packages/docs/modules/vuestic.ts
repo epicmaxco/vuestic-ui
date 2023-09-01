@@ -20,6 +20,7 @@ export default defineNuxtModule<VuesticOptions>({
     config: {},
     css: true,
     fonts: true,
+    themeCookieKey: 'vuestic-theme-cookie',
   },
 
   setup (options, nuxt) {

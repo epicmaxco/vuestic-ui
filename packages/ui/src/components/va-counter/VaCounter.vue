@@ -19,7 +19,6 @@
         <slot name="decreaseAction" v-bind="{ ...slotScope, decreaseCount }">
           <va-button
             class="va-counter__button-decrease"
-            :aria-label="tp($props.ariaDecreaseLabel)"
             v-bind="decreaseButtonProps"
             ref="decreaseButtonRef"
           />
@@ -50,7 +49,6 @@
         <slot name="increaseAction" v-bind="{ ...slotScope, increaseCount }">
           <va-button
             class="va-counter__button-increase"
-            :aria-label="tp($props.ariaIncreaseLabel)"
             v-bind="increaseButtonProps"
             ref="increaseButtonRef"
           />
@@ -89,6 +87,7 @@
       inputmode="decimal"
       v-bind="{ ...inputAttributesComputed, ...inputListeners }"
       :value="valueComputed"
+      :aria-live="$props.disabled ? 'off' : 'polite'"
       @input="setCountInput"
       @change="setCountChange"
     />
@@ -123,8 +122,9 @@ import {
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
-import { VaInputWrapper } from '../va-input'
+import { VaInputWrapper } from '../va-input-wrapper'
 import { VaButton } from '../va-button'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change'],
@@ -137,6 +137,8 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
   { listen: 'click-append-inner', emit: 'click:increase-icon' },
 ])
 
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
+
 export default defineComponent({
   name: 'VaCounter',
 
@@ -146,21 +148,14 @@ export default defineComponent({
     ...useFormFieldProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
+    ...VaInputWrapperProps,
     // input
     modelValue: { type: [String, Number], default: 0 },
     manualInput: { type: Boolean, default: false },
-    stateful: { type: Boolean, default: false },
     min: { type: Number, default: undefined },
     max: { type: Number, default: undefined },
     step: { type: Number, default: 1 },
-    label: { type: String, default: '' },
-    // hint
-    messages: { type: [Array, String] as PropType<string[] | string>, default: () => [] },
-    // style
-    width: { type: [String, Number], default: '160px' },
     color: { type: String, default: 'primary' },
-    outline: { type: Boolean },
-    bordered: { type: Boolean },
     // icons & buttons
     increaseIcon: { type: String, default: 'add' },
     decreaseIcon: { type: String, default: 'remove' },
@@ -168,7 +163,6 @@ export default defineComponent({
     flat: { type: Boolean, default: true },
     rounded: { type: Boolean, default: false },
     margins: { type: [String, Number], default: '4px' },
-    textColor: { type: String, default: undefined },
     longPressDelay: { type: Number, default: 500 },
 
     ariaLabel: { type: String, default: '$t:counterValue' },
@@ -283,6 +277,7 @@ export default defineComponent({
       plain: true,
       disabled: isDecreaseActionDisabled.value,
       tabindex: -1,
+      'aria-label': tp(props.ariaDecreaseLabel),
       ...(!isDecreaseActionDisabled.value && { onClick: decreaseCount }),
     }))
 
@@ -293,6 +288,7 @@ export default defineComponent({
       plain: true,
       disabled: isIncreaseActionDisabled.value,
       tabindex: -1,
+      'aria-label': tp(props.ariaIncreaseLabel),
       ...(!isIncreaseActionDisabled.value && { onClick: increaseCount }),
     }))
 
@@ -310,14 +306,14 @@ export default defineComponent({
       ...pick(props, ['color', 'textColor']),
       round: props.rounded,
       preset: props.flat ? 'secondary' : '',
-      borderColor: (props.outline && props.flat) ? buttonsColor() : '',
+      borderColor: (props.flat) ? buttonsColor() : '',
     }))
 
     const decreaseButtonProps = computed(() => ({
       ...buttonProps.value,
       icon: props.decreaseIcon,
       disabled: isDecreaseActionDisabled.value,
-      ariaLabel: tp(props.ariaDecreaseLabel),
+      'aria-label': tp(props.ariaDecreaseLabel),
       ...(!isDecreaseActionDisabled.value && { onClick: decreaseCount }),
     }))
 
@@ -325,7 +321,7 @@ export default defineComponent({
       ...buttonProps.value,
       icon: props.increaseIcon,
       disabled: isIncreaseActionDisabled.value,
-      ariaLabel: tp(props.ariaIncreaseLabel),
+      'aria-label': tp(props.ariaIncreaseLabel),
       ...(!isIncreaseActionDisabled.value && { onClick: increaseCount }),
     }))
 
@@ -341,18 +337,13 @@ export default defineComponent({
       readonly: props.readonly || !props.manualInput,
     }) as InputHTMLAttributes)
 
-    const inputWrapperPropsComputed = computed(() => ({
-      ...pick(props, ['color', 'readonly', 'disabled', 'messages', 'label', 'bordered', 'outline']),
-    }))
-
     const classComputed = computed(() => ([
       attrs.class,
       { 'va-counter--input-square': isSquareCorners.value },
       { 'va-counter--content-slot': slots.content && props.buttons },
-    ]))
+    ].filter(Boolean)))
 
     const styleComputed: ComputedRef<Partial<CSSStyleDeclaration>> = computed(() => ({
-      width: safeCSSLength(props.width),
       ...((attrs.style as Partial<CSSStyleDeclaration>) || {}),
     }))
 
@@ -368,8 +359,8 @@ export default defineComponent({
 
       fieldListeners: createFieldListeners(emit),
       inputListeners: createInputListeners(emit),
+      inputWrapperPropsComputed: filterComponentProps(VaInputWrapperProps),
       inputAttributesComputed,
-      inputWrapperPropsComputed,
       setCountInput,
       setCountChange,
 
@@ -397,6 +388,8 @@ export default defineComponent({
 @import "variables";
 
 .va-counter {
+  --va-input-wrapper-width: var(--va-form-element-default-width-small);
+
   &.va-input-wrapper {
     min-width: unset;
     flex: none;

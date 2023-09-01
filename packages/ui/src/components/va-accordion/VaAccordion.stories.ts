@@ -56,13 +56,13 @@ export const Stateful = () => ({
   components: { VaAccordion, VaCollapse },
   template: `
     <p>[true] - should open</p>
-    <va-accordion stateful>
+    <va-accordion>
       <va-collapse header="Collapse">
         Content
       </va-collapse>
     </va-accordion>
     <p>[false] - should not open</p>
-    <va-accordion>
+    <va-accordion :stateful="false">
       <va-collapse header="Collapse">
         Content
       </va-collapse>

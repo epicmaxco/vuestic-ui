@@ -1,46 +1,36 @@
 <template>
-  <div class="max-w-xs">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
     <va-select
       v-model="value"
-      class="mb-6"
-      placeholder="Default (solid)"
+      placeholder="Default (outline)"
       :options="options"
     />
     <va-select
       v-model="value"
-      class="mb-6"
-      placeholder="Outline"
+      placeholder="Solid"
       :options="options"
-      outline
+      preset="solid"
     />
     <va-select
       v-model="value"
-      class="mb-6"
       placeholder="Bordered"
       :options="options"
-      bordered
+      preset="bordered"
     />
     <va-select
       v-model="value"
-      class="mb-6"
-      label="Default (solid) (Purple color)"
+      placeholder="Colored"
+      label="Outer label"
       color="#990099"
       :options="options"
     />
     <va-select
       v-model="value"
-      class="mb-6"
-      label="Outline (Purple color)"
-      :options="options"
+      placeholder="Colored"
+      label="Inner label"
       color="#990099"
-      outline
-    />
-    <va-select
-      v-model="value"
-      label="Bordered (Purple color)"
       :options="options"
-      color="#990099"
-      bordered
+      inner-label
     />
   </div>
 </template>

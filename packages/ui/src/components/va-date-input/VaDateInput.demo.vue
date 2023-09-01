@@ -209,25 +209,26 @@
 import { VaDateInput } from './index'
 import { VaChip } from '../va-chip'
 import { VaButton } from '../va-button'
+import { getStaticDate } from '../../../.storybook/interaction-utils/addText'
 
 const datePlusDay = (date: Date, days: number) => {
   const d = new Date(date)
   d.setDate(d.getDate() + days)
   return d
 }
-const nextWeek = datePlusDay(new Date(), 7)
+const nextWeek = datePlusDay(getStaticDate(), 7)
 
 export default {
   components: { VaButton, VaDateInput, VaChip },
   data () {
     return {
-      value: new Date(),
-      range: { start: new Date(), end: nextWeek },
-      dates: [new Date(), nextWeek],
+      value: getStaticDate(),
+      range: { start: getStaticDate(), end: nextWeek },
+      dates: [getStaticDate(), nextWeek],
       dayView: { type: 'day', month: 3, year: 2013 },
-      string: new Date().toString(),
-      strings: [Date.now() + 1e9, new Date().toString()],
-      stringRange: { start: new Date().toString(), end: Date.now() + 1e9 },
+      string: getStaticDate().toString(),
+      strings: [getStaticDate().getTime() + 1e9, getStaticDate().toString()],
+      stringRange: { start: getStaticDate().toString(), end: getStaticDate().getTime() + 1e9 },
 
       validationRules1: [(value: Date) => {
         return !!value || 'Should be value'

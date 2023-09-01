@@ -66,9 +66,9 @@ export const Swipe = () => ({
   data: () => ({ items: getItems() }),
   template: `
     [true]
-    <VaCarousel :items="items" :swipable="true" />
+    <VaCarousel :items="items" swipable />
     [false]
-    <VaCarousel :items="items" :swipable="false" />
+    <VaCarousel :items="items" />
   `,
 })
 
@@ -77,9 +77,9 @@ export const Arrows = () => ({
   data: () => ({ items: getItems(), current: 0 }),
   template: `
     [true]
-    <VaCarousel :items="items" :indicators="false" v-model="current"/>
+    <VaCarousel :items="items" :indicators="false"/>
     [false]
-    <VaCarousel :items="items" :indicators="false" :arrows="false" v-model="current"/>
+    <VaCarousel :items="items" :indicators="false" :arrows="false"/>
   `,
 })
 
@@ -96,12 +96,12 @@ Arrows.play = async ({ canvasElement, step }) => {
 
 export const Indicators = () => ({
   components: { VaCarousel },
-  data: () => ({ items: getItems(), current: 0 }),
+  data: () => ({ items: getItems() }),
   template: `
     [true]
-    <VaCarousel :items="items" :arrows="false" v-model="current"/>
+    <VaCarousel :items="items" :arrows="false"/>
     [false]
-    <VaCarousel :items="items" :arrows="false" :indicators="false" v-model="current"/>
+    <VaCarousel :items="items" :arrows="false" :indicators="false"/>
   `,
 })
 
@@ -218,7 +218,7 @@ export const Autoscroll = () => ({
   components: { VaCarousel },
   data: () => ({ items: getItems() }),
   template: `
-    <VaCarousel :items="items" autoscroll :arrows="false" :indicators="false" :autoscrollInterval="500"/>
+    <VaCarousel :items="items" autoscroll :autoscrollInterval="500"/>
   `,
 })
 
@@ -241,7 +241,7 @@ export const Fade = () => ({
     [fade]
     <VaCarousel :items="items" effect="fade"/>
     [transition]
-    <VaCarousel :items="items" effect="transition"/>
+    <VaCarousel :items="items"/>
   `,
 })
 

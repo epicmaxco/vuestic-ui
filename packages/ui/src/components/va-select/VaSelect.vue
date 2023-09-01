@@ -4,14 +4,20 @@
     v-model="showDropdownContentComputed"
     class="va-select va-select__dropdown va-select-dropdown"
     v-bind="dropdownPropsComputed"
+    role="combobox"
   >
     <template #anchor>
       <va-input-wrapper
+        v-bind="inputWrapperPropsComputed"
         ref="input"
         class="va-select__anchor va-select-anchor__input"
+        aria-haspopup="listbox"
         :class="inputWrapperClassComputed"
         :model-value="valueString"
-        v-bind="inputWrapperPropsComputed"
+        :readonly="true"
+        :aria-label="$props.ariaLabel"
+        :aria-controls="popupId"
+        :aria-owns="popupId"
         @focus="onInputFocus"
         @blur="onInputBlur"
         @click="focusAutocompleteInput"
@@ -42,14 +48,18 @@
           <va-icon
             :color="toggleIconColor"
             :name="toggleIcon"
-            @click.stop="toggleDropdown"
+            size="small"
             class="va-select__toggle-icon"
+            role="button"
+            :tabindex="openSelectButtonTabIndexComputed"
+            :aria-expanded="showDropdownContentComputed"
           />
         </template>
 
-        <template #default>
+        <template #default="{ ariaAttributes }">
           <va-select-content
             v-bind="selectContentPropsComputed"
+            :ariaAttributes="ariaAttributes"
             @toggle-hidden="toggleHiddenOptionsState"
             @autocomplete-input="setAutocompleteValue"
             @focus-prev="focusPreviousOption"
@@ -73,8 +83,9 @@
       class="va-select-dropdown__content"
       :style="{ width: $props.width }"
       @keydown.esc="hideAndFocus"
+      role="dialog"
     >
-      <va-input
+      <va-input-wrapper
         v-if="showSearchInput"
         ref="searchBar"
         class="va-select-dropdown__content-search-input"
@@ -82,7 +93,7 @@
         :aria-label="tp($props.ariaSearchLabel)"
         :tabindex="tabIndexComputed"
         :placeholder="tp($props.searchPlaceholderText)"
-        bordered
+        preset="bordered"
         @keydown.up.stop.prevent="focusPreviousOption"
         @keydown.left.stop.prevent="focusPreviousOption"
         @keydown.down.stop.prevent="focusNextOption"
@@ -95,6 +106,7 @@
         class="va-select-dropdown__options-wrapper"
         v-model:hoveredOption="hoveredOption"
         :style="{ maxHeight: $props.maxHeight }"
+        :id="popupId"
         v-bind="optionsListPropsComputed"
         @select-option="selectHoveredOption"
         @no-previous-option-to-hover="focusSearchBar"
@@ -125,16 +137,12 @@ import {
   useTranslation,
   useBem,
   useThrottleProps,
-  useDropdownable, useDropdownableEmits, useDropdownableProps,
+  useDropdownable, useDropdownableEmits, useDropdownableProps, useSyncProp,
 } from '../../composables'
 
-import {
-  VaDropdown,
-  VaDropdownContent,
-  VaIcon,
-  VaInput,
-  VaInputWrapper,
-} from '../index'
+import { VaInputWrapper } from '../va-input-wrapper'
+import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaIcon } from '../va-icon'
 import { VaSelectOptionList } from './components/VaSelectOptionList'
 import { VaSelectContent } from './components/VaSelectContent'
 
@@ -142,6 +150,7 @@ import { useMaxVisibleOptions, useMaxVisibleOptionsProps } from './hooks/useMaxV
 import { useToggleIcon, useToggleIconProps } from './hooks/useToggleIcon'
 import { useStringValue, useStringValueProps } from './hooks/useStringValue'
 import { useAutocomplete, useAutocompleteProps } from './hooks/useAutocomplete'
+import { useSelectAria } from './hooks/useSelectAria'
 
 import { blurElement, focusElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
@@ -150,6 +159,9 @@ import { warn } from '../../utils/console'
 
 import type { SelectOption } from './types'
 import type { DropdownOffsetProp } from '../va-dropdown/types'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
+
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 
 export default defineComponent({
   name: 'VaSelect',
@@ -160,7 +172,6 @@ export default defineComponent({
     VaIcon,
     VaDropdown,
     VaDropdownContent,
-    VaInput,
     VaInputWrapper,
   },
 
@@ -169,12 +180,14 @@ export default defineComponent({
     'update-search',
     'create-new',
     'scroll-bottom',
+    'update:search',
     ...useDropdownableEmits,
     ...useValidationEmits,
     ...useClearableEmits,
   ],
 
   props: {
+    ...VaInputWrapperProps,
     ...useComponentPresetProp,
     ...useSelectableListProps,
     ...useValidationProps as ValidationProps<SelectOption>,
@@ -221,15 +234,14 @@ export default defineComponent({
     autoSelectFirstOption: { type: Boolean, default: false },
 
     // Input style
-    outline: { type: Boolean, default: false },
-    bordered: { type: Boolean, default: false },
-    label: { type: String, default: '' },
     placeholder: { type: String, default: '' },
     searchPlaceholderText: { type: String, default: '$t:search' },
-    requiredMark: { type: Boolean, default: false },
 
+    ariaLabel: { type: String, default: '$t:select' },
     ariaSearchLabel: { type: String, default: '$t:optionsFilter' },
     ariaClearLabel: { type: String, default: '$t:reset' },
+
+    search: { type: String, default: undefined },
   },
 
   setup (props, { emit, slots }) {
@@ -237,7 +249,7 @@ export default defineComponent({
 
     const optionList = shallowRef<typeof VaSelectOptionList>()
     const input = shallowRef<typeof VaInputWrapper>()
-    const searchBar = shallowRef<typeof VaInput>()
+    const searchBar = shallowRef<typeof VaInputWrapper>()
 
     const isInputFocused = useFocusDeep(input as any)
 
@@ -245,12 +257,14 @@ export default defineComponent({
 
     const onScrollBottom = () => emit('scroll-bottom')
 
-    const searchInput = ref('')
+    const [searchVModel] = useSyncProp('search', props, emit, '')
     const showSearchInput = computed(() => props.searchable || (props.allowCreate && !props.autocomplete))
 
-    watch(searchInput, (value) => {
+    watch(searchVModel, (value) => {
       emit('update-search', value)
-      hoveredOption.value = null
+      if (!props.autocomplete) {
+        hoveredOption.value = null
+      }
     })
 
     const getOptionByValue = (value: SelectOption): SelectOption => {
@@ -382,7 +396,7 @@ export default defineComponent({
       }
 
       if (showSearchInput.value) {
-        searchInput.value = ''
+        searchVModel.value = ''
       }
 
       if (props.multiple && isValueComputedArray(valueComputed)) {
@@ -407,13 +421,13 @@ export default defineComponent({
 
     const addNewOption = () => {
       // Do not emit if option already exist and allow create is `unique`
-      const hasAddedOption = props.options?.some((option: SelectOption) => [searchInput.value, autocompleteValue.value].includes(getText(option)))
+      const hasAddedOption = props.options?.some((option: SelectOption) => [searchVModel.value, autocompleteValue.value].includes(getText(option)))
 
       const allowedToCreateCheck = !((props.allowCreate === 'unique' || props.autocomplete) && hasAddedOption)
       if (allowedToCreateCheck) {
-        emit('create-new', searchInput.value || autocompleteValue.value)
+        emit('create-new', searchVModel.value || autocompleteValue.value)
 
-        searchInput.value = ''
+        searchVModel.value = ''
         autocompleteValue.value = ''
       }
     }
@@ -435,7 +449,7 @@ export default defineComponent({
     }
 
     const selectOrAddOption = () => {
-      const allowedToCreate = !!props.allowCreate && (searchInput.value || autocompleteValue.value)
+      const allowedToCreate = !!props.allowCreate && (searchVModel.value || autocompleteValue.value)
 
       if (hoveredOption.value !== null) {
         selectHoveredOption()
@@ -462,7 +476,6 @@ export default defineComponent({
       keepAnchorWidth: true,
       keyboardNavigation: true,
       innerAnchorSelector: '.va-input-wrapper__field',
-      'aria-label': props.ariaLabel || (props.modelValue ? `${t('selectedOption')}: ${props.modelValue}` : t('noSelectedOption')),
     }))
 
     const showDropdownContentComputed = computed({
@@ -482,9 +495,11 @@ export default defineComponent({
 
     const handleDropdownClose = () => {
       isOpenSync.value = false
-      searchInput.value = ''
-      validate()
+      if (!props.autocomplete) {
+        searchVModel.value = ''
+      }
       nextTick(() => {
+        validate()
         isInputFocused.focusIfNothingIfFocused()
       })
     }
@@ -503,13 +518,15 @@ export default defineComponent({
       !props.modelValue && optionList.value?.focusFirstOption()
     }
 
-    const focusSearchOrOptions = () => nextTick(() => {
+    const focusSearchOrOptions = async () => {
+      await nextTick()
+
       if (showSearchInput.value) {
         focusSearchBar()
       } else {
         focusOptionList()
       }
-    })
+    }
 
     const onInputBlur = () => {
       if (showDropdownContentComputed.value) { return }
@@ -522,7 +539,7 @@ export default defineComponent({
     }
 
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
-    const inputWrapperTabIndexComputed = computed(() => props.disabled || props.autocomplete ? -1 : 0)
+    const openSelectButtonTabIndexComputed = computed(() => props.disabled || props.autocomplete ? -1 : 0)
 
     const scrollToSelected = () => {
       const selected = valueComputed.value
@@ -561,7 +578,7 @@ export default defineComponent({
       }
 
       if (showSearchInput.value) {
-        searchInput.value = hintedSearchQuery
+        searchVModel.value = hintedSearchQuery
         return
       }
 
@@ -579,7 +596,7 @@ export default defineComponent({
     const optionsListPropsComputed = computed(() => ({
       ...pick(props, ['textBy', 'trackBy', 'groupBy', 'valueBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'delay', 'selectedTopShown']),
       autoSelectFirstOption: props.autoSelectFirstOption || props.autocomplete,
-      search: searchInput.value || autocompleteValue.value,
+      search: searchVModel.value || autocompleteValue.value,
       tabindex: tabIndexComputed.value,
       selectedValue: valueComputed.value,
       options: filteredOptions.value,
@@ -594,12 +611,13 @@ export default defineComponent({
     const inputWrapperClassComputed = useBem('va-select-anchor', () => ({
       nowrap: !!(props.maxVisibleOptions && !slots.content),
     }))
+    const vaInputWrapperProps = filterComponentProps(VaInputWrapperProps)
     const inputWrapperPropsComputed = computed(() => ({
-      ...pick(props, ['messages', 'requiredMark', 'bordered', 'outline', 'label', 'color', 'success', 'readonly', 'disabled', 'error', 'loading']),
+      ...vaInputWrapperProps.value,
       error: computedError.value,
       errorMessages: computedErrorMessages.value,
       focused: isFocused.value,
-      tabindex: inputWrapperTabIndexComputed.value,
+      'aria-label': props.ariaLabel || (props.modelValue ? `${t('selectedOption')}: ${props.modelValue}` : t('noSelectedOption')),
     }))
 
     // select content
@@ -616,7 +634,7 @@ export default defineComponent({
     }))
 
     // autocomplete
-    const autocompleteValue = useAutocomplete(props, visibleSelectedOptions, isOpenSync, getText)
+    const autocompleteValue = useAutocomplete(searchVModel, props, visibleSelectedOptions, isOpenSync, getText)
     const setAutocompleteValue = (v: string) => (autocompleteValue.value = v)
 
     // public methods
@@ -643,7 +661,7 @@ export default defineComponent({
         valueComputed.value = props.clearValue
       }
 
-      searchInput.value = ''
+      searchVModel.value = ''
       emit('clear')
       resetValidation()
       nextTick(() => {
@@ -683,6 +701,7 @@ export default defineComponent({
     } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
     return {
+      ...useSelectAria(),
       input,
       optionList,
       searchBar,
@@ -702,7 +721,7 @@ export default defineComponent({
       onInputBlur,
       focusOptionList,
       focusSearchBar,
-      searchInput,
+      searchInput: searchVModel,
       showSearchInput,
       hoveredOption,
       tabIndexComputed,
@@ -731,6 +750,7 @@ export default defineComponent({
       inputWrapperPropsComputed,
       inputWrapperClassComputed,
       selectContentPropsComputed,
+      openSelectButtonTabIndexComputed,
 
       // for e2e tests
       getOptionByValue,
@@ -768,11 +788,8 @@ export default defineComponent({
 .va-select-dropdown {
   &__content {
     overflow: hidden;
-    border-bottom-right-radius: var(--va-select-dropdown-border-radius);
-    border-bottom-left-radius: var(--va-select-dropdown-border-radius);
     border-top-right-radius: 0;
     border-top-left-radius: 0;
-    box-shadow: var(--va-select-box-shadow);
     padding: 0;
   }
 

@@ -7,20 +7,15 @@
       v-for="(group, idx) in items"
       :key="idx"
       :header="group.title"
-      text-color="textPrimary"
-      color="textInverted"
-      flat
     >
-      <div class="pt-0 px-4 pb-3">
-        <router-link
-          v-for="(navItem, idx) in group.items"
-          :key="idx"
-          class="nav-item"
-          :to="navItem.to"
-        >
-          {{ navItem.label }}
-        </router-link>
-      </div>
+      <router-link
+        v-for="(navItem, idx) in group.items"
+        :key="idx"
+        class="nav-item"
+        :to="navItem.to"
+      >
+        {{ navItem.label }}
+      </router-link>
     </va-collapse>
   </va-accordion>
 </template>
@@ -60,18 +55,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.va-collapse + .va-collapse {
-  border-top: 1px solid var(--va-background-element);
-}
-
 .nav-item {
-  padding: 0.5rem;
   display: flex;
   flex-direction: column;
+  padding: var(--va-collapse-padding);
   transition: all 0.2s ease-in;
 
   &:hover {
-    background-color: #c0c0c0;
+    background-color: var(--va-background-element);
   }
 }
 </style>

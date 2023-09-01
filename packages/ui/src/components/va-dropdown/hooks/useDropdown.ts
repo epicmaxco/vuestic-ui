@@ -74,7 +74,9 @@ export const useDropdown = (
             const reference = elements.reference
             const availableWidth = reference.getBoundingClientRect().width
             Object.assign(elements.floating.style, {
+              // Don't set width here, because some plugin applies width 100% and it breaks layout
               maxWidth: `${availableWidth}px`,
+              minWidth: `${availableWidth}px`,
             })
           }
 

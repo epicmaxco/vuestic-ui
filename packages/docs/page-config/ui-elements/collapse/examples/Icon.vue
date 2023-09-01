@@ -5,7 +5,9 @@
     header="Collapse header"
     icon="home"
   >
-    <div>Collapse content</div>
+    <template #content>
+      Collapse content
+    </template>
   </va-collapse>
 </template>
 

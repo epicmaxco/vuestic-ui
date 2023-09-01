@@ -1,33 +1,5 @@
 :root,
 :host {
-  --va-input-color: var(--va-background-element);
-  --va-input-scroll-color: var(--va-background-secondary, #e1e9f8);
-  --va-input-bordered-color: var(--va-background-border, #e1e9f8);
-  --va-input-border-width: 1px;
-  --va-input-border-radius: 4px;
-  --va-input-min-height: 36px;
-  --va-input-cursor: text;
-  --va-input-opacity: 0.1;
-
-  /* MessageList */
-  --va-message-list-margin-top: 4px;
-  --va-message-list-vertical-align: middle;
-  --va-message-list-color: var(--va-secondary);
-  --va-message-list-font-size: 13px;
-  --va-message-list-line-height: 16px;
-  --va-message-list-icon-font-size: 16px;
-  --va-message-list-icon-margin-right: 4px;
-
-  /* Success */
-  --va-input-success-color: var(--va-success);
-
-  /* Error */
-  --va-input-error-color: var(--va-danger);
-
-  /* Content Wrapper */
-  --va-input-content-horizontal-padding: 12px;
-  --va-input-content-items-gap: 6px;
-
   /* Input&Textarea */
   --va-input-line-height: 20px;
   --va-input-font-size: 1rem;
@@ -36,13 +8,4 @@
   --va-input-font-stretch: normal;
   --va-input-letter-spacing: normal;
   --va-input-disabled-opacity: 0.4;
-
-  /* Label */
-  --va-input-container-label-max-width: calc(100% - 0.75rem);
-  --va-input-container-label-font-size: 0.6rem;
-  --va-input-container-label-letter-spacing: 0.0375rem;
-  --va-input-container-label-line-height: 1.2;
-  --va-input-container-label-font-weight: 700;
-  --va-input-container-label-text-transform: uppercase;
-  --va-input-container-label-transform-origin: top left;
 }

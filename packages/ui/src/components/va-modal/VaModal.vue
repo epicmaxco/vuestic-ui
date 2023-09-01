@@ -203,6 +203,8 @@ export default defineComponent({
     backgroundColor: { type: String, default: 'background-secondary' },
     noPadding: { type: Boolean, default: false },
     beforeClose: { type: Function as PropType<(hide: () => void) => any> },
+    beforeOk: { type: Function as PropType<(hide: () => void) => any> },
+    beforeCancel: { type: Function as PropType<(hide: () => void) => any> },
     ariaCloseLabel: { type: String, default: '$t:close' },
   },
   setup (props, { emit }) {
@@ -257,8 +259,18 @@ export default defineComponent({
       props.beforeClose ? props.beforeClose(_hide) : _hide()
     }
     const toggle = () => { valueComputed.value = !valueComputed.value }
-    const cancel = () => { hide(() => emit('cancel')) }
-    const ok = () => { hide(() => emit('ok')) }
+    const cancel = () => {
+      const _hide = () => {
+        hide(() => emit('cancel'))
+      }
+      props.beforeCancel ? props.beforeCancel(_hide) : _hide()
+    }
+    const ok = () => {
+      const _hide = () => {
+        hide(() => emit('ok'))
+      }
+      props.beforeOk ? props.beforeOk(_hide) : _hide()
+    }
     const trapFocusInModal = () => {
       nextTick(() => { // trapFocusIn use querySelector, so need nextTick, to be sure, that DOM has been updated after modal has been opened
         if (modalDialog.value) {

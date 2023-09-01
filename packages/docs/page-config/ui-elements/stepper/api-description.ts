@@ -9,7 +9,8 @@ export default defineApiDescription({
     controlsHidden: "Removes 'Back' and 'Next' buttons.",
     vertical: "Changes stepper orientation to vertical.",
     finishButtonHidden: "Hides 'Finish' button",
-    ariaLabel: "The aria-label of the component"
+    ariaLabel: "The aria-label of the component",
+    linear: "Requires that each step must be manually marked as complete",
   },
   events: {
     finish: "Emits when 'Finish' button is getting pressed"

@@ -1,10 +1,9 @@
 <template>
-  <div class="flex mb-6">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
     <va-time-input
       v-model="value"
       manual-input
       :messages="['Hello world']"
-      class="mr-3"
     />
     <va-time-input
       v-model="value"
@@ -12,15 +11,11 @@
       :messages="['Hello world']"
       manual-input
     />
-  </div>
-
-  <div class="flex">
     <va-time-input
       v-model="value"
       error
       :error-messages="['Bye world!']"
       manual-input
-      class="mr-3"
     />
     <va-time-input
       v-model="value"

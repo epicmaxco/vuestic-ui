@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import { inject as vueInject } from 'vue'
+import { getCurrentInstance, inject as vueInject } from 'vue'
 import { throwError } from '../utils/console'
 
 /**
@@ -28,9 +28,14 @@ export const setCurrentApp = (newApp: App | null) => {
 export const getCurrentApp = () => currentApp
 
 /** Wrapper around vue inject, so it can be used in plugins */
-export const inject = ((key: string, value?: any) => {
+export const inject = ((key: string, value: any = undefined) => {
   const injectedFromApp = getCurrentApp()?._context.provides[key]
+  const vm = getCurrentInstance()
+
+  if (vm) {
+    return vueInject(key, value)
+  }
 
   // In case user in single app mode, we allow him to use composables outside of setup function
-  return injectedFromApp ?? vueInject(key, value) ?? throwError('You\'re using Vuestic composable outside Vue app. Since you registered Vuestic in multiple apps, composables can not be used outside setup function anymore.')
+  return injectedFromApp ?? throwError('You\'re using Vuestic composable outside Vue app. Since you registered Vuestic in multiple apps, composables can not be used outside setup function anymore.')
 }) as unknown as typeof vueInject

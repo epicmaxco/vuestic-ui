@@ -75,6 +75,14 @@ export const useColors = () => {
       defaultColor = getColors().primary
     }
 
+    if (prop === 'transparent') {
+      return '#ffffff00'
+    }
+
+    if (prop === 'currentColor') {
+      return prop
+    }
+
     const colors = getColors()
 
     if (!prop) {
@@ -133,11 +141,11 @@ export const useColors = () => {
   }
 
   const computedDarkColor = computed(() => {
-    return getColorLightnessFromCache(getColor('textPrimary')) > globalConfig.value.colors.threshold ? 'textInverted' : 'textPrimary'
+    return getColorLightnessFromCache(getColor('textPrimary')) > (255 / 2) ? 'textInverted' : 'textPrimary'
   })
 
   const computedLightColor = computed(() => {
-    return getColorLightnessFromCache(getColor('textPrimary')) > globalConfig.value.colors.threshold ? 'textPrimary' : 'textInverted'
+    return getColorLightnessFromCache(getColor('textPrimary')) > (255 / 2) ? 'textPrimary' : 'textInverted'
   })
 
   const getTextColor = (color: ColorInput, darkColor?: string, lightColor?: string) => {
