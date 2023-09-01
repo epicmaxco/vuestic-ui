@@ -5,7 +5,7 @@
       buttons
       rounded
       :flat="false"
-      width="220px"
+      style="width: 220px"
     >
       <template #content="{ value }">
         <VaChip icon="done">
@@ -17,7 +17,7 @@
     <va-counter
       v-model="value"
       buttons
-      width="360px"
+      style="width: 360px"
     >
       <template #decreaseAction>
         <va-button-group>

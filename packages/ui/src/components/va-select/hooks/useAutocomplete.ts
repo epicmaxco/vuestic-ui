@@ -1,4 +1,4 @@
-import { ref, watch, type Ref, type ExtractPropTypes } from 'vue'
+import { ref, watch, type Ref, type ExtractPropTypes, onMounted } from 'vue'
 
 import type { SelectOption } from '../types'
 
@@ -9,14 +9,13 @@ export const useAutocompleteProps = {
 type UseAutocompleteProps = ExtractPropTypes<typeof useAutocompleteProps> & { multiple: boolean }
 
 export const useAutocomplete = (
+  autocompleteValue: Ref<string>,
   props: UseAutocompleteProps,
   value: Ref<SelectOption[]>,
   dropdownShown: Ref<boolean>,
   getText: (option: SelectOption) => string,
 ) => {
   const getLastOptionText = (v: SelectOption[]) => v?.length ? getText(v.at(-1)!) : ''
-
-  const autocompleteValue = ref('')
 
   watch(value, (newValue, oldValue) => {
     if (!props.autocomplete) { return }

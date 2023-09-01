@@ -13,8 +13,9 @@ export default defineApiDescription({
     input: "Emits when collapse is clicked"
   },
   slots: {
-    default: "Collapsable content of the component",
+    default: "Body of collapse (without paddings)",
     header: "Replaces the whole component's header block",
-    headerContent: "Replaces component's header block inner content"
+    headerContent: "Replaces component's header block inner content",
+    content: "Replaces component's content block (with paddings)"
   }
 });

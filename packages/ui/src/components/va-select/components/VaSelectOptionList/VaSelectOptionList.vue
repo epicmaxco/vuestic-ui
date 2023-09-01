@@ -10,6 +10,8 @@
     @keydown.enter.stop.prevent="selectHoveredOption"
     @keydown.space.stop.prevent="selectHoveredOption"
     @scroll.passive="onScroll"
+    role="listbox"
+    :aria-multiselectable="$props.multiple"
   >
     <template
       v-for="(options, groupName) in optionGroups"
@@ -18,6 +20,7 @@
       <span
         v-if="groupName !== '_noGroup'"
         class="va-select-option-list__group-name"
+        role="presentation"
       >
         {{ groupName }}
       </span>

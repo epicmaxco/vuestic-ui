@@ -2,19 +2,22 @@
   <header
     ref="scrollRoot"
     class="va-navbar"
+    :class="bemClasses"
     :style="computedStyle"
   >
-    <div class="va-navbar__left">
-      <slot name="left" />
-    </div>
+    <slot>
+      <div class="va-navbar__left">
+        <slot name="left" />
+      </div>
 
-    <div class="va-navbar__center">
-      <slot />
-    </div>
+      <div class="va-navbar__center">
+        <slot name="center" />
+      </div>
 
-    <div class="va-navbar__right">
-      <slot name="right" />
-    </div>
+      <div class="va-navbar__right">
+        <slot name="right" />
+      </div>
+    </slot>
 
     <div
       v-if="shape"
@@ -34,6 +37,7 @@ import {
   useTextColor,
   useFixedBarProps,
   useComponentPresetProp,
+  useBem,
 } from '../../composables'
 
 const props = defineProps({
@@ -42,8 +46,9 @@ const props = defineProps({
   color: { type: String, default: 'background-secondary' },
   textColor: { type: String },
   shape: { type: Boolean, default: false },
+  shadowed: { type: Boolean, default: false },
+  bordered: { type: Boolean, default: false },
 })
-
 const { scrollRoot, isScrolledDown } = setupScroll(props.fixed)
 const { fixedBarStyleComputed } = useFixedBar(props, isScrolledDown)
 
@@ -60,6 +65,11 @@ const computedStyle = computed(() => ({
   backgroundColor: color.value,
   color: textColorComputed.value,
   fill: textColorComputed.value,
+}))
+
+const bemClasses = useBem('va-navbar', () => ({
+  shadowed: props.shadowed,
+  bordered: props.bordered,
 }))
 </script>
 
@@ -92,11 +102,6 @@ const computedStyle = computed(() => ({
       &:last-child {
         margin-right: 0;
       }
-    }
-
-    @include media-breakpoint-down(sm) {
-      justify-content: center;
-      align-items: center;
     }
   }
 
@@ -131,11 +136,6 @@ const computedStyle = computed(() => ({
         margin-right: 0;
       }
     }
-
-    @include media-breakpoint-down(sm) {
-      justify-content: center;
-      align-items: center;
-    }
   }
 
   &__background-shape {
@@ -154,19 +154,17 @@ const computedStyle = computed(() => ({
   }
 
   @include media-breakpoint-down(sm) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: var(--va-navbar-mobile-height);
-    padding: var(--va-navbar-sm-padding);
-
-    & > * {
-      width: 100%;
-    }
-
     &__background-shape {
       display: none;
     }
+  }
+
+  &--shadowed {
+    box-shadow: 0 2px 8px var(--va-shadow);
+  }
+
+  &--bordered {
+    border-bottom: var(--va-background-border);
   }
 }
 </style>

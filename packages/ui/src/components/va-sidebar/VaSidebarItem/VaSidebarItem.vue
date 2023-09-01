@@ -95,7 +95,7 @@ const bg = getColor(sidebar?.color)
 @import "../variables";
 @import "../../../styles/resources";
 
-.va-sidebar__item {
+.va-sidebar-item {
   border-left: var(--va-sidebar-item-active-border-size) solid transparent;
   padding-right: var(--va-sidebar-item-active-border-size);
   display: inline-block;
@@ -104,5 +104,6 @@ const bg = getColor(sidebar?.color)
   transition: var(--va-sidebar-item-transition);
   box-sizing: border-box;
   color: currentColor;
+  cursor: pointer;
 }
 </style>

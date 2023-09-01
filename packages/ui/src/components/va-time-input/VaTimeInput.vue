@@ -97,13 +97,13 @@ import {
   useFocus, useFocusEmits,
   useStateful, useStatefulEmits, useStatefulProps,
   useTranslation,
-  useDropdownable, useDropdownableProps, useDropdownableEmits,
+  useDropdownable, useDropdownableProps, useDropdownableEmits, useLongPressKey,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
 
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
-import { VaInputWrapper } from '../va-input'
+import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 
@@ -124,17 +124,17 @@ export default defineComponent({
   ],
 
   props: {
+    ...VaInputWrapperProps,
     ...useDropdownableProps,
     ...useComponentPresetProp,
     ...useClearableProps,
-    ...VaInputWrapperProps,
     ...extractComponentProps(VaTimePicker),
     ...useValidationProps as ValidationProps<Date>,
     ...useStatefulProps,
 
     closeOnContentClick: { type: Boolean, default: false },
     offset: { ...useDropdownableProps.offset, default: () => [2, 0] },
-    placement: { ...useDropdownableProps.placement, default: 'bottom-start' },
+    placement: { ...useDropdownableProps.placement, default: 'bottom-end' },
     modelValue: { type: Date, default: undefined },
     clearValue: { type: Date, default: undefined },
     format: { type: Function as PropType<(date?: Date) => string> },
@@ -253,7 +253,31 @@ export default defineComponent({
       readonly: props.readonly || !props.manualInput,
     }))
 
-    const computedInputListeners = computed(() => ({
+    const viewToNumber = {
+      seconds: 1000,
+      minutes: 1000 * 60,
+      hours: 1000 * 60 * 60,
+    }
+
+    const onKeyPress = (e: KeyboardEvent | FocusEvent) => {
+      if (!('key' in e)) { return }
+
+      if (e.key === 'ArrowDown') {
+        valueComputed.value = new Date(Number(valueComputed.value) - viewToNumber[props.view])
+      }
+      if (e.key === 'ArrowUp') {
+        valueComputed.value = new Date(Number(valueComputed.value) + viewToNumber[props.view])
+      }
+
+      e.preventDefault()
+    }
+
+    useLongPressKey(input, {
+      onStart: onKeyPress,
+      onUpdate: onKeyPress,
+    })
+
+    const computedInputListeners = ({
       focus: () => {
         if (props.disabled) { return }
 
@@ -272,7 +296,7 @@ export default defineComponent({
         onBlur()
         listeners.onBlur()
       },
-    }))
+    })
 
     const filteredSlots = computed(() => {
       const slotsWithIcons = [
@@ -319,7 +343,7 @@ export default defineComponent({
       'aria-hidden': false,
       size: 'small',
       name: props.icon,
-      color: props.color,
+      color: 'secondary',
       tabindex: iconTabindexComputed.value,
     }))
 
@@ -380,12 +404,4 @@ export default defineComponent({
 
 <style lang="scss">
 @import "variables";
-
-.va-time-input {
-  min-width: var(--va-time-input-min-width);
-
-  &__anchor {
-    flex: 1;
-  }
-}
 </style>

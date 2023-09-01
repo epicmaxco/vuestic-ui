@@ -15,10 +15,6 @@ export default definePageConfig({
       description: "By default navbar uses `secondary` color. You can pass `color` props to change navbar background color. Also, description color depends on navbar background color. But you can pass own color if you want."
     }),
     block.example("Height", { title: "Height" }),
-    block.example("Shape", {
-      title: "Shape",
-      description: "You can add the shape to navbar background. Shape color will be taken automatic from `color` prop."
-    }),
 
     block.subtitle("API"),
     block.api("VaNavbar", {

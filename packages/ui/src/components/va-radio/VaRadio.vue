@@ -6,60 +6,69 @@
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
-    :role="roleComputed"
     @blur="onBlur"
-    ref="container"
+
+    #default="{ ariaAttributes }"
   >
-    <label
-      v-for="(option, index) in computedOptions"
-      :key="index"
-      :class="radioClass(option)"
-      class="va-radio va-radio__square"
+    <div
+      ref="container"
+      class="va-radio"
+      :role="roleComputed"
+      v-bind="ariaAttributes"
     >
-      <input
-        ref="input"
-        class="va-radio__input"
-        type="radio"
-        role="radio"
-        :value="isChecked(option)"
-        :checked="isChecked(option)"
-        :aria-checked="isChecked(option)"
-        v-bind="inputAttributesComputed(option)"
-        @change="selectOption(getValue(option), $event)"
-        @focus="onFocus"
-        @blur="onBlur"
-      />
-
-      <slot name="icon" v-bind="{
-        value: isChecked(option),
-        text: getText(option),
-        disabled: getDisabled(option),
-      }">
-        <span
-          aria-hidden="true"
-          class="va-radio__icon"
-        >
-          <span
-            class="va-radio__icon__background"
-          />
-          <span class="va-radio__icon__dot" />
-        </span>
-      </slot>
-
-      <span
-        v-if="getText(option) || $slots.default"
-        ref="label"
-        class="va-radio__text"
+      <label
+        v-for="(option, index) in computedOptions"
+        :key="index"
+        :class="radioClass(option)"
+        class="va-radio__square"
       >
-         <slot v-bind="{
+        <input
+          ref="input"
+          class="va-radio__input"
+          type="radio"
+          role="radio"
+          :value="isChecked(option)"
+          :checked="isChecked(option)"
+          :aria-checked="isChecked(option)"
+          v-bind="{ ...inputAttributesComputed(option), ...ariaAttributes }"
+          @change="selectOption(getValue(option), $event)"
+          @focus="onFocus"
+          @blur="onBlur"
+        />
+
+        <slot name="icon" v-bind="{
           value: isChecked(option),
           text: getText(option),
           disabled: getDisabled(option),
+          index,
         }">
-          {{ getText(option) }}
+          <span
+            aria-hidden="true"
+            class="va-radio__icon"
+          >
+            <span
+              class="va-radio__icon__background"
+            />
+            <span class="va-radio__icon__dot" />
+          </span>
         </slot>
-      </span>
-    </label>
+
+        <div
+          v-if="getText(option) || $slots.default"
+          ref="label"
+          class="va-radio__text"
+        >
+          <slot v-bind="{
+            value: isChecked(option),
+            text: getText(option),
+            disabled: getDisabled(option),
+            index,
+          }">
+            {{ getText(option) }}
+          </slot>
+        </div>
+      </label>
+    </div>
   </VaMessageListWrapper>
 </template>
 
@@ -77,7 +86,7 @@ import {
   useSelectableList,
   useSelectableListProps,
 } from '../../composables'
-import { VaMessageListWrapper } from '../va-input'
+import { VaMessageListWrapper } from '../va-message-list'
 import type { VaRadioOption } from './types'
 
 const props = defineProps({
@@ -86,8 +95,8 @@ const props = defineProps({
   ...useSelectableListProps,
   modelValue: {
     type: [Boolean, Array, String, Object, Number] as PropType<
-        VaRadioOption['value']
-      >,
+      VaRadioOption['value']
+    >,
     default: null,
   },
   options: {
@@ -102,10 +111,10 @@ const props = defineProps({
     type: [Object, String, Number] as PropType<VaRadioOption>,
     default: undefined,
   },
+  vertical: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(useSelectableEmits)
-
 const { getColor } = useColors()
 const elements: Elements = {
   container: shallowRef<HTMLElement>(),
@@ -212,11 +221,10 @@ const inputAttributesComputed = (option: any) => {
     disabled: disabled,
     readonly: props.readonly,
     tabindex: disabled ? -1 : 0,
-    'aria-disabled': disabled,
-    'aria-readOnly': props.readonly,
-    ...validationAriaAttributes.value,
   }
 }
+
+const flexDirection = computed(() => props.vertical ? 'column' : 'row')
 
 const roleComputed = computed(() => props.options?.length > 0 ? 'radiogroup' : '')
 </script>
@@ -226,15 +234,23 @@ const roleComputed = computed(() => props.options?.length > 0 ? 'radiogroup' : '
 @import "variables";
 
 .va-radio {
-  display: var(--va-radio-display);
-  align-items: center;
-  cursor: var(--va-radio-cursor);
-  position: var(--va-radio-position);
-  margin-top: var(--va-radio-margin-top);
-  margin-right: var(--va-radio-margin-right);
-  transition: var(--va-radio-transition, var(--va-swing-transition));
-  font-family: var(--va-font-family);
-  color: v-bind("labelStyle.color");
+  display: flex;
+  width: max-content;
+  flex-direction: v-bind(flexDirection);
+  gap: var(--va-radio-gap);
+
+  &__square {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    cursor: var(--va-radio-cursor);
+    position: var(--va-radio-position);
+    margin-top: var(--va-radio-margin-top);
+    margin-right: var(--va-radio-margin-right);
+    transition: var(--va-radio-transition, var(--va-swing-transition));
+    font-family: var(--va-font-family);
+    color: v-bind("labelStyle.color");
+  }
 
   & + & {
     margin-top: 0.5rem;
@@ -262,6 +278,10 @@ const roleComputed = computed(() => props.options?.length > 0 ? 'radiogroup' : '
     flex-direction: row-reverse;
     display: inline-flex;
     align-items: center;
+
+    &.va-radio__square {
+      justify-content: space-between;
+    }
   }
 
   &__input {
@@ -276,6 +296,7 @@ const roleComputed = computed(() => props.options?.length > 0 ? 'radiogroup' : '
     height: var(--va-radio-icon-height);
     border-color: v-bind("iconComputedStyles.borderColor");
     border-radius: var(--va-radio-icon-border-radius);
+    background: var(--va-radio-background);
     position: relative;
     border: var(--va-radio-icon-border);
     box-sizing: border-box;
@@ -325,11 +346,11 @@ const roleComputed = computed(() => props.options?.length > 0 ? 'radiogroup' : '
       opacity: var(--va-radio-background-opacity);
       background-color: v-bind('iconBackgroundComputedStyles.backgroundColor');
 
-      .va-radio:hover & {
+      .va-radio__square:hover & {
         opacity: 0.2;
       }
 
-      .va-radio--disabled:hover & {
+      .va-radio--disabled .va-radio__square:hover & {
         opacity: 0;
       }
     }
@@ -339,6 +360,7 @@ const roleComputed = computed(() => props.options?.length > 0 ? 'radiogroup' : '
     display: var(--va-radio-text-display);
     margin-left: var(--va-radio-text-margin-left);
     margin-right: var(--va-radio-text-margin-right);
+    white-space: nowrap;
 
     .va-radio--disabled & {
       @include va-disabled;

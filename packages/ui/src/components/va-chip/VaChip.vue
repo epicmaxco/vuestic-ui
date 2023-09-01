@@ -89,12 +89,11 @@ const props = defineProps({
 })
 
 const emit = defineEmits([...useStatefulEmits, 'focus'])
-
 const { getColor } = useColors()
 const colorComputed = computed(() => getColor(props.color))
 const borderColor = computed(() => props.outline ? colorComputed.value : '')
 const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
-const { textColorComputed } = useTextColor(toRef(props, 'color'), isTransparentBackground)
+const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
 const size = {
   small: '0.875rem',
   medium: '1rem',
@@ -113,6 +112,8 @@ const { valueComputed } = useStateful(props, emit)
 const { tagComputed, hrefComputed } = useRouterLink(props)
 const { isHovered, onMouseEnter, onMouseLeave } = useHover()
 
+const { tp } = useTranslation()
+
 const close = () => {
   if (!props.disabled) {
     valueComputed.value = false
@@ -120,6 +121,7 @@ const close = () => {
 }
 
 const iconSize = computed(() => size[props.size])
+
 const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
 const computedClass = useBem('va-chip', () => ({
@@ -148,8 +150,6 @@ const computedStyle = computed(() => {
 
   return result
 })
-
-const { tp } = useTranslation()
 </script>
 
 <style lang="scss">

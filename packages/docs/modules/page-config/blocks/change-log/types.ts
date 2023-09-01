@@ -1,0 +1,1 @@
+export type ChangeLog = Record<`${number}.${number}.${number}`, string[]>

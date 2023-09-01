@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-xs">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
     <va-select
       v-model="value"
       class="mb-6"
@@ -21,13 +21,7 @@
       :options="options"
       loading
     />
-    <va-select
-      v-model="value"
-      class="mb-6"
-      label="Error state"
-      :options="options"
-      error
-    />
+    <div />
     <va-select
       v-model="value"
       class="mb-6"
@@ -35,13 +29,6 @@
       :options="options"
       error
       :error-messages="['Error message']"
-    />
-    <va-select
-      v-model="value"
-      class="mb-6"
-      label="Success state"
-      :options="options"
-      success
     />
     <va-select
       v-model="value"

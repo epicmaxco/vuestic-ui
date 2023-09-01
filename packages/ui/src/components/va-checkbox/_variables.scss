@@ -8,12 +8,12 @@
   --va-checkbox-label-display: inline-block;
   --va-checkbox-font-size: 15px;
   --va-checkbox-line-height: 20px;
+  --va-checkbox-background: transparent;
 
   /* Square */
   --va-checkbox-square-width: 1.25rem;
   --va-checkbox-square-min-width: 1.25rem;
   --va-checkbox-square-height: 1.25rem;
-  --va-checkbox-square-background-color: transparent;
-  --va-checkbox-square-border: solid 0.0625rem var(--va-background-border);
-  --va-checkbox-square-border-radius: 0.125rem;
+  --va-checkbox-square-border: solid var(--va-form-element-border-width) var(--va-background-border);
+  --va-checkbox-square-border-radius: calc(var(--va-form-element-border-radius) / 2);
 }

@@ -1,11 +1,10 @@
 <template>
   <div class="va-color-input">
     <va-input
-      class="va-color-input__input"
-      placeholder="input color"
+      v-bind="vaInputProps"
       v-model="valueComputed"
+      class="va-color-input__input"
       :tabindex="tabIndexComputed"
-      :disabled="$props.disabled"
     >
       <template #appendInner>
         <va-color-indicator
@@ -16,6 +15,7 @@
           :tabindex="tabIndexComputed"
           :color="valueComputed"
           :indicator="$props.indicator"
+          size="16px"
           @click="callPickerDialog"
           @keydown.space="callPickerDialog"
           @keydown.enter="callPickerDialog"
@@ -33,16 +33,22 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
 import { shallowRef, computed, PropType } from 'vue'
 
 import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits, useTranslation } from '../../composables'
 
 import { VaColorIndicator } from '../va-color-indicator'
 import { VaInput } from '../va-input'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import throttle from 'lodash/throttle'
 
+const VaInputPropsDeclaration = extractComponentProps(VaInput)
+</script>
+
+<script lang="ts" setup>
 const props = defineProps({
+  ...VaInputPropsDeclaration,
   ...useStatefulProps,
   ...useComponentPresetProp,
   modelValue: { type: String, default: null },
@@ -56,7 +62,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits([...useStatefulEmits])
-
 const colorPicker = shallowRef<HTMLInputElement>()
 
 const { valueComputed } = useStateful(props, emit)
@@ -65,12 +70,14 @@ const callPickerDialog = () => !props.disabled && colorPicker.value?.click()
 
 const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
-const { tp } = useTranslation()
-
 const inputValue = computed({
   get: () => props.modelValue,
   set: throttle((value) => emit('update:modelValue', value), 500),
 })
+
+const { tp } = useTranslation()
+
+const vaInputProps = filterComponentProps(VaInputPropsDeclaration)
 </script>
 
 <style lang="scss">

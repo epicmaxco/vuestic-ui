@@ -1,5 +1,5 @@
 <template>
-  <va-form class="flex flex-col gap-6" ref="formRef">
+  <va-form class="flex flex-col items-baseline gap-6" ref="formRef">
     <va-input
       v-model="form.firstName"
       :rules="[(value) => (value && value.length > 0) || 'First name is required']"
@@ -17,6 +17,22 @@
       :rules="[(v) => validateBirthday(v)]"
       label="Birth Date"
       manual-input
+      clearable
+    />
+
+    <va-time-input 
+      v-model="form.time"
+      :rules="[(v) => v || 'We need to now pick-up time!']"
+      label="Pick-up time"
+      manual-input
+      clearable
+    />
+
+    <va-counter 
+      v-model="form.count"
+      label="Amount"
+      :rules="[(v) => v || 'Field is required', (v) => v < 10 || 'You can not buy less than 10 items']"
+      manual-input
     />
 
     <va-select
@@ -32,12 +48,14 @@
       :max="100"
       :rules="[(v) => v || 'Field is required', (v) => form.country === 'us' && v > 20 || 'Package to US can not be more than 20kg']"
       label="Weight, kg"
+      style="width: 100%"
     />
   
     <va-switch 
       v-model="form.notifications"
       label="Notifications"
       size="small"
+      :rules="[(v) => v || 'You must agree on notifications']"
     />
   
     <div>
@@ -45,6 +63,7 @@
       <va-option-list
         v-model="form.paymentMethod"
         :options="['Visa', 'MasterCard', 'PayPal']"
+        :rules="[(v) => v === 'PayPal' || 'Only PayPal is currently available']"
         type="radio"
       />      
     </div>
@@ -83,10 +102,12 @@
     lastName: '',
     country: '',
     birthDate: null as Date | null,
+    time: null as Date | null,
     acknowledgement: false,
     notifications: true,
     paymentMethod: '',
     amount: 1,
+    count: 1,
   })
 
   const countries = [

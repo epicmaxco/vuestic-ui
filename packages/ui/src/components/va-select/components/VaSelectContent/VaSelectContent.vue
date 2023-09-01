@@ -10,6 +10,7 @@
         value: $props.value,
         valueString: $props.valueString,
         tabindex: $props.tabindex,
+        ariaAttributes,
       }"
     >
       <template v-if="value.length">
@@ -17,6 +18,12 @@
           v-for="(option, index) in value"
           :key="$props.getText(option)"
         >
+          <va-icon
+            v-if="getIcon(option)"
+            size="small"
+            class="va-select-option__icon"
+            :name="getIcon(option)"
+          />
           {{ `${$props.getText(option)}${index + 1 === value.length ? '' : ', '}` }}
         </span>
       </template>
@@ -27,12 +34,14 @@
     </slot>
 
     <input
+      v-bind="ariaAttributes"
       ref="autocompleteInput"
       v-model="autocompleteInputValueComputed"
       :placeholder="$props.placeholder"
       :disabled="$props.disabled"
       :readonly="$props.readonly"
       autocomplete="off"
+      aria-autocomplete="list"
       @keydown.up.stop.prevent="$emit('focus-prev')"
       @keydown.down.stop.prevent="$emit('focus-next')"
       @keydown.enter.stop.prevent="$emit('select-option')"
@@ -44,7 +53,7 @@
     v-else-if="isPlaceholder"
     class="va-select-content__placeholder"
   >
-   {{ $props.placeholder }}
+   <input v-bind="ariaAttributes" :placeholder="$props.placeholder" readonly />
   </span>
 
   <slot
@@ -54,8 +63,15 @@
       valueString: $props.valueString,
       value: $props.value,
       tabindex: $props.tabindex,
+      ariaAttributes,
     }"
   >
+    <va-icon
+      v-if="getIcon(value[0])"
+      size="small"
+      class="va-select-option__icon"
+      :name="getIcon(value[0])"
+    />
     {{ $props.valueString }}
   </slot>
 
@@ -101,13 +117,15 @@ import { ref, toRefs, computed, watch, PropType } from 'vue'
 
 import { useFormFieldProps } from '../../../../composables'
 
-import { VaBadge, VaIcon } from '../../../index'
+import { VaIcon } from '../../../va-icon'
+import { VaBadge } from '../../../va-badge'
 
 import type { SelectOption } from '../../../index'
 
 const props = defineProps({
   ...useFormFieldProps,
 
+  ariaAttributes: { type: Object },
   value: { type: Array as PropType<SelectOption[]>, required: true },
   valueString: { type: String },
   placeholder: { type: String, default: '' },
@@ -122,7 +140,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['toggle-hidden', 'autocomplete-input', 'focus-prev', 'focus-next', 'select-option', 'delete-last-selected'])
-
 const autocompleteInput = ref<HTMLInputElement>()
 
 const isPlaceholder = computed(() => props.placeholder && !props.valueString)
@@ -152,6 +169,8 @@ const handleBackspace = (e: KeyboardEvent) => {
     emit('delete-last-selected')
   }
 }
+
+const getIcon = (option: SelectOption) => typeof option === 'object' ? (option.icon as string) : undefined
 </script>
 
 <style lang="scss">

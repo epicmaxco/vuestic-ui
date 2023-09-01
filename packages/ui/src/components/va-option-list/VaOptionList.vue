@@ -57,7 +57,7 @@ import {
 
 import { isDev } from '../../utils/env'
 
-import { VaMessageListWrapper } from '../va-input'
+import { VaMessageListWrapper } from '../va-message-list'
 import { VaCheckbox } from '../va-checkbox'
 import { VaRadio } from '../va-radio'
 import { VaSwitch } from '../va-switch'

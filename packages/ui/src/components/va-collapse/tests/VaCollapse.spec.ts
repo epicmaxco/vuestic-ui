@@ -14,11 +14,9 @@ describe('VaCollapse', () => {
       propsData: {
         modelValue: true,
         disabled: true,
-        solid: true,
       },
     })
     expect(wrapper.classes()).toContain('va-collapse--disabled')
-    expect(wrapper.classes()).toContain('va-collapse--solid')
     expect(wrapper.classes()).toContain('va-collapse--active')
   })
 

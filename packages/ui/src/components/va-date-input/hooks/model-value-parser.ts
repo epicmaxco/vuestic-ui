@@ -5,6 +5,8 @@ import { defaultParseDateFunction } from './input-text-parser'
 import { DateInputRange, DateInputModelValue, DateInputDate } from '../types'
 
 export const isRange = (date: DateInputModelValue): date is DateInputRange<DateInputDate> => {
+  if (date === null) { return false }
+
   return typeof date === 'object' && ('start' in date || 'end' in date)
 }
 

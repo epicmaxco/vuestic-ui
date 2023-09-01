@@ -50,10 +50,10 @@ const VaFallbackPropsDeclaration = extractComponentProps(VaFallback)
 
 <script lang="ts" setup>
 const props = defineProps({
-  ...VaFallbackPropsDeclaration,
   ...useLoadingProps,
   ...useSizeProps,
   ...useComponentPresetProp,
+  ...VaFallbackPropsDeclaration,
 
   color: { type: String, default: 'primary' },
   textColor: { type: String },
@@ -65,18 +65,17 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['error', 'fallback'])
-
 const { getColor } = useColors()
 const colorComputed = computed(() => getColor(props.color))
 const backgroundColorComputed = computed(() => {
   if (props.loading || (props.src && !hasLoadError.value)) {
-    return 'transparent'
+    return undefined
   }
 
   return colorComputed.value
 })
 const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
-const { textColorComputed } = useTextColor()
+const { textColorComputed } = useTextColor(backgroundColorComputed)
 
 const computedStyle = computed(() => ({
   fontSize: props.fontSize || fontSizeComputed.value,

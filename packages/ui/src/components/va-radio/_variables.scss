@@ -3,18 +3,18 @@
   --va-radio-display: inline-flex;
   --va-radio-cursor: pointer;
   --va-radio-position: relative;
-  --va-radio-margin-top: 0;
-  --va-radio-margin-right: 0.5rem;
+  --va-radio-gap: 0.5rem;
   --va-radio-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
   --va-radio-disabled-cursor: default;
   --va-radio-border-color: var(--va-background-border);
+  --va-radio-background: transparent;
 
   /* Icon */
   --va-radio-icon-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
   --va-radio-icon-width: 1.4rem;
   --va-radio-icon-height: 1.4rem;
   --va-radio-icon-border-radius: 100%;
-  --va-radio-icon-border: var(--va-background-border) solid 0.125rem;
+  --va-radio-icon-border: var(--va-background-border) solid var(--va-form-element-border-width);
 
   /* Dot */
   --va-radio-dot-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);

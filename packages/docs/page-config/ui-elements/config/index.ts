@@ -28,5 +28,11 @@ export default definePageConfig({
     block.api("VaConfig", {
       props: { components: "Components configuration object." }
     }, apiOptions),
+
+    block.changeLog({
+      '1.8.0': [
+        'Components config now supports passing attributes such as class, style, href, data-*, etc. the same way props work',
+      ],
+    })
   ],
 });
