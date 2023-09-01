@@ -125,14 +125,15 @@ const props = defineProps({
   ...useComponentPresetProp,
   ...VaImageProps,
 
+  stateful: { type: Boolean, default: true },
   modelValue: { type: Number, default: 0 },
   items: { type: Array as PropType<any[]>, required: true },
 
-    // Animations
+  // Animations
   autoscroll: { type: Boolean, default: false },
-  autoscrollInterval: { type: Number, default: 1000 },
+  autoscrollInterval: { type: Number, default: 5000 },
   autoscrollPauseDuration: { type: Number, default: 2000 },
-  infinite: { type: Boolean, default: false },
+  infinite: { type: Boolean, default: true },
   fadeKeyframe: { type: String, default: 'va-carousel-fade-appear 1s' },
 
     // Visual

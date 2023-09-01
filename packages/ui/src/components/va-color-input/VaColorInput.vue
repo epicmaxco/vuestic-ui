@@ -28,7 +28,8 @@
       class="va-color-input__hidden-input"
       aria-hidden="true"
       tabindex="-1"
-      v-model="valueComputed" />
+      v-model="inputValue"
+    />
   </div>
 </template>
 
@@ -39,6 +40,7 @@ import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits
 
 import { VaColorIndicator } from '../va-color-indicator'
 import { VaInput } from '../va-input'
+import throttle from 'lodash/throttle'
 
 const props = defineProps({
   ...useStatefulProps,
@@ -64,6 +66,11 @@ const callPickerDialog = () => !props.disabled && colorPicker.value?.click()
 const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
 const { tp } = useTranslation()
+
+const inputValue = computed({
+  get: () => props.modelValue,
+  set: throttle((value) => emit('update:modelValue', value), 500),
+})
 </script>
 
 <style lang="scss">

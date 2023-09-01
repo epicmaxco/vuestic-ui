@@ -18,7 +18,7 @@
     >
       <template
         v-for="(step, i) in $props.steps"
-        :key="i"
+        :key="i + step.label"
       >
         <slot
           v-if="i > 0"
@@ -38,7 +38,7 @@
         >
           <va-stepper-step-button
             :stepIndex="i"
-            :color="stepperColor"
+            :color="getStepperButtonColor(i)"
             :modelValue="modelValue"
             :nextDisabled="nextDisabled"
             :step="step"
@@ -91,6 +91,7 @@ import VaStepperStepButton from './VaStepperStepButton.vue'
 import { computed, PropType, ref, Ref, shallowRef, watch } from 'vue'
 import { useColors, useStateful, useStatefulProps, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
+import { unFunction } from '../../utils/un-function'
 
 const props = defineProps({
   ...useStatefulProps,
@@ -107,9 +108,10 @@ const props = defineProps({
   nextDisabled: { type: Boolean, default: false },
   finishButtonHidden: { type: Boolean, default: false },
   ariaLabel: { type: String, default: '$t:progress' },
+  linear: { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['update:modelValue', 'finish'])
+const emit = defineEmits(['update:modelValue', 'finish', 'update:steps'])
 
 const stepperNavigation = shallowRef<HTMLElement>()
 const { valueComputed: modelValue }: { valueComputed: Ref<number> } = useStateful(props, emit, 'modelValue', { defaultValue: 0 })
@@ -117,12 +119,77 @@ const { valueComputed: modelValue }: { valueComputed: Ref<number> } = useStatefu
 const focusedStep = ref({ trigger: false, stepIndex: props.navigationDisabled ? -1 : props.modelValue })
 
 const { getColor } = useColors()
-const stepperColor = getColor(props.color)
 
 const isNextStepDisabled = (index: number) => props.nextDisabled && index > modelValue.value
 
+const findFirstNonDisabled = (from: number, direction: number) => {
+  while (from >= 0 && from < props.steps.length) {
+    from += direction
+    const step = props.steps[from]
+    if (!step) {
+      return
+    }
+    if (!step.disabled) {
+      return step
+    }
+  }
+}
+
+const findFirstWithErrorIndex = (from: number, direction: number) => {
+  while (from >= 0 && from < props.steps.length) {
+    from += direction
+    const step = props.steps[from]
+    if (!step) {
+      return
+    }
+    if (step.hasError === true) {
+      return from
+    }
+  }
+}
+
+const validateMovingToStep = (stepIndex: number): boolean => {
+  const newStep = props.steps[stepIndex]
+  const currentStep = props.steps[modelValue.value]
+  const beforeNewStep = findFirstNonDisabled(stepIndex, -1)
+
+  if (newStep.disabled) { return false }
+
+  if (props.linear && stepIndex < modelValue.value) {
+    return true
+  }
+
+  const nextNonError = findFirstWithErrorIndex(modelValue.value, 1)
+
+  if (props.linear && nextNonError !== undefined && nextNonError < stepIndex) {
+    return false
+  }
+
+  //  Checks if a save function was passed, if so it will be called and return boolean
+  if (currentStep.beforeLeave?.(currentStep, newStep) === false) {
+    // Do not update the modelValue if the beforeLeave function returns false
+    return false
+  }
+
+  // Mark current step as completed, if it is not marked manually by user
+  if (currentStep.completed === undefined) {
+    currentStep.completed = true
+  }
+
+  //  Do not do anything if user trying to just over few steps and last is not completed
+  if (props.linear && beforeNewStep && !beforeNewStep.completed) {
+    return false
+  }
+
+  // Check if currentStep has error after beforeLeave function
+  if (props.linear && unFunction(currentStep.hasError, currentStep)) { return false }
+
+  return true
+}
+
 const setStep = (index: number) => {
-  if (props.steps[index].disabled) { return }
+  if (!validateMovingToStep(index)) { return }
+
   emit('update:modelValue', index)
 }
 
@@ -228,17 +295,35 @@ const { tp } = useTranslation()
 const onArrowKeyPress = (direction: 'prev' | 'next') => {
   setFocus(direction)
 }
-
 const onValueChange = () => {
   focusedStep.value.stepIndex = props.modelValue
   focusedStep.value.trigger = true
 }
-
 const ariaAttributesComputed = computed(() => ({
   role: 'group',
   'aria-label': tp(props.ariaLabel),
   'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
 }))
+const getStepperButtonColor = (index: number) => {
+  return props.steps[index]?.hasError ? 'danger' : getColor(props.color)
+}
+const completeStep = (shouldCompleteStep?: boolean) => {
+  const steps = { ...props.steps }
+  if (shouldCompleteStep === true) {
+    steps[props.modelValue].hasError = false
+  }
+
+  steps[props.modelValue].completed = shouldCompleteStep ?? true
+
+  emit('update:steps', steps)
+}
+const setError = (shouldSetError?: boolean) => {
+  const steps = { ...props.steps }
+  steps[props.modelValue].hasError = shouldSetError ?? true
+  steps[props.modelValue].completed = !shouldSetError ?? false
+
+  emit('update:steps', steps)
+}
 </script>
 
 <style lang="scss">

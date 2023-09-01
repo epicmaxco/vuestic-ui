@@ -9,11 +9,11 @@ export default {
       'vuestic-ui/styles/essential.css',
     ]
 
-    if (answers.treeShaking.includes('grid')) {
+    if (answers.treeShaking.includes('grid') && !answers.vuesticFeatures.includes('tailwind')) {
       strings.push('vuestic-ui/styles/grid.css')
     }
 
-    if (answers.treeShaking.includes('normalize')) {
+    if (answers.treeShaking.includes('normalize') && !answers.vuesticFeatures.includes('tailwind')) {
       strings.push('vuestic-ui/styles/reset.css')
     }
 

@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 
 import { mountWithGlobalConfig } from '../../../utils/unit-test-utils'
 
-import VaButtonToggle from '../VaButtonToggle.vue'
+import { VaButtonToggle } from '../'
 
 import type { VueWrapper } from '@vue/test-utils'
 

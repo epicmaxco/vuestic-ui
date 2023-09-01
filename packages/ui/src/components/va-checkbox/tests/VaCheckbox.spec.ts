@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { mountWithGlobalConfig, shallowMountWithGlobalConfig } from '../../../utils/unit-test-utils'
 
-import VaCheckbox from '../VaCheckbox.vue'
+import { VaCheckbox } from '../'
 
 describe('VaCheckbox', () => {
   it('should render without an error', () => {

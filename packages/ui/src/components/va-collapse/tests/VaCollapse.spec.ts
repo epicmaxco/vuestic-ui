@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { mountWithGlobalConfig, shallowMountWithGlobalConfig } from '../../../utils/unit-test-utils'
 
-import VaCollapse from '../VaCollapse.vue'
+import { VaCollapse } from '../'
 
 describe('VaCollapse', () => {
   it('should render without an error', () => {

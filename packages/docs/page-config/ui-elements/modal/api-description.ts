@@ -27,15 +27,10 @@ export default defineApiDescription({
     blur: "Use `blur` filter to overlay. Root `css` variable `--va-modal-overlay-background-blur-radius` sets the blur radius",
     ariaCloseLabel: "The aria-label of the close button",
     backgroundColor: "The background color of the modal dialog",
-    beforeClose: "Function run before closing the modal",
     noPadding: "Disable padding in the modal dialog",
-    onBeforeClose: "Function to be called before closing",
-    onBeforeOpen: "Function to be called before opening",
-    onCancel: "Function to be called after cancel button is been pressed",
-    onClickOutside: "Function to be called after clicking outside the modal",
-    onClose: "Function to be called after closing",
-    onOk: "Function to be called after pressing the \"ok\" button",
-    onOpen: "Functiong to be called after opening the modal"
+    beforeClose: "Function run before closing modal and can prevent closing. First argument is `hide` function, so you can close modal manually",
+    beforeOk: "Function run before clicking on OK button and can prevent closing. First argument is `hide` function, so you can close modal manually",
+    beforeCancel: "Function run before canceling modal (after pressing ESC, clicking on overlay or clicking cancel button) and can prevent closing. First argument is `hide` function, so you can close modal manually",
   },
   events: {
     updateModelValue: "The event is triggered when the component needs to change visibility",

@@ -104,6 +104,10 @@ const onArrowKeyPress = (direction: 1 | -1) => {
     rating.onItemValueUpdate(props.max, direction === -1 ? step * direction : 0)
   }
 }
+
+const { tp } = useTranslation()
+const { computedColor, backgroundComputed, textColorComputed } = useVaRatingColors(props)
+const { onMouseEnter, onMouseLeave, visibleValue, hoveredValue, isHovered, getItemValue, onItemHoveredValueUpdate, onItemValueUpdate } = rating
 </script>
 
 <style lang="scss">

@@ -78,7 +78,6 @@
 <script lang="ts" setup>
 import { PropType, computed, useSlots } from 'vue'
 
-import { generateUniqueId } from '../../utils/uuid'
 import {
   useComponentPresetProp,
   useStateful, useStatefulProps, useStatefulEmits,
@@ -92,13 +91,16 @@ import { VaIcon } from '../va-icon'
 const props = defineProps({
   ...useStatefulProps,
   ...useComponentPresetProp,
+
   modelValue: { type: Boolean, default: true },
+  stateful: { type: Boolean, default: true },
   color: { type: String, default: 'primary' },
   textColor: { type: String, default: '' },
   title: { type: String, default: '' },
   description: { type: String, default: '' },
   icon: { type: String, default: '' },
   closeText: { type: String, default: '' },
+  closeIcon: { type: String, default: 'close' },
   closeable: { type: Boolean, default: false },
   dense: { type: Boolean, default: false },
   outline: { type: Boolean, default: false },

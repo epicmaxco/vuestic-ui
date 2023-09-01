@@ -3,7 +3,7 @@
     <va-breadcrumbs-item label="One" />
     <va-breadcrumbs-item
       label="Two"
-      to="/disabled-link"
+      to="/"
       disabled
     />
     <va-breadcrumbs-item

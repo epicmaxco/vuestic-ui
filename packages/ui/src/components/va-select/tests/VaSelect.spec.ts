@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 
 import { mountWithGlobalConfig } from '../../../utils/unit-test-utils'
 
-import VaSelect from '../VaSelect.vue'
+import { VaSelect } from '../'
 import VaDropdownContent from '../../va-dropdown/components/VaDropdownContent/VaDropdownContent.vue'
 
 import type { VueWrapper } from '@vue/test-utils'

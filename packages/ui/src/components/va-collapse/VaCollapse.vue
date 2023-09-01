@@ -66,6 +66,9 @@ import {
   useBem,
   useResizeObserver,
   useComponentPresetProp,
+  useStateful,
+  useStatefulProps,
+  useSelectableEmits,
 } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
@@ -75,7 +78,8 @@ import { VaIcon } from '../va-icon'
 
 const props = defineProps({
   ...useComponentPresetProp,
-  modelValue: { type: Boolean, default: undefined },
+  ...useStatefulProps,
+  modelValue: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   header: { type: String, default: '' },
   icon: { type: String, default: '' },
@@ -86,14 +90,14 @@ const props = defineProps({
   flat: { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', ...useSelectableEmits])
 
 const body = shallowRef<HTMLElement>()
 
-const [computedModelValue] = useSyncProp('modelValue', props, emit, false)
+const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: false })
 
 const { getColor, getHoverColor } = useColors()
-const { accordionProps, toggle } = useAccordionItem(computedModelValue)
+const { accordionProps, valueProxy: computedModelValue = valueComputed } = useAccordionItem()
 
 const { textColorComputed } = useTextColor()
 
@@ -136,6 +140,11 @@ const computedClasses = useBem('va-collapse', () => ({
   popout: !!(accordionProps.value.popout && computedModelValue.value),
   inset: !!(accordionProps.value.inset && computedModelValue.value),
 }))
+
+const toggle = () => {
+  if (props.disabled) { return }
+  computedModelValue.value = !computedModelValue.value
+}
 
 const headerStyle = computed(() => ({
   paddingLeft: props.icon && 0,

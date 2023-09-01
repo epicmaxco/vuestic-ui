@@ -382,7 +382,6 @@ const publicMethods = { focus, blur }
   }
 
   &--icon-only {
-
     .va-button__left-icon,
     .va-button__right-icon {
       margin-left: 0;

@@ -8,7 +8,9 @@ const patchClassComponent = (component: { [CLASS_COMPONENT_KEY]: any }): any => 
 }
 
 /** Allows props to be passed from vuestic config if they were not provided */
-export const withConfigTransport = <T>(component: T): T => {
+export const withConfigTransport = <T>(component: T, name?: string): T => {
+  (component as any).name = name || (component as any).name
+
   if ('setup' in (component as any)) {
     return createProxyComponent(component as any)
   } else if (CLASS_COMPONENT_KEY in (component as any)) {
