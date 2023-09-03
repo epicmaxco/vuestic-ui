@@ -198,6 +198,7 @@ export default defineComponent({
     withoutTransitions: { type: Boolean, default: false },
     overlay: { type: Boolean, default: true },
     overlayOpacity: { type: [Number, String], default: 0.6 },
+    isShowNestedOverlay: { type: Boolean, default: false },
     blur: { type: Boolean, default: false },
     zIndex: { type: [Number, String], default: undefined },
     backgroundColor: { type: String, default: 'background-secondary' },
@@ -242,12 +243,15 @@ export default defineComponent({
       // Supposedly solves some case when background wasn't shown.
       // As a side effect removes background from nested modals.
 
-      if (!props.overlay || !isLowestLevelModal.value) { return }
+      if (!props.overlay) { return }
 
-      return {
-        'background-color': `rgba(0, 0, 0, ${props.overlayOpacity})`,
-        'z-index': props.zIndex && Number(props.zIndex) - 1,
-      } as StyleValue
+      if (isTopLevelModal.value || props.isShowNestedOverlay) {
+        return {
+          'background-color': `rgba(0, 0, 0, ${props.overlayOpacity})`,
+          'z-index': props.zIndex && Number(props.zIndex) - 1,
+        } as StyleValue
+      }
+      return ''
     })
 
     const show = () => { valueComputed.value = true }
