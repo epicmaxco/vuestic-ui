@@ -248,6 +248,7 @@ export default defineComponent({
   &__label {
     display: var(--va-checkbox-label-display);
     position: relative;
+    cursor: var(--va-checkbox-label-cursor);
   }
 
   &__icon {
