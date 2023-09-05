@@ -9,7 +9,7 @@ export default definePageConfig({
 
     block.subtitle("Examples"),
 
-    block.example("Default", { 
+    block.example("Default", {
       title: "Default",
       description: "By default textarea is two rows input.",
     }),
@@ -23,7 +23,7 @@ export default definePageConfig({
       description: 'In case you want to keep label inside textarea, you can use `:inner-label="true"` prop.',
     }),
 
-    block.example("Autosize", { 
+    block.example("Autosize", {
       title: "Autosize",
       description: "There are situations when you want textarea to grow in size as user types. You can use `:autosize=\"true\"` prop to enable this behavior.\n\nYou can also specify `minRows` and `maxRows` props to limit textarea size.",
     }),
@@ -34,12 +34,5 @@ export default definePageConfig({
     }),
 
     block.api("VaTextarea", apiDescription, {}),
-
-    block.changeLog({
-      '1.8.0': [
-        'Date input have outlined style by default',
-        '`solid` and `bordered` props moved to `preset="solid"` and `preset="bordered"`',
-      ],
-    })
   ],
 });

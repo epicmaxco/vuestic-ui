@@ -30,11 +30,5 @@ export default definePageConfig({
 
     block.subtitle("API"),
     block.api("VaAccordion", apiDescription, apiOptions),
-
-    block.changeLog({
-      '1.8.0': [
-        'Removed `flat` prop and changed default look to flat',
-      ]
-    })
   ],
 });

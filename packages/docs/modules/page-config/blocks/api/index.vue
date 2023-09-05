@@ -237,16 +237,16 @@ const changeLogValue = ref(true)
   >
     <template #header>
       <div class="page-config-api-change-log__title">
-        <h3 class="va-h6">
+        <h4 class="va-h4">
           Change log
           <Anchor text="Change log" />
-        </h3>
+        </h4>
         <VaIcon name="va-arrow-down" />
       </div>
     </template>
 
     <template #content>
-      <div class="page-config-api-change-log__content mt-4">
+      <div class="page-config-api-change-log__content pt-4">
         <div v-for="{ version, changes } in $props.changeLog" class="page-config-api-change-log__version-wrapper" :key="version">
           <ul>
             <div class="page-config-api-change-log__version">
