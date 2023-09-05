@@ -25,7 +25,7 @@ const parseCssVariables = (css: string | undefined): CssVariables => {
   return variables
 }
 
-const readCssVariables = async (path: string | undefined) => {
+const readFileSafe = async (path: string | undefined) => {
   if (!path) { return '' }
   return (await readFile(path, 'utf-8')).toString()
 }
@@ -68,6 +68,19 @@ const stringifyMeta = (meta: ComponentMeta) => {
   })
 }
 
+const transformChangeLog = (changeLog: string) => {
+  const version = changeLog
+    .trim()
+    .split('#')
+    .filter(Boolean)
+    .map((s) => s.split('\n'))
+
+  return version.map((v) => ({
+    version: v[0].trim(),
+    changes: v.slice(1).map((s) => s.trim().slice(2)),
+  }))
+}
+
 export default defineBlockTransform(async function (block) {
   if (block.type !== 'api') { return }
 
@@ -76,9 +89,11 @@ export default defineBlockTransform(async function (block) {
   const importComponent = this.importer.importNamed(importName, importPath)
 
   const cssVariablesPath = await this.importer.resolveAbsolutePath(`vuestic-ui/src/components/${kebabCase(importName)}/_variables.scss`)
-  const cssVariablesFile = await readCssVariables(cssVariablesPath)
+  const cssVariablesFile = await readFileSafe(cssVariablesPath)
   const cssVariables = JSON.stringify(parseCssVariables(cssVariablesFile))
 
+  const changelogPath = await this.importer.resolveAbsolutePath(`vuestic-ui/src/components/${kebabCase(importName)}/CHANGELOG.md`)
+  const changelogContent = await readFileSafe(changelogPath)
 
-  return block.replaceArgCode(0, `'${importName}', ${importComponent}, ${cssVariables}`)
+  return block.replaceArgCode(0, `'${importName}', ${importComponent}, ${cssVariables}, ${JSON.stringify(transformChangeLog(changelogContent))}`)
 })
