@@ -23,7 +23,7 @@ Library produces builds:
 ## Usage
 As a CLI:
 ```bash
-  library-build
+  build-ui-library
 ```
 Arguments:
 - entry - path to main.ts file. Default `./src/main.ts`
