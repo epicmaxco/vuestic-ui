@@ -129,7 +129,7 @@ export const FallbackText = () => ({
   template: '<VaAvatar src="https://not-exist" fallbackText="Fallback"/>',
 })
 
-export const FallbacRender = () => ({
+export const FallbackRender = () => ({
   components: { VaAvatar },
   methods: {
     FallbackRender: () => h('b', {
