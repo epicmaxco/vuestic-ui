@@ -10,7 +10,7 @@ export const unwrapEl = <T extends HTMLElement | ComponentPublicInstance | Compo
   if (typeof el !== 'object') { return }
 
   if (typeof (el as ComponentPublicInstance).$el !== 'undefined') {
-    return (el as ComponentPublicInstance).$el
+    return (el as ComponentPublicInstance).$el as HTMLElement
   }
 
   return el as HTMLElement
