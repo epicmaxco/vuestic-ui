@@ -106,7 +106,7 @@ export default defineComponent({
     header: { type: String, default: '' },
     icon: { type: String, default: '' },
     solid: { type: Boolean, default: false },
-    color: { type: String, default: 'background-element' },
+    color: { type: String, default: 'transparent' },
     bodyColor: { type: String, default: undefined },
     textColor: { type: String, default: '' },
     iconColor: { type: String, default: 'secondary' },

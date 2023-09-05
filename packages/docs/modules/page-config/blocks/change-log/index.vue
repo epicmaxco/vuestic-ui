@@ -69,6 +69,7 @@ const versions = computed(() => Object.keys(props.log));
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
   }
 }
 </style>
