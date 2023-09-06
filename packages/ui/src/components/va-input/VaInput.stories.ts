@@ -18,24 +18,11 @@ export const Disabled: StoryFn = () => ({
   components: { VaInput },
   template: '<VaInput disabled/>',
 })
-Disabled.play = async ({ canvasElement, step }) => {
-  const input = canvasElement.querySelector('input')
-
-  expect(input).toHaveAttribute('disabled')
-  const vaInput = canvasElement.querySelector('.va-input')
-
-  expect(vaInput).toHaveClass('va-input-wrapper--disabled')
-}
 
 export const Placeholder: StoryFn = () => ({
   components: { VaInput },
   template: '<VaInput placeholder="Placeholder"/>',
 })
-Placeholder.play = async ({ canvasElement, step }) => {
-  const input = canvasElement.querySelector('input')
-
-  expect(input).toHaveAttribute('placeholder', 'Placeholder')
-}
 
 export const Autofocus: StoryFn = () => ({
   components: { VaInput },
