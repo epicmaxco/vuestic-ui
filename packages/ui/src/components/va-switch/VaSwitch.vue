@@ -94,7 +94,7 @@ import {
 } from '../../composables'
 
 import { VaProgressCircle } from '../va-progress-circle'
-import { VaMessageListWrapper } from '../va-input'
+import { VaMessageListWrapper } from '../va-message-list'
 
 export default defineComponent({
   name: 'VaSwitch',

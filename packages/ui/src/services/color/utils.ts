@@ -2,40 +2,51 @@ import kebabCase from 'lodash/kebabCase.js'
 import camelCase from 'lodash/camelCase.js'
 import { ColorTranslator } from 'colortranslator'
 import type { HSLObject, HEXObject, RGBObject } from 'colortranslator'
+import { warn } from 'vue'
 
 export type ColorInput = string | HEXObject | HSLObject | RGBObject
+
+const makeColor = (color: ColorInput) => {
+  try {
+    return new ColorTranslator(color)
+  } catch (e) {
+    throw new Error(`Color ${color} is not valid. Please, provide valid color.`, {
+      cause: e,
+    })
+  }
+}
 
 export const isCSSVariable = (strColor: string): boolean => /var\(--.+\)/.test(strColor)
 export const cssVariableName = (colorName: string) => `--va-${kebabCase(colorName)}`
 export const normalizeColorName = (colorName: string) => camelCase(colorName)
 
 export const colorToRgba = (color: ColorInput, opacity: number) => {
-  return new ColorTranslator(color).setA(opacity).RGBA
+  return makeColor(color).setA(opacity).RGBA
 }
 
 export const getColorLightness = (color: ColorInput) => {
-  const { R, G, B } = new ColorTranslator(color)
+  const { R, G, B } = makeColor(color)
   return Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068)
 }
 
 export const getBoxShadowColor = (color: ColorInput, opacity = 0.4) => {
-  return new ColorTranslator(color).setA(opacity).RGBA
+  return makeColor(color).setA(opacity).RGBA
 }
 
 export const getBoxShadowColorFromBg = (background: ColorInput, opacity = 0.4) => {
-  return new ColorTranslator(background).setA(opacity).RGBA
+  return makeColor(background).setA(opacity).RGBA
 }
 
 export const getHoverColor = (color: ColorInput, opacity = 0.2) => {
-  return new ColorTranslator(color).setA(opacity).RGBA
+  return makeColor(color).setA(opacity).RGBA
 }
 
 export const getFocusColor = (color: ColorInput, opacity = 0.3) => {
-  return new ColorTranslator(color).setA(opacity).RGBA
+  return makeColor(color).setA(opacity).RGBA
 }
 
 export const shiftHSLAColor = (color: ColorInput, offset: { h?: number; s?: number; l?: number; a?: number }) => {
-  const result = new ColorTranslator(color)
+  const result = makeColor(color)
 
   if (offset.h) { result.setH(result.H + offset.h) }
 
@@ -49,7 +60,7 @@ export const shiftHSLAColor = (color: ColorInput, offset: { h?: number; s?: numb
 }
 
 export const setHSLAColor = (color: ColorInput, newColor: { h?: number; s?: number; l?: number; a?: number }) => {
-  const result = new ColorTranslator(color)
+  const result = makeColor(color)
 
   if (newColor.h !== undefined) { result.setH(newColor.h) }
 
@@ -129,8 +140,8 @@ export const isColor = (strColor: string): boolean => {
 }
 
 export const applyColors = (color1: ColorInput, color2: ColorInput) => {
-  const c1 = new ColorTranslator(color1)
-  const c2 = new ColorTranslator(color2)
+  const c1 = makeColor(color1)
+  const c2 = makeColor(color2)
   const weight = c2.A
 
   if (weight === 1) { return c2.RGBA }
@@ -141,4 +152,11 @@ export const applyColors = (color1: ColorInput, color2: ColorInput) => {
   c1.setB(Math.round((c1.B) * (1 - weight) + (c2.B) * weight))
 
   return c1.RGBA
+}
+
+export const isColorTransparent = (color: ColorInput) => {
+  if (!color) { return false }
+  if (color === 'transparent') { return true }
+
+  return makeColor(color).A <= 0.1
 }

@@ -17,10 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
-import omit from 'lodash/omit.js'
-
-import { extractComponentProps } from '../../utils/component-options'
-
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { useComponentPresetProp, useColors, useSelectableList, useSelectableListProps } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -87,9 +84,7 @@ export default defineComponent({
       }
     }
 
-    const buttonGroupPropsComputed = computed(() =>
-      omit(props, ['modelValue', 'options', 'activeButtonTextColor', 'toggleColor']),
-    )
+    const buttonGroupPropsComputed = filterComponentProps(VaButtonGroupProps)
 
     const changeValue = (value: any) => emit('update:modelValue', getTrackBy(value))
 

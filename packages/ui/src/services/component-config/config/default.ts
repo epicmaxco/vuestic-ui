@@ -63,5 +63,24 @@ export const getComponentsDefaultConfig = (): ComponentConfig =>
           pressedOpacity: 0.9,
         },
       },
+      VaInputWrapper: {
+        solid: {
+          background: 'backgroundElement',
+        },
+        bordered: {
+          class: 'va-input-wrapper--bordered',
+          background: 'backgroundElement',
+        },
+      },
+      VaCheckbox: {
+        solid: {
+          style: '--va-checkbox-background: var(--va-background-element)',
+        },
+      },
+      VaRadio: {
+        solid: {
+          style: '--va-radio-background: var(--va-background-element)',
+        },
+      },
     },
   })

@@ -65,7 +65,7 @@
     <!-- mobile options -->
     <nav
       v-show="isOptionsVisible"
-      class="header__mobile-options"
+      class="mobile-options header__mobile-options"
     >
       <div class="mobile-options__menu-button-wrapper">
         <va-button
@@ -251,6 +251,11 @@ onMounted(() => {
 }
 
 .mobile-options {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: var(--va-background-primary);
+
   &__menu-button-wrapper {
     width: 100%;
     flex-shrink: 0;

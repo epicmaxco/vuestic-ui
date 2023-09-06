@@ -98,4 +98,7 @@ export const getI18nConfigDefaults = () => ({
 
   /** Switch aria label */
   switch: 'Switch',
+
+  /** Input aria label */
+  inputField: 'Input field',
 })

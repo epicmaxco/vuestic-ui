@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-xs">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
     <va-select
       v-model="value"
       class="mb-6"
@@ -15,14 +15,13 @@
       :options="options"
       :track-by="(option) => option.id"
     />
-
-    <va-alert color="info">
-      <template #title>
-        Value
-      </template>
-      {{ value }}
-    </va-alert>
   </div>
+  <va-alert color="info">
+    <template #title>
+      Value
+    </template>
+    {{ value }}
+  </va-alert>
 </template>
 
 <script>

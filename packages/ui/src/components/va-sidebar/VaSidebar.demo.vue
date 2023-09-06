@@ -55,24 +55,12 @@
           <div>Item</div>
         </va-sidebar>
       </div>
-      <div class="demo__sidebar-container-2x">
-        <va-sidebar :minimized="minimized" position="right">
-          <div>Item</div>
-          <div>Item</div>
-        </va-sidebar>
-      </div>
     </VbCard>
     <VbCard title="v-model">
       <va-checkbox v-model="doShowVmodelDemoSidebar" label="v-model value" />
       <br />
       <div class="demo__sidebar-container-2x">
         <va-sidebar v-model="doShowVmodelDemoSidebar">
-          <div>Item</div>
-          <div>Item</div>
-        </va-sidebar>
-      </div>
-      <div class="demo__sidebar-container-2x">
-        <va-sidebar v-model="doShowVmodelDemoSidebar" position="right">
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
@@ -87,12 +75,6 @@
           <div>Item</div>
         </va-sidebar>
       </div>
-      <div class="demo__sidebar-container-2x">
-        <va-sidebar :minimized="minimizedWithWidth" position="right" minimizedWidth="25%">
-          <div>Item</div>
-          <div>Item</div>
-        </va-sidebar>
-      </div>
     </VbCard>
     <VbCard title="hoverable">
       <div class="demo__sidebar-container-2x">
@@ -101,22 +83,10 @@
           <div>Item</div>
         </va-sidebar>
       </div>
-      <div class="demo__sidebar-container-2x">
-        <va-sidebar hoverable position="right">
-          <div>Item</div>
-          <div>Item</div>
-        </va-sidebar>
-      </div>
     </VbCard>
     <VbCard title="hoverable + minimized">
       <div class="demo__sidebar-container-2x">
         <va-sidebar hoverable minimized>
-          <div>Item</div>
-          <div>Item</div>
-        </va-sidebar>
-      </div>
-      <div class="demo__sidebar-container-2x">
-        <va-sidebar hoverable minimized position="right">
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>
@@ -163,12 +133,6 @@
           v-model="doShowVmodelClickOutside"
           close-on-click-outside
         >
-          <div>Item</div>
-          <div>Item</div>
-        </va-sidebar>
-      </div>
-      <div class="demo__sidebar-container-2x">
-        <va-sidebar v-model="doShowVmodelClickOutside" position="right">
           <div>Item</div>
           <div>Item</div>
         </va-sidebar>

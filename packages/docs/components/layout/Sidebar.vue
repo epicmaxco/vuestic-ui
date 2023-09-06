@@ -168,8 +168,6 @@ export default defineComponent({
 @import "@/assets/smart-grid.scss";
 
 .sidebar {
-  --va-sidebar-transition: none;
-
   &__collapse-custom-header {
     position: relative;
     padding: 1rem 1.2rem;
@@ -205,18 +203,7 @@ export default defineComponent({
     height: 100%;
     color: var(--va-dark, #323742);
 
-    @include media-breakpoint-down(sm) {
-      z-index: 100;
-      position: absolute;
-    }
-
-    .va-sidebar-item-content {
-      cursor: pointer;
-    }
-
     .va-sidebar-item {
-      cursor: pointer;
-
       &--active {
         color: var(--va-primary) !important;
       }

@@ -12,7 +12,7 @@
 <script setup>
 import { ref } from "vue";
 
-const value = ref([]);
+const value = ref(["one", "two", "three", "four", "five"]);
 
 const options = [
   "one",

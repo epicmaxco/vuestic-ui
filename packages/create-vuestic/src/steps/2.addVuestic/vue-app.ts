@@ -14,7 +14,7 @@ export const addVuesticToVue3App = async () => {
 
   // Install vuestic-ui
   const { addDependency } = await usePackageJson()
-  addDependency('vuestic-ui', versions['vuestic-ui'])
+  await addDependency('vuestic-ui', versions['vuestic-ui'])
 
   // Add plugin
   const mainPath = resolvePath(process.cwd(), projectName, 'src/main.js') || resolvePath(process.cwd(), projectName, 'src/main.ts')

@@ -1,6 +1,9 @@
 <template>
   <div class="text--uppercase display-1">This text is in default case, but should be in uppercase because it has text--uppercase class1</div>
-  <va-input :modelValue="'test'" />
+  {{ text }}
+  <va-input v-model="text" />
+
+  <VaSelect v-model="text" :options="['Hello', 'World']"></VaSelect>
 
   <div class="row justify-center">
     <div> We </div>
@@ -38,6 +41,7 @@ export default defineComponent({
     return {
       value: new Date(),
       ampm: true,
+      text: 'test',
     }
   },
   computed: {

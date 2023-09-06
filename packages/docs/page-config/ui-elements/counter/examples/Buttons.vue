@@ -7,13 +7,13 @@
 
     <va-counter
       v-model="value"
-      outline
+      preset="solid"
       buttons
     />
 
     <va-counter
       v-model="value"
-      bordered
+      preset="bordered"
       buttons
     />
   </div>

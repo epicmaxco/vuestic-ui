@@ -13,7 +13,7 @@
 /* Do not override globally in demo to prevent docs bugs... */
 .rounded-checkbox-demo {
   --va-checkbox-square-border-radius: 50%;
-  --va-input-border-radius: 99999px;
+  --va-input-wrapper-border-radius: 99999px;
 
   display: flex;
   flex-direction: column;

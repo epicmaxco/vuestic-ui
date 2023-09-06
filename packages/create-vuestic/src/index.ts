@@ -9,6 +9,7 @@ import { addVuestic } from './steps/2.addVuestic'
 import { addAgGrid } from './steps/2.1.addAgGrid'
 import { initGit } from "./steps/3.initGit"
 import { installDeps } from "./steps/4.installDeps"
+import { addTailwind } from "./steps/2.2.addTailwind"
 
 export const main = async () => {
   console.log(primaryColor(logo))
@@ -24,6 +25,7 @@ export const main = async () => {
   if (['create-vue', 'nuxt'].includes(answers.projectType)) {
     await addVuestic(answers)
     await addAgGrid(answers)
+    await addTailwind(answers)
   }
   await initGit()
   await installDeps()
