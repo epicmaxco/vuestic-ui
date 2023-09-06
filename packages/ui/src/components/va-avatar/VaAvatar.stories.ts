@@ -10,18 +10,18 @@ export default {
 export const Default = () => ({
   components: { VaAvatar },
   template: `
-    <VaAvatar>
-      A
-    </VaAvatar>
+    <VaAvatar 
+      src="https://randomuser.me/api/portraits/women/5.jpg" 
+      alt="image"
+    />
   `,
 })
 
 export const Color = () => ({
   components: { VaAvatar },
   template: `
-    [warning]
     <VaAvatar color="warning">
-      A
+      Text
     </VaAvatar>
   `,
 })
@@ -29,19 +29,15 @@ export const Color = () => ({
 export const TextColor = () => ({
   components: { VaAvatar },
   template: `
-    [warning]
     <VaAvatar textColor="warning">
-      A
+      Text
     </VaAvatar>
   `,
 })
 
 export const Icon = () => ({
   components: { VaAvatar },
-  template: `
-    [va-warning]
-    <VaAvatar icon="va-warning"/>
-  `,
+  template: `<VaAvatar icon="va-warning"/>`,
 })
 
 export const Size = () => ({
@@ -49,15 +45,15 @@ export const Size = () => ({
   template: `
     [smal]
     <VaAvatar size="small">
-      A
+      Text
     </VaAvatar>
     [medium]
     <VaAvatar size="medium">
-      A
+      Text
     </VaAvatar>
     [large]
     <VaAvatar size="large">
-      A
+      Text
     </VaAvatar>
   `,
 })
@@ -66,16 +62,25 @@ export const SizesConfig = () => ({
   components: { VaAvatar },
   template: `
     [small: 16px]
-    <VaAvatar :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }" size="small">
-      A
+    <VaAvatar 
+      :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
+      size="small"
+    >
+      Text
     </VaAvatar>
     [medium: 24px]
-    <VaAvatar :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }" size="medium">
-      A
+    <VaAvatar 
+      :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
+      size="medium"
+    >
+      Text
     </VaAvatar>
     [large: 32px]
-    <VaAvatar :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }" size="large">
-      A
+    <VaAvatar 
+      :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
+      size="large"
+    >
+      Text
     </VaAvatar>
   `,
 })
@@ -83,20 +88,9 @@ export const SizesConfig = () => ({
 export const FontSize = () => ({
   components: { VaAvatar },
   template: `
-    [0.75rem]
     <VaAvatar fontSize="0.75rem">
-      A
+      Text
     </VaAvatar>
-  `,
-})
-
-export const Src = () => ({
-  components: { VaAvatar },
-  template: `
-    <VaAvatar 
-      src="https://randomuser.me/api/portraits/women/5.jpg" 
-      alt="image"
-    >
   `,
 })
 
@@ -104,7 +98,7 @@ export const Square = () => ({
   components: { VaAvatar },
   template: `
     <VaAvatar square>
-      A
+      Text
     </VaAvatar>
   `,
 })
@@ -126,17 +120,17 @@ export const FallbackSrc = () => ({
 
 export const FallbackText = () => ({
   components: { VaAvatar },
-  template: '<VaAvatar src="https://not-exist" fallbackText="Fallback"/>',
+  template: '<VaAvatar src="https://not-exist" fallbackText="Text"/>',
 })
 
-export const FallbackRender = () => ({
+export const fallbackRender = () => ({
   components: { VaAvatar },
   methods: {
-    FallbackRender: () => h('b', {
+    fallbackRender: () => h('b', {
       style: {
         color: 'black',
       },
     }, 'Text'),
   },
-  template: '<VaAvatar src="https://not-exist" :fallbackRender="FallbackRender"/>',
+  template: '<VaAvatar src="https://not-exist" :fallbackRender="fallbackRender"/>',
 })
