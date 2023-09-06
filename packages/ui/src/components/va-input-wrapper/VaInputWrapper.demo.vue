@@ -10,6 +10,7 @@ import {
   VaTimeInput,
   VaColorInput,
 } from '../'
+import { getStaticDate } from '../../../.storybook/interaction-utils/addText'
 
 import { computed, reactive } from 'vue'
 
@@ -20,6 +21,8 @@ const playground = reactive({
 })
 
 const preset = computed(() => (playground.solid ? 'solid' : ''))
+
+const date = getStaticDate()
 </script>
 
 <template>
@@ -140,7 +143,7 @@ const preset = computed(() => (playground.solid ? 'solid' : ''))
           <VaDateInput
             label="Label"
             :inner-label="playground.innerLabel"
-            :model-value="new Date()"
+            :model-value="date"
             :preset="preset"
           />
         </div>
@@ -153,7 +156,7 @@ const preset = computed(() => (playground.solid ? 'solid' : ''))
         <div>
           <VaTimeInput
             label="time input"
-            :model-value="new Date()"
+            :model-value="date"
             :inner-label="playground.innerLabel"
             :preset="preset"
           />
