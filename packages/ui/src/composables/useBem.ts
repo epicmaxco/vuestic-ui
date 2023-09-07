@@ -5,7 +5,7 @@ import kebab from 'lodash/kebabCase.js'
 
 import { isDev } from '../utils/env'
 
-type Key<Prefix extends string, ModifierKey extends string> = `${Prefix}--${ModifierKey | string}`
+type Key<Prefix extends string, ModifierKey extends string> = `${Prefix}--${ModifierKey}`
 
 type ClassesObject<Key extends string> = Record<Key, boolean>
 

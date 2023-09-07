@@ -1,7 +1,7 @@
 <template>
   <va-collapse
     v-model="value"
-    class="w-96"
+    class="min-w-96"
     header="Collapse header"
     solid
   >
@@ -19,9 +19,11 @@
       </div>
     </template>
 
-    <div class="p-2 border-[var(--va-background-border)] border-2 border-t-0">
-      Lorem ipsum dolor sit amet, consectetur adipisci
-    </div>
+    <template #body>
+      <div class="p-2 border-[var(--va-background-border)] border-2 border-t-0">
+        Lorem ipsum dolor sit amet, consectetur adipisci
+      </div>
+    </template>
   </va-collapse>
 </template>
 

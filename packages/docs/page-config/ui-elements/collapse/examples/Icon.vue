@@ -1,13 +1,11 @@
 <template>
   <va-collapse
     v-model="value"
-    class="w-96"
+    class="min-w-96"
     header="Collapse header"
     icon="home"
   >
-    <template #content>
-      Collapse content
-    </template>
+    Collapse content
   </va-collapse>
 </template>
 
