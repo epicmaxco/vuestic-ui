@@ -198,7 +198,7 @@ export default defineComponent({
     withoutTransitions: { type: Boolean, default: false },
     overlay: { type: Boolean, default: true },
     overlayOpacity: { type: [Number, String], default: 0.6 },
-    isShowNestedOverlay: { type: Boolean, default: false },
+    ShowNestedOverlay: { type: Boolean, default: false },
     blur: { type: Boolean, default: false },
     zIndex: { type: [Number, String], default: undefined },
     backgroundColor: { type: String, default: 'background-secondary' },
@@ -245,9 +245,10 @@ export default defineComponent({
 
       if (!props.overlay) { return }
 
-      if (isTopLevelModal.value || props.isShowNestedOverlay) {
+      if (isTopLevelModal.value || props.ShowNestedOverlay) {
         return {
-          'background-color': `rgba(0, 0, 0, ${props.overlayOpacity})`,
+          'background-color': 'var(--va-modal-overlay-color)',
+          opacity: `${props.ShowNestedOverlay ? 'var(--va-modal-overlay-nested-opacity)' : 'var(--va-modal-overlay-opacity)'} `,
           'z-index': props.zIndex && Number(props.zIndex) - 1,
         } as StyleValue
       }

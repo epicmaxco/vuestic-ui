@@ -334,7 +334,7 @@
           Show second modal
         </button>
 
-        <va-modal :isShowNestedOverlay="true" v-model="showModalNested4" :message="message">
+        <va-modal :isShowNestedOverlay="true" v-model="showModalNested4" :message="mediumMessage">
           Second Modal
         </va-modal>
       </va-modal>
@@ -457,6 +457,7 @@ export default {
       showModalCloseOutside: false,
       c: false,
       message: this.$vb.lorem(),
+      mediumMessage: this.$vb.lorem(50),
       longMessage: this.$vb.lorem(5000),
       collapseValue: false,
     }
