@@ -26,12 +26,14 @@ export const useCarousel = (props: {
     currentSlide.value += 1
   }
 
+  const doShowDirectionButtons = computed(() => props.items.length > 1)
   const doShowPrevButton = computed(() => currentSlide.value > 0 || props.infinite)
   const doShowNextButton = computed(() => currentSlide.value < props.items.length - 1 || props.infinite)
 
   return {
     doShowPrevButton,
     doShowNextButton,
+    doShowDirectionButtons,
     goTo,
     prev,
     next,
