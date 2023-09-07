@@ -43,7 +43,7 @@
   --va-modal-overlay-opacity-transition: opacity math.div(2 * var(--va-modal-basic-duration), 3) cubic-bezier(1, 0.5, 0.8, 1);
   --va-modal-overlay-color: rgb(0, 0, 0);
   --va-modal-overlay-opacity: 0.6;
-  --va-modal-overlay-nested-opacity: 0.9;
+  --va-modal-overlay-nested-opacity: 0.1;
 
   /* Footer */
   --va-modal-footer-justify-content: flex-end;
