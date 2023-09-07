@@ -55,7 +55,7 @@ export const useStateful = <Props extends StatefulProps, Name extends string, Ke
     stateful ? watchModelValue() : unwatchModelValue?.()
   }, { immediate: true })
 
-  const valueComputed = computed({
+  const valueComputed = computed<typeof props[typeof key]>({
     get: () => {
       if (props.stateful) { return valueState.value }
 
