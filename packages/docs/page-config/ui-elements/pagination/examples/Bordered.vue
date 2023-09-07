@@ -6,7 +6,7 @@
     buttons-preset="default"
     gapped
     border-color="primary"
-    class="mb-6"
+    class="mb-6 justify-center sm:justify-start"
   />
   <va-pagination
     v-model="value"
@@ -15,7 +15,7 @@
     buttons-preset="primary"
     gapped
     border-color="primary"
-    class="mb-6"
+    class="mb-6 justify-center sm:justify-start"
   />
   <va-pagination
     v-model="value"
@@ -24,6 +24,7 @@
     buttons-preset="secondary"
     gapped
     border-color="primary"
+    class="justify-center sm:justify-start"
   />
 </template>
 

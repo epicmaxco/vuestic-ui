@@ -2,16 +2,11 @@
   <table>
     <tr>
       <td colspan="2">
-        <div class="title va-text-center mb-2">
-          Offset direction
-        </div>
+        <div class="title va-text-center mb-2">Offset direction</div>
       </td>
     </tr>
     <tr>
-      <td
-        colspan="2"
-        class="p-[4rem]"
-      >
+      <td colspan="2" class="p-[4rem]">
         <div class="flex flex-col items-center">
           <va-dropdown
             :model-value="true"
@@ -35,30 +30,21 @@
       <td>
         <va-select
           v-model="placementWIthAlias"
+          class="w-[11rem] sm:w-[16rem]"
           :options="placements"
         />
       </td>
     </tr>
     <tr>
-      <td class="text-[var(--va-primary)]">
-        Main:
-      </td>
+      <td class="text-[var(--va-primary)]">Main:</td>
       <td>
-        <va-counter
-          v-model="offset[0]"
-          manual-input
-        />
+        <va-counter v-model="offset[0]" manual-input />
       </td>
     </tr>
     <tr>
-      <td class="text-[var(--va-secondary)]">
-        Cross:
-      </td>
+      <td class="text-[var(--va-secondary)]">Cross:</td>
       <td>
-        <va-counter
-          v-model="offset[1]"
-          manual-input
-        />
+        <va-counter v-model="offset[1]" manual-input />
       </td>
     </tr>
   </table>
