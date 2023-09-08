@@ -38,17 +38,19 @@
               </va-sidebar-item>
             </template>
 
-            <va-sidebar-item
-              v-for="child in item.children"
-              :key="child.title"
-              :active="child.title === activeElement"
-              @click="activeElement = child.title"
-            >
-              <va-sidebar-item-content>
-                <va-icon :name="child.icon" />
-                <va-sidebar-item-title>{{ child.title }}</va-sidebar-item-title>
-              </va-sidebar-item-content>
-            </va-sidebar-item>
+            <template #body>
+              <va-sidebar-item
+                v-for="child in item.children"
+                :key="child.title"
+                :active="child.title === activeElement"
+                @click="activeElement = child.title"
+              >
+                <va-sidebar-item-content>
+                  <va-icon :name="child.icon" />
+                  <va-sidebar-item-title>{{ child.title }}</va-sidebar-item-title>
+                </va-sidebar-item-content>
+              </va-sidebar-item>
+            </template>
           </va-collapse>
 
           <va-sidebar-item

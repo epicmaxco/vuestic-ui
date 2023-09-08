@@ -1,28 +1,21 @@
 <template>
-  <div class="w-96">
+  <div class="flex flex-col gap-4 min-w-96">
     <va-collapse
       v-model="value[0]"
       header="Color collapse header only"
       solid
       color="success"
-      class="mb-6"
     >
-      <div class="p-2">
-        Collapse content
-      </div>
+      Collapse content
     </va-collapse>
     <va-collapse
       v-model="value[1]"
       header="Color collapse header and body"
-      color="#000"
+      color="#3D9209"
       color-all
-      text-color="#fff"
       icon="info"
-      class="mb-6"
     >
-      <div class="p-2">
-        Collapse content
-      </div>
+      Collapse content
     </va-collapse>
   </div>
 </template>
