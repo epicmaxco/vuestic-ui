@@ -52,38 +52,6 @@ Default.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const vModel = () => ({
-  components: { VaAccordion, VaCollapse },
-  data: () => ({ value: [true, false, true] }),
-  template: `
-    <va-accordion v-model="value" multiple>
-      <va-collapse
-        v-for="i in 3"
-        :key="i"
-        :header="value[i - 1] ? 'Must be opened' : 'Must be closed'"
-      >
-        Content
-      </va-collapse>
-    </va-accordion>
-  `,
-})
-vModel.play = async ({ canvasElement, step }) => {
-  const canvas = within(canvasElement)
-  const collapses = canvas.getAllByRole('button') as HTMLElement[]
-
-  await step('Should open on click', async () => {
-    userEvent.click(collapses[0])
-    await sleep()
-    expect(collapses[0]).toHaveAttribute('aria-expanded', 'false')
-  })
-
-  await step('Should close on click', async () => {
-    userEvent.click(collapses[1])
-    await sleep()
-    expect(collapses[1]).toHaveAttribute('aria-expanded', 'true')
-  })
-}
-
 export const Stateful = () => ({
   components: { VaAccordion, VaCollapse },
   template: `
@@ -145,6 +113,39 @@ Multiple.play = async ({ canvasElement, step }) => {
     userEvent.click(collapses[1])
     await sleep()
     expect(collapses[0]).toHaveAttribute('aria-expanded', 'true')
+    expect(collapses[1]).toHaveAttribute('aria-expanded', 'true')
+  })
+}
+
+export const vModel = () => ({
+  components: { VaAccordion, VaCollapse },
+  data: () => ({ value: [true, false, true] }),
+  template: `
+    {{ value }}
+    <va-accordion v-model="value" multiple>
+      <va-collapse
+        v-for="i in 3"
+        :key="i"
+        header="Collapse"
+      >
+        Content
+      </va-collapse>
+    </va-accordion>
+  `,
+})
+vModel.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const collapses = canvas.getAllByRole('button') as HTMLElement[]
+
+  await step('Should open on click', async () => {
+    userEvent.click(collapses[0])
+    await sleep()
+    expect(collapses[0]).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  await step('Should close on click', async () => {
+    userEvent.click(collapses[1])
+    await sleep()
     expect(collapses[1]).toHaveAttribute('aria-expanded', 'true')
   })
 }

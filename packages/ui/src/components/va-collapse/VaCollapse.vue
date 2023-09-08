@@ -93,6 +93,7 @@ export default defineComponent({
     textColor: { type: String, default: '' },
     colorAll: { type: Boolean, default: false },
     flat: { type: Boolean, default: false },
+    stateful: { type: Boolean, default: true },
   },
   emits: ['update:modelValue', ...useSelectableEmits],
 
