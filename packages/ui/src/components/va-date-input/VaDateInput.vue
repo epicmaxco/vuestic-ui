@@ -102,7 +102,7 @@ import {
   ref,
   shallowRef,
   nextTick,
-  WritableComputedRef,
+  Ref,
 } from 'vue'
 import omit from 'lodash/omit'
 
@@ -216,7 +216,7 @@ export default defineComponent({
       trapFocus()
     })
 
-    const { valueComputed: statefulValue }: { valueComputed: WritableComputedRef<DateInputModelValue> } = useStateful(props, emit)
+    const { valueComputed: statefulValue } = useStateful(props, emit)
     const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
       defaultCloseOnValueUpdate: computed(() => !Array.isArray(statefulValue.value)),
     })

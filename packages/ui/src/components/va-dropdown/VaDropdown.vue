@@ -40,7 +40,8 @@ export default defineComponent({
   name: 'VaDropdown',
   props: {
     ...usePlacementAliasesProps,
-    ...createStatefulProps(Boolean, true),
+    ...createStatefulProps(true),
+    modelValue: { type: Boolean, default: false },
     anchorSelector: { type: String, default: '' },
     innerAnchorSelector: { type: String, default: '' },
     trigger: {
@@ -75,7 +76,7 @@ export default defineComponent({
   emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'focus-outside', 'close', 'open', 'anchor-dblclick'],
 
   setup (props, { emit }) {
-    const { valueComputed: statefulVal } = useStateful(props, emit)
+    const { valueComputed: statefulVal } = useStateful(props, emit, 'modelValue')
     const valueComputed = computed({
       get: () => statefulVal.value && !props.disabled && !props.readonly,
       set (val) {

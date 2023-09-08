@@ -17,7 +17,7 @@ export default defineComponent({
   name: 'VaHover',
 
   props: {
-    ...createStatefulProps(Boolean, true),
+    ...createStatefulProps(true),
     ...useComponentPresetProp,
     disabled: { type: Boolean, default: false },
     modelValue: { type: Boolean, default: false },
