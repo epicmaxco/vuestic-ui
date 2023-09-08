@@ -19,7 +19,6 @@
       <template #innerLabel>
         <div class="va-text-center">
           <va-icon
-            size="24px"
             :name="value ? 'dark_mode' : 'light_mode'"
           />
         </div>
