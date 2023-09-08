@@ -341,7 +341,6 @@ export default defineComponent({
     const iconProps = computed(() => ({
       role: 'button',
       'aria-hidden': false,
-      size: 'small',
       name: props.icon,
       color: 'secondary',
       tabindex: iconTabindexComputed.value,

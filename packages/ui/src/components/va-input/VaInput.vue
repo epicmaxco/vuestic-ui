@@ -36,7 +36,6 @@
       <va-icon
         v-if="$props.loading"
         :color="$props.color"
-        size="small"
         name="va-loading"
         spin="counter-clockwise"
       />

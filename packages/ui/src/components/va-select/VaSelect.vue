@@ -48,7 +48,6 @@
           <va-icon
             :color="toggleIconColor"
             :name="toggleIcon"
-            size="small"
             class="va-select__toggle-icon"
             role="button"
             :tabindex="openSelectButtonTabIndexComputed"

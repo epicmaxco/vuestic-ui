@@ -38,7 +38,6 @@
         <va-icon
           v-show="isActive"
           class="va-checkbox__icon"
-          size="18px"
           :name="computedIconName"
           :color="textColorComputed"
         />

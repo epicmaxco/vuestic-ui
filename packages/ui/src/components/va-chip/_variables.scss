@@ -8,7 +8,7 @@
   --va-chip-height: auto;
   --va-chip-min-width: initial;
   --va-chip-min-height: initial;
-  --va-chip-padding: 0 0.3rem;
+  --va-chip-padding: 0 0.375rem;
   --va-chip-color: #ffffff;
   --va-chip-cursor: default;
   --va-chip-font-size: 1rem;
@@ -21,7 +21,7 @@
   --va-chip-content-width: var(--va-chip-inner-width, 100%);
   --va-chip-content-align-items: center;
   --va-chip-content-justify-content: center;
-  --va-chip-content-padding: 0 0.3rem;
+  --va-chip-content-padding: 0 var(--va-gap-medium, 0.5rem);
   --va-chip-content-line-height: 1.6;
 
   /* Square */
@@ -30,8 +30,10 @@
   /* Small */
   --va-chip-sm-height: 1.5rem;
   --va-chip-sm-font-size: 0.875rem;
+  --va-chip-sm-content-padding: 0 var(--va-gap-small, 0.5rem);
 
   /* Large */
   --va-chip-lg-height: 2.5rem;
   --va-chip-lg-font-size: 1.25rem;
+  --va-chip-lg-content-padding: 0 var(--va-gap-large, 0.5rem);
 }
