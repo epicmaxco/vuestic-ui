@@ -243,17 +243,21 @@ export default defineComponent({
       'va-modal__overlay--lowest': isLowestLevelModal.value,
       'va-modal__overlay--top': isTopLevelModal.value,
     }))
-    const computedOverlayStyles = computed(() => {
-      // NOTE Not sure exactly what that does.
-      // Supposedly solves some case when background wasn't shown.
-      // As a side effect removes background from nested modals.
 
+    const getOverlayOpacity = () => {
+      if (props.showNestedOverlay && !isLowestLevelModal.value) {
+        return 'var(--va-modal-overlay-nested-opacity)'
+      }
+      return 'var(--va-modal-overlay-opacity)'
+    }
+
+    const computedOverlayStyles = computed(() => {
       if (!props.overlay) { return }
 
       if (isTopLevelModal.value || props.showNestedOverlay) {
         return {
           'background-color': 'var(--va-modal-overlay-color)',
-          opacity: `${props.showNestedOverlay ? 'var(--va-modal-overlay-nested-opacity)' : 'var(--va-modal-overlay-opacity)'} `,
+          opacity: getOverlayOpacity(),
           'z-index': props.zIndex && Number(props.zIndex) - 1,
         } as StyleValue
       }
