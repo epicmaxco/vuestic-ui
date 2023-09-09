@@ -20,6 +20,7 @@
             :close-on-anchor-click="false"
             :close-on-content-click="false"
             :offset="offset"
+            :stateful="false"
           >
             <template #anchor>
               <div><Coordinates :placement="placement" /></div>
@@ -31,10 +32,13 @@
       </td>
     </tr>
     <tr>
-      <td>Placement:</td>
+      <td class="pr-4">
+        Placement:
+      </td>
       <td>
         <va-select
           v-model="placementWIthAlias"
+          class="w-[10rem] sm:w-[unset]"
           :options="placements"
         />
       </td>

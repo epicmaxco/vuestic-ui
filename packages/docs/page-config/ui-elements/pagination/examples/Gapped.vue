@@ -5,7 +5,7 @@
     :visible-pages="3"
     buttons-preset="default"
     gapped
-    class="mb-6"
+    class="mb-6 justify-center sm:justify-start"
   />
   <va-pagination
     v-model="value"
@@ -13,7 +13,7 @@
     :visible-pages="3"
     buttons-preset="primary"
     gapped
-    class="mb-6"
+    class="mb-6 justify-center sm:justify-start"
   />
   <va-pagination
     v-model="value"
@@ -21,6 +21,7 @@
     :visible-pages="3"
     buttons-preset="secondary"
     gapped
+    class="justify-center sm:justify-start"
   />
 </template>
 
