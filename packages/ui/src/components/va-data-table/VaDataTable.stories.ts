@@ -34,3 +34,12 @@ export const FilteredNoData = () => ({
   data: () => ({ columns, items }),
   template: '<VaDataTable filter="Ccc" :items="items" :columns="columns" />',
 })
+
+export const FilteredEvent = () => ({
+  components: { VaDataTable },
+  data: () => ({ columns, items, filter: 'Aaa', e: null }),
+  template: `
+    emitted: {{ e }}
+    <VaDataTable filter="Aaa" :items="items" :columns="columns" @filtered="e = $event" />
+  `,
+})
