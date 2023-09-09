@@ -23,11 +23,12 @@
         @beforeLeave="onBeforeLeaveTransition"
         @afterLeave="onAfterLeaveTransition"
       >
-        <div class="va-modal" v-if="valueComputed">
+        <div class="va-modal" :class="computedClass" v-if="valueComputed">
           <div
             v-if="$props.overlay"
             class="va-modal__overlay"
             :style="computedOverlayStyles"
+            :class="computedOverlayClass"
           />
           <div
             class="va-modal__container"
@@ -36,7 +37,6 @@
             <div
               ref="modalDialog"
               class="va-modal__dialog"
-              :class="computedClass"
               :style="computedDialogStyle"
             >
               <va-icon
@@ -238,6 +238,11 @@ export default defineComponent({
       color: textColorComputed.value,
       background: getColor(props.backgroundColor),
     }))
+
+    const computedOverlayClass = computed(() => ({
+      'va-modal__overlay--lowest': isLowestLevelModal.value,
+      'va-modal__overlay--top': isTopLevelModal.value,
+    }))
     const computedOverlayStyles = computed(() => {
       // NOTE Not sure exactly what that does.
       // Supposedly solves some case when background wasn't shown.
@@ -366,6 +371,9 @@ export default defineComponent({
     }
 
     return {
+      isLowestLevelModal,
+      isTopLevelModal,
+      computedOverlayClass,
       getColor,
       rootElement,
       modalDialog,
@@ -448,57 +456,75 @@ export default defineComponent({
     z-index: var(--va-modal-overlay-z-index);
     width: var(--va-modal-overlay-width);
     height: var(--va-modal-overlay-height);
+    will-change: opacity;
   }
 
-  &-enter-from &__overlay,
-  &-leave-to &__overlay {
-    opacity: 0;
+  &-enter-from,
+  &-leave-to {
+    .va-modal__overlay--lowest {
+      opacity: 0 !important;
+    }
   }
 
-  &-enter-active &__overlay,
-  &-leave-active &_overlay {
-    transition: var(--va-modal-overlay-opacity-transition);
+  &-leave-active, &-enter-active {
+    .va-modal__overlay.va-modal__overlay--lowest {
+      transition: opacity var(--va-modal-opacity-transition);
+    }
+  }
+
+  &-leave-active {
+    .va-modal__overlay:not(.va-modal__overlay--lowest) {
+      display: none;
+    }
   }
 
   &--fullscreen {
-    min-width: 100vw !important;
-    max-width: 100vw;
-    min-height: 100vh !important;
-    border-radius: 0;
-    margin: 0;
+    .va-modal__dialog {
+      min-width: 100vw !important;
+      max-width: 100vw;
+      min-height: 100vh !important;
+      border-radius: 0;
+      margin: 0;
+    }
   }
 
   &--mobile-fullscreen {
-    @media all and (max-width: map-get($grid-breakpoints, sm)) {
-      margin: 0 !important;
-      min-width: 100vw !important;
-      min-height: 100vh !important;
-      border-radius: 0;
+    .va-modal__dialog {
+      @media all and (max-width: map-get($grid-breakpoints, sm)) {
+        margin: 0 !important;
+        min-width: 100vw !important;
+        min-height: 100vh !important;
+        border-radius: 0;
+      }
     }
   }
 
   &--size {
     &-small {
-      max-width: map_get($grid-breakpoints, sm);
-
-      @media all and (max-width: map-get($grid-breakpoints, sm)) {
-        max-width: 100vw !important;
-      }
-
-      .va-modal__inner {
+      .va-modal__dialog {
         max-width: map_get($grid-breakpoints, sm);
 
         @media all and (max-width: map-get($grid-breakpoints, sm)) {
           max-width: 100vw !important;
         }
+
+        .va-modal__inner {
+          max-width: map_get($grid-breakpoints, sm);
+
+          @media all and (max-width: map-get($grid-breakpoints, sm)) {
+            max-width: 100vw !important;
+          }
+        }
       }
     }
 
     &-large {
-      max-width: map-get($grid-breakpoints, lg);
-
-      .va-modal__inner {
+      .va-modal__dialog {
         max-width: map-get($grid-breakpoints, lg);
+
+        .va-modal__inner {
+          max-width: map-get($grid-breakpoints, lg);
+        }
       }
     }
   }
