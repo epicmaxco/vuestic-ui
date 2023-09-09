@@ -24,18 +24,20 @@
           </va-sidebar-item-content>
         </va-sidebar-item>
       </template>
-      <va-sidebar-item
-        v-for="(child, index) in route.children"
-        :key="index"
-        :active="isRouteActive(child)"
-        @click="setRouteActive(child)"
-      >
-        <va-sidebar-item-content>
-          <va-sidebar-item-title>
-            {{ child.displayName }}
-          </va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
+      <template #body>
+        <va-sidebar-item
+          v-for="(child, index) in route.children"
+          :key="index"
+          :active="isRouteActive(child)"
+          @click="setRouteActive(child)"
+        >
+          <va-sidebar-item-content>
+            <va-sidebar-item-title>
+              {{ child.displayName }}
+            </va-sidebar-item-title>
+          </va-sidebar-item-content>
+        </va-sidebar-item>
+      </template>
     </va-collapse>
   </va-accordion>
 </template>
@@ -52,7 +54,7 @@ declare type DemoRoute = {
 export default defineComponent({
   data() {
     return {
-      accordionValue: [false, true],
+      accordionValue: [false, false, true],
       items: [
         {
           name: "Home",

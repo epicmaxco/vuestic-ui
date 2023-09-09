@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-xs">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
     <va-input
       v-model="value"
       class="mb-6"

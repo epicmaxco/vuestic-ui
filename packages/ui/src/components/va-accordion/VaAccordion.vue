@@ -37,7 +37,7 @@ export default defineComponent({
 .va-accordion {
   font-family: var(--va-font-family);
 
-  .va-collapse {
+  & > .va-collapse {
     &:not(:first-child, :last-child) {
       .va-collapse__header {
         border-radius: 0;
@@ -52,19 +52,24 @@ export default defineComponent({
       }
     }
 
-    &:first-child {
-      .va-collapse__header {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-      }
-    }
+    // & .va-collapse__header {
+    //   border-top: 1px solid var(--va-background-border);
+    // }
 
-    &:last-child {
-      .va-collapse__header {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-      }
-    }
+    // &:first-child {
+    //   .va-collapse__header {
+    //     border-bottom-left-radius: 0;
+    //     border-bottom-right-radius: 0;
+    //     border-top: none;
+    //   }
+    // }
+
+    // &:last-child {
+    //   .va-collapse__header {
+    //     border-top-left-radius: 0;
+    //     border-top-right-radius: 0;
+    //   }
+    // }
   }
 }
 </style>

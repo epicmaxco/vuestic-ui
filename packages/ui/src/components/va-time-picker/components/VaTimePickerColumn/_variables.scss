@@ -1,7 +1,7 @@
 .va-time-picker-column {
-  --va-time-picker-column-gap-height: 50px;
-  --va-time-picker-column-border-right: 1px solid var(--va-background-element);
   --va-time-picker-cell-height: 30px;
+  --va-time-picker-column-gap-height: calc(var(--va-time-picker-cell-height) * 2);
+  --va-time-picker-column-border-right: 1px solid var(--va-background-element);
   --va-time-picker-cell-width: 40px;
   --va-time-picker-cell-cursor: pointer;
   --va-time-picker-cell-active-background: var(--va-primary);

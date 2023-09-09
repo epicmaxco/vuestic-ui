@@ -84,6 +84,11 @@
       />
     </VbCard>
 
+    <VbCard title="label">
+      <va-counter v-model="value" label="outer (default)" />
+      <va-counter v-model="value" label="inner" inner-label />
+    </VbCard>
+
     <VbCard title="state">
       <va-counter v-model="value" readonly label="readonly" />
       <va-counter v-model="value" disabled label="disabled" />

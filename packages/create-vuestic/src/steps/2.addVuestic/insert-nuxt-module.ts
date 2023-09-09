@@ -36,7 +36,7 @@ export const insertNuxtModule = (source: string, css: string[]) => {
   }
 
   source = source
-    .replace(/defineNuxtConfig\({([.|\n]*)}\)/m, (a, b) => a.replace(b, createNuxtConfig(vuesticConfig)))
+    .replace('defineNuxtConfig({', `defineNuxtConfig({\n  ${createNuxtConfig(vuesticConfig)}`)
 
   return source
 }

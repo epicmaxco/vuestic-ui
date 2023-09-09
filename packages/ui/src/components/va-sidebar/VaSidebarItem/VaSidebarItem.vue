@@ -112,7 +112,7 @@ export default defineComponent({
 @import "../variables";
 @import "../../../styles/resources";
 
-.va-sidebar__item {
+.va-sidebar-item {
   border-left: var(--va-sidebar-item-active-border-size) solid transparent;
   padding-right: var(--va-sidebar-item-active-border-size);
   display: inline-block;
@@ -121,5 +121,6 @@ export default defineComponent({
   transition: var(--va-sidebar-item-transition);
   box-sizing: border-box;
   color: currentColor;
+  cursor: pointer;
 }
 </style>

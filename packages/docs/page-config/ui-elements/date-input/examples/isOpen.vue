@@ -2,6 +2,7 @@
   <va-date-input
     v-model:is-open="isOpen"
     :label="`Is open value = ${isOpen}`"
+    placeholder="Select a date"
   />
 </template>
 

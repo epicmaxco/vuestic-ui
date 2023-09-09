@@ -1,21 +1,7 @@
 <template>
-  <div class="flex gap-8 flex-wrap">
-    <va-counter
-      v-model="value"
-      messages="Default"
-    />
-
-    <va-counter
-      stateful
-      messages="Stateful"
-    />
-
-    <va-counter
-      v-model="value"
-      manual-input
-      messages="Manual-input"
-    />
-  </div>
+  <va-counter
+    v-model="value"
+  />
 </template>
 
 <script>

@@ -30,7 +30,7 @@ export default {
         "eight",
         "nine",
       ],
-      value: [],
+      value: ["one", "two"],
     };
   },
 };

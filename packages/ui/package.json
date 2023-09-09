@@ -44,7 +44,6 @@
     "chromatic": "npx chromatic --build-script-name=build:storybook --project-token=chpt_0b6e7d8b20a17cf"
   },
   "dependencies": {
-    "@faker-js/faker": "^8.0.2",
     "@floating-ui/vue": "^1.0.1",
     "@types/lodash": "^4.14.161",
     "cleave.js": "^1.6.0",
@@ -55,6 +54,7 @@
     "@babel/core": "^7.12.3",
     "@babel/plugin-transform-modules-commonjs": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
+    "@faker-js/faker": "^8.0.2",
     "@fortawesome/fontawesome-free": "^6.1.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
@@ -102,7 +102,6 @@
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-storybook": "^0.6.12",
     "eslint-plugin-vue": "^7.0.1",
-    "friendly-errors-webpack-plugin": "^1.7.0",
     "identity-obj-proxy": "^3.0.0",
     "ionicons": "^3.0.0",
     "jsdom": "^16.2.2",

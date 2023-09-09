@@ -100,11 +100,13 @@ on [vuestic.dev](https://vuestic.dev)
 
 ### Partners & Sponsors ❤️
 
-<img src="./.github/assets/sponsors.jpg" loading="lazy" alt="Epicmax, vuejobs, ag-grid, flatlogic, browserstack and jetbrains" width="400px">
+<img src="./.github/assets/sponsors.png" loading="lazy" alt="Epicmax, vuejobs, ag-grid, flatlogic, browserstack and jetbrains" width="400px">
 
 <br />
 
-This project is tested with BrowserStack.
+Thanks to [BrowserStack](https://www.browserstack.com/) for providing the infrastructure that allows us to test using all possible browsers.
+
+Thanks to [Chromatic](https://www.chromatic.com/) for providing the visual testing platform that helps us review UI changes and prevent visual regressions.
 
 Become a partner: [hello@epicmax.co](mailto:hello@epicmax.co)
 

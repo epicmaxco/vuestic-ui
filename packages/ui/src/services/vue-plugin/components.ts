@@ -44,6 +44,8 @@ export {
   VaInfiniteScroll,
   VaInnerLoading,
   VaInput,
+  VaLayout,
+  VaInputWrapper,
   VaList,
   VaListItem,
   VaListItemLabel,
@@ -84,4 +86,5 @@ export {
   VaViewer,
   VaValue,
   VaVirtualScroller,
+  VaTextarea,
 } from '../../components'

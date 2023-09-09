@@ -75,6 +75,14 @@ export const useColors = () => {
       defaultColor = getColors().primary
     }
 
+    if (prop === 'transparent') {
+      return '#ffffff00'
+    }
+
+    if (prop === 'currentColor') {
+      return prop
+    }
+
     const colors = getColors()
 
     if (!prop) {

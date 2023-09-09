@@ -21,7 +21,7 @@ const isPluginFabric = <O extends any[]>(plugin: VuesticPlugin | VuesticPluginFa
  * })
  * ```
  */
-export const usePlugin = <O extends any>(app: App, plugin: VuesticPlugin | VuesticPluginFabric<O[]>, ...options: O[]) => {
+export const usePlugin = <O>(app: App, plugin: VuesticPlugin | VuesticPluginFabric<O[]>, ...options: O[]) => {
   if (isPluginFabric(plugin)) {
     app.use(plugin(...options))
   } else {

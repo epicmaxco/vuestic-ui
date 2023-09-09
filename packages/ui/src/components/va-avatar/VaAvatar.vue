@@ -74,13 +74,13 @@ export default defineComponent({
     const colorComputed = computed(() => getColor(props.color))
     const backgroundColorComputed = computed(() => {
       if (props.loading || (props.src && !hasLoadError.value)) {
-        return 'transparent'
+        return undefined
       }
 
       return colorComputed.value
     })
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
-    const { textColorComputed } = useTextColor()
+    const { textColorComputed } = useTextColor(backgroundColorComputed)
 
     const computedStyle = computed(() => ({
       fontSize: props.fontSize || fontSizeComputed.value,

@@ -9,7 +9,7 @@
     role="region"
     :aria-label="tp($props.ariaLabel)"
   >
-    <template v-if="$props.arrows">
+    <template v-if="$props.arrows && doShowDirectionButtons">
       <div
         v-if="doShowPrevButton"
         class="va-carousel__arrow va-carousel__arrow--left"
@@ -49,7 +49,7 @@
         class="va-carousel__indicator"
         v-for="(item, index) in $props.items" :key="index"
         :class="{ 'va-carousel__indicator--active': index === modelValue }"
-        v-bind="indicatorTrigger === 'hover' ? { onmouseover: () => goTo(index) } : { onclick: () => goTo(index) }"
+        v-bind="getIndicatorEvents(index)"
       >
         <slot name="indicator" v-bind="{ item, index, goTo, isActive: isCurrentSlide(index) }">
           <va-hover #default="{ hover }" stateful>
@@ -142,9 +142,9 @@ export default defineComponent({
     arrows: { type: Boolean, default: true },
     indicators: { type: Boolean, default: true },
     indicatorTrigger: {
-      type: String as PropType<'click' | 'hover'>,
+      type: String as PropType<'click' | 'hover' | 'none'>,
       default: 'click',
-      validator: (value: string) => ['click', 'hover'].includes(value),
+      validator: (value: string) => ['click', 'hover', 'none'].includes(value),
     },
     vertical: { type: Boolean, default: false },
     height: { type: String, default: '300px' },
@@ -170,7 +170,7 @@ export default defineComponent({
 
     const {
       goTo, next, prev,
-      doShowNextButton, doShowPrevButton,
+      doShowNextButton, doShowPrevButton, doShowDirectionButtons,
     } = useCarousel(props, currentSlide)
 
     const { withPause, computedSlidesStyle, slides } = useCarouselAnimation(props, currentSlide)
@@ -198,10 +198,23 @@ export default defineComponent({
     }
     useSwipe(props, slidesContainer, onSwipe)
 
+    const getIndicatorEvents = (index) => {
+      if (props.indicatorTrigger === 'hover') {
+        return { onmouseover: () => goTo(index) }
+      }
+      if (props.indicatorTrigger === 'click') {
+        return { onclick: () => goTo(index) }
+      }
+      // none
+      return {}
+    }
+
     return {
       vaImageProps: filterComponentProps(VaImageProps),
       doShowNextButton,
       doShowPrevButton,
+      doShowDirectionButtons,
+      getIndicatorEvents,
       computedSlidesStyle,
       slideStyleComputed,
       goTo: withPause(goTo),

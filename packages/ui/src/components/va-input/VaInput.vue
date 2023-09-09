@@ -1,26 +1,17 @@
 <template>
   <va-input-wrapper
-    v-bind="fieldListeners"
+    v-bind="{
+      ...fieldListeners,
+      ...wrapperProps,
+    }"
     class="va-input"
     :class="$attrs.class"
     :style="$attrs.style"
-    :color="$props.color"
-    :background="$props.background"
-    :readonly="$props.readonly"
-    :disabled="$props.disabled"
-    :success="$props.success"
-    :messages="$props.messages"
     :loading="$props.loading || isLoading"
     :error="computedError"
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
-    :label="$props.label"
-    :bordered="$props.bordered"
-    :outline="$props.outline"
-    :requiredMark="$props.requiredMark"
-    :focused="isFocused"
     :counter-value="valueLengthComputed"
-    :max-length="$props.maxLength"
     @click="focus"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
@@ -52,15 +43,8 @@
       <slot name="icon" v-bind="slotScope" />
     </template>
 
-    <VaTextarea
-      v-if="type === 'textarea' && !$slots.content"
-      ref="input"
-      v-bind="{ ...computedChildAttributes, ...textareaProps, ...inputEvents }"
-      class="va-input__content__input"
-    />
-
     <input
-      v-else-if="!$slots.content"
+      v-if="!$slots.content"
       ref="input"
       class="va-input__content__input"
       v-bind="{ ...computedInputAttributes, ...inputEvents }"
@@ -82,22 +66,20 @@ import {
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
   useEmitProxy,
   useClearable, useClearableProps, useClearableEmits,
-  useFocusDeep,
   useTranslation,
-  useStateful, useStatefulProps, useStatefulEmits,
+  useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
 } from '../../composables'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
 import type { AnyStringPropType } from '../../utils/types/prop-type'
 
-import VaInputWrapper from './components/VaInputWrapper/VaInputWrapper.vue'
-import VaTextarea from './components/VaTextarea/VaTextarea.vue'
+import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { focusElement, blurElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
 import { combineFunctions } from '../../utils/combine-functions'
 
-const VaTextareaProps = extractComponentProps(VaTextarea)
+const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change', 'keyup', 'keypress', 'keydown', 'focus', 'blur', 'input'],
@@ -114,14 +96,14 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 export default defineComponent({
   name: 'VaInput',
 
-  components: { VaInputWrapper, VaTextarea, VaIcon },
+  components: { VaInputWrapper, VaIcon },
 
   props: {
+    ...VaInputWrapperProps,
     ...useFormFieldProps,
     ...useValidationProps as ValidationProps<string>,
     ...useClearableProps,
     ...useCleaveProps,
-    ...VaTextareaProps,
     ...useComponentPresetProp,
     ...useStatefulProps,
 
@@ -129,22 +111,13 @@ export default defineComponent({
     placeholder: { type: String, default: '' },
     tabindex: { type: [String, Number], default: 0 },
     modelValue: { type: [String, Number] },
-    label: { type: String, default: '' },
-    type: { type: String as AnyStringPropType<'textarea' | 'text' | 'password'>, default: 'text' },
-    loading: { type: Boolean, default: false },
+    type: { type: String as AnyStringPropType<'text' | 'password'>, default: 'text' },
     inputClass: { type: String, default: '' },
     pattern: { type: String },
     inputmode: { type: String, default: 'text' },
-    ariaLabel: { type: String, default: undefined },
     counter: { type: Boolean, default: false },
-    maxLength: { type: Number, default: undefined },
 
     // style
-    color: { type: String, default: 'primary' },
-    background: { type: String, default: 'background-element' },
-    outline: { type: Boolean, default: false },
-    bordered: { type: Boolean, default: false },
-    requiredMark: { type: Boolean, default: false },
     ariaResetLabel: { type: String, default: '$t:reset' },
   },
 
@@ -160,11 +133,13 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup (props, { emit, attrs, slots }) {
-    const input = shallowRef<HTMLInputElement | typeof VaTextarea>()
+    useDeprecatedCondition([
+      () => props.type !== 'textarea' || 'Use VaTextarea component instead of VaInput with type="textarea"',
+    ])
+
+    const input = shallowRef<HTMLInputElement>()
 
     const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: '' })
-
-    const isFocused = useFocusDeep()
 
     const reset = () => withoutValidation(() => {
       emit('update:modelValue', props.clearValue)
@@ -201,12 +176,7 @@ export default defineComponent({
       clearIconProps,
     } = useClearable(props, modelValue, input, computedError)
 
-    /** Use cleave only if this component is input, because it will break. */
-    const computedCleaveTarget = computed(() => props.type === 'textarea'
-      ? undefined
-      : input.value as HTMLInputElement | undefined)
-
-    const { computedValue, onInput } = useCleave(computedCleaveTarget, props, valueComputed)
+    const { computedValue, onInput } = useCleave(input, props, valueComputed)
 
     const inputListeners = createInputListeners(emit)
 
@@ -231,7 +201,8 @@ export default defineComponent({
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
 
     const computedChildAttributes = computed(() => ({
-      'aria-label': props.ariaLabel || props.label,
+      'aria-label': props.inputAriaLabel || props.label,
+      'aria-labelledby': props.inputAriaLabelledby,
       'aria-required': props.requiredMark,
       tabindex: tabIndexComputed.value,
       class: props.inputClass,
@@ -259,14 +230,13 @@ export default defineComponent({
       valueLengthComputed,
       computedChildAttributes,
       computedInputAttributes,
-      textareaProps: filterComponentProps(VaTextareaProps),
+      wrapperProps: filterComponentProps(VaInputWrapperProps),
       computedValue,
       tabIndexComputed,
 
       // Validations
       computedError,
       computedErrorMessages,
-      isFocused,
 
       // Icon
       canBeCleared,
