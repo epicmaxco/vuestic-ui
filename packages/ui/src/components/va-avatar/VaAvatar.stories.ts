@@ -37,7 +37,7 @@ export const TextColor = () => ({
 
 export const Icon = () => ({
   components: { VaAvatar },
-  template: `<VaAvatar icon="va-warning"/>`,
+  template: '<VaAvatar icon="va-warning"/>',
 })
 
 export const Size = () => ({
