@@ -1,13 +1,13 @@
-import { defineComponent } from 'vue'
 import VaInputDemo from './VaInput.demo.vue'
 import VaInput from './VaInput.vue'
 
 export default {
   title: 'VaInput',
   component: VaInput,
+  tags: ['autodocs'],
 }
 
-export const Default = defineComponent({
+export const OldDemos = () => ({
   components: { VaInputDemo },
   template: '<VaInputDemo />',
 })

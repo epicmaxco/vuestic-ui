@@ -7,6 +7,11 @@ export default {
   tags: ['autodocs'],
 }
 
+export const OldDemos = () => ({
+  components: { VaTextareaDemo },
+  template: '<VaTextareaDemo />',
+})
+
 export const Default = () => ({
   components: { VaTextarea },
   template: '<VaTextarea />',

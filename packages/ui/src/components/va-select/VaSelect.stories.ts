@@ -1,4 +1,3 @@
-import { defineComponent } from 'vue'
 import VaSelectDemo from './VaSelect.demo.vue'
 import VaSelect from './VaSelect.vue'
 
@@ -7,8 +6,13 @@ export default {
   component: VaSelect,
 }
 
-export const Default = defineComponent({
-  components: { VaSelect: VaSelectDemo },
+export const OldDemos = () => ({
+  components: { VaSelectDemo },
+  template: '<VaSelectDemo />',
+})
+
+export const Default = () => ({
+  components: { VaSelect },
   template: '<VaSelect/>',
 })
 

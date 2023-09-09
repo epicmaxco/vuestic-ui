@@ -5,11 +5,17 @@ import VaDateInput from './VaDateInput.vue'
 export default {
   title: 'VaDateInput',
   component: VaDateInput,
+  tags: ['autodocs'],
 }
 
-export const Default = defineComponent({
-  components: { VaDateInput: VaDateInputDemo },
-  template: '<VaDateInput/>',
+export const OldDemos = () => ({
+  components: { VaDateInputDemo },
+  template: '<VaDateInputDemo />',
+})
+
+export const Default = () => ({
+  components: { VaDateInput: VaDateInput },
+  template: '<VaDateInput />',
 })
 
 export const Loading = () => ({

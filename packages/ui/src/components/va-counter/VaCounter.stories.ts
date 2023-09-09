@@ -7,8 +7,13 @@ export default {
   component: VaCounter,
 }
 
-export const Default = defineComponent({
-  components: { VaCounter: VaCounterDemo },
+export const OldDemos = () => ({
+  components: { VaCounterDemo },
+  template: '<VaCounterDemo />',
+})
+
+export const Default = () => ({
+  components: { VaCounter },
   template: '<VaCounter/>',
 })
 

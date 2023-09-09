@@ -1,4 +1,3 @@
-import { defineComponent } from 'vue'
 import VaTimeInputDemo from './VaTimeInput.demo.vue'
 import VaTimeInput from './VaTimeInput.vue'
 
@@ -7,8 +6,13 @@ export default {
   component: VaTimeInput,
 }
 
-export const Default = defineComponent({
-  components: { VaTimeInput: VaTimeInputDemo },
+export const OldDemos = () => ({
+  components: { VaTimeInputDemo },
+  template: '<VaTimeInputDemo />',
+})
+
+export const Default = () => ({
+  components: { VaTimeInput },
   template: '<VaTimeInput/>',
 })
 
