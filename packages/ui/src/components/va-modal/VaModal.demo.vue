@@ -324,6 +324,21 @@
         </va-modal>
       </va-modal>
     </VbCard>
+    <VbCard title="nested modals with each overlay">
+      <button @click="showModalNested3 = !showModalNested3">
+        Show first modal
+      </button>
+
+      <va-modal :showNestedOverlay="true" v-model="showModalNested3" :message="message" hide-default-actions>
+        <button class="mt-8" @click="showModalNested4 = !showModalNested4" color="secondary">
+          Show second modal
+        </button>
+
+        <va-modal :showNestedOverlay="true" v-model="showModalNested4" :message="mediumMessage">
+          Second Modal
+        </va-modal>
+      </va-modal>
+    </VbCard>
     <VbCard title="vaModal return by click">
       <button @click="buttonClick">init vaModal</button>
     </VbCard>
@@ -431,6 +446,8 @@ export default {
       showModalCustomBackground: false,
       showModalNested1: false,
       showModalNested2: false,
+      showModalNested3: false,
+      showModalNested4: false,
       showNoPaddingModal: false,
       showModalFocusTrap1: false,
       showModalFocusTrap2: false,
@@ -440,6 +457,7 @@ export default {
       showModalCloseOutside: false,
       c: false,
       message: this.$vb.lorem(),
+      mediumMessage: this.$vb.lorem(50),
       longMessage: this.$vb.lorem(5000),
       collapseValue: false,
     }

@@ -5,7 +5,7 @@
     :total="100"
     :page-size="10"
     boundary-numbers
-    class="mb-3"
+    class="mb-3 justify-center sm:justify-start"
   >
     <template #prevPageLink="{ onClick, disabled }">
       <va-button

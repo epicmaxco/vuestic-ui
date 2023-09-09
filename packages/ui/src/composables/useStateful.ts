@@ -6,8 +6,11 @@ export type StatefulProps = {
 
 export type StatefulOptions<T> = {
   eventName?: string
-  defaultValue: T
+  /** @deprecated set default value for prop, not here */
+  defaultValue?: T
 }
+
+type NonUndefined<T extends any> = T extends undefined ? never : T
 
 /**
  * You could add these props to any component by destructuring them inside props option.
@@ -20,10 +23,9 @@ export const useStatefulProps = {
   modelValue: { type: undefined as any },
 }
 
-export const createStatefulProps = <T>(modelValueType?: T, statefulDefault = false) => {
+export const createStatefulProps = (statefulDefault = false) => {
   return {
     stateful: { type: Boolean as PropType<boolean>, default: statefulDefault },
-    modelValue: { type: modelValueType },
   }
 }
 
@@ -34,14 +36,20 @@ export const useStatefulEmits = ['update:modelValue'] as const
  * if `stateful` prop is `false`
  * Record<any, any> & Record<'modelValue', T>
  */
-export const useStateful = <Props extends StatefulProps, Name extends string, Key extends keyof Props>(
-  props: Props,
-  emit: (name: Name, ...args: any[]) => void,
-  key: Key = 'modelValue' as Key,
-  options = {} as StatefulOptions<Props[Key]>,
-) => {
+export const useStateful = <
+  T,
+  D extends any,
+  O extends StatefulOptions<D>,
+  Key extends string = 'modelValue',
+  P extends StatefulProps & { [key in Key]?: T } = StatefulProps & { [key in Key]?: T },
+>(
+    props: P,
+    emit: (name: `update:${Key}`, ...args: any[]) => void,
+    key: Key = 'modelValue' as Key,
+    options: O = {} as O,
+  ) => {
   const { defaultValue, eventName } = options
-  const event = (eventName || `update:${key.toString()}`) as Name
+  const event = (eventName || `update:${key.toString()}`) as `update:${Key}`
   const valueState = ref(defaultValue === undefined ? props[key] : defaultValue) as Ref
   let unwatchModelValue: Function
 
@@ -55,7 +63,7 @@ export const useStateful = <Props extends StatefulProps, Name extends string, Ke
     stateful ? watchModelValue() : unwatchModelValue?.()
   }, { immediate: true })
 
-  const valueComputed = computed({
+  const valueComputed = computed<unknown extends O['defaultValue'] ? P[Key] : NonUndefined<P[Key]>>({
     get: () => {
       if (props.stateful) { return valueState.value }
 

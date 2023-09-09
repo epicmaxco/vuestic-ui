@@ -9,7 +9,7 @@
       :style="computedStyle"
       v-bind="messageListAttributes"
     >
-      <ul>
+      <ul class="va-message-list__list">
         <li
           v-for="(message, index) in messages"
           :key="index"
@@ -72,6 +72,9 @@ export default defineComponent({
     }
   },
 })
+
+// va-message-list must have alert role, but ul must have list role. So there is .va-message-list__list
+// is also must have class which starts with .va- so typography styles will not be applied to it.
 </script>
 
 <style lang="scss">

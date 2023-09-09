@@ -18,7 +18,7 @@ export const useMessageListAria = (props: ExtractPropTypes<typeof ariaProps>) =>
 
   const messageListAttributes = computed(() => ({
     id: messageListId,
-    role: 'alert',
+    role: 'alert' as const,
   }))
 
   const doHaveMessages = computed(() => {
