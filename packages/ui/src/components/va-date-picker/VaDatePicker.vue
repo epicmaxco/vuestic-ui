@@ -3,7 +3,6 @@
     <va-date-picker-header
       v-bind="headerProps"
       v-model:view="syncView"
-      :textColor="textColorComputed"
     >
       <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="bind">
         <slot :name="name" v-bind="bind" />
@@ -63,7 +62,6 @@
 </template>
 
 <script lang="ts">
-import { useElementBackground } from '../../composables/useElementBackground'
 import { useTextColor } from '../../composables/useTextColor'
 import { computed, defineComponent, nextTick, PropType, ref, watch } from 'vue'
 
@@ -164,11 +162,8 @@ export default defineComponent({
     }
 
     const { colorsToCSSVariable } = useColors()
-    const { background } = useElementBackground()
-    const { textColorComputed } = useTextColor(background)
 
     const styleComputed = computed(() => ({
-      color: textColorComputed.value,
       ...colorsToCSSVariable({
         color: props.color,
         'weekends-color': props.weekendsColor,
@@ -209,7 +204,6 @@ export default defineComponent({
 
       styleComputed,
       currentPicker,
-      textColorComputed,
       focusCurrentPicker,
 
       isPickerReadonly,
@@ -230,6 +224,7 @@ export default defineComponent({
   font-weight: var(--va-date-picker-font-weight);
   font-size: var(--va-date-picker-font-size);
   line-height: var(--va-date-picker-line-height);
+  color: currentColor;
 
   &__picker-wrapper {
     height: var(--va-date-picker-content-height);
