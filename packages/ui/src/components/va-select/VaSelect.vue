@@ -20,7 +20,6 @@
         :aria-owns="popupId"
         @focus="onInputFocus"
         @blur="onInputBlur"
-        @click="focusAutocompleteInput"
         @keydown.enter="toggleDropdown"
         @keydown.space.stop.prevent="toggleDropdown"
       >
@@ -65,6 +64,7 @@
             @focus-next="focusNextOption"
             @select-option="selectOrAddOption"
             @delete-last-selected="deleteLastSelected"
+            @click="focusAutocompleteInput"
           >
             <template
               v-for="(_, name) in $slots"
