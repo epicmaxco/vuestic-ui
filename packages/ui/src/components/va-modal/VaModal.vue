@@ -12,7 +12,7 @@
     </div>
 
     <teleport :to="attachElement" :disabled="$props.disableAttachment">
-      <modal-element
+      <WithTransition
         name="va-modal"
         :isTransition="!$props.withoutTransitions"
         appear
@@ -112,7 +112,7 @@
             </div>
           </div>
         </div>
-      </modal-element>
+      </WithTransition>
     </teleport>
   </div>
 </template>
@@ -149,7 +149,7 @@ import { VaIcon } from '../va-icon'
 
 import { useBlur } from './hooks/useBlur'
 
-const ModalElement = defineComponent({
+const WithTransition = defineComponent({
   name: 'ModalElement',
   inheritAttrs: false,
   props: {
@@ -164,7 +164,7 @@ const ModalElement = defineComponent({
 export default defineComponent({
   name: 'VaModal',
   inheritAttrs: false,
-  components: { VaButton, VaIcon, ModalElement },
+  components: { VaButton, VaIcon, WithTransition },
   emits: [
     ...useStatefulEmits,
     'cancel', 'ok', 'before-open', 'open', 'before-close', 'close', 'click-outside',
