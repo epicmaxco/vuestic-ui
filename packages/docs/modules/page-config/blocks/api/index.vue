@@ -13,6 +13,7 @@ import {
   ComponentMeta,
 } from './types';
 import commonDescription from "./common-description";
+import { Anchor } from "../shared/anchor";
 
 const props = defineProps({
   componentName: {
@@ -42,6 +43,13 @@ const props = defineProps({
   descriptionOptions: {
     type: Object as PropType<APIDescriptionOptions>,
     required: true,
+  },
+  changeLog: {
+    type: Array as PropType<{
+      version: string,
+      changes: string[],
+    }[]>,
+    default: () => [],
   }
 })
 
@@ -142,6 +150,8 @@ const cssVariablesOptions = computed(() => props.cssVariables.map(([name, value,
 const isValueIsDefaultTranslation = (value: String) => {
   return value.startsWith('`"$t:');
 }
+
+const changeLogValue = ref(true)
 </script>
 
 <template>
@@ -165,7 +175,7 @@ const isValueIsDefaultTranslation = (value: String) => {
         #default="{value}"
       >
         <div class="flex items-center gap-1">
-          <markdown-view :content="value" />        
+          <markdown-view :content="value" />
           <va-popover
             placement="right"
             trigger="click"
@@ -181,7 +191,7 @@ const isValueIsDefaultTranslation = (value: String) => {
               </nuxt-link>
             </template>
           </va-popover>
-        </div> 
+        </div>
       </template>
     </ApiTable>
 
@@ -220,4 +230,104 @@ const isValueIsDefaultTranslation = (value: String) => {
       </template>
     </ApiTable>
   </va-content>
+  <VaCollapse
+    v-if="$props.changeLog"
+    class="mt-8 page-config-api-change-log"
+    v-model="changeLogValue"
+  >
+    <template #header>
+      <div class="page-config-api-change-log__title">
+        <h4 class="va-h4">
+          Change log
+          <Anchor text="Change log" />
+        </h4>
+        <VaIcon name="va-arrow-down" />
+      </div>
+    </template>
+
+    <template #content>
+      <div class="page-config-api-change-log__content pt-4">
+        <div v-for="{ version, changes } in $props.changeLog" class="page-config-api-change-log__version-wrapper" :key="version">
+          <ul>
+            <div class="page-config-api-change-log__version">
+              <VaIcon name="rocket_launch" class="mr-1" size="18px" color="secondary" />
+              <span>
+                <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${version}`">
+                  v{{ version }}
+                </a>
+              </span>
+            </div>
+            <li v-for="change in changes.filter(Boolean)" :key="change">
+              <div class="page-config-api-change-log__circle" />
+              <MarkdownView :content="change" />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </template>
+  </VaCollapse>
 </template>
+
+<style lang="scss">
+.page-config-api-change-log {
+  margin-bottom: 2rem;
+
+  &__block {
+    padding: 1rem 0;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  li {
+    border-left: 2px solid var(--va-background-border);
+    padding: 0.1rem 2.5rem;
+    padding-left: 0;
+    margin: 0;
+    margin-left: 0.75rem;
+    margin-top: 0.75rem;
+    display: flex;
+
+    p, h6 {
+      margin: 0 !important;
+    }
+  }
+
+  &__version {
+    display: inline-flex;
+    align-items: center;
+    background: var(--va-background-element);
+    border-radius: 6px;
+    padding: 0.25rem 0.5rem;
+    margin-left: 0;
+    font-weight: 600;
+  }
+
+  &__version-wrapper {
+    margin-top: 2rem;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  &__circle {
+    height: 12px;
+    width: 12px;
+    border-radius: 99999px;
+    background: var(--va-background-primary);
+    border: 2px solid var(--va-background-border);
+    margin-left: -7px;
+    margin-top: 0.45rem;
+    margin-right: 14px;
+  }
+
+  a {
+    color: var(--va-primary);
+  }
+}
+</style>
