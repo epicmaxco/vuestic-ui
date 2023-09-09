@@ -439,4 +439,3 @@ export default defineComponent({
   }
 }
 </style>
-../VaMessageList
