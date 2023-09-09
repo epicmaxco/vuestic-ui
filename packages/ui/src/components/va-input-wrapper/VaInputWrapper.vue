@@ -13,7 +13,7 @@
       <template #default="{ ariaAttributes: messagesChildAriaAttributes }">
         <fieldset class="va-input-wrapper__size-keeper">
           <VaInputLabel
-            v-if="($props.label && !$props.innerLabel) || $slots.label"
+            v-if="($props.label || $slots.label) && !$props.innerLabel"
             class="va-input-wrapper__label va-input-wrapper__label--outer"
             v-bind="vaInputLabelProps"
             :id="labelId"
@@ -42,7 +42,7 @@
 
               <div class="va-input-wrapper__text">
                 <VaInputLabel
-                  v-if="($props.label && $props.innerLabel) || $slots.label"
+                  v-if="($props.label || $slots.label) && $props.innerLabel"
                   class="va-input-wrapper__label va-input-wrapper__label--inner"
                   v-bind="vaInputLabelProps"
                   :id="labelId"
@@ -104,10 +104,6 @@
           </div>
         </fieldset>
       </template>
-<!--
-      <template v-if="$slots.messages" #messages>
-        <slot name="messages" v-bind="{ messages: messagesComputed, errorLimit, color: messagesColor }" />
-      </template> -->
     </va-message-list>
   </div>
 </template>
@@ -163,7 +159,7 @@ export default defineComponent({
     'update:modelValue',
   ],
 
-  setup (props, { emit }) {
+  setup (props, { emit, slots }) {
     const { getColor } = useColors()
     const [vModel] = useSyncProp('modelValue', props, emit, '')
 
@@ -176,8 +172,8 @@ export default defineComponent({
     const wrapperClass = useBem('va-input-wrapper', () => ({
       ...pick(props, ['success', 'error', 'disabled', 'readonly']),
       focused: Boolean(isFocused.value),
-      labeled: Boolean(props.label),
-      labeledInner: Boolean(props.label) && props.innerLabel,
+      labeled: Boolean(props.label || slots.label),
+      labeledInner: Boolean(props.label || slots.label) && props.innerLabel,
     }))
 
     const colorComputed = computed(() => getColor(props.color))
@@ -436,4 +432,3 @@ export default defineComponent({
   }
 }
 </style>
-../VaMessageList

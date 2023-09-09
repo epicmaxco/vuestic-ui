@@ -171,7 +171,7 @@ export default defineComponent({
 
     const usesTotal = computed(() => !!((props.total || props.total === 0) && props.pageSize))
 
-    const { valueComputed }: { valueComputed: WritableComputedRef<number> } = useStateful(props, emit)
+    const { valueComputed } = useStateful(props, emit)
 
     const currentValue = computed({
       get: () => usesTotal.value ? Math.ceil(valueComputed.value / props.pageSize) || 1 : valueComputed.value,

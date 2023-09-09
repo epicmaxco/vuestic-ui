@@ -42,6 +42,33 @@
           >
             <LandingIconsIconAgGrid />
           </a>
+
+          <a
+            href="https://vuejsforge.com/?utm_source=Epicmax&utm_medium=partners_logo&utm_campaign=vuestic/"
+            target="_blank"
+            title="Vue.js Forge - The largest hands-on Vue.js Event"
+            class="partners__logo"
+          >
+            <LandingIconsIconVueForge />
+          </a>
+
+          <a
+            href="https://codesandbox.io/?utm_source=Epicmax&utm_medium=partners_logo&utm_campaign=vuestic"
+            target="_blank"
+            title="CodeSandbox - An online editor tailored for web applications"
+            class="partners__logo"
+          >
+            <LandingIconsIconCodeSandbox />
+          </a>
+
+          <a
+            href="https://chromatic.com/?utm_source=github&utm_medium=profile&utm_campaign=vuestic"
+            target="_blank"
+            title="Chromatic - Storybook deployment, review, and test"
+            class="partners__logo"
+          >
+            <LandingIconsIconChromatic />
+          </a>
         </div>
 
         <h2 class="partners__subtitle">

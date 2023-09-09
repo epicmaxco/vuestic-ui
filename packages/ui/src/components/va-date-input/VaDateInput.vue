@@ -49,7 +49,7 @@
               @keydown.space.stop="reset"
             />
             <va-icon
-              v-else-if="!$props.leftIcon && $props.icon"
+              v-if="!$props.leftIcon && $props.icon"
               :aria-label="tp($props.ariaToggleDropdownLabel)"
               v-bind="iconProps"
               @click.stop="showDropdown"
@@ -96,7 +96,7 @@ import {
   ref,
   shallowRef,
   nextTick,
-  WritableComputedRef,
+  Ref,
 } from 'vue'
 import omit from 'lodash/omit'
 
@@ -210,7 +210,7 @@ export default defineComponent({
       trapFocus()
     })
 
-    const { valueComputed: statefulValue }: { valueComputed: WritableComputedRef<DateInputModelValue> } = useStateful(props, emit)
+    const { valueComputed: statefulValue } = useStateful(props, emit)
     const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
       defaultCloseOnValueUpdate: computed(() => !Array.isArray(statefulValue.value)),
     })

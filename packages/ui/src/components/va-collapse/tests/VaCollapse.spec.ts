@@ -14,6 +14,7 @@ describe('VaCollapse', () => {
       propsData: {
         modelValue: true,
         disabled: true,
+        stateful: false,
       },
     })
     expect(wrapper.classes()).toContain('va-collapse--disabled')

@@ -69,6 +69,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   }
 
   const focus = () => {
+    console.log('fields.value', fields.value)
     fields.value[0]?.focus()
   }
 
