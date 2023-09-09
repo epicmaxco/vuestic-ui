@@ -1,12 +1,23 @@
 import { defineComponent } from 'vue'
-import VaCounter from './VaCounter.demo.vue'
+import VaCounterDemo from './VaCounter.demo.vue'
+import VaCounter from './VaCounter.vue'
 
 export default {
   title: 'VaCounter',
   component: VaCounter,
 }
 
-export const Default = defineComponent({
+export const OldDemos = () => ({
+  components: { VaCounterDemo },
+  template: '<VaCounterDemo />',
+})
+
+export const Default = () => ({
   components: { VaCounter },
   template: '<VaCounter/>',
+})
+
+export const Loading = () => ({
+  components: { VaCounter },
+  template: '<VaCounter loading />',
 })

@@ -470,7 +470,8 @@ export default defineComponent({
     }
   }
 
-  &-leave-active, &-enter-active {
+  &-leave-active,
+  &-enter-active {
     .va-modal__overlay.va-modal__overlay--lowest {
       transition: opacity var(--va-modal-opacity-transition);
     }

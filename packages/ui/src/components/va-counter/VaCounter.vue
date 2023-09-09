@@ -485,7 +485,6 @@ export default defineComponent({
   }
 
   .va-input-wrapper__field {
-    align-items: stretch;
     padding: 0;
 
     .va-input-wrapper__text,

@@ -7,18 +7,16 @@ export default {
   component: WithSlotInheritance,
 }
 
-export const Default = defineComponent({
+export const Default = () => ({
   components: { ProxyComponent },
   template: `
-<template>
-  <ProxyComponent>
-    <template #blue>
-      Must be blue
-    </template>
-    <template #yellow>
-      Must be yellow
-    </template>
-</ProxyComponent>
-</template>
+    <ProxyComponent>
+      <template #blue>
+        Must be blue
+      </template>
+      <template #yellow>
+        Must be yellow
+      </template>
+    </ProxyComponent>
   `,
 })

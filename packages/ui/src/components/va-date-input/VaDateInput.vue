@@ -49,7 +49,7 @@
               @keydown.space.stop="reset"
             />
             <va-icon
-              v-else-if="!$props.leftIcon && $props.icon"
+              v-if="!$props.leftIcon && $props.icon"
               :aria-label="tp($props.ariaToggleDropdownLabel)"
               v-bind="iconProps"
               @click.stop="showDropdown"
