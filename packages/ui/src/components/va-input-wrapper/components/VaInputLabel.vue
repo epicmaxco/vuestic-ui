@@ -43,14 +43,14 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../../../styles/resources/index.scss';
 
 .va-input-label {
   @include va-ellipsis();
   @include va-title();
 
-  height: 1rem;
+  min-height: 1rem;
   display: inline-block;
 
   &__required-mark {
