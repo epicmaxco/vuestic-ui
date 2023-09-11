@@ -26,7 +26,7 @@ import {
 } from './hooks/useGridTemplateArea'
 import { useLayoutProps, useLayout } from './hooks/useLayout'
 import VaLayoutArea from './components/VaLayoutArea.vue'
-import { useCurrentElement } from '../../composables'
+import { useDocument } from '../../composables'
 
 const areaNames: AreaName[] = [
   'top',
@@ -59,8 +59,12 @@ export default defineComponent({
       return !props.allowBodyScrollOnOverlay && areaNames.some((area) => props[area]?.overlay)
     })
 
+    const document = useDocument()
+
     watchEffect(() => {
-      const overflowParent = document.body
+      const overflowParent = document.value?.body
+
+      if (!overflowParent) { return }
 
       if (doDisableScroll.value) {
         overflowParent.style.overflow = 'hidden'
