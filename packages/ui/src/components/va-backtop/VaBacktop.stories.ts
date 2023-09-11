@@ -1,5 +1,8 @@
 import { VaBacktop } from './'
 import { VaRadio } from '../va-radio'
+import { userEvent } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
+import { sleep } from '../../utils/sleep'
 
 export default {
   title: 'VaBacktop',
@@ -14,8 +17,26 @@ export const Default = () => ({
   `,
 })
 
+Default.play = async ({ canvasElement, step }) => {
+  window.scrollTo({ top: document.body.scrollHeight })
+  await sleep()
+  const backtop = canvasElement.querySelector('[role="button"]')
+
+  await step('Appears on scroll', async () => {
+    expect(backtop).not.toBeNull()
+  })
+}
+
 export const Color = () => ({
   components: { VaBacktop },
+  methods: {
+    scroll() {
+      window.scrollTo({ top: 400 , behavior: 'smooth' })
+    },
+  },
+  mounted() {
+    this.scroll()
+  },
   template: `
     <p class="m-1">{{$vb.lorem(10000)}}</p>
     <va-backtop color="warning"/>
@@ -24,6 +45,14 @@ export const Color = () => ({
 
 export const Offset = () => ({
   components: { VaBacktop },
+  methods: {
+    scroll() {
+      window.scrollTo({ top: 400  , behavior: 'smooth' })
+    },
+  },
+  mounted() {
+    this.scroll()
+  },
   template: `
     <p class="m-1">{{$vb.lorem(10000)}}</p>
     <va-backtop 
@@ -33,12 +62,13 @@ export const Offset = () => ({
   `,
 })
 
-const OPTIONS_X = ['left', 'right']
-const OPTIONS_Y = ['top', 'bottom']
-
 export const Position = () => ({
   components: { VaBacktop, VaRadio },
-  data: () => ({ optionsY: OPTIONS_Y, valueY: OPTIONS_Y[1], optionsX: OPTIONS_X, valueX: OPTIONS_X[1]}),
+  data: () => { 
+    const OPTIONS_X = ['left', 'right']
+    const OPTIONS_Y = ['top', 'bottom']
+    return { optionsY: OPTIONS_Y, valueY: OPTIONS_Y[1], optionsX: OPTIONS_X, valueX: OPTIONS_X[1] }
+  },
   template: `
     [Horizontal Position]
     <va-radio v-model="valueY" :options="optionsY"/>
@@ -52,22 +82,37 @@ export const Position = () => ({
   `,
 })
 
-export const ClikcEvent = () => ({
+export const ClickEvent = () => ({
   components: { VaBacktop },
+  data: () => ({ clicked: false }),
+  methods: {
+    scroll() {
+      window.scrollTo({ top: 400  , behavior: 'smooth' })
+    },
+  },
+  mounted() {
+    this.scroll()
+  },
   template: `
+    [clicked: {{ clicked }}]
     <p class="m-1">{{$vb.lorem(10000)}}</p>
-    <va-backtop ref="backtop"/>
-    <button @click="$refs.backtop.scrollToTop()">
-      [Emit click]
-    </button>
+    <va-backtop @click="this.clicked = true"/>
   `,
 })
 
 export const Target = () => ({
   components: { VaBacktop },
+  methods: {
+    scroll() {
+      this.$refs.notTarget.scrollTo({ top: 400, behavior: 'smooth' })
+    },
+  },
+  mounted() {
+    this.scroll()
+  },
   template: `
     [not the target]
-    <div class="h-48 overflow-y-auto">
+    <div id="notTarget" ref="notTarget" class="h-48 overflow-y-auto">
       <p class="m-1">{{$vb.lorem(10000)}}</p>
     </div>
     [the target]
