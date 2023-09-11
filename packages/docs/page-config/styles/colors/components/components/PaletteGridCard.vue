@@ -1,7 +1,7 @@
 <template>
   <div
     class="color-grid-item"
-    :style="{ backgroundColor: value, color: textColorComputed }"
+    :style="{ backgroundColor: value, color: getColor(getTextColor(value)) }"
   >
     <div class="color-grid-item__header flex-col md:flex-row">
       <p>
@@ -18,11 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { useElementBackground, useTextColor } from "vuestic-ui/src/composables";
 import kebabCase from "lodash/kebabCase";
-
-const { background } = useElementBackground();
-const { textColorComputed } = useTextColor(background);
 
 const props = defineProps({
   name: {
@@ -34,6 +30,8 @@ const props = defineProps({
     required: true,
   },
 });
+
+const { getTextColor, getColor } = useColors()
 
 const colorDescriptions = {
   primary: "Accent color used on button, links and other interactive elements",
@@ -50,7 +48,7 @@ const colorDescriptions = {
   textInverted: "Used as text color, if textPrimary doesn't have enough contrast with background color.",
   shadow: "Color of shadows that used in elements like cards, modals etc.",
   focus: "Keyboard focus outline color"
-}
+} as Record<string, string>
 </script>
 
 <style lang="scss" scoped>

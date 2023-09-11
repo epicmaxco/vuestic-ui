@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-end">
     <va-input
       v-model="maskCreditCardValue"
       class="mb-6 pt-1"

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-end gap-4 max-w-xl">
+  <div class="flex items-center flex-col sm:flex-row gap-4 max-w-xl">
     <va-input
       v-model="fromValue"
       placeholder="0.00"
@@ -13,9 +13,7 @@
       </template>
     </va-input>
     <va-icon
-      class="mb-3"
       name="fa4-exchange-alt"
-      size="small"
       color="secondary"
       @click="replaceCurrencies"
     />

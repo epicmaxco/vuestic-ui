@@ -6,7 +6,6 @@
     @keydown.down.stop.prevent="makeActiveNext()"
     @keydown.space.stop.prevent="makeActiveNext(5)"
     @keydown.up.stop.prevent="makeActivePrev()"
-    :style="styleComputed"
   >
     <VaTimePickerColumnCell
       v-for="(item, index) in items" :key="item"
@@ -31,7 +30,7 @@
 import VaTimePickerColumnCell from '../VaTimePickerColumnCell.vue'
 import { defineComponent, nextTick, shallowRef, watch, onMounted, PropType, computed } from 'vue'
 
-import { useElementBackground, useSyncProp, useFocus, useFocusEmits, useTextColor } from '../../../../composables'
+import { useSyncProp, useFocus, useFocusEmits, useTextColor } from '../../../../composables'
 import debounce from 'lodash/debounce.js'
 
 export default defineComponent({
@@ -91,12 +90,6 @@ export default defineComponent({
       return Number(n) < 10 ? `0${n}` : `${n}`
     }
 
-    const { background } = useElementBackground(rootElement)
-    const { textColorComputed } = useTextColor(background)
-
-    const styleComputed = computed(() => ({
-      color: textColorComputed.value,
-    }))
     const getIndex = () => {
       const scrollTop = rootElement.value!.scrollTop
       const calculatedIndex = Math.max(
@@ -138,8 +131,6 @@ export default defineComponent({
       onCellClick,
       formatCell,
 
-      styleComputed,
-
       focus,
       blur,
     }
@@ -163,6 +154,7 @@ export default defineComponent({
 .va-time-picker-column {
   @include hiddenYScroll();
 
+  color: currentColor;
   height: 100%;
   border-right: var(--va-time-picker-column-border-right);
 

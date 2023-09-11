@@ -19,6 +19,8 @@
               'sidebar__collapse-custom-header--active': routeHasActiveChild(route),
               'sidebar__collapse-custom-header--keyboard-focused': hasKeyboardFocus
             }"
+            hover-opacity="0.07"
+            border-color="transparent"
           >
             {{ route.displayName }}
             <va-icon :name="isCollapsed ? 'va-arrow-up' : 'va-arrow-down'" />
@@ -41,8 +43,9 @@
               :to="childRoute.path ? childRoute.path : `/${route.name}/${childRoute.name}`"
               :active="isActiveChildRoute(childRoute, route)"
               :hover-color="hoverColor"
-              :border-color="activeColor"
+              border-color="transparent"
               active-color="#ffffff00"
+              hover-opacity="0.07"
               @click="onSidebarItemClick"
             >
               <va-sidebar-item-content>
@@ -181,19 +184,7 @@ export default defineComponent({
     font-size: 16px;
     line-height: 20px;
     cursor: pointer;
-    font-weight: bold;
-
-    &:hover {
-      ::before {
-        opacity: 0.2;
-      }
-    }
-
-    &--keyboard-focused {
-      ::before {
-        opacity: 0.3;
-      }
-    }
+    font-weight: 600;
 
     &--active {
       color: var(--va-primary) !important;

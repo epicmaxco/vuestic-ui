@@ -7,15 +7,18 @@
       v-for="(group, idx) in items"
       :key="idx"
       :header="group.title"
+      body-color="background-element"
     >
-      <router-link
-        v-for="(navItem, idx) in group.items"
-        :key="idx"
-        class="nav-item"
-        :to="navItem.to"
-      >
-        {{ navItem.label }}
-      </router-link>
+      <template #body>
+        <router-link
+          v-for="(navItem, idx) in group.items"
+          :key="idx"
+          class="nav-item"
+          :to="navItem.to"
+        >
+          {{ navItem.label }}
+        </router-link>
+      </template>
     </va-collapse>
   </va-accordion>
 </template>

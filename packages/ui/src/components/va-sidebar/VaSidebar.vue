@@ -185,7 +185,7 @@ export default defineComponent({
     overflow-x: var(--va-sidebar-menu-overflow-x);
     margin-left: auto;
 
-    @include va-scroll(var(--va-primary));
+    @include va-scroll(var(--va-secondary));
   }
 
   &--animated {

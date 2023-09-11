@@ -1,23 +1,20 @@
 <template>
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-end">
     <va-date-input
       v-model="value"
       v-model:view="dayView"
-      class="mr-6"
       label="Day"
     />
 
     <va-date-input
       v-model="value"
       v-model:view="monthView"
-      class="mr-6"
       label="Month"
     />
 
     <va-date-input
       v-model="value"
       v-model:view="yearView"
-      class="mr-6"
       label="Year"
     />
   </div>

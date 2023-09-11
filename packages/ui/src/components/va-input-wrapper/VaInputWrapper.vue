@@ -60,20 +60,17 @@
                 v-if="success"
                 color="success"
                 name="va-check-circle"
-                size="small"
                 class="va-input-wrapper__icon va-input-wrapper__icon--success"
               />
               <va-icon
                 v-if="error"
                 color="danger"
                 name="va-warning"
-                size="small"
                 class="va-input-wrapper__icon va-input-wrapper__icon--error"
               />
               <va-icon
                 v-if="$props.loading"
                 :color="$props.color"
-                size="small"
                 name="va-loading"
                 spin="counter-clockwise"
                 class="va-input-wrapper__icon va-input-wrapper__icon--loading"

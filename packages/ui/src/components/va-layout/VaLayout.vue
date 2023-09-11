@@ -19,13 +19,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, watchEffect } from 'vue'
 import {
   useGridTemplateArea,
   AreaName,
 } from './hooks/useGridTemplateArea'
 import { useLayoutProps, useLayout } from './hooks/useLayout'
 import VaLayoutArea from './components/VaLayoutArea.vue'
+import { useCurrentElement } from '../../composables'
 
 const areaNames: AreaName[] = [
   'top',
@@ -39,6 +40,7 @@ export default defineComponent({
 
   props: {
     ...useLayoutProps,
+    allowBodyScrollOnOverlay: { type: Boolean, default: false },
   },
 
   emits: [
@@ -52,6 +54,20 @@ export default defineComponent({
 
   setup (props, { slots }) {
     useLayout(props)
+
+    const doDisableScroll = computed(() => {
+      return !props.allowBodyScrollOnOverlay && areaNames.some((area) => props[area]?.overlay)
+    })
+
+    watchEffect(() => {
+      const overflowParent = document.body
+
+      if (doDisableScroll.value) {
+        overflowParent.style.overflow = 'hidden'
+      } else {
+        overflowParent.style.overflow = ''
+      }
+    })
 
     return {
       areaNames,
@@ -92,6 +108,9 @@ export default defineComponent({
   position: relative;
   z-index: 0;
   max-width: 100%;
+  max-height: 100%;
+  height: 100vh;
+  width: 100vw;
 
   &__area {
     @include va-scroll();
