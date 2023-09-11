@@ -1,22 +1,25 @@
 <template>
-  <div class="max-w-xs">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
     <va-input
       v-model="maskCreditCardValue"
       class="mb-6 pt-1"
       label="Credit card mask"
       type="input"
       mask="creditCard"
+      placeholder="#### #### #### ####"
     />
     <va-input
       v-model="maskDateValue"
       class="mb-6"
       label="Date mask"
+      placeholder="DD/MM/YYYY"
       mask="date"
     />
     <va-input
       v-model="maskTimeValue"
       class="mb-6"
       label="Time mask"
+      placeholder="HH:MM"
       mask="time"
     />
     <va-input
@@ -24,23 +27,8 @@
       class="mb-6"
       label="Only numerals mask"
       mask="numeral"
+      placeholder="####"
     />
-    <va-input
-      v-model="maskCustomBlocksValue"
-      class="mb-6"
-      label="Custom blocks mask"
-      placeholder="# ##### #####"
-      :mask="{ blocks: [1, 5, 5] }"
-    />
-    <va-input
-      v-model="maskReturnFormattedValue"
-      class="mb-6"
-      label="Date mask, return formatted"
-      :return-raw="false"
-      mask="date"
-    />
-    <br>
-    Value: {{ maskReturnFormattedValue }}
   </div>
 </template>
 

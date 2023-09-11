@@ -10,7 +10,7 @@
     </template>
     <template #right>
       <va-navbar-item>Dashboard</va-navbar-item>
-      <va-navbar-item>Reports</va-navbar-item>
+      <va-navbar-item class="hidden sm:block">Reports</va-navbar-item>
       <va-navbar-item>Users</va-navbar-item>
       <va-navbar-item>
         <va-icon
@@ -38,7 +38,7 @@
     </template>
     <template #right>
       <va-navbar-item>Dashboard</va-navbar-item>
-      <va-navbar-item>Reports</va-navbar-item>
+      <va-navbar-item class="hidden sm:block">Reports</va-navbar-item>
       <va-navbar-item>Users</va-navbar-item>
       <va-navbar-item>
         <va-icon name="mdi-magnify" />
@@ -60,7 +60,7 @@
     </template>
     <template #right>
       <va-navbar-item>Dashboard</va-navbar-item>
-      <va-navbar-item>Reports</va-navbar-item>
+      <va-navbar-item class="hidden sm:block">Reports</va-navbar-item>
       <va-navbar-item>Users</va-navbar-item>
       <va-navbar-item>
         <va-icon

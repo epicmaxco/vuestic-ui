@@ -35,7 +35,7 @@ export const useToggleIcon = (
   })
 
   const { getHoverColor, getColor } = useColors()
-  const colorComputed = computed(() => getColor(props.color))
+  const colorComputed = computed(() => getColor('secondary'))
   const toggleIconColor = computed(() => props.readonly ? getHoverColor(colorComputed.value) : colorComputed.value)
 
   return { toggleIcon, toggleIconColor }

@@ -12,14 +12,13 @@ export interface AccordionProps extends AccordionItemProps {
   multiple: boolean,
 }
 
-export interface AccordionItem {
-  state: WritableComputedRef<boolean>
-}
+export type AccordionItem = {}
 
 export interface AccordionInject {
   onItemMounted: (item: AccordionItem) => void,
   onItemUnmounted: (item: AccordionItem) => void,
-  onItemChanged: (changedItem: AccordionItem) => void,
+  getItemValue: (item: AccordionItem) => boolean,
+  setItemValue: (item: AccordionItem, value: boolean) => void,
   props: Ref<AccordionItemProps>,
 }
 
@@ -28,41 +27,41 @@ export interface AccordionInject {
  * @param state array of states of all accordion items */
 export const useAccordion = (props: AccordionProps, state: WritableComputedRef<boolean[]>) => {
   /** @notice items are reactive because they have reactive `state` inside */
-  let items: AccordionItem[] = []
+  const items = ref<AccordionItem[]>([])
 
-  const onItemMounted = (item: AccordionItem) => { items.push(item) }
-  const onItemUnmounted = (item: AccordionItem) => { items = items.filter((i) => i !== item) }
-  const onItemChanged = (changedItem: AccordionItem) => {
-    state.value = items
-      .map((item: AccordionItem) => {
-        if (item === changedItem) {
-          return item.state.value
-        }
+  const onItemMounted = (item: AccordionItem) => { items.value.push(item) }
+  const onItemUnmounted = (item: AccordionItem) => { items.value = items.value.filter((i) => i !== item) }
 
-        if (!props.multiple) {
-          item.state.value = false
-        }
-
-        return item.state.value
-      })
+  const getItemValue = (item: AccordionItem) => {
+    return state.value[items.value.indexOf(item)] ?? false
   }
+
+  const setItemValue = (item: AccordionItem, value: boolean) => {
+    const index = items.value.indexOf(item)
+    if (index === -1) { return }
+
+    if (!props.multiple) {
+      state.value = state.value.map((el, i) => {
+        if (i === index) { return value }
+        return false
+      })
+    } else {
+      state.value[index] = value
+    }
+  }
+
+  watch(items, (newItems) => {
+    state.value = newItems.map((item) => getItemValue(item))
+  }, { deep: true })
 
   provide(AccordionServiceKey, {
     isInsideAccordion: true,
     onItemMounted,
     onItemUnmounted,
-    onItemChanged,
+    getItemValue,
+    setItemValue,
     props: computed(() => props),
   })
-
-  const updateItemStates = () => {
-    items.forEach((item: AccordionItem, index: number) => {
-      item.state.value = state.value[index]
-    })
-  }
-
-  onMounted(updateItemStates)
-  watch(state, updateItemStates)
 
   return { items }
 }
@@ -71,26 +70,25 @@ export const useAccordion = (props: AccordionProps, state: WritableComputedRef<b
  * Hook used in items that should react on VaAccordion changes
  * @param state shows if accordion item is open
  */
-export const useAccordionItem = (state: WritableComputedRef<boolean>) => {
-  const accordion = inject<AccordionInject>(AccordionServiceKey, {
-    props: ref({ inset: undefined, popout: undefined }),
-    onItemChanged: () => undefined,
-    onItemMounted: () => undefined,
-    onItemUnmounted: () => undefined,
-  })
+export const useAccordionItem = () => {
+  const accordion = inject<AccordionInject | undefined>(AccordionServiceKey, undefined)
 
-  const item = { state }
+  if (!accordion) {
+    return { accordionProps: ref({} as AccordionProps) }
+  }
+
+  const item = {}
 
   onMounted(() => accordion.onItemMounted(item))
   onBeforeUnmount(() => accordion.onItemUnmounted(item))
 
-  return {
-    accordionProps: accordion.props,
+  const valueProxy = computed({
+    get: () => accordion.getItemValue(item),
+    set: (value) => accordion.setItemValue(item, value),
+  })
 
-    toggle: () => {
-      /** Toggle collapse value and notify accordion about it */
-      state.value = !state.value
-      accordion.onItemChanged(item)
-    },
+  return {
+    valueProxy,
+    accordionProps: accordion.props,
   }
 }

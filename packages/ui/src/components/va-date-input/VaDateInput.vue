@@ -6,6 +6,7 @@
     :style="$attrs.style"
     v-bind="dropdownPropsComputed"
     @open="focusDatePicker"
+    role="none"
   >
     <template #anchor>
       <slot name="input" v-bind="{ valueText, inputAttributes: inputAttributesComputed, inputWrapperProps, inputListeners }">
@@ -13,18 +14,11 @@
           class="va-date-input__anchor"
           :style="cursorStyleComputed"
           v-bind="inputWrapperProps"
+          v-on="inputListeners"
+          :model-value="valueText"
           @click.stop="toggleDropdown"
+          @change="onInputTextChanged"
         >
-          <template #default>
-            <input
-              ref="input"
-              class="va-date-input__input"
-              v-bind="inputAttributesComputed"
-              v-on="inputListeners"
-              @change="onInputTextChanged"
-            />
-          </template>
-
           <template
             v-for="name in filterSlots"
             :key="name"
@@ -55,7 +49,7 @@
               @keydown.space.stop="reset"
             />
             <va-icon
-              v-else-if="!$props.leftIcon && $props.icon"
+              v-if="!$props.leftIcon && $props.icon"
               :aria-label="tp($props.ariaToggleDropdownLabel)"
               v-bind="iconProps"
               @click.stop="showDropdown"
@@ -67,7 +61,7 @@
       </slot>
     </template>
 
-    <va-dropdown-content class="va-date-input__dropdown-content" @keydown.esc="focus()">
+    <va-dropdown-content class="va-date-input__dropdown-content" @keydown.esc="focus()" role="dialog">
       <va-date-picker
         ref="datePicker"
         v-bind="datePickerProps"
@@ -102,7 +96,7 @@ import {
   ref,
   shallowRef,
   nextTick,
-  WritableComputedRef,
+  Ref,
 } from 'vue'
 import omit from 'lodash/omit'
 
@@ -128,7 +122,7 @@ import type { DateInputModelValue, DateInputValue } from './types'
 
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-import { VaInputWrapper } from '../va-input'
+import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { unwrapEl } from '../../utils/unwrapEl'
 
@@ -216,7 +210,7 @@ export default defineComponent({
       trapFocus()
     })
 
-    const { valueComputed: statefulValue }: { valueComputed: WritableComputedRef<DateInputModelValue> } = useStateful(props, emit)
+    const { valueComputed: statefulValue } = useStateful(props, emit)
     const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
       defaultCloseOnValueUpdate: computed(() => !Array.isArray(statefulValue.value)),
     })
@@ -368,11 +362,11 @@ export default defineComponent({
     })
 
     const iconProps = computed(() => ({
-      role: 'button',
-      ariaHidden: false,
+      role: iconTabindexComputed.value === 0 ? 'button' : 'none',
+      ariaHidden: iconTabindexComputed.value === -1,
       size: 'small',
       name: props.icon,
-      color: props.color,
+      color: 'secondary',
       tabindex: iconTabindexComputed.value,
     }))
 
@@ -412,6 +406,7 @@ export default defineComponent({
       readonly: props.readonly || !props.manualInput,
       disabled: props.disabled,
       tabindex: props.disabled ? -1 : 0,
+      placeholder: props.placeholder,
       value: valueText.value,
       ariaLabel: props.label || tp(props.ariaSelectedDateLabel),
       ariaRequired: props.requiredMark,
@@ -475,7 +470,6 @@ export default defineComponent({
 .va-date-input {
   --va-date-picker-cell-size: 28px;
 
-  min-width: var(--va-date-input-min-width);
   font-family: var(--va-font-family);
 
   &__anchor {

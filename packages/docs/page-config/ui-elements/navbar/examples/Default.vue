@@ -10,10 +10,11 @@
         Right slot
       </va-navbar-item>
     </template>
-
-    <va-navbar-item class="navbar-item-slot">
-      Default slot (center)
-    </va-navbar-item>
+    <template #center>
+      <va-navbar-item class="navbar-item-slot">
+        Center slot
+      </va-navbar-item>
+    </template>
   </va-navbar>
 </template>
 

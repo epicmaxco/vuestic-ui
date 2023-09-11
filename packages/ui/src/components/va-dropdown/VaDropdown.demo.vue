@@ -61,16 +61,56 @@
         Offset
       </va-dropdown>
     </VbCard>
-    <VbCard title="Same width">
+    <VbCard title="keepAnchorWidth">
       <va-dropdown
         keepAnchorWidth
       >
         <template #anchor>
-          Click me
+          <div>
+            Short anchor
+          </div>
         </template>
-        Looooong Dropdown
+        <va-dropdown-content>
+          Loooooooong Dropdown
+        </va-dropdown-content>
+      </va-dropdown>
+
+      <br />
+
+      <va-dropdown
+        keepAnchorWidth
+      >
+        <template #anchor>
+          <div>
+            Loooooooong anchor
+          </div>
+        </template>
+        <va-dropdown-content>
+          Short
+        </va-dropdown-content>
       </va-dropdown>
     </VbCard>
+
+    <VbCard title="Custom width">
+      <VaValue #default="v" :default-value="true">
+        <button @click="v.value = !v.value">{{  v.value ? 'Short' : 'Long' }}</button>
+        <br />
+        <va-dropdown placement="bottom-end">
+          <template #anchor>
+            <div>
+              Custom width anchor
+            </div>
+          </template>
+
+          <template #default="{ getAnchorWidth }">
+            <va-dropdown-content :style="{ minWidth: getAnchorWidth() }">
+              {{ v.value ? 'Short' : 'Loooong drooooopdown wwiiiiiidth' }}
+            </va-dropdown-content>
+          </template>
+        </va-dropdown>
+      </VaValue>
+    </VbCard>
+
     <VbCard title="Cursor">
       <va-dropdown
         trigger="right-click"
@@ -133,6 +173,16 @@
           </div>
         </template>
         Inner anchor selector
+      </va-dropdown>
+    </VbCard>
+    <VbCard title="Anchor binded props">
+      <va-dropdown>
+        <template #anchor="{ isOpened }">
+          <div>
+            <va-icon :name="isOpened ? 'va-arrow-up' : 'va-arrow-down'" />
+          </div>
+        </template>
+        Clicked
       </va-dropdown>
     </VbCard>
     <VbCard title="Plugin">
@@ -249,14 +299,18 @@
 <script>
 import { ref } from 'vue'
 import VaDropdown from './VaDropdown.vue'
+import { VaIcon } from '../va-icon/index'
+import { VaValue } from '../va-value'
 import VaDropdownContent from './components/VaDropdownContent/VaDropdownContent.vue'
-import DropdownCloseButton from '@/components/va-dropdown/__demo__/DropdownCloseButton.vue'
+import DropdownCloseButton from './__demo__/DropdownCloseButton.vue'
 
 export default {
   components: {
     VaDropdown,
+    VaIcon,
     VaDropdownContent,
     DropdownCloseButton,
+    VaValue,
   },
   setup () {
     return {

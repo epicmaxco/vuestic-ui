@@ -37,7 +37,16 @@ const toNode = (v: any, attrs: NodeAttributes): VNode | null => {
 
   if (v.type === Fragment) {
     if (v.children === null) { return v }
-    return h(Fragment, v.props, v.children.map((v: any) => toNode(v, attrs)))
+    if (v.children.length === 1) { return h(Fragment, v.props, [toNode(v.children[0], attrs)]) }
+    return h('div', attrs, v)
+  }
+
+  if (typeof v.type.render === 'function') {
+    const component = h(v)
+
+    if (Array.isArray(component.children) && component.children.length > 1) {
+      return h('div', attrs, component.children)
+    }
   }
 
   return h(v, attrs)
@@ -49,8 +58,12 @@ export const renderSlotNode = (slot: Slot | undefined, slotBind: any = {}, nodeA
 
   if (!children) { return null }
 
-  // Convert to Node first non-comment child or first child
-  return toNode(children.find((v) => v.type !== Comment) || children[0], nodeAttributes)
+  const nonCommentChildren = children.filter((v) => v.type !== Comment)
+
+  if (nonCommentChildren.length === 0) { return null }
+  if (nonCommentChildren.length === 1) { return toNode(nonCommentChildren[0], nodeAttributes) }
+
+  return h('div', nodeAttributes, children)
 }
 
 export const renderSlotNodes = (slot: Slot | undefined, slotBind: any = {}, nodeAttributes: NodeAttributes = {}) => {

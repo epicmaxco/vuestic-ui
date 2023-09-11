@@ -20,7 +20,7 @@
 export default {
   data() {
     return {
-      selectedOption: "one",
+      selectedOption: "One",
     };
   },
 };

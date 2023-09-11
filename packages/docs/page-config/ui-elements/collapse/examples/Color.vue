@@ -1,52 +1,21 @@
 <template>
-  <div class="w-96">
+  <div class="flex flex-col gap-4 min-w-96">
     <va-collapse
       v-model="value[0]"
-      header="Collapse header"
+      header="Color collapse header only"
       solid
       color="success"
-      class="mb-6"
     >
-      <div class="p-2">
-        Collapse content
-      </div>
+      Collapse content
     </va-collapse>
     <va-collapse
       v-model="value[1]"
-      header="Collapse header"
-      solid
-      color="secondary"
-      class="mb-6"
-    >
-      <div class="p-2">
-        Collapse content
-      </div>
-    </va-collapse>
-    <va-collapse
-      v-model="value[2]"
-      header="Collapse header"
-      solid
-      color="info"
+      header="Color collapse header and body"
+      color="#3D9209"
       color-all
-      class="mb-6"
-    >
-      <div class="p-2">
-        Collapse content
-      </div>
-    </va-collapse>
-    <va-collapse
-      v-model="value[3]"
-      header="Collapse header"
-      solid
-      color="#000"
-      color-all
-      text-color="#fff"
       icon="info"
-      class="mb-6"
     >
-      <div class="p-2">
-        Collapse content
-      </div>
+      Collapse content
     </va-collapse>
   </div>
 </template>
@@ -55,7 +24,7 @@
 export default {
   data() {
     return {
-      value: [false, false, false, false],
+      value: [false, false],
     };
   },
 };

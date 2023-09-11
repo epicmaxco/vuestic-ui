@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-around">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
     <div>
       <h6>Single mode</h6>
       <va-date-input

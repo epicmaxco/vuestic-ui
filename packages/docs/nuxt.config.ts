@@ -71,6 +71,7 @@ export default defineNuxtConfig({
   },
 
   googleAnalytics: {
+    enabled: process.env.GOOGLE_ANALYTICS_ENABLED === 'true',
     id: process.env.GOOGLE_ANALYTICS_ID,
   },
 
@@ -118,7 +119,7 @@ export default defineNuxtConfig({
         "./page-config/**/*.{js,vue,ts}",
         "./layouts/**/*.vue",
         "./pages/**/*.vue",
-        "./modules/page-config/blocks/**/*.{js,ts}",
+        "./modules/page-config/blocks/**/*.vue",
         "./app.vue",
       ]
     }
@@ -146,6 +147,12 @@ export default defineNuxtConfig({
         { find: '~@ag-grid-community', replacement: ('@ag-grid-community') }
       ]
     }
+  },
+
+  runtimeConfig: {
+    public: {
+      VITE_STORYBOOK_HOSTNAME: process.env.STORYBOOK_HOSTNAME,
+    },
   },
 
   sitemap: {

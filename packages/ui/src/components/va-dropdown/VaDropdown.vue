@@ -35,12 +35,14 @@ import { useDropdown } from './hooks/useDropdown'
 import { warn } from '../../utils/console'
 import { useFocusOutside } from '../../composables/useFocusOutside'
 import { useTeleported } from '../../composables/useTeleported'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 export default defineComponent({
   name: 'VaDropdown',
   props: {
     ...usePlacementAliasesProps,
-    ...createStatefulProps(Boolean, true),
+    ...createStatefulProps(true),
+    modelValue: { type: Boolean, default: false },
     anchorSelector: { type: String, default: '' },
     innerAnchorSelector: { type: String, default: '' },
     trigger: {
@@ -70,12 +72,13 @@ export default defineComponent({
     /** Not reactive */
     keyboardNavigation: { type: Boolean, default: false },
     ariaLabel: { type: String, default: '$t:toggleDropdown' },
+    role: { type: String as PropType<StringWithAutocomplete<'button' | 'none'>>, default: 'button' },
   },
 
   emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'focus-outside', 'close', 'open', 'anchor-dblclick'],
 
   setup (props, { emit }) {
-    const { valueComputed: statefulVal } = useStateful(props, emit)
+    const { valueComputed: statefulVal } = useStateful(props, emit, 'modelValue')
     const valueComputed = computed({
       get: () => statefulVal.value && !props.disabled && !props.readonly,
       set (val) {
@@ -237,7 +240,24 @@ export default defineComponent({
   },
 
   render () {
-    const floatingSlotNode = this.showFloating && renderSlotNode(this.$slots.default, {}, {
+    const anchorAriaAttributes = {
+      'aria-haspopup': true,
+      'aria-expanded': this.valueComputed,
+      'aria-disabled': this.$props.disabled,
+      'aria-label': this.tp(this.$props.ariaLabel),
+      role: 'button',
+    }
+
+    const slotBind = {
+      isOpened: this.valueComputed,
+      hide: this.hide,
+      show: this.show,
+      toggle: () => this.valueComputed ? this.hide() : this.show(),
+      getAnchorWidth: () => this.anchor?.offsetWidth + 'px',
+      getAnchorHeight: () => this.anchor?.offsetHeight + 'px',
+    }
+
+    const floatingSlotNode = this.showFloating && renderSlotNode(this.$slots.default, slotBind, {
       ref: 'floating',
       class: 'va-dropdown__content-wrapper',
       style: this.floatingStyles,
@@ -245,14 +265,14 @@ export default defineComponent({
       ...this.floatingListeners,
     })
 
-    const anchorSlotVNode = renderSlotNode(this.$slots.anchor, {}, {
+    const anchorSlotVNode = renderSlotNode(this.$slots.anchor, slotBind, {
       ref: 'anchor',
-      role: 'button',
+      role: this.$props.role,
       class: ['va-dropdown', ...this.anchorClass.asArray.value],
       style: { position: 'relative' },
       'aria-label': this.tp(this.$props.ariaLabel),
       'aria-disabled': this.$props.disabled,
-      'aria-expanded': !!this.showFloating,
+      'aria-expanded': this.$props.role && this.$props.role !== 'none' ? !!this.showFloating : undefined,
       ...this.teleportFromAttrs,
       ...this.$attrs,
     })

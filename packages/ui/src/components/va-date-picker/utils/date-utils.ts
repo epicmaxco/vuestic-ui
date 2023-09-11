@@ -28,6 +28,8 @@ export const isDatesArrayIncludeMonth = (dates: Date[], date: Date): boolean => 
 }
 
 export const isRange = (value: DatePickerModelValue | DateInputModelValue): value is DatePickerRange => {
+  if (value === null) { return false }
+
   return typeof value === 'object' && ('start' in value || 'end' in value)
 }
 

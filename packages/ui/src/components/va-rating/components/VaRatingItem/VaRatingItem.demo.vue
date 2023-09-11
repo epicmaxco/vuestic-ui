@@ -61,10 +61,10 @@
         {{ slotValue }}
       </div>
       <va-rating-item halves hover :modelValue="slotValue" @click="slotValue = $event">
-        <template v-slot="{ props }">
-          <button @click="props.onClick" v-if="props.value === 1">Active</button>
-          <button @click="props.onClick" v-if="props.value === 0.5">Halfed</button>
-          <button @click="props.onClick" v-if="props.value === 0">Blank</button>
+        <template v-slot="{ onClick, value }">
+          <button @click="onClick" v-if="value === 1">Active</button>
+          <button @click="onClick" v-if="value === 0.5">Halfed</button>
+          <button @click="onClick" v-if="value === 0">Blank</button>
         </template>
       </va-rating-item>
     </VbCard>

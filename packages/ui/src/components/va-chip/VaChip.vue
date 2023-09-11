@@ -100,7 +100,7 @@ export default defineComponent({
     const colorComputed = computed(() => getColor(props.color))
     const borderColor = computed(() => props.outline ? colorComputed.value : '')
     const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
-    const { textColorComputed } = useTextColor(toRef(props, 'color'), isTransparentBackground)
+    const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
     const size = {
       small: '0.875rem',
       medium: '1rem',

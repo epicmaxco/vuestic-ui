@@ -1,11 +1,10 @@
 <template>
   <div class="va-color-input">
     <va-input
-      class="va-color-input__input"
-      placeholder="input color"
+      v-bind="vaInputProps"
       v-model="valueComputed"
+      class="va-color-input__input"
       :tabindex="tabIndexComputed"
-      :disabled="$props.disabled"
     >
       <template #appendInner>
         <va-color-indicator
@@ -16,6 +15,7 @@
           :tabindex="tabIndexComputed"
           :color="valueComputed"
           :indicator="$props.indicator"
+          size="16px"
           @click="callPickerDialog"
           @keydown.space="callPickerDialog"
           @keydown.enter="callPickerDialog"
@@ -28,7 +28,8 @@
       class="va-color-input__hidden-input"
       aria-hidden="true"
       tabindex="-1"
-      v-model="valueComputed" />
+      v-model="inputValue"
+    />
   </div>
 </template>
 
@@ -39,6 +40,10 @@ import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits
 
 import { VaColorIndicator } from '../va-color-indicator'
 import { VaInput } from '../va-input'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
+import throttle from 'lodash/throttle'
+
+const VaInputProps = extractComponentProps(VaInput)
 
 export default defineComponent({
   name: 'VaColorInput',
@@ -48,6 +53,7 @@ export default defineComponent({
   },
   emits: [...useStatefulEmits],
   props: {
+    ...VaInputProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
     modelValue: { type: String, default: null },
@@ -68,12 +74,19 @@ export default defineComponent({
 
     const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
+    const inputValue = computed({
+      get: () => props.modelValue,
+      set: throttle((value) => emit('update:modelValue', value), 500),
+    })
+
     return {
       ...useTranslation(),
       valueComputed,
+      inputValue,
       callPickerDialog,
       colorPicker,
       tabIndexComputed,
+      vaInputProps: filterComponentProps(VaInputProps),
     }
   },
 })

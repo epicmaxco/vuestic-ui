@@ -191,14 +191,14 @@ const background = 'yellow'
         world!
       </button>
     </template>
-    
+
     <script setup>
     const theme = {
       color: 'blue',
       background: 'yellow',
     }
     </script>
-    
+
     <style>
       button {
         color: v-bind('theme.color');
@@ -216,14 +216,14 @@ const background = 'yellow'
         world!
       </button>
     </template>
-    
+
     <script setup>
     const theme = {
       color: 'blue',
       background: 'yellow',
     }
     </script>
-    
+
     <style>
       button {
         color: var(--va-0-theme-color);
@@ -248,14 +248,14 @@ const background = 'yellow'
         Label
       </div>
     </template>
-    
+
     <script setup>
     const theme = {
       color: 'blue',
       background: 'yellow',
     }
     </script>
-    
+
     <style>
       button {
         color: v-bind('theme.color');
@@ -276,14 +276,14 @@ const background = 'yellow'
         Label
       </div>
     </template>
-    
+
     <script setup>
     const theme = {
       color: 'blue',
       background: 'yellow',
     }
     </script>
-    
+
     <style>
       button {
         color: var(--va-0-theme-color);
@@ -305,13 +305,13 @@ const background = 'yellow'
         world!
       </button>
     </template>
-    
+
     <script setup>
     const theme = {
       color: 'blue',
     }
     </script>
-    
+
     <style>
       button {
         color: v-bind('theme.color');
@@ -329,17 +329,97 @@ const background = 'yellow'
         world!
       </button>
     </template>
-    
+
     <script setup>
     const theme = {
       color: 'blue',
     }
     </script>
-    
+
     <style>
       button {
         color: var(--va-0-theme-color);
         fill: var(--va-0-theme-color);
+      }
+    </style>
+    `
+
+    expect(transformVueComponent(componentCode())).toBe(expectedComponentCode())
+  })
+
+  test('idk yet', () => {
+    const componentCode = (attrs = '', nestedAttrs = '') => `
+    <template>
+      <button>
+        <span>
+          Hello
+        </span>
+        world!
+      </button>
+    </template>
+
+    <script lang="ts">
+    export default defineComponent({
+      name: 'VaLayoutArea',
+
+      props: {
+        area: { type: String as PropType<AreaName>, required: true },
+        config: { type: Object as PropType<AreaConfig>, required: true },
+      },
+
+      emits: ['overlay-click'],
+
+      setup (props) {
+        return {
+          absolute: computed(() => props.config.absolute || false),
+          fixed: computed(() => props.config.fixed || false),
+          overlay: computed(() => props.config.overlay || false),
+        }
+      },
+    })
+    </script>
+
+    <style>
+      button {
+        color: v-bind("$props.color");
+      }
+    </style>
+    `
+
+    const expectedComponentCode = () => `
+    <template>
+      <button :style="\`--va-0-props-color: \${String($props.color)}\`">
+        <span>
+          Hello
+        </span>
+        world!
+      </button>
+    </template>
+
+    <script lang="ts">
+    export default defineComponent({
+      name: 'VaLayoutArea',
+
+      props: {
+        area: { type: String as PropType<AreaName>, required: true },
+        config: { type: Object as PropType<AreaConfig>, required: true },
+      },
+
+      emits: ['overlay-click'],
+
+      setup (props) {
+        return {
+          absolute: computed(() => props.config.absolute || false),
+          fixed: computed(() => props.config.fixed || false),
+          overlay: computed(() => props.config.overlay || false),
+        }
+      },
+    })
+    </script>
+
+    <style>
+      button {
+        color: var(--va-0-props-color);
       }
     </style>
     `

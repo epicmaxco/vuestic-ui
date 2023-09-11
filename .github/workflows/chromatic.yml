@@ -1,0 +1,31 @@
+# Workflow name
+name: 'Chromatic'
+
+# Event for the workflow
+on:
+  push:
+    branches:
+      - develop
+
+# List of jobs
+jobs:
+  chromatic-deployment:
+    # Operating System
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Required to retrieve git history
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        # Adds Chromatic as a step in the workflow
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        # Chromatic GitHub Action options
+        with:
+          workingDir: packages/ui
+          exitZeroOnChanges: true
+          storybookBaseDir: packages/ui
+          projectToken: chpt_0b6e7d8b20a17cf
+          buildScriptName: build:storybook

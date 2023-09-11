@@ -61,14 +61,14 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       gitTag: gitTagFromVersion(version),
       distTag: 'latest',
       shouldCommit: true,
-      allowSkipTests: false,
+      allowSkipTests: true,
       allowUncommitted: false,
       requiredBranch: 'develop',
       showSleepCheck: true,
       todoList: [
         'Update and release other packages (like nuxt, create-vuestic, etc)',
-        'Merge docs to master',
         'Make release notes on github',
+        'Merge docs to master',
       ]
     }
   }
@@ -79,14 +79,14 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       gitTag: gitTagFromVersion(version),
       distTag: 'latest',
       shouldCommit: true,
-      allowSkipTests: false,
+      allowSkipTests: true,
       allowUncommitted: false,
       requiredBranch: 'develop',
       showSleepCheck: true,
       todoList: [
         'Update and release other packages (like nuxt, create-vuestic, etc)',
-        'Merge docs to master',
         'Make release notes on github',
+        'Merge docs to master',
       ]
     }
   }

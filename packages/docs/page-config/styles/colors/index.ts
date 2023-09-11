@@ -3,6 +3,8 @@ export default definePageConfig({
     block.title("Colors"),
     block.paragraph("Developing an effective and user-friendly color scheme can be a challenging task. The Vuestic UI component library aims to make this process simpler and more convenient by providing a versatile set of colors that are easy to customize and manage."),
 
+    block.component("ThemeDesigner"),
+
     block.subtitle("Color Palette"),
     block.paragraph("Vuestic UI library offers a color palette consisting of 14 colors. These colors are divided into accent colors, background colors, text colors and utility colors. By default, there are two color presets available: light and dark."),
     block.component("PaletteGrid", { hideCode: true }),

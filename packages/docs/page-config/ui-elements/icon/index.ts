@@ -20,7 +20,7 @@ export default definePageConfig({
 
     block.component("Playground"),
 
-    block.link("Read more how you can use different icon libraries with Vuestic UI Icon Config", "services/icons-config"),
+    block.link("Read more how you can use different icon libraries with Vuestic UI Icon Config", "/services/icons-config"),
 
     block.subtitle("Examples"),
 
@@ -59,7 +59,7 @@ export default definePageConfig({
 
 
     block.subtitle('Accessibility'),
-    block.paragraph('The component completely ignored by screen readers because of [aria-hidden=\"true\"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]] attribute.'),
+    block.paragraph('The component completely ignored by screen readers because of [aria-hidden="true"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)[[target=_blank]] attribute.'),
 
     block.subtitle("API"),
     block.api("VaIcon", apiDescription, apiOptions),

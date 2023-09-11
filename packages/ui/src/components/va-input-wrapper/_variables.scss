@@ -1,0 +1,28 @@
+:root,
+:host {
+  --va-input-wrapper-width: var(--va-form-element-default-width);
+  --va-input-wrapper-color: var(--va-primary);
+  --va-input-wrapper-background: var(--va-background-element, #f5f9fb);
+  --va-input-wrapper-background-opacity: 1;
+  --va-input-wrapper-border-width: var(--va-form-element-border-width);
+  --va-input-wrapper-border-color: var(--va-background-border);
+  --va-input-wrapper-border-radius: var(--va-form-element-border-radius);
+  --va-input-wrapper-min-width: var(--va-form-element-min-width);
+  --va-input-wrapper-display: inline-block;
+  --va-input-wrapper-cursor: text;
+  --va-input-wrapper-min-height: 36px;
+  --va-input-wrapper-validation-background-opacity: 0.1;
+
+  /* Counter container */
+  --va-input-wrapper-counter-line-height: 1.5;
+  --va-input-wrapper-counter-font-size: 0.8rem;
+  --va-input-wrapper-counter-color: var(--va-secondary);
+
+  /* Content Wrapper */
+  --va-input-wrapper-horizontal-padding: 12px;
+  --va-input-wrapper-items-gap: 6px;
+
+  /* Validation */
+  --va-input-wrapper-success-background: var(--va-input-success-color);
+  --va-input-wrapper-error-background: var(--va-input-error-color);
+}

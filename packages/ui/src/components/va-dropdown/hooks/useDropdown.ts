@@ -1,4 +1,4 @@
-import { computed, Ref } from 'vue'
+import { computed, ref, Ref } from 'vue'
 import {
   autoUpdate,
   flip,
@@ -74,7 +74,9 @@ export const useDropdown = (
             const reference = elements.reference
             const availableWidth = reference.getBoundingClientRect().width
             Object.assign(elements.floating.style, {
+              // Don't set width here, because some plugin applies width 100% and it breaks layout
               maxWidth: `${availableWidth}px`,
+              minWidth: `${availableWidth}px`,
             })
           }
 
@@ -90,15 +92,29 @@ export const useDropdown = (
     return result
   })
 
-  const { floatingStyles } = typeof document === 'undefined'
-    ? { floatingStyles: {} }
+  const { floatingStyles, isPositioned } = typeof document === 'undefined'
+    ? { floatingStyles: {}, isPositioned: ref(false) }
     : useFloating(anchorComputed, floating, {
       placement: placementComputed,
       whileElementsMounted: autoUpdate,
       middleware: middlewareComputed,
+      transform: true,
     })
 
   return {
-    floatingStyles,
+    // Because floating ui by default set top and left to 0 before position calculated, dropdown jumps to the left top corner
+    // If user wants to make focus on el as soon as Dropdown is opened, page will be scrolled on the left top corner
+    floatingStyles: computed(() => {
+      // If position is not calculated yet, we need to set position to fixed to prevent page scrolling
+      if (!isPositioned.value) {
+        return {
+          position: 'fixed',
+        }
+      }
+
+      return floatingStyles.value
+    }),
+
+    isPositioned,
   }
 }

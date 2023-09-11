@@ -1,54 +1,51 @@
 <template>
-  <div class="max-w-xs">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
     <va-select
       v-model="value"
-      class="mb-6"
       label="Content slot"
       :options="options"
       multiple
     >
-      <template #content="{ valueString }">
-        {{ valueString }}
+      <template #content="{ value }">
+        <va-chip class="mr-2" v-for="v in value" :key="v" size="small">
+          {{ v }}
+        </va-chip>
       </template>
     </va-select>
     <va-select
       v-model="value"
-      class="mb-6"
       label="Prepend slot"
       :options="options"
     >
       <template #prepend>
-        <va-icon name="share" />
+        <va-icon name="person" class="mr-2" />
       </template>
     </va-select>
     <va-select
       v-model="value"
-      class="mb-6"
       label="Prepend inner slot"
       :options="options"
     >
       <template #prependInner>
-        <va-icon name="share" />
+        <va-icon name="person" />
       </template>
     </va-select>
     <va-select
       v-model="value"
-      class="mb-6"
       label="Append inner slot"
       :options="options"
     >
       <template #appendInner>
-        <va-icon name="share" />
+        <va-icon name="person" />
       </template>
     </va-select>
     <va-select
       v-model="value"
-      class="mb-6"
       label="Append slot"
       :options="options"
     >
       <template #append>
-        <va-icon name="share" />
+        <va-icon name="person" class="ml-2" />
       </template>
     </va-select>
     <va-select
@@ -88,7 +85,7 @@ export default {
         "eight",
         "nine",
       ],
-      value: "",
+      value: ["one"],
     };
   },
 };

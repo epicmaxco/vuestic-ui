@@ -1,26 +1,26 @@
 :root,
 :host {
+  --va-collapse-padding: 0.75rem;
+  --va-collapse-gap: 0.5rem;
   --va-collapse-transition: all 0.3s linear;
   --va-collapse-popout-margin: 0.5rem -0.5rem;
   --va-collapse-inset-margin: 0.5rem 0.5rem;
-  --va-collapse-body-wrapper-transition: all 0.3s linear;
+  --va-collapse-body-transition: opacity 0.1s linear;
+  --va-collapse-body-wrapper-transition: height 0.3s linear, background 0.3s linear;
   --va-collapse-body-width: 100%;
-  --va-collapse-header-content-display: flex;
-  --va-collapse-header-content-justify-content: space-between;
   --va-collapse-header-content-cursor: pointer;
   --va-collapse-header-content-background-color: #f5f8f9;
   --va-collapse-header-content-box-shadow: var(--va-box-shadow);
   --va-collapse-header-content-border-radius: 0.375rem;
-  --va-collapse-header-content-align-items: center;
   --va-collapse-header-content-padding-top: 0.75rem;
   --va-collapse-header-content-padding-bottom: 0.75rem;
   --va-collapse-header-content-padding-left: 1rem;
-  --va-collapse-header-content-text-width: 100%;
   --va-collapse-header-content-text-font-weight: 600;
   --va-collapse-header-content-icon-min-width: 1.5rem;
   --va-collapse-header-content-icon-margin-left: 0.5rem;
   --va-collapse-header-content-icon-margin-right: 0.5rem;
   --va-collapse-header-content-icon-color: var(--va-background-element);
+  --va-collapse-expand-icon-transition: transform 0.3s linear;
 
   /* Solid */
   --va-collapse-solid-box-shadow: var(--va-box-shadow);
