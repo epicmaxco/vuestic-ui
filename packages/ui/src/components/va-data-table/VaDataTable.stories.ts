@@ -1,4 +1,4 @@
-import { defineVaDataTableColumns, defineVaDataTableItems } from './fabrics'
+import { DataTableColumns, DataTableItems, defineVaDataTableColumns, defineVaDataTableItems } from './fabrics'
 import { defineComponent } from 'vue'
 import VaDataTableDemo from './VaDataTable.demo.vue'
 import { VaDataTable } from '..'
@@ -8,15 +8,25 @@ export default {
   component: VaDataTableDemo,
 }
 
+type User = {
+  name: string
+  email: string,
+  age: 12
+}
+
+type Columns = DataTableColumns<User>
+
 const columns = defineVaDataTableColumns([
   { key: 'name' },
   { key: 'email' },
-])
+]) satisfies Columns
+
+type Items = DataTableItems<typeof columns>
 
 const items = defineVaDataTableItems<typeof columns>([
   { name: 'Aaa', email: '' },
-  { name: 'Bbb', email: '' },
-])
+  { name: 'Bbb', email: '', test: '' },
+]) satisfies Items
 
 export const Default = defineComponent({
   components: { VaDataTable: VaDataTableDemo },
