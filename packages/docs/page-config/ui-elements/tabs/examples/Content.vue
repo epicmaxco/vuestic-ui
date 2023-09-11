@@ -28,7 +28,7 @@
           :name="currentTab.icon"
           size="small"
           class="mr-2"
-          color="background-tertiary"
+          color="background-element"
         />
         {{ currentTab.title }}
       </va-card-title>

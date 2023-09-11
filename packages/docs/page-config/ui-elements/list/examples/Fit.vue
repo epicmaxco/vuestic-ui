@@ -26,7 +26,7 @@
       <va-list-item-section icon>
         <va-icon
           name="remove_red_eye"
-          color="background-tertiary"
+          color="background-element"
         />
       </va-list-item-section>
     </va-list-item>
