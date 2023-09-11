@@ -16,7 +16,12 @@
   </div>
 
   <Transition>
-    <div class="va-layout-area__overlay" v-if="overlay" @click="$emit('overlay-click')" />
+    <div
+      v-if="overlay"
+      class="va-layout-area__overlay"
+      :class="{ 'va-layout-area__overlay--fixed': fixed }"
+      @click="$emit('overlay-click')"
+    />
   </Transition>
 </template>
 
@@ -88,6 +93,10 @@ export default defineComponent({
     &.v-enter-from,
     &.v-leave-to {
       opacity: 0;
+    }
+
+    &--fixed {
+      position: fixed;
     }
   }
 }
