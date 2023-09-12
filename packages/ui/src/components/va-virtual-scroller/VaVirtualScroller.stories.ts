@@ -1,4 +1,7 @@
 import { defineComponent } from 'vue'
+import { within } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
+
 import { VaVirtualScroller } from './'
 import { VaBadge } from '../va-badge'
 import { VaButton } from '../va-button'
@@ -27,6 +30,14 @@ export const Default = () => ({
   `,
 })
 
+Default.play = async ({ step }) => {
+  const scroller = document.querySelector('.va-virtual-scroller') as HTMLElement
+
+  await step('wrapper height is 200px', async () => {
+    expect(scroller.style.height).toEqual('200px')
+  })
+}
+
 export const Disabled = () => ({
   components: { VaVirtualScroller },
   data: () => ({ hugeSlice: hugeArray.slice(0, 1000) }),
@@ -41,6 +52,14 @@ export const Disabled = () => ({
     </va-virtual-scroller>
   `,
 })
+
+Disabled.play = async ({ step }) => {
+  const scroller = document.querySelector('.va-virtual-scroller') as HTMLElement
+
+  await step('wrapper height is 200px', async () => {
+    expect(scroller.style.height).toEqual('200px')
+  })
+}
 
 export const Horizontal = () => ({
   components: { VaVirtualScroller },
@@ -58,6 +77,14 @@ export const Horizontal = () => ({
   `,
 })
 
+Horizontal.play = async ({ step }) => {
+  const scroller = document.querySelector('.va-virtual-scroller') as HTMLElement
+
+  await step('wrapper width is 200px', async () => {
+    expect(scroller.style.width).toEqual('200px')
+  })
+}
+
 export const AutoWrapperSize = () => ({
   components: { VaVirtualScroller },
   data: () => ({ hugeArray }),
@@ -74,6 +101,14 @@ export const AutoWrapperSize = () => ({
   `,
 })
 
+AutoWrapperSize.play = async ({ step }) => {
+  const scroller = document.querySelector('.va-virtual-scroller') as HTMLElement
+
+  await step('wrapper height is 200px', async () => {
+    expect(scroller.style.height).toEqual('200px')
+  })
+}
+
 export const WithoutBench = () => ({
   components: { VaVirtualScroller },
   data: () => ({ hugeArray }),
@@ -88,6 +123,14 @@ export const WithoutBench = () => ({
     </va-virtual-scroller>
   `,
 })
+
+WithoutBench.play = async ({ step }) => {
+  const scroller = document.querySelector('.va-virtual-scroller') as HTMLElement
+
+  await step('wrapper height is 200px', async () => {
+    expect(scroller.style.height).toEqual('200px')
+  })
+}
 
 export const CustomKey = () => ({
   components: { VaVirtualScroller },
@@ -105,6 +148,14 @@ export const CustomKey = () => ({
   `,
 })
 
+CustomKey.play = async ({ step }) => {
+  const scroller = document.querySelector('.va-virtual-scroller') as HTMLElement
+
+  await step('wrapper height is 200px', async () => {
+    expect(scroller.style.height).toEqual('200px')
+  })
+}
+
 export const LoopingComponent = () => ({
   components: { VaVirtualScroller, VaBadge },
   data: () => ({ hugeObjectsArray }),
@@ -112,7 +163,7 @@ export const LoopingComponent = () => ({
     <va-virtual-scroller
       :items="hugeObjectsArray"
       :bench="20"
-      track-by="value"
+      track-by="value1"
       :wrapper-size="200"
       v-slot="{item}"
     >
@@ -120,6 +171,14 @@ export const LoopingComponent = () => ({
     </va-virtual-scroller>
   `,
 })
+
+LoopingComponent.play = async ({ step }) => {
+  const scroller = document.querySelector('.va-virtual-scroller') as HTMLElement
+
+  await step('wrapper height is 200px', async () => {
+    expect(scroller.style.height).toEqual('200px')
+  })
+}
 
 export const DifferentSizesAndMargins = () => ({
   components: { VaVirtualScroller, VaButton },
@@ -139,6 +198,16 @@ export const DifferentSizesAndMargins = () => ({
   `,
 })
 
+DifferentSizesAndMargins.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const list = canvas.findByRole('list')
+  const scroller = document.querySelector('.va-virtual-scroller') as HTMLElement
+
+  await step('wrapper height is 200px', async () => {
+    expect(scroller.style.height).toEqual('200px')
+  })
+}
+
 export const RemWrapperAndItemSizeValue = () => ({
   components: { VaVirtualScroller },
   data: () => ({ hugeArray }),
@@ -154,6 +223,22 @@ export const RemWrapperAndItemSizeValue = () => ({
   `,
 })
 
+RemWrapperAndItemSizeValue.play = async ({ step }) => {
+  const scroller = document.querySelector('.va-virtual-scroller') as HTMLElement
+  const container = document.querySelector('.va-virtual-scroller__container') as HTMLElement
+  const rootElement = document.documentElement
+  const rootElementStylePropertyMap = rootElement.computedStyleMap()
+  const rootFontSize = rootElementStylePropertyMap.get('font-size') as CSSUnitValue
+
+  await step('wrapper height is 10rem', async () => {
+    expect(scroller.style.height).toEqual(rootFontSize.mul(10).toString())
+  })
+
+  await step('container size equals itemSize * items.length', async () => {
+    expect(container.style.height).toEqual(rootFontSize.mul(2).mul(hugeArray.length).toString())
+  })
+}
+
 export const NoItemsPassed = () => ({
   components: { VaVirtualScroller },
   template: `
@@ -165,3 +250,12 @@ export const NoItemsPassed = () => ({
     </va-virtual-scroller>
   `,
 })
+
+NoItemsPassed.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const list = canvas.getByRole('list')
+
+  await step('There is no item to show', async () => {
+    expect(list.children.length).toBe(0)
+  })
+}
