@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
     <va-badge
       placement="top-left"
       text="New"
@@ -7,7 +7,6 @@
       :offset="[32, 0]"
       class="mr-6"
       style="--va-badge-text-wrapper-border-radius: 40px;"
-
     >
       <va-card>
         <va-card-content>
