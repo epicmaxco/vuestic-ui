@@ -53,11 +53,17 @@ export const Disabled = () => ({
   `,
 })
 
-Disabled.play = async ({ step }) => {
+Disabled.play = async ({ canvasElement, step }) => {
   const scroller = document.querySelector('.va-virtual-scroller') as HTMLElement
+  const canvas = within(canvasElement)
+  const list = canvas.getByRole('list')
 
   await step('wrapper height is 200px', async () => {
     expect(scroller.style.height).toEqual('200px')
+  })
+
+  await step('disabled scroller loads all items', async () => {
+    expect(list.children.length).toBe(1000)
   })
 }
 
@@ -80,7 +86,7 @@ export const Horizontal = () => ({
 Horizontal.play = async ({ step }) => {
   const scroller = document.querySelector('.va-virtual-scroller') as HTMLElement
 
-  await step('wrapper width is 200px', async () => {
+  await step('the width of wrapper of horizontal scroller is set to wrapper-size', async () => {
     expect(scroller.style.width).toEqual('200px')
   })
 }
@@ -89,7 +95,7 @@ export const AutoWrapperSize = () => ({
   components: { VaVirtualScroller },
   data: () => ({ hugeArray }),
   template: `
-    <div style="height: 200px;">
+    <div class="container" style="height: 200px;">
       <va-virtual-scroller
         :items="hugeArray"
         wrapper-size="auto"
@@ -103,16 +109,18 @@ export const AutoWrapperSize = () => ({
 
 AutoWrapperSize.play = async ({ step }) => {
   const scroller = document.querySelector('.va-virtual-scroller') as HTMLElement
+  const container = document.querySelector('.container') as HTMLElement
 
-  await step('wrapper height is 200px', async () => {
-    expect(scroller.style.height).toEqual('200px')
+  await step('wrapper size equals the size of the container div', async () => {
+    expect(scroller.style.height).toEqual(container.style.height)
   })
 }
 
-export const WithoutBench = () => ({
+export const Bench = () => ({
   components: { VaVirtualScroller },
   data: () => ({ hugeArray }),
   template: `
+    <p>[bench = 0]</p>
     <va-virtual-scroller
       :items="hugeArray"
       :bench="0"
@@ -121,14 +129,30 @@ export const WithoutBench = () => ({
     >
       <div>{{ index }} - {{ item }}</div>
     </va-virtual-scroller>
+    <p>[bench = 20]</p>
+    <va-virtual-scroller
+      :items="hugeArray"
+      :bench="20"
+      :wrapper-size="200"
+      v-slot="{item, index}"
+    >
+      <div>{{ index }} - {{ item }}</div>
+    </va-virtual-scroller>
   `,
 })
 
-WithoutBench.play = async ({ step }) => {
-  const scroller = document.querySelector('.va-virtual-scroller') as HTMLElement
+Bench.play = async ({ canvasElement, step }) => {
+  const scrollers = document.querySelectorAll('.va-virtual-scroller')
+  const canvas = within(canvasElement)
+  const lists = canvas.getAllByRole('list')
 
   await step('wrapper height is 200px', async () => {
-    expect(scroller.style.height).toEqual('200px')
+    expect((scrollers[0] as HTMLElement).style.height).toEqual('200px')
+    expect((scrollers[1] as HTMLElement).style.height).toEqual('200px')
+  })
+
+  await step('the virtual scroller that has 20 bench is 40 items larger than no bench virual scroller', async () => {
+    expect(lists[1].children.length - lists[0].children.length).toBe(40)
   })
 }
 
