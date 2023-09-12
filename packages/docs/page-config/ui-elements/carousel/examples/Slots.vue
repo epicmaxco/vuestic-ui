@@ -18,7 +18,7 @@
     </template>
 
     <template #indicator="{ index }">
-      <va-button>Go to slide {{ index }}</va-button>
+      <va-button>{{ index }}</va-button>
     </template>
   </va-carousel>
 </template>

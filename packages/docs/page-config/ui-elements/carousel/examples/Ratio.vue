@@ -2,7 +2,7 @@
   <va-carousel
     v-model="value"
     :items="items"
-    :ratio="21 / 9"
+    :ratio="16 / 12"
   />
 </template>
 
