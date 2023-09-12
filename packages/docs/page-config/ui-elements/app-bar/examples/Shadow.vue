@@ -4,7 +4,7 @@
   >
     <va-app-bar
       shadow-on-scroll
-      color="background-border"
+      color="primary"
       shadow-color="danger"
       target="#va-app-bar-shadow"
     >
