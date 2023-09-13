@@ -20,7 +20,7 @@ export const TextColor: StoryFn = () => ({
 })
 
 TextColor.play = async ({ canvasElement, step }) => {
-  await step('Closes on click', async () => {
+  await step('Have white color', async () => {
     expect(canvasElement.querySelector('.va-toast')).toHaveStyle({
       color: '#ffffff',
     })
