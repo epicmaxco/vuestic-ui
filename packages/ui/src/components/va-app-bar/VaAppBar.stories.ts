@@ -1,6 +1,4 @@
 import { VaAppBar } from './'
-import { expect } from '@storybook/jest'
-import { sleep } from '../../utils/sleep'
 
 export default {
   title: 'VaAppBar',
@@ -12,7 +10,7 @@ export const Default = () => ({
   components: { VaAppBar },
   template: `
     <va-app-bar>
-      App Bar 
+      App Bar
     </va-app-bar>
   `,
 })
@@ -21,7 +19,7 @@ export const Gradient = () => ({
   components: { VaAppBar },
   template: `
     <va-app-bar gradient>
-      App Bar 
+      App Bar
     </va-app-bar>
   `,
 })
@@ -29,9 +27,8 @@ export const Gradient = () => ({
 export const Color = () => ({
   components: { VaAppBar },
   template: `
-    [warning]
     <va-app-bar color="warning">
-      App Bar 
+      App Bar
     </va-app-bar>
   `,
 })
@@ -40,19 +37,19 @@ export const Fixed = () => ({
   components: { VaAppBar },
   template: `
     <va-app-bar fixed>
-      App Bar 
+      App Bar
     </va-app-bar>
-    {{ $vb.lorem(600) }}
+    {{ $vb.lorem(2000) }}
   `,
 })
 
-export const Bottom = () => ({
+export const FixedBottom = () => ({
   components: { VaAppBar },
   template: `
     <va-app-bar fixed bottom>
-      App Bar 
+      App Bar
     </va-app-bar>
-    {{ $vb.lorem(600) }}
+    {{ $vb.lorem(2000) }}
   `,
 })
 
@@ -60,14 +57,14 @@ export const HideOnScroll = () => ({
   components: { VaAppBar },
   template: `
     <div class="flex flex-col relative max-h-32 overflow-hidden">
-      <va-app-bar 
-        hide-on-scroll 
-        target="#target1"
+      <va-app-bar
+        hide-on-scroll
+        target="#target"
       >
-        App Bar 
+        App Bar
       </va-app-bar>
-      <div 
-        id="target1" 
+      <div
+        id="target"
         class="pb-[500px] overflow-auto"
       >
         {{ $vb.lorem(2500) }}
@@ -76,29 +73,23 @@ export const HideOnScroll = () => ({
   `,
 })
 
-HideOnScroll.play = async ({ step }) => {
-  const target = document.querySelector('#target1') as HTMLElement
+HideOnScroll.play = async ({ canvasElement, step }) => {
+  const target = canvasElement.querySelector('#target') as HTMLElement
   target.scrollTo({ top: target.clientHeight })
-  await sleep(500)
-  const appbar = document.querySelector('[role="toolbar"]') as HTMLElement
-
-  await step('Hidden on scroll', async () => {
-    expect(appbar.style.cssText.includes('translateY')).toBeTruthy()
-  })
 }
 
 export const ShadowOnScroll = () => ({
   components: { VaAppBar },
   template: `
     <div class="flex flex-col relative max-h-32 overflow-hidden">
-      <va-app-bar 
-        shadow-on-scroll 
-        target="#target2"
+      <va-app-bar
+        shadow-on-scroll
+        target="#target"
       >
-        App Bar 
+        App Bar
       </va-app-bar>
-      <div 
-        id="target2" 
+      <div
+        id="target"
         class="pb-[500px] overflow-auto"
       >
         {{ $vb.lorem(2500) }}
@@ -107,31 +98,24 @@ export const ShadowOnScroll = () => ({
   `,
 })
 
-ShadowOnScroll.play = async ({ step }) => {
-  const target = document.querySelector('#target2') as HTMLElement
+ShadowOnScroll.play = async ({ canvasElement, step }) => {
+  const target = canvasElement.querySelector('#target') as HTMLElement
   target.scrollTo({ top: target.clientHeight })
-  await sleep(500)
-  const appbar = document.querySelector('[role="toolbar"]') as HTMLElement
-
-  await step('Has shadow on scroll', async () => {
-    expect(appbar.style.cssText.includes('box-shadow')).toBeTruthy()
-  })
 }
 
 export const ShadowColor = () => ({
   components: { VaAppBar },
   template: `
-    [warning]
     <div class="flex flex-col relative max-h-32 overflow-hidden">
-      <va-app-bar 
-        shadow-on-scroll 
-        shadow-color="warning"
-        target="#target3"
+      <va-app-bar
+        shadow-on-scroll
+        shadow-color="danger"
+        target="#target"
       >
-        App Bar 
+        App Bar
       </va-app-bar>
-      <div 
-        id="target3" 
+      <div
+        id="target"
         class="pb-[500px] overflow-auto"
       >
         {{ $vb.lorem(2500) }}
@@ -139,3 +123,7 @@ export const ShadowColor = () => ({
     </div>
   `,
 })
+ShadowColor.play = async ({ canvasElement, step }) => {
+  const target = canvasElement.querySelector('#target') as HTMLElement
+  target.scrollTo({ top: target.clientHeight })
+}

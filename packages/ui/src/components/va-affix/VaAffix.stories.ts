@@ -19,9 +19,9 @@ export const FixedTop = () => ({
   `,
 })
 
-FixedTop.play = async ({ step }) => {
+FixedTop.play = async ({ canvasElement, step }) => {
   window.scrollTo({ top: document.body.scrollHeight })
-  const affix = document.querySelector('.va-affix--affixed') as HTMLElement
+  const affix = canvasElement.querySelector('.va-affix--affixed') as HTMLElement
 
   await step('100px offset top', async () => {
     expect(affix.style.top).toEqual('100px')
@@ -41,9 +41,9 @@ export const FixedBottom = () => ({
   `,
 })
 
-FixedBottom.play = async ({ step }) => {
+FixedBottom.play = async ({ canvasElement, step }) => {
   window.scrollTo({ top: 0 })
-  const affix = document.querySelector('.va-affix--affixed') as HTMLElement
+  const affix = canvasElement.querySelector('.va-affix--affixed') as HTMLElement
 
   await step('100px offset bottom', async () => {
     expect(affix.style.bottom).toEqual('100px')
