@@ -667,6 +667,12 @@ export default defineComponent({
       document.documentElement.style.cursor = hasMouseDown ? 'grabbing' : ''
     })
 
+    watch(() => props.modelValue, (modelValue) => {
+      if (Array.isArray(modelValue)) {
+        val.value = modelValue.sort()
+      }
+    }, { deep: true })
+
     return {
       getColor,
       dot,
