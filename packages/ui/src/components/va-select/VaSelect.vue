@@ -22,6 +22,7 @@
         @blur="onInputBlur"
         @keydown.enter="toggleDropdown"
         @keydown.space.stop.prevent="toggleDropdown"
+        @click-field.stop="focusAutocompleteInput"
       >
         <template
           v-for="(_, name) in $slots"
@@ -64,7 +65,6 @@
             @focus-next="focusNextOption"
             @select-option="selectOrAddOption"
             @delete-last-selected="deleteLastSelected"
-            @click="focusAutocompleteInput"
           >
             <template
               v-for="(_, name) in $slots"
