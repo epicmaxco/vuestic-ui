@@ -10,6 +10,7 @@ export interface TreeNode {
   hasChildren?: boolean
   matchesFilter?: boolean
   indeterminate?: boolean
+  children?: TreeNode[]
   [key: string]: any
 }
 
