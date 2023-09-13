@@ -5,6 +5,7 @@
     class="va-select va-select__dropdown va-select-dropdown"
     v-bind="dropdownPropsComputed"
     role="combobox"
+    inner-anchor-selector=".va-input-wrapper__field"
   >
     <template #anchor>
       <va-input-wrapper
@@ -22,7 +23,6 @@
         @blur="onInputBlur"
         @keydown.enter="toggleDropdown"
         @keydown.space.stop.prevent="toggleDropdown"
-        @click-field.stop="focusAutocompleteInput"
       >
         <template
           v-for="(_, name) in $slots"
