@@ -30,7 +30,10 @@
               <slot name="prepend" />
             </div>
 
-            <div class="va-input-wrapper__field">
+            <div
+              @click="$emit('click-field', $event)"
+              class="va-input-wrapper__field"
+            >
               <div
                 v-if="$slots.prependInner"
                 class="va-input-wrapper__prepend-inner"
@@ -156,6 +159,7 @@ export default defineComponent({
     'click-append',
     'click-prepend-inner',
     'click-append-inner',
+    'click-field',
     'update:modelValue',
   ],
 

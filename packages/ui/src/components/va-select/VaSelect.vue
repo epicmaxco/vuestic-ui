@@ -5,6 +5,7 @@
     class="va-select va-select__dropdown va-select-dropdown"
     v-bind="dropdownPropsComputed"
     role="combobox"
+    inner-anchor-selector=".va-input-wrapper__field"
   >
     <template #anchor>
       <va-input-wrapper
@@ -64,7 +65,6 @@
             @focus-next="focusNextOption"
             @select-option="selectOrAddOption"
             @delete-last-selected="deleteLastSelected"
-            @click="focusAutocompleteInput"
           >
             <template
               v-for="(_, name) in $slots"
