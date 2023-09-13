@@ -1,10 +1,8 @@
-import { defineComponent } from 'vue'
-import { within } from '@storybook/testing-library'
-import { expect } from '@storybook/jest'
-
 import { VaVirtualScroller } from './'
-import { VaBadge } from '../va-badge'
 import { VaButton } from '../va-button'
+import { within } from '@storybook/testing-library'
+
+const getHugeArray = () => new Array(1000).fill(null).map((_, index) => index)
 
 export default {
   title: 'VaVirtualScroller',
@@ -14,7 +12,7 @@ export default {
 
 export const Default = () => ({
   components: { VaVirtualScroller },
-  data: () => ({ hugeArray: new Array(1000).fill(null).map((_, index) => index) }),
+  data: () => ({ hugeArray: getHugeArray() }),
   template: `
     <va-virtual-scroller
       :items="hugeArray"
@@ -27,7 +25,7 @@ export const Default = () => ({
 
 export const Disabled = () => ({
   components: { VaVirtualScroller },
-  data: () => ({ hugeArray: new Array(1000).fill(null).map((_, index) => index) }),
+  data: () => ({ hugeArray: getHugeArray() }),
   template: `
     <va-virtual-scroller
       :items="hugeArray"
@@ -41,7 +39,7 @@ export const Disabled = () => ({
 
 export const Horizontal = () => ({
   components: { VaVirtualScroller },
-  data: () => ({ hugeArray: new Array(1000).fill(null).map((_, index) => index) }),
+  data: () => ({ hugeArray: getHugeArray() }),
   template: `
     <va-virtual-scroller
       :items="hugeArray"
@@ -55,7 +53,7 @@ export const Horizontal = () => ({
 
 export const Bench = () => ({
   components: { VaVirtualScroller },
-  data: () => ({ hugeArray: new Array(1000).fill(null).map((_, index) => index) }),
+  data: () => ({ hugeArray: getHugeArray() }),
   template: `
     [bench = 0]
     <va-virtual-scroller
@@ -76,6 +74,15 @@ export const Bench = () => ({
   `,
 })
 
+Bench.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const lists = canvas.getAllByRole('list')
+
+  await step('the virtual scroller that has 20 bench is 40 items larger than no bench virtual scroller', async () => {
+    expect(lists[1].children.length - lists[0].children.length).toBe(40)
+  })
+}
+
 export const DifferentSizesAndMargins = () => ({
   components: { VaVirtualScroller, VaButton },
   data: () => ({ hugeObjectsArray: new Array(1000).fill(null).map((el, index) => ({ value: index })) }),
@@ -94,7 +101,7 @@ export const DifferentSizesAndMargins = () => ({
 
 export const WrapperSize = () => ({
   components: { VaVirtualScroller },
-  data: () => ({ hugeArray: new Array(1000).fill(null).map((_, index) => index) }),
+  data: () => ({ hugeArray: getHugeArray() }),
   template: `
     [default]
     <va-virtual-scroller
@@ -134,7 +141,7 @@ export const WrapperSize = () => ({
 
 export const ItemSize = () => ({
   components: { VaVirtualScroller },
-  data: () => ({ hugeArray: new Array(1000).fill(null).map((_, index) => index) }),
+  data: () => ({ hugeArray: getHugeArray() }),
   template: `
     [default]
     <va-virtual-scroller
