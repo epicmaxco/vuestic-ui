@@ -65,8 +65,8 @@ export default defineComponent({
     }))
 
     const { getColor } = useColors()
-    const { textColorComputed } = useTextColor()
     const colorComputed = computed(() => getColor(props.color))
+    const { textColorComputed } = useTextColor(colorComputed)
 
     const positionStylesComputed = useFloatingPosition(props, isFloating)
 

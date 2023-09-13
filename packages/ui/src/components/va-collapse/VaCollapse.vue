@@ -15,7 +15,6 @@
           attributes: headerAttributes,
           attrs: headerAttributes,
           iconAttrs: {
-            color: iconColorComputed,
             class: [
               'va-collapse__expand-icon',
               computedModelValue ? 'a-collapse__expand-icon--expanded' : 'a-collapse__expand-icon--collapsed'
@@ -33,7 +32,6 @@
             v-if="icon"
             class="va-collapse__header__icon"
             :name="icon"
-            :color="textColorComputed"
           />
           <slot
             name="header-content"
@@ -48,7 +46,6 @@
               class="va-collapse__expand-icon"
               name="va-arrow-down"
               :class="computedModelValue ? 'va-collapse__expand-icon--expanded' : 'va-collapse__expand-icon--collapsed'"
-              :color="iconColorComputed"
             />
           </slot>
         </div>
@@ -126,10 +123,8 @@ export default defineComponent({
 
     const { valueComputed } = useStateful(props, emit, 'modelValue')
 
-    const { getColor, setHSLAColor } = useColors()
+    const { getColor, getTextColor, setHSLAColor } = useColors()
     const { accordionProps, valueProxy: computedModelValue = valueComputed } = useAccordionItem()
-
-    const { textColorComputed } = useTextColor()
 
     const bodyHeight = ref()
     useResizeObserver([body], () => {
@@ -150,11 +145,11 @@ export default defineComponent({
 
       return props.color && props.colorAll
         ? setHSLAColor(getColor(props.color), { a: 0.07 })
-        : ''
+        : undefined
     })
 
     const headerBackground = computed(() => {
-      return props.color ? getColor(props.color) : ''
+      return props.color ? getColor(props.color) : undefined
     })
 
     const uniqueId = computed(generateUniqueId)
@@ -181,12 +176,6 @@ export default defineComponent({
       'colored-header': Boolean(headerBackground.value),
     }))
 
-    const iconColorComputed = computed(() => {
-      if (!props.color || isColorTransparent(getColor(props.color))) { return props.iconColor }
-
-      return textColorComputed.value
-    })
-
     const toggle = () => {
       if (props.disabled) { return }
       computedModelValue.value = !computedModelValue.value
@@ -195,7 +184,6 @@ export default defineComponent({
     return {
       body,
       height,
-      iconColorComputed,
 
       toggle,
       computedModelValue,
@@ -205,11 +193,10 @@ export default defineComponent({
       panelIdComputed,
       tabIndexComputed,
 
-      textColorComputed,
       computedClasses,
 
       headerStyle: computed(() => ({
-        color: textColorComputed.value,
+        color: headerBackground.value ? getColor(getTextColor(headerBackground.value)) : 'currentColor',
         backgroundColor: headerBackground.value,
       })),
 
@@ -219,6 +206,7 @@ export default defineComponent({
           height: `${height.value}px`,
           transitionDuration: getTransition(),
           background: computedModelValue.value ? contentBackground.value : '',
+          color: contentBackground.value ? getColor(getTextColor(contentBackground.value)) : 'currentColor',
         }
       }),
     }

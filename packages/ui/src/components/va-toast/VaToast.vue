@@ -31,7 +31,7 @@
           role="button"
           :aria-label="tp($props.ariaCloseLabel)"
           tabindex="0"
-          size="small"
+          size="1rem"
           :name="$props.icon"
           @click.stop="onToastClose"
           @keydown.enter.stop="onToastClose"
@@ -93,7 +93,7 @@ export default defineComponent({
 
     const { getColor } = useColors()
 
-    const { textColorComputed } = useTextColor()
+    const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
 
     const visible = ref(false)
 
@@ -195,7 +195,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   border-radius: var(--va-toast-border-radius);
-  border: 1px solid var(--va-toast-border-color);
+  border: var(--va-toast-border);
   background-color: var(--va-toast-background-color);
   box-shadow: var(--va-toast-box-shadow);
   transition: var(--va-toast-transition);
