@@ -70,8 +70,8 @@ export default defineComponent({
 
   setup (props) {
     const { getColor, getHoverColor } = useColors()
-    const { textColorComputed } = useTextColor()
     const colorComputed = computed(() => getColor(props.color))
+    const { textColorComputed } = useTextColor(colorComputed)
 
     const isTextSize = computed(() => typeof props.size === 'string' && ['small', 'medium', 'large'].includes(props.size))
 
