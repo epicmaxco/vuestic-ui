@@ -17,13 +17,16 @@ export const Default = () => defineComponent({
 export const Color: StoryFn = () => ({
   components: { VaToast: VaToast },
   template: `
-[Dark color]
-<VaToast inline color="#111111" title="Title text" message="Message text" :duration="99999999" />
+[primary]
+<VaToast inline title="Title" message="Message" :duration="99999999" />
 
-[Light color]
-<VaToast inline color="#eeeeee" title="Title text" message="Message text" :duration="99999999" />
+[#111111]
+<VaToast inline color="#111111" title="Title" message="Message" :duration="99999999" />
 
-[Color from config]
-<VaToast inline color="danger" title="Title text" message="Message text" :duration="99999999" />
+[#eeeeee]
+<VaToast inline color="#eeeeee" title="Title" message="Message" :duration="99999999" />
+
+[danger]
+<VaToast inline color="danger" title="Title" message="Message" :duration="99999999" />
 `,
 })
