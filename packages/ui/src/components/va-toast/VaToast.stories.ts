@@ -14,15 +14,16 @@ export const Default = () => defineComponent({
   template: '<VaToastDemo/>',
 })
 
-export const TextColor: StoryFn = () => ({
+export const Color: StoryFn = () => ({
   components: { VaToast: VaToast },
-  template: '<VaToast color="red"/>',
-})
+  template: `
+[Dark color]
+<VaToast inline color="#111111" title="Title text" message="Message text" :duration="99999999" />
 
-TextColor.play = async ({ canvasElement, step }) => {
-  await step('Have white color', async () => {
-    expect(canvasElement.querySelector('.va-toast')).toHaveStyle({
-      color: '#ffffff',
-    })
-  })
-}
+[Light color]
+<VaToast inline color="#eeeeee" title="Title text" message="Message text" :duration="99999999" />
+
+[Color from config]
+<VaToast inline color="danger" title="Title text" message="Message text" :duration="99999999" />
+`,
+})
