@@ -1,5 +1,4 @@
 import { Ref, ref, watchEffect } from 'vue'
-import { useCurrentElement } from './useCurrentElement'
 
 /**
  * This module works with element background
@@ -97,7 +96,7 @@ const watchElementsBackground = (els: HTMLElement[], cb: () => void) => {
 }
 
 /** It is not ideal. browser applies colors in a bit different way */
-export const applyColors = (color1: RGBAColorParsed, color2: RGBAColorParsed): RGBAColorParsed => {
+const applyColors = (color1: RGBAColorParsed, color2: RGBAColorParsed): RGBAColorParsed => {
   const weight = color2[3]
 
   if (weight === 1) { return color2 }
