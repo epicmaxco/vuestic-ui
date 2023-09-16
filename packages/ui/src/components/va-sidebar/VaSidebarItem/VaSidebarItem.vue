@@ -38,7 +38,7 @@ export default defineComponent({
     textColor: { type: String, default: undefined },
     activeColor: { type: String, default: 'primary' },
     hoverColor: { type: String, default: undefined },
-    hoverOpacity: { type: Number, default: 0.2 },
+    hoverOpacity: { type: [Number, String], default: 0.2 },
     borderColor: { type: String, default: undefined },
   },
 
@@ -83,7 +83,7 @@ export default defineComponent({
 
       if (isHovered.value) {
         style.backgroundColor = getHoverColor(
-          getColor(props.hoverColor || props.activeColor), props.hoverOpacity,
+          getColor(props.hoverColor || props.activeColor), Number(props.hoverOpacity),
         )
       }
 

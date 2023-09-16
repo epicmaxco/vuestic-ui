@@ -6,9 +6,9 @@
         style="width: 400px;"
         :header="collapseHeader"
       >
-        <div class="collapse-content">
+        <template #content>
           {{ collapseContent }}
-        </div>
+        </template>
       </va-collapse>
     </VbCard>
 
@@ -19,9 +19,9 @@
         :header="collapseHeader"
         solid
       >
-        <div class="collapse-content">
+        <template #content>
           {{ collapseContent }}
-        </div>
+        </template>
       </va-collapse>
     </VbCard>
 
@@ -32,9 +32,9 @@
         :header="collapseHeader"
         disabled
       >
-        <div class="collapse-content">
+        <template #content>
           {{ collapseContent }}
-        </div>
+        </template>
       </va-collapse>
     </VbCard>
 
@@ -45,9 +45,9 @@
         :header="collapseHeader"
         color="success"
       >
-        <div class="collapse-content">
+        <template #content>
           {{ collapseContent }}
-        </div>
+        </template>
       </va-collapse>
       <va-collapse
         v-model="collapseValue"
@@ -56,9 +56,9 @@
         solid
         color="warning"
       >
-        <div class="collapse-content">
+        <template #content>
           {{ collapseContent }}
-        </div>
+        </template>
       </va-collapse>
       <va-collapse
         v-model="collapseValue"
@@ -68,9 +68,9 @@
         color="danger"
         color-all
       >
-        <div class="collapse-content">
+        <template #content>
           {{ collapseContent }}
-        </div>
+        </template>
       </va-collapse>
       <va-collapse
         v-model="collapseValue"
@@ -82,9 +82,9 @@
         text-color="backgroundPrimary"
         icon="info"
       >
-        <div class="collapse-content">
+        <template #content>
           {{ collapseContent }}
-        </div>
+        </template>
       </va-collapse>
     </VbCard>
 
@@ -95,9 +95,9 @@
         :header="collapseHeader"
         icon="home"
       >
-        <div class="collapse-content">
+        <template #content>
           {{ collapseContent }}
-        </div>
+        </template>
       </va-collapse>
     </VbCard>
 
@@ -107,27 +107,29 @@
         style="width: 400px;"
         :header="collapseHeader"
       >
-        <div class="collapse-content">
+        <template #body>
           <va-collapse
             v-for="(value, index) in collapseLayerValue"
             :key="index"
             v-model="collapseLayerValue[index]"
             :header="collapseHeader"
+            color="background-element"
           >
-            <div class="collapse-content">
+            <template #body>
               <va-collapse
                 v-for="(value, index) in collapseSecondLayerValue"
                 :key="index"
                 v-model="collapseSecondLayerValue[index]"
                 :header="collapseHeader"
+                color="secondary"
               >
-                <div class="collapse-content">
+                <template #content>
                   {{ collapseContent }}
-                </div>
+                </template>
               </va-collapse>
-            </div>
+            </template>
           </va-collapse>
-        </div>
+        </template>
       </va-collapse>
     </VbCard>
 
@@ -139,17 +141,17 @@
           </button>
         </template>
 
-        <div class="collapse-content">
+        <template #content>
           {{ collapseContent }}
-        </div>
+        </template>
       </va-collapse>
     </VbCard>
 
     <VbCard title="Stateful">
       <va-collapse stateful style="width: 400px;" :header="collapseHeader">
-        <div class="collapse-content">
+        <template #content>
           {{ collapseContent }}
-        </div>
+        </template>
       </va-collapse>
     </VbCard>
 

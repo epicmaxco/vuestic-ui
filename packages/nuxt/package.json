@@ -8,7 +8,7 @@
     "nuxt",
     "vue"
   ],
-  "version": "1.0.15",
+  "version": "1.0.16",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -30,7 +30,7 @@
     "@nuxt/kit": "^3.0.0",
     "nuxt": "^3.1.1",
     "pathe": "^0.3.5",
-    "vuestic-ui": "^1.4.10"
+    "vuestic-ui": "^1.8.0"
   },
   "devDependencies": {
     "@nuxt/module-builder": "latest",

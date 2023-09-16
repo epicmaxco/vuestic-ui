@@ -19,46 +19,51 @@
               'sidebar__collapse-custom-header--active': routeHasActiveChild(route),
               'sidebar__collapse-custom-header--keyboard-focused': hasKeyboardFocus
             }"
+            hover-opacity="0.07"
+            border-color="transparent"
           >
             {{ route.displayName }}
             <va-icon :name="isCollapsed ? 'va-arrow-up' : 'va-arrow-down'" />
           </va-sidebar-item>
         </template>
-        <div
-          v-for="(childRoute, index) in route.children"
-          :key="index"
-          class="va-sidebar__child"
-        >
-          <va-list-label
-            v-if="childRoute.category"
-            class="va-sidebar__child__label"
-            color="secondary"
+        <template #body>
+          <div
+            v-for="(childRoute, index) in route.children"
+            :key="index"
+            class="va-sidebar__child"
           >
-            {{ childRoute.category }}
-          </va-list-label>
-          <va-sidebar-item
-            :to="childRoute.path ? childRoute.path : `/${route.name}/${childRoute.name}`"
-            :active="isActiveChildRoute(childRoute, route)"
-            :hover-color="hoverColor"
-            :border-color="activeColor"
-            active-color="#ffffff00"
-            @click="onSidebarItemClick"
-          >
-            <va-sidebar-item-content>
-              <va-sidebar-item-title>
-                <va-badge
-                  placement="right-center"
-                  size="small"
-                  offset="5px"
-                  :text="childRoute.meta?.badge?.text"
-                  :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge.type]"
-                >
-                  {{ childRoute.displayName }}
-                </va-badge>
-              </va-sidebar-item-title>
-            </va-sidebar-item-content>
-          </va-sidebar-item>
-        </div>
+            <va-list-label
+              v-if="childRoute.category"
+              class="va-sidebar__child__label"
+              color="secondary"
+            >
+              {{ childRoute.category }}
+            </va-list-label>
+            <va-sidebar-item
+              :to="childRoute.path ? childRoute.path : `/${route.name}/${childRoute.name}`"
+              :active="isActiveChildRoute(childRoute, route)"
+              :hover-color="hoverColor"
+              border-color="transparent"
+              active-color="#ffffff00"
+              hover-opacity="0.07"
+              @click="onSidebarItemClick"
+            >
+              <va-sidebar-item-content>
+                <va-sidebar-item-title>
+                  <va-badge
+                    placement="right-center"
+                    size="small"
+                    offset="5px"
+                    :text="childRoute.meta?.badge?.text"
+                    :color="childRoute.meta && childRoute.meta.badge && badgeColors[childRoute.meta.badge.type]"
+                  >
+                    {{ childRoute.displayName }}
+                  </va-badge>
+                </va-sidebar-item-title>
+              </va-sidebar-item-content>
+            </va-sidebar-item>
+          </div>
+        </template>
       </va-collapse>
     </va-accordion>
   </va-sidebar>
@@ -179,19 +184,7 @@ export default defineComponent({
     font-size: 16px;
     line-height: 20px;
     cursor: pointer;
-    font-weight: bold;
-
-    &:hover {
-      ::before {
-        opacity: 0.2;
-      }
-    }
-
-    &--keyboard-focused {
-      ::before {
-        opacity: 0.3;
-      }
-    }
+    font-weight: 600;
 
     &--active {
       color: var(--va-primary) !important;

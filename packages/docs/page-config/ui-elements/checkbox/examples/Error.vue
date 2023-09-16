@@ -3,7 +3,7 @@
     v-model="value"
     error
     error-messages="Error message"
-    label="Error message"
+    label="Label"
   />
 </template>
 

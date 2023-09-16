@@ -56,7 +56,7 @@ export type DataTableColumn<T = string> = {
   headerStyle?: DataTableColumnStyle
 }
 
-export type DataTableColumnSource = DataTableColumn | string
+export type DataTableColumnSource<Key extends string = string> = DataTableColumn<Key> | Key
 
 // inner representation of the columns
 export interface DataTableColumnInternal {

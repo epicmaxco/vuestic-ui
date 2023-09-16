@@ -142,6 +142,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import '../../../../styles/resources';
+
 .va-year-picker {
   display: flex;
   flex-direction: column;
@@ -149,5 +151,7 @@ export default defineComponent({
   grid-gap: var(--va-date-picker-cell-gap);
   max-height: 100%;
   position: relative;
+
+  @include va-scroll();
 }
 </style>

@@ -42,8 +42,8 @@
       </va-button>
 
       <va-dropdown
-        v-model="valueComputed"
         v-bind="vaDropdownProps"
+        v-model="valueComputed"
         :disabled="$props.disabled || $props.disableDropdown"
         :teleport="$el"
       >

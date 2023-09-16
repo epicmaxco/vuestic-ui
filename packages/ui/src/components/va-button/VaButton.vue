@@ -269,9 +269,9 @@ export default defineComponent({
     // set icons the same size as text
     .va-button__left-icon,
     .va-button__right-icon {
-      font-size: var(--va-button-sm-line-height) !important;
-      height: var(--va-button-sm-line-height) !important;
-      line-height: var(--va-button-sm-line-height) !important;
+      // font-size: var(--va-button-sm-line-height) !important;
+      // height: var(--va-button-sm-line-height) !important;
+      // line-height: var(--va-button-sm-line-height) !important;
     }
 
     .va-button__left-icon {
@@ -318,17 +318,17 @@ export default defineComponent({
     // set icons the same size as text
     .va-button__left-icon,
     .va-button__right-icon {
-      font-size: var(--va-button-line-height) !important;
-      height: var(--va-button-line-height) !important;
-      line-height: var(--va-button-line-height) !important;
+      // font-size: var(--va-button-line-height) !important;
+      // height: var(--va-button-line-height) !important;
+      // line-height: var(--va-button-line-height) !important;
     }
 
     .va-button__left-icon {
-      margin-right: var(--va-button-icons-spacing);
+      margin-right: var(--va-gap-medium);
     }
 
     .va-button__right-icon {
-      margin-left: var(--va-button-icons-spacing);
+      margin-left: var(--va-gap-medium);
     }
 
     &.va-button--bordered {
@@ -340,13 +340,13 @@ export default defineComponent({
 
     &.va-button--left-icon {
       .va-button__content {
-        padding-left: var(--va-button-icon-side-padding);
+        // padding-left: var(--va-button-icon-side-padding);
       }
     }
 
     &.va-button--right-icon {
       .va-button__content {
-        padding-right: var(--va-button-icon-side-padding);
+        // padding-right: var(--va-button-icon-side-padding);
       }
     }
   }
@@ -366,9 +366,9 @@ export default defineComponent({
     // set icons the same size as text
     .va-button__left-icon,
     .va-button__right-icon {
-      font-size: var(--va-button-lg-line-height) !important;
-      height: var(--va-button-lg-line-height) !important;
-      line-height: var(--va-button-lg-line-height) !important;
+      // font-size: var(--va-button-lg-line-height) !important;
+      // height: var(--va-button-lg-line-height) !important;
+      // line-height: var(--va-button-lg-line-height) !important;
     }
 
     .va-button__left-icon {

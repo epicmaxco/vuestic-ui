@@ -101,10 +101,11 @@ export default defineComponent({
       })
     })
 
-    const { textColorComputed } = useTextColor()
+    const backgroundColorComputed = computed(() => getColor(props.color))
+    const { textColorComputed } = useTextColor(backgroundColorComputed)
 
     const computedStyle = computed(() => {
-      const backgroundColor = getColor(props.color)
+      const backgroundColor = getColor(backgroundColorComputed.value)
 
       const color = textColorComputed.value
 
@@ -185,7 +186,7 @@ export default defineComponent({
     overflow-x: var(--va-sidebar-menu-overflow-x);
     margin-left: auto;
 
-    @include va-scroll(var(--va-primary));
+    @include va-scroll(var(--va-secondary));
   }
 
   &--animated {

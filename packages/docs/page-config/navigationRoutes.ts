@@ -40,6 +40,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "accessibility-guide",
         displayName: "Accessibility Guide",
       },
+      {
+        name: "change-log",
+        displayName: "Changelog",
+      },
     ],
   },
   {
@@ -293,7 +297,7 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: navigationBadge.updated('1.8.0'),
         }
       },
-      
+
       {
         category: 'Layout',
         name: 'layout',

@@ -33,13 +33,6 @@
         @keydown.enter.stop="reset"
         @keydown.space.stop="reset"
       />
-      <va-icon
-        v-if="$props.loading"
-        :color="$props.color"
-        size="small"
-        name="va-loading"
-        spin="counter-clockwise"
-      />
       <slot name="icon" v-bind="slotScope" />
     </template>
 
@@ -68,6 +61,7 @@ import {
   useClearable, useClearableProps, useClearableEmits,
   useTranslation,
   useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
+  useFocusable, useFocusableProps,
 } from '../../composables'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
@@ -75,8 +69,6 @@ import type { AnyStringPropType } from '../../utils/types/prop-type'
 
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
-import { focusElement, blurElement } from '../../utils/focus'
-import { unwrapEl } from '../../utils/unwrapEl'
 import { combineFunctions } from '../../utils/combine-functions'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
@@ -101,6 +93,7 @@ export default defineComponent({
   props: {
     ...VaInputWrapperProps,
     ...useFormFieldProps,
+    ...useFocusableProps,
     ...useValidationProps as ValidationProps<string>,
     ...useClearableProps,
     ...useCleaveProps,
@@ -147,13 +140,7 @@ export default defineComponent({
       resetValidation()
     })
 
-    const focus = () => {
-      focusElement(unwrapEl(input.value))
-    }
-
-    const blur = () => {
-      blurElement(unwrapEl(input.value))
-    }
+    const { focus, blur } = useFocusable(input, props)
 
     const filterSlots = computed(() => {
       const iconSlot = ['icon']

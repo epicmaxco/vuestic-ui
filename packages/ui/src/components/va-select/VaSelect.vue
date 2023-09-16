@@ -5,6 +5,7 @@
     class="va-select va-select__dropdown va-select-dropdown"
     v-bind="dropdownPropsComputed"
     role="combobox"
+    inner-anchor-selector=".va-input-wrapper__field"
   >
     <template #anchor>
       <va-input-wrapper
@@ -20,7 +21,6 @@
         :aria-owns="popupId"
         @focus="onInputFocus"
         @blur="onInputBlur"
-        @click="focusAutocompleteInput"
         @keydown.enter="toggleDropdown"
         @keydown.space.stop.prevent="toggleDropdown"
       >
@@ -48,7 +48,6 @@
           <va-icon
             :color="toggleIconColor"
             :name="toggleIcon"
-            size="small"
             class="va-select__toggle-icon"
             role="button"
             :tabindex="openSelectButtonTabIndexComputed"

@@ -421,11 +421,6 @@ export default defineComponent({
 
       .va-counter__button-decrease:not(.va-button--square) {
         width: unset;
-
-        .va-button__content {
-          padding-right: var(--va-counter-button-inner-padding);
-          padding-left: var(--va-counter-button-outer-padding);
-        }
       }
     }
 
@@ -439,11 +434,6 @@ export default defineComponent({
 
       .va-counter__button-increase:not(.va-button--square) {
         width: unset;
-
-        .va-button__content {
-          padding-left: var(--va-counter-button-inner-padding);
-          padding-right: var(--va-counter-button-outer-padding);
-        }
       }
     }
   }
@@ -485,13 +475,7 @@ export default defineComponent({
   }
 
   .va-input-wrapper__field {
-    align-items: stretch;
     padding: 0;
-
-    .va-input-wrapper__text,
-    .va-input__container {
-      padding-right: 0;
-    }
   }
 
   &__prepend-inner,

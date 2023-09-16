@@ -198,7 +198,7 @@ export default defineComponent({
     }
     useSwipe(props, slidesContainer, onSwipe)
 
-    const getIndicatorEvents = (index) => {
+    const getIndicatorEvents = (index: number) => {
       if (props.indicatorTrigger === 'hover') {
         return { onmouseover: () => goTo(index) }
       }

@@ -71,9 +71,10 @@
               <tr
                 v-if="showNoDataHtml"
                 key="showNoDataHtml"
+                class="va-data-table__table-tr"
               >
                 <td
-                  class="no-data"
+                  class="va-data-table__table-td no-data"
                   :colspan="columnsComputed.length + (selectable ? 1 : 0)"
                   v-html="noDataHtml"
                 />
@@ -82,9 +83,10 @@
               <tr
                 v-else-if="showNoDataFilteredHtml"
                 key="showNoDataFilteredHtml"
+                class="va-data-table__table-tr"
               >
                 <td
-                  class="no-data"
+                  class="va-data-table__table-td no-data"
                   :colspan="columnsComputed.length + (selectable ? 1 : 0)"
                   v-html="noDataFilteredHtml"
                 />

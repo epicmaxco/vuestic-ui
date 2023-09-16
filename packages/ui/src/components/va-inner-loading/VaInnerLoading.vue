@@ -36,7 +36,7 @@ export default defineComponent({
     ...useLoadingProps,
     ...useComponentPresetProp,
     color: { type: String },
-    icon: { type: String, default: 'autorenew' },
+    icon: { type: String, default: 'va-loading' },
     size: { type: Number, default: 30 },
   },
   setup (props) {

@@ -21,19 +21,21 @@
             </va-sidebar-item>
           </template>
 
-          <va-sidebar-item>
-            <va-sidebar-item-content>
-              <va-icon name="send" />
-              <va-sidebar-item-title>Send</va-sidebar-item-title>
-            </va-sidebar-item-content>
-          </va-sidebar-item>
+          <template #body>
+            <va-sidebar-item>
+              <va-sidebar-item-content>
+                <va-icon name="send" />
+                <va-sidebar-item-title>Send</va-sidebar-item-title>
+              </va-sidebar-item-content>
+            </va-sidebar-item>
 
-          <va-sidebar-item>
-            <va-sidebar-item-content>
-              <va-icon name="drafts" />
-              <va-sidebar-item-title>Drafts</va-sidebar-item-title>
-            </va-sidebar-item-content>
-          </va-sidebar-item>
+            <va-sidebar-item>
+              <va-sidebar-item-content>
+                <va-icon name="drafts" />
+                <va-sidebar-item-title>Drafts</va-sidebar-item-title>
+              </va-sidebar-item-content>
+            </va-sidebar-item>
+          </template>
         </va-collapse>
 
         <va-sidebar-item active>

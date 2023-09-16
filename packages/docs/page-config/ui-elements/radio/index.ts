@@ -44,7 +44,7 @@ export default definePageConfig({
     block.subtitle('Accessibility'),
     block.paragraph(`
 Each option has [radio](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radio_role)[[target=_blank]] role attribute.
-If \`options\` prop is used the component has a [radiogroup](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radiogroup_role)[[target=_blank]] role attribute, 
+If \`options\` prop is used the component has a [radiogroup](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radiogroup_role)[[target=_blank]] role attribute,
 otherwise you need to add \`role="radiogroup"\` on parent element manually.
 
 [aria-checked](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked)[[target=_blank]] is applied on option automatically.
@@ -57,15 +57,5 @@ By default radio element labeled by text from option.
 
     block.subtitle("API"),
     block.api("VaRadio", apiDescription, apiOptions),
-
-    block.changeLog({
-      '1.8.0': [
-        'Radio have outlined style by default',
-        'Add `preset="solid"`',
-      ],
-      '1.7.0': [
-        'Added validation and `options` prop'
-      ]
-    })
   ],
 });

@@ -1,10 +1,15 @@
 import { set } from "lodash"
 
-type StoryStatus = 'stale'
+type StoryStatus =
+  | 'stale' // Feature works, but story smells
+  | 'broken' // Feature doesn't work
 
 const statusToText = (status?: StoryStatus) => {
   if (status === 'stale') {
-    return `**<span style="color: #af0f0f">[${status}]</span>**`
+    return `**<span style="color: #c9892b">[${status}]</span>**`
+  }
+  if (status === 'broken') {
+    return `**<span style="color: white; background: #e52953">[${status}]</span>**`
   }
   return ''
 }

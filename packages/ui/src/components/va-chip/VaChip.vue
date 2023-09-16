@@ -101,11 +101,6 @@ export default defineComponent({
     const borderColor = computed(() => props.outline ? colorComputed.value : '')
     const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
     const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
-    const size = {
-      small: '0.875rem',
-      medium: '1rem',
-      large: '1.25rem',
-    } as Record<string, string>
 
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
     const shadowStyle = computed(() => {
@@ -135,7 +130,7 @@ export default defineComponent({
         }
       },
 
-      iconSize: computed(() => size[props.size]),
+      iconSize: computed(() => props.size),
 
       tabIndexComputed: computed(() => props.disabled ? -1 : 0),
 
@@ -229,11 +224,19 @@ export default defineComponent({
   &--small {
     height: var(--va-chip-sm-height);
     font-size: var(--va-chip-sm-font-size);
+
+    .va-chip__content {
+      padding: var(--va-chip-sm-content-padding);
+    }
   }
 
   &--large {
     height: var(--va-chip-lg-height);
     font-size: var(--va-chip-lg-font-size);
+
+    .va-chip__content {
+      padding: var(--va-chip-lg-content-padding);
+    }
   }
 
   &.va-chip--disabled {

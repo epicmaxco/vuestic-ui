@@ -15,7 +15,7 @@
         :aria-label="tp($props.ariaRemoveFileLabel)"
         size="small"
         color="danger"
-        flat
+        preset="secondary"
         @click="$emit('remove')"
       >
         Delete

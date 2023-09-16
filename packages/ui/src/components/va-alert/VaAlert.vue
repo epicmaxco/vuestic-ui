@@ -64,7 +64,6 @@
             <va-icon
               v-if="!closeText"
               :name="closeIcon"
-              size="small"
             />
             {{ closeText }}
           </slot>

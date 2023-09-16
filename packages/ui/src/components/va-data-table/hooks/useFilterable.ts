@@ -43,6 +43,13 @@ export const useFilterable = (
     })
   })
 
+  if (filteredRows.value.length !== rawRows.value.length) {
+    emit('filtered', {
+      items: filteredRows.value.map(row => row.source),
+      itemsIndexes: filteredRows.value.map(row => row.initialIndex),
+    })
+  }
+
   return {
     filteredRows: filteredRowsThrottled,
   }

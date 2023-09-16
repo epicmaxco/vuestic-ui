@@ -2,7 +2,6 @@
   <div
     v-if="syncView.type !== 'year'"
     class="va-date-picker-header va-date-picker__header"
-    :style="{ color: textColor }"
   >
     <slot name="buttonPrev" v-bind="{ onClick: prev }">
       <va-button
@@ -11,7 +10,7 @@
         preset="plain"
         size="small"
         :color="color"
-        :textColor="textColor"
+        :textColor="'currentColor'"
         :aria-label="tp($props.ariaPreviousPeriodLabel)"
         round
         @click="prev"
@@ -25,7 +24,7 @@
           preset="plain"
           size="small"
           :color="color"
-          :textColor="textColor"
+          :textColor="'currentColor'"
           :aria-label="tp($props.ariaSwitchViewLabel)"
           @click="switchView"
         >
@@ -45,7 +44,7 @@
         preset="plain"
         size="small"
         :color="color"
-        :textColor="textColor"
+        :textColor="'currentColor'"
         :aria-label="tp($props.ariaNextPeriodLabel)"
         @click="next"
         round
@@ -72,7 +71,6 @@ export default defineComponent({
     monthNames: { type: Array, required: true },
     view: { type: Object as PropType<DatePickerView> },
     color: { type: String },
-    textColor: { type: String },
     disabled: { type: Boolean, default: false },
 
     ariaNextPeriodLabel: { type: String, default: '$t:nextPeriod' },
@@ -109,6 +107,8 @@ export default defineComponent({
 
 <style lang="scss">
 .va-date-picker {
+  color: currentColor;
+
   &__header {
     display: flex;
     justify-content: space-between;

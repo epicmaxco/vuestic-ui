@@ -38,7 +38,6 @@
         <va-icon
           v-show="isActive"
           class="va-checkbox__icon"
-          size="20px"
           :name="computedIconName"
           :color="textColorComputed"
         />
@@ -109,7 +108,7 @@ export default defineComponent({
     } = useSelectable(props, emit, elements)
     const { getColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-    const { textColorComputed } = useTextColor()
+    const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
 
     const isActive = computed(() => isChecked.value || isIndeterminate.value)
 

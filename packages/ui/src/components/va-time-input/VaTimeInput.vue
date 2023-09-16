@@ -59,7 +59,7 @@
             @keydown.space.stop="reset"
           />
           <va-icon
-            v-else-if="!$props.leftIcon && $props.icon"
+            v-if="!$props.leftIcon && $props.icon"
             :aria-label="tp($props.ariaToggleDropdownLabel)"
             @click.stop="showDropdown"
             @keydown.enter.stop="showDropdown"
@@ -341,7 +341,6 @@ export default defineComponent({
     const iconProps = computed(() => ({
       role: 'button',
       'aria-hidden': false,
-      size: 'small',
       name: props.icon,
       color: 'secondary',
       tabindex: iconTabindexComputed.value,

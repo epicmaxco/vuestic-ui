@@ -5,6 +5,7 @@ import code from '../blocks/code/transform'
 import component from '../blocks/component/transform'
 import example from '../blocks/example/transform'
 import file from '../blocks/file/transform'
+import changeLog from '../blocks/change-log/transform';
 
 
 const transformers = [
@@ -13,6 +14,7 @@ const transformers = [
   component,
   example,
   file,
+  changeLog,
 ]
 
 export const transform = async (code: string, importer: Importer) => {
