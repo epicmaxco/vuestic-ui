@@ -38,6 +38,14 @@ const parseRgba = (rgba: RGBAColorString): RGBAColorParsed => {
   return values as RGBAColorParsed
 }
 
+const toHex = (color: RGBAColorParsed): string => {
+  return '#' +
+    (color[0] | 1 << 8).toString(16).slice(1) +
+    (color[1] | 1 << 8).toString(16).slice(1) +
+    (color[2] | 1 << 8).toString(16).slice(1) +
+    (color[3] | 1 << 8).toString(16).slice(1)
+}
+
 const getParentsWithBackground = (el: HTMLElement): HTMLElement[] => {
   const parents = []
 
@@ -70,14 +78,11 @@ const getParentsWithBackground = (el: HTMLElement): HTMLElement[] => {
   return parents
 }
 
-// Add fake transition to element to make it trigger transitionend event
-const FAKE_BACKGROUND_TRANSITION = '0.01s background-color linear'
-const TRANSITION_ZERO_DURATION = '0s'
+// Add fake transition to element to make it trigger transitionend event, add as first class to not break other transitions
+const WATCHER_CLASS = 'va-background-watcher'
 
 const watchElementBackground = (el: HTMLElement, cb: () => void) => {
-  if (el.style.transitionDuration !== TRANSITION_ZERO_DURATION) {
-    el.style.transition = FAKE_BACKGROUND_TRANSITION
-  }
+  el.className = WATCHER_CLASS + ' ' + el.className
 
   el.addEventListener('transitionend', (e) => {
     if (e.target !== el) { return }
@@ -85,7 +90,7 @@ const watchElementBackground = (el: HTMLElement, cb: () => void) => {
   })
 
   return () => {
-    el.style.transition = el.style.transition.replace(FAKE_BACKGROUND_TRANSITION, '')
+    el.className = el.className.replace(WATCHER_CLASS, '')
     el.removeEventListener('transitionend', cb)
   }
 }
@@ -123,7 +128,7 @@ const getColorFromElements = (els: HTMLElement[]): RGBAColorParsed => {
 }
 
 export const useElementBackground = (el: Ref<HTMLElement | undefined | null>) => {
-  const color = ref<string>('rgba(0, 0, 0, 0)')
+  const color = ref<string>('#000000')
   let unWatchAll = () => void 0 as void
 
   watchEffect(() => {
@@ -133,10 +138,10 @@ export const useElementBackground = (el: Ref<HTMLElement | undefined | null>) =>
       const parents = getParentsWithBackground(el.value)
 
       unWatchAll = watchElementsBackground(parents, () => {
-        color.value = `rgba(${getColorFromElements(parents).join(', ')})`
+        color.value = toHex(getColorFromElements(parents))
       })
 
-      color.value = `rgba(${getColorFromElements(parents).join(', ')})`
+      color.value = toHex(getColorFromElements(parents))
     }
   })
 
