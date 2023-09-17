@@ -9,13 +9,16 @@ export default {
   component: VaBacktop,
 }
 
-const getBacktop = () => document.querySelector('.va-backtop')
-const scroll = () => window.scrollTo({ top: 400 })
+const getBacktop = (): HTMLElement | undefined => document.querySelector('.va-backtop')
+const scroll = async () => {
+  window.scrollTo({ top: 400 })
+  await sleep()
+}
 
 export const Default = () => ({
   components: { VaBacktop },
   template: `
-    <p class="m-1">{{$vb.lorem(10000)}}</p>
+    <p class="m-1">{{ $vb.lorem(10000) }}</p>
     <va-backtop/>
   `,
 })
@@ -29,8 +32,7 @@ Default.play = async ({ canvasElement, step }) => {
   })
 
   await step('Appears on scroll', async () => {
-    scroll()
-    await sleep()
+    await scroll()
     backtop = getBacktop()
     expect(backtop).not.toBeNull()
   })
@@ -49,7 +51,7 @@ Default.play = async ({ canvasElement, step }) => {
 export const Color = () => ({
   components: { VaBacktop },
   template: `
-    <p class="m-1">{{$vb.lorem(10000)}}</p>
+    <p class="m-1">{{ $vb.lorem(10000) }}</p>
     <va-backtop color="warning"/>
   `,
 })
@@ -60,7 +62,7 @@ Color.play = async () => {
 export const Offset = () => ({
   components: { VaBacktop },
   template: `
-    <p class="m-1">{{$vb.lorem(10000)}}</p>
+    <p class="m-1">{{ $vb.lorem(10000) }}</p>
     <va-backtop
       horizontalOffset="4rem"
       verticalOffset="4rem"
@@ -76,17 +78,22 @@ export const Position = () => ({
   data: () => {
     const OPTIONS_X = ['left', 'right']
     const OPTIONS_Y = ['top', 'bottom']
-    return { optionsY: OPTIONS_Y, valueY: OPTIONS_Y[1], optionsX: OPTIONS_X, valueX: OPTIONS_X[1] }
+    return {
+      optionsY: OPTIONS_Y,
+      valueY: OPTIONS_Y[1],
+      optionsX: OPTIONS_X,
+      valueX: OPTIONS_X[1],
+    }
   },
   template: `
-    <p class="m-1">{{$vb.lorem(2000)}}</p>
+    <p class="m-1">{{ $vb.lorem(2000) }}</p>
     <div data-testid="controls">
-      [Horizontal Position]
-      <va-radio v-model="valueY" :options="optionsY"/>
-      [Vertical Position]
-      <va-radio v-model="valueX" :options="optionsX"/>
+    [Horizontal Position]
+    <va-radio v-model="valueY" :options="optionsY"/>
+    [Vertical Position]
+    <va-radio v-model="valueX" :options="optionsX"/>
     </div>
-    <p class="m-1">{{$vb.lorem(8000)}}</p>
+    <p class="m-1">{{ $vb.lorem(8000) }}</p>
     <va-backtop
       :horizontalPosition="valueX"
       :verticalPosition="valueY"
@@ -102,16 +109,15 @@ export const ClickEvent = () => ({
   components: { VaBacktop },
   data: () => ({ clicked: false }),
   template: `
-    <p>clicked: <span data-testid="clicked">{{clicked}}</span></p>
-    <p class="m-1">{{$vb.lorem(10000)}}</p>
+    <p>clicked: <span data-testid="clicked">{{ clicked }}</span></p>
+    <p class="m-1">{{ $vb.lorem(10000) }}</p>
     <va-backtop @click="this.clicked = true"/>
   `,
 })
 ClickEvent.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
   const clicked = canvas.getByTestId('clicked')
-  scroll()
-  await sleep()
+  await scroll()
 
   await step('Click triggered', async () => {
     getBacktop().click()
@@ -125,11 +131,11 @@ export const Target = () => ({
   template: `
     [not the target]
     <div data-testid="non-target" class="h-48 overflow-y-auto">
-      <p class="m-1">{{$vb.lorem(10000)}}</p>
+    <p class="m-1">{{ $vb.lorem(10000) }}</p>
     </div>
     [the target]
     <div id="target" data-testid="target" class="h-48 overflow-y-auto">
-      <p class="m-1">{{$vb.lorem(10000)}}</p>
+    <p class="m-1">{{ $vb.lorem(10000) }}</p>
     </div>
     <va-backtop target="#target"/>
   `,
@@ -139,16 +145,17 @@ Target.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
   const nonTarget = canvas.getByTestId('non-target')
   const target = canvas.getByTestId('target')
-  nonTarget.scrollTo({ top: 400 })
-  await sleep()
 
-  target.scrollTo({ top: 400 })
+  await step('Scrolling non target doesn\'t shows backtop', async () => {
+    // We try to scroll both body and another div
+    nonTarget.scrollTo({ top: 400 })
+    await scroll()
+    expect(getBacktop()).toBeNull()
+  })
 
-  window.scrollTo({ top: document.body.scrollHeight })
-  await sleep()
-  const backtop = canvasElement.querySelector('[role="button"]')
-
-  await step('Appears on scroll', async () => {
-    expect(backtop).not.toBeNull()
+  await step('Scrolling target shows backtop', async () => {
+    target.scrollTo({ top: 400 })
+    await sleep()
+    expect(getBacktop()).not.toBeNull()
   })
 }
