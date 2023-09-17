@@ -47,7 +47,6 @@ const getParentsWithBackground = (el: HTMLElement): HTMLElement[] => {
       return parents
     }
 
-    // TODO: Handle will-change maybe?
     const { backgroundColor, willChange } = window.getComputedStyle(currentEl)
 
     const bgWillChange = willChange.includes('background')
@@ -72,17 +71,21 @@ const getParentsWithBackground = (el: HTMLElement): HTMLElement[] => {
 }
 
 // Add fake transition to element to make it trigger transitionend event
-const fakeBackgroundTransition = '0.0000001s background-color ease'
+const FAKE_BACKGROUND_TRANSITION = '0.01s background-color linear'
+const TRANSITION_ZERO_DURATION = '0s'
 
 const watchElementBackground = (el: HTMLElement, cb: () => void) => {
-  if (!el.style.transition?.includes('background-color')) {
-    el.style.transition = fakeBackgroundTransition
+  if (el.style.transitionDuration !== TRANSITION_ZERO_DURATION) {
+    el.style.transition = FAKE_BACKGROUND_TRANSITION
   }
 
-  el.addEventListener('transitionend', cb)
+  el.addEventListener('transitionend', (e) => {
+    if (e.target !== el) { return }
+    cb()
+  })
 
   return () => {
-    el.style.transition = el.style.transition.replace(fakeBackgroundTransition, '')
+    el.style.transition = el.style.transition.replace(FAKE_BACKGROUND_TRANSITION, '')
     el.removeEventListener('transitionend', cb)
   }
 }
@@ -110,27 +113,30 @@ const applyColors = (color1: RGBAColorParsed, color2: RGBAColorParsed): RGBAColo
 }
 
 const getColorFromElements = (els: HTMLElement[]): RGBAColorParsed => {
-  const colors = els.map((el) => window.getComputedStyle(el).backgroundColor).reverse()
+  let currentColor = [0, 0, 0, 0] as RGBAColorParsed
 
-  return colors
-    .reduce((color1, color2) => applyColors(color1, parseRgba(color2 as RGBAColorString)), [0, 0, 0, 0])
+  for (let i = els.length - 1; i >= 0; i--) {
+    currentColor = applyColors(currentColor, parseRgba(window.getComputedStyle(els[i]).backgroundColor as RGBAColorString))
+  }
+
+  return currentColor
 }
 
 export const useElementBackground = (el: Ref<HTMLElement | undefined | null>) => {
   const color = ref<string>('rgba(0, 0, 0, 0)')
-  let unWatch = () => void 0 as void
+  let unWatchAll = () => void 0 as void
 
   watchEffect(() => {
-    unWatch()
+    unWatchAll()
 
     if (el.value) {
       const parents = getParentsWithBackground(el.value)
 
-      unWatch = watchElementsBackground(parents, () => {
-        color.value = `rgba${getColorFromElements(parents).join(', ')}`
+      unWatchAll = watchElementsBackground(parents, () => {
+        color.value = `rgba(${getColorFromElements(parents).join(', ')})`
       })
 
-      color.value = `rgba${getColorFromElements(parents).join(', ')}`
+      color.value = `rgba(${getColorFromElements(parents).join(', ')})`
     }
   })
 
