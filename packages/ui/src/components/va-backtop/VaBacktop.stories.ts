@@ -1,6 +1,6 @@
 import { VaBacktop } from './'
 import { VaRadio } from '../va-radio'
-import { userEvent } from '@storybook/testing-library'
+import { userEvent, within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 import { sleep } from '../../utils/sleep'
 
@@ -8,6 +8,9 @@ export default {
   title: 'VaBacktop',
   component: VaBacktop,
 }
+
+const getBacktop = () => document.querySelector('.va-backtop')
+const scroll = () => window.scrollTo({ top: 400 })
 
 export const Default = () => ({
   components: { VaBacktop },
@@ -18,6 +21,129 @@ export const Default = () => ({
 })
 
 Default.play = async ({ canvasElement, step }) => {
+  let backtop
+
+  await step('Is hidden initially', async () => {
+    backtop = getBacktop()
+    expect(backtop).toBeNull()
+  })
+
+  await step('Appears on scroll', async () => {
+    scroll()
+    await sleep()
+    backtop = getBacktop()
+    expect(backtop).not.toBeNull()
+  })
+
+  await step('Hides again on click', async () => {
+    backtop = getBacktop()
+    backtop.click()
+    await sleep(600) // smooth scroll so we have to wait a bit
+    backtop = getBacktop()
+    expect(backtop).toBeNull()
+  })
+
+  scroll()
+}
+
+export const Color = () => ({
+  components: { VaBacktop },
+  template: `
+    <p class="m-1">{{$vb.lorem(10000)}}</p>
+    <va-backtop color="warning"/>
+  `,
+})
+Color.play = async () => {
+  scroll()
+}
+
+export const Offset = () => ({
+  components: { VaBacktop },
+  template: `
+    <p class="m-1">{{$vb.lorem(10000)}}</p>
+    <va-backtop
+      horizontalOffset="4rem"
+      verticalOffset="4rem"
+    />
+  `,
+})
+Offset.play = async () => {
+  scroll()
+}
+
+export const Position = () => ({
+  components: { VaBacktop, VaRadio },
+  data: () => {
+    const OPTIONS_X = ['left', 'right']
+    const OPTIONS_Y = ['top', 'bottom']
+    return { optionsY: OPTIONS_Y, valueY: OPTIONS_Y[1], optionsX: OPTIONS_X, valueX: OPTIONS_X[1] }
+  },
+  template: `
+    <p class="m-1">{{$vb.lorem(2000)}}</p>
+    <div data-testid="controls">
+      [Horizontal Position]
+      <va-radio v-model="valueY" :options="optionsY"/>
+      [Vertical Position]
+      <va-radio v-model="valueX" :options="optionsX"/>
+    </div>
+    <p class="m-1">{{$vb.lorem(8000)}}</p>
+    <va-backtop
+      :horizontalPosition="valueX"
+      :verticalPosition="valueY"
+    />
+  `,
+})
+Position.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  canvas.getByTestId('controls').scrollIntoView()
+}
+
+export const ClickEvent = () => ({
+  components: { VaBacktop },
+  data: () => ({ clicked: false }),
+  template: `
+    <p>clicked: <span data-testid="clicked">{{clicked}}</span></p>
+    <p class="m-1">{{$vb.lorem(10000)}}</p>
+    <va-backtop @click="this.clicked = true"/>
+  `,
+})
+ClickEvent.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const clicked = canvas.getByTestId('clicked')
+  scroll()
+  await sleep()
+
+  await step('Click triggered', async () => {
+    getBacktop().click()
+    await sleep()
+    expect(clicked.innerText).toBe('true')
+  })
+}
+
+export const Target = () => ({
+  components: { VaBacktop },
+  template: `
+    [not the target]
+    <div data-testid="non-target" class="h-48 overflow-y-auto">
+      <p class="m-1">{{$vb.lorem(10000)}}</p>
+    </div>
+    [the target]
+    <div id="target" data-testid="target" class="h-48 overflow-y-auto">
+      <p class="m-1">{{$vb.lorem(10000)}}</p>
+    </div>
+    <va-backtop target="#target"/>
+  `,
+})
+
+Target.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const nonTarget = canvas.getByTestId('non-target')
+  const target = canvas.getByTestId('target')
+  nonTarget.scrollTo({ top: 400 })
+  await sleep()
+
+  target.scrollTo({ top: 400 })
+
   window.scrollTo({ top: document.body.scrollHeight })
   await sleep()
   const backtop = canvasElement.querySelector('[role="button"]')
@@ -26,99 +152,3 @@ Default.play = async ({ canvasElement, step }) => {
     expect(backtop).not.toBeNull()
   })
 }
-
-export const Color = () => ({
-  components: { VaBacktop },
-  methods: {
-    scroll() {
-      window.scrollTo({ top: 400 , behavior: 'smooth' })
-    },
-  },
-  mounted() {
-    this.scroll()
-  },
-  template: `
-    <p class="m-1">{{$vb.lorem(10000)}}</p>
-    <va-backtop color="warning"/>
-  `,
-})
-
-export const Offset = () => ({
-  components: { VaBacktop },
-  methods: {
-    scroll() {
-      window.scrollTo({ top: 400  , behavior: 'smooth' })
-    },
-  },
-  mounted() {
-    this.scroll()
-  },
-  template: `
-    <p class="m-1">{{$vb.lorem(10000)}}</p>
-    <va-backtop 
-      horizontalOffset="4rem" 
-      verticalOffset="4rem"
-    />
-  `,
-})
-
-export const Position = () => ({
-  components: { VaBacktop, VaRadio },
-  data: () => { 
-    const OPTIONS_X = ['left', 'right']
-    const OPTIONS_Y = ['top', 'bottom']
-    return { optionsY: OPTIONS_Y, valueY: OPTIONS_Y[1], optionsX: OPTIONS_X, valueX: OPTIONS_X[1] }
-  },
-  template: `
-    [Horizontal Position]
-    <va-radio v-model="valueY" :options="optionsY"/>
-    [Vertical Position]
-    <va-radio v-model="valueX" :options="optionsX"/>
-    <p class="m-1">{{$vb.lorem(10000)}}</p>
-    <va-backtop 
-      :horizontalPosition="valueX"
-      :verticalPosition="valueY"
-    />
-  `,
-})
-
-export const ClickEvent = () => ({
-  components: { VaBacktop },
-  data: () => ({ clicked: false }),
-  methods: {
-    scroll() {
-      window.scrollTo({ top: 400  , behavior: 'smooth' })
-    },
-  },
-  mounted() {
-    this.scroll()
-  },
-  template: `
-    [clicked: {{ clicked }}]
-    <p class="m-1">{{$vb.lorem(10000)}}</p>
-    <va-backtop @click="this.clicked = true"/>
-  `,
-})
-
-export const Target = () => ({
-  components: { VaBacktop },
-  methods: {
-    scroll() {
-      this.$refs.notTarget.scrollTo({ top: 400, behavior: 'smooth' })
-    },
-  },
-  mounted() {
-    this.scroll()
-  },
-  template: `
-    [not the target]
-    <div id="notTarget" ref="notTarget" class="h-48 overflow-y-auto">
-      <p class="m-1">{{$vb.lorem(10000)}}</p>
-    </div>
-    [the target]
-    <div id="target" class="h-48 overflow-y-auto">
-      <p class="m-1">{{$vb.lorem(10000)}}</p>
-    </div>
-    <va-backtop target="#target"/>
-  `,
-})
