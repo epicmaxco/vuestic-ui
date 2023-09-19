@@ -6,7 +6,7 @@ export const useDocsScroll = () => {
     const pageContent = document.querySelector('.docs-layout__main-content')
 
     if (pageContent) {
-      pageContent.scrollTop = 0
+      pageContent.scrollIntoView(true);
     }
   }
 
