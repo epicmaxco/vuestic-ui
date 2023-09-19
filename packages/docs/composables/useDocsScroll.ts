@@ -15,7 +15,7 @@ export const useDocsScroll = () => {
       if (typeof document === 'undefined') { return }
       const el = document.querySelector(route.hash)
 
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+      el?.scrollIntoView({ behavior: 'auto', block: 'start', inline: 'nearest' })
     } else {
       scrollTop()
     }
