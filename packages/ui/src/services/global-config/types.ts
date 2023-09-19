@@ -28,6 +28,8 @@ export type SizeConfig = {
   sizes?: { [sizeName: string]: number | string },
 }
 
+export type SizesConfig = { [key: string]: SizeConfig }
+
 export type GlobalConfigUpdater<T> = (config: T) => T;
 export type {
   ColorConfig,

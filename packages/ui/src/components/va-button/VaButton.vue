@@ -32,20 +32,23 @@
         />
       </slot>
     </span>
-    <template v-if="loading">
-      <slot name="loading" v-bind="{
-        size: loaderSizeComputed,
-        color: textColorComputed,
-      }">
-        <va-progress-circle
-          class="va-button__loader"
-          :size="loaderSizeComputed"
-          :color="textColorComputed"
-          :thickness="0.15"
-          indeterminate
-        />
-      </slot>
-      </template>
+    <template  v-if="loading">
+      <div class="va-button__loader">
+        <slot name="loading" 
+          v-bind="{
+            size: loaderSizeComputed,
+            color: textColorComputed,
+          }"
+        >
+          <va-progress-circle
+            :size="loaderSizeComputed"
+            :color="textColorComputed"
+            :thickness="0.15"
+            indeterminate
+          />
+        </slot>
+      </div>
+    </template>
   </component>
 </template>
 
@@ -114,7 +117,7 @@ export default defineComponent({
     const colorComputed = computed(() => getColor(props.color))
 
     // loader size
-    const { sizeComputed } = useSize(props)
+    const { sizeComputed, fontSizeComputed } = useSize(props, 'VaButton')
     const loaderSizeComputed = computed(() => {
       const size = /([0-9]*)(px)/.exec(sizeComputed.value) as null | [string, string, string]
       return size ? `${+size[1] / 2}${size[2]}` : sizeComputed.value
@@ -178,6 +181,8 @@ export default defineComponent({
     return {
       button,
       tagComputed,
+      fontSizeComputed,
+      sizeComputed,
       computedClass,
       computedStyle,
       textColorComputed,
@@ -214,19 +219,22 @@ export default defineComponent({
   box-shadow: var(--va-button-box-shadow);
   font-family: var(--va-font-family);
   font-weight: var(--va-button-font-weight);
+  font-size: v-bind(fontSizeComputed);
   text-decoration: none;
   text-transform: initial;
   transition: var(--va-button-transition);
   box-sizing: border-box;
   cursor: var(--va-button-cursor);
+  min-width: v-bind(sizeComputed);
+  height: v-bind(sizeComputed);
   z-index: 0;
 
   &::after,
   &::before {
     content: '';
     position: absolute;
-    width: 100%;
     height: 100%;
+    width: 100%;
     border-radius: inherit;
     left: 0;
     top: 0;
@@ -258,11 +266,8 @@ export default defineComponent({
     line-height: var(--va-button-sm-line-height);
     border-radius: var(--va-button-sm-border-radius);
     letter-spacing: var(--va-button-sm-letter-spacing);
-    min-height: var(--va-button-sm-size);
-    min-width: var(--va-button-sm-size);
 
     .va-button__content {
-      font-size: var(--va-button-sm-font-size);
       padding: var(--va-button-sm-content-py) var(--va-button-sm-content-px);
     }
 
@@ -306,13 +311,9 @@ export default defineComponent({
     line-height: var(--va-button-line-height);
     border-radius: var(--va-button-border-radius);
     letter-spacing: var(--va-button-letter-spacing);
-    min-height: var(--va-button-size);
-    min-width: var(--va-button-size);
 
     .va-button__content {
-      font-size: var(--va-button-font-size);
       padding: var(--va-button-content-py) var(--va-button-content-px);
-      line-height: var(--va-button-line-height);
     }
 
     // set icons the same size as text
@@ -355,11 +356,8 @@ export default defineComponent({
     line-height: var(--va-button-lg-line-height);
     border-radius: var(--va-button-lg-border-radius);
     letter-spacing: var(--va-button-lg-letter-spacing);
-    min-height: var(--va-button-lg-size);
-    min-width: var(--va-button-lg-size);
 
     .va-button__content {
-      font-size: var(--va-button-lg-font-size);
       padding: var(--va-button-lg-content-py) var(--va-button-lg-content-px);
     }
 
