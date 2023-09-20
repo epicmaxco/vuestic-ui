@@ -70,7 +70,7 @@ export default defineComponent({
       ...pick(props, ['vertical']),
     }))
 
-    const maxOptions = computed(() => props.options.slice(0, props.max))
+    const maxOptions = computed(() => props.max && props.max <= props.options.length ? props.options.slice(0, props.max) : props.options)
     const visibleItemsCount = computed(() => props.max ? props.max + 1 : 1)
     const restOptionsCount = computed(() => props.options.length - (props.max || 0))
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatarGroup')
