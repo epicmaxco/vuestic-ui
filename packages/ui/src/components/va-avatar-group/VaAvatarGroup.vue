@@ -48,7 +48,7 @@ export default defineComponent({
 
     max: {
       type: Number,
-      default: undefined,
+      default: 0,
     },
     vertical: {
       type: Boolean,
@@ -72,7 +72,13 @@ export default defineComponent({
 
     const maxOptions = computed(() => props.max && props.max <= props.options.length ? props.options.slice(0, props.max) : props.options)
     const visibleItemsCount = computed(() => props.max ? props.max + 1 : 1)
-    const restOptionsCount = computed(() => props.options.length > 0 && maxOptions.value.length < props.options.length ? props.options.length - (props.max || 0) : 0)
+    const restOptionsCount = computed(() => {
+      const hasOptions = props.options.length > 0
+      const canAddMoreOptions = maxOptions.value.length < props.options.length
+      const remainingOptions = props.options.length - (props.max || 0)
+
+      return hasOptions && canAddMoreOptions ? remainingOptions : 0
+    })
     const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatarGroup')
 
     const filteredAvatarProps = filterComponentProps(VaAvatarProps)
