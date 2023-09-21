@@ -19,7 +19,7 @@ export const sizesConfig: SizesConfig = {
       medium: 36,
       large: 48,
     },
-  }
+  },
 }
 
 export const fontSizesConfig: SizesConfig = {
@@ -64,12 +64,12 @@ export const useSizeProps = {
 
   sizesConfig: {
     type: Object as PropType<Record<string, any>>,
-    default: () => sizesConfig[getCurrentInstance()?.type.name!] ?? sizesConfig['default'],
+    default: () => sizesConfig[getCurrentInstance()?.type.name ?? 'default'],
   },
 
   fontSizesConfig: {
     type: Object as PropType<Record<string, any>>,
-    default: () => fontSizesConfig[getCurrentInstance()?.type.name!] ?? fontSizesConfig['default'],
+    default: () => fontSizesConfig[getCurrentInstance()?.type.name ?? 'default'],
   },
 }
 

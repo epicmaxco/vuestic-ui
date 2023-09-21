@@ -96,6 +96,8 @@ export const Round = () => ({
     <VaButton round>
       Button
     </VaButton>
+    &nbsp;
+    <VaButton round icon="warning"/>
   `,
 })
 
@@ -125,12 +127,18 @@ export const IconRight = () => ({
     </VaButton>
   `,
 })
+export const IconOnly = () => ({
+  components: { VaButton },
+  template: `
+    <VaButton iconRight="va-warning"/>
+  `,
+})
 
 export const IconColor = () => ({
   components: { VaButton },
   template: `
-    <VaButton 
-      icon="va-warning" 
+    <VaButton
+      icon="va-warning"
       iconColor="warning"
     >
       Button
@@ -191,7 +199,7 @@ export const HoverMaskColor = () => ({
 export const HoverOpacity = () => ({
   components: { VaButton },
   template: `
-    <VaButton 
+    <VaButton
       hoverBehavior="opacity"
       :hoverOpacity="0"
     >
@@ -226,7 +234,7 @@ export const PressedMaskColor = () => ({
 export const PressedOpacity = () => ({
   components: { VaButton },
   template: `
-    <VaButton 
+    <VaButton
       pressedBehavior="opacity"
       :pressedOpacity="0"
     >
@@ -257,21 +265,21 @@ export const SizesConfig = () => ({
   components: { VaButton },
   template: `
     [small: 16px]
-    <VaButton 
+    <VaButton
       :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
       size="small"
     >
       Button
     </VaButton>
     [medium: 24px]
-    <VaButton 
+    <VaButton
       :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
       size="medium"
     >
       Button
     </VaButton>
     [large: 32px]
-    <VaButton 
+    <VaButton
       :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
       size="large"
     >
@@ -282,24 +290,33 @@ export const SizesConfig = () => ({
 
 export const FontSizesConfig = () => ({
   components: { VaButton },
+  data: () => ({
+    fontSizeConfig: { defaultSize: 0.75, sizes: { small: 0.5, medium: 0.75, large: 1 } },
+  }),
   template: `
+    [default: 0.75rem]
+    <VaButton
+      :fontSizesConfig="fontSizeConfig"
+    >
+      Button
+    </VaButton>
     [small: 0.5rem]
-    <VaButton 
-      :fontSizesConfig="{ 'defaultSize': 0.75, 'sizes': { 'small': 0.5, 'medium': 0.75, 'large': 1 } }"
+    <VaButton
+      :fontSizesConfig="fontSizeConfig"
       size="small"
     >
       Button
     </VaButton>
     [medium: 0.75rem]
-    <VaButton 
-      :fontSizesConfig="{ 'defaultSize': 0.75, 'sizes': { 'small': 0.5, 'medium': 0.75, 'large': 1 } }"
+    <VaButton
+      :fontSizesConfig="fontSizeConfig"
       size="medium"
     >
       Button
     </VaButton>
     [large: 1rem]
-    <VaButton 
-      :fontSizesConfig="{ 'defaultSize': 0.75, 'sizes': { 'small': 0.5, 'medium': 0.75, 'large': 1 } }"
+    <VaButton
+      :fontSizesConfig="fontSizeConfig"
       size="large"
     >
       Button
@@ -314,19 +331,19 @@ export const ClickEvent = () => ({
     <VaButton @click="clicked = true">
       Button
     </VaButton>
-    <span data-testid="click-event">[Clicked: {{ clicked }}]</span>
+    <p>[Clicked: <span data-testid="clicked">{{ clicked }}</span>]</p>
   `,
 })
 
 ClickEvent.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const clickState = canvas.getByTestId("click-event")
+  const clickState = canvas.getByTestId('clicked')
 
-  await step( 'True on click', async () => {
+  await step('True on click', async () => {
     const button = document.querySelector('[type="button"]') as HTMLElement
-    
+
     await userEvent.click(button)
-    expect(clickState.innerText).toEqual('[Clicked: true]')
+    expect(clickState.innerText).toEqual('true')
   })
 }
 

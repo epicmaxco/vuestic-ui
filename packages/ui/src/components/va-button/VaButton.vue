@@ -34,7 +34,7 @@
     </span>
     <template  v-if="loading">
       <div class="va-button__loader">
-        <slot name="loading" 
+        <slot name="loading"
           v-bind="{
             size: loaderSizeComputed,
             color: textColorComputed,
