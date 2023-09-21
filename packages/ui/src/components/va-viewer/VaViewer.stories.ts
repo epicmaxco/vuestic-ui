@@ -34,12 +34,12 @@ export const Default = () => ({
 Default.play = async ({ canvasElement, step }) => {
   const viewer = canvasElement.querySelector('.va-viewer')
   await step('Click on image to show a magnified view', async () => {
-    const beforeClick = canvasElement.querySelectorAll('.va-viewer-content')
-    expect(beforeClick.length).toBe(0)
+    const beforeClick = document.querySelector('.va-viewer-content')
+    expect(beforeClick).toBeNull()
     userEvent.click(viewer)
     await sleep()
-    const afterClick = canvasElement.querySelectorAll('.va-viewer-content')
-    expect(afterClick.length).toBe(1)
+    const afterClick = document.querySelector('.va-viewer-content')
+    expect(afterClick).not.toBeNull()
   })
 }
 
