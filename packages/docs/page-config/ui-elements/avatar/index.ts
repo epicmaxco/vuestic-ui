@@ -11,7 +11,8 @@ export default definePageConfig({
     block.subtitle("Examples"),
 
     block.example("Default", {
-      title: 'By default `va-avatar` is displayed as a circle container.'
+      title: 'Default',
+      description: 'By default `va-avatar` is displayed as a circle container.'
     }),
 
     block.example("WithImage", {
