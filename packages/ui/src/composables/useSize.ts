@@ -64,12 +64,12 @@ export const useSizeProps = {
 
   sizesConfig: {
     type: Object as PropType<Record<string, any>>,
-    default: () => sizesConfig[getCurrentInstance()?.type.name ?? 'default'],
+    default: () => sizesConfig[getCurrentInstance()?.type.name!] ?? sizesConfig['default'],
   },
 
   fontSizesConfig: {
     type: Object as PropType<Record<string, any>>,
-    default: () => fontSizesConfig[getCurrentInstance()?.type.name ?? 'default'],
+    default: () => fontSizesConfig[getCurrentInstance()?.type.name!] ?? fontSizesConfig['default'],
   },
 }
 

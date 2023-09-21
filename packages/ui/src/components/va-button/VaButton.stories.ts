@@ -162,13 +162,47 @@ export const Size = () => ({
     <VaButton size="small">
       Button
     </VaButton>
+    <VaButton size="small" icon="va-warning"/>
+    <VaButton size="small" icon="va-warning" iconRight="va-warning">
+      Button
+    </VaButton>
     [medium]
     <VaButton size="medium">
+      Button
+    </VaButton>
+    <VaButton size="medium" icon="va-warning"/>
+    <VaButton size="medium" icon="va-warning" iconRight="va-warning">
       Button
     </VaButton>
     [large]
     <VaButton size="large">
       Button
+    </VaButton>
+    <VaButton size="large" icon="va-warning"/>
+    <VaButton size="large" icon="va-warning" iconRight="va-warning">
+      Button
+    </VaButton>
+  `,
+})
+
+export const MultilineText = () => ({
+  components: { VaButton },
+  template: `
+    [default]
+    <VaButton style="width: 150px;">
+      Default Button with long text
+    </VaButton>
+    [small]
+    <VaButton size="small" style="width: 150px;">
+      Small Button with long text
+    </VaButton>
+    [medium]
+    <VaButton size="medium" style="width: 150px;">
+      Medium Button with long text
+    </VaButton>
+    [large]
+    <VaButton size="large" style="width: 150px;">
+      Large Button with long text
     </VaButton>
   `,
 })
@@ -252,35 +286,35 @@ export const Href = () => ({
   `,
 })
 
-export const To = () => ({
-  components: { VaButton },
-  template: `
-    <VaButton href="/?path=/docs/vabutton--docs">
-      Button
-    </VaButton>
-  `,
-})
-
 export const SizesConfig = () => ({
   components: { VaButton },
+  data: () => ({
+    sizesConfig: { defaultSize: 24, sizes: { small: 16, medium: 24, large: 32 } },
+  }),
   template: `
+    [default: 24px]
+    <VaButton
+      :sizesConfig="sizesConfig"
+    >
+      Button
+    </VaButton>
     [small: 16px]
     <VaButton
-      :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
+      :sizesConfig="sizesConfig"
       size="small"
     >
       Button
     </VaButton>
     [medium: 24px]
     <VaButton
-      :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
+      :sizesConfig="sizesConfig"
       size="medium"
     >
       Button
     </VaButton>
     [large: 32px]
     <VaButton
-      :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
+      :sizesConfig="sizesConfig"
       size="large"
     >
       Button
@@ -346,6 +380,21 @@ ClickEvent.play = async ({ canvasElement, step }) => {
     expect(clickState.innerText).toEqual('true')
   })
 }
+
+export const FocusAndBlurMethods = () => ({
+  components: { VaButton },
+  template: `
+    <VaButton ref="button">
+      Main Button 
+    </VaButton>
+    <VaButton @click="$refs.button.focus()">
+      Focus Button
+    </VaButton>
+    <VaButton @click="$refs.button.blur()">
+      Blur Button
+    </VaButton>
+  `,
+})
 
 export const AppendSlot = () => ({
   components: { VaButton },

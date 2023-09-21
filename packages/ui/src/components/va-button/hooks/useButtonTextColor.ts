@@ -96,7 +96,7 @@ export const useButtonTextColor: UseButtonTextColor = (
 
   return computed(() => {
     const defaultColorStyles = {
-      color: colorToRgba(textColorComputed.value, getOpacity(props.textOpacity)),
+      color: textColorComputed.value === 'currentColor' ? 'currentColor' : colorToRgba(textColorComputed.value, getOpacity(props.textOpacity)),
       background: 'transparent',
     }
 
