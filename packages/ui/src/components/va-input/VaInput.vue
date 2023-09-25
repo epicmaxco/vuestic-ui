@@ -12,7 +12,7 @@
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
     :counter-value="valueLengthComputed"
-    @click="focus"
+    @click="onFieldClick"
   >
     <!-- Simply proxy slots to VaInputWrapper -->
     <template
@@ -150,7 +150,7 @@ export default defineComponent({
     const {
       computedError,
       computedErrorMessages,
-      listeners: validationListeners,
+      listeners: { onBlur, onFocus },
       validationAriaAttributes,
       isLoading,
       withoutValidation,
@@ -166,17 +166,6 @@ export default defineComponent({
     const { computedValue, onInput } = useCleave(input, props, valueComputed)
 
     const inputListeners = createInputListeners(emit)
-
-    /** Combine EmitProxy events with validation events to avoid events overriding */
-    const onFocus = (e: Event) => {
-      inputListeners.onFocus(e)
-      validationListeners.onFocus()
-    }
-
-    const onBlur = (e: Event) => {
-      inputListeners.onBlur(e)
-      validationListeners.onBlur()
-    }
 
     const inputEvents = {
       ...inputListeners,
@@ -208,8 +197,21 @@ export default defineComponent({
       props.counter && typeof computedValue.value === 'string' ? computedValue.value.length : undefined,
     )
 
+    const onFieldClick = (e: MouseEvent) => {
+      if (!e.target || !('tagName' in e.target)) {
+        return
+      }
+
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        return
+      }
+
+      focus()
+    }
+
     return {
       ...useTranslation(),
+      onFieldClick,
       input,
       inputEvents,
       isLoading,
