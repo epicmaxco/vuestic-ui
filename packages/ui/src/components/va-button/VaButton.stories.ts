@@ -159,29 +159,35 @@ export const Size = () => ({
   components: { VaButton },
   template: `
     [small]
-    <VaButton size="small">
-      Button
-    </VaButton>
-    <VaButton size="small" icon="va-warning"/>
-    <VaButton size="small" icon="va-warning" iconRight="va-warning">
-      Button
-    </VaButton>
+    <div style="display: flex">
+      <VaButton size="small">
+        Button
+      </VaButton>
+      <VaButton size="small" icon="va-warning"/>
+      <VaButton size="small" icon="va-warning" iconRight="va-warning">
+        Button
+      </VaButton>
+    </div>
     [medium]
-    <VaButton size="medium">
-      Button
-    </VaButton>
-    <VaButton size="medium" icon="va-warning"/>
-    <VaButton size="medium" icon="va-warning" iconRight="va-warning">
-      Button
-    </VaButton>
+    <div style="display: flex">
+      <VaButton size="medium">
+        Button
+      </VaButton>
+      <VaButton size="medium" icon="va-warning"/>
+      <VaButton size="medium" icon="va-warning" iconRight="va-warning">
+        Button
+      </VaButton>
+    </div>
     [large]
-    <VaButton size="large">
-      Button
-    </VaButton>
-    <VaButton size="large" icon="va-warning"/>
-    <VaButton size="large" icon="va-warning" iconRight="va-warning">
-      Button
-    </VaButton>
+    <div style="display: flex">
+      <VaButton size="large">
+        Button
+      </VaButton>
+      <VaButton size="large" icon="va-warning"/>
+      <VaButton size="large" icon="va-warning" iconRight="va-warning">
+        Button
+      </VaButton>
+    </div>
   `,
 })
 
@@ -203,6 +209,32 @@ export const MultilineText = () => ({
     [large]
     <VaButton size="large" style="width: 150px;">
       Large Button with long text
+    </VaButton>
+  `,
+})
+
+export const Preset = () => ({
+  components: { VaButton },
+  template: `
+    [default]
+    <VaButton preset="default">
+      Button
+    </VaButton>
+    [primary]
+    <VaButton preset="primary">
+      Button
+    </VaButton>
+    [secondary]
+    <VaButton preset="secondary">
+      Button
+    </VaButton>
+    [plain]
+    <VaButton preset="plain">
+      Button
+    </VaButton>
+    [plainOpacity]
+    <VaButton preset="plainOpacity">
+      Button
     </VaButton>
   `,
 })

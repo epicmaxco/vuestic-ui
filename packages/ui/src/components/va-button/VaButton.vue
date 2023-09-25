@@ -226,7 +226,7 @@ export default defineComponent({
   box-sizing: border-box;
   cursor: var(--va-button-cursor);
   min-width: v-bind(sizeComputed);
-  height: v-bind(sizeComputed);
+  min-height: v-bind(sizeComputed);
   z-index: 0;
 
   &::after,
