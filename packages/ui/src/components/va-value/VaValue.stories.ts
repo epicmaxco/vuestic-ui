@@ -1,4 +1,3 @@
-import { defineComponent } from 'vue'
 import { VaValue } from '.'
 
 export default {
