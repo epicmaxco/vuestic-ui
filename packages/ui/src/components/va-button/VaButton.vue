@@ -220,6 +220,7 @@ export default defineComponent({
   box-sizing: border-box;
   cursor: var(--va-button-cursor);
   z-index: 0;
+  vertical-align: top;
 
   &::after,
   &::before {
@@ -438,6 +439,10 @@ export default defineComponent({
     .va-button__right-icon {
       margin-left: 0;
       margin-right: 0;
+    }
+
+    .va-button__content {
+      padding: 0;
     }
   }
 
