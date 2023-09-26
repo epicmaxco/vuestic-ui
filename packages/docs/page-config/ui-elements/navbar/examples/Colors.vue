@@ -9,19 +9,17 @@
       </va-navbar-item>
     </template>
     <template #right>
-      <va-navbar-item>Dashboard</va-navbar-item>
+      <va-navbar-item class="hidden sm:block">Dashboard</va-navbar-item>
       <va-navbar-item class="hidden sm:block">Reports</va-navbar-item>
-      <va-navbar-item>Users</va-navbar-item>
+      <va-navbar-item class="hidden sm:block">Users</va-navbar-item>
       <va-navbar-item>
         <va-icon
           name="mdi-magnify"
-          color="textInverted"
         />
       </va-navbar-item>
       <va-navbar-item>
         <va-icon
           name="mdi-account-circle-outline"
-          color="textInverted"
         />
       </va-navbar-item>
     </template>
@@ -37,9 +35,9 @@
       </va-navbar-item>
     </template>
     <template #right>
-      <va-navbar-item>Dashboard</va-navbar-item>
+      <va-navbar-item class="hidden sm:block">Dashboard</va-navbar-item>
       <va-navbar-item class="hidden sm:block">Reports</va-navbar-item>
-      <va-navbar-item>Users</va-navbar-item>
+      <va-navbar-item class="hidden sm:block">Users</va-navbar-item>
       <va-navbar-item>
         <va-icon name="mdi-magnify" />
       </va-navbar-item>
@@ -59,9 +57,9 @@
       </va-navbar-item>
     </template>
     <template #right>
-      <va-navbar-item>Dashboard</va-navbar-item>
+      <va-navbar-item class="hidden sm:block">Dashboard</va-navbar-item>
       <va-navbar-item class="hidden sm:block">Reports</va-navbar-item>
-      <va-navbar-item>Users</va-navbar-item>
+      <va-navbar-item class="hidden sm:block">Users</va-navbar-item>
       <va-navbar-item>
         <va-icon
           :color="darkNavbarColors.textColor"
