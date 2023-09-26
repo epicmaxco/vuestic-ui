@@ -41,6 +41,7 @@
           />
           <va-icon
             v-if="$props.leftIcon"
+            class="va-time-input__left-button"
             :aria-label="tp($props.ariaToggleDropdownLabel)"
             v-bind="iconProps"
             @click.stop="showDropdown"
@@ -52,6 +53,7 @@
         <template #icon>
           <va-icon
             v-if="canBeClearedComputed"
+            class="va-time-input__clear-button"
             v-bind="{ ...iconProps, ...clearIconProps }"
             :aria-label="tp($props.ariaResetLabel)"
             @click.stop="reset"
@@ -60,6 +62,7 @@
           />
           <va-icon
             v-if="!$props.leftIcon && $props.icon"
+            class="va-time-input__right-button"
             :aria-label="tp($props.ariaToggleDropdownLabel)"
             @click.stop="showDropdown"
             @keydown.enter.stop="showDropdown"
@@ -222,6 +225,7 @@ export default defineComponent({
       emit('update:modelValue', props.clearValue)
       emit('clear')
       resetValidation()
+      hideDropdown()
     })
 
     const {
