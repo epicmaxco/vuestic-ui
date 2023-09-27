@@ -1,5 +1,4 @@
-import { VaBreadcrumbs } from './'
-import { VaBreadcrumbsItem } from './'
+import { VaBreadcrumbs, VaBreadcrumbsItem } from './'
 
 export default {
   title: 'VaBreadcrumbs',
@@ -48,7 +47,7 @@ export const Disabled = () => ({
 export const Color = () => ({
   components: { VaBreadcrumbs, VaBreadcrumbsItem },
   template: `
-    <va-breadcrumbs color="warning">
+    <va-breadcrumbs color="danger">
       <va-breadcrumbs-item label="One" />
       <va-breadcrumbs-item label="Two" />
       <va-breadcrumbs-item label="Three" />
@@ -59,7 +58,7 @@ export const Color = () => ({
 export const ActiveColor = () => ({
   components: { VaBreadcrumbs, VaBreadcrumbsItem },
   template: `
-    <va-breadcrumbs activeColor="success">
+    <va-breadcrumbs activeColor="danger">
       <va-breadcrumbs-item label="One" />
       <va-breadcrumbs-item label="Two" />
       <va-breadcrumbs-item label="Three" />
@@ -95,7 +94,7 @@ export const SeparatorSlot = () => ({
 export const SeparatorColor = () => ({
   components: { VaBreadcrumbs, VaBreadcrumbsItem },
   template: `
-    <va-breadcrumbs separatorColor="warning">
+    <va-breadcrumbs separatorColor="danger">
       <va-breadcrumbs-item label="One" />
       <va-breadcrumbs-item label="Two" />
       <va-breadcrumbs-item label="Three" />
@@ -144,4 +143,3 @@ export const Align = () => ({
     </va-breadcrumbs>
   `,
 })
-
