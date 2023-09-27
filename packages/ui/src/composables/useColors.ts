@@ -44,7 +44,6 @@ export const useColors = () => {
   }
 
   const { globalConfig } = gc
-
   const colors = useReactiveComputed<ColorVariables>({
     get: () => globalConfig.value.colors!.presets[globalConfig.value.colors!.currentPresetName],
     set: (v: ColorVariables) => { setColors(v) },
@@ -72,7 +71,7 @@ export const useColors = () => {
       /**
        * Most default color - fallback when nothing else is found.
        */
-      defaultColor = getColors().primary
+      defaultColor = colors.primary
     }
 
     if (prop === 'transparent') {
@@ -83,7 +82,13 @@ export const useColors = () => {
       return prop
     }
 
-    const colors = getColors()
+    if (prop?.startsWith('on')) {
+      const colorName = prop.slice(2)
+
+      if (colors[normalizeColorName(colorName)]) {
+        return getColor(getTextColor(getColor(colorName)), undefined, preferVariables)
+      }
+    }
 
     if (!prop) {
       prop = getColor(defaultColor)
@@ -162,6 +167,7 @@ export const useColors = () => {
 
   const applyPreset = (presetName: string) => {
     globalConfig.value.colors!.currentPresetName = presetName
+
     if (!globalConfig.value.colors!.presets[presetName]) {
       return warn(`Preset ${presetName} does not exist`)
     }

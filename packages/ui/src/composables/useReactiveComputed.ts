@@ -5,6 +5,9 @@ export const useReactiveComputed = <T extends object>(obj: WritableComputedOptio
 
   const proxy = new Proxy(objectRef, {
     get (target, p: string, receiver) {
+      if (typeof objectRef.value !== 'object') {
+        return undefined
+      }
       return unref(Reflect.get(objectRef.value, p, receiver))
     },
     set (target, p, value) {
@@ -19,9 +22,15 @@ export const useReactiveComputed = <T extends object>(obj: WritableComputedOptio
       return Reflect.deleteProperty(objectRef.value, p)
     },
     has (target, p) {
+      if (typeof objectRef.value !== 'object') {
+        return false
+      }
       return Reflect.has(objectRef.value, p)
     },
     ownKeys () {
+      if (typeof objectRef.value !== 'object') {
+        return []
+      }
       return Object.keys(objectRef.value)
     },
     getOwnPropertyDescriptor () {
