@@ -14,18 +14,18 @@
   >
     <div class="flex gap-2 mb-2 flex-wrap sm:flex-nowrap">
       <div class="w-full sm:w-1/3 py-2 px-3 h-14 rounded-md" :style="{ background: 'var(--va-primary)', color: 'var(--va-on-primary)' }">
-        onPrimary
+        Primary
       </div>
       <div class="w-full sm:w-1/3 py-2 px-3 rounded-md" :style="{ background: 'var(--va-warning)', color: 'var(--va-on-warning)' }">
-        onWarning
+        Warning
       </div>
       <div class="w-full sm:w-1/3 py-2 px-3 rounded-md" :style="{ background: 'var(--va-success)', color: 'var(--va-on-success)' }">
-        onWarning
+        Success
       </div>
     </div>
     <div>
       <div class="py-2 px-3 rounded-md flex gap-4 items-center" :style="{ background: 'var(--va-custom-color)', color: 'var(--va-on-custom-color)' }">
-        onCustomColor
+        CustomColor
         <VaColorInput v-model="customColor" />
       </div>
     </div>
