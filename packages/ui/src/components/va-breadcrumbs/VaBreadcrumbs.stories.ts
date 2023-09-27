@@ -18,6 +18,33 @@ export const Default = () => ({
   `,
 })
 
+export const Disabled = () => ({
+  components: { VaBreadcrumbs, VaBreadcrumbsItem },
+  template: `
+    [true]
+    <va-breadcrumbs>
+      <va-breadcrumbs-item 
+        label="No route"
+        disabled
+      />
+      <va-breadcrumbs-item 
+        label="With route"
+        to="/"
+        disabled 
+      />
+    </va-breadcrumbs>
+    [false]
+    <va-breadcrumbs>
+      <va-breadcrumbs-item label="No route"/>
+      <va-breadcrumbs-item 
+        label="With route"
+        to="/"
+        :disabled="false"
+      />
+    </va-breadcrumbs :disabled="false">
+  `,
+})
+
 export const Color = () => ({
   components: { VaBreadcrumbs, VaBreadcrumbsItem },
   template: `
