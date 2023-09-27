@@ -58,3 +58,19 @@ describe('getColor("onColor")', () => {
     expect(getColor('onNonExisting', '#FF00FF')).toBe('#FF00FF')
   })
 })
+
+describe('getTextColor("onColor")', () => {
+  it('Given a color name, getColor("onColor") returns the corresponding color name with the "on" prefix', () => {
+    const {
+      composableWrapper: { getTextColor },
+    } = createTestComposable([useColors], {
+      colors: {
+        variables: {
+          onPrimary: '#FF00FF',
+        },
+      },
+    })
+
+    expect(getTextColor('primary')).toBe('#FF00FF')
+  })
+})

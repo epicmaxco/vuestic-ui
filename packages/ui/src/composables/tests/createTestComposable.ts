@@ -1,6 +1,6 @@
 import { defineComponent, h } from 'vue'
 import { mount } from '@vue/test-utils'
-import { createVuestic } from '../../main'
+import { GlobalConfig, PartialGlobalConfig, createVuestic } from '../../main'
 
 export type Composable = (...args: any[]) => any
 
@@ -15,7 +15,7 @@ export type Composable = (...args: any[]) => any
  * @param composables a composable or an array of composables
  * @returns { composableWrapper } a composableWrapper object containing the values returned by the composables
  */
-export function createTestComposable (composables: Composable | Composable[]) {
+export function createTestComposable (composables: Composable | Composable[], globalConfig?: PartialGlobalConfig) {
   const App = defineComponent({
     setup () {
       if (!Array.isArray(composables)) {
@@ -42,7 +42,9 @@ export function createTestComposable (composables: Composable | Composable[]) {
 
   const appWrapper = mount(App, {
     global: {
-      plugins: [createVuestic()],
+      plugins: [createVuestic({
+        config: globalConfig,
+      })],
     },
   })
 
