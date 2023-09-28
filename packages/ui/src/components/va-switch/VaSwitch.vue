@@ -28,8 +28,8 @@
           v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
-          @keypress.enter="toggleSelection"
-          @click="toggleSelection"
+          @keypress.enter="onEnterKeyPress"
+          @change="toggleSelection"
         >
         <div
           class="va-switch__track"
@@ -215,12 +215,17 @@ export default defineComponent({
       'aria-checked': !!props.modelValue,
       'aria-label': !slots.default ? props.ariaLabel : undefined,
       'aria-labelledby': computedLabel.value || slots.default ? ariaLabelIdComputed.value : undefined,
-      value: props.modelValue,
       tabindex: props.disabled ? -1 : 0,
+      checked: isChecked.value,
       ...validationAriaAttributes.value,
     }))
 
+    const onEnterKeyPress = () => {
+      elements.input.value?.click()
+    }
+
     return {
+      onEnterKeyPress,
       toggleSelection,
       onBlur,
       onFocus,
@@ -475,7 +480,6 @@ export default defineComponent({
   }
 
   &__input {
-    // @include visually-hidden;
     position: absolute;
     top: 0;
     left: 0;

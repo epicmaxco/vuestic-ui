@@ -18,34 +18,39 @@ export const Default = () => defineComponent({
 export const ChangeEvent: StoryFn = () => ({
   components: { VaSwitch },
 
-  data: () => ({ value: false, changeCount: 0 }),
+  data: () => ({ value: false, changeCount: 0, lastEventValue: null }),
 
   methods: {
     onChange (e) {
-      if (e.target) {
-        this.changeCount++
-      }
+      this.changeCount++
+      this.lastEventValue = e.target.checked
     },
   },
 
   template: `
-    [changes count]: {{ changeCount }}
+    <p>change count: <span data-testid="count">{{ changeCount }}</span></p>
+    <p>last event value: <span data-testid="value">{{ lastEventValue }}</span></p>
     <VaSwitch v-model="value" @change="onChange" />
   `,
 })
 
-ChangeEvent.play = async (e) => {
-  const input = e.canvasElement.querySelector('input')!
+ChangeEvent.play = async ({ canvasElement }) => {
+  const input = canvasElement.querySelector('input')!
+  const changesCounter = canvasElement.querySelector('[data-testid="count"]')!
+  const changesValue = canvasElement.querySelector('[data-testid="value"]')!
 
   await userEvent.click(input)
 
-  expect(e.canvasElement.textContent).toContain('[changes count]: 1')
+  expect(changesCounter.textContent).toContain('1')
+  expect(changesValue.textContent).toContain('true')
 
   await userEvent.keyboard(' ')
 
-  expect(e.canvasElement.textContent).toContain('[changes count]: 2')
+  expect(changesCounter.textContent).toContain('2')
+  expect(changesValue.textContent).toContain('false')
 
-  await userEvent.type(input, '{enter}')
+  await userEvent.keyboard('{enter}')
 
-  expect(e.canvasElement.textContent).toContain('[changes count]: 3')
+  expect(changesCounter.textContent).toContain('3')
+  expect(changesValue.textContent).toContain('true')
 }
