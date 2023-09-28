@@ -1,6 +1,7 @@
 import { VaVirtualScroller } from './'
 import { VaButton } from '../va-button'
 import { within } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
 
 const getHugeArray = () => new Array(1000).fill(null).map((_, index) => index)
 
