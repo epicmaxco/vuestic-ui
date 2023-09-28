@@ -9,8 +9,14 @@ export default definePageConfig({
     block.paragraph("Vuestic UI library offers a color palette consisting of 14 colors. These colors are divided into accent colors, background colors, text colors and utility colors. By default, there are two color presets available: light and dark."),
     block.component("PaletteGrid", { hideCode: true }),
 
+    block.subtitle("Auto text color detection"),
+    block.paragraph("With auto text color detection you don't need to worry about text readability. Vuestic UI library will automatically detect the best text color for you."),
+    block.paragraph("We use `threshold` property to detect if text should be dark or light. It used as a lightness value. If lightness value is less than `threshold` we assume it is dark background and text color must be light. Otherwise, text color must be dark."),
+    block.component("Threshold"),
+    block.paragraph('In case `threshold` is not enough for you, you can set `onPrimary`, `onSuccess`, `onBackgroundPrimary` and other colors in colors config.'),
+
     block.subtitle("Customization"),
-    block.paragraph("There is the flexibility to modify or expand upon the existing color set, as well as define own custom color presets. The color scheme can be applied globally using a [Colors Config](https"),
+    block.paragraph("There is the flexibility to modify or expand upon the existing color set, as well as define own custom color presets. The color scheme can be applied globally using a [Colors Config](/services/colors-config)"),
     block.code("scheme"),
     block.link("Read more about Colors Config", "/services/colors-config"),
 
@@ -19,9 +25,9 @@ export default definePageConfig({
     block.component("Components", { hideTemplate: true }),
     block.example("ThemeSwitcher", { hideTitle: true }),
 
-    // block.subtitle("Making a local theme switcher"),
-    // block.paragraph("Color preset can be provided using [VaConfig](https://vuestic.dev/en/ui-elements/config) for specific part of application:"),
-    // block.example("LocalThemeSwitcher", { hideTitle: true }),
+    block.subtitle("Making a local theme switcher"),
+    block.paragraph("Color preset can be provided using [VaConfig](https://vuestic.dev/en/ui-elements/config) for specific part of application:"),
+    block.example("LocalThemeSwitcher", { hideTitle: true }),
 
     block.subtitle("CSS Variables"),
     block.paragraph("In case you need custom component that will follow Vuestic theme, you can use CSS variables. CSS variables are reactive and can be also scoped using [VaConfig](https://vuestic.dev/en/ui-elements/config)."),

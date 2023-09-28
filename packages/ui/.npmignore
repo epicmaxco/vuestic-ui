@@ -12,3 +12,5 @@ postcss.config.js
 tsconfig.json
 build/
 rollup.config.js
+script.ts
+vite.config.ts

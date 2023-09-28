@@ -591,6 +591,7 @@ export default defineComponent({
 
     .table-transition-fade-leave-active {
       transition: opacity var(--va-data-table-transition);
+      display: none;
     }
 
     .table-transition-fade-enter-active {
@@ -610,6 +611,7 @@ export default defineComponent({
 
     .table-transition-shuffle-leave-active {
       transition: none;
+      display: none;
     }
 
     .table-transition-shuffle-enter-active {

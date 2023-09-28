@@ -18,7 +18,6 @@
     >
       <div
         class="va-switch__inner"
-        @click="toggleSelection"
       >
         <input
           ref="input"
@@ -29,7 +28,8 @@
           v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
-          @keypress.enter.prevent="toggleSelection"
+          @keypress.enter="onEnterKeyPress"
+          @change="toggleSelection"
         >
         <div
           class="va-switch__track"
@@ -140,7 +140,11 @@ export default defineComponent({
       isIndeterminate,
       computedErrorMessages,
       validationAriaAttributes,
-      ...selectable
+      toggleSelection,
+      onBlur,
+      onFocus,
+      reset,
+      focus,
     } = useSelectable(props, emit, elements)
 
     const computedBackground = computed(() => getColor(isChecked.value ? props.color : props.offColor))
@@ -211,11 +215,23 @@ export default defineComponent({
       'aria-checked': !!props.modelValue,
       'aria-label': !slots.default ? props.ariaLabel : undefined,
       'aria-labelledby': computedLabel.value || slots.default ? ariaLabelIdComputed.value : undefined,
+      tabindex: props.disabled ? -1 : 0,
+      checked: isChecked.value,
       ...validationAriaAttributes.value,
     }))
 
+    const onEnterKeyPress = () => {
+      elements.input.value?.click()
+    }
+
     return {
-      ...selectable,
+      onEnterKeyPress,
+      toggleSelection,
+      onBlur,
+      onFocus,
+      reset,
+      focus,
+      input: elements.input,
       computedErrorMessages,
       isChecked,
       computedError,
@@ -464,7 +480,13 @@ export default defineComponent({
   }
 
   &__input {
-    @include visually-hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
   }
 }
 </style>

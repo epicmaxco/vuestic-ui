@@ -28,11 +28,6 @@ export const Default = () => ({
     <va-avatar-group :options="avatars"/>
   `,
 })
-addText(
-  Default,
-  'This looks very broken - why do we have +3 even though we have 3 avatars?',
-  'broken',
-)
 
 export const RestColor = () => ({
   components: { VaAvatarGroup },
@@ -40,7 +35,10 @@ export const RestColor = () => ({
     avatars: getAvatars(),
   }),
   template: `
-    <va-avatar-group :options="avatars" restColor="warning"/>
+    <strong>[secondary]</strong>
+    <va-avatar-group :options="avatars" :max="2"/>
+    <strong>[warning]</strong>
+    <va-avatar-group :options="avatars" restColor="warning" :max="2"/>
   `,
 })
 
@@ -50,19 +48,16 @@ export const Max = () => ({
     avatars: getAvatars(),
   }),
   template: `
-    [2]
+    <strong>[0]</strong>
+    <va-avatar-group :options="avatars"/>
+    <strong>[1]</strong>
+    <va-avatar-group :options="avatars" :max="1"/>
+    <strong>[2]</strong>
     <va-avatar-group :options="avatars" :max="2"/>
-    [3]
+    <strong>[3]</strong>
     <va-avatar-group :options="avatars" :max="3"/>
-    [4]
-    <va-avatar-group :options="avatars" :max="4"/>
   `,
 })
-addText(
-  Max,
-  '+-3 o.o?',
-  'broken',
-)
 
 export const Vertical = () => ({
   components: { VaAvatarGroup },

@@ -110,6 +110,17 @@ export default defineComponent({
         return target.value
       }
 
+      if (anchor.value) {
+        const root = anchor.value.getRootNode()
+        if (root instanceof ShadowRoot) {
+          const el = [...root.children].find((c) => c.tagName !== 'STYLE')
+
+          if (el) {
+            return el as HTMLElement
+          }
+        }
+      }
+
       return body.value
     })
 

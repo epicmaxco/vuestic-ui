@@ -48,7 +48,7 @@ export const useClearable = (
   const clearIconProps = computed(() => ({
     name: props.clearableIcon,
     color: clearIconColor.value,
-    size: 'small',
+    size: 'medium',
     tabindex: canBeCleared.value ? 0 : -1,
   }))
 

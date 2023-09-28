@@ -4,6 +4,7 @@
     <div v-show="!isMobileMenuOpen">
       <LandingPreview />
       <LandingPartners />
+      <LandingBannersNuxtNationConference />
       <LandingFeatures />
       <LandingCustomize />
       <LandingSeamlessIntegration />

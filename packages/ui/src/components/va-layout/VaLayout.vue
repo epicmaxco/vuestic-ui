@@ -113,8 +113,6 @@ export default defineComponent({
   z-index: 0;
   max-width: 100%;
   max-height: 100%;
-  height: 100vh;
-  width: 100vw;
 
   &__area {
     @include va-scroll(var(--va-primary));

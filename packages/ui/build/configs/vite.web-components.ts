@@ -50,6 +50,7 @@ export default () => defineConfig({
   plugins: [
     vue({
       customElement: true,
+      isProduction: true,
     }),
     chunkSplitPlugin({ strategy: 'unbundle' }),
     removeSideEffectedChunks(),

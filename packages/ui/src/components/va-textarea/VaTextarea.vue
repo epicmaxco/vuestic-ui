@@ -175,6 +175,7 @@ export default defineComponent({
     display: flex;
     overflow: hidden;
     width: 100%;
+    align-self: stretch;
 
     &--resizable {
       resize: vertical;
