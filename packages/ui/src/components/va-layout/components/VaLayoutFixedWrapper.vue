@@ -92,6 +92,12 @@ export default defineComponent({
     width: v-bind("styles.width");
     height: v-bind("styles.height");
 
+    @media print {
+      position: relative !important;
+      height: max-content !important;
+      width: max-content !important;
+    }
+
     &--top {
       top: 0;
     }
