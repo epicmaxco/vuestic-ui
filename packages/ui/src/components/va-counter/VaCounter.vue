@@ -5,6 +5,8 @@
     :class="classComputed"
     :style="styleComputed"
     :focused="isFocused"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
     @keydown.up.prevent="increaseCount"
     @keydown.right.prevent="increaseCount"
     @keydown.down.prevent="decreaseCount"
@@ -119,6 +121,12 @@ import {
   useTranslation,
   useLongPress,
   useTemplateRef,
+useValidation,
+useClearableEmits,
+useValidationEmits,
+useClearableProps,
+useFocusable,
+useFocusableProps,
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
@@ -147,8 +155,10 @@ export default defineComponent({
   props: {
     ...useFormFieldProps,
     ...useStatefulProps,
+    ...useFocusableProps,
     ...useComponentPresetProp,
     ...VaInputWrapperProps,
+    ...useClearableProps,
     // input
     modelValue: { type: [String, Number], default: 0 },
     manualInput: { type: Boolean, default: false },
@@ -172,6 +182,8 @@ export default defineComponent({
 
   emits: [
     'update:modelValue',
+    ...useValidationEmits,
+    ...useClearableEmits,
     ...createInputEmits(),
     ...createFieldEmits(),
     ...useFocusEmits,
@@ -190,6 +202,22 @@ export default defineComponent({
     } = useFocus(input, emit)
 
     const { valueComputed } = useStateful(props, emit)
+
+    const reset = () => withoutValidation(() => {
+      emit('update:modelValue', props.clearValue)
+      emit('clear')
+      resetValidation()
+    })
+
+    const {
+      computedError,
+      computedErrorMessages,
+      listeners: validationListeners,
+      validationAriaAttributes,
+      isLoading,
+      withoutValidation,
+      resetValidation,
+    } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
     const setCountInput = ({ target }: Event) => {
       valueComputed.value = Number((target as HTMLInputElement | null)?.value)
@@ -366,6 +394,9 @@ export default defineComponent({
 
       decreaseCount,
       increaseCount,
+
+      computedError,
+      computedErrorMessages,
 
       decreaseIconProps,
       increaseIconProps,
