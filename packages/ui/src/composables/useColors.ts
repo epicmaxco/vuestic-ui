@@ -1,5 +1,5 @@
 import type { ColorVariables, CssColor } from '../services/color'
-import { computed } from 'vue'
+import { capitalize, computed } from 'vue'
 import { useGlobalConfig } from '../services/global-config/global-config'
 import { warn } from '../utils/console'
 import { useCache } from './useCache'
@@ -44,7 +44,6 @@ export const useColors = () => {
   }
 
   const { globalConfig } = gc
-
   const colors = useReactiveComputed<ColorVariables>({
     get: () => globalConfig.value.colors!.presets[globalConfig.value.colors!.currentPresetName],
     set: (v: ColorVariables) => { setColors(v) },
@@ -72,7 +71,7 @@ export const useColors = () => {
       /**
        * Most default color - fallback when nothing else is found.
        */
-      defaultColor = getColors().primary
+      defaultColor = colors.primary
     }
 
     if (prop === 'transparent') {
@@ -83,7 +82,13 @@ export const useColors = () => {
       return prop
     }
 
-    const colors = getColors()
+    if (prop?.startsWith('on')) {
+      const colorName = prop.slice(2)
+
+      if (colors[normalizeColorName(colorName)]) {
+        return getColor(getTextColor(getColor(colorName)), undefined, preferVariables)
+      }
+    }
 
     if (!prop) {
       prop = getColor(defaultColor)
@@ -149,6 +154,11 @@ export const useColors = () => {
   })
 
   const getTextColor = (color: ColorInput, darkColor?: string, lightColor?: string) => {
+    const onColorName = `on${capitalize(String(color))}`
+    if (colors[onColorName]) {
+      return colors[onColorName]
+    }
+
     darkColor = darkColor || computedDarkColor.value
     lightColor = lightColor || computedLightColor.value
     return getColorLightnessFromCache(color) > globalConfig.value.colors.threshold ? darkColor : lightColor
@@ -162,6 +172,7 @@ export const useColors = () => {
 
   const applyPreset = (presetName: string) => {
     globalConfig.value.colors!.currentPresetName = presetName
+
     if (!globalConfig.value.colors!.presets[presetName]) {
       return warn(`Preset ${presetName} does not exist`)
     }

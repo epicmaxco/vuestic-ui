@@ -14,16 +14,9 @@ describe('applyPreset function', () => {
   it(
     'Given a non-existing preset name, the current preset name is changed and the warn function is called once',
     () => {
-      // Since this test's goal is to trigger a warning
-      // by passing the wrong value to a function, we mock
-      // useReactiveComputed to prevent it from throwing an unwanted error
-      vi.mock('../useReactiveComputed', () => ({
-        useReactiveComputed: vi.fn(),
-      }))
       applyPreset('foo')
       expect(globalConfig.value.colors.currentPresetName).toBe('foo')
       expect(warn).toHaveBeenCalledTimes(1)
-      vi.doUnmock('../useReactiveComputed')
       vi.clearAllMocks()
     },
   )
@@ -50,5 +43,34 @@ describe('currentPresetName computed', () => {
     } = createTestComposable([useColors, useGlobalConfig])
     currentPresetName.value = 'dark'
     expect(globalConfig.value.colors.currentPresetName).toBe('dark')
+  })
+})
+
+describe('getColor("onColor")', () => {
+  it('Given a color name, getColor("onColor") returns the corresponding color name with the "on" prefix', () => {
+    const {
+      composableWrapper: { getColor },
+    } = createTestComposable([useColors])
+
+    expect(getColor('onPrimary')).toBe('#FFFFFF')
+    expect(getColor('onWarning')).toBe('#262824')
+    expect(getColor('onNonExisting')).toBe('#154EC1') // Fallback to primary
+    expect(getColor('onNonExisting', '#FF00FF')).toBe('#FF00FF')
+  })
+})
+
+describe('getTextColor("onColor")', () => {
+  it('Given a color name, getColor("onColor") returns the corresponding color name with the "on" prefix', () => {
+    const {
+      composableWrapper: { getTextColor },
+    } = createTestComposable([useColors], {
+      colors: {
+        variables: {
+          onPrimary: '#FF00FF',
+        },
+      },
+    })
+
+    expect(getTextColor('primary')).toBe('#FF00FF')
   })
 })
