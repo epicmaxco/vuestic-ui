@@ -1,5 +1,5 @@
 import { computed, toRef } from 'vue'
-import { useColors, useTextColor } from '../../composables'
+import { useColors, useCurrentElement, useElementBackground, useElementTextColor, useTextColor } from '../../composables'
 
 type AlertStyleProps = {
   modelValue: boolean,
@@ -46,10 +46,12 @@ export const useAlertStyles = (props: AlertStyleProps) => {
     }
   })
 
+  const currentColor = useElementTextColor(useElementBackground(useCurrentElement()))
+
   const contentStyle = computed(() => {
     return {
       alignItems: props.center ? 'center' : '',
-      color: (props.border || props.outline) ? 'currentColor' : textColorComputed.value,
+      color: (props.border || props.outline) ? currentColor : textColorComputed.value,
     }
   })
 
