@@ -10,7 +10,6 @@ export const CachePlugin = defineVuesticPlugin(() => ({
   install (app) {
     const cache: AppCache = {
       colorContrast: {},
-      bgTempCache: new TempMap(),
     }
 
     app.provide(VaAppCachePluginKey, cache)
