@@ -43,7 +43,7 @@ const toHex = (color: RGBAColorParsed): string => {
     (color[0] | 1 << 8).toString(16).slice(1) +
     (color[1] | 1 << 8).toString(16).slice(1) +
     (color[2] | 1 << 8).toString(16).slice(1) +
-    (color[3] | 1 << 8).toString(16).slice(1)
+    (color[3] * 255 | 1 << 8).toString(16).slice(1)
 }
 
 const getParentsWithBackground = (el: HTMLElement): HTMLElement[] => {

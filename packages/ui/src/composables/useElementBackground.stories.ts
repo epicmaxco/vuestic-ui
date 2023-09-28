@@ -63,6 +63,12 @@ export const WithTransition = () => ({
     }
   },
 
+  setup () {
+    return {
+      color: useElementBackground(useCurrentElement()),
+    }
+  },
+
   template: `
 <div :style="{ ...styles, transition: 'all 0.5s ease-in-out' }">
   <button @click="styles = { background: '#000', color: '#fff' }">Black</button>
