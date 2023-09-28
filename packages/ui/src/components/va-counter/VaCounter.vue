@@ -230,7 +230,7 @@ export default defineComponent({
     })
 
     const isMaxReached = computed(() => {
-      if (!max.value) { return false }
+      if (typeof max.value === 'undefined') { return false }
 
       return step.value
         ? Number(valueComputed.value) > (max.value - step.value)
