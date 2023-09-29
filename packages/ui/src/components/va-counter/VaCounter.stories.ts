@@ -59,6 +59,21 @@ export const Stateful = () => ({
   `,
 })
 
+Stateful.play = async ({ step }) => {
+  const increaseButtons = document.querySelectorAll('[aria-label="increase counter"]')
+  const inputs = document.querySelectorAll('[aria-label="counter value"]')
+
+  await step('Increase on click', async () => {
+    await userEvent.click(increaseButtons[0])
+    expect((inputs[0] as HTMLInputElement).value).toEqual('1')
+  })
+
+  await step('No effect on click', async () => {
+    await userEvent.click(increaseButtons[1])
+    expect((inputs[1] as HTMLInputElement).value).toEqual('0')
+  })
+}
+
 export const Min = () => ({
   components: { VaCounter },
   data: () => ({ value: 0 }),
@@ -69,6 +84,14 @@ export const Min = () => ({
     />
   `,
 })
+
+Min.play = async ({ step }) => {
+  const decreaseButton = document.querySelector('[aria-label="decrease counter"]') as HTMLButtonElement
+
+  await step('Decrease button must be disabled', async () => {
+    expect(decreaseButton.getAttribute('aria-disabled')).toEqual('true')
+  })
+}
 
 export const Max = () => ({
   components: { VaCounter },
@@ -81,6 +104,14 @@ export const Max = () => ({
   `,
 })
 
+Max.play = async ({ step }) => {
+  const increaseButton = document.querySelector('[aria-label="increase counter"]') as HTMLElement
+
+  await step('Increase button must be disabled', async () => {
+    expect(increaseButton.getAttribute('aria-disabled')).toEqual('true')
+  })
+}
+
 export const Step = () => ({
   components: { VaCounter },
   data: () => ({ value: 0 }),
@@ -92,6 +123,22 @@ export const Step = () => ({
     />
   `,
 })
+
+Step.play = async ({ step }) => {
+  const increaseButton = document.querySelector('[aria-label="increase counter"]') as HTMLElement
+  const decreaseButton = document.querySelector('[aria-label="decrease counter"]') as HTMLElement
+  const input = document.querySelector('[aria-label="counter value"]') as HTMLInputElement
+
+  await step('Increase with step on click', async () => {
+    await userEvent.click(increaseButton)
+    expect(input.value).toEqual('2')
+  })
+
+  await step('Decrease with step on click', async () => {
+    await userEvent.click(decreaseButton)
+    expect(input.value).toEqual('0')
+  })
+}
 
 export const ManualInput = () => ({
   components: { VaCounter },
@@ -220,7 +267,7 @@ export const Error = () => ({
   `,
 })
 
-addText(Error, "There's a problem with negative numbers while an icon is rendered", 'stale')
+addText(Error, "There's a problem with gap while an icon is rendered", 'stale')
 
 export const ErrorMessages = () => ({
   components: { VaCounter },
@@ -254,7 +301,17 @@ export const Rules = () => ({
   `,
 })
 
-addText(Rules, "Validation doesn't work!", 'broken')
+export const ImmediateValidation = () => ({
+  components: { VaCounter },
+  data: () => ({ value: 0 }),
+  template: `
+    <VaCounter 
+      v-model="value"
+      immediateValidation
+      :rules="[value => value > 0 || 'must be > 0']"
+    />
+  `,
+})
 
 export const Success = () => ({
   components: { VaCounter },

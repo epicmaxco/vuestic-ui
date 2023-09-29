@@ -105,7 +105,6 @@ import {
   InputHTMLAttributes,
   ComputedRef,
   toRef,
-watch,
 } from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
@@ -121,9 +120,9 @@ import {
   useTranslation,
   useLongPress,
   useTemplateRef,
-useValidation,
-useClearableProps,
-useValidationEmits,
+  useValidation,
+  useClearableProps,
+  useValidationEmits,
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
@@ -207,12 +206,9 @@ export default defineComponent({
     const {
       computedError,
       computedErrorMessages,
-      validate,
       withoutValidation,
       resetValidation,
     } = useValidation(props, emit, { reset, focus, value: valueComputed })
-
-    watch(valueComputed, () => console.log(computedError.value))
 
     const setCountInput = ({ target }: Event) => {
       valueComputed.value = Number((target as HTMLInputElement | null)?.value)
@@ -382,7 +378,6 @@ export default defineComponent({
 
       computedError,
       computedErrorMessages,
-      validate,
 
       fieldListeners: createFieldListeners(emit),
       inputListeners: createInputListeners(emit),
