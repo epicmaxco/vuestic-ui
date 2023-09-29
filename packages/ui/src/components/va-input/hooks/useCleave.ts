@@ -27,7 +27,7 @@ export const useCleaveProps = {
 }
 
 export const useCleave = (
-  element: Ref<HTMLInputElement | HTMLElement | undefined>,
+  element: Ref<HTMLInputElement | undefined>,
   props: ExtractPropTypes<typeof useCleaveProps>,
   syncValue: WritableComputedRef<string | number>,
 ) => {
@@ -48,8 +48,6 @@ export const useCleave = (
     destroyCleave()
 
     if (!element.value) { return }
-
-    if(!(element instanceof HTMLInputElement)) { return }
 
     cleave.value = new Cleave(element.value, getMask(props.mask))
   }

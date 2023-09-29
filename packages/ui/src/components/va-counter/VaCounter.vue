@@ -207,6 +207,7 @@ export default defineComponent({
     const {
       computedError,
       computedErrorMessages,
+      validate,
       withoutValidation,
       resetValidation,
     } = useValidation(props, emit, { reset, focus, value: valueComputed })
@@ -381,6 +382,7 @@ export default defineComponent({
 
       computedError,
       computedErrorMessages,
+      validate,
 
       fieldListeners: createFieldListeners(emit),
       inputListeners: createInputListeners(emit),
