@@ -4,7 +4,6 @@
     v-bind="{ ...fieldListeners, ...inputWrapperPropsComputed }"
     :class="classComputed"
     :style="styleComputed"
-    :loading="$props.loading || isLoading"
     :focused="isFocused"
     :error="computedError"
     :error-messages="computedErrorMessages"
@@ -88,8 +87,8 @@
       class="va-input__content__input"
       type="number"
       inputmode="decimal"
-      v-bind="{ ...inputAttributesComputed, ...inputEvents }"
-      :value="computedValue"
+      v-bind="{ ...inputAttributesComputed, ...inputListeners }"
+      :value="valueComputed"
       :aria-live="$props.disabled ? 'off' : 'polite'"
       @input="setCountInput"
       @change="setCountChange"
@@ -106,6 +105,7 @@ import {
   InputHTMLAttributes,
   ComputedRef,
   toRef,
+watch,
 } from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
@@ -121,22 +121,18 @@ import {
   useTranslation,
   useLongPress,
   useTemplateRef,
-  useValidation,
-  useClearableEmits,
-  useValidationEmits,
-  useClearableProps,
-  useFocusableProps,
+useValidation,
+useClearableProps,
+useValidationEmits,
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaButton } from '../va-button'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import { combineFunctions } from '../../utils/combine-functions'
-import { useCleave, useCleaveProps } from '../va-input/hooks/useCleave'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
-  ['change', 'focus', 'blur', 'input']
+  ['change'],
 )
 
 const { createEmits: createFieldEmits, createListeners: createFieldListeners } = useEmitProxy([
@@ -156,11 +152,9 @@ export default defineComponent({
   props: {
     ...useFormFieldProps,
     ...useStatefulProps,
-    ...useFocusableProps,
     ...useComponentPresetProp,
-    ...VaInputWrapperProps,
     ...useClearableProps,
-    ...useCleaveProps,
+    ...VaInputWrapperProps,
     // input
     modelValue: { type: [String, Number], default: 0 },
     manualInput: { type: Boolean, default: false },
@@ -185,7 +179,6 @@ export default defineComponent({
   emits: [
     'update:modelValue',
     ...useValidationEmits,
-    ...useClearableEmits,
     ...createInputEmits(),
     ...createFieldEmits(),
     ...useFocusEmits,
@@ -214,33 +207,11 @@ export default defineComponent({
     const {
       computedError,
       computedErrorMessages,
-      listeners: validationListeners,
-      validationAriaAttributes,
-      isLoading,
       withoutValidation,
       resetValidation,
     } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
-    const { computedValue, onInput } = useCleave(input, props, valueComputed)
-
-    const inputListeners = createInputListeners(emit)
-
-    const onFocus = (e: Event) => {
-      inputListeners.onFocus(e)
-      validationListeners.onFocus()
-    }
-
-    const onBlur = (e: Event) => {
-      inputListeners.onBlur(e)
-      validationListeners.onBlur()
-    }
-
-    const inputEvents = {
-      ...inputListeners,
-      onFocus: combineFunctions(onFocus, inputListeners.onFocus),
-      onBlur: combineFunctions(onBlur, inputListeners.onBlur),
-      onInput: combineFunctions(onInput, inputListeners.onInput),
-    }
+    watch(valueComputed, () => console.log(computedError.value))
 
     const setCountInput = ({ target }: Event) => {
       valueComputed.value = Number((target as HTMLInputElement | null)?.value)
@@ -383,7 +354,6 @@ export default defineComponent({
       'aria-label': tp(props.ariaLabel),
       'aria-valuemin': min.value,
       'aria-valuemax': max.value,
-      ...validationAriaAttributes.value,
       ...omit(attrs, ['class', 'style']),
       ...pick(props, ['disabled', 'min', 'max', 'step']),
       readonly: props.readonly || !props.manualInput,
@@ -408,7 +378,9 @@ export default defineComponent({
       input,
       valueComputed,
       isFocused,
-      isLoading,
+
+      computedError,
+      computedErrorMessages,
 
       fieldListeners: createFieldListeners(emit),
       inputListeners: createInputListeners(emit),
@@ -420,11 +392,6 @@ export default defineComponent({
       decreaseCount,
       increaseCount,
 
-      computedError,
-      computedErrorMessages,
-      computedValue,
-      inputEvents,
-
       decreaseIconProps,
       increaseIconProps,
       decreaseButtonProps,
@@ -434,7 +401,7 @@ export default defineComponent({
       classComputed,
       styleComputed,
       marginComputed,
-      
+
       focus,
       blur,
     }
