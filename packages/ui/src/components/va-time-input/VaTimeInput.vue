@@ -11,7 +11,7 @@
         class="va-time-input__anchor"
         :style="cursorStyleComputed"
         v-bind="computedInputWrapperProps"
-        @click.stop="toggleDropdown"
+        @click.stop="showDropdown"
       >
         <template #default>
           <input
@@ -309,6 +309,8 @@ export default defineComponent({
       ]
       return Object.keys(slots).filter(slot => !slotsWithIcons.includes(slot))
     })
+
+    console.log(filteredSlots, '-------------')
 
     const hideDropdown = () => {
       doShowDropdown.value = false
