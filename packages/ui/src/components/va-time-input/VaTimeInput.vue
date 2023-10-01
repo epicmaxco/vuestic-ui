@@ -310,8 +310,6 @@ export default defineComponent({
       return Object.keys(slots).filter(slot => !slotsWithIcons.includes(slot))
     })
 
-    console.log(filteredSlots, '-------------')
-
     const hideDropdown = () => {
       doShowDropdown.value = false
     }
