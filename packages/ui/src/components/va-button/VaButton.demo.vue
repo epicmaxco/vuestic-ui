@@ -168,13 +168,9 @@
         </tr>
 
         <tr>
-          <td>Outline Buttons</td>
+          <td>Border Color</td>
           <td>
-            <va-button border-color="primary" preset="primary" icon="create">Secondary</va-button>
-            <va-button border-color="primary" preset="secondary" iconRight="clear">Secondary</va-button>
-            <va-button border-color="primary" preset="primary" icon="create" iconRight="clear">
-              Secondary
-            </va-button>
+            <va-button border-color="primary" :backgroundOpacity="0">Button</va-button>
           </td>
         </tr>
 
