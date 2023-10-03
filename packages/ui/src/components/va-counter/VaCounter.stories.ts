@@ -35,15 +35,13 @@ Default.play = async ({ step }) => {
 
 export const LongPressDelay = () => ({
   components: { VaCounter },
-  data: () => ({ value: 0 }),
   template: `
-    [default: 500]
-    <VaCounter 
-      v-model="value" 
-    />
-    [1500]
-    <VaCounter 
-      v-model="value" 
+    <p>[500]</p>
+    <VaCounter stateful/>
+
+    <p>[1500]</p>
+    <VaCounter
+      stateful
       :longPressDelay="1500"
     />
   `,
@@ -52,9 +50,9 @@ export const LongPressDelay = () => ({
 export const Stateful = () => ({
   components: { VaCounter },
   template: `
-    [true]
+    <p>[true]</p>
     <VaCounter stateful />
-    [false]
+    <p>[false]</p>
     <VaCounter :stateful="false" />
   `,
 })
@@ -76,10 +74,9 @@ Stateful.play = async ({ step }) => {
 
 export const Min = () => ({
   components: { VaCounter },
-  data: () => ({ value: 0 }),
   template: `
-    <VaCounter 
-      v-model="value" 
+    <VaCounter
+      stateful
       :min="0"
     />
   `,
@@ -95,10 +92,9 @@ Min.play = async ({ step }) => {
 
 export const Max = () => ({
   components: { VaCounter },
-  data: () => ({ value: 0 }),
   template: `
-    <VaCounter 
-      v-model="value" 
+    <VaCounter
+      stateful
       :max="0"
     />
   `,
@@ -114,12 +110,10 @@ Max.play = async ({ step }) => {
 
 export const Step = () => ({
   components: { VaCounter },
-  data: () => ({ value: 0 }),
   template: `
-    [2]
-    <VaCounter 
-      v-model="value" 
-      :step="2" 
+    <VaCounter
+      stateful
+      :step="2"
     />
   `,
 })
@@ -143,10 +137,10 @@ Step.play = async ({ step }) => {
 export const ManualInput = () => ({
   components: { VaCounter },
   template: `
-    [true]
+    <p>[true]</p>
     <VaCounter manualInput />
-    [false]
-    <VaCounter :manualInput="false" />
+    <p>[false]</p>
+    <VaCounter />
   `,
 })
 
@@ -202,11 +196,11 @@ export const Loading = () => ({
 export const Preset = () => ({
   components: { VaCounter },
   template: `
-    [default]
+    <p>['']</p>
     <VaCounter />
-    [solid]
+    <p>[solid]</p>
     <VaCounter preset="solid" />
-    [bordered]
+    <p>[bordered]</p>
     <VaCounter preset="bordered" />
   `,
 })
@@ -214,10 +208,10 @@ export const Preset = () => ({
 export const Buttons = () => ({
   components: { VaCounter },
   template: `
-    [true]
+    <p>[true]</p>
     <VaCounter buttons />
-    [false]
-    <VaCounter :buttons="false" />
+    <p>[false]</p>
+    <VaCounter />
   `,
 })
 
@@ -231,27 +225,26 @@ export const Rounded = () => ({
 export const Margins = () => ({
   components: { VaCounter },
   template: `
-    [default: 4px]
+    <p>[4px]</p>
     <VaCounter buttons />
-    [8px]
+    <p>[8px]</p>
     <VaCounter buttons margins="8px"/>
-    [12x]
-    <VaCounter buttons margins="12px"/>
+    <p>[12x]</p>
+    <VaCounter buttons margins="20px"/>
   `,
 })
 
 export const Flat = () => ({
   components: { VaCounter },
   template: `
-    [true]
-    <VaCounter 
-      flat 
-      buttons 
+    <p>[true]</p>
+    <VaCounter
+      buttons
     />
-    [false]
-    <VaCounter 
-      :flat="false" 
-      buttons 
+    <p>[false]</p>
+    <VaCounter
+      :flat="false"
+      buttons
     />
   `,
 })
@@ -261,8 +254,8 @@ export const Error = () => ({
   data: () => ({ value: -1 }),
   template: `
     <VaCounter
-      v-model="value" 
-      error 
+      v-model="value"
+      error
     />
   `,
 })
@@ -272,20 +265,25 @@ addText(Error, "There's a problem with gap while an icon is rendered", 'stale')
 export const ErrorMessages = () => ({
   components: { VaCounter },
   template: `
-    <VaCounter 
+    <VaCounter
       error
       errorMessages="error"
     />
   `,
 })
+addText(
+  ErrorMessages,
+  "Icon doesn't belong here",
+  'broken',
+)
 
 export const ErrorCount = () => ({
   components: { VaCounter },
   template: `
-    <VaCounter 
+    <VaCounter
       error
       :errorMessages="['error1', 'error2', 'error3']"
-      errorCount="2" 
+      errorCount="2"
     />
   `,
 })
@@ -294,7 +292,7 @@ export const Rules = () => ({
   components: { VaCounter },
   data: () => ({ value: 0 }),
   template: `
-    <VaCounter 
+    <VaCounter
       v-model="value"
       :rules="[value => value > 0 || 'must be > 0']"
     />
@@ -305,30 +303,40 @@ export const ImmediateValidation = () => ({
   components: { VaCounter },
   data: () => ({ value: 0 }),
   template: `
-    <VaCounter 
+    <VaCounter
       v-model="value"
       immediateValidation
       :rules="[value => value > 0 || 'must be > 0']"
     />
   `,
 })
+addText(
+  ImmediateValidation,
+  "Icon doesn't belong here",
+  'broken',
+)
 
 export const Success = () => ({
   components: { VaCounter },
   template: `
-    <VaCounter 
-      success 
+    <VaCounter
+      success
       messages="success"
     />
   `,
 })
+addText(
+  Success,
+  "Icon doesn't belong here",
+  'broken',
+)
 
 export const ContentSlot = () => ({
   components: { VaCounter },
   template: `
-    <VaCounter>
-      <template #content>
-        [c]
+    <VaCounter stateful>
+      <template #content="v">
+        [{{v.value}}]
       </template>
     </VaCounter>
   `,
@@ -337,21 +345,31 @@ export const ContentSlot = () => ({
 export const DecreaseActionSlot = () => ({
   components: { VaCounter },
   template: `
-    <VaCounter>
-      <template #decreaseAction>
+    <VaCounter stateful>
+      <template #decreaseAction="{increaseCount}">
         [dA]
       </template>
     </VaCounter>
   `,
 })
+addText(
+  DecreaseActionSlot,
+  "Click doesn't affect value",
+  'broken',
+)
 
 export const IncreaseActionSlot = () => ({
   components: { VaCounter },
   template: `
-    <VaCounter>
+    <VaCounter stateful>
       <template #increaseAction>
         [iA]
       </template>
     </VaCounter>
   `,
 })
+addText(
+  IncreaseActionSlot,
+  "Click doesn't affect value",
+  'broken',
+)
