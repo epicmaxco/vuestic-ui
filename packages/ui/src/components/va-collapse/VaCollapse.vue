@@ -224,7 +224,7 @@ export default defineComponent({
 
   &__body-wrapper {
     transition: var(--va-collapse-body-wrapper-transition);
-    overflow: hidden;
+    overflow: scroll;
 
     &--bordered {
       border-bottom: 1px solid var(--va-background-border);
