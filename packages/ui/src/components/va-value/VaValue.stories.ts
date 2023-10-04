@@ -1,4 +1,5 @@
 import { VaValue } from '.'
+import { VaInput } from '../va-input'
 
 export default {
   title: 'VaValue',
@@ -17,40 +18,12 @@ export const Default = () => ({
   `,
 })
 
-export const ShowHide = () => ({
-  components: { VaValue },
+export const ReactiveObject = () => ({
+  components: { VaValue, VaInput },
   template: `
-    <VaValue #default="v">
-      <div>
-        <button @click="v.value = !v.value">
-          {{ v.value ? 'Hide' : 'Show' }}
-        </button>
-        <div style="position: relative;">
-          <div style="height: 24px; overflow: hidden; max-width: 160px;">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet eaque deserunt maiores voluptatibus vitae hic ullam, asperiores, veritatis voluptatem eum obcaecati saepe quibusdam libero porro dolores et nobis! Possimus, labore?
-          </div>
-          <div v-if="v.value" style="position: absolute; background: white; top: 0;">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet eaque deserunt maiores voluptatibus vitae hic ullam, asperiores, veritatis voluptatem eum obcaecati saepe quibusdam libero porro dolores et nobis! Possimus, labore?
-          </div>
-        </div>
-      </div>
-    </VaValue>
-  `,
-})
-
-export const ExpandInput = () => ({
-  components: { VaValue },
-  template: `
-    <VaValue #default="v">
-      <div style="height: 24px; position: relative;">
-        <input
-          :value="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet eaque deserunt maiores voluptatibus vitae hic ullam, asperiores, veritatis voluptatem eum obcaecati saepe quibusdam libero porro dolores et nobis! Possimus, labore?'"
-          :style="{ width: v.value ? '200px' : '100%' }"
-          style="height: 24px; position: absolute;"
-          @focus="v.value = true"
-          @blur="v.value = false"
-        />
-      </div>
+    <VaValue :defaultValue="{ name: '', age: 0 }" #default="v">
+      <VaInput v-model="v.name" label="name" />
+      <VaInput v-model="v.age" label="name" />
     </VaValue>
   `,
 })
