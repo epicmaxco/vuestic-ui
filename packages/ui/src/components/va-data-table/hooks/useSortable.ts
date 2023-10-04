@@ -51,6 +51,7 @@ export const useSortable = (
   })
 
   const sortingOrderFallback = ref(null as DataTableSortingOrder)
+  const sortedColumn = ref(null as string)
   const sortingOrderSync = computed<DataTableSortingOrder>({
     get () {
       if (props.sortingOrder === undefined) {
@@ -64,8 +65,8 @@ export const useSortable = (
       if (props.sortingOrder === undefined) {
         sortingOrderFallback.value = value
       }
-
-      emit('update:sortingOrder', value)
+      const columnName = sortedColumn.value
+      emit('update:sortingOrder', { value, columnName })
     },
   })
 
@@ -129,6 +130,7 @@ export const useSortable = (
   // Sets the clicked heading's column as a one to sort by and toggles the sorting order from "asc" to "desc" to `null`
   // (un-sorted) if the same column is clicked again or sets sorting order to "asc" if some other column is chosen.
   function toggleSorting (column: DataTableColumnInternal) {
+    sortedColumn.value = column.key
     if (column.name === sortBySync.value) {
       sortingOrderSync.value = getNextSortingOptionsValue(sortingOrderSync.value, column.sortingOptions)
     } else {
