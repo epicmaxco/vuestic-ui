@@ -11,7 +11,7 @@
         class="va-time-input__anchor"
         :style="cursorStyleComputed"
         v-bind="computedInputWrapperProps"
-        @click.stop="showDropdown"
+        @click.stop="toggleDropdown"
       >
         <template #default>
           <input
@@ -41,12 +41,9 @@
           />
           <va-icon
             v-if="$props.leftIcon"
-            class="va-time-input__left-button"
+            class="va-time-input__left-button va-time-input__side-button"
             :aria-label="tp($props.ariaToggleDropdownLabel)"
             v-bind="iconProps"
-            @click.stop="showDropdown"
-            @keydown.enter.stop="showDropdown"
-            @keydown.space.stop="showDropdown"
           />
         </template>
 
@@ -62,11 +59,8 @@
           />
           <va-icon
             v-if="!$props.leftIcon && $props.icon"
-            class="va-time-input__right-button"
+            class="va-time-input__right-button va-time-input__side-button"
             :aria-label="tp($props.ariaToggleDropdownLabel)"
-            @click.stop="showDropdown"
-            @keydown.enter.stop="showDropdown"
-            @keydown.space.stop="showDropdown"
             v-bind="iconProps"
           />
         </template>
@@ -407,4 +401,8 @@ export default defineComponent({
 
 <style lang="scss">
 @import "variables";
+
+.va-time-input__side-button {
+  pointer-events: var(--va-time-input-side-button-pointer-events);
+}
 </style>
