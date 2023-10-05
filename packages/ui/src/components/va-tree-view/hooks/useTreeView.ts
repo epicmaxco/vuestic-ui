@@ -162,7 +162,6 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
 
   const getFilteredNodes = (nodes: TreeNode[]): TreeNode[] => nodes.filter((node) => {
     if (node.children) { node.children = getFilteredNodes(node.children) }
-
     if (node.children.length === 0) { node.hasChildren = false }
 
     return node.matchesFilter
