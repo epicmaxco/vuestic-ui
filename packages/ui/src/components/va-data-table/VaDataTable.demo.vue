@@ -29,7 +29,7 @@
         <option value="desc">Descending</option>
       </select>
 
-      <h3>Selection</h3>
+      <h3>Selections</h3>
       <p>Selected items' ids (currently <strong>{{selectedItemsIds.length}}</strong> total) (click an id to unselect it):
         <span
           v-for="selectedItem in selectedItemsIds"
@@ -99,6 +99,7 @@
         :clickable="clickable"
         sticky-header
         style="--scroll-table-height: 250px; --scroll-table-color: orange;"
+        @update:columnSorted="sorted($event)"
       />
     </VbCard>
 
@@ -482,9 +483,9 @@
       <va-data-table :items="evenItemsShuffled" :columns="evenColumnsSortable" v-model:sort-by="sortByModel" v-model:sorting-order="sortingOrderModel" />
     </VbCard>
 
-    <VbCard title="Pagination" class="demo">
+    <VbCard title="Paginationser" class="demo">
       {{ currentPage }}
-      <va-data-table :items="manyItems" :per-page="10" :current-page="currentPage" />
+      <va-data-table :items="manyItems" :per-page="10" :current-page="currentPage" @update:columnSorted="sorted($event)" @update:sortingOrder="sorted($event)"  />
       <va-pagination v-model="currentPage" input :pages="100" />
     </VbCard>
 
@@ -777,6 +778,9 @@ export default defineComponent({
 
     filter (source: any) {
       return source?.toString?.() === (this as any).filterValue
+    },
+    sorted (columnSorted) {
+      console.log(columnSorted)
     },
   },
 })

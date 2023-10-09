@@ -13,13 +13,14 @@ import type {
 export const useSortableProps = {
   ...useThrottleProps,
   sortBy: { type: String as PropType<string | undefined> },
+  columnSorted: { type: String as PropType<string | undefined> },
   sortingOrder: { type: String as PropType<DataTableSortingOrder | undefined> },
 }
 
 export type TSortedArgs = { sortBy: string, sortingOrder: DataTableSortingOrder, items: DataTableItem[], itemsIndexes: number[] }
 
 export type TSortableEmits = (
-  event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
+  event: 'update:sortBy' | 'update:sortingOrder' | 'sorted' | 'update:columnSorted',
   args: string | DataTableSortingOrder | TSortedArgs,
 ) => void
 
@@ -51,7 +52,7 @@ export const useSortable = (
   })
 
   const sortingOrderFallback = ref(null as DataTableSortingOrder)
-  const sortedColumn = ref(null as string)
+  const sortedColumn = ref(null as unknown as string)
   const sortingOrderSync = computed<DataTableSortingOrder>({
     get () {
       if (props.sortingOrder === undefined) {
@@ -66,7 +67,9 @@ export const useSortable = (
         sortingOrderFallback.value = value
       }
       const columnName = sortedColumn.value
-      emit('update:sortingOrder', { value, columnName })
+
+      emit('update:columnSorted', columnName)
+      emit('update:sortingOrder', value)
     },
   })
 

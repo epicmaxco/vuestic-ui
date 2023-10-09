@@ -157,6 +157,7 @@
         :columns="columns"
         v-model:sort-by="sortBy"
         v-model:sorting-order="sortingOrder"
+        @update:modelValue="sorted($event)"
       >
         <template #header(street)="{ label }">{{ label }}</template>
         <template #header(companyName)>Company Name</template>
@@ -218,6 +219,7 @@
         :items="items"
         :per-page="perPage"
         :current-page="currentPage"
+        @update:columnSorted="sorted($event)"
       >
         <template #header(address)>Street</template>
         <template #header(company)>Company Name</template>
@@ -455,6 +457,9 @@ export default defineComponent({
       return (item.name === 'Ervin Howell')
         ? { class: 'customRowClass' }
         : undefined
+    },
+    sorted (columnSorted) {
+      console.log(columnSorted)
     },
   },
 })

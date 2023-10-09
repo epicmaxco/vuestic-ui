@@ -231,6 +231,7 @@ const VaDataTableThRowProps = extractComponentProps(VaDataTableThRow)
 type emitNames = 'update:modelValue' |
   'update:sortBy' |
   'update:sortingOrder' |
+  'update:columnSorted' |
   'filtered' |
   'sorted' |
   'selectionChange' |
@@ -289,6 +290,7 @@ export default defineComponent({
     'update:modelValue', // `modelValue` is selectedItems
     'update:sortBy',
     'update:sortingOrder',
+    'update:columnSorted',
     'filtered',
     'sorted',
     'selectionChange',
