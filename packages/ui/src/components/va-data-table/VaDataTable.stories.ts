@@ -59,6 +59,30 @@ export const FilteredEvent = () => ({
   `,
 })
 
+export const ColumnSortedEvent = () => ({
+  components: { VaDataTable },
+  data: () => ({
+    columns: defineVaDataTableColumns([
+      { key: 'name', sortable: true },
+      { key: 'email', sortable: true },
+    ]) satisfies Columns,
+    items,
+    e: null,
+    sortBy: 'name',
+    sortingOrder: 'asc',
+  }),
+  template: `
+    <p>[sortBy]: {{ sortBy }}</p>
+    <p>[sortingOrder]: {{ sortingOrder }}</p>
+    <p>[emitted]: {{ e }}</p>
+    <VaDataTable
+      v-model:sort-by="sortBy"
+      v-model:sorting-order="sortingOrder"
+      :items="items" :columns="columns" @columnSorted="e = $event"
+    />
+  `,
+})
+
 export const PaginationAnimation = () => ({
   components: { VaDataTable, VaPagination },
   data: () => ({ columns, items, currentPage: 1, pages: 3 }),

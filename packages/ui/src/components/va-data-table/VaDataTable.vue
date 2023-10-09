@@ -297,6 +297,7 @@ export default defineComponent({
     'row:click',
     'row:dblclick',
     'row:contextmenu',
+    'columnSorted',
     ...useTableScrollEmits,
   ],
 
