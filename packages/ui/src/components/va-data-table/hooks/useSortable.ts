@@ -13,7 +13,7 @@ import type {
 export const useSortableProps = {
   ...useThrottleProps,
   sortBy: { type: String as PropType<string | undefined> },
-  columnSorted: { type: String as PropType<string | undefined> },
+  columnSorted: { type: Object as PropType<any | undefined> },
   sortingOrder: { type: String as PropType<DataTableSortingOrder | undefined> },
 }
 
@@ -68,7 +68,7 @@ export const useSortable = (
       }
       const columnName = sortedColumn.value
 
-      emit('update:columnSorted', columnName)
+      emit('update:columnSorted', { columnName, value })
       emit('update:sortingOrder', value)
     },
   })
