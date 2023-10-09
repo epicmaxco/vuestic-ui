@@ -31,7 +31,7 @@ type Capitalize<S extends string> = S extends `${infer First}${infer Rest}`
 type OnColors = `on${Capitalize<keyof EssentialVariables>}`
 
 export type ColorVariables = { [colorName: string]: CssColor } & EssentialVariables & {
-  [key in OnColors]: CssColor
+  [key in OnColors]?: CssColor
 }
 
 export type ColorConfig = {
