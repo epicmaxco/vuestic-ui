@@ -17,7 +17,7 @@
       </VaDropdownContent>
     </template>
   </va-dropdown> -->
-  <va-menu-list :options="options" @option-click="$emit('option-click', $event)">
+  <va-menu-list :options="options" :color="$props.color" @option-click="$emit('option-click', $event)">
     <template #left-icon>
       <slot name="left-icon" />
     </template>
@@ -39,7 +39,7 @@ export default defineComponent({
   props: {
     ...useSelectableListProps,
     ...VaDropdownProps,
-
+    color: { type: String, default: 'primary' },
   },
   setup (props) {
     const doShowDropdown = ref(false)

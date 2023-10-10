@@ -77,6 +77,25 @@ export const SlotUsage = () => ({
   `,
 })
 
+export const Color = () => ({
+  components: { VaMenuList, VaMenuItem, VaMenuGroup },
+
+  data: () => ({
+    options: [
+      { id: '0', text: 'one', value: 'one', icon: 'accessible_forward' },
+      { id: '1', text: 'two', value: 'two', icon: '', rightIcon: 'home' },
+      { id: '2', text: 'three', value: 'three', icon: 'accessible_forward', rightIcon: '' },
+      { id: '3', text: 'four', value: 'four', icon: '', rightIcon: 'accessible_forward' },
+      { id: '4', text: 'five', value: 'five', icon: 'search', rightIcon: '' },
+    ],
+    value: false,
+  }),
+
+  template: `
+    <VaMenuList color="warning" :options="options" />
+  `,
+})
+
 export const WithDivider = () => ({
   components: { VaMenuList, VaMenuItem, VaMenuGroup, VaDivider, VaButton },
 

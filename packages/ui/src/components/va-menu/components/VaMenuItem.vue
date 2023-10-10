@@ -30,6 +30,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
 import { VaIcon } from '../../va-icon/'
+import { useColors } from '../../../composables'
 
 export default defineComponent({
   name: 'VaMenuItem',
@@ -39,9 +40,17 @@ export default defineComponent({
     icon: { type: String, defatult: '' },
     rightIcon: { type: String, defatult: '' },
     disabled: { type: Boolean, default: false },
+    color: { type: String, default: 'primary' },
   },
   setup (props) {
-    return {}
+    const { getColor, getHoverColor, getFocusColor } = useColors()
+
+    const hoverColor = computed(() => getHoverColor(getColor(props.color)))
+    const focusColor = computed(() => getFocusColor(getColor(props.color)))
+
+    return {
+      hoverColor,
+    }
   },
 })
 </script>
@@ -85,7 +94,7 @@ export default defineComponent({
   }
 
   &:hover {
-    background-color: lightgray;
+    background-color: v-bind("hoverColor");
   }
 
   &--disabled {

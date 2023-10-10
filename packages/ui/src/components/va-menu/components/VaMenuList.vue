@@ -19,6 +19,7 @@
           :name="getText(option)" :icon="option.icon"
           :right-icon="option.rightIcon"
           :disabled="getDisabled(option)"
+          :color="color"
           @option-click="$emit('option-click', getValue(option))"
         >
           <template #left-icon>
@@ -31,11 +32,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, shallowRef, watch, computed, VNode, h } from 'vue'
+import { defineComponent, PropType, computed, VNode } from 'vue'
 import VaMenuItem from './VaMenuItem.vue'
 import VaMenuGroup from './VaMenuGroup.vue'
 import { VaMenuOption } from '../types'
-import { SelectableOption, useSelectableList, useSelectableListProps } from '../../../composables'
+import { useColors, useSelectableList, useSelectableListProps } from '../../../composables'
 
 export default defineComponent({
   name: 'VaMenuList',
@@ -43,6 +44,7 @@ export default defineComponent({
   props: {
     ...useSelectableListProps,
     options: { type: Array as PropType<VaMenuOption[]>, default: () => [] },
+    color: { type: String, default: 'primary' },
   },
   setup (props) {
     const { getText, getValue, getDisabled, getGroupBy, getTrackBy } = useSelectableList(props)
@@ -63,7 +65,6 @@ export default defineComponent({
       }, { _noGroup: [] }))
 
     const getVNodeComponentName = (node: VNode) => {
-      console.log(h(node))
       if (typeof node.type === 'object' && 'name' in node.type && typeof node.type.name === 'string') {
         return node.type.name
       }
@@ -83,7 +84,12 @@ export default defineComponent({
       return String(node.key)
     }
 
+    const { getColor } = useColors()
+
+    const colorComputed = computed(() => getColor(props.color))
+
     return {
+      colorComputed,
       getVNodeComponentName,
       getVNodeKey,
       getText,
@@ -106,7 +112,7 @@ export default defineComponent({
 
   &__group-name {
     font-size: 0.8em;
-    color: var(--va-primary);
+    color: v-bind("colorComputed");
   }
 }
 </style>
