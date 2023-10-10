@@ -400,9 +400,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "variables";
 
 .va-time-input__side-button {
-  pointer-events: var(--va-time-input-side-button-pointer-events);
+  pointer-events: none;
 }
 </style>
