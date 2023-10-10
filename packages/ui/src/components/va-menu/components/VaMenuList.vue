@@ -1,30 +1,45 @@
 <template>
-  <div class="va-menu-list">
-    <template v-for="(options, groupName) in optionGroups" :key="groupName">
-      <span v-if="groupName !== '_noGroup'" class="va-select-option-list__group-name">
-        {{ groupName }}
-      </span>
-      <template v-for="(option) in options" :key="getTrackBy(option)">
-        <va-menu-item :name="getText(option)" :icon="option.icon" :right-icon="option.rightIcon"
-          :disabled="getDisabled(option)" @option-click="$emit('option-click', getValue(option))">
+  <table class="va-menu-list">
+    <template v-if="$slots.default">
+      <template v-for="child in $slots.default()">
+        <component v-if="getVNodeComponentName(child) === 'VaMenuItem'" :is="child" :key="getVNodeKey(child) + 'menuitem'" />
+        <tr v-else :key="getVNodeKey(child)">
+          <td colspan="99999">
+            <component :is="child" />
+          </td>
+        </tr>
+      </template>
+    </template>
+    <slot v-else>
+      <template v-for="(options, groupName) in optionGroups" :key="groupName">
+        <VaMenuGroup v-if="groupName !== '_noGroup'" :group-name="groupName" />
+        <VaMenuItem
+          v-for="(option) in options"
+          :key="getTrackBy(option)"
+          :name="getText(option)" :icon="option.icon"
+          :right-icon="option.rightIcon"
+          :disabled="getDisabled(option)"
+          @option-click="$emit('option-click', getValue(option))"
+        >
           <template #left-icon>
             <slot name="left-icon" />
           </template>
-        </va-menu-item>
+        </VaMenuItem>
       </template>
-    </template>
-  </div>
+    </slot>
+  </table>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, shallowRef, watch, computed } from 'vue'
+import { defineComponent, PropType, ref, shallowRef, watch, computed, VNode, h } from 'vue'
 import VaMenuItem from './VaMenuItem.vue'
+import VaMenuGroup from './VaMenuGroup.vue'
 import { VaMenuOption } from '../types'
 import { SelectableOption, useSelectableList, useSelectableListProps } from '../../../composables'
 
 export default defineComponent({
   name: 'VaMenuList',
-  components: { VaMenuItem },
+  components: { VaMenuItem, VaMenuGroup },
   props: {
     ...useSelectableListProps,
     options: { type: Array as PropType<VaMenuOption[]>, default: () => [] },
@@ -47,7 +62,30 @@ export default defineComponent({
         return groups
       }, { _noGroup: [] }))
 
+    const getVNodeComponentName = (node: VNode) => {
+      console.log(h(node))
+      if (typeof node.type === 'object' && 'name' in node.type && typeof node.type.name === 'string') {
+        return node.type.name
+      }
+
+      return ''
+    }
+
+    const getVNodeKey = (node: VNode): string => {
+      if (typeof node.type === 'string') {
+        return node.type
+      }
+
+      if (typeof node.type === 'object' && 'name' in node.type && typeof node.type.name === 'string') {
+        return node.type.name
+      }
+
+      return String(node.key)
+    }
+
     return {
+      getVNodeComponentName,
+      getVNodeKey,
       getText,
       getValue,
       getDisabled,
@@ -62,7 +100,13 @@ export default defineComponent({
 <style lang="scss">
 .va-menu-list {
   overflow: auto;
-  display: flex;
-  flex-direction: column;
+  min-width: 200px;
+  table-layout: fixed;
+  width: max-content;
+
+  &__group-name {
+    font-size: 0.8em;
+    color: var(--va-primary);
+  }
 }
 </style>

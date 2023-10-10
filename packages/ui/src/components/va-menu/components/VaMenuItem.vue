@@ -1,24 +1,30 @@
 <template>
-  <button class="va-menu-item"
+  <tr class="va-menu-item"
     :class="{
       'va-menu-item--disabled': disabled
     }"
     @click.stop="disabled ? '' : $emit('option-click', $event)"
   >
-    <slot name="left-icon">
-      <VaIcon class="va-menu-item__icon--left" v-if="icon" :name="icon" />
-    </slot>
-    <a class="va-menu-item__content" :style="{
-      paddingLeft: icon ? '' : '24px',
-      paddingRight: rightIcon ? 0 : '24px',
-    }">
-      {{ name }}
-    </a>
-    <slot name="right-icon">
-      <VaIcon v-if="rightIcon" class="va-menu-item__icon--right" :name="rightIcon" />
-      <div v-else />
-    </slot>
-  </button>
+    <td class="va-menu-item__cell va-menu-item__cell--left">
+      <slot name="left-icon">
+        <VaIcon class="va-menu-item__icon--left" v-if="icon" :name="icon" />
+      </slot>
+    </td>
+
+    <td class="va-menu-item__cell va-menu-item__cell--center">
+      <slot>
+        <a class="va-menu-item__content">
+          {{ name }}
+        </a>
+      </slot>
+    </td>
+
+    <td class="va-menu-item__cell va-menu-item__cell--right">
+      <slot name="right-icon">
+        <VaIcon v-if="rightIcon" class="va-menu-item__icon--right" :name="rightIcon" />
+      </slot>
+    </td>
+  </tr>
 </template>
 
 <script lang="ts">
@@ -42,16 +48,40 @@ export default defineComponent({
 
 <style lang="scss">
 .va-menu-item {
-  display: flex;
+  display: table-row;
   cursor: pointer;
   padding: 18px;
-  align-items: center;
-  justify-content: space-evenly;
 
-  &__content {
-    min-width: 200px;
-    text-align: left;
-    // margin: 0 8px;
+  --padding-x: 12px;
+  --padding-y: 4px;
+
+  &__cell {
+    display: table-cell;
+    vertical-align: middle;
+
+    &--center {
+      padding: var(--padding-y) var(--padding-x);
+      text-align: left;
+      width: 100%;
+    }
+
+    &--left, &--right {
+      padding: 0 var(--padding-x);
+      text-align: center;
+      min-width: 1px;
+
+      &:empty {
+        padding: 0;
+      }
+    }
+
+    &--left {
+      padding-right: 0;
+    }
+
+    &--right {
+      padding-left: 0;
+    }
   }
 
   &:hover {
@@ -61,16 +91,6 @@ export default defineComponent({
   &--disabled {
     opacity: 0.5;
     cursor: not-allowed;
-  }
-
-  &__icon {
-    &--left {
-      margin-right: 0;
-    }
-
-    &--right {
-      margin-left: 0;
-    }
   }
 }
 </style>
