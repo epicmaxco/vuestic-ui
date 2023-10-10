@@ -40,8 +40,10 @@ export const ReactiveObject = () => ({
   components: { VaValue, VaInput },
   template: `
     <VaValue :defaultValue="{ name: '', age: 0 }" #default="v">
-      <VaInput v-model="v.name" label="name" />
-      <VaInput v-model="v.age" label="age" />
+      [name]: {{ v.value.name }}<br />
+      [age]: {{ v.value.age }}
+      <VaInput v-model="v.value.name" label="name" />
+      <VaInput v-model="v.value.age" label="age" />
     </VaValue>
   `,
 })
