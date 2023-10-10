@@ -221,6 +221,8 @@ export default defineComponent({
 .va-collapse {
   transition: var(--va-collapse-transition, var(--va-swing-transition));
   font-family: var(--va-font-family);
+  display: flex;
+  flex-direction: column;
 
   &__body-wrapper {
     transition: var(--va-collapse-body-wrapper-transition);
@@ -228,6 +230,7 @@ export default defineComponent({
 
     &--bordered {
       border-bottom: 1px solid var(--va-background-border);
+      box-sizing: content-box;
 
       .va-collapse--colored-header:not(.va-collapse--expanded) & {
         border-bottom: none;
