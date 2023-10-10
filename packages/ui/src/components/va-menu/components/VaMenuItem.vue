@@ -1,19 +1,24 @@
 <template>
-  <div class="va-menu-item"
+  <button class="va-menu-item"
     :class="{
       'va-menu-item--disabled': disabled
     }"
     @click.stop="disabled ? '' : $emit('option-click', $event)"
   >
-    <VaIcon class="va-menu-item__icon--left" v-if="icon" :name="icon" />
+    <slot name="left-icon">
+      <VaIcon class="va-menu-item__icon--left" v-if="icon" :name="icon" />
+    </slot>
     <a class="va-menu-item__content" :style="{
       paddingLeft: icon ? '' : '24px',
       paddingRight: rightIcon ? 0 : '24px',
     }">
       {{ name }}
     </a>
-    <VaIcon class="va-menu-item__icon--right" v-if="rightIcon" :name="rightIcon" />
-  </div>
+    <slot name="right-icon">
+      <VaIcon v-if="rightIcon" class="va-menu-item__icon--right" :name="rightIcon" />
+      <div v-else />
+    </slot>
+  </button>
 </template>
 
 <script lang="ts">
@@ -40,10 +45,13 @@ export default defineComponent({
   display: flex;
   cursor: pointer;
   padding: 18px;
+  align-items: center;
+  justify-content: space-evenly;
 
   &__content {
     min-width: 200px;
-    margin: 0 8px;
+    text-align: left;
+    // margin: 0 8px;
   }
 
   &:hover {

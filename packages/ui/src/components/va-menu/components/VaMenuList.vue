@@ -6,7 +6,11 @@
       </span>
       <template v-for="(option) in options" :key="getTrackBy(option)">
         <va-menu-item :name="getText(option)" :icon="option.icon" :right-icon="option.rightIcon"
-          :disabled="getDisabled(option)" @option-click="$emit('option-click', getValue(option))" />
+          :disabled="getDisabled(option)" @option-click="$emit('option-click', getValue(option))">
+          <template #left-icon>
+            <slot name="left-icon" />
+          </template>
+        </va-menu-item>
       </template>
     </template>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <va-dropdown class="va-dropdown" v-model="doShowDropdown" v-bind="dropdownProps">
+  <va-dropdown class="va-dropdown" v-bind="dropdownProps" stick-to-edges v-model="doShowDropdown">
     <template #anchor>
       <slot name="anchor">
         <VaButton>
@@ -10,6 +10,9 @@
     <template #default>
       <VaDropdownContent :no-padding="true">
         <va-menu-list :options="options" @option-click="$emit('option-click', $event)">
+          <template #left-icon>
+            <slot name="left-icon" />
+          </template>
         </va-menu-list>
       </VaDropdownContent>
     </template>
