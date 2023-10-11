@@ -133,7 +133,7 @@ export const WithDropdown = () => ({
         User 2
 
         <template #right-icon>
-          <VaDropdown placement="right-start" stickToEdges>
+          <VaDropdown placement="right-start" stickToEdges trigger="hover">
             <template #anchor="{ isOpened }">
               <VaIcon :name="isOpened ? 'chevron_left': 'chevron_right'" />
             </template>
@@ -147,7 +147,7 @@ export const WithDropdown = () => ({
                   Group 2
 
                   <template #right-icon>
-                    <VaDropdown placement="right-start" stickToEdges>
+                    <VaDropdown placement="right-start" stickToEdges trigger="hover">
                       <template #anchor="{ isOpened }">
                         <VaIcon :name="isOpened ? 'chevron_left': 'chevron_right'" />
                       </template>
@@ -170,6 +170,15 @@ export const WithDropdown = () => ({
           </VaDropdown>
         </template>
       </VaMenuItem>
+
+      <VaDropdown placement="right-start" stickToEdges trigger="hover">
+        <template #anchor="{ isOpened }">
+          <VaMenuItem :rightIcon="isOpened ? 'chevron_left': 'chevron_right'">
+            AA
+          </VaMenuItem>
+        </template>
+          BBB
+      </VaDropdown>
     </VaMenuList>
   `,
 })
