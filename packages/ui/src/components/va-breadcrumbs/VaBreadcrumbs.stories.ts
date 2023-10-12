@@ -1,4 +1,5 @@
 import { VaBreadcrumbs, VaBreadcrumbsItem } from './'
+import { addText } from '../../../.storybook/interaction-utils/addText'
 
 export default {
   title: 'VaBreadcrumbs',
@@ -20,27 +21,26 @@ export const Default = () => ({
 export const Disabled = () => ({
   components: { VaBreadcrumbs, VaBreadcrumbsItem },
   template: `
-    [true]
-    <va-breadcrumbs>
-      <va-breadcrumbs-item 
-        label="No route"
-        disabled
-      />
-      <va-breadcrumbs-item 
-        label="With route"
-        to="/"
-        disabled 
-      />
-    </va-breadcrumbs>
     [false]
     <va-breadcrumbs>
       <va-breadcrumbs-item label="No route"/>
-      <va-breadcrumbs-item 
+      <va-breadcrumbs-item
+          label="With route"
+          to="/"
+      />
+    </va-breadcrumbs>
+    [true]
+    <va-breadcrumbs>
+      <va-breadcrumbs-item
+        label="No route"
+        disabled
+      />
+      <va-breadcrumbs-item
         label="With route"
         to="/"
-        :disabled="false"
+        disabled
       />
-    </va-breadcrumbs :disabled="false">
+    </va-breadcrumbs>
   `,
 })
 
@@ -54,6 +54,11 @@ export const Color = () => ({
     </va-breadcrumbs>
   `,
 })
+addText(
+  Color,
+  'Active item doesn\'t have a way to color it, only categories do',
+  'broken',
+)
 
 export const ActiveColor = () => ({
   components: { VaBreadcrumbs, VaBreadcrumbsItem },
@@ -85,7 +90,7 @@ export const SeparatorSlot = () => ({
       <va-breadcrumbs-item label="Two" />
       <va-breadcrumbs-item label="Three" />
       <template #separator>
-        :
+        --
       </template>
     </va-breadcrumbs>
   `,
@@ -105,41 +110,43 @@ export const SeparatorColor = () => ({
 export const Align = () => ({
   components: { VaBreadcrumbs, VaBreadcrumbsItem },
   template: `
-    [left]
-    <va-breadcrumbs align="left">
-      <va-breadcrumbs-item label="One" />
-      <va-breadcrumbs-item label="Two" />
-      <va-breadcrumbs-item label="Three" />
-    </va-breadcrumbs>
-    [center]
-    <va-breadcrumbs align="center">
-      <va-breadcrumbs-item label="One" />
-      <va-breadcrumbs-item label="Two" />
-      <va-breadcrumbs-item label="Three" />
-    </va-breadcrumbs>
-    [right]
-    <va-breadcrumbs align="right">
-      <va-breadcrumbs-item label="One" />
-      <va-breadcrumbs-item label="Two" />
-      <va-breadcrumbs-item label="Three" />
-    </va-breadcrumbs>
-    [between]
-    <va-breadcrumbs align="between">
-      <va-breadcrumbs-item label="One" />
-      <va-breadcrumbs-item label="Two" />
-      <va-breadcrumbs-item label="Three" />
-    </va-breadcrumbs>
-    [around]
-    <va-breadcrumbs align="around">
-      <va-breadcrumbs-item label="One" />
-      <va-breadcrumbs-item label="Two" />
-      <va-breadcrumbs-item label="Three" />
-    </va-breadcrumbs>
-    [stretch]
-    <va-breadcrumbs align="stretch">
-      <va-breadcrumbs-item label="One" />
-      <va-breadcrumbs-item label="Two" />
-      <va-breadcrumbs-item label="Three" />
-    </va-breadcrumbs>
+    <div style="max-width: 300px">
+      [left]
+      <va-breadcrumbs>
+        <va-breadcrumbs-item label="One" />
+        <va-breadcrumbs-item label="Two" />
+        <va-breadcrumbs-item label="Three" />
+      </va-breadcrumbs>
+      [center]
+      <va-breadcrumbs align="center">
+        <va-breadcrumbs-item label="One" />
+        <va-breadcrumbs-item label="Two" />
+        <va-breadcrumbs-item label="Three" />
+      </va-breadcrumbs>
+      [right]
+      <va-breadcrumbs align="right">
+        <va-breadcrumbs-item label="One" />
+        <va-breadcrumbs-item label="Two" />
+        <va-breadcrumbs-item label="Three" />
+      </va-breadcrumbs>
+      [between]
+      <va-breadcrumbs align="between">
+        <va-breadcrumbs-item label="One" />
+        <va-breadcrumbs-item label="Two" />
+        <va-breadcrumbs-item label="Three" />
+      </va-breadcrumbs>
+      [around]
+      <va-breadcrumbs align="around">
+        <va-breadcrumbs-item label="One" />
+        <va-breadcrumbs-item label="Two" />
+        <va-breadcrumbs-item label="Three" />
+      </va-breadcrumbs>
+      [stretch]
+      <va-breadcrumbs align="stretch">
+        <va-breadcrumbs-item label="One" />
+        <va-breadcrumbs-item label="Two" />
+        <va-breadcrumbs-item label="Three" />
+      </va-breadcrumbs>
+    </div>
   `,
 })
