@@ -303,7 +303,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'layout',
         displayName: 'Layout',
         meta: {
-          badge: navigationBadge.new('1.7.2'),
+          badge: navigationBadge.new('1.8.0'),
         }
       },
       {

@@ -190,6 +190,16 @@ const date = getStaticDate()
         <div style="width: 100%;">
           <VaInputWrapper label="Label Label Label Label Label Label Label Label Label Label Label Label Label " />
         </div>
+
+        <label>Large height div</label>
+        <div style="height: 100px;">
+          <VaInputWrapper label="Label Label Label Label Label Label Label Label Label Label Label Label Label " />
+        </div>
+
+        <label>Large height va-input</label>
+        <div>
+          <VaInputWrapper style="height: 100px;" label="Label Label Label Label Label Label Label Label Label Label Label Label Label " />
+        </div>
       </div>
     </VbCard>
   </VbDemo>

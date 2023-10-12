@@ -4,7 +4,8 @@ createVuestic({
       presets: {
         light: {
           primary: '#f0f0f0',
-          myCoolColor: '#f00f0f',
+          myCoolColor: '#ff00ff',
+          onMyCoolColor: '#ffffff',
         }
       }
     },

@@ -98,3 +98,9 @@ export const CounterSlot = () => ({
   </VaTextarea>
 `,
 })
+
+export const CustomHeight = () => ({
+  components: { VaTextarea },
+  data: () => ({ value: 'Lorem Ipsum' }),
+  template: '<VaTextarea style="height: 300px" :max-length="30" v-model="value" />',
+})

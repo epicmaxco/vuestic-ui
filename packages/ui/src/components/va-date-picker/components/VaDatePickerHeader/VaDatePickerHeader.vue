@@ -10,7 +10,7 @@
         preset="plain"
         size="small"
         :color="color"
-        :textColor="'currentColor'"
+        :textColor="currentColor"
         :aria-label="tp($props.ariaPreviousPeriodLabel)"
         round
         @click="prev"
@@ -24,7 +24,7 @@
           preset="plain"
           size="small"
           :color="color"
-          :textColor="'currentColor'"
+          :textColor="currentColor"
           :aria-label="tp($props.ariaSwitchViewLabel)"
           @click="switchView"
         >
@@ -44,7 +44,7 @@
         preset="plain"
         size="small"
         :color="color"
-        :textColor="'currentColor'"
+        :textColor="currentColor"
         :aria-label="tp($props.ariaNextPeriodLabel)"
         @click="next"
         round
@@ -61,7 +61,7 @@ import { useView } from '../../hooks/view'
 import { DatePickerView } from '../../types'
 
 import { VaButton } from '../../../va-button'
-import { useTranslation } from '../../../../composables'
+import { useCurrentElement, useElementTextColor, useElementBackground, useTranslation } from '../../../../composables'
 
 export default defineComponent({
   name: 'VaDatePickerHeader',
@@ -93,8 +93,11 @@ export default defineComponent({
       syncView.value = view
     }
 
+    const currentColor = useElementTextColor(useElementBackground(useCurrentElement()))
+
     return {
       ...useTranslation(),
+      currentColor,
       prev,
       next,
       changeView,

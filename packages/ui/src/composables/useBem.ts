@@ -7,7 +7,7 @@ import { isDev } from '../utils/env'
 
 type Key<Prefix extends string, ModifierKey extends string> = `${Prefix}--${ModifierKey}`
 
-type ClassesObject<Key extends string> = Record<Key, boolean>
+type ClassesObject<Key extends string> = Record<Key, boolean | undefined>
 
 type ComputedClasses<Key extends string> = ClassesObject<Key> & {
   // TODO: How to remove it from spread?
@@ -32,7 +32,7 @@ type ComputedClasses<Key extends string> = ClassesObject<Key> & {
  */
 export const useBem = <ModifierKey extends string, Prefix extends string>(
   prefix: Prefix,
-  modifiers: Record<ModifierKey, boolean> | Ref<Record<ModifierKey, boolean>> | (() => Record<ModifierKey, boolean>),
+  modifiers: Record<ModifierKey, boolean | undefined> | Ref<Record<ModifierKey, boolean | undefined>> | (() => Record<ModifierKey, boolean | undefined>),
 ) => {
   if (isDev && !prefix) {
     console.warn('You must pass the @param "prefix" to the useBem hook!')

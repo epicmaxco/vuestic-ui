@@ -463,3 +463,14 @@ export const LoadingSlot = () => ({
     </VaButton>
   `,
 })
+
+// See: https://github.com/epicmaxco/vuestic-ui/issues/2704
+export const RightShift = () => ({
+  components: { VaButton },
+  template: `
+    <div>
+      <VaButton>Text</VaButton>
+      <VaButton icon="phone">Text2</VaButton>
+    </div>
+  `,
+})

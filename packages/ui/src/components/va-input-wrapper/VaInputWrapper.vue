@@ -146,7 +146,6 @@ export default defineComponent({
     placeholder: { type: String, default: '' },
     color: { type: String, default: 'primary' },
     background: { type: String },
-    error: { type: Boolean, default: false },
     success: { type: Boolean, default: false },
     loading: { type: Boolean, default: false },
     requiredMark: { type: Boolean, default: false },
@@ -257,12 +256,14 @@ export default defineComponent({
 
     display: flex;
     flex-direction: column;
+    height: 100%;
   }
 
   &__container {
     display: flex;
     align-items: center;
     gap: var(--va-input-content-items-gap);
+    flex: 1;
   }
 
   &__field {
@@ -280,6 +281,7 @@ export default defineComponent({
     z-index: 0;
     overflow: hidden;
     color: v-bind(textColorComputed);
+    align-self: stretch;
 
     @include va-background(var(--va-input-wrapper-background), var(--va-input-wrapper-background-opacity), -1);
 
@@ -307,6 +309,7 @@ export default defineComponent({
     min-height: var(--va-input-line-height);
     display: flex;
     align-items: center;
+    align-self: stretch;
     overflow: hidden;
     caret-color: var(--va-input-wrapper-text-color);
     color: var(--va-input-wrapper-text-color);
@@ -328,6 +331,7 @@ export default defineComponent({
       font-stretch: var(--va-input-font-stretch);
       letter-spacing: var(--va-input-letter-spacing);
       cursor: inherit;
+      align-self: stretch;
 
       &::placeholder {
         color: inherit;
@@ -377,7 +381,6 @@ export default defineComponent({
   // styles
   &--labeled-inner {
     .va-input-wrapper__text {
-      height: 100%;
       padding-top: 12px;
       box-sizing: content-box;
     }

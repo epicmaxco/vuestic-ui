@@ -57,6 +57,7 @@
         'va-collapse__body-wrapper--bordered': !$slots.body && !$slots.header,
       }"
       :style="contentStyle"
+      @transitionend="onTransitionEnd"
     >
       <div
         class="va-collapse__body"
@@ -78,7 +79,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, shallowRef } from 'vue'
+import { computed, defineComponent, ref, shallowRef, watch } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -166,12 +167,27 @@ export default defineComponent({
       role: 'button',
     }))
 
+    const isHeightChanging = ref(false)
+
+    watch(height, (newValue, oldValue) => {
+      // If no transition happened, just got initial height value
+      if (oldValue === undefined) { return }
+      isHeightChanging.value = true
+    })
+
+    const onTransitionEnd = (e: TransitionEvent) => {
+      if (e.propertyName === 'height' && e.target === e.currentTarget) {
+        isHeightChanging.value = false
+      }
+    }
+
     const computedClasses = useBem('va-collapse', () => ({
       ...pick(props, ['disabled']),
       expanded: computedModelValue.value,
       active: computedModelValue.value,
       popout: !!(accordionProps.value.popout && computedModelValue.value),
       inset: !!(accordionProps.value.inset && computedModelValue.value),
+      'height-changing': isHeightChanging.value,
       'colored-body': Boolean(contentBackground.value),
       'colored-header': Boolean(headerBackground.value),
     }))
@@ -182,6 +198,7 @@ export default defineComponent({
     }
 
     return {
+      onTransitionEnd,
       body,
       height,
 
@@ -221,13 +238,16 @@ export default defineComponent({
 .va-collapse {
   transition: var(--va-collapse-transition, var(--va-swing-transition));
   font-family: var(--va-font-family);
+  display: flex;
+  flex-direction: column;
 
   &__body-wrapper {
     transition: var(--va-collapse-body-wrapper-transition);
-    overflow: hidden;
+    overflow: auto;
 
     &--bordered {
       border-bottom: 1px solid var(--va-background-border);
+      box-sizing: content-box;
 
       .va-collapse--colored-header:not(.va-collapse--expanded) & {
         border-bottom: none;
@@ -300,6 +320,14 @@ export default defineComponent({
 
   &--disabled {
     @include va-disabled();
+  }
+
+  &--height-changing {
+    .va-collapse {
+      &__body-wrapper {
+        overflow: hidden;
+      }
+    }
   }
 }
 </style>

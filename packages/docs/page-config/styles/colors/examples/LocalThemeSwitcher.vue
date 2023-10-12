@@ -24,10 +24,6 @@ const primaryColor = ref(palette[0]);
         },
       }"
     >
-      <div class="mb-2">
-        <VaAvatar>M.N.</VaAvatar>
-        Maksim N.
-      </div>
       <VaButton>Play</VaButton>
       <VaButton preset="secondary">Follow</VaButton>
     </VaConfig>
