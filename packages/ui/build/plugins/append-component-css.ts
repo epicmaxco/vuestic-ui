@@ -13,16 +13,35 @@ const parsePath = (path: string) => {
 }
 
 /**
- * Checks if file is Vuestic component script source
- * Component always have script which is stored in file with name like Va[ComponentName].vue_vue_type_script_lang
+ * Checks if file is Vuestic component template source
+ * If file is script source, but there is not template then add css to script.
+ * Component usually have script which is stored in file with name like Va[ComponentName].vue_vue_type_script_lang
+ *
+ * @notice Component can have render function without template block. It also can have only template without script block.
  */
 const isVuesticComponent = (filename: string) => {
-  // Va[ComponentName]-[hash].mjs
-  return /Va\w*-\w*\.mjs$/.test(filename)
+  // Va[ComponentName].vue_vue_type_script_lang.mjs
+  const isScriptFile = /Va\w*.vue_vue_type_script_lang.mjs$/.test(filename)
+
+  if (isScriptFile) {
+    return true
+  }
+
+  // Va[ComponentName].mjs
+  const isTemplateFile = /Va\w*\.mjs$/.test(filename)
+
+  // Va[ComponentName].vue_vue_type_script_lang.mjs
+  const scriptFilePath = filename.replace('.mjs', '.vue_vue_type_script_lang.mjs')
+
+  if (isTemplateFile && !existsSync(scriptFilePath)) {
+    return true
+  }
+
+  return false
 }
 
 const extractVuesticComponentName = (filename: string) => {
-  return filename.match(/(Va\w*)-\w*/)?.[1]
+  return filename.match(/(Va\w*)/)?.[1]
 }
 
 const SOURCE_MAP_COMMENT_FRAGMENT = '//# sourceMappingURL='
