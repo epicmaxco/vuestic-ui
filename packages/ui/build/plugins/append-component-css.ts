@@ -21,8 +21,8 @@ const parsePath = (path: string) => {
  */
 const isVuesticComponent = (filename: string) => {
   // Va[ComponentName].vue_vue_type_script_lang.mjs
-  const isScriptFile = /Va\w*.vue_vue_type_script_lang.mjs$/.test(filename)
-
+  // Va[ComponentName].vue_vue_type_script_setup_true_lang.mjs
+  const isScriptFile = /Va\w*.vue_vue_type_script\w*_lang.mjs$$/.test(filename)
   if (isScriptFile) {
     return true
   }
@@ -32,8 +32,11 @@ const isVuesticComponent = (filename: string) => {
 
   // Va[ComponentName].vue_vue_type_script_lang.mjs
   const scriptFilePath = filename.replace('.mjs', '.vue_vue_type_script_lang.mjs')
+  const scriptSetupFilePath = filename.replace('.mjs', '.vue_vue_type_script_setup_true_lang.mjs')
 
-  if (isTemplateFile && !existsSync(scriptFilePath)) {
+  const haveScript = existsSync(scriptFilePath) || existsSync(scriptSetupFilePath)
+
+  if (isTemplateFile && !haveScript) {
     return true
   }
 

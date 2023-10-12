@@ -35,7 +35,7 @@ export const resolve = {
   },
 }
 
-const rollupOutputOptions = {
+const rollupOutputOptions: RollupOptions['output'] = {
   entryFileNames: '[name].mjs',
   chunkFileNames: '[name].mjs',
   assetFileNames: '[name].[ext]',
