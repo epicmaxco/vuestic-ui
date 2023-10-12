@@ -1,5 +1,6 @@
 import { VaValue } from '.'
 import { VaInput } from '../va-input'
+import { VaButton } from '../va-button'
 import { within, userEvent } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 import { sleep } from '../../utils/sleep'
@@ -11,12 +12,13 @@ export default {
 }
 
 export const Default = () => ({
-  components: { VaValue },
+  components: { VaValue, VaButton },
   template: `
     <VaValue #default="v">
-      <button @click="v.value = !v.value">
-        {{ v.value ? 'clicked' : 'unclicked' }}
-      </button>
+      <p data-testid="value">{{ v }}</p>
+      <VaButton @click="v.value = !v.value">
+        Change
+      </VaButton>
     </VaValue>
   `,
 })
@@ -24,26 +26,25 @@ export const Default = () => ({
 Default.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
   const button = canvas.getByRole('button')
+  const value = canvas.getByTestId('value')
 
-  await step('button text is initially `unclicked`', async () => {
-    expect(button.innerText).toEqual('unclicked')
+  await step('value is false by default', async () => {
+    expect(value.innerText).toEqual('false')
   })
 
-  await step('button text is `clicked` after clicking it', async () => {
+  await step('and can be reassigned', async () => {
     userEvent.click(button)
     await sleep()
-    expect(button.innerText).toEqual('clicked')
+    expect(value.innerText).toEqual('true')
   })
 }
 
-export const ReactiveObject = () => ({
+export const DefaultValue = () => ({
   components: { VaValue, VaInput },
   template: `
-    <VaValue :defaultValue="{ name: '', age: 0 }" #default="v">
-      [name]: {{ v.value.name }}<br />
-      [age]: {{ v.value.age }}
+    <VaValue :defaultValue="{ name: 'Peter' }" #default="v">
+      <p>{{ v.value.name }}</p>
       <VaInput v-model="v.value.name" label="name" />
-      <VaInput v-model="v.value.age" label="age" />
     </VaValue>
   `,
 })
