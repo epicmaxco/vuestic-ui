@@ -162,8 +162,8 @@ export const Size = () => ({
     <div style="display: flex">
       <VaButton size="small">
         Button
-      </VaButton>
-      <VaButton size="small" icon="va-warning"/>
+      </VaButton>&nbsp;
+      <VaButton size="small" icon="va-warning"/>&nbsp;
       <VaButton size="small" icon="va-warning" iconRight="va-warning">
         Button
       </VaButton>
@@ -172,8 +172,8 @@ export const Size = () => ({
     <div style="display: flex">
       <VaButton size="medium">
         Button
-      </VaButton>
-      <VaButton size="medium" icon="va-warning"/>
+      </VaButton>&nbsp;
+      <VaButton size="medium" icon="va-warning"/>&nbsp;
       <VaButton size="medium" icon="va-warning" iconRight="va-warning">
         Button
       </VaButton>
@@ -182,8 +182,8 @@ export const Size = () => ({
     <div style="display: flex">
       <VaButton size="large">
         Button
-      </VaButton>
-      <VaButton size="large" icon="va-warning"/>
+      </VaButton>&nbsp;
+      <VaButton size="large" icon="va-warning"/>&nbsp;
       <VaButton size="large" icon="va-warning" iconRight="va-warning">
         Button
       </VaButton>
@@ -194,19 +194,19 @@ export const Size = () => ({
 export const MultilineText = () => ({
   components: { VaButton },
   template: `
-    [default]
+    <p>[default]</p>
     <VaButton style="width: 150px;">
       Default Button with long text
     </VaButton>
-    [small]
+    <p>[small]</p>
     <VaButton size="small" style="width: 150px;">
       Small Button with long text
     </VaButton>
-    [medium]
+    <p>[medium]</p>
     <VaButton size="medium" style="width: 150px;">
       Medium Button with long text
     </VaButton>
-    [large]
+    <p>[large]</p>
     <VaButton size="large" style="width: 150px;">
       Large Button with long text
     </VaButton>
@@ -216,23 +216,23 @@ export const MultilineText = () => ({
 export const Preset = () => ({
   components: { VaButton },
   template: `
-    [default]
+    <p>[default]</p>
     <VaButton preset="default">
       Button
     </VaButton>
-    [primary]
+    <p>[primary]</p>
     <VaButton preset="primary">
       Button
     </VaButton>
-    [secondary]
+    <p>[secondary]</p>
     <VaButton preset="secondary">
       Button
     </VaButton>
-    [plain]
+    <p>[plain]</p>
     <VaButton preset="plain">
       Button
     </VaButton>
-    [plainOpacity]
+    <p>[plainOpacity]</p>
     <VaButton preset="plainOpacity">
       Button
     </VaButton>
@@ -242,11 +242,12 @@ export const Preset = () => ({
 export const HoverBehavior = () => ({
   components: { VaButton },
   template: `
-    [mask]
+    <p>[mask]</p>
     <VaButton hoverBehavior="mask">
       Button
     </VaButton>
-    [opacity]
+
+    <p>[opacity]</p>
     <VaButton hoverBehavior="opacity">
       Button
     </VaButton>
@@ -277,11 +278,11 @@ export const HoverOpacity = () => ({
 export const PressedBehavior = () => ({
   components: { VaButton },
   template: `
-    [mask]
+    <p>[mask]</p>
     <VaButton pressedBehavior="mask">
       Button
     </VaButton>
-    [opacity]
+    <p>[opacity]</p>
     <VaButton pressedBehavior="opacity">
       Button
     </VaButton>
@@ -324,27 +325,27 @@ export const SizesConfig = () => ({
     sizesConfig: { defaultSize: 24, sizes: { small: 16, medium: 24, large: 32 } },
   }),
   template: `
-    [default: 24px]
+    <p>[default: 24px]</p>
     <VaButton
       :sizesConfig="sizesConfig"
     >
       Button
     </VaButton>
-    [small: 16px]
+    <p>[small: 16px]</p>
     <VaButton
       :sizesConfig="sizesConfig"
       size="small"
     >
       Button
     </VaButton>
-    [medium: 24px]
+    <p>[medium: 24px]</p>
     <VaButton
       :sizesConfig="sizesConfig"
       size="medium"
     >
       Button
     </VaButton>
-    [large: 32px]
+    <p>[large: 32px]</p>
     <VaButton
       :sizesConfig="sizesConfig"
       size="large"
@@ -360,27 +361,27 @@ export const FontSizesConfig = () => ({
     fontSizeConfig: { defaultSize: 0.75, sizes: { small: 0.5, medium: 0.75, large: 1 } },
   }),
   template: `
-    [default: 0.75rem]
+    <p>[default: 0.75rem]</p>
     <VaButton
       :fontSizesConfig="fontSizeConfig"
     >
       Button
     </VaButton>
-    [small: 0.5rem]
+    <p>[small: 0.5rem]</p>
     <VaButton
       :fontSizesConfig="fontSizeConfig"
       size="small"
     >
       Button
     </VaButton>
-    [medium: 0.75rem]
+    <p>[medium: 0.75rem]</p>
     <VaButton
       :fontSizesConfig="fontSizeConfig"
       size="medium"
     >
       Button
     </VaButton>
-    [large: 1rem]
+    <p>[large: 1rem]</p>
     <VaButton
       :fontSizesConfig="fontSizeConfig"
       size="large"
@@ -397,7 +398,7 @@ export const ClickEvent = () => ({
     <VaButton @click="clicked = true">
       Button
     </VaButton>
-    <p>[Clicked: <span data-testid="clicked">{{ clicked }}</span>]</p>
+    <p>Clicked: <span data-testid="clicked">{{ clicked }}</span></p>
   `,
 })
 
@@ -408,6 +409,7 @@ ClickEvent.play = async ({ canvasElement, step }) => {
   await step('True on click', async () => {
     const button = document.querySelector('[type="button"]') as HTMLElement
 
+    expect(clickState.innerText).toEqual('false')
     await userEvent.click(button)
     expect(clickState.innerText).toEqual('true')
   })
@@ -417,11 +419,11 @@ export const FocusAndBlurMethods = () => ({
   components: { VaButton },
   template: `
     <VaButton ref="button">
-      Main Button 
-    </VaButton>
+      Main Button
+    </VaButton>&nbsp;
     <VaButton @click="$refs.button.focus()">
       Focus Button
-    </VaButton>
+    </VaButton>&nbsp;
     <VaButton @click="$refs.button.blur()">
       Blur Button
     </VaButton>
@@ -432,10 +434,10 @@ export const AppendSlot = () => ({
   components: { VaButton },
   template: `
     <VaButton>
+      Button
       <template #append>
         [append]
       </template>
-      Button
     </VaButton>
   `,
 })
@@ -469,7 +471,7 @@ export const RightShift = () => ({
   components: { VaButton },
   template: `
     <div>
-      <VaButton>Text</VaButton>
+      <VaButton>Text</VaButton>&nbsp;
       <VaButton icon="phone">Text2</VaButton>
     </div>
   `,
