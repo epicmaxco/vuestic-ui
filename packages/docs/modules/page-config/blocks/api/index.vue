@@ -144,7 +144,7 @@ const methodsOptions = computed(() => Object
 
 const cssVariablesOptions = computed(() => props.cssVariables.map(([name, value, comment]) => ({
   name, value, /* comment */ // TODO: Enable comment when everywhere is used correct comments
-  // TODO: Or add tanslations after i18n splitted
+  // TODO: Or add translations after i18n splitted
 })))
 
 const isValueIsDefaultTranslation = (value: String) => {

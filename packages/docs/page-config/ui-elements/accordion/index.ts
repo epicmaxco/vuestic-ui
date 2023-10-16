@@ -26,7 +26,7 @@ export default definePageConfig({
     block.link("See example with VaSidebarItem", "/ui-elements/sidebar-item#advanced-case-with-va-accordion"),
 
     block.subtitle("Accessibility"),
-    block.paragraph("Expand/collapse of accordion item in focus is dependent on `mutilple` prop, for other accessbility information see [VaCollapse accessibility section](/ui-elements/collapse#all-accessibility)[[target=_blank]]."),
+    block.paragraph("Expand/collapse of accordion item in focus is dependent on `multiple` prop, for other accessability information see [VaCollapse accessibility section](/ui-elements/collapse#all-accessibility)[[target=_blank]]."),
 
     block.subtitle("API"),
     block.api("VaAccordion", apiDescription, apiOptions),

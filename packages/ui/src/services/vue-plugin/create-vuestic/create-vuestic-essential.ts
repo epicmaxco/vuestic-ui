@@ -12,7 +12,7 @@ const ESSENTIAL_PLUGIN_NAMES = ['GlobalConfigPlugin', 'ColorConfigPlugin']
  * Register only essential Vuestic Plugins.
  *
  * This plugin will register globally only provided component and plugins in options.
- * @notice this plugin will not bundle all vuestic conponents and plugins
+ * @notice this plugin will not bundle all vuestic components and plugins
  *
  * @example
  * ```ts

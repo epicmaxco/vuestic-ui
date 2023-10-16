@@ -10,7 +10,7 @@ export default definePageConfig({
 
     block.example("Default", {
       title: "Default usage",
-      description: "`VaForm` component in pair with `useForm` composable provides a simple way to validate multiple form fields. It gives you `isValid`, `errorMessages` computeds and `validate` method to validate all form fields at once. You can also reset validation with `resetValidation` method or reset whole form and its values with `reset` method."
+      description: "`VaForm` component in pair with `useForm` composable provides a simple way to validate multiple form fields. It gives you `isValid`, `errorMessages` computes and `validate` method to validate all form fields at once. You can also reset validation with `resetValidation` method or reset whole form and its values with `reset` method."
     }),
     block.example("HideErrors", {
       title: "Named fields",
