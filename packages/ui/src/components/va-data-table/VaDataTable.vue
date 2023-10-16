@@ -231,6 +231,7 @@ const VaDataTableThRowProps = extractComponentProps(VaDataTableThRow)
 type emitNames = 'update:modelValue' |
   'update:sortBy' |
   'update:sortingOrder' |
+  'columnSorted' |
   'filtered' |
   'sorted' |
   'selectionChange' |
@@ -295,6 +296,7 @@ export default defineComponent({
     'row:click',
     'row:dblclick',
     'row:contextmenu',
+    'columnSorted',
     ...useTableScrollEmits,
   ],
 
