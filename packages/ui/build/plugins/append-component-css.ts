@@ -22,13 +22,13 @@ const parsePath = (path: string) => {
 const isVuesticComponent = (filename: string) => {
   // Va[ComponentName].vue_vue_type_script_lang.mjs
   // Va[ComponentName].vue_vue_type_script_setup_true_lang.mjs
-  const isScriptFile = /Va\w*.vue_vue_type_script\w*_lang.mjs$$/.test(filename)
+  const isScriptFile = /Va\w*.vue_vue_type_script\w*_lang.m?js$/.test(filename)
   if (isScriptFile) {
     return true
   }
 
   // Va[ComponentName].mjs
-  const isTemplateFile = /Va\w*\.mjs$/.test(filename)
+  const isTemplateFile = /Va\w*\.m?js$/.test(filename)
 
   // Va[ComponentName].vue_vue_type_script_lang.mjs
   const scriptFilePath = filename.replace('.mjs', '.vue_vue_type_script_lang.mjs')
