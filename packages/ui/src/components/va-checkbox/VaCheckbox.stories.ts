@@ -4,7 +4,7 @@ import { VaButton } from '../va-button'
 export default {
   title: 'VaCheckbox',
   component: VaCheckbox,
-  tags:['autodocs'],
+  tags: ['autodocs'],
 }
 
 export const Default = () => ({
@@ -202,7 +202,7 @@ export const Success = () => ({
 
 export const ArrayValue = () => ({
   components: { VaCheckbox },
-  data: () => ({ value: [ 'One', 'Two' ] }),
+  data: () => ({ value: ['One', 'Two'] }),
   template: `
     <VaCheckbox 
       v-model="value"
@@ -225,7 +225,7 @@ export const ArrayValue = () => ({
 
 export const TrueValue = () => ({
   components: { VaCheckbox },
-  data: () => ({ value: "One" }),
+  data: () => ({ value: 'One' }),
   template: `
     <VaCheckbox 
       v-model="value" 
@@ -237,7 +237,7 @@ export const TrueValue = () => ({
 
 export const FalseValue = () => ({
   components: { VaCheckbox },
-  data: () => ({ value: "One" }),
+  data: () => ({ value: 'One' }),
   template: `
     <VaCheckbox 
       v-model="value" 
@@ -249,7 +249,7 @@ export const FalseValue = () => ({
 
 export const IndeterminateValue = () => ({
   components: { VaCheckbox },
-  data: () => ({ value: "One" }),
+  data: () => ({ value: 'One' }),
   template: `
     <VaCheckbox 
       v-model="value" 
