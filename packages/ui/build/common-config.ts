@@ -35,11 +35,11 @@ export const resolve = {
   },
 }
 
-const rollupOutputOptions: RollupOptions['output'] = {
-  entryFileNames: '[name].mjs',
-  chunkFileNames: '[name].mjs',
+const rollupOutputOptions = (ext: string): RollupOptions['output'] => ({
+  entryFileNames: `[name].${ext}`,
+  chunkFileNames: `[name].${ext}`,
   assetFileNames: '[name].[ext]',
-}
+})
 
 const rollupMjsBuildOptions: RollupOptions = {
   input: resolver(process.cwd(), 'src/main.ts'),
@@ -48,7 +48,7 @@ const rollupMjsBuildOptions: RollupOptions = {
     sourcemap: true,
     dir: 'dist/esm-node',
     format: 'esm',
-    ...rollupOutputOptions,
+    ...rollupOutputOptions('mjs'),
   },
 }
 
@@ -104,7 +104,7 @@ export default function createViteConfig (format: BuildFormat) {
   } else {
     config.build.rollupOptions = {
       ...external,
-      output: rollupOutputOptions,
+      output: rollupOutputOptions('js'),
     }
   }
 
