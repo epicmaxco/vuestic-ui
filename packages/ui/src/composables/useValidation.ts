@@ -7,6 +7,7 @@ import {
   type WritableComputedRef,
   ref,
   toRef,
+  Ref,
 } from 'vue'
 import flatten from 'lodash/flatten.js'
 import isFunction from 'lodash/isFunction.js'
@@ -15,6 +16,8 @@ import isString from 'lodash/isString.js'
 import { useSyncProp } from './useSyncProp'
 import { useFocus } from './useFocus'
 import { useFormChild } from './useForm'
+import { ExtractReadonlyArrayKeys } from '../utils/types/readonly-array-keys'
+import { watchSetter } from './../utils/watch-setter'
 
 export type ValidationRule<V = any> = ((v: V) => any | string) | Promise<((v: V) => any | string)>
 
@@ -34,6 +37,7 @@ const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArg
 export const useValidationProps = {
   name: { type: String, default: undefined },
   modelValue: { required: false },
+  dirty: { type: Boolean, default: false },
   error: { type: Boolean, default: undefined },
   errorMessages: { type: [Array, String] as PropType<string[] | string>, default: undefined },
   errorCount: { type: [String, Number], default: 1 },
@@ -48,10 +52,30 @@ export type ValidationProps<V> = typeof useValidationProps & {
   rules: { type: PropType<ValidationRule<V>[]> }
 }
 
-export const useValidationEmits = ['update:error', 'update:errorMessages'] as const
+export const useValidationEmits = ['update:error', 'update:errorMessages', 'update:dirty'] as const
 
 const isPromise = (value: any): value is Promise<any> => {
   return typeof value === 'object' && typeof value.then === 'function'
+}
+
+const useDirtyValue = (
+  value: Ref<any>,
+  props: ExtractPropTypes<typeof useValidationProps>,
+  emit: (event: ExtractReadonlyArrayKeys<typeof useValidationEmits>, ...args: any[]) => void,
+) => {
+  const isDirty = ref(false)
+
+  watchSetter(value, () => {
+    isDirty.value = true
+    emit('update:dirty', true)
+  })
+
+  watch(() => props.dirty, (newValue) => {
+    if (isDirty.value === newValue) { return }
+    isDirty.value = newValue
+  })
+
+  return { isDirty }
 }
 
 export const useValidation = <V, P extends ExtractPropTypes<typeof useValidationProps>>(
@@ -142,28 +166,34 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 
   watch(isFocused, (newVal) => !newVal && validate())
 
+  const immediateValidation = ref(props.immediateValidation)
+
   let canValidate = true
   const withoutValidation = (cb: () => any): void => {
+    if (immediateValidation.value) {
+      return cb()
+    }
+
     canValidate = false
     cb()
     // NextTick because we update props in the same tick, but they are updated in the next one
     nextTick(() => { canValidate = true })
   }
-  watch(
-    () => props.modelValue,
-    () => {
-      if (!canValidate) { return }
+  watch(options.value, () => {
+    if (!canValidate) { return }
 
-      return validate()
-    },
-    { immediate: props.immediateValidation },
-  )
+    return validate()
+  }, { immediate: props.immediateValidation })
+
+  const { isDirty } = useDirtyValue(options.value, props, emit)
 
   const {
     doShowErrorMessages,
+    // Renamed to forceHideError because it's not clear what it does
     doShowError,
     doShowLoading,
   } = useFormChild({
+    isDirty,
     isValid: computed(() => !computedError.value),
     isLoading: isLoading,
     errorMessages: computedErrorMessages,
@@ -177,7 +207,14 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
   })
 
   return {
-    computedError: computed(() => doShowError.value ? computedError.value : false),
+    isDirty,
+    computedError: computed(() => {
+      // Hide error if component haven't been interacted yet
+      // Ignore dirty state if immediateValidation is true
+      if (!immediateValidation.value && !isDirty.value) { return false }
+
+      return doShowError.value ? computedError.value : false
+    }),
     computedErrorMessages: computed(() => doShowErrorMessages.value ? computedErrorMessages.value : []),
     isLoading: computed(() => doShowLoading.value ? isLoading.value : false),
     listeners: { onFocus, onBlur },

@@ -41,6 +41,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   }, {} as Record<Names, FormFiled['value']>))
   const isValid = computed(() => fields.value.every((field) => unref(field.isValid)))
   const isLoading = computed(() => fields.value.some((field) => unref(field.isLoading)))
+  const isDirty = computed(() => fields.value.some((field) => unref(field.isLoading)))
   const errorMessages = computed(() => fields.value.map((field) => unref(field.errorMessages)).flat())
   const errorMessagesNamed = computed(() => fields.value.reduce((acc, field) => {
     if (unref(field.name)) { acc[unref(field.name) as Names] = unref(field.errorMessages) }
@@ -83,6 +84,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
     name: ref(undefined),
     isValid: isValid,
     isLoading: isLoading,
+    isDirty: isDirty,
     validate,
     validateAsync,
     reset,
@@ -92,6 +94,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   })
 
   return {
+    isDirty,
     formData,
     fields,
     fieldNames,
