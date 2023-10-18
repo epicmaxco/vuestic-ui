@@ -16,6 +16,7 @@ export type FormFiled<Name extends string = string> = {
 
 export type Form<Names extends string = string> = {
   fields: ComputedRef<FormFiled<Names>[]>;
+  fieldsNamed: ComputedRef<Record<Names, FormFiled>>;
   fieldNames: ComputedRef<Names[]>;
   formData: ComputedRef<Record<Names, unknown>>;
   isValid: ComputedRef<boolean>;

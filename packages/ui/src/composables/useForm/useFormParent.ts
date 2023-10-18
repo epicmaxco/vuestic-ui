@@ -35,6 +35,10 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   const { fields } = formContext
 
   const fieldNames = computed(() => fields.value.map((field) => unref(field.name)).filter(Boolean) as Names[])
+  const fieldsNamed = computed(() => fields.value.reduce((acc, field) => {
+    if (unref(field.name)) { acc[unref(field.name) as Names] = field }
+    return acc
+  }, {} as Record<Names, FormFiled>))
   const formData = computed(() => fields.value.reduce((acc, field) => {
     if (unref(field.name)) { acc[unref(field.name) as Names] = field.value }
     return acc
@@ -70,7 +74,6 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   }
 
   const focus = () => {
-    console.log('fields.value', fields.value)
     fields.value[0]?.focus()
   }
 
@@ -97,6 +100,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
     isDirty,
     formData,
     fields,
+    fieldsNamed,
     fieldNames,
     isValid,
     isLoading,

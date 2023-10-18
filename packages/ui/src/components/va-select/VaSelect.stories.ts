@@ -36,7 +36,7 @@ export const DirtyValidation: StoryFn = () => ({
   components: { Component: VaSelect },
 
   data () {
-    return { value: '', dirty: false, options: ['one', 'two', 'tree'], rules: [(v) => (v && v === 'one') || 'Must be one'] }
+    return { value: '', dirty: false, haveError: false, options: ['one', 'two', 'tree'], rules: [(v) => (v && v === 'one') || 'Must be one'] }
   },
 
   mounted () {
@@ -44,8 +44,9 @@ export const DirtyValidation: StoryFn = () => ({
   },
 
   template: `
+  <p>[haveError]: {{ haveError }}</p>
   <p>[dirty]: {{ dirty }}</p>
-  <Component v-model="value" v-model:dirty="dirty" :options="options" :rules="rules" clearable />
+  <Component v-model="value" v-model:dirty="dirty" v-model:error="haveError" :options="options" :rules="rules" clearable />
   <p> [controls] </p>
   <div>
     <button @click="value = 'two'">Change value to two</button>
@@ -57,7 +58,7 @@ export const DirtyImmediateValidation: StoryFn = () => ({
   components: { Component: VaSelect },
 
   data () {
-    return { value: '', dirty: false, options: ['one', 'two', 'tree'], rules: [(v) => (v && v === 'one') || 'Must be one'] }
+    return { value: '', dirty: false, haveError: false, options: ['one', 'two', 'tree'], rules: [(v) => (v && v === 'one') || 'Must be one'] }
   },
 
   mounted () {
@@ -65,8 +66,9 @@ export const DirtyImmediateValidation: StoryFn = () => ({
   },
 
   template: `
+  <p>[haveError]: {{ haveError }}</p>
   <p>[dirty]: {{ dirty }}</p>
-  <Component v-model="value" v-model:dirty="dirty" :options="options" :rules="rules" clearable immediate-validation />
+  <Component v-model="value" v-model:dirty="dirty" v-model:error="haveError" :options="options" :rules="rules" clearable immediate-validation />
   <p> [controls] </p>
   <div>
     <button @click="value = 'two'">Change value to two</button>

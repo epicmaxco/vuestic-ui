@@ -183,7 +183,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     if (!canValidate) { return }
 
     return validate()
-  }, { immediate: props.immediateValidation })
+  }, { immediate: true })
 
   const { isDirty } = useDirtyValue(options.value, props, emit)
 
