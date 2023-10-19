@@ -36,11 +36,11 @@ export default definePageConfig({
     }),
     block.example("Title", {
       title: "Title",
-      description: "The `title` property allows you to write text over the description area. Use the `title` slot to costomize the title area."
+      description: "The `title` property allows you to write text over the description area. Use the `title` slot to customize the title area."
     }),
     block.example("Icon", {
       title: "Icon",
-      description: "The `icon` property allows you to add an icon in front of the description area. Use the `icon` slot to costomize the icon area."
+      description: "The `icon` property allows you to add an icon in front of the description area. Use the `icon` slot to customize the icon area."
     }),
     block.example("Closeable", {
       title: "Closeable",
