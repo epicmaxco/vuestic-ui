@@ -1,5 +1,5 @@
 <template>
-  <img :src="Image"/>
+  <img :src="Image" alt="autoComplete"/>
 </template>
 
 <script setup lang="ts">

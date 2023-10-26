@@ -29,6 +29,7 @@
           >
             <img
               :src="icon"
+              :alt="description"
               aria-hidden="true"
               class="features__item-icon"
             >
@@ -40,6 +41,7 @@
           <div class="features__item">
             <img
               src="/landing/features/features-support.svg"
+              alt="support"
               aria-hidden="true"
               class="features__item-icon"
             >

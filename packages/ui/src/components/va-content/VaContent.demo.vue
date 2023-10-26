@@ -103,14 +103,14 @@
     <VbCard title="va-content figure">
       <va-content>
         <figure>
-          <img src="https://i.imgur.com/NLrdqsk.png">
+          <img alt="picture" src="https://i.imgur.com/NLrdqsk.png">
           <figcaption>Name of picture</figcaption>
         </figure>
       </va-content>
     </VbCard>
     <VbCard title="default figure">
       <figure>
-        <img src="https://i.imgur.com/NLrdqsk.png">
+        <img alt="picture" src="https://i.imgur.com/NLrdqsk.png">
         <figcaption>Name of picture</figcaption>
       </figure>
     </VbCard>
