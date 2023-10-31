@@ -70,7 +70,7 @@ export const Animation = () => ({
 export const Delay = () => ({
   components: { VaSkeleton },
   template: `
-  <VaSkeleton delay=2000 animation="wave"/>
+  <VaSkeleton delay="2000" animation="wave" />
   `,
 })
 
@@ -78,10 +78,10 @@ export const Group = () => ({
   components: { VaSkeleton, VaSkeletonGroup },
   template: `
   <VaSkeletonGroup class="flex gap-5">
-  <VaSkeleton />
-  <VaSkeleton />
-  <VaSkeleton />
-  <VaSkeleton />
+	  <VaSkeleton />
+	  <VaSkeleton />
+	  <VaSkeleton />
+	  <VaSkeleton />
   </ VaSkeletonGroup>
   `,
 })
@@ -90,10 +90,10 @@ export const GroupWave = () => ({
   components: { VaSkeleton, VaSkeletonGroup },
   template: `
   <VaSkeletonGroup animation="wave" class="flex gap-5">
-  <VaSkeleton />
-  <VaSkeleton />
-  <VaSkeleton />
-  <VaSkeleton />
+	  <VaSkeleton />
+	  <VaSkeleton />
+	  <VaSkeleton />
+	  <VaSkeleton />
   </ VaSkeletonGroup>
   `,
 })
