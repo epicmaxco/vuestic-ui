@@ -172,7 +172,6 @@ export default defineComponent({
       props.counter && typeof vModel.value === 'string' ? vModel.value.length : undefined,
     )
 
-    //@ts-ignore
     const wrapperClass = useBem('va-input-wrapper', () => ({
       ...pick(props, ['success', 'error', 'disabled', 'readonly']),
       focused: Boolean(isFocused.value),

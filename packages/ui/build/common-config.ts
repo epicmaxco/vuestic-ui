@@ -35,6 +35,12 @@ export const resolve = {
   },
 }
 
+const rollupOutputOptions = (ext: string): RollupOptions['output'] => ({
+  entryFileNames: `[name].${ext}`,
+  chunkFileNames: `[name].${ext}`,
+  assetFileNames: '[name].[ext]',
+})
+
 const rollupMjsBuildOptions: RollupOptions = {
   input: resolver(process.cwd(), 'src/main.ts'),
 
@@ -42,9 +48,7 @@ const rollupMjsBuildOptions: RollupOptions = {
     sourcemap: true,
     dir: 'dist/esm-node',
     format: 'esm',
-    entryFileNames: '[name].mjs',
-    chunkFileNames: '[name].mjs',
-    assetFileNames: '[name].[ext]',
+    ...rollupOutputOptions('mjs'),
   },
 }
 
@@ -76,17 +80,7 @@ export default function createViteConfig (format: BuildFormat) {
       // target: 'esnext',
 
       // default esbuild, not available for esm format in lib mode
-      minify: 'terser',
-
-      terserOptions: {
-        // https://stackoverflow.com/questions/57720816/rails-webpacker-terser-keep-fnames
-
-        // disable mangling class names (for vue class component)
-        keep_classnames: true,
-
-        // disable mangling functions names
-        keep_fnames: true,
-      },
+      minify: isEsm ? false : 'esbuild',
 
       lib: libBuildOptions(isNode ? 'es' : format),
     },
@@ -105,7 +99,14 @@ export default function createViteConfig (format: BuildFormat) {
   isEsm && config.plugins.push(removeSideEffectedChunks())
   isEsm && config.plugins.push(componentVBindFix())
 
-  config.build.rollupOptions = isNode ? { ...external, ...rollupMjsBuildOptions } : external
+  if (isNode) {
+    config.build.rollupOptions = { ...external, ...rollupMjsBuildOptions }
+  } else {
+    config.build.rollupOptions = {
+      ...external,
+      output: rollupOutputOptions('js'),
+    }
+  }
 
   return config
 }

@@ -89,6 +89,7 @@ export default defineComponent({
     name: { type: String, default: '' },
     ariaLabel: { type: String, default: undefined },
   },
+
   setup (props, { emit }) {
     const elements: Elements = {
       container: shallowRef<HTMLElement>(),
@@ -124,7 +125,7 @@ export default defineComponent({
 
     const labelStyle = computed(() => {
       return {
-        color: computedError.value ? getColor('danger') : '',
+        color: computedError.value ? getColor('danger') : (props.success ? getColor('success') : ''),
         padding: !props.label
           ? ''
           : props.leftLabel
@@ -141,6 +142,10 @@ export default defineComponent({
 
       if (computedError.value) {
         style.borderColor = getColor('danger')
+      }
+
+      if (props.success) {
+        style.borderColor = getColor('success')
       }
 
       return style
