@@ -48,7 +48,6 @@ export default defineComponent({
   opacity: 0;
   font-size: 95%;
   transition: opacity 0.1s ease-in-out;
-  scroll-margin-top: 200px;
 
   &:focus {
     opacity: 1;
