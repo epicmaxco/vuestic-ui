@@ -115,11 +115,9 @@ export default defineComponent({
   max-height: 100%;
 
   &__area {
-    @include va-scroll(var(--va-primary));
+    @include va-scroll();
 
     &--content {
-      overflow-x: visible;
-      overflow-y: auto;
       grid-area: content;
       z-index: 0;
       // Make it possible for content to be smaller than the layout
