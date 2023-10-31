@@ -53,7 +53,7 @@ export default defineComponent({
   components: { VaLayoutArea },
 
   setup (props, { slots }) {
-    useLayout(props)
+    const { paddings } = useLayout(props)
 
     const doDisableScroll = computed(() => {
       return !props.allowBodyScrollOnOverlay && areaNames.some((area) => props[area]?.overlay)
@@ -94,6 +94,7 @@ export default defineComponent({
           .filter(Boolean)
           .join(' ')
       }),
+      paddings,
     }
   },
 })
@@ -123,6 +124,14 @@ export default defineComponent({
       // Make it possible for content to be smaller than the layout
       min-width: 0;
       min-height: 0;
+
+      // When scroll anchor is present in content, there might be overflow, so we add scroll margins
+      [id] {
+        scroll-margin-top: calc(v-bind("paddings.top + 'px'") + var(--va-layout-scroll-padding));
+        scroll-margin-bottom: calc(v-bind("paddings.bottom + 'px'") + var(--va-layout-scroll-padding));
+        scroll-margin-left: calc(v-bind("paddings.left + 'px'") + var(--va-layout-scroll-padding));
+        scroll-margin-right: calc(v-bind("paddings.right + 'px'") + var(--va-layout-scroll-padding));
+      }
     }
   }
 }
