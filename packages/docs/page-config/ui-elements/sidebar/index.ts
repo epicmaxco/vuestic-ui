@@ -21,7 +21,7 @@ export default definePageConfig({
     }),
     block.example("Width", {
       title: "Width",
-      description: "Define custom width of sidebar in maximixed state."
+      description: "Define custom width of sidebar in maximized state."
     }),
     block.example("MinimizedWidth", {
       title: "Minimized width",

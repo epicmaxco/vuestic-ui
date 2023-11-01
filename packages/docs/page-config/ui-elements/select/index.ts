@@ -60,7 +60,7 @@ export default definePageConfig({
     }),
     block.example("Autocomplete", {
       title: "Autocomplete",
-      description: "The `autocomplete` prop enables autocomplete behaviour for the `va-select`."
+      description: "The `autocomplete` prop enables autocomplete behavior for the `va-select`."
     }),
     block.example("IconOptions", {
       title:"Icon-selection",

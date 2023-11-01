@@ -11,7 +11,7 @@ export type VuesticComponentsMap = Map<typeof vuesticComponents>
 export type VuesticComponentName = keyof VuesticComponentsMap
 
 /**
- * Names of Vuestic components that must be accessable globally.
+ * Names of Vuestic components that must be accessible globally.
  *
  * @example
  * This will register all vuestic components globally:
