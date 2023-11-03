@@ -31,8 +31,8 @@ const isVuesticComponent = (filename: string) => {
   const isTemplateFile = /Va\w*\.m?js$/.test(filename)
 
   // Va[ComponentName].vue_vue_type_script_lang.mjs
-  const scriptFilePath = filename.replace('.mjs', '.vue_vue_type_script_lang.mjs')
-  const scriptSetupFilePath = filename.replace('.mjs', '.vue_vue_type_script_setup_true_lang.mjs')
+  const scriptFilePath = filename.replace(/\.(mjs|js)/, '.vue_vue_type_script_lang.mjs')
+  const scriptSetupFilePath = filename.replace(/\.(mjs|js)/, '.vue_vue_type_script_setup_true_lang.mjs')
 
   const haveScript = existsSync(scriptFilePath) || existsSync(scriptSetupFilePath)
 
