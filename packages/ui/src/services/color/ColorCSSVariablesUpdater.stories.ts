@@ -1,4 +1,4 @@
-import { VaChip, VaDivider, VaButton } from '../../components'
+import { VaChip, VaButton } from '../../components'
 import { useColors } from '../../composables'
 
 export default {
@@ -6,7 +6,7 @@ export default {
 }
 
 export const Default = () => ({
-  components: { VaChip, VaDivider, VaButton },
+  components: { VaChip, VaButton },
   setup () {
     const colors = useColors()
     const change = (color) => {
