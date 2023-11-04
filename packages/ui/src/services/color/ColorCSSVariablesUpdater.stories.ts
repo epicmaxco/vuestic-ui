@@ -7,20 +7,24 @@ export default {
 
 export const Default = () => ({
   components: { VaChip, VaDivider, VaButton },
-  methods: {
-    change (color) {
-      useColors().setColors({ danger: color })
-    },
+  setup () {
+    const colors = useColors()
+    const change = (color) => {
+      colors.setColors({ danger: color })
+    }
+
+    return {
+      change,
+    }
   },
   template: `
     <div class="mb-6">
-      <a class="title title--va-danger">
+      <a class="var(--va-danger)">
         This is title danger color
       </a>
       <va-chip color="danger">This is vue component</va-chip>
     </div>
 
-    <va-divider />
     Change danger color to:
     <va-button @click="change('#4ab2e3')" color="#4ab2e3">
       danger = blue
