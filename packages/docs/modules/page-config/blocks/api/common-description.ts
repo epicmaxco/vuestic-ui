@@ -17,7 +17,7 @@ export default
   props: {
     align: "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
     id: "Applies `id` to internal input component. Useful for native forms.",
-    name: "`name` represents icon name which will be used by [Icons Config](https://ui.vuestic.dev/services/icons-config).",
+    name: "Applies `name` to internal input component. Useful for native forms.",
     tag: "Replaces html tag. This is useful for semantics and also to allow for valid markup in some cases (`ul > li` and `tr > td` etc.).",
     size: "Specify size for component. `\"small\"`, `\"medium\"`, `\"large\"` sizes are available. If you want more control, you can provide number (will be used as `px`) or string value (`rem` and `px` sizes are supported).",
     sizesConfig: "Provide a set of sizes as a global component specific setting.",
@@ -114,6 +114,6 @@ export default
     scopeAvailable: "Slot scope available:"
   },
   methods: {
-    
+
   }
 }
