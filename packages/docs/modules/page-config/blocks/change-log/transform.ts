@@ -7,7 +7,7 @@ const changelogs = glob(join(resolve(''), '..', 'ui/src/**/CHANGELOG.md'))
 
 export const render = async () => {
   const logs = await changelogs
-  const logEnteries = await Promise.all((logs)
+  const logEntries = await Promise.all((logs)
     .map(async (path) => {
       return [
         path,
@@ -15,7 +15,7 @@ export const render = async () => {
       ]
     }))
 
-  const mergedChangelog = logEnteries
+  const mergedChangelog = logEntries
     .reduce((acc, [path, changelog]) => {
       const componentName = path.match(/components\/(.*)\/CHANGELOG.md/)?.[1]
 
@@ -42,6 +42,6 @@ export default defineBlockTransform(async function (block) {
 
   const changelog = await render()
 
-  const newblock = block.replaceArgCode(0, JSON.stringify(changelog))
-  return newblock
+  const newBlock = block.replaceArgCode(0, JSON.stringify(changelog))
+  return newBlock
 })

@@ -12,7 +12,7 @@ export default definePageConfig({
     ]),
 
     block.subtitle("Packages"),
-    block.paragraph("Vuestic has few packages in order of importance for newcommers:"),
+    block.paragraph("Vuestic has few packages in order of importance for newcomers:"),
     block.list([
       "`packages/ui` - UI lib with demos. Here all vuestic components stored.",
       "`packages/docs` - [ui.vuestic.dev](https://vuestic.dev) source code.",

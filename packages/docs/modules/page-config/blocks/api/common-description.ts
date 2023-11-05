@@ -103,7 +103,7 @@ export default
     ariaPreviousPeriodLabel: "The aria-label of the \"previous period\" button",
     ariaRemoveFileLabel: "The aria-label of the \"remove file\" button",
     ariaResetLabel: "The aria-label of the \"reset\" button",
-    background: "The color name of the backgound color",
+    background: "The color name of the background color",
     innerAnchorSelector: "Anchor CSS selector inside passed slot",
     cellHeight: "Height of the time cell",
     teleport: "Element where content will be rendered",

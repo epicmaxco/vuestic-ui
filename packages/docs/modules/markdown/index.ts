@@ -3,7 +3,7 @@ import { resolve } from 'pathe'
 
 export default defineNuxtModule({
   meta: {
-    mame: 'vuestic:markdown',
+    name: 'vuestic:markdown',
   },
 
   setup() {

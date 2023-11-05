@@ -119,8 +119,6 @@ html {
     display: flex;
     justify-content: center;
     background: var(--va-background-primary);
-
-    // @include va-scroll(var(--va-primary));
   }
 
   &__page-content {

@@ -9,7 +9,6 @@
 }
 
 .va-typography-block {
-  line-height: $line-height;
   font-family: var(--va-font-family);
 
   @for $i from 1 through 6 {

@@ -507,14 +507,16 @@ export default defineComponent({
   &--size {
     &-small {
       .va-modal__dialog {
-        max-width: map_get($grid-breakpoints, sm);
+        max-width: map-get($grid-breakpoints, sm);
+        min-width: map-get($grid-breakpoints, sm);
 
         @media all and (max-width: map-get($grid-breakpoints, sm)) {
           max-width: 100vw !important;
         }
 
         .va-modal__inner {
-          max-width: map_get($grid-breakpoints, sm);
+          max-width: map-get($grid-breakpoints, sm);
+          min-width: map-get($grid-breakpoints, sm);
 
           @media all and (max-width: map-get($grid-breakpoints, sm)) {
             max-width: 100vw !important;
@@ -526,9 +528,11 @@ export default defineComponent({
     &-large {
       .va-modal__dialog {
         max-width: map-get($grid-breakpoints, lg);
+        min-width: map-get($grid-breakpoints, lg);
 
         .va-modal__inner {
           max-width: map-get($grid-breakpoints, lg);
+          min-width: map-get($grid-breakpoints, lg);
         }
       }
     }
@@ -573,7 +577,8 @@ export default defineComponent({
     position: relative;
     flex-flow: column;
     padding: var(--va-modal-padding);
-    max-width: map_get($grid-breakpoints, md);
+    max-width: map-get($grid-breakpoints, md);
+    min-width: map-get($grid-breakpoints, md);
     margin: auto;
 
     > div:last-of-type {
