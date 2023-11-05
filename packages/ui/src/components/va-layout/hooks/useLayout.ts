@@ -74,6 +74,12 @@ export const useLayout = (props: ExtractPropTypes<typeof useLayoutProps>) => {
     paddings,
     orders,
   })
+
+  return {
+    paddings,
+    orders,
+    items,
+  }
 }
 
 export const useFixedLayoutChild = (area: AreaName, sizes: Ref<DOMRectReadOnly | null>) => {

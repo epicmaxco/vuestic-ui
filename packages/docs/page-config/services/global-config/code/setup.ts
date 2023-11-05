@@ -5,11 +5,11 @@ createApp(App)
   .use(createVuestic({
     config: {
       icons: [/* ... */],
-        components: {
-          /* ... */
-          all: { /* ... */ },
-          presets: { /* ... */ },
-        },
+      components: {
+        /* ... */
+        all: { /* ... */ },
+        presets: { /* ... */ },
+      },
       colors: { /* ... */ },
     },
   }))
