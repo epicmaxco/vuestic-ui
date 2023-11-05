@@ -114,6 +114,5 @@ export default
     scopeAvailable: "Slot scope available:"
   },
   methods: {
-
   }
 }
