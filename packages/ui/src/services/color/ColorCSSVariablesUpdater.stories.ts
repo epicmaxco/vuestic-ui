@@ -19,7 +19,7 @@ export const Default = () => ({
   },
   template: `
     <div class="mb-6">
-      <a class="var(--va-danger)">
+      <a style="color: var(--va-danger)">
         This is title danger color
       </a>
       <va-chip color="danger">This is vue component</va-chip>
