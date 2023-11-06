@@ -137,7 +137,7 @@ export default defineComponent({
       },
     })
 
-    const validateFiles = (files: VaFile[]) => files.filter((file) => {
+    const filterInvalidFiles = (files: VaFile[]) => files.filter((file) => {
       const fileName = file.name || file.url
       if (!fileName) { return false }
       if (file.url) { return true }
@@ -163,7 +163,7 @@ export default defineComponent({
 
       if (!f) { return }
 
-      const validatedFiles = props.fileTypes ? validateFiles(Array.from(f)) : f
+      const validatedFiles = props.fileTypes ? filterInvalidFiles(Array.from(f)) : f
 
       files.value = props.type === 'single' ? (validatedFiles as VaFile[]) : [...files.value, ...validatedFiles]
 
@@ -202,7 +202,10 @@ export default defineComponent({
 
     onMounted(() => {
       if (Array.isArray(files.value)) {
-        files.value = validateFiles(files.value)
+        const filteredFiles = filterInvalidFiles(files.value)
+        if (filteredFiles.length !== files.value.length) {
+          files.value = filteredFiles
+        }
       }
     })
 
