@@ -10,7 +10,7 @@ export default
     clickPrependInner: "The event is triggered by clicking on the `prependInner` slot",
     clickAppend: "The event is triggered by clicking on the `append` slot",
     clickAppendInner: "The event is triggered by clicking on the `appendInner` slot",
-    updateModelValue: "The event is triggered when the component needs to change the model. Is also used by `v-model`",
+    updateModelValue: "The event is triggered when the component needs to change the model. Is also used by `v-model` and must be listed after the `v-model`",
     updateFocused: "The event is triggered when the component needs to toggle the focus",
     eventArgument: "The event argument is:"
   },

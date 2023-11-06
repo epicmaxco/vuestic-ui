@@ -193,6 +193,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "data-table",
         displayName: "Data Table",
+        meta: {
+          badge: navigationBadge.updated('1.8.3'),
+        }
       },
       {
         category: "Form",
@@ -383,7 +386,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'stepper',
         displayName: 'Stepper',
         meta: {
-          badge : navigationBadge.new('1.6.0'),
+          badge : navigationBadge.updated('1.8.3'),
         }
       },
       {

@@ -44,6 +44,7 @@ export default defineApiDescription({
   events: {
     updateSortBy: "Emits when `sort-by` changed",
     updateSortingOrder: "Emits when `sorting-order` changed",
+    columnSorted: "Emits when sort is clicked. Returns all column data, the column name, and the sort direction",
     filtered: "`va-data-table` emits the `filtered` event each time filtering is applied (and when the filter is cleared)",
     sorted: "Each time the table's sorting changes, the `sorted` event is thrown",
     rowClick: "When row clicked the event is thrown",
