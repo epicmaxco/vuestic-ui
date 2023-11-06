@@ -29,7 +29,7 @@
           >
             <img
               :src="icon"
-              aria-hidden="true"
+              alt=""
               class="features__item-icon"
             >
             <p class="features__item-description">
@@ -40,7 +40,7 @@
           <div class="features__item">
             <img
               src="/landing/features/features-support.svg"
-              aria-hidden="true"
+              alt=""
               class="features__item-icon"
             >
             <p class="features__item-description">

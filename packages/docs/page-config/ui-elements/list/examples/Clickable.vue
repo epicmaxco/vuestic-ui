@@ -10,7 +10,7 @@
     >
       <va-list-item-section avatar>
         <va-avatar>
-          <img :src="contact.img">
+          <img :src="contact.img" :alt="contact.name">
         </va-avatar>
       </va-list-item-section>
 

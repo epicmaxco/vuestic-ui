@@ -8,7 +8,7 @@
       <va-list-item>
         <va-list-item-section avatar>
           <va-avatar>
-            <img src="https://randomuser.me/api/portraits/women/5.jpg">
+            <img alt="woman" src="https://randomuser.me/api/portraits/women/5.jpg">
           </va-avatar>
         </va-list-item-section>
 
@@ -35,7 +35,7 @@
       <va-list-item>
         <va-list-item-section avatar>
           <va-avatar>
-            <img src="https://randomuser.me/api/portraits/men/3.jpg">
+            <img alt="man" src="https://randomuser.me/api/portraits/men/3.jpg">
           </va-avatar>
         </va-list-item-section>
 
@@ -66,7 +66,7 @@
       <va-list-item>
         <va-list-item-section avatar>
           <va-avatar>
-            <img src="https://randomuser.me/api/portraits/men/1.jpg">
+            <img alt="man" src="https://randomuser.me/api/portraits/men/1.jpg">
           </va-avatar>
         </va-list-item-section>
 
@@ -94,7 +94,7 @@
       <va-list-item disabled>
         <va-list-item-section avatar>
           <va-avatar>
-            <img src="https://randomuser.me/api/portraits/men/5.jpg">
+            <img alt="man" src="https://randomuser.me/api/portraits/men/5.jpg">
           </va-avatar>
         </va-list-item-section>
 
@@ -132,7 +132,7 @@
 
         <va-list-item-section avatar>
           <va-avatar>
-            <img src="https://randomuser.me/api/portraits/women/5.jpg">
+            <img alt="woman" src="https://randomuser.me/api/portraits/women/5.jpg">
           </va-avatar>
         </va-list-item-section>
 
@@ -161,7 +161,7 @@
 
         <va-list-item-section avatar>
           <va-avatar>
-            <img src="https://randomuser.me/api/portraits/men/3.jpg">
+            <img alt="man" src="https://randomuser.me/api/portraits/men/3.jpg">
           </va-avatar>
         </va-list-item-section>
 
@@ -191,7 +191,7 @@
       <va-list-item to="/foo">
         <va-list-item-section avatar>
           <va-avatar>
-            <img src="https://randomuser.me/api/portraits/women/5.jpg">
+            <img alt="woman" src="https://randomuser.me/api/portraits/women/5.jpg">
           </va-avatar>
         </va-list-item-section>
 
@@ -218,7 +218,7 @@
       <va-list-item to="/bar">
         <va-list-item-section avatar>
           <va-avatar>
-            <img src="https://randomuser.me/api/portraits/men/3.jpg">
+            <img alt="man" src="https://randomuser.me/api/portraits/men/3.jpg">
           </va-avatar>
         </va-list-item-section>
 
