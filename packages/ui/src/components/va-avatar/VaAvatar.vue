@@ -24,6 +24,9 @@
         v-else-if="$props.icon"
         :name="$props.icon"
       />
+      <slot v-else name="fallback">
+        <va-fallback v-bind="VaFallbackProps" @fallback="$emit('fallback')" />
+      </slot>
     </slot>
   </div>
 </template>
