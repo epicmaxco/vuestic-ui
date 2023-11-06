@@ -36,14 +36,14 @@ export const Clearable: StoryFn = () => ({
 })
 
 Clearable.play = async ({ canvasElement }) => {
-  const leftIcon = canvasElement.querySelector('.va-time-input__right-button')
-  const clearButton = canvasElement.querySelector('.va-time-input__clear-button')
-  const input = canvasElement.querySelector('.va-time-input__input')
+  const leftIcon = canvasElement.querySelector('.va-input-wrapper__field')!
+  const clearButton = canvasElement.querySelector('.va-time-input__clear-button')!
+  const input = canvasElement.querySelector('.va-time-input__input')!
 
   await userEvent.click(leftIcon)
 
   // Dropdown should be visible
-  expect(canvasElement.parentElement.querySelector('.va-time-picker')).not.toBe(null)
+  expect(canvasElement.parentElement!.querySelector('.va-time-picker')).not.toBe(null)
 
   await userEvent.click(clearButton)
 
