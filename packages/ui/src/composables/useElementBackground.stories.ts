@@ -43,12 +43,12 @@ Default.play = async ({ canvasElement, step }) => {
     // Timing before update seems pretty random.
     // That might be something we want to account for on usage.
     // 20 ms was a sweet spot for me, 10 was too low.
-    await sleep(20)
+    await sleep(1000)
     expect(color.innerText).toBe('#ffffffff')
   })
   await step('should match black', async () => {
     black.click()
-    await sleep(20)
+    await sleep(1000)
     expect(color.innerText).toBe('#000000ff')
   })
 }
