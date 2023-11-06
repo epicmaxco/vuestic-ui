@@ -20,17 +20,16 @@ export const Default = () => ({
   template: `
     <div class="mb-6">
       <a style="color: var(--va-danger)">
-        This is title danger color
+        Danger color text
       </a>
-      <va-chip color="danger">This is vue component</va-chip>
     </div>
 
     Change danger color to:
     <va-button @click="change('#4ab2e3')" color="#4ab2e3">
-      danger = blue
+      blue (#4ab2e3)
     </va-button>
     <va-button @click="change('#e34b4a')" color="#e34b4a">
-      danger = red
+      red (#e34b4a)
     </va-button>
   `,
 })
