@@ -166,7 +166,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 
   watch(isFocused, (newVal) => !newVal && validate())
 
-  const immediateValidation = ref(props.immediateValidation)
+  const immediateValidation = toRef(props, 'immediateValidation')
 
   let canValidate = true
   const withoutValidation = (cb: () => any): void => {
