@@ -88,6 +88,7 @@ export default defineComponent({
     id: { type: String, default: '' },
     name: { type: String, default: '' },
     ariaLabel: { type: String, default: undefined },
+    vertical: { type: Boolean, default: false },
   },
 
   setup (props, { emit }) {
@@ -128,9 +129,13 @@ export default defineComponent({
         color: computedError.value ? getColor('danger') : (props.success ? getColor('success') : ''),
         padding: !props.label
           ? ''
-          : props.leftLabel
-            ? '0 0.5rem 0 0'
-            : '0 0 0 0.5rem',
+          : props.vertical
+            ? '0.3rem 0 0.3rem 0.5rem'
+            : props.arrayValue
+              ? '0 0.5rem 0 0.5rem'
+              : props.leftLabel
+                ? '0 0.5rem 0 0'
+                : '0 0 0 0.5rem',
       }
     })
 
@@ -170,8 +175,10 @@ export default defineComponent({
       'aria-checked': isActive.value,
       ...validationAriaAttributes.value,
     }))
+    const displayVal = computed(() => props.vertical ? '--va-checkbox-display-flex' : 'var(--va-checkbox-display)')
 
     return {
+      displayVal,
       isActive,
       computedClass,
       labelStyle,
@@ -197,7 +204,7 @@ export default defineComponent({
 @import "variables";
 
 .va-checkbox {
-  display: var(--va-checkbox-display);
+  display: v-bind(displayVal);
   max-width: fit-content;
   font-family: var(--va-font-family);
 

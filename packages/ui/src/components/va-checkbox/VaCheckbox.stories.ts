@@ -223,6 +223,32 @@ export const ArrayValue = () => ({
   `,
 })
 
+export const ArrayValueVertical = () => ({
+  components: { VaCheckbox },
+  data: () => ({ value: ['One', 'Two'] }),
+  template: `
+    <VaCheckbox 
+      v-model="value"
+      array-value="One"
+      label="One"
+      vertical
+    />
+    <VaCheckbox 
+      v-model="value"
+      array-value="Two"
+      label="Two"
+      vertical
+    />
+    <VaCheckbox 
+      v-model="value"
+      array-value="Three"
+      label="Three"
+      vertical
+    />
+    {{ value }}
+  `,
+})
+
 export const TrueValue = () => ({
   components: { VaCheckbox },
   data: () => ({ value: 'One' }),
