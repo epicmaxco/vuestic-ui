@@ -15,5 +15,9 @@ module.exports = {
   "rules": {
     "vue/multi-word-component-names": "off",
     "vue/no-reserved-component-names": "warn",
+    "vue/component-name-in-template-casing": ["error", "PascalCase", {
+      registeredComponentsOnly: true,
+      ignores: [],
+    }],
   },
 }
