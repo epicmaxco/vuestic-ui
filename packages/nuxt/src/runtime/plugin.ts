@@ -10,7 +10,7 @@ import {
 } from 'vuestic-ui'
 import { markRaw, computed, watch, type Ref } from 'vue'
 
-import { defineNuxtPlugin, useCookie } from '#app'
+import { defineNuxtPlugin, useCookie } from '#imports'
 import { useHead, ReactiveHead } from '#imports'
 import NuxtLink from '#app/components/nuxt-link'
 import configFromFile from '#vuestic-config'
