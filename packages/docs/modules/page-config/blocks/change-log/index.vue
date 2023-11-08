@@ -31,6 +31,7 @@ const versions = computed(() => Object.keys(props.changeLog));
               v{{ version }}
             </a>
           </h1>
+          <Anchor :text="version" />
         </div>
       </template>
 
