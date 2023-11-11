@@ -84,7 +84,7 @@ export default defineComponent({
           class: 'va-breadcrumbs__item',
           'aria-current': (isLastIndexChildNodes(index) && isChildLink(child)) ? 'location' : false,
           style: {
-            color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? computedThemesActiveColor.value : null,
+            color: (isLastIndexChildNodes(index) && !isDisabledChild(child)) ? computedThemesActiveColor.value : null,
           },
         },
         [child],
