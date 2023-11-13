@@ -30,8 +30,8 @@ const versions = computed(() => Object.keys(props.changeLog));
             <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${version}`">
               v{{ version }}
             </a>
+            <Anchor :text="version" />
           </h1>
-          <Anchor :text="version" />
         </div>
       </template>
 
