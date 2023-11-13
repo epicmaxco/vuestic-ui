@@ -259,11 +259,11 @@ export default defineComponent({
     const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
     const isDecreaseActionDisabled = computed(() => (
-      isMinReached.value || props.readonly || props.disabled
+      isMinReached.value || props.disabled
     ))
 
     const isIncreaseActionDisabled = computed(() => (
-      isMaxReached.value || props.readonly || props.disabled
+      isMaxReached.value || props.disabled
     ))
 
     const decreaseCount = () => {
@@ -295,6 +295,7 @@ export default defineComponent({
       icon: props.decreaseIcon,
       plain: true,
       disabled: isDecreaseActionDisabled.value,
+      readonly: props.readonly,
       tabindex: -1,
       'aria-label': tp(props.ariaDecreaseLabel),
       ...(!isDecreaseActionDisabled.value && { onClick: decreaseCount }),
@@ -306,6 +307,7 @@ export default defineComponent({
       icon: props.increaseIcon,
       plain: true,
       disabled: isIncreaseActionDisabled.value,
+      readonly: props.readonly,
       tabindex: -1,
       'aria-label': tp(props.ariaIncreaseLabel),
       ...(!isIncreaseActionDisabled.value && { onClick: increaseCount }),
