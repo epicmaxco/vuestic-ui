@@ -9,9 +9,7 @@ import {
   type PartialGlobalConfig
 } from 'vuestic-ui'
 import { markRaw, computed, watch, type Ref } from 'vue'
-
-import { defineNuxtPlugin, useCookie } from '#imports'
-import { useHead, ReactiveHead } from '#imports'
+import { useHead, ReactiveHead, defineNuxtPlugin, useCookie  } from '#imports'
 import NuxtLink from '#app/components/nuxt-link'
 import configFromFile from '#vuestic-config'
 

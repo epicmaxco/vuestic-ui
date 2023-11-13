@@ -14,6 +14,7 @@ declare module 'vuestci-ui' {
 
 declare module '#imports' {
   export * from '@unhead/vue'
+  export { defineNuxtPlugin, useCookie } from 'nuxt/app'
 }
 
 declare module '#vuestic-config' {
