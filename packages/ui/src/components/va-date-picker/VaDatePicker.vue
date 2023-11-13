@@ -1,5 +1,10 @@
 <template>
-  <div class="va-date-picker" :class="classComputed" :style="styleComputed">
+  <div 
+    class="va-date-picker" 
+    :class="classComputed" 
+    :style="styleComputed"
+    role="presentation"
+  >
     <va-date-picker-header
       v-bind="headerProps"
       v-model:view="syncView"

@@ -1,9 +1,15 @@
 <template>
-  <div class="va-day-picker" v-bind="containerAttributes">
+  <div 
+    class="va-day-picker" 
+    v-bind="containerAttributes"
+    aria-live="assertive"
+    role="grid"
+  >
     <template v-if="!hideWeekDays">
       <div
         v-for="weekday in weekdayNamesComputed" :key="weekday"
         class="va-day-picker__weekday"
+        role="gridcell"
       >
         <slot name="weekday">
           {{ weekday }}
@@ -17,6 +23,7 @@
       :key="index"
       @mouseenter="hoveredIndex = index"
       @mouseleave="hoveredIndex = -1"
+      role="gridcell"
     >
       <va-date-picker-cell
         :hidden="isOtherMonth(date) && !showOtherMonths"
@@ -30,8 +37,9 @@
         :highlight-today="highlightToday"
         :highlight-weekend="highlightWeekend"
         :readonly="$props.readonly"
+        :date="date"
         :color="color"
-        @click="onClick(date); focusedCellIndex = index"
+        @click="onClick(date); focusedCellIndex = index" 
       >
         <span class="va-date-picker-cell__day">
           <slot name="day" v-bind="{ date }">

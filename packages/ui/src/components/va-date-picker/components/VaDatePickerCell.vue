@@ -16,6 +16,11 @@
       'va-date-picker-cell_focused': focused,
       'va-date-picker-cell_readonly': readonly,
     }"
+    :aria-current="today"
+    :aria-selected="selected"
+    :aria-disabled="disabled"
+    :aria-label="$props.date && $props.formatDate!($props.date)"
+    role="button"
     @click="onClick"
     @keypress.space.enter.prevent.stop="onClick"
   >
@@ -25,7 +30,7 @@
 
 <script lang="ts">
 import { useTextColor, useColors } from '../../../composables'
-import { computed, defineComponent, toRef } from 'vue'
+import { PropType, computed, defineComponent, toRef } from 'vue'
 
 export default defineComponent({
   name: 'VaDatePickerCell',
@@ -42,7 +47,10 @@ export default defineComponent({
     highlightWeekend: { type: Boolean, default: false },
     highlightToday: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
+    date: { type: Date , default: undefined },
     color: { type: String, default: 'primary' },
+
+    formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
   },
 
   emits: ['click'],
