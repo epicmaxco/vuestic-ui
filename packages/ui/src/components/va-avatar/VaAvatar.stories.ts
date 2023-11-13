@@ -43,7 +43,7 @@ export const Icon = () => ({
 export const Size = () => ({
   components: { VaAvatar },
   template: `
-    [smal]
+    [small]
     <VaAvatar size="small">
       Text
     </VaAvatar>
