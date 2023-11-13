@@ -17,4 +17,10 @@
   --va-checkbox-square-height: 1.25rem;
   --va-checkbox-square-border: solid var(--va-form-element-border-width) var(--va-background-border);
   --va-checkbox-square-border-radius: calc(var(--va-form-element-border-radius) / 2);
+
+  /* Padding */
+  --va-checkbox-vertical-padding: 0.3rem 0 0.3rem 0.5rem;
+  --va-checkbox-horizontal-padding: 0 0.5rem;
+  --va-checkbox-right-padding: 0 0.5rem 0 0;
+  --va-checkbox-left-padding: 0 0 0 0.5rem;
 }
