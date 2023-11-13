@@ -1,4 +1,4 @@
-import { defineNuxtPlugin } from '#app';
+import { defineNuxtPlugin } from '#imports';
 export default defineNuxtPlugin((nuxt) => {
   if (nuxt.ssrContext) { return }
 

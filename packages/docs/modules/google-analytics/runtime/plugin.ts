@@ -1,4 +1,4 @@
-import { defineNuxtPlugin } from '#app';
+import { defineNuxtPlugin } from '#imports';
 import VueGtag from 'vue-gtag'
 
 export default defineNuxtPlugin((nuxt) => {
