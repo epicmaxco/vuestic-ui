@@ -20,7 +20,7 @@ export default definePageConfig({
     block.example("Decorators", { title: "Decorators" }),
     block.example("ObjectOptions", {
       title: "Objects as options",
-      description: "You can use objects as options. Text will be showing from `text-by` property from object. Value can be also returned from select using `value-by` instead of whole object. Comparing object values is done by `track-by` prop or `value-by` if it is not provided.",
+      description: "You can use objects as options. Text will be showing from `text-by` property from object. Value can be also returned from select using `value-by` instead of whole object. Comparing object values is done by `track-by` prop or `value-by` if it is not provided. <br /> <em>Note: Using `text-by` without a `value-by` or `track-by` may cause inconsistencies in expected behavior.",
     }),
     block.example("TrackBy", {
       title: "Track by",
