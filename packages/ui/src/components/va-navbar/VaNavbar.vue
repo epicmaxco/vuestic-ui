@@ -57,8 +57,8 @@ export default defineComponent({
     const { fixedBarStyleComputed } = useFixedBar(props, isScrolledDown)
 
     const { getColor, shiftHSLAColor } = useColors()
-    const { textColorComputed } = useTextColor()
     const color = computed(() => getColor(props.color))
+    const { textColorComputed } = useTextColor(color)
 
     const shapeStyleComputed = computed(() => ({
       borderTopColor: shiftHSLAColor(color.value, { h: -1, s: -11, l: 10 }),

@@ -6,17 +6,12 @@ export const useDocsScroll = () => {
     const pageContent = document.querySelector('.docs-layout__main-content')
 
     if (pageContent) {
-      pageContent.scrollTop = 0
+      pageContent.scrollIntoView(true);
     }
   }
 
   const scrollToElement = () => {
-    if (route.hash) {
-      if (typeof document === 'undefined') { return }
-      const el = document.querySelector(route.hash)
-
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
-    } else {
+    if (!route.hash) {
       scrollTop()
     }
   }

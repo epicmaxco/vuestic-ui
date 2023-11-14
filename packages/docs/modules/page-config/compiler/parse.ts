@@ -47,6 +47,16 @@ export const parseCode = (code: string) => {
           args,
           argNodes: n.arguments as unknown as Node[],
           replaceArgCode: (index: number, value: string) => {
+            // In case there is not arguments at this index, add to the end
+            if (n.arguments.length == 0) {
+              code = code.replace(blockCode, blockCode.replace(')', `${value})`))
+              return code
+            }
+            if (index > n.arguments.length - 1) {
+              code = code.replace(blockCode, blockCode.replace(')', `, ${value})`))
+              return code
+            }
+
             const argStartInSlice = (n.arguments[index] as any).start - node.start
             const argEndInSlice = (n.arguments[index] as any).end - node.start
 

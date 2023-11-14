@@ -1,19 +1,21 @@
 <template>
   <va-slider v-model="value1">
     <template #prepend>
-      <va-input
-        v-model.number="value1"
-        class="w-[70px]"
-        type="number"
+      <va-counter
+        v-model="value1"
+        :min="0"
+        :max="100"
+        class="w-[110px]"
       />
     </template>
   </va-slider>
   <va-slider v-model="value2">
     <template #append>
-      <va-input
-        v-model.number="value2"
-        class="w-[70px]"
-        type="number"
+      <va-counter
+        v-model="value2"
+        :min="0"
+        :max="100"
+        class="w-[110px]"
       />
     </template>
   </va-slider>

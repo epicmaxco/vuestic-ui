@@ -31,7 +31,7 @@
           role="button"
           :aria-label="tp($props.ariaCloseLabel)"
           tabindex="0"
-          size="small"
+          size="1rem"
           :name="$props.icon"
           @click.stop="onToastClose"
           @keydown.enter.stop="onToastClose"
@@ -87,13 +87,14 @@ export default defineComponent({
     render: { type: Function },
     ariaCloseLabel: { type: String, default: '$t:close' },
     role: { type: String as PropType<StringWithAutocomplete<'alert' | 'alertdialog' | 'status'>>, default: undefined },
+    inline: { type: Boolean, default: false },
   },
   setup (props, { emit }) {
     const rootElement = shallowRef<HTMLElement>()
 
     const { getColor } = useColors()
 
-    const { textColorComputed } = useTextColor()
+    const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
 
     const visible = ref(false)
 
@@ -108,6 +109,7 @@ export default defineComponent({
     const toastClasses = computed(() => [
       props.customClass,
       props.multiLine ? 'va-toast--multiline' : '',
+      props.inline ? 'va-toast--inline' : '',
     ])
 
     const toastStyles = computed(() => ({
@@ -195,13 +197,17 @@ export default defineComponent({
   display: flex;
   align-items: center;
   border-radius: var(--va-toast-border-radius);
-  border: 1px solid var(--va-toast-border-color);
+  border: var(--va-toast-border);
   background-color: var(--va-toast-background-color);
   box-shadow: var(--va-toast-box-shadow);
   transition: var(--va-toast-transition);
   overflow: hidden;
   z-index: var(--va-toast-z-index);
   font-family: var(--va-font-family);
+
+  &--inline {
+    position: static;
+  }
 
   &--multiline {
     min-height: 70px;
@@ -223,8 +229,9 @@ export default defineComponent({
   &__title {
     font-weight: var(--va-toast-title-font-weight);
     font-size: var(--va-toast-title-font-size);
-    color: var(--va-toast-title-color);
     margin: var(--va-toast-title-margin);
+
+    @include va-title();
   }
 
   &__content {

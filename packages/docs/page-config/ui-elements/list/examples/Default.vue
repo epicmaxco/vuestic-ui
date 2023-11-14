@@ -9,7 +9,7 @@
     >
       <va-list-item-section avatar>
         <va-avatar>
-          <img :src="contact.img">
+          <img :src="contact.img" :alt="contact.name">
         </va-avatar>
       </va-list-item-section>
 
@@ -26,7 +26,7 @@
       <va-list-item-section icon>
         <va-icon
           name="remove_red_eye"
-          color="background-tertiary"
+          color="background-element"
         />
       </va-list-item-section>
     </va-list-item>

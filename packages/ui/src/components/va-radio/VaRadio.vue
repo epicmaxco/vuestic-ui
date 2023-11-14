@@ -7,7 +7,6 @@
     :error-messages="computedErrorMessages"
     :error-count="errorCount"
     @blur="onBlur"
-
     #default="{ ariaAttributes }"
   >
     <div
@@ -171,6 +170,7 @@ export default defineComponent({
       'va-radio--disabled': props.disabled,
       'va-radio--indeterminate': props.indeterminate,
       'va-radio--error': computedError.value,
+      'va-radio--single-option': isNoOption.value,
     })
 
     const selectOption = (option: any, event?: any) => {
@@ -224,9 +224,6 @@ export default defineComponent({
         disabled: disabled,
         readonly: props.readonly,
         tabindex: disabled ? -1 : 0,
-        // 'aria-disabled': disabled,
-        // 'aria-readOnly': props.readonly,
-        // ...validationAriaAttributes.value,
       }
     }
 
@@ -329,6 +326,7 @@ export default defineComponent({
     position: relative;
     border: var(--va-radio-icon-border);
     box-sizing: border-box;
+    margin: 4px;
 
     .va-radio__input:disabled + & {
       @include va-disabled;

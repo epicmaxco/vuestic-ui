@@ -38,7 +38,6 @@
         <va-icon
           v-show="isActive"
           class="va-checkbox__icon"
-          size="18px"
           :name="computedIconName"
           :color="textColorComputed"
         />
@@ -89,7 +88,9 @@ export default defineComponent({
     id: { type: String, default: '' },
     name: { type: String, default: '' },
     ariaLabel: { type: String, default: undefined },
+    vertical: { type: Boolean, default: false },
   },
+
   setup (props, { emit }) {
     const elements: Elements = {
       container: shallowRef<HTMLElement>(),
@@ -109,7 +110,7 @@ export default defineComponent({
     } = useSelectable(props, emit, elements)
     const { getColor } = useColors()
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-    const { textColorComputed } = useTextColor()
+    const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
 
     const isActive = computed(() => isChecked.value || isIndeterminate.value)
 
@@ -125,12 +126,16 @@ export default defineComponent({
 
     const labelStyle = computed(() => {
       return {
-        color: computedError.value ? getColor('danger') : '',
+        color: computedError.value ? getColor('danger') : (props.success ? getColor('success') : ''),
         padding: !props.label
           ? ''
-          : props.leftLabel
-            ? '0 0.5rem 0 0'
-            : '0 0 0 0.5rem',
+          : props.vertical
+            ? '0.3rem 0 0.3rem 0.5rem'
+            : props.arrayValue
+              ? '0 0.5rem 0 0.5rem'
+              : props.leftLabel
+                ? '0 0.5rem 0 0'
+                : '0 0 0 0.5rem',
       }
     })
 
@@ -142,6 +147,10 @@ export default defineComponent({
 
       if (computedError.value) {
         style.borderColor = getColor('danger')
+      }
+
+      if (props.success) {
+        style.borderColor = getColor('success')
       }
 
       return style
@@ -166,8 +175,10 @@ export default defineComponent({
       'aria-checked': isActive.value,
       ...validationAriaAttributes.value,
     }))
+    const displayVal = computed(() => props.vertical ? '--va-checkbox-display-flex' : 'var(--va-checkbox-display)')
 
     return {
+      displayVal,
       isActive,
       computedClass,
       labelStyle,
@@ -193,7 +204,7 @@ export default defineComponent({
 @import "variables";
 
 .va-checkbox {
-  display: var(--va-checkbox-display);
+  display: v-bind(displayVal);
   max-width: fit-content;
   font-family: var(--va-font-family);
 

@@ -71,9 +71,10 @@
               <tr
                 v-if="showNoDataHtml"
                 key="showNoDataHtml"
+                class="va-data-table__table-tr"
               >
                 <td
-                  class="no-data"
+                  class="va-data-table__table-td no-data"
                   :colspan="columnsComputed.length + (selectable ? 1 : 0)"
                   v-html="noDataHtml"
                 />
@@ -82,9 +83,10 @@
               <tr
                 v-else-if="showNoDataFilteredHtml"
                 key="showNoDataFilteredHtml"
+                class="va-data-table__table-tr"
               >
                 <td
-                  class="no-data"
+                  class="va-data-table__table-td no-data"
                   :colspan="columnsComputed.length + (selectable ? 1 : 0)"
                   v-html="noDataFilteredHtml"
                 />
@@ -229,6 +231,7 @@ const VaDataTableThRowProps = extractComponentProps(VaDataTableThRow)
 type emitNames = 'update:modelValue' |
   'update:sortBy' |
   'update:sortingOrder' |
+  'columnSorted' |
   'filtered' |
   'sorted' |
   'selectionChange' |
@@ -293,6 +296,7 @@ export default defineComponent({
     'row:click',
     'row:dblclick',
     'row:contextmenu',
+    'columnSorted',
     ...useTableScrollEmits,
   ],
 
@@ -589,6 +593,7 @@ export default defineComponent({
 
     .table-transition-fade-leave-active {
       transition: opacity var(--va-data-table-transition);
+      display: none;
     }
 
     .table-transition-fade-enter-active {
@@ -608,6 +613,7 @@ export default defineComponent({
 
     .table-transition-shuffle-leave-active {
       transition: none;
+      display: none;
     }
 
     .table-transition-shuffle-enter-active {

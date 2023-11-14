@@ -19,13 +19,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, watchEffect } from 'vue'
 import {
   useGridTemplateArea,
   AreaName,
 } from './hooks/useGridTemplateArea'
 import { useLayoutProps, useLayout } from './hooks/useLayout'
 import VaLayoutArea from './components/VaLayoutArea.vue'
+import { useDocument } from '../../composables'
 
 const areaNames: AreaName[] = [
   'top',
@@ -39,6 +40,7 @@ export default defineComponent({
 
   props: {
     ...useLayoutProps,
+    allowBodyScrollOnOverlay: { type: Boolean, default: false },
   },
 
   emits: [
@@ -51,7 +53,25 @@ export default defineComponent({
   components: { VaLayoutArea },
 
   setup (props, { slots }) {
-    useLayout(props)
+    const { paddings } = useLayout(props)
+
+    const doDisableScroll = computed(() => {
+      return !props.allowBodyScrollOnOverlay && areaNames.some((area) => props[area]?.overlay)
+    })
+
+    const document = useDocument()
+
+    watchEffect(() => {
+      const overflowParent = document.value?.body
+
+      if (!overflowParent) { return }
+
+      if (doDisableScroll.value) {
+        overflowParent.style.overflow = 'hidden'
+      } else {
+        overflowParent.style.overflow = ''
+      }
+    })
 
     return {
       areaNames,
@@ -74,6 +94,7 @@ export default defineComponent({
           .filter(Boolean)
           .join(' ')
       }),
+      paddings,
     }
   },
 })
@@ -92,6 +113,7 @@ export default defineComponent({
   position: relative;
   z-index: 0;
   max-width: 100%;
+  max-height: 100%;
 
   &__area {
     @include va-scroll();
@@ -102,6 +124,14 @@ export default defineComponent({
       // Make it possible for content to be smaller than the layout
       min-width: 0;
       min-height: 0;
+
+      // When scroll anchor is present in content, there might be overflow, so we add scroll margins
+      [id] {
+        scroll-margin-top: calc(v-bind("paddings.top + 'px'") + var(--va-layout-scroll-padding));
+        scroll-margin-bottom: calc(v-bind("paddings.bottom + 'px'") + var(--va-layout-scroll-padding));
+        scroll-margin-left: calc(v-bind("paddings.left + 'px'") + var(--va-layout-scroll-padding));
+        scroll-margin-right: calc(v-bind("paddings.right + 'px'") + var(--va-layout-scroll-padding));
+      }
     }
   }
 }

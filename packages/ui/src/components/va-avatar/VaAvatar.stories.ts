@@ -10,8 +10,8 @@ export default {
 export const Default = () => ({
   components: { VaAvatar },
   template: `
-    <VaAvatar 
-      src="https://randomuser.me/api/portraits/women/5.jpg" 
+    <VaAvatar
+      src="https://randomuser.me/api/portraits/women/5.jpg"
       alt="image"
     />
   `,
@@ -62,21 +62,21 @@ export const SizesConfig = () => ({
   components: { VaAvatar },
   template: `
     [small: 16px]
-    <VaAvatar 
+    <VaAvatar
       :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
       size="small"
     >
       Text
     </VaAvatar>
     [medium: 24px]
-    <VaAvatar 
+    <VaAvatar
       :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
       size="medium"
     >
       Text
     </VaAvatar>
     [large: 32px]
-    <VaAvatar 
+    <VaAvatar
       :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
       size="large"
     >
@@ -121,6 +121,11 @@ export const FallbackSrc = () => ({
 export const FallbackText = () => ({
   components: { VaAvatar },
   template: '<VaAvatar src="https://not-exist" fallbackText="Text"/>',
+})
+
+export const FallbackTextNoSrc = () => ({
+  components: { VaAvatar },
+  template: '<VaAvatar fallbackText="Text" />',
 })
 
 export const fallbackRender = () => ({

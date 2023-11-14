@@ -160,10 +160,12 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     return createNode({ node, level, computedFilterMethod })
   })
 
-  const getFilteredNodes = (nodes: TreeNode[]): TreeNode[] => nodes.slice().filter((node) => {
-    if (node.hasChildren) { getFilteredNodes(getChildren(node)) }
+  const getFilteredNodes = (nodes: TreeNode[]): TreeNode[] => nodes.filter((node) => {
+    if (node.children) { node.children = getFilteredNodes(node.children) }
 
-    return node.matchesFilter ? node : false
+    if (node.children.length === 0) { node.hasChildren = false }
+
+    return node.matchesFilter
   })
 
   const { handleKeyboardNavigation } = useTreeKeyboardNavigation(props, { emit, toggleCheckbox, toggleNode })

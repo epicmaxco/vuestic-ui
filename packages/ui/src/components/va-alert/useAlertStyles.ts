@@ -1,5 +1,5 @@
 import { computed, toRef } from 'vue'
-import { useElementBackground, useColors, useTextColor } from '../../composables'
+import { useColors, useCurrentElement, useElementBackground, useElementTextColor, useTextColor } from '../../composables'
 
 type AlertStyleProps = {
   modelValue: boolean,
@@ -18,8 +18,7 @@ type AlertStyleProps = {
 }
 
 export const useAlertStyles = (props: AlertStyleProps) => {
-  const { getColor, getTextColor, getBoxShadowColorFromBg } = useColors()
-  const { background } = useElementBackground()
+  const { getColor } = useColors()
 
   const isTransparentBackground = computed(() => Boolean(props.outline || props.border))
   const { textColorComputed } = useTextColor(toRef(props, 'color'), isTransparentBackground)
@@ -47,10 +46,12 @@ export const useAlertStyles = (props: AlertStyleProps) => {
     }
   })
 
+  const currentColor = useElementTextColor(useElementBackground(useCurrentElement()))
+
   const contentStyle = computed(() => {
     return {
       alignItems: props.center ? 'center' : '',
-      color: (props.border || props.outline) ? 'currentColor' : textColorComputed.value,
+      color: (props.border || props.outline) ? currentColor.value : textColorComputed.value,
     }
   })
 

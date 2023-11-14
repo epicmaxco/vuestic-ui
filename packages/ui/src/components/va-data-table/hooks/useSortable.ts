@@ -13,15 +13,16 @@ import type {
 export const useSortableProps = {
   ...useThrottleProps,
   sortBy: { type: String as PropType<string | undefined> },
+  columnSorted: { type: Object as PropType<any | undefined> },
   sortingOrder: { type: String as PropType<DataTableSortingOrder | undefined> },
 }
 
 export type TSortedArgs = { sortBy: string, sortingOrder: DataTableSortingOrder, items: DataTableItem[], itemsIndexes: number[] }
 
-export type TSortableEmits = (
+export type TSortableEmits = ((
   event: 'update:sortBy' | 'update:sortingOrder' | 'sorted',
   args: string | DataTableSortingOrder | TSortedArgs,
-) => void
+) => void) & ((event: 'columnSorted', args: { columnName: string, value: DataTableSortingOrder, column: DataTableColumnInternal }) => void)
 
 export type TSortIcon = 'va-arrow-up' | 'va-arrow-down' | 'unfold_more'
 
@@ -129,12 +130,16 @@ export const useSortable = (
   // Sets the clicked heading's column as a one to sort by and toggles the sorting order from "asc" to "desc" to `null`
   // (un-sorted) if the same column is clicked again or sets sorting order to "asc" if some other column is chosen.
   function toggleSorting (column: DataTableColumnInternal) {
+    let value: DataTableSortingOrder
     if (column.name === sortBySync.value) {
-      sortingOrderSync.value = getNextSortingOptionsValue(sortingOrderSync.value, column.sortingOptions)
+      value = getNextSortingOptionsValue(sortingOrderSync.value, column.sortingOptions)
     } else {
       sortBySync.value = column.name
-      sortingOrderSync.value = column.sortingOptions[0]
+      value = column.sortingOptions[0]
     }
+
+    sortingOrderSync.value = value
+    emit('columnSorted', { columnName: column.name, value, column })
   }
 
   const toggleSortingThrottled = useThrottleFunction(toggleSorting, props)

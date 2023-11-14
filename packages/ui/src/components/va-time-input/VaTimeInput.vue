@@ -41,17 +41,16 @@
           />
           <va-icon
             v-if="$props.leftIcon"
+            class="va-time-input__left-button va-time-input__side-button"
             :aria-label="tp($props.ariaToggleDropdownLabel)"
             v-bind="iconProps"
-            @click.stop="showDropdown"
-            @keydown.enter.stop="showDropdown"
-            @keydown.space.stop="showDropdown"
           />
         </template>
 
         <template #icon>
           <va-icon
             v-if="canBeClearedComputed"
+            class="va-time-input__clear-button"
             v-bind="{ ...iconProps, ...clearIconProps }"
             :aria-label="tp($props.ariaResetLabel)"
             @click.stop="reset"
@@ -60,10 +59,8 @@
           />
           <va-icon
             v-if="!$props.leftIcon && $props.icon"
+            class="va-time-input__right-button va-time-input__side-button"
             :aria-label="tp($props.ariaToggleDropdownLabel)"
-            @click.stop="showDropdown"
-            @keydown.enter.stop="showDropdown"
-            @keydown.space.stop="showDropdown"
             v-bind="iconProps"
           />
         </template>
@@ -222,6 +219,7 @@ export default defineComponent({
       emit('update:modelValue', props.clearValue)
       emit('clear')
       resetValidation()
+      hideDropdown()
     })
 
     const {
@@ -341,7 +339,6 @@ export default defineComponent({
     const iconProps = computed(() => ({
       role: 'button',
       'aria-hidden': false,
-      size: 'small',
       name: props.icon,
       color: 'secondary',
       tabindex: iconTabindexComputed.value,
@@ -403,5 +400,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "variables";
+
+.va-time-input__side-button {
+  pointer-events: none;
+}
 </style>

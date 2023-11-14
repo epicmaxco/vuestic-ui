@@ -70,7 +70,7 @@ export default defineComponent({
 
     const { getColor, getBoxShadowColor } = useColors()
 
-    const { textColorComputed } = useTextColor()
+    const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
     const showIconComputed = computed(() => props.icon || slots.icon)
     const showTitleComputed = computed(() => props.title || slots.title)
     const showBodyComputed = computed(() => props.message || slots.body)

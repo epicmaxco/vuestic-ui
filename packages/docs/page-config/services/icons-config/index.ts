@@ -62,7 +62,7 @@ export default definePageConfig({
     block.headline("Example aliases config"),
     block.code("alias-example"),
 
-    block.headline("Vuestic component alises"),
+    block.headline("Vuestic component aliases"),
     block.paragraph("We use some icons in our components by default. You can redefine them by changing it's alias."),
     block.component("icon-aliases"),
 

@@ -10,7 +10,7 @@ export default
     clickPrependInner: "The event is triggered by clicking on the `prependInner` slot",
     clickAppend: "The event is triggered by clicking on the `append` slot",
     clickAppendInner: "The event is triggered by clicking on the `appendInner` slot",
-    updateModelValue: "The event is triggered when the component needs to change the model. Is also used by `v-model`",
+    updateModelValue: "The event is triggered when the component needs to change the model. Is also used by `v-model` and must be listed after the `v-model`",
     updateFocused: "The event is triggered when the component needs to toggle the focus",
     eventArgument: "The event argument is:"
   },
@@ -103,7 +103,7 @@ export default
     ariaPreviousPeriodLabel: "The aria-label of the \"previous period\" button",
     ariaRemoveFileLabel: "The aria-label of the \"remove file\" button",
     ariaResetLabel: "The aria-label of the \"reset\" button",
-    background: "The color name of the backgound color",
+    background: "The color name of the background color",
     innerAnchorSelector: "Anchor CSS selector inside passed slot",
     cellHeight: "Height of the time cell",
     teleport: "Element where content will be rendered",
@@ -114,6 +114,5 @@ export default
     scopeAvailable: "Slot scope available:"
   },
   methods: {
-    
   }
 }

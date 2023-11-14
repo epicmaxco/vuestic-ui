@@ -107,19 +107,21 @@
         style="width: 400px;"
         :header="collapseHeader"
       >
-        <template #content>
+        <template #body>
           <va-collapse
             v-for="(value, index) in collapseLayerValue"
             :key="index"
             v-model="collapseLayerValue[index]"
             :header="collapseHeader"
+            color="background-element"
           >
-            <template #content>
+            <template #body>
               <va-collapse
                 v-for="(value, index) in collapseSecondLayerValue"
                 :key="index"
                 v-model="collapseSecondLayerValue[index]"
                 :header="collapseHeader"
+                color="secondary"
               >
                 <template #content>
                   {{ collapseContent }}

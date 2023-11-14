@@ -86,7 +86,7 @@ export default definePageConfig({
 Here's a checklist you can go through when working on component:
 
 - Component name should always have \`Va\` prefix.
-- All CSS varisables should have \`va-\` prefix.
+- All CSS variables should have \`va-\` prefix.
 - CSS variables are meant as a part of interface. We expect users to change them. CSS variables are pretty expensive though, so please don't use them on styles that are unlikely to be changed by user (also user can directly override class if it's a must). Here's some examples:
   - good: color, font, border;
   - bad: align-items, top, left.
@@ -114,7 +114,7 @@ Here's a checklist you can go through when working on composable:
 
 - Start composable name with \`use\`.
 - Write composable in one file. If you have large composable, split it in multiple small composables. If these composables are useless without each other, use folder with \`index.ts\` and export one composable from here.
-- Composable can return one object (reactive or ref) or object that contains refs, methods computeds.
+- Composable can return one object (reactive or ref) or object that contains refs, methods computes.
 - Reuse composables if possible.
 - Export (or even re-export) types in composable.
 - Attach your composable to \`/src/composables/index.ts\`;

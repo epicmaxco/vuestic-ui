@@ -5,21 +5,21 @@ export const getComponentsDefaultConfig = (): ComponentConfig =>
   ({
     VaIcon: {
       sizesConfig: {
-        defaultSize: 24,
+        defaultSize: 18,
         sizes: {
-          small: 16,
-          medium: 24,
-          large: 32,
+          small: 14,
+          medium: 18,
+          large: 24,
         },
       },
     },
     VaRating: {
       sizesConfig: {
-        defaultSize: 24,
+        defaultSize: 18,
         sizes: {
-          small: 16,
-          medium: 24,
-          large: 32,
+          small: 14,
+          medium: 18,
+          large: 24,
         },
       },
     },

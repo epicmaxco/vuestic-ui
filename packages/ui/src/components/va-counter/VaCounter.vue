@@ -5,6 +5,8 @@
     :class="classComputed"
     :style="styleComputed"
     :focused="isFocused"
+    :error="computedError"
+    :error-messages="computedErrorMessages"
     @keydown.up.prevent="increaseCount"
     @keydown.right.prevent="increaseCount"
     @keydown.down.prevent="decreaseCount"
@@ -101,7 +103,6 @@ import {
   shallowRef,
   defineComponent,
   InputHTMLAttributes,
-  PropType,
   ComputedRef,
   toRef,
 } from 'vue'
@@ -119,6 +120,9 @@ import {
   useTranslation,
   useLongPress,
   useTemplateRef,
+  useValidation,
+  useClearableProps,
+  useValidationEmits,
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
@@ -148,6 +152,7 @@ export default defineComponent({
     ...useFormFieldProps,
     ...useStatefulProps,
     ...useComponentPresetProp,
+    ...useClearableProps,
     ...VaInputWrapperProps,
     // input
     modelValue: { type: [String, Number], default: 0 },
@@ -172,6 +177,7 @@ export default defineComponent({
 
   emits: [
     'update:modelValue',
+    ...useValidationEmits,
     ...createInputEmits(),
     ...createFieldEmits(),
     ...useFocusEmits,
@@ -190,6 +196,19 @@ export default defineComponent({
     } = useFocus(input, emit)
 
     const { valueComputed } = useStateful(props, emit)
+
+    const reset = () => withoutValidation(() => {
+      emit('update:modelValue', props.clearValue)
+      emit('clear')
+      resetValidation()
+    })
+
+    const {
+      computedError,
+      computedErrorMessages,
+      withoutValidation,
+      resetValidation,
+    } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
     const setCountInput = ({ target }: Event) => {
       valueComputed.value = Number((target as HTMLInputElement | null)?.value)
@@ -230,7 +249,7 @@ export default defineComponent({
     })
 
     const isMaxReached = computed(() => {
-      if (!max.value) { return false }
+      if (typeof max.value === 'undefined') { return false }
 
       return step.value
         ? Number(valueComputed.value) > (max.value - step.value)
@@ -240,11 +259,11 @@ export default defineComponent({
     const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
     const isDecreaseActionDisabled = computed(() => (
-      isMinReached.value || props.readonly || props.disabled
+      isMinReached.value || props.disabled
     ))
 
     const isIncreaseActionDisabled = computed(() => (
-      isMaxReached.value || props.readonly || props.disabled
+      isMaxReached.value || props.disabled
     ))
 
     const decreaseCount = () => {
@@ -276,6 +295,7 @@ export default defineComponent({
       icon: props.decreaseIcon,
       plain: true,
       disabled: isDecreaseActionDisabled.value,
+      readonly: props.readonly,
       tabindex: -1,
       'aria-label': tp(props.ariaDecreaseLabel),
       ...(!isDecreaseActionDisabled.value && { onClick: decreaseCount }),
@@ -287,6 +307,7 @@ export default defineComponent({
       icon: props.increaseIcon,
       plain: true,
       disabled: isIncreaseActionDisabled.value,
+      readonly: props.readonly,
       tabindex: -1,
       'aria-label': tp(props.ariaIncreaseLabel),
       ...(!isIncreaseActionDisabled.value && { onClick: increaseCount }),
@@ -357,6 +378,9 @@ export default defineComponent({
       valueComputed,
       isFocused,
 
+      computedError,
+      computedErrorMessages,
+
       fieldListeners: createFieldListeners(emit),
       inputListeners: createInputListeners(emit),
       inputWrapperPropsComputed: filterComponentProps(VaInputWrapperProps),
@@ -421,11 +445,6 @@ export default defineComponent({
 
       .va-counter__button-decrease:not(.va-button--square) {
         width: unset;
-
-        .va-button__content {
-          padding-right: var(--va-counter-button-inner-padding);
-          padding-left: var(--va-counter-button-outer-padding);
-        }
       }
     }
 
@@ -439,11 +458,6 @@ export default defineComponent({
 
       .va-counter__button-increase:not(.va-button--square) {
         width: unset;
-
-        .va-button__content {
-          padding-left: var(--va-counter-button-inner-padding);
-          padding-right: var(--va-counter-button-outer-padding);
-        }
       }
     }
   }
@@ -486,11 +500,6 @@ export default defineComponent({
 
   .va-input-wrapper__field {
     padding: 0;
-
-    .va-input-wrapper__text,
-    .va-input__container {
-      padding-right: 0;
-    }
   }
 
   &__prepend-inner,

@@ -123,7 +123,7 @@ export default defineComponent({
         return undefined
       }
 
-      const rows = valueComputed.value.toString().split('\n').length
+      const rows = valueComputed.value ? valueComputed.value.toString().split('\n').length : 1
 
       if (!props.maxRows) {
         return rows
@@ -175,6 +175,7 @@ export default defineComponent({
     display: flex;
     overflow: hidden;
     width: 100%;
+    align-self: stretch;
 
     &--resizable {
       resize: vertical;

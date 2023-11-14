@@ -12,7 +12,8 @@ export default defineComponent({
     ...useAlignProps,
     ...useComponentPresetProp,
     separator: { type: String, default: '/' },
-    color: { type: String, default: 'secondary' },
+    color: { type: String, default: null },
+    disabledColor: { type: String, default: 'secondary' },
     activeColor: { type: String, default: null },
     separatorColor: { type: String, default: null },
     ariaLabel: { type: String, default: '$t:breadcrumbs' },
@@ -22,10 +23,11 @@ export default defineComponent({
 
     const { getColor } = useColors()
     const computedThemesSeparatorColor = computed(() => {
-      return props.separatorColor ? getColor(props.separatorColor) : getColor(props.color)
+      return props.separatorColor ? getColor(props.separatorColor) : null
     })
+    const computedThemesColor = computed(() => props.color ? getColor(props.color) : null)
     const computedThemesActiveColor = computed(() => {
-      return props.activeColor ? getColor(props.activeColor) : getColor(props.color)
+      return props.activeColor ? getColor(props.activeColor) : null
     })
 
     const childNodeFilter = (result: VNode[], node: VNode) => {
@@ -81,10 +83,12 @@ export default defineComponent({
 
       const createChildComponent = (child: VNode, index: number) => h(
         'span', {
-          class: 'va-breadcrumbs__item',
+          class: ['va-breadcrumbs__item', { 'va-breadcrumbs__item--disabled': isDisabledChild(child) }],
           'aria-current': (isLastIndexChildNodes(index) && isChildLink(child)) ? 'location' : false,
           style: {
-            color: (!isLastIndexChildNodes(index) && !isDisabledChild(child)) ? computedThemesActiveColor.value : null,
+            color: isDisabledChild(child)
+              ? getColor(props.disabledColor)
+              : isLastIndexChildNodes(index) ? computedThemesActiveColor.value : computedThemesColor.value,
           },
         },
         [child],

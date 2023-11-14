@@ -15,7 +15,6 @@
           attributes: headerAttributes,
           attrs: headerAttributes,
           iconAttrs: {
-            color: iconColorComputed,
             class: [
               'va-collapse__expand-icon',
               computedModelValue ? 'a-collapse__expand-icon--expanded' : 'a-collapse__expand-icon--collapsed'
@@ -33,7 +32,6 @@
             v-if="icon"
             class="va-collapse__header__icon"
             :name="icon"
-            :color="textColorComputed"
           />
           <slot
             name="header-content"
@@ -48,7 +46,6 @@
               class="va-collapse__expand-icon"
               name="va-arrow-down"
               :class="computedModelValue ? 'va-collapse__expand-icon--expanded' : 'va-collapse__expand-icon--collapsed'"
-              :color="iconColorComputed"
             />
           </slot>
         </div>
@@ -60,6 +57,7 @@
         'va-collapse__body-wrapper--bordered': !$slots.body && !$slots.header,
       }"
       :style="contentStyle"
+      @transitionend="onTransitionEnd"
     >
       <div
         class="va-collapse__body"
@@ -81,7 +79,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, shallowRef } from 'vue'
+import { computed, defineComponent, ref, shallowRef, watch } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -126,10 +124,8 @@ export default defineComponent({
 
     const { valueComputed } = useStateful(props, emit, 'modelValue')
 
-    const { getColor, setHSLAColor } = useColors()
+    const { getColor, getTextColor, setHSLAColor } = useColors()
     const { accordionProps, valueProxy: computedModelValue = valueComputed } = useAccordionItem()
-
-    const { textColorComputed } = useTextColor()
 
     const bodyHeight = ref()
     useResizeObserver([body], () => {
@@ -150,11 +146,11 @@ export default defineComponent({
 
       return props.color && props.colorAll
         ? setHSLAColor(getColor(props.color), { a: 0.07 })
-        : ''
+        : undefined
     })
 
     const headerBackground = computed(() => {
-      return props.color ? getColor(props.color) : ''
+      return props.color ? getColor(props.color) : undefined
     })
 
     const uniqueId = computed(generateUniqueId)
@@ -171,21 +167,30 @@ export default defineComponent({
       role: 'button',
     }))
 
+    const isHeightChanging = ref(false)
+
+    watch(height, (newValue, oldValue) => {
+      // If no transition happened, just got initial height value
+      if (oldValue === undefined) { return }
+      isHeightChanging.value = true
+    })
+
+    const onTransitionEnd = (e: TransitionEvent) => {
+      if (e.propertyName === 'height' && e.target === e.currentTarget) {
+        isHeightChanging.value = false
+      }
+    }
+
     const computedClasses = useBem('va-collapse', () => ({
       ...pick(props, ['disabled']),
       expanded: computedModelValue.value,
       active: computedModelValue.value,
       popout: !!(accordionProps.value.popout && computedModelValue.value),
       inset: !!(accordionProps.value.inset && computedModelValue.value),
+      'height-changing': isHeightChanging.value,
       'colored-body': Boolean(contentBackground.value),
       'colored-header': Boolean(headerBackground.value),
     }))
-
-    const iconColorComputed = computed(() => {
-      if (!props.color || isColorTransparent(getColor(props.color))) { return props.iconColor }
-
-      return textColorComputed.value
-    })
 
     const toggle = () => {
       if (props.disabled) { return }
@@ -193,9 +198,9 @@ export default defineComponent({
     }
 
     return {
+      onTransitionEnd,
       body,
       height,
-      iconColorComputed,
 
       toggle,
       computedModelValue,
@@ -205,11 +210,10 @@ export default defineComponent({
       panelIdComputed,
       tabIndexComputed,
 
-      textColorComputed,
       computedClasses,
 
       headerStyle: computed(() => ({
-        color: textColorComputed.value,
+        color: headerBackground.value ? getColor(getTextColor(headerBackground.value)) : 'currentColor',
         backgroundColor: headerBackground.value,
       })),
 
@@ -219,6 +223,7 @@ export default defineComponent({
           height: `${height.value}px`,
           transitionDuration: getTransition(),
           background: computedModelValue.value ? contentBackground.value : '',
+          color: contentBackground.value ? getColor(getTextColor(contentBackground.value)) : 'currentColor',
         }
       }),
     }
@@ -233,13 +238,16 @@ export default defineComponent({
 .va-collapse {
   transition: var(--va-collapse-transition, var(--va-swing-transition));
   font-family: var(--va-font-family);
+  display: flex;
+  flex-direction: column;
 
   &__body-wrapper {
     transition: var(--va-collapse-body-wrapper-transition);
-    overflow: hidden;
+    overflow: auto;
 
     &--bordered {
       border-bottom: 1px solid var(--va-background-border);
+      box-sizing: content-box;
 
       .va-collapse--colored-header:not(.va-collapse--expanded) & {
         border-bottom: none;
@@ -312,6 +320,14 @@ export default defineComponent({
 
   &--disabled {
     @include va-disabled();
+  }
+
+  &--height-changing {
+    .va-collapse {
+      &__body-wrapper {
+        overflow: hidden;
+      }
+    }
   }
 }
 </style>

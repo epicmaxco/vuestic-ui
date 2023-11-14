@@ -40,6 +40,10 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "accessibility-guide",
         displayName: "Accessibility Guide",
       },
+      {
+        name: "change-log",
+        displayName: "Changelog",
+      },
     ],
   },
   {
@@ -189,6 +193,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "data-table",
         displayName: "Data Table",
+        meta: {
+          badge: navigationBadge.updated('1.8.3'),
+        }
       },
       {
         category: "Form",
@@ -293,13 +300,13 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: navigationBadge.updated('1.8.0'),
         }
       },
-      
+
       {
         category: 'Layout',
         name: 'layout',
         displayName: 'Layout',
         meta: {
-          badge: navigationBadge.new('1.7.2'),
+          badge: navigationBadge.new('1.8.0'),
         }
       },
       {
@@ -379,7 +386,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: 'stepper',
         displayName: 'Stepper',
         meta: {
-          badge : navigationBadge.new('1.6.0'),
+          badge : navigationBadge.updated('1.8.3'),
         }
       },
       {

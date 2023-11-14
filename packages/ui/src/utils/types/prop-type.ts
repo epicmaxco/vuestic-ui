@@ -6,7 +6,7 @@ export type StringWithAutocomplete<T> = T | (string & Record<never, never>)
 // Make sure to make StringType as generic to prevent type unwrapping
 /**
  * Vuestic custom PropType for better DX.
- * Prop accept any string, but will show autocomplete in IDE. We don't want user to write `as const` everytime.
+ * Prop accept any string, but will show autocomplete in IDE. We don't want user to write `as const` every time.
  */
 export type AnyStringPropType<
   T,

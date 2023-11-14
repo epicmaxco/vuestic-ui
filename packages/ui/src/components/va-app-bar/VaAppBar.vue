@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+import { defineComponent, PropType, computed, toRef } from 'vue'
 
-import { setupScroll, useColors, useFixedBar, useFixedBarProps, useComponentPresetProp } from '../../composables'
+import { setupScroll, useColors, useFixedBar, useFixedBarProps, useComponentPresetProp, useTextColor } from '../../composables'
 
 export default defineComponent({
   name: 'VaAppBar',
@@ -23,7 +23,7 @@ export default defineComponent({
     target: { type: [Object, String] as PropType<string | HTMLElement>, default: '' },
     shadowOnScroll: { type: Boolean, default: false },
     shadowColor: { type: String, default: '' },
-    color: { type: String, default: undefined },
+    color: { type: String, default: 'primary' },
   },
 
   setup (props) {
@@ -32,6 +32,7 @@ export default defineComponent({
 
     const { getColor, getGradientBackground, getBoxShadowColor } = useColors()
     const colorComputed = computed(() => getColor(props.color))
+    const { textColorComputed } = useTextColor(toRef(props, 'color'))
     const showShadowComputed = computed(() => isScrolledDown.value ? !!props.shadowOnScroll : false)
     const shadowColorComputed = computed(() => getColor(props.shadowColor, colorComputed.value))
 
@@ -44,6 +45,7 @@ export default defineComponent({
       ...fixedBarStyleComputed.value,
       background: props.gradient ? getGradientBackground(colorComputed.value) : colorComputed.value,
       boxShadow: computedShadow.value,
+      color: textColorComputed.value,
     }))
 
     return { scrollRoot, computedStyle }

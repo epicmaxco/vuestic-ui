@@ -5,41 +5,55 @@ import { ChangeLog } from "./types";
 import { PropType, computed } from "vue";
 
 const props = defineProps({
-  log: { type: Object as PropType<ChangeLog>, required: true },
+  changeLog: { type: Object as PropType<ChangeLog>, required: true },
 });
 
-const versions = computed(() => Object.keys(props.log));
+const versions = computed(() => Object.keys(props.changeLog));
 </script>
 
 <template>
-  <VaCollapse
-    class="page-config-change-log"
-    flat
+  <div
+    v-for="version in versions"
+    :key="version"
+    class="page-config-change-log__block"
   >
-    <template #header>
-      <div class="page-config-change-log__title">
-        <h2 class="va-h5">
-          Change log
-          <Anchor text="Change log" />
-        </h2>
-        <VaIcon name="va-arrow-down" />
-      </div>
-    </template>
+    <VaCollapse>
+      <template #header-content>
+        <div class="flex items-center">
+          <VaIcon
+            name="rocket_launch"
+            class="mr-1"
+            size="18px"
+            color="secondary"
+          />
+          <h1 class="va-h6 va-link">
+            <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${version}`">
+              v{{ version }}
+            </a>
+            <Anchor :text="version" />
+          </h1>
+        </div>
+      </template>
 
-    <div
-      v-for="version in versions"
-      :key="version"
-      class="page-config-change-log__block"
-    >
-      <h3 class="va-h6 page-config-change-log__version">
-        v{{ version }}
-      </h3>
-      <ul class="va-unordered">
-        <li
-          v-for="logs in log[version]"
-          :key="logs"
+      <ul
+        v-for="componentChanges, componentName in changeLog[version]"
+        :key="componentName"
+        class="va-unordered mb-8"
+        style="--va-li-background: var(--va-background-border)"
+      >
+        <h2
+          class="va-h6 mb-2"
+          style="font-weight: 600;"
         >
-          <MarkdownView :content="logs" />
+          {{ componentName }}
+        </h2>
+        <li
+          v-for="change in componentChanges"
+          :key="change"
+          class="my-1"
+        >
+          <!-- <div class="page-config-api-change-log__circle" /> -->
+          <MarkdownView :content="change.slice(2)" />
         </li>
       </ul>
       <VaButton
@@ -48,8 +62,8 @@ const versions = computed(() => Object.keys(props.log));
       >
         View full release change log
       </VaButton>
-    </div>
-  </VaCollapse>
+    </VaCollapse>
+  </div>
 </template>
 
 <style lang="scss">

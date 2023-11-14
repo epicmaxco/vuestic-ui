@@ -63,6 +63,12 @@ const expandableRowScope = `
   isExpandableRowVisible: boolean,
 }`
 
+const columnSorted = `{
+  columnName: string,
+  value: DataTableSortingOrder,
+  column: DataTableColumnInternal
+}`
+
 const filteredEvent = `
 {
   items: DataTableItem[],
@@ -113,6 +119,9 @@ export default defineManualApi({
     },
   },
   events: {
+    columnSorted:{
+      types: columnSorted
+    },
     filtered: {
       types: filteredEvent,
     },

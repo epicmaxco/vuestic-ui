@@ -1,2 +1,6 @@
 @import './global/theme.scss';
 @import './global/css-variables.scss';
+
+.va-background-watcher {
+  transition: 0.01s background-color linear;
+}

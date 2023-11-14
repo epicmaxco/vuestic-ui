@@ -30,6 +30,10 @@ const fontsConfig: IconConfig = [
     resolve: ({ code }) => ({ class: `entypo-${code}` }),
   },
   {
+    name: 'mso-{name}',
+    resolve: ({ name }) => ({ content: name, class: 'material-symbols-outlined' }),
+  },
+  {
     name: 'text',
   },
 ]
