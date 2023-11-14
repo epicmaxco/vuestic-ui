@@ -20,3 +20,14 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.va-menu-list__group-name {
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 0 var(--va-menu-padding-x);
+}
+</style>

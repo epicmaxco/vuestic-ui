@@ -43,9 +43,9 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
   },
   setup (props) {
-    const { getColor, getHoverColor, getFocusColor } = useColors()
+    const { getColor, getHoverColor, getFocusColor, setHSLAColor } = useColors()
 
-    const hoverColor = computed(() => getHoverColor(getColor(props.color)))
+    const hoverColor = computed(() => setHSLAColor(getColor(props.color), { a: 0.1 }))
     const focusColor = computed(() => getFocusColor(getColor(props.color)))
 
     return {
@@ -59,23 +59,20 @@ export default defineComponent({
 .va-menu-item {
   display: table-row;
   cursor: pointer;
-  padding: 18px;
-
-  --padding-x: 12px;
-  --padding-y: 4px;
 
   &__cell {
     display: table-cell;
     vertical-align: middle;
 
     &--center {
-      padding: var(--padding-y) var(--padding-x);
+      padding: 0 var(--va-menu-padding-x);
       text-align: left;
       width: 100%;
     }
 
-    &--left, &--right {
-      padding: 0 var(--padding-x);
+    &--left,
+    &--right {
+      padding: 0 var(--va-menu-padding-x);
       text-align: center;
       min-width: 1px;
 
@@ -94,6 +91,7 @@ export default defineComponent({
   }
 
   &:hover {
+    opacity: 0.9999;
     background-color: v-bind("hoverColor");
   }
 

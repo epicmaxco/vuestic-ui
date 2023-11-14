@@ -3,11 +3,15 @@
     <template v-if="$slots.default">
       <template v-for="child in $slots.default()">
         <component v-if="getVNodeComponentName(child) === 'VaMenuItem'" :is="child" :key="getVNodeKey(child) + 'menuitem'" />
-        <tr v-else :key="getVNodeKey(child)">
-          <td colspan="99999">
+        <!-- <component :is="child" v-else :key="getVNodeKey(child)" /> -->
+        <!-- <tr v-else :key="getVNodeKey(child)">
+          <td colspan="99999" class="va-menu-list__virtual-td">
             <component :is="child" />
           </td>
-        </tr>
+        </tr> -->
+        <td colspan="999" v-else :key="getVNodeKey(child)" class="va-menu-list__virtual-td">
+          <component :is="child" />
+        </td>
       </template>
     </template>
     <slot v-else>
@@ -104,15 +108,31 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import '../variables';
+
 .va-menu-list {
   overflow: auto;
   min-width: 200px;
   table-layout: fixed;
   width: max-content;
 
+  td:not(&__virtual-td) {
+    padding-top: calc(var(--va-menu-padding-y) / 2);
+    padding-bottom: calc(var(--va-menu-padding-y) / 2);
+  }
+
+  &__virtual-td:has(tr) {
+    // Behaves like tbody, so column width are inherited for tr
+    display: table-row-group;
+  }
+
   &__group-name {
     font-size: 0.8em;
-    color: v-bind("colorComputed");
+    color: var(--va-secondary);
+  }
+
+  .va-divider {
+    margin: 0;
   }
 }
 </style>

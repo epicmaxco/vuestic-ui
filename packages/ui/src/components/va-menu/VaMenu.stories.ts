@@ -1,24 +1,29 @@
 import { VaDivider, VaButton, VaDropdown, VaDropdownContent, VaIcon } from '../../components'
-import { defineComponent } from 'vue'
-import VaMenu from './VaMenu.vue'
 import VaMenuList from './components/VaMenuList.vue'
 import VaMenuItem from './components/VaMenuItem.vue'
 import VaMenuGroup from './components/VaMenuGroup.vue'
-import VaMenuDemo from './VaMenu.demo.vue'
 import { VaAvatar } from '../'
 
 export default {
   title: 'VaMenu',
-  component: VaMenu,
+  component: VaMenuList,
 }
 
 export const Default = () => ({
-  components: { VaMenuDemo },
-  template: '<VaMenuDemo/>',
+  components: { VaMenuList },
+  data: () => ({
+    options: [
+      { id: '0', text: 'one', value: 'one' },
+      { id: '1', text: 'two', value: 'two' },
+      { id: '2', text: 'three', value: 'three' },
+    ],
+    value: false,
+  }),
+  template: '<VaMenuList :options="options" />',
 })
 
 export const IconSlot = () => ({
-  components: { VaMenu, VaAvatar },
+  components: { VaMenuList, VaAvatar },
   data: () => ({
     options: [
       { id: '0', text: 'one', value: 'one', icon: 'accessible_forward', rightIcon: '' },
@@ -30,17 +35,17 @@ export const IconSlot = () => ({
     value: false,
   }),
   template: `
-  <VaMenu :options="options" v-model="value">
+  <VaMenuList :options="options" v-model="value">
     <template #left-icon>
       <va-avatar src="https://randomuser.me/api/portraits/men/2.jpg" />
     </template>
-  </VaMenu>
+  </VaMenuList>
   `,
 })
 
 const longGroupName = 'This is a very long group name that should be truncated'.repeat(10)
 export const Groups = () => ({
-  components: { VaMenu, VaAvatar },
+  components: { VaMenuList, VaAvatar },
   data: () => ({
     options: [
       { id: '0', text: 'one', value: 'one', icon: 'accessible_forward', rightIcon: '', group: '' },
@@ -52,8 +57,8 @@ export const Groups = () => ({
     value: false,
   }),
   template: `
-  <VaMenu :options="options" v-model="value">
-  </VaMenu>
+  <VaMenuList :options="options" v-model="value">
+  </VaMenuList>
   `,
 })
 
@@ -112,7 +117,7 @@ export const WithDivider = () => ({
         User 3
       </VaMenuItem>
       <div>
-        <VaButton>HELLO</VaButton>
+        Custom content
       </div>
       <VaMenuItem>
         User 4
@@ -121,64 +126,46 @@ export const WithDivider = () => ({
   `,
 })
 
+const subMenu = `
+<VaDropdownContent style="margin-top: calc(var(--va-menu-padding-y) * -1)">
+  <VaMenuList>
+    <VaMenuItem>
+      Group 1
+    </VaMenuItem>
+    <VaMenuItem>
+      Group 2
+    </VaMenuItem>
+  </VaMenuList>
+</VaDropdownContent>
+`
+
 export const WithDropdown = () => ({
   components: { VaMenuList, VaMenuItem, VaMenuGroup, VaDivider, VaButton, VaDropdown, VaDropdownContent, VaIcon },
 
   template: `
     <VaMenuList>
       <VaMenuItem>
+        <template #left-icon>
+          Looong
+        </template>
         User 1
       </VaMenuItem>
-      <VaMenuItem>
-        User 2
-
-        <template #right-icon>
-          <VaDropdown placement="right-start" stickToEdges trigger="hover">
-            <template #anchor="{ isOpened }">
-              <VaIcon :name="isOpened ? 'chevron_left': 'chevron_right'" />
-            </template>
-
-            <VaDropdownContent>
-              <VaMenuList>
-                <VaMenuItem>
-                  Group 1
-                </VaMenuItem>
-                <VaMenuItem>
-                  Group 2
-
-                  <template #right-icon>
-                    <VaDropdown placement="right-start" stickToEdges trigger="hover">
-                      <template #anchor="{ isOpened }">
-                        <VaIcon :name="isOpened ? 'chevron_left': 'chevron_right'" />
-                      </template>
-
-                      <VaDropdownContent>
-                        <VaMenuList>
-                          <VaMenuItem>
-                            Account 1
-                          </VaMenuItem>
-                          <VaMenuItem>
-                            Account 2
-                          </VaMenuItem>
-                        </VaMenuList>
-                      </VaDropdownContent>
-                    </VaDropdown>
-                  </template>
-                </VaMenuItem>
-              </VaMenuList>
-            </VaDropdownContent>
-          </VaDropdown>
-        </template>
-      </VaMenuItem>
-
       <VaDropdown placement="right-start" stickToEdges trigger="hover">
         <template #anchor="{ isOpened }">
-          <VaMenuItem :rightIcon="isOpened ? 'chevron_left': 'chevron_right'">
-            AA
+          <VaMenuItem icon="phone">
+            User 2
+            <template #right-icon>
+              <VaIcon :name="isOpened ? 'chevron_left': 'chevron_right'" />
+            </template>
           </VaMenuItem>
         </template>
-          BBB
+
+        ${subMenu}
       </VaDropdown>
+
+      <VaMenuItem icon="home">
+        User 3
+      </VaMenuItem>
     </VaMenuList>
   `,
 })
