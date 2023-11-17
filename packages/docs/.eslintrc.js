@@ -16,8 +16,12 @@ module.exports = {
     "vue/multi-word-component-names": "off",
     "vue/no-reserved-component-names": "warn",
     "vue/component-name-in-template-casing": ["error", "PascalCase", {
-      registeredComponentsOnly: true,
-      ignores: [],
+      registeredComponentsOnly: false
+    }],
+    "vue/max-attributes-per-line": ["error", {
+      singleline: {
+        max: 4
+      },
     }],
   },
 }
