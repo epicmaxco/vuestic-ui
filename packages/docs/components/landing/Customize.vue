@@ -11,23 +11,23 @@
         </div>
 
         <div class="customize__buttons">
-          <va-button
+          <VaButton
             class="customize__buttons-item"
             color="textInverted"
             text-color="primary"
             to="/getting-started/installation"
           >
             Get Started
-          </va-button>
+          </VaButton>
         </div>
 
         <div class="customize__image">
-          <va-aspect-ratio :ratio="1337/192">
+          <VaAspectRatio :ratio="1337/192">
             <img
               src="/landing/customize-everything.png"
               alt="Vuestic UI components"
             >
-          </va-aspect-ratio>
+          </VaAspectRatio>
         </div>
       </div>
     </div>
