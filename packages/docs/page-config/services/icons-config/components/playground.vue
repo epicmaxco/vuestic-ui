@@ -2,7 +2,7 @@
   <div>
     <div class="demo-header mb-2">
       <div class="col">
-        <va-select
+        <VaSelect
           v-model="exampleValue"
           :rounded="false"
           :options="exampleOptions"
@@ -44,7 +44,7 @@
         })
       </div>
       }]
-      <va-button
+      <VaButton
         class="copy-button"
         preset="secondary"
         icon="content_copy"

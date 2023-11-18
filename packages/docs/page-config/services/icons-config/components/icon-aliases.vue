@@ -1,27 +1,27 @@
 <template>
-  <va-list>
-    <va-list-item
+  <VaList>
+    <VaListItem
       v-for="{ name, to } in VuesticIconAliases"
       :key="name"
       class="mt-2"
     >
-      <va-list-item-section avatar>
-        <va-icon
+      <VaListItemSection avatar>
+        <VaIcon
           :name="name"
           size="32px"
         />
-      </va-list-item-section>
-      <va-list-item-section>
-        <va-list-item-label>
+      </VaListItemSection>
+      <VaListItemSection>
+        <VaListItemLabel>
           {{ name }}
-        </va-list-item-label>
+        </VaListItemLabel>
 
-        <va-list-item-label caption>
+        <VaListItemLabel caption>
           {{ to }}
-        </va-list-item-label>
-      </va-list-item-section>
-    </va-list-item>
-  </va-list>
+        </VaListItemLabel>
+      </VaListItemSection>
+    </VaListItem>
+  </VaList>
 </template>
 
 <script setup lang="ts">

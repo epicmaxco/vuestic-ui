@@ -7,7 +7,7 @@
     </div>
 
     <div class="controls flex items-center gap-4 mt-2">
-      <va-color-palette
+      <VaColorPalette
         v-model="primaryColor"
         :palette="colorsToChange"
         class="mr-6"
