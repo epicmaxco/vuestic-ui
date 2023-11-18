@@ -1,12 +1,12 @@
 <template>
-  <va-checkbox v-model="isStriped" label="Striped" />
-  <va-checkbox v-model="isHoverable" label="Hoverable" />
+  <VaCheckbox v-model="isStriped" label="Striped" />
+  <VaCheckbox v-model="isHoverable" label="Hoverable" />
   <div class="h-[300px] w-full">
-    <ag-grid-vue
+    <AgGridVue
       class="ag-theme-vuestic w-full h-full"
       :class="{ 'ag-theme-vuestic--striped': isStriped, 'ag-theme-vuestic--hoverable': isHoverable }"
-      :columnDefs="columnDefs"
-      :rowData="rowData"
+      :column-defs="columnDefs"
+      :row-data="rowData"
       :modules="modules"
     />
   </div>
