@@ -25,12 +25,12 @@ const { getTextColor, getColor } = useColors()
       class="page-config-cards__card-wrapper"
       :style="{ width: `${100 * (Number(card.cols) || 1)}%`}"
     >
-      <va-card
+      <VaCard
         :color="card.color || 'backgroundElement'"
         :shadow="false"
         class="flex flex-col"
       >
-        <va-card-content class="flex-1">
+        <VaCardContent class="flex-1">
           <h4
             v-if="card.title"
             class="va-h4"
@@ -40,16 +40,16 @@ const { getTextColor, getColor } = useColors()
           <p v-if="card.text">
             {{ card.text }}
           </p>
-        </va-card-content>
-        <va-card-actions v-if="card.link">
-          <va-button
+        </VaCardContent>
+        <VaCardActions v-if="card.link">
+          <VaButton
             :href="card.link.href"
             :color="getTextColor(getColor(card.color || 'backgroundElement'))"
           >
             {{ card.link.text }}
-          </va-button>
-        </va-card-actions>
-      </va-card>
+          </VaButton>
+        </VaCardActions>
+      </VaCard>
     </div>
   </div>
 </template>
