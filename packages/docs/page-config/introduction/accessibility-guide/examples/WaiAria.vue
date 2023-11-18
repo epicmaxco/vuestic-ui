@@ -1,5 +1,5 @@
 <template>
-  <va-input
+  <VaInput
     v-model="text"
     preset="bordered"
     label="Input Name"
