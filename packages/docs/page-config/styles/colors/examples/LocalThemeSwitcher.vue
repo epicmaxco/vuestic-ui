@@ -8,7 +8,9 @@ const primaryColor = ref(palette[0]);
 
 <template>
   <VaNavbar color="primary">
-    <template #left>Logo</template>
+    <template #left>
+      Logo
+    </template>
     <template #right>
       <div class="flex items-center gap-3">
         Primary color:
@@ -25,7 +27,9 @@ const primaryColor = ref(palette[0]);
       }"
     >
       <VaButton>Play</VaButton>
-      <VaButton preset="secondary">Follow</VaButton>
+      <VaButton preset="secondary">
+        Follow
+      </VaButton>
     </VaConfig>
   </div>
 </template>

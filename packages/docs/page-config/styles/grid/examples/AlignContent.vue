@@ -1,5 +1,5 @@
 <template>
-  <va-card
+  <VaCard
     color="background-element"
     class="p-3"
   >
@@ -97,7 +97,7 @@
         </div>
       </div>
     </div>
-  </va-card>
+  </VaCard>
 </template>
 
 <script>

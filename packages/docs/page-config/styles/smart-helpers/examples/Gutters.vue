@@ -1,5 +1,5 @@
 <template>
-  <va-card
+  <VaCard
     class="gutters-demo"
     color="background-primary"
   >
@@ -60,7 +60,7 @@
         </div>
       </div>
     </div>
-  </va-card>
+  </VaCard>
 </template>
 
 <style lang="scss" scoped>
