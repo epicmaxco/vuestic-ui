@@ -1,18 +1,18 @@
 <template>
-  <va-checkbox
+  <VaCheckbox
     v-model="isCloseableAlertVisible"
     label="Toggle visibility"
     class="mb-6"
   />
-  <va-alert
+  <VaAlert
     v-model="isCloseableAlertVisible"
     closeable
     class="mb-6"
   >
     Dismissible Alert! Click the close button over there ⇒
-  </va-alert>
+  </VaAlert>
 
-  <va-alert
+  <VaAlert
     v-model="isCloseableAlertVisible"
     color="info"
     closeable
@@ -20,9 +20,9 @@
     class="mb-6"
   >
     You read this important alert message with a custom close icon
-  </va-alert>
+  </VaAlert>
 
-  <va-alert
+  <VaAlert
     v-model="isCloseableAlertVisible"
     color="warning"
     closeable
@@ -30,9 +30,9 @@
     class="mb-6"
   >
     You read this important alert message with a text instead of an icon
-  </va-alert>
+  </VaAlert>
 
-  <va-alert
+  <VaAlert
     v-model="isCloseableAlertVisible"
     color="success"
     closeable
@@ -42,7 +42,7 @@
       close
     </template>
     You read this important alert message with a slotted text instead of an icon
-  </va-alert>
+  </VaAlert>
 </template>
 
 <script>

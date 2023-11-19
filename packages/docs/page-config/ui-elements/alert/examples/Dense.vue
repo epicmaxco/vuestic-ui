@@ -1,20 +1,20 @@
 <template>
-  <va-alert
+  <VaAlert
     dense
     color="info"
     class="mb-6"
   >
     Colored background. You can use our colors - primary, secondary, info, success, warning, danger, or choose yours using HEX code.
-  </va-alert>
-  <va-alert
+  </VaAlert>
+  <VaAlert
     dense
     color="warning"
     outline
     class="mb-6"
   >
     Outline
-  </va-alert>
-  <va-alert
+  </VaAlert>
+  <VaAlert
     dense
     color="danger"
     border="top"
@@ -22,5 +22,5 @@
     class="mb-6"
   >
     Colored border
-  </va-alert>
+  </VaAlert>
 </template>
