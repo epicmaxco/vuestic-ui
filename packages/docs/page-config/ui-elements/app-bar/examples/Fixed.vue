@@ -1,43 +1,43 @@
 <template>
-  <va-app-bar
+  <VaAppBar
     v-if="enabled"
     bottom
     fixed
     hide-on-scroll
   >
-    <va-button
+    <VaButton
       icon="home"
       color="#fff"
       preset="secondary"
     />
-    <va-button
+    <VaButton
       icon="info"
       color="#fff"
       preset="secondary"
     />
-    <va-button
+    <VaButton
       icon="battery"
       color="#fff"
       preset="secondary"
     />
-    <va-spacer />
-    <va-button
+    <VaSpacer />
+    <VaButton
       color="#fff"
       preset="secondary"
     >
       Login
-    </va-button>
-    <va-button-dropdown
+    </VaButton>
+    <VaButtonDropdown
       preset="secondary"
       color="#fff"
       icon-color="#fff"
     >
       Content
-    </va-button-dropdown>
-  </va-app-bar>
-  <va-button @click="enabled = !enabled">
+    </VaButtonDropdown>
+  </VaAppBar>
+  <VaButton @click="enabled = !enabled">
     Enable/Disable fixed app bar example
-  </va-button>
+  </VaButton>
 </template>
 
 <script>
