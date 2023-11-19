@@ -5,14 +5,14 @@
     :code="renderComponent('va-avatar')"
     :slots="slots"
   >
-    <va-avatar v-bind="bind">
+    <VaAvatar v-bind="bind">
       <template
         v-for="slot in slots"
         #[slot.name]
       >
         {{ slot.value }}
       </template>
-    </va-avatar>
+    </VaAvatar>
   </ComponentPlayground>
 </template>
 

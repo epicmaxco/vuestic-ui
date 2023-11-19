@@ -1,8 +1,8 @@
 <template>
-  <va-avatar
+  <VaAvatar
     icon="info_outline"
     class="mr-6"
   />
 
-  <va-avatar icon="close" />
+  <VaAvatar icon="close" />
 </template>
