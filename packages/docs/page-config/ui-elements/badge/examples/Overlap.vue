@@ -1,43 +1,43 @@
 <template>
   <div class="flex items-center">
-    <va-badge
+    <VaBadge
       dot
       overlap
       placement="bottom-right"
       :offset="[-7, -7]"
       class="mr-8"
     >
-      <va-avatar src="https://randomuser.me/api/portraits/women/1.jpg" />
-    </va-badge>
+      <VaAvatar src="https://randomuser.me/api/portraits/women/1.jpg" />
+    </VaBadge>
 
-    <va-badge
+    <VaBadge
       text="5"
       overlap
       class="mr-6"
       :offset="[-3,3]"
     >
-      <va-icon name="&#xe0cb;" />
-    </va-badge>
+      <VaIcon name="&#xe0cb;" />
+    </VaBadge>
 
-    <va-badge
+    <VaBadge
       text="5"
       overlap
       class="mr-6"
       :offset="[-3,3]"
       style="--va-badge-text-wrapper-border-radius: 50%;"
     >
-      <va-icon name="&#xe0cb;" />
-    </va-badge>
+      <VaIcon name="&#xe0cb;" />
+    </VaBadge>
 
-    <va-badge
+    <VaBadge
       placement="bottom-end"
       text="99+"
       overlap
       :offset="[0,-4]"
       style="--va-badge-text-wrapper-border-radius: 40px;"
     >
-      <va-icon name="mail_outline" />
-    </va-badge>
+      <VaIcon name="mail_outline" />
+    </VaBadge>
   </div>
 </template>
 <script setup>
