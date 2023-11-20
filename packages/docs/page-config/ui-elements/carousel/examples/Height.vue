@@ -1,5 +1,5 @@
 <template>
-  <va-carousel
+  <VaCarousel
     v-model="value"
     :items="items"
     height="222px"
