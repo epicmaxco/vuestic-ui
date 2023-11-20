@@ -1,16 +1,16 @@
 <template>
   <div class="flex flex-col">
-    <va-checkbox
+    <VaCheckbox
       v-model="value"
       class="mb-6"
       :label="label"
     />
-    <va-checkbox
+    <VaCheckbox
       v-model="value"
       class="mb-6"
       :label="longLabel"
     />
-    <va-checkbox
+    <VaCheckbox
       v-model="value"
       :label="leftLabel"
       left-label
