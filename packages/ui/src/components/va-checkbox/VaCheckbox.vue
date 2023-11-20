@@ -130,7 +130,7 @@ export default defineComponent({
           return ''
         case props.vertical:
           return 'var(--va-checkbox-vertical-padding)'
-        case props.arrayValue:
+        case Boolean(props.arrayValue):
           return 'var(--va-checkbox-horizontal-padding)'
         case props.leftLabel:
           return 'var(--va-checkbox-right-padding)'
