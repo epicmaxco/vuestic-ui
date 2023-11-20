@@ -7,7 +7,7 @@
       >
         {{ loading ? 'Stop loading' : 'Start loading ' }}
     </va-button>
-    <vb-card width="400px"  title="Default">
+    <vb-card width="400px" title="Default">
       <va-inner-loading :loading="loading">
         <va-card>
           <va-card-title text-color="primary">
@@ -30,7 +30,7 @@
       </va-inner-loading>
     </vb-card>
 
-    <vb-card width="400px"  title="Custom loader slot">
+    <vb-card width="400px" title="Custom loader slot">
       <va-inner-loading :loading="loading">
         <va-card>
           <va-card-title text-color="primary">
@@ -52,7 +52,7 @@
         </va-card>
         <template #loading>
           <div class="custom-loader__container">
-            <va-progress-bar  indeterminate />
+            <va-progress-bar indeterminate />
           </div>
         </template>
       </va-inner-loading>
