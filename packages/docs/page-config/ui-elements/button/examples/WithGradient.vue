@@ -1,23 +1,23 @@
 <template>
-  <va-button
+  <VaButton
     color="info"
     gradient
     class="mr-6 mb-2"
   >
     Info
-  </va-button>
-  <va-button
+  </VaButton>
+  <VaButton
     color="danger"
     gradient
     class="mr-6 mb-2"
   >
     Danger
-  </va-button>
-  <va-button
+  </VaButton>
+  <VaButton
     color="warning"
     gradient
     class="mr-6 mb-2"
   >
     Warning
-  </va-button>
+  </VaButton>
 </template>

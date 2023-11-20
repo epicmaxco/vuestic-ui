@@ -1,3 +1,3 @@
 <template>
-  <va-button> Button </va-button>
+  <VaButton> Button </VaButton>
 </template>
