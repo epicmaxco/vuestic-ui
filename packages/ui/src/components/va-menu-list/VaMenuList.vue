@@ -1,7 +1,7 @@
 <template>
   <table class="va-menu-list" ref="container" v-bind="makeMenuContainerAttributes()">
     <template v-if="$slots.default">
-      <template v-for="child in $slots.default()">
+      <template v-for="child in getUnSlottedVNodes($slots.default())">
         <component v-if="getVNodeComponentName(child) === 'VaMenuItem'" :is="child" :key="getVNodeKey(child) + 'menuitem'" />
         <td colspan="999" v-else :key="getVNodeKey(child)" class="va-menu-list__virtual-td">
           <component :is="child" />
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, VNode, ref } from 'vue'
+import { defineComponent, PropType, computed, VNode, ref, Fragment } from 'vue'
 import VaMenuItem from './components/VaMenuItem.vue'
 import VaMenuGroup from './components/VaMenuGroup.vue'
 import { VaMenuOption } from './types'
@@ -68,6 +68,15 @@ export default defineComponent({
         return groups
       }, { _noGroup: [] }))
 
+    const getUnSlottedVNodes = (nodes: VNode[]) => {
+      if (Array.isArray(nodes) && nodes[0].type === Fragment) {
+        // If passed as slot, ignore Fragment VNode (template #default)
+        return nodes[0].children as VNode[]
+      }
+
+      return nodes
+    }
+
     const getVNodeComponentName = (node: VNode) => {
       if (typeof node.type === 'object' && 'name' in node.type && typeof node.type.name === 'string') {
         return node.type.name
@@ -98,6 +107,7 @@ export default defineComponent({
       optionGroups,
       makeMenuContainerAttributes,
       getVNodeComponentName,
+      getUnSlottedVNodes,
       getVNodeKey,
       getText,
       getValue,

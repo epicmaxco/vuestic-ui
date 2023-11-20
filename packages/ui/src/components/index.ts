@@ -21,6 +21,7 @@ export * from './va-fallback'
 export * from './va-collapse'
 export * from './va-card'
 export * from './va-button'
+export * from './va-menu-list'
 
 // Other components
 export * from './va-accordion'
@@ -89,3 +90,4 @@ export * from './va-virtual-scroller'
 export * from './va-value'
 export * from './va-file-upload'
 export * from './va-textarea'
+export * from './va-menu'
