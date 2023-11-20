@@ -1,14 +1,8 @@
 <template>
-  <table class="va-menu-list">
+  <table class="va-menu-list" ref="container" v-bind="makeMenuContainerAttributes()">
     <template v-if="$slots.default">
       <template v-for="child in $slots.default()">
         <component v-if="getVNodeComponentName(child) === 'VaMenuItem'" :is="child" :key="getVNodeKey(child) + 'menuitem'" />
-        <!-- <component :is="child" v-else :key="getVNodeKey(child)" /> -->
-        <!-- <tr v-else :key="getVNodeKey(child)">
-          <td colspan="99999" class="va-menu-list__virtual-td">
-            <component :is="child" />
-          </td>
-        </tr> -->
         <td colspan="999" v-else :key="getVNodeKey(child)" class="va-menu-list__virtual-td">
           <component :is="child" />
         </td>
@@ -36,11 +30,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, VNode } from 'vue'
+import { defineComponent, PropType, computed, VNode, ref } from 'vue'
 import VaMenuItem from './VaMenuItem.vue'
 import VaMenuGroup from './VaMenuGroup.vue'
 import { VaMenuOption } from '../types'
 import { useColors, useSelectableList, useSelectableListProps } from '../../../composables'
+import { useMenuKeyboardNavigation, makeMenuContainerAttributes } from '../composables/useMenuKeyboardNavigation'
 
 export default defineComponent({
   name: 'VaMenuList',
@@ -51,6 +46,9 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
   },
   setup (props) {
+    const container = ref<HTMLElement>()
+    useMenuKeyboardNavigation(container)
+
     const { getText, getValue, getDisabled, getGroupBy, getTrackBy } = useSelectableList(props)
 
     const optionGroups = computed(() => props.options
@@ -93,14 +91,16 @@ export default defineComponent({
     const colorComputed = computed(() => getColor(props.color))
 
     return {
+      container,
       colorComputed,
+      optionGroups,
+      makeMenuContainerAttributes,
       getVNodeComponentName,
       getVNodeKey,
       getText,
       getValue,
       getDisabled,
       getTrackBy,
-      optionGroups,
     }
   },
 })

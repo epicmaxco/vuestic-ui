@@ -1,5 +1,6 @@
 <template>
   <tr class="va-menu-item"
+    v-bind="makeMenuItemAttributes({ disabled })"
     :class="{
       'va-menu-item--disabled': disabled
     }"
@@ -31,6 +32,7 @@
 import { defineComponent, ref, computed } from 'vue'
 import { VaIcon } from '../../va-icon/'
 import { useColors } from '../../../composables'
+import { makeMenuItemAttributes } from '../composables/useMenuKeyboardNavigation'
 
 export default defineComponent({
   name: 'VaMenuItem',
@@ -49,6 +51,7 @@ export default defineComponent({
     const focusColor = computed(() => getFocusColor(getColor(props.color)))
 
     return {
+      makeMenuItemAttributes,
       hoverColor,
     }
   },
@@ -56,9 +59,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import "../../../styles/resources";
+
 .va-menu-item {
   display: table-row;
   cursor: pointer;
+
+  @include keyboard-focus-outline;
 
   &__cell {
     display: table-cell;
