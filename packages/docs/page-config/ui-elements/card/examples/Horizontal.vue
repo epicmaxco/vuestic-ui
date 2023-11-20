@@ -1,34 +1,34 @@
 <template>
   <div class="flex flex-col flex-wrap gap-5">
-    <va-card>
-      <va-card-block
+    <VaCard>
+      <VaCardBlock
         class="flex-nowrap"
         horizontal
       >
         <div class="flex-auto">
-          <va-card-title>Title</va-card-title>
-          <va-card-content>
+          <VaCardTitle>Title</VaCardTitle>
+          <VaCardContent>
             {{ lorem }}
-          </va-card-content>
+          </VaCardContent>
         </div>
-        <va-image
+        <VaImage
           class="flex-grow-0 flex-shrink-0 basis-52"
           src="https://picsum.photos/200"
         />
-      </va-card-block>
-    </va-card>
+      </VaCardBlock>
+    </VaCard>
 
-    <va-card>
-      <va-card-block horizontal>
-        <va-card-block class="flex-auto">
-          <va-card-content>{{ lorem }}</va-card-content>
-        </va-card-block>
-        <va-divider vertical />
-        <va-card-block class="flex-auto">
-          <va-card-content>{{ lorem }}</va-card-content>
-        </va-card-block>
-      </va-card-block>
-    </va-card>
+    <VaCard>
+      <VaCardBlock horizontal>
+        <VaCardBlock class="flex-auto">
+          <VaCardContent>{{ lorem }}</VaCardContent>
+        </VaCardBlock>
+        <VaDivider vertical />
+        <VaCardBlock class="flex-auto">
+          <VaCardContent>{{ lorem }}</VaCardContent>
+        </VaCardBlock>
+      </VaCardBlock>
+    </VaCard>
   </div>
 </template>
 

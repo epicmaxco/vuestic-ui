@@ -1,22 +1,22 @@
 <template>
   <div class="flex flex-wrap gap-5">
-    <va-card
+    <VaCard
       square
       outlined
     >
-      <va-card-title>square and outlined</va-card-title>
-      <va-card-content>
+      <VaCardTitle>square and outlined</VaCardTitle>
+      <VaCardContent>
         Lorem ipsum dolor sit amet, consectetur adipiscing
         elit.
-      </va-card-content>
-    </va-card>
+      </VaCardContent>
+    </VaCard>
 
-    <va-card :bordered="false">
-      <va-card-title>Bordered false</va-card-title>
-      <va-card-content>
+    <VaCard :bordered="false">
+      <VaCardTitle>Bordered false</VaCardTitle>
+      <VaCardContent>
         Lorem ipsum dolor sit amet, consectetur adipiscing
         elit.
-      </va-card-content>
-    </va-card>
+      </VaCardContent>
+    </VaCard>
   </div>
 </template>

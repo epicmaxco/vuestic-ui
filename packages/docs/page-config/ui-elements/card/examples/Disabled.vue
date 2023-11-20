@@ -1,8 +1,8 @@
 <template>
-  <va-card disabled>
-    <va-card-title>Title</va-card-title>
-    <va-card-content>
+  <VaCard disabled>
+    <VaCardTitle>Title</VaCardTitle>
+    <VaCardContent>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    </va-card-content>
-  </va-card>
+    </VaCardContent>
+  </VaCard>
 </template>
