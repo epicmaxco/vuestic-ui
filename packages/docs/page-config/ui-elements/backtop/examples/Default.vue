@@ -1,5 +1,5 @@
 <template>
-  <va-switch
+  <VaSwitch
     v-model="positionVertical"
     true-value="top"
     false-value="bottom"
@@ -10,7 +10,7 @@
     class="py-2"
   />
   <br>
-  <va-switch
+  <VaSwitch
     v-model="positionHorizontal"
     true-value="left"
     false-value="right"
@@ -21,7 +21,7 @@
     class="pt-2 pb-6"
   />
   <br>
-  <va-slider
+  <VaSlider
     v-model="verticalOffset"
     label="Vertical offset:"
     track-label-visible
@@ -30,7 +30,7 @@
     :max="100"
   />
   <br>
-  <va-slider
+  <VaSlider
     v-model="horizontalOffset"
     label="Horizontal offset:"
     track-label-visible
@@ -39,7 +39,7 @@
     :max="100"
   />
   <br>
-  <va-slider
+  <VaSlider
     v-model="visibilityHeight"
     label="Visibility height:"
     track-label-visible
@@ -48,7 +48,7 @@
     :max="600"
   />
   <br>
-  <va-slider
+  <VaSlider
     v-model="scrollSpeed"
     track-label-visible
     label="Scroll speed:"
@@ -57,12 +57,12 @@
     :max="500"
   />
   <br>
-  <va-checkbox
+  <VaCheckbox
     v-model="isSlot"
     :label="`Active Slot: ${isSlot}`"
   />
 
-  <va-backtop
+  <VaBacktop
     :vertical-offset="verticalOffset + '%'"
     :horizontal-offset="horizontalOffset + '%'"
     :horizontal-position="positionHorizontal"
@@ -73,7 +73,7 @@
     <p v-if="isSlot">
       Slot: back to top
     </p>
-  </va-backtop>
+  </VaBacktop>
 </template>
 
 <script>
