@@ -11,13 +11,15 @@
       class="va-inner-loading__overlay"
       aria-hidden="true"
     >
-      <va-icon
-        class="va-inner-loading__spinner"
-        spin
-        :color="colorComputed"
-        :size="$props.size"
-        :name="$props.icon"
-      />
+      <slot name="loading">
+        <va-icon
+          class="va-inner-loading__spinner"
+          spin
+          :color="colorComputed"
+          :size="$props.size"
+          :name="$props.icon"
+        />
+      </slot>
     </div>
   </div>
 </template>
