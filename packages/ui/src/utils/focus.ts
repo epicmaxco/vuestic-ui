@@ -23,3 +23,18 @@ export const blurElement = <T extends Element | undefined>(el: T) => {
   el.blur()
   el.dispatchEvent(new Event('blur', { bubbles: true }))
 }
+
+/**
+ * Focus first focusable child of parent.
+ *
+ * @example Used to give focus back to menu after closing submenu.
+ */
+export const focusFirstFocusableChild = (el: HTMLElement) => {
+  if (el.tabIndex !== -1) {
+    focusElement(el)
+    return
+  }
+
+  const focusable = el.querySelector<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')
+  if (focusable) { focusElement(focusable) }
+}

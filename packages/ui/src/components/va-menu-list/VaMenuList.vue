@@ -18,7 +18,8 @@
           :right-icon="option.rightIcon"
           :disabled="getDisabled(option)"
           :color="color"
-          @option-click="$emit('option-click', getValue(option))"
+          @click="$emit('selected', getValue(option), option)"
+          @keydown.enter.space="$emit('selected', getValue(option), option)"
         >
           <template #left-icon>
             <slot name="left-icon" />
@@ -31,11 +32,11 @@
 
 <script lang="ts">
 import { defineComponent, PropType, computed, VNode, ref } from 'vue'
-import VaMenuItem from './VaMenuItem.vue'
-import VaMenuGroup from './VaMenuGroup.vue'
-import { VaMenuOption } from '../types'
-import { useColors, useSelectableList, useSelectableListProps } from '../../../composables'
-import { useMenuKeyboardNavigation, makeMenuContainerAttributes } from '../composables/useMenuKeyboardNavigation'
+import VaMenuItem from './components/VaMenuItem.vue'
+import VaMenuGroup from './components/VaMenuGroup.vue'
+import { VaMenuOption } from './types'
+import { useColors, useSelectableList, useSelectableListProps } from '../../composables'
+import { useMenuKeyboardNavigation, makeMenuContainerAttributes } from './composables/useMenuKeyboardNavigation'
 
 export default defineComponent({
   name: 'VaMenuList',
@@ -45,6 +46,7 @@ export default defineComponent({
     options: { type: Array as PropType<VaMenuOption[]>, default: () => [] },
     color: { type: String, default: 'primary' },
   },
+  emits: ['selected'],
   setup (props) {
     const container = ref<HTMLElement>()
     useMenuKeyboardNavigation(container)
@@ -108,7 +110,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '../variables';
+@import './variables';
 
 .va-menu-list {
   overflow: auto;

@@ -4,7 +4,6 @@
     :class="{
       'va-menu-item--disabled': disabled
     }"
-    @click.stop="disabled ? '' : $emit('option-click', $event)"
   >
     <td class="va-menu-item__cell va-menu-item__cell--left">
       <slot name="left-icon">
