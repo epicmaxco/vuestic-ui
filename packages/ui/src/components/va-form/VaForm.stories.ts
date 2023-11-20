@@ -1,3 +1,4 @@
+import { StoryFn } from '@storybook/vue3'
 import { userEvent } from '../../../.storybook/interaction-utils/userEvent'
 import { addText } from '../../../.storybook/interaction-utils/addText'
 import { expect } from '@storybook/jest'
@@ -120,31 +121,35 @@ Immediate.play = async ({ canvasElement, step }) => {
   const immediate = canvas.getByTestId('immediate')
   const notImmediate = canvas.getByTestId('not-immediate')
 
+  const [firstDefinedInput, secondDefineInput] = canvasElement.querySelectorAll('.va-input-wrapper--error')
+
   await step('First input displays error message', async () => {
     expect(immediate.getAttribute('aria-invalid')).toEqual('true')
+    expect(firstDefinedInput).toBeDefined()
   })
 
   await step('Second input does not display error message', async () => {
-    expect(notImmediate.getAttribute('aria-invalid')).toEqual('false')
+    expect(notImmediate.getAttribute('aria-invalid')).toEqual('true')
+    expect(secondDefineInput).toBeUndefined()
   })
 }
 
-export const HideErrorMessages = () => ({
+export const HideErrorMessages: StoryFn = () => ({
   components: { VaForm, VaInput },
   template: `
     [true]
-    <va-form hideErrorMessages>
-      <va-input error error-messages="message"/>
+    <va-form hideErrorMessages immediate>
+      <va-input error error-messages="message" />
     </va-form>
     [false]
-    <va-form role>
-      <va-input error error-messages="message"/>
+    <va-form immediate>
+      <va-input error error-messages="message" />
     </va-form>
   `,
 })
 
-HideErrorMessages.play = async ({ step }) => {
-  const [firstDefinedInput, secondDefineInput] = document.querySelectorAll('.va-message-list__message')
+HideErrorMessages.play = async ({ step, canvasElement }) => {
+  const [firstDefinedInput, secondDefineInput] = canvasElement.querySelectorAll('.va-message-list__message')
 
   await step('Does not display error message', async () => {
     expect(firstDefinedInput).toBeDefined()
@@ -159,11 +164,11 @@ export const HideErrors = () => ({
   components: { VaForm, VaInput },
   template: `
     [true]
-    <va-form hideErrors>
+    <va-form hideErrors immediate>
       <va-input error/>
     </va-form>
     [false]
-    <va-form>
+    <va-form immediate>
       <va-input error/>
     </va-form>
   `,

@@ -166,7 +166,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 
   watch(isFocused, (newVal) => !newVal && validate())
 
-  const immediateValidation = toRef(props, 'immediateValidation')
+  const immediateValidation = computed(() => props.immediateValidation || isFormImmediate.value)
 
   let canValidate = true
   const withoutValidation = (cb: () => any): void => {
@@ -192,6 +192,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     // Renamed to forceHideError because it's not clear what it does
     doShowError,
     doShowLoading,
+    isFormImmediate,
   } = useFormChild({
     isDirty,
     isValid: computed(() => !computedError.value),

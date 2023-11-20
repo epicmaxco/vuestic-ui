@@ -1,4 +1,4 @@
-import { computed, provide, ref, shallowRef, type Ref, unref } from 'vue'
+import { computed, provide, ref, shallowRef, type Ref, unref, toRef } from 'vue'
 import { FormServiceKey } from './consts'
 import { Form, FormFiled } from './types'
 import { useFormChild } from './useFormChild'
@@ -7,6 +7,7 @@ type FormParentOptions = {
   hideLoading: boolean
   hideErrors: boolean
   hideErrorMessages: boolean
+  immediate: boolean
 }
 
 export const createFormContext = <Names extends string>(options: FormParentOptions) => {
@@ -14,6 +15,7 @@ export const createFormContext = <Names extends string>(options: FormParentOptio
 
   return {
     // Vue unwrap ref automatically, but types are not for some reason
+    immediate: computed(() => options.immediate),
     fields: computed(() => [...fields.value.values()]),
     doShowError: computed(() => !options.hideErrors),
     doShowErrorMessages: computed(() => !options.hideErrorMessages),
@@ -97,6 +99,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   })
 
   return {
+    immediate: computed(() => options.immediate),
     isDirty,
     formData,
     fields,
