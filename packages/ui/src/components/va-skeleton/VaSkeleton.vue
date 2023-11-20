@@ -28,7 +28,7 @@ export default defineComponent({
 
     animation: { type: String as PropType<'pulse' | 'wave' | 'none'>, default: 'pulse' },
 
-    lines: { type: Number, default: 1 },
+    lines: { type: [String, Number], default: 1 },
     height: { type: [String], default: '5em' },
     width: { type: [String], default: '100%' },
     lineGap: { type: String, default: '8px' },
@@ -73,7 +73,7 @@ export default defineComponent({
     const negativeLineGap = computed(() => `-${props.lineGap}`)
 
     const bem = useBem('va-skeleton', () => ({
-      lines: props.lines > 1,
+      lines: Number(props.lines) > 1,
       text: props.variant === 'text',
       circle: props.variant === 'circle',
       hidden: !doShow.value,
