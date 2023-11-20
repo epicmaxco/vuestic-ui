@@ -124,24 +124,25 @@ export default defineComponent({
       'va-checkbox--on-keyboard-focus': hasKeyboardFocus.value,
     }))
 
-    const labelStyle = computed(() => {
-      const paddingStyle = () => {
-        switch (true) {
-          case !props.label:
-            return ''
-          case props.vertical:
-            return 'var(--va-checkbox-vertical-padding)'
-          case props.arrayValue:
-            return 'var(--va-checkbox-horizontal-padding)'
-          case props.leftLabel:
-            return 'var(--va-checkbox-right-padding)'
-          default:
-            return 'var(--va-checkbox-left-padding)'
-        }
+    const getPaddingStyle = () => {
+      switch (true) {
+        case !props.label:
+          return ''
+        case props.vertical:
+          return 'var(--va-checkbox-vertical-padding)'
+        case props.arrayValue:
+          return 'var(--va-checkbox-horizontal-padding)'
+        case props.leftLabel:
+          return 'var(--va-checkbox-right-padding)'
+        default:
+          return 'var(--va-checkbox-left-padding)'
       }
+    }
+
+    const labelStyle = computed(() => {
       return {
         color: computedError.value ? getColor('danger') : (props.success ? getColor('success') : ''),
-        padding: paddingStyle(),
+        padding: getPaddingStyle(),
       }
     })
 
