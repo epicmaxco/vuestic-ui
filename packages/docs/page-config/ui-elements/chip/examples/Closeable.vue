@@ -1,16 +1,16 @@
 <template>
-  <va-chip
+  <VaChip
     v-model="value"
     closeable
   >
     closeable chip
-  </va-chip>
-  <va-button
+  </VaChip>
+  <VaButton
     v-if="!value"
     @click="value = true"
   >
     show chip
-  </va-button>
+  </VaButton>
 </template>
 
 <script>

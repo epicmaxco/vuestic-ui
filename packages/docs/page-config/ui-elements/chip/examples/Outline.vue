@@ -1,5 +1,5 @@
 <template>
-  <va-chip outline>
+  <VaChip outline>
     outline chip
-  </va-chip>
+  </VaChip>
 </template>
