@@ -1,8 +1,7 @@
-import { VaDivider, VaButton, VaDropdown, VaDropdownContent, VaIcon } from '../../components'
+import { VaDivider, VaButton, VaDropdown, VaDropdownContent, VaIcon, VaAvatar } from '../../components'
 import VaMenuList from './VaMenuList.vue'
 import VaMenuItem from './components/VaMenuItem.vue'
 import VaMenuGroup from './components/VaMenuGroup.vue'
-import { VaAvatar } from '../'
 
 export default {
   title: 'VaMenuList',
