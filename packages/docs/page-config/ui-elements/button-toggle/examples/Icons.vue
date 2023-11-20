@@ -1,11 +1,11 @@
 <template>
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     :options="optionsWithIcons"
     class="mb-6"
     icon-color="warning"
   />
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     :options="optionsOnlyIcons"
   />

@@ -1,5 +1,5 @@
 <template>
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     :options="[
       { label: 'One', value: 'one' },

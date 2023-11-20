@@ -1,32 +1,32 @@
 <template>
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     :options="options"
     class="mb-6"
   />
 
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     preset="primary"
     :options="options"
     class="mb-6"
   />
 
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     preset="plain"
     :options="options"
     class="mb-6"
   />
 
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     round
     :options="options"
     class="mb-6"
   />
 
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     preset="secondary"
     border-color="primary"
