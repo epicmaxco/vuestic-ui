@@ -1,12 +1,12 @@
 <template>
-  <va-collapse
+  <VaCollapse
     v-model="value"
     class="min-w-96"
     header="Collapse header"
     icon="home"
   >
     Collapse content
-  </va-collapse>
+  </VaCollapse>
 </template>
 
 <script>

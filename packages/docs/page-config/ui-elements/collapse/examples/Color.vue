@@ -1,14 +1,14 @@
 <template>
   <div class="flex flex-col gap-4 min-w-96">
-    <va-collapse
+    <VaCollapse
       v-model="value[0]"
       header="Color collapse header only"
       solid
       color="success"
     >
       Collapse content
-    </va-collapse>
-    <va-collapse
+    </VaCollapse>
+    <VaCollapse
       v-model="value[1]"
       header="Color collapse header and body"
       color="#3D9209"
@@ -16,7 +16,7 @@
       icon="info"
     >
       Collapse content
-    </va-collapse>
+    </VaCollapse>
   </div>
 </template>
 
