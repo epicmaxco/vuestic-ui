@@ -1,52 +1,52 @@
 <template>
   <div class="flex flex-wrap gap-6 mb-6">
-    <va-button-group>
-      <va-button>One</va-button>
-      <va-button>Two</va-button>
-      <va-button>Three</va-button>
-    </va-button-group>
+    <VaButtonGroup>
+      <VaButton>One</VaButton>
+      <VaButton>Two</VaButton>
+      <VaButton>Three</VaButton>
+    </VaButtonGroup>
 
-    <va-button-group preset="primary">
-      <va-button>One</va-button>
-      <va-button>Two</va-button>
-      <va-button>Three</va-button>
-    </va-button-group>
+    <VaButtonGroup preset="primary">
+      <VaButton>One</VaButton>
+      <VaButton>Two</VaButton>
+      <VaButton>Three</VaButton>
+    </VaButtonGroup>
 
-    <va-button-group preset="secondary">
-      <va-button>One</va-button>
-      <va-button>Two</va-button>
-      <va-button>Three</va-button>
-    </va-button-group>
+    <VaButtonGroup preset="secondary">
+      <VaButton>One</VaButton>
+      <VaButton>Two</VaButton>
+      <VaButton>Three</VaButton>
+    </VaButtonGroup>
   </div>
 
   <div class="flex flex-wrap gap-6 mb-6">
-    <va-button-group preset="plain">
-      <va-button>One</va-button>
-      <va-button>Two</va-button>
-      <va-button>Three</va-button>
-    </va-button-group>
+    <VaButtonGroup preset="plain">
+      <VaButton>One</VaButton>
+      <VaButton>Two</VaButton>
+      <VaButton>Three</VaButton>
+    </VaButtonGroup>
 
-    <va-button-group preset="plainOpacity">
-      <va-button>One</va-button>
-      <va-button>Two</va-button>
-      <va-button>Three</va-button>
-    </va-button-group>
+    <VaButtonGroup preset="plainOpacity">
+      <VaButton>One</VaButton>
+      <VaButton>Two</VaButton>
+      <VaButton>Three</VaButton>
+    </VaButtonGroup>
   </div>
 
   <div class="flex flex-wrap gap-6 mb-6">
-    <va-button-group
+    <VaButtonGroup
       preset="secondary"
       border-color="primary"
     >
-      <va-button>One</va-button>
-      <va-button>Two</va-button>
-      <va-button>Three</va-button>
-    </va-button-group>
+      <VaButton>One</VaButton>
+      <VaButton>Two</VaButton>
+      <VaButton>Three</VaButton>
+    </VaButtonGroup>
 
-    <va-button-group round>
-      <va-button>One</va-button>
-      <va-button>Two</va-button>
-      <va-button>Three</va-button>
-    </va-button-group>
+    <VaButtonGroup round>
+      <VaButton>One</VaButton>
+      <VaButton>Two</VaButton>
+      <VaButton>Three</VaButton>
+    </VaButtonGroup>
   </div>
 </template>
