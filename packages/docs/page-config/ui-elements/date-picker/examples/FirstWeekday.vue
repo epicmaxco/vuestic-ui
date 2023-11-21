@@ -2,11 +2,11 @@
   <div class="flex gap-5 flex-wrap">
     <div>
       <h5>Sun (default)</h5>
-      <va-date-picker stateful />
+      <VaDatePicker stateful />
     </div>
     <div>
       <h5>Monday</h5>
-      <va-date-picker
+      <VaDatePicker
         stateful
         first-weekday="Monday"
       />

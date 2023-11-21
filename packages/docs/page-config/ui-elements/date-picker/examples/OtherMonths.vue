@@ -1,5 +1,5 @@
 <template>
-  <va-date-picker
+  <VaDatePicker
     stateful
     highlight-weekends
     show-other-months

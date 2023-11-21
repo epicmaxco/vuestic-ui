@@ -1,5 +1,5 @@
 <template>
-  <va-date-picker v-model="value" />
+  <VaDatePicker v-model="value" />
 </template>
 
 <script>
