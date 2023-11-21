@@ -1,11 +1,11 @@
 <template>
-  <va-pagination
+  <VaPagination
     v-model="value"
     preset="darkPagination"
     :pages="5"
     class="mb-6"
   />
-  <va-pagination
+  <VaPagination
     v-model="value"
     preset="redPagination"
     :pages="5"

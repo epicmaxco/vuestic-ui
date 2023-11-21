@@ -1,5 +1,5 @@
 <template>
-  <va-pagination
+  <VaPagination
     v-model="value"
     :visible-pages="7"
     :total="100"
@@ -8,26 +8,26 @@
     class="mb-3 justify-center sm:justify-start"
   >
     <template #prevPageLink="{ onClick, disabled }">
-      <va-button
+      <VaButton
         preset="primary"
         :disabled="disabled"
         aria-label="go prev page"
         @click="onClick"
       >
         Previous
-      </va-button>
+      </VaButton>
     </template>
     <template #nextPageLink="{ onClick, disabled }">
-      <va-button
+      <VaButton
         preset="primary"
         :disabled="disabled"
         aria-label="go next page"
         @click="onClick"
       >
         Next
-      </va-button>
+      </VaButton>
     </template>
-  </va-pagination>
+  </VaPagination>
 
   Items from {{ value }} to {{ value + pageSize - 1 }}
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <va-pagination
+  <VaPagination
     v-model="value"
     :pages="10"
     :visible-pages="3"
