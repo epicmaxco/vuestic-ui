@@ -1,17 +1,17 @@
 <template>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-end">
-    <va-input
+    <VaInput
       v-model="value"
       counter
       placeholder="With amount of letters"
     />
-    <va-input
+    <VaInput
       v-model="value"
       :max-length="30"
       counter
       placeholder="With max number"
     />
-    <va-input
+    <VaInput
       v-model="value"
       :max-length="30"
       counter
@@ -30,7 +30,7 @@
           {{ maxLength - valueLength }}
         </b>
       </template>
-    </va-input>
+    </VaInput>
   </div>
 </template>
 

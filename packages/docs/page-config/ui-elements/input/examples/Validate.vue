@@ -1,25 +1,25 @@
 <template>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-start">
-    <va-input
+    <VaInput
       v-model="value"
       :rules="[(v) => v.length > 3 || `Fulfill the condition`]"
       label="Email"
       placeholder="Type more than 3 symbols"
     />
-    <va-input
+    <VaInput
       v-model="value"
       label="Email"
       placeholder="Error state"
       error
     />
-    <va-input
+    <VaInput
       v-model="value"
       label="Email"
       placeholder="Error with message"
       error
       :error-messages="errorMessage"
     />
-    <va-input
+    <VaInput
       v-model="value"
       label="Email"
       placeholder="Success with message"

@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center flex-col sm:flex-row gap-4 max-w-xl">
-    <va-input
+    <VaInput
       v-model="fromValue"
       placeholder="0.00"
       label="From"
@@ -11,13 +11,13 @@
       <template #appendInner>
         <span>{{ fromFieldMeta.text }}</span>
       </template>
-    </va-input>
-    <va-icon
+    </VaInput>
+    <VaIcon
       name="fa4-exchange-alt"
       color="secondary"
       @click="replaceCurrencies"
     />
-    <va-input
+    <VaInput
       v-model="convertedValue"
       placeholder="0.00"
       readonly
@@ -29,7 +29,7 @@
       <template #appendInner>
         <span>{{ toFieldMeta.text }}</span>
       </template>
-    </va-input>
+    </VaInput>
   </div>
 </template>
 
