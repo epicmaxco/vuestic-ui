@@ -1,12 +1,12 @@
 <template>
-  <va-hover v-model="value">
-    <va-button
+  <VaHover v-model="value">
+    <VaButton
       color="success"
       :preset="value ? 'primary' : 'secondary'"
     >
       {{ value }}
-    </va-button>
-  </va-hover>
+    </VaButton>
+  </VaHover>
 </template>
 
 <script>

@@ -1,11 +1,11 @@
 <template>
-  <va-hover stateful>
+  <VaHover stateful>
     <template #default="{ hover }">
-      <va-button :color="hover ? colors.danger : colors.primary">
+      <VaButton :color="hover ? colors.danger : colors.primary">
         {{ hover }}
-      </va-button>
+      </VaButton>
     </template>
-  </va-hover>
+  </VaHover>
 </template>
 
 <script setup>

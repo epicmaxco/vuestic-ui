@@ -1,15 +1,15 @@
 <template>
-  <va-hover
+  <VaHover
     v-model="value"
     disabled
   >
-    <va-button
+    <VaButton
       preset="secondary"
       :border-color="value ? 'primary' : ''"
     >
       {{ value }}
-    </va-button>
-  </va-hover>
+    </VaButton>
+  </VaHover>
 </template>
 
 <script>
