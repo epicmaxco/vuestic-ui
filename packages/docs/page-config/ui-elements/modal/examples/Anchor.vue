@@ -1,18 +1,18 @@
 <template>
-  <va-modal
+  <VaModal
     v-model="doShowModal"
   >
     <template #anchor="{ show }">
-      <va-button @click="show">
+      <VaButton @click="show">
         Anchor-button
-      </va-button>
+      </VaButton>
     </template>
     
     <p>
       Classic modal overlay which represents a dialog box or other interactive
       component, such as a dismissible alert, sub-window, etc.
     </p>
-  </va-modal>
+  </VaModal>
 </template>
 
 <script>

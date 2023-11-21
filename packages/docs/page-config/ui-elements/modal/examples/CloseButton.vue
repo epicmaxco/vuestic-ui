@@ -1,8 +1,8 @@
 <template>
-  <va-button @click="showModal = true">
+  <VaButton @click="showModal = true">
     Show modal with close icon
-  </va-button>
-  <va-modal
+  </VaButton>
+  <VaModal
     v-model="showModal"
     ok-text="Apply"
     close-button
@@ -14,7 +14,7 @@
       Classic modal overlay which represents a dialog box or other interactive
       component, such as a dismissible alert, sub-window, etc.
     </p>
-  </va-modal>
+  </VaModal>
 </template>
 
 <script>
