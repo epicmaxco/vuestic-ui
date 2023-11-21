@@ -4,22 +4,22 @@
   </h6>
 
   <div class="flex gap-5 flex-wrap">
-    <va-time-picker
+    <VaTimePicker
       v-model="value"
       :visible-cells-count="3"
     />
-    <va-divider vertical />
-    <va-time-picker
+    <VaDivider vertical />
+    <VaTimePicker
       v-model="value"
       :visible-cells-count="8"
     />
-    <va-divider vertical />
-    <va-time-picker
+    <VaDivider vertical />
+    <VaTimePicker
       v-model="value"
       :visible-cells-count="5"
     />
-    <va-divider vertical />
-    <va-time-picker
+    <VaDivider vertical />
+    <VaTimePicker
       v-model="value"
       :visible-cells-count="9"
     />

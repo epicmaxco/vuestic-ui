@@ -1,11 +1,11 @@
 <template>
   <div class="flex gap-5 flex-wrap">
-    <va-time-picker
+    <VaTimePicker
       v-model="value"
       readonly
     />
-    <va-divider vertical />
-    <va-time-picker
+    <VaDivider vertical />
+    <VaTimePicker
       v-model="value"
       disabled
     />
