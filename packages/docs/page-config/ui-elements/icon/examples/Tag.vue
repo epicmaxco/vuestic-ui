@@ -1,10 +1,10 @@
 <template>
-  <va-icon
+  <VaIcon
     class="mr-2"
     tag="span"
     name="home"
   />
-  <va-icon
+  <VaIcon
     class="mr-2"
     tag="div"
     name="home"

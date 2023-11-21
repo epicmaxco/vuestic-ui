@@ -1,8 +1,8 @@
 <template>
-  <va-icon class="mr-2">
+  <VaIcon class="mr-2">
     close
-  </va-icon>
-  <va-icon class="mr-2">
+  </VaIcon>
+  <VaIcon class="mr-2">
     &#10032;
-  </va-icon>
+  </VaIcon>
 </template>
