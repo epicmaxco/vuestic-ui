@@ -1,13 +1,13 @@
 <template>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="No options"
       :options="[]"
       placeholder="Select option"
     />
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="No options with custom text"
@@ -15,14 +15,14 @@
       placeholder="Select option"
       no-options-text="Sorry, nothing to show, except this custom text :)"
     />
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="Clearable"
       :options="options"
       clearable
     />
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="Clearable and custom clear icon"
@@ -30,28 +30,28 @@
       clearable
       clearable-icon="cancel"
     />
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="Hint messages"
       :options="options"
       :messages="['Hint message 1', 'Hint message 2']"
     />
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="Hide selected"
       :options="options"
       hide-selected
     />
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="Custom list placement (left)"
       :options="options"
       placement="left"
     />
-    <va-select
+    <VaSelect
       v-model="value"
       label="Custom list height (320px)"
       :options="options"
