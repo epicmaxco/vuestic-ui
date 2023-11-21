@@ -1,14 +1,14 @@
 <template>
-  <va-slider
+  <VaSlider
     v-model="value1"
     label="label"
   />
-  <va-slider
+  <VaSlider
     v-model="value2"
     label="inverted"
     invert-label
   />
-  <va-slider
+  <VaSlider
     v-model="value3"
     label="danger"
     label-color="danger"

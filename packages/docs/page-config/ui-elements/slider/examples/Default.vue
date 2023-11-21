@@ -1,5 +1,5 @@
 <template>
-  <va-slider v-model="value" />
+  <VaSlider v-model="value" />
 </template>
 
 <script>

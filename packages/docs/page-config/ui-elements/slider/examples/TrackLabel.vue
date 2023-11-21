@@ -1,26 +1,26 @@
 <template>
-  <va-slider
+  <VaSlider
     v-model="value[0]"
     class="mb-6"
     track-label-visible
   />
 
-  <va-slider
+  <VaSlider
     v-model="value[1]"
     class="mb-6"
     track-label-visible
   >
     <template #trackLabel="{ value }">
-      <va-chip
+      <VaChip
         color="warning"
         size="small"
       >
         {{ value }}
-      </va-chip>
+      </VaChip>
     </template>
-  </va-slider>
+  </VaSlider>
 
-  <va-slider
+  <VaSlider
     v-model="value"
     class="mb-6"
     range
@@ -28,20 +28,20 @@
     :track-label="processTrackLabel"
   />
 
-  <va-slider
+  <VaSlider
     v-model="value"
     range
     track-label-visible
   >
     <template #trackLabel="{ value, order }">
-      <va-chip
+      <VaChip
         size="small"
         :color="order === 0 ? 'success' : 'danger'"
       >
         {{ value }}
-      </va-chip>
+      </VaChip>
     </template>
-  </va-slider>
+  </VaSlider>
 </template>
 
 <script>

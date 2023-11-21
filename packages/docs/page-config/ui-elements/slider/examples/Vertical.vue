@@ -2,13 +2,13 @@
   <div
     class="flex flex-wrap justify-center h-48"
   >
-    <va-slider
+    <VaSlider
       v-model="value"
       class="mr-8"
       vertical
       track-label-visible
     />
-    <va-slider
+    <VaSlider
       v-model="value"
       class="mr-8"
       vertical
@@ -16,7 +16,7 @@
       pins
       :step="5"
     />
-    <va-slider
+    <VaSlider
       v-model="rangeValue"
       class="mr-8"
       vertical
@@ -26,14 +26,14 @@
       track-label-visible
     >
       <template #trackLabel="{ value, order }">
-        <va-chip
+        <VaChip
           size="small"
           :color="order === 0 ? 'success' : 'danger'"
         >
           {{ value }}
-        </va-chip>
+        </VaChip>
       </template>
-    </va-slider>
+    </VaSlider>
   </div>
 </template>
 

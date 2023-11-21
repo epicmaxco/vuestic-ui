@@ -1,31 +1,31 @@
 <template>
-  <va-slider v-model="value1">
+  <VaSlider v-model="value1">
     <template #prepend>
-      <va-counter
+      <VaCounter
         v-model="value1"
         :min="0"
         :max="100"
         class="w-[110px]"
       />
     </template>
-  </va-slider>
-  <va-slider v-model="value2">
+  </VaSlider>
+  <VaSlider v-model="value2">
     <template #append>
-      <va-counter
+      <VaCounter
         v-model="value2"
         :min="0"
         :max="100"
         class="w-[110px]"
       />
     </template>
-  </va-slider>
-  <va-slider v-model="value3">
+  </VaSlider>
+  <VaSlider v-model="value3">
     <template #label>
       <div class="italic text-black">
         LABEL SLOT
       </div>
     </template>
-  </va-slider>
+  </VaSlider>
 </template>
 
 <script>

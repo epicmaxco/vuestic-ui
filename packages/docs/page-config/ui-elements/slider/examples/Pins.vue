@@ -1,5 +1,5 @@
 <template>
-  <va-slider
+  <VaSlider
     v-model="value"
     pins
     :step="10"
