@@ -1,19 +1,19 @@
 <template>
-  <va-dropdown
+  <VaDropdown
     :auto-placement="false"
     placement="right-start"
     cursor
     trigger="right-click"
   >
-    <va-dropdown-content> Contextual popover! </va-dropdown-content>
+    <VaDropdownContent> Contextual popover! </VaDropdownContent>
 
     <template #anchor>
-      <va-image
+      <VaImage
         class="h-[300px] w-[300px]"
         src="https://picsum.photos/1500"
       >
-        <va-badge text="Right click this image" />
-      </va-image>
+        <VaBadge text="Right click this image" />
+      </VaImage>
     </template>
-  </va-dropdown>
+  </VaDropdown>
 </template>
