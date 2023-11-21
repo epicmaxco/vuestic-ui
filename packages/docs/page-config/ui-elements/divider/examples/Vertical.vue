@@ -1,9 +1,9 @@
 <template>
   <div class="flex">
     <span>Title</span>
-    <va-divider vertical />
+    <VaDivider vertical />
     <span>News</span>
-    <va-divider vertical />
+    <VaDivider vertical />
     <span>Blog</span>
   </div>
 </template>
