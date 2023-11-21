@@ -1,12 +1,12 @@
 <template>
-  <va-popover
+  <VaPopover
     placement="right"
     trigger="click"
   >
-    <va-button>Click me</va-button>
+    <VaButton>Click me</VaButton>
 
     <template #icon>
-      <va-button
+      <VaButton
         icon="create"
         size="small"
       />
@@ -20,5 +20,5 @@
       <p>Suspendisse pharetra risus magna, in luctus turpis mollis non.</p>
       <p>Donec est nulla, imperdiet id dapibus sed, consequat eget odio.</p>
     </template>
-  </va-popover>
+  </VaPopover>
 </template>
