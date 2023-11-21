@@ -1,22 +1,22 @@
 <template>
-  <va-form
+  <VaForm
     class="w-[300px]"
     tag="form"
     @submit.prevent="handleSubmit"
   >
-    <va-input
+    <VaInput
       v-model="username"
       label="Username"
     />
 
-    <va-input
+    <VaInput
       v-model="password"
       class="mt-3"
       type="password"
       label="Password"
     />
 
-    <va-select
+    <VaSelect
       v-model="value"
       class="mt-3"
       label="Role"
@@ -24,13 +24,13 @@
       clearable
     />
 
-    <va-button
+    <VaButton
       type="submit"
       class="mt-3"
     >
       Login
-    </va-button>
-  </va-form>
+    </VaButton>
+  </VaForm>
 </template>
 
 <script>

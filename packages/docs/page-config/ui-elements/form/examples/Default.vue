@@ -1,18 +1,18 @@
 <template>
-  <va-form class="flex flex-col items-baseline gap-6" ref="formRef">
-    <va-input
+  <VaForm ref="formRef" class="flex flex-col items-baseline gap-6">
+    <VaInput
       v-model="form.firstName"
       :rules="[(value) => (value && value.length > 0) || 'First name is required']"
       label="firstName"
     />
   
-    <va-input
+    <VaInput
       v-model="form.lastName"
       :rules="[(value) => (value && value.length > 0) || 'Last name is required']"
       label="Last Name"
     />
   
-    <va-date-input 
+    <VaDateInput 
       v-model="form.birthDate"
       :rules="[(v) => validateBirthday(v)]"
       label="Birth Date"
@@ -20,7 +20,7 @@
       clearable
     />
 
-    <va-time-input 
+    <VaTimeInput 
       v-model="form.time"
       :rules="[(v) => v || 'We need to now pick-up time!']"
       label="Pick-up time"
@@ -28,21 +28,21 @@
       clearable
     />
 
-    <va-counter 
+    <VaCounter 
       v-model="form.count"
       label="Amount"
       :rules="[(v) => v || 'Field is required', (v) => v < 10 || 'You can not buy less than 10 items']"
       manual-input
     />
 
-    <va-select
+    <VaSelect
       v-model="form.country"
       :options="countries"
       :rules="[(v) => v || 'Field is required', (v) => v.value === 'ua' ? 'Delivery currently unavailable in your country' : undefined]"
       label="Country"
     />
 
-    <va-slider 
+    <VaSlider 
       v-model="form.amount"
       :min="1"
       :max="100"
@@ -51,7 +51,7 @@
       style="width: 100%"
     />
   
-    <va-switch 
+    <VaSwitch 
       v-model="form.notifications"
       label="Notifications"
       size="small"
@@ -60,7 +60,7 @@
   
     <div>
       <span class="va-title">Payment method</span>
-      <va-option-list
+      <VaOptionList
         v-model="form.paymentMethod"
         :options="['Visa', 'MasterCard', 'PayPal']"
         :rules="[(v) => v === 'PayPal' || 'Only PayPal is currently available']"
@@ -68,27 +68,27 @@
       />      
     </div>
 
-    <va-checkbox 
+    <VaCheckbox 
       v-model="form.acknowledgement"
       :rules="[(v) => v || 'You must agree with terms and conditions']"
       label="I'm okay if you lose my package"
     />
 
-    <va-button :disabled="!isValid" @click="validate() && submit()">
+    <VaButton :disabled="!isValid" @click="validate() && submit()">
       Submit
-    </va-button>
-  </va-form>
+    </VaButton>
+  </VaForm>
 
   <div class="mt-8 flex w-full gap-3 background-element">
-    <va-button @click="validate() && submit()">
+    <VaButton @click="validate() && submit()">
       Validate
-    </va-button>
-    <va-button @click="resetValidation">
+    </VaButton>
+    <VaButton @click="resetValidation">
       Reset validation
-    </va-button>
-    <va-button @click="reset">
+    </VaButton>
+    <VaButton @click="reset">
       Reset
-    </va-button>
+    </VaButton>
   </div>
 </template>
 

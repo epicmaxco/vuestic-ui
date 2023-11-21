@@ -1,9 +1,9 @@
 <template>
-  <va-form ref="myForm" stateful class="mb-2 flex flex-col gap-2">
-    <va-input name="firstName" label="First Name" />
-    <va-input name="lastName" label="Last Name" />
-    <va-date-input name="birthDay" label="Birth day" />
-  </va-form>
+  <VaForm ref="myForm" stateful class="mb-2 flex flex-col gap-2">
+    <VaInput name="firstName" label="First Name" />
+    <VaInput name="lastName" label="Last Name" />
+    <VaDateInput name="birthDay" label="Birth day" />
+  </VaForm>
 
   <ul>
     <li>First name: {{ formData.firstName }}</li>
