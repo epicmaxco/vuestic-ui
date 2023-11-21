@@ -1,5 +1,5 @@
 <template>
-  <va-textarea
+  <VaTextarea
     v-model="value"
     autosize
     max-rows="5"
