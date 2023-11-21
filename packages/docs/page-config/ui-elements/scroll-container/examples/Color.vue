@@ -1,24 +1,24 @@
 <template>
-  <va-scroll-container
+  <VaScrollContainer
     class="max-h-[200px]"
     :color="currentColor"
     vertical
   >
-    <va-list>
-      <va-list-item
+    <VaList>
+      <VaListItem
         v-for="color in colorsArray"
         :key="color.name"
         class="flex cursor-pointer"
         @click="currentColor = color.name"
       >
-        <va-color-indicator
+        <VaColorIndicator
           class="mr-2"
           :color="color.name"
         />
         {{ color.title }}
-      </va-list-item>
-    </va-list>
-  </va-scroll-container>
+      </VaListItem>
+    </VaList>
+  </VaScrollContainer>
 </template>
 
 <script setup>

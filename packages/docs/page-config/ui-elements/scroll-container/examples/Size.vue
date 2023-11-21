@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <va-scroll-container
+    <VaScrollContainer
       vertical
       size="small"
       class="w-1/3 max-h-[200px]"
@@ -8,8 +8,8 @@
       <div class="p-4">
         {{ lorem }}
       </div>
-    </va-scroll-container>
-    <va-scroll-container
+    </VaScrollContainer>
+    <VaScrollContainer
       vertical
       size="medium"
       class="m-0 w-1/3 max-h-[200px]"
@@ -17,8 +17,8 @@
       <div class="p-4">
         {{ lorem }}
       </div>
-    </va-scroll-container>
-    <va-scroll-container
+    </VaScrollContainer>
+    <VaScrollContainer
       vertical
       size="large"
       class="w-1/3 max-h-[200px]"
@@ -26,7 +26,7 @@
       <div class="p-4">
         {{ lorem }}
       </div>
-    </va-scroll-container>
+    </VaScrollContainer>
   </div>
 </template>
 

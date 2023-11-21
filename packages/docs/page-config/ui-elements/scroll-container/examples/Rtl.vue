@@ -1,14 +1,14 @@
 <template>
   <div class="flex gap-4">
-    <va-scroll-container
+    <VaScrollContainer
       vertical
       class="w-1/2 max-h-[200px]"
     >
       <div class="p-4">
         {{ lorem }}
       </div>
-    </va-scroll-container>
-    <va-scroll-container
+    </VaScrollContainer>
+    <VaScrollContainer
       vertical
       rtl
       class="w-1/2 max-h-[200px]"
@@ -16,7 +16,7 @@
       <div class="p-4">
         {{ lorem }}
       </div>
-    </va-scroll-container>
+    </VaScrollContainer>
   </div>
 </template>
 
