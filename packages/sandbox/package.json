@@ -9,7 +9,7 @@
     "build:vue-cli": "vue-cli-service build",
     "build:nuxt": "nuxt build",
     "build:web-components": "vue-tsc --noEmit && vite build --config ./web-components/vite.config.ts",
-    "dev:vite": "vite",
+    "dev:vite": "vite --config ./configs/vite/vite.base.ts",
     "dev:web-components": "vite --config ./web-components/vite.config.ts",
     "dev:vue-cli": "vue-cli-service serve",
     "dev:nuxt": "nuxt dev",
