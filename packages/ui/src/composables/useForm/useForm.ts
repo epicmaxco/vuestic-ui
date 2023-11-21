@@ -27,6 +27,7 @@ export const useForm = <Names extends string = string>(ref: string | Ref<typeof 
     : ref
 
   return {
+    immediate: computed(() => form.value?.immediate || false),
     isValid: computed(() => form.value?.isValid || false),
     isLoading: computed(() => form.value?.isLoading || false),
     isDirty: computed(() => form.value?.isDirty || false),
