@@ -19,65 +19,65 @@
 
 <template>
   <div style="height: 500px">
-    <va-sidebar>
-      <va-accordion>
+    <VaSidebar>
+      <VaAccordion>
         <template v-for="item in items">
-          <va-collapse
+          <VaCollapse
             v-if="item.children"
             :key="item.title + 'collapse'"
             body-color="#00000022"
           >
             <template #header="{ value: isCollapsed }">
-              <va-sidebar-item :active="item.children.some((child) => child.title === activeElement)">
-                <va-sidebar-item-content>
-                  <va-icon :name="item.icon" />
-                  <va-sidebar-item-title>{{ item.title }}</va-sidebar-item-title>
-                  <va-spacer />
-                  <va-icon :name="isCollapsed ? 'va-arrow-up' : 'va-arrow-down'" />
-                </va-sidebar-item-content>
-              </va-sidebar-item>
+              <VaSidebarItem :active="item.children.some((child) => child.title === activeElement)">
+                <VaSidebarItemContent>
+                  <VaIcon :name="item.icon" />
+                  <VaSidebarItemTitle>{{ item.title }}</VaSidebarItemTitle>
+                  <VaSpacer />
+                  <VaIcon :name="isCollapsed ? 'va-arrow-up' : 'va-arrow-down'" />
+                </VaSidebarItemContent>
+              </VaSidebarItem>
             </template>
 
             <template #body>
-              <va-sidebar-item
+              <VaSidebarItem
                 v-for="child in item.children"
                 :key="child.title"
                 :active="child.title === activeElement"
                 @click="activeElement = child.title"
               >
-                <va-sidebar-item-content>
-                  <va-icon :name="child.icon" />
-                  <va-sidebar-item-title>{{ child.title }}</va-sidebar-item-title>
-                </va-sidebar-item-content>
-              </va-sidebar-item>
+                <VaSidebarItemContent>
+                  <VaIcon :name="child.icon" />
+                  <VaSidebarItemTitle>{{ child.title }}</VaSidebarItemTitle>
+                </VaSidebarItemContent>
+              </VaSidebarItem>
             </template>
-          </va-collapse>
+          </VaCollapse>
 
-          <va-sidebar-item
+          <VaSidebarItem
             v-else
             :key="item.title + 'item'"
             :active="item.title === activeElement"
             @click="activeElement = item.title"
           >
-            <va-sidebar-item-content>
-              <va-icon :name="item.icon" />
-              <va-sidebar-item-title>{{ item.title }}</va-sidebar-item-title>
-            </va-sidebar-item-content>
-          </va-sidebar-item>
+            <VaSidebarItemContent>
+              <VaIcon :name="item.icon" />
+              <VaSidebarItemTitle>{{ item.title }}</VaSidebarItemTitle>
+            </VaSidebarItemContent>
+          </VaSidebarItem>
         </template>
-      </va-accordion>
+      </VaAccordion>
 
-      <va-spacer />
+      <VaSpacer />
 
-      <va-sidebar-item
+      <VaSidebarItem
         :active="'Settings' === activeElement"
         @click="activeElement = 'Settings'"
       >
-        <va-sidebar-item-content>
-          <va-icon name="settings" />
-          <va-sidebar-item-title>Settings</va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
-    </va-sidebar>
+        <VaSidebarItemContent>
+          <VaIcon name="settings" />
+          <VaSidebarItemTitle>Settings</VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
+    </VaSidebar>
   </div>
 </template>
