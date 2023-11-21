@@ -1,5 +1,5 @@
 <template>
-  <va-file-upload v-model="basic" />
+  <VaFileUpload v-model="basic" />
 </template>
 
 <script>
