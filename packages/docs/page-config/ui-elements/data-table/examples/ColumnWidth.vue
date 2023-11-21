@@ -1,5 +1,5 @@
 <template>
-  <va-data-table 
+  <VaDataTable 
     :columns="[
       { key: 'id', label: '50px', width: '50px' },
       { key: 'name', label: '100px', width: '100px' },

@@ -1,5 +1,5 @@
 <template>
-  <va-data-table
+  <VaDataTable
     :items="items"
     :columns="columns"
   >
@@ -7,7 +7,7 @@
       <col span="5">
       <col class="table-slots">
     </template>
-  </va-data-table>
+  </VaDataTable>
 </template>
 
 <script>

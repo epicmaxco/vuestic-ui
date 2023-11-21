@@ -1,5 +1,5 @@
 <template>
-  <va-data-table :items="items" />
+  <VaDataTable :items="items" />
 </template>
 
 <script>

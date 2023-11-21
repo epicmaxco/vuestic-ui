@@ -1,16 +1,16 @@
 <template>
   <div class="flex flex-wrap gap-6 mb-6">
-    <va-checkbox
+    <VaCheckbox
       v-model="useAdditionalClass"
       label="Additional class"
     />
-    <va-checkbox
+    <VaCheckbox
       v-model="useAdditionalStyle"
       label="Additional style"
     />
   </div>
 
-  <va-data-table
+  <VaDataTable
     class="table"
     :items="items"
     :columns="columns"

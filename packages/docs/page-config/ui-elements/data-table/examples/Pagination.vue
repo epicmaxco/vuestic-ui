@@ -1,25 +1,25 @@
 <template>
   <div class="grid sm:grid-cols-2 md:grid-cols-5 gap-6 mb-6">
-    <va-input
+    <VaInput
       v-model.number="perPage"
       type="number"
       placeholder="Items..."
       label="Items per page"
     />
-    <va-input
+    <VaInput
       v-model.number="currentPage"
       type="number"
       placeholder="Page..."
       label="Current page"
     />
-    <va-input
+    <VaInput
       v-model="filter"
       class="sm:col-span-2 md:col-span-3"
       placeholder="Filter..."
     />
   </div>
 
-  <va-data-table
+  <VaDataTable
     :items="items"
     :columns="columns"
     :per-page="perPage"
@@ -32,7 +32,7 @@
       <tr>
         <td colspan="6">
           <div class="flex justify-center mt-4">
-            <va-pagination
+            <VaPagination
               v-model="currentPage"
               :pages="pages"
             />
@@ -40,7 +40,7 @@
         </td>
       </tr>
     </template>
-  </va-data-table>
+  </VaDataTable>
 </template>
 
 <script>

@@ -1,22 +1,22 @@
 <template>
-  <va-data-table
+  <VaDataTable
     :items="items"
     :columns="columns"
   >
     <template #header(street)="{ label }">
-      <va-chip size="small">
+      <VaChip size="small">
         {{ label }}
-      </va-chip>
+      </VaChip>
     </template>
     <template #cell(street)="{ value }">
-      <va-chip size="small">
+      <VaChip size="small">
         {{ value }}
-      </va-chip>
+      </VaChip>
     </template>
     <template #cell(username)="{ value }">
       <strong>{{ value }}</strong>
     </template>
-  </va-data-table>
+  </VaDataTable>
 </template>
 
 <script>
