@@ -1,5 +1,5 @@
 <template>
-  <va-button
+  <VaButton
     class="mr-2 mb-2"
     @click="
       $vaToast.init({
@@ -9,19 +9,19 @@
     "
   >
     notification with custom onClose handler
-  </va-button>
-  <va-button
+  </VaButton>
+  <VaButton
     class="mr-2 mb-2"
     @click="$vaToast.close('notification_4')"
   >
     Close #4 toast
-  </va-button>
-  <va-button
+  </VaButton>
+  <VaButton
     class="mr-2 mb-2"
     @click="$vaToast.closeAll()"
   >
     Close all toasts
-  </va-button>
+  </VaButton>
 </template>
 
 <script>
