@@ -1,5 +1,5 @@
 <template>
-  <va-image
+  <VaImage
     class="w-full md:w-1/2 lg:w-1/3"
     :src="getImagePath(200)"
     :srcset="`${getImagePath(201)} 400w,
