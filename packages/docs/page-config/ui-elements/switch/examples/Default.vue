@@ -1,5 +1,5 @@
 <template>
-  <va-switch v-model="value" />
+  <VaSwitch v-model="value" />
 </template>
 
 <script>

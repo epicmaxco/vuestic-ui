@@ -1,15 +1,15 @@
 <template>
   <div class="flex gap-8 flex-wrap">
-    <va-switch
+    <VaSwitch
       v-model="value"
       label="small"
       size="small"
     />
-    <va-switch
+    <VaSwitch
       v-model="value"
       label="default"
     />
-    <va-switch
+    <VaSwitch
       v-model="value"
       label="large"
       size="large"

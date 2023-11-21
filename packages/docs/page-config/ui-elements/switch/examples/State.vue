@@ -1,16 +1,16 @@
 <template>
-  <va-checkbox
+  <VaCheckbox
     v-model="isState"
     label="States enabled"
     class="mb-4"
   />
 
   <div class="flex gap-8 flex-wrap">
-    <va-switch
+    <VaSwitch
       v-model="value"
       :disabled="isState"
     />
-    <va-switch
+    <VaSwitch
       v-model="value"
       :readonly="isState"
     />
