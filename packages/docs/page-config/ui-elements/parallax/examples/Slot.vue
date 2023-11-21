@@ -1,39 +1,39 @@
 <template>
-  <va-parallax :src="imageSrc">
+  <VaParallax :src="imageSrc">
     <div
       class="flex items-center justify-center h-full"
     >
-      <va-icon
+      <VaIcon
         class="mr-8"
         name="shuffle"
         size="36px"
         color="#fff"
       />
-      <va-icon
+      <VaIcon
         class="mr-8"
         name="skip_previous"
         size="36px"
         color="#fff"
       />
-      <va-icon
+      <VaIcon
         class="mr-8"
         name="play_circle"
         size="48px"
         color="#fff"
       />
-      <va-icon
+      <VaIcon
         class="mr-8"
         name="skip_next"
         size="36px"
         color="#fff"
       />
-      <va-icon
+      <VaIcon
         name="repeat"
         size="36px"
         color="#fff"
       />
     </div>
-  </va-parallax>
+  </VaParallax>
 </template>
 
 <script>

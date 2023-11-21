@@ -1,5 +1,5 @@
 <template>
-  <va-parallax :src="imageSrc" />
+  <VaParallax :src="imageSrc" />
 </template>
 
 <script>
