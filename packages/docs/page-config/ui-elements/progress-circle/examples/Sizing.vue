@@ -1,25 +1,25 @@
 <template>
   <div class="flex flex-col gap-3">
     <div>small</div>
-    <va-progress-circle
+    <VaProgressCircle
       size="small"
       :model-value="value"
     />
 
     <div>large</div>
-    <va-progress-circle
+    <VaProgressCircle
       size="large"
       :model-value="value"
     />
 
     <div>25px</div>
-    <va-progress-circle
+    <VaProgressCircle
       :size="25"
       :model-value="value"
     />
 
     <div>2rem</div>
-    <va-progress-circle
+    <VaProgressCircle
       size="2rem"
       :model-value="value"
     />
