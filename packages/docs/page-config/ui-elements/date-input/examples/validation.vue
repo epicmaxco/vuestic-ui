@@ -1,18 +1,18 @@
 <template>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-end">
-    <va-date-input
+    <VaDateInput
       v-model="value"
       label="Success"
       success
     />
 
-    <va-date-input
+    <VaDateInput
       v-model="value"
       label="Error"
       error
     />
 
-    <va-date-input
+    <VaDateInput
       v-model="value"
       label="With rules"
       :rules="validationRules"

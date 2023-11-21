@@ -1,47 +1,47 @@
 <template>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-end">
-    <va-date-input
+    <VaDateInput
       v-model="value"
       label="readonly"
       readonly
     />
 
-    <va-date-input
+    <VaDateInput
       v-model="value"
       label="disabled"
       disabled
     />
 
-    <va-date-input
+    <VaDateInput
       v-model="value"
       label="color"
       color="#ff00ff"
     />
 
-    <va-date-input
+    <VaDateInput
       label="placeholder"
       placeholder="Custom placeholder"
     />
 
-    <va-date-input
+    <VaDateInput
       v-model="value"
       label="clearable"
       clearable
     />
 
-    <va-date-input
+    <VaDateInput
       v-model="value"
       label="solid"
       preset="solid"
     />
 
-    <va-date-input
+    <VaDateInput
       v-model="value"
       label="bordered"
       preset="bordered"
     />
 
-    <va-date-input
+    <VaDateInput
       v-model="value"
       label="inner label"
       inner-label

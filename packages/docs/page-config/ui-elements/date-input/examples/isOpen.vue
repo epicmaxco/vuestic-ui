@@ -1,5 +1,5 @@
 <template>
-  <va-date-input
+  <VaDateInput
     v-model:is-open="isOpen"
     :label="`Is open value = ${isOpen}`"
     placeholder="Select a date"
