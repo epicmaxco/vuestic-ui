@@ -1,5 +1,5 @@
 <template>
-  <va-rating v-model="value" />
+  <VaRating v-model="value" />
 </template>
 
 <script>

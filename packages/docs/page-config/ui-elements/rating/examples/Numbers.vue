@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col lg6 xs12">
-    <va-slider
+    <VaSlider
       v-model="length"
       :max="15"
     />
-    <va-rating
+    <VaRating
       v-model="value"
       :max="length"
       numbers

@@ -1,5 +1,5 @@
 <template>
-  <va-rating
+  <VaRating
     v-model="value"
     clearable
   />
