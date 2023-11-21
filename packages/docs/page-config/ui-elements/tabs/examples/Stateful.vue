@@ -1,16 +1,16 @@
 <template>
-  <va-tabs
+  <VaTabs
     stateful
     grow
   >
     <template #tabs>
-      <va-tab
+      <VaTab
         v-for="title in ['One', 'Two', 'Three']"
         :key="title"
         :name="title"
       >
         {{ title }}
-      </va-tab>
+      </VaTab>
     </template>
-  </va-tabs>
+  </VaTabs>
 </template>
