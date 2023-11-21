@@ -29,15 +29,15 @@
     <template #top>
       <VaNavbar color="primary" class="py-2 h-14">
         <template v-if="!showLeftSidebar" #left>
-          <VaButton @click="showLeftSidebar = !showLeftSidebar" icon="menu" />
+          <VaButton icon="menu" @click="showLeftSidebar = !showLeftSidebar" />
         </template>
         <template #center>
-          <va-navbar-item class="font-bold text-lg">
+          <VaNavbarItem class="font-bold text-lg">
             LOGO
-          </va-navbar-item>
+          </VaNavbarItem>
         </template>
         <template v-if="!showRightSidebar" #right>
-          <VaButton @click="showRightSidebar = !showRightSidebar" icon="menu" />
+          <VaButton icon="menu" @click="showRightSidebar = !showRightSidebar" />
         </template>
       </VaNavbar>
     </template>
@@ -45,7 +45,7 @@
     <template #left>
       <VaSidebar v-model="showLeftSidebar" :minimized="breakpoints.smDown">
         <div class="p-2">
-          <VaButton preset="secondary" @click="showLeftSidebar = !showLeftSidebar" icon="menu_open" />
+          <VaButton preset="secondary" icon="menu_open" @click="showLeftSidebar = !showLeftSidebar" />
         </div>
         <VaSidebarItem>
           <VaSidebarItemContent>
@@ -68,7 +68,9 @@
 
     <template #content>
       <main class="p-4">
-        <h3 class="va-h3">Page content</h3>
+        <h3 class="va-h3">
+          Page content
+        </h3>
         <p>Page content must be wrapped in main tag. You must do it manually. Here you can place any blocks you need in your application.</p>
 
         <p>For example, you can place here your router view, add sidebar with navigation in #left slot.</p>
@@ -79,7 +81,7 @@
     <template #right>
       <VaSidebar v-model="showRightSidebar" :minimized="breakpoints.smDown">
         <div class="p-2 text-right">
-          <VaButton preset="secondary" @click="showRightSidebar = !showRightSidebar" icon="menu_open" />
+          <VaButton preset="secondary" icon="menu_open" @click="showRightSidebar = !showRightSidebar" />
         </div>
         <VaSidebarItem>
           <VaSidebarItemContent>
