@@ -1,5 +1,5 @@
 <template>
-  <VaValue #default="v">
+  <VaValue v-slot="v">
     <button
       :style="v.value ? 'color: var(--va-danger)' : 'color: var(--va-primary)'"
       @click="v.value = !v.value"
