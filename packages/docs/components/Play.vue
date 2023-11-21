@@ -1,55 +1,68 @@
 <script setup lang="ts">
-import { Repl, ReplStore, File, ReplProps } from '@vue/repl'
+import { Repl, ReplStore, ReplProps } from '@vue/repl'
 import CodeMirror from '@vue/repl/codemirror-editor'
 import '@vue/repl/style.css'
 
-const store = new ReplStore({
-  showOutput: false,
+const props = defineProps({
+  script: {
+    type: String,
+    default: '',
+  },
+  template: {
+    type: String,
+    required: true,
+  },
+  style: {
+    type: String,
+    default: '',
+  },
 })
 
-// eslint-disable-next-line no-useless-escape
-const code = '<script setup>\r\nimport { ref } from \'vue\'\r\n  import { VaButton } from \'vuestic-ui\'\r\n\r\nconst msg = ref(\'Hello World!\')\r\n<\/script>\r\n\r\n<template>\r\n  <VaButton>{{ msg }}</VaButton>\r\n  <input v-model="msg" />\r\n</template>'
+const store = new ReplStore({ showOutput: false })
 
-store.state.activeFile.code = code
+const makeCode = (script: string, template: string, style: string) => {
+  let code = ''
 
-const fetchDependecies = async (packageName: string, version: string) => {
-  const json: { dependencies: Record<string, string> } = await (await fetch(`https://cdn.jsdelivr.net/npm/${packageName}@${version}/package.json`)).json()
+  if (script.trim()) {
+    // Fix parsing error, we need \/ to escape / in script tag
+    // eslint-disable-next-line no-useless-escape
+    code += `<script setup>\n${script}\n<\/script>\n\n`
+  }
 
-  const imports: Record<string, any> = {}
+  if (template.trim()) {
+    code += `<template>\n${template}\n</template>\n\n`
+  }
 
-  if (!json.dependencies) return imports
+  if (style.trim()) {
+    code += `<style lang="scss">\n${style}\n</style>\n\n`
+  }
 
-  await Promise.all(Object.entries(json.dependencies).map(async ([packageName, version]) => {
-    version = version.replace('^', '')
-    const url = `https://cdn.jsdelivr.net/npm/${packageName}@${version}/package.json`
-    const json = await (await fetch(url)).json()
-    const { module, main } = json
-    const path = module || main
-    imports[packageName] = `https://cdn.jsdelivr.net/npm/${packageName}@${version}/${path}`
-
-    Object.entries(await fetchDependecies(packageName, version as string)).forEach(([v, k]) => imports[v] = k)
-  }))
-
-  return imports
+  return code
 }
 
-store.setFiles({
-  ...store.getFiles(),
-  'import-map.json': JSON.stringify({
-    imports: {
-      ...store.getImportMap().imports,
-      ...await fetchDependecies('vuestic-ui', '1.8.0'),
-      'vuestic-ui': 'https://cdn.jsdelivr.net/npm/vuestic-ui@1.8.0/dist/esm-node/main.mjs',
-      'vuestic-ui/css': 'https://cdn.jsdelivr.net/npm/vuestic-ui@1.8.0/dist/vuestic-ui.css'
-    },
-  }, null, 2),
-  'App.vue': code,
+const code = computed(() => {
+  return makeCode(props.script, props.template, props.style)
+})
+
+watchEffect(() => {
+  store.setFiles({
+    ...store.getFiles(),
+    'import-map.json': JSON.stringify({
+      imports: {
+        // Default path to vue to jsdlvr cdn
+        ...store.getImportMap().imports,
+        'vuestic-ui': window.location.origin + '/vuestic-out/main.js',
+      },
+    }, null, 2),
+    // Update App.vue on code change
+    'App.vue': code.value,
+  })
 })
 
 const previewOptions: ReplProps['previewOptions'] = {
   headHTML: `
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuestic-ui@1.8.0/dist/vuestic-ui.css">
+    <link rel="stylesheet" href="${window.location.origin + '/vuestic-out/style.css'}">
   `,
   customCode: {
     importCode: `
@@ -60,6 +73,25 @@ const previewOptions: ReplProps['previewOptions'] = {
     `
   }
 }
+
+// Syntax highlighting colors
+const { getTextColor, colors } = useColors();
+
+const codeRed = computed(() =>
+  getTextColor(colors.backgroundSecondary, "#c02d2e", "#FF006E")
+);
+const codeGreen = computed(() =>
+  getTextColor(colors.backgroundSecondary, "#54790d", "#7EBD00")
+);
+const codeCyan = computed(() =>
+  getTextColor(colors.backgroundSecondary, "#015692", "#00AFFA")
+);
+const codeOrange = computed(() =>
+  getTextColor(colors.backgroundSecondary, "#b75501", "#FC834A")
+);
+const codeGray = computed(() =>
+  getTextColor(colors.backgroundSecondary, "#656e77", "#A0A6B6")
+);
 </script>
 
 <template>
@@ -95,24 +127,27 @@ const previewOptions: ReplProps['previewOptions'] = {
       }
 
       .CodeMirror {
-        // TODO: Change to Vuestic color scheme
-        --symbols: #777;
+        --symbols: v-bind(codeGray);
         --base: var(--va-text-primary);
         --comment: hsl(210, 25%, 60%);
-        --keyword: #af4ab1;
+        --keyword: v-bind(codeRed);
         --variable: var(--va-text-primary);
-        --function: #c25205;
-        --string: var(--va-success);
-        --number: #c25205;
-        --tags: var(--va-danger);
-        --brackets: var(--comment);
-        --qualifier: #ff6032;
-        --important: var(--va-success);
-        --attribute: #9c3eda;
-        --property: #6182b8;
-        --selected-bg: #d7d4f0;
-        --selected-bg-non-focus: #d9d9d9;
+        --function: v-bind(codeOrange);
+        --string: v-bind(codeGreen);
+        --number: v-bind(codeOrange);
+        --tags: v-bind(codeRed);
+        --brackets: v-bind(codeCyan);
+        --qualifier: v-bind(codeOrange);
+        --important: v-bind(codeGreen);
+        --attribute: v-bind(codeCyan);
+        --property: v-bind(codeCyan);
+        --selected-bg: var(--va-focus);
+        --selected-bg-non-focus: var(--va-secondary);
         --cursor: var(--va-text-primary);
+
+        .CodeMirror-selected {
+          opacity: 0.2;
+        }
       }
     }
   }

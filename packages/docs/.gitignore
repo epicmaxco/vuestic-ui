@@ -7,3 +7,4 @@ node_modules
 .env
 dist
 page-config/getting-started/tree-shaking/tree-shaking.md
+public/vuestic-out

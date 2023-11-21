@@ -76,6 +76,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    './modules/repl',
     './modules/google-analytics',
     './modules/banner',
     './modules/vuestic',
