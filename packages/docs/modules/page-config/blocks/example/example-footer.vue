@@ -46,6 +46,32 @@
       <span class="docs-navigation__button__text">Open in GitHub</span>
     </va-button>
 
+    <VaModal stateful fullscreen class="playground-modal" cancel-text="" ok-text="Close">
+      <template #anchor="{ show }">
+        <va-button
+          preset="secondary"
+          size="small"
+          class="docs-navigation__button"
+          color="secondary"
+          @click="show"
+        >
+          <va-icon
+            class="docs-navigation__button__icon"
+            name="auto_fix_high"
+            size="13px"
+          />
+          <span class="docs-navigation__button__text">Play</span>
+        </va-button>
+      </template>
+
+      <ClientOnly>
+        <Play
+          class="h-full border-b-2 border-[var(--va-background-border)]"
+          :code="code"
+        />
+      </ClientOnly>
+    </VaModal>
+<!--
     <form
       :action="sandboxDefineUrl"
       method="POST"
@@ -100,7 +126,7 @@
         </va-icon>
         <span class="docs-navigation__button__text">Open in CodeSandbox</span>
       </va-button>
-    </form>
+    </form> -->
   </div>
 </template>
 
@@ -197,6 +223,26 @@ const sandboxParams = computed(() => createCodeSandbox(props.code, props.config)
 
   .docs-navigation__button__text {
     @include sm(display, none);
+  }
+}
+
+.playground-modal {
+  --va-modal-padding: 0px;
+
+  .va-modal__inner {
+    max-width: 100%;
+    height: 100vh;
+  }
+  .va-modal__message {
+    margin-bottom: 0;
+    overflow: auto;
+    flex: 1;
+  }
+  .va-modal__footer {
+    padding: 1rem;
+  }
+  .va-modal__close  {
+    display: none;
   }
 }
 </style>

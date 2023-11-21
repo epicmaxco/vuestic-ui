@@ -1,50 +1,22 @@
 <script setup lang="ts">
 import { Repl, ReplStore, ReplProps } from '@vue/repl'
-import CodeMirror from '@vue/repl/codemirror-editor'
+import Editor from '@vue/repl/codemirror-editor'
 import '@vue/repl/style.css'
 
 const props = defineProps({
-  script: {
+  code: {
     type: String,
-    default: '',
-  },
-  template: {
-    type: String,
-    required: true,
-  },
-  style: {
-    type: String,
-    default: '',
-  },
+    default: ''
+  }
 })
 
 const store = new ReplStore({ showOutput: false })
 
-const makeCode = (script: string, template: string, style: string) => {
-  let code = ''
-
-  if (script.trim()) {
-    // Fix parsing error, we need \/ to escape / in script tag
-    // eslint-disable-next-line no-useless-escape
-    code += `<script setup>\n${script}\n<\/script>\n\n`
-  }
-
-  if (template.trim()) {
-    code += `<template>\n${template}\n</template>\n\n`
-  }
-
-  if (style.trim()) {
-    code += `<style lang="scss">\n${style}\n</style>\n\n`
-  }
-
-  return code
-}
-
 const code = computed(() => {
-  return makeCode(props.script, props.template, props.style)
+  return props.code || '<template>\n  <div>Hello world</div>\n</template>'
 })
 
-watchEffect(() => {
+const setFiles = () => {
   store.setFiles({
     ...store.getFiles(),
     'import-map.json': JSON.stringify({
@@ -57,11 +29,17 @@ watchEffect(() => {
     // Update App.vue on code change
     'App.vue': code.value,
   })
-})
+}
+
+setFiles()
+
+watch(code, setFiles)
 
 const previewOptions: ReplProps['previewOptions'] = {
   headHTML: `
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@0.7.4/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="${window.location.origin + '/vuestic-out/style.css'}">
   `,
   customCode: {
@@ -75,6 +53,7 @@ const previewOptions: ReplProps['previewOptions'] = {
 }
 
 // Syntax highlighting colors
+// Notice: for some reason v-bind breaks the app
 const { getTextColor, colors } = useColors();
 
 const codeRed = computed(() =>
@@ -97,16 +76,35 @@ const codeGray = computed(() =>
 <template>
   <Repl
     class="vuestic-repl"
-    :editor="CodeMirror"
+    :editor="Editor"
     :store="store"
     :preview-options="previewOptions"
     :clear-console="false"
+    :style="{
+      '--symbols': codeGray,
+      '--base': codeGray,
+      '--comment': codeGray,
+      '--keyword': codeRed,
+      '--variable': codeGray,
+      '--function': codeOrange,
+      '--string': codeGreen,
+      '--number': codeOrange,
+      '--tags': codeRed,
+      '--brackets': codeCyan,
+      '--qualifier': codeOrange,
+      '--important': codeGreen,
+      '--attribute': codeCyan,
+      '--property': codeCyan,
+      '--selected-bg': colors.focus,
+      '--selected-bg-non-focus': colors.secondary,
+      '--cursor': colors.textPrimary,
+    }"
   />
 </template>
 
 <style lang="scss">
   .vue-repl {
-    height: 80vh !important;
+    height: 100%;
 
     .tab-buttons, .file-selector {
       display: none;
@@ -124,29 +122,41 @@ const codeGray = computed(() =>
 
       .output-container {
         height: 100%;
+        padding: 16px;
+      }
+
+      .editor-container {
+        background: rgba(0, 0, 0, 0.02);
+        height: 100%;
       }
 
       .CodeMirror {
-        --symbols: v-bind(codeGray);
-        --base: var(--va-text-primary);
-        --comment: hsl(210, 25%, 60%);
-        --keyword: v-bind(codeRed);
-        --variable: var(--va-text-primary);
-        --function: v-bind(codeOrange);
-        --string: v-bind(codeGreen);
-        --number: v-bind(codeOrange);
-        --tags: v-bind(codeRed);
-        --brackets: v-bind(codeCyan);
-        --qualifier: v-bind(codeOrange);
-        --important: v-bind(codeGreen);
-        --attribute: v-bind(codeCyan);
-        --property: v-bind(codeCyan);
-        --selected-bg: var(--va-focus);
-        --selected-bg-non-focus: var(--va-secondary);
-        --cursor: var(--va-text-primary);
+        word-spacing: 4px;
+        color: currentColor;
+        background: none;
+        font-family:
+          Source Code Pro,
+          Consolas,
+          Monaco,
+          "Andale Mono",
+          "Ubuntu Mono",
+          monospace;
+        font-size: 0.9rem;
+        text-align: left;
+        white-space: pre;
+        word-break: normal;
+        word-wrap: normal;
+        line-height: 1.5;
+        tab-size: 4;
+        hyphens: none;
+        border-radius: 0.25rem;
 
         .CodeMirror-selected {
           opacity: 0.2;
+        }
+
+        .CodeMirror-line {
+          padding: 0 1rem;
         }
       }
     }
