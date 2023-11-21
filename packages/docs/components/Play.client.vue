@@ -7,33 +7,48 @@ const props = defineProps({
   code: {
     type: String,
     default: ''
+  },
+  state: {
+    type: String,
+    default: ''
   }
 })
 
-const store = new ReplStore({ showOutput: false })
+
+const store = new ReplStore({
+  showOutput: false,
+  serializedState: props.state,
+})
 
 const code = computed(() => {
   return props.code || '<template>\n  <div>Hello world</div>\n</template>'
 })
 
 const setFiles = () => {
-  store.setFiles({
-    ...store.getFiles(),
-    'import-map.json': JSON.stringify({
-      imports: {
-        // Default path to vue to jsdlvr cdn
-        ...store.getImportMap().imports,
-        'vuestic-ui': window.location.origin + '/vuestic-out/main.js',
-      },
-    }, null, 2),
-    // Update App.vue on code change
-    'App.vue': code.value,
+  store.setImportMap({
+    imports: {
+      // Default path to vue to jsdlvr cdn
+      ...store.getImportMap().imports,
+      'vuestic-ui': window.location.origin + '/vuestic-out/main.js',
+    },
   })
+
+  if (props.code && !props.state) {
+    store.setFiles({
+      ...store.getFiles(),
+      'App.vue': props.code,
+    })
+  }
 }
+
+watch(code, setFiles)
 
 setFiles()
 
-watch(code, setFiles)
+const emit = defineEmits(['update:state'])
+watchEffect(() => {
+  emit('update:state', store.serialize())
+})
 
 const previewOptions: ReplProps['previewOptions'] = {
   headHTML: `
@@ -99,6 +114,8 @@ const codeGray = computed(() =>
       '--selected-bg-non-focus': colors.secondary,
       '--cursor': colors.textPrimary,
     }"
+    @keydown.ctrl.s.prevent
+    @keydown.meta.s.prevent
   />
 </template>
 

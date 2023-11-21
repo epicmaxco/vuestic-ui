@@ -46,7 +46,7 @@
       <span class="docs-navigation__button__text">Open in GitHub</span>
     </va-button>
 
-    <VaModal stateful fullscreen class="playground-modal" cancel-text="" ok-text="Close">
+    <VaModal stateful fullscreen class="playground-modal" hide-default-actions @ok="onHide">
       <template #anchor="{ show }">
         <va-button
           preset="secondary"
@@ -60,7 +60,7 @@
             name="auto_fix_high"
             size="13px"
           />
-          <span class="docs-navigation__button__text">Play</span>
+          <span class="docs-navigation__button__text">Playground</span>
         </va-button>
       </template>
 
@@ -68,74 +68,28 @@
         <Play
           class="h-full border-b-2 border-[var(--va-background-border)]"
           :code="code"
+          v-model:state="sandboxState"
         />
       </ClientOnly>
+
+      <template #footer="{ ok }">
+        <div class="flex gap-2">
+          <VaButton @click="copySandboxLink" icon="share" preset="secondary">
+            Share
+          </VaButton>
+          <VaButton @click="ok">
+            Hide
+          </VaButton>
+        </div>
+      </template>
     </VaModal>
-<!--
-    <form
-      :action="sandboxDefineUrl"
-      method="POST"
-      target="_blank"
-    >
-      <input
-        type="hidden"
-        name="parameters"
-        :value="sandboxParams"
-      >
-      <va-button
-        preset="secondary"
-        type="submit"
-        size="small"
-        class="docs-navigation__button"
-        color="secondary"
-      >
-        <va-icon
-          class="docs-navigation__button__icon"
-          size="13px"
-        >
-          <svg
-            id="IconChangeColor"
-            xmlns="http://www.w3.org/2000/svg"
-            width="13"
-            height="13"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#737373"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-codesandbox"
-          >
-            <path
-              id="mainIconPathAttribute"
-              d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-              fill="transparent"
-              stroke="#737373"
-            />
-            <polyline points="7.5 4.21 12 6.81 16.5 4.21" />
-            <polyline points="7.5 19.79 7.5 14.6 3 12" />
-            <polyline points="21 12 16.5 14.6 16.5 19.79" />
-            <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-            <line
-              x1="12"
-              y1="22.08"
-              x2="12"
-              y2="12"
-            />
-          </svg>
-        </va-icon>
-        <span class="docs-navigation__button__text">Open in CodeSandbox</span>
-      </va-button>
-    </form> -->
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, PropType, ref, Ref } from 'vue'
-import { type CodeSandboxConfig, createCodeSandbox } from '@/composables/code-sandbox'
+import { type CodeSandboxConfig, } from '@/composables/code-sandbox'
 import { getWindow } from 'vuestic-ui/src/utils/ssr'
-
-const query = '?query=file=/src/App.vue'
 
 type ButtonStates = 'active' | 'error' | 'default'
 
@@ -168,6 +122,20 @@ const copy = async () => {
   setTimeout(() => { copyButtonState.value = 'default' }, 1500)
 }
 
+const { init } = useToast()
+const copySandboxLink = async () => {
+  try {
+    await getWindow()?.navigator.clipboard.writeText(window.location.origin + '/play' + sandboxState.value)
+    init('Link copied to clipboard')
+  } catch (e: any) {
+    if (e.message === 'NotAllowedError') {
+      copyButtonState.value = 'error'
+    }
+  }
+
+  setTimeout(() => { copyButtonState.value = 'default' }, 1500)
+}
+
 const buttonStates = {
   active: { text: 'Copied', icon: 'fa4-check' },
   error: { text: 'Permission failure!', icon: 'fa4-times' },
@@ -175,8 +143,20 @@ const buttonStates = {
 }
 const copyButton = computed(() => buttonStates[copyButtonState.value])
 
-const sandboxDefineUrl = computed(() => `https://codesandbox.io/api/v1/sandboxes/define${query}`)
-const sandboxParams = computed(() => createCodeSandbox(props.code, props.config))
+const sandboxState = ref('')
+
+// Change URL without reloading page and updating vue-router
+watch(sandboxState, () => {
+  window.history.replaceState({}, '', '/play' + sandboxState.value)
+})
+
+const route = useRoute()
+const onHide = () => {
+  sandboxState.value = ''
+  nextTick(() => {
+    window.history.replaceState({}, '', route.path)
+  })
+}
 </script>
 
 <style lang="scss">

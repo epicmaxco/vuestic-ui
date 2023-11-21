@@ -1,5 +1,12 @@
 <script setup lang="ts">
-  const makeCode = (script: string, template: string, style: string) => {
+import { getWindow } from 'vuestic-ui/src/utils/ssr'
+import { useIsMounted } from 'vuestic-ui/src/composables/useIsMounted'
+
+definePageMeta({
+  layout: 'landing',
+})
+
+const makeCode = (script: string, template: string, style: string) => {
   let code = ''
 
   if (script.trim()) {
@@ -19,19 +26,78 @@
   return code
 }
 
-  const scriptText = `  import { ref } from 'vue'
+const scriptText = `  import { ref } from 'vue'
 
   const msg = ref('')`
 
-  const templateText = `  <h1 class="va-h1">{{ msg }}</h1>
+const templateText = `  <h1 class="va-h1">{{ msg }}</h1>
   <VaInput v-model="msg" />`
+
+const route = useRoute()
+
+const { init } = useToast()
+const sandboxState = ref(route.hash.slice(1) || '')
+const copySandboxLink = async () => {
+  try {
+    await getWindow()?.navigator.clipboard.writeText(window.location.origin + '/play' + sandboxState.value)
+    init('Link copied to clipboard')
+  } catch (e: any) {
+    init({
+      message: 'Failed to copy link to clipboard',
+      color: 'error',
+    })
+  }
+}
+
+const breakpoints = useBreakpoint()
+const isSidebarVisible = ref(false)
+const isOptionsVisible = ref(false)
+
+const isMounted = useIsMounted()
 </script>
 
 <template>
-  <ClientOnly>
-    <Play
-      class="h-[80vh]"
-      :code="makeCode(scriptText, templateText, '')"
-    />
-  </ClientOnly>
+  <VaLayout
+    v-if="isMounted"
+    class="h-[100vh]"
+    :top="{ fixed: true, order: 2 }"
+    :left="{ fixed: true, absolute: breakpoints.smDown ?? true, overlay: breakpoints.smDown && isSidebarVisible, order: 1 }"
+    @left-overlay-click="isSidebarVisible = false"
+  >
+    <template #top>
+      <LayoutHeader
+        v-model:isSidebarVisible="isSidebarVisible"
+        v-model:isOptionsVisible="isOptionsVisible"
+      />
+    </template>
+
+    <template #left>
+      <LayoutSidebar
+        v-model:visible="isSidebarVisible"
+        :mobile="breakpoints.xs"
+      />
+    </template>
+
+    <template #content>
+      <main class="h-[100%] flex flex-col">
+        <ClientOnly>
+          <Play
+            v-model:state="sandboxState"
+            class="h-[100%] flex-1"
+            :code="makeCode(scriptText, templateText, '')"
+          />
+        </ClientOnly>
+
+        <div class="flex justify-end p-2">
+          <VaButton
+            icon="share"
+            preset="secondary"
+            @click="copySandboxLink"
+          >
+            Share
+          </VaButton>
+        </div>
+      </main>
+    </template>
+  </VaLayout>
 </template>
