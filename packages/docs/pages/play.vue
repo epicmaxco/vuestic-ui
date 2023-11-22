@@ -3,7 +3,7 @@ import { getWindow } from 'vuestic-ui/src/utils/ssr'
 import { useIsMounted } from 'vuestic-ui/src/composables/useIsMounted'
 
 definePageMeta({
-  layout: 'landing',
+  layout: 'play',
 })
 
 const makeCode = (script: string, template: string, style: string) => {
@@ -49,55 +49,34 @@ const copySandboxLink = async () => {
   }
 }
 
-const breakpoints = useBreakpoint()
-const isSidebarVisible = ref(false)
-const isOptionsVisible = ref(false)
-
-const isMounted = useIsMounted()
+// Change URL without reloading page and updating vue-router
+watch(sandboxState, () => {
+  window.history.replaceState({}, '', '/play' + sandboxState.value)
+})
 </script>
 
 <template>
-  <VaLayout
-    v-if="isMounted"
-    class="h-[100vh]"
-    :top="{ fixed: true, order: 2 }"
-    :left="{ fixed: true, absolute: breakpoints.smDown ?? true, overlay: breakpoints.smDown && isSidebarVisible, order: 1 }"
-    @left-overlay-click="isSidebarVisible = false"
-  >
-    <template #top>
-      <LayoutHeader
-        v-model:isSidebarVisible="isSidebarVisible"
-        v-model:isOptionsVisible="isOptionsVisible"
+  <main class="h-[100%] flex flex-col">
+    <ClientOnly>
+      <Play
+        v-model:state="sandboxState"
+        class="h-[100%] flex-1"
+        :code="makeCode(scriptText, templateText, '')"
       />
-    </template>
+    </ClientOnly>
 
-    <template #left>
-      <LayoutSidebar
-        v-model:visible="isSidebarVisible"
-        :mobile="breakpoints.xs"
-      />
-    </template>
+    <div class="flex justify-between items-center py-2 px-4 border-t-2 border-[var(--va-background-border)] bg-[var(--va-background-secondary)]">
+      <div>
+        Playground <span class="text-[var(--va-secondary)]">vuestic-ui@latest - vue@latest</span>
+      </div>
 
-    <template #content>
-      <main class="h-[100%] flex flex-col">
-        <ClientOnly>
-          <Play
-            v-model:state="sandboxState"
-            class="h-[100%] flex-1"
-            :code="makeCode(scriptText, templateText, '')"
-          />
-        </ClientOnly>
-
-        <div class="flex justify-end p-2">
-          <VaButton
-            icon="share"
-            preset="secondary"
-            @click="copySandboxLink"
-          >
-            Share
-          </VaButton>
-        </div>
-      </main>
-    </template>
-  </VaLayout>
+      <VaButton
+        icon="share"
+        preset="secondary"
+        @click="copySandboxLink"
+      >
+        Share
+      </VaButton>
+    </div>
+  </main>
 </template>

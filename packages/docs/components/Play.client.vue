@@ -17,7 +17,7 @@ const props = defineProps({
 
 const store = new ReplStore({
   showOutput: false,
-  serializedState: props.state,
+  serializedState: props.state.replace('#', ''),
 })
 
 const code = computed(() => {
@@ -51,8 +51,15 @@ watchEffect(() => {
 })
 
 const { currentPresetName } = useColors()
+const normalizePresetName = (presetName: string) => {
+  if (['dark', 'light'].includes(presetName)) {
+    return presetName
+  }
 
-const previewOptions: ReplProps['previewOptions'] = {
+  return 'light'
+}
+
+const previewOptions = computed<ReplProps['previewOptions']>(() => ({
   headHTML: `
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@0.7.4/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
@@ -72,16 +79,14 @@ const previewOptions: ReplProps['previewOptions'] = {
       app.use(createVuestic({
         config: {
           colors: {
-            currentPresetName: 'dark'
+            currentPresetName: ${JSON.stringify(normalizePresetName(currentPresetName.value))},
           }
         }
       }))
     `
   }
-}
+}))
 
-// Syntax highlighting colors
-// Notice: for some reason v-bind breaks the app
 const { getTextColor, colors } = useColors();
 
 const codeRed = computed(() =>
@@ -103,30 +108,12 @@ const codeGray = computed(() =>
 
 <template>
   <Repl
+    :key="currentPresetName"
     class="vuestic-repl"
     :editor="Editor"
     :store="store"
     :preview-options="previewOptions"
     :clear-console="false"
-    :style="{
-      '--symbols': codeGray,
-      '--base': codeGray,
-      '--comment': codeGray,
-      '--keyword': codeRed,
-      '--variable': codeGray,
-      '--function': codeOrange,
-      '--string': codeGreen,
-      '--number': codeOrange,
-      '--tags': codeRed,
-      '--brackets': codeCyan,
-      '--qualifier': codeOrange,
-      '--important': codeGreen,
-      '--attribute': codeCyan,
-      '--property': codeCyan,
-      '--selected-bg': colors.focus,
-      '--selected-bg-non-focus': colors.secondary,
-      '--cursor': colors.textPrimary,
-    }"
     @keydown.ctrl.s.prevent
     @keydown.meta.s.prevent
   />
@@ -179,6 +166,21 @@ const codeGray = computed(() =>
         tab-size: 4;
         hyphens: none;
         border-radius: 0.25rem;
+        --base: var(--va-text-primary);
+        --symbols: v-bind(codeGray),
+        --comment: v-bind(codeGray);
+        --keyword: v-bind(codeRed);
+        --variable: v-bind(codeGray);
+        --function: v-bind(codeOrange);
+        --string: v-bind(codeGreen);
+        --number: v-bind(codeOrange);
+        --tags: v-bind(codeRed);
+        --brackets: v-bind(codeCyan);
+        --qualifier: v-bind(codeOrange);
+        --important: v-bind(codeGreen);
+        --attribute: v-bind(codeCyan);
+        --property: v-bind(codeCyan);
+        --cursor: v-bind(colors.textPrimary);
 
         .CodeMirror-selected {
           opacity: 0.2;

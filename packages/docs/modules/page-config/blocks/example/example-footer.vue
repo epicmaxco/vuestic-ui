@@ -73,7 +73,8 @@
       </ClientOnly>
 
       <template #footer="{ ok }">
-        <div class="flex gap-2">
+        <div class="flex gap-2 w-full px-5">
+          <VaInput :model-value="shareLink" label="Sandbox link" inner-label class="flex-1 w-full" />
           <VaButton @click="copySandboxLink" icon="share" preset="secondary">
             Share
           </VaButton>
@@ -123,14 +124,13 @@ const copy = async () => {
 }
 
 const { init } = useToast()
+const shareLink = computed(() => getWindow()?.location.origin + '/play' + sandboxState.value)
 const copySandboxLink = async () => {
   try {
     await getWindow()?.navigator.clipboard.writeText(window.location.origin + '/play' + sandboxState.value)
     init('Link copied to clipboard')
   } catch (e: any) {
-    if (e.message === 'NotAllowedError') {
-      copyButtonState.value = 'error'
-    }
+    init('Permission failure!')
   }
 
   setTimeout(() => { copyButtonState.value = 'default' }, 1500)
@@ -144,19 +144,6 @@ const buttonStates = {
 const copyButton = computed(() => buttonStates[copyButtonState.value])
 
 const sandboxState = ref('')
-
-// Change URL without reloading page and updating vue-router
-watch(sandboxState, () => {
-  window.history.replaceState({}, '', '/play' + sandboxState.value)
-})
-
-const route = useRoute()
-const onHide = () => {
-  sandboxState.value = ''
-  nextTick(() => {
-    window.history.replaceState({}, '', route.path)
-  })
-}
 </script>
 
 <style lang="scss">
