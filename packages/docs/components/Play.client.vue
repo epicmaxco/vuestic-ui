@@ -50,19 +50,32 @@ watchEffect(() => {
   emit('update:state', store.serialize())
 })
 
+const { currentPresetName } = useColors()
+
 const previewOptions: ReplProps['previewOptions'] = {
   headHTML: `
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@0.7.4/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="${window.location.origin + '/vuestic-out/style.css'}">
+    <style>
+      body {
+        padding: 1rem;
+      }
+    </style>
   `,
   customCode: {
     importCode: `
       import { createVuestic } from "vuestic-ui";
     `,
     useCode: `
-      app.use(createVuestic({}))
+      app.use(createVuestic({
+        config: {
+          colors: {
+            currentPresetName: 'dark'
+          }
+        }
+      }))
     `
   }
 }
@@ -139,7 +152,6 @@ const codeGray = computed(() =>
 
       .output-container {
         height: 100%;
-        padding: 16px;
       }
 
       .editor-container {
