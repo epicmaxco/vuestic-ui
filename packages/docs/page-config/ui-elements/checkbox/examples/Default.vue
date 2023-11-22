@@ -1,5 +1,5 @@
 <template>
-  <va-checkbox v-model="value" />
+  <VaCheckbox v-model="value" />
 </template>
 
 <script>

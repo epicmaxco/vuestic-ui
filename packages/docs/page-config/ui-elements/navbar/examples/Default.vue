@@ -1,21 +1,21 @@
 <template>
-  <va-navbar color="#F4F8FA">
+  <VaNavbar color="#F4F8FA">
     <template #left>
-      <va-navbar-item class="navbar-item-slot">
+      <VaNavbarItem class="navbar-item-slot">
         Left slot
-      </va-navbar-item>
+      </VaNavbarItem>
     </template>
     <template #right>
-      <va-navbar-item class="navbar-item-slot">
+      <VaNavbarItem class="navbar-item-slot">
         Right slot
-      </va-navbar-item>
+      </VaNavbarItem>
     </template>
     <template #center>
-      <va-navbar-item class="navbar-item-slot">
+      <VaNavbarItem class="navbar-item-slot">
         Center slot
-      </va-navbar-item>
+      </VaNavbarItem>
     </template>
-  </va-navbar>
+  </VaNavbar>
 </template>
 
 <style scoped>

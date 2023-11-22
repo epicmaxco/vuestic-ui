@@ -1,3 +1,3 @@
 <template>
-  <va-date-input />
+  <VaDateInput />
 </template>

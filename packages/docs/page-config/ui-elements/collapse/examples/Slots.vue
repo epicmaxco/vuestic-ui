@@ -1,5 +1,5 @@
 <template>
-  <va-collapse
+  <VaCollapse
     v-model="value"
     class="min-w-96"
     header="Collapse header"
@@ -7,7 +7,7 @@
   >
     <template #header="{ value, attrs, iconAttrs, text }">
       <div v-bind="attrs" class="w-full flex border-[var(--va-background-border)] border-2 p-2 bg-[var(--va-background-element)]">
-        <va-icon
+        <VaIcon
           name="va-arrow-down"
           :class="value ? '' : 'rotate-[-90deg]'"
           v-bind="iconAttrs"
@@ -24,7 +24,7 @@
         Lorem ipsum dolor sit amet, consectetur adipisci
       </div>
     </template>
-  </va-collapse>
+  </VaCollapse>
 </template>
 
 <script>

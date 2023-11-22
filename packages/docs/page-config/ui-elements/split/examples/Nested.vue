@@ -1,10 +1,10 @@
 <template>
-  <va-split
+  <VaSplit
     v-model="value"
     class="split-demo"
   >
     <template #start>
-      <va-split>
+      <VaSplit>
         <template #start>
           <div class="p-6">
             {{ lorem }}
@@ -15,10 +15,10 @@
             {{ lorem }}
           </div>
         </template>
-      </va-split>
+      </VaSplit>
     </template>
     <template #end>
-      <va-split
+      <VaSplit
         vertical
         class="h-[25rem]"
       >
@@ -32,9 +32,9 @@
             {{ lorem }}
           </div>
         </template>
-      </va-split>
+      </VaSplit>
     </template>
-  </va-split>
+  </VaSplit>
 </template>
 
 <script>

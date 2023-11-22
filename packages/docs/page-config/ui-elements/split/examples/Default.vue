@@ -1,5 +1,5 @@
 <template>
-  <va-split
+  <VaSplit
     class="split-demo split-demo--image"
     :limits="[10, 10]"
   >
@@ -25,7 +25,7 @@
         >
       </div>
     </template>
-  </va-split>
+  </VaSplit>
 </template>
 
 <style lang="scss" scoped>

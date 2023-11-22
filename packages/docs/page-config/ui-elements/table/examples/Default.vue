@@ -18,7 +18,7 @@
           <td>{{ user.email }}</td>
           <td>{{ user.country }}</td>
           <td>
-            <va-badge
+            <VaBadge
               :text="user.status"
               :color="user.status"
             />

@@ -1,5 +1,5 @@
 <template>
-  <va-date-input
+  <VaDateInput
     v-model="value"
     manual-input
   />

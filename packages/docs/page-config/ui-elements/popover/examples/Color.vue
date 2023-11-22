@@ -1,51 +1,51 @@
 <template>
-  <va-popover
+  <VaPopover
     class="mr-2 mb-2"
     message="Popover text"
     color="primary"
   >
-    <va-button color="primary">
+    <VaButton color="primary">
       Hover me
-    </va-button>
-  </va-popover>
+    </VaButton>
+  </VaPopover>
 
-  <va-popover
+  <VaPopover
     class="mr-2 mb-2"
     message="Popover text"
     color="success"
   >
-    <va-button color="success">
+    <VaButton color="success">
       Hover me
-    </va-button>
-  </va-popover>
+    </VaButton>
+  </VaPopover>
 
-  <va-popover
+  <VaPopover
     class="mr-2 mb-2"
     message="Popover text"
     color="warning"
   >
-    <va-button color="warning">
+    <VaButton color="warning">
       Hover me
-    </va-button>
-  </va-popover>
+    </VaButton>
+  </VaPopover>
 
-  <va-popover
+  <VaPopover
     class="mr-2 mb-2"
     message="Popover text"
     color="danger"
   >
-    <va-button color="danger">
+    <VaButton color="danger">
       Hover me
-    </va-button>
-  </va-popover>
+    </VaButton>
+  </VaPopover>
 
-  <va-popover
+  <VaPopover
     class="mb-2"
     message="Popover text"
     color="#9f03e0"
   >
-    <va-button color="#9f03e0">
+    <VaButton color="#9f03e0">
       Hover me
-    </va-button>
-  </va-popover>
+    </VaButton>
+  </VaPopover>
 </template>

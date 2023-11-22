@@ -64,7 +64,7 @@ const code = computed(() => {
         class="mt-2"
       >
         <template #append>
-          <va-counter
+          <VaCounter
             v-model.number="threshold"
             class="w-[140px]"
             type="number"

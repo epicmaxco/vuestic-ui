@@ -1,9 +1,9 @@
 <template>
-  <va-slider
+  <VaSlider
     v-model="value1"
     icon-append="home"
   />
-  <va-slider
+  <VaSlider
     v-model="value2"
     icon-prepend="home"
   />

@@ -1,12 +1,12 @@
 <template>
-  <va-chip
+  <VaChip
     v-for="(size, index) in sizes"
     :key="index"
     :size="size"
     class="mr-6 mb-2"
   >
     {{ size }} size
-  </va-chip>
+  </VaChip>
 </template>
 
 <script>

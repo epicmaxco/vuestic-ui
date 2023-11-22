@@ -1,9 +1,9 @@
 <template>
-  <va-button
+  <VaButton
     preset="secondary"
     border-color="primary"
     size="small"
   >
     Your button
-  </va-button>
+  </VaButton>
 </template>

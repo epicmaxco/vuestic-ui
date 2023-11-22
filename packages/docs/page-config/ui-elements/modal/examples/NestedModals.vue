@@ -1,9 +1,9 @@
 <template>
-  <va-button @click="showFirstModal = !showFirstModal">
+  <VaButton @click="showFirstModal = !showFirstModal">
     Show modal
-  </va-button>
+  </VaButton>
 
-  <va-modal
+  <VaModal
     v-slot="{ hide }"
     v-model="showFirstModal"
     hide-default-actions
@@ -13,7 +13,7 @@
         Nested Modal
       </h3>
 
-      <va-date-input
+      <VaDateInput
         v-model="date"
         outline
       />
@@ -24,25 +24,25 @@
     </div>
 
     <div class="flex justify-end mt-2 gap-2">
-      <va-button
+      <VaButton
         preset="secondary"
         color="secondary"
         @click="hide()"
       >
         Cancel
-      </va-button>
-      <va-button preset="primary" @click="setDefault">
+      </VaButton>
+      <VaButton preset="primary" @click="setDefault">
         Set default
-      </va-button>
-      <va-button
+      </VaButton>
+      <VaButton
         @click="showSecondModal = !showSecondModal"
       >
         Save
-      </va-button>
+      </VaButton>
     </div>
-  </va-modal>
+  </VaModal>
 
-  <va-modal
+  <VaModal
     v-model="showSecondModal"
     message="Are you sure you want to save it?"
     ok-text="Save"

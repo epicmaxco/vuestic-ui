@@ -1,5 +1,5 @@
 <template>
-  <va-chip shadow>
+  <VaChip shadow>
     chip with shadow
-  </va-chip>
+  </VaChip>
 </template>

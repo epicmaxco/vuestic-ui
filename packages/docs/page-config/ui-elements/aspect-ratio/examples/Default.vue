@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
-    <va-aspect-ratio
+    <VaAspectRatio
       class="col-span-1 p-2 border border-solid border-gray-300 rounded"
       :ratio="16/9"
     >
@@ -8,9 +8,9 @@
         <h3>16/9</h3>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </div>
-    </va-aspect-ratio>
+    </VaAspectRatio>
 
-    <va-aspect-ratio
+    <VaAspectRatio
       class="col-span-1 p-2 border border-solid border-gray-300 rounded"
       :ratio="4/3"
     >
@@ -18,9 +18,9 @@
         <h3>4/3</h3>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </div>
-    </va-aspect-ratio>
+    </VaAspectRatio>
 
-    <va-aspect-ratio
+    <VaAspectRatio
       class="col-span-1 p-2 border border-solid border-gray-300 rounded"
       :ratio="1"
     >
@@ -28,6 +28,6 @@
         <h3>1/1</h3>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </div>
-    </va-aspect-ratio>
+    </VaAspectRatio>
   </div>
 </template>

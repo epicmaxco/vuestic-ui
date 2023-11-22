@@ -1,5 +1,5 @@
 <template>
-  <va-content
+  <VaContent
     v-show="doShow"
     class="va-skeleton page-config"
   >
@@ -9,12 +9,12 @@
     <h3 class="page-config-subtitle medium" />
     <p class="three-lines short" />
 
-    <va-card style="height: 150px; width: 100%;" />
+    <VaCard style="height: 150px; width: 100%;" />
     <h3 class="page-config-subtitle long" />
     <p class="medium" />
 
-    <va-card style="height: 300px; width: 100%;" />
-  </va-content>
+    <VaCard style="height: 300px; width: 100%;" />
+  </VaContent>
 </template>
 
 <script lang="ts" setup>

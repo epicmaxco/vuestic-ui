@@ -1,15 +1,15 @@
 <template>
-  <va-slider
+  <VaSlider
     v-model="value1"
     label="Disabled"
     :disabled="isState"
   />
-  <va-slider
+  <VaSlider
     v-model="value2"
     label="Readonly"
     :readonly="isState"
   />
-  <va-checkbox
+  <VaCheckbox
     v-model="isState"
     class="mt-2"
     label="States enabled"

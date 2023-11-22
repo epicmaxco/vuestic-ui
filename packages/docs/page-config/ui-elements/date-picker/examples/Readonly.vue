@@ -1,18 +1,18 @@
 <template>
   <div class="flex gap-5 flex-wrap">
-    <va-date-picker
+    <VaDatePicker
       v-model="value"
       type="day"
       readonly
     />
 
-    <va-date-picker
+    <VaDatePicker
       v-model="value"
       type="month"
       readonly
     />
 
-    <va-date-picker
+    <VaDatePicker
       v-model="value"
       type="year"
       readonly

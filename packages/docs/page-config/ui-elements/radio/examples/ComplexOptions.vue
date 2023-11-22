@@ -1,5 +1,5 @@
 <template>
-  <va-radio
+  <VaRadio
     v-model="value"
     :options="[
       {

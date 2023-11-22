@@ -1,5 +1,5 @@
 <template>
-  <va-option-list
+  <VaOptionList
     v-model="listValue"
     type="switch"
     :options="['Option 1', 'Option 2', 'Option 3']"

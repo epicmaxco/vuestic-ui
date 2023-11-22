@@ -1,42 +1,42 @@
 <template>
   <div class="mb-4 flex gap-2">
-    <va-button
+    <VaButton
       color="success"
       @click="newImage"
     >
       New image
-    </va-button>
+    </VaButton>
 
-    <va-button
+    <VaButton
       color="warning"
       @click="wrongPath"
     >
       Wrong path
-    </va-button>
+    </VaButton>
   </div>
 
   <div class="flex gap-4">
-    <va-image
+    <VaImage
       :src="slotImagePath"
       @loaded="consoleLog"
       @error="consoleLog"
     >
       <template #loader>
-        <va-progress-circle indeterminate />
+        <VaProgressCircle indeterminate />
       </template>
 
       <template #error>
         <div class="p-8 flex items-center justify-center bg-red-300 rounded-3xl">
-          <va-icon
+          <VaIcon
             name="close"
             color="danger"
             :size="32"
           />
         </div>
       </template>
-    </va-image>
+    </VaImage>
 
-    <va-image
+    <VaImage
       :src="slotImagePath"
       fallback-text="Fallback will work if error slot wasn't passed"
     />

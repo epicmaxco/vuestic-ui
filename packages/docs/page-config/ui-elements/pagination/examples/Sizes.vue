@@ -1,11 +1,11 @@
 <template>
-  <va-pagination
+  <VaPagination
     v-model="value"
     size="small"
     :pages="5"
     class="mb-6"
   />
-  <va-pagination
+  <VaPagination
     v-model="value"
     size="large"
     :pages="5"

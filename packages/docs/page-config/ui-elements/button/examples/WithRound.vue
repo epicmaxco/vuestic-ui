@@ -1,17 +1,17 @@
 <template>
   <div class="flex items-center gap-8 flex-wrap">
-    <va-button round>
+    <VaButton round>
       Label
-    </va-button>
-    <va-button
+    </VaButton>
+    <VaButton
       round
       icon="thumb_up"
     />
-    <va-button
+    <VaButton
       round
       icon="close"
     >
       Label
-    </va-button>
+    </VaButton>
   </div>
 </template>

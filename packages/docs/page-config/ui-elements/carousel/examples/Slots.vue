@@ -1,26 +1,26 @@
 <template>
-  <va-carousel
+  <VaCarousel
     v-model="value"
     :items="items"
     arrows
     indicators
   >
     <template #default="{ item }">
-      <va-avatar :src="item" />
+      <VaAvatar :src="item" />
     </template>
 
     <template #prev-arrow>
-      <va-button>Go back</va-button>
+      <VaButton>Go back</VaButton>
     </template>
 
     <template #next-arrow>
-      <va-button>Go forward</va-button>
+      <VaButton>Go forward</VaButton>
     </template>
 
     <template #indicator="{ index }">
-      <va-button>Go to slide {{ index }}</va-button>
+      <VaButton>Go to slide {{ index }}</VaButton>
     </template>
-  </va-carousel>
+  </VaCarousel>
 </template>
 
 <script>

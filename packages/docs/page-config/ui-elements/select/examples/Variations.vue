@@ -1,17 +1,17 @@
 <template>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
-    <va-select
+    <VaSelect
       v-model="valueSingle"
       label="Single select"
       :options="options"
     />
-    <va-select
+    <VaSelect
       v-model="valueMultiple"
       label="Multiple select"
       :options="options"
       multiple
     />
-    <va-select
+    <VaSelect
       v-model="valueMultipleMax"
       label="Multiple select, Max 2 selections"
       :options="options"

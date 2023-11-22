@@ -1,6 +1,6 @@
 <template>
   <div class="color-dropdown">
-    <va-button-dropdown
+    <VaButtonDropdown
       v-model="doShowDropdown"
       class="color-dropdown__icon"
       preset="secondary"
@@ -14,22 +14,22 @@
           :key="color.name"
           class="color my-3 d-flex align-center"
         >
-          <va-color-indicator
+          <VaColorIndicator
             size="1.25rem"
             :color="color.name"
           /> <span class="color__title">{{ color.title }}</span>
         </div>
       </div>
       <div class="color-dropdown__content px-1 mt-2">
-        <va-button
-          @click="doShowDropdown = false"
+        <VaButton
           class="w-full"
           to="/styles/colors"
+          @click="doShowDropdown = false"
         >
           Learn about colors
-        </va-button>
+        </VaButton>
       </div>
-    </va-button-dropdown>
+    </VaButtonDropdown>
   </div>
 </template>
 

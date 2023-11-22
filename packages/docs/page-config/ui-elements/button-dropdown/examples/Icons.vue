@@ -1,27 +1,27 @@
 <template>
-  <va-button-dropdown
+  <VaButtonDropdown
     class="mr-2 mb-2"
     label="without icon"
     hide-icon
   >
     Content
-  </va-button-dropdown>
-  <va-button-dropdown
+  </VaButtonDropdown>
+  <VaButtonDropdown
     class="mr-2 mb-2"
     label="left icon"
     left-icon
   >
     Content
-  </va-button-dropdown>
-  <va-button-dropdown
+  </VaButtonDropdown>
+  <VaButtonDropdown
     class="mr-2 mb-2"
     label="custom left icon"
     icon="info"
     left-icon
   >
     Content
-  </va-button-dropdown>
-  <va-button-dropdown
+  </VaButtonDropdown>
+  <VaButtonDropdown
     class="mr-2 mb-2"
     label="custom icon + icon-open"
     icon="info"
@@ -29,5 +29,5 @@
     icon-color="warning"
   >
     Content
-  </va-button-dropdown>
+  </VaButtonDropdown>
 </template>

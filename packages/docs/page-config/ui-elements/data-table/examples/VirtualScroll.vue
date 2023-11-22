@@ -1,5 +1,5 @@
 <template>
-  <va-data-table
+  <VaDataTable
     :items="items"
     :wrapper-size="400"
     :item-size="46"

@@ -1,5 +1,5 @@
 <template>
-  <va-tree-view
+  <VaTreeView
     v-model:checked="selectedNodes"
     :nodes="nodes"
     selectable

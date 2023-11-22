@@ -6,7 +6,7 @@
     <p>
       {{ text }}
     </p>
-    <va-affix
+    <VaAffix
       :offset-top="30"
       :offset-bottom="0"
       :target="() => $refs.target"
@@ -16,7 +16,7 @@
       >
         Custom target: top 30, bottom 0.
       </div>
-    </va-affix>
+    </VaAffix>
     <p>
       {{ text }}
     </p>

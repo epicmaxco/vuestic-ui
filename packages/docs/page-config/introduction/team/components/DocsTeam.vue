@@ -1,46 +1,46 @@
 <template>
-      <div class="docs-team grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 -mb-4 mt-8">
-      <div
-        v-for="item in team"
-        :key="item.image"
-        class="docs-team__avatar-wrapper mb-8"
+  <div class="docs-team grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 -mb-4 mt-8">
+    <div
+      v-for="item in team"
+      :key="item.image"
+      class="docs-team__avatar-wrapper mb-8"
+    >
+      <VaAvatar
+        :size="146"
+        class="docs-team__avatar"
       >
-        <va-avatar
-          :size="146"
-          class="docs-team__avatar"
+        <img
+          :src="item.image"
+          :alt="item.name"
+          height="140"
+          width="140"
         >
-          <img
-            :src="item.image"
-            :alt="item.name"
-            height="140"
-            width="140"
-          >
-        </va-avatar>
-        <strong class="mt-3 mb-1">{{ item.name }}</strong>
-        <div>{{ item.jobTitle }}</div>
+      </VaAvatar>
+      <strong class="mt-3 mb-1">{{ item.name }}</strong>
+      <div>{{ item.jobTitle }}</div>
+      <div
+        v-if="item.socialNetworks"
+        class="flex"
+      >
         <div
-          v-if="item.socialNetworks"
-          class="flex"
+          v-for="icon in item.socialNetworks"
+          :key="icon.url"
         >
-          <div
-            v-for="icon in item.socialNetworks"
-            :key="icon.url"
+          <a
+            :href="icon.url"
+            :title="item.name"
+            target="_blank"
           >
-            <a
-              :href="icon.url"
-              :title="item.name"
-              target="_blank"
-            >
-              <va-icon
-                :class="icon.name"
-                class="mr-1"
-                size="small"
-              />
-            </a>
-          </div>
+            <VaIcon
+              :class="icon.name"
+              class="mr-1"
+              size="small"
+            />
+          </a>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -1,19 +1,19 @@
 <template>
   <div class="grid sm:grid-cols-3 gap-6 mb-6">
     <div>
-      <va-switch
+      <VaSwitch
         v-model="isTableStriped"
         label="Striped"
         size="small"
       />
       <br>
-      <va-switch
+      <VaSwitch
         v-model="animated"
         label="Animated"
         size="small"
       />
       <br>
-      <va-switch
+      <VaSwitch
         v-model="isTableRowsClickable"
         label="Clickable"
         size="small"
@@ -21,19 +21,19 @@
     </div>
 
     <div>
-      <va-switch
+      <VaSwitch
         v-model="isTableLoading"
         label="Loading"
         size="small"
       />
       <br>
-      <va-switch
+      <VaSwitch
         v-model="prependSlot"
         label="Prepend slots"
         size="small"
       />
       <br>
-      <va-switch
+      <VaSwitch
         v-model="appendSlot"
         label="Append slots"
         size="small"
@@ -41,20 +41,20 @@
     </div>
 
     <div>
-      <va-switch
+      <VaSwitch
         v-model="hideDefaultHeader"
         label="Hide header"
         size="small"
       />
       <br>
-      <va-switch
+      <VaSwitch
         v-model="footerClone"
         label="Clone footer"
         size="small"
         :disabled="hideDefaultHeader"
       />
       <br>
-      <va-switch
+      <VaSwitch
         v-model="footerSorting"
         label="Foot sorting"
         size="small"
@@ -63,7 +63,7 @@
     </div>
   </div>
 
-  <va-data-table
+  <VaDataTable
     :items="items"
     :columns="columns"
     :striped="isTableStriped"
@@ -140,9 +140,9 @@
         </th>
       </tr>
     </template>
-  </va-data-table>
+  </VaDataTable>
 
-  <va-alert
+  <VaAlert
     v-if="isTableRowsClickable"
     class="!mt-6"
     color="info"
@@ -150,10 +150,10 @@
   >
     <span>
       Last row click event (id, event type):
-      <va-chip v-if="rowId">{{ rowId }}</va-chip>
-      <va-chip v-if="rowEventType">{{ rowEventType }}</va-chip>
+      <VaChip v-if="rowId">{{ rowId }}</VaChip>
+      <VaChip v-if="rowEventType">{{ rowEventType }}</VaChip>
     </span>
-  </va-alert>
+  </VaAlert>
 </template>
 
 <script>

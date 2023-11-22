@@ -1,5 +1,5 @@
 <template>
-  <va-file-upload v-model="basic">
+  <VaFileUpload v-model="basic">
     <div class="custom-upload-file-area">
       <p class="mb-2">
         This is slot, click or drag'n'drop file to upload
@@ -11,7 +11,7 @@
         alt=""
       >
     </div>
-  </va-file-upload>
+  </VaFileUpload>
 </template>
 
 <script>

@@ -1,24 +1,24 @@
 <template>
-  <va-sidebar-item hover-color="success">
-    <va-sidebar-item-content>
-      <va-sidebar-item-title> Success hover color </va-sidebar-item-title>
-    </va-sidebar-item-content>
-  </va-sidebar-item>
+  <VaSidebarItem hover-color="success">
+    <VaSidebarItemContent>
+      <VaSidebarItemTitle> Success hover color </VaSidebarItemTitle>
+    </VaSidebarItemContent>
+  </VaSidebarItem>
 
-  <va-sidebar-item text-color="danger">
-    <va-sidebar-item-content>
-      <va-sidebar-item-title> Danger text color </va-sidebar-item-title>
-    </va-sidebar-item-content>
-  </va-sidebar-item>
+  <VaSidebarItem text-color="danger">
+    <VaSidebarItemContent>
+      <VaSidebarItemTitle> Danger text color </VaSidebarItemTitle>
+    </VaSidebarItemContent>
+  </VaSidebarItem>
 
-  <va-sidebar-item
+  <VaSidebarItem
     active
     active-color="warning"
   >
-    <va-sidebar-item-content>
-      <va-sidebar-item-title>
+    <VaSidebarItemContent>
+      <VaSidebarItemTitle>
         Warning active color (active)
-      </va-sidebar-item-title>
-    </va-sidebar-item-content>
-  </va-sidebar-item>
+      </VaSidebarItemTitle>
+    </VaSidebarItemContent>
+  </VaSidebarItem>
 </template>

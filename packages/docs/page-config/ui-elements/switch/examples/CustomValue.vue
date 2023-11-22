@@ -1,7 +1,7 @@
 <template>
   {{ value }}
   <br>
-  <va-switch
+  <VaSwitch
     v-model="value"
     true-value="Right"
     false-value="Left"

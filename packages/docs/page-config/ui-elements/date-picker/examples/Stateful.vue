@@ -2,7 +2,7 @@
   <div class="flex gap-5 flex-wrap">
     <div>
       <h6>Single mode</h6>
-      <va-date-picker
+      <VaDatePicker
         mode="single"
         stateful
       />
@@ -10,7 +10,7 @@
 
     <div>
       <h6>Multiple mode</h6>
-      <va-date-picker
+      <VaDatePicker
         mode="multiple"
         stateful
       />
@@ -18,7 +18,7 @@
 
     <div>
       <h6>Range mode</h6>
-      <va-date-picker
+      <VaDatePicker
         mode="range"
         stateful
       />

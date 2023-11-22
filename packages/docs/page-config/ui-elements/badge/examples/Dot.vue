@@ -1,38 +1,38 @@
 <template>
-  <va-badge
+  <VaBadge
     class="mr-6"
     overlap
     dot
     :offset="[-2, 2]"
   >
     <template #text>
-      <va-icon
+      <VaIcon
         name="warning"
         size="12px"
       />
     </template>
-    <va-icon
+    <VaIcon
       name="account_box"
       size="30px"
     />
-  </va-badge>
+  </VaBadge>
 
-  <va-badge
+  <VaBadge
     overlap
     dot
     :offset="[-2, 2]"
   >
     <template #text>
-      <va-icon
+      <VaIcon
         name="warning"
         size="12px"
       />
     </template>
-    <va-icon
+    <VaIcon
       name="face"
       size="30px"
     />
-  </va-badge>
+  </VaBadge>
 </template>
 <script setup>
 </script>

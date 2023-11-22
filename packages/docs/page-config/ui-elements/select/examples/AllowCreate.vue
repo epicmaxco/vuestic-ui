@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    <va-select
+    <VaSelect
       v-model="value"
       label="'true' mode and single select"
       :options="options"
@@ -9,7 +9,7 @@
       placeholder="Select an option"
       @create-new="addNewOption"
     />
-    <va-select
+    <VaSelect
       v-model="allowUniqueValue"
       label="'unique' mode and single select"
       :options="options"
@@ -18,7 +18,7 @@
       placeholder="Select an option"
       @create-new="addNewOption"
     />
-    <va-select
+    <VaSelect
       v-model="valueMultiple"
       label="'true' mode and multi select"
       :options="options"
@@ -28,7 +28,7 @@
       multiple
       @create-new="addNewOption"
     />
-    <va-select
+    <VaSelect
       v-model="allowUniqueValueMultiple"
       label="'unique' mode and multi select"
       :options="options"

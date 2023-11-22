@@ -1,10 +1,10 @@
 <template>
-  <va-icon
+  <VaIcon
     class="mr-2"
     name="home"
     color="primary"
   />
-  <va-icon
+  <VaIcon
     class="mr-2"
     name="home"
     color="#9BEC15"

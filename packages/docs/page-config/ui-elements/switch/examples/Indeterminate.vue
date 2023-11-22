@@ -1,11 +1,11 @@
 <template>
   <div class="flex gap-8 flex-wrap">
-    <va-switch
+    <VaSwitch
       v-model="value"
       indeterminate
       :label="String(value)"
     />
-    <va-switch
+    <VaSwitch
       v-model="value2"
       indeterminate
       indeterminate-value="middle"

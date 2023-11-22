@@ -3,14 +3,14 @@
     <div
       class="flex flex-col md6 lg4 h-48"
     >
-      <va-infinite-scroll :load="appendRecordsAsync">
+      <VaInfiniteScroll :load="appendRecordsAsync">
         <div
           v-for="(record, index) in records"
           :key="index"
         >
           List item and some text #{{ index }}
         </div>
-      </va-infinite-scroll>
+      </VaInfiniteScroll>
     </div>
   </div>
 </template>

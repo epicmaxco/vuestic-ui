@@ -1,5 +1,5 @@
 <template>
-  <va-icon
+  <VaIcon
     class="mr-2"
     name="clock"
     color="danger"

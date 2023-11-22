@@ -1,16 +1,16 @@
 <template>
-  <va-virtual-scroller
+  <VaVirtualScroller
     v-slot="{ item }"
     :items="hugeArray"
     :wrapper-size="200"
     :bench="10"
   >
-    <va-badge
+    <VaBadge
       class="pb-2"
       color="textPrimary"
       :text="`item ${item}`"
     />
-  </va-virtual-scroller>
+  </VaVirtualScroller>
 </template>
 
 <script>

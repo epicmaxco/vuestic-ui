@@ -1,6 +1,6 @@
 <template>
   <div class="epicmax-news_banner">
-    <va-alert
+    <VaAlert
       v-model="isCloseableAlertVisible"
       closeable
       class="epicmax-news_banner-content"
@@ -11,7 +11,7 @@
           alt="Party gif"
         ><br>
         <span>
-           🔥🔥🔥 Hi there, we're celebrating our launch on Product Hunt this week! 🚀 We'd love to get your feedback and support! 🙏
+          🔥🔥🔥 Hi there, we're celebrating our launch on Product Hunt this week! 🚀 We'd love to get your feedback and support! 🙏
         </span><br>
         <a
           :style="{ color: 'orange' }"
@@ -20,7 +20,7 @@
           Visit the launch page
         </a>
       </div>
-    </va-alert>
+    </VaAlert>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-3">
-    <va-progress-bar :model-value="value" />
-    <va-slider
+    <VaProgressBar :model-value="value" />
+    <VaSlider
       v-model="value"
       track-label-visible
     />

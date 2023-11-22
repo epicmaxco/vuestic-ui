@@ -1,12 +1,12 @@
 <template>
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     size="large"
     :options="options"
     class="mb-6"
   />
 
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     size="small"
     :options="options"

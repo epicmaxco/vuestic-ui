@@ -1,7 +1,7 @@
 <template>
-  <va-breadcrumbs align="right">
-    <va-breadcrumbs-item label="One" />
-    <va-breadcrumbs-item label="Two" />
-    <va-breadcrumbs-item label="Three" />
-  </va-breadcrumbs>
+  <VaBreadcrumbs align="right">
+    <VaBreadcrumbsItem label="One" />
+    <VaBreadcrumbsItem label="Two" />
+    <VaBreadcrumbsItem label="Three" />
+  </VaBreadcrumbs>
 </template>

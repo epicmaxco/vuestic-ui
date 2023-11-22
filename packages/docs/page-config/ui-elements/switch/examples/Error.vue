@@ -1,10 +1,10 @@
 <template>
   <div class="flex gap-8 flex-wrap">
-    <va-switch
+    <VaSwitch
       v-model="value"
       error
     />
-    <va-switch
+    <VaSwitch
       v-model="value"
       error
       error-messages="error message"

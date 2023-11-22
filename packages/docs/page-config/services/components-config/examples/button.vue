@@ -1,18 +1,18 @@
 <template>
   <div class="flex flex-col">
-    <va-checkbox
+    <VaCheckbox
       v-for="(_, name) in buttonProps"
       :key="name"
       v-model="buttonProps[name]"
       :label="name"
       class="mb-3"
     />
-    <va-button
+    <VaButton
       class="w-max"
       @click="reset"
     >
       Reset config
-    </va-button>
+    </VaButton>
   </div>
 </template>
 

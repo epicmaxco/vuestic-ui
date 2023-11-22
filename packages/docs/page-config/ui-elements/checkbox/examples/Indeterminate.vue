@@ -1,5 +1,5 @@
 <template>
-  <va-checkbox
+  <VaCheckbox
     v-model="value"
     indeterminate
   />

@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-sm">
-    <va-select
+    <VaSelect
       v-model="value"
       :options="options"
     />

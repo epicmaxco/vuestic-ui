@@ -4,13 +4,13 @@
       {{ key }}:
     </span>
 
-    <VaValue #default="v">
-      <input v-if="v.value" v-model="form[key]"/>
+    <VaValue v-slot="v">
+      <input v-if="v.value" v-model="form[key]">
       <span v-else>
         {{ form[key] }}
       </span>
 
-      <VaButton :icon="v.value ? 'save' : 'edit'" @click="v.value = !v.value" preset="plain" size="small" />
+      <VaButton :icon="v.value ? 'save' : 'edit'" preset="plain" size="small" @click="v.value = !v.value" />
     </VaValue>
   </div>
 </template>

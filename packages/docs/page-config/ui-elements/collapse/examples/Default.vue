@@ -1,11 +1,11 @@
 <template>
-  <va-collapse
+  <VaCollapse
     v-model="value"
     class="min-w-96"
     header="Collapse header"
   >
     Collapse content
-  </va-collapse>
+  </VaCollapse>
 </template>
 
 <script>

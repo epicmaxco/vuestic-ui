@@ -1,5 +1,5 @@
 <template>
   <div class="my-8">
-    <va-divider />
+    <VaDivider />
   </div>
 </template>

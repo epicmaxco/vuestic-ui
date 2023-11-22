@@ -1,8 +1,8 @@
 <template>
-  <va-button @click="$refs.modal.show()">
+  <VaButton @click="$refs.modal.show()">
     Show modal (stateful)
-  </va-button>
-  <va-modal
+  </VaButton>
+  <VaModal
     ref="modal"
     ok-text="Apply"
     stateful
@@ -14,5 +14,5 @@
       Classic modal overlay which represents a dialog box or other interactive
       component, such as a dismissible alert, sub-window, etc.
     </p>
-  </va-modal>
+  </VaModal>
 </template>

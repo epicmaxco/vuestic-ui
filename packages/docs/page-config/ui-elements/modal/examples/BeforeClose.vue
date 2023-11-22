@@ -1,7 +1,7 @@
 <template>
-  <va-button @click="showModal = !showModal">
+  <VaButton @click="showModal = !showModal">
     Show modal
-  </va-button>
+  </VaButton>
   <VaModal
     v-model="showModal"
     :message="message"

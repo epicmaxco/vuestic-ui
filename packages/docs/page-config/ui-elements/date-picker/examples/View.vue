@@ -2,7 +2,7 @@
   <div class="flex gap-5 flex-wrap">
     <div>
       <h6>Day, 1st month, 2000 year</h6>
-      <va-date-picker
+      <VaDatePicker
         v-model:view="dayView"
         stateful
       />
@@ -10,7 +10,7 @@
 
     <div>
       <h6>Month, 2000 year</h6>
-      <va-date-picker
+      <VaDatePicker
         v-model:view="monthView"
         stateful
       />
@@ -18,7 +18,7 @@
 
     <div>
       <h6>Year, 2000 year</h6>
-      <va-date-picker
+      <VaDatePicker
         v-model:view="yearView"
         stateful
       />

@@ -1,17 +1,17 @@
 <template>
   <div class="flex items-center">
-    <va-input
+    <VaInput
       v-model="filter"
       placeholder="Filter..."
       clearable
       class="mr-3 grow-0 basis-24"
     />
-    <va-checkbox
+    <VaCheckbox
       v-model="isFilterCaseSensitive"
       label="Case sensitive"
     />
   </div>
-  <va-tree-view
+  <VaTreeView
     :nodes="nodes"
     :filter="filter"
     :filter-method="customFilterMethod"

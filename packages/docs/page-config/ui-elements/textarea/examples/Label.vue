@@ -1,5 +1,5 @@
 <template>
-  <va-textarea
+  <VaTextarea
     v-model="value"
     label="Default label (outer)"
   />

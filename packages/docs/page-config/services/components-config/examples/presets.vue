@@ -1,11 +1,11 @@
 <template>
-  <va-button
+  <VaButton
     preset="addToCart"
     class="mr-6"
   >
     'addToCart' preset
-  </va-button>
-  <va-button preset="deleteFromCart">
+  </VaButton>
+  <VaButton preset="deleteFromCart">
     'deleteFromCart' preset
-  </va-button>
+  </VaButton>
 </template>

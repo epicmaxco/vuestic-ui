@@ -1,5 +1,5 @@
 <template>
-  <va-split
+  <VaSplit
     class="split-demo h-[22rem]"
     :limits="[
       [10, 'any'],
@@ -16,7 +16,7 @@
         {{ lorem }}
       </div>
     </template>
-  </va-split>
+  </VaSplit>
 </template>
 
 <script>

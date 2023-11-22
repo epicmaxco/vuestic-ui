@@ -1,11 +1,11 @@
 <template>
-  <va-tree-view
+  <VaTreeView
     :nodes="nodes"
     class="customizable-content"
   >
     <template #content="node">
       <div class="flex items-center">
-        <va-avatar
+        <VaAvatar
           v-if="node.image"
           :src="node.image"
           class="mr-2"
@@ -24,7 +24,7 @@
           </p>
         </div>
 
-        <va-button
+        <VaButton
           v-if="node.hasAction"
           preset="secondary"
           icon="add"
@@ -33,7 +33,7 @@
         />
       </div>
     </template>
-  </va-tree-view>
+  </VaTreeView>
 </template>
 
 <script>

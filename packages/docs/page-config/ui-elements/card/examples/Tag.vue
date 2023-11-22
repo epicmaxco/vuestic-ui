@@ -1,8 +1,8 @@
 <template>
-  <va-card tag="b">
-    <va-card-title>Title</va-card-title>
-    <va-card-content>
+  <VaCard tag="b">
+    <VaCardTitle>Title</VaCardTitle>
+    <VaCardContent>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    </va-card-content>
-  </va-card>
+    </VaCardContent>
+  </VaCard>
 </template>

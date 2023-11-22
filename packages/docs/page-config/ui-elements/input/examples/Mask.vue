@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-end">
-    <va-input
+    <VaInput
       v-model="maskCreditCardValue"
       class="mb-6 pt-1"
       label="Credit card mask"
@@ -8,21 +8,21 @@
       mask="creditCard"
       placeholder="#### #### #### ####"
     />
-    <va-input
+    <VaInput
       v-model="maskDateValue"
       class="mb-6"
       label="Date mask"
       placeholder="DD/MM/YYYY"
       mask="date"
     />
-    <va-input
+    <VaInput
       v-model="maskTimeValue"
       class="mb-6"
       label="Time mask"
       placeholder="HH:MM"
       mask="time"
     />
-    <va-input
+    <VaInput
       v-model="maskNumeralsValue"
       class="mb-6"
       label="Only numerals mask"

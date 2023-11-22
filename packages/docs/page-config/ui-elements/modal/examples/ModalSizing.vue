@@ -1,33 +1,33 @@
 <template>
-  <va-button
+  <VaButton
     class="mr-6 my-1"
     @click="showModalSizeSmall = !showModalSizeSmall"
   >
     Show modal size small
-  </va-button>
+  </VaButton>
 
-  <va-button
+  <VaButton
     class="mr-6 my-1"
     @click="showModalSizeMedium = !showModalSizeMedium"
   >
     Show modal size medium (default)
-  </va-button>
+  </VaButton>
 
-  <va-button
+  <VaButton
     class="my-1"
     @click="showModalSizeLarge = !showModalSizeLarge"
   >
     Show modal size large
-  </va-button>
+  </VaButton>
 
-  <va-modal
+  <VaModal
     v-model="showModalSizeSmall"
     message="Would you like to save?"
     ok-text="Save"
     size="small"
   />
 
-  <va-modal
+  <VaModal
     v-model="showModalSizeMedium"
     ok-text="Apply"
   >
@@ -38,9 +38,9 @@
       Classic modal overlay which represents a dialog box or other interactive
       component, such as a dismissible alert, sub-window, etc.
     </p>
-  </va-modal>
+  </VaModal>
 
-  <va-modal
+  <VaModal
     v-model="showModalSizeLarge"
     size="large"
   >
@@ -52,7 +52,7 @@
       Select users to go to a party.
     </p>
 
-    <va-data-table
+    <VaDataTable
       style="width: 1000px"
       :items="[
         { name: 'Marcus Claus', email: 'marcus@epicmax.co', status: 'verified', balance: '$34.15' },
@@ -62,7 +62,7 @@
       ]"
     >
       <template #cell(status)="{ rowData }">
-        <va-chip
+        <VaChip
           :color="({
             verified: 'primary',
             pending: 'secondary',
@@ -73,10 +73,10 @@
           square
         >
           {{ rowData.status }}
-        </va-chip>
+        </VaChip>
       </template>
-    </va-data-table>
-  </va-modal>
+    </VaDataTable>
+  </VaModal>
 </template>
 
 <script>

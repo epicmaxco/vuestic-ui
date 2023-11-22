@@ -5,7 +5,7 @@
   >
     <HeaderBanner closeable />
 
-    <va-navbar
+    <VaNavbar
       v-show="!isOptionsVisible"
       class="header"
       color="background-secondary"
@@ -34,7 +34,7 @@
           v-if="isOptionsListVisible"
           class="header__options"
         >
-          <va-button
+          <VaButton
             v-for="(link, index) in links"
             :key="index"
             preset="secondary"
@@ -44,23 +44,23 @@
             :target="link.target"
           >
             {{ link.text }}
-          </va-button>
+          </VaButton>
           <ColorDropdown class="mr-2" />
           <ThemeSwitch class="mr-4" />
           <VersionDropdown />
         </div>
 
         <!-- options mobile menu -->
-        <va-button
+        <VaButton
           v-if="isOptionsMenuVisible"
           aria-label="Open options menu"
           preset="plain"
           @click="toggleOptions"
         >
-          <va-icon class="fas fa-bars" />
-        </va-button>
+          <VaIcon class="fas fa-bars" />
+        </VaButton>
       </template>
-    </va-navbar>
+    </VaNavbar>
 
     <!-- mobile options -->
     <nav
@@ -68,23 +68,23 @@
       class="mobile-options header__mobile-options"
     >
       <div class="mobile-options__menu-button-wrapper">
-        <va-button
+        <VaButton
           v-if="isOptionsVisible"
           aria-label="Close options menu"
           preset="plain"
           @click="toggleOptions"
         >
-          <va-icon class="fas fa-times" />
-        </va-button>
+          <VaIcon class="fas fa-times" />
+        </VaButton>
       </div>
 
-      <va-list class="mobile-options__list">
-        <va-list-item
+      <VaList class="mobile-options__list">
+        <VaListItem
           v-for="(link, index) in links"
           :key="index"
         >
-          <va-list-item-section class="mobile-options__link">
-            <va-button
+          <VaListItemSection class="mobile-options__link">
+            <VaButton
               preset="plain"
               :to="link.to"
               :href="link.url"
@@ -92,9 +92,9 @@
               class="mobile-options__link-button"
             >
               {{ link.text }}
-            </va-button>
-          </va-list-item-section>
-        </va-list-item>
+            </VaButton>
+          </VaListItemSection>
+        </VaListItem>
 
         <div class="mobile-options__items">
           <ThemeSwitch class="mb-8" />
@@ -102,7 +102,7 @@
           <StarsButton repo="epicmaxco/vuestic-ui" />
           <VersionDropdown />
         </div>
-      </va-list>
+      </VaList>
     </nav>
   </div>
 </template>

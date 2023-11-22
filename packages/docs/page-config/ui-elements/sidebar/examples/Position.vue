@@ -4,33 +4,33 @@
       Content
     </div>
 
-    <va-sidebar
+    <VaSidebar
       v-model="enabled"
       :minimized="minimized"
       class="absolute right-0 left-auto"
       animated="right"
     >
-      <va-sidebar-item
+      <VaSidebarItem
         v-for="item in items"
         :key="item.title"
         :active="item.active"
       >
-        <va-sidebar-item-content>
-          <va-icon :name="item.icon" />
-          <va-sidebar-item-title>
+        <VaSidebarItemContent>
+          <VaIcon :name="item.icon" />
+          <VaSidebarItemTitle>
             {{ item.title }}
-          </va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
-    </va-sidebar>
+          </VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
+    </VaSidebar>
   </div>
 
   <div class="mt-2 space-x-2">
-    <va-checkbox
+    <VaCheckbox
       v-model="minimized"
       label="Minimized"
     />
-    <va-checkbox
+    <VaCheckbox
       v-model="enabled"
       label="Show"
     />

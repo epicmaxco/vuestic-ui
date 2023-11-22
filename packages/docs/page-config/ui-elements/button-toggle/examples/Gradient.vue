@@ -1,5 +1,5 @@
 <template>
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     gradient
     color="primary"
@@ -7,7 +7,7 @@
     class="mb-6"
   />
 
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     gradient
     color="success"
@@ -15,7 +15,7 @@
     class="mb-6"
   />
 
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     gradient
     color="danger"
@@ -23,7 +23,7 @@
     class="mb-6"
   />
 
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     gradient
     color="#7e06ae"

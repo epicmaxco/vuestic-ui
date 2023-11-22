@@ -1,23 +1,23 @@
 <template>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
-    <va-time-input
+    <VaTimeInput
       v-model="value"
       manual-input
       :messages="['Hello world']"
     />
-    <va-time-input
+    <VaTimeInput
       v-model="value"
       success
       :messages="['Hello world']"
       manual-input
     />
-    <va-time-input
+    <VaTimeInput
       v-model="value"
       error
       :error-messages="['Bye world!']"
       manual-input
     />
-    <va-time-input
+    <VaTimeInput
       v-model="value"
       label="accept only hours < 12"
       :rules="[

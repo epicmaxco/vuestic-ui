@@ -1,48 +1,52 @@
 <template>
-  <va-button
+  <VaButton
     class="mr-6 my-1"
     @click="showModal = !showModal"
   >
     Show modal with long content
-  </va-button>
+  </VaButton>
 
-  <va-button
+  <VaButton
     class="mr-6 my-1"
     @click="showModalWithFixedLayout = !showModalWithFixedLayout"
   >
     Show modal with long content and fixed layout
-  </va-button>
+  </VaButton>
 
-  <va-modal
+  <VaModal
     v-model="showModal"
     max-height="300px"
     ok-text="Confirm"
   >
-    <va-data-table
+    <VaDataTable
       :items="items"
     >
-      <h3 class="va-h3">Contacts</h3>
+      <h3 class="va-h3">
+        Contacts
+      </h3>
       <template #cell(img)="{ rowData }">
-        <va-avatar :src="rowData.img" />
+        <VaAvatar :src="rowData.img" />
       </template>
-    </va-data-table>
-  </va-modal>
+    </VaDataTable>
+  </VaModal>
 
-  <va-modal
+  <VaModal
     v-model="showModalWithFixedLayout"
     max-height="300px"
     ok-text="Confirm"
     fixed-layout
   >
-    <h3 class="va-h3">Contacts</h3>
-    <va-data-table
+    <h3 class="va-h3">
+      Contacts
+    </h3>
+    <VaDataTable
       :items="items"
     >
       <template #cell(img)="{ rowData }">
-        <va-avatar :src="rowData.img" />
+        <VaAvatar :src="rowData.img" />
       </template>
-    </va-data-table>
-  </va-modal>
+    </VaDataTable>
+  </VaModal>
 </template>
 
 <script>

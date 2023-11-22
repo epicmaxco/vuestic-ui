@@ -1,5 +1,5 @@
 <template>
-  <va-textarea
+  <VaTextarea
     v-model="value"
     max-length="125"
     label="Short text about something"

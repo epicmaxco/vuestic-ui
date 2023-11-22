@@ -4,9 +4,9 @@
   </h6>
 
   <div class="flex">
-    <va-time-picker v-model="value" />
-    <va-divider vertical />
-    <va-time-picker
+    <VaTimePicker v-model="value" />
+    <VaDivider vertical />
+    <VaTimePicker
       v-model="value"
       ampm
     />

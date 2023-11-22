@@ -1,17 +1,17 @@
 <template>
-  <va-button
+  <VaButton
     class="mr-6"
     href="https://vuestic.dev/"
   >
     External
-  </va-button>
-  <va-button
+  </VaButton>
+  <VaButton
     class="mr-6"
     to="/getting-started/installation"
   >
     Inner
-  </va-button>
-  <va-button tag="div">
+  </VaButton>
+  <VaButton tag="div">
     I'm button (no)
-  </va-button>
+  </VaButton>
 </template>
