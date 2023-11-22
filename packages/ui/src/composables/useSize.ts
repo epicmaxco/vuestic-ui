@@ -1,23 +1,43 @@
 import { computed, getCurrentInstance, PropType } from 'vue'
 
-import { useGlobalConfig, SizeConfig } from '../services/global-config/global-config'
+import { useGlobalConfig, SizeConfig, SizesConfig } from '../services/global-config/global-config'
 import type { VuesticComponentName } from '../services/vue-plugin/types/components'
 
-export const sizesConfig: SizeConfig = {
-  defaultSize: 48,
-  sizes: {
-    small: 32,
-    medium: 48,
-    large: 64,
+export const sizesConfig: SizesConfig = {
+  default: {
+    defaultSize: 48,
+    sizes: {
+      small: 32,
+      medium: 48,
+      large: 64,
+    },
+  },
+  VaButton: {
+    defaultSize: 36,
+    sizes: {
+      small: 24,
+      medium: 36,
+      large: 48,
+    },
   },
 }
 
-export const fontSizesConfig: SizeConfig = {
-  defaultSize: 1,
-  sizes: {
-    small: 0.75,
-    medium: 1,
-    large: 1.25,
+export const fontSizesConfig: SizesConfig = {
+  default: {
+    defaultSize: 1,
+    sizes: {
+      small: 0.75,
+      medium: 1,
+      large: 1.25,
+    },
+  },
+  VaButton: {
+    defaultSize: 1,
+    sizes: {
+      small: 0.8125,
+      medium: 1,
+      large: 1.05,
+    },
   },
 }
 
@@ -44,12 +64,12 @@ export const useSizeProps = {
 
   sizesConfig: {
     type: Object as PropType<Record<string, any>>,
-    default: () => sizesConfig,
+    default: () => sizesConfig[getCurrentInstance()?.type.name!] ?? sizesConfig['default'],
   },
 
   fontSizesConfig: {
     type: Object as PropType<Record<string, any>>,
-    default: () => fontSizesConfig,
+    default: () => fontSizesConfig[getCurrentInstance()?.type.name!] ?? fontSizesConfig['default'],
   },
 }
 
