@@ -2,10 +2,10 @@ import { useToast } from 'vuestic-ui'
 
 export default defineComponent({
   setup() {
-    const { init, close, closeAll } = useToast()
+    const { init, notify, close, closeAll } = useToast()
 
     return {
-      onButtonClick: () => init('Toast example!'),
+      onButtonClick: () => notify('Toast example!'),
     }
   }
 })
