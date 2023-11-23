@@ -1,6 +1,6 @@
 <template>
   <VaDropdown v-bind="dropdownProps" ref="dropdown">
-    <template v-if="$slots.anchor" #anchor>
+    <template #anchor>
       <slot name="anchor" />
     </template>
 

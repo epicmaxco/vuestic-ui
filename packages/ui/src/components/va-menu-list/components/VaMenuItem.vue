@@ -44,10 +44,9 @@ export default defineComponent({
     color: { type: String, default: 'primary' },
   },
   setup (props) {
-    const { getColor, getHoverColor, getFocusColor, setHSLAColor } = useColors()
+    const { getColor, getHoverColor } = useColors()
 
-    const hoverColor = computed(() => setHSLAColor(getColor(props.color), { a: 0.1 }))
-    const focusColor = computed(() => getFocusColor(getColor(props.color)))
+    const hoverColor = computed(() => getHoverColor(getColor(props.color)))
 
     return {
       makeMenuItemAttributes,
@@ -81,6 +80,7 @@ export default defineComponent({
       padding: 0 var(--va-menu-padding-x);
       text-align: center;
       min-width: 1px;
+      white-space: nowrap;
 
       &:empty {
         padding: 0;
@@ -98,7 +98,7 @@ export default defineComponent({
 
   &:hover {
     opacity: 0.9999;
-    background-color: v-bind("hoverColor");
+    background-color: var(--va-menu-item-hover-color, v-bind("hoverColor"));
   }
 
   &--disabled {

@@ -12,7 +12,7 @@ export const Default = () => ({
   data: () => ({
   }),
   template: `
-  <VaMenu :options="options">
+  <VaMenu>
     <template #anchor>
       <VaButton>Open</VaButton>
     </template>

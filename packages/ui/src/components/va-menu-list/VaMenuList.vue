@@ -3,6 +3,7 @@
     <template v-if="$slots.default">
       <template v-for="child in getUnSlottedVNodes($slots.default())">
         <component v-if="getVNodeComponentName(child) === 'VaMenuItem'" :is="child" :key="getVNodeKey(child) + 'menuitem'" />
+        <component v-else-if="getVNodeComponentName(child) === 'VaDropdown'" :is="child" :key="getVNodeKey(child) + 'menu-dropdown'" />
         <td colspan="999" v-else :key="getVNodeKey(child)" class="va-menu-list__virtual-td">
           <component :is="child" />
         </td>
@@ -10,7 +11,9 @@
     </template>
     <slot v-else>
       <template v-for="(options, groupName) in optionGroups" :key="groupName">
-        <VaMenuGroup v-if="groupName !== '_noGroup'" :group-name="groupName" />
+        <slot v-if="groupName !== '_noGroup'"  name="group">
+          <VaMenuGroup :group-name="groupName" />
+        </slot>
         <VaMenuItem
           v-for="(option) in options"
           :key="getTrackBy(option)"
@@ -21,8 +24,11 @@
           @click="$emit('selected', getValue(option), option)"
           @keydown.enter.space="$emit('selected', getValue(option), option)"
         >
-          <template #left-icon>
-            <slot name="left-icon" />
+          <template #left-icon="bind">
+            <slot name="left-icon" v-bind="bind" />
+          </template>
+          <template #right-icon="bind">
+            <slot name="right-icon" v-bind="bind" />
           </template>
         </VaMenuItem>
       </template>
@@ -37,6 +43,7 @@ import VaMenuGroup from './components/VaMenuGroup.vue'
 import { VaMenuOption } from './types'
 import { useColors, useSelectableList, useSelectableListProps } from '../../composables'
 import { useMenuKeyboardNavigation, makeMenuContainerAttributes } from './composables/useMenuKeyboardNavigation'
+import { useLocalConfigProvider } from '../../composables/useLocalConfig'
 
 export default defineComponent({
   name: 'VaMenuList',
@@ -101,6 +108,12 @@ export default defineComponent({
 
     const colorComputed = computed(() => getColor(props.color))
 
+    useLocalConfigProvider(computed(() => ({
+      VaMenuItem: {
+        color: colorComputed.value,
+      },
+    })))
+
     return {
       container,
       colorComputed,
@@ -128,6 +141,13 @@ export default defineComponent({
   table-layout: fixed;
   width: max-content;
 
+  .va-menu-item {
+    // Override VaDropdown style
+    display: table-row;
+    vertical-align: unset;
+    line-height: unset;
+  }
+
   td:not(&__virtual-td) {
     padding-top: calc(var(--va-menu-padding-y) / 2);
     padding-bottom: calc(var(--va-menu-padding-y) / 2);
@@ -136,11 +156,6 @@ export default defineComponent({
   &__virtual-td:has(tr) {
     // Behaves like tbody, so column width are inherited for tr
     display: table-row-group;
-  }
-
-  &__group-name {
-    font-size: 0.8em;
-    color: var(--va-secondary);
   }
 
   .va-divider {

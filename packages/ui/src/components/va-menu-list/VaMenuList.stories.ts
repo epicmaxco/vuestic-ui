@@ -18,6 +18,22 @@ export const Default = () => ({
   template: '<VaMenuList :options="options" />',
 })
 
+export const Icon = () => ({
+  components: { VaMenuList, VaAvatar },
+  data: () => ({
+    options: [
+      { text: 'copy', value: 'one', icon: 'content_copy' },
+      { text: 'paste', value: 'two', icon: 'content_paste' },
+      { text: 'cut', value: 'three', icon: 'content_cut' },
+      { text: 'share', value: 'four', rightIcon: 'share' },
+      { text: 'delete', value: 'five', icon: 'delete' },
+    ],
+  }),
+  template: `
+  <VaMenuList :options="options" />
+  `,
+})
+
 export const IconSlot = () => ({
   components: { VaMenuList, VaAvatar },
   data: () => ({
@@ -28,41 +44,29 @@ export const IconSlot = () => ({
     <template #left-icon>
       [left-icon]
     </template>
-    <template #icon>
-      [icon]
+    <template #right-icon>
+      [right-icon]
     </template>
   </VaMenuList>
   `,
 })
-addText(
-  IconSlot,
-  'There is no slot for right icon, only for left one.',
-  'broken',
-)
 
 const longGroupName = 'This is a very long group name that should be truncated'.repeat(10)
 export const Groups = () => ({
   components: { VaMenuList, VaAvatar },
   data: () => ({
     options: [
-      { id: '0', text: 'one', value: 'one', icon: 'accessible_forward', rightIcon: '', group: '' },
-      { id: '1', text: 'two', value: 'two', icon: '', rightIcon: 'home', group: longGroupName },
-      { id: '2', text: 'three', value: 'three', icon: 'accessible_forward', rightIcon: '', group: longGroupName },
-      { id: '3', text: 'four', value: 'four', icon: '', rightIcon: 'accessible_forward', group: 'A2' },
-      { id: '4', text: 'five', value: 'five', icon: 'search', rightIcon: '', group: 'A2' },
+      { text: 'one', value: 'one', group: '' },
+      { text: 'two', value: 'two', group: longGroupName },
+      { text: 'three', value: 'three', group: 'A2' },
+      { text: 'four', value: 'four', group: 'A2' },
+      { text: 'five', value: 'five', group: longGroupName },
     ],
-    value: false,
   }),
   template: `
-  <VaMenuList :options="options">
-  </VaMenuList>
+  <VaMenuList :options="options" />
   `,
 })
-addText(
-  Groups,
-  'Long group name is not truncated in story. We also have too much options - should be minimal amount.',
-  'broken',
-)
 
 export const SlotUsage = () => ({
   components: { VaMenuList, VaMenuItem, VaMenuGroup },
@@ -92,11 +96,16 @@ export const Color = () => ({
     <VaMenuList color="warning" :options="options" />
   `,
 })
-addText(
-  Groups,
-  `I don't think we have any other component where 'color' means 'hover-color', let's make it explicit.` ,
-  'broken',
-)
+
+export const HoverColor = () => ({
+  components: { VaMenuList, VaMenuItem, VaMenuGroup },
+  data: () => ({
+    options: ['Option 1', 'Option 2', 'Option 3'],
+  }),
+  template: `
+    <VaMenuList color="warning" :options="options" style="--va-menu-item-hover-color: red;" />
+  `,
+})
 
 export const WithDivider = () => ({
   components: { VaMenuList, VaMenuItem, VaMenuGroup, VaDivider, VaButton },
