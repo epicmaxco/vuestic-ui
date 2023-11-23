@@ -1,6 +1,6 @@
 <template>
   <div class="docs-navigation">
-    <va-button
+    <VaButton
       v-if="!hideShowCodeButton"
       preset="secondary"
       size="small"
@@ -8,30 +8,30 @@
       color="secondary"
       @click="showCodeComputed = !showCodeComputed"
     >
-      <va-icon
+      <VaIcon
         class="docs-navigation__button__icon"
         name="fa4-code"
         size="13px"
       />
       <span class="docs-navigation__button__text"> {{ showCode ? 'Hide Code' : 'Show Code' }}</span>
-    </va-button>
+    </VaButton>
 
-    <va-button
+    <VaButton
       preset="secondary"
       size="small"
       class="docs-navigation__button"
       color="secondary"
       @click="copy"
     >
-      <va-icon
+      <VaIcon
         class="docs-navigation__button__icon"
         :name="copyButton.icon"
         size="13px"
       />
       <span class="docs-navigation__button__text">{{ copyButton.text }}</span>
-    </va-button>
+    </VaButton>
 
-    <va-button
+    <VaButton
       preset="secondary"
       size="small"
       class="docs-navigation__button"
@@ -39,43 +39,49 @@
       :href="gitLink"
       target="_blank"
     >
-      <va-icon
+      <VaIcon
         class="docs-navigation__button__icon fa fa-github"
         size="13px"
       />
       <span class="docs-navigation__button__text">Open in GitHub</span>
-    </va-button>
+    </VaButton>
 
-    <VaModal stateful fullscreen class="playground-modal" hide-default-actions @ok="onHide">
+    <VaModal
+      stateful
+      fullscreen
+      class="playground-modal"
+      hide-default-actions
+      @ok="onHide"
+    >
       <template #anchor="{ show }">
-        <va-button
+        <VaButton
           preset="secondary"
           size="small"
           class="docs-navigation__button"
           color="secondary"
           @click="show"
         >
-          <va-icon
+          <VaIcon
             class="docs-navigation__button__icon"
             name="auto_fix_high"
             size="13px"
           />
           <span class="docs-navigation__button__text">Playground</span>
-        </va-button>
+        </VaButton>
       </template>
 
       <ClientOnly>
         <Play
+          v-model:state="sandboxState"
           class="h-full border-b-2 border-[var(--va-background-border)]"
           :code="code"
-          v-model:state="sandboxState"
         />
       </ClientOnly>
 
       <template #footer="{ ok }">
         <div class="flex gap-2 w-full px-5">
           <VaInput :model-value="shareLink" label="Sandbox link" inner-label class="flex-1 w-full" />
-          <VaButton @click="copySandboxLink" icon="share" preset="secondary">
+          <VaButton icon="share" preset="secondary" @click="copySandboxLink">
             Share
           </VaButton>
           <VaButton @click="ok">

@@ -1,43 +1,43 @@
 <template>
-  <va-data-table
+  <VaDataTable
     :items="items"
     :columns="columns"
   >
     <template #cell(actions)="{ row, isExpanded }">
-      <va-button
-        @click="row.toggleRowDetails()"
+      <VaButton
         :icon="isExpanded ? 'va-arrow-up': 'va-arrow-down'"
         preset="secondary"
         class="w-full"
+        @click="row.toggleRowDetails()"
       >
         {{ isExpanded ? 'Hide': 'More info' }}
-      </va-button>
+      </VaButton>
     </template>
 
     <template #expandableRow="{ rowData }">
       <div class="flex gap-2">
-        <va-avatar :src="`https://randomuser.me/api/portraits/men/${rowData.id}.jpg`"/>
+        <VaAvatar :src="`https://randomuser.me/api/portraits/men/${rowData.id}.jpg`" />
         <div class="pl-2">
           <div class="flex gap-1">
             <span>{{ rowData.name }}</span>
             <span class="va-link">@{{ rowData.username }}</span>
           </div>
           <div class="flex items-center">
-            <va-icon size="small" name="phone" color="secondary" class="mr-2" />
+            <VaIcon size="small" name="phone" color="secondary" class="mr-2" />
             <span>{{ rowData.phone }}</span>
           </div>
           <div class="flex items-center">
-            <va-icon size="small" name="email" color="secondary" class="mr-2" />
+            <VaIcon size="small" name="email" color="secondary" class="mr-2" />
             <span>{{ rowData.email }}</span>
           </div>
           <div class="flex items-center">
-            <va-icon size="small" name="language" color="secondary" class="mr-2" />
+            <VaIcon size="small" name="language" color="secondary" class="mr-2" />
             <span class="va-link">{{ rowData.website }}</span>
           </div>
         </div>
       </div>
     </template>
-  </va-data-table>
+  </VaDataTable>
 </template>
 
 <script>

@@ -1,59 +1,59 @@
 <template>
   <div style="height: 500px">
-    <va-sidebar>
-      <va-sidebar-item>
-        <va-sidebar-item-content>
-          <va-icon name="dashboard" />
-          <va-sidebar-item-title>Dashboard</va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
+    <VaSidebar>
+      <VaSidebarItem>
+        <VaSidebarItemContent>
+          <VaIcon name="dashboard" />
+          <VaSidebarItemTitle>Dashboard</VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
 
-      <va-accordion>
-        <va-collapse body-color="#00000022">
+      <VaAccordion>
+        <VaCollapse body-color="#00000022">
           <template #header="{ value: isCollapsed }">
-            <va-sidebar-item>
-              <va-sidebar-item-content>
-                <va-icon name="mail" />
-                <va-sidebar-item-title>Messages</va-sidebar-item-title>
-                <va-spacer />
-                <va-icon :name="isCollapsed ? 'va-arrow-up' : 'va-arrow-down'" />
-              </va-sidebar-item-content>
-            </va-sidebar-item>
+            <VaSidebarItem>
+              <VaSidebarItemContent>
+                <VaIcon name="mail" />
+                <VaSidebarItemTitle>Messages</VaSidebarItemTitle>
+                <VaSpacer />
+                <VaIcon :name="isCollapsed ? 'va-arrow-up' : 'va-arrow-down'" />
+              </VaSidebarItemContent>
+            </VaSidebarItem>
           </template>
 
           <template #body>
-            <va-sidebar-item>
-              <va-sidebar-item-content>
-                <va-icon name="send" />
-                <va-sidebar-item-title>Send</va-sidebar-item-title>
-              </va-sidebar-item-content>
-            </va-sidebar-item>
+            <VaSidebarItem>
+              <VaSidebarItemContent>
+                <VaIcon name="send" />
+                <VaSidebarItemTitle>Send</VaSidebarItemTitle>
+              </VaSidebarItemContent>
+            </VaSidebarItem>
 
-            <va-sidebar-item>
-              <va-sidebar-item-content>
-                <va-icon name="drafts" />
-                <va-sidebar-item-title>Drafts</va-sidebar-item-title>
-              </va-sidebar-item-content>
-            </va-sidebar-item>
+            <VaSidebarItem>
+              <VaSidebarItemContent>
+                <VaIcon name="drafts" />
+                <VaSidebarItemTitle>Drafts</VaSidebarItemTitle>
+              </VaSidebarItemContent>
+            </VaSidebarItem>
           </template>
-        </va-collapse>
+        </VaCollapse>
 
-        <va-sidebar-item active>
-          <va-sidebar-item-content>
-            <va-icon name="room" />
-            <va-sidebar-item-title>Address book</va-sidebar-item-title>
-          </va-sidebar-item-content>
-        </va-sidebar-item>
-      </va-accordion>
+        <VaSidebarItem active>
+          <VaSidebarItemContent>
+            <VaIcon name="room" />
+            <VaSidebarItemTitle>Address book</VaSidebarItemTitle>
+          </VaSidebarItemContent>
+        </VaSidebarItem>
+      </VaAccordion>
 
-      <va-spacer />
+      <VaSpacer />
 
-      <va-sidebar-item>
-        <va-sidebar-item-content>
-          <va-icon name="settings" />
-          <va-sidebar-item-title>Settings</va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
-    </va-sidebar>
+      <VaSidebarItem>
+        <VaSidebarItemContent>
+          <VaIcon name="settings" />
+          <VaSidebarItemTitle>Settings</VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
+    </VaSidebar>
   </div>
 </template>

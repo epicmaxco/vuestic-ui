@@ -1,5 +1,5 @@
 <template>
-  <va-split
+  <VaSplit
     class="split-demo h-[22-rem]"
     :snapping="[20, 80]"
     :snapping-range="5"
@@ -14,7 +14,7 @@
         {{ lorem }}
       </div>
     </template>
-  </va-split>
+  </VaSplit>
 </template>
 
 <script>

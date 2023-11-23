@@ -1,15 +1,15 @@
 <template>
-  <VaValue #default="inputText" default-value="Vuestic">
+  <VaValue v-slot="inputText" default-value="Vuestic">
     <div class="preview">
       <VaValue 
         v-for="i in 20" 
+        v-slot="textPosition"
         :default-value="{
           left: Math.random() * 80 + 10,
           top: Math.random() * 80 + 10,
           rotate: Math.random() * 360,
           fontSize: Math.random() * 20 + 10,
         }"
-        #default="textPosition"
       >
         <span 
           :style="{

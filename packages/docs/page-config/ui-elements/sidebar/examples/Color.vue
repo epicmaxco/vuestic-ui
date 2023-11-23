@@ -2,84 +2,84 @@
   <div
     class="mb-6 h-64 overflow-hidden"
   >
-    <va-sidebar
+    <VaSidebar
       color="primary"
       minimized-width="64px"
       width="18rem"
       class="colored-sidebar"
     >
-      <va-sidebar-item active-color="backgroundPrimary">
-        <va-sidebar-item-content>
-          <va-sidebar-item-title style="white-space: normal;">
+      <VaSidebarItem active-color="backgroundPrimary">
+        <VaSidebarItemContent>
+          <VaSidebarItemTitle style="white-space: normal;">
             background primary and white text color
-          </va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
-      <va-sidebar-item
+          </VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
+      <VaSidebarItem
         v-for="item in items"
         :key="item.title"
         :active="item.active"
         active-color="backgroundPrimary"
       >
-        <va-sidebar-item-content>
-          <va-icon :name="item.icon" />
-          <va-sidebar-item-title>
+        <VaSidebarItemContent>
+          <VaIcon :name="item.icon" />
+          <VaSidebarItemTitle>
             {{ item.title }}
-          </va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
-    </va-sidebar>
+          </VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
+    </VaSidebar>
   </div>
 
   <div
     class="mb-6 h-64 overflow-hidden"
   >
-    <va-sidebar
+    <VaSidebar
       color="background-element"
       minimized-width="64px"
       width="18rem"
       class="colored-sidebar"
     >
-      <va-sidebar-item>
-        <va-sidebar-item-content>
-          <va-sidebar-item-title class="whitespace-normal">
+      <VaSidebarItem>
+        <VaSidebarItemContent>
+          <VaSidebarItemTitle class="whitespace-normal">
             background dark and auto text color
-          </va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
-      <va-sidebar-item
+          </VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
+      <VaSidebarItem
         v-for="item in items"
         :key="item.title"
         :active="item.active"
       >
-        <va-sidebar-item-content>
-          <va-icon :name="item.icon" />
-          <va-sidebar-item-title>
+        <VaSidebarItemContent>
+          <VaIcon :name="item.icon" />
+          <VaSidebarItemTitle>
             {{ item.title }}
-          </va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
-    </va-sidebar>
+          </VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
+    </VaSidebar>
   </div>
 
   <div
     class="mb-6 h-52 overflow-hidden"
   >
-    <va-sidebar
+    <VaSidebar
       color="#F0F7ED"
       text-color="#009600"
       minimized-width="64px"
       width="18rem"
       class="colored-sidebar"
     >
-      <va-sidebar-item active-color="#F0F7ED">
-        <va-sidebar-item-content>
-          <va-sidebar-item-title class="whitespace-normal">
+      <VaSidebarItem active-color="#F0F7ED">
+        <VaSidebarItemContent>
+          <VaSidebarItemTitle class="whitespace-normal">
             background success and auto text color
-          </va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
-      <va-sidebar-item
+          </VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
+      <VaSidebarItem
         v-for="item in items"
         :key="item.title"
         :active="item.active"
@@ -87,20 +87,20 @@
         :text-color="item.active ? '#F0F7ED' : '#009600'"
         :hover-opacity="item.active ? 0.75 : 0.2"
       >
-        <va-sidebar-item-content>
-          <va-icon :name="item.icon" />
-          <va-sidebar-item-title>
+        <VaSidebarItemContent>
+          <VaIcon :name="item.icon" />
+          <VaSidebarItemTitle>
             {{ item.title }}
-          </va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
-    </va-sidebar>
+          </VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
+    </VaSidebar>
   </div>
 
   <div
     class="mb-6 h-52"
   >
-    <va-sidebar
+    <VaSidebar
       color="#FFD300"
       active-color="#FFD300"
       text-color="textPrimary"
@@ -108,14 +108,14 @@
       width="18rem"
       class="colored-sidebar"
     >
-      <va-sidebar-item>
-        <va-sidebar-item-content>
-          <va-sidebar-item-title class="whitespace-normal">
+      <VaSidebarItem>
+        <VaSidebarItemContent>
+          <VaSidebarItemTitle class="whitespace-normal">
             background danger and success text color
-          </va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
-      <va-sidebar-item
+          </VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
+      <VaSidebarItem
         v-for="item in items"
         :key="item.title"
         :active="item.active"
@@ -123,14 +123,14 @@
         :text-color="item.active ? '#FFD300' : 'textPrimary'"
         :hover-opacity="item.active ? 0.75 : 0.2"
       >
-        <va-sidebar-item-content>
-          <va-icon :name="item.icon" />
-          <va-sidebar-item-title>
+        <VaSidebarItemContent>
+          <VaIcon :name="item.icon" />
+          <VaSidebarItemTitle>
             {{ item.title }}
-          </va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
-    </va-sidebar>
+          </VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
+    </VaSidebar>
   </div>
 </template>
 

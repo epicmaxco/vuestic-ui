@@ -1,5 +1,5 @@
 <template>
-  <va-button
+  <VaButton
     @click="
       $vaToast.init({
         message: 'Custom offsets, (Y: 100, X: 100)',
@@ -9,5 +9,5 @@
     "
   >
     Y: 100, X: 100
-  </va-button>
+  </VaButton>
 </template>

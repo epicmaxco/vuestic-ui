@@ -12,7 +12,7 @@
       :seconds-filter="(s) => s % 20 === 0"
     />
 
-    <va-divider vertical />
+    <VaDivider vertical />
 
     <VaTimePicker
       v-model="value"

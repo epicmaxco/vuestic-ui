@@ -1,14 +1,14 @@
 <template>
   <p class="flex items-center">
     Color:
-    <va-color-palette
+    <VaColorPalette
       v-model="selectedColor"
       class="ml-2"
       :palette="colorsPalette"
     />
   </p>
 
-  <va-tree-view
+  <VaTreeView
     v-model:checked="selectedNodes"
     :nodes="nodes"
     :color="selectedColor"

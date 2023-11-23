@@ -1,16 +1,16 @@
 <template>
   <div class="flex gap-5 flex-wrap">
-    <va-date-picker
+    <VaDatePicker
       stateful
       type="day"
     />
 
-    <va-date-picker
+    <VaDatePicker
       stateful
       type="month"
     />
 
-    <va-date-picker
+    <VaDatePicker
       stateful
       type="year"
     />

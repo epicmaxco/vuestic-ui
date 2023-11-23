@@ -1,5 +1,5 @@
 <template>
-  <va-data-table
+  <VaDataTable
     class="table-inline"
     :items="items"
     :columns="columns"
@@ -10,8 +10,8 @@
       #[`cell(${item.key})`]="{ value, row }"
     >
       <div class="table-inline__cell">
-        <va-value #default="doShowInput">
-          <va-input
+        <VaValue v-slot="doShowInput">
+          <VaInput
             v-if="doShowInput.value"
             :model-value="value"
             @change="($event) => {
@@ -28,10 +28,10 @@
           >
             {{ value }}
           </span>
-        </va-value>
+        </VaValue>
       </div>
     </template>
-  </va-data-table>
+  </VaDataTable>
 </template>
 
 <script>

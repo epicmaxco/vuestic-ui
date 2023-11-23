@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col gap-3">
-    <va-progress-circle v-model="value" />
+    <VaProgressCircle v-model="value" />
 
-    <va-slider
+    <VaSlider
       v-model="value"
       :track-label="(v) => `${v}%`"
       track-label-visible

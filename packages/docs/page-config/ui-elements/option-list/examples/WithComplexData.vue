@@ -1,5 +1,5 @@
 <template>
-  <va-option-list
+  <VaOptionList
     v-model="listValue"
     :options="options"
     value-by="altValue"

@@ -1,13 +1,13 @@
 <template>
   <div class="flex gap-8 flex-wrap">
-    <va-counter
+    <VaCounter
       v-model="value"
       buttons
       :flat="false"
       rounded
     />
 
-    <va-counter
+    <VaCounter
       v-model="value"
       outline
       buttons
@@ -16,13 +16,13 @@
       rounded
     />
 
-    <va-counter
+    <VaCounter
       v-model="value"
       buttons
       :flat="false"
     />
 
-    <va-counter
+    <VaCounter
       v-model="value"
       outline
       buttons

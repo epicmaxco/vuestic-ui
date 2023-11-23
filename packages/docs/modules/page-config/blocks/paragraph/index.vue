@@ -11,7 +11,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <va-content>
+  <VaContent>
     <MarkdownView class="va-text" :content="text" />
-  </va-content>
+  </VaContent>
 </template>

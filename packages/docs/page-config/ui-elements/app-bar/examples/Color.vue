@@ -1,74 +1,74 @@
 <template>
   <div class="relative">
-    <va-app-bar color="danger">
-      <va-button
+    <VaAppBar color="danger">
+      <VaButton
         icon="home"
         color="#fff"
         preset="plain"
       />
-      <va-button
+      <VaButton
         icon="info"
         color="#fff"
         preset="plain"
       />
-      <va-button
+      <VaButton
         icon="battery"
         color="#fff"
         preset="plain"
       />
-      <va-spacer />
-      <va-button
+      <VaSpacer />
+      <VaButton
         color="#fff"
         preset="plain"
       >
         Login
-      </va-button>
-      <va-button-dropdown
+      </VaButton>
+      <VaButtonDropdown
         preset="plain"
         color="secondary"
         icon-color="#fff"
       >
         Content
-      </va-button-dropdown>
-    </va-app-bar>
+      </VaButtonDropdown>
+    </VaAppBar>
   </div>
 
   <div
     class="mt-2 relative"
   >
-    <va-app-bar
+    <VaAppBar
       color="info"
       gradient
     >
-      <va-button
+      <VaButton
         icon="home"
         color="#fff"
         preset="plain"
       />
-      <va-button
+      <VaButton
         icon="info"
         color="#fff"
         preset="plain"
       />
-      <va-button
+      <VaButton
         icon="battery"
         color="#fff"
         preset="plain"
       />
-      <va-spacer />
-      <va-button
+      <VaSpacer />
+      <VaButton
         color="#fff"
         preset="plain"
       >
         Login
-      </va-button>
-      <va-button-dropdown
+      </VaButton>
+      <VaButtonDropdown
         preset="plain"
         color="secondary"
         icon-color="#fff"
       >
         Content
-      </va-button-dropdown>
-    </va-app-bar>
+      </VaButtonDropdown>
+    </VaAppBar>
   </div>
 </template>

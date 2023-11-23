@@ -12,12 +12,12 @@
 
         <div class="seamless__content">
           <div class="seamless__content-image">
-            <va-aspect-ratio :ratio="829/434">
+            <VaAspectRatio :ratio="829/434">
               <img
                 src="/landing/seamless-integration.svg"
                 alt=""
               >
-            </va-aspect-ratio>
+            </VaAspectRatio>
           </div>
 
           <!-- First block -->

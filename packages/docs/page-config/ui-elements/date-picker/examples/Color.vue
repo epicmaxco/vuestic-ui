@@ -1,6 +1,6 @@
 <template>
   <div class="flex gap-5 flex-wrap">
-    <va-date-picker
+    <VaDatePicker
       v-model="range"
       color="warning"
       weekends-color="info"
@@ -8,7 +8,7 @@
       show-other-months
     />
 
-    <va-date-picker
+    <VaDatePicker
       v-model="range"
       color="warning"
       weekends-color="info"
@@ -17,7 +17,7 @@
       show-other-months
     />
 
-    <va-date-picker
+    <VaDatePicker
       v-model="range"
       color="warning"
       weekends-color="info"

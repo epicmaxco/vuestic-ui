@@ -1,5 +1,5 @@
 <template>
-  <va-split
+  <VaSplit
     class="split-demo h-[22rem]"
   >
     <template #start>
@@ -9,7 +9,7 @@
     </template>
     <template #grabber>
       <div class="custom-grabber">
-        <va-icon name="swap_horiz" />
+        <VaIcon name="swap_horiz" />
       </div>
     </template>
     <template #end>
@@ -17,7 +17,7 @@
         {{ lorem }}
       </div>
     </template>
-  </va-split>
+  </VaSplit>
 </template>
 
 <script>

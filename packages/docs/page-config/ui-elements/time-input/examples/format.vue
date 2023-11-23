@@ -1,5 +1,5 @@
 <template>
-  <va-time-input
+  <VaTimeInput
     v-model="value"
     :format="formatFn"
     view="seconds"

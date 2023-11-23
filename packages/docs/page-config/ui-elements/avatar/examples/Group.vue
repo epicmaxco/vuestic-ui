@@ -1,5 +1,5 @@
 <template>
-  <va-avatar-group
+  <VaAvatarGroup
     :options="avatars"
     :max="3"
   />

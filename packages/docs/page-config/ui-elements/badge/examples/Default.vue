@@ -1,23 +1,23 @@
 <template>
-  <va-badge
+  <VaBadge
     text="Paid"
     color="success"
     class="mr-2"
   />
 
-  <va-badge
+  <VaBadge
     text="Declined"
     color="danger"
     class="mr-2"
   />
 
-  <va-badge
+  <VaBadge
     text="pending"
     color="secondary"
     class="mr-2"
   />
 
-  <va-badge
+  <VaBadge
     text="Verified"
     color="primary"
   />

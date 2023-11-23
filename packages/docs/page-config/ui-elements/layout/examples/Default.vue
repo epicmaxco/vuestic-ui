@@ -19,9 +19,9 @@
           />
         </template>
         <template #center>
-          <va-navbar-item class="font-bold text-lg">
+          <VaNavbarItem class="font-bold text-lg">
             LOGO
-          </va-navbar-item>
+          </VaNavbarItem>
         </template>
       </VaNavbar>
     </template>

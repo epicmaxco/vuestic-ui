@@ -1,49 +1,49 @@
 <template>
-  <va-dropdown>
+  <VaDropdown>
     <template #anchor>
-      <va-button class="mr-2">
+      <VaButton class="mr-2">
         Click
-      </va-button>
+      </VaButton>
     </template>
 
-    <va-dropdown-content> Dropped down! </va-dropdown-content>
-  </va-dropdown>
+    <VaDropdownContent> Dropped down! </VaDropdownContent>
+  </VaDropdown>
 
-  <va-dropdown trigger="right-click">
+  <VaDropdown trigger="right-click">
     <template #anchor>
-      <va-button class="mr-2">
+      <VaButton class="mr-2">
         Right click
-      </va-button>
+      </VaButton>
     </template>
 
-    <va-dropdown-content> Dropped down! </va-dropdown-content>
-  </va-dropdown>
+    <VaDropdownContent> Dropped down! </VaDropdownContent>
+  </VaDropdown>
 
-  <va-dropdown trigger="hover">
+  <VaDropdown trigger="hover">
     <template #anchor>
-      <va-button> Hover </va-button>
+      <VaButton> Hover </VaButton>
     </template>
 
-    <va-dropdown-content> Dropped down! </va-dropdown-content>
-  </va-dropdown>
+    <VaDropdownContent> Dropped down! </VaDropdownContent>
+  </VaDropdown>
 
   <div class="mt-2">
-    <va-dropdown
+    <VaDropdown
       v-model="doShowDropdown"
       trigger="none"
       class="mr-2"
       :close-on-click-outside="false"
     >
       <template #anchor>
-        <va-button> None </va-button>
+        <VaButton> None </VaButton>
       </template>
 
-      <va-dropdown-content> Dropped down! </va-dropdown-content>
-    </va-dropdown>
+      <VaDropdownContent> Dropped down! </VaDropdownContent>
+    </VaDropdown>
 
-    <va-button @click="doShowDropdown = !doShowDropdown">
+    <VaButton @click="doShowDropdown = !doShowDropdown">
       {{ doShowDropdown ? "hide" : "show" }} dropdown
-    </va-button>
+    </VaButton>
   </div>
 </template>
 

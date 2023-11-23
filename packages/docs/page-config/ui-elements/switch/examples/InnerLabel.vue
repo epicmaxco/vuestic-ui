@@ -1,16 +1,16 @@
 <template>
   <div class="flex gap-8 flex-wrap">
-    <va-switch
+    <VaSwitch
       v-model="value"
       true-inner-label="Agree"
       false-inner-label="Disagree"
     />
-    <va-switch v-model="value">
+    <VaSwitch v-model="value">
       <template #innerLabel>
         Inner Label slot
       </template>
-    </va-switch>
-    <va-switch
+    </VaSwitch>
+    <VaSwitch
       v-model="value"
       color="#5123a1"
       off-color="#ffd300"
@@ -18,12 +18,12 @@
     >
       <template #innerLabel>
         <div class="va-text-center">
-          <va-icon
+          <VaIcon
             :name="value ? 'dark_mode' : 'light_mode'"
           />
         </div>
       </template>
-    </va-switch>
+    </VaSwitch>
   </div>
 </template>
 

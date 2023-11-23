@@ -1,5 +1,5 @@
 <template>
-  <va-radio
+  <VaRadio
     v-for="(option, index) in options"
     :key="index"
     v-model="selectedOption"

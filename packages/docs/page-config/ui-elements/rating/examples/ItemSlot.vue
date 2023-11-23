@@ -1,5 +1,5 @@
 <template>
-  <va-rating
+  <VaRating
     v-model="value"
     class="demo-rating"
   >
@@ -14,7 +14,7 @@
         {{ index }}
       </span>
     </template>
-  </va-rating>
+  </VaRating>
 </template>
 
 <script>

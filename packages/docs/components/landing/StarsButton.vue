@@ -1,5 +1,5 @@
 <template>
-  <va-button
+  <VaButton
     :href="url"
     target="blank"
     color="textInverted"
@@ -10,14 +10,14 @@
     v-bind="$attrs"
   >
     <template #prepend>
-      <va-icon
+      <VaIcon
         class="fa-solid fa-star"
         size="small"
         color="#EAC54F"
       />
     </template>
     {{ stars }}
-  </va-button>
+  </VaButton>
 </template>
 
 <script lang="ts">

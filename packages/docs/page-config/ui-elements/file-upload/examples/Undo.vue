@@ -1,27 +1,27 @@
 <template>
   <div class="w-80">
-    <va-switch
+    <VaSwitch
       v-model="isGalleryViewEnabled"
       label="Enable gallery view"
       class="mb-6"
     />
-    <va-input
+    <VaInput
       v-model.number="undoDuration"
       label="Undo duration"
       class="mb-6"
     />
-    <va-input
+    <VaInput
       v-model="deletedFileMessage"
       label="Cancel button text"
       class="mb-6"
     />
-    <va-input
+    <VaInput
       v-model="undoButtonText"
       label="Deleted file message"
       class="mb-6"
     />
   </div>
-  <va-file-upload
+  <VaFileUpload
     v-model="basic"
     undo
     :type="galleryType"

@@ -1,16 +1,16 @@
 <template>
-  <va-button
+  <VaButton
     class="mb-2"
     @click="disabled = !disabled"
   >
     {{ disabled ? "Enable" : "Disable" }}
-  </va-button>
+  </VaButton>
 
   <div class="row">
     <div
       class="flex flex-col md6 lg4 h-48"
     >
-      <va-infinite-scroll
+      <VaInfiniteScroll
         :load="appendRecordsAsync"
         :disabled="disabled"
       >
@@ -20,7 +20,7 @@
         >
           List item and some text #{{ index }}
         </div>
-      </va-infinite-scroll>
+      </VaInfiniteScroll>
     </div>
   </div>
 </template>

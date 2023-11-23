@@ -1,5 +1,5 @@
 <template>
-  <va-color-input
+  <VaColorInput
     v-model="value"
     class="w-28"
     disabled

@@ -1,17 +1,17 @@
 <template>
-  <va-file-upload
+  <VaFileUpload
     v-model="basic"
     type="single"
     disabled
   />
-  <va-divider horizontal />
-  <va-file-upload
+  <VaDivider horizontal />
+  <VaFileUpload
     v-model="basic"
     type="list"
     disabled
   />
-  <va-divider horizontal />
-  <va-file-upload
+  <VaDivider horizontal />
+  <VaFileUpload
     v-model="basic"
     type="gallery"
     disabled

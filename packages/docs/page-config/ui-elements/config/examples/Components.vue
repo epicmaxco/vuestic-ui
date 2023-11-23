@@ -1,5 +1,5 @@
 <template>
-  <va-button-toggle
+  <VaButtonToggle
     v-model="config"
     :options="[
       {
@@ -19,19 +19,19 @@
     class="mb-4"
   />
 
-  <va-config :components="config">
-    <va-card>
-      <va-card-title>My Card</va-card-title>
-      <va-card-content class="flex gap-2 flex-col">
-        <va-input label="Login" />
-        <va-input label="Password" />
-        <va-select :options="['one', 'two', 'three']" label="Country" />
-      </va-card-content>
-      <va-card-actions align="right">
-        <va-button>My Button</va-button>
-      </va-card-actions>
-    </va-card>
-  </va-config>
+  <VaConfig :components="config">
+    <VaCard>
+      <VaCardTitle>My Card</VaCardTitle>
+      <VaCardContent class="flex gap-2 flex-col">
+        <VaInput label="Login" />
+        <VaInput label="Password" />
+        <VaSelect :options="['one', 'two', 'three']" label="Country" />
+      </VaCardContent>
+      <VaCardActions align="right">
+        <VaButton>My Button</VaButton>
+      </VaCardActions>
+    </VaCard>
+  </VaConfig>
 </template>
 
 <script setup lang="ts">

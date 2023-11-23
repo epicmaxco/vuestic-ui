@@ -54,24 +54,24 @@ const doShowComponent = false; // TODO: Temporarily disabled
     <div class="component-playground__example">
       <slot v-bind="{ bind: optionValues, slots }" />
     </div>
-    <va-card
+    <VaCard
       class="component-playground__options"
       square
     >
-      <va-card-content>
+      <VaCardContent>
         <div
           v-for="option in filteredOptions"
           :key="option.key"
           class="mb-2"
         >
-          <va-input
+          <VaInput
             v-if="option.type === 'input'"
             v-model="option.value"
             class="w-full"
             :label="option.key"
             :rules="option.rules"
           />
-          <va-select
+          <VaSelect
             v-if="option.type === 'select'"
             v-model="option.value"
             class="w-full"
@@ -80,7 +80,7 @@ const doShowComponent = false; // TODO: Temporarily disabled
             :rules="option.rules"
             clearable
           />
-          <va-select
+          <VaSelect
             v-if="option.type === 'multiselect'"
             v-model="option.value"
             class="w-full"
@@ -90,7 +90,7 @@ const doShowComponent = false; // TODO: Temporarily disabled
             clearable
             multiple
           />
-          <va-checkbox
+          <VaCheckbox
             v-if="option.type === 'checkbox'"
             v-model="option.value"
             :label="option.key"
@@ -99,8 +99,8 @@ const doShowComponent = false; // TODO: Temporarily disabled
             :rules="option.rules"
           />
         </div>
-      </va-card-content>
-    </va-card>
+      </VaCardContent>
+    </VaCard>
   </div>
   <div v-if="doShowComponent" class="component-playground">
     <div

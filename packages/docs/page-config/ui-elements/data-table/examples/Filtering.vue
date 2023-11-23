@@ -1,24 +1,24 @@
 <template>
   <div class="grid md:grid-cols-2 gap-6 mb-6">
-    <va-input
+    <VaInput
       v-model="input"
       placeholder="Filter..."
       class="w-full"
     />
 
     <div class="flex flex-col gap-6">
-      <va-checkbox
+      <VaCheckbox
         v-model="isCustomFilteringFn"
         label="Use custom filtering function (looks for an exact match)"
       />
-      <va-checkbox
+      <VaCheckbox
         v-model="isDebounceInput"
         label="Debounce input"
       />
     </div>
   </div>
 
-  <va-data-table
+  <VaDataTable
     :items="items"
     :columns="columns"
     :filter="filter"
@@ -26,14 +26,14 @@
     @filtered="filteredCount = $event.items.length"
   />
 
-  <va-alert
+  <VaAlert
     class="!mt-6"
     color="info"
     outline
   >
     Number of filtered items:
-    <va-chip>{{ filteredCount }}</va-chip>
-  </va-alert>
+    <VaChip>{{ filteredCount }}</VaChip>
+  </VaAlert>
 </template>
 
 <script>

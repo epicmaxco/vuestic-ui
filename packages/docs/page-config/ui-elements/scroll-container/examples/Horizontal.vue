@@ -1,5 +1,5 @@
 <template>
-  <va-scroll-container
+  <VaScrollContainer
     color="warning"
     class="max-h-[400px]"
     horizontal
@@ -10,5 +10,5 @@
         alt=""
       >
     </div>
-  </va-scroll-container>
+  </VaScrollContainer>
 </template>

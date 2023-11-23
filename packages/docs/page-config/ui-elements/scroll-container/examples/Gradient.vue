@@ -1,25 +1,25 @@
 <template>
-  <va-scroll-container
+  <VaScrollContainer
     class="max-h-80"
     color="danger"
     vertical
     gradient
   >
-    <va-list>
-      <va-list-item
+    <VaList>
+      <VaListItem
         v-for="character in starWarsCharacters"
         :key="character"
       >
-        <va-icon
+        <VaIcon
           name="star"
           color="primary"
           size="small"
           class="mr-2"
         />
         {{ character }}
-      </va-list-item>
-    </va-list>
-  </va-scroll-container>
+      </VaListItem>
+    </VaList>
+  </VaScrollContainer>
 </template>
 
 <script setup>

@@ -1,5 +1,5 @@
 <template>
-  <va-stepper
+  <VaStepper
     v-model="step"
     :steps="steps"
     vertical
@@ -29,7 +29,7 @@
         <li>Complete payment</li>
       </ul>
     </template>
-  </va-stepper>
+  </VaStepper>
 </template>
 
 <script setup lang="ts">

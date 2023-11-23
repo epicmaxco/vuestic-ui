@@ -1,5 +1,5 @@
 <template>
-  <va-chip flat>
+  <VaChip flat>
     flat chip
-  </va-chip>
+  </VaChip>
 </template>

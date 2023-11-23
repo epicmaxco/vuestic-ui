@@ -1,5 +1,5 @@
 <template>
-  <va-color-palette
+  <VaColorPalette
     v-model="value"
     :palette="[
       '#154EC1',

@@ -1,16 +1,16 @@
 <template>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-end">
-    <va-input
+    <VaInput
       v-model="email"
       type="email"
       placeholder="hello@epicmax.co"
       label="Email"
     />
-    <va-value
+    <VaValue
       v-slot="isPasswordVisible"
       :default-value="false"
     >
-      <va-input
+      <VaInput
         v-model="password"
         :type="isPasswordVisible.value ? 'text' : 'password'"
         label="Password with toggle"
@@ -18,21 +18,21 @@
         @click-append-inner="isPasswordVisible.value = !isPasswordVisible.value"
       >
         <template #appendInner>
-          <va-icon
+          <VaIcon
             :name="isPasswordVisible.value ? 'visibility_off' : 'visibility'"
             size="small"
             color="primary"
           />
         </template>
-      </va-input>
-    </va-value>
-    <va-input
+      </VaInput>
+    </VaValue>
+    <VaInput
       v-model="phone"
       type="tel"
       label="Phone number"
       placeholder="0 000 000 00 00"
     />
-    <va-input
+    <VaInput
       v-model="url"
       type="url"
       label="url"

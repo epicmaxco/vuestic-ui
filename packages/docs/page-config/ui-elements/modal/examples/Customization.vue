@@ -1,9 +1,9 @@
 <template>
-  <va-button @click="showModal = !showModal">
+  <VaButton @click="showModal = !showModal">
     Show modal (custom rendering)
-  </va-button>
+  </VaButton>
 
-  <va-modal
+  <VaModal
     v-model="showModal"
     hide-default-actions
     overlay-opacity="0.2"
@@ -13,9 +13,9 @@
     </template>
     <div>{{ message }}</div>
     <template #footer>
-      <va-button> Custom action </va-button>
+      <VaButton> Custom action </VaButton>
     </template>
-  </va-modal>
+  </VaModal>
 </template>
 
 <script>

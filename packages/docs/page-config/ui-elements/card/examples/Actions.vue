@@ -1,22 +1,22 @@
 <template>
   <div class="flex flex-wrap gap-5">
-    <va-card>
-      <va-card-title>Between horizontal alignment</va-card-title>
-      <va-card-actions align="between">
-        <va-button>Action 1</va-button>
-        <va-button>Action 2</va-button>
-      </va-card-actions>
-    </va-card>
+    <VaCard>
+      <VaCardTitle>Between horizontal alignment</VaCardTitle>
+      <VaCardActions align="between">
+        <VaButton>Action 1</VaButton>
+        <VaButton>Action 2</VaButton>
+      </VaCardActions>
+    </VaCard>
 
-    <va-card>
-      <va-card-title>Stretch vertical alignment</va-card-title>
-      <va-card-actions
+    <VaCard>
+      <VaCardTitle>Stretch vertical alignment</VaCardTitle>
+      <VaCardActions
         align="stretch"
         vertical
       >
-        <va-button>Action 1</va-button>
-        <va-button>Action 2</va-button>
-      </va-card-actions>
-    </va-card>
+        <VaButton>Action 1</VaButton>
+        <VaButton>Action 2</VaButton>
+      </VaCardActions>
+    </VaCard>
   </div>
 </template>

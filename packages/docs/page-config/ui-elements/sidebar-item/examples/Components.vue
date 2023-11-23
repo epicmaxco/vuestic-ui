@@ -1,45 +1,45 @@
 <template>
-  <va-accordion
+  <VaAccordion
     v-model="accordionValue"
     multiple
   >
-    <va-collapse
+    <VaCollapse
       v-for="(route, idx) in items"
       :key="idx"
       :class="{ expanded: accordionValue[idx] && route.children }"
     >
       <template #header>
-        <va-sidebar-item
+        <VaSidebarItem
           :active="isRouteActive(route)"
           @click="setRouteActive(route)"
         >
-          <va-sidebar-item-content>
-            <va-sidebar-item-title>
+          <VaSidebarItemContent>
+            <VaSidebarItemTitle>
               {{ route.displayName }}
-            </va-sidebar-item-title>
-            <va-icon
+            </VaSidebarItemTitle>
+            <VaIcon
               v-if="route.children"
               :name="accordionValue[idx] ? 'expand_less' : 'expand_more'"
             />
-          </va-sidebar-item-content>
-        </va-sidebar-item>
+          </VaSidebarItemContent>
+        </VaSidebarItem>
       </template>
       <template #body>
-        <va-sidebar-item
+        <VaSidebarItem
           v-for="(child, index) in route.children"
           :key="index"
           :active="isRouteActive(child)"
           @click="setRouteActive(child)"
         >
-          <va-sidebar-item-content>
-            <va-sidebar-item-title>
+          <VaSidebarItemContent>
+            <VaSidebarItemTitle>
               {{ child.displayName }}
-            </va-sidebar-item-title>
-          </va-sidebar-item-content>
-        </va-sidebar-item>
+            </VaSidebarItemTitle>
+          </VaSidebarItemContent>
+        </VaSidebarItem>
       </template>
-    </va-collapse>
-  </va-accordion>
+    </VaCollapse>
+  </VaAccordion>
 </template>
 
 <script lang="ts">

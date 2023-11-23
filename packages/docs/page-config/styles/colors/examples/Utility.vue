@@ -1,8 +1,11 @@
 <template>
-  <div class="flex items-center p-2" :style="{ 
-    background: getGradientBackground(getColor('warning')),
-    color: shiftHSLAColor(getColor(getTextColor(getColor('warning'))), { a: -0.5 }),
-   }">
+  <div
+    class="flex items-center p-2"
+    :style="{ 
+      background: getGradientBackground(getColor('warning')),
+      color: shiftHSLAColor(getColor(getTextColor(getColor('warning'))), { a: -0.5 }),
+    }"
+  >
     Accent gradient
   </div>
 </template>

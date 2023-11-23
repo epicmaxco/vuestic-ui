@@ -155,7 +155,7 @@ const changeLogValue = ref(true)
 </script>
 
 <template>
-  <va-content>
+  <VaContent>
     <ApiTable
       v-if="propsOptions.length > 0 && !visualOptions.hideProps"
       :title="visualOptions.hidePropsTitle ? '' : 'Props'"
@@ -164,7 +164,7 @@ const changeLogValue = ref(true)
     >
       <template #name="{ value, row }">
         <strong>{{ value }}</strong>
-        <va-badge
+        <VaBadge
           v-if="row.required"
           class="ml-2"
           text="required"
@@ -175,22 +175,22 @@ const changeLogValue = ref(true)
         #default="{value}"
       >
         <div class="flex items-center gap-1">
-          <markdown-view :content="value" />
-          <va-popover
+          <MarkdownView :content="value" />
+          <VaPopover
             placement="right"
             trigger="click"
           >
-            <va-icon
+            <VaIcon
               v-if="isValueIsDefaultTranslation(value)"
               name="info"
               color="secondary"
             />
             <template #body>
-              <nuxt-link to="/services/i18n#translations">
+              <NuxtLink to="/services/i18n#translations">
                 Read more
-              </nuxt-link>
+              </NuxtLink>
             </template>
-          </va-popover>
+          </VaPopover>
         </div>
       </template>
     </ApiTable>
@@ -229,11 +229,11 @@ const changeLogValue = ref(true)
         <span class="va-text-code va-text-secondary">{{ value }}</span>
       </template>
     </ApiTable>
-  </va-content>
+  </VaContent>
   <VaCollapse
     v-if="$props.changeLog"
-    class="mt-8 page-config-api-change-log"
     v-model="changeLogValue"
+    class="mt-8 page-config-api-change-log"
   >
     <template #header>
       <div class="page-config-api-change-log__title">
@@ -247,7 +247,7 @@ const changeLogValue = ref(true)
 
     <template #content>
       <div class="page-config-api-change-log__content pt-4">
-        <div v-for="{ version, changes } in $props.changeLog" class="page-config-api-change-log__version-wrapper" :key="version">
+        <div v-for="{ version, changes } in $props.changeLog" :key="version" class="page-config-api-change-log__version-wrapper">
           <ul>
             <div class="page-config-api-change-log__version">
               <VaIcon name="rocket_launch" class="mr-1" size="18px" color="secondary" />

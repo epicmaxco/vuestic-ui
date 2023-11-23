@@ -1,15 +1,15 @@
 <template>
-  <va-rating
+  <VaRating
     v-model="value"
     class="mb-2"
     size="small"
   />
-  <va-rating
+  <VaRating
     v-model="value"
     class="mb-2"
     size="large"
   />
-  <va-rating
+  <VaRating
     v-model="value"
     :size="40"
   />

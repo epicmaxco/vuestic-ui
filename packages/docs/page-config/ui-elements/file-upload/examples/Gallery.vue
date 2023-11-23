@@ -1,5 +1,5 @@
 <template>
-  <va-file-upload
+  <VaFileUpload
     v-model="basic"
     type="gallery"
     file-types="image/*"

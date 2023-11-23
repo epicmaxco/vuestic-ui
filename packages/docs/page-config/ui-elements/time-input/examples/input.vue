@@ -1,10 +1,10 @@
 <template>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
-    <va-time-input
+    <VaTimeInput
       v-model="value"
       manual-input
     />
-    <va-time-input
+    <VaTimeInput
       v-model="value"
       ampm
       manual-input

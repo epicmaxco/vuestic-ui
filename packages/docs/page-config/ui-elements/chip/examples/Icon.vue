@@ -1,16 +1,16 @@
 <template>
-  <va-chip
+  <VaChip
     v-for="(icon, index) in icons"
     :key="index"
     :icon="icon"
     class="mr-6 mb-2"
   >
     {{ icon }}
-  </va-chip>
+  </VaChip>
 
-  <va-chip class="mr-6 mb-2">
+  <VaChip class="mr-6 mb-2">
     without icon
-  </va-chip>
+  </VaChip>
 </template>
 
 <script>

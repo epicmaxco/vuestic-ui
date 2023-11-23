@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-xs">
-    <va-select
+    <VaSelect
       v-model="value"
       label="Exactly 2 options should be selected"
       :options="options"

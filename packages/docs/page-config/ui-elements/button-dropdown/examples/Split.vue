@@ -1,15 +1,15 @@
 <template>
   <div class="flex items-center flex-wrap">
-    <va-button-dropdown
+    <VaButtonDropdown
       class="mr-2 mb-2"
       split
       label="Split"
       round
     >
       Content
-    </va-button-dropdown>
+    </VaButtonDropdown>
 
-    <va-button-dropdown
+    <VaButtonDropdown
       class="mr-2 mb-2"
       split
       preset="secondary"
@@ -19,17 +19,17 @@
       round
     >
       Content
-    </va-button-dropdown>
+    </VaButtonDropdown>
 
-    <va-button-dropdown
+    <VaButtonDropdown
       class="mr-2 mb-2"
       split
       label="Split"
     >
       Content
-    </va-button-dropdown>
+    </VaButtonDropdown>
 
-    <va-button-dropdown
+    <VaButtonDropdown
       class="mr-2 mb-2"
       split
       preset="secondary"
@@ -38,6 +38,6 @@
       label="Split"
     >
       Content
-    </va-button-dropdown>
+    </VaButtonDropdown>
   </div>
 </template>

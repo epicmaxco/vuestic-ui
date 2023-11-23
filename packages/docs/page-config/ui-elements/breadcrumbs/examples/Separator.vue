@@ -1,28 +1,28 @@
 <template>
-  <va-breadcrumbs
+  <VaBreadcrumbs
     separator=">"
     class="mb-6"
   >
-    <va-breadcrumbs-item label="One" />
-    <va-breadcrumbs-item label="Two" />
-    <va-breadcrumbs-item label="Three" />
-  </va-breadcrumbs>
+    <VaBreadcrumbsItem label="One" />
+    <VaBreadcrumbsItem label="Two" />
+    <VaBreadcrumbsItem label="Three" />
+  </VaBreadcrumbs>
 
-  <va-breadcrumbs
+  <VaBreadcrumbs
     separator-color="danger"
     class="mb-6"
   >
-    <va-breadcrumbs-item label="One" />
-    <va-breadcrumbs-item label="Two" />
-    <va-breadcrumbs-item label="Three" />
-  </va-breadcrumbs>
+    <VaBreadcrumbsItem label="One" />
+    <VaBreadcrumbsItem label="Two" />
+    <VaBreadcrumbsItem label="Three" />
+  </VaBreadcrumbs>
 
-  <va-breadcrumbs class="mb-6">
+  <VaBreadcrumbs class="mb-6">
     <template #separator>
-      <va-icon class="fa fa-star fa-lg" />
+      <VaIcon class="fa fa-star fa-lg" />
     </template>
-    <va-breadcrumbs-item label="One" />
-    <va-breadcrumbs-item label="Two" />
-    <va-breadcrumbs-item label="Three" />
-  </va-breadcrumbs>
+    <VaBreadcrumbsItem label="One" />
+    <VaBreadcrumbsItem label="Two" />
+    <VaBreadcrumbsItem label="Three" />
+  </VaBreadcrumbs>
 </template>

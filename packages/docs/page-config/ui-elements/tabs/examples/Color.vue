@@ -1,54 +1,54 @@
 <template>
   <div class="w-[280px]">
-    <va-tabs
+    <VaTabs
       v-model="value"
       color="danger"
     >
       <template #tabs>
-        <va-tab
+        <VaTab
           v-for="tab in ['One', 'Two', 'Three']"
           :key="tab"
           :name="tab"
         >
           {{ tab }}
-        </va-tab>
-        <va-tab
+        </VaTab>
+        <VaTab
           icon="home"
           label="Tab with icon"
           name="icon"
         />
-        <va-tab
+        <VaTab
           icon="face"
           label="Disabled tab"
           disabled
           name="disabled"
         />
       </template>
-    </va-tabs>
+    </VaTabs>
 
-    <va-tabs
+    <VaTabs
       v-model="value"
       class="mt-2"
       color="secondary"
     >
       <template #tabs>
-        <va-tab color="success">
+        <VaTab color="success">
           First tab
-        </va-tab>
-        <va-tab color="warning">
+        </VaTab>
+        <VaTab color="warning">
           Second tab
-        </va-tab>
-        <va-tab color="danger">
+        </VaTab>
+        <VaTab color="danger">
           Third tab
-        </va-tab>
-        <va-tab color="#CCCCFF">
+        </VaTab>
+        <VaTab color="#CCCCFF">
           Fourth tab
-        </va-tab>
-        <va-tab color="#5B2C6F">
+        </VaTab>
+        <VaTab color="#5B2C6F">
           Fifth tab
-        </va-tab>
+        </VaTab>
       </template>
-    </va-tabs>
+    </VaTabs>
   </div>
 </template>
 

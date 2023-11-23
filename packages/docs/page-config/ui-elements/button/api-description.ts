@@ -21,4 +21,4 @@ export default defineApiDescription({
     focus: "Sets focus on button",
     blur: "Removes focus from button"
   }
-});;
+});

@@ -1,5 +1,5 @@
 <template>
-  <va-carousel
+  <VaCarousel
     :items="items"
     stateful
     indicators

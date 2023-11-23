@@ -1,8 +1,8 @@
 <template>
-  <va-stepper
+  <VaStepper
     v-model="step"
     :steps="steps"
-    controlsHidden
+    controls-hidden
   />
 </template>
 

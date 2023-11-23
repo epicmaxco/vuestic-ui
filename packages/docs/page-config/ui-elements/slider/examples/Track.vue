@@ -1,9 +1,9 @@
 <template>
-  <va-slider
+  <VaSlider
     v-model="value1"
     track-color="warning"
   />
-  <va-slider
+  <VaSlider
     v-model="value2"
     :show-track="false"
   />

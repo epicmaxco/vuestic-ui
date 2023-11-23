@@ -1,15 +1,15 @@
 <template>
-  <va-rating
+  <VaRating
     v-model="value"
     class="mb-2"
     color="success"
   />
-  <va-rating
+  <VaRating
     v-model="value"
     class="mb-2"
     color="info"
   />
-  <va-rating
+  <VaRating
     v-model="value"
     color="danger"
   />

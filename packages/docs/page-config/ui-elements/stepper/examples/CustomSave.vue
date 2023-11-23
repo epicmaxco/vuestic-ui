@@ -6,14 +6,14 @@
   >
     <template #step-content-0>
       <p>Validate on save</p>
-      <va-input
+      <VaInput
         v-model="model.a"
         label="A"
       />
     </template>
     <template #step-content-1>
       <p>Validate on save and disable navigation</p>
-      <va-input
+      <VaInput
         v-model="model.b"
         label="B"
         required-mark
@@ -21,7 +21,7 @@
     </template>
     <template #step-content-2>
       <p>Validate instantly</p>
-      <va-input
+      <VaInput
         v-model="model.c"
         label="C"
         required-mark

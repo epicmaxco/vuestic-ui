@@ -1,5 +1,5 @@
 <template>
-  <va-input
+  <VaInput
     class="mr-3"
     input-class="va-text-right"
     model-value="Text right"

@@ -1,11 +1,11 @@
 <template>
-  <va-rating
+  <VaRating
     v-model="value"
     class="mb-2"
     icon="favorite"
     empty-icon="favorite_border"
   />
-  <va-rating
+  <VaRating
     v-model="value"
     icon="thumb_up_alt"
     empty-icon="thumb_up_off_alt"

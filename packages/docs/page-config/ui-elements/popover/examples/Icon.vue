@@ -1,8 +1,8 @@
 <template>
-  <va-popover
+  <VaPopover
     icon="error"
     message="Popover with icon"
   >
-    <va-button>Hover me</va-button>
-  </va-popover>
+    <VaButton>Hover me</VaButton>
+  </VaPopover>
 </template>

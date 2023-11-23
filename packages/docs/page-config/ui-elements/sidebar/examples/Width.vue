@@ -1,6 +1,6 @@
 <template>
   <div class="h-52">
-    <va-sidebar
+    <VaSidebar
       :minimized="minimized"
       width="11rem"
       minimized-width="64px"
@@ -9,19 +9,19 @@
         v-for="item in items"
         :key="item.title"
       >
-        <va-sidebar-item :active="item.active">
-          <va-sidebar-item-content>
-            <va-icon :name="item.icon" />
-            <va-sidebar-item-title>
+        <VaSidebarItem :active="item.active">
+          <VaSidebarItemContent>
+            <VaIcon :name="item.icon" />
+            <VaSidebarItemTitle>
               {{ item.title }}
-            </va-sidebar-item-title>
-          </va-sidebar-item-content>
-        </va-sidebar-item>
+            </VaSidebarItemTitle>
+          </VaSidebarItemContent>
+        </VaSidebarItem>
       </template>
-    </va-sidebar>
+    </VaSidebar>
   </div>
 
-  <va-checkbox
+  <VaCheckbox
     v-model="minimized"
     class="mt-2"
     label="Minimized"

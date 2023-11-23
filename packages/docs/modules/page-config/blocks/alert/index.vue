@@ -19,13 +19,13 @@ const props = defineProps({
 </script>
 
 <template>
-  <va-alert
+  <VaAlert
     class="page-config-alert"
     :color="color"
     :outline="!solid"
   >
     <MarkdownView :content="text" />
-  </va-alert>
+  </VaAlert>
 </template>
 
 <style lang="scss">

@@ -1,11 +1,11 @@
 <template>
-  <va-alert
+  <VaAlert
     center
     class="mb-6"
   >
     You read this important centered alert message
-  </va-alert>
-  <va-alert
+  </VaAlert>
+  <VaAlert
     color="warning"
     closeable
     title="Hello World!"
@@ -14,5 +14,5 @@
     class="mb-6"
   >
     You read this important centered alert message
-  </va-alert>
+  </VaAlert>
 </template>

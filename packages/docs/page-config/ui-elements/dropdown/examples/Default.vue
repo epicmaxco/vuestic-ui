@@ -1,9 +1,9 @@
 <template>
-  <va-dropdown>
+  <VaDropdown>
     <template #anchor>
-      <va-button> Dropdownable </va-button>
+      <VaButton> Dropdownable </VaButton>
     </template>
 
-    <va-dropdown-content> Dropped down! </va-dropdown-content>
-  </va-dropdown>
+    <VaDropdownContent> Dropped down! </VaDropdownContent>
+  </VaDropdown>
 </template>

@@ -1,13 +1,13 @@
 <template>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-start">
-    <va-input
+    <VaInput
       v-model="value"
       class="mb-6"
       :messages="message"
       label="Name"
       placeholder="Single-line message"
     />
-    <va-input
+    <VaInput
       v-model="value"
       class="mb-6"
       :messages="messages"

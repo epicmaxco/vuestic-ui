@@ -1,22 +1,22 @@
 <template>
-  <va-button
+  <VaButton
     class="mr-6 my-1"
     @click="showModal = !showModal"
   >
     Show modal (without the overlay)
-  </va-button>
-  <va-button
+  </VaButton>
+  <VaButton
     class="mr-6 my-1"
     @click="showModalNoOutsideDismiss = !showModalNoOutsideDismiss"
   >
     Show modal (without the overlay and with no outside click dismiss)
-  </va-button>
-  <va-modal
+  </VaButton>
+  <VaModal
     v-model="showModal"
     :message="message"
     :overlay="false"
   />
-  <va-modal
+  <VaModal
     v-model="showModalNoOutsideDismiss"
     :message="message"
     :overlay="false"

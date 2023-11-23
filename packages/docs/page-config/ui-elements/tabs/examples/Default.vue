@@ -1,14 +1,14 @@
 <template>
-  <va-tabs v-model="value">
+  <VaTabs v-model="value">
     <template #tabs>
-      <va-tab
+      <VaTab
         v-for="tab in ['One', 'Two', 'Three']"
         :key="tab"
       >
         {{ tab }}
-      </va-tab>
+      </VaTab>
     </template>
-  </va-tabs>
+  </VaTabs>
 </template>
 
 <script>

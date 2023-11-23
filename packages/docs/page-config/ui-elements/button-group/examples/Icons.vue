@@ -1,15 +1,21 @@
 <template>
   <div class="flex flex-wrap gap-6 mb-6">
-    <va-button-group>
-      <va-button icon="create" />
-      <va-button icon="add" />
-      <va-button icon="add_circle_outline" />
-    </va-button-group>
+    <VaButtonGroup>
+      <VaButton icon="create" />
+      <VaButton icon="add" />
+      <VaButton icon="add_circle_outline" />
+    </VaButtonGroup>
 
-    <va-button-group icon-color="warning">
-      <va-button icon="create">One</va-button>
-      <va-button icon="add">Two</va-button>
-      <va-button icon="add_circle_outline">Three</va-button>
-    </va-button-group>
+    <VaButtonGroup icon-color="warning">
+      <VaButton icon="create">
+        One
+      </VaButton>
+      <VaButton icon="add">
+        Two
+      </VaButton>
+      <VaButton icon="add_circle_outline">
+        Three
+      </VaButton>
+    </VaButtonGroup>
   </div>
 </template>

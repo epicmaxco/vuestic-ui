@@ -1,5 +1,5 @@
 <template>
-  <va-pagination
+  <VaPagination
     v-model="value"
     :pages="10"
     :visible-pages="3"
@@ -7,7 +7,7 @@
     active-page-color="textPrimary"
     class="mb-6"
   />
-  <va-pagination
+  <VaPagination
     v-model="value"
     :pages="10"
     :visible-pages="3"
@@ -15,7 +15,7 @@
     active-page-color="#002D87"
     class="mb-6"
   />
-  <va-pagination
+  <VaPagination
     v-model="value"
     :pages="10"
     :visible-pages="3"

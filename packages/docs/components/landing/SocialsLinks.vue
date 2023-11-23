@@ -3,7 +3,7 @@
     class="socials"
     :style="styleComputed"
   >
-    <va-button
+    <VaButton
       v-for="{ href, label, icon } in socials"
       :key="label"
       class="socials__item"
@@ -13,12 +13,12 @@
       target="blank"
       :color="color"
     >
-      <va-icon
+      <VaIcon
         :size="size"
         :sizes-config="sizesConfig"
         :class="icon"
       />
-    </va-button>
+    </VaButton>
   </div>
 </template>
 

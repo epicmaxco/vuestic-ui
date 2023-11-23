@@ -1,15 +1,15 @@
 <template>
   <div class="flex flex-col gap-3">
-    <va-progress-bar
+    <VaProgressBar
       :model-value="value"
       :max="max"
     />
-    <va-slider
+    <VaSlider
       v-model="value"
       :max="max"
       track-label-visible
     />
-    <va-input
+    <VaInput
       v-model="max"
       label="Max value"
     />

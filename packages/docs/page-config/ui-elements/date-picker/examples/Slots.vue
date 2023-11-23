@@ -1,5 +1,5 @@
 <template>
-  <va-date-picker
+  <VaDatePicker
     v-model="date"
     :month-names="[
       '1',
@@ -28,26 +28,26 @@
     </template>
 
     <template #buttonNext="{ onClick }">
-      <va-button
+      <VaButton
         preset="plain"
         size="small"
         class="link"
         @click="onClick"
       >
         →
-      </va-button>
+      </VaButton>
     </template>
     <template #buttonPrev="{ onClick }">
-      <va-button
+      <VaButton
         preset="plain"
         size="small"
         class="link"
         @click="onClick"
       >
         ←
-      </va-button>
+      </VaButton>
     </template>
-  </va-date-picker>
+  </VaDatePicker>
 </template>
 
 <script>

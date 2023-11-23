@@ -1,25 +1,31 @@
 <template>
-  <va-navbar
+  <VaNavbar
     color="#282F69"
     class="h-24"
   >
     <template #left>
-      <va-navbar-item class="logo">
+      <VaNavbarItem class="logo">
         LOGO
-      </va-navbar-item>
+      </VaNavbarItem>
     </template>
     <template #right>
-      <va-navbar-item class="hidden sm:block">Dashboard</va-navbar-item>
-      <va-navbar-item class="hidden sm:block">Reports</va-navbar-item>
-      <va-navbar-item class="hidden sm:block">Users</va-navbar-item>
-      <va-navbar-item>
-        <va-icon name="mdi-magnify" />
-      </va-navbar-item>
-      <va-navbar-item>
-        <va-icon name="mdi-account-circle-outline" />
-      </va-navbar-item>
+      <VaNavbarItem class="hidden sm:block">
+        Dashboard
+      </VaNavbarItem>
+      <VaNavbarItem class="hidden sm:block">
+        Reports
+      </VaNavbarItem>
+      <VaNavbarItem class="hidden sm:block">
+        Users
+      </VaNavbarItem>
+      <VaNavbarItem>
+        <VaIcon name="mdi-magnify" />
+      </VaNavbarItem>
+      <VaNavbarItem>
+        <VaIcon name="mdi-account-circle-outline" />
+      </VaNavbarItem>
     </template>
-  </va-navbar>
+  </VaNavbar>
 </template>
 
 <style scoped>
