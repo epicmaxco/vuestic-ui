@@ -67,7 +67,7 @@ watch(sandboxState, () => {
 
     <div class="flex justify-between items-center py-2 px-4 border-t-2 border-[var(--va-background-border)] bg-[var(--va-background-secondary)]">
       <div>
-        Playground <span class="text-[var(--va-secondary)]">vuestic-ui@latest - vue@latest</span>
+        Playground <span class="text-[var(--va-secondary)]">vuestic-ui@latest - vue@latest - tailwindcss@latest</span>
       </div>
 
       <VaButton
