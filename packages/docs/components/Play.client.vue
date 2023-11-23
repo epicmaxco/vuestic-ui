@@ -59,9 +59,10 @@ const normalizePresetName = (presetName: string) => {
   return 'light'
 }
 
+// eslint-disable-next-line no-useless-escape
+const TAILWIND_CDN = '<script src="https://cdn.tailwindcss.com"><\/script>'
 const previewOptions = computed<ReplProps['previewOptions']>(() => ({
   headHTML: `
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@0.7.4/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="${window.location.origin + '/vuestic-out/style.css'}">
@@ -70,6 +71,7 @@ const previewOptions = computed<ReplProps['previewOptions']>(() => ({
         padding: 1rem;
       }
     </style>
+    ${TAILWIND_CDN}
   `,
   customCode: {
     importCode: `
