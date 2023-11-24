@@ -5,7 +5,7 @@
       target="_blank"
       title="Nuxt Nation Conference"
     >
-      <va-aspect-ratio
+      <VaAspectRatio
         :ratio="1584/396"
         :aria-hidden="true"
         :max-width="1350"
@@ -15,8 +15,8 @@
           src="/landing/nuxtnation-event-banner.png"
           alt=""
         >
-        <div @click.prevent="hide" class="event-banner__close" />
-      </va-aspect-ratio>
+        <div class="event-banner__close" @click.prevent="hide" />
+      </VaAspectRatio>
     </a>
   </div>
 </template>

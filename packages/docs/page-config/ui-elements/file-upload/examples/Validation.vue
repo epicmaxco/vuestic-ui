@@ -1,5 +1,5 @@
 <template>
-  <va-file-upload
+  <VaFileUpload
     v-model="basic"
     dropzone
     file-types="jpg,png"

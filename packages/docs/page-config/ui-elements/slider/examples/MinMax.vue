@@ -1,5 +1,5 @@
 <template>
-  <va-slider
+  <VaSlider
     v-model="value3"
     track-label-visible
     :min="15"

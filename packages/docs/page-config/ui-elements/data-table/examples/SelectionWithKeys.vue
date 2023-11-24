@@ -1,12 +1,12 @@
 <template>
-  <va-button
+  <VaButton
     class="mb-6"
     @click="shuffleItems"
   >
     Shuffle and update items
-  </va-button>
+  </VaButton>
 
-  <va-data-table
+  <VaDataTable
     v-model="selectedItems"
     :items="items"
     items-track-by="username"
@@ -16,21 +16,21 @@
     @selection-change="selectedItemsEmitted = $event.currentSelectedItems"
   />
 
-  <va-alert
+  <VaAlert
     class="!mt-6"
     color="info"
     outline
   >
     Selected items (click to unselect):
-    <va-chip
+    <VaChip
       v-for="item in selectedItemsEmitted"
       :key="item"
       class="ml-2"
       @click="unselectItem(item)"
     >
       {{ item }}
-    </va-chip>
-  </va-alert>
+    </VaChip>
+  </VaAlert>
 </template>
 
 <script>

@@ -1,40 +1,40 @@
 <template>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-start">
-    <va-image
+    <VaImage
       class="col-span-1"
       :src="getImagePath(200)"
     >
       <div class="overlay top-0">
         Overlay Top
       </div>
-    </va-image>
+    </VaImage>
 
-    <va-image
+    <VaImage
       class="col-span-1"
       :src="getImagePath(200)"
     >
       <div class="overlay bottom-0">
         Overlay Bottom
       </div>
-    </va-image>
+    </VaImage>
 
-    <va-image
+    <VaImage
       class="col-span-1"
       :src="getImagePath(200)"
     >
       <div class="overlay top-0 bottom-0">
         Overlay
       </div>
-    </va-image>
+    </VaImage>
 
-    <va-image
+    <VaImage
       class="col-span-1"
       :src="getImagePath(200)"
     >
       <div class="overlay top-0 bottom-0 gradient">
         Overlay with gradient
       </div>
-    </va-image>
+    </VaImage>
   </div>
 </template>
 

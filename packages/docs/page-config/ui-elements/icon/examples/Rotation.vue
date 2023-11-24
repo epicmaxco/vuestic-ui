@@ -1,5 +1,5 @@
 <template>
-  <va-button-toggle
+  <VaButtonToggle
     v-model="flip"
     class="mb-6"
     :options="flipOptions"
@@ -7,14 +7,14 @@
     border-color="primary"
   />
 
-  <va-switch
+  <VaSwitch
     v-model="isRotation"
     class="mb-2"
     label="Enable rotation"
     size="small"
   />
 
-  <va-slider
+  <VaSlider
     class="mb-6"
     :step="5"
     :min="-180"
@@ -26,12 +26,12 @@
   />
 
   <div>
-    <va-icon
+    <VaIcon
       class="mr-3"
       name="thumb_up"
       size="large"
     />
-    <va-icon
+    <VaIcon
       name="thumb_up"
       size="large"
       color="#ed6c02"

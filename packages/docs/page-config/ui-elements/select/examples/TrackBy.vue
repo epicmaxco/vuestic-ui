@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="track by"
@@ -8,7 +8,7 @@
       track-by="id"
     />
 
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="track by (function)"
@@ -16,12 +16,12 @@
       :track-by="(option) => option.id"
     />
   </div>
-  <va-alert color="info">
+  <VaAlert color="info">
     <template #title>
       Value
     </template>
     {{ value }}
-  </va-alert>
+  </VaAlert>
 </template>
 
 <script>

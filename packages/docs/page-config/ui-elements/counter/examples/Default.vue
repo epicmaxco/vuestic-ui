@@ -1,5 +1,5 @@
 <template>
-  <va-counter
+  <VaCounter
     v-model="value"
   />
 </template>

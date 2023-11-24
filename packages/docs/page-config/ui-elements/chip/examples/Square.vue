@@ -1,5 +1,5 @@
 <template>
-  <va-chip square>
+  <VaChip square>
     square
-  </va-chip>
+  </VaChip>
 </template>

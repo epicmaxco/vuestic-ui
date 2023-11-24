@@ -1,27 +1,27 @@
 <template>
-  <va-alert
+  <VaAlert
     color="warning"
     icon="warning"
     class="mb-6"
   >
     You read this important alert message with an icon
-  </va-alert>
-  <va-alert
+  </VaAlert>
+  <VaAlert
     color="info"
     class="mb-6"
   >
     <template #icon>
-      <va-icon name="info" />
+      <VaIcon name="info" />
     </template>
     You read this important alert message with a slotted icon
-  </va-alert>
-  <va-alert
+  </VaAlert>
+  <VaAlert
     color="warning"
     outline
     class="mb-6"
   >
     <template #icon>
-      <va-icon
+      <VaIcon
         name="star"
         color="warning"
       />
@@ -31,5 +31,5 @@
       href="https://github.com/epicmaxco/vuestic-ui"
       target="_blank"
     >GitHub</a>
-  </va-alert>
+  </VaAlert>
 </template>

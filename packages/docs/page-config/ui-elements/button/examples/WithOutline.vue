@@ -1,13 +1,13 @@
 <template>
   <div class="flex items-center">
-    <va-button
+    <VaButton
       preset="secondary"
       border-color="primary"
       class="mr-6 mb-2"
     >
       Label
-    </va-button>
-    <va-button
+    </VaButton>
+    <VaButton
       preset="primary"
       class="mr-6 mb-2"
       round
@@ -15,6 +15,6 @@
       border-color="primary"
     >
       Label
-    </va-button>
+    </VaButton>
   </div>
 </template>

@@ -11,31 +11,31 @@
         </div>
 
         <div class="admin__buttons">
-          <va-button
+          <VaButton
             class="admin__buttons--button"
             href="https://github.com/epicmaxco/vuestic-admin"
             target="blank"
           >
             <template #prepend>
-              <va-icon
+              <VaIcon
                 class="fa-brands fa-github"
                 style="margin-right: 0.5rem;"
               />
             </template>
             View on GitHub
-          </va-button>
+          </VaButton>
 
-          <va-button
+          <VaButton
             class="admin__buttons--button"
             href="https://vuestic.epicmax.co/admin/dashboard"
             target="blank"
             :preset="breakpoint.xs ? `primary` : `secondary`"
           >
             Live Demo
-          </va-button>
+          </VaButton>
 
           <div class="admin__buttons--button stars-button">
-            <landing-stars-button
+            <LandingStarsButton
               repo="epicmaxco/vuestic-admin"
               border-radius="0.5rem"
             />

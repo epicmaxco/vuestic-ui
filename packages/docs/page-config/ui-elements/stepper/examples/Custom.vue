@@ -1,9 +1,9 @@
 <template>
-  <va-stepper
+  <VaStepper
     v-model="step"
     :steps="steps"
     color="danger"
-    controlsHidden
+    controls-hidden
   >
     <template #divider>
       <div class="divider gradient" />
@@ -22,7 +22,7 @@
         }"
         @click="setStep(i)"
       >
-        <va-icon :name="step.icon" />
+        <VaIcon :name="step.icon" />
         {{ step.label }}
       </div>
     </template>
@@ -54,11 +54,17 @@
     </template>
 
     <template #controls="{ nextStep, prevStep, setStep }">
-      <va-button @click="prevStep()">Previous</va-button>
-      <va-button @click="nextStep()">Next</va-button>
-      <va-button @click="setStep(steps.length - 1)">Go to last step</va-button>
+      <VaButton @click="prevStep()">
+        Previous
+      </VaButton>
+      <VaButton @click="nextStep()">
+        Next
+      </VaButton>
+      <VaButton @click="setStep(steps.length - 1)">
+        Go to last step
+      </VaButton>
     </template>
-  </va-stepper>
+  </VaStepper>
 </template>
 
 <script setup lang="ts">

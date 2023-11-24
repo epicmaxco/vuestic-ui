@@ -14,7 +14,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <va-collapse
+  <VaCollapse
     class="page-config-collapse"
     :header="header"
     flat
@@ -22,7 +22,7 @@ const props = defineProps({
     <div class="page-config-collapse__content p-6">
       <PageConfigBlocks :blocks="blocks" />
     </div>
-  </va-collapse>
+  </VaCollapse>
 </template>
 
 <style lang="scss" scoped>

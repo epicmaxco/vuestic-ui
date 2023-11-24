@@ -1,15 +1,15 @@
 <template>
   <div class="my-8 flex flex-col lg4">
     <p class="example-item">
-      <va-icon name="home" />
+      <VaIcon name="home" />
       <span class="float-right">I'm a list item</span>
     </p>
-    <va-divider inset />
+    <VaDivider inset />
     <p class="example-item">
-      <va-icon name="home" />
+      <VaIcon name="home" />
       <span class="float-right">I'm a list item</span>
     </p>
-    <va-divider inset />
+    <VaDivider inset />
   </div>
 </template>
 

@@ -1,18 +1,18 @@
 <template>
   <div class="flex gap-8 flex-wrap">
-    <va-switch
+    <VaSwitch
       v-model="value"
       color="success"
     />
-    <va-switch
+    <VaSwitch
       v-model="value"
       color="info"
     />
-    <va-switch
+    <VaSwitch
       v-model="value"
       color="danger"
     />
-    <va-switch
+    <VaSwitch
       v-model="value"
       color="warning"
     />

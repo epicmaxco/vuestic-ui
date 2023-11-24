@@ -1,5 +1,7 @@
 <template>
-  <va-button @click="onButtonClick">Show confirm</va-button>
+  <VaButton @click="onButtonClick">
+    Show confirm
+  </VaButton>
 </template>
 
 <script setup lang="ts">

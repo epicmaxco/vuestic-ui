@@ -1,5 +1,5 @@
 <template>
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     toggle-color="textPrimary"
     color="#7e06ae"

@@ -1,11 +1,11 @@
 <template>
   <div class="h-[300px] w-full">
-    <ag-grid-vue
+    <AgGridVue
       class="ag-theme-vuestic w-full h-full"
-      :columnDefs="columnDefs"
-      :rowData="rowData"
-      :pinnedTopRowData="pinnedTopRowData"
-      :pinnedBottomRowData="pinnedBottomRowData"
+      :column-defs="columnDefs"
+      :row-data="rowData"
+      :pinned-top-row-data="pinnedTopRowData"
+      :pinned-bottom-row-data="pinnedBottomRowData"
       :modules="modules"
     />
   </div>

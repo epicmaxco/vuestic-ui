@@ -6,14 +6,14 @@
     :slots="slots"
   >
     <div>
-      <va-badge v-bind="bind">
-        <va-button
+      <VaBadge v-bind="bind">
+        <VaButton
           v-if="bind.withContent"
           size="small"
         >
           Button
-        </va-button>
-      </va-badge>
+        </VaButton>
+      </VaBadge>
     </div>
   </ComponentPlayground>
 </template>

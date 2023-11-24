@@ -1,5 +1,5 @@
 <template>
-  <va-textarea v-model="value" />
+  <VaTextarea v-model="value" />
 </template>
 
 <script>

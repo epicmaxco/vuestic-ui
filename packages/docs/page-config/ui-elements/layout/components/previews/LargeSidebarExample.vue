@@ -35,7 +35,7 @@
           />
         </template>
       </VaNavbar>
-      <va-divider style="margin: 0" />
+      <VaDivider style="margin: 0" />
     </template>
 
     <template #left>

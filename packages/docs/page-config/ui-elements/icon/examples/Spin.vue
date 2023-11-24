@@ -1,10 +1,10 @@
 <template>
-  <va-icon
+  <VaIcon
     class="mr-2"
     name="loop"
     spin="counter-clockwise"
   />
-  <va-icon
+  <VaIcon
     class="mr-2"
     name="home"
     spin

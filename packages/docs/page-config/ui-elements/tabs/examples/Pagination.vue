@@ -1,29 +1,29 @@
 <template>
-  <va-tabs
+  <VaTabs
     v-model="value"
     class="w-[280px]"
   >
     <template #tabs>
-      <va-tab
+      <VaTab
         v-for="title in ['One', 'Two', 'Three']"
         :key="title"
         :name="title"
       >
         {{ title }}
-      </va-tab>
-      <va-tab
+      </VaTab>
+      <VaTab
         icon="home"
         label="Tab with icon"
         name="icon"
       />
-      <va-tab
+      <VaTab
         icon="face"
         label="Disabled tab"
         disabled
         name="disabled"
       />
     </template>
-  </va-tabs>
+  </VaTabs>
 </template>
 
 <script>

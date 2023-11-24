@@ -3,7 +3,7 @@
     {{ value.getHours() }}:{{ value.getMinutes() }}:{{ value.getSeconds() }}
   </h6>
 
-  <va-time-picker v-model="value" />
+  <VaTimePicker v-model="value" />
 </template>
 
 <script>

@@ -1,12 +1,12 @@
 <template>
   <div class="flex gap-8 flex-wrap">
     <div class="flex gap-8 flex-wrap">
-      <va-counter
+      <VaCounter
         v-model="value"
         readonly
       />
 
-      <va-counter
+      <VaCounter
         v-model="value"
         buttons
         readonly
@@ -14,12 +14,12 @@
     </div>
 
     <div class="flex gap-8 flex-wrap">
-      <va-counter
+      <VaCounter
         v-model="value"
         disabled
       />
 
-      <va-counter
+      <VaCounter
         v-model="value"
         buttons
         disabled

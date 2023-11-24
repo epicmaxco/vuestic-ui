@@ -1,19 +1,19 @@
 <template>
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     color="primary"
     :options="options"
     class="mb-6"
   />
 
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     color="success"
     :options="options"
     class="mb-6"
   />
 
-  <va-button-toggle
+  <VaButtonToggle
     v-model="model"
     color="warning"
     :options="options"

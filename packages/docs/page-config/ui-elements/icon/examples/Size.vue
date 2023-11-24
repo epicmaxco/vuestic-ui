@@ -1,24 +1,24 @@
 <template>
-  <va-icon
+  <VaIcon
     class="mr-2"
     name="home"
     size="small"
   />
-  <va-icon
+  <VaIcon
     class="mr-2"
     name="home"
   />
-  <va-icon
+  <VaIcon
     class="mr-2"
     name="home"
     size="large"
   />
-  <va-icon
+  <VaIcon
     class="mr-2"
     name="home"
     :size="44"
   />
-  <va-icon
+  <VaIcon
     class="mr-2"
     name="home"
     size="4rem"

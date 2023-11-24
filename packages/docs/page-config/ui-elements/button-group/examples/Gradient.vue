@@ -1,30 +1,30 @@
 <template>
   <div class="flex flex-wrap gap-6 mb-6">
-    <va-button-group
+    <VaButtonGroup
       gradient
       color="danger"
     >
-      <va-button>One</va-button>
-      <va-button>Two</va-button>
-      <va-button>Three</va-button>
-    </va-button-group>
+      <VaButton>One</VaButton>
+      <VaButton>Two</VaButton>
+      <VaButton>Three</VaButton>
+    </VaButtonGroup>
 
-    <va-button-group
+    <VaButtonGroup
       gradient
       color="info"
     >
-      <va-button>One</va-button>
-      <va-button>Two</va-button>
-      <va-button>Three</va-button>
-    </va-button-group>
+      <VaButton>One</VaButton>
+      <VaButton>Two</VaButton>
+      <VaButton>Three</VaButton>
+    </VaButtonGroup>
 
-    <va-button-group
+    <VaButtonGroup
       gradient
       color="#FFD166"
     >
-      <va-button>One</va-button>
-      <va-button>Two</va-button>
-      <va-button>Three</va-button>
-    </va-button-group>
+      <VaButton>One</VaButton>
+      <VaButton>Two</VaButton>
+      <VaButton>Three</VaButton>
+    </VaButtonGroup>
   </div>
 </template>

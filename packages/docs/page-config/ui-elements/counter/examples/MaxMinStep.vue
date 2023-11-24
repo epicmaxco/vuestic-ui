@@ -1,6 +1,6 @@
 <template>
   <div class="flex gap-8 flex-wrap">
-    <va-counter
+    <VaCounter
       v-model="value"
       :min="-100"
       :max="100"
@@ -8,7 +8,7 @@
       messages="-100 to 100 with step=10"
     />
 
-    <va-counter
+    <VaCounter
       v-model="value"
       manual-input
       :min="-100"

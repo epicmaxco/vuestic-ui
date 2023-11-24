@@ -11,7 +11,7 @@
         <tr class="DocsTable__table__row">
           <td>Chrome</td>
           <td>
-            <va-icon
+            <VaIcon
               name="check"
               color="primary"
             />
@@ -20,7 +20,7 @@
         <tr class="DocsTable__table__row">
           <td>Edge</td>
           <td>
-            <va-icon
+            <VaIcon
               name="check"
               color="primary"
             />
@@ -29,7 +29,7 @@
         <tr class="DocsTable__table__row">
           <td>Firefox</td>
           <td>
-            <va-icon
+            <VaIcon
               name="check"
               color="primary"
             />
@@ -38,7 +38,7 @@
         <tr class="DocsTable__table__row">
           <td>Safari 10+</td>
           <td>
-            <va-icon
+            <VaIcon
               name="check"
               color="primary"
             />
@@ -49,7 +49,7 @@
             IE11
           </td>
           <td>
-            <va-icon
+            <VaIcon
               name="block"
               color="backgroundBorder"
             />
@@ -60,7 +60,7 @@
             Safari 9
           </td>
           <td>
-            <va-icon
+            <VaIcon
               name="block"
               color="backgroundBorder"
             />

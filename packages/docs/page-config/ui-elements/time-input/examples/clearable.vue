@@ -1,24 +1,24 @@
 <template>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
-    <va-time-input
+    <VaTimeInput
       v-model="value"
       clearable
       label="Clearable"
     />
-    <va-time-input
+    <VaTimeInput
       v-model="value"
       left-icon
       clearable
       label="With leftIcon"
     />
-    <va-time-input
+    <VaTimeInput
       v-model="value"
       clearable
       clearable-icon="cancel"
       color="textPrimary"
       label="With custom icon and color"
     />
-    <va-time-input
+    <VaTimeInput
       v-model="value"
       clearable
       readonly

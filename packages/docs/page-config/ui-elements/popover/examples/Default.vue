@@ -1,5 +1,5 @@
 <template>
-  <va-popover message="Popover text">
-    <va-button>Hover me</va-button>
-  </va-popover>
+  <VaPopover message="Popover text">
+    <VaButton>Hover me</VaButton>
+  </VaPopover>
 </template>

@@ -1,23 +1,23 @@
 <template>
-  <va-button
+  <VaButton
     class="mr-6 mb-2"
     loading
     size="small"
   >
     Button
-  </va-button>
-  <va-button
+  </VaButton>
+  <VaButton
     class="mr-6 mb-2"
     loading
     size="medium"
   >
     Button
-  </va-button>
-  <va-button
+  </VaButton>
+  <VaButton
     class="mr-6 mb-2"
     loading
     size="large"
   >
     Button
-  </va-button>
+  </VaButton>
 </template>

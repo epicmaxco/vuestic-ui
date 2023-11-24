@@ -7,16 +7,16 @@
         </h1>
 
         <div class="preview__buttons">
-          <va-button
+          <VaButton
             class="preview__buttons--button"
             color="textInverted"
             text-color="primary"
             to="/getting-started/installation"
           >
             Get Started
-          </va-button>
+          </VaButton>
 
-          <va-button
+          <VaButton
             class="preview__buttons--button"
             :preset="breakpoint.xs ? `primary` : `secondary`"
             text-color="textInverted"
@@ -24,22 +24,22 @@
             target="_blank"
           >
             <template #prepend>
-              <va-icon
+              <VaIcon
                 class="fa-brands fa-github"
                 style="margin-right: 0.5rem;"
               />
             </template>
             View on GitHub
-          </va-button>
+          </VaButton>
         </div>
 
         <div class="preview__features">
-          <va-aspect-ratio :ratio="1024/316">
+          <VaAspectRatio :ratio="1024/316">
             <img
               src="/landing/preview-features.png"
               alt="Component examples"
             >
-          </va-aspect-ratio>
+          </VaAspectRatio>
         </div>
       </div>
     </div>

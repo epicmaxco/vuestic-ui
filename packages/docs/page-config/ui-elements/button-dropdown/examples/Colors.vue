@@ -1,20 +1,20 @@
 <template>
-  <va-button-dropdown
+  <VaButtonDropdown
     class="mr-2 mb-2"
     color="warning"
     label="warning with gradient"
     gradient
   >
     Content
-  </va-button-dropdown>
-  <va-button-dropdown
+  </VaButtonDropdown>
+  <VaButtonDropdown
     class="mr-2 mb-2"
     color="danger"
     label="danger"
   >
     Content
-  </va-button-dropdown>
-  <va-button-dropdown
+  </VaButtonDropdown>
+  <VaButtonDropdown
     class="mr-2 mb-2"
     preset="primary"
     color="#525252"
@@ -23,21 +23,21 @@
     split
   >
     Content
-  </va-button-dropdown>
-  <va-button-dropdown
+  </VaButtonDropdown>
+  <VaButtonDropdown
     preset="secondary"
     color="info"
     label="info"
     split
   >
     Content
-  </va-button-dropdown>
-  <va-button-dropdown
+  </VaButtonDropdown>
+  <VaButtonDropdown
     preset="plain"
     color="success"
     label="success"
     split
   >
     Content
-  </va-button-dropdown>
+  </VaButtonDropdown>
 </template>

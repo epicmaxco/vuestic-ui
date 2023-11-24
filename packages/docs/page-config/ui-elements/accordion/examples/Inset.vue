@@ -1,10 +1,10 @@
 <template>
-  <va-accordion
+  <VaAccordion
     v-model="value"
     class="max-w-sm"
     inset
   >
-    <va-collapse
+    <VaCollapse
       v-for="(collapse, index) in collapses"
       :key="index"
       :header="collapse.title"
@@ -12,8 +12,8 @@
       <div>
         {{ collapse.content }}
       </div>
-    </va-collapse>
-  </va-accordion>
+    </VaCollapse>
+  </VaAccordion>
 </template>
 
 <script>

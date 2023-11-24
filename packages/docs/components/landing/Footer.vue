@@ -37,7 +37,7 @@
         </div>
 
         <div class="footer__buttons">
-          <va-button
+          <VaButton
             v-for="{ href, icon, label } in buttons"
             :key="label"
             class="footer__buttons__button"
@@ -47,13 +47,13 @@
             size="large"
           >
             <template #prepend>
-              <va-icon
+              <VaIcon
                 class="footer__buttons__icon"
                 :component="icon"
               />
             </template>
             {{ label }}
-          </va-button>
+          </VaButton>
         </div>
 
         <SocialsLinks class="footer__socials" />

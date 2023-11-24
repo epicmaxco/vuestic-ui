@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col">
-    <va-checkbox
+    <VaCheckbox
       v-model="value"
       class="mb-6"
       color="primary"
       label="Primary"
     />
-    <va-checkbox
+    <VaCheckbox
       v-model="value"
       color="#9c27b0"
       label="Custom color with icon"

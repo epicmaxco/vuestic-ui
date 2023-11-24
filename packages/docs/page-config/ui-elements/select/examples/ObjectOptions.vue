@@ -1,13 +1,13 @@
 <template>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="Default"
       :options="options"
     />
 
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="Text by"
@@ -15,7 +15,7 @@
       text-by="textBy"
     />
 
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="Text by (function)"
@@ -23,7 +23,7 @@
       :text-by="(option) => option.textBy"
     />
 
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="value by"
@@ -31,7 +31,7 @@
       value-by="valueBy"
     />
 
-    <va-select
+    <VaSelect
       v-model="value"
       class="mb-6"
       label="value by (function)"
@@ -39,12 +39,12 @@
       :value-by="(option) => option.valueBy"
     />
   </div>
-  <va-alert color="info">
+  <VaAlert color="info">
     <template #title>
       Value
     </template>
     {{ value }}
-  </va-alert>
+  </VaAlert>
 </template>
 
 <script>

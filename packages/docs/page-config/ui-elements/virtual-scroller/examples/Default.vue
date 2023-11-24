@@ -1,15 +1,15 @@
 <template>
-  <va-virtual-scroller
+  <VaVirtualScroller
     v-slot="{ item, index }"
     :items="hugeArray"
     :wrapper-size="200"
   >
-    <va-badge
+    <VaBadge
       class="pb-2"
       color="textPrimary"
       :text="`item ${item} with index ${index}`"
     />
-  </va-virtual-scroller>
+  </VaVirtualScroller>
 </template>
 
 <script>

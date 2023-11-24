@@ -1,21 +1,21 @@
 <template>
-  <va-card>
-    <va-card-title>My Card</va-card-title>
-    <va-card-content class="flex gap-8 flex-col">
-      <va-input
+  <VaCard>
+    <VaCardTitle>My Card</VaCardTitle>
+    <VaCardContent class="flex gap-8 flex-col">
+      <VaInput
         v-model="input"
         label="My Input"
       />
-      <va-select
+      <VaSelect
         v-model="select"
         :options="['one', 'two', 'three']"
         label="My Select"
       />
-    </va-card-content>
-    <va-card-actions align="right">
-      <va-button>My Button</va-button>
-    </va-card-actions>
-  </va-card>
+    </VaCardContent>
+    <VaCardActions align="right">
+      <VaButton>My Button</VaButton>
+    </VaCardActions>
+  </VaCard>
 </template>
 
 <script>

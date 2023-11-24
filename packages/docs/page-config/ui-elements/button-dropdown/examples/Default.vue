@@ -1,35 +1,35 @@
 <template>
   <div class="flex items-center">
-    <va-button-dropdown
+    <VaButtonDropdown
       label="label"
       class="mr-2 mb-2"
     >
       Content
-    </va-button-dropdown>
-    <va-button-dropdown
+    </VaButtonDropdown>
+    <VaButtonDropdown
       preset="primary"
       class="mr-2 mb-2"
     >
       Button without label
-    </va-button-dropdown>
-    <va-button-dropdown
+    </VaButtonDropdown>
+    <VaButtonDropdown
       preset="secondary"
       class="mr-2 mb-2"
       round
     >
       Button without label
-    </va-button-dropdown>
-    <va-button-dropdown
+    </VaButtonDropdown>
+    <VaButtonDropdown
       preset="plain"
       class="mr-2 mb-2"
     >
       <template #label>
-        <va-icon
+        <VaIcon
           class="fa fa-shopping-cart"
           size="small"
         />
       </template>
       Button with custom label
-    </va-button-dropdown>
+    </VaButtonDropdown>
   </div>
 </template>

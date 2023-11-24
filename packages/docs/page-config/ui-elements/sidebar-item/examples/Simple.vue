@@ -1,21 +1,21 @@
 <template>
-  <va-sidebar-item>
-    <va-sidebar-item-content>
-      <va-sidebar-item-title> I'm default </va-sidebar-item-title>
-    </va-sidebar-item-content>
-  </va-sidebar-item>
+  <VaSidebarItem>
+    <VaSidebarItemContent>
+      <VaSidebarItemTitle> I'm default </VaSidebarItemTitle>
+    </VaSidebarItemContent>
+  </VaSidebarItem>
 
-  <va-sidebar-item>
-    <va-sidebar-item-content>
-      <va-sidebar-item-title class="text-center">
+  <VaSidebarItem>
+    <VaSidebarItemContent>
+      <VaSidebarItemTitle class="text-center">
         I'm centered!
-      </va-sidebar-item-title>
-    </va-sidebar-item-content>
-  </va-sidebar-item>
+      </VaSidebarItemTitle>
+    </VaSidebarItemContent>
+  </VaSidebarItem>
 
-  <va-sidebar-item active>
-    <va-sidebar-item-content>
-      <va-sidebar-item-title> I'm active </va-sidebar-item-title>
-    </va-sidebar-item-content>
-  </va-sidebar-item>
+  <VaSidebarItem active>
+    <VaSidebarItemContent>
+      <VaSidebarItemTitle> I'm active </VaSidebarItemTitle>
+    </VaSidebarItemContent>
+  </VaSidebarItem>
 </template>

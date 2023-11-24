@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col gap-2">
-    <va-progress-bar
+    <VaProgressBar
       :model-value="50"
       color="danger"
     />
 
-    <va-progress-bar
+    <VaProgressBar
       :model-value="35"
       color="#a1a1a1"
     />

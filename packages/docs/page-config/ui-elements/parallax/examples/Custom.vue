@@ -1,5 +1,5 @@
 <template>
-  <va-parallax
+  <VaParallax
     :src="imageSrc"
     :height="200"
     :speed="1"

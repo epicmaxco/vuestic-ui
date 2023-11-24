@@ -1,7 +1,7 @@
 <template>
-  <va-avatar class="mr-6">
+  <VaAvatar class="mr-6">
     A
-  </va-avatar>
+  </VaAvatar>
 
-  <va-avatar> J.K. </va-avatar>
+  <VaAvatar> J.K. </VaAvatar>
 </template>

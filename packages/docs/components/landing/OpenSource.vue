@@ -18,9 +18,9 @@
             >
               issues
             </a>,
-            <router-link to="/contribution/documentation-page">
+            <RouterLink to="/contribution/documentation-page">
               contributing guide
-            </router-link>
+            </RouterLink>
             and
             <a
               href="https://discord.gg/u7fQdqQt8c"

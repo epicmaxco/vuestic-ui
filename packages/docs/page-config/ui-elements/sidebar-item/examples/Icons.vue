@@ -1,34 +1,34 @@
 <template>
-  <va-sidebar-item>
-    <va-sidebar-item-content>
-      <va-sidebar-item-title> Home </va-sidebar-item-title>
-      <va-icon name="home" />
-    </va-sidebar-item-content>
-  </va-sidebar-item>
+  <VaSidebarItem>
+    <VaSidebarItemContent>
+      <VaSidebarItemTitle> Home </VaSidebarItemTitle>
+      <VaIcon name="home" />
+    </VaSidebarItemContent>
+  </VaSidebarItem>
 
-  <va-sidebar-item active>
-    <va-sidebar-item-content>
-      <va-sidebar-item-title> Docs (I'm active) </va-sidebar-item-title>
-      <va-icon name="article" />
-    </va-sidebar-item-content>
-  </va-sidebar-item>
+  <VaSidebarItem active>
+    <VaSidebarItemContent>
+      <VaSidebarItemTitle> Docs (I'm active) </VaSidebarItemTitle>
+      <VaIcon name="article" />
+    </VaSidebarItemContent>
+  </VaSidebarItem>
 
-  <va-sidebar-item>
-    <va-sidebar-item-content>
-      <va-icon name="cake" />
-      <va-icon name="celebration" />
-      <va-sidebar-item-title class="text-center">
+  <VaSidebarItem>
+    <VaSidebarItemContent>
+      <VaIcon name="cake" />
+      <VaIcon name="celebration" />
+      <VaSidebarItemTitle class="text-center">
         GO TO PARTY!
-      </va-sidebar-item-title>
-      <va-icon name="cake" />
-      <va-icon name="celebration" />
-    </va-sidebar-item-content>
-  </va-sidebar-item>
+      </VaSidebarItemTitle>
+      <VaIcon name="cake" />
+      <VaIcon name="celebration" />
+    </VaSidebarItemContent>
+  </VaSidebarItem>
 
-  <va-sidebar-item>
-    <va-sidebar-item-content>
-      <va-sidebar-item-title> Something cool </va-sidebar-item-title>
-      <va-chip>New!</va-chip>
-    </va-sidebar-item-content>
-  </va-sidebar-item>
+  <VaSidebarItem>
+    <VaSidebarItemContent>
+      <VaSidebarItemTitle> Something cool </VaSidebarItemTitle>
+      <VaChip>New!</VaChip>
+    </VaSidebarItemContent>
+  </VaSidebarItem>
 </template>

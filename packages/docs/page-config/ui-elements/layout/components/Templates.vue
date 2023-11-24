@@ -113,9 +113,9 @@
             <VaButton
               :loading="copyButtonState === 'active'"
               :color="copyButtonState === 'error' ? 'danger' : 'primary'"
-              @click="copyCode"
               icon="fa4-files-o"
               preset="secondary"
+              @click="copyCode"
             >
               Copy code example to clipboard
             </VaButton>

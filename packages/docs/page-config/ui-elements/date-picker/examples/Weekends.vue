@@ -1,10 +1,10 @@
 <template>
   <div class="flex gap-5 flex-wrap">
-    <va-date-picker
+    <VaDatePicker
       stateful
       highlight-weekend
     />
-    <va-date-picker
+    <VaDatePicker
       stateful
       highlight-weekend
       :weekends="getWeekends"

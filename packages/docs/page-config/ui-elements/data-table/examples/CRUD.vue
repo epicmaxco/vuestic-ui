@@ -1,5 +1,5 @@
 <template>
-  <va-data-table
+  <VaDataTable
     class="table-crud"
     :items="items"
     :columns="columns"
@@ -12,39 +12,39 @@
           :key="key"
           class="p-1"
         >
-          <va-input
+          <VaInput
             v-model="createdItem[key]"
             :placeholder="key"
           />
         </th>
         <th class="p-1">
-          <va-button
+          <VaButton
             :disabled="!isNewData"
             block
             @click="addNewItem"
           >
             Add
-          </va-button>
+          </VaButton>
         </th>
       </tr>
     </template>
 
     <template #cell(actions)="{ rowIndex }">
-      <va-button
+      <VaButton
         preset="plain"
         icon="edit"
         @click="openModalToEditItemById(rowIndex)"
       />
-      <va-button
+      <VaButton
         preset="plain"
         icon="delete"
         class="ml-3"
         @click="deleteItemById(rowIndex)"
       />
     </template>
-  </va-data-table>
+  </VaDataTable>
 
-  <va-modal
+  <VaModal
     class="modal-crud"
     :model-value="!!editedItem"
     title="Edit item"
@@ -52,14 +52,14 @@
     @ok="editItem"
     @cancel="resetEditedItem"
   >
-    <va-input
+    <VaInput
       v-for="key in Object.keys(editedItem)"
       :key="key"
       v-model="editedItem[key]"
       class="my-6"
       :label="key"
     />
-  </va-modal>
+  </VaModal>
 </template>
 
 <script>

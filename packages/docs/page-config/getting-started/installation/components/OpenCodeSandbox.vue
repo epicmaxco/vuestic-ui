@@ -10,13 +10,13 @@
         name="parameters"
         :value="sandboxParams"
       >
-      <va-button
+      <VaButton
         type="submit"
         preset="secondary"
         border-color="primary"
       >
         Try Vuestic-UI on CodeSandbox
-      </va-button>
+      </VaButton>
     </form>
   </div>
 </template>

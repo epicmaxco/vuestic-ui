@@ -1,15 +1,15 @@
 <template>
   <div class="flex flex-wrap items-center gap-6 mb-6">
-    <va-button-group size="large">
-      <va-button>L1</va-button>
-      <va-button>L2</va-button>
-      <va-button>L3</va-button>
-    </va-button-group>
+    <VaButtonGroup size="large">
+      <VaButton>L1</VaButton>
+      <VaButton>L2</VaButton>
+      <VaButton>L3</VaButton>
+    </VaButtonGroup>
 
-    <va-button-group size="small">
-      <va-button>One</va-button>
-      <va-button>Two</va-button>
-      <va-button>Three</va-button>
-    </va-button-group>
+    <VaButtonGroup size="small">
+      <VaButton>One</VaButton>
+      <VaButton>Two</VaButton>
+      <VaButton>Three</VaButton>
+    </VaButtonGroup>
   </div>
 </template>

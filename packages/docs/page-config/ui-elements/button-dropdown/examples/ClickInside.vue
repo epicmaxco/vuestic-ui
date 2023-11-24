@@ -1,16 +1,16 @@
 <template>
-  <va-button-dropdown
+  <VaButtonDropdown
     class="mr-6"
     label="Will not close dropdown on click"
     :close-on-content-click="false"
   >
     Content
-  </va-button-dropdown>
+  </VaButtonDropdown>
 
-  <va-button-dropdown
+  <VaButtonDropdown
     label="Will close dropdown on click"
     :close-on-content-click="true"
   >
     Content
-  </va-button-dropdown>
+  </VaButtonDropdown>
 </template>

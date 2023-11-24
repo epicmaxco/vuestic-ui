@@ -45,9 +45,9 @@
             >
             <p class="features__item-description">
               Professional support: Fast and reliable assistance from
-              <router-link to="/introduction/team">
+              <RouterLink to="/introduction/team">
                 the core team
-              </router-link>
+              </RouterLink>
               &#160;&#x1fac2;
             </p>
           </div>

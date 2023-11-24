@@ -7,7 +7,7 @@
       linear
     >
       <template #step-content-0>
-        <va-input
+        <VaInput
           v-model="model.a"
           label="A"
           :rules="[
@@ -17,7 +17,7 @@
         />
       </template>
       <template #step-content-1>
-        <va-input
+        <VaInput
           v-model="model.b"
           label="B"
           :rules="[
@@ -27,13 +27,13 @@
         />
       </template>
       <template #step-content-2>
-        <va-input
+        <VaInput
           v-model="model.c"
           label="C"
         />
       </template>
       <template #step-content-3>
-        <va-input
+        <VaInput
           v-model="model.d"
           label="D"
           :rules="[

@@ -4,7 +4,7 @@
       ref="infiniteScrollTarget"
       class="flex flex-col md6 lg4 h-48"
     >
-      <va-infinite-scroll
+      <VaInfiniteScroll
         :load="appendRecordsAsyncRef"
         :scroll-target="$refs.infiniteScrollTarget"
       >
@@ -14,16 +14,16 @@
         >
           List item and some text #{{ index }}
         </div>
-      </va-infinite-scroll>
+      </VaInfiniteScroll>
     </div>
 
-    <va-divider vertical />
+    <VaDivider vertical />
 
     <div
       id="infinite-scroll-custom-target"
       class="flex flex-col md6 lg4 h-[200px]"
     >
-      <va-infinite-scroll
+      <VaInfiniteScroll
         :load="appendRecordsAsyncId"
         scroll-target="#infinite-scroll-custom-target"
       >
@@ -33,7 +33,7 @@
         >
           List item and some text #{{ index }}
         </div>
-      </va-infinite-scroll>
+      </VaInfiniteScroll>
     </div>
   </div>
 </template>

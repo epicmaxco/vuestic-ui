@@ -1,16 +1,16 @@
 <template>
-  <va-sidebar-item
+  <VaSidebarItem
     v-for="(route, idx) in items"
     :key="idx"
     :active="isRouteActive(route)"
     @click="setRouteActive(route)"
   >
-    <va-sidebar-item-content>
-      <va-sidebar-item-title>
+    <VaSidebarItemContent>
+      <VaSidebarItemTitle>
         {{ route.name }}
-      </va-sidebar-item-title>
-    </va-sidebar-item-content>
-  </va-sidebar-item>
+      </VaSidebarItemTitle>
+    </VaSidebarItemContent>
+  </VaSidebarItem>
 </template>
 
 <script lang="ts">

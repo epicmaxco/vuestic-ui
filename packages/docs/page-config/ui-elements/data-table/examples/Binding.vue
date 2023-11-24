@@ -1,17 +1,17 @@
 <template>
   <div class="flex flex-wrap gap-6 mb-6">
-    <va-checkbox
+    <VaCheckbox
       v-model="isRowBind"
       label="Row bind"
     />
 
-    <va-checkbox
+    <VaCheckbox
       v-model="isCellBind"
       label="Cell bind"
     />
   </div>
 
-  <va-data-table
+  <VaDataTable
     :items="items"
     :columns="columns"
     selectable

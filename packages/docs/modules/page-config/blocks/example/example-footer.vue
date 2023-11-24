@@ -1,6 +1,6 @@
 <template>
   <div class="docs-navigation">
-    <va-button
+    <VaButton
       v-if="!hideShowCodeButton"
       preset="secondary"
       size="small"
@@ -8,30 +8,30 @@
       color="secondary"
       @click="showCodeComputed = !showCodeComputed"
     >
-      <va-icon
+      <VaIcon
         class="docs-navigation__button__icon"
         name="fa4-code"
         size="13px"
       />
       <span class="docs-navigation__button__text"> {{ showCode ? 'Hide Code' : 'Show Code' }}</span>
-    </va-button>
+    </VaButton>
 
-    <va-button
+    <VaButton
       preset="secondary"
       size="small"
       class="docs-navigation__button"
       color="secondary"
       @click="copy"
     >
-      <va-icon
+      <VaIcon
         class="docs-navigation__button__icon"
         :name="copyButton.icon"
         size="13px"
       />
       <span class="docs-navigation__button__text">{{ copyButton.text }}</span>
-    </va-button>
+    </VaButton>
 
-    <va-button
+    <VaButton
       preset="secondary"
       size="small"
       class="docs-navigation__button"
@@ -39,12 +39,12 @@
       :href="gitLink"
       target="_blank"
     >
-      <va-icon
+      <VaIcon
         class="docs-navigation__button__icon fa fa-github"
         size="13px"
       />
       <span class="docs-navigation__button__text">Open in GitHub</span>
-    </va-button>
+    </VaButton>
 
     <form
       :action="sandboxDefineUrl"
@@ -56,14 +56,14 @@
         name="parameters"
         :value="sandboxParams"
       >
-      <va-button
+      <VaButton
         preset="secondary"
         type="submit"
         size="small"
         class="docs-navigation__button"
         color="secondary"
       >
-        <va-icon
+        <VaIcon
           class="docs-navigation__button__icon"
           size="13px"
         >
@@ -97,9 +97,9 @@
               y2="12"
             />
           </svg>
-        </va-icon>
+        </VaIcon>
         <span class="docs-navigation__button__text">Open in CodeSandbox</span>
-      </va-button>
+      </VaButton>
     </form>
   </div>
 </template>

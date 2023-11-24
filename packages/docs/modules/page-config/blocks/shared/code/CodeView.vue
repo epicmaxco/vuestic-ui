@@ -1,20 +1,20 @@
 <template>
   <div>
-    <va-tabs
+    <VaTabs
       v-if="!isString"
       v-model="index"
       class="DocsCode__tabs"
     >
       <template #tabs>
-        <va-tab
+        <VaTab
           v-for="tab in tabs"
           :key="tab"
         >
           {{ tab }}
-        </va-tab>
+        </VaTab>
       </template>
-    </va-tabs>
-    <code-highlight-wrapper
+    </VaTabs>
+    <CodeHighlightWrapper
       :code="escapeVuesticImport(contents[index])"
       :lang="$props.language"
       class="DocsCode va-typography-block"

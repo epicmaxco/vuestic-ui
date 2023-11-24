@@ -1,22 +1,22 @@
 <template>
   <div class="h-52">
-    <va-sidebar
+    <VaSidebar
       hoverable
       minimized-width="64px"
     >
-      <va-sidebar-item
+      <VaSidebarItem
         v-for="item in items"
         :key="item.title"
         :active="item.active"
       >
-        <va-sidebar-item-content>
-          <va-icon :name="item.icon" />
-          <va-sidebar-item-title>
+        <VaSidebarItemContent>
+          <VaIcon :name="item.icon" />
+          <VaSidebarItemTitle>
             {{ item.title }}
-          </va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
-    </va-sidebar>
+          </VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
+    </VaSidebar>
   </div>
 </template>
 

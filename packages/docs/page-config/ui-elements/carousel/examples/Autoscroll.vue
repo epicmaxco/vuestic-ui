@@ -1,6 +1,6 @@
 <template>
   <h6>Default</h6>
-  <va-carousel
+  <VaCarousel
     :items="items"
     stateful
     autoscroll
@@ -8,10 +8,10 @@
     <template #default="{ index }">
       {{ index + 1 }}
     </template>
-  </va-carousel>
+  </VaCarousel>
 
   <h6>Infinite</h6>
-  <va-carousel
+  <VaCarousel
     :items="items"
     stateful
     autoscroll
@@ -20,10 +20,10 @@
     <template #default="{ index }">
       {{ index + 1 }}
     </template>
-  </va-carousel>
+  </VaCarousel>
 
   <h6>Slow</h6>
-  <va-carousel
+  <VaCarousel
     :items="items"
     stateful
     autoscroll
@@ -32,7 +32,7 @@
     <template #default="{ index }">
       {{ index + 1 }}
     </template>
-  </va-carousel>
+  </VaCarousel>
 </template>
 
 <script>

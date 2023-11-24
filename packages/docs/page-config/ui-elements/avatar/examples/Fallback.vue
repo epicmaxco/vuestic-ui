@@ -1,9 +1,9 @@
 <template>
-  <va-avatar
+  <VaAvatar
     src="https://not-exist"
     class="mr-6"
   />
-  <va-avatar
+  <VaAvatar
     src="https://not-exist"
     fallback-icon="warning"
   />

@@ -1,14 +1,14 @@
 <template>
-  <va-inner-loading
+  <VaInnerLoading
     loading
     icon="home"
   >
-    <va-card>
-      <va-card-title>Title</va-card-title>
-      <va-card-content>
+    <VaCard>
+      <VaCardTitle>Title</VaCardTitle>
+      <VaCardContent>
         Lorem ipsum dolor sit amet, consectetur adipiscing
         elit.
-      </va-card-content>
-    </va-card>
-  </va-inner-loading>
+      </VaCardContent>
+    </VaCard>
+  </VaInnerLoading>
 </template>

@@ -1,28 +1,28 @@
 <template>
-  <va-button @click="showCustomContent = !showCustomContent">
+  <VaButton @click="showCustomContent = !showCustomContent">
     Show custom content modal (with image)
-  </va-button>
+  </VaButton>
 
-  <va-modal
+  <VaModal
     v-model="showCustomContent"
     no-padding
   >
     <template #content="{ ok }">
-      <va-image
+      <VaImage
         :ratio="16 / 9"
         src="https://picsum.photos/1500"
       />
-      <va-card-content>
+      <VaCardContent>
         Classic modal overlay which represents a dialog box or other interactive
         component, such as a dismissible alert, sub-window, etc.
-      </va-card-content>
-      <va-card-actions>
-        <va-button @click="ok">
+      </VaCardContent>
+      <VaCardActions>
+        <VaButton @click="ok">
           Apply
-        </va-button>
-      </va-card-actions>
+        </VaButton>
+      </VaCardActions>
     </template>
-  </va-modal>
+  </VaModal>
 </template>
 
 <script>

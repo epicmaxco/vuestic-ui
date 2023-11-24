@@ -1,13 +1,13 @@
 <template>
   <div class="grid gap-10">
-    <va-data-table
+    <VaDataTable
       :items="items"
       sticky-header
       footer-clone
       height="180px"
     />
 
-    <va-data-table
+    <VaDataTable
       :items="items"
       :style="{
         '--va-data-table-height': '300px',
@@ -20,7 +20,7 @@
       sticky-footer
     />
 
-    <va-data-table
+    <VaDataTable
       class="custom-table"
       :items="items"
       height="100%"
@@ -33,10 +33,12 @@
     >
       <template #headerPrepend>
         <tr>
-          <th colspan="6">With scroll events</th>
+          <th colspan="6">
+            With scroll events
+          </th>
         </tr>
       </template>
-    </va-data-table>
+    </VaDataTable>
   </div>
 </template>
 

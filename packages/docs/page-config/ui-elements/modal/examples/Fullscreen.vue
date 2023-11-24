@@ -1,9 +1,9 @@
 <template>
-  <va-button @click="showModal = !showModal">
+  <VaButton @click="showModal = !showModal">
     Show modal (fullscreen)
-  </va-button>
+  </VaButton>
 
-  <va-modal
+  <VaModal
     v-model="showModal"
     fullscreen
     :message="message"
@@ -19,7 +19,7 @@
         component, such as a dismissible alert, sub-window, etc.
       </p>
 
-      <va-image
+      <VaImage
         src="https://picsum.photos/1500"
         :ratio="16 / 9"
       />
@@ -30,12 +30,12 @@
         a message in the modal's footer.
       </p>
 
-      <va-alert>
+      <VaAlert>
         Notice that on mobile devices, the modal will be displayed in fullscreen
         by default.
-      </va-alert>
+      </VaAlert>
     </div>
-  </va-modal>
+  </VaModal>
 </template>
 
 <script>

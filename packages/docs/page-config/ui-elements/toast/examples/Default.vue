@@ -1,26 +1,26 @@
 <template>
-  <va-button
+  <VaButton
     class="mr-2 mb-2"
     @click="$vaToast.init('Hello')"
   >
     Basic notification
-  </va-button>
+  </VaButton>
 
-  <va-button
+  <VaButton
     class="mr-2 mb-2"
     @click="$vaToast.init({ message: getMessage })"
   >
     Message from function
-  </va-button>
+  </VaButton>
 
-  <va-button
+  <VaButton
     class="mr-2 mb-2"
     @click="$vaToast.init({ render: getComponent })"
   >
     Message from render
-  </va-button>
+  </VaButton>
 
-  <va-button
+  <VaButton
     class="mb-2"
     @click="
       $vaToast.init({
@@ -31,7 +31,7 @@
     "
   >
     Message from html
-  </va-button>
+  </VaButton>
 </template>
 
 <script>

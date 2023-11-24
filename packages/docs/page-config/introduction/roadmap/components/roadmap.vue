@@ -11,14 +11,14 @@
             {{ col.title }}
           </h5>
 
-          <va-card
+          <VaCard
             v-for="item in col.items"
             :key="item.title"
             :href="item.link"
             target="_blank"
             text-color="primary"
           >
-            <va-card-content class="px-6 py-2">
+            <VaCardContent class="px-6 py-2">
               <h6 class="link">
                 {{ item.title }}
               </h6>
@@ -32,8 +32,8 @@
                   class="w-full min-h-[100px]"
                 />
               </div>
-            </va-card-content>
-          </va-card>
+            </VaCardContent>
+          </VaCard>
         </div>
       </div>
     </div>

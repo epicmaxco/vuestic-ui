@@ -1,3 +1,3 @@
 <template>
-  <va-chip>default</va-chip>
+  <VaChip>default</VaChip>
 </template>

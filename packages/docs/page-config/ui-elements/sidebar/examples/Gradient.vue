@@ -2,26 +2,26 @@
   <div
     class="mb-6 h-64"
   >
-    <va-sidebar
+    <VaSidebar
       color="primary"
       gradient
       minimized-width="64px"
       width="18rem"
     >
-      <va-sidebar-item
+      <VaSidebarItem
         v-for="item in items"
         :key="item.title"
         :active="item.active"
         active-color="backgroundPrimary"
       >
-        <va-sidebar-item-content>
-          <va-icon :name="item.icon" />
-          <va-sidebar-item-title>
+        <VaSidebarItemContent>
+          <VaIcon :name="item.icon" />
+          <VaSidebarItemTitle>
             {{ item.title }}
-          </va-sidebar-item-title>
-        </va-sidebar-item-content>
-      </va-sidebar-item>
-    </va-sidebar>
+          </VaSidebarItemTitle>
+        </VaSidebarItemContent>
+      </VaSidebarItem>
+    </VaSidebar>
   </div>
 </template>
 

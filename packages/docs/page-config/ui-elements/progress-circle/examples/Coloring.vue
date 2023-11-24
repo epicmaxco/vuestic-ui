@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col gap-3">
-    <va-progress-circle
+    <VaProgressCircle
       :model-value="65"
       color="danger"
     />
-    <va-progress-circle
+    <VaProgressCircle
       :model-value="85"
       color="#a1a1a1"
     />

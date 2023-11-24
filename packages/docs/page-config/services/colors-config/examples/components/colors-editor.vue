@@ -7,7 +7,7 @@
     >
       <span class="name">{{ color.name }}:</span>
 
-      <va-color-palette
+      <VaColorPalette
         v-model="color.value"
         :palette="colorsPalette"
       />

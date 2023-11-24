@@ -1,26 +1,26 @@
 <template>
   <div class="cards">
-    <va-card class="card card-1">
-      <va-card-title>
+    <VaCard class="card card-1">
+      <VaCardTitle>
         <h3 class="va-h3 m-0">
           Get started
         </h3>
-      </va-card-title>
+      </VaCardTitle>
 
-      <va-card-content>
-        <va-input
+      <VaCardContent>
+        <VaInput
           stateful
           label="Email"
           class="mb-2"
         />
-        <va-input
+        <VaInput
           label="City"
           class="mb-2"
           :rules="[(v) => v.length > 3]"
           :model-value="'Kyiv'"
           success
         />
-        <va-select
+        <VaSelect
           stateful
           label="Country"
           class="mb-2"
@@ -28,26 +28,26 @@
           :error-messages="['Country is required']"
           error
         />
-      </va-card-content>
+      </VaCardContent>
 
-      <va-card-actions align="between">
-        <va-button
+      <VaCardActions align="between">
+        <VaButton
           preset="secondary"
           color="secondary"
         >
           Go back
-        </va-button>
-        <va-button>Login</va-button>
-      </va-card-actions>
-    </va-card>
+        </VaButton>
+        <VaButton>Login</VaButton>
+      </VaCardActions>
+    </VaCard>
 
-    <va-card class="card card-2">
-      <va-card-content>
+    <VaCard class="card card-2">
+      <VaCardContent>
         <table class="w-full">
           <tr>
             <td>Amount</td>
             <td>
-              <va-slider
+              <VaSlider
                 :model-value="40"
                 stateful
               />
@@ -55,12 +55,12 @@
           </tr>
           <tr>
             <td>Package</td>
-            <td><va-switch stateful /></td>
+            <td><VaSwitch stateful /></td>
           </tr>
           <tr>
             <td>Review</td>
             <td>
-              <va-rating
+              <VaRating
                 stateful
                 :model-value="4.5"
                 halves
@@ -68,69 +68,71 @@
             </td>
           </tr>
         </table>
-        <va-alert class="my-4" color="warning" icon="info">
+        <VaAlert class="my-4" color="warning" icon="info">
           You can't change your review after sending
-        </va-alert>
-        <va-checkbox
+        </VaAlert>
+        <VaCheckbox
           stateful
           label="I agree with all terms!!!"
         />
-      </va-card-content>
-      <va-divider />
-      <va-card-actions align="between">
+      </VaCardContent>
+      <VaDivider />
+      <VaCardActions align="between">
         <div />
-        <va-button>Send review</va-button>
-      </va-card-actions>
-    </va-card>
+        <VaButton>Send review</VaButton>
+      </VaCardActions>
+    </VaCard>
 
     <div class="card card-3">
-      <va-date-picker />
+      <VaDatePicker />
     </div>
 
     <div class="card card-4">
-      <va-sidebar>
-        <va-sidebar-item
+      <VaSidebar>
+        <VaSidebarItem
           v-for="item in ['Home', 'Cabinet', 'Gallery', 'Shop', 'Logout']"
           :key="item"
           :active="item === 'Shop'"
         >
-          <va-sidebar-item-content>{{ item }}</va-sidebar-item-content>
-        </va-sidebar-item>
-      </va-sidebar>
+          <VaSidebarItemContent>{{ item }}</VaSidebarItemContent>
+        </VaSidebarItem>
+      </VaSidebar>
     </div>
 
     <div class="card card-6">
-      <va-alert color="info">Read this information</va-alert>
+      <VaAlert color="info">
+        Read this information
+      </VaAlert>
     </div>
 
     <div class="card card-7">
-      <va-tabs
+      <VaTabs
         stateful
         :model-value="0"
         grow
       >
         <template #tabs>
-          <va-tab
+          <VaTab
             v-for="tab in ['One', 'Two', 'Three']"
             :key="tab"
           >
             {{ tab }}
-          </va-tab>
+          </VaTab>
         </template>
-      </va-tabs>
+      </VaTabs>
     </div>
 
     <div class="card card-8">
-      <va-card
+      <VaCard
         color="primary"
         gradient
       >
-        <va-card-content>
+        <VaCardContent>
           <h2 class="m-0">
             12:00 pm
           </h2>
-        </va-card-content>
-      </va-card>
+        </VaCardContent>
+      </VaCard>
     </div>
   </div>
 </template>

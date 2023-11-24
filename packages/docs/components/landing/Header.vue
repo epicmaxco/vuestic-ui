@@ -21,28 +21,28 @@
 
           <nav class="header__links">
             <!-- vuestic buttons -->
-            <va-button
+            <VaButton
               to="/introduction/overview"
               class="header__links--link"
               preset="landingHeader"
             >
               Docs
-            </va-button>
-            <va-button
+            </VaButton>
+            <VaButton
               to="/contribution/guide"
               class="header__links--link"
               preset="landingHeader"
             >
               Contribute
-            </va-button>
-            <va-button
+            </VaButton>
+            <VaButton
               href="mailto:hello@epicmax.co"
               target="_blank"
               class="header__links--link"
               preset="landingHeader"
             >
               Contact Us
-            </va-button>
+            </VaButton>
             <!-- vuestic socials -->
             <SocialsLinks
               class="header__links--link"
@@ -58,7 +58,7 @@
           </nav>
 
           <!-- mobile menu -->
-          <va-button
+          <VaButton
             v-if="!modelValue"
             class="menu-button"
             aria-label="Open menu"
@@ -66,8 +66,8 @@
             color="textInverted"
             @click="$emit('update:modelValue', true)"
           >
-            <va-icon class="fas fa-bars" />
-          </va-button>
+            <VaIcon class="fas fa-bars" />
+          </VaButton>
 
           <!-- mobile -->
           <nav
@@ -78,40 +78,40 @@
 
             <div class="mobile-menu__menu-button-wrapper">
               <div class="mobile-menu__menu-button-container">
-                <va-button
+                <VaButton
                   v-if="modelValue"
                   class="menu-button mobile-menu__menu-button"
                   aria-label="Close menu"
                   preset="plain"
                   @click="$emit('update:modelValue', false)"
                 >
-                  <va-icon class="fas fa-times" />
-                </va-button>
+                  <VaIcon class="fas fa-times" />
+                </VaButton>
               </div>
             </div>
 
-            <va-list class="mobile-menu__list">
-              <va-list-item>
-                <va-list-item-section class="mobile-menu__link">
-                  <router-link to="/introduction/overview">
+            <VaList class="mobile-menu__list">
+              <VaListItem>
+                <VaListItemSection class="mobile-menu__link">
+                  <RouterLink to="/introduction/overview">
                     Docs
-                  </router-link>
-                </va-list-item-section>
-              </va-list-item>
-              <va-list-item>
-                <va-list-item-section class="mobile-menu__link">
-                  <router-link to="/contribution/guide">
+                  </RouterLink>
+                </VaListItemSection>
+              </VaListItem>
+              <VaListItem>
+                <VaListItemSection class="mobile-menu__link">
+                  <RouterLink to="/contribution/guide">
                     Contribute
-                  </router-link>
-                </va-list-item-section>
-              </va-list-item>
-              <va-list-item>
-                <va-list-item-section class="mobile-menu__link">
-                  <router-link to="/introduction/team">
+                  </RouterLink>
+                </VaListItemSection>
+              </VaListItem>
+              <VaListItem>
+                <VaListItemSection class="mobile-menu__link">
+                  <RouterLink to="/introduction/team">
                     Contact Us
-                  </router-link>
-                </va-list-item-section>
-              </va-list-item>
+                  </RouterLink>
+                </VaListItemSection>
+              </VaListItem>
 
               <SocialsLinks
                 class="mobile-menu__socials"
@@ -123,7 +123,7 @@
                   repo="epicmaxco/vuestic-ui"
                 />
               </div>
-            </va-list>
+            </VaList>
           </nav>
         </div>
       </div>

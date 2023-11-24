@@ -1,26 +1,26 @@
 <template>
-  <va-accordion
+  <VaAccordion
     v-model="value"
     class="max-w-sm"
   >
-    <va-collapse
+    <VaCollapse
       v-for="(group, idx) in items"
       :key="idx"
       :header="group.title"
       body-color="background-element"
     >
       <template #body>
-        <router-link
+        <RouterLink
           v-for="(navItem, idx) in group.items"
           :key="idx"
           class="nav-item"
           :to="navItem.to"
         >
           {{ navItem.label }}
-        </router-link>
+        </RouterLink>
       </template>
-    </va-collapse>
-  </va-accordion>
+    </VaCollapse>
+  </VaAccordion>
 </template>
 
 <script>

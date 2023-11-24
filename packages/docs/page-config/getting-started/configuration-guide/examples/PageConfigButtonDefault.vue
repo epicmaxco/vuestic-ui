@@ -1,5 +1,5 @@
 <template>
-  <va-button>
+  <VaButton>
     Your button
-  </va-button>
+  </VaButton>
 </template>

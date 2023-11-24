@@ -38,7 +38,7 @@
     class="my-4"
   >
     <template #append>
-      <va-counter
+      <VaCounter
         v-model.number="threshold"
         class="w-[140px]"
         type="number"

@@ -1,6 +1,6 @@
 <template>
   <div class="flex gap-8 flex-wrap">
-    <va-counter
+    <VaCounter
       v-model="value"
       buttons
       rounded
@@ -12,38 +12,38 @@
           {{ value }} copies
         </VaChip>
       </template>
-    </va-counter>
+    </VaCounter>
 
-    <va-counter
+    <VaCounter
       v-model="value"
       buttons
       style="width: 360px"
     >
       <template #decreaseAction>
-        <va-button-group>
-          <va-button
+        <VaButtonGroup>
+          <VaButton
             v-for="step in steps"
             :key="step"
             class="!px-0"
             @click="value -= step"
           >
             -{{ step }}
-          </va-button>
-        </va-button-group>
+          </VaButton>
+        </VaButtonGroup>
       </template>
       <template #increaseAction>
-        <va-button-group>
-          <va-button
+        <VaButtonGroup>
+          <VaButton
             v-for="step in steps"
             :key="step"
             class="!px-0"
             @click="value += step"
           >
             +{{ step }}
-          </va-button>
-        </va-button-group>
+          </VaButton>
+        </VaButtonGroup>
       </template>
-    </va-counter>
+    </VaCounter>
   </div>
 </template>
 

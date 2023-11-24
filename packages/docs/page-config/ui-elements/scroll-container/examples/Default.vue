@@ -1,44 +1,44 @@
 <template>
-  <va-scroll-container
+  <VaScrollContainer
     class="max-h-52"
     vertical
   >
-    <va-list>
-      <va-list-label> Contacts </va-list-label>
+    <VaList>
+      <VaListLabel> Contacts </VaListLabel>
 
-      <va-list-item
+      <VaListItem
         v-for="(contact, index) in contacts"
         :key="index"
         class="list__item"
       >
-        <va-list-item-section avatar>
-          <va-avatar>
+        <VaListItemSection avatar>
+          <VaAvatar>
             <img
               :src="contact.img"
               alt=""
             >
-          </va-avatar>
-        </va-list-item-section>
+          </VaAvatar>
+        </VaListItemSection>
 
-        <va-list-item-section>
-          <va-list-item-label>
+        <VaListItemSection>
+          <VaListItemLabel>
             {{ contact.name }}
-          </va-list-item-label>
+          </VaListItemLabel>
 
-          <va-list-item-label caption>
+          <VaListItemLabel caption>
             {{ contact.address }}
-          </va-list-item-label>
-        </va-list-item-section>
+          </VaListItemLabel>
+        </VaListItemSection>
 
-        <va-list-item-section icon>
-          <va-icon
+        <VaListItemSection icon>
+          <VaIcon
             name="remove_red_eye"
             color="background-element"
           />
-        </va-list-item-section>
-      </va-list-item>
-    </va-list>
-  </va-scroll-container>
+        </VaListItemSection>
+      </VaListItem>
+    </VaList>
+  </VaScrollContainer>
 </template>
 
 <script setup>

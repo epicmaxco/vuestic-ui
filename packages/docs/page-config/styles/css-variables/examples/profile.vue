@@ -1,12 +1,12 @@
 <template>
-  <va-card
+  <VaCard
     class="user-card"
     color="#25272c"
     gradient
   >
-    <va-card-content class="flex">
+    <VaCardContent class="flex">
       <div>
-        <va-avatar
+        <VaAvatar
           src="https://randomuser.me/api/portraits/men/3.jpg"
           size="128px"
         />
@@ -24,29 +24,29 @@
           <span class="mr-2 va-text-no-wrap">16 following</span>
         </div>
 
-        <va-card-actions class="flex pt-2">
-          <va-button
+        <VaCardActions class="flex pt-2">
+          <VaButton
             preset="secondary"
             color="#fff"
             class="-ml-[0.5rem]"
           >
             Follow
-          </va-button>
-          <va-spacer />
-          <va-button
+          </VaButton>
+          <VaSpacer />
+          <VaButton
             preset="secondary"
             color="#fff"
             icon="message"
           />
-          <va-button
+          <VaButton
             preset="secondary"
             color="#fff"
             icon="play_arrow"
           />
-        </va-card-actions>
+        </VaCardActions>
       </div>
-    </va-card-content>
-  </va-card>
+    </VaCardContent>
+  </VaCard>
 </template>
 
 <style lang="scss">

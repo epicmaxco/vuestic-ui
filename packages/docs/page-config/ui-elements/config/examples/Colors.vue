@@ -3,12 +3,16 @@
     <VaCard>
       <VaCardContent class="flex flex-col gap-2">
         <VaColorInput v-model="color" />
-        <VaButton @click="presetName === 'light' ? presetName = 'dark' : presetName = 'light'">Toggle theme</VaButton>
+        <VaButton @click="presetName === 'light' ? presetName = 'dark' : presetName = 'light'">
+          Toggle theme
+        </VaButton>
         <VaInput label="login" />
         <VaInput label="password" type="password" />
         <div class="flex gap-2">
           <VaButton>login</VaButton>
-          <VaButton color="secondary">register</VaButton>
+          <VaButton color="secondary">
+            register
+          </VaButton>
         </div>        
       </VaCardContent>
     </VaCard>

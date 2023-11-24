@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-xs">
-    <va-select
+    <VaSelect
       v-model="value"
       :options="options"
       selected-top-shown

@@ -1,79 +1,97 @@
 <template>
-  <va-navbar
+  <VaNavbar
     color="primary"
     class="mb-3"
   >
     <template #left>
-      <va-navbar-item class="logo">
+      <VaNavbarItem class="logo">
         LOGO
-      </va-navbar-item>
+      </VaNavbarItem>
     </template>
     <template #right>
-      <va-navbar-item class="hidden sm:block">Dashboard</va-navbar-item>
-      <va-navbar-item class="hidden sm:block">Reports</va-navbar-item>
-      <va-navbar-item class="hidden sm:block">Users</va-navbar-item>
-      <va-navbar-item>
-        <va-icon
+      <VaNavbarItem class="hidden sm:block">
+        Dashboard
+      </VaNavbarItem>
+      <VaNavbarItem class="hidden sm:block">
+        Reports
+      </VaNavbarItem>
+      <VaNavbarItem class="hidden sm:block">
+        Users
+      </VaNavbarItem>
+      <VaNavbarItem>
+        <VaIcon
           name="mdi-magnify"
         />
-      </va-navbar-item>
-      <va-navbar-item>
-        <va-icon
+      </VaNavbarItem>
+      <VaNavbarItem>
+        <VaIcon
           name="mdi-account-circle-outline"
         />
-      </va-navbar-item>
+      </VaNavbarItem>
     </template>
-  </va-navbar>
+  </VaNavbar>
 
-  <va-navbar
+  <VaNavbar
     color="warning"
     class="mb-3"
   >
     <template #left>
-      <va-navbar-item class="logo">
+      <VaNavbarItem class="logo">
         LOGO
-      </va-navbar-item>
+      </VaNavbarItem>
     </template>
     <template #right>
-      <va-navbar-item class="hidden sm:block">Dashboard</va-navbar-item>
-      <va-navbar-item class="hidden sm:block">Reports</va-navbar-item>
-      <va-navbar-item class="hidden sm:block">Users</va-navbar-item>
-      <va-navbar-item>
-        <va-icon name="mdi-magnify" />
-      </va-navbar-item>
-      <va-navbar-item>
-        <va-icon name="mdi-account-circle-outline" />
-      </va-navbar-item>
+      <VaNavbarItem class="hidden sm:block">
+        Dashboard
+      </VaNavbarItem>
+      <VaNavbarItem class="hidden sm:block">
+        Reports
+      </VaNavbarItem>
+      <VaNavbarItem class="hidden sm:block">
+        Users
+      </VaNavbarItem>
+      <VaNavbarItem>
+        <VaIcon name="mdi-magnify" />
+      </VaNavbarItem>
+      <VaNavbarItem>
+        <VaIcon name="mdi-account-circle-outline" />
+      </VaNavbarItem>
     </template>
-  </va-navbar>
+  </VaNavbar>
 
-  <va-navbar
+  <VaNavbar
     v-bind="darkNavbarColors"
     class="mb-3"
   >
     <template #left>
-      <va-navbar-item class="logo">
+      <VaNavbarItem class="logo">
         LOGO
-      </va-navbar-item>
+      </VaNavbarItem>
     </template>
     <template #right>
-      <va-navbar-item class="hidden sm:block">Dashboard</va-navbar-item>
-      <va-navbar-item class="hidden sm:block">Reports</va-navbar-item>
-      <va-navbar-item class="hidden sm:block">Users</va-navbar-item>
-      <va-navbar-item>
-        <va-icon
+      <VaNavbarItem class="hidden sm:block">
+        Dashboard
+      </VaNavbarItem>
+      <VaNavbarItem class="hidden sm:block">
+        Reports
+      </VaNavbarItem>
+      <VaNavbarItem class="hidden sm:block">
+        Users
+      </VaNavbarItem>
+      <VaNavbarItem>
+        <VaIcon
           :color="darkNavbarColors.textColor"
           name="mdi-magnify"
         />
-      </va-navbar-item>
-      <va-navbar-item>
-        <va-icon
+      </VaNavbarItem>
+      <VaNavbarItem>
+        <VaIcon
           :color="darkNavbarColors.textColor"
           name="mdi-account-circle-outline"
         />
-      </va-navbar-item>
+      </VaNavbarItem>
     </template>
-  </va-navbar>
+  </VaNavbar>
 </template>
 
 <script setup>

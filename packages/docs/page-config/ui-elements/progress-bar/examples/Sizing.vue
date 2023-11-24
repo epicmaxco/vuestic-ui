@@ -1,22 +1,22 @@
 <template>
   <div class="flex flex-col gap-3">
     <div>small</div>
-    <va-progress-bar
+    <VaProgressBar
       size="small"
       :model-value="value"
     />
     <div>large</div>
-    <va-progress-bar
+    <VaProgressBar
       size="large"
       :model-value="value"
     />
     <div>25px</div>
-    <va-progress-bar
+    <VaProgressBar
       :size="25"
       :model-value="value"
     />
     <div>2rem</div>
-    <va-progress-bar
+    <VaProgressBar
       size="2rem"
       :model-value="value"
     />

@@ -1,11 +1,11 @@
 <template>
   <div class="grid sm:grid-cols-2 gap-6 mb-6">
-    <va-select
+    <VaSelect
       v-model="sortBy"
       label="Sort by"
       :options="sortByOptions()"
     />
-    <va-select
+    <VaSelect
       v-model="sortingOrder"
       label="Sorting order"
       :options="sortingOrderOptions"
@@ -13,7 +13,7 @@
     />
   </div>
 
-  <va-data-table
+  <VaDataTable
     v-model:sort-by="sortBy"
     v-model:sorting-order="sortingOrder"
     :items="items"

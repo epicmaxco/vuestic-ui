@@ -1,23 +1,23 @@
 <template>
   <div class="flex gap-8 flex-wrap">
-    <va-switch
+    <VaSwitch
       v-model="value"
       label="left"
       left-label
     />
-    <va-switch
+    <VaSwitch
       v-model="value"
       label="right"
     />
-    <va-switch v-model="value">
+    <VaSwitch v-model="value">
       right labeled by slot
-    </va-switch>
-    <va-switch
+    </VaSwitch>
+    <VaSwitch
       v-model="value"
       left-label
     >
       left labeled by slot
-    </va-switch>
+    </VaSwitch>
   </div>
 </template>
 

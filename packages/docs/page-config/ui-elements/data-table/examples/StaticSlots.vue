@@ -1,40 +1,52 @@
 <template>
-  <va-data-table
+  <VaDataTable
     :items="items"
     :columns="columns"
     footer-clone
   >
     <template #headerPrepend>
       <tr class="table-slots">
-        <th colspan="6"><span>#headerPrepend</span> slot</th>
+        <th colspan="6">
+          <span>#headerPrepend</span> slot
+        </th>
       </tr>
     </template>
     <template #headerAppend>
       <tr class="table-slots">
-        <th colspan="6"><span>#headerAppend</span> slot</th>
+        <th colspan="6">
+          <span>#headerAppend</span> slot
+        </th>
       </tr>
     </template>
     <template #bodyPrepend>
       <tr class="table-slots">
-        <td colspan="6"><span>#bodyPrepend</span> slot</td>
+        <td colspan="6">
+          <span>#bodyPrepend</span> slot
+        </td>
       </tr>
     </template>
     <template #bodyAppend>
       <tr class="table-slots">
-        <td colspan="6"><span>#bodyAppend</span> slot</td>
+        <td colspan="6">
+          <span>#bodyAppend</span> slot
+        </td>
       </tr>
     </template>
     <template #footerPrepend>
       <tr class="table-slots">
-        <th colspan="6"><span>#footerPrepend</span> slot</th>
+        <th colspan="6">
+          <span>#footerPrepend</span> slot
+        </th>
       </tr>
     </template>
     <template #footerAppend>
       <tr class="table-slots">
-        <th colspan="6"><span>#footerAppend</span> slot</th>
+        <th colspan="6">
+          <span>#footerAppend</span> slot
+        </th>
       </tr>
     </template>
-  </va-data-table>
+  </VaDataTable>
 </template>
 
 <script>

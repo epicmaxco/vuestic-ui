@@ -1,6 +1,6 @@
 <template>
   <p>List of video game genres:</p>
-  <va-tree-view :nodes="nodes" />
+  <VaTreeView :nodes="nodes" />
 </template>
 
 <script>

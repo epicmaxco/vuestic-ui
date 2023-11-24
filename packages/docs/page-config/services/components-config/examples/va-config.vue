@@ -1,6 +1,6 @@
 <template>
-  <va-alert color="#1B2D2A">
-    <va-config
+  <VaAlert color="#1B2D2A">
+    <VaConfig
       :components="{
         VaButton: { color: '#414066', round: true },
         VaIcon: { color: '#605E97' },
@@ -8,22 +8,22 @@
     >
       <div class="alert-content">
         <p>Read this important demo message!</p>
-        <va-button icon="hearing">
+        <VaButton icon="hearing">
           Ok
-        </va-button>
-        <va-button icon="visibility">
+        </VaButton>
+        <VaButton icon="visibility">
           I already read it before
-        </va-button>
-        <va-button
+        </VaButton>
+        <VaButton
           color="danger"
           icon="close"
           icon-color="warning"
         >
           Close
-        </va-button>
+        </VaButton>
       </div>
-    </va-config>
-  </va-alert>
+    </VaConfig>
+  </VaAlert>
 </template>
 
 <style lang="scss" scoped>

@@ -10,12 +10,12 @@
     <template #top>
       <VaNavbar color="primary" class="py-2">
         <template #left>
-          <VaButton @click="showSidebar = !showSidebar" :icon="showSidebar ? 'menu_open' : 'menu'" />
+          <VaButton :icon="showSidebar ? 'menu_open' : 'menu'" @click="showSidebar = !showSidebar" />
         </template>
         <template #center>
-          <va-navbar-item class="font-bold text-lg">
+          <VaNavbarItem class="font-bold text-lg">
             LOGO
-          </va-navbar-item>
+          </VaNavbarItem>
         </template>
       </VaNavbar>
     </template>
@@ -43,7 +43,9 @@
 
     <template #content>
       <main class="p-4">
-        <h3 class="va-h3">Page content</h3>
+        <h3 class="va-h3">
+          Page content
+        </h3>
         <p>Page content must be wrapped in main tag. You must do it manually. Here you can place any blocks you need in your application.</p>
 
         <p>For example, you can place here your router view, add sidebar with navigation in #left slot.</p>
