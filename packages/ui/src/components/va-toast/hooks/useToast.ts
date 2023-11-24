@@ -9,9 +9,8 @@ export const useToast = () => {
 
   /**
    * @param options can be options object or message string
-   * @deprecated Use notify instead
    */
-  const init = (options: string | NotificationOptions) => {
+  const notify = (options: string | NotificationOptions) => {
     const id = createToastInstance(options, appContext.value)
 
     if (id) { createdInThisSetupContext.push(id) }
@@ -19,8 +18,11 @@ export const useToast = () => {
     return id
   }
 
-  const notify = (options: string | NotificationOptions) => {
-    return init(options)
+/**
+ * @deprecated Use notify instead
+*/
+  const init = (options: string | NotificationOptions) => {
+    return notify(options)
   }
 
   const close = (id: string) => closeById(id)
