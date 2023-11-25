@@ -17,7 +17,7 @@ type MaybeArray<T> = T | T[]
 const safeArray = <T>(a: MaybeArray<T>) => Array.isArray(a) ? a : [a]
 
 export const useClickOutside = (elements: MaybeArray<MaybeRef<HTMLElement | undefined>>, cb: (el: HTMLElement) => void) => {
-  useCaptureEvent('click', (event: MouseEvent) => {
+  useCaptureEvent('mousedown', (event: MouseEvent) => {
     const clickTarget = event.target as HTMLElement
 
     if ((event.target as HTMLElement).shadowRoot) {
