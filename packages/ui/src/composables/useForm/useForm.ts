@@ -28,6 +28,7 @@ export const useForm = <Names extends string = string>(ref: string | Ref<typeof 
 
   return {
     isValid: computed(() => form.value?.isValid || false),
+    immediate: computed(() => form.value?.immediate || false),
     isLoading: computed(() => form.value?.isLoading || false),
     isDirty: computed(() => form.value?.isDirty || false),
     fields: computed(() => form.value?.fields ?? []),
@@ -37,9 +38,7 @@ export const useForm = <Names extends string = string>(ref: string | Ref<typeof 
     errorMessages: computed(() => form.value?.errorMessages || []),
     errorMessagesNamed: computed(() => form.value?.errorMessagesNamed || {}),
     validate: () => form.value?.validate(),
-    reset: () => {
-      form.value?.reset()
-    },
+    reset: () => form.value?.reset(),
     resetValidation: () => form.value?.resetValidation(),
     focus: () => form.value?.focus(),
     focusInvalidField: () => form.value?.focusInvalidField(),
