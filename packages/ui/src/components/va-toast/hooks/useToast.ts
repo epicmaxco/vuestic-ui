@@ -18,9 +18,9 @@ export const useToast = () => {
     return id
   }
 
-/**
- * @deprecated Use notify instead
-*/
+  /**
+   * @deprecated Use `notify` instead
+  */
   const init = (options: string | NotificationOptions) => {
     return notify(options)
   }
