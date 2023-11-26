@@ -201,7 +201,8 @@ export default {
           url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
         },
         {
-          url: 'https://via.placeholder.com/150',
+          name: 'yyy.png',
+          url: 'https://free-images.com/tn/aa2a/oregon_beach_sand_rocks.jpg',
           size: 15000,
         },
       ],
