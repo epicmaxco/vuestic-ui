@@ -88,7 +88,6 @@ import omit from 'lodash/omit'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import {
   useComponentPresetProp,
-  useSyncProp,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useClearable, useClearableEmits, useClearableProps,
   useFocus, useFocusEmits,
@@ -262,12 +261,12 @@ export default defineComponent({
 
       if (e.key === 'ArrowDown') {
         valueComputed.value = new Date(Number(valueComputed.value) - viewToNumber[props.view])
+        e.preventDefault()
       }
       if (e.key === 'ArrowUp') {
         valueComputed.value = new Date(Number(valueComputed.value) + viewToNumber[props.view])
+        e.preventDefault()
       }
-
-      e.preventDefault()
     }
 
     useLongPressKey(input, {
