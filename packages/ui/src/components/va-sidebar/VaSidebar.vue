@@ -114,8 +114,6 @@ export default defineComponent({
         backgroundColor,
         backgroundImage: props.gradient ? getGradientBackground(backgroundColor) : undefined,
         overflowX: currentMenuWidth.value === sidebarWidth.value ? undefined : 'hidden' as const,
-        width: sidebarWidth.value,
-        minWidth: sidebarWidth.value,
       }
     })
 
