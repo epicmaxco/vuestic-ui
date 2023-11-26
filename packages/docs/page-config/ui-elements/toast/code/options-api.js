@@ -1,7 +1,7 @@
 export default {
   methods: {
     onButtonClick() {
-      this.$vaToast.init('Toast example!')
+      this.$vaToast.notify('Toast example!')
     },
   },
 
