@@ -201,8 +201,8 @@ export default {
           url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
         },
         {
-          url: 'https://via.placeholder.com/150',
-          size: 15000,
+          name: 'yyy.png',
+          url: 'https://i.postimg.cc/4yd2sGXH/beach-1852945-1280.jpg',
         },
       ],
     }
