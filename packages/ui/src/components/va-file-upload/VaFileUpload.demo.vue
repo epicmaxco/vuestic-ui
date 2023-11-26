@@ -202,7 +202,7 @@ export default {
         },
         {
           name: 'yyy.png',
-          url: 'https://free-images.com/tn/aa2a/oregon_beach_sand_rocks.jpg',
+          url: 'https://i.postimg.cc/4yd2sGXH/beach-1852945-1280.jpg',
           size: 15000,
         },
       ],
