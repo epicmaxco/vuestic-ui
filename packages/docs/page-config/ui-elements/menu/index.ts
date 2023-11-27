@@ -13,6 +13,15 @@ export default definePageConfig({
     }),
     block.example("MenuItem"),
 
+    block.example("Context", {
+      title: "Context menu",
+      description: "One of the most common use cases for `VaMenu` component is context menu. You can use `cursor` prop to enable context menu mode. In this mode menu will be opened on right click.",
+    }),
+    block.example("UseMenu", {
+      title: "useMenu",
+      description: "You can use `useMenu` hook to show menu programmatically.",
+    }),
+
     block.example("Icon", {
       title: "Icon",
       description: "You can use `icon `and `rightIcon` properties in options or `left-icon` and `right-icon` slots in `VaMenuItem` component.",

@@ -19,7 +19,7 @@ import { defineComponent, nextTick, ref } from 'vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaMenuList } from '../va-menu-list'
 import { extractComponentProps, extractComponentEmits, filterComponentProps } from '../../utils/component-options'
-import { useImmediateFocus } from '../../composables'
+import { useImmediateFocus, useComponentPresetProp } from '../../composables'
 import { focusFirstFocusableChild } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
 
@@ -34,6 +34,7 @@ export default defineComponent({
   components: { VaDropdown, VaDropdownContent, VaMenuList },
 
   props: {
+    ...useComponentPresetProp,
     ...VaMenuListProps,
     ...VaDropdownProps,
     stickToEdges: { type: Boolean, default: true },

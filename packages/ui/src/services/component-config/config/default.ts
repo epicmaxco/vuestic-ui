@@ -82,5 +82,12 @@ export const getComponentsDefaultConfig = (): ComponentConfig =>
           style: '--va-radio-background: var(--va-background-element)',
         },
       },
+      VaMenu: {
+        context: {
+          cursor: true,
+          placement: 'right-start',
+          trigger: 'right-click',
+        },
+      },
     },
   })

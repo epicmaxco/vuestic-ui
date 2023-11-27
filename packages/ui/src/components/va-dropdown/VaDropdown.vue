@@ -30,7 +30,7 @@ import { renderSlotNode } from '../../utils/headless'
 import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
-import { DropdownOffsetProp } from './types'
+import { CursorAnchor, DropdownOffsetProp } from './types'
 import { useDropdown } from './hooks/useDropdown'
 import { warn } from '../../utils/console'
 import { useFocusOutside } from '../../composables/useFocusOutside'
@@ -43,6 +43,7 @@ export default defineComponent({
     ...usePlacementAliasesProps,
     ...createStatefulProps(true),
     modelValue: { type: Boolean, default: false },
+    anchor: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
     anchorSelector: { type: String, default: '' },
     innerAnchorSelector: { type: String, default: '' },
     trigger: {
@@ -62,7 +63,7 @@ export default defineComponent({
     offset: { type: [Array, Number] as PropType<DropdownOffsetProp>, default: 0 },
     keepAnchorWidth: { type: Boolean, default: false },
     verticalScrollOnOverflow: { type: Boolean, default: true },
-    cursor: { type: Boolean, default: false },
+    cursor: { type: [Boolean, Object] as PropType<boolean | CursorAnchor>, default: false },
     autoPlacement: { type: Boolean, default: true },
     stickToEdges: { type: Boolean, default: false },
     /** Viewport where dropdown will be rendered. Autoplacement will be calculated relative to `target` */
@@ -93,8 +94,8 @@ export default defineComponent({
 
     const isMounted = useIsMounted()
 
-    const { anchorRef: anchor } = useAnchorSelector(props)
-    const cursorAnchor = computed(() => props.cursor ? useCursorAnchor(anchor, valueComputed).value : undefined)
+    const { anchorRef } = useAnchorSelector(props)
+    const cursorAnchor = useCursorAnchor(anchorRef, valueComputed)
     const floating = useHTMLElement('floating')
     const body = useHTMLElementSelector(ref('body'))
     const target = useHTMLElementSelector(computed(() => props.target))
@@ -110,8 +111,8 @@ export default defineComponent({
         return target.value
       }
 
-      if (anchor.value) {
-        const root = anchor.value.getRootNode()
+      if (anchorRef.value) {
+        const root = anchorRef.value.getRootNode()
         if (root instanceof ShadowRoot) {
           const el = [...root.children].find((c) => c.tagName !== 'STYLE')
 
@@ -176,7 +177,7 @@ export default defineComponent({
       cancelHoverDebounce()
     }
 
-    useMouseNavigation(anchor, {
+    useMouseNavigation(anchorRef, {
       click: onClick,
       contextmenu: onContextmenu,
       dblclick: onDblclick,
@@ -185,7 +186,7 @@ export default defineComponent({
     })
 
     if (props.keyboardNavigation) {
-      useKeyboardNavigation(anchor, valueComputed)
+      useKeyboardNavigation(anchorRef, valueComputed)
     }
 
     const emitAndClose = (eventName: Parameters<typeof emit>[0], close?: boolean, e?: Event) => {
@@ -199,7 +200,7 @@ export default defineComponent({
       onClick: () => emitAndClose('content-click', props.closeOnContentClick),
     }
 
-    useClickOutside([anchor, floating], () => {
+    useClickOutside([anchorRef, floating], () => {
       if (props.closeOnClickOutside && valueComputed.value) {
         emitAndClose('click-outside', props.closeOnClickOutside)
       }
@@ -212,7 +213,11 @@ export default defineComponent({
     }, { onlyKeyboard: true })
 
     const anchorComputed = computed(() => {
-      return cursorAnchor.value || anchor.value
+      if (typeof props.cursor === 'object') {
+        return props.cursor
+      }
+
+      return props.cursor ? cursorAnchor.value : anchorRef.value
     })
 
     const { floatingStyles } = useDropdown(
@@ -235,7 +240,7 @@ export default defineComponent({
     return {
       ...useTranslation(),
       ...useTeleported(),
-      anchor,
+      anchorRef,
       anchorClass,
       floating,
       floatingStyles,
@@ -251,21 +256,13 @@ export default defineComponent({
   },
 
   render () {
-    const anchorAriaAttributes = {
-      'aria-haspopup': true,
-      'aria-expanded': this.valueComputed,
-      'aria-disabled': this.$props.disabled,
-      'aria-label': this.tp(this.$props.ariaLabel),
-      role: 'button',
-    }
-
     const slotBind = {
       isOpened: this.valueComputed,
       hide: this.hide,
       show: this.show,
       toggle: () => this.valueComputed ? this.hide() : this.show(),
-      getAnchorWidth: () => this.anchor?.offsetWidth + 'px',
-      getAnchorHeight: () => this.anchor?.offsetHeight + 'px',
+      getAnchorWidth: () => this.anchorRef?.offsetWidth + 'px',
+      getAnchorHeight: () => this.anchorRef?.offsetHeight + 'px',
     }
 
     const floatingSlotNode = this.showFloating && renderSlotNode(this.$slots.default, slotBind, {
@@ -277,7 +274,7 @@ export default defineComponent({
     })
 
     const anchorSlotVNode = renderSlotNode(this.$slots.anchor, slotBind, {
-      ref: 'anchor',
+      ref: 'anchorRef',
       role: this.$props.role,
       class: ['va-dropdown', ...this.anchorClass.asArray.value],
       style: { position: 'relative' },
@@ -287,6 +284,17 @@ export default defineComponent({
       ...this.teleportFromAttrs,
       ...this.$attrs,
     })
+
+    if (typeof this.$props.cursor === 'object' && floatingSlotNode) {
+      return h(
+        Teleport,
+        {
+          to: this.teleportTarget,
+          disabled: this.teleportDisabled,
+        },
+        [floatingSlotNode],
+      )
+    }
 
     if (!this.$props.anchorSelector && !anchorSlotVNode) {
       warn('VaDropdown: #anchor slot is missing')
