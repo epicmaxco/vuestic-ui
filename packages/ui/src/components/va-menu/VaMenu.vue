@@ -4,7 +4,7 @@
       <slot name="anchor" />
     </template>
 
-    <VaDropdownContent @keydown.esc="close">
+    <VaDropdownContent @keydown="onKeydown">
       <VaMenuList @keydown.enter.space.prevent.stop v-bind="menuListProps" ref="menuList" @selected="$emit('selected', $event); close()">
         <template v-if="$slots.default" #default>
           <slot />
@@ -54,12 +54,23 @@ export default defineComponent({
     const close = () => {
       dropdown.value?.hide()
       nextTick(() => {
-        const el = unwrapEl(dropdown.value?.anchor)
+        const el = unwrapEl(dropdown.value?.anchorRef)
         if (el) { focusFirstFocusableChild(el) }
       })
     }
 
+    const onKeydown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        close()
+      }
+
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault()
+      }
+    }
+
     return {
+      onKeydown,
       dropdown,
       menuList,
       menuListProps: filterComponentProps(VaMenuListProps),

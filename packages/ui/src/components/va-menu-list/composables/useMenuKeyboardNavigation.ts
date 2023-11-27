@@ -17,21 +17,19 @@ export const makeMenuContainerAttributes = () => ({
 })
 
 export const useMenuKeyboardNavigation = (container: Ref<HTMLElement | undefined>) => {
-  useEvent('focus', ({ target }) => {
-    if (!container.value) { return }
-    if (target !== container.value) { return }
-
-    const firstItem = container.value.querySelector(NON_DISABLED_MENU_ITEM_SELECTOR)
-    if (firstItem) { focusElement(firstItem) }
-  }, container)
-
   useEvent('keydown', ({ key }) => {
     if (!container.value) { return }
 
     const items = container.value.querySelectorAll(NON_DISABLED_MENU_ITEM_SELECTOR)
     const focusedItem = container.value.querySelector(FOCUSED_MENU_ITEM_SELECTOR)
 
-    if (!items.length || !focusedItem) { return }
+    if (!items.length) { return }
+
+    if (!focusedItem) {
+      const firstItem = container.value.querySelector(NON_DISABLED_MENU_ITEM_SELECTOR)
+      if (firstItem) { focusElement(firstItem) }
+      return
+    }
 
     if (key === 'ArrowDown' || key === 'ArrowRight') {
       const focusedElementIndex = Array.from(items).indexOf(focusedItem)

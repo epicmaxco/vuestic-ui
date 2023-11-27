@@ -140,6 +140,7 @@ export default defineComponent({
   min-width: 200px;
   table-layout: fixed;
   width: max-content;
+  outline: none;
 
   .va-menu-item {
     // Override VaDropdown style

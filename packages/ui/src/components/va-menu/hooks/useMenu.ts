@@ -3,14 +3,6 @@ import { VaMenu } from '../va-menu'
 import { ExtractComponentPropTypes } from '../../../utils/component-options'
 import { onBeforeUnmount, computed } from 'vue'
 
-const getCoordinates = (el: any) => {
-  if ('getBoundingClientRect' in el) {
-    return el.getBoundingClientRect()
-  }
-
-  return { x: 0, y: 0 }
-}
-
 type OmitMenuProps = 'modelValue' | 'anchor' | 'cursor' | 'stateful' | 'preset'
 
 /** This hook can be used without plugin used */
@@ -30,8 +22,6 @@ export const useMenu = () => {
       anchor: props.event.target,
       cursor: {
         getBoundingClientRect () {
-          // anchor position possibly changed, we need to update the position of the floating element
-          const { x, y } = getCoordinates(props.event.target)
           const resX = props.event.clientX
           const resY = props.event.clientY
           return {

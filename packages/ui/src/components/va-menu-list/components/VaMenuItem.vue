@@ -1,8 +1,10 @@
 <template>
   <tr class="va-menu-item"
     v-bind="makeMenuItemAttributes({ disabled })"
+    v-on="keyboardFocusListeners"
     :class="{
-      'va-menu-item--disabled': disabled
+      'va-menu-item--disabled': disabled,
+      'va-menu-item--keyboard-focus': hasKeyboardFocus,
     }"
   >
     <td class="va-menu-item__cell va-menu-item__cell--left">
@@ -30,7 +32,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
 import { VaIcon } from '../../va-icon/'
-import { useColors } from '../../../composables'
+import { useColors, useKeyboardOnlyFocusGlobal } from '../../../composables'
 import { makeMenuItemAttributes } from '../composables/useMenuKeyboardNavigation'
 
 export default defineComponent({
@@ -48,9 +50,13 @@ export default defineComponent({
 
     const hoverColor = computed(() => getHoverColor(getColor(props.color)))
 
+    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocusGlobal()
+
     return {
-      makeMenuItemAttributes,
       hoverColor,
+      hasKeyboardFocus,
+      keyboardFocusListeners,
+      makeMenuItemAttributes,
     }
   },
 })
@@ -62,8 +68,6 @@ export default defineComponent({
 .va-menu-item {
   display: table-row;
   cursor: pointer;
-
-  @include keyboard-focus-outline;
 
   &__cell {
     display: table-cell;
@@ -104,6 +108,10 @@ export default defineComponent({
   &--disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  &--keyboard-focus {
+    @include focus-outline();
   }
 }
 </style>
