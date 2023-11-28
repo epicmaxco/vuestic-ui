@@ -37,7 +37,7 @@
     "test:unit": "vitest",
     "push": "npm publish --tag=next",
     "push-production": "npm publish --tag=latest",
-    "precommit": "lint-staged --concurrent=false && yarn test:unit --run",
+    "precommit": "lint-staged --concurrent=false && yarn typecheck && yarn test:unit --run",
     "server:webapp": "npx http-server dist --push-state",
     "serve:storybook": "storybook dev -p 6006",
     "build:storybook": "storybook build",
