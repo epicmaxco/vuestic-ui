@@ -1,5 +1,6 @@
 import { VaAccordion } from './'
 import { VaCollapse } from '../va-collapse'
+import { StoryFn } from '@storybook/vue3'
 import { within, userEvent } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 import { sleep } from '../../utils/sleep'
@@ -10,7 +11,7 @@ export default {
   tags: ['autodocs'],
 }
 
-export const Default = () => ({
+export const Default: StoryFn = () => ({
   components: { VaAccordion, VaCollapse },
   data: () => ({ value: [] }),
   template: `
@@ -52,7 +53,7 @@ Default.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const Stateful = () => ({
+export const Stateful: StoryFn = () => ({
   components: { VaAccordion, VaCollapse },
   template: `
     <p>[true] - should open</p>
@@ -87,7 +88,7 @@ Stateful.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const Multiple = () => ({
+export const Multiple: StoryFn = () => ({
   components: { VaAccordion, VaCollapse },
   data: () => ({ value: [] }),
   template: `
@@ -117,7 +118,7 @@ Multiple.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const vModel = () => ({
+export const vModel: StoryFn = () => ({
   components: { VaAccordion, VaCollapse },
   data: () => ({ value: [true, false, true] }),
   template: `

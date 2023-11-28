@@ -6,7 +6,6 @@
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
-    "rootDir": "src",
     "skipLibCheck": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -14,6 +13,9 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "declarationMap": false,
     "allowJs": true,
     // https://vitejs.dev/guide/features.html#typescript-compiler-options
@@ -21,7 +23,9 @@
     // "isolatedModules": true,
     "types": [
       "webpack-env",
-      "vite/client"
+      "vite/client",
+      "jest",
+      "@testing-library/jest-dom"
     ],
     "lib": [
       "esnext",
@@ -43,9 +47,6 @@
     "src/**/*.spec.disabled.ts",
     "src/components/wip-*/**.*",
     "src/services/api-docs",
-    "src/**/*.demo.vue",
-    "src/**/*.stories.ts",
-    "src/**/*.new.stories.ts",
     ".storybook",
   ]
 }

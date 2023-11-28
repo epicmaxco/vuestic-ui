@@ -1,4 +1,4 @@
-import { IconConfiguration } from '../../services/icon/types'
+import {IconConfiguration} from "@/services/icon";
 
 const DemoAliases: IconConfiguration[] = [
   {

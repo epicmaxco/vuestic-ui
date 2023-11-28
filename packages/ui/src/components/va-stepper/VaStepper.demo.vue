@@ -172,6 +172,6 @@ const stepsWithNextAction = ref([
   { label: 'One' },
   { label: 'Two', beforeLeave: (step) => { step.hasError = true } },
   { label: 'Three', beforeLeave: (step) => model.value.c !== '' },
-  { label: 'Four', hasError: (step) => model.value.d === '' },
+  { label: 'Four', hasError: (step: any) => model.value.d === '' },
 ] as Step[])
 </script>

@@ -3,6 +3,7 @@ import { VaButton } from '../va-button'
 import { userEvent } from '../../../.storybook/interaction-utils/userEvent'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
+import { StoryFn } from '@storybook/vue3'
 
 export default {
   title: 'VaAlert',
@@ -89,7 +90,7 @@ export const CloseIcon = () => ({
   `,
 })
 
-export const Stateful = () => ({
+export const Stateful: StoryFn = () => ({
   components: { VaAlert },
   template: `
     [true]
@@ -187,7 +188,7 @@ export const Slotted = () => ({
   `,
 })
 
-export const HideAndShow = () => ({
+export const HideAndShow: StoryFn = () => ({
   components: { VaAlert, VaButton },
   data: () => ({ isVisible: true }),
   template: `

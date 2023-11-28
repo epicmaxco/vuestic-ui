@@ -29,7 +29,8 @@
   "scripts": {
     "serve:production": "vue-cli-service serve --mode production",
     "build": "tsx build/build.ts",
-    "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types --project tsconfig.build.json",
+    "typecheck": "vue-tsc --noEmit",
     "lint": "vue-cli-service lint",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}' --fix",
     "test:e2e": "vue-cli-service test:e2e",
