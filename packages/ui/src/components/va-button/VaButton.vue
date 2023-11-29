@@ -135,7 +135,7 @@ export default defineComponent({
     const iconColorComputed = computed(() => props.iconColor ? getColor(props.iconColor) : textColorComputed.value)
     const iconAttributesComputed = computed(() => ({
       color: iconColorComputed.value,
-      size: iconSizeComputed.value,
+      size: props.size,
     }))
 
     // classes
