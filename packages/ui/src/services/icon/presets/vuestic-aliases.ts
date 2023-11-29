@@ -1,6 +1,6 @@
-import { IconConfiguration } from '../types'
+import { defineIconAliases } from '../types/define-aliases'
 
-export const VuesticIconAliases: IconConfiguration[] = [
+export const VuesticIconAliases = defineIconAliases([
   {
     name: 'va-arrow-first',
     to: 'mi-first_page',
@@ -57,4 +57,4 @@ export const VuesticIconAliases: IconConfiguration[] = [
     name: 'va-loading',
     to: 'mi-loop',
   },
-]
+])

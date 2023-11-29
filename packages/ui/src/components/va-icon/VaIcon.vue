@@ -19,6 +19,8 @@
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
 import omit from 'lodash/omit.js'
+import { AnyStringPropType } from '../../utils/types/prop-type'
+import { VaIconName } from './types'
 
 import {
   useComponentPresetProp,
@@ -32,7 +34,7 @@ export default defineComponent({
   props: {
     ...useSizeProps,
     ...useComponentPresetProp,
-    name: { type: String, default: '' },
+    name: { type: String as AnyStringPropType<VaIconName>, default: '' },
     tag: { type: String },
     component: { type: Object as PropType<any> },
     color: { type: String },
