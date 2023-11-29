@@ -268,7 +268,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import cloneDeep from 'lodash/cloneDeep.js'
-import { DataTableSelectMode, DataTableSortingOrder, VaDataTable } from './'
+import { DataTableColumn, DataTableSelectMode, DataTableSortingOrder, VaDataTable } from './'
 import { VaChip } from '../va-chip'
 import { VaAlert } from '../va-alert'
 import { faker } from '@faker-js/faker'
@@ -401,7 +401,7 @@ export default defineComponent({
       },
     ]
 
-    const columns = [
+    const columns: DataTableColumn[] = [
       { key: 'username', sortable: true },
       { key: 'email', sortable: true },
       { key: 'name', sortable: true },
@@ -411,7 +411,7 @@ export default defineComponent({
     ]
 
     return {
-      items: faker.seed(1) && faker.helpers.shuffle(cloneDeep(users)),
+      items: faker.seed(1) ? faker.helpers.shuffle(cloneDeep(users)) : [],
       itemsHuge: new Array(500).fill(null).map((_, idx) => idx % 2 ? users[0] : users[1]),
       columns,
 

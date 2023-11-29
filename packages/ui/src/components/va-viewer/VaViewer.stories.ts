@@ -5,6 +5,7 @@ import { VaIcon } from '../va-icon'
 import { userEvent } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 import { sleep } from '../../utils/sleep'
+import { StoryFn } from '@storybook/vue3'
 
 export default {
   title: 'VaViewer',
@@ -12,9 +13,9 @@ export default {
   tags: ['autodocs'],
 }
 
-const getImagePath = (width, height = 0) => `https://picsum.photos/id/450/${width}/${height || width}`
+const getImagePath = (width = 0, height = 0) => `https://picsum.photos/id/450/${width}/${height || width}`
 
-export const Default = () => ({
+export const Default: StoryFn = () => ({
   components: { VaViewer, VaImage },
   data: () => ({ getImagePath }),
   template: `
@@ -32,7 +33,7 @@ export const Default = () => ({
 })
 
 Default.play = async ({ canvasElement, step }) => {
-  const viewer = canvasElement.querySelector('.va-viewer')
+  const viewer = canvasElement.querySelector('.va-viewer')!
   await step('Click on image to show a magnified view', async () => {
     const beforeClick = document.querySelector('.va-viewer-content')
     expect(beforeClick).toBeNull()

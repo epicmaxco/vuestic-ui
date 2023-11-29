@@ -2,9 +2,9 @@ export type Step = {
   label: string
   icon?: string
   disabled?: boolean
-  beforeLeave?: (currentStep: Omit<Step, 'beforeLeave'>, toStep: Omit<Step, 'beforeLeave'>) => boolean
+  beforeLeave?: (currentStep: Omit<Step, 'beforeLeave'>, toStep: Omit<Step, 'beforeLeave'>) => boolean | void
   /** Will be set to true if user completed step with validation error */
-  hasError?: boolean
+  hasError?: boolean | ((currentStep: Omit<Step, 'hasError'>) => boolean | void)
   /**
    * Used in linear stepper to indicate if step is complete.
    * You can set it manually to false to prevent moving to next step.

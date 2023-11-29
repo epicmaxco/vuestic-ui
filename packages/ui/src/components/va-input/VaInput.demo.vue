@@ -690,7 +690,7 @@ export default defineComponent({
   computed: {
     numProxy: {
       get () { return this.num },
-      set (v) { this.num = v > 10 ? 10 : v },
+      set (v: number) { this.num = v > 10 ? 10 : v },
     },
   },
 })

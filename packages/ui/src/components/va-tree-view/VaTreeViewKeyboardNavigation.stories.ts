@@ -1,4 +1,5 @@
-import { VaTreeView } from '.'
+import { TreeNode, VaTreeView } from '.'
+import { StoryFn } from '@storybook/vue3'
 
 export default {
   title: 'VaTreeViewKeyboardNavigation',
@@ -180,14 +181,14 @@ export const WavesLikeNavigation = () => ({
   `,
 })
 
-export const Selection = () => ({
+export const Selection: StoryFn = () => ({
   components: { VaTreeView },
   data: () => ({
     selectedNode: null,
     triangle: triangle(),
   }),
   methods: {
-    onSelectNode (node) {
+    onSelectNode (node: TreeNode) {
       this.selectedNode = node ? `${node.id} ${node.label}` : null
     },
   },

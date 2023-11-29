@@ -161,6 +161,7 @@
 import { VaDatePicker } from './index'
 import { VaChip } from '../va-chip'
 import { getStaticDate } from '../../../.storybook/interaction-utils/addText'
+import { DatePickerView } from '@/components/va-date-picker/types'
 
 const datePlusDay = (date: Date, days: number) => {
   const d = new Date(date)
@@ -181,9 +182,9 @@ export default {
       monthRange: { start: getStaticDate(), end: datePlusDay(getStaticDate(), 62) },
       months: [getStaticDate(), datePlusDay(getStaticDate(), 62)],
 
-      dayView: { type: 'day', month: 6, year: 2020 },
-      monthView: { type: 'month' },
-      yearView: { type: 'year' },
+      dayView: { type: 'day', month: 6, year: 2020 } as DatePickerView,
+      monthView: { type: 'month' } as DatePickerView,
+      yearView: { type: 'year' } as DatePickerView,
     }
   },
 }

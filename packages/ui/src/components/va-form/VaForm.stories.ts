@@ -47,7 +47,7 @@ export const Default = () => ({
   `,
 })
 
-export const Autofocus = () => ({
+export const Autofocus: StoryFn = () => ({
   components: { VaForm, VaInput },
   template: `
     <va-form autofocus>
@@ -71,7 +71,7 @@ Autofocus.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const Stateful = () => ({
+export const Stateful: StoryFn = () => ({
   components: { VaForm, VaCheckbox },
   template: `
     [true]
@@ -101,7 +101,7 @@ Stateful.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const Immediate = () => ({
+export const Immediate: StoryFn = () => ({
   components: { VaForm, VaInput },
 
   template: `
@@ -160,7 +160,7 @@ HideErrorMessages.play = async ({ step, canvasElement }) => {
   })
 }
 
-export const HideErrors = () => ({
+export const HideErrors: StoryFn = () => ({
   components: { VaForm, VaInput },
   template: `
     [true]
@@ -186,7 +186,7 @@ HideErrors.play = async ({ step }) => {
   })
 }
 
-export const Focus = () => ({
+export const Focus: StoryFn = () => ({
   components: { VaForm, VaInput, VaButton },
   template: `
     <va-form ref="form">
@@ -210,7 +210,7 @@ Focus.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const FocusInvalid = () => ({
+export const FocusInvalid: StoryFn = () => ({
   components: { VaForm, VaInput, VaButton },
   template: `
     <va-form ref="form">
@@ -235,7 +235,7 @@ FocusInvalid.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const ValidateAndResetValidation = () => ({
+export const ValidateAndResetValidation: StoryFn = () => ({
   components: { VaForm, VaInput, VaButton },
   template: `
     <va-form ref="form">
@@ -267,7 +267,7 @@ ValidateAndResetValidation.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const Reset = () => ({
+export const Reset: StoryFn = () => ({
   components: { VaForm, VaInput, VaButton },
   data: () => ({ data: '' }),
   methods: {

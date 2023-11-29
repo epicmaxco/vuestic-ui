@@ -9,7 +9,7 @@ export const Default = () => ({
   components: { VaChip, VaButton },
   setup () {
     const colors = useColors()
-    const change = (color) => {
+    const change = (color: string) => {
       colors.setColors({ danger: color })
     }
 

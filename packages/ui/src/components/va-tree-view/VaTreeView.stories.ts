@@ -3,6 +3,8 @@ import { VaRadio } from '../va-radio'
 import { VaColorPalette } from '../va-color-palette'
 import { VaInput } from '../va-input'
 import { VaCheckbox } from '../va-checkbox'
+import { StoryFn } from '@storybook/vue3'
+import { TreeViewFilterMethod } from './types'
 
 export default {
   title: 'VaTreeView',
@@ -435,7 +437,7 @@ const filterableNodes = () => [
   { id: 5, label: 'Five' },
 ]
 
-export const Filter = () => ({
+export const Filter: StoryFn = () => ({
   components: { VaTreeView, VaInput, VaCheckbox },
   data: () => ({
     filterValue: '',
@@ -443,9 +445,9 @@ export const Filter = () => ({
     filterableNodes: filterableNodes(),
   }),
   computed: {
-    customFilterMethod () {
+    customFilterMethod (): TreeViewFilterMethod | undefined {
       return this.isFilterCaseSensitive
-        ? (node, filter, textBy) => node[textBy].includes(filter)
+        ? (node, filter, textBy) => node[textBy as string].includes(filter)
         : undefined
     },
   },

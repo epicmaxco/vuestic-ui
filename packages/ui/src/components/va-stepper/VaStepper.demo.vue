@@ -129,7 +129,7 @@ const steps = [
   { label: 'Five' },
 ]
 
-const linearSteps = ref([
+const linearSteps = ref<Step[]>([
   {
     label: 'One',
     beforeLeave: (step) => {
@@ -150,7 +150,7 @@ const linearSteps = ref([
   { label: 'Two', beforeLeave: (step) => { step.hasError = model.value.b === '' } },
   { label: 'Three', disabled: true },
   { label: 'Four' },
-] as Step[])
+])
 
 const stepsWithDisabled = [
   { label: 'One' },
@@ -168,10 +168,10 @@ const stepsWithCustomIcons = [
   { label: 'Five', icon: 'list' },
 ]
 
-const stepsWithNextAction = ref([
+const stepsWithNextAction = ref<Step[]>([
   { label: 'One' },
   { label: 'Two', beforeLeave: (step) => { step.hasError = true } },
   { label: 'Three', beforeLeave: (step) => model.value.c !== '' },
   { label: 'Four', hasError: (step) => model.value.d === '' },
-] as Step[])
+])
 </script>
