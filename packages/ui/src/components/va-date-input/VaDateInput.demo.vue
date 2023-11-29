@@ -231,7 +231,7 @@ export default {
       dayView: { type: 'day', month: 3, year: 2013 } as DatePickerView,
       string: getStaticDate().toString(),
       strings: [getStaticDate().getTime() + 1e9, getStaticDate().toString()] as DateInputModelValue,
-      stringRange: { start: getStaticDate().toString(), end: getStaticDate().getTime() + 1e9 } as unknown as DateInputModelValue,
+      stringRange: { start: getStaticDate().toString(), end: getStaticDate().getTime() + 1e9 } as DateInputModelValue,
 
       validationRules1: [(value: Date) => {
         return !!value || 'Should be value'
