@@ -1,25 +1,26 @@
-import { Directive, ref } from 'vue'
+import { Directive, nextTick, ref } from 'vue'
 import { VaDropdown, VaDropdownContent } from '.'
-import { VaButton, VaIcon, VaValue } from '../../components'
+import { VaButton, VaIcon, VaValue } from '@/components'
 import { StoryFn } from '@storybook/vue3'
+import { userEvent, within } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
+import { sleep } from '@/utils/sleep'
 
-const scrollToMiddleY: Directive = {
-  mounted: (el) => {
-    const { scrollHeight, clientHeight } = el
-    el.scrollTop = (scrollHeight - clientHeight) / 2
-  },
+const scrollToMiddleY = (el: HTMLElement) => {
+  const { scrollHeight, clientHeight } = el
+  el.scrollTop = (scrollHeight - clientHeight) / 2
 }
 
-const scrollToMiddleX: Directive = {
-  mounted: (el) => {
-    const { scrollWidth, clientWidth } = el
-    el.scrollLeft = (scrollWidth - clientWidth) / 2
-  },
+const scrollToMiddleX = (el: HTMLElement) => {
+  const { scrollWidth, clientWidth } = el
+  el.scrollLeft = (scrollWidth - clientWidth) / 2
 }
 
 const ScrollContainer = {
   template: `
-    <div style="width: 500px; height: 300px; overflow: auto; position: relative; border: 1px dashed black">
+    <div
+    style="width: 500px; height: 300px; overflow: auto; position: relative;"
+    class="border-2 border-gray-1000 border-dashed">
       <slot />
     </div>
 `,
@@ -29,14 +30,15 @@ export default {
   components: { VaIcon, VaValue, VaDropdownContent },
   title: 'VaDropdown',
   component: VaDropdown,
+  tags: ['autodocs'],
 }
 
-export const Default = () => ({
+export const Default: StoryFn = () => ({
   components: { VaDropdown },
   template: `
       <va-dropdown>
         <template #anchor>
-          <div>
+          <div data-testid="target">
             Click me
           </div>
         </template>
@@ -45,73 +47,150 @@ export const Default = () => ({
     `,
 })
 
-export const Hover = () => ({
+Default.play = async ({ canvasElement, step }) => {
+  const body = within(canvasElement.parentElement!)
+  const target = body.getByTestId('target')
+  await step('Opens on click', async () => {
+    userEvent.click(target)
+    await nextTick()
+    const dropdownContent = body.getByText('Clicked')
+    expect(dropdownContent).toBeVisible()
+  })
+}
+
+export const Hover: StoryFn = () => ({
   components: { VaDropdown },
   template: `
       <va-dropdown
           trigger="hover"
+          :hoverOverTimeout="0"
+          :hoverOutTimeout="0"
       >
         <template #anchor>
-          Hover me
+          <div data-testid="target">
+            Hover me
+          </div>
         </template>
         Hovered
       </va-dropdown>
     `,
 })
 
-export const ContentNotHoverable = () => ({
+Hover.play = async ({ canvasElement, step }) => {
+  const body = within(canvasElement.parentElement!)
+  const target = body.getByTestId('target')!
+  await step('Opens on hover', async () => {
+    userEvent.hover(target)
+    await sleep()
+    const dropdownContent = body.getByText('Hovered')
+    expect(dropdownContent).toBeVisible()
+  })
+  await step('Dropdown stays visible when hover moves to dropdown content', async () => {
+    const dropdownContent = body.getByText('Hovered')
+    userEvent.unhover(target)
+    userEvent.hover(dropdownContent)
+    await sleep()
+    expect(dropdownContent).toBeVisible()
+  })
+  await step('Dropdown hides on mouse leave', async () => {
+    const dropdownContent = body.getByText('Hovered')
+    userEvent.unhover(dropdownContent)
+    await sleep()
+    expect(dropdownContent).not.toBeVisible()
+  })
+}
+
+export const ContentNotHoverable: StoryFn = () => ({
   components: { VaDropdown },
   template: `
       <va-dropdown
           trigger="hover"
           :is-content-hoverable="false"
+          :hoverOverTimeout="0"
+          :hoverOutTimeout="0"
       >
         <template #anchor>
-          Hover me
+          <div data-testid="target">
+            Hover me
+          </div>
         </template>
-        Hovered
+        Content
       </va-dropdown>
     `,
 })
 
-export const PlacementTop = () => ({
+ContentNotHoverable.play = async ({ canvasElement, step }) => {
+  const body = within(canvasElement.parentElement!)
+  const target = body.getByTestId('target')
+  await step('Dropdown hides when hover moves to dropdown content', async () => {
+    userEvent.hover(target)
+    await sleep()
+    const dropdownContent = body.getByText('Hovered')
+    userEvent.unhover(target)
+    userEvent.hover(dropdownContent)
+    await sleep()
+    expect(dropdownContent).not.toBeVisible()
+  })
+}
+
+export const Trigger: StoryFn = () => ({
   components: { VaDropdown },
   template: `
+    <div class="d-flex gap-4">
+      <va-dropdown trigger="right-click">
+        <template #anchor>
+          Right click
+        </template>
+        Right clicked
+      </va-dropdown>
+      <va-dropdown trigger="dblclick">
+        <template #anchor>
+          Double click
+        </template>
+        Double clicked
+      </va-dropdown>
+    </div>
+    `,
+})
+
+export const Placement = () => ({
+  components: { VaDropdown, VaDropdownContent },
+  template: `
+    <div class="mt-8 d-flex gap-4">
       <va-dropdown
+          :model-value="true"
           placement="top"
       >
         <template #anchor>
-          Click me
+          Placement top
         </template>
-        Top
+        <va-dropdown-content>Content</va-dropdown-content>
       </va-dropdown>
-    `,
-})
-
-export const PlacementTopStart = () => ({
-  components: { VaDropdown },
-  template: `
+      <br/>
       <va-dropdown
+          :model-value="true"
           placement="top-start"
       >
         <template #anchor>
-          Click me
+          Placement top start
         </template>
-        TS
+        <va-dropdown-content>Content</va-dropdown-content>
       </va-dropdown>
+    </div>
     `,
 })
 
 export const Offset = () => ({
-  components: { VaDropdown },
+  components: { VaDropdown, VaDropdownContent },
   template: `
       <va-dropdown
+          :model-value="true"
           :offset="[20, 40]"
       >
         <template #anchor>
-          Click me
+          Anchor
         </template>
-        Offset
+        <va-dropdown-content>Content</va-dropdown-content>
       </va-dropdown>
     `,
 })
@@ -119,98 +198,71 @@ export const Offset = () => ({
 export const AnchorWidth = () => ({
   components: { VaDropdown, VaDropdownContent },
   template: `
+    <div class="d-flex gap-4">
       <va-dropdown
           keepAnchorWidth
+          :model-value="true"
       >
         <template #anchor>
-          <div>
-            Short anchor
-          </div>
+          Short anchor
         </template>
         <va-dropdown-content>
-          Loooooooong Dropdown
+          Long content wraps
         </va-dropdown-content>
       </va-dropdown>
-      <br/>
       <va-dropdown
           keepAnchorWidth
+          :model-value="true"
       >
         <template #anchor>
-          <div>
-            Loooooooong anchor
-          </div>
+          Loooooooong anchor
         </template>
         <va-dropdown-content>
-          Short
+          Short content
         </va-dropdown-content>
       </va-dropdown>
+    </div>
     `,
 })
 
 export const CustomWidth = () => ({
   components: { VaDropdown, VaValue, VaDropdownContent },
   template: `
-      <VaValue #default="v" :default-value="true">
-        <button @click="v.value = !v.value">{{ v.value ? 'Short' : 'Long' }}</button>
-        <br/>
-        <va-dropdown placement="bottom-end">
-          <template #anchor>
-            <div>
-              Custom width anchor
-            </div>
-          </template>
-
-          <template #default="{ getAnchorWidth }">
-            <va-dropdown-content :style="{ minWidth: getAnchorWidth() }">
-              {{ v.value ? 'Short' : 'Loooong drooooopdown wwiiiiiidth' }}
-            </va-dropdown-content>
-          </template>
-        </va-dropdown>
-      </VaValue>
+    <div class="d-flex gap-4">
+      <va-dropdown :model-value="true">
+        <template #anchor>
+          Custom width anchor
+        </template>
+        <template #default="{ getAnchorWidth }">
+          <va-dropdown-content :style="{ minWidth: getAnchorWidth() }">
+            Short content
+          </va-dropdown-content>
+        </template>
+      </va-dropdown>
+      <va-dropdown placement="bottom-start" :model-value="true">
+        <template #anchor>
+          Custom width anchor
+        </template>
+        <template #default="{ getAnchorWidth }">
+          <va-dropdown-content :style="{ minWidth: getAnchorWidth() }">
+            Loooooooong content
+          </va-dropdown-content>
+        </template>
+      </va-dropdown>
+    </div>
     `,
 })
 
 export const Cursor = () => ({
   components: { VaDropdown },
   template: `
-      <va-dropdown
-          trigger="right-click"
-          placement="bottom-start"
-          cursor
-      >
+      <va-dropdown cursor>
         <template #anchor>
           <div class="w-32 h-32 border-2 border-gray-1000 border-dashed">
-            Right click
+            Anchor
           </div>
         </template>
-        Ctx dropdown
-      </va-dropdown>
-    `,
-})
-
-export const CursorWithTarget = () => ({
-  components: { VaDropdown },
-  setup () {
-    return {
-      cursorTarget: ref(null),
-    }
-  },
-  template: `
-      <va-dropdown
-          trigger="right-click"
-          placement="bottom-start"
-          :target="cursorTarget"
-          cursor
-      >
-        <template #anchor>
-          <div
-              class="w-32 h-32 border-2 border-gray-1000 border-dashed"
-              ref="cursorTarget"
-          >
-            Right click
-          </div>
-        </template>
-        Ctx dropdown
+        Content
       </va-dropdown>
     `,
 })
@@ -222,62 +274,78 @@ export const AnchorSelector = () => ({
           class="border-2 border-gray-1000 border-dashed"
           id="anchor-selector"
       >
-        Click me
+        Anchor
       </div>
       <va-dropdown
           anchor-selector="#anchor-selector"
       >
-        Anchor selector
+        Content
       </va-dropdown>
     `,
 })
 
-export const InnerAnchorSelector = () => ({
-  components: { VaDropdown },
+export const InnerAnchorSelector: StoryFn = () => ({
+  components: { VaDropdown, VaDropdownContent },
   template: `
       <va-dropdown
-          inner-anchor-selector="#inner-anchor-selector"
+          inner-anchor-selector="#innerAnchor"
       >
         <template #anchor>
-          <div class="border-2 border-gray-1000 border-dashed">
+          <div class="border-2 border-gray-1000 border-dashed" data-testid="anchor">
             <div
                 class="border-2 border-gray-1000 border-dashed m-4"
-                id="inner-anchor-selector"
+                id="innerAnchor"
+                data-testid="innerAnchor"
             >
-              Click me
+              Anchor
             </div>
           </div>
         </template>
-        Inner anchor selector
+        <va-dropdown-content data-testid="content" id="content">Content</va-dropdown-content>
       </va-dropdown>
     `,
 })
 
-export const AnchorBoundProps = () => ({
+InnerAnchorSelector.play = async ({ canvasElement, step }) => {
+  const body = within(canvasElement.parentElement!)
+  const anchor = body.getByTestId('anchor')
+  const innerAnchor = body.getByTestId('innerAnchor')
+  await step("Doesn't open on anchor click", async () => {
+    userEvent.click(anchor)
+    await nextTick()
+    expect(body.queryByTestId('content')).toBeNull()
+  })
+  await step('Opens on inner anchor click', async () => {
+    userEvent.click(innerAnchor)
+    await nextTick()
+    expect(body.getByTestId('content')).toBeVisible()
+    userEvent.click(innerAnchor)
+  })
+}
+
+export const AnchorSlotProps = () => ({
   components: { VaDropdown, VaIcon },
   template: `
       <va-dropdown>
         <template #anchor="{ isOpened }">
-          <div>
-            <va-icon :name="isOpened ? 'va-arrow-up' : 'va-arrow-down'"/>
-          </div>
+          Anchor <va-icon :name="isOpened ? 'va-arrow-up' : 'va-arrow-down'"/>
         </template>
-        Clicked
+        Content
       </va-dropdown>
     `,
 })
 
 export const KeepHeight = () => ({
-  components: { VaDropdown, VaButton, VaDropdownContent },
+  components: { VaDropdown, VaDropdownContent },
   template: `
       <div style="height: 1000px">
         <va-dropdown>
           <template #anchor>
-            <va-button>Anchor</va-button>
+            Anchor
           </template>
           <va-dropdown-content>
             <div style="height: 600px; width: 100px;">
-              Hi
+              Content
             </div>
           </va-dropdown-content>
         </va-dropdown>
@@ -285,7 +353,7 @@ export const KeepHeight = () => ({
     `,
 })
 
-export const Autoplacement: StoryFn = () => ({
+export const AutoplacementWithTarget: StoryFn = () => ({
   components: { VaDropdown, VaButton, VaDropdownContent, ScrollContainer },
   directives: { scrollToMiddleY },
   setup () {
@@ -298,6 +366,7 @@ export const Autoplacement: StoryFn = () => ({
       <scroll-container
           ref="autoplacementTargetRef"
           v-scroll-to-middle-y
+          data-testid="scrollContainer"
       >
         <div style="height: 200%;display: grid;place-items: center;">
           <va-dropdown
@@ -306,8 +375,7 @@ export const Autoplacement: StoryFn = () => ({
               :target="autoplacementTargetRef"
           >
             <template #anchor>
-              <div class="grid place-items-center h-24 w-24 border-2 border-gray-1000 border-dashed">
-              </div>
+              <div data-testid="anchor" class="grid place-items-center h-24 w-24 border-2 border-gray-1000 border-dashed"/>
             </template>
             Dropdown
           </va-dropdown>
@@ -321,7 +389,7 @@ export const AutoplacementWithHeight: StoryFn = () => ({
   directives: { scrollToMiddleY },
   setup () {
     return {
-      autoplacementTargetRef: ref(null),
+      autoplacementTargetRef: ref<HTMLElement>(),
     }
   },
   template: `
@@ -342,7 +410,7 @@ export const AutoplacementWithHeight: StoryFn = () => ({
             </template>
             <va-dropdown-content>
               <div style="height: 600px; width: 100px;">
-                Hi
+                Content
               </div>
             </va-dropdown-content>
           </va-dropdown>
@@ -356,7 +424,7 @@ export const StickToEdges: StoryFn = () => ({
   directives: { scrollToMiddleX },
   setup () {
     return {
-      autoplacementTargetRef: ref(null),
+      autoplacementTargetRef: ref<HTMLElement>(),
     }
   },
   template: `

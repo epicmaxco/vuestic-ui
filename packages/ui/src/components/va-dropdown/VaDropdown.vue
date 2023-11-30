@@ -158,7 +158,25 @@ export default defineComponent({
         emit('anchor-right-click', e)
       }
     }
-    const onDblclick = () => { return undefined }
+    const onDblclick = (e: MouseEvent) => {
+      if (kebabCase(props.trigger) !== 'dblclick' || props.disabled) {
+        return
+      }
+      e.preventDefault()
+
+      if (valueComputed.value) {
+        emitAndClose('anchor-dblclick', props.closeOnAnchorClick, e)
+
+        if (props.cursor) {
+          nextTick(() => {
+            valueComputed.value = true
+          })
+        }
+      } else {
+        valueComputed.value = true
+        emit('anchor-dblclick', e)
+      }
+    }
     const onMouseenter = () => {
       if (props.trigger !== 'hover' || props.disabled) { return }
 
