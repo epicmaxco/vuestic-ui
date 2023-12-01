@@ -17,9 +17,9 @@
     js-message "1.0.7"
 
 "@adobe/css-tools@^4.0.1":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@adobe/css-tools/-/css-tools-4.3.0.tgz#1991d273fb29edbd2f63060f5bdaf0af26aa64e3"
-  integrity sha512-+RNNcQvw2V1bmnBTPAtOLfW/9mhH2vC67+rUSi5T8EtEWt6lEnGNY2GuhZ1/YwbgikT1TkhvidCDmN5Q5YCo/w==
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/@adobe/css-tools/-/css-tools-4.3.2.tgz#a6abc715fb6884851fca9dad37fc34739a04fd11"
+  integrity sha512-DA5a1C0gD/pLOvhv33YMrbf2FK3oUzwNl9oOJqE4XVjuEtt6XIakRcsd7eLiOSPkp1kTRQGICTA8cKra/vFbjw==
 
 "@ag-grid-community/client-side-row-model@^29.0.0":
   version "29.3.3"
