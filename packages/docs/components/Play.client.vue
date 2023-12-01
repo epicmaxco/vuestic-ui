@@ -2,6 +2,7 @@
 import { Repl, ReplStore, ReplProps } from '@vue/repl'
 import Editor from '@vue/repl/codemirror-editor'
 import '@vue/repl/style.css'
+import { PropType } from 'vue';
 
 const props = defineProps({
   code: {
@@ -11,6 +12,10 @@ const props = defineProps({
   state: {
     type: String,
     default: ''
+  },
+  dependencies: {
+    type: Object as PropType<Record<`${string}.${'js'|'css'|'mjs'}`, string>>,
+    default: () => ({})
   }
 })
 
@@ -20,8 +25,12 @@ const store = new ReplStore({
   serializedState: props.state.replace('#', ''),
 })
 
+const normalizeCode = (code: string) => {
+  return code.replace('<style lang="scss"', '<style')
+}
+
 const code = computed(() => {
-  return props.code || '<template>\n  <div>Hello world</div>\n</template>'
+  return normalizeCode(props.code) || '<template>\n  <div>Hello world</div>\n</template>'
 })
 
 const setFiles = () => {
@@ -33,10 +42,10 @@ const setFiles = () => {
     },
   })
 
-  if (props.code && !props.state) {
+  if (code.value && !props.state) {
     store.setFiles({
       ...store.getFiles(),
-      'App.vue': props.code,
+      'App.vue': code.value,
     })
   }
 }
@@ -59,6 +68,19 @@ const normalizePresetName = (presetName: string) => {
   return 'light'
 }
 
+const dependenciesCSSCode = computed(() => {
+  return Object.entries(props.dependencies)
+    .map(([key, url]) => {
+      const extension = url.split('.').pop()
+      if (extension === 'css') {
+        return `<link rel="stylesheet" href="${url}">`
+      }
+      return ''
+    })
+    .filter(Boolean)
+    .join('\n')
+})
+
 // eslint-disable-next-line no-useless-escape
 const TAILWIND_CDN = '<script src="https://cdn.tailwindcss.com"><\/script>'
 const previewOptions = computed<ReplProps['previewOptions']>(() => ({
@@ -72,6 +94,7 @@ const previewOptions = computed<ReplProps['previewOptions']>(() => ({
       }
     </style>
     ${TAILWIND_CDN}
+    ${dependenciesCSSCode.value}
   `,
   customCode: {
     importCode: `
