@@ -47,11 +47,11 @@
     </VaButton>
 
     <VaModal
+      v-if="doShowPlaygroundButton"
       stateful
       fullscreen
       class="playground-modal"
       hide-default-actions
-      @ok="onHide"
     >
       <template #anchor="{ show }">
         <VaButton
@@ -150,6 +150,10 @@ const buttonStates = {
 const copyButton = computed(() => buttonStates[copyButtonState.value])
 
 const sandboxState = ref('')
+
+const doShowPlaygroundButton = computed(() => {
+  return !props.code.includes('<style lang="scss"') && !props.code.includes('@import')
+})
 </script>
 
 <style lang="scss">
