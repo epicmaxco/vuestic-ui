@@ -30,7 +30,7 @@ describe('useStateful', () => {
     [ true,      true,        true      ],
     [ false,     true,        undefined ],
     /* eslint-enable */
-  ])('stateful %s', async (stateful: boolean, valueToSet: boolean, internalValue?: true) => {
+  ])('stateful %s', async (stateful: boolean, valueToSet: boolean, internalValue?: boolean) => {
     const wrapper = mount(TestComponentRich, { props: { stateful } })
     wrapper.vm.valueComputed = valueToSet
     expect(wrapper.emitted()['update:modelValue']).toBeTruthy()
