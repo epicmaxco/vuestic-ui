@@ -12,7 +12,6 @@
         v-model="valueComputed"
         v-bind="{ ...computedProps, ...listeners, ...validationAriaAttributes }"
         :style="computedStyle"
-        :rows="computedRowsCount"
         :loading="isLoading"
         ref="textarea"
         :ariaLabel="$props.label"
@@ -25,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, CSSProperties, shallowRef } from 'vue'
+import { computed, defineComponent, CSSProperties, shallowRef, ref, watch } from 'vue'
 import pick from 'lodash/pick.js'
 import { VaInputWrapper } from '../va-input-wrapper'
 
@@ -117,24 +116,53 @@ export default defineComponent({
     const isResizable = computed(() => {
       return props.resize && !props.autosize
     })
+    const textareaHeight = ref('auto')
 
-    const computedRowsCount = computed<number | undefined>(() => {
-      if (!props.autosize) {
-        return undefined
+    const updateTextareaHeight = () => {
+      if (!textarea.value) {
+        return false
+      }
+      console.log('updateTextareaHeight')
+      textarea.value.style.height = '0'
+      const scrollHeight = textarea.value?.scrollHeight
+      const lineHeight = parseInt(
+        window.getComputedStyle(textarea.value)?.lineHeight,
+        10,
+      )
+      let rows = scrollHeight / lineHeight
+
+      console.log('scrollHeight', scrollHeight)
+      console.log('lineHeight', lineHeight)
+      console.log('rows', rows)
+      console.log('Rounded Rows = ', Math.round(scrollHeight / lineHeight))
+
+      if (props.maxRows) {
+        rows = Math.max(props.minRows, Math.min(rows, props.maxRows))
       }
 
-      const rows = valueComputed.value ? valueComputed.value.toString().split('\n').length : 1
-
-      if (!props.maxRows) {
-        return rows
+      if (props.minRows) {
+        rows = Math.max(props.minRows, rows)
       }
 
-      return Math.max(props.minRows, Math.min(rows, props.maxRows))
-    })
+      const height = rows * lineHeight + 'px'
 
-    const computedStyle = computed(() => ({
-      resize: isResizable.value ? undefined : 'none',
-    }) as CSSProperties)
+      console.log('height = ', height)
+
+      textareaHeight.value = '' + height
+    }
+
+    watch([valueComputed, textarea], updateTextareaHeight, { immediate: true })
+
+    const computedStyle = computed(
+      () =>
+        ({
+          resize: isResizable.value ? undefined : 'none',
+          height:
+            props.autosize && textareaHeight.value
+              ? textareaHeight.value
+              : undefined,
+        } as CSSProperties),
+    )
 
     const computedProps = computed(() => ({
       ...pick(props, ['disabled', 'readonly', 'placeholder', 'ariaLabel']),
@@ -147,13 +175,13 @@ export default defineComponent({
       computedError,
       computedErrorMessages,
       isLoading,
-      computedRowsCount,
       valueComputed,
       vaInputWrapperProps: filterComponentProps(VaInputWrapperProps),
       textarea,
       computedStyle,
       listeners: createListeners(emit),
       computedProps,
+      textareaHeight,
       focus,
       blur,
     }
