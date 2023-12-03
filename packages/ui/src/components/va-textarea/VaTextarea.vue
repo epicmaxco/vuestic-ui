@@ -116,25 +116,23 @@ export default defineComponent({
     const isResizable = computed(() => {
       return props.resize && !props.autosize
     })
+
     const textareaHeight = ref('auto')
 
     const updateTextareaHeight = () => {
       if (!textarea.value) {
         return false
       }
-      console.log('updateTextareaHeight')
+
       textarea.value.style.height = '0'
-      const scrollHeight = textarea.value?.scrollHeight
+
+      const totalHeight = textarea.value?.scrollHeight
+
       const lineHeight = parseInt(
         window.getComputedStyle(textarea.value)?.lineHeight,
         10,
       )
-      let rows = scrollHeight / lineHeight
-
-      console.log('scrollHeight', scrollHeight)
-      console.log('lineHeight', lineHeight)
-      console.log('rows', rows)
-      console.log('Rounded Rows = ', Math.round(scrollHeight / lineHeight))
+      let rows = totalHeight / lineHeight
 
       if (props.maxRows) {
         rows = Math.max(props.minRows, Math.min(rows, props.maxRows))
@@ -145,8 +143,6 @@ export default defineComponent({
       }
 
       const height = rows * lineHeight + 'px'
-
-      console.log('height = ', height)
 
       textareaHeight.value = '' + height
     }
