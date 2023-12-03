@@ -18,13 +18,14 @@
         class="va-textarea__textarea"
         @focus="validationListeners.onFocus"
         @blur="validationListeners.onBlur"
+        @input="updateTextareaHeight"
       />
     </div>
   </VaInputWrapper>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, CSSProperties, shallowRef, ref, watch } from 'vue'
+import { computed, defineComponent, CSSProperties, shallowRef, ref, watch, nextTick } from 'vue'
 import pick from 'lodash/pick.js'
 import { VaInputWrapper } from '../va-input-wrapper'
 
@@ -124,27 +125,33 @@ export default defineComponent({
         return false
       }
 
-      textarea.value.style.height = '0'
-
-      const totalHeight = textarea.value?.scrollHeight
-
-      const lineHeight = parseInt(
-        window.getComputedStyle(textarea.value)?.lineHeight,
-        10,
-      )
-      let rows = totalHeight / lineHeight
-
-      if (props.maxRows) {
-        rows = Math.max(props.minRows, Math.min(rows, props.maxRows))
+      if (!props.autosize) {
+        return false
       }
 
-      if (props.minRows) {
-        rows = Math.max(props.minRows, rows)
-      }
+      textareaHeight.value = 'auto' // reset height to 0 to get the correct scrollHeight
+      nextTick(() => {
+        if (!textarea.value) {
+          return false
+        }
+        const totalHeight = textarea.value.scrollHeight
 
-      const height = rows * lineHeight + 'px'
+        const lineHeight = parseInt(
+          window.getComputedStyle(textarea.value).lineHeight,
+          10,
+        )
+        const rows = Math.floor(totalHeight / lineHeight)
 
-      textareaHeight.value = '' + height
+        textareaHeight.value = '' + totalHeight + 'px'
+
+        if (props.maxRows && rows > props.maxRows) {
+          textareaHeight.value = '' + props.maxRows * lineHeight + 'px'
+        }
+
+        if (props.minRows && rows < props.minRows) {
+          textareaHeight.value = '' + props.minRows * lineHeight + 'px'
+        }
+      })
     }
 
     watch([valueComputed, textarea], updateTextareaHeight, { immediate: true })
@@ -153,10 +160,7 @@ export default defineComponent({
       () =>
         ({
           resize: isResizable.value ? undefined : 'none',
-          height:
-            props.autosize && textareaHeight.value
-              ? textareaHeight.value
-              : undefined,
+          height: textareaHeight.value ? textareaHeight.value : undefined,
         } as CSSProperties),
     )
 
@@ -178,6 +182,7 @@ export default defineComponent({
       listeners: createListeners(emit),
       computedProps,
       textareaHeight,
+      updateTextareaHeight,
       focus,
       blur,
     }
