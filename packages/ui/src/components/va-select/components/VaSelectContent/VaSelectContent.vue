@@ -113,7 +113,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRefs, computed, watch, type PropType } from 'vue'
+import { defineComponent, ref, toRefs, computed, watch, onMounted, type PropType } from 'vue'
 
 import { useFormFieldProps } from '../../../../composables'
 
@@ -158,6 +158,12 @@ export default defineComponent({
     const autocompleteInputValueComputed = computed({
       get: () => props.autocompleteInputValue,
       set: (v: string) => emit('autocomplete-input', v),
+    })
+
+    onMounted(() => {
+      if (props.multiple) { return }
+
+      autocompleteInputValueComputed.value = props.valueString as string
     })
 
     watch(focused, (newValue) => {

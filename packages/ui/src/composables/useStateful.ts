@@ -1,4 +1,5 @@
-import { ref, computed, watch, PropType, Ref } from 'vue'
+import { ref, computed, watch, PropType, Ref, getCurrentInstance, watchEffect } from 'vue'
+import { NOT_PROVIDED, useUserProvidedProp } from './useUserProvidedProp'
 
 export type StatefulProps = {
   stateful: boolean
@@ -6,7 +7,7 @@ export type StatefulProps = {
 
 export type StatefulOptions<T> = {
   eventName?: string
-  /** @deprecated set default value for prop, not here */
+  /** Prefer to set default value for prop, not here. */
   defaultValue?: T
 }
 
@@ -41,18 +42,21 @@ export const useStateful = <
   D extends any,
   O extends StatefulOptions<D>,
   Key extends string = 'modelValue',
-  P extends StatefulProps & { [key in Key]?: T } = StatefulProps & { [key in Key]?: T },
+  P extends StatefulProps & Record<Key, T> = StatefulProps & Record<Key, T>
 >(
     props: P,
     emit: (name: `update:${Key}`, ...args: any[]) => void,
     key: Key = 'modelValue' as Key,
     options: O = {} as O,
   ) => {
-  const { defaultValue, eventName } = options
+  const { eventName, defaultValue } = options
   const event = (eventName || `update:${key.toString()}`) as `update:${Key}`
-  const valueState = ref(defaultValue === undefined ? props[key] : defaultValue) as Ref
-  let unwatchModelValue: Function
 
+  const passedProp = useUserProvidedProp(key, props)
+
+  const valueState = ref(passedProp.value === NOT_PROVIDED ? defaultValue || props[key] : passedProp) as Ref<P[Key]>
+
+  let unwatchModelValue: ReturnType<typeof watch>
   const watchModelValue = () => {
     unwatchModelValue = watch(() => props[key], (modelValue) => {
       valueState.value = modelValue
@@ -63,7 +67,7 @@ export const useStateful = <
     stateful ? watchModelValue() : unwatchModelValue?.()
   }, { immediate: true })
 
-  const valueComputed = computed<unknown extends O['defaultValue'] ? P[Key] : NonUndefined<P[Key]>>({
+  const valueComputed = computed({
     get: () => {
       if (props.stateful) { return valueState.value }
 

@@ -114,6 +114,8 @@ export default defineComponent({
         backgroundColor,
         backgroundImage: props.gradient ? getGradientBackground(backgroundColor) : undefined,
         overflowX: currentMenuWidth.value === sidebarWidth.value ? undefined : 'hidden' as const,
+        width: sidebarWidth.value,
+        minWidth: sidebarWidth.value,
       }
     })
 
@@ -196,11 +198,11 @@ export default defineComponent({
   }
 
   &--animated-right {
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
 
   &--animated-left {
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   &--minimized {

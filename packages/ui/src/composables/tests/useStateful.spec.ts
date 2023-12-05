@@ -39,4 +39,9 @@ describe('useStateful', () => {
     await wrapper.setProps({ modelValue: false })
     expect(wrapper.vm.valueComputed).toBe(false)
   })
+
+  it('should react to prop change', async () => {
+    const wrapper = mount(TestComponentRich, { props: { stateful: true, modelValue: 'Hello!' } })
+    expect(wrapper.vm.valueComputed).toBe('Hello!')
+  })
 })
