@@ -14,7 +14,7 @@ export const useSortableProps = {
   ...useThrottleProps,
   sortBy: { type: String as PropType<string | undefined> },
   columnSorted: { type: Object as PropType<any | undefined> },
-  sortingOrder: { type: String as PropType<DataTableSortingOrder | null | undefined> },
+  sortingOrder: { type: [String, null] as PropType<DataTableSortingOrder | undefined> },
 }
 
 export type TSortedArgs = { sortBy: string, sortingOrder: DataTableSortingOrder, items: DataTableItem[], itemsIndexes: number[] }
