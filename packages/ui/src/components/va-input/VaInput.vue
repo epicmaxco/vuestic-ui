@@ -103,7 +103,7 @@ export default defineComponent({
     // input
     placeholder: { type: String, default: '' },
     tabindex: { type: [String, Number], default: 0 },
-    modelValue: { type: [String, Number] },
+    modelValue: { type: [Number, String], default: '' },
     type: { type: String as AnyStringPropType<'text' | 'password'>, default: 'text' },
     inputClass: { type: String, default: '' },
     pattern: { type: String },
@@ -132,7 +132,7 @@ export default defineComponent({
 
     const input = shallowRef<HTMLInputElement>()
 
-    const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: '' })
+    const { valueComputed } = useStateful(props, emit, 'modelValue')
 
     const reset = () => withoutValidation(() => {
       emit('update:modelValue', props.clearValue)

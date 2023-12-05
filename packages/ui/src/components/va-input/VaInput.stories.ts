@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import VaInputDemo from './VaInput.demo.vue'
 import VaInput from './VaInput.vue'
 import { expect } from '@storybook/jest'
@@ -17,6 +18,11 @@ export const OldDemos = () => ({
 export const Loading = () => ({
   components: { VaInput },
   template: '<VaInput loading />',
+})
+
+export const Stateful = () => ({
+  components: { VaInput },
+  template: '<VaInput stateful />',
 })
 
 export const Clearable = () => ({

@@ -30,13 +30,18 @@ describe('useStateful', () => {
     [ true,      true,        true      ],
     [ false,     true,        undefined ],
     /* eslint-enable */
-  ])('stateful %s', async (stateful: boolean, valueToSet: boolean, internalValue?: true) => {
-    const wrapper = mount(TestComponentRich, { props: { stateful } })
+  ])('stateful %s', async (stateful: boolean, valueToSet: boolean, internalValue?: boolean) => {
+    const wrapper = mount(TestComponentRich, { props: { stateful } as any })
     wrapper.vm.valueComputed = valueToSet
     expect(wrapper.emitted()['update:modelValue']).toBeTruthy()
     expect(wrapper.vm.valueComputed).toBe(internalValue)
 
     await wrapper.setProps({ modelValue: false })
     expect(wrapper.vm.valueComputed).toBe(false)
+  })
+
+  it('should react to prop change', async () => {
+    const wrapper = mount(TestComponentRich, { props: { stateful: true, modelValue: 'Hello!' } })
+    expect(wrapper.vm.valueComputed).toBe('Hello!')
   })
 })
