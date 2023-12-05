@@ -23,6 +23,7 @@ import {
   VaRadio,
 } from '../'
 import { sleep } from '../../utils/sleep'
+import { useForm } from '../../composables'
 
 export default {
   title: 'VaForm',
@@ -475,3 +476,66 @@ addText(
   'This is old demo resqued to have visual tests, but we want to rewrite it eventually.',
   'stale',
 )
+
+export const FormDataInitialValue = () => ({
+  components: {
+    VaForm,
+    VaInput,
+    VaSelect,
+    VaDateInput,
+    VaTimeInput,
+    VaOptionList,
+    VaButton,
+  },
+  data: () => ({
+    input: 'value',
+    checkbox: true,
+    date: new Date(0),
+    time: new Date(0),
+    options: OPTIONS,
+    select: OPTIONS[0],
+    validationRules: [false],
+  }),
+  setup () {
+    const form = useForm('formEl')
+
+    return {
+      form,
+    }
+  },
+  template: `
+    [form data]: <pre>{{ form.formData }}</pre>
+
+    <va-form ref="formEl" stateful>
+      <va-checkbox
+        v-model="checkbox"
+        :rules="validationRules"
+        name="checkbox"
+      />
+      <va-date-input
+        v-model="date"
+        :rules="validationRules"
+        name="date"
+      />
+      <va-input
+        v-model="input"
+        :rules="validationRules"
+        name="text"
+      />
+      <va-select
+        v-model="select"
+        :options="options"
+        :rules="validationRules"
+        name="select"
+      />
+      <va-time-input
+        v-model="time"
+        :rules="validationRules"
+        name="time"
+      />
+    </va-form>
+    <va-button @click="$refs.form.reset()">
+      Reset form
+    </va-button>
+  `,
+})
