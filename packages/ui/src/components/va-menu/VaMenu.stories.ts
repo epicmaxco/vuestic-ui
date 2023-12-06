@@ -1,5 +1,6 @@
 import VaMenu from './VaMenu.vue'
 import { VaButton } from '../va-button'
+import VaMenuItem from '../va-menu-list/components/VaMenuItem.vue'
 
 export default {
   title: 'VaMenu',
@@ -8,19 +9,6 @@ export default {
 }
 
 export const Default = () => ({
-  components: { VaMenu, VaButton },
-  data: () => ({
-  }),
-  template: `
-  <VaMenu>
-    <template #anchor>
-      <VaButton>Open</VaButton>
-    </template>
-  </VaMenu>
-  `,
-})
-
-export const OptionSelected = () => ({
   components: { VaMenu, VaButton },
   data: () => ({
     options: ['Option 1', 'Option 2', 'Option 3'],
@@ -33,5 +21,18 @@ export const OptionSelected = () => ({
     </template>
   </VaMenu>
   <p class="mt-32">value: {{ value }}</p>
+  `,
+})
+
+export const MenuListSlot = () => ({
+  components: { VaMenu, VaMenuItem, VaButton },
+  template: `
+  <VaMenu @selected="(v) => value = v ">
+    <template #anchor>
+      <VaButton>Open</VaButton>
+    </template>
+    <VaMenuItem>Item 1</VaMenuItem>
+    <VaMenuItem>Item 2</VaMenuItem>
+  </VaMenu>
   `,
 })

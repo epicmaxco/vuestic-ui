@@ -2,7 +2,6 @@ import { VaDivider, VaButton, VaDropdown, VaIcon, VaAvatar } from '../../compone
 import VaMenuList from './VaMenuList.vue'
 import VaMenuItem from './components/VaMenuItem.vue'
 import VaMenuGroup from './components/VaMenuGroup.vue'
-import { addText } from '../../../.storybook/interaction-utils/addText'
 
 export default {
   title: 'VaMenuList',
@@ -136,15 +135,13 @@ export const WithDropdown = () => ({
   template: `
     <VaMenuList>
       <VaMenuItem>
-        <template #left-icon>
-          Looong
-        </template>
-        User 1
+        Single
       </VaMenuItem>
+
       <VaDropdown placement="right-start" stickToEdges trigger="hover">
         <template #anchor="{ isOpened }">
-          <VaMenuItem icon="phone">
-            User 2
+          <VaMenuItem>
+            Group
             <template #right-icon>
               <VaIcon :name="isOpened ? 'chevron_left': 'chevron_right'" />
             </template>
@@ -154,18 +151,14 @@ export const WithDropdown = () => ({
         <VaDropdownContent style="margin-top: calc(var(--va-menu-padding-y) * -1)">
           <VaMenuList>
             <VaMenuItem>
-              Group 1
+              User 1
             </VaMenuItem>
             <VaMenuItem>
-              Group 2
+              User 2
             </VaMenuItem>
           </VaMenuList>
         </VaDropdownContent>
       </VaDropdown>
-
-      <VaMenuItem icon="home">
-        User 3
-      </VaMenuItem>
     </VaMenuList>
   `,
 })
