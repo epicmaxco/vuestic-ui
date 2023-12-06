@@ -9,91 +9,89 @@ export default {
 
 export const Default = () => ({
   components: { VaChip },
-  template: '<va-chip>Text</va-chip>',
+  template: '<VaChip>text</VaChip>',
 })
 
 export const Color = () => ({
   components: { VaChip },
-  template: '<va-chip color="warning">Text</va-chip>',
+  template: '<VaChip color="warning">text</VaChip>',
 })
 
 export const Outline = () => ({
   components: { VaChip },
-  template: '<va-chip outline>Text</va-chip>',
+  template: '<VaChip outline>text</VaChip>',
 })
 
 export const Flat = () => ({
   components: { VaChip },
-  template: '<va-chip flat>Text</va-chip>',
+  template: '<VaChip flat>text</VaChip>',
 })
 
 export const Size = () => ({
   components: { VaChip },
   template: `
-    [Small]
-    <va-chip size="small">Text</va-chip>
-    [Medium]
-    <va-chip>Text</va-chip>
-    [Large]
-    <va-chip size="large">Text</va-chip>
+    <p>[small]</p>
+    <VaChip size="small">text</VaChip>
+    <p>[medium]</p>
+    <VaChip>text</VaChip>
+    <p>[large]</p>
+    <VaChip size="large">text</VaChip>
   `,
 })
 
 export const Icon = () => ({
   components: { VaChip },
-  template: '<va-chip icon="face">Text</va-chip>',
+  template: '<VaChip icon="face">text</VaChip>',
 })
 
 export const SizesWithIcons = () => ({
   components: { VaChip },
   template: `
-    [Small]
-    <va-chip icon="face" size="small">Text</va-chip>
-    [Medium]
-    <va-chip icon="face">Text</va-chip>
-    [Large]
-    <va-chip icon="face" size="large">Text</va-chip>
+    <p>[small]</p>
+    <VaChip icon="face" size="small">text</VaChip>
+    <p>[medium]</p>
+    <VaChip icon="face">text</VaChip>
+    <p>[large]</p>
+    <VaChip icon="face" size="large">text</VaChip>
   `,
 })
 
 export const Square = () => ({
   components: { VaChip },
-  template: '<va-chip square>Text</va-chip>',
+  template: '<VaChip square>text</VaChip>',
 })
 
 export const Closeable = () => ({
   components: { VaChip, VaCheckbox },
   data: () => ({ value: true }),
   template: `
-    [{{ value }}]
-    <br />
-    <va-checkbox v-model="value" label="toggle" />
-    <br />
-    <va-chip v-model="value" closeable>Text</va-chip>
+    <VaCheckbox v-model="value" label="toggle" />
+    <br>
+    <VaChip v-model="value" closeable>text</VaChip>
   `,
 })
 
 export const Link = () => ({
   components: { VaChip },
-  template: '<va-chip to="/?path=/docs/vachip--docs">Text</va-chip>',
+  template: '<VaChip to="/?path=/docs/vachip--docs">text</VaChip>',
 })
 
 export const Disabled = () => ({
   components: { VaChip },
-  template: '<va-chip disabled>Text</va-chip>',
+  template: '<VaChip disabled>text</VaChip>',
 })
 
 export const Readonly = () => ({
   components: { VaChip },
-  template: '<va-chip readonly>Text</va-chip>',
+  template: '<VaChip readonly>text</VaChip>',
 })
 
 export const Stateful = () => ({
   components: { VaChip },
-  template: '<va-chip stateful closeable>Text</va-chip>',
+  template: '<VaChip stateful closeable>text</VaChip>',
 })
 
 export const Shadow = () => ({
   components: { VaChip },
-  template: '<va-chip shadow>Text</va-chip>',
+  template: '<VaChip shadow>text</VaChip>',
 })
