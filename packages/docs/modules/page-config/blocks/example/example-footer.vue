@@ -80,13 +80,12 @@
 
       <template #footer="{ ok }">
         <div class="flex gap-2 w-full px-5">
-          <VaInput :model-value="shareLink" label="Sandbox link" inner-label class="flex-1 w-full" />
-          <VaButton icon="share" preset="secondary" @click="copySandboxLink">
-            Share
+          <VaInput v-if="$vaBreakpoint.smUp" :model-value="shareLink" label="Sandbox link" inner-label class="flex-1 w-full" />
+          <VaSpacer v-else />
+          <VaButton icon="content_copy" preset="secondary" @click="copySandboxLink">
+            Copy link
           </VaButton>
-          <VaButton @click="ok">
-            Hide
-          </VaButton>
+          <VaButton preset="secondary" icon="close" @click="ok" />
         </div>
       </template>
     </VaModal>
