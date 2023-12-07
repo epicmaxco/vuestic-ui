@@ -198,11 +198,11 @@ export default defineComponent({
   }
 
   &--animated-right {
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
 
   &--animated-left {
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   &--minimized {

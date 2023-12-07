@@ -6,12 +6,13 @@ import UseElementBackgroundDummy from './UseElementBackgroundDummy.vue'
 import { within } from '@storybook/testing-library'
 import { sleep } from '../utils/sleep'
 import { expect } from '@storybook/jest'
+import { StoryFn } from '@storybook/vue3'
 
 export default {
   title: 'composables/useElementBackground',
 }
 
-export const Default = () => ({
+export const Default: StoryFn = () => ({
   components: { VaButton, UseElementBackgroundDummy },
   data () {
     return {

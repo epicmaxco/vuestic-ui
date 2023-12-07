@@ -34,12 +34,12 @@
     </span>
     <template v-if="loading">
       <slot name="loading" v-bind="{
-        size: loaderSizeComputed,
+        size: iconSizeComputed,
         color: textColorComputed,
       }">
         <va-progress-circle
           class="va-button__loader"
-          :size="loaderSizeComputed"
+          :size="iconSizeComputed"
           :color="textColorComputed"
           :thickness="0.15"
           indeterminate
@@ -115,7 +115,7 @@ export default defineComponent({
 
     // loader size
     const { sizeComputed } = useSize(props)
-    const loaderSizeComputed = computed(() => {
+    const iconSizeComputed = computed(() => {
       const size = /([0-9]*)(px)/.exec(sizeComputed.value) as null | [string, string, string]
       return size ? `${+size[1] / 2}${size[2]}` : sizeComputed.value
     })
@@ -135,6 +135,7 @@ export default defineComponent({
     const iconColorComputed = computed(() => props.iconColor ? getColor(props.iconColor) : textColorComputed.value)
     const iconAttributesComputed = computed(() => ({
       color: iconColorComputed.value,
+      size: props.size,
     }))
 
     // classes
@@ -181,7 +182,7 @@ export default defineComponent({
       computedClass,
       computedStyle,
       textColorComputed,
-      loaderSizeComputed,
+      iconSizeComputed,
       attributesComputed,
       wrapperClassComputed,
       iconAttributesComputed,

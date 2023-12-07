@@ -13,14 +13,14 @@ services:
     image: "local-packages-lts:latest"
     profiles:
       - "local-packages-lts"
-  local-packages-16:
+  local-packages-18:
     build:
       context: ./../
-      dockerfile: ./bundlers-tests/docker-tests/packages-16.Dockerfile
+      dockerfile: ./bundlers-tests/docker-tests/packages-18.Dockerfile
       no_cache: true
-    image: "local-packages-16:latest"
+    image: "local-packages-18:latest"
     profiles:
-      - "local-packages-16"
+      - "local-packages-18"
   vite_test:
     build:
       context: .

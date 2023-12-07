@@ -14,7 +14,8 @@ export const useSortableProps = {
   ...useThrottleProps,
   sortBy: { type: String as PropType<string | undefined> },
   columnSorted: { type: Object as PropType<any | undefined> },
-  sortingOrder: { type: String as PropType<DataTableSortingOrder | undefined> },
+  sortingOrder: { type: [String, null] as PropType<DataTableSortingOrder | undefined> },
+  disableClientSideSorting: { type: Boolean, default: false },
 }
 
 export type TSortedArgs = { sortBy: string, sortingOrder: DataTableSortingOrder, items: DataTableItem[], itemsIndexes: number[] }
@@ -74,6 +75,10 @@ export const useSortable = (
   // provided. Otherwise uses that very sortingFn. If sortingOrder is `null` then restores the initial sorting order of
   // the rows.
   const sortedRows = computed(() => {
+    if (props.disableClientSideSorting) {
+      return filteredRows.value
+    }
+
     if (filteredRows.value.length <= 1) {
       return filteredRows.value
     }

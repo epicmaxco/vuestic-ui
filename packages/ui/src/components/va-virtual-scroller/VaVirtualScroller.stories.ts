@@ -2,6 +2,7 @@ import { VaVirtualScroller } from './'
 import { VaButton } from '../va-button'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
+import { StoryFn } from '@storybook/vue3'
 
 const getHugeArray = () => new Array(1000).fill(null).map((_, index) => index)
 
@@ -52,7 +53,7 @@ export const Horizontal = () => ({
   `,
 })
 
-export const Bench = () => ({
+export const Bench: StoryFn = () => ({
   components: { VaVirtualScroller },
   data: () => ({ hugeArray: getHugeArray() }),
   template: `

@@ -1,8 +1,9 @@
 import { DataTableColumns, DataTableItems, defineVaDataTableColumns, defineVaDataTableItems } from './fabrics'
-import { defineComponent } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import VaDataTableDemo from './VaDataTable.demo.vue'
 import { VaDataTable } from '..'
 import { VaPagination } from '../va-pagination'
+import { StoryFn } from '@storybook/vue3'
 
 export default {
   title: 'VaDataTable',
@@ -25,12 +26,12 @@ const columns = defineVaDataTableColumns([
 type Items = DataTableItems<typeof columns>
 
 const items = defineVaDataTableItems<typeof columns>([
-  { name: 'Aaa', email: '' },
-  { name: 'Bbb', email: '', test: '' },
-  { name: 'Ccc', email: '' },
-  { name: 'Ddd', email: '', test: '' },
-  { name: 'Eee', email: '' },
-  { name: 'Fff', email: '', test: '' },
+  { name: 'Aaa', email: 'aaa@com.com' },
+  { name: 'Bbb', email: 'bbb@com.com', test: '' },
+  { name: 'Ccc', email: 'ccc@com.com' },
+  { name: 'Ddd', email: 'ddd@com.com', test: '' },
+  { name: 'Eee', email: 'eee@com.com' },
+  { name: 'Fff', email: 'fff@com.com', test: '' },
 ]) satisfies Items
 
 export const Default = defineComponent({
@@ -104,4 +105,42 @@ export const PaginationAnimation = () => ({
     </template>
   </VaDataTable>
   `,
+})
+
+// Expect no sorting animation when clicking on the table header
+export const disableClientSideSorting: StoryFn = () => ({
+  components: { VaDataTable },
+  setup () {
+    const sortBy = ref('name')
+    const sortingOrder = ref('asc')
+    const loading = ref(false)
+
+    const sortedItems = ref(items)
+
+    watch([sortBy, sortingOrder], () => {
+      loading.value = true
+      setTimeout(() => {
+        sortedItems.value = [...items].sort((a, b) => {
+          const sortingOrderRatio = sortingOrder.value === 'desc' ? -1 : 1
+
+          return sortingOrderRatio * (a[sortBy.value] > b[sortBy.value] ? 1 : -1)
+        })
+        loading.value = false
+      }, 1000)
+    }, { immediate: true })
+
+    const columns = defineVaDataTableColumns([
+      { key: 'name', sortable: true },
+      { key: 'email', sortable: true },
+    ]) satisfies Columns
+
+    return {
+      loading,
+      columns,
+      sortedItems,
+      sortBy,
+      sortingOrder,
+    }
+  },
+  template: '<VaDataTable v-model:sort-by="sortBy" :loading="loading" v-model:sorting-order="sortingOrder" :items="sortedItems" :columns="columns" disable-client-side-sorting />',
 })

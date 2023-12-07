@@ -29,7 +29,7 @@ export const Validation: StoryFn = () => ({
   components: { VaSelect },
 
   data () {
-    return { value: '', options: ['one', 'two', 'tree'], rules: [(v) => (v && v === 'one') || 'Must be one'] }
+    return { value: '', options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
   },
 
   template: '<VaSelect v-model="value" :options="options" :rules="rules" />',
@@ -46,7 +46,7 @@ export const ImmediateValidation: StoryFn = () => ({
   components: { VaSelect },
 
   data () {
-    return { value: '', options: ['one', 'two', 'tree'], rules: [(v) => (v && v === 'one') || 'Must be one'] }
+    return { value: '', options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
   },
 
   template: '<VaSelect v-model="value" :options="options" :rules="rules" immediate-validation />',
@@ -63,7 +63,7 @@ export const DirtyValidation: StoryFn = () => ({
   components: { Component: VaSelect },
 
   data () {
-    return { value: '', dirty: false, haveError: false, options: ['one', 'two', 'tree'], rules: [(v) => (v && v === 'one') || 'Must be one'] }
+    return { value: '', dirty: false, haveError: false, options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
   },
 
   template: `
@@ -104,7 +104,7 @@ export const DirtyImmediateValidation: StoryFn = () => ({
   components: { Component: VaSelect },
 
   data () {
-    return { value: '', dirty: false, haveError: false, options: ['one', 'two', 'tree'], rules: [(v) => (v && v === 'one') || 'Must be one'] }
+    return { value: '', dirty: false, haveError: false, options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
   },
 
   template: `
@@ -124,3 +124,24 @@ DirtyImmediateValidation.play = async ({ canvasElement, step }) => {
     expect(error).not.toBeNull()
   })
 }
+
+export const Autocomplete: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    // Test if initial value is correctly set
+    return { value: 'one', options: ['one', 'two', 'three'] }
+  },
+
+  template: '<VaSelect v-model="value" :options="options" autocomplete />',
+})
+
+export const AutocompleteMultiple: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    return { value: ['one', 'two'], options: ['one', 'two', 'three'] }
+  },
+
+  template: '<VaSelect v-model="value" :options="options" autocomplete multiple />',
+})

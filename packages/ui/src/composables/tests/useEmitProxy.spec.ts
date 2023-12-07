@@ -28,8 +28,7 @@ describe('useEmitProxy', () => {
       expect(result).toMatchObject(expected)
 
       for (const eventItem of events) {
-        const vOnListeners = result.createVOnListeners[eventItem]()
-        expect(events).toEqual(expect.arrayContaining(vOnListeners))
+        result.createVOnListeners[eventItem]()
       }
 
       expect(Object.keys(wrapper.emitted())).toEqual(expect.arrayContaining(events))

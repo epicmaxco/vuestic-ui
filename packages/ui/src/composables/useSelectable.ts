@@ -15,6 +15,7 @@ export type SelectableProps<V = any> = StatefulProps & LoadingProps & ExtractPro
   indeterminateValue: V | null,
   disabled: boolean,
   readonly: boolean,
+  modelValue: unknown
 }
 
 export type Elements = {

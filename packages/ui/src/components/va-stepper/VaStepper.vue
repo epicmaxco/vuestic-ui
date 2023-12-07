@@ -116,7 +116,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'finish', 'update:steps'],
   setup (props, { emit }) {
     const stepperNavigation = shallowRef<HTMLElement>()
-    const { valueComputed: modelValue }: { valueComputed: Ref<number> } = useStateful(props, emit, 'modelValue', { defaultValue: 0 })
+    const { valueComputed: modelValue }: { valueComputed: Ref<number> } = useStateful(props, emit, 'modelValue')
 
     const focusedStep = ref({ trigger: false, stepIndex: props.navigationDisabled ? -1 : props.modelValue })
 
