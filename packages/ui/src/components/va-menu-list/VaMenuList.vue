@@ -21,8 +21,7 @@
           :right-icon="option.rightIcon"
           :disabled="getDisabled(option)"
           :color="color"
-          @click="$emit('selected', getValue(option), option)"
-          @keydown.enter.space="$emit('selected', getValue(option), option)"
+          @selected="$emit('selected', getValue(option), option)"
         >
           <template #left-icon="bind">
             <slot name="left-icon" v-bind="bind" />

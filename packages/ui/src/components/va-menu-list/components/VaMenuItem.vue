@@ -6,6 +6,8 @@
       'va-menu-item--disabled': disabled,
       'va-menu-item--keyboard-focus': hasKeyboardFocus,
     }"
+    @click="$emit('selected')"
+    @keydown.enter.space="$emit('selected')"
   >
     <td class="va-menu-item__cell va-menu-item__cell--left">
       <slot name="left-icon">
@@ -45,6 +47,7 @@ export default defineComponent({
     disabled: { type: Boolean, default: false },
     color: { type: String, default: 'primary' },
   },
+  emit: ['selected'],
   setup (props) {
     const { getColor, getHoverColor } = useColors()
 
