@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="va-unordered">
     <li
       v-for="user in 4"
       :key="user"
@@ -11,7 +11,7 @@
           { text: 'Delete', icon: 'delete' },
         ],
         onSelected(option) {
-          console.log(option, user)
+          alert(option.text + ' ' + user)
         },
       })"
     >
@@ -24,4 +24,6 @@
   import { useMenu } from 'vuestic-ui';
 
   const { show } = useMenu()
+
+  const alert = (...args) => window.alert(...args)
 </script>

@@ -24,7 +24,7 @@ export default definePageConfig({
     }),
     block.example("UseMenu", {
       title: "useMenu",
-      description: "You can use `useMenu` hook to show menu programmatically.",
+      description: "You can use `useMenu` hook to show menu programmatically. `useMenu` will listen for right click to show menu.",
     }),
 
     block.example("Icon", {
