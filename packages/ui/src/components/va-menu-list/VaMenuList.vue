@@ -20,7 +20,6 @@
           :name="getText(option)" :icon="option.icon"
           :right-icon="option.rightIcon"
           :disabled="getDisabled(option)"
-          :color="color"
           @selected="$emit('selected', getValue(option), option)"
         >
           <template #left-icon="bind">
@@ -40,9 +39,8 @@ import { defineComponent, PropType, computed, VNode, ref, Fragment } from 'vue'
 import VaMenuItem from './components/VaMenuItem.vue'
 import VaMenuGroup from './components/VaMenuGroup.vue'
 import { VaMenuOption } from './types'
-import { useColors, useSelectableList, useSelectableListProps } from '../../composables'
+import { useSelectableList, useSelectableListProps } from '../../composables'
 import { useMenuKeyboardNavigation, makeMenuContainerAttributes } from './composables/useMenuKeyboardNavigation'
-import { useLocalConfigProvider } from '../../composables/useLocalConfig'
 
 export default defineComponent({
   name: 'VaMenuList',
@@ -50,7 +48,6 @@ export default defineComponent({
   props: {
     ...useSelectableListProps,
     options: { type: Array as PropType<VaMenuOption[]>, default: () => [] },
-    color: { type: String, default: 'primary' },
   },
   emits: ['selected'],
   setup (props) {
@@ -103,19 +100,8 @@ export default defineComponent({
       return String(node.key)
     }
 
-    const { getColor } = useColors()
-
-    const colorComputed = computed(() => getColor(props.color))
-
-    useLocalConfigProvider(computed(() => ({
-      VaMenuItem: {
-        color: colorComputed.value,
-      },
-    })))
-
     return {
       container,
-      colorComputed,
       optionGroups,
       makeMenuContainerAttributes,
       getVNodeComponentName,

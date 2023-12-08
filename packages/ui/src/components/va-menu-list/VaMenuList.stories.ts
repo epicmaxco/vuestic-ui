@@ -86,23 +86,13 @@ export const SlotUsage = () => ({
   `,
 })
 
-export const Color = () => ({
-  components: { VaMenuList, VaMenuItem, VaMenuGroup },
-  data: () => ({
-    options: ['Option 1', 'Option 2', 'Option 3'],
-  }),
-  template: `
-    <VaMenuList color="warning" :options="options" />
-  `,
-})
-
 export const HoverColor = () => ({
   components: { VaMenuList, VaMenuItem, VaMenuGroup },
   data: () => ({
     options: ['Option 1', 'Option 2', 'Option 3'],
   }),
   template: `
-    <VaMenuList color="warning" :options="options" style="--va-menu-item-hover-color: red;" />
+    <VaMenuList :options="options" style="--va-menu-item-hover-color: red;" />
   `,
 })
 

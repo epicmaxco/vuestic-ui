@@ -34,7 +34,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue'
 import { VaIcon } from '../../va-icon/'
-import { useColors, useKeyboardOnlyFocusGlobal } from '../../../composables'
+import { useKeyboardOnlyFocusGlobal } from '../../../composables'
 import { makeMenuItemAttributes } from '../composables/useMenuKeyboardNavigation'
 
 export default defineComponent({
@@ -45,18 +45,12 @@ export default defineComponent({
     icon: { type: String, defatult: '' },
     rightIcon: { type: String, defatult: '' },
     disabled: { type: Boolean, default: false },
-    color: { type: String, default: 'primary' },
   },
   emit: ['selected'],
   setup (props) {
-    const { getColor, getHoverColor } = useColors()
-
-    const hoverColor = computed(() => getHoverColor(getColor(props.color)))
-
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocusGlobal()
 
     return {
-      hoverColor,
       hasKeyboardFocus,
       keyboardFocusListeners,
       makeMenuItemAttributes,
@@ -71,6 +65,9 @@ export default defineComponent({
 .va-menu-item {
   display: table-row;
   cursor: pointer;
+  position: relative;
+
+  @include va-background(var(--va-menu-item-hover-color), 0);
 
   &__cell {
     display: table-cell;
@@ -104,8 +101,7 @@ export default defineComponent({
   }
 
   &:hover {
-    opacity: 0.9999;
-    background-color: var(--va-menu-item-hover-color, v-bind("hoverColor"));
+    @include va-background-opacity(var(--va-menu-item-hover-color), var(--va-menu-item-hover-opacity));
   }
 
   &--disabled {
