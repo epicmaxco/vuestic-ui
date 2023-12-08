@@ -114,7 +114,7 @@ export const ContentNotHoverable: StoryFn = () => ({
             Hover me
           </div>
         </template>
-        Content
+        Hovered
       </va-dropdown>
     `,
 })
