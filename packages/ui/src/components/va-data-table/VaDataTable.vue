@@ -145,17 +145,16 @@
                     </slot>
                   </td>
                 </tr>
-                <tr
+                <td
                   v-if="row.isExpandableRowVisible"
-                  class="va-data-table__table-tr--expanded va-data-table__table-expanded-content"
+                  class="va-data-table__table-expanded-content"
+                  colspan="99999"
                 >
-                  <td :colspan="row.cells.length">
-                    <slot
-                      name="expandableRow"
-                      v-bind="row"
-                    />
-                  </td>
-                </tr>
+                  <slot
+                    name="expandableRow"
+                    v-bind="row"
+                  />
+                </td>
               </template>
             </transition-group>
 
@@ -559,7 +558,7 @@ export default defineComponent({
     &.striped {
       .va-data-table__table-tbody {
         .va-data-table__table-tr {
-          &:nth-child(even) {
+          &:nth-of-type(2n) {
             &:not(.selected) {
               td {
                 // Position relative doesn't work on tr in Safari
