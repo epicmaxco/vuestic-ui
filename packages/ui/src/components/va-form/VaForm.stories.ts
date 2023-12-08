@@ -240,7 +240,7 @@ export const ValidateAndResetValidation: StoryFn = () => ({
   components: { VaForm, VaInput, VaButton },
   template: `
     <va-form ref="form">
-      <va-input data-testid="input" :rules="[false]"/>
+      <va-input data-testid="input" :rules="[false]" stateful />
     </va-form>
     <va-button @click="$refs.form.validate()">
       Validate
