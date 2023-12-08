@@ -32,7 +32,7 @@ const resolveConfigs = async () => {
           return;
         }
 
-        const path = `/ui-elements/${name
+        const path = `/${name
           .replace("/page-config.ts", "")
           .replace("./", "")}`;
 
