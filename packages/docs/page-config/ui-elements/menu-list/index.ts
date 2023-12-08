@@ -10,7 +10,7 @@ export default definePageConfig({
 
     block.example("Default", {
       title: "Basic usage",
-      description: "To show menu items you can use `options` prop or `VaMenuItem` component.",
+      description: "To show menu items you can use `options` prop:",
     }),
     block.example("MenuItem", {
       title: "Slot usage",

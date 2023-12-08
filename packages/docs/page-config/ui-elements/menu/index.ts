@@ -11,7 +11,7 @@ export default definePageConfig({
 
     block.example("Default", {
       title: "Basic usage",
-      description: "Required to have a anchor. Anchor can be anything, component will automatically listen for clicks, keyboard navigation and open/close menu. To show menu items you can use `options` prop or `VaMenuItem` component.",
+      description: "Required to have a anchor. Component will automatically listen for clicks, keyboard navigation and open/close menu. Here's an example using `options` prop:",
     }),
     block.example("MenuItem", {
       title: "Slot usage",
