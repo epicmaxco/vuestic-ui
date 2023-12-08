@@ -113,6 +113,7 @@ export default defineComponent({
     color: { type: String, default: undefined },
     bodyColor: { type: String, default: undefined },
     textColor: { type: String, default: '' },
+    bodyTextColor: { type: String, default: '' },
     iconColor: { type: String, default: 'secondary' },
     colorAll: { type: Boolean, default: false },
     stateful: { type: Boolean, default: true },
@@ -197,6 +198,27 @@ export default defineComponent({
       computedModelValue.value = !computedModelValue.value
     }
 
+    const { textColorComputed } = useTextColor(headerBackground)
+
+    const headerStyle = computed(() => ({
+      color: textColorComputed.value,
+      backgroundColor: headerBackground.value,
+    }))
+
+    const contentStyle = computed(() => {
+      return {
+        visibility: bodyHeight.value > 0 ? 'visible' as const : 'hidden' as const,
+        height: `${height.value}px`,
+        transitionDuration: getTransition(),
+        background: computedModelValue.value ? contentBackground.value : '',
+        color: props.bodyTextColor
+          ? getColor(props.bodyTextColor)
+          : contentBackground.value
+            ? getColor(getTextColor(contentBackground.value))
+            : 'currentColor',
+      }
+    })
+
     return {
       onTransitionEnd,
       body,
@@ -212,20 +234,9 @@ export default defineComponent({
 
       computedClasses,
 
-      headerStyle: computed(() => ({
-        color: headerBackground.value ? getColor(getTextColor(headerBackground.value)) : 'currentColor',
-        backgroundColor: headerBackground.value,
-      })),
+      headerStyle,
 
-      contentStyle: computed(() => {
-        return {
-          visibility: bodyHeight.value > 0 ? 'visible' as const : 'hidden' as const,
-          height: `${height.value}px`,
-          transitionDuration: getTransition(),
-          background: computedModelValue.value ? contentBackground.value : '',
-          color: contentBackground.value ? getColor(getTextColor(contentBackground.value)) : 'currentColor',
-        }
-      }),
+      contentStyle,
     }
   },
 })
