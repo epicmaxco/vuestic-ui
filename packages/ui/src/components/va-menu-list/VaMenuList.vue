@@ -134,7 +134,8 @@ export default defineComponent({
     line-height: unset;
   }
 
-  td:not(&__virtual-td) {
+  // Without & at the start, style will be applied globally
+  & td:not(&__virtual-td) {
     padding-top: calc(var(--va-menu-padding-y) / 2);
     padding-bottom: calc(var(--va-menu-padding-y) / 2);
   }

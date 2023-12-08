@@ -144,3 +144,33 @@ export const disableClientSideSorting: StoryFn = () => ({
   },
   template: '<VaDataTable v-model:sort-by="sortBy" :loading="loading" v-model:sorting-order="sortingOrder" :items="sortedItems" :columns="columns" disable-client-side-sorting />',
 })
+
+export const Striped = () => ({
+  components: { VaDataTable, VaPagination },
+  data: () => ({ columns, items }),
+
+  template: `
+  <VaDataTable :items="items" :columns="columns" striped />
+  `,
+})
+
+export const ExpandableRow = () => ({
+  components: { VaDataTable, VaPagination },
+  data: () => ({ columns: [...columns, { key: 'actions', width: 80 }], items }),
+
+  template: `
+  <VaDataTable :items="items" :columns="columns" striped>
+     <template #cell(actions)="{ row, isExpanded }">
+      <button
+        @click="row.toggleRowDetails()"
+      >
+        {{ isExpanded ? 'Hide': 'More info' }}
+      </button>
+    </template>
+
+    <template #expandableRow="{ rowData }">
+      {{ rowData }}
+    </template>
+  </VaDataTable>
+  `,
+})
