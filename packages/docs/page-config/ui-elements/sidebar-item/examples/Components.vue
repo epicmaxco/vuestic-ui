@@ -97,7 +97,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style>
 .expanded {
   background-color: var(--va-background-primary);
 }

@@ -93,6 +93,7 @@ const sourceComputed = computed(() => props.customCode?.source || props.source);
       :code="sourceComputed"
       :git-link="gitLink"
       :hide-show-code-button="forceShowCode || hideCode"
+      :config="codesandboxConfig"
     />
 
     <template v-if="(showCode && !hideCode) || forceShowCode">
