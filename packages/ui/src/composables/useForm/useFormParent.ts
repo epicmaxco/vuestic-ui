@@ -20,6 +20,7 @@ export const createFormContext = <Names extends string>(options: FormParentOptio
     doShowError: computed(() => !options.hideErrors),
     doShowErrorMessages: computed(() => !options.hideErrorMessages),
     doShowLoading: computed(() => !options.hideLoading),
+    isFormDirty: ref(false),
     registerField: (uid: number, field: FormFiled) => {
       fields.value.set(uid, field as FormFiled<Names>)
     },
@@ -34,7 +35,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
 
   provide(FormServiceKey, formContext)
 
-  const { fields } = formContext
+  const { fields, isFormDirty } = formContext
 
   const fieldNames = computed(() => fields.value.map((field) => unref(field.name)).filter(Boolean) as Names[])
   const fieldsNamed = computed(() => fields.value.reduce((acc, field) => {
@@ -47,7 +48,10 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   }, {} as Record<Names, FormFiled['value']>))
   const isValid = computed(() => fields.value.every((field) => unref(field.isValid)))
   const isLoading = computed(() => fields.value.some((field) => unref(field.isLoading)))
-  const isDirty = computed(() => fields.value.some((field) => unref(field.isLoading)))
+  const isDirty = computed({
+    get () { return fields.value.some((field) => unref(field.isLoading)) || isFormDirty.value },
+    set (v) { isFormDirty.value = v },
+  })
   const errorMessages = computed(() => fields.value.map((field) => unref(field.errorMessages)).flat())
   const errorMessagesNamed = computed(() => fields.value.reduce((acc, field) => {
     if (unref(field.name)) { acc[unref(field.name) as Names] = unref(field.errorMessages) }
@@ -55,6 +59,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   }, {} as Record<Names, any>))
 
   const validate = () => {
+    isDirty.value = true
     // Validate each filed to get the error messages
     return fields.value.reduce((acc, field) => {
       return field.validate() && acc
@@ -62,16 +67,19 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   }
 
   const validateAsync = () => {
+    isDirty.value = true
     return Promise.all(fields.value.map((field) => field.validateAsync())).then((results) => {
       return results.every(Boolean)
     })
   }
 
   const reset = () => {
+    isDirty.value = false
     fields.value.forEach((field) => field.reset())
   }
 
   const resetValidation = () => {
+    isDirty.value = false
     fields.value.forEach((field) => field.resetValidation())
   }
 

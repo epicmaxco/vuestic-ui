@@ -148,6 +148,7 @@ export default defineComponent({
     })
 
     const {
+      isDirty,
       computedError,
       computedErrorMessages,
       listeners: { onBlur, onFocus },
@@ -240,6 +241,7 @@ export default defineComponent({
 
       fieldListeners: createFieldListeners(emit),
       filterSlots,
+      isDirty,
       reset,
       focus,
       blur,
