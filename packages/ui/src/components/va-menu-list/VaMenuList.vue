@@ -1,36 +1,38 @@
 <template>
   <table class="va-menu-list" ref="container" v-bind="makeMenuContainerAttributes()">
-    <template v-if="$slots.default">
-      <template v-for="child in getUnSlottedVNodes($slots.default())">
-        <component v-if="getVNodeComponentName(child) === 'VaMenuItem'" :is="child" :key="getVNodeKey(child) + 'menuitem'" />
-        <component v-else-if="getVNodeComponentName(child) === 'VaDropdown'" :is="child" :key="getVNodeKey(child) + 'menu-dropdown'" />
-        <td colspan="999" v-else :key="getVNodeKey(child)" class="va-menu-list__virtual-td">
-          <component :is="child" />
-        </td>
+    <tbody>
+      <template v-if="$slots.default">
+        <template v-for="child in getUnSlottedVNodes($slots.default())">
+          <component v-if="getVNodeComponentName(child) === 'VaMenuItem'" :is="child" :key="getVNodeKey(child) + 'menuitem'" />
+          <component v-else-if="getVNodeComponentName(child) === 'VaDropdown'" :is="child" :key="getVNodeKey(child) + 'menu-dropdown'" />
+          <td colspan="999" v-else :key="getVNodeKey(child)" class="va-menu-list__virtual-td">
+            <component :is="child" />
+          </td>
+        </template>
       </template>
-    </template>
-    <slot v-else>
-      <template v-for="(options, groupName) in optionGroups" :key="groupName">
-        <slot v-if="groupName !== '_noGroup'"  name="group">
-          <VaMenuGroup :group-name="groupName" />
-        </slot>
-        <VaMenuItem
-          v-for="(option) in options"
-          :key="getTrackBy(option)"
-          :name="getText(option)" :icon="option.icon"
-          :right-icon="option.rightIcon"
-          :disabled="getDisabled(option)"
-          @selected="$emit('selected', getValue(option), option)"
-        >
-          <template #left-icon="bind">
-            <slot name="left-icon" v-bind="bind" />
-          </template>
-          <template #right-icon="bind">
-            <slot name="right-icon" v-bind="bind" />
-          </template>
-        </VaMenuItem>
-      </template>
-    </slot>
+      <slot v-else>
+        <template v-for="(options, groupName) in optionGroups" :key="groupName">
+          <slot v-if="groupName !== '_noGroup'"  name="group">
+            <VaMenuGroup :group-name="groupName" />
+          </slot>
+          <VaMenuItem
+            v-for="(option) in options"
+            :key="getTrackBy(option)"
+            :name="getText(option)" :icon="option.icon"
+            :right-icon="option.rightIcon"
+            :disabled="getDisabled(option)"
+            @selected="$emit('selected', getValue(option), option)"
+          >
+            <template #left-icon="bind">
+              <slot name="left-icon" v-bind="bind" />
+            </template>
+            <template #right-icon="bind">
+              <slot name="right-icon" v-bind="bind" />
+            </template>
+          </VaMenuItem>
+        </template>
+      </slot>
+    </tbody>
   </table>
 </template>
 
