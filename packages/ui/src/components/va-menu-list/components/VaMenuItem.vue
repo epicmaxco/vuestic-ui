@@ -46,7 +46,7 @@ export default defineComponent({
     rightIcon: { type: String, defatult: '' },
     disabled: { type: Boolean, default: false },
   },
-  emit: ['selected'],
+  emits: ['selected'],
   setup (props) {
     const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocusGlobal()
 
