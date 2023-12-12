@@ -41,7 +41,8 @@ export const addVuesticToVue3App = async () => {
   let htmlSource = await readFile(htmlPath, 'utf-8')
   htmlSource = insertHead(htmlSource, [
     `<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">`,
-    `<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`
+    `<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`,
+    `<link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">`
   ])
   await writeFile(htmlPath, htmlSource)
 }
