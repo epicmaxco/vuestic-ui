@@ -22,7 +22,6 @@
     // disabled because of problems with vue-tsc
     // "isolatedModules": true,
     "types": [
-      "webpack-env",
       "vite/client",
       "jest",
       "@testing-library/jest-dom"
