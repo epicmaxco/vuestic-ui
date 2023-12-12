@@ -31,7 +31,7 @@
     "build": "tsx build/build.ts",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types --project tsconfig.build.json",
     "typecheck": "vue-tsc --noEmit",
-    "lint": "vue-cli-service lint",
+    "lint": "eslint --ext .js,.vue src",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}' --fix",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vitest",
@@ -80,7 +80,7 @@
     "@vitejs/plugin-vue": "^4.1.0",
     "@vue/compiler-sfc": "^3.1.4",
     "@vue/eslint-config-standard": "^6.0.0",
-    "@vue/eslint-config-typescript": "^7.0.0",
+    "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/test-utils": "^2.4.1",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.3",
@@ -96,7 +96,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-storybook": "^0.6.12",
-    "eslint-plugin-vue": "^7.0.1",
+    "eslint-plugin-vue": "^9.19.2",
     "identity-obj-proxy": "^3.0.0",
     "ionicons": "^3.0.0",
     "jsdom": "^16.2.2",
@@ -135,10 +135,10 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "vue-cli-service lint --fix"
+      "yarn lint --fix"
     ],
     "*.vue": [
-      "vue-cli-service lint --fix",
+      "yarn lint --fix",
       "stylelint '**/*.{vue,html,css,scss}' --fix"
     ],
     ".{htm,html,css,sss,less,scss}": [

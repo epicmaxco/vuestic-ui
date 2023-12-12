@@ -1,9 +1,9 @@
 <template>
   <transition
-    v-if="valueComputed"
     name="fade"
   >
     <div
+      v-if="valueComputed"
       class="va-alert"
       :style="alertStyle"
       role='alert'
