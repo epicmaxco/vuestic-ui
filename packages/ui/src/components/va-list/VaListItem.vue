@@ -50,8 +50,14 @@ export default defineComponent({
       ...pick(props, ['disabled']),
     }))
 
+    const {
+      tagComputed,
+      hrefComputed,
+    } = useRouterLink(props)
+
     return {
-      ...useRouterLink(props),
+      tagComputed,
+      hrefComputed,
       tabIndexComputed,
       computedClass,
     }

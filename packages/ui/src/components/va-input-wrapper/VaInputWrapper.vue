@@ -197,8 +197,16 @@ export default defineComponent({
       props.maxLength !== undefined ? `${counterValue.value}/${props.maxLength}` : counterValue.value,
     )
 
+    const {
+      labelId,
+      characterCountId,
+      ariaAttributes,
+    } = useInputFieldAria(props)
+
     return {
-      ...useInputFieldAria(props),
+      labelId,
+      characterCountId,
+      ariaAttributes,
       vModel,
       counterValue,
       vaInputLabelProps: filterComponentProps(VaInputLabelProps),

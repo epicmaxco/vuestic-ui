@@ -116,7 +116,12 @@ export default defineComponent({
     },
   },
   setup (props, { slots, emit }) {
-    const alertStyles = useAlertStyles(props)
+    const {
+      contentStyle,
+      titleStyle,
+      alertStyle,
+      borderStyle,
+    } = useAlertStyles(props)
 
     const { valueComputed } = useStateful(props, emit)
 
@@ -130,9 +135,15 @@ export default defineComponent({
 
     const borderClass = computed(() => `va-alert__border--${props.border}`)
 
+    const { tp, t } = useTranslation()
+
     return {
-      ...useTranslation(),
-      ...alertStyles,
+      tp,
+      t,
+      contentStyle,
+      titleStyle,
+      alertStyle,
+      borderStyle,
       valueComputed,
       hasIcon,
       hasTitle,

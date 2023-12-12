@@ -699,8 +699,14 @@ export default defineComponent({
       resetValidation,
     } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
+    const { popupId } = useSelectAria()
+
+    const searchInput = searchVModel
+
+    const onInputFocus = onFocus
+
     return {
-      ...useSelectAria(),
+      popupId,
       input,
       optionList,
       searchBar,
@@ -716,11 +722,11 @@ export default defineComponent({
       tp,
       t,
 
-      onInputFocus: onFocus,
+      onInputFocus,
       onInputBlur,
       focusOptionList,
       focusSearchBar,
-      searchInput: searchVModel,
+      searchInput,
       showSearchInput,
       hoveredOption,
       tabIndexComputed,

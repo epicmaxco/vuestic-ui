@@ -138,10 +138,14 @@ export default defineComponent({
     onMounted(convertToImg)
     watch(() => props.file, convertToImg)
 
+    const { t, tp } = useTranslation()
+    const { textColorComputed } = useTextColor(toRef(props, 'color'))
+
     return {
-      ...useTranslation(),
+      t,
+      tp,
       undo,
-      ...useTextColor(toRef(props, 'color')),
+      textColorComputed,
       removed,
       disabled,
       isFocused,

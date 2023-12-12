@@ -13,8 +13,8 @@
       <div
         v-if="doShowPrevButton"
         class="va-carousel__arrow va-carousel__arrow--left"
-        @click="prev"
-        @keydown.enter.stop="prev"
+        @click="prevWithPause"
+        @keydown.enter.stop="prevWithPause"
       >
         <slot name="prev-arrow">
           <va-hover #default="{ hover }" stateful>
@@ -29,8 +29,8 @@
       <div
         v-if="doShowNextButton"
         class="va-carousel__arrow va-carousel__arrow--right"
-        @click="next"
-        @keydown.enter.stop="next"
+        @click="nextWithPause"
+        @keydown.enter.stop="nextWithPause"
       >
         <slot name="next-arrow">
           <va-hover #default="{ hover }" stateful>
@@ -51,7 +51,7 @@
         :class="{ 'va-carousel__indicator--active': index === modelValue }"
         v-bind="getIndicatorEvents(index)"
       >
-        <slot name="indicator" v-bind="{ item, index, goTo, isActive: isCurrentSlide(index) }">
+        <slot name="indicator" v-bind="{ item, index, goTo: goToWithPause, isActive: isCurrentSlide(index) }">
           <va-hover #default="{ hover }" stateful>
             <va-button
               :aria-label="tp($props.ariaGoToSlideLabel, { index: index + 1 })"
@@ -81,7 +81,7 @@
           :aria-current="isCurrentSlide(index)"
           :aria-label="tp($props.ariaSlideOfLabel, { index: index + 1, length: slides.length })"
         >
-          <slot v-bind="{ item, index, goTo, isActive: isCurrentSlide(index) }">
+          <slot v-bind="{ item, index, goTo: goToWithPause, isActive: isCurrentSlide(index) }">
             <va-image
               v-bind="vaImageProps"
               :src="isObjectSlides ? item.src : item"
@@ -209,22 +209,39 @@ export default defineComponent({
       return {}
     }
 
+    const { tp, t } = useTranslation()
+
+    const {
+      computedActiveColor,
+      computedColor,
+      computedHoverColor,
+    } = useCarouselColor()
+
+    const vaImageProps = filterComponentProps(VaImageProps)
+
+    const goToWithPause = withPause(goTo)
+    const prevWithPause = withPause(prev)
+    const nextWithPause = withPause(next)
+
     return {
-      vaImageProps: filterComponentProps(VaImageProps),
+      vaImageProps,
       doShowNextButton,
       doShowPrevButton,
       doShowDirectionButtons,
       getIndicatorEvents,
       computedSlidesStyle,
       slideStyleComputed,
-      goTo: withPause(goTo),
-      prev: withPause(prev),
-      next: withPause(next),
+      goToWithPause,
+      prevWithPause,
+      nextWithPause,
       slides,
       isObjectSlides,
       isCurrentSlide,
-      ...useCarouselColor(),
-      ...useTranslation(),
+      computedActiveColor,
+      computedColor,
+      computedHoverColor,
+      tp,
+      t,
       slidesContainer,
     }
   },

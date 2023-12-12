@@ -296,6 +296,7 @@ export default defineComponent({
       if (props.virtualScroller) { virtualScrollerRef.value?.[0].virtualScrollTo(currentOptionIndex.value) }
     }
 
+    // TODO: move to exposed
     const publicMethods = {
       focusPreviousOption,
       focusNextOption,
@@ -336,7 +337,11 @@ export default defineComponent({
       handleScrollToBottom,
       selectOption,
 
-      ...publicMethods,
+      focusPreviousOption,
+      focusNextOption,
+      focusFirstOption,
+      scrollToOption,
+      focus,
     }
   },
 })

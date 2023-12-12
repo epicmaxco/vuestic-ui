@@ -20,10 +20,15 @@ export default defineComponent({
     lines: { type: Number, default: 1 },
   },
 
-  setup: (props) => ({
-    computedClass: computed(() => ({ 'va-list-item-label--caption': props.caption })),
-    computedStyle: computed(() => ({ '-webkit-line-clamp': props.lines } as StyleValue)),
-  }),
+  setup (props) {
+    const computedClass = computed(() => ({ 'va-list-item-label--caption': props.caption }))
+    const computedStyle = computed(() => ({ '-webkit-line-clamp': props.lines } as StyleValue))
+
+    return {
+      computedClass,
+      computedStyle,
+    }
+  },
 })
 </script>
 

@@ -360,8 +360,8 @@ export default defineComponent({
       }
     })
 
+    // TODO: Move to exposed
     const publicMethods = {
-      ...useTranslation(),
       show,
       hide,
       toggle,
@@ -374,7 +374,19 @@ export default defineComponent({
       listenKeyUp,
     }
 
+    const { tp, t } = useTranslation()
+
+    const {
+      teleportFromAttrs,
+      teleportedAttrs,
+      findTeleportedFrom,
+    } = useTeleported()
+
+    const slotBind = { show, hide, toggle, cancel, ok }
+
     return {
+      tp,
+      t,
       isLowestLevelModal,
       isTopLevelModal,
       computedOverlayClass,
@@ -386,9 +398,20 @@ export default defineComponent({
       computedDialogStyle,
       computedModalContainerStyle,
       computedOverlayStyles,
-      slotBind: { show, hide, toggle, cancel, ok },
-      ...publicMethods,
-      ...useTeleported(),
+      slotBind,
+      teleportFromAttrs,
+      teleportedAttrs,
+      findTeleportedFrom,
+      show,
+      hide,
+      toggle,
+      cancel,
+      ok,
+      onBeforeEnterTransition,
+      onAfterEnterTransition,
+      onBeforeLeaveTransition,
+      onAfterLeaveTransition,
+      listenKeyUp,
     }
   },
 })

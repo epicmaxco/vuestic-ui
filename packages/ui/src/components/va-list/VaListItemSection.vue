@@ -19,13 +19,17 @@ export default defineComponent({
     avatar: { type: Boolean, default: false },
   },
 
-  setup: (props) => ({
-    computedClass: computed(() => ({
+  setup (props) {
+    const computedClass = computed(() => ({
       'va-list-item-section--main': !props.icon && !props.avatar,
       'va-list-item-section--icon': props.icon,
       'va-list-item-section--avatar': props.avatar,
-    })),
-  }),
+    }))
+
+    return {
+      computedClass,
+    }
+  },
 })
 </script>
 
