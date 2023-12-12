@@ -107,6 +107,7 @@ export default defineNuxtConfig({
       },
       'Material+Icons': true,
       'Material+Icons+Outlined': true,
+      'Material+Symbols+Outlined': true,
     },
   },
 
