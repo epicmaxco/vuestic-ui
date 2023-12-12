@@ -36,14 +36,14 @@ export default {
 export const Default: StoryFn = () => ({
   components: { VaDropdown },
   template: `
-      <va-dropdown>
+      <VaDropdown>
         <template #anchor>
           <div data-testid="target">
             Click me
           </div>
         </template>
         Clicked
-      </va-dropdown>
+      </VaDropdown>
     `,
 })
 
@@ -61,7 +61,7 @@ Default.play = async ({ canvasElement, step }) => {
 export const Hover: StoryFn = () => ({
   components: { VaDropdown },
   template: `
-      <va-dropdown
+      <VaDropdown
           trigger="hover"
           :hoverOverTimeout="0"
           :hoverOutTimeout="0"
@@ -72,7 +72,7 @@ export const Hover: StoryFn = () => ({
           </div>
         </template>
         Hovered
-      </va-dropdown>
+      </VaDropdown>
     `,
 })
 
@@ -103,7 +103,7 @@ Hover.play = async ({ canvasElement, step }) => {
 export const ContentNotHoverable: StoryFn = () => ({
   components: { VaDropdown },
   template: `
-      <va-dropdown
+      <VaDropdown
           trigger="hover"
           :is-content-hoverable="false"
           :hoverOverTimeout="0"
@@ -114,8 +114,8 @@ export const ContentNotHoverable: StoryFn = () => ({
             Hover me
           </div>
         </template>
-        Hovered
-      </va-dropdown>
+        Content
+      </VaDropdown>
     `,
 })
 
@@ -137,18 +137,18 @@ export const Trigger: StoryFn = () => ({
   components: { VaDropdown },
   template: `
     <div class="d-flex gap-4">
-      <va-dropdown trigger="right-click">
+      <VaDropdown trigger="right-click">
         <template #anchor>
           Right click
         </template>
         Right clicked
-      </va-dropdown>
-      <va-dropdown trigger="dblclick">
+      </VaDropdown>
+      <VaDropdown trigger="dblclick">
         <template #anchor>
           Double click
         </template>
         Double clicked
-      </va-dropdown>
+      </VaDropdown>
     </div>
     `,
 })
@@ -157,25 +157,25 @@ export const Placement = () => ({
   components: { VaDropdown, VaDropdownContent },
   template: `
     <div class="mt-8 d-flex gap-4">
-      <va-dropdown
+      <VaDropdown
           :model-value="true"
           placement="top"
       >
         <template #anchor>
           Placement top
         </template>
-        <va-dropdown-content>Content</va-dropdown-content>
-      </va-dropdown>
+        <VaDropdownContent>Content</VaDropdownContent>
+      </VaDropdown>
       <br/>
-      <va-dropdown
+      <VaDropdown
           :model-value="true"
           placement="top-start"
       >
         <template #anchor>
           Placement top start
         </template>
-        <va-dropdown-content>Content</va-dropdown-content>
-      </va-dropdown>
+        <VaDropdownContent>Content</VaDropdownContent>
+      </VaDropdown>
     </div>
     `,
 })
@@ -183,15 +183,15 @@ export const Placement = () => ({
 export const Offset = () => ({
   components: { VaDropdown, VaDropdownContent },
   template: `
-      <va-dropdown
+      <VaDropdown
           :model-value="true"
           :offset="[20, 40]"
       >
         <template #anchor>
           Anchor
         </template>
-        <va-dropdown-content>Content</va-dropdown-content>
-      </va-dropdown>
+        <VaDropdownContent>Content</VaDropdownContent>
+      </VaDropdown>
     `,
 })
 
@@ -199,28 +199,28 @@ export const AnchorWidth = () => ({
   components: { VaDropdown, VaDropdownContent },
   template: `
     <div class="d-flex gap-4">
-      <va-dropdown
+      <VaDropdown
           keepAnchorWidth
           :model-value="true"
       >
         <template #anchor>
           Short anchor
         </template>
-        <va-dropdown-content>
+        <VaDropdownContent>
           Long content wraps
-        </va-dropdown-content>
-      </va-dropdown>
-      <va-dropdown
+        </VaDropdownContent>
+      </VaDropdown>
+      <VaDropdown
           keepAnchorWidth
           :model-value="true"
       >
         <template #anchor>
           Loooooooong anchor
         </template>
-        <va-dropdown-content>
+        <VaDropdownContent>
           Short content
-        </va-dropdown-content>
-      </va-dropdown>
+        </VaDropdownContent>
+      </VaDropdown>
     </div>
     `,
 })
@@ -229,26 +229,26 @@ export const CustomWidth = () => ({
   components: { VaDropdown, VaValue, VaDropdownContent },
   template: `
     <div class="d-flex gap-4">
-      <va-dropdown :model-value="true">
+      <VaDropdown :model-value="true">
         <template #anchor>
           Custom width anchor
         </template>
         <template #default="{ getAnchorWidth }">
-          <va-dropdown-content :style="{ minWidth: getAnchorWidth() }">
+          <VaDropdownContent :style="{ minWidth: getAnchorWidth() }">
             Short content
-          </va-dropdown-content>
+          </VaDropdownContent>
         </template>
-      </va-dropdown>
-      <va-dropdown placement="bottom-start" :model-value="true">
+      </VaDropdown>
+      <VaDropdown placement="bottom-start" :model-value="true">
         <template #anchor>
           Custom width anchor
         </template>
         <template #default="{ getAnchorWidth }">
-          <va-dropdown-content :style="{ minWidth: getAnchorWidth() }">
+          <VaDropdownContent :style="{ minWidth: getAnchorWidth() }">
             Loooooooong content
-          </va-dropdown-content>
+          </VaDropdownContent>
         </template>
-      </va-dropdown>
+      </VaDropdown>
     </div>
     `,
 })
@@ -256,14 +256,14 @@ export const CustomWidth = () => ({
 export const Cursor = () => ({
   components: { VaDropdown },
   template: `
-      <va-dropdown cursor>
+      <VaDropdown cursor>
         <template #anchor>
           <div class="w-32 h-32 border-2 border-gray-1000 border-dashed">
             Anchor
           </div>
         </template>
         Content
-      </va-dropdown>
+      </VaDropdown>
     `,
 })
 
@@ -276,18 +276,18 @@ export const AnchorSelector = () => ({
       >
         Anchor
       </div>
-      <va-dropdown
+      <VaDropdown
           anchor-selector="#anchor-selector"
       >
         Content
-      </va-dropdown>
+      </VaDropdown>
     `,
 })
 
 export const InnerAnchorSelector: StoryFn = () => ({
   components: { VaDropdown, VaDropdownContent },
   template: `
-      <va-dropdown
+      <VaDropdown
           inner-anchor-selector="#innerAnchor"
       >
         <template #anchor>
@@ -301,8 +301,8 @@ export const InnerAnchorSelector: StoryFn = () => ({
             </div>
           </div>
         </template>
-        <va-dropdown-content data-testid="content" id="content">Content</va-dropdown-content>
-      </va-dropdown>
+        <VaDropdownContent data-testid="content" id="content">Content</VaDropdownContent>
+      </VaDropdown>
     `,
 })
 
@@ -326,12 +326,12 @@ InnerAnchorSelector.play = async ({ canvasElement, step }) => {
 export const AnchorSlotProps = () => ({
   components: { VaDropdown, VaIcon },
   template: `
-      <va-dropdown>
+      <VaDropdown>
         <template #anchor="{ isOpened }">
           Anchor <va-icon :name="isOpened ? 'va-arrow-up' : 'va-arrow-down'"/>
         </template>
         Content
-      </va-dropdown>
+      </VaDropdown>
     `,
 })
 
@@ -339,22 +339,22 @@ export const KeepHeight = () => ({
   components: { VaDropdown, VaDropdownContent },
   template: `
       <div style="height: 1000px">
-        <va-dropdown>
+        <VaDropdown>
           <template #anchor>
             Anchor
           </template>
-          <va-dropdown-content>
+          <VaDropdownContent>
             <div style="height: 600px; width: 100px;">
               Content
             </div>
-          </va-dropdown-content>
-        </va-dropdown>
+          </VaDropdownContent>
+        </VaDropdown>
       </div>
     `,
 })
 
 export const AutoplacementWithTarget: StoryFn = () => ({
-  components: { VaDropdown, VaButton, VaDropdownContent, ScrollContainer },
+  components: { VaDropdown, VaDropdownContent, ScrollContainer },
   directives: { scrollToMiddleY },
   setup () {
     return {
@@ -363,13 +363,13 @@ export const AutoplacementWithTarget: StoryFn = () => ({
   },
   template: `
       Scroll vertically
-      <scroll-container
+      <ScrollContainer
           ref="autoplacementTargetRef"
           v-scroll-to-middle-y
           data-testid="scrollContainer"
       >
         <div style="height: 200%;display: grid;place-items: center;">
-          <va-dropdown
+          <VaDropdown
               :model-value="true"
               :stateful="false"
               :target="autoplacementTargetRef"
@@ -378,9 +378,9 @@ export const AutoplacementWithTarget: StoryFn = () => ({
               <div data-testid="anchor" class="grid place-items-center h-24 w-24 border-2 border-gray-1000 border-dashed"/>
             </template>
             Dropdown
-          </va-dropdown>
+          </VaDropdown>
         </div>
-      </scroll-container>
+      </ScrollContainer>
     `,
 })
 
@@ -394,12 +394,12 @@ export const AutoplacementWithHeight: StoryFn = () => ({
   },
   template: `
       Scroll vertically
-      <scroll-container
+      <ScrollContainer
           ref="autoplacementTargetRef"
           v-scroll-to-middle-y
       >
         <div style="height: 200%;display: grid;place-items: center;">
-          <va-dropdown
+          <VaDropdown
               :model-value="true"
               :stateful="false"
               :target="autoplacementTargetRef"
@@ -408,14 +408,14 @@ export const AutoplacementWithHeight: StoryFn = () => ({
               <div class="grid place-items-center h-24 w-24 border-2 border-gray-1000 border-dashed">
               </div>
             </template>
-            <va-dropdown-content>
+            <VaDropdownContent>
               <div style="height: 600px; width: 100px;">
                 Content
               </div>
-            </va-dropdown-content>
-          </va-dropdown>
+            </VaDropdownContent>
+          </VaDropdown>
         </div>
-      </scroll-container>
+      </ScrollContainer>
     `,
 })
 
@@ -429,12 +429,12 @@ export const StickToEdges: StoryFn = () => ({
   },
   template: `
       Scroll horizontally
-      <scroll-container
+      <ScrollContainer
           ref="autoplacementTargetRef"
           v-scroll-to-middle-x
       >
         <div style="height: 100%;width: 200%;display: grid;place-items: center;">
-          <va-dropdown
+          <VaDropdown
               :model-value="true"
               :stateful="false"
               :target="autoplacementTargetRef"
@@ -444,11 +444,11 @@ export const StickToEdges: StoryFn = () => ({
               <div class="grid place-items-center h-24 w-24 border-2 border-gray-1000 border-dashed">
               </div>
             </template>
-            <div>
+            <VaDropdownContent>
               Looooonger Dropdown
-            </div>
-          </va-dropdown>
+            </VaDropdownContent>
+          </VaDropdown>
         </div>
-      </scroll-container>
+      </ScrollContainer>
     `,
 })

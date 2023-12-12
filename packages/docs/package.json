@@ -45,6 +45,7 @@
     "@nuxtjs/google-fonts": "^3.0.1",
     "@types/acorn": "^6.0.0",
     "@vue/repl": "^2.8.0",
+    "@zadigetvoltaire/nuxt-gtm": "^0.0.13",
     "acorn": "^8.8.1",
     "codesandbox": "^2.2.3",
     "highlight.js": "^11.7.0",
