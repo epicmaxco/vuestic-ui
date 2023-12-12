@@ -158,5 +158,14 @@ export default defineNuxtConfig({
 
   sitemap: {
     hostname: process.env.HOSTNAME,
+  },
+
+  typescript: {
+    tsConfig: {
+      compilerOptions: {
+        // TODO: Use type keyword when importing type
+        verbatimModuleSyntax: false
+      }
+    }
   }
 });
