@@ -1,3 +1,5 @@
+const GTM_ENABLED = process.env.GTM_ENABLED === 'true'
+
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   app: {
@@ -84,7 +86,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
     '@funken-studio/sitemap-nuxt-3',
-    '@zadigetvoltaire/nuxt-gtm'
+    GTM_ENABLED ? '@zadigetvoltaire/nuxt-gtm' : null,
   ],
 
   vuestic: {
