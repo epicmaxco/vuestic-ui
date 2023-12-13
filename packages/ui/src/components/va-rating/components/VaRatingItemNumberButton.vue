@@ -33,9 +33,23 @@ export default defineComponent({
   },
 
   setup (props) {
+    const {
+      textColorComputed,
+      backgroundComputed,
+    } = useVaRatingColors(props)
+
+    const {
+      sizeComputed,
+      fontSizeComputed,
+      fontSizeInRem,
+    } = useSize(props, 'VaRating')
+
     return {
-      ...useVaRatingColors(props),
-      ...useSize(props, 'VaRating'),
+      textColorComputed,
+      backgroundComputed,
+      sizeComputed,
+      fontSizeComputed,
+      fontSizeInRem,
     }
   },
 })

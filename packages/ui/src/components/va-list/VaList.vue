@@ -19,9 +19,13 @@ export default defineComponent({
     fit: { type: Boolean, default: false },
   },
 
-  setup: (props) => ({
-    computedClass: computed(() => ({ 'va-list--fit': props.fit })),
-  }),
+  setup (props) {
+    const computedClass = computed(() => ({ 'va-list--fit': props.fit }))
+
+    return {
+      computedClass,
+    }
+  },
 })
 </script>
 

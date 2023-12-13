@@ -49,10 +49,16 @@ export default defineComponent({
     ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
   },
 
-  setup: () => ({
-    ...useTranslation(),
-    disabled: useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE).disabled,
-  }),
+  setup () {
+    const { t, tp } = useTranslation()
+    const { disabled } = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
+
+    return {
+      disabled,
+      t,
+      tp,
+    }
+  },
 })
 </script>
 

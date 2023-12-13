@@ -60,17 +60,17 @@ import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import VaRatingItem from './components/VaRatingItem/VaRatingItem.vue'
 import VaRatingItemNumberButton from './components/VaRatingItemNumberButton.vue'
 
-const VaRatingItemProps = extractComponentProps(VaRatingItem, ['modelValue', 'itemNumber'])
-const VaRatingItemNumberButtonProps = extractComponentProps(VaRatingItemNumberButton, ['modelValue', 'itemNumber'])
+const VaRatingItemPropsDeclarations = extractComponentProps(VaRatingItem, ['modelValue', 'itemNumber'])
+const VaRatingItemNumberButtonPropsDeclarations = extractComponentProps(VaRatingItemNumberButton, ['modelValue', 'itemNumber'])
 
 export default defineComponent({
   name: 'VaRating',
   props: {
-    ...VaRatingItemNumberButtonProps,
+    ...VaRatingItemNumberButtonPropsDeclarations,
     ...useRatingProps,
     ...useVaRatingColorsProps,
     ...useFormFieldProps,
-    ...VaRatingItemProps,
+    ...VaRatingItemPropsDeclarations,
     ...useComponentPresetProp,
     modelValue: { type: Number, default: 0 },
     numbers: { type: Boolean, default: false },
@@ -85,30 +85,66 @@ export default defineComponent({
   components: { VaRatingItem, VaRatingItemNumberButton },
   setup (props) {
     const { computedClasses: rootClass } = useFormField('va-rating', props)
-    const rating = useRating(props)
+    const {
+      visibleValue,
+      modelValue: vModel,
+      hoveredValue,
+      isHovered,
+      onMouseEnter,
+      onMouseLeave,
+      onItemValueUpdate,
+      onItemHoveredValueUpdate,
+      getItemValue,
+    } = useRating(props)
     const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
 
+    const onArrowKeyPress = (direction: 1 | -1) => {
+      const step = props.halves ? RatingValue.HALF : RatingValue.FULL
+      const nextStep = visibleValue.value + step * direction
+      const min = props.clearable ? 0 : step
+      if (nextStep >= min && nextStep <= props.max) {
+        onItemValueUpdate(visibleValue.value, step * direction)
+      } else if (nextStep < min) {
+        onItemValueUpdate(min, 0)
+      } else {
+        onItemValueUpdate(props.max, direction === -1 ? step * direction : 0)
+      }
+    }
+
+    const { tp, t } = useTranslation()
+
+    const {
+      computedColor,
+      backgroundComputed,
+      textColorComputed,
+    } = useVaRatingColors(props)
+
+    const tabIndexComputed = computed(() => isInteractionsEnabled.value ? 0 : undefined)
+
+    const VaRatingItemProps = filterComponentProps(VaRatingItemPropsDeclarations)
+    const VaRatingItemNumberButtonProps = filterComponentProps(VaRatingItemNumberButtonPropsDeclarations)
+
     return {
-      ...useTranslation(),
-      ...useVaRatingColors(props),
-      ...rating,
+      tp,
+      t,
+      visibleValue,
+      vModel,
+      hoveredValue,
+      isHovered,
+      onMouseEnter,
+      onMouseLeave,
+      onItemValueUpdate,
+      onItemHoveredValueUpdate,
+      getItemValue,
+      onArrowKeyPress,
+      computedColor,
+      backgroundComputed,
+      textColorComputed,
       rootClass,
-      VaRatingItemProps: filterComponentProps(VaRatingItemProps),
-      VaRatingItemNumberButtonProps: filterComponentProps(VaRatingItemNumberButtonProps),
+      VaRatingItemProps,
+      VaRatingItemNumberButtonProps,
       isInteractionsEnabled,
-      tabIndexComputed: computed(() => isInteractionsEnabled.value ? 0 : undefined),
-      onArrowKeyPress: (direction: 1 | -1) => {
-        const step = props.halves ? RatingValue.HALF : RatingValue.FULL
-        const nextStep = rating.visibleValue.value + step * direction
-        const min = props.clearable ? 0 : step
-        if (nextStep >= min && nextStep <= props.max) {
-          rating.onItemValueUpdate(rating.visibleValue.value, step * direction)
-        } else if (nextStep < min) {
-          rating.onItemValueUpdate(min, 0)
-        } else {
-          rating.onItemValueUpdate(props.max, direction === -1 ? step * direction : 0)
-        }
-      },
+      tabIndexComputed,
     }
   },
 })
