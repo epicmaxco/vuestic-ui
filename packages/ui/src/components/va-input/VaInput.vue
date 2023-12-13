@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, shallowRef, toRefs } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, nextTick, shallowRef, toRefs } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
@@ -172,7 +172,20 @@ export default defineComponent({
       ...inputListeners,
       onFocus: combineFunctions(onFocus, inputListeners.onFocus),
       onBlur: combineFunctions(onBlur, inputListeners.onBlur),
-      onInput: combineFunctions(onInput, inputListeners.onInput),
+      onInput: combineFunctions(
+        onInput,
+        inputListeners.onInput,
+        (e: InputEvent) => {
+          const target = e.target as HTMLInputElement
+
+          nextTick(() => {
+            if (target.value === computedValue.value) {
+              return
+            }
+            target.value = String(computedValue.value)
+          })
+        },
+      ),
     }
 
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)

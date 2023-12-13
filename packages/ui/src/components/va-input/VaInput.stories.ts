@@ -102,3 +102,41 @@ Autofocus.play = async ({ canvasElement }) => {
 
   expect(input).toHaveFocus()
 }
+
+export const InputValue: StoryFn = () => ({
+  components: { VaInput },
+  data: () => ({ value: 't' }),
+  // Must disallow writing more than 2 characters
+  template: '<VaInput :model-value="value" @update:model-value="$event.length > 2 ? void 0 : value = $event" />',
+})
+
+export const InputValueComputed: StoryFn = () => ({
+  components: { VaInput },
+  data: () => ({ value: 't' }),
+
+  computed: {
+    valueComputed: {
+      set (v) {
+        if (v.length > 2) { return }
+        this.value = v
+      },
+      get () { return this.value },
+    },
+  },
+  // Must disallow writing more than 2 characters
+  template: '<VaInput v-model="valueComputed" />',
+})
+
+export const DebounceInput: StoryFn = () => ({
+  components: { VaInput },
+  data: () => ({ value: 't' }),
+  methods: {
+    onInput (text: string) {
+      setTimeout(() => {
+        this.value = text
+      }, 1000)
+    },
+  },
+  // Must disallow writing more than 2 characters
+  template: '<VaInput stateful :model-value="value" @update:model-value="onInput" />',
+})
