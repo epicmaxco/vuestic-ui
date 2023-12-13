@@ -1,4 +1,3 @@
-import { navigationBadge } from './../utils/navigation/badge';
 import { navigationBadge, type NavigationBadge } from "../utils/navigation/badge";
 
 export type NavigationRoute = {
@@ -387,6 +386,20 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: 'Stepper',
         meta: {
           badge : navigationBadge.updated('1.8.3'),
+        }
+      },
+      {
+        name: 'menu',
+        displayName: 'Menu',
+        meta: {
+          badge : navigationBadge.new('1.8.4'),
+        }
+      },
+      {
+        name: 'menu-list',
+        displayName: 'Menu List',
+        meta: {
+          badge : navigationBadge.new('1.8.4'),
         }
       },
       {

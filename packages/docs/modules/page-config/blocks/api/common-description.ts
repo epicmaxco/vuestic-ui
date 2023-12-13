@@ -15,6 +15,9 @@ export default
     eventArgument: "The event argument is:"
   },
   props: {
+    ariaLabel: "Sets the `aria-label` attribute.",
+    ariaLabeledby: "Sets the `aria-labelledby` attribute.",
+    role: "Sets the `role` attribute.",
     align: "Customizes horizontal position of component (flex based). Available values are strings: 'left', 'center', 'right', 'between', 'around', 'stretch'.",
     id: "Applies `id` to internal input component. Useful for native forms.",
     name: "Applies `name` to internal input component. Useful for native forms.",

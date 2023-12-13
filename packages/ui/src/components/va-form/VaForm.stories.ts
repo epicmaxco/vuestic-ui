@@ -240,7 +240,7 @@ export const ValidateAndResetValidation: StoryFn = () => ({
   components: { VaForm, VaInput, VaButton },
   template: `
     <va-form ref="form">
-      <va-input data-testid="input" :rules="[false]"/>
+      <va-input data-testid="input" :rules="[false]" stateful />
     </va-form>
     <va-button @click="$refs.form.validate()">
       Validate
@@ -539,3 +539,60 @@ export const FormDataInitialValue = () => ({
     </va-button>
   `,
 })
+
+export const DirtyForm: StoryFn = () => ({
+  components: { VaForm, VaInput, VaButton },
+
+  setup () {
+    const { isDirty } = useForm('form')
+
+    return {
+      isDirty,
+    }
+  },
+
+  template: `
+    <p id="form-dirty">[form-dirty]: {{ isDirty }}</p>
+    <p id="input-dirty">[input-dirty]: {{ $refs.input?.isDirty }}</p>
+    <va-form ref="form">
+      <va-input data-testid="input" :rules="[false]" stateful ref="input" />
+    </va-form>
+    <va-button @click="$refs.form.validate()">
+      Validate
+    </va-button>
+    <va-button @click="$refs.form.resetValidation()">
+      Reset validation
+    </va-button>
+  `,
+})
+
+DirtyForm.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const input = canvas.getByTestId('input')
+  const validateButton = canvas.getByRole('button', { name: 'Validate' }) as HTMLElement
+  const resetButton = canvas.getByRole('button', { name: 'Reset validation' }) as HTMLElement
+
+  await step('Validates input with error', async () => {
+    await userEvent.click(validateButton)
+    expect(input.getAttribute('aria-invalid')).toEqual('true')
+    expect(canvasElement.querySelector('#form-dirty')?.innerHTML.includes('true')).toBeTruthy()
+    expect(canvasElement.querySelector('#input-dirty')?.innerHTML.includes('false')).toBeTruthy()
+  })
+
+  await step('Reset inputs validation', async () => {
+    await userEvent.click(resetButton)
+    expect(input.getAttribute('aria-invalid')).toEqual('false')
+  })
+
+  await step('Validates input on input error', async () => {
+    await userEvent.type(input, 'Hello')
+    expect(input.getAttribute('aria-invalid')).toEqual('true')
+    expect(canvasElement.querySelector('#form-dirty')?.innerHTML.includes('false')).toBeTruthy()
+    expect(canvasElement.querySelector('#input-dirty')?.innerHTML.includes('true')).toBeTruthy()
+  })
+
+  await step('Reset inputs validation', async () => {
+    await userEvent.click(resetButton)
+    expect(input.getAttribute('aria-invalid')).toEqual('false')
+  })
+}

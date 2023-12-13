@@ -85,5 +85,9 @@ export default [
   'VaValue',
   'VaVirtualScroller',
   'VaStepper',
-  'VaTextarea'
+  'VaTextarea',
+  'VaMenu',
+  'VaMenuList',
+  'VaMenuItem',
+  'VaMenuGroup',
 ]

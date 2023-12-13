@@ -100,6 +100,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
   const resetValidation = () => {
     computedError.value = false
     computedErrorMessages.value = []
+    isDirty.value = false
   }
 
   const processResults = (results: any[]) => {
@@ -193,6 +194,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     doShowError,
     doShowLoading,
     isFormImmediate,
+    isFormDirty,
   } = useFormChild({
     isDirty,
     isValid: computed(() => !computedError.value),
@@ -202,7 +204,11 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     validateAsync,
     resetValidation,
     focus,
-    reset,
+    reset: () => {
+      reset()
+      resetValidation()
+      isDirty.value = false
+    },
     value: computed(() => options.value || props.modelValue),
     name: toRef(props, 'name'),
   })
@@ -212,7 +218,9 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     computedError: computed(() => {
       // Hide error if component haven't been interacted yet
       // Ignore dirty state if immediateValidation is true
-      if (!immediateValidation.value && !isDirty.value) { return false }
+      if (!isFormDirty.value) {
+        if (!immediateValidation.value && !isDirty.value) { return false }
+      }
 
       return doShowError.value ? computedError.value : false
     }),

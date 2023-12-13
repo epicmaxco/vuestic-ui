@@ -76,7 +76,7 @@ const contacts = [
 ];
 </script>
 
-<style lang="scss" scoped>
+<style>
 .list__item + .list__item {
   margin-top: 20px;
 }

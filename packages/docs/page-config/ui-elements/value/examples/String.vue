@@ -1,8 +1,8 @@
 <template>
   <VaValue v-slot="inputText" default-value="Vuestic">
     <div class="preview">
-      <VaValue 
-        v-for="i in 20" 
+      <VaValue
+        v-for="i in 20"
         v-slot="textPosition"
         :default-value="{
           left: Math.random() * 80 + 10,
@@ -11,7 +11,7 @@
           fontSize: Math.random() * 20 + 10,
         }"
       >
-        <span 
+        <span
           :style="{
             left: `${textPosition.value.left}%`,
             top: `${textPosition.value.top}%`,
@@ -28,15 +28,16 @@
   </VaValue>
 </template>
 
-<style lang="scss" scoped>
+<style>
   .preview {
     position: relative;
     height: 200px;
     background: var(--va-primary);
-    span {
-      position: absolute;
-      color: var(--va-on-primary);
-      font-weight: 800;
-    }
+  }
+
+  .preview span {
+    position: absolute;
+    color: var(--va-on-primary);
+    font-weight: 800;
   }
 </style>

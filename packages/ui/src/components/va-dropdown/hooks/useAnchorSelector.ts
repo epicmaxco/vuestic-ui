@@ -1,10 +1,11 @@
 import { computed, ref } from 'vue'
 
-import { useDocument, useIsMounted } from '../../../composables'
+import { MaybeHTMLElementOrSelector, useDocument, useIsMounted } from '../../../composables'
 import { unwrapEl } from '../../../utils/unwrapEl'
 
 export const useAnchorSelector = (
   props: {
+    anchor: MaybeHTMLElementOrSelector | undefined,
     anchorSelector: string | undefined,
     innerAnchorSelector: string | undefined,
   },
@@ -20,6 +21,13 @@ export const useAnchorSelector = (
     get () {
       // eslint-disable-next-line no-unused-expressions
       isMounted.value // querySelector can return undefined before component mounted
+
+      if (typeof props.anchor === 'string') {
+        return document.value?.querySelector<HTMLElement>(props.anchor) ?? anchorRef.value
+      }
+      if (typeof props.anchor === 'object') {
+        return props.anchor
+      }
 
       if (props.anchorSelector) {
         return document.value?.querySelector<HTMLElement>(props.anchorSelector) ?? anchorRef.value

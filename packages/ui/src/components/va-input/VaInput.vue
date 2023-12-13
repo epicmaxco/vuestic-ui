@@ -148,6 +148,7 @@ export default defineComponent({
     })
 
     const {
+      isDirty,
       computedError,
       computedErrorMessages,
       listeners: { onBlur, onFocus },
@@ -171,7 +172,14 @@ export default defineComponent({
       ...inputListeners,
       onFocus: combineFunctions(onFocus, inputListeners.onFocus),
       onBlur: combineFunctions(onBlur, inputListeners.onBlur),
-      onInput: combineFunctions(onInput, inputListeners.onInput),
+      onInput: combineFunctions(
+        onInput,
+        inputListeners.onInput,
+        (e: InputEvent) => {
+          const target = e.target as HTMLInputElement
+          target.value = String(computedValue.value)
+        },
+      ),
     }
 
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
@@ -233,6 +241,7 @@ export default defineComponent({
 
       fieldListeners: createFieldListeners(emit),
       filterSlots,
+      isDirty,
       reset,
       focus,
       blur,
