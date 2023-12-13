@@ -1,5 +1,5 @@
 export const versions = {
-  'vuestic-ui': '^1.8.8',
+  'vuestic-ui': '^1.8.6',
   '@vuestic/nuxt': '^1.0.18',
   '@vuestic/ag-grid-theme': '^1.1.4',
   '@vuestic/tailwind': '^0.1.3',
