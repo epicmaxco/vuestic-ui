@@ -180,8 +180,7 @@ export const MobileFullscreen: StoryFn = () => ({
       v-model="showModal"
       title="Modal with Max Width"
     >
-      Classic modal overlay which represents a dialog box or other interactive
-      component, such as a dismissible alert, sub-window, etc.
+      <p>This modal is fullscreen on mobile devices.</p>
     </VaModal>
   `,
 })
@@ -331,20 +330,6 @@ export const Fullscreen: StoryFn = () => ({
   `,
 })
 Fullscreen.play = playShowModal
-
-export const MobileFullscreenModal: StoryFn = () => ({
-  components: { VaModal, VaButton },
-  data: () => ({
-    showModal: false,
-  }),
-  template: `
-    <VaButton @click="showModal = true">Show Modal</VaButton>
-    <VaModal v-model="showModal" title="Mobile Fullscreen Modal" :mobile-fullscreen="true">
-      <p>This modal is fullscreen on mobile devices.</p>
-    </VaModal>
-  `,
-})
-MobileFullscreenModal.play = playShowModal
 
 export const HideDefaultActionsModal: StoryFn = () => ({
   components: { VaModal, VaButton },
