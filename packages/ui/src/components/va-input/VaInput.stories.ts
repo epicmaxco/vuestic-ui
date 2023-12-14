@@ -106,8 +106,8 @@ Autofocus.play = async ({ canvasElement }) => {
 export const InputValue: StoryFn = () => ({
   components: { VaInput },
   data: () => ({ value: 't' }),
-  // Must disallow writing more than 2 characters
-  template: '<VaInput :model-value="value" @update:model-value="$event.length > 2 ? void 0 : value = $event" />',
+  // Must disallow writing more than 5 characters
+  template: '<VaInput :model-value="value" @update:model-value="value = $event.slice(0, 5)" />',
 })
 
 export const InputValueComputed: StoryFn = () => ({
@@ -117,13 +117,12 @@ export const InputValueComputed: StoryFn = () => ({
   computed: {
     valueComputed: {
       set (v) {
-        if (v.length > 2) { return }
-        this.value = v
+        this.value = v.slice(0, 5)
       },
       get () { return this.value },
     },
   },
-  // Must disallow writing more than 2 characters
+  // Must disallow writing more than 5 characters
   template: '<VaInput v-model="valueComputed" />',
 })
 

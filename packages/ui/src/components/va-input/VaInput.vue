@@ -178,11 +178,19 @@ export default defineComponent({
         (e: InputEvent) => {
           const target = e.target as HTMLInputElement
 
+          // Similar to cleave solution
+          // When user types, we update input value according to computedValue, if value is different
+          // This causes cursor to move to the end of the input
+          // To prevent this, we save cursor position and restore it after value is updated
+          const selectionStart = target.selectionStart || 0
+          const selectionEnd = target.selectionEnd || 0
+
           nextTick(() => {
-            if (target.value === computedValue.value) {
-              return
+            if (target.value !== computedValue.value) {
+              target.value = String(computedValue.value)
             }
-            target.value = String(computedValue.value)
+
+            target.setSelectionRange(selectionStart, selectionEnd)
           })
         },
       ),
