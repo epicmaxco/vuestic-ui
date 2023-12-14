@@ -107,7 +107,7 @@ export const InputValue: StoryFn = () => ({
   components: { VaInput },
   data: () => ({ value: 't' }),
   // Must disallow writing more than 5 characters
-  template: '<VaInput :model-value="value" @update:model-value="value = $event.slice(0, 5)" />',
+  template: '<VaInput :model-value="value" @update:model-value="value = $event.slice(0, 5)" strictBindInputValue />',
 })
 
 export const InputValueComputed: StoryFn = () => ({
@@ -123,7 +123,7 @@ export const InputValueComputed: StoryFn = () => ({
     },
   },
   // Must disallow writing more than 5 characters
-  template: '<VaInput v-model="valueComputed" />',
+  template: '<VaInput v-model="valueComputed" strictBindInputValue />',
 })
 
 export const DebounceInput: StoryFn = () => ({
@@ -137,5 +137,5 @@ export const DebounceInput: StoryFn = () => ({
     },
   },
   // Must disallow writing more than 2 characters
-  template: '<VaInput stateful :model-value="value" @update:model-value="onInput" />',
+  template: '<VaInput stateful :model-value="value" @update:model-value="onInput" strictBindInputValue />',
 })
