@@ -183,7 +183,6 @@ export default defineComponent({
     hideDefaultActions: { type: Boolean, default: false },
     fullscreen: { type: Boolean, default: false },
     closeButton: { type: Boolean, default: false },
-    mobileFullscreen: { type: Boolean, default: true },
     noDismiss: { type: Boolean, default: false },
     noOutsideDismiss: { type: Boolean, default: false },
     noEscDismiss: { type: Boolean, default: false },
@@ -230,7 +229,6 @@ export default defineComponent({
 
     const computedClass = computed(() => ({
       'va-modal--fullscreen': props.fullscreen,
-      'va-modal--mobile-fullscreen': props.mobileFullscreen,
       'va-modal--fixed-layout': props.fixedLayout,
       'va-modal--no-padding': props.noPadding,
       [`va-modal--size-${props.size}`]: props.size !== 'medium',
@@ -503,18 +501,6 @@ export default defineComponent({
       min-height: 100vh !important;
       border-radius: 0;
       margin: 0;
-    }
-  }
-
-  &--mobile-fullscreen {
-    .va-modal__dialog {
-      @media all and (max-width: map-get($grid-breakpoints, sm)) {
-        margin: 0 !important;
-        min-width: 100vw !important;
-        max-width: 100vw !important;
-        min-height: 100vh !important;
-        border-radius: 0;
-      }
     }
   }
 

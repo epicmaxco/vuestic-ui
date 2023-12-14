@@ -179,6 +179,7 @@ export const MobileFullscreen: StoryFn = () => ({
     <VaModal
       v-model="showModal"
       title="Modal with Max Width"
+      fullscreen
     >
       Classic modal overlay which represents a dialog box or other interactive
       component, such as a dismissible alert, sub-window, etc.
