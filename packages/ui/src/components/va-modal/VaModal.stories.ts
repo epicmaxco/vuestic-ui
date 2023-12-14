@@ -153,7 +153,7 @@ export const MaxWidth: StoryFn = () => ({
   data () {
     return {
       showModal: false,
-      maxWidth: '500px', // You can adjust this value as needed
+      maxWidth: '500px',
     }
   },
   template: `
@@ -168,6 +168,53 @@ export const MaxWidth: StoryFn = () => ({
   `,
 })
 MaxWidth.play = playShowModal
+
+export const MobileFullscreen: StoryFn = () => ({
+  components: { VaModal, VaButton },
+  data: () => ({
+    showModal: false,
+  }),
+  template: `
+    <VaButton @click="showModal = true">Show Modal</VaButton>
+    <VaModal
+      v-model="showModal"
+      title="Modal with Max Width"
+    >
+      Classic modal overlay which represents a dialog box or other interactive
+      component, such as a dismissible alert, sub-window, etc.
+    </VaModal>
+  `,
+})
+MobileFullscreen.parameters = {
+  viewport: {
+    defaultViewport: 'mobile1',
+  },
+}
+MobileFullscreen.play = playShowModal
+
+export const MobileWithoutFullscreen: StoryFn = () => ({
+  components: { VaModal, VaButton },
+  data: () => ({
+    showModal: false,
+  }),
+  template: `
+    <VaButton @click="showModal = true">Show Modal</VaButton>
+    <VaModal
+      v-model="showModal"
+      title="Modal with Max Width"
+      :mobile-fullscreen="false"
+    >
+      Classic modal overlay which represents a dialog box or other interactive
+      component, such as a dismissible alert, sub-window, etc.
+    </VaModal>
+  `,
+})
+MobileWithoutFullscreen.parameters = {
+  viewport: {
+    defaultViewport: 'mobile1',
+  },
+}
+MobileWithoutFullscreen.play = playShowModal
 
 export const Stateful: StoryFn = () => ({
   components: { VaModal, VaButton },
