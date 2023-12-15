@@ -105,8 +105,6 @@ export default defineNuxtConfig({
       'Source+Code+Pro': {
         wght: [400],
       },
-      'Material+Icons': true,
-      'Material+Icons+Outlined': true,
       'Material+Symbols+Outlined': true,
     },
   },
