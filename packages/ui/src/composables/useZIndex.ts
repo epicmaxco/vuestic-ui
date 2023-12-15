@@ -24,22 +24,22 @@ export const useZIndex = () => {
     }
   }
 
-  const zIndex = computed(() => zIndexStack.findIndex((item) => item === instance))
+  const zIndex = computed(() => {
+    const index = zIndexStack.findIndex((item) => item === instance)
+
+    if (index === -1) { return -1 }
+
+    return index + 1
+  })
 
   const isTop = computed(() => zIndex.value === zIndexStack.length - 1)
   const isLowest = computed(() => zIndex.value === 0)
-
-  onMounted(() => {
-    register()
-  })
-
-  onBeforeUnmount(() => {
-    unregister()
-  })
 
   return {
     zIndex,
     isTop,
     isLowest,
+    register,
+    unregister,
   }
 }

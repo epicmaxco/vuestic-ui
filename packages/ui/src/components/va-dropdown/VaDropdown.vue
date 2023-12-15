@@ -9,6 +9,7 @@ import {
   toRef,
   Fragment,
   Teleport,
+  watchEffect,
 } from 'vue'
 import kebabCase from 'lodash/kebabCase'
 import pick from 'lodash/pick'
@@ -36,6 +37,7 @@ import { warn } from '../../utils/console'
 import { useFocusOutside } from '../../composables/useFocusOutside'
 import { useTeleported } from '../../composables/useTeleported'
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
+import { useZIndex } from '../../composables/useZIndex'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -255,6 +257,20 @@ export default defineComponent({
     const hide = () => { valueComputed.value = false }
     const show = () => { valueComputed.value = true }
 
+    const {
+      zIndex,
+      register: registerZIndex,
+      unregister: unregisterZIndex,
+    } = useZIndex()
+
+    watchEffect(() => {
+      if (valueComputed.value && isMounted.value) {
+        registerZIndex()
+      } else {
+        unregisterZIndex()
+      }
+    })
+
     return {
       ...useTranslation(),
       ...useTeleported(),
@@ -270,6 +286,7 @@ export default defineComponent({
       valueComputed,
       hide,
       show,
+      zIndex,
     }
   },
 
@@ -286,7 +303,7 @@ export default defineComponent({
     const floatingSlotNode = this.showFloating && renderSlotNode(this.$slots.default, slotBind, {
       ref: 'floating',
       class: 'va-dropdown__content-wrapper',
-      style: this.floatingStyles,
+      style: [this.floatingStyles, { zIndex: this.zIndex }],
       ...this.teleportedAttrs,
       ...this.floatingListeners,
     })
