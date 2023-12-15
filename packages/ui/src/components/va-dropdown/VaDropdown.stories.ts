@@ -1,6 +1,6 @@
 import { Directive, nextTick, ref } from 'vue'
 import { VaDropdown, VaDropdownContent } from '.'
-import { VaButton, VaIcon, VaValue } from '@/components'
+import { VaButton, VaIcon, VaValue, VaModal } from '@/components'
 import { StoryFn } from '@storybook/vue3'
 import { userEvent, within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
@@ -451,4 +451,30 @@ export const StickToEdges: StoryFn = () => ({
         </div>
       </ScrollContainer>
     `,
+})
+
+export const VisibleInModal: StoryFn = () => ({
+  components: { VaDropdown, VaButton, VaDropdownContent, VaModal },
+
+  setup () {
+    return {
+      modalOpen: ref(false),
+    }
+  },
+
+  template: `
+    <VaButton @click="modalOpen = true">Open modal</VaButton>
+    <VaModal v-model="modalOpen">
+      <VaDropdown stateful>
+        <template #anchor>
+          <div>
+            Anchor
+          </div>
+        </template>
+        <VaDropdownContent style="height: 200px">
+          Content
+        </VaDropdownContent>
+      </VaDropdown>
+    </VaModal>
+  `,
 })
