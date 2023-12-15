@@ -32,7 +32,6 @@
           />
           <div
             class="va-modal__container"
-            :style="computedModalContainerStyle"
           >
             <div
               ref="modalDialog"
@@ -246,7 +245,6 @@ export default defineComponent({
       return zIndex.value
     })
 
-    const computedModalContainerStyle = computed(() => ({ 'z-index': zIndexComputed.value } as StyleValue))
     const computedDialogStyle = computed(() => ({
       maxWidth: props.maxWidth,
       maxHeight: props.maxHeight,
@@ -405,6 +403,7 @@ export default defineComponent({
     return {
       tp,
       t,
+      zIndexComputed,
       isLowestLevelModal,
       isTopLevelModal,
       computedOverlayClass,
@@ -414,7 +413,6 @@ export default defineComponent({
       valueComputed,
       computedClass,
       computedDialogStyle,
-      computedModalContainerStyle,
       computedOverlayStyles,
       slotBind,
       teleportFromAttrs,
@@ -457,7 +455,7 @@ export default defineComponent({
   left: var(--va-modal-left);
   overflow: var(--va-modal-overflow);
   outline: var(--va-modal-outline);
-  z-index: var(--va-modal-z-index);
+  z-index: var(--va-modal-z-index, v-bind(zIndexComputed));
   font-family: var(--va-font-family);
 
   &__title {
