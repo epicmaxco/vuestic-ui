@@ -6,27 +6,29 @@
     :style="optionStyle"
     :aria-selected="isSelected"
   >
-    <va-icon
-      v-if="optionIcon"
-      size="small"
-      class="va-select-option__icon"
-      :name="optionIcon"
-    />
-    {{ optionTextSplitted.start }}
-    <span
-      v-if="optionTextSplitted.searchedSubString"
-      class="va-select-option__highlighted"
-    >
-      {{ optionTextSplitted.searchedSubString }}
-    </span>
-    {{ optionTextSplitted.end }}
-    <va-icon
-      v-show="isSelected"
-      class="va-select-option__selected-icon"
-      size="small"
-      name="va-check"
-      :color="optionIconColor"
-    />
+    <slot>
+      <va-icon
+        v-if="optionIcon"
+        size="small"
+        class="va-select-option__icon"
+        :name="optionIcon"
+      />
+      {{ optionTextSplitted.start }}
+      <span
+        v-if="optionTextSplitted.searchedSubString"
+        class="va-select-option__highlighted"
+      >
+        {{ optionTextSplitted.searchedSubString }}
+      </span>
+      {{ optionTextSplitted.end }}
+      <va-icon
+        v-show="isSelected"
+        class="va-select-option__selected-icon"
+        size="small"
+        name="va-check"
+        :color="optionIconColor"
+      />
+    </slot>
   </div>
 </template>
 

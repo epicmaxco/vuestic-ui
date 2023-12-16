@@ -33,33 +33,33 @@
         @scroll:bottom="handleScrollToBottom"
         v-slot="{ item: option, index }"
       >
-        <slot v-bind="{ option, index, selectOption }">
+        <va-select-option
+          :option="option"
+          :current-option="currentOptionComputed"
+          :disabled="getDisabled(option)"
+          v-bind="selectOptionProps"
+          @click.stop="selectHoveredOption"
+          @mouseenter="handleMouseEnter(option)"
+          @mousemove="handleMouseMove(option)"
+        >
+          <slot v-bind="{ option, index, selectOption }" />
+        </va-select-option>
+      </va-virtual-scroller>
+
+      <template v-else>
+        <template v-for="(option, index) in options" :key="getTrackBy(option)">
           <va-select-option
-            :option="option"
+            :ref="setItemRef(getTrackBy(option))"
             :current-option="currentOptionComputed"
+            :option="option"
             :disabled="getDisabled(option)"
             v-bind="selectOptionProps"
             @click.stop="selectHoveredOption"
             @mouseenter="handleMouseEnter(option)"
             @mousemove="handleMouseMove(option)"
-          />
-        </slot>
-      </va-virtual-scroller>
-
-      <template v-else>
-        <template v-for="(option, index) in options" :key="getTrackBy(option)">
-          <slot v-bind="{ option, index, selectOption }">
-            <va-select-option
-              :ref="setItemRef(getTrackBy(option))"
-              :current-option="currentOptionComputed"
-              :option="option"
-              :disabled="getDisabled(option)"
-              v-bind="selectOptionProps"
-              @click.stop="selectHoveredOption"
-              @mouseenter="handleMouseEnter(option)"
-              @mousemove="handleMouseMove(option)"
-            />
-          </slot>
+          >
+            <slot v-bind="{ option, index, selectOption }" />
+          </va-select-option>
         </template>
       </template>
     </template>

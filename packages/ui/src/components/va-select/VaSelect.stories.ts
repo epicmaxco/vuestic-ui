@@ -145,3 +145,19 @@ export const AutocompleteMultiple: StoryFn = () => ({
 
   template: '<VaSelect v-model="value" :options="options" autocomplete multiple />',
 })
+
+export const optionSlot: StoryFn = () => ({
+  components: { Component: VaSelect },
+  
+  data () { 
+    return { value: 'two', options: ['one', 'two', 'tree'] }
+  },
+  
+  template: `
+  <Component v-model="value" :options="options">
+    <template #option="{ option }">
+      <div>custom: {{ option }}</div>
+    </template>
+  </Component>
+  `,
+})
