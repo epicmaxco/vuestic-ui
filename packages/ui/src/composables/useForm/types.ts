@@ -1,4 +1,4 @@
-import { ComputedRef, Ref } from 'vue'
+import { ComputedRef, Ref, UnwrapRef } from 'vue'
 
 export type FormFiled<Name extends string = string> = {
   name: Ref<Name | undefined>;
@@ -15,8 +15,8 @@ export type FormFiled<Name extends string = string> = {
 }
 
 export type Form<Names extends string = string> = {
-  fields: ComputedRef<FormFiled<Names>[]>;
-  fieldsNamed: ComputedRef<Record<Names, FormFiled>>;
+  fields: ComputedRef<UnwrapRef<FormFiled<Names>[]>>;
+  fieldsNamed: ComputedRef<Record<Names, UnwrapRef<FormFiled>>>;
   fieldNames: ComputedRef<Names[]>;
   formData: ComputedRef<Record<Names, unknown>>;
   isValid: ComputedRef<boolean>;

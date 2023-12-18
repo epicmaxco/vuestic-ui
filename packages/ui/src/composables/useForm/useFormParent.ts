@@ -1,4 +1,4 @@
-import { computed, provide, ref, shallowRef, type Ref, unref, toRef } from 'vue'
+import { computed, provide, ref, shallowRef, type Ref, unref, toRef, UnwrapRef } from 'vue'
 import { FormServiceKey } from './consts'
 import { Form, FormFiled } from './types'
 import { useFormChild } from './useFormChild'
@@ -21,8 +21,9 @@ export const createFormContext = <Names extends string>(options: FormParentOptio
     doShowErrorMessages: computed(() => !options.hideErrorMessages),
     doShowLoading: computed(() => !options.hideLoading),
     isFormDirty: ref(false),
-    registerField: (uid: number, field: FormFiled) => {
-      fields.value.set(uid, field as FormFiled<Names>)
+    registerField: (uid: number, field: FormFiled<Names>) => {
+      // Vue will unwrap ref automatically, but types are not for some reason
+      fields.value.set(uid, field as unknown as UnwrapRef<FormFiled<Names>>)
     },
     unregisterField: (uid: number) => {
       fields.value.delete(uid)
@@ -33,7 +34,7 @@ export const createFormContext = <Names extends string>(options: FormParentOptio
 export const useFormParent = <Names extends string = string>(options: FormParentOptions): Form<Names> => {
   const formContext = createFormContext<Names>(options)
 
-  provide(FormServiceKey, formContext)
+  provide<typeof formContext>(FormServiceKey, formContext)
 
   const { fields, isFormDirty } = formContext
 
@@ -41,11 +42,11 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   const fieldsNamed = computed(() => fields.value.reduce((acc, field) => {
     if (unref(field.name)) { acc[unref(field.name) as Names] = field }
     return acc
-  }, {} as Record<Names, FormFiled>))
+  }, {} as Record<Names, UnwrapRef<FormFiled>>))
   const formData = computed(() => fields.value.reduce((acc, field) => {
     if (unref(field.name)) { acc[unref(field.name) as Names] = field.value }
     return acc
-  }, {} as Record<Names, FormFiled['value']>))
+  }, {} as Record<Names, UnwrapRef<FormFiled['value']>>))
   const isValid = computed(() => fields.value.every((field) => unref(field.isValid)))
   const isLoading = computed(() => fields.value.some((field) => unref(field.isLoading)))
   const isDirty = computed({

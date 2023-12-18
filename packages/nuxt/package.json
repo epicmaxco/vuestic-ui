@@ -34,9 +34,9 @@
   },
   "devDependencies": {
     "@nuxt/module-builder": "latest",
-    "@nuxt/schema": "latest",
-    "@nuxt/vite-builder": "latest",
+    "@nuxt/schema": "^3.8.2",
+    "@nuxt/vite-builder": "^3.8.2",
     "@nuxtjs/eslint-config-typescript": "latest",
-    "eslint": "^7"
+    "eslint": "^8.53.0"
   }
 }
