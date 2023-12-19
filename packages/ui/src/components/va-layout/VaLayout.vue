@@ -5,7 +5,7 @@
       :key="area"
       :area="area"
       :config="$props[area] || {}"
-      @overlay-click="$emit(`${area}-overlay-click`)"
+      @overlay-click="$emit(`${area}-overlay-click` as any)"
     >
       <slot :name="area" />
     </VaLayoutArea>
@@ -19,14 +19,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watchEffect } from 'vue'
+import { computed, useSlots, watchEffect } from 'vue'
 import {
   useGridTemplateArea,
   AreaName,
 } from './hooks/useGridTemplateArea'
 import { useLayoutProps, useLayout } from './hooks/useLayout'
-import VaLayoutArea from './components/VaLayoutArea.vue'
 import { useDocument } from '../../composables'
+</script>
+
+<script lang="ts" setup>
+import VaLayoutArea from './components/VaLayoutArea.vue'
 
 const areaNames: AreaName[] = [
   'top',
@@ -35,68 +38,64 @@ const areaNames: AreaName[] = [
   'bottom',
 ]
 
-export default defineComponent({
+defineOptions({
   name: 'VaLayout',
+})
 
-  props: {
-    ...useLayoutProps,
-    allowBodyScrollOnOverlay: { type: Boolean, default: false },
-  },
+const props = defineProps({
+  ...useLayoutProps,
+  allowBodyScrollOnOverlay: { type: Boolean, default: false },
+})
 
-  emits: [
-    'top-overlay-click',
-    'left-overlay-click',
-    'right-overlay-click',
-    'bottom-overlay-click',
-  ],
+const emit = defineEmits([
+  'top-overlay-click',
+  'left-overlay-click',
+  'right-overlay-click',
+  'bottom-overlay-click',
+])
 
-  components: { VaLayoutArea },
+const { paddings } = useLayout(props)
 
-  setup (props, { slots }) {
-    const { paddings } = useLayout(props)
+const doDisableScroll = computed(() => {
+  return !props.allowBodyScrollOnOverlay && areaNames.some((area) => props[area]?.overlay)
+})
 
-    const doDisableScroll = computed(() => {
-      return !props.allowBodyScrollOnOverlay && areaNames.some((area) => props[area]?.overlay)
-    })
+const document = useDocument()
 
-    const document = useDocument()
+watchEffect(() => {
+  const overflowParent = document.value?.body
 
-    watchEffect(() => {
-      const overflowParent = document.value?.body
+  if (!overflowParent) { return }
 
-      if (!overflowParent) { return }
+  if (doDisableScroll.value) {
+    overflowParent.style.overflow = 'hidden'
+  } else {
+    overflowParent.style.overflow = ''
+  }
+})
 
-      if (doDisableScroll.value) {
-        overflowParent.style.overflow = 'hidden'
-      } else {
-        overflowParent.style.overflow = ''
-      }
-    })
+const templateArea = useGridTemplateArea(props)
 
-    return {
-      areaNames,
-      templateArea: useGridTemplateArea(props),
-      verticalTemplate: computed(() => {
-        return [
-          slots.top ? 'min-content' : '0fr',
-          '1fr',
-          slots.bottom ? 'min-content' : '0fr',
-        ]
-          .filter(Boolean)
-          .join(' ')
-      }),
-      horizontalTemplate: computed(() => {
-        return [
-          slots.left ? 'min-content' : '0fr',
-          '1fr',
-          slots.right ? 'min-content' : '0fr',
-        ]
-          .filter(Boolean)
-          .join(' ')
-      }),
-      paddings,
-    }
-  },
+const slots = useSlots()
+
+const verticalTemplate = computed(() => {
+  return [
+    slots.top ? 'min-content' : '0fr',
+    '1fr',
+    slots.bottom ? 'min-content' : '0fr',
+  ]
+    .filter(Boolean)
+    .join(' ')
+})
+
+const horizontalTemplate = computed(() => {
+  return [
+    slots.left ? 'min-content' : '0fr',
+    '1fr',
+    slots.right ? 'min-content' : '0fr',
+  ]
+    .filter(Boolean)
+    .join(' ')
 })
 </script>
 

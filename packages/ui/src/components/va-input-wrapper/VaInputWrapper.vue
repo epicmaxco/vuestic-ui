@@ -206,7 +206,7 @@ export default defineComponent({
     const vaInputLabelProps = filterComponentProps(VaInputLabelProps)
 
     const focus = () => { isFocused.value = true }
-    const blur =  () => { isFocused.value = false }
+    const blur = () => { isFocused.value = false }
 
     return {
       focus,

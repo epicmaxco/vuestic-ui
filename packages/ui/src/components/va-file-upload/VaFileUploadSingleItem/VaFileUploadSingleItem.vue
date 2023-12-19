@@ -25,41 +25,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { PropType } from 'vue'
 import { useStrictInject, useTranslation } from '../../../composables'
 
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadKey, ConvertedFile } from '../types'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadSingleItem component should be used in the context of VaFileUpload component'
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaFileUploadSingleItem',
-
-  components: {
-    VaButton,
-    VaListItem,
-    VaListItemSection,
-  },
-
-  emits: ['remove'],
-
-  props: {
-    file: { type: Object as PropType<ConvertedFile | null>, default: null },
-    ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
-  },
-
-  setup () {
-    const { t, tp } = useTranslation()
-    const { disabled } = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
-
-    return {
-      disabled,
-      t,
-      tp,
-    }
-  },
 })
+
+const props = defineProps({
+  file: { type: Object as PropType<ConvertedFile | null>, default: null },
+  ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
+})
+
+const emit = defineEmits(['remove'])
+
+const { t, tp } = useTranslation()
+const { disabled } = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
 </script>
 
 <style lang='scss'>

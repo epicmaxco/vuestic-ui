@@ -29,8 +29,8 @@
   </slot>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+<script lang="ts" setup>
+import { computed, PropType } from 'vue'
 
 import { useColors } from '../../composables'
 
@@ -38,43 +38,32 @@ import { VaIcon } from '../va-icon'
 import { useMessageListAria } from './hooks/useMessageListAria'
 import { WithAttributes } from '../../utils/with-attributes'
 
-export default defineComponent({
+defineOptions({
   name: 'VaMessageList',
-
-  components: { VaIcon, WithAttributes },
-
-  props: {
-    modelValue: {
-      type: [String, Array] as PropType<string | string[]>,
-      default: '',
-    },
-    limit: { type: Number, default: 1 },
-    color: { type: String },
-    hasError: { type: Boolean, default: false },
-  },
-
   inheritAttrs: false,
-
-  setup (props, { slots }) {
-    const { getColor } = useColors()
-
-    const { childAttributes, messageListAttributes } = useMessageListAria(props)
-
-    return {
-      messageListAttributes,
-      childAttributes: computed(() => childAttributes.value),
-      messages: computed<string[]>(() => {
-        if (!props.modelValue) { return [] }
-        if (!Array.isArray(props.modelValue)) { return [props.modelValue] }
-        return props.modelValue.slice(0, props.limit)
-      }),
-      computedStyle: computed(() => props.color ? { color: getColor(props.color) } : {}),
-    }
-  },
 })
 
-// va-message-list must have alert role, but ul must have list role. So there is .va-message-list__list
-// is also must have class which starts with .va- so typography styles will not be applied to it.
+const props = defineProps({
+  modelValue: {
+    type: [String, Array] as PropType<string | string[]>,
+    default: '',
+  },
+  limit: { type: Number, default: 1 },
+  color: { type: String },
+  hasError: { type: Boolean, default: false },
+})
+
+const { getColor } = useColors()
+
+const { childAttributes, messageListAttributes } = useMessageListAria(props)
+
+const messages = computed<string[]>(() => {
+  if (!props.modelValue) { return [] }
+  if (!Array.isArray(props.modelValue)) { return [props.modelValue] }
+  return props.modelValue.slice(0, props.limit)
+})
+
+const computedStyle = computed(() => props.color ? { color: getColor(props.color) } : {})
 </script>
 
 <style lang="scss">

@@ -36,87 +36,73 @@
   </table>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, computed, VNode, ref, Fragment } from 'vue'
+<script lang="ts" setup>
 import VaMenuItem from './components/VaMenuItem.vue'
 import VaMenuGroup from './components/VaMenuGroup.vue'
+import { PropType, computed, VNode, ref, Fragment } from 'vue'
 import { VaMenuOption } from './types'
 import { useSelectableList, useSelectableListProps } from '../../composables'
 import { useMenuKeyboardNavigation, makeMenuContainerAttributes } from './composables/useMenuKeyboardNavigation'
 
-export default defineComponent({
+defineOptions({
   name: 'VaMenuList',
-  components: { VaMenuItem, VaMenuGroup },
-  props: {
-    ...useSelectableListProps,
-    options: { type: Array as PropType<VaMenuOption[]>, default: () => [] },
-  },
-  emits: ['selected'],
-  setup (props) {
-    const container = ref<HTMLElement>()
-    useMenuKeyboardNavigation(container)
-
-    const { getText, getValue, getDisabled, getGroupBy, getTrackBy } = useSelectableList(props)
-
-    const optionGroups = computed(() => props.options
-      .reduce((groups: Record<string, VaMenuOption[]>, option) => {
-        const groupBy = getGroupBy(option)
-
-        if (!groupBy) {
-          groups._noGroup.push(option)
-        } else {
-          if (!groups[groupBy]) { groups[groupBy] = [] }
-
-          groups[groupBy].push(option)
-        }
-
-        return groups
-      }, { _noGroup: [] }))
-
-    const getUnSlottedVNodes = (nodes: VNode[]) => {
-      if (Array.isArray(nodes) && nodes[0].type === Fragment) {
-        // If passed as slot, ignore Fragment VNode (template #default)
-        return nodes[0].children as VNode[]
-      }
-
-      return nodes
-    }
-
-    const getVNodeComponentName = (node: VNode) => {
-      if (typeof node.type === 'object' && 'name' in node.type && typeof node.type.name === 'string') {
-        return node.type.name
-      }
-
-      return ''
-    }
-
-    const getVNodeKey = (node: VNode): string => {
-      if (typeof node.type === 'string') {
-        return node.type
-      }
-
-      if (typeof node.type === 'object' && 'name' in node.type && typeof node.type.name === 'string') {
-        return node.type.name
-      }
-
-      return String(node.key)
-    }
-
-    return {
-      container,
-      optionGroups,
-      makeMenuContainerAttributes,
-      getVNodeComponentName,
-      getUnSlottedVNodes,
-      getVNodeKey,
-      getText,
-      getValue,
-      getDisabled,
-      getTrackBy,
-    }
-  },
 })
 
+const props = defineProps({
+  ...useSelectableListProps,
+  options: { type: Array as PropType<VaMenuOption[]>, default: () => [] },
+})
+
+const emit = defineEmits(['selected'])
+
+const container = ref<HTMLElement>()
+useMenuKeyboardNavigation(container)
+
+const { getText, getValue, getDisabled, getGroupBy, getTrackBy } = useSelectableList(props)
+
+const optionGroups = computed(() => props.options
+  .reduce((groups: Record<string, VaMenuOption[]>, option) => {
+    const groupBy = getGroupBy(option)
+
+    if (!groupBy) {
+      groups._noGroup.push(option)
+    } else {
+      if (!groups[groupBy]) { groups[groupBy] = [] }
+
+      groups[groupBy].push(option)
+    }
+
+    return groups
+  }, { _noGroup: [] }))
+
+const getUnSlottedVNodes = (nodes: VNode[]) => {
+  if (Array.isArray(nodes) && nodes[0].type === Fragment) {
+    // If passed as slot, ignore Fragment VNode (template #default)
+    return nodes[0].children as VNode[]
+  }
+
+  return nodes
+}
+
+const getVNodeComponentName = (node: VNode) => {
+  if (typeof node.type === 'object' && 'name' in node.type && typeof node.type.name === 'string') {
+    return node.type.name
+  }
+
+  return ''
+}
+
+const getVNodeKey = (node: VNode): string => {
+  if (typeof node.type === 'string') {
+    return node.type
+  }
+
+  if (typeof node.type === 'object' && 'name' in node.type && typeof node.type.name === 'string') {
+    return node.type.name
+  }
+
+  return String(node.key)
+}
 </script>
 
 <style lang="scss">

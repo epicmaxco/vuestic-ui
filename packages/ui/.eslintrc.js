@@ -35,6 +35,7 @@ module.exports = {
     'import/export': 'warn',
     'no-void': 'off',
     'vue/multi-word-component-names': 'off',
+    'vue/valid-define-props': 'off',
   },
   overrides: [
     {

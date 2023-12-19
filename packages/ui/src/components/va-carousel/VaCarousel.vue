@@ -96,7 +96,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, shallowRef, PropType, computed } from 'vue'
+import { shallowRef, PropType, computed } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
 import { useCarouselColor } from './hooks/useCarouselColors'
@@ -115,137 +115,114 @@ import type { SwipeState } from '../../composables'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 const VaImageProps = extractComponentProps(VaImage, ['src', 'alt'])
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaCarousel',
+})
 
-  components: { VaImage, VaButton, VaHover },
+const props = defineProps({
+  ...useSwipeProps,
+  ...useStatefulProps,
+  ...useComponentPresetProp,
+  ...VaImageProps,
 
-  props: {
-    ...useSwipeProps,
-    ...useStatefulProps,
-    ...useComponentPresetProp,
-    ...VaImageProps,
-
-    stateful: { type: Boolean, default: true },
-    modelValue: { type: Number, default: 0 },
-    items: { type: Array as PropType<any[]>, required: true },
+  stateful: { type: Boolean, default: true },
+  modelValue: { type: Number, default: 0 },
+  items: { type: Array as PropType<any[]>, required: true },
 
     // Animations
-    autoscroll: { type: Boolean, default: false },
-    autoscrollInterval: { type: Number, default: 5000 },
-    autoscrollPauseDuration: { type: Number, default: 2000 },
-    infinite: { type: Boolean, default: true },
-    fadeKeyframe: { type: String, default: 'va-carousel-fade-appear 1s' },
+  autoscroll: { type: Boolean, default: false },
+  autoscrollInterval: { type: Number, default: 5000 },
+  autoscrollPauseDuration: { type: Number, default: 2000 },
+  infinite: { type: Boolean, default: true },
+  fadeKeyframe: { type: String, default: 'va-carousel-fade-appear 1s' },
 
     // Visual
-    arrows: { type: Boolean, default: true },
-    indicators: { type: Boolean, default: true },
-    indicatorTrigger: {
-      type: String as PropType<'click' | 'hover' | 'none'>,
-      default: 'click',
-      validator: (value: string) => ['click', 'hover', 'none'].includes(value),
-    },
-    vertical: { type: Boolean, default: false },
-    height: { type: String, default: '300px' },
-    effect: {
-      type: String as PropType<'fade' | 'transition'>,
-      default: 'transition',
-      validator: (value: string) => ['fade', 'transition'].includes(value),
-    },
-    color: { type: String, default: 'primary' },
-    ratio: { type: Number },
-
-    ariaLabel: { type: String, default: '$t:carousel' },
-    ariaPreviousLabel: { type: String, default: '$t:goPreviousSlide' },
-    ariaNextLabel: { type: String, default: '$t:goNextSlide' },
-    ariaGoToSlideLabel: { type: String, default: '$t:goSlide' },
-    ariaSlideOfLabel: { type: String, default: '$t:slideOf' },
+  arrows: { type: Boolean, default: true },
+  indicators: { type: Boolean, default: true },
+  indicatorTrigger: {
+    type: String as PropType<'click' | 'hover' | 'none'>,
+    default: 'click',
+    validator: (value: string) => ['click', 'hover', 'none'].includes(value),
   },
-
-  emits: [...useStatefulEmits],
-
-  setup (props, { emit }) {
-    const { valueComputed: currentSlide } = useStateful(props, emit, 'modelValue')
-
-    const {
-      goTo, next, prev,
-      doShowNextButton, doShowPrevButton, doShowDirectionButtons,
-    } = useCarousel(props, currentSlide)
-
-    const { withPause, computedSlidesStyle, slides } = useCarouselAnimation(props, currentSlide)
-    const isObjectSlides = computed(() => {
-      return props.items.length && props.items.every((el) => !!el && typeof el === 'object' && !!el?.src)
-    })
-    const isCurrentSlide = (index: number) => index === currentSlide.value
-
-    const slideStyleComputed = computed(() => ({
-      animation: props.effect === 'fade' ? 'fadeKeyframe' : undefined,
-    }))
-
-    // swiping
-    const slidesContainer = shallowRef<HTMLElement>()
-    const onSwipe = (state: SwipeState) => {
-      switch (state.direction) {
-        case 'right':
-        case 'up':
-          doShowPrevButton.value && prev()
-          break
-        case 'left':
-        case 'down':
-          doShowNextButton.value && next()
-      }
-    }
-    useSwipe(props, slidesContainer, onSwipe)
-
-    const getIndicatorEvents = (index: number) => {
-      if (props.indicatorTrigger === 'hover') {
-        return { onmouseover: () => goTo(index) }
-      }
-      if (props.indicatorTrigger === 'click') {
-        return { onclick: () => goTo(index) }
-      }
-      // none
-      return {}
-    }
-
-    const { tp, t } = useTranslation()
-
-    const {
-      computedActiveColor,
-      computedColor,
-      computedHoverColor,
-    } = useCarouselColor()
-
-    const vaImageProps = filterComponentProps(VaImageProps)
-
-    const goToWithPause = withPause(goTo)
-    const prevWithPause = withPause(prev)
-    const nextWithPause = withPause(next)
-
-    return {
-      vaImageProps,
-      doShowNextButton,
-      doShowPrevButton,
-      doShowDirectionButtons,
-      getIndicatorEvents,
-      computedSlidesStyle,
-      slideStyleComputed,
-      goToWithPause,
-      prevWithPause,
-      nextWithPause,
-      slides,
-      isObjectSlides,
-      isCurrentSlide,
-      computedActiveColor,
-      computedColor,
-      computedHoverColor,
-      tp,
-      t,
-      slidesContainer,
-    }
+  vertical: { type: Boolean, default: false },
+  height: { type: String, default: '300px' },
+  effect: {
+    type: String as PropType<'fade' | 'transition'>,
+    default: 'transition',
+    validator: (value: string) => ['fade', 'transition'].includes(value),
   },
+  color: { type: String, default: 'primary' },
+  ratio: { type: Number },
+
+  ariaLabel: { type: String, default: '$t:carousel' },
+  ariaPreviousLabel: { type: String, default: '$t:goPreviousSlide' },
+  ariaNextLabel: { type: String, default: '$t:goNextSlide' },
+  ariaGoToSlideLabel: { type: String, default: '$t:goSlide' },
+  ariaSlideOfLabel: { type: String, default: '$t:slideOf' },
 })
+
+const emit = defineEmits([...useStatefulEmits])
+
+const { valueComputed: currentSlide } = useStateful(props, emit, 'modelValue')
+
+const {
+  goTo, next, prev,
+  doShowNextButton, doShowPrevButton, doShowDirectionButtons,
+} = useCarousel(props, currentSlide)
+
+const { withPause, computedSlidesStyle, slides } = useCarouselAnimation(props, currentSlide)
+const isObjectSlides = computed(() => {
+  return props.items.length && props.items.every((el) => !!el && typeof el === 'object' && !!el?.src)
+})
+const isCurrentSlide = (index: number) => index === currentSlide.value
+
+const slideStyleComputed = computed(() => ({
+  animation: props.effect === 'fade' ? 'fadeKeyframe' : undefined,
+}))
+
+// swiping
+const slidesContainer = shallowRef<HTMLElement>()
+const onSwipe = (state: SwipeState) => {
+  switch (state.direction) {
+    case 'right':
+    case 'up':
+      doShowPrevButton.value && prev()
+      break
+    case 'left':
+    case 'down':
+      doShowNextButton.value && next()
+  }
+}
+useSwipe(props, slidesContainer, onSwipe)
+
+const getIndicatorEvents = (index: number) => {
+  if (props.indicatorTrigger === 'hover') {
+    return { onmouseover: () => goTo(index) }
+  }
+  if (props.indicatorTrigger === 'click') {
+    return { onclick: () => goTo(index) }
+  }
+  // none
+  return {}
+}
+
+const { tp, t } = useTranslation()
+
+const {
+  computedActiveColor,
+  computedColor,
+  computedHoverColor,
+} = useCarouselColor()
+
+const vaImageProps = filterComponentProps(VaImageProps)
+
+const goToWithPause = withPause(goTo)
+const prevWithPause = withPause(prev)
+const nextWithPause = withPause(next)
 </script>
 
 <style lang="scss">

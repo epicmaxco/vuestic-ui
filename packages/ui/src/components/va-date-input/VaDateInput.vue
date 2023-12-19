@@ -87,17 +87,7 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  PropType,
-  toRefs,
-  watch,
-  ref,
-  shallowRef,
-  nextTick,
-  Ref,
-} from 'vue'
+import { computed, PropType, toRefs, watch, ref, shallowRef, nextTick, Ref, useAttrs, useSlots } from 'vue'
 import omit from 'lodash/omit'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/component-options'
@@ -120,347 +110,310 @@ import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-uti
 
 import type { DateInputModelValue, DateInputValue } from './types'
 
-import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { unwrapEl } from '../../utils/unwrapEl'
+</script>
 
-const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
-const VaDatePickerProps = extractComponentProps(VaDatePicker)
+<script lang="ts" setup>
+import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
+
+const VaInputWrapperPropsDeclaration = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
+const VaDatePickerPropsDeclaration = extractComponentProps(VaDatePicker)
 const VaDropdownProps = extractComponentProps(VaDropdown,
   ['innerAnchorSelector', 'stateful', 'keyboardNavigation', 'modelValue', 'trigger'],
 )
 
-export default defineComponent({
+defineOptions({
   name: 'VaDateInput',
-
-  components: {
-    VaDropdown,
-    VaDropdownContent,
-    VaDatePicker,
-    VaInputWrapper,
-    VaIcon,
-  },
-
-  props: {
-    ...useDropdownableProps,
-    ...useClearableProps,
-    ...VaInputWrapperProps,
-    ...VaDatePickerProps,
-    ...useValidationProps as ValidationProps<DateInputModelValue>,
-    ...useComponentPresetProp,
-
-    clearValue: { type: Date as PropType<DateInputModelValue>, default: undefined },
-    modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },
-
-    resetOnClose: { type: Boolean, default: true },
-    closeOnContentClick: { type: Boolean, default: false },
-    offset: { ...useDropdownableProps.offset, default: () => [2, 0] },
-
-    format: { type: Function as PropType<(date: DateInputModelValue) => string> },
-    formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
-    parse: { type: Function as PropType<(input: string) => DateInputValue> },
-    parseDate: { type: Function as PropType<(input: string) => Date> },
-    parseValue: { type: Function as PropType<typeof parseModelValue> },
-
-    delimiter: { type: String, default: ', ' },
-    rangeDelimiter: { type: String, default: ' ~ ' },
-    manualInput: { type: Boolean, default: false },
-
-    color: { type: String, default: 'primary' },
-    leftIcon: { type: Boolean, default: false },
-    icon: { type: String, default: 'va-calendar' },
-
-    ariaToggleDropdownLabel: { type: String, default: '$t:toggleDropdown' },
-    ariaResetLabel: { type: String, default: '$t:resetDate' },
-    ariaSelectedDateLabel: { type: String, default: '$t:selectedDate' },
-  },
-
-  emits: [
-    ...useFocusEmits,
-    ...extractComponentEmits(VaDatePicker),
-    ...useClearableEmits,
-    ...useValidationEmits,
-    ...useStatefulEmits,
-    ...useDropdownableEmits,
-    'update:text',
-  ],
-
   inheritAttrs: false,
-
-  setup (props, { emit, slots, attrs }) {
-    const input = shallowRef<HTMLInputElement>()
-    const datePicker = ref<typeof VaDatePicker>()
-
-    const { resetOnClose } = toRefs(props)
-    const { trapFocusIn, freeFocus } = useTrapFocus()
-
-    const trapFocus = () => {
-      const el = unwrapEl(datePicker.value)
-      if (!el) {
-        freeFocus()
-        return
-      }
-
-      trapFocusIn(el)
-    }
-
-    watch([datePicker], () => {
-      trapFocus()
-    })
-
-    const { valueComputed: statefulValue } = useStateful(props, emit)
-    const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
-      defaultCloseOnValueUpdate: computed(() => !Array.isArray(statefulValue.value)),
-    })
-
-    const { isFocused: isInputFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
-    const isPickerFocused = useFocusDeep(datePicker)
-
-    const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
-
-    const {
-      valueComputed,
-      reset: resetInvalidRange,
-    } = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled, props.parseValue)
-
-    watch(isOpenSync, (isOpened) => {
-      if (!isOpened && !isRangeModelValueGuardDisabled.value) { resetInvalidRange() }
-    })
-
-    const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
-
-    const { parseDateInputValue, isValid } = useDateParser(props)
-
-    watch(valueComputed, () => {
-      isValid.value = true
-    })
-
-    const modelValueToString = (value: DateInputModelValue): string => {
-      if (props.format) {
-        return props.format(valueComputed.value)
-      }
-
-      if (isDates(value)) {
-        return value.map((d) => props.formatDate(d)).join(props.delimiter)
-      }
-      if (isSingleDate(value)) {
-        return props.formatDate(value)
-      }
-      if (isRange(value)) {
-        return dateOrNothing(value.start) + props.rangeDelimiter + dateOrNothing(value.end)
-      }
-
-      throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
-    }
-
-    const {
-      text,
-      value: valueWithoutText,
-    } = useParsable(valueComputed, parseDateInputValue, modelValueToString)
-
-    const valueText = computed(() => {
-      if (!isValid.value) {
-        return ''
-      }
-
-      if (!valueComputed.value) {
-        if (!props.clearValue) { return '' }
-        return modelValueToString(props.clearValue)
-      }
-
-      return text.value
-    })
-
-    const onInputTextChanged = ({ target }: Event) => {
-      if (props.disabled) { return }
-
-      const parsedValue = parseDateInputValue((target as HTMLInputElement).value)
-
-      if (isValid.value) {
-        valueComputed.value = parsedValue
-      }
-    }
-
-    const reset = () => withoutValidation(() => {
-      statefulValue.value = props.clearValue
-      emit('clear')
-      resetValidation()
-    })
-
-    const hideAndFocus = (): void => {
-      isOpenSync.value = false
-      focus()
-    }
-
-    const focusDatePicker = (): void => {
-      nextTick(() => datePicker.value?.focusCurrentPicker())
-    }
-
-    const focusInputOrPicker = () => {
-      isOpenSync.value ? focusDatePicker() : focus()
-    }
-
-    const checkProhibitedDropdownOpening = (e?: KeyboardEvent) => {
-      if (isOpenSync.value) { return false }
-      if (props.disabled || props.readonly) { return true }
-      return props.manualInput && e?.code !== 'Space'
-    }
-
-    const toggleDropdown = (event: Event | KeyboardEvent) => {
-      if (checkProhibitedDropdownOpening(event instanceof KeyboardEvent ? event : undefined)) { return }
-
-      isOpenSync.value = !isOpenSync.value
-      nextTick(focusInputOrPicker)
-    }
-
-    // icon interaction
-    const showDropdown = () => {
-      if (props.disabled || props.readonly) { return }
-
-      isOpenSync.value = true
-      nextTick(focusDatePicker)
-    }
-
-    const {
-      computedError,
-      computedErrorMessages,
-      listeners,
-      validationAriaAttributes,
-      withoutValidation,
-      resetValidation,
-    } = useValidation(props, emit, { reset, focus, value: valueComputed })
-
-    const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
-
-    const filterSlots = computed(() => {
-      const slotsWithIcons = [
-        props.leftIcon && 'prependInner',
-        (!props.leftIcon || props.clearable) && 'icon',
-      ]
-      return Object.keys(slots).filter(slot => !slotsWithIcons.includes(slot))
-    })
-
-    const {
-      canBeCleared,
-      clearIconProps,
-      onFocus,
-      onBlur,
-    } = useClearable(props, valueComputed)
-
-    const cursorStyleComputed = computed(() => {
-      if (props.disabled) { return {} }
-      if (props.manualInput) { return { cursor: 'text' } }
-      return { cursor: 'pointer' }
-    })
-
-    const iconTabindexComputed = computed(() => {
-      if (!props.manualInput) { return -1 }
-
-      return props.disabled || props.readonly ? -1 : 0
-    })
-
-    const iconProps = computed(() => ({
-      role: iconTabindexComputed.value === 0 ? 'button' : 'none',
-      ariaHidden: iconTabindexComputed.value === -1,
-      name: props.icon,
-      color: 'secondary',
-      tabindex: iconTabindexComputed.value,
-    }))
-
-    const filteredWrapperProps = filterComponentProps(VaInputWrapperProps)
-    const computedInputWrapperProps = computed(() => ({
-      ...filteredWrapperProps.value,
-      focused: isInputFocused.value || isPickerFocused.value,
-      error: hasError.value,
-      errorMessages: computedErrorMessages.value,
-      readonly: props.readonly || !props.manualInput,
-    }))
-
-    const computedInputListeners = computed(() => ({
-      focus: () => {
-        if (props.disabled) { return }
-
-        focusListener()
-
-        if (props.readonly) { return }
-        onFocus()
-        listeners.onFocus()
-      },
-      blur: () => {
-        if (props.disabled) { return }
-
-        blurListener()
-
-        if (props.readonly) { return }
-        onBlur()
-        listeners.onBlur()
-      },
-    }))
-
-    const { tp } = useTranslation()
-
-    const inputAttributesComputed = computed(() => ({
-      readonly: props.readonly || !props.manualInput,
-      disabled: props.disabled,
-      tabindex: props.disabled ? -1 : 0,
-      placeholder: props.placeholder,
-      value: valueText.value,
-      ariaLabel: props.label || tp(props.ariaSelectedDateLabel),
-      ariaRequired: props.requiredMark,
-      ariaDisabled: props.disabled,
-      ariaReadOnly: props.readonly,
-      ...validationAriaAttributes.value,
-      ...omit(attrs, ['class', 'style']),
-    }))
-
-    const dropdownPropsComputed = computed(() => ({
-      ...dropdownProps.value,
-      stateful: false,
-      closeOnAnchorClick: false,
-      keyboardNavigation: true,
-      innerAnchorSelector: '.va-input-wrapper__field',
-      trigger: 'none' as const,
-    }))
-
-    return {
-      tp,
-      datePicker,
-      valueText,
-      valueWithoutText,
-      valueComputed,
-      isOpenSync,
-      onInputTextChanged,
-      trapFocus,
-
-      isInputFocused,
-      isPickerFocused,
-
-      input,
-      inputWrapperProps: computedInputWrapperProps,
-      inputListeners: computedInputListeners,
-      inputAttributesComputed,
-      datePickerProps: filterComponentProps(VaDatePickerProps),
-      dropdownPropsComputed,
-
-      filterSlots,
-      canBeCleared,
-      clearIconProps,
-      iconProps,
-      cursorStyleComputed,
-
-      hideAndFocus,
-      toggleDropdown,
-      showDropdown,
-      focusInputOrPicker,
-      focusDatePicker,
-      reset,
-      focus,
-      blur,
-    }
-  },
 })
+
+const props = defineProps({
+  ...useDropdownableProps,
+  ...useClearableProps,
+  ...VaInputWrapperPropsDeclaration,
+  ...VaDatePickerPropsDeclaration,
+  ...useValidationProps as ValidationProps<DateInputModelValue>,
+  ...useComponentPresetProp,
+
+  clearValue: { type: Date as PropType<DateInputModelValue>, default: undefined },
+  modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },
+
+  resetOnClose: { type: Boolean, default: true },
+  closeOnContentClick: { type: Boolean, default: false },
+  offset: { ...useDropdownableProps.offset, default: () => [2, 0] },
+
+  format: { type: Function as PropType<(date: DateInputModelValue) => string> },
+  formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
+  parse: { type: Function as PropType<(input: string) => DateInputValue> },
+  parseDate: { type: Function as PropType<(input: string) => Date> },
+  parseValue: { type: Function as PropType<typeof parseModelValue> },
+
+  delimiter: { type: String, default: ', ' },
+  rangeDelimiter: { type: String, default: ' ~ ' },
+  manualInput: { type: Boolean, default: false },
+
+  color: { type: String, default: 'primary' },
+  leftIcon: { type: Boolean, default: false },
+  icon: { type: String, default: 'va-calendar' },
+
+  ariaToggleDropdownLabel: { type: String, default: '$t:toggleDropdown' },
+  ariaResetLabel: { type: String, default: '$t:resetDate' },
+  ariaSelectedDateLabel: { type: String, default: '$t:selectedDate' },
+})
+
+const emit = defineEmits([
+  ...useFocusEmits,
+  ...extractComponentEmits(VaDatePicker),
+  ...useClearableEmits,
+  ...useValidationEmits,
+  ...useStatefulEmits,
+  ...useDropdownableEmits,
+  'update:text',
+])
+
+const input = shallowRef<HTMLInputElement>()
+const datePicker = ref<typeof VaDatePicker>()
+
+const { resetOnClose } = toRefs(props)
+const { trapFocusIn, freeFocus } = useTrapFocus()
+
+const trapFocus = () => {
+  const el = unwrapEl(datePicker.value)
+  if (!el) {
+    freeFocus()
+    return
+  }
+
+  trapFocusIn(el)
+}
+
+watch([datePicker], () => {
+  trapFocus()
+})
+
+const { valueComputed: statefulValue } = useStateful(props, emit)
+const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
+  defaultCloseOnValueUpdate: computed(() => !Array.isArray(statefulValue.value)),
+})
+
+const { isFocused: isInputFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
+const isPickerFocused = useFocusDeep(datePicker)
+
+const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
+
+const {
+  valueComputed,
+  reset: resetInvalidRange,
+} = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled, props.parseValue)
+
+watch(isOpenSync, (isOpened) => {
+  if (!isOpened && !isRangeModelValueGuardDisabled.value) { resetInvalidRange() }
+})
+
+const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
+
+const { parseDateInputValue, isValid } = useDateParser(props)
+
+watch(valueComputed, () => {
+  isValid.value = true
+})
+
+const modelValueToString = (value: DateInputModelValue): string => {
+  if (props.format) {
+    return props.format(valueComputed.value)
+  }
+
+  if (isDates(value)) {
+    return value.map((d) => props.formatDate(d)).join(props.delimiter)
+  }
+  if (isSingleDate(value)) {
+    return props.formatDate(value)
+  }
+  if (isRange(value)) {
+    return dateOrNothing(value.start) + props.rangeDelimiter + dateOrNothing(value.end)
+  }
+
+  throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
+}
+
+const {
+  text,
+  value: valueWithoutText,
+} = useParsable(valueComputed, parseDateInputValue, modelValueToString)
+
+const valueText = computed(() => {
+  if (!isValid.value) {
+    return ''
+  }
+
+  if (!valueComputed.value) {
+    if (!props.clearValue) { return '' }
+    return modelValueToString(props.clearValue)
+  }
+
+  return text.value
+})
+
+const onInputTextChanged = ({ target }: Event) => {
+  if (props.disabled) { return }
+
+  const parsedValue = parseDateInputValue((target as HTMLInputElement).value)
+
+  if (isValid.value) {
+    valueComputed.value = parsedValue
+  }
+}
+
+const reset = () => withoutValidation(() => {
+  statefulValue.value = props.clearValue
+  emit('clear')
+  resetValidation()
+})
+
+const hideAndFocus = (): void => {
+  isOpenSync.value = false
+  focus()
+}
+
+const focusDatePicker = (): void => {
+  nextTick(() => datePicker.value?.focusCurrentPicker())
+}
+
+const focusInputOrPicker = () => {
+  isOpenSync.value ? focusDatePicker() : focus()
+}
+
+const checkProhibitedDropdownOpening = (e?: KeyboardEvent) => {
+  if (isOpenSync.value) { return false }
+  if (props.disabled || props.readonly) { return true }
+  return props.manualInput && e?.code !== 'Space'
+}
+
+const toggleDropdown = (event: Event | KeyboardEvent) => {
+  if (checkProhibitedDropdownOpening(event instanceof KeyboardEvent ? event : undefined)) { return }
+
+  isOpenSync.value = !isOpenSync.value
+  nextTick(focusInputOrPicker)
+}
+
+// icon interaction
+const showDropdown = () => {
+  if (props.disabled || props.readonly) { return }
+
+  isOpenSync.value = true
+  nextTick(focusDatePicker)
+}
+
+const {
+  computedError,
+  computedErrorMessages,
+  listeners,
+  validationAriaAttributes,
+  withoutValidation,
+  resetValidation,
+} = useValidation(props, emit, { reset, focus, value: valueComputed })
+
+const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
+
+const slots = useSlots()
+const filterSlots = computed(() => {
+  const slotsWithIcons = [
+    props.leftIcon && 'prependInner',
+    (!props.leftIcon || props.clearable) && 'icon',
+  ]
+  return Object.keys(slots).filter(slot => !slotsWithIcons.includes(slot))
+})
+
+const {
+  canBeCleared,
+  clearIconProps,
+  onFocus,
+  onBlur,
+} = useClearable(props, valueComputed)
+
+const cursorStyleComputed = computed(() => {
+  if (props.disabled) { return {} }
+  if (props.manualInput) { return { cursor: 'text' } }
+  return { cursor: 'pointer' }
+})
+
+const iconTabindexComputed = computed(() => {
+  if (!props.manualInput) { return -1 }
+
+  return props.disabled || props.readonly ? -1 : 0
+})
+
+const iconProps = computed(() => ({
+  role: iconTabindexComputed.value === 0 ? 'button' : 'none',
+  ariaHidden: iconTabindexComputed.value === -1,
+  name: props.icon,
+  color: 'secondary',
+  tabindex: iconTabindexComputed.value,
+}))
+
+const filteredWrapperProps = filterComponentProps(VaInputWrapperPropsDeclaration)
+const computedInputWrapperProps = computed(() => ({
+  ...filteredWrapperProps.value,
+  focused: isInputFocused.value || isPickerFocused.value,
+  error: hasError.value,
+  errorMessages: computedErrorMessages.value,
+  readonly: props.readonly || !props.manualInput,
+}))
+
+const computedInputListeners = computed(() => ({
+  focus: () => {
+    if (props.disabled) { return }
+
+    focusListener()
+
+    if (props.readonly) { return }
+    onFocus()
+    listeners.onFocus()
+  },
+  blur: () => {
+    if (props.disabled) { return }
+
+    blurListener()
+
+    if (props.readonly) { return }
+    onBlur()
+    listeners.onBlur()
+  },
+}))
+
+const { tp } = useTranslation()
+
+const attrs = useAttrs()
+
+const inputAttributesComputed = computed(() => ({
+  readonly: props.readonly || !props.manualInput,
+  disabled: props.disabled,
+  tabindex: props.disabled ? -1 : 0,
+  placeholder: props.placeholder,
+  value: valueText.value,
+  ariaLabel: props.label || tp(props.ariaSelectedDateLabel),
+  ariaRequired: props.requiredMark,
+  ariaDisabled: props.disabled,
+  ariaReadOnly: props.readonly,
+  ...validationAriaAttributes.value,
+  ...omit(attrs, ['class', 'style']),
+}))
+
+const dropdownPropsComputed = computed(() => ({
+  ...dropdownProps.value,
+  stateful: false,
+  closeOnAnchorClick: false,
+  keyboardNavigation: true,
+  innerAnchorSelector: '.va-input-wrapper__field',
+  trigger: 'none' as const,
+}))
+
+const inputWrapperProps = computedInputWrapperProps
+const inputListeners = computedInputListeners
+const datePickerProps = filterComponentProps(VaDatePickerPropsDeclaration)
 </script>
 
 <style lang="scss">

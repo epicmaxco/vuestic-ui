@@ -50,54 +50,39 @@
   </teleport>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+<script lang="ts" setup>
+import { ref, computed, useSlots } from 'vue'
 
 import { VaIcon } from '../va-icon'
 
 import { useIsMounted, useDocument, useClickOutside } from '../../composables'
 
-export default defineComponent({
+defineOptions({
   name: 'VaViewer',
-
   inheritAttrs: false,
-
-  components: { VaIcon },
-
-  setup (_, { slots }) {
-    const content = ref<HTMLElement>()
-    const controls = ref<HTMLElement>()
-
-    const isMounted = useIsMounted()
-    const isClosed = ref(true)
-    const isOpened = computed(() => isMounted.value && !isClosed.value)
-
-    const openViewer = () => (isClosed.value = false)
-    const closeViewer = () => (isClosed.value = true)
-    const handleAnchorClick = () => {
-      if (!slots.anchor) {
-        openViewer()
-      }
-    }
-
-    useClickOutside([content, controls], closeViewer)
-
-    const document = useDocument()
-    const teleportTarget = computed(() => document.value?.body)
-
-    return {
-      content,
-      controls,
-
-      teleportTarget,
-      isOpened,
-
-      openViewer,
-      closeViewer,
-      handleAnchorClick,
-    }
-  },
 })
+
+const content = ref<HTMLElement>()
+const controls = ref<HTMLElement>()
+
+const isMounted = useIsMounted()
+const isClosed = ref(true)
+const isOpened = computed(() => isMounted.value && !isClosed.value)
+
+const openViewer = () => (isClosed.value = false)
+const closeViewer = () => (isClosed.value = true)
+
+const slots = useSlots()
+const handleAnchorClick = () => {
+  if (!slots.anchor) {
+    openViewer()
+  }
+}
+
+useClickOutside([content, controls], closeViewer)
+
+const document = useDocument()
+const teleportTarget = computed(() => document.value?.body)
 </script>
 
 <style lang="scss">

@@ -11,36 +11,29 @@
   </label>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import { useColors } from '../../../composables'
 
-export default defineComponent({
+defineOptions({
   name: 'VaInputLabel',
+})
 
-  props: {
-    label: {
-      type: String,
-      default: '',
-    },
-    requiredMark: {
-      type: Boolean,
-      default: false,
-    },
-    color: {
-      type: String,
-      default: 'primary',
-    },
+const props = defineProps({
+  label: {
+    type: String,
+    default: '',
   },
-
-  setup () {
-    const { getColor } = useColors()
-
-    return {
-      getColor,
-    }
+  requiredMark: {
+    type: Boolean,
+    default: false,
+  },
+  color: {
+    type: String,
+    default: 'primary',
   },
 })
+
+const { getColor } = useColors()
 </script>
 
 <style lang="scss">

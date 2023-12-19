@@ -20,8 +20,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, PropType } from 'vue'
+<script lang="ts" setup>
+import { ref, computed, PropType } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
 
 import { VaTimePickerColumn } from './components/VaTimePickerColumn'
@@ -37,93 +37,73 @@ import {
   useCSSVariables,
 } from '../../composables'
 
-export default defineComponent({
+defineOptions({
   name: 'VaTimePicker',
+})
 
-  components: { VaTimePickerColumn },
+const props = defineProps({
+  ...useStatefulProps,
+  ...useFormFieldProps,
+  ...useComponentPresetProp,
+  modelValue: { type: Date, required: false },
+  ampm: { type: Boolean, default: false },
+  hidePeriodSwitch: { type: Boolean, default: false },
+  periodUpdatesModelValue: { type: Boolean, default: true }, // Update model value when switching period automatically
+  view: { type: String as PropType<'hours' | 'minutes' | 'seconds'>, default: 'minutes' },
+  hoursFilter: { type: Function as PropType<(h: number) => boolean> },
+  minutesFilter: { type: Function as PropType<(h: number) => boolean> },
+  secondsFilter: { type: Function as PropType<(h: number) => boolean> },
+  framed: { type: Boolean, default: false },
+  cellHeight: { type: Number, default: 30 },
+  visibleCellsCount: { type: Number, default: 7 },
+})
 
-  props: {
-    ...useStatefulProps,
-    ...useFormFieldProps,
-    ...useComponentPresetProp,
-    modelValue: { type: Date, required: false },
-    ampm: { type: Boolean, default: false },
-    hidePeriodSwitch: { type: Boolean, default: false },
-    periodUpdatesModelValue: { type: Boolean, default: true }, // Update model value when switching period automatically
-    view: { type: String as PropType<'hours' | 'minutes' | 'seconds'>, default: 'minutes' },
-    hoursFilter: { type: Function as PropType<(h: number) => boolean> },
-    minutesFilter: { type: Function as PropType<(h: number) => boolean> },
-    secondsFilter: { type: Function as PropType<(h: number) => boolean> },
-    framed: { type: Boolean, default: false },
-    cellHeight: { type: Number, default: 30 },
-    visibleCellsCount: { type: Number, default: 7 },
-  },
+const emit = defineEmits([...useStatefulEmits])
 
-  emits: [...useStatefulEmits],
+const { valueComputed } = useStateful(props, emit)
+const { columns, isPM } = useTimePicker(props, valueComputed)
 
-  setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit)
-    const { columns, isPM } = useTimePicker(props, valueComputed)
+const { setItemRef, itemRefs: pickers } = useArrayRefs()
 
-    const { setItemRef, itemRefs: pickers } = useArrayRefs()
+const activeColumnIndex = ref<number>()
 
-    const activeColumnIndex = ref<number>()
+const focus = (idx = 0): void => {
+  pickers.value[idx]?.focus()
+}
 
-    const focus = (idx = 0): void => {
-      pickers.value[idx]?.focus()
-    }
+const blur = (idx?: number): void => {
+  idx ? pickers.value[idx]?.blur() : pickers.value.forEach((el) => el?.blur())
+}
 
-    const blur = (idx?: number): void => {
-      idx ? pickers.value[idx]?.blur() : pickers.value.forEach((el) => el?.blur())
-    }
+const { computedClasses: computedFormClasses } = useFormField('va-time-picker', props)
 
-    const { computedClasses: computedFormClasses } = useFormField('va-time-picker', props)
+const focusNext = () => {
+  const nextIndex = (activeColumnIndex?.value || 0) + 1
 
-    const focusNext = () => {
-      const nextIndex = (activeColumnIndex?.value || 0) + 1
+  activeColumnIndex.value = nextIndex % columns.value.length
+  focus(activeColumnIndex.value)
+}
 
-      activeColumnIndex.value = nextIndex % columns.value.length
-      focus(activeColumnIndex.value)
-    }
+const focusPrev = () => {
+  const nextIndex = (activeColumnIndex?.value || 0) - 1 + columns.value.length
 
-    const focusPrev = () => {
-      const nextIndex = (activeColumnIndex?.value || 0) - 1 + columns.value.length
+  activeColumnIndex.value = nextIndex % columns.value.length
+  focus(activeColumnIndex.value)
+}
 
-      activeColumnIndex.value = nextIndex % columns.value.length
-      focus(activeColumnIndex.value)
-    }
+const computedClasses = computed(() => ({
+  ...computedFormClasses,
+  'va-time-picker--framed': props.framed,
+}))
 
-    const computedClasses = computed(() => ({
-      ...computedFormClasses,
-      'va-time-picker--framed': props.framed,
-    }))
+const computedStyles = useCSSVariables('va-time-picker', () => {
+  const gapHeight = (props.visibleCellsCount - 1) / 2 * props.cellHeight
 
-    const computedStyles = useCSSVariables('va-time-picker', () => {
-      const gapHeight = (props.visibleCellsCount - 1) / 2 * props.cellHeight
-
-      return {
-        height: `${props.cellHeight * props.visibleCellsCount}px`,
-        'cell-height': `${props.cellHeight}px`,
-        'column-gap-height': `${gapHeight}px`,
-      }
-    })
-
-    return {
-      columns,
-      computedStyles,
-      computedClasses,
-      isPM,
-      pickers,
-      setItemRef,
-
-      focusNext,
-      focusPrev,
-      activeColumnIndex,
-
-      focus,
-      blur,
-    }
-  },
+  return {
+    height: `${props.cellHeight * props.visibleCellsCount}px`,
+    'cell-height': `${props.cellHeight}px`,
+    'column-gap-height': `${gapHeight}px`,
+  }
 })
 </script>
 

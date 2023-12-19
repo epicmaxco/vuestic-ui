@@ -31,109 +31,98 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue'
+<script lang="ts" setup generic="Item = unknown">
+import { ref, computed, watch, PropType } from 'vue'
 import pick from 'lodash/pick.js'
 
 import { useEvent, useBem, useTrackBy, useTrackByProps } from '../../composables'
 import { useVirtualScrollerSizes, useVirtualScrollerSizesProps } from './useVirtualScrollerSizes'
 
-export default defineComponent({
+defineOptions({
   name: 'VaVirtualScroller',
+})
 
-  props: {
-    ...useTrackByProps,
-    ...useVirtualScrollerSizesProps,
-    items: { type: Array, default: () => ([]) },
-    bench: { type: Number, default: 10, validator: (v: number) => v >= 0 },
-    disabled: { type: Boolean, default: false },
-    table: { type: Boolean, default: false },
-  },
+const props = defineProps({
+  ...useTrackByProps,
+  ...useVirtualScrollerSizesProps,
+  items: { type: Array as PropType<Item[]>, default: () => ([]) },
+  bench: { type: Number, default: 10, validator: (v: number) => v >= 0 },
+  disabled: { type: Boolean, default: false },
+  table: { type: Boolean, default: false },
+})
 
-  emits: ['scroll:bottom'],
+const emit = defineEmits(['scroll:bottom'])
 
-  setup: (props, { emit }) => {
-    const listScrollPosition = ref(0)
-    const scrollDirection = computed(() => props.horizontal ? 'scrollLeft' : 'scrollTop')
-    const handleScroll = () => {
-      if (!wrapper.value) { return }
-      listScrollPosition.value = wrapper.value[scrollDirection.value]
-    }
-    if (!props.disabled) { useEvent('scroll', handleScroll, true) }
+const listScrollPosition = ref(0)
+const scrollDirection = computed(() => props.horizontal ? 'scrollLeft' : 'scrollTop')
+const handleScroll = () => {
+  if (!wrapper.value) { return }
+  listScrollPosition.value = wrapper.value[scrollDirection.value]
+}
+if (!props.disabled) { useEvent('scroll', handleScroll, true) }
 
-    const { list, wrapper, itemSize, wrapperSize } = useVirtualScrollerSizes(props, listScrollPosition)
+const { list, wrapper, itemSize, wrapperSize } = useVirtualScrollerSizes(props, listScrollPosition)
 
-    const { getKey } = useTrackBy(props)
-    const uniqueKey = (item: Array<any> | Record<string, any>, index: number, defaultValue?: any) => getKey(item, index, defaultValue)
+const { getKey } = useTrackBy(props)
+const uniqueKey = (item: Array<any> | Record<string, any>, index: number, defaultValue?: any) => getKey(item, index, defaultValue)
 
-    watch(listScrollPosition, (newValue) => {
-      if (newValue + wrapperSize.value === containerSize.value) {
-        emit('scroll:bottom')
-      }
-    })
+watch(listScrollPosition, (newValue) => {
+  if (newValue + wrapperSize.value === containerSize.value) {
+    emit('scroll:bottom')
+  }
+})
 
-    // forming items to render
-    const renderStartIndex = computed(() => {
-      return Math.max(0, Math.floor(listScrollPosition.value / itemSize.value) - props.bench)
-    })
-    const renderItemsAmount = computed(() => {
-      if (!props.items?.length) { return 0 }
-      return props.disabled
-        ? props.items.length
-        : Math.min(props.items.length - renderStartIndex.value, Math.ceil(wrapperSize.value / itemSize.value) + props.bench * 2)
-    })
-    const renderEndIndex = computed(() => renderStartIndex.value + renderItemsAmount.value)
-    const renderBuffer = computed(() => {
-      if (!props.items?.length) { return [] }
-      return props.items.slice(renderStartIndex.value, renderEndIndex.value)
-    })
+// forming items to render
+const renderStartIndex = computed(() => {
+  return Math.max(0, Math.floor(listScrollPosition.value / itemSize.value) - props.bench)
+})
+const renderItemsAmount = computed(() => {
+  if (!props.items?.length) { return 0 }
+  return props.disabled
+    ? props.items.length
+    : Math.min(props.items.length - renderStartIndex.value, Math.ceil(wrapperSize.value / itemSize.value) + props.bench * 2)
+})
+const renderEndIndex = computed(() => renderStartIndex.value + renderItemsAmount.value)
+const renderBuffer = computed(() => {
+  if (!props.items?.length) { return [] }
+  return props.items.slice(renderStartIndex.value, renderEndIndex.value)
+})
 
-    const sizeAttribute = computed(() => props.horizontal ? 'width' : 'height')
+const sizeAttribute = computed(() => props.horizontal ? 'width' : 'height')
 
-    // wrapper styles and classes
-    const isDisabledVirtualTable = computed(() => props.table && props.disabled)
+// wrapper styles and classes
+const isDisabledVirtualTable = computed(() => props.table && props.disabled)
 
-    const wrapperStyleComputed = computed(() => ({
-      [sizeAttribute.value]: isDisabledVirtualTable.value || !wrapperSize.value ? undefined : `${wrapperSize.value}px`,
-    }))
-    const wrapperClassComputed = useBem('va-virtual-scroller', () => ({
-      ...pick(props, ['horizontal']),
-    }))
+const wrapperStyleComputed = computed(() => ({
+  [sizeAttribute.value]: isDisabledVirtualTable.value || !wrapperSize.value ? undefined : `${wrapperSize.value}px`,
+}))
+const wrapperClassComputed = useBem('va-virtual-scroller', () => ({
+  ...pick(props, ['horizontal']),
+}))
 
-    // container styles
-    const containerSize = computed(() => (props.items?.length ?? 0) * itemSize.value)
-    const containerStyleComputed = computed(() => ({
-      [sizeAttribute.value]: isDisabledVirtualTable.value ? undefined : `${containerSize.value}px`,
-    }))
+// container styles
+const containerSize = computed(() => (props.items?.length ?? 0) * itemSize.value)
+const containerStyleComputed = computed(() => ({
+  [sizeAttribute.value]: isDisabledVirtualTable.value ? undefined : `${containerSize.value}px`,
+}))
 
-    // items list styles
-    const currentListOffset = computed(() => renderStartIndex.value * itemSize.value)
-    const listStyleComputed = computed(() => ({
-      transform: `translate${props.horizontal ? 'X' : 'Y'}(${currentListOffset.value}px)`,
-    }))
+// items list styles
+const currentListOffset = computed(() => renderStartIndex.value * itemSize.value)
+const listStyleComputed = computed(() => ({
+  transform: `translate${props.horizontal ? 'X' : 'Y'}(${currentListOffset.value}px)`,
+}))
 
-    // public
-    const scrollToAttribute = computed(() => props.horizontal ? 'left' : 'top')
-    const virtualScrollTo = (index: number) => {
-      if (!index && index !== 0) { return }
+// public
+const scrollToAttribute = computed(() => props.horizontal ? 'left' : 'top')
+const virtualScrollTo = (index: number) => {
+  if (!index && index !== 0) { return }
 
-      wrapper.value?.scrollTo({ [scrollToAttribute.value]: index * itemSize.value })
-    }
+  wrapper.value?.scrollTo({ [scrollToAttribute.value]: index * itemSize.value })
+}
 
-    return {
-      containerStyleComputed,
-      wrapperStyleComputed,
-      wrapperClassComputed,
-      listStyleComputed,
-      currentListOffset,
-      renderStartIndex,
-      virtualScrollTo,
-      renderBuffer,
-      uniqueKey,
-      wrapper,
-      list,
-    }
-  },
+defineExpose({
+  scrollToAttribute,
+  virtualScrollTo,
 })
 </script>
 

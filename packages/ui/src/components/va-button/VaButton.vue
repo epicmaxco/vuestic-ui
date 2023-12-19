@@ -49,8 +49,8 @@
   </component>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, computed, toRefs, shallowRef } from 'vue'
+<script lang="ts" setup>
+import { PropType, computed, toRefs, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -73,128 +73,107 @@ import { useButtonTextColor } from './hooks/useButtonTextColor'
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
 
-export default defineComponent({
+defineOptions({
   name: 'VaButton',
-  components: { VaIcon, VaProgressCircle },
-  props: {
-    ...useComponentPresetProp,
-    ...useSizeProps,
-    ...useHoverStyleProps,
-    ...usePressedStyleProps,
-    ...useLoadingProps,
-    ...useRouterLinkProps,
-    tag: { type: String, default: 'button' },
-    type: { type: String, default: 'button' },
-    block: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
+})
 
-    color: { type: String, default: 'primary' },
-    textColor: { type: String, default: '' },
-    textOpacity: { type: Number, default: 1 },
-    backgroundOpacity: { type: Number, default: 1 },
-    borderColor: { type: String, default: '' },
+const props = defineProps({
+  ...useComponentPresetProp,
+  ...useSizeProps,
+  ...useHoverStyleProps,
+  ...usePressedStyleProps,
+  ...useLoadingProps,
+  ...useRouterLinkProps,
+  tag: { type: String, default: 'button' },
+  type: { type: String, default: 'button' },
+  block: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+
+  color: { type: String, default: 'primary' },
+  textColor: { type: String, default: '' },
+  textOpacity: { type: Number, default: 1 },
+  backgroundOpacity: { type: Number, default: 1 },
+  borderColor: { type: String, default: '' },
 
     // only for filled bg state
-    gradient: { type: Boolean, default: false },
-    plain: { type: Boolean, default: false },
-    round: { type: Boolean, default: false },
-    size: {
-      type: String as PropType<'small' | 'medium' | 'large'>,
-      default: 'medium',
-      validator: (v: string) => ['small', 'medium', 'large'].includes(v),
-    },
-
-    icon: { type: String, default: '' },
-    iconRight: { type: String, default: '' },
-    iconColor: { type: String, default: '' },
+  gradient: { type: Boolean, default: false },
+  plain: { type: Boolean, default: false },
+  round: { type: Boolean, default: false },
+  size: {
+    type: String as PropType<'small' | 'medium' | 'large'>,
+    default: 'medium',
+    validator: (v: string) => ['small', 'medium', 'large'].includes(v),
   },
-  setup (props) {
-    // colors
-    const { getColor } = useColors()
-    const colorComputed = computed(() => getColor(props.color))
 
-    // loader size
-    const { sizeComputed } = useSize(props)
-    const iconSizeComputed = computed(() => {
-      const size = /([0-9]*)(px)/.exec(sizeComputed.value) as null | [string, string, string]
-      return size ? `${+size[1] / 2}${size[2]}` : sizeComputed.value
-    })
-
-    // attributes
-    const { tagComputed } = useRouterLink(props)
-    const attributesComputed = useButtonAttributes(props)
-
-    // states
-    const { disabled } = toRefs(props)
-    const button = shallowRef<HTMLElement>()
-    const { focus, blur } = useFocus(button)
-    const { isHovered } = useHover(button, disabled)
-    const { isPressed } = usePressed(button)
-
-    // icon attributes
-    const iconColorComputed = computed(() => props.iconColor ? getColor(props.iconColor) : textColorComputed.value)
-    const iconAttributesComputed = computed(() => ({
-      color: iconColorComputed.value,
-      size: props.size,
-    }))
-
-    // classes
-    const wrapperClassComputed = computed(() => ({ 'va-button__content--loading': props.loading }))
-
-    const isSlotContentPassed = useSlotPassed()
-
-    const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
-    const isOnlyIcon = computed(() => !isSlotContentPassed.value && isOneIcon.value)
-    const computedClass = useBem('va-button', () => ({
-      ...pick(props, ['disabled', 'block', 'loading', 'round', 'plain']),
-      small: props.size === 'small',
-      normal: !props.size || props.size === 'medium',
-      large: props.size === 'large',
-      opacity: props.textOpacity < 1,
-      bordered: !!props.borderColor,
-      iconOnly: isOnlyIcon.value,
-      leftIcon: !isOnlyIcon.value && !!props.icon && !props.iconRight,
-      rightIcon: !isOnlyIcon.value && !props.icon && !!props.iconRight,
-    }))
-
-    // styles
-    const isTransparentBg = computed(() => props.plain || props.backgroundOpacity < 0.5)
-    const { textColorComputed } = useTextColor(colorComputed, isTransparentBg)
-
-    const {
-      backgroundColor,
-      backgroundColorOpacity,
-      backgroundMaskOpacity,
-      backgroundMaskColor,
-    } = useButtonBackground(colorComputed, isPressed, isHovered)
-    const contentColorComputed = useButtonTextColor(textColorComputed, colorComputed, isPressed, isHovered)
-
-    const computedStyle = computed(() => ({
-      borderColor: props.borderColor ? getColor(props.borderColor) : 'transparent',
-      ...contentColorComputed.value,
-    }))
-
-    return {
-      button,
-      tagComputed,
-      computedClass,
-      computedStyle,
-      textColorComputed,
-      iconSizeComputed,
-      attributesComputed,
-      wrapperClassComputed,
-      iconAttributesComputed,
-
-      backgroundColor,
-      backgroundMaskColor,
-      backgroundMaskOpacity,
-      backgroundColorOpacity,
-
-      focus,
-      blur,
-    }
-  },
+  icon: { type: String, default: '' },
+  iconRight: { type: String, default: '' },
+  iconColor: { type: String, default: '' },
 })
+
+// colors
+const { getColor } = useColors()
+const colorComputed = computed(() => getColor(props.color))
+
+// loader size
+const { sizeComputed } = useSize(props)
+const iconSizeComputed = computed(() => {
+  const size = /([0-9]*)(px)/.exec(sizeComputed.value) as null | [string, string, string]
+  return size ? `${+size[1] / 2}${size[2]}` : sizeComputed.value
+})
+
+// attributes
+const { tagComputed } = useRouterLink(props)
+const attributesComputed = useButtonAttributes(props)
+
+// states
+const { disabled } = toRefs(props)
+const button = shallowRef<HTMLElement>()
+const { focus, blur } = useFocus(button)
+const { isHovered } = useHover(button, disabled)
+const { isPressed } = usePressed(button)
+
+// icon attributes
+const iconColorComputed = computed(() => props.iconColor ? getColor(props.iconColor) : textColorComputed.value)
+const iconAttributesComputed = computed(() => ({
+  color: iconColorComputed.value,
+  size: props.size,
+}))
+
+// classes
+const wrapperClassComputed = computed(() => ({ 'va-button__content--loading': props.loading }))
+
+const isSlotContentPassed = useSlotPassed()
+
+const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
+const isOnlyIcon = computed(() => !isSlotContentPassed.value && isOneIcon.value)
+const computedClass = useBem('va-button', () => ({
+  ...pick(props, ['disabled', 'block', 'loading', 'round', 'plain']),
+  small: props.size === 'small',
+  normal: !props.size || props.size === 'medium',
+  large: props.size === 'large',
+  opacity: props.textOpacity < 1,
+  bordered: !!props.borderColor,
+  iconOnly: isOnlyIcon.value,
+  leftIcon: !isOnlyIcon.value && !!props.icon && !props.iconRight,
+  rightIcon: !isOnlyIcon.value && !props.icon && !!props.iconRight,
+}))
+
+// styles
+const isTransparentBg = computed(() => props.plain || props.backgroundOpacity < 0.5)
+const { textColorComputed } = useTextColor(colorComputed, isTransparentBg)
+
+const {
+  backgroundColor,
+  backgroundColorOpacity,
+  backgroundMaskOpacity,
+  backgroundMaskColor,
+} = useButtonBackground(colorComputed, isPressed, isHovered)
+const contentColorComputed = useButtonTextColor(textColorComputed, colorComputed, isPressed, isHovered)
+
+const computedStyle = computed(() => ({
+  borderColor: props.borderColor ? getColor(props.borderColor) : 'transparent',
+  ...contentColorComputed.value,
+}))
 </script>
 
 <style lang='scss'>

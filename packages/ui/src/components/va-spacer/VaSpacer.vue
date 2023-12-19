@@ -2,12 +2,12 @@
   <div class="va-spacer" aria-hidden="true" />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 
-export default defineComponent({
+defineOptions({
   name: 'VaSpacer',
 })
+
 </script>
 
 <style lang="scss">

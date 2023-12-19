@@ -60,7 +60,6 @@
 
 <script lang="ts">
 import {
-  defineComponent,
   ref,
   computed,
   watch,
@@ -68,6 +67,7 @@ import {
   onBeforeMount,
   onBeforeUnmount,
   type PropType,
+  useSlots,
 } from 'vue'
 import pick from 'lodash/pick.js'
 
@@ -85,175 +85,154 @@ import {
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 const VaFallbackProps = extractComponentProps(VaFallback)
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaImage',
-
-  components: { VaAspectRatio, VaFallback },
-
-  emits: ['loaded', 'error', 'fallback'],
-
-  props: {
-    ...useComponentPresetProp,
-    ...useNativeImgAttributesProps,
-    ...VaFallbackProps,
-    ratio: {
-      type: [Number, String] as PropType<number | 'auto'>,
-      default: 'auto',
-      validator: (v: number | 'auto') => {
-        if (typeof v === 'number') {
-          return v > 0
-        }
-
-        return v === 'auto'
-      },
-    },
-    fit: {
-      type: String as PropType<'contain' | 'fill' | 'cover' | 'scale-down' | 'none'>,
-      default: 'cover',
-    },
-    maxWidth: {
-      type: Number,
-      default: 0,
-      validator: (v: number) => v >= 0,
-    },
-    lazy: { type: Boolean, default: false },
-    placeholderSrc: { type: String, default: '' },
-  },
-
-  setup (props, { emit, slots }) {
-    const root = ref<HTMLElement>()
-    const image = ref<HTMLImageElement>()
-
-    const renderedImage = ref()
-    const currentImage = computed(() => renderedImage.value || props.src)
-
-    const imgWidth = ref(1)
-    const imgHeight = ref(1)
-
-    const isLoading = ref(false)
-    const isError = ref(false)
-
-    const handleLoad = () => {
-      isLoading.value = true
-
-      if (!isReadyForLoad.value) { return }
-
-      isLoading.value = false
-
-      renderedImage.value = image.value?.currentSrc
-      getImgSizes()
-
-      emit('loaded', currentImage.value)
-    }
-
-    const handleError = (err?: Event) => {
-      isError.value = true
-      isLoading.value = false
-
-      emit('error', err || currentImage.value)
-    }
-
-    const isIntersecting = ref(false)
-    const handleIntersection = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) { return }
-
-        isIntersecting.value = true
-        init()
-        observer.disconnect()
-      })
-    }
-    const { isIntersectionDisabled } = useIntersectionObserver(handleIntersection, undefined, root, props.lazy)
-    const isReadyForLoad = computed(() => isIntersectionDisabled.value || isIntersecting.value)
-    const isMounted = useIsMounted()
-    const isReadyForRender = computed(() => !props.lazy || (props.lazy && isMounted.value && isReadyForLoad.value))
-
-    const init = () => {
-      if (!props.src || (isLoading.value && isIntersectionDisabled.value) || !isReadyForLoad.value) {
-        return
-      }
-
-      isLoading.value = true
-      isError.value = false
-
-      nextTick(() => {
-        if (!image.value?.complete) {
-          return
-        }
-
-        if (!image.value.naturalWidth) {
-          handleError()
-          return
-        }
-
-        handleLoad()
-      })
-    }
-
-    let timer: ReturnType<Window['setTimeout']>
-    const getImgSizes = () => {
-      clearTimeout(timer)
-
-      if (isLoading.value) {
-        timer = window.setTimeout(getImgSizes, 100)
-      }
-
-      const { naturalHeight, naturalWidth } = image.value || {}
-      if (naturalHeight && naturalWidth) {
-        imgWidth.value = naturalHeight
-        imgHeight.value = naturalWidth
-      }
-    }
-
-    onBeforeMount(init)
-    onBeforeUnmount(() => clearTimeout(timer))
-    watch(() => props.src, init)
-
-    const isPlaceholderPassed = computed(() => slots?.placeholder?.() || props.placeholderSrc)
-    const isLoaderShown = computed(() => isLoading.value && !slots?.loader?.())
-    const isErrorShown = computed(() => isError.value && (!slots?.error?.() && !isAnyFallbackPassed.value))
-    const isPlaceholderShown = computed(() => (isLoaderShown.value || isErrorShown.value) && isPlaceholderPassed.value)
-
-    const isSuccessfullyLoaded = computed(() => !(isLoading.value || isError.value))
-
-    const imgAttributesComputed = useNativeImgAttributes(props)
-
-    const aspectRationAttributesComputed = computed(() => ({
-      ...pick(props, ['ratio', 'maxWidth']),
-      contentWidth: imgWidth.value,
-      contentHeight: imgHeight.value,
-    }))
-
-    const fallbackProps = filterComponentProps(VaFallbackProps)
-    const checkObjectNonEmptyValues = (obj: Record<string, any> | undefined) => !!Object.values(obj || {}).filter((prop) => prop).length
-    const hasFallbackGlobalConfig = computed(() => checkObjectNonEmptyValues(useGlobalConfig()?.globalConfig?.value?.components?.VaFallback))
-    const isAnyFallbackPassed = computed(() => checkObjectNonEmptyValues(fallbackProps.value) || hasFallbackGlobalConfig.value)
-
-    const fitComputed = computed(() => props.fit)
-
-    return {
-      fitComputed,
-
-      root,
-      image,
-
-      isLoading,
-      handleLoad,
-      isError,
-      handleError,
-      isReadyForRender,
-
-      isPlaceholderShown,
-      isSuccessfullyLoaded,
-      imgAttributesComputed,
-      aspectRationAttributesComputed,
-
-      isAnyFallbackPassed,
-      fallbackProps,
-    }
-  },
 })
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  ...useNativeImgAttributesProps,
+  ...VaFallbackProps,
+  ratio: {
+    type: [Number, String] as PropType<number | 'auto'>,
+    default: 'auto',
+    validator: (v: number | 'auto') => {
+      if (typeof v === 'number') {
+        return v > 0
+      }
+
+      return v === 'auto'
+    },
+  },
+  fit: {
+    type: String as PropType<'contain' | 'fill' | 'cover' | 'scale-down' | 'none'>,
+    default: 'cover',
+  },
+  maxWidth: {
+    type: Number,
+    default: 0,
+    validator: (v: number) => v >= 0,
+  },
+  lazy: { type: Boolean, default: false },
+  placeholderSrc: { type: String, default: '' },
+})
+
+const emit = defineEmits(['loaded', 'error', 'fallback'])
+
+const root = ref<HTMLElement>()
+const image = ref<HTMLImageElement>()
+
+const renderedImage = ref()
+const currentImage = computed(() => renderedImage.value || props.src)
+
+const imgWidth = ref(1)
+const imgHeight = ref(1)
+
+const isLoading = ref(false)
+const isError = ref(false)
+
+const handleLoad = () => {
+  isLoading.value = true
+
+  if (!isReadyForLoad.value) { return }
+
+  isLoading.value = false
+
+  renderedImage.value = image.value?.currentSrc
+  getImgSizes()
+
+  emit('loaded', currentImage.value)
+}
+
+const handleError = (err?: Event) => {
+  isError.value = true
+  isLoading.value = false
+
+  emit('error', err || currentImage.value)
+}
+
+const isIntersecting = ref(false)
+const handleIntersection = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) { return }
+
+    isIntersecting.value = true
+    init()
+    observer.disconnect()
+  })
+}
+const { isIntersectionDisabled } = useIntersectionObserver(handleIntersection, undefined, root, props.lazy)
+const isReadyForLoad = computed(() => isIntersectionDisabled.value || isIntersecting.value)
+const isMounted = useIsMounted()
+const isReadyForRender = computed(() => !props.lazy || (props.lazy && isMounted.value && isReadyForLoad.value))
+
+const init = () => {
+  if (!props.src || (isLoading.value && isIntersectionDisabled.value) || !isReadyForLoad.value) {
+    return
+  }
+
+  isLoading.value = true
+  isError.value = false
+
+  nextTick(() => {
+    if (!image.value?.complete) {
+      return
+    }
+
+    if (!image.value.naturalWidth) {
+      handleError()
+      return
+    }
+
+    handleLoad()
+  })
+}
+
+let timer: ReturnType<Window['setTimeout']>
+const getImgSizes = () => {
+  clearTimeout(timer)
+
+  if (isLoading.value) {
+    timer = window.setTimeout(getImgSizes, 100)
+  }
+
+  const { naturalHeight, naturalWidth } = image.value || {}
+  if (naturalHeight && naturalWidth) {
+    imgWidth.value = naturalHeight
+    imgHeight.value = naturalWidth
+  }
+}
+
+onBeforeMount(init)
+onBeforeUnmount(() => clearTimeout(timer))
+watch(() => props.src, init)
+
+const slots = useSlots()
+const isPlaceholderPassed = computed(() => slots?.placeholder?.() || props.placeholderSrc)
+const isLoaderShown = computed(() => isLoading.value && !slots?.loader?.())
+const isErrorShown = computed(() => isError.value && (!slots?.error?.() && !isAnyFallbackPassed.value))
+const isPlaceholderShown = computed(() => (isLoaderShown.value || isErrorShown.value) && isPlaceholderPassed.value)
+
+const isSuccessfullyLoaded = computed(() => !(isLoading.value || isError.value))
+
+const imgAttributesComputed = useNativeImgAttributes(props)
+
+const aspectRationAttributesComputed = computed(() => ({
+  ...pick(props, ['ratio', 'maxWidth']),
+  contentWidth: imgWidth.value,
+  contentHeight: imgHeight.value,
+}))
+
+const fallbackProps = filterComponentProps(VaFallbackProps)
+const checkObjectNonEmptyValues = (obj: Record<string, any> | undefined) => !!Object.values(obj || {}).filter((prop) => prop).length
+const hasFallbackGlobalConfig = computed(() => checkObjectNonEmptyValues(useGlobalConfig()?.globalConfig?.value?.components?.VaFallback))
+const isAnyFallbackPassed = computed(() => checkObjectNonEmptyValues(fallbackProps.value) || hasFallbackGlobalConfig.value)
+
+const fitComputed = computed(() => props.fit)
 </script>
 
 <style lang="scss">
