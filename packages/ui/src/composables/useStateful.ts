@@ -37,12 +37,13 @@ export const useStatefulEmits = ['update:modelValue'] as const
  */
 export const useStateful = <
   T,
-  D = T,
   Key extends string = 'modelValue',
-  P extends StatefulProps & (Record<Key, T> | { readonly [key in Key]?: T }) = StatefulProps & (Record<Key, T> | { readonly [key in Key]?: T })
+  D = T,
+  P extends StatefulProps & (Record<Key, T> | { readonly [key in Key]?: T }) = StatefulProps & (Record<Key, T> | { readonly [key in Key]?: T }),
+  E extends (name: `update:${Key}`, ...args: any[]) => void = (name: `update:${Key}`, ...args: any[]) => void
 >(
     props: P,
-    emit: (name: `update:${Key}`, ...args: any[]) => void,
+    emit: E,
     key: Key = 'modelValue' as Key,
     options: StatefulOptions<D> = {} as StatefulOptions<D>,
   ) => {
