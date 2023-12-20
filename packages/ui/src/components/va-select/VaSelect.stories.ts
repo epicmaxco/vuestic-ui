@@ -155,8 +155,8 @@ export const optionSlot: StoryFn = () => ({
   
   template: `
   <Component v-model="value" :options="options">
-    <template #option="{ option }">
-      <div>custom: {{ option }}</div>
+    <template #option-content="{ option }">
+      <div class="mr-2">custom: {{ option }}</div>
     </template>
   </Component>
   `,

@@ -115,6 +115,7 @@
         v-slot="slotData"
       >
         <slot name="option" v-bind="slotData || {}" />
+        <slot name="option-content" v-bind="slotData || {}" />
       </va-select-option-list>
     </va-dropdown-content>
   </va-dropdown>
