@@ -71,9 +71,7 @@ import { useView } from './hooks/view'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { DatePickerModelValue, DatePickerType, DatePickerView } from './types'
-</script>
 
-<script lang="ts" setup>
 import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
 import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
 import VaMonthPicker from './components/VaMonthPicker/VaMonthPicker.vue'
@@ -81,7 +79,9 @@ import VaYearPicker from './components/VaYearPicker/VaYearPicker.vue'
 
 const DEFAULT_MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DEFAULT_WEEKDAY_NAMES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
+</script>
 
+<script lang="ts" setup>
 defineOptions({
   name: 'VaDatePicker',
 })

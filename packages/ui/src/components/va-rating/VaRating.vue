@@ -56,15 +56,14 @@ import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingCo
 
 import { RatingValue } from './types'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
-</script>
-
-<script lang="ts" setup>
 import VaRatingItem from './components/VaRatingItem/VaRatingItem.vue'
 import VaRatingItemNumberButton from './components/VaRatingItemNumberButton.vue'
 
 const VaRatingItemPropsDeclarations = extractComponentProps(VaRatingItem, ['modelValue', 'itemNumber'])
 const VaRatingItemNumberButtonPropsDeclarations = extractComponentProps(VaRatingItemNumberButton, ['modelValue', 'itemNumber'])
+</script>
 
+<script lang="ts" setup>
 defineOptions({
   name: 'VaRating',
 })

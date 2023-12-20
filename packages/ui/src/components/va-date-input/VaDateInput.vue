@@ -111,20 +111,19 @@ import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-uti
 import type { DateInputModelValue, DateInputValue } from './types'
 
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { unwrapEl } from '../../utils/unwrapEl'
-</script>
-
-<script lang="ts" setup>
-import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 
 const VaInputWrapperPropsDeclaration = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDatePickerPropsDeclaration = extractComponentProps(VaDatePicker)
 const VaDropdownProps = extractComponentProps(VaDropdown,
   ['innerAnchorSelector', 'stateful', 'keyboardNavigation', 'modelValue', 'trigger'],
 )
+</script>
 
+<script lang="ts" setup>
 defineOptions({
   name: 'VaDateInput',
   inheritAttrs: false,

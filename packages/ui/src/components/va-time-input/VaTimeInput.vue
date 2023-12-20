@@ -101,13 +101,12 @@ import { useTimeFormatter } from './hooks/time-text-formatter'
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
-</script>
-
-<script lang="ts" setup>
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
+</script>
 
+<script lang="ts" setup>
 defineOptions({
   name: 'VaTimeInput',
   inheritAttrs: false,
