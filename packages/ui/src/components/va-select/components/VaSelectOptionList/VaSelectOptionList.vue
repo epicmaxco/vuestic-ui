@@ -165,7 +165,7 @@ export default defineComponent({
 
       return props.options.filter((option: SelectOption) => {
         const optionText = getText(option).toUpperCase()
-        const search = props.search.toUpperCase()
+        const search = props.search.toUpperCase().trim()
         return optionText.includes(search)
       })
     })
