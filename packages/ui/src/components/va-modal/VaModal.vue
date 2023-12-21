@@ -53,7 +53,7 @@
               />
               <div
                 class="va-modal__inner"
-                :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
+                :style="{ maxHeight: $props.maxHeight }"
               >
                 <div v-if="$slots.content">
                   <slot name="content" v-bind="slotBind" />
@@ -142,6 +142,7 @@ import {
   useClickOutside,
   useDocument,
   useTeleported,
+  useDeprecated,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -182,11 +183,11 @@ export default defineComponent({
     hideDefaultActions: { type: Boolean, default: false },
     fullscreen: { type: Boolean, default: false },
     closeButton: { type: Boolean, default: false },
-    mobileFullscreen: { type: Boolean, default: true },
     noDismiss: { type: Boolean, default: false },
     noOutsideDismiss: { type: Boolean, default: false },
     noEscDismiss: { type: Boolean, default: false },
     maxWidth: { type: String, default: '' },
+    width: { type: String, default: '' },
     maxHeight: { type: String, default: '' },
     anchorClass: { type: String },
     size: {
@@ -209,6 +210,8 @@ export default defineComponent({
     ariaCloseLabel: { type: String, default: '$t:close' },
   },
   setup (props, { emit }) {
+    // TODO: remove maxWidth after 1.9.0
+    useDeprecated(['maxWidth'])
     const rootElement = shallowRef<HTMLElement>()
     const modalDialog = shallowRef<HTMLElement>()
     const { trapFocusIn, freeFocus } = useTrapFocus()
@@ -226,17 +229,16 @@ export default defineComponent({
 
     const computedClass = computed(() => ({
       'va-modal--fullscreen': props.fullscreen,
-      'va-modal--mobile-fullscreen': props.mobileFullscreen,
       'va-modal--fixed-layout': props.fixedLayout,
       'va-modal--no-padding': props.noPadding,
       [`va-modal--size-${props.size}`]: props.size !== 'medium',
     }))
     const computedModalContainerStyle = computed(() => ({ 'z-index': props.zIndex } as StyleValue))
     const computedDialogStyle = computed(() => ({
-      maxWidth: props.maxWidth,
       maxHeight: props.maxHeight,
       color: textColorComputed.value,
       background: getColor(props.backgroundColor),
+      '--custom-width': (props.width || props.maxWidth),
     }))
 
     const computedOverlayClass = computed(() => ({
@@ -421,6 +423,14 @@ export default defineComponent({
 @import "../../styles/resources";
 @import "variables";
 
+@mixin modal-width($default-width: map-get($grid-breakpoints, md)) {
+  $max-available-width: calc(100vw - var(--va-modal-dialog-margin) * 2);
+  $width: min(var(--custom-width, $default-width), $max-available-width);
+
+  max-width: $width;
+  min-width: $width;
+}
+
 .va-modal-overlay-background--blurred > :not(div[class*="va-"]) {
   filter: blur(var(--va-modal-overlay-background-blur-radius));
   position: absolute;
@@ -465,12 +475,13 @@ export default defineComponent({
   }
 
   &__dialog {
+    @include modal-width;
+
     min-height: var(--va-modal-dialog-min-height);
     height: var(--va-modal-dialog-height);
     border-radius: var(--va-modal-dialog-border-radius, var(--va-block-border-radius));
     margin: var(--va-modal-dialog-margin);
     box-shadow: var(--va-modal-dialog-box-shadow, var(--va-block-box-shadow));
-    max-width: var(--va-modal-dialog-max-width);
     max-height: var(--va-modal-dialog-max-height);
     position: var(--va-modal-dialog-position);
     overflow: auto;
@@ -516,47 +527,16 @@ export default defineComponent({
     }
   }
 
-  &--mobile-fullscreen {
-    .va-modal__dialog {
-      @media all and (max-width: map-get($grid-breakpoints, sm)) {
-        margin: 0 !important;
-        min-width: 100vw !important;
-        min-height: 100vh !important;
-        border-radius: 0;
-      }
-    }
-  }
-
   &--size {
     &-small {
       .va-modal__dialog {
-        max-width: map-get($grid-breakpoints, sm);
-        min-width: map-get($grid-breakpoints, sm);
-
-        @media all and (max-width: map-get($grid-breakpoints, sm)) {
-          max-width: 100vw !important;
-        }
-
-        .va-modal__inner {
-          max-width: map-get($grid-breakpoints, sm);
-          min-width: map-get($grid-breakpoints, sm);
-
-          @media all and (max-width: map-get($grid-breakpoints, sm)) {
-            max-width: 100vw !important;
-          }
-        }
+        @include modal-width(map-get($grid-breakpoints, sm));
       }
     }
 
     &-large {
       .va-modal__dialog {
-        max-width: map-get($grid-breakpoints, lg);
-        min-width: map-get($grid-breakpoints, lg);
-
-        .va-modal__inner {
-          max-width: map-get($grid-breakpoints, lg);
-          min-width: map-get($grid-breakpoints, lg);
-        }
+        @include modal-width(map-get($grid-breakpoints, lg));
       }
     }
   }
@@ -600,9 +580,7 @@ export default defineComponent({
     position: relative;
     flex-flow: column;
     padding: var(--va-modal-padding);
-    max-width: map-get($grid-breakpoints, md);
-    min-width: map-get($grid-breakpoints, md);
-    margin: auto;
+    width: 100%;
 
     > div:last-of-type {
       margin-bottom: 0;
