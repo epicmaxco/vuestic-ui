@@ -226,7 +226,7 @@ export default defineComponent({
 
     const computedInputAttributes = computed(() => ({
       ...computedChildAttributes.value,
-      ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'minlength', 'maxLength']),
+      ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'minLength', 'maxLength']),
     }) as InputHTMLAttributes)
 
     const valueLengthComputed = computed(() =>
