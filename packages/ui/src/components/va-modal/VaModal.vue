@@ -32,7 +32,6 @@
           />
           <div
             class="va-modal__container"
-            :style="computedModalContainerStyle"
           >
             <div
               ref="modalDialog"
@@ -148,6 +147,7 @@ import { VaButton } from '../va-button'
 import { VaIcon } from '../va-icon'
 
 import { useBlur } from './hooks/useBlur'
+import { useZIndex } from '../../composables/useZIndex'
 
 const WithTransition = defineComponent({
   name: 'ModalElement',
@@ -231,7 +231,20 @@ export default defineComponent({
       'va-modal--no-padding': props.noPadding,
       [`va-modal--size-${props.size}`]: props.size !== 'medium',
     }))
-    const computedModalContainerStyle = computed(() => ({ 'z-index': props.zIndex } as StyleValue))
+
+    const {
+      zIndex,
+      register: registerZIndex,
+      unregister: unregisterZIndex,
+    } = useZIndex()
+
+    const zIndexComputed = computed(() => {
+      if (props.zIndex) {
+        return Number(props.zIndex)
+      }
+      return zIndex.value
+    })
+
     const computedDialogStyle = computed(() => ({
       maxWidth: props.maxWidth,
       maxHeight: props.maxHeight,
@@ -258,7 +271,7 @@ export default defineComponent({
         return {
           'background-color': 'var(--va-modal-overlay-color)',
           opacity: getOverlayOpacity(),
-          'z-index': props.zIndex && Number(props.zIndex) - 1,
+          'z-index': zIndexComputed.value && Number(zIndexComputed.value) - 1,
         } as StyleValue
       }
       return ''
@@ -337,6 +350,7 @@ export default defineComponent({
     watch(valueComputed, newValueComputed => { // watch for open/close modal
       if (newValueComputed) {
         registerModal()
+        registerZIndex()
         setBodyOverflow('hidden')
         return
       }
@@ -346,6 +360,7 @@ export default defineComponent({
         setBodyOverflow('')
       }
       unregisterModal()
+      unregisterZIndex()
     })
 
     watch(isTopLevelModal, newIsTopLevelModal => {
@@ -357,6 +372,7 @@ export default defineComponent({
     onMounted(() => {
       if (valueComputed.value) { // case when open modal with this.$vaModal.init
         registerModal()
+        registerZIndex()
       }
     })
 
@@ -387,6 +403,7 @@ export default defineComponent({
     return {
       tp,
       t,
+      zIndexComputed,
       isLowestLevelModal,
       isTopLevelModal,
       computedOverlayClass,
@@ -396,7 +413,6 @@ export default defineComponent({
       valueComputed,
       computedClass,
       computedDialogStyle,
-      computedModalContainerStyle,
       computedOverlayStyles,
       slotBind,
       teleportFromAttrs,
@@ -439,7 +455,7 @@ export default defineComponent({
   left: var(--va-modal-left);
   overflow: var(--va-modal-overflow);
   outline: var(--va-modal-outline);
-  z-index: var(--va-modal-z-index);
+  z-index: var(--va-modal-z-index, v-bind(zIndexComputed));
   font-family: var(--va-font-family);
 
   &__title {
