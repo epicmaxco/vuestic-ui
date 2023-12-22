@@ -120,12 +120,12 @@ export const ContentNotHoverable: StoryFn = () => ({
 })
 
 ContentNotHoverable.play = async ({ canvasElement, step }) => {
-  const body = within(canvasElement.parentElement!)
+  const body = within(canvasElement.ownerDocument.body)
   const target = body.getByTestId('target')
   await step('Dropdown hides when hover moves to dropdown content', async () => {
     userEvent.hover(target)
     await sleep()
-    const dropdownContent = body.getByText('Hovered')
+    const dropdownContent = body.getByText('Content')
     userEvent.unhover(target)
     userEvent.hover(dropdownContent)
     await sleep()

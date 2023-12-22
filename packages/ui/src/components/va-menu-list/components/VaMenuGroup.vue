@@ -1,11 +1,9 @@
 <template>
-  <tr v-bind="$attrs">
-    <td class="va-menu-list__group-name-wrapper" colspan="99999">
-      <span class="va-menu-list__group-name">
-        {{ groupName }}
-      </span>
-    </td>
-  </tr>
+  <div class="va-menu-list__group-name-wrapper" colspan="99999">
+    <span class="va-menu-list__group-name">
+      {{ groupName }}
+    </span>
+  </div>
   <slot />
 </template>
 
