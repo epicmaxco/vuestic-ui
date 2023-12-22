@@ -59,7 +59,7 @@ export const useStateful = <
   const valueState = ref(
     passedProp.value === NOT_PROVIDED
       ? defaultValuePassed ? defaultValue : props[key]
-      : passedProp,
+      : passedProp.value,
   ) as Ref<P[Key]>
 
   let unwatchModelValue: ReturnType<typeof watch>

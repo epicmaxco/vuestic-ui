@@ -165,7 +165,7 @@ export default defineComponent({
 
       return props.options.filter((option: SelectOption) => {
         const optionText = getText(option).toUpperCase()
-        const search = props.search.toUpperCase()
+        const search = props.search.toUpperCase().trim()
         return optionText.includes(search)
       })
     })
@@ -296,6 +296,7 @@ export default defineComponent({
       if (props.virtualScroller) { virtualScrollerRef.value?.[0].virtualScrollTo(currentOptionIndex.value) }
     }
 
+    // TODO: move to exposed
     const publicMethods = {
       focusPreviousOption,
       focusNextOption,
@@ -336,7 +337,11 @@ export default defineComponent({
       handleScrollToBottom,
       selectOption,
 
-      ...publicMethods,
+      focusPreviousOption,
+      focusNextOption,
+      focusFirstOption,
+      scrollToOption,
+      focus,
     }
   },
 })

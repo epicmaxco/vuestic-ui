@@ -34,6 +34,7 @@ module.exports = {
     // remove when this issue will be resolved: https://github.com/import-js/eslint-plugin-import/issues/2228
     'import/export': 'warn',
     'no-void': 'off',
+    'vue/multi-word-component-names': 'off',
   },
   overrides: [
     {

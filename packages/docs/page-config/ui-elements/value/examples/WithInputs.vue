@@ -22,7 +22,7 @@
   })
 </script>
 
-<style lang="scss" scoped>
+<style>
   .item {
     height: 2rem;
   }

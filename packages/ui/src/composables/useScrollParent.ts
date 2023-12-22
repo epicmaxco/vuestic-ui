@@ -4,7 +4,7 @@ import { useWindow } from './useWindow'
 type ScrollElement = HTMLElement | (Window & { scrollLeft: number; scrollTop: number })
 
 export const useScrollParent = () => {
-  const window = useWindow() as Ref<Window>
+  const window = useWindow()
 
   const fakeWindow = new Proxy(window.value || {}, {
     get: (target, key: any, rec) => {

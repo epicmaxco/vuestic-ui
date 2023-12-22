@@ -1,17 +1,25 @@
 ---
 name: Bug Report
-about: Report a bug for Vuestic UI
+about: Report a bug
 labels: ["BUG"]
 assignees: ''
 
 ---
 
-**Vuestic-ui version:** 1.8.5
+**Vuestic-ui version:** 1.8.7
 
-**Steps to reproduce**
+### Description
 
-**What is the expected behavior?**
+<!--
+  Describe bug here: 
+  - What is current behaviour
+  - What is expected behaviour
+  - Any other useful information
+-->
 
-**What is the current behavior?**
+### Reproduction
 
-**Other information**
+<!-- 
+  Please use playground (https://ui.vuestic.dev/play or codesandbox) or write here steps for reproduction
+  ! This will help us handle this issue faster!
+ -->

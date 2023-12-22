@@ -17,12 +17,16 @@ export default defineComponent({
     fit: { type: Boolean, default: false },
     spaced: { type: Boolean, default: false },
   },
-  setup: (props) => ({
-    computedClass: computed(() => ({
+  setup (props) {
+    const computedClass = computed(() => ({
       'va-list-separator--offset': !props.fit,
       'va-list-separator--spaced': props.spaced,
-    })),
-  }),
+    }))
+
+    return {
+      computedClass,
+    }
+  },
 })
 </script>
 

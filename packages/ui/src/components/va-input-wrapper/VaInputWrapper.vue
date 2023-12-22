@@ -197,11 +197,26 @@ export default defineComponent({
       props.maxLength !== undefined ? `${counterValue.value}/${props.maxLength}` : counterValue.value,
     )
 
+    const {
+      labelId,
+      characterCountId,
+      ariaAttributes,
+    } = useInputFieldAria(props)
+
+    const vaInputLabelProps = filterComponentProps(VaInputLabelProps)
+
+    const focus = () => { isFocused.value = true }
+    const blur = () => { isFocused.value = false }
+
     return {
-      ...useInputFieldAria(props),
+      focus,
+      blur,
+      labelId,
+      characterCountId,
+      ariaAttributes,
       vModel,
       counterValue,
-      vaInputLabelProps: filterComponentProps(VaInputLabelProps),
+      vaInputLabelProps,
       wrapperClass,
       textColorComputed,
 
@@ -216,8 +231,7 @@ export default defineComponent({
   },
 
   methods: {
-    focus () { this.$el.focus() },
-    blur () { this.$el.blur() },
+
   },
 })
 </script>

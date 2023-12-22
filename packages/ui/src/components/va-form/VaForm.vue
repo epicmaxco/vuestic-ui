@@ -76,8 +76,39 @@ export default defineComponent({
       return statefulConfig
     }))
 
+    const {
+      immediate,
+      isDirty,
+      formData,
+      fields,
+      fieldsNamed,
+      fieldNames,
+      isValid,
+      isLoading,
+      errorMessages,
+      errorMessagesNamed,
+      validate,
+      reset,
+      resetValidation,
+      focus,
+      focusInvalidField,
+    } = context
+
     return {
-      ...context,
+      isDirty,
+      formData,
+      fields,
+      fieldsNamed,
+      fieldNames,
+      isValid,
+      isLoading,
+      errorMessages,
+      errorMessagesNamed,
+      validate,
+      reset,
+      resetValidation,
+      focus,
+      focusInvalidField,
       context: context,
     }
   },

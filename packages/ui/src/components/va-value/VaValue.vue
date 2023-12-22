@@ -10,6 +10,8 @@ import {
 
 import { renderSlotNodes } from '../../utils/headless'
 
+type MustBeGeneric = any
+
 export default defineComponent({
   name: 'VaValue',
 
@@ -18,16 +20,16 @@ export default defineComponent({
   },
 
   setup (props, { slots }) {
-    const value = ref<any>(props.defaultValue)
+    const value = ref<MustBeGeneric>(props.defaultValue)
 
     // Vue will unwrap Refs passed as slot bind, so we make a fake not-Ref.
-    const slotBind: Ref<any> = new Proxy(value, {
+    const slotBind: Ref<MustBeGeneric> = new Proxy(value, {
       get (target, prop) {
         if (prop === 'value') {
           return target.value
         }
 
-        return target[prop]
+        return target[prop as keyof Ref<MustBeGeneric>]
       },
       set (target, prop, value) {
         if (prop === 'value') {

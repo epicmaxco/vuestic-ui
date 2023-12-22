@@ -34,3 +34,71 @@ export const Overflow: StoryFn = () => defineComponent({
     </VaCollapse>
   `,
 })
+
+export const Color: StoryFn = () => defineComponent({
+  components: { VaCollapse },
+
+  data: () => ({ open: true }), // Open be default
+
+  template: `
+    <VaCollapse v-model="open" color="warning">
+      <template #header-content>
+        Header
+      </template>
+      <template #content>
+        Content
+      </template>
+    </VaCollapse>
+  `,
+})
+
+export const TextColor: StoryFn = () => defineComponent({
+  components: { VaCollapse },
+
+  data: () => ({ open: true }), // Open be default
+
+  template: `
+    <VaCollapse v-model="open" text-color="warning">
+      <template #header-content>
+        Header
+      </template>
+      <template #content>
+        Content
+      </template>
+    </VaCollapse>
+  `,
+})
+
+export const TextColorWithBackground: StoryFn = () => defineComponent({
+  components: { VaCollapse },
+
+  data: () => ({ open: true }), // Open be default
+
+  template: `
+    <VaCollapse v-model="open" color="warning" text-color="primary">
+      <template #header-content>
+        Header
+      </template>
+      <template #content>
+        Content
+      </template>
+    </VaCollapse>
+  `,
+})
+
+export const BodyTextColorWithBackground: StoryFn = () => defineComponent({
+  components: { VaCollapse },
+
+  data: () => ({ open: true }), // Open be default
+
+  template: `
+    <VaCollapse v-model="open" body-color="warning" body-text-color="primary">
+      <template #header-content>
+        Header
+      </template>
+      <template #content>
+        Content
+      </template>
+    </VaCollapse>
+  `,
+})

@@ -67,29 +67,21 @@ const getRootNodesOpenTags = (sfc: SFCParseResult) => {
   })
 }
 
-const renderCssVariablesAsStringCode = (vBinds: string[]) => {
-  return vBinds.map((vBind, index) => {
-    return `--va-${index}-${kebabCase(vBind)}: \${String(${vBind})}`
-  }, '').join(';')
+const renderCSSVariableName = (vBind: string) => {
+  return `--va-${kebabCase(vBind)}`
 }
 
-const renderCssVariablesAsObjectPropertiesCode = (vBinds: string[]) => {
+const renderCssVariablesAsStringCode = (vBinds: string[]) => {
   return vBinds.map((vBind, index) => {
-    return `'--va-${index}-${kebabCase(vBind)}': String(${vBind})`
-  }, '').join(',')
+    return `${renderCSSVariableName(vBind)}: \${String(${vBind})}`
+  }, '').join(';')
 }
 
 const renderObjectGuardCode = (existingContent: string, binds: string[]) => {
   const renderedAsString = renderCssVariablesAsStringCode(binds)
-  const renderedAsObjectProperties = renderCssVariablesAsObjectPropertiesCode(binds)
-
-  // Merge existing style with rendered css variables
-  const arrayStyle = `[...${existingContent}, \`${renderedAsString}\`]`
-  const objectStyle = `{ ...${existingContent}, ${renderedAsObjectProperties} }`
-  const stringStyle = `${existingContent} + \`;${renderedAsString}\``
 
   // Handle if style is an object, array or string
-  return `typeof ${existingContent} === 'object' ? (Array.isArray(${existingContent}) ? ${arrayStyle} : ${objectStyle}) : ${stringStyle}`
+  return `[${existingContent}, \`${renderedAsString}\`]`
 }
 
 const addStyleAttrToTag = (rootNode: string, vBinds: string[]) => {
@@ -136,7 +128,7 @@ export const transformVueComponent = (code: string) => {
     const locs = getStyleVBindLocs(s.original, vBind)
 
     locs.forEach((loc) => {
-      s.overwrite(loc.start, loc.end, `var(--va-${index}-${kebabCase(vBind)})`)
+      s.overwrite(loc.start, loc.end, `var(${renderCSSVariableName(vBind)})`)
     })
   })
 

@@ -174,8 +174,6 @@ export default defineComponent({
       ...contentColorComputed.value,
     }))
 
-    const publicMethods = { focus, blur }
-
     return {
       button,
       tagComputed,
@@ -192,7 +190,8 @@ export default defineComponent({
       backgroundMaskOpacity,
       backgroundColorOpacity,
 
-      ...publicMethods,
+      focus,
+      blur,
     }
   },
 })

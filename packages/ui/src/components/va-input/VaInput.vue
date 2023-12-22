@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, shallowRef, toRefs } from 'vue'
+import { computed, defineComponent, InputHTMLAttributes, nextTick, shallowRef, toRefs, watch } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
@@ -61,7 +61,7 @@ import {
   useClearable, useClearableProps, useClearableEmits,
   useTranslation,
   useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
-  useFocusable, useFocusableProps,
+  useFocusable, useFocusableProps, useEvent,
 } from '../../composables'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
@@ -112,6 +112,9 @@ export default defineComponent({
 
     // style
     ariaResetLabel: { type: String, default: '$t:reset' },
+
+    /** Set value to input when model value is updated */
+    strictBindInputValue: { type: Boolean, default: false },
   },
 
   emits: [
@@ -148,6 +151,7 @@ export default defineComponent({
     })
 
     const {
+      isDirty,
       computedError,
       computedErrorMessages,
       listeners: { onBlur, onFocus },
@@ -173,6 +177,38 @@ export default defineComponent({
       onBlur: combineFunctions(onBlur, inputListeners.onBlur),
       onInput: combineFunctions(onInput, inputListeners.onInput),
     }
+
+    const setInputValue = (newValue: string) => {
+      if (!props.strictBindInputValue) {
+        return
+      }
+
+      const target = input.value
+
+      if (!target) {
+        return
+      }
+
+      // Similar to cleave solution
+      // When user types, we update input value according to computedValue, if value is different
+      // This causes cursor to move to the end of the input
+      // To prevent this, we save cursor position and restore it after value is updated
+      const selectionStart = target.selectionStart || 0
+      const selectionEnd = target.selectionEnd || 0
+
+      if (target.value !== newValue) {
+        target.value = String(newValue)
+      }
+      target.setSelectionRange(selectionStart, selectionEnd)
+    }
+
+    watch(computedValue, (newValue) => {
+      setInputValue(String(newValue))
+    })
+
+    useEvent('input', () => {
+      setInputValue(String(valueComputed.value))
+    }, input)
 
     const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
 
@@ -233,6 +269,7 @@ export default defineComponent({
 
       fieldListeners: createFieldListeners(emit),
       filterSlots,
+      isDirty,
       reset,
       focus,
       blur,

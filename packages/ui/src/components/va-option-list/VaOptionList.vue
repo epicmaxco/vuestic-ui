@@ -53,6 +53,7 @@ import {
   useValidation, useValidationProps,
   useStateful, useStatefulProps, useStatefulEmits,
   useArrayRefs,
+  useValidationEmits,
 } from '../../composables'
 
 import { isDev } from '../../utils/env'
@@ -72,7 +73,7 @@ export default defineComponent({
     VaSwitch,
     VaMessageListWrapper,
   },
-  emits: [...useStatefulEmits, 'clear'],
+  emits: [...useStatefulEmits, ...useValidationEmits, 'clear'],
   props: {
     ...useComponentPresetProp,
     ...useSelectableListProps,

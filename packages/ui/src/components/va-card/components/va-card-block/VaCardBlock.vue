@@ -17,11 +17,15 @@ export default defineComponent({
     },
   },
 
-  setup: (props) => ({
-    classComputed: computed(() => ({
+  setup (props) {
+    const classComputed = computed(() => ({
       'va-card-block--horizontal': props.horizontal,
-    })),
-  }),
+    }))
+
+    return {
+      classComputed,
+    }
+  },
 })
 </script>
 

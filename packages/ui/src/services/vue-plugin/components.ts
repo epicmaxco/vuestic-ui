@@ -87,4 +87,8 @@ export {
   VaValue,
   VaVirtualScroller,
   VaTextarea,
+  VaMenu,
+  VaMenuList,
+  VaMenuItem,
+  VaMenuGroup,
 } from '../../components'

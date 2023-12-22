@@ -22,7 +22,7 @@
         @focus="onInputFocus"
         @blur="onInputBlur"
         @keydown.enter="toggleDropdown"
-        @keydown.space.stop.prevent="toggleDropdown"
+        @keydown.space.stop="toggleDropdown"
       >
         <template
           v-for="(_, name) in $slots"
@@ -52,6 +52,7 @@
             role="button"
             :tabindex="openSelectButtonTabIndexComputed"
             :aria-expanded="showDropdownContentComputed"
+            @keydown.enter="toggleDropdown"
           />
         </template>
 
@@ -680,7 +681,11 @@ export default defineComponent({
     const toggleDropdown = (e: KeyboardEvent) => {
       if (props.disabled || props.readonly) { return }
 
-      if (e.code === 'Space' && props.autocomplete) { return }
+      const isInInput = e.target && ('tagName' in e.target) && e.target.tagName === 'INPUT'
+
+      if (e.code === 'Space' && isInInput) { return }
+
+      e.preventDefault()
 
       showDropdownContentComputed.value = !showDropdownContentComputed.value
     }
@@ -699,8 +704,14 @@ export default defineComponent({
       resetValidation,
     } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
+    const { popupId } = useSelectAria()
+
+    const searchInput = searchVModel
+
+    const onInputFocus = onFocus
+
     return {
-      ...useSelectAria(),
+      popupId,
       input,
       optionList,
       searchBar,
@@ -716,11 +727,11 @@ export default defineComponent({
       tp,
       t,
 
-      onInputFocus: onFocus,
+      onInputFocus,
       onInputBlur,
       focusOptionList,
       focusSearchBar,
-      searchInput: searchVModel,
+      searchInput,
       showSearchInput,
       hoveredOption,
       tabIndexComputed,

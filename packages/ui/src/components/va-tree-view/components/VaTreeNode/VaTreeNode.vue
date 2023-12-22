@@ -64,7 +64,7 @@
         :key="getTrackBy(childNode)"
         :node="childNode"
       >
-        <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope">
+        <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope: any">
           <slot :name="name" v-bind="slotScope" />
         </template>
       </va-tree-node>

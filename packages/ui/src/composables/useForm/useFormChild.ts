@@ -8,6 +8,7 @@ export const useFormChild = (context: FormFiled) => {
 
   if (!formContext) {
     return {
+      isFormDirty: ref(false),
       isFormImmediate: ref(false),
       doShowError: ref(true),
       doShowErrorMessages: ref(true),
@@ -26,6 +27,7 @@ export const useFormChild = (context: FormFiled) => {
   })
 
   return {
+    isFormDirty: formContext.isFormDirty,
     isFormImmediate: formContext.immediate,
     doShowError: formContext.doShowError,
     doShowErrorMessages: formContext.doShowErrorMessages,
