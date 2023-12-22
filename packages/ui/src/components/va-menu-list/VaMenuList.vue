@@ -13,7 +13,11 @@
       <slot v-else>
         <template v-for="(options, groupName) in optionGroups" :key="groupName">
           <slot v-if="groupName !== '_noGroup'"  name="group">
-            <VaMenuGroup :group-name="groupName" />
+            <tr>
+              <td colspan="9999">
+                <VaMenuGroup :group-name="groupName" />
+              </td>
+            </tr>
           </slot>
           <VaMenuItem
             v-for="(option) in options"

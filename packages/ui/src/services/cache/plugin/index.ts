@@ -1,7 +1,6 @@
 import type { InjectionKey } from 'vue'
 import type { AppCache } from '../types'
 import { defineVuesticPlugin } from '../../vue-plugin/utils'
-import { TempMap } from '../../../utils/temp-map'
 
 export const VaAppCachePluginKey = Symbol('VaAppCachePlugin') as InjectionKey<AppCache>
 

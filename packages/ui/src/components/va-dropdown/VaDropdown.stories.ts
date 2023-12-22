@@ -1,6 +1,6 @@
 import { Directive, nextTick, ref } from 'vue'
 import { VaDropdown, VaDropdownContent } from '.'
-import { VaButton, VaIcon, VaValue } from '@/components'
+import { VaButton, VaIcon, VaValue, VaModal } from '@/components'
 import { StoryFn } from '@storybook/vue3'
 import { userEvent, within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
@@ -120,12 +120,12 @@ export const ContentNotHoverable: StoryFn = () => ({
 })
 
 ContentNotHoverable.play = async ({ canvasElement, step }) => {
-  const body = within(canvasElement.parentElement!)
+  const body = within(canvasElement.ownerDocument.body)
   const target = body.getByTestId('target')
   await step('Dropdown hides when hover moves to dropdown content', async () => {
     userEvent.hover(target)
     await sleep()
-    const dropdownContent = body.getByText('Hovered')
+    const dropdownContent = body.getByText('Content')
     userEvent.unhover(target)
     userEvent.hover(dropdownContent)
     await sleep()
@@ -451,4 +451,30 @@ export const StickToEdges: StoryFn = () => ({
         </div>
       </ScrollContainer>
     `,
+})
+
+export const VisibleInModal: StoryFn = () => ({
+  components: { VaDropdown, VaButton, VaDropdownContent, VaModal },
+
+  setup () {
+    return {
+      modalOpen: ref(false),
+    }
+  },
+
+  template: `
+    <VaButton @click="modalOpen = true">Open modal</VaButton>
+    <VaModal v-model="modalOpen">
+      <VaDropdown stateful>
+        <template #anchor>
+          <div>
+            Anchor
+          </div>
+        </template>
+        <VaDropdownContent style="height: 200px">
+          Content
+        </VaDropdownContent>
+      </VaDropdown>
+    </VaModal>
+  `,
 })
