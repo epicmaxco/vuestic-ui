@@ -14,7 +14,7 @@
       <slot name="loading">
         <va-icon
           class="va-inner-loading__spinner"
-          spin
+          spin="counter-clockwise"
           :color="colorComputed"
           :size="$props.size"
           :name="$props.icon"
