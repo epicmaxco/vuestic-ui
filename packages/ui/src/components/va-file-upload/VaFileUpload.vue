@@ -58,7 +58,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, toRef, shallowRef, provide, PropType } from 'vue'
+import { computed, onMounted, ref, toRef, shallowRef, provide, PropType } from 'vue'
 
 import { useColors, useComponentPresetProp, useBem, useTranslation } from '../../composables'
 
@@ -69,174 +69,154 @@ import { VaFileUploadList } from './VaFileUploadList'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 const VaFileUploadListProps = extractComponentProps(VaFileUploadList)
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaFileUpload',
+})
 
-  components: {
-    VaModal,
-    VaButton,
-    VaFileUploadList,
+const props = defineProps({
+  ...useComponentPresetProp,
+  ...VaFileUploadListProps,
+  fileTypes: { type: String, default: '' },
+  dropzone: { type: Boolean, default: false },
+  hideFileList: { type: Boolean, default: false },
+  color: { type: String, default: 'primary' },
+  disabled: { type: Boolean, default: false },
+  undo: { type: Boolean, default: false },
+  undoDuration: { type: Number, default: 3000 },
+  undoButtonText: { type: String, default: '$t:undo' },
+  dropZoneText: { type: String, default: '$t:dropzone' },
+  uploadButtonText: { type: String, default: '$t:uploadFile' },
+  deletedFileMessage: { type: String, default: '$t:fileDeleted' },
+  modelValue: {
+    type: [Object, Array] as PropType<VaFile | VaFile[]>,
+    default: () => [],
   },
-
-  props: {
-    ...useComponentPresetProp,
-    ...VaFileUploadListProps,
-    fileTypes: { type: String, default: '' },
-    dropzone: { type: Boolean, default: false },
-    hideFileList: { type: Boolean, default: false },
-    color: { type: String, default: 'primary' },
-    disabled: { type: Boolean, default: false },
-    undo: { type: Boolean, default: false },
-    undoDuration: { type: Number, default: 3000 },
-    undoButtonText: { type: String, default: '$t:undo' },
-    dropZoneText: { type: String, default: '$t:dropzone' },
-    uploadButtonText: { type: String, default: '$t:uploadFile' },
-    deletedFileMessage: { type: String, default: '$t:fileDeleted' },
-    modelValue: {
-      type: [Object, Array] as PropType<VaFile | VaFile[]>,
-      default: () => [],
-    },
-    type: {
-      type: String as PropType<'list' | 'gallery' | 'single'>,
-      default: 'list',
-      validator: (value: string) => ['list', 'gallery', 'single'].includes(value),
-    },
+  type: {
+    type: String as PropType<'list' | 'gallery' | 'single'>,
+    default: 'list',
+    validator: (value: string) => ['list', 'gallery', 'single'].includes(value),
   },
+})
 
-  emits: ['update:modelValue', 'file-removed', 'file-added'],
+const emit = defineEmits(['update:modelValue', 'file-removed', 'file-added'])
 
-  setup (props, { emit }) {
-    const fileInputRef = shallowRef<HTMLInputElement>()
+const fileInputRef = shallowRef<HTMLInputElement>()
 
-    const modal = ref(false)
-    const dropzoneHighlight = ref(false)
+const modal = ref(false)
+const dropzoneHighlight = ref(false)
 
-    const { getColor, shiftHSLAColor } = useColors()
-    const colorComputed = computed(() => getColor(props.color))
+const { getColor, shiftHSLAColor } = useColors()
+const colorComputed = computed(() => getColor(props.color))
 
-    const computedStyle = computed(() => ({
-      backgroundColor: props.dropzone
-        ? shiftHSLAColor(colorComputed.value, { a: dropzoneHighlight.value ? -0.82 : -0.92 })
-        : 'transparent',
-    }))
+const computedStyle = computed(() => ({
+  backgroundColor: props.dropzone
+    ? shiftHSLAColor(colorComputed.value, { a: dropzoneHighlight.value ? -0.82 : -0.92 })
+    : 'transparent',
+}))
 
-    const computedClasses = useBem('va-file-upload', () => ({
-      dropzone: props.dropzone,
-      disabled: props.disabled,
-    }))
+const computedClasses = useBem('va-file-upload', () => ({
+  dropzone: props.dropzone,
+  disabled: props.disabled,
+}))
 
-    const files = computed<VaFile[]>({
-      get () { return Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue] },
-      set (files) {
-        if (props.type === 'single') {
-          emit('update:modelValue', files[0])
-        } else {
-          emit('update:modelValue', files)
-        }
-      },
-    })
-
-    const filterInvalidFiles = (files: VaFile[]) => files.filter((file) => {
-      const fileName = file.name || file.url
-      if (!fileName) { return false }
-      if (file.url) { return true }
-
-      const MIMETypes = ['audio/*', 'video/*', 'image/*']
-      const isContainedMIMEType = MIMETypes.find((t) => props.fileTypes.includes(t))
-
-      if (isContainedMIMEType) {
-        // Do not validate MIMEType because there is too much to validate.
-        return true
-      }
-
-      const extension = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase()
-
-      const isCorrectExt = props.fileTypes.includes(extension)
-      if (!isCorrectExt) { modal.value = true }
-
-      return isCorrectExt
-    })
-
-    const uploadFile = (e: Event | DragEvent) => {
-      const f = (e.target as HTMLInputElement)?.files || (e as DragEvent).dataTransfer?.files
-
-      if (!f) { return }
-
-      const validatedFiles = props.fileTypes ? filterInvalidFiles(Array.from(f)) : f
-
-      files.value = props.type === 'single' ? (validatedFiles as VaFile[]) : [...files.value, ...validatedFiles]
-
-      emit('file-added', validatedFiles)
-    }
-
-    const changeFieldValue = (e: Event | DragEvent) => {
-      uploadFile(e)
-
-      if (fileInputRef.value) {
-        fileInputRef.value.value = ''
-      }
-    }
-
-    const removeFile = (index: number) => {
-      if (index in files.value) {
-        const removedFile = files.value[index]
-        files.value = files.value.filter((item, idx) => idx !== index)
-        emit('file-removed', removedFile)
-      }
-    }
-
-    const removeSingleFile = () => {
-      if (files.value.length > 0) {
-        const removedFile = files.value[0]
-        files.value = []
-        emit('file-removed', removedFile)
-      }
-    }
-
-    const callFileDialogue = () => {
-      if (fileInputRef.value) {
-        fileInputRef.value.click()
-      }
-    }
-
-    onMounted(() => {
-      if (Array.isArray(files.value)) {
-        const filteredFiles = filterInvalidFiles(files.value)
-        if (filteredFiles.length !== files.value.length) {
-          files.value = filteredFiles
-        }
-      }
-    })
-
-    const { tp } = useTranslation()
-
-    provide(VaFileUploadKey, {
-      undo: toRef(props, 'undo'),
-      disabled: toRef(props, 'disabled'),
-      undoDuration: toRef(props, 'undoDuration'),
-      undoButtonText: computed(() => tp(props.undoButtonText)),
-      deletedFileMessage: computed(() => tp(props.deletedFileMessage)),
-    })
-
-    return {
-      fileUploadListProps: filterComponentProps(VaFileUploadListProps),
-      modal,
-      dropzoneHighlight,
-      fileInputRef,
-      colorComputed,
-      computedStyle,
-      computedClasses,
-      files,
-      tp,
-      uploadFile,
-      changeFieldValue,
-      removeFile,
-      removeSingleFile,
-      callFileDialogue,
+const files = computed<VaFile[]>({
+  get () { return Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue] },
+  set (files) {
+    if (props.type === 'single') {
+      emit('update:modelValue', files[0])
+    } else {
+      emit('update:modelValue', files)
     }
   },
 })
+
+const filterInvalidFiles = (files: VaFile[]) => files.filter((file) => {
+  const fileName = file.name || file.url
+  if (!fileName) { return false }
+  if (file.url) { return true }
+
+  const MIMETypes = ['audio/*', 'video/*', 'image/*']
+  const isContainedMIMEType = MIMETypes.find((t) => props.fileTypes.includes(t))
+
+  if (isContainedMIMEType) {
+    // Do not validate MIMEType because there is too much to validate.
+    return true
+  }
+
+  const extension = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase()
+
+  const isCorrectExt = props.fileTypes.includes(extension)
+  if (!isCorrectExt) { modal.value = true }
+
+  return isCorrectExt
+})
+
+const uploadFile = (e: Event | DragEvent) => {
+  const f = (e.target as HTMLInputElement)?.files || (e as DragEvent).dataTransfer?.files
+
+  if (!f) { return }
+
+  const validatedFiles = props.fileTypes ? filterInvalidFiles(Array.from(f)) : f
+
+  files.value = props.type === 'single' ? (validatedFiles as VaFile[]) : [...files.value, ...validatedFiles]
+
+  emit('file-added', validatedFiles)
+}
+
+const changeFieldValue = (e: Event | DragEvent) => {
+  uploadFile(e)
+
+  if (fileInputRef.value) {
+    fileInputRef.value.value = ''
+  }
+}
+
+const removeFile = (index: number) => {
+  if (index in files.value) {
+    const removedFile = files.value[index]
+    files.value = files.value.filter((item, idx) => idx !== index)
+    emit('file-removed', removedFile)
+  }
+}
+
+const removeSingleFile = () => {
+  if (files.value.length > 0) {
+    const removedFile = files.value[0]
+    files.value = []
+    emit('file-removed', removedFile)
+  }
+}
+
+const callFileDialogue = () => {
+  if (fileInputRef.value) {
+    fileInputRef.value.click()
+  }
+}
+
+onMounted(() => {
+  if (Array.isArray(files.value)) {
+    const filteredFiles = filterInvalidFiles(files.value)
+    if (filteredFiles.length !== files.value.length) {
+      files.value = filteredFiles
+    }
+  }
+})
+
+const { tp } = useTranslation()
+
+provide(VaFileUploadKey, {
+  undo: toRef(props, 'undo'),
+  disabled: toRef(props, 'disabled'),
+  undoDuration: toRef(props, 'undoDuration'),
+  undoButtonText: computed(() => tp(props.undoButtonText)),
+  deletedFileMessage: computed(() => tp(props.deletedFileMessage)),
+})
+
+const fileUploadListProps = filterComponentProps(VaFileUploadListProps)
 </script>
 
 <style lang='scss'>

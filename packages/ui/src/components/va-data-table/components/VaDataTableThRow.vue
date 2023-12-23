@@ -62,8 +62,8 @@
   </tr>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, computed } from 'vue'
+<script lang="ts" setup>
+import { PropType, computed } from 'vue'
 
 import { VaIcon } from '../../va-icon'
 import { VaCheckbox } from '../../va-checkbox'
@@ -80,89 +80,74 @@ import {
   DataTableColumnInternal,
 } from '../types'
 
-export default defineComponent({
+defineOptions({
   name: 'VaDataTableThRow',
-
-  components: { VaIcon, VaCheckbox },
-
-  props: {
-    ...useStylableProps,
-    selectMode: { type: String as PropType<DataTableSelectMode>, default: 'multiple' },
-    allRowsSelected: { type: Boolean, default: false },
-    severalRowsSelected: { type: Boolean, default: false },
-
-    columns: { type: Array as PropType<DataTableColumnInternal[]>, required: true },
-
-    isFooter: { type: Boolean, default: false },
-
-    sortBySync: { type: String, required: true },
-    sortingOrderIconName: { type: String as PropType<TSortIcon>, required: true },
-    sortingOrderSync: { type: String as PropType<DataTableSortingOrder | null>, default: null },
-
-    ariaSelectAllRowsLabel: { type: String, default: '$t:selectAllRows' },
-    ariaSortColumnByLabel: { type: String, default: '$t:sortColumnBy' },
-  },
-
-  emits: [
-    'toggleBulkSelection',
-    'toggleSorting',
-  ],
-
-  setup (props, { emit }) {
-    const { t, tp } = useTranslation()
-
-    const {
-      getFooterCSSVariables,
-      getHeaderCSSVariables,
-      getClass,
-      getStyle,
-    } = useStylable(props)
-
-    const getAriaAttributes = (column: DataTableColumnInternal) => {
-      const ariaSort = (props.sortingOrderSync && props.sortBySync === column.name
-        ? props.sortingOrderSync === 'asc' ? 'ascending' : 'descending'
-        : 'none') as 'none' | 'ascending' | 'descending'
-
-      const ariaLabel = column.sortable ? tp(props.ariaSortColumnByLabel, { name: column.label }) : undefined
-
-      return {
-        'aria-sort': ariaSort,
-        'aria-label': ariaLabel,
-      }
-    }
-
-    const sortByColumn = (column: DataTableColumnInternal) => {
-      if ((props.isFooter && !props.allowFooterSorting) || !column.sortable) { return }
-
-      emit('toggleSorting', column)
-    }
-
-    const toggleBulkSelection = () => emit('toggleBulkSelection')
-
-    const getColumnStyles = (column: DataTableColumnInternal) => {
-      return [
-        column.width ? { minWidth: column.width, maxWidth: column.width } : {},
-        props.isFooter ? getFooterCSSVariables(column) : getHeaderCSSVariables(column),
-        getStyle(column.thStyle),
-      ]
-    }
-
-    const slotNameComputed = computed(() => props.isFooter ? 'footer' : 'header')
-
-    const multiplySelectAvailable = computed(() => props.selectMode === 'multiple')
-
-    return {
-      tp,
-      getClass,
-      sortByColumn,
-      getColumnStyles,
-      slotNameComputed,
-      getAriaAttributes,
-      toggleBulkSelection,
-      multiplySelectAvailable,
-    }
-  },
 })
+
+const props = defineProps({
+  ...useStylableProps,
+  selectMode: { type: String as PropType<DataTableSelectMode>, default: 'multiple' },
+  allRowsSelected: { type: Boolean, default: false },
+  severalRowsSelected: { type: Boolean, default: false },
+
+  columns: { type: Array as PropType<DataTableColumnInternal[]>, required: true },
+
+  isFooter: { type: Boolean, default: false },
+
+  sortBySync: { type: String, required: true },
+  sortingOrderIconName: { type: String as PropType<TSortIcon>, required: true },
+  sortingOrderSync: { type: String as PropType<DataTableSortingOrder | null>, default: null },
+
+  ariaSelectAllRowsLabel: { type: String, default: '$t:selectAllRows' },
+  ariaSortColumnByLabel: { type: String, default: '$t:sortColumnBy' },
+})
+
+const emit = defineEmits([
+  'toggleBulkSelection',
+  'toggleSorting',
+])
+
+const { t, tp } = useTranslation()
+
+const {
+  getFooterCSSVariables,
+  getHeaderCSSVariables,
+  getClass,
+  getStyle,
+} = useStylable(props)
+
+const getAriaAttributes = (column: DataTableColumnInternal) => {
+  const ariaSort = (props.sortingOrderSync && props.sortBySync === column.name
+    ? props.sortingOrderSync === 'asc' ? 'ascending' : 'descending'
+    : 'none') as 'none' | 'ascending' | 'descending'
+
+  const ariaLabel = column.sortable ? tp(props.ariaSortColumnByLabel, { name: column.label }) : undefined
+
+  return {
+    'aria-sort': ariaSort,
+    'aria-label': ariaLabel,
+  }
+}
+
+const sortByColumn = (column: DataTableColumnInternal) => {
+  if ((props.isFooter && !props.allowFooterSorting) || !column.sortable) { return }
+
+  emit('toggleSorting', column)
+}
+
+const toggleBulkSelection = () => emit('toggleBulkSelection')
+
+const getColumnStyles = (column: DataTableColumnInternal) => {
+  return [
+    column.width ? { minWidth: column.width, maxWidth: column.width } : {},
+    props.isFooter ? getFooterCSSVariables(column) : getHeaderCSSVariables(column),
+    getStyle(column.thStyle),
+  ]
+}
+
+const slotNameComputed = computed(() => props.isFooter ? 'footer' : 'header')
+
+const multiplySelectAvailable = computed(() => props.selectMode === 'multiple')
 </script>
 
 <style lang="scss">

@@ -8,35 +8,29 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
+<script lang="ts" setup>
 import { useComponentPresetProp, useStateful, createStatefulProps, useStatefulEmits } from '../../composables'
 
-export default defineComponent({
+defineOptions({
   name: 'VaHover',
-
-  props: {
-    ...createStatefulProps(true),
-    ...useComponentPresetProp,
-    disabled: { type: Boolean, default: false },
-    modelValue: { type: Boolean, default: false },
-  },
-
-  emits: [...useStatefulEmits],
-
-  setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit)
-
-    const onMouseEnter = () => {
-      if (!props.disabled) { valueComputed.value = true }
-    }
-
-    const onMouseLeave = () => {
-      if (!props.disabled) { valueComputed.value = false }
-    }
-
-    return { onMouseEnter, onMouseLeave, valueComputed }
-  },
 })
+
+const props = defineProps({
+  ...createStatefulProps(true),
+  ...useComponentPresetProp,
+  disabled: { type: Boolean, default: false },
+  modelValue: { type: Boolean, default: false },
+})
+
+const emit = defineEmits([...useStatefulEmits])
+
+const { valueComputed } = useStateful(props, emit)
+
+const onMouseEnter = () => {
+  if (!props.disabled) { valueComputed.value = true }
+}
+
+const onMouseLeave = () => {
+  if (!props.disabled) { valueComputed.value = false }
+}
 </script>

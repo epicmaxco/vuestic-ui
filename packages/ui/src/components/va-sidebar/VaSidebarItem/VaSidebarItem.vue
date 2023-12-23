@@ -13,8 +13,8 @@
   </component>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 
 import {
   applyColors,
@@ -28,84 +28,71 @@ import {
 import { useSidebarItem } from '../hooks/useSidebar'
 import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
-export default defineComponent({
+defineOptions({
   name: 'VaSidebarItem',
-
-  props: {
-    ...useRouterLinkProps,
-    ...useComponentPresetProp,
-    active: { type: Boolean, default: false },
-    textColor: { type: String, default: undefined },
-    activeColor: { type: String, default: 'primary' },
-    hoverColor: { type: String, default: undefined },
-    hoverOpacity: { type: [Number, String], default: 0.2 },
-    borderColor: { type: String, default: undefined },
-  },
-
-  setup (props) {
-    const rootElement = useElementRef()
-    const sidebar = useSidebarItem()
-
-    const { isHovered } = useHover(rootElement)
-    const { getColor, getHoverColor, getFocusColor } = useColors()
-    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-
-    const backgroundColorComputed = computed(() => {
-      if (props.active && !isHovered.value && !hasKeyboardFocus.value) {
-        return getColor(props.activeColor)
-      }
-
-      if (hasKeyboardFocus.value) {
-        return getFocusColor(getColor(props.hoverColor || props.activeColor))
-      }
-
-      return '#ffffff00'
-    })
-
-    const textBackground = computed(() => applyColors(getColor(sidebar?.color), backgroundColorComputed.value))
-    const { textColorComputed } = useTextColor(textBackground)
-
-    const computedStyle = computed(() => {
-      const style: Record<string, string> = { color: textColorComputed.value }
-
-      if (isHovered.value || props.active || hasKeyboardFocus.value) {
-        style.backgroundColor = backgroundColorComputed.value
-      }
-
-      if (props.active) {
-        const mergedProps = { ...sidebar, ...props }
-        style.borderColor = getColor(mergedProps.borderColor || mergedProps.activeColor)
-      }
-
-      if (hasKeyboardFocus.value) {
-        style.backgroundColor = getFocusColor(getColor(props.hoverColor || props.activeColor))
-      }
-
-      if (isHovered.value) {
-        style.backgroundColor = getHoverColor(
-          getColor(props.hoverColor || props.activeColor), Number(props.hoverOpacity),
-        )
-      }
-
-      return style
-    })
-
-    const { tagComputed, hrefComputed, linkAttributesComputed } = useRouterLink(props)
-
-    return {
-      rootElement,
-      computedStyle,
-      keyboardFocusListeners,
-      tagComputed,
-      hrefComputed,
-      isHovered,
-      backgroundColorComputed,
-      bg: getColor(sidebar?.color),
-      textBackground,
-      linkAttributesComputed,
-    }
-  },
 })
+
+const props = defineProps({
+  ...useRouterLinkProps,
+  ...useComponentPresetProp,
+  active: { type: Boolean, default: false },
+  textColor: { type: String, default: undefined },
+  activeColor: { type: String, default: 'primary' },
+  hoverColor: { type: String, default: undefined },
+  hoverOpacity: { type: [Number, String], default: 0.2 },
+  borderColor: { type: String, default: undefined },
+})
+
+const rootElement = useElementRef()
+const sidebar = useSidebarItem()
+
+const { isHovered } = useHover(rootElement)
+const { getColor, getHoverColor, getFocusColor } = useColors()
+const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+
+const backgroundColorComputed = computed(() => {
+  if (props.active && !isHovered.value && !hasKeyboardFocus.value) {
+    return getColor(props.activeColor)
+  }
+
+  if (hasKeyboardFocus.value) {
+    return getFocusColor(getColor(props.hoverColor || props.activeColor))
+  }
+
+  return '#ffffff00'
+})
+
+const textBackground = computed(() => applyColors(getColor(sidebar?.color), backgroundColorComputed.value))
+const { textColorComputed } = useTextColor(textBackground)
+
+const computedStyle = computed(() => {
+  const style: Record<string, string> = { color: textColorComputed.value }
+
+  if (isHovered.value || props.active || hasKeyboardFocus.value) {
+    style.backgroundColor = backgroundColorComputed.value
+  }
+
+  if (props.active) {
+    const mergedProps = { ...sidebar, ...props }
+    style.borderColor = getColor(mergedProps.borderColor || mergedProps.activeColor)
+  }
+
+  if (hasKeyboardFocus.value) {
+    style.backgroundColor = getFocusColor(getColor(props.hoverColor || props.activeColor))
+  }
+
+  if (isHovered.value) {
+    style.backgroundColor = getHoverColor(
+      getColor(props.hoverColor || props.activeColor), Number(props.hoverOpacity),
+    )
+  }
+
+  return style
+})
+
+const { tagComputed, hrefComputed, linkAttributesComputed } = useRouterLink(props)
+
+const bg = getColor(sidebar?.color)
 </script>
 
 <style lang="scss">

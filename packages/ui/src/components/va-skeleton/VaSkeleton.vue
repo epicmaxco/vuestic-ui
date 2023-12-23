@@ -13,97 +13,88 @@
   </component>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, ref, computed, PropType, onBeforeUnmount } from 'vue'
+<script lang="ts" setup>
+import { onMounted, ref, computed, PropType, onBeforeUnmount, useAttrs } from 'vue'
 import { useBem, useColors, useTranslation } from '../../composables'
 
-export default defineComponent({
+defineOptions({
   name: 'VaSkeleton',
-
-  props: {
-    color: { type: String, default: 'backgroundElement' },
-    delay: { type: Number, default: 100 },
-
-    tag: { type: String, default: 'div' },
-
-    animation: { type: String as PropType<'pulse' | 'wave' | 'none'>, default: 'pulse' },
-
-    lines: { type: [String, Number], default: 1 },
-    height: { type: [String], default: '5em' },
-    width: { type: [String], default: '100%' },
-    lineGap: { type: String, default: '8px' },
-    lastLineWidth: { type: [String], default: '75%' },
-
-    variant: { type: String as PropType<'text' | 'circle' | 'rounded' | 'squared'>, default: 'squared' },
-    ariaLabel: { type: String, default: '$t:loading' },
-  },
-
-  setup (props, { attrs }) {
-    const doShow = ref(false)
-
-    let timeoutId: ReturnType<typeof setTimeout>
-    onMounted(() => {
-      clearTimeout(timeoutId)
-      setTimeout(() => {
-        doShow.value = true
-      }, props.delay)
-    })
-    onBeforeUnmount(() => {
-      clearTimeout(timeoutId)
-    })
-
-    const heightComputed = computed(() => {
-      if (props.variant === 'text') {
-        return `${props.lines}em`
-      }
-
-      return props.height
-    })
-    const widthComputed = computed(() => {
-      if (props.variant === 'circle') {
-        return heightComputed.value
-      }
-
-      return props.width
-    })
-
-    const { getColor } = useColors()
-
-    const colorComputed = computed(() => getColor(props.color))
-    const negativeLineGap = computed(() => `-${props.lineGap}`)
-
-    const bem = useBem('va-skeleton', () => ({
-      lines: Number(props.lines) > 1,
-      text: props.variant === 'text',
-      circle: props.variant === 'circle',
-      hidden: !doShow.value,
-      pulse: props.animation === 'pulse',
-      wave: props.animation === 'wave',
-    }))
-
-    const borderRadius = computed(() => {
-      if (props.variant === 'circle') { return '50%' }
-      if (props.variant === 'rounded') { return `var(--va-skeleton-border-radius, calc(${heightComputed.value} / 5))` }
-
-      return '0px'
-    })
-
-    return {
-      ...useTranslation(),
-      classes: computed(() => [
-        ...Object.keys(bem),
-        (attrs as { class: string }).class,
-      ]),
-
-      colorComputed,
-      negativeLineGap,
-      doShow,
-      heightComputed,
-      widthComputed,
-      borderRadius,
-    }
-  },
 })
+
+const props = defineProps({
+  color: { type: String, default: 'backgroundElement' },
+  delay: { type: Number, default: 100 },
+
+  tag: { type: String, default: 'div' },
+
+  animation: { type: String as PropType<'pulse' | 'wave' | 'none'>, default: 'pulse' },
+
+  lines: { type: [String, Number], default: 1 },
+  height: { type: [String], default: '5em' },
+  width: { type: [String], default: '100%' },
+  lineGap: { type: String, default: '8px' },
+  lastLineWidth: { type: [String], default: '75%' },
+
+  variant: { type: String as PropType<'text' | 'circle' | 'rounded' | 'squared'>, default: 'squared' },
+  ariaLabel: { type: String, default: '$t:loading' },
+})
+
+const doShow = ref(false)
+
+let timeoutId: ReturnType<typeof setTimeout>
+onMounted(() => {
+  clearTimeout(timeoutId)
+  setTimeout(() => {
+    doShow.value = true
+  }, props.delay)
+})
+onBeforeUnmount(() => {
+  clearTimeout(timeoutId)
+})
+
+const heightComputed = computed(() => {
+  if (props.variant === 'text') {
+    return `${props.lines}em`
+  }
+
+  return props.height
+})
+const widthComputed = computed(() => {
+  if (props.variant === 'circle') {
+    return heightComputed.value
+  }
+
+  return props.width
+})
+
+const { getColor } = useColors()
+
+const colorComputed = computed(() => getColor(props.color))
+const negativeLineGap = computed(() => `-${props.lineGap}`)
+
+const bem = useBem('va-skeleton', () => ({
+  lines: Number(props.lines) > 1,
+  text: props.variant === 'text',
+  circle: props.variant === 'circle',
+  hidden: !doShow.value,
+  pulse: props.animation === 'pulse',
+  wave: props.animation === 'wave',
+}))
+
+const borderRadius = computed(() => {
+  if (props.variant === 'circle') { return '50%' }
+  if (props.variant === 'rounded') { return `var(--va-skeleton-border-radius, calc(${heightComputed.value} / 5))` }
+
+  return '0px'
+})
+
+const { tp } = useTranslation()
+const attrs = useAttrs()
+
+const classes = computed(() => [
+  ...Object.keys(bem),
+  (attrs as { class: string }).class,
+])
 </script>
 
 <style lang="scss">
