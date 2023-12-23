@@ -227,6 +227,7 @@ const {
   validationAriaAttributes,
   withoutValidation,
   resetValidation,
+  isDirty,
 } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
 const {
@@ -369,6 +370,21 @@ const dropdownPropsComputed = computed(() => ({
 }))
 
 const timePickerProps = filterComponentProps(extractComponentProps(VaTimePicker))
+
+defineExpose({
+  isFocused,
+  isValid,
+  value: valueComputed,
+  isDirty,
+  focus,
+  blur,
+  reset,
+  withoutValidation,
+  resetValidation,
+  toggleDropdown,
+  showDropdown,
+  hideDropdown,
+})
 </script>
 
 <style lang="scss">

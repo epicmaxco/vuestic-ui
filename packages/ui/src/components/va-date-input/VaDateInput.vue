@@ -413,6 +413,16 @@ const dropdownPropsComputed = computed(() => ({
 const inputWrapperProps = computedInputWrapperProps
 const inputListeners = computedInputListeners
 const datePickerProps = filterComponentProps(VaDatePickerPropsDeclaration)
+
+defineExpose({
+  focus,
+  blur,
+  reset,
+  showDropdown,
+  hideAndFocus,
+  toggleDropdown,
+  focusDatePicker,
+})
 </script>
 
 <style lang="scss">

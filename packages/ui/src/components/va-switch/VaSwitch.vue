@@ -229,6 +229,11 @@ const onEnterKeyPress = () => {
 }
 
 const input = elements.input
+
+defineExpose({
+  focus,
+  reset,
+})
 </script>
 
 <style lang="scss">

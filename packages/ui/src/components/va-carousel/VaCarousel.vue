@@ -223,6 +223,18 @@ const vaImageProps = filterComponentProps(VaImageProps)
 const goToWithPause = withPause(goTo)
 const prevWithPause = withPause(prev)
 const nextWithPause = withPause(next)
+
+defineExpose({
+  currentSlide,
+  goTo,
+  next,
+  prev,
+  goToWithPause,
+  prevWithPause,
+  nextWithPause,
+  focus,
+  blur,
+})
 </script>
 
 <style lang="scss">

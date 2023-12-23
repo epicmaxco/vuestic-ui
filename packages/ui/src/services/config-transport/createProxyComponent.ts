@@ -137,7 +137,7 @@ export const createProxyComponent = <T extends DefineComponent>(component: T) =>
     })
 
     // Expose everything for now as it was in defineComponent
-    if (typeof setupState === 'object') {
+    if (typeof setupState === 'object' && !instance.exposed) {
       ctx.expose(setupState)
     }
 

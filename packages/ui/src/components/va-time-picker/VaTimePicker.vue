@@ -105,6 +105,13 @@ const computedStyles = useCSSVariables('va-time-picker', () => {
     'column-gap-height': `${gapHeight}px`,
   }
 })
+
+defineExpose({
+  focus,
+  blur,
+  focusNext,
+  focusPrev,
+})
 </script>
 
 <style lang="scss">

@@ -704,6 +704,12 @@ const { popupId } = useSelectAria()
 const searchInput = searchVModel
 
 const onInputFocus = onFocus
+
+defineExpose({
+  focus,
+  blur,
+  reset,
+})
 </script>
 
 <style lang="scss">

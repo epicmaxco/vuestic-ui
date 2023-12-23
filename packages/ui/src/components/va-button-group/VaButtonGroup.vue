@@ -20,7 +20,6 @@ const VaButtonProps = omit(extractComponentProps(VaButton), ['block', 'gradient'
 </script>
 
 <script lang="ts" setup>
-
 defineOptions({
   name: 'VaButtonGroup',
 })

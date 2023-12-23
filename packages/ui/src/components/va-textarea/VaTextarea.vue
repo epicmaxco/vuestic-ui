@@ -102,6 +102,7 @@ const reset = () => withoutValidation(() => {
 })
 
 const {
+  isDirty,
   computedError,
   computedErrorMessages,
   listeners: validationListeners,
@@ -143,6 +144,19 @@ const computedProps = computed(() => ({
 
 const vaInputWrapperProps = filterComponentProps(VaInputWrapperProps)
 const listeners = createListeners(emit)
+
+defineExpose({
+  isDirty,
+  isLoading,
+  computedError,
+  computedErrorMessages,
+  reset,
+  focus,
+  blur,
+  value: valueComputed,
+  withoutValidation,
+  resetValidation,
+})
 </script>
 
 <style lang="scss">

@@ -299,15 +299,6 @@ const scrollToOption = (option: SelectOption) => {
   if (props.virtualScroller) { (virtualScroller as any).virtualScrollTo(currentOptionIndex.value) }
 }
 
-// TODO: move to exposed
-const publicMethods = {
-  focusPreviousOption,
-  focusNextOption,
-  focusFirstOption,
-  scrollToOption,
-  focus,
-}
-
 watch(() => props.hoveredOption, (newOption: SelectOption | null) => {
   (!lastInteractionSource.value || lastInteractionSource.value === 'keyboard') &&
   (isValueExists(newOption)) && scrollToOption(newOption)
@@ -318,6 +309,14 @@ watch(filteredOptions, () => {
 
   focusFirstOption()
 }, { immediate: true })
+
+defineExpose({
+  focusPreviousOption,
+  focusNextOption,
+  focusFirstOption,
+  scrollToOption,
+  focus,
+})
 </script>
 
 <style lang="scss">

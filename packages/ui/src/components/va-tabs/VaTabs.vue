@@ -410,6 +410,13 @@ onMounted(() => {
     includeAnimation()
   })
 })
+
+defineExpose({
+  selectTab,
+  moveToTab,
+  movePaginationLeft,
+  movePaginationRight,
+})
 </script>
 
 <style lang="scss">

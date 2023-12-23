@@ -72,4 +72,8 @@ const onKeydown = (event: KeyboardEvent) => {
 
 const menuListProps = filterComponentProps(VaMenuListProps)
 const dropdownProps = filterComponentProps(VaDropdownProps)
+
+defineExpose({
+  close,
+})
 </script>

@@ -64,6 +64,10 @@ const messages = computed<string[]>(() => {
 })
 
 const computedStyle = computed(() => props.color ? { color: getColor(props.color) } : {})
+
+defineExpose({
+  messages,
+})
 </script>
 
 <style lang="scss">

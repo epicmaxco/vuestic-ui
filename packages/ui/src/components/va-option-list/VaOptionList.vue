@@ -150,6 +150,11 @@ onMounted(() => {
     console.warn(`Prop 'modelValue = ${props.modelValue}' has not a proper type!\n For component property 'type = ${props.type}' it must be of type 'array'.`)
   }
 })
+
+defineExpose({
+  focus,
+  reset,
+})
 </script>
 
 <style lang="scss">

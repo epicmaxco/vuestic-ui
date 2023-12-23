@@ -253,4 +253,17 @@ const onFieldClick = (e: MouseEvent) => {
 
 const wrapperProps = filterComponentProps(VaInputWrapperProps)
 const fieldListeners = createFieldListeners(emit)
+
+defineExpose({
+  isDirty,
+  isLoading,
+  computedError,
+  computedErrorMessages,
+  reset,
+  focus,
+  blur,
+  value: valueComputed,
+  withoutValidation,
+  resetValidation,
+})
 </script>

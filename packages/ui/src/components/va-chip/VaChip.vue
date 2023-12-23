@@ -149,6 +149,12 @@ const computedStyle = computed(() => {
 })
 
 const { tp } = useTranslation()
+
+defineExpose({
+  close,
+  blur,
+  focus,
+})
 </script>
 
 <style lang="scss">

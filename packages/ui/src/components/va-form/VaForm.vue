@@ -96,6 +96,24 @@ const {
   focus,
   focusInvalidField,
 } = context
+
+defineExpose({
+  immediate: immediateComputed,
+  isDirty,
+  formData,
+  fields,
+  fieldsNamed,
+  fieldNames,
+  isValid,
+  isLoading,
+  errorMessages,
+  errorMessagesNamed,
+  validate,
+  reset,
+  resetValidation,
+  focus,
+  focusInvalidField,
+})
 </script>
 
 <style lang='scss'>

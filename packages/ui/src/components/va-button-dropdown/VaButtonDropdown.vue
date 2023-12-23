@@ -200,6 +200,10 @@ const listeners = createListeners(emit)
 const mainButtonListeners = createMainButtonListeners(emit)
 
 const { t, tp } = useTranslation()
+
+defineExpose({
+  hideDropdown,
+})
 </script>
 
 <style lang="scss">

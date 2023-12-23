@@ -111,6 +111,10 @@ const avatarOptions = computed(() => ({
 }))
 
 const VaFallbackProps = filterComponentProps(VaFallbackPropsDeclaration)
+
+defineExpose({
+  hasLoadError,
+})
 </script>
 
 <style lang="scss">

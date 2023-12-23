@@ -83,6 +83,11 @@ useClickOutside([content, controls], closeViewer)
 
 const document = useDocument()
 const teleportTarget = computed(() => document.value?.body)
+
+defineExpose({
+  openViewer,
+  closeViewer,
+})
 </script>
 
 <style lang="scss">

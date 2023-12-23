@@ -333,6 +333,19 @@ const setError = (shouldSetError?: boolean) => {
 
   emit('update:steps', steps)
 }
+
+defineExpose({
+  modelValue,
+  focusedStep,
+  getIterableSlotData,
+  stepControls,
+  nextStep,
+  prevStep,
+  setStep,
+  setFocus,
+  completeStep,
+  setError,
+})
 </script>
 
 <style lang="scss">

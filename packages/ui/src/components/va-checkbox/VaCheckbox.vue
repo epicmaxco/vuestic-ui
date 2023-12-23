@@ -187,6 +187,12 @@ const inputAttributesComputed = computed(() => ({
   ...validationAriaAttributes.value,
 }))
 const displayVal = computed(() => props.vertical ? '--va-checkbox-display-flex' : 'var(--va-checkbox-display)')
+
+defineExpose({
+  toggleSelection,
+  blur,
+  focus,
+})
 </script>
 
 <style lang="scss">

@@ -70,7 +70,6 @@ const classComputed = useBem('va-avatar-group', () => ({
 }))
 
 const maxOptions = computed(() => props.max && props.max <= props.options.length ? props.options.slice(0, props.max) : props.options)
-const visibleItemsCount = computed(() => props.max ? props.max + 1 : 1)
 const restOptionsCount = computed(() => {
   const hasOptions = props.options.length > 0
   const canAddMoreOptions = maxOptions.value.length < props.options.length

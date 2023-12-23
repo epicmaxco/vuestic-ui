@@ -217,6 +217,10 @@ const contentStyle = computed(() => {
         : 'currentColor',
   }
 })
+
+defineExpose({
+  toggle,
+})
 </script>
 
 <style lang="scss">

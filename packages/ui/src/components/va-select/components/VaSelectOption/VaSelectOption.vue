@@ -101,6 +101,11 @@ const optionStyle = computed(() => ({
   cursor: props.disabled ? 'default' : undefined,
   opacity: props.disabled ? 'var(--va-select-option-list-option-disabled-opacity)' : undefined,
 }))
+
+defineExpose({
+  isFocused,
+  isSelected,
+})
 </script>
 
 <style lang="scss">

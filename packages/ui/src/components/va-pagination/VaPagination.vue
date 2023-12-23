@@ -321,6 +321,11 @@ const goNextPage = () => onUserInput(currentValue.value + 1)
 const goPrevPage = () => onUserInput(currentValue.value - 1)
 
 const { tp } = useTranslation()
+
+defineExpose({
+  goNextPage,
+  goPrevPage,
+})
 </script>
 
 <style lang='scss'>

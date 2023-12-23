@@ -187,6 +187,10 @@ const dayPickerProps = filterComponentProps(extractComponentProps(VaDayPicker))
 const headerProps = filterComponentProps(extractComponentProps(VaDatePickerHeader))
 const monthPickerProps = filterComponentProps(extractComponentProps(VaMonthPicker))
 const yearPickerProps = filterComponentProps(extractComponentProps(VaYearPicker))
+
+defineExpose({
+  focus: focusCurrentPicker,
+})
 </script>
 
 <style lang="scss">

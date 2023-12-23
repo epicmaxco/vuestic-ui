@@ -146,6 +146,17 @@ const vaSidebarItemProps = computed(() => ({
   borderColor: props.borderColor,
   hoverOpacity: props.hoverOpacity,
 }))
+
+defineExpose({
+  isMinimized,
+  isHovered,
+  updateHoverState,
+  rootElement,
+  menu,
+  doShowMenu,
+  menuWidth,
+  sidebarWidth,
+})
 </script>
 
 <style lang="scss">

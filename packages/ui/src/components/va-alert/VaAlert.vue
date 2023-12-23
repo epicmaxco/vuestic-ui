@@ -140,6 +140,11 @@ const hasTitle = computed(() => props.title || slots.title)
 const borderClass = computed(() => `va-alert__border--${props.border}`)
 
 const { tp, t } = useTranslation()
+
+defineExpose({
+  hide,
+  show,
+})
 </script>
 
 <style lang='scss'>

@@ -174,6 +174,11 @@ const computedStyle = computed(() => ({
   borderColor: props.borderColor ? getColor(props.borderColor) : 'transparent',
   ...contentColorComputed.value,
 }))
+
+defineExpose({
+  focus,
+  blur,
+})
 </script>
 
 <style lang='scss'>

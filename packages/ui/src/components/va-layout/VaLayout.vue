@@ -26,9 +26,6 @@ import {
 } from './hooks/useGridTemplateArea'
 import { useLayoutProps, useLayout } from './hooks/useLayout'
 import { useDocument } from '../../composables'
-</script>
-
-<script lang="ts" setup>
 import VaLayoutArea from './components/VaLayoutArea.vue'
 
 const areaNames: AreaName[] = [
@@ -37,7 +34,9 @@ const areaNames: AreaName[] = [
   'right',
   'bottom',
 ]
+</script>
 
+<script lang="ts" setup>
 defineOptions({
   name: 'VaLayout',
 })
