@@ -31,32 +31,26 @@
   </tr>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+<script lang="ts" setup>
+import { ref, computed } from 'vue'
 import { VaIcon } from '../../va-icon/'
 import { useKeyboardOnlyFocusGlobal } from '../../../composables'
 import { makeMenuItemAttributes } from '../composables/useMenuKeyboardNavigation'
 
-export default defineComponent({
+defineOptions({
   name: 'VaMenuItem',
-  components: { VaIcon },
-  props: {
-    name: { type: String, default: '' },
-    icon: { type: String, defatult: '' },
-    rightIcon: { type: String, defatult: '' },
-    disabled: { type: Boolean, default: false },
-  },
-  emits: ['selected'],
-  setup (props) {
-    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocusGlobal()
-
-    return {
-      hasKeyboardFocus,
-      keyboardFocusListeners,
-      makeMenuItemAttributes,
-    }
-  },
 })
+
+const props = defineProps({
+  name: { type: String, default: '' },
+  icon: { type: String, defatult: '' },
+  rightIcon: { type: String, defatult: '' },
+  disabled: { type: Boolean, default: false },
+})
+
+const emit = defineEmits(['selected'])
+
+const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocusGlobal()
 </script>
 
 <style lang="scss">

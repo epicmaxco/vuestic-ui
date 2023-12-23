@@ -40,90 +40,86 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
-import { computed, defineComponent, PropType, StyleValue } from 'vue'
+import { computed, PropType, StyleValue } from 'vue'
 import clamp from 'lodash/clamp.js'
 
 import { useColors, useTextColor, useTranslation } from '../../composables'
 
-export default defineComponent({
+defineOptions({
   name: 'VaProgressBar',
-
-  props: {
-    ...useComponentPresetProp,
-    modelValue: { type: Number, default: 0 },
-    indeterminate: { type: Boolean, default: false },
-    color: { type: String, default: 'primary' },
-    size: {
-      type: [Number, String] as PropType<number | 'medium' | 'large' | 'small' | string>,
-      default: 'medium',
-    },
-    buffer: { type: Number, default: 100 },
-    rounded: { type: Boolean, default: true },
-    reverse: { type: Boolean, default: false },
-    contentInside: { type: Boolean, default: false },
-    showPercent: { type: Boolean, default: false },
-    max: { type: Number, default: 100 },
-    ariaLabel: { type: String, default: '$t:progressState' },
-  },
-
-  setup (props) {
-    const { getColor, getHoverColor } = useColors()
-    const colorComputed = computed(() => getColor(props.color))
-    const { textColorComputed } = useTextColor(colorComputed)
-
-    const isTextSize = computed(() => typeof props.size === 'string' && ['small', 'medium', 'large'].includes(props.size))
-
-    const getCSSHeight = () => {
-      if (typeof props.size === 'number') { return `${props.size}px` }
-      if (isTextSize.value) { return }
-
-      return props.size
-    }
-
-    const { tp } = useTranslation()
-
-    const progressBarValue = computed(() => 100 / props.max * props.modelValue)
-
-    return {
-      rootClass: computed(() => ({
-        'va-progress-bar--square': !props.rounded,
-        [`va-progress-bar--${props.size}`]: isTextSize.value,
-      })),
-
-      rooStyle: computed(() => ({
-        '--va-progress-bar-color': colorComputed.value,
-        '--va-progress-bar-background-color': getHoverColor(colorComputed.value),
-      }) as StyleValue),
-
-      wrapperStyle: computed(() => ({
-        height: getCSSHeight(),
-      })),
-
-      bufferStyle: computed(() => ({
-        width: `${props.indeterminate ? 100 : clamp(props.buffer, 0, 100)}%`,
-        color: textColorComputed.value,
-        [props.reverse ? 'right' : 'left']: 0,
-      })),
-
-      progressStyle: computed(() => ({
-        marginLeft: props.reverse ? 'auto' : undefined,
-        width: `${clamp(progressBarValue.value, 0, 100)}%`,
-      })),
-
-      intermediateStyle: computed(() => ({
-        animationDirection: props.reverse ? 'reverse' : 'normal',
-      })),
-
-      ariaAttributesComputed: computed(() => ({
-        role: 'progressbar',
-        'aria-label': tp(props.ariaLabel),
-        'aria-valuenow': !props.indeterminate ? props.modelValue : undefined,
-      })),
-    }
-  },
 })
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  modelValue: { type: Number, default: 0 },
+  indeterminate: { type: Boolean, default: false },
+  color: { type: String, default: 'primary' },
+  size: {
+    type: [Number, String] as PropType<number | 'medium' | 'large' | 'small' | string>,
+    default: 'medium',
+  },
+  buffer: { type: Number, default: 100 },
+  rounded: { type: Boolean, default: true },
+  reverse: { type: Boolean, default: false },
+  contentInside: { type: Boolean, default: false },
+  showPercent: { type: Boolean, default: false },
+  max: { type: Number, default: 100 },
+  ariaLabel: { type: String, default: '$t:progressState' },
+})
+
+const { getColor, getHoverColor } = useColors()
+const colorComputed = computed(() => getColor(props.color))
+const { textColorComputed } = useTextColor(colorComputed)
+
+const isTextSize = computed(() => typeof props.size === 'string' && ['small', 'medium', 'large'].includes(props.size))
+
+const getCSSHeight = () => {
+  if (typeof props.size === 'number') { return `${props.size}px` }
+  if (isTextSize.value) { return }
+
+  return props.size
+}
+
+const { tp } = useTranslation()
+
+const progressBarValue = computed(() => 100 / props.max * props.modelValue)
+
+const rootClass = computed(() => ({
+  'va-progress-bar--square': !props.rounded,
+  [`va-progress-bar--${props.size}`]: isTextSize.value,
+}))
+
+const rooStyle = computed(() => (({
+  '--va-progress-bar-color': colorComputed.value,
+  '--va-progress-bar-background-color': getHoverColor(colorComputed.value),
+}) as StyleValue))
+
+const wrapperStyle = computed(() => ({
+  height: getCSSHeight(),
+}))
+
+const bufferStyle = computed(() => ({
+  width: `${props.indeterminate ? 100 : clamp(props.buffer, 0, 100)}%`,
+  color: textColorComputed.value,
+  [props.reverse ? 'right' : 'left']: 0,
+}))
+
+const progressStyle = computed(() => ({
+  marginLeft: props.reverse ? 'auto' : undefined,
+  width: `${clamp(progressBarValue.value, 0, 100)}%`,
+}))
+
+const intermediateStyle = computed(() => ({
+  animationDirection: props.reverse ? 'reverse' : 'normal',
+}))
+
+const ariaAttributesComputed = computed(() => ({
+  role: 'progressbar',
+  'aria-label': tp(props.ariaLabel),
+  'aria-valuenow': !props.indeterminate ? props.modelValue : undefined,
+}))
 </script>
 
 <style lang="scss">

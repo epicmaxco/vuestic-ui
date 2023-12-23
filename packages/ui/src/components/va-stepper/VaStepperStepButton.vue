@@ -21,68 +21,60 @@
     {{ step.label }}
   </li>
 </template>
-<script lang="ts">
-import { computed, defineComponent, nextTick, PropType, shallowRef, watch } from 'vue'
+<script lang="ts" setup>
+import { computed, nextTick, PropType, shallowRef, watch } from 'vue'
 import { VaIcon } from '../va-icon'
 import { useBem, useColors, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
 import { unFunction } from '../../utils/un-function'
 
-export default defineComponent({
+defineOptions({
   name: 'VaStepperStepButton',
-  components: { VaIcon },
-  props: {
-    modelValue: { type: Number, required: true },
-    step: {
-      type: Object as PropType<Step>,
-      required: true,
-    },
-    color: { type: String, required: true },
-    stepIndex: { type: Number, required: true },
-    navigationDisabled: { type: Boolean, required: true },
-    nextDisabled: { type: Boolean, required: true },
-    focus: { type: Object, required: true },
-    stepControls: { type: Object as PropType<StepControls>, required: true },
-  },
-  emits: ['update:modelValue'],
-  setup (props) {
-    const stepElement = shallowRef<HTMLElement>()
-    const hasError = computed(() => props.step.hasError)
-    const { getColor } = useColors()
-    const stepperColor = computed(() => getColor(hasError.value ? 'danger' : props.color))
-
-    const isNextStepDisabled = (index: number) => props.nextDisabled && index > props.modelValue
-
-    const { t } = useTranslation()
-
-    const computedClass = useBem('va-stepper__step-button', () => ({
-      active: props.modelValue >= props.stepIndex,
-      disabled: props.step.disabled || isNextStepDisabled(props.stepIndex),
-      'navigation-disabled': props.navigationDisabled,
-      error: unFunction(hasError.value, props.step) || false,
-    }))
-
-    watch(() => props.focus, () => {
-      if (props.focus.trigger) {
-        nextTick(() => stepElement.value?.focus())
-      }
-    }, { deep: true })
-
-    return {
-      stepElement,
-      isNextStepDisabled,
-      stepperColor,
-      getColor,
-      computedClass,
-
-      ariaAttributesComputed: computed(() => ({
-        tabindex: props.focus.stepIndex === props.stepIndex && !props.navigationDisabled ? 0 : undefined,
-        'aria-disabled': props.step.disabled || isNextStepDisabled(props.stepIndex) ? true : undefined,
-        'aria-current': props.modelValue === props.stepIndex ? t('step') as 'step' : undefined,
-      })),
-    }
-  },
 })
+
+const props = defineProps({
+  modelValue: { type: Number, required: true },
+  step: {
+    type: Object as PropType<Step>,
+    required: true,
+  },
+  color: { type: String, required: true },
+  stepIndex: { type: Number, required: true },
+  navigationDisabled: { type: Boolean, required: true },
+  nextDisabled: { type: Boolean, required: true },
+  focus: { type: Object, required: true },
+  stepControls: { type: Object as PropType<StepControls>, required: true },
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const stepElement = shallowRef<HTMLElement>()
+const hasError = computed(() => props.step.hasError)
+const { getColor } = useColors()
+const stepperColor = computed(() => getColor(hasError.value ? 'danger' : props.color))
+
+const isNextStepDisabled = (index: number) => props.nextDisabled && index > props.modelValue
+
+const { t } = useTranslation()
+
+const computedClass = useBem('va-stepper__step-button', () => ({
+  active: props.modelValue >= props.stepIndex,
+  disabled: props.step.disabled || isNextStepDisabled(props.stepIndex),
+  'navigation-disabled': props.navigationDisabled,
+  error: unFunction(hasError.value, props.step) || false,
+}))
+
+watch(() => props.focus, () => {
+  if (props.focus.trigger) {
+    nextTick(() => stepElement.value?.focus())
+  }
+}, { deep: true })
+
+const ariaAttributesComputed = computed(() => ({
+  tabindex: props.focus.stepIndex === props.stepIndex && !props.navigationDisabled ? 0 : undefined,
+  'aria-disabled': props.step.disabled || isNextStepDisabled(props.stepIndex) ? true : undefined,
+  'aria-current': props.modelValue === props.stepIndex ? t('step') as 'step' : undefined,
+}))
 </script>
 
 <style lang="scss">

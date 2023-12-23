@@ -17,8 +17,8 @@ export const convertValueToString = (value: any, nestingLevel = 1): string => {
     result.push('{\n')
 
     for (const prop in value) {
-      // if prop contains both numbers and literals we wrap it with quotes
-      const correctProp = /(?=.*\d)(?=.*[a-z])/i.test(prop) ? `'${prop}'` : prop
+      // if prop contains both numbers and literals and/or dashes we wrap it with quotes
+      const correctProp = /(?=.*\d)(?=.*[a-z])|(?=.*-)/i.test(prop) ? `'${prop}'` : prop
 
       result.push('\t'.repeat(nestingLevel) + correctProp, ': ', convertValueToString(value[prop], nestingLevel + 1), ',\n')
     }

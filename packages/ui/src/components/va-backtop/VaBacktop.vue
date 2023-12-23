@@ -19,124 +19,118 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
+<script lang="ts" setup>
+import { PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useComponentPresetProp, useTranslation } from '../../composables'
 import { VaButton } from '../va-button'
 import { isServer } from '../../utils/ssr'
 import { warn } from '../../utils/console'
 
-export default defineComponent({
+defineOptions({
   name: 'VaBacktop',
-  components: { VaButton },
-  props: {
-    ...useComponentPresetProp,
-    target: {
-      type: [Object, String] as PropType<Element | string | undefined>,
-      default: undefined,
-    },
-    visibilityHeight: { type: Number, default: 300 },
-    speed: { type: Number, default: 50 },
-    verticalOffset: { type: String, default: '1rem' },
-    horizontalOffset: { type: String, default: '1rem' },
-    color: { type: String, default: '' },
-    horizontalPosition: {
-      type: String as PropType<'right' | 'left'>,
-      default: 'right',
-      validator: (value: string) => ['right', 'left'].includes(value),
-    },
-    verticalPosition: {
-      type: String as PropType<'bottom' | 'top'>,
-      default: 'bottom',
-      validator: (value: string) => ['bottom', 'top'].includes(value),
-    },
-    ariaLabel: { type: String, default: '$t:backToTop' },
+})
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  target: {
+    type: [Object, String] as PropType<Element | string | undefined>,
+    default: undefined,
   },
-  setup (props) {
-    const targetScrollValue = ref(0)
+  visibilityHeight: { type: Number, default: 300 },
+  speed: { type: Number, default: 50 },
+  verticalOffset: { type: String, default: '1rem' },
+  horizontalOffset: { type: String, default: '1rem' },
+  color: { type: String, default: '' },
+  horizontalPosition: {
+    type: String as PropType<'right' | 'left'>,
+    default: 'right',
+    validator: (value: string) => ['right', 'left'].includes(value),
+  },
+  verticalPosition: {
+    type: String as PropType<'bottom' | 'top'>,
+    default: 'bottom',
+    validator: (value: string) => ['bottom', 'top'].includes(value),
+  },
+  ariaLabel: { type: String, default: '$t:backToTop' },
+})
 
-    const computedStyle = computed(() => ({
-      [props.verticalPosition]: props.verticalOffset,
-      [props.horizontalPosition]: props.horizontalOffset,
-    }))
+const targetScrollValue = ref(0)
 
-    let targetElement: Element | Window
+const computedStyle = computed(() => ({
+  [props.verticalPosition]: props.verticalOffset,
+  [props.horizontalPosition]: props.horizontalOffset,
+}))
 
-    const getTargetElement = (): Element | Window => {
-      if (!props.target) {
-        return window
-      }
-      if (typeof props.target === 'string') {
-        const target = document.querySelector(props.target) as Element
-        if (!target) {
-          warn(`Target element [${props.target}] is not found, falling back to window.`)
-          return window
-        }
-        return target
-      }
-      return props.target as Element
+let targetElement: Element | Window
+
+const getTargetElement = (): Element | Window => {
+  if (!props.target) {
+    return window
+  }
+  if (typeof props.target === 'string') {
+    const target = document.querySelector(props.target) as Element
+    if (!target) {
+      warn(`Target element [${props.target}] is not found, falling back to window.`)
+      return window
     }
+    return target
+  }
+  return props.target as Element
+}
 
-    const scrolled = ref(false)
-    const interval = ref(0)
-    const scrollToTop = () => {
-      if (scrolled.value) { return }
+const scrolled = ref(false)
+const interval = ref(0)
+const scrollToTop = () => {
+  if (scrolled.value) { return }
 
-      scrolled.value = true
+  scrolled.value = true
 
-      if (targetElement instanceof Window) {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        })
-
-        return
-      }
-
-      interval.value = window.setInterval(() => {
-        if (targetElement instanceof Element) {
-          if (targetElement.scrollTop === 0) {
-            clearInterval(interval.value)
-            scrolled.value = false
-          } else {
-            const next = Math.floor(targetElement.scrollTop - props.speed)
-            targetElement.scrollTo(0, next)
-          }
-        }
-      }, 15)
-    }
-
-    const handleScroll = () => {
-      targetScrollValue.value = targetElement instanceof Window
-        ? targetElement.scrollY
-        : targetElement.scrollTop
-    }
-
-    const server = isServer()
-
-    const visible = computed(() => {
-      if (server) {
-        return false
-      }
-      return targetScrollValue.value > props.visibilityHeight
+  if (targetElement instanceof Window) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
     })
 
-    if (!server) {
-      onMounted(() => {
-        targetElement = getTargetElement()
-        targetElement.addEventListener('scroll', handleScroll, true)
-      })
-      onBeforeUnmount(() => targetElement?.removeEventListener('scroll', handleScroll))
-    }
+    return
+  }
 
-    return {
-      computedStyle,
-      visible,
-      scrollToTop,
-      ...useTranslation(),
+  interval.value = window.setInterval(() => {
+    if (targetElement instanceof Element) {
+      if (targetElement.scrollTop === 0) {
+        clearInterval(interval.value)
+        scrolled.value = false
+      } else {
+        const next = Math.floor(targetElement.scrollTop - props.speed)
+        targetElement.scrollTo(0, next)
+      }
     }
-  },
+  }, 15)
+}
+
+const handleScroll = () => {
+  targetScrollValue.value = targetElement instanceof Window
+    ? targetElement.scrollY
+    : targetElement.scrollTop
+}
+
+const server = isServer()
+
+const visible = computed(() => {
+  if (server) {
+    return false
+  }
+  return targetScrollValue.value > props.visibilityHeight
 })
+
+if (!server) {
+  onMounted(() => {
+    targetElement = getTargetElement()
+    targetElement.addEventListener('scroll', handleScroll, true)
+  })
+  onBeforeUnmount(() => targetElement?.removeEventListener('scroll', handleScroll))
+}
+
+const { tp, t } = useTranslation()
 </script>
 
 <style lang="scss">

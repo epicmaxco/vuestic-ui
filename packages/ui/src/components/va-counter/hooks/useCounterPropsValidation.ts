@@ -4,8 +4,8 @@ import { warn } from '../../../utils/console'
 
 interface useCounterPropsValidationProps {
   modelValue: string | number,
-  min: number | undefined,
-  max: number | undefined,
+  min?: number | undefined,
+  max?: number | undefined,
   step: number,
 }
 

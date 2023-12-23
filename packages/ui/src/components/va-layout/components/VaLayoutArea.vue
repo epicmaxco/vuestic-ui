@@ -25,42 +25,28 @@
   </Transition>
 </template>
 
-<script lang="ts">
-import { PropType, computed, defineComponent } from 'vue'
-import { AreaName } from '../hooks/useGridTemplateArea'
-import { AreaConfig } from '../hooks/useLayout'
+<script lang="ts" setup>
 import VaLayoutAbsoluteWrapper from './VaLayoutAbsoluteWrapper.vue'
 import VaLayoutFixedWrapper from './VaLayoutFixedWrapper.vue'
+import { PropType, computed } from 'vue'
+import { AreaName } from '../hooks/useGridTemplateArea'
+import { AreaConfig } from '../hooks/useLayout'
 
-// Area is a simple div with a grid-area property
-// If area is absolute, it should be wrapped in a absolute wrapper
-// If area is fixed, it should be wrapped in a fixed wrapper
-// If area is fixed and absolute, it should be wrapped in absolute wrapper and then in fixed wrapper
-export default defineComponent({
+defineOptions({
   name: 'VaLayoutArea',
-
-  components: {
-    VaLayoutAbsoluteWrapper,
-    VaLayoutFixedWrapper,
-  },
-
-  props: {
-    area: { type: String as PropType<AreaName>, required: true },
-    config: { type: Object as PropType<AreaConfig>, required: true },
-  },
-
-  emits: ['overlay-click'],
-
-  setup (props) {
-    return {
-      absolute: computed(() => props.config.absolute || false),
-      fixed: computed(() => props.config.fixed || false),
-      overlay: computed(() => props.config.overlay || false),
-      // Content z-index is always 0, other areas must have bigger z-index by 1
-      zIndex: computed(() => (props.config.order || 0) + 1),
-    }
-  },
 })
+
+const props = defineProps({
+  area: { type: String as PropType<AreaName>, required: true },
+  config: { type: Object as PropType<AreaConfig>, required: true },
+})
+
+const emit = defineEmits(['overlay-click'])
+
+const absolute = computed(() => props.config.absolute || false)
+const fixed = computed(() => props.config.fixed || false)
+const overlay = computed(() => props.config.overlay || false)
+const zIndex = computed(() => (props.config.order || 0) + 1)
 </script>
 
 <style lang="scss">

@@ -8,28 +8,22 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, StyleValue } from 'vue'
+<script lang="ts" setup>
+import { computed, StyleValue } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
-export default defineComponent({
+defineOptions({
   name: 'VaListItemLabel',
-  props: {
-    ...useComponentPresetProp,
-    caption: { type: Boolean, default: false },
-    lines: { type: Number, default: 1 },
-  },
-
-  setup (props) {
-    const computedClass = computed(() => ({ 'va-list-item-label--caption': props.caption }))
-    const computedStyle = computed(() => ({ '-webkit-line-clamp': props.lines } as StyleValue))
-
-    return {
-      computedClass,
-      computedStyle,
-    }
-  },
 })
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  caption: { type: Boolean, default: false },
+  lines: { type: Number, default: 1 },
+})
+
+const computedClass = computed(() => ({ 'va-list-item-label--caption': props.caption }))
+const computedStyle = computed(() => ({ '-webkit-line-clamp': props.lines } as StyleValue))
 </script>
 
 <style lang="scss">
