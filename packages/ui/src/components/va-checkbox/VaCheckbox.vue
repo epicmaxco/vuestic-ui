@@ -190,8 +190,6 @@ const displayVal = computed(() => props.vertical ? '--va-checkbox-display-flex' 
 
 defineExpose({
   toggleSelection,
-  blur,
-  focus,
 })
 </script>
 

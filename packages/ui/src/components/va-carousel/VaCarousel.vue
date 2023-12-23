@@ -232,8 +232,6 @@ defineExpose({
   goToWithPause,
   prevWithPause,
   nextWithPause,
-  focus,
-  blur,
 })
 </script>
 

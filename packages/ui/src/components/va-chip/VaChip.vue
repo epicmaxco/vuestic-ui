@@ -152,8 +152,6 @@ const { tp } = useTranslation()
 
 defineExpose({
   close,
-  blur,
-  focus,
 })
 </script>
 
