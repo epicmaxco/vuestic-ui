@@ -97,7 +97,7 @@
 </template>
 
 <script lang="ts">
-import { toRefs, computed, shallowRef, InputHTMLAttributes, ComputedRef, toRef, useAttrs, useSlots } from 'vue'
+import { toRefs, computed, shallowRef, InputHTMLAttributes, ComputedRef, toRef, useAttrs, useSlots, ref } from 'vue'
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 
@@ -121,6 +121,7 @@ import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaButton } from '../va-button'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
+import isNil from 'lodash/isNil'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change'],
@@ -152,8 +153,8 @@ const props = defineProps({
     // input
   modelValue: { type: [String, Number], default: 0 },
   manualInput: { type: Boolean, default: false },
-  min: { type: Number, default: null },
-  max: { type: Number, default: null },
+  min: { type: Number },
+  max: { type: Number },
   step: { type: Number, default: 1 },
   color: { type: String, default: 'primary' },
     // icons & buttons
@@ -179,7 +180,8 @@ const emit = defineEmits([
 ])
 
 const input = shallowRef<HTMLInputElement | HTMLDivElement>()
-const { min, max, step } = toRefs(props)
+
+const { min = ref(undefined), max = ref(undefined), step } = toRefs(props)
 
 const {
   isFocused,
@@ -235,13 +237,13 @@ const calculateCounterValue = (counterValue: number) => {
 }
 
 const isMinReached = computed(() => {
-  if (typeof min.value === 'undefined') { return false }
+  if (isNil(min.value)) { return false }
 
   return Number(valueComputed.value) <= min.value
 })
 
 const isMaxReached = computed(() => {
-  if (typeof max.value === 'undefined') { return false }
+  if (isNil(max.value)) { return false }
 
   return step.value
     ? Number(valueComputed.value) > (max.value - step.value)
@@ -370,6 +372,14 @@ useCounterPropsValidation(props)
 const fieldListeners = createFieldListeners(emit)
 const inputListeners = createInputListeners(emit)
 const inputWrapperPropsComputed = filterComponentProps(VaInputWrapperProps)
+
+defineExpose({
+  focus,
+  blur,
+  decreaseCount,
+  increaseCount,
+  reset,
+})
 </script>
 
 <style lang="scss">
