@@ -128,8 +128,8 @@ const { getColor, getTextColor, setHSLAColor } = useColors()
 const { accordionProps, valueProxy: computedModelValue = valueComputed } = useAccordionItem()
 
 const bodyHeight = ref()
-useResizeObserver([body], () => {
-  bodyHeight.value = body.value?.clientHeight ?? 0
+useResizeObserver([body], ([body]) => {
+  bodyHeight.value = body.contentRect.height ?? 0
 })
 
 const height = computed(() => computedModelValue.value ? bodyHeight.value : 0)
@@ -172,6 +172,7 @@ const isHeightChanging = ref(false)
 watch(height, (newValue, oldValue) => {
   // If no transition happened, just got initial height value
   if (oldValue === undefined) { return }
+  if (isHeightChanging.value === true) { return }
   isHeightChanging.value = true
 })
 
@@ -204,9 +205,21 @@ const headerStyle = computed(() => ({
   backgroundColor: headerBackground.value,
 }))
 
+const bodyVisibility = computed(() => {
+  if (computedModelValue.value) {
+    return 'visible' as const
+  }
+
+  if (isHeightChanging.value) {
+    return 'visible' as const
+  }
+
+  return 'hidden' as const
+})
+
 const contentStyle = computed(() => {
   return {
-    visibility: bodyHeight.value > 0 ? 'visible' as const : 'hidden' as const,
+    display: bodyVisibility.value === 'hidden' ? 'none' : '',
     height: `${height.value}px`,
     transitionDuration: getTransition(),
     background: computedModelValue.value ? contentBackground.value : '',
@@ -282,6 +295,8 @@ defineExpose({
       width: 100%;
       font-weight: var(--va-collapse-header-content-text-font-weight);
     }
+
+    outline: 4px solid red;
 
     @include keyboard-focus-outline(var(--va-collapse-header-content-border-radius));
   }

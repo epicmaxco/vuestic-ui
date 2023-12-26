@@ -109,5 +109,7 @@ const bg = getColor(sidebar?.color)
   box-sizing: border-box;
   color: currentColor;
   cursor: pointer;
+
+  @include keyboard-focus-outline('inherit', 2px, -2px);
 }
 </style>
