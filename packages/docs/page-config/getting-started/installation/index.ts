@@ -18,7 +18,7 @@ export default definePageConfig({
 
     block.subtitle("Vue CLI installation"),
     block.paragraph("If you have app based on Vue CLI this is a way to install Vuestic UI. Works fine with vite or webpack. Prefer `create-vuestic` for new projects"),
-    block.alert("Installing Vuestic UI via the plugin would modify your `package.json` and `main.(js`&#124;`ts)` files, so make sure you’ve committed your code before proceeding to avoid data loss.", "warning"),
+    block.alert("Installing Vuestic UI via the plugin would modify your `package.json` and `main.(js|ts)` files, so make sure you’ve committed your code before proceeding to avoid data loss.", "warning"),
     block.paragraph("First, make sure you've got [Vue CLI](https://cli.vuejs.org/guide/installation.html)[[target=_blank]] installed globally:"),
     block.code("cli", "bash"),
     block.paragraph("Notice also that the minimum supported version of Vue CLI is v4.0.0. In case you've got an older version installed, please, consider [upgrading](https://cli.vuejs.org/migrating-from-v3/#migrating-from-v3)[[target=_blank]] it."),
