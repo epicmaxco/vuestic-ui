@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center flex-col gap-2 sm:flex-row">
+  <div class="flex flex-col sm:flex-row items-start gap-2">
     <VaButton
       icon="clear"
       color="danger"

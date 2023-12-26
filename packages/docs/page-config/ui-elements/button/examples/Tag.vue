@@ -1,17 +1,17 @@
 <template>
-  <VaButton
-    class="mr-6 mb-2"
-    href="https://vuestic.dev/"
-  >
-    External
-  </VaButton>
-  <VaButton
-    class="mr-6 mb-2"
-    to="/getting-started/installation"
-  >
-    Inner
-  </VaButton>
-  <VaButton tag="div">
-    I'm button (no)
-  </VaButton>
+  <div class="flex flex-col sm:flex-row gap-2 items-start">
+    <VaButton
+      href="https://vuestic.dev/"
+    >
+      External
+    </VaButton>
+    <VaButton
+      to="/getting-started/installation"
+    >
+      Inner
+    </VaButton>
+    <VaButton tag="div">
+      I'm button (no)
+    </VaButton>
+  </div>
 </template>
