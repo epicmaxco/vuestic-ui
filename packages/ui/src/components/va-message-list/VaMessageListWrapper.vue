@@ -14,36 +14,31 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, toRef } from 'vue'
+<script lang="ts" setup>
+import { computed, toRef } from 'vue'
 
 import { useValidationProps } from '../../composables'
 
 import { VaMessageList } from './VaMessageList'
 import { WithSlotInheritance } from '../../utils/with-slot-inheritance'
 
-export default defineComponent({
+defineOptions({
   name: 'VaMessageListWrapper',
-
-  components: { VaMessageList: WithSlotInheritance(VaMessageList) },
-
-  props: {
-    ...useValidationProps,
-  },
-
-  setup (props) {
-    return {
-      messagesColor: computed(() => {
-        if (props.error) { return 'danger' }
-        if (props.success) { return 'success' }
-        return ''
-      }),
-      hasError: toRef(props, 'error'),
-      messagesComputed: computed(() => props.error ? props.errorMessages : props.messages),
-      errorLimit: computed(() => props.error ? Number(props.errorCount) : 99),
-    }
-  },
 })
+
+const props = defineProps({
+  ...useValidationProps,
+})
+
+const messagesColor = computed(() => {
+  if (props.error) { return 'danger' }
+  if (props.success) { return 'success' }
+  return ''
+})
+
+const hasError = toRef(props, 'error')
+const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
+const errorLimit = computed(() => props.error ? Number(props.errorCount) : 99)
 </script>
 
 <style lang='scss'>

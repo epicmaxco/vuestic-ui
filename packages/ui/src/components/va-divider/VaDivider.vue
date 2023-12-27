@@ -16,43 +16,45 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { computed, PropType, useSlots } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { useColors } from '../../composables/useColors'
 
 const prefixClass = 'va-divider'
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaDivider',
-  props: {
-    ...useComponentPresetProp,
-    vertical: { type: Boolean, default: false },
-    dashed: { type: Boolean, default: false },
-    inset: { type: Boolean, default: false },
-    orientation: {
-      type: String as PropType<'left' | 'right' | 'center'>,
-      default: 'center',
-      validator: (value: string) => ['left', 'right', 'center'].includes(value),
-    },
-    color: { type: String, default: 'backgroundBorder' },
-  },
-  setup (props, { slots }) {
-    const { getColor } = useColors()
-
-    const colorComputed = computed(() => getColor(props.color))
-
-    return {
-      colorComputed,
-      hasSlot: computed(() => !!slots.default),
-      classComputed: computed(() => ({
-        [`${prefixClass}--vertical`]: props.vertical,
-        [`${prefixClass}--inset`]: props.inset,
-        [`${prefixClass}--${props.orientation}`]: props.orientation && !props.vertical,
-        [`${prefixClass}--dashed`]: props.dashed,
-      })),
-    }
-  },
 })
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  vertical: { type: Boolean, default: false },
+  dashed: { type: Boolean, default: false },
+  inset: { type: Boolean, default: false },
+  orientation: {
+    type: String as PropType<'left' | 'right' | 'center'>,
+    default: 'center',
+    validator: (value: string) => ['left', 'right', 'center'].includes(value),
+  },
+  color: { type: String, default: 'backgroundBorder' },
+})
+
+const { getColor } = useColors()
+
+const colorComputed = computed(() => getColor(props.color))
+
+const slots = useSlots()
+const hasSlot = computed(() => !!slots.default)
+
+const classComputed = computed(() => ({
+  [`${prefixClass}--vertical`]: props.vertical,
+  [`${prefixClass}--inset`]: props.inset,
+  [`${prefixClass}--${props.orientation}`]: props.orientation && !props.vertical,
+  [`${prefixClass}--dashed`]: props.dashed,
+}))
 </script>
 
 <style lang="scss">

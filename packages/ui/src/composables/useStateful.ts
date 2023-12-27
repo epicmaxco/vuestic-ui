@@ -11,8 +11,6 @@ export type StatefulOptions<T> = {
   defaultValue?: T
 }
 
-type NonUndefined<T extends any> = T extends undefined ? never : T
-
 /**
  * You could add these props to any component by destructuring them inside props option.
  * @example
@@ -39,15 +37,15 @@ export const useStatefulEmits = ['update:modelValue'] as const
  */
 export const useStateful = <
   T,
-  D extends any,
-  O extends StatefulOptions<D>,
   Key extends string = 'modelValue',
-  P extends StatefulProps & Record<Key, T> = StatefulProps & Record<Key, T>
+  D = T,
+  P extends StatefulProps & (Record<Key, T> | { readonly [key in Key]?: T }) = StatefulProps & (Record<Key, T> | { readonly [key in Key]?: T }),
+  E extends (name: `update:${Key}`, ...args: any[]) => void = (name: `update:${Key}`, ...args: any[]) => void
 >(
     props: P,
-    emit: (name: `update:${Key}`, ...args: any[]) => void,
+    emit: E,
     key: Key = 'modelValue' as Key,
-    options: O = {} as O,
+    options: StatefulOptions<D> = {} as StatefulOptions<D>,
   ) => {
   const { eventName, defaultValue } = options
   const event = (eventName || `update:${key.toString()}`) as `update:${Key}`

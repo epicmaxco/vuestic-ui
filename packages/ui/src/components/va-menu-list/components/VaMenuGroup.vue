@@ -7,32 +7,28 @@
   <slot />
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 import { useColors } from '../../../composables'
 
-export default defineComponent({
+defineOptions({
   name: 'VaMenuGroup',
-  props: {
-    groupName: {
-      type: String,
-      required: true,
-    },
-    color: {
-      type: String,
-      default: 'secondary',
-    },
+})
+
+const props = defineProps({
+  groupName: {
+    type: String,
+    required: true,
   },
-  setup (props) {
-    const { getColor } = useColors()
-
-    const colorComputed = computed(() => getColor(props.color))
-
-    return {
-      colorComputed,
-    }
+  color: {
+    type: String,
+    default: 'secondary',
   },
 })
+
+const { getColor } = useColors()
+
+const colorComputed = computed(() => getColor(props.color))
 </script>
 
 <style lang="scss" scoped>

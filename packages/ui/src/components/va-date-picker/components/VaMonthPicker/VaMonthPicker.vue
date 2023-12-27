@@ -26,74 +26,57 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, PropType, toRefs, watch } from 'vue'
+<script lang="ts" setup>
+import VaDatePickerCell from '../VaDatePickerCell.vue'
+import { computed, PropType, toRefs, watch } from 'vue'
 
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
 
 import { DatePickerMode, DatePickerView, DatePickerModelValue } from '../../types'
 
-import VaDatePickerCell from '../VaDatePickerCell.vue'
-
-export default defineComponent({
+defineOptions({
   name: 'VaMonthPicker',
-
-  components: { VaDatePickerCell },
-
-  props: {
-    modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
-    monthNames: { type: Array as PropType<string[]>, required: true },
-    view: { type: Object as PropType<DatePickerView>, default: () => ({ type: 'month' }) },
-    allowedMonths: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
-    highlightToday: { type: Boolean, default: true },
-    mode: { type: String as PropType<DatePickerMode>, default: 'auto' },
-    readonly: { type: Boolean, default: false },
-    color: { type: String, default: 'primary' },
-  },
-
-  emits: ['update:modelValue', 'hover:month', 'click:month'],
-
-  setup (props, { emit }) {
-    const { view } = toRefs(props)
-
-    const months = computed(() => Array.from(Array(12).keys()).map((month) => new Date(view.value.year, month)))
-
-    const {
-      hoveredIndex,
-      onClick,
-      isToday,
-      isSelected,
-      isInRange,
-    } = useDatePicker('month', months, props, emit)
-
-    const isDisabled = (date: Date) => props.allowedMonths === undefined ? false : !props.allowedMonths(date)
-
-    const {
-      focusedCellIndex, containerAttributes,
-    } = useGridKeyboardNavigation({
-      rowSize: 3,
-      start: 0,
-      end: months.value.length,
-      onSelected: (selectedIndex) => onClick(months.value[selectedIndex]),
-    })
-
-    watch(focusedCellIndex, (index) => { hoveredIndex.value = index })
-    watch(hoveredIndex, (index) => { focusedCellIndex.value = index })
-
-    return {
-      months,
-      hoveredIndex,
-      onClick,
-      isToday,
-      isSelected,
-      isInRange,
-      isDisabled,
-      containerAttributes,
-      focusedCellIndex,
-    }
-  },
 })
+
+const props = defineProps({
+  modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
+  monthNames: { type: Array as PropType<string[]>, required: true },
+  view: { type: Object as PropType<DatePickerView>, default: () => ({ type: 'month' }) },
+  allowedMonths: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
+  highlightToday: { type: Boolean, default: true },
+  mode: { type: String as PropType<DatePickerMode>, default: 'auto' },
+  readonly: { type: Boolean, default: false },
+  color: { type: String, default: 'primary' },
+})
+
+const emit = defineEmits(['update:modelValue', 'hover:month', 'click:month'])
+
+const { view } = toRefs(props)
+
+const months = computed(() => Array.from(Array(12).keys()).map((month) => new Date(view.value.year, month)))
+
+const {
+  hoveredIndex,
+  onClick,
+  isToday,
+  isSelected,
+  isInRange,
+} = useDatePicker('month', months, props, emit)
+
+const isDisabled = (date: Date) => props.allowedMonths === undefined ? false : !props.allowedMonths(date)
+
+const {
+  focusedCellIndex, containerAttributes,
+} = useGridKeyboardNavigation({
+  rowSize: 3,
+  start: 0,
+  end: months.value.length,
+  onSelected: (selectedIndex) => onClick(months.value[selectedIndex]),
+})
+
+watch(focusedCellIndex, (index) => { hoveredIndex.value = index })
+watch(hoveredIndex, (index) => { focusedCellIndex.value = index })
 </script>
 
 <style lang="scss">
