@@ -25,7 +25,7 @@ export interface VuesticOptions {
    *
    * If `false` you will need to install fonts manually. If you're going to use different font, don't forget to change `--va-font-family` CSS variable.
    *
-   * @notice this option adds `Source Sans Pro` and `Material Icons` fonts.
+   * @notice this option adds `Source Sans Pro` and `Material Symbols Outlined` fonts.
    *
    * @default true
    *
@@ -36,7 +36,7 @@ export interface VuesticOptions {
 
   /**
    * Vuestic will automatically store its theme in cookies. If you want to change the key, you can do it here.
-   * 
+   *
    * @default 'vuestic-theme'
    */
   themeCookieKey: string

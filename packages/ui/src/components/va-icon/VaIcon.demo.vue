@@ -1,7 +1,7 @@
 <template>
   <VbDemo>
     <VbCard title="MD">
-      <va-icon class="material-icons">home</va-icon>
+      <va-icon class="material-symbols-outlined">home</va-icon>
       <va-icon name="home" />
     </VbCard>
     <VbCard title="MSO">

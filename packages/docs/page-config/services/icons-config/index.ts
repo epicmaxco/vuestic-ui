@@ -52,7 +52,7 @@ export default definePageConfig({
 
     block.headline("Interactive playground"),
     block.paragraph("Here you can see how your code will be transformed with different icon configs. You can change icon config params to see how it impact on final render. See our presets before play."),
-    block.alert("By default Vuestic require only Material Icons. Other icon libraries you need to setup yourself.", "info"),
+    block.alert("By default Vuestic require only Material Symbols Outlined. Other icon libraries you need to setup yourself.", "info"),
     block.component("playground"),
 
     // aliases

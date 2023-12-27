@@ -31,7 +31,7 @@ export default definePageConfig({
         requireIcons: true,
       },
     }),
-    block.alert("Notice that Vuestic UI uses only Material Icons by default. You need to manually install additional libraries.", "warning"),
+    block.alert("Notice that Vuestic UI uses only Material Symbols Outlined by default. You need to manually install additional libraries.", "warning"),
     block.example("Color", {
       title: "Color",
       description: "Set different colors using the `color` prop. You can either use a theme string or the HEX color value."

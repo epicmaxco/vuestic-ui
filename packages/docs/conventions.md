@@ -49,7 +49,7 @@ In future we also plan to be :
 ### Fonts
 
 * General text: `https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700`
-* Icons: `https://fonts.googleapis.com/icon?family=Material+Icons`
+* Icons: `https://fonts.googleapis.com/icon?family=Material+Symobls+Outlined`
 
 ## Code style
 

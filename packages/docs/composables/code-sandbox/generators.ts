@@ -9,7 +9,7 @@ export const getCodeSandboxHtml = ({ requireIcons = false }: CodeSandboxConfig):
       rel="stylesheet"
     >
     <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined"
       rel="stylesheet"
     >
     <link
