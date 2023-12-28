@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 
 import { useBem, useStrictInject } from '../../../composables'
 import { VaFileUploadKey } from '../types'
@@ -31,51 +31,38 @@ import { VaButton } from '../../va-button'
 import { VaProgressBar } from '../../va-progress-bar'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadUndo component should be used in the context of VaFileUpload component'
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaFileUploadUndo',
+})
 
-  components: {
-    VaProgressBar,
-    VaButton,
-  },
+const props = defineProps({
+  vertical: { type: Boolean, default: false },
+})
 
-  props: {
-    vertical: { type: Boolean, default: false },
-  },
+const emit = defineEmits(['recover'])
 
-  emits: ['recover'],
+const progress = ref(100)
+const {
+  undoDuration,
+  undoButtonText,
+  deletedFileMessage,
+} = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
 
-  setup: (props) => {
-    const progress = ref(100)
-    const {
-      undoDuration,
-      undoButtonText,
-      deletedFileMessage,
-    } = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
+const computedClasses = useBem('va-file-upload-undo', () => ({
+  vertical: props.vertical,
+}))
 
-    const computedClasses = useBem('va-file-upload-undo', () => ({
-      vertical: props.vertical,
-    }))
+const undoDurationStyle = computed(() => `${undoDuration.value ?? 0}ms`)
 
-    const undoDurationStyle = computed(() => `${undoDuration.value ?? 0}ms`)
-
-    onMounted(() => {
-      const timer = setTimeout(() => {
-        progress.value = 0
-        clearTimeout(timer)
-      }, 0)
-    })
-
-    return {
-      progress,
-      undoDuration,
-      undoButtonText,
-      computedClasses,
-      undoDurationStyle,
-      deletedFileMessage,
-    }
-  },
+onMounted(() => {
+  const timer = setTimeout(() => {
+    progress.value = 0
+    clearTimeout(timer)
+  }, 0)
 })
 </script>
 

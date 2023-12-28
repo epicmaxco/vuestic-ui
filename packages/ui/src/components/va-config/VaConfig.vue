@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, h, Fragment } from 'vue'
+import { computed, PropType, h, Fragment, defineComponent } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { ComponentConfig } from '../../services/component-config'
 
@@ -33,46 +33,43 @@ const CssVarsRenderer = defineComponent({
     }) || undefined)
   },
 })
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaConfig',
-  components: { CssVarsRenderer },
-  props: {
-    ...useComponentPresetProp,
-    components: { type: Object as PropType<ComponentConfig>, default: () => ({}) },
-    colors: { type: Object as PropType<PartialGlobalConfig['colors']> },
-    i18n: { type: Object as PropType<PartialGlobalConfig['i18n']> },
-  },
   inheritAttrs: false,
-  setup (props) {
-    const prevChain = useLocalConfig()
-    // We want it to be an array and not a merged object for optimization purposes
-    const nextChain = computed(() => [...prevChain.value, props.components])
+})
 
-    provideLocalConfig(nextChain)
+const props = defineProps({
+  ...useComponentPresetProp,
+  components: { type: Object as PropType<ComponentConfig>, default: () => ({}) },
+  colors: { type: Object as PropType<PartialGlobalConfig['colors']> },
+  i18n: { type: Object as PropType<PartialGlobalConfig['i18n']> },
+})
 
-    const newConfig = useGlobalConfigProvider(computed(() => {
-      const config = {} as any
+const prevChain = useLocalConfig()
+// We want it to be an array and not a merged object for optimization purposes
+const nextChain = computed(() => [...prevChain.value, props.components])
 
-      if (props.colors) {
-        config.colors = props.colors
-      }
+provideLocalConfig(nextChain)
 
-      if (props.i18n) {
-        config.i18n = props.i18n
-      }
+const newConfig = useGlobalConfigProvider(computed(() => {
+  const config = {} as any
 
-      return config
-    }))
+  if (props.colors) {
+    config.colors = props.colors
+  }
 
-    const doRenderCssVars = computed(() => {
-      return Boolean(props.colors)
-    })
+  if (props.i18n) {
+    config.i18n = props.i18n
+  }
 
-    return {
-      newConfig,
-      doRenderCssVars,
-    }
-  },
+  return config
+}))
+
+const doRenderCssVars = computed(() => {
+  return Boolean(props.colors)
 })
 </script>

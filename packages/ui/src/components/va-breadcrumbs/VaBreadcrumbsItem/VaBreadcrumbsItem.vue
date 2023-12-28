@@ -16,26 +16,25 @@
   </component>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 
 import { useRouterLink, useRouterLinkProps } from '../../../composables'
 
-export default defineComponent({
+defineOptions({
   name: 'VaBreadcrumbsItem',
-  props: {
-    ...useRouterLinkProps,
-    disabled: { type: Boolean, default: false },
-    label: { type: String, default: '' },
-  },
-  setup: (props) => {
-    const { tagComputed, hrefComputed, isLinkTag } = useRouterLink(props)
-    const classComputed = computed(() => ({
-      'va-breadcrumb-item--link': isLinkTag.value,
-    }))
-    return { tagComputed, hrefComputed, classComputed }
-  },
 })
+
+const props = defineProps({
+  ...useRouterLinkProps,
+  disabled: { type: Boolean, default: false },
+  label: { type: String, default: '' },
+})
+
+const { tagComputed, hrefComputed, isLinkTag } = useRouterLink(props)
+const classComputed = computed(() => ({
+  'va-breadcrumb-item--link': isLinkTag.value,
+}))
 </script>
 
 <style lang="scss">

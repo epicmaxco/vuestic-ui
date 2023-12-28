@@ -77,7 +77,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, computed, ref } from 'vue'
+import { PropType, computed, ref, useSlots } from 'vue'
 import omit from 'lodash/omit.js'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
@@ -102,112 +102,107 @@ const { createEmits: createMainButtonEmits, createVOnListeners: createMainButton
 
 const VaButtonProps = omit(extractComponentProps(VaButton), ['iconRight', 'block'])
 const VaDropdownProps = extractComponentProps(VaDropdown)
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaButtonDropdown',
-  components: {
-    VaButton,
-    VaDropdown,
-    VaButtonGroup,
-    VaDropdownContent,
-  },
-  emits: ['update:modelValue', ...createEmits(), ...createMainButtonEmits()],
-  props: {
-    ...useComponentPresetProp,
-    ...VaButtonProps,
-    ...VaDropdownProps,
-    ...useStatefulProps,
-    ...usePlacementAliasesProps,
-    modelValue: { type: Boolean, default: false },
-    stateful: { type: Boolean, default: true },
+})
 
-    icon: { type: String, default: 'va-arrow-down' },
-    openedIcon: { type: String, default: 'va-arrow-up' },
-    hideIcon: { type: Boolean, default: false },
-    leftIcon: { type: Boolean, default: false },
-    iconColor: { type: String, default: '' },
+const props = defineProps({
+  ...useComponentPresetProp,
+  ...VaButtonProps,
+  ...VaDropdownProps,
+  ...useStatefulProps,
+  ...usePlacementAliasesProps,
+  modelValue: { type: Boolean, default: false },
+  stateful: { type: Boolean, default: true },
 
-    disabled: { type: Boolean, default: false },
-    disableButton: { type: Boolean, default: false },
-    disableDropdown: { type: Boolean, default: false },
+  icon: { type: String, default: 'va-arrow-down' },
+  openedIcon: { type: String, default: 'va-arrow-up' },
+  hideIcon: { type: Boolean, default: false },
+  leftIcon: { type: Boolean, default: false },
+  iconColor: { type: String, default: '' },
 
-    offset: { type: [Number, Array] as PropType<number | [number, number]>, default: 2 },
-    keepAnchorWidth: { type: Boolean, default: false },
-    closeOnContentClick: { type: Boolean, default: true },
+  disabled: { type: Boolean, default: false },
+  disableButton: { type: Boolean, default: false },
+  disableDropdown: { type: Boolean, default: false },
 
-    split: { type: Boolean },
-    splitTo: { type: String, default: '' },
-    splitHref: { type: String, default: '' },
+  offset: { type: [Number, Array] as PropType<number | [number, number]>, default: 2 },
+  keepAnchorWidth: { type: Boolean, default: false },
+  closeOnContentClick: { type: Boolean, default: true },
 
-    loading: { type: Boolean, default: false },
-    label: { type: String },
+  split: { type: Boolean },
+  splitTo: { type: String, default: '' },
+  splitHref: { type: String, default: '' },
 
-    ariaLabel: { type: String, default: '$t:toggleDropdown' },
-  },
+  loading: { type: Boolean, default: false },
+  label: { type: String },
 
-  setup (props, { emit, slots }) {
-    const { valueComputed } = useStateful(props, emit)
+  ariaLabel: { type: String, default: '$t:toggleDropdown' },
+})
 
-    const computedIcon = computed(() => valueComputed.value ? props.openedIcon : props.icon)
+const emit = defineEmits(['update:modelValue', ...createEmits(), ...createMainButtonEmits()])
 
-    const computedClass = useBem('va-button-dropdown', () => ({
-      split: props.split,
-    }))
+const { valueComputed } = useStateful(props, emit)
 
-    const computedButtonIcons = computed(() => {
-      if (props.hideIcon) { return {} }
+const computedIcon = computed(() => valueComputed.value ? props.openedIcon : props.icon)
 
-      const propName = (props.label || slots.label) && !props.leftIcon ? 'icon-right' : 'icon'
-      return { [propName]: computedIcon.value }
-    })
+const computedClass = useBem('va-button-dropdown', () => ({
+  split: props.split,
+}))
 
-    const buttonPropsFiltered = computed(() => {
-      let ignoredProps = ['to', 'href', 'loading', 'icon']
-      const presetProps = [
-        'plain',
-        'textOpacity', 'backgroundOpacity',
-        'hoverOpacity', 'hoverBehavior', 'hoverOpacity',
-        'pressedOpacity', 'pressedBehavior', 'pressedOpacity',
-      ]
+const slots = useSlots()
 
-      if (props.preset) {
-        ignoredProps = [...ignoredProps, ...presetProps]
-      }
+const computedButtonIcons = computed(() => {
+  if (props.hideIcon) { return {} }
 
-      const filteredProps = omit(VaButtonProps, ignoredProps)
-      return Object.keys(filteredProps)
-    })
-    const buttonPropsComputed = computed(
-      () => Object.entries(props)
-        .filter(([key, _]) => buttonPropsFiltered.value.includes(key))
-        .reduce((acc, [key, value]) => {
-          Object.assign(acc, { [key]: value })
-          return acc
-        }, {}),
-    )
+  const propName = (props.label || slots.label) && !props.leftIcon ? 'icon-right' : 'icon'
+  return { [propName]: computedIcon.value }
+})
 
-    const computedMainButtonProps = computed(() => ({
-      to: props.splitTo,
-      href: props.splitHref,
-      loading: props.loading,
-    }))
+const buttonPropsFiltered = computed(() => {
+  let ignoredProps = ['to', 'href', 'loading', 'icon']
+  const presetProps = [
+    'plain',
+    'textOpacity', 'backgroundOpacity',
+    'hoverOpacity', 'hoverBehavior', 'hoverOpacity',
+    'pressedOpacity', 'pressedBehavior', 'pressedOpacity',
+  ]
 
-    const hideDropdown = () => { valueComputed.value = false }
+  if (props.preset) {
+    ignoredProps = [...ignoredProps, ...presetProps]
+  }
 
-    return {
-      ...useTranslation(),
-      vaDropdownProps: filterComponentProps(VaDropdownProps),
-      hideDropdown,
-      valueComputed,
-      computedIcon,
-      computedClass,
-      computedButtonIcons,
-      buttonPropsComputed,
-      computedMainButtonProps,
-      listeners: createListeners(emit),
-      mainButtonListeners: createMainButtonListeners(emit),
-    }
-  },
+  const filteredProps = omit(VaButtonProps, ignoredProps)
+  return Object.keys(filteredProps)
+})
+const buttonPropsComputed = computed(
+  () => Object.entries(props)
+    .filter(([key, _]) => buttonPropsFiltered.value.includes(key))
+    .reduce((acc, [key, value]) => {
+      Object.assign(acc, { [key]: value })
+      return acc
+    }, {}),
+)
+
+const computedMainButtonProps = computed(() => ({
+  to: props.splitTo,
+  href: props.splitHref,
+  loading: props.loading,
+}))
+
+const hideDropdown = () => { valueComputed.value = false }
+
+const vaDropdownProps = filterComponentProps(VaDropdownProps)
+const listeners = createListeners(emit)
+const mainButtonListeners = createMainButtonListeners(emit)
+
+const { t, tp } = useTranslation()
+
+defineExpose({
+  hideDropdown,
 })
 </script>
 

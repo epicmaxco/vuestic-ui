@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, PropType } from 'vue'
+import { ref, PropType } from 'vue'
 
 import { useBem, useFocus, useStrictInject, useTranslation } from '../../../composables'
 import { VaFileUploadKey, ConvertedFile } from '../types'
@@ -46,71 +46,53 @@ import { VaListItem, VaListItemSection } from '../../va-list'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadListItem component should be used in the context of VaFileUpload component'
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+const { tp } = useTranslation()
+
+defineOptions({
   name: 'VaFileUploadListItem',
+})
 
-  components: {
-    VaListItem,
-    VaListItemSection,
-    VaFileUploadUndo,
-    VaButton,
-  },
+const props = defineProps({
+  file: { type: Object as PropType<ConvertedFile | null>, default: null },
+  color: { type: String, default: 'success' },
 
-  emits: ['remove'],
+  ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
+})
 
-  props: {
-    file: { type: Object as PropType<ConvertedFile | null>, default: null },
-    color: { type: String, default: 'success' },
+const emit = defineEmits(['remove'])
 
-    ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
-  },
+const {
+  undo,
+  disabled,
+  undoDuration,
+} = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
+const { onFocus, onBlur } = useFocus()
+const removed = ref(false)
 
-  setup (props, { emit }) {
-    const {
-      undo,
-      disabled,
-      undoDuration,
-    } = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
-    const { onFocus, onBlur } = useFocus()
-    const removed = ref(false)
+const removeFile = () => {
+  if (undo.value) {
+    removed.value = true
 
-    const removeFile = () => {
-      if (undo.value) {
-        removed.value = true
-
-        setTimeout(() => {
-          if (removed.value) {
-            emit('remove')
-            removed.value = false
-          }
-        }, undoDuration.value ?? 0)
-      } else {
+    setTimeout(() => {
+      if (removed.value) {
         emit('remove')
         removed.value = false
       }
-    }
+    }, undoDuration.value ?? 0)
+  } else {
+    emit('remove')
+    removed.value = false
+  }
+}
 
-    const recoverFile = () => { removed.value = false }
+const recoverFile = () => { removed.value = false }
 
-    const computedClasses = useBem('va-file-upload-list-item', () => ({
-      undo: removed.value,
-    }))
-
-    return {
-      ...useTranslation(),
-      undo,
-      removed,
-      disabled,
-      computedClasses,
-
-      onBlur,
-      onFocus,
-      removeFile,
-      recoverFile,
-    }
-  },
-})
+const computedClasses = useBem('va-file-upload-list-item', () => ({
+  undo: removed.value,
+}))
 </script>
 
 <style lang='scss'>
