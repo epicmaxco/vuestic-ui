@@ -487,6 +487,7 @@ export default defineComponent({
     height: 100%;
     margin: 0;
     opacity: 0;
+    cursor: var(--va-switch-inner-cursor);
   }
 }
 </style>
