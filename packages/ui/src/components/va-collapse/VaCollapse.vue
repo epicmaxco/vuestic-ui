@@ -60,6 +60,7 @@
       @transitionend="onTransitionEnd"
     >
       <div
+        v-if="doRenderBody"
         class="va-collapse__body"
         ref="body"
         role="region"
@@ -205,21 +206,21 @@ const headerStyle = computed(() => ({
   backgroundColor: headerBackground.value,
 }))
 
-const bodyVisibility = computed(() => {
+// Prevent body from rendering, to prevent tabbing into it
+const doRenderBody = computed(() => {
   if (computedModelValue.value) {
-    return 'visible' as const
+    return true
   }
 
   if (isHeightChanging.value) {
-    return 'visible' as const
+    return true
   }
 
-  return 'hidden' as const
+  return false
 })
 
 const contentStyle = computed(() => {
   return {
-    display: bodyVisibility.value === 'hidden' ? 'none' : '',
     height: `${height.value}px`,
     transitionDuration: getTransition(),
     background: computedModelValue.value ? contentBackground.value : '',
@@ -295,8 +296,6 @@ defineExpose({
       width: 100%;
       font-weight: var(--va-collapse-header-content-text-font-weight);
     }
-
-    outline: 4px solid red;
 
     @include keyboard-focus-outline(var(--va-collapse-header-content-border-radius));
   }
