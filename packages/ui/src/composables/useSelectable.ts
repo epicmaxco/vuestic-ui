@@ -28,7 +28,7 @@ export const useSelectableProps = {
   ...useStatefulProps,
   ...useLoadingProps,
   ...useValidationProps,
-  arrayValue: { type: [String, Boolean, Object, Number], default: undefined },
+  arrayValue: { type: [String, Boolean, Object, Number], default: null },
   label: { type: String, default: '' },
   leftLabel: { type: Boolean, default: false },
   trueValue: { type: null, default: true },

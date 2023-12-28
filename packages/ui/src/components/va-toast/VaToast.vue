@@ -42,14 +42,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, computed, onMounted, shallowRef } from 'vue'
+import { PropType, ref, computed, onMounted, shallowRef, defineComponent } from 'vue'
 
 import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslation } from '../../composables'
 
 import { ToastPosition } from './types'
 
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
+</script>
 
+<script lang="ts" setup>
 import VaIcon from '../va-icon/VaIcon.vue'
 
 const VaToastRenderer = defineComponent({
@@ -60,128 +62,117 @@ const VaToastRenderer = defineComponent({
   setup: (props) => () => props.render(),
 })
 
-export default defineComponent({
+defineOptions({
   name: 'VaToast',
-  components: { VaIcon, VaToastRenderer },
-  emits: ['on-click', 'on-close'],
-  props: {
-    ...useComponentPresetProp,
-    title: { type: String, default: '' },
-    offsetY: { type: Number, default: 16 },
-    offsetX: { type: Number, default: 16 },
-    message: { type: [String, Function], default: '' },
-    dangerouslyUseHtmlString: { type: Boolean, default: false },
-    icon: { type: String, default: 'close' },
-    customClass: { type: String, default: '' },
-    duration: { type: Number, default: 5000 },
-    color: { type: String, default: '' },
-    closeable: { type: Boolean, default: true },
-    onClose: { type: Function },
-    onClick: { type: Function },
-    multiLine: { type: Boolean, default: false },
-    position: {
-      type: String as PropType<ToastPosition>,
-      default: 'top-right',
-      validator: (value: string) => ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value),
-    },
-    render: { type: Function },
-    ariaCloseLabel: { type: String, default: '$t:close' },
-    role: { type: String as PropType<StringWithAutocomplete<'alert' | 'alertdialog' | 'status'>>, default: undefined },
-    inline: { type: Boolean, default: false },
+})
+
+const { tp } = useTranslation()
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  title: { type: String, default: '' },
+  offsetY: { type: Number, default: 16 },
+  offsetX: { type: Number, default: 16 },
+  message: { type: [String, Function], default: '' },
+  dangerouslyUseHtmlString: { type: Boolean, default: false },
+  icon: { type: String, default: 'close' },
+  customClass: { type: String, default: '' },
+  duration: { type: Number, default: 5000 },
+  color: { type: String, default: '' },
+  closeable: { type: Boolean, default: true },
+  onClose: { type: Function },
+  onClick: { type: Function },
+  multiLine: { type: Boolean, default: false },
+  position: {
+    type: String as PropType<ToastPosition>,
+    default: 'top-right',
+    validator: (value: string) => ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value),
   },
-  setup (props, { emit }) {
-    const rootElement = shallowRef<HTMLElement>()
+  render: { type: Function },
+  ariaCloseLabel: { type: String, default: '$t:close' },
+  role: { type: String as PropType<StringWithAutocomplete<'alert' | 'alertdialog' | 'status'>>, default: undefined },
+  inline: { type: Boolean, default: false },
+})
 
-    const { getColor } = useColors()
+const emit = defineEmits(['on-click', 'on-close'])
 
-    const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
+const rootElement = shallowRef<HTMLElement>()
 
-    const visible = ref(false)
+const { getColor } = useColors()
 
-    const positionX = computed(() => {
-      return props.position.includes('right') ? 'right' : 'left'
-    })
+const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
 
-    const positionY = computed(() => {
-      return props.position.includes('top') ? 'top' : 'bottom'
-    })
+const visible = ref(false)
 
-    const toastClasses = computed(() => [
-      props.customClass,
-      props.multiLine ? 'va-toast--multiline' : '',
-      props.inline ? 'va-toast--inline' : '',
-    ])
+const positionX = computed(() => {
+  return props.position.includes('right') ? 'right' : 'left'
+})
 
-    const toastStyles = computed(() => ({
-      [positionY.value]: `${props.offsetY}px`,
-      [positionX.value]: `${props.offsetX}px`,
-      backgroundColor: getColor(props.color),
-      color: textColorComputed.value,
-    }))
+const positionY = computed(() => {
+  return props.position.includes('top') ? 'top' : 'bottom'
+})
 
-    const computedAriaLive = computed(() => {
-      if (props.role === 'status') {
-        return 'polite'
-      } else {
-        return 'assertive'
-      }
-    })
+const toastClasses = computed(() => [
+  props.customClass,
+  props.multiLine ? 'va-toast--multiline' : '',
+  props.inline ? 'va-toast--inline' : '',
+])
 
-    const computedMessage = computed(() => (typeof props.message === 'function') ? props.message() : props.message)
+const toastStyles = computed(() => ({
+  [positionY.value]: `${props.offsetY}px`,
+  [positionX.value]: `${props.offsetX}px`,
+  backgroundColor: getColor(props.color),
+  color: textColorComputed.value,
+}))
 
-    const destroyElement = () => {
-      rootElement.value?.removeEventListener('transitionend', destroyElement)
+const computedAriaLive = computed(() => {
+  if (props.role === 'status') {
+    return 'polite'
+  } else {
+    return 'assertive'
+  }
+})
 
-      rootElement.value?.remove()
-    }
+const computedMessage = computed(() => (typeof props.message === 'function') ? props.message() : props.message)
 
-    const onToastClick = () => {
-      if (typeof props.onClick === 'function') {
-        props.onClick()
-      } else {
-        emit('on-click')
-      }
-    }
+const destroyElement = () => {
+  rootElement.value?.removeEventListener('transitionend', destroyElement)
 
-    const onToastClose = () => {
-      visible.value = false
+  rootElement.value?.remove()
+}
 
-      rootElement.value?.addEventListener('transitionend', destroyElement)
+const onToastClick = () => {
+  if (typeof props.onClick === 'function') {
+    props.onClick()
+  } else {
+    emit('on-click')
+  }
+}
 
-      if (typeof props.onClose === 'function') {
-        props.onClose()
-      } else {
-        emit('on-close')
-      }
-    }
+const onToastClose = () => {
+  visible.value = false
 
-    const timer = useTimer()
-    const clearTimer = timer.clear
-    const startTimer = () => {
-      if (props.duration > 0) {
-        timer.start(() => visible.value && onToastClose(), props.duration)
-      }
-    }
+  rootElement.value?.addEventListener('transitionend', destroyElement)
 
-    onMounted(() => {
-      visible.value = true
+  if (typeof props.onClose === 'function') {
+    props.onClose()
+  } else {
+    emit('on-close')
+  }
+}
 
-      startTimer()
-    })
+const timer = useTimer()
+const clearTimer = timer.clear
+const startTimer = () => {
+  if (props.duration > 0) {
+    timer.start(() => visible.value && onToastClose(), props.duration)
+  }
+}
 
-    return {
-      ...useTranslation(),
-      visible,
-      toastClasses,
-      toastStyles,
-      computedAriaLive,
-      computedMessage,
-      onToastClick,
-      onToastClose,
-      startTimer,
-      clearTimer,
-    }
-  },
+onMounted(() => {
+  visible.value = true
+
+  startTimer()
 })
 </script>
 

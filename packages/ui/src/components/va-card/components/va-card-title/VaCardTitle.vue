@@ -7,27 +7,25 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 
 import { useComponentPresetProp, useColors } from '../../../../composables'
 
-export default defineComponent({
+defineOptions({
   name: 'VaCardTitle',
-  props: {
-    ...useComponentPresetProp,
-    textColor: { type: String },
-  },
-  setup (props) {
-    const { getColor } = useColors()
-
-    return {
-      titleStyles: computed(() => ({
-        color: props.textColor ? getColor(props.textColor) : '',
-      })),
-    }
-  },
 })
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  textColor: { type: String },
+})
+
+const { getColor } = useColors()
+
+const titleStyles = computed(() => ({
+  color: props.textColor ? getColor(props.textColor) : '',
+}))
 </script>
 
 <style lang="scss" scoped>

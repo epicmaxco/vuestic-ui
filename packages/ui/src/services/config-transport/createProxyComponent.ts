@@ -131,10 +131,17 @@ export const createProxyComponent = <T extends DefineComponent>(component: T) =>
     instance.props = props
     instance.attrs = attrs
 
-    return component.setup?.(shallowReadonly(props), {
+    const setupState = component.setup?.(shallowReadonly(props), {
       ...ctx,
       attrs,
     })
+
+    // Expose everything for now as it was in defineComponent
+    if (typeof setupState === 'object' && !instance.exposed) {
+      ctx.expose(setupState)
+    }
+
+    return setupState
   }
 
   return new Proxy(component, {

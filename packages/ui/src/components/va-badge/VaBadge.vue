@@ -19,8 +19,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, unref } from 'vue'
+<script lang="ts" setup>
+import { computed, unref, useSlots } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -33,60 +33,54 @@ import {
 
 import { useFloatingPosition, useFloatingPositionProps } from './hooks/useFloatingPositionStyles'
 
-export default defineComponent({
+defineOptions({
   name: 'VaBadge',
-
-  props: {
-    ...useComponentPresetProp,
-    ...useFloatingPositionProps,
-
-    color: { type: String, default: 'danger' },
-    textColor: { type: String },
-    text: { type: [String, Number], default: '' },
-    multiLine: { type: Boolean, default: false },
-    visibleEmpty: { type: Boolean, default: false },
-    dot: { type: Boolean, default: false },
-    // TODO: Remove after 1.8.0
-    transparent: { type: Boolean, default: false },
-  },
-
-  setup (props, { slots }) {
-    // TODO: Remove after 1.8.0
-    useDeprecated(['transparent'])
-
-    const isEmpty = computed(() => !(props.text || props.visibleEmpty || props.dot || slots.text))
-
-    const isFloating = computed(() => !!(slots.default || props.dot))
-
-    const badgeClass = useBem('va-badge', () => ({
-      ...pick(props, ['visibleEmpty', 'dot', 'multiLine']),
-      empty: isEmpty.value,
-      floating: isFloating.value,
-    }))
-
-    const { getColor } = useColors()
-    const colorComputed = computed(() => getColor(props.color))
-    const { textColorComputed } = useTextColor(colorComputed)
-
-    const positionStylesComputed = useFloatingPosition(props, isFloating)
-
-    const stylesComputed = computed(() => ({
-      color: textColorComputed.value,
-      borderColor: colorComputed.value,
-      backgroundColor: colorComputed.value,
-      opacity: props.transparent ? 0.5 : 1,
-      ...unref(positionStylesComputed),
-    }))
-
-    const ariaLabelledByComputed = computed(() => props.text ? String(props.text) : undefined)
-
-    return {
-      badgeClass,
-      stylesComputed,
-      ariaLabelledByComputed,
-    }
-  },
 })
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  ...useFloatingPositionProps,
+
+  color: { type: String, default: 'danger' },
+  textColor: { type: String },
+  text: { type: [String, Number], default: '' },
+  multiLine: { type: Boolean, default: false },
+  visibleEmpty: { type: Boolean, default: false },
+  dot: { type: Boolean, default: false },
+    // TODO: Remove after 1.8.0
+  transparent: { type: Boolean, default: false },
+})
+
+// TODO: Remove after 1.8.0
+useDeprecated(['transparent'])
+
+const slots = useSlots()
+
+const isEmpty = computed(() => !(props.text || props.visibleEmpty || props.dot || slots.text))
+
+const isFloating = computed(() => !!(slots.default || props.dot))
+
+const badgeClass = useBem('va-badge', () => ({
+  ...pick(props, ['visibleEmpty', 'dot', 'multiLine']),
+  empty: isEmpty.value,
+  floating: isFloating.value,
+}))
+
+const { getColor } = useColors()
+const colorComputed = computed(() => getColor(props.color))
+const { textColorComputed } = useTextColor(colorComputed)
+
+const positionStylesComputed = useFloatingPosition(props, isFloating)
+
+const stylesComputed = computed(() => ({
+  color: textColorComputed.value,
+  borderColor: colorComputed.value,
+  backgroundColor: colorComputed.value,
+  opacity: props.transparent ? 0.5 : 1,
+  ...unref(positionStylesComputed),
+}))
+
+const ariaLabelledByComputed = computed(() => props.text ? String(props.text) : undefined)
 </script>
 
 <style lang="scss">

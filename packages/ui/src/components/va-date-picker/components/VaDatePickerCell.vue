@@ -23,48 +23,40 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useTextColor, useColors } from '../../../composables'
-import { computed, defineComponent, toRef } from 'vue'
+import { computed, toRef } from 'vue'
 
-export default defineComponent({
+defineOptions({
   name: 'VaDatePickerCell',
-
-  props: {
-    otherMonth: { type: Boolean, default: false },
-    today: { type: Boolean, default: false },
-    inRange: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
-    selected: { type: Boolean, default: false },
-    weekend: { type: Boolean, default: false },
-    hidden: { type: Boolean, default: false },
-    focused: { type: Boolean, default: false },
-    highlightWeekend: { type: Boolean, default: false },
-    highlightToday: { type: Boolean, default: false },
-    readonly: { type: Boolean, default: false },
-    color: { type: String, default: 'primary' },
-  },
-
-  emits: ['click'],
-
-  setup (props, { emit }) {
-    const onClick = () => {
-      if (!props.disabled) { emit('click') }
-    }
-
-    const { getColor } = useColors()
-
-    const bg = computed(() => getColor(props.color))
-
-    const { textColorComputed } = useTextColor(bg)
-
-    return {
-      bg,
-      onClick,
-      textColorComputed,
-    }
-  },
 })
+
+const props = defineProps({
+  otherMonth: { type: Boolean, default: false },
+  today: { type: Boolean, default: false },
+  inRange: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  selected: { type: Boolean, default: false },
+  weekend: { type: Boolean, default: false },
+  hidden: { type: Boolean, default: false },
+  focused: { type: Boolean, default: false },
+  highlightWeekend: { type: Boolean, default: false },
+  highlightToday: { type: Boolean, default: false },
+  readonly: { type: Boolean, default: false },
+  color: { type: String, default: 'primary' },
+})
+
+const emit = defineEmits(['click'])
+
+const onClick = () => {
+  if (!props.disabled) { emit('click') }
+}
+
+const { getColor } = useColors()
+
+const bg = computed(() => getColor(props.color))
+
+const { textColorComputed } = useTextColor(bg)
 </script>
 
 <style lang="scss">

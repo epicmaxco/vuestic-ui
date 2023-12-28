@@ -82,7 +82,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, shallowRef, nextTick } from 'vue'
+import { computed, PropType, shallowRef, nextTick, useSlots, useAttrs } from 'vue'
 import omit from 'lodash/omit'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
@@ -98,303 +98,292 @@ import {
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
 
-import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+defineOptions({
   name: 'VaTimeInput',
-
-  components: { VaDropdown, VaDropdownContent, VaTimePicker, VaIcon, VaInputWrapper },
-
-  emits: [
-    ...useFocusEmits,
-    ...useValidationEmits,
-    ...useClearableEmits,
-    ...useStatefulEmits,
-    ...useDropdownableEmits,
-    'update:modelValue',
-  ],
-
-  props: {
-    ...VaInputWrapperProps,
-    ...useDropdownableProps,
-    ...useComponentPresetProp,
-    ...useClearableProps,
-    ...extractComponentProps(VaTimePicker),
-    ...useValidationProps as ValidationProps<Date>,
-    ...useStatefulProps,
-
-    closeOnContentClick: { type: Boolean, default: false },
-    offset: { ...useDropdownableProps.offset, default: () => [2, 0] },
-    placement: { ...useDropdownableProps.placement, default: 'bottom-end' },
-    modelValue: { type: Date, default: undefined },
-    clearValue: { type: Date, default: undefined },
-    format: { type: Function as PropType<(date?: Date) => string> },
-    parse: { type: Function as PropType<(input: string) => Date> },
-    manualInput: { type: Boolean, default: false },
-    leftIcon: { type: Boolean, default: false },
-    icon: { type: String, default: 'schedule' },
-
-    ariaLabel: { type: String, default: '$t:selectedTime' },
-    ariaResetLabel: { type: String, default: '$t:resetTime' },
-    ariaToggleDropdownLabel: { type: String, default: '$t:toggleDropdown' },
-  },
-
   inheritAttrs: false,
+})
 
-  setup (props, { emit, slots, attrs }) {
-    const input = shallowRef<HTMLInputElement>()
-    const timePicker = shallowRef<typeof VaTimePicker>()
+const props = defineProps({
+  ...VaInputWrapperProps,
+  ...useDropdownableProps,
+  ...useComponentPresetProp,
+  ...useClearableProps,
+  ...extractComponentProps(VaTimePicker),
+  ...useValidationProps as ValidationProps<Date>,
+  ...useStatefulProps,
 
-    const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
-      defaultCloseOnValueUpdate: computed(() => Array.isArray(props.view) && props.view.length === 1),
-    })
-    const { valueComputed } = useStateful(props, emit)
+  closeOnContentClick: { type: Boolean, default: false },
+  offset: { ...useDropdownableProps.offset, default: () => [2, 0] },
+  placement: { ...useDropdownableProps.placement, default: 'bottom-end' },
+  modelValue: { type: Date, default: undefined },
+  clearValue: { type: Date, default: null },
+  format: { type: Function as PropType<(date?: Date) => string> },
+  parse: { type: Function as PropType<(input: string) => Date> },
+  manualInput: { type: Boolean, default: false },
+  leftIcon: { type: Boolean, default: false },
+  icon: { type: String, default: 'schedule' },
 
-    const { parse, isValid } = useTimeParser(props)
-    const { format } = useTimeFormatter(props)
+  ariaLabel: { type: String, default: '$t:selectedTime' },
+  ariaResetLabel: { type: String, default: '$t:resetTime' },
+  ariaToggleDropdownLabel: { type: String, default: '$t:toggleDropdown' },
+})
 
-    const valueText = computed<string>(() => format(valueComputed.value || props.clearValue))
+const emit = defineEmits([
+  ...useFocusEmits,
+  ...useValidationEmits,
+  ...useClearableEmits,
+  ...useStatefulEmits,
+  ...useDropdownableEmits,
+  'update:modelValue',
+])
 
-    const doShowDropdown = computed({
-      get () {
-        if (props.disabled || props.readonly) { return false }
+const input = shallowRef<HTMLInputElement>()
+const timePicker = shallowRef<typeof VaTimePicker>()
 
-        return isOpenSync.value
-      },
-      set (v: boolean) {
-        isOpenSync.value = v
+const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
+  defaultCloseOnValueUpdate: computed(() => Array.isArray(props.view) && props.view.length === 1),
+})
+const { valueComputed } = useStateful<Date>(props, emit)
 
-        if (v) {
-          nextTick(() => timePicker.value?.focus())
-        } else {
-          nextTick(() => input.value?.focus())
-        }
-      },
-    })
+const { parse, isValid } = useTimeParser(props)
+const { format } = useTimeFormatter(props)
 
-    const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
+const valueText = computed<string>(() => format(valueComputed.value || props.clearValue))
 
-    const onInputTextChanged = (e: Event) => {
-      if (props.disabled) { return }
+const doShowDropdown = computed({
+  get () {
+    if (props.disabled || props.readonly) { return false }
 
-      const val = (e.target as HTMLInputElement)?.value
-      if (!val) {
-        return reset()
-      }
+    return isOpenSync.value
+  },
+  set (v: boolean) {
+    isOpenSync.value = v
 
-      const v = parse(val)
-
-      if (isValid.value && v) {
-        valueComputed.value = v
-      } else {
-        valueComputed.value = undefined
-        isValid.value = true
-      }
-    }
-
-    // --- not used yet ---
-    // const changePeriod = (isPM: boolean) => {
-    //   if (!valueComputed.value) { return }
-
-    //   const halfDayPeriod = 12
-    //   const h = valueComputed.value.getHours()
-
-    //   if (isPM && h <= halfDayPeriod) {
-    //     valueComputed.value = new Date(valueComputed.value.setHours(h + halfDayPeriod))
-    //   } else if (!isPM && h >= halfDayPeriod) {
-    //     valueComputed.value = new Date(valueComputed.value.setHours(h - halfDayPeriod))
-    //   }
-    // }
-
-    // const changePeriodToPm = () => changePeriod(true)
-    // const changePeriodToAm = () => changePeriod(false)
-
-    const reset = () => withoutValidation(() => {
-      emit('update:modelValue', props.clearValue)
-      emit('clear')
-      resetValidation()
-      hideDropdown()
-    })
-
-    const {
-      computedError,
-      computedErrorMessages,
-      listeners,
-      validationAriaAttributes,
-      withoutValidation,
-      resetValidation,
-    } = useValidation(props, emit, { reset, focus, value: valueComputed })
-
-    const {
-      canBeCleared,
-      clearIconProps,
-      onFocus,
-      onBlur,
-    } = useClearable(props, valueText)
-
-    const canBeClearedComputed = computed(() => (
-      canBeCleared.value && valueText.value !== format(props.clearValue)
-    ))
-
-    const filteredWrapperProps = filterComponentProps(VaInputWrapperProps)
-    const computedInputWrapperProps = computed(() => ({
-      ...filteredWrapperProps.value,
-      focused: isFocused.value,
-      error: computedError.value,
-      errorMessages: computedErrorMessages.value,
-      readonly: props.readonly || !props.manualInput,
-    }))
-
-    const viewToNumber = {
-      seconds: 1000,
-      minutes: 1000 * 60,
-      hours: 1000 * 60 * 60,
-    }
-
-    const onKeyPress = (e: KeyboardEvent | FocusEvent) => {
-      if (!('key' in e)) { return }
-
-      if (e.key === 'ArrowDown') {
-        valueComputed.value = new Date(Number(valueComputed.value) - viewToNumber[props.view])
-        e.preventDefault()
-      }
-      if (e.key === 'ArrowUp') {
-        valueComputed.value = new Date(Number(valueComputed.value) + viewToNumber[props.view])
-        e.preventDefault()
-      }
-    }
-
-    useLongPressKey(input, {
-      onStart: onKeyPress,
-      onUpdate: onKeyPress,
-    })
-
-    const computedInputListeners = ({
-      focus: () => {
-        if (props.disabled) { return }
-
-        focusListener()
-
-        if (props.readonly) { return }
-        onFocus()
-        listeners.onFocus()
-      },
-      blur: () => {
-        if (props.disabled) { return }
-
-        blurListener()
-
-        if (props.readonly) { return }
-        onBlur()
-        listeners.onBlur()
-      },
-    })
-
-    const filteredSlots = computed(() => {
-      const slotsWithIcons = [
-        props.leftIcon && 'prependInner',
-        (!props.leftIcon || props.clearable) && 'icon',
-      ]
-      return Object.keys(slots).filter(slot => !slotsWithIcons.includes(slot))
-    })
-
-    const hideDropdown = () => {
-      doShowDropdown.value = false
-    }
-
-    const showDropdown = (event?: KeyboardEvent, cancel?: boolean, prevent?: boolean) => {
-      doShowDropdown.value = true
-    }
-
-    const checkProhibitedDropdownOpening = (e?: KeyboardEvent) => {
-      if (isOpenSync.value) { return false }
-      if (props.disabled || props.readonly) { return true }
-      return props.manualInput && e?.code !== 'Space'
-    }
-
-    const toggleDropdown = (event: Event | KeyboardEvent) => {
-      if (checkProhibitedDropdownOpening(event instanceof KeyboardEvent ? event : undefined)) { return }
-
-      doShowDropdown.value = !doShowDropdown.value
-    }
-
-    const cursorStyleComputed = computed(() => {
-      if (props.disabled) { return {} }
-      if (props.manualInput) { return { cursor: 'text' } }
-      return { cursor: 'pointer' }
-    })
-
-    const iconTabindexComputed = computed(() => {
-      if (!props.manualInput) { return -1 }
-
-      return props.disabled || props.readonly ? -1 : 0
-    })
-
-    const iconProps = computed(() => ({
-      role: 'button',
-      'aria-hidden': false,
-      name: props.icon,
-      color: 'secondary',
-      tabindex: iconTabindexComputed.value,
-    }))
-
-    const { tp } = useTranslation()
-
-    const inputAttributesComputed = computed(() => ({
-      readonly: props.readonly || !props.manualInput,
-      disabled: props.disabled,
-      tabindex: props.disabled ? -1 : 0,
-      value: valueText.value,
-      'aria-label': props.label || tp(props.ariaLabel),
-      'aria-required': props.requiredMark,
-      'aria-disabled': props.disabled,
-      'aria-readonly': props.readonly,
-      ...validationAriaAttributes.value,
-      ...omit(attrs, ['class', 'style']),
-    }))
-
-    const dropdownPropsComputed = computed(() => ({
-      ...dropdownProps.value,
-      keyboardNavigation: true,
-      innerAnchorSelector: '.va-input-wrapper__field',
-      trigger: 'none' as const,
-    }))
-
-    return {
-      tp,
-      input,
-      timePicker,
-
-      timePickerProps: filterComponentProps(extractComponentProps(VaTimePicker)),
-      dropdownPropsComputed,
-      computedInputWrapperProps,
-      computedInputListeners,
-      isOpenSync,
-      doShowDropdown,
-      valueComputed,
-      valueText,
-      onInputTextChanged,
-      canBeClearedComputed,
-      iconProps,
-      clearIconProps,
-      filteredSlots,
-      inputAttributesComputed,
-      cursorStyleComputed,
-
-      hideDropdown,
-      showDropdown,
-      toggleDropdown,
-
-      reset,
-      focus,
-      blur,
+    if (v) {
+      nextTick(() => timePicker.value?.focus())
+    } else {
+      nextTick(() => input.value?.focus())
     }
   },
+})
+
+const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
+
+const onInputTextChanged = (e: Event) => {
+  if (props.disabled) { return }
+
+  const val = (e.target as HTMLInputElement)?.value
+  if (!val) {
+    return reset()
+  }
+
+  const v = parse(val)
+
+  if (isValid.value && v) {
+    valueComputed.value = v
+  } else {
+    valueComputed.value = undefined
+    isValid.value = true
+  }
+}
+
+// --- not used yet ---
+// const changePeriod = (isPM: boolean) => {
+//   if (!valueComputed.value) { return }
+
+//   const halfDayPeriod = 12
+//   const h = valueComputed.value.getHours()
+
+//   if (isPM && h <= halfDayPeriod) {
+//     valueComputed.value = new Date(valueComputed.value.setHours(h + halfDayPeriod))
+//   } else if (!isPM && h >= halfDayPeriod) {
+//     valueComputed.value = new Date(valueComputed.value.setHours(h - halfDayPeriod))
+//   }
+// }
+
+// const changePeriodToPm = () => changePeriod(true)
+// const changePeriodToAm = () => changePeriod(false)
+
+const reset = () => withoutValidation(() => {
+  emit('update:modelValue', props.clearValue)
+  emit('clear')
+  resetValidation()
+  hideDropdown()
+})
+
+const {
+  computedError,
+  computedErrorMessages,
+  listeners,
+  validationAriaAttributes,
+  withoutValidation,
+  resetValidation,
+  isDirty,
+} = useValidation(props, emit, { reset, focus, value: valueComputed })
+
+const {
+  canBeCleared,
+  clearIconProps,
+  onFocus,
+  onBlur,
+} = useClearable(props, valueText)
+
+const canBeClearedComputed = computed(() => (
+  canBeCleared.value && valueText.value !== format(props.clearValue)
+))
+
+const filteredWrapperProps = filterComponentProps(VaInputWrapperProps)
+const computedInputWrapperProps = computed(() => ({
+  ...filteredWrapperProps.value,
+  focused: isFocused.value,
+  error: computedError.value,
+  errorMessages: computedErrorMessages.value,
+  readonly: props.readonly || !props.manualInput,
+}))
+
+const viewToNumber = {
+  seconds: 1000,
+  minutes: 1000 * 60,
+  hours: 1000 * 60 * 60,
+}
+
+const onKeyPress = (e: KeyboardEvent | FocusEvent) => {
+  if (!('key' in e)) { return }
+
+  if (e.key === 'ArrowDown') {
+    valueComputed.value = new Date(Number(valueComputed.value) - viewToNumber[props.view])
+    e.preventDefault()
+  }
+  if (e.key === 'ArrowUp') {
+    valueComputed.value = new Date(Number(valueComputed.value) + viewToNumber[props.view])
+    e.preventDefault()
+  }
+}
+
+useLongPressKey(input, {
+  onStart: onKeyPress,
+  onUpdate: onKeyPress,
+})
+
+const computedInputListeners = ({
+  focus: () => {
+    if (props.disabled) { return }
+
+    focusListener()
+
+    if (props.readonly) { return }
+    onFocus()
+    listeners.onFocus()
+  },
+  blur: () => {
+    if (props.disabled) { return }
+
+    blurListener()
+
+    if (props.readonly) { return }
+    onBlur()
+    listeners.onBlur()
+  },
+})
+
+const slots = useSlots()
+
+const filteredSlots = computed(() => {
+  const slotsWithIcons = [
+    props.leftIcon && 'prependInner',
+    (!props.leftIcon || props.clearable) && 'icon',
+  ]
+  return Object.keys(slots).filter(slot => !slotsWithIcons.includes(slot))
+})
+
+const hideDropdown = () => {
+  doShowDropdown.value = false
+}
+
+const showDropdown = (event?: KeyboardEvent, cancel?: boolean, prevent?: boolean) => {
+  doShowDropdown.value = true
+}
+
+const checkProhibitedDropdownOpening = (e?: KeyboardEvent) => {
+  if (isOpenSync.value) { return false }
+  if (props.disabled || props.readonly) { return true }
+  return props.manualInput && e?.code !== 'Space'
+}
+
+const toggleDropdown = (event: Event | KeyboardEvent) => {
+  if (checkProhibitedDropdownOpening(event instanceof KeyboardEvent ? event : undefined)) { return }
+
+  doShowDropdown.value = !doShowDropdown.value
+}
+
+const cursorStyleComputed = computed(() => {
+  if (props.disabled) { return {} }
+  if (props.manualInput) { return { cursor: 'text' } }
+  return { cursor: 'pointer' }
+})
+
+const iconTabindexComputed = computed(() => {
+  if (!props.manualInput) { return -1 }
+
+  return props.disabled || props.readonly ? -1 : 0
+})
+
+const iconProps = computed(() => ({
+  role: 'button',
+  'aria-hidden': false,
+  name: props.icon,
+  color: 'secondary',
+  tabindex: iconTabindexComputed.value,
+}))
+
+const { tp } = useTranslation()
+
+const attrs = useAttrs()
+
+const inputAttributesComputed = computed(() => ({
+  readonly: props.readonly || !props.manualInput,
+  disabled: props.disabled,
+  tabindex: props.disabled ? -1 : 0,
+  value: valueText.value,
+  'aria-label': props.label || tp(props.ariaLabel),
+  'aria-required': props.requiredMark,
+  'aria-disabled': props.disabled,
+  'aria-readonly': props.readonly,
+  ...validationAriaAttributes.value,
+  ...omit(attrs, ['class', 'style']),
+}))
+
+const dropdownPropsComputed = computed(() => ({
+  ...dropdownProps.value,
+  keyboardNavigation: true,
+  innerAnchorSelector: '.va-input-wrapper__field',
+  trigger: 'none' as const,
+}))
+
+const timePickerProps = filterComponentProps(extractComponentProps(VaTimePicker))
+
+defineExpose({
+  isFocused,
+  isValid,
+  value: valueComputed,
+  isDirty,
+  focus,
+  blur,
+  reset,
+  withoutValidation,
+  resetValidation,
+  toggleDropdown,
+  showDropdown,
+  hideDropdown,
 })
 </script>
 

@@ -78,8 +78,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, ref, shallowRef, watch } from 'vue'
+<script lang="ts" setup>
+import { computed, ref, shallowRef, watch } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -98,147 +98,141 @@ import { generateUniqueId } from '../../utils/uuid'
 
 import { VaIcon } from '../va-icon'
 
-export default defineComponent({
+defineOptions({
   name: 'VaCollapse',
-  components: {
-    VaIcon,
-  },
-  props: {
-    ...useComponentPresetProp,
-    ...useStatefulProps,
-    modelValue: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
-    header: { type: String, default: '' },
-    icon: { type: String, default: '' },
-    color: { type: String, default: undefined },
-    bodyColor: { type: String, default: undefined },
-    textColor: { type: String, default: '' },
-    bodyTextColor: { type: String, default: '' },
-    iconColor: { type: String, default: 'secondary' },
-    colorAll: { type: Boolean, default: false },
-    stateful: { type: Boolean, default: true },
-  },
-  emits: ['update:modelValue', ...useSelectableEmits],
+})
 
-  setup (props, { emit }) {
-    const body = shallowRef<HTMLElement>()
+const props = defineProps({
+  ...useComponentPresetProp,
+  ...useStatefulProps,
+  modelValue: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  header: { type: String, default: '' },
+  icon: { type: String, default: '' },
+  color: { type: String, default: undefined },
+  bodyColor: { type: String, default: undefined },
+  textColor: { type: String, default: '' },
+  bodyTextColor: { type: String, default: '' },
+  iconColor: { type: String, default: 'secondary' },
+  colorAll: { type: Boolean, default: false },
+  stateful: { type: Boolean, default: true },
+})
 
-    const { valueComputed } = useStateful(props, emit, 'modelValue')
+const emit = defineEmits(['update:modelValue', ...useSelectableEmits])
 
-    const { getColor, getTextColor, setHSLAColor } = useColors()
-    const { accordionProps, valueProxy: computedModelValue = valueComputed } = useAccordionItem()
+const body = shallowRef<HTMLElement>()
 
-    const bodyHeight = ref()
-    useResizeObserver([body], () => {
-      bodyHeight.value = body.value?.clientHeight ?? 0
-    })
+const { valueComputed } = useStateful(props, emit, 'modelValue')
 
-    const height = computed(() => computedModelValue.value ? bodyHeight.value : 0)
+const { getColor, getTextColor, setHSLAColor } = useColors()
+const { accordionProps, valueProxy: computedModelValue = valueComputed } = useAccordionItem()
 
-    const getTransition = () => {
-      const duration = height.value / 1000 * 0.2
-      return `${duration > 0.2 ? duration : 0.2}s`
-    }
+const bodyHeight = ref()
+useResizeObserver([body], ([body]) => {
+  bodyHeight.value = body.contentRect.height ?? 0
+})
 
-    const contentBackground = computed(() => {
-      if (props.bodyColor) {
-        return getColor(props.bodyColor)
-      }
+const height = computed(() => computedModelValue.value ? bodyHeight.value : 0)
 
-      return props.color && props.colorAll
-        ? setHSLAColor(getColor(props.color), { a: 0.07 })
-        : undefined
-    })
+const getTransition = () => {
+  const duration = height.value / 1000 * 0.2
+  return `${duration > 0.2 ? duration : 0.2}s`
+}
 
-    const headerBackground = computed(() => {
-      return props.color ? getColor(props.color) : undefined
-    })
+const contentBackground = computed(() => {
+  if (props.bodyColor) {
+    return getColor(props.bodyColor)
+  }
 
-    const uniqueId = computed(generateUniqueId)
-    const headerIdComputed = computed(() => `header-${uniqueId.value}`)
-    const panelIdComputed = computed(() => `panel-${uniqueId.value}`)
-    const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
+  return props.color && props.colorAll
+    ? setHSLAColor(getColor(props.color), { a: 0.07 })
+    : undefined
+})
 
-    const headerAttributes = computed(() => ({
-      id: headerIdComputed.value,
-      tabindex: tabIndexComputed.value,
-      'aria-controls': panelIdComputed.value,
-      'aria-expanded': computedModelValue.value,
-      'aria-disabled': props.disabled,
-      role: 'button',
-    }))
+const headerBackground = computed(() => {
+  return props.color ? getColor(props.color) : undefined
+})
 
-    const isHeightChanging = ref(false)
+const uniqueId = computed(generateUniqueId)
+const headerIdComputed = computed(() => `header-${uniqueId.value}`)
+const panelIdComputed = computed(() => `panel-${uniqueId.value}`)
+const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
-    watch(height, (newValue, oldValue) => {
-      // If no transition happened, just got initial height value
-      if (oldValue === undefined) { return }
-      isHeightChanging.value = true
-    })
+const headerAttributes = computed(() => ({
+  id: headerIdComputed.value,
+  tabindex: tabIndexComputed.value,
+  'aria-controls': panelIdComputed.value,
+  'aria-expanded': computedModelValue.value,
+  'aria-disabled': props.disabled,
+  role: 'button',
+}))
 
-    const onTransitionEnd = (e: TransitionEvent) => {
-      if (e.propertyName === 'height' && e.target === e.currentTarget) {
-        isHeightChanging.value = false
-      }
-    }
+const isHeightChanging = ref(false)
 
-    const computedClasses = useBem('va-collapse', () => ({
-      ...pick(props, ['disabled']),
-      expanded: computedModelValue.value,
-      active: computedModelValue.value,
-      popout: !!(accordionProps.value.popout && computedModelValue.value),
-      inset: !!(accordionProps.value.inset && computedModelValue.value),
-      'height-changing': isHeightChanging.value,
-      'colored-body': Boolean(contentBackground.value),
-      'colored-header': Boolean(headerBackground.value),
-    }))
+watch(height, (newValue, oldValue) => {
+  // If no transition happened, just got initial height value
+  if (oldValue === undefined) { return }
+  if (isHeightChanging.value === true) { return }
+  isHeightChanging.value = true
+})
 
-    const toggle = () => {
-      if (props.disabled) { return }
-      computedModelValue.value = !computedModelValue.value
-    }
+const onTransitionEnd = (e: TransitionEvent) => {
+  if (e.propertyName === 'height' && e.target === e.currentTarget) {
+    isHeightChanging.value = false
+  }
+}
 
-    const { textColorComputed } = useTextColor(headerBackground)
+const computedClasses = useBem('va-collapse', () => ({
+  ...pick(props, ['disabled']),
+  expanded: computedModelValue.value,
+  active: computedModelValue.value,
+  popout: !!(accordionProps.value.popout && computedModelValue.value),
+  inset: !!(accordionProps.value.inset && computedModelValue.value),
+  'height-changing': isHeightChanging.value,
+  'colored-body': Boolean(contentBackground.value),
+  'colored-header': Boolean(headerBackground.value),
+}))
 
-    const headerStyle = computed(() => ({
-      color: textColorComputed.value,
-      backgroundColor: headerBackground.value,
-    }))
+const toggle = () => {
+  if (props.disabled) { return }
+  computedModelValue.value = !computedModelValue.value
+}
 
-    const contentStyle = computed(() => {
-      return {
-        visibility: bodyHeight.value > 0 ? 'visible' as const : 'hidden' as const,
-        height: `${height.value}px`,
-        transitionDuration: getTransition(),
-        background: computedModelValue.value ? contentBackground.value : '',
-        color: props.bodyTextColor
-          ? getColor(props.bodyTextColor)
-          : contentBackground.value
-            ? getColor(getTextColor(contentBackground.value))
-            : 'currentColor',
-      }
-    })
+const { textColorComputed } = useTextColor(headerBackground)
 
-    return {
-      onTransitionEnd,
-      body,
-      height,
+const headerStyle = computed(() => ({
+  color: textColorComputed.value,
+  backgroundColor: headerBackground.value,
+}))
 
-      toggle,
-      computedModelValue,
+const bodyVisibility = computed(() => {
+  if (computedModelValue.value) {
+    return 'visible' as const
+  }
 
-      headerIdComputed,
-      headerAttributes,
-      panelIdComputed,
-      tabIndexComputed,
+  if (isHeightChanging.value) {
+    return 'visible' as const
+  }
 
-      computedClasses,
+  return 'hidden' as const
+})
 
-      headerStyle,
+const contentStyle = computed(() => {
+  return {
+    display: bodyVisibility.value === 'hidden' ? 'none' : '',
+    height: `${height.value}px`,
+    transitionDuration: getTransition(),
+    background: computedModelValue.value ? contentBackground.value : '',
+    color: props.bodyTextColor
+      ? getColor(props.bodyTextColor)
+      : contentBackground.value
+        ? getColor(getTextColor(contentBackground.value))
+        : 'currentColor',
+  }
+})
 
-      contentStyle,
-    }
-  },
+defineExpose({
+  toggle,
 })
 </script>
 
@@ -301,6 +295,8 @@ export default defineComponent({
       width: 100%;
       font-weight: var(--va-collapse-header-content-text-font-weight);
     }
+
+    outline: 4px solid red;
 
     @include keyboard-focus-outline(var(--va-collapse-header-content-border-radius));
   }
