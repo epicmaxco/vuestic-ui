@@ -160,6 +160,7 @@ const autocompleteInputValueComputed = computed({
 
 onMounted(() => {
   if (props.multiple) { return }
+  if (!props.autocomplete) { return }
 
   autocompleteInputValueComputed.value = props.valueString as string
 })
