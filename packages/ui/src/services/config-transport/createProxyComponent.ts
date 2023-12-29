@@ -88,7 +88,7 @@ const createAttrsWithCustomConfig = (instance: ComponentInternalInstance, propsF
       if (typeof key !== 'string') { return target[key] }
 
       if (key === 'class') {
-        return (normalizeClass(propsFromConfig.value.class) + ' ' + instanceAttrs.class).trim()
+        return normalizeClass([propsFromConfig.value.class, instanceAttrs.class])
       }
 
       if (key === 'style') {
