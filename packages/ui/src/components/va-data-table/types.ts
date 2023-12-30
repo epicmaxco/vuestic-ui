@@ -81,7 +81,7 @@ export interface DataTableColumnInternal {
   thStyle?: DataTableColumnStyle
 }
 
-export type DataTableItem = Record<string, any>
+export type DataTableItem<T = Record<string, any>> = T
 export type DataTableItemKey = any
 
 // the inner representation of table cells
@@ -95,13 +95,13 @@ export interface DataTableCell {
 }
 
 // the inner representation of table rows
-export interface DataTableRow {
+export interface DataTableRow<Item extends DataTableItem = DataTableItem> {
   initialIndex: number
   itemKey: DataTableItemKey
-  source: DataTableItem
+  source: Item
   cells: DataTableCell[]
   /** Same rowData as in DataTableCell */
-  rowData: DataTableItem
+  rowData: Item
   toggleRowDetails: (show?: boolean) => void
   isExpandableRowVisible: boolean
 }

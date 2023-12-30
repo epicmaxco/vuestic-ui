@@ -27,9 +27,9 @@ export type TSortableEmits = ((
 
 export type TSortIcon = 'va-arrow-up' | 'va-arrow-down' | 'unfold_more'
 
-export const useSortable = (
+export const useSortable = <Item extends DataTableRow>(
   columns: Ref<DataTableColumnInternal[]>,
-  filteredRows: Ref<DataTableRow[]>,
+  filteredRows: Ref<Item[]>,
   props: ExtractPropTypes<typeof useSortableProps>,
   emit: TSortableEmits,
 ) => {

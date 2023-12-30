@@ -1,6 +1,6 @@
 import { Ref, ref, computed, ExtractPropTypes } from 'vue'
 
-import { useItemsProp, useItemsTrackByProp } from './useCommonProps'
+import { createItemsProp, useItemsTrackByProp } from './useCommonProps'
 
 import { getValueByPath } from '../../../utils/value-by-key'
 
@@ -18,10 +18,10 @@ export const getItemKey = (source: DataTableItem, itemsTrackBy: string | ((item:
     : getValueByPath(source, itemsTrackBy) || source
 )
 
-export const useRowsProps = {
-  ...useItemsProp,
+export const createRowsProps = <T extends Record<string, any>>() => ({
+  ...createItemsProp<T>(),
   ...useItemsTrackByProp,
-}
+})
 
 const buildTableCell = (
   rowIndex: number,
@@ -58,13 +58,13 @@ const buildTableRow = (
   }
 }
 
-export const useRows = (
+export const useRows = <Props extends ExtractPropTypes<ReturnType<typeof createRowsProps>>>(
   columns: Ref<DataTableColumnInternal[]>,
-  props: ExtractPropTypes<typeof useRowsProps>,
+  props: Props,
 ) => {
   const expandableRows = ref<Record<number, boolean>>({})
 
-  const rowsComputed = computed<DataTableRow[]>(() => props.items
+  const rowsComputed = computed(() => props.items
     .map((rawItem, index) => ({
       ...buildTableRow(rawItem, index, props.itemsTrackBy, columns.value),
       toggleRowDetails: (show?: boolean) => {
