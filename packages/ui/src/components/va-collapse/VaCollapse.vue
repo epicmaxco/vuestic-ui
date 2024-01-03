@@ -80,7 +80,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, shallowRef, watch } from 'vue'
+import { computed, onMounted, ref, shallowRef, watch } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -88,7 +88,6 @@ import {
   useBem,
   useResizeObserver,
   useComponentPresetProp,
-  isColorTransparent,
   useStateful,
   useStatefulProps,
   useSelectableEmits,
@@ -98,6 +97,7 @@ import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 import { generateUniqueId } from '../../utils/uuid'
 
 import { VaIcon } from '../va-icon'
+import isNil from 'lodash/isNil'
 
 defineOptions({
   name: 'VaCollapse',
@@ -126,7 +126,34 @@ const body = shallowRef<HTMLElement>()
 const { valueComputed } = useStateful(props, emit, 'modelValue')
 
 const { getColor, getTextColor, setHSLAColor } = useColors()
-const { accordionProps, valueProxy: computedModelValue = valueComputed } = useAccordionItem()
+const { accordionProps, accordionItemValue } = useAccordionItem()
+
+const computedModelValue = computed({
+  get () {
+    // If user provided value directly on VaCollapse, we use it instead of accordion value
+    if (valueComputed.userProvided) {
+      return valueComputed.value
+    }
+
+    if (!isNil(accordionItemValue)) {
+      return accordionItemValue.value
+    }
+
+    return valueComputed.value
+  },
+  set (v) {
+    if (!isNil(accordionItemValue)) {
+      accordionItemValue.value = v
+    }
+    valueComputed.value = v
+  },
+})
+
+onMounted(() => {
+  if (valueComputed.userProvided && !isNil(accordionItemValue)) {
+    accordionItemValue.value = valueComputed.value
+  }
+})
 
 const bodyHeight = ref()
 useResizeObserver([body], ([body]) => {

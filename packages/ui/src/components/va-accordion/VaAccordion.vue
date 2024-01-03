@@ -32,6 +32,11 @@ const { items } = useAccordion(props, valueComputed)
 
 const collapses = items
 const value = valueComputed
+
+defineExpose({
+  collapses,
+  value,
+})
 </script>
 
 <style lang="scss">

@@ -1,4 +1,5 @@
-import { computed, inject, onBeforeUnmount, onMounted, provide, Ref, ref, watch, WritableComputedRef } from 'vue'
+import { computed, inject, nextTick, onBeforeUnmount, onMounted, provide, Ref, ref, watch, WritableComputedRef } from 'vue'
+import { warn } from '../../../utils/console'
 
 export const AccordionServiceKey = Symbol('AccordionService')
 
@@ -26,19 +27,32 @@ export interface AccordionInject {
  * @param props
  * @param state array of states of all accordion items */
 export const useAccordion = (props: AccordionProps, state: WritableComputedRef<boolean[]>) => {
-  /** @notice items are reactive because they have reactive `state` inside */
   const items = ref<AccordionItem[]>([])
-
-  const onItemMounted = (item: AccordionItem) => { items.value.push(item) }
-  const onItemUnmounted = (item: AccordionItem) => { items.value = items.value.filter((i) => i !== item) }
 
   const getItemValue = (item: AccordionItem) => {
     return state.value[items.value.indexOf(item)] ?? false
   }
 
+  const onItemsChanged = () => {
+    state.value = items.value.map((item) => getItemValue(item))
+  }
+
+  const onItemMounted = (item: AccordionItem) => {
+    items.value.push(item)
+    onItemsChanged()
+  }
+  const onItemUnmounted = (item: AccordionItem) => {
+    items.value = items.value.filter((i) => i !== item)
+    // Prevent recursive dom update on unmount (HRM)
+    nextTick(onItemsChanged)
+  }
+
   const setItemValue = (item: AccordionItem, value: boolean) => {
     const index = items.value.indexOf(item)
-    if (index === -1) { return }
+    if (index === -1) {
+      warn('Accordion item is not registered yet')
+      return
+    }
 
     if (!props.multiple) {
       state.value = state.value.map((el, i) => {
@@ -49,10 +63,6 @@ export const useAccordion = (props: AccordionProps, state: WritableComputedRef<b
       state.value[index] = value
     }
   }
-
-  watch(items, (newItems) => {
-    state.value = newItems.map((item) => getItemValue(item))
-  }, { deep: true })
 
   provide(AccordionServiceKey, {
     isInsideAccordion: true,
@@ -82,13 +92,13 @@ export const useAccordionItem = () => {
   onMounted(() => accordion.onItemMounted(item))
   onBeforeUnmount(() => accordion.onItemUnmounted(item))
 
-  const valueProxy = computed({
+  const accordionItemValue = computed({
     get: () => accordion.getItemValue(item),
     set: (value) => accordion.setItemValue(item, value),
   })
 
   return {
-    valueProxy,
+    accordionItemValue,
     accordionProps: accordion.props,
   }
 }
