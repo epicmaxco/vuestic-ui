@@ -1,4 +1,4 @@
-import { ref, computed, watch, PropType, Ref, getCurrentInstance, watchEffect } from 'vue'
+import { ref, computed, watch, type PropType, type Ref, type WritableComputedRef } from 'vue'
 import { NOT_PROVIDED, useUserProvidedProp } from './useUserProvidedProp'
 
 export type StatefulProps = {
@@ -29,6 +29,13 @@ export const createStatefulProps = (statefulDefault = false) => {
 }
 
 export const useStatefulEmits = ['update:modelValue'] as const
+
+export type StatefulValue<V> = WritableComputedRef<V> & {
+  /** If stateful, means value has inner state, not related to user passed by v-model */
+  stateful: boolean,
+  /** Indicates if props passed by user. If `false`, means default props value is used. */
+  userProvided: boolean
+}
 
 /**
  * Returns `valueComputed` that is proxy for `modelValue` or given key of the props
@@ -82,6 +89,14 @@ export const useStateful = <
 
       emit(event, value)
     },
+  }) as StatefulValue<P[Key]>
+
+  Object.defineProperty(valueComputed, 'stateful', {
+    get: () => props.stateful,
+  })
+
+  Object.defineProperty(valueComputed, 'userProvided', {
+    get: () => passedProp.value !== NOT_PROVIDED,
   })
 
   return { valueComputed }
