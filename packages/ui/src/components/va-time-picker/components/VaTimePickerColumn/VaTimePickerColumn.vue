@@ -116,6 +116,11 @@ const onScroll = debounce(() => {
     syncActiveItemIndex.value = getIndex()
   }
 }, 200)
+
+defineExpose({
+  focus,
+  blur,
+})
 </script>
 
 <style lang="scss">

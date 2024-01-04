@@ -478,3 +478,22 @@ export const VisibleInModal: StoryFn = () => ({
     </VaModal>
   `,
 })
+
+export const Focus: StoryFn = () => ({
+  components: { VaDropdown },
+  template: `
+      <button class="focus:bg-red-200">Prev focusable</button>
+
+      <VaDropdown>
+        <template #anchor>
+          <button class="focus:bg-red-200" data-testid="target">
+            Click me
+          </button>
+        </template>
+
+        <button class="focus:bg-red-200">Dropdown content</button>
+      </VaDropdown>
+
+      <button class="focus:bg-red-200">Next focusable</button>
+    `,
+})

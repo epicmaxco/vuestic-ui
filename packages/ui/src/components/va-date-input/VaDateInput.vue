@@ -16,7 +16,6 @@
           v-bind="inputWrapperProps"
           v-on="inputListeners"
           :model-value="valueText"
-          @click.stop="toggleDropdown"
           @change="onInputTextChanged"
         >
           <template
@@ -33,9 +32,6 @@
               v-if="$props.leftIcon"
               :aria-label="tp($props.ariaToggleDropdownLabel)"
               v-bind="iconProps"
-              @click.stop="showDropdown"
-              @keydown.enter.stop="showDropdown"
-              @keydown.space.stop="showDropdown"
             />
           </template>
 
@@ -52,9 +48,6 @@
               v-if="!$props.leftIcon && $props.icon"
               :aria-label="tp($props.ariaToggleDropdownLabel)"
               v-bind="iconProps"
-              @click.stop="showDropdown"
-              @keydown.enter.stop="showDropdown"
-              @keydown.space.stop="showDropdown"
             />
           </template>
         </va-input-wrapper>
@@ -288,6 +281,7 @@ const focusInputOrPicker = () => {
 const checkProhibitedDropdownOpening = (e?: KeyboardEvent) => {
   if (isOpenSync.value) { return false }
   if (props.disabled || props.readonly) { return true }
+  if (e === undefined) { return false }
   return props.manualInput && e?.code !== 'Space'
 }
 
@@ -404,10 +398,8 @@ const inputAttributesComputed = computed(() => ({
 const dropdownPropsComputed = computed(() => ({
   ...dropdownProps.value,
   stateful: false,
-  closeOnAnchorClick: false,
   keyboardNavigation: true,
   innerAnchorSelector: '.va-input-wrapper__field',
-  trigger: 'none' as const,
 }))
 
 const inputWrapperProps = computedInputWrapperProps
