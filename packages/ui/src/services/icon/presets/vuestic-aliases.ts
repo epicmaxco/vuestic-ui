@@ -57,4 +57,13 @@ export const VuesticIconAliases: IconConfiguration[] = [
     name: 'va-loading',
     to: 'mi-loop',
   },
+  {
+    name: 'va-plus',
+    to: 'add',
+  },
+  {
+    name: 'va-minus',
+    to: 'remove',
+  },
+
 ]
