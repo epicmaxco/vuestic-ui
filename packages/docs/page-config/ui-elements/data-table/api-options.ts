@@ -103,7 +103,7 @@ export default defineManualApi({
       types: "`(string | DataTableColumn)[]`",
     },
     filterMethod: {
-      types: "`DataTableFilterMethod: (source: any) => boolean`",
+      types: "`DataTableFilterMethod: (source: any, cell: DataTableCell) => boolean`",
     },
     items: {
       types: "`DataTableItem[]`",
