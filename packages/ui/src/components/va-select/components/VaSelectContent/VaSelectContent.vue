@@ -162,6 +162,7 @@ export default defineComponent({
 
     onMounted(() => {
       if (props.multiple) { return }
+      if (!props.autocomplete) { return }
 
       autocompleteInputValueComputed.value = props.valueString as string
     })
