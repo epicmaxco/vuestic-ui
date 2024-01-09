@@ -27,11 +27,16 @@ export const useFilterable = (
       return rawRows.value
     }
 
-    return rawRows.value.filter(row => row.cells.some(cell => {
-      return typeof props.filterMethod === 'function'
-        ? props.filterMethod(cell.source)
-        : cell.value.toLowerCase().includes(props.filter.toLowerCase())
-    }))
+    return rawRows.value.filter((row) =>
+      row.cells.some((cell) => {
+        if (typeof props.filterMethod === 'function') {
+          return props.filterMethod(cell.source, cell)
+        }
+
+        const cellRegex = new RegExp(props.filter, 'i')
+        return cellRegex.test(cell.value)
+      }),
+    )
   })
 
   const filteredRowsThrottled = useThrottleValue(filteredRows, props)
