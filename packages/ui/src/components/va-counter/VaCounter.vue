@@ -101,7 +101,7 @@ import { toRefs, computed, shallowRef, InputHTMLAttributes, ComputedRef, toRef, 
 import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 
-import { safeCSSLength } from '@/utils/css'
+import { safeCSSLength } from '../../utils/css'
 import {
   useComponentPresetProp,
   useFormFieldProps,
@@ -115,11 +115,12 @@ import {
   useValidation,
   useClearableProps,
   useValidationEmits,
-} from '@/composables'
+} from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
-import { VaInputWrapper, VaButton } from '@/components'
-import { extractComponentProps, filterComponentProps } from '@/utils/component-options'
+import { VaInputWrapper } from '../va-input-wrapper'
+import { VaButton } from '../va-button'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import isNil from 'lodash/isNil'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
