@@ -81,7 +81,7 @@ const getReleaseConfig = async (releaseType: ReleaseType): Promise<ReleaseConfig
       shouldCommit: true,
       allowSkipTests: true,
       allowUncommitted: false,
-      requiredBranch: 'develop',
+      requiredBranch: 'release/1.8.8',
       showSleepCheck: true,
       todoList: [
         'Update and release other packages (like nuxt, create-vuestic, etc)',
