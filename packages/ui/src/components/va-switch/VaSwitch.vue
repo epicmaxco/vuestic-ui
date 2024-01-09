@@ -471,6 +471,7 @@ defineExpose({
     height: 100%;
     margin: 0;
     opacity: 0;
+    cursor: inherit;
   }
 }
 </style>
