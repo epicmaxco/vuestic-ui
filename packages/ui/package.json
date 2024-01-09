@@ -27,13 +27,11 @@
     "*.vue"
   ],
   "scripts": {
-    "serve:production": "vue-cli-service serve --mode production",
     "build": "tsx build/build.ts",
     "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist/types --project tsconfig.build.json",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint --ext .js,.vue src",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}' --fix",
-    "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vitest",
     "push": "npm publish --tag=next",
     "push-production": "npm publish --tag=latest",
