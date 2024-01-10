@@ -57,7 +57,7 @@ defineOptions({
 const props = defineProps({
   ...VaDropdownProps,
   ...useComponentPresetProp,
-  trigger: { default: 'hover' },
+  trigger: { ...VaDropdownProps.trigger, default: ['hover', 'enter', 'space', 'arrow-down', 'arrow-up'] },
   color: { type: String, default: '#1b1a1f' }, // TODO: Make sure add this color to pallete
   textColor: { type: String },
   icon: { type: String, default: '' },

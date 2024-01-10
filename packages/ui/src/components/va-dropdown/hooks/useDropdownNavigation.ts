@@ -8,6 +8,10 @@ const isTyping = (e: Event) => {
   return true
 }
 
+const isReadonlyArray = (arr: any): arr is readonly any[] => {
+  return Array.isArray(arr)
+}
+
 export type Trigger = 'click' | 'hover' | 'right-click' | 'dblclick' | 'space' | 'enter' | 'arrow-down' | 'arrow-up' | 'none'
 
 export const useNavigation = (
@@ -15,7 +19,7 @@ export const useNavigation = (
   anchorRef: Ref<HTMLElement | undefined>,
   contentRef: Ref<HTMLElement | undefined>,
   props: {
-    trigger: Trigger | Trigger[],
+    trigger: Trigger | readonly Trigger[],
     disabled: boolean,
     closeOnAnchorClick: boolean,
     closeOnContentClick: boolean,
@@ -35,7 +39,7 @@ export const useNavigation = (
   }
 
   const normalizedTriggers = computed(() => {
-    if (Array.isArray(props.trigger)) {
+    if (isReadonlyArray(props.trigger)) {
       return props.trigger.map((t) => normalizeTriggerName(t))
     }
 

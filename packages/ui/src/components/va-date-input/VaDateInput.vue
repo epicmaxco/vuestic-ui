@@ -398,8 +398,8 @@ const inputAttributesComputed = computed(() => ({
 const dropdownPropsComputed = computed(() => ({
   ...dropdownProps.value,
   stateful: false,
-  keyboardNavigation: true,
   innerAnchorSelector: '.va-input-wrapper__field',
+  trigger: ['click', 'right-click', 'enter', 'space'] as const,
 }))
 
 const inputWrapperProps = computedInputWrapperProps

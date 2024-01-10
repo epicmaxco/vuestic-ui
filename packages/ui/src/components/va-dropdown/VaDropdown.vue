@@ -49,7 +49,7 @@ export default defineComponent({
     anchorSelector: { type: String, default: '' },
     innerAnchorSelector: { type: String, default: '' },
     trigger: {
-      type: [String, Array] as PropType<Trigger | Trigger[]>,
+      type: [String, Array] as PropType<Trigger | readonly Trigger[]>,
       default: () => ['click', 'space', 'enter', 'arrow-down', 'arrow-up'],
     },
     disabled: { type: Boolean },

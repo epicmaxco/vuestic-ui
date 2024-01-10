@@ -364,8 +364,8 @@ const inputAttributesComputed = computed(() => ({
 
 const dropdownPropsComputed = computed(() => ({
   ...dropdownProps.value,
-  keyboardNavigation: true,
   innerAnchorSelector: '.va-input-wrapper__field',
+  trigger: ['click', 'right-click', 'space', 'enter'] as const,
 }))
 
 const timePickerProps = filterComponentProps(extractComponentProps(VaTimePicker))
