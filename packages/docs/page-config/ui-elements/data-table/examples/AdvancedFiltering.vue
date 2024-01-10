@@ -25,7 +25,6 @@
 </template>
 
 <script setup>
-
 const items = [
   {
     id: 1,
@@ -145,26 +144,24 @@ const items = [
 ];
 
 const columns = [
-  {key: "id", sortable: true},
-  {key: "username", sortable: true,},
-  {key: "name", sortable: true,},
-  {key: "email", sortable: true},
-  {key: "address.zipcode", label: "Zipcode"},
+  { key: "id", sortable: true },
+  { key: "username", sortable: true },
+  { key: "name", sortable: true },
+  { key: "email", sortable: true },
+  { key: "address.zipcode", label: "Zipcode" },
 ];
 
 const columnsWithName = [
-  {value: "id", text: "ID"},
-  {value: "username", text: "Username"},
-  {value: "name", text: "Name"},
-  {value: "email", text: "Email"},
-  {value: "address.zipcode", text: "Zipcode"},
-]
-
+  { value: "id", text: "ID" },
+  { value: "username", text: "Username" },
+  { value: "name", text: "Name" },
+  { value: "email", text: "Email" },
+  { value: "address.zipcode", text: "Zipcode" },
+];
 
 const filter = ref("");
 const filterByFields = ref([]);
 const filteredCount = ref(items.length);
-
 
 const customFilteringFn = (source, cellData) => {
   if (!filter.value) {
@@ -172,14 +169,14 @@ const customFilteringFn = (source, cellData) => {
   }
 
   if (filterByFields.value.length >= 1) {
-    const searchInCurrentRow = filterByFields.value.some((field) => cellData.column.key === field);
-    if (!searchInCurrentRow) return false
+    const searchInCurrentRow = filterByFields.value.some(
+      (field) => cellData.column.key === field
+    );
+    if (!searchInCurrentRow) return false;
   }
 
   const filterRegex = new RegExp(filter.value, "i");
 
   return filterRegex.test(source);
-}
-
-
+};
 </script>
