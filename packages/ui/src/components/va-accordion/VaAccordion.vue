@@ -4,32 +4,38 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue'
+<script lang="ts" setup>
+import { PropType } from 'vue'
 
 import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 import { useAccordion } from './hooks/useAccordion'
 
-export default defineComponent({
+defineOptions({
   name: 'VaAccordion',
-  emits: [...useStatefulEmits],
-  props: {
-    ...useStatefulProps,
-    ...useComponentPresetProp,
-    modelValue: { type: Array as PropType<boolean[]>, default: () => [] as boolean[] },
-    multiple: { type: Boolean, default: false },
-    inset: { type: Boolean, default: false },
-    stateful: { type: Boolean, default: true },
-    popout: { type: Boolean, default: false },
-  },
+})
 
-  setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit, 'modelValue')
+const props = defineProps({
+  ...useStatefulProps,
+  ...useComponentPresetProp,
+  modelValue: { type: Array as PropType<boolean[]>, default: () => [] as boolean[] },
+  multiple: { type: Boolean, default: false },
+  inset: { type: Boolean, default: false },
+  stateful: { type: Boolean, default: true },
+  popout: { type: Boolean, default: false },
+})
 
-    const { items } = useAccordion(props, valueComputed)
+const emit = defineEmits([...useStatefulEmits])
 
-    return { collapses: items, value: valueComputed }
-  },
+const { valueComputed } = useStateful(props, emit, 'modelValue')
+
+const { items } = useAccordion(props, valueComputed)
+
+const collapses = items
+const value = valueComputed
+
+defineExpose({
+  collapses,
+  value,
 })
 </script>
 

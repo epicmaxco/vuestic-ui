@@ -6,16 +6,13 @@
     "build": "rm -rf ./dist && yarn build:vite && yarn build:vue-cli && yarn build:nuxt",
     "build:vite": "vue-tsc --noEmit && vite build --config ./configs/vite/vite.base.ts",
     "build:analysis": "node ./scripts/stud-nuxt.mjs && tsx ./scripts/bundle-analysis.ts",
-    "build:vue-cli": "vue-cli-service build",
     "build:nuxt": "nuxt build",
     "build:web-components": "vue-tsc --noEmit && vite build --config ./web-components/vite.config.ts",
     "dev:vite": "vite --config ./configs/vite/vite.base.ts",
     "dev:web-components": "vite --config ./web-components/vite.config.ts",
-    "dev:vue-cli": "vue-cli-service serve",
     "dev:nuxt": "nuxt dev",
     "serve:vite": "vite preview",
     "serve:web-components": "vite preview --config ./web-components/vite.config.ts",
-    "serve:vue-cli": "serve -s dist/vue-cli",
     "serve:nuxt": "nuxt preview ./dist/nuxt",
     "test": "vitest",
     "test:ci": "vitest run",
@@ -26,7 +23,6 @@
     "dependenciesInstalled": "node ./scripts/stud-nuxt.mjs"
   },
   "dependencies": {
-    "@vue/cli-service": "5",
     "rollup-plugin-visualizer": "^5.5.4",
     "vue": "*"
   },

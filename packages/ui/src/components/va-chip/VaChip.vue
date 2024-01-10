@@ -45,8 +45,8 @@
   </component>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, computed, toRef } from 'vue'
+<script lang="ts" setup>
+import { PropType, computed, toRef } from 'vue'
 import pick from 'lodash/pick'
 
 import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../services/color'
@@ -64,104 +64,94 @@ import {
 
 import { VaIcon } from '../va-icon'
 
-export default defineComponent({
+defineOptions({
   name: 'VaChip',
+})
 
-  components: { VaIcon },
-
-  emits: [...useStatefulEmits, 'focus'],
-
-  props: {
-    ...useRouterLinkProps,
-    ...useColorProps,
-    ...useStatefulProps,
-    ...useComponentPresetProp,
-    modelValue: { type: Boolean, default: true },
-    closeable: { type: Boolean, default: false },
-    outline: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
-    readonly: { type: Boolean, default: false },
-    square: { type: Boolean, default: false },
-    shadow: { type: Boolean, default: false },
-    flat: { type: Boolean, default: false },
-    icon: { type: String, default: '' },
-    tag: { type: String, default: 'span' },
-    size: {
-      type: String as PropType<'small' | 'medium' | 'large'>,
-      default: 'medium',
-      validator: (value: string) => ['small', 'medium', 'large'].includes(value),
-    },
-
-    ariaCloseLabel: { type: String, default: '$t:close' },
+const props = defineProps({
+  ...useRouterLinkProps,
+  ...useColorProps,
+  ...useStatefulProps,
+  ...useComponentPresetProp,
+  modelValue: { type: Boolean, default: true },
+  closeable: { type: Boolean, default: false },
+  outline: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  readonly: { type: Boolean, default: false },
+  square: { type: Boolean, default: false },
+  shadow: { type: Boolean, default: false },
+  flat: { type: Boolean, default: false },
+  icon: { type: String, default: '' },
+  tag: { type: String, default: 'span' },
+  size: {
+    type: String as PropType<'small' | 'medium' | 'large'>,
+    default: 'medium',
+    validator: (value: string) => ['small', 'medium', 'large'].includes(value),
   },
 
-  setup (props, { emit }) {
-    const { getColor } = useColors()
-    const colorComputed = computed(() => getColor(props.color))
-    const borderColor = computed(() => props.outline ? colorComputed.value : '')
-    const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
-    const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
+  ariaCloseLabel: { type: String, default: '$t:close' },
+})
 
-    const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-    const shadowStyle = computed(() => {
-      if (!props.shadow || props.flat || props.outline || props.disabled || hasKeyboardFocus.value) {
-        return
-      }
-      return `0 0.125rem 0.19rem 0 ${getBoxShadowColor(colorComputed.value)}`
-    })
+const emit = defineEmits([...useStatefulEmits, 'focus'])
 
-    const { valueComputed } = useStateful(props, emit)
-    const { tagComputed, hrefComputed } = useRouterLink(props)
-    const { isHovered, onMouseEnter, onMouseLeave } = useHover()
+const { getColor } = useColors()
+const colorComputed = computed(() => getColor(props.color))
+const borderColor = computed(() => props.outline ? colorComputed.value : '')
+const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
+const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
 
-    return {
-      ...useTranslation(),
-      keyboardFocusListeners,
-      valueComputed,
-      hrefComputed,
-      tagComputed,
-      onMouseEnter,
-      onMouseLeave,
-      isHovered,
+const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+const shadowStyle = computed(() => {
+  if (!props.shadow || props.flat || props.outline || props.disabled || hasKeyboardFocus.value) {
+    return
+  }
+  return `0 0.125rem 0.19rem 0 ${getBoxShadowColor(colorComputed.value)}`
+})
 
-      close: () => {
-        if (!props.disabled) {
-          valueComputed.value = false
-        }
-      },
+const { valueComputed } = useStateful(props, emit)
+const { tagComputed, hrefComputed } = useRouterLink(props)
+const { isHovered, onMouseEnter, onMouseLeave } = useHover()
 
-      iconSize: computed(() => props.size),
+const close = () => {
+  if (!props.disabled) {
+    valueComputed.value = false
+  }
+}
 
-      tabIndexComputed: computed(() => props.disabled ? -1 : 0),
+const iconSize = computed(() => props.size)
+const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
-      computedClass: useBem('va-chip', () => ({
-        ...pick(props, ['disabled', 'readonly', 'square']),
-        small: props.size === 'small',
-        large: props.size === 'large',
-      })),
+const computedClass = useBem('va-chip', () => ({
+  ...pick(props, ['disabled', 'readonly', 'square']),
+  small: props.size === 'small',
+  large: props.size === 'large',
+}))
 
-      computedStyle: computed(() => {
-        const result = {
-          color: textColorComputed.value,
-          borderColor: borderColor.value,
-          background: '',
-          boxShadow: shadowStyle.value,
-        }
+const computedStyle = computed(() => {
+  const result = {
+    color: textColorComputed.value,
+    borderColor: borderColor.value,
+    background: '',
+    boxShadow: shadowStyle.value,
+  }
 
-        if (props.outline || props.flat) {
-          if (hasKeyboardFocus.value) {
-            result.background = getFocusColor(colorComputed.value)
-          } else if (!props.readonly && isHovered.value) {
-            result.background = getHoverColor(colorComputed.value)
-          }
-        } else {
-          result.background = colorComputed.value
-        }
-
-        return result
-      }),
+  if (props.outline || props.flat) {
+    if (hasKeyboardFocus.value) {
+      result.background = getFocusColor(colorComputed.value)
+    } else if (!props.readonly && isHovered.value) {
+      result.background = getHoverColor(colorComputed.value)
     }
-  },
+  } else {
+    result.background = colorComputed.value
+  }
+
+  return result
+})
+
+const { tp } = useTranslation()
+
+defineExpose({
+  close,
 })
 </script>
 

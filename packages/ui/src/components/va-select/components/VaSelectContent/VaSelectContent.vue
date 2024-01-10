@@ -112,8 +112,8 @@
   </slot>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, toRefs, computed, watch, onMounted, type PropType } from 'vue'
+<script lang="ts" setup>
+import { ref, toRefs, computed, watch, onMounted, type PropType } from 'vue'
 
 import { useFormFieldProps } from '../../../../composables'
 
@@ -122,77 +122,67 @@ import { VaBadge } from '../../../va-badge'
 
 import type { SelectOption } from '../../../index'
 
-export default defineComponent({
+defineOptions({
   name: 'VaSelectContent',
-
-  components: { VaBadge, VaIcon },
-
-  props: {
-    ...useFormFieldProps,
-
-    ariaAttributes: { type: Object },
-    value: { type: Array as PropType<SelectOption[]>, required: true },
-    valueString: { type: String },
-    placeholder: { type: String, default: '' },
-    tabindex: { type: [String, Number], default: 0 },
-    hiddenSelectedOptionsAmount: { type: Number, default: 0 },
-    isAllOptionsShown: { type: Boolean, default: false },
-    autocomplete: { type: Boolean, default: false },
-    focused: { type: Boolean, default: false },
-    multiple: { type: Boolean, default: false },
-    getText: { type: Function as PropType<(option: SelectOption) => string>, required: true },
-    autocompleteInputValue: { type: String, default: '' },
-  },
-
-  emits: ['toggle-hidden', 'autocomplete-input', 'focus-prev', 'focus-next', 'select-option', 'delete-last-selected'],
-
-  setup (props, { emit }) {
-    const autocompleteInput = ref<HTMLInputElement>()
-
-    const isPlaceholder = computed(() => props.placeholder && !props.valueString)
-
-    const toggleHiddenOptionsState = () => emit('toggle-hidden')
-
-    const { value, focused } = toRefs(props)
-
-    const autocompleteInputValueComputed = computed({
-      get: () => props.autocompleteInputValue,
-      set: (v: string) => emit('autocomplete-input', v),
-    })
-
-    onMounted(() => {
-      if (props.multiple) { return }
-
-      autocompleteInputValueComputed.value = props.valueString as string
-    })
-
-    watch(focused, (newValue) => {
-      if (!props.autocomplete || !newValue) { return }
-
-      if (autocompleteInputValueComputed.value) {
-        // native select method doesn't work in mobile Safari, so we need this instead
-        autocompleteInput.value?.setSelectionRange(0, autocompleteInputValueComputed.value.length)
-      } else {
-        autocompleteInput.value?.focus()
-      }
-    })
-
-    const handleBackspace = (e: KeyboardEvent) => {
-      if (props.multiple && value.value.length && e.key === 'Backspace' && !autocompleteInputValueComputed.value) {
-        emit('delete-last-selected')
-      }
-    }
-
-    return {
-      getIcon: (option: SelectOption) => typeof option === 'object' ? (option.icon as string) : undefined,
-      isPlaceholder,
-      toggleHiddenOptionsState,
-      autocompleteInputValueComputed,
-      autocompleteInput,
-      handleBackspace,
-    }
-  },
 })
+
+const props = defineProps({
+  ...useFormFieldProps,
+
+  ariaAttributes: { type: Object },
+  value: { type: Array as PropType<SelectOption[]>, required: true },
+  valueString: { type: String },
+  placeholder: { type: String, default: '' },
+  tabindex: { type: [String, Number], default: 0 },
+  hiddenSelectedOptionsAmount: { type: Number, default: 0 },
+  isAllOptionsShown: { type: Boolean, default: false },
+  autocomplete: { type: Boolean, default: false },
+  focused: { type: Boolean, default: false },
+  multiple: { type: Boolean, default: false },
+  getText: { type: Function as PropType<(option: SelectOption) => string>, required: true },
+  autocompleteInputValue: { type: String, default: '' },
+})
+
+const emit = defineEmits(['toggle-hidden', 'autocomplete-input', 'focus-prev', 'focus-next', 'select-option', 'delete-last-selected'])
+
+const autocompleteInput = ref<HTMLInputElement>()
+
+const isPlaceholder = computed(() => props.placeholder && !props.valueString)
+
+const toggleHiddenOptionsState = () => emit('toggle-hidden')
+
+const { value, focused } = toRefs(props)
+
+const autocompleteInputValueComputed = computed({
+  get: () => props.autocompleteInputValue,
+  set: (v: string) => emit('autocomplete-input', v),
+})
+
+onMounted(() => {
+  if (props.multiple) { return }
+  if (!props.autocomplete) { return }
+
+  autocompleteInputValueComputed.value = props.valueString as string
+})
+
+watch(focused, (newValue) => {
+  if (!props.autocomplete || !newValue) { return }
+
+  if (autocompleteInputValueComputed.value) {
+    // native select method doesn't work in mobile Safari, so we need this instead
+    autocompleteInput.value?.setSelectionRange(0, autocompleteInputValueComputed.value.length)
+  } else {
+    autocompleteInput.value?.focus()
+  }
+})
+
+const handleBackspace = (e: KeyboardEvent) => {
+  if (props.multiple && value.value.length && e.key === 'Backspace' && !autocompleteInputValueComputed.value) {
+    emit('delete-last-selected')
+  }
+}
+
+const getIcon = (option: SelectOption) => typeof option === 'object' ? (option.icon as string) : undefined
 </script>
 
 <style lang="scss">

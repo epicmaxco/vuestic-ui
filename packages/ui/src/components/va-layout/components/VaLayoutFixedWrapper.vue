@@ -16,69 +16,57 @@
   </div>
 </template>
 
-<script lang="ts">
-import { ref, defineComponent, type PropType, computed } from 'vue'
+<script lang="ts" setup>
 import VaResizeObserver from './VaResizeObserver.vue'
+import { ref, type PropType, computed } from 'vue'
 import {
   AreaName,
 } from '../hooks/useGridTemplateArea'
 import { useFixedLayoutChild } from '../hooks/useLayout'
 
-export default defineComponent({
+defineOptions({
   name: 'VaLayoutFixedWrapper',
+})
 
-  components: { VaResizeObserver },
+const props = defineProps({
+  area: { type: String as PropType<AreaName>, required: true },
+})
 
-  props: {
-    area: { type: String as PropType<AreaName>, required: true },
-  },
+const size = ref<DOMRectReadOnly | null>(null)
 
-  setup (props) {
-    const size = ref<DOMRectReadOnly | null>(null)
+const direction = computed(() => {
+  if (props.area === 'top' || props.area === 'bottom') {
+    return 'vertical'
+  } else {
+    return 'horizontal'
+  }
+})
 
-    const direction = computed(() => {
-      if (props.area === 'top' || props.area === 'bottom') {
-        return 'vertical'
-      } else {
-        return 'horizontal'
-      }
-    })
+const getPxOrZero = (value: number | null) => {
+  if (!value) { return 0 + 'px' }
 
-    const getPxOrZero = (value: number | null) => {
-      if (!value) { return 0 + 'px' }
+  return value + 'px'
+}
 
-      return value + 'px'
-    }
+const styles = computed(() => {
+  if (direction.value === 'vertical') {
+    return { width: `calc(100% - ${getPxOrZero(paddings.value.left)} - ${getPxOrZero(paddings.value.right)})`, [props.area]: 0 }
+  } else {
+    return { height: `calc(100% - ${getPxOrZero(paddings.value.top)} - ${getPxOrZero(paddings.value.bottom)})`, [props.area]: 0 }
+  }
+})
 
-    const styles = computed(() => {
-      if (direction.value === 'vertical') {
-        return { width: `calc(100% - ${getPxOrZero(paddings.value.left)} - ${getPxOrZero(paddings.value.right)})`, [props.area]: 0 }
-      } else {
-        return { height: `calc(100% - ${getPxOrZero(paddings.value.top)} - ${getPxOrZero(paddings.value.bottom)})`, [props.area]: 0 }
-      }
-    })
+const { paddings } = useFixedLayoutChild(props.area, size)
 
-    const { paddings } = useFixedLayoutChild(props.area, size)
-
-    const computedStyle = computed(() => {
-      return Object.keys(paddings.value).reduce((acc, key) => {
-        if (key === props.area) { return acc }
-
-        return {
-          ...acc,
-          [key]: `${paddings.value[key as AreaName]}px`,
-        }
-      }, {})
-    })
+const computedStyle = computed(() => {
+  return Object.keys(paddings.value).reduce((acc, key) => {
+    if (key === props.area) { return acc }
 
     return {
-      direction,
-      computedStyle,
-      paddings,
-      size,
-      styles,
+      ...acc,
+      [key]: `${paddings.value[key as AreaName]}px`,
     }
-  },
+  }, {})
 })
 </script>
 

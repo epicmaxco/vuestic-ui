@@ -8,7 +8,9 @@ import { getCurrentApp } from '../services/current-app'
  * (for example in api.ts)
  */
 export const useAppContext = () => {
+  const currentInstance = getCurrentInstance()
+
   return computed(() => {
-    return getCurrentApp()?._context || getCurrentInstance()?.appContext
+    return getCurrentApp()?._context || currentInstance?.appContext
   })
 }

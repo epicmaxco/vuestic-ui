@@ -7,28 +7,26 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { useColors } from '../../composables'
 
-export default defineComponent({
+defineOptions({
   name: 'VaListLabel',
-  props: {
-    ...useComponentPresetProp,
-    color: { type: String, default: 'primary' },
-  },
-  setup: (props) => {
-    const { getColor } = useColors()
-
-    return {
-      computedStyle: computed(() => ({
-        color: getColor(props.color),
-      })),
-    }
-  },
 })
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  color: { type: String, default: 'primary' },
+})
+
+const { getColor } = useColors()
+
+const computedStyle = computed(() => ({
+  color: getColor(props.color),
+}))
 </script>
 
 <style lang="scss">

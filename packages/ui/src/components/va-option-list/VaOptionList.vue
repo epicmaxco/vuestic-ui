@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType, onMounted } from 'vue'
+import { computed, PropType, onMounted } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -64,108 +64,96 @@ import { VaRadio } from '../va-radio'
 import { VaSwitch } from '../va-switch'
 
 type OptionListValue = SelectableOption | SelectableOption[] | null
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaOptionList',
-  components: {
-    VaRadio,
-    VaCheckbox,
-    VaSwitch,
-    VaMessageListWrapper,
+})
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  ...useSelectableListProps,
+  ...useValidationProps,
+  ...useStatefulProps,
+  type: {
+    type: String as PropType<'radio' | 'checkbox' | 'switch'>,
+    default: 'checkbox',
+    validator: (type: any) => ['radio', 'checkbox', 'switch'].includes(type),
   },
-  emits: [...useStatefulEmits, ...useValidationEmits, 'clear'],
-  props: {
-    ...useComponentPresetProp,
-    ...useSelectableListProps,
-    ...useValidationProps,
-    ...useStatefulProps,
-    type: {
-      type: String as PropType<'radio' | 'checkbox' | 'switch'>,
-      default: 'checkbox',
-      validator: (type: any) => ['radio', 'checkbox', 'switch'].includes(type),
-    },
-    disabled: ({ type: Boolean, default: false }),
-    readonly: ({ type: Boolean, default: false }),
-    defaultValue: ({ type: [String, Number, Boolean, Object, Array] as PropType<OptionListValue | null> }),
-    name: ({ type: String, default: '' }),
-    color: ({ type: String, default: 'primary' }),
-    leftLabel: ({ type: Boolean, default: false }),
-    modelValue: ({ type: [String, Number, Boolean, Object, Array] as PropType<OptionListValue | null> }),
+  disabled: ({ type: Boolean, default: false }),
+  readonly: ({ type: Boolean, default: false }),
+  defaultValue: ({ type: [String, Number, Boolean, Object, Array] as PropType<OptionListValue | null> }),
+  name: ({ type: String, default: '' }),
+  color: ({ type: String, default: 'primary' }),
+  leftLabel: ({ type: Boolean, default: false }),
+  modelValue: ({ type: [String, Number, Boolean, Object, Array] as PropType<OptionListValue | null> }),
+})
+
+const emit = defineEmits([...useStatefulEmits, ...useValidationEmits, 'clear'])
+
+const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: props.defaultValue })
+
+const { getValue, getText, getTrackBy, getDisabled } = useSelectableList(props)
+
+const { itemRefs, setItemRef } = useArrayRefs()
+
+const isRadio = computed(() => props.type === 'radio')
+
+const selectedValue = computed({
+  get () {
+    const value = isRadio.value ? null : []
+
+    return valueComputed.value || value as OptionListValue
   },
+  set (value: OptionListValue) {
+    if (props.readonly) { return }
 
-  setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: props.defaultValue })
-
-    const { getValue, getText, getTrackBy, getDisabled } = useSelectableList(props)
-
-    const { itemRefs, setItemRef } = useArrayRefs()
-
-    const isRadio = computed(() => props.type === 'radio')
-
-    const selectedValue = computed({
-      get () {
-        const value = isRadio.value ? null : []
-
-        return valueComputed.value || value as OptionListValue
-      },
-      set (value: OptionListValue) {
-        if (props.readonly) { return }
-
-        if (isRadio.value && !Array.isArray(value)) {
-          valueComputed.value = value ? getValue(value) : value
-        } else {
-          valueComputed.value = Array.isArray(value)
-            ? value.map(getValue)
-            : [value ? getValue(value) : value]
-        }
-      },
-    })
-
-    const isDisabled = (option: SelectableOption) => props.disabled || getDisabled(option)
-
-    const reset = () => withoutValidation(() => {
-      valueComputed.value = null
-      emit('clear')
-      resetValidation()
-    })
-
-    const focus = () => {
-      const firstActiveEl = Array.isArray(itemRefs.value) && itemRefs.value.find(el => !(el as HTMLInputElement).disabled)
-
-      if (firstActiveEl && typeof firstActiveEl.focus === 'function') {
-        firstActiveEl.focus()
-      }
-    }
-
-    const {
-      computedError,
-      computedErrorMessages,
-      withoutValidation,
-      resetValidation,
-    } = useValidation(props, emit, { reset, focus, value: valueComputed })
-
-    const computedProps = computed(() => pick(props, ['name', 'color', 'readonly', 'leftLabel']))
-
-    onMounted(() => {
-      if (isDev && props.type !== 'radio' && !Array.isArray(props.modelValue)) {
-        console.warn(`Prop 'modelValue = ${props.modelValue}' has not a proper type!\n For component property 'type = ${props.type}' it must be of type 'array'.`)
-      }
-    })
-
-    return {
-      selectedValue,
-      computedError,
-      computedErrorMessages,
-      getValue,
-      getText,
-      getTrackBy,
-      isDisabled,
-      reset,
-      focus,
-      setItemRef,
-      computedProps,
+    if (isRadio.value && !Array.isArray(value)) {
+      valueComputed.value = value ? getValue(value) : value
+    } else {
+      valueComputed.value = Array.isArray(value)
+        ? value.map(getValue)
+        : [value ? getValue(value) : value]
     }
   },
+})
+
+const isDisabled = (option: SelectableOption) => props.disabled || getDisabled(option)
+
+const reset = () => withoutValidation(() => {
+  valueComputed.value = null
+  emit('clear')
+  resetValidation()
+})
+
+const focus = () => {
+  const firstActiveEl = Array.isArray(itemRefs.value) && itemRefs.value.find(el => !(el as HTMLInputElement).disabled)
+
+  if (firstActiveEl && typeof firstActiveEl.focus === 'function') {
+    firstActiveEl.focus()
+  }
+}
+
+const {
+  computedError,
+  computedErrorMessages,
+  withoutValidation,
+  resetValidation,
+} = useValidation(props, emit, { reset, focus, value: valueComputed })
+
+const computedProps = computed(() => pick(props, ['name', 'color', 'readonly', 'leftLabel']))
+
+onMounted(() => {
+  if (isDev && props.type !== 'radio' && !Array.isArray(props.modelValue)) {
+    console.warn(`Prop 'modelValue = ${props.modelValue}' has not a proper type!\n For component property 'type = ${props.type}' it must be of type 'array'.`)
+  }
+})
+
+defineExpose({
+  focus,
+  reset,
 })
 </script>
 

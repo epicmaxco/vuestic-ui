@@ -37,6 +37,8 @@ export const useAutocomplete = (
   })
 
   watch(autocompleteValue, (newValue) => {
+    if (!props.autocomplete) { return }
+
     if (newValue && newValue !== getLastOptionText(value.value)) {
       dropdownShown.value = true
     }

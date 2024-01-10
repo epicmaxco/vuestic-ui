@@ -14,7 +14,7 @@
       <slot name="loading">
         <va-icon
           class="va-inner-loading__spinner"
-          spin
+          spin="counter-clockwise"
           :color="colorComputed"
           :size="$props.size"
           :name="$props.icon"
@@ -24,38 +24,35 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
-import { defineComponent, computed } from 'vue'
+import { computed } from 'vue'
 
 import { useColors, useLoadingProps } from '../../composables'
 import { VaIcon } from '../va-icon'
 
-export default defineComponent({
+defineOptions({
   name: 'VaInnerLoading',
-  components: { VaIcon },
-  props: {
-    ...useLoadingProps,
-    ...useComponentPresetProp,
-    color: { type: String },
-    icon: { type: String, default: 'va-loading' },
-    size: { type: Number, default: 30 },
-  },
-  setup (props) {
-    const { getColor } = useColors()
-    const colorComputed = computed(() => getColor(props.color))
-
-    return {
-      colorComputed,
-      computedClass: computed(() => ({
-        'va-inner-loading--active': props.loading,
-      })),
-      ariaAttributesComputed: computed(() => ({
-        'aria-busy': props.loading,
-      })),
-    }
-  },
 })
+
+const props = defineProps({
+  ...useLoadingProps,
+  ...useComponentPresetProp,
+  color: { type: String },
+  icon: { type: String, default: 'va-loading' },
+  size: { type: Number, default: 30 },
+})
+
+const { getColor } = useColors()
+const colorComputed = computed(() => getColor(props.color))
+
+const computedClass = computed(() => ({
+  'va-inner-loading--active': props.loading,
+}))
+
+const ariaAttributesComputed = computed(() => ({
+  'aria-busy': props.loading,
+}))
 </script>
 
 <style lang="scss">

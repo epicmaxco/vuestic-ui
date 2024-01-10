@@ -8,29 +8,23 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import { useBem, useComponentPresetProp, useAlignProps, useAlign } from '../../../../composables'
 import pick from 'lodash/pick.js'
 
-export default defineComponent({
+defineOptions({
   name: 'VaCardActions',
-  props: {
-    ...useAlignProps,
-    ...useComponentPresetProp,
-  },
-  setup (props) {
-    const { alignComputed } = useAlign(props)
-    const classComputed = useBem('va-card__actions', () => ({
-      ...pick(props, ['vertical']),
-    }))
-
-    return {
-      classComputed,
-      alignComputed,
-    }
-  },
 })
+
+const props = defineProps({
+  ...useAlignProps,
+  ...useComponentPresetProp,
+})
+
+const { alignComputed } = useAlign(props)
+const classComputed = useBem('va-card__actions', () => ({
+  ...pick(props, ['vertical']),
+}))
 </script>
 
 <style lang="scss">
