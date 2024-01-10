@@ -158,8 +158,8 @@ const props = defineProps({
   step: { type: Number, default: 1 },
   color: { type: String, default: 'primary' },
     // icons & buttons
-  increaseIcon: { type: String, default: 'add' },
-  decreaseIcon: { type: String, default: 'remove' },
+  increaseIcon: { type: String, default: 'va-plus' },
+  decreaseIcon: { type: String, default: 'va-minus' },
   buttons: { type: Boolean, default: false },
   flat: { type: Boolean, default: true },
   rounded: { type: Boolean, default: false },
