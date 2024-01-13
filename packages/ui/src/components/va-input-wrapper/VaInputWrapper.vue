@@ -11,7 +11,7 @@
       :inherit-slots="['message', 'messages']"
     >
       <template #default="{ ariaAttributes: messagesChildAriaAttributes }">
-        <fieldset class="va-input-wrapper__size-keeper">
+        <fieldset class="va-input-wrapper__fieldset va-input-wrapper__size-keeper">
           <VaInputLabel
             v-if="($props.label || $slots.label) && !$props.innerLabel"
             class="va-input-wrapper__label va-input-wrapper__label--outer"
@@ -264,6 +264,11 @@ export default defineComponent({
   max-width: 100%;
   flex-grow: 0;
   flex-shrink: 1;
+
+  &__fieldset {
+    // Reset browser styles
+    border: none;
+  }
 
   &__size-keeper {
     @include parentWidthWithDefault();
