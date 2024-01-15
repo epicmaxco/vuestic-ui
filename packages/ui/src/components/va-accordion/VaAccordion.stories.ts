@@ -211,6 +211,7 @@ export const Inset = () => ({
   components: { VaAccordion, VaCollapse },
   data: () => ({ value: [true, true, false, false, true] }),
   template: `
+    [value]: {{ value }}
     <va-accordion
       v-model="value"
       inset
@@ -231,6 +232,7 @@ export const Popout = () => ({
   components: { VaAccordion, VaCollapse },
   data: () => ({ value: [true, true, false, false, true] }),
   template: `
+    [value]: {{ value }}
     <va-accordion
       v-model="value"
       popout

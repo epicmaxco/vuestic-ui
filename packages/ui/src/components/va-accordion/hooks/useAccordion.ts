@@ -16,8 +16,8 @@ export interface AccordionProps extends AccordionItemProps {
 export type AccordionItem = {}
 
 export interface AccordionInject {
-  onItemMounted: (item: AccordionItem) => void,
-  onItemUnmounted: (item: AccordionItem) => void,
+  registerItem: (item: AccordionItem) => void,
+  unregisterItem: (item: AccordionItem) => void,
   getItemValue: (item: AccordionItem) => boolean,
   setItemValue: (item: AccordionItem, value: boolean) => void,
   props: Ref<AccordionItemProps>,
@@ -29,19 +29,31 @@ export interface AccordionInject {
 export const useAccordion = (props: AccordionProps, state: WritableComputedRef<boolean[]>) => {
   const items = ref<AccordionItem[]>([])
 
+  /**
+   * In case if items count is bigger than state count, we need to fill state with false values
+   * In case if items count is smaller than state count, we assume that some items were not rendered yet
+   */
+  const makeState = () => {
+    const correctItemsCount = Math.max(items.value.length, state.value.length)
+
+    return Array.from({ length: correctItemsCount }, (_, index) => {
+      return state.value[index] ?? false
+    })
+  }
+
   const getItemValue = (item: AccordionItem) => {
     return state.value[items.value.indexOf(item)] ?? false
   }
 
   const onItemsChanged = () => {
-    state.value = items.value.map((item) => getItemValue(item))
+    state.value = makeState()
   }
 
-  const onItemMounted = (item: AccordionItem) => {
+  const registerItem = (item: AccordionItem) => {
     items.value.push(item)
     onItemsChanged()
   }
-  const onItemUnmounted = (item: AccordionItem) => {
+  const unregisterItem = (item: AccordionItem) => {
     items.value = items.value.filter((i) => i !== item)
     // Prevent recursive dom update on unmount (HRM)
     nextTick(onItemsChanged)
@@ -55,7 +67,7 @@ export const useAccordion = (props: AccordionProps, state: WritableComputedRef<b
     }
 
     if (!props.multiple) {
-      state.value = state.value.map((el, i) => {
+      state.value = makeState().map((el, i) => {
         if (i === index) { return value }
         return false
       })
@@ -65,9 +77,8 @@ export const useAccordion = (props: AccordionProps, state: WritableComputedRef<b
   }
 
   provide(AccordionServiceKey, {
-    isInsideAccordion: true,
-    onItemMounted,
-    onItemUnmounted,
+    registerItem,
+    unregisterItem,
     getItemValue,
     setItemValue,
     props: computed(() => props),
@@ -89,8 +100,11 @@ export const useAccordionItem = () => {
 
   const item = {}
 
-  onMounted(() => accordion.onItemMounted(item))
-  onBeforeUnmount(() => accordion.onItemUnmounted(item))
+  // Register in setup function, before item is mounted,
+  // otherwise item will be rendered with own value
+  // and re-rendered with accordion value after mounted
+  accordion.registerItem(item)
+  onBeforeUnmount(() => accordion.unregisterItem(item))
 
   const accordionItemValue = computed({
     get: () => accordion.getItemValue(item),

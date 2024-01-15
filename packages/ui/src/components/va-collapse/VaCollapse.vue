@@ -149,11 +149,9 @@ const computedModelValue = computed({
   },
 })
 
-onMounted(() => {
-  if (valueComputed.userProvided && !isNil(accordionItemValue)) {
-    accordionItemValue.value = valueComputed.value
-  }
-})
+if (valueComputed.userProvided && !isNil(accordionItemValue)) {
+  accordionItemValue.value = valueComputed.value
+}
 
 const bodyHeight = ref()
 useResizeObserver([body], ([body]) => {
