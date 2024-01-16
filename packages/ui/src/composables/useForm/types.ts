@@ -26,6 +26,7 @@ export type Form<Names extends string = string> = {
   errorMessagesNamed: ComputedRef<Record<Names, string[]>>;
   immediate: ComputedRef<boolean>,
   validate: () => boolean;
+  validateAsync: () => Promise<boolean>;
   reset: () => void;
   resetValidation: () => void;
   focus: () => void;

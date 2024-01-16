@@ -167,25 +167,6 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 
   watch(isFocused, (newVal) => !newVal && validate())
 
-  const immediateValidation = computed(() => props.immediateValidation || isFormImmediate.value)
-
-  let canValidate = true
-  const withoutValidation = (cb: () => any): void => {
-    if (immediateValidation.value) {
-      return cb()
-    }
-
-    canValidate = false
-    cb()
-    // NextTick because we update props in the same tick, but they are updated in the next one
-    nextTick(() => { canValidate = true })
-  }
-  watch(options.value, () => {
-    if (!canValidate) { return }
-
-    return validate()
-  }, { immediate: true })
-
   const { isDirty } = useDirtyValue(options.value, props, emit)
 
   const {
@@ -212,6 +193,21 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     value: computed(() => options.value || props.modelValue),
     name: toRef(props, 'name'),
   })
+
+  const immediateValidation = computed(() => props.immediateValidation || isFormImmediate.value)
+
+  let canValidate = true
+  const withoutValidation = (cb: () => any): void => {
+    canValidate = false
+    cb()
+    // NextTick because we update props in the same tick, but they are updated in the next one
+    nextTick(() => { canValidate = true })
+  }
+  watch(options.value, () => {
+    if (!canValidate) { return }
+
+    return validate()
+  }, { immediate: immediateValidation.value })
 
   return {
     isDirty,

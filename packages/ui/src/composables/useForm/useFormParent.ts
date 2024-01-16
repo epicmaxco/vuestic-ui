@@ -119,6 +119,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
     errorMessages,
     errorMessagesNamed,
     validate,
+    validateAsync,
     reset,
     resetValidation,
     focus,

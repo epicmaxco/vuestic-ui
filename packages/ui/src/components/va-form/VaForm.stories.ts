@@ -24,6 +24,7 @@ import {
 } from '../'
 import { sleep } from '../../utils/sleep'
 import { useForm } from '../../composables'
+import { ref } from 'vue'
 
 export default {
   title: 'VaForm',
@@ -37,7 +38,6 @@ export const Default = () => ({
   template: `
     <va-form ref="form">
       <va-input
-
         v-model="input"
         :rules="[value => !!value || 'required']"
       />
@@ -130,7 +130,7 @@ Immediate.play = async ({ canvasElement, step }) => {
   })
 
   await step('Second input does not display error message', async () => {
-    expect(notImmediate.getAttribute('aria-invalid')).toEqual('true')
+    expect(notImmediate.getAttribute('aria-invalid')).toEqual('false')
     expect(secondDefineInput).toBeUndefined()
   })
 }
@@ -596,3 +596,67 @@ DirtyForm.play = async ({ canvasElement, step }) => {
     expect(input.getAttribute('aria-invalid')).toEqual('false')
   })
 }
+
+export const ValidateAsync: StoryFn = () => ({
+  components: { VaForm, VaInput, VaButton },
+
+  setup () {
+    const asyncResult = ref(false)
+    const { isValid, validateAsync } = useForm('form')
+
+    const asyncRule = async () => {
+      return new Promise((resolve) => {
+        setTimeout(() => resolve('Error!'), 1000)
+      })
+    }
+
+    return {
+      isValid,
+      asyncResult,
+      validateAsync,
+      asyncRule,
+    }
+  },
+
+  template: `
+    [isValid]: {{ isValid }}
+    <va-form ref="form">
+      <va-input data-testid="input" :rules="[asyncRule]" stateful />
+    </va-form>
+    <va-button @click="validateAsync">
+      Validate async
+    </va-button>
+  `,
+})
+
+export const ImmediateValidateAsync: StoryFn = () => ({
+  components: { VaForm, VaInput, VaButton },
+
+  setup () {
+    const asyncResult = ref(false)
+    const { isValid, validateAsync } = useForm('form')
+
+    const asyncRule = async () => {
+      return new Promise((resolve) => {
+        setTimeout(() => resolve('Error!'), 1000)
+      })
+    }
+
+    return {
+      isValid,
+      asyncResult,
+      validateAsync,
+      asyncRule,
+    }
+  },
+
+  template: `
+    [isValid]: {{ isValid }}
+    <va-form ref="form" immediate>
+      <va-input data-testid="input" :rules="[asyncRule]" stateful />
+    </va-form>
+    <va-button @click="validateAsync">
+      Validate async
+    </va-button>
+  `,
+})
