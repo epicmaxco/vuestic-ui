@@ -21,8 +21,6 @@
         :aria-owns="popupId"
         @focus="onInputFocus"
         @blur="onInputBlur"
-        @keydown.enter="toggleDropdown"
-        @keydown.space.stop="toggleDropdown"
       >
         <template
           v-for="(_, name) in $slots"
@@ -468,8 +466,8 @@ const dropdownPropsComputed = computed(() => ({
   stateful: false,
   offset: [1, 0] as DropdownOffsetProp,
   keepAnchorWidth: true,
-  keyboardNavigation: true,
   innerAnchorSelector: '.va-input-wrapper__field',
+  trigger: ['click', 'right-click', 'space', 'enter'] as const,
 }))
 
 const showDropdownContentComputed = computed({

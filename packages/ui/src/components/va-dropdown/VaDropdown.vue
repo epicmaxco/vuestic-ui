@@ -6,19 +6,17 @@ import {
   computed,
   nextTick,
   ref,
-  toRef,
   Fragment,
   Teleport,
   watchEffect,
+  watch,
 } from 'vue'
-import kebabCase from 'lodash/kebabCase'
 import pick from 'lodash/pick'
 import {
   MaybeHTMLElementOrSelector,
   createStatefulProps,
   useBem,
   useClickOutside,
-  useDebounceFn,
   useHTMLElement,
   useHTMLElementSelector,
   useIsMounted,
@@ -28,7 +26,7 @@ import {
   usePlacementAliasesProps,
 } from '../../composables'
 import { renderSlotNode } from '../../utils/headless'
-import { useKeyboardNavigation, useMouseNavigation } from './hooks/useDropdownNavigation'
+import { useNavigation, Trigger } from './hooks/useDropdownNavigation'
 import { useAnchorSelector } from './hooks/useAnchorSelector'
 import { useCursorAnchor } from './hooks/useCursorAnchor'
 import { CursorAnchor, DropdownOffsetProp } from './types'
@@ -38,6 +36,8 @@ import { useFocusOutside } from '../../composables/useFocusOutside'
 import { useTeleported } from '../../composables/useTeleported'
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { useZIndex } from '../../composables/useZIndex'
+import { focusFirstFocusableChild } from '../../utils/focus'
+import { unwrapEl } from '../../utils/unwrapEl'
 
 export default defineComponent({
   name: 'VaDropdown',
@@ -49,9 +49,8 @@ export default defineComponent({
     anchorSelector: { type: String, default: '' },
     innerAnchorSelector: { type: String, default: '' },
     trigger: {
-      type: String as PropType<'click' | 'right-click' | 'hover' | 'dblclick' | 'none'>,
-      default: 'click',
-      validator: (value: string) => ['click', 'right-click', 'hover', 'dblclick', 'none'].includes(value),
+      type: [String, Array] as PropType<Trigger | readonly Trigger[]>,
+      default: () => ['click', 'space', 'enter', 'arrow-down', 'arrow-up'],
     },
     disabled: { type: Boolean },
     readonly: { type: Boolean },
@@ -73,7 +72,7 @@ export default defineComponent({
     /** Element where dropdown content will be rendered. */
     teleport: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
     /** Not reactive */
-    keyboardNavigation: { type: Boolean, default: false },
+    keyboardNavigation: { type: Boolean, default: true },
     ariaLabel: { type: String, default: '$t:toggleDropdown' },
     role: { type: String as PropType<StringWithAutocomplete<'button' | 'none'>>, default: 'button' },
   },
@@ -81,23 +80,20 @@ export default defineComponent({
   emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'focus-outside', 'close', 'open', 'anchor-dblclick'],
 
   setup (props, { emit }) {
-    const { valueComputed: statefulVal } = useStateful(props, emit, 'modelValue')
-    const valueComputed = computed({
-      get: () => statefulVal.value && !props.disabled && !props.readonly,
-      set (val) {
-        statefulVal.value = val
-        if (val) {
-          emit('open')
-        } else {
-          emit('close')
-        }
-      },
+    const { valueComputed } = useStateful(props, emit, 'modelValue')
+
+    watch(valueComputed, (isOpened) => {
+      if (isOpened) {
+        emit('open')
+      } else {
+        emit('close')
+      }
     })
 
     const isMounted = useIsMounted()
 
     const { anchorRef } = useAnchorSelector(props)
-    const cursorAnchor = useCursorAnchor(anchorRef, valueComputed)
+    const cursorAnchor = useCursorAnchor(anchorRef, computed(() => Boolean(props.cursor)))
     const floating = useHTMLElement('floating')
     const body = useHTMLElementSelector(ref('body'))
     const target = useHTMLElementSelector(computed(() => props.target))
@@ -127,97 +123,18 @@ export default defineComponent({
       return body.value
     })
 
-    const teleportDisabled = computed(() => {
-      return props.disabled
-    })
     const showFloating = computed(() => isMounted.value && valueComputed.value)
 
-    const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(toRef(props, 'hoverOverTimeout'))
-    const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(toRef(props, 'hoverOutTimeout'))
-
-    const onClick = (e: MouseEvent) => {
-      if ((props.trigger !== 'click' && kebabCase(props.trigger) !== 'right-click') || props.disabled) { return }
-
-      if (valueComputed.value) {
-        emitAndClose('anchor-click', props.closeOnAnchorClick, e)
-      } else {
-        if (props.trigger !== 'click') { return }
-        valueComputed.value = true
-        emit('anchor-click', e)
-      }
-    }
-    const onContextmenu = (e: MouseEvent) => {
-      if (kebabCase(props.trigger) !== 'right-click' || props.disabled) { return }
-      e.preventDefault()
-
-      if (valueComputed.value) {
-        emitAndClose('anchor-right-click', props.closeOnAnchorClick, e)
-
-        if (props.cursor) {
-          nextTick(() => { valueComputed.value = true })
-        }
-      } else {
-        valueComputed.value = true
-        emit('anchor-right-click', e)
-      }
-    }
-    const onDblclick = (e: MouseEvent) => {
-      if (kebabCase(props.trigger) !== 'dblclick' || props.disabled) {
-        return
-      }
-      e.preventDefault()
-
-      if (valueComputed.value) {
-        emitAndClose('anchor-dblclick', props.closeOnAnchorClick, e)
-
-        if (props.cursor) {
-          nextTick(() => {
-            valueComputed.value = true
-          })
-        }
-      } else {
-        valueComputed.value = true
-        emit('anchor-dblclick', e)
-      }
-    }
-    const onMouseenter = () => {
-      if (props.trigger !== 'hover' || props.disabled) { return }
-
-      debounceHover(() => { valueComputed.value = true })
-      cancelUnHoverDebounce()
-    }
-    const onMouseleave = () => {
-      if (props.trigger !== 'hover' || props.disabled) { return }
-
-      if (props.isContentHoverable) {
-        debounceUnHover(() => { valueComputed.value = false })
-      } else {
-        valueComputed.value = false
-      }
-      cancelHoverDebounce()
-    }
-
-    useMouseNavigation(anchorRef, {
-      click: onClick,
-      contextmenu: onContextmenu,
-      dblclick: onDblclick,
-      mouseenter: onMouseenter,
-      mouseleave: onMouseleave,
-    })
-
-    if (props.keyboardNavigation) {
-      useKeyboardNavigation(anchorRef, valueComputed)
-    }
+    useNavigation(
+      valueComputed,
+      anchorRef,
+      floating,
+      props,
+    )
 
     const emitAndClose = (eventName: Parameters<typeof emit>[0], close?: boolean, e?: Event) => {
       emit(eventName, e)
       if (close) { valueComputed.value = false }
-    }
-
-    const floatingListeners = {
-      onMouseover: () => props.isContentHoverable && onMouseenter(),
-      onMouseout: () => onMouseleave(),
-      onClick: () => emitAndClose('content-click', props.closeOnContentClick),
     }
 
     useClickOutside([anchorRef, floating], () => {
@@ -271,6 +188,21 @@ export default defineComponent({
       }
     })
 
+    watch(valueComputed, (isOpened) => {
+      if (!props.keyboardNavigation) { return }
+
+      if (isOpened) {
+        nextTick(() => {
+          const el = unwrapEl(floating.value)
+          if (!el) { return }
+          focusFirstFocusableChild(el)
+        })
+      } else {
+        if (!anchorRef.value) { return }
+        focusFirstFocusableChild(anchorRef.value)
+      }
+    })
+
     return {
       ...useTranslation(),
       ...useTeleported(),
@@ -278,10 +210,8 @@ export default defineComponent({
       anchorClass,
       floating,
       floatingStyles,
-      teleportDisabled,
       showFloating,
       teleportTarget,
-      floatingListeners,
       isMounted,
       valueComputed,
       hide,
@@ -305,7 +235,6 @@ export default defineComponent({
       class: 'va-dropdown__content-wrapper',
       style: [this.floatingStyles, { zIndex: this.zIndex }],
       ...this.teleportedAttrs,
-      ...this.floatingListeners,
     })
 
     const anchorSlotVNode = renderSlotNode(this.$slots.anchor, slotBind, {
@@ -325,7 +254,7 @@ export default defineComponent({
         Teleport,
         {
           to: this.teleportTarget,
-          disabled: this.teleportDisabled,
+          disabled: this.$props.disabled,
         },
         [floatingSlotNode],
       )
@@ -347,7 +276,7 @@ export default defineComponent({
         Teleport,
         {
           to: this.teleportTarget,
-          disabled: this.teleportDisabled,
+          disabled: this.$props.disabled,
         },
         [floatingSlotNode],
       ),
