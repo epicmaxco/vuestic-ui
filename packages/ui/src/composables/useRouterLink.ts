@@ -16,7 +16,9 @@ export const useRouterLinkProps = {
 }
 
 export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>) => {
-  const globalProperties = computed(() => getCurrentInstance()?.appContext.config.globalProperties)
+  const currentInstance = getCurrentInstance()
+
+  const globalProperties = computed(() => currentInstance?.appContext.config.globalProperties)
   const vueRouter = computed(() => globalProperties.value?.$router)
   const vueRoute = computed(() => globalProperties.value?.$route)
 

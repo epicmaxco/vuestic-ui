@@ -97,7 +97,7 @@ export default function createViteConfig (format: BuildFormat) {
   isEsm && config.plugins.push(chunkSplitPlugin({ strategy: 'unbundle' }))
   isEsm && !isNode && config.plugins.push(appendComponentCss())
   isEsm && config.plugins.push(removeSideEffectedChunks())
-  isEsm && config.plugins.push(componentVBindFix())
+  config.plugins.push(componentVBindFix())
 
   if (isNode) {
     config.build.rollupOptions = { ...external, ...rollupMjsBuildOptions }

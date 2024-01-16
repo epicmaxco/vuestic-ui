@@ -1,4 +1,5 @@
-import { ref, computed, watch, PropType, Ref } from 'vue'
+import { ref, computed, watch, type PropType, type Ref, type WritableComputedRef } from 'vue'
+import { NOT_PROVIDED, useUserProvidedProp } from './useUserProvidedProp'
 
 export type StatefulProps = {
   stateful: boolean
@@ -6,11 +7,9 @@ export type StatefulProps = {
 
 export type StatefulOptions<T> = {
   eventName?: string
-  /** @deprecated set default value for prop, not here */
+  /** Prefer to set default value for prop, not here. */
   defaultValue?: T
 }
-
-type NonUndefined<T extends any> = T extends undefined ? never : T
 
 /**
  * You could add these props to any component by destructuring them inside props option.
@@ -31,6 +30,13 @@ export const createStatefulProps = (statefulDefault = false) => {
 
 export const useStatefulEmits = ['update:modelValue'] as const
 
+export type StatefulValue<V> = WritableComputedRef<V> & {
+  /** If stateful, means value has inner state, not related to user passed by v-model */
+  stateful: boolean,
+  /** Indicates if props passed by user. If `false`, means default props value is used. */
+  userProvided: boolean
+}
+
 /**
  * Returns `valueComputed` that is proxy for `modelValue` or given key of the props
  * if `stateful` prop is `false`
@@ -38,21 +44,30 @@ export const useStatefulEmits = ['update:modelValue'] as const
  */
 export const useStateful = <
   T,
-  D extends any,
-  O extends StatefulOptions<D>,
   Key extends string = 'modelValue',
-  P extends StatefulProps & { [key in Key]?: T } = StatefulProps & { [key in Key]?: T },
+  D = T,
+  P extends StatefulProps & (Record<Key, T> | { readonly [key in Key]?: T }) = StatefulProps & (Record<Key, T> | { readonly [key in Key]?: T }),
+  E extends (name: `update:${Key}`, ...args: any[]) => void = (name: `update:${Key}`, ...args: any[]) => void
 >(
     props: P,
-    emit: (name: `update:${Key}`, ...args: any[]) => void,
+    emit: E,
     key: Key = 'modelValue' as Key,
-    options: O = {} as O,
+    options: StatefulOptions<D> = {} as StatefulOptions<D>,
   ) => {
-  const { defaultValue, eventName } = options
+  const { eventName, defaultValue } = options
   const event = (eventName || `update:${key.toString()}`) as `update:${Key}`
-  const valueState = ref(defaultValue === undefined ? props[key] : defaultValue) as Ref
-  let unwatchModelValue: Function
 
+  const passedProp = useUserProvidedProp(key, props)
+
+  const defaultValuePassed = 'defaultValue' in options
+
+  const valueState = ref(
+    passedProp.value === NOT_PROVIDED
+      ? defaultValuePassed ? defaultValue : props[key]
+      : passedProp.value,
+  ) as Ref<P[Key]>
+
+  let unwatchModelValue: ReturnType<typeof watch>
   const watchModelValue = () => {
     unwatchModelValue = watch(() => props[key], (modelValue) => {
       valueState.value = modelValue
@@ -63,7 +78,7 @@ export const useStateful = <
     stateful ? watchModelValue() : unwatchModelValue?.()
   }, { immediate: true })
 
-  const valueComputed = computed<unknown extends O['defaultValue'] ? P[Key] : NonUndefined<P[Key]>>({
+  const valueComputed = computed({
     get: () => {
       if (props.stateful) { return valueState.value }
 
@@ -74,6 +89,14 @@ export const useStateful = <
 
       emit(event, value)
     },
+  }) as StatefulValue<P[Key]>
+
+  Object.defineProperty(valueComputed, 'stateful', {
+    get: () => props.stateful,
+  })
+
+  Object.defineProperty(valueComputed, 'userProvided', {
+    get: () => passedProp.value !== NOT_PROVIDED,
   })
 
   return { valueComputed }

@@ -1,4 +1,5 @@
 import { VaAppBar } from './'
+import { StoryFn } from '@storybook/vue3'
 
 export default {
   title: 'VaAppBar',
@@ -53,7 +54,7 @@ export const FixedBottom = () => ({
   `,
 })
 
-export const HideOnScroll = () => ({
+export const HideOnScroll: StoryFn = () => ({
   components: { VaAppBar },
   template: `
     <div class="flex flex-col relative max-h-32 overflow-hidden">
@@ -78,7 +79,7 @@ HideOnScroll.play = async ({ canvasElement, step }) => {
   target.scrollTo({ top: target.clientHeight })
 }
 
-export const ShadowOnScroll = () => ({
+export const ShadowOnScroll: StoryFn = () => ({
   components: { VaAppBar },
   template: `
     <div class="flex flex-col relative max-h-32 overflow-hidden">
@@ -103,7 +104,7 @@ ShadowOnScroll.play = async ({ canvasElement, step }) => {
   target.scrollTo({ top: target.clientHeight })
 }
 
-export const ShadowColor = () => ({
+export const ShadowColor: StoryFn = () => ({
   components: { VaAppBar },
   template: `
     <div class="flex flex-col relative max-h-32 overflow-hidden">

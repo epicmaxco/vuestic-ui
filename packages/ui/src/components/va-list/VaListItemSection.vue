@@ -7,26 +7,25 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
-export default defineComponent({
+defineOptions({
   name: 'VaListItemSection',
-  props: {
-    ...useComponentPresetProp,
-    icon: { type: Boolean, default: false },
-    avatar: { type: Boolean, default: false },
-  },
-
-  setup: (props) => ({
-    computedClass: computed(() => ({
-      'va-list-item-section--main': !props.icon && !props.avatar,
-      'va-list-item-section--icon': props.icon,
-      'va-list-item-section--avatar': props.avatar,
-    })),
-  }),
 })
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  icon: { type: Boolean, default: false },
+  avatar: { type: Boolean, default: false },
+})
+
+const computedClass = computed(() => ({
+  'va-list-item-section--main': !props.icon && !props.avatar,
+  'va-list-item-section--icon': props.icon,
+  'va-list-item-section--avatar': props.avatar,
+}))
 </script>
 
 <style lang="scss">

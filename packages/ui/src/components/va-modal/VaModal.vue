@@ -32,7 +32,6 @@
           />
           <div
             class="va-modal__container"
-            :style="computedModalContainerStyle"
           >
             <div
               ref="modalDialog"
@@ -122,13 +121,14 @@ import type { PropType, StyleValue } from 'vue'
 import {
   Transition,
   h,
-  defineComponent,
   computed,
   shallowRef,
   toRef,
   watchEffect,
   onMounted,
-  nextTick, watch,
+  nextTick,
+  watch,
+  defineComponent,
 } from 'vue'
 
 import {
@@ -148,6 +148,7 @@ import { VaButton } from '../va-button'
 import { VaIcon } from '../va-icon'
 
 import { useBlur } from './hooks/useBlur'
+import { useZIndex } from '../../composables/useZIndex'
 
 const WithTransition = defineComponent({
   name: 'ModalElement',
@@ -160,238 +161,250 @@ const WithTransition = defineComponent({
     ? h(Transition, { ...attrs }, slots)
     : slots.default?.(attrs),
 })
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaModal',
   inheritAttrs: false,
-  components: { VaButton, VaIcon, WithTransition },
-  emits: [
-    ...useStatefulEmits,
-    'cancel', 'ok', 'before-open', 'open', 'before-close', 'close', 'click-outside',
-  ],
-  props: {
-    ...useStatefulProps,
-    modelValue: { type: Boolean, default: false },
-    attachElement: { type: String, default: 'body' },
-    allowBodyScroll: { type: Boolean, default: false },
-    disableAttachment: { type: Boolean, default: false },
-    title: { type: String, default: '' },
-    message: { type: String, default: '' },
-    okText: { type: String, default: '$t:ok' },
-    cancelText: { type: String, default: '$t:cancel' },
-    hideDefaultActions: { type: Boolean, default: false },
-    fullscreen: { type: Boolean, default: false },
-    closeButton: { type: Boolean, default: false },
-    mobileFullscreen: { type: Boolean, default: true },
-    noDismiss: { type: Boolean, default: false },
-    noOutsideDismiss: { type: Boolean, default: false },
-    noEscDismiss: { type: Boolean, default: false },
-    maxWidth: { type: String, default: '' },
-    maxHeight: { type: String, default: '' },
-    anchorClass: { type: String },
-    size: {
-      type: String as PropType<'medium' | 'small' | 'large'>,
-      default: 'medium',
-      validator: (value: string) => ['medium', 'small', 'large'].includes(value),
-    },
-    fixedLayout: { type: Boolean, default: false },
-    withoutTransitions: { type: Boolean, default: false },
-    overlay: { type: Boolean, default: true },
-    overlayOpacity: { type: [Number, String], default: 0.6 },
-    showNestedOverlay: { type: Boolean, default: false },
-    blur: { type: Boolean, default: false },
-    zIndex: { type: [Number, String], default: undefined },
-    backgroundColor: { type: String, default: 'background-secondary' },
-    noPadding: { type: Boolean, default: false },
-    beforeClose: { type: Function as PropType<(hide: () => void) => any> },
-    beforeOk: { type: Function as PropType<(hide: () => void) => any> },
-    beforeCancel: { type: Function as PropType<(hide: () => void) => any> },
-    ariaCloseLabel: { type: String, default: '$t:close' },
-  },
-  setup (props, { emit }) {
-    const rootElement = shallowRef<HTMLElement>()
-    const modalDialog = shallowRef<HTMLElement>()
-    const { trapFocusIn, freeFocus } = useTrapFocus()
-
-    const {
-      registerModal,
-      unregisterModal,
-      isTopLevelModal,
-      isLowestLevelModal,
-    } = useModalLevel()
-
-    const { getColor } = useColors()
-    const { textColorComputed } = useTextColor(toRef(props, 'backgroundColor'))
-    const { valueComputed } = useStateful(props, emit)
-
-    const computedClass = computed(() => ({
-      'va-modal--fullscreen': props.fullscreen,
-      'va-modal--mobile-fullscreen': props.mobileFullscreen,
-      'va-modal--fixed-layout': props.fixedLayout,
-      'va-modal--no-padding': props.noPadding,
-      [`va-modal--size-${props.size}`]: props.size !== 'medium',
-    }))
-    const computedModalContainerStyle = computed(() => ({ 'z-index': props.zIndex } as StyleValue))
-    const computedDialogStyle = computed(() => ({
-      maxWidth: props.maxWidth,
-      maxHeight: props.maxHeight,
-      color: textColorComputed.value,
-      background: getColor(props.backgroundColor),
-    }))
-
-    const computedOverlayClass = computed(() => ({
-      'va-modal__overlay--lowest': isLowestLevelModal.value,
-      'va-modal__overlay--top': isTopLevelModal.value,
-    }))
-
-    const getOverlayOpacity = () => {
-      if (props.showNestedOverlay && !isLowestLevelModal.value) {
-        return 'var(--va-modal-overlay-nested-opacity)'
-      }
-      return 'var(--va-modal-overlay-opacity)'
-    }
-
-    const computedOverlayStyles = computed(() => {
-      if (!props.overlay) { return }
-
-      if (isTopLevelModal.value || props.showNestedOverlay) {
-        return {
-          'background-color': 'var(--va-modal-overlay-color)',
-          opacity: getOverlayOpacity(),
-          'z-index': props.zIndex && Number(props.zIndex) - 1,
-        } as StyleValue
-      }
-      return ''
-    })
-
-    const show = () => { valueComputed.value = true }
-    const hide = (cb?: () => void) => {
-      const _hide = () => {
-        valueComputed.value = false
-        cb?.()
-      }
-      props.beforeClose ? props.beforeClose(_hide) : _hide()
-    }
-    const toggle = () => { valueComputed.value = !valueComputed.value }
-    const cancel = () => {
-      const _hide = () => {
-        hide(() => emit('cancel'))
-      }
-      props.beforeCancel ? props.beforeCancel(_hide) : _hide()
-    }
-    const ok = () => {
-      const _hide = () => {
-        hide(() => emit('ok'))
-      }
-      props.beforeOk ? props.beforeOk(_hide) : _hide()
-    }
-    const trapFocusInModal = () => {
-      nextTick(() => { // trapFocusIn use querySelector, so need nextTick, to be sure, that DOM has been updated after modal has been opened
-        if (modalDialog.value) {
-          trapFocusIn(modalDialog.value)
-        }
-      })
-    }
-
-    const onBeforeEnterTransition = (el: HTMLElement) => emit('before-open', el)
-    const onAfterEnterTransition = (el: HTMLElement) => emit('open', el)
-    const onBeforeLeaveTransition = (el: HTMLElement) => emit('before-close', el)
-    const onAfterLeaveTransition = (el: HTMLElement) => emit('close', el)
-
-    const listenKeyUp = (e: KeyboardEvent) => {
-      const hideModal = () => {
-        if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss && isTopLevelModal.value) {
-          cancel()
-        }
-      }
-
-      setTimeout(hideModal)
-    }
-
-    useClickOutside([modalDialog], () => {
-      if (!valueComputed.value || props.noOutsideDismiss || props.noDismiss || !isTopLevelModal.value) { return }
-
-      emit('click-outside')
-      cancel()
-    })
-
-    const window = useWindow()
-
-    watchEffect(() => {
-      if (valueComputed.value) {
-        window.value?.addEventListener('keyup', listenKeyUp)
-      } else {
-        window.value?.removeEventListener('keyup', listenKeyUp)
-      }
-    })
-
-    useBlur(toRef(props, 'blur'), valueComputed)
-
-    const documentRef = useDocument()
-    const setBodyOverflow = (overflow: string) => {
-      if (!documentRef.value || props.allowBodyScroll) { return }
-
-      documentRef.value.body.style.overflow = overflow
-    }
-
-    watch(valueComputed, newValueComputed => { // watch for open/close modal
-      if (newValueComputed) {
-        registerModal()
-        setBodyOverflow('hidden')
-        return
-      }
-
-      if (isLowestLevelModal.value) {
-        freeFocus()
-        setBodyOverflow('')
-      }
-      unregisterModal()
-    })
-
-    watch(isTopLevelModal, newIsTopLevelModal => {
-      if (newIsTopLevelModal) {
-        trapFocusInModal()
-      }
-    })
-
-    onMounted(() => {
-      if (valueComputed.value) { // case when open modal with this.$vaModal.init
-        registerModal()
-      }
-    })
-
-    const publicMethods = {
-      ...useTranslation(),
-      show,
-      hide,
-      toggle,
-      cancel,
-      ok,
-      onBeforeEnterTransition,
-      onAfterEnterTransition,
-      onBeforeLeaveTransition,
-      onAfterLeaveTransition,
-      listenKeyUp,
-    }
-
-    return {
-      isLowestLevelModal,
-      isTopLevelModal,
-      computedOverlayClass,
-      getColor,
-      rootElement,
-      modalDialog,
-      valueComputed,
-      computedClass,
-      computedDialogStyle,
-      computedModalContainerStyle,
-      computedOverlayStyles,
-      slotBind: { show, hide, toggle, cancel, ok },
-      ...publicMethods,
-      ...useTeleported(),
-    }
-  },
 })
+
+const props = defineProps({
+  ...useStatefulProps,
+  modelValue: { type: Boolean, default: false },
+  attachElement: { type: String, default: 'body' },
+  allowBodyScroll: { type: Boolean, default: false },
+  disableAttachment: { type: Boolean, default: false },
+  title: { type: String, default: '' },
+  message: { type: String, default: '' },
+  okText: { type: String, default: '$t:ok' },
+  cancelText: { type: String, default: '$t:cancel' },
+  hideDefaultActions: { type: Boolean, default: false },
+  fullscreen: { type: Boolean, default: false },
+  closeButton: { type: Boolean, default: false },
+  mobileFullscreen: { type: Boolean, default: true },
+  noDismiss: { type: Boolean, default: false },
+  noOutsideDismiss: { type: Boolean, default: false },
+  noEscDismiss: { type: Boolean, default: false },
+  maxWidth: { type: String, default: '' },
+  maxHeight: { type: String, default: '' },
+  anchorClass: { type: String },
+  size: {
+    type: String as PropType<'medium' | 'small' | 'large'>,
+    default: 'medium',
+    validator: (value: string) => ['medium', 'small', 'large'].includes(value),
+  },
+  fixedLayout: { type: Boolean, default: false },
+  withoutTransitions: { type: Boolean, default: false },
+  overlay: { type: Boolean, default: true },
+  overlayOpacity: { type: [Number, String], default: 0.6 },
+  showNestedOverlay: { type: Boolean, default: false },
+  blur: { type: Boolean, default: false },
+  zIndex: { type: [Number, String], default: undefined },
+  backgroundColor: { type: String, default: 'background-secondary' },
+  noPadding: { type: Boolean, default: false },
+  beforeClose: { type: Function as PropType<(hide: () => void) => any> },
+  beforeOk: { type: Function as PropType<(hide: () => void) => any> },
+  beforeCancel: { type: Function as PropType<(hide: () => void) => any> },
+  ariaCloseLabel: { type: String, default: '$t:close' },
+})
+
+const emit = defineEmits([
+  ...useStatefulEmits,
+  'cancel', 'ok', 'before-open', 'open', 'before-close', 'close', 'click-outside',
+])
+
+const rootElement = shallowRef<HTMLElement>()
+const modalDialog = shallowRef<HTMLElement>()
+const { trapFocusIn, freeFocus } = useTrapFocus()
+
+const {
+  registerModal,
+  unregisterModal,
+  isTopLevelModal,
+  isLowestLevelModal,
+} = useModalLevel()
+
+const { getColor } = useColors()
+const { textColorComputed } = useTextColor(toRef(props, 'backgroundColor'))
+const { valueComputed } = useStateful(props, emit)
+
+const computedClass = computed(() => ({
+  'va-modal--fullscreen': props.fullscreen,
+  'va-modal--mobile-fullscreen': props.mobileFullscreen,
+  'va-modal--fixed-layout': props.fixedLayout,
+  'va-modal--no-padding': props.noPadding,
+  [`va-modal--size-${props.size}`]: props.size !== 'medium',
+}))
+
+const {
+  zIndex: zIndexInherited,
+  register: registerZIndex,
+  unregister: unregisterZIndex,
+} = useZIndex()
+
+const zIndexComputed = computed(() => {
+  if (props.zIndex) {
+    return Number(props.zIndex)
+  }
+  return zIndexInherited.value
+})
+
+const computedDialogStyle = computed(() => ({
+  maxWidth: props.maxWidth,
+  maxHeight: props.maxHeight,
+  color: textColorComputed.value,
+  background: getColor(props.backgroundColor),
+}))
+
+const computedOverlayClass = computed(() => ({
+  'va-modal__overlay--lowest': isLowestLevelModal.value,
+  'va-modal__overlay--top': isTopLevelModal.value,
+}))
+
+const getOverlayOpacity = () => {
+  if (props.showNestedOverlay && !isLowestLevelModal.value) {
+    return 'var(--va-modal-overlay-nested-opacity)'
+  }
+  return 'var(--va-modal-overlay-opacity)'
+}
+
+const computedOverlayStyles = computed(() => {
+  if (!props.overlay) { return }
+
+  if (isTopLevelModal.value || props.showNestedOverlay) {
+    return {
+      'background-color': 'var(--va-modal-overlay-color)',
+      opacity: getOverlayOpacity(),
+      'z-index': zIndexComputed.value && Number(zIndexComputed.value) - 1,
+    } as StyleValue
+  }
+  return ''
+})
+
+const show = () => { valueComputed.value = true }
+const hide = (cb?: () => void) => {
+  const _hide = () => {
+    valueComputed.value = false
+    cb?.()
+  }
+  props.beforeClose ? props.beforeClose(_hide) : _hide()
+}
+const toggle = () => { valueComputed.value = !valueComputed.value }
+const cancel = () => {
+  const _hide = () => {
+    hide(() => emit('cancel'))
+  }
+  props.beforeCancel ? props.beforeCancel(_hide) : _hide()
+}
+const ok = () => {
+  const _hide = () => {
+    hide(() => emit('ok'))
+  }
+  props.beforeOk ? props.beforeOk(_hide) : _hide()
+}
+const trapFocusInModal = () => {
+  nextTick(() => { // trapFocusIn use querySelector, so need nextTick, to be sure, that DOM has been updated after modal has been opened
+    if (modalDialog.value) {
+      trapFocusIn(modalDialog.value)
+    }
+  })
+}
+
+const onBeforeEnterTransition = (el: HTMLElement) => emit('before-open', el)
+const onAfterEnterTransition = (el: HTMLElement) => emit('open', el)
+const onBeforeLeaveTransition = (el: HTMLElement) => emit('before-close', el)
+const onAfterLeaveTransition = (el: HTMLElement) => emit('close', el)
+
+const listenKeyUp = (e: KeyboardEvent) => {
+  const hideModal = () => {
+    if (e.code === 'Escape' && !props.noEscDismiss && !props.noDismiss && isTopLevelModal.value) {
+      cancel()
+    }
+  }
+
+  setTimeout(hideModal)
+}
+
+useClickOutside([modalDialog], () => {
+  if (!valueComputed.value || props.noOutsideDismiss || props.noDismiss || !isTopLevelModal.value) { return }
+
+  emit('click-outside')
+  cancel()
+})
+
+const window = useWindow()
+
+watchEffect(() => {
+  if (valueComputed.value) {
+    window.value?.addEventListener('keyup', listenKeyUp)
+  } else {
+    window.value?.removeEventListener('keyup', listenKeyUp)
+  }
+})
+
+useBlur(toRef(props, 'blur'), valueComputed)
+
+const documentRef = useDocument()
+const setBodyOverflow = (overflow: string) => {
+  if (!documentRef.value || props.allowBodyScroll) { return }
+
+  documentRef.value.body.style.overflow = overflow
+}
+
+watch(valueComputed, newValueComputed => { // watch for open/close modal
+  if (newValueComputed) {
+    registerModal()
+    registerZIndex()
+    setBodyOverflow('hidden')
+    return
+  }
+
+  if (isLowestLevelModal.value) {
+    freeFocus()
+    setBodyOverflow('')
+  }
+  unregisterModal()
+  unregisterZIndex()
+})
+
+watch(isTopLevelModal, newIsTopLevelModal => {
+  if (newIsTopLevelModal) {
+    trapFocusInModal()
+  }
+})
+
+onMounted(() => {
+  if (valueComputed.value) { // case when open modal with this.$vaModal.init
+    registerModal()
+    registerZIndex()
+  }
+})
+
+// TODO: Move to exposed
+const publicMethods = {
+  show,
+  hide,
+  toggle,
+  cancel,
+  ok,
+  onBeforeEnterTransition,
+  onAfterEnterTransition,
+  onBeforeLeaveTransition,
+  onAfterLeaveTransition,
+  listenKeyUp,
+}
+
+const { tp, t } = useTranslation()
+
+const {
+  teleportFromAttrs,
+  teleportedAttrs,
+  findTeleportedFrom,
+} = useTeleported()
+
+const slotBind = { show, hide, toggle, cancel, ok }
 </script>
 
 <style lang="scss">
@@ -416,7 +429,7 @@ export default defineComponent({
   left: var(--va-modal-left);
   overflow: var(--va-modal-overflow);
   outline: var(--va-modal-outline);
-  z-index: var(--va-modal-z-index);
+  z-index: var(--va-modal-z-index, v-bind(zIndexComputed));
   font-family: var(--va-font-family);
 
   &__title {

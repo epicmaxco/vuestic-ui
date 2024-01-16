@@ -14,7 +14,7 @@
     :aria-multiselectable="$props.multiple"
   >
     <template
-      v-for="(options, groupName) in optionGroups"
+      v-for="(options, groupName) in optionGroupsThrottled"
       :key="groupName"
     >
       <span
@@ -72,8 +72,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType, ref, shallowRef, watch, computed } from 'vue'
+<script lang="ts" setup>
+import { PropType, ref, shallowRef, watch, computed, ComponentPublicInstance } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -94,251 +94,228 @@ import { isNilValue } from '../../../../utils/isNilValue'
 import type { SelectOption, EventSource } from '../../types'
 import { unwrapEl } from '../../../../utils/unwrapEl'
 
-export default defineComponent({
+defineOptions({
   name: 'VaSelectOptionList',
-  components: { VaVirtualScroller, VaSelectOption },
-  emits: [
-    'select-option',
-    'update:hoveredOption',
-    'no-previous-option-to-hover',
-    'scroll-bottom',
-  ],
-  props: {
-    ...useColorProps,
-    ...useComponentPresetProp,
-    ...useSelectableListProps,
-    ...useThrottleProps,
-    noOptionsText: { type: String, default: 'Items not found' },
-    getSelectedState: { type: Function as PropType<(option: SelectOption) => boolean>, required: true },
-    multiple: { type: Boolean, default: false },
-    search: { type: String, default: '' },
-    tabindex: { type: [String, Number], default: 0 },
-    hoveredOption: { type: [String, Number, Boolean, Object] as PropType<SelectOption | null>, default: null },
-    virtualScroller: { type: Boolean, default: true },
-    highlightMatchedText: { type: Boolean, default: true },
-    minSearchChars: { type: Number, default: 0 },
-    autoSelectFirstOption: { type: Boolean, default: false },
-    selectedTopShown: { type: Boolean, default: false },
-  },
+})
 
-  setup (props, { emit }) {
-    const root = shallowRef<HTMLElement>()
-    const focus = () => {
-      // Prevent scroll since element in dropdown and it causes scrolling to page end.
-      root.value?.focus({ preventScroll: true })
-    }
-    const rootHeight = computed(() => root.value?.clientHeight ?? 200)
+const props = defineProps({
+  ...useColorProps,
+  ...useComponentPresetProp,
+  ...useSelectableListProps,
+  ...useThrottleProps,
+  noOptionsText: { type: String, default: 'Items not found' },
+  getSelectedState: { type: Function as PropType<(option: SelectOption) => boolean>, required: true },
+  multiple: { type: Boolean, default: false },
+  search: { type: String, default: '' },
+  tabindex: { type: [String, Number], default: 0 },
+  hoveredOption: { type: [String, Number, Boolean, Object] as PropType<SelectOption | null>, default: null },
+  virtualScroller: { type: Boolean, default: true },
+  highlightMatchedText: { type: Boolean, default: true },
+  minSearchChars: { type: Number, default: 0 },
+  autoSelectFirstOption: { type: Boolean, default: false },
+  selectedTopShown: { type: Boolean, default: false },
+})
 
-    const handleScrollToBottom = () => emit('scroll-bottom')
-    const onScroll = (event: UIEvent) => {
-      const target = event.target as Element
-      if (!target) { return }
+const emit = defineEmits([
+  'select-option',
+  'update:hoveredOption',
+  'no-previous-option-to-hover',
+  'scroll-bottom',
+])
 
-      if (target.scrollTop + target.clientHeight === target.scrollHeight) {
-        handleScrollToBottom()
-      }
-    }
+const root = shallowRef<HTMLElement>()
+const focus = () => {
+  // Prevent scroll since element in dropdown and it causes scrolling to page end.
+  root.value?.focus({ preventScroll: true })
+}
+const rootHeight = computed(() => root.value?.clientHeight ?? 200)
 
-    const lastInteractionSource = ref<EventSource>('')
-    const currentOptionComputed = computed(() => props.hoveredOption ?? null)
-    const updateCurrentOption = (option: SelectOption | null, source: EventSource) => {
-      emit('update:hoveredOption', option)
-      lastInteractionSource.value = source
-    }
+const handleScrollToBottom = () => emit('scroll-bottom')
+const onScroll = (event: UIEvent) => {
+  const target = event.target as Element
+  if (!target) { return }
 
-    const { getText, getGroupBy, getTrackBy, getDisabled } = useSelectableList(props)
+  if (target.scrollTop + target.clientHeight === target.scrollHeight) {
+    handleScrollToBottom()
+  }
+}
 
-    const currentSelectedOptionText = computed(() => {
-      const selected = props.options?.find((option) => props.getSelectedState(option))
+const lastInteractionSource = ref<EventSource>('')
+const currentOptionComputed = computed(() => props.hoveredOption ?? null)
+const updateCurrentOption = (option: SelectOption | null, source: EventSource) => {
+  emit('update:hoveredOption', option)
+  lastInteractionSource.value = source
+}
 
-      return selected ? getText(selected) : ''
-    })
+const { getText, getGroupBy, getTrackBy, getDisabled } = useSelectableList(props)
 
-    const isSearchedOptionSelected = computed(() => {
-      return currentSelectedOptionText.value.toLowerCase() === props.search?.toLowerCase()
-    })
+const currentSelectedOptionText = computed(() => {
+  const selected = props.options?.find((option) => props.getSelectedState(option))
 
-    const filteredOptions = computed((): SelectOption[] => {
-      if (!props.search || props.search.length < props.minSearchChars || isSearchedOptionSelected.value) {
-        return props.options
-      }
+  return selected ? getText(selected) : ''
+})
 
-      return props.options.filter((option: SelectOption) => {
-        const optionText = getText(option).toUpperCase()
-        const search = props.search.toUpperCase()
-        return optionText.includes(search)
-      })
-    })
+const isSearchedOptionSelected = computed(() => {
+  return currentSelectedOptionText.value.toLowerCase() === props.search?.toLowerCase()
+})
 
-    const optionGroups = computed(() => filteredOptions.value
-      .reduce((groups: Record<string, SelectOption[]>, option) => {
-        const groupBy = getGroupBy(option)
+const filteredOptions = computed((): SelectOption[] => {
+  if (!props.search || props.search.length < props.minSearchChars || isSearchedOptionSelected.value) {
+    return props.options
+  }
 
-        if (!groupBy) {
-          groups._noGroup.push(option)
-        } else {
-          if (!groups[groupBy]) { groups[groupBy] = [] }
+  return props.options.filter((option: SelectOption) => {
+    const optionText = getText(option).toUpperCase()
+    const search = props.search.toUpperCase().trim()
+    return optionText.includes(search)
+  })
+})
 
-          groups[groupBy].push(option)
-        }
+const optionGroups = computed(() => filteredOptions.value
+  .reduce((groups: Record<string, SelectOption[]>, option) => {
+    const groupBy = getGroupBy(option)
 
-        return groups
-      }, { _noGroup: [] }))
-    const optionGroupsThrottled = useThrottleValue(optionGroups, props)
+    if (!groupBy) {
+      groups._noGroup.push(option)
+    } else {
+      if (!groups[groupBy]) { groups[groupBy] = [] }
 
-    const isValueExists = (value: SelectOption | null | undefined): value is SelectOption => !isNilValue(value)
-
-    const updateHoveredOption = (option?: SelectOption) => {
-      if (option === currentOptionComputed.value || (isValueExists(option) && getDisabled(option))) { return }
-
-      updateCurrentOption(option ?? null, 'mouse')
-    }
-    const updateFocusedOption = (option?: SelectOption) => { updateCurrentOption(option ?? null, 'keyboard') }
-
-    const selectHoveredOption = () => {
-      const previousOption =
-        previousOptionComputed.value && typeof previousOptionComputed.value === 'object'
-          ? { ...previousOptionComputed.value }
-          : previousOptionComputed.value
-
-      emit('select-option')
-
-      if (props.selectedTopShown) {
-        updateHoveredOption(previousOption)
-      }
+      groups[groupBy].push(option)
     }
 
-    const groupedOptions = computed(() => Object.values(optionGroupsThrottled.value).flat())
-    const currentOptions = computed(() =>
-      filteredOptions.value.some((el) => getGroupBy(el)) ? groupedOptions.value : filteredOptions.value)
+    return groups
+  }, { _noGroup: [] }))
+const optionGroupsThrottled = useThrottleValue(optionGroups, props)
 
-    const currentOptionIndex = computed(() => currentOptions.value.findIndex((option) => {
-      return isValueExists(currentOptionComputed.value) && getTrackBy(option) === getTrackBy(currentOptionComputed.value)
-    }))
+const isValueExists = (value: SelectOption | null | undefined): value is SelectOption => !isNilValue(value)
 
-    const selectOptionProps = computed(() => ({
-      ...pick(props, ['getSelectedState', 'color', 'search', 'highlightMatchedText', 'minSearchChars']),
-      getText,
-      getTrackBy,
-    }))
+const updateHoveredOption = (option?: SelectOption) => {
+  if (option === currentOptionComputed.value || (isValueExists(option) && getDisabled(option))) { return }
 
-    const findNextActiveOption = (startSearchIndex: number, reversedSearch = false) => {
-      const searchBase = [...(currentOptions.value || [])]
-      const searchBaseOrdered = reversedSearch ? searchBase.reverse() : searchBase
-      const startIndex = reversedSearch ? (startSearchIndex * -1) - 1 : startSearchIndex
+  updateCurrentOption(option ?? null, 'mouse')
+}
+const updateFocusedOption = (option?: SelectOption) => { updateCurrentOption(option ?? null, 'keyboard') }
 
-      return searchBaseOrdered.slice(startIndex).find((option) => !getDisabled(option))
-    }
+const selectHoveredOption = () => {
+  const previousOption =
+    previousOptionComputed.value && typeof previousOptionComputed.value === 'object'
+      ? { ...previousOptionComputed.value }
+      : previousOptionComputed.value
 
-    const previousOptionComputed = computed((): SelectOption | undefined => {
-      const previousOptionIndex = currentOptionIndex.value - 1
-      const previousOption = currentOptions.value[previousOptionIndex]
-      const previousOptionCheck = isValueExists(previousOption) && !(previousOptionIndex === 0 && getDisabled(previousOption))
+  emit('select-option')
 
-      if (previousOptionCheck) {
-        return findNextActiveOption(currentOptionIndex.value - 1, true)
-      }
+  if (props.selectedTopShown) {
+    updateHoveredOption(previousOption)
+  }
+}
 
-      return undefined
-    })
+const groupedOptions = computed(() => Object.values(optionGroupsThrottled.value).flat())
+const currentOptions = computed(() =>
+  filteredOptions.value.some((el) => getGroupBy(el)) ? groupedOptions.value : filteredOptions.value)
 
-    const selectOption = (option: SelectOption) => {
-      updateHoveredOption(option)
-      emit('select-option')
-    }
+const currentOptionIndex = computed(() => currentOptions.value.findIndex((option) => {
+  return isValueExists(currentOptionComputed.value) && getTrackBy(option) === getTrackBy(currentOptionComputed.value)
+}))
 
-    const handleMouseMove = (option: SelectOption) => {
-      if (!props.selectedTopShown) { updateHoveredOption(option) }
-    }
+const selectOptionProps = computed(() => ({
+  ...pick(props, ['getSelectedState', 'color', 'search', 'highlightMatchedText', 'minSearchChars']),
+  getText,
+  getTrackBy,
+}))
 
-    const handleMouseEnter = (option: SelectOption) => {
-      if (props.selectedTopShown) { updateHoveredOption(option) }
-    }
+const findNextActiveOption = (startSearchIndex: number, reversedSearch = false) => {
+  const searchBase = [...(currentOptions.value || [])]
+  const searchBaseOrdered = reversedSearch ? searchBase.reverse() : searchBase
+  const startIndex = reversedSearch ? (startSearchIndex * -1) - 1 : startSearchIndex
 
-    // public
-    const focusPreviousOption = () => {
-      if (!isValueExists(currentOptionComputed.value)) {
-        updateFocusedOption(findNextActiveOption(0, true))
-        return
-      }
+  return searchBaseOrdered.slice(startIndex).find((option) => !getDisabled(option))
+}
 
-      if (isValueExists(previousOptionComputed.value)) {
-        updateFocusedOption(previousOptionComputed.value)
-      } else {
-        emit('no-previous-option-to-hover')
-      }
-    }
+const previousOptionComputed = computed((): SelectOption | undefined => {
+  const previousOptionIndex = currentOptionIndex.value - 1
+  const previousOption = currentOptions.value[previousOptionIndex]
+  const previousOptionCheck = isValueExists(previousOption) && !(previousOptionIndex === 0 && getDisabled(previousOption))
 
-    const focusNextOption = () => {
-      if (!isValueExists(currentOptionComputed.value)) {
-        focusFirstOption()
-        return
-      }
+  if (previousOptionCheck) {
+    return findNextActiveOption(currentOptionIndex.value - 1, true)
+  }
 
-      const nextOptionIndex = currentOptionIndex.value + 1
-      const nextOption = currentOptions.value[nextOptionIndex]
-      const nextOptionCheck = isValueExists(nextOption) && !(nextOptionIndex === currentOptions.value.length - 1 && getDisabled(nextOption))
-      if (nextOptionCheck) {
-        updateFocusedOption(findNextActiveOption(currentOptionIndex.value + 1))
-      }
-    }
+  return undefined
+})
 
-    const focusFirstOption = () => updateFocusedOption(findNextActiveOption(0))
+const selectOption = (option: SelectOption) => {
+  updateHoveredOption(option)
+  emit('select-option')
+}
 
-    const { itemRefs, setItemRef } = useObjectRefs()
-    const virtualScrollerRef = shallowRef<Array<InstanceType<typeof VaVirtualScroller>>>()
-    const scrollToOption = (option: SelectOption) => {
-      if (!isValueExists(option)) { return }
+const handleMouseMove = (option: SelectOption) => {
+  if (!props.selectedTopShown) { updateHoveredOption(option) }
+}
 
-      const element = unwrapEl(itemRefs.value[getTrackBy(option)])
-      if (element) { scrollToElement(element) }
+const handleMouseEnter = (option: SelectOption) => {
+  if (props.selectedTopShown) { updateHoveredOption(option) }
+}
 
-      if (props.virtualScroller) { virtualScrollerRef.value?.[0].virtualScrollTo(currentOptionIndex.value) }
-    }
+// public
+const focusPreviousOption = () => {
+  if (!isValueExists(currentOptionComputed.value)) {
+    updateFocusedOption(findNextActiveOption(0, true))
+    return
+  }
 
-    const publicMethods = {
-      focusPreviousOption,
-      focusNextOption,
-      focusFirstOption,
-      scrollToOption,
-      focus,
-    }
+  if (isValueExists(previousOptionComputed.value)) {
+    updateFocusedOption(previousOptionComputed.value)
+  } else {
+    emit('no-previous-option-to-hover')
+  }
+}
 
-    watch(() => props.hoveredOption, (newOption: SelectOption | null) => {
-      (!lastInteractionSource.value || lastInteractionSource.value === 'keyboard') &&
-      (isValueExists(newOption)) && scrollToOption(newOption)
-    })
+const focusNextOption = () => {
+  if (!isValueExists(currentOptionComputed.value)) {
+    focusFirstOption()
+    return
+  }
 
-    watch(filteredOptions, () => {
-      if (!props.autoSelectFirstOption) { return }
+  const nextOptionIndex = currentOptionIndex.value + 1
+  const nextOption = currentOptions.value[nextOptionIndex]
+  const nextOptionCheck = isValueExists(nextOption) && !(nextOptionIndex === currentOptions.value.length - 1 && getDisabled(nextOption))
+  if (nextOptionCheck) {
+    updateFocusedOption(findNextActiveOption(currentOptionIndex.value + 1))
+  }
+}
 
-      focusFirstOption()
-    }, { immediate: true })
+const focusFirstOption = () => updateFocusedOption(findNextActiveOption(0))
 
-    return {
-      root,
-      virtualScrollerRef,
+const { itemRefs, setItemRef } = useObjectRefs()
+const virtualScrollerRef = shallowRef<Array<ComponentPublicInstance>>()
+const scrollToOption = (option: SelectOption) => {
+  if (!isValueExists(option)) { return }
 
-      rootHeight,
-      optionGroups: optionGroupsThrottled,
-      filteredOptions,
-      selectOptionProps,
-      currentOptionComputed,
+  const element = unwrapEl(itemRefs.value[getTrackBy(option)])
+  if (element) { scrollToElement(element) }
 
-      onScroll,
-      getTrackBy,
-      setItemRef,
-      getDisabled,
-      selectHoveredOption,
-      handleMouseMove,
-      handleMouseEnter,
-      updateHoveredOption,
-      handleScrollToBottom,
-      selectOption,
+  const virtualScroller = virtualScrollerRef.value?.[0]
 
-      ...publicMethods,
-    }
-  },
+  if (props.virtualScroller) { (virtualScroller as any).virtualScrollTo(currentOptionIndex.value) }
+}
+
+watch(() => props.hoveredOption, (newOption: SelectOption | null) => {
+  (!lastInteractionSource.value || lastInteractionSource.value === 'keyboard') &&
+  (isValueExists(newOption)) && scrollToOption(newOption)
+})
+
+watch(filteredOptions, () => {
+  if (!props.autoSelectFirstOption) { return }
+
+  focusFirstOption()
+}, { immediate: true })
+
+defineExpose({
+  focusPreviousOption,
+  focusNextOption,
+  focusFirstOption,
+  scrollToOption,
+  focus,
 })
 </script>
 

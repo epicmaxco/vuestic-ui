@@ -3,6 +3,8 @@ import { VaButton } from '../va-button'
 import { userEvent } from '../../../.storybook/interaction-utils/userEvent'
 import { within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
+import { StoryFn } from '@storybook/vue3'
+import { sleep } from '../../utils/sleep'
 
 export default {
   title: 'VaAlert',
@@ -89,7 +91,7 @@ export const CloseIcon = () => ({
   `,
 })
 
-export const Stateful = () => ({
+export const Stateful: StoryFn = () => ({
   components: { VaAlert },
   template: `
     [true]
@@ -109,12 +111,13 @@ Stateful.play = async ({ canvasElement, step }) => {
 
   await step('Stateful alert must close on x click', async () => {
     await userEvent.click(firstCloseButton)
+    await sleep(500)
     const [nonStatefulAlert, statefulAlert] = canvas.getAllByRole('alert', { name: '' }) as HTMLElement[]
     expect(statefulAlert).toBeUndefined()
   })
 
   await step('Should do nothing', async () => {
-    await userEvent.click(firstCloseButton)
+    await userEvent.click(secondCloseButton)
     const nonStatefulAlert = canvas.getByRole('alert', { name: '' }) as HTMLElement
     expect(nonStatefulAlert).toBeDefined()
   })
@@ -187,7 +190,7 @@ export const Slotted = () => ({
   `,
 })
 
-export const HideAndShow = () => ({
+export const HideAndShow: StoryFn = () => ({
   components: { VaAlert, VaButton },
   data: () => ({ isVisible: true }),
   template: `
@@ -210,12 +213,14 @@ HideAndShow.play = async ({ canvasElement, step }) => {
 
   await step('Hides on button click', async () => {
     await userEvent.click(hideButton)
+    await sleep(500)
     const alert = document.querySelector('[role="alert"]') as HTMLElement | null
     expect(alert).toBeNull()
   })
 
   await step('Shows on button click', async () => {
     await userEvent.click(showButton)
+    await sleep(500)
     const alert = document.querySelector('[role="alert"]') as HTMLElement
     expect(alert).not.toBeNull()
   })

@@ -1,12 +1,13 @@
 import { VaAffix } from './'
 import { expect } from '@storybook/jest'
+import { StoryFn } from '@storybook/vue3'
 
 export default {
   title: 'VaAffix',
   component: VaAffix,
 }
 
-export const FixedTop = () => ({
+export const FixedTop: StoryFn = () => ({
   components: { VaAffix },
   template: `
     <div class="w-1/4">
@@ -28,7 +29,7 @@ FixedTop.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const FixedBottom = () => ({
+export const FixedBottom: StoryFn = () => ({
   components: { VaAffix },
   template: `
     <div class="w-1/4">

@@ -24,7 +24,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
 .custom-upload-file-area {
   width: max-content;
   padding: 1rem;

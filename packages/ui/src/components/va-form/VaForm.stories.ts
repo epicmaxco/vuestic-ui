@@ -23,6 +23,7 @@ import {
   VaRadio,
 } from '../'
 import { sleep } from '../../utils/sleep'
+import { useForm } from '../../composables'
 
 export default {
   title: 'VaForm',
@@ -47,7 +48,7 @@ export const Default = () => ({
   `,
 })
 
-export const Autofocus = () => ({
+export const Autofocus: StoryFn = () => ({
   components: { VaForm, VaInput },
   template: `
     <va-form autofocus>
@@ -71,7 +72,7 @@ Autofocus.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const Stateful = () => ({
+export const Stateful: StoryFn = () => ({
   components: { VaForm, VaCheckbox },
   template: `
     [true]
@@ -101,7 +102,7 @@ Stateful.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const Immediate = () => ({
+export const Immediate: StoryFn = () => ({
   components: { VaForm, VaInput },
 
   template: `
@@ -160,7 +161,7 @@ HideErrorMessages.play = async ({ step, canvasElement }) => {
   })
 }
 
-export const HideErrors = () => ({
+export const HideErrors: StoryFn = () => ({
   components: { VaForm, VaInput },
   template: `
     [true]
@@ -186,7 +187,7 @@ HideErrors.play = async ({ step }) => {
   })
 }
 
-export const Focus = () => ({
+export const Focus: StoryFn = () => ({
   components: { VaForm, VaInput, VaButton },
   template: `
     <va-form ref="form">
@@ -210,7 +211,7 @@ Focus.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const FocusInvalid = () => ({
+export const FocusInvalid: StoryFn = () => ({
   components: { VaForm, VaInput, VaButton },
   template: `
     <va-form ref="form">
@@ -235,11 +236,11 @@ FocusInvalid.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const ValidateAndResetValidation = () => ({
+export const ValidateAndResetValidation: StoryFn = () => ({
   components: { VaForm, VaInput, VaButton },
   template: `
     <va-form ref="form">
-      <va-input data-testid="input" :rules="[false]"/>
+      <va-input data-testid="input" :rules="[false]" stateful />
     </va-form>
     <va-button @click="$refs.form.validate()">
       Validate
@@ -267,7 +268,7 @@ ValidateAndResetValidation.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const Reset = () => ({
+export const Reset: StoryFn = () => ({
   components: { VaForm, VaInput, VaButton },
   data: () => ({ data: '' }),
   methods: {
@@ -475,3 +476,123 @@ addText(
   'This is old demo resqued to have visual tests, but we want to rewrite it eventually.',
   'stale',
 )
+
+export const FormDataInitialValue = () => ({
+  components: {
+    VaForm,
+    VaInput,
+    VaSelect,
+    VaDateInput,
+    VaTimeInput,
+    VaOptionList,
+    VaButton,
+  },
+  data: () => ({
+    input: 'value',
+    checkbox: true,
+    date: new Date(0),
+    time: new Date(0),
+    options: OPTIONS,
+    select: OPTIONS[0],
+    validationRules: [false],
+  }),
+  setup () {
+    const form = useForm('formEl')
+
+    return {
+      form,
+    }
+  },
+  template: `
+    [form data]: <pre>{{ form.formData }}</pre>
+
+    <va-form ref="formEl" stateful>
+      <va-checkbox
+        v-model="checkbox"
+        :rules="validationRules"
+        name="checkbox"
+      />
+      <va-date-input
+        v-model="date"
+        :rules="validationRules"
+        name="date"
+      />
+      <va-input
+        v-model="input"
+        :rules="validationRules"
+        name="text"
+      />
+      <va-select
+        v-model="select"
+        :options="options"
+        :rules="validationRules"
+        name="select"
+      />
+      <va-time-input
+        v-model="time"
+        :rules="validationRules"
+        name="time"
+      />
+    </va-form>
+    <va-button @click="$refs.form.reset()">
+      Reset form
+    </va-button>
+  `,
+})
+
+export const DirtyForm: StoryFn = () => ({
+  components: { VaForm, VaInput, VaButton },
+
+  setup () {
+    const { isDirty } = useForm('form')
+
+    return {
+      isDirty,
+    }
+  },
+
+  template: `
+    <p id="form-dirty">[form-dirty]: {{ isDirty }}</p>
+    <p id="input-dirty">[input-dirty]: {{ $refs.input?.isDirty }}</p>
+    <va-form ref="form">
+      <va-input data-testid="input" :rules="[false]" stateful ref="input" />
+    </va-form>
+    <va-button @click="$refs.form.validate()">
+      Validate
+    </va-button>
+    <va-button @click="$refs.form.resetValidation()">
+      Reset validation
+    </va-button>
+  `,
+})
+
+DirtyForm.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const input = canvas.getByTestId('input')
+  const validateButton = canvas.getByRole('button', { name: 'Validate' }) as HTMLElement
+  const resetButton = canvas.getByRole('button', { name: 'Reset validation' }) as HTMLElement
+
+  await step('Validates input with error', async () => {
+    await userEvent.click(validateButton)
+    expect(input.getAttribute('aria-invalid')).toEqual('true')
+    expect(canvasElement.querySelector('#form-dirty')?.innerHTML.includes('true')).toBeTruthy()
+    expect(canvasElement.querySelector('#input-dirty')?.innerHTML.includes('false')).toBeTruthy()
+  })
+
+  await step('Reset inputs validation', async () => {
+    await userEvent.click(resetButton)
+    expect(input.getAttribute('aria-invalid')).toEqual('false')
+  })
+
+  await step('Validates input on input error', async () => {
+    await userEvent.type(input, 'Hello')
+    expect(input.getAttribute('aria-invalid')).toEqual('true')
+    expect(canvasElement.querySelector('#form-dirty')?.innerHTML.includes('false')).toBeTruthy()
+    expect(canvasElement.querySelector('#input-dirty')?.innerHTML.includes('true')).toBeTruthy()
+  })
+
+  await step('Reset inputs validation', async () => {
+    await userEvent.click(resetButton)
+    expect(input.getAttribute('aria-invalid')).toEqual('false')
+  })
+}

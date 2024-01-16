@@ -4,6 +4,7 @@ import { within } from '@storybook/testing-library'
 import { VaCarousel } from '../va-carousel'
 import { expect } from '@storybook/jest'
 import { sleep } from '../../utils/sleep'
+import { StoryFn } from '@storybook/vue3'
 
 const getItems = () => [
   'https://picsum.photos/id/10/2500',
@@ -33,7 +34,7 @@ export const Vertical = () => ({
   `,
 })
 
-export const ZeroOneTwoSlides = () => ({
+export const ZeroOneTwoSlides: StoryFn = () => ({
   components: { VaCarousel },
   data: () => ({ items: getItems() }),
   template: `
@@ -72,7 +73,7 @@ export const Swipe = () => ({
   `,
 })
 
-export const Arrows = () => ({
+export const Arrows: StoryFn = () => ({
   components: { VaCarousel },
   data: () => ({ items: getItems(), current: 0 }),
   template: `
@@ -94,7 +95,7 @@ Arrows.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const Indicators = () => ({
+export const Indicators: StoryFn = () => ({
   components: { VaCarousel },
   data: () => ({ items: getItems() }),
   template: `
@@ -116,7 +117,7 @@ Indicators.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const IndicatorsTrigger = () => ({
+export const IndicatorsTrigger: StoryFn = () => ({
   components: { VaCarousel },
   data: () => ({ items: getItems() }),
   template: `
@@ -161,7 +162,7 @@ IndicatorsTrigger.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const Infinite = () => ({
+export const Infinite: StoryFn = () => ({
   components: { VaCarousel },
   data: () => ({ items: getItems() }),
   template: `
@@ -187,7 +188,7 @@ Infinite.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const Stateful = () => ({
+export const Stateful: StoryFn = () => ({
   components: { VaCarousel },
   data: () => ({ items: getItems() }),
   template: `
@@ -214,7 +215,7 @@ Stateful.play = async ({ canvasElement, step }) => {
   })
 }
 
-export const Autoscroll = () => ({
+export const Autoscroll: StoryFn = () => ({
   components: { VaCarousel },
   data: () => ({ items: getItems() }),
   template: `

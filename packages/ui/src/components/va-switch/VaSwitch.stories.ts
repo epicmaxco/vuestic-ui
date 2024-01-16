@@ -21,9 +21,9 @@ export const ChangeEvent: StoryFn = () => ({
   data: () => ({ value: false, changeCount: 0, lastEventValue: null }),
 
   methods: {
-    onChange (e) {
+    onChange (e: InputEvent) {
       this.changeCount++
-      this.lastEventValue = e.target.checked
+      this.lastEventValue = (e.target as HTMLInputElement).checked
     },
   },
 

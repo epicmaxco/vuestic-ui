@@ -1,7 +1,8 @@
 import { addText } from '../../../.storybook/interaction-utils/addText'
 import { userEvent } from '../../../.storybook/interaction-utils/userEvent'
 import { expect } from '@storybook/jest'
-import { VaCounter } from './'
+import VaCounter from './VaCounter.vue'
+import { StoryFn } from '@storybook/vue3'
 
 export default {
   title: 'VaCounter',
@@ -9,7 +10,7 @@ export default {
   tags: ['autodocs'],
 }
 
-export const Default = () => ({
+export const Default: StoryFn = () => ({
   components: { VaCounter },
   data: () => ({ value: 0 }),
   template: `
@@ -47,7 +48,7 @@ export const LongPressDelay = () => ({
   `,
 })
 
-export const Stateful = () => ({
+export const Stateful: StoryFn = () => ({
   components: { VaCounter },
   template: `
     <p>[true]</p>
@@ -72,7 +73,7 @@ Stateful.play = async ({ step }) => {
   })
 }
 
-export const Min = () => ({
+export const Min: StoryFn = () => ({
   components: { VaCounter },
   template: `
     <VaCounter
@@ -90,7 +91,7 @@ Min.play = async ({ step }) => {
   })
 }
 
-export const Max = () => ({
+export const Max: StoryFn = () => ({
   components: { VaCounter },
   template: `
     <VaCounter
@@ -108,7 +109,7 @@ Max.play = async ({ step }) => {
   })
 }
 
-export const Step = () => ({
+export const Step: StoryFn = () => ({
   components: { VaCounter },
   template: `
     <VaCounter

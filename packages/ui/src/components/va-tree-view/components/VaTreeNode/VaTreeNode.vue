@@ -64,7 +64,7 @@
         :key="getTrackBy(childNode)"
         :node="childNode"
       >
-        <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope">
+        <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope: any">
           <slot :name="name" v-bind="slotScope" />
         </template>
       </va-tree-node>
@@ -73,7 +73,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { computed, PropType } from 'vue'
 
 import { useBem, useStrictInject } from '../../../../composables'
 
@@ -81,95 +81,71 @@ import { VaIcon, VaCheckbox } from '../../../'
 import { TreeViewKey, TreeNode } from '../../types'
 
 const INJECTION_ERROR_MESSAGE = 'The VaTreeNode component should be used in the context of VaTreeView component'
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaTreeNode',
+})
 
-  props: {
-    node: {
-      type: Object as PropType<TreeNode>,
-      required: true,
-    },
-  },
-
-  components: { VaCheckbox, VaIcon },
-
-  setup: (props) => {
-    const {
-      iconBy,
-      selectable,
-      expandNodeBy,
-      colorComputed,
-      selectedNodeComputed,
-      getText,
-      getTrackBy,
-      toggleNode,
-      toggleCheckbox,
-      getNodeProperty,
-      handleKeyboardNavigation,
-    } = useStrictInject(TreeViewKey, INJECTION_ERROR_MESSAGE)
-
-    const labelComputed = computed(() => getText(props.node) || '')
-    const isExpandedComputed = computed(() => props.node.hasChildren ? !!props.node.expanded : undefined)
-    const iconComputed = computed(() => getNodeProperty(props.node, iconBy))
-    const roleComputed = computed(() => props.node.hasChildren ? 'group' : 'treeitem')
-
-    const treeNodeClassComputed = useBem('va-tree-node', () => ({
-      disabled: Boolean(props.node.disabled),
-      checked: Boolean(props.node.checked),
-      hasChildren: Boolean(props.node.hasChildren),
-      [`level-${props.node.level}`]: true,
-      [`expand-by-${expandNodeBy}`]: true,
-    }))
-
-    const expandedClassComputed = useBem('va-tree-node-children', () => ({
-      expanded: !!isExpandedComputed.value,
-    }))
-
-    const indentClassComputed = useBem('va-tree-node-content', () => ({
-      indent: props.node.hasChildren === false,
-    }))
-
-    const cursorClassComputed = useBem('va-tree-node-content', () => ({
-      clickable: (props.node.hasChildren === true && expandNodeBy === 'node'),
-    }))
-
-    const tabIndexComputed = computed(() => props.node.disabled ? -1 : 0)
-
-    const onNodeClick = (type: typeof expandNodeBy) => {
-      const nodeType = expandNodeBy === 'node' && type === 'leaf' ? 'node' : type
-
-      if (expandNodeBy === nodeType) {
-        toggleNode(props.node)
-      }
-
-      selectedNodeComputed.value = props.node
-    }
-
-    return {
-      selectable,
-      expandNodeBy,
-
-      getText,
-      getTrackBy,
-      toggleNode,
-      onNodeClick,
-      handleKeyboardNavigation,
-      toggleCheckbox,
-
-      roleComputed,
-      iconComputed,
-      labelComputed,
-      colorComputed,
-      tabIndexComputed,
-      indentClassComputed,
-      isExpandedComputed,
-      expandedClassComputed,
-      treeNodeClassComputed,
-      cursorClassComputed,
-    }
+const props = defineProps({
+  node: {
+    type: Object as PropType<TreeNode>,
+    required: true,
   },
 })
+
+const {
+  iconBy,
+  selectable,
+  expandNodeBy,
+  colorComputed,
+  selectedNodeComputed,
+  getText,
+  getTrackBy,
+  toggleNode,
+  toggleCheckbox,
+  getNodeProperty,
+  handleKeyboardNavigation,
+} = useStrictInject(TreeViewKey, INJECTION_ERROR_MESSAGE)
+
+const labelComputed = computed(() => getText(props.node) || '')
+const isExpandedComputed = computed(() => props.node.hasChildren ? !!props.node.expanded : undefined)
+const iconComputed = computed(() => getNodeProperty(props.node, iconBy))
+const roleComputed = computed(() => props.node.hasChildren ? 'group' : 'treeitem')
+
+const treeNodeClassComputed = useBem('va-tree-node', () => ({
+  disabled: Boolean(props.node.disabled),
+  checked: Boolean(props.node.checked),
+  hasChildren: Boolean(props.node.hasChildren),
+  [`level-${props.node.level}`]: true,
+  [`expand-by-${expandNodeBy}`]: true,
+}))
+
+const expandedClassComputed = useBem('va-tree-node-children', () => ({
+  expanded: !!isExpandedComputed.value,
+}))
+
+const indentClassComputed = useBem('va-tree-node-content', () => ({
+  indent: props.node.hasChildren === false,
+}))
+
+const cursorClassComputed = useBem('va-tree-node-content', () => ({
+  clickable: (props.node.hasChildren === true && expandNodeBy === 'node'),
+}))
+
+const tabIndexComputed = computed(() => props.node.disabled ? -1 : 0)
+
+const onNodeClick = (type: typeof expandNodeBy) => {
+  const nodeType = expandNodeBy === 'node' && type === 'leaf' ? 'node' : type
+
+  if (expandNodeBy === nodeType) {
+    toggleNode(props.node)
+  }
+
+  selectedNodeComputed.value = props.node
+}
 </script>
 
 <style lang="scss">

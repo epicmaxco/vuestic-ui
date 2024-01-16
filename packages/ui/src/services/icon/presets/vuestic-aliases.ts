@@ -57,4 +57,12 @@ export const VuesticIconAliases = defineIconAliases([
     name: 'va-loading',
     to: 'mi-loop',
   },
+  {
+    name: 'va-plus',
+    to: 'mi-add',
+  },
+  {
+    name: 'va-minus',
+    to: 'mi-remove',
+  },
 ])

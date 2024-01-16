@@ -1,6 +1,6 @@
-import { computed, onBeforeUnmount, onMounted, PropType, ref, Ref, watch, ExtractPropTypes, WritableComputedRef } from 'vue'
+import { computed, onBeforeUnmount, PropType, ref, Ref, watchEffect, type ExtractPropTypes, type WritableComputedRef } from 'vue'
 import Cleave from 'cleave.js'
-import { CleaveOptions } from 'cleave.js/options'
+import { type CleaveOptions } from 'cleave.js/options'
 
 const DEFAULT_MASK_TOKENS: Record<string, Record<string, unknown>> = {
   creditCard: {
@@ -35,7 +35,7 @@ export const useCleave = (
 
   const getMask = (mask: CleaveOptions | string) => {
     if (typeof mask === 'string') {
-      return DEFAULT_MASK_TOKENS[mask] ? { ...DEFAULT_MASK_TOKENS[mask] } : {}
+      return DEFAULT_MASK_TOKENS[mask] ? { ...DEFAULT_MASK_TOKENS[mask] } : null
     }
     return { ...mask }
   }
@@ -44,18 +44,20 @@ export const useCleave = (
     if (cleave.value) { cleave.value.destroy() }
   }
 
-  const initCleave = () => {
+  watchEffect(() => {
     destroyCleave()
 
     if (!element.value) { return }
 
-    cleave.value = new Cleave(element.value, getMask(props.mask))
-  }
+    const mask = getMask(props.mask)
 
-  onMounted(() => { initCleave() })
+    // Do not create cleave instance if mask is not defined
+    if (!mask) { return }
+
+    cleave.value = new Cleave(element.value, mask)
+  })
+
   onBeforeUnmount(() => { destroyCleave() })
-
-  watch(() => [element.value, props.mask], () => { initCleave() })
 
   const computedValue = computed<string | number>(() => {
     if (cleave.value) {

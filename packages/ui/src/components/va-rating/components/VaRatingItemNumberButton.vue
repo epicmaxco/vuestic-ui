@@ -16,27 +16,29 @@
   </button>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
+<script lang="ts" setup>
 import { useSize, useSizeProps } from '../../../composables'
 import { useVaRatingColorsProps, useVaRatingColors } from '../hooks/useVaRatingColors'
 
-export default defineComponent({
+defineOptions({
   name: 'VaRatingItemNumberButton',
-
-  props: {
-    ...useVaRatingColorsProps,
-    ...useSizeProps,
-    itemNumber: { type: Number, required: true },
-    modelValue: { type: Number, required: true },
-  },
-
-  setup (props) {
-    return {
-      ...useVaRatingColors(props),
-      ...useSize(props, 'VaRating'),
-    }
-  },
 })
+
+const props = defineProps({
+  ...useVaRatingColorsProps,
+  ...useSizeProps,
+  itemNumber: { type: Number, required: true },
+  modelValue: { type: Number, required: true },
+})
+
+const {
+  textColorComputed,
+  backgroundComputed,
+} = useVaRatingColors(props)
+
+const {
+  sizeComputed,
+  fontSizeComputed,
+  fontSizeInRem,
+} = useSize(props, 'VaRating')
 </script>

@@ -6,24 +6,24 @@
   />
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
-export default defineComponent({
+defineOptions({
   name: 'VaListSeparator',
-  props: {
-    ...useComponentPresetProp,
-    fit: { type: Boolean, default: false },
-    spaced: { type: Boolean, default: false },
-  },
-  setup: (props) => ({
-    computedClass: computed(() => ({
-      'va-list-separator--offset': !props.fit,
-      'va-list-separator--spaced': props.spaced,
-    })),
-  }),
 })
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  fit: { type: Boolean, default: false },
+  spaced: { type: Boolean, default: false },
+})
+
+const computedClass = computed(() => ({
+  'va-list-separator--offset': !props.fit,
+  'va-list-separator--spaced': props.spaced,
+}))
 </script>
 
 <style lang="scss">

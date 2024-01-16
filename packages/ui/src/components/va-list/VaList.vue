@@ -8,21 +8,20 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
-export default defineComponent({
+defineOptions({
   name: 'VaList',
-  props: {
-    ...useComponentPresetProp,
-    fit: { type: Boolean, default: false },
-  },
-
-  setup: (props) => ({
-    computedClass: computed(() => ({ 'va-list--fit': props.fit })),
-  }),
 })
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  fit: { type: Boolean, default: false },
+})
+
+const computedClass = computed(() => ({ 'va-list--fit': props.fit }))
 </script>
 
 <style lang="scss">

@@ -16,8 +16,8 @@
   </component>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 
 import pick from 'lodash/pick.js'
 import { getGradientBackground } from '../../services/color'
@@ -30,58 +30,48 @@ import {
   useRouterLinkProps,
 } from '../../composables'
 
-export default defineComponent({
+defineOptions({
   name: 'VaCard',
+})
 
-  props: {
-    ...useRouterLinkProps,
-    ...useComponentPresetProp,
-    tag: { type: String, default: 'div' },
-    square: { type: Boolean, default: false },
-    outlined: { type: Boolean, default: false },
-    bordered: { type: Boolean, default: true },
-    disabled: { type: Boolean, default: false },
-    href: { type: String, default: '' },
-    target: { type: String, default: '' },
-    stripe: { type: Boolean, default: false },
-    stripeColor: { type: String, default: '' },
-    gradient: { type: Boolean, default: false },
-    textColor: { type: String },
-    color: { type: String, default: 'background-secondary' },
-  },
+const props = defineProps({
+  ...useRouterLinkProps,
+  ...useComponentPresetProp,
+  tag: { type: String, default: 'div' },
+  square: { type: Boolean, default: false },
+  outlined: { type: Boolean, default: false },
+  bordered: { type: Boolean, default: true },
+  disabled: { type: Boolean, default: false },
+  href: { type: String, default: '' },
+  target: { type: String, default: '' },
+  stripe: { type: Boolean, default: false },
+  stripeColor: { type: String, default: '' },
+  gradient: { type: Boolean, default: false },
+  textColor: { type: String },
+  color: { type: String, default: 'background-secondary' },
+})
 
-  setup (props) {
-    const { getColor } = useColors()
-    const { isLinkTag, tagComputed, hrefComputed } = useRouterLink(props)
-    const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
+const { getColor } = useColors()
+const { isLinkTag, tagComputed, hrefComputed } = useRouterLink(props)
+const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
 
-    const stripeColorComputed = computed(() => getColor(props.stripeColor))
+const stripeColorComputed = computed(() => getColor(props.stripeColor))
 
-    const classComputed = useBem('va-card', () => ({
-      ...pick(props, ['square', 'outlined', 'disabled', 'stripe']),
-      noBorder: !props.bordered,
-      link: isLinkTag.value,
-    }))
+const classComputed = useBem('va-card', () => ({
+  ...pick(props, ['square', 'outlined', 'disabled', 'stripe']),
+  noBorder: !props.bordered,
+  link: isLinkTag.value,
+}))
 
-    const cardStyles = computed(() => {
-      const background = props.gradient && props.color
-        ? getGradientBackground(getColor(props.color))
-        : getColor(props.color)
+const cardStyles = computed(() => {
+  const background = props.gradient && props.color
+    ? getGradientBackground(getColor(props.color))
+    : getColor(props.color)
 
-      return {
-        background,
-        color: textColorComputed.value,
-      }
-    })
-
-    return {
-      classComputed,
-      cardStyles,
-      stripeColorComputed,
-      tagComputed,
-      hrefComputed,
-    }
-  },
+  return {
+    background,
+    color: textColorComputed.value,
+  }
 })
 </script>
 

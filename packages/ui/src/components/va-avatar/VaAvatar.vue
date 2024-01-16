@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, computed } from 'vue'
+import { ref, watch, computed } from 'vue'
 import pick from 'lodash/pick'
 
 import {
@@ -48,81 +48,72 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 
 import { VaIcon, VaProgressCircle, VaFallback } from '../index'
 
-const VaFallbackProps = extractComponentProps(VaFallback)
+const VaFallbackPropsDeclaration = extractComponentProps(VaFallback)
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaAvatar',
+})
 
-  components: { VaIcon, VaProgressCircle, VaFallback },
+const props = defineProps({
+  ...useLoadingProps,
+  ...useSizeProps,
+  ...useComponentPresetProp,
+  ...VaFallbackPropsDeclaration,
 
-  props: {
-    ...useLoadingProps,
-    ...useSizeProps,
-    ...useComponentPresetProp,
-    ...VaFallbackProps,
+  color: { type: String, default: 'primary' },
+  textColor: { type: String },
+  square: { type: Boolean, default: false },
+  fontSize: { type: String, default: '' },
+  src: { type: String, default: null },
+  icon: { type: String, default: '' },
+  alt: { type: String, default: '' },
+})
 
-    color: { type: String, default: 'primary' },
-    textColor: { type: String },
-    square: { type: Boolean, default: false },
-    fontSize: { type: String, default: '' },
-    src: { type: String, default: null },
-    icon: { type: String, default: '' },
-    alt: { type: String, default: '' },
-  },
+const emit = defineEmits(['error', 'fallback'])
 
-  emits: ['error', 'fallback'],
+const { getColor } = useColors()
+const colorComputed = computed(() => getColor(props.color))
+const backgroundColorComputed = computed(() => {
+  if (props.loading || (props.src && !hasLoadError.value)) {
+    return undefined
+  }
 
-  setup (props, { emit }) {
-    const { getColor } = useColors()
-    const colorComputed = computed(() => getColor(props.color))
-    const backgroundColorComputed = computed(() => {
-      if (props.loading || (props.src && !hasLoadError.value)) {
-        return undefined
-      }
+  return colorComputed.value
+})
+const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
+const { textColorComputed } = useTextColor(backgroundColorComputed)
 
-      return colorComputed.value
-    })
-    const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
-    const { textColorComputed } = useTextColor(backgroundColorComputed)
+const computedStyle = computed(() => ({
+  fontSize: props.fontSize || fontSizeComputed.value,
+}))
 
-    const computedStyle = computed(() => ({
-      fontSize: props.fontSize || fontSizeComputed.value,
-    }))
+const classesComputed = useBem('va-avatar', () => ({
+  ...pick(props, ['square']),
+}))
 
-    const classesComputed = useBem('va-avatar', () => ({
-      ...pick(props, ['square']),
-    }))
+const hasLoadError = ref(false)
 
-    const hasLoadError = ref(false)
+const onLoadError = (event: Event) => {
+  hasLoadError.value = true
+  emit('error', event)
+}
 
-    const onLoadError = (event: Event) => {
-      hasLoadError.value = true
-      emit('error', event)
-    }
+watch(() => props.src, () => {
+  hasLoadError.value = false
+})
 
-    watch(() => props.src, () => {
-      hasLoadError.value = false
-    })
+const avatarOptions = computed(() => ({
+  hasError: hasLoadError.value,
+  onError: onLoadError,
+}))
 
-    const avatarOptions = computed(() => ({
-      hasError: hasLoadError.value,
-      onError: onLoadError,
-    }))
+const VaFallbackProps = filterComponentProps(VaFallbackPropsDeclaration)
 
-    return {
-      hasLoadError,
-      sizeComputed,
-      avatarOptions,
-      computedStyle,
-      colorComputed,
-      classesComputed,
-      textColorComputed,
-      backgroundColorComputed,
-      VaFallbackProps: filterComponentProps(VaFallbackProps),
-
-      onLoadError,
-    }
-  },
+defineExpose({
+  hasLoadError,
 })
 </script>
 

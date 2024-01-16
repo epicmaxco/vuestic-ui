@@ -35,6 +35,10 @@ export default definePageConfig({
       title: "Mask",
       description: "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/)[[target=_blank]]. By default returning a raw value. <br />If you need other cleave addons (like phone) you have install cleave.js and just import them in your app. For example, the path is: cleave.js/dist/addons/cleave-phone.{country}.js"
     }),
+    block.example("StrictVModel", {
+      title: 'Strict v-model bind',
+      description: 'In case you want to strictly bind v-model to input value. This will prevent user from typing anything that doesn\'t match provided model-value. Can be used for validation or making masks.'
+    }),
     block.example("InputClass", {
       title: "Input Class",
       description: "To assign a class directly to input, rather than its wrapper, use the `input-class` property. For example, you can use the build-in component class (or any other class you've created) to align the input text &mdash; `va-text-center` and `va-text-right` to align the center or right.",
@@ -69,6 +73,7 @@ export default definePageConfig({
         maxLength: 'Maximum length of input.',
         minLength: 'Minimum length of input.',
         inputmode: 'The inputmode global attribute is an enumerated attribute that specifies what kind of input mechanism would be most helpful for users entering content into the form control.',
+        strictBindInputValue: "In case you want to strictly bind v-model to input value. This will prevent user from typing anything that doesn't match your custom the mask.",
       },
       events: {
         clear: 'Emitted when the clear button is clicked.',

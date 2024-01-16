@@ -4,6 +4,7 @@ import { VaButton } from '../va-button'
 import { within, userEvent } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 import { sleep } from '../../utils/sleep'
+import { StoryFn } from '@storybook/vue3'
 
 export default {
   title: 'VaValue',
@@ -11,7 +12,7 @@ export default {
   tags: ['autodocs'],
 }
 
-export const Default = () => ({
+export const Default: StoryFn = () => ({
   components: { VaValue, VaButton },
   template: `
     <VaValue #default="v">

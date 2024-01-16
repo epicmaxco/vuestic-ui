@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, InputHTMLAttributes, shallowRef, toRefs } from 'vue'
+import { computed, InputHTMLAttributes, nextTick, shallowRef, toRefs, useAttrs, useSlots, watch } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
@@ -61,7 +61,7 @@ import {
   useClearable, useClearableProps, useClearableEmits,
   useTranslation,
   useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
-  useFocusable, useFocusableProps,
+  useFocusable, useFocusableProps, useEvent,
 } from '../../composables'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
@@ -84,159 +84,186 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
   'click-prepend-inner',
   'click-append-inner',
 ])
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaInput',
+  inheritAttrs: false,
+})
 
-  components: { VaInputWrapper, VaIcon },
-
-  props: {
-    ...VaInputWrapperProps,
-    ...useFormFieldProps,
-    ...useFocusableProps,
-    ...useValidationProps as ValidationProps<string>,
-    ...useClearableProps,
-    ...useCleaveProps,
-    ...useComponentPresetProp,
-    ...useStatefulProps,
+const props = defineProps({
+  ...VaInputWrapperProps,
+  ...useFormFieldProps,
+  ...useFocusableProps,
+  ...useValidationProps as ValidationProps<string>,
+  ...useClearableProps,
+  ...useCleaveProps,
+  ...useComponentPresetProp,
+  ...useStatefulProps,
 
     // input
-    placeholder: { type: String, default: '' },
-    tabindex: { type: [String, Number], default: 0 },
-    modelValue: { type: [String, Number] },
-    type: { type: String as AnyStringPropType<'text' | 'password'>, default: 'text' },
-    inputClass: { type: String, default: '' },
-    pattern: { type: String },
-    inputmode: { type: String, default: 'text' },
-    counter: { type: Boolean, default: false },
+  placeholder: { type: String, default: '' },
+  tabindex: { type: [String, Number], default: 0 },
+  modelValue: { type: [Number, String], default: '' },
+  type: { type: String as AnyStringPropType<'text' | 'password'>, default: 'text' },
+  inputClass: { type: String, default: '' },
+  pattern: { type: String },
+  inputmode: { type: String, default: 'text' },
+  counter: { type: Boolean, default: false },
 
     // style
-    ariaResetLabel: { type: String, default: '$t:reset' },
-  },
+  ariaResetLabel: { type: String, default: '$t:reset' },
 
-  emits: [
-    'update:modelValue',
-    ...useValidationEmits,
-    ...useClearableEmits,
-    ...createInputEmits(),
-    ...createFieldEmits(),
-    ...useStatefulEmits,
-  ],
+    /** Set value to input when model value is updated */
+  strictBindInputValue: { type: Boolean, default: false },
+})
 
-  inheritAttrs: false,
+const emit = defineEmits([
+  'update:modelValue',
+  ...useValidationEmits,
+  ...useClearableEmits,
+  ...createInputEmits(),
+  ...createFieldEmits(),
+  ...useStatefulEmits,
+])
 
-  setup (props, { emit, attrs, slots }) {
-    useDeprecatedCondition([
-      () => props.type !== 'textarea' || 'Use VaTextarea component instead of VaInput with type="textarea"',
-    ])
+useDeprecatedCondition([
+  () => props.type !== 'textarea' || 'Use VaTextarea component instead of VaInput with type="textarea"',
+])
 
-    const input = shallowRef<HTMLInputElement>()
+const input = shallowRef<HTMLInputElement>()
 
-    const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: '' })
+const { valueComputed } = useStateful(props, emit, 'modelValue')
 
-    const reset = () => withoutValidation(() => {
-      emit('update:modelValue', props.clearValue)
-      emit('clear')
-      resetValidation()
-    })
+const reset = () => withoutValidation(() => {
+  emit('update:modelValue', props.clearValue)
+  emit('clear')
+  resetValidation()
+})
 
-    const { focus, blur } = useFocusable(input, props)
+const { focus, blur } = useFocusable(input, props)
 
-    const filterSlots = computed(() => {
-      const iconSlot = ['icon']
-      return Object.keys(slots).filter(slot => !iconSlot.includes(slot))
-    })
+const slots = useSlots()
 
-    const {
-      computedError,
-      computedErrorMessages,
-      listeners: { onBlur, onFocus },
-      validationAriaAttributes,
-      isLoading,
-      withoutValidation,
-      resetValidation,
-    } = useValidation(props, emit, { reset, focus, value: valueComputed })
+const filterSlots = computed(() => {
+  const iconSlot = ['icon']
+  return Object.keys(slots).filter(slot => !iconSlot.includes(slot))
+})
 
-    const { modelValue } = toRefs(props)
-    const {
-      canBeCleared,
-      clearIconProps,
-    } = useClearable(props, modelValue, input, computedError)
+const { tp } = useTranslation()
 
-    const { computedValue, onInput } = useCleave(input, props, valueComputed)
+const {
+  isDirty,
+  computedError,
+  computedErrorMessages,
+  listeners: { onBlur, onFocus },
+  validationAriaAttributes,
+  isLoading,
+  withoutValidation,
+  resetValidation,
+} = useValidation(props, emit, { reset, focus, value: valueComputed })
 
-    const inputListeners = createInputListeners(emit)
+const { modelValue } = toRefs(props)
+const {
+  canBeCleared,
+  clearIconProps,
+} = useClearable(props, modelValue, input, computedError)
 
-    const inputEvents = {
-      ...inputListeners,
-      onFocus: combineFunctions(onFocus, inputListeners.onFocus),
-      onBlur: combineFunctions(onBlur, inputListeners.onBlur),
-      onInput: combineFunctions(onInput, inputListeners.onInput),
-    }
+const { computedValue, onInput } = useCleave(input, props, valueComputed)
 
-    const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
+const inputListeners = createInputListeners(emit)
 
-    const computedChildAttributes = computed(() => ({
-      'aria-label': props.inputAriaLabel || props.label,
-      'aria-labelledby': props.inputAriaLabelledby,
-      'aria-required': props.requiredMark,
-      tabindex: tabIndexComputed.value,
-      class: props.inputClass,
-      'aria-disabled': props.disabled,
-      'aria-readonly': props.readonly,
-      ...validationAriaAttributes.value,
-      ...omit(attrs, ['class', 'style']),
-    }) as InputHTMLAttributes)
+const inputEvents = {
+  ...inputListeners,
+  onFocus: combineFunctions(onFocus, inputListeners.onFocus),
+  onBlur: combineFunctions(onBlur, inputListeners.onBlur),
+  onInput: combineFunctions(onInput, inputListeners.onInput),
+}
 
-    const computedInputAttributes = computed(() => ({
-      ...computedChildAttributes.value,
-      ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'minlength', 'maxlength']),
-    }) as InputHTMLAttributes)
+const setInputValue = (newValue: string) => {
+  if (!props.strictBindInputValue) {
+    return
+  }
 
-    const valueLengthComputed = computed(() =>
-      props.counter && typeof computedValue.value === 'string' ? computedValue.value.length : undefined,
-    )
+  const target = input.value
 
-    const onFieldClick = (e: MouseEvent) => {
-      if (!e.target || !('tagName' in e.target)) {
-        return
-      }
+  if (!target) {
+    return
+  }
 
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
-        return
-      }
+  // Similar to cleave solution
+  // When user types, we update input value according to computedValue, if value is different
+  // This causes cursor to move to the end of the input
+  // To prevent this, we save cursor position and restore it after value is updated
+  const selectionStart = target.selectionStart || 0
+  const selectionEnd = target.selectionEnd || 0
 
-      focus()
-    }
+  if (target.value !== newValue) {
+    target.value = String(newValue)
+  }
+  target.setSelectionRange(selectionStart, selectionEnd)
+}
 
-    return {
-      ...useTranslation(),
-      onFieldClick,
-      input,
-      inputEvents,
-      isLoading,
+watch(computedValue, (newValue) => {
+  setInputValue(String(newValue))
+})
 
-      valueLengthComputed,
-      computedChildAttributes,
-      computedInputAttributes,
-      wrapperProps: filterComponentProps(VaInputWrapperProps),
-      computedValue,
-      tabIndexComputed,
+useEvent('input', () => {
+  setInputValue(String(valueComputed.value))
+}, input)
 
-      // Validations
-      computedError,
-      computedErrorMessages,
+const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
 
-      // Icon
-      canBeCleared,
-      clearIconProps,
+const attrs = useAttrs()
 
-      fieldListeners: createFieldListeners(emit),
-      filterSlots,
-      reset,
-      focus,
-      blur,
-    }
-  },
+const computedChildAttributes = computed(() => (({
+  'aria-label': props.inputAriaLabel || props.label,
+  'aria-labelledby': props.inputAriaLabelledby,
+  'aria-required': props.requiredMark,
+  tabindex: tabIndexComputed.value,
+  class: props.inputClass,
+  'aria-disabled': props.disabled,
+  'aria-readonly': props.readonly,
+  ...validationAriaAttributes.value,
+  ...omit(attrs, ['class', 'style']),
+}) as InputHTMLAttributes))
+
+const computedInputAttributes = computed(() => (({
+  ...computedChildAttributes.value,
+  ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'minlength', 'maxlength']),
+}) as InputHTMLAttributes))
+
+const valueLengthComputed = computed(() =>
+  props.counter && typeof computedValue.value === 'string' ? computedValue.value.length : undefined,
+)
+
+const onFieldClick = (e: MouseEvent) => {
+  if (!e.target || !('tagName' in e.target)) {
+    return
+  }
+
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+    return
+  }
+
+  focus()
+}
+
+const wrapperProps = filterComponentProps(VaInputWrapperProps)
+const fieldListeners = createFieldListeners(emit)
+
+defineExpose({
+  isDirty,
+  isLoading,
+  computedError,
+  computedErrorMessages,
+  reset,
+  focus,
+  blur,
+  value: valueComputed,
+  withoutValidation,
+  resetValidation,
 })
 </script>

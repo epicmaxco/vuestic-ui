@@ -9,9 +9,9 @@ const transformVueComponent = (code: string) => {
 describe('component-v-bind-fix', () => {
   describe('transformVueComponent', () => {
     // eslint-disable-next-line no-template-curly-in-string
-    const expectedStyleString = '--va-0-color: ${String(color)};--va-1-background: ${String(background)}'
+    const expectedStyleString = '--va-color: ${String(color)};--va-background: ${String(background)}'
 
-    const expectedObjectStyleString = (styleContent: string) => `typeof ${styleContent} === 'object' ? (Array.isArray(${styleContent}) ? [...${styleContent}, \`${expectedStyleString}\`] : { ...${styleContent}, '--va-0-color': String(color),'--va-1-background': String(background) }) : ${styleContent} + \`;${expectedStyleString}\``
+    const expectedObjectStyleString = (styleContent: string) => `[${styleContent}, \`${expectedStyleString}\`]`
 
     const componentCode = (attrs = '', nestedAttrs = '') => `
 <template>
@@ -53,21 +53,21 @@ const background = 'yellow'
 
 <style>
   button {
-    color: var(--va-0-color);
-    background: var(--va-1-background);
+    color: var(--va-color);
+    background: var(--va-background);
   }
 </style>
 `
 
     test('expectedObjectStyleString', () => {
-      expect(expectedObjectStyleString('style')).toBe(`typeof style === 'object' ? (Array.isArray(style) ? [...style, \`${expectedStyleString}\`] : { ...style, '--va-0-color': String(color),'--va-1-background': String(background) }) : style + \`;${expectedStyleString}\``)
+      expect(expectedObjectStyleString('style')).toBe(`[style, \`${expectedStyleString}\`]`)
     })
 
     test('replace v-bind() with var(--va-index-name)', () => {
       const code = transformVueComponent(componentCode())
 
-      expect(code).toContain('var(--va-0-color)')
-      expect(code).toContain('var(--va-1-background)')
+      expect(code).toContain('var(--va-color)')
+      expect(code).toContain('var(--va-background)')
 
       expect(code).not.toContain('v-bind(color)')
       expect(code).not.toContain('v-bind(background)')
@@ -96,9 +96,9 @@ const background = 'yellow'
         ':style="{ background: yellow }"',
       ))
 
-      const obj = "{ ...{ background: yellow }, '--va-0-color': color,'--va-1-background': background }"
+      const obj = "{ ...{ background: yellow }, '--va-color': color,'--va-background': background }"
       // eslint-disable-next-line no-template-curly-in-string
-      const str = '{ background: yellow } + `;--va-0-color: ${color};--va-1-background: ${background}`'
+      const str = '{ background: yellow } + `;--va-color: ${color};--va-background: ${background}`'
 
       expect(code).toBe(expectedComponentCode(
         `:style="${expectedObjectStyleString('{ background: yellow }')}"`,
@@ -209,7 +209,7 @@ const background = 'yellow'
 
     const expectedComponentCode = () => `
     <template>
-      <button :style="\`--va-0-theme-color: \${String(theme.color)};--va-1-theme-background: \${String(theme.background)}\`">
+      <button :style="\`--va-theme-color: \${String(theme.color)};--va-theme-background: \${String(theme.background)}\`">
         <span>
           Hello
         </span>
@@ -226,8 +226,8 @@ const background = 'yellow'
 
     <style>
       button {
-        color: var(--va-0-theme-color);
-        background: var(--va-1-theme-background);
+        color: var(--va-theme-color);
+        background: var(--va-theme-background);
       }
     </style>
     `
@@ -266,13 +266,13 @@ const background = 'yellow'
 
     const expectedComponentCode = () => `
     <template>
-      <button :style="\`--va-0-theme-color: \${String(theme.color)};--va-1-theme-background: \${String(theme.background)}\`">
+      <button :style="\`--va-theme-color: \${String(theme.color)};--va-theme-background: \${String(theme.background)}\`">
         <span>
           Hello
         </span>
         world!
       </button>
-      <div :style="\`--va-0-theme-color: \${String(theme.color)};--va-1-theme-background: \${String(theme.background)}\`">
+      <div :style="\`--va-theme-color: \${String(theme.color)};--va-theme-background: \${String(theme.background)}\`">
         Label
       </div>
     </template>
@@ -286,8 +286,8 @@ const background = 'yellow'
 
     <style>
       button {
-        color: var(--va-0-theme-color);
-        background: var(--va-1-theme-background);
+        color: var(--va-theme-color);
+        background: var(--va-theme-background);
       }
     </style>
     `
@@ -322,7 +322,7 @@ const background = 'yellow'
 
     const expectedComponentCode = () => `
     <template>
-      <button :style="\`--va-0-theme-color: \${String(theme.color)}\`">
+      <button :style="\`--va-theme-color: \${String(theme.color)}\`">
         <span>
           Hello
         </span>
@@ -338,8 +338,8 @@ const background = 'yellow'
 
     <style>
       button {
-        color: var(--va-0-theme-color);
-        fill: var(--va-0-theme-color);
+        color: var(--va-theme-color);
+        fill: var(--va-theme-color);
       }
     </style>
     `
@@ -388,7 +388,7 @@ const background = 'yellow'
 
     const expectedComponentCode = () => `
     <template>
-      <button :style="\`--va-0-props-color: \${String($props.color)}\`">
+      <button :style="\`--va-props-color: \${String($props.color)}\`">
         <span>
           Hello
         </span>
@@ -419,7 +419,7 @@ const background = 'yellow'
 
     <style>
       button {
-        color: var(--va-0-props-color);
+        color: var(--va-props-color);
       }
     </style>
     `

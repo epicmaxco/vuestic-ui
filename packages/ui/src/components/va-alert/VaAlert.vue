@@ -1,9 +1,9 @@
 <template>
   <transition
-    v-if="valueComputed"
     name="fade"
   >
     <div
+      v-if="valueComputed"
       class="va-alert"
       :style="alertStyle"
       role='alert'
@@ -74,8 +74,8 @@
   </transition>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+<script lang="ts" setup>
+import { computed, PropType, useSlots } from 'vue'
 
 import {
   useComponentPresetProp,
@@ -87,60 +87,63 @@ import { useAlertStyles } from './useAlertStyles'
 
 import { VaIcon } from '../va-icon'
 
-export default defineComponent({
+defineOptions({
   name: 'VaAlert',
-  components: { VaIcon },
-  emits: [...useStatefulEmits],
-  props: {
-    ...useStatefulProps,
-    ...useComponentPresetProp,
+})
 
-    modelValue: { type: Boolean, default: true },
-    stateful: { type: Boolean, default: true },
-    color: { type: String, default: 'primary' },
-    textColor: { type: String, default: '' },
-    title: { type: String, default: '' },
-    description: { type: String, default: '' },
-    icon: { type: String, default: '' },
-    closeText: { type: String, default: '' },
-    closeIcon: { type: String, default: 'close' },
-    closeable: { type: Boolean, default: false },
-    dense: { type: Boolean, default: false },
-    outline: { type: Boolean, default: false },
-    center: { type: Boolean, default: false },
-    borderColor: { type: String, default: '' },
-    border: {
-      type: String as PropType<'top' | 'right' | 'bottom' | 'left' | ''>,
-      default: '',
-      validator: (value: string) => ['top', 'right', 'bottom', 'left', ''].includes(value),
-    },
+const props = defineProps({
+  ...useStatefulProps,
+  ...useComponentPresetProp,
+
+  modelValue: { type: Boolean, default: true },
+  stateful: { type: Boolean, default: true },
+  color: { type: String, default: 'primary' },
+  textColor: { type: String, default: '' },
+  title: { type: String, default: '' },
+  description: { type: String, default: '' },
+  icon: { type: String, default: '' },
+  closeText: { type: String, default: '' },
+  closeIcon: { type: String, default: 'close' },
+  closeable: { type: Boolean, default: false },
+  dense: { type: Boolean, default: false },
+  outline: { type: Boolean, default: false },
+  center: { type: Boolean, default: false },
+  borderColor: { type: String, default: '' },
+  border: {
+    type: String as PropType<'top' | 'right' | 'bottom' | 'left' | ''>,
+    default: '',
+    validator: (value: string) => ['top', 'right', 'bottom', 'left', ''].includes(value),
   },
-  setup (props, { slots, emit }) {
-    const alertStyles = useAlertStyles(props)
+})
 
-    const { valueComputed } = useStateful(props, emit)
+const emit = defineEmits([...useStatefulEmits])
 
-    const hide = () => { valueComputed.value = false }
+const {
+  contentStyle,
+  titleStyle,
+  alertStyle,
+  borderStyle,
+} = useAlertStyles(props)
 
-    const show = () => { valueComputed.value = true }
+const { valueComputed } = useStateful(props, emit)
 
-    const hasIcon = computed(() => props.icon || slots.icon)
+const hide = () => { valueComputed.value = false }
 
-    const hasTitle = computed(() => props.title || slots.title)
+const show = () => { valueComputed.value = true }
 
-    const borderClass = computed(() => `va-alert__border--${props.border}`)
+const slots = useSlots()
 
-    return {
-      ...useTranslation(),
-      ...alertStyles,
-      valueComputed,
-      hasIcon,
-      hasTitle,
-      borderClass,
-      hide,
-      show,
-    }
-  },
+const hasIcon = computed(() => props.icon || slots.icon)
+
+const hasTitle = computed(() => props.title || slots.title)
+
+const borderClass = computed(() => `va-alert__border--${props.border}`)
+
+const { tp, t } = useTranslation()
+
+defineExpose({
+  hide,
+  show,
 })
 </script>
 

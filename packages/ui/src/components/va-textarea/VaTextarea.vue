@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, CSSProperties, shallowRef } from 'vue'
+import { computed, CSSProperties, shallowRef } from 'vue'
 import pick from 'lodash/pick.js'
 import { VaInputWrapper } from '../va-input-wrapper'
 
@@ -45,119 +45,117 @@ const { createEmits, createListeners } = useEmitProxy([
 ])
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+defineOptions({
   name: 'VaTextarea',
+})
 
-  components: { VaInputWrapper },
-
-  props: {
-    ...useFormFieldProps,
-    ...VaInputWrapperProps,
-    ...useStatefulProps,
-    ...useValidationProps,
-    modelValue: { type: [String, Number], default: '' },
-    placeholder: { type: String },
-    autosize: { type: Boolean, default: false },
-    minRows: {
-      type: Number,
-      default: 1,
-      validator: positiveNumberValidator,
-    },
-    maxRows: {
-      type: Number,
-      validator: positiveNumberValidator,
-    },
-    resize: {
-      type: Boolean,
-      default: true,
-    },
-    clearValue: {
-      type: [String],
-      default: '',
-    },
+const props = defineProps({
+  ...useFormFieldProps,
+  ...VaInputWrapperProps,
+  ...useStatefulProps,
+  ...useValidationProps,
+  modelValue: { type: [String, Number], default: '' },
+  placeholder: { type: String },
+  autosize: { type: Boolean, default: false },
+  minRows: {
+    type: Number,
+    default: 1,
+    validator: positiveNumberValidator,
   },
-
-  emits: [...createEmits(), ...useValidationEmits],
-
-  setup (props, { emit }) {
-    const textarea = shallowRef<HTMLTextAreaElement>()
-    const { valueComputed } = useStateful(props, emit, 'modelValue', {
-      defaultValue: '',
-    })
-
-    const focus = () => {
-      focusElement(textarea.value)
-    }
-
-    const blur = () => {
-      blurElement(textarea.value)
-    }
-
-    const reset = () => withoutValidation(() => {
-      emit('update:modelValue', props.clearValue)
-      emit('clear')
-      resetValidation()
-    })
-
-    const {
-      computedError,
-      computedErrorMessages,
-      listeners: validationListeners,
-      validationAriaAttributes,
-      isLoading,
-      resetValidation,
-      withoutValidation,
-    } = useValidation(props, emit, {
-      value: valueComputed,
-      focus,
-      reset,
-    })
-
-    const isResizable = computed(() => {
-      return props.resize && !props.autosize
-    })
-
-    const computedRowsCount = computed<number | undefined>(() => {
-      if (!props.autosize) {
-        return undefined
-      }
-
-      const rows = valueComputed.value ? valueComputed.value.toString().split('\n').length : 1
-
-      if (!props.maxRows) {
-        return rows
-      }
-
-      return Math.max(props.minRows, Math.min(rows, props.maxRows))
-    })
-
-    const computedStyle = computed(() => ({
-      resize: isResizable.value ? undefined : 'none',
-    }) as CSSProperties)
-
-    const computedProps = computed(() => ({
-      ...pick(props, ['disabled', 'readonly', 'placeholder', 'ariaLabel']),
-    }))
-
-    return {
-      isResizable,
-      validationListeners,
-      validationAriaAttributes,
-      computedError,
-      computedErrorMessages,
-      isLoading,
-      computedRowsCount,
-      valueComputed,
-      vaInputWrapperProps: filterComponentProps(VaInputWrapperProps),
-      textarea,
-      computedStyle,
-      listeners: createListeners(emit),
-      computedProps,
-      focus,
-      blur,
-    }
+  maxRows: {
+    type: Number,
+    validator: positiveNumberValidator,
   },
+  resize: {
+    type: Boolean,
+    default: true,
+  },
+  clearValue: {
+    type: [String],
+    default: '',
+  },
+})
+
+const emit = defineEmits([...createEmits(), ...useValidationEmits])
+
+const textarea = shallowRef<HTMLTextAreaElement>()
+const { valueComputed } = useStateful(props, emit, 'modelValue', {
+  defaultValue: '',
+})
+
+const focus = () => {
+  focusElement(textarea.value)
+}
+
+const blur = () => {
+  blurElement(textarea.value)
+}
+
+const reset = () => withoutValidation(() => {
+  emit('update:modelValue', props.clearValue)
+  emit('clear')
+  resetValidation()
+})
+
+const {
+  isDirty,
+  computedError,
+  computedErrorMessages,
+  listeners: validationListeners,
+  validationAriaAttributes,
+  isLoading,
+  resetValidation,
+  withoutValidation,
+} = useValidation(props, emit, {
+  value: valueComputed,
+  focus,
+  reset,
+})
+
+const isResizable = computed(() => {
+  return props.resize && !props.autosize
+})
+
+const computedRowsCount = computed<number | undefined>(() => {
+  if (!props.autosize) {
+    return undefined
+  }
+
+  const rows = valueComputed.value ? valueComputed.value.toString().split('\n').length : 1
+
+  if (!props.maxRows) {
+    return rows
+  }
+
+  return Math.max(props.minRows, Math.min(rows, props.maxRows))
+})
+
+const computedStyle = computed(() => (({
+  resize: isResizable.value ? undefined : 'none',
+}) as CSSProperties))
+
+const computedProps = computed(() => ({
+  ...pick(props, ['disabled', 'readonly', 'placeholder', 'ariaLabel']),
+}))
+
+const vaInputWrapperProps = filterComponentProps(VaInputWrapperProps)
+const listeners = createListeners(emit)
+
+defineExpose({
+  isDirty,
+  isLoading,
+  computedError,
+  computedErrorMessages,
+  reset,
+  focus,
+  blur,
+  value: valueComputed,
+  withoutValidation,
+  resetValidation,
 })
 </script>
 

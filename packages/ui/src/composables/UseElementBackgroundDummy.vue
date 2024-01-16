@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useElementBackground } from './useElementBackground'
 import { useCurrentElement } from './useCurrentElement'
-import { watch, computed, defineEmits } from 'vue'
+import { watch, computed } from 'vue'
 
 const color = computed(() => useElementBackground(useCurrentElement()))
 

@@ -80,4 +80,4 @@ export type UnwrapPageConfigBlock<T extends Record<string, any>> = {
   _blockComponent: DefineComponent,
 } & T
 
-export const defineApiDescription = (options: APIDescriptionOptions) => options;
+export const defineApiDescription = <T extends APIDescriptionOptions>(options: T) => options;

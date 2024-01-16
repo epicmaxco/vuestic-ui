@@ -145,17 +145,16 @@
                     </slot>
                   </td>
                 </tr>
-                <tr
+                <td
                   v-if="row.isExpandableRowVisible"
-                  class="va-data-table__table-tr--expanded va-data-table__table-expanded-content"
+                  class="va-data-table__table-expanded-content"
+                  colspan="99999"
                 >
-                  <td :colspan="row.cells.length">
-                    <slot
-                      name="expandableRow"
-                      v-bind="row"
-                    />
-                  </td>
-                </tr>
+                  <slot
+                    name="expandableRow"
+                    v-bind="row"
+                  />
+                </td>
               </template>
             </transition-group>
 
@@ -199,7 +198,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent, computed, TableHTMLAttributes, StyleValue } from 'vue'
+import { PropType, computed, TableHTMLAttributes, StyleValue, useAttrs } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
@@ -240,201 +239,167 @@ type emitNames = 'update:modelValue' |
   'row:contextmenu' |
   'scroll:top' |
   'scroll:bottom'
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+
+const { tp } = useTranslation()
+
+defineOptions({
   name: 'VaDataTable',
-
-  components: {
-    VaDataTableThRow,
-    VaVirtualScroller,
-    VaInnerLoading,
-    VaCheckbox,
-  },
-
   inheritAttrs: false,
-
-  props: {
-    ...useComponentPresetProp,
-    ...VaVirtualScrollerProps,
-    ...useAnimationNameProps,
-    ...useBindingProps,
-    ...useTableScrollProps,
-    ...useSortableProps,
-    ...useStylableProps,
-    ...useColumnsProps,
-    ...useFilterableProps,
-    ...usePaginatedRowsProps,
-    ...useRowsProps,
-    ...useSelectableProps,
-    ...useThrottleProps,
-    ...pick(VaDataTableThRowProps, ['ariaSelectAllRowsLabel', 'ariaSortColumnByLabel']),
-    hoverable: { type: Boolean, default: false },
-    clickable: { type: Boolean, default: false },
-    loading: { type: Boolean, default: false },
-    loadingColor: { type: String, default: 'primary' },
-    noDataHtml: { type: String, default: 'No items' },
-    noDataFilteredHtml: { type: String, default: 'No items match the provided filtering condition' },
-    hideDefaultHeader: { type: Boolean, default: false },
-    footerClone: { type: Boolean, default: false },
-    striped: { type: Boolean, default: false },
-    virtualScroller: { type: Boolean, default: false },
-    virtualTrackBy: { type: [String, Number] as PropType<string | number>, default: 'initialIndex' },
-    grid: { type: Boolean, default: false },
-    gridColumns: { type: Number, default: 0 },
-    wrapperSize: { type: [Number, String] as PropType<number | string | 'auto'>, default: 'auto' },
-
-    ariaSelectRowLabel: { type: String, default: '$t:selectRowByIndex' },
-  },
-
-  emits: [
-    'update:modelValue', // `modelValue` is selectedItems
-    'update:sortBy',
-    'update:sortingOrder',
-    'filtered',
-    'sorted',
-    'selectionChange',
-    'row:click',
-    'row:dblclick',
-    'row:contextmenu',
-    'columnSorted',
-    ...useTableScrollEmits,
-  ],
-
-  setup (props, { attrs, emit }) {
-    const { columnsComputed } = useColumns(props)
-
-    const { rowsComputed } = useRows(columnsComputed, props)
-
-    const { filteredRows } = useFilterable(rowsComputed, props, emit)
-
-    const {
-      sortBySync,
-      sortingOrderSync,
-      toggleSorting,
-      sortedRows,
-      sortingOrderIconName,
-    } = useSortable(columnsComputed, filteredRows, props, emit)
-
-    const { paginatedRows } = usePaginatedRows(sortedRows, props)
-
-    const {
-      ctrlSelectRow,
-      shiftSelectRows,
-      toggleBulkSelection,
-      isRowSelected,
-      severalRowsSelected,
-      allRowsSelected,
-      toggleRowSelection,
-    } = useSelectableRow(paginatedRows, props, emit)
-
-    const {
-      CSSVariables,
-      getCellCSSVariables,
-      getClass,
-      getStyle,
-    } = useStylable(props)
-
-    const { getRowBind, getCellBind } = useBinding(props)
-
-    const animationName = useAnimationName(props, paginatedRows)
-
-    const showNoDataHtml = computed(() => props.items.length === 0)
-
-    const showNoDataFilteredHtml = computed(() => paginatedRows.value.length === 0)
-
-    const onRowClickHandler = (name: emitNames, event: Event, row: DataTableRow) => {
-      emit(name, {
-        event,
-        item: row.source,
-        itemIndex: row.initialIndex,
-        row,
-      })
-
-      if (props.selectable && props.grid) {
-        toggleRowSelection(row)
-      }
-    }
-
-    const computedTableAttributes = computed(() => ({
-      ...omit(attrs, ['class', 'style']),
-      class: pick(props, ['striped', 'selectable', 'hoverable', 'clickable']),
-    }) as TableHTMLAttributes)
-
-    const filteredVirtualScrollerProps = filterComponentProps(VaVirtualScrollerProps)
-    const virtualScrollerPropsComputed = computed(() => ({
-      ...filteredVirtualScrollerProps.value,
-      items: paginatedRows.value,
-      trackBy: props.virtualTrackBy,
-      disabled: !props.virtualScroller,
-      table: true,
-    }))
-
-    const computedAttributes = computed(() => ({
-      class: [
-        { 'va-data-table--sticky': props.stickyHeader || props.stickyFooter },
-        { 'va-data-table--scroll': !!props.height },
-        { 'va-data-table--virtual-scroller': isVirtualScroll.value },
-        { 'va-data-table--grid': props.grid },
-        attrs.class as string[],
-      ],
-      style: [attrs.style as StyleValue],
-      ...virtualScrollerPropsComputed.value,
-    }))
-
-    const filteredThProps = filterComponentProps(VaDataTableThRowProps)
-    const thAttributesComputed = computed(() => ({
-      ...filteredThProps.value,
-      columns: columnsComputed.value,
-      sortingOrderIconName: sortingOrderIconName.value,
-      severalRowsSelected: severalRowsSelected.value,
-      sortingOrderSync: sortingOrderSync.value,
-      allRowsSelected: allRowsSelected.value,
-      sortBySync: sortBySync.value,
-    }))
-
-    const {
-      scrollContainer,
-      topTrigger,
-      bottomTrigger,
-      doRenderTopTrigger,
-      doRenderBottomTrigger,
-    } = useTableScroll(props, emit)
-
-    const isVirtualScroll = computed(() => props.virtualScroller && !props.grid)
-
-    const gridColumnsCount = computed(() => props.gridColumns || 'var(--va-data-table-grid-tbody-columns)')
-
-    return {
-      ...useTranslation(),
-      scrollContainer,
-      topTrigger,
-      bottomTrigger,
-      columnsComputed,
-      ctrlSelectRow,
-      shiftSelectRows,
-      toggleBulkSelection,
-      isRowSelected,
-      toggleSorting,
-      CSSVariables,
-      getCellCSSVariables,
-      getClass,
-      getStyle,
-      thAttributesComputed,
-      showNoDataHtml,
-      showNoDataFilteredHtml,
-      onRowClickHandler,
-      computedAttributes,
-      computedTableAttributes,
-      animationName,
-      getRowBind,
-      getCellBind,
-      doRenderTopTrigger,
-      doRenderBottomTrigger,
-      isVirtualScroll,
-      gridColumnsCount,
-    }
-  },
 })
+
+const props = defineProps({
+  ...useComponentPresetProp,
+  ...VaVirtualScrollerProps,
+  ...useAnimationNameProps,
+  ...useBindingProps,
+  ...useTableScrollProps,
+  ...useSortableProps,
+  ...useStylableProps,
+  ...useColumnsProps,
+  ...useFilterableProps,
+  ...usePaginatedRowsProps,
+  ...useRowsProps,
+  ...useSelectableProps,
+  ...useThrottleProps,
+  ...pick(VaDataTableThRowProps, ['ariaSelectAllRowsLabel', 'ariaSortColumnByLabel']),
+  hoverable: { type: Boolean, default: false },
+  clickable: { type: Boolean, default: false },
+  loading: { type: Boolean, default: false },
+  loadingColor: { type: String, default: 'primary' },
+  noDataHtml: { type: String, default: 'No items' },
+  noDataFilteredHtml: { type: String, default: 'No items match the provided filtering condition' },
+  hideDefaultHeader: { type: Boolean, default: false },
+  footerClone: { type: Boolean, default: false },
+  striped: { type: Boolean, default: false },
+  virtualScroller: { type: Boolean, default: false },
+  virtualTrackBy: { type: [String, Number] as PropType<string | number>, default: 'initialIndex' },
+  grid: { type: Boolean, default: false },
+  gridColumns: { type: Number, default: 0 },
+  wrapperSize: { type: [Number, String] as PropType<number | string | 'auto'>, default: 'auto' },
+
+  ariaSelectRowLabel: { type: String, default: '$t:selectRowByIndex' },
+})
+
+const emit = defineEmits([
+  'update:modelValue', // `modelValue` is selectedItems
+  'update:sortBy',
+  'update:sortingOrder',
+  'filtered',
+  'sorted',
+  'selectionChange',
+  'row:click',
+  'row:dblclick',
+  'row:contextmenu',
+  'columnSorted',
+  ...useTableScrollEmits,
+])
+
+const { columnsComputed } = useColumns(props)
+
+const { rowsComputed } = useRows(columnsComputed, props)
+
+const { filteredRows } = useFilterable(rowsComputed, props, emit)
+
+const {
+  sortBySync,
+  sortingOrderSync,
+  toggleSorting,
+  sortedRows,
+  sortingOrderIconName,
+} = useSortable(columnsComputed, filteredRows, props, emit)
+
+const { paginatedRows } = usePaginatedRows(sortedRows, props)
+
+const {
+  ctrlSelectRow,
+  shiftSelectRows,
+  toggleBulkSelection,
+  isRowSelected,
+  severalRowsSelected,
+  allRowsSelected,
+  toggleRowSelection,
+} = useSelectableRow(paginatedRows, props, emit)
+
+const {
+  CSSVariables,
+  getCellCSSVariables,
+  getClass,
+  getStyle,
+} = useStylable(props)
+
+const { getRowBind, getCellBind } = useBinding(props)
+
+const animationName = useAnimationName(props, paginatedRows)
+
+const showNoDataHtml = computed(() => props.items.length === 0)
+
+const showNoDataFilteredHtml = computed(() => paginatedRows.value.length === 0)
+
+const onRowClickHandler = (name: emitNames, event: Event, row: DataTableRow) => {
+  emit(name, {
+    event,
+    item: row.source,
+    itemIndex: row.initialIndex,
+    row,
+  })
+
+  if (props.selectable && props.grid) {
+    toggleRowSelection(row)
+  }
+}
+
+const computedTableAttributes = computed(() => (({
+  ...omit(attrs, ['class', 'style']),
+  class: pick(props, ['striped', 'selectable', 'hoverable', 'clickable']),
+}) as TableHTMLAttributes))
+
+const filteredVirtualScrollerProps = filterComponentProps(VaVirtualScrollerProps)
+const virtualScrollerPropsComputed = computed(() => ({
+  ...filteredVirtualScrollerProps.value,
+  items: paginatedRows.value,
+  trackBy: props.virtualTrackBy,
+  disabled: !props.virtualScroller,
+  table: true,
+}))
+
+const attrs = useAttrs()
+const computedAttributes = computed(() => ({
+  class: [
+    { 'va-data-table--sticky': props.stickyHeader || props.stickyFooter },
+    { 'va-data-table--scroll': !!props.height },
+    { 'va-data-table--virtual-scroller': isVirtualScroll.value },
+    { 'va-data-table--grid': props.grid },
+    attrs.class as string[],
+  ],
+  style: [attrs.style as StyleValue],
+  ...virtualScrollerPropsComputed.value,
+}))
+
+const filteredThProps = filterComponentProps(VaDataTableThRowProps)
+const thAttributesComputed = computed(() => ({
+  ...filteredThProps.value,
+  columns: columnsComputed.value,
+  sortingOrderIconName: sortingOrderIconName.value,
+  severalRowsSelected: severalRowsSelected.value,
+  sortingOrderSync: sortingOrderSync.value,
+  allRowsSelected: allRowsSelected.value,
+  sortBySync: sortBySync.value,
+}))
+
+const {
+  scrollContainer,
+  topTrigger,
+  bottomTrigger,
+  doRenderTopTrigger,
+  doRenderBottomTrigger,
+} = useTableScroll(props, emit)
+
+const isVirtualScroll = computed(() => props.virtualScroller && !props.grid)
+
+const gridColumnsCount = computed(() => props.gridColumns || 'var(--va-data-table-grid-tbody-columns)')
 </script>
 
 <style lang="scss">
@@ -559,7 +524,7 @@ export default defineComponent({
     &.striped {
       .va-data-table__table-tbody {
         .va-data-table__table-tr {
-          &:nth-child(even) {
+          &:nth-of-type(2n) {
             &:not(.selected) {
               td {
                 // Position relative doesn't work on tr in Safari

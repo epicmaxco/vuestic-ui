@@ -6,51 +6,49 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+<script lang="ts" setup>
+import { computed, PropType } from 'vue'
 
 import { useColors, useSize, useSizeProps } from '../../composables'
 
-export default defineComponent({
+defineOptions({
   name: 'VaScrollContainer',
+})
 
-  props: {
-    ...useSizeProps,
-    vertical: { type: Boolean, default: false },
-    horizontal: { type: Boolean, default: false },
-    color: { type: String, default: 'secondary' },
-    rtl: { type: Boolean, default: false },
-    gradient: { type: Boolean, default: false },
-    sizesConfig: {
-      type: Object,
-      default: () => ({
-        defaultSize: 4,
-        sizes: { small: 4, medium: 6, large: 8 },
-      }),
-    },
-    size: {
-      type: String as PropType<'small' | 'medium' | 'large'>,
-      default: 'small',
-      validator: (v: string) => ['small', 'medium', 'large'].includes(v),
-    },
+const props = defineProps({
+  ...useSizeProps,
+  vertical: { type: Boolean, default: false },
+  horizontal: { type: Boolean, default: false },
+  color: { type: String, default: 'secondary' },
+  rtl: { type: Boolean, default: false },
+  gradient: { type: Boolean, default: false },
+  sizesConfig: {
+    type: Object,
+    default: () => ({
+      defaultSize: 4,
+      sizes: { small: 4, medium: 6, large: 8 },
+    }),
   },
-
-  setup (props) {
-    const { getColor } = useColors()
-    const { sizeComputed } = useSize(props)
-
-    return {
-      overflowX: computed(() => props.horizontal ? 'auto' : 'hidden'),
-      overflowY: computed(() => props.vertical ? 'auto' : 'hidden'),
-      scrollColor: computed(() => {
-        const color = getColor(props.color)
-        return props.gradient ? `linear-gradient(0deg, var(--va-scroll-container-scrollbar-gradient-to) 0%, ${color} 100%)` : color
-      }),
-      scrollbarSize: computed(() => sizeComputed.value),
-      scrollbarPosition: computed(() => props.rtl ? 'rtl' : 'ltr'),
-    }
+  size: {
+    type: String as PropType<'small' | 'medium' | 'large'>,
+    default: 'small',
+    validator: (v: string) => ['small', 'medium', 'large'].includes(v),
   },
 })
+
+const { getColor } = useColors()
+const { sizeComputed } = useSize(props)
+
+const overflowX = computed(() => props.horizontal ? 'auto' : 'hidden')
+const overflowY = computed(() => props.vertical ? 'auto' : 'hidden')
+
+const scrollColor = computed(() => {
+  const color = getColor(props.color)
+  return props.gradient ? `linear-gradient(0deg, var(--va-scroll-container-scrollbar-gradient-to) 0%, ${color} 100%)` : color
+})
+
+const scrollbarSize = computed(() => sizeComputed.value)
+const scrollbarPosition = computed(() => props.rtl ? 'rtl' : 'ltr')
 </script>
 
 <style lang="scss">

@@ -3,19 +3,20 @@ import { VaRadio } from '../va-radio'
 import { userEvent, within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 import { sleep } from '../../utils/sleep'
+import { StoryFn } from '@storybook/vue3'
 
 export default {
   title: 'VaBacktop',
   component: VaBacktop,
 }
 
-const getBacktop = (): HTMLElement | undefined => document.querySelector('.va-backtop')
+const getBacktop = () => document.querySelector<HTMLElement>('.va-backtop')!
 const scroll = async () => {
   window.scrollTo({ top: 400 })
   await sleep()
 }
 
-export const Default = () => ({
+export const Default: StoryFn = () => ({
   components: { VaBacktop },
   template: `
     <p class="m-1">{{ $vb.lorem(10000) }}</p>
@@ -73,7 +74,7 @@ Offset.play = async () => {
   scroll()
 }
 
-export const Position = () => ({
+export const Position: StoryFn = () => ({
   components: { VaBacktop, VaRadio },
   data: () => {
     const OPTIONS_X = ['left', 'right']
@@ -105,7 +106,7 @@ Position.play = async ({ canvasElement, step }) => {
   canvas.getByTestId('controls').scrollIntoView()
 }
 
-export const ClickEvent = () => ({
+export const ClickEvent: StoryFn = () => ({
   components: { VaBacktop },
   data: () => ({ clicked: false }),
   template: `
@@ -120,13 +121,13 @@ ClickEvent.play = async ({ canvasElement, step }) => {
   await scroll()
 
   await step('Click triggered', async () => {
-    getBacktop().click()
+    getBacktop()?.click()
     await sleep()
     expect(clicked.innerText).toBe('true')
   })
 }
 
-export const Target = () => ({
+export const Target: StoryFn = () => ({
   components: { VaBacktop },
   template: `
     [not the target]

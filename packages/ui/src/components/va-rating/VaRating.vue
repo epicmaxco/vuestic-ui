@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue'
+import { computed, PropType } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { useFormField, useFormFieldProps, useTranslation } from '../../composables'
@@ -56,62 +56,76 @@ import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingCo
 
 import { RatingValue } from './types'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
-
 import VaRatingItem from './components/VaRatingItem/VaRatingItem.vue'
 import VaRatingItemNumberButton from './components/VaRatingItemNumberButton.vue'
 
-const VaRatingItemProps = extractComponentProps(VaRatingItem, ['modelValue', 'itemNumber'])
-const VaRatingItemNumberButtonProps = extractComponentProps(VaRatingItemNumberButton, ['modelValue', 'itemNumber'])
+const VaRatingItemPropsDeclarations = extractComponentProps(VaRatingItem, ['modelValue', 'itemNumber'])
+const VaRatingItemNumberButtonPropsDeclarations = extractComponentProps(VaRatingItemNumberButton, ['modelValue', 'itemNumber'])
+</script>
 
-export default defineComponent({
+<script lang="ts" setup>
+defineOptions({
   name: 'VaRating',
-  props: {
-    ...VaRatingItemNumberButtonProps,
-    ...useRatingProps,
-    ...useVaRatingColorsProps,
-    ...useFormFieldProps,
-    ...VaRatingItemProps,
-    ...useComponentPresetProp,
-    modelValue: { type: Number, default: 0 },
-    numbers: { type: Boolean, default: false },
-    halves: { type: Boolean, default: false },
-    max: { type: Number, default: 5 },
-    texts: { type: Array as PropType<string[]>, default: () => [] },
-
-    ariaLabel: { type: String, default: '$t:currentRating' },
-    ariaItemLabel: { type: String, default: '$t:voteRating' },
-  },
-  emits: ['update:modelValue'],
-  components: { VaRatingItem, VaRatingItemNumberButton },
-  setup (props) {
-    const { computedClasses: rootClass } = useFormField('va-rating', props)
-    const rating = useRating(props)
-    const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
-
-    return {
-      ...useTranslation(),
-      ...useVaRatingColors(props),
-      ...rating,
-      rootClass,
-      VaRatingItemProps: filterComponentProps(VaRatingItemProps),
-      VaRatingItemNumberButtonProps: filterComponentProps(VaRatingItemNumberButtonProps),
-      isInteractionsEnabled,
-      tabIndexComputed: computed(() => isInteractionsEnabled.value ? 0 : undefined),
-      onArrowKeyPress: (direction: 1 | -1) => {
-        const step = props.halves ? RatingValue.HALF : RatingValue.FULL
-        const nextStep = rating.visibleValue.value + step * direction
-        const min = props.clearable ? 0 : step
-        if (nextStep >= min && nextStep <= props.max) {
-          rating.onItemValueUpdate(rating.visibleValue.value, step * direction)
-        } else if (nextStep < min) {
-          rating.onItemValueUpdate(min, 0)
-        } else {
-          rating.onItemValueUpdate(props.max, direction === -1 ? step * direction : 0)
-        }
-      },
-    }
-  },
 })
+
+const props = defineProps({
+  ...VaRatingItemNumberButtonPropsDeclarations,
+  ...useRatingProps,
+  ...useVaRatingColorsProps,
+  ...useFormFieldProps,
+  ...VaRatingItemPropsDeclarations,
+  ...useComponentPresetProp,
+  modelValue: { type: Number, default: 0 },
+  numbers: { type: Boolean, default: false },
+  halves: { type: Boolean, default: false },
+  max: { type: Number, default: 5 },
+  texts: { type: Array as PropType<string[]>, default: () => [] },
+
+  ariaLabel: { type: String, default: '$t:currentRating' },
+  ariaItemLabel: { type: String, default: '$t:voteRating' },
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const { computedClasses: rootClass } = useFormField('va-rating', props)
+const {
+  visibleValue,
+  modelValue: vModel,
+  hoveredValue,
+  isHovered,
+  onMouseEnter,
+  onMouseLeave,
+  onItemValueUpdate,
+  onItemHoveredValueUpdate,
+  getItemValue,
+} = useRating(props)
+const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
+
+const onArrowKeyPress = (direction: 1 | -1) => {
+  const step = props.halves ? RatingValue.HALF : RatingValue.FULL
+  const nextStep = visibleValue.value + step * direction
+  const min = props.clearable ? 0 : step
+  if (nextStep >= min && nextStep <= props.max) {
+    onItemValueUpdate(visibleValue.value, step * direction)
+  } else if (nextStep < min) {
+    onItemValueUpdate(min, 0)
+  } else {
+    onItemValueUpdate(props.max, direction === -1 ? step * direction : 0)
+  }
+}
+
+const { tp, t } = useTranslation()
+
+const {
+  computedColor,
+  backgroundComputed,
+  textColorComputed,
+} = useVaRatingColors(props)
+
+const tabIndexComputed = computed(() => isInteractionsEnabled.value ? 0 : undefined)
+
+const VaRatingItemProps = filterComponentProps(VaRatingItemPropsDeclarations)
+const VaRatingItemNumberButtonProps = filterComponentProps(VaRatingItemNumberButtonPropsDeclarations)
 </script>
 
 <style lang="scss">

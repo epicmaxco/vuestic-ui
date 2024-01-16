@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { RouterLinkStub } from '@vue/test-utils'
 import { mountWithGlobalConfig, shallowMountWithGlobalConfig } from '../../../utils/unit-test-utils'
 
-import { VaButton } from '../VaButton.vue'
+import VaButton from '../VaButton.vue'
 
 describe('VaButton', () => {
   it.skip('should render without an error', () => {
