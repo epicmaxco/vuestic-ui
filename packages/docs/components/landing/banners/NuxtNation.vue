@@ -22,11 +22,13 @@
 </template>
 
 <script setup lang="ts">
+// @deprecated
+// see VuejsNation.vue
 import { ref } from 'vue'
 
 const officialPartnerCookie = useCookie('banner-closed')
 
-const bannerName = 'vueforge-082023'
+const bannerName = 'nuxtnation-012024'
 
 const isHiddenLocal = ref(officialPartnerCookie.value?.includes(bannerName))
 

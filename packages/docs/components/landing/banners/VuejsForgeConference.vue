@@ -22,6 +22,8 @@
 </template>
 
 <script setup lang="ts">
+// @deprecated
+// see VuejsNation.vue
 import { ref } from 'vue'
 
 const officialPartnerCookie = useCookie('banner-closed')
