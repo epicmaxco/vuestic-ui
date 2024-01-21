@@ -382,8 +382,7 @@ onMounted(() => {
   }
 })
 
-// TODO: Move to exposed
-const publicMethods = {
+defineExpose({
   show,
   hide,
   toggle,
@@ -394,14 +393,13 @@ const publicMethods = {
   onBeforeLeaveTransition,
   onAfterLeaveTransition,
   listenKeyUp,
-}
+})
 
 const { tp, t } = useTranslation()
 
 const {
   teleportFromAttrs,
   teleportedAttrs,
-  findTeleportedFrom,
 } = useTeleported()
 
 const slotBind = { show, hide, toggle, cancel, ok }
