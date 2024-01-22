@@ -89,7 +89,6 @@ import {
   useClearable, useClearableEmits, useClearableProps,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useStateful, useStatefulEmits,
-  useParsable,
   useDropdownable,
   useDropdownableProps,
   useDropdownableEmits,
@@ -97,7 +96,7 @@ import {
 } from '../../composables'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
-import { parseModelValue } from './hooks/model-value-parser'
+import { useDateInputModelValue } from './hooks/model-value'
 
 import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
 
@@ -111,9 +110,6 @@ import { unwrapEl } from '../../utils/unwrapEl'
 
 const VaInputWrapperPropsDeclaration = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDatePickerPropsDeclaration = extractComponentProps(VaDatePicker)
-const VaDropdownProps = extractComponentProps(VaDropdown,
-  ['innerAnchorSelector', 'stateful', 'keyboardNavigation', 'modelValue', 'trigger'],
-)
 </script>
 
 <script lang="ts" setup>
@@ -141,7 +137,6 @@ const props = defineProps({
   formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
   parse: { type: Function as PropType<(input: string) => DateInputValue> },
   parseDate: { type: Function as PropType<(input: string) => Date> },
-  parseValue: { type: Function as PropType<typeof parseModelValue> },
 
   delimiter: { type: String, default: ', ' },
   rangeDelimiter: { type: String, default: ' ~ ' },
@@ -199,7 +194,7 @@ const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
 const {
   valueComputed,
   reset: resetInvalidRange,
-} = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled, props.parseValue)
+} = useRangeModelValueGuard(statefulValue, isRangeModelValueGuardDisabled)
 
 watch(isOpenSync, (isOpened) => {
   if (!isOpened && !isRangeModelValueGuardDisabled.value) { resetInvalidRange() }
@@ -228,13 +223,17 @@ const modelValueToString = (value: DateInputModelValue): string => {
     return dateOrNothing(value.start) + props.rangeDelimiter + dateOrNothing(value.end)
   }
 
-  throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }')
+  if (value === null || value === undefined) {
+    return ''
+  }
+
+  throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }, got ' + typeof value)
 }
 
 const {
   text,
-  value: valueWithoutText,
-} = useParsable(valueComputed, parseDateInputValue, modelValueToString)
+  normalized: valueWithoutText,
+} = useDateInputModelValue(valueComputed, parseDateInputValue, modelValueToString)
 
 const valueText = computed(() => {
   if (!isValid.value) {

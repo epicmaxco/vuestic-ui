@@ -1,6 +1,6 @@
 import { computed, Ref, ref, watch } from 'vue'
 
-import { parseModelValue, isRange } from './model-value-parser'
+import { isRange } from './model-value-parser'
 import { DateInputModelValue } from '../types'
 
 /**
@@ -10,11 +10,10 @@ import { DateInputModelValue } from '../types'
 export const useRangeModelValueGuard = (
   modelValue: Ref<DateInputModelValue>,
   disabled: Ref<boolean>,
-  parseValue = parseModelValue,
 ) => {
-  const bufferValue = ref<DateInputModelValue>(modelValue.value && parseValue(modelValue.value))
+  const bufferValue = ref<DateInputModelValue>(modelValue.value)
 
-  const valueComputed = computed({
+  const valueComputed = computed<DateInputModelValue>({
     get: () => bufferValue.value,
     set: (value) => {
       if (disabled.value) {
@@ -44,7 +43,7 @@ export const useRangeModelValueGuard = (
 
   const reset = () => {
     if (bufferValue.value && isRange(bufferValue.value)) {
-      bufferValue.value = modelValue.value && parseValue(modelValue.value)
+      bufferValue.value = modelValue.value
     }
   }
 
