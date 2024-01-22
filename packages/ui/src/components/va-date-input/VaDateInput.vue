@@ -305,6 +305,7 @@ const {
   computedErrorMessages,
   listeners,
   validationAriaAttributes,
+  validate,
   withoutValidation,
   resetValidation,
 } = useValidation(props, emit, { reset, focus, value: valueComputed })
@@ -407,9 +408,13 @@ const inputListeners = computedInputListeners
 const datePickerProps = filterComponentProps(VaDatePickerPropsDeclaration)
 
 defineExpose({
+  valueText,
+  valueWithoutText,
+  valueDate: valueWithoutText,
   focus,
   blur,
   reset,
+  validate,
   showDropdown,
   hideAndFocus,
   toggleDropdown,
