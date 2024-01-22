@@ -101,7 +101,7 @@ export const useNavigation = (
     if (props.closeOnContentClick) {
       isOpen.value = false
     }
-  })
+  }, contentRef)
 
   // Hover
   const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(toRef(props, 'hoverOverTimeout'))
