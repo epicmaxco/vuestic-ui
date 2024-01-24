@@ -46,6 +46,7 @@
     v-model="showSecondModal"
     message="Are you sure you want to save it?"
     ok-text="Save"
+    size="small"
     @ok="showFirstModal = false"
   />
 </template>

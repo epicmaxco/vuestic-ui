@@ -18,7 +18,7 @@
   --va-modal-transform-transition: var(--va-modal-basic-duration) ease;
   --va-modal-overlay-background-blur-radius: 4px;
   --va-modal-padding: var(--va-modal-padding-top) var(--va-modal-padding-right) var(--va-modal-padding-bottom) var(--va-modal-padding-left);
-  --va-modal-padding-top: 1.25rem;
+  --va-modal-padding-top: 1.5rem;
   --va-modal-padding-right: 1.5rem;
   --va-modal-padding-bottom: 1.5rem;
   --va-modal-padding-left: 1.5rem;
@@ -29,9 +29,6 @@
   --va-modal-dialog-border-radius: 0.375rem;
   --va-modal-dialog-margin: 1rem;
   --va-modal-dialog-box-shadow: 0 4px 70px -18px var(--va-shadow);
-  --va-modal-dialog-max-width: 768px;
-  --va-modal-dialog-max-height: calc(100vh - 2rem);
-  --va-modal-dialog-position: relative;
 
   /* Fullscreen */
   --va-modal-overlay-position: fixed;
