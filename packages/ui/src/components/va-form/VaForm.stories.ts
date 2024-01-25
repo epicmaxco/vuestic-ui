@@ -602,7 +602,7 @@ export const ValidateAsync: StoryFn = () => ({
 
   setup () {
     const asyncResult = ref(false)
-    const { isValid, validateAsync } = useForm('form')
+    const { isValid, isLoading, validateAsync } = useForm('form')
 
     const asyncRule = async () => {
       return new Promise((resolve) => {
@@ -611,6 +611,7 @@ export const ValidateAsync: StoryFn = () => ({
     }
 
     return {
+      isLoading,
       isValid,
       asyncResult,
       validateAsync,
@@ -620,6 +621,7 @@ export const ValidateAsync: StoryFn = () => ({
 
   template: `
     [isValid]: {{ isValid }}
+    [isLoading]: {{ isLoading }}
     <va-form ref="form">
       <va-input data-testid="input" :rules="[asyncRule]" stateful />
     </va-form>
@@ -634,7 +636,7 @@ export const ImmediateValidateAsync: StoryFn = () => ({
 
   setup () {
     const asyncResult = ref(false)
-    const { isValid, validateAsync } = useForm('form')
+    const { isValid, isLoading, validateAsync } = useForm('form')
 
     const asyncRule = async () => {
       return new Promise((resolve) => {
@@ -643,6 +645,7 @@ export const ImmediateValidateAsync: StoryFn = () => ({
     }
 
     return {
+      isLoading,
       isValid,
       asyncResult,
       validateAsync,
@@ -652,6 +655,7 @@ export const ImmediateValidateAsync: StoryFn = () => ({
 
   template: `
     [isValid]: {{ isValid }}
+    [isLoading]: {{ isLoading }}
     <va-form ref="form" immediate>
       <va-input data-testid="input" :rules="[asyncRule]" stateful />
     </va-form>

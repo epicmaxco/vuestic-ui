@@ -141,6 +141,7 @@ import { VaIcon } from '../va-icon'
 
 import { useBlur } from './hooks/useBlur'
 import { useZIndex } from '../../composables/useZIndex'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 const WithTransition = defineComponent({
   name: 'ModalElement',
@@ -182,7 +183,7 @@ const props = defineProps({
   maxHeight: { type: String, default: '' },
   anchorClass: { type: String },
   size: {
-    type: String as PropType<'medium' | 'small' | 'large'>,
+    type: String as PropType<StringWithAutocomplete<'medium' | 'small' | 'large' | 'auto'>>,
     default: 'medium',
   },
   sizesConfig: {
@@ -382,6 +383,7 @@ onMounted(() => {
   if (valueComputed.value) { // case when open modal with this.$vaModal.init
     registerModal()
     registerZIndex()
+    setBodyOverflow('hidden')
   }
 })
 
@@ -461,7 +463,7 @@ const slotBind = { show, hide, toggle, cancel, ok }
     display: flex;
     flex-direction: column;
     width: 100%;
-    z-index: 1;
+    z-index: v-bind(zIndexComputed);
   }
 
   &__overlay {
