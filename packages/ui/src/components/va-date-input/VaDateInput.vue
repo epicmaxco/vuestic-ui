@@ -80,7 +80,7 @@
 </template>
 
 <script lang="ts">
-import { computed, PropType, toRefs, watch, ref, shallowRef, nextTick, Ref, useAttrs, useSlots } from 'vue'
+import { computed, PropType, toRef, toRefs, watch, ref, shallowRef, nextTick, Ref, useAttrs, useSlots } from 'vue'
 import omit from 'lodash/omit'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/component-options'
@@ -135,6 +135,8 @@ const props = defineProps({
 
   format: { type: Function as PropType<(date: DateInputModelValue) => string> },
   formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
+  /** Force model value to string instead of date */
+  formatValue: { type: Function as PropType<(date: DateInputModelValue) => string> },
   parse: { type: Function as PropType<(input: string) => DateInputValue> },
   parseDate: { type: Function as PropType<(input: string) => Date> },
 
@@ -183,11 +185,18 @@ watch([datePicker], () => {
 
 const { valueComputed: statefulValue } = useStateful(props, emit)
 const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
-  defaultCloseOnValueUpdate: computed(() => !Array.isArray(statefulValue.value)),
-})
+  defaultCloseOnValueUpdate: computed(() => {
+    if (Array.isArray(valueComputed.value)) {
+      return false
+    }
 
-const { isFocused: isInputFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
-const isPickerFocused = useFocusDeep(datePicker)
+    if (isRange(valueComputed.value) && valueComputed.value.end === null) {
+      return false
+    }
+
+    return true
+  }),
+})
 
 const isRangeModelValueGuardDisabled = computed(() => !resetOnClose.value)
 
@@ -199,6 +208,9 @@ const {
 watch(isOpenSync, (isOpened) => {
   if (!isOpened && !isRangeModelValueGuardDisabled.value) { resetInvalidRange() }
 })
+
+const { isFocused: isInputFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
+const isPickerFocused = useFocusDeep(datePicker)
 
 const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
 
@@ -233,7 +245,7 @@ const modelValueToString = (value: DateInputModelValue): string => {
 const {
   text,
   normalized: valueWithoutText,
-} = useDateInputModelValue(valueComputed, parseDateInputValue, modelValueToString)
+} = useDateInputModelValue(statefulValue, toRef(props, 'mode'), parseDateInputValue, modelValueToString, props.formatValue)
 
 const valueText = computed(() => {
   if (!isValid.value) {

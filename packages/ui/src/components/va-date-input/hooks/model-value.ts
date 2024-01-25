@@ -1,5 +1,7 @@
+import isNil from 'lodash/isNil'
 import { Ref, computed } from 'vue'
 import { DateInputDate, DateInputModelValue, DateInputRange, DateInputValue } from '../types'
+import { formatDateToTheSameStandardFormat, parseDate } from '../utils/parse-date'
 
 export const isRange = (date: DateInputModelValue): date is DateInputRange<DateInputDate> => {
   if (date === null) { return false }
@@ -19,24 +21,33 @@ export const isSingleDate = (date: DateInputModelValue): date is DateInputDate =
   return typeof date === 'string' || typeof date === 'number' || date instanceof Date
 }
 
-const syncFormat = (original: DateInputDate | null | undefined, target: Date) => {
-  // TODO: Not sure here
-  if (typeof original === 'string') {
-    return target.toLocaleDateString()
-  }
-
-  if (typeof original === 'number') {
-    return target.getTime()
-  }
-
-  return target
-}
-
 export const useDateInputModelValue = (
   modelValue: Ref<DateInputModelValue>,
+  mode: Ref<'single' | 'multiple' | 'range' | 'auto'>,
   parseModelValue: (date: string) => DateInputModelValue,
   formatModelValue: (date: DateInputModelValue) => string,
+  formatModelValueSingleDate?: (date: Date) => string,
 ) => {
+  const syncFormat = (original: DateInputDate | null | undefined, target: Date) => {
+    if (formatModelValueSingleDate) {
+      return formatModelValueSingleDate(target)
+    }
+
+    if (typeof original === 'string') {
+      const standardFormat = formatDateToTheSameStandardFormat(target, original)
+
+      if (standardFormat) { return standardFormat }
+
+      return formatModelValue(target)
+    }
+
+    if (typeof original === 'number') {
+      return target.getTime()
+    }
+
+    return target
+  }
+
   const normalizeSingleDate = (value: DateInputDate): Date => {
     if (value instanceof Date) {
       return value
@@ -45,18 +56,34 @@ export const useDateInputModelValue = (
     return new Date(value)
   }
 
+  const dateValue = computed(() => {
+    if (modelValue.value === null || modelValue.value === undefined) {
+      return null
+    }
+
+    if (typeof modelValue.value === 'string') {
+      return parseModelValue(modelValue.value)
+    }
+
+    if (typeof modelValue.value === 'number') {
+      return new Date(modelValue.value)
+    }
+
+    return modelValue.value
+  })
+
   const normalized = computed({
     get: () => {
-      if (modelValue.value === null || modelValue.value === undefined) {
+      if (dateValue.value === null || dateValue.value === undefined) {
         return null
       }
 
-      if (isMultiple(modelValue.value)) {
-        return modelValue.value.map(normalizeSingleDate)
+      if (isMultiple(dateValue.value)) {
+        return dateValue.value.map(normalizeSingleDate)
       }
 
-      if (isRange(modelValue.value)) {
-        const { start, end } = modelValue.value
+      if (isRange(dateValue.value)) {
+        const { start, end } = dateValue.value
 
         return {
           start: start ? normalizeSingleDate(start) : null,
@@ -64,35 +91,40 @@ export const useDateInputModelValue = (
         }
       }
 
-      return normalizeSingleDate(modelValue.value)
+      return normalizeSingleDate(dateValue.value)
     },
-    set (value: DateInputValue) {
-      if (value === null || value === undefined) {
-        modelValue.value = value
+    set (newValue: DateInputValue) {
+      if (newValue === null || newValue === undefined) {
+        modelValue.value = newValue
         return
       }
 
-      if (isMultiple(value) && isMultiple(modelValue.value)) {
-        modelValue.value = value
-          .map((v, index) => syncFormat((modelValue.value as DateInputDate[])[index], v))
+      if (isMultiple(newValue) && (isMultiple(modelValue.value) || isNil(modelValue.value))) {
+        const originalValue = modelValue.value
+
+        modelValue.value = newValue
+          .map((v, index) => syncFormat((originalValue)?.[index] || (originalValue)?.[0], v))
         return
       }
 
-      if (isRange(value) && isRange(modelValue.value)) {
-        const { start, end } = value
+      if (isRange(newValue) && (isRange(modelValue.value) || isNil(modelValue.value))) {
+        const { start, end } = newValue
 
         modelValue.value = {
-          start: start ? syncFormat(modelValue.value.start, start) : null,
+          start: start ? syncFormat(modelValue.value?.start, start) : null,
           // Sync end date only if start date is specified
-          end: end ? syncFormat(modelValue.value.start, end) : null,
+          end: end ? syncFormat(modelValue.value?.start, end) : null,
         }
 
         return
       }
 
-      if (isSingleDate(value) && isSingleDate(modelValue.value)) {
-        modelValue.value = syncFormat(modelValue.value, value)
+      if (isSingleDate(newValue) && (isSingleDate(modelValue.value) || isNil(modelValue.value))) {
+        modelValue.value = syncFormat(modelValue.value, newValue)
+        return
       }
+
+      console.log({ inputDate: newValue, modelValue: modelValue.value })
 
       throw new Error('Input date is not the same as date from props')
     },

@@ -12,7 +12,17 @@ export const useDateParser = (props: {
   delimiter: string,
   rangeDelimiter: string,
 }) => {
-  const isMultipleDates = (text: string) => text.includes(props.delimiter)
+  const isMultipleDates = (text: string) => {
+    const dates = text.split(props.delimiter)
+
+    if (dates.length < 2) { return false }
+
+    // May be format like 'Mon, 31 Dec 2018 23:00:00 GMT' or '12, 31, 2018'
+    return dates.every((date) => {
+      const parsedDate = (props.parseDate || defaultParseDateFunction)(date)
+      return isValidDate(parsedDate)
+    })
+  }
   const isRange = (text: string) => text.includes(props.rangeDelimiter)
 
   const isValid = ref(true)
