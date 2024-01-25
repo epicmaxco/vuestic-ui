@@ -11,7 +11,6 @@
           :aria-label="tp($props.ariaLabel)"
           v-bind="{ ...computedButtonIcons, ...buttonPropsComputed }"
           v-on="listeners"
-          @keydown.esc.prevent="hideDropdown"
         >
           <slot name="label">
             {{ label }}

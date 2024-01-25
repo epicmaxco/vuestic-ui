@@ -62,12 +62,12 @@ const props = defineProps({
   placeholder: { type: String },
   autosize: { type: Boolean, default: false },
   minRows: {
-    type: Number,
+    type: [Number, String],
     default: 1,
     validator: positiveNumberValidator,
   },
   maxRows: {
-    type: Number,
+    type: [Number, String],
     validator: positiveNumberValidator,
   },
   resize: {
@@ -131,7 +131,7 @@ const computedRowsCount = computed<number | undefined>(() => {
     return rows
   }
 
-  return Math.max(props.minRows, Math.min(rows, props.maxRows))
+  return Math.max(Number(props.minRows), Math.min(rows, Number(props.maxRows)))
 })
 
 const computedStyle = computed(() => (({

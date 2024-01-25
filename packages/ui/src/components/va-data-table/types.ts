@@ -106,7 +106,7 @@ export interface DataTableRow {
   isExpandableRowVisible: boolean
 }
 
-export type DataTableFilterMethod = (source: any) => boolean
+export type DataTableFilterMethod = (source: any, cell: DataTableCell) => boolean
 
 export type DataTableSelectMode = 'single' | 'multiple'
 

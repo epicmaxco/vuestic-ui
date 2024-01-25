@@ -1,6 +1,13 @@
 <template>
   <VaButton
     class="mr-6 my-1"
+    @click="showModalSizeAuto = !showModalSizeAuto"
+  >
+    Show modal size small
+  </VaButton>
+
+  <VaButton
+    class="mr-6 my-1"
     @click="showModalSizeSmall = !showModalSizeSmall"
   >
     Show modal size small
@@ -21,6 +28,13 @@
   </VaButton>
 
   <VaModal
+    v-model="showModalSizeAuto"
+    message="Would you like to save?"
+    ok-text="Save"
+    size="auto"
+  />
+
+  <VaModal
     v-model="showModalSizeSmall"
     message="Would you like to save?"
     ok-text="Save"
@@ -34,7 +48,7 @@
     <h3 class="va-h3">
       Medium
     </h3>
-    <p>
+    <p class="m-0">
       Classic modal overlay which represents a dialog box or other interactive
       component, such as a dismissible alert, sub-window, etc.
     </p>
@@ -53,7 +67,6 @@
     </p>
 
     <VaDataTable
-      style="width: 1000px"
       :items="[
         { name: 'Marcus Claus', email: 'marcus@epicmax.co', status: 'verified', balance: '$34.15' },
         { name: 'Moo Farah', email: 'moo@epicmax.co', status: 'pending', balance: '$199.0' },
@@ -83,6 +96,7 @@
 export default {
   data() {
     return {
+      showModalSizeAuto: false,
       showModalSizeSmall: false,
       showModalSizeMedium: false,
       showModalSizeLarge: false,

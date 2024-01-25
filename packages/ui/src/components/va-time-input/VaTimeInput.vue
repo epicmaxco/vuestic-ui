@@ -11,7 +11,6 @@
         class="va-time-input__anchor"
         :style="cursorStyleComputed"
         v-bind="computedInputWrapperProps"
-        @click.stop="toggleDropdown"
       >
         <template #default>
           <input
@@ -316,6 +315,7 @@ const showDropdown = (event?: KeyboardEvent, cancel?: boolean, prevent?: boolean
 const checkProhibitedDropdownOpening = (e?: KeyboardEvent) => {
   if (isOpenSync.value) { return false }
   if (props.disabled || props.readonly) { return true }
+  if (e === undefined) { return false }
   return props.manualInput && e?.code !== 'Space'
 }
 
@@ -364,9 +364,8 @@ const inputAttributesComputed = computed(() => ({
 
 const dropdownPropsComputed = computed(() => ({
   ...dropdownProps.value,
-  keyboardNavigation: true,
   innerAnchorSelector: '.va-input-wrapper__field',
-  trigger: 'none' as const,
+  trigger: ['click', 'right-click', 'space', 'enter'] as const,
 }))
 
 const timePickerProps = filterComponentProps(extractComponentProps(VaTimePicker))
@@ -386,10 +385,3 @@ defineExpose({
   hideDropdown,
 })
 </script>
-
-<style lang="scss">
-
-.va-time-input__side-button {
-  pointer-events: none;
-}
-</style>

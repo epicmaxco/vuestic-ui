@@ -78,4 +78,10 @@ export default defineApiDescription({
     clickMonth: "The event is triggered when clicked the month cell",
     clickYear: "The event is triggered when clicked the year cell"
   },
+  methods: {
+    'focus': 'Focuses the input',
+    'blur': 'Removes focus from the input',
+    'reset': 'Resets the input value',
+    'validate': 'Validates the input value and shows error messages if any',
+  }
 });

@@ -190,6 +190,7 @@ const yearPickerProps = filterComponentProps(extractComponentProps(VaYearPicker)
 
 defineExpose({
   focus: focusCurrentPicker,
+  focusCurrentPicker,
 })
 </script>
 

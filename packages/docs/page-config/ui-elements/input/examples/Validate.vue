@@ -16,6 +16,7 @@
       v-model="value"
       label="Email"
       placeholder="Error with message"
+      immediate-validation
       error
       :error-messages="errorMessage"
     />
@@ -23,6 +24,7 @@
       v-model="value"
       label="Email"
       placeholder="Success with message"
+      immediate-validation
       removable
       success
       :messages="successMessage"
