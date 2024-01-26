@@ -190,10 +190,13 @@ const props = defineProps({
   },
 
     // Dropdown placement
-  placement: {
-    ...useDropdownableProps.placement,
-    default: 'bottom',
-  },
+  placement: { ...useDropdownableProps.placement, default: 'bottom' },
+  keepAnchorWidth: { ...useDropdownableProps.keepAnchorWidth, default: false },
+  offset: { ...useDropdownableProps.offset, default: [1, 0] as DropdownOffsetProp },
+  closeOnContentClick: { ...useDropdownableProps.closeOnContentClick, default: false },
+  trigger: { ...useDropdownableProps.trigger, default: () => ['click', 'right-click', 'space', 'enter'] as const },
+
+  // Select options
 
   allowCreate: {
     type: [Boolean, String] as PropType<boolean | 'unique'>,
@@ -462,12 +465,8 @@ const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
 
 const dropdownPropsComputed = computed(() => ({
   ...dropdownProps.value,
-  closeOnContentClick: false,
   stateful: false,
-  offset: [1, 0] as DropdownOffsetProp,
-  keepAnchorWidth: true,
   innerAnchorSelector: '.va-input-wrapper__field',
-  trigger: ['click', 'right-click', 'space', 'enter'] as const,
 }))
 
 const showDropdownContentComputed = computed({
