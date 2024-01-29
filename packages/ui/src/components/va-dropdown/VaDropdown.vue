@@ -176,17 +176,7 @@ export default defineComponent({
 
     const {
       zIndex,
-      register: registerZIndex,
-      unregister: unregisterZIndex,
-    } = useZIndex()
-
-    watchEffect(() => {
-      if (valueComputed.value && isMounted.value) {
-        registerZIndex()
-      } else {
-        unregisterZIndex()
-      }
-    })
+    } = useZIndex(valueComputed)
 
     watch(valueComputed, (isOpened) => {
       if (!props.keyboardNavigation) { return }

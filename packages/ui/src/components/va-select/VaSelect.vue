@@ -191,7 +191,7 @@ const props = defineProps({
 
     // Dropdown placement
   placement: { ...useDropdownableProps.placement, default: 'bottom' },
-  keepAnchorWidth: { ...useDropdownableProps.keepAnchorWidth, default: false },
+  keepAnchorWidth: { ...useDropdownableProps.keepAnchorWidth, default: true },
   offset: { ...useDropdownableProps.offset, default: [1, 0] as DropdownOffsetProp },
   closeOnContentClick: { ...useDropdownableProps.closeOnContentClick, default: false },
   trigger: { ...useDropdownableProps.trigger, default: () => ['click', 'right-click', 'space', 'enter'] as const },

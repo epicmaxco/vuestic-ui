@@ -2,9 +2,6 @@
   <div
     ref="rootElement"
     class="va-modal-entry"
-    role="dialog"
-    aria-modal="true"
-    :aria-labelledby="title"
     :class="$props.anchorClass"
   >
     <div v-if="$slots.anchor" class="va-modal__anchor" v-bind="teleportFromAttrs">
@@ -15,15 +12,23 @@
       <WithTransition
         name="va-modal"
         :isTransition="!$props.withoutTransitions"
-        appear
         :duration="300"
+        :style="{ zIndex: zIndexComputed }"
+        appear
         v-bind="{ ...$attrs, ...teleportedAttrs }"
         @beforeEnter="onBeforeEnterTransition"
         @afterEnter="onAfterEnterTransition"
         @beforeLeave="onBeforeLeaveTransition"
         @afterLeave="onAfterLeaveTransition"
       >
-        <div class="va-modal" :class="computedClass" v-if="valueComputed">
+        <div
+          v-if="valueComputed"
+          :aria-labelledby="title"
+          :class="computedClass"
+          class="va-modal"
+          role="dialog"
+          aria-modal="true"
+        >
           <div
             v-if="$props.overlay"
             class="va-modal__overlay"
@@ -120,6 +125,7 @@ import {
   nextTick,
   watch,
   defineComponent,
+  onBeforeUnmount,
 } from 'vue'
 
 import {
@@ -134,6 +140,7 @@ import {
   useDocument,
   useTeleported,
   useSizeRef,
+  useIsMounted,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -242,9 +249,7 @@ const computedClass = computed(() => ({
 
 const {
   zIndex: zIndexInherited,
-  register: registerZIndex,
-  unregister: unregisterZIndex,
-} = useZIndex()
+} = useZIndex(valueComputed)
 
 const zIndexComputed = computed(() => {
   if (props.zIndex) {
@@ -281,7 +286,6 @@ const computedOverlayStyles = computed(() => {
     return {
       'background-color': 'var(--va-modal-overlay-color)',
       opacity: getOverlayOpacity(),
-      'z-index': zIndexComputed.value && Number(zIndexComputed.value) - 1,
     } as StyleValue
   }
   return ''
@@ -357,33 +361,41 @@ const setBodyOverflow = (overflow: string) => {
   documentRef.value.body.style.overflow = overflow
 }
 
-watch(valueComputed, newValueComputed => { // watch for open/close modal
-  if (newValueComputed) {
-    registerModal()
-    registerZIndex()
-    setBodyOverflow('hidden')
-    return
-  }
+const onShow = () => {
+  registerModal()
+  setBodyOverflow('hidden')
+}
 
+const onHide = () => {
   if (isLowestLevelModal.value) {
     freeFocus()
     setBodyOverflow('')
   }
   unregisterModal()
-  unregisterZIndex()
-})
+}
 
-watch(isTopLevelModal, newIsTopLevelModal => {
-  if (newIsTopLevelModal) {
-    trapFocusInModal()
+// Handle is mounted, because: modal can be opened with this.$vaModal.init or v-if
+watch(valueComputed, (newValue) => {
+  if (newValue) {
+    onShow()
+  } else {
+    onHide()
   }
 })
 
 onMounted(() => {
   if (valueComputed.value) { // case when open modal with this.$vaModal.init
-    registerModal()
-    registerZIndex()
-    setBodyOverflow('hidden')
+    onShow()
+  }
+})
+
+onBeforeUnmount(() => {
+  onHide()
+})
+
+watch(isTopLevelModal, newIsTopLevelModal => {
+  if (newIsTopLevelModal) {
+    trapFocusInModal()
   }
 })
 
@@ -432,7 +444,6 @@ const slotBind = { show, hide, toggle, cancel, ok }
   left: var(--va-modal-left);
   overflow: var(--va-modal-overflow);
   outline: var(--va-modal-outline);
-  z-index: var(--va-modal-z-index, v-bind(zIndexComputed), 1);
   font-family: var(--va-font-family);
 
   &__title {
@@ -463,16 +474,16 @@ const slotBind = { show, hide, toggle, cancel, ok }
     display: flex;
     flex-direction: column;
     width: 100%;
-    z-index: v-bind(zIndexComputed);
+    z-index: 1;
   }
 
   &__overlay {
-    position: var(--va-modal-overlay-position);
-    top: var(--va-modal-overlay-top);
-    left: var(--va-modal-overlay-left);
-    z-index: var(--va-modal-overlay-z-index);
-    width: var(--va-modal-overlay-width);
-    height: var(--va-modal-overlay-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
     will-change: opacity;
   }
 
