@@ -53,7 +53,7 @@
                 >
                   <slot name="label" v-bind="bind" />
                 </VaInputLabel>
-
+                <slot name="option-content" />
                 <slot v-bind="{ ariaAttributes: { ...messagesChildAriaAttributes, ...ariaAttributes }, value: vModel }">
                   <input v-bind="{ ...messagesChildAriaAttributes, ...ariaAttributes }" v-model="vModel" :placeholder="$props.placeholder" :readonly="$props.readonly" :disabled="$props.disabled" />
                 </slot>
