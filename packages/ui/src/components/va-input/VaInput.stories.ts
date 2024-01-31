@@ -159,3 +159,23 @@ export const Mask = () => ({
     <VaInput v-model="creditCardValue" mask="creditCard" />
   `,
 })
+
+export const MaskFormattedValue = () => ({
+  components: { VaInput },
+  data () {
+    return {
+      dateValue: '',
+      creditCardValue: '',
+    }
+  },
+  template: `
+    [dateValue]: {{ dateValue }}
+    <VaInput v-model="dateValue" :mask="{
+      date: true,
+      datePattern: ['m', 'y'],
+    }" :return-raw="false" />
+
+    [creditCardValue]: {{ creditCardValue }}
+    <VaInput v-model="creditCardValue" mask="creditCard" :return-raw="false" />
+  `,
+})
