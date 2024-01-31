@@ -465,6 +465,7 @@ const slotBind = { show, hide, toggle, cancel, ok }
 
   &__dialog {
     min-height: var(--va-modal-dialog-min-height);
+    max-height: calc(100% - var(--va-modal-dialog-margin));
     height: var(--va-modal-dialog-height);
     border-radius: var(--va-modal-dialog-border-radius, var(--va-block-border-radius));
     margin: var(--va-modal-dialog-margin);
