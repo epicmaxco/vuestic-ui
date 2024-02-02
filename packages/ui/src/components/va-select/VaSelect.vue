@@ -186,7 +186,7 @@ const props = defineProps({
 
   modelValue: {
     type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>,
-    default: '',
+    default: undefined,
   },
 
     // Dropdown placement
@@ -352,8 +352,6 @@ const filteredOptions = computed(() => {
 })
 
 const checkIsOptionSelected = (option: SelectOption) => {
-  if (isNilValue(valueComputed.value)) { return false }
-
   if (Array.isArray(valueComputed.value)) {
     return !isNilValue(valueComputed.value.find((valueItem) => compareOptions(valueItem, option)))
   }
@@ -432,8 +430,6 @@ const addNewOption = () => {
 const hoveredOption = ref<SelectOption | null>(null)
 
 const selectHoveredOption = () => {
-  if (isNilValue(hoveredOption.value)) { return }
-
   if (!isOpenSync.value) {
     // We can not select options if they are hidden
     handleDropdownOpen()

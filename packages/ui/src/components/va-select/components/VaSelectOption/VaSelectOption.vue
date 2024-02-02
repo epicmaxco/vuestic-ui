@@ -37,7 +37,7 @@ import { useColors, useColorProps, useBem } from '../../../../composables'
 
 import { VaIcon } from '../../../va-icon'
 
-import { isNilValue } from '../../../../utils/isNilValue'
+import { isObject } from '../../../../utils/is-object'
 
 import type { SelectableOption } from '../../../../composables'
 
@@ -61,7 +61,7 @@ const props = defineProps({
 
 const { getColor, getHoverColor } = useColors()
 
-const optionIcon = computed(() => typeof props.option === 'object' ? (props.option.icon as string) : undefined)
+const optionIcon = computed(() => isObject(props.option) ? (props.option.icon as string) : undefined)
 const optionIconColor = computed(() => getColor(props.color))
 
 const optionText = computed(() => props.getText(props.option))
@@ -85,7 +85,6 @@ const optionTextSplitted = computed(() => {
 
 const isSelected = computed(() => props.getSelectedState(props.option))
 const isFocused = computed(() => {
-  if (isNilValue(props.currentOption)) { return false }
   if (typeof props.option === 'string') { return props.option === props.currentOption }
 
   return props.getTrackBy(props.currentOption) === props.getTrackBy(props.option)

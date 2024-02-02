@@ -1,8 +1,9 @@
 import type { ExtractPropTypes, PropType } from 'vue'
 
 import { getValueByKey } from '../utils/value-by-key'
+import { isObject } from '../utils/is-object'
 
-export type SelectableOption = string | number | boolean | Record<string, any>
+export type SelectableOption = string | number | boolean | Record<string, any> | null | undefined
 export type StringOrFunction = string | ((option: SelectableOption) => unknown)
 
 export const useSelectableListProps = {
@@ -15,25 +16,39 @@ export const useSelectableListProps = {
 }
 
 export function useSelectableList (props: ExtractPropTypes<typeof useSelectableListProps>) {
+  const tryResolveByValue = <T>(value: T): SelectableOption | T => {
+    const options = props.options
+    for (let i = 0; i < options.length; i++) {
+      if (getValue(options[i]) === value) {
+        return options[i]
+      }
+    }
+
+    return value
+  }
+
   const getOptionProperty = (option: SelectableOption, prop: StringOrFunction) => {
     // if option is a primitive value, we return itself
-    if (typeof option !== 'object') { return option }
+    if (!isObject(option)) { return option }
 
     return getValueByKey(option, prop)
   }
 
   const getTrackBy = (option: SelectableOption): string | number => {
+    option = tryResolveByValue(option)
     return props.trackBy ? getOptionProperty(option, props.trackBy) : getValue(option)
   }
 
   const getDisabled = (option: SelectableOption): boolean => {
+    option = tryResolveByValue(option)
     // any non-object options should return `false`
-    if (typeof option !== 'object') { return false }
+    if (!isObject(option)) { return false }
 
     return getOptionProperty(option, props.disabledBy)
   }
 
   const getText = (option: SelectableOption): string => {
+    option = tryResolveByValue(option)
     const optionText = getOptionProperty(option, props.textBy)
 
     // `String` should prevent wrong type errors in case of number/boolean value
@@ -44,7 +59,7 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
 
   // group by is used as object's key, so it can be only string or number
   const getGroupBy = (option: SelectableOption): string | number | undefined => {
-    if (!option || typeof option !== 'object') { return undefined }
+    if (!isObject(option)) { return undefined }
 
     return getOptionProperty(option, props.groupBy)
   }

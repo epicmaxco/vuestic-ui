@@ -145,3 +145,19 @@ export const AutocompleteMultiple: StoryFn = () => ({
 
   template: '<VaSelect v-model="value" :options="options" autocomplete multiple />',
 })
+
+export const NilValue = () => ({
+  components: { VaSelect },
+  data () {
+    return {
+      value: null,
+      options: [
+        { text: 'Null', value: null },
+        { text: 'Empty String', value: '' },
+        { text: 'Undefined', value: undefined },
+        { text: 'Zero', value: 0 },
+      ],
+    }
+  },
+  template: '[value]: {{ value }} <br /> <VaSelect v-model="value" :options="options" placeholder="Please select value" value-by="value" />',
+})

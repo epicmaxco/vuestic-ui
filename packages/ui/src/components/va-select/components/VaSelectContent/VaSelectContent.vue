@@ -121,6 +121,7 @@ import { VaIcon } from '../../../va-icon'
 import { VaBadge } from '../../../va-badge'
 
 import type { SelectOption } from '../../../index'
+import { isObject } from '../../../../utils/is-object'
 
 defineOptions({
   name: 'VaSelectContent',
@@ -182,7 +183,7 @@ const handleBackspace = (e: KeyboardEvent) => {
   }
 }
 
-const getIcon = (option: SelectOption) => typeof option === 'object' ? (option.icon as string) : undefined
+const getIcon = (option: SelectOption) => isObject(option) ? (option.icon as string) : undefined
 </script>
 
 <style lang="scss">

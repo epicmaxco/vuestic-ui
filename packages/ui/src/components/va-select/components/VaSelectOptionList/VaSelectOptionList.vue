@@ -171,20 +171,24 @@ const filteredOptions = computed((): SelectOption[] => {
   })
 })
 
-const optionGroups = computed(() => filteredOptions.value
-  .reduce((groups: Record<string, SelectOption[]>, option) => {
-    const groupBy = getGroupBy(option)
+const optionGroups = computed(() => {
+  if (!props.groupBy) { return { _noGroup: filteredOptions.value } }
 
-    if (!groupBy) {
-      groups._noGroup.push(option)
-    } else {
-      if (!groups[groupBy]) { groups[groupBy] = [] }
+  return filteredOptions.value
+    .reduce((groups: Record<string, SelectOption[]>, option) => {
+      const groupBy = getGroupBy(option)
 
-      groups[groupBy].push(option)
-    }
+      if (!groupBy) {
+        groups._noGroup.push(option)
+      } else {
+        if (!groups[groupBy]) { groups[groupBy] = [] }
 
-    return groups
-  }, { _noGroup: [] }))
+        groups[groupBy].push(option)
+      }
+
+      return groups
+    }, { _noGroup: [] })
+})
 const optionGroupsThrottled = useThrottleValue(optionGroups, props)
 
 const isValueExists = (value: SelectOption | null | undefined): value is SelectOption => !isNilValue(value)

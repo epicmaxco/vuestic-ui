@@ -3,6 +3,8 @@
 - Fix incorrect search value if `model-value` is null or undefined
 - Add slot types
 - Fix ignored space in autocomplete
+- Allow `null`, `undefined` and `''` value to be valid option
+- Speed up virtual scroll
 
 # 1.8.0
 
