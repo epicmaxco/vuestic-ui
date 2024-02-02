@@ -18,6 +18,8 @@
 <script lang="ts" setup>
 definePageMeta({
   layout: 'landing',
+  // See: https://github.com/nuxt/nuxt/issues/13309
+  layoutTransition: true,
 })
 
 const isMobileMenuOpen = ref(false)

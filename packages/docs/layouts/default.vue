@@ -29,7 +29,7 @@
       <template #content>
         <main class="docs-layout__main-content">
           <article class="docs-layout__page-content">
-            <slot />
+            <NuxtPage />
           </article>
         </main>
       </template>

@@ -168,5 +168,5 @@ export default defineNuxtConfig({
         verbatimModuleSyntax: false
       }
     }
-  }
+  },
 });
