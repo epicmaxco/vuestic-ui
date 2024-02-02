@@ -26,12 +26,8 @@ const pageConfigName = computed(() => {
   return path.slice(1)
 })
 
-console.log(pageConfigName)
-
 const { config, isLoading } = await usePageConfig(pageConfigName);
 const tabTitlePrefix = 'Vuestic UI'
-
-console.log(config)
 
 const router = useRouter()
 watch(config, () => {
