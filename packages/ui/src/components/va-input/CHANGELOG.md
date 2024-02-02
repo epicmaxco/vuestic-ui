@@ -1,3 +1,8 @@
+# 1.9.0
+- Fix style issues without vuestic/css or in web-components build
+- Fix empty value when model value initially set
+- Fix issue when user unable to remove spec symbols when mask is used
+
 # 1.8.0
 - Inputs have outlined style by default
 - `solid` and `bordered` props moved to `preset="solid"` and `preset="bordered"`

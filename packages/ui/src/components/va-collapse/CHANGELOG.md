@@ -1,3 +1,6 @@
+# 1.9.0
+- VaCollapse `model-value` now have priority over VaAccordion value if passed
+
 # 1.8.0
 
 - Changed default look to outline and removed `flat` and `solid` props
