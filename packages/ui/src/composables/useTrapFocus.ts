@@ -14,6 +14,10 @@ export const useTrapFocus = () => {
   let lastFocusableElement: HTMLElement | null = null
   let isFocusTrapped = false
 
+  const isFocusIn = (evt: Event) => {
+    return trapInEl?.contains(evt.target as Node) || false
+  }
+
   const focusFirstElement = () => {
     firstFocusableElement?.focus()
   }
@@ -29,7 +33,7 @@ export const useTrapFocus = () => {
       return
     }
 
-    if (!isFocusTrapped) {
+    if (!isFocusIn(evt)) {
       isFocusTrapped = true
 
       evt.preventDefault()

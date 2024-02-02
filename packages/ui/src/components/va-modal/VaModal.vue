@@ -387,6 +387,10 @@ onMounted(() => {
   if (valueComputed.value) { // case when open modal with this.$vaModal.init
     onShow()
   }
+
+  if (isTopLevelModal.value) {
+    trapFocusInModal()
+  }
 })
 
 onBeforeUnmount(() => {
@@ -397,7 +401,7 @@ watch(isTopLevelModal, newIsTopLevelModal => {
   if (newIsTopLevelModal) {
     trapFocusInModal()
   }
-})
+}, { immediate: true })
 
 defineExpose({
   show,
