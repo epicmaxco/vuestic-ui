@@ -4,6 +4,7 @@ import apiDescription from './api-description';
 export default definePageConfig({
   blocks: [
     block.title("Popover"),
+    block.tags('popover', 'tooltip'),
     block.paragraph("A `va-popover` can be used to display some text on top of the component."),
 
     block.subtitle("Examples"),

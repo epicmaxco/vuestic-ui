@@ -8,6 +8,10 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       ],
 
+      htmlAttrs: {
+        lang: 'en'
+      },
+
       meta: [
         { charset: 'utf-8' },
         { name: 'theme-color', content: '#154EC1' },

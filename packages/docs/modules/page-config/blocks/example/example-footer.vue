@@ -2,6 +2,7 @@
   <div class="docs-navigation">
     <VaButton
       v-if="!hideShowCodeButton"
+      aria-label="Show code"
       preset="secondary"
       size="small"
       class="docs-navigation__button"
@@ -17,6 +18,7 @@
     </VaButton>
 
     <VaButton
+      aria-label="Copy code example"
       preset="secondary"
       size="small"
       class="docs-navigation__button"
@@ -32,6 +34,7 @@
     </VaButton>
 
     <VaButton
+      aria-label="Open in Github"
       preset="secondary"
       size="small"
       class="docs-navigation__button"
@@ -55,6 +58,7 @@
     >
       <template #anchor="{ show }">
         <VaButton
+          aria-label="Open in playground"
           preset="secondary"
           size="small"
           class="docs-navigation__button"
@@ -80,7 +84,13 @@
 
       <template #footer="{ ok }">
         <div class="flex gap-2 w-full px-5">
-          <VaInput v-if="$vaBreakpoint.smUp" :model-value="shareLink" label="Sandbox link" inner-label class="flex-1 w-full" />
+          <VaInput
+            v-if="$vaBreakpoint.smUp"
+            :model-value="shareLink"
+            label="Sandbox link"
+            inner-label
+            class="flex-1 w-full"
+          />
           <VaSpacer v-else />
           <VaButton icon="content_copy" preset="secondary" @click="copySandboxLink">
             Copy link

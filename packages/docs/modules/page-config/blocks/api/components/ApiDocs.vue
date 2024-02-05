@@ -22,13 +22,13 @@ defineProps({
 </script>
 
 <template>
-  <h4
+  <h3
     v-if="title"
-    class="ApiDocs__header"
+    class="ApiDocs__header va-h4"
   >
     {{ title }}
     <Anchor :text="title" />
-  </h4>
+  </h3>
 
   <div class="ApiDocs__table-wrapper">
     <table class="ApiDocs__table">

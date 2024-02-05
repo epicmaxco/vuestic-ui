@@ -4,6 +4,7 @@ import apiDescription from './api-description';
 export default definePageConfig({
   blocks: [
     block.title("Select"),
+    block.tags('select', 'combobox'),
     block.paragraph("Select field components are used for collecting user provided information from a list of options. This component opens up a menu for the selection list and action."),
 
     block.subtitle("Examples"),

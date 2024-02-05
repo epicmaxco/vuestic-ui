@@ -5,6 +5,7 @@ import apiDescription from './api-description';
 export default definePageConfig({
   blocks: [
     block.title("Modal"),
+    block.tags('modal', 'dialog', 'window'),
     block.paragraph("Classic modal overlay which represents a dialog box or other interactive component, such as a dismissible alert, sub-window, etc."),
 
     block.subtitle("Examples"),
@@ -25,7 +26,7 @@ export default definePageConfig({
       title: "Close button",
       description: "By default modal can be closed by clicking on the overlay or pressing the `Esc` key. You can add a close button by setting the `close-button` prop to `true`."
     }),
-  
+
     // Methods and utils
     block.headline("Modal methods"),
     block.paragraph("There are several methods that you can employ to toggle the visibility of `va-modal`."),
@@ -36,7 +37,7 @@ export default definePageConfig({
       title: "Before close",
       description: "You can set custom `before-close` prop to dynamically prevent modal from closing. Function accept `hide` method, so you can call it whenever you need. This way you can make API calls or show additional confirm window before closing modal."
     }),
-  
+
     // Overlay
     block.example("BlurredOverlay", {
       title: "Blurred overlay",
