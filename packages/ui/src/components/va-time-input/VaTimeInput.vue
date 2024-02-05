@@ -9,19 +9,12 @@
     <template #anchor>
       <va-input-wrapper
         class="va-time-input__anchor"
+        ref="input"
         :style="cursorStyleComputed"
         v-bind="computedInputWrapperProps"
+        v-on="computedInputListeners"
+        @change="onInputTextChanged"
       >
-        <template #default>
-          <input
-            ref="input"
-            class="va-time-input__input"
-            v-bind="inputAttributesComputed"
-            v-on="computedInputListeners"
-            @change="onInputTextChanged"
-          />
-        </template>
-
         <template
           v-for="name in filteredSlots"
           :key="name"

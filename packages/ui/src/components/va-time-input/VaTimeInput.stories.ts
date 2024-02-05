@@ -25,6 +25,14 @@ export const Loading = () => ({
   template: '<VaTimeInput loading />',
 })
 
+export const Placeholder = () => ({
+  components: { VaTimeInput },
+  data () {
+    return { value: null }
+  },
+  template: '<VaTimeInput v-model="value" placeholder="Please, select a time" />',
+})
+
 export const Clearable: StoryFn = () => ({
   components: { VaTimeInput },
   data () {

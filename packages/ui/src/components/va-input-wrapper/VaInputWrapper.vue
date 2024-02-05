@@ -55,7 +55,14 @@
                 </VaInputLabel>
 
                 <slot v-bind="{ ariaAttributes: { ...messagesChildAriaAttributes, ...ariaAttributes }, value: vModel }">
-                  <input v-bind="{ ...messagesChildAriaAttributes, ...ariaAttributes }" v-model="vModel" :placeholder="$props.placeholder" :readonly="$props.readonly" :disabled="$props.disabled" />
+                  <input
+                    v-bind="{ ...messagesChildAriaAttributes, ...ariaAttributes }"
+                    v-model="vModel"
+                    ref="inputRef"
+                    :placeholder="$props.placeholder"
+                    :readonly="$props.readonly"
+                    :disabled="$props.disabled"
+                  />
                 </slot>
               </div>
 
@@ -112,7 +119,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import pick from 'lodash/pick.js'
 
 import { useBem, useFormFieldProps, useValidationProps, useColors, useTextColor, useComponentPresetProp, useSyncProp, useFocusDeep } from '../../composables'
@@ -165,8 +172,9 @@ export default defineComponent({
   setup (props, { emit, slots }) {
     const { getColor } = useColors()
     const [vModel] = useSyncProp('modelValue', props, emit, '')
+    const inputRef = ref()
 
-    const isFocused = useFocusDeep()
+    const isFocused = useFocusDeep(inputRef)
 
     const counterValue = computed(() =>
       props.counter && typeof vModel.value === 'string' ? vModel.value.length : undefined,
@@ -209,6 +217,7 @@ export default defineComponent({
     const blur = () => { isFocused.value = false }
 
     return {
+      inputRef,
       focus,
       blur,
       labelId,
@@ -228,10 +237,6 @@ export default defineComponent({
       messagesComputed,
       errorLimit,
     }
-  },
-
-  methods: {
-
   },
 })
 </script>
