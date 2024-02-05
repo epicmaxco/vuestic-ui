@@ -114,6 +114,7 @@ const props = defineProps({
   minSearchChars: { type: Number, default: 0 },
   autoSelectFirstOption: { type: Boolean, default: false },
   selectedTopShown: { type: Boolean, default: false },
+  doShowAllOptions: { type: Boolean, default: false },
 })
 
 const emit = defineEmits([
@@ -160,7 +161,11 @@ const isSearchedOptionSelected = computed(() => {
 })
 
 const filteredOptions = computed((): SelectOption[] => {
-  if (!props.search || props.search.length < props.minSearchChars || isSearchedOptionSelected.value) {
+  if (props.doShowAllOptions && isSearchedOptionSelected.value) {
+    return props.options
+  }
+
+  if (!props.search || props.search.length < props.minSearchChars) {
     return props.options
   }
 

@@ -6,6 +6,7 @@
     v-bind="dropdownPropsComputed"
     role="combobox"
     inner-anchor-selector=".va-input-wrapper__field"
+    :keyboard-navigation="false"
   >
     <template #anchor>
       <va-input-wrapper
@@ -589,6 +590,7 @@ const optionsListPropsComputed = computed(() => ({
   options: filteredOptions.value,
   getSelectedState: checkIsOptionSelected,
   noOptionsText: tp(props.noOptionsText),
+  doShowAllOptions: doShowAllOptions.value,
 }))
 
 const { toggleIcon, toggleIconColor } = useToggleIcon(props, isOpenSync)
@@ -624,6 +626,15 @@ const selectContentPropsComputed = computed(() => ({
 // autocomplete
 const autocompleteValue = useAutocomplete(searchVModel, props, visibleSelectedOptions, isOpenSync, getText)
 const setAutocompleteValue = (v: string) => (autocompleteValue.value = v)
+const doShowAllOptions = ref(true)
+
+watch(showDropdownContentComputed, () => {
+  doShowAllOptions.value = true
+})
+
+watch(searchVModel, () => {
+  doShowAllOptions.value = false
+})
 
 // public methods
 const focus = () => {
