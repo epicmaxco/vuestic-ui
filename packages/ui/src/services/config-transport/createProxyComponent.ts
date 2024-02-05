@@ -7,11 +7,12 @@ type Props = Record<string, unknown>;
 /** Raw props */
 type RawProps = Record<string, unknown>;
 
-const toCamelCase = (str: string) => str.replace(/-([a-z])/g, (g) => g[1].toUpperCase())
+const CAMEL_CASE_REGEX = /-([a-z])/g
+
+const toCamelCase = (str: string) => str.replace(CAMEL_CASE_REGEX, (g) => g[1].toUpperCase())
 
 const findCamelCased = (obj: Record<string, unknown>, key: string) => {
-  const found = Object.keys(obj).find((k) => toCamelCase(k) === key)
-  return found && obj[found]
+  return obj[toCamelCase(key)]
 }
 
 /**
