@@ -151,7 +151,8 @@ const updateCurrentOption = (option: SelectOption | null, source: EventSource) =
 const { getText, getGroupBy, getTrackBy, getDisabled } = useSelectableList(props)
 
 const currentSelectedOptionText = computed(() => {
-  const selected = props.options?.find((option) => props.getSelectedState(option))
+  const getSelectedState = props.getSelectedState
+  const selected = props.options?.find((option) => getSelectedState(option))
 
   return selected ? getText(selected) : ''
 })
@@ -169,9 +170,10 @@ const filteredOptions = computed((): SelectOption[] => {
     return props.options
   }
 
+  const search = props.search.toUpperCase().trim()
+
   return props.options.filter((option: SelectOption) => {
     const optionText = getText(option).toUpperCase()
-    const search = props.search.toUpperCase().trim()
     return optionText.includes(search)
   })
 })

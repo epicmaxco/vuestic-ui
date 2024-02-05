@@ -35,12 +35,10 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
   }
 
   const getTrackBy = (option: SelectableOption): string | number => {
-    option = tryResolveByValue(option)
     return props.trackBy ? getOptionProperty(option, props.trackBy) : getValue(option)
   }
 
   const getDisabled = (option: SelectableOption): boolean => {
-    option = tryResolveByValue(option)
     // any non-object options should return `false`
     if (!isObject(option)) { return false }
 
@@ -48,7 +46,6 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
   }
 
   const getText = (option: SelectableOption): string => {
-    option = tryResolveByValue(option)
     const optionText = getOptionProperty(option, props.textBy)
 
     // `String` should prevent wrong type errors in case of number/boolean value
@@ -68,6 +65,7 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
   const getValue = (option: SelectableOption) => getOptionProperty(option, props.valueBy)
 
   return {
+    tryResolveByValue,
     getValue,
     getText,
     getDisabled,

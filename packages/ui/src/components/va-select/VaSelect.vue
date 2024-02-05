@@ -249,7 +249,9 @@ const searchBar = shallowRef<typeof VaInputWrapper>()
 
 const isInputFocused = useFocusDeep(input as any)
 
-const { getValue, getText, getTrackBy } = useSelectableList(props)
+const { getValue, getText, getTrackBy, tryResolveByValue } = useSelectableList(props)
+
+const getValueText = (option: SelectOption) => getText(tryResolveByValue(option))
 
 const onScrollBottom = () => emit('scroll-bottom')
 
@@ -313,7 +315,7 @@ const valueComputed = computed<SelectOption | SelectOption[]>({
   },
 })
 
-const valueString = useStringValue(props, visibleSelectedOptions, getText)
+const valueString = useStringValue(props, visibleSelectedOptions, getValueText)
 
 // icons
 const {
@@ -352,12 +354,20 @@ const filteredOptions = computed(() => {
   return props.options
 })
 
-const checkIsOptionSelected = (option: SelectOption) => {
+const normalizedOptionValue = computed(() => {
   if (Array.isArray(valueComputed.value)) {
-    return !isNilValue(valueComputed.value.find((valueItem) => compareOptions(valueItem, option)))
+    return valueComputed.value.map((value) => tryResolveByValue(value))
   }
 
-  return compareOptions(valueComputed.value, option)
+  return tryResolveByValue(valueComputed.value)
+})
+
+const checkIsOptionSelected = (option: SelectOption) => {
+  if (Array.isArray(normalizedOptionValue.value)) {
+    return !isNilValue(normalizedOptionValue.value.find((valueItem) => compareOptions(valueItem, option)))
+  }
+
+  return compareOptions(normalizedOptionValue.value, option)
 }
 
 const compareOptions = (option1: SelectOption, option2: SelectOption) => {
@@ -620,7 +630,7 @@ const selectContentPropsComputed = computed(() => ({
   isAllOptionsShown: isAllOptionsShown.value,
   focused: isInputFocused.value,
   autocompleteInputValue: autocompleteValue.value,
-  getText,
+  getText: getValueText,
 }))
 
 // autocomplete
