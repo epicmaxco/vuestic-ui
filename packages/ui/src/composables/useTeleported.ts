@@ -1,3 +1,4 @@
+import { getCurrentInstance } from 'vue'
 import { useCurrentComponentId } from './useCurrentComponentId'
 
 export const TELEPORT_FROM_ATTR = 'data-va-teleported-from'
@@ -25,12 +26,15 @@ export const findTeleportedFrom = (el: HTMLElement | undefined | null): HTMLElem
 export const useTeleported = () => {
   const componentId = useCurrentComponentId()
 
+  const scopedDataV = getCurrentInstance()?.vnode.scopeId
+
   return {
     teleportFromAttrs: {
       [TELEPORT_FROM_ATTR]: componentId,
     },
     teleportedAttrs: {
       [TELEPORT_ATTR]: componentId,
+      [`data-v-${scopedDataV}`]: '',
     },
     findTeleportedFrom,
   }
