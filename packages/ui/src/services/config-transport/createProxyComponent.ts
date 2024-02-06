@@ -7,12 +7,14 @@ type Props = Record<string, unknown>;
 /** Raw props */
 type RawProps = Record<string, unknown>;
 
-const CAMEL_CASE_REGEX = /-([a-z])/g
+const KEBAB_CASE_REGEX = /([a-z0-9])([A-Z])/g
 
-const toCamelCase = (str: string) => str.replace(CAMEL_CASE_REGEX, (g) => g[1].toUpperCase())
+const toKebabCase = (str: string) => str.replace(KEBAB_CASE_REGEX, '$1-$2').toLowerCase()
 
 const findCamelCased = (obj: Record<string, unknown>, key: string) => {
-  return obj[toCamelCase(key)]
+  if (key in obj) { return obj[key] }
+
+  return obj[toKebabCase(key)]
 }
 
 /**
