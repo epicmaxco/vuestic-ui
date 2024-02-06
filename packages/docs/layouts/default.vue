@@ -1,6 +1,5 @@
 <template>
   <div
-    :key="isMounted + ''"
     class="docs-layout"
   >
     <div
@@ -38,14 +37,11 @@
 </template>
 
 <script setup lang="ts">
-import { useColors } from 'vuestic-ui'
 import { useDocsScroll } from '../composables/useDocsScroll';
 import { useIsMounted } from 'vuestic-ui/src/composables/useIsMounted'
-
-const { currentPresetName } = useColors()
 const breakpoints = useBreakpoint()
 
-const isSidebarVisible = ref(false)
+const isSidebarVisible = ref(!breakpoints.smDown)
 const isOptionsVisible = ref(false)
 
 watch(() => breakpoints.smDown, (newValue: boolean) => {

@@ -12,12 +12,11 @@
         v-for="(route, key) in navigationRoutes"
         :key="key"
       >
-        <template #header="{ value: isCollapsed, hasKeyboardFocus }">
+        <template #header="{ value: isCollapsed }">
           <VaSidebarItem
             class="sidebar__collapse-custom-header"
             :class="{
               'sidebar__collapse-custom-header--active': routeHasActiveChild(route),
-              'sidebar__collapse-custom-header--keyboard-focused': hasKeyboardFocus
             }"
             hover-opacity="0.07"
             border-color="transparent"
