@@ -75,7 +75,7 @@
       </template>
 
       <ClientOnly>
-        <Play
+        <LazyPlay
           v-model:state="sandboxState"
           class="h-full border-b-2 border-[var(--va-background-border)]"
           :code="code"
