@@ -46,7 +46,7 @@ export const Clearable: StoryFn = () => ({
 Clearable.play = async ({ canvasElement }) => {
   const leftIcon = canvasElement.querySelector('.va-input-wrapper__field')!
   const clearButton = canvasElement.querySelector('.va-time-input__clear-button')!
-  const input = canvasElement.querySelector('.va-time-input__input')!
+  const input = canvasElement.querySelector('input')!
 
   await userEvent.click(leftIcon)
 
