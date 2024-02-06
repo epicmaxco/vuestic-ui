@@ -62,6 +62,8 @@ const zIndex = computed(() => (props.config.order || 0) + 1)
 }
 
 .va-layout-area {
+  display: flex;
+
   &__overlay {
     position: absolute;
     top: 0;
