@@ -140,7 +140,7 @@ export default defineComponent({
       })
     }
 
-    const sidebarWidth = computed(() => props.mobile ? '100%' : '16rem')
+    const sidebarWidth = computed(() => props.mobile ? '100dvw' : '16rem')
 
     const onSidebarItemClick = () => {
       if (props.mobile) {
