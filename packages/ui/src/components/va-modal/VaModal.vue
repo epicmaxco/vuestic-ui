@@ -358,7 +358,11 @@ const documentRef = useDocument()
 const setBodyOverflow = (overflow: string) => {
   if (!documentRef.value || props.allowBodyScroll) { return }
 
-  documentRef.value.body.style.overflow = overflow
+  if (overflow === 'hidden') {
+    documentRef.value!.body.classList.add('va-modal-open')
+  } else {
+    documentRef.value!.body.classList.remove('va-modal-open')
+  }
 }
 
 const onShow = () => {
@@ -429,6 +433,10 @@ const slotBind = { show, hide, toggle, cancel, ok }
 <style lang="scss">
 @import "../../styles/resources";
 @import "variables";
+
+body.va-modal-open {
+  overflow: hidden;
+}
 
 .va-modal-overlay-background--blurred > :not(div[class*="va-"]) {
   filter: blur(var(--va-modal-overlay-background-blur-radius));
