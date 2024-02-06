@@ -1,5 +1,6 @@
 <template>
   <div
+    :key="isMounted + ''"
     class="docs-layout"
   >
     <div

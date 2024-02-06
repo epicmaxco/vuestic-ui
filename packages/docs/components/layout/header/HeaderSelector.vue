@@ -25,8 +25,6 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 
-import { useColors } from 'vuestic-ui'
-
 import VaIconMenu from './icons/VaIconMenu.vue'
 import VaIconMenuCollapsed from './icons/VaIconMenuCollapsed.vue'
 

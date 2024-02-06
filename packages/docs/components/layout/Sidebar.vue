@@ -72,8 +72,6 @@
 import { defineComponent, watch, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { useColors } from 'vuestic-ui/src/main'
-
 import { NavigationRoute, navigationRoutes } from '@/page-config/navigationRoutes'
 
 export const getSortedNavigationRoutes = (routes: NavigationRoute[]): NavigationRoute[] => {

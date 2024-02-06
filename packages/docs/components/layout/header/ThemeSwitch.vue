@@ -23,7 +23,6 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useColors } from 'vuestic-ui'
 
 const { currentPresetName, applyPreset } = useColors()
 

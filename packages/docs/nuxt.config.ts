@@ -71,7 +71,6 @@ export default defineNuxtConfig({
     },
   },
 
-  ssr: true,
   nitro: {
     compressPublicAssets: true,
   },
@@ -137,6 +136,19 @@ export default defineNuxtConfig({
       autoprefixer: {},
       ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
     },
+  },
+
+  build: {
+    postcss: {
+      cssnano: {
+        preset: ['default', {
+          // Keep quotes in font values to prevent from HEX conversion
+          // https://github.com/nuxt/nuxt/issues/6306
+          minifyFontValues: { removeQuotes: false },
+          cssDeclarationSorter: false
+        }]
+      },
+    }
   },
 
   css: [

@@ -80,7 +80,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useBreakpoint } from 'vuestic-ui'
 import LandingStarsButton from './StarsButton.vue'
 
 const breakpoint = useBreakpoint()

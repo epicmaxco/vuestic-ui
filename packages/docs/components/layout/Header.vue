@@ -109,7 +109,6 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { useBreakpoint } from 'vuestic-ui'
 
 import VersionDropdown from './header/VersionDropdown.vue'
 import ColorDropdown from './header/ColorDropdown.vue'
