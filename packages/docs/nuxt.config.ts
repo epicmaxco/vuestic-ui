@@ -72,7 +72,7 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    compressPublicAssets: true,
+    // compressPublicAssets: true,
   },
   gtm: {
     id: process.env.GTM_ID, // Your GTM single container ID, array of container ids ['GTM-xxxxxx', 'GTM-yyyyyy'] or array of objects [{id: 'GTM-xxxxxx', queryParams: { gtm_auth: 'abc123', gtm_preview: 'env-4', gtm_cookies_win: 'x'}}, {id: 'GTM-yyyyyy', queryParams: {gtm_auth: 'abc234', gtm_preview: 'env-5', gtm_cookies_win: 'x'}}], // Your GTM single container ID or array of container ids ['GTM-xxxxxx', 'GTM-yyyyyy']
@@ -132,24 +132,13 @@ export default defineNuxtConfig({
 
   postcss: {
     plugins: {
+      cssnano: false,
       tailwindcss: {},
       autoprefixer: {},
       ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
     },
   },
 
-  build: {
-    postcss: {
-      cssnano: {
-        preset: ['default', {
-          // Keep quotes in font values to prevent from HEX conversion
-          // https://github.com/nuxt/nuxt/issues/6306
-          minifyFontValues: { removeQuotes: false },
-          cssDeclarationSorter: false
-        }]
-      },
-    }
-  },
 
   css: [
     '@/assets/css/tailwind.css',
@@ -164,6 +153,11 @@ export default defineNuxtConfig({
       alias: [
         { find: '~@ag-grid-community', replacement: ('@ag-grid-community') }
       ]
+    },
+    build: {
+      // We're not able to control order of css in page, so we need to disable
+      // code splitting - in one file it is ordered correctly
+      cssCodeSplit: false,
     }
   },
 
