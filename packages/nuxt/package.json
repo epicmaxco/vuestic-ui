@@ -23,8 +23,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "nuxt-module-build",
-    "prepack": "nuxt-module-build"
+    "build": "nuxt-module-build build",
+    "prepack": "nuxt-module-build build"
   },
   "dependencies": {
     "@nuxt/kit": "^3.0.0",
@@ -33,7 +33,7 @@
     "vuestic-ui": "^1.8.6"
   },
   "devDependencies": {
-    "@nuxt/module-builder": "latest",
+    "@nuxt/module-builder": "^0.5.5",
     "@nuxt/schema": "^3.10.0",
     "@nuxt/vite-builder": "^3.10.0",
     "@nuxtjs/eslint-config-typescript": "latest",
