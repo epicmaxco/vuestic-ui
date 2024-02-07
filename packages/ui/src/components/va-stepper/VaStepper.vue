@@ -329,7 +329,7 @@ const completeStep = (shouldCompleteStep?: boolean) => {
 const setError = (shouldSetError?: boolean) => {
   const steps = { ...props.steps }
   steps[props.modelValue].hasError = shouldSetError ?? true
-  steps[props.modelValue].completed = !shouldSetError ?? false
+  steps[props.modelValue].completed = !shouldSetError
 
   emit('update:steps', steps)
 }
