@@ -33,7 +33,7 @@
         @scroll:bottom="handleScrollToBottom"
         v-slot="{ item: option, index }"
       >
-        <slot v-bind="{ option, index, selectOption }">
+        <slot v-bind="{ option, index, selectOption: (o = option) => selectOption(o) }">
           <va-select-option
             :option="option"
             :current-option="currentOptionComputed"

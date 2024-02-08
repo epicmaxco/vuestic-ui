@@ -161,3 +161,33 @@ export const NilValue = () => ({
   },
   template: '[value]: {{ value }} <br /> <VaSelect v-model="value" :options="options" placeholder="Please select value" value-by="value" />',
 })
+
+export const ContentSlot: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    return { value: '', options: ['one', 'two', 'three'] }
+  },
+
+  template: `
+  <VaSelect v-model="value" :options="options">
+    <template #content="{ value . }">
+      {{ value }}
+    </template>
+  </VaSelect>`,
+})
+
+export const OptionSlot: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    return { value: '', options: ['one', 'two', 'three'] }
+  },
+
+  template: `
+  <VaSelect v-model="value" :options="options">
+    <template #option="{ option, index, selectOption }">
+      <div @click="selectOption(option)">{{ option }} - Custom ({{ index }})</div>
+    </template>
+  </VaSelect>`,
+})
