@@ -7,8 +7,9 @@
       v-if="$props.multiple || $slots.content"
       name="content"
       v-bind="{
-        value: $props.value,
+        value: slotValue,
         valueString: $props.valueString,
+        valueArray: $props.value,
         tabindex: $props.tabindex,
         ariaAttributes,
       }"
@@ -60,8 +61,9 @@
     v-else
     name="content"
     v-bind="{
+      value: slotValue,
       valueString: $props.valueString,
-      value: $props.value,
+      valueArray: $props.value,
       tabindex: $props.tabindex,
       ariaAttributes,
     }"
@@ -184,6 +186,12 @@ const handleBackspace = (e: KeyboardEvent) => {
 }
 
 const getIcon = (option: SelectOption) => isObject(option) ? (option.icon as string) : undefined
+
+const slotValue = computed(() => {
+  if (props.multiple) { return value }
+
+  return value.value[0]
+})
 </script>
 
 <style lang="scss">
