@@ -165,7 +165,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "vuestic-ui/src/styles/resources";
 @import "@/assets/smart-grid.scss";
 

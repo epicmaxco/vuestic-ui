@@ -154,11 +154,6 @@ export default defineNuxtConfig({
         { find: '~@ag-grid-community', replacement: ('@ag-grid-community') }
       ]
     },
-    build: {
-      // We're not able to control order of css in page, so we need to disable
-      // code splitting - in one file it is ordered correctly
-      cssCodeSplit: false,
-    }
   },
 
   runtimeConfig: {
