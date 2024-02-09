@@ -171,7 +171,7 @@ export const ContentSlot: StoryFn = () => ({
 
   template: `
   <VaSelect v-model="value" :options="options">
-    <template #content="{ value . }">
+    <template #content="{ value }">
       {{ value }}
     </template>
   </VaSelect>`,
