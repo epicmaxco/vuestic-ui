@@ -1,6 +1,6 @@
 # 1.9.0
 - Now in `content` slot `value` is not array in single mode, but array in multiple mode. Use `valueArray` if you need array value in single/multiple modes
-- Now `option` slot is used in select content if `content` slot is not provided
+- Added `option-content` slot which is used to show option in dropdown and input
 - Allow overriding `keepAnchorWidth`, `cloneOnContentClick`, `triggers`, `offset` props
 - Fix incorrect search value if `model-value` is null or undefined
 - Add slot types

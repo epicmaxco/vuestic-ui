@@ -172,7 +172,7 @@ export const ContentSlot: StoryFn = () => ({
   template: `
   <VaSelect v-model="value" :options="options">
     <template #content="{ value }">
-      {{ value }}
+      {{ value }} Content slot
     </template>
   </VaSelect>`,
 })
@@ -188,6 +188,21 @@ export const OptionSlot: StoryFn = () => ({
   <VaSelect v-model="value" :options="options">
     <template #option="{ option, index, selectOption }">
       <div @click="selectOption(option)">{{ option }} - Custom ({{ index }})</div>
+    </template>
+  </VaSelect>`,
+})
+
+export const OptionContentSlot: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    return { value: '', options: ['one', 'two', 'three'] }
+  },
+
+  template: `
+  <VaSelect v-model="value" :options="options">
+    <template #option-content="{ option, index }">
+      <div>{{ option }} - Custom ({{ index }})</div>
     </template>
   </VaSelect>`,
 })

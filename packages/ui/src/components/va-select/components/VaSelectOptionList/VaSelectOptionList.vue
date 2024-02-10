@@ -58,7 +58,11 @@
               @click.stop="selectHoveredOption"
               @mouseenter="handleMouseEnter(option)"
               @mousemove="handleMouseMove(option)"
-            />
+            >
+              <template #option-content>
+                <slot name="option-content" v-bind="{ option, index }" />
+              </template>
+            </va-select-option>
           </slot>
         </template>
       </template>

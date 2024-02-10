@@ -20,7 +20,7 @@
           :key="$props.getText(option)"
         >
           <slot
-            name="option"
+            name="option-content"
             v-bind="{ option, index, selectOption: () => void 0 }"
           >
             <va-icon
@@ -73,7 +73,7 @@
       ariaAttributes,
     }"
   >
-    <slot name="option" v-bind="{ option: $props.value[0], index: -1, selectOption: () => void 0 }">
+    <slot name="option-content" v-bind="{ option: $props.value[0], index: -1, selectOption: () => void 0 }">
       <va-icon
         v-if="getIcon(value[0])"
         size="small"
