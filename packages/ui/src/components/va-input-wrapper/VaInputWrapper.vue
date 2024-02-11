@@ -173,7 +173,7 @@ export default defineComponent({
     const [vModel] = useSyncProp('modelValue', props, emit, '')
     const inputRef = ref()
 
-    const isFocused = useFocusDeep(inputRef)
+    const isFocused = useFocusDeep()
 
     const counterValue = computed(() =>
       props.counter && typeof vModel.value === 'string' ? vModel.value.length : undefined,
