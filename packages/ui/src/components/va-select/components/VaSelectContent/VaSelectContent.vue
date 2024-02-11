@@ -195,7 +195,7 @@ const handleBackspace = (e: KeyboardEvent) => {
 const getIcon = (option: SelectOption) => isObject(option) ? (option.icon as string) : undefined
 
 const slotValue = computed(() => {
-  if (props.multiple) { return value }
+  if (props.multiple) { return value.value }
 
   return value.value[0]
 })
