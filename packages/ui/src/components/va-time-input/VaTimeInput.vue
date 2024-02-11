@@ -240,6 +240,7 @@ const computedInputWrapperProps = computed(() => ({
   error: computedError.value,
   errorMessages: computedErrorMessages.value,
   readonly: props.readonly || !props.manualInput,
+  modelValue: valueText.value,
 }))
 
 const viewToNumber = {
@@ -341,19 +342,6 @@ const iconProps = computed(() => ({
 const { tp } = useTranslation()
 
 const attrs = useAttrs()
-
-const inputAttributesComputed = computed(() => ({
-  readonly: props.readonly || !props.manualInput,
-  disabled: props.disabled,
-  tabindex: props.disabled ? -1 : 0,
-  value: valueText.value,
-  'aria-label': props.label || tp(props.ariaLabel),
-  'aria-required': props.requiredMark,
-  'aria-disabled': props.disabled,
-  'aria-readonly': props.readonly,
-  ...validationAriaAttributes.value,
-  ...omit(attrs, ['class', 'style']),
-}))
 
 const dropdownPropsComputed = computed(() => ({
   ...dropdownProps.value,
