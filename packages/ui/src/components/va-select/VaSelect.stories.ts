@@ -206,3 +206,33 @@ export const OptionContentSlot: StoryFn = () => ({
     </template>
   </VaSelect>`,
 })
+
+export const OptionMultipleContentSlot: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    return { value: ['one', 'two'], options: ['one', 'two', 'three'] }
+  },
+
+  template: `
+  <VaSelect v-model="value" :options="options" multiple>
+    <template #option-content="{ option, index }">
+      <span>{{ option }} ({{ index }})</span>
+    </template>
+  </VaSelect>`,
+})
+
+export const OptionMultipleAutocompleteContentSlot: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    return { value: ['one', 'two'], options: ['one', 'two', 'three'] }
+  },
+
+  template: `
+  <VaSelect v-model="value" :options="options" multiple autocomplete>
+    <template #option-content="{ option, index }">
+      <span>{{ option }} ({{ index }})</span>
+    </template>
+  </VaSelect>`,
+})

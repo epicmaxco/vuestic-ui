@@ -1,10 +1,14 @@
 <template>
-  <div
-    v-if="$props.autocomplete"
-    class="va-select-content__autocomplete"
-  >
+  <div class="va-select-content" @click="handleClick">
+    <span
+      v-if="isPlaceholder"
+      class="va-select-content__placeholder"
+    >
+    <input v-bind="ariaAttributes" :placeholder="$props.placeholder" readonly />
+    </span>
+
     <slot
-      v-if="$props.multiple || $slots.content"
+      v-else-if="!(props.autocomplete && !props.multiple)"
       name="content"
       v-bind="{
         value: slotValue,
@@ -14,32 +18,27 @@
         ariaAttributes,
       }"
     >
-      <template v-if="value.length">
-        <span
-          v-for="(option, index) in value"
-          :key="$props.getText(option)"
-        >
-          <slot
-            name="option-content"
-            v-bind="{ option, index, selectOption: () => void 0 }"
-          >
+      <template v-for="(option, index) in $props.value" :key="index">
+        <span class="va-select-content__option">
+          <slot name="option-content" v-bind="{ option, index, selectOption: () => void 0 }">
             <va-icon
               v-if="getIcon(option)"
               size="small"
               class="va-select-option__icon"
               :name="getIcon(option)"
             />
-            {{ `${$props.getText(option)}${index + 1 === value.length ? '' : ', '}` }}
+            {{ getText(option) }}
           </slot>
         </span>
-      </template>
-
-      <template v-else>
-        {{ $props.valueString }}
+        <span class="va-select-content__separator" v-if="index < $props.value.length - 1">
+          {{ $props.separator }}
+        </span>
       </template>
     </slot>
 
     <input
+      v-if="$props.autocomplete"
+      class="va-select-content__autocomplete"
       v-bind="ariaAttributes"
       ref="autocompleteInput"
       v-model="autocompleteInputValueComputed"
@@ -53,72 +52,43 @@
       @keydown.enter.stop.prevent="$emit('select-option')"
       @keydown="handleBackspace"
     />
-  </div>
 
-  <span
-    v-else-if="isPlaceholder"
-    class="va-select-content__placeholder"
-  >
-   <input v-bind="ariaAttributes" :placeholder="$props.placeholder" readonly />
-  </span>
-
-  <slot
-    v-else
-    name="content"
-    v-bind="{
-      value: slotValue,
-      valueString: $props.valueString,
-      valueArray: $props.value,
-      tabindex: $props.tabindex,
-      ariaAttributes,
-    }"
-  >
-    <slot name="option-content" v-bind="{ option: $props.value[0], index: -1, selectOption: () => void 0 }">
-      <va-icon
-        v-if="getIcon(value[0])"
-        size="small"
-        class="va-select-option__icon"
-        :name="getIcon(value[0])"
+    <slot
+      name="hiddenOptionsBadge"
+      v-bind="{
+        amount: $props.hiddenSelectedOptionsAmount,
+        isShown: $props.isAllOptionsShown,
+        toggle: toggleHiddenOptionsState,
+      }"
+    >
+      <va-badge
+        v-if="$props.hiddenSelectedOptionsAmount && !$props.isAllOptionsShown"
+        class="va-select-content__state-icon"
+        color="info"
+        :text="`+${$props.hiddenSelectedOptionsAmount}`"
+        :tabindex="$props.tabindex"
+        @click.stop="toggleHiddenOptionsState"
       />
-      {{ $props.valueString }}
     </slot>
-  </slot>
 
-  <slot
-    name="hiddenOptionsBadge"
-    v-bind="{
-      amount: $props.hiddenSelectedOptionsAmount,
-      isShown: $props.isAllOptionsShown,
-      toggle: toggleHiddenOptionsState,
-    }"
-  >
-    <va-badge
-      v-if="$props.hiddenSelectedOptionsAmount && !$props.isAllOptionsShown"
-      class="va-select-content__state-icon"
-      color="info"
-      :text="`+${$props.hiddenSelectedOptionsAmount}`"
-      :tabindex="$props.tabindex"
-      @click.stop="toggleHiddenOptionsState"
-    />
-  </slot>
-
-  <slot
-    name="hideOptionsButton"
-    v-bind="{
-      isShown: $props.isAllOptionsShown,
-      toggle: toggleHiddenOptionsState,
-    }"
-  >
-    <va-icon
-      v-if="$props.isAllOptionsShown"
-      role="button"
-      class="va-select-content__state-icon"
-      size="small"
-      name="reply"
-      :tabindex="$props.tabindex"
-      @click.stop="toggleHiddenOptionsState"
-    />
-  </slot>
+    <slot
+      name="hideOptionsButton"
+      v-bind="{
+        isShown: $props.isAllOptionsShown,
+        toggle: toggleHiddenOptionsState,
+      }"
+    >
+      <va-icon
+        v-if="$props.isAllOptionsShown"
+        role="button"
+        class="va-select-content__state-icon"
+        size="small"
+        name="reply"
+        :tabindex="$props.tabindex"
+        @click.stop="toggleHiddenOptionsState"
+      />
+    </slot>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -142,6 +112,7 @@ const props = defineProps({
   ariaAttributes: { type: Object },
   value: { type: Array as PropType<SelectOption[]>, required: true },
   valueString: { type: String },
+  separator: { type: String, default: ', ' },
   placeholder: { type: String, default: '' },
   tabindex: { type: [String, Number], default: 0 },
   hiddenSelectedOptionsAmount: { type: Number, default: 0 },
@@ -192,6 +163,13 @@ const handleBackspace = (e: KeyboardEvent) => {
   }
 }
 
+const handleClick = (e: MouseEvent) => {
+  if (props.autocomplete) {
+    autocompleteInput.value?.focus()
+    e.stopPropagation()
+  }
+}
+
 const getIcon = (option: SelectOption) => isObject(option) ? (option.icon as string) : undefined
 
 const slotValue = computed(() => {
@@ -205,16 +183,15 @@ const slotValue = computed(() => {
 @import '../../variables';
 
 .va-select-content {
-  &__autocomplete {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--va-select-content-autocomplete-gap);
-    color: var(--va-select-content-autocomplete-color);
-    font-size: var(--va-input-font-size);
-    line-height: var(--va-select-content-autocomplete-line-height);
+  display: flex;
+  flex-wrap: wrap;
 
-    & input {
-      flex: 1 1;
+  &__autocomplete {
+    flex: 1 1;
+    margin-left: 0.25rem;
+
+    &:first-child {
+      margin-left: 0;
     }
   }
 
@@ -225,6 +202,10 @@ const slotValue = computed(() => {
     color: var(--va-input-placeholder-text-color);
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
+  }
+
+  &__separator {
+    white-space: pre;
   }
 
   &__state-icon {

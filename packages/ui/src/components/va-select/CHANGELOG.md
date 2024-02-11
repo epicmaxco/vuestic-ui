@@ -7,6 +7,7 @@
 - Fix ignored space in autocomplete
 - Allow `null`, `undefined` and `''` value to be valid option
 - Speed up virtual scroll
+- Autocomplete now uses correct $props.separator instead of `', '`
 
 # 1.8.0
 

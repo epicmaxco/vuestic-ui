@@ -59,6 +59,7 @@
           <va-select-content
             v-bind="selectContentPropsComputed"
             :ariaAttributes="ariaAttributes"
+            :separator="$props.separator"
             @toggle-hidden="toggleHiddenOptionsState"
             @autocomplete-input="setAutocompleteValue"
             @focus-prev="focusPreviousOption"
