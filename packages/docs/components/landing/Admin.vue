@@ -53,25 +53,17 @@
           </div>
 
           <div class="admin__content__item admin__content__item--second">
-            <div class="items">
-              <div
-                v-for="{ icon, description } in items"
+            <ul class="items va-unordered">
+              <li
+                v-for="{ description } in items"
                 :key="description"
-                class="item"
+                class="item my-2"
               >
-                <div class="item__frame">
-                  <img
-                    :src="icon"
-                    alt=""
-                    height="32"
-                    width="32"
-                  >
-                </div>
                 <h3 class="item__title">
                   {{ description }}
                 </h3>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -85,10 +77,11 @@ import LandingStarsButton from './StarsButton.vue'
 const breakpoint = useBreakpoint()
 
 const items = [
-  { icon: '/landing/admin/open-source.svg', description: 'Open source MIT license' },
-  { icon: '/landing/admin/themes.svg', description: 'Two built-in color schemes' },
-  { icon: '/landing/admin/responsive.svg', description: 'Cross-browser & responsive' },
-  { icon: '/landing/admin/i18n.svg', description: 'i18n-ready' },
+  { description: 'Vue 3, Vite, Pinia, and Tailwind CSS' },
+  { description: 'Responsive Design' },
+  { description: 'Dark theme' },
+  { description: 'Global Configuration' },
+  { description: 'Professional Support' },
 ]
 </script>
 
@@ -248,7 +241,11 @@ const items = [
     &__title {
       @include text-font();
 
-      padding-left: 1rem;
+      // padding-left: 1rem;
+    }
+
+    &::before {
+      margin-top: 0.6rem;
     }
   }
 }

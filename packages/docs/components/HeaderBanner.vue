@@ -9,7 +9,9 @@
     >
       <div class="header__wrapper">
         <div class="header-banner__left">
-          <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${uiVersion}`">We just released&nbsp;<strong>Vuestic {{ uiVersion }} 🤗</strong></a>
+          <!-- Replace back to vuestic later -->
+          <!-- <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${uiVersion}`">We just released&nbsp;<strong>Vuestic {{ uiVersion }} 🤗</strong></a> -->
+          <a href="https://admin.vuestic.dev/">We just released <strong>Vuestic Admin 3.0</strong> 🤗</a>
 
           <!--          <div class="header-banner__left-links">-->
           <!-- <a
