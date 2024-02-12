@@ -25,6 +25,17 @@ export const Loading = () => ({
   template: '<VaSelect loading />',
 })
 
+export const Placeholder: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    // Test if initial value is correctly set
+    return { value: '', options: ['one', 'two', 'three'] }
+  },
+
+  template: '<VaSelect v-model="value" :options="options" placeholder="test" />',
+})
+
 export const Validation: StoryFn = () => ({
   components: { VaSelect },
 
@@ -134,6 +145,28 @@ export const Autocomplete: StoryFn = () => ({
   },
 
   template: '<VaSelect v-model="value" :options="options" autocomplete />',
+})
+
+export const AutocompletePlaceholder: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    // Test if initial value is correctly set
+    return { value: '', options: ['one', 'two', 'three'] }
+  },
+
+  template: '<VaSelect v-model="value" :options="options" autocomplete placeholder="test" />',
+})
+
+export const AutocompletePlaceholderMultiple: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    // Test if initial value is correctly set
+    return { value: '', options: ['one', 'two', 'three'] }
+  },
+
+  template: '<VaSelect v-model="value" :options="options" autocomplete placeholder="test" multiple />',
 })
 
 export const AutocompleteMultiple: StoryFn = () => ({

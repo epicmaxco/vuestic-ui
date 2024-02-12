@@ -1,10 +1,10 @@
 <template>
   <div class="va-select-content" @click="handleClick">
     <span
-      v-if="isPlaceholder"
+      v-if="isPlaceholder && !$props.autocomplete"
       class="va-select-content__placeholder"
     >
-    <input v-bind="ariaAttributes" :placeholder="$props.placeholder" readonly />
+      <input v-bind="ariaAttributes" :placeholder="$props.placeholder" readonly />
     </span>
 
     <slot
@@ -19,7 +19,7 @@
       }"
     >
       <template v-for="(option, index) in $props.value" :key="index">
-        <span class="va-select-content__option">
+        <span v-if="option !== ''" class="va-select-content__option">
           <slot name="option-content" v-bind="{ option, index, selectOption: () => void 0 }">
             <va-icon
               v-if="getIcon(option)"
@@ -38,15 +38,15 @@
 
     <input
       v-if="$props.autocomplete"
-      class="va-select-content__autocomplete"
       v-bind="ariaAttributes"
-      ref="autocompleteInput"
       v-model="autocompleteInputValueComputed"
+      class="va-select-content__autocomplete"
+      ref="autocompleteInput"
+      autocomplete="off"
+      aria-autocomplete="list"
       :placeholder="$props.placeholder"
       :disabled="$props.disabled"
       :readonly="$props.readonly"
-      autocomplete="off"
-      aria-autocomplete="list"
       @keydown.up.stop.prevent="$emit('focus-prev')"
       @keydown.down.stop.prevent="$emit('focus-next')"
       @keydown.enter.stop.prevent="$emit('select-option')"
