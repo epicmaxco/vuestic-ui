@@ -6,7 +6,7 @@ import AndreiImage from './images/andrei.jpg'
 import YauheniImage from './images/jenia.jpg'
 import MaksimImage from './images/maksim.jpg'
 import VitalyImage from './images/vitalik.jpg'
-import OlegImage from './images/oleg.jpg'
+import RomanImage from './images/roman.png'
 import AnastasiiaImage from './images/anastasiia.png'
 
 
@@ -79,13 +79,13 @@ export default definePageConfig({
           ],
         },
         {
-          name: 'Oleg Kirillov',
+          name: 'Roman Babalici',
           jobTitle: 'Developer - Vuestic',
-          image: OlegImage,
+          image: RomanImage,
           socialNetworks: [
             {
               name: 'fa fa-github',
-              url: 'https://github.com/aluarius',
+              url: 'https://github.com/Roman4437',
             },
           ],
         },
