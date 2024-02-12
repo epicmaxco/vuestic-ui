@@ -4,7 +4,7 @@
     <div v-show="!isMobileMenuOpen">
       <LandingPreview />
       <LandingPartners />
-      <LandingBannersVuejsNation />
+      <!-- <LandingBannersVuejsNation /> -->
       <LandingFeatures />
       <LandingCustomize />
       <LandingSeamlessIntegration />
