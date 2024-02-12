@@ -27,7 +27,7 @@
 
           <VaButton
             class="admin__buttons--button"
-            href="https://vuestic.epicmax.co/admin/dashboard"
+            href="https://admin-demo.vuestic.dev/"
             target="blank"
             :preset="breakpoint.xs ? `primary` : `secondary`"
           >
