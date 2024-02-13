@@ -34,7 +34,7 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 import { blurElement, focusElement } from '../../utils/focus'
 
 const positiveNumberValidator = (val: number) => {
-  if (val > 0 && (val | 0) === val) {
+  if (val > 0) {
     return true
   }
   throw new Error(`\`minRows|maxRows\` must be a positive integer greater than 0, but ${val} is provided`)
