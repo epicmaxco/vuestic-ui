@@ -25,6 +25,17 @@ export const Loading = () => ({
   template: '<VaSelect loading />',
 })
 
+export const Placeholder: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    // Test if initial value is correctly set
+    return { value: '', options: ['one', 'two', 'three'] }
+  },
+
+  template: '<VaSelect v-model="value" :options="options" placeholder="test" />',
+})
+
 export const Validation: StoryFn = () => ({
   components: { VaSelect },
 
@@ -136,6 +147,28 @@ export const Autocomplete: StoryFn = () => ({
   template: '<VaSelect v-model="value" :options="options" autocomplete />',
 })
 
+export const AutocompletePlaceholder: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    // Test if initial value is correctly set
+    return { value: '', options: ['one', 'two', 'three'] }
+  },
+
+  template: '<VaSelect v-model="value" :options="options" autocomplete placeholder="test" />',
+})
+
+export const AutocompletePlaceholderMultiple: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    // Test if initial value is correctly set
+    return { value: '', options: ['one', 'two', 'three'] }
+  },
+
+  template: '<VaSelect v-model="value" :options="options" autocomplete placeholder="test" multiple />',
+})
+
 export const AutocompleteMultiple: StoryFn = () => ({
   components: { VaSelect },
 
@@ -144,4 +177,95 @@ export const AutocompleteMultiple: StoryFn = () => ({
   },
 
   template: '<VaSelect v-model="value" :options="options" autocomplete multiple />',
+})
+
+export const NilValue = () => ({
+  components: { VaSelect },
+  data () {
+    return {
+      value: null,
+      options: [
+        { text: 'Null', value: null },
+        { text: 'Empty String', value: '' },
+        { text: 'Undefined', value: undefined },
+        { text: 'Zero', value: 0 },
+      ],
+    }
+  },
+  template: '[value]: {{ value }} <br /> <VaSelect v-model="value" :options="options" placeholder="Please select value" value-by="value" />',
+})
+
+export const ContentSlot: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    return { value: '', options: ['one', 'two', 'three'] }
+  },
+
+  template: `
+  <VaSelect v-model="value" :options="options">
+    <template #content="{ value }">
+      {{ value }} Content slot
+    </template>
+  </VaSelect>`,
+})
+
+export const OptionSlot: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    return { value: '', options: ['one', 'two', 'three'] }
+  },
+
+  template: `
+  <VaSelect v-model="value" :options="options">
+    <template #option="{ option, index, selectOption }">
+      <div @click="selectOption(option)">{{ option }} - Custom ({{ index }})</div>
+    </template>
+  </VaSelect>`,
+})
+
+export const OptionContentSlot: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    return { value: '', options: ['one', 'two', 'three'] }
+  },
+
+  template: `
+  <VaSelect v-model="value" :options="options">
+    <template #option-content="{ option, index }">
+      <div>{{ option }} - Custom ({{ index }})</div>
+    </template>
+  </VaSelect>`,
+})
+
+export const OptionMultipleContentSlot: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    return { value: ['one', 'two'], options: ['one', 'two', 'three'] }
+  },
+
+  template: `
+  <VaSelect v-model="value" :options="options" multiple>
+    <template #option-content="{ option, index }">
+      <span>{{ option }} ({{ index }})</span>
+    </template>
+  </VaSelect>`,
+})
+
+export const OptionMultipleAutocompleteContentSlot: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    return { value: ['one', 'two'], options: ['one', 'two', 'three'] }
+  },
+
+  template: `
+  <VaSelect v-model="value" :options="options" multiple autocomplete>
+    <template #option-content="{ option, index }">
+      <span>{{ option }} ({{ index }})</span>
+    </template>
+  </VaSelect>`,
 })

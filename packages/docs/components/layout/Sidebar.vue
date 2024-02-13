@@ -12,12 +12,11 @@
         v-for="(route, key) in navigationRoutes"
         :key="key"
       >
-        <template #header="{ value: isCollapsed, hasKeyboardFocus }">
+        <template #header="{ value: isCollapsed }">
           <VaSidebarItem
             class="sidebar__collapse-custom-header"
             :class="{
               'sidebar__collapse-custom-header--active': routeHasActiveChild(route),
-              'sidebar__collapse-custom-header--keyboard-focused': hasKeyboardFocus
             }"
             hover-opacity="0.07"
             border-color="transparent"
@@ -72,8 +71,6 @@
 <script lang="ts">
 import { defineComponent, watch, ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
-
-import { useColors } from 'vuestic-ui/src/main'
 
 import { NavigationRoute, navigationRoutes } from '@/page-config/navigationRoutes'
 
@@ -141,7 +138,7 @@ export default defineComponent({
       })
     }
 
-    const sidebarWidth = computed(() => props.mobile ? '100%' : '16rem')
+    const sidebarWidth = computed(() => props.mobile ? '100dvw' : '16rem')
 
     const onSidebarItemClick = () => {
       if (props.mobile) {
@@ -168,7 +165,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "vuestic-ui/src/styles/resources";
 @import "@/assets/smart-grid.scss";
 

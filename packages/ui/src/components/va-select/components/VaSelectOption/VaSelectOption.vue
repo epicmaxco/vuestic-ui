@@ -6,20 +6,22 @@
     :style="optionStyle"
     :aria-selected="isSelected"
   >
-    <va-icon
-      v-if="optionIcon"
-      size="small"
-      class="va-select-option__icon"
-      :name="optionIcon"
-    />
-    {{ optionTextSplitted.start }}
-    <span
-      v-if="optionTextSplitted.searchedSubString"
-      class="va-select-option__highlighted"
-    >
-      {{ optionTextSplitted.searchedSubString }}
-    </span>
-    {{ optionTextSplitted.end }}
+    <slot name="option-content">
+      <va-icon
+        v-if="optionIcon"
+        size="small"
+        class="va-select-option__icon"
+        :name="optionIcon"
+      />
+      {{ optionTextSplitted.start }}
+      <span
+        v-if="optionTextSplitted.searchedSubString"
+        class="va-select-option__highlighted"
+      >
+        {{ optionTextSplitted.searchedSubString }}
+      </span>
+      {{ optionTextSplitted.end }}
+    </slot>
     <va-icon
       v-show="isSelected"
       class="va-select-option__selected-icon"
@@ -37,7 +39,7 @@ import { useColors, useColorProps, useBem } from '../../../../composables'
 
 import { VaIcon } from '../../../va-icon'
 
-import { isNilValue } from '../../../../utils/isNilValue'
+import { isObject } from '../../../../utils/is-object'
 
 import type { SelectableOption } from '../../../../composables'
 
@@ -61,7 +63,7 @@ const props = defineProps({
 
 const { getColor, getHoverColor } = useColors()
 
-const optionIcon = computed(() => typeof props.option === 'object' ? (props.option.icon as string) : undefined)
+const optionIcon = computed(() => isObject(props.option) ? (props.option.icon as string) : undefined)
 const optionIconColor = computed(() => getColor(props.color))
 
 const optionText = computed(() => props.getText(props.option))
@@ -85,7 +87,6 @@ const optionTextSplitted = computed(() => {
 
 const isSelected = computed(() => props.getSelectedState(props.option))
 const isFocused = computed(() => {
-  if (isNilValue(props.currentOption)) { return false }
   if (typeof props.option === 'string') { return props.option === props.currentOption }
 
   return props.getTrackBy(props.currentOption) === props.getTrackBy(props.option)

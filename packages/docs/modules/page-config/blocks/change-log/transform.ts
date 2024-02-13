@@ -3,10 +3,18 @@ import { defineBlockTransform } from "../../compiler/define-block-transform";
 import glob from 'fast-glob'
 import { resolve, join } from 'pathe'
 
-const changelogs = glob(join(resolve(''), '..', 'ui/src/**/CHANGELOG.md'))
+const changelogs = () => glob(join(resolve(''), '..', 'ui/src/**/CHANGELOG.md'))
+
+const sortObjectKeys = <T extends Record<string, any>>(obj: T) => {
+  return Object.keys(obj).sort().reverse().reduce((acc, key) => {
+    acc[key as keyof T] = obj[key] as T[keyof T]
+    return acc
+  }, {} as T)
+}
 
 export const render = async () => {
-  const logs = await changelogs
+  const logs = await changelogs()
+
   const logEntries = await Promise.all((logs)
     .map(async (path) => {
       return [
@@ -34,7 +42,7 @@ export const render = async () => {
       return acc
     }, {} as Record<string, Record<string, string[]>>)
 
-    return mergedChangelog
+    return sortObjectKeys(mergedChangelog)
 }
 
 export default defineBlockTransform(async function (block) {

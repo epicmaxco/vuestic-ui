@@ -9,6 +9,7 @@
     <VaResizeObserver
       class="va-layout-fixed-wrapper__content"
       :class="`va-layout-fixed-wrapper__content--${area}`"
+      :style="!size ? { position: 'relative' } : {}"
       @resize="size = $event"
     >
       <slot />

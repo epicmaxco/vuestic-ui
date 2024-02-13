@@ -208,7 +208,7 @@ const setInputValue = (newValue: string) => {
 
 watch(computedValue, (newValue) => {
   setInputValue(String(newValue))
-})
+}, { immediate: true })
 
 useEvent('input', () => {
   setInputValue(String(valueComputed.value))

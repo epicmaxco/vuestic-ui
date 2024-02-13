@@ -33,7 +33,7 @@
         @scroll:bottom="handleScrollToBottom"
         v-slot="{ item: option, index }"
       >
-        <slot v-bind="{ option, index, selectOption }">
+        <slot v-bind="{ option, index, selectOption: (o = option) => selectOption(o) }">
           <va-select-option
             :option="option"
             :current-option="currentOptionComputed"
@@ -58,7 +58,11 @@
               @click.stop="selectHoveredOption"
               @mouseenter="handleMouseEnter(option)"
               @mousemove="handleMouseMove(option)"
-            />
+            >
+              <template #option-content>
+                <slot name="option-content" v-bind="{ option, index }" />
+              </template>
+            </va-select-option>
           </slot>
         </template>
       </template>
@@ -114,6 +118,7 @@ const props = defineProps({
   minSearchChars: { type: Number, default: 0 },
   autoSelectFirstOption: { type: Boolean, default: false },
   selectedTopShown: { type: Boolean, default: false },
+  doShowAllOptions: { type: Boolean, default: false },
 })
 
 const emit = defineEmits([
@@ -150,7 +155,8 @@ const updateCurrentOption = (option: SelectOption | null, source: EventSource) =
 const { getText, getGroupBy, getTrackBy, getDisabled } = useSelectableList(props)
 
 const currentSelectedOptionText = computed(() => {
-  const selected = props.options?.find((option) => props.getSelectedState(option))
+  const getSelectedState = props.getSelectedState
+  const selected = props.options?.find((option) => getSelectedState(option))
 
   return selected ? getText(selected) : ''
 })
@@ -160,31 +166,40 @@ const isSearchedOptionSelected = computed(() => {
 })
 
 const filteredOptions = computed((): SelectOption[] => {
-  if (!props.search || props.search.length < props.minSearchChars || isSearchedOptionSelected.value) {
+  if (props.doShowAllOptions && isSearchedOptionSelected.value) {
     return props.options
   }
 
+  if (!props.search || props.search.length < props.minSearchChars) {
+    return props.options
+  }
+
+  const search = props.search.toUpperCase().trim()
+
   return props.options.filter((option: SelectOption) => {
     const optionText = getText(option).toUpperCase()
-    const search = props.search.toUpperCase().trim()
     return optionText.includes(search)
   })
 })
 
-const optionGroups = computed(() => filteredOptions.value
-  .reduce((groups: Record<string, SelectOption[]>, option) => {
-    const groupBy = getGroupBy(option)
+const optionGroups = computed(() => {
+  if (!props.groupBy) { return { _noGroup: filteredOptions.value } }
 
-    if (!groupBy) {
-      groups._noGroup.push(option)
-    } else {
-      if (!groups[groupBy]) { groups[groupBy] = [] }
+  return filteredOptions.value
+    .reduce((groups: Record<string, SelectOption[]>, option) => {
+      const groupBy = getGroupBy(option)
 
-      groups[groupBy].push(option)
-    }
+      if (!groupBy) {
+        groups._noGroup.push(option)
+      } else {
+        if (!groups[groupBy]) { groups[groupBy] = [] }
 
-    return groups
-  }, { _noGroup: [] }))
+        groups[groupBy].push(option)
+      }
+
+      return groups
+    }, { _noGroup: [] })
+})
 const optionGroupsThrottled = useThrottleValue(optionGroups, props)
 
 const isValueExists = (value: SelectOption | null | undefined): value is SelectOption => !isNilValue(value)

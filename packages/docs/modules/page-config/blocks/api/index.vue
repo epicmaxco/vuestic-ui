@@ -235,8 +235,8 @@ const changeLogValue = ref(true)
     v-model="changeLogValue"
     class="mt-8 page-config-api-change-log"
   >
-    <template #header>
-      <div class="page-config-api-change-log__title">
+    <template #header="{ bind }">
+      <div class="page-config-api-change-log__title" v-bind="bind">
         <h4 class="va-h4">
           Change log
           <Anchor text="Change log" />
@@ -248,15 +248,15 @@ const changeLogValue = ref(true)
     <template #content>
       <div class="page-config-api-change-log__content pt-4">
         <div v-for="{ version, changes } in $props.changeLog" :key="version" class="page-config-api-change-log__version-wrapper">
+          <div class="page-config-api-change-log__version">
+            <VaIcon name="rocket_launch" class="mr-1" size="18px" color="secondary" />
+            <span>
+              <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${version}`">
+                v{{ version }}
+              </a>
+            </span>
+          </div>
           <ul>
-            <div class="page-config-api-change-log__version">
-              <VaIcon name="rocket_launch" class="mr-1" size="18px" color="secondary" />
-              <span>
-                <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${version}`">
-                  v{{ version }}
-                </a>
-              </span>
-            </div>
             <li v-for="change in changes.filter(Boolean)" :key="change">
               <div class="page-config-api-change-log__circle" />
               <MarkdownView :content="change" />

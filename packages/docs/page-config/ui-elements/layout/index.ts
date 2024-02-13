@@ -1,6 +1,7 @@
 export default definePageConfig({
   blocks: [
     block.title('Layout'),
+    block.tags('layout', 'app layout', 'page layout'),
     block.paragraph('Component is used for building App layout. It is based on CSS Grid and provides a simple API for building complex layouts.'),
     block.paragraph(`
 VaLayout component could be used in pair with [VaSidebar](/ui-elements/sidebar)[[target=_blank]], [VaNavbar](/ui-elements/navbar)[[target=_blank]] components.

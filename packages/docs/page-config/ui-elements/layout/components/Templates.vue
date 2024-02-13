@@ -15,7 +15,6 @@
 
   import { ref, computed } from 'vue'
   import { getWindow } from '../../../../../ui/src/utils/ssr';
-  import { useToast } from 'vuestic-ui';
 
   const activeItem = ref<any | null>(null)
 

@@ -119,10 +119,13 @@ import {
 import { setPaginationRange } from './setPaginationRange'
 
 import { VaButton } from '../va-button'
+import { ExtractComponentPropTypes } from '../../utils/component-options'
 
 defineOptions({
   name: 'VaPagination',
 })
+
+type VaButtonProps = ExtractComponentPropTypes<typeof VaButton>
 
 const props = defineProps({
   ...useStatefulProps,
@@ -151,7 +154,10 @@ const props = defineProps({
   gapped: { type: Boolean, default: false },
   borderColor: { type: String, default: '' },
   rounded: { type: Boolean, default: false },
+  /** @deprecated Use activeButtonProps="{ color: 'myColor' }" */
   activePageColor: { type: String, default: '' },
+  activeButtonProps: { type: Object as PropType<VaButtonProps>, default: () => ({}) },
+  buttonProps: { type: Object as PropType<VaButtonProps>, default: () => ({}) },
   buttonsPreset: { type: String, default: 'primary' },
 
   ariaLabel: { type: String, default: '$t:pagination' },
@@ -289,11 +295,13 @@ const buttonPropsComputed = computed(() => ({
   color: props.color,
   borderColor: props.borderColor,
   round: props.rounded,
+  ...props.buttonProps,
 }))
 
 const currentPageButtonProps = computed(() => ({
   preset: props.buttonsPreset === 'default' ? 'primary' : 'default',
   color: props.activePageColor || props.color,
+  ...props.activeButtonProps,
 }))
 
 const getPageButtonProps = (n: number | '...') => {

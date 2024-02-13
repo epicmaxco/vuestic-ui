@@ -80,7 +80,7 @@
 <script lang="ts" setup>
 import { markRaw, computed } from 'vue'
 
-import { useElementTextColor, useBreakpoint } from 'vuestic-ui'
+import { useElementTextColor } from 'vuestic-ui'
 
 import IconEpicmax from './icons/IconEpicmax.vue'
 import IconAdmin from './icons/IconAdmin.vue'

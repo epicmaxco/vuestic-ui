@@ -9,19 +9,12 @@
     <template #anchor>
       <va-input-wrapper
         class="va-time-input__anchor"
+        ref="input"
         :style="cursorStyleComputed"
         v-bind="computedInputWrapperProps"
+        v-on="computedInputListeners"
+        @change="onInputTextChanged"
       >
-        <template #default>
-          <input
-            ref="input"
-            class="va-time-input__input"
-            v-bind="inputAttributesComputed"
-            v-on="computedInputListeners"
-            @change="onInputTextChanged"
-          />
-        </template>
-
         <template
           v-for="name in filteredSlots"
           :key="name"
@@ -247,6 +240,7 @@ const computedInputWrapperProps = computed(() => ({
   error: computedError.value,
   errorMessages: computedErrorMessages.value,
   readonly: props.readonly || !props.manualInput,
+  modelValue: valueText.value,
 }))
 
 const viewToNumber = {
@@ -348,19 +342,6 @@ const iconProps = computed(() => ({
 const { tp } = useTranslation()
 
 const attrs = useAttrs()
-
-const inputAttributesComputed = computed(() => ({
-  readonly: props.readonly || !props.manualInput,
-  disabled: props.disabled,
-  tabindex: props.disabled ? -1 : 0,
-  value: valueText.value,
-  'aria-label': props.label || tp(props.ariaLabel),
-  'aria-required': props.requiredMark,
-  'aria-disabled': props.disabled,
-  'aria-readonly': props.readonly,
-  ...validationAriaAttributes.value,
-  ...omit(attrs, ['class', 'style']),
-}))
 
 const dropdownPropsComputed = computed(() => ({
   ...dropdownProps.value,

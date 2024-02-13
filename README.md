@@ -2,21 +2,12 @@
   <a href="https://vuestic.dev" target="_blank">
       <img alt="Vuestic UI Logo" width="400" src="https://user-images.githubusercontent.com/29167241/208700497-c356a0eb-338f-46cc-a2ca-4a892df7e446.png">
   </a>
-      <br>
+  <br>
   Vue.js 3.0 UI Library
   <br>
   Developed by <a href="https://epicmax.co">Epicmax</a>. Designed by
   <a href="https://twitter.com/xxsavitski">Vasili Savitski</a>.
   <br>
-</p>
-
-<p align="center">
-  <a href="https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/extensions/ag-grid-theme">
-    <img src="https://img.shields.io/npm/v/@vuestic/ag-grid-theme?label=ag-grid-theme">
-  </a>
-  <a href="https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/vue-cli-plugin">
-    <img src="https://img.shields.io/npm/v/vue-cli-plugin-vuestic-ui?label=vue-cli-plugin">
-  </a>
 </p>
 
 <p align="center">
@@ -32,6 +23,18 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/vue-cli-plugin">
+    <img src="https://img.shields.io/npm/v/@vuestic/nuxt?label=@vuestic/nuxt">
+  </a>
+    <a href="https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/vue-cli-plugin">
+    <img src="https://img.shields.io/npm/v/@vuestic/tailwind?label=@vuestic/tailwind">
+  </a>
+  <a href="https://github.com/epicmaxco/vuestic-ui/tree/develop/packages/extensions/ag-grid-theme">
+    <img src="https://img.shields.io/npm/v/@vuestic/ag-grid-theme?label=@vuestic/ag-grid-theme">
+  </a>
+</p>
+
+<p align="center">
   <a href="https://vuestic.dev/">Documentation</a>
   |
   <a href="https://discord.gg/u7fQdqQt8c">Discord</a>
@@ -42,61 +45,20 @@
 <a href="https://vuestic.dev/en/contribution/guide">contributing guide</a> and join discussions on our
 <a href="https://discord.gg/u7fQdqQt8c">Discord</a> to help us improve Vuestic UI experience.
 
-  <p align="center">
-    <img src=".github/assets/vuestic-ui-image.jpg">
-  </p>
-
-### Why use Vuestic UI?
-
-- Vue.js 3.0 compatible
-- Accessibility
-- Dark Theme support
-- Feature-rich: more than 60 customizable components
-- Two built-in color scheme presets
-- Powerful configurations:
-    - Local - configure components in-depth
-    - Global - configure framework overall
-- Cross-browser and responsive
-- i18n-ready
-- MIT license
-
-### Installation
-
-First, make sure you have all prerequisites installed:
-
-* [Node.js](https://nodejs.org/en/) ( >=14.*)
-* [npm](https://www.npmjs.com/get-npm) version 3+ (
-  or [yarn](https://yarnpkg.com/lang/en/docs/install) version 1.16+)
-  and [Git](https://git-scm.com).
-
-After checking the prerequisites, install Vuestic UI via npm/yarn:
-
-```shell
-npm install vuestic-ui
-//or
-yarn add vuestic-ui
-```
+<p align="center">
+  <img src=".github/assets/vuestic-ui-image.jpg">
+</p>
 
 ### Quick start
+Use following command to quickly scaffold new Vite or Nuxt project with [Vuestic](ui.vuestic.dev)  or [Vuestic Admin](admin.vuestic.ui)
 
-Make sure you've imported both styles and plugin into your entry file:
-
-```javascript
-//main.js
-import { createApp } from 'vue'
-import App from './App.vue'
-import { createVuestic } from 'vuestic-ui'
-import 'vuestic-ui/css'
-
-createApp(App)
-  .use(createVuestic())
-  .mount('#app')
+```bash
+npm create vuestic@latest
 ```
 
 ### Documentation
 
-Information, guides and tutorials are available
-on [vuestic.dev](https://vuestic.dev)
+Documentation, guides, examples and tutorials are available on [ui.vuestic.dev](https://vuestic.dev)
 
 ### Partners & Sponsors ❤️
 
@@ -112,8 +74,7 @@ Become a partner: [hello@epicmax.co](mailto:hello@epicmax.co)
 
 ### Community
 
-Ask questions at the official
-community [discord server](https://discord.gg/u7fQdqQt8c)
+Feel free to ask any questions or contact us at the official community [Discord server](https://discord.gg/u7fQdqQt8c)
 
 ### Vuestic Admin
 
@@ -134,15 +95,8 @@ You’re always welcome to join: check out
 our <a href="https://vuestic.dev/en/contribution/guide">
 contribution guides</a>
 , [open issues](https://github.com/epicmaxco/vuestic-ui/issues)
-and [discord server](https://discord.gg/u7fQdqQt8c)
+and [Discord server](https://discord.gg/u7fQdqQt8c)
 
-### Browsers support
-
-We design Vuestic UI to support the latest modern web browsers.
-
-| <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" /><br>IE/Edge | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" /><br>Firefox | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" /><br>Chrome | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" /><br>Safari | <img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" /><br>Opera |
-| --- | --- | --- | --- | --- |
-| Edge | last 2 versions  | last 2 versions | last 2 versions | last 2 versions |
 
 ### Can I hire you guys?
 [Epicmax](https://epicmax.co) is committed to Open Source from its beginning.

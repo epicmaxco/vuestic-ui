@@ -1,7 +1,5 @@
 <template>
-  <WithAttributes>
-    <slot v-bind="{ ariaAttributes: childAttributes, messages }" />
-  </WithAttributes>
+  <slot v-bind="{ ariaAttributes: childAttributes, messages, attrs: $attrs }" />
   <slot name="messages" v-bind="{ ariaAttributes: messageListAttributes, messages }">
     <div
       v-if="messages.length > 0"
@@ -36,7 +34,6 @@ import { useColors } from '../../composables'
 
 import { VaIcon } from '../va-icon'
 import { useMessageListAria } from './hooks/useMessageListAria'
-import { WithAttributes } from '../../utils/with-attributes'
 
 defineOptions({
   name: 'VaMessageList',

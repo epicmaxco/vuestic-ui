@@ -25,7 +25,5 @@
 </template>
 
 <script setup>
-import { useColors } from 'vuestic-ui/src/composables'
-
 const { colors } = useColors()
 </script>

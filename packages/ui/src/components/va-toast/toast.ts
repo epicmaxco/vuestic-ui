@@ -3,7 +3,10 @@ import { VNode, createVNode, render, AppContext } from 'vue'
 import { getGlobal } from '../../utils/ssr'
 import type { ToastOptions } from './types'
 
-import { VaToast } from './index'
+import _VaToast from './VaToast.vue'
+import { withConfigTransport } from '../../services/config-transport'
+
+export const VaToast = withConfigTransport(_VaToast)
 
 const GAP = 5
 let seed = 1

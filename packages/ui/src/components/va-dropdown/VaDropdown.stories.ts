@@ -5,6 +5,7 @@ import { StoryFn } from '@storybook/vue3'
 import { userEvent, within } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 import { sleep } from '@/utils/sleep'
+import DropdownScopedAttr from './__demo__/DropdownScopedAttr.vue'
 
 const scrollToMiddleY = (el: HTMLElement) => {
   const { scrollHeight, clientHeight } = el
@@ -496,4 +497,9 @@ export const Focus: StoryFn = () => ({
 
       <button class="focus:bg-red-200">Next focusable</button>
     `,
+})
+
+export const ScopedAttr = () => ({
+  components: { DropdownScopedAttr },
+  template: '<DropdownScopedAttr/>',
 })

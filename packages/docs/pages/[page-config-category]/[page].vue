@@ -9,11 +9,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ConcreteBlock } from '../../modules/page-config/runtime';
+import { type ConcreteBlock } from '../../modules/page-config/runtime';
 
 definePageMeta({
   layout: 'default',
   scrollToTop: true,
+  // See: https://github.com/nuxt/nuxt/issues/13309
+  layoutTransition: true,
 })
 
 const route = useRoute();

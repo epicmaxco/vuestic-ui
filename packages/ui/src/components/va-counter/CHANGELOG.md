@@ -1,3 +1,7 @@
+# 1.9.0
+- Added icon aliases for `add` and `remove` icons
+- Correct null values for min/max props.
+
 # 1.8.0
 
 - Removed `width` props, use `style="width: *"` instead

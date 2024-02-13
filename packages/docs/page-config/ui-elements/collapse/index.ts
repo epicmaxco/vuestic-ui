@@ -1,9 +1,7 @@
-import apiOptions from "./api-options";
-import apiDescription from './api-description';
-
 export default definePageConfig({
   blocks: [
     block.title("Collapse"),
+    block.tags('collapse', 'expand', 'expandable-panel'),
 
     block.paragraph("Toggles the visibility of content."),
 
