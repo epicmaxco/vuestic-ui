@@ -18,7 +18,7 @@
   <div class="flex flex-col gap-4 items-center pt-4">
     <div class="flex items-center justify-center lg:justify-between w-full max-w-7xl gap-8 md:gap-4 mb-4 flex-wrap">
       <a
-        href="https://epicmax.co/"
+        href="https://www.epicmax.co/?utm_source=vuestic_admin&utm_medium=landing&utm_campaign=logo"
         target="_blank"
         title="Epicmax - Top Vue.js Development Company"
       >
@@ -29,7 +29,7 @@
       </a>
 
       <a
-        href="https://vuejobs.com/"
+        href="https://vuejobs.com/?utm_source=vuestic_admin&utm_medium=landing&utm_campaign=logo"
         target="_blank"
         title="Vue.js jobs – Browse through dozens of Vue.js openings"
         class="partners__logo logo__vue-jobs"
@@ -64,7 +64,7 @@
       </a>
 
       <a
-        href="https://www.ag-grid.com/"
+        href="https://www.ag-grid.com/?utm_source=vuestic_admin&utm_medium=landing&utm_campaign=logo"
         target="_blank"
         title="Data Grid: AG Grid: High-Performance React Grid, Angular Grid, JavaScript Grid"
       >
@@ -97,7 +97,7 @@
       </a>
 
       <a
-        href="https://flatlogic.com/"
+        href="https://flatlogic.com/?utm_source=vuestic_admin&utm_medium=landing&utm_campaign=logo"
         target="_blank"
         title="Flatlogic - The best way to create React, Angular and Vue full-stack web applications"
       >
