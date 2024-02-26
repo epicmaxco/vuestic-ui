@@ -544,15 +544,17 @@ export const DirtyForm: StoryFn = () => ({
   components: { VaForm, VaInput, VaButton },
 
   setup () {
-    const { isDirty } = useForm('form')
+    const { isDirty, isValid } = useForm('form')
 
     return {
       isDirty,
+      isValid,
     }
   },
 
   template: `
     <p id="form-dirty">[form-dirty]: {{ isDirty }}</p>
+    <p id="form-valid">[form-valid]: {{ isValid }}</p>
     <p id="input-dirty">[input-dirty]: {{ $refs.input?.isDirty }}</p>
     <va-form ref="form">
       <va-input data-testid="input" :rules="[false]" stateful ref="input" />
