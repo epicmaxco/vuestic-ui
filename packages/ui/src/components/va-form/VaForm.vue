@@ -44,7 +44,7 @@ const props = defineProps({
   ...useComponentPresetProp,
   autofocus: { type: Boolean, default: false },
   immediate: { type: Boolean, default: false },
-  tag: { type: String, default: 'div' },
+  tag: { type: String, default: 'form' },
   trigger: { type: String as PropType<'blur' | 'change'>, default: 'blur' },
   modelValue: { type: Boolean, default: true },
   hideErrors: { type: Boolean, default: false },
