@@ -8,6 +8,7 @@ import {
   ref,
   toRef,
   Ref,
+  watchEffect,
 } from 'vue'
 import flatten from 'lodash/flatten.js'
 import isFunction from 'lodash/isFunction.js'
@@ -78,6 +79,18 @@ const useDirtyValue = (
   return { isDirty }
 }
 
+const useOncePerTick = <T extends (...args: any[]) => any>(fn: T) => {
+  let canBeCalled = true
+
+  return (...args: Parameters<T>) => {
+    if (!canBeCalled) { return }
+    canBeCalled = false
+    const result = fn(...args)
+    nextTick(() => { canBeCalled = true })
+    return result
+  }
+}
+
 export const useValidation = <V, P extends ExtractPropTypes<typeof useValidationProps>>(
   props: P,
   emit: (event: any, ...args: any[]) => void,
@@ -140,7 +153,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     })
   }
 
-  const validate = (): boolean => {
+  const validate = useOncePerTick((): boolean => {
     if (!props.rules || !props.rules.length) {
       return true
     }
@@ -163,8 +176,9 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     }
 
     return processResults(syncRules)
-  }
+  })
 
+  watchEffect(() => validate())
   watch(isFocused, (newVal) => !newVal && validate())
 
   const { isDirty } = useDirtyValue(options.value, props, emit)
