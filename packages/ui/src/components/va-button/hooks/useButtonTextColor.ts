@@ -81,7 +81,7 @@ export const useButtonTextColor: UseButtonTextColor = (
   }
 
   const hoverTextColorComputed = computed(() => {
-    return getStateColor(props.hoverMaskColor, props.hoverOpacity, props.hoverBehavior)
+    return getStateColor(props.hoverMaskColor, Number(props.hoverOpacity), props.hoverBehavior)
   })
 
   const pressedTextColorComputed = computed(() => {

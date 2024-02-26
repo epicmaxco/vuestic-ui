@@ -9,6 +9,7 @@
 import { computed, type PropType } from 'vue'
 
 import { useComponentPresetProp } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
   name: 'VaAspectRatio',
@@ -17,22 +18,15 @@ defineOptions({
 const props = defineProps({
   ...useComponentPresetProp,
   ratio: {
-    type: [Number, String] as PropType<number | 'auto'>,
+    type: [Number, String] as PropType<number | StringWithAutocomplete<'auto'>>,
     default: 'auto',
-    validator: (v: number | 'auto') => {
-      if (typeof v === 'number') {
-        return v > 0
-      }
-
-      return v === 'auto'
-    },
   },
   contentHeight: { type: Number, default: 1 },
   contentWidth: { type: Number, default: 1 },
   maxWidth: {
-    type: Number,
+    type: [Number, String],
     default: 0,
-    validator: (v: number) => v >= 0,
+    validator: (v: number) => Number(v) >= 0,
   },
 })
 
