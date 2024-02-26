@@ -31,7 +31,7 @@
   </div>
 </template>
 
-<script lang="ts" setup generic="Item = unknown">
+<script lang="ts" setup generic="Item">
 import { ref, computed, watch, PropType } from 'vue'
 import pick from 'lodash/pick.js'
 
