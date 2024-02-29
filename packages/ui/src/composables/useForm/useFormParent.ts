@@ -47,10 +47,10 @@ export const useFormParent = <Names extends string = string>(options: FormParent
     if (unref(field.name)) { acc[unref(field.name) as Names] = field.value }
     return acc
   }, {} as Record<Names, UnwrapRef<FormFiled['value']>>))
-  const isValid = computed(() => fields.value.every((field) => unref(field.isValid) && unref(field.isDirty)))
+  const isValid = computed(() => fields.value.every((field) => unref(field.isValid)))
   const isLoading = computed(() => fields.value.some((field) => unref(field.isLoading)))
   const isDirty = computed({
-    get () { return fields.value.some((field) => unref(field.isLoading)) || isFormDirty.value },
+    get () { return fields.value.some((field) => unref(field.isDirty)) || isFormDirty.value },
     set (v) { isFormDirty.value = v },
   })
   const errorMessages = computed(() => fields.value.map((field) => unref(field.errorMessages)).flat())

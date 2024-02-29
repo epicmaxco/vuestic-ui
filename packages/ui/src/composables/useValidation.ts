@@ -99,7 +99,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
   const { reset, focus } = options
   const { isFocused, onFocus, onBlur } = useFocus()
 
-  const [computedError] = useSyncProp('error', props, emit, false as boolean)
+  const [computedError] = useSyncProp('error', props, emit, false)
   const [computedErrorMessages] = useSyncProp('errorMessages', props, emit, [] as string[])
   const isLoading = ref(false)
 
@@ -202,7 +202,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     reset: () => {
       reset()
       resetValidation()
-      isDirty.value = false
+      validate()
     },
     value: computed(() => options.value || props.modelValue),
     name: toRef(props, 'name'),
