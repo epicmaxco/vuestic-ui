@@ -727,3 +727,54 @@ export const ImmediateValidateAsync: StoryFn = () => ({
     </va-button>
   `,
 })
+
+export const RulesWithReactiveState: StoryFn = () => ({
+  components: { VaForm, VaInput, VaButton },
+
+  setup () {
+    const { isValid } = useForm('form')
+
+    const firstInput = ref('1')
+    const secondInput = ref('2')
+
+    const firstInputRules = [() => Number(firstInput.value) > Number(secondInput.value) || 'First input value must be bigger than Second']
+    const secondInputRules = [() => Number(firstInput.value) < Number(secondInput.value) || 'Second input value must be bigger than First']
+
+    return {
+      firstInput,
+      secondInput,
+      firstInputRules,
+      secondInputRules,
+      isValid,
+    }
+  },
+
+  template: `
+    <p id="form-valid">[form-valid]: {{ isValid }}</p>
+    <va-form ref="form" immediate>
+      <va-input v-model="firstInput" data-testid="input1" :rules="firstInputRules" />
+      <va-input v-model="secondInput" data-testid="input2" :rules="secondInputRules" />
+    </va-form>
+  `,
+})
+
+RulesWithReactiveState.play = async ({ canvasElement, step }) => {
+  const inputs = canvasElement.querySelectorAll('.va-input-wrapper')
+  const [input1, input2] = inputs
+
+  const isFormValid = () => canvasElement.querySelector('#form-valid')?.innerHTML.includes('true')
+  const isFirstInputValid = () => !input1.classList.contains('va-input-wrapper--error')
+  const isSecondInputValid = () => !input2.classList.contains('va-input-wrapper--error')
+
+  await step('Valid status changes if reactive dependency is updated', async () => {
+    expect(isFormValid()).toBeFalsy()
+    expect(isFirstInputValid()).toBeFalsy()
+    expect(isSecondInputValid()).toBeTruthy()
+
+    await userEvent.type(input1, '2')
+
+    expect(isFormValid()).toBeFalsy()
+    expect(isFirstInputValid()).toBeTruthy()
+    expect(isSecondInputValid()).toBeFalsy()
+  })
+}
