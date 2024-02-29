@@ -225,6 +225,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 
   return {
     isDirty,
+    isValid: computed(() => !computedError.value),
     computedError: computed(() => {
       // Hide error if component haven't been interacted yet
       // Ignore dirty state if immediateValidation is true

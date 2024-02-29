@@ -23,7 +23,7 @@ import {
   VaRadio,
 } from '../'
 import { sleep } from '../../utils/sleep'
-import { useForm } from '../../composables'
+import { useEvent, useForm } from '../../composables'
 import { ref } from 'vue'
 
 export default {
@@ -556,7 +556,7 @@ export const DirtyForm: StoryFn = () => ({
     <p id="form-dirty">[form-dirty]: {{ isDirty }}</p>
     <p id="form-valid">[form-valid]: {{ isValid }}</p>
     <p id="input-dirty">[input-dirty]: {{ $refs.input?.isDirty }}</p>
-    <p id="input-valid">[input-valid]: {{ !$refs.input?.computedError }}</p>
+    <p id="input-valid">[input-valid]: {{ $refs.input?.isValid }}</p>
     <va-form ref="form">
       <va-input data-testid="input" :rules="[(v) => v.length > 2]" stateful ref="input" />
     </va-form>
@@ -566,6 +566,9 @@ export const DirtyForm: StoryFn = () => ({
     <va-button @click="$refs.form.resetValidation()">
       Reset validation
     </va-button>
+    <va-button @click="$refs.form.reset()">
+      Reset
+    </va-button>
   `,
 })
 
@@ -573,47 +576,87 @@ DirtyForm.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
   const input = canvas.getByTestId('input')
   const validateButton = canvas.getByRole('button', { name: 'Validate' }) as HTMLElement
-  const resetButton = canvas.getByRole('button', { name: 'Reset validation' }) as HTMLElement
+  const resetValidationButton = canvas.getByRole('button', { name: 'Reset validation' }) as HTMLElement
+  const resetButton = canvas.getByRole('button', { name: 'Reset' }) as HTMLElement
 
-  const isInputValid = () => input.getAttribute('aria-invalid') === 'false'
+  const resetValidation = async () => await userEvent.click(resetValidationButton)
+  const reset = async () => await userEvent.click(resetButton)
+  const validate = async () => await userEvent.click(validateButton)
+
+  const isFormValid = () => canvasElement.querySelector('#form-valid')?.innerHTML.includes('true')
   const isFormDirty = () => canvasElement.querySelector('#form-dirty')?.innerHTML.includes('true')
+  const isInputValid = () => canvasElement.querySelector('#input-valid')?.innerHTML.includes('true')
+  const isInputVisuallyValid = () => !input.classList.contains('va-input-wrapper--error')
   const isInputDirty = () => canvasElement.querySelector('#input-dirty')?.innerHTML.includes('true')
 
-  await step('Validates input with error', async () => {
-    await userEvent.click(validateButton)
-    expect(input.getAttribute('aria-invalid')).toEqual('true')
-    // After validate is called form should be dirty
-    expect(canvasElement.querySelector('#form-dirty')?.innerHTML.includes('true')).toBeTruthy()
-    // But input should not be dirty, because it wasn't directly interacted with
-    expect(canvasElement.querySelector('#input-dirty')?.innerHTML.includes('false')).toBeTruthy()
+  await step('Form is not dirty and invalid input', async () => {
+    expect(isFormValid()).toBeFalsy()
+    expect(isFormDirty()).toBeFalsy()
+    expect(isInputValid()).toBeFalsy()
+    expect(isInputDirty()).toBeFalsy()
+
+    // Looks like VALID if NOT DIRTY
+    expect(isInputVisuallyValid()).toBeTruthy()
   })
 
-  await step('Reset inputs validation', async () => {
-    await userEvent.click(resetButton)
-    // After validation reset input should not be dirty, but should be invalid
-    expect(input.getAttribute('aria-invalid')).toEqual('true')
-    expect(canvasElement.querySelector('#input-dirty')?.innerHTML.includes('false')).toBeTruthy()
-  })
-
-  await step('Validates input on input not satisfies rule', async () => {
+  await step('Form is dirty and invalid input', async () => {
     await userEvent.type(input, '1')
-    expect(input.getAttribute('aria-invalid')).toEqual('true')
-    expect(canvasElement.querySelector('#form-dirty')?.innerHTML.includes('true')).toBeTruthy()
-    expect(canvasElement.querySelector('#input-dirty')?.innerHTML.includes('true')).toBeTruthy()
+
+    expect(isFormValid()).toBeFalsy()
+    expect(isFormDirty()).toBeTruthy()
+    expect(isInputValid()).toBeFalsy()
+    expect(isInputDirty()).toBeTruthy()
+
+    // Looks like INVALID if DIRTY
+    expect(isInputVisuallyValid()).toBeTruthy()
   })
 
-  await step('Validates input on input satisfies rule', async () => {
+  await step('Form is dirty and valid input', async () => {
     await userEvent.type(input, '23')
-    expect(input.getAttribute('aria-invalid')).toEqual('false')
-    expect(canvasElement.querySelector('#form-dirty')?.innerHTML.includes('true')).toBeTruthy()
-    expect(canvasElement.querySelector('#input-dirty')?.innerHTML.includes('true')).toBeTruthy()
+
+    expect(isFormValid()).toBeTruthy()
+    expect(isFormDirty()).toBeTruthy()
+    expect(isInputValid()).toBeTruthy()
+    expect(isInputDirty()).toBeTruthy()
+
+    // Looks like VALID if VALID and DIRTY
+    expect(isInputVisuallyValid()).toBeTruthy()
   })
 
-  await step('Reset inputs validation', async () => {
-    await userEvent.click(resetButton)
-    expect(input.getAttribute('aria-invalid')).toEqual('false')
-    expect(canvasElement.querySelector('#form-dirty')?.innerHTML.includes('false')).toBeTruthy()
-    expect(canvasElement.querySelector('#input-dirty')?.innerHTML.includes('false')).toBeTruthy()
+  await step('Form is not dirty and valid input after validation reset', async () => {
+    await resetValidation()
+
+    expect(isFormValid()).toBeTruthy()
+    expect(isFormDirty()).toBeFalsy()
+    expect(isInputValid()).toBeTruthy()
+    expect(isInputDirty()).toBeFalsy()
+
+    // VALID because it's not DIRTY
+    expect(isInputVisuallyValid()).toBeTruthy()
+  })
+
+  await step('Form is dirty after valid input interaction', async () => {
+    await userEvent.type(input, '4')
+
+    expect(isFormValid()).toBeTruthy()
+    expect(isFormDirty()).toBeTruthy()
+    expect(isInputValid()).toBeTruthy()
+    expect(isInputDirty()).toBeTruthy()
+    expect(isInputVisuallyValid()).toBeTruthy()
+  })
+
+  await step('Form and input are invalid after reset is called on form', async () => {
+    await reset()
+
+    expect(input.innerText).toBe('')
+
+    expect(isFormValid()).toBeFalsy()
+    expect(isFormDirty()).toBeFalsy()
+    expect(isInputValid()).toBeFalsy()
+    expect(isInputDirty()).toBeFalsy()
+
+    // VALID because it's not DIRTY
+    expect(isInputVisuallyValid()).toBeTruthy()
   })
 }
 
