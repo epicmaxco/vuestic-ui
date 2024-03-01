@@ -41,7 +41,7 @@ VaLayout component could be used in pair with [VaSidebar](/ui-elements/sidebar)[
 
     block.example('MobileFriendly', {
       title: 'Mobile friendly',
-      description: 'It is recommended to make `left` and `right` areas absolute on mobile devices. You can use `absolute` prop to do it in pair with [useBreakpoint](http://localhost:3000/services/breakpoints)[[target=_blank]] composable.',
+      description: 'It is recommended to make `left` and `right` areas absolute on mobile devices. You can use `absolute` prop to do it in pair with [useBreakpoint](/services/breakpoints)[[target=_blank]] composable.',
     }),
 
     block.subtitle('Accessibility'),
