@@ -263,10 +263,10 @@ const valueText = computed(() => {
 const onInputTextChanged = ({ target }: Event) => {
   if (props.disabled) { return }
 
-  const parsedValue = parseDateInputValue((target as HTMLInputElement).value)
+  const inputValue = (target as HTMLInputElement).value
 
   if (isValid.value) {
-    valueComputed.value = parsedValue
+    valueComputed.value = inputValue === '' ? null : parseDateInputValue(inputValue)
   }
 }
 
