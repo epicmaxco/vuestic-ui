@@ -93,7 +93,8 @@
 </template>
 
 <script setup lang="ts">
-  import { useForm } from 'vuestic-ui'
+  import { reactive } from 'vue';
+  import { useForm } from 'vuestic-ui';
 
   const { isValid, validate, reset, resetValidation } = useForm('formRef')
 
