@@ -1,13 +1,14 @@
+import { useAppGlobal } from './useAppGlobal'
 import { useDocument } from './useDocument'
 import { useWindow } from './useWindow'
 
-const TAB_KEYCODE = 9
 const FOCUSABLE_ELEMENTS_SELECTOR = ':where(a, button, input, textarea, select):not([disabled]), *[tabindex]'
-let trapInEl: HTMLElement | null = null
 
 export const useTrapFocus = () => {
   const document = useDocument()
   const window = useWindow()
+
+  const trapInEl = useAppGlobal<null | HTMLElement>('trapInEl', null)
 
   let focusableElements: HTMLElement[] = []
   let firstFocusableElement: HTMLElement | null = null
@@ -15,7 +16,7 @@ export const useTrapFocus = () => {
   let isFocusTrapped = false
 
   const isFocusIn = (evt: Event) => {
-    return trapInEl?.contains(evt.target as Node) || false
+    return trapInEl.value?.contains(evt.target as Node) || false
   }
 
   const focusFirstElement = () => {
@@ -55,18 +56,18 @@ export const useTrapFocus = () => {
   }
 
   const trapFocusIn = (el: HTMLElement) => {
-    trapInEl = el
+    trapInEl.value = el
 
     freeFocus()
     trapFocus()
   }
 
   const trapFocus = () => {
-    if (!trapInEl) {
+    if (!trapInEl.value) {
       return
     }
 
-    focusableElements = Array.from(trapInEl.querySelectorAll(FOCUSABLE_ELEMENTS_SELECTOR))
+    focusableElements = Array.from(trapInEl.value.querySelectorAll(FOCUSABLE_ELEMENTS_SELECTOR))
     firstFocusableElement = focusableElements[0]
     lastFocusableElement = focusableElements[focusableElements.length - 1]
 
