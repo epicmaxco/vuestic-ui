@@ -1,4 +1,4 @@
-import { WritableComputedRef, computed, getCurrentInstance } from 'vue'
+import { WritableComputedRef, computed, getCurrentInstance, reactive } from 'vue'
 
 const getGlobalObject = () => {
   const vm = getCurrentInstance()
@@ -11,7 +11,7 @@ const getGlobalObject = () => {
     return globalProperties.$vaGlobalVariable
   }
 
-  globalProperties.$vaGlobalVariable = {}
+  globalProperties.$vaGlobalVariable = reactive({})
 
   return globalProperties.$vaGlobalVariable
 }

@@ -13,7 +13,6 @@ export const useTrapFocus = () => {
   let focusableElements: HTMLElement[] = []
   let firstFocusableElement: HTMLElement | null = null
   let lastFocusableElement: HTMLElement | null = null
-  let isFocusTrapped = false
 
   const isFocusIn = (evt: Event) => {
     return trapInEl.value?.contains(evt.target as Node) || false
@@ -35,8 +34,6 @@ export const useTrapFocus = () => {
     }
 
     if (!isFocusIn(evt)) {
-      isFocusTrapped = true
-
       evt.preventDefault()
       isShiftPressed ? focusLastElement() : focusFirstElement()
 
@@ -77,7 +74,6 @@ export const useTrapFocus = () => {
     focusableElements = []
     firstFocusableElement = null
     lastFocusableElement = null
-    isFocusTrapped = false
 
     window.value?.removeEventListener('keydown', onKeydown)
   }

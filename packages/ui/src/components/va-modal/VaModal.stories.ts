@@ -65,4 +65,8 @@ focusTrap.play = async ({ canvasElement, step }) => {
 
     expect(document.activeElement).toBe(input2)
   })
+
+  // Notice we're not able to prevent programmatic focus from being out of focus trap
+  // so we don't test it here, because userEvent.tab() will focus the next focusable element
+  // programaticaly, not emulating user behavior
 }
