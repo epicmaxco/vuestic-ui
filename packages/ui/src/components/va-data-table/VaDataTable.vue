@@ -149,6 +149,7 @@
                   v-if="row.isExpandableRowVisible"
                   class="va-data-table__table-expanded-content"
                   colspan="99999"
+                  :key="uniqueKey(row, index)"
                 >
                   <slot
                     name="expandableRow"
