@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { watch, PropType, computed } from 'vue'
+import { watch, PropType, computed, onMounted } from 'vue'
 
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { useFormParent } from '../../composables/useForm'
@@ -65,7 +65,13 @@ watch(() => props.autofocus, (value) => {
   if (value) {
     context.focus()
   }
-}, { immediate: true })
+})
+
+onMounted(() => {
+  if (props.autofocus) {
+    context.focus()
+  }
+})
 
 watch(context.fields, (newVal) => {
   if (newVal.length && props.immediate) {
