@@ -1,5 +1,6 @@
 import { getCurrentInstance, ComponentInternalInstance, DefineComponent, SetupContext, Ref, shallowReadonly, normalizeClass, normalizeStyle, computed } from 'vue'
 import { useComponentConfigProps } from '../component-config/utils/use-component-config-props'
+import { injectChildPropsFromParent, injectChildPresetPropFromParent } from '../../composables/useChildComponents'
 import omit from 'lodash/omit'
 
 /** Compiled and reactive props. By default they passed to setup fn */
@@ -28,9 +29,21 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
    */
   const instanceProps: Props = instance.props
 
+  const childPropsFromParent = injectChildPropsFromParent()
+
   return new Proxy(instanceProps, {
     get: (target, key: string) => {
       if (typeof key !== 'string') { return target[key] }
+
+      /**
+       * Child props is passed from parent component by user.
+       * We need to override default props that provided by Vuestic UI with user props.
+       */
+      const childProp = childPropsFromParent?.value?.[key]
+
+      if (childProp !== undefined) {
+        return childProp
+      }
 
       /**
        * Props passed to VNode. Not compiled at all and not reactive.
@@ -45,12 +58,13 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
        * If original prop will not be accessed vue will not track reactivity for original props object.
        */
       const originalProp = target[key]
-      const propFromConfig = propsFromConfig.value?.[key]
       const incomingProp = findCamelCased(incomingProps, key)
 
       if (incomingProp !== undefined) {
         return originalProp
       }
+
+      const propFromConfig = propsFromConfig.value?.[key]
 
       // Return prop from config only if user didn't pass props manually
       if (propFromConfig !== undefined) {
@@ -60,26 +74,6 @@ const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsF
       return originalProp
     },
   })
-}
-
-const mergeStyles = (style1: unknown, style2: unknown) => {
-  if (!style1) { return style2 }
-  if (!style2) { return style1 }
-
-  if (typeof style1 === 'string' && typeof style2 === 'string') {
-    return style1 + style2
-  }
-
-  if (Array.isArray(style1) && Array.isArray(style2)) {
-    return [...(style1 || []), ...(style2 || [])]
-  }
-
-  if (typeof style1 === 'object' && typeof style2 === 'object') {
-    return { ...style1, ...style2 }
-  }
-
-  console.warn('[Vuestic UI] Cannot merge styles', style1, style2)
-  throw new Error('[Vuestic UI] Cannot merge styles. It is internal Vuestic error, please open issue on github')
 }
 
 const createAttrsWithCustomConfig = (instance: ComponentInternalInstance, propsFromConfig: Ref<Props>) => {
