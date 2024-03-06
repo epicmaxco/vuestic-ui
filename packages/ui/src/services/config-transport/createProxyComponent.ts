@@ -6,19 +6,10 @@ export const createProxyComponent = <T extends DefineComponent>(component: T) =>
   const setupFn = createSetupFn(component)
   const renderFn = createRenderFn(component)
 
-  // return new Proxy(component, {
-  //   get (target, key: any) {
-  //     if (key === 'setup') { return setupFn }
-
-  //     if (key === 'render') { return renderFn }
-
-  //     return target[key]
-  //   },
-  // })
-
   return {
     ...component,
     setup: setupFn,
-    render: renderFn,
+    render: 'render' in component ? renderFn : undefined,
+    ssrRender: 'ssrRender' in component ? renderFn : undefined,
   }
 }

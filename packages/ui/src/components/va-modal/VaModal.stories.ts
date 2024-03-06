@@ -88,7 +88,7 @@ export const childProps: StoryFn = () => ({
 
   template: `
   [[color]]: {{ color }}
-  <VaModal :model-value="true" :child:cancel-button="{ 'slot:default': textNode }" :child:ok-button="{ preset: 'secondary' }">
+  <VaModal :model-value="true" :child:cancel-button="{ 'slot:default': 'Text' }" :child:ok-button="{ preset: 'secondary' }">
     Content
   </VaModal>
   `,

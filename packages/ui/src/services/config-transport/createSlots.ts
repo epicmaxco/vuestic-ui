@@ -1,7 +1,7 @@
-import { ComponentInternalInstance, Ref, VNode } from 'vue'
+import { ComponentInternalInstance, Ref, VNode, computed } from 'vue'
 import { injectChildPropsFromParent } from '../../composables/useChildComponents'
 import { Props } from './shared'
-import { renderSlotNode } from './createRenderFn'
+import { makeVNode } from './createRenderFn'
 
 const SLOT_PREFIX = 'slot:'
 
@@ -18,6 +18,15 @@ export const createSlots = (instance: ComponentInternalInstance, propsFromConfig
 
   const childPropsFromParent = injectChildPropsFromParent()
 
+  const slotsFromConfig = computed(() => {
+    return Object.keys(propsFromConfig.value).reduce((acc, key) => {
+      if (key.startsWith(SLOT_PREFIX)) {
+        acc[key.slice(SLOT_PREFIX.length)] = propsFromConfig.value[key]
+      }
+      return acc
+    }, {} as Record<string, any>)
+  })
+
   return new Proxy(instanceSlots, {
     get: (target, key: string) => {
       if (typeof key !== 'string') { return target[key] }
@@ -31,7 +40,7 @@ export const createSlots = (instance: ComponentInternalInstance, propsFromConfig
       const childSlot = childPropsFromParent?.value?.[prefixedKey]
 
       if (childSlot !== undefined) {
-        return childSlot
+        return makeVNode(childSlot)
       }
 
       const originalSlot = target[key]
@@ -40,14 +49,20 @@ export const createSlots = (instance: ComponentInternalInstance, propsFromConfig
         return originalSlot
       }
 
-      const propFromConfig = propsFromConfig.value?.[prefixedKey] as VNode | undefined
+      const propFromConfig = slotsFromConfig.value?.[key] as VNode | undefined
 
       // Return prop from config only if user didn't pass props manually
       if (propFromConfig !== undefined) {
-        return renderSlotNode(propFromConfig)
+        return makeVNode(propFromConfig)
       }
 
       return originalSlot
+    },
+    ownKeys (target) {
+      return [...new Set([...Object.keys(instanceSlots), ...Object.keys(slotsFromConfig.value)])]
+    },
+    getOwnPropertyDescriptor (target, key) {
+      return Reflect.getOwnPropertyDescriptor(slotsFromConfig.value, key) ?? Reflect.getOwnPropertyDescriptor(instanceSlots, key)
     },
   })
 }

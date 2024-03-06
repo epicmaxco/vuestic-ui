@@ -72,7 +72,7 @@ export const injectChildPropsFromParent = () => {
 
   const childProps = inject(CHILD_COMPONENTS_INJECT_KEY)
 
-  if (!childProps) {
+  if (!childProps?.value) {
     return null
   }
 
@@ -88,9 +88,9 @@ export const injectChildPresetPropFromParent = () => {
 
   const childProps = inject(CHILD_COMPONENTS_INJECT_KEY)
 
-  if (!childProps) {
+  if (!childProps?.value) {
     return null
   }
 
-  return computed(() => childProps.value[childName].preset as string)
+  return computed(() => childProps.value[childName]?.preset as string)
 }
