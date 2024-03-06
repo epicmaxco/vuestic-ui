@@ -16,7 +16,8 @@ export type DataTableColumn<T = string> = {
   label?: string // what to display in the respective heading
   thTitle?: string // <th>'s `title` attribute's value
   sortable?: boolean // whether the table can be sorted by that column
-  sortingFn?: (a: any, b: any) => number // a custom sorting function. `a` and `b` are currently compared cells' original values (sources). Must return a number (see the standard JS's Array.prototype.sort)
+  sortingFn?: (a: any, b: any) => number// a custom sorting function. `a` and `b` are currently compared cells' original values (sources). Must return a number (see the standard JS's Array.prototype.sort)
+  displayFormatFn?: (data: any) => any// a custom function for full control over the value rendered in the table for the specified column
   sortingOptions?: DataTableSortingOptions
   thAlign?: DataTableAlignOptions // horizontal alignment
   thVerticalAlign?: DataTableVerticalAlignOptions // vertical alignment
@@ -68,7 +69,8 @@ export interface DataTableColumnInternal {
   label: string
   thTitle: string
   sortable: boolean
-  sortingFn: ((a: any, b: any) => number) | undefined
+  sortingFn: ((a: any, b: any) => number) | undefined,
+  displayFormatFn: ((data: any) => any) | undefined,
   sortingOptions: DataTableSortingOptions
   thAlign: DataTableAlignOptions
   thVerticalAlign: DataTableVerticalAlignOptions

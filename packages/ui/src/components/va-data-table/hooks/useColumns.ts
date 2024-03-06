@@ -56,6 +56,7 @@ export const buildTableColumn = (
     thTitle: input.thTitle || input.headerTitle || input.label || startCase(input.key),
     sortable: input.sortable || false,
     sortingFn: input.sortingFn,
+    displayFormatFn: input.displayFormatFn,
     sortingOptions: (isValidOptions && input.sortingOptions) || props.sortingOptions,
     thAlign: input.thAlign || input.alignHead || 'left',
     thVerticalAlign: input.thVerticalAlign || input.verticalAlignHead || 'middle',
