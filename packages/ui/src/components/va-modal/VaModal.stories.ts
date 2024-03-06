@@ -70,3 +70,20 @@ focusTrap.play = async ({ canvasElement, step }) => {
   // so we don't test it here, because userEvent.tab() will focus the next focusable element
   // programaticaly, not emulating user behavior
 }
+
+export const childProps: StoryFn = () => ({
+  components: { VaModal },
+
+  data () {
+    return { color: '#f0f' }
+  },
+
+  template: `
+  [[color]]: {{ color }}
+  <VaModal :model-value="true" :child:cancel-button="{ color }" :child:ok-button="{ preset: 'secondary' }">
+    <button @click="color === '#f0f' ? color = '#0f0' : color = '#f0f'">
+      Change color
+    </button>
+  </VaModal>
+  `,
+})
