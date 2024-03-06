@@ -1,4 +1,5 @@
-import VaModal from './VaModal.vue'
+import { h, ref } from 'vue'
+import { VaModal } from './'
 import VaModalDemos from './VaModal.demo.vue'
 import { StoryFn } from '@storybook/vue3'
 import { expect } from '@storybook/jest'
@@ -78,12 +79,17 @@ export const childProps: StoryFn = () => ({
     return { color: '#f0f' }
   },
 
+  setup () {
+    const color = ref('#f0f')
+    const textNode = h('div', { style: { color: 'red', fontSize: '18px' } }, 'Cancel')
+
+    return { color, textNode }
+  },
+
   template: `
   [[color]]: {{ color }}
-  <VaModal :model-value="true" :child:cancel-button="{ color }" :child:ok-button="{ preset: 'secondary' }">
-    <button @click="color === '#f0f' ? color = '#0f0' : color = '#f0f'">
-      Change color
-    </button>
+  <VaModal :model-value="true" :child:cancel-button="{ 'slot:default': textNode }" :child:ok-button="{ preset: 'secondary' }">
+    Content
   </VaModal>
   `,
 })

@@ -1,151 +1,24 @@
-import { getCurrentInstance, ComponentInternalInstance, DefineComponent, SetupContext, Ref, shallowReadonly, normalizeClass, normalizeStyle, computed } from 'vue'
-import { useComponentConfigProps } from '../component-config/utils/use-component-config-props'
-import { injectChildPropsFromParent, injectChildPresetPropFromParent } from '../../composables/useChildComponents'
-import omit from 'lodash/omit'
-
-/** Compiled and reactive props. By default they passed to setup fn */
-type Props = Record<string, unknown>;
-/** Raw props */
-type RawProps = Record<string, unknown>;
-
-const KEBAB_CASE_REGEX = /([a-z0-9])([A-Z])/g
-
-const toKebabCase = (str: string) => str.replace(KEBAB_CASE_REGEX, '$1-$2').toLowerCase()
-
-const findCamelCased = (obj: Record<string, unknown>, key: string) => {
-  if (key in obj) { return obj[key] }
-
-  return obj[toKebabCase(key)]
-}
-
-/**
- * @param propsFromConfig Ref of custom props. Required to be ref so vue can rerender component on custom props change.
- * @returns new props object, where some props replaced with props from config.
- */
-const createPropsWithCustomConfig = (instance: ComponentInternalInstance, propsFromConfig: Ref<Props>) => {
-  /**
-   * Reactive and compiled props. Compiled props considering default value, Boolean transformation etc.
-   * It is a default props that passed to setup function.
-   */
-  const instanceProps: Props = instance.props
-
-  const childPropsFromParent = injectChildPropsFromParent()
-
-  return new Proxy(instanceProps, {
-    get: (target, key: string) => {
-      if (typeof key !== 'string') { return target[key] }
-
-      /**
-       * Child props is passed from parent component by user.
-       * We need to override default props that provided by Vuestic UI with user props.
-       */
-      const childProp = childPropsFromParent?.value?.[key]
-
-      if (childProp !== undefined) {
-        return childProp
-      }
-
-      /**
-       * Props passed to VNode. Not compiled at all and not reactive.
-       * VNode props contained only props passed from parent.
-       */
-      const incomingProps: RawProps = instance.vnode.props || {}
-
-      /**
-       * Make sure to access both original and from config prop in get.
-       * Since instanceProps and propsFromConfig both are reactive, we need to know that both of
-       * this objects are dependency of effect where proxy is used.
-       * If original prop will not be accessed vue will not track reactivity for original props object.
-       */
-      const originalProp = target[key]
-      const incomingProp = findCamelCased(incomingProps, key)
-
-      if (incomingProp !== undefined) {
-        return originalProp
-      }
-
-      const propFromConfig = propsFromConfig.value?.[key]
-
-      // Return prop from config only if user didn't pass props manually
-      if (propFromConfig !== undefined) {
-        return propFromConfig
-      }
-
-      return originalProp
-    },
-  })
-}
-
-const createAttrsWithCustomConfig = (instance: ComponentInternalInstance, propsFromConfig: Ref<Props>) => {
-  // Instance.attrs will be patched later, so we save original object here to prevent recursion
-  const instanceAttrs = instance.attrs
-
-  return new Proxy(instanceAttrs, {
-    get: (target, key: string) => {
-      if (typeof key !== 'string') { return target[key] }
-
-      if (key === 'class') {
-        return normalizeClass([propsFromConfig.value.class, instanceAttrs.class])
-      }
-
-      if (key === 'style') {
-        return normalizeStyle([propsFromConfig.value.style, instanceAttrs.style])
-      }
-
-      const attrFromConfig = propsFromConfig.value?.[key]
-
-      if (attrFromConfig !== undefined) {
-        return attrFromConfig
-      }
-
-      return target[key]
-    },
-    ownKeys (target) {
-      // TODO: Optimize
-      return [...new Set([...Object.keys(instanceAttrs), ...Object.keys(propsFromConfig.value)])]
-    },
-    getOwnPropertyDescriptor (target, key) {
-      return Reflect.getOwnPropertyDescriptor(propsFromConfig.value, key) ?? Reflect.getOwnPropertyDescriptor(instanceAttrs, key)
-    },
-  })
-}
+import { DefineComponent } from 'vue'
+import { createRenderFn } from './createRenderFn'
+import { createSetupFn } from './createSetupFn'
 
 export const createProxyComponent = <T extends DefineComponent>(component: T) => {
-  const customSetup = (originalProps: Props, ctx: SetupContext) => {
-    const instance = getCurrentInstance()! // Not null during setup call
-    const propsFromConfig = useComponentConfigProps(component, originalProps)
-    const attrsFromConfig = computed(() => {
-      return omit(propsFromConfig.value, Object.keys(originalProps))
-    })
+  const setupFn = createSetupFn(component)
+  const renderFn = createRenderFn(component)
 
-    const props = createPropsWithCustomConfig(instance, propsFromConfig)
-    const attrs = createAttrsWithCustomConfig(instance, attrsFromConfig)
+  // return new Proxy(component, {
+  //   get (target, key: any) {
+  //     if (key === 'setup') { return setupFn }
 
-    /**
-     * Patch instance props with Proxy.
-     * This will change props object during render and in Devtools.
-     */
-    instance.props = props
-    instance.attrs = attrs
+  //     if (key === 'render') { return renderFn }
 
-    const setupState = component.setup?.(shallowReadonly(props), {
-      ...ctx,
-      attrs,
-    })
+  //     return target[key]
+  //   },
+  // })
 
-    // Expose everything for now as it was in defineComponent
-    if (typeof setupState === 'object' && !instance.exposed) {
-      ctx.expose(setupState)
-    }
-
-    return setupState
+  return {
+    ...component,
+    setup: setupFn,
+    render: renderFn,
   }
-
-  return new Proxy(component, {
-    get (target, key: any) {
-      if (key === 'setup') { return customSetup }
-
-      return target[key]
-    },
-  })
 }
