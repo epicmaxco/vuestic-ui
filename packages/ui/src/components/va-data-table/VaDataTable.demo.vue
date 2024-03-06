@@ -336,6 +336,11 @@
       </va-data-table>
     </VbCard>
 
+    <VbCard title="Custom column display formatter" class="demo">
+      <va-data-table :items="itemsForDateFormatFn" :columns="displayFormatColumns">
+      </va-data-table>
+    </VbCard>
+
     <VbCard title="Specific `cell(id)` slot (static value)" class="demo">
       <va-data-table :items="evenItems" :columns="evenColumns" footer-clone>
         <template #cell(id)>
@@ -561,11 +566,27 @@ export default defineComponent({
   },
 
   data () {
+    const formatDate = (date: Date) => {
+      return new Date(date).toLocaleDateString('en-Us', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric',
+      })
+    }
     const evenItems: EvenItems[] = Array.from(Array(10), (u, i) => {
       return {
         id: i,
         name: `Number ${i}`,
         idSquared: `The squared index is ${i ** 2}`,
+      }
+    })
+    const itemsForDateFormatFn: EvenItems[] = Array.from(Array(10), (u, i) => {
+      const date = new Date()
+      return {
+        id: i,
+        name: `Number ${i}`,
+        idSquared: `The squared index is ${i ** 2}`,
+        date: new Date(date.setDate(i + 1)),
       }
     })
 
@@ -610,7 +631,17 @@ export default defineComponent({
         'idSquared',
       ],
 
+      displayFormatColumns: [
+        { key: 'id' },
+        { key: 'name', displayFormatFn: () => 'Overridden string' },
+        {
+          key: 'date',
+          displayFormatFn: (date) => { return formatDate(date) },
+        },
+      ] as DataTableColumn[],
+
       evenItems,
+      itemsForDateFormatFn,
       lackingItems,
       excessiveItems,
 

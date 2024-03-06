@@ -141,7 +141,7 @@
 
                     <slot v-else name="cell" v-bind="{ cell, row }">
                       <span v-if="$props.grid" class="va-data-table__grid-column-header">{{ columnsComputed[cellIndex].label }}</span>
-                      {{ cell.value }}
+                      {{ cellData(cell, columnsComputed[cellIndex]) }}
                     </slot>
                   </td>
                 </tr>
@@ -218,7 +218,7 @@ import { useComponentPresetProp, useTranslation, useThrottleProps } from '../../
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
-import type { DataTableRow } from './types'
+import type { DataTableCell, DataTableColumnInternal, DataTableRow } from './types'
 
 import { VaDataTableThRow } from './components'
 import { VaVirtualScroller } from '../va-virtual-scroller'
@@ -401,6 +401,8 @@ const {
 const isVirtualScroll = computed(() => props.virtualScroller && !props.grid)
 
 const gridColumnsCount = computed(() => props.gridColumns || 'var(--va-data-table-grid-tbody-columns)')
+
+const cellData = (cellData: DataTableCell, internalColumnData: DataTableColumnInternal) => internalColumnData.displayFormatFn ? internalColumnData.displayFormatFn(cellData.value) : cellData.value
 </script>
 
 <style lang="scss">
