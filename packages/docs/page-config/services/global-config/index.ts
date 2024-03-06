@@ -31,7 +31,7 @@ export default definePageConfig({
     block.paragraph("Alternatively, you can substitute the whole configuration object at the runtime with another one:"),
     block.code("reactive-set"),
 
-    block.paragraph("The global configuration object might be made reactive:"),
+    block.paragraph("In case you need to access current configuration object, you can use `useGlobalConfig` composable:"),
     block.code("use-in-runtime"),
 
     block.headline("More on configuration"),
