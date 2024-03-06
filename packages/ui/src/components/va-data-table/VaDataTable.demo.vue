@@ -580,7 +580,7 @@ export default defineComponent({
         idSquared: `The squared index is ${i ** 2}`,
       }
     })
-    const itemsForDateFormatFn: EvenItems[] = Array.from(Array(10), (u, i) => {
+    const itemsForDateFormatFn: any[] = Array.from(Array(10), (u, i) => {
       const date = new Date()
       return {
         id: i,
@@ -589,6 +589,7 @@ export default defineComponent({
         date: new Date(date.setDate(i + 1)),
       }
     })
+    itemsForDateFormatFn[itemsForDateFormatFn.length - 1].date = '2024/01/01'
 
     const lackingItems = cloneDeep(evenItems)
     delete lackingItems[0].name
