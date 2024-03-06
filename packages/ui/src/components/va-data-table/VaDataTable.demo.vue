@@ -336,11 +336,6 @@
       </va-data-table>
     </VbCard>
 
-    <VbCard title="Custom column display formatter" class="demo">
-      <va-data-table :items="itemsForDateFormatFn" :columns="displayFormatColumns">
-      </va-data-table>
-    </VbCard>
-
     <VbCard title="Specific `cell(id)` slot (static value)" class="demo">
       <va-data-table :items="evenItems" :columns="evenColumns" footer-clone>
         <template #cell(id)>
@@ -533,6 +528,11 @@
             </td>
           </tr>
         </template>
+      </va-data-table>
+    </VbCard>
+
+    <VbCard title="Custom column display formatter" class="demo">
+      <va-data-table :items="itemsForDateFormatFn" :columns="displayFormatColumns">
       </va-data-table>
     </VbCard>
   </VbDemo>
