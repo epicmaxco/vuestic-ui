@@ -311,7 +311,7 @@ const {
   sortingOrderIconName,
 } = useSortable(columnsComputed, filteredRows, props, emit)
 
-const { paginatedRows } = usePaginatedRows(sortedRows, props)
+const { paginatedRows } = usePaginatedRows<Item>(sortedRows, props)
 
 const {
   ctrlSelectRow,

@@ -12,9 +12,13 @@ export const usePaginatedRowsProps = {
   perPage: { type: Number as PropType<number | undefined> },
 }
 
+type PaginatedProps<Item extends DataTableItem> = Omit<ExtractPropTypes<typeof usePaginatedRowsProps>, 'items'> & {
+  items: Item[]
+}
+
 export const usePaginatedRows = <Item extends DataTableItem>(
   sortedRows: Ref<DataTableRow<Item>[]>,
-  props: ExtractPropTypes<typeof usePaginatedRowsProps>,
+  props: PaginatedProps<Item>,
 ) => {
   const paginatedRows = computed(() => {
     if (!props.perPage || props.perPage < 0) {

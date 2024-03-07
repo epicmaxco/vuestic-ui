@@ -9,9 +9,9 @@ export type DataTableSortingOptions = DataTableSortingOrder[]
 
 // provided column definitions (<va-data-table `:columns="myColumns"` />)
 // should look like an array of the following objects (and/or strings)
-export type DataTableColumn<T = string> = {
+export type DataTableColumn<Key = string> = {
   [key: string]: any
-  key: T // name of an item's property: 'userName', 'address.zipCode'
+  key: Key // name of an item's property: 'userName', 'address.zipCode'
   name?: string // column unique name (used in slots)
   label?: string // what to display in the respective heading
   thTitle?: string // <th>'s `title` attribute's value
@@ -84,13 +84,15 @@ export interface DataTableColumnInternal {
 export type DataTableItem<T = Record<string, any>> = T
 export type DataTableItemKey = any
 
+export type DataTableRowData<Item extends Record<string, any>> = Item
+
 // the inner representation of table cells
-export interface DataTableCell {
+export interface DataTableCell<Item extends DataTableItem = DataTableItem> {
   rowIndex: number
   rowKey: DataTableItemKey
-  rowData: DataTableItem
+  rowData: DataTableRowData<Item>
   column: DataTableColumnInternal
-  source: any
+  source: string
   value: string
 }
 
@@ -99,9 +101,9 @@ export interface DataTableRow<Item extends DataTableItem = DataTableItem> {
   initialIndex: number
   itemKey: DataTableItemKey
   source: Item
-  cells: DataTableCell[]
+  cells: DataTableCell<Item>[]
   /** Same rowData as in DataTableCell */
-  rowData: Item
+  rowData: DataTableRowData<Item>
   toggleRowDetails: (show?: boolean) => void
   isExpandableRowVisible: boolean
 }

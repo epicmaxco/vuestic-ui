@@ -10,9 +10,10 @@ import type {
   DataTableCell,
   DataTableRow,
   DataTableItemKey,
+  DataTableRowData,
 } from '../types'
 
-export const getItemKey = (source: DataTableItem, itemsTrackBy: string | ((item: DataTableItem) => any)): DataTableItemKey => (
+export const getItemKey = <T extends Record<string, any>>(source: DataTableItem<T>, itemsTrackBy: string | ((item: DataTableItem<T>) => any)): DataTableItemKey => (
   typeof itemsTrackBy === 'function'
     ? itemsTrackBy(source)
     : getValueByPath(source, itemsTrackBy) || source
@@ -23,12 +24,12 @@ export const createRowsProps = <T extends Record<string, any>>() => ({
   ...useItemsTrackByProp,
 })
 
-const buildTableCell = (
+const buildTableCell = <Item extends DataTableItem>(
   rowIndex: number,
   rowKey: string,
-  rowData: DataTableItem,
+  rowData: DataTableRowData<Item>,
   column: DataTableColumnInternal,
-): DataTableCell => {
+): DataTableCell<Item> => {
   const source = getValueByPath(rowData, column.key)
 
   return {
@@ -36,17 +37,17 @@ const buildTableCell = (
     rowKey,
     rowData,
     column,
-    source,
+    source: source as string,
     value: source?.toString?.() || '',
   }
 }
 
-const buildTableRow = (
-  source: DataTableItem,
+const buildTableRow = <Item extends DataTableItem>(
+  source: DataTableItem<Item>,
   initialIndex: number,
-  itemsTrackBy: string | ((item: DataTableItem) => any),
+  itemsTrackBy: string | ((item: DataTableItem<Item>) => any),
   columns: DataTableColumnInternal[],
-) => {
+): Omit<DataTableRow<Item>, 'toggleRowDetails' | 'isExpandableRowVisible'> => {
   const itemKey = getItemKey(source, itemsTrackBy)
 
   return {
@@ -58,15 +59,19 @@ const buildTableRow = (
   }
 }
 
-export const useRows = <Props extends ExtractPropTypes<ReturnType<typeof createRowsProps>>>(
+type RowsProps<Item> = Omit<ExtractPropTypes<ReturnType<typeof createRowsProps>>, 'items'> & {
+  items: Item[]
+}
+
+export const useRows = <Item extends Record<string, any>>(
   columns: Ref<DataTableColumnInternal[]>,
-  props: Props,
+  props: RowsProps<Item>,
 ) => {
   const expandableRows = ref<Record<number, boolean>>({})
 
   const rowsComputed = computed(() => props.items
     .map((rawItem, index) => ({
-      ...buildTableRow(rawItem, index, props.itemsTrackBy, columns.value),
+      ...buildTableRow<Item>(rawItem, index, props.itemsTrackBy, columns.value),
       toggleRowDetails: (show?: boolean) => {
         if (typeof show === 'boolean') {
           expandableRows.value[index] = show
