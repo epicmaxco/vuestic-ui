@@ -1,4 +1,5 @@
-import VaModal from './VaModal.vue'
+import { h, ref } from 'vue'
+import { VaModal } from './'
 import VaModalDemos from './VaModal.demo.vue'
 import { StoryFn } from '@storybook/vue3'
 import { expect } from '@storybook/jest'
@@ -70,3 +71,25 @@ focusTrap.play = async ({ canvasElement, step }) => {
   // so we don't test it here, because userEvent.tab() will focus the next focusable element
   // programaticaly, not emulating user behavior
 }
+
+export const childProps: StoryFn = () => ({
+  components: { VaModal },
+
+  data () {
+    return { color: '#f0f' }
+  },
+
+  setup () {
+    const color = ref('#f0f')
+    const textNode = h('div', { style: { color: 'red', fontSize: '18px' } }, 'Cancel')
+
+    return { color, textNode }
+  },
+
+  template: `
+  [[color]]: {{ color }}
+  <VaModal :model-value="true" :child:cancel-button="{ 'slot:default': 'Text' }" :child:ok-button="{ preset: 'secondary' }">
+    Content
+  </VaModal>
+  `,
+})

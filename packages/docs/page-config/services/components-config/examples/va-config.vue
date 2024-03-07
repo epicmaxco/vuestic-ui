@@ -1,33 +1,21 @@
 <template>
-  <VaAlert color="#1B2D2A">
-    <VaConfig
-      :components="{
-        VaButton: { color: '#414066', round: true },
-        VaIcon: { color: '#605E97' },
-      }"
-    >
-      <div class="alert-content">
-        <p>Read this important demo message!</p>
-        <VaButton icon="hearing">
-          Ok
-        </VaButton>
-        <VaButton icon="visibility">
-          I already read it before
-        </VaButton>
-        <VaButton
-          color="danger"
-          icon="close"
-          icon-color="warning"
-        >
-          Close
-        </VaButton>
-      </div>
-    </VaConfig>
-  </VaAlert>
+  <VaConfig
+    :components="{
+      VaAlert: { color: 'danger', icon: 'warning' },
+    }"
+  >
+    <div>
+      <VaAlert>
+        This is error alert
+      </VaAlert>
+      <VaAlert>
+        This is error alert
+      </VaAlert>
+
+      <VaAlert color="warning">
+        This alert can have it's own color
+      </VaAlert>
+    </div>
+  </VaConfig>
 </template>
 
-<style>
-.alert-content .va-button {
-  margin-right: 0.5rem;
-}
-</style>

@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts">
-import { useTextColor } from '../../composables/useTextColor'
+import { VaButton } from '../'
 import { computed, nextTick, PropType, ref, watch } from 'vue'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/component-options'
@@ -77,6 +77,8 @@ import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHead
 import VaMonthPicker from './components/VaMonthPicker/VaMonthPicker.vue'
 import VaYearPicker from './components/VaYearPicker/VaYearPicker.vue'
 
+import { defineChildProps, useChildComponents } from '../../composables/useChildComponents'
+
 const DEFAULT_MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DEFAULT_WEEKDAY_NAMES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
 </script>
@@ -87,6 +89,11 @@ defineOptions({
 })
 
 const props = defineProps({
+  ...defineChildProps({
+    prevButton: VaButton,
+    nextButton: VaButton,
+    middleButton: VaButton,
+  }),
   ...useStatefulProps,
   ...useComponentPresetProp,
   ...extractComponentProps(VaDatePickerHeader),
@@ -105,6 +112,8 @@ const props = defineProps({
   color: { type: String, default: undefined },
   weekendsColor: { type: String, default: undefined },
 })
+
+useChildComponents(props)
 
 const emit = defineEmits([
   ...useStatefulEmits,
