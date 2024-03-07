@@ -1,7 +1,7 @@
 <template>
   <p>
     Material Design Icons<br>
-    <VaIcon class="material-icons">
+    <VaIcon class="material-symbols-outlined">
       book
     </VaIcon>
     <VaIcon name="book" />

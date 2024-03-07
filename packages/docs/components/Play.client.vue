@@ -86,7 +86,7 @@ const TAILWIND_CDN = '<script src="https://cdn.tailwindcss.com"><\/script>'
 const previewOptions = computed<ReplProps['previewOptions']>(() => ({
   headHTML: `
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="${window.location.origin + '/vuestic-out/style.css'}">
     <style>
       body {
