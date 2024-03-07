@@ -119,19 +119,18 @@ export const Immediate: StoryFn = () => ({
 
 Immediate.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const immediate = canvas.getByTestId('immediate')
-  const notImmediate = canvas.getByTestId('not-immediate')
-
-  const [firstDefinedInput, secondDefineInput] = canvasElement.querySelectorAll('.va-input-wrapper--error')
+  const immediateInput = canvas.getByTestId('immediate')
+  const notImmediateInput = canvas.getByTestId('not-immediate')
+  const [immediateVaInput, noImmediateVaInput] = canvasElement.querySelectorAll('.va-input')
 
   await step('First input displays error message', async () => {
-    expect(immediate.getAttribute('aria-invalid')).toEqual('true')
-    expect(firstDefinedInput).toBeDefined()
+    expect(immediateInput.getAttribute('aria-invalid')).toEqual('true')
+    expect(immediateVaInput.classList.contains('va-input-wrapper--error')).toBeTruthy()
   })
 
   await step('Second input does not display error message', async () => {
-    expect(notImmediate.getAttribute('aria-invalid')).toEqual('false')
-    expect(secondDefineInput).toBeUndefined()
+    expect(immediateInput.getAttribute('aria-invalid')).toEqual('true')
+    expect(noImmediateVaInput.classList.contains('va-input-wrapper--error')).toBeFalsy()
   })
 }
 
@@ -253,18 +252,21 @@ export const ValidateAndResetValidation: StoryFn = () => ({
 
 ValidateAndResetValidation.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const input = canvas.getByTestId('input')
+  const inputWrapper = canvasElement.querySelector('.va-input') as HTMLElement
+  const input = inputWrapper.querySelector('input')!
   const validateButton = canvas.getByRole('button', { name: 'Validate' }) as HTMLElement
   const resetButton = canvas.getByRole('button', { name: 'Reset validation' }) as HTMLElement
 
   await step('Validates input with error', async () => {
     await userEvent.click(validateButton)
     expect(input.getAttribute('aria-invalid')).toEqual('true')
+    expect(inputWrapper.classList.contains('va-input-wrapper--error')).toBeTruthy()
   })
 
   await step('Reset inputs validation', async () => {
     await userEvent.click(resetButton)
-    expect(input.getAttribute('aria-invalid')).toEqual('false')
+    expect(input.getAttribute('aria-invalid')).toEqual('true')
+    expect(inputWrapper.classList.contains('va-input-wrapper--error')).toBeFalsy()
   })
 }
 
@@ -292,7 +294,8 @@ export const Reset: StoryFn = () => ({
 
 Reset.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const input = canvas.getByTestId('input')
+  const inputWrapper = canvasElement.querySelector('.va-input') as HTMLElement
+  const input = inputWrapper.querySelector('input')!
 
   const setButton = canvas.getByRole('button', { name: 'Set inputs and validation' }) as HTMLElement
   const resetButton = canvas.getByRole('button', { name: 'Reset inputs and validation' }) as HTMLElement
@@ -301,7 +304,8 @@ Reset.play = async ({ canvasElement, step }) => {
     await userEvent.click(setButton)
     await userEvent.click(resetButton)
     expect(input).toHaveValue('')
-    expect(input.getAttribute('aria-invalid')).toEqual('false')
+    expect(input.getAttribute('aria-invalid')).toEqual('true')
+    expect(inputWrapper.classList.contains('va-input-wrapper--error')).toBeFalsy()
   })
 }
 
