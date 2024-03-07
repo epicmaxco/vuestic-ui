@@ -8,7 +8,7 @@
     </span>
 
     <slot
-      v-else-if="!(props.autocomplete && !props.multiple)"
+      v-else-if="!(props.autocomplete && props.multiple)"
       name="content"
       v-bind="{
         value: slotValue,
