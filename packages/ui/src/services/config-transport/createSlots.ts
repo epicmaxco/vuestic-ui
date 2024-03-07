@@ -1,7 +1,7 @@
 import { ComponentInternalInstance, Ref, VNode, computed } from 'vue'
 import { injectChildPropsFromParent } from '../../composables/useChildComponents'
 import { Props } from './shared'
-import { makeVNode } from './createRenderFn'
+import { makeVNode, renderSlotNode } from './createRenderFn'
 
 const SLOT_PREFIX = 'slot:'
 
@@ -40,7 +40,7 @@ export const createSlots = (instance: ComponentInternalInstance, propsFromConfig
       const childSlot = childPropsFromParent?.value?.[prefixedKey]
 
       if (childSlot !== undefined) {
-        return makeVNode(childSlot)
+        return renderSlotNode(makeVNode(childSlot))
       }
 
       const originalSlot = target[key]
@@ -53,7 +53,7 @@ export const createSlots = (instance: ComponentInternalInstance, propsFromConfig
 
       // Return prop from config only if user didn't pass props manually
       if (propFromConfig !== undefined) {
-        return makeVNode(propFromConfig)
+        return renderSlotNode(makeVNode(propFromConfig))
       }
 
       return originalSlot
