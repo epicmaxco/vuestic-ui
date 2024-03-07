@@ -74,7 +74,7 @@ export default definePageConfig({
 
     block.subtitle("Props values priority"),
     block.paragraph("You are able to specify props values via: direct, `va-config`, `presets config`, `components config`, `components all config`. Their priority (in case several options were used) is presented at the scheme below:"),
-    block.component("priority"),
+    block.component("Priority"),
 
     block.subtitle("Default sizes"),
     block.paragraph("If you would like to set default sizes for the component you could use sizesConfig property. Feel free to check the example below:"),
