@@ -138,7 +138,7 @@ const input = shallowRef<HTMLInputElement>()
 const { valueComputed } = useStateful(props, emit, 'modelValue')
 
 const reset = () => withoutValidation(() => {
-  emit('update:modelValue', props.clearValue)
+  valueComputed.value = props.clearValue
   emit('clear')
   resetValidation()
 })
@@ -155,6 +155,7 @@ const filterSlots = computed(() => {
 const { tp } = useTranslation()
 
 const {
+  isValid,
   isDirty,
   computedError,
   computedErrorMessages,
@@ -255,6 +256,7 @@ const wrapperProps = filterComponentProps(VaInputWrapperProps)
 const fieldListeners = createFieldListeners(emit)
 
 defineExpose({
+  isValid,
   isDirty,
   isLoading,
   computedError,

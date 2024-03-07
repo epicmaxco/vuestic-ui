@@ -179,3 +179,17 @@ export const MaskFormattedValue = () => ({
     <VaInput v-model="creditCardValue" mask="creditCard" :return-raw="false" />
   `,
 })
+
+export const ReactiveValidation = () => ({
+  components: { VaInput },
+  data () {
+    return {
+      v1: '3',
+      v2: '2',
+    }
+  },
+  template: `
+  <VaInput v-model="v1"/>
+  <VaInput v-model="v2" :rules="[() => v1 < v2 || 'V1 must be smaller V2']" immediate-validation />
+  `,
+})
