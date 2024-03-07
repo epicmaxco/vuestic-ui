@@ -209,7 +209,7 @@ import { useSelectableRow, useSelectableProps } from './hooks/useSelectableRow'
 import { useStylable, useStylableProps } from './hooks/useStylable'
 import { useBinding, useBindingProps } from './hooks/useBinding'
 import { useAnimationName, useAnimationNameProps } from './hooks/useAnimationName'
-import { useRows, useRowsProps } from './hooks/useRows'
+import { useRows, createRowsProps } from './hooks/useRows'
 import { useFilterable, useFilterableProps } from './hooks/useFilterable'
 import { useSortable, useSortableProps } from './hooks/useSortable'
 import { useTableScroll, useTableScrollProps, useTableScrollEmits } from './hooks/useTableScroll'
@@ -242,7 +242,7 @@ type emitNames = 'update:modelValue' |
   'scroll:bottom'
 </script>
 
-<script lang="ts" setup>
+<script lang="ts" generic="Item extends Record<string, any>" setup>
 
 const { tp } = useTranslation()
 
@@ -262,7 +262,7 @@ const props = defineProps({
   ...useColumnsProps,
   ...useFilterableProps,
   ...usePaginatedRowsProps,
-  ...useRowsProps,
+  ...createRowsProps<Item>(),
   ...useSelectableProps,
   ...useThrottleProps,
   ...pick(VaDataTableThRowProps, ['ariaSelectAllRowsLabel', 'ariaSortColumnByLabel']),
@@ -312,7 +312,7 @@ const {
   sortingOrderIconName,
 } = useSortable(columnsComputed, filteredRows, props, emit)
 
-const { paginatedRows } = usePaginatedRows(sortedRows, props)
+const { paginatedRows } = usePaginatedRows<Item>(sortedRows, props)
 
 const {
   ctrlSelectRow,
