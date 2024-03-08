@@ -5,7 +5,8 @@ import { resolve as resolver } from 'path'
 import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 import { appendComponentCss } from './plugins/append-component-css'
 import { removeSideEffectedChunks } from './plugins/remove-side-effected-chunks'
-import { defineVitePlugin } from './types/define-vite-plugin'
+import { fixVueGenericComponentFileNames } from './plugins/fix-vue-generic-component-file-names'
+import { defineViteConfig } from './types/define-vite-config'
 
 import type { RollupOptions } from 'rollup'
 
@@ -65,7 +66,7 @@ export default function createViteConfig (format: BuildFormat) {
   const isEsm = ['es', 'esm-node'].includes(format)
   const isNode = format === 'esm-node'
 
-  const config = defineVitePlugin({
+  const config = defineViteConfig({
     resolve,
 
     build: {
@@ -97,6 +98,7 @@ export default function createViteConfig (format: BuildFormat) {
   isEsm && config.plugins.push(chunkSplitPlugin({ strategy: 'unbundle' }))
   isEsm && !isNode && config.plugins.push(appendComponentCss())
   isEsm && config.plugins.push(removeSideEffectedChunks())
+  isEsm && config.plugins.push(fixVueGenericComponentFileNames)
   config.plugins.push(componentVBindFix())
 
   if (isNode) {
