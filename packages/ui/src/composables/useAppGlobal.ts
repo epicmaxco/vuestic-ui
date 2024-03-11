@@ -24,11 +24,9 @@ const getGlobalObject = () => {
 export const useAppGlobal = <T>(key: string, defaultValue: T): WritableComputedRef<T> => {
   const globalObject = getGlobalObject()
 
-  if (key in globalObject) {
-    return globalObject[key]
+  if (!(key in globalObject)) {
+    globalObject[key] = defaultValue
   }
-
-  globalObject[key] = defaultValue
 
   return computed({
     get: () => globalObject[key],
