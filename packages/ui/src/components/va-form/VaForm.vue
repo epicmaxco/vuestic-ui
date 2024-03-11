@@ -2,6 +2,7 @@
   <component
     class="va-form"
     :is="tag"
+    @submit="(e: SubmitEvent) => $attrs.action === undefined && e.preventDefault()"
     v-bind="$attrs"
   >
     <slot v-bind="{ isValid, validate }" />
