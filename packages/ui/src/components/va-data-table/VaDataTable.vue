@@ -141,7 +141,7 @@
 
                     <slot v-else name="cell" v-bind="{ cell, row }">
                       <span v-if="$props.grid" class="va-data-table__grid-column-header">{{ columnsComputed[cellIndex].label }}</span>
-                      {{ cell.value }}
+                      {{ cellData(cell, columnsComputed[cellIndex]) }}
                     </slot>
                   </td>
                 </tr>
@@ -149,6 +149,7 @@
                   v-if="row.isExpandableRowVisible"
                   class="va-data-table__table-expanded-content"
                   colspan="99999"
+                  :key="uniqueKey(row, index)"
                 >
                   <slot
                     name="expandableRow"
@@ -208,7 +209,7 @@ import { useSelectableRow, useSelectableProps } from './hooks/useSelectableRow'
 import { useStylable, useStylableProps } from './hooks/useStylable'
 import { useBinding, useBindingProps } from './hooks/useBinding'
 import { useAnimationName, useAnimationNameProps } from './hooks/useAnimationName'
-import { useRows, useRowsProps } from './hooks/useRows'
+import { useRows, createRowsProps } from './hooks/useRows'
 import { useFilterable, useFilterableProps } from './hooks/useFilterable'
 import { useSortable, useSortableProps } from './hooks/useSortable'
 import { useTableScroll, useTableScrollProps, useTableScrollEmits } from './hooks/useTableScroll'
@@ -217,7 +218,7 @@ import { useComponentPresetProp, useTranslation, useThrottleProps } from '../../
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
-import type { DataTableRow } from './types'
+import type { DataTableCell, DataTableColumnInternal, DataTableRow } from './types'
 
 import { VaDataTableThRow } from './components'
 import { VaVirtualScroller } from '../va-virtual-scroller'
@@ -241,7 +242,7 @@ type emitNames = 'update:modelValue' |
   'scroll:bottom'
 </script>
 
-<script lang="ts" setup>
+<script lang="ts" generic="Item extends Record<string, any>" setup>
 
 const { tp } = useTranslation()
 
@@ -261,7 +262,7 @@ const props = defineProps({
   ...useColumnsProps,
   ...useFilterableProps,
   ...usePaginatedRowsProps,
-  ...useRowsProps,
+  ...createRowsProps<Item>(),
   ...useSelectableProps,
   ...useThrottleProps,
   ...pick(VaDataTableThRowProps, ['ariaSelectAllRowsLabel', 'ariaSortColumnByLabel']),
@@ -311,7 +312,7 @@ const {
   sortingOrderIconName,
 } = useSortable(columnsComputed, filteredRows, props, emit)
 
-const { paginatedRows } = usePaginatedRows(sortedRows, props)
+const { paginatedRows } = usePaginatedRows<Item>(sortedRows, props)
 
 const {
   ctrlSelectRow,
@@ -400,6 +401,8 @@ const {
 const isVirtualScroll = computed(() => props.virtualScroller && !props.grid)
 
 const gridColumnsCount = computed(() => props.gridColumns || 'var(--va-data-table-grid-tbody-columns)')
+
+const cellData = (cellData: DataTableCell, internalColumnData: DataTableColumnInternal) => internalColumnData.displayFormatFn ? internalColumnData.displayFormatFn(cellData.value) : cellData.value
 </script>
 
 <style lang="scss">

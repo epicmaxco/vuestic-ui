@@ -38,5 +38,25 @@ export const userEvent = {
     await sleep(mergedOptions.delay)
   },
 
-  clear: async (element: Element) => event.clear(element)
+  clear: async (element: Element) => event.clear(element),
+
+  focus: async (element: Element, options?: { delay?: number }) => {
+    if ('focus' in element) {
+      (element as HTMLElement).focus()
+    }
+
+    const defaultOptions = { delay: 0 }
+    const mergedOptions = { ...defaultOptions, ...options }
+
+    await sleep(mergedOptions.delay)
+  },
+
+  tab: async (options?: { delay?: number, shift?: boolean }) => {
+    const defaultOptions = { delay: 0 }
+    const mergedOptions = { ...defaultOptions, ...options }
+
+    event.tab(mergedOptions)
+    // waiting for DOM changes
+    await sleep(mergedOptions.delay)
+  }
 }

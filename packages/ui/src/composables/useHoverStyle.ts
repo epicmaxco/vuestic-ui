@@ -6,6 +6,6 @@ export const useHoverStyleProps = {
     default: 'mask',
     validator: (value: string) => ['opacity', 'mask'].includes(value),
   },
-  hoverOpacity: { type: Number, default: 0.15 },
+  hoverOpacity: { type: [Number, String], default: 0.15 },
   hoverMaskColor: { type: String, default: 'textInverted' },
 }

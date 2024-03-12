@@ -5,6 +5,7 @@
   >
     <slot name="buttonPrev" v-bind="{ onClick: prev }">
       <va-button
+        va-child="prevButton"
         :disabled="$props.disabled"
         icon="va-arrow-left"
         preset="plain"
@@ -20,6 +21,7 @@
     <div class="va-date-picker__header__text">
       <slot name="header" v-bind="{ year: syncView.year, month: syncView.month, monthNames, view: syncView, changeView, switchView }">
         <va-button
+          va-child="middleButton"
           :disabled="$props.disabled"
           preset="plain"
           size="small"
@@ -39,6 +41,7 @@
 
     <slot name="buttonNext" v-bind="{ onClick: next }">
       <va-button
+        va-child="nextButton"
         :disabled="$props.disabled"
         icon="va-arrow-right"
         preset="plain"

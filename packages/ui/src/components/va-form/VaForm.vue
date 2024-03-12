@@ -2,6 +2,7 @@
   <component
     class="va-form"
     :is="tag"
+    @submit="(e: SubmitEvent) => $attrs.action === undefined && e.preventDefault()"
     v-bind="$attrs"
   >
     <slot v-bind="{ isValid, validate }" />
@@ -9,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { watch, PropType, computed } from 'vue'
+import { watch, PropType, computed, onMounted } from 'vue'
 
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { useFormParent } from '../../composables/useForm'
@@ -44,7 +45,7 @@ const props = defineProps({
   ...useComponentPresetProp,
   autofocus: { type: Boolean, default: false },
   immediate: { type: Boolean, default: false },
-  tag: { type: String, default: 'div' },
+  tag: { type: String, default: 'form' },
   trigger: { type: String as PropType<'blur' | 'change'>, default: 'blur' },
   modelValue: { type: Boolean, default: true },
   hideErrors: { type: Boolean, default: false },
@@ -65,7 +66,13 @@ watch(() => props.autofocus, (value) => {
   if (value) {
     context.focus()
   }
-}, { immediate: true })
+})
+
+onMounted(() => {
+  if (props.autofocus) {
+    context.focus()
+  }
+})
 
 watch(context.fields, (newVal) => {
   if (newVal.length && props.immediate) {

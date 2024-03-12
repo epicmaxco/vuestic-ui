@@ -23,6 +23,21 @@ export const Loading = () => ({
   template: '<VaDateInput loading />',
 })
 
+export const ValidationRules = () => ({
+  components: { VaDateInput },
+  data () {
+    return {
+      value: new Date('2020-01-01T00:00:00.000Z'),
+    }
+  },
+  methods: {
+    isFriday (date: Date) {
+      return date.getDay() === 5 || 'Date must be Friday.'
+    },
+  },
+  template: '<VaDateInput v-model="value" :rules="[isFriday]" immediate-validation />',
+})
+
 export const Clearable = () => ({
   components: { VaDateInput },
   data () {

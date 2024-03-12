@@ -1,6 +1,6 @@
 import { Ref, ref, computed, ExtractPropTypes } from 'vue'
 
-import { useItemsProp, useItemsTrackByProp } from './useCommonProps'
+import { createItemsProp, useItemsTrackByProp } from './useCommonProps'
 
 import { getValueByPath } from '../../../utils/value-by-key'
 
@@ -10,25 +10,26 @@ import type {
   DataTableCell,
   DataTableRow,
   DataTableItemKey,
+  DataTableRowData,
 } from '../types'
 
-export const getItemKey = (source: DataTableItem, itemsTrackBy: string | ((item: DataTableItem) => any)): DataTableItemKey => (
+export const getItemKey = <T extends Record<string, any>>(source: DataTableItem<T>, itemsTrackBy: string | ((item: DataTableItem<T>) => any)): DataTableItemKey => (
   typeof itemsTrackBy === 'function'
     ? itemsTrackBy(source)
     : getValueByPath(source, itemsTrackBy) || source
 )
 
-export const useRowsProps = {
-  ...useItemsProp,
+export const createRowsProps = <T extends Record<string, any>>() => ({
+  ...createItemsProp<T>(),
   ...useItemsTrackByProp,
-}
+})
 
-const buildTableCell = (
+const buildTableCell = <Item extends DataTableItem>(
   rowIndex: number,
   rowKey: string,
-  rowData: DataTableItem,
+  rowData: DataTableRowData<Item>,
   column: DataTableColumnInternal,
-): DataTableCell => {
+): DataTableCell<Item> => {
   const source = getValueByPath(rowData, column.key)
 
   return {
@@ -36,17 +37,17 @@ const buildTableCell = (
     rowKey,
     rowData,
     column,
-    source,
+    source: source as string,
     value: source?.toString?.() || '',
   }
 }
 
-const buildTableRow = (
-  source: DataTableItem,
+const buildTableRow = <Item extends DataTableItem>(
+  source: DataTableItem<Item>,
   initialIndex: number,
-  itemsTrackBy: string | ((item: DataTableItem) => any),
+  itemsTrackBy: string | ((item: DataTableItem<Item>) => any),
   columns: DataTableColumnInternal[],
-) => {
+): Omit<DataTableRow<Item>, 'toggleRowDetails' | 'isExpandableRowVisible'> => {
   const itemKey = getItemKey(source, itemsTrackBy)
 
   return {
@@ -58,15 +59,19 @@ const buildTableRow = (
   }
 }
 
-export const useRows = (
+type RowsProps<Item> = Omit<ExtractPropTypes<ReturnType<typeof createRowsProps>>, 'items'> & {
+  items: Item[]
+}
+
+export const useRows = <Item extends Record<string, any>>(
   columns: Ref<DataTableColumnInternal[]>,
-  props: ExtractPropTypes<typeof useRowsProps>,
+  props: RowsProps<Item>,
 ) => {
   const expandableRows = ref<Record<number, boolean>>({})
 
-  const rowsComputed = computed<DataTableRow[]>(() => props.items
+  const rowsComputed = computed(() => props.items
     .map((rawItem, index) => ({
-      ...buildTableRow(rawItem, index, props.itemsTrackBy, columns.value),
+      ...buildTableRow<Item>(rawItem, index, props.itemsTrackBy, columns.value),
       toggleRowDetails: (show?: boolean) => {
         if (typeof show === 'boolean') {
           expandableRows.value[index] = show

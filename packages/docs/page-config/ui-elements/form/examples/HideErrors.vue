@@ -29,6 +29,7 @@
 </template>
 
 <script setup lang="ts">
+import { reactive } from "vue";
 import { useForm } from "vuestic-ui";
 
 const form = reactive({

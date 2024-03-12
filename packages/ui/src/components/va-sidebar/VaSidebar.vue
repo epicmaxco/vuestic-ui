@@ -36,9 +36,9 @@ const props = defineProps({
   activeColor: { type: String, default: 'primary' },
   hoverColor: { type: String, default: undefined },
   hoverOpacity: {
-    type: Number,
+    type: [Number, String],
     default: 0.2,
-    validator: (v: number) => v >= 0 && v <= 1,
+    validator: (v: number | string) => Number(v) >= 0 && Number(v) <= 1,
   },
   borderColor: { type: String, default: undefined },
   color: { type: String, default: 'background-element' },

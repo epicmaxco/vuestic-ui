@@ -60,6 +60,29 @@ export const FilteredEvent = () => ({
   `,
 })
 
+export const Sort = () => ({
+  components: { VaDataTable },
+  data: () => ({
+    columns: defineVaDataTableColumns([
+      { key: 'id', sortable: true },
+      { key: 'name', sortable: true },
+      { key: 'email', sortable: true },
+    ]),
+    items: items.map((item, index) => ({ ...item, id: index * 3 })),
+    sortBy: 'name',
+    sortingOrder: 'asc',
+  }),
+  template: `
+    <p>[sortBy]: {{ sortBy }}</p>
+    <p>[sortingOrder]: {{ sortingOrder }}</p>
+    <VaDataTable
+      v-model:sort-by="sortBy"
+      v-model:sorting-order="sortingOrder"
+      :items="items" :columns="columns"
+    />
+  `,
+})
+
 export const ColumnSortedEvent = () => ({
   components: { VaDataTable },
   data: () => ({

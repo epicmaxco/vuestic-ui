@@ -42,12 +42,13 @@
           >
             <va-icon
               v-if="$props.fullscreen || $props.closeButton"
+              va-child="closeButton"
+              :class="{ 'va-modal__close--fullscreen': $props.fullscreen }"
+              :aria-label="tp($props.ariaCloseLabel)"
+              role="button"
+              tabindex="0"
               name="va-close"
               class="va-modal__close"
-              :class="{ 'va-modal__close--fullscreen': $props.fullscreen }"
-              role="button"
-              :aria-label="tp($props.ariaCloseLabel)"
-              tabindex="0"
               @click="cancel"
               @keydown.space="cancel"
               @keydown.enter="cancel"
@@ -87,6 +88,7 @@
               >
                 <va-button
                   v-if="$props.cancelText"
+                  va-child="cancelButton"
                   preset="secondary"
                   color="secondary"
                   class="va-modal__default-cancel-button"
@@ -94,7 +96,10 @@
                 >
                   {{ tp($props.cancelText) }}
                 </va-button>
-                <va-button @click="ok">
+                <va-button
+                  va-child="okButton"
+                  @click="ok"
+                >
                   {{ tp($props.okText) }}
                 </va-button>
               </div>
@@ -149,6 +154,7 @@ import { VaIcon } from '../va-icon'
 import { useBlur } from './hooks/useBlur'
 import { useZIndex } from '../../composables/useZIndex'
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
+import { defineChildProps, useChildComponents } from '../../composables/useChildComponents'
 
 const WithTransition = defineComponent({
   name: 'ModalElement',
@@ -170,6 +176,11 @@ defineOptions({
 })
 
 const props = defineProps({
+  ...defineChildProps({
+    cancelButton: VaButton,
+    okButton: VaButton,
+    closeButton: VaIcon,
+  }),
   ...useStatefulProps,
   modelValue: { type: Boolean, default: false },
   attachElement: { type: String, default: 'body' },
@@ -219,6 +230,8 @@ const props = defineProps({
   beforeCancel: { type: Function as PropType<(hide: () => void) => any> },
   ariaCloseLabel: { type: String, default: '$t:close' },
 })
+
+useChildComponents(props)
 
 const emit = defineEmits([
   ...useStatefulEmits,

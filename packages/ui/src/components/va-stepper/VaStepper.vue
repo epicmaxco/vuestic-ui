@@ -8,7 +8,6 @@
       class="va-stepper__navigation"
       ref="stepperNavigation"
       :class="{ 'va-stepper__navigation--vertical': $props.vertical }"
-
       @click="onValueChange"
       @keyup.enter="onValueChange"
       @keyup.space="onValueChange"
@@ -68,23 +67,25 @@
         </div>
       </template>
       <div class="va-stepper__controls">
-        <va-stepper-controls
-          v-if="!controlsHidden"
-          :modelValue="modelValue"
-          :nextDisabled="nextDisabled"
-          :steps="steps"
-          :stepControls="stepControls"
-          :finishButtonHidden="finishButtonHidden"
-          @finish="$emit('finish')"
-        />
         <slot
           name="controls"
           v-bind="getIterableSlotData(steps[modelValue], modelValue)"
-        />
+        >
+          <va-stepper-controls
+            v-if="!controlsHidden"
+            :modelValue="modelValue"
+            :nextDisabled="nextDisabled"
+            :steps="steps"
+            :stepControls="stepControls"
+            :finishButtonHidden="finishButtonHidden"
+            @finish="$emit('finish')"
+          />
+        </slot>
       </div>
     </div>
   </div>
 </template>
+
 <script lang="ts" setup>
 import VaStepperControls from './VaStepperControls.vue'
 import VaStepperStepButton from './VaStepperStepButton.vue'
@@ -290,6 +291,7 @@ const getIterableSlotData = (step: Step, index: number) => ({
   isCompleted: props.modelValue > index,
   isLastStep: props.steps.length - 1 === index,
   isNextStepDisabled: isNextStepDisabled(index),
+  isPrevStepDisabled: index === 0,
   index,
   step,
 })

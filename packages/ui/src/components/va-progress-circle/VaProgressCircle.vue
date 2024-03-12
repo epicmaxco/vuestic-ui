@@ -46,7 +46,7 @@ const props = defineProps({
   ...useComponentPresetProp,
   modelValue: { type: Number, default: 0 },
   indeterminate: { type: Boolean, default: false },
-  thickness: { type: Number, default: 0.06 },
+  thickness: { type: [Number, String], default: 0.06 },
   color: { type: String, default: 'primary' },
   ariaLabel: { type: String, default: '$t:progressState' },
 })
@@ -54,7 +54,7 @@ const props = defineProps({
 const { getColor } = useColors()
 const { sizeComputed } = useSize(props)
 
-const cappedThickness = computed(() => clamp(props.thickness, 0, 1) / 2 * 100)
+const cappedThickness = computed(() => clamp(Number(props.thickness), 0, 1) / 2 * 100)
 
 const radius = computed(() => 20 - (20 * cappedThickness.value / 100))
 const dasharray = computed(() => 2 * Math.PI * radius.value)

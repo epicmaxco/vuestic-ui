@@ -66,13 +66,13 @@ export const Autosize = () => ({
 export const MaxRows = () => ({
   components: { VaTextarea },
   data: () => ({ value: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.' }),
-  template: '<VaTextarea :max-rows="2" v-model="value" />',
+  template: '<VaTextarea max-rows="2" v-model="value" />',
 })
 
 export const MinRows = () => ({
   components: { VaTextarea },
   data: () => ({ value: 'Lorem Ipsum' }),
-  template: '<VaTextarea :min-rows="2" v-model="value" />',
+  template: '<VaTextarea min-rows="2" v-model="value" />',
 })
 
 export const Counter = () => ({

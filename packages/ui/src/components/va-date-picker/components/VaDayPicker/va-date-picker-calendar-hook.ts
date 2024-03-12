@@ -10,11 +10,13 @@ export const getMonthStartWeekday = (year: number, month: number) => new Date(ye
 /** Returns array from 1 to length */
 export const getNumbersArray = (length: number) => Array.from(Array(length).keys()).map((k) => k + 1)
 
-export const useVaDatePickerCalendar = (view: Ref<DatePickerView>, options?: { firstWeekday?: Ref<'Monday' | 'Sunday'> }) => {
+export const useVaDatePickerCalendar = (view: Ref<DatePickerView>, options?: { firstWeekday?: Ref<string> }) => {
   const CALENDAR_ROWS_COUNT = 6 // Need 6 rows if first day of a month is Saturday and the last day is Monday 31th.
 
   const localizeWeekday = (weekdayNumber: number) => {
-    if (options && options.firstWeekday?.value === 'Monday') {
+    if (!options || !options.firstWeekday?.value) { return weekdayNumber }
+
+    if (options.firstWeekday.value.toLowerCase() === 'monday') {
       // Set Sunday as 7th day of the week and Monday as first day of the week.
       return weekdayNumber === 0 ? 6 : weekdayNumber - 1
     }

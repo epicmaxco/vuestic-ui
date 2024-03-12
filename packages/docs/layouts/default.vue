@@ -1,40 +1,41 @@
 <template>
-  <div
-    :key="isMounted + ''"
-    class="docs-layout"
-  >
+  <Suspense>
     <div
-      v-if="!isMounted"
-      class="docs-layout__loader"
-    />
-    <VaLayout
-      :top="{ fixed: true, order: 2 }"
-      :left="{ fixed: true, absolute: breakpoints.smDown, overlay: breakpoints.smDown && isSidebarVisible, order: 1 }"
-      @left-overlay-click="isSidebarVisible = false"
+      class="docs-layout"
     >
-      <template #top>
-        <LayoutHeader
-          v-model:isSidebarVisible="isSidebarVisible"
-          v-model:isOptionsVisible="isOptionsVisible"
-        />
-      </template>
+      <div
+        v-if="false"
+        class="docs-layout__loader"
+      />
+      <VaLayout
+        :top="{ fixed: true, order: 2 }"
+        :left="{ fixed: true, absolute: breakpoints.smDown, overlay: breakpoints.smDown && isSidebarVisible, order: 1 }"
+        @left-overlay-click="isSidebarVisible = false"
+      >
+        <template #top>
+          <LayoutHeader
+            v-model:isSidebarVisible="isSidebarVisible"
+            v-model:isOptionsVisible="isOptionsVisible"
+          />
+        </template>
 
-      <template #left>
-        <LayoutSidebar
-          v-model:visible="isSidebarVisible"
-          :mobile="breakpoints.xs"
-        />
-      </template>
+        <template #left>
+          <LayoutSidebar
+            v-model:visible="isSidebarVisible"
+            :mobile="breakpoints.xs"
+          />
+        </template>
 
-      <template #content>
-        <main class="docs-layout__main-content">
-          <article class="docs-layout__page-content">
-            <NuxtPage />
-          </article>
-        </main>
-      </template>
-    </VaLayout>
-  </div>
+        <template #content>
+          <main class="docs-layout__main-content">
+            <article class="docs-layout__page-content">
+              <NuxtPage />
+            </article>
+          </main>
+        </template>
+      </VaLayout>
+    </div>
+  </Suspense>
 </template>
 
 <script setup lang="ts">
@@ -74,7 +75,7 @@ useHead({
   ],
 })
 
-const isMounted = useIsMounted()
+// const isMounted = useIsMounted()
 </script>
 
 <style lang="scss">

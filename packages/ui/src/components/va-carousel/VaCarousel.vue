@@ -48,7 +48,7 @@
       <div
         class="va-carousel__indicator"
         v-for="(item, index) in $props.items" :key="index"
-        :class="{ 'va-carousel__indicator--active': index === modelValue }"
+        :class="{ 'va-carousel__indicator--active': isCurrentSlide(index) }"
         v-bind="getIndicatorEvents(index)"
       >
         <slot name="indicator" v-bind="{ item, index, goTo: goToWithPause, isActive: isCurrentSlide(index) }">

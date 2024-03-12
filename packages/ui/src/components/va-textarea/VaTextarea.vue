@@ -64,7 +64,7 @@ import {
 import { blurElement, focusElement } from '../../utils/focus'
 
 const positiveNumberValidator = (val: number) => {
-  if (val > 0 && (val | 0) === val) {
+  if (val > 0) {
     return true
   }
   throw new Error(
