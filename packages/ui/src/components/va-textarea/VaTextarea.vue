@@ -5,18 +5,24 @@
     :error="computedError"
     :error-messages="computedErrorMessages"
   >
-    <div class="va-textarea__resize-wrapper" :class="{
-      'va-textarea__resize-wrapper--resizable': isResizable,
-    }">
+    <div
+      class="va-textarea__resize-wrapper"
+      :class="{
+        'va-textarea__resize-wrapper--resizable': isResizable,
+      }"
+    >
       <textarea
         v-model="valueComputed"
         v-bind="{ ...computedProps, ...listeners, ...validationAriaAttributes }"
-        :style="computedStyle"
-        :rows="computedRowsCount"
-        :loading="isLoading"
-        ref="textarea"
-        :ariaLabel="$props.label"
         class="va-textarea__textarea"
+        ref="textarea"
+        :rows="rows"
+        :style="computedStyle"
+        :loading="isLoading"
+        :ariaLabel="$props.label"
+        :class="{
+          'va-textarea__textarea--autosize': autosize,
+        }"
         @focus="validationListeners.onFocus"
         @blur="validationListeners.onBlur"
       />
@@ -25,30 +31,52 @@
 </template>
 
 <script lang="ts">
-import { computed, CSSProperties, shallowRef } from 'vue'
+import {
+  computed,
+  CSSProperties,
+  shallowRef,
+  ref,
+  watchEffect,
+} from 'vue'
 import pick from 'lodash/pick.js'
 import { VaInputWrapper } from '../va-input-wrapper'
 
-import { useFormFieldProps, useEmitProxy, useStateful, useStatefulProps, useValidation, useValidationProps, useValidationEmits } from '../../composables'
-import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
+import {
+  useFormFieldProps,
+  useEmitProxy,
+  useStateful,
+  useStatefulProps,
+  useValidation,
+  useValidationProps,
+  useValidationEmits,
+} from '../../composables'
+import {
+  extractComponentProps,
+  filterComponentProps,
+} from '../../utils/component-options'
 import { blurElement, focusElement } from '../../utils/focus'
+import { useTextHeight } from './composables/useLineHeight'
 
 const positiveNumberValidator = (val: number) => {
   if (val > 0) {
     return true
   }
-  throw new Error(`\`minRows|maxRows\` must be a positive integer greater than 0, but ${val} is provided`)
+  throw new Error(
+    `\`minRows|maxRows\` must be a positive integer greater than 0, but ${val} is provided`,
+  )
 }
 
 const { createEmits, createListeners } = useEmitProxy([
-  'input', 'change', 'click', 'update:modelValue',
+  'input',
+  'change',
+  'click',
+  'update:modelValue',
 ])
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 </script>
 
 <script lang="ts" setup>
-
 defineOptions({
   name: 'VaTextarea',
 })
@@ -95,11 +123,12 @@ const blur = () => {
   blurElement(textarea.value)
 }
 
-const reset = () => withoutValidation(() => {
-  emit('update:modelValue', props.clearValue)
-  emit('clear')
-  resetValidation()
-})
+const reset = () =>
+  withoutValidation(() => {
+    emit('update:modelValue', props.clearValue)
+    emit('clear')
+    resetValidation()
+  })
 
 const {
   isDirty,
@@ -120,23 +149,54 @@ const isResizable = computed(() => {
   return props.resize && !props.autosize
 })
 
-const computedRowsCount = computed<number | undefined>(() => {
+const rows = ref(props.minRows)
+
+const textHeight = useTextHeight(textarea, valueComputed)
+
+function calculateInputHeight () {
+  let minRows = parseFloat(String(props.minRows))
+  let maxRows = parseFloat(String(props.maxRows))
+
+  minRows = isNaN(minRows) ? 1 : minRows
+  maxRows = isNaN(maxRows) ? Infinity : maxRows
+
   if (!props.autosize) {
-    return undefined
+    rows.value = Math.max(maxRows, Math.min(minRows, maxRows ?? 0))
+    return
   }
 
-  const rows = valueComputed.value ? valueComputed.value.toString().split('\n').length : 1
-
-  if (!props.maxRows) {
-    return rows
+  if (!textHeight.value || !textarea.value) {
+    return
   }
 
-  return Math.max(Number(props.minRows), Math.min(rows, Number(props.maxRows)))
+  const style = getComputedStyle(textarea.value)
+
+  const height = textHeight.value
+  const lineHeight = parseFloat(style.lineHeight)
+  const minHeight = Math.max(
+    minRows * lineHeight,
+    minRows + Math.round(lineHeight),
+  )
+
+  const maxHeight = maxRows * lineHeight || Infinity
+  const newHeight = Math.max(minHeight, Math.min(maxHeight, height ?? 0))
+
+  rows.value = Math.round(newHeight / lineHeight)
+
+  // Make height 1px bigger to prevent jumps
+  textarea.value.style.height = `${newHeight + 1}px`
+}
+
+watchEffect(() => {
+  calculateInputHeight()
 })
 
-const computedStyle = computed(() => (({
-  resize: isResizable.value ? undefined : 'none',
-}) as CSSProperties))
+const computedStyle = computed(
+  () =>
+    ({
+      resize: isResizable.value ? undefined : 'none',
+    } as CSSProperties),
+)
 
 const computedProps = computed(() => ({
   ...pick(props, ['disabled', 'readonly', 'placeholder', 'ariaLabel']),
@@ -160,7 +220,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import '../../styles/resources/index.scss';
+@import "../../styles/resources/index.scss";
 
 .va-textarea {
   .va-input-wrapper__field {
@@ -185,8 +245,6 @@ defineExpose({
     flex: 1;
     font-family: var(--va-font-family);
     width: 100%;
-    padding: 1px 0;
-    margin: -1px 0;
     background: transparent;
     color: currentColor;
     box-sizing: content-box;
@@ -196,6 +254,10 @@ defineExpose({
     resize: none;
 
     @include va-scroll(var(--va-secondary));
+
+    &--autosize {
+      overflow: hidden;
+    }
   }
 }
 </style>
