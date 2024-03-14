@@ -12,24 +12,19 @@
       }"
     >
       <textarea
-        :rows="rows"
         v-model="valueComputed"
         v-bind="{ ...computedProps, ...listeners, ...validationAriaAttributes }"
+        class="va-textarea__textarea"
+        ref="textarea"
+        :rows="rows"
         :style="computedStyle"
         :loading="isLoading"
-        ref="textarea"
         :ariaLabel="$props.label"
-        class="va-textarea__textarea"
+        :class="{
+          'va-textarea__textarea--autosize': autosize,
+        }"
         @focus="validationListeners.onFocus"
         @blur="validationListeners.onBlur"
-      />
-      <textarea
-        ref="autosizer"
-        class="va-textarea__autosizer va-textarea__textarea"
-        v-if="autosize"
-        v-model="valueComputed"
-        aria-hidden="true"
-        readonly
       />
     </div>
   </VaInputWrapper>
@@ -41,9 +36,7 @@ import {
   CSSProperties,
   shallowRef,
   ref,
-  nextTick,
-  onMounted,
-  watch,
+  watchEffect,
 } from 'vue'
 import pick from 'lodash/pick.js'
 import { VaInputWrapper } from '../va-input-wrapper'
@@ -62,6 +55,7 @@ import {
   filterComponentProps,
 } from '../../utils/component-options'
 import { blurElement, focusElement } from '../../utils/focus'
+import { useTextHeight } from './composables/useLineHeight'
 
 const positiveNumberValidator = (val: number) => {
   if (val > 0) {
@@ -155,43 +149,47 @@ const isResizable = computed(() => {
   return props.resize && !props.autosize
 })
 
-const autosizer = ref<HTMLTextAreaElement>()
-
 const rows = ref(props.minRows)
 
+const textHeight = useTextHeight(textarea, valueComputed)
+
 function calculateInputHeight () {
-  const minRows = parseFloat(String(props.minRows))
-  const maxRows = parseFloat(String(props.maxRows))
+  let minRows = parseFloat(String(props.minRows))
+  let maxRows = parseFloat(String(props.maxRows))
+
+  minRows = isNaN(minRows) ? 1 : minRows
+  maxRows = isNaN(maxRows) ? Infinity : maxRows
 
   if (!props.autosize) {
     rows.value = Math.max(maxRows, Math.min(minRows, maxRows ?? 0))
     return
   }
 
-  nextTick(() => {
-    if (!autosizer.value) {
-      return
-    }
+  if (!textHeight.value || !textarea.value) {
+    return
+  }
 
-    const style = getComputedStyle(autosizer.value)
+  const style = getComputedStyle(textarea.value)
 
-    const height = autosizer.value.scrollHeight
-    const lineHeight = parseFloat(style.lineHeight)
-    const minHeight = Math.max(
-      minRows * lineHeight,
-      minRows + Math.round(lineHeight),
-    )
+  const height = textHeight.value
+  const lineHeight = parseFloat(style.lineHeight)
+  const minHeight = Math.max(
+    minRows * lineHeight,
+    minRows + Math.round(lineHeight),
+  )
 
-    const maxHeight = maxRows * lineHeight || Infinity
-    const newHeight = Math.max(minHeight, Math.min(maxHeight, height ?? 0))
-    rows.value = Math.floor(newHeight / lineHeight)
-  })
+  const maxHeight = maxRows * lineHeight || Infinity
+  const newHeight = Math.max(minHeight, Math.min(maxHeight, height ?? 0))
+
+  rows.value = Math.round(newHeight / lineHeight)
+
+  // Make height 1px bigger to prevent jumps
+  textarea.value.style.height = `${newHeight + 1}px`
 }
 
-onMounted(calculateInputHeight)
-watch(valueComputed, calculateInputHeight)
-watch(() => props.minRows, calculateInputHeight)
-watch(() => props.maxRows, calculateInputHeight)
+watchEffect(() => {
+  calculateInputHeight()
+})
 
 const computedStyle = computed(
   () =>
@@ -247,8 +245,6 @@ defineExpose({
     flex: 1;
     font-family: var(--va-font-family);
     width: 100%;
-    padding: 1px 0;
-    margin: -1px 0;
     background: transparent;
     color: currentColor;
     box-sizing: content-box;
@@ -258,6 +254,10 @@ defineExpose({
     resize: none;
 
     @include va-scroll(var(--va-secondary));
+
+    &--autosize {
+      overflow: hidden;
+    }
   }
 
   &__autosizer {
@@ -265,9 +265,18 @@ defineExpose({
     position: absolute;
     top: 0;
     left: 0;
-    height: 0 !important;
-    min-height: 0 !important;
+    height: 0;
+    overflow: hidden;
     pointer-events: none;
+  }
+
+  &__text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: inherit;
+    font-family: var(--va-font-family);
   }
 }
 </style>
