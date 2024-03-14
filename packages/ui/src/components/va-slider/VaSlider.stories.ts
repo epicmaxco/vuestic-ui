@@ -68,38 +68,32 @@ export const Default: StoryFn = () => ({
 Default.play = async ({ step }) => {
   const { slider, sliderTrack, sliderThumb } = getSlider()
 
-  const initialValue = slider.getAttribute('aria-valuenow') as string
-
   await step('Change value by clicking on the slider track', async () => {
     const clientX = valueToClientX(slider, sliderTrack, 75)
 
     await userEvent.click(sliderTrack, { clientX })
-    expect(slider).toHaveAttribute('aria-valuenow', (+initialValue + 30).toString())
+    expect(slider).toHaveAttribute('aria-valuenow', '75')
   })
-
-  let changedValue = slider.getAttribute('aria-valuenow') as string
 
   await step('Change value through keyboard navigation', async () => {
     await userEvent.focus(sliderThumb)
     fireEvent.keyDown(sliderThumb, { key: 'ArrowRight' })
     await sleep()
 
-    expect(slider).toHaveAttribute('aria-valuenow', (+changedValue + 1).toString())
+    expect(slider).toHaveAttribute('aria-valuenow', '76')
 
     fireEvent.keyDown(sliderThumb, { key: 'ArrowLeft' })
     await sleep()
 
-    expect(slider).toHaveAttribute('aria-valuenow', changedValue)
+    expect(slider).toHaveAttribute('aria-valuenow', '75')
   })
-
-  changedValue = slider.getAttribute('aria-valuenow') as string
 
   await step('Change value by dragging the thumb', async () => {
     const clientX = valueToClientX(slider, sliderTrack, 25)
 
     await dragThumbInAxis(sliderThumb, { clientX })
 
-    expect(slider).toHaveAttribute('aria-valuenow', (+changedValue - 50).toString())
+    expect(slider).toHaveAttribute('aria-valuenow', '25')
   })
 }
 
@@ -122,25 +116,23 @@ export const Disabled: StoryFn = () => ({
 Disabled.play = async ({ step }) => {
   const { slider, sliderThumb, sliderTrack } = getSlider()
 
-  const initialValue = slider.getAttribute('aria-valuenow') as string
-
   await step('Does not change the value for disabled sliders (track)', async () => {
     const clientX = valueToClientX(slider, sliderTrack, 75)
 
     await userEvent.click(sliderTrack, { clientX, skipPointerEventsCheck: true })
-    expect(slider).toHaveAttribute('aria-valuenow', initialValue)
+    expect(slider).toHaveAttribute('aria-valuenow', '45')
   })
 
   await step('Does not change the value for disabled sliders (keyboard)', async () => {
     fireEvent.keyDown(sliderThumb, { key: 'ArrowRight' })
     await sleep()
 
-    expect(slider).toHaveAttribute('aria-valuenow', initialValue)
+    expect(slider).toHaveAttribute('aria-valuenow', '45')
 
     fireEvent.keyDown(sliderThumb, { key: 'ArrowLeft' })
     await sleep()
 
-    expect(slider).toHaveAttribute('aria-valuenow', initialValue)
+    expect(slider).toHaveAttribute('aria-valuenow', '45')
   })
 
   await step('Does not change the value for disabled sliders (thumb)', async () => {
@@ -148,7 +140,7 @@ Disabled.play = async ({ step }) => {
 
     await dragThumbInAxis(sliderThumb, { clientX })
 
-    expect(slider).toHaveAttribute('aria-valuenow', initialValue)
+    expect(slider).toHaveAttribute('aria-valuenow', '45')
   })
 }
 
@@ -163,25 +155,23 @@ export const Readonly: StoryFn = () => ({
 Readonly.play = async ({ step }) => {
   const { slider, sliderThumb, sliderTrack } = getSlider()
 
-  const initialValue = slider.getAttribute('aria-valuenow') as string
-
   await step('Does not change the value for read-only sliders (track)', async () => {
     const clientX = valueToClientX(slider, sliderTrack, 75)
 
     await userEvent.click(sliderTrack, { clientX, skipPointerEventsCheck: true })
-    expect(slider).toHaveAttribute('aria-valuenow', initialValue)
+    expect(slider).toHaveAttribute('aria-valuenow', '45')
   })
 
   await step('Does not change the value for read-only sliders (keyboard)', async () => {
     fireEvent.keyDown(sliderThumb, { key: 'ArrowRight' })
     await sleep()
 
-    expect(slider).toHaveAttribute('aria-valuenow', initialValue)
+    expect(slider).toHaveAttribute('aria-valuenow', '45')
 
     fireEvent.keyDown(sliderThumb, { key: 'ArrowLeft' })
     await sleep()
 
-    expect(slider).toHaveAttribute('aria-valuenow', initialValue)
+    expect(slider).toHaveAttribute('aria-valuenow', '45')
   })
 
   await step('Does not change the value for read-only sliders (thumb)', async () => {
@@ -189,7 +179,7 @@ Readonly.play = async ({ step }) => {
 
     await dragThumbInAxis(sliderThumb, { clientX })
 
-    expect(slider).toHaveAttribute('aria-valuenow', initialValue)
+    expect(slider).toHaveAttribute('aria-valuenow', '45')
   })
 }
 
@@ -214,38 +204,32 @@ export const Stateful: StoryFn = () => ({
 Stateful.play = async ({ step }) => {
   const { slider, sliderThumb, sliderTrack } = getSlider()
 
-  const initialValue = slider.getAttribute('aria-valuenow') as string
-
   await step('Change value by clicking on the slider track', async () => {
     const clientX = valueToClientX(slider, sliderTrack, 75)
 
     await userEvent.click(sliderTrack, { clientX })
-    expect(slider).toHaveAttribute('aria-valuenow', (+initialValue + 75).toString())
+    expect(slider).toHaveAttribute('aria-valuenow', '75')
   })
-
-  let changedValue = slider.getAttribute('aria-valuenow') as string
 
   await step('Change value through keyboard navigation', async () => {
     await userEvent.focus(sliderThumb)
     fireEvent.keyDown(sliderThumb, { key: 'ArrowRight' })
     await sleep()
 
-    expect(slider).toHaveAttribute('aria-valuenow', (+changedValue + 1).toString())
+    expect(slider).toHaveAttribute('aria-valuenow', '76')
 
     fireEvent.keyDown(sliderThumb, { key: 'ArrowLeft' })
     await sleep()
 
-    expect(slider).toHaveAttribute('aria-valuenow', changedValue)
+    expect(slider).toHaveAttribute('aria-valuenow', '75')
   })
-
-  changedValue = slider.getAttribute('aria-valuenow') as string
 
   await step('Change value by dragging the thumb', async () => {
     const clientX = valueToClientX(slider, sliderTrack, 25)
 
     await dragThumbInAxis(sliderThumb, { clientX })
 
-    expect(slider).toHaveAttribute('aria-valuenow', (+changedValue - 50).toLocaleString())
+    expect(slider).toHaveAttribute('aria-valuenow', '25')
   })
 }
 
@@ -268,13 +252,11 @@ export const Step: StoryFn = () => ({
 Step.play = async ({ step }) => {
   const { slider, sliderThumb, sliderTrack } = getSlider()
 
-  const initialValue = slider.getAttribute('aria-valuenow') as string
-
   await step('Change value with a step of 5 (track)', async () => {
-    const clientX = valueToClientX(slider, sliderTrack, +initialValue + 5)
+    const clientX = valueToClientX(slider, sliderTrack, 50)
 
     await userEvent.click(sliderTrack, { clientX })
-    expect(slider).toHaveAttribute('aria-valuenow', (+initialValue + 5).toString())
+    expect(slider).toHaveAttribute('aria-valuenow', '50')
   })
 
   await step('Change value with a step of 5 (keyboard)', async () => {
@@ -282,19 +264,19 @@ Step.play = async ({ step }) => {
     fireEvent.keyDown(sliderThumb, { key: 'ArrowRight' })
     await sleep()
 
-    expect(slider).toHaveAttribute('aria-valuenow', (+initialValue + 10).toString())
+    expect(slider).toHaveAttribute('aria-valuenow', '55')
 
     fireEvent.keyDown(sliderThumb, { key: 'ArrowLeft' })
     await sleep()
 
-    expect(slider).toHaveAttribute('aria-valuenow', (+initialValue + 5).toString())
+    expect(slider).toHaveAttribute('aria-valuenow', '50')
   })
 
   await step('Change value with a step of 5 (thumb)', async () => {
-    const clientX = valueToClientX(slider, sliderTrack, +initialValue + 10)
+    const clientX = valueToClientX(slider, sliderTrack, 60)
 
     await dragThumbInAxis(sliderThumb, { clientX })
-    expect(slider).toHaveAttribute('aria-valuenow', (+initialValue + 10).toString())
+    expect(slider).toHaveAttribute('aria-valuenow', '60')
   })
 }
 
@@ -628,30 +610,26 @@ export const Vertical: StoryFn = () => ({
 Vertical.play = async ({ step }) => {
   const { slider, sliderThumb, sliderTrack } = getSliderAll()
 
-  let initialValue = slider[0].getAttribute('aria-valuenow') as string
-
   await step('Change value by clicking on the slider track (vertical)', async () => {
     const clientY = valueToClientY(slider[0], sliderTrack[0], 50)
 
     await userEvent.click(sliderTrack[0], { clientY })
 
-    expect(slider[0]).toHaveAttribute('aria-valuenow', (+initialValue + 5).toString())
+    expect(slider[0]).toHaveAttribute('aria-valuenow', '50')
   })
-
-  const changedValue = slider[0].getAttribute('aria-valuenow') as string
 
   await step('Change value through keyboard navigation (vertical)', async () => {
     await userEvent.focus(sliderThumb[0])
     fireEvent.keyDown(sliderThumb[0], { key: 'ArrowDown' })
     await sleep()
 
-    expect(slider[0]).toHaveAttribute('aria-valuenow', (+changedValue - 1).toString())
+    expect(slider[0]).toHaveAttribute('aria-valuenow', '49')
 
     await userEvent.focus(sliderThumb[0])
     fireEvent.keyDown(sliderThumb[0], { key: 'ArrowUp' })
     await sleep()
 
-    expect(slider[0]).toHaveAttribute('aria-valuenow', changedValue)
+    expect(slider[0]).toHaveAttribute('aria-valuenow', '50')
   })
 
   await step('Change value by dragging the thumb (vertical)', async () => {
@@ -662,20 +640,18 @@ Vertical.play = async ({ step }) => {
     expect(slider[0]).toHaveAttribute('aria-valuenow', '90')
   })
 
-  initialValue = slider[1].getAttribute('aria-valuenow') as string
-
   await step('Change value with a step of 5 (vertical keyboard)', async () => {
     await userEvent.focus(sliderThumb[1])
     fireEvent.keyDown(sliderThumb[1], { key: 'ArrowUp' })
     await sleep()
 
-    expect(slider[1]).toHaveAttribute('aria-valuenow', (+initialValue + 5).toString())
+    expect(slider[1]).toHaveAttribute('aria-valuenow', '50')
 
     await userEvent.focus(sliderThumb[1])
     fireEvent.keyDown(sliderThumb[1], { key: 'ArrowDown' })
     await sleep()
 
-    expect(slider[1]).toHaveAttribute('aria-valuenow', initialValue)
+    expect(slider[1]).toHaveAttribute('aria-valuenow', '45')
   })
 
   await step('Must work on both sides (vertical track)', async () => {
