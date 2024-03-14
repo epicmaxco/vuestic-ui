@@ -259,24 +259,5 @@ defineExpose({
       overflow: hidden;
     }
   }
-
-  &__autosizer {
-    visibility: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 0;
-    overflow: hidden;
-    pointer-events: none;
-  }
-
-  &__text {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    font-size: inherit;
-    font-family: var(--va-font-family);
-  }
 }
 </style>
