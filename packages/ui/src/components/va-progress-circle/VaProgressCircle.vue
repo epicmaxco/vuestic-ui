@@ -44,7 +44,7 @@ defineOptions({
 const props = defineProps({
   ...useSizeProps,
   ...useComponentPresetProp,
-  modelValue: { type: Number, default: 0 },
+  modelValue: { type: [Number, String], default: 0 },
   indeterminate: { type: Boolean, default: false },
   thickness: { type: [Number, String], default: 0.06 },
   color: { type: String, default: 'primary' },
@@ -58,7 +58,7 @@ const cappedThickness = computed(() => clamp(Number(props.thickness), 0, 1) / 2 
 
 const radius = computed(() => 20 - (20 * cappedThickness.value / 100))
 const dasharray = computed(() => 2 * Math.PI * radius.value)
-const dashoffset = computed(() => dasharray.value * (1 - clamp(props.modelValue, 0, 100) / 100))
+const dashoffset = computed(() => dasharray.value * (1 - clamp(Number(props.modelValue), 0, 100) / 100))
 const colorComputed = computed(() => getColor(props.color, undefined, true))
 
 const { tp } = useTranslation()
