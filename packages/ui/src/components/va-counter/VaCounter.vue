@@ -153,9 +153,9 @@ const props = defineProps({
     // input
   modelValue: { type: [String, Number], default: 0 },
   manualInput: { type: Boolean, default: false },
-  min: { type: Number },
-  max: { type: Number },
-  step: { type: Number, default: 1 },
+  min: { type: [Number, String] },
+  max: { type: [Number, String] },
+  step: { type: [Number, String], default: 1 },
   color: { type: String, default: 'primary' },
     // icons & buttons
   increaseIcon: { type: String, default: 'va-plus' },
@@ -213,23 +213,23 @@ const setCountChange = ({ target }: Event) => {
 }
 
 const getRoundDownWithStep = (value: number) => {
-  if (typeof min.value === 'undefined' || !step.value) { return value }
+  if (typeof Number(min.value) === 'undefined' || !Number(step.value)) { return value }
 
   // If the user enters a value manually, then we must round it to the nearest valid value,
   // taking into account the initial value (`props.min`) and the step size (`props.step`)
-  return min.value + step.value * Math.floor((value - min.value) / step.value)
+  return Number(min.value) + Number(step.value) * Math.floor((value - Number(min.value)) / Number(step.value))
 }
 
 const calculateCounterValue = (counterValue: number) => {
-  if (typeof min.value !== 'undefined' && counterValue < min.value) {
-    valueComputed.value = min.value
+  if (typeof min.value !== 'undefined' && counterValue < Number(min.value)) {
+    valueComputed.value = Number(min.value)
     return
   }
 
-  if (max.value && (counterValue > max.value)) {
+  if (Number(max.value) && (counterValue > Number(max.value))) {
     // since the `props.step` may not be a multiple of `(props.max - props.min)`,
     // we must round the result taking into account the allowable value
-    valueComputed.value = getRoundDownWithStep(max.value)
+    valueComputed.value = getRoundDownWithStep(Number(max.value))
     return
   }
 
@@ -239,15 +239,15 @@ const calculateCounterValue = (counterValue: number) => {
 const isMinReached = computed(() => {
   if (isNil(min.value)) { return false }
 
-  return Number(valueComputed.value) <= min.value
+  return Number(valueComputed.value) <= Number(min.value)
 })
 
 const isMaxReached = computed(() => {
   if (isNil(max.value)) { return false }
 
   return step.value
-    ? Number(valueComputed.value) > (max.value - step.value)
-    : Number(valueComputed.value) >= max.value
+    ? Number(valueComputed.value) > (Number(max.value) - Number(step.value))
+    : Number(valueComputed.value) >= Number(max.value)
 })
 
 const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
@@ -262,12 +262,12 @@ const isIncreaseActionDisabled = computed(() => (
 
 const decreaseCount = () => {
   if (isDecreaseActionDisabled.value) { return }
-  calculateCounterValue(Number(valueComputed.value) - step.value)
+  calculateCounterValue(Number(valueComputed.value) - Number(step.value))
 }
 
 const increaseCount = () => {
   if (isIncreaseActionDisabled.value) { return }
-  calculateCounterValue(Number(valueComputed.value) + step.value)
+  calculateCounterValue(Number(valueComputed.value) + Number(step.value))
 }
 
 useLongPress(useTemplateRef('decreaseButtonRef'), {
@@ -348,8 +348,8 @@ const slots = useSlots()
 const inputAttributesComputed = computed(() => (({
   tabindex: tabIndexComputed.value,
   'aria-label': tp(props.ariaLabel),
-  'aria-valuemin': min.value,
-  'aria-valuemax': max.value,
+  'aria-valuemin': Number(min.value),
+  'aria-valuemax': Number(max.value),
   ...omit(attrs, ['class', 'style']),
   ...pick(props, ['disabled', 'min', 'max', 'step']),
   readonly: props.readonly || !props.manualInput,
