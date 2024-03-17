@@ -12,7 +12,7 @@
       @mouseleave="onMouseLeave"
     >
       <va-rating-item
-        v-for="itemNumber in $props.max"
+        v-for="itemNumber in Number($props.max)"
         :key="itemNumber"
         class="va-rating__item"
         v-bind="VaRatingItemProps"
@@ -78,7 +78,7 @@ const props = defineProps({
   modelValue: { type: Number, default: 0 },
   numbers: { type: Boolean, default: false },
   halves: { type: Boolean, default: false },
-  max: { type: Number, default: 5 },
+  max: { type: [Number, String], default: 5 },
   texts: { type: Array as PropType<string[]>, default: () => [] },
 
   ariaLabel: { type: String, default: '$t:currentRating' },
@@ -102,15 +102,16 @@ const {
 const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
 
 const onArrowKeyPress = (direction: 1 | -1) => {
+  const max = Number(props.max)
   const step = props.halves ? RatingValue.HALF : RatingValue.FULL
   const nextStep = visibleValue.value + step * direction
   const min = props.clearable ? 0 : step
-  if (nextStep >= min && nextStep <= props.max) {
+  if (nextStep >= min && nextStep <= max) {
     onItemValueUpdate(visibleValue.value, step * direction)
   } else if (nextStep < min) {
     onItemValueUpdate(min, 0)
   } else {
-    onItemValueUpdate(props.max, direction === -1 ? step * direction : 0)
+    onItemValueUpdate(max, direction === -1 ? step * direction : 0)
   }
 }
 
