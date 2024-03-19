@@ -11,7 +11,7 @@ type FormParentOptions = {
 }
 
 export const createFormContext = <Names extends string>(options: FormParentOptions) => {
-  const fields = ref(new Map<number, FormFiled<Names>>())
+  const fields = ref(new Map<string, FormFiled<Names>>())
 
   return {
     // Vue unwrap ref automatically, but types are not for some reason
@@ -21,11 +21,11 @@ export const createFormContext = <Names extends string>(options: FormParentOptio
     doShowErrorMessages: computed(() => !options.hideErrorMessages),
     doShowLoading: computed(() => !options.hideLoading),
     isFormDirty: ref(false),
-    registerField: (uid: number, field: FormFiled<Names>) => {
+    registerField: (uid: string, field: FormFiled<Names>) => {
       // Vue will unwrap ref automatically, but types are not for some reason
       fields.value.set(uid, field as unknown as UnwrapRef<FormFiled<Names>>)
     },
-    unregisterField: (uid: number) => {
+    unregisterField: (uid: string) => {
       fields.value.delete(uid)
     },
   }

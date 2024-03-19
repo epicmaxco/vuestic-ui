@@ -93,7 +93,7 @@ import {
 } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
-import { generateUniqueId } from '../../utils/uuid'
+import { useComponentUuid } from '../../composables/useComponentUuid'
 
 import { VaIcon } from '../va-icon'
 import isNil from 'lodash/isNil'
@@ -178,9 +178,9 @@ const headerBackground = computed(() => {
   return props.color ? getColor(props.color) : undefined
 })
 
-const uniqueId = computed(generateUniqueId)
-const headerIdComputed = computed(() => `header-${uniqueId.value}`)
-const panelIdComputed = computed(() => `panel-${uniqueId.value}`)
+const uniqueId = useComponentUuid()
+const headerIdComputed = computed(() => `header-${uniqueId}`)
+const panelIdComputed = computed(() => `panel-${uniqueId}`)
 const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
 const headerAttributes = computed(() => ({

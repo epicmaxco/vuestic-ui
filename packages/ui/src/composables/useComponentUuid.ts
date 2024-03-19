@@ -1,12 +1,12 @@
-import { getCurrentInstance } from 'vue'
+import { getCurrentInstance, onBeforeMount } from 'vue'
+import { useAppGlobal } from './useAppGlobal'
 
 export const useComponentUuid = () => {
-  const vm = getCurrentInstance()!
+  const vm = getCurrentInstance()! as any
 
-  // WebComponents build
-  if (!vm.appContext.app) {
-    return vm.uid
-  }
+  const counter = useAppGlobal('uuidCounter', 0)
 
-  return vm.uid + vm.appContext.app._uid
+  vm.$vaUuid = vm.$vaUuid || `va-${counter.value++}`
+
+  return `va-${counter.value}`
 }

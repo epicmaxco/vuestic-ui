@@ -1,5 +1,5 @@
 import { computed, shallowReactive } from 'vue'
-import uniqueId from 'lodash/uniqueId.js'
+import { useComponentUuid } from './useComponentUuid'
 
 export type ModalInStack = {
   id: string;
@@ -9,9 +9,9 @@ export type ModalInStack = {
 const modalsStack = shallowReactive<ModalInStack[]>([])
 
 export const useModalLevel = () => {
-  const modalId = uniqueId()
+  const modalId = useComponentUuid()
   const modalLevel = computed(() =>
-    modalsStack.findIndex(({ id }) => id === modalId),
+    modalsStack.findIndex(({ id }) => id === String(modalId)),
   )
   const registerModal = () => {
     if (modalLevel.value !== -1) {
@@ -19,7 +19,7 @@ export const useModalLevel = () => {
     }
 
     modalsStack.push({
-      id: modalId,
+      id: String(modalId),
     })
   }
   const unregisterModal = () => {

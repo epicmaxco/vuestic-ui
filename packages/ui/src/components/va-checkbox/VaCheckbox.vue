@@ -59,7 +59,7 @@
 <script lang="ts">
 import { computed, PropType, shallowRef } from 'vue'
 
-import { generateUniqueId } from '../../utils/uuid'
+import { useComponentUuid } from '../../composables/useComponentUuid'
 import {
   useComponentPresetProp,
   useKeyboardOnlyFocus,
@@ -172,9 +172,9 @@ const computedIconName = computed(() => props.indeterminate && isIndeterminate.v
   : props.checkedIcon,
 )
 
-const uniqueId = computed(generateUniqueId)
-const computedId = computed(() => props.id || uniqueId.value)
-const computedName = computed(() => props.name || uniqueId.value)
+const uniqueId = useComponentUuid()
+const computedId = computed(() => props.id || String(uniqueId))
+const computedName = computed(() => props.name || String(uniqueId))
 const inputAttributesComputed = computed(() => ({
   name: computedName.value,
   disabled: props.disabled,
