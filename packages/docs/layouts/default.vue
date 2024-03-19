@@ -1,45 +1,44 @@
 <template>
-  <Suspense>
+  <div
+    class="docs-layout"
+  >
     <div
-      class="docs-layout"
+      v-if="false"
+      class="docs-layout__loader"
+    />
+    <VaLayout
+      :top="{ fixed: true, order: 2 }"
+      :left="{ fixed: true, absolute: breakpoints.smDown, overlay: breakpoints.smDown && isSidebarVisible, order: 1 }"
+      @left-overlay-click="isSidebarVisible = false"
     >
-      <div
-        v-if="false"
-        class="docs-layout__loader"
-      />
-      <VaLayout
-        :top="{ fixed: true, order: 2 }"
-        :left="{ fixed: true, absolute: breakpoints.smDown, overlay: breakpoints.smDown && isSidebarVisible, order: 1 }"
-        @left-overlay-click="isSidebarVisible = false"
-      >
-        <template #top>
-          <LayoutHeader
-            v-model:isSidebarVisible="isSidebarVisible"
-            v-model:isOptionsVisible="isOptionsVisible"
-          />
-        </template>
+      <template #top>
+        <LayoutHeader
+          v-model:isSidebarVisible="isSidebarVisible"
+          v-model:isOptionsVisible="isOptionsVisible"
+        />
+      </template>
 
-        <template #left>
-          <LayoutSidebar
-            v-model:visible="isSidebarVisible"
-            :mobile="breakpoints.xs"
-          />
-        </template>
+      <template #left>
+        <LayoutSidebar
+          v-model:visible="isSidebarVisible"
+          :mobile="breakpoints.xs"
+        />
+      </template>
 
-        <template #content>
-          <main class="docs-layout__main-content">
-            <article class="docs-layout__page-content">
+      <template #content>
+        <main class="docs-layout__main-content">
+          <article class="docs-layout__page-content">
+            <Suspense>
               <NuxtPage />
-            </article>
-          </main>
-        </template>
-      </VaLayout>
-    </div>
-  </Suspense>
+            </Suspense>
+          </article>
+        </main>
+      </template>
+    </VaLayout>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { useIsMounted } from 'vuestic-ui/src/composables/useIsMounted'
 const breakpoints = useBreakpoint()
 
 const isSidebarVisible = ref(!breakpoints.smDown)
@@ -74,8 +73,6 @@ useHead({
     { src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js', type: 'module' },
   ],
 })
-
-// const isMounted = useIsMounted()
 </script>
 
 <style lang="scss">
