@@ -1,8 +1,19 @@
 import { warn } from '../../utils/console'
 
 export const validateSlider = (value: number | number[], step: number, min: number, max: number, range: boolean) => {
-  if ((Array.isArray(value) && !range) || (!Array.isArray(value) && range)) {
-    warn(`The type "${Array.isArray(value) ? 'array' : typeof value}" of prop "model-value" does not match prop "range = ${range}".`)
+  if (Array.isArray(value)) {
+    forceMinMaxOrder(value)
+    if (!range) {
+      warn(
+        `The type "array" of prop "model-value" does not match prop "range = ${range}".`,
+      )
+    }
+  }
+
+  if (range) {
+    warn(
+      `The type "${typeof value}" of prop "model-value" does not match prop "range = ${range}".`,
+    )
   }
 
   if (max < min) {
@@ -28,4 +39,12 @@ export const validateSlider = (value: number | number[], step: number, min: numb
   }
 
   return true
+}
+
+/** mutate value if provided range min value is grater than max. i.e. [70, 30] -> [30,70] */
+function forceMinMaxOrder (value: number[]) {
+  const [min, max] = value
+  if (min > max) {
+    value.sort()
+  }
 }

@@ -262,6 +262,12 @@ const processedStyles = computed(() => {
     const val0 = ((val.value[0] - props.min) / (props.max - props.min)) * 100
     const val1 = ((val.value[1] - props.min) / (props.max - props.min)) * 100
 
+    watch(() => props.modelValue, (modelValue) => {
+      if (Array.isArray(modelValue)) {
+        val.value = modelValue.sort()
+      }
+    }, { deep: true })
+
     return {
       [pinPositionStyle.value]: `${val0}%`,
       [trackSizeStyle.value]: `${val1 - val0}%`,
