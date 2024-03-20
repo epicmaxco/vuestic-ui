@@ -39,7 +39,7 @@ export default {
   props: {
     ...useComponentPresetProp,
     speed: {
-      type: Number,
+      type: [Number, String],
       default: 20,
     },
   },
@@ -109,7 +109,7 @@ export default {
       this.isDragging = false
     },
     scroll (e) {
-      let delta = (e.deltaY * 0.01 * this.speed)
+      let delta = (e.deltaY * 0.01 * Number(this.speed))
       if (navigator?.userAgent?.toLowerCase().includes('firefox')) {
         delta *= 10
       }

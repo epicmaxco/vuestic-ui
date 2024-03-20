@@ -2,7 +2,7 @@
   <div class="va-stepper__default-controls">
     <va-button
       preset="primary"
-      :disabled="$props.modelValue <= 0"
+      :disabled="Number($props.modelValue) <= 0"
       @click="$props.stepControls.prevStep()"
     >
       {{ t('back') }}
@@ -33,7 +33,7 @@ defineOptions({
 })
 
 const props = defineProps({
-  modelValue: { type: Number, required: true },
+  modelValue: { type: [Number, String], required: true },
   steps: {
     type: Array as PropType<Step[]>,
     required: true,
@@ -47,7 +47,7 @@ const { t } = useTranslation()
 
 const isLastStep = computed(() => {
   const lastEnabledStepIndex = props.steps.length - 1
-  return props.modelValue >= lastEnabledStepIndex
+  return Number(props.modelValue) >= lastEnabledStepIndex
 })
 </script>
 
