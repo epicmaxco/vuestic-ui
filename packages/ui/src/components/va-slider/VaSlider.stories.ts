@@ -50,7 +50,7 @@ function valueToClientY (slider: HTMLElement, element: HTMLElement, newValue: nu
 
   const coordinate = element.getBoundingClientRect()
 
-  return (element.clientHeight / (max - min)) * newValue + coordinate.y
+  return (Math.round(element.offsetHeight) / (max - min)) * newValue + Math.round(coordinate.y)
 }
 
 export default {
@@ -611,6 +611,8 @@ export const Vertical: StoryFn = () => ({
 
 Vertical.play = async ({ step }) => {
   const { slider, sliderThumb, sliderTrack } = getSliderAll()
+
+  await sleep(500) // Wait when fonts are loaded
 
   await step('Change value by clicking on the slider track (vertical)', async () => {
     const clientY = valueToClientY(slider[0], sliderTrack[0], 50)
