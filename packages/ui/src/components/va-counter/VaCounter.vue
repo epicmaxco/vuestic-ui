@@ -213,7 +213,7 @@ const setCountChange = ({ target }: Event) => {
 }
 
 const getRoundDownWithStep = (value: number) => {
-  if (typeof Number(min.value) === 'undefined' || !Number(step.value)) { return value }
+  if (typeof min.value === 'undefined' || !Number(step.value)) { return value }
 
   // If the user enters a value manually, then we must round it to the nearest valid value,
   // taking into account the initial value (`props.min`) and the step size (`props.step`)

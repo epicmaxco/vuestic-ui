@@ -28,9 +28,11 @@ async function dragThumbInAxis (element: HTMLElement, options: { clientX?: numbe
   const { clientX, clientY } = mergedOptions
 
   fireEvent.mouseDown(element)
+  await sleep()
   fireEvent.mouseMove(element, { clientX, clientY })
   await sleep()
   fireEvent.mouseUp(element)
+  await sleep()
 }
 
 function valueToClientX (slider: HTMLElement, element: HTMLElement, newValue: number) {
