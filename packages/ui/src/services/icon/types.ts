@@ -14,8 +14,8 @@ export interface IconProps {
   to?: string
 }
 
-export interface IconConfigurationString extends IconProps {
-  name: string
+export interface IconConfigurationString<Name extends string = string> extends IconProps {
+  name: Name
   resolve?: ((dynamicSegments: {[dynamicSegment: string]: string }) => IconProps)
 }
 
@@ -25,7 +25,7 @@ export interface IconConfigurationRegex extends IconProps {
   resolveFromRegex?: ((...regexGroupValues: string[]) => IconProps)
 }
 
-export type IconConfiguration = IconConfigurationString | IconConfigurationRegex
+export type IconConfiguration<Name extends string = string> = IconConfigurationString<Name> | IconConfigurationRegex
 
 export type IconConfig = IconConfiguration[]
 
