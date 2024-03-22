@@ -31,7 +31,7 @@ export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>
 
     const globalConfig = getGlobalConfig()
 
-    if (globalConfig.routerComponent) { return globalConfig.routerComponent }
+    if (globalConfig.routerComponent && props.to) { return globalConfig.routerComponent }
 
     if (props.to) { return 'router-link' }
 
