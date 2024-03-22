@@ -83,8 +83,6 @@
 import { PropType, computed, shallowRef, useSlots } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { generateUniqueId } from '../../utils/uuid'
-
 import {
   useComponentPresetProp,
   useKeyboardOnlyFocus,
@@ -95,6 +93,7 @@ import {
 
 import { VaProgressCircle } from '../va-progress-circle'
 import { VaMessageListWrapper } from '../va-message-list'
+import { useComponentUuid } from '../../composables/useComponentUuid'
 
 defineOptions({
   name: 'VaSwitch',
@@ -208,7 +207,8 @@ const trackLabelStyle = computed(() => ({
 
 const slots = useSlots()
 
-const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
+const componentId = useComponentUuid()
+const ariaLabelIdComputed = computed(() => `aria-label-id-${componentId}`)
 const inputAttributesComputed = computed(() => ({
   id: props.id || undefined,
   name: props.name || undefined,

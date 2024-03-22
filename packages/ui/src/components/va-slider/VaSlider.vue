@@ -171,12 +171,11 @@ import {
   useSlots,
 } from 'vue'
 import pick from 'lodash/pick.js'
-
-import { generateUniqueId } from '../../utils/uuid'
 import { useComponentPresetProp, useColors, useArrayRefs, useBem, useStateful, useStatefulProps, useTranslation } from '../../composables'
 import { validateSlider } from './validateSlider'
 
 import { VaIcon } from '../va-icon'
+import { useComponentUuid } from '../../composables/useComponentUuid'
 
 defineOptions({
   name: 'VaSlider',
@@ -640,7 +639,8 @@ const unbindEvents = () => {
   document.removeEventListener('keydown', moveWithKeys)
 }
 
-const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
+const componentId = useComponentUuid()
+const ariaLabelIdComputed = computed(() => `aria-label-id-${componentId}`)
 
 const { tp } = useTranslation()
 const slots = useSlots()
