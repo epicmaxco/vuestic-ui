@@ -34,9 +34,10 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { computed, ref, type PropType, watch, UnwrapRef } from 'vue'
+import { computed, ref, type PropType, watch } from 'vue'
 import { VaMessageList } from '../va-message-list'
-import { useValidation, useValidationEmits, useValidationProps, ValidationProps, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import { useValidation, useValidationEmits, useValidationProps, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import type { ValidationProps } from '../../composables/useValidation'
 
 const props = defineProps({
   ...useStatefulProps,

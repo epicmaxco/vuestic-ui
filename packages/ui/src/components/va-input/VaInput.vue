@@ -56,13 +56,14 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 import {
   useComponentPresetProp,
   useFormFieldProps,
-  useValidation, useValidationProps, useValidationEmits, ValidationProps,
+  useValidation, useValidationProps, useValidationEmits,
   useEmitProxy,
   useClearable, useClearableProps, useClearableEmits,
   useTranslation,
   useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
   useFocusable, useFocusableProps, useEvent,
 } from '../../composables'
+import type { ValidationProps } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
 import type { AnyStringPropType } from '../../utils/types/prop-type'

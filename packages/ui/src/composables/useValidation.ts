@@ -1,13 +1,13 @@
 import {
   watch,
   computed,
-  PropType,
-  ExtractPropTypes,
+  type PropType,
+  type ExtractPropTypes,
   nextTick,
   type WritableComputedRef,
   ref,
   toRef,
-  Ref,
+  type Ref,
   watchEffect,
 } from 'vue'
 import flatten from 'lodash/flatten.js'
@@ -17,7 +17,7 @@ import isString from 'lodash/isString.js'
 import { useSyncProp } from './useSyncProp'
 import { useFocus } from './useFocus'
 import { useFormChild } from './useForm'
-import { ExtractReadonlyArrayKeys } from '../utils/types/readonly-array-keys'
+import { type ExtractReadonlyArrayKeys } from '../utils/types/readonly-array-keys'
 import { watchSetter } from './../utils/watch-setter'
 
 export type ValidationRule<V = any> = ((v: V) => any | string) | Promise<((v: V) => any | string)>
