@@ -76,7 +76,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, computed, ref, useSlots } from 'vue'
+import { PropType, computed, useSlots } from 'vue'
 import omit from 'lodash/omit.js'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
