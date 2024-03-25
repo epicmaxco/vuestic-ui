@@ -12,7 +12,10 @@ export default
     clickAppendInner: "The event is triggered by clicking on the `appendInner` slot",
     updateModelValue: "The event is triggered when the component needs to change the model. Is also used by `v-model` and must be listed after the `v-model`",
     updateFocused: "The event is triggered when the component needs to toggle the focus",
-    eventArgument: "The event argument is:"
+    eventArgument: "The event argument is:",
+    'updateDirty': "Fires when the dirty state changes",
+    'updateError': "Fires when the error state changes",
+    'updateErrorMessages': "Fires when the error messages change",
   },
   props: {
     ariaLabel: "Sets the `aria-label` attribute.",
@@ -112,6 +115,8 @@ export default
     teleport: "Element where content will be rendered",
     visibleCellsCount: "Count of time cells to display",
     hidePeriodSwitch: "Hide period column",
+    dirty: "Sets the dirty state of the component",
+    clearValue: "Component value that will be used as new value when component is cleared",
   },
   slots: {
     scopeAvailable: "Slot scope available:"
