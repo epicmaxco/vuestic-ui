@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { computed, ref, type PropType, watch } from 'vue'
+import { computed, ref, type PropType, watchEffect } from 'vue'
 import { VaMessageList } from '../va-message-list'
 import { useValidation, useValidationEmits, useValidationProps, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
 import type { ValidationProps } from '../../composables/useValidation'
@@ -86,9 +86,9 @@ const messagesColor = computed(() => {
 
 const innerValue = ref(valueComputed.value)
 
-watch(innerValue, () => {
-  valueComputed.value = innerValue.value as unknown as any
-}, { deep: true })
+watchEffect(() => {
+  innerValue.value = valueComputed.value as unknown as any
+})
 
 const makeSlotRef = () => {
   return new Proxy(valueComputed, {
@@ -102,6 +102,7 @@ const makeSlotRef = () => {
     set (_, key, value) {
       if (key === 'ref') {
         innerValue.value = value
+        valueComputed.value = value
         return true
       }
 
