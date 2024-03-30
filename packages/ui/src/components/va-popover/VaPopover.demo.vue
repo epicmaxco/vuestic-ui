@@ -188,6 +188,18 @@
             </va-popover>
           </td>
         </tr>
+        <tr>
+          <td>Content Class</td>
+          <td>
+            <va-popover
+              message="Popover Content Class with Large padding"
+              class="mr-6"
+              content-class="demo-popper-content-class"
+            >
+              <va-button>Content Class</va-button>
+            </va-popover>
+          </td>
+        </tr>
       </table>
     </VbCard>
   </VbDemo>
@@ -205,5 +217,11 @@ export default {
 .table {
   border-collapse: separate;
   border-spacing: 1rem;
+}
+</style>
+
+<style>
+.demo-popper-content-class {
+  --va-popover-content-padding: 2rem;
 }
 </style>

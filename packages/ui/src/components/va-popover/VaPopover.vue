@@ -11,6 +11,7 @@
         :style="computedPopoverStyle"
         class="va-popover__content"
         role="tooltip"
+        :class="$props.contentClass"
       >
         <div
           v-if="showIconComputed"
@@ -65,6 +66,7 @@ const props = defineProps({
   message: { type: String, default: '' },
   autoHide: { type: Boolean, default: true },
   offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 4 },
+  contentClass: { type: String, default: '' },
 })
 
 const VaDropdownPropValues = filterComponentProps(VaDropdownProps)
