@@ -189,7 +189,16 @@ const {
   blur,
 } = useFocus(input, emit)
 
-const { valueComputed } = useStateful(props, emit)
+const { valueComputed: statefulValue } = useStateful(props, emit)
+
+function floatify (num: number | string) {
+  return parseFloat(Number(num).toFixed(10))
+}
+
+const valueComputed = computed({
+  get () { return statefulValue.value },
+  set (v) { statefulValue.value = floatify(v) },
+})
 
 const reset = () => withoutValidation(() => {
   emit('update:modelValue', props.clearValue)

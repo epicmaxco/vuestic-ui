@@ -116,6 +116,11 @@ export const Step: StoryFn = () => ({
       stateful
       :step="2"
     />
+
+    <VaCounter
+      stateful
+      :step="0.1"
+    />
   `,
 })
 
