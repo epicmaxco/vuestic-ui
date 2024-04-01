@@ -11,7 +11,8 @@ export const Default: StoryFn = () => ({
   components: { VaFormField },
   template: `
     <VaFormField #default="{ value }">
-      <input v-model="value" />
+      [FormField default slot value] {{ value }}
+      <input v-model="value.ref" />
     <VaFormField />
   `,
 })

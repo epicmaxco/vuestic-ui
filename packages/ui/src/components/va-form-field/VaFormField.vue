@@ -34,21 +34,22 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { computed, ref, type PropType, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { VaMessageList } from '../va-message-list'
-import { useValidation, useValidationEmits, useValidationProps, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
-import type { ValidationProps } from '../../composables/useValidation'
+import { useValidation, useStateful } from '../../composables'
+import { ValidationProps, validationPropsDefaults, ValidationEmits } from '../../composables/useValidation.props'
+import { StatefulProps, statefulPropsDefaults, StatefulEmits } from '../../composables/useStateful.props'
 
-const props = defineProps({
-  ...useStatefulProps,
-  ...useValidationProps as ValidationProps<T>,
-  clearValue: {
-    type: [] as PropType<T>,
-    default: null,
-  },
+type Props = StatefulProps<T> & ValidationProps<T> & {
+  clearValue?: T
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  ...statefulPropsDefaults,
+  ...validationPropsDefaults,
 })
 
-const emit = defineEmits([...useValidationEmits, ...useStatefulEmits])
+const emit = defineEmits<ValidationEmits & StatefulEmits<T>>()
 
 const { valueComputed } = useStateful(props, emit, 'modelValue')
 
@@ -91,7 +92,7 @@ watchEffect(() => {
 })
 
 const makeSlotRef = () => {
-  return new Proxy(valueComputed, {
+  return new Proxy(innerValue, {
     get (v, key) {
       if (key === 'ref') {
         return innerValue.value
