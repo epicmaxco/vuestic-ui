@@ -15,6 +15,7 @@
       class="va-switch__container"
       tabindex="-1"
       @blur="onBlur"
+      @click="toggleSelection"
     >
       <div
         class="va-switch__inner"
@@ -29,7 +30,6 @@
           @focus="onFocus"
           @blur="onBlur"
           @keypress.enter="onEnterKeyPress"
-          @change="toggleSelection"
         >
         <div
           class="va-switch__track"
