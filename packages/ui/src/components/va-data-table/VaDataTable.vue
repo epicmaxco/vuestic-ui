@@ -75,7 +75,7 @@
               >
                 <td
                   class="va-data-table__table-td no-data"
-                  :colspan="columnsComputed.length + (selectable ? 1 : 0)"
+                  colspan="99999"
                   v-html="noDataHtml"
                 />
               </tr>
@@ -87,7 +87,7 @@
               >
                 <td
                   class="va-data-table__table-td no-data"
-                  :colspan="columnsComputed.length + (selectable ? 1 : 0)"
+                  colspan="99999"
                   v-html="noDataFilteredHtml"
                 />
               </tr>
@@ -471,6 +471,7 @@ const cellData = (cellData: DataTableCell, internalColumnData: DataTableColumnIn
       .no-data {
         text-align: var(--va-data-table-no-data-text-align);
         vertical-align: var(--va-data-table-no-data-vertical-align);
+        width: 100%;
       }
     }
 
