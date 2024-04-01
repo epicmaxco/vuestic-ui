@@ -13,7 +13,7 @@ export const Default: StoryFn = () => ({
     <VaFormField #default="{ value }">
       [FormField default slot value] {{ value }}
       <input v-model="value.ref" />
-    <VaFormField />
+    </VaFormField>
   `,
 })
 
