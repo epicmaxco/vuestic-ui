@@ -91,4 +91,5 @@ export {
   VaMenuList,
   VaMenuItem,
   VaMenuGroup,
+  VaFormField,
 } from '../../components'

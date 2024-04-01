@@ -1,13 +1,13 @@
 import {
   watch,
   computed,
-  PropType,
-  ExtractPropTypes,
+  type PropType,
+  type ExtractPropTypes,
   nextTick,
   type WritableComputedRef,
   ref,
   toRef,
-  Ref,
+  type Ref,
   watchEffect,
 } from 'vue'
 import flatten from 'lodash/flatten.js'
@@ -17,7 +17,7 @@ import isString from 'lodash/isString.js'
 import { useSyncProp } from './useSyncProp'
 import { useFocus } from './useFocus'
 import { useFormChild } from './useForm'
-import { ExtractReadonlyArrayKeys } from '../utils/types/readonly-array-keys'
+import { type ExtractReadonlyArrayKeys } from '../utils/types/readonly-array-keys'
 import { watchSetter } from './../utils/watch-setter'
 
 export type ValidationRule<V = any> = ((v: V) => any | string) | Promise<((v: V) => any | string)>
@@ -37,21 +37,21 @@ const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArg
 
 export const useValidationProps = {
   name: { type: String, default: undefined },
-  modelValue: { required: false },
+  rules: { type: Array as PropType<ValidationRule<any>[]>, default: () => [] as any },
   dirty: { type: Boolean, default: false },
   error: { type: Boolean, default: undefined },
   errorMessages: { type: [Array, String] as PropType<string[] | string>, default: undefined },
   errorCount: { type: [String, Number], default: 1 },
-  rules: { type: Array as PropType<ValidationRule<any>[]>, default: () => [] as any },
   success: { type: Boolean, default: false },
   messages: { type: [Array, String] as PropType<string[] | string>, default: () => [] },
   immediateValidation: { type: Boolean, default: false },
+  modelValue: {},
 }
 
-export type ValidationProps<V> = typeof useValidationProps & {
-  modelValue: { type: PropType<V> }
-  rules: { type: PropType<ValidationRule<V>[]> }
-}
+export type ValidationProps<V, RulesArgument extends V = V> = {
+  rules: { type: PropType<ValidationRule<RulesArgument>[]>, default: () => any, required: false }
+  modelValue: { type: PropType<V>, default: V }
+} & Omit<typeof useValidationProps, 'modelValue' | 'rules'>
 
 export const useValidationEmits = ['update:error', 'update:errorMessages', 'update:dirty'] as const
 

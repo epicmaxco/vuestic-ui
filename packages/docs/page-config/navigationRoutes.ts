@@ -205,6 +205,13 @@ export const navigationRoutes: NavigationRoute[] = [
         }
       },
       {
+        name: "form-field",
+        displayName: "Form Field",
+        meta: {
+          badge: navigationBadge.new('1.9.8'),
+        }
+      },
+      {
         name: "switch",
         displayName: "Switch",
       },
