@@ -8,12 +8,10 @@ import { insertHead } from './insert-head';
 import { insertImport } from './insert-import';
 import { insertVuesticPlugin } from './insert-plugin';
 import { useVuesticConfig } from '../../composables/useVuesticConfig';
-import {rmSync} from "fs";
-import {useFiles} from "../../composables/useFiles";
+import { restructureProject } from './restructure-project';
 
 export const addVuesticToVue3App = async () => {
   const { projectName } = await useUserAnswers()
-  const { addFile, resolveCorrectExt, replaceFileContent } = await useFiles()
 
   // Install vuestic-ui
   const { addDependency } = await usePackageJson()
@@ -48,10 +46,5 @@ export const addVuesticToVue3App = async () => {
   ])
   await writeFile(htmlPath, htmlSource)
 
-  // remove base.css
-  const baseCss = resolvePath(process.cwd(), projectName, 'src/assets/base.css')
-  rmSync(baseCss, { recursive: true, force: true })
-  // replace content inside main.css
-  const mainCss = resolvePath(process.cwd(), projectName, 'src/assets/main.css')
-  await writeFile(mainCss, '')
+  await restructureProject()
 }
