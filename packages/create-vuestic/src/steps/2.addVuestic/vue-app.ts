@@ -51,9 +51,8 @@ export const addVuesticToVue3App = async () => {
   // remove base.css
   const baseCss = resolvePath(process.cwd(), projectName, 'src/assets/base.css')
   rmSync(baseCss, { recursive: true, force: true })
-  replaceFileContent('src/assets/main.css', (content) =>
-    content.replace(`@import './base.css';
-
-`, ``.trim())
-  )
+  // replace main.css
+  const mainCss = resolvePath(process.cwd(), projectName, 'src/assets/main.css')
+  rmSync(mainCss, { recursive: true, force: true })
+  await addFile('src/assets/main.css', ``.trim())
 }
