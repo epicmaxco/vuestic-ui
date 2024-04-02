@@ -74,7 +74,7 @@
           <va-stepper-controls
             v-if="!controlsHidden"
             :modelValue="modelValue"
-            :nextDisabled="nextDisabled"
+            :nextDisabled="isNextStepDisabled(modelValue)"
             :steps="steps"
             :stepControls="stepControls"
             :finishButtonHidden="finishButtonHidden"
@@ -92,7 +92,7 @@ import VaStepperStepButton from './VaStepperStepButton.vue'
 import { computed, PropType, ref, Ref, shallowRef, watch } from 'vue'
 import { useColors, useStateful, useStatefulProps, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
-import { unFunction } from '../../utils/un-function'
+import { isStepHasError } from './step'
 
 defineOptions({
   name: 'VaStepper',
@@ -125,7 +125,11 @@ const focusedStep = ref({ trigger: false, stepIndex: props.navigationDisabled ? 
 
 const { getColor } = useColors()
 
-const isNextStepDisabled = (index: number) => props.nextDisabled && index > modelValue.value
+const isNextStepDisabled = (index: number) => {
+  if (isStepHasError(props.steps[modelValue.value])) { return true }
+
+  return props.nextDisabled && index > modelValue.value
+}
 
 const findFirstNonDisabled = (from: number, direction: number) => {
   while (from >= 0 && from < props.steps.length) {
@@ -147,7 +151,7 @@ const findFirstWithErrorIndex = (from: number, direction: number) => {
     if (!step) {
       return
     }
-    if (step.hasError === true) {
+    if (isStepHasError(step) === true) {
       return from
     }
   }
@@ -187,7 +191,7 @@ const validateMovingToStep = (stepIndex: number): boolean => {
   }
 
   // Check if currentStep has error after beforeLeave function
-  if (props.linear && unFunction(currentStep.hasError, currentStep)) { return false }
+  if (props.linear && isStepHasError(currentStep)) { return false }
 
   return true
 }
@@ -294,6 +298,7 @@ const getIterableSlotData = (step: Step, index: number) => ({
   isPrevStepDisabled: index === 0,
   index,
   step,
+  hasError: isStepHasError(step),
 })
 
 const { tp } = useTranslation()
@@ -314,7 +319,7 @@ const ariaAttributesComputed = computed(() => ({
 }))
 
 function getStepperButtonColor (index: number) {
-  return props.steps[index]?.hasError ? 'danger' : getColor(props.color)
+  return isStepHasError(props.steps[index]) ? 'danger' : getColor(props.color)
 }
 
 const completeStep = (shouldCompleteStep?: boolean) => {
