@@ -13,7 +13,7 @@
     >
       <textarea
         v-model="valueComputed"
-        v-bind="{ ...computedProps, ...listeners, ...validationAriaAttributes }"
+        v-bind="{ ...computedProps, ...listeners, ...validationAriaAttributes, ...validationListeners }"
         class="va-textarea__textarea"
         ref="textarea"
         :rows="rows"
@@ -23,8 +23,6 @@
         :class="{
           'va-textarea__textarea--autosize': autosize,
         }"
-        @focus="validationListeners.onFocus"
-        @blur="validationListeners.onBlur"
       />
     </div>
   </VaInputWrapper>

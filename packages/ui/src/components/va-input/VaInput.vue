@@ -157,10 +157,11 @@ const { tp } = useTranslation()
 
 const {
   isValid,
+  isTouched,
   isDirty,
   computedError,
   computedErrorMessages,
-  listeners: { onBlur, onFocus },
+  listeners: { onBlur },
   validationAriaAttributes,
   isLoading,
   withoutValidation,
@@ -179,7 +180,6 @@ const inputListeners = createInputListeners(emit)
 
 const inputEvents = {
   ...inputListeners,
-  onFocus: combineFunctions(onFocus, inputListeners.onFocus),
   onBlur: combineFunctions(onBlur, inputListeners.onBlur),
   onInput: combineFunctions(onInput, inputListeners.onInput),
 }
@@ -259,6 +259,7 @@ const fieldListeners = createFieldListeners(emit)
 defineExpose({
   isValid,
   isDirty,
+  isTouched,
   isLoading,
   computedError,
   computedErrorMessages,

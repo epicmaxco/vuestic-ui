@@ -664,6 +664,119 @@ DirtyForm.play = async ({ canvasElement, step }) => {
   })
 }
 
+export const TouchedForm: StoryFn = () => ({
+  components: { VaForm, VaInput, VaButton },
+
+  setup () {
+    const { isValid, isTouched } = useForm('form')
+
+    return {
+      isTouched,
+      isValid,
+    }
+  },
+
+  template: `
+    <p id="form-touched">[form-touched]: {{ isTouched }}</p>
+    <p id="form-valid">[form-valid]: {{ isValid }}</p>
+    <p id="input-touched">[input-touched]: {{ $refs.input?.isTouched }}</p>
+    <p id="input-valid">[input-valid]: {{ $refs.input?.isValid }}</p>
+    <va-form ref="form">
+      <va-input data-testid="input" :rules="[(v) => v.length > 2]" stateful ref="input" />
+    </va-form>
+    <va-button @click="$refs.form.validate()">
+      Validate
+    </va-button>
+    <va-button @click="$refs.form.resetValidation()">
+      Reset validation
+    </va-button>
+    <va-button @click="$refs.form.reset()">
+      Reset
+    </va-button>
+  `,
+})
+
+TouchedForm.play = async ({ canvasElement, step }) => {
+  const canvas = within(canvasElement)
+  const input = canvas.getByTestId('input')
+  const validateButton = canvas.getByRole('button', { name: 'Validate' }) as HTMLElement
+  const resetValidationButton = canvas.getByRole('button', { name: 'Reset validation' }) as HTMLElement
+  const resetButton = canvas.getByRole('button', { name: 'Reset' }) as HTMLElement
+
+  const resetValidation = async () => await userEvent.click(resetValidationButton)
+  const reset = async () => await userEvent.click(resetButton)
+  const validate = async () => await userEvent.click(validateButton)
+
+  const isFormValid = () => canvasElement.querySelector('#form-valid')?.innerHTML.includes('true')
+  const isFormTouched = () => canvasElement.querySelector('#form-touched')?.innerHTML.includes('true')
+  const isInputValid = () => canvasElement.querySelector('#input-valid')?.innerHTML.includes('true')
+  const isInputVisuallyValid = () => !input.classList.contains('va-input-wrapper--error')
+  const isInputTouched = () => canvasElement.querySelector('#input-touched')?.innerHTML.includes('true')
+
+  await step('Form is not touched and invalid input', async () => {
+    expect(isFormValid()).toBeFalsy()
+    expect(isFormTouched()).toBeFalsy()
+    expect(isInputValid()).toBeFalsy()
+    expect(isInputTouched()).toBeFalsy()
+
+    // Looks like VALID if NOT DIRTY
+    expect(isInputVisuallyValid()).toBeTruthy()
+  })
+
+  await step('Form is touched and invalid input', async () => {
+    await userEvent.blur(input)
+
+    expect(isFormValid()).toBeFalsy()
+    expect(isFormTouched()).toBeTruthy()
+    expect(isInputValid()).toBeFalsy()
+    expect(isInputTouched()).toBeTruthy()
+
+    sleep(100)
+
+    // Looks like INVALID if DIRTY
+    expect(isInputVisuallyValid()).toBeTruthy()
+  })
+
+  await step('Form is touched and valid input', async () => {
+    await userEvent.type(input, '123')
+
+    expect(isFormValid()).toBeTruthy()
+    expect(isFormTouched()).toBeTruthy()
+    expect(isInputValid()).toBeTruthy()
+    expect(isInputTouched()).toBeTruthy()
+
+    // Looks like VALID if VALID and DIRTY
+    expect(isInputVisuallyValid()).toBeTruthy()
+  })
+
+  await step('Form is not touched and valid input after validation reset', async () => {
+    await resetValidation()
+
+    expect(isFormValid()).toBeTruthy()
+    expect(isFormTouched()).toBeFalsy()
+    expect(isInputValid()).toBeTruthy()
+    expect(isInputTouched()).toBeFalsy()
+
+    // VALID because it's not DIRTY
+    expect(isInputVisuallyValid()).toBeTruthy()
+  })
+
+  await step('Form and input are invalid after reset is called on form', async () => {
+    await userEvent.blur(input)
+    await reset()
+
+    expect(input.innerText).toBe('')
+
+    expect(isFormValid()).toBeFalsy()
+    expect(isFormTouched()).toBeFalsy()
+    expect(isInputValid()).toBeFalsy()
+    expect(isInputTouched()).toBeFalsy()
+
+    // VALID because it's not DIRTY
+    expect(isInputVisuallyValid()).toBeTruthy()
+  })
+}
+
 export const ValidateAsync: StoryFn = () => ({
   components: { VaForm, VaInput, VaButton },
 

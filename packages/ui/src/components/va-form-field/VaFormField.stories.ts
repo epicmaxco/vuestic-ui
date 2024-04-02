@@ -25,10 +25,11 @@ export const Invalid: StoryFn = () => ({
     }
   },
   template: `
-    <VaFormField v-model="value" :rules="[(v) => v.length > 2 || 'Max length is 2']" #default="{ isValid, isDirty, errorMessages }">
+    <VaFormField v-model="value" :rules="[(v) => v.length < 2 || 'Max length is 2']" #default="{ isValid, isDirty, errorMessages, value }" :dirty="true">
       [IsValid]: {{ isValid }}
       [IsDirty]: {{ isDirty }}
       [ErrorMessages]: {{ errorMessages }}
+      <input v-model="value.ref" />
     </VaFormField>
   `,
 })
@@ -41,7 +42,7 @@ export const Focus: StoryFn = () => ({
     }
   },
   template: `
-    <VaFormField v-model="value" :rules="[(v) => v.length > 0 || 'Required', (v) => v.length > 3 || 'Max length']"  #default="{ bind }">
+    <VaFormField v-model="value" :rules="[(v) => v.length < 0 || 'Required', (v) => v.length > 3 || 'Max length']"  #default="{ bind }">
       <input v-model="value" v-bind="bind" />
     </VaFormField>
   `,

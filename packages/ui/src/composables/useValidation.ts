@@ -15,7 +15,6 @@ import isFunction from 'lodash/isFunction.js'
 import isString from 'lodash/isString.js'
 
 import { useSyncProp } from './useSyncProp'
-import { useFocus } from './useFocus'
 import { useFormChild } from './useForm'
 import { type ExtractReadonlyArrayKeys } from '../utils/types/readonly-array-keys'
 import { watchSetter } from './../utils/watch-setter'
@@ -64,12 +63,19 @@ const useDirtyValue = (
   props: ExtractPropTypes<typeof useValidationProps>,
   emit: (event: ExtractReadonlyArrayKeys<typeof useValidationEmits>, ...args: any[]) => void,
 ) => {
-  const isDirty = ref(false)
+  const isDirty = ref(props.dirty || false)
 
   watchSetter(value, () => {
     isDirty.value = true
     emit('update:dirty', true)
   })
+
+  watch(value, (newValue, oldValue) => {
+    // Watch only if object keys changed, not the object itself
+    if (newValue === oldValue) {
+      isDirty.value = true
+    }
+  }, { deep: true })
 
   watch(() => props.dirty, (newValue) => {
     if (isDirty.value === newValue) { return }
@@ -77,6 +83,17 @@ const useDirtyValue = (
   })
 
   return { isDirty }
+}
+
+const useTouched = () => {
+  const isTouched = ref(false)
+
+  const onBlur = () => {
+    console.log('blur', isTouched.value)
+    isTouched.value = true
+  }
+
+  return { isTouched, onBlur }
 }
 
 const useOncePerTick = <T extends (...args: any[]) => any>(fn: T) => {
@@ -97,40 +114,41 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
   options: UseValidationOptions,
 ) => {
   const { reset, focus } = options
-  const { isFocused, onFocus, onBlur } = useFocus()
-
-  const [computedError] = useSyncProp('error', props, emit, false)
-  const [computedErrorMessages] = useSyncProp('errorMessages', props, emit, [] as string[])
+  const [isError] = useSyncProp('error', props, emit, false)
+  const [errorMessages] = useSyncProp('errorMessages', props, emit, [] as string[])
   const isLoading = ref(false)
+  const { isTouched, onBlur } = useTouched()
 
   const validationAriaAttributes = computed(() => ({
-    'aria-invalid': computedError.value,
-    'aria-errormessage': typeof computedErrorMessages.value === 'string'
-      ? computedErrorMessages.value
-      : computedErrorMessages.value.join(', '),
+    'aria-invalid': isError.value,
+    'aria-errormessage': typeof errorMessages.value === 'string'
+      ? errorMessages.value
+      : errorMessages.value.join(', '),
   }))
 
   const resetValidation = () => {
-    computedError.value = false
-    computedErrorMessages.value = []
+    errorMessages.value = []
+    isError.value = false
     isDirty.value = false
+    isTouched.value = false
+    isLoading.value = false
   }
 
   const processResults = (results: any[]) => {
     let error = false
-    let errorMessages: string[] = []
+    let eMessages: string[] = []
 
     results.forEach((result: any) => {
       if (isString(result)) {
-        errorMessages = [...errorMessages, result]
+        eMessages = [...eMessages, result]
         error = true
       } else if (result === false) {
         error = true
       } // Ignore if result is Promise
     })
 
-    computedErrorMessages.value = errorMessages
-    computedError.value = error
+    errorMessages.value = eMessages
+    isError.value = error
 
     return !error
   }
@@ -179,22 +197,22 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
   })
 
   watchEffect(() => validate())
-  watch(isFocused, (newVal) => !newVal && validate())
 
   const { isDirty } = useDirtyValue(options.value, props, emit)
 
   const {
-    doShowErrorMessages,
     // Renamed to forceHideError because it's not clear what it does
-    doShowError,
-    doShowLoading,
-    isFormImmediate,
-    isFormDirty,
+    forceHideErrors,
+    forceHideLoading,
+    forceHideErrorMessages,
+    forceDirty,
+    immediate: isFormImmediate,
   } = useFormChild({
+    isTouched,
     isDirty,
-    isValid: computed(() => !computedError.value),
+    isValid: computed(() => !isError.value),
     isLoading: isLoading,
-    errorMessages: computedErrorMessages,
+    errorMessages: errorMessages,
     validate,
     validateAsync,
     resetValidation,
@@ -225,19 +243,25 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 
   return {
     isDirty,
-    isValid: computed(() => !computedError.value),
+    isValid: computed(() => !isError.value),
+    isError: isError,
+    isTouched,
+    isLoading: computed(() => forceHideLoading.value ? false : isLoading.value),
     computedError: computed(() => {
-      // Hide error if component haven't been interacted yet
-      // Ignore dirty state if immediateValidation is true
-      if (!isFormDirty.value) {
-        if (!immediateValidation.value && !isDirty.value) { return false }
+      if (forceHideErrors.value) { return false }
+
+      if (immediateValidation.value) {
+        return isError.value
       }
 
-      return doShowError.value ? computedError.value : false
+      if (isTouched.value || isDirty.value || forceDirty.value) {
+        return isError.value
+      }
+
+      return false
     }),
-    computedErrorMessages: computed(() => doShowErrorMessages.value ? computedErrorMessages.value : []),
-    isLoading: computed(() => doShowLoading.value ? isLoading.value : false),
-    listeners: { onFocus, onBlur },
+    computedErrorMessages: computed(() => forceHideErrorMessages.value ? [] : errorMessages.value),
+    listeners: { onBlur },
     validate,
     resetValidation,
     withoutValidation,

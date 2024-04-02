@@ -44,7 +44,20 @@ export const userEvent = {
 
   focus: async (element: Element, options?: { delay?: number }) => {
     if ('focus' in element) {
-      (element as HTMLElement).focus()
+      (element as HTMLElement).focus();
+      (element as HTMLElement).dispatchEvent(new FocusEvent('focus'));
+    }
+
+    const defaultOptions = { delay: 0 }
+    const mergedOptions = { ...defaultOptions, ...options }
+
+    await sleep(mergedOptions.delay)
+  },
+
+  blur: async (element: Element, options?: { delay?: number }) => {
+    if ('blur' in element) {
+      (element as HTMLElement).blur();
+      (element as HTMLElement).dispatchEvent(new FocusEvent('blur'));
     }
 
     const defaultOptions = { delay: 0 }

@@ -275,7 +275,6 @@ const computedInputListeners = ({
 
     if (props.readonly) { return }
     onFocus()
-    listeners.onFocus()
   },
   blur: () => {
     if (props.disabled) { return }
