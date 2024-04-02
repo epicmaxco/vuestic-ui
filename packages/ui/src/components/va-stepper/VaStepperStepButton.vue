@@ -51,6 +51,7 @@ const emit = defineEmits(['update:modelValue'])
 
 const stepElement = shallowRef<HTMLElement>()
 const hasError = computed(() => isStepHasError(props.step))
+const displayError = computed(() => hasError.value && props.modelValue === props.stepIndex)
 const { getColor } = useColors()
 const stepperColor = computed(() => getColor(hasError.value ? 'danger' : props.color))
 
@@ -62,7 +63,7 @@ const computedClass = useBem('va-stepper__step-button', () => ({
   active: props.modelValue >= props.stepIndex,
   disabled: props.step.disabled || isNextStepDisabled(props.stepIndex),
   'navigation-disabled': props.navigationDisabled,
-  error: hasError.value,
+  error: displayError.value,
 }))
 
 watch(() => props.focus, () => {

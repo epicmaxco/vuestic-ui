@@ -111,6 +111,7 @@ const props = defineProps({
   navigationDisabled: { type: Boolean, default: false },
   controlsHidden: { type: Boolean, default: false },
   nextDisabled: { type: Boolean, default: false },
+  nextDisabledOnError: { type: Boolean, default: false },
   finishButtonHidden: { type: Boolean, default: false },
   ariaLabel: { type: String, default: '$t:progress' },
   linear: { type: Boolean, default: false },
@@ -126,7 +127,7 @@ const focusedStep = ref({ trigger: false, stepIndex: props.navigationDisabled ? 
 const { getColor } = useColors()
 
 const isNextStepDisabled = (index: number) => {
-  if (isStepHasError(props.steps[modelValue.value])) { return true }
+  if (props.nextDisabledOnError && isStepHasError(props.steps[index])) { return true }
 
   return props.nextDisabled && index > modelValue.value
 }

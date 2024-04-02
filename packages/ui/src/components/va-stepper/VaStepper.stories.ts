@@ -13,6 +13,36 @@ export const Default: StoryFn = () => ({
   template: '<VaStepperDemo/>',
 })
 
+export const NextDisabled: StoryFn = () => ({
+  components: { VaStepper },
+
+  setup () {
+    return {
+      steps: [
+        { label: 'Step 1' },
+        { label: 'Step 2' },
+        { label: 'Step 3' },
+      ],
+      currentStep: ref(0),
+    }
+  },
+
+  template: `
+    [current]: {{ currentStep }}
+    <VaStepper :steps="steps" v-model="currentStep" next-disabled>
+      <template #step-content-0>
+        Step 1
+      </template>
+      <template #step-content-1>
+        Step 2
+      </template>
+      <template #step-content-2>
+        Step 3
+      </template>
+    </VaStepper>
+  `,
+})
+
 export const NextDisabledWhenHasError: StoryFn = () => ({
   components: { VaStepper },
 
@@ -32,7 +62,7 @@ export const NextDisabledWhenHasError: StoryFn = () => ({
 
   template: `
     [current]: {{ currentStep }}
-    <VaStepper :steps="steps" v-model="currentStep">
+    <VaStepper :steps="steps" v-model="currentStep" nextDisabledOnError>
 
     <template
       v-for="(step, i) in steps"

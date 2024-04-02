@@ -89,7 +89,6 @@ const useTouched = () => {
   const isTouched = ref(false)
 
   const onBlur = () => {
-    console.log('blur', isTouched.value)
     isTouched.value = true
   }
 
