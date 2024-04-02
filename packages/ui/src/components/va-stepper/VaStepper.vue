@@ -129,7 +129,7 @@ const { getColor } = useColors()
 const isNextStepDisabled = (index: number) => {
   if (props.nextDisabledOnError && isStepHasError(props.steps[index])) { return true }
 
-  return props.nextDisabled && index > modelValue.value
+  return props.nextDisabled
 }
 
 const findFirstNonDisabled = (from: number, direction: number) => {
