@@ -10,7 +10,7 @@ const vuesticLogo = `<svg
     fill="none"
     viewBox="0 0 180 20"
   ><path
-    fill="#154EC1"
+    fill="#ffffff"
     d="M170.47 8.9c-1.14 0-1.99-.33-2.54-.99-.56-.66-.83-1.7-.83-3.08V.63h2.15v4.45c0 .72.1 1.23.29 1.53.2.3.51.44.94.44.42 0 .73-.15.93-.44.21-.3.31-.81.31-1.54V.63h2.08v4.2c0 1.4-.27 2.43-.81 3.1-.55.65-1.38.98-2.52.98ZM176.8 8.75V.62h2.15v8.13h-2.15Z"
   /><path
     fill="url(#paint0_linear)"
@@ -22,54 +22,82 @@ const vuesticLogo = `<svg
     y1="10"
     y2="10"
     gradientUnits="userSpaceOnUse"
-  ><stop stop-color="#154EC1" /><stop
-    stop-color="#154EC1"
+  ><stop stop-color="#ffffff" /><stop
+    stop-color="#ffffff"
     offset="1"
   /></linearGradient></defs></svg>`
 
-const basicTempate = `<template></template>`.trim()
+const basicTemplate = `<template></template>`.trim()
 
-const appWithRouterTemplate = `
+const appTemplate = `
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+const nextSteps = [
+  { icon: 'settings', title: 'Configuration', text: 'Deeply customize your project with our convenient mechanism.', link: 'https://ui.vuestic.dev/getting-started/configuration-guide'},
+  { icon: 'handshake', title: 'Contribution', text: 'Become a part of the ongoing development of Vuestic UI.', link: 'https://ui.vuestic.dev/contribution/guide'},
+  { icon: 'group', title: 'Community', text: 'Join our friendly community.', link: 'https://discord.gg/u7fQdqQt8c'},
+  { icon: 'dashboard', title: 'Tree shaking', text: 'Optimize your bundle size.', link: 'https://ui.vuestic.dev/getting-started/tree-shaking'},
+  { icon: 'dashboard', title: 'Kitchensink', text: 'Showcase of all components.', link: 'https://ui.vuestic.dev/getting-started/kitchensink'},
+  { icon: 'star', title: 'Vuestic Admin', text: 'Try our admin template project.', link: 'https://admin.vuestic.dev/'},
+]
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
-</template>`.trim()
-
-const appWithoutRouterTemplate = `
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
-<template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
+    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="300" height="125" />
   </header>
 
   <main>
-    Welcome to the main page!
+    <h5 class="va-h5 mb-1 va-text-center">
+      Congratulations!
+    </h5>
+    <h5 class="va-h5 va-text-center">You've successfully installed the project.</h5>
+
+    <h5 class="va-h6 mt-5 va-text-center">What's next?</h5>
+    <div>
+      <div class="mt-5 row steps-row">
+        <div v-for="step in nextSteps" class="flex flex-col xs12 md6 pa-3">
+          <VaCard
+            :href="step.link"
+            target="_blank"
+          >
+            <VaCardTitle><VaIcon class="mr-2" :name="step.icon"></VaIcon>{{ step.title }}</VaCardTitle>
+            <VaCardContent>
+              {{ step.text }}
+            </VaCardContent>
+          </VaCard>
+        </div>
+      </div>
+
+    </div>
   </main>
 </template>
+
+`.trim()
+
+const mainCssStyles = `
+body {
+  margin: 0;
+}
+
+html {
+  background-color: #2450be;
+}
+
+#app {
+  min-height: 100vh;
+  height: 100%;
+  background: linear-gradient(180deg, #2450be, #557de2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fafafa;
+  padding: 2rem;
+}
+
+.steps-row {
+  max-width: 800px;
+}
+
 `.trim()
 
 const restructureProjectWithRouter = async () => {
@@ -79,16 +107,16 @@ const restructureProjectWithRouter = async () => {
   const aboutViewPath = resolvePath(process.cwd(), projectName, 'src/views/AboutView.vue')
   const homeViewPath = resolvePath(process.cwd(), projectName, 'src/views/HomeView.vue')
 
-  await writeFile(homeViewPath, basicTempate)
-  await writeFile(aboutViewPath, basicTempate)
-  await writeFile(appPath, appWithRouterTemplate)
+  await writeFile(homeViewPath, basicTemplate)
+  await writeFile(aboutViewPath, basicTemplate)
+  await writeFile(appPath, appTemplate)
 }
 
 const restructureProjectWithoutRouter = async () => {
   const { projectName } = await useUserAnswers()
   const appPath = resolvePath(process.cwd(), projectName, 'src/App.vue')
 
-  await writeFile(appPath, appWithoutRouterTemplate)
+  await writeFile(appPath, appTemplate)
 
 }
 export const restructureProject = async () => {
@@ -99,7 +127,7 @@ export const restructureProject = async () => {
   rmSync(baseCss, { recursive: true, force: true })
   // replace content inside main.css
   const mainCss = resolvePath(process.cwd(), projectName, 'src/assets/main.css')
-  await writeFile(mainCss, '')
+  await writeFile(mainCss, mainCssStyles)
 
   const iconsFolderPath = resolvePath(process.cwd(), projectName, 'src/components/icons/')
   const theWelcomePath = resolvePath(process.cwd(), projectName, 'src/components/TheWelcome.vue')
@@ -110,7 +138,7 @@ export const restructureProject = async () => {
   rmSync(welcomeItemPath, { recursive: true, force: true })
 
   const helloWorldPath = resolvePath(process.cwd(), projectName, 'src/components/HelloWorld.vue')
-  await writeFile(helloWorldPath, basicTempate)
+  await writeFile(helloWorldPath, basicTemplate)
 
   // replace logo
   const logoPath = resolvePath(process.cwd(), projectName, 'src/assets/logo.svg')
