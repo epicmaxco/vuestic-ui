@@ -452,7 +452,6 @@ const cellData = (cellData: DataTableCell, internalColumnData: DataTableColumnIn
 
     .va-data-table__table-thead {
       color: var(--va-data-table-thead-color);
-      border-bottom: var(--va-data-table-thead-border);
 
       th {
         border-bottom: none;
