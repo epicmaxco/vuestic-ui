@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { resolve } from 'pathe';
 import { existsSync } from 'fs';
 
 export const resolvePath = (...args: string[]) => {

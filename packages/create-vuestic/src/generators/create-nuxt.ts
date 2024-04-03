@@ -11,7 +11,12 @@ export const createNuxt3 = (projectName: string) => {
 
   // --packageManager - provide package manager to the nuxt project
   // --gitInit - false since we provide our own git initialization
-  const command =`npx nuxi@latest init ${projectName} --packageManager ${packageManager} --gitInit false`
+  // --no-install - we will install dependencies later
+  const command =`npx nuxi@latest init ${projectName} --no-install --gitInit false --packageManager ${packageManager}`
 
-  return execp(command)
+  try {
+    return execp(command)
+  } catch (e) {
+    throw new Error(`Error while creating Nuxt 3 project: ${e}`)
+  }
 }

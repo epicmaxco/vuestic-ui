@@ -8,7 +8,7 @@ import { insertHead } from './insert-head';
 import { insertImport } from './insert-import';
 import { insertVuesticPlugin } from './insert-plugin';
 import { useVuesticConfig } from '../../composables/useVuesticConfig';
-import { restructureProject } from './restructure-project';
+import { restructureProject } from './vue-restructure-project';
 
 export const addVuesticToVue3App = async () => {
   const { projectName } = await useUserAnswers()

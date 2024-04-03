@@ -1,26 +1,13 @@
-export const VUESTIC_LOGO = `<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="180"
-    height="20"
-    fill="none"
-    viewBox="0 0 180 20"
-  ><path
-    fill="#ffffff"
-    d="M170.47 8.9c-1.14 0-1.99-.33-2.54-.99-.56-.66-.83-1.7-.83-3.08V.63h2.15v4.45c0 .72.1 1.23.29 1.53.2.3.51.44.94.44.42 0 .73-.15.93-.44.21-.3.31-.81.31-1.54V.63h2.08v4.2c0 1.4-.27 2.43-.81 3.1-.55.65-1.38.98-2.52.98ZM176.8 8.75V.62h2.15v8.13h-2.15Z"
-  /><path
-    fill="url(#paint0_linear)"
-    d="M7.95 19.2 0 .6h4.59l3.63 8.67L11.85.6h4.59L8.49 19.2h-.54Zm19.23-6.66V.6h4.38v11.28c0 2.4 1.14 3.24 2.67 3.24 1.68 0 2.73-.84 2.73-3.24V.6h4.41v11.94c0 4.26-3.18 6.66-7.14 6.66-4.11 0-7.05-2.52-7.05-6.66Zm26.07 6.06V.6h11.91v3.9h-7.5v3.24h6.93v3.84h-6.93v3.24h7.83v3.78H53.25Zm23.28-5.28h4.29c0 1.05.84 1.89 1.86 1.89 1.11 0 1.8-.63 1.8-1.56 0-1.35-1.77-1.74-3.24-2.25-3.03-1.08-4.71-2.49-4.71-5.58 0-3.18 2.73-5.82 6.12-5.82 3.99 0 5.88 2.55 6.12 5.88h-4.14c0-1.02-.63-1.86-1.86-1.86-.96 0-1.89.57-1.89 1.74 0 1.35 1.65 1.59 3.18 2.04 3.21.96 4.71 2.76 4.71 5.58 0 3.18-2.7 5.82-6.09 5.82-3.93 0-6.15-2.64-6.15-5.88Zm27.09 5.28V4.5H99.6V.6h12.54v3.9h-4.08v14.1h-4.44Zm19.56 0V.6h4.41v18h-4.41Zm16.47-9c0-5.37 4.05-9.6 9.75-9.6 3.42 0 5.79 1.29 7.71 3.3l-3.03 2.88a6.69 6.69 0 0 0-4.68-2.01c-3.21 0-5.28 2.4-5.28 5.43s2.07 5.43 5.28 5.43c1.8 0 3.42-.78 4.68-2.01l2.94 2.88a10.22 10.22 0 0 1-7.62 3.3c-5.7 0-9.75-4.23-9.75-9.6Z"
-  /><defs><linearGradient
-    id="paint0_linear"
-    x1="0"
-    x2="178"
-    y1="10"
-    y2="10"
-    gradientUnits="userSpaceOnUse"
-  ><stop stop-color="#ffffff" /><stop
-    stop-color="#ffffff"
-    offset="1"
-  /></linearGradient></defs></svg>`
+export const VUESTIC_LOGO = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="20" fill="none" viewBox="0 0 180 20">
+<path fill="#fff" d="M170.5 8.9c-1.2 0-2-.3-2.6-1-.5-.7-.8-1.7-.8-3V.5h2.1v4.5c0 .7.2 1.2.3 1.5.2.3.5.5 1 .5.4 0 .7-.2 1-.5l.2-1.5V.6h2.1v4.2c0 1.4-.3 2.5-.8 3.1-.6.7-1.4 1-2.5 1Zm6.3-.2v-8h2.1v8h-2.1Z"/>
+<path fill="url(#a)" d="M8 19.2 0 .6h4.6l3.6 8.7L12 .6h4.5l-8 18.6H8Zm19.2-6.7V.6h4.4v11.3c0 2.4 1.1 3.2 2.6 3.2 1.7 0 2.8-.8 2.8-3.2V.6h4.4v12c0 4.2-3.2 6.6-7.2 6.6s-7-2.5-7-6.7Zm26 6.1V.6h12v3.9h-7.5v3.2h6.9v3.9h-7v3.2h7.9v3.8H53.2Zm23.3-5.3h4.3c0 1 .9 2 1.9 2 1 0 1.8-.7 1.8-1.7 0-1.3-1.8-1.7-3.3-2.2-3-1-4.7-2.5-4.7-5.6A6 6 0 0 1 82.7 0c4 0 5.8 2.5 6 5.9h-4c0-1-.7-1.9-2-1.9-.9 0-1.8.6-1.8 1.8 0 1.3 1.6 1.5 3.2 2 3.2 1 4.7 2.8 4.7 5.6a6 6 0 0 1-6.1 5.8c-4 0-6.2-2.6-6.2-5.9Zm27.1 5.3V4.5h-4V.6h12.5v3.9h-4v14.1h-4.5Zm19.6 0V.6h4.4v18h-4.4Zm16.5-9c0-5.4 4-9.6 9.7-9.6a10 10 0 0 1 7.7 3.3l-3 2.9a6.7 6.7 0 0 0-4.7-2c-3.2 0-5.3 2.4-5.3 5.4s2 5.4 5.3 5.4c1.8 0 3.4-.8 4.7-2l3 2.9a10.2 10.2 0 0 1-7.7 3.3 9.4 9.4 0 0 1-9.8-9.6Z"/>
+<defs>
+  <linearGradient id="a" x1="0" x2="178" y1="10" y2="10" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#fff"/>
+    <stop offset="1" stop-color="#fff"/>
+  </linearGradient>
+</defs>
+</svg>`
 
 export const EMPTY_TEMPLATE = `<template></template>`.trim()
 
@@ -54,39 +41,20 @@ const nextSteps = [
             :href="step.link"
             target="_blank"
           >
-            <VaCardTitle><VaIcon class="steps-icon" :name="step.icon"></VaIcon>{{ step.title }}</VaCardTitle>
+            <VaCardTitle>
+              <VaIcon class="steps-icon" :name="step.icon"></VaIcon>{{ step.title }}
+            </VaCardTitle>
             <VaCardContent>
               {{ step.text }}
             </VaCardContent>
           </VaCard>
         </div>
       </div>
-
     </div>
   </main>
 </template>
 
-`.trim()
-
-export const MAIN_CSS_STYLES = `
-body {
-  margin: 0;
-  font-family: 'Source Sans Pro', sans-serif;
-}
-
-body,
-div {
-  box-sizing: border-box;
-}
-
-a {
-  text-decoration: none;
-}
-
-html {
-  background-color: #2450be;
-}
-
+<style>
 #app {
   min-height: 100vh;
   height: 100%;
@@ -141,5 +109,13 @@ html {
     padding: 1rem;
   }
 }
+</style>
 
 `.trim()
+
+export const MAIN_CSS_STYLES = `
+:root {
+  --va-font-family: 'Source Sans Pro', sans-serif;
+}
+
+`
