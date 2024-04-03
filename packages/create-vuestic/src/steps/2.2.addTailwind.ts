@@ -9,7 +9,7 @@ const installInVite = async () => {
   const css = resolveCorrectExt('src/assets/main', ['css', 'scss', 'sass'])
 
   return Promise.all([
-    addFile('tailwind.config.js', `
+    addFile('tailwind.config.mjs', `
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -28,7 +28,7 @@ export default {
   plugins: [],
 }
 `.trim()),
-    addFile('postcss.config.js', `
+    addFile('postcss.config.mjs', `
 export default {
   plugins: {
     tailwindcss: {},
