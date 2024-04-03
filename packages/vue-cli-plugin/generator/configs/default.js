@@ -7,7 +7,7 @@ module.exports = {
   ],
   extendPackage: {
     dependencies: {
-      'vuestic-ui': '^1.9.7',
+      'vuestic-ui': '^1.9.8',
     }
   },
   vueUse: [

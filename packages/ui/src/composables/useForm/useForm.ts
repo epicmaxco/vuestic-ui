@@ -31,6 +31,9 @@ export const useForm = <Names extends string = string>(ref: string | Ref<typeof 
     immediate: computed(() => form.value?.immediate || false),
     isLoading: computed(() => form.value?.isLoading || false),
     isDirty: computed(() => form.value?.isDirty || false),
+    isTouched: computed(() => {
+      return form.value?.isTouched || false
+    }),
     fields: computed(() => form.value?.fields ?? []),
     fieldsNamed: computed(() => form.value?.fieldsNamed ?? []),
     fieldNames: computed(() => form.value?.fieldNames ?? []),

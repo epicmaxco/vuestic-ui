@@ -1,4 +1,4 @@
-import { ref, computed, watch, UnwrapRef } from 'vue'
+import { ref, computed, watch, UnwrapRef, getCurrentInstance } from 'vue'
 
 /**
  * Returns computed that emits update:${propName} on edit.
@@ -23,6 +23,16 @@ export function useSyncProp<
   Emit extends (event: any, newValue: Props[PropName]) => any,
   ReturnValue extends NonNullable<Props[PropName]>
 > (propName: PropName, props: Props, emit: Emit, defaultValue?: ReturnValue) {
+  const vm = getCurrentInstance()
+
+  const isPropPassed = computed(() => {
+    const t = props[propName]
+
+    if (!vm?.vnode.props) { return t !== undefined }
+
+    return propName in vm.vnode.props && vm.vnode.props[propName] !== undefined
+  })
+
   if (defaultValue === undefined) {
     return [
       computed<ReturnValue>({
@@ -52,7 +62,11 @@ export function useSyncProp<
         emit(`update:${propName}`, value)
       },
       get (): ReturnValue {
-        return (props[propName] === undefined ? statefulValue.value : props[propName]) as ReturnValue
+        if (isPropPassed.value) {
+          return props[propName] as ReturnValue
+        }
+
+        return statefulValue.value as ReturnValue
       },
     }),
   ]

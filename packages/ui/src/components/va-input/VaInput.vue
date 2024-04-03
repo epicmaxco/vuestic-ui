@@ -56,13 +56,14 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 import {
   useComponentPresetProp,
   useFormFieldProps,
-  useValidation, useValidationProps, useValidationEmits, ValidationProps,
+  useValidation, useValidationProps, useValidationEmits,
   useEmitProxy,
   useClearable, useClearableProps, useClearableEmits,
   useTranslation,
   useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
   useFocusable, useFocusableProps, useEvent,
 } from '../../composables'
+import type { ValidationProps } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
 import type { AnyStringPropType } from '../../utils/types/prop-type'
@@ -156,10 +157,11 @@ const { tp } = useTranslation()
 
 const {
   isValid,
+  isTouched,
   isDirty,
   computedError,
   computedErrorMessages,
-  listeners: { onBlur, onFocus },
+  listeners: { onBlur },
   validationAriaAttributes,
   isLoading,
   withoutValidation,
@@ -178,7 +180,6 @@ const inputListeners = createInputListeners(emit)
 
 const inputEvents = {
   ...inputListeners,
-  onFocus: combineFunctions(onFocus, inputListeners.onFocus),
   onBlur: combineFunctions(onBlur, inputListeners.onBlur),
   onInput: combineFunctions(onInput, inputListeners.onInput),
 }
@@ -258,6 +259,7 @@ const fieldListeners = createFieldListeners(emit)
 defineExpose({
   isValid,
   isDirty,
+  isTouched,
   isLoading,
   computedError,
   computedErrorMessages,

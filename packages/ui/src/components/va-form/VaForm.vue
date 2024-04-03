@@ -15,6 +15,7 @@ import { watch, PropType, computed, onMounted } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { useFormParent } from '../../composables/useForm'
 import { useLocalConfigProvider } from '../../composables/useLocalConfig'
+import { Form } from '../../composables/useForm/types'
 
 const statefulProps = { stateful: true }
 
@@ -89,6 +90,7 @@ useLocalConfigProvider(computed(() => {
 const {
   immediate: immediateComputed,
   isDirty,
+  isTouched,
   formData,
   fields,
   fieldsNamed,
@@ -113,6 +115,7 @@ defineExpose({
   fieldsNamed,
   fieldNames,
   isValid,
+  isTouched,
   isLoading,
   errorMessages,
   errorMessagesNamed,
@@ -122,7 +125,7 @@ defineExpose({
   resetValidation,
   focus,
   focusInvalidField,
-})
+} satisfies Form)
 </script>
 
 <style lang='scss'>

@@ -27,6 +27,7 @@ import { VaIcon } from '../va-icon'
 import { useBem, useColors, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
 import { unFunction } from '../../utils/un-function'
+import { isStepHasError } from './step'
 
 defineOptions({
   name: 'VaStepperStepButton',
@@ -49,7 +50,8 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const stepElement = shallowRef<HTMLElement>()
-const hasError = computed(() => props.step.hasError)
+const hasError = computed(() => isStepHasError(props.step))
+const displayError = computed(() => hasError.value && props.modelValue === props.stepIndex)
 const { getColor } = useColors()
 const stepperColor = computed(() => getColor(hasError.value ? 'danger' : props.color))
 
@@ -61,7 +63,7 @@ const computedClass = useBem('va-stepper__step-button', () => ({
   active: props.modelValue >= props.stepIndex,
   disabled: props.step.disabled || isNextStepDisabled(props.stepIndex),
   'navigation-disabled': props.navigationDisabled,
-  error: unFunction(hasError.value, props.step) || false,
+  error: displayError.value,
 }))
 
 watch(() => props.focus, () => {

@@ -156,7 +156,7 @@ Target.play = async ({ canvasElement, step }) => {
 
   await step('Scrolling target shows backtop', async () => {
     target.scrollTo({ top: 400 })
-    await sleep()
+    await sleep(400)
     expect(getBacktop()).not.toBeNull()
   })
 }
