@@ -422,7 +422,7 @@ const selectOption = (option: SelectOption) => {
       valueComputed.value = addOption(option)
     }
   } else {
-    valueComputed.value = typeof option !== 'object' ? option : { ...option }
+    valueComputed.value = option
     hideAndFocus()
   }
 
