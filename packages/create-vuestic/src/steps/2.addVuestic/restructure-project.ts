@@ -35,7 +35,7 @@ const nextSteps = [
   { icon: 'settings', title: 'Configuration', text: 'Deeply customize your project with our convenient mechanism.', link: 'https://ui.vuestic.dev/getting-started/configuration-guide'},
   { icon: 'handshake', title: 'Contribution', text: 'Become a part of the ongoing development of Vuestic UI.', link: 'https://ui.vuestic.dev/contribution/guide'},
   { icon: 'group', title: 'Community', text: 'Join our friendly community.', link: 'https://discord.gg/u7fQdqQt8c'},
-  { icon: 'dashboard', title: 'Tree shaking', text: 'Optimize your bundle size.', link: 'https://ui.vuestic.dev/getting-started/tree-shaking'},
+  { icon: 'alt_route', title: 'Tree shaking', text: 'Optimize your bundle size.', link: 'https://ui.vuestic.dev/getting-started/tree-shaking'},
   { icon: 'dashboard', title: 'Kitchensink', text: 'Showcase of all components.', link: 'https://ui.vuestic.dev/getting-started/kitchensink'},
   { icon: 'star', title: 'Vuestic Admin', text: 'Try our admin template project.', link: 'https://admin.vuestic.dev/'},
 ]
@@ -47,20 +47,19 @@ const nextSteps = [
   </header>
 
   <main>
-    <h5 class="va-h5 mb-1 va-text-center">
-      Congratulations!
+    <h5 class="app-title">
+      Congratulations! <br/>You've successfully installed the project.
     </h5>
-    <h5 class="va-h5 va-text-center">You've successfully installed the project.</h5>
 
-    <h5 class="va-h6 mt-5 va-text-center">What's next?</h5>
+    <h5 class="app-text">What's next?</h5>
     <div>
-      <div class="mt-5 row steps-row">
-        <div v-for="step in nextSteps" class="flex flex-col xs12 md6 pa-3">
+      <div class="steps-row">
+        <div v-for="step in nextSteps" class="steps-column">
           <VaCard
             :href="step.link"
             target="_blank"
           >
-            <VaCardTitle><VaIcon class="mr-2" :name="step.icon"></VaIcon>{{ step.title }}</VaCardTitle>
+            <VaCardTitle><VaIcon class="steps-icon" :name="step.icon"></VaIcon>{{ step.title }}</VaCardTitle>
             <VaCardContent>
               {{ step.text }}
             </VaCardContent>
@@ -77,6 +76,16 @@ const nextSteps = [
 const mainCssStyles = `
 body {
   margin: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+body,
+div {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
 }
 
 html {
@@ -94,8 +103,48 @@ html {
   padding: 2rem;
 }
 
+.app-title {
+  font-size: 2rem;
+  margin: 0;
+  text-align: center;
+}
+
+.app-text {
+  margin: 2rem 0;
+  font-size: 1.75rem;
+  text-align: center;
+}
+
+.steps-icon {
+  margin-right: 0.5rem;
+}
+
 .steps-row {
+  margin-top: 1rem;
+  flex-direction: row;
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  min-width: 0;
   max-width: 800px;
+}
+
+@media (min-width: 0) {
+  .steps-column {
+    flex-basis: 100%;
+    flex-grow: 0;
+    max-width: 100%;
+    padding: 0.75rem 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .steps-column {
+    flex-basis: 50%;
+    flex-grow: 0;
+    max-width: 50%;
+    padding: 1rem;
+  }
 }
 
 `.trim()
