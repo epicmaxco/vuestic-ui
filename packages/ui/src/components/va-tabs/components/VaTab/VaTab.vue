@@ -1,7 +1,7 @@
 <template>
   <component
     :is="tagComputed"
-    ref="tabElement"
+    ref="rootElement"
     class="va-tab"
     role="tab"
     :aria-selected="isActive"
@@ -55,6 +55,7 @@ import {
 import { TabsViewKey, TabsView, TabComponent } from '../../types'
 
 import { VaIcon } from '../../../va-icon'
+import { unwrapEl } from '../../../../utils/unwrapEl'
 
 defineOptions({
   name: 'VaTab',
@@ -74,7 +75,8 @@ const props = defineProps({
 
 const emit = defineEmits(['click', 'keydown-enter', 'focus'])
 
-const tabElement = shallowRef<HTMLElement>()
+const rootElement = shallowRef<HTMLElement>()
+const tabElement = computed(() => unwrapEl(rootElement.value))
 
 const isActive = ref(false)
 const hoverState = ref(false)
