@@ -27,7 +27,7 @@
     "vue": "*"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.1.0",
+    "@vitejs/plugin-vue": "^5.0.4",
     "@vue/test-utils": "^2.4.1",
     "lodash": "^4.17.21",
     "nuxt": "^3.8.1",
@@ -37,7 +37,7 @@
     "ts-loader": "^9.3.0",
     "ts-node": "^10.8.1",
     "typescript": "^5",
-    "vite": "^4.2.1",
+    "vite": "^5.2.8",
     "vitest": "*",
     "vue-bundle-renderer": "0.4.1",
     "vue-tsc": "^2.0.7",
