@@ -10,9 +10,7 @@
     "build": "rm -rf dist && tsup src/ --format esm",
     "prepublishOnly": "npm run build"
   },
-  "bin": {
-    "create-vuestic": "./dist/index.js"
-  },
+  "bin": "./dist/index.js",
   "dependencies": {
     "chalk": "^5.2.0",
     "ora": "^6.1.2",

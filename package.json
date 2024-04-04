@@ -5,7 +5,7 @@
   "repository": "https://github.com/epicmaxco/vuestic-ui",
   "packageManager": "yarn@4.1.1",
   "devDependencies": {
-    "lerna": "^3.20.2",
+    "lerna": "^8.1.2",
     "syncpack": "^9.8.6",
     "yorkie": "^2.0.0"
   },
@@ -36,14 +36,11 @@
     "sandbox:web-components": "yarn workspace sandbox dev:web-components",
     "release": "yarn workspace deploy release"
   },
-  "workspaces": {
-    "packages": [
-      "packages/*",
-      "packages/extensions/*"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "gitHooks": {
-    "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD"
+    "pre-commit": "lerna run --concurrency 1 --stream precommit --since"
   },
   "engines": {
     "yarn": ">=4.0.0"
