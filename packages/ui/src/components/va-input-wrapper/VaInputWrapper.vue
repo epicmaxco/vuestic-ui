@@ -121,7 +121,17 @@
 import { computed, defineComponent, ref } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { useBem, useFormFieldProps, useValidationProps, useColors, useTextColor, useComponentPresetProp, useSyncProp, useFocusDeep } from '../../composables'
+import {
+  useBem,
+  useFormFieldProps,
+  useValidationProps,
+  useColors,
+  useTextColor,
+  useComponentPresetProp,
+  useSyncProp,
+  useFocusDeep,
+  useNumericProp,
+} from '../../composables'
 
 import { VaMessageList } from '../va-message-list'
 import VaInputLabel from './components/VaInputLabel.vue'
@@ -146,7 +156,7 @@ export default defineComponent({
     ...VaInputLabelProps,
     modelValue: { type: null, default: '' },
     counter: { type: Boolean },
-    maxLength: { type: Number, default: undefined },
+    maxLength: { type: [Number, String], default: undefined },
 
     label: { type: String, default: '' },
     placeholder: { type: String, default: '' },
@@ -191,6 +201,7 @@ export default defineComponent({
     const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
 
     const { textColorComputed } = useTextColor(backgroundComputed)
+    const maxLengthComputed = useNumericProp('maxLength').numericComputed
 
     const messagesColor = computed(() => {
       if (props.error) { return 'danger' }
@@ -201,7 +212,7 @@ export default defineComponent({
     const errorLimit = computed(() => props.error ? Number(props.errorCount) : 99)
     const isCounterVisible = computed(() => counterValue.value !== undefined)
     const counterComputed = computed(() =>
-      props.maxLength !== undefined ? `${counterValue.value}/${props.maxLength}` : counterValue.value,
+      maxLengthComputed.value !== undefined ? `${counterValue.value}/${maxLengthComputed.value}` : counterValue.value,
     )
 
     const {

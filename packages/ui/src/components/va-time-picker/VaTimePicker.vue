@@ -9,7 +9,7 @@
       :ref="setItemRef"
       :items="column.items"
       :tabindex="disabled ? -1 : 0"
-      :cell-height="$props.cellHeight"
+      :cell-height="cellHeightComputed"
       v-model:activeItemIndex="column.activeItem.value"
       @keydown.right.stop.prevent="focusNext()"
       @keydown.tab.exact.stop.prevent="focusNext()"
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, PropType } from 'vue'
+import { ref, computed, PropType, ComputedRef } from 'vue'
 import { useTimePicker } from './hooks/useTimePicker'
 
 import { VaTimePickerColumn } from './components/VaTimePickerColumn'
@@ -34,7 +34,7 @@ import {
   useFormFieldProps,
   useFormField,
   useArrayRefs,
-  useCSSVariables,
+  useCSSVariables, useNumericProp,
 } from '../../composables'
 
 defineOptions({
@@ -54,14 +54,16 @@ const props = defineProps({
   minutesFilter: { type: Function as PropType<(h: number) => boolean> },
   secondsFilter: { type: Function as PropType<(h: number) => boolean> },
   framed: { type: Boolean, default: false },
-  cellHeight: { type: Number, default: 30 },
-  visibleCellsCount: { type: Number, default: 7 },
+  cellHeight: { type: [Number, String], default: 30 },
+  visibleCellsCount: { type: [Number, String], default: 7 },
 })
 
 const emit = defineEmits([...useStatefulEmits])
 
 const { valueComputed } = useStateful(props, emit)
 const { columns, isPM } = useTimePicker(props, valueComputed)
+const cellHeightComputed = useNumericProp('cellHeight').numericComputed as ComputedRef<number>
+const visibleCellsCountComputed = useNumericProp('visibleCellsCount').numericComputed as ComputedRef<number>
 
 const { setItemRef, itemRefs: pickers } = useArrayRefs()
 
@@ -97,11 +99,11 @@ const computedClasses = computed(() => ({
 }))
 
 const computedStyles = useCSSVariables('va-time-picker', () => {
-  const gapHeight = (props.visibleCellsCount - 1) / 2 * props.cellHeight
+  const gapHeight = (visibleCellsCountComputed.value - 1) / 2 * cellHeightComputed.value
 
   return {
-    height: `${props.cellHeight * props.visibleCellsCount}px`,
-    'cell-height': `${props.cellHeight}px`,
+    height: `${cellHeightComputed.value * visibleCellsCountComputed.value}px`,
+    'cell-height': `${cellHeightComputed.value}px`,
     'column-gap-height': `${gapHeight}px`,
   }
 })

@@ -30,7 +30,7 @@ import { VaAvatar } from '../va-avatar'
 
 import pick from 'lodash/pick.js'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import { useBem, useComponentPresetProp, useSize, useSizeProps } from '../../composables'
+import { useBem, useComponentPresetProp, useSize, useSizeProps, useNumericProp } from '../../composables'
 
 const VaAvatarProps = extractComponentProps(VaAvatar)
 </script>
@@ -47,7 +47,7 @@ const props = defineProps({
   ...VaAvatarProps,
 
   max: {
-    type: Number,
+    type: [Number, String],
     default: 0,
   },
   vertical: {
@@ -65,15 +65,16 @@ const props = defineProps({
   },
 })
 
+const { numericComputed: maxComputed } = useNumericProp('max')
 const classComputed = useBem('va-avatar-group', () => ({
   ...pick(props, ['vertical']),
 }))
 
-const maxOptions = computed(() => props.max && props.max <= props.options.length ? props.options.slice(0, props.max) : props.options)
+const maxOptions = computed(() => maxComputed.value && maxComputed.value <= props.options.length ? props.options.slice(0, maxComputed.value) : props.options)
 const restOptionsCount = computed(() => {
   const hasOptions = props.options.length > 0
   const canAddMoreOptions = maxOptions.value.length < props.options.length
-  const remainingOptions = props.options.length - (props.max || 0)
+  const remainingOptions = props.options.length - (maxComputed.value || 0)
 
   return hasOptions && canAddMoreOptions ? remainingOptions : 0
 })

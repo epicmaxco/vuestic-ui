@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, ref, computed, onMounted, shallowRef, defineComponent } from 'vue'
+import { PropType, ref, computed, onMounted, shallowRef, defineComponent, ComputedRef } from 'vue'
 
 import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslation } from '../../composables'
 
@@ -53,6 +53,7 @@ import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 <script lang="ts" setup>
 import VaIcon from '../va-icon/VaIcon.vue'
+import { useNumericProp } from '@/composables'
 
 const VaToastRenderer = defineComponent({
   name: 'VaToastRenderer',
@@ -71,13 +72,13 @@ const { tp } = useTranslation()
 const props = defineProps({
   ...useComponentPresetProp,
   title: { type: String, default: '' },
-  offsetY: { type: Number, default: 16 },
-  offsetX: { type: Number, default: 16 },
+  offsetY: { type: [Number, String], default: 16 },
+  offsetX: { type: [Number, String], default: 16 },
   message: { type: [String, Function], default: '' },
   dangerouslyUseHtmlString: { type: Boolean, default: false },
   icon: { type: String, default: 'close' },
   customClass: { type: String, default: '' },
-  duration: { type: Number, default: 5000 },
+  duration: { type: [Number, String], default: 5000 },
   color: { type: String, default: '' },
   closeable: { type: Boolean, default: true },
   onClose: { type: Function },
@@ -101,6 +102,9 @@ const rootElement = shallowRef<HTMLElement>()
 const { getColor } = useColors()
 
 const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
+const offsetYComputed = useNumericProp('offsetY').numericComputed as ComputedRef<number>
+const offsetXComputed = useNumericProp('offsetX').numericComputed as ComputedRef<number>
+const durationComputed = useNumericProp('duration').numericComputed as ComputedRef<number>
 
 const visible = ref(false)
 
@@ -119,8 +123,8 @@ const toastClasses = computed(() => [
 ])
 
 const toastStyles = computed(() => ({
-  [positionY.value]: `${props.offsetY}px`,
-  [positionX.value]: `${props.offsetX}px`,
+  [positionY.value]: `${offsetYComputed.value}px`,
+  [positionX.value]: `${offsetXComputed.value}px`,
   backgroundColor: getColor(props.color),
   color: textColorComputed.value,
 }))
@@ -164,8 +168,8 @@ const onToastClose = () => {
 const timer = useTimer()
 const clearTimer = timer.clear
 const startTimer = () => {
-  if (props.duration > 0) {
-    timer.start(() => visible.value && onToastClose(), props.duration)
+  if (durationComputed.value > 0) {
+    timer.start(() => visible.value && onToastClose(), durationComputed.value)
   }
 }
 

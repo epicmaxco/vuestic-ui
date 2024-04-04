@@ -64,6 +64,7 @@ import {
   useRouterLink, useRouterLinkProps,
   useComponentPresetProp,
   useSlotPassed,
+  useNumericProp,
 } from '../../composables'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
@@ -91,8 +92,8 @@ const props = defineProps({
 
   color: { type: String, default: 'primary' },
   textColor: { type: String, default: '' },
-  textOpacity: { type: Number, default: 1 },
-  backgroundOpacity: { type: Number, default: 1 },
+  textOpacity: { type: [Number, String], default: 1 },
+  backgroundOpacity: { type: [Number, String], default: 1 },
   borderColor: { type: String, default: '' },
 
     // only for filled bg state
@@ -146,12 +147,15 @@ const isSlotContentPassed = useSlotPassed()
 
 const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
 const isOnlyIcon = computed(() => !isSlotContentPassed.value && isOneIcon.value)
+const { numericComputed: textOpacityComputed } = useNumericProp('textOpacity')
+const { numericComputed: backgroundOpacityComputed } = useNumericProp('backgroundOpacity')
+
 const computedClass = useBem('va-button', () => ({
   ...pick(props, ['disabled', 'block', 'loading', 'round', 'plain']),
   small: props.size === 'small',
   normal: !props.size || props.size === 'medium',
   large: props.size === 'large',
-  opacity: props.textOpacity < 1,
+  opacity: textOpacityComputed.value! < 1,
   bordered: !!props.borderColor,
   iconOnly: isOnlyIcon.value,
   leftIcon: !isOnlyIcon.value && !!props.icon && !props.iconRight,
@@ -159,7 +163,7 @@ const computedClass = useBem('va-button', () => ({
 }))
 
 // styles
-const isTransparentBg = computed(() => props.plain || props.backgroundOpacity < 0.5)
+const isTransparentBg = computed(() => props.plain || backgroundOpacityComputed.value! < 0.5)
 const { textColorComputed } = useTextColor(colorComputed, isTransparentBg)
 
 const {

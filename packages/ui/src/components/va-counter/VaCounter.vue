@@ -115,6 +115,7 @@ import {
   useValidation,
   useClearableProps,
   useValidationEmits,
+  useNumericProp,
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
@@ -164,7 +165,7 @@ const props = defineProps({
   flat: { type: Boolean, default: true },
   rounded: { type: Boolean, default: false },
   margins: { type: [String, Number], default: '4px' },
-  longPressDelay: { type: Number, default: 500 },
+  longPressDelay: { type: [Number, String], default: 500 },
 
   ariaLabel: { type: String, default: '$t:counterValue' },
   ariaDecreaseLabel: { type: String, default: '$t:decreaseCounter' },
@@ -183,6 +184,7 @@ const input = shallowRef<HTMLInputElement | HTMLDivElement>()
 
 const { min = ref(undefined), max = ref(undefined), step } = toRefs(props)
 
+const { numericComputed: longPressDelayComputed } = useNumericProp('longPressDelay')
 const {
   isFocused,
   focus,
@@ -281,12 +283,12 @@ const increaseCount = () => {
 
 useLongPress(useTemplateRef('decreaseButtonRef'), {
   onUpdate: decreaseCount,
-  delay: toRef(props, 'longPressDelay'),
+  delay: longPressDelayComputed as ComputedRef<number>,
 })
 
 useLongPress(useTemplateRef('increaseButtonRef'), {
   onUpdate: increaseCount,
-  delay: toRef(props, 'longPressDelay'),
+  delay: longPressDelayComputed as ComputedRef<number>,
 })
 
 const { getColor } = useColors()

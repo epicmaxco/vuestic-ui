@@ -1,5 +1,5 @@
-import { Ref, computed, toRef } from 'vue'
-import { useDebounceFn, useEvent } from '../../../composables'
+import { Ref, computed, toRef, ComputedRef } from 'vue'
+import { useDebounceFn, useEvent, useNumericProp } from '../../../composables'
 
 const isTyping = (e: Event) => {
   const target = e.target as HTMLElement
@@ -25,8 +25,8 @@ export const useNavigation = (
     closeOnContentClick: boolean,
     isContentHoverable: boolean,
     cursor: any,
-    hoverOverTimeout: number,
-    hoverOutTimeout: number,
+    hoverOverTimeout: number | string,
+    hoverOutTimeout: number | string,
   },
 ) => {
   const normalizeTriggerName = (t: string) => {
@@ -104,8 +104,8 @@ export const useNavigation = (
   }, contentRef)
 
   // Hover
-  const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(toRef(props, 'hoverOverTimeout'))
-  const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(toRef(props, 'hoverOutTimeout'))
+  const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(useNumericProp('hoverOverTimeout').numericComputed as ComputedRef<number>)
+  const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(useNumericProp('hoverOutTimeout').numericComputed as ComputedRef<number>)
 
   const onMouseHover = (e: Event) => {
     if (props.disabled) { return }

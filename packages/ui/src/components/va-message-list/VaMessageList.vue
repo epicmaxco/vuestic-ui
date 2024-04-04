@@ -28,9 +28,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType } from 'vue'
+import { computed, ComputedRef, PropType } from 'vue'
 
-import { useColors } from '../../composables'
+import { useColors, useNumericProp } from '../../composables'
 
 import { VaIcon } from '../va-icon'
 import { useMessageListAria } from './hooks/useMessageListAria'
@@ -45,7 +45,7 @@ const props = defineProps({
     type: [String, Array] as PropType<string | string[]>,
     default: '',
   },
-  limit: { type: Number, default: 1 },
+  limit: { type: [Number, String], default: 1 },
   color: { type: String },
   hasError: { type: Boolean, default: false },
 })
@@ -54,10 +54,11 @@ const { getColor } = useColors()
 
 const { childAttributes, messageListAttributes } = useMessageListAria(props)
 
+const limitComputed = useNumericProp('limit').numericComputed as ComputedRef<number>
 const messages = computed<string[]>(() => {
   if (!props.modelValue) { return [] }
   if (!Array.isArray(props.modelValue)) { return [props.modelValue] }
-  return props.modelValue.slice(0, props.limit)
+  return props.modelValue.slice(0, limitComputed.value)
 })
 
 const computedStyle = computed(() => props.color ? { color: getColor(props.color) } : {})

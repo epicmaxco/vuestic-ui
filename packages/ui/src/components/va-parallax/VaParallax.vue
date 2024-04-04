@@ -22,8 +22,9 @@
 <script lang="ts" setup>
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { useScrollParent } from '../../composables/useScrollParent'
-import { PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef } from 'vue'
+import { PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef, ComputedRef } from 'vue'
 import { warn } from '../../utils/console'
+import { useNumericProp } from '@/composables'
 
 defineOptions({
   name: 'VaParallax',
@@ -34,12 +35,15 @@ const props = defineProps({
   target: { type: [Object, String] as PropType<HTMLElement | string | undefined> },
   src: { type: String, default: '', required: true },
   alt: { type: String, default: 'parallax' },
-  height: { type: Number, default: 400 },
+  height: { type: [Number, String], default: 400 },
   reversed: { type: Boolean, default: false },
   speed: {
-    type: Number,
+    type: [Number, String],
     default: 0.5,
-    validator: (value: number) => value >= 0 && value <= 1,
+    validator: (value: number | string) => {
+      const num = Number(value)
+      return num >= 0 && num <= 1
+    },
   },
 })
 
@@ -55,7 +59,7 @@ const windowHeight = ref(0)
 const windowBottom = ref(0)
 const isLoaded = ref(false)
 
-const computedWrapperStyles = computed(() => ({ height: props.height + 'px' }))
+const computedWrapperStyles = computed(() => ({ height: heightComputed.value + 'px' }))
 
 const computedImgStyles = computed(() => ({
   display: 'block',
@@ -85,11 +89,13 @@ const targetElement = computed(() => {
 
 const imgHeight = computed(() => img.value?.naturalHeight || 0)
 
+const heightComputed = useNumericProp('height').numericComputed as ComputedRef<number>
+const speedComputed = useNumericProp('speed').numericComputed as ComputedRef<number>
 const calcDimensions = () => {
   const offset = rootElement.value?.getBoundingClientRect() || { top: 0 }
 
   scrollTop.value = targetElement.value?.scrollTop || 0
-  parallaxDist.value = imgHeight.value - props.height
+  parallaxDist.value = imgHeight.value - heightComputed.value
   elOffsetTop.value = offset.top + scrollTop.value
   windowHeight.value = window.innerHeight
   windowBottom.value = scrollTop.value + windowHeight.value
@@ -98,9 +104,9 @@ const calcDimensions = () => {
 const translate = () => {
   calcDimensions()
 
-  percentScrolled.value = (windowBottom.value - elOffsetTop.value) / (props.height + windowHeight.value)
+  percentScrolled.value = (windowBottom.value - elOffsetTop.value) / (heightComputed.value + windowHeight.value)
 
-  parallax.value = Math.round(parallaxDist.value * percentScrolled.value) * props.speed
+  parallax.value = Math.round(parallaxDist.value * percentScrolled.value) * speedComputed.value
 
   if (props.reversed) {
     parallax.value = -parallax.value

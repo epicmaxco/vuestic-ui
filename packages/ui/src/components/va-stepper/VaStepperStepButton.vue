@@ -3,9 +3,9 @@
     ref="stepElement"
     class="va-stepper__step-button"
     :class="computedClass"
-    @click="!$props.navigationDisabled && $props.stepControls.setStep($props.stepIndex)"
-    @keyup.enter="!$props.navigationDisabled && $props.stepControls.setStep($props.stepIndex)"
-    @keyup.space="!$props.navigationDisabled && $props.stepControls.setStep($props.stepIndex)"
+    @click="!$props.navigationDisabled && $props.stepControls.setStep(stepIndexComputed)"
+    @keyup.enter="!$props.navigationDisabled && $props.stepControls.setStep(stepIndexComputed)"
+    @keyup.space="!$props.navigationDisabled && $props.stepControls.setStep(stepIndexComputed)"
     v-bind="ariaAttributesComputed"
   >
     <div class="va-stepper__step-button__icon">
@@ -15,16 +15,16 @@
         size="1.3rem"
       />
       <template v-else>
-        {{ $props.stepIndex + 1 }}
+        {{ stepIndexComputed + 1 }}
       </template>
     </div>
     {{ step.label }}
   </li>
 </template>
 <script lang="ts" setup>
-import { computed, nextTick, PropType, shallowRef, watch } from 'vue'
+import { computed, ComputedRef, nextTick, PropType, shallowRef, watch } from 'vue'
 import { VaIcon } from '../va-icon'
-import { useBem, useColors, useTranslation } from '../../composables'
+import { useBem, useColors, useNumericProp, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
 import { unFunction } from '../../utils/un-function'
 import { isStepHasError } from './step'
@@ -40,7 +40,7 @@ const props = defineProps({
     required: true,
   },
   color: { type: String, required: true },
-  stepIndex: { type: Number, required: true },
+  stepIndex: { type: [Number, String], required: true },
   navigationDisabled: { type: Boolean, required: true },
   nextDisabled: { type: Boolean, required: true },
   focus: { type: Object, required: true },
@@ -51,7 +51,8 @@ const emit = defineEmits(['update:modelValue'])
 
 const stepElement = shallowRef<HTMLElement>()
 const hasError = computed(() => isStepHasError(props.step))
-const displayError = computed(() => hasError.value && props.modelValue === props.stepIndex)
+const stepIndexComputed = useNumericProp('stepIndex').numericComputed as ComputedRef<number>
+const displayError = computed(() => hasError.value && props.modelValue === stepIndexComputed.value)
 const { getColor } = useColors()
 const stepperColor = computed(() => getColor(hasError.value ? 'danger' : props.color))
 
@@ -60,8 +61,8 @@ const isNextStepDisabled = (index: number) => props.nextDisabled && index > prop
 const { t } = useTranslation()
 
 const computedClass = useBem('va-stepper__step-button', () => ({
-  active: props.modelValue >= props.stepIndex,
-  disabled: props.step.disabled || isNextStepDisabled(props.stepIndex),
+  active: props.modelValue >= stepIndexComputed.value,
+  disabled: props.step.disabled || isNextStepDisabled(stepIndexComputed.value),
   'navigation-disabled': props.navigationDisabled,
   error: displayError.value,
 }))
@@ -73,8 +74,8 @@ watch(() => props.focus, () => {
 }, { deep: true })
 
 const ariaAttributesComputed = computed(() => ({
-  tabindex: props.focus.stepIndex === props.stepIndex && !props.navigationDisabled ? 0 : undefined,
-  'aria-disabled': props.step.disabled || isNextStepDisabled(props.stepIndex) ? true : undefined,
+  tabindex: props.focus.stepIndex === stepIndexComputed.value && !props.navigationDisabled ? 0 : undefined,
+  'aria-disabled': props.step.disabled || isNextStepDisabled(stepIndexComputed.value) ? true : undefined,
   'aria-current': props.modelValue === props.stepIndex ? t('step') as 'step' : undefined,
 }))
 </script>

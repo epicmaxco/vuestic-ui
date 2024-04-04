@@ -12,7 +12,7 @@ export const FixedTop: StoryFn = () => ({
   template: `
     <div class="w-1/4">
       <p class="m-1">{{$vb.lorem(100)}}</p>
-        <VaAffix :offset-top="100">
+        <VaAffix offset-top="100">
           <div class="p-3 bg-red-500">Fixed at the top: 100</div>
         </VaAffix>
       <p class="m-1">{{$vb.lorem(2500)}}</p>

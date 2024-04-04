@@ -77,7 +77,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, ref, shallowRef, watch, computed, ComponentPublicInstance } from 'vue'
+import { PropType, ref, shallowRef, watch, computed, ComponentPublicInstance, ComputedRef } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -85,7 +85,7 @@ import {
   useColorProps,
   useObjectRefs,
   useSelectableList, useSelectableListProps,
-  useThrottleValue, useThrottleProps,
+  useThrottleValue, useThrottleProps, useNumericProp,
 } from '../../../../composables'
 
 import { scrollToElement } from '../../../../utils/scroll-to-element'
@@ -115,7 +115,7 @@ const props = defineProps({
   hoveredOption: { type: [String, Number, Boolean, Object] as PropType<SelectOption | null>, default: null },
   virtualScroller: { type: Boolean, default: true },
   highlightMatchedText: { type: Boolean, default: true },
-  minSearchChars: { type: Number, default: 0 },
+  minSearchChars: { type: [Number, String], default: 0 },
   autoSelectFirstOption: { type: Boolean, default: false },
   selectedTopShown: { type: Boolean, default: false },
   doShowAllOptions: { type: Boolean, default: false },
@@ -153,6 +153,7 @@ const updateCurrentOption = (option: SelectOption | null, source: EventSource) =
 }
 
 const { getText, getGroupBy, getTrackBy, getDisabled } = useSelectableList(props)
+const minSearchCharsComputed = useNumericProp('minSearchChars').numericComputed as ComputedRef<number>
 
 const currentSelectedOptionText = computed(() => {
   const getSelectedState = props.getSelectedState
@@ -170,7 +171,7 @@ const filteredOptions = computed((): SelectOption[] => {
     return props.options
   }
 
-  if (!props.search || props.search.length < props.minSearchChars) {
+  if (!props.search || props.search.length < minSearchCharsComputed.value) {
     return props.options
   }
 
@@ -233,7 +234,8 @@ const currentOptionIndex = computed(() => currentOptions.value.findIndex((option
 }))
 
 const selectOptionProps = computed(() => ({
-  ...pick(props, ['getSelectedState', 'color', 'search', 'highlightMatchedText', 'minSearchChars']),
+  ...pick(props, ['getSelectedState', 'color', 'search', 'highlightMatchedText']),
+  minSearchChars: minSearchCharsComputed.value,
   getText,
   getTrackBy,
 }))
