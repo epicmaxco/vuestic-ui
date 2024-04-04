@@ -7,9 +7,9 @@
   },
   "dependencies": {
     "chalk": "^5.2.0",
+    "dotenv": "^16.3.1",
     "inquirer": "^9.0.0",
     "tsx": "^3.12.1",
-    "typescript": "^5",
-    "dotenv": "^16.3.1"
+    "typescript": "^5"
   }
 }
