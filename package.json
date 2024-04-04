@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "repository": "https://github.com/epicmaxco/vuestic-ui",
+  "packageManager": "yarn@4.1.1",
   "devDependencies": {
     "lerna": "^3.20.2",
     "syncpack": "^9.8.6",
@@ -44,6 +45,10 @@
   "gitHooks": {
     "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD"
   },
+  "engines": {
+    "yarn": ">=4.0.0"
+  },
+  "engineStrict": true,
   "resolutions": {
     "vue": "^3.4.21",
     "@vue/shared": "^3.4.21",
