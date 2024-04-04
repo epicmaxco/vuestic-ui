@@ -145,18 +145,19 @@ export const Mask = () => ({
   data () {
     return {
       dateValue: '',
+      dateValueRaw: '',
       creditCardValue: '',
+      creditCardValueRaw: '',
     }
   },
   template: `
     [dateValue]: {{ dateValue }}
-    <VaInput v-model="dateValue" :mask="{
-      date: true,
-      datePattern: ['m', 'y'],
-    }" />
+    [dateValueRaw]: {{ dateValueRaw }}
+    <VaInput v-model="dateValue" @update:raw-value="value => dateValueRaw = value" mask="date" />
 
     [creditCardValue]: {{ creditCardValue }}
-    <VaInput v-model="creditCardValue" mask="creditCard" />
+    [creditCardValueRaw]: {{ creditCardValueRaw }}
+    <VaInput v-model="creditCardValue" @update:raw-value="value => creditCardValueRaw = value" mask="creditCard" />
   `,
 })
 
@@ -171,8 +172,8 @@ export const MaskFormattedValue = () => ({
   template: `
     [dateValue]: {{ dateValue }}
     <VaInput v-model="dateValue" :mask="{
-      date: true,
-      datePattern: ['m', 'y'],
+      type: 'date',
+      options: { datePattern: ['m', 'y'] }
     }" :return-raw="false" />
 
     [creditCardValue]: {{ creditCardValue }}

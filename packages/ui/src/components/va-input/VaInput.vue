@@ -64,7 +64,7 @@ import {
   useFocusable, useFocusableProps, useEvent,
 } from '../../composables'
 import type { ValidationProps } from '../../composables/useValidation'
-import { useCleave, useCleaveProps } from './hooks/useCleave'
+import { useCleave, useCleaveProps, useCleaveZen } from './hooks/useCleave'
 
 import type { AnyStringPropType } from '../../utils/types/prop-type'
 
@@ -123,6 +123,7 @@ const props = defineProps({
 
 const emit = defineEmits([
   'update:modelValue',
+  'update:rawValue',
   ...useValidationEmits,
   ...useClearableEmits,
   ...createInputEmits(),
@@ -174,7 +175,8 @@ const {
   clearIconProps,
 } = useClearable(props, modelValue, input, computedError)
 
-const { computedValue, onInput } = useCleave(input, props, valueComputed)
+// const { computedValue, onInput } = useCleave(input, props, valueComputed)
+const { computedValue, onInput } = useCleaveZen(input, props, valueComputed, emit)
 
 const inputListeners = createInputListeners(emit)
 
