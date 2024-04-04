@@ -32,7 +32,7 @@
     "typecheck": "yarn vue-tsc --noEmit",
     "lint": "eslint --ext .js,.vue src",
     "lint:style": "stylelint '**/*.{vue,html,css,scss}' --fix",
-    "test:unit": "vitest",
+    "test:unit": "vitest run",
     "push": "npm publish --tag=next",
     "push-production": "npm publish --tag=latest",
     "precommit": "lint-staged --concurrent=false && yarn typecheck && yarn test:unit --run",
