@@ -70,6 +70,7 @@ const MASKS = {
 } as any
 
 export const useCleaveProps = {
+  // TODO: types
   mask: { type: [String, Object] as any, default: '' },
   // mask: { type: [String, Object] as PropType<string | Record<string, number[]> | CleaveOptions>, default: '' },
   returnRaw: { type: Boolean, default: true },
@@ -164,14 +165,6 @@ export const useCleaveZen = (
 ) => {
   const { formatter, transcriber } = useMask(props.mask)
 
-  const getMask = (mask: { type: string, options: any } | string): any => {
-    if (typeof mask === 'string') {
-      return { ...MASKS[mask] }
-    } else {
-      return { ...MASKS[mask.type], options: mask.options }
-    }
-  }
-
   const computedValue = computed<string | number>(() => {
     return syncValue.value
   })
@@ -190,8 +183,6 @@ export const useCleaveZen = (
   }
 
   return {
-    // cleave,
-    // cleaveEnabled,
     computedValue,
     onInput,
   }

@@ -64,7 +64,7 @@ import {
   useFocusable, useFocusableProps, useEvent,
 } from '../../composables'
 import type { ValidationProps } from '../../composables/useValidation'
-import { useCleave, useCleaveProps, useCleaveZen } from './hooks/useCleave'
+import { useCleaveProps, useCleaveZen } from './hooks/useCleave'
 
 import type { AnyStringPropType } from '../../utils/types/prop-type'
 
@@ -175,7 +175,6 @@ const {
   clearIconProps,
 } = useClearable(props, modelValue, input, computedError)
 
-// const { computedValue, onInput } = useCleave(input, props, valueComputed)
 const { computedValue, onInput } = useCleaveZen(input, props, valueComputed, emit)
 
 const inputListeners = createInputListeners(emit)
