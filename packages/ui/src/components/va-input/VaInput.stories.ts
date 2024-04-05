@@ -145,43 +145,46 @@ export const Mask = () => ({
   data () {
     return {
       dateValue: '',
-      dateValueRaw: '',
       creditCardValue: '',
-      creditCardValueRaw: '',
     }
   },
   template: `
     [dateValue]: {{ dateValue }}
-    [dateValueRaw]: {{ dateValueRaw }}
-    <VaInput v-model="dateValue" @update:raw-value="value => dateValueRaw = value" mask="date" />
-
+    <VaInput v-model="dateValue" mask="date" />
+    <br />
     [creditCardValue]: {{ creditCardValue }}
-    [creditCardValueRaw]: {{ creditCardValueRaw }}
-    <VaInput v-model="creditCardValue" @update:raw-value="value => creditCardValueRaw = value" mask="creditCard" />
+    <VaInput v-model="creditCardValue" mask="creditCard" />
   `,
 })
 
-export const MaskFormattedValue = () => ({
+export const MaskRawValue = () => ({
   components: { VaInput },
   data () {
     return {
       timeValue: '',
       dateValue: '',
       creditCardValue: '',
+      timeValueRaw: '',
+      dateValueRaw: '',
+      creditCardValueRaw: '',
     }
   },
   template: `
-    [dateValue]: {{ dateValue }}
+    [dateRawValue]: {{ dateValueRaw }}
     <VaInput v-model="dateValue" :mask="{
       type: 'date',
       options: { datePattern: ['m', 'y'] }
-    }" :return-raw="false" />
+    }" @update:raw-value="v => dateValueRaw = v" />
 
-    [timeValue]: {{ timeValue }}
-    <VaInput v-model="timeValue" mask="time" :return-raw="false" />
+    <br />
 
-    [creditCardValue]: {{ creditCardValue }}
-    <VaInput v-model="creditCardValue" mask="creditCard" :return-raw="false" />
+    [timeRawValue]: {{ timeValueRaw }}
+    <VaInput v-model="timeValue" mask="time" @update:raw-value="v => timeValueRaw = v" />
+
+    <br />
+
+    [creditCardRawValue]: {{ creditCardValueRaw }}
+    <VaInput v-model="creditCardValue" mask="creditCard" @update:raw-value="v => creditCardValueRaw = v" />
   `,
 })
 
