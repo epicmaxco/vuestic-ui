@@ -39,15 +39,23 @@ const MASKS = {
   },
   date: {
     formatter: formatDate,
-    transcriber: (value: any, options: any) => value,
+    transcriber: (value: any, options: any) => {
+      if (options.delimiter) {
+        return value.replaceAll(options.delimiter, '')
+      }
+      return value
+    },
     options: {
-      delimiter: '-',
+      delimiter: '/',
     },
   },
   time: {
     formatter: formatTime,
-    transcriber: (value: any, options: any) => value,
-    options: {},
+    transcriber: (value: any, options: any) => value.replaceAll(':', ''),
+    options: {
+      timePattern: ['h', 'm'],
+      timeFormat: '24',
+    },
   },
   numeral: {
     formatter: formatNumeral,
