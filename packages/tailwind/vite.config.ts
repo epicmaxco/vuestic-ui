@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
 const pkg = require('./package.json')
-const external = [...Object.keys(pkg.peerDependencies), 'fs', 'path']
+const external = [...Object.keys(pkg.peerDependencies), 'fs', 'path', 'url']
 
 export default defineConfig({
   build: {
