@@ -456,7 +456,6 @@ const cellData = (cellData: DataTableCell, internalColumnData: DataTableColumnIn
 
       th {
         border-bottom: none;
-        box-shadow: var(--va-data-table-thead-border-bottom-shadow);
       }
 
       &--sticky {
@@ -477,11 +476,10 @@ const cellData = (cellData: DataTableCell, internalColumnData: DataTableColumnIn
 
     .va-data-table__table-tfoot {
       color: var(--va-data-table-tfoot-color);
-      border-top: var(--va-data-table-thead-border);
+      border-top: var(--va-data-table-tfoot-border, var(--va-data-table-thead-border));
 
       th {
         border-bottom: none;
-        box-shadow: var(--va-data-table-thead-border-top-shadow);
       }
 
       &--sticky {
