@@ -1,10 +1,7 @@
 import {
   computed,
-  onBeforeUnmount,
   PropType,
-  ref,
   Ref,
-  watchEffect,
   type ExtractPropTypes,
   type WritableComputedRef,
 } from 'vue'
@@ -17,11 +14,11 @@ import {
   unformatGeneral,
   unformatNumeral,
   unformatCreditCard,
-  FormatGeneralOptions,
-  FormatTimeOptions,
-  FormatNumeralOptions,
-  FormatCreditCardOptions,
-  FormatDateOptions,
+  type FormatGeneralOptions,
+  type FormatTimeOptions,
+  type FormatNumeralOptions,
+  type FormatCreditCardOptions,
+  type FormatDateOptions,
 } from 'cleave-zen'
 
 interface MaskOptions extends FormatGeneralOptions, FormatDateOptions, FormatNumeralOptions, FormatCreditCardOptions, FormatTimeOptions {}
