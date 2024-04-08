@@ -4,6 +4,7 @@
     :model-value="modelValue"
     :close-on-click-outside="autoHide"
     :offset="$props.offset"
+    :content-class="$props.contentClass"
     class="va-popover"
   >
     <template #default>
@@ -11,7 +12,6 @@
         :style="computedPopoverStyle"
         class="va-popover__content"
         role="tooltip"
-        :class="$props.contentClass"
       >
         <div
           v-if="showIconComputed"
