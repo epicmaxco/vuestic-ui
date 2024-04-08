@@ -89,8 +89,8 @@ const targetElement = computed(() => {
 
 const imgHeight = computed(() => img.value?.naturalHeight || 0)
 
-const heightComputed = useNumericProp('height').numericComputed as ComputedRef<number>
-const speedComputed = useNumericProp('speed').numericComputed as ComputedRef<number>
+const heightComputed = useNumericProp('height') as ComputedRef<number>
+const speedComputed = useNumericProp('speed') as ComputedRef<number>
 const calcDimensions = () => {
   const offset = rootElement.value?.getBoundingClientRect() || { top: 0 }
 

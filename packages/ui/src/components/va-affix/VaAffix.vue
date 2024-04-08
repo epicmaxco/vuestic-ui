@@ -61,8 +61,8 @@ const setState = (newState: State) => {
   emit('change', isAffixed)
 }
 
-const { numericComputed: offsetTopComputed } = useNumericProp('offsetTop')
-const { numericComputed: offsetBottomComputed } = useNumericProp('offsetBottom')
+const offsetTopComputed = useNumericProp('offsetTop')
+const offsetBottomComputed = useNumericProp('offsetBottom')
 
 const calculateTop = () => {
   const target = getTargetElement()

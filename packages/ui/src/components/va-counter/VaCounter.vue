@@ -184,7 +184,7 @@ const input = shallowRef<HTMLInputElement | HTMLDivElement>()
 
 const { min = ref(undefined), max = ref(undefined), step } = toRefs(props)
 
-const { numericComputed: longPressDelayComputed } = useNumericProp('longPressDelay')
+const longPressDelayComputed = useNumericProp('longPressDelay')
 const {
   isFocused,
   focus,

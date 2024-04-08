@@ -62,7 +62,7 @@ const props = defineProps({
 })
 
 const { getColor, getHoverColor } = useColors()
-const minSearchCharsComputed = useNumericProp('minSearchChars').numericComputed as ComputedRef<number>
+const minSearchCharsComputed = useNumericProp('minSearchChars') as ComputedRef<number>
 
 const optionIcon = computed(() => isObject(props.option) ? (props.option.icon as string) : undefined)
 const optionIconColor = computed(() => getColor(props.color))

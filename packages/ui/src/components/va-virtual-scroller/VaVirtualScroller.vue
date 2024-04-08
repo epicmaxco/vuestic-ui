@@ -54,7 +54,7 @@ const props = defineProps({
 const emit = defineEmits(['scroll:bottom'])
 
 const listScrollPosition = ref(0)
-const benchComputed = useNumericProp('bench').numericComputed as ComputedRef<number>
+const benchComputed = useNumericProp('bench') as ComputedRef<number>
 
 const scrollDirection = computed(() => props.horizontal ? 'scrollLeft' : 'scrollTop')
 const handleScroll = () => {

@@ -201,7 +201,7 @@ export default defineComponent({
     const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
 
     const { textColorComputed } = useTextColor(backgroundComputed)
-    const maxLengthComputed = useNumericProp('maxLength').numericComputed
+    const maxLengthComputed = useNumericProp('maxLength')
 
     const messagesColor = computed(() => {
       if (props.error) { return 'danger' }

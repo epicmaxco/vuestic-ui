@@ -54,7 +54,7 @@ const { getColor } = useColors()
 
 const { childAttributes, messageListAttributes } = useMessageListAria(props)
 
-const limitComputed = useNumericProp('limit').numericComputed as ComputedRef<number>
+const limitComputed = useNumericProp('limit') as ComputedRef<number>
 const messages = computed<string[]>(() => {
   if (!props.modelValue) { return [] }
   if (!Array.isArray(props.modelValue)) { return [props.modelValue] }

@@ -62,8 +62,8 @@ const emit = defineEmits([...useStatefulEmits])
 
 const { valueComputed } = useStateful(props, emit)
 const { columns, isPM } = useTimePicker(props, valueComputed)
-const cellHeightComputed = useNumericProp('cellHeight').numericComputed as ComputedRef<number>
-const visibleCellsCountComputed = useNumericProp('visibleCellsCount').numericComputed as ComputedRef<number>
+const cellHeightComputed = useNumericProp('cellHeight') as ComputedRef<number>
+const visibleCellsCountComputed = useNumericProp('visibleCellsCount') as ComputedRef<number>
 
 const { setItemRef, itemRefs: pickers } = useArrayRefs()
 

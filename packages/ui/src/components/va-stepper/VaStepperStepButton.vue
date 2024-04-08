@@ -51,7 +51,7 @@ const emit = defineEmits(['update:modelValue'])
 
 const stepElement = shallowRef<HTMLElement>()
 const hasError = computed(() => isStepHasError(props.step))
-const stepIndexComputed = useNumericProp('stepIndex').numericComputed as ComputedRef<number>
+const stepIndexComputed = useNumericProp('stepIndex') as ComputedRef<number>
 const displayError = computed(() => hasError.value && props.modelValue === stepIndexComputed.value)
 const { getColor } = useColors()
 const stepperColor = computed(() => getColor(hasError.value ? 'danger' : props.color))

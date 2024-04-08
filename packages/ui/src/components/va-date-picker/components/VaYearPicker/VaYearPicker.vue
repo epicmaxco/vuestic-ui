@@ -66,8 +66,8 @@ const generateYearsArray = (start: number, end: number) => {
 
 // startYear useNumericProp
 // endYear useNumericProp
-const { numericComputed: startYearComputed } = useNumericProp('startYear')
-const { numericComputed: endYearComputed } = useNumericProp('endYear')
+const startYearComputed = useNumericProp('startYear')
+const endYearComputed = useNumericProp('endYear')
 
 const years = computed(() => generateYearsArray(startYearComputed.value!, endYearComputed.value!))
 

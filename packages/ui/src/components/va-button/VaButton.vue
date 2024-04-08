@@ -147,8 +147,8 @@ const isSlotContentPassed = useSlotPassed()
 
 const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
 const isOnlyIcon = computed(() => !isSlotContentPassed.value && isOneIcon.value)
-const { numericComputed: textOpacityComputed } = useNumericProp('textOpacity')
-const { numericComputed: backgroundOpacityComputed } = useNumericProp('backgroundOpacity')
+const textOpacityComputed = useNumericProp('textOpacity')
+const backgroundOpacityComputed = useNumericProp('backgroundOpacity')
 
 const computedClass = useBem('va-button', () => ({
   ...pick(props, ['disabled', 'block', 'loading', 'round', 'plain']),

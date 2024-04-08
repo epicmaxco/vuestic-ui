@@ -85,8 +85,8 @@ const {
   removeScrollListener,
 } = useScroll(props, scrollTargetElement, debouncedLoad)
 
-const offsetComputed = useNumericProp('offset').numericComputed as ComputedRef<number>
-const debounceComputed = useNumericProp('debounce').numericComputed as ComputedRef<number>
+const offsetComputed = useNumericProp('offset') as ComputedRef<number>
+const debounceComputed = useNumericProp('debounce') as ComputedRef<number>
 
 const { getColor } = useColors()
 

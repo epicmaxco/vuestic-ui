@@ -22,8 +22,8 @@ export const useTableScroll = (
   const scrollContainer = useElementRef()
   const topTrigger = useElementRef()
   const bottomTrigger = useElementRef()
-  const { numericComputed: scrollTopMarginComputed } = useNumericProp('scrollTopMargin')
-  const { numericComputed: scrollBottomMarginComputed } = useNumericProp('scrollBottomMargin')
+  const scrollTopMarginComputed = useNumericProp('scrollTopMargin')
+  const scrollBottomMarginComputed = useNumericProp('scrollBottomMargin')
 
   const isObservable = computed(() => !!scrollContainer.value)
 

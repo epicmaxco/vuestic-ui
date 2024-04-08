@@ -49,7 +49,7 @@ const rootElement = shallowRef<HTMLElement>()
 const { focus, blur } = useFocus(rootElement, emit)
 const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
 
-const cellHeightComputed = useNumericProp('cellHeight').numericComputed as ComputedRef<number>
+const cellHeightComputed = useNumericProp('cellHeight') as ComputedRef<number>
 
 watch(syncActiveItemIndex, (newVal) => { scrollTo(newVal) })
 

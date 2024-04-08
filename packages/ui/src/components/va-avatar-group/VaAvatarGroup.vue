@@ -65,7 +65,7 @@ const props = defineProps({
   },
 })
 
-const { numericComputed: maxComputed } = useNumericProp('max')
+const maxComputed = useNumericProp('max')
 const classComputed = useBem('va-avatar-group', () => ({
   ...pick(props, ['vertical']),
 }))

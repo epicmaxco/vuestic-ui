@@ -598,7 +598,7 @@ const onHintedSearch = (event: KeyboardEvent) => {
   hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
 }
 
-const minSearchCharsComputed = useNumericProp('minSearchChars').numericComputed as ComputedRef<number>
+const minSearchCharsComputed = useNumericProp('minSearchChars') as ComputedRef<number>
 
 const optionsListPropsComputed = computed(() => ({
   ...pick(props, ['textBy', 'trackBy', 'groupBy', 'valueBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'delay', 'selectedTopShown']),

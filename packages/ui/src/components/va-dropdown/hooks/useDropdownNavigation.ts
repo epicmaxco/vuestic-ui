@@ -104,8 +104,8 @@ export const useNavigation = (
   }, contentRef)
 
   // Hover
-  const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(useNumericProp('hoverOverTimeout').numericComputed as ComputedRef<number>)
-  const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(useNumericProp('hoverOutTimeout').numericComputed as ComputedRef<number>)
+  const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(useNumericProp('hoverOverTimeout') as ComputedRef<number>)
+  const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(useNumericProp('hoverOutTimeout') as ComputedRef<number>)
 
   const onMouseHover = (e: Event) => {
     if (props.disabled) { return }

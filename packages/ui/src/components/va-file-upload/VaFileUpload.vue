@@ -211,7 +211,7 @@ const { tp } = useTranslation()
 provide(VaFileUploadKey, {
   undo: toRef(props, 'undo'),
   disabled: toRef(props, 'disabled'),
-  undoDuration: useNumericProp('undoDuration').numericComputed as ComputedRef<number>,
+  undoDuration: useNumericProp('undoDuration') as ComputedRef<number>,
   undoButtonText: computed(() => tp(props.undoButtonText)),
   deletedFileMessage: computed(() => tp(props.deletedFileMessage)),
 })

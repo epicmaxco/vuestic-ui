@@ -184,10 +184,10 @@ const currentValue = computed({
   set: (value) => { valueComputed.value = value },
 })
 
-const visiblePagesComputed = useNumericProp('visiblePages').numericComputed as ComputedRef<number>
-const pagesComputed = useNumericProp('pages').numericComputed as ComputedRef<number>
-const totalComputed = useNumericProp('total').numericComputed
-const pageSizeComputed = useNumericProp('pageSize').numericComputed
+const visiblePagesComputed = useNumericProp('visiblePages') as ComputedRef<number>
+const pagesComputed = useNumericProp('pages') as ComputedRef<number>
+const totalComputed = useNumericProp('total')
+const pageSizeComputed = useNumericProp('pageSize')
 
 const paginationRange = computed(() => {
   const { boundaryNumbers } = props

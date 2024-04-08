@@ -30,8 +30,8 @@ const props = defineProps({
   },
 })
 
-const { numericComputed: contentHeightComputed } = useNumericProp('contentHeight')
-const { numericComputed: contentWidthComputed } = useNumericProp('contentWidth')
+const contentHeightComputed = useNumericProp('contentHeight')
+const contentWidthComputed = useNumericProp('contentWidth')
 
 const aspectRatio = computed(() => {
   if (props.ratio === 'auto' && props.contentHeight === 1 && props.contentWidth === 1) { return 0 }

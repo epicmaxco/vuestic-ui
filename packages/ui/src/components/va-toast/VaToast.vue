@@ -102,9 +102,9 @@ const rootElement = shallowRef<HTMLElement>()
 const { getColor } = useColors()
 
 const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
-const offsetYComputed = useNumericProp('offsetY').numericComputed as ComputedRef<number>
-const offsetXComputed = useNumericProp('offsetX').numericComputed as ComputedRef<number>
-const durationComputed = useNumericProp('duration').numericComputed as ComputedRef<number>
+const offsetYComputed = useNumericProp('offsetY') as ComputedRef<number>
+const offsetXComputed = useNumericProp('offsetX') as ComputedRef<number>
+const durationComputed = useNumericProp('duration') as ComputedRef<number>
 
 const visible = ref(false)
 

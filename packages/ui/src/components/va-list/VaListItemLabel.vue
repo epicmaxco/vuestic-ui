@@ -22,7 +22,7 @@ const props = defineProps({
   lines: { type: [Number, String], default: 1 },
 })
 
-const linesComputed = useNumericProp('lines').numericComputed as ComputedRef<number>
+const linesComputed = useNumericProp('lines') as ComputedRef<number>
 const computedClass = computed(() => ({ 'va-list-item-label--caption': props.caption }))
 const computedStyle = computed(() => ({ '-webkit-line-clamp': linesComputed.value } as StyleValue))
 </script>

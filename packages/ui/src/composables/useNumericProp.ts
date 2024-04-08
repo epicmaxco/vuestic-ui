@@ -9,7 +9,7 @@ export const useNumericProp = (key: string) => {
 
   const numericComputed = computed(() => {
     const numeric = props?.[key] as string | number | undefined
-  
+
     if (numeric === undefined) {
       return numeric
     }
@@ -17,5 +17,5 @@ export const useNumericProp = (key: string) => {
     return Number(numeric)
   })
 
-  return { numericComputed }
+  return numericComputed
 }

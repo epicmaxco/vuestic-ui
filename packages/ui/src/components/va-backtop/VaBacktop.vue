@@ -63,8 +63,8 @@ const computedStyle = computed(() => ({
 
 let targetElement: Element | Window
 
-const { numericComputed: visibilityHeightComputed } = useNumericProp('visibilityHeight')
-const { numericComputed: speedComputed } = useNumericProp('speed')
+const visibilityHeightComputed = useNumericProp('visibilityHeight')
+const speedComputed = useNumericProp('speed')
 
 const getTargetElement = (): Element | Window => {
   if (!props.target) {

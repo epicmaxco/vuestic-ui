@@ -139,7 +139,7 @@ const autocompleteInputValueComputed = computed({
   set: (v: string) => emit('autocomplete-input', v),
 })
 
-const hiddenSelectedOptionsAmountComputed = useNumericProp('hiddenSelectedOptionsAmount').numericComputed as ComputedRef<number>
+const hiddenSelectedOptionsAmountComputed = useNumericProp('hiddenSelectedOptionsAmount') as ComputedRef<number>
 
 onMounted(() => {
   if (props.multiple) { return }

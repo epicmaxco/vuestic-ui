@@ -234,9 +234,9 @@ const { valueComputed }: { valueComputed: WritableComputedRef<number | number[]>
 const currentSliderDotIndex = ref(0)
 const hasMouseDown = ref(false)
 
-const minComputed = useNumericProp('min').numericComputed as ComputedRef<number>
-const maxComputed = useNumericProp('max').numericComputed as ComputedRef<number>
-const stepComputed = useNumericProp('step').numericComputed as ComputedRef<number>
+const minComputed = useNumericProp('min') as ComputedRef<number>
+const maxComputed = useNumericProp('max') as ComputedRef<number>
+const stepComputed = useNumericProp('step') as ComputedRef<number>
 
 const orders = computed(() => props.vertical ? [1, 0] : [0, 1])
 

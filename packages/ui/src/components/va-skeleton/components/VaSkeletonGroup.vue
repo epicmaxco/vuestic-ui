@@ -27,7 +27,7 @@ const props = defineProps({
 })
 
 const doShow = ref(false)
-const delayComputed = useNumericProp('delay').numericComputed as ComputedRef<number>
+const delayComputed = useNumericProp('delay') as ComputedRef<number>
 
 let timeoutId: ReturnType<typeof setTimeout>
 

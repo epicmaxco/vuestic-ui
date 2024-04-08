@@ -153,7 +153,7 @@ const updateCurrentOption = (option: SelectOption | null, source: EventSource) =
 }
 
 const { getText, getGroupBy, getTrackBy, getDisabled } = useSelectableList(props)
-const minSearchCharsComputed = useNumericProp('minSearchChars').numericComputed as ComputedRef<number>
+const minSearchCharsComputed = useNumericProp('minSearchChars') as ComputedRef<number>
 
 const currentSelectedOptionText = computed(() => {
   const getSelectedState = props.getSelectedState
