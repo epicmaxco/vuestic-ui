@@ -163,7 +163,7 @@
           </tbody>
 
           <tfoot
-            v-if="$slots.footer || (footerClone && !$props.grid)"
+            v-if="['footer', 'footerPrepend', 'footerAppend'].some(field => $slots[field]) || (footerClone && !$props.grid)"
             class="va-data-table__table-tfoot"
             :class="{ 'va-data-table__table-tfoot--sticky': $props.stickyFooter }"
             :style="{ bottom: isVirtualScroll && $props.stickyFooter ? `${currentListOffset}px` : undefined }"
