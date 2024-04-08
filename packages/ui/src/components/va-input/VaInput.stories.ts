@@ -144,16 +144,41 @@ export const Mask = () => ({
   components: { VaInput },
   data () {
     return {
-      dateValue: '',
       creditCardValue: '',
+      dateValue: '',
+      timeValue: '',
+      numeralValue: '',
+      generalValue: '',
     }
   },
   template: `
+    [creditCardValue]: {{ creditCardValue }}
+    <br />
+    <VaInput v-model="creditCardValue" mask="creditCard" />
+    <br />
+    <br />
+
     [dateValue]: {{ dateValue }}
+    <br />
     <VaInput v-model="dateValue" mask="date" />
     <br />
-    [creditCardValue]: {{ creditCardValue }}
-    <VaInput v-model="creditCardValue" mask="creditCard" />
+    <br />
+
+    [timeValue]: {{ timeValue }}
+    <br />
+    <VaInput v-model="timeValue" mask="time" />
+    <br />
+    <br />
+
+    [numeralValue]: {{ numeralValue }}
+    <br />
+    <VaInput v-model="numeralValue" mask="numeral" />
+    <br />
+    <br />
+
+    [generalValue]: {{ generalValue }}
+    <br />
+    <VaInput v-model="generalValue" :mask="{ type: 'general', options: { blocks: [3, 3, 3], delimiter: '·' }}" />
   `,
 })
 
@@ -161,30 +186,56 @@ export const MaskRawValue = () => ({
   components: { VaInput },
   data () {
     return {
-      timeValue: '',
-      dateValue: '',
       creditCardValue: '',
-      timeValueRaw: '',
-      dateValueRaw: '',
       creditCardValueRaw: '',
+      dateValue: '',
+      dateValueRaw: '',
+      timeValue: '',
+      timeValueRaw: '',
+      numeralValue: '',
+      numeralValueRaw: '',
+      generalValue: '',
+      generalValueRaw: '',
     }
   },
   template: `
-    [dateRawValue]: {{ dateValueRaw }}
-    <VaInput v-model="dateValue" :mask="{
-      type: 'date',
-      options: { datePattern: ['m', 'y'] }
-    }" @update:raw-value="v => dateValueRaw = v" />
-
+    [creditCardValue]: {{ creditCardValue }}
     <br />
-
-    [timeRawValue]: {{ timeValueRaw }}
-    <VaInput v-model="timeValue" mask="time" @update:raw-value="v => timeValueRaw = v" />
-
+    [creditCardValueRaw]: {{ creditCardValueRaw }}
     <br />
-
-    [creditCardRawValue]: {{ creditCardValueRaw }}
     <VaInput v-model="creditCardValue" mask="creditCard" @update:raw-value="v => creditCardValueRaw = v" />
+    <br />
+    <br />
+
+    [dateValue]: {{ dateValue }}
+    <br />
+    [dateValueRaw]: {{ dateValueRaw }}
+    <br />
+    <VaInput v-model="dateValue" mask="date" @update:raw-value="v => dateValueRaw = v" />
+    <br />
+    <br />
+
+    [timeValue]: {{ timeValue }}
+    <br />
+    [timeValueRaw]: {{ timeValueRaw }}
+    <br />
+    <VaInput v-model="timeValue" mask="time" @update:raw-value="v => timeValueRaw = v" />
+    <br />
+    <br />
+
+    [numeralValue]: {{ numeralValue }}
+    <br />
+    [numeralValueRaw]: {{ numeralValueRaw }}
+    <br />
+    <VaInput v-model="numeralValue" mask="numeral" @update:raw-value="v => numeralValueRaw = v" />
+    <br />
+    <br />
+
+    [generalValue]: {{ generalValue }}
+    <br />
+    [generalValueRaw]: {{ generalValueRaw }}
+    <br />
+    <VaInput v-model="generalValue" :mask="{ type: 'general', options: { blocks: [3, 3, 3], delimiter: '·' }}"  @update:raw-value="v => generalValueRaw = v" />
   `,
 })
 
