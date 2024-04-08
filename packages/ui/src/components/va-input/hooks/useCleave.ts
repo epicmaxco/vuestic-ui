@@ -100,14 +100,14 @@ export const useCleave = (
 
   const onInput = (event: Event) => {
     const value = (event.target as HTMLInputElement).value
-
     if (!props.mask) {
       syncValue.value = value
       emit('update:rawValue', value)
     } else {
-      syncValue.value = formatter(value)
-      element.value!.value = formatter(value)
-      emit('update:rawValue', transcriber(syncValue.value))
+      const formattedValue = formatter(value)
+      syncValue.value = formattedValue
+      element.value!.value = formattedValue
+      emit('update:rawValue', transcriber(formattedValue))
     }
   }
 
