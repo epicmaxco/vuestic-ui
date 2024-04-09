@@ -23,11 +23,11 @@ import {
 
 interface MaskOptions extends FormatGeneralOptions, FormatDateOptions, FormatNumeralOptions, FormatCreditCardOptions, FormatTimeOptions {}
 interface MaskProp {
-  type: 'date' | 'time' | 'creditCard' | 'numeral' | 'general',
+  type: 'date' | 'time' | 'creditCard' | 'numeral' | 'general' | 'phone'
   options: MaskOptions
 }
 
-const DEFAULT_MASK_TOKENS: Record<string, Record<'formatter' | 'transcriber' | 'options', unknown>> = {
+const DEFAULT_MASK_TOKENS: Record<string, Record<'formatter' | 'transcriber' | 'options', any>> = {
   creditCard: {
     formatter: formatCreditCard,
     transcriber: unformatCreditCard,
@@ -71,6 +71,7 @@ const DEFAULT_MASK_TOKENS: Record<string, Record<'formatter' | 'transcriber' | '
   },
   phone: {
     formatter: (value: string, options: any) => {
+      // TODO: dynamic delimiter & prefix from options
       const maxLength = options.blocks.reduce((acc: number, cv: number) => acc + cv, 0)
       let newValue = value.replaceAll('+', '').replaceAll(' ', '').replaceAll(/[^0-9]/g, '').slice(0, maxLength)
       if (!newValue) {
