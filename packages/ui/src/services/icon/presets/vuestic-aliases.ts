@@ -2,6 +2,18 @@ import { IconConfiguration } from '../types'
 
 export const VuesticIconAliases: IconConfiguration[] = [
   {
+    name: 'va-unsorted',
+    to: 'swap_vert',
+  },
+  {
+    name: 'va-sort-asc',
+    to: 'va-arrow-up',
+  },
+  {
+    name: 'va-sort-desc',
+    to: 'va-arrow-down',
+  },
+  {
     name: 'va-arrow-first',
     to: 'mi-first_page',
   },
@@ -65,5 +77,4 @@ export const VuesticIconAliases: IconConfiguration[] = [
     name: 'va-minus',
     to: 'remove',
   },
-
 ]
