@@ -196,6 +196,8 @@ export const MaskRawValue = () => ({
       numeralValueRaw: '',
       generalValue: '',
       generalValueRaw: '',
+      phoneValue: '',
+      phoneValueRaw: '',
     }
   },
   template: `
@@ -236,6 +238,14 @@ export const MaskRawValue = () => ({
     [generalValueRaw]: {{ generalValueRaw }}
     <br />
     <VaInput v-model="generalValue" :mask="{ type: 'general', options: { blocks: [3, 3, 3], delimiter: '·' }}"  @update:raw-value="v => generalValueRaw = v" />
+    <br />
+    <br />
+
+    [phoneValue]: {{ phoneValue }}
+    <br />
+    [phoneValueRaw]: {{ phoneValueRaw }}
+    <br />
+    <VaInput v-model="phoneValue" type="tel" mask="phone"  @update:raw-value="v => phoneValueRaw = v" />
   `,
 })
 

@@ -36,8 +36,8 @@ const DEFAULT_MASK_TOKENS: Record<string, Record<'formatter' | 'transcriber' | '
   date: {
     formatter: formatDate,
     transcriber: (value: string, options?: FormatDateOptions): string => {
-      if (options.delimiter) {
-        return value.replaceAll(options.delimiter, '')
+      if (options!.delimiter) {
+        return value.replaceAll(options!.delimiter, '')
       }
       return value
     },
@@ -48,8 +48,8 @@ const DEFAULT_MASK_TOKENS: Record<string, Record<'formatter' | 'transcriber' | '
   time: {
     formatter: formatTime,
     transcriber: (value: string, options?: FormatTimeOptions): string => {
-      if (options.delimiter) {
-        return value.replaceAll(options.delimiter, '')
+      if (options!.delimiter) {
+        return value.replaceAll(options!.delimiter, '')
       }
       return value
     },
@@ -68,6 +68,38 @@ const DEFAULT_MASK_TOKENS: Record<string, Record<'formatter' | 'transcriber' | '
     formatter: formatGeneral,
     transcriber: unformatGeneral,
     options: {} as FormatGeneralOptions,
+  },
+  phone: {
+    formatter: (value: string, options: any) => {
+      const maxLength = options.blocks.reduce((acc: number, cv: number) => acc + cv, 0)
+      let newValue = value.replaceAll('+', '').replaceAll(' ', '').replaceAll(/[^0-9]/g, '').slice(0, maxLength)
+      if (!newValue) {
+        return newValue
+      }
+
+      const blockIndexes = options.blocks.reduce((acc: number[], cv: number) => [...acc, +acc.slice(-1) + cv], [])
+      const valuesArray: string[] = []
+      blockIndexes.forEach((blockIndex: number, idx: number) => {
+        const startIndex = idx ? blockIndexes[idx - 1] : 0
+        const endIndex = idx === (blockIndexes.length - 1) ? newValue.length : blockIndex
+        valuesArray.push(newValue.slice(startIndex, endIndex))
+      })
+
+      newValue = valuesArray.filter(v => !!v).join(' ')
+
+      if (newValue.charAt(0) !== '+') {
+        newValue = `+${newValue}`
+      }
+      return newValue
+    },
+    transcriber: (value: string) => {
+      return value.replaceAll('+', '').replaceAll(' ', '')
+    },
+    options: {
+      prefix: '+',
+      blocks: [3, 2, 4],
+      delimiter: '-',
+    },
   },
 }
 
