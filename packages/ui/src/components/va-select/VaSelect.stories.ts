@@ -53,7 +53,7 @@ export const Validation: StoryFn = defineStory({
   },
 })
 
-export const ImmediateValidation = defineStory({
+export const ValidationImmediate = defineStory({
   story: () => ({
     components: { VaSelect },
 

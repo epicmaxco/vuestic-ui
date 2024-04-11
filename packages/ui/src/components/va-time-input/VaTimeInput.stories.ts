@@ -59,6 +59,48 @@ export const Clearable = defineStory({
   },
 })
 
+export const Validation = defineStory({
+  story: () => ({
+    components: { VaTimeInput },
+    data () {
+      return {
+        value: new Date('2020-01-01T00:00:00.000Z'),
+      }
+    },
+    template: `
+      <VaTimeInput v-model="value" :rules="[(v) => v.getHours() === 4 || 'Must be 4 AM']" ref="component" />
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect }) {
+    step('Expect error when mounted even if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).toBeNull()
+    })
+  },
+})
+
+export const ValidationImmediate = defineStory({
+  story: () => ({
+    components: { VaTimeInput },
+    data () {
+      return {
+        value: new Date('2020-01-01T00:00:00.000Z'),
+      }
+    },
+    template: `
+      <VaTimeInput v-model="value" :rules="[(v) => v.getHours() === 4 || 'Must be 4 AM']" ref="component" />
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect }) {
+    step('Expect error when mounted even if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
+  },
+})
+
 export const ValidationDirtyState = defineStory({
   story: () => ({
     components: { VaTimeInput },

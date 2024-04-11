@@ -41,7 +41,7 @@ export const ValidationRules = () => ({
   template: '<VaDateInput v-model="value" :rules="[isFriday]" />',
 })
 
-export const ImmediateValidation = defineStory({
+export const ValidationImmediate = defineStory({
   story: () => ({
     components: { VaDateInput },
     data () {
@@ -107,17 +107,17 @@ export const ValidationTouchedState = defineStory({
         value: new Date('2020-01-01T00:00:00.000Z'),
       }
     },
-    methods: { isFriday },
-    mounted () { (document.body as any).resetComponent = () => this.$refs.component?.reset() },
+    methods: {
+      isFriday,
+      reset () { this.$refs.component?.reset() },
+    },
     template: `
       [isTouched]: {{ $refs.component?.isTouched }}
       <VaDateInput v-model="value" :rules="[isFriday]" ref="component" />
     `,
   }),
 
-  async tests ({ canvasElement, step, expect, event, sleep }) {
-    const reset = (document.body as any).resetComponent
-
+  async tests ({ canvasElement, step, expect, event, sleep, methods }) {
     step('Expect error when opened and closed', async () => {
       await event.click(canvasElement.querySelector('.va-input-wrapper__field')!)
 
@@ -130,7 +130,7 @@ export const ValidationTouchedState = defineStory({
     })
 
     step('Expect error when input blur', async () => {
-      reset()
+      methods.reset()
 
       await event.focus(canvasElement.querySelector('.va-input-wrapper__field')!)
       await event.blur(canvasElement.querySelector('.va-input-wrapper__field')!)
