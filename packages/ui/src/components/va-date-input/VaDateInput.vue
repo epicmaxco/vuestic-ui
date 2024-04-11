@@ -245,7 +245,7 @@ const modelValueToString = (value: DateInputModelValue): string => {
 const {
   text,
   normalized: valueWithoutText,
-} = useDateInputModelValue(statefulValue, toRef(props, 'mode'), parseDateInputValue, modelValueToString, props.formatValue)
+} = useDateInputModelValue(valueComputed, toRef(props, 'mode'), parseDateInputValue, modelValueToString, props.formatValue)
 
 const valueText = computed(() => {
   if (!isValid.value) {
@@ -312,6 +312,8 @@ const showDropdown = () => {
 }
 
 const {
+  isDirty,
+  isTouched,
   computedError,
   computedErrorMessages,
   listeners,
@@ -320,6 +322,12 @@ const {
   withoutValidation,
   resetValidation,
 } = useValidation(props, emit, { reset, focus, value: valueComputed })
+
+watch(isOpenSync, (isOpen) => {
+  if (!isOpen) {
+    isTouched.value = true
+  }
+})
 
 const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
 
@@ -429,6 +437,8 @@ defineExpose({
   hideAndFocus,
   toggleDropdown,
   focusDatePicker,
+  isDirty,
+  isTouched,
 })
 </script>
 
