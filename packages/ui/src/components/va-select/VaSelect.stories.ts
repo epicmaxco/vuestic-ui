@@ -1,9 +1,7 @@
-import { userEvent } from './../../../.storybook/interaction-utils/userEvent'
 import { StoryFn } from '@storybook/vue3'
 import VaSelectDemo from './VaSelect.demo.vue'
 import VaSelect from './VaSelect.vue'
-import { expect } from '@storybook/jest'
-import { sleep } from '../../utils/sleep'
+import { defineStory } from '../../../.storybook/types'
 
 export default {
   title: 'VaSelect',
@@ -36,105 +34,189 @@ export const Placeholder: StoryFn = () => ({
   template: '<VaSelect v-model="value" :options="options" placeholder="test" />',
 })
 
-export const Validation: StoryFn = () => ({
-  components: { VaSelect },
+export const Validation: StoryFn = defineStory({
+  story: () => ({
+    components: { VaSelect },
 
-  data () {
-    return { value: '', options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
+    data () {
+      return { value: '', options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
+    },
+
+    template: '<VaSelect v-model="value" :options="options" :rules="rules" />',
+  }),
+
+  async tests ({ canvasElement, step, expect }) {
+    step('Expect no error when mounted even if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).toBeNull()
+    })
   },
-
-  template: '<VaSelect v-model="value" :options="options" :rules="rules" />',
 })
 
-Validation.play = async ({ canvasElement, step }) => {
-  step('Expect no error when mounted even if value is incorrect', () => {
-    const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
-    expect(error).toBeNull()
-  })
-}
+export const ImmediateValidation = defineStory({
+  story: () => ({
+    components: { VaSelect },
 
-export const ImmediateValidation: StoryFn = () => ({
-  components: { VaSelect },
+    data () {
+      return { value: '', options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
+    },
 
-  data () {
-    return { value: '', options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
+    template: '<VaSelect v-model="value" :options="options" :rules="rules" immediate-validation />',
+  }),
+
+  async tests ({ canvasElement, step, expect }) {
+    step('Expect error when mounted even if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
   },
-
-  template: '<VaSelect v-model="value" :options="options" :rules="rules" immediate-validation />',
 })
 
-ImmediateValidation.play = async ({ canvasElement, step }) => {
-  step('Expect error when mounted even if value is incorrect', () => {
-    const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
-    expect(error).not.toBeNull()
-  })
-}
+export const ValidationDirtyState = defineStory({
+  story: () => ({
+    components: { VaSelect },
 
-export const DirtyValidation: StoryFn = () => ({
-  components: { Component: VaSelect },
+    data () {
+      return { value: '', options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
+    },
 
-  data () {
-    return { value: '', dirty: false, haveError: false, options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
+    template: `
+      <VaSelect v-model="value" :options="options" :rules="rules" />
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect, event }) {
+    step('Expect no error when mounted even if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).toBeNull()
+    })
+
+    step('Expect error when opened and closed', async () => {
+      await event.click(canvasElement.querySelector('.va-input-wrapper__field')!)
+      await event.hover(document.body.querySelectorAll('.va-select-option')[2])
+      await event.click(document.body.querySelectorAll('.va-select-option')[2])
+
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
   },
-
-  template: `
-  <p>[haveError]: {{ haveError }}</p>
-  <p>[dirty]: {{ dirty }}</p>
-  <Component v-model="value" v-model:dirty="dirty" v-model:error="haveError" :options="options" :rules="rules" clearable />
-  <p> [controls] </p>
-  <div>
-    <button @click="value = 'two'" data-test="change">Change value to two</button>
-  </div>
-  `,
 })
 
-DirtyValidation.play = async ({ canvasElement, step }) => {
-  step('Expect no error when mounted even if value is incorrect', () => {
-    const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
-    expect(error).toBeNull()
-  })
+export const ValidationTouchedState = defineStory({
+  story: () => ({
+    components: { VaSelect },
 
-  await step('Expect no error when value changed programaticaly', () => {
-    userEvent.click(canvasElement.querySelector('[data-test="change"]')!)
+    data () {
+      return { value: '', options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
+    },
 
-    const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
-    expect(error).toBeNull()
-  })
+    methods: {
+      reset () { this.$refs.select.reset() },
+    },
 
-  await step('Expect error appear when component is interacted', async () => {
-    userEvent.click(canvasElement.querySelector('.va-input-wrapper__field')!)
-    await sleep(1000)
-    userEvent.click(document.body.querySelectorAll('.va-select-option')[1])
-    await sleep(1000)
-    const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
-    expect(error).not.toBeNull()
-  })
-}
+    template: `
+      <VaSelect v-model="value" :options="options" :rules="rules" ref="select" />
+    `,
+  }),
 
-export const DirtyImmediateValidation: StoryFn = () => ({
-  components: { Component: VaSelect },
+  async tests ({ canvasElement, step, expect, event, methods }) {
+    step('Expect no error when mounted even if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).toBeNull()
+    })
 
-  data () {
-    return { value: '', dirty: false, haveError: false, options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
+    step('Expect error when opened and closed', async () => {
+      await event.click(canvasElement.querySelector('.va-input-wrapper__field')!)
+
+      await event.hover(document.body.querySelectorAll('.va-select-option')[2])
+
+      await event.click(document.body)
+
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
+
+    step('Expect error when input blur', async () => {
+      methods.reset()
+
+      await event.focus(canvasElement.querySelector('.va-input-wrapper__field')!)
+      await event.blur(canvasElement.querySelector('.va-input-wrapper__field')!)
+
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
   },
-
-  template: `
-  <p>[haveError]: {{ haveError }}</p>
-  <p>[dirty]: {{ dirty }}</p>
-  <Component v-model="value" v-model:dirty="dirty" v-model:error="haveError" :options="options" :rules="rules" clearable immediate-validation />
-  <p> [controls] </p>
-  <div>
-    <button @click="value = 'two'">Change value to two</button>
-  </div>
-  `,
 })
 
-DirtyImmediateValidation.play = async ({ canvasElement, step }) => {
-  step('Expect error when mounted if value is incorrect', () => {
-    const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
-    expect(error).not.toBeNull()
-  })
-}
+export const DirtyValidation = defineStory({
+  story: () => ({
+    components: { Component: VaSelect },
+
+    data () {
+      return { value: '', dirty: false, haveError: false, options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
+    },
+
+    template: `
+      <p>[haveError]: {{ haveError }}</p>
+      <p>[dirty]: {{ dirty }}</p>
+      <Component v-model="value" v-model:dirty="dirty" v-model:error="haveError" :options="options" :rules="rules" clearable />
+      <p> [controls] </p>
+      <div>
+        <button @click="value = 'two'" data-test="change">Change value to two</button>
+      </div>
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect, event, sleep }) {
+    step('Expect no error when mounted even if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).toBeNull()
+    })
+
+    await step('Expect no error when value changed programaticaly', () => {
+      event.click(canvasElement.querySelector('[data-test="change"]')!)
+
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).toBeNull()
+    })
+
+    await step('Expect error appear when component is interacted', async () => {
+      event.click(canvasElement.querySelector('.va-input-wrapper__field')!)
+      await sleep(1000)
+      event.click(document.body.querySelectorAll('.va-select-option')[1])
+      await sleep(1000)
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
+  },
+})
+
+export const DirtyImmediateValidation = defineStory({
+  story: () => ({
+    components: { Component: VaSelect },
+
+    data () {
+      return { value: '', dirty: false, haveError: false, options: ['one', 'two', 'three'], rules: [(v: string) => (v && v === 'one') || 'Must be one'] }
+    },
+
+    template: `
+      <p>[haveError]: {{ haveError }}</p>
+      <p>[dirty]: {{ dirty }}</p>
+      <Component v-model="value" v-model:dirty="dirty" v-model:error="haveError" :options="options" :rules="rules" clearable immediate-validation />
+      <p> [controls] </p>
+      <div>
+        <button @click="value = 'two'">Change value to two</button>
+      </div>
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect }) {
+    step('Expect error when mounted if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
+  },
+})
 
 export const Autocomplete: StoryFn = () => ({
   components: { VaSelect },

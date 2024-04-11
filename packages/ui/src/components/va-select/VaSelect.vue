@@ -537,6 +537,8 @@ const onInputBlur = () => {
 
   onBlur()
 
+  validationListeners.onBlur()
+
   isInputFocused.value
     ? isInputFocused.value = false
     : validate()
@@ -717,7 +719,16 @@ const {
   computedErrorMessages,
   withoutValidation,
   resetValidation,
+  validationAriaAttributes,
+  listeners: validationListeners,
+  isTouched,
 } = useValidation(props, emit, { reset, focus, value: valueComputed })
+
+watch(isOpenSync, (isOpen) => {
+  if (!isOpen) {
+    isTouched.value = true
+  }
+})
 
 const { popupId } = useSelectAria()
 
