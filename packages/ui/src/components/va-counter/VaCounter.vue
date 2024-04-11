@@ -1,7 +1,7 @@
 <template>
   <va-input-wrapper
     class="va-counter"
-    v-bind="{ ...fieldListeners, ...inputWrapperPropsComputed }"
+    v-bind="{ ...fieldListeners, ...inputWrapperPropsComputed, ...validationListeners }"
     :class="classComputed"
     :style="styleComputed"
     :focused="isFocused"
@@ -211,6 +211,9 @@ const {
   computedErrorMessages,
   withoutValidation,
   resetValidation,
+  listeners: validationListeners,
+  isDirty,
+  isTouched,
 } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
 const setCountInput = ({ target }: Event) => {
@@ -383,6 +386,8 @@ const inputListeners = createInputListeners(emit)
 const inputWrapperPropsComputed = filterComponentProps(VaInputWrapperProps)
 
 defineExpose({
+  isDirty,
+  isTouched,
   focus,
   blur,
   decreaseCount,
