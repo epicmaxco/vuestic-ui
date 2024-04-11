@@ -222,9 +222,7 @@ const {
 } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
 watch(doShowDropdown, (v) => {
-  console.log('watch', v)
   if (!v) {
-    console.log('close')
     isTouched.value = true
   }
 })
