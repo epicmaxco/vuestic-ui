@@ -3,7 +3,10 @@
     ref="rootElement"
     class="va-sidebar__item va-sidebar-item"
     tabindex="0"
-    :class="{ 'va-sidebar-item--active': $props.active }"
+    :class="{
+      'va-sidebar-item--active': $props.active,
+      'va-sidebar-item--disabled': $props.disabled,
+    }"
     :style="computedStyle"
     :is="tagComputed"
     v-bind="linkAttributesComputed"
@@ -41,6 +44,7 @@ const props = defineProps({
   hoverColor: { type: String, default: undefined },
   hoverOpacity: { type: [Number, String], default: 0.2 },
   borderColor: { type: String, default: undefined },
+  disabled: { type: Boolean, default: false },
 })
 
 const rootElement = useElementRef()
@@ -110,6 +114,11 @@ const bg = getColor(sidebar?.color)
   color: currentColor;
   cursor: pointer;
 
-  @include keyboard-focus-outline('inherit', 2px, -2px);
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @include keyboard-focus-outline("inherit", 2px, -2px);
 }
 </style>
