@@ -138,6 +138,29 @@
         </va-sidebar>
       </div>
     </VbCard>
+    <VbCard title="disabled sidebar items">
+      <div class="demo__sidebar-container">
+        <va-sidebar>
+          <va-sidebar-item disabled>
+            <va-sidebar-item-content>
+              <va-icon name="dashboard" />
+              <va-sidebar-item-title>
+                Dashboard
+              </va-sidebar-item-title>
+            </va-sidebar-item-content>
+          </va-sidebar-item>
+
+          <va-sidebar-item disabled>
+            <va-sidebar-item-content>
+              <va-icon name="room" />
+              <va-sidebar-item-title>
+                Sidebar demo
+              </va-sidebar-item-title>
+            </va-sidebar-item-content>
+          </va-sidebar-item>
+        </va-sidebar>
+      </div>
+    </VbCard>
   </VbDemo>
 </template>
 
