@@ -104,6 +104,29 @@
         </template>
       </VaStepper>
     </VbCard>
+
+    <VbCard title="All steps completed with a finish step">
+      <VaStepper v-model="cStep" :steps="completedSteps" showFinishStep :finishStep="finishStep">
+        <template v-for="(cStep, i) in completedSteps" :key="cStep.label" #[`step-content-${i}`]>
+          This is step {{ cStep.label }}.
+        </template>
+        <template #[`step-content-${completedSteps.length}`]>
+          This is finish content.
+        </template>
+      </VaStepper>
+    </VbCard>
+
+    <VbCard title="All steps completed with a finish step(with disabled navigation on finish)">
+      <VaStepper v-model="cStep" :steps="completedSteps" :showFinishStep="true" :finishStep="finishStep"
+        disableNavigationOnFinish>
+        <template v-for="(cStep, i) in completedSteps" :key="cStep.label" #[`step-content-${i}`]>
+          This is step {{ cStep.label }}.
+        </template>
+        <template #[`step-content-${completedSteps.length}`]>
+          This is finish content.
+        </template>
+      </VaStepper>
+    </VbCard>
   </VbDemo>
 </template>
 
@@ -120,6 +143,7 @@ const model = ref({ a: '', b: '', c: '', d: '' })
 const retryCount = ref(0)
 const linearStepper = ref()
 const actionStepper = ref()
+const cStep = ref(2)
 
 const steps = [
   { label: 'One' },
@@ -174,4 +198,16 @@ const stepsWithNextAction = ref<Step[]>([
   { label: 'Three', beforeLeave: (step) => model.value.c !== '' },
   { label: 'Four', hasError: (step) => model.value.d === '' },
 ])
+
+const completedSteps = ref<Step[]>([
+  { label: 'One', completed: true },
+  { label: 'Two', completed: true },
+  { label: 'Three', completed: true },
+])
+
+const finishStep = ref<Step>({
+  label: 'Finish',
+  icon: 'check',
+})
+
 </script>

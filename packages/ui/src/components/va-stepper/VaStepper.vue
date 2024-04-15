@@ -47,22 +47,59 @@
           />
         </slot>
       </template>
+      <template
+        v-if="$props.finishStep && showFinishStep && isFinished"
+      >
+        <slot
+          name="divider"
+        >
+          <span
+            class="va-stepper__divider"
+            :class="{ 'va-stepper__divider--vertical': $props.vertical }"
+            aria-hidden="true"
+          />
+        </slot>
+        <slot
+          :name="`step-button-${props.steps.length}`"
+        >
+          <va-stepper-step-button
+            :stepIndex="modelValue"
+            :color="getColor($props.color)"
+            :modelValue="modelValue"
+            :nextDisabled="true"
+            :step="$props.finishStep"
+            :stepControls="stepControls"
+            :navigationDisabled="true"
+            :focus="focusedStep"
+          />
+        </slot>
+      </template>
     </ol>
     <div
       class="va-stepper__step-content-wrapper"
       :class="{ 'va-stepper__step-content-wrapper--vertical': $props.vertical }"
     >
-      <template
-        v-for="(step, i) in $props.steps"
-        :key="i"
-      >
-        <div
-          class="va-stepper__step-content"
-          v-if="$slots[`step-content-${i}`] && modelValue === i"
+      <template v-if="!isFinished">
+        <template
+          v-for="(step, i) in $props.steps"
+          :key="i"
         >
+          <div
+            class="va-stepper__step-content"
+            v-if="$slots[`step-content-${i}`] && modelValue === i"
+          >
+            <slot
+              :name="`step-content-${i}`"
+              v-bind="getIterableSlotData(step, i)"
+            />
+          </div>
+        </template>
+      </template>
+      <template v-else>
+        <div class="va-stepper__step-content">
           <slot
-            :name="`step-content-${i}`"
-            v-bind="getIterableSlotData(step, i)"
+            :name="`step-content-${steps.length}`"
+            v-bind="getIterableSlotData(finishStep, modelValue)"
           />
         </div>
       </template>
@@ -78,7 +115,7 @@
             :steps="steps"
             :stepControls="stepControls"
             :finishButtonHidden="finishButtonHidden"
-            @finish="$emit('finish')"
+            @finish="goToFinishStep"
           />
         </slot>
       </div>
@@ -115,6 +152,9 @@ const props = defineProps({
   finishButtonHidden: { type: Boolean, default: false },
   ariaLabel: { type: String, default: '$t:progress' },
   linear: { type: Boolean, default: false },
+  disableNavigationOnFinish: { type: Boolean, default: false },
+  showFinishStep: { type: Boolean, default: false },
+  finishStep: { type: Object as PropType<Step>, default: () => ({ label: '' }) },
 })
 
 const emit = defineEmits(['update:modelValue', 'finish', 'update:steps'])
@@ -198,7 +238,7 @@ const validateMovingToStep = (stepIndex: number): boolean => {
 }
 
 const setStep = (index: number) => {
-  if (!validateMovingToStep(index)) { return }
+  if (!validateMovingToStep(index) || (isFinished.value && props.disableNavigationOnFinish)) { return }
 
   emit('update:modelValue', index)
 }
@@ -211,6 +251,7 @@ const setFocus = (direction: 'prev' | 'next') => {
     setFocusPrevStep(1)
   }
 }
+
 const setFocusNextStep = (idx: number) => {
   const newValue = focusedStep.value.stepIndex + idx
 
@@ -269,7 +310,7 @@ watch(() => props.modelValue, () => {
 const nextStep = (stepsToSkip = 0) => {
   const targetIndex = modelValue.value + 1 + stepsToSkip
 
-  if (!props.steps[targetIndex]) { return }
+  if (!props.steps[targetIndex] || (isFinished.value && props.disableNavigationOnFinish)) { return }
   if (props.steps[targetIndex].disabled) {
     nextStep(stepsToSkip + 1)
   }
@@ -278,9 +319,12 @@ const nextStep = (stepsToSkip = 0) => {
 }
 
 const prevStep = (stepsToSkip = 0) => {
-  const targetIndex = modelValue.value - 1 - stepsToSkip
+  // add an offset because when step it's finished the current step is still the last step in the steps array and previous on finish go to the the step before the previous step e.g for [1,2,3], on finish, step 3 is the last step and if we go prev from the finish step it goes to 2 instead of staying in 3.
+  const stepOffset = isFinished.value ? 1 : 0
+  const targetIndex = modelValue.value - 1 - stepsToSkip + stepOffset
 
-  if (!props.steps[targetIndex]) { return }
+  if (!props.steps[targetIndex] || (isFinished.value && props.disableNavigationOnFinish)) { return }
+  isFinished.value = false
   if (props.steps[targetIndex].disabled) {
     prevStep(stepsToSkip + 1)
   }
@@ -289,6 +333,7 @@ const prevStep = (stepsToSkip = 0) => {
 }
 
 const stepControls: StepControls = { setStep, nextStep, prevStep }
+
 const getIterableSlotData = (step: Step, index: number) => ({
   ...stepControls,
   focus: focusedStep,
@@ -340,6 +385,13 @@ const setError = (shouldSetError?: boolean) => {
   steps[props.modelValue].completed = !shouldSetError
 
   emit('update:steps', steps)
+}
+
+const isFinished = ref(false)
+const goToFinishStep = () => {
+  if (props.linear && props.steps.every(step => !step.completed)) { return }
+  isFinished.value = true
+  emit('finish')
 }
 
 defineExpose({
