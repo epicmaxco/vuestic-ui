@@ -46,6 +46,7 @@ const classComputed = computed(() => ({
 
   &--link {
     color: inherit;
+    cursor: pointer;
 
     &:hover {
       opacity: var(--va-breadcrumb-item-hover-opacity);
