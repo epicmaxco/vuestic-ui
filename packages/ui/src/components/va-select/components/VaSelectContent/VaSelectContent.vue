@@ -185,6 +185,7 @@ const slotValue = computed(() => {
 .va-select-content {
   display: flex;
   flex-wrap: wrap;
+  flex: 1;
 
   &__autocomplete {
     flex: 1 1;
