@@ -158,7 +158,7 @@ const findFirstWithErrorIndex = (from: number, direction: number) => {
   }
 }
 
-const validateMovingToStep = (stepIndex: number): boolean => {
+const validateMovingToStep = async (stepIndex: number): Promise<boolean> => {
   const newStep = props.steps[stepIndex]
   const currentStep = props.steps[modelValue.value]
   const beforeNewStep = findFirstNonDisabled(stepIndex, -1)
@@ -175,8 +175,10 @@ const validateMovingToStep = (stepIndex: number): boolean => {
     return false
   }
 
+  const currentStepBeforeLeaveResult = await currentStep.beforeLeave?.(currentStep, newStep)
+
   //  Checks if a save function was passed, if so it will be called and return boolean
-  if (currentStep.beforeLeave?.(currentStep, newStep) === false) {
+  if (currentStepBeforeLeaveResult === false) {
     // Do not update the modelValue if the beforeLeave function returns false
     return false
   }
@@ -197,8 +199,8 @@ const validateMovingToStep = (stepIndex: number): boolean => {
   return true
 }
 
-const setStep = (index: number) => {
-  if (!validateMovingToStep(index)) { return }
+const setStep = async (index: number) => {
+  if (!await validateMovingToStep(index)) { return }
 
   emit('update:modelValue', index)
 }

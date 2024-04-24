@@ -2,7 +2,7 @@ export type Step = {
   label: string
   icon?: string
   disabled?: boolean
-  beforeLeave?: (currentStep: Omit<Step, 'beforeLeave'>, toStep: Omit<Step, 'beforeLeave'>) => boolean | void
+  beforeLeave?: (currentStep: Omit<Step, 'beforeLeave'>, toStep: Omit<Step, 'beforeLeave'>) => boolean | void | Promise<boolean | void>
   /** Will be set to true if user completed step with validation error */
   hasError?: boolean | ((currentStep: Omit<Step, 'hasError'>) => boolean | void)
   /**
