@@ -531,8 +531,8 @@ const cellData = (cellData: DataTableCell, internalColumnData: DataTableColumnIn
               td {
                 // Position relative doesn't work on tr in Safari
                 position: relative;
-
-                @include va-background(var(--va-data-table-striped-tr-background-color), var(--va-data-table-striped-tr-opacity), -1);
+                background: var(--va-data-table-striped-tr-background-color);
+                opacity: var(--va-data-table-striped-tr-opacity);
               }
             }
           }
