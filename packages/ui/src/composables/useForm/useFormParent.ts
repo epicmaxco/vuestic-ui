@@ -80,7 +80,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   }
 
   useFormChild({
-    name: ref(undefined),
+    name: toRef(options, 'name'),
     isValid: isValid,
     isLoading: isLoading,
     isDirty: isDirty,
@@ -94,6 +94,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   })
 
   return {
+    formRef: ref(),
     immediate: computed(() => options.immediate),
     isDirty,
     isTouched,

@@ -6,6 +6,7 @@ export type FormParentOptions = {
   hideErrors: boolean
   hideErrorMessages: boolean
   immediate: boolean
+  name?: string
 }
 
 export type FormContext = {

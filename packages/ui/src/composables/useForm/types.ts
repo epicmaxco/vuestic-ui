@@ -16,6 +16,7 @@ export type FormFiled<Name extends string = string> = {
 }
 
 export type Form<Names extends string = string> = {
+  formRef: Ref<unknown>,
   fields: ComputedRef<UnwrapRef<FormFiled<Names>[]>>;
   fieldsNamed: ComputedRef<Record<Names, UnwrapRef<FormFiled>>>;
   fieldNames: ComputedRef<Names[]>;
