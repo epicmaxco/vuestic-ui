@@ -6,7 +6,7 @@ export type MaybeHTMLElementOrSelector = string | HTMLElement | DefineComponent 
 export const useHTMLElementSelector = (key: Ref<MaybeHTMLElementOrSelector | undefined>): Ref<HTMLElement | undefined> => {
   return computed(() => {
     if (typeof key?.value === 'string') {
-      return document.querySelector(key.value) as HTMLElement
+      return document?.querySelector(key.value) as HTMLElement
     }
 
     return unwrapEl(key?.value)
