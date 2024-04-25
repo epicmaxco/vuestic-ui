@@ -21,7 +21,7 @@ import { Form } from './types'
  * </script>
  * ```
  */
-export const useForm = <Names extends string = string>(elRef?: string | Ref<typeof VaForm>): Form<Names> => {
+export const useForm = <Names extends string = string>(elRef?: string | Ref<typeof VaForm>): Form<Names> & { formRef: Ref<unknown>, } => {
   const form = typeof elRef === 'string'
     ? useTemplateRef(elRef) as any as Ref<typeof VaForm>
     : typeof elRef === 'undefined'

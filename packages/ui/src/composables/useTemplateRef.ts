@@ -11,7 +11,7 @@ export const useTemplateRef = (key: string) => {
     return {
       get () {
         track()
-        return vm.proxy?.$refs[key] as HTMLElement
+        return vm.proxy?.$refs[key] as HTMLElement | undefined
       },
       set (value) {},
     }

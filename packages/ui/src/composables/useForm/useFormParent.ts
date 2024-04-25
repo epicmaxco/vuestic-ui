@@ -94,7 +94,6 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   })
 
   return {
-    formRef: ref(),
     immediate: computed(() => options.immediate),
     isDirty,
     isTouched,
