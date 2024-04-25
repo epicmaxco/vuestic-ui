@@ -24,7 +24,7 @@ export type ValidationRule<V = any> = ((v: V) => any | string) | Promise<((v: V)
 type UseValidationOptions = {
   reset: () => void
   focus: () => void
-  value: WritableComputedRef<any>
+  value: WritableComputedRef<any> | Ref<any>
 }
 
 const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArguments: unknown = null) => {
@@ -164,10 +164,13 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     if (!asyncPromiseResults.length) { return processResults(syncRules) }
 
     isLoading.value = true
-    return Promise.all(asyncPromiseResults).then((asyncResults) => {
-      isLoading.value = false
-      return processResults([...syncRules, ...asyncResults])
-    })
+    return Promise.all(asyncPromiseResults)
+      .then((asyncResults) => {
+        return processResults([...syncRules, ...asyncResults])
+      })
+      .finally(() => {
+        isLoading.value = false
+      })
   }
 
   const validate = useOncePerTick((): boolean => {
@@ -245,7 +248,23 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     isValid: computed(() => !isError.value),
     isError: isError,
     isTouched,
-    isLoading: computed(() => forceHideLoading.value ? false : isLoading.value),
+    isLoading: computed({
+      get: () => {
+        if (forceHideErrors.value) { return false }
+        if (immediateValidation.value) {
+          return isLoading.value
+        }
+
+        if (isTouched.value || isDirty.value || forceDirty.value) {
+          return isLoading.value
+        }
+
+        return false
+      },
+      set (value) {
+        isLoading.value = value
+      },
+    }),
     computedError: computed(() => {
       if (forceHideErrors.value) { return false }
 
