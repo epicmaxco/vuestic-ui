@@ -107,6 +107,17 @@
         </tr>
 
         <tr>
+          <td>Px sizes</td>
+          <td>
+            <va-button :size="16">16px</va-button>
+            <va-button :size="24">24px</va-button>
+            <va-button :size="32">32px</va-button>
+            <va-button :size="48">48px</va-button>
+            <va-button :size="56">56px</va-button>
+          </td>
+        </tr>
+
+        <tr>
           <td>With icons</td>
           <td>
             <va-button icon="create">Edit Button</va-button>

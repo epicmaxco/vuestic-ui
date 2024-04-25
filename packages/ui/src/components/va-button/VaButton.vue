@@ -100,11 +100,10 @@ const props = defineProps({
   plain: { type: Boolean, default: false },
   round: { type: Boolean, default: false },
   size: {
-    type: String as PropType<'small' | 'medium' | 'large'>,
+    type: [String, Number] as PropType<'small' | 'medium' | 'large' | number>,
     default: 'medium',
-    validator: (v: string) => ['small', 'medium', 'large'].includes(v),
+    validator: (v: string | number) => ['small', 'medium', 'large'].includes(v as string) || typeof v === 'number',
   },
-
   icon: { type: String, default: '' },
   iconRight: { type: String, default: '' },
   iconColor: { type: String, default: '' },
@@ -156,6 +155,7 @@ const computedClass = useBem('va-button', () => ({
   iconOnly: isOnlyIcon.value,
   leftIcon: !isOnlyIcon.value && !!props.icon && !props.iconRight,
   rightIcon: !isOnlyIcon.value && !props.icon && !!props.iconRight,
+  px: typeof props.size === 'number',
 }))
 
 // styles
@@ -170,9 +170,29 @@ const {
 } = useButtonBackground(colorComputed, isPressed, isHovered)
 const contentColorComputed = useButtonTextColor(textColorComputed, colorComputed, isPressed, isHovered)
 
+const computedPxSizeStyle = computed(() => {
+  if (typeof props.size === 'number') {
+    return {
+      '--va-button-px-size': `${props.size}px`,
+      '--va-button-px-content-py': `${props.size * 0.2}px`,
+      '--va-button-px-content-px': `${props.size * 0.3}px`,
+      '--va-button-px-only-icon-content-px': `${props.size * 0.2}px`,
+      '--va-button-px-font-size': `${props.size * 0.4}px`,
+      '--va-button-px-letter-spacing': `${props.size * 0}px`,
+      '--va-button-px-line-height': `${props.size * 0.5}px`,
+      '--va-button-px-border-radius': `${props.size * 0.1}px`,
+      '--va-button-px-icon-side-padding': `${props.size * 0.2}px`,
+      '--va-button-px-icon-spacing': `${props.size * 0.1}px`,
+    }
+  }
+
+  return {}
+})
+
 const computedStyle = computed(() => ({
   borderColor: props.borderColor ? getColor(props.borderColor) : 'transparent',
   ...contentColorComputed.value,
+  ...computedPxSizeStyle.value,
 }))
 
 defineExpose({
@@ -384,9 +404,59 @@ defineExpose({
     }
   }
 
+  &--px {
+    line-height: var(--va-button-px-line-height);
+    border-radius: var(--va-button-px-border-radius);
+    letter-spacing: var(--va-button-px-letter-spacing);
+    min-height: var(--va-button-px-size);
+    min-width: var(--va-button-px-size);
+
+    .va-button__content {
+      font-size: var(--va-button-px-font-size);
+      padding: var(--va-button-px-content-py) var(--va-button-px-content-px);
+      line-height: var(--va-button-px-line-height);
+    }
+
+    // set icons the same size as text
+    .va-button__left-icon,
+    .va-button__right-icon {
+      // font-size: var(--va-button-px-line-height) !important;
+      // height: var(--va-button-px-line-height) !important;
+      // line-height: var(--va-button-px-line-height) !important;
+    }
+
+    .va-button__left-icon {
+      margin-right: var(--va-button-px-icons-spacing);
+    }
+
+    .va-button__right-icon {
+      margin-left: var(--va-button-px-icons-spacing);
+    }
+
+    &.va-button--bordered {
+      .va-button__content {
+        padding-top: calc(var(--va-button-px-content-py) - var(--va-button-bordered-border));
+        padding-bottom: calc(var(--va-button-px-content-py) - var(--va-button-bordered-border));
+      }
+    }
+
+    &.va-button--left-icon {
+      .va-button__content {
+        padding-left: var(--va-button-px-icon-side-padding);
+      }
+    }
+
+    &.va-button--right-icon {
+      .va-button__content {
+        padding-right: var(--va-button-px-icon-side-padding);
+      }
+    }
+  }
+
   &--small,
   &--normal,
-  &--large {
+  &--large,
+  &--px {
     &.va-button--icon-only {
       .va-button__content {
         padding-right: 0;
