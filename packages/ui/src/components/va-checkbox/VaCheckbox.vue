@@ -36,7 +36,7 @@
           @keypress.prevent="toggleSelection"
         >
         <va-icon
-          v-show="isActive"
+          v-if="isActive"
           class="va-checkbox__icon"
           :name="computedIconName"
           :color="textColorComputed"
