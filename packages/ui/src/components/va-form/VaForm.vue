@@ -53,6 +53,7 @@ const props = defineProps({
   hideErrorMessages: { type: Boolean, default: false },
   hideLoading: { type: Boolean, default: false },
   stateful: { type: Boolean, default: false },
+  name: { type: String, default: undefined },
 })
 
 const emit = defineEmits(['update:modelValue'])

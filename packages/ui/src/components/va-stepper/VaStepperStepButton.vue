@@ -9,8 +9,14 @@
     v-bind="ariaAttributesComputed"
   >
     <div class="va-stepper__step-button__icon">
+      <va-progress-circle
+        v-if="isLoading"
+        color="currentColor"
+        indeterminate
+        size="small"
+      />
       <va-icon
-        v-if="step.icon"
+        v-else-if="step.icon"
         :name="step.icon"
         size="1.3rem"
       />
@@ -24,6 +30,7 @@
 <script lang="ts" setup>
 import { computed, nextTick, PropType, shallowRef, watch } from 'vue'
 import { VaIcon } from '../va-icon'
+import { VaProgressCircle } from '../va-progress-circle'
 import { useBem, useColors, useTranslation } from '../../composables'
 import type { Step, StepControls } from './types'
 import { unFunction } from '../../utils/un-function'
@@ -51,6 +58,7 @@ const emit = defineEmits(['update:modelValue'])
 
 const stepElement = shallowRef<HTMLElement>()
 const hasError = computed(() => isStepHasError(props.step))
+const isLoading = computed<boolean>(() => unFunction(props.step.isLoading) || false)
 const displayError = computed(() => hasError.value && props.modelValue === props.stepIndex)
 const { getColor } = useColors()
 const stepperColor = computed(() => getColor(hasError.value ? 'danger' : props.color))

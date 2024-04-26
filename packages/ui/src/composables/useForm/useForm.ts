@@ -1,4 +1,4 @@
-import { type Ref, computed } from 'vue'
+import { type Ref, computed, ref } from 'vue'
 import { type VaForm } from '../../components'
 import { useTemplateRef } from '../useTemplateRef'
 import { Form } from './types'
@@ -21,12 +21,15 @@ import { Form } from './types'
  * </script>
  * ```
  */
-export const useForm = <Names extends string = string>(ref: string | Ref<typeof VaForm>): Form<Names> => {
-  const form = typeof ref === 'string'
-    ? useTemplateRef(ref) as any as Ref<typeof VaForm>
-    : ref
+export const useForm = <Names extends string = string>(elRef?: string | Ref<typeof VaForm>): Form<Names> & { formRef: Ref<unknown>, } => {
+  const form = typeof elRef === 'string'
+    ? useTemplateRef(elRef) as any as Ref<typeof VaForm>
+    : typeof elRef === 'undefined'
+      ? ref()
+      : elRef
 
   return {
+    formRef: form,
     isValid: computed(() => form.value?.isValid || false),
     immediate: computed(() => form.value?.immediate || false),
     isLoading: computed(() => form.value?.isLoading || false),
