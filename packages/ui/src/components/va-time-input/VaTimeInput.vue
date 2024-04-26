@@ -11,8 +11,7 @@
         class="va-time-input__anchor"
         ref="input"
         :style="cursorStyleComputed"
-        v-bind="computedInputWrapperProps"
-        v-on="computedInputListeners"
+        v-bind="{ ...computedInputWrapperProps, ...validationAriaAttributes, ...computedInputListeners }"
         @change="onInputTextChanged"
       >
         <template
@@ -74,8 +73,7 @@
 </template>
 
 <script lang="ts">
-import { computed, PropType, shallowRef, nextTick, useSlots, useAttrs } from 'vue'
-import omit from 'lodash/omit'
+import { computed, PropType, shallowRef, nextTick, useSlots, useAttrs, watch } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import {
@@ -220,7 +218,14 @@ const {
   withoutValidation,
   resetValidation,
   isDirty,
+  isTouched,
 } = useValidation(props, emit, { reset, focus, value: valueComputed })
+
+watch(doShowDropdown, (v) => {
+  if (!v) {
+    isTouched.value = true
+  }
+})
 
 const {
   canBeCleared,
@@ -268,7 +273,7 @@ useLongPressKey(input, {
 })
 
 const computedInputListeners = ({
-  focus: () => {
+  onFocus: () => {
     if (props.disabled) { return }
 
     focusListener()
@@ -276,7 +281,7 @@ const computedInputListeners = ({
     if (props.readonly) { return }
     onFocus()
   },
-  blur: () => {
+  onBlur: () => {
     if (props.disabled) { return }
 
     blurListener()
@@ -355,6 +360,7 @@ defineExpose({
   isValid,
   value: valueComputed,
   isDirty,
+  isTouched,
   focus,
   blur,
   reset,
