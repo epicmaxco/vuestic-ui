@@ -15,16 +15,17 @@
   --va-button-cursor: pointer;
 
   /* Small */
-  --va-button-sm-size: 1.5rem;
-  --va-button-sm-content-py: 0.25rem;
-  --va-button-sm-content-px: 0.375rem;
-  --va-button-sm-only-icon-content-px: 0.25rem;
-  --va-button-sm-font-size: 0.8125rem;
-  --va-button-sm-letter-spacing: 0;
-  --va-button-sm-line-height: 1rem;
-  --va-button-sm-border-radius: 0.125rem;
-  --va-button-sm-icon-side-padding: var(--va-button-sm-content-py);
-  --va-button-sm-icons-spacing: 0.125rem;
+  --va-button-small-size: 1.5rem;
+  --va-button-small-content-py: 0.25rem;
+  --va-button-small-content-px: 0.375rem;
+  --va-button-small-only-icon-content-px: 0.25rem;
+  --va-button-small-font-size: 0.8125rem;
+  --va-button-small-letter-spacing: 0;
+  --va-button-small-line-height: 1rem;
+  --va-button-small-border-radius: 0.125rem;
+  --va-button-small-icon-side-padding: var(--va-button-small-content-py);
+  --va-button-small-icons-spacing: 0.125rem;
+  --va-button-small-loader-size: 16px;
 
   /* Medium */
   --va-button-size: 2.25rem;
@@ -35,20 +36,22 @@
   --va-button-letter-spacing: 0;
   --va-button-line-height: 1.25rem;
   --va-button-border-radius: 0.25rem;
-  --va-button-icon-side-padding: var(--va-button-content-py);
-  --va-button-icons-spacing: 0.25rem;
+  --va-button-icon-side-padding: var(--va-button-content-px);
+  --va-button-icons-spacing: var(--va-gap-medium);
+  --va-button-loader-size: 24px;
 
   /* Large */
-  --va-button-lg-size: 3rem;
-  --va-button-lg-content-py: 0.75rem;
-  --va-button-lg-content-px: 1rem;
-  --va-button-lg-only-icon-content-px: 1rem;
-  --va-button-lg-font-size: 1.05rem;
-  --va-button-lg-letter-spacing: 0;
-  --va-button-lg-line-height: 1.5rem;
-  --va-button-lg-border-radius: 0.5rem;
-  --va-button-lg-icon-side-padding: var(--va-button-lg-content-py);
-  --va-button-lg-icons-spacing: 0.25rem;
+  --va-button-large-size: 3rem;
+  --va-button-large-content-py: 0.75rem;
+  --va-button-large-content-px: 1rem;
+  --va-button-large-only-icon-content-px: 1rem;
+  --va-button-large-font-size: 1.05rem;
+  --va-button-large-letter-spacing: 0;
+  --va-button-large-line-height: 1.5rem;
+  --va-button-large-border-radius: 0.5rem;
+  --va-button-large-icon-side-padding: var(--va-button-large-content-py);
+  --va-button-large-icons-spacing: 0.25rem;
+  --va-button-large-loader-size: 32px;
 
   /* Bordered */
   --va-button-bordered-border: 1px;

@@ -35,7 +35,9 @@
 import { computed } from 'vue'
 import clamp from 'lodash/clamp.js'
 
-import { useComponentPresetProp, useColors, useSize, useSizeProps, useTranslation } from '../../composables'
+import { useComponentPresetProp, useColors, useSizeProps, useTranslation } from '../../composables'
+import { useComponentVariables } from '../../composables/useComponentVariables'
+import { variables } from './const'
 
 defineOptions({
   name: 'VaProgressCircle',
@@ -52,7 +54,6 @@ const props = defineProps({
 })
 
 const { getColor } = useColors()
-const { sizeComputed } = useSize(props)
 
 const cappedThickness = computed(() => clamp(Number(props.thickness), 0, 1) / 2 * 100)
 
@@ -65,10 +66,7 @@ const { tp } = useTranslation()
 
 const infoStyle = computed(() => ({ color: colorComputed.value }))
 
-const rootStyle = computed(() => ({
-  width: sizeComputed.value,
-  height: sizeComputed.value,
-}))
+const rootStyle = useComponentVariables(variables, props)
 
 const rootClass = computed(() => ({
   'va-progress-circle--indeterminate': props.indeterminate,
@@ -88,6 +86,8 @@ const ariaAttributesComputed = computed(() => ({
 .va-progress-circle {
   position: var(--va-progress-circle-position);
   overflow: var(--va-progress-circle-overflow); // Prevents resizing container back and forth.
+  width: var(--va-progress-circle-size-current);
+  height: var(--va-progress-circle-size-current);
   font-family: var(--va-font-family);
 
   &__wrapper {
@@ -98,8 +98,8 @@ const ariaAttributesComputed = computed(() => ({
     right: 0;
     margin: auto;
     transform: rotate(-90deg);
-    width: var(--va-progress-circle-width);
-    height: var(--va-progress-circle-height);
+    width: var(--va-progress-circle-width-current);
+    height: var(--va-progress-circle-height-current);
 
     @include flex-center();
 
@@ -121,7 +121,7 @@ const ariaAttributesComputed = computed(() => ({
   }
 
   &__info {
-    font-size: var(--va-progress-circle-font-size);
+    font-size: var(--va-progress-circle-font-size-current);
     position: absolute;
     left: 50%;
     top: 50%;

@@ -144,8 +144,7 @@ import {
   useClickOutside,
   useDocument,
   useTeleported,
-  useSizeRef,
-  useIsMounted,
+  useSizeProps,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -155,6 +154,12 @@ import { useBlur } from './hooks/useBlur'
 import { useZIndex } from '../../composables/useZIndex'
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { defineChildProps, useChildComponents } from '../../composables/useChildComponents'
+</script>
+
+<script lang="ts" setup>
+
+import { variables } from './const'
+import { useComponentVariables } from '../../composables/useComponentVariables'
 
 const WithTransition = defineComponent({
   name: 'ModalElement',
@@ -167,9 +172,7 @@ const WithTransition = defineComponent({
     ? h(Transition, { ...attrs }, slots)
     : slots.default?.(attrs),
 })
-</script>
 
-<script lang="ts" setup>
 defineOptions({
   name: 'VaModal',
   inheritAttrs: false,
@@ -200,21 +203,10 @@ const props = defineProps({
   maxWidth: { type: String, default: '' },
   maxHeight: { type: String, default: '' },
   anchorClass: { type: String },
+  ...useSizeProps,
   size: {
     type: String as PropType<StringWithAutocomplete<'medium' | 'small' | 'large' | 'auto'>>,
     default: 'medium',
-  },
-  sizesConfig: {
-    type: Object,
-    default: () => ({
-      defaultSize: 'medium',
-      sizes: {
-        small: 576,
-        medium: 768,
-        large: 992,
-        auto: 'max-content',
-      },
-    }),
   },
   fixedLayout: { type: Boolean, default: false },
   withoutTransitions: { type: Boolean, default: false },
@@ -271,10 +263,11 @@ const zIndexComputed = computed(() => {
   return zIndexInherited.value
 })
 
-const sizeComputed = useSizeRef(props)
+const variablesComputed = useComponentVariables(variables, props, 'va-modal-dialog')
 
 const computedDialogStyle = computed(() => ({
-  maxWidth: props.maxWidth || sizeComputed.value,
+  ...variablesComputed.value,
+  maxWidth: props.maxWidth,
   maxHeight: props.maxHeight,
   color: textColorComputed.value,
   background: getColor(props.backgroundColor),
@@ -495,6 +488,7 @@ body.va-modal-open {
     border-radius: var(--va-modal-dialog-border-radius, var(--va-block-border-radius));
     margin: var(--va-modal-dialog-margin);
     box-shadow: var(--va-modal-dialog-box-shadow, var(--va-block-box-shadow));
+    max-width: var(--va-modal-dialog-size-current);
     position: relative;
     overflow: auto;
     display: flex;

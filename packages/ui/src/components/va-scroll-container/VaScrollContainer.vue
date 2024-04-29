@@ -1,5 +1,5 @@
 <template>
-  <div class="va-scroll-container">
+  <div class="va-scroll-container" :style="variablesComputed">
     <div class="va-scroll-container__content">
       <slot />
     </div>
@@ -9,7 +9,8 @@
 <script lang="ts" setup>
 import { computed, PropType } from 'vue'
 
-import { useColors, useSize, useSizeProps } from '../../composables'
+import { useColors, useSizeProps } from '../../composables'
+import { useComponentVariables } from '../../composables/useComponentVariables'
 
 defineOptions({
   name: 'VaScrollContainer',
@@ -22,22 +23,13 @@ const props = defineProps({
   color: { type: String, default: 'secondary' },
   rtl: { type: Boolean, default: false },
   gradient: { type: Boolean, default: false },
-  sizesConfig: {
-    type: Object,
-    default: () => ({
-      defaultSize: 4,
-      sizes: { small: 4, medium: 6, large: 8 },
-    }),
-  },
   size: {
-    type: String as PropType<'small' | 'medium' | 'large'>,
+    type: [String, Number] as PropType<'small' | 'medium' | 'large' | string | number>,
     default: 'small',
-    validator: (v: string) => ['small', 'medium', 'large'].includes(v),
   },
 })
 
 const { getColor } = useColors()
-const { sizeComputed } = useSize(props)
 
 const overflowX = computed(() => props.horizontal ? 'auto' : 'hidden')
 const overflowY = computed(() => props.vertical ? 'auto' : 'hidden')
@@ -47,8 +39,9 @@ const scrollColor = computed(() => {
   return props.gradient ? `linear-gradient(0deg, var(--va-scroll-container-scrollbar-gradient-to) 0%, ${color} 100%)` : color
 })
 
-const scrollbarSize = computed(() => sizeComputed.value)
 const scrollbarPosition = computed(() => props.rtl ? 'rtl' : 'ltr')
+
+const variablesComputed = useComponentVariables(['scrollbarSize'], props)
 </script>
 
 <style lang="scss">
@@ -56,7 +49,7 @@ const scrollbarPosition = computed(() => props.rtl ? 'rtl' : 'ltr')
 @import './variables';
 
 .va-scroll-container {
-  @include va-scroll(v-bind(scrollColor), v-bind(scrollbarSize));
+  @include va-scroll(v-bind(scrollColor), var(--va-scroll-container-scrollbar-size-current));
 
   overflow-x: v-bind(overflowX);
   overflow-y: v-bind(overflowY);

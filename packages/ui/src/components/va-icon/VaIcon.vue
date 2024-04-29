@@ -23,9 +23,11 @@ import omit from 'lodash/omit.js'
 import {
   useComponentPresetProp,
   useColors,
-  useSize, useSizeProps,
+  useSizeProps,
   useIcon,
 } from '../../composables'
+import { useComponentVariables } from '../../composables/useComponentVariables'
+import { variables } from './const'
 
 defineOptions({
   name: 'VaIcon',
@@ -48,7 +50,6 @@ const props = defineProps({
 })
 
 const { getColor } = useColors()
-const { sizeComputed } = useSize(props)
 const { getIcon } = useIcon()
 
 const iconConfig = computed(() => getIcon(props.name))
@@ -78,13 +79,13 @@ const transformStyle = computed(() => {
   return `${scale} ${rotation}`.trim()
 })
 
+const variablesComputed = useComponentVariables(variables, props)
+
 const computedStyle = computed(() => ({
   transform: transformStyle.value,
   cursor: attrs.onClick ? 'pointer' : null,
   color: props.color ? getColor(props.color, undefined, true) : iconConfig.value.color,
-  fontSize: sizeComputed.value,
-  height: sizeComputed.value,
-  lineHeight: sizeComputed.value,
+  ...variablesComputed.value,
 }))
 
 const tabindexComputed = computed(() => attrs.tabindex as number | undefined ?? -1)
@@ -98,6 +99,9 @@ const ariaHiddenComputed = computed(() => attrs.role !== 'button' || tabindexCom
 .va-icon {
   vertical-align: var(--va-icon-vertical-align);
   user-select: var(--va-icon-user-select);
+  font-size: var(--va-icon-size-current);
+  line-height: var(--va-icon-size-current);
+  height: var(--va-icon-size-current);
 
   &[role^="button"][tabindex]:not([tabindex^="-"]) {
     cursor: pointer;

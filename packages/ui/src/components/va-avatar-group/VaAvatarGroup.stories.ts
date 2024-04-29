@@ -1,5 +1,4 @@
 import { VaAvatarGroup } from './'
-import { addText } from '../../../.storybook/interaction-utils/addText'
 
 export default {
   title: 'VaAvatarGroup',

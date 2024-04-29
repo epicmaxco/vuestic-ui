@@ -92,6 +92,7 @@
             <va-button size="small" preset="secondary">Secondary</va-button>
             <va-button size="small" preset="plain">Plain</va-button>
             <va-button size="small" preset="plainOpacity">Plain with opacity</va-button>
+            <va-button size="small" loading />
           </td>
         </tr>
 
@@ -103,6 +104,7 @@
             <va-button size="large" preset="secondary">Secondary</va-button>
             <va-button size="large" preset="plain">Plain</va-button>
             <va-button size="large" preset="plainOpacity">Plain with opacity</va-button>
+            <va-button size="large" loading />
           </td>
         </tr>
 

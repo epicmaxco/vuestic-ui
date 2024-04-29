@@ -1,5 +1,6 @@
 import { VaAvatar } from './'
 import { h } from 'vue'
+import { StoryFn } from '@storybook/vue3'
 
 export default {
   title: 'VaAvatar',
@@ -58,32 +59,40 @@ export const Size = () => ({
   `,
 })
 
-export const SizesConfig = () => ({
+const sizesConfig = { small: { variables: { size: '16px' } }, medium: { variables: { size: '24px' } }, large: { variables: { size: '32px' } } }
+
+export const SizesConfig: StoryFn<typeof VaAvatar> = (args) => ({
   components: { VaAvatar },
+  setup () {
+    return { args }
+  },
   template: `
     [small: 16px]
     <VaAvatar
-      :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
+      v-bind="args"
       size="small"
     >
       Text
     </VaAvatar>
     [medium: 24px]
     <VaAvatar
-      :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
+      v-bind="args"
       size="medium"
     >
       Text
     </VaAvatar>
     [large: 32px]
     <VaAvatar
-      :sizesConfig="{ 'defaultSize': 24, 'sizes': { 'small': 16, 'medium': 24, 'large': 32 } }"
+      v-bind="args"
       size="large"
     >
       Text
     </VaAvatar>
   `,
 })
+SizesConfig.args = {
+  sizesConfig,
+}
 
 export const FontSize = () => ({
   components: { VaAvatar },

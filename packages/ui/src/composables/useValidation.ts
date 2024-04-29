@@ -16,7 +16,7 @@ import isString from 'lodash/isString.js'
 
 import { useSyncProp } from './useSyncProp'
 import { useFormChild } from './useForm'
-import { type ExtractReadonlyArrayKeys } from '../utils/types/readonly-array-keys'
+import { type ArrayElementType } from 'src/utils/types/array'
 import { watchSetter } from './../utils/watch-setter'
 
 export type ValidationRule<V = any> = ((v: V) => any | string) | Promise<((v: V) => any | string)>
@@ -61,7 +61,7 @@ const isPromise = (value: any): value is Promise<any> => {
 const useDirtyValue = (
   value: Ref<any>,
   props: ExtractPropTypes<typeof useValidationProps>,
-  emit: (event: ExtractReadonlyArrayKeys<typeof useValidationEmits>, ...args: any[]) => void,
+  emit: (event: ArrayElementType<typeof useValidationEmits>, ...args: any[]) => void,
 ) => {
   const isDirty = ref(props.dirty || false)
 

@@ -57,7 +57,7 @@ import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingCo
 import { RatingValue } from './types'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import VaRatingItem from './components/VaRatingItem/VaRatingItem.vue'
-import VaRatingItemNumberButton from './components/VaRatingItemNumberButton.vue'
+import VaRatingItemNumberButton from './components/VaRatingNumberItem.vue'
 
 const VaRatingItemPropsDeclarations = extractComponentProps(VaRatingItem, ['modelValue', 'itemNumber'])
 const VaRatingItemNumberButtonPropsDeclarations = extractComponentProps(VaRatingItemNumberButton, ['modelValue', 'itemNumber'])
@@ -138,16 +138,6 @@ const VaRatingItemNumberButtonProps = filterComponentProps(VaRatingItemNumberBut
   font-family: var(--va-font-family);
 
   &__number-item {
-    @include normalize-button();
-
-    font-size: var(--va-rating-number-item-font-size);
-    margin: var(--va-rating-number-item-margin);
-    font-weight: var(--va-rating-number-item-font-weight);
-
-    @include flex-center();
-
-    cursor: pointer;
-
     @at-root {
       .va-rating--disabled & {
         @include va-disabled();

@@ -15,9 +15,6 @@ const makeColor = (color: ColorInput) => {
     })
   }
 }
-
-export const isCSSVariable = (strColor: string): boolean => /var\(--.+\)/.test(strColor)
-export const cssVariableName = (colorName: string) => `--va-${kebabCase(colorName)}`
 export const normalizeColorName = (colorName: string) => camelCase(colorName)
 
 export const colorToRgba = (color: ColorInput, opacity: number) => {

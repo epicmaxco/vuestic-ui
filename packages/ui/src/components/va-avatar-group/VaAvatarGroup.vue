@@ -28,9 +28,9 @@ import { computed, PropType } from 'vue'
 
 import { VaAvatar } from '../va-avatar'
 
-import pick from 'lodash/pick.js'
+import pick from 'lodash/pick'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import { useBem, useComponentPresetProp, useSize, useSizeProps, useNumericProp } from '../../composables'
+import { useBem, useComponentPresetProp, useNumericProp } from '../../composables'
 
 const VaAvatarProps = extractComponentProps(VaAvatar)
 </script>
@@ -42,7 +42,6 @@ defineOptions({
 })
 
 const props = defineProps({
-  ...useSizeProps,
   ...useComponentPresetProp,
   ...VaAvatarProps,
 
@@ -78,14 +77,8 @@ const restOptionsCount = computed(() => {
 
   return hasOptions && canAddMoreOptions ? remainingOptions : 0
 })
-const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatarGroup')
 
-const filteredAvatarProps = filterComponentProps(VaAvatarProps)
-const avatarProps = computed(() => ({
-  ...filteredAvatarProps.value,
-  fontSize: fontSizeComputed.value,
-  size: sizeComputed.value,
-}))
+const avatarProps = filterComponentProps(VaAvatarProps)
 </script>
 
 <style lang="scss">

@@ -55,8 +55,8 @@
       <va-rating size='small' v-model="value" />
       <va-rating size='medium' v-model="value" />
       <va-rating size='large' v-model="value" />
-      <va-rating :size="40" v-model="value" />
-      <va-rating :size="60" v-model="value" />
+      <va-rating size="40px" v-model="value" />
+      <va-rating size="60px" v-model="value" />
     </VbCard>
     <VbCard title="Disabled">
       <va-rating disabled v-model="value" />
@@ -112,7 +112,7 @@
         v-model="value"
       />
       <va-rating
-        :size="20"
+        size="20px"
         icon="thumb_up"
         empty-icon="thumb_up_empty"
         v-model="value"
@@ -166,8 +166,8 @@
       <va-rating numbers size='small' v-model="value" />
       <va-rating numbers size='medium' v-model="value" />
       <va-rating numbers size='large' v-model="value" />
-      <va-rating numbers :size="40" v-model="value" />
-      <va-rating numbers :size="60" v-model="value" />
+      <va-rating numbers size="40px" v-model="value" />
+      <va-rating numbers size="60px" v-model="value" />
     </VbCard>
     <VbCard title="Disabled">
       <va-rating numbers disabled hover v-model="value" />

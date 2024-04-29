@@ -2,7 +2,7 @@ import { PartialGlobalConfig } from './../../global-config/types'
 import { ColorVariables } from './../types'
 import { App, watch, computed } from 'vue'
 import { isServer } from '../../../utils/ssr'
-import { cssVariableName } from '../utils'
+import { cssVariableName } from '../../../utils/css-variables'
 import { useColors } from '../../../composables'
 import { generateUniqueId } from '../../../utils/uuid'
 import { addOrUpdateStyleElement } from '../../../utils/dom'
@@ -12,7 +12,7 @@ export const setCSSVariable = (name: string, value: string, root: HTMLElement) =
 }
 
 export const generateCSSVariable = (key: string, value: string) => {
-  return `${cssVariableName(key)}: ${value};\n`
+  return `${cssVariableName(key)}: ${value};`
 }
 
 export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) => {
@@ -23,10 +23,10 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
     if (!colors) { return }
 
     const colorNames = Object.keys(colors)
-    const renderedColors = colorNames.map((key) => `${cssVariableName(key)}: ${colors[key]}`).join(';')
-    const renderedOnColors = colorNames.map((key) => `${cssVariableName(`on-${key}`)}: ${getColor(getTextColor(colors[key]))}`).join(';')
+    const renderedColors = colorNames.map((key) => generateCSSVariable(key, colors[key]))
+    const renderedOnColors = colorNames.map((key) => generateCSSVariable(`on-${key}`, getColor(getTextColor(colors[key]))))
 
-    return `${renderedColors};${renderedOnColors}`
+    return [...renderedColors, ...renderedOnColors].join(';')
   }
 
   const renderCSSVariablesStyleContent = (colors: ColorVariables = configColors) => {
@@ -34,10 +34,10 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
 
     let result = ':root {\n'
     colorNames.forEach((key) => {
-      result += generateCSSVariable(key, colors[key])
+      result += generateCSSVariable(key, colors[key]) + '\n'
     })
     colorNames.forEach((key) => {
-      result += generateCSSVariable(`on-${key}`, getColor(getTextColor(colors[key])))
+      result += generateCSSVariable(`on-${key}`, getColor(getTextColor(colors[key]))) + '\n'
     })
     result += '}\n'
 

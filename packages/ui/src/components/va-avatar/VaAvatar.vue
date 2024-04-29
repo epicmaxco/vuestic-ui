@@ -6,7 +6,7 @@
   >
     <va-progress-circle
       v-if="$props.loading"
-      :size="sizeComputed"
+      :size="props.size"
       :color="colorComputed"
       indeterminate
     />
@@ -37,7 +37,6 @@ import pick from 'lodash/pick'
 
 import {
   useBem,
-  useSize,
   useColors,
   useTextColor,
   useSizeProps,
@@ -47,6 +46,9 @@ import {
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import { VaIcon, VaProgressCircle, VaFallback } from '../index'
+
+import { useComponentVariables } from '../../composables/useComponentVariables'
+import { variables } from './const'
 
 const VaFallbackPropsDeclaration = extractComponentProps(VaFallback)
 </script>
@@ -83,11 +85,14 @@ const backgroundColorComputed = computed(() => {
 
   return colorComputed.value
 })
-const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
+
 const { textColorComputed } = useTextColor(backgroundColorComputed)
 
+const variablesComputed = useComponentVariables(variables, props)
+
 const computedStyle = computed(() => ({
-  fontSize: props.fontSize || fontSizeComputed.value,
+  ...variablesComputed.value,
+  fontSize: props.fontSize,
 }))
 
 const classesComputed = useBem('va-avatar', () => ({
@@ -121,20 +126,21 @@ defineExpose({
 @import "variables";
 
 .va-avatar {
-  align-items: var(--va-avatar-align-items);
-  display: var(--va-avatar-display);
-  justify-content: var(--va-avatar-justify-content);
-  line-height: var(--va-avatar-line-height);
-  position: var(--va-avatar-position);
-  text-align: var(--va-avatar-text-align);
-  vertical-align: var(--va-avatar-vertical-align);
-  border-radius: var(--va-avatar-border-radius);
+  align-items: var(--va-avatar-align-items-current);
+  display: var(--va-avatar-display-current);
+  justify-content: var(--va-avatar-justify-content-current);
+  line-height: var(--va-avatar-line-height-current);
+  position: var(--va-avatar-position-current);
+  text-align: var(--va-avatar-text-align-current);
+  vertical-align: var(--va-avatar-vertical-align-current);
+  border-radius: var(--va-avatar-border-radius-current);
   font-family: var(--va-font-family);
   background-color: v-bind(backgroundColorComputed);
   color: v-bind(textColorComputed);
-  width: v-bind(sizeComputed);
-  min-width: v-bind(sizeComputed);  // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
-  height: v-bind(sizeComputed);
+  width: var(--va-avatar-size-current);
+  min-width: var(--va-avatar-size-current);  // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
+  height: var(--va-avatar-size-current);
+  font-size: var(--va-avatar-font-size-current);
 
   &--square {
     --va-avatar-border-radius: 0;
