@@ -1,5 +1,5 @@
 import { warn } from '../../utils/console'
-import { toFloat } from '../../utils/to-float'
+import { toFloat, isDividable } from '../../utils/to-float'
 
 export const validateSlider = (value: number | number[], step: number, min: number, max: number, range: boolean) => {
   if ((Array.isArray(value) && !range) || (!Array.isArray(value) && range)) {
@@ -10,7 +10,7 @@ export const validateSlider = (value: number | number[], step: number, min: numb
     warn(`The maximum value (${max}) can not be less than the minimum value (${min}).`)
   }
 
-  if (toFloat(max - min) % step !== 0) {
+  if (!isDividable(max - min, step)) {
     warn(`Step ${step} is illegal. Slider is non-divisible (Min:Max ${min}:${max}).`)
   }
 
