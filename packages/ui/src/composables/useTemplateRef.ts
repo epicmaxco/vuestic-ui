@@ -1,16 +1,24 @@
-import { getCurrentInstance, onBeforeUnmount, onMounted, onUpdated, shallowRef } from 'vue'
+import { getCurrentInstance, onMounted, onUpdated, customRef } from 'vue'
 
 export const useTemplateRef = (key: string) => {
   const vm = getCurrentInstance()!
-  const el = shallowRef<HTMLElement>()
 
-  const updateEl = () => {
-    el.value = vm.proxy?.$refs[key] as HTMLElement
-  }
+  let _trigger = () => {}
 
-  onMounted(updateEl)
-  onUpdated(updateEl)
-  onBeforeUnmount(updateEl)
+  const el = customRef((track, trigger) => {
+    _trigger = trigger
+
+    return {
+      get () {
+        track()
+        return vm.proxy?.$refs[key] as HTMLElement | undefined
+      },
+      set (value) {},
+    }
+  })
+
+  onMounted(_trigger)
+  onUpdated(_trigger)
 
   return el
 }

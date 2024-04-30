@@ -3,6 +3,7 @@
     <va-button
       preset="primary"
       :disabled="Number($props.modelValue) <= 0"
+      :loading="isLoading"
       @click="$props.stepControls.prevStep()"
     >
       {{ t('back') }}
@@ -11,12 +12,14 @@
       v-if="!isLastStep"
       @click="$props.stepControls.nextStep()"
       :disabled="$props.nextDisabled"
+      :loading="isLoading"
     >
       {{ t('next') }}
     </va-button>
     <va-button
       v-else-if="!$props.finishButtonHidden"
-      @click="$emit('finish')"
+      @click="$props.stepControls.finish()"
+      :loading="isLoading"
     >
       {{ t('finish') }}
     </va-button>
@@ -27,6 +30,7 @@ import { PropType, computed } from 'vue'
 import { useTranslation } from '../../composables/useTranslation'
 import { VaButton } from '../va-button'
 import type { Step, StepControls } from './types'
+import { unFunction } from '../../utils/un-function'
 
 defineOptions({
   name: 'VaStepperControls',
@@ -44,6 +48,12 @@ const props = defineProps({
 })
 
 const { t } = useTranslation()
+
+const isLoading = computed<boolean>(() => {
+  const currentStep = props.steps[Number(props.modelValue)]
+
+  return unFunction(currentStep.isLoading) || false
+})
 
 const isLastStep = computed(() => {
   const lastEnabledStepIndex = props.steps.length - 1

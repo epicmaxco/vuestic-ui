@@ -4,25 +4,25 @@ import { StoryFn } from '@storybook/vue3'
 import { expect } from '@storybook/jest'
 import { VaButtonDropdown } from './'
 
-function getButtonDropdown() {
+function getButtonDropdown () {
   return {
     button: getStorySelector('.va-button'),
   }
 }
 
-function getButtonDropdownAll() {
+function getButtonDropdownAll () {
   return {
     button: getStorySelectorAll('.va-button'),
   }
 }
 
-function getAnchor() {
+function getAnchor () {
   return {
-    anchor: getStorySelector('#anchor_target')
+    anchor: getStorySelector('#anchor_target'),
   }
 }
 
-function getContent() {
+function getContent () {
   return {
     content: getStorySelector('.va-dropdown__content'),
   }
@@ -52,7 +52,7 @@ Default.play = async ({ step }) => {
     const { content } = getContent()
     expect(content).not.toBeNull()
   })
-  
+
   await step('Closes content menu by clicking anywhere', async () => {
     await userEvent.click(document.body)
 
@@ -354,7 +354,7 @@ Anchor.play = async ({ step }) => {
     const { content } = getContent()
     expect(content).not.toBeNull()
   })
-  
+
   await step('Closes content menu by clicking anywhere (anchor)', async () => {
     await userEvent.click(document.body)
 

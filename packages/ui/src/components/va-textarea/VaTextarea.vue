@@ -130,6 +130,7 @@ const reset = () =>
 
 const {
   isDirty,
+  isTouched,
   computedError,
   computedErrorMessages,
   listeners: validationListeners,
@@ -205,6 +206,7 @@ const listeners = createListeners(emit)
 
 defineExpose({
   isDirty,
+  isTouched,
   isLoading,
   computedError,
   computedErrorMessages,

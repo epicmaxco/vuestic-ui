@@ -394,6 +394,14 @@ Max.play = async ({ step }) => {
   })
 }
 
+export const CorrectRange: StoryFn = () => ({
+  components: { VaSlider },
+  data: () => ({ value: 0 }),
+  template: `
+    <VaSlider v-model="value" :max="6" :min="0" :step="0.05" />
+  `,
+})
+
 export const Range: StoryFn = () => ({
   components: { VaSlider },
   data: () => ({ value: [45, 65], minmaxValue: [45, 65] }),

@@ -6,7 +6,7 @@ assignees: ''
 
 ---
 
-**Vuestic-ui version:** 1.9.8
+**Vuestic-ui version:** 1.9.9
 
 ### Description
 

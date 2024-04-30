@@ -75,6 +75,7 @@ export default defineComponent({
     keyboardNavigation: { type: Boolean, default: true },
     ariaLabel: { type: String, default: '$t:toggleDropdown' },
     role: { type: String as PropType<StringWithAutocomplete<'button' | 'none'>>, default: 'button' },
+    contentClass: { type: String, default: '' },
   },
 
   emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'focus-outside', 'close', 'open', 'anchor-dblclick'],
@@ -222,7 +223,7 @@ export default defineComponent({
 
     const floatingSlotNode = this.showFloating && renderSlotNode(this.$slots.default, slotBind, {
       ref: 'floating',
-      class: 'va-dropdown__content-wrapper',
+      class: ['va-dropdown__content-wrapper', this.$props.contentClass],
       style: [this.floatingStyles, { zIndex: this.zIndex }],
       ...this.teleportedAttrs,
     })

@@ -1,6 +1,7 @@
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 import VaDateInputDemo from './VaDateInput.demo.vue'
 import VaDateInput from './VaDateInput.vue'
+import { defineStory } from '../../../.storybook/types'
 
 export default {
   title: 'VaDateInput',
@@ -23,6 +24,12 @@ export const Loading = () => ({
   template: '<VaDateInput loading />',
 })
 
+const isFriday = (date: Date) => {
+  if (!date) { return 'Date must be Friday.' }
+
+  return date.getDay() === 5 || 'Date must be Friday.'
+}
+
 export const ValidationRules = () => ({
   components: { VaDateInput },
   data () {
@@ -30,12 +37,108 @@ export const ValidationRules = () => ({
       value: new Date('2020-01-01T00:00:00.000Z'),
     }
   },
-  methods: {
-    isFriday (date: Date) {
-      return date.getDay() === 5 || 'Date must be Friday.'
+  methods: { isFriday },
+  template: '<VaDateInput v-model="value" :rules="[isFriday]" />',
+})
+
+export const ValidationImmediate = defineStory({
+  story: () => ({
+    components: { VaDateInput },
+    data () {
+      return {
+        value: new Date('2020-01-01T00:00:00.000Z'),
+      }
     },
+    methods: { isFriday },
+    template: '<VaDateInput v-model="value" :rules="[isFriday]" immediate-validation />',
+  }),
+
+  async tests ({ canvasElement, step, expect }) {
+    step('Expect error when mounted even if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
   },
-  template: '<VaDateInput v-model="value" :rules="[isFriday]" immediate-validation />',
+})
+
+export const ValidationDirtyState = defineStory({
+  story: () => ({
+    components: { VaDateInput },
+    data () {
+      return {
+        value: new Date('2020-01-01T00:00:00.000Z'),
+      }
+    },
+    methods: { isFriday },
+    template: `
+      [isDirty]: {{ $refs.component?.isDirty }}
+      <VaDateInput v-model="value" :rules="[isFriday]" ref="component" />
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect, event, sleep }) {
+    step('Expect no error when mounted even if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).toBeNull()
+    })
+
+    step('Expect error when opened and closed', async () => {
+      await event.click(canvasElement.querySelector('.va-input-wrapper__field')!)
+
+      await sleep(100)
+      const tuesday = document.body.querySelectorAll('.va-day-picker__calendar__day-wrapper')[2 + 7].children[0] as HTMLElement
+
+      await event.hover(tuesday)
+      await event.click(tuesday)
+
+      await sleep(100)
+
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
+  },
+})
+
+export const ValidationTouchedState = defineStory({
+  story: () => ({
+    components: { VaDateInput },
+    data () {
+      return {
+        value: new Date('2020-01-01T00:00:00.000Z'),
+      }
+    },
+    methods: {
+      isFriday,
+      reset () { this.$refs.component?.reset() },
+    },
+    template: `
+      [isTouched]: {{ $refs.component?.isTouched }}
+      <VaDateInput v-model="value" :rules="[isFriday]" ref="component" />
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect, event, sleep, methods }) {
+    step('Expect error when opened and closed', async () => {
+      await event.click(canvasElement.querySelector('.va-input-wrapper__field')!)
+
+      await sleep(100)
+
+      await event.click(document.body)
+
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
+
+    step('Expect error when input blur', async () => {
+      methods.reset()
+
+      await event.focus(canvasElement.querySelector('.va-input-wrapper__field')!)
+      await event.blur(canvasElement.querySelector('.va-input-wrapper__field')!)
+
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
+  },
 })
 
 export const Clearable = () => ({

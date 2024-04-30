@@ -17,11 +17,16 @@ export const OldDemos: StoryFn = () => ({
 
 export const CloseButton: StoryFn = () => ({
   components: { VaModal },
+  data () {
+    return {
+      show: false,
+    }
+  },
   template: `
-    <button @click="$refs.modal.show()">
+    <button @click="show = true">
       show modal
     </button>
-    <VaModal :model-value="true" ref="modal" :close-button="true">
+    <VaModal :model-value="show" @cancel="show = false" :close-button="true">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.
     </VaModal>
   `,

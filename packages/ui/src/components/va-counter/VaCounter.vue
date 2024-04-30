@@ -1,7 +1,7 @@
 <template>
   <va-input-wrapper
     class="va-counter"
-    v-bind="{ ...fieldListeners, ...inputWrapperPropsComputed }"
+    v-bind="{ ...fieldListeners, ...inputWrapperPropsComputed, ...validationListeners }"
     :class="classComputed"
     :style="styleComputed"
     :focused="isFocused"
@@ -123,6 +123,7 @@ import { VaInputWrapper } from '../va-input-wrapper'
 import { VaButton } from '../va-button'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import isNil from 'lodash/isNil'
+import { toFloat } from '../../utils/to-float'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change'],
@@ -213,6 +214,9 @@ const {
   computedErrorMessages,
   withoutValidation,
   resetValidation,
+  listeners: validationListeners,
+  isDirty,
+  isTouched,
 } = useValidation(props, emit, { reset, focus, value: valueComputed })
 
 const setCountInput = ({ target }: Event) => {
@@ -228,7 +232,7 @@ const getRoundDownWithStep = (value: number) => {
 
   // If the user enters a value manually, then we must round it to the nearest valid value,
   // taking into account the initial value (`props.min`) and the step size (`props.step`)
-  return Number(min.value) + Number(step.value) * Math.floor((value - Number(min.value)) / Number(step.value))
+  return toFloat(Number(min.value) + Number(step.value) * ((Number(value) - Number(min.value)) / Number(step.value)))
 }
 
 const calculateCounterValue = (counterValue: number) => {
@@ -237,7 +241,7 @@ const calculateCounterValue = (counterValue: number) => {
     return
   }
 
-  if (Number(max.value) && (counterValue > Number(max.value))) {
+  if (typeof max.value !== 'undefined' && (counterValue > Number(max.value))) {
     // since the `props.step` may not be a multiple of `(props.max - props.min)`,
     // we must round the result taking into account the allowable value
     valueComputed.value = getRoundDownWithStep(Number(max.value))
@@ -385,6 +389,8 @@ const inputListeners = createInputListeners(emit)
 const inputWrapperPropsComputed = filterComponentProps(VaInputWrapperProps)
 
 defineExpose({
+  isDirty,
+  isTouched,
   focus,
   blur,
   decreaseCount,

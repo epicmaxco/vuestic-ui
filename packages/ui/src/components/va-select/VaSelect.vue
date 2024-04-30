@@ -423,7 +423,7 @@ const selectOption = (option: SelectOption) => {
       valueComputed.value = addOption(option)
     }
   } else {
-    valueComputed.value = typeof option !== 'object' ? option : { ...option }
+    valueComputed.value = option
     hideAndFocus()
   }
 
@@ -537,6 +537,8 @@ const onInputBlur = () => {
   if (showDropdownContentComputed.value) { return }
 
   onBlur()
+
+  validationListeners.onBlur()
 
   isInputFocused.value
     ? isInputFocused.value = false
@@ -721,7 +723,16 @@ const {
   computedErrorMessages,
   withoutValidation,
   resetValidation,
+  validationAriaAttributes,
+  listeners: validationListeners,
+  isTouched,
 } = useValidation(props, emit, { reset, focus, value: valueComputed })
+
+watch(isOpenSync, (isOpen) => {
+  if (!isOpen) {
+    isTouched.value = true
+  }
+})
 
 const { popupId } = useSelectAria()
 

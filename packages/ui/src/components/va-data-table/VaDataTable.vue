@@ -163,7 +163,7 @@
           </tbody>
 
           <tfoot
-            v-if="$slots.footer || (footerClone && !$props.grid)"
+            v-if="['footer', 'footerPrepend', 'footerAppend'].some(field => $slots[field]) || (footerClone && !$props.grid)"
             class="va-data-table__table-tfoot"
             :class="{ 'va-data-table__table-tfoot--sticky': $props.stickyFooter }"
             :style="{ bottom: isVirtualScroll && $props.stickyFooter ? `${currentListOffset}px` : undefined }"
@@ -456,7 +456,6 @@ const cellData = (cellData: DataTableCell, internalColumnData: DataTableColumnIn
 
       th {
         border-bottom: none;
-        box-shadow: var(--va-data-table-thead-border-bottom-shadow);
       }
 
       &--sticky {
@@ -477,11 +476,10 @@ const cellData = (cellData: DataTableCell, internalColumnData: DataTableColumnIn
 
     .va-data-table__table-tfoot {
       color: var(--va-data-table-tfoot-color);
-      border-top: var(--va-data-table-thead-border);
+      border-top: var(--va-data-table-tfoot-border, var(--va-data-table-thead-border));
 
       th {
         border-bottom: none;
-        box-shadow: var(--va-data-table-thead-border-top-shadow);
       }
 
       &--sticky {

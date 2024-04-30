@@ -30,13 +30,16 @@
   <div class="va-chip">
     This is not va-chip component, just use .va-chip class. Must be plain text
   </div>
+  <kitchensink />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import kitchensink from './kitchensink.vue';
 
 export default defineComponent({
   name: 'App',
+  components: { kitchensink },
   data () {
     return {
       value: new Date(),
