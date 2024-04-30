@@ -1,51 +1,30 @@
 <template>
   <div class="flex gap-6 flex-wrap">
-    <VaAvatar
-      color="success"
-      class="mr-6"
-    >
+    <VaAvatar color="success">
       J.D.
     </VaAvatar>
 
-    <VaAvatar
-      color="info"
-      class="mr-6"
-    >
+    <VaAvatar color="info">
       J.D.
     </VaAvatar>
 
-    <VaAvatar
-      color="warning"
-      class="mr-6"
-    >
+    <VaAvatar color="warning">
       J.D.
     </VaAvatar>
 
-    <VaAvatar
-      color="#fafaa0"
-      class="mr-6"
-    >
+    <VaAvatar color="#fafaa0">
       J.D.
     </VaAvatar>
 
-    <VaAvatar
-      color="danger"
-      class="mr-6"
-    >
+    <VaAvatar color="danger">
       J.D.
     </VaAvatar>
 
-    <VaAvatar
-      color="#692BEB"
-      class="mr-6"
-    >
+    <VaAvatar color="#692BEB">
       J.D.
     </VaAvatar>
 
-    <VaAvatar
-      color="#540C0C"
-      text-color="#fafaa0"
-    >
+    <VaAvatar color="#540C0C" text-color="#fafaa0">
       J.D.
     </VaAvatar>
   </div>
