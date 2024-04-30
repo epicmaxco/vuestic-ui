@@ -269,10 +269,6 @@ export default defineComponent({
   flex-grow: 0;
   flex-shrink: 1;
 
-  &.va-input-wrapper--labeled-inner .va-input-wrapper__field {
-    height: calc(var(--va-input-wrapper-min-height) - calc(var(--va-input-wrapper-border-width) * 2));
-  }
-
   &__fieldset {
     // Reset browser styles
     border: none;
@@ -410,6 +406,10 @@ export default defineComponent({
     .va-input-wrapper__text {
       padding-top: 12px;
       box-sizing: content-box;
+    }
+
+    .va-input-wrapper__field {
+      height: calc(var(--va-input-wrapper-min-height) - calc(var(--va-input-wrapper-border-width) * 2));
     }
 
     textarea {
