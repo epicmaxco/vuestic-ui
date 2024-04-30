@@ -40,7 +40,7 @@ const props = defineProps({
   ...useComponentPresetProp,
   color: { type: String },
   icon: { type: String, default: 'va-loading' },
-  size: { type: Number, default: 30 },
+  size: { type: [Number, String], default: 30 },
 })
 
 const { getColor } = useColors()

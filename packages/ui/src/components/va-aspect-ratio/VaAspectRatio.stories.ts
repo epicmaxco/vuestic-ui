@@ -44,16 +44,16 @@ export const contentHeightAndWidth = () => ({
     [200/200]
     <va-aspect-ratio
       class="w-48 border-dashed border-2"
-      :content-width="200"
-      :content-height="200"
+      content-width="200"
+      content-height="200"
     >
       Content
     </va-aspect-ratio>
     [1280/720]
     <va-aspect-ratio
       class="w-48 border-dashed border-2"
-      :content-width="1280"
-      :content-height="720"
+      content-width="1280"
+      content-height="720"
     >
       Content
     </va-aspect-ratio>

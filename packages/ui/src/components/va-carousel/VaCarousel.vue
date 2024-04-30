@@ -5,7 +5,7 @@
       'va-carousel--vertical': $props.vertical,
       [`va-carousel--${$props.effect}`]: true
     }"
-    :style="{ height: ratio ? 'auto' : height }"
+    :style="{ height: ratioComputed ? 'auto' : height }"
     role="region"
     :aria-label="tp($props.ariaLabel)"
   >
@@ -103,7 +103,7 @@ import { useCarouselColor } from './hooks/useCarouselColors'
 import {
   useStateful, useStatefulProps, useStatefulEmits,
   useSwipe, useSwipeProps, useComponentPresetProp,
-  useTranslation,
+  useTranslation, useNumericProp,
 } from '../../composables'
 
 import { VaImage } from '../va-image'
@@ -135,8 +135,8 @@ const props = defineProps({
 
     // Animations
   autoscroll: { type: Boolean, default: false },
-  autoscrollInterval: { type: Number, default: 5000 },
-  autoscrollPauseDuration: { type: Number, default: 2000 },
+  autoscrollInterval: { type: [Number, String], default: 5000 },
+  autoscrollPauseDuration: { type: [Number, String], default: 2000 },
   infinite: { type: Boolean, default: true },
   fadeKeyframe: { type: String, default: 'va-carousel-fade-appear 1s' },
 
@@ -156,7 +156,7 @@ const props = defineProps({
     validator: (value: string) => ['fade', 'transition'].includes(value),
   },
   color: { type: String, default: 'primary' },
-  ratio: { type: Number },
+  ratio: { type: [Number, String] },
 
   ariaLabel: { type: String, default: '$t:carousel' },
   ariaPreviousLabel: { type: String, default: '$t:goPreviousSlide' },
@@ -168,13 +168,25 @@ const props = defineProps({
 const emit = defineEmits([...useStatefulEmits])
 
 const { valueComputed: currentSlide } = useStateful(props, emit, 'modelValue')
+const autoscrollIntervalComputed = useNumericProp('autoscrollInterval')
+const autoscrollPauseDurationComputed = useNumericProp('autoscrollPauseDuration')
+const ratioComputed = useNumericProp('ratio')
 
 const {
   goTo, next, prev,
   doShowNextButton, doShowPrevButton, doShowDirectionButtons,
 } = useCarousel(props, currentSlide)
 
-const { withPause, computedSlidesStyle, slides } = useCarouselAnimation(props, currentSlide)
+const { withPause, computedSlidesStyle, slides } = useCarouselAnimation({
+  items: props.items,
+  autoscrollInterval: autoscrollIntervalComputed.value!,
+  autoscrollPauseDuration: autoscrollPauseDurationComputed.value!,
+  autoscroll: props.autoscroll,
+  infinite: props.infinite,
+  effect: props.effect,
+  vertical: props.vertical,
+  fadeKeyframe: props.fadeKeyframe,
+}, currentSlide)
 const isObjectSlides = computed(() => {
   return props.items.length && props.items.every((el) => !!el && typeof el === 'object' && !!el?.src)
 })

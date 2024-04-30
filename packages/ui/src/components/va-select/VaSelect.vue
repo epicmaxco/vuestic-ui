@@ -127,7 +127,7 @@
 </template>
 
 <script lang="ts">
-import { ref, shallowRef, computed, watch, nextTick, type PropType, type Ref, useSlots } from 'vue'
+import { ref, shallowRef, computed, watch, nextTick, type PropType, type Ref, useSlots, ComputedRef } from 'vue'
 import pick from 'lodash/pick.js'
 
 import {
@@ -143,6 +143,7 @@ import {
   useBem,
   useThrottleProps,
   useDropdownable, useDropdownableEmits, useDropdownableProps, useSyncProp,
+  useNumericProp,
 } from '../../composables'
 
 import { VaInputWrapper } from '../va-input-wrapper'
@@ -222,7 +223,7 @@ const props = defineProps({
   virtualScroller: { type: Boolean, default: false },
   selectedTopShown: { type: Boolean, default: false },
   highlightMatchedText: { type: Boolean, default: true },
-  minSearchChars: { type: Number, default: 0 },
+  minSearchChars: { type: [Number, String], default: 0 },
   autoSelectFirstOption: { type: Boolean, default: false },
 
     // Input style
@@ -599,8 +600,10 @@ const onHintedSearch = (event: KeyboardEvent) => {
   hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
 }
 
+const minSearchCharsComputed = useNumericProp('minSearchChars') as ComputedRef<number>
+
 const optionsListPropsComputed = computed(() => ({
-  ...pick(props, ['textBy', 'trackBy', 'groupBy', 'valueBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'delay', 'selectedTopShown']),
+  ...pick(props, ['textBy', 'trackBy', 'groupBy', 'valueBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'delay', 'selectedTopShown']),
   autoSelectFirstOption: props.autoSelectFirstOption || props.autocomplete,
   search: searchVModel.value || autocompleteValue.value,
   tabindex: tabIndexComputed.value,
@@ -609,6 +612,7 @@ const optionsListPropsComputed = computed(() => ({
   getSelectedState: checkIsOptionSelected,
   noOptionsText: tp(props.noOptionsText),
   doShowAllOptions: doShowAllOptions.value,
+  minSearchChars: minSearchCharsComputed.value,
 }))
 
 const { toggleIcon, toggleIconColor } = useToggleIcon(props, isOpenSync)
