@@ -1,6 +1,9 @@
 export const variables = [
-  'size',
-  'fontSize',
+  'position',
+  'overflow',
   'width',
   'height',
+  'overlayTransition',
+  'size',
+  'fontSize',
 ] as const

@@ -23,6 +23,12 @@
         <div style="width: 600px; height: 600px; background: var(--va-primary);" />
       </VaScrollContainer>
     </VbCard>
+
+    <VbCard title="Size">
+      <VaScrollContainer style="width: 300px; height: 300px;" horizontal vertical size="large">
+        <div style="width: 600px; height: 600px; background: var(--va-primary);" />
+      </VaScrollContainer>
+    </VbCard>
   </VbDemo>
 </template>
 

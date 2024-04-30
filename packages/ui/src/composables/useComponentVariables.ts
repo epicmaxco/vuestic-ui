@@ -4,13 +4,12 @@ import { computed, getCurrentInstance } from 'vue'
 import { isCSSSizeValue, isCSSVariable } from '../utils/css'
 import isNil from 'lodash/isNil'
 import { SizeProps, SizesConfig } from '../services/size'
+import { useBem } from './useBem'
 
 const sizeToAbsolute = (size: unknown) => {
   if (typeof size === 'number') { return `${size}px` }
   return String(size)
 }
-
-const globalVariables = new Set(['fontSize'])
 
 export const renderVariablesFromConfig = <Variables extends string>(sizesConfig: SizesConfig<Variables, string>, componentName: string) => {
   return Object.entries(sizesConfig).reduce<Record<string, string>>((acc, [size, { variables }]) => {
@@ -22,52 +21,51 @@ export const renderVariablesFromConfig = <Variables extends string>(sizesConfig:
   }, {})
 }
 
-export const useComponentVariables = <Variables extends string>(variables: ReadonlyOrPlainArray<Variables>, props: SizeProps<SizesConfig<Variables, string>>, componentName = getCurrentInstance()?.type.name) => {
+export const useComponentVariables = <Variables extends string>(props: SizeProps<SizesConfig<Variables, string>>, componentName = getCurrentInstance()?.type.name) => {
   if (!componentName) {
     throw new Error('Component name must be provided!')
   }
 
-  const variablesFromConfig = computed(() => {
-    const config = props.sizesConfig
+  const computedClass = useBem(componentName, () => {
+    const size = props.size
 
-    if (!config) {
+    if (size && !(typeof size === 'string' && (isCSSVariable(size) || isCSSSizeValue(size)))) {
+      return {
+        [size]: true,
+      }
+    }
+
+    return {}
+  })
+
+  const computedStyle = computed(() => {
+    const size = props.size
+
+    if (isNil(size)) {
       return undefined
     }
 
-    return renderVariablesFromConfig(config, componentName)
-  })
+    const sizePreset = props.sizesConfig?.[size]
 
-  const currentVariables = computed(() => {
-    const sizeProp = props.size
-
-    const hasSize = !isNil(sizeProp)
-    const needUseSized = !(typeof sizeProp === 'string' && (isCSSVariable(sizeProp) || isCSSSizeValue(sizeProp)))
-
-    return [...variables].reduce<Record<string, string>>((acc, property) => {
-      const hasGlobalFallback = globalVariables.has(property)
-      const globalFallback = hasGlobalFallback ? `, var(${cssVariableName({ property })})` : ''
-
-      const variableName = cssVariableName({ componentName, property })
-      const baseVariable = `var(${variableName}${globalFallback})`
-
-      if (!hasSize) {
-        acc[`${variableName}-current`] = baseVariable
-      } else if (!needUseSized) {
-        acc[`${variableName}-current`] = property === 'size' ? sizeToAbsolute(sizeProp) : baseVariable
-      } else {
-        const size = String(sizeProp)
-        const sizedName = cssVariableName({ componentName, property, size })
-        const globalSizedFallback = hasGlobalFallback ? `, var(${cssVariableName({ property, size })}${globalFallback})` : ''
-
-        acc[`${variableName}-current`] = `var(${sizedName}, var(${variableName}${globalSizedFallback}))`
+    if (!sizePreset) {
+      if (typeof size === 'number' || isCSSVariable(size) || isCSSSizeValue(size)) {
+        return {
+          [cssVariableName({ componentName, property: 'size' })]: sizeToAbsolute(size),
+        }
       }
+
+      return undefined
+    }
+
+    return Object.entries<string>(sizePreset.variables).reduce<Record<string, string>>((acc, [property, value]) => {
+      acc[cssVariableName({ componentName, property })] = value
 
       return acc
     }, {})
   })
 
   return computed(() => ({
-    ...variablesFromConfig.value,
-    ...currentVariables.value,
+    class: computedClass,
+    style: computedStyle.value,
   }))
 }

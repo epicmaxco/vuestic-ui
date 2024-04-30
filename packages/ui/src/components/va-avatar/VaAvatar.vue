@@ -3,6 +3,7 @@
     class="va-avatar"
     :class="classesComputed"
     :style="computedStyle"
+    v-bind="variablesComputed"
   >
     <va-progress-circle
       v-if="$props.loading"
@@ -88,16 +89,13 @@ const backgroundColorComputed = computed(() => {
 
 const { textColorComputed } = useTextColor(backgroundColorComputed)
 
-const variablesComputed = useComponentVariables(variables, props)
+const variablesComputed = useComponentVariables(props)
 
 const computedStyle = computed(() => ({
-  ...variablesComputed.value,
   fontSize: props.fontSize,
 }))
 
-const classesComputed = useBem('va-avatar', () => ({
-  ...pick(props, ['square']),
-}))
+const classesComputed = useBem('va-avatar', () => pick(props, ['square']))
 
 const hasLoadError = ref(false)
 
@@ -126,21 +124,29 @@ defineExpose({
 @import "variables";
 
 .va-avatar {
-  align-items: var(--va-avatar-align-items-current);
-  display: var(--va-avatar-display-current);
-  justify-content: var(--va-avatar-justify-content-current);
-  line-height: var(--va-avatar-line-height-current);
-  position: var(--va-avatar-position-current);
-  text-align: var(--va-avatar-text-align-current);
-  vertical-align: var(--va-avatar-vertical-align-current);
-  border-radius: var(--va-avatar-border-radius-current);
+  align-items: var(--va-avatar-align-items);
+  display: var(--va-avatar-display);
+  justify-content: var(--va-avatar-justify-content);
+  line-height: var(--va-avatar-line-height);
+  position: var(--va-avatar-position);
+  text-align: var(--va-avatar-text-align);
+  vertical-align: var(--va-avatar-vertical-align);
+  border-radius: var(--va-avatar-border-radius);
   font-family: var(--va-font-family);
   background-color: v-bind(backgroundColorComputed);
   color: v-bind(textColorComputed);
-  width: var(--va-avatar-size-current);
-  min-width: var(--va-avatar-size-current);  // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
-  height: var(--va-avatar-size-current);
-  font-size: var(--va-avatar-font-size-current);
+  width: var(--va-avatar-size);
+  min-width: var(--va-avatar-size);  // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
+  height: var(--va-avatar-size);
+  font-size: var(--va-avatar-font-size);
+
+  &--small {
+    --va-avatar-size: 32px;
+  }
+
+  &--large {
+    --va-avatar-size: 64px;
+  }
 
   &--square {
     --va-avatar-border-radius: 0;

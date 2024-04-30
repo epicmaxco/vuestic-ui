@@ -1,5 +1,5 @@
 <template>
-  <div class="va-scroll-container" :style="variablesComputed">
+  <div class="va-scroll-container" v-bind="variablesComputed">
     <div class="va-scroll-container__content">
       <slot />
     </div>
@@ -41,7 +41,7 @@ const scrollColor = computed(() => {
 
 const scrollbarPosition = computed(() => props.rtl ? 'rtl' : 'ltr')
 
-const variablesComputed = useComponentVariables(['scrollbarSize'], props)
+const variablesComputed = useComponentVariables(props)
 </script>
 
 <style lang="scss">
@@ -49,13 +49,21 @@ const variablesComputed = useComponentVariables(['scrollbarSize'], props)
 @import './variables';
 
 .va-scroll-container {
-  @include va-scroll(v-bind(scrollColor), var(--va-scroll-container-scrollbar-size-current));
+  @include va-scroll(v-bind(scrollColor), var(--va-scroll-container-scrollbar-size));
 
   overflow-x: v-bind(overflowX);
   overflow-y: v-bind(overflowY);
   width: 100%;
   height: 100%;
   direction: v-bind(scrollbarPosition);
+
+  &--small {
+    --va-scroll-container-scrollbar-size: 4px;
+  }
+
+  &--large {
+    --va-scroll-container-scrollbar-size: 8px;
+  }
 
   &__content {
     height: stretch;

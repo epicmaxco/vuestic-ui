@@ -6,7 +6,7 @@
     :style="computedStyle"
     :aria-hidden="ariaHiddenComputed"
     notranslate
-    v-bind="computedAttrs"
+    v-bind="{ ...computedAttrs, ...variablesComputed }"
   >
     <slot>
       <template v-if="iconConfig.content">
@@ -45,7 +45,8 @@ const props = defineProps({
   flip: {
     type: String as PropType<'off' | 'horizontal' | 'vertical' | 'both'>,
     default: 'off',
-    validator: (value: string) => ['off', 'horizontal', 'vertical', 'both'].includes(value),
+    validator: (value: string) =>
+      ['off', 'horizontal', 'vertical', 'both'].includes(value),
   },
 })
 
@@ -54,14 +55,28 @@ const { getIcon } = useIcon()
 
 const iconConfig = computed(() => getIcon(props.name))
 
-const computedTag = computed(() => props.component || props.tag || iconConfig.value.component || iconConfig.value.tag || 'i')
+const computedTag = computed(
+  () =>
+    props.component ||
+    props.tag ||
+    iconConfig.value.component ||
+    iconConfig.value.tag ||
+    'i',
+)
 
 const attrs = useAttrs()
-const computedAttrs = computed(() => ({ ...iconConfig.value.attrs, ...omit(attrs, ['class']) }))
+const computedAttrs = computed(() => ({
+  ...iconConfig.value.attrs,
+  ...omit(attrs, ['class']),
+}))
 
 const getSpinClass = (spin?: string | boolean) => {
-  if (spin === undefined || spin === false) { return }
-  return spin === 'counter-clockwise' ? 'va-icon--spin-reverse' : 'va-icon--spin'
+  if (spin === undefined || spin === false) {
+    return
+  }
+  return spin === 'counter-clockwise'
+    ? 'va-icon--spin-reverse'
+    : 'va-icon--spin'
 }
 
 const computedClass = computed(() => [
@@ -72,36 +87,49 @@ const computedClass = computed(() => [
 const transformStyle = computed(() => {
   const rotation = props.rotation ? `rotate(${props.rotation}deg)` : ''
 
-  const flipY = (props.flip === 'vertical' || props.flip === 'both') ? -1 : 1
-  const flipX = (props.flip === 'horizontal' || props.flip === 'both') ? -1 : 1
+  const flipY = props.flip === 'vertical' || props.flip === 'both' ? -1 : 1
+  const flipX = props.flip === 'horizontal' || props.flip === 'both' ? -1 : 1
   const scale = props.flip === 'off' ? '' : `scale(${flipY}, ${flipX})`
 
   return `${scale} ${rotation}`.trim()
 })
 
-const variablesComputed = useComponentVariables(variables, props)
+const variablesComputed = useComponentVariables(props)
 
 const computedStyle = computed(() => ({
   transform: transformStyle.value,
   cursor: attrs.onClick ? 'pointer' : null,
-  color: props.color ? getColor(props.color, undefined, true) : iconConfig.value.color,
-  ...variablesComputed.value,
+  color: props.color
+    ? getColor(props.color, undefined, true)
+    : iconConfig.value.color,
 }))
 
-const tabindexComputed = computed(() => attrs.tabindex as number | undefined ?? -1)
-const ariaHiddenComputed = computed(() => attrs.role !== 'button' || tabindexComputed.value < 0)
+const tabindexComputed = computed(
+  () => (attrs.tabindex as number | undefined) ?? -1,
+)
+const ariaHiddenComputed = computed(
+  () => attrs.role !== 'button' || tabindexComputed.value < 0,
+)
 </script>
 
 <style lang="scss">
 @import "variables";
-@import '../../styles/resources';
+@import "../../styles/resources";
 
 .va-icon {
   vertical-align: var(--va-icon-vertical-align);
   user-select: var(--va-icon-user-select);
-  font-size: var(--va-icon-size-current);
-  line-height: var(--va-icon-size-current);
-  height: var(--va-icon-size-current);
+  font-size: var(--va-icon-size);
+  line-height: var(--va-icon-size);
+  height: var(--va-icon-size);
+
+  &--small {
+    --va-icon-size: 14px;
+  }
+
+  &--large {
+    --va-icon-size: 24px;
+  }
 
   &[role^="button"][tabindex]:not([tabindex^="-"]) {
     cursor: pointer;

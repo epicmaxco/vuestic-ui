@@ -5,7 +5,7 @@
     class="va-button"
     :class="computedClass"
     :style="computedStyle"
-    v-bind="attributesComputed"
+    v-bind="{ ...variablesComputed, ...attributesComputed }"
   >
     <span class="va-button__content" :class="wrapperClassComputed">
       <slot
@@ -110,7 +110,9 @@ const props = defineProps({
   plain: { type: Boolean, default: false },
   round: { type: Boolean, default: false },
   size: {
-    type: [String, Number] as PropType<'small' | 'medium' | 'large' | string | number>,
+    type: [String, Number] as PropType<
+      'small' | 'medium' | 'large' | string | number
+    >,
     default: 'medium',
   },
   icon: { type: String, default: '' },
@@ -180,12 +182,11 @@ const contentColorComputed = useButtonTextColor(
   isHovered,
 )
 
-const variablesComputed = useComponentVariables(variables, props)
+const variablesComputed = useComponentVariables(props)
 
 const computedStyle = computed(() => ({
   borderColor: props.borderColor ? getColor(props.borderColor) : 'transparent',
   ...contentColorComputed.value,
-  ...variablesComputed.value,
 }))
 
 defineExpose({
@@ -200,28 +201,61 @@ defineExpose({
 
 .va-button {
   position: relative;
-  padding: var(--va-button-padding-current);
-  display: var(--va-button-display-current);
-  justify-content: var(--va-button-justify-content-current);
-  align-items: var(--va-button-align-items-current);
-  border-width: var(--va-button-border-width-current);
-  border-color: var(--va-button-border-color-current);
-  border-style: var(--va-button-border-style-current);
-  background-image: var(--va-button-background-image-current);
-  box-shadow: var(--va-button-box-shadow-current);
+  padding: var(--va-button-padding);
+  display: var(--va-button-display);
+  justify-content: var(--va-button-justify-content);
+  align-items: var(--va-button-align-items);
+  border-width: var(--va-button-border-width);
+  border-color: var(--va-button-border-color);
+  border-style: var(--va-button-border-style);
+  background-image: var(--va-button-background-image);
+  box-shadow: var(--va-button-box-shadow);
   font-family: var(--va-font-family);
-  font-weight: var(--va-button-font-weight-current);
+  font-weight: var(--va-button-font-weight);
   text-decoration: none;
   text-transform: initial;
-  transition: var(--va-button-transition-current);
+  transition: var(--va-button-transition);
   box-sizing: border-box;
-  cursor: var(--va-button-cursor-current);
+  cursor: var(--va-button-cursor);
   z-index: 0;
   vertical-align: top;
+  line-height: var(--va-button-line-height);
+  border-radius: var(--va-button-border-radius);
+  letter-spacing: var(--va-button-letter-spacing);
+  min-height: var(--va-button-size);
+  min-width: var(--va-button-size);
 
-  --va-progress-circle-small-size: 16px;
   --va-progress-circle-size: 24px;
-  --va-progress-circle-large-size: 32px;
+
+  &--small {
+    --va-button-size: 1.5rem;
+    --va-button-content-py: 0.25rem;
+    --va-button-content-px: 0.375rem;
+    --va-button-only-icon-content-px: 0.25rem;
+    --va-button-font-size: 0.8125rem;
+    --va-button-letter-spacing: 0;
+    --va-button-line-height: 1rem;
+    --va-button-border-radius: 0.125rem;
+    --va-button-icon-side-padding: var(--va-button-content-py);
+    --va-button-icons-spacing: 0.125rem;
+    --va-button-loader-size: 16px;
+    --va-progress-circle-size: 16px;
+  }
+
+  &--large {
+    --va-button-size: 3rem;
+    --va-button-content-py: 0.75rem;
+    --va-button-content-px: 1rem;
+    --va-button-only-icon-content-px: 1rem;
+    --va-button-font-size: 1.05rem;
+    --va-button-letter-spacing: 0;
+    --va-button-line-height: 1.5rem;
+    --va-button-border-radius: 0.5rem;
+    --va-button-icon-side-padding: var(--va-button-content-py);
+    --va-button-icons-spacing: 0.25rem;
+    --va-button-loader-size: 32px;
+    --va-progress-circle-size: 32px;
+  }
 
   &::after,
   &::before {
@@ -256,63 +290,53 @@ defineExpose({
     }
   }
 
-  line-height: var(--va-button-line-height-current);
-  border-radius: var(--va-button-border-radius-current);
-  letter-spacing: var(--va-button-letter-spacing-current);
-  min-height: var(--va-button-size-current);
-  min-width: var(--va-button-size-current);
-
   .va-button__content {
-    font-size: var(--va-button-font-size-current);
-    padding:
-      var(--va-button-content-py-current)
-      var(--va-button-content-px-current);
-    line-height: var(--va-button-line-height-current);
+    font-size: var(--va-button-font-size);
+    padding: var(--va-button-content-py) var(--va-button-content-px);
+    line-height: var(--va-button-line-height);
   }
 
   // set icons the same size as text
   .va-button__left-icon,
   .va-button__right-icon {
-    // font-size: var(--va-button-line-height-current) !important;
-    // height: var(--va-button-line-height-current) !important;
-    // line-height: var(--va-button-line-height-current) !important;
+    // font-size: var(--va-button-line-height) !important;
+    // height: var(--va-button-line-height) !important;
+    // line-height: var(--va-button-line-height) !important;
   }
 
   .va-button__left-icon {
-    margin-right: var(--va-button-icons-spacing-current);
+    margin-right: var(--va-button-icons-spacing);
   }
 
   .va-button__right-icon {
-    margin-left: var(--va-button-icons-spacing-current);
+    margin-left: var(--va-button-icons-spacing);
   }
 
   &--bordered {
-    border-width: var(--va-button-bordered-border-current);
-    border-style: var(--va-button-bordered-style-current);
+    border-width: var(--va-button-bordered-border);
+    border-style: var(--va-button-bordered-style);
 
     .va-button__content {
       padding-top:
         calc(
-          var(--va-button-content-py-current) -
-          var(--va-button-bordered-border-current)
+          var(--va-button-content-py) - var(--va-button-bordered-border)
         );
       padding-bottom:
         calc(
-          var(--va-button-content-py-current) -
-          var(--va-button-bordered-border-current)
+          var(--va-button-content-py) - var(--va-button-bordered-border)
         );
     }
   }
 
   &--left-icon {
     .va-button__content {
-      padding-left: var(--va-button-icon-side-padding-current);
+      padding-left: var(--va-button-icon-side-padding);
     }
   }
 
   &--right-icon {
     .va-button__content {
-      padding-right: var(--va-button-icon-side-padding-current);
+      padding-right: var(--va-button-icon-side-padding);
     }
   }
 

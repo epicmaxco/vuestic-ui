@@ -44,7 +44,7 @@ export const useBem = <ModifierKey extends string, Prefix extends string>(
     return Object
       .entries(unref(modifiersList))
       .reduce((classesObj: Record<string, boolean>, [modifierName, value]) => {
-        if (value) { classesObj[`${prefix}--${kebab(modifierName)}`] = true }
+        if (value) { classesObj[`${prefix.split('__').map(kebab).join('__')}--${kebab(modifierName)}`] = true }
         return classesObj
       }, {})
   })

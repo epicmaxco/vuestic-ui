@@ -28,6 +28,7 @@
           class="va-modal"
           role="dialog"
           aria-modal="true"
+          v-bind="variablesComputed"
         >
           <div
             v-if="$props.overlay"
@@ -145,6 +146,7 @@ import {
   useDocument,
   useTeleported,
   useSizeProps,
+  useBem,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -158,8 +160,8 @@ import { defineChildProps, useChildComponents } from '../../composables/useChild
 
 <script lang="ts" setup>
 
-import { variables } from './const'
 import { useComponentVariables } from '../../composables/useComponentVariables'
+import pick from 'lodash/pick'
 
 const WithTransition = defineComponent({
   name: 'ModalElement',
@@ -245,12 +247,7 @@ const { getColor } = useColors()
 const { textColorComputed } = useTextColor(toRef(props, 'backgroundColor'))
 const { valueComputed } = useStateful(props, emit)
 
-const computedClass = computed(() => ({
-  'va-modal--fullscreen': props.fullscreen,
-  'va-modal--mobile-fullscreen': props.mobileFullscreen,
-  'va-modal--fixed-layout': props.fixedLayout,
-  'va-modal--no-padding': props.noPadding,
-}))
+const computedClass = useBem('va-modal', () => pick(props, ['fullscreen', 'mobileFullscreen', 'fixedLayout', 'noPadding']))
 
 const {
   zIndex: zIndexInherited,
@@ -263,19 +260,18 @@ const zIndexComputed = computed(() => {
   return zIndexInherited.value
 })
 
-const variablesComputed = useComponentVariables(variables, props, 'va-modal-dialog')
+const variablesComputed = useComponentVariables(props)
 
 const computedDialogStyle = computed(() => ({
-  ...variablesComputed.value,
   maxWidth: props.maxWidth,
   maxHeight: props.maxHeight,
   color: textColorComputed.value,
   background: getColor(props.backgroundColor),
 }))
 
-const computedOverlayClass = computed(() => ({
-  'va-modal__overlay--lowest': isLowestLevelModal.value,
-  'va-modal__overlay--top': isTopLevelModal.value,
+const computedOverlayClass = useBem('va-modal__overlay', () => ({
+  lowest: isLowestLevelModal.value,
+  top: isTopLevelModal.value,
 }))
 
 const getOverlayOpacity = () => {
@@ -488,7 +484,7 @@ body.va-modal-open {
     border-radius: var(--va-modal-dialog-border-radius, var(--va-block-border-radius));
     margin: var(--va-modal-dialog-margin);
     box-shadow: var(--va-modal-dialog-box-shadow, var(--va-block-box-shadow));
-    max-width: var(--va-modal-dialog-size-current);
+    max-width: var(--va-modal-dialog-size);
     position: relative;
     overflow: auto;
     display: flex;
@@ -505,6 +501,22 @@ body.va-modal-open {
     height: 100vh;
     z-index: 0;
     will-change: opacity;
+  }
+
+  &--small {
+    --va-modal-dialog-size: 576px;
+  }
+
+  &--medium {
+    --va-modal-dialog-size: 768px;
+  }
+
+  &--large {
+    --va-modal-dialog-size: 992px;
+  }
+
+  &--auto {
+    --va-modal-dialog-size: max-content;
   }
 
   &-enter-from,
