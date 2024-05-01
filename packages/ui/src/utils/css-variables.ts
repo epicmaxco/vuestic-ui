@@ -9,8 +9,10 @@ interface CSSVariableNameComponents {
   property: string
 }
 
-export function cssVariableName(property: string): string;
-export function cssVariableName(name: CSSVariableNameComponents): string;
+type CSSVariable = `--${string}`;
+
+export function cssVariableName(property: string): CSSVariable;
+export function cssVariableName(components: CSSVariableNameComponents): CSSVariable;
 export function cssVariableName (arg: string | CSSVariableNameComponents) {
   const { prefix = 'va', componentName, state, nestedElement, size, property }: CSSVariableNameComponents = typeof arg === 'string' ? { property: arg } : arg
 

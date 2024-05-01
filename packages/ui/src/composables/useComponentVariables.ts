@@ -3,22 +3,12 @@ import { ReadonlyOrPlainArray } from '../utils/types/array'
 import { computed, getCurrentInstance } from 'vue'
 import { isCSSSizeValue, isCSSVariable } from '../utils/css'
 import isNil from 'lodash/isNil'
-import { SizeProps, SizesConfig } from '../services/size'
+import { SizeProps, SizesConfig } from '../services/component-config/theme'
 import { useBem } from './useBem'
 
 const sizeToAbsolute = (size: unknown) => {
   if (typeof size === 'number') { return `${size}px` }
   return String(size)
-}
-
-export const renderVariablesFromConfig = <Variables extends string>(sizesConfig: SizesConfig<Variables, string>, componentName: string) => {
-  return Object.entries(sizesConfig).reduce<Record<string, string>>((acc, [size, { variables }]) => {
-    for (const property in variables) {
-      acc[cssVariableName({ componentName, size, property })] = variables[property]
-    }
-
-    return acc
-  }, {})
 }
 
 export const useComponentVariables = <Variables extends string>(props: SizeProps<SizesConfig<Variables, string>>, componentName = getCurrentInstance()?.type.name) => {

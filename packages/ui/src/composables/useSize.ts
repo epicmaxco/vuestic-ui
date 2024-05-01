@@ -1,5 +1,5 @@
 import { PropType } from 'vue'
-import { SizesConfig } from '../services/size'
+import { SizesConfig } from '../services/component-config/theme'
 
 /**
  * You could add these props to any component by destructuring them inside props option.

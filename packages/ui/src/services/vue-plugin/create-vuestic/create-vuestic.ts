@@ -1,6 +1,15 @@
 import type { PartialGlobalConfig } from '../../global-config/types'
 import { defineVuesticPlugin, usePlugin } from '../utils'
-import { GlobalConfigPlugin, VaDropdownPlugin, VaToastPlugin, VaModalPlugin, ColorConfigPlugin, BreakpointConfigPlugin, CachePlugin } from '../plugins'
+import {
+  GlobalConfigPlugin,
+  VaDropdownPlugin,
+  VaToastPlugin,
+  VaModalPlugin,
+  ColorConfigPlugin,
+  BreakpointConfigPlugin,
+  CachePlugin,
+  ComponentConfigPlugin,
+} from '../plugins'
 import * as vuesticComponents from '../components'
 import type { VuesticComponents } from '../types/components'
 import { setCurrentApp } from '../../current-app'
@@ -32,6 +41,7 @@ export const createVuestic = defineVuesticPlugin((options: { config?: PartialGlo
     usePlugin(app, CachePlugin)
     usePlugin(app, ColorConfigPlugin(config))
     usePlugin(app, ColorsClassesPlugin)
+    usePlugin(app, ComponentConfigPlugin)
 
     usePlugin(app, BreakpointConfigPlugin)
     usePlugin(app, VaDropdownPlugin)

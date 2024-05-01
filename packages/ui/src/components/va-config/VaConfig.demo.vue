@@ -86,8 +86,19 @@
     <VbCard title="Colors">
       <va-config :colors="{ variables: {
         primary: '#f0f',
-      } }">
-        <va-button>
+      } }" :components="isOn ? {
+        VaButton: {
+      size: 'xs',
+      sizesConfig: {
+        xs: {
+          variables: {
+            fontSize: '10px',
+          },
+        },
+      },
+    },
+      } : undefined">
+        <va-button @click="isOn = !isOn">
           Button inside va-config
         </va-button>
 
@@ -106,7 +117,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useGlobalConfig } from '../../services/global-config/global-config'
 import { useColors } from '../../composables'
 import { VaButton } from '../va-button'
@@ -147,6 +158,8 @@ export default {
     const { setGlobalConfig, getGlobalConfig, mergeGlobalConfig } = useGlobalConfig()
 
     const { getColor } = useColors()
+
+    const isOn = ref(true)
 
     const cardPreset = {
       highlightTop: {
@@ -198,6 +211,7 @@ export default {
       buttonRoundConfigValue,
       cardPreset,
       buttonPreset,
+      isOn,
     }
   },
   computed: {

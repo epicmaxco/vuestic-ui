@@ -1,42 +1,70 @@
 <template>
-  <CssVarsRenderer v-if="doRenderCssVars" v-bind="$attrs">
+  <CssVarsRenderer v-if="doRenderCssVars" v-bind="{ ...props, ...$attrs }">
     <slot />
   </CssVarsRenderer>
   <slot v-else />
 </template>
 
 <script lang="ts">
-import { computed, PropType, h, Fragment, defineComponent } from 'vue'
+import { computed, PropType, h, Fragment, defineComponent, useCssVars } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { ComponentConfig } from '../../services/component-config'
 
-import { provideLocalConfig, useLocalConfig } from '../../composables/useLocalConfig'
+import {
+  provideLocalConfig,
+  useLocalConfig,
+} from '../../composables/useLocalConfig'
 import { useGlobalConfigProvider } from './hooks/useGlobalConfigProvider'
 import { PartialGlobalConfig } from '../../services/global-config'
 import { renderSlotNodes } from '../../utils/headless'
-import { useColors } from '../../composables'
+import { useColors, useCurrentComponentId } from '../../composables'
+import { renderComponentsStyles } from '../../services/component-config/utils/render-styles-from-config'
+
+const ConfigProps = {
+  components: {
+    type: Object as PropType<ComponentConfig>,
+    default: () => ({}),
+  },
+  colors: { type: Object as PropType<PartialGlobalConfig['colors']> },
+  i18n: { type: Object as PropType<PartialGlobalConfig['i18n']> },
+}
 
 const CssVarsRenderer = defineComponent({
   name: 'VaCssVarsRenderer',
+  props: ConfigProps,
 
   inheritAttrs: false,
 
   setup (props, { slots, attrs }) {
-    const { colorsToCSSVariable, colors } = useColors()
+    const { colorsToCSSVariable, currentPresetName } = useColors()
 
-    const style = computed(() => {
-      return colorsToCSSVariable(colors)
+    const id = useCurrentComponentId()
+
+    const styleAttr = computed(() => {
+      return colorsToCSSVariable({
+        ...props.colors?.variables,
+        ...(props.colors?.presets || {})[currentPresetName.value],
+      })
     })
 
-    return () => h(Fragment, attrs, renderSlotNodes(slots.default, {}, {
-      style: style.value,
-    }) || undefined)
+    const elementId = `va-config-${id}`
+
+    const componentStyles = computed(() => renderComponentsStyles(props.components, `#${elementId}`))
+
+    return () =>
+      h(
+        'div',
+        { ...attrs, style: styleAttr.value, id: elementId },
+        [
+          componentStyles.value ? h('style', { innerHTML: componentStyles.value }) : undefined,
+          slots.default?.(),
+        ],
+      )
   },
 })
 </script>
 
 <script lang="ts" setup>
-
 defineOptions({
   name: 'VaConfig',
   inheritAttrs: false,
@@ -44,9 +72,7 @@ defineOptions({
 
 const props = defineProps({
   ...useComponentPresetProp,
-  components: { type: Object as PropType<ComponentConfig>, default: () => ({}) },
-  colors: { type: Object as PropType<PartialGlobalConfig['colors']> },
-  i18n: { type: Object as PropType<PartialGlobalConfig['i18n']> },
+  ...ConfigProps,
 })
 
 const prevChain = useLocalConfig()
@@ -55,19 +81,21 @@ const nextChain = computed(() => [...prevChain.value, props.components])
 
 provideLocalConfig(nextChain)
 
-const newConfig = useGlobalConfigProvider(computed(() => {
-  const config = {} as any
+const newConfig = useGlobalConfigProvider(
+  computed(() => {
+    const config = {} as any
 
-  if (props.colors) {
-    config.colors = props.colors
-  }
+    if (props.colors) {
+      config.colors = props.colors
+    }
 
-  if (props.i18n) {
-    config.i18n = props.i18n
-  }
+    if (props.i18n) {
+      config.i18n = props.i18n
+    }
 
-  return config
-}))
+    return config
+  }),
+)
 
 const doRenderCssVars = computed(() => {
   return Boolean(props.colors)
