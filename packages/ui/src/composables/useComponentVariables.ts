@@ -1,6 +1,6 @@
 import { cssVariableName } from '../utils/css-variables'
 import { ReadonlyOrPlainArray } from '../utils/types/array'
-import { computed, getCurrentInstance } from 'vue'
+import { computed, CSSProperties, getCurrentInstance } from 'vue'
 import { isCSSSizeValue, isCSSVariable } from '../utils/css'
 import isNil from 'lodash/isNil'
 import { SizeProps, SizesConfig } from '../services/component-config/theme'
@@ -47,7 +47,7 @@ export const useComponentVariables = <Variables extends string>(props: SizeProps
       return undefined
     }
 
-    return Object.entries<string>(sizePreset.variables).reduce<Record<string, string>>((acc, [property, value]) => {
+    return Object.entries(sizePreset.variables as Record<string, string>).reduce<CSSProperties>((acc, [property, value]) => {
       acc[cssVariableName({ componentName, property })] = value
 
       return acc

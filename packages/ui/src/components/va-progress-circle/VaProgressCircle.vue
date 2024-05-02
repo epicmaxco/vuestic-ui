@@ -39,7 +39,7 @@ import {
   useBem,
 } from '../../composables'
 import { useComponentVariables } from '../../composables/useComponentVariables'
-import { variables } from './const'
+import { Variables, Sizes } from './const'
 import pick from 'lodash/pick'
 
 defineOptions({
@@ -47,7 +47,7 @@ defineOptions({
 })
 
 const props = defineProps({
-  ...useSizeProps,
+  ...useSizeProps<Variables, Sizes>(),
   ...useComponentPresetProp,
   modelValue: { type: [Number, String], default: 0 },
   indeterminate: { type: Boolean, default: false },

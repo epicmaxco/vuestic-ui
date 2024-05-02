@@ -27,14 +27,14 @@ import {
   useIcon,
 } from '../../composables'
 import { useComponentVariables } from '../../composables/useComponentVariables'
-import { variables } from './const'
+import { Variables, Sizes } from './const'
 
 defineOptions({
   name: 'VaIcon',
 })
 
 const props = defineProps({
-  ...useSizeProps,
+  ...useSizeProps<Variables, Sizes>(),
   ...useComponentPresetProp,
   name: { type: String, default: '' },
   tag: { type: String },

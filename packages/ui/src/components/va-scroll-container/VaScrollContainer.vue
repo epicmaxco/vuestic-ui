@@ -11,22 +11,19 @@ import { computed, PropType } from 'vue'
 
 import { useColors, useSizeProps } from '../../composables'
 import { useComponentVariables } from '../../composables/useComponentVariables'
+import { Sizes, Variables } from './const'
 
 defineOptions({
   name: 'VaScrollContainer',
 })
 
 const props = defineProps({
-  ...useSizeProps,
+  ...useSizeProps<Variables, Sizes>('small'),
   vertical: { type: Boolean, default: false },
   horizontal: { type: Boolean, default: false },
   color: { type: String, default: 'secondary' },
   rtl: { type: Boolean, default: false },
   gradient: { type: Boolean, default: false },
-  size: {
-    type: [String, Number] as PropType<'small' | 'medium' | 'large' | string | number>,
-    default: 'small',
-  },
 })
 
 const { getColor } = useColors()

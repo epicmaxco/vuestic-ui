@@ -13,18 +13,16 @@
 </template>
 
 <script lang="ts" setup>
-import { useSizeProps } from '../../../composables'
-import { useVaRatingColorsProps, useVaRatingColors } from '../hooks/useVaRatingColors'
+import { useVaRatingColors } from '../hooks/useVaRatingColors'
+import { useRatingItemCommonProps } from '../util'
 
 defineOptions({
   name: 'VaRatingNumberItem',
 })
 
 const props = defineProps({
-  ...useVaRatingColorsProps,
-  ...useSizeProps,
+  ...useRatingItemCommonProps,
   itemNumber: { type: Number, required: true },
-  modelValue: { type: Number, required: true },
 })
 
 const {

@@ -1,3 +1,6 @@
+import { ArrayElementType } from '../../utils/types/array'
+export { defaultSizes as sizes, DefaultSizes as Sizes } from '../../composables'
+
 export const variables = [
   'display',
   'justifyContent',
@@ -24,3 +27,5 @@ export const variables = [
   'borderedBorder',
   'borderedStyle',
 ] as const
+
+export type Variables = ArrayElementType<typeof variables>

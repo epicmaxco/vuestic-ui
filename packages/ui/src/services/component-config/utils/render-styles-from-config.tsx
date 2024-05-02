@@ -6,7 +6,8 @@ import { renderCSSRule } from '../../../utils/css'
 import { ComponentConfig } from '../types'
 
 const renderComponentStyles = (sizesConfig: SizesConfig<string, string>, componentName: string, scopeSelector?: string) => {
-  return Object.entries(sizesConfig).reduce((acc, [size, { variables }]) => {
+  return Object.entries(sizesConfig).reduce((acc, [size, sizePreset]) => {
+    const { variables } = sizePreset || {}
     const definitions: CSSProperties = {}
 
     for (const property in variables) {

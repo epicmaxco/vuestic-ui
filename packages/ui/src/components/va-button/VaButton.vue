@@ -81,7 +81,7 @@ import { useButtonTextColor } from './hooks/useButtonTextColor'
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
 import { useComponentVariables } from '../../composables/useComponentVariables'
-import { variables } from './const'
+import { Variables, Sizes } from './const'
 
 defineOptions({
   name: 'VaButton',
@@ -89,7 +89,7 @@ defineOptions({
 
 const props = defineProps({
   ...useComponentPresetProp,
-  ...useSizeProps,
+  ...useSizeProps<Variables, Sizes>('medium'),
   ...useHoverStyleProps,
   ...usePressedStyleProps,
   ...useLoadingProps,
@@ -109,12 +109,6 @@ const props = defineProps({
   gradient: { type: Boolean, default: false },
   plain: { type: Boolean, default: false },
   round: { type: Boolean, default: false },
-  size: {
-    type: [String, Number] as PropType<
-      'small' | 'medium' | 'large' | string | number
-    >,
-    default: 'medium',
-  },
   icon: { type: String, default: '' },
   iconRight: { type: String, default: '' },
   iconColor: { type: String, default: '' },

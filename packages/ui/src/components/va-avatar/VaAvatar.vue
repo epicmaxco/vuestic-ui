@@ -49,7 +49,7 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 import { VaIcon, VaProgressCircle, VaFallback } from '../index'
 
 import { useComponentVariables } from '../../composables/useComponentVariables'
-import { variables } from './const'
+import type { Variables, Sizes } from './const'
 
 const VaFallbackPropsDeclaration = extractComponentProps(VaFallback)
 </script>
@@ -62,7 +62,7 @@ defineOptions({
 
 const props = defineProps({
   ...useLoadingProps,
-  ...useSizeProps,
+  ...useSizeProps<Variables, Sizes>(),
   ...useComponentPresetProp,
   ...VaFallbackPropsDeclaration,
 

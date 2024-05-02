@@ -162,6 +162,7 @@ import { defineChildProps, useChildComponents } from '../../composables/useChild
 
 import { useComponentVariables } from '../../composables/useComponentVariables'
 import pick from 'lodash/pick'
+import { Sizes, Variables } from './const'
 
 const WithTransition = defineComponent({
   name: 'ModalElement',
@@ -205,11 +206,7 @@ const props = defineProps({
   maxWidth: { type: String, default: '' },
   maxHeight: { type: String, default: '' },
   anchorClass: { type: String },
-  ...useSizeProps,
-  size: {
-    type: String as PropType<StringWithAutocomplete<'medium' | 'small' | 'large' | 'auto'>>,
-    default: 'medium',
-  },
+  ...useSizeProps<Variables, Sizes>('medium'),
   fixedLayout: { type: Boolean, default: false },
   withoutTransitions: { type: Boolean, default: false },
   overlay: { type: Boolean, default: true },

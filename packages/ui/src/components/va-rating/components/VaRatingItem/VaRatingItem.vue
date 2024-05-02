@@ -31,13 +31,14 @@ import { useColors, useSyncProp } from '../../../../composables'
 import { RatingValue } from '../../types'
 
 import { VaIcon } from '../../../va-icon'
+import { useRatingItemCommonProps } from '../../util'
 
 defineOptions({
   name: 'VaRatingItem',
 })
 
 const props = defineProps({
-  modelValue: { type: Number, default: 0 },
+  ...useRatingItemCommonProps,
   icon: { type: String, default: 'star' },
   halfIcon: { type: String, default: 'star_half' },
   emptyIcon: { type: String, default: 'star_outline' },
@@ -46,9 +47,6 @@ const props = defineProps({
   tabindex: { type: [String, Number], default: 0 },
   disabled: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
-  size: { type: [String, Number], default: 'medium' },
-  unselectedColor: { type: String },
-  color: { type: String, default: 'primary' },
 })
 
 const emit = defineEmits(['update:modelValue', 'click', 'hover'])
