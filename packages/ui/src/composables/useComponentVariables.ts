@@ -1,5 +1,4 @@
 import { cssVariableName } from '../utils/css-variables'
-import { ReadonlyOrPlainArray } from '../utils/types/array'
 import { computed, CSSProperties, getCurrentInstance } from 'vue'
 import { isCSSSizeValue, isCSSVariable } from '../utils/css'
 import isNil from 'lodash/isNil'
@@ -16,7 +15,7 @@ export const useComponentVariables = <Variables extends string>(props: SizeProps
     throw new Error('Component name must be provided!')
   }
 
-  const computedClass = useBem(componentName, () => {
+  const sizeModifierComputed = computed(() => {
     const size = props.size
 
     if (size && !(typeof size === 'string' && (isCSSVariable(size) || isCSSSizeValue(size)))) {
@@ -27,6 +26,11 @@ export const useComponentVariables = <Variables extends string>(props: SizeProps
 
     return {}
   })
+
+  const componentClass = useBem(componentName, sizeModifierComputed)
+  const fontClass = useBem('va-font-size', sizeModifierComputed)
+
+  const computedClass = computed(() => ({ ...fontClass.asObject.value, ...componentClass.asObject.value }))
 
   const computedStyle = computed(() => {
     const size = props.size
@@ -55,7 +59,7 @@ export const useComponentVariables = <Variables extends string>(props: SizeProps
   })
 
   return computed(() => ({
-    class: computedClass,
+    class: computedClass.value,
     style: computedStyle.value,
   }))
 }

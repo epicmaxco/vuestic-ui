@@ -138,7 +138,7 @@ defineExpose({
   width: var(--va-avatar-size);
   min-width: var(--va-avatar-size);  // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
   height: var(--va-avatar-size);
-  font-size: var(--va-avatar-font-size);
+  font-size: var(--va-avatar-font-size, var(--va-font-size));
 
   &--small {
     --va-avatar-size: 32px;
