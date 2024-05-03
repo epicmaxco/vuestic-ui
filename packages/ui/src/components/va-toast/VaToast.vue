@@ -44,7 +44,7 @@
 <script lang="ts">
 import { PropType, ref, computed, onMounted, shallowRef, defineComponent, ComputedRef } from 'vue'
 
-import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslation } from '../../composables'
+import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslation, useNumericProp } from '../../composables'
 
 import { ToastPosition } from './types'
 
@@ -53,7 +53,6 @@ import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 <script lang="ts" setup>
 import VaIcon from '../va-icon/VaIcon.vue'
-import { useNumericProp } from '@/composables'
 
 const VaToastRenderer = defineComponent({
   name: 'VaToastRenderer',

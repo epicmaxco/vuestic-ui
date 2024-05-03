@@ -24,7 +24,7 @@ import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { useScrollParent } from '../../composables/useScrollParent'
 import { PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef, ComputedRef } from 'vue'
 import { warn } from '../../utils/console'
-import { useNumericProp } from '@/composables'
+import { useNumericProp } from '../../composables'
 
 defineOptions({
   name: 'VaParallax',
