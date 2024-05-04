@@ -42,6 +42,11 @@ export default definePageConfig({
     block.headline("Modify your application's entry point"),
     block.paragraph("Import both the styles and the plugin into your entry file. The plugin is used to automatically register all the components, directives and other stuff globally. If you don't want to register everything globally then check out the tree-shaking section below."),
     block.code("quick-start.ts"),
+    block.headline("Usage with Tailwind"),
+    block.paragraph('Projects using Tailwind need to import different CSS:'),
+    block.code("tailwind-css-import.ts"),
+    block.paragraph('`import \'vuestic-ui/css\'` adds few more styles in `reset.css` that may conflict with Tailwind which provides it\'s own reset.'),
+    block.paragraph('For more information on usage with Tailwind see [Tailwind Integration](/styles/tailwind).'),
 
     block.headline("Migration guide"),
 
