@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { onMounted, ref, computed, PropType, onBeforeUnmount, useAttrs, ComputedRef } from 'vue'
-import { useBem, useColors, useNumericProp, useTranslation } from '../../composables'
+import { useBem, useColors, useNumericProp, useTranslation, useTranslationProp } from '../../composables'
 
 defineOptions({
   name: 'VaSkeleton',
@@ -36,7 +36,7 @@ const props = defineProps({
   lastLineWidth: { type: [String], default: '75%' },
 
   variant: { type: String as PropType<'text' | 'circle' | 'rounded' | 'squared'>, default: 'squared' },
-  ariaLabel: { type: String, default: '$t:loading' },
+  ariaLabel: useTranslationProp('$t:loading'),
 })
 
 const doShow = ref(false)

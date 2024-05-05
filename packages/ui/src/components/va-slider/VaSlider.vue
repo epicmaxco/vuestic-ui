@@ -179,6 +179,7 @@ import {
   useStateful,
   useStatefulProps,
   useTranslation,
+  useTranslationProp,
   useNumericProp,
 } from '../../composables'
 import { validateSlider } from './validateSlider'
@@ -212,7 +213,7 @@ const props = defineProps({
   iconAppend: { type: String, default: '' },
   vertical: { type: Boolean, default: false },
   showTrack: { type: Boolean, default: true },
-  ariaLabel: { type: String, default: '$t:sliderValue' },
+  ariaLabel: useTranslationProp('$t:sliderValue'),
 })
 
 const emit = defineEmits(['drag-start', 'drag-end', 'change', 'update:modelValue'])

@@ -1,9 +1,10 @@
 import { ExtractPropTypes, Ref, computed } from 'vue'
 import { useComponentUuid } from '../../../composables/useComponentUuid'
+import { useTranslationProp } from '../../../composables'
 
 export const useInputFieldAriaProps = {
   label: { type: String, default: '' },
-  inputAriaLabel: { type: String, default: '$t:inputField' },
+  inputAriaLabel: useTranslationProp('$t:inputField'),
   inputAriaLabelledby: { type: String },
   inputAriaDescribedby: { type: String },
 }

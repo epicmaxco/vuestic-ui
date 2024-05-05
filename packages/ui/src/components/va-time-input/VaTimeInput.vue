@@ -82,7 +82,7 @@ import {
   useClearable, useClearableEmits, useClearableProps,
   useFocus, useFocusEmits,
   useStateful, useStatefulEmits, useStatefulProps,
-  useTranslation,
+  useTranslation, useTranslationProp,
   useDropdownable, useDropdownableProps, useDropdownableEmits, useLongPressKey,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
@@ -122,9 +122,9 @@ const props = defineProps({
   leftIcon: { type: Boolean, default: false },
   icon: { type: String, default: 'schedule' },
 
-  ariaLabel: { type: String, default: '$t:selectedTime' },
-  ariaResetLabel: { type: String, default: '$t:resetTime' },
-  ariaToggleDropdownLabel: { type: String, default: '$t:toggleDropdown' },
+  ariaLabel: useTranslationProp('$t:selectedTime'),
+  ariaResetLabel: useTranslationProp('$t:resetTime'),
+  ariaToggleDropdownLabel: useTranslationProp('$t:toggleDropdown'),
 })
 
 const emit = defineEmits([

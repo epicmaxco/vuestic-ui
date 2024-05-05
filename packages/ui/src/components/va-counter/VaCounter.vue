@@ -109,7 +109,7 @@ import {
   useFocus, useFocusEmits,
   useStateful, useStatefulProps,
   useColors,
-  useTranslation,
+  useTranslation, useTranslationProp,
   useLongPress,
   useTemplateRef,
   useValidation,
@@ -168,9 +168,9 @@ const props = defineProps({
   margins: { type: [String, Number], default: '4px' },
   longPressDelay: { type: [Number, String], default: 500 },
 
-  ariaLabel: { type: String, default: '$t:counterValue' },
-  ariaDecreaseLabel: { type: String, default: '$t:decreaseCounter' },
-  ariaIncreaseLabel: { type: String, default: '$t:increaseCounter' },
+  ariaLabel: useTranslationProp('$t:counterValue'),
+  ariaDecreaseLabel: useTranslationProp('$t:decreaseCounter'),
+  ariaIncreaseLabel: useTranslationProp('$t:increaseCounter'),
 })
 
 const emit = defineEmits([

@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
 import { PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useComponentPresetProp, useTranslation, useNumericProp } from '../../composables'
+import { useComponentPresetProp, useTranslation, useTranslationProp, useNumericProp } from '../../composables'
 import { VaButton } from '../va-button'
 import { isServer } from '../../utils/ssr'
 import { warn } from '../../utils/console'
@@ -51,7 +51,7 @@ const props = defineProps({
     default: 'bottom',
     validator: (value: string) => ['bottom', 'top'].includes(value),
   },
-  ariaLabel: { type: String, default: '$t:backToTop' },
+  ariaLabel: useTranslationProp('$t:backToTop'),
 })
 
 const targetScrollValue = ref(0)
@@ -133,7 +133,7 @@ if (!server) {
   onBeforeUnmount(() => targetElement?.removeEventListener('scroll', handleScroll))
 }
 
-const { tp, t } = useTranslation()
+const { tp } = useTranslation()
 </script>
 
 <style lang="scss">

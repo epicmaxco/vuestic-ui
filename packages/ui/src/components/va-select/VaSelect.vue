@@ -139,7 +139,7 @@ import {
   useMaxSelections, useMaxSelectionsProps,
   useClearableProps, useClearable, useClearableEmits,
   useFocusDeep,
-  useTranslation,
+  useTranslation, useTranslationProp,
   useBem,
   useThrottleProps,
   useDropdownable, useDropdownableEmits, useDropdownableProps, useSyncProp,
@@ -217,7 +217,7 @@ const props = defineProps({
   searchable: { type: Boolean, default: false },
   width: { type: String, default: '100%' },
   maxHeight: { type: String, default: '256px' },
-  noOptionsText: { type: String, default: '$t:noOptions' },
+  noOptionsText: useTranslationProp('$t:noOptions'),
   hideSelected: { type: Boolean, default: false },
   tabindex: { type: [String, Number], default: 0 },
   virtualScroller: { type: Boolean, default: false },
@@ -228,11 +228,11 @@ const props = defineProps({
 
     // Input style
   placeholder: { type: String, default: '' },
-  searchPlaceholderText: { type: String, default: '$t:search' },
+  searchPlaceholderText: useTranslationProp('$t:search'),
 
-  ariaLabel: { type: String, default: '$t:select' },
-  ariaSearchLabel: { type: String, default: '$t:optionsFilter' },
-  ariaClearLabel: { type: String, default: '$t:reset' },
+  ariaLabel: useTranslationProp('$t:select'),
+  ariaSearchLabel: useTranslationProp('$t:optionsFilter'),
+  ariaClearLabel: useTranslationProp('$t:reset'),
 
   search: { type: String, default: undefined },
 })

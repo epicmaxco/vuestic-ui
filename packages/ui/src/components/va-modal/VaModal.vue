@@ -140,7 +140,7 @@ import {
   useComponentPresetProp,
   useTrapFocus,
   useModalLevel,
-  useTranslation,
+  useTranslation, useTranslationProp,
   useClickOutside,
   useDocument,
   useTeleported,
@@ -188,8 +188,8 @@ const props = defineProps({
   disableAttachment: { type: Boolean, default: false },
   title: { type: String, default: '' },
   message: { type: String, default: '' },
-  okText: { type: String, default: '$t:ok' },
-  cancelText: { type: String, default: '$t:cancel' },
+  okText: useTranslationProp('$t:ok'),
+  cancelText: useTranslationProp('$t:cancel'),
   hideDefaultActions: { type: Boolean, default: false },
   fullscreen: { type: Boolean, default: false },
   closeButton: { type: Boolean, default: false },
@@ -228,7 +228,7 @@ const props = defineProps({
   beforeClose: { type: Function as PropType<(hide: () => void) => any> },
   beforeOk: { type: Function as PropType<(hide: () => void) => any> },
   beforeCancel: { type: Function as PropType<(hide: () => void) => any> },
-  ariaCloseLabel: { type: String, default: '$t:close' },
+  ariaCloseLabel: useTranslationProp('$t:close'),
 })
 
 useChildComponents(props)

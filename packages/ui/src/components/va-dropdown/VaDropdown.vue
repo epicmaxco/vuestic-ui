@@ -22,7 +22,7 @@ import {
   useIsMounted,
   useStateful,
   useStatefulEmits,
-  useTranslation,
+  useTranslation, useTranslationProp,
   usePlacementAliasesProps,
 } from '../../composables'
 import { renderSlotNode } from '../../utils/headless'
@@ -73,7 +73,7 @@ export default defineComponent({
     teleport: { type: [String, Object] as PropType<MaybeHTMLElementOrSelector>, default: undefined },
     /** Not reactive */
     keyboardNavigation: { type: Boolean, default: true },
-    ariaLabel: { type: String, default: '$t:toggleDropdown' },
+    ariaLabel: useTranslationProp('$t:toggleDropdown'),
     role: { type: String as PropType<StringWithAutocomplete<'button' | 'none'>>, default: 'button' },
     contentClass: { type: String, default: '' },
   },

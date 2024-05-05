@@ -72,7 +72,7 @@ import { useStylable, useStylableProps } from '../hooks/useStylable'
 
 import type { TSortIcon } from '../hooks/useSortable'
 
-import { useTranslation } from '../../../composables'
+import { useTranslation, useTranslationProp } from '../../../composables'
 
 import {
   DataTableSortingOrder,
@@ -98,8 +98,8 @@ const props = defineProps({
   sortingOrderIconName: { type: String as PropType<TSortIcon>, required: true },
   sortingOrderSync: { type: String as PropType<DataTableSortingOrder | null>, default: null },
 
-  ariaSelectAllRowsLabel: { type: String, default: '$t:selectAllRows' },
-  ariaSortColumnByLabel: { type: String, default: '$t:sortColumnBy' },
+  ariaSelectAllRowsLabel: useTranslationProp('$t:selectAllRows'),
+  ariaSortColumnByLabel: useTranslationProp('$t:sortColumnBy'),
 })
 
 const emit = defineEmits([

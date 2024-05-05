@@ -27,7 +27,7 @@
 </template>
 <script lang="ts" setup>
 import { PropType, computed } from 'vue'
-import { useTranslation } from '../../composables/useTranslation'
+import { useTranslation } from '../../composables'
 import { VaButton } from '../va-button'
 import type { Step, StepControls } from './types'
 import { unFunction } from '../../utils/un-function'

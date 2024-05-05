@@ -36,7 +36,7 @@
 <script lang="ts">
 import { PropType, shallowRef, computed } from 'vue'
 
-import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits, useTranslation } from '../../composables'
+import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits, useTranslation, useTranslationProp } from '../../composables'
 
 import { VaColorIndicator } from '../va-color-indicator'
 import { VaInput } from '../va-input'
@@ -63,7 +63,7 @@ const props = defineProps({
     default: 'dot',
     validator: (value: string) => ['dot', 'square'].includes(value),
   },
-  ariaOpenColorPickerLabel: { type: String, default: '$t:openColorPicker' },
+  ariaOpenColorPickerLabel: useTranslationProp('$t:openColorPicker'),
 })
 
 const emit = defineEmits([...useStatefulEmits])

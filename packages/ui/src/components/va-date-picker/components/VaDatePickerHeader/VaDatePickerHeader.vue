@@ -64,7 +64,7 @@ import { useView } from '../../hooks/view'
 import { DatePickerView } from '../../types'
 
 import { VaButton } from '../../../va-button'
-import { useCurrentElement, useElementTextColor, useElementBackground, useTranslation } from '../../../../composables'
+import { useCurrentElement, useElementTextColor, useElementBackground, useTranslation, useTranslationProp } from '../../../../composables'
 
 defineOptions({
   name: 'VaDatePickerHeader',
@@ -76,9 +76,9 @@ const props = defineProps({
   color: { type: String },
   disabled: { type: Boolean, default: false },
 
-  ariaNextPeriodLabel: { type: String, default: '$t:nextPeriod' },
-  ariaPreviousPeriodLabel: { type: String, default: '$t:previousPeriod' },
-  ariaSwitchViewLabel: { type: String, default: '$t:switchView' },
+  ariaNextPeriodLabel: useTranslationProp('$t:nextPeriod'),
+  ariaPreviousPeriodLabel: useTranslationProp('$t:previousPeriod'),
+  ariaSwitchViewLabel: useTranslationProp('$t:switchView'),
 })
 
 const emit = defineEmits(['update:view'])

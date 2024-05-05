@@ -88,7 +88,7 @@ import {
   useKeyboardOnlyFocus,
   useSelectable, useSelectableProps, useSelectableEmits,
   useColors, useTextColor,
-  useBem,
+  useBem, useTranslationProp,
 } from '../../composables'
 
 import { VaProgressCircle } from '../va-progress-circle'
@@ -112,7 +112,7 @@ const props = defineProps({
   falseLabel: { type: String, default: null },
   trueInnerLabel: { type: String, default: null },
   falseInnerLabel: { type: String, default: null },
-  ariaLabel: { type: String, default: '$t:switch' },
+  ariaLabel: useTranslationProp('$t:switch'),
   color: { type: String, default: 'primary' },
   offColor: { type: String, default: 'background-element' },
   size: {

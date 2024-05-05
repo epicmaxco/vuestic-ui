@@ -214,7 +214,7 @@ import { useFilterable, useFilterableProps } from './hooks/useFilterable'
 import { useSortable, useSortableProps } from './hooks/useSortable'
 import { useTableScroll, useTableScrollProps, useTableScrollEmits } from './hooks/useTableScroll'
 
-import { useComponentPresetProp, useTranslation, useThrottleProps } from '../../composables'
+import { useComponentPresetProp, useTranslation, useTranslationProp, useThrottleProps } from '../../composables'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
@@ -281,7 +281,7 @@ const props = defineProps({
   gridColumns: { type: [Number, String], default: 0 },
   wrapperSize: { type: [Number, String] as PropType<number | string | 'auto'>, default: 'auto' },
 
-  ariaSelectRowLabel: { type: String, default: '$t:selectRowByIndex' },
+  ariaSelectRowLabel: useTranslationProp('$t:selectRowByIndex'),
 })
 
 const emit = defineEmits([

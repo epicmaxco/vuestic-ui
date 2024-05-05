@@ -83,7 +83,7 @@
 import VaStepperControls from './VaStepperControls.vue'
 import VaStepperStepButton from './VaStepperStepButton.vue'
 import { computed, PropType, ref, Ref, shallowRef, watch } from 'vue'
-import { useColors, useStateful, useStatefulProps, useTranslation } from '../../composables'
+import { useColors, useStateful, useStatefulProps, useTranslation, useTranslationProp } from '../../composables'
 import type { Step, StepControls } from './types'
 import { isStepHasError } from './step'
 
@@ -106,7 +106,7 @@ const props = defineProps({
   nextDisabled: { type: Boolean, default: false },
   nextDisabledOnError: { type: Boolean, default: false },
   finishButtonHidden: { type: Boolean, default: false },
-  ariaLabel: { type: String, default: '$t:progress' },
+  ariaLabel: useTranslationProp('$t:progress'),
   linear: { type: Boolean, default: false },
   /** Hidden step shown when all steps complete */
   finishStep: { type: Object as PropType<Step> },

@@ -92,7 +92,7 @@ import {
   useDropdownable,
   useDropdownableProps,
   useDropdownableEmits,
-  useFocus, useFocusEmits, useTranslation, useFocusDeep, useTrapFocus,
+  useFocus, useFocusEmits, useTranslation, useTranslationProp, useFocusDeep, useTrapFocus,
 } from '../../composables'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
@@ -148,9 +148,9 @@ const props = defineProps({
   leftIcon: { type: Boolean, default: false },
   icon: { type: String, default: 'va-calendar' },
 
-  ariaToggleDropdownLabel: { type: String, default: '$t:toggleDropdown' },
-  ariaResetLabel: { type: String, default: '$t:resetDate' },
-  ariaSelectedDateLabel: { type: String, default: '$t:selectedDate' },
+  ariaToggleDropdownLabel: useTranslationProp('$t:toggleDropdown'),
+  ariaResetLabel: useTranslationProp('$t:resetDate'),
+  ariaSelectedDateLabel: useTranslationProp('$t:selectedDate'),
 })
 
 const emit = defineEmits([
