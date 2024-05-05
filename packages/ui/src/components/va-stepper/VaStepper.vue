@@ -11,8 +11,8 @@
       @click="onValueChange"
       @keyup.enter="onValueChange"
       @keyup.space="onValueChange"
-      @keyup.left="onArrowKeyPress('prev')"
-      @keyup.right="onArrowKeyPress('next')"
+      @keyup.left="setFocus('prev')"
+      @keyup.right="setFocus('next')"
       @focusout="resetFocus"
     >
       <template
@@ -222,7 +222,7 @@ const setFocus = (direction: 'prev' | 'next') => {
   }
 }
 
-const setFocusNextStep = (idx: number) => {
+const setFocusNextStep = (idx: number = 1) => {
   const newValue = focusedStep.value.stepIndex + idx
 
   if (isNextStepDisabled(newValue)) { return }
@@ -244,7 +244,7 @@ const setFocusNextStep = (idx: number) => {
     }
   }
 }
-const setFocusPrevStep = (idx: number) => {
+const setFocusPrevStep = (idx: number = 1) => {
   const newValue = focusedStep.value.stepIndex - idx
   if (newValue >= 0) {
     if (stepsComputed.value[newValue].disabled) {
@@ -316,10 +316,6 @@ const getIterableSlotData = (step: Step, index: number) => ({
 })
 
 const { tp } = useTranslation()
-
-const onArrowKeyPress = (direction: 'prev' | 'next') => {
-  setFocus(direction)
-}
 
 const onValueChange = () => {
   focusedStep.value.stepIndex = props.modelValue
