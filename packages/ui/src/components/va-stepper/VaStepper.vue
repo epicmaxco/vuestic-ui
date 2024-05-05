@@ -295,7 +295,6 @@ const nextStep = (stepsToSkip = 0) => {
 }
 
 const prevStep = (stepsToSkip = 0) => {
-  // add an offset because when step it's finished the current step is still the last step in the steps array and previous on finish go to the the step before the previous step e.g for [1,2,3], on finish, step 3 is the last step and if we go prev from the finish step it goes to 2 instead of staying in 3.
   const targetIndex = modelValue.value - 1 - stepsToSkip
 
   if (!stepsComputed.value[targetIndex]) { return }
