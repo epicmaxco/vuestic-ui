@@ -113,9 +113,9 @@ const props = defineProps({
     default: 'cover',
   },
   maxWidth: {
-    type: Number,
+    type: [Number, String],
     default: 0,
-    validator: (v: number) => v >= 0,
+    validator: (v: number | string) => Number(v) >= 0,
   },
   lazy: { type: Boolean, default: false },
   placeholderSrc: { type: String, default: '' },

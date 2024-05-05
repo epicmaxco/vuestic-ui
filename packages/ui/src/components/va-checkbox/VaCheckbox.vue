@@ -36,7 +36,7 @@
           @keypress.prevent="toggleSelection"
         >
         <va-icon
-          v-show="isActive"
+          v-if="isActive"
           class="va-checkbox__icon"
           :name="computedIconName"
           :color="textColorComputed"
@@ -111,6 +111,11 @@ const {
   toggleSelection,
   onBlur,
   onFocus,
+  isDirty,
+  isTouched,
+  isError,
+  isLoading,
+  isValid,
 } = useSelectable(props, emit, elements)
 const { getColor } = useColors()
 const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
@@ -190,6 +195,11 @@ const displayVal = computed(() => props.vertical ? '--va-checkbox-display-flex' 
 
 defineExpose({
   toggleSelection,
+  isDirty,
+  isTouched,
+  isError,
+  isLoading,
+  isValid,
 })
 </script>
 

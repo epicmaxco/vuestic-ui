@@ -80,7 +80,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   }
 
   useFormChild({
-    name: ref(undefined),
+    name: toRef(options, 'name'),
     isValid: isValid,
     isLoading: isLoading,
     isDirty: isDirty,

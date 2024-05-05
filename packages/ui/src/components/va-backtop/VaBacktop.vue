@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
 import { PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useComponentPresetProp, useTranslation } from '../../composables'
+import { useComponentPresetProp, useTranslation, useNumericProp } from '../../composables'
 import { VaButton } from '../va-button'
 import { isServer } from '../../utils/ssr'
 import { warn } from '../../utils/console'
@@ -36,8 +36,8 @@ const props = defineProps({
     type: [Object, String] as PropType<Element | string | undefined>,
     default: undefined,
   },
-  visibilityHeight: { type: Number, default: 300 },
-  speed: { type: Number, default: 50 },
+  visibilityHeight: { type: [Number, String], default: 300 },
+  speed: { type: [Number, String], default: 50 },
   verticalOffset: { type: String, default: '1rem' },
   horizontalOffset: { type: String, default: '1rem' },
   color: { type: String, default: '' },
@@ -62,6 +62,9 @@ const computedStyle = computed(() => ({
 }))
 
 let targetElement: Element | Window
+
+const visibilityHeightComputed = useNumericProp('visibilityHeight')
+const speedComputed = useNumericProp('speed')
 
 const getTargetElement = (): Element | Window => {
   if (!props.target) {
@@ -100,7 +103,7 @@ const scrollToTop = () => {
         clearInterval(interval.value)
         scrolled.value = false
       } else {
-        const next = Math.floor(targetElement.scrollTop - props.speed)
+        const next = Math.floor(targetElement.scrollTop - speedComputed.value!)
         targetElement.scrollTo(0, next)
       }
     }
@@ -119,7 +122,7 @@ const visible = computed(() => {
   if (server) {
     return false
   }
-  return targetScrollValue.value > props.visibilityHeight
+  return targetScrollValue.value > visibilityHeightComputed.value!
 })
 
 if (!server) {

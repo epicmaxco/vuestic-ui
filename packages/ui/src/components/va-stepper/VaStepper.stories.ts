@@ -63,15 +63,14 @@ export const NextDisabledWhenHasError: StoryFn = () => ({
   template: `
     [current]: {{ currentStep }}
     <VaStepper :steps="steps" v-model="currentStep" nextDisabledOnError>
-
-    <template
-      v-for="(step, i) in steps"
-      :key="step.label"
-      #[\`step-content-\${i}\`]
-    >
-      <input v-model="testInputText" />
-    </template>
-  </VaStepper>
+      <template
+        v-for="(step, i) in steps"
+        :key="step.label"
+        #[\`step-content-\${i}\`]
+      >
+        <input v-model="testInputText" />
+      </template>
+    </VaStepper>
   `,
 })
 

@@ -28,9 +28,9 @@
 
 <script lang="ts" setup>
 import VaTimePickerColumnCell from '../VaTimePickerColumnCell.vue'
-import { nextTick, shallowRef, watch, onMounted, PropType, computed } from 'vue'
+import { nextTick, shallowRef, watch, onMounted, PropType, computed, ComputedRef } from 'vue'
 
-import { useSyncProp, useFocus, useFocusEmits, useTextColor } from '../../../../composables'
+import { useSyncProp, useFocus, useFocusEmits, useTextColor, useNumericProp } from '../../../../composables'
 import debounce from 'lodash/debounce.js'
 
 defineOptions({
@@ -40,7 +40,7 @@ defineOptions({
 const props = defineProps({
   items: { type: Array as PropType<string[] | number[]>, default: () => [] },
   activeItemIndex: { type: Number, default: 0 },
-  cellHeight: { type: Number, default: 30 },
+  cellHeight: { type: [Number, String], default: 30 },
 })
 
 const emit = defineEmits(['item-selected', 'update:activeItemIndex', ...useFocusEmits])
@@ -48,6 +48,8 @@ const emit = defineEmits(['item-selected', 'update:activeItemIndex', ...useFocus
 const rootElement = shallowRef<HTMLElement>()
 const { focus, blur } = useFocus(rootElement, emit)
 const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
+
+const cellHeightComputed = useNumericProp('cellHeight') as ComputedRef<number>
 
 watch(syncActiveItemIndex, (newVal) => { scrollTo(newVal) })
 
@@ -58,7 +60,7 @@ const scrollTo = (index: number, animated = true) => {
     // see: https://github.com/vuejs/vue-test-utils/issues/319#issuecomment-354667621
     rootElement.value?.scrollTo?.({
       behavior: animated ? 'smooth' : 'auto',
-      top: index * props.cellHeight,
+      top: index * cellHeightComputed.value,
     })
   })
 }
@@ -91,8 +93,8 @@ const formatCell = (n: number | string): string => {
 const getIndex = () => {
   const scrollTop = rootElement.value!.scrollTop
   const calculatedIndex = Math.max(
-    (scrollTop - scrollTop % props.cellHeight) / props.cellHeight,
-    scrollTop / props.cellHeight,
+    (scrollTop - scrollTop % cellHeightComputed.value) / cellHeightComputed.value,
+    scrollTop / cellHeightComputed.value,
   )
 
   if (calculatedIndex >= props.items.length) {
@@ -102,9 +104,9 @@ const getIndex = () => {
     return 0
   }
 
-  if (syncActiveItemIndex.value * props.cellHeight < scrollTop) {
+  if (syncActiveItemIndex.value * cellHeightComputed.value < scrollTop) {
     return Math.ceil(calculatedIndex)
-  } else if (syncActiveItemIndex.value * props.cellHeight > scrollTop) {
+  } else if (syncActiveItemIndex.value * cellHeightComputed.value > scrollTop) {
     return Math.floor(calculatedIndex)
   } else {
     return Math.round(calculatedIndex)

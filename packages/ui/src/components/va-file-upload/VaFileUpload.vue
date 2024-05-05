@@ -58,9 +58,9 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted, ref, toRef, shallowRef, provide, PropType } from 'vue'
+import { computed, onMounted, ref, toRef, shallowRef, provide, PropType, ComputedRef } from 'vue'
 
-import { useColors, useComponentPresetProp, useBem, useTranslation } from '../../composables'
+import { useColors, useComponentPresetProp, useBem, useTranslation, useNumericProp } from '../../composables'
 
 import { VaFileUploadKey, VaFile } from './types'
 
@@ -86,7 +86,7 @@ const props = defineProps({
   color: { type: String, default: 'primary' },
   disabled: { type: Boolean, default: false },
   undo: { type: Boolean, default: false },
-  undoDuration: { type: Number, default: 3000 },
+  undoDuration: { type: [Number, String], default: 3000 },
   undoButtonText: { type: String, default: '$t:undo' },
   dropZoneText: { type: String, default: '$t:dropzone' },
   uploadButtonText: { type: String, default: '$t:uploadFile' },
@@ -211,7 +211,7 @@ const { tp } = useTranslation()
 provide(VaFileUploadKey, {
   undo: toRef(props, 'undo'),
   disabled: toRef(props, 'disabled'),
-  undoDuration: toRef(props, 'undoDuration'),
+  undoDuration: useNumericProp('undoDuration') as ComputedRef<number>,
   undoButtonText: computed(() => tp(props.undoButtonText)),
   deletedFileMessage: computed(() => tp(props.deletedFileMessage)),
 })

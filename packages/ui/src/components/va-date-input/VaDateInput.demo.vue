@@ -210,7 +210,7 @@ import { VaDateInput } from './index'
 import { VaChip } from '../va-chip'
 import { VaButton } from '../va-button'
 import { getStaticDate } from '../../../.storybook/interaction-utils/addText'
-import { ValidationRule } from '@/composables'
+import { ValidationRule } from '../../composables'
 import { DateInputModelValue } from '@/components/va-date-input/types'
 import { DatePickerView } from '@/components/va-date-picker/types'
 

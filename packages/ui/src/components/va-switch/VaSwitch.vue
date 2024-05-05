@@ -146,6 +146,10 @@ const {
   onFocus,
   reset,
   focus,
+  isDirty,
+  isTouched,
+  isLoading,
+  isError,
 } = useSelectable(props, emit, elements)
 
 const computedBackground = computed(() => getColor(isChecked.value ? props.color : props.offColor))
@@ -233,6 +237,10 @@ const input = elements.input
 defineExpose({
   focus,
   reset,
+  isDirty,
+  isTouched,
+  isLoading,
+  isError,
 })
 </script>
 

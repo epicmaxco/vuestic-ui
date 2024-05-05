@@ -56,16 +56,16 @@
     <slot
       name="hiddenOptionsBadge"
       v-bind="{
-        amount: $props.hiddenSelectedOptionsAmount,
+        amount: hiddenSelectedOptionsAmount,
         isShown: $props.isAllOptionsShown,
         toggle: toggleHiddenOptionsState,
       }"
     >
       <va-badge
-        v-if="$props.hiddenSelectedOptionsAmount && !$props.isAllOptionsShown"
+        v-if="hiddenSelectedOptionsAmountComputed && !$props.isAllOptionsShown"
         class="va-select-content__state-icon"
         color="info"
-        :text="`+${$props.hiddenSelectedOptionsAmount}`"
+        :text="`+${hiddenSelectedOptionsAmountComputed}`"
         :tabindex="$props.tabindex"
         @click.stop="toggleHiddenOptionsState"
       />
@@ -92,9 +92,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, toRefs, computed, watch, onMounted, type PropType } from 'vue'
+import { ref, toRefs, computed, watch, onMounted, type PropType, ComputedRef } from 'vue'
 
-import { useFormFieldProps } from '../../../../composables'
+import { useFormFieldProps, useNumericProp } from '../../../../composables'
 
 import { VaIcon } from '../../../va-icon'
 import { VaBadge } from '../../../va-badge'
@@ -115,7 +115,7 @@ const props = defineProps({
   separator: { type: String, default: ', ' },
   placeholder: { type: String, default: '' },
   tabindex: { type: [String, Number], default: 0 },
-  hiddenSelectedOptionsAmount: { type: Number, default: 0 },
+  hiddenSelectedOptionsAmount: { type: [Number, String], default: 0 },
   isAllOptionsShown: { type: Boolean, default: false },
   autocomplete: { type: Boolean, default: false },
   focused: { type: Boolean, default: false },
@@ -138,6 +138,8 @@ const autocompleteInputValueComputed = computed({
   get: () => props.autocompleteInputValue,
   set: (v: string) => emit('autocomplete-input', v),
 })
+
+const hiddenSelectedOptionsAmountComputed = useNumericProp('hiddenSelectedOptionsAmount') as ComputedRef<number>
 
 onMounted(() => {
   if (props.multiple) { return }

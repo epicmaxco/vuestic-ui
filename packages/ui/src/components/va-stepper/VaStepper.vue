@@ -72,7 +72,6 @@
             :steps="stepsComputed"
             :stepControls="stepControls"
             :finishButtonHidden="finishButtonHidden"
-            @finish="goToFinishStep"
           />
         </slot>
       </div>
@@ -168,7 +167,7 @@ const findFirstWithErrorIndex = (from: number, direction: number) => {
   }
 }
 
-const validateMovingToStep = (stepIndex: number): boolean => {
+const validateMovingToStep = async (stepIndex: number): Promise<boolean> => {
   const newStep = stepsComputed.value[stepIndex]
   const currentStep = stepsComputed.value[modelValue.value]
   const beforeNewStep = findFirstNonDisabled(stepIndex, -1)
@@ -185,8 +184,15 @@ const validateMovingToStep = (stepIndex: number): boolean => {
     return false
   }
 
+  let currentStepBeforeLeaveResult
+  try {
+    currentStepBeforeLeaveResult = await currentStep.beforeLeave?.(currentStep, newStep)
+  } catch (e) {
+    throw new Error(`Error in beforeLeave function: ${e}`)
+  }
+
   //  Checks if a save function was passed, if so it will be called and return boolean
-  if (currentStep.beforeLeave?.(currentStep, newStep) === false) {
+  if (currentStepBeforeLeaveResult === false) {
     // Do not update the modelValue if the beforeLeave function returns false
     return false
   }
@@ -207,10 +213,10 @@ const validateMovingToStep = (stepIndex: number): boolean => {
   return true
 }
 
-const setStep = (index: number) => {
-  if (!validateMovingToStep(index)) { return }
+const setStep = async (index: number) => {
+  if (!await validateMovingToStep(index)) { return }
 
-  emit('update:modelValue', index)
+  modelValue.value = index
 }
 
 const setFocus = (direction: 'prev' | 'next') => {
@@ -300,8 +306,13 @@ const prevStep = (stepsToSkip = 0) => {
   setStep(targetIndex)
 }
 
-const stepControls: StepControls = { setStep, nextStep, prevStep }
+const finish = async () => {
+  if (await validateMovingToStep(props.steps.length - 1)) {
+    emit('finish')
+  }
+}
 
+const stepControls: StepControls = { setStep, nextStep, prevStep, finish }
 const getIterableSlotData = (step: Step, index: number) => ({
   ...stepControls,
   focus: focusedStep,
@@ -349,11 +360,6 @@ const setError = (shouldSetError?: boolean) => {
   steps[props.modelValue].completed = !shouldSetError
 
   emit('update:steps', steps)
-}
-
-const goToFinishStep = () => {
-  if (props.linear && stepsComputed.value.every(step => !step.completed)) { return }
-  emit('finish')
 }
 
 defineExpose({

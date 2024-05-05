@@ -58,8 +58,8 @@ export default defineComponent({
     closeOnFocusOutside: { type: Boolean, default: true },
     closeOnAnchorClick: { type: Boolean, default: true },
     closeOnContentClick: { type: Boolean, default: true },
-    hoverOverTimeout: { type: Number, default: 30 },
-    hoverOutTimeout: { type: Number, default: 200 },
+    hoverOverTimeout: { type: [Number, String], default: 30 },
+    hoverOutTimeout: { type: [Number, String], default: 200 },
     isContentHoverable: { type: Boolean, default: true },
     offset: { type: [Array, Number] as PropType<DropdownOffsetProp>, default: 0 },
     keepAnchorWidth: { type: Boolean, default: false },
@@ -75,6 +75,7 @@ export default defineComponent({
     keyboardNavigation: { type: Boolean, default: true },
     ariaLabel: { type: String, default: '$t:toggleDropdown' },
     role: { type: String as PropType<StringWithAutocomplete<'button' | 'none'>>, default: 'button' },
+    contentClass: { type: String, default: '' },
   },
 
   emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'focus-outside', 'close', 'open', 'anchor-dblclick'],
@@ -222,7 +223,7 @@ export default defineComponent({
 
     const floatingSlotNode = this.showFloating && renderSlotNode(this.$slots.default, slotBind, {
       ref: 'floating',
-      class: 'va-dropdown__content-wrapper',
+      class: ['va-dropdown__content-wrapper', this.$props.contentClass],
       style: [this.floatingStyles, { zIndex: this.zIndex }],
       ...this.teleportedAttrs,
     })

@@ -14,8 +14,8 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, computed, PropType, onBeforeUnmount, useAttrs } from 'vue'
-import { useBem, useColors, useTranslation } from '../../composables'
+import { onMounted, ref, computed, PropType, onBeforeUnmount, useAttrs, ComputedRef } from 'vue'
+import { useBem, useColors, useNumericProp, useTranslation } from '../../composables'
 
 defineOptions({
   name: 'VaSkeleton',
@@ -23,7 +23,7 @@ defineOptions({
 
 const props = defineProps({
   color: { type: String, default: 'backgroundElement' },
-  delay: { type: Number, default: 100 },
+  delay: { type: [Number, String], default: 100 },
 
   tag: { type: String, default: 'div' },
 
@@ -40,13 +40,14 @@ const props = defineProps({
 })
 
 const doShow = ref(false)
+const delayComputed = useNumericProp('delay') as ComputedRef<number>
 
 let timeoutId: ReturnType<typeof setTimeout>
 onMounted(() => {
   clearTimeout(timeoutId)
   setTimeout(() => {
     doShow.value = true
-  }, props.delay)
+  }, delayComputed.value)
 })
 onBeforeUnmount(() => {
   clearTimeout(timeoutId)
