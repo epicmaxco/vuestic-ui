@@ -74,3 +74,42 @@ export const NextDisabledWhenHasError: StoryFn = () => ({
   </VaStepper>
   `,
 })
+
+export const FinishStep: StoryFn = () => ({
+  components: { VaStepper },
+
+  setup () {
+    const testInputText = ref('')
+
+    return {
+      steps: [
+        { label: 'Step 1' },
+        { label: 'Step 2' },
+        { label: 'Step 3' },
+      ],
+      finishStep: {
+        label: 'Finish',
+      },
+      currentStep: ref(0),
+      testInputText,
+    }
+  },
+
+  template: `
+    [current]: {{ currentStep }}
+    <VaStepper :steps="steps" v-model="currentStep" :finish-step="finishStep">
+
+    <template
+      v-for="(step, i) in steps"
+      :key="step.label"
+      #[\`step-content-\${i}\`]
+    >
+      Step content {{ step.label }} - {{ i }}
+    </template>
+
+    <template #step-content-finish>
+      The End!
+    </template>
+  </VaStepper>
+  `,
+})

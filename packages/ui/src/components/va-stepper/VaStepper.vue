@@ -16,103 +16,60 @@
       @focusout="resetFocus"
     >
       <template
-        v-for="(step, i) in $props.steps"
+        v-for="(step, i) in stepsComputed"
         :key="i + step.label"
       >
-        <slot
-          v-if="i > 0"
-          name="divider"
-          v-bind="getIterableSlotData(step, i)"
-        >
-          <span
-            class="va-stepper__divider"
-            :class="{ 'va-stepper__divider--vertical': $props.vertical }"
-            aria-hidden="true"
-          />
-        </slot>
+        <template v-if="!isFinishStep(i)">
+          <slot
+            v-if="i > 0"
+            name="divider"
+            v-bind="getIterableSlotData(step, i)"
+          >
+            <span
+              class="va-stepper__divider"
+              :class="{ 'va-stepper__divider--vertical': $props.vertical }"
+              aria-hidden="true"
+            />
+          </slot>
 
-        <slot
-          :name="`step-button-${i}`"
-          v-bind="getIterableSlotData(step, i)"
-        >
-          <va-stepper-step-button
-            :stepIndex="i"
-            :color="getStepperButtonColor(i)"
-            :modelValue="modelValue"
-            :nextDisabled="nextDisabled"
-            :step="step"
-            :stepControls="stepControls"
-            :navigationDisabled="navigationDisabled"
-            :focus="focusedStep"
-          />
-        </slot>
-      </template>
-      <template
-        v-if="$props.finishStep && showFinishStep && isFinished"
-      >
-        <slot
-          name="divider"
-        >
-          <span
-            class="va-stepper__divider"
-            :class="{ 'va-stepper__divider--vertical': $props.vertical }"
-            aria-hidden="true"
-          />
-        </slot>
-        <slot
-          :name="`step-button-${props.steps.length}`"
-        >
-          <va-stepper-step-button
-            :stepIndex="modelValue"
-            :color="getColor($props.color)"
-            :modelValue="modelValue"
-            :nextDisabled="true"
-            :step="$props.finishStep"
-            :stepControls="stepControls"
-            :navigationDisabled="true"
-            :focus="focusedStep"
-          />
-        </slot>
+          <slot
+            :name="`step-button-${i}`"
+            v-bind="getIterableSlotData(step, i)"
+          >
+            <va-stepper-step-button
+              :stepIndex="i"
+              :color="getStepperButtonColor(i)"
+              :modelValue="modelValue"
+              :nextDisabled="nextDisabled"
+              :step="step"
+              :stepControls="stepControls"
+              :navigationDisabled="navigationDisabled"
+              :focus="focusedStep"
+            />
+          </slot>
+        </template>
       </template>
     </ol>
     <div
       class="va-stepper__step-content-wrapper"
       :class="{ 'va-stepper__step-content-wrapper--vertical': $props.vertical }"
     >
-      <template v-if="!isFinished">
-        <template
-          v-for="(step, i) in $props.steps"
-          :key="i"
-        >
-          <div
-            class="va-stepper__step-content"
-            v-if="$slots[`step-content-${i}`] && modelValue === i"
-          >
-            <slot
-              :name="`step-content-${i}`"
-              v-bind="getIterableSlotData(step, i)"
-            />
-          </div>
-        </template>
-      </template>
-      <template v-else>
-        <div class="va-stepper__step-content">
-          <slot
-            :name="`step-content-${steps.length}`"
-            v-bind="getIterableSlotData(finishStep, modelValue)"
-          />
-        </div>
-      </template>
+      <div class="va-stepper__step-content">
+        <slot
+          :name="`step-content-${isFinishStep(modelValue) ? 'finish' : modelValue}`"
+          v-bind="getIterableSlotData(stepsComputed[modelValue], modelValue)"
+        />
+      </div>
       <div class="va-stepper__controls">
         <slot
           name="controls"
-          v-bind="getIterableSlotData(steps[modelValue], modelValue)"
+          v-bind="getIterableSlotData(stepsComputed[modelValue], modelValue)"
         >
           <va-stepper-controls
             v-if="!controlsHidden"
             :modelValue="modelValue"
             :nextDisabled="isNextStepDisabled(modelValue)"
-            :steps="steps"
+            :steps="stepsComputed"
             :stepControls="stepControls"
             :finishButtonHidden="finishButtonHidden"
             @finish="goToFinishStep"
@@ -152,9 +109,8 @@ const props = defineProps({
   finishButtonHidden: { type: Boolean, default: false },
   ariaLabel: { type: String, default: '$t:progress' },
   linear: { type: Boolean, default: false },
-  disableNavigationOnFinish: { type: Boolean, default: false },
-  showFinishStep: { type: Boolean, default: false },
-  finishStep: { type: Object as PropType<Step>, default: () => ({ label: '' }) },
+  /** Hidden step shown when all steps complete */
+  finishStep: { type: Object as PropType<Step> },
 })
 
 const emit = defineEmits(['update:modelValue', 'finish', 'update:steps'])
@@ -162,20 +118,34 @@ const emit = defineEmits(['update:modelValue', 'finish', 'update:steps'])
 const stepperNavigation = shallowRef<HTMLElement>()
 const { valueComputed: modelValue }: { valueComputed: Ref<number> } = useStateful(props, emit, 'modelValue')
 
+const stepsComputed = computed(() => {
+  if (!props.finishStep) {
+    return props.steps
+  }
+
+  return [...props.steps, props.finishStep]
+})
+
+const isFinishStep = (index: number) => {
+  if (!props.finishStep) { return false }
+
+  return index === stepsComputed.value.length - 1
+}
+
 const focusedStep = ref({ trigger: false, stepIndex: props.navigationDisabled ? -1 : props.modelValue })
 
 const { getColor } = useColors()
 
 const isNextStepDisabled = (index: number) => {
-  if (props.nextDisabledOnError && isStepHasError(props.steps[index])) { return true }
+  if (props.nextDisabledOnError && isStepHasError(stepsComputed.value[index])) { return true }
 
   return props.nextDisabled
 }
 
 const findFirstNonDisabled = (from: number, direction: number) => {
-  while (from >= 0 && from < props.steps.length) {
+  while (from >= 0 && from < stepsComputed.value.length) {
     from += direction
-    const step = props.steps[from]
+    const step = stepsComputed.value[from]
     if (!step) {
       return
     }
@@ -186,9 +156,9 @@ const findFirstNonDisabled = (from: number, direction: number) => {
 }
 
 const findFirstWithErrorIndex = (from: number, direction: number) => {
-  while (from >= 0 && from < props.steps.length) {
+  while (from >= 0 && from < stepsComputed.value.length) {
     from += direction
-    const step = props.steps[from]
+    const step = stepsComputed.value[from]
     if (!step) {
       return
     }
@@ -199,8 +169,8 @@ const findFirstWithErrorIndex = (from: number, direction: number) => {
 }
 
 const validateMovingToStep = (stepIndex: number): boolean => {
-  const newStep = props.steps[stepIndex]
-  const currentStep = props.steps[modelValue.value]
+  const newStep = stepsComputed.value[stepIndex]
+  const currentStep = stepsComputed.value[modelValue.value]
   const beforeNewStep = findFirstNonDisabled(stepIndex, -1)
 
   if (newStep.disabled) { return false }
@@ -238,7 +208,7 @@ const validateMovingToStep = (stepIndex: number): boolean => {
 }
 
 const setStep = (index: number) => {
-  if (!validateMovingToStep(index) || (isFinished.value && props.disableNavigationOnFinish)) { return }
+  if (!validateMovingToStep(index)) { return }
 
   emit('update:modelValue', index)
 }
@@ -257,16 +227,16 @@ const setFocusNextStep = (idx: number) => {
 
   if (isNextStepDisabled(newValue)) { return }
 
-  if (newValue < props.steps.length) {
-    if (props.steps[newValue].disabled) {
+  if (newValue < stepsComputed.value.length) {
+    if (stepsComputed.value[newValue].disabled) {
       setFocusNextStep(idx + 1)
       return
     }
     focusedStep.value.stepIndex = newValue
     focusedStep.value.trigger = true
   } else {
-    for (let availableIdx = 0; availableIdx < props.steps.length; availableIdx++) {
-      if (!props.steps[availableIdx].disabled) {
+    for (let availableIdx = 0; availableIdx < stepsComputed.value.length; availableIdx++) {
+      if (!stepsComputed.value[availableIdx].disabled) {
         focusedStep.value.stepIndex = availableIdx
         focusedStep.value.trigger = true
         break
@@ -277,15 +247,15 @@ const setFocusNextStep = (idx: number) => {
 const setFocusPrevStep = (idx: number) => {
   const newValue = focusedStep.value.stepIndex - idx
   if (newValue >= 0) {
-    if (props.steps[newValue].disabled) {
+    if (stepsComputed.value[newValue].disabled) {
       setFocusPrevStep(idx + 1)
       return
     }
     focusedStep.value.stepIndex = newValue
     focusedStep.value.trigger = true
   } else {
-    for (let availableIdx = props.steps.length - 1; availableIdx >= 0; availableIdx--) {
-      if (!props.steps[availableIdx].disabled && !(isNextStepDisabled(availableIdx))) {
+    for (let availableIdx = stepsComputed.value.length - 1; availableIdx >= 0; availableIdx--) {
+      if (!stepsComputed.value[availableIdx].disabled && !(isNextStepDisabled(availableIdx))) {
         focusedStep.value.stepIndex = availableIdx
         focusedStep.value.trigger = true
         break
@@ -310,8 +280,8 @@ watch(() => props.modelValue, () => {
 const nextStep = (stepsToSkip = 0) => {
   const targetIndex = modelValue.value + 1 + stepsToSkip
 
-  if (!props.steps[targetIndex] || (isFinished.value && props.disableNavigationOnFinish)) { return }
-  if (props.steps[targetIndex].disabled) {
+  if (!stepsComputed.value[targetIndex]) { return }
+  if (stepsComputed.value[targetIndex].disabled) {
     nextStep(stepsToSkip + 1)
   }
 
@@ -320,12 +290,10 @@ const nextStep = (stepsToSkip = 0) => {
 
 const prevStep = (stepsToSkip = 0) => {
   // add an offset because when step it's finished the current step is still the last step in the steps array and previous on finish go to the the step before the previous step e.g for [1,2,3], on finish, step 3 is the last step and if we go prev from the finish step it goes to 2 instead of staying in 3.
-  const stepOffset = isFinished.value ? 1 : 0
-  const targetIndex = modelValue.value - 1 - stepsToSkip + stepOffset
+  const targetIndex = modelValue.value - 1 - stepsToSkip
 
-  if (!props.steps[targetIndex] || (isFinished.value && props.disableNavigationOnFinish)) { return }
-  isFinished.value = false
-  if (props.steps[targetIndex].disabled) {
+  if (!stepsComputed.value[targetIndex]) { return }
+  if (stepsComputed.value[targetIndex].disabled) {
     prevStep(stepsToSkip + 1)
   }
 
@@ -339,7 +307,7 @@ const getIterableSlotData = (step: Step, index: number) => ({
   focus: focusedStep,
   isActive: props.modelValue === index,
   isCompleted: props.modelValue > index,
-  isLastStep: props.steps.length - 1 === index,
+  isLastStep: stepsComputed.value.length - 1 === index,
   isNextStepDisabled: isNextStepDisabled(index),
   isPrevStepDisabled: index === 0,
   index,
@@ -365,11 +333,11 @@ const ariaAttributesComputed = computed(() => ({
 }))
 
 function getStepperButtonColor (index: number) {
-  return isStepHasError(props.steps[index]) ? 'danger' : getColor(props.color)
+  return isStepHasError(stepsComputed.value[index]) ? 'danger' : getColor(props.color)
 }
 
 const completeStep = (shouldCompleteStep?: boolean) => {
-  const steps = { ...props.steps }
+  const steps = { ...stepsComputed.value }
   if (shouldCompleteStep === true) {
     steps[props.modelValue].hasError = false
   }
@@ -380,17 +348,15 @@ const completeStep = (shouldCompleteStep?: boolean) => {
 }
 
 const setError = (shouldSetError?: boolean) => {
-  const steps = { ...props.steps }
+  const steps = { ...stepsComputed.value }
   steps[props.modelValue].hasError = shouldSetError ?? true
   steps[props.modelValue].completed = !shouldSetError
 
   emit('update:steps', steps)
 }
 
-const isFinished = ref(false)
 const goToFinishStep = () => {
-  if (props.linear && props.steps.every(step => !step.completed)) { return }
-  isFinished.value = true
+  if (props.linear && stepsComputed.value.every(step => !step.completed)) { return }
   emit('finish')
 }
 
