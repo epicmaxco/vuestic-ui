@@ -20,10 +20,11 @@ import table from '../blocks/table'
 import cards from '../blocks/cards'
 import changeLog from '../blocks/change-log';
 import tags from '../blocks/tags';
+import tabs from '../blocks/tabs';
 import { APIDescriptionOptions, type ManualApiOptions } from '../blocks/api/types'
 
 // Need to define type in collapse without recursion
-const blocksWithoutCollapse = {
+const baseBlocks = {
   alert,
   example,
   title,
@@ -44,12 +45,13 @@ const blocksWithoutCollapse = {
   tags,
 }
 
-export type BaseBlock = ReturnType<(typeof blocksWithoutCollapse)[keyof typeof blocksWithoutCollapse]>
+export type BaseBlock = ReturnType<(typeof baseBlocks)[keyof typeof baseBlocks]>
 
 export const block = {
-  ...blocksWithoutCollapse,
+  ...baseBlocks,
   collapse,
   async,
+  tabs,
 }
 
 export type GlobalBlock = typeof block

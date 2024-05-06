@@ -61,6 +61,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "tree-shaking",
         displayName: "Tree Shaking",
+        meta: {
+          badge: navigationBadge.updated('1.9.9'),
+        }
       },
       {
         name: "nuxt",
@@ -607,6 +610,13 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: navigationBadge.new('1.6.0'),
         }
       },
+      {
+        name: 'unplugin-vue-components',
+        displayName: 'Auto import plugin',
+        meta: {
+          badge: navigationBadge.new('1.9.9'),
+        }
+      }
     ],
   },
 ];
