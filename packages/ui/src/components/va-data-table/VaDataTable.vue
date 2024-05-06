@@ -145,17 +145,18 @@
                     </slot>
                   </td>
                 </tr>
-                <td
-                  v-if="row.isExpandableRowVisible"
-                  class="va-data-table__table-expanded-content"
-                  colspan="99999"
-                  :key="uniqueKey(row, index)"
-                >
-                  <slot
-                    name="expandableRow"
-                    v-bind="row"
-                  />
-                </td>
+                <tr v-if="row.isExpandableRowVisible" class="va-data-table__table-tr">
+                  <td
+                    class="va-data-table__table-expanded-content"
+                    colspan="99999"
+                    :key="uniqueKey(row, index)"
+                  >
+                    <slot
+                      name="expandableRow"
+                      v-bind="row"
+                    />
+                  </td>
+                </tr>
               </template>
             </transition-group>
 
