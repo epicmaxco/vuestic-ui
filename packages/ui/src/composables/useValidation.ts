@@ -16,7 +16,7 @@ import isString from 'lodash/isString.js'
 
 import { useSyncProp } from './useSyncProp'
 import { useFormChild } from './useForm'
-import { type ArrayElementType } from 'src/utils/types/array'
+import { type ArrayElementType } from './../utils/types/array'
 import { watchSetter } from './../utils/watch-setter'
 
 export type ValidationRule<V = any> = ((v: V) => any | string) | Promise<((v: V) => any | string)>

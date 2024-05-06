@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { computed, PropType, h, Fragment, defineComponent, useCssVars } from 'vue'
+import { computed, PropType, h, defineComponent } from 'vue'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { ComponentConfig } from '../../services/component-config'
 
@@ -16,7 +16,6 @@ import {
 } from '../../composables/useLocalConfig'
 import { useGlobalConfigProvider } from './hooks/useGlobalConfigProvider'
 import { PartialGlobalConfig } from '../../services/global-config'
-import { renderSlotNodes } from '../../utils/headless'
 import { useColors, useCurrentComponentId } from '../../composables'
 import { renderComponentsStyles } from '../../services/component-config/utils/render-styles-from-config'
 
