@@ -9,7 +9,7 @@ import {
   VaToastPlugin,
   VaModalPlugin,
   VaDropdownPlugin,
-  BreakpointConfigPlugin,
+  BreakpointConfigPlugin, ComponentConfigPlugin,
 } from './../src/main'
 import demoIconAliases from './vuestic-config/demo-icon-aliases'
 import demoIconFonts from './vuestic-config/demo-icon-fonts'
@@ -49,7 +49,7 @@ setup((app) => {
         },
       },
     },
-    plugins: { VaToastPlugin, VaDropdownPlugin, VaModalPlugin, BreakpointConfigPlugin },
+    plugins: { VaToastPlugin, VaDropdownPlugin, VaModalPlugin, BreakpointConfigPlugin, ComponentConfigPlugin },
   }))
 })
 

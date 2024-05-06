@@ -1,28 +1,7 @@
 import { ComponentConfig } from '../types'
 
 export const getComponentsDefaultConfig = (): ComponentConfig =>
-  // TODO: Should be handled in size service
   ({
-    VaIcon: {
-      sizesConfig: {
-        defaultSize: 18,
-        sizes: {
-          small: 14,
-          medium: 18,
-          large: 24,
-        },
-      },
-    },
-    VaRating: {
-      sizesConfig: {
-        defaultSize: 18,
-        sizes: {
-          small: 14,
-          medium: 18,
-          large: 24,
-        },
-      },
-    },
     all: {},
     presets: {
       VaButton: {

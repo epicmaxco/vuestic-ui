@@ -9,28 +9,27 @@ import {
   type PartialGlobalConfig
 } from 'vuestic-ui'
 import { markRaw, computed, watch, type Ref } from 'vue'
-import { useHead, ReactiveHead, defineNuxtPlugin, useCookie  } from '#imports'
+import type { VuesticOptions } from '../types'
+import { useHead, ReactiveHead, defineNuxtPlugin, useCookie } from '#imports'
 import NuxtLink from '#app/components/nuxt-link'
 import configFromFile from '#vuestic-config'
-
-import type { VuesticOptions } from '../types'
 
 function getGlobalProperty (app, key) {
   return app.config.globalProperties[key]
 }
 
-export default defineNuxtPlugin(async (nuxtApp) => {
+export default defineNuxtPlugin((nuxtApp) => {
   const { vueApp: app } = nuxtApp
 
   // It's important to use `, because TS will compile qoutes to " and JSON will not be parsed...
-  const moduleOptions: VuesticOptions = JSON.parse(`<%= options.value %>`)
+  const moduleOptions: VuesticOptions = JSON.parse('<%= options.value %>')
   const themeCookie = useCookie(moduleOptions.themeCookieKey)
   const userConfig = configFromFile || moduleOptions.config || {}
   const configWithColors: PartialGlobalConfig = {
     ...userConfig,
     colors: {
       currentPresetName: themeCookie.value || userConfig.colors?.currentPresetName || 'light',
-      ...userConfig.colors,
+      ...userConfig.colors
     }
   }
 
@@ -44,7 +43,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       VaDropdownPlugin,
       VaToastPlugin,
       VaModalPlugin,
-      ColorsClassesPlugin,
+      ColorsClassesPlugin
     },
     /** Do not import any components. Nuxt will import them automatically */
     components: {}
@@ -70,6 +69,19 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         style: [
           {
             innerHTML: colorsClasses.renderColorHelpers()
+          }
+        ]
+      } satisfies ReactiveHead
+    }))
+  }
+
+  const componentConfig = getGlobalProperty(app, '$vaComponentConfig')
+  if (componentConfig) {
+    useHead(computed(() => {
+      return {
+        style: [
+          {
+            innerHTML: componentConfig.renderStyles()
           }
         ]
       } satisfies ReactiveHead

@@ -50,7 +50,7 @@
       <div>
         30px:
         <VaProgressCircle
-          :size="30"
+          size="30px"
           :modelValue="value"
         />
       </div>
@@ -114,7 +114,7 @@
       </div>
       <div>
         size:
-        <VaConfig :components="{ VaProgressCircle: { size: 30 } }">
+        <VaConfig :components="{ VaProgressCircle: { size: '30px' } }">
           <VaProgressCircle :modelValue="value" />
         </VaConfig>
       </div>

@@ -28,6 +28,7 @@
           class="va-modal"
           role="dialog"
           aria-modal="true"
+          v-bind="variablesComputed"
         >
           <div
             v-if="$props.overlay"
@@ -144,8 +145,8 @@ import {
   useClickOutside,
   useDocument,
   useTeleported,
-  useSizeRef,
-  useIsMounted,
+  useSizeProps,
+  useBem,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -155,6 +156,13 @@ import { useBlur } from './hooks/useBlur'
 import { useZIndex } from '../../composables/useZIndex'
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { defineChildProps, useChildComponents } from '../../composables/useChildComponents'
+</script>
+
+<script lang="ts" setup>
+
+import { useComponentVariables } from '../../composables/useComponentVariables'
+import pick from 'lodash/pick'
+import { Sizes, Variables } from './const'
 
 const WithTransition = defineComponent({
   name: 'ModalElement',
@@ -167,9 +175,7 @@ const WithTransition = defineComponent({
     ? h(Transition, { ...attrs }, slots)
     : slots.default?.(attrs),
 })
-</script>
 
-<script lang="ts" setup>
 defineOptions({
   name: 'VaModal',
   inheritAttrs: false,
@@ -200,22 +206,7 @@ const props = defineProps({
   maxWidth: { type: String, default: '' },
   maxHeight: { type: String, default: '' },
   anchorClass: { type: String },
-  size: {
-    type: String as PropType<StringWithAutocomplete<'medium' | 'small' | 'large' | 'auto'>>,
-    default: 'medium',
-  },
-  sizesConfig: {
-    type: Object,
-    default: () => ({
-      defaultSize: 'medium',
-      sizes: {
-        small: 576,
-        medium: 768,
-        large: 992,
-        auto: 'max-content',
-      },
-    }),
-  },
+  ...useSizeProps<Variables, Sizes>('medium'),
   fixedLayout: { type: Boolean, default: false },
   withoutTransitions: { type: Boolean, default: false },
   overlay: { type: Boolean, default: true },
@@ -253,12 +244,7 @@ const { getColor } = useColors()
 const { textColorComputed } = useTextColor(toRef(props, 'backgroundColor'))
 const { valueComputed } = useStateful(props, emit)
 
-const computedClass = computed(() => ({
-  'va-modal--fullscreen': props.fullscreen,
-  'va-modal--mobile-fullscreen': props.mobileFullscreen,
-  'va-modal--fixed-layout': props.fixedLayout,
-  'va-modal--no-padding': props.noPadding,
-}))
+const computedClass = useBem('va-modal', () => pick(props, ['fullscreen', 'mobileFullscreen', 'fixedLayout', 'noPadding']))
 
 const {
   zIndex: zIndexInherited,
@@ -271,18 +257,18 @@ const zIndexComputed = computed(() => {
   return zIndexInherited.value
 })
 
-const sizeComputed = useSizeRef(props)
+const variablesComputed = useComponentVariables(props)
 
 const computedDialogStyle = computed(() => ({
-  maxWidth: props.maxWidth || sizeComputed.value,
+  maxWidth: props.maxWidth,
   maxHeight: props.maxHeight,
   color: textColorComputed.value,
   background: getColor(props.backgroundColor),
 }))
 
-const computedOverlayClass = computed(() => ({
-  'va-modal__overlay--lowest': isLowestLevelModal.value,
-  'va-modal__overlay--top': isTopLevelModal.value,
+const computedOverlayClass = useBem('va-modal__overlay', () => ({
+  lowest: isLowestLevelModal.value,
+  top: isTopLevelModal.value,
 }))
 
 const getOverlayOpacity = () => {
@@ -495,6 +481,7 @@ body.va-modal-open {
     border-radius: var(--va-modal-dialog-border-radius, var(--va-block-border-radius));
     margin: var(--va-modal-dialog-margin);
     box-shadow: var(--va-modal-dialog-box-shadow, var(--va-block-box-shadow));
+    max-width: var(--va-modal-dialog-size);
     position: relative;
     overflow: auto;
     display: flex;
@@ -511,6 +498,22 @@ body.va-modal-open {
     height: 100vh;
     z-index: 0;
     will-change: opacity;
+  }
+
+  &--small {
+    --va-modal-dialog-size: 576px;
+  }
+
+  &--medium {
+    --va-modal-dialog-size: 768px;
+  }
+
+  &--large {
+    --va-modal-dialog-size: 992px;
+  }
+
+  &--auto {
+    --va-modal-dialog-size: max-content;
   }
 
   &-enter-from,

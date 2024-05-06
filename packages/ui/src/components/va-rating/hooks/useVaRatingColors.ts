@@ -6,7 +6,7 @@ import { RatingValue } from '../types'
 export const useVaRatingColorsProps = {
   unselectedColor: { type: String },
   color: { type: String, default: 'primary' },
-  modelValue: { type: Number },
+  modelValue: { type: Number, required: true, default: 0 },
 }
 
 export const useVaRatingColors = (props: ExtractPropTypes<typeof useVaRatingColorsProps>) => {

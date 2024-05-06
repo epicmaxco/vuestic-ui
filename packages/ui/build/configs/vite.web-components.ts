@@ -5,6 +5,7 @@ import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 import { removeSideEffectedChunks } from '../plugins/remove-side-effected-chunks'
 import { webComponentsNestedStyles } from '../plugins/web-components-nested-styles'
 import { readFileSync } from 'fs'
+import { resolve } from '../common-config'
 
 /**
  * Build web components folder. It is a separated build of vuestic-ui for SPA-only (?: maybe for SPA-only).
@@ -19,6 +20,7 @@ const packageJSON = JSON.parse(readFileSync(resolver(process.cwd(), './package.j
 const dependencies = [...Object.keys(packageJSON.dependencies), ...Object.keys(packageJSON.peerDependencies)]
 
 export default () => defineConfig({
+  resolve,
   build: {
     lib: {
       entry: resolver(process.cwd(), 'src/main.ts'),

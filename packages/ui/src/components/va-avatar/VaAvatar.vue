@@ -3,10 +3,11 @@
     class="va-avatar"
     :class="classesComputed"
     :style="computedStyle"
+    v-bind="variablesComputed"
   >
     <va-progress-circle
       v-if="$props.loading"
-      :size="sizeComputed"
+      :size="props.size"
       :color="colorComputed"
       indeterminate
     />
@@ -37,7 +38,6 @@ import pick from 'lodash/pick'
 
 import {
   useBem,
-  useSize,
   useColors,
   useTextColor,
   useSizeProps,
@@ -47,6 +47,9 @@ import {
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import { VaIcon, VaProgressCircle, VaFallback } from '../index'
+
+import { useComponentVariables } from '../../composables/useComponentVariables'
+import type { Variables, Sizes } from './const'
 
 const VaFallbackPropsDeclaration = extractComponentProps(VaFallback)
 </script>
@@ -59,7 +62,7 @@ defineOptions({
 
 const props = defineProps({
   ...useLoadingProps,
-  ...useSizeProps,
+  ...useSizeProps<Variables, Sizes>(),
   ...useComponentPresetProp,
   ...VaFallbackPropsDeclaration,
 
@@ -83,16 +86,16 @@ const backgroundColorComputed = computed(() => {
 
   return colorComputed.value
 })
-const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
+
 const { textColorComputed } = useTextColor(backgroundColorComputed)
 
+const variablesComputed = useComponentVariables(props)
+
 const computedStyle = computed(() => ({
-  fontSize: props.fontSize || fontSizeComputed.value,
+  fontSize: props.fontSize,
 }))
 
-const classesComputed = useBem('va-avatar', () => ({
-  ...pick(props, ['square']),
-}))
+const classesComputed = useBem('va-avatar', () => pick(props, ['square']))
 
 const hasLoadError = ref(false)
 
@@ -132,9 +135,18 @@ defineExpose({
   font-family: var(--va-font-family);
   background-color: v-bind(backgroundColorComputed);
   color: v-bind(textColorComputed);
-  width: v-bind(sizeComputed);
-  min-width: v-bind(sizeComputed);  // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
-  height: v-bind(sizeComputed);
+  width: var(--va-avatar-size);
+  min-width: var(--va-avatar-size);  // We only define width because common use case would be flex row, for column we expect user to set appropriate styling externally.
+  height: var(--va-avatar-size);
+  font-size: var(--va-avatar-font-size, var(--va-font-size));
+
+  &--small {
+    --va-avatar-size: 32px;
+  }
+
+  &--large {
+    --va-avatar-size: 64px;
+  }
 
   &--square {
     --va-avatar-border-radius: 0;

@@ -3,6 +3,7 @@
     class="va-rating"
     :class="rootClass"
     :aria-label="tp($props.ariaLabel, { max: $props.max, value: $props.modelValue })"
+    v-bind="variablesComputed"
   >
     <div
       class="va-rating__item-wrapper"
@@ -56,8 +57,10 @@ import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingCo
 
 import { RatingValue } from './types'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
+
+import { useComponentVariables } from '../../composables/useComponentVariables'
 import VaRatingItem from './components/VaRatingItem/VaRatingItem.vue'
-import VaRatingItemNumberButton from './components/VaRatingItemNumberButton.vue'
+import VaRatingItemNumberButton from './components/VaRatingNumberItem.vue'
 
 const VaRatingItemPropsDeclarations = extractComponentProps(VaRatingItem, ['modelValue', 'itemNumber'])
 const VaRatingItemNumberButtonPropsDeclarations = extractComponentProps(VaRatingItemNumberButton, ['modelValue', 'itemNumber'])
@@ -88,6 +91,9 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const { computedClasses: rootClass } = useFormField('va-rating', props)
+
+const variablesComputed = useComponentVariables(props)
+
 const {
   visibleValue,
   modelValue: vModel,
@@ -138,16 +144,6 @@ const VaRatingItemNumberButtonProps = filterComponentProps(VaRatingItemNumberBut
   font-family: var(--va-font-family);
 
   &__number-item {
-    @include normalize-button();
-
-    font-size: var(--va-rating-number-item-font-size);
-    margin: var(--va-rating-number-item-margin);
-    font-weight: var(--va-rating-number-item-font-weight);
-
-    @include flex-center();
-
-    cursor: pointer;
-
     @at-root {
       .va-rating--disabled & {
         @include va-disabled();
@@ -191,6 +187,16 @@ const VaRatingItemNumberButtonProps = filterComponentProps(VaRatingItemNumberBut
 
   &__text-wrapper {
     padding-left: 10px;
+  }
+
+  &--small {
+    --va-rating-number-item-size: 14px;
+    --va-rating-number-item-font-size: var(--va-small-font-size);
+  }
+
+  &--large {
+    --va-rating-number-item-size: 24px;
+    --va-rating-number-item-font-size: var(--va-large-font-size);
   }
 }
 </style>

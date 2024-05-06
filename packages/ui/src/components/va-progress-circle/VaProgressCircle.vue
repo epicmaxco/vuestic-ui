@@ -1,14 +1,10 @@
 <template>
   <div
     class="va-progress-circle"
-    :style="rootStyle"
     :class="rootClass"
-    v-bind="ariaAttributesComputed"
+    v-bind="{ ...ariaAttributesComputed, ...variablesComputed }"
   >
-    <svg
-      class="va-progress-circle__wrapper"
-      viewBox="0 0 40 40"
-    >
+    <svg class="va-progress-circle__wrapper" viewBox="0 0 40 40">
       <circle
         class="va-progress-circle__overlay"
         cx="50%"
@@ -35,14 +31,23 @@
 import { computed } from 'vue'
 import clamp from 'lodash/clamp.js'
 
-import { useComponentPresetProp, useColors, useSize, useSizeProps, useTranslation } from '../../composables'
+import {
+  useComponentPresetProp,
+  useColors,
+  useSizeProps,
+  useTranslation,
+  useBem,
+} from '../../composables'
+import { useComponentVariables } from '../../composables/useComponentVariables'
+import { Variables, Sizes } from './const'
+import pick from 'lodash/pick'
 
 defineOptions({
   name: 'VaProgressCircle',
 })
 
 const props = defineProps({
-  ...useSizeProps,
+  ...useSizeProps<Variables, Sizes>(),
   ...useComponentPresetProp,
   modelValue: { type: [Number, String], default: 0 },
   indeterminate: { type: Boolean, default: false },
@@ -52,26 +57,26 @@ const props = defineProps({
 })
 
 const { getColor } = useColors()
-const { sizeComputed } = useSize(props)
 
-const cappedThickness = computed(() => clamp(Number(props.thickness), 0, 1) / 2 * 100)
+const cappedThickness = computed(
+  () => (clamp(Number(props.thickness), 0, 1) / 2) * 100,
+)
 
-const radius = computed(() => 20 - (20 * cappedThickness.value / 100))
+const radius = computed(() => 20 - (20 * cappedThickness.value) / 100)
 const dasharray = computed(() => 2 * Math.PI * radius.value)
-const dashoffset = computed(() => dasharray.value * (1 - clamp(Number(props.modelValue), 0, 100) / 100))
+const dashoffset = computed(
+  () => dasharray.value * (1 - clamp(Number(props.modelValue), 0, 100) / 100),
+)
 const colorComputed = computed(() => getColor(props.color, undefined, true))
 
 const { tp } = useTranslation()
 
 const infoStyle = computed(() => ({ color: colorComputed.value }))
 
-const rootStyle = computed(() => ({
-  width: sizeComputed.value,
-  height: sizeComputed.value,
-}))
+const variablesComputed = useComponentVariables(props)
 
-const rootClass = computed(() => ({
-  'va-progress-circle--indeterminate': props.indeterminate,
+const rootClass = useBem('va-progress-circle', () => ({
+  ...pick(props, ['indeterminate']),
 }))
 
 const ariaAttributesComputed = computed(() => ({
@@ -87,7 +92,13 @@ const ariaAttributesComputed = computed(() => ({
 
 .va-progress-circle {
   position: var(--va-progress-circle-position);
-  overflow: var(--va-progress-circle-overflow); // Prevents resizing container back and forth.
+  overflow:
+    var(
+      --va-progress-circle-overflow
+    ); // Prevents resizing container back and forth.
+
+  width: var(--va-progress-circle-size);
+  height: var(--va-progress-circle-size);
   font-family: var(--va-font-family);
 
   &__wrapper {
@@ -115,7 +126,9 @@ const ariaAttributesComputed = computed(() => ({
 
     @at-root {
       .va-progress-circle--indeterminate & {
-        animation: va-progress-circle__overlay--indeterminate 2s ease-in-out infinite;
+        animation:
+          va-progress-circle__overlay--indeterminate 2s ease-in-out
+          infinite;
       }
     }
   }
@@ -126,6 +139,14 @@ const ariaAttributesComputed = computed(() => ({
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  &--small {
+    --va-progress-circle-size: 32px;
+  }
+
+  &--large {
+    --va-progress-circle-size: 64px;
   }
 }
 

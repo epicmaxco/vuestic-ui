@@ -8,6 +8,14 @@
   font-family: var(--va-font-family);
 }
 
+.va-font-size--small {
+  --va-font-size: var(--va-small-font-size);
+}
+
+.va-font-size--large {
+  --va-font-size: var(--va-large-font-size);
+}
+
 .va-typography-block {
   font-family: var(--va-font-family);
 

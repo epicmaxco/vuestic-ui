@@ -13,15 +13,15 @@ import {
   isColor,
   shiftHSLAColor,
   setHSLAColor,
-  isCSSVariable,
   colorToRgba,
   getStateMaskGradientBackground,
   getColorLightness,
-  cssVariableName,
   normalizeColorName,
   type ColorInput,
 } from '../services/color/utils'
 import kebabCase from 'lodash/kebabCase'
+import { cssVariableName } from '../utils/css-variables'
+import { isCSSVariable } from '../utils/css'
 
 /**
  * You can add these props to any component by destructuring them inside props option.
