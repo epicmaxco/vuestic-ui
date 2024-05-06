@@ -22,11 +22,11 @@ export default definePageConfig({
     block.code("runtime"),
 
     block.subtitle("Using with vue-i18n"),
-    block.paragraph("If you use vue-i18n we can recommend to store VuesticUI messages under specific key"),
+    block.paragraph("Vuestic integrates with vue-i18n and looks for translations under the key `vuestic.{key}` so you can override the default messages directly in vue-i18n translations with config structure like this:"),
+    block.code("vue-i18n-config"),
+    block.paragraph("If key can't be resolved through vue-i18n we fallback to own config messages."),
 
+    block.paragraph("Alternatively you can store translations under any other key and provide them to Vuestic via `mergeIntoConfig`."),
     block.code("vue-i18n-runtime"),
-    block.collapse("Recommended config structure", [
-      block.code("vue-i18n-config"),
-    ]),
   ],
 });

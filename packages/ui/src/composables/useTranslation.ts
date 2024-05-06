@@ -1,4 +1,4 @@
-import { computed, PropType } from 'vue'
+import { computed, getCurrentInstance, PropType } from 'vue'
 import { useGlobalConfig } from '../composables'
 import { I18NKey, I18NKnownKey } from '../services/i18n'
 import { warn } from '../utils/console'
@@ -33,24 +33,39 @@ export const useTranslation = () => {
 
   const config = computed(() => globalConfig.value.i18n)
 
+  function t<Key extends I18NKey> (key: Key, values?: Record<string, Stringable>) {
+    const $t = getCurrentInstance()?.appContext.config.globalProperties.$t
+
+    // Try to resolve translation with vue-i18n injected $t function
+    if (typeof $t === 'function') {
+      const translated = $t(`vuestic.${key}`, values)
+
+      if (translated) {
+        return translated
+      }
+    }
+
+    const translated = config.value[key]
+    if (!translated) {
+      warn(`${key} not found in VuesticUI i18n config`)
+      return key
+    }
+    return (applyI18nTemplate(translated, values) || key)
+  }
+
+  /** Translate prop. Translate only if key has `$t:` prefix */
+  function tp<Key extends TranslationProp | undefined> (key: Key, values?: Record<string, Stringable>): string {
+    if (!key) { return '' }
+
+    if (isTranslationKey(key)) {
+      return t(key.slice(3))
+    }
+
+    return (applyI18nTemplate(key, values) || key)
+  }
+
   return {
-    /** Translate prop. Translate only if key has `$t:` prefix */
-    tp<Key extends TranslationProp | undefined> (key: Key, values?: Record<string, Stringable>): string {
-      if (!key) { return '' }
-
-      if (isTranslationKey(key)) {
-        key = (config.value[key.slice(3)] || key) as NonNullable<Key>
-      }
-
-      return (applyI18nTemplate(key, values) || key)
-    },
-    t<Key extends I18NKey> (key: Key, values?: Record<string, Stringable>) {
-      const translated = config.value[key]
-      if (!translated) {
-        warn(`${key} not found in VuesticUI i18n config`)
-        return key
-      }
-      return (applyI18nTemplate(translated, values) || key)
-    },
+    tp,
+    t,
   }
 }
