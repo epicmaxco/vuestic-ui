@@ -59,7 +59,7 @@ import {
   useHover,
   useTextColor,
   useBem,
-  useTranslation,
+  useTranslation, useTranslationProp,
 } from '../../composables'
 
 import { VaIcon } from '../va-icon'
@@ -89,7 +89,7 @@ const props = defineProps({
     validator: (value: string) => ['small', 'medium', 'large'].includes(value),
   },
 
-  ariaCloseLabel: { type: String, default: '$t:close' },
+  ariaCloseLabel: useTranslationProp('$t:close'),
 })
 
 const emit = defineEmits([...useStatefulEmits, 'focus'])

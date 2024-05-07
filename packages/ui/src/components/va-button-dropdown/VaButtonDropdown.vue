@@ -87,7 +87,7 @@ import {
   useStateful, useStatefulProps,
   useEmitProxy,
   usePlacementAliasesProps,
-  useTranslation,
+  useTranslation, useTranslationProp,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -139,7 +139,7 @@ const props = defineProps({
   loading: { type: Boolean, default: false },
   label: { type: String },
 
-  ariaLabel: { type: String, default: '$t:toggleDropdown' },
+  ariaLabel: useTranslationProp('$t:toggleDropdown'),
 })
 
 const emit = defineEmits(['update:modelValue', ...createEmits(), ...createMainButtonEmits()])

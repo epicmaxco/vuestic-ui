@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { PropType } from 'vue'
-import { useStrictInject, useTranslation } from '../../../composables'
+import { useStrictInject, useTranslation, useTranslationProp } from '../../../composables'
 
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadKey, ConvertedFile } from '../types'
@@ -42,7 +42,7 @@ defineOptions({
 
 const props = defineProps({
   file: { type: Object as PropType<ConvertedFile | null>, default: null },
-  ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
+  ariaRemoveFileLabel: useTranslationProp('$t:removeFile'),
 })
 
 const emit = defineEmits(['remove'])

@@ -60,7 +60,7 @@
 <script lang="ts">
 import { computed, onMounted, ref, toRef, shallowRef, provide, PropType, ComputedRef } from 'vue'
 
-import { useColors, useComponentPresetProp, useBem, useTranslation, useNumericProp } from '../../composables'
+import { useColors, useComponentPresetProp, useBem, useTranslation, useTranslationProp, useNumericProp } from '../../composables'
 
 import { VaFileUploadKey, VaFile } from './types'
 
@@ -87,10 +87,10 @@ const props = defineProps({
   disabled: { type: Boolean, default: false },
   undo: { type: Boolean, default: false },
   undoDuration: { type: [Number, String], default: 3000 },
-  undoButtonText: { type: String, default: '$t:undo' },
-  dropZoneText: { type: String, default: '$t:dropzone' },
-  uploadButtonText: { type: String, default: '$t:uploadFile' },
-  deletedFileMessage: { type: String, default: '$t:fileDeleted' },
+  undoButtonText: useTranslationProp('$t:undo'),
+  dropZoneText: useTranslationProp('$t:dropzone'),
+  uploadButtonText: useTranslationProp('$t:uploadFile'),
+  deletedFileMessage: useTranslationProp('$t:fileDeleted'),
   modelValue: {
     type: [Object, Array] as PropType<VaFile | VaFile[]>,
     default: () => [],

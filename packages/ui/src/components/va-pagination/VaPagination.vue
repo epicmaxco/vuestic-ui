@@ -114,7 +114,7 @@ import {
   useColors,
   useStateful, useStatefulProps, useStatefulEmits,
   useArrayRefs,
-  useTranslation, useNumericProp,
+  useTranslation, useTranslationProp, useNumericProp,
 } from '../../composables'
 import { setPaginationRange } from './setPaginationRange'
 
@@ -160,13 +160,13 @@ const props = defineProps({
   buttonProps: { type: Object as PropType<VaButtonProps>, default: () => ({}) },
   buttonsPreset: { type: String, default: 'primary' },
 
-  ariaLabel: { type: String, default: '$t:pagination' },
-  ariaGoToTheFirstPageLabel: { type: String, default: '$t:goToTheFirstPage' },
-  ariaGoToPreviousPageLabel: { type: String, default: '$t:goToPreviousPage' },
-  ariaGoToSpecificPageLabel: { type: String, default: '$t:goToSpecificPage' },
-  ariaGoToSpecificPageInputLabel: { type: String, default: '$t:goToSpecificPageInput' },
-  ariaGoToNextPageLabel: { type: String, default: '$t:goNextPage' },
-  ariaGoToLastPageLabel: { type: String, default: '$t:goLastPage' },
+  ariaLabel: useTranslationProp('$t:pagination'),
+  ariaGoToTheFirstPageLabel: useTranslationProp('$t:goToTheFirstPage'),
+  ariaGoToPreviousPageLabel: useTranslationProp('$t:goToPreviousPage'),
+  ariaGoToSpecificPageLabel: useTranslationProp('$t:goToSpecificPage'),
+  ariaGoToSpecificPageInputLabel: useTranslationProp('$t:goToSpecificPageInput'),
+  ariaGoToNextPageLabel: useTranslationProp('$t:goNextPage'),
+  ariaGoToLastPageLabel: useTranslationProp('$t:goLastPage'),
 })
 
 const emit = defineEmits([...useStatefulEmits])

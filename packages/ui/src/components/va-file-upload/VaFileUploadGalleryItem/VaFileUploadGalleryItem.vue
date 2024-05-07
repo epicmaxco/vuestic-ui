@@ -51,7 +51,7 @@
 import { onMounted, PropType, ref, watch, computed, toRef } from 'vue'
 
 import { colorToRgba } from '../../../services/color'
-import { useFocus, useBem, useStrictInject, useTranslation } from '../../../composables'
+import { useFocus, useBem, useStrictInject, useTranslation, useTranslationProp } from '../../../composables'
 
 import { VaFileUploadKey, ConvertedFile } from '../types'
 import { useTextColor } from '../../../composables/useTextColor'
@@ -72,7 +72,7 @@ const props = defineProps({
   file: { type: Object as PropType<ConvertedFile>, default: null },
   color: { type: String, default: 'success' },
 
-  ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
+  ariaRemoveFileLabel: useTranslationProp('$t:removeFile'),
 })
 
 const emit = defineEmits(['remove'])

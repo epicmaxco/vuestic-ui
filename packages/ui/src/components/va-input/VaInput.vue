@@ -59,7 +59,7 @@ import {
   useValidation, useValidationProps, useValidationEmits,
   useEmitProxy,
   useClearable, useClearableProps, useClearableEmits,
-  useTranslation,
+  useTranslation, useTranslationProp,
   useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
   useFocusable, useFocusableProps, useEvent,
 } from '../../composables'
@@ -115,7 +115,7 @@ const props = defineProps({
   counter: { type: Boolean, default: false },
 
     // style
-  ariaResetLabel: { type: String, default: '$t:reset' },
+  ariaResetLabel: useTranslationProp('$t:reset'),
 
     /** Set value to input when model value is updated */
   strictBindInputValue: { type: Boolean, default: false },

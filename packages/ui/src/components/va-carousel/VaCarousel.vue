@@ -103,7 +103,7 @@ import { useCarouselColor } from './hooks/useCarouselColors'
 import {
   useStateful, useStatefulProps, useStatefulEmits,
   useSwipe, useSwipeProps, useComponentPresetProp,
-  useTranslation, useNumericProp,
+  useTranslation, useTranslationProp, useNumericProp,
 } from '../../composables'
 
 import { VaImage } from '../va-image'
@@ -158,11 +158,11 @@ const props = defineProps({
   color: { type: String, default: 'primary' },
   ratio: { type: [Number, String] },
 
-  ariaLabel: { type: String, default: '$t:carousel' },
-  ariaPreviousLabel: { type: String, default: '$t:goPreviousSlide' },
-  ariaNextLabel: { type: String, default: '$t:goNextSlide' },
-  ariaGoToSlideLabel: { type: String, default: '$t:goSlide' },
-  ariaSlideOfLabel: { type: String, default: '$t:slideOf' },
+  ariaLabel: useTranslationProp('$t:carousel'),
+  ariaPreviousLabel: useTranslationProp('$t:goPreviousSlide'),
+  ariaNextLabel: useTranslationProp('$t:goNextSlide'),
+  ariaGoToSlideLabel: useTranslationProp('$t:goSlide'),
+  ariaSlideOfLabel: useTranslationProp('$t:slideOf'),
 })
 
 const emit = defineEmits([...useStatefulEmits])

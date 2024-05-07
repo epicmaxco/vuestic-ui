@@ -1,7 +1,13 @@
 <script lang="ts">
 import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
 
-import { useComponentPresetProp, useAlign, useAlignProps, useColors, useTranslation } from '../../composables'
+import {
+  useComponentPresetProp,
+  useAlign,
+  useAlignProps,
+  useColors,
+  useTranslation, useTranslationProp,
+} from '../../composables'
 
 import { hasOwnProperty } from '../../utils/has-own-property'
 import { resolveSlot } from '../../utils/resolveSlot'
@@ -16,7 +22,7 @@ export default defineComponent({
     disabledColor: { type: String, default: 'secondary' },
     activeColor: { type: String, default: null },
     separatorColor: { type: String, default: null },
-    ariaLabel: { type: String, default: '$t:breadcrumbs' },
+    ariaLabel: useTranslationProp('$t:breadcrumbs'),
   },
   setup (props, { slots }) {
     const { alignComputed } = useAlign(props)

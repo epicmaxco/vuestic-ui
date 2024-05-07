@@ -45,7 +45,7 @@ import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { computed, PropType, StyleValue } from 'vue'
 import clamp from 'lodash/clamp.js'
 
-import { useColors, useTextColor, useTranslation } from '../../composables'
+import { useColors, useTextColor, useTranslation, useTranslationProp } from '../../composables'
 
 defineOptions({
   name: 'VaProgressBar',
@@ -66,7 +66,7 @@ const props = defineProps({
   contentInside: { type: Boolean, default: false },
   showPercent: { type: Boolean, default: false },
   max: { type: [Number, String], default: 100 },
-  ariaLabel: { type: String, default: '$t:progressState' },
+  ariaLabel: useTranslationProp('$t:progressState'),
 })
 
 const { getColor, getHoverColor } = useColors()

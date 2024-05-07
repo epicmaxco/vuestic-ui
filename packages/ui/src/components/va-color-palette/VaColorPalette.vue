@@ -22,7 +22,7 @@
 <script lang="ts" setup>
 import { PropType } from 'vue'
 
-import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits, useTranslation } from '../../composables'
+import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits, useTranslation, useTranslationProp } from '../../composables'
 
 import { VaColorIndicator } from '../va-color-indicator'
 
@@ -40,8 +40,8 @@ const props = defineProps({
     default: 'dot',
     validator: (value: string) => ['dot', 'square'].includes(value),
   },
-  ariaLabel: { type: String, default: '$t:colorSelection' },
-  ariaIndicatorLabel: { type: String, default: '$t:color' },
+  ariaLabel: useTranslationProp('$t:colorSelection'),
+  ariaIndicatorLabel: useTranslationProp('$t:color'),
 })
 
 const emit = defineEmits([...useStatefulEmits])

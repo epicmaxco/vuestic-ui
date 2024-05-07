@@ -44,7 +44,7 @@
 <script lang="ts">
 import { PropType, ref, computed, onMounted, shallowRef, defineComponent, ComputedRef } from 'vue'
 
-import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslation, useNumericProp } from '../../composables'
+import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslation, useTranslationProp, useNumericProp } from '../../composables'
 
 import { ToastPosition } from './types'
 
@@ -89,7 +89,7 @@ const props = defineProps({
     validator: (value: string) => ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value),
   },
   render: { type: Function },
-  ariaCloseLabel: { type: String, default: '$t:close' },
+  ariaCloseLabel: useTranslationProp('$t:close'),
   role: { type: String as PropType<StringWithAutocomplete<'alert' | 'alertdialog' | 'status'>>, default: undefined },
   inline: { type: Boolean, default: false },
 })

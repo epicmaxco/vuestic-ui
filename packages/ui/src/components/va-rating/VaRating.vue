@@ -50,7 +50,7 @@
 import { computed, PropType } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import { useFormField, useFormFieldProps, useTranslation } from '../../composables'
+import { useFormField, useFormFieldProps, useTranslation, useTranslationProp } from '../../composables'
 import { useRating, useRatingProps } from './hooks/useRating'
 import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
 
@@ -81,8 +81,8 @@ const props = defineProps({
   max: { type: [Number, String], default: 5 },
   texts: { type: Array as PropType<string[]>, default: () => [] },
 
-  ariaLabel: { type: String, default: '$t:currentRating' },
-  ariaItemLabel: { type: String, default: '$t:voteRating' },
+  ariaLabel: useTranslationProp('$t:currentRating'),
+  ariaItemLabel: useTranslationProp('$t:voteRating'),
 })
 
 const emit = defineEmits(['update:modelValue'])

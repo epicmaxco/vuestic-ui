@@ -35,7 +35,7 @@
 import { computed } from 'vue'
 import clamp from 'lodash/clamp.js'
 
-import { useComponentPresetProp, useColors, useSize, useSizeProps, useTranslation } from '../../composables'
+import { useComponentPresetProp, useColors, useSize, useSizeProps, useTranslation, useTranslationProp } from '../../composables'
 
 defineOptions({
   name: 'VaProgressCircle',
@@ -48,7 +48,7 @@ const props = defineProps({
   indeterminate: { type: Boolean, default: false },
   thickness: { type: [Number, String], default: 0.06 },
   color: { type: String, default: 'primary' },
-  ariaLabel: { type: String, default: '$t:progressState' },
+  ariaLabel: useTranslationProp('$t:progressState'),
 })
 
 const { getColor } = useColors()
