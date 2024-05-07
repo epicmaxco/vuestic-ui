@@ -1,4 +1,4 @@
-import { withCtx, h, DefineComponent, VNode, isVNode, Text, createBlock } from 'vue'
+import { withCtx, h, DefineComponent, VNode, isVNode, Text, createBlock, ComputedRef, normalizeStyle } from 'vue'
 
 type VueInternalRenderFunction = Function
 
@@ -49,6 +49,28 @@ export const createRenderFn = (component: DefineComponent): VueInternalRenderFun
     // When compile rendered function, it doesn't require thisArg
     const thisArg = compiledRenderedFn ? undefined : customCtx
 
-    return originalRenderFn.call(thisArg, customCtx, ...args.slice(1))
+    const result: VNode = originalRenderFn.call(thisArg, customCtx, ...args.slice(1))
+
+    if ('ctx' in result) {
+      const variables: ComputedRef<Map<string, string>> = (result.ctx as any).$vaCssVaraibles
+
+      if (!variables) {
+        return result
+      }
+
+      if (result.props === null) {
+        result.props = {}
+      }
+
+      const vars: Record<string, string> = {}
+
+      for (const key of variables.value.keys()) {
+        vars[key] = variables.value.get(key)!
+      }
+
+      result.props.style = normalizeStyle([result.props.style, vars])
+    }
+
+    return result
   }
 }

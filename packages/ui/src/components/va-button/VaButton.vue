@@ -223,8 +223,8 @@ defineExpose({
   }
 
   &::before {
-    background: v-bind(backgroundColor);
-    opacity: v-bind(backgroundColorOpacity);
+    background: var(--va-button-background, v-bind(backgroundColor));
+    opacity: var(--va-button-background-opacity, v-bind(backgroundColorOpacity));
   }
 
   &::after {

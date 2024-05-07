@@ -5,6 +5,7 @@ import { type Props } from './shared'
 import { createProps } from './createProps'
 import { createAttrs } from './createAttrs'
 import { createSlots } from './createSlots'
+import { createCSSVariables } from './createCSSVariables'
 
 export const createSetupFn = <T extends DefineComponent>(component: T) => {
   return (originalProps: Props, ctx: SetupContext) => {
@@ -17,6 +18,7 @@ export const createSetupFn = <T extends DefineComponent>(component: T) => {
     const props = createProps(instance, propsFromConfig)
     const attrs = createAttrs(instance, attrsFromConfig)
     const slots = createSlots(instance, propsFromConfig)
+    const cssVariables = createCSSVariables(instance, attrs)
 
     /**
      * Patch instance props with Proxy.
@@ -25,6 +27,7 @@ export const createSetupFn = <T extends DefineComponent>(component: T) => {
     instance.props = props
     instance.attrs = attrs
     instance.slots = slots
+    ;(instance as any).$vaCssVaraibles = cssVariables
 
     const setupState = component.setup?.(shallowReadonly(props), {
       ...ctx,
