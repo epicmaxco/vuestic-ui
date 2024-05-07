@@ -1,6 +1,9 @@
 import { VaCheckbox } from './'
 import { VaButton } from '../va-button'
 import { defineStory } from '../../../.storybook/types'
+import {
+  UseStatefulTemplate,
+} from '../../../.storybook/composable-templates/useStateful-template'
 
 export default {
   title: 'VaCheckbox',
@@ -16,15 +19,10 @@ export const Default = () => ({
   `,
 })
 
-export const Stateful = () => ({
-  components: { VaCheckbox },
-  template: `
-    [true]
-    <VaCheckbox stateful/>
-    [false]
-    <VaCheckbox :stateful="false"/>
-  `,
-})
+export const Stateful = UseStatefulTemplate(
+  VaCheckbox,
+  (el) => (el.children[0] as HTMLInputElement).click(), // Clicking on checkbox container doesn't change value. see #4187
+)
 
 export const Color = () => ({
   components: { VaCheckbox },

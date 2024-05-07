@@ -207,12 +207,6 @@
         indeterminate-value="middle"
       />
     </VbCard>
-    <VbCard title="Stateless switch without v-model">
-      <va-switch />
-    </VbCard>
-    <VbCard title="Stateful">
-      <va-switch stateful />
-    </VbCard>
   </VbDemo>
 </template>
 
