@@ -31,10 +31,10 @@ export const useSelectableProps = {
   arrayValue: { type: [String, Boolean, Object, Number], default: null },
   label: { type: String, default: '' },
   leftLabel: { type: Boolean, default: false },
-  trueValue: { type: null, default: true },
-  falseValue: { type: null, default: false },
+  trueValue: { type: null as unknown as PropType<any>, default: true },
+  falseValue: { type: null as unknown as PropType<any>, default: false },
   indeterminate: { type: Boolean, default: false },
-  indeterminateValue: { type: null as any as PropType<unknown>, default: null },
+  indeterminateValue: { type: null as unknown as PropType<any>, default: null },
   disabled: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
 }
