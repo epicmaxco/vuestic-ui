@@ -34,7 +34,7 @@ export const useTeleported = () => {
     },
     teleportedAttrs: {
       [TELEPORT_ATTR]: componentId,
-      [`data-v-${scopedDataV}`]: '',
+      ...(scopedDataV ? { [scopedDataV]: '' } : undefined),
     },
     findTeleportedFrom,
   }

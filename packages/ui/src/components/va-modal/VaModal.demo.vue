@@ -498,7 +498,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .example-modal-anchor {
   button {
     color: red;
@@ -506,8 +506,10 @@ export default {
 }
 
 .example-modal {
-  .va-modal__container {
-    background-color: blue;
+  cursor: default;
+
+  & :deep(.va-modal__overlay) {
+    background-color: blue !important;
   }
 }
 </style>
