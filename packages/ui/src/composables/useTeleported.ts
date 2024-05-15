@@ -26,7 +26,9 @@ export const findTeleportedFrom = (el: HTMLElement | undefined | null): HTMLElem
 export const useTeleported = () => {
   const componentId = useCurrentComponentId()
 
-  const scopedDataV = getCurrentInstance()?.vnode.scopeId
+  const currentInstance = getCurrentInstance()
+
+  const scopedDataV = currentInstance?.vnode.scopeId
 
   return {
     teleportFromAttrs: {
@@ -35,6 +37,7 @@ export const useTeleported = () => {
     teleportedAttrs: {
       [TELEPORT_ATTR]: componentId,
       ...(scopedDataV ? { [scopedDataV]: '' } : undefined),
+      ...currentInstance?.appContext.config?.globalProperties?.$vaColorConfig.getAppStylesRootAttribute(),
     },
     findTeleportedFrom,
   }
