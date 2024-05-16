@@ -11,18 +11,37 @@
       <LandingOpenSource />
       <LandingAdmin />
       <LandingFooter />
+      <LazyLandingModalsRequestAuditModal v-if="needShowRequestAuditModal" @show="onRequestAuditModalShown" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+
+import { getLocalStorage } from '../utils/localStorage'
+
 definePageMeta({
-  layout: 'landing',
+  layout: "landing",
   // See: https://github.com/nuxt/nuxt/issues/13309
   layoutTransition: true,
+});
+
+const wasRequestAuditModalShownStorageKey = 'wasRequestAuditModalShown'
+
+const needShowRequestAuditModal = ref(false)
+
+onMounted(() => {
+  const localStorage = getLocalStorage()
+  needShowRequestAuditModal.value = Boolean(localStorage ? !localStorage.getItem(
+    wasRequestAuditModalShownStorageKey
+  ) : true);
 })
 
-const isMobileMenuOpen = ref(false)
+const onRequestAuditModalShown = () => {
+  getLocalStorage()?.setItem(wasRequestAuditModalShownStorageKey, '1')
+}
+
+const isMobileMenuOpen = ref(false);
 </script>
 
 <style lang="scss">
