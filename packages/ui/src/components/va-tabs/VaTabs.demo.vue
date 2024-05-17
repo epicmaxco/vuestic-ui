@@ -348,13 +348,13 @@
         <template #tabs>
           <va-tab
             name="Link 1"
-            to="/demo/components/va-breadcrumbs/VaBreadcrumbs.demo.vue"
+            to="/1"
           >
             Link 1
           </va-tab>
           <va-tab
             name="Link 2"
-            to="/demo/components/va-tabs/VaTabs.demo.vue"
+            to="/2"
           >
             Active link
           </va-tab>
