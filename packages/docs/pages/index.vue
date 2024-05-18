@@ -28,13 +28,13 @@ definePageMeta({
 
 const wasRequestAuditModalShownStorageKey = 'wasRequestAuditModalShown'
 
-const needShowRequestAuditModal = ref(false)
+const needShowRequestAuditModal = ref(true)
 
 onMounted(() => {
   const localStorage = getLocalStorage()
-  needShowRequestAuditModal.value = Boolean(localStorage ? !localStorage.getItem(
-    wasRequestAuditModalShownStorageKey
-  ) : true);
+  // needShowRequestAuditModal.value = Boolean(localStorage ? !localStorage.getItem(
+  //   wasRequestAuditModalShownStorageKey
+  // ) : true);
 })
 
 const onRequestAuditModalShown = () => {
@@ -47,6 +47,7 @@ const isMobileMenuOpen = ref(false);
 <style lang="scss">
 @import "vuestic-ui/src/styles/typography/typography.scss";
 @import "@/assets/variables.scss";
+@import "@/assets/reset";
 
 .landing {
   font-family: var(--va-font-family);
