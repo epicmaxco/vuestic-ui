@@ -11,14 +11,12 @@
       <LandingOpenSource />
       <LandingAdmin />
       <LandingFooter />
-      <LazyLandingModalsRequestAuditModal v-if="needShowRequestAuditModal" @show="onRequestAuditModalShown" />
+      <LazyLandingModalsRequestAuditModal v-if="needShowRequestAuditModal" v-model="showRequestAuditModal" @close="onRequestAuditModalShown" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-
-import { getLocalStorage } from '../utils/localStorage'
 
 definePageMeta({
   layout: "landing",
@@ -26,20 +24,7 @@ definePageMeta({
   layoutTransition: true,
 });
 
-const wasRequestAuditModalShownStorageKey = 'wasRequestAuditModalShown'
-
-const needShowRequestAuditModal = ref(true)
-
-onMounted(() => {
-  const localStorage = getLocalStorage()
-  // needShowRequestAuditModal.value = Boolean(localStorage ? !localStorage.getItem(
-  //   wasRequestAuditModalShownStorageKey
-  // ) : true);
-})
-
-const onRequestAuditModalShown = () => {
-  getLocalStorage()?.setItem(wasRequestAuditModalShownStorageKey, '1')
-}
+const { needShowRequestAuditModal, onRequestAuditModalShown, showRequestAuditModal } = useRequestAuditModal()
 
 const isMobileMenuOpen = ref(false);
 </script>

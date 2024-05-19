@@ -1,12 +1,12 @@
 <template>
   <VaModal
-    v-model="modalOpen"
+    v-model="modelValue"
     hide-default-actions
     no-padding
     close-button
     :mobile-fullscreen="false"
     class="request-audit-modal landing"
-    @open="emit('show')"
+    @close="emit('close')"
   >
     <template #content>
       <div class="request-audit-modal__inner flex grow modal">
@@ -24,17 +24,10 @@
 <script setup lang='ts'>
 import RequestAuditForm from '../forms/RequestAuditForm.vue'
 
-const modalOpen = ref(false)
-
-const SHOW_MODAL_DELAY = 10000;
-
-setTimeout(() => {
-  modalOpen.value = true
-}, SHOW_MODAL_DELAY);
-
+const modelValue = defineModel<boolean>()
 
 const emit = defineEmits<{
-  (e: "show"): void;
+  (e: "close"): void;
 }>()
 </script>
 
