@@ -62,7 +62,8 @@ export default defineApiDescription({
     offset: "Dropdown content will be moved by main and cross axis according to current `placement`",
     placement: "Sets the placement of the dropdown content. [More about placements](/ui-elements/dropdown#placement-and-offset)",
     rangeDelimiter: "The delimiter used when turning model value to string",
-    trigger: "Action that will triggered when open and close dropdown."
+    trigger: "Action that will triggered when open and close dropdown.",
+    quickDate: 'When supplied will automatically input the defined date. The default key detected is `t`. The property value must be either `{ date: new Date() } , { date: \'01/01/2024\' key: \'s\' } or just exist with no value. When supplying a custom value, you must supply a `date` but `key` is optional.',
   },
   events: {
     clear: "Emitted if select value has been cleared",

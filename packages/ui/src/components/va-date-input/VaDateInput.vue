@@ -17,6 +17,7 @@
           v-on="inputListeners"
           :model-value="valueText"
           @change="onInputTextChanged"
+          @keydown="onKeyDown"
         >
           <template
             v-for="name in filterSlots"
@@ -151,6 +152,8 @@ const props = defineProps({
   ariaToggleDropdownLabel: useTranslationProp('$t:toggleDropdown'),
   ariaResetLabel: useTranslationProp('$t:resetDate'),
   ariaSelectedDateLabel: useTranslationProp('$t:selectedDate'),
+
+  quickDate: { type: Object as PropType<{date: Date | string; key?: string}| boolean>, default: () => {}, required: false },
 })
 
 const emit = defineEmits([
@@ -267,6 +270,25 @@ const onInputTextChanged = ({ target }: Event) => {
 
   if (isValid.value) {
     valueComputed.value = parsedValue
+  }
+}
+
+const onKeyDown = (event: KeyboardEvent) => {
+  const defaultKey = 't'
+  const quickDate = (props.quickDate as any)?.key ?? 't'
+  const shouldInput = !!((event.key.toLocaleLowerCase() === quickDate || event.key.toLocaleLowerCase() === defaultKey))
+
+  if (event.key.match(/^[a-zA-Z]+$/)) {
+    event.preventDefault()
+    valueComputed.value = props.clearValue
+  }
+
+  if (shouldInput) {
+    if (typeof props.quickDate === 'string') {
+      valueComputed.value = parseDateInputValue(new Date().toString())
+    } else {
+      valueComputed.value = typeof ((props.quickDate as any).date) === 'string' ? parseDateInputValue((props.quickDate as any).date as string) : parseDateInputValue((props.quickDate as any).date.toString())
+    }
   }
 }
 
