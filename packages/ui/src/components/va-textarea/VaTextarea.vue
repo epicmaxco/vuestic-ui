@@ -13,7 +13,7 @@
     >
       <textarea
         v-model="valueComputed"
-        v-bind="{ ...computedProps, ...listeners, ...validationAriaAttributes, ...validationListeners }"
+        v-bind="{ ...computedProps, ...listeners, ...computedInputAttributes, ...validationListeners }"
         class="va-textarea__textarea"
         ref="textarea"
         :rows="rows"
@@ -35,7 +35,10 @@ import {
   shallowRef,
   ref,
   watchEffect,
+  useAttrs,
 } from 'vue'
+
+import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 import { VaInputWrapper } from '../va-input-wrapper'
 
@@ -107,6 +110,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits([...createEmits(), ...useValidationEmits])
+
+const attrs = useAttrs()
 
 const textarea = shallowRef<HTMLTextAreaElement>()
 const { valueComputed } = useStateful(props, emit, 'modelValue', {
@@ -198,7 +203,12 @@ const computedStyle = computed(
 )
 
 const computedProps = computed(() => ({
-  ...pick(props, ['disabled', 'readonly', 'placeholder', 'ariaLabel']),
+  ...pick(props, ['disabled', 'readonly', 'placeholder', 'ariaLabel', 'name']),
+}))
+
+const computedInputAttributes = computed(() => ({
+  ...validationAriaAttributes.value,
+  ...omit(attrs, ['class', 'style']),
 }))
 
 const vaInputWrapperProps = filterComponentProps(VaInputWrapperProps)

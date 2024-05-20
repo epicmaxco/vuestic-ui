@@ -1,5 +1,5 @@
 <template>
-  <VaFormField v-model="values" :rules="[(v) => selectedValuesCount <=2 || 'Maximum 2 items can be selected']" #default="{ modelValue }">
+  <VaFormField v-slot="{ modelValue }" v-model="values" :rules="[(v) => selectedValuesCount <=2 || 'Maximum 2 items can be selected']">
     <div class="flex gap-2">
       <div
         v-for="v, i in modelValue.ref"

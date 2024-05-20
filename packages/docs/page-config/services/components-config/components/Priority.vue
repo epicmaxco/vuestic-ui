@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-col">
-    <p class="my-2 mx-auto">Less important</p>
+    <p class="my-2 mx-auto">
+      Less important
+    </p>
     <div
       v-for="priority, index in [
         'Component `default` prop value',
@@ -19,6 +21,8 @@
       </div>
       <div v-if="index !== 5" class="w-0 mx-auto justify-self-center border-r-2 border-solid border-[var(--va-background-border)] h-4" />
     </div>
-    <p class="my-2 mx-auto">More important</p>
+    <p class="my-2 mx-auto">
+      More important
+    </p>
   </div>
 </template>

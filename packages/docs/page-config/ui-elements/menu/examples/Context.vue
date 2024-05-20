@@ -5,12 +5,12 @@
     @selected="(v) => alert(v)"
   >
     <template #anchor>
-      <va-image
+      <VaImage
         class="h-[300px] w-[300px]"
         src="https://picsum.photos/1500"
       >
-        <va-badge text="Right click this image" />
-      </va-image>
+        <VaBadge text="Right click this image" />
+      </VaImage>
     </template>
   </VaMenu>
 </template>

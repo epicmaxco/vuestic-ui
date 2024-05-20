@@ -159,6 +159,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       VITE_STORYBOOK_HOSTNAME: process.env.STORYBOOK_HOSTNAME,
+      RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY,
     },
   },
 
