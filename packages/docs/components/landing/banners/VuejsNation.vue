@@ -3,14 +3,14 @@
     <a href="https://vue.school/vuejsnation-vuesticui" target="_blank" title="Vue.js Nation 2024: The largest and only 100% FREE Vue.js conference in the world">
       <VaAspectRatio v-if="breakpoint.smUp" :ratio="1367/72" :aria-hidden="true" :max-width="1350">
         <img class="min-w-full min-h-full" src="/landing/vuejsnation-event-banner.png" alt="">
-        <div :class="iconWrapperClass" @click.prevent="hide" >
-          <VaIcon name="close"/>
+        <div :class="iconWrapperClass" @click.prevent="hide">
+          <VaIcon name="close" />
         </div>
       </VaAspectRatio>
       <VaAspectRatio v-else :ratio="1500/500" :aria-hidden="true" :max-width="1350">
         <img class="min-w-full min-h-full" src="/landing/vuejsnation-event-banner-mobile.png" alt="">
         <div :class="iconWrapperClass" @click.prevent="hide">
-          <VaIcon name="close"/>
+          <VaIcon name="close" />
         </div>
       </VaAspectRatio>
     </a>

@@ -7,10 +7,14 @@
 
     <VaAvatar title="icon face" icon="face" />
 
-    <VaAvatar title="Jane Doe' avatar">J.D.</VaAvatar>
+    <VaAvatar title="Jane Doe' avatar">
+      J.D.
+    </VaAvatar>
 
     <div class="inline-flex justify-start items-center shrink-0 gap-4">
-      <VaAvatar aria-hidden="true"> J.D. </VaAvatar>
+      <VaAvatar aria-hidden="true">
+        J.D.
+      </VaAvatar>
       <span>Jane Doe</span>
     </div>
   </div>

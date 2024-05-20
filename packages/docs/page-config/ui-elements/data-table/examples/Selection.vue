@@ -19,7 +19,7 @@
     selectable
     :select-mode="selectMode"
     :selected-color="selectedColor"
-    @selectionChange="selectedItemsEmitted = $event.currentSelectedItems"
+    @selection-change="selectedItemsEmitted = $event.currentSelectedItems"
   />
 
   <VaAlert
