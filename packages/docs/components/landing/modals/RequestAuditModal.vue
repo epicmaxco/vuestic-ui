@@ -31,7 +31,7 @@ const emit = defineEmits<{
 }>()
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 @import "@/assets";
 
 :global(.request-audit-modal .va-modal__close) {

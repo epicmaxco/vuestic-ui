@@ -44,6 +44,6 @@ watchEffect(() => {
 })
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 
 </style>

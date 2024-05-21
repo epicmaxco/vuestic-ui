@@ -102,7 +102,7 @@ const itemProps = filterComponentProps(VaFileUploadListItemProps)
 const singleItemProps = filterComponentProps(VaFileUploadSingleItemProps)
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .va-file-upload-list {
   display: flex;
   flex-wrap: wrap;
