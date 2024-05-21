@@ -22,7 +22,6 @@
   "devDependencies": {
     "@types/node": "^18.16.0",
     "@types/prompts": "^2.4.2",
-    "tsup": "^6.5.0",
-    "tsx": "^3.12.1"
+    "tsup": "^6.5.0"
   }
 }
