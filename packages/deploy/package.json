@@ -6,7 +6,6 @@
     "release": "tsx release-script/release-script.ts"
   },
   "devDependencies": {
-    "tsx": "^3.12.1",
     "inquirer": "^9.0.0",
     "typescript": "^5",
     "chalk": "^5.2.0"
