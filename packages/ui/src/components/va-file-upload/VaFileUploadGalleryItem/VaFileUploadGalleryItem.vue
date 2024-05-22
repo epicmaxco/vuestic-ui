@@ -138,7 +138,7 @@ const { t, tp } = useTranslation()
 const { textColorComputed } = useTextColor(toRef(props, 'color'))
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 @import "variables";
 @import "../../../styles/resources";
 

@@ -197,3 +197,34 @@ export const ExpandableRow = () => ({
   </VaDataTable>
   `,
 })
+
+export const NoDataText = () => ({
+  components: { VaDataTable, VaPagination },
+  data: () => ({ columns, items }),
+
+  template: `
+    <VaDataTable :items="[]" :columns="columns" no-data-html="Test no data" />
+  `,
+})
+
+export const NoDataTextSlot = () => ({
+  components: { VaDataTable, VaPagination },
+  data: () => ({ columns, items }),
+
+  template: `
+    <VaDataTable :items="[]" :columns="columns">
+      <template #no-data>
+        <div class="text-center">No data Test</div>
+      </template>
+    </VaDataTable>
+  `,
+})
+
+export const NoFilteredDataText = () => ({
+  components: { VaDataTable, VaPagination },
+  data: () => ({ columns, items }),
+
+  template: `
+    <VaDataTable :items="[]" :columns="columns" filter="Aaa" no-data-filtered-html="Test no filtered data" />
+  `,
+})

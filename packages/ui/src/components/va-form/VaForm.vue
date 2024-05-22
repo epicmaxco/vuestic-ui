@@ -129,7 +129,7 @@ defineExpose({
 } satisfies Form)
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .va-form {
   font-family: var(--va-font-family);
 }

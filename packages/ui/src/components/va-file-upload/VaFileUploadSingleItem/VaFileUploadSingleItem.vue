@@ -51,7 +51,7 @@ const { t, tp } = useTranslation()
 const { disabled } = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .va-file-upload-single-item {
   width: 100%;
 

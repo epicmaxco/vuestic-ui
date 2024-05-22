@@ -95,7 +95,7 @@ const computedClasses = useBem('va-file-upload-list-item', () => ({
 }))
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 @import "../../../styles/resources";
 @import "variables";
 

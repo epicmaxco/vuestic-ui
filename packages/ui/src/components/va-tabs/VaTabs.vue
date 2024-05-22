@@ -76,6 +76,7 @@ import {
   StyleValue,
   WritableComputedRef,
   onMounted,
+  watchEffect,
 } from 'vue'
 
 import {
@@ -278,6 +279,10 @@ const updateTabsState = () => {
 
   updateStartingXPoint()
 }
+
+watchEffect(() => {
+  updateTabsState()
+})
 
 const updatePagination = () => {
   const tabsClientWidth = getClientWidth(tabs.value)

@@ -341,7 +341,7 @@ defineExpose({
 })
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 @import "../../styles/resources";
 @import "variables";
 

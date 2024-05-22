@@ -76,8 +76,11 @@
                 <td
                   class="va-data-table__table-td no-data"
                   colspan="99999"
-                  v-html="noDataHtml"
-                />
+                >
+                  <slot name="no-data">
+                    <div v-html="noDataHtml" />
+                  </slot>
+                </td>
               </tr>
 
               <tr
@@ -88,8 +91,13 @@
                 <td
                   class="va-data-table__table-td no-data"
                   colspan="99999"
-                  v-html="noDataFilteredHtml"
-                />
+                >
+                  <slot name="no-filtered-data">
+                    <slot name="no-data">
+                      <div v-html="noDataFilteredHtml" />
+                    </slot>
+                  </slot>
+                </td>
               </tr>
 
               <template
