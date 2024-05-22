@@ -204,15 +204,15 @@
     </VbCard>
 
     <VbCard title="Quick date using default date and key">
-  <va-date-input v-model="quickDateDefault" manual-input label="Start date on 't' press (Enters todays date)" quick-date />
+  <va-date-input v-model="quickDateDefault" manual-input label="Start date on 't' press (Enters todays date)" quick-dates />
   </VbCard>
 
   <VbCard title="Start date on 's' press">
-  <va-date-input v-model="quickDate" manual-input label="Start date on 's' press (Enters todays date)" :quick-date="{ date: new Date(), key: 's' }" />
+  <va-date-input v-model="quickDate" manual-input label="Start date on 's' press (Enters todays date) or 'e' (Enters 01/01/2000)" :quick-dates="[{ date: new Date(), key: 's' }, {date: '01/01/2000', key: 'e'}]" />
   </VbCard>
 
   <VbCard title="Start date on 't' press with string date for property">
-  <va-date-input v-model="strQuickDate" manual-input label="Start date on 't' press (Enters 01/01/2022)"  :quick-date="{ date: '01/01/2022' }" />
+  <va-date-input v-model="strQuickDate" manual-input label="Start date on 't' press (Enters 01/01/2022)"  :quick-dates="[{ date: '01/01/2022' }]" />
   </VbCard>
   </VbDemo>
 </template>
