@@ -275,8 +275,8 @@ const onInputTextChanged = ({ target }: Event) => {
 
 const onKeyDown = (event: KeyboardEvent) => {
   const defaultKey = 't'
-  const quickDate = (props.quickDate as any)?.key ?? 't'
-  const shouldInput = !!((event.key.toLocaleLowerCase() === quickDate || event.key.toLocaleLowerCase() === defaultKey))
+  const quickDate = (props.quickDate as any)?.key ?? defaultKey
+  const shouldInput = !!(event.key.toLocaleLowerCase() === quickDate)
 
   if (event.key.match(/^[a-zA-Z]+$/)) {
     event.preventDefault()
