@@ -138,7 +138,7 @@ const submitForm = async () => {
   }
 
   &__text {
-    @include text-font();
+    font-size: 0.9rem;
   }
 
   &__title {
