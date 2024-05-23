@@ -101,4 +101,6 @@ export const getI18nConfigDefaults = () => ({
 
   /** Input aria label */
   inputField: 'Input field',
+
+  fileTypeIncorrect: 'File type is incorrect',
 })

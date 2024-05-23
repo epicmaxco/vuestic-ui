@@ -51,8 +51,7 @@
     <va-modal
       v-model="modal"
       hide-default-actions
-      title="File validation"
-      message="File type is incorrect!"
+      :message="tp('$t:fileTypeIncorrect')"
     />
   </div>
 </template>
@@ -91,6 +90,7 @@ const props = defineProps({
   dropZoneText: useTranslationProp('$t:dropzone'),
   uploadButtonText: useTranslationProp('$t:uploadFile'),
   deletedFileMessage: useTranslationProp('$t:fileDeleted'),
+  fileIncorrectMessage: useTranslationProp('$t:fileTypeIncorrect'),
   modelValue: {
     type: [Object, Array] as PropType<VaFile | VaFile[]>,
     default: () => [],
@@ -237,6 +237,7 @@ const fileUploadListProps = filterComponentProps(VaFileUploadListProps)
     display: flex;
     align-items: center;
     position: relative;
+    z-index: 0;
 
     &__button {
       margin: var(--va-file-upload-dropzone-field-button-margin);
