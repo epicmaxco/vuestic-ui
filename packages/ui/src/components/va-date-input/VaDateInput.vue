@@ -126,7 +126,7 @@ const props = defineProps({
   ...useValidationProps as ValidationProps<DateInputModelValue>,
   ...useComponentPresetProp,
 
-  clearValue: { type: Date as PropType<DateInputModelValue>, default: undefined },
+  clearValue: { type: undefined as unknown as PropType<any>, default: undefined },
   modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },
 
   resetOnClose: { type: Boolean, default: true },
@@ -239,7 +239,7 @@ const modelValueToString = (value: DateInputModelValue): string => {
     return ''
   }
 
-  throw new Error('VaDatePicker: Invalid model value. Value should be Date, Date[] or { start: Date, end: Date | null }, got ' + typeof value)
+  return ''
 }
 
 const {
