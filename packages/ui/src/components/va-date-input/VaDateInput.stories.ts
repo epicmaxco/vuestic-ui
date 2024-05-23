@@ -221,3 +221,16 @@ export const AsyncDate = () => ({
   <VaDateInput v-model="stringValueUTC" />
   `,
 })
+
+export const NullValue = () => ({
+  components: { VaDateInput },
+  data () {
+    return {
+      value: null,
+    }
+  },
+  template: `
+  [[value]]: {{ value === null ? 'null' : value }}
+  <VaDateInput v-model="value" clearable manual-input clear-value="null" />
+  `,
+})
