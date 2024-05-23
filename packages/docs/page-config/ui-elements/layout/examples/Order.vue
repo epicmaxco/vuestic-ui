@@ -1,4 +1,7 @@
 <script setup lang="ts">
+  import { ref, reactive } from 'vue';
+  import { useBreakpoint } from 'vuestic-ui';
+
   const showLeftSidebar = ref(true)
   const showRightSidebar = ref(true)
 

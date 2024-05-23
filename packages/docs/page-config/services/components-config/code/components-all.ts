@@ -1,6 +1,8 @@
-components: {
-  all: {
-    color: '#d91698',
-    disabled: 'true',
+createVuestic({
+  components: {
+    all: {
+      color: '#d91698',
+      disabled: true,
+    },
   },
-},
+})

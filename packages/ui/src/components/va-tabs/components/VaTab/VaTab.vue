@@ -1,30 +1,24 @@
 <template>
   <component
     :is="tagComputed"
-    ref="tabElement"
+    ref="rootElement"
     class="va-tab"
     role="tab"
     :aria-selected="isActive"
     :aria-disabled="$props.disabled || parentDisabled"
-    :href="hrefComputed"
-    :target="target"
-    :to="to"
-    :replace="replace"
-    :exact="exact"
-    :active-class="activeClass"
-    :exact-active-class="exactActiveClass"
     :class="classComputed"
     :style="computedStyle"
     @mouseenter="updateHoverState(true)"
     @mouseleave="updateHoverState(false)"
+    @focus="onFocus"
+    @click="onTabClick"
+    @keydown.enter="onTabKeydown"
+    :tabindex="tabIndexComputed"
+    v-on="keyboardFocusListeners"
+    v-bind="linkAttributesComputed"
   >
     <div
       class="va-tab__content"
-      :tabindex="tabIndexComputed"
-      @focus="onFocus"
-      @click="onTabClick"
-      @keydown.enter="onTabKeydown"
-      v-on="keyboardFocusListeners"
     >
       <slot>
         <va-icon
@@ -43,7 +37,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
+import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
 
 import {
   useComponentPresetProp,
@@ -55,6 +49,7 @@ import {
 import { TabsViewKey, TabsView, TabComponent } from '../../types'
 
 import { VaIcon } from '../../../va-icon'
+import { unwrapEl } from '../../../../utils/unwrapEl'
 
 defineOptions({
   name: 'VaTab',
@@ -74,7 +69,8 @@ const props = defineProps({
 
 const emit = defineEmits(['click', 'keydown-enter', 'focus'])
 
-const tabElement = shallowRef<HTMLElement>()
+const rootElement = shallowRef<HTMLElement>()
+const tabElement = computed(() => unwrapEl(rootElement.value))
 
 const isActive = ref(false)
 const hoverState = ref(false)
@@ -83,7 +79,7 @@ const leftSidePosition = ref(0)
 
 const { keyboardFocusListeners, hasKeyboardFocus } = useKeyboardOnlyFocus()
 
-const { tagComputed, hrefComputed, isActiveRouterLink } = useRouterLink(props)
+const { tagComputed, isActiveRouterLink, linkAttributesComputed } = useRouterLink(props)
 const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
 const {
   parentDisabled,
@@ -120,12 +116,14 @@ const updateSidePositions = () => {
   leftSidePosition.value = componentOffsetLeft
 }
 
-const onTabClick = () => {
+const onTabClick = async () => {
+  await nextTick()
   selectTab(tabComponent)
   emit('click')
 }
 
-const onTabKeydown = () => {
+const onTabKeydown = async () => {
+  await nextTick()
   selectTab(tabComponent)
   emit('keydown-enter')
 }
@@ -178,6 +176,8 @@ onBeforeUnmount(() => {
   vertical-align: var(--va-tab-vertical-align);
   color: var(--va-tab-color);
 
+  @include keyboard-focus-outline($radius: 2px, $offset: -2px);
+
   &__content {
     align-items: var(--va-tab-content-align-items);
     color: var(--va-tab-content-color);
@@ -192,8 +192,6 @@ onBeforeUnmount(() => {
     white-space: var(--va-tab-content-white-space);
     padding: var(--va-tab-content-padding);
     cursor: var(--va-tab-content-cursor);
-
-    @include keyboard-focus-outline($radius: 2px, $offset: -2px);
   }
 
   &__icon {

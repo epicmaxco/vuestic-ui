@@ -32,7 +32,7 @@
           size="small"
           class="mr-1 my-1"
           closeable
-          @update:modelValue="deleteChip(chip)"
+          @update:model-value="deleteChip(chip)"
         >
           {{ chip }}
         </VaChip>

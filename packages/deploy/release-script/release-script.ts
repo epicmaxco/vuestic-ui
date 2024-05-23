@@ -251,7 +251,7 @@ const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
 
   // **** Publishing on npm ****
 
-  await executeAndLog(`cd ../ui && npm publish --tag=${distTag} --verbose${dryRun ? ' --dry-run' : ''}`)
+  await executeAndLog(`cd ../ui && npm publish --tag=${distTag} --verbose${dryRun ? ' --dry-run' : ''} ${await askOtpNpmArgument()}`)
 
   // **** Cleanup ****
 
@@ -276,6 +276,20 @@ const simplePrompt = async <T> (question: DistinctQuestion<T>): Promise<T> => {
   // Inquirer typing is pure pain.
   return (result as unknown as { question: T }).question
 }
+
+const askOtpNpmArgument = async () => {
+  const opt = await simplePrompt<string>({
+    message: 'Please enter OTP for NPM or leave it blank if 2FA is not enabled',
+    type: 'input'
+  })
+
+  if (opt) {
+    return `--otp=${opt}`
+  }
+
+  return ''
+}
+
 const inquireReleaseType = async () => simplePrompt<ReleaseType>({
   type: 'list',
   message: 'Select build type',

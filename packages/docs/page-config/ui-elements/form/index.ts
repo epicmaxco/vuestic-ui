@@ -27,8 +27,9 @@ export default definePageConfig({
     }),
     block.example("Submit", {
       title: "Form submit",
-      description: "You can fire the `submit` event of a `va-form` component: for this you need to set `tag=\"form\"` to the `va-form` and have at least one inner button with `type=\"submit\"`."
+      description: "You can fire the `submit` event of a `va-form` component: for this you need to set `tag=\"form\"` to the `va-form` and have at least one inner button with `type=\"submit\"`",
     }),
+    block.alert('info', 'If `action` attribute is not provided, the `submit` event will prevent default automatically. If you want submit method to be applied to current page (native form behavior) provide `action=""`.'),
 
     block.subtitle("API"),
     block.api("VaForm", apiDescription, apiOptions),

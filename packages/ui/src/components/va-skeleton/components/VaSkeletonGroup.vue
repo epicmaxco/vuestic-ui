@@ -7,8 +7,8 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, computed, ref, onMounted, onBeforeMount } from 'vue'
-import { useBem } from '../../../composables'
+import { PropType, computed, ref, onMounted, onBeforeMount, ComputedRef } from 'vue'
+import { useBem, useNumericProp } from '../../../composables'
 import { VaConfig } from '../../va-config'
 
 defineOptions({
@@ -17,16 +17,17 @@ defineOptions({
 
 const props = defineProps({
   color: { type: String, default: 'backgroundElement' },
-  delay: { type: Number, default: 100 },
+  delay: { type: [Number, String], default: 100 },
 
   animation: { type: String as PropType<'pulse' | 'wave' | 'none'>, default: 'pulse' },
 
-  lines: { type: Number, default: 1 },
+  lines: { type: [Number, String], default: 1 },
   lineGap: { type: String, default: '8px' },
   lastLineWidth: { type: [String], default: '75%' },
 })
 
 const doShow = ref(false)
+const delayComputed = useNumericProp('delay') as ComputedRef<number>
 
 let timeoutId: ReturnType<typeof setTimeout>
 
@@ -35,7 +36,7 @@ onMounted(() => {
   // This can be done with provide/inject to sync all animations, but for now we don't need it
   timeoutId = setTimeout(() => {
     doShow.value = true
-  }, props.delay)
+  }, delayComputed.value)
 })
 
 onBeforeMount(() => {

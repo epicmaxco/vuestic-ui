@@ -5,7 +5,7 @@ createApp(App)
     config: {
       colors: {
         variables: {
-          success: '#0fb'
+          success: '#0fb',
           'player-icon': '#aaa',
         }
       },
@@ -14,15 +14,15 @@ createApp(App)
           {
             name: 'prev',
             to: 'fa4-prev',
-            color: 'player-icon'
+            color: 'player-icon',
           },
           {
             name: 'play',
-            to: 'fa4-play'
-            color: 'success'
+            to: 'fa4-play',
+            color: 'success',
           }
         ],
-        fonts: [...]
+        fonts: [...],
       })
     }
   }))

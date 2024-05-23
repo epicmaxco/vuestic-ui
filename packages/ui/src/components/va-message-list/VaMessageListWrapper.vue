@@ -41,7 +41,7 @@ const messagesComputed = computed(() => props.error ? props.errorMessages : prop
 const errorLimit = computed(() => props.error ? Number(props.errorCount) : 99)
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 @import 'variables';
 
 .va-message-list-wrapper {

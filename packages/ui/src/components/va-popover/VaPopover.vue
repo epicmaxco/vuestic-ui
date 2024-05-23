@@ -4,6 +4,7 @@
     :model-value="modelValue"
     :close-on-click-outside="autoHide"
     :offset="$props.offset"
+    :content-class="$props.contentClass"
     class="va-popover"
   >
     <template #default>
@@ -65,6 +66,7 @@ const props = defineProps({
   message: { type: String, default: '' },
   autoHide: { type: Boolean, default: true },
   offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 4 },
+  contentClass: { type: String, default: '' },
 })
 
 const VaDropdownPropValues = filterComponentProps(VaDropdownProps)

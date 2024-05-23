@@ -28,3 +28,4 @@ export type { GlobalConfig, GlobalConfigUpdater, PartialGlobalConfig } from './s
 export type { ComponentConfig } from './services/component-config'
 export type { IconConfig, IconConfiguration } from './services/icon/types'
 export type { ColorConfig } from './services/color/types'
+export type { I18NKey, I18nConfig, CustomI18NKeys } from './services/i18n'

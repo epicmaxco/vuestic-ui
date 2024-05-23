@@ -38,7 +38,7 @@
 <script lang="ts">
 import { ref, PropType } from 'vue'
 
-import { useBem, useFocus, useStrictInject, useTranslation } from '../../../composables'
+import { useBem, useFocus, useStrictInject, useTranslation, useTranslationProp } from '../../../composables'
 import { VaFileUploadKey, ConvertedFile } from '../types'
 
 import { VaButton } from '../../va-button'
@@ -59,7 +59,7 @@ const props = defineProps({
   file: { type: Object as PropType<ConvertedFile | null>, default: null },
   color: { type: String, default: 'success' },
 
-  ariaRemoveFileLabel: { type: String, default: '$t:removeFile' },
+  ariaRemoveFileLabel: useTranslationProp('$t:removeFile'),
 })
 
 const emit = defineEmits(['remove'])
@@ -95,7 +95,7 @@ const computedClasses = useBem('va-file-upload-list-item', () => ({
 }))
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 @import "../../../styles/resources";
 @import "variables";
 

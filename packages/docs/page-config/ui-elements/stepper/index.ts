@@ -36,6 +36,10 @@ export default definePageConfig({
       description: 'Prevent navigation to the step if any of previous steps have error. It means that you can\'t go to the next step until you fix the error. You can set `hasError` in `beforeLeave` function.'
     }),
 
+    block.example('WithForm', { title: 'Validation using VaForm' }),
+
+    block.alert('You must use `const formRef = ref(); useForm(formRef)` instead of `useForm(\'formRef\')`. Vue will not update form ref when slots updated while using script setup', 'warning'),
+
     block.subtitle('Accessibility'),
 
     block.paragraph('The component itself has a [role="group"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role)[[target=_blank]] with aria attributes like an [aria-orientation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)[[target=_blank]] attribute that depends on the `vertical` property. The current step element has the attribute [aria-current="step"](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current#values)[[target=_blank]]. Keyboard navigation for this component is based on the [w3 tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)[[target=_blank]].'),

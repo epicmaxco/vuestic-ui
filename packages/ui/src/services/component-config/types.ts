@@ -1,5 +1,5 @@
 import type { VuesticComponentsMap } from '../vue-plugin'
-import type { VNodeProps, AllowedComponentProps } from 'vue'
+import type { VNodeProps, AllowedComponentProps, HTMLAttributes } from 'vue'
 
 export type VuesticComponentName = keyof VuesticComponentsMap
 export type VueDefaultPropNames = keyof (VNodeProps & AllowedComponentProps) | `on${string}`
@@ -13,7 +13,7 @@ export type ComponentConfig = Partial<{
   // `key: type` as result
   [componentName in VuesticComponentName]: {
     [key in keyof PropTypes<VuesticComponentsMap[componentName]>]?: PropTypes<VuesticComponentsMap[componentName]>[key]
-  }
+  } & HTMLAttributes
 } & { all: Props, presets: Presets }>
 
 export type { DefineComponent as VuesticComponent } from 'vue'

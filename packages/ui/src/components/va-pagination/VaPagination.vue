@@ -102,7 +102,7 @@ import {
   computed,
   watch,
   nextTick,
-  WritableComputedRef,
+  WritableComputedRef, ComputedRef,
 } from 'vue'
 import clamp from 'lodash/clamp.js'
 import pick from 'lodash/pick.js'
@@ -114,7 +114,7 @@ import {
   useColors,
   useStateful, useStatefulProps, useStatefulEmits,
   useArrayRefs,
-  useTranslation,
+  useTranslation, useTranslationProp, useNumericProp,
 } from '../../composables'
 import { setPaginationRange } from './setPaginationRange'
 
@@ -131,8 +131,8 @@ const props = defineProps({
   ...useStatefulProps,
   ...useComponentPresetProp,
   modelValue: { type: Number, default: 1 },
-  visiblePages: { type: Number, default: 0 },
-  pages: { type: Number, default: 0 },
+  visiblePages: { type: [Number, String], default: 0 },
+  pages: { type: [Number, String], default: 0 },
   disabled: { type: Boolean, default: false },
   color: { type: String, default: 'primary' },
   size: {
@@ -145,8 +145,8 @@ const props = defineProps({
   directionLinks: { type: Boolean, default: true },
   input: { type: Boolean, default: false },
   hideOnSinglePage: { type: Boolean, default: false },
-  total: { type: Number, default: null },
-  pageSize: { type: Number, default: null },
+  total: { type: [Number, String], default: null },
+  pageSize: { type: [Number, String], default: null },
   boundaryIconLeft: { type: String, default: 'va-arrow-first' },
   boundaryIconRight: { type: String, default: 'va-arrow-last' },
   directionIconLeft: { type: String, default: 'va-arrow-left' },
@@ -160,13 +160,13 @@ const props = defineProps({
   buttonProps: { type: Object as PropType<VaButtonProps>, default: () => ({}) },
   buttonsPreset: { type: String, default: 'primary' },
 
-  ariaLabel: { type: String, default: '$t:pagination' },
-  ariaGoToTheFirstPageLabel: { type: String, default: '$t:goToTheFirstPage' },
-  ariaGoToPreviousPageLabel: { type: String, default: '$t:goToPreviousPage' },
-  ariaGoToSpecificPageLabel: { type: String, default: '$t:goToSpecificPage' },
-  ariaGoToSpecificPageInputLabel: { type: String, default: '$t:goToSpecificPageInput' },
-  ariaGoToNextPageLabel: { type: String, default: '$t:goNextPage' },
-  ariaGoToLastPageLabel: { type: String, default: '$t:goLastPage' },
+  ariaLabel: useTranslationProp('$t:pagination'),
+  ariaGoToTheFirstPageLabel: useTranslationProp('$t:goToTheFirstPage'),
+  ariaGoToPreviousPageLabel: useTranslationProp('$t:goToPreviousPage'),
+  ariaGoToSpecificPageLabel: useTranslationProp('$t:goToSpecificPage'),
+  ariaGoToSpecificPageInputLabel: useTranslationProp('$t:goToSpecificPageInput'),
+  ariaGoToNextPageLabel: useTranslationProp('$t:goNextPage'),
+  ariaGoToLastPageLabel: useTranslationProp('$t:goLastPage'),
 })
 
 const emit = defineEmits([...useStatefulEmits])
@@ -175,27 +175,32 @@ const htmlInput = shallowRef<HTMLInputElement>()
 
 const inputValue = ref('')
 
-const usesTotal = computed(() => !!((props.total || props.total === 0) && props.pageSize))
+const usesTotal = computed(() => !!((totalComputed.value || totalComputed.value === 0) && pageSizeComputed.value))
 
 const { valueComputed } = useStateful(props, emit)
 
 const currentValue = computed({
-  get: () => usesTotal.value ? Math.ceil(valueComputed.value / props.pageSize) || 1 : valueComputed.value,
+  get: () => usesTotal.value ? Math.ceil(valueComputed.value / pageSizeComputed.value!) || 1 : valueComputed.value,
   set: (value) => { valueComputed.value = value },
 })
 
+const visiblePagesComputed = useNumericProp('visiblePages') as ComputedRef<number>
+const pagesComputed = useNumericProp('pages') as ComputedRef<number>
+const totalComputed = useNumericProp('total')
+const pageSizeComputed = useNumericProp('pageSize')
+
 const paginationRange = computed(() => {
-  const { visiblePages, total, pageSize, boundaryNumbers, pages } = props
+  const { boundaryNumbers } = props
 
   const value = currentValue.value || 1
-  const totalPages = usesTotal.value ? Math.ceil(total / pageSize) : pages
+  const totalPages = usesTotal.value ? Math.ceil(totalComputed.value! / pageSizeComputed.value!) : pagesComputed.value
 
-  return setPaginationRange(value, visiblePages, totalPages, boundaryNumbers)
+  return setPaginationRange(value, visiblePagesComputed.value, totalPages, boundaryNumbers)
 })
 
-const lastPage = computed(() => usesTotal.value ? Math.ceil(props.total / props.pageSize) || 1 : +props.pages)
+const lastPage = computed(() => usesTotal.value ? Math.ceil(totalComputed.value! / pageSizeComputed.value!) || 1 : +pagesComputed.value)
 
-const isLastPageNotVisible = computed(() => ((!!props.visiblePages && lastPage.value > props.visiblePages)) || props.input)
+const isLastPageNotVisible = computed(() => ((!!visiblePagesComputed.value && lastPage.value > visiblePagesComputed.value)) || props.input)
 
 const showBoundaryLinks = computed(() => {
   const { boundaryLinks, boundaryNumbers } = props
@@ -219,7 +224,7 @@ const onUserInput = (pageNum: number | '...') => {
 
   const limitedPageNum = clamp(pageNum, 1, lastPage.value)
   currentValue.value = usesTotal.value
-    ? (limitedPageNum - 1) * props.pageSize + 1
+    ? (limitedPageNum - 1) * pageSizeComputed.value! + 1
     : limitedPageNum
 
   itemRefs.value[pageNum - 1]?.focus()
@@ -278,8 +283,8 @@ const inputStyleComputed = computed(() => ({
   borderColor: inputBorderColorComputed.value,
 }))
 
-watch([usesTotal, () => props.pages], () => {
-  if (isDev && usesTotal.value && props.pages) {
+watch([usesTotal, () => pagesComputed.value], () => {
+  if (isDev && usesTotal.value && pagesComputed.value) {
     throw new Error('Please, use either `total` and `page-size` props, or `pages`.')
   }
 })
@@ -336,7 +341,7 @@ defineExpose({
 })
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 @import "../../styles/resources";
 @import "variables";
 

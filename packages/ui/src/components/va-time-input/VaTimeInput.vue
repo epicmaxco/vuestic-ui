@@ -11,8 +11,7 @@
         class="va-time-input__anchor"
         ref="input"
         :style="cursorStyleComputed"
-        v-bind="computedInputWrapperProps"
-        v-on="computedInputListeners"
+        v-bind="{ ...computedInputWrapperProps, ...validationAriaAttributes, ...computedInputListeners }"
         @change="onInputTextChanged"
       >
         <template
@@ -74,8 +73,7 @@
 </template>
 
 <script lang="ts">
-import { computed, PropType, shallowRef, nextTick, useSlots, useAttrs } from 'vue'
-import omit from 'lodash/omit'
+import { computed, PropType, shallowRef, nextTick, useSlots, useAttrs, watch } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import {
@@ -84,7 +82,7 @@ import {
   useClearable, useClearableEmits, useClearableProps,
   useFocus, useFocusEmits,
   useStateful, useStatefulEmits, useStatefulProps,
-  useTranslation,
+  useTranslation, useTranslationProp,
   useDropdownable, useDropdownableProps, useDropdownableEmits, useLongPressKey,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
@@ -124,9 +122,9 @@ const props = defineProps({
   leftIcon: { type: Boolean, default: false },
   icon: { type: String, default: 'schedule' },
 
-  ariaLabel: { type: String, default: '$t:selectedTime' },
-  ariaResetLabel: { type: String, default: '$t:resetTime' },
-  ariaToggleDropdownLabel: { type: String, default: '$t:toggleDropdown' },
+  ariaLabel: useTranslationProp('$t:selectedTime'),
+  ariaResetLabel: useTranslationProp('$t:resetTime'),
+  ariaToggleDropdownLabel: useTranslationProp('$t:toggleDropdown'),
 })
 
 const emit = defineEmits([
@@ -220,7 +218,14 @@ const {
   withoutValidation,
   resetValidation,
   isDirty,
+  isTouched,
 } = useValidation(props, emit, { reset, focus, value: valueComputed })
+
+watch(doShowDropdown, (v) => {
+  if (!v) {
+    isTouched.value = true
+  }
+})
 
 const {
   canBeCleared,
@@ -268,16 +273,15 @@ useLongPressKey(input, {
 })
 
 const computedInputListeners = ({
-  focus: () => {
+  onFocus: () => {
     if (props.disabled) { return }
 
     focusListener()
 
     if (props.readonly) { return }
     onFocus()
-    listeners.onFocus()
   },
-  blur: () => {
+  onBlur: () => {
     if (props.disabled) { return }
 
     blurListener()
@@ -356,6 +360,7 @@ defineExpose({
   isValid,
   value: valueComputed,
   isDirty,
+  isTouched,
   focus,
   blur,
   reset,

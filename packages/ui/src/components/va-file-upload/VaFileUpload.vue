@@ -58,9 +58,9 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted, ref, toRef, shallowRef, provide, PropType } from 'vue'
+import { computed, onMounted, ref, toRef, shallowRef, provide, PropType, ComputedRef } from 'vue'
 
-import { useColors, useComponentPresetProp, useBem, useTranslation } from '../../composables'
+import { useColors, useComponentPresetProp, useBem, useTranslation, useTranslationProp, useNumericProp } from '../../composables'
 
 import { VaFileUploadKey, VaFile } from './types'
 
@@ -86,11 +86,11 @@ const props = defineProps({
   color: { type: String, default: 'primary' },
   disabled: { type: Boolean, default: false },
   undo: { type: Boolean, default: false },
-  undoDuration: { type: Number, default: 3000 },
-  undoButtonText: { type: String, default: '$t:undo' },
-  dropZoneText: { type: String, default: '$t:dropzone' },
-  uploadButtonText: { type: String, default: '$t:uploadFile' },
-  deletedFileMessage: { type: String, default: '$t:fileDeleted' },
+  undoDuration: { type: [Number, String], default: 3000 },
+  undoButtonText: useTranslationProp('$t:undo'),
+  dropZoneText: useTranslationProp('$t:dropzone'),
+  uploadButtonText: useTranslationProp('$t:uploadFile'),
+  deletedFileMessage: useTranslationProp('$t:fileDeleted'),
   modelValue: {
     type: [Object, Array] as PropType<VaFile | VaFile[]>,
     default: () => [],
@@ -211,7 +211,7 @@ const { tp } = useTranslation()
 provide(VaFileUploadKey, {
   undo: toRef(props, 'undo'),
   disabled: toRef(props, 'disabled'),
-  undoDuration: toRef(props, 'undoDuration'),
+  undoDuration: useNumericProp('undoDuration') as ComputedRef<number>,
   undoButtonText: computed(() => tp(props.undoButtonText)),
   deletedFileMessage: computed(() => tp(props.deletedFileMessage)),
 })
@@ -219,7 +219,7 @@ provide(VaFileUploadKey, {
 const fileUploadListProps = filterComponentProps(VaFileUploadListProps)
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 @import "../../styles/resources";
 @import "variables";
 

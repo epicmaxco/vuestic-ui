@@ -5,6 +5,7 @@
       class="mb-6"
       label="Default"
       :options="options"
+      track-by="value"
     />
 
     <VaSelect
@@ -13,6 +14,7 @@
       label="Text by"
       :options="options"
       text-by="textBy"
+      track-by="value"
     />
 
     <VaSelect
@@ -21,6 +23,7 @@
       label="Text by (function)"
       :options="options"
       :text-by="(option) => option.textBy"
+      track-by="value"
     />
 
     <VaSelect

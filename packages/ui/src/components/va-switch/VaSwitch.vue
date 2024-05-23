@@ -15,6 +15,7 @@
       class="va-switch__container"
       tabindex="-1"
       @blur="onBlur"
+      @click="toggleSelection"
     >
       <div
         class="va-switch__inner"
@@ -29,7 +30,6 @@
           @focus="onFocus"
           @blur="onBlur"
           @keypress.enter="onEnterKeyPress"
-          @change="toggleSelection"
         >
         <div
           class="va-switch__track"
@@ -83,18 +83,17 @@
 import { PropType, computed, shallowRef, useSlots } from 'vue'
 import pick from 'lodash/pick.js'
 
-import { generateUniqueId } from '../../utils/uuid'
-
 import {
   useComponentPresetProp,
   useKeyboardOnlyFocus,
   useSelectable, useSelectableProps, useSelectableEmits,
   useColors, useTextColor,
-  useBem,
+  useBem, useTranslationProp,
 } from '../../composables'
 
 import { VaProgressCircle } from '../va-progress-circle'
 import { VaMessageListWrapper } from '../va-message-list'
+import { useComponentUuid } from '../../composables/useComponentUuid'
 
 defineOptions({
   name: 'VaSwitch',
@@ -113,7 +112,7 @@ const props = defineProps({
   falseLabel: { type: String, default: null },
   trueInnerLabel: { type: String, default: null },
   falseInnerLabel: { type: String, default: null },
-  ariaLabel: { type: String, default: '$t:switch' },
+  ariaLabel: useTranslationProp('$t:switch'),
   color: { type: String, default: 'primary' },
   offColor: { type: String, default: 'background-element' },
   size: {
@@ -147,6 +146,10 @@ const {
   onFocus,
   reset,
   focus,
+  isDirty,
+  isTouched,
+  isLoading,
+  isError,
 } = useSelectable(props, emit, elements)
 
 const computedBackground = computed(() => getColor(isChecked.value ? props.color : props.offColor))
@@ -208,7 +211,8 @@ const trackLabelStyle = computed(() => ({
 
 const slots = useSlots()
 
-const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
+const componentId = useComponentUuid()
+const ariaLabelIdComputed = computed(() => `aria-label-id-${componentId}`)
 const inputAttributesComputed = computed(() => ({
   id: props.id || undefined,
   name: props.name || undefined,
@@ -233,6 +237,10 @@ const input = elements.input
 defineExpose({
   focus,
   reset,
+  isDirty,
+  isTouched,
+  isLoading,
+  isError,
 })
 </script>
 

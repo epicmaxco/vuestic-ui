@@ -25,11 +25,11 @@ export type TSortableEmits = ((
   args: string | DataTableSortingOrder | TSortedArgs,
 ) => void) & ((event: 'columnSorted', args: { columnName: string, value: DataTableSortingOrder, column: DataTableColumnInternal }) => void)
 
-export type TSortIcon = 'va-arrow-up' | 'va-arrow-down' | 'unfold_more'
+export type TSortIcon = 'va-sort-asc' | 'va-sort-desc' | 'va-unsorted'
 
-export const useSortable = (
+export const useSortable = <Item extends DataTableRow>(
   columns: Ref<DataTableColumnInternal[]>,
-  filteredRows: Ref<DataTableRow[]>,
+  filteredRows: Ref<Item[]>,
   props: ExtractPropTypes<typeof useSortableProps>,
   emit: TSortableEmits,
 ) => {
@@ -172,10 +172,10 @@ export const useSortable = (
 
   const sortingOrderIconName = computed(() => {
     return sortingOrderSync.value === 'asc'
-      ? 'va-arrow-up'
+      ? 'va-sort-asc'
       : sortingOrderSync.value === 'desc'
-        ? 'va-arrow-down'
-        : 'unfold_more'
+        ? 'va-sort-desc'
+        : 'va-unsorted'
   }) as ComputedRef<TSortIcon>
 
   return {

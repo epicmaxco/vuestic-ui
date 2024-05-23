@@ -1,4 +1,4 @@
 import { InjectionKey } from 'vue'
-import { type createFormContext } from './useFormParent'
+import { FormContext } from './formContext'
 
-export const FormServiceKey: InjectionKey<ReturnType<(typeof createFormContext)>> = Symbol('FormService')
+export const FormServiceKey: InjectionKey<FormContext> = Symbol('FormService')

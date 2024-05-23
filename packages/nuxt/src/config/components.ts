@@ -90,4 +90,5 @@ export default [
   'VaMenuList',
   'VaMenuItem',
   'VaMenuGroup',
+  'VaFormField'
 ]

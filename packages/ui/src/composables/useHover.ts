@@ -5,7 +5,10 @@ import { useHTMLElement, useEvent } from './'
 export function useHover (el?: Ref<HTMLElement | null | undefined>, disabled?: Ref<boolean>) {
   const isHovered = ref(false)
 
-  const onMouseEnter = () => { isHovered.value = true }
+  const onMouseEnter = () => {
+    if (disabled?.value) { return }
+    isHovered.value = true
+  }
   const onMouseLeave = () => { isHovered.value = false }
 
   disabled && watch(disabled, (v) => {

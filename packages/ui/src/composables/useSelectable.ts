@@ -31,10 +31,10 @@ export const useSelectableProps = {
   arrayValue: { type: [String, Boolean, Object, Number], default: null },
   label: { type: String, default: '' },
   leftLabel: { type: Boolean, default: false },
-  trueValue: { type: null, default: true },
-  falseValue: { type: null, default: false },
+  trueValue: { type: null as unknown as PropType<any>, default: true },
+  falseValue: { type: null as unknown as PropType<any>, default: false },
   indeterminate: { type: Boolean, default: false },
-  indeterminateValue: { type: null as any as PropType<unknown>, default: null },
+  indeterminateValue: { type: null as unknown as PropType<any>, default: null },
   disabled: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
 }
@@ -80,20 +80,21 @@ export const useSelectable = (
     computedErrorMessages,
     validate,
     validationAriaAttributes,
+    listeners: validationListeners,
     withoutValidation,
     resetValidation,
+    isDirty,
+    isTouched,
+    isError,
+    isLoading,
+    isValid,
   } = useValidation(props, emit, { reset, focus, value: valueComputed })
   const { isFocused } = useFocus()
 
-  const isElementRelated = (element: HTMLElement | undefined) => {
-    return !!element && [unwrapEl(label.value), unwrapEl(container.value)].includes(element)
-  }
   const onBlur = (event: FocusEvent) => {
-    if ((input.value === event.target) && !isElementRelated(event.relatedTarget as HTMLElement)) {
-      isFocused.value = false
-      validate()
-      emit('blur', event)
-    }
+    emit('blur', event)
+    isFocused.value = false
+    validationListeners.onBlur()
   }
   const onFocus = (event: FocusEvent) => {
     isFocused.value = true
@@ -148,6 +149,11 @@ export const useSelectable = (
   }
 
   return {
+    isDirty,
+    isTouched,
+    isError,
+    isLoading,
+    isValid,
     isChecked,
     isIndeterminate,
     onBlur,

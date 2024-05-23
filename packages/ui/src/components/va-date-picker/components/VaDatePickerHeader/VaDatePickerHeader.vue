@@ -5,6 +5,7 @@
   >
     <slot name="buttonPrev" v-bind="{ onClick: prev }">
       <va-button
+        va-child="prevButton"
         :disabled="$props.disabled"
         icon="va-arrow-left"
         preset="plain"
@@ -20,6 +21,7 @@
     <div class="va-date-picker__header__text">
       <slot name="header" v-bind="{ year: syncView.year, month: syncView.month, monthNames, view: syncView, changeView, switchView }">
         <va-button
+          va-child="middleButton"
           :disabled="$props.disabled"
           preset="plain"
           size="small"
@@ -39,6 +41,7 @@
 
     <slot name="buttonNext" v-bind="{ onClick: next }">
       <va-button
+        va-child="nextButton"
         :disabled="$props.disabled"
         icon="va-arrow-right"
         preset="plain"
@@ -61,7 +64,7 @@ import { useView } from '../../hooks/view'
 import { DatePickerView } from '../../types'
 
 import { VaButton } from '../../../va-button'
-import { useCurrentElement, useElementTextColor, useElementBackground, useTranslation } from '../../../../composables'
+import { useCurrentElement, useElementTextColor, useElementBackground, useTranslation, useTranslationProp } from '../../../../composables'
 
 defineOptions({
   name: 'VaDatePickerHeader',
@@ -73,9 +76,9 @@ const props = defineProps({
   color: { type: String },
   disabled: { type: Boolean, default: false },
 
-  ariaNextPeriodLabel: { type: String, default: '$t:nextPeriod' },
-  ariaPreviousPeriodLabel: { type: String, default: '$t:previousPeriod' },
-  ariaSwitchViewLabel: { type: String, default: '$t:switchView' },
+  ariaNextPeriodLabel: useTranslationProp('$t:nextPeriod'),
+  ariaPreviousPeriodLabel: useTranslationProp('$t:previousPeriod'),
+  ariaSwitchViewLabel: useTranslationProp('$t:switchView'),
 })
 
 const emit = defineEmits(['update:view'])

@@ -204,6 +204,7 @@ const sitemap = computed(() => ([
         color: unset;
         filter: unset;
       }
+
       &:hover {
         text-decoration: underline;
       }

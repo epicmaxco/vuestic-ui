@@ -2,6 +2,7 @@ import type { VuesticComponent, VuesticComponentName, Props } from '../types'
 import { useLocalConfig } from '../../../composables/useLocalConfig'
 import { useGlobalConfig } from '../../global-config/global-config'
 import { computed } from 'vue'
+import { injectChildPresetPropFromParent } from '../../../composables/useChildComponents'
 
 export const useComponentConfigProps = <T extends VuesticComponent>(component: T, originalProps: Props) => {
   const localConfig = useLocalConfig()
@@ -9,6 +10,7 @@ export const useComponentConfigProps = <T extends VuesticComponent>(component: T
 
   const instancePreset = computed(() => originalProps.preset)
   const getPresetProps = (presetName: string) => globalConfig.value.components?.presets?.[component.name as VuesticComponentName]?.[presetName]
+  const parentPropPreset = injectChildPresetPropFromParent()
 
   return computed(() => {
     const globalConfigProps: Props = {
@@ -22,7 +24,7 @@ export const useComponentConfigProps = <T extends VuesticComponent>(component: T
         : finalConfig
       , {})
 
-    const presetName = instancePreset.value || localConfigProps.preset || globalConfigProps.preset
+    const presetName = parentPropPreset?.value || instancePreset.value || localConfigProps.preset || globalConfigProps.preset
     const presetProps = presetName && getPresetProps(presetName)
 
     return { ...globalConfigProps, ...localConfigProps, ...presetProps }

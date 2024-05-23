@@ -23,23 +23,27 @@ export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>
   const vueRoute = computed(() => globalProperties.value?.$route)
 
   const { getGlobalConfig } = useGlobalConfig()
-  const routerComponent = getGlobalConfig().routerComponent
-  const isNuxt = !!globalProperties.value?.$nuxt
-  const isNuxtLink = computed(() => !!(!props.disabled && props.to && isNuxt && routerComponent))
 
   const tagComputed = computed(() => {
     if (props.disabled) { return props.tag }
 
     if (props.href && !props.to) { return 'a' }
 
-    if (isNuxtLink.value) { return routerComponent }
+    const globalConfig = getGlobalConfig()
 
-    if (props.to) { return 'router-link' }
+    if (globalConfig.routerComponent && props.to) { return globalConfig.routerComponent }
+
+    if (props.to && vueRouter.value !== undefined) { return 'router-link' }
+    if (props.to && vueRouter.value === undefined) { return 'a' }
 
     return props.tag || 'div'
   })
 
-  const isLinkTag = computed(() => isNuxtLink.value || ['a', 'router-link'].includes(tagComputed.value as string))
+  const isLinkTag = computed(() => {
+    if (props.disabled) { return false }
+
+    return Boolean(props.href || props.to)
+  })
 
   const linkAttributesComputed = computed(() => {
     if (!isLinkTag.value) { return {} }
@@ -70,10 +74,15 @@ export const useRouterLink = (props: ExtractPropTypes<typeof useRouterLinkProps>
   })
 
   const hrefComputed = computed(() => {
+    if (props.href) { return props.href }
+
+    if (vueRoute.value === undefined && props.to) {
+      return props.to
+    }
+
     // to resolve href on server for SEO optimization
     // https://github.com/nuxt/nuxt.js/issues/8204
-    // @ts-ignore
-    return props.href || (props.to ? vueRouter.value?.resolve(props.to, vueRoute.value).href : undefined)
+    return props.to ? vueRouter.value?.resolve(props.to, vueRoute.value).href : undefined
   })
 
   return {

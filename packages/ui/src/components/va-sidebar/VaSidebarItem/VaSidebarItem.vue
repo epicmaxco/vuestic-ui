@@ -2,8 +2,11 @@
   <component
     ref="rootElement"
     class="va-sidebar__item va-sidebar-item"
-    tabindex="0"
-    :class="{ 'va-sidebar-item--active': $props.active }"
+    :tabindex="$props.disabled ? -1 : 0"
+    :class="{
+      'va-sidebar-item--active': $props.active,
+      'va-sidebar-item--disabled': $props.disabled,
+    }"
     :style="computedStyle"
     :is="tagComputed"
     v-bind="linkAttributesComputed"
@@ -14,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, toRef } from 'vue'
 
 import {
   applyColors,
@@ -22,7 +25,8 @@ import {
   useColors,
   useKeyboardOnlyFocus,
   useHover,
-  useRouterLink, useRouterLinkProps,
+  useRouterLink,
+  useRouterLinkProps,
   useTextColor,
 } from '../../../composables'
 import { useSidebarItem } from '../hooks/useSidebar'
@@ -41,12 +45,13 @@ const props = defineProps({
   hoverColor: { type: String, default: undefined },
   hoverOpacity: { type: [Number, String], default: 0.2 },
   borderColor: { type: String, default: undefined },
+  disabled: { type: Boolean, default: false },
 })
 
 const rootElement = useElementRef()
 const sidebar = useSidebarItem()
 
-const { isHovered } = useHover(rootElement)
+const { isHovered } = useHover(rootElement, toRef(props, 'disabled'))
 const { getColor, getHoverColor, getFocusColor } = useColors()
 const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 
@@ -67,6 +72,10 @@ const { textColorComputed } = useTextColor(textBackground)
 
 const computedStyle = computed(() => {
   const style: Record<string, string> = { color: textColorComputed.value }
+
+  if (props.disabled) {
+    return style
+  }
 
   if (isHovered.value || props.active || hasKeyboardFocus.value) {
     style.backgroundColor = backgroundColorComputed.value
@@ -90,9 +99,7 @@ const computedStyle = computed(() => {
   return style
 })
 
-const { tagComputed, hrefComputed, linkAttributesComputed } = useRouterLink(props)
-
-const bg = getColor(sidebar?.color)
+const { tagComputed, linkAttributesComputed } = useRouterLink(props)
 </script>
 
 <style lang="scss">
@@ -110,6 +117,11 @@ const bg = getColor(sidebar?.color)
   color: currentColor;
   cursor: pointer;
 
-  @include keyboard-focus-outline('inherit', 2px, -2px);
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @include keyboard-focus-outline("inherit", 2px, -2px);
 }
 </style>

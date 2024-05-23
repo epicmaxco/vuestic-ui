@@ -6,6 +6,7 @@ export type FormFiled<Name extends string = string> = {
   isValid: Ref<boolean>;
   isLoading: Ref<boolean>;
   isDirty: Ref<boolean>;
+  isTouched: Ref<boolean>;
   errorMessages: Ref<string[]>;
   validate: () => boolean;
   validateAsync: () => Promise<boolean>;
@@ -21,6 +22,7 @@ export type Form<Names extends string = string> = {
   formData: ComputedRef<Record<Names, unknown>>;
   isValid: ComputedRef<boolean>;
   isDirty: Ref<boolean>;
+  isTouched: Ref<boolean>;
   isLoading: ComputedRef<boolean>;
   errorMessages: ComputedRef<string[]>;
   errorMessagesNamed: ComputedRef<Record<Names, string[]>>;

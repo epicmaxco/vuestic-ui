@@ -2,7 +2,7 @@ import { computed, ExtractPropTypes, PropType } from 'vue'
 import startCase from 'lodash/startCase.js'
 import merge from 'lodash/merge.js'
 
-import { useItemsProp } from './useCommonProps'
+import { createItemsProp } from './useCommonProps'
 
 import { warn } from '../../../utils/console'
 
@@ -21,7 +21,7 @@ export const sortingOptionsValidator = (options: DataTableSortingOptions) => {
 }
 
 export const useColumnsProps = {
-  ...useItemsProp,
+  ...createItemsProp(),
   columns: { type: Array as PropType<DataTableColumnSource[]>, default: () => [] as DataTableColumnSource[] },
   sortingOptions: {
     type: Array as PropType<DataTableSortingOptions>,
@@ -56,6 +56,7 @@ export const buildTableColumn = (
     thTitle: input.thTitle || input.headerTitle || input.label || startCase(input.key),
     sortable: input.sortable || false,
     sortingFn: input.sortingFn,
+    displayFormatFn: input.displayFormatFn,
     sortingOptions: (isValidOptions && input.sortingOptions) || props.sortingOptions,
     thAlign: input.thAlign || input.alignHead || 'left',
     thVerticalAlign: input.thVerticalAlign || input.verticalAlignHead || 'middle',

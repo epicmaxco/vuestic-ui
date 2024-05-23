@@ -1,12 +1,14 @@
-components: {
-  VaAvatar: {
-    square: true,
-    icon: 'spinner',
+createVuestic({
+  components: {
+    VaAvatar: {
+      square: true,
+      icon: 'spinner',
+    },
+    VaCard: {
+      color: 'secondary',
+    },
+    VaTabs: {
+      grow: true,
+    },
   },
-  VaCard: {
-    color: 'secondary',
-  },
-  VaTabs: {
-    grow: true,
-  },
-},
+})

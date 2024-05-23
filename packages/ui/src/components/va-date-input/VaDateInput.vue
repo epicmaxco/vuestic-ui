@@ -92,7 +92,7 @@ import {
   useDropdownable,
   useDropdownableProps,
   useDropdownableEmits,
-  useFocus, useFocusEmits, useTranslation, useFocusDeep, useTrapFocus,
+  useFocus, useFocusEmits, useTranslation, useTranslationProp, useFocusDeep, useTrapFocus,
 } from '../../composables'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
@@ -148,9 +148,9 @@ const props = defineProps({
   leftIcon: { type: Boolean, default: false },
   icon: { type: String, default: 'va-calendar' },
 
-  ariaToggleDropdownLabel: { type: String, default: '$t:toggleDropdown' },
-  ariaResetLabel: { type: String, default: '$t:resetDate' },
-  ariaSelectedDateLabel: { type: String, default: '$t:selectedDate' },
+  ariaToggleDropdownLabel: useTranslationProp('$t:toggleDropdown'),
+  ariaResetLabel: useTranslationProp('$t:resetDate'),
+  ariaSelectedDateLabel: useTranslationProp('$t:selectedDate'),
 })
 
 const emit = defineEmits([
@@ -245,7 +245,7 @@ const modelValueToString = (value: DateInputModelValue): string => {
 const {
   text,
   normalized: valueWithoutText,
-} = useDateInputModelValue(statefulValue, toRef(props, 'mode'), parseDateInputValue, modelValueToString, props.formatValue)
+} = useDateInputModelValue(valueComputed, toRef(props, 'mode'), parseDateInputValue, modelValueToString, props.formatValue)
 
 const valueText = computed(() => {
   if (!isValid.value) {
@@ -312,6 +312,8 @@ const showDropdown = () => {
 }
 
 const {
+  isDirty,
+  isTouched,
   computedError,
   computedErrorMessages,
   listeners,
@@ -320,6 +322,12 @@ const {
   withoutValidation,
   resetValidation,
 } = useValidation(props, emit, { reset, focus, value: valueComputed })
+
+watch(isOpenSync, (isOpen) => {
+  if (!isOpen) {
+    isTouched.value = true
+  }
+})
 
 const hasError = computed(() => (!isValid.value && valueComputed.value !== props.clearValue) || computedError.value)
 
@@ -376,7 +384,6 @@ const computedInputListeners = computed(() => ({
 
     if (props.readonly) { return }
     onFocus()
-    listeners.onFocus()
   },
   blur: () => {
     if (props.disabled) { return }
@@ -430,6 +437,8 @@ defineExpose({
   hideAndFocus,
   toggleDropdown,
   focusDatePicker,
+  isDirty,
+  isTouched,
 })
 </script>
 

@@ -2,6 +2,7 @@
   <component
     class="va-form"
     :is="tag"
+    @submit="(e: SubmitEvent) => $attrs.action === undefined && e.preventDefault()"
     v-bind="$attrs"
   >
     <slot v-bind="{ isValid, validate }" />
@@ -9,11 +10,12 @@
 </template>
 
 <script lang="ts">
-import { watch, PropType, computed } from 'vue'
+import { watch, PropType, computed, onMounted } from 'vue'
 
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { useFormParent } from '../../composables/useForm'
 import { useLocalConfigProvider } from '../../composables/useLocalConfig'
+import { Form } from '../../composables/useForm/types'
 
 const statefulProps = { stateful: true }
 
@@ -51,6 +53,7 @@ const props = defineProps({
   hideErrorMessages: { type: Boolean, default: false },
   hideLoading: { type: Boolean, default: false },
   stateful: { type: Boolean, default: false },
+  name: { type: String, default: undefined },
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -65,7 +68,13 @@ watch(() => props.autofocus, (value) => {
   if (value) {
     context.focus()
   }
-}, { immediate: true })
+})
+
+onMounted(() => {
+  if (props.autofocus) {
+    context.focus()
+  }
+})
 
 watch(context.fields, (newVal) => {
   if (newVal.length && props.immediate) {
@@ -82,6 +91,7 @@ useLocalConfigProvider(computed(() => {
 const {
   immediate: immediateComputed,
   isDirty,
+  isTouched,
   formData,
   fields,
   fieldsNamed,
@@ -106,6 +116,7 @@ defineExpose({
   fieldsNamed,
   fieldNames,
   isValid,
+  isTouched,
   isLoading,
   errorMessages,
   errorMessagesNamed,
@@ -115,10 +126,10 @@ defineExpose({
   resetValidation,
   focus,
   focusInvalidField,
-})
+} satisfies Form)
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .va-form {
   font-family: var(--va-font-family);
 }

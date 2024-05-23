@@ -56,13 +56,14 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 import {
   useComponentPresetProp,
   useFormFieldProps,
-  useValidation, useValidationProps, useValidationEmits, ValidationProps,
+  useValidation, useValidationProps, useValidationEmits,
   useEmitProxy,
   useClearable, useClearableProps, useClearableEmits,
-  useTranslation,
+  useTranslation, useTranslationProp,
   useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
   useFocusable, useFocusableProps, useEvent,
 } from '../../composables'
+import type { ValidationProps } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
 import type { AnyStringPropType } from '../../utils/types/prop-type'
@@ -114,7 +115,7 @@ const props = defineProps({
   counter: { type: Boolean, default: false },
 
     // style
-  ariaResetLabel: { type: String, default: '$t:reset' },
+  ariaResetLabel: useTranslationProp('$t:reset'),
 
     /** Set value to input when model value is updated */
   strictBindInputValue: { type: Boolean, default: false },
@@ -138,7 +139,7 @@ const input = shallowRef<HTMLInputElement>()
 const { valueComputed } = useStateful(props, emit, 'modelValue')
 
 const reset = () => withoutValidation(() => {
-  emit('update:modelValue', props.clearValue)
+  valueComputed.value = props.clearValue
   emit('clear')
   resetValidation()
 })
@@ -155,10 +156,12 @@ const filterSlots = computed(() => {
 const { tp } = useTranslation()
 
 const {
+  isValid,
+  isTouched,
   isDirty,
   computedError,
   computedErrorMessages,
-  listeners: { onBlur, onFocus },
+  listeners: { onBlur },
   validationAriaAttributes,
   isLoading,
   withoutValidation,
@@ -177,7 +180,6 @@ const inputListeners = createInputListeners(emit)
 
 const inputEvents = {
   ...inputListeners,
-  onFocus: combineFunctions(onFocus, inputListeners.onFocus),
   onBlur: combineFunctions(onBlur, inputListeners.onBlur),
   onInput: combineFunctions(onInput, inputListeners.onInput),
 }
@@ -232,7 +234,7 @@ const computedChildAttributes = computed(() => (({
 
 const computedInputAttributes = computed(() => (({
   ...computedChildAttributes.value,
-  ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'minlength', 'maxlength']),
+  ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'minlength', 'maxlength', 'name']),
 }) as InputHTMLAttributes))
 
 const valueLengthComputed = computed(() =>
@@ -255,7 +257,9 @@ const wrapperProps = filterComponentProps(VaInputWrapperProps)
 const fieldListeners = createFieldListeners(emit)
 
 defineExpose({
+  isValid,
   isDirty,
+  isTouched,
   isLoading,
   computedError,
   computedErrorMessages,

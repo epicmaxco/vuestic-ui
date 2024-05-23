@@ -8,6 +8,7 @@ import { insertHead } from './insert-head';
 import { insertImport } from './insert-import';
 import { insertVuesticPlugin } from './insert-plugin';
 import { useVuesticConfig } from '../../composables/useVuesticConfig';
+import { restructureProject } from './vue-restructure-project';
 
 export const addVuesticToVue3App = async () => {
   const { projectName } = await useUserAnswers()
@@ -44,4 +45,6 @@ export const addVuesticToVue3App = async () => {
     `<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`
   ])
   await writeFile(htmlPath, htmlSource)
+
+  await restructureProject()
 }

@@ -10,6 +10,8 @@ export default definePageConfig({
     block.title("Tree shaking"),
     block.paragraph("If you plan to use only several components in your application and thus reduce the size of your bundle, you can use the Vuestic ESM build. Webpack (vue-cli) and Vite do that automatically."),
 
+    block.alert('It is recommended to use special tools like [Unplugin Vue Components](/extensions/unplugin-vue-components) for SPA Vite/Webpack or [Nuxt](/getting-started/nuxt) that tree-shake components automatically.', 'info'),
+
     block.paragraph("First, you don't need to use `createVuestic` since it registers all the `vuestic` components globally. We have `createVuesticEssential` instead, which register only essential plugins. You can specify components to declare globally. Or you can import them later."),
     block.code("tree-shaking"),
     block.paragraph("You can also specify Vuestic subplugins as `plugins` option. "),

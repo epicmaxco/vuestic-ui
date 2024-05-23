@@ -42,9 +42,9 @@
 </template>
 
 <script lang="ts">
-import { PropType, ref, computed, onMounted, shallowRef, defineComponent } from 'vue'
+import { PropType, ref, computed, onMounted, shallowRef, defineComponent, ComputedRef } from 'vue'
 
-import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslation } from '../../composables'
+import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslation, useTranslationProp, useNumericProp } from '../../composables'
 
 import { ToastPosition } from './types'
 
@@ -71,13 +71,13 @@ const { tp } = useTranslation()
 const props = defineProps({
   ...useComponentPresetProp,
   title: { type: String, default: '' },
-  offsetY: { type: Number, default: 16 },
-  offsetX: { type: Number, default: 16 },
+  offsetY: { type: [Number, String], default: 16 },
+  offsetX: { type: [Number, String], default: 16 },
   message: { type: [String, Function], default: '' },
   dangerouslyUseHtmlString: { type: Boolean, default: false },
   icon: { type: String, default: 'close' },
   customClass: { type: String, default: '' },
-  duration: { type: Number, default: 5000 },
+  duration: { type: [Number, String], default: 5000 },
   color: { type: String, default: '' },
   closeable: { type: Boolean, default: true },
   onClose: { type: Function },
@@ -89,7 +89,7 @@ const props = defineProps({
     validator: (value: string) => ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value),
   },
   render: { type: Function },
-  ariaCloseLabel: { type: String, default: '$t:close' },
+  ariaCloseLabel: useTranslationProp('$t:close'),
   role: { type: String as PropType<StringWithAutocomplete<'alert' | 'alertdialog' | 'status'>>, default: undefined },
   inline: { type: Boolean, default: false },
 })
@@ -101,6 +101,9 @@ const rootElement = shallowRef<HTMLElement>()
 const { getColor } = useColors()
 
 const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
+const offsetYComputed = useNumericProp('offsetY') as ComputedRef<number>
+const offsetXComputed = useNumericProp('offsetX') as ComputedRef<number>
+const durationComputed = useNumericProp('duration') as ComputedRef<number>
 
 const visible = ref(false)
 
@@ -119,8 +122,8 @@ const toastClasses = computed(() => [
 ])
 
 const toastStyles = computed(() => ({
-  [positionY.value]: `${props.offsetY}px`,
-  [positionX.value]: `${props.offsetX}px`,
+  [positionY.value]: `${offsetYComputed.value}px`,
+  [positionX.value]: `${offsetXComputed.value}px`,
   backgroundColor: getColor(props.color),
   color: textColorComputed.value,
 }))
@@ -164,8 +167,8 @@ const onToastClose = () => {
 const timer = useTimer()
 const clearTimer = timer.clear
 const startTimer = () => {
-  if (props.duration > 0) {
-    timer.start(() => visible.value && onToastClose(), props.duration)
+  if (durationComputed.value > 0) {
+    timer.start(() => visible.value && onToastClose(), durationComputed.value)
   }
 }
 
