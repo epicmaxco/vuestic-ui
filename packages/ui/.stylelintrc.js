@@ -11,6 +11,12 @@ module.exports = {
     'value-list-max-empty-lines': 1,
     'function-calc-no-unspaced-operator': null,
     'value-keyword-case': null,
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        ignorePseudoClasses: ['deep'],
+      },
+    ],
     indentation: [2, { baseIndentLevel: 0 }],
   },
   ignoreFiles: ['dist/**/*', 'storybook-static/**/*'],
