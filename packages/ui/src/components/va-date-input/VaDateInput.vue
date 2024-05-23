@@ -266,7 +266,7 @@ const onInputTextChanged = ({ target }: Event) => {
   const inputValue = (target as HTMLInputElement).value
 
   if (isValid.value) {
-    valueComputed.value = inputValue === '' ? null : parseDateInputValue(inputValue)
+    valueComputed.value = inputValue === '' ? props.clearValue : parseDateInputValue(inputValue)
   }
 }
 
