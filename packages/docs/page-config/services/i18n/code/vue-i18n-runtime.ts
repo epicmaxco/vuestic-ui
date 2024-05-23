@@ -5,5 +5,5 @@ const { locale, messages } = useI18n();
 const { mergeIntoConfig } = useI18nConfig();
 
 watch(locale, (newLocale) => {
-  mergeIntoConfig(messages[newLocale]["anyArbitraryKey"]);
+  mergeIntoConfig(messages[newLocale]["vuestic"]);
 });
