@@ -16,17 +16,13 @@ export default definePageConfig({
     block.paragraph("Default messages can be set in `GlobalConfig`. Config is fully typed, so you can use autocomplete to find messages you want to change."),
     block.code("setup"),
 
-    block.subtitle("Changing language in runtime"),
-    block.paragraph("If you have more than one language, you can update messages in runtime with `useI18nConfig` hook from VuesticUI."),
-
-    block.code("runtime"),
-
     block.subtitle("Using with vue-i18n"),
-    block.paragraph("If you use vue-i18n we can recommend to store VuesticUI messages under specific key"),
+    block.paragraph("Vuestic integrates with vue-i18n and looks for translations under the key `vuestic.{key}` so you can override the default messages directly in vue-i18n translations with config structure like this:"),
+    block.code("vue-i18n-config"),
+    block.paragraph("If key can't be resolved through vue-i18n we fallback to own config messages."),
 
-    block.code("vue-i18n-runtime"),
-    block.collapse("Recommended config structure", [
-      block.code("vue-i18n-config"),
-    ]),
+    block.subtitle("Changing language in runtime"),
+    block.paragraph("Translations can be used without vue-i18n in case if you use custom solution. You can change translations in runtime by using `useI18nConfig` composable."),
+    block.code("runtime"),
   ],
 });
