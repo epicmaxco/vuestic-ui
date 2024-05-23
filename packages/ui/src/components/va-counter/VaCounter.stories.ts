@@ -181,15 +181,17 @@ export const DecreaseIcon = () => ({
 
 export const Disabled = () => ({
   components: { VaCounter },
+  data () { return { value: 0 } },
   template: `
-    <VaCounter disabled />
+    <VaCounter v-model="value" disabled />
   `,
 })
 
 export const Readonly = () => ({
   components: { VaCounter },
+  data () { return { value: 0 } },
   template: `
-    <VaCounter readonly />
+    <VaCounter v-model="value" readonly />
   `,
 })
 

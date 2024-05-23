@@ -268,11 +268,11 @@ const isMaxReached = computed(() => {
 const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
 const isDecreaseActionDisabled = computed(() => (
-  isMinReached.value || props.disabled
+  isMinReached.value || props.disabled || props.readonly
 ))
 
 const isIncreaseActionDisabled = computed(() => (
-  isMaxReached.value || props.disabled
+  isMaxReached.value || props.disabled || props.readonly
 ))
 
 const decreaseCount = () => {
