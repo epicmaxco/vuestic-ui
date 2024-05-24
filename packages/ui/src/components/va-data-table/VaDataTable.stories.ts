@@ -225,6 +225,6 @@ export const NoFilteredDataText = () => ({
   data: () => ({ columns, items }),
 
   template: `
-    <VaDataTable :items="[]" :columns="columns" filter="Aaa" no-data-filtered-html="Test no filtered data" />
+    <VaDataTable :items="[{ name: 'BbB' }]" :columns="columns" filter="Aaa" no-data-filtered-html="Test no filtered data" />
   `,
 })
