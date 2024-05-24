@@ -50,6 +50,7 @@ export const useTranslation = () => {
       warn(`${key} not found in VuesticUI i18n config`)
       return key
     }
+
     return (applyI18nTemplate(translated, values) || key)
   }
 
@@ -58,7 +59,7 @@ export const useTranslation = () => {
     if (!key) { return '' }
 
     if (isTranslationKey(key)) {
-      return t(key.slice(3))
+      return t(key.slice(3), values)
     }
 
     return (applyI18nTemplate(key, values) || key)
