@@ -1,5 +1,5 @@
 <template>
-  <div ref="elementRef" />
+  <div ref="elementRef" :class="{compact}" />
 </template>
 
 <script setup lang='ts'>
@@ -10,6 +10,10 @@ const emit = defineEmits<{
   (e: "expired"): void;
   (e: "error"): void;
 }>()
+
+const breakpoint = useBreakpoint()
+
+const compact = computed(() => breakpoint.current && ['xs'].includes(breakpoint.current))
 
 const elementRef = ref<HTMLElement>();
 const widgetIdRef = ref<string>();
@@ -45,5 +49,8 @@ watchEffect(() => {
 </script>
 
 <style lang="scss" scoped>
-
+.compact {
+  transform: scale(0.77);
+  transform-origin: left;
+}
 </style>

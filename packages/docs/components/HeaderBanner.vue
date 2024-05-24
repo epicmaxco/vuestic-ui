@@ -169,7 +169,6 @@ const hide = () => {
   }
 
   &__buttons {
-    z-index: 10;
     display: flex;
     align-items: center;
 
