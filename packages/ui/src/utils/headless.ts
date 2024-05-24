@@ -42,7 +42,7 @@ const toNode = (v: any, attrs: NodeAttributes): VNode | null => {
   }
 
   if (typeof v.type.render === 'function') {
-    const component = h(v)
+    const component = h(v, attrs)
 
     if (Array.isArray(component.children) && component.children.length > 1) {
       return h('div', attrs, component.children)
