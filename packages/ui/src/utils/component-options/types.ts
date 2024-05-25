@@ -45,3 +45,5 @@ export type ExtractComponentProps<T> = true extends boolean ? ExtractDefineCompo
 export type ExtractComponentEmits<T> = ComponentEmit<T>
 
 export type ExtractComponentPropTypes<T extends DefineComponentOptions> = ComponentProps<T>
+
+export type DateRequest = {date: Date | string, key?: string}

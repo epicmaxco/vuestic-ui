@@ -17,6 +17,7 @@
           v-on="inputListeners"
           :model-value="valueText"
           @change="onInputTextChanged"
+          @keydown="onKeyDown"
         >
           <template
             v-for="name in filterSlots"
@@ -83,7 +84,7 @@
 import { computed, PropType, toRef, toRefs, watch, ref, shallowRef, nextTick, Ref, useAttrs, useSlots } from 'vue'
 import omit from 'lodash/omit'
 
-import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/component-options'
+import { filterComponentProps, extractComponentProps, extractComponentEmits, DateRequest } from '../../utils/component-options'
 import {
   useComponentPresetProp,
   useClearable, useClearableEmits, useClearableProps,
@@ -150,6 +151,8 @@ const props = defineProps({
   ariaToggleDropdownLabel: useTranslationProp('$t:toggleDropdown'),
   ariaResetLabel: useTranslationProp('$t:resetDate'),
   ariaSelectedDateLabel: useTranslationProp('$t:selectedDate'),
+
+  quickDates: { type: Array as PropType<Array<DateRequest>| boolean>, default: () => {}, required: false },
 })
 
 const emit = defineEmits([
@@ -266,6 +269,33 @@ const onInputTextChanged = ({ target }: Event) => {
 
   if (isValid.value) {
     valueComputed.value = inputValue === '' ? props.clearValue : parseDateInputValue(inputValue)
+  }
+}
+
+const onKeyDown = (event: KeyboardEvent) => {
+  const keyboardKey = event.key.toLocaleLowerCase()
+  const isAlpha = !!keyboardKey.match(/^[A-Za-z]$|^$/)
+
+  if (isAlpha) {
+    event.preventDefault()
+
+    const defaultKey = 't'
+    const today = new Date().toString()
+
+    let shouldInput = false
+    let keyProps
+    if (Array.isArray(props.quickDates)) {
+      keyProps = props.quickDates.length === 1 && !props.quickDates[0]?.key ? props.quickDates[0] : props.quickDates.find(d => d.key?.toLowerCase() === keyboardKey.toLowerCase())
+      if (keyProps) { shouldInput = true }
+    } else if (keyboardKey === defaultKey) { shouldInput = true }
+
+    if (shouldInput) {
+      if (keyboardKey === defaultKey && !keyProps) {
+        valueComputed.value = parseDateInputValue(today)
+      } else if (keyProps) {
+        valueComputed.value = typeof (keyProps.date) === 'string' ? parseDateInputValue(keyProps.date as string) : parseDateInputValue(keyProps.date.toString())
+      }
+    }
   }
 }
 
