@@ -115,7 +115,6 @@ const VaDatePickerPropsDeclaration = extractComponentProps(VaDatePicker)
 <script lang="ts" setup>
 defineOptions({
   name: 'VaDateInput',
-  inheritAttrs: false,
 })
 
 const props = defineProps({

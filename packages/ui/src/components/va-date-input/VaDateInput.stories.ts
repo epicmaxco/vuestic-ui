@@ -234,3 +234,21 @@ export const NullValue = () => ({
   <VaDateInput v-model="value" clearable manual-input clear-value="null" />
   `,
 })
+
+export const EventListeners = () => ({
+  components: { VaDateInput },
+  data () {
+    return {
+      value: null,
+    }
+  },
+  methods: {
+    onKeydown () {
+      console.log('onKeydown')
+    },
+  },
+  template: `
+  [[value]]: {{ value === null ? 'null' : value }}
+  <VaDateInput v-model="value" @keydown="onKeydown" manual-input />
+  `,
+})
