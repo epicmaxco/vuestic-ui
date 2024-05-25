@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { getScrollbarSize } from '../../utils/scrollbar-size'
-import { useEvent, useElementRect } from '../../composables'
+import { useEvent, useElementRect, useResizeObserver } from '../../composables'
 
 const props = withDefaults(defineProps<{
     el?: HTMLElement | null
@@ -56,20 +56,6 @@ const stickyScrollWrapperStyle = computed(() => {
   }
 })
 
-const fakeContentStyle = computed(() => {
-  if (props.direction === 'vertical') {
-    return {
-      width: '1px',
-      height: `${parentElement.value?.scrollHeight}px`,
-    }
-  }
-
-  return {
-    height: '1px',
-    width: `${parentElement.value?.scrollWidth}px`,
-  }
-})
-
 useEvent('scroll', (e) => {
   if (!currentEl.value) { return }
 
@@ -101,6 +87,32 @@ useEvent('scroll', (e) => {
     })
   }
 }, parentElement)
+
+const scrollWidth = ref(0)
+const scrollHeight = ref(0)
+
+useResizeObserver(computed(() => {
+  if (!parentElement.value) { return [] }
+
+  return [...parentElement.value.children] as HTMLElement[]
+}), () => {
+  scrollWidth.value = parentElement.value.scrollWidth
+  scrollHeight.value = parentElement.value.scrollHeight
+})
+
+const fakeContentStyle = computed(() => {
+  if (props.direction === 'vertical') {
+    return {
+      width: '1px',
+      height: `${scrollHeight.value}px`,
+    }
+  }
+
+  return {
+    height: '1px',
+    width: `${scrollWidth.value}px`,
+  }
+})
 </script>
 
 <template>
