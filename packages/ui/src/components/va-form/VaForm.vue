@@ -5,7 +5,24 @@
     @submit="(e: SubmitEvent) => $attrs.action === undefined && e.preventDefault()"
     v-bind="$attrs"
   >
-    <slot v-bind="{ isValid, validate }" />
+    <slot v-bind="{
+      isValid,
+      isDirty,
+      isTouched,
+      isLoading,
+      errorMessages,
+      errorMessagesNamed,
+      formData,
+      fields,
+      fieldsNamed,
+      fieldNames,
+      validate,
+      validateAsync,
+      reset,
+      resetValidation,
+      focus,
+      focusInvalidField,
+    }" />
   </component>
 </template>
 

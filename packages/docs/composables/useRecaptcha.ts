@@ -3,18 +3,20 @@ import { isServer } from 'vuestic-ui/src/utils/ssr'
 
 let addedScript = false;
 
-interface Recaptcha {
+export interface RecaptchaRenderParams {
+  sitekey: string;
+  theme?:	'dark' | 'light';
+  size?:	'compact' | 'normal';
+  tabindex?: number;
+  callback?: (token: string) => void;
+  'expired-callback'?: () => void;
+  'error-callback'?: () => void;
+}
+
+export interface Recaptcha {
   render(
     container: string | HTMLElement,
-    parameters: {
-      sitekey: string;
-      theme?:	'dark' | 'light';
-      size?:	'compact' | 'normal';
-      tabindex?: number;
-      callback?: (token: string) => void;
-      'expired-callback'?: () => void;
-      'error-callback'?: () => void;
-    }
+    parameters: RecaptchaRenderParams
   ): string;
   reset(widgetId?: string): void;
 }
