@@ -30,7 +30,6 @@
 @mixin va-disabled() {
   cursor: default;
   opacity: 0.4;
-  pointer-events: none;
   user-select: none;
 }
 
