@@ -6,6 +6,7 @@
     :offset="$props.offset"
     :content-class="$props.contentClass"
     class="va-popover"
+    :focusAnchorOnClose="false"
   >
     <template #default>
       <div
@@ -46,7 +47,7 @@ import { useComponentPresetProp, useColors, useTextColor } from '../../composabl
 
 import { VaDropdown, VaIcon } from '../'
 
-const VaDropdownProps = extractComponentProps(VaDropdown, ['closeOnClickOutside'])
+const VaDropdownProps = extractComponentProps(VaDropdown, ['closeOnClickOutside', 'focusAnchorOnClose'])
 </script>
 
 <script lang="ts" setup>

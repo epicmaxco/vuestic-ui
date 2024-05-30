@@ -76,6 +76,7 @@ export default defineComponent({
     ariaLabel: useTranslationProp('$t:toggleDropdown'),
     role: { type: String as PropType<StringWithAutocomplete<'button' | 'none'>>, default: 'button' },
     contentClass: { type: String, default: '' },
+    focusAnchorOnClose: { type: Boolean, default: true },
   },
 
   emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'focus-outside', 'close', 'open', 'anchor-dblclick'],
@@ -189,7 +190,8 @@ export default defineComponent({
           focusFirstFocusableChild(el)
         })
       } else {
-        if (!anchorRef.value) { return }
+        if (!anchorRef.value || !props.focusAnchorOnClose) { return }
+
         focusFirstFocusableChild(anchorRef.value)
       }
     })
