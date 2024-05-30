@@ -73,12 +73,20 @@
         label="large"
       />
     </VbCard>
-    <VbCard title="Left label">
-      <va-switch
-        v-model="value"
-        label="left"
-        left-label
-      />
+    <VbCard title="Label Position" style="width: 300px;">
+      <div>
+        <va-switch
+          v-model="value"
+          label="right"
+        />
+      </div>
+      <div>
+        <va-switch
+          v-model="value"
+          label="left"
+          left-label
+        />
+      </div>
     </VbCard>
     <VbCard title="Custom labels">
       <div>

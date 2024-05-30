@@ -326,6 +326,7 @@ defineExpose({
   &--left-label {
     .va-switch__container {
       flex-direction: row-reverse;
+      justify-content: start;
     }
 
     .va-switch__label {
