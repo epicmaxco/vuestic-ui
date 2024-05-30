@@ -29,7 +29,7 @@ export const useCleaveProps = {
 export const useCleave = (
   element: Ref<HTMLInputElement | undefined>,
   props: ExtractPropTypes<typeof useCleaveProps>,
-  syncValue: WritableComputedRef<string | number>,
+  syncValue: WritableComputedRef<string | number | null>,
 ) => {
   const cleave = ref<Cleave>()
 
@@ -78,7 +78,7 @@ export const useCleave = (
       }
     }
 
-    return syncValue.value
+    return syncValue.value || ''
   })
 
   const onInput = (event: Event) => {

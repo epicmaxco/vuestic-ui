@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { computed, InputHTMLAttributes, nextTick, shallowRef, toRefs, useAttrs, useSlots, watch } from 'vue'
+import { computed, InputHTMLAttributes, shallowRef, toRefs, useAttrs, useSlots, watch, PropType } from 'vue'
 import omit from 'lodash/omit.js'
 import pick from 'lodash/pick.js'
 
@@ -107,7 +107,7 @@ const props = defineProps({
     // input
   placeholder: { type: String, default: '' },
   tabindex: { type: [String, Number], default: 0 },
-  modelValue: { type: [Number, String], default: '' },
+  modelValue: { type: [Number, String, null] as PropType<number | string | null>, default: '' },
   type: { type: String as AnyStringPropType<'text' | 'password'>, default: 'text' },
   inputClass: { type: String, default: '' },
   pattern: { type: String },
