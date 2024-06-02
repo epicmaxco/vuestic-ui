@@ -1,4 +1,5 @@
 import { withCtx, h, DefineComponent, VNode, isVNode, Text, createBlock } from 'vue'
+import type { SlotProp } from '../component-config'
 
 type VueInternalRenderFunction = Function
 
@@ -6,7 +7,7 @@ export const renderSlotNode = (node: VNode, ctx = null) => {
   return withCtx(() => [node], ctx)
 }
 
-export const makeVNode = (node: VNode | string | DefineComponent) => {
+export const makeVNode = <T>(node: SlotProp<T>) => {
   if (typeof node === 'string') {
     return h(Text, node)
   }
