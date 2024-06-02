@@ -6,6 +6,7 @@ import { injectChildPropsFromParent } from '../../../composables/useChildCompone
 import { ComponentPresetProp, PresetPropValue } from '../../../composables'
 import { notNil } from '../../../utils/isNilValue'
 import { head } from 'lodash'
+import { getObject } from '../../../utils/object-or-getter'
 
 const withPresetProp = <P extends Props>(props: P): props is P & ComponentPresetProp => 'preset' in props
 const getPresetProp = <P extends Props>(props: P) => withPresetProp(props) ? props.preset : undefined
@@ -18,11 +19,13 @@ export const useComponentConfigProps = <T extends VuesticComponent>(component: T
 
   const getPresetProps = (presetPropValue: PresetPropValue): Props => {
     return (presetPropValue instanceof Array ? presetPropValue : [presetPropValue]).reduce<Props>((acc, presetName) => {
-      const presetProps = globalConfig.value.components?.presets?.[componentName]?.[presetName]
+      const preset = globalConfig.value.components?.presets?.[componentName]?.[presetName]
 
-      if (!presetProps) {
+      if (!preset) {
         return acc
       }
+
+      const presetProps = getObject(preset, originalProps)
 
       const extendedPresets = getPresetProp(presetProps)
 
@@ -51,8 +54,8 @@ export const useComponentConfigProps = <T extends VuesticComponent>(component: T
       }, {})
 
     const presetProp = head([
-      originalProps,
       parentInjectedProps?.value,
+      originalProps,
       localConfigProps,
       globalConfigProps,
     ].filter(notNil).map(getPresetProp).filter(notNil))

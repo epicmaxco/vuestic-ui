@@ -1,6 +1,7 @@
 import type { VuesticComponentsMap } from '../vue-plugin'
 import type { VNodeProps, AllowedComponentProps, HTMLAttributes, VNode, DefineComponent } from 'vue'
 import { ComponentSlots } from '../../utils/component-options'
+import { ObjectOrGetter } from '../../utils/types/object-or-getter'
 
 export type VuesticComponentName = keyof VuesticComponentsMap
 export type VueDefaultPropNames = keyof (VNodeProps & AllowedComponentProps) | `on${string}`
@@ -34,11 +35,11 @@ type VuesticComponentSlotPropsMap = {
   }
 }
 
-type VuesticComponentPreset<T extends VuesticComponentName> = VuesticComponentPropsMap[T] & VuesticComponentSlotPropsMap[T]
+export type VuesticComponentPresetProps<T extends VuesticComponentName> = VuesticComponentPropsMap[T] & VuesticComponentSlotPropsMap[T]
 
 export type Presets = {
   [componentName in VuesticComponentName]?: {
-    [presetName: string]: VuesticComponentPreset<componentName>
+    [presetName: string]: ObjectOrGetter<VuesticComponentPresetProps<componentName>, VuesticComponentPropsMap[componentName]>
   }
 }
 
