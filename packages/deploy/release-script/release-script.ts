@@ -200,71 +200,85 @@ const runReleaseChecks = async (releaseConfig: ReleaseConfig, dryRun: boolean) =
 }
 
 const runReleaseScript = async (releaseConfig: ReleaseConfig, dryRun: boolean) => {
-  const {
-    version,
-    gitTag,
-    distTag,
-    shouldCommit,
-    allowSkipTests,
-  } = releaseConfig
+  try {
+    const {
+      version,
+      gitTag,
+      distTag,
+      shouldCommit,
+      allowSkipTests,
+    } = releaseConfig
 
-  // **** Attempt building dist ****
+    // **** Attempt building dist ****
 
-  if (dryRun) {
-    console.log(chalk.yellow('Skipping build because dry-run'))
-  } else {
-    // For test it's pain to wait for build as you can test build separately.
-    await executeAndLog('cd ../ui && npm run build')
-  }
-
-  // **** run e2e tests
-
-  if (!(allowSkipTests && await inquireSkipTests())) {
-    await runTests()
-  }
-
-
-  // **** Update version strings ****
-
-  console.log(chalk.white(`Bumping version to ${version}`))
-  const changedFiles: string[] = [
-    bumpPackageJsonVersion('../../ui/package.json', version), // ui
-    bumpVersionInGenerators(version), // vue-cli-plugin
-    bumpGithubTemplateVersions(version), // root .github
-  ]
-
-  // **** Git updates ****
-
-  console.log(chalk.white('Committing updates'))
-  if (!dryRun) {
-    if (shouldCommit) {
-      await executeAndLog(`git add ${changedFiles.join(' ')}`)
-      await executeAndLog(`git commit -m "chore: bump version to ${gitTag}"`)
-      // TODO: Maybe save remote name in .env or pass as arg.
-      await executeAndLog(`git push upstream`)
+    if (dryRun) {
+      console.log(chalk.yellow('Skipping build because dry-run'))
+    } else {
+      // For test it's pain to wait for build as you can test build separately.
+      await executeAndLog('cd ../ui && npm run build')
     }
-    if (gitTag) {
-      await executeAndLog(`git tag ${gitTag}`)
-      await executeAndLog(`git push upstream ${gitTag}`)
+
+    // **** run e2e tests
+
+    if (!(allowSkipTests && await inquireSkipTests())) {
+      await runTests()
     }
+
+
+    // **** Update version strings ****
+
+    console.log(chalk.white(`Bumping version to ${version}`))
+    const changedFiles: string[] = [
+      bumpPackageJsonVersion('../../ui/package.json', version), // ui
+      bumpVersionInGenerators(version), // vue-cli-plugin
+      bumpGithubTemplateVersions(version), // root .github
+    ]
+
+    // **** Git commit ****
+
+    console.log(chalk.white('Committing updates'))
+    if (!dryRun) {
+      if (shouldCommit) {
+        await executeAndLog(`git add ${changedFiles.join(' ')}`)
+        await executeAndLog(`git commit -m "chore: bump version to ${gitTag}"`)
+      }
+    }
+
+    // **** Publishing on npm ****
+
+    console.log(chalk.white('Publish to NPM'))
+    await executeAndLog(`cd ../ui && npm publish --tag=${distTag} --verbose${dryRun ? ' --dry-run' : ''} ${await askOtpNpmArgument()}`)
+
+    // **** Git updates ****
+
+    console.log(chalk.white('Push commits and tag to upstream'))
+    if (!dryRun) {
+      if (shouldCommit) {
+        // TODO: Maybe save remote name in .env or pass as arg.
+        await executeAndLog(`git push upstream`)
+      }
+      if (gitTag) {
+        await executeAndLog(`git tag ${gitTag}`)
+        await executeAndLog(`git push upstream ${gitTag}`)
+      }
+    }
+
+    console.log(chalk.green('Released - 😎 GLORIOUS SUCCESS 😎'))
+
+    if (releaseConfig.todoList) {
+      console.log(chalk.redBright('You next todo list:'))
+
+      releaseConfig.todoList.forEach((todo) => {
+        console.log(chalk.redBright('- ' + todo))
+      })
+    }
+  } catch (e) {
+    console.log(chalk.red('Something went wrong during release.'))
+    console.log(e)
   }
-
-  // **** Publishing on npm ****
-
-  await executeAndLog(`cd ../ui && npm publish --tag=${distTag} --verbose${dryRun ? ' --dry-run' : ''} ${await askOtpNpmArgument()}`)
-
-  // **** Cleanup ****
-
-  await executeAndLog('git reset --hard HEAD')
-
-  console.log(chalk.green('Released - 😎 GLORIOUS SUCCESS 😎'))
-
-  if (releaseConfig.todoList) {
-    console.log(chalk.redBright('You next todo list:'))
-
-    releaseConfig.todoList.forEach((todo) => {
-      console.log(chalk.redBright('- ' + todo))
-    })
+  finally {
+    // **** Cleanup ****
+    await executeAndLog('git reset --hard HEAD')
   }
 }
 
