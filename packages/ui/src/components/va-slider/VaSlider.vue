@@ -285,7 +285,7 @@ const processedStyles = computed(() => {
     const val0 = ((val.value - minComputed.value) / (maxComputed.value - minComputed.value)) * 100
 
     return {
-      [trackSizeStyle.value]: `${val0}%`,
+      [trackSizeStyle.value]: `${val0 > 100 ? 100 : val0}%`,
       backgroundColor: getColor(props.color),
       visibility: props.showTrack ? 'visible' : 'hidden',
     } as CSSProperties
@@ -313,7 +313,7 @@ const dottedStyles = computed(() => {
     const val0 = ((val.value - minComputed.value) / (maxComputed.value - minComputed.value)) * 100
 
     return {
-      [pinPositionStyle.value]: `${val0}%`,
+      [pinPositionStyle.value]: `${val0 > 100 ? 100 : val0}%`,
       backgroundColor: isActiveDot(0) ? getColor(props.color) : '#ffffff',
       borderColor: getColor(props.color),
     } as CSSProperties
