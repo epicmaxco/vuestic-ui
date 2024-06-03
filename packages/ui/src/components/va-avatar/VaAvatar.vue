@@ -142,6 +142,7 @@ defineExpose({
 
   img,
   svg {
+    object-fit: var(--va-avatar-object-fit);
     border-radius: inherit;
     display: inline-flex;
     height: inherit;
