@@ -78,7 +78,7 @@ export const useCleave = (
       }
     }
 
-    return syncValue.value || ''
+    return syncValue.value ?? ''
   })
 
   const onInput = (event: Event) => {
