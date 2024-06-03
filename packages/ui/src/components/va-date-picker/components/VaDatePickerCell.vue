@@ -161,10 +161,6 @@ const { textColorComputed } = useTextColor(bg)
 
   &_readonly {
     cursor: default;
-
-    &::before {
-      display: none;
-    }
   }
 }
 </style>

@@ -20,6 +20,10 @@
       <va-date-picker stateful />
     </VbCard>
 
+    <VbCard title="readonly">
+      <va-date-picker readonly v-model:view="currentMonthDayView" />
+    </VbCard>
+
     <VbCard title="without value">
       <va-date-picker />
     </VbCard>
@@ -161,7 +165,7 @@
 import { VaDatePicker } from './index'
 import { VaChip } from '../va-chip'
 import { getStaticDate } from '../../../.storybook/interaction-utils/addText'
-import { DatePickerView } from '@/components/va-date-picker/types'
+import { DatePickerView, DatePickerViewProp } from '@/components/va-date-picker/types'
 
 const datePlusDay = (date: Date, days: number) => {
   const d = new Date(date)
@@ -182,9 +186,10 @@ export default {
       monthRange: { start: getStaticDate(), end: datePlusDay(getStaticDate(), 62) },
       months: [getStaticDate(), datePlusDay(getStaticDate(), 62)],
 
-      dayView: { type: 'day', month: 6, year: 2020 } as DatePickerView,
-      monthView: { type: 'month' } as DatePickerView,
-      yearView: { type: 'year' } as DatePickerView,
+      dayView: { type: 'day', month: 6, year: 2020 } satisfies DatePickerViewProp,
+      monthView: { type: 'month' } satisfies DatePickerViewProp,
+      currentMonthDayView: { type: 'day', month: new Date().getMonth(), year: new Date().getFullYear() } satisfies DatePickerViewProp,
+      yearView: { type: 'year' } satisfies DatePickerViewProp,
     }
   },
 }
