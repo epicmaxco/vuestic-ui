@@ -270,10 +270,16 @@ const trackStyles = computed(() => ({
     : getHoverColor(getColor(props.color)),
 }))
 
+const calculatePercentage = (value: number) => {
+  const min = minComputed.value
+  const max = maxComputed.value
+  return ((clamp(min, value, max) - min) / (max - min)) * 100
+}
+
 const processedStyles = computed(() => {
   if (Array.isArray(val.value)) {
-    const val0 = ((val.value[0] - minComputed.value) / (maxComputed.value - minComputed.value)) * 100
-    const val1 = ((val.value[1] - minComputed.value) / (maxComputed.value - minComputed.value)) * 100
+    const val0 = calculatePercentage(val.value[0])
+    const val1 = calculatePercentage(val.value[1])
 
     return {
       [pinPositionStyle.value]: `${val0}%`,
@@ -282,7 +288,7 @@ const processedStyles = computed(() => {
       visibility: props.showTrack ? 'visible' : 'hidden',
     } as CSSProperties
   } else {
-    const val0 = ((val.value - minComputed.value) / (maxComputed.value - minComputed.value)) * 100
+    const val0 = calculatePercentage(val.value)
 
     return {
       [trackSizeStyle.value]: `${val0 > 100 ? 100 : val0}%`,
@@ -294,8 +300,8 @@ const processedStyles = computed(() => {
 
 const dottedStyles = computed(() => {
   if (Array.isArray(val.value)) {
-    const val0 = ((val.value[0] - minComputed.value) / (maxComputed.value - minComputed.value)) * 100
-    const val1 = ((val.value[1] - minComputed.value) / (maxComputed.value - minComputed.value)) * 100
+    const val0 = calculatePercentage(val.value[0])
+    const val1 = calculatePercentage(val.value[1])
 
     return [
       {
@@ -310,7 +316,7 @@ const dottedStyles = computed(() => {
       },
     ] as CSSProperties[]
   } else {
-    const val0 = ((val.value - minComputed.value) / (maxComputed.value - minComputed.value)) * 100
+    const val0 = calculatePercentage(val.value)
 
     return {
       [pinPositionStyle.value]: `${val0 > 100 ? 100 : val0}%`,
