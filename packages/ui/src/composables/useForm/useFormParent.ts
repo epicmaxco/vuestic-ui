@@ -36,7 +36,6 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   })
   const isTouched = computed({
     get () {
-      console.log(fields.value)
       return fields.value.some((field) => field.isTouched)
     },
     set (v) {

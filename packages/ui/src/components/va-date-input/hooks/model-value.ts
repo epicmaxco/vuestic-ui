@@ -124,8 +124,6 @@ export const useDateInputModelValue = (
         return
       }
 
-      console.log({ inputDate: newValue, modelValue: modelValue.value })
-
       throw new Error('Input date is not the same as date from props')
     },
   })
