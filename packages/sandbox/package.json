@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "build": "rm -rf ./dist && yarn build:vite && yarn build:vue-cli && yarn build:nuxt",
+    "build": "rm -rf ./dist && yarn build:vite && yarn build:nuxt",
     "build:vite": "vue-tsc --noEmit && vite build --config ./configs/vite/vite.base.ts",
     "build:analysis": "node ./scripts/stud-nuxt.mjs && tsx ./scripts/bundle-analysis.ts",
     "build:nuxt": "nuxt build",
