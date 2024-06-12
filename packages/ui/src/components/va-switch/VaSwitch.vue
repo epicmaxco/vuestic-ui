@@ -349,10 +349,6 @@ defineExpose({
 
   &--checked {
     .va-switch {
-      &__checker {
-        transform: translateX(calc(100% + 0.7rem));
-      }
-
       &__checker-circle {
         background-color: var(--va-switch-checker-active-background-color);
       }
@@ -431,7 +427,7 @@ defineExpose({
     }
   }
 
-  &__checker {
+  #{&}__checker {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -442,6 +438,27 @@ defineExpose({
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @at-root {
+      .va-switch--checked#{&} {
+        transform: translateX(2.2rem);
+      }
+
+      .va-switch--small#{&} {
+        @at-root {
+          .va-switch--checked#{&} {
+            transform: translateX(1.6rem);
+          }
+        }
+      }
+      .va-switch--large#{&} {
+        @at-root {
+          .va-switch--checked#{&} {
+            transform: translateX(2.9rem);
+          }
+        }
+      }
+    }
   }
 
   &__checker-circle {
