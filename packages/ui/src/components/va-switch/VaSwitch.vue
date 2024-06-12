@@ -350,15 +350,11 @@ defineExpose({
   &--checked {
     .va-switch {
       &__checker {
-        transform: translateX(calc(-100% - 0.3rem));
+        transform: translateX(calc(100% + 0.7rem));
       }
 
       &__checker-circle {
         background-color: var(--va-switch-checker-active-background-color);
-      }
-
-      &__checker-wrapper {
-        transform: translateX(100%);
       }
     }
   }
@@ -461,7 +457,6 @@ defineExpose({
   &__checker-wrapper {
     position: absolute;
     margin: auto;
-    transform: var(--va-switch-checker-wrapper-transform);
     top: var(--va-switch-checker-wrapper-top);
     left: var(--va-switch-checker-wrapper-left);
     bottom: var(--va-switch-checker-wrapper-bottom);
