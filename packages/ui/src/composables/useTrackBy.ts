@@ -1,7 +1,7 @@
 import { PropType, ExtractPropTypes } from 'vue'
-import isFunction from 'lodash/isFunction.js'
 
 import { warn } from '../utils/console'
+import { isFunction } from '../utils/is-function'
 
 type AnyRecordOrArray = Array<any> | Record<string, any>
 

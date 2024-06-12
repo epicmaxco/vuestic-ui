@@ -1,5 +1,5 @@
 import { computed, ref, UnwrapRef } from 'vue'
-import debounce from 'lodash/debounce.js'
+import { debounce } from '../../../utils/debounce'
 
 export function useHovered<T> (onHover: (args: T | null) => any) {
   const hovered = ref<T | null>(null)

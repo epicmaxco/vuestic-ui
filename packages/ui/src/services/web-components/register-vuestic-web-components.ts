@@ -1,5 +1,3 @@
-import kebabCase from 'lodash/kebabCase.js'
-import { defineCustomElement } from 'vue'
 import * as vuesticComponents from '../vue-plugin/components'
 import { registerVuesticWebComponentsEssential } from './register-vuestic-web-components-essential'
 

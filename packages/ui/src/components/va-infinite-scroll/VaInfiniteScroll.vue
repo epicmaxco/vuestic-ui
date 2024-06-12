@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import { computed, ComputedRef, PropType, ref, shallowRef, watch } from 'vue'
-import debounceFn from 'lodash/debounce.js'
+import { debounce } from '../../utils/debounce'
 
 import { sleep } from '../../utils/sleep'
 import { useColors, useComponentPresetProp, useNumericProp } from '../../composables'
@@ -190,7 +190,7 @@ const onError = () => {
 }
 
 watch(() => debounceComputed.value, (value) => {
-  debouncedLoad.value = debounceFn(onLoad, value)
+  debouncedLoad.value = debounce(onLoad, value)
 }, { immediate: true })
 
 watch(() => props.disabled, (value) => {

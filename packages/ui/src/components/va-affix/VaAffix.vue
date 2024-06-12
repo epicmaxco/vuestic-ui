@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import { computed, PropType, ref, nextTick, onMounted, onBeforeUnmount, shallowRef } from 'vue'
-import noop from 'lodash/noop.js'
+import { noop } from '../../utils/noop'
 
 import { getWindow } from '../../utils/ssr'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'

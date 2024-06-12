@@ -1,5 +1,5 @@
 import { mergeDeep } from './../../../utils/merge-deep'
-import cloneDeep from 'lodash/cloneDeep'
+import { cloneDeep } from '../../../utils/clone-deep'
 import { provide, computed, Ref } from 'vue'
 import { useGlobalConfig } from '../../../composables'
 import { GLOBAL_CONFIG, GlobalConfig, GlobalConfigUpdater, PartialGlobalConfig } from '../../../services/global-config'

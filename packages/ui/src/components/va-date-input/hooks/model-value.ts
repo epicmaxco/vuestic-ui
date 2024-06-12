@@ -1,7 +1,7 @@
-import isNil from 'lodash/isNil'
 import { Ref, computed } from 'vue'
 import { DateInputDate, DateInputModelValue, DateInputRange, DateInputValue } from '../types'
 import { formatDateToTheSameStandardFormat, parseDate } from '../utils/parse-date'
+import { isNil } from '../../../utils/isNilValue'
 
 export const isRange = (date: DateInputModelValue): date is DateInputRange<DateInputDate> => {
   if (date === null) { return false }

@@ -170,7 +170,6 @@ import {
   WritableComputedRef,
   useSlots, ComputedRef,
 } from 'vue'
-import pick from 'lodash/pick.js'
 import {
   useComponentPresetProp,
   useColors,
@@ -186,6 +185,7 @@ import { validateSlider } from './validateSlider'
 
 import { VaIcon } from '../va-icon'
 import { useComponentUuid } from '../../composables/useComponentUuid'
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaSlider',

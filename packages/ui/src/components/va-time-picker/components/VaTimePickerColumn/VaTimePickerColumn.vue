@@ -31,7 +31,7 @@ import VaTimePickerColumnCell from '../VaTimePickerColumnCell.vue'
 import { nextTick, shallowRef, watch, onMounted, PropType, computed, ComputedRef } from 'vue'
 
 import { useSyncProp, useFocus, useFocusEmits, useTextColor, useNumericProp } from '../../../../composables'
-import debounce from 'lodash/debounce.js'
+import { debounce } from '../../../../utils/debounce'
 
 defineOptions({
   name: 'VaTimePickerColumn',

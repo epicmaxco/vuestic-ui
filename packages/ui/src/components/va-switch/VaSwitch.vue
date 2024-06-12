@@ -81,7 +81,6 @@
 
 <script lang="ts" setup>
 import { PropType, computed, shallowRef, useSlots } from 'vue'
-import pick from 'lodash/pick.js'
 
 import {
   useComponentPresetProp,
@@ -94,6 +93,7 @@ import {
 import { VaProgressCircle } from '../va-progress-circle'
 import { VaMessageListWrapper } from '../va-message-list'
 import { useComponentUuid } from '../../composables/useComponentUuid'
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaSwitch',
