@@ -3,10 +3,10 @@ import { defineStory } from '../../../.storybook/types'
 import { useMaskedInput } from './useMask'
 import TokensRenderer from './tests/Tokens.vue'
 import PossibleTokens from './tests/PossibleTokens.vue'
-import { parseTokens } from './parser'
 import { createMaskFromRegex } from './masks/regex'
 import { createMaskDate } from './masks/date'
 import { createNumeralMask } from './masks/numeral'
+import { parseTokens } from './masks/parser'
 
 export default {
   title: 'composables/useMask',
