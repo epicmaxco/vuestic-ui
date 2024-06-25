@@ -1,4 +1,4 @@
-import { Cursor } from "./cursor"
+import { Cursor } from './cursor'
 
 export type MaskToken = {
   static: boolean,

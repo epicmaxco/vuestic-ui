@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 import { defineStory } from '../../../.storybook/types'
-import { useMaskedInput } from './useMask'
+import { useInputMask } from './useInputMask'
 import TokensRenderer from './tests/Tokens.vue'
 import PossibleTokens from './tests/PossibleTokens.vue'
 import { createMaskFromRegex } from './masks/regex'
@@ -9,21 +9,21 @@ import { createNumeralMask } from './masks/numeral'
 import { parseTokens } from './masks/parser'
 
 export default {
-  title: 'composables/useMask',
+  title: 'composables/useInputMask',
   tags: ['autodocs'],
 }
 
 export const Default = defineStory({
   story: () => ({
     components: { TokensRenderer, PossibleTokens },
-    setup() {
+    setup () {
       const reverse = ref(false)
       const value = ref('3809312345678')
       const input = ref()
       const regex = ref(/(\d{1,3}( \d{3}){1,2},?\d{1,3}|\d{3}|\d{1,3}( \d{3}){1,2})/.source)
       const mask = computed(() => {
         try {
-          if (!regex.value) return /./
+          if (!regex.value) { return /./ }
 
           return new RegExp(regex.value)
         } catch {
@@ -36,7 +36,7 @@ export const Default = defineStory({
 
       const text = ref('')
 
-      const { masked, unmasked } = useMaskedInput(regexMask, input)
+      const { masked, unmasked } = useInputMask(regexMask, input)
 
       return { value, regex, input, masked, unmasked, text, tokens, reverse }
     },
@@ -53,19 +53,19 @@ export const Default = defineStory({
 
       <p>masked: {{ masked }}</p>
       <p>unmasked: {{ unmasked }}</p>
-    `
-  })
+    `,
+  }),
 })
 
 export const Phone = defineStory({
   story: () => ({
-    setup() {
+    setup () {
       const value = ref('3809312345678')
       const input = ref()
 
       const phoneMask = createMaskFromRegex(/\+(\d{1,3}) \(\d{2,3}\) \d\d\d-\d\d-\d\d/)
 
-      const { masked, unmasked } = useMaskedInput(phoneMask, input)
+      const { masked, unmasked } = useInputMask(phoneMask, input)
 
       return { value, input, masked, unmasked }
     },
@@ -74,18 +74,18 @@ export const Phone = defineStory({
 
       <p>masked: {{ masked }}</p>
       <p>unmasked: {{ unmasked }}</p>
-    `
-  })
+    `,
+  }),
 })
 
 export const CreditCard = defineStory({
   story: () => ({
-    setup() {
+    setup () {
       const value = ref('1111222233334444')
       const input = ref()
 
       const creditCardMask = createMaskFromRegex(/(\d{4} ){3}\d{4}/)
-      const { masked, unmasked } = useMaskedInput(creditCardMask, input)
+      const { masked, unmasked } = useInputMask(creditCardMask, input)
 
       return { value, input, masked, unmasked }
     },
@@ -94,17 +94,17 @@ export const CreditCard = defineStory({
 
       <p>masked: {{ masked }}</p>
       <p>unmasked: {{ unmasked }}</p>
-    `
-  })
+    `,
+  }),
 })
 
 export const WithOptionalGroup = defineStory({
   story: () => ({
-    setup() {
+    setup () {
       const value = ref('')
       const input = ref()
 
-      const { masked, unmasked } = useMaskedInput(createMaskFromRegex(/(\+(\d{1,3}) )?\(\d{2,3}\) (\d){3}-\d\d-\d\d/), input)
+      const { masked, unmasked } = useInputMask(createMaskFromRegex(/(\+(\d{1,3}) )?\(\d{2,3}\) (\d){3}-\d\d-\d\d/), input)
 
       return { value, input, masked, unmasked }
     },
@@ -113,17 +113,17 @@ export const WithOptionalGroup = defineStory({
 
       <p>masked: {{ masked }}</p>
       <p>unmasked: {{ unmasked }}</p>
-    `
-  })
+    `,
+  }),
 })
 
 export const WithOrGroup = defineStory({
   story: () => ({
-    setup() {
+    setup () {
       const value = ref('')
       const input = ref()
 
-      const { masked, unmasked } = useMaskedInput(createMaskFromRegex(/\+(7 \(\d{3}\)|380 \(\d{2}\)) (\d){3}-\d\d-\d\d/), input)
+      const { masked, unmasked } = useInputMask(createMaskFromRegex(/\+(7 \(\d{3}\)|380 \(\d{2}\)) (\d){3}-\d\d-\d\d/), input)
 
       return { value, input, masked, unmasked }
     },
@@ -132,19 +132,19 @@ export const WithOrGroup = defineStory({
 
       <p>masked: {{ masked }}</p>
       <p>unmasked: {{ unmasked }}</p>
-    `
-  })
+    `,
+  }),
 })
 
 export const Ipv6 = defineStory({
   story: () => ({
-    setup() {
+    setup () {
       const value = ref('1234567890123456')
       const input = ref()
 
       const ipv6Regex = createMaskFromRegex(/(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:))/)
 
-      const { masked, unmasked } = useMaskedInput(ipv6Regex, input)
+      const { masked, unmasked } = useInputMask(ipv6Regex, input)
 
       return { value, input, masked, unmasked }
     },
@@ -153,19 +153,19 @@ export const Ipv6 = defineStory({
 
       <p>masked: {{ masked }}</p>
       <p>unmasked: {{ unmasked }}</p>
-    `
-  })
+    `,
+  }),
 })
 
 export const Date = defineStory({
   story: () => ({
-    setup() {
+    setup () {
       const value = ref('1234567890123456')
       const input = ref()
 
       const dateMask = createMaskDate()
 
-      const { masked, unmasked } = useMaskedInput(dateMask, input)
+      const { masked, unmasked } = useInputMask(dateMask, input)
 
       return { value, input, masked, unmasked }
     },
@@ -174,18 +174,18 @@ export const Date = defineStory({
 
       <p>masked: {{ masked }}</p>
       <p>unmasked: {{ unmasked }}</p>
-    `
-  })
+    `,
+  }),
 })
 
 export const Numeral = defineStory({
   story: () => ({
-    setup() {
+    setup () {
       const value = ref('123456')
       const input = ref()
 
       const numeralRegex = createMaskFromRegex(/(\d{3} - )*(\d{3})/)
-      const { masked, unmasked } = useMaskedInput(numeralRegex, input)
+      const { masked, unmasked } = useInputMask(numeralRegex, input)
 
       return { value, input, masked, unmasked }
     },
@@ -194,18 +194,18 @@ export const Numeral = defineStory({
 
       <p>masked: {{ masked }}</p>
       <p>unmasked: {{ unmasked }}</p>
-    `
-  })
+    `,
+  }),
 })
 
 export const ReversedNumeral = defineStory({
   story: () => ({
-    setup() {
+    setup () {
       const value = ref('123456')
       const input = ref()
 
       const numeralRegex = createMaskFromRegex(/(\d{3} - )*(\d{3})/, { reverse: true })
-      const { masked, unmasked } = useMaskedInput(numeralRegex, input)
+      const { masked, unmasked } = useInputMask(numeralRegex, input)
 
       return { value, input, masked, unmasked }
     },
@@ -214,18 +214,18 @@ export const ReversedNumeral = defineStory({
 
       <p>masked: {{ masked }}</p>
       <p>unmasked: {{ unmasked }}</p>
-    `
-  })
+    `,
+  }),
 })
 
 export const NumeralWithDecimal = defineStory({
   story: () => ({
-    setup() {
+    setup () {
       const value = ref('123456')
       const input = ref()
 
       const numeralRegex = createNumeralMask()
-      const { masked, unmasked } = useMaskedInput(numeralRegex, input)
+      const { masked, unmasked } = useInputMask(numeralRegex, input)
 
       return { value, input, masked, unmasked }
     },
@@ -234,6 +234,6 @@ export const NumeralWithDecimal = defineStory({
 
       <p>masked: {{ masked }}</p>
       <p>unmasked: {{ unmasked }}</p>
-    `
-  })
+    `,
+  }),
 })

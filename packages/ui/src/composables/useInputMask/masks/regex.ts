@@ -1,6 +1,6 @@
-import { CursorPosition } from "../cursor"
-import { type Mask } from "../mask"
-import { Token, parseTokens } from "./parser"
+import { CursorPosition } from '../cursor'
+import { type Mask } from '../mask'
+import { Token, parseTokens } from './parser'
 
 export type RegexToken = {
   /**
@@ -16,6 +16,11 @@ export type RegexToken = {
    * Static means users forced to input this char, meaning masked input can suggest this char
    */
   static: boolean,
+
+  /**
+   * Dynamic means this char is not forced and can be skipped
+   */
+  dynamic: boolean
 }
 
 type PossibleResult = RegexToken[]
@@ -25,7 +30,7 @@ export const normalizeTokens = (tokens: Token[], dynamic = false) => {
 
   for (const token of tokens) {
     if (token.type === 'group') {
-      let newResults: PossibleResult[] = []
+      const newResults: PossibleResult[] = []
       possibleResults.forEach((result) => {
         normalizeTokens(token.tree, dynamic).forEach((result2) => {
           newResults.push([...result, ...result2])
@@ -35,12 +40,13 @@ export const normalizeTokens = (tokens: Token[], dynamic = false) => {
     }
 
     if (token.type === 'char' || token.type === 'regex') {
-      let newResults: PossibleResult[] = []
+      const newResults: PossibleResult[] = []
       possibleResults.forEach((result) => {
         newResults.push([...result, {
           type: token.type,
           expect: token.expect,
           static: token.type === 'char' && (!dynamic || result.length > 0),
+          dynamic: dynamic,
         }])
       })
       possibleResults = newResults
@@ -49,7 +55,7 @@ export const normalizeTokens = (tokens: Token[], dynamic = false) => {
     if (token.type === 'repeated') {
       const possibleResults2: PossibleResult[] = []
       for (let i = token.min; i <= token.max && i <= 100; i++) {
-        let isDynamic = i !== token.min
+        const isDynamic = i !== token.min
 
         normalizeTokens(token.tree, isDynamic || dynamic).forEach((result) => {
           const repeated = (new Array(i).fill(result)).flat() as RegexToken[]
@@ -132,9 +138,9 @@ const formatByRegexTokens = (possibleResults: PossibleResult[], value: string, r
 
   // TODO: Maybe optimize this?
 
-  let valueOffset = -1
+  let valueOffset = 0
   let tokensOffset = 0
-  let maxPossibleMask = possibleResults.reduce((acc, mask) => Math.max(acc, mask.length), 0)
+  const maxPossibleMask = possibleResults.reduce((acc, mask) => Math.max(acc, mask.length), 0)
   let suggestedCharsCount = 0
 
   let text = ''
@@ -152,11 +158,19 @@ const formatByRegexTokens = (possibleResults: PossibleResult[], value: string, r
       break
     }
 
-    const possibleSuggestions = tokens.filter((token) => token.type === 'char' && (token.static)) //  || token.requiredBefore.length > 0
+    const possibleSuggestions = tokens.filter((token) => token.type === 'char')
 
     if (possibleSuggestions.length > 0) {
-      let suggestedChar = possibleSuggestions[0]?.expect ?? ''
-      let canBeSuggested = possibleSuggestions.every((token) => token.expect === suggestedChar) && value[valueOffset]?.length > 0
+      const suggestedChar = possibleSuggestions[0]?.expect ?? ''
+      let canBeSuggested = possibleSuggestions.every((token) => token.expect === suggestedChar) // && value[valueOffset]?.length > 0
+
+      if (possibleSuggestions[0].dynamic) {
+        canBeSuggested = canBeSuggested && value[valueOffset]?.length > 0
+      }
+
+      if (possibleSuggestions.length === 1 && possibleSuggestions[0].static) {
+        canBeSuggested = true
+      }
 
       if (tokens.some((token) => compareWithToken(token, value[valueOffset]))) {
         canBeSuggested = false
@@ -174,21 +188,20 @@ const formatByRegexTokens = (possibleResults: PossibleResult[], value: string, r
     }
 
     if (valueOffset >= value.length) {
-      valueOffset++
       break
     }
 
-    const possibleTokens = tokens.filter((token) =>  {
-        if (token.type === 'char') {
-          return token.expect === value[valueOffset]
-        }
+    const possibleTokens = tokens.filter((token) => {
+      if (token.type === 'char') {
+        return token.expect === value[valueOffset]
+      }
 
-        if (token.type === 'regex') {
-          return new RegExp(token.expect).test(value[valueOffset])
-        }
+      if (token.type === 'regex') {
+        return new RegExp(token.expect).test(value[valueOffset])
+      }
 
-        return false
-      })
+      return false
+    })
 
     if (value[valueOffset] !== undefined) {
       if (possibleTokens.length > 0) {
@@ -205,12 +218,14 @@ const formatByRegexTokens = (possibleResults: PossibleResult[], value: string, r
     return {
       text: text.split('').reverse().join(''),
       tokens: foundTokens.reverse(),
+      data: suggestedCharsCount,
     }
   }
 
   return {
     text,
-    tokens: foundTokens
+    tokens: foundTokens,
+    data: suggestedCharsCount,
   }
 }
 
@@ -227,7 +242,7 @@ const cleanLastSuggestedChars = ({ text, tokens }: {
 
   return {
     text: newText,
-    tokens: newTokens
+    tokens: newTokens,
   }
 }
 
@@ -257,7 +272,7 @@ export const createMaskFromRegex = (regex: RegExp, options = { reverse: false })
     format: (text: string) => {
       return formatByRegexTokens(possibleResults, text, options.reverse)
     },
-    handleCursor(cursorStart, cursorEnd, oldTokens, newTokens, data) {
+    handleCursor (cursorStart, cursorEnd, oldTokens, newTokens, data, suggestedCount = 0) {
       cursorStart.updateTokens(newTokens, options.reverse)
       cursorEnd.updateTokens(newTokens, options.reverse)
 
@@ -269,6 +284,6 @@ export const createMaskFromRegex = (regex: RegExp, options = { reverse: false })
       }
     },
     unformat,
-    reverse: options.reverse
+    reverse: options.reverse,
   }
 }

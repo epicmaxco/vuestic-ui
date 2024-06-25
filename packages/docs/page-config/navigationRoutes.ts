@@ -132,6 +132,20 @@ export const navigationRoutes: NavigationRoute[] = [
     ],
   },
   {
+    name: 'composables',
+    displayName: 'Composables',
+    disabled: true,
+    children: [
+      {
+        name: 'input-mask',
+        displayName: 'Input Mask',
+        meta: {
+          badge: navigationBadge.new('1.10.0'),
+        },
+      }
+    ]
+  },
+  {
     name: "ui-elements",
     displayName: "UI Elements",
     disabled: true,

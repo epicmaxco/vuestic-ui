@@ -1,19 +1,36 @@
-import { MaybeRef, Ref, computed, isRef, ref, unref, watch } from "vue"
+import { ComponentPublicInstance, MaybeRef, Ref, computed, isRef, ref, unref, watch } from 'vue'
 import { Mask, MaskToken } from './mask'
-import { Cursor, CursorPosition } from "./cursor"
+import { Cursor, CursorPosition } from './cursor'
+import { unwrapEl } from '../../utils/unwrapEl'
 
-export const useMaskedInput = <Token extends MaskToken>(mask: MaybeRef<Mask<Token>>, input: Ref<HTMLInputElement | undefined | null>) => {
+const extractInput = (el: HTMLElement | null | undefined | ComponentPublicInstance) => {
+  const htmlEl = unwrapEl(el)
+
+  if (!htmlEl) {
+    return null
+  }
+
+  if (htmlEl.tagName === 'INPUT') {
+    return htmlEl as HTMLInputElement
+  }
+
+  return htmlEl.querySelector('input')
+}
+
+export const useInputMask = <Token extends MaskToken>(mask: MaybeRef<Mask<Token>>, el: Ref<HTMLInputElement | undefined | null | ComponentPublicInstance>) => {
   const inputText = ref('')
 
   const formatted = ref({
     text: '',
     tokens: [],
-    data: undefined
+    data: undefined,
   }) as Ref<{
     text: string,
     tokens: Token[],
     data?: any
   }>
+
+  const input = computed(() => extractInput(el.value))
 
   const setInputValue = (value: string, options?: InputEventInit) => {
     input.value!.value = value
@@ -28,10 +45,8 @@ export const useMaskedInput = <Token extends MaskToken>(mask: MaybeRef<Mask<Toke
 
     const currentValue = eventTarget.value
 
-    let selectionStart = eventTarget.selectionStart ?? 0
-    let selectionEnd = eventTarget.selectionEnd ?? 0
-
-    const reverse = unref(mask).reverse
+    const selectionStart = eventTarget.selectionStart ?? 0
+    const selectionEnd = eventTarget.selectionEnd ?? 0
 
     const cursorStart = new Cursor<Token>(selectionStart, formatted.value!.tokens)
     const cursorEnd = new Cursor<Token>(selectionEnd, formatted.value!.tokens)
@@ -68,7 +83,7 @@ export const useMaskedInput = <Token extends MaskToken>(mask: MaybeRef<Mask<Toke
 
     if (e.key === 'ArrowLeft') {
       if (el.selectionStart === el.selectionEnd) {
-        const cursor = new Cursor(( el.selectionStart ?? 0), formatted.value!.tokens)
+        const cursor = new Cursor((el.selectionStart ?? 0), formatted.value!.tokens)
         cursor.moveBack(1)
         el.setSelectionRange(+cursor, +cursor)
       } else {
@@ -80,7 +95,7 @@ export const useMaskedInput = <Token extends MaskToken>(mask: MaybeRef<Mask<Toke
 
     if (e.key === 'ArrowRight') {
       if (el.selectionStart === el.selectionEnd) {
-        const cursor = new Cursor(( el.selectionEnd ?? 0), formatted.value!.tokens)
+        const cursor = new Cursor((el.selectionEnd ?? 0), formatted.value!.tokens)
         cursor.moveForward(1)
         el.setSelectionRange(+cursor, +cursor)
       } else {
@@ -92,8 +107,14 @@ export const useMaskedInput = <Token extends MaskToken>(mask: MaybeRef<Mask<Toke
 
   watch(input, (newValue, oldValue) => {
     if (newValue) {
+      const input = extractInput(newValue)
+
       formatted.value = unref(mask).format(newValue.value)
+      const cursor = new Cursor((newValue.selectionEnd ?? 0), formatted.value!.tokens)
+      cursor.moveForward(1)
       setInputValue(formatted.value.text)
+      newValue.setSelectionRange(+cursor, +cursor)
+
       newValue.addEventListener('beforeinput', onBeforeInput)
       newValue.addEventListener('keydown', onKeydown)
     }
@@ -113,4 +134,3 @@ export const useMaskedInput = <Token extends MaskToken>(mask: MaybeRef<Mask<Toke
     unmasked,
   }
 }
-

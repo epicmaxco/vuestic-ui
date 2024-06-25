@@ -1,5 +1,5 @@
-import { CursorPosition } from "../cursor";
-import { Mask, MaskToken } from "../mask";
+import { CursorPosition } from '../cursor'
+import { Mask, MaskToken } from '../mask'
 
 type MaskTokenDate = MaskToken & {
   expect: 'm' | 'd' | 'y' | string,
@@ -79,7 +79,7 @@ export const createMaskDate = (format: string = 'yyyy/mm/dd'): Mask<MaskTokenDat
         acc.push({
           value: p.value,
           expect: p.expect,
-          tree: [p]
+          tree: [p],
         })
 
         return acc
@@ -87,7 +87,6 @@ export const createMaskDate = (format: string = 'yyyy/mm/dd'): Mask<MaskTokenDat
 
       const year = majorTokens.find((p) => p.expect === 'y')
       const month = majorTokens.find((p) => p.expect === 'm')
-      const day = majorTokens.find((p) => p.expect === 'd')
 
       majorTokens.forEach((p) => {
         if (p.expect === 'm') {
@@ -106,8 +105,10 @@ export const createMaskDate = (format: string = 'yyyy/mm/dd'): Mask<MaskTokenDat
         if (p.expect === 'd') {
           const num = parseInt(p.value)
 
-          if (num > getMaxDays(Number(year), Number(month))) {
-            p.value = '31'
+          const maxDays = getMaxDays(Number(year?.value), Number(month?.value))
+
+          if (num > maxDays) {
+            p.value = maxDays.toString()
           }
 
           if (num > 3 && num < 10) {
@@ -117,15 +118,13 @@ export const createMaskDate = (format: string = 'yyyy/mm/dd'): Mask<MaskTokenDat
         }
       })
 
-      console.log(majorTokens)
-
       return {
         text: majorTokens.reduce((acc, p) => acc + p.value, ''),
         tokens: tokens,
         data: additionalTokens,
       }
     },
-    handleCursor(cursorStart, cursorEnd, tokens, newTokens, data, additionalTokens = 0) {
+    handleCursor (cursorStart, cursorEnd, tokens, newTokens, data, additionalTokens = 0) {
       cursorStart.updateTokens(newTokens)
       cursorEnd.updateTokens(newTokens)
       cursorStart.moveForward(data.length + additionalTokens, CursorPosition.Any)

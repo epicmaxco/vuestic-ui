@@ -1,10 +1,10 @@
-import { Mask, MaskToken } from "../mask";
-import { createMaskFromRegex, RegexToken } from "./regex";
+import { Mask, MaskToken } from '../mask'
+import { createMaskFromRegex, RegexToken } from './regex'
 
 const DELIMITER = ' '
 const DECIMAL = '.'
 
-type NumeralToken = RegexToken & { expect: string, isDecimal?: boolean}
+type NumeralToken = RegexToken & { isDecimal?: boolean}
 
 export const createNumeralMask = (): Mask<NumeralToken> => {
   const intMask = createMaskFromRegex(/(\d{3} )*(\d{3})/, { reverse: true })
@@ -25,10 +25,10 @@ export const createNumeralMask = (): Mask<NumeralToken> => {
 
       return {
         text: intResult.text + DECIMAL + decimalResult.text,
-        tokens: [...intResult.tokens, { type: 'char', static: false, expect: DECIMAL, isDecimal: true }, ...decimalResult.tokens],
+        tokens: [...intResult.tokens, { type: 'char', static: false, expect: DECIMAL, isDecimal: true }, ...decimalResult.tokens] as NumeralToken[],
       }
     },
-    handleCursor(selectionStart, selectionEnd, oldTokens, newTokens, data) {
+    handleCursor (selectionStart, selectionEnd, oldTokens, newTokens, data) {
       const decimalIndex = newTokens.findIndex((token) => token.isDecimal)
 
       if (decimalIndex === -1) {

@@ -6,6 +6,11 @@ export {
   useIcon as useIcons,
   type ValidationRule,
   useForm,
+  useInputMask,
+  createMaskFromRegex,
+  createNumeralMask,
+  createMaskDate,
+  compareWithMask,
 } from './composables'
 
 export * from './services/vue-plugin'

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { PropType, computed } from 'vue';
-import { type Token } from '../parser'
+import { PropType, computed } from 'vue'
+import type { Token } from '../masks/parser'
 
 const props = defineProps({
   tokens: {
@@ -9,7 +9,7 @@ const props = defineProps({
   },
   value: {
     type: String,
-  }
+  },
 })
 
 defineOptions({
@@ -17,10 +17,10 @@ defineOptions({
 })
 
 const colors: Record<Token['type'], string> = {
-  'group': '#F7F7F9',
-  'char': '#ffa69e',
-  'regex': '#b8f2e6',
-  'repeated': '#faf3dd',
+  group: '#F7F7F9',
+  char: '#ffa69e',
+  regex: '#b8f2e6',
+  repeated: '#faf3dd',
   'or regex': '#073b4c',
 }
 </script>
@@ -28,7 +28,7 @@ const colors: Record<Token['type'], string> = {
 <template>
   <div class="inline-flex items-center">
     <div
-      v-for="token, index in tokens" :key="token.expect"
+      v-for="token in tokens" :key="token.expect"
       class="inline-flex min-w-8 flex-1 box-content"
       :style="{ background: colors[token.type] }"
     >
@@ -45,7 +45,7 @@ const colors: Record<Token['type'], string> = {
       </template>
 
       <template v-if="token.type === 'repeated'">
-        <div class="inline-flex" v-for="i in token.max" :class="i > token.min ? 'opacity-50' : ''">
+        <div class="inline-flex" v-for="i in token.max" :class="i > token.min ? 'opacity-50' : ''" :key="i">
           <Tokens :tokens="token.tree" v-if="'tree' in token" />
         </div>
       </template>
