@@ -7,10 +7,23 @@ const configTranslations = Object
 export default definePageConfig({
   blocks: [
     block.title("i18n"),
-    block.paragraph("We made a separated config for i18n messages, so you can redefine messages we use in components."),
+    block.paragraph("We made a separated config for i18n messages, so you can redefine messages we use in components. If you use vue-i18n, you'll need to store translations for vuestic under `vuestic` key."),
 
-    block.subtitle("Translations"),
-    block.table([{ title: "Key", type: 'code'}, "Value"], configTranslations),
+    block.paragraph('Vuestic comes with few translation strings necessary for accessibility. You can find list of translation strings under collapse bellow:'),
+    block.collapse('Translation strings', [
+      block.paragraph('Copy JSON or JS Object to your i18n config and translate the values. Click on "Table" to quickly review translation strings.'),
+      block.tabs({
+        'JSON': [
+          block.code(JSON.stringify(getI18nConfigDefaults(), null, 2))
+        ],
+        'JS Object': [
+          block.code(JSON.stringify(getI18nConfigDefaults(), null, 2).replace(/"(\w*)":/gm, '$1:'))
+        ],
+        'Table': [
+          block.table([{ title: "Key", type: 'code'}, "Value"], configTranslations)
+        ],
+      }),
+    ]),
 
     block.subtitle("Change default messages"),
     block.paragraph("Default messages can be set in `GlobalConfig`. Config is fully typed, so you can use autocomplete to find messages you want to change."),
