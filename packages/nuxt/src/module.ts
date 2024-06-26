@@ -16,7 +16,7 @@ export default defineNuxtModule<VuesticOptions>({
     name: '@vuestic/nuxt',
     configKey: 'vuestic',
     compatibility: {
-      nuxt: '^3.3.0'
+      nuxt: '>=3.3.0'
     }
   },
 
