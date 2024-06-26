@@ -60,20 +60,12 @@ export const useColors = () => {
     return colors
   }
 
-  /**
+    /**
    * Returns color from config variables by name or return prop if color is a valid hex, hsl, hsla, rgb or rgba color.
    * @param prop - should be color name or color in hex, hsl, hsla, rgb or rgba format.
    * @param preferVariables - function should return (if possible) CSS variable instead of hex (hex is needed to set opacity).
-   * @param defaultColor - this color will be used if prop is invalid.
    */
-  const getColor = (prop?: string, defaultColor?: string, preferVariables?: boolean): CssColor => {
-    if (!defaultColor) {
-      /**
-       * Most default color - fallback when nothing else is found.
-       */
-      defaultColor = colors.primary
-    }
-
+  const getColorStrict = (prop: string, preferVariables?: boolean): CssColor | null => {
     if (prop === 'transparent') {
       return '#ffffff00'
     }
@@ -88,10 +80,6 @@ export const useColors = () => {
       if (colors[normalizeColorName(colorName)]) {
         return getColor(getTextColor(getColor(colorName)), undefined, preferVariables)
       }
-    }
-
-    if (!prop) {
-      prop = getColor(defaultColor)
     }
 
     const colorValue = colors[prop] || colors[normalizeColorName(prop)]
@@ -110,7 +98,23 @@ export const useColors = () => {
     warn(`'${prop}' is not a proper color! Use HEX or default color themes
       names (https://vuestic.dev/en/styles/colors#default-color-themes)`)
 
-    return getColor(defaultColor)
+    return null
+  }
+
+  /**
+   * Returns color from config variables by name or return prop if color is a valid hex, hsl, hsla, rgb or rgba color.
+   * @param prop - should be color name or color in hex, hsl, hsla, rgb or rgba format.
+   * @param preferVariables - function should return (if possible) CSS variable instead of hex (hex is needed to set opacity).
+   * @param defaultColor - this color will be used if prop is invalid. By default it is primary color.
+   */
+  const getColor = (prop?: string, defaultColor?: string, preferVariables?: boolean): CssColor => {
+    if (!defaultColor) {
+      defaultColor = colors.primary
+    }
+
+    if (!prop) { return defaultColor }
+
+    return getColorStrict(prop, preferVariables) ?? defaultColor
   }
 
   const getComputedColor = (color: string) => {
@@ -125,7 +129,7 @@ export const useColors = () => {
       .keys(colors)
       .filter((key) => colors[key] !== undefined)
       .reduce((acc: Record<string, any>, colorName: string) => {
-        acc[`--${prefix}-${kebabCase(colorName)}`] = getColor(colors[colorName], undefined, true)
+        acc[`--${prefix}-${kebabCase(colorName)}`] = getColor(colors[colorName]!, undefined, true)
         acc[`--${prefix}-on-${kebabCase(colorName)}`] = getColor(getTextColor(getColor(colors[colorName]!)), undefined, true)
         return acc
       }, {})
@@ -185,6 +189,7 @@ export const useColors = () => {
     applyPreset,
     setColors,
     getColors,
+    getColorStrict,
     getColor,
     getComputedColor,
     getBoxShadowColor,

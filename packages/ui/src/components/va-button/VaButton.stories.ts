@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import VaButton from './VaButton.vue'
+import { VaButton } from './'
 import VaButtonDemo from './VaButton.demo.vue'
 
 export default {
@@ -19,6 +19,15 @@ export const RightShift = () => ({
     <div>
       <VaButton>Text</VaButton>
       <VaButton icon="phone">Text2</VaButton>
+    </div>
+  `,
+})
+
+export const StyleAttributes = () => ({
+  components: { VaButton },
+  template: `
+    <div>
+      <VaButton style:background="danger">Text</VaButton>
     </div>
   `,
 })
