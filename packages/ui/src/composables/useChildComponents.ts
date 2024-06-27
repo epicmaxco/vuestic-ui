@@ -78,19 +78,3 @@ export const injectChildPropsFromParent = () => {
 
   return computed(() => childProps.value[childName])
 }
-
-export const injectChildPresetPropFromParent = () => {
-  const childName = getCurrentInstance()?.attrs['va-child'] as string
-
-  if (!childName) {
-    return null
-  }
-
-  const childProps = inject(CHILD_COMPONENTS_INJECT_KEY)
-
-  if (!childProps?.value) {
-    return null
-  }
-
-  return computed(() => childProps.value[childName]?.preset as string)
-}
