@@ -15,6 +15,9 @@ const statusToText = (status?: StoryStatus) => {
 }
 
 const addText = (story: any, text?: string, status?: StoryStatus) => {
+  story.parameters = story.parameters || {}
+  story.parameters.docs = story.parameters.docs || {}
+  story.parameters.docs.description = story.parameters.docs.description || {}
   story.parameters.docs.description.story = `${statusToText(status)} ${text || ''}`
 }
 
