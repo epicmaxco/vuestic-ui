@@ -5,8 +5,8 @@ const isObject = (obj: any) => obj && typeof obj === 'object' && !Array.isArray(
  * If property is array, it will replace target value
  */
 export const mergeDeep = (target: any, source: any): any => {
-  if (!isObject(target) || !isObject(source)) {
-    return source
+  if (!isObject(target)) {
+    target = {}
   }
 
   Object.keys(source).forEach(key => {
