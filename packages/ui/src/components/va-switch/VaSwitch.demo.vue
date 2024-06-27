@@ -73,6 +73,31 @@
         label="large"
       />
     </VbCard>
+    <VbCard title="Sizes with inner label slot">
+      <va-switch
+        v-model="value"
+        size="small"
+      >
+        <template #innerLabel>
+          Small with Inner
+        </template>
+      </va-switch>
+      <va-switch
+        v-model="value"
+      >
+        <template #innerLabel>
+          Inner
+        </template>
+      </va-switch>
+       <va-switch
+        v-model="value"
+        size="large"
+      >
+        <template #innerLabel>
+          Large with Inner
+        </template>
+      </va-switch>
+    </VbCard>
     <VbCard title="Label Position" style="width: 300px;">
       <div>
         <va-switch
