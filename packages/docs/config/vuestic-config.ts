@@ -29,6 +29,7 @@ export const VuesticConfig = defineVuesticConfig({
     presets: {
       VaButton: {
         addToCart: { round: true, color: 'success', icon: 'shopping_cart', 'slot:default': 'Add to card' },
+        promotion: { gradient: true, color: 'primary' },
         deleteFromCart: { size: 'small', plain: true },
         landingHeader: VaButtonLandingHeader,
         github: {
