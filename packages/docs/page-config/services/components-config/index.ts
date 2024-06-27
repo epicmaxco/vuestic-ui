@@ -54,6 +54,9 @@ export default definePageConfig({
     block.paragraph("For each component you can make preset configurations. It is useful when you have a set of props that you want to use in different places. For example, you can create a preset for a button with a specific color and size. Then you can use this preset in different places. For example:"),
     block.code("components-presets"),
     block.example("presets", { hideTitle: true, forceShowCode: true }),
+    block.paragraph("You can apply multiple presets to the same component. Props from the later presets will override props from the former:"),
+    block.code("components-presets-multiple"),
+    block.example("presets-multiple", { hideTitle: true, forceShowCode: true }),
 
     block.subtitle("All components config"),
     block.paragraph("You could use `components.all` global config property to set prop values for all components at once. It will be applied if there are no other source of prop value. For example:"),
@@ -66,7 +69,7 @@ export default definePageConfig({
     block.alert("This feature is work in progress. We need to give names to child components and document them. If you want to be able to customize concrete child component, please create an issue on GitHub."),
 
     block.subtitle("Slots config"),
-    block.paragraph("There are cases when `class` and `style` are not enough. In case you need to change HTML content for component globally use can provide `slot:`. For example:"),
+    block.paragraph("There are cases when `class` and `style` are not enough. In case you need to change HTML content for component globally use `slot:`. For example:"),
     block.code("components-slots"),
     block.code("components-slots-style", "css"),
     block.example("slots", { hideTitle: true }),

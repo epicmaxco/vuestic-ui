@@ -6,6 +6,11 @@ export type ComponentProps<T> =
   T extends (props: infer P, ...args: any) => any ? P :
   unknown;
 
+export type ComponentSlots<T> =
+  T extends new () => { $slots: infer S; } ? NonNullable<S> :
+    T extends (props: any, ctx: { slots: infer S; attrs: any; emit: any; }, ...args: any) => any ? NonNullable<S> :
+      {};
+
 export type UnKeyofString<T> = T extends infer E & ThisType<void> ? E : never
 export type ExtractVolarEmitsType<T> = 'emits' extends keyof T
   ? UnKeyofString<(T['emits'] extends infer E | undefined ? E : never)>
