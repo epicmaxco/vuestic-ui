@@ -1,4 +1,4 @@
-import { camelCaseToKebabCase } from './../../utils/text-case';
+import { camelCaseToKebabCase } from './../../utils/text-case'
 import { defineCustomElement } from 'vue'
 import { type VuesticComponent } from '../vue-plugin/types/index'
 

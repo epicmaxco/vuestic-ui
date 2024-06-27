@@ -61,7 +61,7 @@ import {
 } from '../../composables'
 
 import { VaIcon } from '../va-icon'
-import { pick } from '../../utils/pick';
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaChip',

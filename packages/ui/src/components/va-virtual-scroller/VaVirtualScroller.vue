@@ -36,7 +36,7 @@ import { ref, computed, watch, PropType, ComputedRef } from 'vue'
 
 import { useEvent, useBem, useTrackBy, useTrackByProps, useNumericProp } from '../../composables'
 import { useVirtualScrollerSizes, useVirtualScrollerSizesProps } from './useVirtualScrollerSizes'
-import { pick } from '../../utils/pick';
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaVirtualScroller',
