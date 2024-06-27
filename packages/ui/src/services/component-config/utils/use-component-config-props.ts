@@ -5,7 +5,6 @@ import { computed } from 'vue'
 import { injectChildPropsFromParent } from '../../../composables/useChildComponents'
 import { ComponentPresetProp, PresetPropValue } from '../../../composables'
 import { notNil } from '../../../utils/isNilValue'
-import { head } from 'lodash'
 
 const withPresetProp = <P extends Props>(props: P): props is P & ComponentPresetProp => 'preset' in props
 const getPresetProp = <P extends Props>(props: P) => withPresetProp(props) ? props.preset : undefined
@@ -50,12 +49,17 @@ export const useComponentConfigProps = <T extends VuesticComponent>(component: T
           : finalConfig
       }, {})
 
-    const presetProp = head([
+    const presetProp = [
       originalProps,
       parentInjectedProps?.value,
       localConfigProps,
       globalConfigProps,
-    ].filter(notNil).map(getPresetProp).filter(notNil))
+    ]
+      .filter(notNil)
+      .map(getPresetProp)
+      .filter(notNil)
+      .at(0)
+
     const presetProps = presetProp ? getPresetProps(presetProp) : undefined
 
     return { ...globalConfigProps, ...localConfigProps, ...presetProps }
