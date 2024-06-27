@@ -11,7 +11,6 @@ import {
   watchEffect,
   watch,
 } from 'vue'
-import pick from 'lodash/pick'
 import {
   MaybeHTMLElementOrSelector,
   createStatefulProps,
@@ -38,6 +37,7 @@ import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { useZIndex } from '../../composables/useZIndex'
 import { focusFirstFocusableChild } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
+import { pick } from '../../utils/pick'
 
 export default defineComponent({
   name: 'VaDropdown',

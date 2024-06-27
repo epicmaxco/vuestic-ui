@@ -119,7 +119,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
-import pick from 'lodash/pick.js'
 
 import {
   useBem,
@@ -140,6 +139,7 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 
 import { useInputFieldAria, useInputFieldAriaProps } from './hooks/useInputFieldAria'
 import { WithSlotInheritance } from '../../utils/with-slot-inheritance'
+import { pick } from '../../utils/pick'
 
 const VaInputLabelProps = extractComponentProps(VaInputLabel)
 

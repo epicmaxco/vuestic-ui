@@ -33,7 +33,7 @@ export default function createViteConfig (type: BuildType) {
     build: {
       outDir,
       sourcemap: isBase,
-      minify: 'terser',
+      minify: false,
       terserOptions: {
         keep_classnames: true,
       },
