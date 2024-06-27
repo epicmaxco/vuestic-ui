@@ -334,19 +334,6 @@ defineExpose({
     }
   }
 
-  &--indeterminate {
-    .va-switch {
-      &__checker {
-        margin: auto 0;
-        transform: translateX(-50%);
-      }
-
-      &__checker-wrapper {
-        transform: translateX(50%);
-      }
-    }
-  }
-
   &--checked {
     .va-switch {
       &__checker-circle {
@@ -440,6 +427,20 @@ defineExpose({
     width: 100%;
 
     @at-root {
+      .va-switch--indeterminate#{&} {
+        margin: auto 0;
+        transform:
+          translateX(
+            calc(
+              calc(
+                var(--va-switch-checker-wrapper-width)
+                - var(--va-switch-checker-width)
+              )
+              / 2
+            )
+          );
+      }
+
       .va-switch--checked#{&} {
         transform:
           translateX(
@@ -453,6 +454,20 @@ defineExpose({
 
       .va-switch--small#{&} {
         @at-root {
+          .va-switch--indeterminate#{&} {
+            transform:
+              translateX(
+                calc(
+                  calc(
+                    var(--va-switch-checker-wrapper-width)
+                    - var(--va-switch-checker-width)
+                    + 0.4rem
+                  )
+                  / 2
+                )
+              );
+          }
+
           .va-switch--checked#{&} {
             transform:
               translateX(
@@ -468,6 +483,20 @@ defineExpose({
       }
       .va-switch--large#{&} {
         @at-root {
+          .va-switch--indeterminate#{&} {
+            transform:
+              translateX(
+                calc(
+                  calc(
+                    var(--va-switch-checker-wrapper-width)
+                    - var(--va-switch-checker-width)
+                    - 0.3rem
+                  )
+                  / 2
+                )
+              );
+          }
+
           .va-switch--checked#{&} {
             transform:
               translateX(
