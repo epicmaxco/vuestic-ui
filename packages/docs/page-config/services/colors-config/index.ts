@@ -147,13 +147,17 @@ export default definePageConfig({
     block.paragraph("Methods like `getColors` return a computed reactives that can also be accessed by variable `colors`. The advantage is allow to change properties, instead of rewriting whole colors variable. For example, you can change `primary` color by writing `colors.primary = \"#ff0\"`. Multiple properties changes are also supported, you can write `setColors({'{ primary: \"#00f\", secondary: \"#0ff\" }'})`."),
 
     // otherServices
-    block.subtitle("Colors config with other services"),
+    block.subtitle("Adding new colors"),
 
-    block.paragraph("You can use your custom colors in Components config."),
+    block.paragraph("You can add new colors and use your custom colors in Components config."),
     block.code("components-config"),
 
-    block.paragraph("As well as in Icons config."),
+    block.paragraph("The same works for Icons config."),
     block.code("icons-config"),
+
+    block.subtitle("Getting typings for custom colors"),
+    block.paragraph("Color config is fully typed and provides type safety and autocompletion for all instances where color is specified. Color typings could be extended with your custom colors to rip the same benefits via Typescript [Module augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)."),
+    block.code("color-typings-augmentation"),
 
     // api
     block.subtitle("Colors config service API"),
