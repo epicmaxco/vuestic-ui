@@ -8,7 +8,7 @@ const normalizeElements = <T>(elements: MaybeRef<T>[] | Ref<MaybeArray<T>>) => {
     ? elements
     : Array.isArray(elements.value)
       ? elements.value
-      : [elements.value]
+      : [unref(elements)] as T[]
 }
 
 export const useResizeObserver = <T extends HTMLElement | undefined>(elementsList: MaybeRef<T>[] | Ref<MaybeArray<T>>, cb: ResizeObserverCallback) => {
