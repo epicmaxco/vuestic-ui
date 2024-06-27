@@ -49,7 +49,7 @@ const { getColor } = useColors()
   &__required-mark {
     transform: translate(0, -2px);
     color: var(--va-danger);
-    font-size: 18px;
+    font-size: 1.2em;
     font-weight: var(--va-input-container-label-font-weight);
     vertical-align: middle;
   }

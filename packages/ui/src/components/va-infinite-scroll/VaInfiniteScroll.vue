@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import { computed, ComputedRef, PropType, ref, shallowRef, watch } from 'vue'
-import debounceFn from 'lodash/debounce.js'
+import { debounce as debounceFn } from '../../utils/debounce'
 
 import { sleep } from '../../utils/sleep'
 import { useColors, useComponentPresetProp, useNumericProp } from '../../composables'

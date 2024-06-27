@@ -18,7 +18,6 @@
 
 <script lang="ts" setup>
 import { PropType, computed, useAttrs } from 'vue'
-import omit from 'lodash/omit.js'
 
 import {
   useComponentPresetProp,
@@ -26,6 +25,7 @@ import {
   useSize, useSizeProps,
   useIcon,
 } from '../../composables'
+import { omit } from '../../utils/omit'
 
 defineOptions({
   name: 'VaIcon',

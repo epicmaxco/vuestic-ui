@@ -1,4 +1,4 @@
-import throttle from 'lodash/throttle.js'
+import { throttle } from '../../utils/throttle'
 
 export type State = {
   isTopAffixed: boolean;

@@ -1,7 +1,7 @@
 import { computed, ExtractPropTypes } from 'vue'
-import pick from 'lodash/pick.js'
 
 import { useBem } from './useBem'
+import { pick } from '../utils/pick'
 
 export const useFormFieldProps = {
   disabled: { type: Boolean, default: false },

@@ -265,7 +265,7 @@ ValidateAndResetValidation.play = async ({ canvasElement, step }) => {
 
   await step('Reset inputs validation', async () => {
     await userEvent.click(resetButton)
-    expect(input.getAttribute('aria-invalid')).toEqual('true')
+    expect(input.getAttribute('aria-invalid')).toEqual('false')
     expect(inputWrapper.classList.contains('va-input-wrapper--error')).toBeFalsy()
   })
 }

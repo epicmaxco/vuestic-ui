@@ -81,7 +81,6 @@
 
 <script lang="ts">
 import { computed, PropType, toRef, toRefs, watch, ref, shallowRef, nextTick, Ref, useAttrs, useSlots } from 'vue'
-import omit from 'lodash/omit'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/component-options'
 import {
@@ -107,6 +106,7 @@ import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { unwrapEl } from '../../utils/unwrapEl'
+import { omit } from '../../utils/omit'
 
 const VaInputWrapperPropsDeclaration = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])
 const VaDatePickerPropsDeclaration = extractComponentProps(VaDatePicker)

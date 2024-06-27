@@ -41,7 +41,7 @@ import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits
 import { VaColorIndicator } from '../va-color-indicator'
 import { VaInput } from '../va-input'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import throttle from 'lodash/throttle'
+import { throttle } from '../../utils/throttle'
 
 const VaInputProps = extractComponentProps(VaInput)
 </script>

@@ -21,7 +21,6 @@
 
 <script lang="ts" setup>
 import { computed, unref, useSlots } from 'vue'
-import pick from 'lodash/pick.js'
 
 import {
   useBem,
@@ -32,6 +31,7 @@ import {
 } from '../../composables'
 
 import { useFloatingPosition, useFloatingPositionProps } from './hooks/useFloatingPositionStyles'
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaBadge',

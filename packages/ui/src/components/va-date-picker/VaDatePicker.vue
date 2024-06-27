@@ -70,7 +70,7 @@ import { useColors, useStateful, useStatefulProps, useStatefulEmits } from '../.
 import { useView } from './hooks/view'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
-import { DatePickerModelValue, DatePickerType, DatePickerView } from './types'
+import { DatePickerModelValue, DatePickerType, DatePickerViewProp } from './types'
 
 import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
 import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
@@ -103,7 +103,7 @@ const props = defineProps({
   modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
   monthNames: { type: Array as PropType<string[]>, default: DEFAULT_MONTH_NAMES },
   weekdayNames: { type: Array as PropType<string[]>, default: DEFAULT_WEEKDAY_NAMES },
-  view: { type: Object as PropType<DatePickerView> },
+  view: { type: Object as PropType<DatePickerViewProp> },
   type: { type: String as PropType<DatePickerType>, default: 'day' },
   readonly: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },

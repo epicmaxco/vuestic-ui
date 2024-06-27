@@ -4,7 +4,7 @@
     <div v-show="!isMobileMenuOpen">
       <LandingPreview />
       <LandingPartners />
-      <!-- <LandingBannersVuejsNation /> -->
+      <LandingBannersVuejsDeConference />
       <LandingFeatures />
       <LandingCustomize />
       <LandingSeamlessIntegration />
@@ -36,9 +36,5 @@ const isMobileMenuOpen = ref(false);
 
 .landing {
   font-family: var(--va-font-family);
-
-  a {
-    @include link(2px);
-  }
 }
 </style>

@@ -43,7 +43,7 @@
 <script lang="ts" setup>
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { computed, PropType, StyleValue } from 'vue'
-import clamp from 'lodash/clamp.js'
+import { clamp } from '../../utils/clamp'
 
 import { useColors, useTextColor, useTranslation, useTranslationProp } from '../../composables'
 

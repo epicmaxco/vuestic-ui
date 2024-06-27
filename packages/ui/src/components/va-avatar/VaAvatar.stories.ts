@@ -103,6 +103,14 @@ export const Square = () => ({
   `,
 })
 
+/** Must be centered image */
+export const NonSquareAspectRation = () => ({
+  components: { VaAvatar },
+  template: `
+    <VaAvatar src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png" />
+  `,
+})
+
 export const Loading = () => ({
   components: { VaAvatar },
   template: '<VaAvatar loading/>',

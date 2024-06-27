@@ -428,6 +428,13 @@ export const navigationRoutes: NavigationRoute[] = [
         }
       },
       {
+        name: 'sticky-scrollbar',
+        displayName: 'Sticky Scrollbar',
+        meta: {
+          badge : navigationBadge.new('1.9.10'),
+        }
+      },
+      {
         name: "hover",
         displayName: "Hover",
       },

@@ -38,8 +38,6 @@ import {
   useAttrs,
 } from 'vue'
 
-import omit from 'lodash/omit.js'
-import pick from 'lodash/pick.js'
 import { VaInputWrapper } from '../va-input-wrapper'
 
 import {
@@ -57,6 +55,8 @@ import {
 } from '../../utils/component-options'
 import { blurElement, focusElement } from '../../utils/focus'
 import { useTextHeight } from './composables/useLineHeight'
+import { pick } from '../../utils/pick'
+import { omit } from '../../utils/omit'
 
 const positiveNumberValidator = (val: number) => {
   if (val > 0) {
@@ -203,7 +203,7 @@ const computedStyle = computed(
 )
 
 const computedProps = computed(() => ({
-  ...pick(props, ['disabled', 'readonly', 'placeholder', 'ariaLabel', 'name']),
+  ...pick(props, ['disabled', 'readonly', 'placeholder', 'name']),
 }))
 
 const computedInputAttributes = computed(() => ({

@@ -1,4 +1,4 @@
-import { PageConfigOptions, BaseBlock } from './../../runtime/index';
+import { BaseBlock } from './../../types';
 import { definePageConfigBlock } from '../../types'
 import Component from './index.vue'
 

@@ -27,10 +27,9 @@
 import { computed, PropType } from 'vue'
 
 import { VaAvatar } from '../va-avatar'
-
-import pick from 'lodash/pick.js'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { useBem, useComponentPresetProp, useSize, useSizeProps, useNumericProp } from '../../composables'
+import { pick } from '../../utils/pick'
 
 const VaAvatarProps = extractComponentProps(VaAvatar)
 </script>
