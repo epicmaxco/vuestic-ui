@@ -1,4 +1,4 @@
-import { isFunction } from "./is-function"
+import { isFunction } from './is-function'
 
 /**
  * Return function result if function provided

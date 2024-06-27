@@ -27,7 +27,7 @@ import {
   useRouterLink,
   useRouterLinkProps,
 } from '../../composables'
-import { pick } from '../../utils/pick';
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaCard',

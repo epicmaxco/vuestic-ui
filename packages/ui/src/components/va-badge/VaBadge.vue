@@ -31,7 +31,7 @@ import {
 } from '../../composables'
 
 import { useFloatingPosition, useFloatingPositionProps } from './hooks/useFloatingPositionStyles'
-import { pick } from '../../utils/pick';
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaBadge',

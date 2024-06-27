@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import { useBem, useComponentPresetProp, useAlignProps, useAlign } from '../../../../composables'
-import { pick } from '../../../../utils/pick';
+import { pick } from '../../../../utils/pick'
 
 defineOptions({
   name: 'VaCardActions',
