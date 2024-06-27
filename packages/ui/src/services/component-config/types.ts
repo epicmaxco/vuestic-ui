@@ -17,6 +17,38 @@ export type VuesticComponentPropsMap = {
 
 export type Props = { [propName: string]: any }
 
+/**
+ *  Removes index signature from object
+ *
+ * @example
+ *
+ * Type:
+ * ```
+ * RemoveIndex<{
+ *   [index: string]: number
+ *   a: number
+ *   b: number
+ * }>
+ * ```
+ * Converts to
+ *
+ * ```
+ * { a: number, b: number }
+ * ```
+ *
+ */
+type RemoveIndex<T> = {
+  [ K in keyof T as
+    string extends K
+      ? never
+      : number extends K
+        ? never
+        : symbol extends K
+          ? never
+          : K
+  ]: T[K];
+}
+
 type VuesticComponentSlotsMap = {
   [componentName in VuesticComponentName]: {
     [key in keyof RemoveIndex<ComponentSlots<VuesticComponentsMap[componentName]>>]?: ComponentSlots<VuesticComponentsMap[componentName]>[key]
