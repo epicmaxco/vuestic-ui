@@ -230,6 +230,22 @@
         indeterminate
       />
     </VbCard>
+    <VbCard title="Sizes with indeterminate">
+      <va-switch
+        v-model="valueIndeterminate"
+        indeterminate
+        size="small"
+      />
+      <va-switch
+        v-model="valueIndeterminate"
+        indeterminate
+      />
+      <va-switch
+        v-model="valueIndeterminate"
+        indeterminate
+        size="large"
+      />
+    </VbCard>
     <VbCard title="Indeterminate with custom indeterminate value">
       <div>
         {{ valueIndeterminateCustom }}
