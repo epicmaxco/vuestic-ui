@@ -1,6 +1,6 @@
 import { computed, ExtractPropTypes, PropType } from 'vue'
-import startCase from 'lodash/startCase.js'
-import merge from 'lodash/merge.js'
+import { startCase } from '../../../utils/text-case'
+import { mergeDeepMultiple } from '../../../utils/merge-deep'
 
 import { createItemsProp } from './useCommonProps'
 
@@ -71,7 +71,7 @@ export const buildTableColumn = (
 }
 
 const buildColumnsFromItems = (props: useColumnsPropsType) => {
-  return Object.keys(merge({}, ...props.items)).map((item, index) => buildTableColumn(item, index, props))
+  return Object.keys(mergeDeepMultiple({}, ...props.items)).map((item, index) => buildTableColumn(item, index, props))
 }
 
 const buildNormalizedColumns = (props: useColumnsPropsType) => {

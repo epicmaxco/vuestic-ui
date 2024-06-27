@@ -1,9 +1,7 @@
 import { computed, Ref, unref, ComputedRef } from 'vue'
 
-import isFunction from 'lodash/isFunction.js'
-import kebab from 'lodash/kebabCase.js'
-
 import { isDev } from '../utils/env'
+import { camelCaseToKebabCase } from '../utils/text-case'
 
 type Key<Prefix extends string, ModifierKey extends string> = `${Prefix}--${ModifierKey}`
 
@@ -38,13 +36,13 @@ export const useBem = <ModifierKey extends string, Prefix extends string>(
     console.warn('You must pass the @param "prefix" to the useBem hook!')
   }
 
-  const modifiersList = computed(() => isFunction(modifiers) ? modifiers() : unref(modifiers))
+  const modifiersList = computed(() => typeof modifiers === 'function' ? modifiers() : unref(modifiers))
 
   const computedBemClassesObject = computed(() => {
     return Object
       .entries(unref(modifiersList))
       .reduce((classesObj: Record<string, boolean>, [modifierName, value]) => {
-        if (value) { classesObj[`${prefix}--${kebab(modifierName)}`] = true }
+        if (value) { classesObj[`${prefix}--${camelCaseToKebabCase(modifierName)}`] = true }
         return classesObj
       }, {})
   })

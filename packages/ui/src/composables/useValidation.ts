@@ -10,14 +10,13 @@ import {
   type Ref,
   watchEffect,
 } from 'vue'
-import flatten from 'lodash/flatten.js'
-import isFunction from 'lodash/isFunction.js'
-import isString from 'lodash/isString.js'
 
 import { useSyncProp } from './useSyncProp'
 import { useFormChild } from './useForm'
 import { type ExtractReadonlyArrayKeys } from '../utils/types/readonly-array-keys'
 import { watchSetter } from './../utils/watch-setter'
+import { isFunction } from '../utils/is-function'
+import { isString } from '../utils/is-string'
 
 export type ValidationRule<V = any> = ((v: V) => any | string) | Promise<((v: V) => any | string)>
 
@@ -157,7 +156,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
       return true
     }
 
-    const results = normalizeValidationRules(flatten(props.rules), options.value.value)
+    const results = normalizeValidationRules(props.rules.flat(), options.value.value)
     const asyncPromiseResults = results.filter((result) => isPromise(result))
     const syncRules = results.filter((result) => !isPromise(result))
 
@@ -178,7 +177,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
       return true
     }
 
-    const rules = flatten(props.rules)
+    const rules = props.rules.flat()
 
     const results = normalizeValidationRules(rules, options.value.value)
     const asyncPromiseResults = results.filter((result) => isPromise(result))

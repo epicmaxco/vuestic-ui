@@ -37,13 +37,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref, shallowRef } from 'vue'
+import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 
 import {
   useComponentPresetProp,
   useKeyboardOnlyFocus,
   useRouterLink, useRouterLinkProps,
   useColors,
+  useElementWidth,
 } from '../../../../composables'
 
 import { TabsViewKey, TabsView, TabComponent } from '../../types'
@@ -115,6 +116,12 @@ const updateSidePositions = () => {
   rightSidePosition.value = componentOffsetLeft + componentOffsetWidth
   leftSidePosition.value = componentOffsetLeft
 }
+
+const width = useElementWidth(rootElement)
+
+watch(width, () => {
+  updateSidePositions()
+})
 
 const onTabClick = async () => {
   await nextTick()

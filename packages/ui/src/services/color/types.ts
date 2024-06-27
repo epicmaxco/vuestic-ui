@@ -25,14 +25,34 @@ export type EssentialVariables = {
   transparent: CssColor,
 }
 
+/**
+ * This is a placeholder meant to be implemented via TypeScript's Module
+ * Augmentation feature to allow key type inference
+ *
+ * @example
+ * ```ts
+ * declare module 'vuestic-ui' {
+ *   interface CustomColorVariables {
+ *     newColor: string
+ *   }
+ * }
+ * ```
+ *
+ * @see https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+ */
+export interface CustomColorVariables {}
+
 type Capitalize<S extends string> = S extends `${infer First}${infer Rest}`
   ? `${Uppercase<First>}${Rest}`
   : S
-type OnColors = `on${Capitalize<keyof EssentialVariables>}`
+type OnColors = `on${Capitalize<keyof EssentialVariables | keyof CustomColorVariables>}`
 
-export type ColorVariables = { [colorName: string]: CssColor } & EssentialVariables & {
+// string & Record<never, never> is a hack to make TypeScript suggest all possible values of the type
+export type ColorVariables = EssentialVariables & CustomColorVariables & {
   [key in OnColors]?: CssColor
-}
+} & Record<string & Record<never, never>, CssColor>
+
+export type ColorName = keyof ColorVariables | keyof CustomColorVariables // Force keyof, otherwise empty interface will be omitted in build!!!
 
 export type ColorConfig = {
   variables: ColorVariables,

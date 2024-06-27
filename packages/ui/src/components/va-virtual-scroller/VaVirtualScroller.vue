@@ -33,10 +33,10 @@
 
 <script lang="ts" setup generic="Item">
 import { ref, computed, watch, PropType, ComputedRef } from 'vue'
-import pick from 'lodash/pick.js'
 
 import { useEvent, useBem, useTrackBy, useTrackByProps, useNumericProp } from '../../composables'
 import { useVirtualScrollerSizes, useVirtualScrollerSizesProps } from './useVirtualScrollerSizes'
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaVirtualScroller',

@@ -33,7 +33,6 @@
 
 <script lang="ts">
 import { ref, watch, computed } from 'vue'
-import pick from 'lodash/pick'
 
 import {
   useBem,
@@ -47,6 +46,7 @@ import {
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import { VaIcon, VaProgressCircle, VaFallback } from '../index'
+import { pick } from '../../utils/pick'
 
 const VaFallbackPropsDeclaration = extractComponentProps(VaFallback)
 </script>

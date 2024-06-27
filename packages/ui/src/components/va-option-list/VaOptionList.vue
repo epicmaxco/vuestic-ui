@@ -45,7 +45,6 @@
 
 <script lang="ts">
 import { computed, PropType, onMounted } from 'vue'
-import pick from 'lodash/pick.js'
 
 import {
   useComponentPresetProp,
@@ -62,6 +61,7 @@ import { VaMessageListWrapper } from '../va-message-list'
 import { VaCheckbox } from '../va-checkbox'
 import { VaRadio } from '../va-radio'
 import { VaSwitch } from '../va-switch'
+import { pick } from '../../utils/pick'
 
 type OptionListValue = SelectableOption | SelectableOption[] | null
 </script>

@@ -1,4 +1,4 @@
-import isObject from 'lodash/isObject.js'
+import { isObject } from './is-object'
 
 import { isNilValue } from './isNilValue'
 

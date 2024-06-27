@@ -1,6 +1,6 @@
 import { DefineComponent, SetupContext, computed, getCurrentInstance, shallowReadonly } from 'vue'
 import { useComponentConfigProps } from '../component-config'
-import omit from 'lodash/omit'
+import { omit } from '../../utils/omit'
 import { type Props } from './shared'
 import { createProps } from './createProps'
 import { createAttrs } from './createAttrs'

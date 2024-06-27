@@ -18,8 +18,6 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-
-import pick from 'lodash/pick.js'
 import { getGradientBackground } from '../../services/color'
 import {
   useBem,
@@ -29,6 +27,7 @@ import {
   useRouterLink,
   useRouterLinkProps,
 } from '../../composables'
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaCard',

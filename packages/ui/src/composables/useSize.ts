@@ -2,7 +2,7 @@ import { computed, getCurrentInstance, PropType } from 'vue'
 
 import { useGlobalConfig, SizeConfig } from '../services/global-config/global-config'
 import type { VuesticComponentName } from '../services/vue-plugin/types/components'
-import isNil from 'lodash/isNil'
+import { isNilValue } from '../utils/isNilValue'
 
 export const sizesConfig: SizeConfig = {
   defaultSize: 48,
@@ -78,7 +78,7 @@ export const useSizeRef = (props: {
     if (doHaveSizesConfig(props)) {
       const { defaultSize, sizes } = props.sizesConfig
 
-      if (isNil(sizePropValue)) {
+      if (isNilValue(sizePropValue)) {
         sizePropValue = defaultSize
       }
 

@@ -1,76 +1,46 @@
-import kebabCase from 'lodash/kebabCase.js'
-import camelCase from 'lodash/camelCase.js'
-import { ColorTranslator } from 'colortranslator'
-import type { HSLObject, HEXObject, RGBObject } from 'colortranslator'
-import { warn } from 'vue'
+import { camelCaseToKebabCase, kebabCaseToCamelCase } from '../../utils/text-case'
 
-export type ColorInput = string | HEXObject | HSLObject | RGBObject
-
-const makeColor = (color: ColorInput) => {
-  try {
-    return new ColorTranslator(color)
-  } catch (e) {
-    throw new Error(`Color ${color} is not valid. Please, provide valid color.`, {
-      cause: e,
-    })
-  }
-}
+import { setHSLA, shiftHSLA, parseColorToRGB, parseColorToHSL, rgbToString, hslToString, colorToString, type RGBObject, type HSLObject } from '../../utils/color'
 
 export const isCSSVariable = (strColor: string): boolean => /var\(--.+\)/.test(strColor)
-export const cssVariableName = (colorName: string) => `--va-${kebabCase(colorName)}`
-export const normalizeColorName = (colorName: string) => camelCase(colorName)
+export const cssVariableName = (colorName: string) => `--va-${camelCaseToKebabCase(colorName)}`
+export const normalizeColorName = (colorName: string) => kebabCaseToCamelCase(colorName)
 
-export const colorToRgba = (color: ColorInput, opacity: number) => {
-  return makeColor(color).setA(opacity).RGBA
+export type ColorInput = string | RGBObject | HSLObject
+
+export const colorToRgba = (color: string, opacity: number) => {
+  const { r, g, b } = parseColorToRGB(color)
+
+  return rgbToString({ r, g, b, a: opacity })
 }
 
 export const getColorLightness = (color: ColorInput) => {
-  const { R, G, B } = makeColor(color)
-  return Math.sqrt(R * R * 0.241 + G * G * 0.691 + B * B * 0.068)
+  const { r, g, b } = parseColorToRGB(color)
+  return Math.sqrt(r * r * 0.241 + g * g * 0.691 + b * b * 0.068)
 }
 
-export const getBoxShadowColor = (color: ColorInput, opacity = 0.4) => {
-  return makeColor(color).setA(opacity).RGBA
+export const getBoxShadowColor = (color: string, opacity = 0.4) => {
+  return colorToRgba(color, opacity)
 }
 
-export const getBoxShadowColorFromBg = (background: ColorInput, opacity = 0.4) => {
-  return makeColor(background).setA(opacity).RGBA
+export const getBoxShadowColorFromBg = (background: string, opacity = 0.4) => {
+  return colorToRgba(background, opacity)
 }
 
-export const getHoverColor = (color: ColorInput, opacity = 0.2) => {
-  return makeColor(color).setA(opacity).RGBA
+export const getHoverColor = (color: string, opacity = 0.2) => {
+  return colorToRgba(color, opacity)
 }
 
-export const getFocusColor = (color: ColorInput, opacity = 0.3) => {
-  return makeColor(color).setA(opacity).RGBA
+export const getFocusColor = (color: string, opacity = 0.3) => {
+  return colorToRgba(color, opacity)
 }
 
-export const shiftHSLAColor = (color: ColorInput, offset: { h?: number; s?: number; l?: number; a?: number }) => {
-  const result = makeColor(color)
-
-  if (offset.h) { result.setH(result.H + offset.h) }
-
-  if (offset.s) { result.setS(result.S + offset.s) }
-
-  if (offset.l) { result.setL(result.L + offset.l) }
-
-  if (offset.a) { result.setA(result.A + offset.a) }
-
-  return result.HSLA
+export const shiftHSLAColor = (color: string | RGBObject | HSLObject, shift: { h?: number; s?: number; l?: number; a?: number }) => {
+  return hslToString(shiftHSLA(parseColorToHSL(color), shift))
 }
 
-export const setHSLAColor = (color: ColorInput, newColor: { h?: number; s?: number; l?: number; a?: number }) => {
-  const result = makeColor(color)
-
-  if (newColor.h !== undefined) { result.setH(newColor.h) }
-
-  if (newColor.s !== undefined) { result.setS(newColor.s) }
-
-  if (newColor.l !== undefined) { result.setL(newColor.l) }
-
-  if (newColor.a !== undefined) { result.setA(newColor.a) }
-
-  return result.HSLA
+export const setHSLAColor = (color: string | RGBObject | HSLObject, shift: { h?: number; s?: number; l?: number; a?: number }) => {
+  return hslToString(setHSLA(parseColorToHSL(color), shift))
 }
 
 /**
@@ -80,8 +50,8 @@ export const setHSLAColor = (color: ColorInput, newColor: { h?: number; s?: numb
  *
  * @param color
  */
-export const shiftGradientColor = (color: ColorInput): string => {
-  const newColor = ColorTranslator.toHSLA(color, false) as HSLObject
+export const shiftGradientColor = (color: string): string => {
+  const newColor = parseColorToHSL(color)
 
   // Gray
   if (newColor.s < 10) {
@@ -114,9 +84,8 @@ export const shiftGradientColor = (color: ColorInput): string => {
 
 export const getGradientBackground = (color: string) => {
   const colorLeft = shiftGradientColor(color)
-  const colorRight = ColorTranslator.toHSLA(color)
 
-  return `linear-gradient(to right, ${colorLeft}, ${colorRight})`
+  return `linear-gradient(to right, ${colorLeft}, ${colorToString(color)})`
 }
 
 export const getStateMaskGradientBackground = (color: string, maskColor: string, maskOpacity: number) => {
@@ -125,38 +94,30 @@ export const getStateMaskGradientBackground = (color: string, maskColor: string,
   return `linear-gradient(0deg, ${mask}, ${mask}), ${color}`
 }
 
+export const applyColors = (color1: string, color2: string) => {
+  const c1 = parseColorToRGB(color1)
+  const c2 = parseColorToRGB(color2)
+  const weight = c2.a
+
+  if (weight === 1) { return rgbToString(c2) }
+  if (weight === 0) { return rgbToString(c1) }
+
+  return rgbToString({
+    r: Math.round((c1.r) * (1 - weight) + (c2.r) * weight),
+    g: Math.round((c1.g) * (1 - weight) + (c2.g) * weight),
+    b: Math.round((c1.b) * (1 - weight) + (c2.b) * weight),
+    a: c1.a,
+  })
+}
+
 /**
- * Check if color is valid hsl, hsla, rga, rgba or hex color
- * Taken from https://www.regextester.com/103656
- * Check options <or> isCSSVariable(prop) <or> CSS.supports('color', prop) deleted due to problems with SSR and opacity
- * Details are in the discussion: https://github.com/epicmaxco/vuestic-ui/pull/1589
- * @param strColor
+ * Returns `true` if color is FULLY transparent
  */
-export const isColor = (strColor: string): boolean => {
-  // Need to use Regex instead of DOM methods because we support SSR
-  const cssColorRegex = /^#([\da-f]{3}){1,2}$|^#([\da-f]{4}){1,2}$|(rgb|hsl)a?\((\s*-?\d+%?\s*,){2}(\s*-?\d+%?\s*,?\s*\)?)(,\s*(0?\.\d+)?|1)?\)/
-
-  return cssColorRegex.test(strColor.toLocaleLowerCase())
-}
-
-export const applyColors = (color1: ColorInput, color2: ColorInput) => {
-  const c1 = makeColor(color1)
-  const c2 = makeColor(color2)
-  const weight = c2.A
-
-  if (weight === 1) { return c2.RGBA }
-  if (weight === 0) { return c1.RGBA }
-
-  c1.setR(Math.round((c1.R) * (1 - weight) + (c2.R) * weight))
-  c1.setG(Math.round((c1.G) * (1 - weight) + (c2.G) * weight))
-  c1.setB(Math.round((c1.B) * (1 - weight) + (c2.B) * weight))
-
-  return c1.RGBA
-}
-
-export const isColorTransparent = (color: ColorInput) => {
+export const isColorTransparent = (color: string) => {
   if (!color) { return false }
   if (color === 'transparent') { return true }
 
-  return makeColor(color).A <= 0.1
+  return parseColorToRGB(color).a <= 0.1
 }
+
+export { isColor } from './../../utils/color'

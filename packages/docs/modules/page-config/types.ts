@@ -2,6 +2,8 @@ import type { GlobalBlock, DefinePageConfig, DefineManualApi } from './runtime'
 
 import { markRaw } from 'vue'
 
+export type BaseBlock = { type: string }
+
 type BlockOptions<
   BlockName extends string,
   BlockArgs extends any[],

@@ -98,8 +98,6 @@
 
 <script lang="ts">
 import { toRefs, computed, shallowRef, InputHTMLAttributes, ComputedRef, toRef, useAttrs, useSlots, ref } from 'vue'
-import omit from 'lodash/omit'
-import pick from 'lodash/pick'
 
 import { safeCSSLength } from '../../utils/css'
 import {
@@ -122,8 +120,10 @@ import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaButton } from '../va-button'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import isNil from 'lodash/isNil'
 import { toFloat } from '../../utils/to-float'
+import { pick } from '../../utils/pick'
+import { omit } from '../../utils/omit'
+import { isNilValue } from '../../utils/isNilValue'
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
   ['change'],
@@ -252,13 +252,13 @@ const calculateCounterValue = (counterValue: number) => {
 }
 
 const isMinReached = computed(() => {
-  if (isNil(min.value)) { return false }
+  if (isNilValue(min.value)) { return false }
 
   return Number(valueComputed.value) <= Number(min.value)
 })
 
 const isMaxReached = computed(() => {
-  if (isNil(max.value)) { return false }
+  if (isNilValue(max.value)) { return false }
 
   return step.value
     ? Number(valueComputed.value) > (Number(max.value) - Number(step.value))
@@ -333,7 +333,7 @@ const buttonsColor = () => {
 }
 
 const buttonProps = computed(() => ({
-  ...pick(props, ['color', 'textColor']),
+  ...pick(props, ['color']),
   round: props.rounded,
   preset: props.flat ? 'secondary' : '',
   borderColor: (props.flat) ? buttonsColor() : '',

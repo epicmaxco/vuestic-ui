@@ -51,8 +51,6 @@
 
 <script lang="ts" setup>
 import { PropType, computed, toRefs, shallowRef } from 'vue'
-import pick from 'lodash/pick.js'
-
 import {
   useBem,
   useFocus,
@@ -73,6 +71,9 @@ import { useButtonTextColor } from './hooks/useButtonTextColor'
 
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
+import { pick } from '../../utils/pick'
+
+import type { ColorName } from '../../composables'
 
 defineOptions({
   name: 'VaButton',
@@ -90,7 +91,7 @@ const props = defineProps({
   block: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
 
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<ColorName>, default: 'primary' },
   textColor: { type: String, default: '' },
   textOpacity: { type: [Number, String], default: 1 },
   backgroundOpacity: { type: [Number, String], default: 1 },

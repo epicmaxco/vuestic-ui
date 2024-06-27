@@ -1,4 +1,4 @@
-import merge from 'lodash/merge.js'
+import { mergeDeep } from '../../../utils/merge-deep'
 import { isMatchDynamicSegments, dynamicSegments } from './dynamic-segment'
 import { isMatchRegex, regexGroupsValues } from './regex'
 import {
@@ -62,11 +62,11 @@ const findIconConfiguration = (iconName: string | undefined, globalIconConfig: I
   if (!iconName) { return }
 
   const matchedIconConfiguration = findMatchedIconConfiguration(iconName, globalIconConfig, namesToIgnore)
-  const resolvedIconConfiguration = merge(resolveIconConfiguration(iconName, matchedIconConfiguration), matchedIconConfiguration)
+  const resolvedIconConfiguration = mergeDeep(resolveIconConfiguration(iconName, matchedIconConfiguration), matchedIconConfiguration)
 
   namesToIgnore = [...namesToIgnore, matchedIconConfiguration.name.toString()]
 
-  return merge(
+  return mergeDeep(
     findIconConfiguration(resolvedIconConfiguration.to, globalIconConfig, namesToIgnore),
     resolvedIconConfiguration,
   )

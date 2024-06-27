@@ -81,7 +81,6 @@ describe('useColors', () => {
     ['rgb(0, 0, 0)', 'rgba(0,0,0,0.4)'],
     ['rgba(0, 0, 0, 1)', 'rgba(0,0,0,0.4)'],
     [{ h: 0, s: 0, l: 0 }, 'rgba(0,0,0,0.4)'],
-    [{ c: 0, m: 0, y: 0, k: 0 }, 'rgba(255,255,255,0.4)'],
   ])(
     'getBoxShadowColorArg %s should return %s',
     (getBoxShadowColorArg, expected) => {
@@ -94,7 +93,6 @@ describe('useColors', () => {
     ['rgb(0, 0, 0)', 'rgba(0,0,0,0.2)'],
     ['rgba(0, 0, 0, 1)', 'rgba(0,0,0,0.2)'],
     [{ h: 0, s: 0, l: 0 }, 'rgba(0,0,0,0.2)'],
-    [{ c: 0, m: 0, y: 0, k: 0 }, 'rgba(255,255,255,0.2)'],
   ])(
     'getHoverColor %s should return %s',
     (getHoverColorArg, expected) => {
@@ -107,7 +105,6 @@ describe('useColors', () => {
     ['rgb(0, 0, 0)', 'rgba(0,0,0,0.3)'],
     ['rgba(0, 0, 0, 1)', 'rgba(0,0,0,0.3)'],
     [{ h: 0, s: 0, l: 0 }, 'rgba(0,0,0,0.3)'],
-    [{ c: 0, m: 0, y: 0, k: 0 }, 'rgba(255,255,255,0.3)'],
   ])(
     'getFocusColorArg %s should return %s',
     (getFocusColorArg, expected) => {
@@ -116,11 +113,10 @@ describe('useColors', () => {
   )
 
   it.each([
-    ['#000000', 'linear-gradient(to right, hsla(2,5%,10%,1), hsla(0,0%,0%,1))'],
-    ['rgb(0, 0, 0)', 'linear-gradient(to right, hsla(2,5%,10%,1), hsla(0,0%,0%,1))'],
-    ['rgba(0, 0, 0, 1)', 'linear-gradient(to right, hsla(2,5%,10%,1), hsla(0,0%,0%,1))'],
+    ['#000000', 'linear-gradient(to right, hsla(2,5%,10%,1), #000000)'],
+    ['rgb(0, 0, 0)', 'linear-gradient(to right, hsla(2,5%,10%,1), rgb(0, 0, 0))'],
+    ['rgba(0, 0, 0, 1)', 'linear-gradient(to right, hsla(2,5%,10%,1), rgba(0, 0, 0, 1))'],
     [{ h: 0, s: 0, l: 0 }, 'linear-gradient(to right, hsla(2,5%,10%,1), hsla(0,0%,0%,1))'],
-    [{ c: 0, m: 0, y: 0, k: 0 }, 'linear-gradient(to right, hsla(2,5%,100%,1), hsla(0,0%,100%,1))'],
   ])(
     'getGradientBackgroundArg %s should return %s',
     (getGradientBackgroundArg, expected) => {
@@ -132,7 +128,6 @@ describe('useColors', () => {
     [['#000000', '#cccccc', '#ffffff'], '#ffffff'],
     [['rgb(255, 255, 255)'], 'textPrimary'],
     [[{ h: 0, s: 100, l: 27 }], 'textInverted'],
-    [[{ c: 0, m: 0, y: 0, k: 0 }], 'textPrimary'],
   ])(
     'getTextColorArgs %s should return %s',
     (getTextColorArgs, expected) => {
@@ -144,7 +139,6 @@ describe('useColors', () => {
     [['#000000', {}], 'hsla(0,0%,0%,1)'],
     [['rgb(255, 255, 255)', { h: 1, s: 2 }], 'hsla(1,2%,100%,1)'],
     [[{ h: 0, s: 100, l: 27 }, { h: 1, s: 2, l: 3, a: 4 }], 'hsla(1,100%,30%,1)'],
-    [[{ c: 0, m: 0, y: 0, k: 0 }, { l: 3 }], 'hsla(0,0%,100%,1)'],
   ])(
     'shiftHSLAColorArgs %s should return %s',
     (shiftHSLAColorArgs, expected) => {
@@ -156,7 +150,6 @@ describe('useColors', () => {
     [['#000000', {}], 'hsla(0,0%,0%,1)'],
     [['rgb(255, 255, 255)', { h: 1, s: 2 }], 'hsla(1,2%,100%,1)'],
     [[{ h: 0, s: 100, l: 27 }, { h: 1, s: 2, l: 3, a: 4 }], 'hsla(1,2%,3%,1)'],
-    [[{ c: 0, m: 0, y: 0, k: 0 }, { l: 3 }], 'hsla(0,0%,3%,1)'],
   ])(
     'setHSLAColorArgs %s should return %s',
     (setHSLAColorArgs, expected) => {
