@@ -15,6 +15,18 @@ export const cloneDeep = <T>(source: T): T => {
     return new Date(source.getTime()) as any
   }
 
+  if (source instanceof RegExp) {
+    return new RegExp(source.source, source.flags) as any
+  }
+
+  if (source instanceof Map) {
+    return new Map(Array.from(source.entries()).map(([key, value]) => [key, cloneDeep(value)])) as any
+  }
+
+  if (source instanceof Set) {
+    return new Set(Array.from(source.values()).map(cloneDeep)) as any
+  }
+
   if (isObject(source)) {
     return Object.keys(source).reduce((acc, key) => {
       acc[key] = cloneDeep(source[key as keyof T])

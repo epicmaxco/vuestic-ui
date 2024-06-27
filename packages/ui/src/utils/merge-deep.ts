@@ -13,7 +13,9 @@ export const mergeDeep = (target: any, source: any): any => {
     const targetValue = target[key]
     const sourceValue = source[key]
 
-    if (isObject(targetValue) && isObject(sourceValue)) {
+    if (sourceValue instanceof RegExp || sourceValue instanceof Date) {
+      target[key] = sourceValue
+    } else if (isObject(targetValue) && isObject(sourceValue)) {
       target[key] = mergeDeep(Object.create(
         Object.getPrototypeOf(targetValue),
         Object.getOwnPropertyDescriptors(targetValue),
