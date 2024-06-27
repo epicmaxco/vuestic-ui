@@ -436,25 +436,48 @@ defineExpose({
     box-shadow: var(--va-switch-checker-box-shadow);
     transition: var(--va-switch-checker-transition);
     display: flex;
-    justify-content: center;
     align-items: center;
+    width: 100%;
 
     @at-root {
       .va-switch--checked#{&} {
-        transform: translateX(2.2rem);
+        transform:
+          translateX(
+            calc(
+              var(--va-switch-checker-wrapper-width)
+              - var(--va-switch-checker-width)
+              - 0.3rem
+            )
+          );
       }
 
       .va-switch--small#{&} {
         @at-root {
           .va-switch--checked#{&} {
-            transform: translateX(1.6rem);
+            transform:
+              translateX(
+                calc(
+                  var(--va-switch-checker-wrapper-width)
+                  - var(--va-switch-checker-width)
+                  - 0.3rem
+                  + 0.4rem
+                )
+              );
           }
         }
       }
       .va-switch--large#{&} {
         @at-root {
           .va-switch--checked#{&} {
-            transform: translateX(2.9rem);
+            transform:
+              translateX(
+                calc(
+                  var(--va-switch-checker-wrapper-width)
+                  - var(--va-switch-checker-width)
+                  - 0.3rem
+                  - 0.3rem
+                )
+              );
           }
         }
       }
