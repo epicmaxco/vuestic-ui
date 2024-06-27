@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep.js'
+import { cloneDeep } from '../../utils/clone-deep'
 import { ref, getCurrentInstance, Ref } from 'vue'
 import { GlobalConfig, GlobalConfigUpdater, PartialGlobalConfig, ProvidedGlobalConfig } from './types'
 import { getComponentsDefaultConfig } from '../component-config'

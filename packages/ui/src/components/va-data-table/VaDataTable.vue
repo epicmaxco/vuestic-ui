@@ -209,8 +209,6 @@
 
 <script lang="ts">
 import { PropType, computed, TableHTMLAttributes, StyleValue, useAttrs } from 'vue'
-import omit from 'lodash/omit.js'
-import pick from 'lodash/pick.js'
 
 import { useColumns, useColumnsProps } from './hooks/useColumns'
 import { usePaginatedRows, usePaginatedRowsProps } from './hooks/usePaginatedRows'
@@ -233,6 +231,8 @@ import { VaDataTableThRow } from './components'
 import { VaVirtualScroller } from '../va-virtual-scroller'
 import { VaInnerLoading } from '../va-inner-loading'
 import { VaCheckbox } from '../va-checkbox'
+import { pick } from '../../utils/pick'
+import { omit } from '../../utils/omit'
 
 const VaVirtualScrollerProps = extractComponentProps(VaVirtualScroller, ['items', 'trackBy', 'horizontal', 'disabled', 'table'])
 const VaDataTableThRowProps = extractComponentProps(VaDataTableThRow)

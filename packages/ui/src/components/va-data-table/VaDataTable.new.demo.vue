@@ -267,7 +267,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import cloneDeep from 'lodash/cloneDeep.js'
+import { cloneDeep } from '../../utils/clone-deep'
 import { DataTableColumn, DataTableSelectMode, DataTableSortingOrder, VaDataTable } from './'
 import { VaChip } from '../va-chip'
 import { VaAlert } from '../va-alert'

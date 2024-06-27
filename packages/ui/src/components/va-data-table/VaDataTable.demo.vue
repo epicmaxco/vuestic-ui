@@ -540,7 +540,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import cloneDeep from 'lodash/cloneDeep.js'
+import { cloneDeep } from '../../utils/clone-deep'
 import { DataTableColumn, DataTableSelectMode, DataTableSortingOrder, VaDataTable } from './'
 import { VaSwitch } from '../va-switch'
 import { VaPagination } from '../va-pagination'

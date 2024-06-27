@@ -69,7 +69,6 @@ import {
   type PropType,
   useSlots,
 } from 'vue'
-import pick from 'lodash/pick.js'
 
 import { VaAspectRatio } from '../va-aspect-ratio'
 import { VaFallback } from '../va-fallback'
@@ -83,6 +82,7 @@ import {
 } from '../../composables'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
+import { pick } from '../../utils/pick'
 
 const VaFallbackProps = extractComponentProps(VaFallback)
 </script>

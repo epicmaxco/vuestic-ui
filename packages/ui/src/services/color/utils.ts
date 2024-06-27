@@ -1,5 +1,4 @@
-import kebabCase from 'lodash/kebabCase.js'
-import camelCase from 'lodash/camelCase.js'
+import { camelCaseToKebabCase, kebabCaseToCamelCase } from '../../utils/text-case'
 import { ColorTranslator } from 'colortranslator'
 import type { HSLObject, HEXObject, RGBObject } from 'colortranslator'
 import { warn } from 'vue'
@@ -17,8 +16,8 @@ const makeColor = (color: ColorInput) => {
 }
 
 export const isCSSVariable = (strColor: string): boolean => /var\(--.+\)/.test(strColor)
-export const cssVariableName = (colorName: string) => `--va-${kebabCase(colorName)}`
-export const normalizeColorName = (colorName: string) => camelCase(colorName)
+export const cssVariableName = (colorName: string) => `--va-${camelCaseToKebabCase(colorName)}`
+export const normalizeColorName = (colorName: string) => kebabCaseToCamelCase(colorName)
 
 export const colorToRgba = (color: ColorInput, opacity: number) => {
   return makeColor(color).setA(opacity).RGBA

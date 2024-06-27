@@ -102,10 +102,8 @@ import {
   computed,
   watch,
   nextTick,
-  WritableComputedRef, ComputedRef,
+  ComputedRef,
 } from 'vue'
-import clamp from 'lodash/clamp.js'
-import pick from 'lodash/pick.js'
 
 import { isDev } from '../../utils/env'
 import {
@@ -120,6 +118,8 @@ import { setPaginationRange } from './setPaginationRange'
 
 import { VaButton } from '../va-button'
 import { ExtractComponentPropTypes } from '../../utils/component-options'
+import { pick } from '../../utils/pick'
+import { clamp } from '../../utils/clamp'
 
 defineOptions({
   name: 'VaPagination',

@@ -128,7 +128,6 @@
 
 <script lang="ts">
 import { ref, shallowRef, computed, watch, nextTick, type PropType, type Ref, useSlots, ComputedRef } from 'vue'
-import pick from 'lodash/pick.js'
 
 import {
   useComponentPresetProp,
@@ -166,6 +165,7 @@ import { warn } from '../../utils/console'
 import type { SelectOption } from './types'
 import type { DropdownOffsetProp } from '../va-dropdown/types'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
+import { pick } from '../../utils/pick'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 </script>

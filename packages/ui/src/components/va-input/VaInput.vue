@@ -48,8 +48,6 @@
 
 <script lang="ts">
 import { computed, InputHTMLAttributes, shallowRef, toRefs, useAttrs, useSlots, watch, PropType } from 'vue'
-import omit from 'lodash/omit.js'
-import pick from 'lodash/pick.js'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
@@ -71,6 +69,8 @@ import type { AnyStringPropType } from '../../utils/types/prop-type'
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { combineFunctions } from '../../utils/combine-functions'
+import { omit } from '../../utils/omit'
+import { pick } from '../../utils/pick'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 
@@ -234,7 +234,8 @@ const computedChildAttributes = computed(() => (({
 
 const computedInputAttributes = computed(() => (({
   ...computedChildAttributes.value,
-  ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'minlength', 'maxlength', 'name']),
+  ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'name']),
+  ...pick(attrs, ['minlength', 'minlength'])
 }) as InputHTMLAttributes))
 
 const valueLengthComputed = computed(() =>
