@@ -1,6 +1,6 @@
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 
-const wordsRegex = /[A-Z0-9]*(?:[^\-|A-Z|\s])*/gm
+const wordsRegex = /[A-Z0-9]*(?:[^\-|A-Z|\s.])*/gm
 
 const getWords = (str: string) => {
   return str.match(wordsRegex)?.map((word) => word.trim()).filter((w) => w !== '') || []
