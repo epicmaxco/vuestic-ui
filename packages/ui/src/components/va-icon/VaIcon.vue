@@ -18,6 +18,8 @@
 
 <script lang="ts" setup>
 import { PropType, computed, useAttrs } from 'vue'
+import { AnyStringPropType } from '../../utils/types/prop-type'
+import { VaIconName } from './types'
 
 import {
   useComponentPresetProp,
@@ -34,7 +36,7 @@ defineOptions({
 const props = defineProps({
   ...useSizeProps,
   ...useComponentPresetProp,
-  name: { type: String, default: '' },
+  name: { type: String as AnyStringPropType<VaIconName>, default: '' },
   tag: { type: String },
   component: { type: Object as PropType<any> },
   color: { type: String },
