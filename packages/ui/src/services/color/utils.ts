@@ -1,11 +1,10 @@
-import kebabCase from 'lodash/kebabCase.js'
-import camelCase from 'lodash/camelCase.js'
+import { camelCaseToKebabCase, kebabCaseToCamelCase } from '../../utils/text-case'
 
 import { setHSLA, shiftHSLA, parseColorToRGB, parseColorToHSL, rgbToString, hslToString, colorToString, type RGBObject, type HSLObject } from '../../utils/color'
 
 export const isCSSVariable = (strColor: string): boolean => /var\(--.+\)/.test(strColor)
-export const cssVariableName = (colorName: string) => `--va-${kebabCase(colorName)}`
-export const normalizeColorName = (colorName: string) => camelCase(colorName)
+export const cssVariableName = (colorName: string) => `--va-${camelCaseToKebabCase(colorName)}`
+export const normalizeColorName = (colorName: string) => kebabCaseToCamelCase(colorName)
 
 export type ColorInput = string | RGBObject | HSLObject
 

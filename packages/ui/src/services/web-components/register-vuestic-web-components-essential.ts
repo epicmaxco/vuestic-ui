@@ -1,4 +1,4 @@
-import kebabCase from 'lodash/kebabCase.js'
+import { camelCaseToKebabCase } from './../../utils/text-case'
 import { defineCustomElement } from 'vue'
 import { type VuesticComponent } from '../vue-plugin/types/index'
 
@@ -80,6 +80,6 @@ export const registerVuesticWebComponentsEssential = (options: {
       // Add custom CSS to component's Shadow DOM
       if (css && 'styles' in component) { component.styles.push(css) }
 
-      customElements.define(`${kebabCase(name)}`, customElement)
+      customElements.define(`${camelCaseToKebabCase(name)}`, customElement)
     })
 }

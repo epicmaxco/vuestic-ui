@@ -23,3 +23,7 @@ export const addOrUpdateStyleElement = (id: string, getStyles: () => string): vo
     document.head.append(stylesElement)
   }
 }
+
+export const removeStyleElement = (id: string): void => {
+  document.getElementById(id)?.remove()
+}

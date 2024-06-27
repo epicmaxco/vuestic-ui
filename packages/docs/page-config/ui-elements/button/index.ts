@@ -27,7 +27,7 @@ export default definePageConfig({
     }),
     block.example("WithTextColor", {
       title: "Text colors",
-      description: "The `description-color` prop is used to change the color of the button description."
+      description: "The `text-color` prop is used to change the color of the button description."
     }),
     block.example("WithSize", {
       title: "Sizes",

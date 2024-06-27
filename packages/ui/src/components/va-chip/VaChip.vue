@@ -47,8 +47,6 @@
 
 <script lang="ts" setup>
 import { PropType, computed, toRef } from 'vue'
-import pick from 'lodash/pick'
-
 import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../services/color'
 import {
   useComponentPresetProp,
@@ -63,6 +61,7 @@ import {
 } from '../../composables'
 
 import { VaIcon } from '../va-icon'
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaChip',

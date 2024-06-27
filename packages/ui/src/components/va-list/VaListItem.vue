@@ -25,13 +25,13 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import pick from 'lodash/pick'
 
 import {
   useBem,
   useComponentPresetProp,
   useRouterLink, useRouterLinkProps,
 } from '../../composables'
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaListItem',

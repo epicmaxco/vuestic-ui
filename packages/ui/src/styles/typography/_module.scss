@@ -138,7 +138,8 @@
 
   .va-text-block {
     padding: 1.2rem;
-    background-color: var(--va-text-block);
+    background-color: var(--va-background-element);
+    color: var(--va-on-background-element, currentColor);
   }
 
   hr.va-separator {

@@ -1,5 +1,5 @@
 import { computed, type ExtractPropTypes, type PropType } from 'vue'
-import pick from 'lodash/pick.js'
+import { pick } from '../../../utils/pick'
 
 export const useNativeImgAttributesProps = {
   src: { type: String, required: true },

@@ -1,7 +1,7 @@
 import { computed, ref } from 'vue'
-import isDate from 'lodash/isDate.js'
 
 import { DatePickerView, DatePickerViewProp, DatePickerModelValue } from '../types'
+import { isDate } from '../../../utils/is-date'
 
 const JANUARY_MONTH_INDEX = 0
 const DECEMBER_MONTH_INDEX = 11

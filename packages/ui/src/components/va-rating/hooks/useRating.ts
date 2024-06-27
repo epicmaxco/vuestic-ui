@@ -1,5 +1,5 @@
 import { ref, getCurrentInstance, computed, ExtractPropTypes } from 'vue'
-import clamp from 'lodash/clamp.js'
+import { clamp } from '../../../utils/clamp'
 
 import { useHover, useStateful, useStatefulProps, useFormFieldProps } from '../../../composables'
 

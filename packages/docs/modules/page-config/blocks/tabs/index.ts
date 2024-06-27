@@ -1,11 +1,11 @@
-import { BaseBlock } from './../../runtime';
+import { BaseBlock } from './../../types';
 import { definePageConfigBlock } from '../../types'
 import Component from './index.vue'
 
 export default definePageConfigBlock({
   setup (tabs: Record<string, BaseBlock[]>) {
     return {
-      type: 'collapse' as const,
+      type: 'tabs' as const,
       tabs
     }
   },
