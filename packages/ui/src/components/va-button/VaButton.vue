@@ -51,8 +51,6 @@
 
 <script lang="ts" setup>
 import { PropType, computed, toRefs, shallowRef } from 'vue'
-import pick from 'lodash/pick.js'
-
 import {
   useBem,
   useFocus,
@@ -73,6 +71,7 @@ import { useButtonTextColor } from './hooks/useButtonTextColor'
 
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaButton',

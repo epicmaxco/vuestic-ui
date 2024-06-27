@@ -25,3 +25,7 @@ export const mergeDeep = (target: any, source: any): any => {
 
   return target
 }
+
+export const mergeDeepMultiple = (...objects: any[]): any => {
+  return objects.reduce((acc, obj) => mergeDeep(acc, obj), {})
+}

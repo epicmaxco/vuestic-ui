@@ -80,8 +80,6 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref, shallowRef, watch } from 'vue'
-import pick from 'lodash/pick.js'
-
 import {
   useColors, useTextColor,
   useBem,
@@ -96,7 +94,8 @@ import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 import { useComponentUuid } from '../../composables/useComponentUuid'
 
 import { VaIcon } from '../va-icon'
-import isNil from 'lodash/isNil'
+import { pick } from '../../utils/pick'
+import { isNilValue } from '../../utils/isNilValue'
 
 defineOptions({
   name: 'VaCollapse',
@@ -134,21 +133,21 @@ const computedModelValue = computed({
       return valueComputed.value
     }
 
-    if (!isNil(accordionItemValue)) {
+    if (!isNilValue(accordionItemValue)) {
       return accordionItemValue.value
     }
 
     return valueComputed.value
   },
   set (v) {
-    if (!isNil(accordionItemValue)) {
+    if (!isNilValue(accordionItemValue)) {
       accordionItemValue.value = v
     }
     valueComputed.value = v
   },
 })
 
-if (valueComputed.userProvided && !isNil(accordionItemValue)) {
+if (valueComputed.userProvided && !isNilValue(accordionItemValue)) {
   accordionItemValue.value = valueComputed.value
 }
 

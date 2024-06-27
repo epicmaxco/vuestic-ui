@@ -9,12 +9,11 @@
 <script lang="ts">
 import { computed } from 'vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import omit from 'lodash/omit.js'
-
 import { useBem, useComponentPresetProp, useColors, useTextColor } from '../../composables'
 
 import { VaConfig } from '../va-config'
 import { VaButton } from '../va-button'
+import { omit } from '../../utils/omit'
 
 const VaButtonProps = omit(extractComponentProps(VaButton), ['block', 'gradient'])
 </script>

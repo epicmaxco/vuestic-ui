@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import clamp from 'lodash/clamp.js'
+import { clamp } from '../../utils/clamp'
 
 import { useComponentPresetProp, useColors, useSize, useSizeProps, useTranslation, useTranslationProp } from '../../composables'
 

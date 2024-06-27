@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 declare var __DEV__: boolean | undefined
 
 const processShim: typeof process = typeof process !== 'undefined' ? process : ({} as typeof process)
