@@ -1,6 +1,6 @@
-import { IconConfiguration } from '../types'
+import { defineIconAliases } from '../types/define-aliases'
 
-export const VuesticIconAliases: IconConfiguration[] = [
+export const VuesticIconAliases = defineIconAliases([
   {
     name: 'va-unsorted',
     to: 'swap_vert',
@@ -71,10 +71,10 @@ export const VuesticIconAliases: IconConfiguration[] = [
   },
   {
     name: 'va-plus',
-    to: 'add',
+    to: 'mi-add',
   },
   {
     name: 'va-minus',
-    to: 'remove',
+    to: 'mi-remove',
   },
-]
+])
