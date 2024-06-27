@@ -1,9 +1,11 @@
 <template>
-  <VaConfig :colors="{ currentPresetName: 'landing' }">
-    <div class="landing">
-      <NuxtPage />
-    </div>
-  </VaConfig>
+  <div>
+    <VaConfig :colors="{ currentPresetName: 'landing' }">
+      <div class="landing">
+        <NuxtPage />
+      </div>
+    </VaConfig>
+  </div>
 </template>
 
 <script lang="ts" setup>

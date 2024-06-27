@@ -25,11 +25,11 @@ export type TSortableEmits = ((
   args: string | DataTableSortingOrder | TSortedArgs,
 ) => void) & ((event: 'columnSorted', args: { columnName: string, value: DataTableSortingOrder, column: DataTableColumnInternal }) => void)
 
-export type TSortIcon = 'va-arrow-up' | 'va-arrow-down' | 'unfold_more'
+export type TSortIcon = 'va-sort-asc' | 'va-sort-desc' | 'va-unsorted'
 
-export const useSortable = (
+export const useSortable = <Item extends DataTableRow>(
   columns: Ref<DataTableColumnInternal[]>,
-  filteredRows: Ref<DataTableRow[]>,
+  filteredRows: Ref<Item[]>,
   props: ExtractPropTypes<typeof useSortableProps>,
   emit: TSortableEmits,
 ) => {
@@ -71,6 +71,29 @@ export const useSortable = (
     },
   })
 
+  const defaultSortingFn = (a: unknown, b: unknown) => {
+    if (typeof a === 'string' && typeof b === 'string') {
+      return a.localeCompare(b)
+    }
+
+    if (typeof a === 'number' && typeof b === 'number') {
+      return a - b
+    }
+
+    const aParsed = parseFloat(a as string)
+    const bParsed = parseFloat(b as string)
+
+    if (!isNaN(aParsed) && !isNaN(bParsed)) {
+      return aParsed - bParsed
+    }
+
+    // If one of them is a number, prioritize numbers
+    if (!isNaN(aParsed)) { return -1 }
+    if (!isNaN(bParsed)) { return 1 }
+
+    return 0
+  }
+
   // sorts by string-value of a given row's cell (depending on by which column the table is sorted) if no sortingFn is
   // provided. Otherwise uses that very sortingFn. If sortingOrder is `null` then restores the initial sorting order of
   // the rows.
@@ -98,15 +121,13 @@ export const useSortable = (
       if (sortingOrderSync.value === null) {
         return a.initialIndex - b.initialIndex
       } else {
-        const firstValue = a.cells[columnIndex].value
-        const secondValue = b.cells[columnIndex].value
         const firstSource = a.cells[columnIndex].source
         const secondSource = b.cells[columnIndex].source
 
         return sortingOrderRatio * (
           typeof column.sortingFn === 'function'
             ? column.sortingFn(firstSource, secondSource)
-            : firstValue.localeCompare(secondValue)
+            : defaultSortingFn(firstSource, secondSource)
         )
       }
     })
@@ -151,10 +172,10 @@ export const useSortable = (
 
   const sortingOrderIconName = computed(() => {
     return sortingOrderSync.value === 'asc'
-      ? 'va-arrow-up'
+      ? 'va-sort-asc'
       : sortingOrderSync.value === 'desc'
-        ? 'va-arrow-down'
-        : 'unfold_more'
+        ? 'va-sort-desc'
+        : 'va-unsorted'
   }) as ComputedRef<TSortIcon>
 
   return {

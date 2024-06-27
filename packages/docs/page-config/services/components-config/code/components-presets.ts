@@ -1,8 +1,9 @@
-components: {
-  presets: {
-    VaButton: {
-      addToCart: { size: 'large', round: true },
-      deleteFromCart: { size: 'small', plain: true },
+createVuestic({
+  components: {
+    presets: {
+      VaButton: {
+        addToCart: { round: true, color: 'success', icon: 'shopping_cart', 'slot:default': 'Add to card' },
+      },
     },
   },
-},
+})

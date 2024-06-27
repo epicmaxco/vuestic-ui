@@ -1,8 +1,8 @@
 import type { ComponentConfig } from '../component-config'
-import type { ColorConfig } from '../color'
+import type { ColorConfig, CustomColorVariables } from '../color'
 import type { IconConfig } from '../icon'
 import type { BreakpointConfig } from '../breakpoint'
-import type { I18nConfig } from '../i18n'
+import type { I18nConfig, CustomI18NKeys } from '../i18n'
 import type { Ref, Component } from 'vue'
 import type { ColorsClassesConfig } from '../colors-classes'
 
@@ -21,7 +21,13 @@ type DeepPartial<T> = T extends Record<string, any> ? {
   [P in keyof T]?: P extends 'components' ? T[P] : DeepPartial<T[P]>;
 } : T;
 
-export type PartialGlobalConfig = DeepPartial<GlobalConfig>
+export type PartialGlobalConfig = DeepPartial<GlobalConfig> & {
+  // Need to maintain ability to extend through module augmentation
+  colors?: {
+    variables?: Partial<CustomColorVariables>
+  }
+  i18n?: Partial<CustomI18NKeys>
+}
 
 export type SizeConfig = {
   defaultSize?: number,

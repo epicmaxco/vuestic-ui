@@ -47,8 +47,6 @@
 
 <script lang="ts" setup>
 import { PropType, computed, toRef } from 'vue'
-import pick from 'lodash/pick'
-
 import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../services/color'
 import {
   useComponentPresetProp,
@@ -59,10 +57,11 @@ import {
   useHover,
   useTextColor,
   useBem,
-  useTranslation,
+  useTranslation, useTranslationProp,
 } from '../../composables'
 
 import { VaIcon } from '../va-icon'
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaChip',
@@ -89,7 +88,7 @@ const props = defineProps({
     validator: (value: string) => ['small', 'medium', 'large'].includes(value),
   },
 
-  ariaCloseLabel: { type: String, default: '$t:close' },
+  ariaCloseLabel: useTranslationProp('$t:close'),
 })
 
 const emit = defineEmits([...useStatefulEmits, 'focus'])

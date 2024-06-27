@@ -2,7 +2,7 @@ import { Config } from "./types"
 
 export default {
   import: [
-    "import { createVuesticEssential, VaButton } from 'vuestic-ui'"
+    "import { createVuesticEssential, VaButton, VaIcon, VaCard, VaCardTitle, VaCardContent } from 'vuestic-ui'"
   ],
   css: (answers) => {
     const strings = [
@@ -23,5 +23,5 @@ export default {
 
     return strings
   },
-  plugin: 'createVuesticEssential({ components: { VaButton } })',
+  plugin: 'createVuesticEssential({ components: { VaButton, VaIcon, VaCard, VaCardTitle, VaCardContent } })',
 } as Config

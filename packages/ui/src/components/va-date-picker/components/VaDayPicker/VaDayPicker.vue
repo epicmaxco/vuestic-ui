@@ -57,10 +57,12 @@ defineOptions({
   name: 'VaDayPicker',
 })
 
+type CaseInsensitive<T extends string> = T | Lowercase<T>
+
 const props = defineProps({
   monthNames: { type: Array as PropType<string[]>, required: true },
   weekdayNames: { type: Array as PropType<string[]>, required: true },
-  firstWeekday: { type: String as PropType<'Monday' | 'Sunday'>, default: 'Sunday' },
+  firstWeekday: { type: String as PropType<CaseInsensitive<'Monday' | 'Sunday'>>, default: 'Sunday' },
   hideWeekDays: { type: Boolean, default: false },
   view: { type: Object as PropType<DatePickerView>, default: () => ({ type: 'day' }) },
   modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
@@ -81,7 +83,7 @@ const { firstWeekday, weekdayNames, view } = toRefs(props)
 const { calendarDates, currentMonthStartIndex, currentMonthEndIndex } = useVaDatePickerCalendar(view, { firstWeekday })
 
 const weekdayNamesComputed = computed(() => {
-  return firstWeekday.value === 'Sunday'
+  return firstWeekday.value.toLowerCase() === 'sunday'
     ? weekdayNames.value
     : [...weekdayNames.value.slice(1), weekdayNames.value[0]]
 })

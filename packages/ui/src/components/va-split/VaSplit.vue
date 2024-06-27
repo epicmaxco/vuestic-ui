@@ -40,16 +40,16 @@
 
 <script lang="ts" setup>
 import { PropType, ref, shallowRef, computed, watch, onMounted } from 'vue'
-import isString from 'lodash/isString.js'
-import isNumber from 'lodash/isNumber.js'
-import clamp from 'lodash/clamp.js'
+import { isNumber } from '../../utils/is-number'
+import { isString } from '../../utils/is-string'
+import { clamp } from '../../utils/clamp'
 
 import {
   useBem,
   useComponentPresetProp,
   useStateful, useStatefulEmits, useStatefulProps,
   useResizeObserver,
-  useTranslation,
+  useTranslation, useTranslationProp,
 } from '../../composables'
 import { useSplitDragger, useSplitDraggerProps } from './useSplitDragger'
 
@@ -84,7 +84,7 @@ const props = defineProps({
   },
   snappingRange: { type: [Number, String] as PropType<number | string>, default: 4 },
 
-  ariaLabel: { type: String, default: '$t:splitPanels' },
+  ariaLabel: useTranslationProp('$t:splitPanels'),
 })
 
 const emit = defineEmits([...useStatefulEmits])

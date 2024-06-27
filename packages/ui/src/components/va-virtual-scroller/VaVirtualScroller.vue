@@ -31,12 +31,12 @@
   </div>
 </template>
 
-<script lang="ts" setup generic="Item = unknown">
-import { ref, computed, watch, PropType } from 'vue'
-import pick from 'lodash/pick.js'
+<script lang="ts" setup generic="Item">
+import { ref, computed, watch, PropType, ComputedRef } from 'vue'
 
-import { useEvent, useBem, useTrackBy, useTrackByProps } from '../../composables'
+import { useEvent, useBem, useTrackBy, useTrackByProps, useNumericProp } from '../../composables'
 import { useVirtualScrollerSizes, useVirtualScrollerSizesProps } from './useVirtualScrollerSizes'
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaVirtualScroller',
@@ -46,7 +46,7 @@ const props = defineProps({
   ...useTrackByProps,
   ...useVirtualScrollerSizesProps,
   items: { type: Array as PropType<Item[]>, default: () => ([]) },
-  bench: { type: Number, default: 10, validator: (v: number) => v >= 0 },
+  bench: { type: [Number, String], default: 10, validator: (v: number | string) => Number(v) >= 0 },
   disabled: { type: Boolean, default: false },
   table: { type: Boolean, default: false },
 })
@@ -54,6 +54,8 @@ const props = defineProps({
 const emit = defineEmits(['scroll:bottom'])
 
 const listScrollPosition = ref(0)
+const benchComputed = useNumericProp('bench') as ComputedRef<number>
+
 const scrollDirection = computed(() => props.horizontal ? 'scrollLeft' : 'scrollTop')
 const handleScroll = () => {
   if (!wrapper.value) { return }
@@ -74,13 +76,13 @@ watch(listScrollPosition, (newValue) => {
 
 // forming items to render
 const renderStartIndex = computed(() => {
-  return Math.max(0, Math.floor(listScrollPosition.value / itemSize.value) - props.bench)
+  return Math.max(0, Math.floor(listScrollPosition.value / itemSize.value) - benchComputed.value)
 })
 const renderItemsAmount = computed(() => {
   if (!props.items?.length) { return 0 }
   return props.disabled
     ? props.items.length
-    : Math.min(props.items.length - renderStartIndex.value, Math.ceil(wrapperSize.value / itemSize.value) + props.bench * 2)
+    : Math.min(props.items.length - renderStartIndex.value, Math.ceil(wrapperSize.value / itemSize.value) + benchComputed.value * 2)
 })
 const renderEndIndex = computed(() => renderStartIndex.value + renderItemsAmount.value)
 const renderBuffer = computed(() => {

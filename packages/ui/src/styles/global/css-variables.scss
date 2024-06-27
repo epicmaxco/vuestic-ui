@@ -7,7 +7,7 @@
 
   /* Primary block-type items styles */
   --va-block-border-radius: 0.375rem;
-  --va-block-border: thin solid rgba(52, 56, 85, 0.25);
+  --va-block-border: thin solid var(--va-background-element);
   --va-block-box-shadow: 0 2px 3px 0 rgba(52, 56, 85, 0.25);
 
   /* Primary control-type items styles */

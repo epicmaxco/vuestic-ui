@@ -1,3 +1,5 @@
+import { isFunction } from './is-function'
+
 /**
  * Return function result if function provided
  * Returns itself if not a function
@@ -9,7 +11,7 @@ export const unFunction = <
     fn: T,
     ...args: ARGS
   ): T extends (...args: any[]) => infer R ? R : T => {
-  if (typeof fn === 'function') {
+  if (isFunction(fn)) {
     return fn(...args) as any
   }
 

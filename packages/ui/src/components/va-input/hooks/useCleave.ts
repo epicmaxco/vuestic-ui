@@ -29,7 +29,7 @@ export const useCleaveProps = {
 export const useCleave = (
   element: Ref<HTMLInputElement | undefined>,
   props: ExtractPropTypes<typeof useCleaveProps>,
-  syncValue: WritableComputedRef<string | number>,
+  syncValue: WritableComputedRef<string | number | null>,
 ) => {
   const cleave = ref<Cleave>()
 
@@ -44,17 +44,29 @@ export const useCleave = (
     if (cleave.value) { cleave.value.destroy() }
   }
 
+  const mask = computed(() => getMask(props.mask))
+
+  const cleaveEnabled = computed(() => {
+    return mask.value && Object.keys(mask.value).length
+  })
+
   watchEffect(() => {
     destroyCleave()
 
     if (!element.value) { return }
 
-    const mask = getMask(props.mask)
-
     // Do not create cleave instance if mask is not defined
-    if (!mask) { return }
+    if (!cleaveEnabled.value || !mask.value) { return }
 
-    cleave.value = new Cleave(element.value, mask)
+    cleave.value = new Cleave(element.value, mask.value)
+
+    cleave.value!.properties.onValueChanged = ({ target: { rawValue, value } }) => {
+      if (props.returnRaw) {
+        syncValue.value = rawValue
+      } else {
+        syncValue.value = value
+      }
+    }
   })
 
   onBeforeUnmount(() => { destroyCleave() })
@@ -66,33 +78,20 @@ export const useCleave = (
       }
     }
 
-    return syncValue.value
+    return syncValue.value ?? ''
   })
 
   const onInput = (event: Event) => {
     const value = (event.target as HTMLInputElement).value
 
-    if (props.mask !== 'string' && !Object.keys(props.mask).length) {
+    if (!cleaveEnabled.value) {
       syncValue.value = value
-      return
     }
-
-    if (cleave.value) {
-      cleave.value.setRawValue(value)
-      if (props.returnRaw) {
-        syncValue.value = cleave.value.getRawValue()
-        return
-      }
-
-      syncValue.value = cleave.value.getFormattedValue()
-      return
-    }
-
-    syncValue.value = value
   }
 
   return {
     cleave,
+    cleaveEnabled,
     computedValue,
     onInput,
   }

@@ -26,7 +26,7 @@
             aria-hidden="true"
           />
         </NuxtLink>
-        <AlgoliaSearch class="header__searchbar" />
+        <LazyAlgoliaSearch class="header__searchbar" />
       </template>
 
       <template #right>
@@ -99,7 +99,7 @@
         <div class="mobile-options__items">
           <ThemeSwitch class="mb-8" />
           <SocialsLinks size="large" />
-          <StarsButton repo="epicmaxco/vuestic-ui" />
+          <LazyLandingStarsButton repo="epicmaxco/vuestic-ui" />
           <VersionDropdown />
         </div>
       </VaList>
@@ -109,16 +109,13 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { useBreakpoint } from 'vuestic-ui'
 
 import VersionDropdown from './header/VersionDropdown.vue'
 import ColorDropdown from './header/ColorDropdown.vue'
 import HeaderSelector from './header/HeaderSelector.vue'
 import VuesticLogo from './header/VuesticDocsLogo.vue'
-import AlgoliaSearch from '../AlgoliaSearch.vue'
 import ThemeSwitch from './header/ThemeSwitch.vue'
 import SocialsLinks from '../landing/SocialsLinks.vue'
-import StarsButton from '../landing/StarsButton.vue'
 
 const props = defineProps({
   isSidebarVisible: {

@@ -6,5 +6,8 @@
     "types": [
       "vite/client",
     ]
-  }
+  },
+  "exclude": [
+    "page-config/**/**/code/*.ts",
+  ]
 }

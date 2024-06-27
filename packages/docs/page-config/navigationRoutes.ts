@@ -61,6 +61,9 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: "tree-shaking",
         displayName: "Tree Shaking",
+        meta: {
+          badge: navigationBadge.updated('1.9.9'),
+        }
       },
       {
         name: "nuxt",
@@ -202,6 +205,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "Form",
         meta: {
           badge: navigationBadge.updated('1.6.5'),
+        }
+      },
+      {
+        name: "form-field",
+        displayName: "Form Field",
+        meta: {
+          badge: navigationBadge.new('1.9.8'),
         }
       },
       {
@@ -418,6 +428,13 @@ export const navigationRoutes: NavigationRoute[] = [
         }
       },
       {
+        name: 'sticky-scrollbar',
+        displayName: 'Sticky Scrollbar',
+        meta: {
+          badge : navigationBadge.new('1.9.10'),
+        }
+      },
+      {
         name: "hover",
         displayName: "Hover",
       },
@@ -600,6 +617,13 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: navigationBadge.new('1.6.0'),
         }
       },
+      {
+        name: 'unplugin-vue-components',
+        displayName: 'Auto import plugin',
+        meta: {
+          badge: navigationBadge.new('1.9.9'),
+        }
+      }
     ],
   },
 ];

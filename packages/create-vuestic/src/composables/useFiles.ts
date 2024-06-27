@@ -1,7 +1,7 @@
 import { resolvePath } from "../utils/resolve-path"
-import { dirname, resolve } from "path"
+import { dirname, resolve } from "pathe"
 import { useUserAnswers } from "./useUserAnswers"
-import { mkdir, readFile, writeFile } from "fs/promises"
+import { mkdir, readFile, rm, writeFile } from "fs/promises"
 import { existsSync } from "fs"
 
 export const useFiles = async () => {
@@ -31,6 +31,16 @@ export const useFiles = async () => {
     return writeFile(resolvedPath, content, { encoding: 'utf-8', flag: 'wx' })
   }
 
+  const removeFile = async (path: string) => {
+    const resolvedPath = resolve(process.cwd(), projectName, path)
+
+    if (!existsSync(resolvedPath)) {
+      return
+    }
+
+    return rm(resolvedPath, { recursive: true, force: true })
+  }
+
   const replaceFileContent = async (path: string, content: (existingContent: string) => string) => {
     const resolvedPath = resolvePath(process.cwd(), projectName, path)
 
@@ -50,6 +60,7 @@ export const useFiles = async () => {
   }
 
   return {
+    removeFile,
     addToTopOfFile,
     addFile,
     replaceFileContent,

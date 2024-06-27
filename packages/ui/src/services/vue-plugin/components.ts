@@ -91,4 +91,6 @@ export {
   VaMenuList,
   VaMenuItem,
   VaMenuGroup,
+  VaFormField,
+  VaStickyScrollbar,
 } from '../../components'

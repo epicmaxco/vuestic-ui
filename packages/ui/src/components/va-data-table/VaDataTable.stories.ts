@@ -60,6 +60,29 @@ export const FilteredEvent = () => ({
   `,
 })
 
+export const Sort = () => ({
+  components: { VaDataTable },
+  data: () => ({
+    columns: defineVaDataTableColumns([
+      { key: 'id', sortable: true },
+      { key: 'name', sortable: true },
+      { key: 'email', sortable: true },
+    ]),
+    items: items.map((item, index) => ({ ...item, id: index * 3 })),
+    sortBy: 'name',
+    sortingOrder: 'asc',
+  }),
+  template: `
+    <p>[sortBy]: {{ sortBy }}</p>
+    <p>[sortingOrder]: {{ sortingOrder }}</p>
+    <VaDataTable
+      v-model:sort-by="sortBy"
+      v-model:sorting-order="sortingOrder"
+      :items="items" :columns="columns"
+    />
+  `,
+})
+
 export const ColumnSortedEvent = () => ({
   components: { VaDataTable },
   data: () => ({
@@ -172,5 +195,36 @@ export const ExpandableRow = () => ({
       {{ rowData }}
     </template>
   </VaDataTable>
+  `,
+})
+
+export const NoDataText = () => ({
+  components: { VaDataTable, VaPagination },
+  data: () => ({ columns, items }),
+
+  template: `
+    <VaDataTable :items="[]" :columns="columns" no-data-html="Test no data" />
+  `,
+})
+
+export const NoDataTextSlot = () => ({
+  components: { VaDataTable, VaPagination },
+  data: () => ({ columns, items }),
+
+  template: `
+    <VaDataTable :items="[]" :columns="columns">
+      <template #no-data>
+        <div class="text-center">No data Test</div>
+      </template>
+    </VaDataTable>
+  `,
+})
+
+export const NoFilteredDataText = () => ({
+  components: { VaDataTable, VaPagination },
+  data: () => ({ columns, items }),
+
+  template: `
+    <VaDataTable :items="[{ name: 'BbB' }]" :columns="columns" filter="Aaa" no-data-filtered-html="Test no filtered data" />
   `,
 })

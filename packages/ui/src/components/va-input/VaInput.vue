@@ -47,22 +47,21 @@
 </template>
 
 <script lang="ts">
-import { computed, InputHTMLAttributes, nextTick, shallowRef, toRefs, useAttrs, useSlots, watch } from 'vue'
-import omit from 'lodash/omit.js'
-import pick from 'lodash/pick.js'
+import { computed, InputHTMLAttributes, shallowRef, toRefs, useAttrs, useSlots, watch, PropType } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import {
   useComponentPresetProp,
   useFormFieldProps,
-  useValidation, useValidationProps, useValidationEmits, ValidationProps,
+  useValidation, useValidationProps, useValidationEmits,
   useEmitProxy,
   useClearable, useClearableProps, useClearableEmits,
-  useTranslation,
+  useTranslation, useTranslationProp,
   useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
   useFocusable, useFocusableProps, useEvent,
 } from '../../composables'
+import type { ValidationProps } from '../../composables/useValidation'
 import { useCleave, useCleaveProps } from './hooks/useCleave'
 
 import type { AnyStringPropType } from '../../utils/types/prop-type'
@@ -70,6 +69,8 @@ import type { AnyStringPropType } from '../../utils/types/prop-type'
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { combineFunctions } from '../../utils/combine-functions'
+import { omit } from '../../utils/omit'
+import { pick } from '../../utils/pick'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 
@@ -106,7 +107,7 @@ const props = defineProps({
     // input
   placeholder: { type: String, default: '' },
   tabindex: { type: [String, Number], default: 0 },
-  modelValue: { type: [Number, String], default: '' },
+  modelValue: { type: [Number, String, null] as PropType<number | string | null>, default: '' },
   type: { type: String as AnyStringPropType<'text' | 'password'>, default: 'text' },
   inputClass: { type: String, default: '' },
   pattern: { type: String },
@@ -114,7 +115,7 @@ const props = defineProps({
   counter: { type: Boolean, default: false },
 
     // style
-  ariaResetLabel: { type: String, default: '$t:reset' },
+  ariaResetLabel: useTranslationProp('$t:reset'),
 
     /** Set value to input when model value is updated */
   strictBindInputValue: { type: Boolean, default: false },
@@ -138,7 +139,7 @@ const input = shallowRef<HTMLInputElement>()
 const { valueComputed } = useStateful(props, emit, 'modelValue')
 
 const reset = () => withoutValidation(() => {
-  emit('update:modelValue', props.clearValue)
+  valueComputed.value = props.clearValue
   emit('clear')
   resetValidation()
 })
@@ -155,10 +156,12 @@ const filterSlots = computed(() => {
 const { tp } = useTranslation()
 
 const {
+  isValid,
+  isTouched,
   isDirty,
   computedError,
   computedErrorMessages,
-  listeners: { onBlur, onFocus },
+  listeners: { onBlur },
   validationAriaAttributes,
   isLoading,
   withoutValidation,
@@ -177,7 +180,6 @@ const inputListeners = createInputListeners(emit)
 
 const inputEvents = {
   ...inputListeners,
-  onFocus: combineFunctions(onFocus, inputListeners.onFocus),
   onBlur: combineFunctions(onBlur, inputListeners.onBlur),
   onInput: combineFunctions(onInput, inputListeners.onInput),
 }
@@ -208,7 +210,7 @@ const setInputValue = (newValue: string) => {
 
 watch(computedValue, (newValue) => {
   setInputValue(String(newValue))
-})
+}, { immediate: true })
 
 useEvent('input', () => {
   setInputValue(String(valueComputed.value))
@@ -232,7 +234,8 @@ const computedChildAttributes = computed(() => (({
 
 const computedInputAttributes = computed(() => (({
   ...computedChildAttributes.value,
-  ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'minlength', 'maxlength']),
+  ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'name']),
+  ...pick(attrs, ['minlength', 'minlength']),
 }) as InputHTMLAttributes))
 
 const valueLengthComputed = computed(() =>
@@ -255,7 +258,9 @@ const wrapperProps = filterComponentProps(VaInputWrapperProps)
 const fieldListeners = createFieldListeners(emit)
 
 defineExpose({
+  isValid,
   isDirty,
+  isTouched,
   isLoading,
   computedError,
   computedErrorMessages,

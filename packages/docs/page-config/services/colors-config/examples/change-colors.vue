@@ -13,6 +13,8 @@
 </template>
 
 <script setup>
+import { useColors } from 'vuestic-ui';
+
 const { getComputedColor } = useColors();
 
 const colorsToChange = [

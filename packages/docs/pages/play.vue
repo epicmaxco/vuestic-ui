@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { getWindow } from 'vuestic-ui/src/utils/ssr'
-import { useIsMounted } from 'vuestic-ui/src/composables/useIsMounted'
 
 definePageMeta({
   layout: 'play',
+  // See: https://github.com/nuxt/nuxt/issues/13309
+  layoutTransition: true,
 })
 
 const makeCode = (script: string, template: string, style: string) => {

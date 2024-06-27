@@ -4,6 +4,7 @@ import apiDescription from './api-description';
 export default definePageConfig({
   blocks: [
     block.title("Select"),
+    block.tags('select', 'combobox'),
     block.paragraph("Select field components are used for collecting user provided information from a list of options. This component opens up a menu for the selection list and action."),
 
     block.subtitle("Examples"),
@@ -20,8 +21,9 @@ export default definePageConfig({
     block.example("Decorators", { title: "Decorators" }),
     block.example("ObjectOptions", {
       title: "Objects as options",
-      description: "You can use objects as options. Text will be showing from `text-by` property from object. Value can be also returned from select using `value-by` instead of whole object. Comparing object values is done by `track-by` prop or `value-by` if it is not provided. <br /> <em>Note: Using `text-by` without a `value-by` or `track-by` may cause inconsistencies in expected behavior.",
+      description: "You can use objects as options. Text will be showing from `text-by` property from object. Value can be also returned from select using `value-by` instead of whole object. Comparing object values is done by `track-by` prop or `value-by` if it is not provided. <br /> *Note: Using `text-by` without a `value-by` or `track-by` may cause inconsistencies in expected behavior.*",
     }),
+    block.alert("When using `Objects as options`, it's necessary to utilize `track-by` because ObjectOptions are compared by object reference by default. `track-by` allows resolving this comparison by either literal equality.", "warning", true),
     block.example("TrackBy", {
       title: "Track by",
       description: "Track by can be used if you have multiple options with same value."

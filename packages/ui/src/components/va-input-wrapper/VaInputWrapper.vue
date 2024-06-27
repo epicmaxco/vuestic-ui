@@ -4,118 +4,133 @@
     :class="wrapperClass"
     @click="$emit('click', $event)"
   >
-    <va-message-list
-      :color="messagesColor"
-      :model-value="messagesComputed"
-      :limit="errorLimit"
-      :inherit-slots="['message', 'messages']"
-    >
-      <template #default="{ ariaAttributes: messagesChildAriaAttributes }">
-        <fieldset class="va-input-wrapper__fieldset va-input-wrapper__size-keeper">
-          <VaInputLabel
-            v-if="($props.label || $slots.label) && !$props.innerLabel"
-            class="va-input-wrapper__label va-input-wrapper__label--outer"
-            v-bind="vaInputLabelProps"
-            :id="labelId"
-            #default="bind"
+    <fieldset class="va-input-wrapper__fieldset va-input-wrapper__size-keeper">
+      <va-message-list
+        :color="messagesColor"
+        :model-value="messagesComputed"
+        :limit="errorLimit"
+        :inherit-slots="['message', 'messages']"
+        #default="{ ariaAttributes: messagesChildAriaAttributes }"
+      >
+        <VaInputLabel
+          v-if="($props.label || $slots.label) && !$props.innerLabel"
+          class="va-input-wrapper__label va-input-wrapper__label--outer"
+          v-bind="vaInputLabelProps"
+          :id="labelId"
+          #default="bind"
+        >
+          <slot name="label" v-bind="bind" />
+        </VaInputLabel>
+        <div class="va-input-wrapper__container">
+          <div
+            v-if="$slots.prepend"
+            class="va-input-wrapper__prepend-inner"
+            @click="$emit('click-prepend')"
           >
-            <slot name="label" v-bind="bind" />
-          </VaInputLabel>
-          <div class="va-input-wrapper__container">
+            <slot name="prepend" />
+          </div>
+
+          <div
+            @click="$emit('click-field', $event)"
+            class="va-input-wrapper__field"
+          >
             <div
-              v-if="$slots.prepend"
+              v-if="$slots.prependInner"
               class="va-input-wrapper__prepend-inner"
-              @click="$emit('click-prepend')"
+              ref="container"
+              @click="$emit('click-prepend-inner', $event)"
             >
-              <slot name="prepend" />
+              <slot name="prependInner" />
             </div>
 
-            <div
-              @click="$emit('click-field', $event)"
-              class="va-input-wrapper__field"
-            >
-              <div
-                v-if="$slots.prependInner"
-                class="va-input-wrapper__prepend-inner"
-                ref="container"
-                @click="$emit('click-prepend-inner', $event)"
+            <div class="va-input-wrapper__text">
+              <VaInputLabel
+                v-if="($props.label || $slots.label) && $props.innerLabel"
+                class="va-input-wrapper__label va-input-wrapper__label--inner"
+                v-bind="vaInputLabelProps"
+                :id="labelId"
+                #default="bind"
               >
-                <slot name="prependInner" />
-              </div>
+                <slot name="label" v-bind="bind" />
+              </VaInputLabel>
 
-              <div class="va-input-wrapper__text">
-                <VaInputLabel
-                  v-if="($props.label || $slots.label) && $props.innerLabel"
-                  class="va-input-wrapper__label va-input-wrapper__label--inner"
-                  v-bind="vaInputLabelProps"
-                  :id="labelId"
-                  #default="bind"
-                >
-                  <slot name="label" v-bind="bind" />
-                </VaInputLabel>
-
-                <slot v-bind="{ ariaAttributes: { ...messagesChildAriaAttributes, ...ariaAttributes }, value: vModel }">
-                  <input v-bind="{ ...messagesChildAriaAttributes, ...ariaAttributes }" v-model="vModel" :placeholder="$props.placeholder" :readonly="$props.readonly" :disabled="$props.disabled" />
-                </slot>
-              </div>
-
-              <va-icon
-                v-if="success"
-                color="success"
-                name="va-check-circle"
-                class="va-input-wrapper__icon va-input-wrapper__icon--success"
-              />
-              <va-icon
-                v-if="error"
-                color="danger"
-                name="va-warning"
-                class="va-input-wrapper__icon va-input-wrapper__icon--error"
-              />
-              <va-icon
-                v-if="$props.loading"
-                :color="$props.color"
-                name="va-loading"
-                spin="counter-clockwise"
-                class="va-input-wrapper__icon va-input-wrapper__icon--loading"
-              />
-              <slot name="icon" />
-
-              <div
-                v-if="$slots.appendInner"
-                class="va-input-wrapper__append-inner"
-                @click="$emit('click-append-inner', $event)"
-              >
-                <slot name="appendInner" />
-              </div>
+              <slot v-bind="{ ariaAttributes: { ...messagesChildAriaAttributes, ...ariaAttributes }, value: vModel }">
+                <input
+                  v-bind="{ ...messagesChildAriaAttributes, ...ariaAttributes }"
+                  v-model="vModel"
+                  ref="inputRef"
+                  :placeholder="$props.placeholder"
+                  :readonly="$props.readonly"
+                  :disabled="$props.disabled"
+                />
+              </slot>
             </div>
 
+            <va-icon
+              v-if="success"
+              color="success"
+              name="va-check-circle"
+              class="va-input-wrapper__icon va-input-wrapper__icon--success"
+            />
+            <va-icon
+              v-if="error"
+              color="danger"
+              name="va-warning"
+              class="va-input-wrapper__icon va-input-wrapper__icon--error"
+            />
+            <va-icon
+              v-if="$props.loading"
+              :color="$props.color"
+              name="va-loading"
+              spin="counter-clockwise"
+              class="va-input-wrapper__icon va-input-wrapper__icon--loading"
+            />
+            <slot name="icon" />
+
             <div
-              v-if="$slots.append"
+              v-if="$slots.appendInner"
               class="va-input-wrapper__append-inner"
-              @click="$emit('click-append')"
+              @click="$emit('click-append-inner', $event)"
             >
-              <slot name="append" />
+              <slot name="appendInner" />
             </div>
           </div>
 
-          <div v-if="isCounterVisible" class="va-input-wrapper__counter-wrapper" :id="characterCountId">
-            <slot name="counter" v-bind="{ valueLength: counterValue, maxLength: $props.maxLength }">
-              <div class="va-input-wrapper__counter">
-                {{ counterComputed }}
-              </div>
-            </slot>
+          <div
+            v-if="$slots.append"
+            class="va-input-wrapper__append-inner"
+            @click="$emit('click-append')"
+          >
+            <slot name="append" />
           </div>
-        </fieldset>
-      </template>
-    </va-message-list>
+        </div>
+
+        <div v-if="isCounterVisible" class="va-input-wrapper__counter-wrapper" :id="characterCountId">
+          <slot name="counter" v-bind="{ valueLength: counterValue, maxLength: $props.maxLength }">
+            <div class="va-input-wrapper__counter">
+              {{ counterComputed }}
+            </div>
+          </slot>
+        </div>
+      </va-message-list>
+    </fieldset>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
-import pick from 'lodash/pick.js'
+import { computed, defineComponent, ref } from 'vue'
 
-import { useBem, useFormFieldProps, useValidationProps, useColors, useTextColor, useComponentPresetProp, useSyncProp, useFocusDeep } from '../../composables'
+import {
+  useBem,
+  useFormFieldProps,
+  useValidationProps,
+  useColors,
+  useTextColor,
+  useComponentPresetProp,
+  useSyncProp,
+  useFocusDeep,
+  useNumericProp,
+} from '../../composables'
 
 import { VaMessageList } from '../va-message-list'
 import VaInputLabel from './components/VaInputLabel.vue'
@@ -124,6 +139,7 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 
 import { useInputFieldAria, useInputFieldAriaProps } from './hooks/useInputFieldAria'
 import { WithSlotInheritance } from '../../utils/with-slot-inheritance'
+import { pick } from '../../utils/pick'
 
 const VaInputLabelProps = extractComponentProps(VaInputLabel)
 
@@ -140,7 +156,7 @@ export default defineComponent({
     ...VaInputLabelProps,
     modelValue: { type: null, default: '' },
     counter: { type: Boolean },
-    maxLength: { type: Number, default: undefined },
+    maxLength: { type: [Number, String], default: undefined },
 
     label: { type: String, default: '' },
     placeholder: { type: String, default: '' },
@@ -165,6 +181,7 @@ export default defineComponent({
   setup (props, { emit, slots }) {
     const { getColor } = useColors()
     const [vModel] = useSyncProp('modelValue', props, emit, '')
+    const inputRef = ref()
 
     const isFocused = useFocusDeep()
 
@@ -184,6 +201,7 @@ export default defineComponent({
     const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
 
     const { textColorComputed } = useTextColor(backgroundComputed)
+    const maxLengthComputed = useNumericProp('maxLength')
 
     const messagesColor = computed(() => {
       if (props.error) { return 'danger' }
@@ -194,7 +212,7 @@ export default defineComponent({
     const errorLimit = computed(() => props.error ? Number(props.errorCount) : 99)
     const isCounterVisible = computed(() => counterValue.value !== undefined)
     const counterComputed = computed(() =>
-      props.maxLength !== undefined ? `${counterValue.value}/${props.maxLength}` : counterValue.value,
+      maxLengthComputed.value !== undefined ? `${counterValue.value}/${maxLengthComputed.value}` : counterValue.value,
     )
 
     const {
@@ -209,6 +227,7 @@ export default defineComponent({
     const blur = () => { isFocused.value = false }
 
     return {
+      inputRef,
       focus,
       blur,
       labelId,
@@ -228,10 +247,6 @@ export default defineComponent({
       messagesComputed,
       errorLimit,
     }
-  },
-
-  methods: {
-
   },
 })
 </script>
@@ -402,6 +417,10 @@ export default defineComponent({
     .va-input-wrapper__text {
       padding-top: 12px;
       box-sizing: content-box;
+    }
+
+    .va-input-wrapper__field {
+      height: calc(var(--va-input-wrapper-min-height) - calc(var(--va-input-wrapper-border-width) * 2));
     }
 
     textarea {

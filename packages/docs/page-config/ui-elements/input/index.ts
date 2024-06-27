@@ -25,7 +25,7 @@ export default definePageConfig({
     }),
     block.example("Validate", {
       title: "Validation and error/success state",
-      description: "Support a simple validation using the rules prop. The prop accepts an array of callbacks. While validating rules, the current v-model value will be passed to the callback. This callback should return either true or a String, the error message. Also you can manually pass error/success prop to manage input state."
+      description: "Support a simple validation using the rules prop. The prop accepts an array of callbacks. While validating rules, the current v-model value will be passed to the callback. This callback should return either true or a String, the error message. Also you can manually pass error/success prop to manage input state. Notice that we use `immediate-validation` props to show error message without requiring user interaction."
     }),
     block.example("Slots", {
       title: "Slots",

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-  import { useColors } from 'vuestic-ui'
-
   const { colors } = useColors()
 
   const primary = computed(() => colors.primary)

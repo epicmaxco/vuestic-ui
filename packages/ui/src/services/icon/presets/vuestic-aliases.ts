@@ -2,6 +2,18 @@ import { defineIconAliases } from '../types/define-aliases'
 
 export const VuesticIconAliases = defineIconAliases([
   {
+    name: 'va-unsorted',
+    to: 'swap_vert',
+  },
+  {
+    name: 'va-sort-asc',
+    to: 'va-arrow-up',
+  },
+  {
+    name: 'va-sort-desc',
+    to: 'va-arrow-down',
+  },
+  {
     name: 'va-arrow-first',
     to: 'mi-first_page',
   },

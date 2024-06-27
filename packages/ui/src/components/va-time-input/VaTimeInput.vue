@@ -9,20 +9,11 @@
     <template #anchor>
       <va-input-wrapper
         class="va-time-input__anchor"
+        ref="input"
         :style="cursorStyleComputed"
-        v-bind="computedInputWrapperProps"
-        @click.stop="toggleDropdown"
+        v-bind="{ ...computedInputWrapperProps, ...validationAriaAttributes, ...computedInputListeners }"
+        @change="onInputTextChanged"
       >
-        <template #default>
-          <input
-            ref="input"
-            class="va-time-input__input"
-            v-bind="inputAttributesComputed"
-            v-on="computedInputListeners"
-            @change="onInputTextChanged"
-          />
-        </template>
-
         <template
           v-for="name in filteredSlots"
           :key="name"
@@ -82,8 +73,7 @@
 </template>
 
 <script lang="ts">
-import { computed, PropType, shallowRef, nextTick, useSlots, useAttrs } from 'vue'
-import omit from 'lodash/omit'
+import { computed, PropType, shallowRef, nextTick, useSlots, useAttrs, watch } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import {
@@ -92,7 +82,7 @@ import {
   useClearable, useClearableEmits, useClearableProps,
   useFocus, useFocusEmits,
   useStateful, useStatefulEmits, useStatefulProps,
-  useTranslation,
+  useTranslation, useTranslationProp,
   useDropdownable, useDropdownableProps, useDropdownableEmits, useLongPressKey,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
@@ -132,9 +122,9 @@ const props = defineProps({
   leftIcon: { type: Boolean, default: false },
   icon: { type: String, default: 'schedule' },
 
-  ariaLabel: { type: String, default: '$t:selectedTime' },
-  ariaResetLabel: { type: String, default: '$t:resetTime' },
-  ariaToggleDropdownLabel: { type: String, default: '$t:toggleDropdown' },
+  ariaLabel: useTranslationProp('$t:selectedTime'),
+  ariaResetLabel: useTranslationProp('$t:resetTime'),
+  ariaToggleDropdownLabel: useTranslationProp('$t:toggleDropdown'),
 })
 
 const emit = defineEmits([
@@ -228,7 +218,14 @@ const {
   withoutValidation,
   resetValidation,
   isDirty,
+  isTouched,
 } = useValidation(props, emit, { reset, focus, value: valueComputed })
+
+watch(doShowDropdown, (v) => {
+  if (!v) {
+    isTouched.value = true
+  }
+})
 
 const {
   canBeCleared,
@@ -248,6 +245,7 @@ const computedInputWrapperProps = computed(() => ({
   error: computedError.value,
   errorMessages: computedErrorMessages.value,
   readonly: props.readonly || !props.manualInput,
+  modelValue: valueText.value,
 }))
 
 const viewToNumber = {
@@ -275,16 +273,15 @@ useLongPressKey(input, {
 })
 
 const computedInputListeners = ({
-  focus: () => {
+  onFocus: () => {
     if (props.disabled) { return }
 
     focusListener()
 
     if (props.readonly) { return }
     onFocus()
-    listeners.onFocus()
   },
-  blur: () => {
+  onBlur: () => {
     if (props.disabled) { return }
 
     blurListener()
@@ -316,6 +313,7 @@ const showDropdown = (event?: KeyboardEvent, cancel?: boolean, prevent?: boolean
 const checkProhibitedDropdownOpening = (e?: KeyboardEvent) => {
   if (isOpenSync.value) { return false }
   if (props.disabled || props.readonly) { return true }
+  if (e === undefined) { return false }
   return props.manualInput && e?.code !== 'Space'
 }
 
@@ -349,24 +347,10 @@ const { tp } = useTranslation()
 
 const attrs = useAttrs()
 
-const inputAttributesComputed = computed(() => ({
-  readonly: props.readonly || !props.manualInput,
-  disabled: props.disabled,
-  tabindex: props.disabled ? -1 : 0,
-  value: valueText.value,
-  'aria-label': props.label || tp(props.ariaLabel),
-  'aria-required': props.requiredMark,
-  'aria-disabled': props.disabled,
-  'aria-readonly': props.readonly,
-  ...validationAriaAttributes.value,
-  ...omit(attrs, ['class', 'style']),
-}))
-
 const dropdownPropsComputed = computed(() => ({
   ...dropdownProps.value,
-  keyboardNavigation: true,
   innerAnchorSelector: '.va-input-wrapper__field',
-  trigger: 'none' as const,
+  trigger: ['click', 'right-click', 'space', 'enter'] as const,
 }))
 
 const timePickerProps = filterComponentProps(extractComponentProps(VaTimePicker))
@@ -376,6 +360,7 @@ defineExpose({
   isValid,
   value: valueComputed,
   isDirty,
+  isTouched,
   focus,
   blur,
   reset,
@@ -386,10 +371,3 @@ defineExpose({
   hideDropdown,
 })
 </script>
-
-<style lang="scss">
-
-.va-time-input__side-button {
-  pointer-events: none;
-}
-</style>

@@ -1,126 +1,106 @@
 <template>
-  <div
-    v-if="$props.autocomplete"
-    class="va-select-content__autocomplete"
-  >
+  <div class="va-select-content" @click="handleClick">
+    <span
+      v-if="isPlaceholder && !$props.autocomplete"
+      class="va-select-content__placeholder"
+    >
+      <input v-bind="ariaAttributes" :placeholder="$props.placeholder" readonly />
+    </span>
+
     <slot
-      v-if="$props.multiple || $slots.content"
+      v-else-if="!(props.autocomplete && !props.multiple)"
       name="content"
       v-bind="{
-        value: $props.value,
+        value: slotValue,
         valueString: $props.valueString,
+        valueArray: $props.value,
         tabindex: $props.tabindex,
         ariaAttributes,
       }"
     >
-      <template v-if="value.length">
-        <span
-          v-for="(option, index) in value"
-          :key="$props.getText(option)"
-        >
-          <va-icon
-            v-if="getIcon(option)"
-            size="small"
-            class="va-select-option__icon"
-            :name="getIcon(option)"
-          />
-          {{ `${$props.getText(option)}${index + 1 === value.length ? '' : ', '}` }}
+      <template v-for="(option, index) in $props.value" :key="index">
+        <span v-if="option !== ''" class="va-select-content__option">
+          <slot name="option-content" v-bind="{ option, index, selectOption: () => void 0 }">
+            <va-icon
+              v-if="getIcon(option)"
+              size="small"
+              class="va-select-option__icon"
+              :name="getIcon(option)"
+            />
+            {{ getText(option) }}
+          </slot>
         </span>
-      </template>
-
-      <template v-else>
-        {{ $props.valueString }}
+        <span class="va-select-content__separator" v-if="index < $props.value.length - 1">
+          {{ $props.separator }}
+        </span>
       </template>
     </slot>
 
     <input
+      v-if="$props.autocomplete"
       v-bind="ariaAttributes"
-      ref="autocompleteInput"
       v-model="autocompleteInputValueComputed"
+      class="va-select-content__autocomplete"
+      ref="autocompleteInput"
+      autocomplete="off"
+      aria-autocomplete="list"
       :placeholder="$props.placeholder"
       :disabled="$props.disabled"
       :readonly="$props.readonly"
-      autocomplete="off"
-      aria-autocomplete="list"
       @keydown.up.stop.prevent="$emit('focus-prev')"
       @keydown.down.stop.prevent="$emit('focus-next')"
       @keydown.enter.stop.prevent="$emit('select-option')"
       @keydown="handleBackspace"
     />
+
+    <slot
+      name="hiddenOptionsBadge"
+      v-bind="{
+        amount: hiddenSelectedOptionsAmount,
+        isShown: $props.isAllOptionsShown,
+        toggle: toggleHiddenOptionsState,
+      }"
+    >
+      <va-badge
+        v-if="hiddenSelectedOptionsAmountComputed && !$props.isAllOptionsShown"
+        class="va-select-content__state-icon"
+        color="info"
+        :text="`+${hiddenSelectedOptionsAmountComputed}`"
+        :tabindex="$props.tabindex"
+        @click.stop="toggleHiddenOptionsState"
+      />
+    </slot>
+
+    <slot
+      name="hideOptionsButton"
+      v-bind="{
+        isShown: $props.isAllOptionsShown,
+        toggle: toggleHiddenOptionsState,
+      }"
+    >
+      <va-icon
+        v-if="$props.isAllOptionsShown"
+        role="button"
+        class="va-select-content__state-icon"
+        size="small"
+        name="reply"
+        :tabindex="$props.tabindex"
+        @click.stop="toggleHiddenOptionsState"
+      />
+    </slot>
   </div>
-
-  <span
-    v-else-if="isPlaceholder"
-    class="va-select-content__placeholder"
-  >
-   <input v-bind="ariaAttributes" :placeholder="$props.placeholder" readonly />
-  </span>
-
-  <slot
-    v-else
-    name="content"
-    v-bind="{
-      valueString: $props.valueString,
-      value: $props.value,
-      tabindex: $props.tabindex,
-      ariaAttributes,
-    }"
-  >
-    <va-icon
-      v-if="getIcon(value[0])"
-      size="small"
-      class="va-select-option__icon"
-      :name="getIcon(value[0])"
-    />
-    {{ $props.valueString }}
-  </slot>
-
-  <slot
-    name="hiddenOptionsBadge"
-    v-bind="{
-      amount: $props.hiddenSelectedOptionsAmount,
-      isShown: $props.isAllOptionsShown,
-      toggle: toggleHiddenOptionsState,
-    }"
-  >
-    <va-badge
-      v-if="$props.hiddenSelectedOptionsAmount && !$props.isAllOptionsShown"
-      class="va-select-content__state-icon"
-      color="info"
-      :text="`+${$props.hiddenSelectedOptionsAmount}`"
-      :tabindex="$props.tabindex"
-      @click.stop="toggleHiddenOptionsState"
-    />
-  </slot>
-
-  <slot
-    name="hideOptionsButton"
-    v-bind="{
-      isShown: $props.isAllOptionsShown,
-      toggle: toggleHiddenOptionsState,
-    }"
-  >
-    <va-icon
-      v-if="$props.isAllOptionsShown"
-      role="button"
-      class="va-select-content__state-icon"
-      size="small"
-      name="reply"
-      :tabindex="$props.tabindex"
-      @click.stop="toggleHiddenOptionsState"
-    />
-  </slot>
 </template>
 
 <script lang="ts" setup>
-import { ref, toRefs, computed, watch, onMounted, type PropType } from 'vue'
+import { ref, toRefs, computed, watch, onMounted, type PropType, ComputedRef } from 'vue'
 
-import { useFormFieldProps } from '../../../../composables'
+import { useFormFieldProps, useNumericProp } from '../../../../composables'
 
 import { VaIcon } from '../../../va-icon'
 import { VaBadge } from '../../../va-badge'
 
 import type { SelectOption } from '../../../index'
+import { isObject } from '../../../../utils/is-object'
 
 defineOptions({
   name: 'VaSelectContent',
@@ -132,9 +112,10 @@ const props = defineProps({
   ariaAttributes: { type: Object },
   value: { type: Array as PropType<SelectOption[]>, required: true },
   valueString: { type: String },
+  separator: { type: String, default: ', ' },
   placeholder: { type: String, default: '' },
   tabindex: { type: [String, Number], default: 0 },
-  hiddenSelectedOptionsAmount: { type: Number, default: 0 },
+  hiddenSelectedOptionsAmount: { type: [Number, String], default: 0 },
   isAllOptionsShown: { type: Boolean, default: false },
   autocomplete: { type: Boolean, default: false },
   focused: { type: Boolean, default: false },
@@ -157,6 +138,8 @@ const autocompleteInputValueComputed = computed({
   get: () => props.autocompleteInputValue,
   set: (v: string) => emit('autocomplete-input', v),
 })
+
+const hiddenSelectedOptionsAmountComputed = useNumericProp('hiddenSelectedOptionsAmount') as ComputedRef<number>
 
 onMounted(() => {
   if (props.multiple) { return }
@@ -182,23 +165,36 @@ const handleBackspace = (e: KeyboardEvent) => {
   }
 }
 
-const getIcon = (option: SelectOption) => typeof option === 'object' ? (option.icon as string) : undefined
+const handleClick = (e: MouseEvent) => {
+  if (props.autocomplete) {
+    autocompleteInput.value?.focus()
+    e.stopPropagation()
+  }
+}
+
+const getIcon = (option: SelectOption) => isObject(option) ? (option.icon as string) : undefined
+
+const slotValue = computed(() => {
+  if (props.multiple) { return value.value }
+
+  return value.value[0]
+})
 </script>
 
 <style lang="scss">
 @import '../../variables';
 
 .va-select-content {
-  &__autocomplete {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--va-select-content-autocomplete-gap);
-    color: var(--va-select-content-autocomplete-color);
-    font-size: var(--va-input-font-size);
-    line-height: var(--va-select-content-autocomplete-line-height);
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
 
-    & input {
-      flex: 1 1;
+  &__autocomplete {
+    flex: 1 1;
+    margin-left: 0.25rem;
+
+    &:first-child {
+      margin-left: 0;
     }
   }
 
@@ -209,6 +205,10 @@ const getIcon = (option: SelectOption) => typeof option === 'object' ? (option.i
     color: var(--va-input-placeholder-text-color);
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
+  }
+
+  &__separator {
+    white-space: pre;
   }
 
   &__state-icon {

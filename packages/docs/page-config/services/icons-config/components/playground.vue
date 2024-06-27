@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="demo-header mb-2">
-      <div class="col">
+      <div class="col px-0">
         <VaSelect
           v-model="exampleValue"
           :rounded="false"
@@ -12,9 +12,9 @@
       </div>
 
       <div
-        class="col w-full"
+        class="pr-0 w-full"
       >
-        <div class="va-code-snippet">
+        <div class="va-code-snippet py-2">
           <span class="tag">va-icon name="<CodeInput
             v-model="iconName"
             class="code-input"

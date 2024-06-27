@@ -2,7 +2,6 @@
   <div class="va-collapse" :class="computedClasses">
     <div
       class="va-collapse__header-wrapper"
-      role="heading"
       @click="toggle"
       @keydown.enter="toggle"
       @keydown.space="toggle"
@@ -81,8 +80,6 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref, shallowRef, watch } from 'vue'
-import pick from 'lodash/pick.js'
-
 import {
   useColors, useTextColor,
   useBem,
@@ -94,10 +91,11 @@ import {
 } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
-import { generateUniqueId } from '../../utils/uuid'
+import { useComponentUuid } from '../../composables/useComponentUuid'
 
 import { VaIcon } from '../va-icon'
-import isNil from 'lodash/isNil'
+import { pick } from '../../utils/pick'
+import { isNilValue } from '../../utils/isNilValue'
 
 defineOptions({
   name: 'VaCollapse',
@@ -135,21 +133,21 @@ const computedModelValue = computed({
       return valueComputed.value
     }
 
-    if (!isNil(accordionItemValue)) {
+    if (!isNilValue(accordionItemValue)) {
       return accordionItemValue.value
     }
 
     return valueComputed.value
   },
   set (v) {
-    if (!isNil(accordionItemValue)) {
+    if (!isNilValue(accordionItemValue)) {
       accordionItemValue.value = v
     }
     valueComputed.value = v
   },
 })
 
-if (valueComputed.userProvided && !isNil(accordionItemValue)) {
+if (valueComputed.userProvided && !isNilValue(accordionItemValue)) {
   accordionItemValue.value = valueComputed.value
 }
 
@@ -179,9 +177,9 @@ const headerBackground = computed(() => {
   return props.color ? getColor(props.color) : undefined
 })
 
-const uniqueId = computed(generateUniqueId)
-const headerIdComputed = computed(() => `header-${uniqueId.value}`)
-const panelIdComputed = computed(() => `panel-${uniqueId.value}`)
+const uniqueId = useComponentUuid()
+const headerIdComputed = computed(() => `header-${uniqueId}`)
+const panelIdComputed = computed(() => `panel-${uniqueId}`)
 const tabIndexComputed = computed(() => props.disabled ? -1 : 0)
 
 const headerAttributes = computed(() => ({

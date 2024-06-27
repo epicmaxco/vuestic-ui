@@ -1,4 +1,4 @@
-import { computed, onBeforeUnmount, onMounted, shallowReactive } from 'vue'
+import { Ref, computed, onBeforeUnmount, onMounted, shallowReactive, watch } from 'vue'
 import { generateUniqueId } from '../utils/uuid'
 
 const createInstance = () => {
@@ -7,7 +7,7 @@ const createInstance = () => {
 
 const zIndexStack = shallowReactive<ReturnType<typeof createInstance>[]>([])
 
-export const useZIndex = () => {
+export const useZIndex = (isVisible: Ref<boolean>) => {
   const instance = createInstance()
 
   const register = () => {
@@ -34,6 +34,24 @@ export const useZIndex = () => {
 
   const isTop = computed(() => zIndex.value === zIndexStack.length - 1)
   const isLowest = computed(() => zIndex.value === 0)
+
+  onMounted(() => {
+    if (isVisible.value) {
+      register()
+    }
+  })
+
+  onBeforeUnmount(() => {
+    unregister()
+  })
+
+  watch(isVisible, (value) => {
+    if (value) {
+      register()
+    } else {
+      unregister()
+    }
+  })
 
   return {
     zIndex,

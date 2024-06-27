@@ -37,7 +37,7 @@ describe('VaSelect', () => {
     wrapper.vm.showDropdownContentComputed = true
     await wrapper.vm.$nextTick()
     const dropdownContent = wrapper.getComponent(VaDropdownContent)
-    expect(dropdownContent.find('.va-select-option--selected').text()).toBe(`${options[1].label}   check`)
+    expect(dropdownContent.find('.va-select-option--selected').text()).toBe(`${options[1].label}  check`)
     expect(wrapper.find('.va-input-wrapper__text').text()).toBe(String(options[1].label))
   })
 

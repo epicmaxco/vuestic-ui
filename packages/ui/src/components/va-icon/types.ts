@@ -3,4 +3,21 @@ import type { ExtractIconAliasesName } from '../../services/icon/types/define-al
 
 type DefaultIconAliases = ExtractIconAliasesName<typeof VuesticIconAliases>
 
-export type VaIconName = DefaultIconAliases
+/**
+ * This is a placeholder meant to be implemented via TypeScript's Module
+ * Augmentation feature to allow key type inference
+ *
+ * @example
+ * ```ts
+ * declare module 'vuestic-ui' {
+ *   interface CustomIconAliasesNKeys {
+ *     from: string
+ *   }
+ * }
+ * ```
+ *
+ * @see https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+ */
+export interface CustomIconAliasesNKeys {}
+
+export type VaIconName = DefaultIconAliases | keyof CustomIconAliasesNKeys

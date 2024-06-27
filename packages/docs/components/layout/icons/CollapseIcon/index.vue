@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useColors } from 'vuestic-ui';
+
   import VaIconMenu from './VaIconMenu.vue';
   import VaIconMenuCollapsed from './VaIconMenuCollapsed.vue';
 

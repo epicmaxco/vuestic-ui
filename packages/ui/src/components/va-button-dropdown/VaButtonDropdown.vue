@@ -11,7 +11,6 @@
           :aria-label="tp($props.ariaLabel)"
           v-bind="{ ...computedButtonIcons, ...buttonPropsComputed }"
           v-on="listeners"
-          @keydown.esc.prevent="hideDropdown"
         >
           <slot name="label">
             {{ label }}
@@ -77,9 +76,7 @@
 </template>
 
 <script lang="ts">
-import { PropType, computed, ref, useSlots } from 'vue'
-import omit from 'lodash/omit.js'
-
+import { PropType, computed, useSlots } from 'vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
 import {
@@ -88,12 +85,13 @@ import {
   useStateful, useStatefulProps,
   useEmitProxy,
   usePlacementAliasesProps,
-  useTranslation,
+  useTranslation, useTranslationProp,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { omit } from '../../utils/omit'
 
 const { createEmits, createVOnListeners: createListeners } = useEmitProxy(['click'])
 const { createEmits: createMainButtonEmits, createVOnListeners: createMainButtonListeners } = useEmitProxy(
@@ -140,7 +138,7 @@ const props = defineProps({
   loading: { type: Boolean, default: false },
   label: { type: String },
 
-  ariaLabel: { type: String, default: '$t:toggleDropdown' },
+  ariaLabel: useTranslationProp('$t:toggleDropdown'),
 })
 
 const emit = defineEmits(['update:modelValue', ...createEmits(), ...createMainButtonEmits()])
@@ -163,20 +161,19 @@ const computedButtonIcons = computed(() => {
 })
 
 const buttonPropsFiltered = computed(() => {
-  let ignoredProps = ['to', 'href', 'loading', 'icon']
+  const ignoredProps = ['to', 'href', 'loading', 'icon'] as const
   const presetProps = [
     'plain',
     'textOpacity', 'backgroundOpacity',
     'hoverOpacity', 'hoverBehavior', 'hoverOpacity',
     'pressedOpacity', 'pressedBehavior', 'pressedOpacity',
-  ]
+  ] as const
 
   if (props.preset) {
-    ignoredProps = [...ignoredProps, ...presetProps]
+    return Object.keys(omit(VaButtonProps, [...ignoredProps, ...presetProps]))
   }
 
-  const filteredProps = omit(VaButtonProps, ignoredProps)
-  return Object.keys(filteredProps)
+  return Object.keys(omit(VaButtonProps, ignoredProps))
 })
 const buttonPropsComputed = computed(
   () => Object.entries(props)

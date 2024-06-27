@@ -9,11 +9,12 @@ import { CursorAnchor } from '../types'
  * @param anchorRef anchor element ref
  * @param noUpdate flag that indicates that we should not update the position of the dropdown
  */
-export const useCursorAnchor = (anchorRef: Ref<HTMLElement | undefined>, noUpdate: Ref<boolean>): ComputedRef<CursorAnchor> => {
+export const useCursorAnchor = (anchorRef: Ref<HTMLElement | undefined>, enabled: Ref<boolean>): ComputedRef<CursorAnchor> => {
   const position = reactive({ x: 0, y: 0 })
 
   useEvent(['mousemove', 'mousedown', 'mouseup'], (e: MouseEvent) => {
-    if (noUpdate.value) { return }
+    if (!enabled.value) { return }
+
     const { x, y } = anchorRef.value?.getBoundingClientRect() ?? { x: 0, y: 0 }
 
     position.x = e.clientX - x

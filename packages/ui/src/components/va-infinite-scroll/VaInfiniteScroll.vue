@@ -32,15 +32,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType, ref, shallowRef, watch } from 'vue'
-import debounceFn from 'lodash/debounce.js'
+import { computed, ComputedRef, PropType, ref, shallowRef, watch } from 'vue'
+import { debounce as debounceFn } from '../../utils/debounce'
 
 import { sleep } from '../../utils/sleep'
-import { useColors } from '../../composables'
+import { useColors, useComponentPresetProp, useNumericProp } from '../../composables'
 import { useScroll } from './hooks/useScroll'
 
 import { VaProgressCircle } from '../va-progress-circle'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 defineOptions({
   name: 'VaInfiniteScroll',
@@ -49,11 +48,11 @@ defineOptions({
 const props = defineProps({
   ...useComponentPresetProp,
   load: { type: Function, required: true },
-  offset: { type: Number, default: 500 },
+  offset: { type: [Number, String], default: 500 },
   reverse: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   scrollTarget: { type: [String, Object] as PropType<string | HTMLElement | undefined>, default: null },
-  debounce: { type: Number, default: 100 },
+  debounce: { type: [Number, String], default: 100 },
   tag: { type: String, default: 'div' },
 })
 
@@ -86,6 +85,9 @@ const {
   removeScrollListener,
 } = useScroll(props, scrollTargetElement, debouncedLoad)
 
+const offsetComputed = useNumericProp('offset') as ComputedRef<number>
+const debounceComputed = useNumericProp('debounce') as ComputedRef<number>
+
 const { getColor } = useColors()
 
 const spinnerColor = computed(() => {
@@ -97,7 +99,7 @@ const spinnerHeight = computed(() => {
 })
 
 const computedOffset = computed(() => {
-  return props.offset + spinnerHeight.value
+  return offsetComputed.value + spinnerHeight.value
 })
 
 const stop = () => {
@@ -187,7 +189,7 @@ const onError = () => {
     .then(resume)
 }
 
-watch(() => props.debounce, (value) => {
+watch(() => debounceComputed.value, (value) => {
   debouncedLoad.value = debounceFn(onLoad, value)
 }, { immediate: true })
 

@@ -36,7 +36,7 @@
           @keypress.prevent="toggleSelection"
         >
         <va-icon
-          v-show="isActive"
+          v-if="isActive"
           class="va-checkbox__icon"
           :name="computedIconName"
           :color="textColorComputed"
@@ -59,7 +59,7 @@
 <script lang="ts">
 import { computed, PropType, shallowRef } from 'vue'
 
-import { generateUniqueId } from '../../utils/uuid'
+import { useComponentUuid } from '../../composables/useComponentUuid'
 import {
   useComponentPresetProp,
   useKeyboardOnlyFocus,
@@ -111,6 +111,11 @@ const {
   toggleSelection,
   onBlur,
   onFocus,
+  isDirty,
+  isTouched,
+  isError,
+  isLoading,
+  isValid,
 } = useSelectable(props, emit, elements)
 const { getColor } = useColors()
 const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
@@ -172,9 +177,9 @@ const computedIconName = computed(() => props.indeterminate && isIndeterminate.v
   : props.checkedIcon,
 )
 
-const uniqueId = computed(generateUniqueId)
-const computedId = computed(() => props.id || uniqueId.value)
-const computedName = computed(() => props.name || uniqueId.value)
+const uniqueId = useComponentUuid()
+const computedId = computed(() => props.id || String(uniqueId))
+const computedName = computed(() => props.name || String(uniqueId))
 const inputAttributesComputed = computed(() => ({
   name: computedName.value,
   disabled: props.disabled,
@@ -190,6 +195,11 @@ const displayVal = computed(() => props.vertical ? '--va-checkbox-display-flex' 
 
 defineExpose({
   toggleSelection,
+  isDirty,
+  isTouched,
+  isError,
+  isLoading,
+  isValid,
 })
 </script>
 

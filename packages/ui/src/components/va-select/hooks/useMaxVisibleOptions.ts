@@ -8,7 +8,7 @@ export const useMaxVisibleOptionsProps = {
   maxVisibleOptions: { type: Number || String, default: 0 },
 }
 
-type UseMaxVisibleOptionsProps = ExtractPropTypes<typeof useMaxVisibleOptionsProps> & { multiple: boolean, modelValue: SelectOption | SelectOption[] }
+type UseMaxVisibleOptionsProps = ExtractPropTypes<typeof useMaxVisibleOptionsProps> & { multiple: boolean, modelValue?: SelectOption | SelectOption[] }
 
 export const useMaxVisibleOptions = (
   props: UseMaxVisibleOptionsProps,

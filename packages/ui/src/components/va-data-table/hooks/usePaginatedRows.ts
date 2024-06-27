@@ -4,7 +4,7 @@ import { useCurrentPageProp } from './useCommonProps'
 
 import { useThrottleValue, useThrottleProps } from '../../../composables'
 
-import type { DataTableRow } from '../types'
+import type { DataTableItem, DataTableRow } from '../types'
 
 export const usePaginatedRowsProps = {
   ...useThrottleProps,
@@ -12,9 +12,13 @@ export const usePaginatedRowsProps = {
   perPage: { type: Number as PropType<number | undefined> },
 }
 
-export const usePaginatedRows = (
-  sortedRows: Ref<DataTableRow[]>,
-  props: ExtractPropTypes<typeof usePaginatedRowsProps>,
+type PaginatedProps<Item extends DataTableItem> = Omit<ExtractPropTypes<typeof usePaginatedRowsProps>, 'items'> & {
+  items: Item[]
+}
+
+export const usePaginatedRows = <Item extends DataTableItem>(
+  sortedRows: Ref<DataTableRow<Item>[]>,
+  props: PaginatedProps<Item>,
 ) => {
   const paginatedRows = computed(() => {
     if (!props.perPage || props.perPage < 0) {

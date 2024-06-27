@@ -13,12 +13,12 @@ export const useFilterableProps = {
 export type TFilteredArgs = { items: DataTableItem[], itemsIndexes: number[] }
 export type TFilterableEmits = (event: 'filtered', arg: TFilteredArgs) => void
 
-export const useFilterable = (
-  rawRows: Ref<DataTableRow[]>,
+export const useFilterable = <Item extends DataTableRow>(
+  rawRows: Ref<Item[]>,
   props: ExtractPropTypes<typeof useFilterableProps>,
   emit: TFilterableEmits,
 ) => {
-  const filteredRows = computed<DataTableRow[]>(() => {
+  const filteredRows = computed<Item[]>(() => {
     if (!rawRows.value.length) {
       return rawRows.value
     }
@@ -27,11 +27,16 @@ export const useFilterable = (
       return rawRows.value
     }
 
-    return rawRows.value.filter(row => row.cells.some(cell => {
-      return typeof props.filterMethod === 'function'
-        ? props.filterMethod(cell.source)
-        : cell.value.toLowerCase().includes(props.filter.toLowerCase())
-    }))
+    return rawRows.value.filter((row) =>
+      row.cells.some((cell) => {
+        if (typeof props.filterMethod === 'function') {
+          return props.filterMethod(cell.source, cell)
+        }
+
+        const cellRegex = new RegExp(props.filter, 'i')
+        return cellRegex.test(cell.value)
+      }),
+    )
   })
 
   const filteredRowsThrottled = useThrottleValue(filteredRows, props)

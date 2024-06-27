@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts">
-import { useTextColor } from '../../composables/useTextColor'
+import { VaButton } from '../'
 import { computed, nextTick, PropType, ref, watch } from 'vue'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/component-options'
@@ -70,12 +70,14 @@ import { useColors, useStateful, useStatefulProps, useStatefulEmits } from '../.
 import { useView } from './hooks/view'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
-import { DatePickerModelValue, DatePickerType, DatePickerView } from './types'
+import { DatePickerModelValue, DatePickerType, DatePickerViewProp } from './types'
 
 import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
 import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
 import VaMonthPicker from './components/VaMonthPicker/VaMonthPicker.vue'
 import VaYearPicker from './components/VaYearPicker/VaYearPicker.vue'
+
+import { defineChildProps, useChildComponents } from '../../composables/useChildComponents'
 
 const DEFAULT_MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DEFAULT_WEEKDAY_NAMES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']
@@ -87,6 +89,11 @@ defineOptions({
 })
 
 const props = defineProps({
+  ...defineChildProps({
+    prevButton: VaButton,
+    nextButton: VaButton,
+    middleButton: VaButton,
+  }),
   ...useStatefulProps,
   ...useComponentPresetProp,
   ...extractComponentProps(VaDatePickerHeader),
@@ -96,7 +103,7 @@ const props = defineProps({
   modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
   monthNames: { type: Array as PropType<string[]>, default: DEFAULT_MONTH_NAMES },
   weekdayNames: { type: Array as PropType<string[]>, default: DEFAULT_WEEKDAY_NAMES },
-  view: { type: Object as PropType<DatePickerView> },
+  view: { type: Object as PropType<DatePickerViewProp> },
   type: { type: String as PropType<DatePickerType>, default: 'day' },
   readonly: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
@@ -105,6 +112,8 @@ const props = defineProps({
   color: { type: String, default: undefined },
   weekendsColor: { type: String, default: undefined },
 })
+
+useChildComponents(props)
 
 const emit = defineEmits([
   ...useStatefulEmits,
@@ -190,6 +199,7 @@ const yearPickerProps = filterComponentProps(extractComponentProps(VaYearPicker)
 
 defineExpose({
   focus: focusCurrentPicker,
+  focusCurrentPicker,
 })
 </script>
 

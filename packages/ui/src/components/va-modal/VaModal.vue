@@ -2,9 +2,6 @@
   <div
     ref="rootElement"
     class="va-modal-entry"
-    role="dialog"
-    aria-modal="true"
-    :aria-labelledby="title"
     :class="$props.anchorClass"
   >
     <div v-if="$slots.anchor" class="va-modal__anchor" v-bind="teleportFromAttrs">
@@ -15,15 +12,23 @@
       <WithTransition
         name="va-modal"
         :isTransition="!$props.withoutTransitions"
-        appear
         :duration="300"
+        :style="{ zIndex: zIndexComputed }"
+        appear
         v-bind="{ ...$attrs, ...teleportedAttrs }"
         @beforeEnter="onBeforeEnterTransition"
         @afterEnter="onAfterEnterTransition"
         @beforeLeave="onBeforeLeaveTransition"
         @afterLeave="onAfterLeaveTransition"
       >
-        <div class="va-modal" :class="computedClass" v-if="valueComputed">
+        <div
+          v-if="valueComputed"
+          :aria-labelledby="title"
+          :class="computedClass"
+          class="va-modal"
+          role="dialog"
+          aria-modal="true"
+        >
           <div
             v-if="$props.overlay"
             class="va-modal__overlay"
@@ -31,33 +36,31 @@
             :class="computedOverlayClass"
           />
           <div
-            class="va-modal__container"
+            ref="modalDialog"
+            class="va-modal__dialog"
+            :style="[computedDialogStyle]"
           >
-            <div
-              ref="modalDialog"
-              class="va-modal__dialog"
-              :style="computedDialogStyle"
-            >
-              <va-icon
-                v-if="$props.fullscreen || $props.closeButton"
-                name="va-close"
-                class="va-modal__close"
-                :class="{ 'va-modal__close--fullscreen': $props.fullscreen }"
-                role="button"
-                :aria-label="tp($props.ariaCloseLabel)"
-                tabindex="0"
-                @click="cancel"
-                @keydown.space="cancel"
-                @keydown.enter="cancel"
-              />
+            <va-icon
+              v-if="$props.fullscreen || $props.closeButton"
+              va-child="closeButton"
+              :class="{ 'va-modal__close--fullscreen': $props.fullscreen }"
+              :aria-label="tp($props.ariaCloseLabel)"
+              role="button"
+              tabindex="0"
+              name="va-close"
+              class="va-modal__close"
+              @click="cancel"
+              @keydown.space="cancel"
+              @keydown.enter="cancel"
+            />
+            <template v-if="$slots.content">
+              <slot name="content" v-bind="slotBind" />
+            </template>
+            <div v-else class="va-modal__inner">
               <div
-                class="va-modal__inner"
-                :style="{ maxWidth: $props.maxWidth, maxHeight: $props.maxHeight }"
+                class="va-modal__header"
               >
-                <div v-if="$slots.content">
-                  <slot name="content" v-bind="slotBind" />
-                </div>
-                <template v-if="!$slots.content">
+                <slot name="header" v-bind="slotBind">
                   <div
                     v-if="title"
                     class="va-modal__title"
@@ -65,48 +68,46 @@
                   >
                     {{ $props.title }}
                   </div>
-                  <div
-                    v-if="$slots.header"
-                    class="va-modal__header"
-                  >
-                    <slot name="header" v-bind="slotBind" />
-                  </div>
-                  <div
-                    v-if="$props.message"
-                    class="va-modal__message"
-                  >
-                    {{ $props.message }}
-                  </div>
-                  <div
-                    v-if="$slots.default"
-                    class="va-modal__message"
-                  >
-                    <slot v-bind="slotBind" />
-                  </div>
-                  <div
-                    v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
-                    class="va-modal__footer"
-                  >
-                    <va-button
-                      v-if="$props.cancelText"
-                      preset="secondary"
-                      color="secondary"
-                      class="va-modal__default-cancel-button"
-                      @click="cancel"
-                    >
-                      {{ tp($props.cancelText) }}
-                    </va-button>
-                    <va-button @click="ok">
-                      {{ tp($props.okText) }}
-                    </va-button>
-                  </div>
-                  <div
-                    v-if="$slots.footer"
-                    class="va-modal__footer"
-                  >
-                    <slot name="footer" v-bind="slotBind" />
-                  </div>
-                </template>
+                </slot>
+              </div>
+              <div
+                v-if="$props.message"
+                class="va-modal__message"
+              >
+                {{ $props.message }}
+              </div>
+              <div
+                v-if="$slots.default"
+                class="va-modal__message"
+              >
+                <slot v-bind="slotBind" />
+              </div>
+              <div
+                v-if="($props.cancelText || $props.okText) && !$props.hideDefaultActions"
+                class="va-modal__footer"
+              >
+                <va-button
+                  v-if="$props.cancelText"
+                  va-child="cancelButton"
+                  preset="secondary"
+                  color="secondary"
+                  class="va-modal__default-cancel-button"
+                  @click="cancel"
+                >
+                  {{ tp($props.cancelText) }}
+                </va-button>
+                <va-button
+                  va-child="okButton"
+                  @click="ok"
+                >
+                  {{ tp($props.okText) }}
+                </va-button>
+              </div>
+              <div
+                v-if="$slots.footer"
+                class="va-modal__footer"
+              >
+                <slot name="footer" v-bind="slotBind" />
               </div>
             </div>
           </div>
@@ -129,6 +130,7 @@ import {
   nextTick,
   watch,
   defineComponent,
+  onBeforeUnmount,
 } from 'vue'
 
 import {
@@ -138,10 +140,12 @@ import {
   useComponentPresetProp,
   useTrapFocus,
   useModalLevel,
-  useTranslation,
+  useTranslation, useTranslationProp,
   useClickOutside,
   useDocument,
   useTeleported,
+  useSizeRef,
+  useIsMounted,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -149,6 +153,8 @@ import { VaIcon } from '../va-icon'
 
 import { useBlur } from './hooks/useBlur'
 import { useZIndex } from '../../composables/useZIndex'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
+import { defineChildProps, useChildComponents } from '../../composables/useChildComponents'
 
 const WithTransition = defineComponent({
   name: 'ModalElement',
@@ -164,13 +170,17 @@ const WithTransition = defineComponent({
 </script>
 
 <script lang="ts" setup>
-
 defineOptions({
   name: 'VaModal',
   inheritAttrs: false,
 })
 
 const props = defineProps({
+  ...defineChildProps({
+    cancelButton: VaButton,
+    okButton: VaButton,
+    closeButton: VaIcon,
+  }),
   ...useStatefulProps,
   modelValue: { type: Boolean, default: false },
   attachElement: { type: String, default: 'body' },
@@ -178,8 +188,8 @@ const props = defineProps({
   disableAttachment: { type: Boolean, default: false },
   title: { type: String, default: '' },
   message: { type: String, default: '' },
-  okText: { type: String, default: '$t:ok' },
-  cancelText: { type: String, default: '$t:cancel' },
+  okText: useTranslationProp('$t:ok'),
+  cancelText: useTranslationProp('$t:cancel'),
   hideDefaultActions: { type: Boolean, default: false },
   fullscreen: { type: Boolean, default: false },
   closeButton: { type: Boolean, default: false },
@@ -191,9 +201,20 @@ const props = defineProps({
   maxHeight: { type: String, default: '' },
   anchorClass: { type: String },
   size: {
-    type: String as PropType<'medium' | 'small' | 'large'>,
+    type: String as PropType<StringWithAutocomplete<'medium' | 'small' | 'large' | 'auto'>>,
     default: 'medium',
-    validator: (value: string) => ['medium', 'small', 'large'].includes(value),
+  },
+  sizesConfig: {
+    type: Object,
+    default: () => ({
+      defaultSize: 'medium',
+      sizes: {
+        small: 576,
+        medium: 768,
+        large: 992,
+        auto: 'max-content',
+      },
+    }),
   },
   fixedLayout: { type: Boolean, default: false },
   withoutTransitions: { type: Boolean, default: false },
@@ -207,8 +228,10 @@ const props = defineProps({
   beforeClose: { type: Function as PropType<(hide: () => void) => any> },
   beforeOk: { type: Function as PropType<(hide: () => void) => any> },
   beforeCancel: { type: Function as PropType<(hide: () => void) => any> },
-  ariaCloseLabel: { type: String, default: '$t:close' },
+  ariaCloseLabel: useTranslationProp('$t:close'),
 })
+
+useChildComponents(props)
 
 const emit = defineEmits([
   ...useStatefulEmits,
@@ -235,14 +258,11 @@ const computedClass = computed(() => ({
   'va-modal--mobile-fullscreen': props.mobileFullscreen,
   'va-modal--fixed-layout': props.fixedLayout,
   'va-modal--no-padding': props.noPadding,
-  [`va-modal--size-${props.size}`]: props.size !== 'medium',
 }))
 
 const {
   zIndex: zIndexInherited,
-  register: registerZIndex,
-  unregister: unregisterZIndex,
-} = useZIndex()
+} = useZIndex(valueComputed)
 
 const zIndexComputed = computed(() => {
   if (props.zIndex) {
@@ -251,8 +271,10 @@ const zIndexComputed = computed(() => {
   return zIndexInherited.value
 })
 
+const sizeComputed = useSizeRef(props)
+
 const computedDialogStyle = computed(() => ({
-  maxWidth: props.maxWidth,
+  maxWidth: props.maxWidth || sizeComputed.value,
   maxHeight: props.maxHeight,
   color: textColorComputed.value,
   background: getColor(props.backgroundColor),
@@ -277,7 +299,6 @@ const computedOverlayStyles = computed(() => {
     return {
       'background-color': 'var(--va-modal-overlay-color)',
       opacity: getOverlayOpacity(),
-      'z-index': zIndexComputed.value && Number(zIndexComputed.value) - 1,
     } as StyleValue
   }
   return ''
@@ -350,40 +371,56 @@ const documentRef = useDocument()
 const setBodyOverflow = (overflow: string) => {
   if (!documentRef.value || props.allowBodyScroll) { return }
 
-  documentRef.value.body.style.overflow = overflow
+  if (overflow === 'hidden') {
+    documentRef.value!.body.classList.add('va-modal-open')
+  } else {
+    documentRef.value!.body.classList.remove('va-modal-open')
+  }
 }
 
-watch(valueComputed, newValueComputed => { // watch for open/close modal
-  if (newValueComputed) {
-    registerModal()
-    registerZIndex()
-    setBodyOverflow('hidden')
-    return
-  }
+const onShow = () => {
+  registerModal()
+  setBodyOverflow('hidden')
+}
 
+const onHide = () => {
   if (isLowestLevelModal.value) {
     freeFocus()
     setBodyOverflow('')
   }
   unregisterModal()
-  unregisterZIndex()
+}
+
+// Handle is mounted, because: modal can be opened with this.$vaModal.init or v-if
+watch(valueComputed, (newValue) => {
+  if (newValue) {
+    onShow()
+  } else {
+    onHide()
+  }
+})
+
+onMounted(() => {
+  if (valueComputed.value) { // case when open modal with this.$vaModal.init
+    onShow()
+  }
+
+  if (isTopLevelModal.value) {
+    trapFocusInModal()
+  }
+})
+
+onBeforeUnmount(() => {
+  onHide()
 })
 
 watch(isTopLevelModal, newIsTopLevelModal => {
   if (newIsTopLevelModal) {
     trapFocusInModal()
   }
-})
+}, { immediate: true })
 
-onMounted(() => {
-  if (valueComputed.value) { // case when open modal with this.$vaModal.init
-    registerModal()
-    registerZIndex()
-  }
-})
-
-// TODO: Move to exposed
-const publicMethods = {
+defineExpose({
   show,
   hide,
   toggle,
@@ -394,14 +431,13 @@ const publicMethods = {
   onBeforeLeaveTransition,
   onAfterLeaveTransition,
   listenKeyUp,
-}
+})
 
-const { tp, t } = useTranslation()
+const { tp } = useTranslation()
 
 const {
   teleportFromAttrs,
   teleportedAttrs,
-  findTeleportedFrom,
 } = useTeleported()
 
 const slotBind = { show, hide, toggle, cancel, ok }
@@ -410,6 +446,10 @@ const slotBind = { show, hide, toggle, cancel, ok }
 <style lang="scss">
 @import "../../styles/resources";
 @import "variables";
+
+body.va-modal-open {
+  overflow: hidden;
+}
 
 .va-modal-overlay-background--blurred > :not(div[class*="va-"]) {
   filter: blur(var(--va-modal-overlay-background-blur-radius));
@@ -429,7 +469,6 @@ const slotBind = { show, hide, toggle, cancel, ok }
   left: var(--va-modal-left);
   overflow: var(--va-modal-overflow);
   outline: var(--va-modal-outline);
-  z-index: var(--va-modal-z-index, v-bind(zIndexComputed));
   font-family: var(--va-font-family);
 
   &__title {
@@ -438,41 +477,39 @@ const slotBind = { show, hide, toggle, cancel, ok }
     @include va-title();
   }
 
-  &__container {
-    z-index: var(--va-modal-container-z-index);
-    max-width: 100%;
-  }
-
-  &-enter-from &__container,
-  &-leave-to &__container {
+  &-enter-from &__dialog,
+  &-leave-to &__dialog {
     opacity: 0;
     transform: translateY(-30%);
   }
 
-  &-enter-active &__container,
-  &-leave-active &__container {
+  &-enter-active &__dialog,
+  &-leave-active &__dialog {
     transition: opacity var(--va-modal-opacity-transition), transform var(--va-modal-transform-transition);
   }
 
   &__dialog {
     min-height: var(--va-modal-dialog-min-height);
+    max-height: calc(100% - var(--va-modal-dialog-margin));
     height: var(--va-modal-dialog-height);
     border-radius: var(--va-modal-dialog-border-radius, var(--va-block-border-radius));
     margin: var(--va-modal-dialog-margin);
     box-shadow: var(--va-modal-dialog-box-shadow, var(--va-block-box-shadow));
-    max-width: var(--va-modal-dialog-max-width);
-    max-height: var(--va-modal-dialog-max-height);
-    position: var(--va-modal-dialog-position);
+    position: relative;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    z-index: 1;
   }
 
   &__overlay {
-    position: var(--va-modal-overlay-position);
-    top: var(--va-modal-overlay-top);
-    left: var(--va-modal-overlay-left);
-    z-index: var(--va-modal-overlay-z-index);
-    width: var(--va-modal-overlay-width);
-    height: var(--va-modal-overlay-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
     will-change: opacity;
   }
 
@@ -517,40 +554,6 @@ const slotBind = { show, hide, toggle, cancel, ok }
     }
   }
 
-  &--size {
-    &-small {
-      .va-modal__dialog {
-        max-width: map-get($grid-breakpoints, sm);
-        min-width: map-get($grid-breakpoints, sm);
-
-        @media all and (max-width: map-get($grid-breakpoints, sm)) {
-          max-width: 100vw !important;
-        }
-
-        .va-modal__inner {
-          max-width: map-get($grid-breakpoints, sm);
-          min-width: map-get($grid-breakpoints, sm);
-
-          @media all and (max-width: map-get($grid-breakpoints, sm)) {
-            max-width: 100vw !important;
-          }
-        }
-      }
-    }
-
-    &-large {
-      .va-modal__dialog {
-        max-width: map-get($grid-breakpoints, lg);
-        min-width: map-get($grid-breakpoints, lg);
-
-        .va-modal__inner {
-          max-width: map-get($grid-breakpoints, lg);
-          min-width: map-get($grid-breakpoints, lg);
-        }
-      }
-    }
-  }
-
   &--fixed-layout {
     .va-modal__inner {
       overflow: hidden;
@@ -581,18 +584,14 @@ const slotBind = { show, hide, toggle, cancel, ok }
   }
 
   &__message {
-    margin-bottom: 1.5rem;
+    margin-bottom: calc(var(--va-modal-padding-bottom) / 2);
   }
 
   &__inner {
+    padding: var(--va-modal-padding);
     overflow: auto;
     display: flex;
-    position: relative;
     flex-flow: column;
-    padding: var(--va-modal-padding);
-    max-width: map-get($grid-breakpoints, md);
-    min-width: map-get($grid-breakpoints, md);
-    margin: auto;
 
     > div:last-of-type {
       margin-bottom: 0;
@@ -600,14 +599,13 @@ const slotBind = { show, hide, toggle, cancel, ok }
   }
 
   &__close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
     cursor: pointer;
-    font-size: 1.5rem;
-    font-style: normal;
+    position: absolute;
+    top: calc(var(--va-modal-padding-top) / 2);
+    right: calc(var(--va-modal-padding-right) / 2);
     color: var(--va-secondary);
     z-index: 1;
+    justify-self: flex-end;
 
     &--fullscreen {
       position: fixed;

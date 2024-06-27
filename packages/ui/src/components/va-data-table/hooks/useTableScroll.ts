@@ -1,10 +1,10 @@
 import { getCurrentInstance, computed, ExtractPropTypes } from 'vue'
 
-import { useIntersectionObserver, useElementRef } from '../../../composables'
+import { useIntersectionObserver, useElementRef, useNumericProp } from '../../../composables'
 
 export const useTableScrollProps = {
-  scrollTopMargin: { type: Number, default: 0 },
-  scrollBottomMargin: { type: Number, default: 0 },
+  scrollTopMargin: { type: [Number, String], default: 0 },
+  scrollBottomMargin: { type: [Number, String], default: 0 },
 }
 
 export const useTableScrollEmits = ['scroll:top', 'scroll:bottom']
@@ -22,6 +22,8 @@ export const useTableScroll = (
   const scrollContainer = useElementRef()
   const topTrigger = useElementRef()
   const bottomTrigger = useElementRef()
+  const scrollTopMarginComputed = useNumericProp('scrollTopMargin')
+  const scrollBottomMarginComputed = useNumericProp('scrollBottomMargin')
 
   const isObservable = computed(() => !!scrollContainer.value)
 
@@ -48,7 +50,7 @@ export const useTableScroll = (
 
   const options = computed<IntersectionObserverInit>(() => ({
     root: scrollContainer.value,
-    rootMargin: `${props.scrollTopMargin ?? 0}px 0px ${props.scrollBottomMargin ?? 0}px 0px`,
+    rootMargin: `${scrollTopMarginComputed.value ?? 0}px 0px ${scrollBottomMarginComputed.value ?? 0}px 0px`,
   }))
 
   useIntersectionObserver(intersectionHandler, options, targets)

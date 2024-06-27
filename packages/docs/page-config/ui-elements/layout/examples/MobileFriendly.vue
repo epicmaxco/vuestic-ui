@@ -1,4 +1,7 @@
 <script setup lang="ts">
+  import { ref } from 'vue';
+  import { useBreakpoint } from 'vuestic-ui';
+
   const showSidebar = ref(true)
 
   const breakpoints = useBreakpoint()

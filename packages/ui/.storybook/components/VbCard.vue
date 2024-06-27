@@ -84,7 +84,6 @@ export default defineComponent({
     },
     computedClass () {
       return {
-        'VbCard--no-padding': this.noPadding,
         'VbCard--dashed': this.dashed,
         'VbCard--dark': this.dark,
         'VbCard--error': this.error,

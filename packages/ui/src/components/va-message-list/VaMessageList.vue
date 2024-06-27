@@ -1,7 +1,5 @@
 <template>
-  <WithAttributes>
-    <slot v-bind="{ ariaAttributes: childAttributes, messages }" />
-  </WithAttributes>
+  <slot v-bind="{ ariaAttributes: childAttributes, messages, attrs: $attrs }" />
   <slot name="messages" v-bind="{ ariaAttributes: messageListAttributes, messages }">
     <div
       v-if="messages.length > 0"
@@ -30,13 +28,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType } from 'vue'
+import { computed, ComputedRef, PropType } from 'vue'
 
-import { useColors } from '../../composables'
+import { useColors, useNumericProp } from '../../composables'
 
 import { VaIcon } from '../va-icon'
 import { useMessageListAria } from './hooks/useMessageListAria'
-import { WithAttributes } from '../../utils/with-attributes'
 
 defineOptions({
   name: 'VaMessageList',
@@ -48,7 +45,7 @@ const props = defineProps({
     type: [String, Array] as PropType<string | string[]>,
     default: '',
   },
-  limit: { type: Number, default: 1 },
+  limit: { type: [Number, String], default: 1 },
   color: { type: String },
   hasError: { type: Boolean, default: false },
 })
@@ -57,10 +54,11 @@ const { getColor } = useColors()
 
 const { childAttributes, messageListAttributes } = useMessageListAria(props)
 
+const limitComputed = useNumericProp('limit') as ComputedRef<number>
 const messages = computed<string[]>(() => {
   if (!props.modelValue) { return [] }
   if (!Array.isArray(props.modelValue)) { return [props.modelValue] }
-  return props.modelValue.slice(0, props.limit)
+  return props.modelValue.slice(0, limitComputed.value)
 })
 
 const computedStyle = computed(() => props.color ? { color: getColor(props.color) } : {})

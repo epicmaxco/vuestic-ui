@@ -168,15 +168,24 @@ import {
   shallowRef,
   CSSProperties,
   WritableComputedRef,
-  useSlots,
+  useSlots, ComputedRef,
 } from 'vue'
-import pick from 'lodash/pick.js'
-
-import { generateUniqueId } from '../../utils/uuid'
-import { useComponentPresetProp, useColors, useArrayRefs, useBem, useStateful, useStatefulProps, useTranslation } from '../../composables'
+import {
+  useComponentPresetProp,
+  useColors,
+  useArrayRefs,
+  useBem,
+  useStateful,
+  useStatefulProps,
+  useTranslation,
+  useTranslationProp,
+  useNumericProp,
+} from '../../composables'
 import { validateSlider } from './validateSlider'
 
 import { VaIcon } from '../va-icon'
+import { useComponentUuid } from '../../composables/useComponentUuid'
+import { pick } from '../../utils/pick'
 
 defineOptions({
   name: 'VaSlider',
@@ -192,9 +201,9 @@ const props = defineProps({
   trackColor: { type: String, default: '' },
   labelColor: { type: String, default: '' },
   trackLabelVisible: { type: Boolean, default: false },
-  min: { type: Number, default: 0 },
-  max: { type: Number, default: 100 },
-  step: { type: Number, default: 1 },
+  min: { type: [Number, String], default: 0 },
+  max: { type: [Number, String], default: 100 },
+  step: { type: [Number, String], default: 1 },
   label: { type: String, default: '' },
   invertLabel: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
@@ -204,7 +213,7 @@ const props = defineProps({
   iconAppend: { type: String, default: '' },
   vertical: { type: Boolean, default: false },
   showTrack: { type: Boolean, default: true },
-  ariaLabel: { type: String, default: '$t:sliderValue' },
+  ariaLabel: useTranslationProp('$t:sliderValue'),
 })
 
 const emit = defineEmits(['drag-start', 'drag-end', 'change', 'update:modelValue'])
@@ -226,14 +235,18 @@ const { valueComputed }: { valueComputed: WritableComputedRef<number | number[]>
 const currentSliderDotIndex = ref(0)
 const hasMouseDown = ref(false)
 
+const minComputed = useNumericProp('min') as ComputedRef<number>
+const maxComputed = useNumericProp('max') as ComputedRef<number>
+const stepComputed = useNumericProp('step') as ComputedRef<number>
+
 const orders = computed(() => props.vertical ? [1, 0] : [0, 1])
 
 const pinPositionStyle = computed(() => props.vertical ? 'bottom' : 'left')
 const trackSizeStyle = computed(() => props.vertical ? 'height' : 'width')
 
-const moreToLess = computed(() => Array.isArray(val.value) && (val.value[1] - props.step) < val.value[0])
+const moreToLess = computed(() => Array.isArray(val.value) && (val.value[1] - stepComputed.value) < val.value[0])
 
-const lessToMore = computed(() => Array.isArray(val.value) && (val.value[0] + props.step) > val.value[1])
+const lessToMore = computed(() => Array.isArray(val.value) && (val.value[0] + stepComputed.value) > val.value[1])
 
 const sliderClass = useBem('va-slider', () => ({
   ...pick(props, ['disabled', 'readonly', 'vertical']),
@@ -257,10 +270,16 @@ const trackStyles = computed(() => ({
     : getHoverColor(getColor(props.color)),
 }))
 
+const calculatePercentage = (value: number) => {
+  const min = minComputed.value
+  const max = maxComputed.value
+  return ((clamp(min, value, max) - min) / (max - min)) * 100
+}
+
 const processedStyles = computed(() => {
   if (Array.isArray(val.value)) {
-    const val0 = ((val.value[0] - props.min) / (props.max - props.min)) * 100
-    const val1 = ((val.value[1] - props.min) / (props.max - props.min)) * 100
+    const val0 = calculatePercentage(val.value[0])
+    const val1 = calculatePercentage(val.value[1])
 
     return {
       [pinPositionStyle.value]: `${val0}%`,
@@ -269,10 +288,10 @@ const processedStyles = computed(() => {
       visibility: props.showTrack ? 'visible' : 'hidden',
     } as CSSProperties
   } else {
-    const val0 = ((val.value - props.min) / (props.max - props.min)) * 100
+    const val0 = calculatePercentage(val.value)
 
     return {
-      [trackSizeStyle.value]: `${val0}%`,
+      [trackSizeStyle.value]: `${val0 > 100 ? 100 : val0}%`,
       backgroundColor: getColor(props.color),
       visibility: props.showTrack ? 'visible' : 'hidden',
     } as CSSProperties
@@ -281,8 +300,8 @@ const processedStyles = computed(() => {
 
 const dottedStyles = computed(() => {
   if (Array.isArray(val.value)) {
-    const val0 = ((val.value[0] - props.min) / (props.max - props.min)) * 100
-    const val1 = ((val.value[1] - props.min) / (props.max - props.min)) * 100
+    const val0 = calculatePercentage(val.value[0])
+    const val1 = calculatePercentage(val.value[1])
 
     return [
       {
@@ -297,10 +316,10 @@ const dottedStyles = computed(() => {
       },
     ] as CSSProperties[]
   } else {
-    const val0 = ((val.value - props.min) / (props.max - props.min)) * 100
+    const val0 = calculatePercentage(val.value)
 
     return {
-      [pinPositionStyle.value]: `${val0}%`,
+      [pinPositionStyle.value]: `${val0 > 100 ? 100 : val0}%`,
       backgroundColor: isActiveDot(0) ? getColor(props.color) : '#ffffff',
       borderColor: getColor(props.color),
     } as CSSProperties
@@ -327,28 +346,28 @@ const getValueByOrder = (order?: number) => props.range && order !== undefined
   : val.value as number
 
 const gap = computed(() => {
-  const total = (props.max - props.min) / props.step
+  const total = (maxComputed.value - minComputed.value) / stepComputed.value
 
   return size.value / total
 })
 
 const multiple = computed(() => {
-  const decimals = `${props.step}`.split('.')[1]
+  const decimals = `${stepComputed.value}`.split('.')[1]
 
   return decimals ? Math.pow(10, decimals.length) : 1
 })
 
-const pinsCol = computed(() => ((props.max - props.min) / props.step) - 1)
+const pinsCol = computed(() => ((maxComputed.value - minComputed.value) / stepComputed.value) - 1)
 
 const position = computed(() => {
   return Array.isArray(val.value)
-    ? [(val.value[0] - props.min) / props.step * gap.value, (val.value[1] - props.min) / props.step * gap.value]
-    : ((val.value - props.min) / props.step * gap.value)
+    ? [(val.value[0] - minComputed.value) / stepComputed.value * gap.value, (val.value[1] - minComputed.value) / stepComputed.value * gap.value]
+    : ((val.value - minComputed.value) / stepComputed.value * gap.value)
 })
 
 const limit = computed(() => [0, size.value])
 
-const valueLimit = computed(() => [props.min, props.max])
+const valueLimit = computed(() => [minComputed.value, maxComputed.value])
 
 const isActiveDot = (index: number) => {
   if ((!isFocused.value && !flag.value) || props.disabled || props.readonly) {
@@ -431,15 +450,15 @@ const moveWithKeys = (event: KeyboardEvent) => {
     */
   const moveDot = (where: number, which: number) => {
     if (Array.isArray(val.value)) {
-      const value = val.value[which] + (where ? props.step : -props.step)
-      const limitedValue = clamp(props.min, value, props.max)
+      const value = val.value[which] + (where ? stepComputed.value : -stepComputed.value)
+      const limitedValue = clamp(minComputed.value, value, maxComputed.value)
       val.value = [
         which === 0 ? limitedValue : val.value[0],
         which === 1 ? limitedValue : val.value[1],
       ]
     } else {
-      const value = val.value + (where ? props.step : -props.step)
-      const limitedValue = clamp(props.min, value, props.max)
+      const value = val.value + (where ? stepComputed.value : -stepComputed.value)
+      const limitedValue = clamp(minComputed.value, value, maxComputed.value)
       val.value = limitedValue
     }
   }
@@ -462,24 +481,24 @@ const moveWithKeys = (event: KeyboardEvent) => {
     const isHorizontalDot1More = (event: KeyboardEvent) => !props.vertical && isActive(dots.value[1]) && event.key === 'ArrowRight'
 
     switch (true) {
-      case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && moreToLess.value && val.value[0] !== props.min:
+      case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && moreToLess.value && val.value[0] !== minComputed.value:
         dots.value[0]?.focus()
         moveDot(0, 0)
         break
-      case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && lessToMore.value && val.value[1] !== props.max:
+      case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && lessToMore.value && val.value[1] !== maxComputed.value:
         dots.value[1]?.focus()
         moveDot(1, 1)
         break
-      case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && val.value[0] !== props.min:
+      case (isVerticalDot0Less(event) || isHorizontalDot0Less(event)) && val.value[0] !== minComputed.value:
         moveDot(0, 0)
         break
-      case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && val.value[1] !== props.max:
+      case (isVerticalDot1More(event) || isHorizontalDot1More(event)) && val.value[1] !== maxComputed.value:
         moveDot(1, 1)
         break
-      case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && val.value[1] !== props.min:
+      case (isVerticalDot1Less(event) || isHorizontalDot1Less(event)) && val.value[1] !== minComputed.value:
         moveDot(0, 1)
         break
-      case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && val.value[0] !== props.max:
+      case (isVerticalDot0More(event) || isHorizontalDot0More(event)) && val.value[0] !== maxComputed.value:
         moveDot(1, 0)
         break
       default:
@@ -506,13 +525,13 @@ const moveWithKeys = (event: KeyboardEvent) => {
 
 const checkActivePin = (pin: number) => {
   if (Array.isArray(val.value)) {
-    return pin * props.step > val.value[0] && pin * props.step < val.value[1]
+    return pin * stepComputed.value > val.value[0] && pin * stepComputed.value < val.value[1]
   } else {
-    return pin * props.step < val.value
+    return pin * stepComputed.value < val.value
   }
 }
 
-const pinPositionStep = computed(() => props.step / (props.max - props.min) * 100)
+const pinPositionStep = computed(() => stepComputed.value / (maxComputed.value - minComputed.value) * 100)
 const getPinStyles = (pin: number) => ({
   backgroundColor: checkActivePin(pin) ? getColor(props.color) : getHoverColor(getColor(props.color)),
   [pinPositionStyle.value]: `${pin * pinPositionStep.value}%`,
@@ -534,7 +553,7 @@ const getStaticData = () => {
 }
 
 const getValueByIndex = (index: number) => {
-  return ((props.step * multiple.value) * index + (props.min * multiple.value)) / multiple.value
+  return ((stepComputed.value * multiple.value) * index + (minComputed.value * multiple.value)) / multiple.value
 }
 
 const getTrackLabel = (val: number, order?: number) => {
@@ -557,10 +576,10 @@ const setCurrentValue = (newValue: number) => {
       }
     }
   } else {
-    if (newValue < props.min) {
-      val.value = props.min
-    } else if (newValue > props.max) {
-      val.value = props.max
+    if (newValue < minComputed.value) {
+      val.value = minComputed.value
+    } else if (newValue > maxComputed.value) {
+      val.value = maxComputed.value
     } else if (isDiff(val.value, newValue)) {
       val.value = newValue
     }
@@ -640,15 +659,16 @@ const unbindEvents = () => {
   document.removeEventListener('keydown', moveWithKeys)
 }
 
-const ariaLabelIdComputed = computed(() => `aria-label-id-${generateUniqueId()}`)
+const componentId = useComponentUuid()
+const ariaLabelIdComputed = computed(() => `aria-label-id-${componentId}`)
 
 const { tp } = useTranslation()
 const slots = useSlots()
 
 const ariaAttributesComputed = computed(() => ({
   role: 'slider',
-  'aria-valuemin': props.min,
-  'aria-valuemax': props.max,
+  'aria-valuemin': minComputed.value,
+  'aria-valuemax': maxComputed.value,
   'aria-label': !slots.label && !props.label ? tp(props.ariaLabel, { value: String(val.value) }) : undefined,
   'aria-labelledby': slots.label || props.label ? ariaLabelIdComputed.value : undefined,
   'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
@@ -659,7 +679,7 @@ const ariaAttributesComputed = computed(() => ({
 }))
 
 onMounted(() => {
-  if (validateSlider(val.value, props.step, props.min, props.max, props.range)) {
+  if (validateSlider(val.value, stepComputed.value, minComputed.value, maxComputed.value, props.range)) {
     getStaticData()
     bindEvents()
   }
@@ -669,9 +689,9 @@ onBeforeUnmount(unbindEvents)
 
 watch([
   val,
-  () => props.step,
-  () => props.min,
-  () => props.max,
+  () => stepComputed.value,
+  () => minComputed.value,
+  () => maxComputed.value,
   () => props.range,
 ], ([value, step, min, max, range]) => {
   validateSlider(value, step, min, max, range)
@@ -682,7 +702,7 @@ watch(hasMouseDown, (hasMouseDown) => {
 })
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 @import "../../styles/resources";
 @import "variables";
 

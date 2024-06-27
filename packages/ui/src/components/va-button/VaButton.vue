@@ -51,8 +51,6 @@
 
 <script lang="ts" setup>
 import { PropType, computed, toRefs, shallowRef } from 'vue'
-import pick from 'lodash/pick.js'
-
 import {
   useBem,
   useFocus,
@@ -64,6 +62,7 @@ import {
   useRouterLink, useRouterLinkProps,
   useComponentPresetProp,
   useSlotPassed,
+  useNumericProp,
 } from '../../composables'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
@@ -72,6 +71,9 @@ import { useButtonTextColor } from './hooks/useButtonTextColor'
 
 import { VaIcon } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
+import { pick } from '../../utils/pick'
+
+import type { ColorName } from '../../composables'
 
 defineOptions({
   name: 'VaButton',
@@ -89,10 +91,10 @@ const props = defineProps({
   block: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
 
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<ColorName>, default: 'primary' },
   textColor: { type: String, default: '' },
-  textOpacity: { type: Number, default: 1 },
-  backgroundOpacity: { type: Number, default: 1 },
+  textOpacity: { type: [Number, String], default: 1 },
+  backgroundOpacity: { type: [Number, String], default: 1 },
   borderColor: { type: String, default: '' },
 
     // only for filled bg state
@@ -146,12 +148,15 @@ const isSlotContentPassed = useSlotPassed()
 
 const isOneIcon = computed(() => !!((props.iconRight && !props.icon) || (!props.iconRight && props.icon)))
 const isOnlyIcon = computed(() => !isSlotContentPassed.value && isOneIcon.value)
+const textOpacityComputed = useNumericProp('textOpacity')
+const backgroundOpacityComputed = useNumericProp('backgroundOpacity')
+
 const computedClass = useBem('va-button', () => ({
   ...pick(props, ['disabled', 'block', 'loading', 'round', 'plain']),
   small: props.size === 'small',
   normal: !props.size || props.size === 'medium',
   large: props.size === 'large',
-  opacity: props.textOpacity < 1,
+  opacity: textOpacityComputed.value! < 1,
   bordered: !!props.borderColor,
   iconOnly: isOnlyIcon.value,
   leftIcon: !isOnlyIcon.value && !!props.icon && !props.iconRight,
@@ -159,7 +164,7 @@ const computedClass = useBem('va-button', () => ({
 }))
 
 // styles
-const isTransparentBg = computed(() => props.plain || props.backgroundOpacity < 0.5)
+const isTransparentBg = computed(() => props.plain || backgroundOpacityComputed.value! < 0.5)
 const { textColorComputed } = useTextColor(colorComputed, isTransparentBg)
 
 const {
@@ -181,7 +186,7 @@ defineExpose({
 })
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 @import 'variables';
 @import '../../styles/resources';
 

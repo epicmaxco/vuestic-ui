@@ -76,6 +76,7 @@ import {
   StyleValue,
   WritableComputedRef,
   onMounted,
+  watchEffect,
 } from 'vue'
 
 import {
@@ -83,7 +84,7 @@ import {
   useStateful, useStatefulProps,
   useColors,
   useResizeObserver,
-  useTranslation,
+  useTranslation, useTranslationProp,
 } from '../../composables'
 
 import { TabsViewKey, TabComponent, TabSelected } from './types'
@@ -116,8 +117,8 @@ const props = defineProps({
   color: { type: String, default: 'primary' },
   prevIcon: { type: String, default: 'va-arrow-left' },
   nextIcon: { type: String, default: 'va-arrow-right' },
-  ariaMoveRightLabel: { type: String, default: '$t:movePaginationLeft' },
-  ariaMoveLeftLabel: { type: String, default: '$t:movePaginationRight' },
+  ariaMoveRightLabel: useTranslationProp('$t:movePaginationLeft'),
+  ariaMoveLeftLabel: useTranslationProp('$t:movePaginationRight'),
 })
 
 const emit = defineEmits(['update:modelValue', 'click:next', 'click:prev'])
@@ -278,6 +279,10 @@ const updateTabsState = () => {
 
   updateStartingXPoint()
 }
+
+watchEffect(() => {
+  updateTabsState()
+})
 
 const updatePagination = () => {
   const tabsClientWidth = getClientWidth(tabs.value)

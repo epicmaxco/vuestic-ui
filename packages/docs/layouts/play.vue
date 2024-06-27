@@ -38,7 +38,6 @@
 </template>
 
 <script setup lang="ts">
-import { useDocsScroll } from '../composables/useDocsScroll';
 import { useIsMounted } from 'vuestic-ui/src/composables/useIsMounted'
 
 const breakpoints = useBreakpoint()

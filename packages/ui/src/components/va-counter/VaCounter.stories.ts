@@ -3,6 +3,7 @@ import { userEvent } from '../../../.storybook/interaction-utils/userEvent'
 import { expect } from '@storybook/jest'
 import VaCounter from './VaCounter.vue'
 import { StoryFn } from '@storybook/vue3'
+import { defineStory } from '../../../.storybook/types'
 
 export default {
   title: 'VaCounter',
@@ -116,6 +117,11 @@ export const Step: StoryFn = () => ({
       stateful
       :step="2"
     />
+
+    <VaCounter
+      stateful
+      :step="0.1"
+    />
   `,
 })
 
@@ -175,15 +181,17 @@ export const DecreaseIcon = () => ({
 
 export const Disabled = () => ({
   components: { VaCounter },
+  data () { return { value: 0 } },
   template: `
-    <VaCounter disabled />
+    <VaCounter v-model="value" disabled />
   `,
 })
 
 export const Readonly = () => ({
   components: { VaCounter },
+  data () { return { value: 0 } },
   template: `
-    <VaCounter readonly />
+    <VaCounter v-model="value" readonly />
   `,
 })
 
@@ -374,3 +382,107 @@ addText(
   "Click doesn't affect value",
   'broken',
 )
+
+export const Validation = defineStory({
+  story: () => ({
+    components: { VaCounter },
+    data () {
+      return {
+        value: 0,
+      }
+    },
+    template: `
+      <VaCounter v-model="value" :rules="[(v) => v > 1 || 'Min length is 2']" ref="component" />
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect, event, sleep }) {
+    step('Expect error when mounted even if value is incorrect', () => {
+      // No error until value is entered
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).toBeNull()
+    })
+  },
+})
+
+export const ValidationImmediate = defineStory({
+  story: () => ({
+    components: { VaCounter },
+    data () {
+      return {
+        value: 0,
+      }
+    },
+    template: `
+      <VaCounter v-model="value" :rules="[(v) => v > 1 || 'Min length is 2']" ref="component" immediate-validation />
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect }) {
+    step('Expect error when mounted even if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
+  },
+})
+
+export const ValidationDirtyState = defineStory({
+  story: () => ({
+    components: { VaCounter },
+    data () {
+      return {
+        value: 0,
+      }
+    },
+    template: `
+      [isDirty]: {{ $refs.component?.isDirty }}
+      <VaCounter v-model="value" :rules="[(v) => v > 1 || 'Min length is 2']" ref="component" />
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect, event, sleep }) {
+    const hasErrorClass = () => canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') !== null
+
+    step('Expect no error when mounted even if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).toBeNull()
+    })
+
+    step('Expect error when value entered', async (context) => {
+      await event.click(canvasElement.querySelectorAll('.va-button')![1])
+
+      expect(hasErrorClass()).toBe(true)
+
+      expect(canvasElement.textContent).toContain('[isDirty]: true')
+
+      await event.click(canvasElement.querySelectorAll('.va-button')![1])
+      // Value satisfies the rule
+      expect(hasErrorClass()).toBe(false)
+    })
+  },
+})
+
+export const ValidationTouchedState = defineStory({
+  story: () => ({
+    components: { VaCounter },
+    data () {
+      return {
+        value: 0,
+      }
+    },
+    template: `
+      [isTouched]: {{ $refs.component?.isTouched }}
+      <VaCounter v-model="value" :rules="[(v) => v > 1 || 'Min length is 2']" ref="component" />
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect, event, sleep, methods }) {
+    step('Expect error when input blur', async () => {
+      await event.focus(canvasElement.querySelector('.va-input-wrapper')!)
+      await event.blur(canvasElement.querySelector('.va-input-wrapper')!)
+
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
+  },
+})

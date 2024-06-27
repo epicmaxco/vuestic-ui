@@ -1,10 +1,9 @@
 <template>
   <div
-    :key="isMounted + ''"
     class="docs-layout"
   >
     <div
-      v-if="!isMounted"
+      v-if="false"
       class="docs-layout__loader"
     />
     <VaLayout
@@ -29,7 +28,9 @@
       <template #content>
         <main class="docs-layout__main-content">
           <article class="docs-layout__page-content">
-            <slot />
+            <Suspense>
+              <NuxtPage />
+            </Suspense>
           </article>
         </main>
       </template>
@@ -38,14 +39,9 @@
 </template>
 
 <script setup lang="ts">
-import { useColors } from 'vuestic-ui'
-import { useDocsScroll } from '../composables/useDocsScroll';
-import { useIsMounted } from 'vuestic-ui/src/composables/useIsMounted'
-
-const { currentPresetName } = useColors()
 const breakpoints = useBreakpoint()
 
-const isSidebarVisible = ref(false)
+const isSidebarVisible = ref(!breakpoints.smDown)
 const isOptionsVisible = ref(false)
 
 watch(() => breakpoints.smDown, (newValue: boolean) => {
@@ -77,8 +73,6 @@ useHead({
     { src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js', type: 'module' },
   ],
 })
-
-const isMounted = useIsMounted()
 </script>
 
 <style lang="scss">

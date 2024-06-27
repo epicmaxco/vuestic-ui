@@ -43,9 +43,9 @@
 <script lang="ts" setup>
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import { computed, PropType, StyleValue } from 'vue'
-import clamp from 'lodash/clamp.js'
+import { clamp } from '../../utils/clamp'
 
-import { useColors, useTextColor, useTranslation } from '../../composables'
+import { useColors, useTextColor, useTranslation, useTranslationProp } from '../../composables'
 
 defineOptions({
   name: 'VaProgressBar',
@@ -53,20 +53,20 @@ defineOptions({
 
 const props = defineProps({
   ...useComponentPresetProp,
-  modelValue: { type: Number, default: 0 },
+  modelValue: { type: [Number, String], default: 0 },
   indeterminate: { type: Boolean, default: false },
   color: { type: String, default: 'primary' },
   size: {
     type: [Number, String] as PropType<number | 'medium' | 'large' | 'small' | string>,
     default: 'medium',
   },
-  buffer: { type: Number, default: 100 },
+  buffer: { type: [Number, String], default: 100 },
   rounded: { type: Boolean, default: true },
   reverse: { type: Boolean, default: false },
   contentInside: { type: Boolean, default: false },
   showPercent: { type: Boolean, default: false },
-  max: { type: Number, default: 100 },
-  ariaLabel: { type: String, default: '$t:progressState' },
+  max: { type: [Number, String], default: 100 },
+  ariaLabel: useTranslationProp('$t:progressState'),
 })
 
 const { getColor, getHoverColor } = useColors()
@@ -84,7 +84,7 @@ const getCSSHeight = () => {
 
 const { tp } = useTranslation()
 
-const progressBarValue = computed(() => 100 / props.max * props.modelValue)
+const progressBarValue = computed(() => 100 / Number(props.max) * Number(props.modelValue))
 
 const rootClass = computed(() => ({
   'va-progress-bar--square': !props.rounded,
@@ -101,7 +101,7 @@ const wrapperStyle = computed(() => ({
 }))
 
 const bufferStyle = computed(() => ({
-  width: `${props.indeterminate ? 100 : clamp(props.buffer, 0, 100)}%`,
+  width: `${props.indeterminate ? 100 : clamp(Number(props.buffer), 0, 100)}%`,
   color: textColorComputed.value,
   [props.reverse ? 'right' : 'left']: 0,
 }))

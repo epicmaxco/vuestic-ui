@@ -22,13 +22,23 @@ export default definePageConfig({
     block.paragraph("**Using `colgroup` slot to set specific attributes to columns**. For last column an additional `className` with a background color is set."),
     block.example("ColgroupSlots", { hideTitle: true }),
 
+    block.headline("Custom Filtering"),
+    block.paragraph("The `va-data-table` offers a simple yet powerful filtering feature. Users can filter the displayed data using an input field. This feature reacts to input changes, updating the table view to match the query."),
+    block.paragraph("Enable filtering by binding a Vue `ref` to the `filter` prop. Options like custom filtering functions and debounce input enhance the experience. Basic filtering allows users to search across all data, while custom functions provide more control over the filtering logic. Debounce input improves performance for large datasets."),
     block.example("Filtering"),
+
+    block.headline("Advanced Filtering"),
+    block.paragraph("Advanced filtering extends basic capabilities by allowing users to specify fields for filtering. This targeted approach enables more precise searches."),
+    block.paragraph("Implement this feature by combining a filter query text input with a multi-select dropdown to select fields. Users can focus their search on specific fields (e.g., 'Username', 'Email', 'Zipcode'), and custom filtering logic can be applied considering both the query and selected fields."),
+    block.example("AdvancedFiltering"),
 
     block.headline("Sorting"),
     block.paragraph("You can specify which columns should be sortable by providing a column definition object (see the `columns` prop below) with the `sortable: true` field. Making a column sortable means allowing to click the column's header to toggle the sorting by that column's values."),
     block.paragraph("You can use the `sortingOptions` property to set the sort order for the table as a whole, as well as for each column individually in the `columns` object."),
     block.paragraph("You can also provide a custom sorting function for a given column using the `sortingFn` field on the column definition object: `sortingFn: (a: any, b: any) => number`. The function takes two cells' initial values (a, b) (**note: initial values** (i.e. in the form the user provided them, rather than stringified)) and must return a number (-1, 0, +1) indicating whether the two rows should be swapped the places or not. See the standard JS's [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)[[target=_blank]] for details. If you want to runtime-disable the custom function and start making use of the built-in one, pass the `undefined` to the `sortingFn`."),
+    block.paragraph("You can also provide a custom display format function for a given column using the `displayFormatFn` field on the column definition object: `displayFormatFn: () => 'Overridden string',`The function takes in any value of any type and will allow full control over the displayed value.`"),
     block.paragraph("`va-data-table` also optionally accepts the `sort-by` and the `sorting-order` modeled props, which allow users to change sorting settings from-outside and to model the changes introduced to the table's sorting by interacting with the table itself. They also allow to provide initial sorting values. **Properties work through the `v-model`**."),
+    block.paragraph("By default, `va-data-table` utilizes client-side sorting. However, when using server-side sorting use the `disableClientSideSorting` prop to prevent dual re-ordering."),
     block.example("Sorting", { hideTitle: true }),
 
     block.headline("Selection"),

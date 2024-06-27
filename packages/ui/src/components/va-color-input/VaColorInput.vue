@@ -36,12 +36,12 @@
 <script lang="ts">
 import { PropType, shallowRef, computed } from 'vue'
 
-import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits, useTranslation } from '../../composables'
+import { useComponentPresetProp, useStateful, useStatefulProps, useStatefulEmits, useTranslation, useTranslationProp } from '../../composables'
 
 import { VaColorIndicator } from '../va-color-indicator'
 import { VaInput } from '../va-input'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import throttle from 'lodash/throttle'
+import { throttle } from '../../utils/throttle'
 
 const VaInputProps = extractComponentProps(VaInput)
 </script>
@@ -63,7 +63,7 @@ const props = defineProps({
     default: 'dot',
     validator: (value: string) => ['dot', 'square'].includes(value),
   },
-  ariaOpenColorPickerLabel: { type: String, default: '$t:openColorPicker' },
+  ariaOpenColorPickerLabel: useTranslationProp('$t:openColorPicker'),
 })
 
 const emit = defineEmits([...useStatefulEmits])
@@ -90,6 +90,7 @@ const { tp } = useTranslation()
 .va-color-input {
   display: flex;
   align-items: center !important;
+  position: relative;
 
   .form-group {
     margin-bottom: 0;
@@ -111,6 +112,22 @@ const { tp } = useTranslation()
     overflow: hidden;
     position: absolute;
     pointer-events: none;
+    bottom: 0;
+  }
+
+  // Currently I could only determine the width of the color modal on Edge and Chrome
+  @supports (-ms-ime-align:auto) {
+    /* Edge specific */
+    &__hidden-input {
+      right: 14.7rem; // For Edge and Chrome the color picker modal size is 14.7rem
+    }
+  }
+
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+    /* Chrome specific */
+    &__hidden-input {
+      right: 14.7rem; // For Edge and Chrome the color picker modal size is 14.7rem
+    }
   }
 }
 </style>

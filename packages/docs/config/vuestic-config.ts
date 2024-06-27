@@ -1,5 +1,7 @@
 import { defineVuesticConfig } from 'vuestic-ui'
 import { icons } from './icons-config/icons-config'
+import GithubSvgIcon from './GithubSvgIcon.vue'
+import { markRaw } from 'vue'
 
 const scrollWrapperSelector = '.docs-layout__main-content'
 
@@ -26,9 +28,17 @@ export const VuesticConfig = defineVuesticConfig({
     },
     presets: {
       VaButton: {
-        addToCart: { size: 'large', round: true },
+        addToCart: { round: true, color: 'success', icon: 'shopping_cart', 'slot:default': 'Add to card' },
+        promotion: { gradient: true, color: 'primary' },
         deleteFromCart: { size: 'small', plain: true },
         landingHeader: VaButtonLandingHeader,
+        github: {
+          'slot:prepend': markRaw(GithubSvgIcon),
+          'slot:default': 'View on GitHub',
+          color: '#000000',
+          style: 'fill: currentColor',
+          class: 'va-button--github',
+        }
       },
       VaButtonDropdown: {
         landingHeader: VaButtonLandingHeader,

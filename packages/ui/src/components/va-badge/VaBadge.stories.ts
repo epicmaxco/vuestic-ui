@@ -1,7 +1,6 @@
 import { VaBadge } from './'
 import { VaIcon } from '../va-icon'
 import { VaButton } from '../va-button'
-import set from 'lodash/set'
 import { placementsPositionsWithAliases } from '../../composables'
 import { VaCard, VaCardContent } from '../va-card'
 import { VaAvatar } from '../va-avatar'
@@ -16,7 +15,10 @@ const statusToText = (status?: StoryStatus) => {
 }
 
 const addText = (story: any, text?: string, status?: StoryStatus) => {
-  set(story, 'parameters.docs.description.story', `${statusToText(status)} ${text || ''}`)
+  story.parameters = story.parameters || {}
+  story.parameters.docs = story.parameters.docs || {}
+  story.parameters.docs.description = story.parameters.docs.description || {}
+  story.parameters.docs.description.story = `${statusToText(status)} ${text || ''}`
 }
 
 export default {

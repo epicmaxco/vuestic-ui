@@ -4,6 +4,7 @@
     :model-value="modelValue"
     :close-on-click-outside="autoHide"
     :offset="$props.offset"
+    :content-class="$props.contentClass"
     class="va-popover"
   >
     <template #default>
@@ -57,7 +58,7 @@ defineOptions({
 const props = defineProps({
   ...VaDropdownProps,
   ...useComponentPresetProp,
-  trigger: { default: 'hover' },
+  trigger: { ...VaDropdownProps.trigger, default: ['hover', 'enter', 'space', 'arrow-down', 'arrow-up'] },
   color: { type: String, default: '#1b1a1f' }, // TODO: Make sure add this color to pallete
   textColor: { type: String },
   icon: { type: String, default: '' },
@@ -65,6 +66,7 @@ const props = defineProps({
   message: { type: String, default: '' },
   autoHide: { type: Boolean, default: true },
   offset: { type: [Array, Number] as PropType<number | [number, number]>, default: 4 },
+  contentClass: { type: String, default: '' },
 })
 
 const VaDropdownPropValues = filterComponentProps(VaDropdownProps)

@@ -6,10 +6,10 @@ export default definePageConfig({
     block.alert("CSS helpers and the CSS reset file will remain in the Vuestic UI bundle until version 1.7.0, after which they will be permanently removed.", "warning", true),
 
     block.headline("Preparations"),
-    block.paragraph("Before we start with integration - please ensure you have both Tailwind CSS and Vuestic UI installed. If that's not the case - here are installation guide [for Vuestic UI](/getting-started/installation) and for [Tailwind CSS](https://tailwindcss.com/docs/installation/using-postcss)[[target=_blank]]."),
+    block.paragraph("Before we start with integration - please ensure you have both Tailwind CSS and Vuestic UI installed. If that's not the case - here are installation guide for [Vuestic UI](/getting-started/installation) and for [Tailwind CSS](https://tailwindcss.com/docs/installation/using-postcss)[[target=_blank]]."),
 
     block.headline("Syncing configs"),
-    block.paragraph("To create a tight bind between Vuestic with Tailwind we have a {'`@vuestic/tailwind`'} package: it syncs [breakpoint](/services/breakpoints)[[target=_blank]] and [color](/services/colors)[[target=_blank]] settings. You can sync from Vuestic UI to Tailwind or backwards!"),
+    block.paragraph("To create a tight bind between Vuestic with Tailwind we have a `@vuestic/tailwind` package: it syncs [breakpoint](/services/breakpoints)[[target=_blank]] and [color](/services/colors-config)[[target=_blank]] settings. You can sync from Vuestic UI to Tailwind or backwards!"),
 
     block.paragraph("Here's what you have to do to make it work:"),
 

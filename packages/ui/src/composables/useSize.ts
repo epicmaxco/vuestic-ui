@@ -2,6 +2,7 @@ import { computed, getCurrentInstance, PropType } from 'vue'
 
 import { useGlobalConfig, SizeConfig } from '../services/global-config/global-config'
 import type { VuesticComponentName } from '../services/vue-plugin/types/components'
+import { isNilValue } from '../utils/isNilValue'
 
 export const sizesConfig: SizeConfig = {
   defaultSize: 48,
@@ -56,6 +57,40 @@ export const useSizeProps = {
 const fontRegex = /(?<fontSize>\d+)(?<extension>px|rem)/i
 
 const convertToRem = (px: number) => px / 16 - 0.5
+
+const sizeToAbsolute = (size: unknown) => {
+  if (typeof size === 'number') { return `${size}px` }
+  return String(size)
+}
+
+const doHaveSizesConfig = (props: any): props is { sizesConfig: SizeConfig } => 'sizesConfig' in props
+
+export const useSizeRef = (props: {
+  size: string | number;
+  sizesConfig: Record<string, any>;
+}) => {
+  // TODO: Make sizes config service and use it here
+  const sizePropName = 'size'
+
+  return computed<string>(() => {
+    let sizePropValue = props[sizePropName]
+
+    if (doHaveSizesConfig(props)) {
+      const { defaultSize, sizes } = props.sizesConfig
+
+      if (isNilValue(sizePropValue)) {
+        sizePropValue = defaultSize
+      }
+
+      if (sizes) {
+        const sizeFromConfig = sizes[sizePropValue]
+        if (sizeFromConfig) { return sizeToAbsolute(sizeFromConfig) }
+      }
+    }
+
+    return sizeToAbsolute(sizePropValue)
+  })
+}
 
 export const useSize = (
   props: SizeProps,

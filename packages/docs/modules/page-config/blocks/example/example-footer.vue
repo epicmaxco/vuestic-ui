@@ -2,6 +2,7 @@
   <div class="docs-navigation">
     <VaButton
       v-if="!hideShowCodeButton"
+      aria-label="Show code"
       preset="secondary"
       size="small"
       class="docs-navigation__button"
@@ -17,6 +18,7 @@
     </VaButton>
 
     <VaButton
+      aria-label="Copy code example"
       preset="secondary"
       size="small"
       class="docs-navigation__button"
@@ -32,6 +34,7 @@
     </VaButton>
 
     <VaButton
+      aria-label="Open in Github"
       preset="secondary"
       size="small"
       class="docs-navigation__button"
@@ -55,6 +58,7 @@
     >
       <template #anchor="{ show }">
         <VaButton
+          aria-label="Open in playground"
           preset="secondary"
           size="small"
           class="docs-navigation__button"
@@ -71,7 +75,7 @@
       </template>
 
       <ClientOnly>
-        <Play
+        <LazyPlay
           v-model:state="sandboxState"
           class="h-full border-b-2 border-[var(--va-background-border)]"
           :code="code"
@@ -80,7 +84,13 @@
 
       <template #footer="{ ok }">
         <div class="flex gap-2 w-full px-5">
-          <VaInput v-if="$vaBreakpoint.smUp" :model-value="shareLink" label="Sandbox link" inner-label class="flex-1 w-full" />
+          <VaInput
+            v-if="$vaBreakpoint.smUp"
+            :model-value="shareLink"
+            label="Sandbox link"
+            inner-label
+            class="flex-1 w-full"
+          />
           <VaSpacer v-else />
           <VaButton icon="content_copy" preset="secondary" @click="copySandboxLink">
             Copy link
@@ -219,7 +229,7 @@ const doShowPlaygroundButton = computed(() => {
 @import "@/assets";
 
 .docs-navigation {
-  background: var(--va-background-element);
+  background: var(--va-background-border);
   margin: -2px 0 0.2rem 0;
   border-radius: 0 0 0.25rem 0.25rem;
   padding: 0 calc(var(--va-card-padding) - var(--va-button-sm-content-px) / 2);

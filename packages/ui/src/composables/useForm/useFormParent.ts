@@ -2,41 +2,14 @@ import { computed, provide, ref, shallowRef, type Ref, unref, toRef, UnwrapRef }
 import { FormServiceKey } from './consts'
 import { Form, FormFiled } from './types'
 import { useFormChild } from './useFormChild'
-
-type FormParentOptions = {
-  hideLoading: boolean
-  hideErrors: boolean
-  hideErrorMessages: boolean
-  immediate: boolean
-}
-
-export const createFormContext = <Names extends string>(options: FormParentOptions) => {
-  const fields = ref(new Map<number, FormFiled<Names>>())
-
-  return {
-    // Vue unwrap ref automatically, but types are not for some reason
-    immediate: computed(() => options.immediate),
-    fields: computed(() => [...fields.value.values()]),
-    doShowError: computed(() => !options.hideErrors),
-    doShowErrorMessages: computed(() => !options.hideErrorMessages),
-    doShowLoading: computed(() => !options.hideLoading),
-    isFormDirty: ref(false),
-    registerField: (uid: number, field: FormFiled<Names>) => {
-      // Vue will unwrap ref automatically, but types are not for some reason
-      fields.value.set(uid, field as unknown as UnwrapRef<FormFiled<Names>>)
-    },
-    unregisterField: (uid: number) => {
-      fields.value.delete(uid)
-    },
-  }
-}
+import { createFormContext, FormParentOptions } from './formContext'
 
 export const useFormParent = <Names extends string = string>(options: FormParentOptions): Form<Names> => {
   const formContext = createFormContext<Names>(options)
 
   provide<typeof formContext>(FormServiceKey, formContext)
 
-  const { fields, isFormDirty } = formContext
+  const { fields, forceDirty } = formContext
 
   const fieldNames = computed(() => fields.value.map((field) => unref(field.name)).filter(Boolean) as Names[])
   const fieldsNamed = computed(() => fields.value.reduce((acc, field) => {
@@ -49,15 +22,26 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   }, {} as Record<Names, UnwrapRef<FormFiled['value']>>))
   const isValid = computed(() => fields.value.every((field) => unref(field.isValid)))
   const isLoading = computed(() => fields.value.some((field) => unref(field.isLoading)))
-  const isDirty = computed({
-    get () { return fields.value.some((field) => unref(field.isLoading)) || isFormDirty.value },
-    set (v) { isFormDirty.value = v },
-  })
   const errorMessages = computed(() => fields.value.map((field) => unref(field.errorMessages)).flat())
   const errorMessagesNamed = computed(() => fields.value.reduce((acc, field) => {
     if (unref(field.name)) { acc[unref(field.name) as Names] = unref(field.errorMessages) }
     return acc
   }, {} as Record<Names, any>))
+  const isDirty = computed({
+    get () { return fields.value.some((field) => unref(field.isDirty)) || forceDirty.value },
+    set (v) {
+      forceDirty.value = v
+      fields.value.forEach((field) => { field.isDirty = v })
+    },
+  })
+  const isTouched = computed({
+    get () {
+      return fields.value.some((field) => field.isTouched)
+    },
+    set (v) {
+      fields.value.forEach((field) => { field.isTouched = v })
+    },
+  })
 
   const validate = () => {
     isDirty.value = true
@@ -95,10 +79,11 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   }
 
   useFormChild({
-    name: ref(undefined),
+    name: toRef(options, 'name'),
     isValid: isValid,
     isLoading: isLoading,
     isDirty: isDirty,
+    isTouched: isTouched,
     validate,
     validateAsync,
     reset,
@@ -110,6 +95,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
   return {
     immediate: computed(() => options.immediate),
     isDirty,
+    isTouched,
     formData,
     fields,
     fieldsNamed,
@@ -119,6 +105,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
     errorMessages,
     errorMessagesNamed,
     validate,
+    validateAsync,
     reset,
     resetValidation,
     focus,

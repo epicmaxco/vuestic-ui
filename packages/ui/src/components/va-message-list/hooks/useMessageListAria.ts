@@ -6,7 +6,7 @@ const ariaProps = {
     type: [String, Array] as PropType<string | string[]>,
     default: '',
   },
-  limit: { type: Number, default: 1 },
+  limit: { type: [Number, String], default: 1 },
   color: { type: String },
   hasError: { type: Boolean, default: false },
 }

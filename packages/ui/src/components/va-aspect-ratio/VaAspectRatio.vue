@@ -8,7 +8,8 @@
 <script lang="ts" setup>
 import { computed, type PropType } from 'vue'
 
-import { useComponentPresetProp } from '../../composables'
+import { useComponentPresetProp, useNumericProp } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
   name: 'VaAspectRatio',
@@ -17,29 +18,25 @@ defineOptions({
 const props = defineProps({
   ...useComponentPresetProp,
   ratio: {
-    type: [Number, String] as PropType<number | 'auto'>,
+    type: [Number, String] as PropType<number | StringWithAutocomplete<'auto'>>,
     default: 'auto',
-    validator: (v: number | 'auto') => {
-      if (typeof v === 'number') {
-        return v > 0
-      }
-
-      return v === 'auto'
-    },
   },
-  contentHeight: { type: Number, default: 1 },
-  contentWidth: { type: Number, default: 1 },
+  contentHeight: { type: [Number, String], default: 1 },
+  contentWidth: { type: [Number, String], default: 1 },
   maxWidth: {
-    type: Number,
+    type: [Number, String],
     default: 0,
-    validator: (v: number) => v >= 0,
+    validator: (v: number) => Number(v) >= 0,
   },
 })
+
+const contentHeightComputed = useNumericProp('contentHeight')
+const contentWidthComputed = useNumericProp('contentWidth')
 
 const aspectRatio = computed(() => {
   if (props.ratio === 'auto' && props.contentHeight === 1 && props.contentWidth === 1) { return 0 }
   if (!isNaN(+props.ratio)) { return props.ratio as number }
-  return props.contentWidth / props.contentHeight
+  return contentWidthComputed.value! / contentHeightComputed.value!
 })
 
 const stylesComputed = computed(() => {

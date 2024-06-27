@@ -74,7 +74,6 @@
 <script lang="ts" setup>
 import { PropType, computed, shallowRef } from 'vue'
 
-import { generateUniqueId } from '../../utils/uuid'
 import {
   useComponentPresetProp,
   useColors,
@@ -87,6 +86,7 @@ import {
 } from '../../composables'
 import { VaMessageListWrapper } from '../va-message-list'
 import type { VaRadioOption } from './types'
+import { useComponentUuid } from '../../composables/useComponentUuid'
 
 defineOptions({
   name: 'VaRadio',
@@ -218,7 +218,8 @@ const iconComputedStyles = computed(() => {
   return { borderColor: computedError.value ? getColor('danger') : getColor(props.color) }
 })
 
-const computedName = computed(() => props.name || generateUniqueId())
+const componentId = useComponentUuid()
+const computedName = computed(() => props.name || componentId)
 const inputAttributesComputed = (option: any) => {
   const disabled = getDisabled(option)
   return {

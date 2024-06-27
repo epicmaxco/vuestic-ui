@@ -1,5 +1,5 @@
-import isFunction from 'lodash/isFunction.js'
-import { computed, getCurrentInstance } from 'vue'
+import { computed, getCurrentInstance, isVNode } from 'vue'
+import { isFunction } from '../utils/is-function'
 
 /**
  * @description checks if empty slot was passed
@@ -8,6 +8,8 @@ import { computed, getCurrentInstance } from 'vue'
  * @example checkSlotChildrenDeep(slots.default)
  */
 export const checkSlotChildrenDeep = (v: any, initial = true): boolean => {
+  if (isVNode(v)) { return true } // VNode passed from Global Config
+
   if (!v || (initial && (!isFunction(v) || !v()?.length))) { return false }
 
   const slotData = initial ? v() : v

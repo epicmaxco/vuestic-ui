@@ -9,14 +9,15 @@ export type DataTableSortingOptions = DataTableSortingOrder[]
 
 // provided column definitions (<va-data-table `:columns="myColumns"` />)
 // should look like an array of the following objects (and/or strings)
-export type DataTableColumn<T = string> = {
+export type DataTableColumn<Key = string> = {
   [key: string]: any
-  key: T // name of an item's property: 'userName', 'address.zipCode'
+  key: Key // name of an item's property: 'userName', 'address.zipCode'
   name?: string // column unique name (used in slots)
   label?: string // what to display in the respective heading
   thTitle?: string // <th>'s `title` attribute's value
   sortable?: boolean // whether the table can be sorted by that column
-  sortingFn?: (a: any, b: any) => number // a custom sorting function. `a` and `b` are currently compared cells' original values (sources). Must return a number (see the standard JS's Array.prototype.sort)
+  sortingFn?: (a: any, b: any) => number// a custom sorting function. `a` and `b` are currently compared cells' original values (sources). Must return a number (see the standard JS's Array.prototype.sort)
+  displayFormatFn?: (data: any) => any// a custom function for full control over the value rendered in the table for the specified column
   sortingOptions?: DataTableSortingOptions
   thAlign?: DataTableAlignOptions // horizontal alignment
   thVerticalAlign?: DataTableVerticalAlignOptions // vertical alignment
@@ -68,7 +69,8 @@ export interface DataTableColumnInternal {
   label: string
   thTitle: string
   sortable: boolean
-  sortingFn: ((a: any, b: any) => number) | undefined
+  sortingFn: ((a: any, b: any) => number) | undefined,
+  displayFormatFn: ((data: any) => any) | undefined,
   sortingOptions: DataTableSortingOptions
   thAlign: DataTableAlignOptions
   thVerticalAlign: DataTableVerticalAlignOptions
@@ -81,32 +83,34 @@ export interface DataTableColumnInternal {
   thStyle?: DataTableColumnStyle
 }
 
-export type DataTableItem = Record<string, any>
+export type DataTableItem<T = Record<string, any>> = T
 export type DataTableItemKey = any
 
+export type DataTableRowData<Item extends Record<string, any>> = Item
+
 // the inner representation of table cells
-export interface DataTableCell {
+export interface DataTableCell<Item extends DataTableItem = DataTableItem> {
   rowIndex: number
   rowKey: DataTableItemKey
-  rowData: DataTableItem
+  rowData: DataTableRowData<Item>
   column: DataTableColumnInternal
-  source: any
+  source: string
   value: string
 }
 
 // the inner representation of table rows
-export interface DataTableRow {
+export interface DataTableRow<Item extends DataTableItem = DataTableItem> {
   initialIndex: number
   itemKey: DataTableItemKey
-  source: DataTableItem
-  cells: DataTableCell[]
+  source: Item
+  cells: DataTableCell<Item>[]
   /** Same rowData as in DataTableCell */
-  rowData: DataTableItem
+  rowData: DataTableRowData<Item>
   toggleRowDetails: (show?: boolean) => void
   isExpandableRowVisible: boolean
 }
 
-export type DataTableFilterMethod = (source: any) => boolean
+export type DataTableFilterMethod = (source: any, cell: DataTableCell) => boolean
 
 export type DataTableSelectMode = 'single' | 'multiple'
 

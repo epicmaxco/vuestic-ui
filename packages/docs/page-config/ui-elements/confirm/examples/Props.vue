@@ -16,7 +16,7 @@
       okText: "I'm brave",
       cancelText: "I'm scared!",
     })
-    
+
     if (result) {
       alert("Bow to me! I'm the mighty browser alert! MWAHAH")
     } else {

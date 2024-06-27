@@ -6,6 +6,7 @@
     v-bind="dropdownPropsComputed"
     role="combobox"
     inner-anchor-selector=".va-input-wrapper__field"
+    :keyboard-navigation="false"
   >
     <template #anchor>
       <va-input-wrapper
@@ -21,8 +22,6 @@
         :aria-owns="popupId"
         @focus="onInputFocus"
         @blur="onInputBlur"
-        @keydown.enter="toggleDropdown"
-        @keydown.space.stop="toggleDropdown"
       >
         <template
           v-for="(_, name) in $slots"
@@ -60,6 +59,7 @@
           <va-select-content
             v-bind="selectContentPropsComputed"
             :ariaAttributes="ariaAttributes"
+            :separator="$props.separator"
             @toggle-hidden="toggleHiddenOptionsState"
             @autocomplete-input="setAutocompleteValue"
             @focus-prev="focusPreviousOption"
@@ -113,17 +113,21 @@
         @keydown.tab.stop.prevent="searchBar && searchBar.focus()"
         @keydown="onHintedSearch"
         @scroll-bottom="onScrollBottom"
-        v-slot="slotData"
       >
-        <slot name="option" v-bind="slotData || {}" />
+        <template #default="slotData">
+          <slot name="option" v-bind="slotData" />
+        </template>
+
+        <template #option-content="slotData">
+          <slot name="option-content" v-bind="slotData" />
+        </template>
       </va-select-option-list>
     </va-dropdown-content>
   </va-dropdown>
 </template>
 
 <script lang="ts">
-import { ref, shallowRef, computed, watch, nextTick, type PropType, type Ref, useSlots } from 'vue'
-import pick from 'lodash/pick.js'
+import { ref, shallowRef, computed, watch, nextTick, type PropType, type Ref, useSlots, ComputedRef } from 'vue'
 
 import {
   useComponentPresetProp,
@@ -134,10 +138,11 @@ import {
   useMaxSelections, useMaxSelectionsProps,
   useClearableProps, useClearable, useClearableEmits,
   useFocusDeep,
-  useTranslation,
+  useTranslation, useTranslationProp,
   useBem,
   useThrottleProps,
   useDropdownable, useDropdownableEmits, useDropdownableProps, useSyncProp,
+  useNumericProp,
 } from '../../composables'
 
 import { VaInputWrapper } from '../va-input-wrapper'
@@ -160,6 +165,7 @@ import { warn } from '../../utils/console'
 import type { SelectOption } from './types'
 import type { DropdownOffsetProp } from '../va-dropdown/types'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
+import { pick } from '../../utils/pick'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 </script>
@@ -188,14 +194,17 @@ const props = defineProps({
 
   modelValue: {
     type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>,
-    default: '',
+    default: undefined,
   },
 
     // Dropdown placement
-  placement: {
-    ...useDropdownableProps.placement,
-    default: 'bottom',
-  },
+  placement: { ...useDropdownableProps.placement, default: 'bottom' },
+  keepAnchorWidth: { ...useDropdownableProps.keepAnchorWidth, default: true },
+  offset: { ...useDropdownableProps.offset, default: [1, 0] as DropdownOffsetProp },
+  closeOnContentClick: { ...useDropdownableProps.closeOnContentClick, default: false },
+  trigger: { ...useDropdownableProps.trigger, default: () => ['click', 'right-click', 'space', 'enter'] as const },
+
+  // Select options
 
   allowCreate: {
     type: [Boolean, String] as PropType<boolean | 'unique'>,
@@ -208,22 +217,22 @@ const props = defineProps({
   searchable: { type: Boolean, default: false },
   width: { type: String, default: '100%' },
   maxHeight: { type: String, default: '256px' },
-  noOptionsText: { type: String, default: '$t:noOptions' },
+  noOptionsText: useTranslationProp('$t:noOptions'),
   hideSelected: { type: Boolean, default: false },
   tabindex: { type: [String, Number], default: 0 },
   virtualScroller: { type: Boolean, default: false },
   selectedTopShown: { type: Boolean, default: false },
   highlightMatchedText: { type: Boolean, default: true },
-  minSearchChars: { type: Number, default: 0 },
+  minSearchChars: { type: [Number, String], default: 0 },
   autoSelectFirstOption: { type: Boolean, default: false },
 
     // Input style
   placeholder: { type: String, default: '' },
-  searchPlaceholderText: { type: String, default: '$t:search' },
+  searchPlaceholderText: useTranslationProp('$t:search'),
 
-  ariaLabel: { type: String, default: '$t:select' },
-  ariaSearchLabel: { type: String, default: '$t:optionsFilter' },
-  ariaClearLabel: { type: String, default: '$t:reset' },
+  ariaLabel: useTranslationProp('$t:select'),
+  ariaSearchLabel: useTranslationProp('$t:optionsFilter'),
+  ariaClearLabel: useTranslationProp('$t:reset'),
 
   search: { type: String, default: undefined },
 })
@@ -247,7 +256,9 @@ const searchBar = shallowRef<typeof VaInputWrapper>()
 
 const isInputFocused = useFocusDeep(input as any)
 
-const { getValue, getText, getTrackBy } = useSelectableList(props)
+const { getValue, getText, getTrackBy, tryResolveByValue } = useSelectableList(props)
+
+const getValueText = (option: SelectOption) => getText(tryResolveByValue(option))
 
 const onScrollBottom = () => emit('scroll-bottom')
 
@@ -311,7 +322,7 @@ const valueComputed = computed<SelectOption | SelectOption[]>({
   },
 })
 
-const valueString = useStringValue(props, visibleSelectedOptions, getText)
+const valueString = useStringValue(props, visibleSelectedOptions, getValueText)
 
 // icons
 const {
@@ -350,14 +361,20 @@ const filteredOptions = computed(() => {
   return props.options
 })
 
-const checkIsOptionSelected = (option: SelectOption) => {
-  if (isNilValue(valueComputed.value)) { return false }
-
+const normalizedOptionValue = computed(() => {
   if (Array.isArray(valueComputed.value)) {
-    return !isNilValue(valueComputed.value.find((valueItem) => compareOptions(valueItem, option)))
+    return valueComputed.value.map((value) => tryResolveByValue(value))
   }
 
-  return compareOptions(valueComputed.value, option)
+  return tryResolveByValue(valueComputed.value)
+})
+
+const checkIsOptionSelected = (option: SelectOption) => {
+  if (Array.isArray(normalizedOptionValue.value)) {
+    return !isNilValue(normalizedOptionValue.value.find((valueItem) => compareOptions(valueItem, option)))
+  }
+
+  return compareOptions(normalizedOptionValue.value, option)
 }
 
 const compareOptions = (option1: SelectOption, option2: SelectOption) => {
@@ -406,7 +423,7 @@ const selectOption = (option: SelectOption) => {
       valueComputed.value = addOption(option)
     }
   } else {
-    valueComputed.value = typeof option !== 'object' ? option : { ...option }
+    valueComputed.value = option
     hideAndFocus()
   }
 
@@ -431,8 +448,6 @@ const addNewOption = () => {
 const hoveredOption = ref<SelectOption | null>(null)
 
 const selectHoveredOption = () => {
-  if (isNilValue(hoveredOption.value)) { return }
-
   if (!isOpenSync.value) {
     // We can not select options if they are hidden
     handleDropdownOpen()
@@ -464,11 +479,7 @@ const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
 
 const dropdownPropsComputed = computed(() => ({
   ...dropdownProps.value,
-  closeOnContentClick: false,
   stateful: false,
-  offset: [1, 0] as DropdownOffsetProp,
-  keepAnchorWidth: true,
-  keyboardNavigation: true,
   innerAnchorSelector: '.va-input-wrapper__field',
 }))
 
@@ -526,6 +537,8 @@ const onInputBlur = () => {
   if (showDropdownContentComputed.value) { return }
 
   onBlur()
+
+  validationListeners.onBlur()
 
   isInputFocused.value
     ? isInputFocused.value = false
@@ -587,8 +600,10 @@ const onHintedSearch = (event: KeyboardEvent) => {
   hintedSearchQueryTimeoutIndex = setTimeout(() => { hintedSearchQuery = '' }, 1000)
 }
 
+const minSearchCharsComputed = useNumericProp('minSearchChars') as ComputedRef<number>
+
 const optionsListPropsComputed = computed(() => ({
-  ...pick(props, ['textBy', 'trackBy', 'groupBy', 'valueBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'minSearchChars', 'delay', 'selectedTopShown']),
+  ...pick(props, ['textBy', 'trackBy', 'groupBy', 'valueBy', 'disabledBy', 'color', 'virtualScroller', 'highlightMatchedText', 'delay', 'selectedTopShown']),
   autoSelectFirstOption: props.autoSelectFirstOption || props.autocomplete,
   search: searchVModel.value || autocompleteValue.value,
   tabindex: tabIndexComputed.value,
@@ -596,6 +611,8 @@ const optionsListPropsComputed = computed(() => ({
   options: filteredOptions.value,
   getSelectedState: checkIsOptionSelected,
   noOptionsText: tp(props.noOptionsText),
+  doShowAllOptions: doShowAllOptions.value,
+  minSearchChars: minSearchCharsComputed.value,
 }))
 
 const { toggleIcon, toggleIconColor } = useToggleIcon(props, isOpenSync)
@@ -625,12 +642,21 @@ const selectContentPropsComputed = computed(() => ({
   isAllOptionsShown: isAllOptionsShown.value,
   focused: isInputFocused.value,
   autocompleteInputValue: autocompleteValue.value,
-  getText,
+  getText: getValueText,
 }))
 
 // autocomplete
 const autocompleteValue = useAutocomplete(searchVModel, props, visibleSelectedOptions, isOpenSync, getText)
 const setAutocompleteValue = (v: string) => (autocompleteValue.value = v)
+const doShowAllOptions = ref(true)
+
+watch(showDropdownContentComputed, () => {
+  doShowAllOptions.value = true
+})
+
+watch(searchVModel, () => {
+  doShowAllOptions.value = false
+})
 
 // public methods
 const focus = () => {
@@ -697,7 +723,16 @@ const {
   computedErrorMessages,
   withoutValidation,
   resetValidation,
+  validationAriaAttributes,
+  listeners: validationListeners,
+  isTouched,
 } = useValidation(props, emit, { reset, focus, value: valueComputed })
+
+watch(isOpenSync, (isOpen) => {
+  if (!isOpen) {
+    isTouched.value = true
+  }
+})
 
 const { popupId } = useSelectAria()
 

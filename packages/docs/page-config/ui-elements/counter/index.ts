@@ -4,6 +4,7 @@ import apiDescription from './api-description';
 export default definePageConfig({
   blocks: [
     block.title("Counter"),
+    block.tags('counter', 'number input'),
     block.paragraph("The `va-counter` component is intended to be used as a simple counter."),
 
     block.subtitle("Examples"),

@@ -18,10 +18,11 @@
 
 <script lang="ts" setup>
 import { computed, PropType, ref, nextTick, onMounted, onBeforeUnmount, shallowRef } from 'vue'
-import noop from 'lodash/noop.js'
+import { noop } from '../../utils/noop'
 
 import { getWindow } from '../../utils/ssr'
 import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useNumericProp } from '../../composables/useNumericProp'
 
 import {
   handleThrottledEvent,
@@ -37,8 +38,8 @@ defineOptions({
 
 const props = defineProps({
   ...useComponentPresetProp,
-  offsetTop: { type: Number, default: undefined },
-  offsetBottom: { type: Number, default: undefined },
+  offsetTop: { type: [Number, String], default: undefined },
+  offsetBottom: { type: [Number, String], default: undefined },
   target: { type: [Object, Function] as PropType<HTMLElement | Window | (() => HTMLElement | Window)>, default: getWindow },
 })
 
@@ -60,6 +61,9 @@ const setState = (newState: State) => {
   emit('change', isAffixed)
 }
 
+const offsetTopComputed = useNumericProp('offsetTop')
+const offsetBottomComputed = useNumericProp('offsetBottom')
+
 const calculateTop = () => {
   const target = getTargetElement()
 
@@ -67,14 +71,14 @@ const calculateTop = () => {
     return 0
   }
 
-  if (props.offsetTop === undefined) { return }
+  if (offsetTopComputed.value === undefined) { return }
 
   if (!(target instanceof Window)) {
     const { top } = target.getBoundingClientRect()
-    return top + props.offsetTop
+    return top + offsetTopComputed.value
   }
 
-  return props.offsetTop
+  return offsetTopComputed.value
 }
 
 const calculateBottom = () => {
@@ -82,7 +86,7 @@ const calculateBottom = () => {
 
   if (!target) { return 0 }
 
-  if (props.offsetBottom === undefined) { return }
+  if (offsetBottomComputed.value === undefined) { return }
 
   if (!(target instanceof Window)) {
     const { bottom } = target.getBoundingClientRect()
@@ -91,10 +95,10 @@ const calculateBottom = () => {
 
     const scrollBarHeight = offsetHeight - clientHeight - parseInt(borderTopWidth) - parseInt(borderBottomWidth)
 
-    return getWindowHeight() - (bottom - props.offsetBottom) + scrollBarHeight
+    return getWindowHeight() - (bottom - offsetBottomComputed.value) + scrollBarHeight
   }
 
-  return props.offsetBottom
+  return offsetBottomComputed.value
 }
 
 const convertToPixels = (calculate: () => number | undefined) => {
@@ -113,6 +117,8 @@ const initialPosition = ref<DOMRect>()
 const throttledEventHandler = (eventName: string | null, event?: Event) => {
   const context: Context = {
     ...props,
+    offsetTop: offsetTopComputed.value,
+    offsetBottom: offsetBottomComputed.value,
     initialPosition: initialPosition.value,
     element: element.value,
     target: getTargetElement(),

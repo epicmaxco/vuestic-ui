@@ -4,7 +4,9 @@ import { DataTableItem } from '../types'
 
 export const useCurrentPageProp = { currentPage: { type: Number as PropType<number | undefined> } }
 
-export const useItemsProp = { items: { type: Array as PropType<DataTableItem[]>, default: () => [] as DataTableItem[] } }
+export const createItemsProp = <T>() => ({
+  items: { type: Array as PropType<DataTableItem<T>[]>, default: () => [] as DataTableItem<T>[] },
+})
 
 export const useSelectableProp = { selectable: { type: Boolean, default: false } }
 

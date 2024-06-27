@@ -33,9 +33,9 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import clamp from 'lodash/clamp.js'
+import { clamp } from '../../utils/clamp'
 
-import { useComponentPresetProp, useColors, useSize, useSizeProps, useTranslation } from '../../composables'
+import { useComponentPresetProp, useColors, useSize, useSizeProps, useTranslation, useTranslationProp } from '../../composables'
 
 defineOptions({
   name: 'VaProgressCircle',
@@ -44,21 +44,21 @@ defineOptions({
 const props = defineProps({
   ...useSizeProps,
   ...useComponentPresetProp,
-  modelValue: { type: Number, default: 0 },
+  modelValue: { type: [Number, String], default: 0 },
   indeterminate: { type: Boolean, default: false },
-  thickness: { type: Number, default: 0.06 },
+  thickness: { type: [Number, String], default: 0.06 },
   color: { type: String, default: 'primary' },
-  ariaLabel: { type: String, default: '$t:progressState' },
+  ariaLabel: useTranslationProp('$t:progressState'),
 })
 
 const { getColor } = useColors()
 const { sizeComputed } = useSize(props)
 
-const cappedThickness = computed(() => clamp(props.thickness, 0, 1) / 2 * 100)
+const cappedThickness = computed(() => clamp(Number(props.thickness), 0, 1) / 2 * 100)
 
 const radius = computed(() => 20 - (20 * cappedThickness.value / 100))
 const dasharray = computed(() => 2 * Math.PI * radius.value)
-const dashoffset = computed(() => dasharray.value * (1 - clamp(props.modelValue, 0, 100) / 100))
+const dashoffset = computed(() => dasharray.value * (1 - clamp(Number(props.modelValue), 0, 100) / 100))
 const colorComputed = computed(() => getColor(props.color, undefined, true))
 
 const { tp } = useTranslation()
