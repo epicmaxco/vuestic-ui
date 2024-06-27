@@ -1,4 +1,4 @@
-import { throttle } from "../../utils/throttle";
+import { throttle } from '../../utils/throttle'
 
 export type State = {
   isTopAffixed: boolean;

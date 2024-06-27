@@ -25,7 +25,7 @@ import {
   useSize, useSizeProps,
   useIcon,
 } from '../../composables'
-import { omit } from '../../utils/omit';
+import { omit } from '../../utils/omit'
 
 defineOptions({
   name: 'VaIcon',

@@ -1,4 +1,4 @@
-declare var __DEV__: boolean | undefined
+declare let __DEV__: boolean | undefined
 
 const processShim: typeof process = typeof process !== 'undefined' ? process : ({} as typeof process)
 const envShim = processShim.env || ({} as typeof process.env)

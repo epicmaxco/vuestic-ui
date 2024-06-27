@@ -161,7 +161,7 @@ const computedButtonIcons = computed(() => {
 })
 
 const buttonPropsFiltered = computed(() => {
-  let ignoredProps = ['to', 'href', 'loading', 'icon'] as const
+  const ignoredProps = ['to', 'href', 'loading', 'icon'] as const
   const presetProps = [
     'plain',
     'textOpacity', 'backgroundOpacity',
