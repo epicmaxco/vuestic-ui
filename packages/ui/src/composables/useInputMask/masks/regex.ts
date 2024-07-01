@@ -137,30 +137,32 @@ const formatByRegexTokens = (possibleResults: PossibleResult[], value: string, r
   }
 
   // TODO: Maybe optimize this?
-
+  let suggestedCharsCount = 0
+  let text = ''
   let valueOffset = 0
   let tokensOffset = 0
-  const maxPossibleMask = possibleResults.reduce((acc, mask) => Math.max(acc, mask.length), 0)
-  let suggestedCharsCount = 0
 
-  let text = ''
+  const maxPossibleMask = possibleResults.reduce((acc, mask) => Math.max(acc, mask.length), 0)
   const foundTokens: (RegexToken)[] = []
 
   while (valueOffset < value.length || tokensOffset < maxPossibleMask) {
-    const tokens = possibleResults
+    // Filter out possible results that not match with current text
+    possibleResults = possibleResults
       .filter((tokens) => {
         return compareWithMask(tokens, text)
       })
+
+    const possibleToken = possibleResults
       .map((mask) => mask[tokensOffset])
       .filter((token) => token !== undefined)
 
-    if (tokens.length === 0) {
+    if (possibleToken.length === 0) {
       break
     }
 
-    const possibleSuggestions = tokens.filter((token) => token.type === 'char')
+    const possibleSuggestions = possibleToken.filter((token) => token.type === 'char')
 
-    const staticCharts = tokens.filter((token) => token.static)
+    const staticCharts = possibleToken.filter((token) => token.static)
 
     const isOnePossibleStaticChar = staticCharts.reduce((acc, char) => {
       if (acc === null) {
@@ -178,6 +180,8 @@ const formatByRegexTokens = (possibleResults: PossibleResult[], value: string, r
       const suggestedChar = possibleSuggestions[0]?.expect ?? ''
       let canBeSuggested = possibleSuggestions.every((token) => token.expect === suggestedChar) && value[valueOffset]?.length > 0
 
+      const onlyStaticLeft = possibleResults.length === 1 && possibleResults[0].every((token) => token.static)
+
       if (possibleSuggestions[0].dynamic) {
         canBeSuggested = canBeSuggested && value[valueOffset]?.length > 0
       }
@@ -186,8 +190,12 @@ const formatByRegexTokens = (possibleResults: PossibleResult[], value: string, r
         canBeSuggested = value[valueOffset] !== isOnePossibleStaticChar.expect
       }
 
-      if (tokens.some((token) => compareWithToken(token, value[valueOffset]))) {
+      if (possibleToken.some((token) => compareWithToken(token, value[valueOffset]))) {
         canBeSuggested = false
+      }
+
+      if (onlyStaticLeft) {
+        canBeSuggested = true
       }
 
       if (canBeSuggested) {
@@ -205,7 +213,7 @@ const formatByRegexTokens = (possibleResults: PossibleResult[], value: string, r
       break
     }
 
-    const possibleTokens = tokens.filter((token) => {
+    const charCorrectTokens = possibleToken.filter((token) => {
       if (token.type === 'char') {
         return token.expect === value[valueOffset]
       }
@@ -218,9 +226,9 @@ const formatByRegexTokens = (possibleResults: PossibleResult[], value: string, r
     })
 
     if (value[valueOffset] !== undefined) {
-      if (possibleTokens.length > 0) {
+      if (charCorrectTokens.length > 0) {
         text += value[valueOffset]
-        foundTokens.push(possibleTokens[0])
+        foundTokens.push(charCorrectTokens[0])
         tokensOffset++
       }
     }
