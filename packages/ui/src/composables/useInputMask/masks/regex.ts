@@ -180,7 +180,7 @@ const formatByRegexTokens = (possibleResults: PossibleResult[], value: string, r
       const suggestedChar = possibleSuggestions[0]?.expect ?? ''
       let canBeSuggested = possibleSuggestions.every((token) => token.expect === suggestedChar) && value[valueOffset]?.length > 0
 
-      const onlyStaticLeft = possibleResults.length === 1 && possibleResults[0].every((token) => token.static)
+      const onlyStaticLeft = possibleResults.length === 1 && possibleResults[0].slice(tokensOffset).every((token) => token.static)
 
       if (possibleSuggestions[0].dynamic) {
         canBeSuggested = canBeSuggested && value[valueOffset]?.length > 0
@@ -248,23 +248,6 @@ const formatByRegexTokens = (possibleResults: PossibleResult[], value: string, r
     text,
     tokens: foundTokens,
     data: suggestedCharsCount,
-  }
-}
-
-const cleanLastSuggestedChars = ({ text, tokens }: {
-  text: string, tokens: RegexToken[]
-}) => {
-  let newText = text
-  let newTokens = tokens
-
-  while (newTokens.length > 0 && newTokens[newTokens.length - 1].type === 'char' && newTokens[newTokens.length - 1].static) {
-    newText = newText.slice(0, -1)
-    newTokens = newTokens.slice(0, -1)
-  }
-
-  return {
-    text: newText,
-    tokens: newTokens,
   }
 }
 
