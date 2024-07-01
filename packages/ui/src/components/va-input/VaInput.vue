@@ -41,7 +41,7 @@
       ref="input"
       class="va-input__content__input"
       v-bind="{ ...computedInputAttributes, ...inputEvents }"
-      :value="computedValue"
+      v-model="valueComputed"
     >
   </va-input-wrapper>
 </template>
@@ -62,7 +62,6 @@ import {
   useFocusable, useFocusableProps, useEvent,
 } from '../../composables'
 import type { ValidationProps } from '../../composables/useValidation'
-import { useCleave, useCleaveProps } from './hooks/useCleave'
 
 import type { AnyStringPropType } from '../../utils/types/prop-type'
 
@@ -100,7 +99,6 @@ const props = defineProps({
   ...useFocusableProps,
   ...useValidationProps as ValidationProps<string>,
   ...useClearableProps,
-  ...useCleaveProps,
   ...useComponentPresetProp,
   ...useStatefulProps,
 
@@ -174,14 +172,11 @@ const {
   clearIconProps,
 } = useClearable(props, modelValue, input, computedError)
 
-const { computedValue, onInput } = useCleave(input, props, valueComputed)
-
 const inputListeners = createInputListeners(emit)
 
 const inputEvents = {
   ...inputListeners,
   onBlur: combineFunctions(onBlur, inputListeners.onBlur),
-  onInput: combineFunctions(onInput, inputListeners.onInput),
 }
 
 const setInputValue = (newValue: string) => {
@@ -208,7 +203,7 @@ const setInputValue = (newValue: string) => {
   target.setSelectionRange(selectionStart, selectionEnd)
 }
 
-watch(computedValue, (newValue) => {
+watch(valueComputed, (newValue) => {
   setInputValue(String(newValue))
 }, { immediate: true })
 
@@ -239,7 +234,7 @@ const computedInputAttributes = computed(() => (({
 }) as InputHTMLAttributes))
 
 const valueLengthComputed = computed(() =>
-  props.counter && typeof computedValue.value === 'string' ? computedValue.value.length : undefined,
+  props.counter && typeof valueComputed.value === 'string' ? valueComputed.value.length : undefined,
 )
 
 const onFieldClick = (e: MouseEvent) => {

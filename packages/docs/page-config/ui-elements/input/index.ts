@@ -31,10 +31,6 @@ export default definePageConfig({
       title: "Slots",
       description: "You can use slots for pass custom elements to input (inner or outer), such as icons or buttons etc."
     }),
-    block.example("Mask", {
-      title: "Mask",
-      description: "Support possibility to force/help the user to input a specific format with help from mask prop. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/)[[target=_blank]]. By default returning a raw value. <br />If you need other cleave addons (like phone) you have install cleave.js and just import them in your app. For example, the path is: cleave.js/dist/addons/cleave-phone.{country}.js"
-    }),
     block.example("StrictVModel", {
       title: 'Strict v-model bind',
       description: 'In case you want to strictly bind v-model to input value. This will prevent user from typing anything that doesn\'t match provided model-value. Can be used for validation or making masks.'
@@ -67,8 +63,6 @@ export default definePageConfig({
         innerLabel: 'If true label will be inside the input.',
         inputClass: 'Class to be applied directly to the input element.',
         placeholder: 'Placeholder text.',
-        mask: 'Mask for input. You can pass some mask presets or custom options based on [cleave.js](https://nosir.github.io/cleave.js/)[[target=_blank]].',
-        returnRaw: 'If true, the raw value will be returned instead of the formatted one.',
         pattern: 'Pattern for input in case you want to use native validation.',
         maxLength: 'Maximum length of input.',
         minLength: 'Minimum length of input.',
