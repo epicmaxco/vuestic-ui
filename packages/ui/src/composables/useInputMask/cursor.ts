@@ -50,6 +50,8 @@ export class Cursor<Token extends MaskToken> extends Number {
           amount--
         } else if (direction === 1 && current === undefined && next?.static) {
           amount--
+        } else if (direction === 1 && current === undefined && next === undefined) {
+          amount--
         }
       }
 

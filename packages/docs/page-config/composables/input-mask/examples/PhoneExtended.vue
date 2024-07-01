@@ -1,5 +1,5 @@
 <template>
-  <VaInput v-model="text" ref="vaInput" placeholder="+380 (93) 000-00-00" />
+  <VaInput ref="vaInput" v-model="text" placeholder="+380 (93) 000-00-00" />
 </template>
 
 <script setup lang="ts">
@@ -11,7 +11,7 @@ const vaInput = ref()
 
 const ukrPhoneMask = createMaskFromRegex(/\+380 \(\d{2}\) (\d){3}-\d\d-\d\d/)
 const usPhoneMask = createMaskFromRegex(/\+1 \(\d{3}\) (\d){3}-\d\d-\d\d/)
-const nationalPhoneMask = createMaskFromRegex(/.*/)
+const nationalPhoneMask = createMaskFromRegex(/\+(380|1) /)
 
 useInputMask({
   format(text) {
