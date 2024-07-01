@@ -160,16 +160,30 @@ const formatByRegexTokens = (possibleResults: PossibleResult[], value: string, r
 
     const possibleSuggestions = tokens.filter((token) => token.type === 'char')
 
+    const staticCharts = tokens.filter((token) => token.static)
+
+    const isOnePossibleStaticChar = staticCharts.reduce((acc, char) => {
+      if (acc === null) {
+        return char
+      }
+
+      if (acc.expect !== char.expect) {
+        return null
+      }
+
+      return acc
+    }, null as RegexToken | null)
+
     if (possibleSuggestions.length > 0) {
       const suggestedChar = possibleSuggestions[0]?.expect ?? ''
-      let canBeSuggested = possibleSuggestions.every((token) => token.expect === suggestedChar) // && value[valueOffset]?.length > 0
+      let canBeSuggested = possibleSuggestions.every((token) => token.expect === suggestedChar) && value[valueOffset]?.length > 0
 
       if (possibleSuggestions[0].dynamic) {
         canBeSuggested = canBeSuggested && value[valueOffset]?.length > 0
       }
 
-      if (possibleSuggestions.length === 1 && possibleSuggestions[0].static) {
-        canBeSuggested = true
+      if (isOnePossibleStaticChar && value[valueOffset]?.length > 0) {
+        canBeSuggested = value[valueOffset] !== isOnePossibleStaticChar.expect
       }
 
       if (tokens.some((token) => compareWithToken(token, value[valueOffset]))) {
