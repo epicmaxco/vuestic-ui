@@ -5,7 +5,7 @@ import { useEvent, useElementRect, useResizeObserver } from '../../composables'
 
 const props = withDefaults(defineProps<{
     el?: HTMLElement | null
-    direction: 'vertical' | 'horizontal'
+    direction?: 'vertical' | 'horizontal'
   }>(), {
   direction: 'horizontal',
 })
