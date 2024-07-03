@@ -1,3 +1,7 @@
+# 1.10.0
+- Remove cleave.js and reduced bundle size
+- Remove `mask` prop. Prefer useInputMask composable
+
 # 1.9.0
 - Fix style issues without vuestic/css or in web-components build
 - Fix empty value when model value initially set
