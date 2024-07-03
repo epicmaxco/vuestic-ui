@@ -6,10 +6,16 @@ import { resolve, join } from 'pathe'
 const changelogs = () => glob(join(resolve(''), '..', 'ui/src/**/CHANGELOG.md'))
 
 const sortObjectKeys = <T extends Record<string, any>>(obj: T) => {
-  return Object.keys(obj).sort().reverse().reduce((acc, key) => {
-    acc[key as keyof T] = obj[key] as T[keyof T]
-    return acc
-  }, {} as T)
+  return Object
+    .keys(obj)
+    .sort((a, b) => {
+      return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+    })
+    .reverse()
+    .reduce((acc, key) => {
+      acc[key as keyof T] = obj[key] as T[keyof T]
+      return acc
+    }, {} as T)
 }
 
 export const render = async () => {
@@ -26,6 +32,8 @@ export const render = async () => {
   const mergedChangelog = logEntries
     .reduce((acc, [path, changelog]) => {
       const componentName = path.match(/components\/(.*)\/CHANGELOG.md/)?.[1]
+      const serviceName = path.match(/services\/(.*)\/CHANGELOG.md/)?.[1]
+      const composableName = path.match(/composables\/(.*)\/CHANGELOG.md/)?.[1]
 
       const spilledByVersion = changelog.split(/# ([0-9]*\.[0-9]*\.[0-9]*)/).filter(Boolean)
 
@@ -37,6 +45,10 @@ export const render = async () => {
 
         if (componentName) {
           acc[version][componentName] = content.split('\n').filter(Boolean)
+        } else if (serviceName) {
+          acc[version][serviceName] = content.split('\n').filter(Boolean)
+        } else if (composableName) {
+          acc[version][composableName] = content.split('\n').filter(Boolean)
         }
       }
       return acc
