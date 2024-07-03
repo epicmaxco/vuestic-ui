@@ -231,7 +231,7 @@ const changeLogValue = ref(true)
     </ApiTable>
   </VaContent>
   <VaCollapse
-    v-if="$props.changeLog"
+    v-if="$props.changeLog && $props.changeLog.length > 0"
     v-model="changeLogValue"
     class="mt-8 page-config-api-change-log"
   >
