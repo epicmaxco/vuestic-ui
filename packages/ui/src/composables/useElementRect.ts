@@ -26,12 +26,18 @@ export const useElementRect = (element: Ref<HTMLElement | null>) => {
     element.value && resizeObserver.observe(element.value)
     element.value && mutationObserver.observe(element.value, { attributes: true, childList: true, subtree: true })
 
+    window.addEventListener('resize', updateRect)
+    window.addEventListener('scroll', updateRect)
+
     updateRect()
   })
 
   onBeforeUnmount(() => {
     resizeObserver?.disconnect()
     mutationObserver?.disconnect()
+
+    window.removeEventListener('resize', updateRect)
+    window.removeEventListener('scroll', updateRect)
 
     resizeObserver = undefined
     mutationObserver = undefined
