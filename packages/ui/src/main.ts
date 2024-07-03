@@ -11,6 +11,7 @@ export {
   createNumeralMask,
   createMaskDate,
   compareWithMask,
+  useStickyTableHeaders,
 } from './composables'
 
 export * from './services/vue-plugin'
