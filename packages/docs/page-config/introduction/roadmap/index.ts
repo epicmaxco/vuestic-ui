@@ -4,17 +4,14 @@ export default definePageConfig({
   blocks: [
     block.title("Vuestic UI Roadmap"),
     block.paragraph("Our team is constantly improving the existing code base and adding new features that help building applications even easier."),
-    block.subtitle("In development"),
-    block.paragraph("The following features are currently being in development:"),
+    // block.subtitle("In development"),
+    // block.paragraph("The following features are currently being in development:"),
+
+    block.subtitle("Released"),
 
     block.headline("v1.8"),
     block.component("Roadmap", {
       roadmap: [
-        {
-          title: "Color Picker",
-          type: "component",
-          image: "colorPicker",
-        },
         {
           title: "Page Layout",
           type: "component",
@@ -43,8 +40,6 @@ export default definePageConfig({
         }
       ] as RoadmapItem[],
     }),
-
-    block.subtitle("Released"),
 
     block.headline("[v1.7](https://github.com/epicmaxco/vuestic-ui/milestone/27)"),
     block.paragraph("We focus on improving existing components and documentation pages."),
