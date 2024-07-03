@@ -142,6 +142,13 @@ export const navigationRoutes: NavigationRoute[] = [
         meta: {
           badge: navigationBadge.new('1.10.0'),
         },
+      },
+      {
+        name: 'sticky-table-headers',
+        displayName: 'Sticky Table Headers',
+        meta: {
+          badge: navigationBadge.new('1.10.0'),
+        },
       }
     ]
   },
