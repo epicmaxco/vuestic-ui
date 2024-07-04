@@ -16,7 +16,7 @@ export const generateCSSVariable = (key: string, value: string) => {
   return `${cssVariableName(key)}: ${value};\n`
 }
 
-const stylesRootAttr = 'data-va-styles-root'
+const STYLE_ROOT_ATTR = 'data-va-app'
 
 const getStyleElementId = (id: string | number) => `va-color-variables-${id}`
 
@@ -52,7 +52,8 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
 
   const uniqueId = computed(() => app._uid)
 
-  const stylesRootSelector = computed(() => `[${stylesRootAttr}="${uniqueId.value}"]`)
+  // TODO: Use this selector later
+  const stylesRootSelector = computed(() => ':root, :host') // `[${STYLE_ROOT_ATTR}="${uniqueId.value}"]`
 
   const updateColors = (newValue: ColorVariables | undefined) => {
     if (!newValue || isServer()) { return }
@@ -63,7 +64,7 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
   }
 
   function getAppStylesRootAttribute () {
-    return { [stylesRootAttr]: uniqueId.value }
+    return { [STYLE_ROOT_ATTR]: uniqueId.value }
   }
 
   const origMount = app.mount
@@ -73,13 +74,13 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
     const appRootElement = app._container as HTMLElement
 
     // Remove previous styles when remounting to the same root element (happens on HMR)
-    const existingStylesId = appRootElement.getAttribute(stylesRootAttr)
+    const existingStylesId = appRootElement.getAttribute(STYLE_ROOT_ATTR)
 
     if (existingStylesId && existingStylesId !== uniqueId.value.toString()) {
       removeStyleElement(getStyleElementId(existingStylesId))
     }
 
-    appRootElement.setAttribute(stylesRootAttr, uniqueId.value.toString())
+    appRootElement.setAttribute(STYLE_ROOT_ATTR, uniqueId.value.toString())
 
     return result
   }
