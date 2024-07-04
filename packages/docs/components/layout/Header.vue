@@ -31,8 +31,7 @@
 
       <template #right>
         <div
-          v-if="isOptionsListVisible"
-          class="header__options"
+          class="header__options hidden sm:flex"
         >
           <VaButton
             v-for="(link, index) in links"
@@ -52,7 +51,7 @@
 
         <!-- options mobile menu -->
         <VaButton
-          v-if="isOptionsMenuVisible"
+          class="sm:hidden"
           aria-label="Open options menu"
           preset="plain"
           @click="toggleOptions"
