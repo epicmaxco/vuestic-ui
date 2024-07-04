@@ -1,0 +1,32 @@
+import { createApp, Plugin } from 'vue'
+import App from './Devtools.vue'
+import { createVuesticEssential } from 'vuestic-ui'
+import 'vuestic-ui/styles/essential.css'
+import './styles.css'
+
+export const createVuesticDevtools = () => ({
+  install(app) {
+    const appRoot = document.createElement('div')
+    appRoot.id = 'vuestic-devtools'
+    document.body.appendChild(appRoot)
+
+    createApp(App)
+      .use(createVuesticEssential({
+        // config: {
+        //   colors: {
+        //     variables: {
+        //       backgroundPrimary: '#050309',
+        //       backgroundSecondary: '#0b0719',
+        //       backgroundElement: '#2c233d',
+        //       backgroundBorder: '#ebe5f5',
+        //       backgroundCard: '#1e152a',
+        //       primary: '#AB8CDF',
+        //       secondary: '#472089',
+        //       textPrimary: '#EBE5F5'
+        //     }
+        //   }
+        // }
+      }))
+      .mount(appRoot)
+  }
+}) satisfies Plugin

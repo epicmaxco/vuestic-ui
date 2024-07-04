@@ -1,0 +1,7 @@
+{
+  "name": "@vuestic/compiler",
+  "version": "0.0.1",
+  "dependencies": {
+    "shiki": "^1.10.1"
+  }
+}
