@@ -34,7 +34,7 @@ export const createColorConfigPlugin = (app: App, config?: PartialGlobalConfig) 
     return `${renderedColors};${renderedOnColors}`
   }
 
-  const renderCSSVariablesStyleContent = (colors: ColorVariables = configColors, selector = ':root') => {
+  const renderCSSVariablesStyleContent = (colors: ColorVariables = configColors, selector = ':root, :host') => {
     const colorNames = Object.keys(colors)
 
     let result = `${selector} {
