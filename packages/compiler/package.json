@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build:devtools": "rm -rf ./dist/devtools/ && yarn build:devtools:vite && yarn build:devtools:client",
-    "build:devtools:vite": "tsup devtools/vite/index.ts --dts --format esm --target node16 --out-dir ./dist/devtools/vite",
+    "build:devtools:vite": "tsup-node devtools/vite/index.ts --dts --format esm,cjs --target node18 --shims --out-dir ./dist/devtools/vite",
     "build:devtools:client": "vite build --config devtools/client/vite.config.ts --outDir ./dist/devtools/client",
     "dev:devtools": "cd ./devtools/playground && yarn dev"
   },
@@ -18,7 +18,10 @@
   },
 
   "exports": {
-    "./devtools/vite": "./dist/devtools/vite/index.mjs",
+    "./devtools/vite": {
+      "import": "./dist/devtools/vite/index.mjs",
+      "require": "./dist/devtools/vite/index.js"
+    },
     "./devtools": "./dist/devtools/client/vuestic-devtools.es.js"
   }
 }

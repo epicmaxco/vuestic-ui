@@ -18,9 +18,41 @@ const walk = (node: TemplateChildNode | RootNode, cb: (node: TemplateChildNode |
   }
 }
 
-const getNodeLoc = (source: string) => {
-  let selfCloseIndex = source.indexOf('/>')
-  let closeIndex = source.indexOf('>')
+const findEndTagIndex = (source: string) => {
+  let inQuotes = false
+
+  for (let i = 0; i < source.length; i++) {
+    if (source[i] === '"') {
+      inQuotes = !inQuotes
+    }
+
+    if (source[i] === '>' && !inQuotes) {
+      return i
+    }
+  }
+
+  return -1
+}
+
+const findSefCloseTagIndex = (source: string) => {
+  let inQuotes = false
+
+  for (let i = 0; i < source.length; i++) {
+    if (source[i] === '"') {
+      inQuotes = !inQuotes
+    }
+
+    if (source[i] === '/' && source[i + 1] === '>' && !inQuotes) {
+      return i
+    }
+  }
+
+  return -1
+}
+
+const getNodeTagLoc = (source: string) => {
+  let selfCloseIndex = findSefCloseTagIndex(source)
+  let closeIndex = findEndTagIndex(source)
 
   if (selfCloseIndex === -1) {
     selfCloseIndex = source.length
@@ -48,27 +80,21 @@ export const transformFile = async (code: string, id: string) => {
   }
 
   let source = new MagicString(code)
-  let templateSource = new MagicString(templateAst.source)
 
   // TODO: TS fix correct versions of @vue/compiler-core and @vue/compiler-sfc
   walk(templateAst as unknown as RootNode, (node) => {
     if (node.type === 1) {
-      const loc = getNodeLoc(node.loc.source)
-
+      const tagLoc = getNodeTagLoc(node.loc.source)
       const nodeId = `${id}:${node.loc.start.offset}:${node.loc.end.offset}` as const
 
-      const withAttribute = ` data-${PREFIX}="" data-${minifyPath(nodeId)}=""${loc.endSymbol}`
+      const withAttribute = ` data-${PREFIX}="" data-${minifyPath(nodeId)}=""`
 
-      const newNodeSource = node.loc.source
-        .replace(loc.source, loc.source.slice(0, -1 * loc.endSymbol.length) + withAttribute)
-        .slice(loc.start.offset, loc.end.offset - 1 + withAttribute.length)
-
-      templateSource = templateSource.overwrite(node.loc.start.offset, node.loc.start.offset + loc.end.offset, newNodeSource)
+      source.appendLeft(node.loc.start.offset + tagLoc.end.offset - tagLoc.endSymbol.length, withAttribute)
     }
   })
 
   return {
-    code: source.replace(templateAst.source, templateSource.toString()).toString(),
+    code: source.toString(),
     map: source.generateMap(),
   }
 }
