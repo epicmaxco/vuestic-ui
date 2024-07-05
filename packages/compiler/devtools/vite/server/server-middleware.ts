@@ -1,6 +1,6 @@
 import { Connect } from 'vite'
 import { readBody } from './utils'
-import { API_PREFIX } from '../../shared/CONST'
+import { API_PREFIX, PREFIX } from '../../shared/CONST'
 import { getComponentSource, setComponentSource } from './file'
 import { replacePath, unminifyPath } from '../../shared/slug'
 
@@ -12,7 +12,7 @@ export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
 
     const url = new URL(req.url, 'http://localhost:8088');
     const minified = url.searchParams.get('q') ?? ''
-    const unminified = unminifyPath(minified);
+    const unminified = unminifyPath(minified as `va:${string}`);
 
     if (!unminified) {
       res.writeHead(400);

@@ -11,22 +11,7 @@ export const createVuesticDevtools = () => ({
     document.body.appendChild(appRoot)
 
     createApp(App)
-      .use(createVuesticEssential({
-        // config: {
-        //   colors: {
-        //     variables: {
-        //       backgroundPrimary: '#050309',
-        //       backgroundSecondary: '#0b0719',
-        //       backgroundElement: '#2c233d',
-        //       backgroundBorder: '#ebe5f5',
-        //       backgroundCard: '#1e152a',
-        //       primary: '#AB8CDF',
-        //       secondary: '#472089',
-        //       textPrimary: '#EBE5F5'
-        //     }
-        //   }
-        // }
-      }))
+      .use(createVuesticEssential())
       .mount(appRoot)
   }
 }) satisfies Plugin

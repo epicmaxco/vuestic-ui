@@ -55,7 +55,7 @@ export const transformFile = async (code: string, id: string) => {
     if (node.type === 1) {
       const loc = getNodeLoc(node.loc.source)
 
-      const nodeId = `${id}:${node.loc.start.offset}:${node.loc.end.offset}`
+      const nodeId = `${id}:${node.loc.start.offset}:${node.loc.end.offset}` as const
 
       const withAttribute = ` data-${PREFIX}="" data-${minifyPath(nodeId)}=""${loc.endSymbol}`
 
