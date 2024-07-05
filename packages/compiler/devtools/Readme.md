@@ -2,6 +2,12 @@
 
 Vuestic devtools designed for intuitive visual control over application with Vuestic components
 
+### Installation
+
+Install package
+
+Add `@vuestic/compiler/devtools/vite` plugin to `vite.config.ts`
+
 ### Plans
 
 - [x] Edit component props

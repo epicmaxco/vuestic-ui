@@ -2,6 +2,23 @@
   "name": "@vuestic/compiler",
   "version": "0.0.1",
   "dependencies": {
-    "shiki": "^1.10.1"
+    "shiki": "^1.10.1",
+    "tsup": "^8.1.0"
+  },
+  "scripts": {
+    "build:devtools": "rm -rf ./dist/devtools/ && yarn build:devtools:vite && yarn build:devtools:client",
+    "build:devtools:vite": "tsup devtools/vite/index.ts --dts --format esm --target node16 --out-dir ./dist/devtools/vite",
+    "build:devtools:client": "vite build --config devtools/client/vite.config.ts --outDir ./dist/devtools/client",
+    "dev:devtools": "cd ./devtools/playground && yarn dev"
+  },
+  "peerDependencies": {
+    "@vue/compiler-core": "^3.4.21",
+    "@vue/compiler-sfc": "^3.4.21",
+    "vite": "^5.3.3"
+  },
+
+  "exports": {
+    "./devtools/vite": "./dist/devtools/vite/index.mjs",
+    "./devtools": "./dist/devtools/client/vuestic-devtools.es.js"
   }
 }

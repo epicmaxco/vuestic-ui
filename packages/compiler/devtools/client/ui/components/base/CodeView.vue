@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { codeToHtml } from 'shiki'
+  import { codeToHtml } from 'shiki/bundle/web'
   import { ref, watchEffect } from 'vue';
 
   const props = defineProps<{
@@ -7,7 +7,7 @@
   }>()
 
   const html = ref()
-  
+
   watchEffect(async () => {
     html.value = await codeToHtml(props.code, {
       lang: 'html',

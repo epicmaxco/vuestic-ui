@@ -23,7 +23,7 @@ const onLoginClick = () => {
     <VaDivider style="margin: 0" />
     <VaCardActions>
       <VaButton @click="onLoginClick">
-        Login
+        Test
       </VaButton>
     </VaCardActions>
   </VaCard>
