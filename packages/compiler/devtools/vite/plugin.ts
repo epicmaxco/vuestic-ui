@@ -1,18 +1,12 @@
 import { Plugin } from 'vite'
 import { createFilter, FilterPattern } from '@rollup/pluginutils'
 import { transformFile } from './compiler'
-import { createDevtoolsServer } from './server'
+import { devtoolsServerMiddleware } from './server/server-middleware'
 
 type PluginOptions = {
   include?: FilterPattern
   exclude?: FilterPattern
 }
-
-const server = createDevtoolsServer()
-
-server.listen(8088, () => {
-  console.log('Server listening on http://localhost:8088');
-});
 
 export const vuesticDevtools = (options: PluginOptions = {}): Plugin => {
   const filter = createFilter(
@@ -22,6 +16,10 @@ export const vuesticDevtools = (options: PluginOptions = {}): Plugin => {
 
   return {
     name: 'vuestic:devtools',
+
+    configureServer(server) {
+      server.middlewares.use(devtoolsServerMiddleware())
+    },
 
     transform(code, id) {
       if (!filter(id)) {

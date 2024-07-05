@@ -23,13 +23,8 @@ const onLoginClick = () => {
     <VaDivider style="margin: 0" />
     <VaCardActions>
       <VaButton @click="onLoginClick">
-        <template #prepend>
-          Button
-        </template>
-        
-            Login
+        Login
       </VaButton>
     </VaCardActions>
-    
   </VaCard>
 </template>

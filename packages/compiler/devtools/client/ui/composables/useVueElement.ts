@@ -1,11 +1,14 @@
-import { PREFIX } from './../../../shared/CONST';
+import { PREFIX, API_PREFIX } from './../../../shared/CONST';
 import { type Ref, computed, ref, reactive, watch, type VNode } from 'vue'
 import { useTargetElementStore } from '../store/useTargetElementStore'
 import { HTMLContentNode, HTMLElementNode, parseSource, type HTMLRootNode } from '../../parser/parseSource'
 import { getSlotName } from '../../parser/utils'
 import { printSource } from '../../parser/printSource'
+import { useOutlines } from './useOutlines';
 
 type SlotContent = string | HTMLElementNode
+
+const API_URL = new URL(import.meta.url).origin + API_PREFIX
 
 // FixMe: This is temporary. We need to store this globally. Maybe use pinia.
 
@@ -32,7 +35,7 @@ const useVueElementSource = (element: Ref<HTMLElement | null>) => {
     const paths = Object.keys(element.value.dataset)
       .filter((key) => key.startsWith(`${PREFIX}:`))
 
-    const response = await fetch(`http://localhost:8088/node-source?q=${paths[0]}`)
+    const response = await fetch(`${API_URL}/node-source?q=${paths[0]}`)
     source.value = await response.text()
   }
 
@@ -103,10 +106,10 @@ watch(settings, () => {
   }
 }, { deep: true })
 
-const reset = () => {
+const reset = async () => {
   settings.textContent = null
   settings.newProps = {}
-  refresh()
+  await refresh()
 }
 
 const parsed = computed(() => {
@@ -259,14 +262,14 @@ const newSource = computed(() => {
 })
 
 const save = async () => {
-  const updated = await fetch(`http://localhost:8088/node-source?q=${q.value}`, {
+  const updated = await fetch(`${API_URL}/node-source?q=${q.value}`, {
     method: 'PATCH',
     body: newSource.value,
   })
 
-  const newDataAttribute = await updated.text()
+  // const newDataAttribute = await updated.text()
 
-  targetElement.value!.dataset[PREFIX] = newDataAttribute
+  // targetElement.value!.dataset[PREFIX] = newDataAttribute
 
   reset()
 }

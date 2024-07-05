@@ -12,7 +12,7 @@ import TestPage from './pages/TestPage.vue';
         <router-link to="/about">
           Test
         </router-link>
-        
+
       </VaNavbarItem>
       <VaNavbarItem>
         <router-link to="/contact">Contact</router-link>

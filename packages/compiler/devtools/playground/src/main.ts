@@ -5,6 +5,14 @@ import { createVuestic } from 'vuestic-ui'
 import 'vuestic-ui/css'
 
 createApp(App)
-  .use(createVuestic())
+  .use(createVuestic({
+    config: {
+      colors: {
+        variables: {
+          primary: '#343a40',
+        }
+      }
+    }
+  }))
   .use(createVuesticDevtools())
   .mount('#app')

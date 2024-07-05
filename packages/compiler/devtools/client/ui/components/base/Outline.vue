@@ -1,7 +1,8 @@
 <script setup lang="ts">
-  import { ref, watchEffect } from 'vue';
+  import { ref, watchEffect, toRef } from 'vue';
   import { useEvent } from '../../composables/base/useEvent'
   import { useOutline } from '../../composables/useOutlines'
+  import { useMutationObserver } from '../../composables/base/useMutationObserver'
 
   const props = withDefaults(defineProps<{
     node: HTMLElement | null
@@ -36,6 +37,8 @@
   })
 
   useOutline(updateSize)
+
+  useMutationObserver(toRef(props, 'node'), updateSize)
 </script>
 
 <template>

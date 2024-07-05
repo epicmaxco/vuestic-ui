@@ -1,25 +1,32 @@
 import { PREFIX } from "./CONST"
 
-const knownPaths = new Map<string, string>()
+type Path = `${string}:${string}:${string}`
+type MinifiedPath = `${typeof PREFIX}:${string}`
+const knownPaths = new Map<MinifiedPath, Path>()
 
-export const minifyPath = (path: string) => {
-  if (knownPaths.has(path)) {
-    return knownPaths.get(path)!
+export const minifyPath = (path: Path) => {
+  for (const [p, minifiedPath] of knownPaths.entries()) {
+    if (p === path) {
+      return minifiedPath
+    }
   }
 
   const minified = `${PREFIX}:${knownPaths.size}`
 
-  knownPaths.set(path, minified)
+  knownPaths.set(minified, path)
 
   return minified
 }
 
-export const unminifyPath = (minified: string) => {
-  for (const [path, minifiedPath] of knownPaths.entries()) {
-    if (minifiedPath === minified) {
-      return path
-    }
+export const unminifyPath = (minified: MinifiedPath) => {
+  if (knownPaths.has(minified)) {
+    return knownPaths.get(minified)!
   }
 
   return null
+}
+
+export const replacePath = (minified: string, path: string) => {
+  knownPaths.set(minified, path)
+  return minified
 }

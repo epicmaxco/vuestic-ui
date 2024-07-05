@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 
 export const requestSource = async (path) => {
   const source = await readFile(path, 'utf-8');
@@ -17,7 +17,7 @@ export const getIntent = (source, lineStart) => {
   return intent;
 };
 
-export const removeIntent = (source, intent) => {
+export const removeIntent = (source, intent): string => {
   const lines = source.split('\n');
   const intentString = ' '.repeat(intent);
   return lines
@@ -30,10 +30,11 @@ export const removeIntent = (source, intent) => {
     .join('\n');
 };
 
-export const addIntent = (source, intent) => {
+export const addIntent = (source, intent): string => {
   const lines = source.split('\n');
   const intentString = ' '.repeat(intent);
   return lines
+    .filter((line) => line.length > 0)
     .map((line, index) => {
       if (index === 0) {
         return line;
@@ -42,3 +43,26 @@ export const addIntent = (source, intent) => {
     })
     .join('\n');
 };
+
+export const getComponentSource = async (path: string, start: number, end: number) => {
+  const fileSource = await requestSource(path);
+  const intent = getIntent(fileSource, start);
+  const componentSource = fileSource.slice(start, end);
+  return removeIntent(componentSource, intent);
+}
+
+export const setComponentSource = async (path: string, start: number, end: number, source: string) => {
+  const fileSource = await requestSource(path);
+  const intent = getIntent(fileSource, start);
+  const sourceWithIntent = addIntent(source, intent);
+  const fileSourceStart = fileSource.slice(0, start);
+  const fileSourceEnd = fileSource.slice(end);
+
+  const newFileContent = fileSourceStart + sourceWithIntent + fileSourceEnd;
+
+  await writeFile(path, newFileContent);
+
+  const newPath = `${path}:${start}:${start + sourceWithIntent.length}`;
+
+  return newPath
+}

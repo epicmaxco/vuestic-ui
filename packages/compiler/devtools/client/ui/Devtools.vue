@@ -60,10 +60,10 @@ watchEffect(() => {
   if (isEditMode.value) {
     document.body.classList.add(EDIT_MODE_CLASS)
     notify({
-      title: 'Edit mode',
+      title: 'Vuestic dev tools',
       message: 'You entered edit mode. Click on an element to inspect it. Press "ESC" to exit.',
       color: 'info',
-      duration: 5000,
+      duration: 7000,
       position: 'bottom-right'
     })
   } else {
