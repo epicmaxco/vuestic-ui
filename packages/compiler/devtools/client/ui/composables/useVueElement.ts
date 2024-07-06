@@ -93,7 +93,6 @@ const meta = computed(() => {
 const { source, refresh, q } = useVueElementSource(targetElement)
 
 const settings = reactive({
-  textContent: null as string | null,
   newProps: {} as Record<string, string>,
   newSlots: {} as Record<string, SlotContent>,
 })
@@ -107,8 +106,9 @@ watch(settings, () => {
 }, { deep: true })
 
 const reset = async () => {
-  settings.textContent = null
+  // Reminded: Make sure to reset all of the settings
   settings.newProps = {}
+  settings.newSlots = {}
   await refresh()
 }
 
