@@ -26,5 +26,12 @@ const onLoginClick = () => {
         Test
       </VaButton>
     </VaCardActions>
+
+    <div
+       v-for="i in 10"
+       :key="i"
+    >
+      {{ i }}
+    </div>
   </VaCard>
 </template>

@@ -6,6 +6,8 @@ export type AppTreeItem = {
   el: HTMLElement,
   name: string,
   children: AppTreeItem[],
+  node?: VNode
+  vFor?: number
 }
 
 const getComponentName = (node: VNode) => {
@@ -28,6 +30,20 @@ const hasVNode = (el: HTMLElement): el is HTMLElement & { __vnode: VNode } => {
   return '__vnode' in el
 }
 
+const compareNodeUid = (a: VNode | undefined, b: VNode | undefined) => {
+  if (!a || !b) { return false }
+
+  const aCtx = (a as any).ctx
+  const bCtx = (b as any).ctx
+
+  if (!aCtx || !bCtx) { return false }
+
+  const aUid = aCtx.uid
+  const bUid = bCtx.uid
+
+  return aUid === bUid
+}
+
 const getAppTree = () => {
   const app = document.querySelector('#app')
 
@@ -38,9 +54,22 @@ const getAppTree = () => {
       return null
     }
 
-    const children = Array.from(el.children)
+    const children = (Array
+      .from(el.children)
       .map(parseNode)
-      .filter(Boolean) as AppTreeItem[]
+      .filter(Boolean) as AppTreeItem[])
+      .reduce((acc, node) => {
+        const sameVNode = acc.find((n) => compareNodeUid(n.node, node.node))
+
+        if (sameVNode) {
+          sameVNode.vFor = (sameVNode.vFor || 1) + 1
+          return acc
+        }
+
+        acc.push(node)
+
+        return acc
+      }, [] as AppTreeItem[])
 
     if (!(PREFIX in el.dataset) || !hasVNode(el)) {
       return {
@@ -59,7 +88,8 @@ const getAppTree = () => {
         type: 'vue:component',
         name: componentName,
         el,
-        children
+        children,
+        node: el.__vnode,
       }
     }
 
@@ -68,7 +98,8 @@ const getAppTree = () => {
         type: 'vue:element',
         name: tagName,
         el,
-        children
+        children,
+        node: el.__vnode,
       }
     }
 
@@ -83,6 +114,8 @@ export const useAppTree = () => {
 
   const refresh = () => {
     appTree.value = getAppTree()
+
+    console.log(appTree.value)
   }
 
   onMounted(() => {

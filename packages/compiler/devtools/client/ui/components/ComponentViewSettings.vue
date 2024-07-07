@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { computed, withCtx, createTextVNode } from 'vue'
-  import { VaInput, VaCheckbox, VaScrollContainer, VaSelect } from 'vuestic-ui'
+  import { VaInput, VaCheckbox, VaScrollContainer, VaSelect, VaAlert } from 'vuestic-ui'
   import { useVueElement } from '../composables/useVueElement'
 
   const {
@@ -109,6 +109,12 @@
 <template>
   <VaScrollContainer vertical style="height: auto">
     <div class="c-component-settings">
+      <VaAlert color="warning">
+        Component might be in v-for,
+        <br />meaning all changes will be
+        <br />applied to all instances
+        <br /> of the component.
+      </VaAlert>
       <template v-if="componentSlots">
         <h6>Content</h6>
 

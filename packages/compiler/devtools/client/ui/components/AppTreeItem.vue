@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import { VaButton } from 'vuestic-ui'
-  import type { AppTreeItem } from '../composables/useAppTree'  
+  import { VaButton, VaChip } from 'vuestic-ui'
+  import type { AppTreeItem } from '../composables/useAppTree'
   import { useTargetElementStore } from '../store/useTargetElementStore';
 
   const props = defineProps<{
@@ -20,9 +20,9 @@
 
 <template>
   <template v-if="props.item.type === 'native:element' && props.item.children" >
-    <AppTreeItem 
-      v-for="node in props.item.children" 
-      :key="node.name" 
+    <AppTreeItem
+      v-for="node in props.item.children"
+      :key="node.name"
       :item="node"
     />
   </template>
@@ -38,6 +38,9 @@
       }"
       @click="setTargetElement"
     >
+      <template v-if="props.item.vFor">
+        v-for:
+      </template>
       {{ props.item.name }}
     </VaButton>
     <AppTreeItem v-if="props.item.children" v-for="node in props.item.children" :key="node.name" :item="node" />
