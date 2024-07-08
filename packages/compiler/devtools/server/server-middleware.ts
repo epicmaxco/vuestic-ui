@@ -1,8 +1,8 @@
 import { Connect } from 'vite'
 import { readBody } from './utils'
-import { API_PREFIX, PREFIX } from '../../shared/CONST'
+import { API_PREFIX } from '../shared/CONST'
 import { getComponentSource, setComponentSource } from './file'
-import { replacePath, unminifyPath } from '../../shared/slug'
+import { replacePath, unminifyPath } from '../shared/slug'
 
 export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
   return async (req, res, next) => {

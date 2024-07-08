@@ -1,1 +1,0 @@
-export { vuesticDevtools } from './plugin';

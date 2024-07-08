@@ -6,17 +6,16 @@
     "tsup": "^8.1.0"
   },
   "scripts": {
-    "build:devtools": "rm -rf ./dist/devtools/ && yarn build:devtools:vite && yarn build:devtools:client",
-    "build:devtools:vite": "tsup-node devtools/vite/index.ts --dts --format esm,cjs --target node18 --shims --out-dir ./dist/devtools/vite",
+    "build": "rm -rf ./dist && yarn build:vite && yarn build:devtools:client",
+    "build:vite": "tsup-node vite-plugin/index.ts --dts --format esm,cjs --target node18 --shims --out-dir ./dist/vite",
     "build:devtools:client": "vite build --config devtools/client/vite.config.ts --outDir ./dist/devtools/client",
-    "dev:devtools": "cd ./devtools/playground && yarn dev"
+    "dev": "cd ./playground && yarn dev"
   },
   "peerDependencies": {
     "@vue/compiler-core": "^3.4.21",
     "@vue/compiler-sfc": "^3.4.21",
     "vite": "^5.3.3"
   },
-
   "exports": {
     "./devtools/vite": {
       "import": "./dist/devtools/vite/index.mjs",

@@ -1,4 +1,4 @@
-import { PREFIX, API_PREFIX } from './../../../shared/CONST';
+import { PREFIX, API_PREFIX } from '../../../shared/CONST';
 import { type Ref, computed, ref, reactive, watch, type VNode } from 'vue'
 import { useTargetElementStore } from '../store/useTargetElementStore'
 import { HTMLContentNode, HTMLElementNode, parseSource, type HTMLRootNode } from '../../parser/parseSource'

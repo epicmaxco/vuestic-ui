@@ -1,16 +1,16 @@
 import { Plugin, ResolvedConfig } from 'vite'
 import { createFilter, FilterPattern } from '@rollup/pluginutils'
 import { transformFile } from './compiler'
-import { devtoolsServerMiddleware } from './server/server-middleware'
+import { devtoolsServerMiddleware } from '../server/server-middleware'
 import { fileURLToPath, URL } from 'node:url'
 import { addVuePlugin } from './add-vue-plugin'
 
-type PluginOptions = {
+export type PluginOptions = {
   include?: FilterPattern
   exclude?: FilterPattern
 }
 
-export const vuesticDevtools = (options: PluginOptions = {}): Plugin => {
+export const devtools = (options: PluginOptions = {}): Plugin => {
   const filter = createFilter(
     options.include ?? ['**/*.vue'],
     options.exclude ?? ['node_modules/**']

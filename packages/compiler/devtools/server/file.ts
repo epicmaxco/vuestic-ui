@@ -1,11 +1,11 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
-export const requestSource = async (path) => {
+export const requestSource = async (path: string) => {
   const source = await readFile(path, 'utf-8');
   return source.toString();
 };
 
-export const getIntent = (source, lineStart) => {
+export const getIntent = (source: string, lineStart: number) => {
   let intent = 0;
   for (let i = lineStart - 1; i > 0; i--) {
     if (source[i] === ' ') {
@@ -17,7 +17,7 @@ export const getIntent = (source, lineStart) => {
   return intent;
 };
 
-export const removeIntent = (source, intent): string => {
+export const removeIntent = (source: string, intent: number): string => {
   const lines = source.split('\n');
   const intentString = ' '.repeat(intent);
   return lines
@@ -30,7 +30,7 @@ export const removeIntent = (source, intent): string => {
     .join('\n');
 };
 
-export const addIntent = (source, intent): string => {
+export const addIntent = (source: string, intent: number): string => {
   const lines = source.split('\n');
   const intentString = ' '.repeat(intent);
   return lines

@@ -25,4 +25,8 @@
       "dom.iterable"
     ],
   },
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
 }

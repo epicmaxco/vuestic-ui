@@ -5,13 +5,15 @@ import Inspect from 'vite-plugin-inspect'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-import { vuesticDevtools } from '../vite/index'
+import { vuestic } from '../vite-plugin'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vuesticDevtools({
-      include: fileURLToPath(new URL('./src', import.meta.url)) + '/**/*.vue'
+    vuestic({
+      devtools: {
+        include: fileURLToPath(new URL('./src', import.meta.url)) + '/**/*.vue'
+      }
     }),
     vue(),
     Inspect(),
@@ -19,7 +21,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@vuestic/compiler/devtools': fileURLToPath(new URL('../client/index.ts', import.meta.url)),
+      '@vuestic/compiler/devtools': fileURLToPath(new URL('../devtools/client/index.ts', import.meta.url)),
     }
   }
 })
