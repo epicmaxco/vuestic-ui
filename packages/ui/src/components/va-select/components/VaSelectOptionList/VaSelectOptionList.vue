@@ -136,7 +136,7 @@ const focus = () => {
 const rootHeight = computed(() => root.value?.clientHeight ?? 200)
 
 const handleScrollToBottom = () => emit('scroll-bottom')
-const onScroll = (event: UIEvent) => {
+const onScroll = (event: Event) => {
   const target = event.target as Element
   if (!target) { return }
 
