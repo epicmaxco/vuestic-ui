@@ -26,10 +26,12 @@ export const vuestic = (options: Options): Plugin[] => {
   const plugins = []
 
   if (options.devtools !== false) {
+    console.log('Using vuestic:devtools') // TODO: Remove this log
     plugins.push(devtools(extractOptions('devtools')))
   }
 
   if (options.cssLayers !== false) {
+    console.log('Using vuestic:css-layers') // TODO: Remove this log
     plugins.push(cssLayers)
   }
 
