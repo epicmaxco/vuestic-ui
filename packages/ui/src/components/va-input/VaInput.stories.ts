@@ -140,46 +140,6 @@ export const DebounceInput: StoryFn = () => ({
   template: '<VaInput stateful :model-value="value" @update:model-value="onInput" strictBindInputValue />',
 })
 
-export const Mask = () => ({
-  components: { VaInput },
-  data () {
-    return {
-      dateValue: '',
-      creditCardValue: '',
-    }
-  },
-  template: `
-    [dateValue]: {{ dateValue }}
-    <VaInput v-model="dateValue" :mask="{
-      date: true,
-      datePattern: ['m', 'y'],
-    }" />
-
-    [creditCardValue]: {{ creditCardValue }}
-    <VaInput v-model="creditCardValue" mask="creditCard" />
-  `,
-})
-
-export const MaskFormattedValue = () => ({
-  components: { VaInput },
-  data () {
-    return {
-      dateValue: '',
-      creditCardValue: '',
-    }
-  },
-  template: `
-    [dateValue]: {{ dateValue }}
-    <VaInput v-model="dateValue" :mask="{
-      date: true,
-      datePattern: ['m', 'y'],
-    }" :return-raw="false" />
-
-    [creditCardValue]: {{ creditCardValue }}
-    <VaInput v-model="creditCardValue" mask="creditCard" :return-raw="false" />
-  `,
-})
-
 export const ReactiveValidation = () => ({
   components: { VaInput },
   data () {
