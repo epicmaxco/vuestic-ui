@@ -1,18 +1,20 @@
 # Vuestic Plugin
 
-Combines compilation-based utilities designed to improve development experience without impact on runtime
+Combination of bundling tools focusing on improving development experience when working with Vuestic UI
 
-## Vuestic Devtools
+## List of features
 
-Vuestic devtools designed for intuitive visual control over application with Vuestic components
+### Devtools
 
-### Installation
+Devtools designed for intuitive visual control over application with Vuestic components
+
+#### Installation
 
 Install package
 
 Add `@vuestic/compiler/devtools/vite` plugin to `vite.config.ts`
 
-### Plans
+#### Plans
 
 - [x] Edit component props
 - [x] Edit component slot content
@@ -21,11 +23,12 @@ Add `@vuestic/compiler/devtools/vite` plugin to `vite.config.ts`
 - [] Control layout
 - [] Add event listeners
 
-### Structure
+### CSS layers
 
-- Client - UI build with Vue and Vuestic
-- Vite - Vite plugin
- - Compiler - compiler adds ids to components
- - Server - can modify component source by id
+Build plugin that allows controlling CSS order
 
-Later can be added plugin for Webpack with unplugin
+### Typescript auto-completion from config
+
+UNDER DEVELOPMENT
+
+Adds TS global types for colors, icons, etc.

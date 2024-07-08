@@ -1,6 +1,6 @@
 {
   "name": "@vuestic/compiler",
-  "version": "0.0.1",
+  "version": "0.0.1-beta1",
   "dependencies": {
     "shiki": "^1.10.1"
   },
@@ -10,6 +10,7 @@
     "build:devtools:client": "vite build --config devtools/client/vite.config.ts --outDir ./dist/devtools/client",
     "dev": "cd ./playground && yarn dev"
   },
+  "prepublishOnly": "npm run build",
   "peerDependencies": {
     "@vue/compiler-core": "^3.4.21",
     "@vue/compiler-sfc": "^3.4.21",
@@ -27,5 +28,15 @@
       }
     },
     "./devtools": "./dist/devtools/client/vuestic-devtools.es.js"
-  }
+  },
+  "keywords": [
+    "vuestic",
+    "vue",
+    "devtools",
+    "vite"
+  ],
+  "files": [
+    "dist",
+    "Readme.md"
+  ]
 }
