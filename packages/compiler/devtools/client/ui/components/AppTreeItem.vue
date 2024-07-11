@@ -26,7 +26,7 @@
       :item="node"
     />
   </template>
-  <div v-else class="app-tree-item" >
+  <div v-else class="app-tree-item">
     <VaButton
       class="app-tree-item__button"
       preset="secondary"
@@ -38,28 +38,27 @@
       }"
       @click="setTargetElement"
     >
-      <template v-if="props.item.vFor">
-        v-for:
-      </template>
       {{ props.item.name }}
+      <template v-if="props.item.vFor">
+        (repeated)
+      </template>
     </VaButton>
-    <AppTreeItem v-if="props.item.children" v-for="node in props.item.children" :key="node.name" :item="node" />
+    <div v-if="'children' in props.item" class="app-tree-item__children">
+      <AppTreeItem v-if="props.item.children" v-for="node in props.item.children" :key="node.name" :item="node" />
+    </div>
   </div>
 </template>
 
 
 <style lang="scss" scoped>
   .app-tree-item {
-    padding: 0 0 0 0.5rem;
-  }
+    &__children {
+      padding: 0 0 0 1rem;
+      border-left: 1px dashed var(--va-background-border);
+    }
 
-  // .app-tree-item__button {
-  //   padding: 0.2rem 0.5rem;
-  //   border: none;
-  //   background-color: transparent;
-  //   cursor: pointer;
-  //   display: block;
-  //   width: 100%;
-  //   text-align: left;
-  // }
+    &__button {
+      margin-left: -1rem;
+    }
+  }
 </style>

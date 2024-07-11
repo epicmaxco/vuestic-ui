@@ -9,13 +9,13 @@ const getTagContent = (source: string) => {
 const parseOpenTag = (source: string) => {
   source = source.trim().replace(/\n/g, '')
   let tagName = ''
-  const rawAttributes: Record<string, string | true> = {}
+  const attributes: Record<string, string | null> = {}
 
   let tagContent = getTagContent(source)
 
   if (!tagContent.includes(' ')) {
     tagName = tagContent
-    return { tagName, rawAttributes }
+    return { tagName, attributes }
   }
 
   tagContent += ' '
@@ -30,7 +30,8 @@ const parseOpenTag = (source: string) => {
   i++
 
   let key = ''
-  let value: string = ''
+  // Might not have value
+  let value: string | null = null
   let isInQuotes = false
 
   while (i < tagContent.length) {
@@ -43,16 +44,19 @@ const parseOpenTag = (source: string) => {
     if (tagContent[i] === ' ' && !isInQuotes) {
       // Key might be empty if there are multiple spaces or \n
       if (key !== '') {
-        rawAttributes[key] = value === '' ? (true as const) : value
+        attributes[key] = value
       }
       key = ''
-      value = ''
+      value = null
       i++
       continue
     }
 
     if (tagContent[i] === '=') {
       i++
+      // If have equal sign, means it must have value in qoutes later
+      // May be case where user haven't finished typing like `to=` - we show empty string
+      value = ''
       continue
     }
 
@@ -65,7 +69,7 @@ const parseOpenTag = (source: string) => {
     i++
   }
 
-  return { tagName, rawAttributes }
+  return { tagName, attributes }
 }
 
 export type Loc = {
@@ -83,7 +87,8 @@ export type HTMLContentNode = {
 export type HTMLElementNode = {
   type: 'element'
   tag: string
-  attributes: Record<string, string | true>
+  /** null if no attribute value */
+  attributes: Record<string, string | null>
   parent: HTMLElementNode | HTMLRootNode
   children: (HTMLElementNode | HTMLContentNode)[]
   sourcePath?: string
@@ -198,13 +203,13 @@ const tokensToTree = (tokens: HTMLToken[]) => {
         throw new Error('Unexpected error when parsing HTML')
       }
 
-      const { rawAttributes } = parseOpenTag(token.loc.source)
+      const { attributes } = parseOpenTag(token.loc.source)
 
       const node: HTMLElementNode = {
         type: 'element',
         tag: token.tag,
-        attributes: rawAttributes,
         children: [],
+        attributes,
         parent,
       }
 
@@ -238,13 +243,13 @@ const tokensToTree = (tokens: HTMLToken[]) => {
         throw new Error('Unexpected error when parsing HTML')
       }
 
-      const { rawAttributes, tagName } = parseOpenTag(token.loc.source)
+      const { attributes, tagName } = parseOpenTag(token.loc.source)
 
       parent.children.push({
         type: 'element',
         tag: tagName,
-        attributes: rawAttributes,
         children: [],
+        attributes,
         parent,
       })
     }
@@ -253,7 +258,7 @@ const tokensToTree = (tokens: HTMLToken[]) => {
   return root
 }
 
-export const parseSource = (source: string) => {  
+export const parseSource = (source: string) => {
   const tokens = parseTokens(source)
   const tree = tokensToTree(tokens)
 

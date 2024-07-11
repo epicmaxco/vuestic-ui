@@ -7,7 +7,7 @@ export type AppTreeItem = {
   name: string,
   children: AppTreeItem[],
   node?: VNode
-  vFor?: number
+  vFor?: number,
 }
 
 const getComponentName = (node: VNode) => {

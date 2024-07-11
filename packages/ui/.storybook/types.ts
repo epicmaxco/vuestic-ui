@@ -2,7 +2,7 @@ import type { StoryFn } from '@storybook/vue3';
 import { userEvent } from './interaction-utils/userEvent';
 import { sleep } from '../src/utils/sleep';
 import { expect } from '@storybook/jest'
-import { ComponentInstance, ComponentOptions } from 'vue';
+import { ComponentPublicInstance, ComponentOptions } from 'vue';
 
 type PlayFn = NonNullable<StoryFn['play']>
 
@@ -29,13 +29,13 @@ export const defineStory = <T>(story: DefinedStory<T>) => {
     const vue = story.story()
 
     /** Globally register $methods, so we can access it in tests */
-    const fakeMounted = function (this: ComponentInstance<any>) {
+    const fakeMounted = function (this: ComponentPublicInstance<any>) {
       ;(document as any).$methods = this
     }
 
     if ('mounted' in vue) {
       const originalMounted = vue.mounted
-      vue.mounted = function (this: ComponentInstance<any>) {
+      vue.mounted = function (this: ComponentPublicInstance<any>) {
         originalMounted?.call(this)
         fakeMounted.call(this)
       }

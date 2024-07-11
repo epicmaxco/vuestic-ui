@@ -27,10 +27,6 @@
         </VaCardContent>
       </VaCard>
     </DraggableWindow>
-
-    <VaModal>
-      <ComponentViewSource />
-    </VaModal>
   </Teleport>
 </template>
 
@@ -39,11 +35,10 @@ import { nextTick, ref, watch, watchEffect } from 'vue'
 import Outline from './components/base/Outline.vue'
 import Overlay from './components/base/Overlay.vue'
 import ComponentView from './components/ComponentView.vue'
-import ComponentViewSource from './components/ComponentViewSource.vue'
 import DraggableWindow from './components/base/DraggableWindow.vue'
 import AppTree from './components/AppTree.vue'
 
-import { VaCard, VaCardContent, VaModal, useToast } from 'vuestic-ui'
+import { VaCard, VaCardContent, useToast } from 'vuestic-ui'
 
 import { useTargetElementStore } from './store/useTargetElementStore'
 import { useHoveredElement } from './composables/useHoveredElement'
@@ -52,7 +47,7 @@ import { useOutlines } from './composables/useOutlines'
 import { EDIT_MODE_CLASS } from '../../shared/CONST'
 import { useEvent } from './composables/base/useEvent'
 
-const isEditMode = ref(false)
+const isEditMode = ref(true)
 
 const { notify } = useToast()
 
@@ -72,11 +67,20 @@ watchEffect(() => {
 })
 
 let enteredKeys = ''
+
 useEvent('keydown', (e: KeyboardEvent) => {
   if (e.key === 'Escape') {
     isEditMode.value = false
     zoom.value = 1
     targetElement.value = null
+    return
+  }
+
+  if (e.key === 'F12' && e.altKey) {
+    isEditMode.value = !isEditMode.value
+    zoom.value = 1
+    targetElement.value = null
+    e.preventDefault()
     return
   }
 
@@ -94,7 +98,7 @@ useEvent('keydown', (e: KeyboardEvent) => {
   }
 
   enteredKeys = ''
-})
+}, { capture: true })
 
 useEvent('keyup', () => {
   enteredKeys = ''
@@ -137,17 +141,3 @@ watch([zoom, translate], () => {
 }, { immediate: true })
 </script>
 
-<style scoped>
-  .va-code-snippet {
-    font-family: monospace;
-    /* white-space: pre; */
-    overflow-x: auto;
-    padding: 16px;
-    background-color: #f8f9fa;
-    border-radius: 4px;
-  }
-
-  body {
-    overflow-x: hidden;
-  }
-</style>

@@ -18,7 +18,8 @@ export const printSource = (source: HTMLRootNode | HTMLElementNode | HTMLContent
   
         if (attributesCount === 1) {
           const [key, value] = Object.entries(child.attributes)[0]
-          if (value === true) {
+
+          if (value === null) {
             result += ` ${key}`
           } else {
             result += ` ${key}="${value}"`
@@ -27,7 +28,7 @@ export const printSource = (source: HTMLRootNode | HTMLElementNode | HTMLContent
           result += '\n'
           tabSize += 2
           for (const [key, value] of Object.entries(child.attributes)) {
-            if (value === true) {
+            if (value === null) {
               result += printTabs() + ` ${key}`
             } else {
               result += printTabs() + ` ${key}="${value}"`

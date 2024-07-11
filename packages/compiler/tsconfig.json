@@ -24,9 +24,15 @@
       "dom",
       "dom.iterable"
     ],
+    "paths": {
+      "vuestic-ui": ["../ui/src/index.ts"]
+    }
   },
   "exclude": [
     "dist",
     "node_modules"
-  ]
+  ],
+  "include": [
+    "../ui/src/**/*",
+  ],
 }

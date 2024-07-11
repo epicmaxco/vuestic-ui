@@ -12,12 +12,19 @@ const onLoginClick = () => {
 <template>
   <VaCard>
     <VaCardContent>
-      <h3 class="va-h3">Login</h3>
-
+      <h3 class="va-h3">
+        Login
+      </h3>
       <div style="display: flex; flex-direction: column;">
-        <VaInput v-model="login" label="Login" />
-
-        <VaInput v-model="password" label="Password" type="password" />
+        <VaInput
+           v-model="login"
+           label="Login"
+        />
+        <VaInput
+           v-model="password"
+           label="Password"
+           type="password"
+        />
       </div>
     </VaCardContent>
     <VaDivider style="margin: 0" />
@@ -26,7 +33,6 @@ const onLoginClick = () => {
         Test
       </VaButton>
     </VaCardActions>
-
     <div
        v-for="i in 10"
        :key="i"

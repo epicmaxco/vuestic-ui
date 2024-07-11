@@ -44,7 +44,7 @@ export function createTestComposable (composables: Composable | Composable[], gl
     global: {
       plugins: [createVuestic({
         config: globalConfig,
-      })],
+      }) as any],
     },
   })
 

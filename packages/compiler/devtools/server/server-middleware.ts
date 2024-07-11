@@ -37,11 +37,17 @@ export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
 
       const newPath = await setComponentSource(path, Number(start), Number(end), body);
 
-      const newMinifiedPath = replacePath(minified, newPath)
+      replacePath(minified, newPath)
 
       res.writeHead(200)
       res.end(minified);
       return
+    }
+
+    if (req.method === 'GET' && req.url.startsWith(`${API_PREFIX}/file-name`)) {
+      res.writeHead(200)
+      res.end(unminified);
+      return;
     }
 
     next()

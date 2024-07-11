@@ -1,58 +1,58 @@
 <script setup lang="ts">
-  import { useVueElement } from '../composables/useVueElement' 
-  import { VaDivider, VaButton, VaIcon, VaMenu, VaMenuItem } from 'vuestic-ui'
-  import ComponentViewSettings from './ComponentViewSettings.vue'
-  import ComponentViewSource from './ComponentViewSource.vue'
-  import { ref, computed } from 'vue';
+  import { VaDivider, VaButton, VaButtonToggle } from 'vuestic-ui'
+  import { ref } from 'vue';
   import CodeView from './base/CodeView.vue';
+  import { useComponent } from '../composables/useComponent/useComponent'
+  import ComponentSettings from './component-options/ComponentSettings.vue'
 
    const {
-    name,
-    save,
-    newSource,
+    meta,
+    saveSource,
     source,
-    autoSave,
-  } = useVueElement()
+    selectedPath,
+    paths,
+  } = useComponent()
 
   const isLoading = ref(false)
 
   const onSave = async () => {
     isLoading.value = true
-    await save()
+    await saveSource(source.value!)
     isLoading.value = false
   }
 
-  const hasChanges = computed(() => source.value !== newSource.value)
+  const showDetails = ref(true)
 
-  const showDetails = ref(false)
+  const getFileName = (p: string) => {
+    return p.split('/').pop()?.split(':').shift()
+  }
 </script>
 
 <template>
   <div class="c-component-view">
-    <h3 class="c-component-view__title">      
-      {{ name }}
-      <VaMenu>
-        <template #anchor>
-          <VaButton icon="settings" preset="primary" size="small" />
-        </template>
+    <h3 class="c-component-view__title">
+      {{ meta.name }}
 
-        <VaMenuItem @click="autoSave = !autoSave" icon="save">
-          Auto Save {{ autoSave ? 'On' : 'Off' }}
-        </VaMenuItem>
-      </VaMenu>
+      <VaButtonToggle
+        v-model="selectedPath"
+        :options="paths"
+        :text-by="(option) => getFileName(option.path)"
+        :value-by="(option) => option"
+        color="secondary"
+      />
     </h3>
 
     <div class="c-component-view__content">
-      <template v-if="newSource && showDetails">
-        <CodeView :code="newSource" />
+      <template v-if="source && showDetails">
+        <CodeView v-model:code="source" />
         <VaDivider vertical />
       </template>
-      <ComponentViewSettings />
+      <ComponentSettings />
     </div>
 
     <div class="c-component-view__footer">
       <VaButton icon="code" preset="secondary" @click="showDetails = !showDetails" />
-      <VaButton :disabled="autoSave" @click="onSave">Save</VaButton>
+      <VaButton @click="onSave">Save</VaButton>
     </div>
   </div>
 </template>
@@ -70,6 +70,7 @@
     background: var(--va-background-element);
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   .c-component-view__tabs {
