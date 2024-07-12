@@ -1,4 +1,4 @@
-import { Plugin } from "vite"
+import { createLogger, Plugin } from "vite"
 import { devtools, PluginOptions as DevtoolsPluginOptions } from "../devtools"
 import { cssLayers } from "../css-layers"
 
@@ -20,6 +20,10 @@ type Options = {
   cssLayers?: boolean,
 }
 
+const logger = createLogger('info', {
+  prefix: '[vuestic:compiler]'
+})
+
 export const vuestic = (options: Options = {}): Plugin[] => {
   const extractOptions = (key: keyof Options) => {
     // Build fails without as Record<string, string> cast
@@ -29,12 +33,16 @@ export const vuestic = (options: Options = {}): Plugin[] => {
   const plugins = []
 
   if (options.devtools !== false) {
-    console.log('Using vuestic:devtools') // TODO: Remove this log
+    logger.info('Using vuestic:devtools', {
+      timestamp: true,
+    })
     plugins.push(devtools(extractOptions('devtools')))
   }
 
   if (options.cssLayers === true) {
-    console.log('Using vuestic:css-layers') // TODO: Remove this log
+    logger.info('Using vuestic:css-layers', {
+      timestamp: true,
+    })
     plugins.push(cssLayers)
   }
 

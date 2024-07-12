@@ -1,11 +1,15 @@
 <script setup lang="ts">
   import { createHighlighter } from 'shiki/bundle/web'
-  import { ref, watchEffect, onMounted, Ref, computed } from 'vue';
+  import { ref, watchEffect, onMounted, Ref, computed, watch } from 'vue';
+  import { VaButton, VaSwitch, VaSpacer } from 'vuestic-ui'
   import { useHasListener } from '../../composables/base/useHasListener'
 
-  const props = defineProps<{
-    code: string
-  }>()
+  const props = withDefaults(defineProps<{
+    code: string,
+    delay?: number
+  }>(), {
+    delay: 500
+  })
 
   const emit = defineEmits(['update:code'])
 
@@ -23,7 +27,7 @@
   watchEffect(async () => {
     if (!highlighter.value) return
 
-    html.value = await highlighter.value.codeToHtml(props.code, {
+    html.value = await highlighter.value.codeToHtml(localCode.value, {
       lang: 'html',
       theme: 'material-theme-lighter'
     })
@@ -31,36 +35,79 @@
 
   const isEditMode = useHasListener('update:code')
 
+  const localCode = ref(props.code)
+
+  watch(() => props.code, () => {
+    if (props.code !== localCode.value) {
+      localCode.value = props.code
+    }
+  })
+
+  const autoSave = ref(false)
+
+  const saveCode = (v: string) => emit('update:code', v)
+
+  let timeout: ReturnType<typeof setTimeout>
   const vModelCode = computed({
-    get() { return props.code },
-    set(v) { emit('update:code', v) }
+    get() { return localCode.value },
+    set(v) {
+      localCode.value = v
+
+      if (!autoSave.value) { return }
+
+      clearTimeout(timeout)
+      timeout = setTimeout(() => {
+        saveCode(v)
+      }, props.delay)
+    }
   })
 </script>
 
 <template>
-  <div class="code-preview">
-    <span
-      v-html="html"
-      class="code-preview__view"
-    />
-    <textarea v-model="vModelCode" v-if="isEditMode" class="code-preview__textarea shiki material-theme-lighter" />
+  <div class="code-preview-wrapper">
+    <div class="code-preview">
+      <span
+        v-html="html"
+        class="code-preview__view"
+      />
+      <textarea v-model="vModelCode" v-if="isEditMode" class="code-preview__textarea shiki material-theme-lighter" />
+    </div>
+    <div class="code-preview-wrapper__actions">
+      <VaSwitch v-model="autoSave" label="Auto save" />
+      <VaSpacer />
+      <VaButton v-if="!autoSave" icon="save" @click="saveCode(localCode)" />
+    </div>
   </div>
 </template>
 
 <style lang="scss">
+  .code-preview-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    &__actions {
+      display: flex;
+      margin-top: 8px;
+    }
+  }
+
   .code-preview {
     position: relative;
     height: 100%;
     width: 100%;
     flex: 1;
     display: flex;
-
-    --paddings: 8px;
+    max-width: 600px;
+    min-width: 300px;
+    --padding: 16px;
 
     &__view {
       height: 100%;
       width: 100%;
       flex: 1;
+      background: var(--va-background-element);
+      padding: var(--padding);
+      border-radius: 4px;
       pre, code {
         height: 100%;
       }
@@ -71,6 +118,7 @@
     }
 
     .code-preview__textarea {
+      padding: var(--padding);
       position: absolute;
       top: 0;
       left: 0;
@@ -82,6 +130,7 @@
       background: transparent;
       border: none;
       resize: none;
+      box-sizing: border-box;
     }
 
     &__view code, &__view pre, &__textarea {

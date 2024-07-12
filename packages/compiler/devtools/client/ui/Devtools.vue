@@ -51,7 +51,7 @@ import { EDIT_MODE_CLASS } from '../../shared/CONST'
 import { useEvent } from './composables/base/useEvent'
 import { useComponent } from './composables/useComponent'
 
-const isEditMode = ref(true)
+const isEditMode = ref(false)
 
 const { notify } = useToast()
 

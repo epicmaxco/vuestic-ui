@@ -1,30 +1,26 @@
 <script lang="ts" setup>
 import { watch, ref, computed, Ref } from 'vue'
-import { useComponent } from '../composables/useComponent'
-import { useTargetElementStore } from '../store/useTargetElementStore'
+import { useComponent, setNodeSource } from '../composables/useComponent'
 import { VaButton } from 'vuestic-ui';
-import { setNodeSource } from '../composables/useComponent/api'
 
 const { source, selectedPath, refreshSource } = useComponent()
-const { targetElement } = useTargetElementStore()
 
 type HistorySnapshot = {
   newSource: string
   oldSource: string
-  targetElement: HTMLElement
   minfiedPath: string
 } | 'targetChange'
 
 const history = ref([]) as Ref<HistorySnapshot[]>
 
 let watchIgnore = false
-watch([source, targetElement], ([newSource, newTargetElement], [oldSource, oldTargetElement]) => {
+watch([source, selectedPath], ([newSource, newSelectedPath], [oldSource, oldSelectedPath]) => {
   if (watchIgnore) {
     watchIgnore = false
     return
   }
 
-  if (newTargetElement !== oldTargetElement) {
+  if (newSelectedPath?.minified !== oldSelectedPath?.minified) {
     history.value.push('targetChange')
     index.value += 1
     return
@@ -36,15 +32,15 @@ watch([source, targetElement], ([newSource, newTargetElement], [oldSource, oldTa
     return
   }
 
-  if (newSource !== oldSource && newTargetElement === oldTargetElement && oldSource && newSource && selectedPath.value && newTargetElement) {
+  if (newSource !== oldSource && newSelectedPath?.minified === oldSelectedPath?.minified && oldSource && newSource && selectedPath.value && newSelectedPath) {
     // Remove next history if we are not at the end and create new history
     history.value = history.value.slice(0, index.value)
     index.value += 1
+
     history.value.push({
       newSource,
       oldSource,
-      targetElement: newTargetElement,
-      minfiedPath: selectedPath.value.minified
+      minfiedPath: newSelectedPath?.minified
     })
   }
 })
@@ -63,6 +59,7 @@ const undo = async () => {
     await setNodeSource(current.value.minfiedPath, current.value.oldSource)
     watchIgnore = true
     await refreshSource()
+
     index.value--
   }
 }
@@ -74,6 +71,7 @@ const redo = async () => {
     }
 
     index.value++
+
     await setNodeSource(current.value.minfiedPath, current.value.newSource)
     watchIgnore = true
     await refreshSource()
@@ -83,7 +81,6 @@ const redo = async () => {
 
 <template>
   <div>
-    {{ index }} of {{ history.length }}
     <VaButton icon="undo" @click="undo" preset="primary" :disabled="index <= 0" />
     <VaButton icon="redo" @click="redo" preset="primary" :disabled="index >= history.length" />
   </div>

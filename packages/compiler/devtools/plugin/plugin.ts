@@ -4,7 +4,7 @@ import { transformFile } from './compiler'
 import { devtoolsServerMiddleware } from '../server/server-middleware'
 import { fileURLToPath, URL } from 'node:url'
 import { addVuePlugin } from './add-vue-plugin'
-import chalk from 'chalk'
+import { formatString } from '../../shared/color'
 
 export type PluginOptions = {
   include?: FilterPattern
@@ -55,14 +55,14 @@ export const devtools = (options: PluginOptions = {}): Plugin => {
         const newCode = addVuePlugin(code)
 
         if (newCode) {
-          logger.info(chalk.gray('Plugin successfully added to the Vue app.'), {
-            timestamp: true,
-          })
-          logger.info(chalk.gray(`Open your application and press `) + chalk.cyan(ALT_KEY) + chalk.gray(' + ') + chalk.cyan('F12') + chalk.gray(' to open devtools.'), {
+          logger.info(formatString(`Vuestic Devtools installed. Open your application and press [${ALT_KEY}] + [F12] to open devtools`), {
             timestamp: true,
           })
         } else {
-          logger.error(chalk.yellow('Devtools plugin can not find createApp(App) in your main file. This is likely a bug, please, open an issue on GitHub.'), {
+          logger.error(formatString('! Devtools plugin can not find createApp(App) in your main file. This is likely a bug, please, open an issue on GitHub.'), {
+            timestamp: true,
+          })
+          logger.error(formatString('[https://github.com/epicmaxco/vuestic-ui/issues/new?assignees=&labels=BUG&projects=&template=bug-template.md]'), {
             timestamp: true,
           })
         }
