@@ -55,7 +55,7 @@ const findPropFromAttributes = (attributes: Record<string, string | null>, propN
 export const useComponent = defineGlobal(() => {
   const { targetElement } = useTargetElementStore()
 
-  const { source, saveSource, paths, selectedPath, openInVSCode } = useComponentSource(targetElement)
+  const { source, saveSource, paths, selectedPath, openInVSCode, refreshSource } = useComponentSource(targetElement)
   const { vNode } = useVNode(targetElement)
   const { updateAttribute, attributes } = useComponentCode(source, vNode)
   const meta = useComponentMeta(vNode)
@@ -98,6 +98,7 @@ export const useComponent = defineGlobal(() => {
     source,
     vNode,
     saveSource,
+    refreshSource,
     openInVSCode,
     updateAttribute,
     props,

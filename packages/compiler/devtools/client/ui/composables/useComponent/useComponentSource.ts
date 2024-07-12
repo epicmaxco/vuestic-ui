@@ -55,9 +55,9 @@ export const useComponentSource = (htmlElement: Ref<HTMLElement | null>) => {
   const openInVSCode = async () => {
     if (!q.value) { throw new Error('Can not open in VSCode: no q available') }
 
-    const link =  await (await getVSCodePath(q.value.minified)).text()
+    const path =  await (await getVSCodePath(q.value.minified)).text()
 
-    window.open(link, '_blank')
+    fetch(`/__open-in-editor?file=${path}`)
   }
 
   return {

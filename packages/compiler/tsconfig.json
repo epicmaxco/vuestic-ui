@@ -16,8 +16,6 @@
     "allowJs": true,
     "types": [
       "vite/client",
-      "jest",
-      "@testing-library/jest-dom"
     ],
     "lib": [
       "esnext",
@@ -31,8 +29,5 @@
   "exclude": [
     "dist",
     "node_modules"
-  ],
-  "include": [
-    "../ui/src/**/*",
   ],
 }

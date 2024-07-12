@@ -4,6 +4,7 @@
   import CodeView from './base/CodeView.vue';
   import { useComponent } from '../composables/useComponent/useComponent'
   import ComponentSettings from './component-options/ComponentSettings.vue'
+  import History from './History.vue';
 
    const {
     meta,
@@ -64,6 +65,7 @@
 
     <div class="c-component-view__footer">
       <VaButton icon="code" preset="secondary" @click="showDetails = !showDetails" />
+      <History />
       <VaSpacer />
       <!-- <VaSwitch v-model="autoSave" label="Auto save" /> -->
       <VaButton icon="vscode" @click="openInVSCode" preset="secondary" title="Open in VSCode" />

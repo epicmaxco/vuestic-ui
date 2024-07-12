@@ -26,7 +26,7 @@ const props = defineProps<{
 const vModel = defineModel<string | null>()
 
 const vModelProxy = computed({
-  get() { return vModel.value ?? props.prop.meta.default },
+  get() { return toCamelCase(vModel.value ?? props.prop.meta.default ?? '') },
   set(v) {
     if (v === '') {
       vModel.value = undefined

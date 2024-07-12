@@ -1,4 +1,4 @@
-import { createApp, Plugin } from 'vue'
+import { createApp, Plugin, markRaw } from 'vue'
 import App from './Devtools.vue'
 import { createIconsConfig, createVuesticEssential } from 'vuestic-ui'
 import 'vuestic-ui/styles/essential.css'
@@ -26,7 +26,7 @@ export const createVuesticDevtools = () => ({
             aliases: [
               {
                 name: 'vscode',
-                component: VSCodeIcon,
+                component: markRaw(VSCodeIcon),
               }
             ]
           })

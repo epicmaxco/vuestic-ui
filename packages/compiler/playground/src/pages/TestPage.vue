@@ -11,7 +11,7 @@ const onLoginClick = () => {
 </script>
 
 <template>
-  <VaCard>
+  <VaCard color="warning">
     <VaCardContent>
       <h3 class="va-h3">
         Login

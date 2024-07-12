@@ -54,7 +54,7 @@ export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
       const { line, col } = await getComponentLineAndCol(path, Number(start));
 
       res.writeHead(200)
-      res.end(`vscode://file/${unminified.split(':')[0]}:${line}:${col}`);
+      res.end(`${unminified.split(':')[0]}:${line}:${col}`);
       return
     }
 
