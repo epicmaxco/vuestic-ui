@@ -1,1 +1,1 @@
-export { useComponent, ComponentAttribute, ComponentProp } from './useComponent'
+export { useComponent, type ComponentAttribute, type ComponentProp } from './useComponent'

@@ -1,7 +1,10 @@
 <script setup lang="ts">
-  import { VaButton, VaChip } from 'vuestic-ui'
-  import type { AppTreeItem } from '../composables/useAppTree'
+  import { computed } from 'vue'
+  import { VaButton} from 'vuestic-ui'
+  import { type AppTreeItem } from '../composables/useAppTree'
   import { useTargetElementStore } from '../store/useTargetElementStore';
+  import { useComponent } from '../composables/useComponent';
+  import { getElementMinfiedPaths } from '../composables/useComponent/useComponentPaths'
 
   const props = defineProps<{
     item: AppTreeItem
@@ -11,11 +14,23 @@
     name: 'AppTreeItem'
   })
 
+  const { vNode, selectedPath } = useComponent()
   const { targetElement } = useTargetElementStore()
 
   const setTargetElement = () => {
     targetElement.value = props.item.el
   }
+
+  // Compare el path with target element path
+  // May be v-for elements or reused component, so we need to compare all paths
+  const isElementSelected = computed(() => {
+    if (!vNode.value) return false
+
+    const paths = getElementMinfiedPaths(props.item.el)
+    const targetElPaths = getElementMinfiedPaths(targetElement.value)
+
+    return paths?.some(path => path === selectedPath.value?.minified)
+  })
 </script>
 
 <template>
@@ -30,9 +45,9 @@
     <VaButton
       class="app-tree-item__button"
       preset="secondary"
-      :color="props.item.el === targetElement ? 'primary' : 'secondary'"
+      :color="isElementSelected ? 'primary' : 'secondary'"
       :class="{
-        'app-tree-item__button--selected': props.item.el === targetElement,
+        'app-tree-item__button--selected': isElementSelected,
         'app-tree-item__button--component': props.item.type === 'vue:component',
         'app-tree-item__button--element': props.item.type === 'native:element'
       }"

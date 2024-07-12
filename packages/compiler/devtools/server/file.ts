@@ -66,3 +66,12 @@ export const setComponentSource = async (path: string, start: number, end: numbe
 
   return newPath
 }
+
+export const getComponentLineAndCol = async (path: string, start: number) => {
+  const fileSource = await requestSource(path);
+  const intent = getIntent(fileSource, start);
+  const lines = fileSource.slice(0, start).split('\n');
+  const line = lines.length;
+  const col = intent;
+  return { line, col };
+}

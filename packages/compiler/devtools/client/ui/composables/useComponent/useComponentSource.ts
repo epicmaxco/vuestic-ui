@@ -2,7 +2,7 @@ import { ref, computed, watch, Ref } from 'vue';
 import { API_PREFIX, PREFIX } from '../../../../shared/CONST';
 import { prettify } from '../../../parser/prittyfy'
 import { useComponentPaths } from './useComponentPaths'
-import { getNodeSource, setNodeSource } from './api';
+import { getNodeSource, getVSCodePath, setNodeSource } from './api';
 
 export const useComponentSource = (htmlElement: Ref<HTMLElement | null>) => {
   /** @notice Source is async and may not be available until loaded */
@@ -11,6 +11,14 @@ export const useComponentSource = (htmlElement: Ref<HTMLElement | null>) => {
   const paths = useComponentPaths(htmlElement)
 
   const selectedPathIndex = ref(0)
+
+  watch(paths, (paths) => {
+    if (!paths) { return }
+
+    if (selectedPathIndex.value >= paths.length) {
+      selectedPathIndex.value = 0
+    }
+  })
 
   const q = computed(() => {
     return paths.value?.[selectedPathIndex.value]
@@ -44,12 +52,21 @@ export const useComponentSource = (htmlElement: Ref<HTMLElement | null>) => {
     loadSource()
   }, { immediate: true })
 
+  const openInVSCode = async () => {
+    if (!q.value) { throw new Error('Can not open in VSCode: no q available') }
+
+    const link =  await (await getVSCodePath(q.value.minified)).text()
+
+    window.open(link, '_blank')
+  }
+
   return {
     source,
     refreshSource: loadSource,
     saveSource,
     q,
     paths,
+    openInVSCode,
     selectedPath: computed({
       get() { return paths.value?.[selectedPathIndex.value] },
       set(v) {

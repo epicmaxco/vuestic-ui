@@ -7,7 +7,12 @@ const getVNodeComponent = (vNode: VNode | null) => {
 
   const ctx = vNode.ctx as any
 
-  if (!ctx) { return null }
+  if (!ctx) { 
+    if (typeof vNode.type === 'string') {
+      return { name: vNode.type, props: {} }
+    }
+    return null
+  }
 
   return {
     name: ctx.type.__name as string || undefined,

@@ -1,7 +1,7 @@
 import { Connect } from 'vite'
 import { readBody } from './utils'
 import { API_PREFIX } from '../shared/CONST'
-import { getComponentSource, setComponentSource } from './file'
+import { getComponentLineAndCol, getComponentSource, setComponentSource } from './file'
 import { replacePath, unminifyPath } from '../shared/slug'
 
 export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
@@ -48,6 +48,14 @@ export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
       res.writeHead(200)
       res.end(unminified);
       return;
+    }
+
+    if (req.method === 'GET' && req.url.startsWith(`${API_PREFIX}/vscode-path`)) {
+      const { line, col } = await getComponentLineAndCol(path, Number(start));
+
+      res.writeHead(200)
+      res.end(`vscode://file/${unminified.split(':')[0]}:${line}:${col}`);
+      return
     }
 
     next()

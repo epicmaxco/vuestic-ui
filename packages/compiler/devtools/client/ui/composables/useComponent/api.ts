@@ -16,3 +16,7 @@ export const setNodeSource = (q: string, source: string) => {
 export const getFileName = (q: string) => {
   return fetch(`${API_URL}/file-name?q=${q}`)
 }
+
+export const getVSCodePath = (q: string) => {
+  return fetch(`${API_URL}/vscode-path?q=${q}`)
+}

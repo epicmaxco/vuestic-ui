@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { useColors } from 'vuestic-ui' 
   import { ref, watchEffect, toRef } from 'vue';
   import { useEvent } from '../../composables/base/useEvent'
   import { useOutline } from '../../composables/useOutlines'
@@ -7,15 +8,19 @@
   const props = withDefaults(defineProps<{
     node: HTMLElement | null
     color?: string
+    background?: string
     dashed?: boolean
     thickness?: number
   }>(), {
-    color: '#90e0ef',
+    color: 'outlinePrimary',
+    background: 'transparent',
     dashed: false,
     thickness: 1
   })
 
   const outlineEl = ref<HTMLElement | null>()
+
+  const { getColor } = useColors()
 
   const updateSize = () => {
     if (!props.node) { return }
@@ -47,9 +52,10 @@
     class="va-devtools-outline"
     ref="outlineEl"
     :style="{
-      borderColor: color,
+      borderColor: getColor(color),
       borderStyle: dashed ? 'dashed' : 'solid',
-      borderWidth: `${thickness}px`
+      borderWidth: `${thickness}px`,
+      background: getColor(background),
     }"
   />
 </template>

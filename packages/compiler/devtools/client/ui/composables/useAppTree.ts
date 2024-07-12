@@ -10,6 +10,11 @@ export type AppTreeItem = {
   vFor?: number,
 }
 
+export type AppTreeVFor = {
+  type: 'vue:v-for',
+  children: AppTreeItem[],
+}
+
 const getComponentName = (node: VNode) => {
   if (!('ctx' in node) || typeof node.ctx !== 'object' || node.ctx === null) { return }
 
@@ -30,7 +35,7 @@ const hasVNode = (el: HTMLElement): el is HTMLElement & { __vnode: VNode } => {
   return '__vnode' in el
 }
 
-const compareNodeUid = (a: VNode | undefined, b: VNode | undefined) => {
+export const compareNodeUid = (a: VNode | undefined, b: VNode | undefined) => {
   if (!a || !b) { return false }
 
   const aCtx = (a as any).ctx

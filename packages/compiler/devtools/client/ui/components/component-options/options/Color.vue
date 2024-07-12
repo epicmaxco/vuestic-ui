@@ -14,7 +14,9 @@ const colorOptions = computed(() => {
   return [...Object.keys(variables)]
 })
 
-const getColor = (name: string) => config.value?.colors?.variables[name]
+const toCamelCase = (str: string) => str.replace(/-([a-z])/g, (g) => g[1].toUpperCase())
+
+const getColor = (name: string) => config.value?.colors.variables[toCamelCase(name)]
 
 const props = defineProps<{
   label: string,
@@ -38,7 +40,9 @@ const vModelProxy = computed({
 <template>
   <VaSelect v-if="config" :options="colorOptions" class="color-option" :label="props.label" v-model="vModelProxy" :clearable="vModelProxy !== prop.meta.default">
     <template #option-content="{ option }">
-      <VaColorIndicator v-if="option && option !== 'unset'" :color="getColor(option as string)" class="color-option__color" /> {{ option }}
+      <div class="color-option__option">
+        <VaColorIndicator v-if="option && option !== 'unset'" :color="getColor(option as string)" class="color-option__color" /> {{ option }}
+      </div>
     </template>
   </VaSelect>
 </template>
@@ -47,6 +51,11 @@ const vModelProxy = computed({
 .color-option {
   &__color {
     margin-right: 8px;
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
   }
 }
 </style>

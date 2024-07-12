@@ -5,6 +5,7 @@ import { useComponentMeta } from "./useComponentMeta"
 import { useComponentSource } from "./useComponentSource"
 import { useVNode } from "./useVNode"
 import { defineGlobal } from '../base/defineGlobal'
+import { useComponentsWithSameVNode } from './useComponentsWithSameVNode';
 
 export type ComponentAttribute = {
   name: string,
@@ -16,6 +17,7 @@ export type ComponentAttribute = {
     isVModel: boolean,
     isEvent: boolean,
   },
+  currentValue: any,
   updateAttribute: (name: string, value: string | null) => void,
 }
 
@@ -53,7 +55,7 @@ const findPropFromAttributes = (attributes: Record<string, string | null>, propN
 export const useComponent = defineGlobal(() => {
   const { targetElement } = useTargetElementStore()
 
-  const { source, saveSource, paths, selectedPath } = useComponentSource(targetElement)
+  const { source, saveSource, paths, selectedPath, openInVSCode } = useComponentSource(targetElement)
   const { vNode } = useVNode(targetElement)
   const { updateAttribute, attributes } = useComponentCode(source, vNode)
   const meta = useComponentMeta(vNode)
@@ -63,8 +65,6 @@ export const useComponent = defineGlobal(() => {
 
     return Object.keys(meta.value.props ?? {}).reduce((acc, name) => {
       const propMeta = meta.value.props?.[name as string]
-      const value = vNode.value?.props?.[name as string]
-
       if (!attributes.value) { throw new Error('Error getting props: attributes not parsed yet') }
 
       const attributeFromCode = findPropFromAttributes(attributes.value, name)
@@ -78,6 +78,12 @@ export const useComponent = defineGlobal(() => {
         set codeValue(newCodeValue: string | null | undefined) {
           updateAttribute(name, newCodeValue)
         },
+        get currentValue() {
+          return vNode.value!.props![name]
+        },
+        set currentValue(newValue: any) {
+          vNode.value!.props![name] = newValue
+        },
         codeAttribute: attributeFromCode ?? undefined,
         updateAttribute,
       }
@@ -86,13 +92,18 @@ export const useComponent = defineGlobal(() => {
     }, {} as Record<string, ComponentAttribute | ComponentProp>)
   })
 
+  const elementsWithSameVNode = useComponentsWithSameVNode(targetElement)
+
   return {
     source,
+    vNode,
     saveSource,
+    openInVSCode,
     updateAttribute,
     props,
     meta,
     paths, 
     selectedPath,
+    elementsWithSameVNode,
   }
 })

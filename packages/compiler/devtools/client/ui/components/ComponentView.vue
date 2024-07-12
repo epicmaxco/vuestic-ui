@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import { VaDivider, VaButton, VaButtonToggle } from 'vuestic-ui'
-  import { ref } from 'vue';
+  import { VaDivider, VaButton, VaSpacer, VaSelect, VaSwitch } from 'vuestic-ui'
+  import { ref, watch } from 'vue';
   import CodeView from './base/CodeView.vue';
   import { useComponent } from '../composables/useComponent/useComponent'
   import ComponentSettings from './component-options/ComponentSettings.vue'
@@ -11,6 +11,7 @@
     source,
     selectedPath,
     paths,
+    openInVSCode,
   } = useComponent()
 
   const isLoading = ref(false)
@@ -26,6 +27,14 @@
   const getFileName = (p: string) => {
     return p.split('/').pop()?.split(':').shift()
   }
+
+  const autoSave = ref(true)
+
+  watch(source, async (newSource) => {
+    if (autoSave.value && newSource) {
+      await saveSource(newSource)
+    }
+  })
 </script>
 
 <template>
@@ -33,13 +42,16 @@
     <h3 class="c-component-view__title">
       {{ meta.name }}
 
-      <VaButtonToggle
-        v-model="selectedPath"
-        :options="paths"
-        :text-by="(option) => getFileName(option.path)"
-        :value-by="(option) => option"
-        color="secondary"
-      />
+      <div class="c-component-view__title-actions">
+        <VaSelect 
+          v-if="paths"
+          v-model="selectedPath"
+          :options="paths"
+          :text-by="(option) => getFileName((option as any).path)"
+          style="width: 180px"
+          background="backgroundPrimary"
+        />
+      </div>
     </h3>
 
     <div class="c-component-view__content">
@@ -52,6 +64,9 @@
 
     <div class="c-component-view__footer">
       <VaButton icon="code" preset="secondary" @click="showDetails = !showDetails" />
+      <VaSpacer />
+      <!-- <VaSwitch v-model="autoSave" label="Auto save" /> -->
+      <VaButton icon="vscode" @click="openInVSCode" preset="secondary" title="Open in VSCode" />
       <VaButton @click="onSave">Save</VaButton>
     </div>
   </div>
@@ -73,6 +88,11 @@
     align-items: center;
   }
 
+  .c-component-view__title-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
   .c-component-view__tabs {
     padding-top: 0.5rem;
   }
@@ -90,5 +110,6 @@
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;
+    width: 100%;
   }
 </style>
