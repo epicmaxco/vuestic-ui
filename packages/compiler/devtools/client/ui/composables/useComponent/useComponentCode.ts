@@ -16,6 +16,17 @@ const transformPropName = (name: string, type: 'attr' | 'bind' | 'v-model' | 'ev
   }
 }
 
+const extractSlotName = (keys: string[]) => {
+  for (const key of keys) {
+    if (key.startsWith('v-slot:')) {
+      return key.slice(7)
+    }
+    if (key.startsWith('#')) {
+      return key.slice(1)
+    }
+  }
+}
+
 export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | null>) => {
   const ast = computed(() => {
     if (!source.value) return null
@@ -24,6 +35,7 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
       return parseSource(source.value)
     }
     catch (e) {
+      console.log(e)
       return null
     }
   })
@@ -40,9 +52,39 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
     return element.attributes
   })
 
+  const slots = computed(() => {
+    if (!ast.value) return null
+    const element = ast.value.children[0]
+
+    if (element.type === 'content') {
+      return [{ name: 'default', text: element.text }]
+    }
+
+    const slots = [] as { name: string, text: string }[]
+
+    for (const child of element.children) {
+      if (child.type === 'content') {
+        slots.push({ name: 'default', text: child.text.trim() })
+        continue
+      }
+
+      if (child.tag === 'template') {
+        const slotName = extractSlotName(Object.keys(child.attributes))
+
+        const slotText = child.children.length === 1 && child.children[0].type === 'content' ? child.children[0].text : null
+
+        if (slotName && slotText) {
+          slots.push({ name: slotName, text: slotText.trim() })
+        }
+      }
+    }
+
+    return slots
+  })
+
   /**
    * Updated attribute value in the source code
-   * 
+   *
    * string - meaning attribute have value - `to="value"`
    * null - meaning attribute don't have a value `to`
    * undefined - meaning attribute should be removed ``
@@ -109,9 +151,81 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
     source.value = printSource(newRoot)
   }
 
+  const updateSlot = (name: string, value: string) => {
+    if (!ast.value) {
+      throw new Error('Unable to update slot: no AST available')
+    }
+
+    if (ast.value.children.length !== 1) {
+      throw new Error('Unable to update slot: multi-node')
+    }
+
+    const element = ast.value.children[0]
+
+    console.log(element)
+
+    const newRoot: HTMLRootNode = {
+      type: 'root',
+      children: []
+    }
+
+
+    if (element.type === 'content') {
+      if (name !== 'default') {
+        throw new Error('Unable to update slot: content node can only have default slot')
+      }
+
+      newRoot.children.push({
+        type: 'content',
+        text: value,
+        parent: newRoot,
+      })
+
+      source.value = printSource(newRoot)
+      return
+    }
+
+    const newChildren = element.children.map((child) => {
+      // Replace content with default slot
+      if (child.type === 'content') {
+        if (name === 'default') {
+          return {
+            ...child,
+            text: value,
+          }
+        }
+
+        return child
+      }
+
+      if (child.tag === 'template') {
+        const slotName = extractSlotName(Object.keys(child.attributes))
+
+        if (slotName === name) {
+          return {
+            ...child,
+            children: [{ type: 'content' as const, text: value, parent: child }],
+          }
+        }
+      }
+
+      return child
+    })
+
+    newRoot.children.push({
+      ...element,
+      children: newChildren,
+      parent: newRoot,
+    })
+
+    source.value = printSource(newRoot)
+  }
+
   return {
     ast,
     attributes,
+    slots,
     updateAttribute,
+    updateSlot,
   }
 }

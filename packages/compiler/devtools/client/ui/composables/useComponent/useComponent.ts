@@ -17,7 +17,6 @@ export type ComponentAttribute = {
     isVModel: boolean,
     isEvent: boolean,
   },
-  currentValue: any,
   updateAttribute: (name: string, value: string | null) => void,
 }
 
@@ -57,39 +56,53 @@ export const useComponent = defineGlobal(() => {
 
   const { source, saveSource, paths, selectedPath, openInVSCode, refreshSource } = useComponentSource(targetElement)
   const { vNode } = useVNode(targetElement)
-  const { updateAttribute, attributes } = useComponentCode(source, vNode)
+  const code = useComponentCode(source, vNode)
   const meta = useComponentMeta(vNode)
 
   const props = computed(() => {
-    if (!attributes.value) { return {} }
+    if (!code.attributes.value) { return {} }
 
-    return Object.keys(meta.value.props ?? {}).reduce((acc, name) => {
-      const propMeta = meta.value.props?.[name as string]
-      if (!attributes.value) { throw new Error('Error getting props: attributes not parsed yet') }
+    const props = {} as Record<string, ComponentProp>
 
-      const attributeFromCode = findPropFromAttributes(attributes.value, name)
+    for (const name in meta.value.props) {
+      const propMeta = meta.value.props?.[name as string]!
 
-      acc[name] = {
+      const attributeFromCode = findPropFromAttributes(code.attributes.value!, name)
+
+      props[name] = {
         name: name,
         meta: propMeta,
         get codeValue() {
           return attributeFromCode?.value
         },
         set codeValue(newCodeValue: string | null | undefined) {
-          updateAttribute(name, newCodeValue)
-        },
-        get currentValue() {
-          return vNode.value!.props![name]
-        },
-        set currentValue(newValue: any) {
-          vNode.value!.props![name] = newValue
+          code.updateAttribute(name, newCodeValue)
         },
         codeAttribute: attributeFromCode ?? undefined,
-        updateAttribute,
+        updateAttribute: code.updateAttribute,
       }
+    }
 
-      return acc
-    }, {} as Record<string, ComponentAttribute | ComponentProp>)
+    return props
+  })
+
+  const slots = computed(() => {
+    return code.slots.value?.map((slot) => {
+      let timeout: ReturnType<typeof setTimeout>
+
+      return {
+        name: slot.name,
+        get codeValue() {
+          return slot.text
+        },
+        set codeValue(newCodeValue: string) {
+          clearTimeout(timeout)
+          timeout = setTimeout(() => {
+            code.updateSlot(slot.name, newCodeValue)
+          }, 300)
+        },
+      }
+    }) ?? []
   })
 
   const elementsWithSameVNode = useComponentsWithSameVNode(targetElement)
@@ -100,10 +113,11 @@ export const useComponent = defineGlobal(() => {
     saveSource,
     refreshSource,
     openInVSCode,
-    updateAttribute,
+    updateAttribute: code.updateAttribute,
     props,
+    slots,
     meta,
-    paths, 
+    paths,
     selectedPath,
     elementsWithSameVNode,
   }
