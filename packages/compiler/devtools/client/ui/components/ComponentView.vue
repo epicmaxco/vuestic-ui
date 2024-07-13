@@ -29,7 +29,7 @@
     return p.split('/').pop()?.split(':').shift()
   }
 
-  const autoSave = ref(true)
+  const autoSave = ref(false)
 
   watch(source, async (newSource) => {
     if (autoSave.value && newSource) {
@@ -44,7 +44,7 @@
       {{ meta.name }}
 
       <div class="c-component-view__title-actions">
-        <VaSelect 
+        <VaSelect
           v-if="paths"
           v-model="selectedPath"
           :options="paths"

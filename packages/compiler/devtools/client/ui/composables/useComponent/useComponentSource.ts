@@ -37,7 +37,7 @@ export const useComponentSource = (htmlElement: Ref<HTMLElement | null>) => {
     }
 
     const response = await getNodeSource(q.value.minified)
-    source.value = prettify(await response.text())
+    source.value = await response.text()
   }
 
   const saveSource = async (source: string) => {
@@ -72,7 +72,7 @@ export const useComponentSource = (htmlElement: Ref<HTMLElement | null>) => {
       set(v) {
         if (!paths.value) { return }
 
-        if (v === undefined) { 
+        if (v === undefined) {
           selectedPathIndex.value = -1
           return
         }

@@ -131,6 +131,7 @@
       border: none;
       resize: none;
       box-sizing: border-box;
+      overflow: auto;
     }
 
     &__view code, &__view pre, &__textarea {
