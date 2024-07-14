@@ -21,7 +21,15 @@
             hover-opacity="0.07"
             border-color="transparent"
           >
-            {{ route.displayName }}
+            <VaBadge
+              placement="right-center"
+              size="small"
+              offset="5px"
+              :text="route.meta?.badge?.text"
+              :color="route.meta && route.meta.badge && badgeColors[route.meta.badge.type]"
+            >
+              {{ route.displayName }}
+            </VaBadge>
             <VaIcon :name="isCollapsed ? 'va-arrow-up' : 'va-arrow-down'" />
           </VaSidebarItem>
         </template>
