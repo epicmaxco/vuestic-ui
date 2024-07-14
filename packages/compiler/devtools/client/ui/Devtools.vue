@@ -11,17 +11,17 @@
       <Outline :node="targetElement" :thickness="1" background="outlinePrimaryBackground" />
       <Outline :node="hoveredElement" :thickness="1" dashed  />
       <Outline v-for="element in elementsWithTargetVNode" :node="element" :thickness="1" color="outlineSecondary" background="outlineSecondaryBackground" />
-  
+
       <!-- <DraggableWindow default-position="top-left" v-if="targetElement">
         <VaCounter v-model="zoom" label="Zoom" inner-label step="0.01" stateful max="2" min="0.5" buttons />
       </DraggableWindow> -->
-  
+
       <DraggableWindow default-position="top-right" v-if="targetElement">
         <VaCard>
           <ComponentView />
         </VaCard>
       </DraggableWindow>
-  
+
       <DraggableWindow default-position="bottom-left" v-if="targetElement">
         <VaCard>
           <VaCardContent>
@@ -112,6 +112,7 @@ useEvent('keyup', () => {
 
 
 const { targetElement } = useTargetElementStore()
+const { selectedPath } = useComponent()
 const hoveredElement = useHoveredElement()
 
 function onHoveredElementClick() {
@@ -146,6 +147,10 @@ watch([zoom, translate], () => {
   nextTick(recalculateOutlines)
 }, { immediate: true })
 
-const elementsWithTargetVNode = useComponent().elementsWithSameVNode
+const elementsWithTargetVNode = computed(() => {
+  const minifiedPath = selectedPath.value?.minified
+
+  return [...document.querySelectorAll(`[data-${minifiedPath}]`)] as HTMLElement[]
+})
 </script>
 

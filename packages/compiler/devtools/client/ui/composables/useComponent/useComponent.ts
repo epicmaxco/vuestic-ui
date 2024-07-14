@@ -5,7 +5,6 @@ import { useComponentMeta } from "./useComponentMeta"
 import { useComponentSource } from "./useComponentSource"
 import { useVNode } from "./useVNode"
 import { defineGlobal } from '../base/defineGlobal'
-import { useComponentsWithSameVNode } from './useComponentsWithSameVNode';
 
 export type ComponentAttribute = {
   name: string,
@@ -105,8 +104,6 @@ export const useComponent = defineGlobal(() => {
     }) ?? []
   })
 
-  const elementsWithSameVNode = useComponentsWithSameVNode(targetElement)
-
   return {
     source,
     vNode,
@@ -119,6 +116,5 @@ export const useComponent = defineGlobal(() => {
     meta,
     paths,
     selectedPath,
-    elementsWithSameVNode,
   }
 })
