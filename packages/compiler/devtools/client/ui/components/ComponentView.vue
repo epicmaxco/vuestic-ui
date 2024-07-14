@@ -45,7 +45,7 @@
 
       <div class="c-component-view__title-actions">
         <VaSelect
-          v-if="paths"
+          v-if="paths && paths.length > 1"
           v-model="selectedPath"
           :options="paths"
           :text-by="(option) => getFileName((option as any).path)"

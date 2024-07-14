@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { computed, PropType, ref } from 'vue'
+  import { computed, PropType, ref, watch } from 'vue'
   import { VaScrollContainer, VaInput, VaCheckbox, VaSelect, VaAlert, VaCounter, VaDivider, VaButtonToggle, VaTabs, VaTab, VaTextarea } from 'vuestic-ui'
   import { useComponent, ComponentProp } from '../../composables/useComponent/useComponent'
   import Color from './options/Color.vue'
@@ -72,47 +72,55 @@
       .sort((a, b) => a.name.localeCompare(b.name))
   })
 
+  const tabs = computed(() => {
+    return [
+      { name: 'Props', disabled: propsConfigs.value.length === 0 },
+      { name: 'Slots', disabled: slots.value.length === 0 },
+      { name: 'Layout', disabled: true },
+    ]
+  })
+
   const tab = ref(0)
+
+  watch(tabs, () => {
+    tab.value = tabs.value.findIndex(tab => !tab.disabled)
+  })
 </script>
 
 <template>
   <VaScrollContainer vertical>
     <div class="component-settings">
-      <template v-if="propsConfigs.length > 0">
-        <div>
-          <VaTabs v-model="tab">
-            <template #tabs>
-              <VaTab :disabled="propsConfigs.length === 0">Props</VaTab>
-              <VaTab :disabled="slots?.length === 0">Slots</VaTab>
-              <VaTab disabled>Layout</VaTab>
-            </template>
-          </VaTabs>
-        </div>
-
-        <template v-if="tab === 0">
-          <VaInput v-model="propsFilter" class="component-settings__search-field" placeholder="Filter props" icon="search" />
-
-          <VaDivider />
-
-          <template v-for="prop in propsConfigs">
-            <Color v-if="prop.type === 'color'" :label="prop.name" v-model="prop.value" :prop="prop.prop" />
-            <VaInput v-else-if="prop.type === 'text'" :label="prop.name" v-model="prop.value" />
-            <Checkbox v-else-if="prop.type === 'checkbox'" :label="prop.name" v-model="prop.value" :prop="prop.prop" />
-            <VaSelect v-else-if="prop.type === 'select'" :label="prop.name" v-model="prop.value" :options="'options' in prop ? prop.options : []" />
-            <NumberInput v-else-if="prop.type === 'number'" :label="prop.name" v-model="prop.value" :prop="prop.prop" />
-            <MultiText v-else-if="prop.type === 'multi-text'" :label="prop.name" v-model="prop.value" />
-            <NotAvaliable v-else-if="prop.type === 'disabled'" :label="prop.name" />
-            <div v-else>
-              <div class="va-label">{{ prop.name }}</div>
-              <VaAlert color="warning">There are not controls yet for this kind of prop. Please, open an issue on Github</VaAlert>
-            </div>
+      <div>
+        <VaTabs v-model="tab">
+          <template #tabs>
+            <VaTab v-for="tab in tabs" :disabled="tab.disabled">{{ tab.name }}</VaTab>
           </template>
+        </VaTabs>
+      </div>
+
+      <template v-if="tab === 0">
+        <VaInput v-model="propsFilter" class="component-settings__search-field" placeholder="Filter props" icon="search" />
+
+        <VaDivider />
+
+        <template v-for="prop in propsConfigs">
+          <Color v-if="prop.type === 'color'" :label="prop.name" v-model="prop.value" :prop="prop.prop" />
+          <VaInput v-else-if="prop.type === 'text'" :label="prop.name" v-model="prop.value" />
+          <Checkbox v-else-if="prop.type === 'checkbox'" :label="prop.name" v-model="prop.value" :prop="prop.prop" />
+          <VaSelect v-else-if="prop.type === 'select'" :label="prop.name" v-model="prop.value" :options="'options' in prop ? prop.options : []" />
+          <NumberInput v-else-if="prop.type === 'number'" :label="prop.name" v-model="prop.value" :prop="prop.prop" />
+          <MultiText v-else-if="prop.type === 'multi-text'" :label="prop.name" v-model="prop.value" />
+          <NotAvaliable v-else-if="prop.type === 'disabled'" :label="prop.name" />
+          <div v-else>
+            <div class="va-label">{{ prop.name }}</div>
+            <VaAlert color="warning">There are not controls yet for this kind of prop. Please, open an issue on Github</VaAlert>
+          </div>
         </template>
+      </template>
 
-        <template v-else-if="tab === 1">
-          <template v-for="slot in slots">
-            <VaTextarea v-model="slot.codeValue" :label="slot.name" />
-          </template>
+      <template v-else-if="tab === 1">
+        <template v-for="slot in slots">
+          <VaTextarea v-model="slot.codeValue" :label="slot.name" />
         </template>
       </template>
     </div>
