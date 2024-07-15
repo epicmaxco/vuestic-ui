@@ -13,6 +13,25 @@
 
     const items = [] as AppTreeItem[]
 
+    const find = (nodes: AppTreeItem[]) => {
+      nodes.forEach((node) => {
+        if ('text' in node) { return }
+
+          if (node.name.toLowerCase().includes(query.toLowerCase())) {
+            items.push({
+              ...node,
+              children: []
+            })
+          }
+
+          if (node.children) {
+            find(node.children)
+          }
+      })
+    }
+
+    find(appTree.value)
+
     return items
   }
 

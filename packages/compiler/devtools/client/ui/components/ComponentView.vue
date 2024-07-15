@@ -45,9 +45,9 @@
 
   const tab = ref(0)
 
-  watch(tabs, () => {
-    if (tabs.value[tab.value].disabled) {
-      tab.value = tabs.value.findIndex(tab => !tab.disabled)
+  watch(tabs, (newTabs) => {
+    if (newTabs[tab.value].disabled && source.value !== null) {
+      tab.value = newTabs.findIndex(tab => !tab.disabled)
     }
   })
 </script>

@@ -117,21 +117,24 @@ const getAppTree = async () => {
       return traverseChildren(getItemChildren(vnode))
     }
 
-    if (!vnode.props) {
-      throw new Error('Unexpected error: VNode does not have props')
-    }
 
     const ids = vnode.props && Object
       .keys(vnode.props)
       .filter((p) => p.startsWith(`data-${PREFIX}-`))
       .map((p) => p.replace(`data-`, ''))
 
+    if (!ids) {
+      return traverseChildren(getItemChildren(vnode))
+    }
+
     const removeInheritedId = (children: AppTreeItem[]) => {
-      children.forEach((child) => {
-        if ('ids' in child) {
-          child.ids = child.ids.filter((id) => !ids.includes(id))
-        }
-      })
+      if (ids) {
+        children.forEach((child) => {
+          if ('ids' in child) {
+            child.ids = child.ids.filter((id) => !ids.includes(id))
+          }
+        })
+      }
 
       const grouped = [] as AppTreeItem[]
 
@@ -157,7 +160,7 @@ const getAppTree = async () => {
     }
 
     return {
-      ids,
+      ids: ids ?? [],
       el: vnode.el as Element | null,
       vnode,
       name: name ?? 'unknown',

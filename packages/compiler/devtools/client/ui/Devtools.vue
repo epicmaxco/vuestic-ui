@@ -14,7 +14,9 @@
 
       <DraggableWindow default-position="bottom-left">
         <VaCard class="vuestic-devtools__left-sidebar">
-          <AppTree />
+          <VaScrollContainer vertical horizontal>
+            <AppTree />
+          </VaScrollContainer>
         </VaCard>
       </DraggableWindow>
 
@@ -35,7 +37,7 @@ import ComponentView from './components/ComponentView.vue'
 import DraggableWindow from './components/base/DraggableWindow.vue'
 import AppTree from './components/AppTree.vue'
 
-import { VaCard, useToast, useColors } from 'vuestic-ui'
+import { VaCard, useToast, useColors, VaScrollContainer } from 'vuestic-ui'
 
 import { useHoveredElement } from './composables/useHoveredElement'
 import { useAppTransform } from './composables/useAppTransform'
