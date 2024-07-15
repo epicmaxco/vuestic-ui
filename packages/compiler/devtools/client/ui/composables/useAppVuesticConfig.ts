@@ -14,19 +14,19 @@ const useApp = () => {
     if (!vueApp.value) {
       requestAnimationFrame(tryGetVueApp)
     } else {
-      console.log('VuesticDevtools: Vue app found')
+
     }
   }
 
   tryGetVueApp()
 
   return vueApp
-} 
+}
 
 export const useAppVuesticConfig = () => {
   const vueApp = useApp()
 
   return computed(() => {
-    return vueApp.value?.config.globalProperties.$vaConfig.globalConfig as GlobalConfig
+    return vueApp.value?.config.globalProperties.$vaConfig.globalConfig as unknown as GlobalConfig
   })
 }

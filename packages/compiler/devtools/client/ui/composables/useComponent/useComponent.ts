@@ -67,11 +67,15 @@ export const useComponent = defineGlobal(() => {
     return selectedAppTreeItem.value?.ids[0]
   })
 
-  const { source, saveSource, openInVSCode, refreshSource } = useComponentSource(uid)
+  const { source, saveSource, openInVSCode, refreshSource, isSourceLoading } = useComponentSource(uid)
   const code = useComponentCode(source, vNode)
 
   const name = computed(() => {
     return selectedAppTreeItem.value?.name
+  })
+
+  const isParsed = computed(() => {
+    return code.attributes.value !== null && code.slots.value !== null && !isSourceLoading.value && source.value !== null
   })
 
   const props = computed(() => {
@@ -127,6 +131,7 @@ export const useComponent = defineGlobal(() => {
   })
 
   return {
+    isParsed,
     name,
     source,
     vNode,

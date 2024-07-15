@@ -1,23 +1,10 @@
-import { ref, computed, watch, Ref } from 'vue';
-import { PREFIX } from '../../../../shared/CONST';
-import { useComponentPaths } from './useComponentPaths'
+import { ref, watch, Ref } from 'vue';
 import { getNodeSource, getVSCodePath, setNodeSource } from './api';
 
 export const useComponentSource = (uid: Ref<string | undefined>) => {
   /** @notice Source is async and may not be available until loaded */
   const source = ref<string | null>(null)
-
-  // const paths = useComponentPaths(htmlElement)
-
-  // const selectedPathIndex = ref(0)
-
-  // watch(paths, (paths) => {
-  //   if (!paths) { return }
-
-  //   if (selectedPathIndex.value >= paths.length) {
-  //     selectedPathIndex.value = 0
-  //   }
-  // })
+  const isSourceLoading = ref(false)
 
   const resetSource = () => {
     source.value = null
@@ -29,8 +16,13 @@ export const useComponentSource = (uid: Ref<string | undefined>) => {
       return
     }
 
-    const response = await getNodeSource(uid.value)
-    source.value = await response.text()
+    try {
+      isSourceLoading.value = true
+      const response = await getNodeSource(uid.value)
+      source.value = await response.text()
+    } finally {
+      isSourceLoading.value = false
+    }
   }
 
   const saveSource = async (source: string) => {
@@ -42,6 +34,7 @@ export const useComponentSource = (uid: Ref<string | undefined>) => {
   }
 
   watch(uid, async () => {
+    resetSource()
     loadSource()
   }, { immediate: true })
 
@@ -55,6 +48,7 @@ export const useComponentSource = (uid: Ref<string | undefined>) => {
 
   return {
     source,
+    isSourceLoading,
     refreshSource: loadSource,
     saveSource,
     openInVSCode,

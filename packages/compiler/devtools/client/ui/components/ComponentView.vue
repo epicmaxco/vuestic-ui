@@ -14,6 +14,7 @@
     source,
     openInVSCode,
     props, slots,
+    isParsed,
   } = useComponent()
 
   const { sameNodeItems, selectedAppTreeItem, selectAppTreeItem } = useSelectedAppTreeItem()
@@ -45,9 +46,9 @@
 
   const tab = ref(0)
 
-  watch(tabs, (newTabs) => {
-    if (newTabs[tab.value].disabled && source.value !== null) {
-      tab.value = newTabs.findIndex(tab => !tab.disabled)
+  watch(isParsed, (isParsed) => {
+    if (tabs.value[tab.value].disabled && isParsed) {
+      tab.value = tabs.value.findIndex(tab => !tab.disabled)
     }
   })
 </script>
