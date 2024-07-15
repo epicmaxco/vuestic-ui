@@ -43,7 +43,7 @@
     }
   })
 
-  const autoSave = ref(false)
+  const autoSave = ref(true)
 
   const saveCode = (v: string) => emit('update:code', v)
 
@@ -71,11 +71,6 @@
         class="code-preview__view"
       />
       <textarea v-model="vModelCode" v-if="isEditMode" class="code-preview__textarea shiki material-theme-lighter" />
-    </div>
-    <div class="code-preview-wrapper__actions">
-      <VaSwitch v-model="autoSave" label="Auto save" />
-      <VaSpacer />
-      <VaButton v-if="!autoSave" icon="save" @click="saveCode(localCode)" />
     </div>
   </div>
 </template>

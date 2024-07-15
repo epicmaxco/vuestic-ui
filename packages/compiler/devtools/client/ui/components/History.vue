@@ -3,7 +3,7 @@ import { watch, ref, computed, Ref } from 'vue'
 import { useComponent, setNodeSource } from '../composables/useComponent'
 import { VaButton } from 'vuestic-ui';
 
-const { source, selectedPath, refreshSource } = useComponent()
+const { source, refreshSource, uid } = useComponent()
 
 type HistorySnapshot = {
   newSource: string
@@ -14,13 +14,13 @@ type HistorySnapshot = {
 const history = ref([]) as Ref<HistorySnapshot[]>
 
 let watchIgnore = false
-watch([source, selectedPath], ([newSource, newSelectedPath], [oldSource, oldSelectedPath]) => {
+watch([source, uid], ([newSource, newUid], [oldSource, oldUid]) => {
   if (watchIgnore) {
     watchIgnore = false
     return
   }
 
-  if (newSelectedPath?.minified !== oldSelectedPath?.minified) {
+  if (newUid !== oldUid) {
     history.value.push('targetChange')
     index.value += 1
     return
@@ -32,15 +32,22 @@ watch([source, selectedPath], ([newSource, newSelectedPath], [oldSource, oldSele
     return
   }
 
-  if (newSource !== oldSource && newSelectedPath?.minified === oldSelectedPath?.minified && oldSource && newSource && selectedPath.value && newSelectedPath) {
+  if (newSource !== oldSource && newUid === oldUid && oldSource && newSource && newUid) {
     // Remove next history if we are not at the end and create new history
     history.value = history.value.slice(0, index.value)
+
+    const lastItem = history.value[history.value.length - 1]
+
+    if (typeof lastItem === 'object' && lastItem.newSource.trim() === newSource.trim()) {
+      return
+    }
+
     index.value += 1
 
     history.value.push({
       newSource,
       oldSource,
-      minfiedPath: newSelectedPath?.minified
+      minfiedPath: newUid
     })
   }
 })

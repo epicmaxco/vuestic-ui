@@ -3,20 +3,30 @@ import { Ref, VNode, computed } from 'vue';
 const getVNodeComponent = (vNode: VNode | null) => {
   if (!vNode) return null
 
-  if (!('ctx' in vNode)) { return null }
-
-  const ctx = vNode.ctx as any
-
-  if (!ctx) { 
-    if (typeof vNode.type === 'string') {
-      return { name: vNode.type, props: {} }
-    }
-    return null
+  if (typeof vNode.type === 'string') {
+    return { name: vNode.type, props: {} }
   }
 
+  if (typeof vNode.type === 'object') {
+    if ('__name' in vNode.type) {
+      return {
+        name: vNode.type.__name as string || undefined,
+        props: vNode.type.props as Record<string, { default?: unknown, type?: BooleanConstructor | StringConstructor }>,
+      }
+    }
+
+    if ('name' in vNode.type) {
+      return {
+        name: vNode.type.name as string || undefined,
+        props: vNode.props as Record<string, { default?: unknown, type?: BooleanConstructor | StringConstructor }>,
+      }
+    }
+  }
+
+
   return {
-    name: ctx.type.__name as string || undefined,
-    props: ctx.type.props as Record<string, { default?: unknown, type?: BooleanConstructor | StringConstructor }>,
+    name: vNode.el?.tagName ?? 'unknown',
+    props: {} as Record<string, { default?: unknown, type?: BooleanConstructor | StringConstructor }>,
   }
 }
 

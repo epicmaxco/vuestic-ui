@@ -1,13 +1,12 @@
 import { computed, PropType } from 'vue';
-import { useTargetElementStore } from "../../store/useTargetElementStore"
 import { useComponentCode } from "./useComponentCode"
-import { useComponentMeta } from "./useComponentMeta"
 import { useComponentSource } from "./useComponentSource"
-import { useVNode } from "./useVNode"
 import { defineGlobal } from '../base/defineGlobal'
+import { useSelectedAppTreeItem } from '../useAppTree';
 
 export type ComponentAttribute = {
   name: string,
+  readonly currentValue: any,
   codeValue: string | null | undefined,
   codeAttribute?: {
     name: string,
@@ -51,31 +50,54 @@ const findPropFromAttributes = (attributes: Record<string, string | null>, propN
 }
 
 export const useComponent = defineGlobal(() => {
-  const { targetElement } = useTargetElementStore()
+  const {
+    selectedAppTreeItem,
+    selectAppTreeItem
+  } = useSelectedAppTreeItem()
 
-  const { source, saveSource, paths, selectedPath, openInVSCode, refreshSource } = useComponentSource(targetElement)
-  const { vNode } = useVNode(targetElement)
+  const vNode = computed(() => {
+    return selectedAppTreeItem.value?.vnode ?? null
+  })
+
+  const element = computed(() => {
+    return (selectedAppTreeItem.value?.el as HTMLElement) ?? null
+  })
+
+  const uid = computed(() => {
+    return selectedAppTreeItem.value?.ids[0]
+  })
+
+  const { source, saveSource, openInVSCode, refreshSource } = useComponentSource(uid)
   const code = useComponentCode(source, vNode)
-  const meta = useComponentMeta(vNode)
+
+  const name = computed(() => {
+    return selectedAppTreeItem.value?.name
+  })
 
   const props = computed(() => {
     if (!code.attributes.value) { return {} }
 
     const props = {} as Record<string, ComponentProp>
 
-    for (const name in meta.value.props) {
-      const propMeta = meta.value.props?.[name as string]!
+    for (const name in code.meta.value.props) {
+      const propMeta = code.meta.value.props?.[name as string]!
 
       const attributeFromCode = findPropFromAttributes(code.attributes.value!, name)
 
       props[name] = {
         name: name,
         meta: propMeta,
+        get currentValue() {
+          return vNode.value?.props?.[name]
+        },
         get codeValue() {
           return attributeFromCode?.value
         },
         set codeValue(newCodeValue: string | null | undefined) {
           code.updateAttribute(name, newCodeValue)
+          if (source.value) {
+            saveSource(source.value)
+          }
         },
         codeAttribute: attributeFromCode ?? undefined,
         updateAttribute: code.updateAttribute,
@@ -105,16 +127,17 @@ export const useComponent = defineGlobal(() => {
   })
 
   return {
+    name,
     source,
     vNode,
+    element,
+    uid,
     saveSource,
     refreshSource,
     openInVSCode,
     updateAttribute: code.updateAttribute,
     props,
     slots,
-    meta,
-    paths,
-    selectedPath,
+    selectAppTreeItem,
   }
 })

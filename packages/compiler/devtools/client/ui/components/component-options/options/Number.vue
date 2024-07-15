@@ -37,7 +37,7 @@ const vModelProxy = computed({
 
 <template>
   <div class="number-option">
-    <VaCounter class="number-option__input" :label="props.label" v-model="vModelProxy" />
+    <VaCounter class="number-option__input" :label="props.label" v-model="vModelProxy" manual-input />
     <VaButton class="number-option__reset-button" @click="clearValue" icon="va-clear" preset="secondary" :disabled="vModelProxy === prop.meta.default" />
   </div>
 </template>

@@ -222,6 +222,7 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
   }
 
   return {
+    meta,
     ast,
     attributes,
     slots,
