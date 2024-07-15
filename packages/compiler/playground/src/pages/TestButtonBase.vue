@@ -6,6 +6,6 @@
 
 <template>
   <VaButton>
-    <slot />
+    Test
   </VaButton>
 </template>

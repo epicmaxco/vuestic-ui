@@ -90,7 +90,6 @@ const { createEmits: createFieldEmits, createListeners: createFieldListeners } =
 
 defineOptions({
   name: 'VaInput',
-  inheritAttrs: false,
 })
 
 const props = defineProps({
@@ -224,7 +223,6 @@ const computedChildAttributes = computed(() => (({
   'aria-disabled': props.disabled,
   'aria-readonly': props.readonly,
   ...validationAriaAttributes.value,
-  ...omit(attrs, ['class', 'style']),
 }) as InputHTMLAttributes))
 
 const computedInputAttributes = computed(() => (({
