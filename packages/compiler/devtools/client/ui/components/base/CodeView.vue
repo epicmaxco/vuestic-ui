@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import { createHighlighter } from 'shiki/bundle/web'
   import { ref, watchEffect, onMounted, Ref, computed, watch } from 'vue';
-  import { VaButton, VaSwitch, VaSpacer } from 'vuestic-ui'
   import { useHasListener } from '../../composables/base/useHasListener'
 
   const props = withDefaults(defineProps<{
