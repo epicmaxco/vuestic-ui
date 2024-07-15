@@ -87,7 +87,7 @@ export const transformFile = async (code: string, id: string) => {
       const tagLoc = getNodeTagLoc(node.loc.source)
       const nodeId = `${id}:${node.loc.start.offset}:${node.loc.end.offset}` as const
 
-      const withAttribute = ` data-${PREFIX}="" data-${minifyPath(nodeId)}=""`
+      const withAttribute = ` data-${PREFIX}="" data-${minifyPath(nodeId)}="${node.tag}"`
 
       source.appendLeft(node.loc.start.offset + tagLoc.end.offset - tagLoc.endSymbol.length, withAttribute)
     }

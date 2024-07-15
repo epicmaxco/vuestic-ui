@@ -1,7 +1,8 @@
 <script setup lang="ts">
-  import { VaButton, VaChip } from 'vuestic-ui'
-  import type { AppTreeItem } from '../composables/useAppTree'
-  import { useTargetElementStore } from '../store/useTargetElementStore';
+  import { computed } from 'vue'
+  import { VaButton } from 'vuestic-ui'
+  import { useSelectedAppTreeItem, type AppTreeItem } from '../composables/useAppTree'
+  import { useComponent } from '../composables/useComponent';
 
   const props = defineProps<{
     item: AppTreeItem
@@ -11,55 +12,69 @@
     name: 'AppTreeItem'
   })
 
-  const { targetElement } = useTargetElementStore()
+  const { selectAppTreeItem,  selectedAppTreeItem } = useSelectedAppTreeItem()
 
   const setTargetElement = () => {
-    targetElement.value = props.item.el
+    if ('text' in props.item) {
+      return
+    }
+
+    if (!props.item.el) {
+      throw new Error('Element is not found')
+    }
+
+    selectAppTreeItem(props.item)
   }
+
+  // Compare el path with target element path
+  // May be v-for elements or reused component, so we need to compare all paths
+  const isElementSelected = computed(() => {
+    return selectedAppTreeItem.value === props.item
+  })
 </script>
 
 <template>
-  <template v-if="props.item.type === 'native:element' && props.item.children" >
+  <!-- <template v-if="props.item.type === 'native:element' && props.item.children" >
     <AppTreeItem
       v-for="node in props.item.children"
       :key="node.name"
       :item="node"
     />
-  </template>
-  <div v-else class="app-tree-item" >
+  </template> -->
+  <div v-if="'text' in props.item">
+
+  </div>
+  <div v-else class="app-tree-item">
     <VaButton
       class="app-tree-item__button"
       preset="secondary"
-      :color="props.item.el === targetElement ? 'primary' : 'secondary'"
+      :color="isElementSelected ? 'primary' : 'secondary'"
       :class="{
-        'app-tree-item__button--selected': props.item.el === targetElement,
-        'app-tree-item__button--component': props.item.type === 'vue:component',
-        'app-tree-item__button--element': props.item.type === 'native:element'
+        'app-tree-item__button--selected': isElementSelected,
       }"
       @click="setTargetElement"
     >
-      <template v-if="props.item.vFor">
-        v-for:
-      </template>
       {{ props.item.name }}
+      <template v-if="props.item.repeated">
+        (repeated)
+      </template>
     </VaButton>
-    <AppTreeItem v-if="props.item.children" v-for="node in props.item.children" :key="node.name" :item="node" />
+    <div v-if="'children' in props.item" class="app-tree-item__children">
+      <AppTreeItem v-if="props.item.children" v-for="node in props.item.children" :item="node" />
+    </div>
   </div>
 </template>
 
 
 <style lang="scss" scoped>
   .app-tree-item {
-    padding: 0 0 0 0.5rem;
-  }
+    &__children {
+      padding: 0 0 0 1rem;
+      border-left: 1px dashed var(--va-background-border);
+    }
 
-  // .app-tree-item__button {
-  //   padding: 0.2rem 0.5rem;
-  //   border: none;
-  //   background-color: transparent;
-  //   cursor: pointer;
-  //   display: block;
-  //   width: 100%;
-  //   text-align: left;
-  // }
+    &__button {
+      margin-left: -1rem;
+    }
+  }
 </style>

@@ -39,7 +39,7 @@ const props = defineProps({
   ...VaButtonGroupProps,
   ...useComponentPresetProp,
   ...useSelectableListProps,
-  modelValue: { type: [String, Number, Boolean], default: '' },
+  modelValue: { type: [String, Number, Boolean, Object], default: '' },
   options: {
     type: Array as PropType<ButtonOption[]>,
     required: true,

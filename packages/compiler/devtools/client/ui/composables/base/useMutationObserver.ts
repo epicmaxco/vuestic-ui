@@ -1,6 +1,6 @@
 import { watch, Ref } from 'vue';
 
-export const useMutationObserver = (target: Ref<HTMLElement>, callback: () => void) => {
+export const useMutationObserver = (target: Ref<HTMLElement | null>, callback: () => void) => {
   let observer = new MutationObserver(callback);
 
   watch(target, (newValue, oldValue) => {

@@ -7,18 +7,19 @@ export const printSource = (source: HTMLRootNode | HTMLElementNode | HTMLContent
 
   const print = (node: HTMLRootNode | HTMLElementNode) => {
     let result = ''
-  
+
     for (const child of node.children) {
       if ('text' in child) {
-        result += child.text.split('\n').map((line) => printTabs() + line).join('\n')
+        result += child.text.split('\n').filter((line) => line.trim() !== '').map((line) => printTabs() + line.trim()).join('\n') + '\n'
       } else {
         result += printTabs() + `<${child.tag}`
 
         const attributesCount = Object.keys(child.attributes).length
-  
+
         if (attributesCount === 1) {
           const [key, value] = Object.entries(child.attributes)[0]
-          if (value === true) {
+
+          if (value === null) {
             result += ` ${key}`
           } else {
             result += ` ${key}="${value}"`
@@ -27,7 +28,7 @@ export const printSource = (source: HTMLRootNode | HTMLElementNode | HTMLContent
           result += '\n'
           tabSize += 2
           for (const [key, value] of Object.entries(child.attributes)) {
-            if (value === true) {
+            if (value === null) {
               result += printTabs() + ` ${key}`
             } else {
               result += printTabs() + ` ${key}="${value}"`
@@ -54,13 +55,13 @@ export const printSource = (source: HTMLRootNode | HTMLElementNode | HTMLContent
         result += '\n' + printTabs() + `</${child.tag}>\n`
       }
     }
-  
+
     return result
   }
 
   if (source.type === 'content') {
     return source.text
   }
-  
+
   return print(source)
 }

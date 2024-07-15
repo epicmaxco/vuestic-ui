@@ -16,17 +16,18 @@
     "allowJs": true,
     "types": [
       "vite/client",
-      "jest",
-      "@testing-library/jest-dom"
     ],
     "lib": [
       "esnext",
       "dom",
       "dom.iterable"
     ],
+    "paths": {
+      "vuestic-ui": ["../ui/src/index.ts"]
+    }
   },
   "exclude": [
     "dist",
     "node_modules"
-  ]
+  ],
 }

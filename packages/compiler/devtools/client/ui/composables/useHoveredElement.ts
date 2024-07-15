@@ -1,9 +1,9 @@
 import { onBeforeMount, onMounted, ref, watch } from "vue"
-import { useTargetElementStore } from "../store/useTargetElementStore"
 import { PREFIX } from "../../../shared/CONST"
+import { useSelectedAppTreeItem } from "./useAppTree"
 
 export const useHoveredElement = () => {
-  const { targetElement: selectedElement } = useTargetElementStore()
+  const { selectedAppTreeItem } = useSelectedAppTreeItem()
 
   const hoveredElement = ref<HTMLElement | null>(null)
 
@@ -30,7 +30,7 @@ export const useHoveredElement = () => {
     }
 
     const clickedElement = elementsUnderPointer.find((el) => {
-      if (el.contains(selectedElement.value)) {
+      if (selectedAppTreeItem.value?.el && el.contains(selectedAppTreeItem.value.el)) {
         return false
       }
 

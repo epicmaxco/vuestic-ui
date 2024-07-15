@@ -23,5 +23,5 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@vuestic/compiler/devtools': fileURLToPath(new URL('../devtools/client/index.ts', import.meta.url)),
     }
-  }
+  },
 })
