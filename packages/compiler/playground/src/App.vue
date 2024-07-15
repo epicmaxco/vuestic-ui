@@ -21,6 +21,11 @@ import TestPage from './pages/TestPage.vue';
   </VaNavbar>
 
   <div style="padding: 16px">
-    <TestPage />
+    <TestPage>
+      Default slot
+      <template #footer>
+        Footer slot
+      </template>
+    </TestPage>
   </div>
 </template>

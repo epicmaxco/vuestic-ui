@@ -607,6 +607,23 @@ export const navigationRoutes: NavigationRoute[] = [
     ],
   },
   {
+    name: "compiler",
+    displayName: "Compiler",
+    meta: {
+      badge: navigationBadge.new('1.10.0'),
+    },
+    children: [
+      {
+        name: 'devtools',
+        displayName: 'Devtools',
+        meta: {
+          badge: navigationBadge.wip('1.10.0'),
+        },
+        path: '/compiler/devtools',
+      },
+    ]
+  },
+  {
     name: "extensions",
     displayName: "Integrations",
     disabled: true,

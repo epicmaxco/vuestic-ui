@@ -1,60 +1,62 @@
 <template>
   <Teleport to="body" v-if="isEditMode">
-    <Overlay
-      @click="onHoveredElementClick"
-      @wheel="onWheel"
-      @mousemove="onMouseMove"
-      @mousedown="onMouseDown"
-      @mouseup="onMouseUp"
-    />
-    <Outline :node="targetElement" :thickness="1" />
-    <Outline :node="hoveredElement" :thickness="2" dashed  />
+    <div :style="colorsToCSSVariable(colors)" class="vuestic-devtools">
+      <Overlay
+        @click="onHoveredElementClick"
+        @wheel="onWheel"
+        @mousemove="onMouseMove"
+        @mousedown="onMouseDown"
+        @mouseup="onMouseUp"
+      />
+      <Outline :node="element" :thickness="1" background="outlinePrimaryBackground" />
+      <Outline :node="hoveredElement" :thickness="1" dashed  />
+      <Outline v-for="element in elementsWithTargetVNode" :node="element" :thickness="1" color="outlineSecondary" background="outlineSecondaryBackground" />
 
-    <!-- <DraggableWindow default-position="top-left" v-if="targetElement">
-      <VaCounter v-model="zoom" label="Zoom" inner-label step="0.01" stateful max="2" min="0.5" buttons />
-    </DraggableWindow> -->
+      <DraggableWindow default-position="bottom-left">
+        <VaCard class="vuestic-devtools__left-sidebar">
+          <VaScrollContainer vertical horizontal>
+            <AppTree />
+          </VaScrollContainer>
+        </VaCard>
+      </DraggableWindow>
 
-    <DraggableWindow default-position="top-right" v-if="targetElement">
-      <VaCard>
-        <ComponentView />
-      </VaCard>
-    </DraggableWindow>
-
-    <DraggableWindow default-position="bottom-left" v-if="targetElement">
-      <VaCard>
-        <VaCardContent>
-          <AppTree />
-        </VaCardContent>
-      </VaCard>
-    </DraggableWindow>
-
-    <VaModal>
-      <ComponentViewSource />
-    </VaModal>
+      <DraggableWindow default-position="top-right" v-if="element">
+        <VaCard class="vuestic-devtools__right-sidebar">
+          <ComponentView />
+        </VaCard>
+      </DraggableWindow>
+    </div>
   </Teleport>
 </template>
 
 <script setup lang="ts">
-import { nextTick, ref, watch, watchEffect } from 'vue'
+import { nextTick, ref, watch, watchEffect, computed } from 'vue'
 import Outline from './components/base/Outline.vue'
 import Overlay from './components/base/Overlay.vue'
 import ComponentView from './components/ComponentView.vue'
-import ComponentViewSource from './components/ComponentViewSource.vue'
 import DraggableWindow from './components/base/DraggableWindow.vue'
 import AppTree from './components/AppTree.vue'
 
-import { VaCard, VaCardContent, VaModal, useToast } from 'vuestic-ui'
+import { VaCard, useToast, useColors, VaScrollContainer } from 'vuestic-ui'
 
-import { useTargetElementStore } from './store/useTargetElementStore'
 import { useHoveredElement } from './composables/useHoveredElement'
 import { useAppTransform } from './composables/useAppTransform'
 import { useOutlines } from './composables/useOutlines'
 import { EDIT_MODE_CLASS } from '../../shared/CONST'
 import { useEvent } from './composables/base/useEvent'
+import { useComponent } from './composables/useComponent'
+import { useAppTree, useSelectedAppTreeItem } from './composables/useAppTree/index'
+
+useAppTree()
 
 const isEditMode = ref(false)
 
 const { notify } = useToast()
+
+const { colorsToCSSVariable, colors } = useColors()
+const { zoom, translate, onWheel, onMouseDown, onMouseMove, onMouseUp } = useAppTransform()
+
+const { selectAppTreeItem, selectedAppTreeItem } = useSelectedAppTreeItem()
 
 watchEffect(() => {
   if (isEditMode.value) {
@@ -71,41 +73,31 @@ watchEffect(() => {
   }
 })
 
-let enteredKeys = ''
 useEvent('keydown', (e: KeyboardEvent) => {
   if (e.key === 'Escape') {
     isEditMode.value = false
     zoom.value = 1
-    targetElement.value = null
+    translate.x = 0
+    translate.y = 0
+    selectAppTreeItem(null)
     return
   }
 
-  if (e.key === 'v') {
-    enteredKeys = ''
-    enteredKeys = 'v'
-    return
-  }
-
-  if (e.key === 'a' && enteredKeys === 'v') {
+  if (e.key === 'F12' && e.altKey) {
     isEditMode.value = !isEditMode.value
     zoom.value = 1
-    targetElement.value = null
+    translate.x = 0
+    translate.y = 0
     e.preventDefault()
+    return
   }
+}, { capture: true })
 
-  enteredKeys = ''
-})
-
-useEvent('keyup', () => {
-  enteredKeys = ''
-})
-
-
-const { targetElement } = useTargetElementStore()
+const { element } = useComponent()
 const hoveredElement = useHoveredElement()
 
 function onHoveredElementClick() {
-  targetElement.value = hoveredElement.value
+  selectAppTreeItem(hoveredElement.value)
 }
 
 watch(hoveredElement, (newEl, oldEl) => {
@@ -113,12 +105,17 @@ watch(hoveredElement, (newEl, oldEl) => {
   if (newEl) { newEl.addEventListener('dblclick', onHoveredElementClick) }
 })
 
-const { zoom, translate, onWheel, onMouseDown, onMouseMove, onMouseUp } = useAppTransform()
 const recalculateOutlines = useOutlines()
 
-watch(targetElement, (newElement) => {
-  if (newElement) {
-    zoom.value = Math.floor((window.innerWidth - (600 + 50)) * 100 / window.innerWidth) / 100
+watch(isEditMode, () => {
+  if (isEditMode.value) {
+    const LEFT_SIDEBAR_WIDTH = 300
+    const RIGHT_SIDEBAR_WIDTH = 500
+    const PADDING = 50
+
+    zoom.value = ((window.innerWidth - ((LEFT_SIDEBAR_WIDTH + RIGHT_SIDEBAR_WIDTH + PADDING))) * 100 / window.innerWidth) / 100
+    translate.x = (LEFT_SIDEBAR_WIDTH - RIGHT_SIDEBAR_WIDTH + PADDING)
+    translate.y = 0
   } else {
     zoom.value = 1
     translate.x = 0
@@ -135,19 +132,24 @@ watch([zoom, translate], () => {
 
   nextTick(recalculateOutlines)
 }, { immediate: true })
+
+const elementsWithTargetVNode = computed(() => {
+  const minifiedPath = selectedAppTreeItem.value?.ids[0]
+
+  return [...document.querySelectorAll(`[data-${minifiedPath}]`)] as HTMLElement[]
+})
 </script>
 
-<style scoped>
-  .va-code-snippet {
-    font-family: monospace;
-    /* white-space: pre; */
-    overflow-x: auto;
-    padding: 16px;
-    background-color: #f8f9fa;
-    border-radius: 4px;
+<style lang="scss" scoped>
+.vuestic-devtools {
+  &__right-sidebar {
+    max-width: 600px;
+    box-sizing: border-box;
   }
 
-  body {
-    overflow-x: hidden;
+  &__left-sidebar {
+    width: 300px;
+    box-sizing: border-box;
   }
+}
 </style>

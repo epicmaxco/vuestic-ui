@@ -2,6 +2,7 @@
   "name": "@vuestic/compiler",
   "version": "0.0.1-beta2",
   "dependencies": {
+    "@rollup/pluginutils": "^5.1.0",
     "shiki": "^1.10.1"
   },
   "scripts": {
@@ -25,7 +26,9 @@
         "import": "./dist/vite/index.d.ts",
         "require": "./dist/vite/index.d.ts",
         "default": "./dist/vite/index.d.ts"
-      }
+      },
+      "default": "./dist/vite/index.mjs",
+      "node": "./dist/vite/index.mjs"
     },
     "./devtools": "./dist/devtools/client/vuestic-devtools.es.js"
   },

@@ -11,7 +11,7 @@ export const minifyPath = (path: Path) => {
     }
   }
 
-  const minified = `${PREFIX}:${knownPaths.size}` as const
+  const minified = `${PREFIX}-${knownPaths.size}` as const
 
   knownPaths.set(minified, path)
 

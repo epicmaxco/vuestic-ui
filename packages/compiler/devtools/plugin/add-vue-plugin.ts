@@ -11,8 +11,7 @@ export const addVuePlugin = (code: string) => {
   const createAppIndex = code.indexOf(CREATE_APP_TEMPLATE)
 
   if (createAppIndex === -1) {
-    console.warn('VuesticDevtools: createApp(App) not found in the file. Please, open an issue on GitHub.')
-    return
+    return null
   }
 
   ms.appendRight(createAppIndex + CREATE_APP_TEMPLATE.length, '.use(createVuesticDevtools())')

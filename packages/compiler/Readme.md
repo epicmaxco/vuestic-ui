@@ -2,17 +2,42 @@
 
 Combination of bundling tools focusing on improving development experience when working with Vuestic UI
 
+## Installation
+
+1. Install package 
+
+```bash
+npm i @vuestic/compiler@latest
+```
+
+2. Add `vuestic` plugin to vite config.
+
+`vite.config.ts` or `vite.config.js`
+```js
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { vuestic } from '@vuestic/compiler/vite'
+
+export default defineConfig({
+  plugins: [
+    vuestic(),
+    vue(),
+  ],
+})
+```
+
+> Make sure to register vuestic plugin before `vue`
+
 ## List of features
 
 ### Devtools
 
 Devtools designed for intuitive visual control over application with Vuestic components
 
-#### Installation
+#### Usages
 
-Install package
-
-Add `@vuestic/compiler/devtools/vite` plugin to `vite.config.ts`
+Run vite project in dev mode
+Press ALT/Option + F12 in browser
 
 #### Plans
 

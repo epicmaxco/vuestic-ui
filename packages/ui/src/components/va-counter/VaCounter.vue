@@ -405,14 +405,8 @@ defineExpose({
 .va-counter {
   --va-input-wrapper-width: var(--va-form-element-default-width-small);
 
-  &.va-input-wrapper {
-    min-width: unset;
-    flex: none;
-
-    .va-input-wrapper__field {
-      width: unset;
-    }
-  }
+  min-width: unset;
+  flex: none;
 
   .va-input-wrapper__field > *,
   .va-input-wrapper__container > * {
@@ -491,6 +485,7 @@ defineExpose({
 
   .va-input-wrapper__field {
     padding: 0;
+    width: unset;
   }
 
   &__prepend-inner,
