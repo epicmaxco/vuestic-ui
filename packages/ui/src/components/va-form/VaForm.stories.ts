@@ -119,7 +119,7 @@ export const Immediate: StoryFn = () => ({
 
 Immediate.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const immediateInput = canvas.getByTestId('immediate')
+  const immediateInput = canvas.getByTestId('immediate').querySelector('input')!
   const notImmediateInput = canvas.getByTestId('not-immediate')
   const [immediateVaInput, noImmediateVaInput] = canvasElement.querySelectorAll('.va-input')
 
@@ -201,7 +201,7 @@ export const Focus: StoryFn = () => ({
 
 Focus.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const first = canvas.getByTestId('first')
+  const first = canvas.getByTestId('first').querySelector('input')!
   const button = canvas.getByRole('button', { name: 'Focus first input' }) as HTMLElement
 
   await step('Focusses first input', async () => {
@@ -226,7 +226,7 @@ export const FocusInvalid: StoryFn = () => ({
 
 FocusInvalid.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const firstInvalid = canvas.getByTestId('first-invalid')
+  const firstInvalid = canvas.getByTestId('first-invalid').querySelector('input')!
   const button = canvas.getByRole('button', { name: 'Focus invalid' }) as HTMLElement
 
   await step('Focuses first invalid input', async () => {
@@ -578,7 +578,7 @@ export const DirtyForm: StoryFn = () => ({
 
 DirtyForm.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const input = canvas.getByTestId('input')
+  const input = canvas.getByTestId('input').querySelector('input')!
   const validateButton = canvas.getByRole('button', { name: 'Validate' }) as HTMLElement
   const resetValidationButton = canvas.getByRole('button', { name: 'Reset validation' }) as HTMLElement
   const resetButton = canvas.getByRole('button', { name: 'Reset' }) as HTMLElement
@@ -698,7 +698,7 @@ export const TouchedForm: StoryFn = () => ({
 
 TouchedForm.play = async ({ canvasElement, step }) => {
   const canvas = within(canvasElement)
-  const input = canvas.getByTestId('input')
+  const input = canvas.getByTestId('input').querySelector('input')!
   const validateButton = canvas.getByRole('button', { name: 'Validate' }) as HTMLElement
   const resetValidationButton = canvas.getByRole('button', { name: 'Reset validation' }) as HTMLElement
   const resetButton = canvas.getByRole('button', { name: 'Reset' }) as HTMLElement
