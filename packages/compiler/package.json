@@ -1,6 +1,6 @@
 {
   "name": "@vuestic/compiler",
-  "version": "0.0.1-beta2",
+  "version": "0.0.1-beta3",
   "dependencies": {
     "@rollup/pluginutils": "^5.1.0",
     "shiki": "^1.10.1"
