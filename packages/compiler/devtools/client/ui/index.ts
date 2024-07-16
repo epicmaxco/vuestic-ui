@@ -3,7 +3,6 @@ import App from './Devtools.vue'
 import { createIconsConfig, createVuesticEssential } from 'vuestic-ui'
 import 'vuestic-ui/styles/essential.css'
 import './styles.css'
-import VSCodeIcon from './components/base/VSCodeIcon.vue'
 
 export const createVuesticDevtools = () => ({
   install(app) {
@@ -22,14 +21,6 @@ export const createVuesticDevtools = () => ({
               outlineSecondaryBackground: '#90e0ef01'
             }
           },
-          icons: createIconsConfig({
-            aliases: [
-              {
-                name: 'vscode',
-                component: markRaw(VSCodeIcon),
-              }
-            ]
-          })
         }
       }))
       .mount(appRoot)
