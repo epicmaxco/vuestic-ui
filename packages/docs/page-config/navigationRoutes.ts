@@ -621,6 +621,14 @@ export const navigationRoutes: NavigationRoute[] = [
         },
         path: '/compiler/devtools',
       },
+      {
+        name: 'css-layers',
+        displayName: 'CSS Layers',
+        meta: {
+          badge: navigationBadge.new('1.10.0'),
+        },
+        path: '/compiler/css-layers',
+      }
     ]
   },
   {
