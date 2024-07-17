@@ -1,6 +1,7 @@
 import { createLogger, Plugin } from "vite"
 import { devtools, PluginOptions as DevtoolsPluginOptions } from "../devtools"
 import { cssLayers } from "../css-layers"
+import { vuesticConfig, Options as VuesticConfigPluginOptions } from "../vuestic-config"
 
 type Options = {
   /** @default true */
@@ -18,6 +19,21 @@ type Options = {
    * For example. tailwind have normalize css included. It may have higher priority than Vuestic styles and components might look broken.
    */
   cssLayers?: boolean,
+
+  /**
+   * Path to the Vuestic config file
+   *
+   * @default 'vuestic.config.ts'
+   *
+   * Make sure to include generated types to your tsconfig.json
+   *
+   * ```json
+   * {
+   *   "include": ["node_modules/.vuestic/*.d.ts", "src/**\/*.d.ts"]
+   * }
+   * ```
+   */
+  config?: boolean | VuesticConfigPluginOptions,
 }
 
 const logger = createLogger('info', {
@@ -44,6 +60,14 @@ export const vuestic = (options: Options = {}): Plugin[] => {
       timestamp: true,
     })
     plugins.push(cssLayers)
+  }
+
+  if (Boolean(options.config)) {
+    logger.info('Using vuestic:config', {
+      timestamp: true,
+    })
+    plugins.push(...vuesticConfig(extractOptions('config')))
+
   }
 
   return plugins
