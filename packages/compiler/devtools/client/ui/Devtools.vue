@@ -128,7 +128,12 @@ watch([zoom, translate], () => {
 
   if (!app) { throw new Error('App element not found to zoom') }
 
-  app.style.transform = `scale(${zoom.value}) translate(${translate.x}px, ${translate.y}px)`
+
+  if (isEditMode.value) {
+    app.style.transform = `scale(${zoom.value}) translate(${translate.x}px, ${translate.y}px)`
+  } else {
+    app.style.transform = ''
+  }
 
   nextTick(recalculateOutlines)
 }, { immediate: true })
