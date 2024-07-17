@@ -628,6 +628,14 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: navigationBadge.new('1.10.0'),
         },
         path: '/compiler/css-layers',
+      },
+      {
+        name: 'vuestic-config',
+        displayName: 'Config',
+        meta: {
+          badge: navigationBadge.new('1.10.0'),
+        },
+        path: '/compiler/vuestic-config',
       }
     ]
   },
