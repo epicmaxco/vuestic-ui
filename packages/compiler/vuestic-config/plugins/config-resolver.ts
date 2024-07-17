@@ -5,15 +5,15 @@ import { readFile } from 'node:fs/promises'
 const VUESTIC_CONFIG_ALIAS = '#vuestic-config'
 
 export const resolveVuesticConfigPath = () => {
-  if (existsSync('vuestic.config.ts')) {
+  if (existsSync('./vuestic.config.ts')) {
     return './vuestic.config.ts'
-  } else if (existsSync('vuestic.config.js')) {
+  } else if (existsSync('./vuestic.config.js')) {
     return './vuestic.config.js'
-  } else if (existsSync('vuestic.config.mjs')) {
+  } else if (existsSync('./vuestic.config.mjs')) {
     return './vuestic.config.mjs'
-  } else if (existsSync('vuestic.config.cjs')) {
+  } else if (existsSync('./vuestic.config.cjs')) {
     return './vuestic.config.cjs'
-  } else if (existsSync('vuestic.config.mts')) {
+  } else if (existsSync('./vuestic.config.mts')) {
     return './vuestic.config.mts'
   } else {
     return undefined
@@ -29,11 +29,11 @@ export const tryToReadConfig = async (path: string) => {
 }
 
 export const isConfigExists = (configPath: string | undefined) => {
-  const path = configPath ?? resolveVuesticConfigPath()
+  if (!configPath) {
+    return resolveVuesticConfigPath()
+  }
 
-  if (!path) { return false}
-
-  return existsSync(path)
+  return existsSync(configPath)
 }
 
 /** This plugin is used to resolve path to vuestic config if it is imported with `#vuestic-config` */
@@ -47,7 +47,7 @@ export const configResolver =  (options: {
     // Resolve vuestic config alias
     async resolveId(source) {
       if (source === VUESTIC_CONFIG_ALIAS) {
-        return `virtual:${VUESTIC_CONFIG_ALIAS}`
+        return `virtual:vuestic-config`
       }
     },
 
@@ -56,7 +56,7 @@ export const configResolver =  (options: {
         configPath = resolveVuesticConfigPath()
       } = options
 
-      if (id === `virtual:${VUESTIC_CONFIG_ALIAS}`) {
+      if (id === `virtual:vuestic-config`) {
         if (!configPath) {
           return 'export default {}'
         }
