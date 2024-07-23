@@ -3,6 +3,7 @@ import type { TemplateChildNode, RootNode } from '@vue/compiler-core'
 import MagicString from 'magic-string'
 import { minifyPath } from '../shared/slug'
 import { PREFIX } from '../shared/CONST'
+import { stringifyFileQuery } from '../shared/file-query'
 
 const walk = (node: TemplateChildNode | RootNode, cb: (node: TemplateChildNode | RootNode) => void) => {
   cb(node)
@@ -85,7 +86,7 @@ export const transformFile = async (code: string, id: string) => {
   walk(templateAst as unknown as RootNode, (node) => {
     if (node.type === 1) {
       const tagLoc = getNodeTagLoc(node.loc.source)
-      const nodeId = `${id}:${node.loc.start.offset}:${node.loc.end.offset}` as const
+      const nodeId = stringifyFileQuery(id, node.loc.start.offset, node.loc.end.offset)
 
       const withAttribute = ` data-${PREFIX}="" data-${minifyPath(nodeId)}="${node.tag}"`
 

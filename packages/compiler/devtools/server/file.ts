@@ -62,9 +62,11 @@ export const setComponentSource = async (path: string, start: number, end: numbe
 
   await writeFile(path, newFileContent);
 
-  const newPath = `${path}:${start}:${start + sourceWithIntent.length}`;
-
-  return newPath
+  return {
+    path,
+    start,
+    end: start + sourceWithIntent.length,
+  }
 }
 
 export const getComponentLineAndCol = async (path: string, start: number) => {
