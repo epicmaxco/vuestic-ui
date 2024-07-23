@@ -3,6 +3,8 @@ import { readBody } from './utils'
 import { API_PREFIX } from '../shared/CONST'
 import { getComponentLineAndCol, getComponentSource, setComponentSource } from './file'
 import { replacePath, unminifyPath } from '../shared/slug'
+import { parseFileQuery, stringifyFileQuery } from '../shared/file-query'
+
 
 export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
   return async (req, res, next) => {
@@ -20,11 +22,11 @@ export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
       return;
     }
 
-    const [path, start, end] = unminified.split(':');
+    const { path, start, end } = parseFileQuery(unminified);
 
     if (req.method === 'GET' && req.url.startsWith(`${API_PREFIX}/node-source`)) {
       res.writeHead(200)
-      res.end(await getComponentSource(path, Number(start), Number(end)));
+      res.end(await getComponentSource(path, start, end));
       return;
     }
 
@@ -35,9 +37,9 @@ export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
         throw new Error('Body is required.');
       }
 
-      const newPath = await setComponentSource(path, Number(start), Number(end), body);
+      const newPath = await setComponentSource(path, start, end, body);
 
-      replacePath(minified, newPath)
+      replacePath(minified, stringifyFileQuery(newPath.path, newPath.start, newPath.end));
 
       res.writeHead(200)
       res.end(minified);
@@ -54,7 +56,8 @@ export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
       const { line, col } = await getComponentLineAndCol(path, Number(start));
 
       res.writeHead(200)
-      res.end(`${unminified.split(':')[0]}:${line}:${col}`);
+      // File Editor path for vite internal openInEditor method
+      res.end(`${path}:${line}:${col}`);
       return
     }
 
