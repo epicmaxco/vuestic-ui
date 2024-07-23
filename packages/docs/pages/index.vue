@@ -11,7 +11,7 @@
       <LandingOpenSource />
       <LandingAdmin />
       <LandingFooter />
-      <LazyLandingModalsRequestAuditModal v-if="needShowRequestAuditModal" v-model="showRequestAuditModal" @close="onRequestAuditModalShown" />
+      <!-- <LazyLandingModalsRequestAuditModal v-if="needShowRequestAuditModal" v-model="showRequestAuditModal" @close="onRequestAuditModalShown" /> -->
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@ definePageMeta({
   layoutTransition: true,
 });
 
-const { needShowRequestAuditModal, onRequestAuditModalShown, showRequestAuditModal } = useRequestAuditModal()
+// const { needShowRequestAuditModal, onRequestAuditModalShown, showRequestAuditModal } = useRequestAuditModal()
 
 const isMobileMenuOpen = ref(false);
 </script>
