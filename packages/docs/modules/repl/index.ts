@@ -15,7 +15,7 @@ export default defineNuxtModule({
   meta: {
     name: '@vuestic/repl-builder',
     compatibility: {
-      nuxt: '^3.3.0'
+      nuxt: '>=3.3.0'
     }
   },
 
