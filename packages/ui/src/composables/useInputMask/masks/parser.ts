@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 interface TokenBase {
   type: string
   expect: string
@@ -32,15 +33,15 @@ interface TokenOrRegex extends TokenBase {
 
 export type Token = TokenChar | TokenRegex | TokenRepeated | TokenGroup | TokenOrRegex
 
-const or = (...args: RegExp[]) => new RegExp(args.map((r) => r.source).join("|"), 'g')
+const or = (...args: RegExp[]) => new RegExp(args.map((r) => r.source).join('|'), 'g')
 
 const TOKEN_SPLIT_REGEX = or(
-  /(\{[^}]*\})/,// Token required to have limits {1, 3}, {1,}, {1}
+  /(\{[^}]*\})/, // Token required to have limits {1, 3}, {1,}, {1}
   /(\\[dws.])/,
   /(^\([^)]*\)$)/, // group like (test)
   /(\[[^\]]*\])/, // split by [^3]{1}, [a-z], [0-9]{1, 3}
-  /(?:)/ // split for each letter
- )
+  /(?:)/, // split for each letter
+)
 
 /**
  * Checks if the symbol contains correct (.)
@@ -50,7 +51,7 @@ const TOKEN_SPLIT_REGEX = or(
  * `((.)(.))` is valid - single group with nested groups
  */
 const isMaskSingleGroup = (symbol: string) => {
-  if (!symbol.startsWith('(' ) || !symbol.endsWith(')')) { return false }
+  if (!symbol.startsWith('(') || !symbol.endsWith(')')) { return false }
 
   let groupDepth = 0
   for (let i = 0; i < symbol.length; i++) {
@@ -79,7 +80,7 @@ const isMaskSingleGroup = (symbol: string) => {
  */
 const parseRawTokens = (symbol: string) => {
   let group = 0
-  let groups = []
+  const groups = []
   let currentChunk = ''
 
   let i = 0
@@ -152,7 +153,7 @@ export const parseTokens = (mask: string, directlyInGroup = false): Token[] => {
           type: 'or regex',
           expect: mask,
           left: [...tokens],
-          right: parseTokens(`(${rawTokens.slice(i + 1).join('')})`)
+          right: parseTokens(`(${rawTokens.slice(i + 1).join('')})`),
         }]
 
         break
@@ -165,7 +166,7 @@ export const parseTokens = (mask: string, directlyInGroup = false): Token[] => {
         type: 'or regex',
         expect: `${prevToken}|${rawTokens[i + 1]}`,
         left: [prevToken],
-        right: nextToken
+        right: nextToken,
       })
 
       continue
@@ -182,7 +183,7 @@ export const parseTokens = (mask: string, directlyInGroup = false): Token[] => {
         tree: [prevToken],
         min: parseInt(min),
         max: max ? parseInt(max) : delimiter ? MAX_REPEATED : parseInt(min),
-        content: rawToken
+        content: rawToken,
       })
       continue
     }

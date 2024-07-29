@@ -44,6 +44,5 @@ export const createNumeralMask = (): Mask<NumeralToken> => {
     unformat: (text: string, tokens: MaskToken[]) => {
       return parseFloat(text.replace(/ /g, '')).toString()
     },
-    reverse: false,
   }
 }
