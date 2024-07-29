@@ -45,7 +45,7 @@ export const normalizeTokens = (tokens: Token[], dynamic = false) => {
         newResults.push([...result, {
           type: token.type,
           expect: token.expect,
-          static: token.type === 'char' && (!dynamic || result.length > 0),
+          static: token.type === 'char', // && (!dynamic || result.length > 0),
           dynamic: dynamic,
         }])
       })
@@ -289,6 +289,5 @@ export const createMaskFromRegex = (regex: RegExp, options = { reverse: false })
       }
     },
     unformat,
-    reverse: options.reverse,
   }
 }

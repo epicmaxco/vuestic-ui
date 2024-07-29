@@ -24,40 +24,55 @@ export class Cursor<Token extends MaskToken> extends Number {
 
     for (let i = this.position; i <= this.tokens.length && i >= -1; i += direction) {
       const current = this.tokens[i]
-      const next = this.tokens[i + direction]
-      const prev = this.tokens[i - direction]
+      const next = this.tokens[i + direction] as MaskToken || undefined
+      const prev = this.tokens[i - direction] as MaskToken || undefined
 
-      if (amount < 0) {
+      if (amount === 0) {
         this.position = i
         return this.position
       }
 
-      if (!current?.static) {
-        amount--
-      }
-
-      if (cursorPosition <= CursorPosition.Any) {
-        if (direction === -1 && !next?.static && current?.static) {
-          amount--
-        }
-        if (direction === 1 && !prev?.static && current?.static) {
-          amount--
-        }
-      }
-
-      if (cursorPosition >= CursorPosition.Any) {
-        if (direction === 1 && !prev?.static && current === undefined) {
-          amount--
-        } else if (direction === 1 && current === undefined && next?.static) {
-          amount--
-        } else if (direction === 1 && current === undefined && next === undefined) {
-          amount--
-        }
-      }
-
-      if (amount < 0) {
+      if (next === undefined && current === undefined) {
         this.position = i
         return this.position
+      }
+
+      if (cursorPosition === CursorPosition.AfterChar) {
+        if (current && !current.static && direction > 0) {
+          amount--
+          continue
+        }
+        if (!next?.static && direction < 0 && i !== this.position) {
+          amount--
+          if (amount === 0) {
+            this.position = i
+            return this.position
+          }
+          continue
+        }
+      }
+      if (cursorPosition === CursorPosition.BeforeChar) {
+        if (!next?.static) {
+          amount--
+          continue
+        }
+      }
+
+      if (cursorPosition === CursorPosition.Any) {
+        if ((!current?.static || !next?.static) && direction > 0) {
+          amount--
+          continue
+        }
+
+        if (direction < 0) {
+          if (next && !next.static) {
+            amount--
+            if (i !== this.position) {
+              this.position = i
+              return this.position
+            }
+          }
+        }
       }
     }
 

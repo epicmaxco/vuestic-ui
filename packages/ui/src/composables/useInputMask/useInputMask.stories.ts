@@ -178,6 +178,27 @@ export const Date = defineStory({
   }),
 })
 
+export const DateRange = defineStory({
+  story: () => ({
+    setup () {
+      const value = ref('')
+      const input = ref()
+
+      const dateMask = createMaskDate('dd/mm/yyyy - dd/mm/yyyy')
+
+      const { masked, unmasked } = useInputMask(dateMask, input)
+
+      return { value, input, masked, unmasked }
+    },
+    template: `
+      <input v-model="value" ref="input" class="bg-gray-200 p-2 w-64" placeholder="Date" />
+
+      <p>masked: {{ masked }}</p>
+      <p>unmasked: {{ unmasked }}</p>
+    `,
+  }),
+})
+
 export const Numeral = defineStory({
   story: () => ({
     setup () {
@@ -226,6 +247,58 @@ export const NumeralWithDecimal = defineStory({
 
       const numeralRegex = createNumeralMask()
       const { masked, unmasked } = useInputMask(numeralRegex, input)
+
+      return { value, input, masked, unmasked }
+    },
+    template: `
+      <input v-model="value" ref="input" class="bg-gray-200 p-2" placeholder="Numeral" />
+
+      <p>masked: {{ masked }}</p>
+      <p>unmasked: {{ unmasked }}</p>
+    `,
+  }),
+})
+
+export const CustomMask = defineStory({
+  story: () => ({
+    setup () {
+      const value = ref('123456')
+      const input = ref()
+
+      const dateMask = createMaskFromRegex(/\d\d (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/)
+      const { masked, unmasked } = useInputMask({
+        ...dateMask,
+        format (text) {
+          const formatted = dateMask.format(text)
+
+          const day = formatted.text.slice(0, 2)
+          const month = formatted.text.slice(3, 6)
+
+          if (month === 'Feb' && parseInt(day) > 28) {
+            return {
+              ...formatted,
+              text: '28 Feb',
+            }
+          }
+
+          if (['Apr', 'Jun', 'Sep', 'Nov'].includes(month) && parseInt(day) > 30) {
+            return {
+              ...formatted,
+              text: '30 ' + month,
+            }
+          }
+
+          if (parseInt(day) > 31) {
+            return {
+              ...formatted,
+              text: '31 ' + month,
+            }
+          }
+
+          return formatted
+        },
+
+      }, input)
 
       return { value, input, masked, unmasked }
     },
