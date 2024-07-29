@@ -3,6 +3,9 @@
     <VbCard title="Color Input">
       <va-color-input v-model="value" />
     </VbCard>
+    <VbCard title="Color Input">
+      <va-color-input v-model="value" />
+    </VbCard>
     <VbCard title="Color Input (disabled)">
       <va-color-input
         v-model="value"
@@ -16,6 +19,11 @@
       />
     </VbCard>
   </VbDemo>
+  <VbCard title="Color Input (Full length)">
+    <va-color-input
+      v-model="value"
+    />
+  </VbCard>
 </template>
 
 <script>
