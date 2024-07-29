@@ -54,28 +54,35 @@ export const useInputMask = <Token extends MaskToken>(mask: MaybeRef<Mask<Token>
     // All input types: https://w3c.github.io/input-events/#interface-InputEvent-Attributes
 
     if (inputType === 'deleteContentBackward') {
+      e.preventDefault()
       if (+cursorStart === +cursorEnd) {
         // From 1[]2 to [1]2
         cursorStart.moveBack(1, CursorPosition.AfterChar)
       }
     } else if (inputType === 'deleteContentForward' || inputType === 'deleteContent' || inputType === 'deleteByCut') {
+      e.preventDefault()
       if (+cursorStart === +cursorEnd) {
         // From 1[]23 to 1[2]3
         cursorEnd.moveForward(1, CursorPosition.AfterChar)
       }
+    } else if (inputType === 'insertText' || inputType === 'insertFromPaste') {
+      e.preventDefault()
     }
 
     const tokens = formatted.value.tokens
     inputText.value = currentValue.slice(0, +cursorStart) + data + currentValue.slice(+cursorEnd)
     formatted.value = unref(mask).format(inputText.value)
 
+    // If pasted, move cursor to the end of how much was pasted counting formatted value and static tokens
+    if (inputType === 'insertFromPaste') {
+      cursorStart.position += formatted.value.text.length - currentValue.length
+    }
+
     unref(mask).handleCursor(cursorStart, cursorEnd, tokens, formatted.value.tokens, data, formatted.value.data)
 
     setInputValue(formatted.value!.text, e)
 
     eventTarget.setSelectionRange(+cursorStart, +cursorEnd)
-
-    e.preventDefault()
   }
 
   const onKeydown = (e: KeyboardEvent) => {
@@ -107,8 +114,6 @@ export const useInputMask = <Token extends MaskToken>(mask: MaybeRef<Mask<Token>
 
   watch(input, (newValue, oldValue) => {
     if (newValue) {
-      const input = extractInput(newValue)
-
       formatted.value = unref(mask).format(newValue.value)
       const cursor = new Cursor((newValue.selectionEnd ?? 0), formatted.value!.tokens)
       cursor.moveForward(1)

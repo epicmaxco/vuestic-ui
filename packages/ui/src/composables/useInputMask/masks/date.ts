@@ -1,9 +1,10 @@
 import { CursorPosition } from '../cursor'
 import { Mask, MaskToken } from '../mask'
 
-type MaskTokenDate = MaskToken & {
-  expect: 'm' | 'd' | 'y' | string,
-}
+type MaskTokenDate = {
+  expect: 'm' | 'd' | 'y',
+  static: false,
+} | { expect: string, static: true }
 
 const parseTokens = (format: string) => {
   return format.split('').map((char) => {
@@ -12,15 +13,27 @@ const parseTokens = (format: string) => {
     }
 
     return { static: true, expect: char }
-  })
+  }) as MaskTokenDate[]
 }
 
 type MinorToken = { value: string, expect: string, static: boolean }
-type MajorToken = { value: string, expect: string, tree: MinorToken[] }
+type MajorToken = { value: string, expect: string, tree: MinorToken[], used?: boolean }
+
+const getFebMaxDays = (year: number) => {
+  if (Number.isNaN(year)) {
+    return 29 // Return max possible days: We need year first
+  }
+
+  return year % 4 === 0 ? 29 : 28
+}
 
 const getMaxDays = (year: number, month: number) => {
+  if (Number.isNaN(month)) {
+    return 31
+  }
+
   if (month === 2) {
-    return year % 4 === 0 ? 29 : 28
+    return getFebMaxDays(year)
   }
 
   if ([4, 6, 9, 11].includes(month)) {
@@ -30,13 +43,24 @@ const getMaxDays = (year: number, month: number) => {
   return 31
 }
 
-export const createMaskDate = (format: string = 'yyyy/mm/dd'): Mask<MaskTokenDate, number> => {
+const removeStaticCharsFromEnd = <T extends MaskToken>(tokens: T[]) => {
+  let i = tokens.length - 1
+
+  while (tokens[i] && tokens[i].static) {
+    i--
+  }
+
+  return tokens.slice(0, i + 1)
+}
+
+export const createMaskDate = (format: string = 'yyyy/mm/dd'): Mask<MaskToken, MinorToken[]> => {
   const tokens = parseTokens(format)
 
+  const cache = new Map()
+
   return {
-    format: (text: string) => {
+    format (text: string) {
       const minorTokens = [] as MinorToken[]
-      let additionalTokens = 0
       let valueOffset = 0
       let tokenOffset = 0
 
@@ -47,10 +71,8 @@ export const createMaskDate = (format: string = 'yyyy/mm/dd'): Mask<MaskTokenDat
           minorTokens.push({ value: token.expect, expect: token.expect, static: true })
           tokenOffset++
 
-          if (token.expect === text[i]) {
+          if (token.expect === text[valueOffset]) {
             valueOffset++
-          } else {
-            additionalTokens++
           }
           continue
         }
@@ -60,7 +82,14 @@ export const createMaskDate = (format: string = 'yyyy/mm/dd'): Mask<MaskTokenDat
         }
 
         if (!/\d/.test(text[valueOffset])) {
-          valueOffset++
+          const nextTokensHasStatic = tokens.slice(tokenOffset, text.length).some((t) => t.static)
+
+          if (nextTokensHasStatic) {
+            tokenOffset++
+          } else {
+            valueOffset++
+          }
+
           continue
         }
 
@@ -69,7 +98,7 @@ export const createMaskDate = (format: string = 'yyyy/mm/dd'): Mask<MaskTokenDat
         tokenOffset++
       }
 
-      const majorTokens = minorTokens.reduce((acc, p, index) => {
+      const majorTokens = removeStaticCharsFromEnd(minorTokens).reduce((acc, p, index) => {
         if (acc[acc.length - 1]?.expect === p.expect) {
           acc[acc.length - 1].value += p.value
           acc[acc.length - 1].tree.push(p)
@@ -85,54 +114,100 @@ export const createMaskDate = (format: string = 'yyyy/mm/dd'): Mask<MaskTokenDat
         return acc
       }, [] as MajorToken[])
 
-      const year = majorTokens.find((p) => p.expect === 'y')
-      const month = majorTokens.find((p) => p.expect === 'm')
-
-      majorTokens.forEach((p) => {
-        if (p.expect === 'm') {
-          const num = parseInt(p.value)
+      majorTokens.forEach((t, index, array) => {
+        if (t.expect === 'm') {
+          const num = parseInt(t.value)
 
           if (num > 12) {
-            p.value = '12'
+            t.value = '12'
+            t.tree[0].static = true
+            t.tree[1].static = false
           }
 
-          if (num > 1 && num < 10) {
-            p.value = '0' + num
-            additionalTokens += 1
+          if (num < 1 && t.value.length === 2) {
+            t.value = '01'
+            t.tree[0].static = true
+            t.tree[1].static = false
+          }
+
+          if (num > 1 && num < 10 && t.value.length === 1) {
+            t.value = '0' + num
+            t.tree.unshift({ value: '0', expect: 'm', static: true })
+            t.tree[1].static = false
           }
         }
 
-        if (p.expect === 'd') {
-          const num = parseInt(p.value)
+        if (t.expect === 'd') {
+          // Find corresponding year and month
+          // If it is first day we found, seek first year and month
+          // If it is second day we found, seek second year and month
+          // and so on
+          const year = majorTokens.find((t) => t.expect === 'y' && t.used === undefined)
+          const month = majorTokens.find((t) => t.expect === 'm' && t.used === undefined)
+          if (year) { year.used = true }
+          if (month) { month.used = true }
 
-          const maxDays = getMaxDays(Number(year?.value), Number(month?.value))
+          const m = Number(month?.value)
 
-          if (num > maxDays) {
-            p.value = maxDays.toString()
+          const maxDays = getMaxDays(Number(year?.value), m)
+
+          if (m === 2) { // Only for February
+            if (Number(t.value) >= 29) {
+              t.value = '29'
+            }
+
+            // If cached 29, means previously user entered 29, but it changed to
+            // 28 accidentally, when previous year changed to non-leap year
+            if (t.value === '28' && cache.get(index) === '29') {
+              t.value = '29'
+            }
+
+            cache.set(index, t.value)
           }
 
-          if (num > 3 && num < 10) {
-            p.value = '0' + num
-            additionalTokens += 1
+          const num = parseInt(t.value)
+
+          if (num > maxDays && t.value.length === 2) {
+            t.value = maxDays.toString()
+            t.tree[0].static = true
+            t.tree[1].static = false
+          }
+
+          if (num < 1 && t.value.length === 2) {
+            t.value = '01'
+            t.tree[0].static = true
+            t.tree[1].static = false
+          }
+
+          if (num > 3 && num < 10 && t.value.length === 1) {
+            t.value = '0' + num
+            t.tree.unshift({ value: '0', expect: 'd', static: true })
+            t.tree[1].static = false
           }
         }
       })
 
+      const newText = majorTokens.reduce((acc, p) => acc + p.value, '')
+
+      const newTokens = tokens.map((t) => ({
+        ...t,
+        static: false,
+      }))
+
       return {
-        text: majorTokens.reduce((acc, p) => acc + p.value, ''),
-        tokens: tokens,
-        data: additionalTokens,
+        text: newText,
+        tokens: newTokens,
+        data: majorTokens.reduce((acc, p) => acc.concat(p.tree), [] as MinorToken[]),
       }
     },
-    handleCursor (cursorStart, cursorEnd, tokens, newTokens, data, additionalTokens = 0) {
-      cursorStart.updateTokens(newTokens)
-      cursorEnd.updateTokens(newTokens)
-      cursorStart.moveForward(data.length + additionalTokens, CursorPosition.Any)
+    handleCursor (cursorStart, cursorEnd, oldTokens, newTokens, data, minorTokens) {
+      cursorStart.updateTokens(minorTokens!)
+      cursorEnd.updateTokens(minorTokens!)
+      cursorStart.moveForward(data.length, CursorPosition.AfterChar)
       cursorEnd.position = cursorStart.position
     },
-    unformat: (text: string, tokens: MaskTokenDate[]) => {
+    unformat: (text: string, tokens: MaskToken[]) => {
       return text.replace(/\//g, '')
     },
-    reverse: false,
   }
 }
