@@ -99,6 +99,7 @@ const { tp } = useTranslation()
   &__input {
     margin-bottom: 0;
     min-width: 5.6rem;
+    width: 100%;
 
     &__pointer {
       cursor: pointer;
