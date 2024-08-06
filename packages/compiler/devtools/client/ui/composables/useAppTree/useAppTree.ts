@@ -218,5 +218,8 @@ export const useAppTree = () => {
     }
   })
 
-  return appTree
+  return {
+    appTree,
+    refresh
+  }
 }

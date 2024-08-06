@@ -3,7 +3,7 @@ import { AppTreeItemComponent, AppTreeItem, useAppTree } from './useAppTree'
 
 const selectedAppTreeItem = ref(null) as Ref<AppTreeItemComponent | null>
 
-const tree = useAppTree()
+const { appTree: tree } = useAppTree()
 
 const walk = (tree: AppTreeItem[], search: string | HTMLElement): AppTreeItem | null => {
   for (const item of tree) {

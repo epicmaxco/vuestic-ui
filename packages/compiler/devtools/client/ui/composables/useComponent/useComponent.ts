@@ -130,6 +130,28 @@ export const useComponent = defineGlobal(() => {
     }) ?? []
   })
 
+  const style = computed({
+    get() {
+      if (!code.attributes.value?.style) { return {} }
+
+      return code.attributes.value.style.split(';').reduce((acc, style) => {
+        const [key, value] = style.split(':')
+        if (key && value) {
+          acc[key.trim()] = value.trim()
+        }
+        return acc
+      }, {} as Record<string, string>)
+    },
+
+    set(newStyle: Record<string, string>) {
+      const style = Object.entries(newStyle).map(([key, value]) => `${key}: ${value}`).join('; ')
+      code.updateAttribute('style', style)
+      if (source.value) {
+        saveSource(source.value)
+      }
+    }
+  })
+
   return {
     isParsed,
     name,
@@ -141,8 +163,10 @@ export const useComponent = defineGlobal(() => {
     refreshSource,
     openInVSCode,
     updateAttribute: code.updateAttribute,
+    appendChild: code.appendChild,
     props,
     slots,
     selectAppTreeItem,
+    style,
   }
 })

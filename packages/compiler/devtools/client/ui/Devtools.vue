@@ -8,9 +8,14 @@
         @mousedown="onMouseDown"
         @mouseup="onMouseUp"
       />
-      <Outline :node="element" :thickness="1" background="outlinePrimaryBackground" />
-      <Outline :node="hoveredElement" :thickness="1" dashed  />
+      <Outline :node="hoveredElement" :thickness="1" dashed />
       <Outline v-for="element in elementsWithTargetVNode" :node="element" :thickness="1" color="outlineSecondary" background="outlineSecondaryBackground" />
+      <Outline :node="element" :thickness="1" background="outlinePrimaryBackground" />
+      <Toolbar :node="element">
+        <div>
+          <AppToolbar />
+        </div>
+      </Toolbar>
 
       <DraggableWindow default-position="bottom-left">
         <VaCard class="vuestic-devtools__left-sidebar">
@@ -32,10 +37,12 @@
 <script setup lang="ts">
 import { nextTick, ref, watch, watchEffect, computed } from 'vue'
 import Outline from './components/base/Outline.vue'
+import Toolbar from './components/base/Toolbar.vue'
 import Overlay from './components/base/Overlay.vue'
 import ComponentView from './components/ComponentView.vue'
 import DraggableWindow from './components/base/DraggableWindow.vue'
 import AppTree from './components/AppTree.vue'
+import AppToolbar from './components/AppToolbar.vue'
 
 import { VaCard, useToast, useColors, VaScrollContainer } from 'vuestic-ui'
 

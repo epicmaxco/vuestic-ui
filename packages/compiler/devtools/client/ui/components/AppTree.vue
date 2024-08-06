@@ -4,7 +4,7 @@
   import AppTreeItemComponent from './AppTreeItem.vue'
   import { ref, computed } from 'vue'
 
-  const appTree = useAppTree()
+  const { appTree } = useAppTree()
 
   const filter = ref('')
 

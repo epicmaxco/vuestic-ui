@@ -1,5 +1,5 @@
 import { type Ref, computed, type VNode } from 'vue';
-import { HTMLRootNode, parseSource } from '../../../parser/parseSource';
+import { HTMLContentNode, HTMLRootNode, parseSource } from '../../../parser/parseSource';
 import { useComponentMeta } from './useComponentMeta'
 import { printSource } from '../../../parser/printSource';
 
@@ -162,8 +162,6 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
 
     const element = ast.value.children[0]
 
-    console.log(element)
-
     const newRoot: HTMLRootNode = {
       type: 'root',
       children: []
@@ -221,6 +219,44 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
     source.value = printSource(newRoot)
   }
 
+  const appendChild = (code: string) => {
+    if (!ast.value) {
+      throw new Error('Unable to append child: no AST available')
+    }
+
+    if (ast.value.children.length !== 1) {
+      throw new Error('Unable to append child: multi-node')
+    }
+
+    const element = ast.value.children[0]
+
+    const newRoot: HTMLRootNode = {
+      type: 'root',
+      children: []
+    }
+
+    if (element.type === 'content') {
+      throw new Error('Unable to append child: content node can not have children')
+    }
+
+    const newChildren = [
+      ...element.children,
+      {
+        type: 'content',
+        text: code,
+        parent: element,
+      } satisfies HTMLContentNode
+    ]
+
+    newRoot.children.push({
+      ...element,
+      children: newChildren,
+      parent: newRoot,
+    })
+
+    source.value = printSource(newRoot)
+  }
+
   return {
     meta,
     ast,
@@ -228,5 +264,6 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
     slots,
     updateAttribute,
     updateSlot,
+    appendChild,
   }
 }
