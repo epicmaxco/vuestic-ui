@@ -16,7 +16,7 @@ const onLoginClick = () => {
       <h3 class="va-h3">
         Login
       </h3>
-      <div style="display: flex; flex-direction: column;">
+      <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end">
         <VaInput
            v-model="login"
            label="Login"
@@ -26,16 +26,23 @@ const onLoginClick = () => {
            label="Password"
            type="password"
         />
+        <VaButton>
+          Button
+        </VaButton>
+        <VaInput placeholder="Enter text" />
       </div>
     </VaCardContent>
     <VaDivider style="margin: 0" />
-    <VaCardActions>
+    <VaCardActions style="display: flex; flex-direction: row; justify-content: flex-start; align-items: flex-end">
       <TestButton>
         Test
       </TestButton>
       <TestButton @click="onLoginClick">
         Test 2
       </TestButton>
+      <VaButton>
+        Button
+      </VaButton>
     </VaCardActions>
     <div
        v-for="i in 10"

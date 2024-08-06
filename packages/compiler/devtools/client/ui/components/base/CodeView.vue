@@ -94,6 +94,7 @@
     max-width: 600px;
     min-width: 300px;
     --padding: 16px;
+    overflow: auto;
 
     &__view {
       height: 100%;
