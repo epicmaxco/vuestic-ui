@@ -53,6 +53,7 @@
     />
     <VaSelect
       v-model="value"
+      class="mb-6"
       label="Custom list height (320px)"
       :options="options"
       max-height="320px"
