@@ -101,6 +101,7 @@ const ariaLabelledByComputed = computed(() => props.text ? String(props.text) : 
     line-height: var(--va-badge-text-wrapper-line-height);
     letter-spacing: var(--va-badge-text-wrapper-letter-spacing, var(--va-letter-spacing));
     justify-content: var(--va-badge-text-wrapper-justify-content);
+    align-items: center;
     white-space: var(--va-badge-text-wrapper-white-space);
     width: var(--va-badge-text-wrapper-width);
     height: var(--va-badge-text-wrapper-height);
