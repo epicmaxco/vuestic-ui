@@ -3,6 +3,10 @@ import { defineComponent } from 'vue'
 import VaSwitchDemo from './VaSwitch.demo.vue'
 import VaSwitch from './VaSwitch.vue'
 import { defineStory } from '../../../.storybook/types'
+import { expect } from '@storybook/jest'
+import {
+  UseStatefulTemplate,
+} from '../../../.storybook/composable-templates/useStateful-template'
 
 export default {
   title: 'VaSwitch',
@@ -13,6 +17,11 @@ export const Default = () => defineComponent({
   components: { VaSwitch: VaSwitchDemo },
   template: '<VaSwitch/>',
 })
+
+export const Stateful = UseStatefulTemplate(
+  VaSwitch,
+  el => (el.children[0].children[0].children[0] as HTMLInputElement).click(), // Clicking on checkbox container doesn't change value. see #4187
+)
 
 export const ChangeEvent = defineStory({
   story: () => ({
