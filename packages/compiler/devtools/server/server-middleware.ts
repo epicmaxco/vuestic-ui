@@ -1,7 +1,7 @@
 import { Connect } from 'vite'
 import { readBody } from './utils'
 import { API_PREFIX } from '../shared/CONST'
-import { getComponentLineAndCol, getComponentSource, setComponentSource } from './file'
+import { getComponentLineAndCol, getComponentSource, setComponentSource, deleteComponentSource } from './file'
 import { replacePath, unminifyPath } from '../shared/slug'
 import { parseFileQuery, stringifyFileQuery } from '../shared/file-query'
 
@@ -33,7 +33,7 @@ export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
     if (req.method === 'PATCH' && req.url.startsWith(`${API_PREFIX}/node-source`)) {
       const body = await readBody(req);
 
-      if (!(typeof body === 'string') || body.length === 0) {
+      if (!(typeof body === 'string')) {
         throw new Error('Body is required.');
       }
 
@@ -43,6 +43,11 @@ export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
 
       res.writeHead(200)
       res.end(minified);
+      return
+    }
+
+    if (req.method === 'DELETE' && req.url.startsWith(`${API_PREFIX}/node-source`)) {
+      await deleteComponentSource(path, start, end);
       return
     }
 

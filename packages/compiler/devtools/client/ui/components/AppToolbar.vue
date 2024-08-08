@@ -2,6 +2,13 @@
   import { VaCard, VaButton, VaDropdown, VaDropdownContent } from 'vuestic-ui';
   import LayoutEditor from './toolbar/LayoutEditor.vue';
   import ComponentSelect from './toolbar/ComponentSelect.vue';
+  import { useComponent } from '../composables/useComponent';
+
+  const { deleteComponent } = useComponent()
+
+  const removeComponent = async () => {
+    await deleteComponent()
+  }
 </script>
 
 <template>
@@ -27,6 +34,8 @@
         <LayoutEditor />
       </VaDropdownContent>
     </VaDropdown>
+
+    <VaButton preset="secondary" icon="delete" color="onBackgroundBorder" @click="removeComponent()">Remove component</VaButton>
   </VaCard>
 </template>
 

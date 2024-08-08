@@ -214,6 +214,11 @@ export const useAppTree = () => {
 
   onMounted(() => {
     if (appTree.value.length === 0) {
+      if (import.meta.hot) {
+        import.meta.hot.on('vite:afterUpdate', () => {
+          refresh()
+        })
+      }
       refresh()
     }
   })

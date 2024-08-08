@@ -7,6 +7,7 @@ import ButtonToggle from './components/ButtonToggle.vue';
 import DateInput from './components/DateInput.vue';
 import Input from './components/Input.vue';
 import TimeInput from './components/TimeInput.vue';
+import BasicDiv from './components/BasicDiv.vue';
 
 const { appendChild, saveSource, source } = useComponent()
 const { refresh } = useAppTree()
@@ -16,7 +17,6 @@ const emit = defineEmits(['componentAdded'])
 const addComponent = async (code: string) => {
   appendChild(code.trim());
   await saveSource(source.value!)
-  emit('componentAdded')
   setTimeout(() => {
     refresh()
   }, 300)
@@ -26,6 +26,12 @@ const addComponent = async (code: string) => {
 <template>
   <div class="va-devtools-component-select">
     <div class="va-devtools-component-select__components">
+      <h2>Basic</h2>
+
+      <div class="va-devtools-component-select__components-list">
+        <BasicDiv @select="addComponent" />
+      </div>
+
       <h2>Buttons</h2>
       <div class="va-devtools-component-select__components-list">
         <Button @select="addComponent" />

@@ -67,7 +67,7 @@ export const useComponent = defineGlobal(() => {
     return selectedAppTreeItem.value?.ids[0]
   })
 
-  const { source, saveSource, openInVSCode, refreshSource, isSourceLoading } = useComponentSource(uid)
+  const { source, saveSource, openInVSCode, refreshSource, isSourceLoading, removeFromSource } = useComponentSource(uid)
   const code = useComponentCode(source, vNode)
 
   const name = computed(() => {
@@ -152,6 +152,11 @@ export const useComponent = defineGlobal(() => {
     }
   })
 
+  const deleteComponent = async () => {
+    await removeFromSource()
+    selectAppTreeItem(null)
+  }
+
   return {
     isParsed,
     name,
@@ -164,6 +169,7 @@ export const useComponent = defineGlobal(() => {
     openInVSCode,
     updateAttribute: code.updateAttribute,
     appendChild: code.appendChild,
+    deleteComponent,
     props,
     slots,
     selectAppTreeItem,

@@ -1,5 +1,5 @@
 import { ref, watch, Ref } from 'vue';
-import { getNodeSource, getVSCodePath, setNodeSource } from './api';
+import { getNodeSource, getVSCodePath, setNodeSource, deleteNodeSource } from './api';
 
 export const useComponentSource = (uid: Ref<string | undefined>) => {
   /** @notice Source is async and may not be available until loaded */
@@ -33,6 +33,12 @@ export const useComponentSource = (uid: Ref<string | undefined>) => {
     await loadSource()
   }
 
+  const removeFromSource = async () => {
+    if (!uid.value) { throw new Error('Can not delete source: no q available') }
+
+    await deleteNodeSource(uid.value)
+  }
+
   watch(uid, async () => {
     resetSource()
     loadSource()
@@ -51,6 +57,7 @@ export const useComponentSource = (uid: Ref<string | undefined>) => {
     isSourceLoading,
     refreshSource: loadSource,
     saveSource,
+    removeFromSource,
     openInVSCode,
   }
 }
