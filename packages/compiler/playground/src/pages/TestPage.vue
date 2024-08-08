@@ -26,10 +26,6 @@ const onLoginClick = () => {
            label="Password"
            type="password"
         />
-        <VaButton>
-          Button
-        </VaButton>
-        <VaInput placeholder="Enter text" />
       </div>
     </VaCardContent>
     <VaDivider style="margin: 0" />
