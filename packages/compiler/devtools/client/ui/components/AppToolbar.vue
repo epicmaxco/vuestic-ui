@@ -13,7 +13,7 @@
 
 <template>
   <VaCard color="backgroundBorder" class="app-toolbar">
-    <VaDropdown :close-on-content-click="false" :keep-anchor-width="false" :offset="4">
+    <VaDropdown :close-on-content-click="false" :keep-anchor-width="false" :offset="4" content-class="vuestic-devtools__dropdown_content">
       <template #anchor>
         <VaButton preset="secondary" icon="add" color="onBackgroundBorder">Add child component</VaButton>
       </template>
@@ -25,7 +25,7 @@
       </template>
     </VaDropdown>
 
-    <VaDropdown :close-on-content-click="false" :keep-anchor-width="false" :offset="4">
+    <VaDropdown :close-on-content-click="false" :keep-anchor-width="false" :offset="4" content-class="vuestic-devtools__dropdown_content">
       <template #anchor>
         <VaButton preset="secondary" icon="dashboard" color="onBackgroundBorder">Layout</VaButton>
       </template>

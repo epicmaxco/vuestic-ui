@@ -152,7 +152,11 @@ const elementsWithTargetVNode = computed(() => {
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+body {
+  position: relative;
+}
+
 .vuestic-devtools {
   &__right-sidebar {
     max-width: 600px;
@@ -162,6 +166,46 @@ const elementsWithTargetVNode = computed(() => {
   &__left-sidebar {
     width: 300px;
     box-sizing: border-box;
+  }
+
+  .va-card {
+    background: none !important;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(20px);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      background: var(--va-background-secondary);
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
+}
+
+.vuestic-devtools__dropdown_content {
+  background: none !important;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(5px);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: var(--va-background-secondary);
+    pointer-events: none;
+    opacity: 0.5;
   }
 }
 </style>

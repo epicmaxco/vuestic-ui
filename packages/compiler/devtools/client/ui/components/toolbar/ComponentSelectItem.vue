@@ -6,7 +6,7 @@
 </script>
 
 <template>
-  <VaCard @click="$emit('select', $props.code)">
+  <VaCard @click="$emit('select', $props.code)" outlined>
     <VaCardTitle>
       {{ title }}
     </VaCardTitle>
