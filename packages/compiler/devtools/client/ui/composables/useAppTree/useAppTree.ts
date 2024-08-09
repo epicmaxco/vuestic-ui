@@ -234,7 +234,7 @@ const appTree = ref<AppTreeItem[]>([])
 export const _appTree = appTree
 
 export const useAppTree = () => {
-  const { selectedAppTreeItem } = useSelectedAppTreeItem()
+  const { selectedAppTreeItem, sameNodeItems, selectAppTreeItem } = useSelectedAppTreeItem()
 
   const refresh = async () => {
     const selectedNodeElement = selectedAppTreeItem.value?.el
@@ -270,6 +270,9 @@ export const useAppTree = () => {
 
   return {
     appTree,
-    refresh
+    refresh,
+    selectAppTreeItem,
+    selectedAppTreeItem,
+    sameNodeItems,
   }
 }

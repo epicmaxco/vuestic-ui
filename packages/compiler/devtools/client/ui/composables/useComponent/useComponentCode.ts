@@ -1,7 +1,8 @@
-import { type Ref, computed, type VNode } from 'vue';
+import { type Ref, computed, type VNode, type ComputedRef } from 'vue';
 import { HTMLContentNode, HTMLRootNode, parseSource } from '../../../parser/parseSource';
 import { useComponentMeta } from './useComponentMeta'
 import { printSource } from '../../../parser/printSource';
+import { ComponentSource } from './useComponentSource'
 
 const transformPropName = (name: string, type: 'attr' | 'bind' | 'v-model' | 'event') => {
   switch (type) {
@@ -27,7 +28,7 @@ const extractSlotName = (keys: string[]) => {
   }
 }
 
-export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | null>) => {
+export const useComponentCode = (source: ComponentSource, vNode: Ref<VNode | null>) => {
   const ast = computed(() => {
     if (!source.value) return null
 
@@ -129,7 +130,7 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
           parent: newRoot,
         })
 
-        return source.value = printSource(newRoot)
+        return printSource(newRoot)
       }
     }
 
@@ -148,7 +149,7 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
 
     newRoot.children.push(child)
 
-    source.value = printSource(newRoot)
+    return printSource(newRoot)
   }
 
   const updateSlot = (name: string, value: string) => {
@@ -179,8 +180,7 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
         parent: newRoot,
       })
 
-      source.value = printSource(newRoot)
-      return
+      return printSource(newRoot)
     }
 
     const newChildren = element.children.map((child) => {
@@ -216,7 +216,7 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
       parent: newRoot,
     })
 
-    source.value = printSource(newRoot)
+    return printSource(newRoot)
   }
 
   const appendChild = (code: string) => {
@@ -254,12 +254,17 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
       parent: newRoot,
     })
 
-    source.value = printSource(newRoot)
+    return printSource(newRoot)
   }
 
+  const isParsed = computed(() => {
+    return attributes.value !== null && slots.value !== null && !source.isLoading && source.value !== null
+  })
+
   return {
+    isParsed,
     meta,
-    ast,
+    // ast,
     attributes,
     slots,
     updateAttribute,
@@ -267,3 +272,5 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
     appendChild,
   }
 }
+
+export type ComponentCode = ReturnType<typeof useComponentCode>

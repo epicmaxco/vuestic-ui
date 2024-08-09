@@ -1,28 +1,26 @@
 <script setup lang="ts">
-  import {  VaButton, VaSpacer, VaSelect, VaTabs, VaTab } from 'vuestic-ui'
+  import {  VaButton, VaSpacer, VaTabs, VaTab } from 'vuestic-ui'
   import { ref, watch, computed } from 'vue';
-  import CodeView from './base/CodeView.vue';
   import { useComponent } from '../composables/useComponent/useComponent'
   import ComponentProps from './component-options/ComponentProps.vue'
   import ComponentSlots from './component-options/ComponentSlots.vue';
   import ComponentSource from './component-options/ComponentSource.vue';
   import LayoutEditor from './layout-editor/LayoutEditor.vue';
-  import { useSelectedAppTreeItem } from '../composables/useAppTree/index';
+  import { useAppTree } from '../composables/useAppTree';
 
    const {
     name,
     source,
-    openInVSCode,
-    props, slots,
-    isParsed,
+    code,
+    options,
   } = useComponent()
 
-  const { sameNodeItems, selectedAppTreeItem, selectAppTreeItem } = useSelectedAppTreeItem()
+  const { sameNodeItems, selectedAppTreeItem, selectAppTreeItem } = useAppTree()
 
   const tabs = computed(() => {
     return [
-      { name: 'Props', disabled: Object.keys(props.value).length === 0 },
-      { name: 'Slots', disabled: slots.value.length === 0 },
+      { name: 'Props', disabled: Object.keys(options.props.value).length === 0 },
+      { name: 'Slots', disabled: options.slots.value.length === 0 },
       { name: 'Layout', disabled: false },
       { name: 'Source Code', disabled: source.value === null },
     ]
@@ -30,7 +28,7 @@
 
   const tab = ref(0)
 
-  watch(isParsed, (isParsed) => {
+  watch(code.isParsed, (isParsed) => {
     if (tabs.value[tab.value].disabled && isParsed) {
       tab.value = tabs.value.findIndex(tab => !tab.disabled)
     }
@@ -53,7 +51,7 @@
       </template>
 
       <VaSpacer />
-      <VaButton icon="open_in_new" @click="openInVSCode" preset="primary" title="Open in VSCode" />
+      <VaButton icon="open_in_new" @click="source.openInVSCode" preset="primary" title="Open in VSCode" />
     </div>
 
     <div class="c-component-view__content">

@@ -9,14 +9,14 @@ import Input from './components/Input.vue';
 import TimeInput from './components/TimeInput.vue';
 import BasicDiv from './components/BasicDiv.vue';
 
-const { appendChild, saveSource, source } = useComponent()
+const { source, code } = useComponent()
 const { refresh } = useAppTree()
 
 const emit = defineEmits(['componentAdded'])
 
-const addComponent = async (code: string) => {
-  appendChild(code.trim());
-  await saveSource(source.value!)
+const addComponent = async (childCode: string) => {
+
+  await source.update(code.appendChild(childCode.trim()))
   setTimeout(() => {
     refresh()
   }, 300)

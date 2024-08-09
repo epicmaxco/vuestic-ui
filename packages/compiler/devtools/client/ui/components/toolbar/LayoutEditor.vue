@@ -5,23 +5,23 @@ import { useComponent } from '../../composables/useComponent';
 import FlexEditor from './FlexEditor.vue';
 import { FlexState } from './types';
 
-const { style } = useComponent()
+const { options } = useComponent()
 
 const onFlexEditorUpdate = (state: Record<string, string>) => {
   const newStyle = {
-    ...style.value,
+    ...options.style.value,
     ...state,
   }
 
-  style.value = newStyle
+  options.style.value = newStyle
 }
 
 const isFlexContainer = computed(() => {
-  return style.value.display === 'flex'
+  return options.style.value.display === 'flex'
 })
 
 const makeFlexContainer = () => {
-  style.value = {
+  options.style.value = {
     display: 'flex',
     'flex-direction': 'column',
     'justify-content': 'flex-start',
@@ -31,10 +31,10 @@ const makeFlexContainer = () => {
 
 const flexStyles = computed(() => {
   return {
-    display: style.value.display,
-    'flex-direction': style.value['flex-direction'],
-    'justify-content': style.value['justify-content'],
-    'align-items': style.value['align-items'],
+    display: options.style.value.display,
+    'flex-direction': options.style.value['flex-direction'],
+    'justify-content': options.style.value['justify-content'],
+    'align-items': options.style.value['align-items'],
   } as FlexState
 })
 </script>

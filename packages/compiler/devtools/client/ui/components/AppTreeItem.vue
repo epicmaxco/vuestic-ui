@@ -1,8 +1,7 @@
 <script setup lang="ts">
   import { computed } from 'vue'
   import { VaButton } from 'vuestic-ui'
-  import { useSelectedAppTreeItem, type AppTreeItem } from '../composables/useAppTree'
-  import { useComponent } from '../composables/useComponent';
+  import { useAppTree, type AppTreeItem } from '../composables/useAppTree'
 
   const props = defineProps<{
     item: AppTreeItem
@@ -12,7 +11,7 @@
     name: 'AppTreeItem'
   })
 
-  const { selectAppTreeItem,  selectedAppTreeItem } = useSelectedAppTreeItem()
+  const { selectAppTreeItem,  selectedAppTreeItem } = useAppTree()
 
   const setTargetElement = () => {
     if ('text' in props.item) {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { VaButtonToggle } from 'vuestic-ui';
   import { ref, watch } from 'vue';
-import { FlexState, HumanState } from './types';
+  import { FlexState, HumanState } from './types';
 
   const horizontalOptions = [
     { icon: 'align_horizontal_left', value: 'left' },

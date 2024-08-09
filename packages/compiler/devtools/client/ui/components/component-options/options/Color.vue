@@ -2,7 +2,7 @@
 import { VaColorIndicator, VaSelect } from 'vuestic-ui'
 import { computed } from 'vue'
 import { useAppVuesticConfig } from '../../../composables/useAppVuesticConfig'
-import { ComponentProp } from '../../../composables/useComponent/useComponent';
+import { ComponentProp } from '../../../composables/useComponent/useComponentOptions';
 
 const config = useAppVuesticConfig()
 

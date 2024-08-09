@@ -8,11 +8,6 @@
       <Outline :node="hoveredElement" :thickness="1" dashed />
       <Outline v-for="element in elementsWithTargetVNode" :node="element" :thickness="1" color="outlineSecondary" background="outlineSecondaryBackground" />
       <Outline :node="element" :thickness="1" background="outlinePrimaryBackground" />
-      <!-- <Toolbar :node="element">
-        <div>
-          <AppToolbar />
-        </div>
-      </Toolbar> -->
 
       <DraggableWindow default-position="top-left">
         <VaCard outlined>
@@ -40,7 +35,6 @@
 <script setup lang="ts">
 import { nextTick, ref, watch, watchEffect, computed } from 'vue'
 import Outline from './components/base/Outline.vue'
-import Toolbar from './components/base/Toolbar.vue'
 import Overlay from './components/base/Overlay.vue'
 import ComponentView from './components/ComponentView.vue'
 import DraggableWindow from './components/base/DraggableWindow.vue'
@@ -55,9 +49,9 @@ import { useOutlines } from './composables/useOutlines'
 import { EDIT_MODE_CLASS } from '../../shared/CONST'
 import { useEvent } from './composables/base/useEvent'
 import { useComponent } from './composables/useComponent'
-import { useAppTree, useSelectedAppTreeItem } from './composables/useAppTree/index'
+import { useAppTree } from './composables/useAppTree/index'
 
-useAppTree()
+const { selectAppTreeItem, selectedAppTreeItem } = useAppTree()
 
 const isEditMode = ref(false)
 
@@ -66,7 +60,6 @@ const { notify } = useToast()
 const { colorsToCSSVariable, colors } = useColors()
 const { zoom, translate, listeners: appTransformListeners } = useAppTransform()
 
-const { selectAppTreeItem, selectedAppTreeItem } = useSelectedAppTreeItem()
 
 watchEffect(() => {
   if (isEditMode.value) {

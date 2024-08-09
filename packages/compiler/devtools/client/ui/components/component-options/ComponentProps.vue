@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { computed, PropType, ref, watch } from 'vue'
   import { VaScrollContainer, VaInput, VaCheckbox, VaSelect, VaAlert, VaCounter, VaDivider, VaButtonToggle, VaTabs, VaTab, VaTextarea, VaIcon } from 'vuestic-ui'
-  import { useComponent, ComponentProp } from '../../composables/useComponent/useComponent'
+  import { useComponent } from '../../composables/useComponent/useComponent'
   import Color from './options/Color.vue'
   import MultiText from './options/MultiText.vue'
   import Checkbox from './options/Checkbox.vue'
@@ -9,7 +9,7 @@
   import NumberInput from './options/Number.vue'
   import NotAvaliable from './options/NotAvaliable.vue'
 
-  const { props, name } = useComponent()
+  const { options, name } = useComponent()
 
   const getTypeFromProp = (proptype: PropType<any> | undefined) => {
     if (proptype === undefined) {
@@ -44,9 +44,9 @@
 
   const propsConfigs = computed(() => {
     return Object
-      .entries(props.value)
+      .entries(options.props.value)
       .map(([propName, p]) => {
-        const prop = p as ComponentProp
+        const prop = p
 
         const customConfig = getPropConfig(name.value ?? '', propName)
 
@@ -59,7 +59,7 @@
         return {
           ...customConfig,
           name: propName,
-          prop: prop as ComponentProp,
+          prop: prop,
           type: type,
           get value() {
             return prop.codeValue

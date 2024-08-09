@@ -5,7 +5,7 @@ import { VaInput } from 'vuestic-ui'
 const props = defineProps<{
   label: string
 }>()
-const vModel = defineModel<string[]>()
+const vModel = defineModel<string | null>()
 
 // TODO: Make as tag input
 // const vModelProxy = computed({
@@ -15,7 +15,7 @@ const vModel = defineModel<string[]>()
 </script>
 
 <template>
-  <VaInput 
+  <VaInput
     :label="props.label"
     v-model="vModel"
   />

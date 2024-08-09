@@ -1,16 +1,11 @@
-import { ref, watch, Ref } from 'vue';
-import { getNodeSource, getVSCodePath, setNodeSource, deleteNodeSource, getFileRelativePath } from './api';
+import { ref, watch, computed, Ref } from 'vue';
+import { getNodeSource, setNodeSource, deleteNodeSource, getVSCodePath, getFileRelativePath } from './api';
 import { useAsyncComputed } from '../base/useAsyncComputed';
 
 export const useComponentSource = (uid: Ref<string | undefined>) => {
   /** @notice Source is async and may not be available until loaded */
   const source = ref<string | null>(null)
   const isSourceLoading = ref(false)
-  const fileName = useAsyncComputed(async () => {
-    if (!uid.value) { return null }
-
-    return await (await getFileRelativePath(uid.value)).text()
-  }, '')
 
   const resetSource = () => {
     source.value = null
@@ -40,8 +35,10 @@ export const useComponentSource = (uid: Ref<string | undefined>) => {
   }
 
   const removeFromSource = async () => {
+    // TODO: Handle history here
     if (!uid.value) { throw new Error('Can not delete source: no q available') }
 
+    source.value = ''
     await deleteNodeSource(uid.value)
   }
 
@@ -58,13 +55,22 @@ export const useComponentSource = (uid: Ref<string | undefined>) => {
     fetch(`/__open-in-editor?file=${path}`)
   }
 
+  const fileName = useAsyncComputed(async () => {
+    if (!uid.value) { return null }
+
+    return await (await getFileRelativePath(uid.value)).text()
+  }, '')
+
   return {
+    content: source,
+    get value () { return  source.value },
+    get isLoading () { return isSourceLoading.value },
     fileName,
-    source,
-    isSourceLoading,
-    refreshSource: loadSource,
-    saveSource,
-    removeFromSource,
+    refresh: loadSource,
+    update: saveSource,
+    remove: removeFromSource,
     openInVSCode,
   }
 }
+
+export type ComponentSource = ReturnType<typeof useComponentSource>

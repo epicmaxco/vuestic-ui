@@ -79,13 +79,23 @@ export const deleteComponentSource = async (path: string, start: number, end: nu
 
   if (intent === 0) {
     await writeFile(path, fileSource.slice(0, start) + fileSource.slice(end));
-    return;
+    return {
+      path,
+      start,
+      end: start,
+    }
   }
 
   const fileSourceStart = fileSource.slice(0, start - intent - '\n'.length);
   const fileSourceEnd = fileSource.slice(end);
 
   await writeFile(path, fileSourceStart + fileSourceEnd);
+
+  return {
+    path,
+    start: start - intent - '\n'.length,
+    end: start - intent - '\n'.length,
+  }
 }
 
 export const getComponentLineAndCol = async (path: string, start: number) => {

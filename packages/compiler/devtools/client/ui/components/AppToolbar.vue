@@ -6,18 +6,23 @@
   import { useComponent } from '../composables/useComponent';
   import History from './History.vue';
 
-  const { deleteComponent, saveSource, source } = useComponent()
+  const { source } = useComponent()
 
   const isLoading = ref(false)
 
   const onSave = async () => {
     isLoading.value = true
-    await saveSource(source.value!)
+    await source.update(source.value!)
     isLoading.value = false
   }
 
   const removeComponent = async () => {
-    await deleteComponent()
+    try {
+      isLoading.value = true
+      await source.remove()
+    } finally {
+      isLoading.value = false
+    }
   }
 </script>
 
@@ -39,7 +44,7 @@
       </template>
     </VaDropdown>
 
-    <VaButton preset="secondary" icon="delete" @click="removeComponent()"></VaButton>
+    <VaButton preset="secondary" icon="delete" @click="removeComponent()" :loading="isLoading"></VaButton>
   </div>
 </template>
 

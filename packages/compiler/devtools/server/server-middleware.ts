@@ -47,7 +47,12 @@ export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
     }
 
     if (req.method === 'DELETE' && req.url.startsWith(`${API_PREFIX}/node-source`)) {
-      await deleteComponentSource(path, start, end);
+      const newPath = await deleteComponentSource(path, start, end);
+
+      replacePath(minified, stringifyFileQuery(newPath.path, newPath.start, newPath.end));
+
+      res.writeHead(200)
+      res.end();
       return
     }
 

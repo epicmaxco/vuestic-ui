@@ -3,7 +3,6 @@ import { AppTreeItemComponent, AppTreeItem, _appTree, walkTree } from './useAppT
 
 const selectedAppTreeItem = ref(null) as Ref<AppTreeItemComponent | null>
 
-
 export const useSelectedAppTreeItem = () => {
   return {
     selectedAppTreeItem,
