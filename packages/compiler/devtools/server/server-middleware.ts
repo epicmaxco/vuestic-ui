@@ -1,7 +1,7 @@
 import { Connect } from 'vite'
 import { readBody } from './utils'
 import { API_PREFIX } from '../shared/CONST'
-import { getComponentLineAndCol, getComponentSource, setComponentSource, deleteComponentSource } from './file'
+import { getComponentLineAndCol, getComponentSource, setComponentSource, deleteComponentSource, getRelativeFilePath } from './file'
 import { replacePath, unminifyPath } from '../shared/slug'
 import { parseFileQuery, stringifyFileQuery } from '../shared/file-query'
 
@@ -55,6 +55,12 @@ export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
       res.writeHead(200)
       res.end(unminified);
       return;
+    }
+
+    if (req.method === 'GET' && req.url.startsWith(`${API_PREFIX}/relative-file-path`)) {
+      res.writeHead(200)
+      res.end(getRelativeFilePath(path));
+      return
     }
 
     if (req.method === 'GET' && req.url.startsWith(`${API_PREFIX}/vscode-path`)) {

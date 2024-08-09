@@ -88,7 +88,7 @@ const redo = async () => {
 
 <template>
   <div>
-    <VaButton icon="undo" @click="undo" preset="primary" :disabled="index <= 0" />
-    <VaButton icon="redo" @click="redo" preset="primary" :disabled="index >= history.length" />
+    <VaButton icon="undo" @click="undo" preset="secondary" :disabled="index <= 0" />
+    <VaButton icon="redo" @click="redo" preset="secondary" :disabled="index >= history.length" />
   </div>
 </template>

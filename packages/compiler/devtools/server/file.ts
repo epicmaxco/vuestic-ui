@@ -96,3 +96,7 @@ export const getComponentLineAndCol = async (path: string, start: number) => {
   const col = intent;
   return { line, col };
 }
+
+export const getRelativeFilePath = (path: string) => {
+  return '.' + path.replace(process.cwd(), '');
+}

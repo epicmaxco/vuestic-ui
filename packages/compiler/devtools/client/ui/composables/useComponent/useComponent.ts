@@ -67,7 +67,7 @@ export const useComponent = defineGlobal(() => {
     return selectedAppTreeItem.value?.ids[0]
   })
 
-  const { source, saveSource, openInVSCode, refreshSource, isSourceLoading, removeFromSource } = useComponentSource(uid)
+  const { source, saveSource, openInVSCode, refreshSource, isSourceLoading, removeFromSource, fileName } = useComponentSource(uid)
   const code = useComponentCode(source, vNode)
 
   const name = computed(() => {
@@ -160,6 +160,7 @@ export const useComponent = defineGlobal(() => {
   return {
     isParsed,
     name,
+    fileName,
     source,
     vNode,
     element,

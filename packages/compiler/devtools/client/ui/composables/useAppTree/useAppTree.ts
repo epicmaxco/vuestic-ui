@@ -1,5 +1,6 @@
 import { onMounted, VNode, VNodeNormalizedChildren, VNodeArrayChildren, isVNode, Fragment, App, ref } from 'vue';
 import { PREFIX } from '../../../../shared/CONST';
+import { useSelectedAppTreeItem } from './useSelectedAppTreeItem';
 
 export type AppTreeItemComponent = {
   ids: string[],
@@ -198,17 +199,61 @@ const getAppTree = async () => {
   return traverse(vnode)
 }
 
+
+export const walkTree = (search: string | Element, tree: AppTreeItem[] = appTree.value): AppTreeItem | null => {
+  for (const item of tree) {
+    if ('text' in item) {
+      continue
+    }
+
+    if (typeof search === 'string' && item.ids.includes(search)) {
+      return item
+    } else if (search instanceof HTMLElement) {
+      if (item.el?.isEqualNode(search)) {
+        return item
+      }
+
+      if (item.repeatedElements?.some((el) => el.isEqualNode(search))) {
+        return item
+      }
+    }
+
+    const child = walkTree(search, item.children)
+
+    if (child) {
+      return child
+    }
+  }
+
+  return null
+}
+
 // TODO: Right now global, for better performance, should be moved to a composable
 const appTree = ref<AppTreeItem[]>([])
 
+export const _appTree = appTree
+
 export const useAppTree = () => {
+  const { selectedAppTreeItem } = useSelectedAppTreeItem()
+
   const refresh = async () => {
+    const selectedNodeElement = selectedAppTreeItem.value?.el
+
     const tree = await getAppTree()
 
     if (!Array.isArray(tree)) {
       appTree.value = [tree]
     } else {
       appTree.value = tree
+    }
+
+    // Keep node selected when app tree is refreshed
+    if (selectedNodeElement) {
+      const selectedNode = walkTree(selectedNodeElement)
+
+      if (selectedNode && 'el' in selectedNode) {
+        selectedAppTreeItem.value = selectedNode
+      }
     }
   }
 

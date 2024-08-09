@@ -1,37 +1,8 @@
 import { ref, Ref, computed } from 'vue';
-import { AppTreeItemComponent, AppTreeItem, useAppTree } from './useAppTree'
+import { AppTreeItemComponent, AppTreeItem, _appTree, walkTree } from './useAppTree'
 
 const selectedAppTreeItem = ref(null) as Ref<AppTreeItemComponent | null>
 
-const { appTree: tree } = useAppTree()
-
-const walk = (tree: AppTreeItem[], search: string | HTMLElement): AppTreeItem | null => {
-  for (const item of tree) {
-    if ('text' in item) {
-      continue
-    }
-
-    if (typeof search === 'string' && item.ids.includes(search)) {
-      return item
-    } else if (search instanceof HTMLElement) {
-      if (item.el?.isEqualNode(search)) {
-        return item
-      }
-
-      if (item.repeatedElements?.some((el) => el.isEqualNode(search))) {
-        return item
-      }
-    }
-
-    const child = walk(item.children, search)
-
-    if (child) {
-      return child
-    }
-  }
-
-  return null
-}
 
 export const useSelectedAppTreeItem = () => {
   return {
@@ -61,7 +32,7 @@ export const useSelectedAppTreeItem = () => {
         }
       }
 
-      walk(tree.value)
+      walk(_appTree.value)
 
       return items
     }),
@@ -71,10 +42,10 @@ export const useSelectedAppTreeItem = () => {
         return
       }
 
-      const item = typeof search === 'string' || search instanceof HTMLElement ? walk(tree.value, search) : search
+      const item = typeof search === 'string' || search instanceof HTMLElement ? walkTree(search) : search
 
       if (!item) {
-        console.log(tree.value,
+        console.log(_appTree.value,
           search
         )
         throw new Error('Could not find item')

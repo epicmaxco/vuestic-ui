@@ -26,3 +26,7 @@ export const deleteNodeSource = (q: string) => {
     method: 'DELETE',
   })
 }
+
+export const getFileRelativePath = (q: string) => {
+  return fetch(`${API_URL}/relative-file-path?q=${q}`)
+}

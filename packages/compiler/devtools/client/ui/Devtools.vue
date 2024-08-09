@@ -3,22 +3,25 @@
     <div :style="colorsToCSSVariable(colors)" class="vuestic-devtools">
       <Overlay
         @click="onHoveredElementClick"
-        @wheel="onWheel"
-        @mousemove="onMouseMove"
-        @mousedown="onMouseDown"
-        @mouseup="onMouseUp"
+        v-on="appTransformListeners"
       />
       <Outline :node="hoveredElement" :thickness="1" dashed />
       <Outline v-for="element in elementsWithTargetVNode" :node="element" :thickness="1" color="outlineSecondary" background="outlineSecondaryBackground" />
       <Outline :node="element" :thickness="1" background="outlinePrimaryBackground" />
-      <Toolbar :node="element">
+      <!-- <Toolbar :node="element">
         <div>
           <AppToolbar />
         </div>
-      </Toolbar>
+      </Toolbar> -->
 
-      <DraggableWindow default-position="bottom-left">
-        <VaCard class="vuestic-devtools__left-sidebar">
+      <DraggableWindow default-position="top-left">
+        <VaCard outlined>
+          <AppToolbar />
+        </VaCard>
+      </DraggableWindow>
+
+      <DraggableWindow default-position="top-left" :offset-y="45">
+        <VaCard class="vuestic-devtools__left-sidebar" outlined>
           <VaScrollContainer vertical horizontal>
             <AppTree />
           </VaScrollContainer>
@@ -26,7 +29,7 @@
       </DraggableWindow>
 
       <DraggableWindow default-position="top-right" v-if="element">
-        <VaCard class="vuestic-devtools__right-sidebar">
+        <VaCard class="vuestic-devtools__right-sidebar" outlined>
           <ComponentView />
         </VaCard>
       </DraggableWindow>
@@ -61,7 +64,7 @@ const isEditMode = ref(false)
 const { notify } = useToast()
 
 const { colorsToCSSVariable, colors } = useColors()
-const { zoom, translate, onWheel, onMouseDown, onMouseMove, onMouseUp } = useAppTransform()
+const { zoom, translate, listeners: appTransformListeners } = useAppTransform()
 
 const { selectAppTreeItem, selectedAppTreeItem } = useSelectedAppTreeItem()
 
@@ -161,11 +164,14 @@ body {
   &__right-sidebar {
     max-width: 600px;
     box-sizing: border-box;
+    height: calc(100vh - 1rem);
   }
 
   &__left-sidebar {
     width: 300px;
     box-sizing: border-box;
+    // 45 px offset from toolbar
+    height: calc(100vh - 45px - 1rem);
   }
 
   .va-card {

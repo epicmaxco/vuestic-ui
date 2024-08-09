@@ -1,10 +1,16 @@
 import { ref, watch, Ref } from 'vue';
-import { getNodeSource, getVSCodePath, setNodeSource, deleteNodeSource } from './api';
+import { getNodeSource, getVSCodePath, setNodeSource, deleteNodeSource, getFileRelativePath } from './api';
+import { useAsyncComputed } from '../base/useAsyncComputed';
 
 export const useComponentSource = (uid: Ref<string | undefined>) => {
   /** @notice Source is async and may not be available until loaded */
   const source = ref<string | null>(null)
   const isSourceLoading = ref(false)
+  const fileName = useAsyncComputed(async () => {
+    if (!uid.value) { return null }
+
+    return await (await getFileRelativePath(uid.value)).text()
+  }, '')
 
   const resetSource = () => {
     source.value = null
@@ -53,6 +59,7 @@ export const useComponentSource = (uid: Ref<string | undefined>) => {
   }
 
   return {
+    fileName,
     source,
     isSourceLoading,
     refreshSource: loadSource,

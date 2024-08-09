@@ -5,12 +5,12 @@
   import { useComponent } from '../composables/useComponent/useComponent'
   import ComponentProps from './component-options/ComponentProps.vue'
   import ComponentSlots from './component-options/ComponentSlots.vue';
-  import History from './History.vue';
+  import ComponentSource from './component-options/ComponentSource.vue';
+  import LayoutEditor from './layout-editor/LayoutEditor.vue';
   import { useSelectedAppTreeItem } from '../composables/useAppTree/index';
 
    const {
     name,
-    saveSource,
     source,
     openInVSCode,
     props, slots,
@@ -19,27 +19,11 @@
 
   const { sameNodeItems, selectedAppTreeItem, selectAppTreeItem } = useSelectedAppTreeItem()
 
-  const isLoading = ref(false)
-
-  const onSave = async () => {
-    isLoading.value = true
-    await saveSource(source.value!)
-    isLoading.value = false
-  }
-
-  const autoSave = ref(false)
-
-  watch(source, async (newSource) => {
-    if (autoSave.value && newSource) {
-      await saveSource(newSource)
-    }
-  })
-
   const tabs = computed(() => {
     return [
       { name: 'Props', disabled: Object.keys(props.value).length === 0 },
       { name: 'Slots', disabled: slots.value.length === 0 },
-      { name: 'Layout', disabled: true },
+      { name: 'Layout', disabled: false },
       { name: 'Source Code', disabled: source.value === null },
     ]
   })
@@ -55,11 +39,6 @@
 
 <template>
   <div class="c-component-view">
-    <div class="c-component-view__toolbar">
-      <History />
-      <VaButton icon="save" preset="primary" @click="onSave" :loading="isLoading" />
-    </div>
-
     <div class="c-component-view__toolbar">
       <template v-if="sameNodeItems.length === 1">
         <h1>{{ name }}</h1>
@@ -84,7 +63,8 @@
       <div class="c-component-view__tabs-content">
         <ComponentProps v-if="tab === 0" />
         <ComponentSlots v-else-if="tab === 1" />
-        <CodeView v-else-if="tab === 3 && source !== null" v-model:code="source" />
+        <LayoutEditor v-else-if="tab === 2" />
+        <ComponentSource v-else-if="tab === 3" />
       </div>
     </div>
   </div>

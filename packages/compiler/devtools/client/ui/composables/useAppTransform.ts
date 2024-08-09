@@ -41,21 +41,25 @@ export const useAppTransform = () => {
   }
 
   const onMouseDown = (event: MouseEvent) => {
-    // middle button
-    if (event.button === 1) {
+    // right button
+    if (event.button === 2) {
       pressed = true
     }
   }
 
   const onMouseUp = (event: MouseEvent) => {
-    // middle button
-    if (event.button === 1) {
+    // right button
+    if (event.button === 2) {
       pressed = false
     }
   }
 
   const onBlur = () => {
     pressed = false
+  }
+
+  const onContextMenu = (event: MouseEvent) => {
+    event.preventDefault()
   }
 
   onMounted(() => {
@@ -68,12 +72,15 @@ export const useAppTransform = () => {
 
   return {
     zoom,
-    onWheel,
+    listeners: {
+      wheel: onWheel,
+      mousemove: onMouseMove,
+      mousedown: onMouseDown,
+      mouseup: onMouseUp,
+      contextmenu: onContextMenu,
+    },
     zoomIn,
     zoomOut,
     translate,
-    onMouseMove,
-    onMouseDown,
-    onMouseUp,
   }
 }
