@@ -7,7 +7,7 @@ import { setCurrentApp } from '../../current-app'
 import { ColorsClassesPlugin } from '../../colors-classes'
 
 // Declare all components globally
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   export interface GlobalComponents extends VuesticComponents {}
 }
