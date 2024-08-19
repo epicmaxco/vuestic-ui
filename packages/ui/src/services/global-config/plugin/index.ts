@@ -21,7 +21,7 @@ export const GlobalConfigPlugin = defineVuesticPlugin((config: PartialGlobalConf
   },
 }))
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface ComponentCustomProperties {
     $vaConfig: ReturnType<typeof createGlobalConfig>
   }
