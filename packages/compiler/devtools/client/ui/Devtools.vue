@@ -9,6 +9,20 @@
       <Outline v-for="element in elementsWithTargetVNode" :node="element" :thickness="1" color="outlineSecondary" background="outlineSecondaryBackground" />
       <Outline :node="element" :thickness="1" background="outlinePrimaryBackground" />
 
+      <Toolbar :node="element">
+        <VaCard>
+          <VaDropdown placement="top-start">
+            <template #anchor>
+              <VaButton icon="auto_awesome" size="small" preset="primary" />
+            </template>
+
+            <VaDropdownContent>
+              <VaInput placeholder="Change label to email" label="AI prompt" />
+            </VaDropdownContent>
+          </VaDropdown>
+        </VaCard>
+      </Toolbar>
+
       <DraggableWindow default-position="top-left">
         <VaCard outlined>
           <AppToolbar />
@@ -40,6 +54,7 @@ import ComponentView from './components/ComponentView.vue'
 import DraggableWindow from './components/base/DraggableWindow.vue'
 import AppTree from './components/AppTree.vue'
 import AppToolbar from './components/AppToolbar.vue'
+import Toolbar from './components/base/Toolbar.vue'
 
 import { VaCard, useToast, useColors, VaScrollContainer } from 'vuestic-ui'
 

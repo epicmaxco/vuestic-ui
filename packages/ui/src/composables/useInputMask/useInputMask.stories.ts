@@ -104,7 +104,7 @@ export const WithOptionalGroup = defineStory({
       const value = ref('')
       const input = ref()
 
-      const { masked, unmasked } = useInputMask(createMaskFromRegex(/(\+(\d{1,3}) )?\(\d{2,3}\) (\d){3}-\d\d-\d\d/), input)
+      const { masked, unmasked } = useInputMask(createMaskFromRegex(/(\+\d{1,3} )?\(\d{2,3}\) (\d){3}-\d\d-\d\d/), input)
 
       return { value, input, masked, unmasked }
     },
