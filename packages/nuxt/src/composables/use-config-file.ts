@@ -1,9 +1,9 @@
 import { existsSync } from 'fs'
-import { resolveAlias, useNuxt } from '@nuxt/kit';
+import { resolveAlias, useNuxt } from '@nuxt/kit'
 import { resolve } from 'pathe'
-import { resolveInRuntime } from './../utils/resolve';
+import { resolveInRuntime } from './../utils/resolve'
 
-export const useConfigFile = async () => {
+export const useConfigFile = () => {
   const root = resolveAlias('~/')
   const configPath = resolve(root, 'vuestic.config.ts')
   const nuxt = useNuxt()

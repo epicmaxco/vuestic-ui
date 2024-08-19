@@ -4,7 +4,7 @@ import { useVuesticCSS } from './composables/use-css'
 import { useVuesticPlugin } from './composables/use-plugin'
 import { useVuesticComposables } from './composables/use-composables'
 import { useVuesticComponents } from './composables/use-components'
-import { useTranspile } from './composables/use-transpile';
+import { useTranspile } from './composables/use-transpile'
 import { useConfigFile } from './composables/use-config-file'
 
 import type { VuesticOptions } from './types'
@@ -24,7 +24,7 @@ export default defineNuxtModule<VuesticOptions>({
     config: {},
     css: [],
     fonts: true,
-    themeCookieKey: 'vuestic-theme',
+    themeCookieKey: 'vuestic-theme'
   },
 
   setup (options) {
