@@ -36,6 +36,14 @@
               Contribute
             </VaButton>
             <VaButton
+              href="/support/consulting"
+              target="_blank"
+              class="header__links--link"
+              preset="landingHeader"
+            >
+              Support & Consulting
+            </VaButton>
+            <VaButton
               href="mailto:hello@epicmax.co"
               target="_blank"
               class="header__links--link"

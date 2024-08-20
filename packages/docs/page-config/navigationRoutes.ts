@@ -680,4 +680,18 @@ export const navigationRoutes: NavigationRoute[] = [
       }
     ],
   },
+  {
+    name: "support",
+    displayName: "Support",
+    children: [
+      {
+        name: "discord",
+        displayName: "Discord",
+      },
+      {
+        name: "consulting",
+        displayName: "Support & Consulting",
+      },
+    ]
+  }
 ];
