@@ -44,7 +44,7 @@ Epicmax provides a range of premium services designed to support various aspects
     block.markdown(`
 Ready to take your project to the next level with Premium Support & Consulting? Contact Epicmax to get a quote and discuss how our services can be tailored to meet your specific requirements.
 
-[![Epicmax](/landing/epicmax.svg "Epicmax")](https://www.epicmax.co/code-audit?ref=vuestic-consulting)
+[![Epicmax](/landing/epicmax.svg "Epicmax")](https://www.epicmax.co/?ref=vuestic-consulting)
 `),
 
     block.link('Get a Quote', 'https://www.epicmax.co/#contact')

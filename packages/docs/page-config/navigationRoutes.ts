@@ -683,10 +683,12 @@ export const navigationRoutes: NavigationRoute[] = [
   {
     name: "support",
     displayName: "Support",
+    disabled: true,
     children: [
       {
         name: "discord",
         displayName: "Discord",
+        path: 'https://discord.com/invite/u7fQdqQt8c'
       },
       {
         name: "consulting",
