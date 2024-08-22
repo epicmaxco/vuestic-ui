@@ -115,7 +115,7 @@ const sitemap = computed(() => ([
   {
     title: 'Support',
     items: [
-      { label: 'Support & Consulting', component: 'a', prop: 'href', value: '/support/consulting' },
+      { label: 'Support & Consulting', component: 'router-link', prop: 'to', value: '/support/consulting' },
       { label: 'Give us a star\u00A0\u2B50', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui/' },
       { label: 'Report an issue', component: 'a', prop: 'href', value: 'https://github.com/epicmaxco/vuestic-ui/issues/new/choose' },
       { label: 'Contribute', component: 'router-link', prop: 'to', value: '/contribution/guide' },
