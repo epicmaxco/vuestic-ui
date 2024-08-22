@@ -36,8 +36,7 @@
               Contribute
             </VaButton>
             <VaButton
-              href="/support/consulting"
-              target="_blank"
+              to="/support/consulting"
               class="header__links--link"
               preset="landingHeader"
             >
