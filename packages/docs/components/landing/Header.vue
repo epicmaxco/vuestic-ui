@@ -114,6 +114,13 @@
               </VaListItem>
               <VaListItem>
                 <VaListItemSection class="mobile-menu__link">
+                  <RouterLink to="/support/consulting">
+                    Support & Consulting
+                  </RouterLink>
+                </VaListItemSection>
+              </VaListItem>
+              <VaListItem>
+                <VaListItemSection class="mobile-menu__link">
                   <RouterLink to="/introduction/team">
                     Contact Us
                   </RouterLink>
