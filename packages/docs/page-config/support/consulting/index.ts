@@ -1,7 +1,7 @@
 
 export default definePageConfig({
   blocks: [
-    block.title('Vuestic Dev: Support & Consulting page'),
+    block.title('Support & Consulting'),
 
     block.subtitle('Community Support'),
 
