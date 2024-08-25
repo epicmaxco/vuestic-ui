@@ -544,32 +544,6 @@ export const navigationRoutes: NavigationRoute[] = [
     ],
   },
   {
-    name: "contribution",
-    displayName: "Contribution",
-    children: [
-      {
-        name: "guide",
-        displayName: "Guide",
-      },
-      {
-        name: "ui-element-guide",
-        displayName: "UI Element Guide",
-      },
-      {
-        name: "structure",
-        displayName: "Structure",
-      },
-      {
-        name: "documentation-page",
-        displayName: "Documentation Guide",
-      },
-      {
-        name: "tree-shaking-requirements",
-        displayName: "Tree Shaking Requirements",
-      },
-    ],
-  },
-  {
     name: "services",
     displayName: "Services",
     children: [
@@ -678,6 +652,32 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: navigationBadge.new('1.9.9'),
         }
       }
+    ],
+  },
+  {
+    name: "contribution",
+    displayName: "Contribution",
+    children: [
+      {
+        name: "guide",
+        displayName: "Guide",
+      },
+      {
+        name: "ui-element-guide",
+        displayName: "UI Element Guide",
+      },
+      {
+        name: "structure",
+        displayName: "Structure",
+      },
+      {
+        name: "documentation-page",
+        displayName: "Documentation Guide",
+      },
+      {
+        name: "tree-shaking-requirements",
+        displayName: "Tree Shaking Requirements",
+      },
     ],
   },
   {
