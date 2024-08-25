@@ -269,7 +269,7 @@ const unformat = (text: string, tokens: RegexToken[]) => {
   }, '')
 }
 
-export const createMaskFromRegex = (regex: RegExp, options = { reverse: false }): Mask<RegexToken> => {
+export const createRegexMask = (regex: RegExp, options = { reverse: false }): Mask<RegexToken> => {
   const tokens = parseTokens(regex.source)
   const possibleResults = normalizeTokens(tokens)
 

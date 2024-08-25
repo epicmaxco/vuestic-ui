@@ -4,14 +4,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VaInput, useInputMask, createMaskFromRegex } from 'vuestic-ui'
+import { VaInput, useInputMask, createRegexMask } from 'vuestic-ui'
 
 const text = ref('')
 const vaInput = ref()
 
-const ukrPhoneMask = createMaskFromRegex(/\+380 \(\d{2}\) (\d){3}-\d\d-\d\d/)
-const usPhoneMask = createMaskFromRegex(/\+1 \(\d{3}\) (\d){3}-\d\d-\d\d/)
-const nationalPhoneMask = createMaskFromRegex(/\+(380|1) /)
+const ukrPhoneMask = createRegexMask(/\+380 \(\d{2}\) (\d){3}-\d\d-\d\d/)
+const usPhoneMask = createRegexMask(/\+1 \(\d{3}\) (\d){3}-\d\d-\d\d/)
+const nationalPhoneMask = createRegexMask(/\+(380|1) /)
 
 useInputMask({
   format(text) {
