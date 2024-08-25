@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
 import { defineStory } from '../../../.storybook/types'
-import VaStickyScrollbar from './StickyScrollbar.vue'
+import VaStickyScrollbar from './VaStickyScrollbar.vue'
 
 export default {
   title: 'VaStickyScrollbar',
