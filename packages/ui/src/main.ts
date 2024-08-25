@@ -7,9 +7,9 @@ export {
   type ValidationRule,
   useForm,
   useInputMask,
-  createMaskFromRegex,
+  createRegexMask,
   createNumeralMask,
-  createMaskDate,
+  createDateMask,
   compareWithMask,
   useStickyTableHeaders,
 } from './composables'
