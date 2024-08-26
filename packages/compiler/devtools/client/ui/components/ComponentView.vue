@@ -90,7 +90,7 @@
     flex-direction: column;
     flex: 1;
     overflow: auto;
-    width: 500px;
+    max-width: 100%;
   }
 
   .c-component-view__toolbar {

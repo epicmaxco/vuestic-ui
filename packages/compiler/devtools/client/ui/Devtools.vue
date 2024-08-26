@@ -129,7 +129,7 @@ const recalculateOutlines = useOutlines()
 watch(isEditMode, () => {
   if (isEditMode.value) {
     const LEFT_SIDEBAR_WIDTH = 300
-    const RIGHT_SIDEBAR_WIDTH = 500
+    const RIGHT_SIDEBAR_WIDTH = 400
     const PADDING = 50
 
     zoom.value = ((window.innerWidth - ((LEFT_SIDEBAR_WIDTH + RIGHT_SIDEBAR_WIDTH + PADDING))) * 100 / window.innerWidth) / 100
@@ -171,7 +171,7 @@ body {
 
 .vuestic-devtools {
   &__right-sidebar {
-    max-width: 600px;
+    width: 400px;
     box-sizing: border-box;
     height: calc(100vh - 1rem);
   }

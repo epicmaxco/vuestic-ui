@@ -3,7 +3,7 @@
   import { VaTextarea } from 'vuestic-ui'
   import { useComponent } from '../../composables/useComponent/useComponent'
 
-  const { slots } = useComponent()
+  const { options: { slots } } = useComponent()
 </script>
 
 <template>
