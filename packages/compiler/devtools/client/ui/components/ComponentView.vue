@@ -5,6 +5,7 @@
   import ComponentProps from './component-options/ComponentProps.vue'
   import ComponentSlots from './component-options/ComponentSlots.vue';
   import ComponentSource from './component-options/ComponentSource.vue';
+  import ComponentFile from './component-options/ComponentFile.vue';
   import LayoutEditor from './layout-editor/LayoutEditor.vue';
   import { useAppTree } from '../composables/useAppTree';
 
@@ -42,12 +43,7 @@
         <h1>{{ name }}</h1>
       </template>
       <template v-else>
-        <template v-for="item, index in sameNodeItems">
-          <VaButton preset="secondary" :color="item === selectedAppTreeItem ? 'primary' : 'secondary'" @click="selectAppTreeItem(item)">
-            {{ item.name }}
-          </VaButton>
-          <template v-if="index < sameNodeItems.length - 1">/</template>
-        </template>
+        <ComponentFile :nodes="sameNodeItems" />
       </template>
 
       <VaSpacer />

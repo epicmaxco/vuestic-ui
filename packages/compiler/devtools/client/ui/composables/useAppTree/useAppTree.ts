@@ -200,20 +200,32 @@ const getAppTree = async () => {
 }
 
 
-export const walkTree = (search: string | Element, tree: AppTreeItem[] = appTree.value): AppTreeItem | null => {
+export const walkTree = (search: AppTreeItem | HTMLElement | string, tree: AppTreeItem[] = appTree.value): AppTreeItem | null => {
   for (const item of tree) {
     if ('text' in item) {
       continue
     }
 
-    if (typeof search === 'string' && item.ids.includes(search)) {
-      return item
+    if (typeof search === 'string') {
+      if (item.ids.includes(search)) {
+        return item
+      }
     } else if (search instanceof HTMLElement) {
       if (item.el?.isEqualNode(search)) {
         return item
       }
 
       if (item.repeatedElements?.some((el) => el.isEqualNode(search))) {
+        return item
+      }
+    } else if ('name' in search) {
+      const searchEl = search.el
+      const searchName = search.name
+
+      const isSameNode = item.el?.isEqualNode(searchEl) || item.repeatedElements?.some((el) => el.isEqualNode(el))
+      const isSameName = item.name === searchName
+
+      if (isSameName && isSameNode) {
         return item
       }
     }
@@ -237,8 +249,7 @@ export const useAppTree = () => {
   const { selectedAppTreeItem, sameNodeItems, selectAppTreeItem } = useSelectedAppTreeItem()
 
   const refresh = async () => {
-    const selectedNodeElement = selectedAppTreeItem.value?.el
-
+    const oldSelectedAppTreeItem = selectedAppTreeItem.value
     const tree = await getAppTree()
 
     if (!Array.isArray(tree)) {
@@ -248,8 +259,8 @@ export const useAppTree = () => {
     }
 
     // Keep node selected when app tree is refreshed
-    if (selectedNodeElement) {
-      const selectedNode = walkTree(selectedNodeElement)
+    if (oldSelectedAppTreeItem) {
+      const selectedNode = walkTree(oldSelectedAppTreeItem)
 
       if (selectedNode && 'el' in selectedNode) {
         selectedAppTreeItem.value = selectedNode
