@@ -28,6 +28,23 @@ const extractSlotName = (keys: string[]) => {
   }
 }
 
+/** Mutates attrs */
+const removeDuplicatedAttributes = (attrs: Record<string, string>) => {
+  Object
+    .keys(attrs)
+    .forEach((attributeName, i, keys) => {
+      const attributeNameNormalized = attributeName.replace(/^:|^v-model:|^v-bind:/, '')
+
+      if (attributeNameNormalized === attributeName) { return }
+
+      if (keys.includes(attributeNameNormalized)) {
+        delete attrs[attributeName]
+      }
+    })
+
+  return attrs
+}
+
 export const useComponentCode = (source: ComponentSource, vNode: Ref<VNode | null>) => {
   const ast = computed(() => {
     if (!source.value) return null
@@ -126,7 +143,7 @@ export const useComponentCode = (source: ComponentSource, vNode: Ref<VNode | nul
       if (propMeta.default === value && value !== undefined) {
         newRoot.children.push({
           ...element,
-          attributes: newAttributes,
+          attributes: removeDuplicatedAttributes(newAttributes),
           parent: newRoot,
         })
 
@@ -136,10 +153,10 @@ export const useComponentCode = (source: ComponentSource, vNode: Ref<VNode | nul
 
     const child = {
       ...element,
-      attributes: {
+      attributes: removeDuplicatedAttributes({
         ...newAttributes,
         [transformPropName(name, type)]: value
-      },
+      }),
       parent: newRoot,
     }
 
