@@ -25,7 +25,9 @@ import { vuestic } from '@vuestic/compiler/vite'
 
 export default defineConfig({
   plugins: [
-    vuestic(),
+    vuestic({
+      devtools: true,
+    }),
     vue(),
   ],
 })
