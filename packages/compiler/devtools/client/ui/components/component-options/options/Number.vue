@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { VaButton, VaCounter } from 'vuestic-ui'
 import { computed } from 'vue'
-import { ComponentProp, useComponent } from '../../../composables/useComponent/useComponent';
+import { ComponentProp } from '../../../composables/useComponent/useComponentOptions';
+import { useComponent } from '../../../composables/useComponent';
 
 const props = defineProps<{
   label: string,
@@ -10,12 +11,9 @@ const props = defineProps<{
 
 const vModel = defineModel<string | null>()
 
-
-const { updateAttribute } = useComponent()
-
 const clearValue = () => {
   // Remove previous attribute
-  updateAttribute(props.prop.codeAttribute?.name ?? props.prop.name, undefined)
+  props.prop.updateAttribute(props.prop.codeAttribute?.name ?? props.prop.name, undefined)
 }
 
 const vModelProxy = computed({
@@ -24,13 +22,13 @@ const vModelProxy = computed({
     const prop = props.prop
 
     // Remove previous attribute
-    updateAttribute(prop.codeAttribute?.name ?? prop.name, undefined)
+    prop.updateAttribute(prop.codeAttribute?.name ?? prop.name, undefined)
 
     if (v === prop.meta.default) {
       return
     }
 
-    updateAttribute(prop.name, v.toString(), 'bind')
+    prop.updateAttribute(prop.name, v.toString(), 'bind')
   }
 })
 </script>

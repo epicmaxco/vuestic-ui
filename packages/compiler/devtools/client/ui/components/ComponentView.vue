@@ -1,52 +1,35 @@
 <script setup lang="ts">
-  import {  VaButton, VaSpacer, VaSelect, VaTabs, VaTab } from 'vuestic-ui'
+  import {  VaButton, VaSpacer, VaTabs, VaTab } from 'vuestic-ui'
   import { ref, watch, computed } from 'vue';
-  import CodeView from './base/CodeView.vue';
   import { useComponent } from '../composables/useComponent/useComponent'
   import ComponentProps from './component-options/ComponentProps.vue'
   import ComponentSlots from './component-options/ComponentSlots.vue';
-  import History from './History.vue';
-  import { useSelectedAppTreeItem } from '../composables/useAppTree/index';
+  import ComponentSource from './component-options/ComponentSource.vue';
+  import ComponentFile from './component-options/ComponentFile.vue';
+  import LayoutEditor from './layout-editor/LayoutEditor.vue';
+  import { useAppTree } from '../composables/useAppTree';
 
    const {
     name,
-    saveSource,
     source,
-    openInVSCode,
-    props, slots,
-    isParsed,
+    code,
+    options,
   } = useComponent()
 
-  const { sameNodeItems, selectedAppTreeItem, selectAppTreeItem } = useSelectedAppTreeItem()
-
-  const isLoading = ref(false)
-
-  const onSave = async () => {
-    isLoading.value = true
-    await saveSource(source.value!)
-    isLoading.value = false
-  }
-
-  const autoSave = ref(false)
-
-  watch(source, async (newSource) => {
-    if (autoSave.value && newSource) {
-      await saveSource(newSource)
-    }
-  })
+  const { sameNodeItems, selectedAppTreeItem, selectAppTreeItem } = useAppTree()
 
   const tabs = computed(() => {
     return [
-      { name: 'Props', disabled: Object.keys(props.value).length === 0 },
-      { name: 'Slots', disabled: slots.value.length === 0 },
-      { name: 'Layout', disabled: true },
+      { name: 'Props', disabled: Object.keys(options.props.value).length === 0 },
+      { name: 'Slots', disabled: options.slots.value.length === 0 },
+      { name: 'Layout', disabled: false },
       { name: 'Source Code', disabled: source.value === null },
     ]
   })
 
   const tab = ref(0)
 
-  watch(isParsed, (isParsed) => {
+  watch(code.isParsed, (isParsed) => {
     if (tabs.value[tab.value].disabled && isParsed) {
       tab.value = tabs.value.findIndex(tab => !tab.disabled)
     }
@@ -56,25 +39,15 @@
 <template>
   <div class="c-component-view">
     <div class="c-component-view__toolbar">
-      <History />
-      <VaButton icon="save" preset="primary" @click="onSave" :loading="isLoading" />
-    </div>
-
-    <div class="c-component-view__toolbar">
       <template v-if="sameNodeItems.length === 1">
         <h1>{{ name }}</h1>
       </template>
       <template v-else>
-        <template v-for="item, index in sameNodeItems">
-          <VaButton preset="secondary" :color="item === selectedAppTreeItem ? 'primary' : 'secondary'" @click="selectAppTreeItem(item)">
-            {{ item.name }}
-          </VaButton>
-          <template v-if="index < sameNodeItems.length - 1">/</template>
-        </template>
+        <ComponentFile :nodes="sameNodeItems" />
       </template>
 
       <VaSpacer />
-      <VaButton icon="open_in_new" @click="openInVSCode" preset="primary" title="Open in VSCode" />
+      <VaButton icon="open_in_new" @click="source.openInVSCode" preset="primary" title="Open in VSCode" />
     </div>
 
     <div class="c-component-view__content">
@@ -84,7 +57,8 @@
       <div class="c-component-view__tabs-content">
         <ComponentProps v-if="tab === 0" />
         <ComponentSlots v-else-if="tab === 1" />
-        <CodeView v-else-if="tab === 3 && source !== null" v-model:code="source" />
+        <LayoutEditor v-else-if="tab === 2" />
+        <ComponentSource v-else-if="tab === 3" />
       </div>
     </div>
   </div>
@@ -112,7 +86,7 @@
     flex-direction: column;
     flex: 1;
     overflow: auto;
-    width: 500px;
+    max-width: 100%;
   }
 
   .c-component-view__toolbar {

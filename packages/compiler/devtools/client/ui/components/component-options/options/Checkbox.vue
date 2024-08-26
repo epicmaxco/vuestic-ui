@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { VaCheckbox } from 'vuestic-ui'
 import { computed } from 'vue'
-import { ComponentProp, useComponent } from '../../../composables/useComponent/useComponent';
+import { ComponentProp } from '../../../composables/useComponent/useComponentOptions';
 
 const props = defineProps<{
   label: string,
@@ -10,25 +10,22 @@ const props = defineProps<{
 
 const vModel = defineModel<string | null>()
 
-
-const { updateAttribute } = useComponent()
-
 const vModelProxy = computed({
   get() { return vModel.value === 'true' || vModel.value === null },
   set(v) {
     const prop = props.prop
 
     // Remove previous attribute
-    updateAttribute(prop.codeAttribute?.name ?? prop.name, undefined)
+    prop.updateAttribute(prop.codeAttribute?.name ?? prop.name, undefined)
 
     if (v === prop.meta.default) {
       return
     }
 
     if (v === true) {
-      updateAttribute(prop.name, null)
+      prop.updateAttribute(prop.name, null)
     } else {
-      updateAttribute(prop.name, 'false', 'bind')
+      prop.updateAttribute(prop.name, 'false', 'bind')
     }
   }
 })

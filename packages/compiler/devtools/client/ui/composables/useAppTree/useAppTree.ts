@@ -1,5 +1,6 @@
 import { onMounted, VNode, VNodeNormalizedChildren, VNodeArrayChildren, isVNode, Fragment, App, ref } from 'vue';
 import { PREFIX } from '../../../../shared/CONST';
+import { useSelectedAppTreeItem } from './useSelectedAppTreeItem';
 
 export type AppTreeItemComponent = {
   ids: string[],
@@ -198,11 +199,57 @@ const getAppTree = async () => {
   return traverse(vnode)
 }
 
+
+export const walkTree = (search: AppTreeItem | HTMLElement | string, tree: AppTreeItem[] = appTree.value): AppTreeItem | null => {
+  for (const item of tree) {
+    if ('text' in item) {
+      continue
+    }
+
+    if (typeof search === 'string') {
+      if (item.ids.includes(search)) {
+        return item
+      }
+    } else if (search instanceof HTMLElement) {
+      if (item.el?.isEqualNode(search)) {
+        return item
+      }
+
+      if (item.repeatedElements?.some((el) => el.isEqualNode(search))) {
+        return item
+      }
+    } else if ('name' in search) {
+      const searchEl = search.el
+      const searchName = search.name
+
+      const isSameNode = item.el?.isEqualNode(searchEl) || item.repeatedElements?.some((el) => el.isEqualNode(el))
+      const isSameName = item.name === searchName
+
+      if (isSameName && isSameNode) {
+        return item
+      }
+    }
+
+    const child = walkTree(search, item.children)
+
+    if (child) {
+      return child
+    }
+  }
+
+  return null
+}
+
 // TODO: Right now global, for better performance, should be moved to a composable
 const appTree = ref<AppTreeItem[]>([])
 
+export const _appTree = appTree
+
 export const useAppTree = () => {
+  const { selectedAppTreeItem, sameNodeItems, selectAppTreeItem } = useSelectedAppTreeItem()
+
   const refresh = async () => {
+    const oldSelectedAppTreeItem = selectedAppTreeItem.value
     const tree = await getAppTree()
 
     if (!Array.isArray(tree)) {
@@ -210,13 +257,33 @@ export const useAppTree = () => {
     } else {
       appTree.value = tree
     }
+
+    // Keep node selected when app tree is refreshed
+    if (oldSelectedAppTreeItem) {
+      const selectedNode = walkTree(oldSelectedAppTreeItem)
+
+      if (selectedNode && 'el' in selectedNode) {
+        selectedAppTreeItem.value = selectedNode
+      }
+    }
   }
 
   onMounted(() => {
     if (appTree.value.length === 0) {
+      if (import.meta.hot) {
+        import.meta.hot.on('vite:afterUpdate', () => {
+          refresh()
+        })
+      }
       refresh()
     }
   })
 
-  return appTree
+  return {
+    appTree,
+    refresh,
+    selectAppTreeItem,
+    selectedAppTreeItem,
+    sameNodeItems,
+  }
 }
