@@ -1,6 +1,6 @@
 {
   "name": "@vuestic/compiler",
-  "version": "0.0.1-beta5",
+  "version": "0.1.0",
   "dependencies": {
     "@rollup/pluginutils": "^5.1.0",
     "acorn": "^8.12.1",
