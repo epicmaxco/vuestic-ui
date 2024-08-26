@@ -4,10 +4,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VaInput, useInputMask, createMaskDate } from 'vuestic-ui'
+import { VaInput, useInputMask, createDateMask } from 'vuestic-ui'
 
 const text = ref('')
 const vaInput = ref()
 
-useInputMask(createMaskDate(), vaInput)
+useInputMask(createDateMask(), vaInput)
 </script>

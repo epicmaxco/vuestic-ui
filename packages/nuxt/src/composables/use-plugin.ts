@@ -1,4 +1,4 @@
-import { addPluginTemplate } from '@nuxt/kit'
+import { addPluginTemplate, useNuxt } from '@nuxt/kit'
 
 import { resolveInRuntime } from '../utils/resolve'
 
@@ -8,13 +8,13 @@ import type { VuesticOptions } from '../types'
 export const useVuesticPlugin = (options: VuesticOptions) => {
   const pluginPath = resolveInRuntime('./runtime/plugin.mjs')
 
+  const nuxt = useNuxt()
+
+  ;(nuxt.options.runtimeConfig.public as any)['#vuestic-public-options-config'] = options.config
+  ;(nuxt.options.runtimeConfig.public as any)['#vuestic-public-options-theme-cookie-key'] = options.themeCookieKey
+
   addPluginTemplate({
     src: pluginPath,
-    filename: pluginPath.split('/').pop(),
-
-    // Use JSON.stringify() here, because it will be inserted in ejs template as string. Then we will JSON.parse it.
-    options: {
-      value: JSON.stringify(options),
-    },
+    filename: pluginPath.split('/').pop()
   })
 }

@@ -11,7 +11,7 @@ export const BreakpointConfigPlugin = defineVuesticPlugin(() => ({
   },
 }))
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface ComponentCustomProperties {
     $vaBreakpoint: ReturnType<typeof createBreakpointConfigPlugin>
   }

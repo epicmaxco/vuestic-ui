@@ -544,32 +544,6 @@ export const navigationRoutes: NavigationRoute[] = [
     ],
   },
   {
-    name: "contribution",
-    displayName: "Contribution",
-    children: [
-      {
-        name: "guide",
-        displayName: "Guide",
-      },
-      {
-        name: "ui-element-guide",
-        displayName: "UI Element Guide",
-      },
-      {
-        name: "structure",
-        displayName: "Structure",
-      },
-      {
-        name: "documentation-page",
-        displayName: "Documentation Guide",
-      },
-      {
-        name: "tree-shaking-requirements",
-        displayName: "Tree Shaking Requirements",
-      },
-    ],
-  },
-  {
     name: "services",
     displayName: "Services",
     children: [
@@ -680,4 +654,46 @@ export const navigationRoutes: NavigationRoute[] = [
       }
     ],
   },
+  {
+    name: "contribution",
+    displayName: "Contribution",
+    children: [
+      {
+        name: "guide",
+        displayName: "Guide",
+      },
+      {
+        name: "ui-element-guide",
+        displayName: "UI Element Guide",
+      },
+      {
+        name: "structure",
+        displayName: "Structure",
+      },
+      {
+        name: "documentation-page",
+        displayName: "Documentation Guide",
+      },
+      {
+        name: "tree-shaking-requirements",
+        displayName: "Tree Shaking Requirements",
+      },
+    ],
+  },
+  {
+    name: "support",
+    displayName: "Support",
+    disabled: true,
+    children: [
+      {
+        name: "discord",
+        displayName: "Discord",
+        path: 'https://discord.com/invite/u7fQdqQt8c'
+      },
+      {
+        name: "consulting",
+        displayName: "Support & Consulting",
+      },
+    ]
+  }
 ];

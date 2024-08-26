@@ -348,6 +348,14 @@ export default defineComponent({
     caret-color: var(--va-input-wrapper-text-color);
     color: var(--va-input-wrapper-text-color);
 
+    input,
+    textarea {
+      &::placeholder {
+        color: inherit;
+        opacity: 0.5;
+      }
+    }
+
     input {
       @include va-scroll(var(--va-input-scroll-color));
 
@@ -366,11 +374,6 @@ export default defineComponent({
       letter-spacing: var(--va-input-letter-spacing);
       cursor: inherit;
       align-self: stretch;
-
-      &::placeholder {
-        color: inherit;
-        opacity: 0.5;
-      }
     }
   }
 

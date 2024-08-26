@@ -53,7 +53,7 @@ const removeStaticCharsFromEnd = <T extends MaskToken>(tokens: T[]) => {
   return tokens.slice(0, i + 1)
 }
 
-export const createMaskDate = (format: string = 'yyyy/mm/dd'): Mask<MaskToken, MinorToken[]> => {
+export const createDateMask = (format: string = 'yyyy/mm/dd'): Mask<MaskToken, MinorToken[]> => {
   const tokens = parseTokens(format)
 
   const cache = new Map()

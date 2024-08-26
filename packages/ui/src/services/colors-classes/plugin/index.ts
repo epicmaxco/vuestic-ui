@@ -71,7 +71,7 @@ export const ColorsClassesPlugin = defineVuesticPlugin(() => ({
   },
 }))
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   export interface ComponentCustomProperties {
     $vaColorsClasses: ReturnType<typeof createColorHelpersPlugin>
   }

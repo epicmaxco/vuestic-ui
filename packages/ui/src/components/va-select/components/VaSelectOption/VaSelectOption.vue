@@ -23,7 +23,7 @@
       {{ optionTextSplitted.end }}
     </slot>
     <va-icon
-      v-show="isSelected"
+      v-if="isSelected"
       class="va-select-option__selected-icon"
       size="small"
       name="va-check"

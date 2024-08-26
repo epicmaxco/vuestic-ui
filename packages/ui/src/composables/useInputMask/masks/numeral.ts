@@ -1,5 +1,5 @@
 import { Mask, MaskToken } from '../mask'
-import { createMaskFromRegex, RegexToken } from './regex'
+import { createRegexMask, RegexToken } from './regex'
 
 const DELIMITER = ' '
 const DECIMAL = '.'
@@ -7,8 +7,8 @@ const DECIMAL = '.'
 type NumeralToken = RegexToken & { isDecimal?: boolean}
 
 export const createNumeralMask = (): Mask<NumeralToken> => {
-  const intMask = createMaskFromRegex(/(\d{3} )*(\d{3})/, { reverse: true })
-  const decimalMask = createMaskFromRegex(/(\d{3} )*(\d{3})/, { reverse: false })
+  const intMask = createRegexMask(/(\d{3} )*(\d{3})/, { reverse: true })
+  const decimalMask = createRegexMask(/(\d{3} )*(\d{3})/, { reverse: false })
 
   return {
     format: (text: string) => {

@@ -36,6 +36,13 @@
               Contribute
             </VaButton>
             <VaButton
+              to="/support/consulting"
+              class="header__links--link"
+              preset="landingHeader"
+            >
+              Support & Consulting
+            </VaButton>
+            <VaButton
               href="mailto:hello@epicmax.co"
               target="_blank"
               class="header__links--link"
@@ -102,6 +109,13 @@
                 <VaListItemSection class="mobile-menu__link">
                   <RouterLink to="/contribution/guide">
                     Contribute
+                  </RouterLink>
+                </VaListItemSection>
+              </VaListItem>
+              <VaListItem>
+                <VaListItemSection class="mobile-menu__link">
+                  <RouterLink to="/support/consulting">
+                    Support & Consulting
                   </RouterLink>
                 </VaListItemSection>
               </VaListItem>

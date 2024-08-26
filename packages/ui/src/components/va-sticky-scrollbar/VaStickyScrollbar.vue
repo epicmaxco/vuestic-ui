@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { getScrollbarSize } from '../../utils/scrollbar-size'
-import { useEvent, useElementRect, useResizeObserver } from '../../composables'
+import { useEvent, useElementRect, useResizeObserver, useNumericProp } from '../../composables'
 
 const props = withDefaults(defineProps<{
     el?: HTMLElement | null
-    direction?: 'vertical' | 'horizontal'
+    direction?: 'vertical' | 'horizontal',
+    offset?: number | string,
   }>(), {
   direction: 'horizontal',
+  offset: 0,
 })
 const currentEl = ref(null as HTMLElement | null)
+
+const offsetProp = useNumericProp('offset')
 
 const parentElement = computed(() => {
   if (props.el) { return props.el }
@@ -49,7 +53,7 @@ const stickyScrollWrapperStyle = computed(() => {
 
   return {
     position: 'fixed' as const,
-    top: `${Math.min(bottom, window.innerHeight) - scrollSize}px`,
+    top: `${Math.min(bottom, window.innerHeight) - scrollSize - Number(offsetProp.value)}px`,
     width: `${parentEl.clientWidth}px`,
     overflowX: 'auto' as const,
     overflowY: 'hidden' as const,

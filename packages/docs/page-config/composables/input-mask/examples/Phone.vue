@@ -4,10 +4,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VaInput, useInputMask, createMaskFromRegex } from 'vuestic-ui'
+import { VaInput, useInputMask, createRegexMask } from 'vuestic-ui'
 
 const text = ref('')
 const vaInput = ref()
 
-useInputMask(createMaskFromRegex(/(\+380 \(\d{2}\)|\d{3}) (\d){3}-\d\d-\d\d/), vaInput)
+useInputMask(createRegexMask(/(\+380 \(\d{2}\)|\d{3}) (\d){3}-\d\d-\d\d/), vaInput)
 </script>

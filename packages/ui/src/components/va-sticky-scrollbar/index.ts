@@ -1,1 +1,1 @@
-export { default as VaStickyScrollbar } from './StickyScrollbar.vue'
+export { default as VaStickyScrollbar } from './VaStickyScrollbar.vue'

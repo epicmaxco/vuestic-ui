@@ -3,8 +3,8 @@ import { defineStory } from '../../../.storybook/types'
 import { useInputMask } from './useInputMask'
 import TokensRenderer from './tests/Tokens.vue'
 import PossibleTokens from './tests/PossibleTokens.vue'
-import { createMaskFromRegex } from './masks/regex'
-import { createMaskDate } from './masks/date'
+import { createRegexMask } from './masks/regex'
+import { createDateMask } from './masks/date'
 import { createNumeralMask } from './masks/numeral'
 import { parseTokens } from './masks/parser'
 
@@ -32,7 +32,7 @@ export const Default = defineStory({
       })
 
       const tokens = computed(() => parseTokens(mask.value.source))
-      const regexMask = computed(() => createMaskFromRegex(mask.value, { reverse: reverse.value }))
+      const regexMask = computed(() => createRegexMask(mask.value, { reverse: reverse.value }))
 
       const text = ref('')
 
@@ -63,7 +63,7 @@ export const Phone = defineStory({
       const value = ref('3809312345678')
       const input = ref()
 
-      const phoneMask = createMaskFromRegex(/\+(\d{1,3}) \(\d{2,3}\) \d\d\d-\d\d-\d\d/)
+      const phoneMask = createRegexMask(/\+(\d{1,3}) \(\d{2,3}\) \d\d\d-\d\d-\d\d/)
 
       const { masked, unmasked } = useInputMask(phoneMask, input)
 
@@ -84,7 +84,7 @@ export const CreditCard = defineStory({
       const value = ref('1111222233334444')
       const input = ref()
 
-      const creditCardMask = createMaskFromRegex(/(\d{4} ){3}\d{4}/)
+      const creditCardMask = createRegexMask(/(\d{4} ){3}\d{4}/)
       const { masked, unmasked } = useInputMask(creditCardMask, input)
 
       return { value, input, masked, unmasked }
@@ -104,7 +104,7 @@ export const WithOptionalGroup = defineStory({
       const value = ref('')
       const input = ref()
 
-      const { masked, unmasked } = useInputMask(createMaskFromRegex(/(\+\d{1,3} )?\(\d{2,3}\) (\d){3}-\d\d-\d\d/), input)
+      const { masked, unmasked } = useInputMask(createRegexMask(/(\+(\d{1,3}) )?\(\d{2,3}\) (\d){3}-\d\d-\d\d/), input)
 
       return { value, input, masked, unmasked }
     },
@@ -123,7 +123,7 @@ export const WithOrGroup = defineStory({
       const value = ref('')
       const input = ref()
 
-      const { masked, unmasked } = useInputMask(createMaskFromRegex(/\+(7 \(\d{3}\)|380 \(\d{2}\)) (\d){3}-\d\d-\d\d/), input)
+      const { masked, unmasked } = useInputMask(createRegexMask(/\+(7 \(\d{3}\)|380 \(\d{2}\)) (\d){3}-\d\d-\d\d/), input)
 
       return { value, input, masked, unmasked }
     },
@@ -142,7 +142,7 @@ export const Ipv6 = defineStory({
       const value = ref('1234567890123456')
       const input = ref()
 
-      const ipv6Regex = createMaskFromRegex(/(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:))/)
+      const ipv6Regex = createRegexMask(/(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:))/)
 
       const { masked, unmasked } = useInputMask(ipv6Regex, input)
 
@@ -163,7 +163,7 @@ export const Date = defineStory({
       const value = ref('1234567890123456')
       const input = ref()
 
-      const dateMask = createMaskDate()
+      const dateMask = createDateMask()
 
       const { masked, unmasked } = useInputMask(dateMask, input)
 
@@ -184,7 +184,7 @@ export const DateRange = defineStory({
       const value = ref('')
       const input = ref()
 
-      const dateMask = createMaskDate('dd/mm/yyyy - dd/mm/yyyy')
+      const dateMask = createDateMask('dd/mm/yyyy - dd/mm/yyyy')
 
       const { masked, unmasked } = useInputMask(dateMask, input)
 
@@ -205,7 +205,7 @@ export const Numeral = defineStory({
       const value = ref('123456')
       const input = ref()
 
-      const numeralRegex = createMaskFromRegex(/(\d{3} - )*(\d{3})/)
+      const numeralRegex = createRegexMask(/(\d{3} - )*(\d{3})/)
       const { masked, unmasked } = useInputMask(numeralRegex, input)
 
       return { value, input, masked, unmasked }
@@ -225,7 +225,7 @@ export const ReversedNumeral = defineStory({
       const value = ref('123456')
       const input = ref()
 
-      const numeralRegex = createMaskFromRegex(/(\d{3} - )*(\d{3})/, { reverse: true })
+      const numeralRegex = createRegexMask(/(\d{3} - )*(\d{3})/, { reverse: true })
       const { masked, unmasked } = useInputMask(numeralRegex, input)
 
       return { value, input, masked, unmasked }
@@ -265,7 +265,7 @@ export const CustomMask = defineStory({
       const value = ref('123456')
       const input = ref()
 
-      const dateMask = createMaskFromRegex(/\d\d (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/)
+      const dateMask = createRegexMask(/\d\d (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/)
       const { masked, unmasked } = useInputMask({
         ...dateMask,
         format (text) {

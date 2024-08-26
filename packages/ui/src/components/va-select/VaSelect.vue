@@ -761,7 +761,7 @@ defineExpose({
 .va-select-anchor {
   &__input {
     cursor: var(--va-select-cursor);
-    flex: 1;
+    height: min-content;
   }
 
   &--nowrap {
