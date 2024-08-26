@@ -9,7 +9,8 @@
       <Outline v-for="element in elementsWithTargetVNode" :node="element" :thickness="1" color="outlineSecondary" background="outlineSecondaryBackground" />
       <Outline :node="element" :thickness="1" background="outlinePrimaryBackground" />
 
-      <Toolbar :node="element">
+      <!-- Removed for now -->
+      <!-- <Toolbar :node="element">
         <VaCard>
           <VaDropdown placement="top-start">
             <template #anchor>
@@ -21,7 +22,7 @@
             </VaDropdownContent>
           </VaDropdown>
         </VaCard>
-      </Toolbar>
+      </Toolbar> -->
 
       <DraggableWindow default-position="top-left">
         <VaCard outlined>

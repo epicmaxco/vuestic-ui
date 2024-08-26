@@ -1,17 +1,22 @@
 <script setup lang="ts">
 import { useComponent } from '../../composables/useComponent';
 import CodeView from '../base/CodeView.vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
-const { source, saveSource, fileName } = useComponent()
+const { source } = useComponent()
 
 const isLoading = ref(false)
+const newSource = ref('')
+
+watch(source.content, (newNewSource) => {
+  newSource.value = newNewSource ?? ''
+}, { immediate: true })
 
 const save = () => {
-  if (!source.value) return
+  if (!source.content.value) return
   try {
     isLoading.value = true
-    saveSource(source.value)
+    source.update(newSource.value)
   } finally {
     isLoading.value = false
   }
@@ -22,13 +27,13 @@ const save = () => {
   <div class="va-devtools-source-code">
     <div class="va-devtools-source-code__toolbar">
       <div class="va-devtools-source-code__file-name">
-        {{ fileName }}
+        {{ source.fileName }}
       </div>
       <VaButton preset="secondary" icon="save" :loading="isLoading" @click="save" />
     </div>
   </div>
   <div class="va-devtools-source-code__code">
-    <CodeView v-if="source !== null" v-model:code="source" />
+    <CodeView v-if="source !== null" v-model:code="newSource" />
   </div>
 </template>
 
