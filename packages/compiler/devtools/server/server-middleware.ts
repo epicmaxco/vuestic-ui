@@ -1,7 +1,7 @@
 import { Connect } from 'vite'
 import { readBody } from './utils'
 import { API_PREFIX } from '../shared/CONST'
-import { getComponentLineAndCol, getComponentSource, setComponentSource } from './file'
+import { getComponentLineAndCol, getComponentSource, setComponentSource, deleteComponentSource, getRelativeFilePath } from './file'
 import { replacePath, unminifyPath } from '../shared/slug'
 import { parseFileQuery, stringifyFileQuery } from '../shared/file-query'
 
@@ -33,7 +33,7 @@ export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
     if (req.method === 'PATCH' && req.url.startsWith(`${API_PREFIX}/node-source`)) {
       const body = await readBody(req);
 
-      if (!(typeof body === 'string') || body.length === 0) {
+      if (!(typeof body === 'string')) {
         throw new Error('Body is required.');
       }
 
@@ -46,10 +46,26 @@ export const devtoolsServerMiddleware = (): Connect.NextHandleFunction => {
       return
     }
 
+    if (req.method === 'DELETE' && req.url.startsWith(`${API_PREFIX}/node-source`)) {
+      const newPath = await deleteComponentSource(path, start, end);
+
+      replacePath(minified, stringifyFileQuery(newPath.path, newPath.start, newPath.end));
+
+      res.writeHead(200)
+      res.end();
+      return
+    }
+
     if (req.method === 'GET' && req.url.startsWith(`${API_PREFIX}/file-name`)) {
       res.writeHead(200)
       res.end(unminified);
       return;
+    }
+
+    if (req.method === 'GET' && req.url.startsWith(`${API_PREFIX}/relative-file-path`)) {
+      res.writeHead(200)
+      res.end(getRelativeFilePath(path));
+      return
     }
 
     if (req.method === 'GET' && req.url.startsWith(`${API_PREFIX}/vscode-path`)) {

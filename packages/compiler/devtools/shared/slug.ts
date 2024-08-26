@@ -5,12 +5,6 @@ type MinifiedPath = `${typeof PREFIX}:${string}` | string
 const knownPaths = new Map<MinifiedPath, Path>()
 
 export const minifyPath = (path: Path) => {
-  for (const [p, minifiedPath] of knownPaths.entries()) {
-    if (p === path) {
-      return minifiedPath
-    }
-  }
-
   const minified = `${PREFIX}-${knownPaths.size}` as const
 
   knownPaths.set(minified, path)

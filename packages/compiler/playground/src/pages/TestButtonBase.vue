@@ -7,7 +7,10 @@
 </script>
 
 <template>
-  <VaButton :color="'myCustomColor'">
+  <VaButton
+     :color="'myCustomColor'"
+     color="info"
+  >
     Test
   </VaButton>
 </template>

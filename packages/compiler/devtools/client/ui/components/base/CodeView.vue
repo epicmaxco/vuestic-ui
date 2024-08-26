@@ -91,8 +91,7 @@
     width: 100%;
     flex: 1;
     display: flex;
-    max-width: 600px;
-    min-width: 300px;
+    min-width: max-content;
     --padding: 16px;
 
     &__view {
@@ -125,7 +124,7 @@
       border: none;
       resize: none;
       box-sizing: border-box;
-      overflow: auto;
+      overflow: hidden;
     }
 
     &__view code, &__view pre, &__textarea {
@@ -139,7 +138,6 @@
       color: transparent;
       z-index: 2;
       caret-color: var(--va-primary);
-      transform: translateX(-2px) translateY(-1px);
     }
   }
 </style>

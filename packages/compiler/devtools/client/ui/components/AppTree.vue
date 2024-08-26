@@ -4,7 +4,7 @@
   import AppTreeItemComponent from './AppTreeItem.vue'
   import { ref, computed } from 'vue'
 
-  const appTree = useAppTree()
+  const { appTree } = useAppTree()
 
   const filter = ref('')
 
@@ -41,20 +41,20 @@
 </script>
 
 <template>
-  <div v-if="appTree" class="app-tree">
+  <div v-if="appTree" class="va-devtools-app-tree">
     <VaInput v-model="filter" inner-label style="width: 100%" placeholder="Search">
       <template #prependInner>
         <VaIcon name="search" />
       </template>
     </VaInput>
 
-    <div v-if="filter.length <= 0" class="app-tree-items">
+    <div v-if="filter.length <= 0" class="va-devtools-app-tree__items">
       <div v-for="node in appTree">
         <AppTreeItemComponent :item="node" />
       </div>
     </div>
     <template v-else>
-      <div v-for="node in foundItems" class="app-tree-items">
+      <div v-for="node in foundItems" class="va-devtools-app-tree__items">
         <AppTreeItemComponent :item="node" />
       </div>
     </template>
@@ -62,7 +62,15 @@
 </template>
 
 <style lang="scss" scoped>
-  .app-tree-items {
-    padding: 0.5rem 1rem;
+  .va-devtools-app-tree {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &__items {
+      flex: 1;
+      padding: 0.5rem 1rem;
+      overflow: auto;
+    }
   }
 </style>

@@ -31,6 +31,10 @@ export const removeIntent = (source: string, intent: number): string => {
 };
 
 export const addIntent = (source: string, intent: number): string => {
+  if (source.length === 0) {
+    return source;
+  }
+
   const lines = source.split('\n');
   const intentString = ' '.repeat(intent);
   return lines
@@ -69,6 +73,31 @@ export const setComponentSource = async (path: string, start: number, end: numbe
   }
 }
 
+export const deleteComponentSource = async (path: string, start: number, end: number) => {
+  const fileSource = await requestSource(path);
+  const intent = getIntent(fileSource, start);
+
+  if (intent === 0) {
+    await writeFile(path, fileSource.slice(0, start) + fileSource.slice(end));
+    return {
+      path,
+      start,
+      end: start,
+    }
+  }
+
+  const fileSourceStart = fileSource.slice(0, start - intent - '\n'.length);
+  const fileSourceEnd = fileSource.slice(end);
+
+  await writeFile(path, fileSourceStart + fileSourceEnd);
+
+  return {
+    path,
+    start: start - intent - '\n'.length,
+    end: start - intent - '\n'.length,
+  }
+}
+
 export const getComponentLineAndCol = async (path: string, start: number) => {
   const fileSource = await requestSource(path);
   const intent = getIntent(fileSource, start);
@@ -76,4 +105,8 @@ export const getComponentLineAndCol = async (path: string, start: number) => {
   const line = lines.length;
   const col = intent;
   return { line, col };
+}
+
+export const getRelativeFilePath = (path: string) => {
+  return '.' + path.replace(process.cwd(), '');
 }

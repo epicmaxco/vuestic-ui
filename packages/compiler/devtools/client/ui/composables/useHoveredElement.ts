@@ -1,9 +1,9 @@
 import { onBeforeMount, onMounted, ref, watch } from "vue"
 import { PREFIX } from "../../../shared/CONST"
-import { useSelectedAppTreeItem } from "./useAppTree"
+import { useAppTree } from "./useAppTree"
 
 export const useHoveredElement = () => {
-  const { selectedAppTreeItem } = useSelectedAppTreeItem()
+  const { selectedAppTreeItem } = useAppTree()
 
   const hoveredElement = ref<HTMLElement | null>(null)
 

@@ -73,6 +73,7 @@ const getNodeTagLoc = (source: string) => {
 
 
 export const transformFile = async (code: string, id: string) => {
+  // TODO: remove old minified paths
   const result = parse(code)
   const templateAst = result.descriptor.template?.ast
 

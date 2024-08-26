@@ -20,3 +20,13 @@ export const getFileName = (q: string) => {
 export const getVSCodePath = (q: string) => {
   return fetch(`${API_URL}/vscode-path?q=${q}`)
 }
+
+export const deleteNodeSource = (q: string) => {
+  return fetch(`${API_URL}/node-source?q=${q}`, {
+    method: 'DELETE',
+  })
+}
+
+export const getFileRelativePath = (q: string) => {
+  return fetch(`${API_URL}/relative-file-path?q=${q}`)
+}

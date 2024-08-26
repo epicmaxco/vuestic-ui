@@ -1,7 +1,8 @@
-import { type Ref, computed, type VNode } from 'vue';
-import { HTMLRootNode, parseSource } from '../../../parser/parseSource';
+import { type Ref, computed, type VNode, type ComputedRef } from 'vue';
+import { HTMLContentNode, HTMLRootNode, parseSource } from '../../../parser/parseSource';
 import { useComponentMeta } from './useComponentMeta'
 import { printSource } from '../../../parser/printSource';
+import { ComponentSource } from './useComponentSource'
 
 const transformPropName = (name: string, type: 'attr' | 'bind' | 'v-model' | 'event') => {
   switch (type) {
@@ -27,7 +28,24 @@ const extractSlotName = (keys: string[]) => {
   }
 }
 
-export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | null>) => {
+/** Mutates attrs */
+const removeDuplicatedAttributes = (attrs: Record<string, string>) => {
+  Object
+    .keys(attrs)
+    .forEach((attributeName, i, keys) => {
+      const attributeNameNormalized = attributeName.replace(/^:|^v-model:|^v-bind:/, '')
+
+      if (attributeNameNormalized === attributeName) { return }
+
+      if (keys.includes(attributeNameNormalized)) {
+        delete attrs[attributeName]
+      }
+    })
+
+  return attrs
+}
+
+export const useComponentCode = (source: ComponentSource, vNode: Ref<VNode | null>) => {
   const ast = computed(() => {
     if (!source.value) return null
 
@@ -125,20 +143,20 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
       if (propMeta.default === value && value !== undefined) {
         newRoot.children.push({
           ...element,
-          attributes: newAttributes,
+          attributes: removeDuplicatedAttributes(newAttributes),
           parent: newRoot,
         })
 
-        return source.value = printSource(newRoot)
+        return printSource(newRoot)
       }
     }
 
     const child = {
       ...element,
-      attributes: {
+      attributes: removeDuplicatedAttributes({
         ...newAttributes,
         [transformPropName(name, type)]: value
-      },
+      }),
       parent: newRoot,
     }
 
@@ -148,7 +166,7 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
 
     newRoot.children.push(child)
 
-    source.value = printSource(newRoot)
+    return printSource(newRoot)
   }
 
   const updateSlot = (name: string, value: string) => {
@@ -161,8 +179,6 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
     }
 
     const element = ast.value.children[0]
-
-    console.log(element)
 
     const newRoot: HTMLRootNode = {
       type: 'root',
@@ -181,8 +197,7 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
         parent: newRoot,
       })
 
-      source.value = printSource(newRoot)
-      return
+      return printSource(newRoot)
     }
 
     const newChildren = element.children.map((child) => {
@@ -218,15 +233,61 @@ export const useComponentCode = (source: Ref<string | null>, vNode: Ref<VNode | 
       parent: newRoot,
     })
 
-    source.value = printSource(newRoot)
+    return printSource(newRoot)
   }
 
+  const appendChild = (code: string) => {
+    if (!ast.value) {
+      throw new Error('Unable to append child: no AST available')
+    }
+
+    if (ast.value.children.length !== 1) {
+      throw new Error('Unable to append child: multi-node')
+    }
+
+    const element = ast.value.children[0]
+
+    const newRoot: HTMLRootNode = {
+      type: 'root',
+      children: []
+    }
+
+    if (element.type === 'content') {
+      throw new Error('Unable to append child: content node can not have children')
+    }
+
+    const newChildren = [
+      ...element.children,
+      {
+        type: 'content',
+        text: code,
+        parent: element,
+      } satisfies HTMLContentNode
+    ]
+
+    newRoot.children.push({
+      ...element,
+      children: newChildren,
+      parent: newRoot,
+    })
+
+    return printSource(newRoot)
+  }
+
+  const isParsed = computed(() => {
+    return attributes.value !== null && slots.value !== null && !source.isLoading && source.value !== null
+  })
+
   return {
+    isParsed,
     meta,
-    ast,
+    // ast,
     attributes,
     slots,
     updateAttribute,
     updateSlot,
+    appendChild,
   }
 }
+
+export type ComponentCode = ReturnType<typeof useComponentCode>
