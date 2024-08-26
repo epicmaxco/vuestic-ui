@@ -2,6 +2,7 @@ import { createLogger, Plugin } from "vite"
 import { devtools, PluginOptions as DevtoolsPluginOptions } from "../devtools"
 import { cssLayers } from "../css-layers"
 import { vuesticConfig, Options as VuesticConfigPluginOptions } from "../vuestic-config"
+import { mergeDeep } from "../shared/merge-deep"
 
 type Options = {
   /** @default true */
@@ -40,7 +41,17 @@ const logger = createLogger('info', {
   prefix: '[vuestic:compiler]'
 })
 
+const defaultOptions: Required<Options> = {
+  devtools: false,
+  cssLayers: false,
+  config: {
+    configPath: 'vuestic.config.ts'
+  },
+}
+
 export const vuestic = (options: Options = {}): Plugin[] => {
+  options = mergeDeep(defaultOptions, options)
+
   const extractOptions = (key: keyof Options) => {
     // Build fails without as Record<string, string> cast
     return typeof options[key] === 'object' ? options[key] as Record<string, string> : undefined
@@ -55,7 +66,7 @@ export const vuestic = (options: Options = {}): Plugin[] => {
     plugins.push(devtools(extractOptions('devtools')))
   }
 
-  if (options.cssLayers === true) {
+  if (options.cssLayers !== false) {
     logger.info('Using vuestic:css-layers', {
       timestamp: true,
     })

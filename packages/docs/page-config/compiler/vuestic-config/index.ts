@@ -34,9 +34,7 @@ import { vuestic } from '@vuestic/compiler/vite'
 
 export default defineConfig({
   plugins: [
-    vuestic({
-      config: true,
-    }),
+    vuestic(),
     vue(),
   ],
 })
