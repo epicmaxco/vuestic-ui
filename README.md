@@ -66,6 +66,8 @@ Documentation, guides, examples and tutorials are available on [ui.vuestic.dev](
 
 <br />
 
+<a href="https://www.netlify.com"> <img src="https://www.netlify.com/v3/img/components/netlify-light.svg" alt="Deploys by Netlify" /> </a>
+
 Thanks to [BrowserStack](https://www.browserstack.com/) for providing the infrastructure that allows us to test using all possible browsers.
 
 Thanks to [Chromatic](https://www.chromatic.com/) for providing the visual testing platform that helps us review UI changes and prevent visual regressions.
@@ -107,7 +109,7 @@ Say hi: <a href="mailto:hello@epicmax.co">hello@epicmax.co</a>. We will be happy
 
 [Other work](https://epicmax.co) we’ve done 🤘
 
-[Meet the Team](https://vuestic.dev/team)
+[Meet the Team](https://ui.vuestic.dev/introduction/team)
 
 ### Premium Support and Consulting
 Get Premium Support & Consulting services through our official development partner, Epicmax. As the main contributor to Vuestic UI and Vuestic Admin, Epicmax brings a wealth of expertise and experience to help you achieve your project goals efficiently and effectively.
