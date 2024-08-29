@@ -73,7 +73,7 @@
         </div>
         <div class="mt-4">
           <a href="https://www.netlify.com">
-            <img src="https://www.netlify.com/v3/img/components/netlify-color-accent.svg" alt="Deploys by Netlify">
+            <img src="https://www.netlify.com/v3/img/components/netlify-light.svg" alt="Deploys by Netlify">
           </a>
         </div>
       </div>
