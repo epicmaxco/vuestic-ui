@@ -28,3 +28,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Local Netlify folder
+.netlify
