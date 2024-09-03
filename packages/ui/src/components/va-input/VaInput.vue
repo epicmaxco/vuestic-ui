@@ -110,6 +110,7 @@ const props = defineProps({
   pattern: { type: String },
   inputmode: { type: String, default: 'text' },
   counter: { type: Boolean, default: false },
+  autocomplete: { type: String },
 
     // style
   ariaResetLabel: useTranslationProp('$t:reset'),
@@ -227,7 +228,7 @@ const computedChildAttributes = computed(() => (({
 
 const computedInputAttributes = computed(() => (({
   ...computedChildAttributes.value,
-  ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'name']),
+  ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'name', 'autocomplete']),
   ...pick(attrs, ['minlength', 'minlength']),
 }) as InputHTMLAttributes))
 
