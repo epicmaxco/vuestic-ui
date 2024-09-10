@@ -103,16 +103,13 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
   }
 
   const toggleNode = (node: TreeNode): void => {
-    if (node.hasChildren) {
-      updateModel(expandedList, [getValue(node)], !node.expanded)
-    }
+    node.expanded = !node.expanded
   }
 
   const createNode: CreateNodeFunc = ({ node, level, children = [], computedFilterMethod }) => {
     const valueBy = getValue(node)
     let matchesFilter = true
     const hasChildren = !!children.length
-    const disabled = getDisabled(node) || false
     let indeterminate = false
     let checked: boolean | null = checkedList.value.includes(valueBy) || false
 
@@ -134,8 +131,21 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
       level,
       checked,
       children,
-      disabled,
-      expanded: expandedList.value.includes(valueBy) || false,
+      get disabled () {
+        return getDisabled(node) || false
+      },
+      get expanded () {
+        const expandKey = (props.expandedBy as string)
+
+        return expandKey in node ? node[expandKey] : expandedList.value.includes(valueBy) || false
+      },
+      set expanded (value: boolean) {
+        const expandKey = (props.expandedBy as string)
+        node[expandKey] = value
+        if (hasChildren) {
+          updateModel(expandedList, [getValue(node)], value)
+        }
+      },
       hasChildren,
       matchesFilter,
       indeterminate,
