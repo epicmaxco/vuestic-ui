@@ -107,13 +107,23 @@ const durationComputed = useNumericProp('duration') as ComputedRef<number>
 
 const visible = ref(false)
 
-const positionX = computed(() => {
-  return props.position.includes('right') ? 'right' : 'left'
-})
+const getPositionStyle = () => {
+  const vertical = props.position.includes('top') ? 'top' : 'bottom'
+  const horizontal = props.position.includes('center') ? 'center' : props.position.includes('right') ? 'right' : 'left'
 
-const positionY = computed(() => {
-  return props.position.includes('top') ? 'top' : 'bottom'
-})
+  if (horizontal === 'center') {
+    return {
+      [vertical]: `${offsetYComputed.value}px`,
+      left: '50%',
+      transform: 'translateX(-50%)',
+    }
+  }
+
+  return {
+    [vertical]: `${offsetYComputed.value}px`,
+    [horizontal]: `${offsetXComputed.value}px`,
+  }
+}
 
 const toastClasses = computed(() => [
   props.customClass,
@@ -122,8 +132,7 @@ const toastClasses = computed(() => [
 ])
 
 const toastStyles = computed(() => ({
-  [positionY.value]: `${offsetYComputed.value}px`,
-  [positionX.value]: `${offsetXComputed.value}px`,
+  ...getPositionStyle(),
   backgroundColor: getColor(props.color),
   color: textColorComputed.value,
 }))

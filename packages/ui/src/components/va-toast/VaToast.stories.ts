@@ -3,6 +3,7 @@ import VaToastDemo from './VaToast.demo.vue'
 import VaToast from './VaToast.vue'
 import { StoryFn } from '@storybook/vue3'
 import { expect } from '@storybook/jest'
+import { useToast } from './index'
 
 export default {
   title: 'VaToast',
@@ -29,4 +30,32 @@ export const Color: StoryFn = () => ({
 [danger]
 <VaToast inline color="danger" title="Title" message="Message" :duration="99999999" />
 `,
+})
+
+export const PositionTopenter: StoryFn = () => ({
+  components: { VaToast: VaToast },
+
+  setup () {
+    const { notify } = useToast()
+
+    return {
+      notify,
+    }
+  },
+
+  template: '<button @click="notify({ message: \'Test\', position: \'top-center\' })">Show</button>',
+})
+
+export const PositionBottomCenter: StoryFn = () => ({
+  components: { VaToast: VaToast },
+
+  setup () {
+    const { notify } = useToast()
+
+    return {
+      notify,
+    }
+  },
+
+  template: '<button @click="notify({ message: \'Test\', position: \'bottom-center\' })">Show</button>',
 })
