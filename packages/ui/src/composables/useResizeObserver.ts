@@ -4,21 +4,35 @@ type MaybeRef<T> = T | Ref<T>
 type MaybeArray<T> = T | T[]
 
 const normalizeElements = <T>(elements: MaybeRef<T>[] | Ref<MaybeArray<T>>) => {
-  return Array.isArray(elements)
-    ? elements
-    : Array.isArray(elements.value)
-      ? elements.value
-      : [unref(elements)] as T[]
+  if (Array.isArray(elements)) {
+    return elements.map(unref)
+  }
+
+  const unrefArray = unref(elements)
+
+  return Array.isArray(unrefArray) ? unrefArray : [unrefArray]
 }
 
 export const useResizeObserver = <T extends HTMLElement | undefined>(elementsList: MaybeRef<T>[] | Ref<MaybeArray<T>>, cb: ResizeObserverCallback) => {
   let resizeObserver: ResizeObserver | undefined
 
-  const observeAll = (elementsList: MaybeRef<T>[]) => {
-    elementsList.forEach((element: MaybeRef<T>) => {
-      const unrefedElement = unref(element)
+  const observeAll = (elements: MaybeRef<T>[]) => {
+    elements.forEach((element: MaybeRef<T>) => {
+      const unrefElement = unref(element)
 
-      unrefedElement && resizeObserver?.observe(unrefedElement)
+      if (!unrefElement) {
+        return
+      }
+
+      if (!(unrefElement instanceof Element)) {
+        console.error('Vuestic: Trying to observe non-HTMLElement', {
+          target: unrefElement,
+          array: elementsList,
+        })
+        throw new Error('Vuestic: Unable to observe non-HTMLElement')
+      }
+
+      unrefElement && resizeObserver?.observe(unrefElement)
     })
   }
 
