@@ -6,7 +6,7 @@ export const useStringValueProps = {
   separator: { type: String, default: ', ' },
 }
 
-type UseStringValueProps = ExtractPropTypes<typeof useStringValueProps> & { clearValue: string }
+type UseStringValueProps = ExtractPropTypes<typeof useStringValueProps>
 
 export const useStringValue = (
   props: UseStringValueProps,
@@ -15,9 +15,9 @@ export const useStringValue = (
 ) => {
   return computed<string>(() => {
     if (!visibleSelectedOptions.value?.length) {
-      return props.clearValue
+      return ''
     }
 
-    return visibleSelectedOptions.value.map(getText).join(props.separator) || props.clearValue
+    return visibleSelectedOptions.value.map(getText).join(props.separator) ?? ''
   })
 }

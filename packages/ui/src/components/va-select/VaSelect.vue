@@ -235,6 +235,9 @@ const props = defineProps({
   ariaClearLabel: useTranslationProp('$t:reset'),
 
   search: { type: String, default: undefined },
+
+  // useClearableProps override
+  clearValue: { type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>, default: '' },
 })
 
 const emit = defineEmits([
