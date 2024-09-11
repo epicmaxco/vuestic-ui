@@ -71,9 +71,10 @@ const closeNotification = (targetInstance: VNode | null, destroyElementFn: () =>
       const { offsetX, offsetY, position } = getNodeProps(instance)
       const isNextInstance = index > targetInstanceIndex && targetOffsetX === offsetX && targetOffsetY === offsetY && targetPosition === position
       if (isNextInstance && instance.el && redundantHeight) {
-        const [_, transformY] = instance.el.style.transform.match(/[\d-]+(?=px)/g)
+        const [_, transformY] = instance.el.style.transform.match(/[\d-]+(?=px|%)/g)
         const transformYNew = getNewTranslateValue(transformY, redundantHeight, position)
-        instance.el.style.transform = `translate(0, ${transformYNew}px)`
+        const transformX = position.includes('center') ? '-50%' : '0'
+        instance.el.style.transform = `translate(${transformX}, ${transformYNew}px)`
       }
     }
     return [...acc, instance]
@@ -112,7 +113,7 @@ const mount = (component: any, {
     }
   }
 
-  vNode = createVNode(component, { ...props, onClose }, children)
+  vNode = createVNode(component, { ...props, onClose, ...(props?.position?.includes('center') && { class: 'center' }) }, children)
 
   if (appContext) {
     vNode.appContext = appContext
@@ -180,7 +181,8 @@ export const createToastInstance = (customProps: ToastOptions | string, appConte
     }).forEach((item) => {
       transformY += getTranslateValue(item, position)
     })
-    vNode.el.style.transform = `translate(0, ${transformY}px)`
+    const transformX = position.includes('center') ? '-50%' : '0'
+    vNode.el.style.transform = `translate(${transformX}, ${transformY}px)`
 
     seed += 1
 

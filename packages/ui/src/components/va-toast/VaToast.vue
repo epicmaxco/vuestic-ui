@@ -86,7 +86,7 @@ const props = defineProps({
   position: {
     type: String as PropType<ToastPosition>,
     default: 'top-right',
-    validator: (value: string) => ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value),
+    validator: (value: string) => ['top-right', 'top-center', 'top-left', 'bottom-right', 'bottom-center', 'bottom-left'].includes(value),
   },
   render: { type: Function },
   ariaCloseLabel: useTranslationProp('$t:close'),
@@ -123,7 +123,7 @@ const toastClasses = computed(() => [
 
 const toastStyles = computed(() => ({
   [positionY.value]: `${offsetYComputed.value}px`,
-  [positionX.value]: `${offsetXComputed.value}px`,
+  [positionX.value]: `calc(${props.position.includes('center') ? '50%' : '0px'} + ${offsetXComputed.value}px)`,
   backgroundColor: getColor(props.color),
   color: textColorComputed.value,
 }))
@@ -257,6 +257,11 @@ onMounted(() => {
     &:hover {
       opacity: 1;
     }
+  }
+
+  &.center {
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
