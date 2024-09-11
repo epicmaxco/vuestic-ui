@@ -5,6 +5,8 @@ export type ToastPosition =
   | 'top-left'
   | 'bottom-right'
   | 'bottom-left'
+  | 'top-center'
+  | 'bottom-center'
 
 export interface ToastOptions {
   /** Title */
