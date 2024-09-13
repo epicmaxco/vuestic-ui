@@ -5,6 +5,7 @@ import { VaInput } from '../va-input'
 import { VaCheckbox } from '../va-checkbox'
 import { StoryFn } from '@storybook/vue3'
 import { TreeViewFilterMethod } from './types'
+import { ref, watch } from 'vue'
 
 export default {
   title: 'VaTreeView',
@@ -385,10 +386,18 @@ const nodesExpandedBy = () => [
           { id: 4, label: 'Item' },
         ],
       },
-      { id: 5, label: 'Item' },
+      {
+        id: 4,
+        label: 'Subcategory',
+        shouldExpand: true,
+        children: [
+          { id: 5, label: 'Item' },
+        ],
+      },
+      { id: 6, label: 'Item' },
     ],
   },
-  { id: 6, shouldExpand: true, label: 'Item' },
+  { id: 7, shouldExpand: true, label: 'Item' },
 ]
 
 export const ExpandedBy = () => ({
@@ -416,6 +425,68 @@ export const Expandable = () => ({
     <p>Expanded v-model: {{ expandedNodes }}</p>
     <va-tree-view v-model:expanded="expandedNodes" :nodes="nodes" />
     <va-tree-view :modelValue:expanded="expandedNodes" :nodes="nodes" />
+  `,
+})
+
+function findNode (nodes: any[], id: number): any {
+  for (const node of nodes) {
+    if (node.id === id) {
+      return node
+    }
+    if (node.children) {
+      const found = findNode(node.children, id)
+      if (found) {
+        return found
+      }
+    }
+  }
+}
+
+export const DynamicExpandable = () => ({
+  components: { VaTreeView },
+
+  setup () {
+    const nodes = ref([
+      { id: 1, label: 'Category', children: [{ id: -1, loading: true }] },
+    ])
+
+    const expanded = ref([])
+
+    watch(expanded, (nodeIds) => {
+      const expandedNodes = nodeIds.map((id) => findNode(nodes.value, id))
+
+      expandedNodes.forEach((node) => {
+      // Prevent from loading items that already loaded
+        if (node.children && node.children.length === 1 && node.children[0].loading) {
+          node.children = [
+            { id: 2, label: 'Item' },
+            {
+              id: 3,
+              label: 'Item',
+              expanded: true,
+              children: [
+                { id: 4, label: 'Item' },
+              ],
+            },
+          ]
+        }
+      })
+    })
+
+    return {
+      nodes,
+      expanded,
+    }
+  },
+
+  template: `
+    <va-tree-view :nodes="nodes" v-model:expanded="expanded" />
+
+    {{ expanded }}
+
+    ---
+
+    {{ nodes }}
   `,
 })
 
