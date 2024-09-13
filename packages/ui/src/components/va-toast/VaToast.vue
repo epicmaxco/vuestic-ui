@@ -47,6 +47,7 @@ import { PropType, ref, computed, onMounted, shallowRef, defineComponent, Comput
 import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslation, useTranslationProp, useNumericProp } from '../../composables'
 
 import { ToastPosition } from './types'
+import { useToastService } from './hooks/useToastService'
 
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
 </script>
@@ -107,20 +108,22 @@ const durationComputed = useNumericProp('duration') as ComputedRef<number>
 
 const visible = ref(false)
 
+const yOffset = useToastService(props)
+
 const getPositionStyle = () => {
   const vertical = props.position.includes('top') ? 'top' : 'bottom'
   const horizontal = props.position.includes('center') ? 'center' : props.position.includes('right') ? 'right' : 'left'
 
   if (horizontal === 'center') {
     return {
-      [vertical]: `${offsetYComputed.value}px`,
+      [vertical]: `${offsetYComputed.value + yOffset.value}px`,
       left: '50%',
       transform: 'translateX(-50%)',
     }
   }
 
   return {
-    [vertical]: `${offsetYComputed.value}px`,
+    [vertical]: `${offsetYComputed.value + yOffset.value}px`,
     [horizontal]: `${offsetXComputed.value}px`,
   }
 }
@@ -214,14 +217,6 @@ onMounted(() => {
 
   &--multiline {
     min-height: 70px;
-  }
-
-  &--right {
-    right: 16px;
-  }
-
-  &--left {
-    left: 16px;
   }
 
   &__group {
