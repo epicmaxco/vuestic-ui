@@ -219,11 +219,6 @@ onMounted(() => {
     min-height: 70px;
   }
 
-  &__group {
-    margin-left: var(--va-toast-group-margin-left);
-    margin-right: var(--va-toast-group-margin-right);
-  }
-
   &__title {
     font-weight: var(--va-toast-title-font-weight);
     font-size: var(--va-toast-title-font-size);
