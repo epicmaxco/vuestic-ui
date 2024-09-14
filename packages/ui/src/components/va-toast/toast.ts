@@ -81,7 +81,7 @@ const mount = (component: any, {
     }
   }
 
-  vNode = createVNode(component, { ...props, onClose, ...(props?.position?.includes('center') && { class: 'center' }) }, children)
+  vNode = createVNode(component, { ...props, onClose }, children)
 
   if (appContext) {
     vNode.appContext = appContext

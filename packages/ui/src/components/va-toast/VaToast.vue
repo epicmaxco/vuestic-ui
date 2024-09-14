@@ -257,11 +257,6 @@ onMounted(() => {
       opacity: 1;
     }
   }
-
-  &.center {
-    left: 50%;
-    transform: translateX(-50%);
-  }
 }
 
 .va-toast-fade-enter {
