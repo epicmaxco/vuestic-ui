@@ -52,5 +52,10 @@ export const useToastService = (props: {
     toastInstances.value = toastInstances.value.filter((item) => item !== currentInstance.vnode)
   })
 
-  return yOffset
+  return {
+    yOffset,
+    updateYOffset: () => {
+      toastInstances.value = toastInstances.value.filter((item) => item !== currentInstance.vnode)
+    },
+  }
 }

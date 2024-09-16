@@ -32,7 +32,35 @@ export const Color: StoryFn = () => ({
 `,
 })
 
-export const PositionTopenter: StoryFn = () => ({
+export const PositionBottomLeft: StoryFn = () => ({
+  components: { VaToast: VaToast },
+
+  setup () {
+    const { notify } = useToast()
+
+    return {
+      notify,
+    }
+  },
+
+  template: '<button @click="notify({ message: \'Test\', position: \'bottom-left\' })">Show</button>',
+})
+
+export const PositionTopLeft: StoryFn = () => ({
+  components: { VaToast: VaToast },
+
+  setup () {
+    const { notify } = useToast()
+
+    return {
+      notify,
+    }
+  },
+
+  template: '<button @click="notify({ message: \'Test\', position: \'top-left\' })">Show</button>',
+})
+
+export const PositionTopCenter: StoryFn = () => ({
   components: { VaToast: VaToast },
 
   setup () {

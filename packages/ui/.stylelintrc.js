@@ -11,6 +11,7 @@ module.exports = {
     'value-list-max-empty-lines': 1,
     'function-calc-no-unspaced-operator': null,
     'value-keyword-case': null,
+    'length-zero-no-unit': null,
     'selector-pseudo-class-no-unknown': [
       true,
       {
