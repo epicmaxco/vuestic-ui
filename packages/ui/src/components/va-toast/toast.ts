@@ -8,7 +8,6 @@ import { withConfigTransport } from '../../services/config-transport'
 
 export const VaToast = withConfigTransport(_VaToast)
 
-const GAP = 5
 let seed = 1
 
 declare global {
@@ -22,19 +21,6 @@ getGlobal().vaToastInstances = []
 type OptionKeys = keyof ToastOptions;
 
 export type VaToastId = string
-
-const getTranslateValue = (item: VNode, position: string) => {
-  if (item.el) {
-    const direction = position.includes('bottom') ? -1 : 1
-    return (item.el.offsetHeight + GAP) * direction
-  }
-  return 0
-}
-
-const getNewTranslateValue = (transformY: string, redundantHeight: number, position: string) => {
-  const direction = position.includes('bottom') ? -1 : 1
-  return parseInt(transformY, 10) - (redundantHeight + GAP) * direction
-}
 
 const getNodeProps = (vNode: VNode): Record<OptionKeys, any> => {
   return (vNode.component?.props as Record<OptionKeys, any>) || {}
@@ -52,30 +38,13 @@ const closeNotification = (targetInstance: VNode | null, destroyElementFn: () =>
 
   if (targetInstanceIndex < 0) { return }
 
-  const nodeProps = getNodeProps(targetInstance)
-
-  const {
-    offsetX: targetOffsetX,
-    offsetY: targetOffsetY,
-    position: targetPosition,
-  } = nodeProps
-  const redundantHeight: number | null = targetInstance.el?.offsetHeight
-
   destroyElementFn()
 
   getGlobal().vaToastInstances = getGlobal().vaToastInstances.reduce((acc: any[], instance, index) => {
     if (instance === targetInstance) {
       return acc
     }
-    if (instance.component) {
-      const { offsetX, offsetY, position } = getNodeProps(instance)
-      const isNextInstance = index > targetInstanceIndex && targetOffsetX === offsetX && targetOffsetY === offsetY && targetPosition === position
-      if (isNextInstance && instance.el && redundantHeight) {
-        const [_, transformY] = instance.el.style.transform.match(/[\d-]+(?=px)/g)
-        const transformYNew = getNewTranslateValue(transformY, redundantHeight, position)
-        instance.el.style.transform = `translate(0, ${transformYNew}px)`
-      }
-    }
+
     return [...acc, instance]
   }, [])
 
@@ -163,24 +132,8 @@ export const createToastInstance = (customProps: ToastOptions | string, appConte
 
   if (el && vNode.el && nodeProps) {
     document.body.appendChild(el.childNodes[0])
-    const { offsetX, offsetY, position } = nodeProps
 
-    vNode.el.style.display = 'flex'
     vNode.el.id = 'notification_' + seed
-
-    let transformY = 0
-    getGlobal().vaToastInstances.filter(item => {
-      const {
-        offsetX: itemOffsetX,
-        offsetY: itemOffsetY,
-        position: itemPosition,
-      } = getNodeProps(item)
-
-      return itemOffsetX === offsetX && itemOffsetY === offsetY && position === itemPosition
-    }).forEach((item) => {
-      transformY += getTranslateValue(item, position)
-    })
-    vNode.el.style.transform = `translate(0, ${transformY}px)`
 
     seed += 1
 
