@@ -1,5 +1,6 @@
 import { useUserAnswers } from '../composables/useUserAnswers';
 import { execp } from './../utils/exacp';
+import { resolvePath } from "../utils/resolve-path"
 
 export const initGit = async () => {
   const { runGitInit, projectName } = await useUserAnswers()
@@ -7,6 +8,6 @@ export const initGit = async () => {
   if (!runGitInit) { return }
 
   return execp('git init', {
-    cwd: `${process.cwd()}/${projectName}`,
+    cwd: resolvePath(process.cwd(), projectName)!,
   })
 }
