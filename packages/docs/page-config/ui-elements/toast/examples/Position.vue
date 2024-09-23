@@ -7,6 +7,12 @@
   </VaButton>
   <VaButton
     class="mr-2 mb-2"
+    @click="$vaToast.init({ message: 'Top-center', position: 'top-center' })"
+  >
+    top-center
+  </VaButton>
+  <VaButton
+    class="mr-2 mb-2"
     @click="$vaToast.init({ message: 'Top-left', position: 'top-left' })"
   >
     top-left
@@ -18,6 +24,14 @@
     "
   >
     bottom-right
+  </VaButton>
+  <VaButton
+    class="mr-2 mb-2"
+    @click="
+      $vaToast.init({ message: 'Bottom-center', position: 'bottom-center' })
+    "
+  >
+    bottom-center
   </VaButton>
   <VaButton
     class="mr-2 mb-2"

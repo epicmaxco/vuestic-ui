@@ -2,11 +2,11 @@ import { VNode } from 'vue'
 
 export type ToastPosition =
   'top-right'
+  | 'top-center'
   | 'top-left'
   | 'bottom-right'
-  | 'bottom-left'
-  | 'top-center'
   | 'bottom-center'
+  | 'bottom-left'
 
 export interface ToastOptions {
   /** Title */

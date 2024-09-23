@@ -1,5 +1,5 @@
 <template>
-  <transition name="va-toast-fade">
+  <Transition name="va-toast-fade" @after-leave="onHidden">
     <div
       v-show="visible"
       ref="rootElement"
@@ -38,7 +38,7 @@
         />
       </div>
     </div>
-  </transition>
+  </Transition>
 </template>
 
 <script lang="ts">
@@ -47,6 +47,7 @@ import { PropType, ref, computed, onMounted, shallowRef, defineComponent, Comput
 import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslation, useTranslationProp, useNumericProp } from '../../composables'
 
 import { ToastPosition } from './types'
+import { useToastService } from './hooks/useToastService'
 
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
 </script>
@@ -78,7 +79,7 @@ const props = defineProps({
   icon: { type: String, default: 'close' },
   customClass: { type: String, default: '' },
   duration: { type: [Number, String], default: 5000 },
-  color: { type: String, default: '' },
+  color: { type: String, default: 'primary' },
   closeable: { type: Boolean, default: true },
   onClose: { type: Function },
   onClick: { type: Function },
@@ -86,7 +87,7 @@ const props = defineProps({
   position: {
     type: String as PropType<ToastPosition>,
     default: 'top-right',
-    validator: (value: string) => ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value),
+    validator: (value: string) => ['top-right', 'top-center', 'top-left', 'bottom-right', 'bottom-center', 'bottom-left'].includes(value),
   },
   render: { type: Function },
   ariaCloseLabel: useTranslationProp('$t:close'),
@@ -107,20 +108,30 @@ const durationComputed = useNumericProp('duration') as ComputedRef<number>
 
 const visible = ref(false)
 
+const {
+  yOffset,
+  updateYOffset,
+} = useToastService(props)
+
+const positionObject = computed(() => ({
+  vertical: props.position.includes('top') ? 'top' : 'bottom',
+  horizontal: props.position.includes('center') ? 'center' : props.position.includes('right') ? 'right' : 'left',
+}))
+
 const getPositionStyle = () => {
-  const vertical = props.position.includes('top') ? 'top' : 'bottom'
-  const horizontal = props.position.includes('center') ? 'center' : props.position.includes('right') ? 'right' : 'left'
+  const vertical = positionObject.value.vertical
+  const horizontal = positionObject.value.horizontal
 
   if (horizontal === 'center') {
     return {
-      [vertical]: `${offsetYComputed.value}px`,
+      [vertical]: `${offsetYComputed.value + yOffset.value}px`,
       left: '50%',
-      transform: 'translateX(-50%)',
+      '--va-toast-x-shift': '-50%',
     }
   }
 
   return {
-    [vertical]: `${offsetYComputed.value}px`,
+    [vertical]: `${offsetYComputed.value + yOffset.value}px`,
     [horizontal]: `${offsetXComputed.value}px`,
   }
 }
@@ -129,6 +140,7 @@ const toastClasses = computed(() => [
   props.customClass,
   props.multiLine ? 'va-toast--multiline' : '',
   props.inline ? 'va-toast--inline' : '',
+  [`va-toast--${props.position}`],
 ])
 
 const toastStyles = computed(() => ({
@@ -163,14 +175,16 @@ const onToastClick = () => {
 
 const onToastClose = () => {
   visible.value = false
+  updateYOffset()
+}
 
-  rootElement.value?.addEventListener('transitionend', destroyElement)
-
+const onHidden = () => {
   if (typeof props.onClose === 'function') {
     props.onClose()
   } else {
     emit('on-close')
   }
+  destroyElement()
 }
 
 const timer = useTimer()
@@ -193,6 +207,10 @@ onMounted(() => {
 @import "variables";
 
 .va-toast {
+  --va-toast-x-shift: 0px;
+  --va-toast-animation-x-shift: 0px;
+  --va-toast-animation-y-shift: 100%;
+
   position: fixed;
   box-sizing: border-box;
   width: var(--va-toast-width);
@@ -207,6 +225,23 @@ onMounted(() => {
   overflow: hidden;
   z-index: var(--va-toast-z-index);
   font-family: var(--va-font-family);
+  transform: translateX(var(--va-toast-x-shift));
+
+  &--top-right,
+  &--bottom-right {
+    --va-toast-animation-x-shift: 100%;
+  }
+
+  &--top-left,
+  &--bottom-left {
+    --va-toast-animation-x-shift: -100%;
+  }
+
+  &--top-left,
+  &--top-center,
+  &--top-right {
+    --va-toast-animation-y-shift: -100%;
+  }
 
   &--inline {
     position: static;
@@ -214,19 +249,6 @@ onMounted(() => {
 
   &--multiline {
     min-height: 70px;
-  }
-
-  &--right {
-    right: 16px;
-  }
-
-  &--left {
-    left: 16px;
-  }
-
-  &__group {
-    margin-left: var(--va-toast-group-margin-left);
-    margin-right: var(--va-toast-group-margin-right);
   }
 
   &__title {
@@ -269,19 +291,14 @@ onMounted(() => {
   }
 }
 
-.va-toast-fade-enter {
-  &.right {
-    right: 0;
-    transform: translateX(100%);
+.va-toast-fade {
+  &-enter-from {
+    transform: translateX(calc(var(--va-toast-animation-x-shift) + var(--va-toast-x-shift)));
   }
 
-  &.left {
-    left: 0;
-    transform: translateX(-100%);
+  &-leave-to {
+    transform: translateY(var(--va-toast-animation-y-shift));
+    opacity: 0;
   }
-}
-
-.va-toast-fade-leave-active {
-  opacity: 0;
 }
 </style>

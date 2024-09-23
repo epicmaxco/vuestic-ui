@@ -2,7 +2,7 @@
 :host {
   --va-toast-display: flex;
   --va-toast-width: 330px;
-  --va-toast-padding: 14px 26px 14px 13px;
+  --va-toast-padding: 14px 1.25rem 14px 1.25rem;
   --va-toast-border-radius: 8px;
   --va-toast-border-color: transparent;
   --va-toast-border: 1px solid var(--va-toast-border-color);
@@ -10,10 +10,6 @@
   --va-toast-box-shadow: 0 2px 12px 0 var(--va-shadow);
   --va-toast-transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
   --va-toast-z-index: calc(var(--va-z-index-teleport-overlay) + 100);
-
-  /* Group */
-  --va-toast-group-margin-left: 13px;
-  --va-toast-group-margin-right: 8px;
 
   /* Title */
   --va-toast-title-font-weight: bold;

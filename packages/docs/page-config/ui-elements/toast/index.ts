@@ -79,7 +79,7 @@ export default definePageConfig({
     }),
     block.example("Position", {
       title: "Position",
-      description: "Use `position` property to set the custom position of the toast. Available are `top-right`, `top-left`, `bottom-right`, `bottom-left`."
+      description: "Use `position` property to set the custom position of the toast. Available are `top-right`, `top-center`, `top-left`, `bottom-right`,  `bottom-center`, `bottom-left`."
     }),
     block.example("Close", {
       title: "Close",
