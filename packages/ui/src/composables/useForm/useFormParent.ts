@@ -17,7 +17,7 @@ export const useFormParent = <Names extends string = string>(options: FormParent
     return acc
   }, {} as Record<Names, UnwrapRef<FormFiled>>))
   const formData = computed(() => fields.value.reduce((acc, field) => {
-    if (unref(field.name)) { acc[unref(field.name) as Names] = field.value }
+    if (unref(field.name)) { acc[unref(field.name) as Names] = unref(field.value) }
     return acc
   }, {} as Record<Names, UnwrapRef<FormFiled['value']>>))
   const isValid = computed(() => fields.value.every((field) => unref(field.isValid)))
