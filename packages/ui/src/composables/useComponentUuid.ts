@@ -1,6 +1,7 @@
 import { getCurrentInstance, onBeforeMount } from 'vue'
 import { useAppGlobal } from './useAppGlobal'
 
+// TODO: Replace with `useId` from Vue
 export const useComponentUuid = () => {
   const vm = getCurrentInstance()! as any
 

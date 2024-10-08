@@ -1,9 +1,10 @@
-import { WritableComputedRef, computed, getCurrentInstance, reactive } from 'vue'
+import { WritableComputedRef, computed, reactive } from 'vue'
+import { useAppContext } from './useAppContext'
 
 const getGlobalObject = () => {
-  const vm = getCurrentInstance()
+  const appContext = useAppContext()
 
-  const app = vm?.appContext.app
+  const app = appContext.value!.app
 
   const { globalProperties } = app!.config
 

@@ -9,6 +9,7 @@ const unrefElement = <T extends Maybe<HTMLElement>>(el: Ref<MaybeElement<T>>): T
   return unwrapEl(e) as T
 }
 
+// TODO: Replace useCurrentElement
 export const useElementRef = <T extends Maybe<HTMLElement>>() => {
   const el = shallowRef<MaybeElement<T>>()
 

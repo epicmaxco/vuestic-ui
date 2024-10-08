@@ -2,7 +2,6 @@ import type { ColorVariables, CssColor } from '../services/color'
 import { capitalize, computed } from 'vue'
 import { useGlobalConfig } from '../services/global-config/global-config'
 import { warn } from '../utils/console'
-import { useCache } from './useCache'
 import { useReactiveComputed } from './useReactiveComputed'
 import {
   getBoxShadowColor,
@@ -22,6 +21,7 @@ import {
   type ColorInput,
 } from '../services/color/utils'
 import { camelCaseToKebabCase } from '../utils/text-case'
+import { useAppGlobal } from './useAppGlobal'
 
 /**
  * You can add these props to any component by destructuring them inside props option.
@@ -131,18 +131,18 @@ export const useColors = () => {
       }, {})
   }
 
-  const cache = useCache()
+  const colorContrastCache = useAppGlobal('colorContrastCache', new Map<string, number>())
 
   const getColorLightnessFromCache = (color: ColorInput) => {
     if (typeof color !== 'string') {
       return getColorLightness(color)
     }
 
-    if (!cache.colorContrast[color]) {
-      cache.colorContrast[color] = getColorLightness(color)
+    if (!colorContrastCache.value.has(color)) {
+      colorContrastCache.value.set(color, getColorLightness(color))
     }
 
-    return cache.colorContrast[color]
+    return colorContrastCache.value.get(color)!
   }
 
   const computedDarkColor = computed(() => {
