@@ -1,6 +1,5 @@
 import { Ref, reactive } from 'vue'
-import { useEvent } from './useEvent'
-import { useWindow } from './useWindow'
+import { useEvent, useWindow } from './'
 
 export const useMousePosition = (el?: Ref<GlobalEventHandlers | undefined | null>) => {
   if (!el) {

@@ -1,6 +1,5 @@
 import { Ref, ShallowRef, unref } from 'vue'
 import { useEvent } from './useEvent'
-import { MaybeElement, useHTMLElement } from '.'
 
 type MaybeRef<T> = Ref<T> | T
 
@@ -30,9 +29,7 @@ export function useLongPress (el: ShallowRef<HTMLElement | undefined>, options: 
     options.onEnd?.()
   }
 
-  const htmlElement = useHTMLElement(el)
-
-  useEvent(['mousedown', 'touchstart', 'dragstart'], handleMouseDown, htmlElement)
+  useEvent(['mousedown', 'touchstart', 'dragstart'], handleMouseDown, el)
   useEvent([
     'mouseup', 'mouseleave',
     'touchend', 'touchcancel',

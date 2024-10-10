@@ -1,6 +1,5 @@
 import { Ref, watchEffect, onBeforeUnmount } from 'vue'
-import { useDocument } from '../../../composables'
-import { useComponentUuid } from '../../../composables/useComponentUuid'
+import { useDocument, useComponentUuid } from '../../../composables'
 
 const openedModals: string[] = []
 

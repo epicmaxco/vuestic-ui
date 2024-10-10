@@ -1,5 +1,5 @@
 import { computed, shallowReactive } from 'vue'
-import { useComponentUuid } from './useComponentUuid'
+import { useComponentUuid } from '../../../composables/std'
 
 export type ModalInStack = {
   id: string;

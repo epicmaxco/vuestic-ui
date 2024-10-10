@@ -1,7 +1,7 @@
 import { computed, Ref, DefineComponent, Component } from 'vue'
 import { useHTMLElement } from './useHTMLElement'
-import { useCurrentElement } from './useCurrentElement'
-import { useFocusedElement } from './useFocusedElement'
+import { useCurrentElement } from './std'
+import { useFocusedElement } from './std/browser/useFocusedElement'
 
 /**
  * `true` if `el` or any of his children are in focus

@@ -21,7 +21,7 @@ import {
   type ColorInput,
 } from '../services/color/utils'
 import { camelCaseToKebabCase } from '../utils/text-case'
-import { useAppGlobal } from './useAppGlobal'
+import { useAppGlobal } from './std'
 
 /**
  * You can add these props to any component by destructuring them inside props option.

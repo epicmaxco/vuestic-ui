@@ -180,11 +180,11 @@ import {
   useTranslation,
   useTranslationProp,
   useNumericProp,
+  useComponentUuid,
 } from '../../composables'
 import { validateSlider } from './validateSlider'
 
 import { VaIcon } from '../va-icon'
-import { useComponentUuid } from '../../composables/useComponentUuid'
 import { pick } from '../../utils/pick'
 
 defineOptions({

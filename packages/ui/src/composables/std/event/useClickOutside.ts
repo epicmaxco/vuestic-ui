@@ -1,8 +1,8 @@
 import { Ref, unref } from 'vue'
 
-import { useCaptureEvent } from './useCaptureEvent'
-import { findTeleportedFrom } from './useTeleported'
-import { unwrapEl } from '../utils/unwrapEl'
+import { useEvent } from './useEvent'
+import { findTeleportedFrom } from '../internal/useTeleported'
+import { unwrapEl } from '../../../utils/unwrapEl'
 
 const checkIfElementChild = (parent: HTMLElement, child: HTMLElement | null | undefined): boolean => {
   if (!child) { return false }
@@ -17,7 +17,7 @@ type MaybeArray<T> = T | T[]
 const safeArray = <T>(a: MaybeArray<T>) => Array.isArray(a) ? a : [a]
 
 export const useClickOutside = (elements: MaybeArray<MaybeRef<HTMLElement | undefined>>, cb: (el: HTMLElement) => void) => {
-  useCaptureEvent('mousedown', (event: MouseEvent) => {
+  useEvent('mousedown', (event: MouseEvent) => {
     const clickTarget = event.target as HTMLElement
 
     if ((event.target as HTMLElement).shadowRoot) {
@@ -38,5 +38,5 @@ export const useClickOutside = (elements: MaybeArray<MaybeRef<HTMLElement | unde
     })
 
     if (!isClickInside) { cb(clickTarget) }
-  })
+  }, true)
 }

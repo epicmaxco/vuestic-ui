@@ -1,5 +1,5 @@
 import { ref, computed, watch, type PropType, type Ref, type WritableComputedRef } from 'vue'
-import { NOT_PROVIDED, useUserProvidedProp } from './useUserProvidedProp'
+import { NOT_PROVIDED, useUserProvidedProp } from './std/internal/useUserProvidedProp'
 
 export type StatefulProps = {
   stateful: boolean

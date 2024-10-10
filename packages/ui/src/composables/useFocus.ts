@@ -1,8 +1,8 @@
-import { useFocusedElement } from './useFocusedElement'
+import { useFocusedElement } from './std/browser/useFocusedElement'
 import { unwrapEl } from './../utils/unwrapEl'
 import { focusElement, blurElement } from './../utils/focus'
 import { ref, onMounted, onBeforeUnmount, Ref, Component, computed } from 'vue'
-import { useEvent } from './useEvent'
+import { useEvent } from './'
 import { isNilValue } from '../utils/isNilValue'
 
 export const useFocusEmits = ['focus', 'blur'] as const

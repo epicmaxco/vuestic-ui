@@ -25,6 +25,7 @@ import { useScrollParent } from '../../composables/useScrollParent'
 import { PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef, ComputedRef } from 'vue'
 import { warn } from '../../utils/console'
 import { useNumericProp } from '../../composables'
+import { useElementScrollableParent } from '@/composables/std/browser/useElementScrollableParent'
 
 defineOptions({
   name: 'VaParallax',
@@ -68,11 +69,11 @@ const computedImgStyles = computed(() => ({
   top: props.reversed ? 0 : 'auto',
 }))
 
-const { getScrollableParent } = useScrollParent()
+const scrollParent = useElementScrollableParent(rootElement)
 
 const targetElement = computed(() => {
   if (!props.target) {
-    return getScrollableParent(rootElement.value?.parentElement)
+    return scrollParent.value
   }
 
   if (props.target instanceof HTMLElement) { // there is a bug if to target passed ref

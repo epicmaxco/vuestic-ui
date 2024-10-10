@@ -1,5 +1,5 @@
 import { Component, DefineComponent, Ref, unref } from 'vue'
-import { useEvent } from './useEvent'
+import { useEvent } from './'
 import { unwrapEl } from '../utils/unwrapEl'
 
 const FOCUSABLE_ELEMENTS_SELECTOR = ':where(a, button, input, textarea, select):not([disabled]), *[tabindex]'
