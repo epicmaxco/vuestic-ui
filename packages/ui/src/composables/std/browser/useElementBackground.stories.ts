@@ -8,10 +8,8 @@ import { expect } from '@storybook/jest'
 import { StoryFn } from '@storybook/vue3'
 
 const UseElementBackgroundDummy = defineComponent({
-  setup () {
+  setup (props, { emit }) {
     const color = computed(() => useElementBackground(useCurrentElement()))
-
-    const emit = defineEmits(['update:color'])
 
     watch(color, (value) => emit('update:color', value), { immediate: true })
 
