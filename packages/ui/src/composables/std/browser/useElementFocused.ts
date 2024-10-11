@@ -8,11 +8,11 @@ export const useElementFocused = (el: Ref<HTMLElement | undefined>) => {
 
   useEvent('focus', () => {
     isFocused.value = true
-  })
+  }, el)
 
   useEvent('blur', () => {
     isFocused.value = false
-  })
+  }, el)
 
   return computed({
     get () { return isFocused.value },

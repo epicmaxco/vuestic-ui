@@ -50,12 +50,11 @@
 import { computed, PropType } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import { useFormField, useFormFieldProps, useTranslation, useTranslationProp } from '../../composables'
+import { useFormField, useFormFieldProps, useTranslation, useTranslationProp, useComponentPresetProp } from '../../composables'
 import { useRating, useRatingProps } from './hooks/useRating'
 import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
 
 import { RatingValue } from './types'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import VaRatingItem from './components/VaRatingItem/VaRatingItem.vue'
 import VaRatingItemNumberButton from './components/VaRatingItemNumberButton.vue'
 

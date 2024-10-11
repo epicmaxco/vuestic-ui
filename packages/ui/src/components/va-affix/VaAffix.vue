@@ -21,7 +21,7 @@ import { computed, PropType, ref, nextTick, onMounted, onBeforeUnmount, shallowR
 import { noop } from '../../utils/noop'
 
 import { getWindow } from '../../utils/ssr'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp } from '../../composables'
 import { useNumericProp } from '../../composables/useNumericProp'
 
 import {

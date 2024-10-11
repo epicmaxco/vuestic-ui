@@ -1,5 +1,5 @@
 import { ComponentInternalInstance, Ref } from 'vue'
-import { injectChildPropsFromParent } from '../../composables/useChildComponents'
+import { injectChildPropsFromParent } from './useChildComponents'
 import { Props } from './shared'
 
 const KEBAB_CASE_REGEX = /([a-z0-9])([A-Z])/g

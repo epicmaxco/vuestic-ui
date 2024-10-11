@@ -23,9 +23,8 @@ import { computed, ref, shallowRef, watchEffect } from 'vue'
 
 import { VaConfig } from '../va-config'
 import { getGradientBackground } from '../../services/color'
-import { useColors, useTextColor, useBem, useClickOutside, useElementWidth } from '../../composables'
+import { useColors, useTextColor, useBem, useClickOutside, useElementWidth, useComponentPresetProp } from '../../composables'
 import { useSidebar } from './hooks/useSidebar'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 defineOptions({
   name: 'VaSidebar',

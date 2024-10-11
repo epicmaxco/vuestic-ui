@@ -145,6 +145,8 @@ import {
   useTeleported,
   useSizeRef,
   useIsMounted,
+  defineChildProps,
+  useChildComponents,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -154,7 +156,6 @@ import { useBlur } from './hooks/useBlur'
 import { useZIndex } from '../../composables/useZIndex'
 import { useModalLevel } from './hooks/useModalLevel'
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
-import { defineChildProps, useChildComponents } from '../../composables/useChildComponents'
 
 const WithTransition = defineComponent({
   name: 'ModalElement',

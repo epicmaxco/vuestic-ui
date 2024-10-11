@@ -25,10 +25,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp, useColors, useLoadingProps } from '../../composables'
 import { computed } from 'vue'
 
-import { useColors, useLoadingProps } from '../../composables'
 import { VaIcon } from '../va-icon'
 
 defineOptions({

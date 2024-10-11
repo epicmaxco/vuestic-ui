@@ -1,5 +1,5 @@
 import { ComputedRef, InjectionKey, PropType, computed, getCurrentInstance, inject, provide } from 'vue'
-import { DefineComponentOptions, ExtractComponentPropTypes } from '../utils/component-options'
+import { DefineComponentOptions, ExtractComponentPropTypes } from '../../utils/component-options'
 
 const CHILD_COMPONENT_PROP_PREFIX = 'child:'
 

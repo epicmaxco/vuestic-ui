@@ -1,5 +1,5 @@
 import { ComponentInternalInstance, Ref, VNode, computed } from 'vue'
-import { injectChildPropsFromParent } from '../../composables/useChildComponents'
+import { injectChildPropsFromParent } from './useChildComponents'
 import { Props } from './shared'
 import { makeVNode, renderSlotNode } from './createRenderFn'
 

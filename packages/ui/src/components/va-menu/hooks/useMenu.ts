@@ -1,4 +1,4 @@
-import { useMount } from '../../../composables/useMount'
+import { useMount } from '../../../composables/'
 import { VaMenu } from '../va-menu'
 import { ExtractComponentPropTypes } from '../../../utils/component-options'
 import { onBeforeUnmount, computed } from 'vue'
@@ -8,6 +8,7 @@ type OmitMenuProps = 'modelValue' | 'anchor' | 'cursor' | 'stateful' | 'preset'
 /** This hook can be used without plugin used */
 export const useMenu = () => {
   const { createInstance } = useMount(VaMenu)
+
   const instances: (() => void)[] = []
 
   const destroyAll = () => instances.forEach(destroy => destroy())
@@ -17,9 +18,15 @@ export const useMenu = () => {
 
     props.event.preventDefault()
 
+    const target = props.event.target
+
+    if (!(target instanceof HTMLElement)) {
+      return
+    }
+
     const destroy = createInstance({
       ...props,
-      anchor: props.event.target,
+      anchor: target,
       cursor: {
         getBoundingClientRect () {
           const resX = props.event.clientX
@@ -35,14 +42,11 @@ export const useMenu = () => {
             left: resX,
           }
         },
-        contextElement: props.event.target,
+        contextElement: target,
       },
       stateful: true,
       modelValue: true,
       preset: 'context',
-      onBeforeUnmount: () => {
-        destroy()
-      },
     })
 
     instances.push(destroy)
