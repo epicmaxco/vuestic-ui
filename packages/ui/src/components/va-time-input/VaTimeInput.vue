@@ -80,7 +80,7 @@ import {
   useComponentPresetProp,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useClearable, useClearableEmits, useClearableProps,
-  useFocus, useFocusEmits,
+  useElementFocused, useFocusable, useFocusableProps,
   useStateful, useStatefulEmits, useStatefulProps,
   useTranslation, useTranslationProp,
   useDropdownable, useDropdownableProps, useDropdownableEmits, useLongPressKey,
@@ -110,6 +110,7 @@ const props = defineProps({
   ...extractComponentProps(VaTimePicker),
   ...useValidationProps as ValidationProps<Date>,
   ...useStatefulProps,
+  ...useFocusableProps,
 
   closeOnContentClick: { type: Boolean, default: false },
   offset: { ...useDropdownableProps.offset, default: () => [2, 0] },
@@ -128,7 +129,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits([
-  ...useFocusEmits,
   ...useValidationEmits,
   ...useClearableEmits,
   ...useStatefulEmits,
@@ -166,7 +166,8 @@ const doShowDropdown = computed({
   },
 })
 
-const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
+const isFocused = useElementFocused(input)
+const { blur, focus } = useFocusable(input, props)
 
 const onInputTextChanged = (e: Event) => {
   if (props.disabled) { return }
@@ -230,8 +231,6 @@ watch(doShowDropdown, (v) => {
 const {
   canBeCleared,
   clearIconProps,
-  onFocus,
-  onBlur,
 } = useClearable(props, valueText)
 
 const canBeClearedComputed = computed(() => (
@@ -273,21 +272,10 @@ useLongPressKey(input, {
 })
 
 const computedInputListeners = ({
-  onFocus: () => {
-    if (props.disabled) { return }
-
-    focusListener()
-
-    if (props.readonly) { return }
-    onFocus()
-  },
   onBlur: () => {
     if (props.disabled) { return }
 
-    blurListener()
-
     if (props.readonly) { return }
-    onBlur()
     listeners.onBlur()
   },
 })
@@ -344,8 +332,6 @@ const iconProps = computed(() => ({
 }))
 
 const { tp } = useTranslation()
-
-const attrs = useAttrs()
 
 const dropdownPropsComputed = computed(() => ({
   ...dropdownProps.value,

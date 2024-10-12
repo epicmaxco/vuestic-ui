@@ -22,3 +22,13 @@ export const RightShift = () => ({
     </div>
   `,
 })
+
+export const Focus = () => ({
+  components: { VaButton },
+  template: `
+    <div>
+      <VaButton ref="target">Target</VaButton>
+      <VaButton @click="$refs.target.focus()">Focus</VaButton>
+    </div>
+  `,
+})

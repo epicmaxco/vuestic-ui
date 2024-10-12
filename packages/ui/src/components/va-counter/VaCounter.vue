@@ -104,7 +104,8 @@ import {
   useComponentPresetProp,
   useFormFieldProps,
   useEmitProxy,
-  useFocus, useFocusEmits,
+  useElementFocused,
+  useFocusable, useFocusableProps,
   useStateful, useStatefulProps,
   useColors,
   useTranslation, useTranslationProp,
@@ -152,6 +153,7 @@ const props = defineProps({
   ...useComponentPresetProp,
   ...useClearableProps,
   ...VaInputWrapperProps,
+  ...useFocusableProps,
     // input
   modelValue: { type: [String, Number], default: 0 },
   manualInput: { type: Boolean, default: false },
@@ -178,7 +180,6 @@ const emit = defineEmits([
   ...useValidationEmits,
   ...createInputEmits(),
   ...createFieldEmits(),
-  ...useFocusEmits,
 ])
 
 const input = shallowRef<HTMLInputElement | HTMLDivElement>()
@@ -187,10 +188,9 @@ const { min = ref(undefined), max = ref(undefined), step } = toRefs(props)
 
 const longPressDelayComputed = useNumericProp('longPressDelay')
 const {
-  isFocused,
   focus,
   blur,
-} = useFocus(input, emit)
+} = useFocusable(input, props)
 
 const { valueComputed: statefulValue } = useStateful(props, emit)
 
@@ -325,6 +325,8 @@ const increaseIconProps = computed(() => ({
 const isSquareCorners = computed(() => (
   (typeof props.margins === 'string' ? parseFloat(props.margins) : props.margins) === 0
 ))
+
+const isFocused = useElementFocused(input)
 
 const buttonsColor = () => {
   if (isFocused.value) { return props.color }

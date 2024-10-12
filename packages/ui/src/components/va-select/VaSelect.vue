@@ -20,7 +20,6 @@
         :aria-label="$props.ariaLabel"
         :aria-controls="popupId"
         :aria-owns="popupId"
-        @focus="onInputFocus"
         @blur="onInputBlur"
       >
         <template
@@ -333,8 +332,6 @@ const valueString = useStringValue(props, visibleSelectedOptions, getValueText)
 const {
   canBeCleared,
   clearIconProps,
-  onFocus,
-  onBlur,
 } = useClearable(props, valueComputed)
 
 const showClearIcon = computed(() => {
@@ -541,8 +538,6 @@ const focusSearchOrOptions = async () => {
 const onInputBlur = () => {
   if (showDropdownContentComputed.value) { return }
 
-  onBlur()
-
   validationListeners.onBlur()
 
   isInputFocused.value
@@ -742,8 +737,6 @@ watch(isOpenSync, (isOpen) => {
 const { popupId } = useSelectAria()
 
 const searchInput = searchVModel
-
-const onInputFocus = onFocus
 
 defineExpose({
   focus,

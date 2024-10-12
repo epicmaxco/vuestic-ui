@@ -3,7 +3,6 @@ import { PropType, computed, SetupContext, ShallowRef, ExtractPropTypes } from '
 import { useStateful, useStatefulProps, StatefulProps } from './useStateful'
 import { useLoadingProps, LoadingProps } from './useLoading'
 import { useValidation, useValidationProps, ValidationProps, useValidationEmits } from './useValidation'
-import { useFocus } from './useFocus'
 import { unwrapEl } from '../utils/unwrapEl'
 
 export type SelectableProps<V = any> = StatefulProps & LoadingProps & ExtractPropTypes<ValidationProps<V>> & {
@@ -89,15 +88,12 @@ export const useSelectable = (
     isLoading,
     isValid,
   } = useValidation(props, emit, { reset, focus, value: valueComputed })
-  const { isFocused } = useFocus()
 
   const onBlur = (event: FocusEvent) => {
     emit('blur', event)
-    isFocused.value = false
     validationListeners.onBlur()
   }
   const onFocus = (event: FocusEvent) => {
-    isFocused.value = true
     emit('focus', event)
   }
 

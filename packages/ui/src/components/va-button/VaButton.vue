@@ -53,7 +53,7 @@
 import { PropType, computed, toRefs, shallowRef } from 'vue'
 import {
   useBem,
-  useFocus,
+  useFocusable, useFocusableProps,
   useHover, useHoverStyleProps,
   usePressed, usePressedStyleProps,
   useColors, useTextColor,
@@ -86,6 +86,7 @@ const props = defineProps({
   ...usePressedStyleProps,
   ...useLoadingProps,
   ...useRouterLinkProps,
+  ...useFocusableProps,
   tag: { type: String, default: 'button' },
   type: { type: String, default: 'button' },
   block: { type: Boolean, default: false },
@@ -130,7 +131,7 @@ const attributesComputed = useButtonAttributes(props)
 // states
 const { disabled } = toRefs(props)
 const button = shallowRef<HTMLElement>()
-const { focus, blur } = useFocus(button)
+const { focus, blur } = useFocusable(button, props)
 const { isHovered } = useHover(button, disabled)
 const { isPressed } = usePressed(button)
 

@@ -1,7 +1,5 @@
 import { computed, Ref } from 'vue'
 
-import { useFocus } from './useFocus'
-
 interface ClearableProps {
   clearable: boolean
   clearableIcon: string
@@ -26,8 +24,6 @@ export const useClearable = (
   el?: Ref<any>,
   hasError?: Ref<boolean>,
 ) => {
-  const { isFocused, onFocus, onBlur } = useFocus(el)
-
   const clearedValues = [null, undefined, props.clearValue]
 
   const canBeCleared = computed(() => (
@@ -38,7 +34,6 @@ export const useClearable = (
   ))
 
   const clearIconColor = computed(() => {
-    if (isFocused?.value) { return props.color || 'primary' }
     if (hasError?.value) { return 'danger' }
     if (props.success) { return 'success' }
 
@@ -56,7 +51,5 @@ export const useClearable = (
     canBeCleared,
     clearIconColor,
     clearIconProps,
-    onFocus,
-    onBlur,
   }
 }

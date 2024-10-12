@@ -9,12 +9,11 @@
     role="none"
   >
     <template #anchor>
-      <slot name="input" v-bind="{ valueText, inputAttributes: inputAttributesComputed, inputWrapperProps, inputListeners }">
+      <slot name="input" v-bind="{ valueText, inputAttributes: inputAttributesComputed, inputWrapperProps }">
         <va-input-wrapper
           class="va-date-input__anchor"
           :style="cursorStyleComputed"
           v-bind="inputWrapperProps"
-          v-on="inputListeners"
           :model-value="valueText"
           @change="onInputTextChanged"
         >
@@ -91,7 +90,8 @@ import {
   useDropdownable,
   useDropdownableProps,
   useDropdownableEmits,
-  useFocus, useFocusEmits, useTranslation, useTranslationProp, useFocusDeep, useTrapFocus,
+  useFocusable, useFocusableProps, useElementFocused,
+  useTranslation, useTranslationProp, useFocusDeep, useTrapFocus,
 } from '../../composables'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
@@ -124,6 +124,7 @@ const props = defineProps({
   ...VaDatePickerPropsDeclaration,
   ...useValidationProps as ValidationProps<DateInputModelValue>,
   ...useComponentPresetProp,
+  ...useFocusableProps,
 
   clearValue: { type: undefined as unknown as PropType<any>, default: undefined },
   modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },
@@ -153,7 +154,6 @@ const props = defineProps({
 })
 
 const emit = defineEmits([
-  ...useFocusEmits,
   ...extractComponentEmits(VaDatePicker),
   ...useClearableEmits,
   ...useValidationEmits,
@@ -208,7 +208,7 @@ watch(isOpenSync, (isOpened) => {
   if (!isOpened && !isRangeModelValueGuardDisabled.value) { resetInvalidRange() }
 })
 
-const { isFocused: isInputFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
+const { focus, blur } = useFocusable(input, props)
 const isPickerFocused = useFocusDeep(datePicker)
 
 const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
@@ -342,8 +342,6 @@ const filterSlots = computed(() => {
 const {
   canBeCleared,
   clearIconProps,
-  onFocus,
-  onBlur,
 } = useClearable(props, valueComputed)
 
 const cursorStyleComputed = computed(() => {
@@ -369,30 +367,10 @@ const iconProps = computed(() => ({
 const filteredWrapperProps = filterComponentProps(VaInputWrapperPropsDeclaration)
 const computedInputWrapperProps = computed(() => ({
   ...filteredWrapperProps.value,
-  focused: isInputFocused.value || isPickerFocused.value,
+  focused: isPickerFocused.value,
   error: hasError.value,
   errorMessages: computedErrorMessages.value,
   readonly: props.readonly || !props.manualInput,
-}))
-
-const computedInputListeners = computed(() => ({
-  focus: () => {
-    if (props.disabled) { return }
-
-    focusListener()
-
-    if (props.readonly) { return }
-    onFocus()
-  },
-  blur: () => {
-    if (props.disabled) { return }
-
-    blurListener()
-
-    if (props.readonly) { return }
-    onBlur()
-    listeners.onBlur()
-  },
 }))
 
 const { tp } = useTranslation()
@@ -421,7 +399,6 @@ const dropdownPropsComputed = computed(() => ({
 }))
 
 const inputWrapperProps = computedInputWrapperProps
-const inputListeners = computedInputListeners
 const datePickerProps = filterComponentProps(VaDatePickerPropsDeclaration)
 
 defineExpose({
