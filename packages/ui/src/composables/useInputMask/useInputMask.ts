@@ -33,6 +33,9 @@ export const useInputMask = <Token extends MaskToken>(mask: MaybeRef<Mask<Token>
   const input = computed(() => extractInput(el.value))
 
   const setInputValue = (value: string, options?: InputEventInit) => {
+    if (input.value!.value === value) {
+      return
+    }
     input.value!.value = value
     input.value!.dispatchEvent(new InputEvent('input', options))
   }
