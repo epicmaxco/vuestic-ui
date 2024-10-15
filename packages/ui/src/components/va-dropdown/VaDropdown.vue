@@ -281,8 +281,6 @@ export default defineComponent({
 @import 'variables';
 
 .va-dropdown {
-  position: relative;
-
   &.va-headless-wrapper {
     /* Solved the alignment problem (if we try to align inline and block elements) */
     line-height: var(--va-dropdown-line-height);
