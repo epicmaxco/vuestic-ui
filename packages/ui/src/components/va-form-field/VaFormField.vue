@@ -3,6 +3,7 @@
     :model-value="messagesComputed"
     :has-error="!isValid"
     :color="messagesColor"
+    :limit="errorLimit"
   >
     <template v-for="name in ['message', 'messages']" :key="name" v-slot:[name]="slotScope">
       <slot :name="name" v-bind="slotScope" />
@@ -84,6 +85,8 @@ const messagesColor = computed(() => {
 
   return ''
 })
+
+const errorLimit = computed(() => props.error ? Number(props.errorCount) : 99)
 
 const innerValue = ref(valueComputed.value)
 
