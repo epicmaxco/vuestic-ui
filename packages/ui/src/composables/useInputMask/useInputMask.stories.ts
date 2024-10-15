@@ -1,6 +1,7 @@
 import { computed, ref } from 'vue'
 import { defineStory } from '../../../.storybook/types'
 import { useInputMask } from './useInputMask'
+import { VaInput } from '../../components'
 import TokensRenderer from './tests/Tokens.vue'
 import PossibleTokens from './tests/PossibleTokens.vue'
 import { createRegexMask } from './masks/regex'
@@ -259,6 +260,50 @@ export const NumeralWithDecimal = defineStory({
   }),
 })
 
+export const NumeralWithDecimalCustomChar = defineStory({
+  story: () => ({
+    setup () {
+      const value = ref('123456')
+      const input = ref()
+
+      const numeralRegex = createNumeralMask({
+        decimalChar: ',',
+      })
+      const { masked, unmasked } = useInputMask(numeralRegex, input)
+
+      return { value, input, masked, unmasked }
+    },
+    template: `
+      <input v-model="value" ref="input" class="bg-gray-200 p-2" placeholder="Numeral" />
+
+      <p>masked: {{ masked }}</p>
+      <p>unmasked: {{ unmasked }}</p>
+    `,
+  }),
+})
+
+export const NumeralMaskWithoutDecimal = defineStory({
+  story: () => ({
+    setup () {
+      const value = ref('123456')
+      const input = ref()
+
+      const numeralRegex = createNumeralMask({
+        decimal: false,
+      })
+      const { masked, unmasked } = useInputMask(numeralRegex, input)
+
+      return { value, input, masked, unmasked }
+    },
+    template: `
+      <input v-model="value" ref="input" class="bg-gray-200 p-2" placeholder="Numeral" />
+
+      <p>masked: {{ masked }}</p>
+      <p>unmasked: {{ unmasked }}</p>
+    `,
+  }),
+})
+
 export const CustomMask = defineStory({
   story: () => ({
     setup () {
@@ -304,6 +349,33 @@ export const CustomMask = defineStory({
     },
     template: `
       <input v-model="value" ref="input" class="bg-gray-200 p-2" placeholder="Numeral" />
+
+      <p>masked: {{ masked }}</p>
+      <p>unmasked: {{ unmasked }}</p>
+    `,
+  }),
+})
+
+export const WithVueComponent = defineStory({
+  story: () => ({
+    components: { VaInput },
+    setup () {
+      const value = ref('123456')
+      const input = ref()
+
+      const numeralRegex = createNumeralMask({
+        decimal: false,
+      })
+      const { masked, unmasked } = useInputMask(numeralRegex, input)
+
+      return { value, input, masked, unmasked }
+    },
+    template: `
+      <VaInput
+        v-model="value"
+        ref="input"
+        :rules="[(v) => !!v || 'Required']"
+      />
 
       <p>masked: {{ masked }}</p>
       <p>unmasked: {{ unmasked }}</p>
