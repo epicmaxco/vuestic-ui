@@ -1,4 +1,4 @@
-import { VNode, h, Teleport, Suspense, Comment, Fragment, Text, Slot } from 'vue'
+import { VNode, h, Teleport, Suspense, Comment, Fragment, Text, Slot, normalizeClass } from 'vue'
 
 type NodeAttributes = Record<string, any>
 
@@ -63,7 +63,10 @@ export const renderSlotNode = (slot: Slot | undefined, slotBind: any = {}, nodeA
   if (nonCommentChildren.length === 0) { return null }
   if (nonCommentChildren.length === 1) { return toNode(nonCommentChildren[0], nodeAttributes) }
 
-  return h('div', nodeAttributes, children)
+  return h('div', {
+    ...nodeAttributes,
+    class: normalizeClass([nodeAttributes.class, 'va-headless-wrapper']),
+  }, children)
 }
 
 export const renderSlotNodes = (slot: Slot | undefined, slotBind: any = {}, nodeAttributes: NodeAttributes = {}) => {

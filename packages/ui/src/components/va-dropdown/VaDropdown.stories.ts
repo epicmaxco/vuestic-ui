@@ -503,3 +503,20 @@ export const ScopedAttr = () => ({
   components: { DropdownScopedAttr },
   template: '<DropdownScopedAttr/>',
 })
+
+export const Multiroot = () => ({
+  components: { VaDropdown, VaDropdownContent },
+  template: `
+    <VaDropdown>
+      <template #anchor>
+        <div>First root</div>
+        <div>Second root</div>
+      </template>
+      <VaDropdownContent>
+        <div style="height: 600px; width: 100px;">
+          Content
+        </div>
+      </VaDropdownContent>
+    </VaDropdown>
+    `,
+})
