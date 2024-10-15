@@ -1,31 +1,41 @@
+import { StringWithAutocomplete } from '../../../utils/types/prop-type'
 import { Mask, MaskToken } from '../mask'
 import { createRegexMask, RegexToken } from './regex'
 
-const DELIMITER = ' '
-const DECIMAL = '.'
-
 type NumeralToken = RegexToken & { isDecimal?: boolean}
 
-export const createNumeralMask = (): Mask<NumeralToken> => {
+export const createNumeralMask = (options: {
+  decimal?: boolean,
+  decimalChar?: StringWithAutocomplete<'.' | ','>,
+} = {}): Mask<NumeralToken> => {
   const intMask = createRegexMask(/(\d{3} )*(\d{3})/, { reverse: true })
+
+  const { decimal = true, decimalChar = '.' } = options
+
+  const decimalRegex = new RegExp(`[.|,|${decimalChar}]`, 'g')
+
+  if (!decimal) {
+    return intMask
+  }
+
   const decimalMask = createRegexMask(/(\d{3} )*(\d{3})/, { reverse: false })
 
   return {
     format: (text: string) => {
-      const hasDecimal = text.includes(DECIMAL)
+      const foundDecimal = text.match(decimalRegex)
 
-      if (!hasDecimal) {
+      if (!foundDecimal) {
         return intMask.format(text)
       }
 
-      const [int = '', decimal = '', ...rest] = text.split(DECIMAL)
+      const [int = '', decimal = '', ...rest] = text.split(foundDecimal[0])
 
       const intResult = intMask.format(int)
       const decimalResult = decimalMask.format(decimal + rest.join(''))
 
       return {
-        text: intResult.text + DECIMAL + decimalResult.text,
-        tokens: [...intResult.tokens, { type: 'char', static: false, expect: DECIMAL, isDecimal: true }, ...decimalResult.tokens] as NumeralToken[],
+        text: intResult.text + decimalChar + decimalResult.text,
+        tokens: [...intResult.tokens, { type: 'char', static: false, expect: decimalChar, isDecimal: true }, ...decimalResult.tokens] as NumeralToken[],
       }
     },
     handleCursor (selectionStart, selectionEnd, oldTokens, newTokens, data) {
@@ -42,7 +52,9 @@ export const createNumeralMask = (): Mask<NumeralToken> => {
       }
     },
     unformat: (text: string, tokens: MaskToken[]) => {
-      return parseFloat(text.replace(/ /g, '')).toString()
+      const [int = 0, decimal = 0] = text.replace(/ /g, '').split(decimalChar)
+
+      return parseFloat(int + '.' + decimal).toString()
     },
   }
 }
