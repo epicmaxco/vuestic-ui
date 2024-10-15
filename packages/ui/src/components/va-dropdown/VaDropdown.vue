@@ -281,13 +281,13 @@ export default defineComponent({
 @import 'variables';
 
 .va-dropdown {
-  /* Solved the alignment problem (if we try to align inline and block elements) */
-  line-height: var(--va-dropdown-line-height);
-  font-family: var(--va-font-family);
-  display: var(--va-dropdown-display);
-  position: relative;
-  max-width: 100%;
-  vertical-align: middle;
+  &.va-headless-wrapper {
+    /* Solved the alignment problem (if we try to align inline and block elements) */
+    line-height: var(--va-dropdown-line-height);
+    display: var(--va-dropdown-display);
+    max-width: 100%;
+    vertical-align: middle;
+  }
 
   &--disabled {
     @include va-disabled;

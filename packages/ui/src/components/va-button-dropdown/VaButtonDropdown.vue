@@ -1,77 +1,77 @@
 <template>
-  <div class="va-button-dropdown" :class="computedClass">
+  <va-dropdown
+    v-if="!$props.split"
+    v-bind="vaDropdownProps"
+    v-model="valueComputed"
+    :disabled="$props.disabled || $props.disableDropdown"
+    :class="['va-button-dropdown']"
+  >
+    <template #anchor>
+      <va-button
+        :aria-label="tp($props.ariaLabel)"
+        v-bind="{ ...computedButtonIcons, ...buttonPropsComputed }"
+        v-on="listeners"
+      >
+        <slot name="label">
+          {{ label }}
+        </slot>
+      </va-button>
+    </template>
+
+    <slot name="content">
+      <va-dropdown-content>
+        <slot />
+      </va-dropdown-content>
+    </slot>
+  </va-dropdown>
+
+  <va-button-group
+    v-else
+    v-bind="buttonPropsComputed"
+    :class="['va-button-dropdown', 'va-button-dropdown--split']"
+  >
+    <va-button
+      v-if="!$props.leftIcon"
+      :disabled="$props.disabled || $props.disableButton"
+      v-bind="computedMainButtonProps"
+      v-on="mainButtonListeners"
+    >
+      <slot name="label">
+        {{ label }}
+      </slot>
+    </va-button>
+
     <va-dropdown
-      v-if="!$props.split"
       v-bind="vaDropdownProps"
       v-model="valueComputed"
       :disabled="$props.disabled || $props.disableDropdown"
     >
       <template #anchor>
         <va-button
-          :aria-label="tp($props.ariaLabel)"
-          v-bind="{ ...computedButtonIcons, ...buttonPropsComputed }"
+          :aria-label="$props.ariaLabel || t('toggleDropdown')"
+          :disabled="$props.disabled || $props.disableDropdown"
+          :icon="computedIcon"
+          :icon-color="$props.iconColor"
           v-on="listeners"
-        >
-          <slot name="label">
-            {{ label }}
-          </slot>
-        </va-button>
+          @keydown.esc.prevent="hideDropdown"
+        />
       </template>
-
-      <slot name="content">
-        <va-dropdown-content>
-          <slot />
-        </va-dropdown-content>
-      </slot>
+      <va-dropdown-content>
+        <slot />
+      </va-dropdown-content>
     </va-dropdown>
 
-    <va-button-group
-      v-else
-      v-bind="buttonPropsComputed"
+    <va-button
+      v-if="$props.leftIcon"
+      :disabled="$props.disabled || $props.disableButton"
+      v-bind="computedMainButtonProps"
+      v-on="mainButtonListeners"
     >
-      <va-button
-        v-if="!$props.leftIcon"
-        :disabled="$props.disabled || $props.disableButton"
-        v-bind="computedMainButtonProps"
-        v-on="mainButtonListeners"
-      >
-        <slot name="label">
-          {{ label }}
-        </slot>
-      </va-button>
-
-      <va-dropdown
-        v-bind="vaDropdownProps"
-        v-model="valueComputed"
-        :disabled="$props.disabled || $props.disableDropdown"
-      >
-        <template #anchor>
-          <va-button
-            :aria-label="$props.ariaLabel || t('toggleDropdown')"
-            :disabled="$props.disabled || $props.disableDropdown"
-            :icon="computedIcon"
-            :icon-color="$props.iconColor"
-            v-on="listeners"
-            @keydown.esc.prevent="hideDropdown"
-          />
-        </template>
-        <va-dropdown-content>
-          <slot />
-        </va-dropdown-content>
-      </va-dropdown>
-
-      <va-button
-        v-if="$props.leftIcon"
-        :disabled="$props.disabled || $props.disableButton"
-        v-bind="computedMainButtonProps"
-        v-on="mainButtonListeners"
-      >
-        <slot name="label">
-          {{ label }}
-        </slot>
-      </va-button>
-    </va-button-group>
-  </div>
+      <slot name="label">
+        {{ label }}
+      </slot>
+    </va-button>
+  </va-button-group>
 </template>
 
 <script lang="ts">
@@ -146,10 +146,6 @@ const { valueComputed } = useStateful(props, emit)
 
 const computedIcon = computed(() => valueComputed.value ? props.openedIcon : props.icon)
 
-const computedClass = useBem('va-button-dropdown', () => ({
-  split: props.split,
-}))
-
 const slots = useSlots()
 
 const computedButtonIcons = computed(() => {
@@ -207,18 +203,8 @@ defineExpose({
 @import '../../styles/resources';
 
 .va-button-dropdown {
-  display: inline-block;
-  font-family: var(--va-font-family);
-  vertical-align: middle;
-
   .va-button {
     margin: var(--va-button-dropdown-button-margin);
-  }
-
-  &--split {
-    .va-button {
-      @include keyboard-focus-outline($offset: -2px);
-    }
   }
 }
 </style>
