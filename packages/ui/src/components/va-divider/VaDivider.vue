@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { computed, PropType, useSlots } from 'vue'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp } from '../../composables'
 import { useColors } from '../../composables/useColors'
 
 const prefixClass = 'va-divider'

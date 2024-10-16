@@ -7,14 +7,13 @@
 
 <script lang="ts">
 import { computed, PropType, h, Fragment, defineComponent } from 'vue'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp, useColors } from '../../composables'
 import { ComponentConfig } from '../../services/component-config'
 
 import { provideLocalConfig, useLocalConfig } from '../../composables/useLocalConfig'
 import { useGlobalConfigProvider } from './hooks/useGlobalConfigProvider'
 import { PartialGlobalConfig } from '../../services/global-config'
 import { renderSlotNodes } from '../../utils/headless'
-import { useColors } from '../../composables'
 
 const CssVarsRenderer = defineComponent({
   name: 'VaCssVarsRenderer',

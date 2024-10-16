@@ -1,5 +1,5 @@
 import { getCurrentInstance } from 'vue'
-import { useCurrentComponentId } from './useCurrentComponentId'
+import { useComponentUuid } from './useComponentUuid'
 
 export const TELEPORT_FROM_ATTR = 'data-va-teleported-from'
 export const TELEPORT_ATTR = 'data-va-teleported'
@@ -24,7 +24,7 @@ export const findTeleportedFrom = (el: HTMLElement | undefined | null): HTMLElem
  * @notice it is used in `useClickOutside` to track from where teleported originated from.
  */
 export const useTeleported = () => {
-  const componentId = useCurrentComponentId()
+  const componentId = useComponentUuid()
 
   const currentInstance = getCurrentInstance()
 

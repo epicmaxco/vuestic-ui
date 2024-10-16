@@ -165,13 +165,13 @@ const handleIntersection = (entries: IntersectionObserverEntry[], observer: Inte
     observer.disconnect()
   })
 }
-const { isIntersectionDisabled } = useIntersectionObserver(handleIntersection, undefined, root, props.lazy)
-const isReadyForLoad = computed(() => isIntersectionDisabled.value || isIntersecting.value)
+useIntersectionObserver(root, handleIntersection, undefined)
+const isReadyForLoad = computed(() => !props.lazy || isIntersecting.value)
 const isMounted = useIsMounted()
 const isReadyForRender = computed(() => !props.lazy || (props.lazy && isMounted.value && isReadyForLoad.value))
 
 const init = () => {
-  if (!props.src || (isLoading.value && isIntersectionDisabled.value) || !isReadyForLoad.value) {
+  if (!props.src || (isLoading.value && !props.lazy) || !isReadyForLoad.value) {
     return
   }
 

@@ -66,9 +66,8 @@ import { VaButton } from '../'
 import { computed, nextTick, PropType, ref, watch } from 'vue'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/component-options'
-import { useColors, useStateful, useStatefulProps, useStatefulEmits } from '../../composables'
+import { useColors, useStateful, useStatefulProps, useStatefulEmits, useComponentPresetProp, defineChildProps, useChildComponents } from '../../composables'
 import { useView } from './hooks/view'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
 
 import { DatePickerModelValue, DatePickerType, DatePickerViewProp } from './types'
 
@@ -76,8 +75,6 @@ import VaDayPicker from './components/VaDayPicker/VaDayPicker.vue'
 import VaDatePickerHeader from './components/VaDatePickerHeader/VaDatePickerHeader.vue'
 import VaMonthPicker from './components/VaMonthPicker/VaMonthPicker.vue'
 import VaYearPicker from './components/VaYearPicker/VaYearPicker.vue'
-
-import { defineChildProps, useChildComponents } from '../../composables/useChildComponents'
 
 const DEFAULT_MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const DEFAULT_WEEKDAY_NAMES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']

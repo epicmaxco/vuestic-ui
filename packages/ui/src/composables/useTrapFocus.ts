@@ -1,6 +1,4 @@
-import { useAppGlobal } from './useAppGlobal'
-import { useDocument } from './useDocument'
-import { useWindow } from './useWindow'
+import { useAppGlobal, useDocument, useWindow } from './std'
 
 const FOCUSABLE_ELEMENTS_SELECTOR = ':where(a, button, input, textarea, select):not([disabled]), *[tabindex]'
 

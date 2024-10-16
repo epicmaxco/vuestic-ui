@@ -1,6 +1,6 @@
 import { Ref, computed, watchEffect, type ComponentPublicInstance } from 'vue'
-import { useEvent } from '../useEvent'
-import { useElementBackground } from '../useElementBackground'
+import { useEvent } from '../'
+import { useElementBackground } from '../std/browser/useElementBackground'
 
 const syncTh = (thead1: HTMLElement, thead2: HTMLElement) => {
   const ths1 = thead1.querySelectorAll('th')

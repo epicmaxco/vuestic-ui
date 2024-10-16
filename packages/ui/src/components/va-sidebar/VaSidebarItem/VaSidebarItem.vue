@@ -28,9 +28,9 @@ import {
   useRouterLink,
   useRouterLinkProps,
   useTextColor,
+  useComponentPresetProp,
 } from '../../../composables'
 import { useSidebarItem } from '../hooks/useSidebar'
-import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
 defineOptions({
   name: 'VaSidebarItem',

@@ -1,6 +1,6 @@
 import { Ref, unref } from 'vue'
 
-import { useEvent } from './useEvent'
+import { useEvent } from './'
 import { unwrapEl } from '../utils/unwrapEl'
 
 const checkIfElementChild = (

@@ -88,11 +88,11 @@ import {
   useSelectable, useSelectableProps, useSelectableEmits,
   useColors, useTextColor,
   useBem, useTranslationProp,
+  useComponentUuid,
 } from '../../composables'
 
 import { VaProgressCircle } from '../va-progress-circle'
 import { VaMessageListWrapper } from '../va-message-list'
-import { useComponentUuid } from '../../composables/useComponentUuid'
 import { pick } from '../../utils/pick'
 
 defineOptions({

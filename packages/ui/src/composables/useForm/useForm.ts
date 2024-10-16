@@ -1,6 +1,6 @@
 import { type Ref, computed, ref } from 'vue'
 import { type VaForm } from '../../components'
-import { useTemplateRef } from '../useTemplateRef'
+import { useTemplateRef } from '../std/internal/useTemplateRef'
 import { Form } from './types'
 
 // EXPOSED API: TS support for Form instance

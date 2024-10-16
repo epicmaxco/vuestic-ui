@@ -1,5 +1,5 @@
 import { Ref, ShallowRef, unref } from 'vue'
-import { useEvent } from './useEvent'
+import { useEvent } from './'
 import { MaybeElement, useHTMLElement } from '.'
 
 type MaybeRef<T> = Ref<T> | T

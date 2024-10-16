@@ -102,7 +102,7 @@ const handleContainerResize = () => {
   bodyFontSize.value = parseFloat(getComputedStyle(document.documentElement).fontSize)
 }
 onMounted(handleContainerResize)
-useResizeObserver([splitPanelsContainer], handleContainerResize)
+useResizeObserver(splitPanelsContainer, handleContainerResize)
 
 const convertToPercents = (v: string | number, type: 'min' | 'max' | 'snapping') => {
   let numberValue = ''

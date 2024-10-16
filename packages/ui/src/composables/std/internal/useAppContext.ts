@@ -1,5 +1,5 @@
 import { computed, getCurrentInstance } from 'vue'
-import { getCurrentApp } from '../services/current-app'
+import { getCurrentApp } from '../../../services/current-app'
 
 /**
  * App context must be used as computed to support single app mode.

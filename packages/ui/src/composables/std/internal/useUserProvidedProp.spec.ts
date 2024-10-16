@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
 import { defineComponent } from 'vue'
-import { NOT_PROVIDED, useUserProvidedProp } from '../useUserProvidedProp'
+import { NOT_PROVIDED, useUserProvidedProp } from './useUserProvidedProp'
 
 const TestComponentRich = defineComponent({
   template: '<p></p>',

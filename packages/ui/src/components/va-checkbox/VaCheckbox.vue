@@ -59,8 +59,8 @@
 <script lang="ts">
 import { computed, PropType, shallowRef } from 'vue'
 
-import { useComponentUuid } from '../../composables/useComponentUuid'
 import {
+  useComponentUuid,
   useComponentPresetProp,
   useKeyboardOnlyFocus,
   useColors, useTextColor,

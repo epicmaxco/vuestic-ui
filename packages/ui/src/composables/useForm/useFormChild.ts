@@ -1,5 +1,5 @@
 import { inject, ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useComponentUuid } from '../useComponentUuid'
+import { useComponentUuid } from '../std'
 import { FormServiceKey } from './consts'
 import { type FormFiled } from './types'
 import { type FormContext } from './formContext'

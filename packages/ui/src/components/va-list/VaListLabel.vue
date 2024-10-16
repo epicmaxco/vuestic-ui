@@ -9,9 +9,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
-
-import { useColors } from '../../composables'
+import { useComponentPresetProp, useColors } from '../../composables'
 
 defineOptions({
   name: 'VaListLabel',

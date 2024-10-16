@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp } from '../../composables'
 
 defineOptions({
   name: 'VaList',

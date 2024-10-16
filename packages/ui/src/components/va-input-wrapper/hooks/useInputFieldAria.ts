@@ -1,6 +1,5 @@
 import { ExtractPropTypes, Ref, computed } from 'vue'
-import { useComponentUuid } from '../../../composables/useComponentUuid'
-import { useTranslationProp } from '../../../composables'
+import { useComponentUuid, useTranslationProp } from '../../../composables'
 
 export const useInputFieldAriaProps = {
   label: { type: String, default: '' },

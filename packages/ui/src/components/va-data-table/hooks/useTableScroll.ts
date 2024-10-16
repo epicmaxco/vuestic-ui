@@ -53,7 +53,7 @@ export const useTableScroll = (
     rootMargin: `${scrollTopMarginComputed.value ?? 0}px 0px ${scrollBottomMarginComputed.value ?? 0}px 0px`,
   }))
 
-  useIntersectionObserver(intersectionHandler, options, targets)
+  useIntersectionObserver(targets, intersectionHandler, options)
 
   return {
     scrollContainer,

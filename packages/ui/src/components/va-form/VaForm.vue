@@ -29,7 +29,7 @@
 <script lang="ts">
 import { watch, PropType, computed, onMounted } from 'vue'
 
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp } from '../../composables'
 import { useFormParent } from '../../composables/useForm'
 import { useLocalConfigProvider } from '../../composables/useLocalConfig'
 import { Form } from '../../composables/useForm/types'

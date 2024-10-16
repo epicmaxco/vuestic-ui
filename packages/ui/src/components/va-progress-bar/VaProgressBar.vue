@@ -41,11 +41,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp, useColors, useTextColor, useTranslation, useTranslationProp } from '../../composables'
 import { computed, PropType, StyleValue } from 'vue'
 import { clamp } from '../../utils/clamp'
-
-import { useColors, useTextColor, useTranslation, useTranslationProp } from '../../composables'
 
 defineOptions({
   name: 'VaProgressBar',

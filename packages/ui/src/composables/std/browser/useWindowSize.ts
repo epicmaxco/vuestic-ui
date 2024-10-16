@@ -1,11 +1,12 @@
 import { reactive, computed, watch } from 'vue'
 
-import { useEvent } from './'
-import { isClient } from '../utils/ssr'
+import { useEvent } from '../event/useEvent'
+import { useIsMounted } from '../internal/useIsMounted'
+import { makeSharedComposable } from '../internal/makeSharedComposable'
 
 type WindowSizes = Record<'width' | 'height', number | undefined>
 
-export function useWindowSize () {
+export const useWindowSize = makeSharedComposable(() => {
   const windowSizes = reactive<WindowSizes>({
     width: undefined,
     height: undefined,
@@ -16,7 +17,7 @@ export function useWindowSize () {
     windowSizes.height = window?.innerHeight
   }
 
-  const isMounted = computed(isClient)
+  const isMounted = useIsMounted()
   watch(isMounted, (newValue) => {
     if (!newValue) { return }
     setCurrentWindowSizes()
@@ -24,4 +25,4 @@ export function useWindowSize () {
   useEvent('resize', setCurrentWindowSizes, true)
 
   return { windowSizes }
-}
+})

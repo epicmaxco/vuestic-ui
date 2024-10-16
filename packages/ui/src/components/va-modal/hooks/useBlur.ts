@@ -1,10 +1,10 @@
-import { Ref, getCurrentInstance, watchEffect, onBeforeUnmount } from 'vue'
-import { useDocument, useCurrentComponentId } from '../../../composables'
+import { Ref, watchEffect, onBeforeUnmount } from 'vue'
+import { useDocument, useComponentUuid } from '../../../composables'
 
 const openedModals: string[] = []
 
 export const useBlur = (shouldBlur: Ref<boolean>, isModalShown: Ref<boolean>) => {
-  const id = useCurrentComponentId()
+  const id = useComponentUuid()
   const document = useDocument()
 
   const blur = () => {

@@ -23,6 +23,7 @@ import {
   useStatefulEmits,
   useTranslation, useTranslationProp,
   usePlacementAliasesProps,
+  useTeleported,
 } from '../../composables'
 import { renderSlotNode } from '../../utils/headless'
 import { useNavigation, Trigger } from './hooks/useDropdownNavigation'
@@ -32,7 +33,6 @@ import { CursorAnchor, DropdownOffsetProp } from './types'
 import { useDropdown } from './hooks/useDropdown'
 import { warn } from '../../utils/console'
 import { useFocusOutside } from '../../composables/useFocusOutside'
-import { useTeleported } from '../../composables/useTeleported'
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { useZIndex } from '../../composables/useZIndex'
 import { focusFirstFocusableChild } from '../../utils/focus'

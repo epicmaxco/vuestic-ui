@@ -1,12 +1,24 @@
-import { defineComponent, computed, ref } from 'vue'
+import { defineComponent, computed, ref, watch } from 'vue'
 import { useElementBackground } from './useElementBackground'
-import { useCurrentElement } from './useCurrentElement'
-import { VaButton } from '../components/va-button'
-import UseElementBackgroundDummy from './UseElementBackgroundDummy.vue'
+import { useCurrentElement } from '../internal/useCurrentElement'
+import { VaButton } from '../../../components/va-button'
 import { within } from '@storybook/testing-library'
-import { sleep } from '../utils/sleep'
+import { sleep } from '../../../utils/sleep'
 import { expect } from '@storybook/jest'
 import { StoryFn } from '@storybook/vue3'
+
+const UseElementBackgroundDummy = defineComponent({
+  setup () {
+    const color = computed(() => useElementBackground(useCurrentElement()))
+
+    const emit = defineEmits(['update:color'])
+
+    watch(color, (value) => emit('update:color', value), { immediate: true })
+
+    return { color }
+  },
+  template: '<div style="width: 2rem; height: 2rem;" />',
+})
 
 export default {
   title: 'composables/useElementBackground',

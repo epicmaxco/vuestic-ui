@@ -88,10 +88,9 @@ import {
   useStateful,
   useStatefulProps,
   useSelectableEmits,
+  useComponentUuid,
 } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
-
-import { useComponentUuid } from '../../composables/useComponentUuid'
 
 import { VaIcon } from '../va-icon'
 import { pick } from '../../utils/pick'
@@ -152,7 +151,7 @@ if (valueComputed.userProvided && !isNilValue(accordionItemValue)) {
 }
 
 const bodyHeight = ref()
-useResizeObserver([body], ([body]) => {
+useResizeObserver(body, ([body]) => {
   bodyHeight.value = body.contentRect.height ?? 0
 })
 

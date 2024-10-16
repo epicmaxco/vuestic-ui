@@ -1,5 +1,5 @@
 import { computed, getCurrentInstance, isVNode } from 'vue'
-import { isFunction } from '../utils/is-function'
+import { isFunction } from '../../../utils/is-function'
 
 /**
  * @description checks if empty slot was passed
