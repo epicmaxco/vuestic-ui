@@ -35,6 +35,12 @@
 </p>
 
 <p align="center">
+  <a href="https://gurubase.io/g/vuestic-ui">
+    <img src="https://img.shields.io/badge/Gurubase-Ask%20Vuestic%20UI%20Guru-006BFF">
+  </a>
+</p>
+
+<p align="center">
   <a href="https://vuestic.dev/">Documentation</a>
   |
   <a href="https://discord.gg/u7fQdqQt8c">Discord</a>
