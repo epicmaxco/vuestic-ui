@@ -261,6 +261,27 @@ export const AutocompleteMultiple: StoryFn = () => ({
   template: '<VaSelect v-model="value" :options="options" autocomplete multiple />',
 })
 
+export const CustomSearch: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    return { value: '', options: ['New York', 'London'] }
+  },
+
+  methods: {
+    searchFn: (query: string, option: string) => {
+      const lowerQuery = query.toLowerCase()
+      const words = option.split(' ')
+      const initials = words.map(word => word[0].toLowerCase()).join('')
+
+      return option.toLowerCase().includes(lowerQuery) || initials === lowerQuery
+    },
+  },
+
+  template: `
+  <VaSelect v-model="value" :options="options" autocomplete :search-fn="searchFn" />`,
+})
+
 export const NilValue = () => ({
   components: { VaSelect },
   data () {
