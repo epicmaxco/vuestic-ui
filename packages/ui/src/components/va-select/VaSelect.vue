@@ -107,6 +107,7 @@
         v-model:hoveredOption="hoveredOption"
         :style="{ maxHeight: $props.maxHeight }"
         :id="popupId"
+        :search-fn="$props.searchFn"
         v-bind="optionsListPropsComputed"
         @select-option="selectHoveredOption"
         @no-previous-option-to-hover="focusSearchBar"
@@ -235,6 +236,7 @@ const props = defineProps({
   ariaClearLabel: useTranslationProp('$t:reset'),
 
   search: { type: String, default: undefined },
+  searchFn: { type: Function as PropType<(search: string, option: SelectOption) => boolean>, default: undefined },
 
   // useClearableProps override
   clearValue: { type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>, default: '' },

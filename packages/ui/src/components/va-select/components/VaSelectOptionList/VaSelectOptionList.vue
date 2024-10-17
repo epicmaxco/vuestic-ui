@@ -119,6 +119,7 @@ const props = defineProps({
   autoSelectFirstOption: { type: Boolean, default: false },
   selectedTopShown: { type: Boolean, default: false },
   doShowAllOptions: { type: Boolean, default: false },
+  searchFn: { type: Function as PropType<(search: string, option: SelectOption) => boolean>, default: undefined },
 })
 
 const emit = defineEmits([
@@ -173,6 +174,10 @@ const filteredOptions = computed((): SelectOption[] => {
 
   if (!props.search || props.search.length < minSearchCharsComputed.value) {
     return props.options
+  }
+
+  if (props.searchFn) {
+    return props.options.filter((o) => props.searchFn!(props.search, o))
   }
 
   const search = props.search.toUpperCase().trim()
