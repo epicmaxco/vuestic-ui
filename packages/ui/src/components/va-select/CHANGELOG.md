@@ -1,3 +1,6 @@
+# 1.10.3
+- Add searchFn for custom option filtering in autocomplete or with search filed
+
 # 1.9.0
 - Now in `content` slot `value` is not array in single mode, but array in multiple mode. Use `valueArray` if you need array value in single/multiple modes
 - Added `option-content` slot which is used to show option in dropdown and input
