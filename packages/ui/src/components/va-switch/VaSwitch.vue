@@ -334,31 +334,10 @@ defineExpose({
     }
   }
 
-  &--indeterminate {
-    .va-switch {
-      &__checker {
-        margin: auto 0;
-        transform: translateX(-50%);
-      }
-
-      &__checker-wrapper {
-        transform: translateX(50%);
-      }
-    }
-  }
-
   &--checked {
     .va-switch {
-      &__checker {
-        transform: translateX(calc(-100% - 0.3rem));
-      }
-
       &__checker-circle {
         background-color: var(--va-switch-checker-active-background-color);
-      }
-
-      &__checker-wrapper {
-        transform: translateX(100%);
       }
     }
   }
@@ -435,7 +414,7 @@ defineExpose({
     }
   }
 
-  &__checker {
+  #{&}__checker {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -444,8 +423,94 @@ defineExpose({
     box-shadow: var(--va-switch-checker-box-shadow);
     transition: var(--va-switch-checker-transition);
     display: flex;
-    justify-content: center;
     align-items: center;
+    width: 100%;
+
+    @at-root {
+      .va-switch--indeterminate#{&} {
+        margin: auto 0;
+        transform:
+          translateX(
+            calc(
+              calc(
+                var(--va-switch-checker-wrapper-width)
+                - var(--va-switch-checker-width)
+              )
+              / 2
+            )
+          );
+      }
+
+      .va-switch--checked#{&} {
+        transform:
+          translateX(
+            calc(
+              var(--va-switch-checker-wrapper-width)
+              - var(--va-switch-checker-width)
+              - 0.3rem
+            )
+          );
+      }
+
+      .va-switch--small#{&} {
+        @at-root {
+          .va-switch--indeterminate#{&} {
+            transform:
+              translateX(
+                calc(
+                  calc(
+                    var(--va-switch-checker-wrapper-width)
+                    - var(--va-switch-checker-width)
+                    + 0.4rem
+                  )
+                  / 2
+                )
+              );
+          }
+
+          .va-switch--checked#{&} {
+            transform:
+              translateX(
+                calc(
+                  var(--va-switch-checker-wrapper-width)
+                  - var(--va-switch-checker-width)
+                  - 0.3rem
+                  + 0.4rem
+                )
+              );
+          }
+        }
+      }
+      .va-switch--large#{&} {
+        @at-root {
+          .va-switch--indeterminate#{&} {
+            transform:
+              translateX(
+                calc(
+                  calc(
+                    var(--va-switch-checker-wrapper-width)
+                    - var(--va-switch-checker-width)
+                    - 0.3rem
+                  )
+                  / 2
+                )
+              );
+          }
+
+          .va-switch--checked#{&} {
+            transform:
+              translateX(
+                calc(
+                  var(--va-switch-checker-wrapper-width)
+                  - var(--va-switch-checker-width)
+                  - 0.3rem
+                  - 0.3rem
+                )
+              );
+          }
+        }
+      }
+    }
   }
 
   &__checker-circle {
@@ -461,7 +526,6 @@ defineExpose({
   &__checker-wrapper {
     position: absolute;
     margin: auto;
-    transform: var(--va-switch-checker-wrapper-transform);
     top: var(--va-switch-checker-wrapper-top);
     left: var(--va-switch-checker-wrapper-left);
     bottom: var(--va-switch-checker-wrapper-bottom);
