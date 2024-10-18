@@ -140,12 +140,11 @@
   },
   "exports": {
     ".": {
-      "import": {
-        "node": "./dist/esm-node/main.mjs",
-        "types": "./dist/types/main.d.ts",
-        "default": "./dist/es/main.js"
-      },
-      "require": "./dist/cjs/main.js"
+      "types": "./dist/types/main.d.ts",
+      "import": "./dist/es/main.js",
+      "require": "./dist/cjs/main.js",
+      "node": "./dist/esm-node/main.mjs",
+      "default": "./dist/es/main.js"
     },
     "./css": {
       "import": {
