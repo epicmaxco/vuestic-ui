@@ -30,8 +30,9 @@
 import VaTimePickerColumnCell from '../VaTimePickerColumnCell.vue'
 import { nextTick, shallowRef, watch, onMounted, PropType, computed, ComputedRef } from 'vue'
 
-import { useSyncProp, useNumericProp, useFocusable, useFocusableProps } from '../../../../composables'
+import { useNumericProp, useFocusable, useFocusableProps } from '../../../../composables'
 import { debounce } from '../../../../utils/debounce'
+import { useVModelStateful } from '@/composables/std/internal/useVModelStateful'
 
 defineOptions({
   name: 'VaTimePickerColumn',
@@ -48,13 +49,13 @@ const emit = defineEmits(['item-selected', 'update:activeItemIndex'])
 
 const rootElement = shallowRef<HTMLElement>()
 const { focus, blur } = useFocusable(rootElement, props)
-const [syncActiveItemIndex] = useSyncProp('activeItemIndex', props, emit)
+const activeItemIndexVModel = useVModelStateful(props, 'activeItemIndex', emit)
 
 const cellHeightComputed = useNumericProp('cellHeight') as ComputedRef<number>
 
-watch(syncActiveItemIndex, (newVal) => { scrollTo(newVal) })
+watch(activeItemIndexVModel, (newVal) => { scrollTo(newVal) })
 
-onMounted(() => scrollTo(syncActiveItemIndex.value, false))
+onMounted(() => scrollTo(activeItemIndexVModel.value, false))
 
 const scrollTo = (index: number, animated = true) => {
   nextTick(() => {
@@ -67,22 +68,22 @@ const scrollTo = (index: number, animated = true) => {
 }
 
 const makeActiveByIndex = (index: number) => {
-  syncActiveItemIndex.value = index
-  nextTick(() => scrollTo(syncActiveItemIndex.value))
+  activeItemIndexVModel.value = index
+  nextTick(() => scrollTo(activeItemIndexVModel.value))
 }
 
 const makeActiveNext = (times?: number) => {
-  syncActiveItemIndex.value = (syncActiveItemIndex.value + (times || 1)) % props.items.length
-  nextTick(() => scrollTo(syncActiveItemIndex.value))
+  activeItemIndexVModel.value = (activeItemIndexVModel.value + (times || 1)) % props.items.length
+  nextTick(() => scrollTo(activeItemIndexVModel.value))
 }
 
 const makeActivePrev = (times?: number) => {
-  syncActiveItemIndex.value = (syncActiveItemIndex.value - (times || 1) + props.items.length) % props.items.length
-  nextTick(() => scrollTo(syncActiveItemIndex.value))
+  activeItemIndexVModel.value = (activeItemIndexVModel.value - (times || 1) + props.items.length) % props.items.length
+  nextTick(() => scrollTo(activeItemIndexVModel.value))
 }
 
 const onCellClick = (index: number) => {
-  syncActiveItemIndex.value = index
+  activeItemIndexVModel.value = index
 }
 
 const formatCell = (n: number | string): string => {
@@ -105,9 +106,9 @@ const getIndex = () => {
     return 0
   }
 
-  if (syncActiveItemIndex.value * cellHeightComputed.value < scrollTop) {
+  if (activeItemIndexVModel.value * cellHeightComputed.value < scrollTop) {
     return Math.ceil(calculatedIndex)
-  } else if (syncActiveItemIndex.value * cellHeightComputed.value > scrollTop) {
+  } else if (activeItemIndexVModel.value * cellHeightComputed.value > scrollTop) {
     return Math.floor(calculatedIndex)
   } else {
     return Math.round(calculatedIndex)
@@ -115,8 +116,8 @@ const getIndex = () => {
 }
 
 const onScroll = debounce(() => {
-  if (rootElement.value && syncActiveItemIndex.value !== -1) {
-    syncActiveItemIndex.value = getIndex()
+  if (rootElement.value && activeItemIndexVModel.value !== -1) {
+    activeItemIndexVModel.value = getIndex()
   }
 }, 200)
 

@@ -140,7 +140,7 @@ import {
   useTranslation, useTranslationProp,
   useBem,
   useThrottleProps,
-  useDropdownable, useDropdownableEmits, useDropdownableProps, useSyncProp,
+  useDropdownable, useDropdownableEmits, useDropdownableProps,
   useNumericProp,
 } from '../../composables'
 
@@ -167,6 +167,7 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 import { pick } from '../../utils/pick'
 import { useClearableControl } from '@/composables/fabrics/useClearableControl'
 import { useFormControl } from '@/composables/fabrics/useFormControl/useFormControl'
+import { useVModelStateful } from '@/composables/std/internal/useVModelStateful'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 </script>
@@ -235,8 +236,8 @@ const props = defineProps({
   ariaSearchLabel: useTranslationProp('$t:optionsFilter'),
   ariaClearLabel: useTranslationProp('$t:reset'),
 
-  search: { type: String, default: undefined },
   searchFn: { type: Function as PropType<(search: string, option: SelectOption) => boolean>, default: undefined },
+  search: { type: String, default: '' },
 
   // useClearableProps override
   clearValue: { type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>, default: '' },
@@ -267,7 +268,7 @@ const getValueText = (option: SelectOption) => getText(tryResolveByValue(option)
 
 const onScrollBottom = () => emit('scroll-bottom')
 
-const [searchVModel] = useSyncProp('search', props, emit, '')
+const searchVModel = useVModelStateful(props, 'search', emit)
 const showSearchInput = computed(() => props.searchable || (props.allowCreate && !props.autocomplete))
 
 watch(searchVModel, (value) => {

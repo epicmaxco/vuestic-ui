@@ -1,7 +1,7 @@
 import { watch, ExtractPropTypes, Ref, computed, unref } from 'vue'
-import { useSyncProp } from './useSyncProp'
 import { extractComponentProps, filterComponentProps } from '../utils/component-options'
 import { VaDropdown } from '../components/va-dropdown'
+import { useVModelStateful } from './std/internal/useVModelStateful'
 
 const VaDropdownProps = extractComponentProps(VaDropdown,
   ['innerAnchorSelector', 'stateful', 'keyboardNavigation', 'modelValue'],
@@ -15,7 +15,7 @@ export const useDropdownableProps = {
    * @default null - behavior controlled by component
    */
   closeOnChange: { type: Boolean, default: null },
-  isOpen: { type: Boolean, default: undefined },
+  isOpen: { type: Boolean, default: false },
 }
 
 export const useDropdownableEmits = ['update:isOpen']
@@ -29,7 +29,7 @@ export const useDropdownable = function (
     defaultCloseOnValueUpdate?: boolean | Ref<boolean>
   } = {},
 ) {
-  const [isOpenSync] = useSyncProp('isOpen', props, emit, false)
+  const isOpenSync = useVModelStateful(props, 'isOpen', emit)
 
   const doWatch = computed(() => props.closeOnChange !== null ? props.closeOnChange : unref(options.defaultCloseOnValueUpdate || false))
 

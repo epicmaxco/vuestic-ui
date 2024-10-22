@@ -127,7 +127,6 @@ import {
   useColors,
   useTextColor,
   useComponentPresetProp,
-  useSyncProp,
   useFocusDeep,
   useNumericProp,
 } from '../../composables'
@@ -140,6 +139,7 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 import { useInputFieldAria, useInputFieldAriaProps } from './hooks/useInputFieldAria'
 import { WithSlotInheritance } from '../../utils/with-slot-inheritance'
 import { pick } from '../../utils/pick'
+import { useVModelStateful } from '@/composables/std/internal/useVModelStateful'
 
 const VaInputLabelProps = extractComponentProps(VaInputLabel)
 
@@ -180,7 +180,7 @@ export default defineComponent({
 
   setup (props, { emit, slots }) {
     const { getColor } = useColors()
-    const [vModel] = useSyncProp('modelValue', props, emit, '')
+    const vModel = useVModelStateful(props, 'modelValue', emit)
     const inputRef = ref()
 
     const isFocused = useFocusDeep()
