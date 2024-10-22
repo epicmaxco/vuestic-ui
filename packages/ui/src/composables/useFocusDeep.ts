@@ -1,7 +1,8 @@
-import { computed, Ref, DefineComponent, Component } from 'vue'
+import { computed, Ref } from 'vue'
 import { useHTMLElement } from './useHTMLElement'
 import { useCurrentElement } from './std'
 import { useFocusedElement } from './std/browser/useFocusedElement'
+import { TemplateRef } from '../utils/types/template-ref'
 
 /**
  * `true` if `el` or any of his children are in focus
@@ -10,7 +11,7 @@ import { useFocusedElement } from './std/browser/useFocusedElement'
  *
  * @notice this will not trigger native `focus` event and you need to trigger it manually and handle infinite loop
  */
-export const useFocusDeep = (el?: Ref<HTMLElement | DefineComponent | undefined | Component>) => {
+export const useFocusDeep = (el?: Ref<TemplateRef>) => {
   const focused = useFocusedElement()
   const current = useCurrentElement(el ? useHTMLElement(el) : undefined)
   // Cache previouslyFocusedElement, so we can simply come back to it

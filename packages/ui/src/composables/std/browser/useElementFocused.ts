@@ -2,8 +2,9 @@ import { computed, ref, Ref } from 'vue'
 import { useEvent } from '../event/useEvent'
 import { focusElement, blurElement } from '../../../utils/focus'
 import { unwrapEl } from '../../../utils/unwrapEl'
+import { TemplateRef } from '../../../utils/types/template-ref'
 
-export const useElementFocused = (el: Ref<HTMLElement | undefined>) => {
+export const useElementFocused = (el: Ref<TemplateRef>) => {
   const isFocused = ref(false)
 
   useEvent('focus', () => {

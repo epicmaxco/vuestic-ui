@@ -1,6 +1,7 @@
 import { Component, DefineComponent, Ref, unref } from 'vue'
 import { useEvent } from './'
 import { unwrapEl } from '../utils/unwrapEl'
+import { TemplateRef } from '../utils/types/template-ref'
 
 const FOCUSABLE_ELEMENTS_SELECTOR = ':where(a, button, input, textarea, select):not([disabled]), *[tabindex]'
 
@@ -17,7 +18,7 @@ const FOCUSABLE_ELEMENTS_SELECTOR = ':where(a, button, input, textarea, select):
  * Can be used in elements with dropdown or modal, so when user changes focus to other element with `tab` key, dropdown will be closed.
  */
 export const useKeyboardFocusOut = (
-  el: Ref<HTMLElement | DefineComponent | undefined | Component>,
+  el: Ref<TemplateRef>,
   onFocusOut: () => void,
 ) => {
   let previouslyClicked = false

@@ -7,7 +7,7 @@ export type FormFiled<Name extends string = string> = {
   isLoading: Ref<boolean>;
   isDirty: Ref<boolean>;
   isTouched: Ref<boolean>;
-  errorMessages: Ref<string[]>;
+  errorMessages: Ref<string[] | string>;
   validate: () => boolean;
   validateAsync: () => Promise<boolean>;
   reset: () => void;

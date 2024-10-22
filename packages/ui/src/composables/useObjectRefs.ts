@@ -1,6 +1,5 @@
 import { shallowRef, onBeforeUpdate } from 'vue'
-
-import type { TemplateRef } from './useArrayRefs'
+import { TemplateRef } from '../utils/types/template-ref'
 
 /**
  * @usage use setItemRef function as :ref property on v-for construction (or without v-for)

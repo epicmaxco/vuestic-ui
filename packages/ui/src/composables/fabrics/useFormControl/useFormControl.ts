@@ -4,26 +4,27 @@ import {
   type PropType,
   type ExtractPropTypes,
   nextTick,
-  type WritableComputedRef,
-  ref,
   toRef,
   type Ref,
   watchEffect,
+  Prop,
 } from 'vue'
 
-import { useSyncProp } from './useSyncProp'
-import { useFormChild } from './useForm'
-import { type ExtractReadonlyArrayKeys } from '../utils/types/readonly-array-keys'
-import { watchSetter } from './../utils/watch-setter'
-import { isFunction } from '../utils/is-function'
-import { isString } from '../utils/is-string'
+import { useFormChild } from '../../useForm'
+import { isFunction } from '../../../utils/is-function'
+import { isString } from '../../../utils/is-string'
+import { useVModelStateful } from '../../std/internal/useVModelStateful'
+import { useElementFocused } from '../../std'
+import { isPromise } from '../../../utils/is-promise'
+import { useTouched } from './useTouched'
+import { useDirty } from './useDirty'
+import { useOncePerTickFn } from '../../std/internal/useOncePerTickFn'
+import { TemplateRef } from '../../../utils/types/template-ref'
 
 export type ValidationRule<V = any> = ((v: V) => any | string) | Promise<((v: V) => any | string)>
 
 type UseValidationOptions = {
   reset: () => void
-  focus: () => void
-  value: WritableComputedRef<any> | Ref<any>
 }
 
 const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArguments: unknown = null) => {
@@ -33,7 +34,7 @@ const normalizeValidationRules = (rules: string | ValidationRule[] = [], callArg
     .map((rule) => isFunction(rule) ? rule(callArguments) : rule)
 }
 
-export const useValidationProps = {
+export const defaultProps = {
   name: { type: String, default: undefined },
   rules: { type: Array as PropType<ValidationRule<any>[]>, default: () => [] as any },
   dirty: { type: Boolean, default: false },
@@ -41,87 +42,55 @@ export const useValidationProps = {
   errorMessages: { type: [Array, String] as PropType<string[] | string>, default: [] },
   errorCount: { type: [String, Number], default: 1 },
   success: { type: Boolean, default: false },
+  loading: { type: Boolean, default: false },
   messages: { type: [Array, String] as PropType<string[] | string>, default: () => [] },
   immediateValidation: { type: Boolean, default: false },
-  modelValue: {},
 }
 
-export type ValidationProps<V, RulesArgument extends V = V> = {
-  rules: { type: PropType<ValidationRule<RulesArgument>[]>, default: () => any}
-  modelValue: { type: PropType<V>, default: V }
-} & Omit<typeof useValidationProps, 'modelValue' | 'rules'>
-
-export const useValidationEmits = ['update:error', 'update:errorMessages', 'update:dirty', 'update:error', 'update:loading'] as const
-
-const isPromise = (value: any): value is Promise<any> => {
-  return typeof value === 'object' && typeof value.then === 'function'
-}
-
-const useDirtyValue = (
-  value: Ref<any>,
-  props: ExtractPropTypes<typeof useValidationProps>,
-  emit: (event: ExtractReadonlyArrayKeys<typeof useValidationEmits>, ...args: any[]) => void,
-) => {
-  const isDirty = ref(props.dirty || false)
-
-  watchSetter(value, () => {
-    isDirty.value = true
-    emit('update:dirty', true)
-  })
-
-  watch(value, (newValue, oldValue) => {
-    // Watch only if object keys changed, not the object itself
-    if (newValue === oldValue) {
-      isDirty.value = true
-    }
-  }, { deep: true })
-
-  watch(() => props.dirty, (newValue) => {
-    if (isDirty.value === newValue) { return }
-    isDirty.value = newValue
-  })
-
-  return { isDirty }
-}
-
-const useTouched = () => {
-  const isTouched = ref(false)
-
-  const onBlur = () => {
-    isTouched.value = true
+export const defineFormControlProps = <
+  Props extends {
+    modelValue: Prop<any, any>,
   }
-
-  return { isTouched, onBlur }
-}
-
-const useOncePerTick = <T extends (...args: any[]) => any>(fn: T) => {
-  let canBeCalled = true
-
-  return (...args: Parameters<T>) => {
-    if (!canBeCalled) { return }
-    canBeCalled = false
-    const result = fn(...args)
-    nextTick(() => { canBeCalled = true })
-    return result
+>(props: Props) => {
+  return {
+    ...defaultProps,
+    ...props,
   }
 }
 
-export const useValidation = <V, P extends ExtractPropTypes<typeof useValidationProps>>(
-  props: P,
-  emit: (event: any, ...args: any[]) => void,
-  options: UseValidationOptions,
-) => {
-  const { reset, focus } = options
-  const [isError] = useSyncProp('error', props, emit, false)
-  const [errorMessages] = useSyncProp('errorMessages', props, emit, [] as string[])
-  const isLoading = ref(false)
-  const { isTouched, onBlur } = useTouched()
+export const useFormControlEmits = ['update:error', 'update:errorMessages', 'update:dirty'] as const
+
+export const useFormControl = <V, P extends {
+  name?: string | undefined,
+  rules?: ValidationRule<V>[],
+  error?: boolean | undefined,
+  errorMessages?: string | string[],
+  messages: string | string[],
+  dirty: boolean,
+  success: boolean,
+  loading: boolean,
+  immediateValidation: boolean,
+}>(
+    el: Ref<TemplateRef>,
+    value: Ref<V>,
+    props: P,
+    emit: (event: any, ...args: any[]) => void,
+    options: UseValidationOptions,
+  ) => {
+  const isFocused = useElementFocused(el)
+
+  const { reset } = options
+  const isError = useVModelStateful(props, 'error', emit)
+  const errorMessages = useVModelStateful(props, 'errorMessages', emit)
+  const isLoading = useVModelStateful(props, 'loading', emit)
+  const isTouched = useTouched(isFocused)
+  const isDirty = useDirty(value, props, emit)
 
   const validationAriaAttributes = computed(() => ({
     'aria-invalid': isError.value,
     'aria-errormessage': typeof errorMessages.value === 'string'
       ? errorMessages.value
-      : errorMessages.value.join(', '),
+      : errorMessages.value?.join(', '),
   }))
 
   const resetValidation = () => {
@@ -156,7 +125,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
       return true
     }
 
-    const results = normalizeValidationRules(props.rules.flat(), options.value.value)
+    const results = normalizeValidationRules(props.rules.flat(), value.value)
     const asyncPromiseResults = results.filter((result) => isPromise(result))
     const syncRules = results.filter((result) => !isPromise(result))
 
@@ -172,14 +141,14 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
       })
   }
 
-  const validate = useOncePerTick((): boolean => {
+  const validate = useOncePerTickFn((): boolean => {
     if (!props.rules || !props.rules.length) {
       return true
     }
 
     const rules = props.rules.flat()
 
-    const results = normalizeValidationRules(rules, options.value.value)
+    const results = normalizeValidationRules(rules, value.value)
     const asyncPromiseResults = results.filter((result) => isPromise(result))
     const syncRules = results.filter((result) => !isPromise(result))
     const isSyncedError = syncRules.some((result: string | boolean) => isString(result) ? result : result === false)
@@ -199,10 +168,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
 
   watchEffect(() => validate())
 
-  const { isDirty } = useDirtyValue(options.value, props, emit)
-
   const {
-    // Renamed to forceHideError because it's not clear what it does
     forceHideErrors,
     forceHideLoading,
     forceHideErrorMessages,
@@ -213,17 +179,17 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     isDirty,
     isValid: computed(() => !isError.value),
     isLoading: isLoading,
-    errorMessages: errorMessages,
+    errorMessages: computed(() => errorMessages.value ?? []),
     validate,
     validateAsync,
     resetValidation,
-    focus,
+    focus: () => { isFocused.value = true },
     reset: () => {
       reset()
       resetValidation()
       validate()
     },
-    value: computed(() => options.value || props.modelValue),
+    value: computed(() => value.value),
     name: toRef(props, 'name'),
   })
 
@@ -236,7 +202,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     // NextTick because we update props in the same tick, but they are updated in the next one
     nextTick(() => { canValidate = true })
   }
-  watch(options.value, () => {
+  watch(value, () => {
     if (!canValidate) { return }
 
     return validate()
@@ -249,6 +215,7 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     isTouched,
     isLoading: computed({
       get: () => {
+        if (forceHideLoading.value) { return false }
         if (forceHideErrors.value) { return false }
         if (immediateValidation.value) {
           return isLoading.value
@@ -278,7 +245,6 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
       return false
     }),
     computedErrorMessages: computed(() => forceHideErrorMessages.value ? [] : errorMessages.value),
-    listeners: { onBlur },
     validate,
     resetValidation,
     withoutValidation,

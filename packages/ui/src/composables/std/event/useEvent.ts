@@ -1,7 +1,8 @@
-import { Ref, unref, watch } from 'vue'
+import { computed, Ref, unref, watch } from 'vue'
 import { useWindow } from '../ssr/useWindow'
 import { unwrapEl } from '../../../utils/unwrapEl'
 import { addEventListener, removeEventListener } from '../../../utils/add-event-listener'
+import { TemplateRef } from '../../../utils/types/template-ref'
 
 type MaybeRef<T> = Ref<T> | T
 
@@ -23,14 +24,14 @@ type UseEventEvent<N extends UseEventEventName, D> = N extends keyof GlobalEvent
 export const useEvent = <N extends UseEventEventName, E extends Event>(
   event: N,
   listener: (this: GlobalEventHandlers, event: UseEventEvent<N, E>) => any,
-  target?: MaybeRef<unknown> | boolean,
+  target?: MaybeRef<TemplateRef> | boolean,
 ) => {
-  const source = (target && typeof target !== 'boolean') ? target : useWindow()
+  const source = (target && typeof target !== 'boolean') ? computed(() => unwrapEl(unref(target))) : useWindow()
   const capture = typeof target === 'boolean' ? target : false
 
   watch(source, (newValue, oldValue) => {
-    const newEl = unwrapEl(unref(newValue))
-    const oldEl = unwrapEl(unref(oldValue))
+    const newEl = newValue
+    const oldEl = oldValue
 
     if (Array.isArray(event)) {
       event.forEach((e) => {

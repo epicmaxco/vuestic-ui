@@ -27,5 +27,6 @@ export const validationPropsDefaults = {
   errorCount: 1,
   success: false,
   messages: () => [],
+  errorMessages: () => [],
   immediateValidation: false,
 } satisfies DefinePropsDefault<ValidationProps>

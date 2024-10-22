@@ -163,7 +163,7 @@ const emit = defineEmits([
 ])
 
 const input = shallowRef<HTMLInputElement>()
-const datePicker = ref<typeof VaDatePicker>()
+const datePicker = ref<InstanceType<typeof VaDatePicker>>()
 
 const { resetOnClose } = toRefs(props)
 const { trapFocusIn, freeFocus } = useTrapFocus()

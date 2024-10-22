@@ -13,3 +13,15 @@ export const useUserProvidedProp = <Name extends string, Props extends Record<Na
     return propName in vm.vnode.props ? originalProp as Props[Name] : NOT_PROVIDED
   })
 }
+
+export const useIsUserProvidedProp = (propName: string) => {
+  const vm = getCurrentInstance()!
+
+  return computed(() => {
+    // Props may be not passed at all
+    if (!vm?.vnode.props) { return false }
+
+    // If vnode doesn't have this prop it mean default value is used
+    return propName in vm.vnode.props
+  })
+}

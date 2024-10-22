@@ -20,7 +20,6 @@
         :aria-label="$props.ariaLabel"
         :aria-controls="popupId"
         :aria-owns="popupId"
-        @blur="onInputBlur"
       >
         <template
           v-for="(_, name) in $slots"
@@ -32,7 +31,7 @@
 
         <template #icon>
           <va-icon
-            v-if="showClearIcon"
+            v-if="canBeCleared"
             role="button"
             :aria-label="tp($props.ariaClearLabel)"
             v-bind="clearIconProps"
@@ -166,6 +165,8 @@ import type { SelectOption } from './types'
 import type { DropdownOffsetProp } from '../va-dropdown/types'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { pick } from '../../utils/pick'
+import { useClearableControl } from '@/composables/fabrics/useClearableControl'
+import { useFormControl } from '@/composables/fabrics/useFormControl/useFormControl'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 </script>
@@ -254,9 +255,9 @@ const emit = defineEmits([
 
 const { tp, t } = useTranslation()
 
-const optionList = shallowRef<typeof VaSelectOptionList>()
-const input = shallowRef<typeof VaInputWrapper>()
-const searchBar = shallowRef<typeof VaInputWrapper>()
+const optionList = shallowRef<InstanceType<typeof VaSelectOptionList>>()
+const input = shallowRef<InstanceType<typeof VaInputWrapper>>()
+const searchBar = shallowRef<InstanceType<typeof VaInputWrapper>>()
 
 const isInputFocused = useFocusDeep(input as any)
 
@@ -332,13 +333,7 @@ const valueString = useStringValue(props, visibleSelectedOptions, getValueText)
 const {
   canBeCleared,
   clearIconProps,
-} = useClearable(props, valueComputed)
-
-const showClearIcon = computed(() => {
-  if (!canBeCleared.value) { return false }
-  if (props.multiple && Array.isArray(valueComputed.value)) { return !!valueComputed.value.length }
-  return true
-})
+} = useClearableControl(props, valueComputed)
 
 // options
 const filteredOptions = computed(() => {
@@ -538,8 +533,6 @@ const focusSearchOrOptions = async () => {
 const onInputBlur = () => {
   if (showDropdownContentComputed.value) { return }
 
-  validationListeners.onBlur()
-
   isInputFocused.value
     ? isInputFocused.value = false
     : validate()
@@ -724,9 +717,8 @@ const {
   withoutValidation,
   resetValidation,
   validationAriaAttributes,
-  listeners: validationListeners,
   isTouched,
-} = useValidation(props, emit, { reset, focus, value: valueComputed })
+} = useFormControl(input, valueComputed, props, emit, { reset })
 
 watch(isOpenSync, (isOpen) => {
   if (!isOpen) {

@@ -1,13 +1,13 @@
-import { shallowRef, onBeforeUpdate, ComponentPublicInstance } from 'vue'
+import { shallowRef, onBeforeUpdate } from 'vue'
 
-export type TemplateRef = HTMLElement | (ComponentPublicInstance & HTMLElement)
+// TODO: Use Template Ref, we're not sure if itemsRefs is html element or vue component
 
 /**
  * @usage use setItemRef function as :ref property on v-for construction (or without v-for)
  * @link https://v3.vuejs.org/guide/migration/array-refs.html
 */
 export const useArrayRefs = () => {
-  const itemRefs = shallowRef<TemplateRef[]>([])
+  const itemRefs = shallowRef<HTMLElement[]>([])
 
   const setItemRef = (el: any) => {
     if (!el) { return }

@@ -1,11 +1,8 @@
 import { Ref, reactive } from 'vue'
 import { useEvent, useWindow } from './'
+import { TemplateRef } from '../utils/types/template-ref'
 
-export const useMousePosition = (el?: Ref<GlobalEventHandlers | undefined | null>) => {
-  if (!el) {
-    el = useWindow()
-  }
-
+export const useMousePosition = (el?: Ref<TemplateRef>) => {
   const mouse = reactive({ x: 0, y: 0 })
 
   const onMouseMove = (e: MouseEvent) => {

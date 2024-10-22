@@ -1,4 +1,4 @@
-import { effectScope, onScopeDispose, EffectScope } from 'vue'
+import { effectScope, onScopeDispose, getCurrentScope, EffectScope } from 'vue'
 
 /** Used to store state once per app */
 export const makeSharedComposable = <T extends (...args: any[]) => any>(composable: T): T => {
@@ -21,7 +21,9 @@ export const makeSharedComposable = <T extends (...args: any[]) => any>(composab
       state = scope.run(() => composable(...args))
     }
 
-    onScopeDispose(dispose)
+    if (getCurrentScope()) {
+      onScopeDispose(dispose)
+    }
 
     return state
   })
