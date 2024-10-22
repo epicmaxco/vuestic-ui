@@ -136,7 +136,7 @@ import {
   useLoadingProps,
   useMaxSelections, useMaxSelectionsProps,
   useClearableProps, useClearable, useClearableEmits,
-  useFocusDeep,
+  useElementFocusedWithin,
   useTranslation, useTranslationProp,
   useBem,
   useThrottleProps,
@@ -260,7 +260,7 @@ const optionList = shallowRef<InstanceType<typeof VaSelectOptionList>>()
 const input = shallowRef<InstanceType<typeof VaInputWrapper>>()
 const searchBar = shallowRef<InstanceType<typeof VaInputWrapper>>()
 
-const isInputFocused = useFocusDeep(input as any)
+const isInputFocused = useElementFocusedWithin(input as any)
 
 const { getValue, getText, getTrackBy, tryResolveByValue } = useSelectableList(props)
 

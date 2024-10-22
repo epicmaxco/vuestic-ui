@@ -1,20 +1,10 @@
-import { Ref, unref } from 'vue'
+import { MaybeRef, Ref, unref } from 'vue'
 
 import { useEvent } from './useEvent'
 import { findTeleportedFrom } from '../internal/useTeleported'
 import { unwrapEl } from '../../../utils/unwrapEl'
-
-const checkIfElementChild = (parent: HTMLElement, child: HTMLElement | null | undefined): boolean => {
-  if (!child) { return false }
-  if (child.parentElement === parent) { return true }
-
-  return parent.contains(child)
-}
-
-type MaybeRef<T> = T | Ref<T>
-type MaybeArray<T> = T | T[]
-
-const safeArray = <T>(a: MaybeArray<T>) => Array.isArray(a) ? a : [a]
+import { MaybeArray, safeArray } from '../../../utils/safe-array'
+import { isElementChild } from '../../../utils/is-element-child'
 
 export const useClickOutside = (elements: MaybeArray<MaybeRef<HTMLElement | undefined>>, cb: (el: HTMLElement) => void) => {
   useEvent('mousedown', (event: MouseEvent) => {
@@ -32,9 +22,9 @@ export const useClickOutside = (elements: MaybeArray<MaybeRef<HTMLElement | unde
 
       if (!el) { return false }
 
-      if (!teleportParent) { return checkIfElementChild(el, clickTarget) }
+      if (!teleportParent) { return isElementChild(el, clickTarget) }
 
-      return checkIfElementChild(el, clickTarget) || checkIfElementChild(el, teleportParent)
+      return isElementChild(el, clickTarget) || isElementChild(el, teleportParent)
     })
 
     if (!isClickInside) { cb(clickTarget) }

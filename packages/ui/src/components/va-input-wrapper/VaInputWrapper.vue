@@ -127,7 +127,7 @@ import {
   useColors,
   useTextColor,
   useComponentPresetProp,
-  useFocusDeep,
+  useElementFocusedWithin,
   useNumericProp,
 } from '../../composables'
 
@@ -183,7 +183,7 @@ export default defineComponent({
     const vModel = useVModelStateful(props, 'modelValue', emit)
     const inputRef = ref()
 
-    const isFocused = useFocusDeep()
+    const isFocused = useElementFocusedWithin()
 
     const counterValue = computed(() =>
       props.counter && typeof vModel.value === 'string' ? vModel.value.length : undefined,

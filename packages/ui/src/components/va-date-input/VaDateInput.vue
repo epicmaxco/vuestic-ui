@@ -91,7 +91,7 @@ import {
   useDropdownableProps,
   useDropdownableEmits,
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
-  useTranslation, useTranslationProp, useFocusDeep, useTrapFocus,
+  useTranslation, useTranslationProp, useElementFocusedWithin, useTrapFocus,
 } from '../../composables'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
@@ -210,7 +210,7 @@ watch(isOpenSync, (isOpened) => {
 })
 
 const { focus, blur } = useFocusableControl(input, props, emit)
-const isPickerFocused = useFocusDeep(datePicker)
+const isPickerFocused = useElementFocusedWithin(datePicker)
 
 const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'
 
