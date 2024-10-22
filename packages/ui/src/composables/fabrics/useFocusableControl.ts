@@ -1,21 +1,21 @@
 import { ExtractPropTypes, Ref, onMounted, watch } from 'vue'
 import { useElementFocused } from '../std/'
 
-export const useFocusableProps = {
+export const useFocusableControlProps = {
   /** Focus element when mounted */
   autofocus: { type: Boolean, default: false },
 }
 
 // TODO: Use function instead of array
-export const useFocusableEmits = ['focus', 'blur'] as const
+export const useFocusableControlEmits = ['focus', 'blur'] as const
 
-export const useFocusable = (
+export const useFocusableControl = (
   el: Ref<HTMLElement | null | undefined>,
   props: {
     autofocus: boolean,
-    disabled: boolean,
+    disabled?: boolean,
   },
-  emit: (event: (typeof useFocusableEmits)[number]) => void,
+  emit: (event: (typeof useFocusableControlEmits)[number]) => void,
 ) => {
   const isFocused = useElementFocused(el)
 

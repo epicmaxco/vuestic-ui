@@ -105,7 +105,7 @@ import {
   useFormFieldProps,
   useEmitProxy,
   useElementFocused,
-  useFocusable, useFocusableProps,
+  useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
   useStateful, useStatefulProps,
   useColors,
   useTranslation, useTranslationProp,
@@ -153,7 +153,7 @@ const props = defineProps({
   ...useComponentPresetProp,
   ...useClearableProps,
   ...VaInputWrapperProps,
-  ...useFocusableProps,
+  ...useFocusableControlProps,
     // input
   modelValue: { type: [String, Number], default: 0 },
   manualInput: { type: Boolean, default: false },
@@ -178,6 +178,7 @@ const props = defineProps({
 const emit = defineEmits([
   'update:modelValue',
   ...useValidationEmits,
+  ...useFocusableControlEmits,
   ...createInputEmits(),
   ...createFieldEmits(),
 ])
@@ -190,7 +191,7 @@ const longPressDelayComputed = useNumericProp('longPressDelay')
 const {
   focus,
   blur,
-} = useFocusable(input, props)
+} = useFocusableControl(input, props, emit)
 
 const { valueComputed: statefulValue } = useStateful(props, emit)
 

@@ -90,7 +90,7 @@ import {
   useDropdownable,
   useDropdownableProps,
   useDropdownableEmits,
-  useFocusable, useFocusableProps, useElementFocused,
+  useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
   useTranslation, useTranslationProp, useFocusDeep, useTrapFocus,
 } from '../../composables'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
@@ -124,7 +124,7 @@ const props = defineProps({
   ...VaDatePickerPropsDeclaration,
   ...useValidationProps as ValidationProps<DateInputModelValue>,
   ...useComponentPresetProp,
-  ...useFocusableProps,
+  ...useFocusableControlProps,
 
   clearValue: { type: undefined as unknown as PropType<any>, default: undefined },
   modelValue: { type: [Date, Array, Object, String, Number] as PropType<DateInputModelValue> },
@@ -159,6 +159,7 @@ const emit = defineEmits([
   ...useValidationEmits,
   ...useStatefulEmits,
   ...useDropdownableEmits,
+  ...useFocusableControlEmits,
   'update:text',
 ])
 
@@ -208,7 +209,7 @@ watch(isOpenSync, (isOpened) => {
   if (!isOpened && !isRangeModelValueGuardDisabled.value) { resetInvalidRange() }
 })
 
-const { focus, blur } = useFocusable(input, props)
+const { focus, blur } = useFocusableControl(input, props, emit)
 const isPickerFocused = useFocusDeep(datePicker)
 
 const dateOrNothing = (date: Date | undefined | null) => date ? props.formatDate(date) : '...'

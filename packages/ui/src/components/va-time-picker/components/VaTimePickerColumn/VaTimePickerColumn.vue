@@ -30,7 +30,7 @@
 import VaTimePickerColumnCell from '../VaTimePickerColumnCell.vue'
 import { nextTick, shallowRef, watch, onMounted, PropType, computed, ComputedRef } from 'vue'
 
-import { useNumericProp, useFocusable, useFocusableProps } from '../../../../composables'
+import { useNumericProp, useFocusableControl, useFocusableControlProps, useFocusableControlEmits } from '../../../../composables'
 import { debounce } from '../../../../utils/debounce'
 import { useVModelStateful } from '@/composables/std/internal/useVModelStateful'
 
@@ -42,13 +42,13 @@ const props = defineProps({
   items: { type: Array as PropType<string[] | number[]>, default: () => [] },
   activeItemIndex: { type: Number, default: 0 },
   cellHeight: { type: [Number, String], default: 30 },
-  ...useFocusableProps,
+  ...useFocusableControlProps,
 })
 
-const emit = defineEmits(['item-selected', 'update:activeItemIndex'])
+const emit = defineEmits(['item-selected', 'update:activeItemIndex', ...useFocusableControlEmits])
 
 const rootElement = shallowRef<HTMLElement>()
-const { focus, blur } = useFocusable(rootElement, props)
+const { focus, blur } = useFocusableControl(rootElement, props, emit)
 const activeItemIndexVModel = useVModelStateful(props, 'activeItemIndex', emit)
 
 const cellHeightComputed = useNumericProp('cellHeight') as ComputedRef<number>

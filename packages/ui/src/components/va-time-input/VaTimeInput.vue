@@ -80,7 +80,8 @@ import {
   useComponentPresetProp,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useClearable, useClearableEmits, useClearableProps,
-  useElementFocused, useFocusable, useFocusableProps,
+  useElementFocused,
+  useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
   useStateful, useStatefulEmits, useStatefulProps,
   useTranslation, useTranslationProp,
   useDropdownable, useDropdownableProps, useDropdownableEmits, useLongPressKey,
@@ -110,7 +111,7 @@ const props = defineProps({
   ...extractComponentProps(VaTimePicker),
   ...useValidationProps as ValidationProps<Date>,
   ...useStatefulProps,
-  ...useFocusableProps,
+  ...useFocusableControlProps,
 
   closeOnContentClick: { type: Boolean, default: false },
   offset: { ...useDropdownableProps.offset, default: () => [2, 0] },
@@ -133,6 +134,7 @@ const emit = defineEmits([
   ...useClearableEmits,
   ...useStatefulEmits,
   ...useDropdownableEmits,
+  ...useFocusableControlEmits,
   'update:modelValue',
 ])
 
@@ -167,7 +169,7 @@ const doShowDropdown = computed({
 })
 
 const isFocused = useElementFocused(input)
-const { blur, focus } = useFocusable(input, props)
+const { blur, focus } = useFocusableControl(input, props, emit)
 
 const onInputTextChanged = (e: Event) => {
   if (props.disabled) { return }
