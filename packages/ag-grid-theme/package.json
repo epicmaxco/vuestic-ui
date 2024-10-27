@@ -7,8 +7,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "rollup --config rollup.config.js --bundleConfigAsCjs",
-    "prepack": "npm run build"
+    "build": "tsx ./build.ts",
+    "prepack": "npm run build",
+    "play": "cd playground && npm run dev"
   },
   "dependencies": {
     "@ag-grid-community/client-side-row-model": "^32.2.2",
@@ -35,6 +36,8 @@
   "main": "dist/ag-theme-vuestic.css",
   "exports": {
     ".": "./dist/ag-theme-vuestic.css",
-    "./scss": "./src/styles/index.scss"
+    "./scss": "./src/styles/index.scss",
+    "./clean": "./dist/ag-theme-vuestic-clean.css",
+    "./clean/scss": "./src/styles/clean.scss"
   }
 }
