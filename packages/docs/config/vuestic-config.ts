@@ -90,18 +90,18 @@ export const VuesticConfig = defineVuesticConfig({
       //   backgroundLandingBorder: 'rgba(43, 49, 56, 0.8)',
       // },
       landing: {
-        primary: '#1827A7',
-        secondary: '#767C88',
-        success: '#3D9209',
-        info: '#158DE3',
-        danger: '#E42222',
-        warning: '#FFD43A',
+        // primary: '#1827A7',
+        // secondary: '#767C88',
+        // success: '#3D9209',
+        // info: '#158DE3',
+        // danger: '#E42222',
+        // warning: '#FFD43A',
 
-        // Background Colors
-        backgroundPrimary: '#f6f6f6',
-        backgroundSecondary: '#FFFFFF',
-        backgroundElement: '#ECF0F1',
-        backgroundBorder: '#DEE5F2',
+        // // Background Colors
+        // backgroundPrimary: '#f6f6f6',
+        // backgroundSecondary: '#FFFFFF',
+        // backgroundElement: '#ECF0F1',
+        // backgroundBorder: '#DEE5F2',
 
         // Text Colors
         textPrimary: '#262824',
@@ -110,6 +110,8 @@ export const VuesticConfig = defineVuesticConfig({
         // Misc
         shadow: 'rgba(0, 0, 0, 0.12)',
         focus: '#49A8FF',
+
+        ...halloweenColors,
       },
     },
   },

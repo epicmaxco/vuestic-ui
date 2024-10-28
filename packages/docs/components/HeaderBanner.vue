@@ -152,7 +152,7 @@ const hide = () => {
 
   min-height: 40px;
   padding: 0.5rem 0;
-  background-color: #012875;
+  background-color: color-mix(in srgb, var(--va-primary) 80%, black 50%);
   font-size: 0.9rem;
   color: $text-color;
   flex-shrink: 0;
