@@ -76,7 +76,7 @@ onMounted(() => {
   isSidebarVisible.value = !breakpoints.smDown
   setTimeout(() => {
     doShowLoader.value = false
-  }, 200);
+  }, 300);
 
   window.addEventListener('mousemove', onMouseMove)
 
