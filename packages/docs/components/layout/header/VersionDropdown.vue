@@ -12,7 +12,7 @@ const uiVersion = packageUi.version
 
 <style lang="scss">
 .version-dropdown {
-  color: var(--va-text-primary);
   font-weight: 600;
+  opacity: 0.8;
 }
 </style>

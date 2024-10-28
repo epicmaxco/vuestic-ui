@@ -13,6 +13,26 @@ const VaButtonLandingHeader = {
   'hover-opacity': '1',
 }
 
+const halloweenColors = {
+  primary: '#e36414',
+  secondary: '#EDE8E8',
+  success: '#3D9209',
+  info: '#158DE3',
+  danger: '#E42222',
+  warning: '#FFD43A',
+
+  // Background Colors
+  backgroundPrimary: '#000',
+  backgroundSecondary: '#210505',
+  backgroundElement: '#941b0c',
+  backgroundBorder: '#621708',
+  // secondary: '#666E75',
+  // backgroundPrimary: '#FFFFFF',
+  backgroundSidebar: '#130C0C',
+  backgroundLanding: '#f4f9fc',
+  backgroundLandingBorder: 'rgba(155, 179, 206, 0.8)',
+}
+
 export const VuesticConfig = defineVuesticConfig({
   icons,
   components: {
@@ -25,6 +45,9 @@ export const VuesticConfig = defineVuesticConfig({
     },
     VaBacktop: {
       target: scrollWrapperSelector,
+    },
+    VaSidebar: {
+      color: 'backgroundSidebar',
     },
     presets: {
       VaButton: {
@@ -47,19 +70,25 @@ export const VuesticConfig = defineVuesticConfig({
   },
   colors: {
     presets: {
+      // Halloween colors
       light: {
-        secondary: '#666E75',
-        backgroundPrimary: '#FFFFFF',
-        backgroundLanding: '#f4f9fc',
-        backgroundLandingBorder: 'rgba(155, 179, 206, 0.8)',
+        ...halloweenColors
       },
       dark: {
-        // TODO: Check color contrast:  current primary is bad
-        // primary: '#5389F3',
-        secondary: '#818992',
-        backgroundLanding: '#070d14',
-        backgroundLandingBorder: 'rgba(43, 49, 56, 0.8)',
+        ...halloweenColors
       },
+
+      // light: {
+      //   secondary: '#666E75',
+      //   backgroundPrimary: '#FFFFFF',
+      //   backgroundLanding: '#f4f9fc',
+      //   backgroundLandingBorder: 'rgba(155, 179, 206, 0.8)',
+      // },
+      // dark: {
+      //   secondary: '#818992',
+      //   backgroundLanding: '#070d14',
+      //   backgroundLandingBorder: 'rgba(43, 49, 56, 0.8)',
+      // },
       landing: {
         primary: '#1827A7',
         secondary: '#767C88',
