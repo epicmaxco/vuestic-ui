@@ -130,6 +130,7 @@ html {
     content: '';
     position: absolute;
     height: 100%;
+    min-height: 100vh;
     width: 100%;
     background-image: url("https://i.imgur.com/rpnciUN.png");
     background-size: 30%;
