@@ -194,7 +194,11 @@ onMounted(() => {
 }
 
 .header {
+  // Halloween background
   box-shadow: 0 2px 8px var(--va-shadow);
+  background-image: url("https://i.imgur.com/BNkuj2J.png");
+  background-position: center;
+  background-blend-mode: multiply;
 
   &.va-navbar {
     padding: var(--navbar-padding);

@@ -7,11 +7,12 @@
         'header-banner--wrapped': wrapped,
       }"
     >
-      <div class="header__wrapper">
+      <div class="header__wrapper flex sm:flex-row flex-col">
         <div class="header-banner__left">
           <!-- Replace back to vuestic later -->
           <!-- <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${uiVersion}`">We just released&nbsp;<strong>Vuestic {{ uiVersion }} 🤗</strong></a> -->
-          <a href="https://admin.vuestic.dev/">We just released <strong>Vuestic Admin 3.0</strong> 🤗</a>
+          <!-- <a href="https://admin.vuestic.dev/">We just released <strong>Vuestic Admin 3.0</strong> 🤗</a> -->
+          <span>Epicmax - We are the core team behind Vuestic UI and Vuestic Admin and frontend development company specializing in Vue.js since our founding in 2017.</span>
 
           <!--          <div class="header-banner__left-links">-->
           <!-- <a
@@ -80,7 +81,7 @@
             href="https://epicmax.co/?ref=vuestic-header"
             target="blank"
           >
-            🔥🔥🔥 Hire us
+            <span class="text-nowrap">🔥🔥🔥 Hire us</span>
           </VaButton>
           <VaButton
             v-if="closeable"
@@ -152,7 +153,7 @@ const hide = () => {
 
   min-height: 40px;
   padding: 0.5rem 0;
-  background-color: #012875;
+  background-color: color-mix(in srgb, var(--va-primary) 80%, black 50%);
   font-size: 0.9rem;
   color: $text-color;
   flex-shrink: 0;

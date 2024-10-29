@@ -1,6 +1,24 @@
 <template>
   <div>
     <VaSwitch
+      :model-value="false"
+      color="#5123a1"
+      off-color="#ffd300"
+      style="--va-switch-checker-background-color: #252723;"
+      class="theme-switch-button"
+      name="Switch theme"
+      :aria-label="`Switch theme to ${isDark ? 'light' : 'dark'}`"
+    >
+      <template #innerLabel>
+        <div class="va-text-center">
+          <VaIcon
+            size="24px"
+            :name="'fas-ghost'"
+          />
+        </div>
+      </template>
+    </VaSwitch>
+    <!-- <VaSwitch
       v-model="isDark"
       color="#5123a1"
       off-color="#ffd300"
@@ -17,7 +35,7 @@
           />
         </div>
       </template>
-    </VaSwitch>
+    </VaSwitch> -->
   </div>
 </template>
 
