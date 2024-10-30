@@ -22,6 +22,7 @@ import { extractComponentProps, extractComponentEmits, filterComponentProps } fr
 import { useImmediateFocus, useComponentPresetProp } from '../../composables'
 import { focusFirstFocusableChild } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
+import { useChildComponents, defineChildProps } from '../../composables/useChildComponents'
 
 const VaMenuListProps = extractComponentProps(VaMenuList)
 const VaMenuListEmits = extractComponentEmits(VaMenuList)
@@ -39,6 +40,10 @@ const props = defineProps({
   ...useComponentPresetProp,
   ...VaMenuListProps,
   ...VaDropdownProps,
+  ...defineChildProps({
+    menuList: VaMenuList,
+    dropdown: VaDropdown,
+  }),
   stickToEdges: { type: Boolean, default: true },
 })
 
@@ -72,6 +77,8 @@ const onKeydown = (event: KeyboardEvent) => {
 
 const menuListProps = filterComponentProps(VaMenuListProps)
 const dropdownProps = filterComponentProps(VaDropdownProps)
+
+useChildComponents(props)
 
 defineExpose({
   close,

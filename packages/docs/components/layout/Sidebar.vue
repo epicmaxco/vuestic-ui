@@ -1,7 +1,7 @@
 <template>
   <VaSidebar
     v-model="writableVisible"
-    class="sidebar"
+    class="sidebar docs-sidebar"
     :width="sidebarWidth"
   >
     <VaAccordion
@@ -178,11 +178,6 @@ export default defineComponent({
 @import "@/assets/smart-grid.scss";
 
 .sidebar {
-  // Halloween background
-  background-image: url("https://i.imgur.com/fLEstk9.png");
-  background-repeat: no-repeat;
-  background-blend-mode: multiply;
-
   &__collapse-custom-header {
     position: relative;
     padding: 1rem 1.2rem;
