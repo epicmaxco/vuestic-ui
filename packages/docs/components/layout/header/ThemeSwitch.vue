@@ -1,57 +1,49 @@
 <template>
   <div>
-    <VaSwitch
-      :model-value="false"
-      color="#5123a1"
-      off-color="#ffd300"
-      style="--va-switch-checker-background-color: #252723;"
-      class="theme-switch-button"
-      name="Switch theme"
-      :aria-label="`Switch theme to ${isDark ? 'light' : 'dark'}`"
-    >
-      <template #innerLabel>
-        <div class="va-text-center">
-          <VaIcon
-            size="24px"
-            :name="'fas-ghost'"
-          />
-        </div>
+    <VaMenu>
+      <template #anchor>
+        <VaButton
+          :icon="currentTheme?.icon"
+          preset="secondary"
+        />
       </template>
-    </VaSwitch>
-    <!-- <VaSwitch
-      v-model="isDark"
-      color="#5123a1"
-      off-color="#ffd300"
-      style="--va-switch-checker-background-color: #252723;"
-      class="theme-switch-button"
-      name="Switch theme"
-      :aria-label="`Switch theme to ${isDark ? 'light' : 'dark'}`"
-    >
-      <template #innerLabel>
-        <div class="va-text-center">
-          <VaIcon
-            size="24px"
-            :name="isDark ? 'dark_mode' : 'light_mode'"
-          />
-        </div>
-      </template>
-    </VaSwitch> -->
+      <VaMenuItem
+        v-for="(theme) in themes"
+        :key="theme"
+        :icon="theme.icon"
+        :child:left-icon="{
+          color: theme.color
+        }"
+        class="h-[40px]"
+        @selected="applyPreset(theme.key)"
+      >
+        {{ theme.name }}
+
+        <template #right-icon>
+          <VaColorIndicator :color="presets[theme.key].backgroundPrimary" />
+          <VaColorIndicator class="-ml-2" :color="presets[theme.key].secondary" />
+          <VaColorIndicator class="-ml-2" :color="presets[theme.key].primary" />
+        </template>
+      </VaMenuItem>
+    </VaMenu>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const { currentPresetName, applyPreset } = useColors()
+const { currentPresetName, applyPreset, presets } = useColors()
 
-const isDark = computed({
-  get: () => currentPresetName.value === 'dark',
-  set: (value) => applyPreset(value ? 'dark' : 'light'),
-})
+const themes = [
+  { name: 'Light', icon: 'light_mode', key: 'light', color: '#ffd300' },
+  { name: 'Dark', icon: 'dark_mode', key: 'dark', color: '#5123a1' },
+  { name: 'Spooky', icon: 'fas-ghost', key: 'halloween', color: '#e36414' },
+]
+
+const currentTheme = computed(() => themes.find((theme) => theme.key === currentPresetName.value))
 </script>
 
 <style lang="scss">
-
 .theme-switch-button {
   --va-switch-checker-wrapper-width: 4rem;
   --va-switch-inner-height: 2.25rem;

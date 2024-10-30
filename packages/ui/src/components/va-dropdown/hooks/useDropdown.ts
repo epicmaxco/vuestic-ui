@@ -56,7 +56,7 @@ export const useDropdown = (
       result.push(
         // boundary doesn't work with ssr (trying to access document)
         flip({
-          boundary: target.value,
+          boundary: target.value ?? 'clippingAncestors',
         }),
       )
     }

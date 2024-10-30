@@ -31,6 +31,9 @@ const halloweenColors = {
   backgroundSidebar: '#130C0C',
   backgroundLanding: '#f4f9fc',
   backgroundLandingBorder: 'rgba(155, 179, 206, 0.8)',
+  textPrimary: '#FFFFFF',
+  textInverted: '#FFFFFF',
+  shadow: 'rgba(0, 0, 0, 0.30)',
 }
 
 export const VuesticConfig = defineVuesticConfig({
@@ -72,23 +75,19 @@ export const VuesticConfig = defineVuesticConfig({
     presets: {
       // Halloween colors
       light: {
-        ...halloweenColors
+        secondary: '#666E75',
+        backgroundPrimary: '#FFFFFF',
+        backgroundLanding: '#f4f9fc',
+        backgroundLandingBorder: 'rgba(155, 179, 206, 0.8)',
+        backgroundSidebar: '#ECF0F1',
       },
       dark: {
-        ...halloweenColors
+        secondary: '#818992',
+        backgroundLanding: '#070d14',
+        backgroundLandingBorder: 'rgba(43, 49, 56, 0.8)',
+        backgroundSidebar: '#131A22',
+        shadow: 'rgba(0, 0, 0, 0.12)',
       },
-
-      // light: {
-      //   secondary: '#666E75',
-      //   backgroundPrimary: '#FFFFFF',
-      //   backgroundLanding: '#f4f9fc',
-      //   backgroundLandingBorder: 'rgba(155, 179, 206, 0.8)',
-      // },
-      // dark: {
-      //   secondary: '#818992',
-      //   backgroundLanding: '#070d14',
-      //   backgroundLandingBorder: 'rgba(43, 49, 56, 0.8)',
-      // },
       landing: {
         // primary: '#1827A7',
         // secondary: '#767C88',
@@ -113,6 +112,7 @@ export const VuesticConfig = defineVuesticConfig({
 
         ...halloweenColors,
       },
+      halloween: halloweenColors,
     },
   },
 })

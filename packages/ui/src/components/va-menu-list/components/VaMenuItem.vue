@@ -11,7 +11,7 @@
   >
     <td class="va-menu-item__cell va-menu-item__cell--left">
       <slot name="left-icon">
-        <VaIcon class="va-menu-item__icon--left" v-if="icon" :name="icon" />
+        <VaIcon class="va-menu-item__icon--left" v-if="icon" :name="icon" va-child="leftIcon" />
       </slot>
     </td>
 
@@ -25,7 +25,7 @@
 
     <td class="va-menu-item__cell va-menu-item__cell--right">
       <slot name="right-icon">
-        <VaIcon v-if="rightIcon" class="va-menu-item__icon--right" :name="rightIcon" />
+        <VaIcon v-if="rightIcon" class="va-menu-item__icon--right" :name="rightIcon" va-child="rightIcon" />
       </slot>
     </td>
   </tr>
@@ -36,6 +36,7 @@ import { ref, computed } from 'vue'
 import { VaIcon } from '../../va-icon/'
 import { useKeyboardOnlyFocusGlobal } from '../../../composables'
 import { makeMenuItemAttributes } from '../composables/useMenuKeyboardNavigation'
+import { defineChildProps, useChildComponents } from '../../../composables/useChildComponents'
 
 defineOptions({
   name: 'VaMenuItem',
@@ -46,11 +47,17 @@ const props = defineProps({
   icon: { type: String, defatult: '' },
   rightIcon: { type: String, defatult: '' },
   disabled: { type: Boolean, default: false },
+  ...defineChildProps({
+    leftIcon: VaIcon,
+    rightIcon: VaIcon,
+  }),
 })
 
 const emit = defineEmits(['selected'])
 
 const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocusGlobal()
+
+useChildComponents(props)
 </script>
 
 <style lang="scss">
@@ -82,6 +89,7 @@ const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocusGlobal(
 
       &:empty {
         padding: 0;
+        width: 0;
       }
     }
 
