@@ -133,6 +133,7 @@ html {
   font-family: var(--va-font-family);
   // Halloween background
   position: relative;
+  z-index: 0;
 
   &--theme-halloween {
     &::before {
