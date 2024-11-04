@@ -9,7 +9,7 @@
       </template>
       <VaMenuItem
         v-for="(theme) in themes"
-        :key="theme"
+        :key="theme.name"
         :icon="theme.icon"
         :child:left-icon="{
           color: theme.color
@@ -37,7 +37,7 @@ const { currentPresetName, applyPreset, presets } = useColors()
 const themes = [
   { name: 'Light', icon: 'light_mode', key: 'light', color: '#ffd300' },
   { name: 'Dark', icon: 'dark_mode', key: 'dark', color: '#5123a1' },
-  { name: 'Spooky', icon: 'fas-ghost', key: 'halloween', color: '#e36414' },
+  // { name: 'Spooky', icon: 'fas-ghost', key: 'halloween', color: '#e36414' },
 ]
 
 const currentTheme = computed(() => themes.find((theme) => theme.key === currentPresetName.value))

@@ -81,9 +81,13 @@ onMounted(() => {
     doShowLoader.value = false
   }, 300);
 
-  if (!window.localStorage.getItem('eventConfig')) {
-    window.localStorage.setItem('eventConfig', 'halloween')
+  if (window.localStorage.getItem('eventConfig')) {
+    window.localStorage.setItem('eventConfig', 'none')
     currentPresetName.value = 'halloween'
+  }
+
+  if (currentPresetName.value === 'halloween') {
+    currentPresetName.value = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   }
 
   window.addEventListener('mousemove', onMouseMove)
