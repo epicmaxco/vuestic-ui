@@ -83,7 +83,6 @@ onMounted(() => {
 
   if (window.localStorage.getItem('eventConfig')) {
     window.localStorage.setItem('eventConfig', 'none')
-    currentPresetName.value = 'halloween'
   }
 
   if (currentPresetName.value === 'halloween') {
