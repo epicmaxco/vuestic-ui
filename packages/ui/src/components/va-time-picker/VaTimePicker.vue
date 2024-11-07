@@ -34,7 +34,7 @@ import {
   useFormFieldProps,
   useFormField,
   useArrayRefs,
-  useCSSVariables, useNumericProp,
+  useNumericProp,
 } from '../../composables'
 
 defineOptions({
@@ -98,13 +98,13 @@ const computedClasses = computed(() => ({
   'va-time-picker--framed': props.framed,
 }))
 
-const computedStyles = useCSSVariables('va-time-picker', () => {
+const computedStyles = computed(() => {
   const gapHeight = (visibleCellsCountComputed.value - 1) / 2 * cellHeightComputed.value
 
   return {
-    height: `${cellHeightComputed.value * visibleCellsCountComputed.value}px`,
-    'cell-height': `${cellHeightComputed.value}px`,
-    'column-gap-height': `${gapHeight}px`,
+    '--va-time-picker-height': `${cellHeightComputed.value * visibleCellsCountComputed.value}px`,
+    '--va-time-picker-cell-height': `${cellHeightComputed.value}px`,
+    '--va-time-picker-column-gap-height': `${gapHeight}px`,
   }
 })
 

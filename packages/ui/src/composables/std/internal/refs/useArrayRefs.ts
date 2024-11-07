@@ -7,6 +7,7 @@ import { shallowRef, onBeforeUpdate } from 'vue'
  * @link https://v3.vuejs.org/guide/migration/array-refs.html
 */
 export const useArrayRefs = () => {
+  // TODO: Change to TemplateRef
   const itemRefs = shallowRef<HTMLElement[]>([])
 
   const setItemRef = (el: any) => {
