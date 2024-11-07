@@ -17,11 +17,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, toRef } from 'vue'
+import { computed, ref, toRef } from 'vue'
 
 import {
   applyColors,
-  useElementRef,
   useColors,
   useKeyboardOnlyFocus,
   useHover,
@@ -29,6 +28,7 @@ import {
   useRouterLinkProps,
   useTextColor,
   useComponentPresetProp,
+  useElementTemplateRef,
 } from '../../../composables'
 import { useSidebarItem } from '../hooks/useSidebar'
 
@@ -48,7 +48,7 @@ const props = defineProps({
   disabled: { type: Boolean, default: false },
 })
 
-const rootElement = useElementRef()
+const rootElement = useElementTemplateRef(ref())
 const sidebar = useSidebarItem()
 
 const { isHovered } = useHover(rootElement, toRef(props, 'disabled'))

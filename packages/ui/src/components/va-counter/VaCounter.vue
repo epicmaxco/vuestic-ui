@@ -115,6 +115,7 @@ import {
   useClearableControlProps,
   useValidationEmits,
   useNumericProp,
+  useElementTemplateRef,
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
@@ -286,12 +287,12 @@ const increaseCount = () => {
   calculateCounterValue(Number(valueComputed.value) + Number(step.value))
 }
 
-useLongPress(useTemplateRef('decreaseButtonRef'), {
+useLongPress(useElementTemplateRef('decreaseButtonRef'), {
   onUpdate: decreaseCount,
   delay: longPressDelayComputed as ComputedRef<number>,
 })
 
-useLongPress(useTemplateRef('increaseButtonRef'), {
+useLongPress(useElementTemplateRef('increaseButtonRef'), {
   onUpdate: increaseCount,
   delay: longPressDelayComputed as ComputedRef<number>,
 })

@@ -8,22 +8,22 @@ import {
   ref,
   Fragment,
   Teleport,
-  watchEffect,
   watch,
+  toRef,
 } from 'vue'
 import {
   MaybeHTMLElementOrSelector,
   createStatefulProps,
   useBem,
   useClickOutside,
-  useHTMLElement,
-  useHTMLElementSelector,
   useIsMounted,
   useStateful,
   useStatefulEmits,
   useTranslation, useTranslationProp,
   usePlacementAliasesProps,
   useTeleported,
+  useSelectorTemplateRef,
+  useElementTemplateRef,
 } from '../../composables'
 import { renderSlotNode } from '../../utils/headless'
 import { useNavigation, Trigger } from './hooks/useDropdownNavigation'
@@ -95,10 +95,10 @@ export default defineComponent({
 
     const { anchorRef } = useAnchorSelector(props)
     const cursorAnchor = useCursorAnchor(anchorRef, computed(() => Boolean(props.cursor)))
-    const floating = useHTMLElement('floating')
-    const body = useHTMLElementSelector(ref('body'))
-    const target = useHTMLElementSelector(computed(() => props.target))
-    const teleport = useHTMLElementSelector(computed(() => props.teleport))
+    const floating = useElementTemplateRef('floating')
+    const body = useSelectorTemplateRef(ref('body'))
+    const target = useSelectorTemplateRef(toRef(props, 'target'))
+    const teleport = useSelectorTemplateRef(toRef(props, 'teleport'))
 
     const anchorClass = useBem('va-dropdown', () => pick(props, ['disabled']))
     const teleportTarget = computed<HTMLElement | undefined>(() => {

@@ -1,6 +1,6 @@
-import { ref, Ref, onMounted } from 'vue'
+import { ref, Ref } from 'vue'
 
-import { useHTMLElement, useEvent } from './'
+import { useElementTemplateRef, useEvent } from './'
 
 export function usePressed (el?: Ref<HTMLElement | undefined>) {
   const isPressed = ref(false)
@@ -10,7 +10,7 @@ export function usePressed (el?: Ref<HTMLElement | undefined>) {
     isPressed.value = false
   }
 
-  const target = useHTMLElement(el as Ref<HTMLElement>)
+  const target = useElementTemplateRef(el ?? ref())
 
   useEvent(['mousedown', 'touchstart', 'dragstart'], onMouseDown, target)
   useEvent([

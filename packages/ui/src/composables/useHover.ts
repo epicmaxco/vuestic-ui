@@ -1,6 +1,6 @@
-import { ref, Ref, watch, onMounted } from 'vue'
+import { ref, Ref, watch } from 'vue'
 
-import { useHTMLElement, useEvent } from './'
+import { useEvent, useElementTemplateRef } from './'
 
 export function useHover (el?: Ref<HTMLElement | null | undefined>, disabled?: Ref<boolean>) {
   const isHovered = ref(false)
@@ -15,7 +15,7 @@ export function useHover (el?: Ref<HTMLElement | null | undefined>, disabled?: R
     if (v) { isHovered.value = false }
   })
 
-  const target = useHTMLElement(el as Ref<HTMLElement>)
+  const target = useElementTemplateRef(el ?? ref())
 
   useEvent('mouseenter', onMouseEnter, target)
   useEvent('mouseleave', onMouseLeave, target)

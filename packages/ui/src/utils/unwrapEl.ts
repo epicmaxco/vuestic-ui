@@ -3,6 +3,10 @@ import { TemplateRef } from './types/template-ref'
 
 // TODO: DefineComponent is actually can't be template ref: remove it
 
+export {
+  TemplateRef,
+}
+
 /**
  * Used to get the HTMLElement from template refs.
  * @param el component, dom element or nothing

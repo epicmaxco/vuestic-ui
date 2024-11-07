@@ -1,6 +1,6 @@
 import { Ref, ShallowRef, unref } from 'vue'
 import { useEvent } from './'
-import { MaybeElement, useHTMLElement } from '.'
+import { useElementTemplateRef } from '.'
 
 type MaybeRef<T> = Ref<T> | T
 
@@ -30,7 +30,7 @@ export function useLongPressKey (el: ShallowRef<HTMLElement | undefined>, option
     options.onEnd?.(e)
   }
 
-  const htmlElement = useHTMLElement(el)
+  const htmlElement = useElementTemplateRef(el)
 
   useEvent(['keydown'], handleMouseDown, htmlElement)
   useEvent([
