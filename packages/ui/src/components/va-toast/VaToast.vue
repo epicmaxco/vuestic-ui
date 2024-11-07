@@ -44,7 +44,7 @@
 <script lang="ts">
 import { PropType, ref, computed, onMounted, shallowRef, defineComponent, ComputedRef } from 'vue'
 
-import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslation, useTranslationProp, useNumericProp } from '../../composables'
+import { useComponentPresetProp, useColors, useTimer, useElementTextColor, useTranslation, useTranslationProp, useNumericProp } from '../../composables'
 
 import { ToastPosition } from './types'
 import { useToastService } from './hooks/useToastService'
@@ -101,7 +101,7 @@ const rootElement = shallowRef<HTMLElement>()
 
 const { getColor } = useColors()
 
-const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
+const textColorComputed = useElementTextColor(computed(() => getColor(props.color)))
 const offsetYComputed = useNumericProp('offsetY') as ComputedRef<number>
 const offsetXComputed = useNumericProp('offsetX') as ComputedRef<number>
 const durationComputed = useNumericProp('duration') as ComputedRef<number>

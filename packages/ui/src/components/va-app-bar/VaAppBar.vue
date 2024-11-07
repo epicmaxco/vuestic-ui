@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { PropType, computed, toRef } from 'vue'
 
-import { setupScroll, useColors, useFixedBar, useFixedBarProps, useComponentPresetProp, useTextColor } from '../../composables'
+import { setupScroll, useColors, useFixedBar, useFixedBarProps, useComponentPresetProp, useElementTextColor } from '../../composables'
 
 defineOptions({
   name: 'VaAppBar',
@@ -33,7 +33,7 @@ const { fixedBarStyleComputed } = useFixedBar(props, isScrolledDown)
 
 const { getColor, getGradientBackground, getBoxShadowColor } = useColors()
 const colorComputed = computed(() => getColor(props.color))
-const { textColorComputed } = useTextColor(toRef(props, 'color'))
+const textColorComputed = useElementTextColor(toRef(props, 'color'))
 const showShadowComputed = computed(() => isScrolledDown.value ? !!props.shadowOnScroll : false)
 const shadowColorComputed = computed(() => getColor(props.shadowColor, colorComputed.value))
 

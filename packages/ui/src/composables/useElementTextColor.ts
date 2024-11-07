@@ -1,17 +1,34 @@
-import type { Ref } from 'vue'
-import type { CssColor } from '../composables/useColors'
-import { useTextColor } from './useTextColor'
+import { computed, getCurrentInstance, Ref, unref } from 'vue'
 
-const isRefString = (r: any): r is Ref<string> => typeof r?.value === 'string'
+import { isColorTransparent, useColors } from './useColors'
+
+type PropsType = {
+  textColor: string,
+  color?: string
+}
 
 /**
- * Returns text color based on element background.
- *
- * If string (CSS color) provided will use it as background color.
- *
- * If element not provided current instance element will be used.
+ * @param componentColor component color. By default `props.color`. If undefined passed in ref, `currentColor` will be returned.
+ * @param isTransparent if transparent will return component color as text color.
+ * @returns Computed text color based on component's color if `props.textColor` if provided.
  */
-export const useElementTextColor = (background: Ref<CssColor | undefined> | CssColor) => {
-  const { textColorComputed } = useTextColor(background)
+export const useElementTextColor = (componentColor?: Ref<string | undefined> | string | undefined, isTransparent: boolean | Ref<boolean> = false) => {
+  const { props } = getCurrentInstance() as unknown as { props: PropsType }
+  const { getColor, getTextColor } = useColors()
+
+  const textColorComputed = computed(() => {
+    if (props.textColor) { return getColor(props.textColor) }
+
+    const bg = componentColor ? unref(componentColor) : props.color
+
+    if (!bg) { return 'currentColor' }
+
+    const componentColorHex = getColor(bg)
+
+    if (isColorTransparent(componentColorHex)) { return 'currentColor' }
+
+    return unref(isTransparent) ? componentColorHex : getColor(getTextColor(componentColorHex))
+  })
+
   return textColorComputed
 }

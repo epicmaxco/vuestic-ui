@@ -34,7 +34,7 @@ import {
   useColors,
   setupScroll,
   useFixedBar,
-  useTextColor,
+  useElementTextColor,
   useFixedBarProps,
   useComponentPresetProp,
   useBem,
@@ -59,7 +59,7 @@ const { fixedBarStyleComputed } = useFixedBar(props, isScrolledDown)
 
 const { getColor, shiftHSLAColor } = useColors()
 const color = computed(() => getColor(props.color))
-const { textColorComputed } = useTextColor(color)
+const textColorComputed = useElementTextColor(color)
 
 const shapeStyleComputed = computed(() => ({
   borderTopColor: shiftHSLAColor(color.value, { h: -1, s: -11, l: 10 }),

@@ -135,7 +135,7 @@ import {
 
 import {
   useStateful, useStatefulProps, useStatefulEmits,
-  useColors, useTextColor,
+  useColors, useElementTextColor,
   useWindow,
   useComponentPresetProp,
   useTrapFocus,
@@ -251,7 +251,7 @@ const {
 } = useModalLevel()
 
 const { getColor } = useColors()
-const { textColorComputed } = useTextColor(toRef(props, 'backgroundColor'))
+const textColorComputed = useElementTextColor(toRef(props, 'backgroundColor'))
 const { valueComputed } = useStateful(props, emit)
 
 const computedClass = computed(() => ({

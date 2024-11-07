@@ -81,7 +81,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref, shallowRef, watch } from 'vue'
 import {
-  useColors, useTextColor,
+  useColors, useElementTextColor,
   useBem,
   useResizeObserver,
   useComponentPresetProp,
@@ -221,7 +221,7 @@ const toggle = () => {
   computedModelValue.value = !computedModelValue.value
 }
 
-const { textColorComputed } = useTextColor(headerBackground)
+const textColorComputed = useElementTextColor(headerBackground)
 
 const headerStyle = computed(() => ({
   color: textColorComputed.value,

@@ -125,7 +125,7 @@ import {
   useFormFieldProps,
   useValidationProps,
   useColors,
-  useTextColor,
+  useElementTextColor,
   useComponentPresetProp,
   useElementFocusedWithin,
   useNumericProp,
@@ -200,7 +200,7 @@ export default defineComponent({
     const backgroundComputed = computed(() => props.background ? getColor(props.background) : '#ffffff00')
     const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
 
-    const { textColorComputed } = useTextColor(backgroundComputed)
+    const textColorComputed = useElementTextColor(backgroundComputed)
     const maxLengthComputed = useNumericProp('maxLength')
 
     const messagesColor = computed(() => {

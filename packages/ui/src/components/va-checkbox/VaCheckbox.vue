@@ -63,7 +63,7 @@ import {
   useComponentUuid,
   useComponentPresetProp,
   useKeyboardOnlyFocus,
-  useColors, useTextColor,
+  useColors, useElementTextColor,
   useSelectable, useSelectableProps, useSelectableEmits, Elements,
 } from '../../composables'
 
@@ -119,7 +119,7 @@ const {
 } = useSelectable(props, emit, elements)
 const { getColor } = useColors()
 const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
+const textColorComputed = useElementTextColor(computed(() => getColor(props.color)))
 
 const isActive = computed(() => isChecked.value || isIndeterminate.value)
 

@@ -26,7 +26,7 @@ import {
   useHover,
   useRouterLink,
   useRouterLinkProps,
-  useTextColor,
+  useElementTextColor,
   useComponentPresetProp,
   useElementTemplateRef,
 } from '../../../composables'
@@ -68,7 +68,7 @@ const backgroundColorComputed = computed(() => {
 })
 
 const textBackground = computed(() => applyColors(getColor(sidebar?.color), backgroundColorComputed.value))
-const { textColorComputed } = useTextColor(textBackground)
+const textColorComputed = useElementTextColor(textBackground)
 
 const computedStyle = computed(() => {
   const style: Record<string, string> = { color: textColorComputed.value }

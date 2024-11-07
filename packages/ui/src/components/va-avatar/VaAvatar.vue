@@ -38,7 +38,7 @@ import {
   useBem,
   useSize,
   useColors,
-  useTextColor,
+  useElementTextColor,
   useSizeProps,
   useLoadableControlProps,
   useComponentPresetProp,
@@ -84,7 +84,7 @@ const backgroundColorComputed = computed(() => {
   return colorComputed.value
 })
 const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
-const { textColorComputed } = useTextColor(backgroundColorComputed)
+const textColorComputed = useElementTextColor(backgroundColorComputed)
 
 const computedStyle = computed(() => ({
   fontSize: props.fontSize || fontSizeComputed.value,

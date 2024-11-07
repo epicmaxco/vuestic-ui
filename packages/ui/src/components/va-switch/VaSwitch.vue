@@ -86,7 +86,7 @@ import {
   useComponentPresetProp,
   useKeyboardOnlyFocus,
   useSelectable, useSelectableProps, useSelectableEmits,
-  useColors, useTextColor,
+  useColors, useElementTextColor,
   useBem, useTranslationProp,
   useComponentUuid,
 } from '../../composables'
@@ -153,7 +153,7 @@ const {
 } = useSelectable(props, emit, elements)
 
 const computedBackground = computed(() => getColor(isChecked.value ? props.color : props.offColor))
-const { textColorComputed } = useTextColor(computedBackground)
+const textColorComputed = useElementTextColor(computedBackground)
 
 const computedInnerLabel = computed(() => {
   if (props.trueInnerLabel && isChecked.value) {

@@ -51,7 +51,7 @@ import { colorToRgba } from '../../../services/color'
 import { useElementFocused, useBem, useTranslation, useTranslationProp } from '../../../composables'
 
 import { VaFileUploadKey, ConvertedFile } from '../types'
-import { useTextColor } from '../../../composables/useTextColor'
+import { useElementTextColor } from '../../../composables/useElementTextColor'
 
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
@@ -134,7 +134,7 @@ onMounted(convertToImg)
 watch(() => props.file, convertToImg)
 
 const { t, tp } = useTranslation()
-const { textColorComputed } = useTextColor(toRef(props, 'color'))
+const textColorComputed = useElementTextColor(toRef(props, 'color'))
 </script>
 
 <style lang="scss">

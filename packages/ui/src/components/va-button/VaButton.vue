@@ -55,7 +55,7 @@ import {
   useBem,
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
   useHover, usePressed,
-  useColors, useTextColor,
+  useColors, useElementTextColor,
   useLoadableControlProps,
   useSize, useSizeProps,
   useRouterLink, useRouterLinkProps,
@@ -183,7 +183,7 @@ const computedClass = useBem('va-button', () => ({
 
 // styles
 const isTransparentBg = computed(() => props.plain || backgroundOpacityComputed.value! < 0.5)
-const { textColorComputed } = useTextColor(colorComputed, isTransparentBg)
+const textColorComputed = useElementTextColor(colorComputed, isTransparentBg)
 
 const {
   backgroundColor,

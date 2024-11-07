@@ -55,7 +55,7 @@ import {
   useColors, useColorProps,
   useStateful, useStatefulEmits, useStatefulProps,
   useHover,
-  useTextColor,
+  useElementTextColor,
   useBem,
   useTranslation, useTranslationProp,
 } from '../../composables'
@@ -97,7 +97,7 @@ const { getColor } = useColors()
 const colorComputed = computed(() => getColor(props.color))
 const borderColor = computed(() => props.outline ? colorComputed.value : '')
 const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
-const { textColorComputed } = useTextColor(colorComputed, isTransparentBackground)
+const textColorComputed = useElementTextColor(colorComputed, isTransparentBackground)
 
 const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 const shadowStyle = computed(() => {

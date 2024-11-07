@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import { computed, toRef } from 'vue'
 
-import { useColors, useTextColor } from '../../../../composables'
+import { useColors, useElementTextColor } from '../../../../composables'
 
 defineOptions({
   name: 'VaDropdownContent',
@@ -24,7 +24,7 @@ const props = defineProps({
 })
 
 const { getColor } = useColors()
-const { textColorComputed } = useTextColor(toRef(props, 'background'))
+const textColorComputed = useElementTextColor(toRef(props, 'background'))
 
 const computedStyle = computed(() => ({
   background: getColor(props.background, undefined, true),
