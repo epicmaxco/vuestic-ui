@@ -84,7 +84,7 @@ import {
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
   useStateful, useStatefulEmits, useStatefulProps,
   useTranslation, useTranslationProp,
-  useDropdownable, useDropdownableProps, useDropdownableEmits, useLongPressKey,
+  useDropdownableControl, useDropdownableControlProps, useDropdownableControlEmits, useLongPressKey,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
@@ -105,7 +105,7 @@ defineOptions({
 
 const props = defineProps({
   ...VaInputWrapperProps,
-  ...useDropdownableProps,
+  ...useDropdownableControlProps,
   ...useComponentPresetProp,
   ...useClearableControlProps,
   ...extractComponentProps(VaTimePicker),
@@ -114,8 +114,8 @@ const props = defineProps({
   ...useFocusableControlProps,
 
   closeOnContentClick: { type: Boolean, default: false },
-  offset: { ...useDropdownableProps.offset, default: () => [2, 0] },
-  placement: { ...useDropdownableProps.placement, default: 'bottom-end' },
+  offset: { ...useDropdownableControlProps.offset, default: () => [2, 0] },
+  placement: { ...useDropdownableControlProps.placement, default: 'bottom-end' },
   modelValue: { type: Date, default: undefined },
   clearValue: { type: Date, default: null },
   format: { type: Function as PropType<(date?: Date) => string> },
@@ -133,7 +133,7 @@ const emit = defineEmits([
   ...useValidationEmits,
   ...useClearableControlEmits,
   ...useStatefulEmits,
-  ...useDropdownableEmits,
+  ...useDropdownableControlEmits,
   ...useFocusableControlEmits,
   'update:modelValue',
 ])
@@ -141,7 +141,7 @@ const emit = defineEmits([
 const input = shallowRef<HTMLInputElement>()
 const timePicker = shallowRef<typeof VaTimePicker>()
 
-const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
+const { isOpenSync, dropdownProps } = useDropdownableControl(props, emit, {
   defaultCloseOnValueUpdate: computed(() => Array.isArray(props.view) && props.view.length === 1),
 })
 const { valueComputed } = useStateful<Date>(props, emit)

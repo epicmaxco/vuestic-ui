@@ -139,7 +139,7 @@ import {
   useTranslation, useTranslationProp,
   useBem,
   useThrottleProps,
-  useDropdownable, useDropdownableEmits, useDropdownableProps,
+  useDropdownableControl, useDropdownableControlEmits, useDropdownableControlProps,
   useNumericProp,
   useFormControl,
   useVModelStateful,
@@ -189,7 +189,7 @@ const props = defineProps({
   ...useThrottleProps,
   ...useStringValueProps,
   ...useAutocompleteProps,
-  ...useDropdownableProps,
+  ...useDropdownableControlProps,
 
   modelValue: {
     type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>,
@@ -197,11 +197,11 @@ const props = defineProps({
   },
 
     // Dropdown placement
-  placement: { ...useDropdownableProps.placement, default: 'bottom' },
-  keepAnchorWidth: { ...useDropdownableProps.keepAnchorWidth, default: true },
-  offset: { ...useDropdownableProps.offset, default: [1, 0] as DropdownOffsetProp },
-  closeOnContentClick: { ...useDropdownableProps.closeOnContentClick, default: false },
-  trigger: { ...useDropdownableProps.trigger, default: () => ['click', 'right-click', 'space', 'enter'] as const },
+  placement: { ...useDropdownableControlProps.placement, default: 'bottom' },
+  keepAnchorWidth: { ...useDropdownableControlProps.keepAnchorWidth, default: true },
+  offset: { ...useDropdownableControlProps.offset, default: [1, 0] as DropdownOffsetProp },
+  closeOnContentClick: { ...useDropdownableControlProps.closeOnContentClick, default: false },
+  trigger: { ...useDropdownableControlProps.trigger, default: () => ['click', 'right-click', 'space', 'enter'] as const },
 
   // Select options
 
@@ -246,7 +246,7 @@ const emit = defineEmits([
   'create-new',
   'scroll-bottom',
   'update:search',
-  ...useDropdownableEmits,
+  ...useDropdownableControlEmits,
   ...useValidationEmits,
   ...useClearableControlEmits,
 ])
@@ -468,7 +468,7 @@ const focusNextOption = () => optionList.value?.focusNextOption()
 
 // Dropdown content
 
-const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
+const { isOpenSync, dropdownProps } = useDropdownableControl(props, emit, {
   defaultCloseOnValueUpdate: computed(() => !props.multiple),
 })
 

@@ -1,13 +1,13 @@
 import { watch, ExtractPropTypes, Ref, computed, unref } from 'vue'
-import { extractComponentProps, filterComponentProps } from '../utils/component-options'
-import { VaDropdown } from '../components/va-dropdown'
-import { useVModelStateful } from './std/internal/useVModelStateful'
+import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
+import { VaDropdown } from '../../components/va-dropdown'
+import { useVModelStateful } from '../std/internal/useVModelStateful'
 
 const VaDropdownProps = extractComponentProps(VaDropdown,
   ['innerAnchorSelector', 'stateful', 'keyboardNavigation', 'modelValue'],
 )
 
-export const useDropdownableProps = {
+export const useDropdownableControlProps = {
   ...VaDropdownProps,
   modelValue: {},
   /**
@@ -18,11 +18,11 @@ export const useDropdownableProps = {
   isOpen: { type: Boolean, default: false },
 }
 
-export const useDropdownableEmits = ['update:isOpen']
+export const useDropdownableControlEmits = ['update:isOpen']
 
 /** Used in components where dropdown is used */
-export const useDropdownable = function (
-  props: ExtractPropTypes<typeof useDropdownableProps>,
+export const useDropdownableControl = function (
+  props: ExtractPropTypes<typeof useDropdownableControlProps>,
   emit: (event: 'update:isOpen', ...args: any[]) => void,
   options: {
     /** @default false */

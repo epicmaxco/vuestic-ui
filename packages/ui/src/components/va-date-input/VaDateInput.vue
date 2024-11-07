@@ -87,9 +87,9 @@ import {
   useClearableControl, useClearableControlEmits, useClearableControlProps,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useStateful, useStatefulEmits,
-  useDropdownable,
-  useDropdownableProps,
-  useDropdownableEmits,
+  useDropdownableControl,
+  useDropdownableControlProps,
+  useDropdownableControlEmits,
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
   useTranslation, useTranslationProp, useElementFocusedWithin, useTrapFocus,
 } from '../../composables'
@@ -118,7 +118,7 @@ defineOptions({
 })
 
 const props = defineProps({
-  ...useDropdownableProps,
+  ...useDropdownableControlProps,
   ...useClearableControlProps,
   ...VaInputWrapperPropsDeclaration,
   ...VaDatePickerPropsDeclaration,
@@ -131,7 +131,7 @@ const props = defineProps({
 
   resetOnClose: { type: Boolean, default: true },
   closeOnContentClick: { type: Boolean, default: false },
-  offset: { ...useDropdownableProps.offset, default: () => [2, 0] },
+  offset: { ...useDropdownableControlProps.offset, default: () => [2, 0] },
 
   format: { type: Function as PropType<(date: DateInputModelValue) => string> },
   formatDate: { type: Function as PropType<(date: Date) => string>, default: (d: Date) => d.toLocaleDateString() },
@@ -158,7 +158,7 @@ const emit = defineEmits([
   ...useClearableControlEmits,
   ...useValidationEmits,
   ...useStatefulEmits,
-  ...useDropdownableEmits,
+  ...useDropdownableControlEmits,
   ...useFocusableControlEmits,
   'update:text',
 ])
@@ -184,7 +184,7 @@ watch([datePicker], () => {
 })
 
 const { valueComputed: statefulValue } = useStateful(props, emit)
-const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
+const { isOpenSync, dropdownProps } = useDropdownableControl(props, emit, {
   defaultCloseOnValueUpdate: computed(() => {
     if (Array.isArray(valueComputed.value)) {
       return false
