@@ -1,5 +1,5 @@
-import { Component, ComponentPublicInstance, DefineComponent, unref } from 'vue'
-import { TemplateRef } from './types/template-ref'
+import { ComponentPublicInstance, DefineComponent, unref } from 'vue'
+import type { TemplateRef } from './types/template-ref'
 
 // TODO: DefineComponent is actually can't be template ref: remove it
 

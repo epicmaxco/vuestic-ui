@@ -231,7 +231,7 @@ export default defineComponent({
     const anchorSlotVNode = renderSlotNode(this.$slots.anchor, slotBind, {
       ref: 'anchorRef',
       role: this.$props.role,
-      class: ['va-dropdown', ...this.anchorClass.asArray.value],
+      class: ['va-dropdown', this.anchorClass],
       style: { position: 'relative' },
       'aria-label': this.tp(this.$props.ariaLabel),
       'aria-disabled': this.$props.disabled,
