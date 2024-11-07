@@ -4,9 +4,9 @@ import { useEvent } from './useEvent'
 type MaybeRef<T> = Ref<T> | T
 
 interface LongPressOptions {
-  onStart: () => void;
-  onEnd: () => void;
-  onUpdate: () => void;
+  onStart: (e: Event) => void;
+  onEnd: (e: Event) => void;
+  onUpdate: (e: Event) => void;
   delay?: MaybeRef<number>;
   interval?: number;
 }
@@ -15,18 +15,18 @@ export function useLongPress (el: ShallowRef<HTMLElement | undefined>, options: 
   let timeoutId = -1
   let intervalId = -1
 
-  const handleMouseDown = () => {
-    options.onStart?.()
+  const handleMouseDown = (e: Event) => {
+    options.onStart?.(e)
     clearTimeout(timeoutId)
     timeoutId = setTimeout(() => {
-      intervalId = setInterval(() => options.onUpdate?.(), options.interval || 100) as any
+      intervalId = setInterval(() => options.onUpdate?.(e), options.interval || 100) as any
     }, unref(options.delay) || 500) as unknown as number
   }
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (e: Event) => {
     clearTimeout(timeoutId)
     clearInterval(intervalId)
-    options.onEnd?.()
+    options.onEnd?.(e)
   }
 
   useEvent(['mousedown', 'touchstart', 'dragstart'], handleMouseDown, el)

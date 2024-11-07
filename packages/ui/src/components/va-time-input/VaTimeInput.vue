@@ -84,7 +84,7 @@ import {
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
   useStateful, useStatefulEmits, useStatefulProps,
   useTranslation, useTranslationProp,
-  useDropdownableControl, useDropdownableControlProps, useDropdownableControlEmits, useLongPressKey,
+  useDropdownableControl, useDropdownableControlProps, useDropdownableControlEmits, useLongPress,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
@@ -255,7 +255,7 @@ const viewToNumber = {
   hours: 1000 * 60 * 60,
 }
 
-const onKeyPress = (e: KeyboardEvent | FocusEvent) => {
+const onKeyPress = (e: Event) => {
   if (!('key' in e)) { return }
 
   if (e.key === 'ArrowDown') {
@@ -268,7 +268,7 @@ const onKeyPress = (e: KeyboardEvent | FocusEvent) => {
   }
 }
 
-useLongPressKey(input, {
+useLongPress(input, {
   onStart: onKeyPress,
   onUpdate: onKeyPress,
 })
