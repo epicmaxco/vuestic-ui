@@ -1,18 +1,20 @@
 <template>
-  <div @mouseenter="onMouseEnter" @mouseleave="onMouseLeave" :style="styleComputed">
+  <div :style="styleComputed">
     <slot />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useHover, useColors } from '../../../composables'
-import { computed } from 'vue'
+import { useElementHovered } from '@/composables/std/browser/useElementHovered'
+import { useColors, useCurrentElement } from '../../../composables'
+import { computed, ref } from 'vue'
 
 defineOptions({
   name: 'VaTimePickerColumnCell',
 })
 
-const { isHovered, onMouseEnter, onMouseLeave } = useHover()
+const root = useCurrentElement()
+const isHovered = useElementHovered(root)
 const { getTextColor, getColor } = useColors()
 
 const styleComputed = computed(() => isHovered.value

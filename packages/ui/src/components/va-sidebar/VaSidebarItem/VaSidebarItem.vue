@@ -17,13 +17,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, toRef } from 'vue'
+import { computed, ref } from 'vue'
 
 import {
   applyColors,
   useColors,
   useKeyboardOnlyFocus,
-  useHover,
   useRouterLink,
   useRouterLinkProps,
   useElementTextColor,
@@ -31,6 +30,7 @@ import {
   useElementTemplateRef,
 } from '../../../composables'
 import { useSidebarItem } from '../hooks/useSidebar'
+import { useElementHovered } from '@/composables/std/browser/useElementHovered'
 
 defineOptions({
   name: 'VaSidebarItem',
@@ -51,7 +51,7 @@ const props = defineProps({
 const rootElement = useElementTemplateRef(ref())
 const sidebar = useSidebarItem()
 
-const { isHovered } = useHover(rootElement, toRef(props, 'disabled'))
+const isHovered = useElementHovered(rootElement)
 const { getColor, getHoverColor, getFocusColor } = useColors()
 const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
 

@@ -54,7 +54,7 @@ import { PropType, computed, toRefs, shallowRef } from 'vue'
 import {
   useBem,
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
-  useHover, usePressed,
+  usePressed,
   useColors, useElementTextColor,
   useLoadableControlProps,
   useSize, useSizeProps,
@@ -73,6 +73,7 @@ import { VaProgressCircle } from '../va-progress-circle'
 import { pick } from '../../utils/pick'
 
 import type { ColorName } from '../../composables'
+import { useElementHovered } from '@/composables/std/browser/useElementHovered'
 
 defineOptions({
   name: 'VaButton',
@@ -149,7 +150,7 @@ const attributesComputed = useButtonAttributes(props)
 const { disabled } = toRefs(props)
 const button = shallowRef<HTMLElement>()
 const { focus, blur } = useFocusableControl(button, props, emit)
-const { isHovered } = useHover(button, disabled)
+const isHovered = useElementHovered(button)
 const { isPressed } = usePressed(button)
 
 // icon attributes

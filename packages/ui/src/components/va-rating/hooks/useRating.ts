@@ -1,9 +1,10 @@
-import { ref, getCurrentInstance, computed, ExtractPropTypes } from 'vue'
+import { ref, getCurrentInstance, computed, ExtractPropTypes, Ref } from 'vue'
 import { clamp } from '../../../utils/clamp'
 
-import { useHover, useStateful, useStatefulProps, useFormFieldProps } from '../../../composables'
+import { useStateful, useStatefulProps, useFormFieldProps } from '../../../composables'
 
 import { RatingValue } from '../types'
+import { useElementHovered } from '../../../composables/std/browser/useElementHovered'
 
 const getContext = <P extends Record<string, any> = Record<string, any>, E extends string = string>() => {
   const instance = getCurrentInstance()
@@ -24,9 +25,9 @@ export const useRatingProps = {
   hover: { type: Boolean, default: false },
 }
 
-export const useRating = (props: ExtractPropTypes<typeof useRatingProps> & ExtractPropTypes<typeof useFormFieldProps>) => {
+export const useRating = (props: ExtractPropTypes<typeof useRatingProps> & ExtractPropTypes<typeof useFormFieldProps>, el: Ref<HTMLElement | undefined>) => {
   const { emit } = getContext()
-  const { isHovered, onMouseEnter, onMouseLeave } = useHover()
+  const isHovered = useElementHovered(el)
   const { valueComputed: modelValue } = useStateful(props, emit)
 
   const hoveredValue = ref(0)
@@ -58,8 +59,6 @@ export const useRating = (props: ExtractPropTypes<typeof useRatingProps> & Extra
     modelValue,
     hoveredValue,
     isHovered,
-    onMouseEnter,
-    onMouseLeave,
     onItemValueUpdate,
     onItemHoveredValueUpdate,
     getItemValue,

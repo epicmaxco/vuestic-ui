@@ -16,8 +16,6 @@
     <span
       class="va-chip__inner"
       @focus="$emit('focus')"
-      @mouseenter="onMouseEnter"
-      @mouseleave="onMouseLeave"
       v-on="keyboardFocusListeners"
     >
       <va-icon
@@ -54,14 +52,15 @@ import {
   useRouterLink, useRouterLinkProps,
   useColors, useColorProps,
   useStateful, useStatefulEmits, useStatefulProps,
-  useHover,
   useElementTextColor,
   useBem,
   useTranslation, useTranslationProp,
+  useCurrentElement,
 } from '../../composables'
 
 import { VaIcon } from '../va-icon'
 import { pick } from '../../utils/pick'
+import { useElementHovered } from '@/composables/std/browser/useElementHovered'
 
 defineOptions({
   name: 'VaChip',
@@ -109,7 +108,8 @@ const shadowStyle = computed(() => {
 
 const { valueComputed } = useStateful(props, emit)
 const { tagComputed, hrefComputed } = useRouterLink(props)
-const { isHovered, onMouseEnter, onMouseLeave } = useHover()
+const root = useCurrentElement()
+const isHovered = useElementHovered(root)
 
 const close = () => {
   if (!props.disabled) {
