@@ -134,13 +134,15 @@ import {
   useValidation, useValidationProps, useValidationEmits, ValidationProps,
   useFormFieldProps,
   useMaxSelections, useMaxSelectionsProps,
-  useClearableProps, useClearable, useClearableEmits,
+  useClearableControlProps, useClearableControl, useClearableControlEmits,
   useElementFocusedWithin,
   useTranslation, useTranslationProp,
   useBem,
   useThrottleProps,
   useDropdownable, useDropdownableEmits, useDropdownableProps,
   useNumericProp,
+  useFormControl,
+  useVModelStateful,
 } from '../../composables'
 
 import { VaInputWrapper } from '../va-input-wrapper'
@@ -164,9 +166,6 @@ import type { SelectOption } from './types'
 import type { DropdownOffsetProp } from '../va-dropdown/types'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 import { pick } from '../../utils/pick'
-import { useClearableControl } from '@/composables/fabrics/useClearableControl'
-import { useFormControl } from '@/composables/fabrics/useFormControl/useFormControl'
-import { useVModelStateful } from '@/composables/std/internal/useVModelStateful'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 </script>
@@ -183,7 +182,7 @@ const props = defineProps({
   ...useSelectableListProps,
   ...useValidationProps as ValidationProps<SelectOption>,
   ...useMaxSelectionsProps,
-  ...useClearableProps,
+  ...useClearableControlProps,
   ...useFormFieldProps,
   ...useMaxVisibleOptionsProps,
   ...useToggleIconProps,
@@ -237,7 +236,7 @@ const props = defineProps({
   searchFn: { type: Function as PropType<(search: string, option: SelectOption) => boolean>, default: undefined },
   search: { type: String, default: '' },
 
-  // useClearableProps override
+  // useClearableControlProps override
   clearValue: { type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>, default: '' },
 })
 
@@ -249,7 +248,7 @@ const emit = defineEmits([
   'update:search',
   ...useDropdownableEmits,
   ...useValidationEmits,
-  ...useClearableEmits,
+  ...useClearableControlEmits,
 ])
 
 const { tp, t } = useTranslation()

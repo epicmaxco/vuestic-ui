@@ -56,7 +56,7 @@ import {
   useFormFieldProps,
   useValidation, useValidationProps, useValidationEmits,
   useEmitProxy,
-  useClearable, useClearableProps, useClearableEmits,
+  useClearableControl, useClearableControlProps, useClearableControlEmits,
   useTranslation, useTranslationProp,
   useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
@@ -98,7 +98,7 @@ const props = defineProps({
   ...useFormFieldProps,
   ...useFocusableControlProps,
   ...useValidationProps as ValidationProps<string>,
-  ...useClearableProps,
+  ...useClearableControlProps,
   ...useComponentPresetProp,
   ...useStatefulProps,
 
@@ -123,7 +123,7 @@ const props = defineProps({
 const emit = defineEmits([
   'update:modelValue',
   ...useValidationEmits,
-  ...useClearableEmits,
+  ...useClearableControlEmits,
   ...createInputEmits(),
   ...createFieldEmits(),
   ...useStatefulEmits,
@@ -172,7 +172,7 @@ const { modelValue } = toRefs(props)
 const {
   canBeCleared,
   clearIconProps,
-} = useClearable(props, modelValue, input, computedError)
+} = useClearableControl(props, input, computedError)
 
 const inputListeners = createInputListeners(emit)
 

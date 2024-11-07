@@ -84,7 +84,7 @@ import { computed, PropType, toRef, toRefs, watch, ref, shallowRef, nextTick, Re
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/component-options'
 import {
   useComponentPresetProp,
-  useClearable, useClearableEmits, useClearableProps,
+  useClearableControl, useClearableControlEmits, useClearableControlProps,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
   useStateful, useStatefulEmits,
   useDropdownable,
@@ -119,7 +119,7 @@ defineOptions({
 
 const props = defineProps({
   ...useDropdownableProps,
-  ...useClearableProps,
+  ...useClearableControlProps,
   ...VaInputWrapperPropsDeclaration,
   ...VaDatePickerPropsDeclaration,
   ...useValidationProps as ValidationProps<DateInputModelValue>,
@@ -155,7 +155,7 @@ const props = defineProps({
 
 const emit = defineEmits([
   ...extractComponentEmits(VaDatePicker),
-  ...useClearableEmits,
+  ...useClearableControlEmits,
   ...useValidationEmits,
   ...useStatefulEmits,
   ...useDropdownableEmits,
@@ -343,7 +343,7 @@ const filterSlots = computed(() => {
 const {
   canBeCleared,
   clearIconProps,
-} = useClearable(props, valueComputed)
+} = useClearableControl(props, valueComputed)
 
 const cursorStyleComputed = computed(() => {
   if (props.disabled) { return {} }

@@ -79,7 +79,7 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 import {
   useComponentPresetProp,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
-  useClearable, useClearableEmits, useClearableProps,
+  useClearableControl, useClearableControlEmits, useClearableControlProps,
   useElementFocused,
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
   useStateful, useStatefulEmits, useStatefulProps,
@@ -107,7 +107,7 @@ const props = defineProps({
   ...VaInputWrapperProps,
   ...useDropdownableProps,
   ...useComponentPresetProp,
-  ...useClearableProps,
+  ...useClearableControlProps,
   ...extractComponentProps(VaTimePicker),
   ...useValidationProps as ValidationProps<Date>,
   ...useStatefulProps,
@@ -131,7 +131,7 @@ const props = defineProps({
 
 const emit = defineEmits([
   ...useValidationEmits,
-  ...useClearableEmits,
+  ...useClearableControlEmits,
   ...useStatefulEmits,
   ...useDropdownableEmits,
   ...useFocusableControlEmits,
@@ -233,7 +233,7 @@ watch(doShowDropdown, (v) => {
 const {
   canBeCleared,
   clearIconProps,
-} = useClearable(props, valueText)
+} = useClearableControl(props, valueText)
 
 const canBeClearedComputed = computed(() => (
   canBeCleared.value && valueText.value !== format(props.clearValue)

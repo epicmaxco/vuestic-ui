@@ -112,7 +112,7 @@ import {
   useLongPress,
   useTemplateRef,
   useValidation,
-  useClearableProps,
+  useClearableControlProps,
   useValidationEmits,
   useNumericProp,
 } from '../../composables'
@@ -151,7 +151,7 @@ const props = defineProps({
   ...useFormFieldProps,
   ...useStatefulProps,
   ...useComponentPresetProp,
-  ...useClearableProps,
+  ...useClearableControlProps,
   ...VaInputWrapperProps,
   ...useFocusableControlProps,
     // input

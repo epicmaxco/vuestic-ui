@@ -21,7 +21,7 @@ import { useDirty } from './useDirty'
 import { useOncePerTickFn } from '../../std/internal/useOncePerTickFn'
 import { TemplateRef } from '../../../utils/types/template-ref'
 
-export type ValidationRule<V = any> = ((v: V) => any | string) | Promise<((v: V) => any | string)>
+type ValidationRule<V = any> = ((v: V) => any | string) | Promise<((v: V) => any | string)>
 
 type UseValidationOptions = {
   reset: () => void
