@@ -1,6 +1,6 @@
 import { inject, InjectionKey } from 'vue'
 
-export const useStrictInject = <T>(injectionSymbol: InjectionKey<T>, errorMessage: string): T => {
+export const strictInject = <T>(injectionSymbol: InjectionKey<T>, errorMessage: string): T => {
   const strictInjection = inject<T>(injectionSymbol)
 
   if (!strictInjection) {

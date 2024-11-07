@@ -48,13 +48,14 @@
 import { onMounted, PropType, ref, watch, computed, toRef } from 'vue'
 
 import { colorToRgba } from '../../../services/color'
-import { useElementFocused, useBem, useStrictInject, useTranslation, useTranslationProp } from '../../../composables'
+import { useElementFocused, useBem, useTranslation, useTranslationProp } from '../../../composables'
 
 import { VaFileUploadKey, ConvertedFile } from '../types'
 import { useTextColor } from '../../../composables/useTextColor'
 
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
+import { strictInject } from '@/utils/strict-inject'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadGalleryItem component should be used in the context of VaFileUpload component'
 </script>
@@ -78,7 +79,7 @@ const {
   undo,
   disabled,
   undoDuration,
-} = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
+} = strictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
 const listItem = ref<HTMLElement>()
 const isFocused = useElementFocused(listItem)
 const previewImage = ref('')

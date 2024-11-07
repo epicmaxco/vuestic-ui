@@ -20,7 +20,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useScrollParent } from '../../composables/useScrollParent'
 import { PropType, ref, computed, onMounted, onBeforeUnmount, shallowRef, ComputedRef } from 'vue'
 import { warn } from '../../utils/console'
 import { useNumericProp, useElementScrollableParent, useComponentPresetProp } from '../../composables'

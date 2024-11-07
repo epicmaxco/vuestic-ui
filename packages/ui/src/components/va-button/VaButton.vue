@@ -54,7 +54,7 @@ import { PropType, computed, toRefs, shallowRef } from 'vue'
 import {
   useBem,
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
-  useHover, usePressed, usePressedStyleProps,
+  useHover, usePressed,
   useColors, useTextColor,
   useLoadableControlProps,
   useSize, useSizeProps,
@@ -81,7 +81,6 @@ defineOptions({
 const props = defineProps({
   ...useComponentPresetProp,
   ...useSizeProps,
-  ...usePressedStyleProps,
   ...useLoadableControlProps,
   ...useRouterLinkProps,
   ...useFocusableControlProps,
@@ -118,6 +117,15 @@ const props = defineProps({
   },
   hoverOpacity: { type: [Number, String], default: 0.15 },
   hoverMaskColor: { type: String, default: 'textInverted' },
+
+  // Pressed styles
+  pressedBehavior: {
+    type: String as PropType<'opacity' | 'mask'>,
+    default: 'mask',
+    validator: (value: string) => ['opacity', 'mask'].includes(value),
+  },
+  pressedOpacity: { type: Number, default: 0.13 },
+  pressedMaskColor: { type: String, default: 'textPrimary' },
 })
 
 const emit = defineEmits([...useFocusableControlEmits])
