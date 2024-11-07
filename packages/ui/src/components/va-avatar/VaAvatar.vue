@@ -40,7 +40,7 @@ import {
   useColors,
   useTextColor,
   useSizeProps,
-  useLoadingProps,
+  useLoadableControlProps,
   useComponentPresetProp,
 } from '../../composables'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
@@ -58,7 +58,7 @@ defineOptions({
 })
 
 const props = defineProps({
-  ...useLoadingProps,
+  ...useLoadableControlProps,
   ...useSizeProps,
   ...useComponentPresetProp,
   ...VaFallbackPropsDeclaration,

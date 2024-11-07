@@ -54,10 +54,9 @@ import { PropType, computed, toRefs, shallowRef } from 'vue'
 import {
   useBem,
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
-  useHover, useHoverStyleProps,
-  usePressed, usePressedStyleProps,
+  useHover, usePressed, usePressedStyleProps,
   useColors, useTextColor,
-  useLoadingProps,
+  useLoadableControlProps,
   useSize, useSizeProps,
   useRouterLink, useRouterLinkProps,
   useComponentPresetProp,
@@ -82,9 +81,8 @@ defineOptions({
 const props = defineProps({
   ...useComponentPresetProp,
   ...useSizeProps,
-  ...useHoverStyleProps,
   ...usePressedStyleProps,
-  ...useLoadingProps,
+  ...useLoadableControlProps,
   ...useRouterLinkProps,
   ...useFocusableControlProps,
   tag: { type: String, default: 'button' },
@@ -111,6 +109,15 @@ const props = defineProps({
   icon: { type: String, default: '' },
   iconRight: { type: String, default: '' },
   iconColor: { type: String, default: '' },
+
+  // Hover styles
+  hoverBehavior: {
+    type: String as PropType<'opacity' | 'mask'>,
+    default: 'mask',
+    validator: (value: string) => ['opacity', 'mask'].includes(value),
+  },
+  hoverOpacity: { type: [Number, String], default: 0.15 },
+  hoverMaskColor: { type: String, default: 'textInverted' },
 })
 
 const emit = defineEmits([...useFocusableControlEmits])

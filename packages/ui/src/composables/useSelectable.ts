@@ -1,11 +1,11 @@
 import { PropType, computed, SetupContext, ShallowRef, ExtractPropTypes } from 'vue'
 
 import { useStateful, useStatefulProps, StatefulProps } from './useStateful'
-import { useLoadingProps, LoadingProps } from './useLoading'
+import { useLoadableControlProps } from './fabrics/useLoadableControl'
 import { useValidation, useValidationProps, ValidationProps, useValidationEmits } from './useValidation'
 import { unwrapEl } from '../utils/unwrapEl'
 
-export type SelectableProps<V = any> = StatefulProps & LoadingProps & ExtractPropTypes<ValidationProps<V>> & {
+export type SelectableProps<V = any> = StatefulProps & { loading: boolean } & ExtractPropTypes<ValidationProps<V>> & {
   arrayValue: V | undefined,
   leftLabel: boolean,
   trueValue: any,
@@ -25,7 +25,7 @@ export type Elements = {
 
 export const useSelectableProps = {
   ...useStatefulProps,
-  ...useLoadingProps,
+  ...useLoadableControlProps,
   ...useValidationProps,
   arrayValue: { type: [String, Boolean, Object, Number], default: null },
   label: { type: String, default: '' },
