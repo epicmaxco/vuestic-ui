@@ -26,7 +26,6 @@
           class="va-switch__input"
           role="switch"
           v-bind="inputAttributesComputed"
-          v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
           @keypress.enter="onEnterKeyPress"
@@ -80,15 +79,15 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, computed, shallowRef, useSlots } from 'vue'
+import { PropType, computed, ref, shallowRef, useSlots } from 'vue'
 
 import {
   useComponentPresetProp,
-  useKeyboardOnlyFocus,
   useSelectable, useSelectableProps, useSelectableEmits,
   useColors, useElementTextColor,
   useBem, useTranslationProp,
   useComponentUuid,
+  useElementFocusedKeyboard,
 } from '../../composables'
 
 import { VaProgressCircle } from '../va-progress-circle'
@@ -134,7 +133,8 @@ const elements = {
 }
 
 const { getColor } = useColors()
-const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+const input = elements.input
+const hasKeyboardFocus = useElementFocusedKeyboard(input)
 const {
   isChecked,
   computedError,
@@ -231,8 +231,6 @@ const inputAttributesComputed = computed(() => ({
 const onEnterKeyPress = () => {
   elements.input.value?.click()
 }
-
-const input = elements.input
 
 defineExpose({
   focus,

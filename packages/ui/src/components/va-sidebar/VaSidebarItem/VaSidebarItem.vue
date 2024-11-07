@@ -10,7 +10,6 @@
     :style="computedStyle"
     :is="tagComputed"
     v-bind="linkAttributesComputed"
-    v-on="keyboardFocusListeners"
   >
     <slot />
   </component>
@@ -22,12 +21,12 @@ import { computed, ref } from 'vue'
 import {
   applyColors,
   useColors,
-  useKeyboardOnlyFocus,
   useRouterLink,
   useRouterLinkProps,
   useElementTextColor,
   useComponentPresetProp,
   useElementTemplateRef,
+  useElementFocusedKeyboard,
 } from '../../../composables'
 import { useSidebarItem } from '../hooks/useSidebar'
 import { useElementHovered } from '@/composables/std/browser/useElementHovered'
@@ -53,7 +52,7 @@ const sidebar = useSidebarItem()
 
 const isHovered = useElementHovered(rootElement)
 const { getColor, getHoverColor, getFocusColor } = useColors()
-const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+const hasKeyboardFocus = useElementFocusedKeyboard(rootElement)
 
 const backgroundColorComputed = computed(() => {
   if (props.active && !isHovered.value && !hasKeyboardFocus.value) {

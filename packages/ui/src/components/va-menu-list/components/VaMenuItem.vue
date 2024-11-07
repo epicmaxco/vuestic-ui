@@ -1,7 +1,6 @@
 <template>
   <tr class="va-menu-item"
     v-bind="makeMenuItemAttributes({ disabled })"
-    v-on="keyboardFocusListeners"
     :class="{
       'va-menu-item--disabled': disabled,
       'va-menu-item--keyboard-focus': hasKeyboardFocus,
@@ -34,7 +33,7 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 import { VaIcon } from '../../va-icon/'
-import { useKeyboardOnlyFocusGlobal } from '../../../composables'
+import { useCurrentElement, useElementFocusedKeyboard } from '../../../composables'
 import { makeMenuItemAttributes } from '../composables/useMenuKeyboardNavigation'
 import { defineChildProps, useChildComponents } from '../../../composables/useChildComponents'
 
@@ -55,9 +54,8 @@ const props = defineProps({
 
 const emit = defineEmits(['selected'])
 
-const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocusGlobal()
-
 useChildComponents(props)
+const hasKeyboardFocus = useElementFocusedKeyboard(useCurrentElement())
 </script>
 
 <style lang="scss">

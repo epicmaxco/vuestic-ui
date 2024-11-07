@@ -6,7 +6,6 @@
     @click="toggleModelValue"
     @keydown.enter="toggleModelValue"
     @keydown.space="toggleModelValue"
-    v-on="keyboardFocusListeners"
   >
     <div
       class="va-color-indicator__core"
@@ -23,8 +22,9 @@ import {
   useStateful,
   useStatefulProps,
   useStatefulEmits,
-  useKeyboardOnlyFocus,
   useComponentPresetProp,
+  useElementFocusedKeyboard,
+  useCurrentElement,
 } from '../../composables'
 
 defineOptions({
@@ -44,7 +44,7 @@ const emit = defineEmits([...useStatefulEmits])
 
 const { valueComputed } = useStateful(props, emit)
 const { getColor } = useColors()
-const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+const hasKeyboardFocus = useElementFocusedKeyboard(useCurrentElement())
 
 const colorComputed = computed(() => getColor(props.color))
 const borderRadiusComputed = computed(() => props.square ? '0px' : '50%')

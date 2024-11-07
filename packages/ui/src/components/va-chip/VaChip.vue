@@ -15,8 +15,6 @@
   >
     <span
       class="va-chip__inner"
-      @focus="$emit('focus')"
-      v-on="keyboardFocusListeners"
     >
       <va-icon
         v-if="icon"
@@ -48,7 +46,6 @@ import { PropType, computed, toRef } from 'vue'
 import { getBoxShadowColor, getHoverColor, getFocusColor } from '../../services/color'
 import {
   useComponentPresetProp,
-  useKeyboardOnlyFocus,
   useRouterLink, useRouterLinkProps,
   useColors, useColorProps,
   useStateful, useStatefulEmits, useStatefulProps,
@@ -56,6 +53,7 @@ import {
   useBem,
   useTranslation, useTranslationProp,
   useCurrentElement,
+  useElementFocusedKeyboard,
 } from '../../composables'
 
 import { VaIcon } from '../va-icon'
@@ -98,7 +96,10 @@ const borderColor = computed(() => props.outline ? colorComputed.value : '')
 const isTransparentBackground = computed(() => Boolean(props.outline || props.flat))
 const textColorComputed = useElementTextColor(colorComputed, isTransparentBackground)
 
-const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+const root = useCurrentElement()
+const isHovered = useElementHovered(root)
+const hasKeyboardFocus = useElementFocusedKeyboard(root)
+
 const shadowStyle = computed(() => {
   if (!props.shadow || props.flat || props.outline || props.disabled || hasKeyboardFocus.value) {
     return
@@ -108,8 +109,6 @@ const shadowStyle = computed(() => {
 
 const { valueComputed } = useStateful(props, emit)
 const { tagComputed, hrefComputed } = useRouterLink(props)
-const root = useCurrentElement()
-const isHovered = useElementHovered(root)
 
 const close = () => {
   if (!props.disabled) {
