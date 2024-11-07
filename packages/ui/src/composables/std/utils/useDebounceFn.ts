@@ -1,6 +1,6 @@
 import { Ref, unref } from 'vue'
 
-export const useDebounceFn = <F extends (...args: any) => unknown>(func: F, delay: Ref<number | undefined> | number | undefined) => {
+export const useDebounceFn = <F extends (...args: any) => unknown>(func: F, delay: Ref<number | undefined> | number) => {
   let timeout: ReturnType<typeof setTimeout> | null = null
 
   const fn = function (this: any, ...args: Parameters<F>) {
@@ -8,7 +8,7 @@ export const useDebounceFn = <F extends (...args: any) => unknown>(func: F, dela
     timeout = setTimeout(() => {
       timeout = null
       func.apply(this, args)
-    }, unref(delay) ?? 100)
+    }, unref(delay))
   } as F & { cancel: () => void }
 
   fn.cancel = () => {

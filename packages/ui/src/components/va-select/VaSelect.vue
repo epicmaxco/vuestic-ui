@@ -138,7 +138,6 @@ import {
   useElementFocusedWithin,
   useTranslation, useTranslationProp,
   useBem,
-  useThrottleProps,
   useDropdownableControl, useDropdownableControlEmits, useDropdownableControlProps,
   useNumericProp,
   useFormControl,
@@ -186,7 +185,6 @@ const props = defineProps({
   ...useFormFieldProps,
   ...useMaxVisibleOptionsProps,
   ...useToggleIconProps,
-  ...useThrottleProps,
   ...useStringValueProps,
   ...useAutocompleteProps,
   ...useDropdownableControlProps,
@@ -238,6 +236,8 @@ const props = defineProps({
 
   // useClearableControlProps override
   clearValue: { type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>, default: '' },
+
+  delay: { type: [Number, String], default: 0 },
 })
 
 const emit = defineEmits([

@@ -221,7 +221,7 @@ import { useFilterable, useFilterableProps } from './hooks/useFilterable'
 import { useSortable, useSortableProps } from './hooks/useSortable'
 import { useTableScroll, useTableScrollProps, useTableScrollEmits } from './hooks/useTableScroll'
 
-import { useComponentPresetProp, useTranslation, useTranslationProp, useThrottleProps } from '../../composables'
+import { useComponentPresetProp, useTranslation, useTranslationProp } from '../../composables'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
@@ -273,7 +273,6 @@ const props = defineProps({
   ...usePaginatedRowsProps,
   ...createRowsProps<Item>(),
   ...useSelectableProps,
-  ...useThrottleProps,
   ...pick(VaDataTableThRowProps, ['ariaSelectAllRowsLabel', 'ariaSortColumnByLabel']),
   hoverable: { type: Boolean, default: false },
   clickable: { type: Boolean, default: false },
@@ -291,6 +290,8 @@ const props = defineProps({
   wrapperSize: { type: [Number, String] as PropType<number | string | 'auto'>, default: 'auto' },
 
   ariaSelectRowLabel: useTranslationProp('$t:selectRowByIndex'),
+
+  delay: { type: [Number, String], default: 0 },
 })
 
 const emit = defineEmits([

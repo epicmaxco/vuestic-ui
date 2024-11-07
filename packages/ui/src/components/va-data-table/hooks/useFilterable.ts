@@ -1,13 +1,13 @@
 import { Ref, watch, computed, PropType, ExtractPropTypes } from 'vue'
 
-import { useThrottleValue, useThrottleProps } from '../../../composables'
+import { useNumericProp, useThrottleValue } from '../../../composables'
 
 import type { DataTableRow, DataTableFilterMethod, DataTableItem } from '../types'
 
 export const useFilterableProps = {
-  ...useThrottleProps,
   filter: { type: String, default: '' },
   filterMethod: { type: Function as PropType<DataTableFilterMethod | undefined> },
+  delay: { type: [Number, String], default: 0 },
 }
 
 export type TFilteredArgs = { items: DataTableItem[], itemsIndexes: number[] }
@@ -39,7 +39,7 @@ export const useFilterable = <Item extends DataTableRow>(
     )
   })
 
-  const filteredRowsThrottled = useThrottleValue(filteredRows, props)
+  const filteredRowsThrottled = useThrottleValue(filteredRows, useNumericProp('delay'))
 
   watch(filteredRowsThrottled, () => {
     emit('filtered', {

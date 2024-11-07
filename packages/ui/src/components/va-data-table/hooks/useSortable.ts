@@ -1,6 +1,6 @@
-import { PropType, computed, ref, Ref, watch, ExtractPropTypes, ComputedRef } from 'vue'
+import { PropType, computed, ref, Ref, watch, ExtractPropTypes, ComputedRef, toRef } from 'vue'
 
-import { useThrottleFunction, useThrottleProps } from '../../../composables'
+import { useNumericProp, useThrottleFn } from '../../../composables'
 
 import type {
   DataTableColumnInternal,
@@ -11,11 +11,11 @@ import type {
 } from '../types'
 
 export const useSortableProps = {
-  ...useThrottleProps,
   sortBy: { type: String as PropType<string | undefined> },
   columnSorted: { type: Object as PropType<any | undefined> },
   sortingOrder: { type: [String, null] as PropType<DataTableSortingOrder | undefined> },
   disableClientSideSorting: { type: Boolean, default: false },
+  delay: { type: [Number, String], default: 0 },
 }
 
 export type TSortedArgs = { sortBy: string, sortingOrder: DataTableSortingOrder, items: DataTableItem[], itemsIndexes: number[] }
@@ -168,7 +168,7 @@ export const useSortable = <Item extends DataTableRow>(
     emit('columnSorted', { columnName: column.name, value, column })
   }
 
-  const toggleSortingThrottled = useThrottleFunction(toggleSorting, props)
+  const toggleSortingThrottled = useThrottleFn(toggleSorting, useNumericProp('delay'))
 
   const sortingOrderIconName = computed(() => {
     return sortingOrderSync.value === 'asc'
