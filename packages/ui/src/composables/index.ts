@@ -1,4 +1,3 @@
-export * from './useAlign'
 export * from './useBem'
 export * from './useBreakpoint'
 export * from './std/event/useClickOutside'

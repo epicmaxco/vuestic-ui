@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 
-export const useAlignProps = {
+export const useAlignableProps = {
   align: {
     type: String,
     default: 'left',
@@ -38,7 +38,7 @@ const items = (align: string, vertical: boolean) => {
   return vertical ? verticalMap[align as keyof typeof verticalMap] : 'center'
 }
 
-export function useAlign (props: any) {
+export function useAlignable (props: any) {
   const alignComputed = computed(() => {
     return {
       display: 'flex',
