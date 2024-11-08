@@ -1,7 +1,7 @@
 import { useWindow } from '../ssr/useWindow'
 import { computed, Ref } from 'vue'
 
-type ScrollElement = HTMLElement | (Window & { scrollLeft: number; scrollTop: number })
+type ScrollElement = HTMLElement | (Window & { scrollLeft: number; scrollTop: number } & EventTarget)
 
 const getScrollableParent = (element: HTMLElement | null | undefined, window: Window | null | undefined): ScrollElement | null => {
   if (!element) {

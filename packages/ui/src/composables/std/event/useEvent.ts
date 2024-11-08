@@ -24,9 +24,19 @@ type UseEventEvent<N extends UseEventEventName, D> = N extends keyof GlobalEvent
 export const useEvent = <N extends UseEventEventName, E extends Event>(
   event: N,
   listener: (this: GlobalEventHandlers, event: UseEventEvent<N, E>) => any,
-  target?: MaybeRef<TemplateRef> | boolean,
+  target?: MaybeRef<TemplateRef | Window> | boolean,
 ) => {
-  const source = (target && typeof target !== 'boolean') ? computed(() => unwrapEl(unref(target))) : useWindow()
+  const source = (target && typeof target !== 'boolean')
+    ? computed(() => {
+      const t = unref(target)
+
+      if (t instanceof Window) {
+        return t
+      }
+
+      return unwrapEl(t)
+    })
+    : useWindow()
   const capture = typeof target === 'boolean' ? target : false
 
   watch(source, (newValue, oldValue) => {

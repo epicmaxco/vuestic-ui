@@ -32,12 +32,12 @@ import { computed } from 'vue'
 
 import {
   useColors,
-  setupScroll,
   useFixedBar,
   useElementTextColor,
   useFixedBarProps,
   useComponentPresetProp,
   useBem,
+  useTemplateRef,
 } from '../../composables'
 
 defineOptions({
@@ -54,8 +54,7 @@ const props = defineProps({
   bordered: { type: Boolean, default: false },
 })
 
-const { scrollRoot, isScrolledDown } = setupScroll(props.fixed)
-const { fixedBarStyleComputed } = useFixedBar(props, isScrolledDown)
+const { fixedBarStyleComputed } = useFixedBar(props, useTemplateRef('scrollRoot'))
 
 const { getColor, shiftHSLAColor } = useColors()
 const color = computed(() => getColor(props.color))
