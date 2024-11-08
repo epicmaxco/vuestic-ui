@@ -131,9 +131,8 @@ import { ref, shallowRef, computed, watch, nextTick, type PropType, type Ref, us
 import {
   useComponentPresetProp,
   useSelectableList, useSelectableListProps,
-  useValidation, useValidationProps, useValidationEmits, ValidationProps,
+  useValidationProps, useValidationEmits, ValidationProps,
   useFormFieldProps,
-  useMaxSelections, useMaxSelectionsProps,
   useClearableControlProps, useClearableControl, useClearableControlEmits,
   useElementFocusedWithin,
   useTranslation, useTranslationProp,
@@ -155,6 +154,7 @@ import { useToggleIcon, useToggleIconProps } from './hooks/useToggleIcon'
 import { useStringValue, useStringValueProps } from './hooks/useStringValue'
 import { useAutocomplete, useAutocompleteProps } from './hooks/useAutocomplete'
 import { useSelectAria } from './hooks/useSelectAria'
+import { useMaxSelections, useMaxSelectionsProps } from './hooks/useMaxSelections'
 
 import { blurElement, focusElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
