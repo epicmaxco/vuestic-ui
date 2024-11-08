@@ -9,8 +9,8 @@
       class="va-toast"
       :class="toastClasses"
       :style="toastStyles"
-      @mouseenter="clearTimer"
-      @mouseleave="startTimer"
+      @mouseenter="closeDebounce.cancel()"
+      @mouseleave="closeDebounce()"
       @click="onToastClick"
     >
       <div class="va-toast__group">
@@ -44,7 +44,7 @@
 <script lang="ts">
 import { PropType, ref, computed, onMounted, shallowRef, defineComponent, ComputedRef } from 'vue'
 
-import { useComponentPresetProp, useColors, useTimer, useElementTextColor, useTranslation, useTranslationProp, useNumericProp } from '../../composables'
+import { useComponentPresetProp, useColors, useElementTextColor, useTranslation, useTranslationProp, useNumericProp, useDebounceFn } from '../../composables'
 
 import { ToastPosition } from './types'
 import { useToastService } from './hooks/useToastService'
@@ -187,18 +187,12 @@ const onHidden = () => {
   destroyElement()
 }
 
-const timer = useTimer()
-const clearTimer = timer.clear
-const startTimer = () => {
-  if (durationComputed.value > 0) {
-    timer.start(() => visible.value && onToastClose(), durationComputed.value)
-  }
-}
+const closeDebounce = useDebounceFn(() => visible.value && onToastClose(), durationComputed)
 
 onMounted(() => {
   visible.value = true
 
-  startTimer()
+  closeDebounce()
 })
 </script>
 
