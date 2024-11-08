@@ -54,7 +54,6 @@ import { PropType, computed, toRefs, shallowRef } from 'vue'
 import {
   useBem,
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
-  usePressed,
   useColors, useElementTextColor,
   useLoadableControlProps,
   useSize, useSizeProps,
@@ -62,6 +61,7 @@ import {
   useComponentPresetProp,
   useSlotPassed,
   useNumericProp,
+  useElementPressed,
 } from '../../composables'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
@@ -151,7 +151,7 @@ const { disabled } = toRefs(props)
 const button = shallowRef<HTMLElement>()
 const { focus, blur } = useFocusableControl(button, props, emit)
 const isHovered = useElementHovered(button)
-const { isPressed } = usePressed(button)
+const isPressed = useElementPressed(button)
 
 // icon attributes
 const iconColorComputed = computed(() => props.iconColor ? getColor(props.iconColor) : textColorComputed.value)
