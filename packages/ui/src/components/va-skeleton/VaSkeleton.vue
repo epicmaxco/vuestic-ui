@@ -93,7 +93,7 @@ const { tp } = useTranslation()
 const attrs = useAttrs()
 
 const classes = computed(() => [
-  ...Object.keys(bem),
+  bem.value,
   (attrs as { class: string }).class,
 ])
 </script>
