@@ -32,7 +32,7 @@ import { PropType, toRefs, onMounted, computed, watch, shallowRef } from 'vue'
 import { createYearDate } from '../../utils/date-utils'
 import { useGridKeyboardNavigation } from '../../hooks/grid-keyboard-navigation'
 import { useDatePicker } from '../../hooks/use-picker'
-import { useNumericProp } from '../../../../composables'
+import { makeNumericProp, useNumericProp } from '../../../../composables'
 
 import { DatePickerMode, DatePickerModelValue, DatePickerView } from '../../types'
 
@@ -44,10 +44,10 @@ const props = defineProps({
   modelValue: { type: [Date, Array, Object] as PropType<DatePickerModelValue> },
   allowedYears: { type: Function as PropType<(date: Date) => boolean>, default: undefined },
   highlightToday: { type: Boolean, default: true },
-  startYear: { type: [Number, String], default: 1970 },
+  startYear: makeNumericProp({ default: 1970 }),
   mode: { type: String as PropType<DatePickerMode>, default: 'auto' },
   view: { type: Object as PropType<DatePickerView>, default: () => ({ type: 'year' }) },
-  endYear: { type: [Number, String], default: () => new Date().getFullYear() + 50 },
+  endYear: makeNumericProp({ default: () => new Date().getFullYear() + 50 }),
   readonly: { type: Boolean, default: false },
   color: { type: String, default: 'primary' },
 })
@@ -64,8 +64,6 @@ const generateYearsArray = (start: number, end: number) => {
     .map((i) => createYearDate(start + i))
 }
 
-// startYear useNumericProp
-// endYear useNumericProp
 const startYearComputed = useNumericProp('startYear')
 const endYearComputed = useNumericProp('endYear')
 

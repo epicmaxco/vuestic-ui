@@ -129,6 +129,7 @@ import {
   useComponentPresetProp,
   useElementFocusedWithin,
   useNumericProp,
+  makeNumericProp,
 } from '../../composables'
 
 import { VaMessageList } from '../va-message-list'
@@ -156,7 +157,7 @@ export default defineComponent({
     ...VaInputLabelProps,
     modelValue: { type: null, default: '' },
     counter: { type: Boolean },
-    maxLength: { type: [Number, String], default: undefined },
+    maxLength: makeNumericProp(),
 
     label: { type: String, default: '' },
     placeholder: { type: String, default: '' },

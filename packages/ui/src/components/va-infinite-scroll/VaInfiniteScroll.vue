@@ -36,7 +36,7 @@ import { computed, ComputedRef, PropType, ref, shallowRef, watch } from 'vue'
 import { debounce as debounceFn } from '../../utils/debounce'
 
 import { sleep } from '../../utils/sleep'
-import { useColors, useComponentPresetProp, useNumericProp } from '../../composables'
+import { makeNumericProp, useColors, useComponentPresetProp, useNumericProp } from '../../composables'
 import { useScroll } from './hooks/useScroll'
 
 import { VaProgressCircle } from '../va-progress-circle'
@@ -48,11 +48,11 @@ defineOptions({
 const props = defineProps({
   ...useComponentPresetProp,
   load: { type: Function, required: true },
-  offset: { type: [Number, String], default: 500 },
+  offset: makeNumericProp({ default: 500 }),
   reverse: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   scrollTarget: { type: [String, Object] as PropType<string | HTMLElement | undefined>, default: null },
-  debounce: { type: [Number, String], default: 100 },
+  debounce: makeNumericProp({ default: 100 }),
   tag: { type: String, default: 'div' },
 })
 

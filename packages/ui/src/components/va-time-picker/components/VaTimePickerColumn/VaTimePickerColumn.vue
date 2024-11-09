@@ -30,7 +30,7 @@
 import VaTimePickerColumnCell from '../VaTimePickerColumnCell.vue'
 import { nextTick, shallowRef, watch, onMounted, PropType, computed, ComputedRef } from 'vue'
 
-import { useNumericProp, useFocusableControl, useFocusableControlProps, useFocusableControlEmits } from '../../../../composables'
+import { useNumericProp, useFocusableControl, useFocusableControlProps, useFocusableControlEmits, makeNumericProp } from '../../../../composables'
 import { debounce } from '../../../../utils/debounce'
 import { useVModelStateful } from '@/composables/std/internal/useVModelStateful'
 
@@ -41,7 +41,7 @@ defineOptions({
 const props = defineProps({
   items: { type: Array as PropType<string[] | number[]>, default: () => [] },
   activeItemIndex: { type: Number, default: 0 },
-  cellHeight: { type: [Number, String], default: 30 },
+  cellHeight: makeNumericProp({ default: 30 }),
   ...useFocusableControlProps,
 })
 

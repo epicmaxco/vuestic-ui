@@ -116,6 +116,7 @@ import {
   useValidationEmits,
   useNumericProp,
   useElementTemplateRef,
+  makeNumericProp,
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
@@ -169,7 +170,7 @@ const props = defineProps({
   flat: { type: Boolean, default: true },
   rounded: { type: Boolean, default: false },
   margins: { type: [String, Number], default: '4px' },
-  longPressDelay: { type: [Number, String], default: 500 },
+  longPressDelay: makeNumericProp({ default: 500 }),
 
   ariaLabel: useTranslationProp('$t:counterValue'),
   ariaDecreaseLabel: useTranslationProp('$t:decreaseCounter'),

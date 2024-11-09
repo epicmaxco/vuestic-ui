@@ -62,6 +62,7 @@ import {
   useSlotPassed,
   useNumericProp,
   useElementPressed,
+  makeNumericProp,
 } from '../../composables'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
@@ -92,8 +93,8 @@ const props = defineProps({
 
   color: { type: String as PropType<ColorName>, default: 'primary' },
   textColor: { type: String, default: '' },
-  textOpacity: { type: [Number, String], default: 1 },
-  backgroundOpacity: { type: [Number, String], default: 1 },
+  textOpacity: makeNumericProp({ default: 1 }),
+  backgroundOpacity: makeNumericProp({ default: 1 }),
   borderColor: { type: String, default: '' },
 
     // only for filled bg state

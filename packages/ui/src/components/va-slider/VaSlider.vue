@@ -181,6 +181,7 @@ import {
   useTranslationProp,
   useNumericProp,
   useComponentUuid,
+  makeNumericProp,
 } from '../../composables'
 import { validateSlider } from './validateSlider'
 
@@ -201,9 +202,9 @@ const props = defineProps({
   trackColor: { type: String, default: '' },
   labelColor: { type: String, default: '' },
   trackLabelVisible: { type: Boolean, default: false },
-  min: { type: [Number, String], default: 0 },
-  max: { type: [Number, String], default: 100 },
-  step: { type: [Number, String], default: 1 },
+  min: makeNumericProp({ default: 0 }),
+  max: makeNumericProp({ default: 100 }),
+  step: makeNumericProp({ default: 1 }),
   label: { type: String, default: '' },
   invertLabel: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },

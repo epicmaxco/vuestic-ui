@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import { computed, ComputedRef, StyleValue } from 'vue'
-import { useNumericProp, useComponentPresetProp } from '../../composables'
+import { useNumericProp, useComponentPresetProp, makeNumericProp } from '../../composables'
 
 defineOptions({
   name: 'VaListItemLabel',
@@ -19,7 +19,7 @@ defineOptions({
 const props = defineProps({
   ...useComponentPresetProp,
   caption: { type: Boolean, default: false },
-  lines: { type: [Number, String], default: 1 },
+  lines: makeNumericProp({ default: 1 }),
 })
 
 const linesComputed = useNumericProp('lines') as ComputedRef<number>

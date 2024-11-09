@@ -35,6 +35,7 @@ import {
   useFormField,
   useArrayRefs,
   useNumericProp,
+  makeNumericProp,
 } from '../../composables'
 
 defineOptions({
@@ -54,8 +55,8 @@ const props = defineProps({
   minutesFilter: { type: Function as PropType<(h: number) => boolean> },
   secondsFilter: { type: Function as PropType<(h: number) => boolean> },
   framed: { type: Boolean, default: false },
-  cellHeight: { type: [Number, String], default: 30 },
-  visibleCellsCount: { type: [Number, String], default: 7 },
+  cellHeight: makeNumericProp({ default: 30 }),
+  visibleCellsCount: makeNumericProp({ default: 7 }),
 })
 
 const emit = defineEmits([...useStatefulEmits])

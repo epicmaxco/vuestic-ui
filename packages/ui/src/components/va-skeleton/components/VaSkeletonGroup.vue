@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import { PropType, computed, ref, onMounted, onBeforeMount, ComputedRef } from 'vue'
-import { useBem, useNumericProp } from '../../../composables'
+import { makeNumericProp, useBem, useNumericProp } from '../../../composables'
 import { VaConfig } from '../../va-config'
 
 defineOptions({
@@ -17,7 +17,7 @@ defineOptions({
 
 const props = defineProps({
   color: { type: String, default: 'backgroundElement' },
-  delay: { type: [Number, String], default: 100 },
+  delay: makeNumericProp({ default: 100 }),
 
   animation: { type: String as PropType<'pulse' | 'wave' | 'none'>, default: 'pulse' },
 

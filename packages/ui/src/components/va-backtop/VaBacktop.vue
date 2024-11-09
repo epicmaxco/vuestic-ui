@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
 import { PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useComponentPresetProp, useTranslation, useTranslationProp, useNumericProp } from '../../composables'
+import { useComponentPresetProp, useTranslation, useTranslationProp, useNumericProp, makeNumericProp } from '../../composables'
 import { VaButton } from '../va-button'
 import { isServer } from '../../utils/ssr'
 import { warn } from '../../utils/console'
@@ -36,8 +36,8 @@ const props = defineProps({
     type: [Object, String] as PropType<Element | string | undefined>,
     default: undefined,
   },
-  visibilityHeight: { type: [Number, String], default: 300 },
-  speed: { type: [Number, String], default: 50 },
+  visibilityHeight: makeNumericProp({ default: 300 }),
+  speed: makeNumericProp({ default: 50 }),
   verticalOffset: { type: String, default: '1rem' },
   horizontalOffset: { type: String, default: '1rem' },
   color: { type: String, default: '' },

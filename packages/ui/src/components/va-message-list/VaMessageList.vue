@@ -30,7 +30,7 @@
 <script lang="ts" setup>
 import { computed, ComputedRef, PropType } from 'vue'
 
-import { useColors, useNumericProp } from '../../composables'
+import { makeNumericProp, useColors, useNumericProp } from '../../composables'
 
 import { VaIcon } from '../va-icon'
 import { useMessageListAria } from './hooks/useMessageListAria'
@@ -45,7 +45,7 @@ const props = defineProps({
     type: [String, Array] as PropType<string | string[]>,
     default: '',
   },
-  limit: { type: [Number, String], default: 1 },
+  limit: makeNumericProp({ default: 1 }),
   color: { type: String },
   hasError: { type: Boolean, default: false },
 })
