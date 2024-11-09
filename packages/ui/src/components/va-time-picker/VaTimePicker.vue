@@ -94,7 +94,7 @@ const focusPrev = () => {
 }
 
 const computedClasses = computed(() => ({
-  ...computedFormClasses,
+  ...computedFormClasses.value,
   'va-time-picker--framed': props.framed,
 }))
 
