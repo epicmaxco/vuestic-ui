@@ -1,6 +1,6 @@
 <template>
   <header
-    ref="scrollRoot"
+    ref="rootElement"
     role="toolbar"
     class="va-app-bar"
     :style="computedStyle"
@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import { PropType, computed, toRef } from 'vue'
 
-import { useColors, useFixedBar, useFixedBarProps, useComponentPresetProp, useElementTextColor, useTemplateRef } from '../../composables'
+import { useColors, useFixedBar, useFixedBarProps, useComponentPresetProp, useElementTextColor, useTemplateRef, useSelectorTemplateRef, useElementScrollableParent } from '../../composables'
 
 defineOptions({
   name: 'VaAppBar',
@@ -27,7 +27,11 @@ const props = defineProps({
   shadowColor: { type: String, default: '' },
   color: { type: String, default: 'primary' },
 })
-const { fixedBarStyleComputed, isScrolledDown } = useFixedBar(props, useTemplateRef('scrollRoot'))
+
+const targetHtmlElement = useSelectorTemplateRef(toRef(props, 'target'))
+const scrollRootScrollParent = useElementScrollableParent<HTMLElement>(useTemplateRef('rootElement'))
+
+const { fixedBarStyleComputed, isScrolledDown } = useFixedBar(props, computed(() => targetHtmlElement.value || scrollRootScrollParent.value))
 
 const { getColor, getGradientBackground, getBoxShadowColor } = useColors()
 const colorComputed = computed(() => getColor(props.color))

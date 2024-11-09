@@ -9,10 +9,7 @@ export const useFixedBarProps = {
   fixed: { type: Boolean, default: false },
   bottom: { type: Boolean, default: false },
 }
-export function useScrollDirection (target: Ref<HTMLElement | Window | undefined>) {
-  const scrollRoot = shallowRef<HTMLElement>()
-  let targetElement: HTMLElement | Window | undefined
-
+export function useScrolledDown (target: Ref<HTMLElement | Window | undefined>) {
   const isScrolledDown = ref(false)
   let prevScrollPosition = 0
 
@@ -26,13 +23,13 @@ export function useScrollDirection (target: Ref<HTMLElement | Window | undefined
 
   useEvent('scroll', onScroll, target)
 
-  return { scrollRoot, isScrolledDown }
+  return isScrolledDown
 }
 
 export function useFixedBar (props: ExtractPropTypes<typeof useFixedBarProps>, rootElement: Ref<TemplateRef>) {
   const target = computed(() => props.fixed ? getWindow() : unwrapEl(rootElement.value))
 
-  const { isScrolledDown } = useScrollDirection(target)
+  const isScrolledDown = useScrolledDown(target)
 
   const isHiddenComputed = computed(() => isScrolledDown.value ? !!props.hideOnScroll : false)
 

@@ -1,3 +1,4 @@
+import { TemplateRef, unwrapEl } from '../../../utils/unwrapEl'
 import { useWindow } from '../ssr/useWindow'
 import { computed, Ref } from 'vue'
 
@@ -35,8 +36,8 @@ const getScrollableParent = (element: HTMLElement | null | undefined, window: Wi
   return getScrollableParent(element.parentElement, window)
 }
 
-export const useElementScrollableParent = (el: Ref<HTMLElement | undefined>) => {
+export const useElementScrollableParent = <T extends ScrollElement>(el: Ref<TemplateRef | undefined>) => {
   const window = useWindow()
 
-  return computed(() => getScrollableParent(el.value, window.value))
+  return computed(() => getScrollableParent(unwrapEl(el.value), window.value) as T)
 }
