@@ -1,0 +1,22 @@
+{
+  "name": "playground",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@formkit/vue": "^1.6.7",
+    "vue": "^3.5.12",
+    "vuestic-ui": "*"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "typescript": "~5.6.2",
+    "vite": "^5.4.10",
+    "vue-tsc": "^2.1.8"
+  }
+}
