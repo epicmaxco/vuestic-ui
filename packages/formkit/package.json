@@ -1,0 +1,12 @@
+{
+  "name": "@vuestic/formkit",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@formkit/core": "^1.6.7",
+    "@formkit/inputs": "^1.6.7",
+    "@formkit/utils": "^1.6.7",
+    "@formkit/vue": "^1.6.7"
+  }
+}
