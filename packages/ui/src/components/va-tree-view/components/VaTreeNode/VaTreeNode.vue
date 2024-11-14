@@ -79,7 +79,7 @@ import { useBem } from '../../../../composables'
 
 import { VaIcon, VaCheckbox } from '../../../'
 import { TreeViewKey, TreeNode } from '../../types'
-import { strictInject } from '@/utils/strict-inject'
+import { strictInject } from '../../../../utils/strict-inject'
 
 const INJECTION_ERROR_MESSAGE = 'The VaTreeNode component should be used in the context of VaTreeView component'
 </script>

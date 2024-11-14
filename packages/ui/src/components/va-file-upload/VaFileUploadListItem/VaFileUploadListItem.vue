@@ -42,7 +42,7 @@ import { VaFileUploadKey, ConvertedFile } from '../types'
 import { VaButton } from '../../va-button'
 import { VaListItem, VaListItemSection } from '../../va-list'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
-import { strictInject } from '@/utils/strict-inject'
+import { strictInject } from '../../../utils/strict-inject'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadListItem component should be used in the context of VaFileUpload component'
 </script>

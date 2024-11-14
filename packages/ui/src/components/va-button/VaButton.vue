@@ -63,6 +63,7 @@ import {
   useNumericProp,
   useElementPressed,
   makeNumericProp,
+  useElementHovered,
 } from '../../composables'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
@@ -74,7 +75,6 @@ import { VaProgressCircle } from '../va-progress-circle'
 import { pick } from '../../utils/pick'
 
 import type { ColorName } from '../../composables'
-import { useElementHovered } from '@/composables/std/browser/useElementHovered'
 
 defineOptions({
   name: 'VaButton',

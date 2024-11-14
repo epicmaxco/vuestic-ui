@@ -130,6 +130,7 @@ import {
   useElementFocusedWithin,
   useNumericProp,
   makeNumericProp,
+  useVModelStateful,
 } from '../../composables'
 
 import { VaMessageList } from '../va-message-list'
@@ -140,7 +141,6 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 import { useInputFieldAria, useInputFieldAriaProps } from './hooks/useInputFieldAria'
 import { WithSlotInheritance } from '../../utils/with-slot-inheritance'
 import { pick } from '../../utils/pick'
-import { useVModelStateful } from '@/composables/std/internal/useVModelStateful'
 
 const VaInputLabelProps = extractComponentProps(VaInputLabel)
 

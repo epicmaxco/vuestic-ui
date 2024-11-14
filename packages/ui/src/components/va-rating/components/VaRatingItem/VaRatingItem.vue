@@ -26,12 +26,11 @@
 <script lang="ts" setup>
 import { computed, ref, shallowRef, watch } from 'vue'
 
-import { useColors } from '../../../../composables'
+import { useColors, useVModelStateful } from '../../../../composables'
 
 import { RatingValue } from '../../types'
 
 import { VaIcon } from '../../../va-icon'
-import { useVModelStateful } from '@/composables/std/internal/useVModelStateful'
 
 defineOptions({
   name: 'VaRatingItem',

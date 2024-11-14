@@ -1,5 +1,5 @@
 import { unref, PropType, computed, ref, watch } from 'vue'
-import { PropOptions } from './types'
+import { PropAsOptions } from './types'
 import { useDocument } from '../../ssr/useDocument'
 import { makeSharedComposable } from '../makeSharedComposable'
 import { useEvent } from '../../event/useEvent'
@@ -22,7 +22,7 @@ export const isPositiveLengthValue = (value: unknown) => {
   return isLengthValue(value) && parseInt(value) >= 0
 }
 
-export const makeLengthProp = <P extends PropOptions<any>>(prop: P) => {
+export const makeLengthProp = <P extends PropAsOptions<any>>(prop: P) => {
   if (!prop.type) {
     prop.type = [String, Number] as unknown as PropType<LengthString | number>
   }

@@ -27,9 +27,9 @@ import {
   useComponentPresetProp,
   useElementTemplateRef,
   useElementFocusedKeyboard,
+  useElementHovered,
 } from '../../../composables'
 import { useSidebarItem } from '../hooks/useSidebar'
-import { useElementHovered } from '@/composables/std/browser/useElementHovered'
 
 defineOptions({
   name: 'VaSidebarItem',

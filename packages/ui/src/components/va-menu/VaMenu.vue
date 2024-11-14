@@ -19,10 +19,9 @@ import { nextTick, ref, watchEffect } from 'vue'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { VaMenuList } from '../va-menu-list'
 import { extractComponentProps, extractComponentEmits, filterComponentProps } from '../../utils/component-options'
-import { useComponentPresetProp } from '../../composables'
+import { useComponentPresetProp, useChildComponents, defineChildProps } from '../../composables'
 import { focusElement, focusFirstFocusableChild } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
-import { useChildComponents, defineChildProps } from '../../composables/useChildComponents'
 
 const VaMenuListProps = extractComponentProps(VaMenuList)
 const VaMenuListEmits = extractComponentEmits(VaMenuList)

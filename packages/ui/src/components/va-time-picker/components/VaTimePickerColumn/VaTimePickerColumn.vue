@@ -30,9 +30,8 @@
 import VaTimePickerColumnCell from '../VaTimePickerColumnCell.vue'
 import { nextTick, shallowRef, watch, onMounted, PropType, computed, ComputedRef } from 'vue'
 
-import { useNumericProp, useFocusableControl, useFocusableControlProps, useFocusableControlEmits, makeNumericProp } from '../../../../composables'
+import { useNumericProp, useFocusableControl, useFocusableControlProps, useFocusableControlEmits, makeNumericProp, useVModelStateful } from '../../../../composables'
 import { debounce } from '../../../../utils/debounce'
-import { useVModelStateful } from '@/composables/std/internal/useVModelStateful'
 
 defineOptions({
   name: 'VaTimePickerColumn',

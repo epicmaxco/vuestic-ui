@@ -52,16 +52,14 @@ import { useElementFocused, useBem, useTranslation, useTranslationProp } from '.
 
 import { VaFileUploadKey, ConvertedFile } from '../types'
 import { useElementTextColor } from '../../../composables/useElementTextColor'
-
+import { strictInject } from '../../../utils/strict-inject'
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
-import { VaFileUploadUndo } from '../VaFileUploadUndo'
-import { strictInject } from '@/utils/strict-inject'
+import { VaFileUploadUndo } from '../'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadGalleryItem component should be used in the context of VaFileUpload component'
 </script>
 
 <script lang="ts" setup>
-
 defineOptions({
   name: 'VaFileUploadGalleryItem',
 })

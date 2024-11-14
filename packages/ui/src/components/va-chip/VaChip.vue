@@ -54,11 +54,11 @@ import {
   useTranslation, useTranslationProp,
   useCurrentElement,
   useElementFocusedKeyboard,
+  useElementHovered,
 } from '../../composables'
 
 import { VaIcon } from '../va-icon'
 import { pick } from '../../utils/pick'
-import { useElementHovered } from '@/composables/std/browser/useElementHovered'
 
 defineOptions({
   name: 'VaChip',

@@ -5,8 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useElementHovered } from '@/composables/std/browser/useElementHovered'
-import { useColors, useCurrentElement } from '../../../composables'
+import { useColors, useCurrentElement, useElementHovered } from '../../../composables'
 import { computed, ref } from 'vue'
 
 defineOptions({

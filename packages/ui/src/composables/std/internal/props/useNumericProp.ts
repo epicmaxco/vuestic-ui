@@ -1,10 +1,7 @@
 import { computed, getCurrentInstance, Prop, PropType } from 'vue'
+import { PropAsOptions, Pretty } from './types'
 
-type Pretty<T> = true extends boolean ? T : never
-
-type PropOptions<T, D = T, P = Prop<T, D>> = P extends PropType<T> ? never : P
-
-export const makeNumericProp = <D, P extends PropOptions<`${number}` | number, D>>(prop: P = {} as P) => {
+export const makeNumericProp = <D, P extends PropAsOptions<`${number}` | number, D>>(prop: P = {} as P) => {
   prop.type = [String, Number] as PropType<`${number}` | number>
 
   return prop as Pretty<P & {

@@ -29,7 +29,7 @@ import { VaFileUploadKey } from '../types'
 
 import { VaButton } from '../../va-button'
 import { VaProgressBar } from '../../va-progress-bar'
-import { strictInject } from '@/utils/strict-inject'
+import { strictInject } from '../../../utils/strict-inject'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadUndo component should be used in the context of VaFileUpload component'
 </script>
