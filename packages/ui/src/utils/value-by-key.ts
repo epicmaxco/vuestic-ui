@@ -44,6 +44,17 @@ export const getValueByPath = <
   return getNestedValue(option, prop.split('.'))
 }
 
+type GetValueByKey<O, K> =
+  O extends null | undefined
+    ? undefined
+    : O extends Record<string, any>
+      ? K extends string
+        ? GetTypeByPath<O, K>
+        : K extends ((option: O) => infer R)
+          ? R
+          : undefined
+      : undefined
+
 /**
  * Finds value of nested property inside an object.
  *
@@ -51,17 +62,23 @@ export const getValueByPath = <
  * @param prop - String or function used to find nested property.
  */
 export const getValueByKey = <
-  Option extends Record<string, unknown>, R
->(
-    option: Option | string | boolean | number | ((...args: any[]) => any),
-    prop: string | ((option: Option) => R),
-  ) => {
-  if (isNilValue(option) || typeof option !== 'object' || Array.isArray(option)) { return undefined }
+  Option,
+  Prop extends string | symbol | number | ((option: Option) => unknown),
+>(option: Option, prop: Prop): GetValueByKey<Option, Prop> => {
+  if (isNilValue(option) || typeof option !== 'object' || Array.isArray(option)) {
+    return undefined as GetValueByKey<Option, Prop>
+  }
 
-  if (!prop) { return option }
-  if (typeof prop === 'string') { return getValueByPath(option, prop) }
-  if (typeof prop === 'function') { return prop(option) }
+  if (!prop) {
+    return option as GetValueByKey<Option, Prop>
+  }
+  if (typeof prop === 'string' && option !== null) {
+    return getValueByPath(option as Record<string, any>, prop) as GetValueByKey<Option, Prop>
+  }
+  if (typeof prop === 'function') {
+    return prop(option) as GetValueByKey<Option, Prop>
+  }
 
   // if `prop` has different to string or function type and can't be processed
-  return option
+  return option as GetValueByKey<Option, Prop>
 }
