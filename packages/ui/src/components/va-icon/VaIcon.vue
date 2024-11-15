@@ -1,11 +1,11 @@
 <template>
   <component
     :is="computedTag"
+    translate="no"
     class="va-icon"
     :class="computedClass"
     :style="computedStyle"
     :aria-hidden="ariaHiddenComputed"
-    notranslate
     v-bind="computedAttrs"
   >
     <slot>
