@@ -90,6 +90,7 @@ export default [
   'VaMenuList',
   'VaMenuItem',
   'VaMenuGroup',
+  'VaMenuFull',
   'VaFormField',
   'VaStickyScrollbar'
 ]

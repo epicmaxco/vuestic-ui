@@ -1,9 +1,9 @@
 <template>
-  <div class="va-menu-list__group-name-wrapper" colspan="99999">
+  <td class="va-menu-list__group-name-wrapper" colspan="99999">
     <span class="va-menu-list__group-name">
       {{ groupName }}
     </span>
-  </div>
+  </td>
   <slot />
 </template>
 
