@@ -37,6 +37,7 @@
             <va-checkbox
               :model-value="$props.node.checked"
               :color="colorComputed"
+              :disabled="!!$props.node.disabled || $props.disabled"
               indeterminate
               @update:model-value="(v) => toggleCheckbox($props.node, v)"
               class="va-tree-node__checkbox"
@@ -62,6 +63,7 @@
       <va-tree-node
         v-for="childNode in $props.node.children"
         :key="getTrackBy(childNode)"
+        :disabled="$props.node.disabled"
         :node="childNode"
       >
         <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope: any">
@@ -94,6 +96,10 @@ const props = defineProps({
   node: {
     type: Object as PropType<TreeNode>,
     required: true,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 })
 
