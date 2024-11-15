@@ -26,9 +26,16 @@ export const useEvent = <N extends UseEventEventName, E extends Event>(
   listener: (this: GlobalEventHandlers, event: UseEventEvent<N, E>) => any,
   target?: MaybeRef<TemplateRef | Window> | boolean,
 ) => {
+  const window = useWindow()
+
   const source = (target && typeof target !== 'boolean')
     ? computed(() => {
       const t = unref(target)
+
+      if (typeof Window === 'undefined') {
+        // No need to listen on server
+        return null
+      }
 
       if (t instanceof Window) {
         return t
@@ -36,7 +43,7 @@ export const useEvent = <N extends UseEventEventName, E extends Event>(
 
       return unwrapEl(t)
     })
-    : useWindow()
+    : window
   const capture = typeof target === 'boolean' ? target : false
 
   watch(source, (newValue, oldValue) => {
