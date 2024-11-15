@@ -1,9 +1,9 @@
 <template>
   <div
-    :key="isMounted + ''"
+    :key="doShowLoader + ''"
   >
     <div
-      v-if="!isMounted"
+      v-show="doShowLoader"
       class="docs-layout__loader"
     />
     <VaLayout
@@ -38,8 +38,6 @@
 </template>
 
 <script setup lang="ts">
-import { useIsMounted } from 'vuestic-ui/src/composables/useIsMounted'
-
 const breakpoints = useBreakpoint()
 
 const isSidebarVisible = ref(false)
@@ -75,7 +73,13 @@ useHead({
   ],
 })
 
-const isMounted = useIsMounted()
+const doShowLoader = ref(true)
+
+onMounted(() => {
+  setTimeout(() => {
+    doShowLoader.value = false
+  }, 300)
+})
 </script>
 
 <style lang="scss">

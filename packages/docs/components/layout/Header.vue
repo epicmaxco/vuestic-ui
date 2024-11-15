@@ -33,6 +33,9 @@
         <div
           class="header__options hidden sm:flex"
         >
+          <VaButton preset="secondary" to="/Play">
+            Playground
+          </VaButton>
           <VaButton
             v-for="(link, index) in links"
             :key="index"
@@ -96,6 +99,9 @@
         </VaListItem>
 
         <div class="mobile-options__items">
+          <VaButton preset="primary" to="/play">
+            Playground
+          </VaButton>
           <ThemeSwitch class="mb-8" />
           <SocialsLinks size="large" />
           <LazyLandingStarsButton repo="epicmaxco/vuestic-ui" />
@@ -140,6 +146,11 @@ const landing = computed(() => ({
 }))
 
 const links = computed(() => [
+{
+    text: 'Discord',
+    url: 'https://discord.gg/jTKTjj2weV',
+    target: '_blank',
+  },
   {
     text: 'GitHub',
     url: 'https://github.com/epicmaxco/vuestic-ui',

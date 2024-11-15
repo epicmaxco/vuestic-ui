@@ -1,5 +1,6 @@
 <template>
   <div
+    :key="doShowLoader + ''"
     class="docs-layout"
     :class="[`docs-layout--theme-${currentPresetName}`]"
   >

@@ -23,11 +23,11 @@ export function useElementFocusedKeyboard (el: Ref<TemplateRef>) {
       return
     }
     hasKeyboardFocus.value = true
-  })
+  }, el)
 
   useEvent('focusout', () => {
     hasKeyboardFocus.value = false
-  })
+  }, el)
 
   return hasKeyboardFocus
 }

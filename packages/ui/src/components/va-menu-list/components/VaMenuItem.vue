@@ -31,7 +31,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
 import { VaIcon } from '../../va-icon/'
 import { useCurrentElement, useElementFocusedKeyboard, defineChildProps, useChildComponents } from '../../../composables'
 import { makeMenuItemAttributes } from '../composables/useMenuKeyboardNavigation'
