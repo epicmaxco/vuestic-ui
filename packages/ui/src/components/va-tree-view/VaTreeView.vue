@@ -8,6 +8,8 @@
         v-for="nodeItem in treeItems"
         :key="getTrackBy(nodeItem)"
         :node="nodeItem"
+        :expandable="$props.expandable"
+        :disabled="$props.disabled || nodeItem.disabled"
       >
         <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope">
           <slot :name="name" v-bind="slotScope" />

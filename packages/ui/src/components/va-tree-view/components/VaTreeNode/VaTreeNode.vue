@@ -17,7 +17,7 @@
     <div class="va-tree-node-root">
       <div class="va-tree-node-content" :class="indentClassComputed" @click="onNodeClick('node')">
         <div
-          v-if="$props.node.hasChildren"
+          v-if="$props.node.hasChildren && $props.expandable"
           class="va-tree-node-content__item va-tree-node-content__item--leaf"
           @click.stop="onNodeClick('leaf')"
         >
@@ -63,7 +63,8 @@
       <va-tree-node
         v-for="childNode in $props.node.children"
         :key="getTrackBy(childNode)"
-        :disabled="$props.node.disabled"
+        :disabled="$props.node.disabled || $props.disabled"
+        :expandable="$props.expandable"
         :node="childNode"
       >
         <template v-for="(_, name) in $slots" :key="name" v-slot:[name]="slotScope: any">
@@ -101,6 +102,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  expandable: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const {
@@ -135,7 +140,7 @@ const expandedClassComputed = useBem('va-tree-node-children', () => ({
 }))
 
 const indentClassComputed = useBem('va-tree-node-content', () => ({
-  indent: props.node.hasChildren === false,
+  indent: props.node.hasChildren === false && props.expandable,
 }))
 
 const cursorClassComputed = useBem('va-tree-node-content', () => ({

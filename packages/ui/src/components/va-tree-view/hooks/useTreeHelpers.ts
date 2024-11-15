@@ -66,6 +66,14 @@ export const useTreeViewProps = {
     type: String as PropType<'leaf' | 'node'>,
     default: 'leaf',
   },
+  expandable: {
+    type: Boolean,
+    default: true,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
   filter: {
     type: String,
     default: '',

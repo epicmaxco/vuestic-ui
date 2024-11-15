@@ -629,3 +629,18 @@ export const ExpandByNode = () => ({
     />
   `,
 })
+
+export const ExpandableFalse = () => ({
+  components: { VaTreeView },
+  data: () => ({
+    nodesChecked: nodesChecked(),
+  }),
+  template: `
+    <va-tree-view
+      :nodes="nodesChecked"
+      selectable
+      expand-all
+      :expandable="false"
+    />
+  `,
+})
