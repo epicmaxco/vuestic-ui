@@ -567,7 +567,7 @@ export default defineComponent({
 
   data () {
     const formatDate = (date: Date) => {
-      return date.toLocaleDateString('en-Us', {
+      return new Date(date).toLocaleDateString('en-Us', {
         month: '2-digit',
         day: '2-digit',
         year: 'numeric',
