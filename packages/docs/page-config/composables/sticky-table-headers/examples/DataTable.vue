@@ -9,7 +9,7 @@ import { useStickyTableHeaders } from 'vuestic-ui'
 const table = ref()
 const scrollElement = computed(() => table.value?.$el)
 
-useStickyTableHeaders(table, 126)
+useStickyTableHeaders(table, 75)
 
 const repeatArray = (array, times) => {
   return Array.from({ length: times }, () => array).flat()

@@ -22,7 +22,7 @@ import { useStickyTableHeaders } from 'vuestic-ui'
 
 const table = ref()
 
-useStickyTableHeaders(table, 126)
+useStickyTableHeaders(table, 75)
 </script>
 
 <style>
