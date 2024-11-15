@@ -1,5 +1,5 @@
 import { ExtractPropTypes, PropType, Ref, computed } from 'vue'
-import { useComponentUuid } from '../../../composables/useComponentUuid'
+import { useComponentUuid } from '../../../composables'
 
 const ariaProps = {
   modelValue: {

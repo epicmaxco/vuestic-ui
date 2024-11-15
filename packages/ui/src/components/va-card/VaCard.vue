@@ -23,7 +23,7 @@ import {
   useBem,
   useComponentPresetProp,
   useColors,
-  useTextColor,
+  useElementTextColor,
   useRouterLink,
   useRouterLinkProps,
 } from '../../composables'
@@ -52,7 +52,7 @@ const props = defineProps({
 
 const { getColor } = useColors()
 const { isLinkTag, tagComputed, hrefComputed } = useRouterLink(props)
-const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
+const textColorComputed = useElementTextColor(computed(() => getColor(props.color)))
 
 const stripeColorComputed = computed(() => getColor(props.stripeColor))
 

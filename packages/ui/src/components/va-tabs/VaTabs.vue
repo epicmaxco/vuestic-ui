@@ -407,8 +407,8 @@ provide(TabsViewKey, {
 
 watch(() => props.modelValue, updateTabsState)
 
-useResizeObserver([wrapper], updatePagination)
-useResizeObserver([container], updateTabsState)
+useResizeObserver(wrapper, updatePagination)
+useResizeObserver(container, updateTabsState)
 
 onMounted(() => {
   requestAnimationFrame(() => {

@@ -41,11 +41,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
+import { useComponentPresetProp, useColors, useElementTextColor, useTranslation, useTranslationProp } from '../../composables'
 import { computed, PropType, StyleValue } from 'vue'
 import { clamp } from '../../utils/clamp'
-
-import { useColors, useTextColor, useTranslation, useTranslationProp } from '../../composables'
 
 defineOptions({
   name: 'VaProgressBar',
@@ -71,7 +69,7 @@ const props = defineProps({
 
 const { getColor, getHoverColor } = useColors()
 const colorComputed = computed(() => getColor(props.color))
-const { textColorComputed } = useTextColor(colorComputed)
+const textColorComputed = useElementTextColor(colorComputed)
 
 const isTextSize = computed(() => typeof props.size === 'string' && ['small', 'medium', 'large'].includes(props.size))
 

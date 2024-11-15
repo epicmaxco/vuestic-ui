@@ -26,7 +26,6 @@
           class="va-switch__input"
           role="switch"
           v-bind="inputAttributesComputed"
-          v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
           @keypress.enter="onEnterKeyPress"
@@ -80,19 +79,19 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, computed, shallowRef, useSlots } from 'vue'
+import { PropType, computed, ref, shallowRef, useSlots } from 'vue'
 
 import {
   useComponentPresetProp,
-  useKeyboardOnlyFocus,
   useSelectable, useSelectableProps, useSelectableEmits,
-  useColors, useTextColor,
+  useColors, useElementTextColor,
   useBem, useTranslationProp,
+  useComponentUuid,
+  useElementFocusedKeyboard,
 } from '../../composables'
 
 import { VaProgressCircle } from '../va-progress-circle'
 import { VaMessageListWrapper } from '../va-message-list'
-import { useComponentUuid } from '../../composables/useComponentUuid'
 import { pick } from '../../utils/pick'
 
 defineOptions({
@@ -134,7 +133,8 @@ const elements = {
 }
 
 const { getColor } = useColors()
-const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+const input = elements.input
+const hasKeyboardFocus = useElementFocusedKeyboard(input)
 const {
   isChecked,
   computedError,
@@ -153,7 +153,7 @@ const {
 } = useSelectable(props, emit, elements)
 
 const computedBackground = computed(() => getColor(isChecked.value ? props.color : props.offColor))
-const { textColorComputed } = useTextColor(computedBackground)
+const textColorComputed = useElementTextColor(computedBackground)
 
 const computedInnerLabel = computed(() => {
   if (props.trueInnerLabel && isChecked.value) {
@@ -231,8 +231,6 @@ const inputAttributesComputed = computed(() => ({
 const onEnterKeyPress = () => {
   elements.input.value?.click()
 }
-
-const input = elements.input
 
 defineExpose({
   focus,

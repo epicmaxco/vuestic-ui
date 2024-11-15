@@ -24,11 +24,12 @@
 <script lang="ts">
 import { computed, ref, onMounted } from 'vue'
 
-import { useBem, useStrictInject } from '../../../composables'
+import { useBem } from '../../../composables'
 import { VaFileUploadKey } from '../types'
 
 import { VaButton } from '../../va-button'
 import { VaProgressBar } from '../../va-progress-bar'
+import { strictInject } from '../../../utils/strict-inject'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadUndo component should be used in the context of VaFileUpload component'
 </script>
@@ -50,7 +51,7 @@ const {
   undoDuration,
   undoButtonText,
   deletedFileMessage,
-} = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
+} = strictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
 
 const computedClasses = useBem('va-file-upload-undo', () => ({
   vertical: props.vertical,

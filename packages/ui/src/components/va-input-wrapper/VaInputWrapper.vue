@@ -125,11 +125,12 @@ import {
   useFormFieldProps,
   useValidationProps,
   useColors,
-  useTextColor,
+  useElementTextColor,
   useComponentPresetProp,
-  useSyncProp,
-  useFocusDeep,
+  useElementFocusedWithin,
   useNumericProp,
+  makeNumericProp,
+  useVModelStateful,
 } from '../../composables'
 
 import { VaMessageList } from '../va-message-list'
@@ -156,7 +157,7 @@ export default defineComponent({
     ...VaInputLabelProps,
     modelValue: { type: null, default: '' },
     counter: { type: Boolean },
-    maxLength: { type: [Number, String], default: undefined },
+    maxLength: makeNumericProp(),
 
     label: { type: String, default: '' },
     placeholder: { type: String, default: '' },
@@ -180,10 +181,10 @@ export default defineComponent({
 
   setup (props, { emit, slots }) {
     const { getColor } = useColors()
-    const [vModel] = useSyncProp('modelValue', props, emit, '')
+    const vModel = useVModelStateful(props, 'modelValue', emit)
     const inputRef = ref()
 
-    const isFocused = useFocusDeep()
+    const isFocused = useElementFocusedWithin()
 
     const counterValue = computed(() =>
       props.counter && typeof vModel.value === 'string' ? vModel.value.length : undefined,
@@ -200,7 +201,7 @@ export default defineComponent({
     const backgroundComputed = computed(() => props.background ? getColor(props.background) : '#ffffff00')
     const messagesComputed = computed(() => props.error ? props.errorMessages : props.messages)
 
-    const { textColorComputed } = useTextColor(backgroundComputed)
+    const textColorComputed = useElementTextColor(backgroundComputed)
     const maxLengthComputed = useNumericProp('maxLength')
 
     const messagesColor = computed(() => {

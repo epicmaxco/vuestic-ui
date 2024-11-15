@@ -25,7 +25,7 @@ import { computed, unref, useSlots } from 'vue'
 import {
   useBem,
   useColors,
-  useTextColor,
+  useElementTextColor,
   useDeprecated,
   useComponentPresetProp,
 } from '../../composables'
@@ -68,7 +68,7 @@ const badgeClass = useBem('va-badge', () => ({
 
 const { getColor } = useColors()
 const colorComputed = computed(() => getColor(props.color))
-const { textColorComputed } = useTextColor(colorComputed)
+const textColorComputed = useElementTextColor(colorComputed)
 
 const positionStylesComputed = useFloatingPosition(props, isFloating)
 

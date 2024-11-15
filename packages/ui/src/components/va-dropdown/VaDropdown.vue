@@ -8,21 +8,22 @@ import {
   ref,
   Fragment,
   Teleport,
-  watchEffect,
   watch,
+  toRef,
 } from 'vue'
 import {
   MaybeHTMLElementOrSelector,
   createStatefulProps,
   useBem,
   useClickOutside,
-  useHTMLElement,
-  useHTMLElementSelector,
   useIsMounted,
   useStateful,
   useStatefulEmits,
   useTranslation, useTranslationProp,
   usePlacementAliasesProps,
+  useTeleported,
+  useSelectorTemplateRef,
+  useElementTemplateRef,
 } from '../../composables'
 import { renderSlotNode } from '../../utils/headless'
 import { useNavigation, Trigger } from './hooks/useDropdownNavigation'
@@ -31,8 +32,7 @@ import { useCursorAnchor } from './hooks/useCursorAnchor'
 import { CursorAnchor, DropdownOffsetProp } from './types'
 import { useDropdown } from './hooks/useDropdown'
 import { warn } from '../../utils/console'
-import { useFocusOutside } from '../../composables/useFocusOutside'
-import { useTeleported } from '../../composables/useTeleported'
+import { useFocusOutside } from '../../composables/std/event/useFocusOutside'
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { useZIndex } from '../../composables/useZIndex'
 import { focusFirstFocusableChild } from '../../utils/focus'
@@ -95,10 +95,10 @@ export default defineComponent({
 
     const { anchorRef } = useAnchorSelector(props)
     const cursorAnchor = useCursorAnchor(anchorRef, computed(() => Boolean(props.cursor)))
-    const floating = useHTMLElement('floating')
-    const body = useHTMLElementSelector(ref('body'))
-    const target = useHTMLElementSelector(computed(() => props.target))
-    const teleport = useHTMLElementSelector(computed(() => props.teleport))
+    const floating = useElementTemplateRef('floating')
+    const body = useSelectorTemplateRef(ref('body'))
+    const target = useSelectorTemplateRef(toRef(props, 'target'))
+    const teleport = useSelectorTemplateRef(toRef(props, 'teleport'))
 
     const anchorClass = useBem('va-dropdown', () => pick(props, ['disabled']))
     const teleportTarget = computed<HTMLElement | undefined>(() => {
@@ -231,7 +231,7 @@ export default defineComponent({
     const anchorSlotVNode = renderSlotNode(this.$slots.anchor, slotBind, {
       ref: 'anchorRef',
       role: this.$props.role,
-      class: ['va-dropdown', ...this.anchorClass.asArray.value],
+      class: ['va-dropdown', this.anchorClass],
       style: { position: 'relative' },
       'aria-label': this.tp(this.$props.ariaLabel),
       'aria-disabled': this.$props.disabled,

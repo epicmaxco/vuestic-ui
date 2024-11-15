@@ -3,8 +3,8 @@ import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
 
 import {
   useComponentPresetProp,
-  useAlign,
-  useAlignProps,
+  useAlignable,
+  useAlignableProps,
   useColors,
   useTranslation, useTranslationProp,
 } from '../../composables'
@@ -15,7 +15,7 @@ import { resolveSlot } from '../../utils/resolveSlot'
 export default defineComponent({
   name: 'VaBreadcrumbs',
   props: {
-    ...useAlignProps,
+    ...useAlignableProps,
     ...useComponentPresetProp,
     separator: { type: String, default: '/' },
     color: { type: String, default: null },
@@ -25,7 +25,7 @@ export default defineComponent({
     ariaLabel: useTranslationProp('$t:breadcrumbs'),
   },
   setup (props, { slots }) {
-    const { alignComputed } = useAlign(props)
+    const { alignComputed } = useAlignable(props)
 
     const { getColor } = useColors()
     const computedThemesSeparatorColor = computed(() => {

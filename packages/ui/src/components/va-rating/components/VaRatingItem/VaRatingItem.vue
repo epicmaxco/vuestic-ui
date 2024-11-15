@@ -26,7 +26,7 @@
 <script lang="ts" setup>
 import { computed, ref, shallowRef, watch } from 'vue'
 
-import { useColors, useSyncProp } from '../../../../composables'
+import { useColors, useVModelStateful } from '../../../../composables'
 
 import { RatingValue } from '../../types'
 
@@ -37,7 +37,7 @@ defineOptions({
 })
 
 const props = defineProps({
-  modelValue: { type: Number, default: 0 },
+  modelValue: { type: Number, default: RatingValue.EMPTY },
   icon: { type: String, default: 'star' },
   halfIcon: { type: String, default: 'star_half' },
   emptyIcon: { type: String, default: 'star_outline' },
@@ -55,14 +55,14 @@ const emit = defineEmits(['update:modelValue', 'click', 'hover'])
 
 const rootEl = shallowRef<HTMLElement>()
 
-const [modelValue] = useSyncProp('modelValue', props, emit, RatingValue.EMPTY)
+const vModel = useVModelStateful(props, 'modelValue', emit)
 const hoveredValue = ref<number | null>(null)
 
 const visibleValue = computed(() => {
   if (props.hover && !props.disabled && !props.readonly) {
-    return hoveredValue.value || modelValue.value
+    return hoveredValue.value || vModel.value
   }
-  return modelValue.value
+  return vModel.value
 })
 
 const { getColor } = useColors()
@@ -89,11 +89,11 @@ const onMouseLeave = () => {
 }
 
 const onEnter = () => {
-  modelValue.value = 1
+  vModel.value = 1
 }
 
 const onClick = () => {
-  modelValue.value = hoveredValue.value || RatingValue.FULL
+  vModel.value = hoveredValue.value || RatingValue.FULL
   emit('click', hoveredValue.value || RatingValue.FULL)
 }
 

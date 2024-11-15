@@ -28,7 +28,7 @@ import { computed, PropType } from 'vue'
 
 import { VaAvatar } from '../va-avatar'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import { useBem, useComponentPresetProp, useSize, useSizeProps, useNumericProp } from '../../composables'
+import { useBem, useComponentPresetProp, useSize, useSizeProps, useNumericProp, makeNumericProp } from '../../composables'
 import { pick } from '../../utils/pick'
 
 const VaAvatarProps = extractComponentProps(VaAvatar)
@@ -45,10 +45,7 @@ const props = defineProps({
   ...useComponentPresetProp,
   ...VaAvatarProps,
 
-  max: {
-    type: [Number, String],
-    default: 0,
-  },
+  max: makeNumericProp({ default: 0 }),
   vertical: {
     type: Boolean,
     default: false,

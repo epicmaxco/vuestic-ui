@@ -1,5 +1,6 @@
 import { Ref, computed, toRef, ComputedRef } from 'vue'
 import { useDebounceFn, useEvent, useNumericProp } from '../../../composables'
+import { debounce } from '../../../utils/debounce'
 
 const isTyping = (e: Event) => {
   const target = e.target as HTMLElement
@@ -104,8 +105,8 @@ export const useNavigation = (
   }, contentRef)
 
   // Hover
-  const { debounced: debounceHover, cancel: cancelHoverDebounce } = useDebounceFn(useNumericProp('hoverOverTimeout') as ComputedRef<number>)
-  const { debounced: debounceUnHover, cancel: cancelUnHoverDebounce } = useDebounceFn(useNumericProp('hoverOutTimeout') as ComputedRef<number>)
+  const debounceHover = useDebounceFn(() => { isOpen.value = true }, useNumericProp('hoverOverTimeout'))
+  const debounceUnHover = useDebounceFn(() => { isOpen.value = false }, useNumericProp('hoverOutTimeout'))
 
   const onMouseHover = (e: Event) => {
     if (props.disabled) { return }
@@ -113,21 +114,17 @@ export const useNavigation = (
     if (!normalizedTriggers.value.includes('hover')) { return }
 
     if (e.type === 'mouseleave') {
-      cancelHoverDebounce()
+      debounceHover.cancel()
 
       if (!props.isContentHoverable) {
         isOpen.value = false
         return
       }
 
-      debounceUnHover(() => {
-        isOpen.value = false
-      })
+      debounceUnHover()
     } else {
-      cancelUnHoverDebounce()
-      debounceHover(() => {
-        isOpen.value = true
-      })
+      debounceUnHover.cancel()
+      debounceHover()
     }
   }
 

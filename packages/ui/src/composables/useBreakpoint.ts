@@ -4,7 +4,7 @@ import { warn } from '../utils/console'
 import { vaBreakpointSymbol } from '../services/breakpoint'
 import { useReactiveComputed } from './useReactiveComputed'
 import { useGlobalConfig } from './useGlobalConfig'
-import { useIsMounted } from './useIsMounted'
+import { useIsMounted } from './std'
 
 import type {
   BreakpointServiceObject,

@@ -11,12 +11,12 @@ import {
   watchEffect,
 } from 'vue'
 
-import { useSyncProp } from './useSyncProp'
 import { useFormChild } from './useForm'
 import { type ExtractReadonlyArrayKeys } from '../utils/types/readonly-array-keys'
 import { watchSetter } from './../utils/watch-setter'
 import { isFunction } from '../utils/is-function'
 import { isString } from '../utils/is-string'
+import { useVModelStateful } from './std/internal/useVModelStateful'
 
 export type ValidationRule<V = any> = ((v: V) => any | string) | Promise<((v: V) => any | string)>
 
@@ -37,8 +37,8 @@ export const useValidationProps = {
   name: { type: String, default: undefined },
   rules: { type: Array as PropType<ValidationRule<any>[]>, default: () => [] as any },
   dirty: { type: Boolean, default: false },
-  error: { type: Boolean, default: undefined },
-  errorMessages: { type: [Array, String] as PropType<string[] | string>, default: undefined },
+  error: { type: Boolean, default: false },
+  errorMessages: { type: [Array, String] as PropType<string[] | string>, default: () => [] },
   errorCount: { type: [String, Number], default: 1 },
   success: { type: Boolean, default: false },
   messages: { type: [Array, String] as PropType<string[] | string>, default: () => [] },
@@ -47,11 +47,11 @@ export const useValidationProps = {
 }
 
 export type ValidationProps<V, RulesArgument extends V = V> = {
-  rules: { type: PropType<ValidationRule<RulesArgument>[]>, default: () => any, required: false }
+  rules: { type: PropType<ValidationRule<RulesArgument>[]>, default: () => any}
   modelValue: { type: PropType<V>, default: V }
 } & Omit<typeof useValidationProps, 'modelValue' | 'rules'>
 
-export const useValidationEmits = ['update:error', 'update:errorMessages', 'update:dirty'] as const
+export const useValidationEmits = ['update:error', 'update:errorMessages', 'update:dirty', 'update:error', 'update:loading'] as const
 
 const isPromise = (value: any): value is Promise<any> => {
   return typeof value === 'object' && typeof value.then === 'function'
@@ -112,8 +112,8 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
   options: UseValidationOptions,
 ) => {
   const { reset, focus } = options
-  const [isError] = useSyncProp('error', props, emit, false)
-  const [errorMessages] = useSyncProp('errorMessages', props, emit, [] as string[])
+  const isError = useVModelStateful(props, 'error', emit)
+  const errorMessages = useVModelStateful(props, 'errorMessages', emit)
   const isLoading = ref(false)
   const { isTouched, onBlur } = useTouched()
 

@@ -83,10 +83,10 @@ import {
   useSelectableEmits,
   useSelectableList,
   useSelectableListProps,
+  useComponentUuid,
 } from '../../composables'
 import { VaMessageListWrapper } from '../va-message-list'
 import type { VaRadioOption } from './types'
-import { useComponentUuid } from '../../composables/useComponentUuid'
 
 defineOptions({
   name: 'VaRadio',

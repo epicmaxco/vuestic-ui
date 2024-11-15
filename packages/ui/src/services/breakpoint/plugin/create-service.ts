@@ -2,7 +2,7 @@ import { App, Ref, computed, watch, ComputedRef } from 'vue'
 
 import { useDocument, useWindowSize, useReactiveComputed } from '../../../composables'
 
-import { isClient } from '../../../utils/ssr'
+import { getDocument, isClient } from '../../../utils/ssr'
 import { warn } from '../../../utils/console'
 import { generateUniqueId } from '../../../utils/uuid'
 import { getGlobalProperty } from '../../vue-plugin/utils'
@@ -20,7 +20,6 @@ export const createBreakpointConfigPlugin = (app: App): BreakpointServiceObject 
 
   const breakpointConfig: ComputedRef<BreakpointConfig> = computed(() => {
     const breakpoint = globalConfig.value.breakpoint
-    if (!breakpoint) { warn('createBreakpointConfigPlugin: breakpointConfig is not defined!') }
     return breakpoint ?? {} as BreakpointConfig
   })
 
@@ -69,17 +68,17 @@ export const createBreakpointConfigPlugin = (app: App): BreakpointServiceObject 
   const uniqueId = computed(generateUniqueId)
   addOrUpdateStyleElement(`va-helpers-media-${uniqueId.value}`, generateHelpersMediaCss)
 
-  const getDocument = useDocument()
   watch(currentBreakpoint, (newValue) => {
-    if (!newValue || !breakpointConfig.value.bodyClass || !getDocument.value) { return }
+    const document = getDocument()
+    if (!newValue || !breakpointConfig.value.bodyClass || !document) { return }
 
-    getDocument.value.body.classList.forEach((className: string) => {
+    document.body.classList.forEach((className: string) => {
       if ((Object.values(screenClasses.value) as string[]).includes(className)) {
-        getDocument.value!.body.classList.remove(className)
+        document.body.classList.remove(className)
       }
     })
 
-    getDocument.value.body.classList.add(screenClasses.value[newValue])
+    document.body.classList.add(screenClasses.value[newValue])
   }, { immediate: true })
 
   const breakpointHelpers = computed(() => {

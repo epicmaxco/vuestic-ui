@@ -5,8 +5,7 @@
     :class="classesComputed"
     :disabled="disabled"
     :aria-disabled="disabled"
-    @focus="onFocus"
-    @blur="onBlur"
+    ref="listItem"
   >
     <va-list-item-section v-if="removed && undo">
       <va-file-upload-undo vertical @recover="recoverImage" />
@@ -39,8 +38,6 @@
           class="va-file-upload-gallery-item__delete"
           :aria-label="tp($props.ariaRemoveFileLabel)"
           @click="removeImage"
-          @focus="onFocus"
-          @blur="onBlur"
         />
       </div>
     </va-list-item-section>
@@ -51,19 +48,18 @@
 import { onMounted, PropType, ref, watch, computed, toRef } from 'vue'
 
 import { colorToRgba } from '../../../services/color'
-import { useFocus, useBem, useStrictInject, useTranslation, useTranslationProp } from '../../../composables'
+import { useElementFocused, useBem, useTranslation, useTranslationProp } from '../../../composables'
 
 import { VaFileUploadKey, ConvertedFile } from '../types'
-import { useTextColor } from '../../../composables/useTextColor'
-
+import { useElementTextColor } from '../../../composables/useElementTextColor'
+import { strictInject } from '../../../utils/strict-inject'
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
-import { VaFileUploadUndo } from '../VaFileUploadUndo'
+import { VaFileUploadUndo } from '../'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadGalleryItem component should be used in the context of VaFileUpload component'
 </script>
 
 <script lang="ts" setup>
-
 defineOptions({
   name: 'VaFileUploadGalleryItem',
 })
@@ -81,8 +77,9 @@ const {
   undo,
   disabled,
   undoDuration,
-} = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
-const { isFocused, onFocus, onBlur } = useFocus()
+} = strictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
+const listItem = ref<HTMLElement>()
+const isFocused = useElementFocused(listItem)
 const previewImage = ref('')
 const removed = ref(false)
 
@@ -135,7 +132,7 @@ onMounted(convertToImg)
 watch(() => props.file, convertToImg)
 
 const { t, tp } = useTranslation()
-const { textColorComputed } = useTextColor(toRef(props, 'color'))
+const textColorComputed = useElementTextColor(toRef(props, 'color'))
 </script>
 
 <style lang="scss">

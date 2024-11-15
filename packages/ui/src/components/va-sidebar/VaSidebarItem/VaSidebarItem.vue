@@ -10,27 +10,26 @@
     :style="computedStyle"
     :is="tagComputed"
     v-bind="linkAttributesComputed"
-    v-on="keyboardFocusListeners"
   >
     <slot />
   </component>
 </template>
 
 <script lang="ts" setup>
-import { computed, toRef } from 'vue'
+import { computed, ref } from 'vue'
 
 import {
   applyColors,
-  useElementRef,
   useColors,
-  useKeyboardOnlyFocus,
-  useHover,
   useRouterLink,
   useRouterLinkProps,
-  useTextColor,
+  useElementTextColor,
+  useComponentPresetProp,
+  useElementTemplateRef,
+  useElementFocusedKeyboard,
+  useElementHovered,
 } from '../../../composables'
 import { useSidebarItem } from '../hooks/useSidebar'
-import { useComponentPresetProp } from '../../../composables/useComponentPreset'
 
 defineOptions({
   name: 'VaSidebarItem',
@@ -48,12 +47,12 @@ const props = defineProps({
   disabled: { type: Boolean, default: false },
 })
 
-const rootElement = useElementRef()
+const rootElement = useElementTemplateRef(ref())
 const sidebar = useSidebarItem()
 
-const { isHovered } = useHover(rootElement, toRef(props, 'disabled'))
+const isHovered = useElementHovered(rootElement)
 const { getColor, getHoverColor, getFocusColor } = useColors()
-const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
+const hasKeyboardFocus = useElementFocusedKeyboard(rootElement)
 
 const backgroundColorComputed = computed(() => {
   if (props.active && !isHovered.value && !hasKeyboardFocus.value) {
@@ -68,7 +67,7 @@ const backgroundColorComputed = computed(() => {
 })
 
 const textBackground = computed(() => applyColors(getColor(sidebar?.color), backgroundColorComputed.value))
-const { textColorComputed } = useTextColor(textBackground)
+const textColorComputed = useElementTextColor(textBackground)
 
 const computedStyle = computed(() => {
   const style: Record<string, string> = { color: textColorComputed.value }

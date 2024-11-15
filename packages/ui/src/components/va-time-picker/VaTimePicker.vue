@@ -34,7 +34,8 @@ import {
   useFormFieldProps,
   useFormField,
   useArrayRefs,
-  useCSSVariables, useNumericProp,
+  useNumericProp,
+  makeNumericProp,
 } from '../../composables'
 
 defineOptions({
@@ -54,8 +55,8 @@ const props = defineProps({
   minutesFilter: { type: Function as PropType<(h: number) => boolean> },
   secondsFilter: { type: Function as PropType<(h: number) => boolean> },
   framed: { type: Boolean, default: false },
-  cellHeight: { type: [Number, String], default: 30 },
-  visibleCellsCount: { type: [Number, String], default: 7 },
+  cellHeight: makeNumericProp({ default: 30 }),
+  visibleCellsCount: makeNumericProp({ default: 7 }),
 })
 
 const emit = defineEmits([...useStatefulEmits])
@@ -94,17 +95,17 @@ const focusPrev = () => {
 }
 
 const computedClasses = computed(() => ({
-  ...computedFormClasses,
+  ...computedFormClasses.value,
   'va-time-picker--framed': props.framed,
 }))
 
-const computedStyles = useCSSVariables('va-time-picker', () => {
+const computedStyles = computed(() => {
   const gapHeight = (visibleCellsCountComputed.value - 1) / 2 * cellHeightComputed.value
 
   return {
-    height: `${cellHeightComputed.value * visibleCellsCountComputed.value}px`,
-    'cell-height': `${cellHeightComputed.value}px`,
-    'column-gap-height': `${gapHeight}px`,
+    '--va-time-picker-height': `${cellHeightComputed.value * visibleCellsCountComputed.value}px`,
+    '--va-time-picker-cell-height': `${cellHeightComputed.value}px`,
+    '--va-time-picker-column-gap-height': `${gapHeight}px`,
   }
 })
 

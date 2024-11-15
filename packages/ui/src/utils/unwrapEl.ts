@@ -1,11 +1,18 @@
-import { Component, ComponentPublicInstance, unref } from 'vue'
+import { ComponentPublicInstance, DefineComponent, unref } from 'vue'
+import type { TemplateRef } from './types/template-ref'
+
+// TODO: DefineComponent is actually can't be template ref: remove it
+
+export {
+  TemplateRef,
+}
 
 /**
  * Used to get the HTMLElement from template refs.
  * @param el component, dom element or nothing
  * @returns HTMLElement or undefined
  */
-export const unwrapEl = <T extends HTMLElement | ComponentPublicInstance | Component | undefined | null>(el: T) => {
+export const unwrapEl = <T extends TemplateRef | DefineComponent>(el: T) => {
   if (!el) { return }
   if (typeof el !== 'object') { return }
 

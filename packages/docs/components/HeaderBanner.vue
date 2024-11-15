@@ -117,6 +117,7 @@ const props = defineProps({
   },
 })
 
+// @ts-ignore
 import packageUi from 'vuestic-ui/package.json'
 
 const uiVersion = packageUi.version

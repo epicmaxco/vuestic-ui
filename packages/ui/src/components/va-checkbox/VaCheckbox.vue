@@ -29,7 +29,6 @@
           :value="label"
           :checked="isActive"
           v-bind="inputAttributesComputed"
-          v-on="keyboardFocusListeners"
           @focus="onFocus"
           @blur="onBlur"
           @click.stop.prevent
@@ -57,13 +56,13 @@
 </template>
 
 <script lang="ts">
-import { computed, PropType, shallowRef } from 'vue'
+import { computed, PropType, ref, shallowRef } from 'vue'
 
-import { useComponentUuid } from '../../composables/useComponentUuid'
 import {
+  useComponentUuid,
   useComponentPresetProp,
-  useKeyboardOnlyFocus,
-  useColors, useTextColor,
+  useElementFocusedKeyboard,
+  useColors, useElementTextColor,
   useSelectable, useSelectableProps, useSelectableEmits, Elements,
 } from '../../composables'
 
@@ -118,8 +117,9 @@ const {
   isValid,
 } = useSelectable(props, emit, elements)
 const { getColor } = useColors()
-const { hasKeyboardFocus, keyboardFocusListeners } = useKeyboardOnlyFocus()
-const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
+const input = elements.input
+const hasKeyboardFocus = useElementFocusedKeyboard(input)
+const textColorComputed = useElementTextColor(computed(() => getColor(props.color)))
 
 const isActive = computed(() => isChecked.value || isIndeterminate.value)
 

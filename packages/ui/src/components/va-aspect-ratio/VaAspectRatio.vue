@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import { computed, type PropType } from 'vue'
 
-import { useComponentPresetProp, useNumericProp } from '../../composables'
+import { useComponentPresetProp, useNumericProp, makeNumericProp } from '../../composables'
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
@@ -21,8 +21,8 @@ const props = defineProps({
     type: [Number, String] as PropType<number | StringWithAutocomplete<'auto'>>,
     default: 'auto',
   },
-  contentHeight: { type: [Number, String], default: 1 },
-  contentWidth: { type: [Number, String], default: 1 },
+  contentHeight: makeNumericProp({ default: 1 }),
+  contentWidth: makeNumericProp({ default: 1 }),
   maxWidth: {
     type: [Number, String],
     default: 0,

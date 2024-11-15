@@ -20,8 +20,6 @@
         :aria-label="$props.ariaLabel"
         :aria-controls="popupId"
         :aria-owns="popupId"
-        @focus="onInputFocus"
-        @blur="onInputBlur"
       >
         <template
           v-for="(_, name) in $slots"
@@ -33,7 +31,7 @@
 
         <template #icon>
           <va-icon
-            v-if="showClearIcon"
+            v-if="canBeCleared"
             role="button"
             :aria-label="tp($props.ariaClearLabel)"
             v-bind="clearIconProps"
@@ -133,17 +131,16 @@ import { ref, shallowRef, computed, watch, nextTick, type PropType, type Ref, us
 import {
   useComponentPresetProp,
   useSelectableList, useSelectableListProps,
-  useValidation, useValidationProps, useValidationEmits, ValidationProps,
+  useValidationProps, useValidationEmits, ValidationProps,
   useFormFieldProps,
-  useLoadingProps,
-  useMaxSelections, useMaxSelectionsProps,
-  useClearableProps, useClearable, useClearableEmits,
-  useFocusDeep,
+  useClearableControlProps, useClearableControl, useClearableControlEmits,
+  useElementFocusedWithin,
   useTranslation, useTranslationProp,
   useBem,
-  useThrottleProps,
-  useDropdownable, useDropdownableEmits, useDropdownableProps, useSyncProp,
+  useDropdownableControl, useDropdownableControlEmits, useDropdownableControlProps,
   useNumericProp,
+  useFormControl,
+  useVModelStateful,
 } from '../../composables'
 
 import { VaInputWrapper } from '../va-input-wrapper'
@@ -157,6 +154,7 @@ import { useToggleIcon, useToggleIconProps } from './hooks/useToggleIcon'
 import { useStringValue, useStringValueProps } from './hooks/useStringValue'
 import { useAutocomplete, useAutocompleteProps } from './hooks/useAutocomplete'
 import { useSelectAria } from './hooks/useSelectAria'
+import { useMaxSelections, useMaxSelectionsProps } from './hooks/useMaxSelections'
 
 import { blurElement, focusElement } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
@@ -182,16 +180,14 @@ const props = defineProps({
   ...useComponentPresetProp,
   ...useSelectableListProps,
   ...useValidationProps as ValidationProps<SelectOption>,
-  ...useLoadingProps,
   ...useMaxSelectionsProps,
-  ...useClearableProps,
+  ...useClearableControlProps,
   ...useFormFieldProps,
   ...useMaxVisibleOptionsProps,
   ...useToggleIconProps,
-  ...useThrottleProps,
   ...useStringValueProps,
   ...useAutocompleteProps,
-  ...useDropdownableProps,
+  ...useDropdownableControlProps,
 
   modelValue: {
     type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>,
@@ -199,11 +195,11 @@ const props = defineProps({
   },
 
     // Dropdown placement
-  placement: { ...useDropdownableProps.placement, default: 'bottom' },
-  keepAnchorWidth: { ...useDropdownableProps.keepAnchorWidth, default: true },
-  offset: { ...useDropdownableProps.offset, default: [1, 0] as DropdownOffsetProp },
-  closeOnContentClick: { ...useDropdownableProps.closeOnContentClick, default: false },
-  trigger: { ...useDropdownableProps.trigger, default: () => ['click', 'right-click', 'space', 'enter'] as const },
+  placement: { ...useDropdownableControlProps.placement, default: 'bottom' },
+  keepAnchorWidth: { ...useDropdownableControlProps.keepAnchorWidth, default: true },
+  offset: { ...useDropdownableControlProps.offset, default: [1, 0] as DropdownOffsetProp },
+  closeOnContentClick: { ...useDropdownableControlProps.closeOnContentClick, default: false },
+  trigger: { ...useDropdownableControlProps.trigger, default: () => ['click', 'right-click', 'space', 'enter'] as const },
 
   // Select options
 
@@ -235,11 +231,13 @@ const props = defineProps({
   ariaSearchLabel: useTranslationProp('$t:optionsFilter'),
   ariaClearLabel: useTranslationProp('$t:reset'),
 
-  search: { type: String, default: undefined },
   searchFn: { type: Function as PropType<(search: string, option: SelectOption) => boolean>, default: undefined },
+  search: { type: String, default: '' },
 
-  // useClearableProps override
+  // useClearableControlProps override
   clearValue: { type: [String, Number, Array, Object, Boolean] as PropType<SelectOption | SelectOption[]>, default: '' },
+
+  delay: { type: [Number, String], default: 0 },
 })
 
 const emit = defineEmits([
@@ -248,18 +246,18 @@ const emit = defineEmits([
   'create-new',
   'scroll-bottom',
   'update:search',
-  ...useDropdownableEmits,
+  ...useDropdownableControlEmits,
   ...useValidationEmits,
-  ...useClearableEmits,
+  ...useClearableControlEmits,
 ])
 
 const { tp, t } = useTranslation()
 
-const optionList = shallowRef<typeof VaSelectOptionList>()
-const input = shallowRef<typeof VaInputWrapper>()
-const searchBar = shallowRef<typeof VaInputWrapper>()
+const optionList = shallowRef<InstanceType<typeof VaSelectOptionList>>()
+const input = shallowRef<InstanceType<typeof VaInputWrapper>>()
+const searchBar = shallowRef<InstanceType<typeof VaInputWrapper>>()
 
-const isInputFocused = useFocusDeep(input as any)
+const isInputFocused = useElementFocusedWithin(input as any)
 
 const { getValue, getText, getTrackBy, tryResolveByValue } = useSelectableList(props)
 
@@ -267,7 +265,7 @@ const getValueText = (option: SelectOption) => getText(tryResolveByValue(option)
 
 const onScrollBottom = () => emit('scroll-bottom')
 
-const [searchVModel] = useSyncProp('search', props, emit, '')
+const searchVModel = useVModelStateful(props, 'search', emit)
 const showSearchInput = computed(() => props.searchable || (props.allowCreate && !props.autocomplete))
 
 watch(searchVModel, (value) => {
@@ -333,15 +331,7 @@ const valueString = useStringValue(props, visibleSelectedOptions, getValueText)
 const {
   canBeCleared,
   clearIconProps,
-  onFocus,
-  onBlur,
-} = useClearable(props, valueComputed)
-
-const showClearIcon = computed(() => {
-  if (!canBeCleared.value) { return false }
-  if (props.multiple && Array.isArray(valueComputed.value)) { return !!valueComputed.value.length }
-  return true
-})
+} = useClearableControl(props, valueComputed)
 
 // options
 const filteredOptions = computed(() => {
@@ -478,7 +468,7 @@ const focusNextOption = () => optionList.value?.focusNextOption()
 
 // Dropdown content
 
-const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
+const { isOpenSync, dropdownProps } = useDropdownableControl(props, emit, {
   defaultCloseOnValueUpdate: computed(() => !props.multiple),
 })
 
@@ -540,10 +530,6 @@ const focusSearchOrOptions = async () => {
 
 const onInputBlur = () => {
   if (showDropdownContentComputed.value) { return }
-
-  onBlur()
-
-  validationListeners.onBlur()
 
   isInputFocused.value
     ? isInputFocused.value = false
@@ -729,9 +715,8 @@ const {
   withoutValidation,
   resetValidation,
   validationAriaAttributes,
-  listeners: validationListeners,
   isTouched,
-} = useValidation(props, emit, { reset, focus, value: valueComputed })
+} = useFormControl(input, valueComputed, props, emit, { reset })
 
 watch(isOpenSync, (isOpen) => {
   if (!isOpen) {
@@ -742,8 +727,6 @@ watch(isOpenSync, (isOpen) => {
 const { popupId } = useSelectAria()
 
 const searchInput = searchVModel
-
-const onInputFocus = onFocus
 
 defineExpose({
   focus,

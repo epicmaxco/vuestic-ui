@@ -5,9 +5,8 @@ import type { BadgeOffsetProp } from '../types'
 
 import { computed } from 'vue'
 
-import { usePlacementAliases, placementsPositionsWithAliases, useParsableMeasure } from '../../../composables'
-
-const { isParsableMeasure, parseSizeValue } = useParsableMeasure()
+import { usePlacementAliases, placementsPositionsWithAliases } from '../../../composables'
+import { isLengthValue, useLength } from '../../../composables/std'
 
 export const useFloatingPositionProps = {
   overlap: { type: Boolean, default: false },
@@ -21,11 +20,11 @@ export const useFloatingPositionProps = {
     default: 0,
     validator: (value: keyof BadgeOffsetProp) => {
       if (Array.isArray(value)) {
-        return value.every(isParsableMeasure)
+        return value.every(isLengthValue)
       }
 
       if (typeof value === 'string') {
-        return isParsableMeasure(value)
+        return isLengthValue(value)
       }
 
       return !isNaN(value)
@@ -40,6 +39,8 @@ export const useFloatingPosition = (
   if (!floating.value) { return {} }
 
   const { position, align } = usePlacementAliases(props)
+
+  const parseLengthValue = useLength()
 
   const alignmentShiftComputed = computed(() => {
     const alignOptions = {
@@ -58,7 +59,7 @@ export const useFloatingPosition = (
     const crossAxis = mainAxis === 'top' ? 'left' : 'top'
 
     if (Array.isArray(props.offset)) {
-      const [x, y] = props.offset.map(parseSizeValue)
+      const [x, y] = props.offset.map(parseLengthValue)
 
       return {
         [`margin-${mainAxis}`]: `${x}px`,
@@ -66,7 +67,7 @@ export const useFloatingPosition = (
       }
     }
 
-    const offset = parseSizeValue(props.offset)
+    const offset = parseLengthValue(props.offset)
 
     return {
       [`margin-${crossAxis}`]: `${offset}px`,

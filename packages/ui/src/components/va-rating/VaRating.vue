@@ -8,8 +8,6 @@
       class="va-rating__item-wrapper"
       @keyup.left="onArrowKeyPress(-1)"
       @keyup.right="onArrowKeyPress(1)"
-      @mouseenter="onMouseEnter"
-      @mouseleave="onMouseLeave"
     >
       <va-rating-item
         v-for="itemNumber in Number($props.max)"
@@ -50,12 +48,11 @@
 import { computed, PropType } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import { useFormField, useFormFieldProps, useTranslation, useTranslationProp } from '../../composables'
+import { useFormField, useFormFieldProps, useTranslation, useTranslationProp, useComponentPresetProp, useCurrentElement } from '../../composables'
 import { useRating, useRatingProps } from './hooks/useRating'
 import { useVaRatingColors, useVaRatingColorsProps } from './hooks/useVaRatingColors'
 
 import { RatingValue } from './types'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
 import VaRatingItem from './components/VaRatingItem/VaRatingItem.vue'
 import VaRatingItemNumberButton from './components/VaRatingItemNumberButton.vue'
 
@@ -91,14 +88,10 @@ const { computedClasses: rootClass } = useFormField('va-rating', props)
 const {
   visibleValue,
   modelValue: vModel,
-  hoveredValue,
-  isHovered,
-  onMouseEnter,
-  onMouseLeave,
   onItemValueUpdate,
   onItemHoveredValueUpdate,
   getItemValue,
-} = useRating(props)
+} = useRating(props, useCurrentElement())
 const isInteractionsEnabled = computed(() => !props.disabled && !props.readonly)
 
 const onArrowKeyPress = (direction: 1 | -1) => {

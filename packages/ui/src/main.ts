@@ -12,6 +12,7 @@ export {
   createDateMask,
   compareWithMask,
   useStickyTableHeaders,
+  useElementTextColor,
 } from './composables'
 
 export * from './services/vue-plugin'

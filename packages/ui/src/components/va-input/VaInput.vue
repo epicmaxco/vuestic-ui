@@ -56,10 +56,11 @@ import {
   useFormFieldProps,
   useValidation, useValidationProps, useValidationEmits,
   useEmitProxy,
-  useClearable, useClearableProps, useClearableEmits,
+  useClearableControl, useClearableControlProps, useClearableControlEmits,
   useTranslation, useTranslationProp,
   useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
-  useFocusable, useFocusableProps, useEvent,
+  useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
+  useEvent,
 } from '../../composables'
 import type { ValidationProps } from '../../composables/useValidation'
 
@@ -95,9 +96,9 @@ defineOptions({
 const props = defineProps({
   ...VaInputWrapperProps,
   ...useFormFieldProps,
-  ...useFocusableProps,
+  ...useFocusableControlProps,
   ...useValidationProps as ValidationProps<string>,
-  ...useClearableProps,
+  ...useClearableControlProps,
   ...useComponentPresetProp,
   ...useStatefulProps,
 
@@ -122,10 +123,11 @@ const props = defineProps({
 const emit = defineEmits([
   'update:modelValue',
   ...useValidationEmits,
-  ...useClearableEmits,
+  ...useClearableControlEmits,
   ...createInputEmits(),
   ...createFieldEmits(),
   ...useStatefulEmits,
+  ...useFocusableControlEmits,
 ])
 
 useDeprecatedCondition([
@@ -142,7 +144,7 @@ const reset = () => withoutValidation(() => {
   resetValidation()
 })
 
-const { focus, blur } = useFocusable(input, props)
+const { focus, blur } = useFocusableControl(input, props, emit)
 
 const slots = useSlots()
 
@@ -170,7 +172,7 @@ const { modelValue } = toRefs(props)
 const {
   canBeCleared,
   clearIconProps,
-} = useClearable(props, modelValue, input, computedError)
+} = useClearableControl(props, input, computedError)
 
 const inputListeners = createInputListeners(emit)
 

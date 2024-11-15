@@ -1,12 +1,36 @@
-import { computed, ExtractPropTypes, Ref, StyleValue } from 'vue'
+import { unwrapEl } from './../utils/unwrapEl'
+import { computed, ExtractPropTypes, onBeforeUnmount, onMounted, ref, Ref, shallowRef, StyleValue } from 'vue'
+import { TemplateRef } from '../utils/unwrapEl'
+import { getWindow } from '../utils/ssr'
+import { useEvent } from './std'
 
 export const useFixedBarProps = {
   hideOnScroll: { type: Boolean, default: false },
   fixed: { type: Boolean, default: false },
   bottom: { type: Boolean, default: false },
 }
+export function useScrolledDown (target: Ref<HTMLElement | Window | undefined>) {
+  const isScrolledDown = ref(false)
+  let prevScrollPosition = 0
 
-export function useFixedBar (props: ExtractPropTypes<typeof useFixedBarProps>, isScrolledDown: Ref<boolean>) {
+  const onScroll = (e: Event) => {
+    const target = e.target as HTMLElement | Window
+    const scrollValue = target instanceof Window ? target.scrollY : target.scrollTop
+
+    isScrolledDown.value = prevScrollPosition < scrollValue
+    prevScrollPosition = scrollValue
+  }
+
+  useEvent('scroll', onScroll, target)
+
+  return isScrolledDown
+}
+
+export function useFixedBar (props: ExtractPropTypes<typeof useFixedBarProps>, rootElement: Ref<TemplateRef>) {
+  const target = computed(() => props.fixed ? getWindow() : unwrapEl(rootElement.value))
+
+  const isScrolledDown = useScrolledDown(target)
+
   const isHiddenComputed = computed(() => isScrolledDown.value ? !!props.hideOnScroll : false)
 
   const transformComputed = computed(() => {
@@ -32,5 +56,5 @@ export function useFixedBar (props: ExtractPropTypes<typeof useFixedBarProps>, i
     return result
   })
 
-  return { fixedBarStyleComputed }
+  return { fixedBarStyleComputed, isScrolledDown }
 }

@@ -26,10 +26,11 @@
 
 <script lang="ts">
 import { PropType } from 'vue'
-import { useStrictInject, useTranslation, useTranslationProp } from '../../../composables'
+import { useTranslation, useTranslationProp } from '../../../composables'
 
 import { VaButton, VaListItem, VaListItemSection } from '../../index'
 import { VaFileUploadKey, ConvertedFile } from '../types'
+import { strictInject } from '../../../utils/strict-inject'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadSingleItem component should be used in the context of VaFileUpload component'
 </script>
@@ -48,7 +49,7 @@ const props = defineProps({
 const emit = defineEmits(['remove'])
 
 const { t, tp } = useTranslation()
-const { disabled } = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
+const { disabled } = strictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
 </script>
 
 <style lang="scss">

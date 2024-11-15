@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { onMounted, ref, computed, PropType, onBeforeUnmount, useAttrs, ComputedRef } from 'vue'
-import { useBem, useColors, useNumericProp, useTranslation, useTranslationProp } from '../../composables'
+import { makeNumericProp, useBem, useColors, useNumericProp, useTranslation, useTranslationProp } from '../../composables'
 
 defineOptions({
   name: 'VaSkeleton',
@@ -23,7 +23,7 @@ defineOptions({
 
 const props = defineProps({
   color: { type: String, default: 'backgroundElement' },
-  delay: { type: [Number, String], default: 100 },
+  delay: makeNumericProp({ default: 100 }),
 
   tag: { type: String, default: 'div' },
 
@@ -93,7 +93,7 @@ const { tp } = useTranslation()
 const attrs = useAttrs()
 
 const classes = computed(() => [
-  ...Object.keys(bem),
+  bem.value,
   (attrs as { class: string }).class,
 ])
 </script>

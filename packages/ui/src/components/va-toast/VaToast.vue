@@ -9,8 +9,8 @@
       class="va-toast"
       :class="toastClasses"
       :style="toastStyles"
-      @mouseenter="clearTimer"
-      @mouseleave="startTimer"
+      @mouseenter="closeDebounce.cancel()"
+      @mouseleave="closeDebounce()"
       @click="onToastClick"
     >
       <div class="va-toast__group">
@@ -44,7 +44,7 @@
 <script lang="ts">
 import { PropType, ref, computed, onMounted, shallowRef, defineComponent, ComputedRef } from 'vue'
 
-import { useComponentPresetProp, useColors, useTimer, useTextColor, useTranslation, useTranslationProp, useNumericProp } from '../../composables'
+import { useComponentPresetProp, useColors, useElementTextColor, useTranslation, useTranslationProp, useNumericProp, useDebounceFn, makeNumericProp } from '../../composables'
 
 import { ToastPosition } from './types'
 import { useToastService } from './hooks/useToastService'
@@ -72,13 +72,13 @@ const { tp } = useTranslation()
 const props = defineProps({
   ...useComponentPresetProp,
   title: { type: String, default: '' },
-  offsetY: { type: [Number, String], default: 16 },
-  offsetX: { type: [Number, String], default: 16 },
+  offsetY: makeNumericProp({ default: 16 }),
+  offsetX: makeNumericProp({ default: 16 }),
   message: { type: [String, Function], default: '' },
   dangerouslyUseHtmlString: { type: Boolean, default: false },
   icon: { type: String, default: 'close' },
   customClass: { type: String, default: '' },
-  duration: { type: [Number, String], default: 5000 },
+  duration: makeNumericProp({ default: 5000 }),
   color: { type: String, default: 'primary' },
   closeable: { type: Boolean, default: true },
   onClose: { type: Function },
@@ -101,7 +101,7 @@ const rootElement = shallowRef<HTMLElement>()
 
 const { getColor } = useColors()
 
-const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
+const textColorComputed = useElementTextColor(computed(() => getColor(props.color)))
 const offsetYComputed = useNumericProp('offsetY') as ComputedRef<number>
 const offsetXComputed = useNumericProp('offsetX') as ComputedRef<number>
 const durationComputed = useNumericProp('duration') as ComputedRef<number>
@@ -187,18 +187,12 @@ const onHidden = () => {
   destroyElement()
 }
 
-const timer = useTimer()
-const clearTimer = timer.clear
-const startTimer = () => {
-  if (durationComputed.value > 0) {
-    timer.start(() => visible.value && onToastClose(), durationComputed.value)
-  }
-}
+const closeDebounce = useDebounceFn(() => visible.value && onToastClose(), durationComputed)
 
 onMounted(() => {
   visible.value = true
 
-  startTimer()
+  closeDebounce()
 })
 </script>
 

@@ -27,8 +27,6 @@
           @click.stop="removeFile"
           @keydown.enter.stop="removeFile"
           @keydown.space.stop="removeFile"
-          @focus="onFocus"
-          @blur="onBlur"
         />
       </div>
     </va-list-item-section>
@@ -38,12 +36,13 @@
 <script lang="ts">
 import { ref, PropType } from 'vue'
 
-import { useBem, useFocus, useStrictInject, useTranslation, useTranslationProp } from '../../../composables'
+import { useBem, useTranslation, useTranslationProp } from '../../../composables'
 import { VaFileUploadKey, ConvertedFile } from '../types'
 
 import { VaButton } from '../../va-button'
 import { VaListItem, VaListItemSection } from '../../va-list'
 import { VaFileUploadUndo } from '../VaFileUploadUndo'
+import { strictInject } from '../../../utils/strict-inject'
 
 const INJECTION_ERROR_MESSAGE = 'The VaFileUploadListItem component should be used in the context of VaFileUpload component'
 </script>
@@ -68,8 +67,7 @@ const {
   undo,
   disabled,
   undoDuration,
-} = useStrictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
-const { onFocus, onBlur } = useFocus()
+} = strictInject(VaFileUploadKey, INJECTION_ERROR_MESSAGE)
 const removed = ref(false)
 
 const removeFile = () => {

@@ -32,12 +32,12 @@ import { computed } from 'vue'
 
 import {
   useColors,
-  setupScroll,
   useFixedBar,
-  useTextColor,
+  useElementTextColor,
   useFixedBarProps,
   useComponentPresetProp,
   useBem,
+  useTemplateRef,
 } from '../../composables'
 
 defineOptions({
@@ -54,12 +54,11 @@ const props = defineProps({
   bordered: { type: Boolean, default: false },
 })
 
-const { scrollRoot, isScrolledDown } = setupScroll(props.fixed)
-const { fixedBarStyleComputed } = useFixedBar(props, isScrolledDown)
+const { fixedBarStyleComputed } = useFixedBar(props, useTemplateRef('scrollRoot'))
 
 const { getColor, shiftHSLAColor } = useColors()
 const color = computed(() => getColor(props.color))
-const { textColorComputed } = useTextColor(color)
+const textColorComputed = useElementTextColor(color)
 
 const shapeStyleComputed = computed(() => ({
   borderTopColor: shiftHSLAColor(color.value, { h: -1, s: -11, l: 10 }),

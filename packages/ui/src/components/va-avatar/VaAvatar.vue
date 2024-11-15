@@ -38,9 +38,9 @@ import {
   useBem,
   useSize,
   useColors,
-  useTextColor,
+  useElementTextColor,
   useSizeProps,
-  useLoadingProps,
+  useLoadableControlProps,
   useComponentPresetProp,
 } from '../../composables'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
@@ -58,7 +58,7 @@ defineOptions({
 })
 
 const props = defineProps({
-  ...useLoadingProps,
+  ...useLoadableControlProps,
   ...useSizeProps,
   ...useComponentPresetProp,
   ...VaFallbackPropsDeclaration,
@@ -84,7 +84,7 @@ const backgroundColorComputed = computed(() => {
   return colorComputed.value
 })
 const { sizeComputed, fontSizeComputed } = useSize(props, 'VaAvatar')
-const { textColorComputed } = useTextColor(backgroundColorComputed)
+const textColorComputed = useElementTextColor(backgroundColorComputed)
 
 const computedStyle = computed(() => ({
   fontSize: props.fontSize || fontSizeComputed.value,

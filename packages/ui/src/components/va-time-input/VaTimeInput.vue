@@ -79,11 +79,12 @@ import { extractComponentProps, filterComponentProps } from '../../utils/compone
 import {
   useComponentPresetProp,
   useValidation, useValidationEmits, useValidationProps, ValidationProps,
-  useClearable, useClearableEmits, useClearableProps,
-  useFocus, useFocusEmits,
+  useClearableControl, useClearableControlEmits, useClearableControlProps,
+  useElementFocused,
+  useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
   useStateful, useStatefulEmits, useStatefulProps,
   useTranslation, useTranslationProp,
-  useDropdownable, useDropdownableProps, useDropdownableEmits, useLongPressKey,
+  useDropdownableControl, useDropdownableControlProps, useDropdownableControlEmits, useLongPress,
 } from '../../composables'
 import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
@@ -104,16 +105,17 @@ defineOptions({
 
 const props = defineProps({
   ...VaInputWrapperProps,
-  ...useDropdownableProps,
+  ...useDropdownableControlProps,
   ...useComponentPresetProp,
-  ...useClearableProps,
+  ...useClearableControlProps,
   ...extractComponentProps(VaTimePicker),
   ...useValidationProps as ValidationProps<Date>,
   ...useStatefulProps,
+  ...useFocusableControlProps,
 
   closeOnContentClick: { type: Boolean, default: false },
-  offset: { ...useDropdownableProps.offset, default: () => [2, 0] },
-  placement: { ...useDropdownableProps.placement, default: 'bottom-end' },
+  offset: { ...useDropdownableControlProps.offset, default: () => [2, 0] },
+  placement: { ...useDropdownableControlProps.placement, default: 'bottom-end' },
   modelValue: { type: Date, default: undefined },
   clearValue: { type: Date, default: null },
   format: { type: Function as PropType<(date?: Date) => string> },
@@ -128,18 +130,18 @@ const props = defineProps({
 })
 
 const emit = defineEmits([
-  ...useFocusEmits,
   ...useValidationEmits,
-  ...useClearableEmits,
+  ...useClearableControlEmits,
   ...useStatefulEmits,
-  ...useDropdownableEmits,
+  ...useDropdownableControlEmits,
+  ...useFocusableControlEmits,
   'update:modelValue',
 ])
 
 const input = shallowRef<HTMLInputElement>()
 const timePicker = shallowRef<typeof VaTimePicker>()
 
-const { isOpenSync, dropdownProps } = useDropdownable(props, emit, {
+const { isOpenSync, dropdownProps } = useDropdownableControl(props, emit, {
   defaultCloseOnValueUpdate: computed(() => Array.isArray(props.view) && props.view.length === 1),
 })
 const { valueComputed } = useStateful<Date>(props, emit)
@@ -166,7 +168,8 @@ const doShowDropdown = computed({
   },
 })
 
-const { isFocused, focus, blur, onFocus: focusListener, onBlur: blurListener } = useFocus(input)
+const isFocused = useElementFocused(input)
+const { blur, focus } = useFocusableControl(input, props, emit)
 
 const onInputTextChanged = (e: Event) => {
   if (props.disabled) { return }
@@ -230,9 +233,7 @@ watch(doShowDropdown, (v) => {
 const {
   canBeCleared,
   clearIconProps,
-  onFocus,
-  onBlur,
-} = useClearable(props, valueText)
+} = useClearableControl(props, valueText)
 
 const canBeClearedComputed = computed(() => (
   canBeCleared.value && valueText.value !== format(props.clearValue)
@@ -254,7 +255,7 @@ const viewToNumber = {
   hours: 1000 * 60 * 60,
 }
 
-const onKeyPress = (e: KeyboardEvent | FocusEvent) => {
+const onKeyPress = (e: Event) => {
   if (!('key' in e)) { return }
 
   if (e.key === 'ArrowDown') {
@@ -267,27 +268,16 @@ const onKeyPress = (e: KeyboardEvent | FocusEvent) => {
   }
 }
 
-useLongPressKey(input, {
+useLongPress(input, {
   onStart: onKeyPress,
   onUpdate: onKeyPress,
 })
 
 const computedInputListeners = ({
-  onFocus: () => {
-    if (props.disabled) { return }
-
-    focusListener()
-
-    if (props.readonly) { return }
-    onFocus()
-  },
   onBlur: () => {
     if (props.disabled) { return }
 
-    blurListener()
-
     if (props.readonly) { return }
-    onBlur()
     listeners.onBlur()
   },
 })
@@ -344,8 +334,6 @@ const iconProps = computed(() => ({
 }))
 
 const { tp } = useTranslation()
-
-const attrs = useAttrs()
 
 const dropdownPropsComputed = computed(() => ({
   ...dropdownProps.value,

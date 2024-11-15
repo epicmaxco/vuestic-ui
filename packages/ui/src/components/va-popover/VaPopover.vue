@@ -42,7 +42,7 @@
 import { computed, PropType, useSlots } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import { useComponentPresetProp, useColors, useTextColor } from '../../composables'
+import { useComponentPresetProp, useColors, useElementTextColor } from '../../composables'
 
 import { VaDropdown, VaIcon } from '../'
 
@@ -74,7 +74,7 @@ const VaDropdownPropValues = filterComponentProps(VaDropdownProps)
 const { getColor, getBoxShadowColor } = useColors()
 
 const slots = useSlots()
-const { textColorComputed } = useTextColor(computed(() => getColor(props.color)))
+const textColorComputed = useElementTextColor(computed(() => getColor(props.color)))
 const showIconComputed = computed(() => props.icon || slots.icon)
 const showTitleComputed = computed(() => props.title || slots.title)
 const showBodyComputed = computed(() => props.message || slots.body)

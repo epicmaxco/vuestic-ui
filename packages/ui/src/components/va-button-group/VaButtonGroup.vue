@@ -9,7 +9,7 @@
 <script lang="ts">
 import { computed } from 'vue'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import { useBem, useComponentPresetProp, useColors, useTextColor } from '../../composables'
+import { useBem, useComponentPresetProp, useColors, useElementTextColor } from '../../composables'
 
 import { VaConfig } from '../va-config'
 import { VaButton } from '../va-button'
@@ -32,7 +32,7 @@ const props = defineProps({
 
 const { getColor, getGradientBackground } = useColors()
 const colorComputed = computed(() => getColor(props.color))
-const { textColorComputed } = useTextColor(colorComputed)
+const textColorComputed = useElementTextColor(colorComputed)
 
 const filteredProps = filterComponentProps(VaButtonProps)
 const buttonConfig = computed(() => ({

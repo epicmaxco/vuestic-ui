@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 
-import { MaybeHTMLElementOrSelector, useDocument, useIsMounted } from '../../../composables'
+import { MaybeHTMLElementOrSelector, useDocument, useElementTemplateRef, useIsMounted } from '../../../composables'
 import { unwrapEl } from '../../../utils/unwrapEl'
 
 export const useAnchorSelector = (
@@ -26,7 +26,7 @@ export const useAnchorSelector = (
         return document.value?.querySelector<HTMLElement>(props.anchor) ?? anchorRef.value
       }
       if (typeof props.anchor === 'object') {
-        return props.anchor
+        return unwrapEl(props.anchor)
       }
 
       if (props.anchorSelector) {

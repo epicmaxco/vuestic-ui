@@ -53,16 +53,17 @@
 import { PropType, computed, toRefs, shallowRef } from 'vue'
 import {
   useBem,
-  useFocus,
-  useHover, useHoverStyleProps,
-  usePressed, usePressedStyleProps,
-  useColors, useTextColor,
-  useLoadingProps,
+  useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
+  useColors, useElementTextColor,
+  useLoadableControlProps,
   useSize, useSizeProps,
   useRouterLink, useRouterLinkProps,
   useComponentPresetProp,
   useSlotPassed,
   useNumericProp,
+  useElementPressed,
+  makeNumericProp,
+  useElementHovered,
 } from '../../composables'
 
 import { useButtonBackground } from './hooks/useButtonBackground'
@@ -82,10 +83,9 @@ defineOptions({
 const props = defineProps({
   ...useComponentPresetProp,
   ...useSizeProps,
-  ...useHoverStyleProps,
-  ...usePressedStyleProps,
-  ...useLoadingProps,
+  ...useLoadableControlProps,
   ...useRouterLinkProps,
+  ...useFocusableControlProps,
   tag: { type: String, default: 'button' },
   type: { type: String, default: 'button' },
   block: { type: Boolean, default: false },
@@ -93,8 +93,8 @@ const props = defineProps({
 
   color: { type: String as PropType<ColorName>, default: 'primary' },
   textColor: { type: String, default: '' },
-  textOpacity: { type: [Number, String], default: 1 },
-  backgroundOpacity: { type: [Number, String], default: 1 },
+  textOpacity: makeNumericProp({ default: 1 }),
+  backgroundOpacity: makeNumericProp({ default: 1 }),
   borderColor: { type: String, default: '' },
 
     // only for filled bg state
@@ -110,7 +110,27 @@ const props = defineProps({
   icon: { type: String, default: '' },
   iconRight: { type: String, default: '' },
   iconColor: { type: String, default: '' },
+
+  // Hover styles
+  hoverBehavior: {
+    type: String as PropType<'opacity' | 'mask'>,
+    default: 'mask',
+    validator: (value: string) => ['opacity', 'mask'].includes(value),
+  },
+  hoverOpacity: { type: [Number, String], default: 0.15 },
+  hoverMaskColor: { type: String, default: 'textInverted' },
+
+  // Pressed styles
+  pressedBehavior: {
+    type: String as PropType<'opacity' | 'mask'>,
+    default: 'mask',
+    validator: (value: string) => ['opacity', 'mask'].includes(value),
+  },
+  pressedOpacity: { type: Number, default: 0.13 },
+  pressedMaskColor: { type: String, default: 'textPrimary' },
 })
+
+const emit = defineEmits([...useFocusableControlEmits])
 
 // colors
 const { getColor } = useColors()
@@ -130,9 +150,9 @@ const attributesComputed = useButtonAttributes(props)
 // states
 const { disabled } = toRefs(props)
 const button = shallowRef<HTMLElement>()
-const { focus, blur } = useFocus(button)
-const { isHovered } = useHover(button, disabled)
-const { isPressed } = usePressed(button)
+const { focus, blur } = useFocusableControl(button, props, emit)
+const isHovered = useElementHovered(button)
+const isPressed = useElementPressed(button)
 
 // icon attributes
 const iconColorComputed = computed(() => props.iconColor ? getColor(props.iconColor) : textColorComputed.value)
@@ -165,7 +185,7 @@ const computedClass = useBem('va-button', () => ({
 
 // styles
 const isTransparentBg = computed(() => props.plain || backgroundOpacityComputed.value! < 0.5)
-const { textColorComputed } = useTextColor(colorComputed, isTransparentBg)
+const textColorComputed = useElementTextColor(colorComputed, isTransparentBg)
 
 const {
   backgroundColor,

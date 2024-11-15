@@ -21,8 +21,7 @@ import { computed, PropType, ref, nextTick, onMounted, onBeforeUnmount, shallowR
 import { noop } from '../../utils/noop'
 
 import { getWindow } from '../../utils/ssr'
-import { useComponentPresetProp } from '../../composables/useComponentPreset'
-import { useNumericProp } from '../../composables/useNumericProp'
+import { useComponentPresetProp, useNumericProp, makeNumericProp } from '../../composables'
 
 import {
   handleThrottledEvent,
@@ -38,8 +37,8 @@ defineOptions({
 
 const props = defineProps({
   ...useComponentPresetProp,
-  offsetTop: { type: [Number, String], default: undefined },
-  offsetBottom: { type: [Number, String], default: undefined },
+  offsetTop: makeNumericProp(),
+  offsetBottom: makeNumericProp(),
   target: { type: [Object, Function] as PropType<HTMLElement | Window | (() => HTMLElement | Window)>, default: getWindow },
 })
 

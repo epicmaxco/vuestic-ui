@@ -75,10 +75,11 @@
 <script lang="ts">
 import { computed, PropType } from 'vue'
 
-import { useBem, useStrictInject } from '../../../../composables'
+import { useBem } from '../../../../composables'
 
 import { VaIcon, VaCheckbox } from '../../../'
 import { TreeViewKey, TreeNode } from '../../types'
+import { strictInject } from '../../../../utils/strict-inject'
 
 const INJECTION_ERROR_MESSAGE = 'The VaTreeNode component should be used in the context of VaTreeView component'
 </script>
@@ -108,7 +109,7 @@ const {
   toggleCheckbox,
   getNodeProperty,
   handleKeyboardNavigation,
-} = useStrictInject(TreeViewKey, INJECTION_ERROR_MESSAGE)
+} = strictInject(TreeViewKey, INJECTION_ERROR_MESSAGE)
 
 const labelComputed = computed(() => getText(props.node) || '')
 const isExpandedComputed = computed(() => props.node.hasChildren ? !!props.node.expanded : undefined)

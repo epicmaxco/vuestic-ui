@@ -10,14 +10,10 @@ import {
   getCurrentInstance,
 } from 'vue'
 
-import { useEvent, useParsableMeasure } from '../../composables'
-
 import { warn } from '../../utils/console'
-
-const { isParsablePositiveMeasure, parseSizeValue } = useParsableMeasure()
-
+import { makeLengthProp, isPositiveLengthValue, LengthString, useLengthProp } from '../../composables/std/internal/props/useLengthProp'
 const validateSizeProp = (v: number | string, propName: string) => {
-  const isProperValue = isParsablePositiveMeasure(v)
+  const isProperValue = isPositiveLengthValue(v)
 
   !isProperValue &&
   warn(`[va-virtual-scroller] ${propName} should be number or parsable int greater or equal to 0. Provided: ${v}.`)
@@ -27,18 +23,8 @@ const validateSizeProp = (v: number | string, propName: string) => {
 
 export const useVirtualScrollerSizesProps = {
   horizontal: { type: Boolean, default: false },
-  itemSize: {
-    type: [Number, String] as PropType<string | number>,
-    default: 0,
-    validator: (v: number | string) => { return validateSizeProp(v, 'itemSize') },
-  },
-  wrapperSize: {
-    type: [Number, String] as PropType<number | string | 'auto'>,
-    default: 100,
-    validator: (v: number | string | 'auto') => {
-      return v === 'auto' || validateSizeProp(v, 'wrapperSize')
-    },
-  },
+  itemSize: makeLengthProp({ default: 0, validator: (v: LengthString | number) => validateSizeProp(v, 'itemSize') }),
+  wrapperSize: makeLengthProp({ type: [Number, String] as PropType<LengthString | number | 'auto'>, default: 100, validator: (v: string | number | 'auto') => v === 'auto' || validateSizeProp(v, 'wrapperSize') }),
 }
 
 export const useVirtualScrollerSizes = (
@@ -50,21 +36,16 @@ export const useVirtualScrollerSizes = (
 
   const clientSizeMeasure = computed(() => props.horizontal ? 'clientWidth' : 'clientHeight')
 
+  const wrapperSizeNumber = useLengthProp(props, 'wrapperSize')
+  const itemSizeNumber = useLengthProp(props, 'itemSize')
+
   const wrapperSize = computed(() => {
-    if (props.wrapperSize === 'auto') {
+    if (wrapperSizeNumber.value === 'auto') {
       return wrapper.value?.[clientSizeMeasure.value] || 0
     }
 
-    return parseSizeValue(props.wrapperSize, pageFontSize)
+    return wrapperSizeNumber.value
   })
-
-  const pageFontSize = ref(16)
-  const handleWindowResize = () => {
-    pageFontSize.value = parseFloat(getComputedStyle(document.documentElement).fontSize)
-
-    calcAverageItemsSize()
-  }
-  useEvent('resize', handleWindowResize, true)
 
   const itemSizeCalculated = ref(0)
   const calcAverageItemsSize = () => {
@@ -94,7 +75,7 @@ export const useVirtualScrollerSizes = (
 
   let oldItemSize = 0
   const itemSize = computed(() => {
-    const sizeParsed = parseSizeValue(props.itemSize, pageFontSize)
+    const sizeParsed = itemSizeNumber.value
 
     const result = Math.max(sizeParsed, itemSizeCalculated.value, 1)
     const diff = Math.abs(((oldItemSize / result) * 100) - 100)

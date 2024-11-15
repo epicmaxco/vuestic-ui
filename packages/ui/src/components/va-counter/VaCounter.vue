@@ -104,16 +104,19 @@ import {
   useComponentPresetProp,
   useFormFieldProps,
   useEmitProxy,
-  useFocus, useFocusEmits,
+  useElementFocused,
+  useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
   useStateful, useStatefulProps,
   useColors,
   useTranslation, useTranslationProp,
   useLongPress,
   useTemplateRef,
   useValidation,
-  useClearableProps,
+  useClearableControlProps,
   useValidationEmits,
   useNumericProp,
+  useElementTemplateRef,
+  makeNumericProp,
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
 
@@ -150,8 +153,9 @@ const props = defineProps({
   ...useFormFieldProps,
   ...useStatefulProps,
   ...useComponentPresetProp,
-  ...useClearableProps,
+  ...useClearableControlProps,
   ...VaInputWrapperProps,
+  ...useFocusableControlProps,
     // input
   modelValue: { type: [String, Number], default: 0 },
   manualInput: { type: Boolean, default: false },
@@ -166,7 +170,7 @@ const props = defineProps({
   flat: { type: Boolean, default: true },
   rounded: { type: Boolean, default: false },
   margins: { type: [String, Number], default: '4px' },
-  longPressDelay: { type: [Number, String], default: 500 },
+  longPressDelay: makeNumericProp({ default: 500 }),
 
   ariaLabel: useTranslationProp('$t:counterValue'),
   ariaDecreaseLabel: useTranslationProp('$t:decreaseCounter'),
@@ -176,9 +180,9 @@ const props = defineProps({
 const emit = defineEmits([
   'update:modelValue',
   ...useValidationEmits,
+  ...useFocusableControlEmits,
   ...createInputEmits(),
   ...createFieldEmits(),
-  ...useFocusEmits,
 ])
 
 const input = shallowRef<HTMLInputElement | HTMLDivElement>()
@@ -187,10 +191,9 @@ const { min = ref(undefined), max = ref(undefined), step } = toRefs(props)
 
 const longPressDelayComputed = useNumericProp('longPressDelay')
 const {
-  isFocused,
   focus,
   blur,
-} = useFocus(input, emit)
+} = useFocusableControl(input, props, emit)
 
 const { valueComputed: statefulValue } = useStateful(props, emit)
 
@@ -285,12 +288,12 @@ const increaseCount = () => {
   calculateCounterValue(Number(valueComputed.value) + Number(step.value))
 }
 
-useLongPress(useTemplateRef('decreaseButtonRef'), {
+useLongPress(useElementTemplateRef('decreaseButtonRef'), {
   onUpdate: decreaseCount,
   delay: longPressDelayComputed as ComputedRef<number>,
 })
 
-useLongPress(useTemplateRef('increaseButtonRef'), {
+useLongPress(useElementTemplateRef('increaseButtonRef'), {
   onUpdate: increaseCount,
   delay: longPressDelayComputed as ComputedRef<number>,
 })
@@ -325,6 +328,8 @@ const increaseIconProps = computed(() => ({
 const isSquareCorners = computed(() => (
   (typeof props.margins === 'string' ? parseFloat(props.margins) : props.margins) === 0
 ))
+
+const isFocused = useElementFocused(input)
 
 const buttonsColor = () => {
   if (isFocused.value) { return props.color }

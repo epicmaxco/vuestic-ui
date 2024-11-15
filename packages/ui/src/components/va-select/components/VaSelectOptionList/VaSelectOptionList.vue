@@ -84,7 +84,7 @@ import {
   useColorProps,
   useObjectRefs,
   useSelectableList, useSelectableListProps,
-  useThrottleValue, useThrottleProps, useNumericProp,
+  useThrottleValue, useNumericProp,
 } from '../../../../composables'
 
 import { scrollToElement } from '../../../../utils/scroll-to-element'
@@ -106,7 +106,6 @@ const props = defineProps({
   ...useColorProps,
   ...useComponentPresetProp,
   ...useSelectableListProps,
-  ...useThrottleProps,
   noOptionsText: { type: String, default: 'Items not found' },
   getSelectedState: { type: Function as PropType<(option: SelectOption) => boolean>, required: true },
   multiple: { type: Boolean, default: false },
@@ -120,6 +119,7 @@ const props = defineProps({
   selectedTopShown: { type: Boolean, default: false },
   doShowAllOptions: { type: Boolean, default: false },
   searchFn: { type: Function as PropType<(search: string, option: SelectOption) => boolean>, default: undefined },
+  delay: { type: [Number, String], default: 0 },
 })
 
 const emit = defineEmits([
@@ -206,7 +206,7 @@ const optionGroups = computed(() => {
       return groups
     }, { _noGroup: [] })
 })
-const optionGroupsThrottled = useThrottleValue(optionGroups, props)
+const optionGroupsThrottled = useThrottleValue(optionGroups, useNumericProp('delay'))
 
 const isValueExists = (value: SelectOption | null | undefined): value is SelectOption => !isNilValue(value)
 

@@ -1,4 +1,4 @@
-import { useComponentUuid } from '../../../composables/useComponentUuid'
+import { useComponentUuid } from '../../../composables'
 
 export const useSelectAria = () => {
   const id = useComponentUuid()

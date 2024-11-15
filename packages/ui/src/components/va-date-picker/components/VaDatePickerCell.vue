@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useTextColor, useColors } from '../../../composables'
+import { useElementTextColor, useColors } from '../../../composables'
 import { computed, toRef } from 'vue'
 
 defineOptions({
@@ -56,7 +56,7 @@ const { getColor } = useColors()
 
 const bg = computed(() => getColor(props.color))
 
-const { textColorComputed } = useTextColor(bg)
+const textColorComputed = useElementTextColor(bg)
 </script>
 
 <style lang="scss">

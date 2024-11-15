@@ -1,6 +1,6 @@
-import { getCurrentInstance, computed, ExtractPropTypes } from 'vue'
+import { getCurrentInstance, computed, ExtractPropTypes, ref } from 'vue'
 
-import { useIntersectionObserver, useElementRef, useNumericProp } from '../../../composables'
+import { useIntersectionObserver, useNumericProp, useElementTemplateRef } from '../../../composables'
 
 export const useTableScrollProps = {
   scrollTopMargin: { type: [Number, String], default: 0 },
@@ -19,9 +19,9 @@ export const useTableScroll = (
   const doRenderTopTrigger = vNodeProps?.['onScroll:top'] !== undefined
   const doRenderBottomTrigger = vNodeProps?.['onScroll:bottom'] !== undefined
 
-  const scrollContainer = useElementRef()
-  const topTrigger = useElementRef()
-  const bottomTrigger = useElementRef()
+  const scrollContainer = useElementTemplateRef(ref())
+  const topTrigger = useElementTemplateRef(ref())
+  const bottomTrigger = useElementTemplateRef(ref())
   const scrollTopMarginComputed = useNumericProp('scrollTopMargin')
   const scrollBottomMarginComputed = useNumericProp('scrollBottomMargin')
 
@@ -53,7 +53,7 @@ export const useTableScroll = (
     rootMargin: `${scrollTopMarginComputed.value ?? 0}px 0px ${scrollBottomMarginComputed.value ?? 0}px 0px`,
   }))
 
-  useIntersectionObserver(intersectionHandler, options, targets)
+  useIntersectionObserver(targets, intersectionHandler, options)
 
   return {
     scrollContainer,

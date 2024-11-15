@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useBem, useComponentPresetProp, useAlignProps, useAlign } from '../../../../composables'
+import { useBem, useComponentPresetProp, useAlignableProps, useAlignable } from '../../../../composables'
 import { pick } from '../../../../utils/pick'
 
 defineOptions({
@@ -17,11 +17,11 @@ defineOptions({
 })
 
 const props = defineProps({
-  ...useAlignProps,
+  ...useAlignableProps,
   ...useComponentPresetProp,
 })
 
-const { alignComputed } = useAlign(props)
+const { alignComputed } = useAlignable(props)
 const classComputed = useBem('va-card__actions', () => ({
   ...pick(props, ['vertical']),
 }))

@@ -1,5 +1,5 @@
 import { createToastInstance, closeById, closeAllNotifications, NotificationOptions } from '../toast'
-import { useAppContext } from '../../../composables/useAppContext'
+import { useAppContext } from '../../../composables/std/internal/useAppContext'
 
 /** This hook can be used without plugin used */
 export const useToast = () => {

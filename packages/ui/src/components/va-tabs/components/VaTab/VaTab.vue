@@ -14,7 +14,6 @@
     @click="onTabClick"
     @keydown.enter="onTabKeydown"
     :tabindex="tabIndexComputed"
-    v-on="keyboardFocusListeners"
     v-bind="linkAttributesComputed"
   >
     <div
@@ -41,10 +40,10 @@ import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref, shallowRef
 
 import {
   useComponentPresetProp,
-  useKeyboardOnlyFocus,
   useRouterLink, useRouterLinkProps,
   useColors,
   useElementWidth,
+  useElementFocusedKeyboard,
 } from '../../../../composables'
 
 import { TabsViewKey, TabsView, TabComponent } from '../../types'
@@ -78,7 +77,7 @@ const hoverState = ref(false)
 const rightSidePosition = ref(0)
 const leftSidePosition = ref(0)
 
-const { keyboardFocusListeners, hasKeyboardFocus } = useKeyboardOnlyFocus()
+const hasKeyboardFocus = useElementFocusedKeyboard(rootElement)
 
 const { tagComputed, isActiveRouterLink, linkAttributesComputed } = useRouterLink(props)
 const classComputed = computed(() => ({ 'va-tab--disabled': props.disabled }))
