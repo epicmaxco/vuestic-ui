@@ -51,7 +51,7 @@
     <va-modal
       v-model="modal"
       hide-default-actions
-      :message="tp('$t:fileTypeIncorrect')"
+      :message="tp(fileIncorrectMessage)"
     />
   </div>
 </template>
