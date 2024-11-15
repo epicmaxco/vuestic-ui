@@ -66,7 +66,7 @@ if (!props.disabled) { useEvent('scroll', handleScroll, true) }
 const { list, wrapper, itemSize, wrapperSize } = useVirtualScrollerSizes(props, listScrollPosition)
 
 const { getKey } = useTrackBy(props)
-const uniqueKey = (item: Array<any> | Record<string, any>, index: number, defaultValue?: any) => getKey(item, index, defaultValue)
+const uniqueKey = getKey
 
 watch(listScrollPosition, (newValue) => {
   if (newValue + wrapperSize.value === containerSize.value) {
