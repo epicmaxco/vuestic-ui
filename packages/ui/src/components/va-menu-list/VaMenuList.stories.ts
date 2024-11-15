@@ -2,6 +2,7 @@ import { VaDivider, VaButton, VaDropdown, VaIcon, VaAvatar } from '../../compone
 import VaMenuList from './VaMenuList.vue'
 import VaMenuItem from './components/VaMenuItem.vue'
 import VaMenuGroup from './components/VaMenuGroup.vue'
+import VaMenuFull from './components/VaMenuFull.vue'
 
 export default {
   title: 'VaMenuList',
@@ -79,9 +80,41 @@ export const SlotUsage = () => ({
         User 2
       </VaMenuItem>
       <VaMenuGroup group-name="Group 2" />
-      <VaMenuItem rightIcon="home">
+      <VaMenuItem right-icon="home">
         User 3
       </VaMenuItem>
+    </VaMenuList>
+  `,
+})
+
+export const DivSlotUsage = () => ({
+  components: { VaMenuList, VaMenuItem, VaMenuGroup },
+  template: `
+    <VaMenuList>
+      <VaMenuGroup group-name="Group 1" />
+      <VaMenuItem icon="home">
+        User 1
+      </VaMenuItem>
+      <VaMenuItem>
+        User 2
+      </VaMenuItem>
+      <VaMenuGroup group-name="Group 2" />
+      <VaMenuItem right-icon="home">
+        User 3
+      </VaMenuItem>
+      <template v-if="true">
+        <VaMenuItem>
+          With v-if 1
+        </VaMenuItem>
+        <VaMenuItem>
+          With v-if 2
+        </VaMenuItem>
+        <template v-if="true">
+          <VaMenuItem>
+            With v-if 2
+          </VaMenuItem>
+        </template>
+      </template>
     </VaMenuList>
   `,
 })
@@ -97,7 +130,7 @@ export const HoverColor = () => ({
 })
 
 export const WithDivider = () => ({
-  components: { VaMenuList, VaMenuItem, VaMenuGroup, VaDivider, VaButton },
+  components: { VaMenuList, VaMenuItem, VaMenuGroup, VaDivider, VaButton, VaMenuFull },
   template: `
     <VaMenuList>
       <VaMenuItem>
@@ -106,13 +139,15 @@ export const WithDivider = () => ({
       <VaMenuItem>
         User 2
       </VaMenuItem>
-      <VaDivider />
+      <VaMenuFull>
+        <VaDivider />
+      </VaMenuFull>
       <VaMenuItem>
         User 3
       </VaMenuItem>
-      <div>
+      <VaMenuFull>
         Custom content
-      </div>
+      </VaMenuFull>
       <VaMenuItem>
         User 4
       </VaMenuItem>

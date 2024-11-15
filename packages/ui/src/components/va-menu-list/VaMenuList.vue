@@ -2,21 +2,15 @@
   <table class="va-menu-list" ref="container" v-bind="makeMenuContainerAttributes()">
     <tbody>
       <template v-if="$slots.default">
-        <template v-for="child in getUnSlottedVNodes($slots.default())">
-          <component v-if="getVNodeComponentName(child) === 'VaMenuItem'" :is="child" :key="getVNodeKey(child) + 'menuitem'" />
-          <component v-else-if="getVNodeComponentName(child) === 'VaDropdown'" :is="child" :key="getVNodeKey(child) + 'menu-dropdown'" />
-          <td colspan="999" v-else :key="getVNodeKey(child)" class="va-menu-list__virtual-td">
-            <component :is="child" />
-          </td>
+        <template v-for="child in getUnSlottedVNodes($slots.default())" :key="getVNodeKey(child)">
+          <component :is="child" />
         </template>
       </template>
       <slot v-else>
         <template v-for="(options, groupName) in optionGroups" :key="groupName">
           <slot v-if="groupName !== '_noGroup'"  name="group">
             <tr>
-              <td colspan="9999">
-                <VaMenuGroup :group-name="groupName" />
-              </td>
+              <VaMenuGroup :group-name="groupName" />
             </tr>
           </slot>
           <VaMenuItem
@@ -43,7 +37,7 @@
 <script lang="ts" setup>
 import VaMenuItem from './components/VaMenuItem.vue'
 import VaMenuGroup from './components/VaMenuGroup.vue'
-import { PropType, computed, VNode, ref, Fragment } from 'vue'
+import { PropType, computed, VNode, ref, Fragment, h } from 'vue'
 import { VaMenuOption } from './types'
 import { useSelectableList, useSelectableListProps } from '../../composables'
 import { useMenuKeyboardNavigation, makeMenuContainerAttributes } from './composables/useMenuKeyboardNavigation'
@@ -89,6 +83,7 @@ const getUnSlottedVNodes = (nodes: VNode[]) => {
 }
 
 const getVNodeComponentName = (node: VNode) => {
+  console.log(h(node))
   if (typeof node.type === 'object' && 'name' in node.type && typeof node.type.name === 'string') {
     return node.type.name
   }
@@ -127,14 +122,14 @@ const getVNodeKey = (node: VNode): string => {
   }
 
   // Without & at the start, style will be applied globally
-  & td:not(&__virtual-td) {
+  & td {
     padding-top: calc(var(--va-menu-padding-y) / 2);
     padding-bottom: calc(var(--va-menu-padding-y) / 2);
   }
 
   &__virtual-td:has(tr) {
     // Behaves like tbody, so column width are inherited for tr
-    display: table-row-group;
+    display: contents;
   }
 
   .va-divider {
