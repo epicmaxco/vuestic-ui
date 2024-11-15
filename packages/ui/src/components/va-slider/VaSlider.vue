@@ -5,11 +5,11 @@
     v-bind="ariaAttributesComputed"
   >
     <div
-      v-if="vertical ? $slots.append : $slots.prepend"
+      v-if="$slots.prepend"
       class="va-slider__input-wrapper"
       aria-hidden="true"
     >
-      <slot :name="vertical ? 'append' : 'prepend'" />
+      <slot name="prepend" />
     </div>
     <span
       v-if="($slots.label || label) && !invertLabel"
@@ -22,12 +22,12 @@
       </slot>
     </span>
     <span
-      v-if="vertical ? iconAppend : iconPrepend"
+      v-if="iconPrepend"
       class="va-input__label"
       aria-hidden="true"
     >
       <va-icon
-        :name="vertical ? iconAppend : iconPrepend"
+        :name="iconPrepend"
         :color="getColor($props.color)"
         :size="16"
       />
@@ -52,88 +52,48 @@
           :style="getPinStyles(pin)"
         />
       </template>
-      <template v-if="$props.range">
+      <div
+        ref="process"
+        class="va-slider__track va-slider__track--selected"
+        aria-hidden="true"
+        :style="processedStyles"
+      />
+      <button
+        v-for="order in orders"
+        :key="'dot' + order"
+        :ref="setItemRefByIndex(order)"
+        class="va-slider__handler"
+        :style="getDottedStyles(order)"
+        :tabindex="disabled || readonly ? undefined : 0"
+        v-bind="sliderAriaAttributes(getValueByOrder(order), order)"
+        @focus="currentSliderDotIndex = order"
+      >
         <div
-          ref="process"
-          class="va-slider__track va-slider__track--selected"
-          aria-hidden="true"
-          :class="{'va-slider__track--active': isFocused}"
-          :style="processedStyles"
+          v-if="isActiveDot(order)"
+          :style="{ backgroundColor: getColor($props.color) }"
+          class="va-slider__handler__dot--focus"
         />
         <div
-          v-for="order in orders"
-          :key="'dot' + order"
-          :ref="setItemRefByIndex(order)"
-          class="va-slider__handler"
-          :class="dotClass"
-          :style="getDottedStyles(order)"
-          :tabindex="disabled || readonly ? undefined : 0"
-          @focus="isFocused = true, currentSliderDotIndex = order"
-          @blur="isFocused = false"
+          v-if="trackLabelVisible"
+          :style="labelStyles"
+          class="va-slider__handler__dot--value"
         >
-          <div
-            v-if="isActiveDot(order)"
-            :style="{ backgroundColor: getColor($props.color) }"
-            class="va-slider__handler__dot--focus"
-          />
-          <div
-            v-if="trackLabelVisible"
-            :style="labelStyles"
-            class="va-slider__handler__dot--value"
+          <slot
+            name="trackLabel"
+            v-bind="{ value: getValueByOrder(order), order }"
           >
-            <slot
-              name="trackLabel"
-              v-bind="{ value: getValueByOrder(order), order }"
-            >
-              {{ getTrackLabel(getValueByOrder(order), order) }}
-            </slot>
-          </div>
+            {{ getTrackLabel(getValueByOrder(order), order) }}
+          </slot>
         </div>
-      </template>
-      <template v-else>
-        <div
-          ref="process"
-          aria-hidden="true"
-          class="va-slider__track va-slider__track--selected"
-          :class="{'va-slider__track--active': isFocused}"
-          :style="processedStyles"
-        />
-        <div
-          ref="dot"
-          class="va-slider__handler"
-          :class="dotClass"
-          :style="dottedStyles"
-          :tabindex="$props.disabled || $props.readonly ? undefined : 0"
-          @focus="isFocused = true"
-          @blur="isFocused = false"
-        >
-          <div
-            v-if="isActiveDot(0)"
-            class="va-slider__handler__dot--focus"
-            :style="{ backgroundColor: getColor($props.color) }"
-          />
-          <div
-            v-if="trackLabelVisible"
-            class="va-slider__handler__dot--value"
-            :style="labelStyles"
-          >
-            <slot
-              name="trackLabel"
-              v-bind="{ value: getValueByOrder() }"
-            >
-              {{ getTrackLabel(getValueByOrder()) }}
-            </slot>
-          </div>
-        </div>
-      </template>
+      </button>
     </div>
     <span
-      v-if="vertical ? iconPrepend : iconAppend"
+      v-if="iconAppend"
       class="va-input__label--inverse"
       aria-hidden="true"
     >
       <va-icon
-        :name="vertical ? iconPrepend : iconAppend"
+        :name="iconAppend"
         :color="getColor($props.color)"
         :size="16"
       />
@@ -149,10 +109,10 @@
       </slot>
     </span>
     <div
-      v-if="vertical ? $slots.prepend : $slots.append"
+      v-if="$slots.append"
       class="va-slider__input-wrapper"
     >
-      <slot :name="vertical ? 'prepend' : 'append'" />
+      <slot name="append" />
     </div>
   </div>
 </template>
@@ -164,7 +124,6 @@ import {
   ref,
   computed,
   onMounted,
-  onBeforeUnmount,
   shallowRef,
   CSSProperties,
   WritableComputedRef,
@@ -182,11 +141,13 @@ import {
   useNumericProp,
   useComponentUuid,
   makeNumericProp,
+  useEvent,
+  useWindow,
 } from '../../composables'
-import { validateSlider } from './validateSlider'
-
 import { VaIcon } from '../va-icon'
 import { pick } from '../../utils/pick'
+import { warn } from '../../utils/console'
+import { isDividable } from '../../utils/to-float'
 
 defineOptions({
   name: 'VaSlider',
@@ -196,15 +157,67 @@ const props = defineProps({
   ...useStatefulProps,
   ...useComponentPresetProp,
   range: { type: Boolean, default: false },
-  modelValue: ({ type: [Number, Array] as PropType<number | number[]>, default: 0 }),
+  modelValue: {
+    type: [Number, Array] as PropType<number | number[]>,
+    default: 0,
+    validator: (value: number | number[], { min, max }: { min: number, max: number }) => {
+      const inRange = (v: number) => {
+        if (v < min) {
+          warn(`The value of the slider is ${v}, the minimum value is ${min}, the value of this slider can not be less than the minimum value`)
+          return false
+        } else if (v > max) {
+          warn(`The value of the slider is ${v}, the maximum value is ${max}, the value of this slider can not be greater than the maximum value`)
+          return false
+        }
+
+        return true
+      }
+
+      if (Array.isArray(value)) {
+        return value.every(inRange)
+      } else {
+        return inRange(value)
+      }
+    },
+  },
   trackLabel: ({ type: [Function, String] as PropType<string | ((val: number, order?: number) => string) | undefined> }),
   color: { type: String, default: 'primary' },
   trackColor: { type: String, default: '' },
   labelColor: { type: String, default: '' },
   trackLabelVisible: { type: Boolean, default: false },
-  min: makeNumericProp({ default: 0 }),
-  max: makeNumericProp({ default: 100 }),
-  step: makeNumericProp({ default: 1 }),
+  min: makeNumericProp({
+    default: 0,
+    validator: (val: number, { min, max }) => {
+      if (min < max) {
+        return true
+      }
+
+      warn(`The maximum value (${max}) can not be less than the minimum value (${min}).`)
+      return false
+    },
+  }),
+  max: makeNumericProp({
+    default: 100,
+    validator: (val: number, { min, max }) => {
+      if (min < max) {
+        return true
+      }
+
+      warn(`The maximum value (${max}) can not be less than the minimum value (${min}).`)
+      return false
+    },
+  }),
+  step: makeNumericProp({
+    default: 1,
+    validator: (step: number, { min, max }) => {
+      if (!isDividable(max - min, step)) {
+        warn(`Step ${step} is illegal. Slider is non-divisible (Min:Max ${min}:${max}).`)
+        return false
+      }
+
+      return true
+    },
+  }),
   label: { type: String, default: '' },
   invertLabel: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
@@ -215,6 +228,9 @@ const props = defineProps({
   vertical: { type: Boolean, default: false },
   showTrack: { type: Boolean, default: true },
   ariaLabel: useTranslationProp('$t:sliderValue'),
+  ariaLabelDot: useTranslationProp('$t:sliderDot'),
+  ariaLabelMaxDot: useTranslationProp('$t:sliderMaxDot'),
+  ariaLabelMinDot: useTranslationProp('$t:sliderMinDot'),
 })
 
 const emit = defineEmits(['drag-start', 'drag-end', 'change', 'update:modelValue'])
@@ -225,8 +241,7 @@ const sliderContainer = shallowRef<HTMLElement>()
 const dot = shallowRef<HTMLElement>()
 const { setItemRefByIndex, itemRefs: dots } = useArrayRefs()
 
-const isFocused = ref(false)
-const flag = ref(false)
+const isMoving = ref(false)
 const offset = ref(0)
 const size = ref(0)
 
@@ -240,7 +255,13 @@ const minComputed = useNumericProp('min') as ComputedRef<number>
 const maxComputed = useNumericProp('max') as ComputedRef<number>
 const stepComputed = useNumericProp('step') as ComputedRef<number>
 
-const orders = computed(() => props.vertical ? [1, 0] : [0, 1])
+const orders = computed(() => {
+  if (props.range) {
+    return props.vertical ? [1, 0] as const : [0, 1] as const
+  }
+
+  return [0] as const
+})
 
 const pinPositionStyle = computed(() => props.vertical ? 'bottom' : 'left')
 const trackSizeStyle = computed(() => props.vertical ? 'height' : 'width')
@@ -251,14 +272,8 @@ const lessToMore = computed(() => Array.isArray(val.value) && (val.value[0] + st
 
 const sliderClass = useBem('va-slider', () => ({
   ...pick(props, ['disabled', 'readonly', 'vertical']),
-  active: isFocused.value,
   horizontal: !props.vertical,
   grabbing: hasMouseDown.value,
-}))
-
-const dotClass = useBem('va-slider__handler', () => ({
-  onFocus: !props.range && (flag.value || isFocused.value),
-  inactive: !isFocused.value,
 }))
 
 const labelStyles = computed(() => ({
@@ -307,13 +322,9 @@ const dottedStyles = computed(() => {
     return [
       {
         [pinPositionStyle.value]: `${val0}%`,
-        backgroundColor: isActiveDot(0) ? getColor(props.color) : '#ffffff',
-        borderColor: getColor(props.color),
       },
       {
         [pinPositionStyle.value]: `${val1}%`,
-        backgroundColor: isActiveDot(1) ? getColor(props.color) : '#ffffff',
-        borderColor: getColor(props.color),
       },
     ] as CSSProperties[]
   } else {
@@ -321,11 +332,11 @@ const dottedStyles = computed(() => {
 
     return {
       [pinPositionStyle.value]: `${val0 > 100 ? 100 : val0}%`,
-      backgroundColor: isActiveDot(0) ? getColor(props.color) : '#ffffff',
-      borderColor: getColor(props.color),
     } as CSSProperties
   }
 })
+
+const colorComputed = computed(() => getColor(props.color))
 
 const getDottedStyles = (index: number) => props.range
   ? (dottedStyles.value as CSSProperties[])[index]
@@ -334,7 +345,7 @@ const getDottedStyles = (index: number) => props.range
 const val = computed({
   get: () => valueComputed.value,
   set: (val) => {
-    if (!flag.value) {
+    if (!isMoving.value) {
       emit('change', val)
     }
 
@@ -371,7 +382,7 @@ const limit = computed(() => [0, size.value])
 const valueLimit = computed(() => [minComputed.value, maxComputed.value])
 
 const isActiveDot = (index: number) => {
-  if ((!isFocused.value && !flag.value) || props.disabled || props.readonly) {
+  if ((!isMoving.value) || props.disabled || props.readonly) {
     return false
   }
 
@@ -380,6 +391,9 @@ const isActiveDot = (index: number) => {
 
 const moveStart = (e: MouseEvent | TouchEvent, index = currentSliderDotIndex.value) => {
   e.preventDefault() // prevent page scrolling
+  if (e.target instanceof HTMLElement) {
+    e.target.focus()
+  }
 
   if (!index) {
     if (!props.range) {
@@ -400,13 +414,13 @@ const moveStart = (e: MouseEvent | TouchEvent, index = currentSliderDotIndex.val
     ? dots.value[index]?.focus()
     : dot.value?.focus()
 
-  flag.value = true
+  isMoving.value = true
 
   emit('drag-start')
 }
 
 const moving = (e: TouchEvent | MouseEvent) => {
-  if (!hasMouseDown.value || !flag.value || props.disabled || props.readonly) { return }
+  if (!hasMouseDown.value || !isMoving.value || props.disabled || props.readonly) { return }
 
   e.preventDefault()
 
@@ -419,12 +433,12 @@ const moving = (e: TouchEvent | MouseEvent) => {
 
 const moveEnd = () => {
   if (!props.disabled && !props.readonly) {
-    if (flag.value) {
+    if (isMoving.value) {
       emit('drag-end')
       emit('change', val.value)
     }
 
-    flag.value = false
+    isMoving.value = false
     hasMouseDown.value = false
   }
 }
@@ -640,25 +654,10 @@ const clickOnContainer = (e: MouseEvent | TouchEvent) => {
   moveStart(e, currentSliderDotIndex.value)
 }
 
-const bindEvents = () => {
-  document.addEventListener('mousemove', moving)
-  document.addEventListener('touchmove', moving, { passive: false })
-  document.addEventListener('mouseup', moveEnd)
-  document.addEventListener('mouseleave', moveEnd)
-  document.addEventListener('touchcancel', moveEnd)
-  document.addEventListener('touchend', moveEnd)
-  document.addEventListener('keydown', moveWithKeys)
-}
-
-const unbindEvents = () => {
-  document.removeEventListener('mousemove', moving)
-  document.removeEventListener('touchmove', moving)
-  document.removeEventListener('mouseup', moveEnd)
-  document.removeEventListener('mouseleave', moveEnd)
-  document.removeEventListener('touchcancel', moveEnd)
-  document.removeEventListener('touchend', moveEnd)
-  document.removeEventListener('keydown', moveWithKeys)
-}
+const window = useWindow()
+useEvent(['mousemove', 'touchmove'], moving, window)
+useEvent(['mouseup', 'mouseleave', 'touchcancel', 'touchend'], moveEnd, window)
+useEvent('keydown', moveWithKeys, window)
 
 const componentId = useComponentUuid()
 const ariaLabelIdComputed = computed(() => `aria-label-id-${componentId}`)
@@ -666,36 +665,32 @@ const ariaLabelIdComputed = computed(() => `aria-label-id-${componentId}`)
 const { tp } = useTranslation()
 const slots = useSlots()
 
+const sliderAriaAttributes = (value: number, order: 0 | 1) => {
+  return {
+    role: 'slider',
+    'aria-valuemin': minComputed.value,
+    'aria-valuemax': maxComputed.value,
+    'aria-valuenow:': value,
+    'aria-valuetext': String(value),
+    'aria-label': props.range
+      ? order === 0
+        ? tp(props.ariaLabelMinDot, { value })
+        : tp(props.ariaLabelMaxDot, { value })
+      : tp(props.ariaLabelDot, { value }),
+  }
+}
+
 const ariaAttributesComputed = computed(() => ({
-  role: 'slider',
-  'aria-valuemin': minComputed.value,
-  'aria-valuemax': maxComputed.value,
+  role: 'group',
   'aria-label': !slots.label && !props.label ? tp(props.ariaLabel, { value: String(val.value) }) : undefined,
   'aria-labelledby': slots.label || props.label ? ariaLabelIdComputed.value : undefined,
   'aria-orientation': props.vertical ? 'vertical' as const : 'horizontal' as const,
   'aria-disabled': props.disabled,
   'aria-readonly': props.readonly,
-  'aria-valuenow': !Array.isArray(val.value) ? val.value : undefined,
-  'aria-valuetext': Array.isArray(val.value) ? String(val.value) : undefined,
 }))
 
 onMounted(() => {
-  if (validateSlider(val.value, stepComputed.value, minComputed.value, maxComputed.value, props.range)) {
-    getStaticData()
-    bindEvents()
-  }
-})
-
-onBeforeUnmount(unbindEvents)
-
-watch([
-  val,
-  () => stepComputed.value,
-  () => minComputed.value,
-  () => maxComputed.value,
-  () => props.range,
-], ([value, step, min, max, range]) => {
-  validateSlider(value, step, min, max, range)
+  getStaticData()
 })
 
 watch(hasMouseDown, (hasMouseDown) => {
@@ -729,10 +724,6 @@ watch(hasMouseDown, (hasMouseDown) => {
     border-radius: var(--va-slider-track-border-radius);
     transition: var(--va-slider-track-transition);
     opacity: var(--va-slider-track-opacity);
-
-    &--active {
-      transition: 0s;
-    }
   }
 
   &__track--selected {
@@ -743,13 +734,19 @@ watch(hasMouseDown, (hasMouseDown) => {
     position: absolute;
     width: var(--va-slider-handler-width);
     height: var(--va-slider-handler-height);
-    background: var(--va-slider-handler-background);
     border: var(--va-slider-handler-border);
     border-radius: var(--va-slider-handler-border-radius);
     outline: var(--va-slider-handler-outline);
     left: var(--va-slider-handler-left);
-    transition: var(--va-slider-handler-transition);
+    transition: all var(--va-slider-handler-transition);
     box-sizing: border-box;
+    border-color: v-bind(colorComputed);
+    background: var(--va-slider-dot-color-unfocused);
+
+    &:focus {
+      background: var(--va-slider-dot-color, v-bind(colorComputed));
+      border-color: v-bind(colorComputed);
+    }
 
     &__dot--focus {
       transform: var(--va-slider-dot-transform);
@@ -793,6 +790,9 @@ watch(hasMouseDown, (hasMouseDown) => {
   }
 
   &--grabbing {
+    --va-slider-track-transition: none;
+    --va-slider-handler-transition: none;
+
     .va-slider__container {
       cursor: grabbing;
     }
@@ -843,10 +843,7 @@ watch(hasMouseDown, (hasMouseDown) => {
 
     &__handler {
       transform: var(--va-slider-horizontal-handler-transform);
-
-      &--inactive {
-        transition: left 0.5s ease-out;
-      }
+      transition: left var(--va-slider-handler-transition);
 
       &__dot--value {
         position: absolute;
@@ -914,10 +911,7 @@ watch(hasMouseDown, (hasMouseDown) => {
 
     &__handler {
       transform: var(--va-slider-vertical-handler-transform);
-
-      &--inactive {
-        transition: bottom 0.5s ease-out;
-      }
+      transition: bottom var(--va-slider-handler-transition);
 
       &__dot--value {
         position: relative;

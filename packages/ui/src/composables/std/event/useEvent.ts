@@ -25,6 +25,7 @@ export const useEvent = <N extends UseEventEventName, E extends Event>(
   event: N,
   listener: (this: GlobalEventHandlers, event: UseEventEvent<N, E>) => any,
   target?: MaybeRef<TemplateRef | Window> | boolean,
+  options: AddEventListenerOptions = {},
 ) => {
   const window = useWindow()
 
@@ -52,12 +53,12 @@ export const useEvent = <N extends UseEventEventName, E extends Event>(
 
     if (Array.isArray(event)) {
       event.forEach((e) => {
-        addEventListener(newEl, e, listener as any, capture)
-        removeEventListener(oldEl, e, listener as any, capture)
+        addEventListener(newEl, e, listener as any, options ?? capture)
+        removeEventListener(oldEl, e, listener as any, options ?? capture)
       })
     } else {
-      addEventListener(newEl, event, listener as any, capture)
-      removeEventListener(oldEl, event, listener as any, capture)
+      addEventListener(newEl, event, listener as any, options ?? capture)
+      removeEventListener(oldEl, event, listener as any, options ?? capture)
     }
   }, { immediate: true })
 }

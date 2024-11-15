@@ -95,6 +95,9 @@ export const getI18nConfigDefaults = () => ({
 
   /** Slider aria label */
   sliderValue: 'Current slider value is {value}',
+  sliderDot: 'Slider dot',
+  sliderMaxDot: 'Maximum slider value',
+  sliderMinDot: 'Minimum slider value',
 
   /** Switch aria label */
   switch: 'Switch',
