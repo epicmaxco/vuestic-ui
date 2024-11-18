@@ -1,7 +1,7 @@
 <template>
   <div class="page-config">
-    <PageConfig
-      v-if="!isLoading && config"
+    <PageConfig 
+      v-if="!isLoading && config" 
       :page-config="config"
     />
     <PageConfigSkeleton v-else />
@@ -12,6 +12,7 @@
 import { type ConcreteBlock } from '../../modules/page-config/runtime';
 
 definePageMeta({
+  pageTransition: { name: 'page', mode: 'out-in' },
   layout: 'default',
   scrollToTop: true,
   // See: https://github.com/nuxt/nuxt/issues/13309
@@ -31,9 +32,9 @@ const tabTitlePrefix = 'Vuestic UI'
 
 const router = useRouter()
 watch(config, () => {
-  if (!config.value) {
+    if (!config.value) {
     router.push('/404')
-  }
+    }
 }, { immediate: true })
 
 watchEffect(() => {
@@ -50,6 +51,16 @@ watchEffect(() => {
 </script>
 
 <style lang="scss">
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.2s;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
+}
+
 .page-config-title,
 .page-config-subtitle,
 .page-config-headline {

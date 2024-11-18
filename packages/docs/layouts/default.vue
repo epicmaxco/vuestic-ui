@@ -55,9 +55,7 @@ watch(() => breakpoints.smDown, (newValue: boolean) => {
 })
 
 const { afterEach } = useRouter()
-const { scrollToElement } = useDocsScroll()
 afterEach(() => {
-  scrollToElement()
   isSidebarVisible.value = !breakpoints.smDown
   isOptionsVisible.value = false
 })
@@ -76,7 +74,7 @@ const onMouseMove = (e: MouseEvent) => {
 }
 
 onMounted(() => {
-  scrollToElement()
+
   isSidebarVisible.value = !breakpoints.smDown
   setTimeout(() => {
     doShowLoader.value = false
