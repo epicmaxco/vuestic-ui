@@ -105,6 +105,7 @@ const ariaAttributesComputed = computed(() => ({
 
     @at-root {
       .va-progress-circle--indeterminate & {
+        will-change: stroke-dasharray stroke-dashoffset;
         animation: va-progress-circle__wrapper--indeterminate 2s linear infinite;
       }
     }
@@ -115,6 +116,7 @@ const ariaAttributesComputed = computed(() => ({
 
     @at-root {
       .va-progress-circle--indeterminate & {
+        will-change: stroke-dasharray stroke-dashoffset;
         animation: va-progress-circle__overlay--indeterminate 2s ease-in-out infinite;
       }
     }

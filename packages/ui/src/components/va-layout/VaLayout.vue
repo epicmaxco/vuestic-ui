@@ -1,14 +1,15 @@
 <template>
   <div class="va-layout">
-    <VaLayoutArea
-      v-for="area in areaNames"
-      :key="area"
-      :area="area"
-      :config="$props[area] || {}"
-      @overlay-click="$emit(`${area}-overlay-click` as any)"
-    >
-      <slot :name="area" />
-    </VaLayoutArea>
+    <template  v-for="area in areaNames" :key="area">
+      <VaLayoutArea
+        v-if="$slots[area]"
+        :area="area"
+        :config="$props[area] || {}"
+        @overlay-click="$emit(`${area}-overlay-click` as any)"
+      >
+        <slot :name="area" />
+      </VaLayoutArea>
+    </template>
 
     <div class="va-layout__area va-layout__area--content">
       <slot>
@@ -73,15 +74,15 @@ watchEffect(() => {
   }
 })
 
-const templateArea = useGridTemplateArea(props)
-
 const slots = useSlots()
+
+const templateArea = useGridTemplateArea(props, slots)
 
 const verticalTemplate = computed(() => {
   return [
     slots.top ? 'min-content' : '0fr',
     '1fr',
-    slots.bottom ? 'min-content' : '0fr',
+    slots.bottom ? 'min-content' : '1fr',
   ]
     .filter(Boolean)
     .join(' ')
@@ -91,7 +92,7 @@ const horizontalTemplate = computed(() => {
   return [
     slots.left ? 'min-content' : '0fr',
     '1fr',
-    slots.right ? 'min-content' : '0fr',
+    slots.right ? 'min-content' : '1fr',
   ]
     .filter(Boolean)
     .join(' ')
@@ -113,7 +114,8 @@ const horizontalTemplate = computed(() => {
   max-width: 100%;
   max-height: 100%;
 
-  &__area {
+  // Force more importance, because VaLayoutArea component can be loaded after VaLayout
+  & &__area {
     @include va-scroll();
 
     &--content {

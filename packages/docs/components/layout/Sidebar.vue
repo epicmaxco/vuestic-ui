@@ -3,6 +3,7 @@
     v-model="writableVisible"
     class="sidebar docs-sidebar"
     :width="sidebarWidth"
+    :animated="false"
   >
     <VaAccordion
       v-model="value"

@@ -31,6 +31,7 @@ import VaLayoutFixedWrapper from './VaLayoutFixedWrapper.vue'
 import { PropType, computed } from 'vue'
 import { AreaName } from '../hooks/useGridTemplateArea'
 import { AreaConfig } from '../hooks/useLayout'
+import { isServer } from '../../../utils/ssr'
 
 defineOptions({
   name: 'VaLayoutArea',
@@ -44,7 +45,7 @@ const props = defineProps({
 const emit = defineEmits(['overlay-click'])
 
 const absolute = computed(() => props.config.absolute || false)
-const fixed = computed(() => props.config.fixed || false)
+const fixed = computed(() => isServer() ? false : props.config.fixed || false)
 const overlay = computed(() => props.config.overlay || false)
 const zIndex = computed(() => (props.config.order || 0) + 1)
 </script>
@@ -62,8 +63,6 @@ const zIndex = computed(() => (props.config.order || 0) + 1)
 }
 
 .va-layout-area {
-  display: flex;
-
   &__overlay {
     position: absolute;
     top: 0;

@@ -1,4 +1,4 @@
-import { computed } from 'vue'
+import { computed, Slots } from 'vue'
 import { type LayoutProps } from './useLayout'
 
 const areaIndexes = {
@@ -11,11 +11,13 @@ const areaIndexes = {
 export type AreaName = 'top' | 'left' | 'right' | 'bottom'
 const areaElements = (['left', 'right', 'top', 'bottom'] as const)
 
-export const useGridTemplateArea = (props: LayoutProps) => {
+export const useGridTemplateArea = (props: LayoutProps, slots: Readonly<Slots>) => {
   const sort = () => {
-    return [...areaElements].sort((a, b) => {
-      return (props[a].order ?? 0) - (props[b].order ?? 0)
-    })
+    return [...areaElements]
+      .filter((areaName) => slots[areaName])
+      .sort((a, b) => {
+        return (props[a].order ?? 0) - (props[b].order ?? 0)
+      })
   }
 
   const applyTemplate = (template: string[], areaIndexes: number[], areaName: AreaName) => {

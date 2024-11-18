@@ -154,6 +154,13 @@ export default defineNuxtConfig({
         { find: '~@ag-grid-community', replacement: ('@ag-grid-community') }
       ]
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern'
+        }
+      }
+    }
   },
 
   runtimeConfig: {
@@ -175,4 +182,8 @@ export default defineNuxtConfig({
       }
     }
   },
+
+  devtools: {
+    enabled: false,
+  }
 });

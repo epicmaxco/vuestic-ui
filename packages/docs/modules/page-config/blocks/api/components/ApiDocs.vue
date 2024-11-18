@@ -88,6 +88,7 @@ defineProps({
   &__table-wrapper {
     overflow-x: auto;
     width: 100%;
+    transition: none;
 
     &::-webkit-scrollbar {
       width: 4px;

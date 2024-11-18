@@ -1,6 +1,7 @@
 import { Ref, computed, watchEffect, type ComponentPublicInstance } from 'vue'
 import { useEvent } from '../'
 import { useElementBackground } from '../std/browser/useElementBackground'
+import { isServer } from '../../utils/ssr'
 
 const syncTh = (thead1: HTMLElement, thead2: HTMLElement) => {
   const ths1 = thead1.querySelectorAll('th')
@@ -24,6 +25,10 @@ const recursiveGetOffset = (el: HTMLElement, offset = 0): number => {
  * When standard table headers are visible, the virtual headers are hidden.
  */
 export const useStickyTableHeaders = (tableEl: Ref<HTMLTableElement | ComponentPublicInstance | undefined | null>, offset = 0) => {
+  if (isServer()) {
+    return
+  }
+
   let mutationObserver: MutationObserver | null = null
   let headClone: HTMLElement | null = null
   let head: HTMLElement | null = null
@@ -70,7 +75,7 @@ export const useStickyTableHeaders = (tableEl: Ref<HTMLTableElement | ComponentP
     headClone.style.top = '0px'
     headClone.style.width = `${table.clientWidth}px`
     headClone.style.zIndex = '1'
-    headClone.style.backgroundColor = bg.value
+    headClone.style.backgroundColor = bg.value!
     headClone.style.display = 'none'
 
     table.appendChild(headClone)

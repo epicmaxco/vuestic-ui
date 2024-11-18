@@ -238,9 +238,9 @@ const doShowPlaygroundButton = computed(() => {
   flex-wrap: wrap;
 
   &__button {
-    padding: 0.5rem 0rem;
+    padding: 0.5rem 0rem !important ;
     margin-right: 0.25rem;
-    font-weight: bold;
+    font-weight: bold !important;
 
     &:hover {
       background: none !important;

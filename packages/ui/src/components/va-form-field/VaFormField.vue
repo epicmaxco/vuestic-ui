@@ -95,7 +95,7 @@ watchEffect(() => {
 })
 
 const makeSlotRef = () => {
-  return new Proxy(innerValue, {
+  return new Proxy(innerValue as any, {
     get (v, key) {
       if (key === 'ref') {
         return innerValue.value

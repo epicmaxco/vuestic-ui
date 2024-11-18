@@ -30,8 +30,8 @@ const props = defineProps({
 
 <style lang="scss">
 .page-config-alert {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
 
   .MarkdownView {
     p {

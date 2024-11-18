@@ -22,9 +22,9 @@ export const fontSizesConfig: SizeConfig = {
   },
 }
 
-interface SizeProps {
+type SizeProps = {
   size: string | number;
-  sizesConfig: Record<string, any>;
+  sizesConfig?: SizeConfig;
   fontSizesConfig: Record<string, any>;
 }
 
@@ -105,14 +105,14 @@ export const useSize = (
   })
 
   const sizeComputed = computed<string>(() => {
-    const { defaultSize, sizes } = props.sizesConfig
+    const { defaultSize, sizes } = props.sizesConfig ?? {}
     const defaultSizeGlobal = sizesConfigGlobal.value?.defaultSize
 
     if (!props.size) { return `${defaultSize || defaultSizeGlobal}px` }
 
     if (typeof props.size === 'string') {
       const sizeFromGlobalConfig = sizesConfigGlobal.value?.sizes?.[props.size]
-      const sizeFromProps = sizes[props.size]
+      const sizeFromProps = sizes?.[props.size]
 
       if (sizeFromProps) { return `${sizeFromProps}px` }
       if (sizeFromGlobalConfig) { return `${sizeFromGlobalConfig}px` }

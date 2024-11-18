@@ -137,54 +137,54 @@ html {
   position: relative;
   z-index: 0;
 
-  &--theme-halloween {
-    &::before {
-      content: '';
-      position: absolute;
-      height: 100%;
-      min-height: 100vh;
-      width: 100%;
-      background-image: url("https://i.imgur.com/rpnciUN.png");
-      background-size: 30%;
-      background-color: #000;
-      z-index: 0;
-      opacity: 0.5;
-    }
+  // &--theme-halloween {
+  //   &::before {
+  //     content: '';
+  //     position: absolute;
+  //     height: 100%;
+  //     min-height: 100vh;
+  //     width: 100%;
+  //     background-image: url("https://i.imgur.com/rpnciUN.png");
+  //     background-size: 30%;
+  //     background-color: #000;
+  //     z-index: 0;
+  //     opacity: 0.5;
+  //   }
 
-    &::after {
-      content: '';
-      position: fixed;
-      top: 0;
-      height: 100%;
-      width: 100%;
-      background: radial-gradient(circle at v-bind("mouse.x + 'px'") v-bind("mouse.y + 'px'"), transparent 0%, #000 v-bind("(mouseInertia.x + mouseInertia.y) * 0.5 + 'px'"));
-      background-size: 200%;
-      z-index: 0;
-      pointer-events: none;
-    }
+  //   &::after {
+  //     content: '';
+  //     position: fixed;
+  //     top: 0;
+  //     height: 100%;
+  //     width: 100%;
+  //     background: radial-gradient(circle at v-bind("mouse.x + 'px'") v-bind("mouse.y + 'px'"), transparent 0%, #000 v-bind("(mouseInertia.x + mouseInertia.y) * 0.5 + 'px'"));
+  //     background-size: 200%;
+  //     z-index: 0;
+  //     pointer-events: none;
+  //   }
 
-    .docs-layout__loader {
-      // Halloween loader
-      background-image: url("https://i.imgur.com/yLvFZoB.png");
-      background-position: center;
-      background-repeat: no-repeat;
-      animation: background-jump 1s infinite;
-    }
+  //   .docs-layout__loader {
+  //     // Halloween loader
+  //     background-image: url("https://i.imgur.com/yLvFZoB.png");
+  //     background-position: center;
+  //     background-repeat: no-repeat;
+  //     animation: background-jump 1s infinite;
+  //   }
 
-    .docs-sidebar {
-      // Halloween background
-      background-image: url("https://i.imgur.com/fLEstk9.png");
-      background-repeat: no-repeat;
-      background-blend-mode: multiply;
-    }
+  //   .docs-sidebar {
+  //     // Halloween background
+  //     background-image: url("https://i.imgur.com/fLEstk9.png");
+  //     background-repeat: no-repeat;
+  //     background-blend-mode: multiply;
+  //   }
 
-    .docs-header {
-      // Halloween background
-      background-image: url("https://i.imgur.com/BNkuj2J.png");
-      background-position: center;
-      background-blend-mode: multiply;
-    }
-  }
+  //   .docs-header {
+  //     // Halloween background
+  //     background-image: url("https://i.imgur.com/BNkuj2J.png");
+  //     background-position: center;
+  //     background-blend-mode: multiply;
+  //   }
+  // }
 
   & > * {
     z-index: 1;

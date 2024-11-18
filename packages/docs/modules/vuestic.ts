@@ -1,8 +1,40 @@
-import { defineNuxtModule, addVitePlugin, addPluginTemplate } from '@nuxt/kit';
+import { defineNuxtModule, addVitePlugin } from '@nuxt/kit';
 import { resolve } from 'pathe'
 import { VuesticOptions } from './../../nuxt/src/types';
 import originalNuxtModule from '../../nuxt/src/module'
 import { componentVBindFix } from '../../ui/build/plugins/component-v-bind-fix'
+
+import { Plugin } from 'vite'
+import MagicString from 'magic-string'
+
+const addLayer = (ms: MagicString, layer: string) => {
+  ms.prepend(`@layer ${layer} {\n`)
+  ms.append(`\n}`)
+  return {
+    code: ms.toString(),
+    map: ms.generateMap()
+  }
+}
+
+/** Add css layers to Vuestic files */
+export const cssLayers: Plugin = {
+  name: 'vuestic:css-layer',
+
+  transform(code, id) {
+    // Only transform CSS files
+    if (!id.endsWith('.scss')) return null
+
+    if (id.includes('packages/ui/src/styles')) {
+      return addLayer(new MagicString(code), 'vuestic.styles')
+    }
+
+    if (id.includes('packages/ui/src/components')) {
+      return addLayer(new MagicString(code), 'vuestic.components')
+    }
+  }
+}
+
+
 
 /**
  * @vuestic/nuxt module wrapper with relative resolved vuestic from packages/ui
@@ -28,6 +60,8 @@ export default defineNuxtModule<VuesticOptions>({
       // Fix CSS variables made by v-bind in component: they're not rendered in cjs (SSG).
       addVitePlugin(componentVBindFix({ sourcemap: false }))
     }
+
+    addVitePlugin(cssLayers)
 
     nuxt.options.alias['@vuestic/ag-grid-theme'] = resolve(__dirname, '../../ag-grid-theme/src/styles/index.scss');
     nuxt.options.alias['vuestic-ui/styles/typography.css'] = resolve(__dirname, '../../ui/src/styles/typography/typography.scss');
