@@ -1,27 +1,11 @@
 <script lang="ts">
-import { useInput } from '@formkit/vue'
-import { defineComponent, ref } from 'vue';
-import Child from './Child.vue'
+import { defineComponent } from 'vue';
+import * as types from '../../src/main'
 
 export default defineComponent({
-  components: {
-    Child
-  },
   setup(props, ctx) {
-    const node = useInput({
-      type: 'text',
-      label: 'Test',
-      helpText: 'This is a test',
-      validation: 'required|min:3',
-      validationVisibility: 'live'
-    } ,ctx);
-
-    const value = ref(false)
-
-    console.log(node)
-
     return {
-      value
+      types
     }
   }
 })
@@ -29,18 +13,31 @@ export default defineComponent({
 </script>
 
 <template>
+  <div
+    v-for="type, typeName in types"
+    :key="typeName"
+    style="margin-bottom: 4rem;"
+  >
+    <p>{{ typeName }}</p>
+    <FormKit
+      v-if="type"
+      :type="type"
+      :label="typeName"
+      validation="required|min:3"
+      name="test"
+      help="aaa"
+    />
+    <p v-else>
+      null
+    </p>
+  </div>
+
   <FormKit
-    type="button"
-    label="Test"
-  />
-  <FormKit
-    #wrapper="bind"
-    type="checkbox"
+    :type="types.text"
     label="Test"
     validation="required|min:3"
-    v-model="value"
-  >
-    <Child :bind="bind" />
-  </FormKit>
+    name="test"
+    help="aaa"
+  />
 </template>
 
