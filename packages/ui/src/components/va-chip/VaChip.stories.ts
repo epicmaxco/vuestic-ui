@@ -73,7 +73,7 @@ export const Closeable = () => ({
 
 export const Link = () => ({
   components: { VaChip },
-  template: '<VaChip to="/?path=/docs/vachip--docs">text</VaChip>',
+  template: '<VaChip href="/?path=/docs/vachip--docs" target="_blank">text</VaChip>',
 })
 
 export const Disabled = () => ({
