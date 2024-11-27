@@ -651,6 +651,10 @@ export const navigationRoutes: NavigationRoute[] = [
         meta: {
           badge: navigationBadge.new('1.9.9'),
         }
+      },
+      {
+        name: 'formkit',
+        displayName: 'FormKit integration',
       }
     ],
   },
