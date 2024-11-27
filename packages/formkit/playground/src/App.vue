@@ -1,9 +1,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import * as types from '../../src/main'
+import * as types from '../../src'
 
 export default defineComponent({
-  setup(props, ctx) {
+  setup() {
     return {
       types
     }
@@ -17,7 +17,7 @@ export default defineComponent({
     <table class="va-table">
       <tbody>
       <tr
-        v-for="type, typeName in types"
+        v-for="(type, typeName) in types"
         :key="typeName"
       >
         <td>{{ typeName }}</td>
