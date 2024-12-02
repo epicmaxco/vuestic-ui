@@ -21,13 +21,15 @@ const dependencies = {
 export default definePageConfig({
   blocks: [
     block.title("FormKit integration"),
-    block.paragraph("If you need a powerful tool for building forms, we recommend using the [FormKit](https://formkit.com/getting-started/what-is-formkit)[[target=_blank]]. Vuestic UI provides a ready-made style theme for this framework."),
-    block.headline("FormKit installation"),
-    block.paragraph("To start using FormKit, install the dependencies in your project."),
-    block.code(installCommandObject, "bash"),
-    block.paragraph("Then add the plugin to your main.* file"),
-    block.code(setupCode, "js"),
-    block.alert("Vuestic-UI provides styles for FormKit components and doesn't change any functionality. For more examples visit the official [FormKit documentation page](https://formkit.com/guides/build-a-multi-step-form)[[target=_blank]].", "warning"),
+    block.paragraph("If you need a powerful tool for building forms, we recommend using the [FormKit](https://formkit.com/getting-started/what-is-formkit)[[target=_blank]] form framework. Vuestic UI provides a ready-made style theme for this framework."),
+    block.paragraph("Here are some implementation examples of what is possible with Vuestic and FormKit:"),
+    // TODO That's not on npm yet.
+    // block.headline("FormKit installation"),
+    // block.paragraph("To start using FormKit, install the dependencies in your project."),
+    // block.code(installCommandObject, "bash"),
+    // block.paragraph("Then add the plugin to your main.* file"),
+    // block.code(setupCode, "js"),
+    // block.alert("Vuestic-UI provides styles for FormKit components and doesn't change any functionality. For more examples visit the official [FormKit documentation page](https://formkit.com/guides/build-a-multi-step-form)[[target=_blank]].", "warning"),
     block.example("Checkbox", {
       codesandboxConfig: { dependencies },
       title: "Checkbox",
