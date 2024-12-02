@@ -24,7 +24,7 @@
           v-else-if="step.valid && step.errorCount === 0"
           class="step--valid"
         >
-          <VaIcon size="14px" class="material-icons">check</VaIcon>
+          <VaIcon size="small" class="material-icons">check</VaIcon>
         </span>
         {{ camel2title(stepName) }}
       </VaTab>
@@ -32,17 +32,18 @@
   </VaTabs>
 
   <FormKit
-    v-slot="{ value, state: { valid, loading } }"
+    v-slot="{ state: { valid, loading } }"
     :type="types.form"
     :plugins="[stepPlugin]"
     :actions="false"
-    class="flex flex-col items-baseline gap-6 py-6"
     @submit="submitApp"
+    v-model="formValue"
+    class="flex flex-col my-4 mx-2"
   >
     <section
       v-show="activeStep === 'contactInfo'"
-      class="flex-col items-baseline gap-6"
-      :class="{ flex: activeStep === 'contactInfo' }"
+      :class="{ grid: activeStep === 'contactInfo' }"
+      class="grid-cols-1 md:grid-cols-3 gap-6"
     >
       <FormKit
         id="contactInfo"
@@ -76,36 +77,40 @@
 
     <section
       v-show="activeStep === 'organizationInfo'"
-      class="flex-col items-baseline gap-6"
-      :class="{ flex: activeStep === 'organizationInfo' }"
+      :class="{ grid: activeStep === 'organizationInfo' }"
+      class="grid-cols-1 md:grid-cols-3 gap-6"
     >
       <FormKit
         id="organizationInfo"
         type="group"
         name="organizationInfo"
+        class="grid grid-cols-1 md:grid-cols-3 gap-6"
       >
-        <FormKit
-          :type="types.text"
-          label="*Organization name"
-          name="org_name"
-          placeholder="MyOrg, Inc."
-          help="Enter your official organization name."
-          validation="required|length:3"
-        />
-
-        <FormKit
-          :type="types.date"
-          label="Date of incorporation"
-          :validation="date_rule"
-          name="date_inc"
-        />
+        <div>
+          <FormKit
+            :type="types.text"
+            label="*Organization name"
+            name="org_name"
+            placeholder="MyOrg, Inc."
+            help="Enter your official organization name."
+            validation="required|length:3"
+          />
+        </div>
+        <div>
+          <FormKit
+            :type="types.date"
+            label="Date of incorporation"
+            :validation="date_rule"
+            name="date_inc"
+          />
+        </div>
       </FormKit>
     </section>
 
     <section
       v-show="activeStep === 'application'"
-      class="flex-col items-baseline gap-6"
-      :class="{ flex: activeStep === 'application' }"
+      :class="{ grid: activeStep === 'application' }"
+      class="grid-cols-1 md:grid-cols-3 gap-6"
     >
       <FormKit
         id="application"
@@ -132,39 +137,40 @@
     </section>
 
     <!-- NEW: Adds Next / Previous navigation buttons. -->
-    <div class="flex gap-6">
-      <FormKit
-        :type="types.button"
-        :disabled="activeStep === 'contactInfo'"
-        @click="setStep(-1)"
-      >
-        {{ 'Previous step' }}
-      </FormKit>
-      <FormKit
-        :type="types.button"
-        class="next"
-        :disabled="activeStep === 'application' "
-        @click="setStep(1)"
-      >
-        {{ 'Next step' }}
+    <div class="flex justify-between mt-4">
+      <div class="flex gap-3">
+        <FormKit
+          :type="types.button"
+          preset="primary"
+          :disabled="activeStep === 'contactInfo'"
+          @click="setStep(-1)"
+        >
+          {{ 'Previous step' }}
+        </FormKit>
+
+        <FormKit
+          :type="types.button"
+          preset="primary"
+          class="next"
+          :disabled="activeStep === 'application'"
+          @click="setStep(1)"
+        >
+          {{ 'Next step' }}
+        </FormKit>
+      </div>
+
+      <FormKit :type="types.submit" :disabled="!valid">
+        {{ loading ? 'Submitting...' : 'Submit Application' }}
       </FormKit>
     </div>
-
-    <details>
-      <summary>Form data</summary>
-      <pre>{{ value }}</pre>
-    </details>
-
-    <!-- NEW: Adds submit button. -->
-    <FormKit :type="types.submit" :disabled="!valid">
-      {{ loading ? 'Submitting...' : 'Submit Application' }}
-    </FormKit>
   </FormKit>
 
-  <p>
-    <small><em>*All the contents of this form are fictional (the company, grant, and form)
-      for the purposes of demonstrating the capabilities of FormKit.</em></small>
-  </p>
+  <VaCollapse
+    class="min-w-96 mt-4"
+    header="Form data"
+  >
+    <pre>{{ formValue }}</pre>
+  </VaCollapse>
 </template>
 
 <script setup>
@@ -189,6 +195,8 @@ const submitApp = async (formData, node) => {
 const checkStepValidity = (stepName) => {
   return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
 }
+
+const formValue = ref({})
 </script>
 
 <style scoped lang="scss">

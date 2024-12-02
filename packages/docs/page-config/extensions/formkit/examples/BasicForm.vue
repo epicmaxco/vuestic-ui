@@ -4,44 +4,47 @@
   </h1>
 
   <FormKit
-    v-slot="{ value, state: { loading } }"
+    v-slot="{ state: { loading } }"
     :type="types.form"
-    class="flex flex-col items-baseline gap-6"
+    class="grid grid-cols-1 md:grid-cols-3 gap-6"
     :submit-label="loading ? 'Submitting...' : ''"
     @submit="submitApp"
+    v-model="formValue"
   >
-    <h3 class="text-lg font-bold mb-2">
-      Contact info
-    </h3>
-    <FormKit
-      :type="types.email"
-      label="*Email address"
-      validation="required|email"
-    />
+    <div>
+      <FormKit
+        :type="types.email"
+        name="email"
+        label="*Email address"
+        validation="required|email"
+      />
+    </div>
 
-    <h3 class="text-lg font-bold mb-2">
-      Organization info
-    </h3>
-    <FormKit
-      :type="types.text"
-      label="*Organization name"
-      validation="required|length:3"
-    />
+    <div>
+      <FormKit
+        :type="types.text"
+        name="organization_name"
+        label="*Organization name"
+        validation="required|length:3"
+      />
+    </div>
 
-    <h3 class="text-lg font-bold mb-2">
-      Application
-    </h3>
-    <FormKit
-      :type="types.textarea"
-      label="*How will you use the money?"
-      validation="required|length:5,10"
-    />
-
-    <details>
-      <summary>Form data</summary>
-      <pre>{{ value }}</pre>
-    </details>
+    <div>
+      <FormKit
+        :type="types.textarea"
+        name="money_use"
+        label="*How will you use the money?"
+        validation="required|length:5,10"
+      />
+    </div>
   </FormKit>
+
+  <VaCollapse
+    class="min-w-96 mt-4"
+    header="Form data"
+  >
+    <pre>{{ formValue }}</pre>
+  </VaCollapse>
 </template>
 
 <script setup>
@@ -53,6 +56,8 @@ const submitApp = async (_formData, node) => {
   node.clearErrors()
   alert('Your application was submitted successfully!')
 }
+
+const formValue = ref({})
 </script>
 
 <style scoped>
