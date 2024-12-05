@@ -5,4 +5,5 @@ import { plugin, defaultConfig } from '@formkit/vue'
 import 'vuestic-ui/css'
 import { createVuestic } from 'vuestic-ui'
 
+// @ts-ignore
 createApp(App).use(plugin, defaultConfig).use(createVuestic()).mount('#app')

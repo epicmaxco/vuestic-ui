@@ -34,6 +34,10 @@ export default definePageConfig({
       codesandboxConfig: { dependencies },
       title: "Checkbox",
     }),
+    block.example("Button", {
+      codesandboxConfig: { dependencies },
+      title: "Button",
+    }),
     block.example("BasicForm", {
       codesandboxConfig: { dependencies },
       title: "Basic Form",
