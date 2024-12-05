@@ -10,38 +10,7 @@ import {
   ignores,
 } from '@formkit/inputs'
 import { VaButton, VaMessageList, VaIcon } from 'vuestic-ui'
-import { icon } from './icon'
-
-
-export const help = createSection('help', () => ({
-  $cmp: 'VaMessageList',
-  if: '$help',
-  props: {
-    id: '$: "help-" + $id',
-    modelValue: '$help'
-  }
-}))
-
-
-export const message = createSection('message', () => ({
-  $el: 'li',
-  for: ['message', '$messages'],
-  attrs: {
-    key: '$message.key',
-    id: `$id + '-' + $message.key`,
-    'data-message-type': '$message.type',
-  },
-}))
-
-export const messages = createSection('messages', () => ({
-  $cmp: 'VaMessageList',
-  if: '$defaultMessagePlacement && $fns.length($messages)',
-  props: {
-    key: '$message.key',
-    id: `$id + '-' + $message.key`,
-    'data-message-type': '$message.type',
-  },
-}))
+import { icon, message, messages, help } from './sections'
 
 export const buttonInput = createSection('input', () => ({
   $cmp: 'VaButton',
