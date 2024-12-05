@@ -2,10 +2,6 @@ import { FormKitTypeDefinition } from '@formkit/core'
 import {
   outer,
   wrapper,
-  help,
-  messages,
-  message,
-  icon,
   prefix,
   suffix,
   createSection,
@@ -13,7 +9,39 @@ import {
   localize,
   ignores,
 } from '@formkit/inputs'
-import { VaButton } from 'vuestic-ui'
+import { VaButton, VaMessageList, VaIcon } from 'vuestic-ui'
+import { icon } from './icon'
+
+
+export const help = createSection('help', () => ({
+  $cmp: 'VaMessageList',
+  if: '$help',
+  props: {
+    id: '$: "help-" + $id',
+    modelValue: '$help'
+  }
+}))
+
+
+export const message = createSection('message', () => ({
+  $el: 'li',
+  for: ['message', '$messages'],
+  attrs: {
+    key: '$message.key',
+    id: `$id + '-' + $message.key`,
+    'data-message-type': '$message.type',
+  },
+}))
+
+export const messages = createSection('messages', () => ({
+  $cmp: 'VaMessageList',
+  if: '$defaultMessagePlacement && $fns.length($messages)',
+  props: {
+    key: '$message.key',
+    id: `$id + '-' + $message.key`,
+    'data-message-type': '$message.type',
+  },
+}))
 
 export const buttonInput = createSection('input', () => ({
   $cmp: 'VaButton',
@@ -25,7 +53,6 @@ export const buttonInput = createSection('input', () => ({
     id: '$id',
   },
 }))
-
 
 /**
  * Input definition for a button.
@@ -46,7 +73,7 @@ export const button: FormKitTypeDefinition = {
         icon('suffix')
       )
     ),
-    help('$help')
+    help()
   ),
   /**
    * The type of node, can be a list, group, or input.
@@ -67,12 +94,20 @@ export const button: FormKitTypeDefinition = {
   forceTypeProp: 'button',
 
   library: {
-    'VaButton': VaButton
+    VaButton,
+    VaMessageList,
+    VaIcon
   },
   /**
    * Additional features that should be added to your input
    */
   features: [localize('submit'), ignores],
+
+  /**
+   * A key to use for memoizing the schema. This is used to prevent the schema
+   * from needing to be stringified when performing a memo lookup.
+   */
+  schemaMemoKey: `${Math.random()}`,
 }
 
 export const submit = {

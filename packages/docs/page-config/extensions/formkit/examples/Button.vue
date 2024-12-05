@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as types from '../../src'
+import * as types from '@vuestic/formkit'
 
 type HTMLElementEvent<T = HTMLElement> = Event & {
   target: T;
@@ -18,7 +18,7 @@ const randomColor = (e: HTMLElementEvent) => {
 </script>
 
 <template>
-  <div class="d-flex flex-direction-column pa-4" style="gap: 1.5rem">
+  <div class="grid gap-6">
     <FormKit
       :type="types.button"
       color="danger"
