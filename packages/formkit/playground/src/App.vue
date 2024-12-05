@@ -18,29 +18,32 @@ const randomColor = (e: HTMLElementEvent) => {
 </script>
 
 <template>
-  <div class="d-flex flex-direction-column pa-4" style="gap: 1.5rem">
-    <FormKit
-      :type="types.button"
-      color="danger"
-      label="Checkout my label"
-      help="You can use the label prop."
-    />
+  <div class="p-5">
+    <h2 class="my-2">Button</h2>
+    <div class="flex flex-direction-column gap-row-6">
+      <FormKit
+        :type="types.button"
+        color="danger"
+        label="Checkout my label"
+        help="You can use the label prop."
+      />
 
-    <FormKit
-      :type="types.button"
-      help="You can use the default slot."
-      prefix-icon="check"
-    >
-      I have slot content
-    </FormKit>
+      <FormKit
+        :type="types.button"
+        help="You can use the default slot."
+        prefix-icon="check"
+      >
+        I have slot content
+      </FormKit>
 
-    <FormKit
-      :type="types.button"
-      help="You can bind event listeners."
-      @click="randomColor"
-    >
-      Click me!
-    </FormKit>
+      <FormKit
+        :type="types.button"
+        help="You can bind event listeners."
+        @click="randomColor"
+      >
+        Click me!
+      </FormKit>
+    </div>
   </div>
 </template>
 
