@@ -18,8 +18,18 @@ const randomColor = (e: HTMLElementEvent) => {
 </script>
 
 <template>
-  <div class="p-5">
-    <h2 class="my-2">Button</h2>
+  <div class="p-5 w-lg">
+    <h2 class="my-2">Color</h2>
+    <div class="flex flex-direction-column gap-row-6">
+      <FormKit
+        :type="types.color"
+        value="#00FF00"
+        label="Select a color"
+        help="Select your favorite color."
+      />
+    </div>
+
+<!--    <h2 class="my-2">Button</h2>
     <div class="flex flex-direction-column gap-row-6">
       <FormKit
         :type="types.button"
@@ -43,7 +53,7 @@ const randomColor = (e: HTMLElementEvent) => {
       >
         Click me!
       </FormKit>
-    </div>
+    </div>-->
   </div>
 </template>
 

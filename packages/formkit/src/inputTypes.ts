@@ -1,9 +1,10 @@
-import { VaInput, VaCheckbox, VaSelect, VaTextarea, VaCounter, VaTimeInput, VaColorInput, VaDateInput, VaFileUpload, VaRadio, VaSlider, VaRating, VaSwitch } from 'vuestic-ui';
+import { VaInput, VaCheckbox, VaSelect, VaTextarea, VaCounter, VaTimeInput, VaDateInput, VaFileUpload, VaRadio, VaSlider, VaRating, VaSwitch } from 'vuestic-ui';
 import { createInputWrapper } from './createInputWrapper';
+export { color } from './color'
 
 export const autocomplete = createInputWrapper(VaSelect, { autocomplete: true });
 export const checkbox = createInputWrapper(VaCheckbox);
-export const color = createInputWrapper(VaColorInput)
+// export const color = createInputWrapper(VaColorInput)
 export const date = createInputWrapper(VaDateInput);
 export const email = createInputWrapper(VaInput, { type: 'email' });
 export const file = createInputWrapper(VaFileUpload);
