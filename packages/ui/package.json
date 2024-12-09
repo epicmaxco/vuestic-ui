@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@floating-ui/vue": "^1.0.1",
+    "@formkit/vue": "^1.6.9",
     "@types/lodash": "^4.14.161",
     "cleave.js": "^1.6.0",
     "lodash": "^4.17.21"
@@ -62,6 +63,7 @@
     "@storybook/addon-essentials": "^7.1.0",
     "@storybook/addon-interactions": "^7.1.0",
     "@storybook/addon-links": "^7.1.0",
+    "@storybook/addon-storysource": "^7.1.0",
     "@storybook/blocks": "^7.1.0",
     "@storybook/jest": "^0.2.3",
     "@storybook/testing-library": "^0.0.14-next.2",

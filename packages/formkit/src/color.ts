@@ -9,6 +9,7 @@ import {
   casts,
   createSection
 } from '@formkit/inputs'
+import { VaColorInput, VaIcon, VaMessageList } from 'vuestic-ui'
 import { icon, messages, message, help } from './sections'
 
 
@@ -19,8 +20,7 @@ const colorInput = createSection('input', () => ({
     type: '$type',
     disabled: '$disabled',
     name: '$node.name',
-    onChange: '$handlers.DOMInput',
-    [`onUpdate:modelValue`]: '$handlers.DOMInput',
+    onInput: '$handlers.DOMInput',
     onBlur: '$handlers.blur',
     modelValue: '$_value',
     id: '$id',
@@ -68,6 +68,11 @@ export const color: FormKitTypeDefinition = {
    * Forces node.props.type to be this explicit value.
    */
   forceTypeProp: 'text',
+  library: {
+    VaColorInput,
+    VaMessageList,
+    VaIcon
+  },
   /**
    * Additional features that should be added to your input
    */

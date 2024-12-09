@@ -1,4 +1,5 @@
 import { type Preview, setup } from "@storybook/vue3";
+import { plugin as formkitPlugin, defaultConfig as formkitConfig } from '@formkit/vue'
 import './storybook-main.scss'
 import VbCard from './components/VbCard.vue'
 import VbDemo from './components/VbDemo.vue'
@@ -51,6 +52,8 @@ setup((app) => {
     },
     plugins: { VaToastPlugin, VaDropdownPlugin, VaModalPlugin, BreakpointConfigPlugin },
   }))
+
+  app.use(formkitPlugin, formkitConfig)
 })
 
 
