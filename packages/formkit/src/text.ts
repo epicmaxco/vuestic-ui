@@ -1,19 +1,23 @@
 import { type FormKitTypeDefinition } from '@formkit/core'
 import { casts, createSection } from '@formkit/inputs'
 import { VaInput } from 'vuestic-ui'
+import { VaFormKitWrapper } from './components';
 import { inputProps } from './features/inputProps';
 import { vuesticInputs } from './features/vuesticInputs';
 
 const textInput = createSection('input', () => ({
-  $cmp: 'VaInput',
+  $cmp: 'VaFormKitWrapper',
   bind: '$attrs',
   props: {
     ...inputProps,
+    component: VaInput,
     type: '$type',
     disabled: '$disabled',
     name: '$node.name',
     'aria-describedby': '$describedBy',
     'aria-required': '$state.required || undefined',
+    prefixIcon: '$prefixIcon',
+    suffixIcon: '$suffixIcon'
   },
 }))
 
@@ -43,7 +47,7 @@ export const text: FormKitTypeDefinition = {
    * A library of components to provide to the internal input schema
    */
   library: {
-    VaInput
+    VaFormKitWrapper
   },
   /**
    * Forces node.props.type to be this explicit value.

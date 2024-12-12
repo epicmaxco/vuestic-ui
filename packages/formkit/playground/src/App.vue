@@ -1,62 +1,32 @@
 <script setup lang="ts">
 import * as types from '../../src'
-
-type HTMLElementEvent<T = HTMLElement> = Event & {
-  target: T;
-}
-
-const randomColor = (e: HTMLElementEvent) => {
-  const hex = Math
-    .floor(Math.random()*16777215)
-    .toString(16);
-
-  e.target!.setAttribute(
-    'style',
-    'background-color: #' + hex + '88;'
-  )
-}
 </script>
 
 <template>
   <div class="p-5 w-lg">
-    <h2 class="my-2">Checkbox</h2>
-    <div class="flex flex-direction-column gap-row-6">
+    <div class="w-1/5 grid gap-6">
+      <h2>Basic Example</h2>
       <FormKit
-        :type="types.checkbox"
-        label="Terms and Conditions"
-        help="Do you agree to our terms of service?"
-        name="terms"
-        :value="true"
-        validation="accepted"
-        validation-visibility="dirty"
+        :type="types.text"
+        label="Your username"
+        value="calypso"
+        help="Pick a username people will remember!"
+        validation="required"
+        validation-visibility="live"
+        prefixIcon="check"
+      />
+
+      <h2>Cast to number</h2>
+      <FormKit
+        :type="types.text"
+        label="Atmospheric pressure"
+        name="pressure"
+        validation="number"
+        validation-visibility="live"
+        help="My value will be a number if it can be parsed by parseFloat"
+        value="29.82"
       />
     </div>
-
-<!--    <h2 class="my-2">Button</h2>
-    <div class="flex flex-direction-column gap-row-6">
-      <FormKit
-        :type="types.button"
-        color="danger"
-        label="Checkout my label"
-        help="You can use the label prop."
-      />
-
-      <FormKit
-        :type="types.button"
-        help="You can use the default slot."
-        prefix-icon="check"
-      >
-        I have slot content
-      </FormKit>
-
-      <FormKit
-        :type="types.button"
-        help="You can bind event listeners."
-        @click="randomColor"
-      >
-        Click me!
-      </FormKit>
-    </div>-->
   </div>
 </template>
 

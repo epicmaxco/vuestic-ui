@@ -21,6 +21,7 @@ export const Default: StoryFn = () => ({
         help="Pick a username people will remember!"
         validation="required"
         validation-visibility="live"
+        prefixIcon="check"
       />
 
       <h2>Cast to number</h2>
