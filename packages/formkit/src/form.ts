@@ -7,7 +7,7 @@ import {
   forms,
   disablesChildren,
 } from '@formkit/inputs'
-import { submit } from './button'
+import { submit } from './submit'
 
 
 export const message = createSection('message', () => ({

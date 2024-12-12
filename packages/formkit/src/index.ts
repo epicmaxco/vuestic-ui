@@ -1,3 +1,6 @@
-export * from './inputTypes'
 export { form } from './form'
-export { button, submit } from './button'
+export { button } from './button'
+export { submit } from './submit'
+export { color } from './color'
+export { checkbox } from './checkbox'
+export { text } from './text'

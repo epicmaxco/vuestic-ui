@@ -1,15 +1,21 @@
 import { type FormKitTypeDefinition } from '@formkit/core'
-import {
-  outer,
-  inner,
-  wrapper,
-  label,
-  prefix,
-  suffix,
-  textInput,
-  casts,
-} from '@formkit/inputs'
-import { icon, messages, message, help } from './sections'
+import { casts, createSection } from '@formkit/inputs'
+import { VaInput } from 'vuestic-ui'
+import { inputProps } from './features/inputProps';
+import { vuesticInputs } from './features/vuesticInputs';
+
+const textInput = createSection('input', () => ({
+  $cmp: 'VaInput',
+  bind: '$attrs',
+  props: {
+    ...inputProps,
+    type: '$type',
+    disabled: '$disabled',
+    name: '$node.name',
+    'aria-describedby': '$describedBy',
+    'aria-required': '$state.required || undefined',
+  },
+}))
 
 /**
  * Input definition for a text.
@@ -19,20 +25,7 @@ export const text: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: outer(
-    wrapper(
-      label('$label'),
-      inner(
-        icon('prefix', 'label'),
-        prefix(),
-        textInput(),
-        suffix(),
-        icon('suffix')
-      )
-    ),
-    help('$help'),
-    messages(message('$message.value'))
-  ),
+  schema: textInput(),
   /**
    * The type of node, can be a list, group, or input.
    */
@@ -47,13 +40,19 @@ export const text: FormKitTypeDefinition = {
    */
   props: [],
   /**
+   * A library of components to provide to the internal input schema
+   */
+  library: {
+    VaInput
+  },
+  /**
    * Forces node.props.type to be this explicit value.
    */
   forceTypeProp: 'text',
   /**
    * Additional features that should be added to your input
    */
-  features: [casts],
+  features: [casts, vuesticInputs],
   /**
    * The key used to memoize the schema.
    */

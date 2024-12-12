@@ -53,7 +53,7 @@ setup((app) => {
     plugins: { VaToastPlugin, VaDropdownPlugin, VaModalPlugin, BreakpointConfigPlugin },
   }))
 
-  app.use(formkitPlugin, formkitConfig)
+  app.use(formkitPlugin, formkitConfig())
 })
 
 

@@ -12,11 +12,15 @@ export const Default: StoryFn = () => ({
     }
   },
   template: `
-    <FormKit
-      :type="types.color"
-      value="#00FF00"
-      label="Select a color"
-      help="Select your favorite color."
-    />
+    <div class="w-1/5">
+      <FormKit
+        :type="types.color"
+        value=""
+        label="Select a color"
+        help="Select your favorite color."
+        validation="required"
+        validation-visibility="live"
+      />
+    </div>
   `,
 })

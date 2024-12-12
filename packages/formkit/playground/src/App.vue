@@ -19,13 +19,16 @@ const randomColor = (e: HTMLElementEvent) => {
 
 <template>
   <div class="p-5 w-lg">
-    <h2 class="my-2">Color</h2>
+    <h2 class="my-2">Checkbox</h2>
     <div class="flex flex-direction-column gap-row-6">
       <FormKit
-        :type="types.color"
-        value="#00FF00"
-        label="Select a color"
-        help="Select your favorite color."
+        :type="types.checkbox"
+        label="Terms and Conditions"
+        help="Do you agree to our terms of service?"
+        name="terms"
+        :value="true"
+        validation="accepted"
+        validation-visibility="dirty"
       />
     </div>
 

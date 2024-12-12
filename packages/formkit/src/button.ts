@@ -78,8 +78,3 @@ export const button: FormKitTypeDefinition = {
    */
   schemaMemoKey: `${Math.random()}`,
 }
-
-export const submit = {
-  ...button,
-  forceTypeProp: 'submit',
-}
