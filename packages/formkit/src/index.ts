@@ -1,6 +1,7 @@
 export { group, hidden, list, meta } from '@formkit/inputs'
 export { button } from './button'
 export { checkbox } from './checkbox'
+export { date } from './date'
 export { email } from './email'
 export { color } from './color'
 export { form } from './form'
