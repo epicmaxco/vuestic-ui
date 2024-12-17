@@ -18,7 +18,7 @@ const colorInput = createSection('input', () => ({
 }))
 
 /**
- * Input definition for a text.
+ * Input definition for a colorpicker.
  * @public
  */
 export const colorpicker: FormKitTypeDefinition = {

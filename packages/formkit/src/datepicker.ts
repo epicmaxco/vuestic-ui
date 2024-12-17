@@ -18,7 +18,7 @@ const dateInput = createSection('input', () => ({
 }))
 
   /**
-  * Input definition for a text.
+  * Input definition for a datepicker.
 * @public
 */
 export const datepicker: FormKitTypeDefinition = {

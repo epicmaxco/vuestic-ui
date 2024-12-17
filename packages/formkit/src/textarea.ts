@@ -1,13 +1,13 @@
 import { type FormKitTypeDefinition } from '@formkit/core'
 import { casts, createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaCheckbox } from 'vuestic-ui'
-import { vuesticInputs } from './features/vuesticInputs';
-import { createInputWrapper } from './createInputWrapper';
+import { VaTextarea } from 'vuestic-ui'
+import { vuesticInputs } from './features/vuesticInputs'
+import { createInputWrapper } from './createInputWrapper'
 
-const FormKitInputWrapper = createInputWrapper(VaCheckbox)
+const FormKitInputWrapper = createInputWrapper(VaTextarea)
 
-const boxInput = createSection('input', () => ({
+const textareaInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
@@ -18,14 +18,14 @@ const boxInput = createSection('input', () => ({
 }))
 
 /**
- * Input definition for a checkbox.
+ * Input definition for a textarea.
  * @public
  */
-export const checkbox: FormKitTypeDefinition = {
+export const textarea: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: boxInput(),
+  schema: textareaInput(),
   /**
    * The type of node, can be a list, group, or input.
    */
@@ -48,7 +48,7 @@ export const checkbox: FormKitTypeDefinition = {
   /**
    * Forces node.props.type to be this explicit value.
    */
-  forceTypeProp: 'checkbox',
+  forceTypeProp: 'text',
   /**
    * Additional features that should be added to your input
    */

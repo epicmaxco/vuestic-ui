@@ -1,26 +1,14 @@
 import { FormKitTypeDefinition } from '@formkit/core'
 import { token } from '@formkit/utils'
-import { VaForm, VaButton } from 'vuestic-ui'
+import { VaForm, VaMessageList } from 'vuestic-ui'
 import {
-  messages,
   actions,
   createSection,
   forms,
   disablesChildren,
 } from '@formkit/inputs'
+import { messages, message } from './sections'
 import { submit } from './submit'
-
-
-export const message = createSection('message', () => ({
-  $el: 'li',
-  for: ['message', '$messages'],
-  attrs: {
-    style: 'color: var(--va-danger)',
-    key: '$message.key',
-    id: `$id + '-' + $message.key`,
-    'data-message-type': '$message.type',
-  },
-}))
 
 export const formInput = createSection('form', () => ({
   $cmp: 'VaForm',
@@ -75,8 +63,8 @@ export const form: FormKitTypeDefinition = {
   ],
 
   library: {
-    'VaForm': VaForm,
-    'VaButton': VaButton
+    VaForm,
+    VaMessageList,
   },
   /**
    * Additional features that should be added to your input
