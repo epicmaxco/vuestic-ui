@@ -1,56 +1,31 @@
-import { type FormKitTypeDefinition } from '@formkit/core'
-import {
-  outer,
-  inner,
-  wrapper,
-  label,
-  prefix,
-  suffix,
-  casts,
-  createSection
-} from '@formkit/inputs'
-import { VaColorInput, VaIcon, VaMessageList } from 'vuestic-ui'
-import { icon, messages, message, help } from './sections'
+import type { FormKitTypeDefinition } from '@formkit/core'
+import { casts, createSection } from '@formkit/inputs'
+import { token } from '@formkit/utils'
+import { VaColorInput } from 'vuestic-ui'
+import { vuesticInputs } from './features/vuesticInputs'
+import { createInputWrapper } from './createInputWrapper'
 
+const FormKitInputWrapper = createInputWrapper(VaColorInput);
 
 const colorInput = createSection('input', () => ({
-  $cmp: 'VaColorInput',
+  $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
-    type: '$type',
-    disabled: '$disabled',
-    name: '$node.name',
-    onInput: '$handlers.DOMInput',
-    onBlur: '$handlers.blur',
-    modelValue: '$_value',
-    id: '$id',
-    'aria-describedby': '$describedBy',
-    'aria-required': '$state.required || undefined',
-  },
+    context: '$node.context',
+    prefixIcon: '$prefixIcon',
+    suffixIcon: '$suffixIcon'
+  }
 }))
 
 /**
  * Input definition for a text.
  * @public
  */
-export const color: FormKitTypeDefinition = {
+export const colorpicker: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: outer(
-    wrapper(
-      label('$label'),
-      inner(
-        icon('prefix', 'label'),
-        prefix(),
-        colorInput(),
-        suffix(),
-        icon('suffix')
-      )
-    ),
-    help('$help'),
-    messages(message('$message.value'))
-  ),
+  schema: colorInput(),
   /**
    * The type of node, can be a list, group, or input.
    */
@@ -65,20 +40,21 @@ export const color: FormKitTypeDefinition = {
    */
   props: [],
   /**
+   * A library of components to provide to the internal input schema
+   */
+  library: {
+    FormKitInputWrapper
+  },
+  /**
    * Forces node.props.type to be this explicit value.
    */
   forceTypeProp: 'text',
-  library: {
-    VaColorInput,
-    VaMessageList,
-    VaIcon
-  },
   /**
    * Additional features that should be added to your input
    */
-  features: [casts],
+  features: [casts, vuesticInputs],
   /**
    * The key used to memoize the schema.
    */
-  schemaMemoKey: `${Math.random()}`,
+  schemaMemoKey: token(),
 }

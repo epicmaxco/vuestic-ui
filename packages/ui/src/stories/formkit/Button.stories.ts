@@ -48,6 +48,15 @@ export const Default: StoryFn = () => ({
       >
         Click me!
       </FormKit>
+
+      <h2>Loading</h2>
+      <FormKit
+        :type="types.button"
+        help="You can bind event listeners."
+        loading
+      >
+        Click me!
+      </FormKit>
     </div>
   `,
 })

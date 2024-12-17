@@ -1,23 +1,20 @@
 import { type FormKitTypeDefinition } from '@formkit/core'
 import { casts, createSection } from '@formkit/inputs'
-import { VaFormKitWrapper } from './components';
-import { inputProps } from './features/inputProps';
+import { token } from '@formkit/utils'
+import { VaInput } from 'vuestic-ui'
 import { vuesticInputs } from './features/vuesticInputs';
+import { createInputWrapper } from './createInputWrapper';
+
+const FormKitInputWrapper = createInputWrapper(VaInput)
 
 const textInput = createSection('input', () => ({
-  $cmp: 'VaFormKitWrapper',
+  $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
-    ...inputProps,
-    component: 'VaInput',
-    type: '$type',
-    disabled: '$disabled',
-    name: '$node.name',
-    'aria-describedby': '$describedBy',
-    'aria-required': '$state.required || undefined',
+    context: '$node.context',
     prefixIcon: '$prefixIcon',
     suffixIcon: '$suffixIcon'
-  },
+  }
 }))
 
 /**
@@ -46,7 +43,7 @@ export const text: FormKitTypeDefinition = {
    * A library of components to provide to the internal input schema
    */
   library: {
-    VaFormKitWrapper
+    FormKitInputWrapper
   },
   /**
    * Forces node.props.type to be this explicit value.
@@ -59,5 +56,5 @@ export const text: FormKitTypeDefinition = {
   /**
    * The key used to memoize the schema.
    */
-  schemaMemoKey: `${Math.random()}`,
+  schemaMemoKey: token(),
 }

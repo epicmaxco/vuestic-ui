@@ -9,7 +9,9 @@ import {
   localize,
   ignores,
 } from '@formkit/inputs'
+import { token } from '@formkit/utils'
 import { VaButton, VaMessageList, VaIcon } from 'vuestic-ui'
+import { vuesticInputs } from './features/vuesticInputs';
 import { icon, message, messages, help } from './sections'
 
 export const buttonInput = createSection('input', () => ({
@@ -20,6 +22,7 @@ export const buttonInput = createSection('input', () => ({
     disabled: '$disabled',
     name: '$node.name',
     id: '$id',
+    loading: '$loading'
   },
 }))
 
@@ -70,11 +73,11 @@ export const button: FormKitTypeDefinition = {
   /**
    * Additional features that should be added to your input
    */
-  features: [localize('submit'), ignores],
+  features: [localize('submit'), ignores, vuesticInputs],
 
   /**
    * A key to use for memoizing the schema. This is used to prevent the schema
    * from needing to be stringified when performing a memo lookup.
    */
-  schemaMemoKey: `${Math.random()}`,
+  schemaMemoKey: token(),
 }

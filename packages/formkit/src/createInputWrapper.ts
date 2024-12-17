@@ -1,48 +1,40 @@
-import { Component, ref, defineComponent, h, PropType } from "vue"
-import { FormKitFrameworkContext, FormKitTypeDefinition } from '@formkit/core';
+import { Component, defineComponent, h, PropType } from 'vue'
+import { FormKitFrameworkContext } from '@formkit/core'
+import { VaIcon } from 'vuestic-ui'
 
-type VuesticFormKitTypeDefinition<C extends Component> = FormKitTypeDefinition & { __va_component?: C}
+export const createInputWrapper =  <C extends Component>(component: C) => {
+  return defineComponent({
+    name: `${component.name ?? 'Va'}FormKitWrapper`,
 
-export const createInputWrapper =  <C extends Component>(component: C, componentProps?: Record<string, any>): VuesticFormKitTypeDefinition<C> => {
-  return {
-    type: 'input',
-    component: defineComponent({
-      name: `${component.name ?? 'Va'}FormKitWrapper`,
-
-      props: {
-        context: {
-          type: Object as PropType<FormKitFrameworkContext>,
-          required: true,
-        },
+    props: {
+      context: {
+        type: Object as PropType<FormKitFrameworkContext>,
+        required: true,
       },
+      prefixIcon: String as PropType<string>,
+      suffixIcon: String as PropType<string>,
+    },
 
-      setup(props, { slots, attrs }) {
-        const errorMessages = ref()
-
-        props.context.node.hook.message((payload, next) => {
-          if (['validation', 'error'].includes(payload.type) && payload.visible) {
-            errorMessages.value = payload.value
-          }
-
-          return next(payload)
+    setup(props, { slots, attrs }) {
+      return () => {
+        return h(component, {
+          ...attrs,
+          modelValue: props.context._value,
+          'onUpdate:modelValue': props.context.node.input,
+          onBlur: props.context.handlers.blur,
+          error: props.context.defaultMessagePlacement && props.context.fns.length(props.context.messages),
+          messages: props.context.help,
+          errorMessages: Object.values(props.context.messages).map(m => m.value),
+          disabled: props.context.disabled,
+          label: props.context.label,
+          type: props.context.type,
+          loading: props.context.loading,
+        }, {
+          ...(props.prefixIcon && { prependInner: () => h(VaIcon, { class: 'material-icons' }, props.prefixIcon) }),
+          ...(props.suffixIcon && { appendInner: () => h(VaIcon, { class: 'material-icons' }, props.suffixIcon) }),
+          ...slots
         })
-
-        return () => {
-          return h(component, {
-            ...componentProps,
-            ...attrs,
-            modelValue: props.context.value,
-            'onUpdate:modelValue': (value: any) => {
-              props.context.node.input(value)
-            },
-            error: props.context.state.failing || props.context.state.errors,
-            dirty: props.context.state.dirty || props.context.state.submitted,
-            messages: props.context.help,
-            errorMessages: errorMessages.value,
-            label: props.context.label
-          }, slots)
-        }
       }
-    }),
-  }
+    }
+  })
 }

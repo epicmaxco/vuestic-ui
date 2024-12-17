@@ -1,84 +1,31 @@
-import { FormKitTypeDefinition } from '@formkit/core'
-import {
-  outer,
-  boxInner,
-  help,
-  boxHelp,
-  messages,
-  message,
-  prefix,
-  suffix,
-  fieldset,
-  decorator,
-  box,
-  icon,
-  legend,
-  boxOption,
-  boxOptions,
-  boxWrapper,
-  boxLabel,
-  options,
-  checkboxes,
-  $if,
-  $extend,
-  defaultIcon,
-} from '@formkit/inputs'
+import { type FormKitTypeDefinition } from '@formkit/core'
+import { casts, createSection } from '@formkit/inputs'
+import { token } from '@formkit/utils'
+import { VaCheckbox } from 'vuestic-ui'
+import { vuesticInputs } from './features/vuesticInputs';
+import { createInputWrapper } from './createInputWrapper';
+
+const FormKitInputWrapper = createInputWrapper(VaCheckbox)
+
+const boxInput = createSection('input', () => ({
+  $cmp: 'FormKitInputWrapper',
+  bind: '$attrs',
+  props: {
+    context: '$node.context',
+    prefixIcon: '$prefixIcon',
+    suffixIcon: '$suffixIcon'
+  }
+}))
 
 /**
- * Input definition for a checkbox(ess).
+ * Input definition for a text.
  * @public
  */
 export const checkbox: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: outer(
-    $if(
-      '$options == undefined',
-      /**
-       * Single checkbox structure.
-       */
-      boxWrapper(
-        boxInner(prefix(), box(), decorator(icon('decorator')), suffix()),
-        $extend(boxLabel('$label'), {
-          if: '$label',
-        })
-      ),
-      /**
-       * Multi checkbox structure.
-       */
-      fieldset(
-        legend('$label'),
-        help('$help'),
-        boxOptions(
-          boxOption(
-            boxWrapper(
-              boxInner(
-                prefix(),
-                $extend(box(), {
-                  bind: '$option.attrs',
-                  attrs: {
-                    id: '$option.attrs.id',
-                    value: '$option.value',
-                    checked: '$fns.isChecked($option.value)',
-                  },
-                }),
-                decorator(icon('decorator')),
-                suffix()
-              ),
-              $extend(boxLabel('$option.label'), {
-                if: '$option.label',
-              })
-            ),
-            boxHelp('$option.help')
-          )
-        )
-      )
-    ),
-    // Help text only goes under the input when it is a single.
-    $if('$options == undefined && $help', help('$help')),
-    messages(message('$message.value'))
-  ),
+  schema: boxInput(),
   /**
    * The type of node, can be a list, group, or input.
    */
@@ -87,21 +34,27 @@ export const checkbox: FormKitTypeDefinition = {
    * The family of inputs this one belongs too. For example "text" and "email"
    * are both part of the "text" family. This is primary used for styling.
    */
-  family: 'box',
+  family: 'text',
   /**
    * An array of extra props to accept for this input.
    */
-  props: ['options', 'onValue', 'offValue', 'optionsLoader'],
+  props: [],
+  /**
+   * A library of components to provide to the internal input schema
+   */
+  library: {
+    FormKitInputWrapper
+  },
+  /**
+   * Forces node.props.type to be this explicit value.
+   */
+  forceTypeProp: 'checkbox',
   /**
    * Additional features that should be added to your input
    */
-  features: [
-    options,
-    checkboxes,
-    defaultIcon('decorator', 'checkboxDecorator'),
-  ],
+  features: [casts, vuesticInputs],
   /**
    * The key used to memoize the schema.
    */
-  schemaMemoKey: 'qje02tb3gu8',
+  schemaMemoKey: token(),
 }
