@@ -1,5 +1,6 @@
 import { FormKitTypeDefinition } from '@formkit/core'
-import { VaForm, VaButton } from "vuestic-ui";
+import { token } from '@formkit/utils'
+import { VaForm, VaButton } from 'vuestic-ui'
 import {
   messages,
   actions,
@@ -81,4 +82,8 @@ export const form: FormKitTypeDefinition = {
    * Additional features that should be added to your input
    */
   features: [forms, disablesChildren],
+  /**
+   * The key used to memoize the schema.
+   */
+  schemaMemoKey: token(),
 }

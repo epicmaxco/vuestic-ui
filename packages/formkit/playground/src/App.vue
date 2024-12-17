@@ -5,6 +5,15 @@ import * as types from '../../src'
 <template>
   <div class="p-5 w-lg">
     <div class="w-1/5 grid gap-6">
+      <h2>Datepicker</h2>
+      <FormKit
+        :type="types.datepicker"
+        value="1999-01-01"
+        label="Birthday"
+        help="Enter your birth day"
+        validation="required|date_before:2010-01-01"
+        validation-visibility="live"
+      />
       <h2>Colorpicker</h2>
       <FormKit
         :type="types.colorpicker"
