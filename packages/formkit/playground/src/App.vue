@@ -5,6 +5,15 @@ import * as types from '../../src'
 <template>
   <div class="p-5 w-lg">
     <div class="w-1/5 grid gap-6">
+      <h2>Checkbox</h2>
+      <FormKit
+        :type="types.checkbox"
+        label="Terms and Conditions"
+        help="Do you agree to our terms of service?"
+        name="terms"
+        validation="accepted"
+        validation-visibility="dirty"
+      />
       <h2>Datepicker</h2>
       <FormKit
         :type="types.datepicker"

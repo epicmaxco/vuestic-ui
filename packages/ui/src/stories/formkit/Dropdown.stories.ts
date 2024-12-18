@@ -1,5 +1,6 @@
 import { StoryFn } from '@storybook/vue3'
 import * as types from '@vuestic/formkit'
+import countries from './countries'
 
 export default {
   title: 'Formkit Integration/Dropdown',
@@ -26,6 +27,26 @@ export const Default: StoryFn = () => ({
       label="Choose your favorite frontend framework"
       placeholder="Backbone.js"
       :options="frameworks"
+    />
+  `,
+})
+
+export const Autocomplete: StoryFn = () => ({
+
+  setup () {
+    return {
+      types,
+      countries,
+    }
+  },
+  template: `
+    <FormKit
+      :type="types.dropdown"
+      name="country"
+      label="Search for a country"
+      placeholder="Example: United States"
+      searchable
+      :options="countries"
     />
   `,
 })
