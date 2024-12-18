@@ -7,7 +7,7 @@ import { createInputWrapper } from './createInputWrapper';
 
 const FormKitInputWrapper = createInputWrapper(VaSlider)
 
-const rangeInput = createSection('input', () => ({
+const sliderInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
@@ -25,7 +25,7 @@ export const slider: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: rangeInput(),
+  schema: sliderInput(),
   /**
    * The type of node, can be a list, group, or input.
    */

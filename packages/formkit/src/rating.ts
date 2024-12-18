@@ -1,36 +1,31 @@
 import { type FormKitTypeDefinition } from '@formkit/core'
-import { createSection, outer } from '@formkit/inputs'
+import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaFileUpload } from 'vuestic-ui'
+import { VaRating } from 'vuestic-ui'
 import { vuesticInputs } from './features/vuesticInputs';
-import { help, message, messages } from './sections';
 import { createInputWrapper } from './createInputWrapper';
 
-const FormKitInputWrapper = createInputWrapper(VaFileUpload)
+const FormKitInputWrapper = createInputWrapper(VaRating)
 
-const fileInput = createSection('input', () => ({
+const ratingInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
     context: '$node.context',
     prefixIcon: '$prefixIcon',
     suffixIcon: '$suffixIcon'
-  },
+  }
 }))
 
 /**
- * Input definition for a file.
+ * Input definition for a rating.
  * @public
  */
-export const file: FormKitTypeDefinition = {
+export const rating: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: outer(
-    messages(message()),
-    fileInput(),
-    help(),
-  ),
+  schema: ratingInput(),
   /**
    * The type of node, can be a list, group, or input.
    */

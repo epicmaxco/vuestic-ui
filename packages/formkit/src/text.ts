@@ -1,5 +1,5 @@
 import { type FormKitTypeDefinition } from '@formkit/core'
-import { casts, createSection } from '@formkit/inputs'
+import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
 import { VaInput } from 'vuestic-ui'
 import { vuesticInputs } from './features/vuesticInputs'
@@ -52,7 +52,7 @@ export const text: FormKitTypeDefinition = {
   /**
    * Additional features that should be added to your input
    */
-  features: [casts, vuesticInputs],
+  features: [vuesticInputs],
   /**
    * The key used to memoize the schema.
    */
