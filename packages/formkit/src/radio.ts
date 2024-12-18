@@ -1,13 +1,13 @@
 import { type FormKitTypeDefinition } from '@formkit/core'
-import { createSection } from '@formkit/inputs'
+import { casts, createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaCheckbox } from 'vuestic-ui'
+import { VaRadio } from 'vuestic-ui'
 import { vuesticInputs } from './features/vuesticInputs';
 import { createInputWrapper } from './createInputWrapper';
 
-const FormKitInputWrapper = createInputWrapper(VaCheckbox)
+const FormKitInputWrapper = createInputWrapper(VaRadio)
 
-const boxInput = createSection('input', () => ({
+const radioInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
@@ -21,11 +21,11 @@ const boxInput = createSection('input', () => ({
  * Input definition for a checkbox.
  * @public
  */
-export const checkbox: FormKitTypeDefinition = {
+export const radio: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: boxInput(),
+  schema: radioInput(),
   /**
    * The type of node, can be a list, group, or input.
    */
@@ -48,11 +48,11 @@ export const checkbox: FormKitTypeDefinition = {
   /**
    * Forces node.props.type to be this explicit value.
    */
-  forceTypeProp: 'checkbox',
+  forceTypeProp: 'radio',
   /**
    * Additional features that should be added to your input
    */
-  features: [vuesticInputs],
+  features: [casts, vuesticInputs],
   /**
    * The key used to memoize the schema.
    */
