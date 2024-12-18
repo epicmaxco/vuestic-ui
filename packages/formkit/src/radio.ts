@@ -18,7 +18,7 @@ const radioInput = createSection('input', () => ({
 }))
 
 /**
- * Input definition for a checkbox.
+ * Input definition for a radio.
  * @public
  */
 export const radio: FormKitTypeDefinition = {
@@ -45,10 +45,6 @@ export const radio: FormKitTypeDefinition = {
   library: {
     FormKitInputWrapper
   },
-  /**
-   * Forces node.props.type to be this explicit value.
-   */
-  forceTypeProp: 'radio',
   /**
    * Additional features that should be added to your input
    */

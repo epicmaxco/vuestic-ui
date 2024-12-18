@@ -3,7 +3,7 @@ import * as types from '@vuestic/formkit'
 import { ref } from 'vue'
 
 export default {
-  title: 'Formkit Integration/Radio',
+  title: 'Formkit Integration/Range',
 }
 
 export const Default: StoryFn = () => ({
@@ -17,10 +17,12 @@ export const Default: StoryFn = () => ({
   template: `
     <FormKit
       v-model="value"
-      :type="types.radio"
-      label="Preferred transportation"
-      :options="['E-Bike', 'E-Scooter', 'Electric car', 'Walking', 'Space tube']"
-      help="How do you like to get around?"
+      :type="types.range"
+      label="Volume"
+      min="0"
+      max="11"
+      help="Select your volume level."
     />
+    <pre wrap>{{ value }}</pre>
   `,
 })
