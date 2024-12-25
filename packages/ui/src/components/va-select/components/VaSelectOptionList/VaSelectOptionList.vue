@@ -309,14 +309,14 @@ const focusNextOption = () => {
 const focusFirstOption = () => updateFocusedOption(findNextActiveOption(0))
 
 const { itemRefs, setItemRef } = useObjectRefs()
-const virtualScrollerRef = shallowRef<Array<ComponentPublicInstance>>()
+const virtualScrollerRef = shallowRef<ComponentPublicInstance>()
 const scrollToOption = (option: SelectOption) => {
   if (!isValueExists(option)) { return }
 
   const element = unwrapEl(itemRefs.value[getTrackBy(option)])
   if (element) { scrollToElement(element) }
 
-  const virtualScroller = virtualScrollerRef.value?.[0]
+  const virtualScroller = virtualScrollerRef.value
 
   if (props.virtualScroller) { (virtualScroller as any).virtualScrollTo(currentOptionIndex.value) }
 }
