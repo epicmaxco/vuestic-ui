@@ -1,22 +1,38 @@
 {
   "name": "@vuestic/formkit",
-  "version": "0.0.1",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "version": "0.1.0",
+  "keywords": [
+    "vuesticui",
+    "vuestic",
+    "formkit",
+    "vue"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "description": "Custom FormKit inputs done with Vuestic UI.",
+  "homepage": "https://vuestic.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/epicmaxco/vuestic-ui.git"
+  },
   "license": "MIT",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "rm -rf dist && tsup src/index.ts --format esm",
+    "build": "rm -rf dist && tsup src/index.ts --format esm --dts",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@formkit/core": "^1.6.7",
     "@formkit/inputs": "^1.6.7",
     "@formkit/utils": "^1.6.7",
-    "@formkit/vue": "^1.6.7",
-    "vuestic-ui": "*"
+    "@formkit/vue": "^1.6.7"
   },
   "peerDependencies": {
-    "vuestic-ui": "^1.10.3"
+    "vuestic-ui": "^1.10.3",
+    "vue": "^3.0.4"
   },
   "devDependencies": {
     "tsup": "^6.5.0"
