@@ -2391,7 +2391,7 @@
     "@floating-ui/utils" "^0.2.8"
     vue-demi ">=0.13.0"
 
-"@formkit/core@1.6.9", "@formkit/core@^1.6.7":
+"@formkit/core@1.6.9", "@formkit/core@^1.6.9":
   version "1.6.9"
   resolved "https://registry.yarnpkg.com/@formkit/core/-/core-1.6.9.tgz#36f0ee738483c109a3749de3fe17f46791fad93f"
   integrity sha512-Zb5OkYKMf7Rp1pd4iUMv0TJQvfgl1PdKtRRQoGiTA0XIFLB/7tcRMr1wc5isA2JS+hllfxMTh3RWF8N+64fTMg==
@@ -2415,7 +2415,7 @@
     "@formkit/utils" "1.6.9"
     "@formkit/validation" "1.6.9"
 
-"@formkit/inputs@1.6.9", "@formkit/inputs@^1.6.7":
+"@formkit/inputs@1.6.9", "@formkit/inputs@^1.6.9":
   version "1.6.9"
   resolved "https://registry.yarnpkg.com/@formkit/inputs/-/inputs-1.6.9.tgz#1b00fb3e81f508c3e8366be4ad558067b4061f67"
   integrity sha512-k9gjV1e5F87NxSnu13JtKb30XYt6ndx2KGHZG8Xz0etoP75yJlMaeROHHPvlxdy2gZM6qH7Ex4it51W74Wh2Eg==
@@ -2461,7 +2461,7 @@
   dependencies:
     "@formkit/core" "1.6.9"
 
-"@formkit/utils@1.6.9", "@formkit/utils@^1.6.7":
+"@formkit/utils@1.6.9", "@formkit/utils@^1.6.9":
   version "1.6.9"
   resolved "https://registry.yarnpkg.com/@formkit/utils/-/utils-1.6.9.tgz#df320972b30d5cea8f416c24b446a598737d5819"
   integrity sha512-vSFhB/Sm/A+SdwKdBi4WhJcdbePqSYRaB878Ol9HL8roTmmmgQpThvkv6EjLM6aRRP27Il5rS8XtIAIeh8vdTA==
@@ -2475,7 +2475,7 @@
     "@formkit/observer" "1.6.9"
     "@formkit/utils" "1.6.9"
 
-"@formkit/vue@1.6.9", "@formkit/vue@^1.6.7", "@formkit/vue@^1.6.9":
+"@formkit/vue@1.6.9", "@formkit/vue@^1.6.9":
   version "1.6.9"
   resolved "https://registry.yarnpkg.com/@formkit/vue/-/vue-1.6.9.tgz#2393c49757e3c13790432c7e1e93458710ca9a10"
   integrity sha512-WrjAtEsKnFJzxQuATWsWKMpTAyJE15PUmRh9hwEAqgTDy2yMog1gxqxfZv3rEAdIdgXNp08tWmRVnQgDIF3vAQ==

@@ -33,12 +33,12 @@
 
   <FormKit
     v-slot="{ state: { valid, loading } }"
+    v-model="formValue"
     :type="types.form"
     :plugins="[stepPlugin]"
     :actions="false"
-    @submit="submitApp"
-    v-model="formValue"
     class="flex flex-col my-4 mx-2"
+    @submit="submitApp"
   >
     <section
       v-show="activeStep === 'contactInfo'"
@@ -47,7 +47,7 @@
     >
       <FormKit
         id="contactInfo"
-        type="group"
+        :type="types.group"
         name="contactInfo"
       >
         <FormKit

@@ -29,15 +29,6 @@ export default definePageConfig({
     // block.code(installCommandObject, "bash"),
     // block.paragraph("Then add the plugin to your main.* file"),
     // block.code(setupCode, "js"),
-    // block.alert("Vuestic-UI provides styles for FormKit components and doesn't change any functionality. For more examples visit the official [FormKit documentation page](https://formkit.com/guides/build-a-multi-step-form)[[target=_blank]].", "warning"),
-    block.example("Checkbox", {
-      codesandboxConfig: { dependencies },
-      title: "Checkbox",
-    }),
-    block.example("Button", {
-      codesandboxConfig: { dependencies },
-      title: "Button",
-    }),
     block.example("BasicForm", {
       codesandboxConfig: { dependencies },
       title: "Basic Form",

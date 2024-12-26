@@ -1,6 +1,6 @@
 {
   "name": "@vuestic/formkit",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "keywords": [
     "vuesticui",
     "vuestic",
@@ -25,10 +25,10 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@formkit/core": "^1.6.7",
-    "@formkit/inputs": "^1.6.7",
-    "@formkit/utils": "^1.6.7",
-    "@formkit/vue": "^1.6.7"
+    "@formkit/core": "^1.6.9",
+    "@formkit/inputs": "^1.6.9",
+    "@formkit/utils": "^1.6.9",
+    "@formkit/vue": "^1.6.9"
   },
   "peerDependencies": {
     "vuestic-ui": "^1.10.3",
