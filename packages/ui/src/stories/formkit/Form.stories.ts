@@ -36,7 +36,7 @@ export const Basic: StoryFn = () => ({
         v-slot="{ state: { loading } }"
         v-model="formValue"
         :type="types.form"
-        class="grid grid-cols-1 md:grid-cols-3 gap-6"
+        class="grid grid-cols-1 gap-6"
         :submit-label="loading ? 'Submitting...' : ''"
         @submit="submitApp"
       >

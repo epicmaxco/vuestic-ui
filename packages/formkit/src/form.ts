@@ -7,15 +7,13 @@ import {
   forms,
   disablesChildren,
 } from '@formkit/inputs'
-import { messages, message } from './sections'
+import { messages } from './sections'
 import { submit } from './submit'
+import { vuesticInputs } from "./features/vuesticInputs";
 
 export const formInput = createSection('form', () => ({
   $cmp: 'VaForm',
   bind: '$attrs',
-  meta: {
-    autoAnimate: true,
-  },
   props: {
     id: '$id',
     name: '$node.name',
@@ -43,7 +41,7 @@ export const form: FormKitTypeDefinition = {
    */
   schema: formInput(
     '$slots.default',
-    messages(message('$message.value')),
+    messages(),
     actions(submitInput())
   ),
   /**
@@ -69,7 +67,7 @@ export const form: FormKitTypeDefinition = {
   /**
    * Additional features that should be added to your input
    */
-  features: [forms, disablesChildren],
+  features: [vuesticInputs, forms, disablesChildren],
   /**
    * The key used to memoize the schema.
    */

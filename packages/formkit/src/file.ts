@@ -3,7 +3,7 @@ import { createSection, outer } from '@formkit/inputs'
 import { token } from '@formkit/utils'
 import { VaFileUpload } from 'vuestic-ui'
 import { vuesticInputs } from './features/vuesticInputs';
-import { help, message, messages } from './sections';
+import { help, messages } from './sections';
 import { createInputWrapper } from './createInputWrapper';
 
 const FormKitInputWrapper = createInputWrapper(VaFileUpload)
@@ -27,7 +27,7 @@ export const file: FormKitTypeDefinition = {
    * The actual schema of the input, or a function that returns the schema.
    */
   schema: outer(
-    messages(message()),
+    messages(),
     fileInput(),
     help(),
   ),

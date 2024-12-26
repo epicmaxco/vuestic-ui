@@ -12,7 +12,7 @@ import {
 import { token } from '@formkit/utils'
 import { VaButton, VaMessageList, VaIcon } from 'vuestic-ui'
 import { vuesticInputs } from './features/vuesticInputs';
-import { icon, message, messages, help } from './sections'
+import { icon, messages, help } from './sections'
 
 export const buttonInput = createSection('input', () => ({
   $cmp: 'VaButton',
@@ -35,7 +35,7 @@ export const button: FormKitTypeDefinition = {
    * The actual schema of the input, or a function that returns the schema.
    */
   schema: outer(
-    messages(message('$message.value')),
+    messages(),
     wrapper(
       buttonInput(
         icon('prefix'),

@@ -1,5 +1,4 @@
-import { createSection, type FormKitSchemaExtendableSection } from "@formkit/inputs";
-
+import { createSection, type FormKitSchemaExtendableSection } from '@formkit/inputs'
 
 export const icon = (
   sectionKey: string,
@@ -34,22 +33,12 @@ export const help = createSection('help', () => ({
   }
 }))
 
-export const message = createSection('message', () => ({
-  $el: 'li',
-  for: ['message', '$messages'],
-  attrs: {
-    key: '$message.key',
-    id: `$id + '-' + $message.key`,
-    'data-message-type': '$message.type',
-  },
-}))
-
 export const messages = createSection('messages', () => ({
   $cmp: 'VaMessageList',
   if: '$defaultMessagePlacement && $fns.length($messages)',
   props: {
-    key: '$message.key',
-    id: `$id + '-' + $message.key`,
-    'data-message-type': '$message.type',
+    id: '$: "errors-" + $id',
+    modelValue: '$fns.arrayMessages($messages)',
+    color: 'danger'
   },
 }))
