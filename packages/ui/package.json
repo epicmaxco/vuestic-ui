@@ -116,7 +116,7 @@
     "vite": "^4.2.1",
     "vite-plugin-chunk-split": "^0.4.7",
     "vitest": "^1.4.0",
-    "vue": "3.4.21",
+    "vue": "^3.0.4",
     "vue-tsc": "^2.0.7",
     "yargs": "^17.5.1"
   },
