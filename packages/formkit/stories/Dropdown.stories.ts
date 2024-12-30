@@ -1,5 +1,4 @@
 import { StoryFn } from '@storybook/vue3'
-import * as types from '../src'
 import countries from './countries'
 
 export default {
@@ -16,13 +15,12 @@ export const Default: StoryFn = () => ({
       { text: 'Svelte', value: 'svelte' },
     ]
     return {
-      types,
       frameworks,
     }
   },
   template: `
     <FormKit
-      :type="types.dropdown"
+      type="dropdown"
       name="framework"
       label="Choose your favorite frontend framework"
       placeholder="Backbone.js"
@@ -35,13 +33,12 @@ export const Autocomplete: StoryFn = () => ({
 
   setup () {
     return {
-      types,
       countries,
     }
   },
   template: `
     <FormKit
-      :type="types.dropdown"
+      type="dropdown"
       name="country"
       label="Search for a country"
       placeholder="Example: United States"

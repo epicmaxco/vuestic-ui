@@ -1,6 +1,5 @@
 import { StoryFn } from '@storybook/vue3'
 import { ref } from 'vue'
-import * as types from '../src'
 
 export default {
   title: 'Formkit Integration/Textarea',
@@ -15,7 +14,6 @@ export const Default: StoryFn = () => ({
     const value = ref({})
 
     return {
-      types,
       getLength,
       value,
     }
@@ -23,12 +21,12 @@ export const Default: StoryFn = () => ({
   template: `
     <div class="w-1/5 grid gap-6">
       <FormKit
-        :type="types.form"
+        type="form"
         v-model="value"
         :actions="false"
       >
         <FormKit
-          :type="types.textarea"
+          type="textarea"
           name="instructions"
           label="Your Essay"
           placeholder="Remember to write in complete sentences."
@@ -39,7 +37,7 @@ export const Default: StoryFn = () => ({
             length: 'Instructions cannot be more than 120 characters.',
           }"
         />
-  </FormKit>
+      </FormKit>
     </div>
   `,
 })

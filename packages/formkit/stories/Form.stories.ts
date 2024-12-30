@@ -1,7 +1,6 @@
 import { StoryFn } from '@storybook/vue3'
 import { ref } from 'vue'
 import { VaCollapse } from 'vuestic-ui'
-import * as types from '../src'
 
 export default {
   title: 'Formkit Integration/Form',
@@ -22,7 +21,6 @@ export const Basic: StoryFn = () => ({
     const formValue = ref({})
 
     return {
-      types,
       formValue,
       submitApp,
     }
@@ -35,14 +33,14 @@ export const Basic: StoryFn = () => ({
       <FormKit
         v-slot="{ state: { loading } }"
         v-model="formValue"
-        :type="types.form"
+        type="form"
         class="grid grid-cols-1 gap-6"
         :submit-label="loading ? 'Submitting...' : ''"
         @submit="submitApp"
       >
         <div>
           <FormKit
-            :type="types.email"
+            type="email"
             name="email"
             label="*Email address"
             validation="required|email"
@@ -51,7 +49,7 @@ export const Basic: StoryFn = () => ({
 
         <div>
           <FormKit
-            :type="types.text"
+            type="text"
             name="organization_name"
             label="*Organization name"
             validation="required|length:3"
@@ -60,7 +58,7 @@ export const Basic: StoryFn = () => ({
 
         <div>
           <FormKit
-            :type="types.textarea"
+            type="textarea"
             name="money_use"
             label="*How will you use the money?"
             validation="required|length:5,10"

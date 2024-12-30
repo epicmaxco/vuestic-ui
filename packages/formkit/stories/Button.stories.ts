@@ -1,5 +1,4 @@
 import { StoryFn } from '@storybook/vue3'
-import * as types from '../src'
 
 export default {
   title: 'Formkit Integration/Button',
@@ -18,7 +17,6 @@ export const Default: StoryFn = () => ({
     }
 
     return {
-      types,
       randomColor,
     }
   },
@@ -26,14 +24,14 @@ export const Default: StoryFn = () => ({
     <div class="grid gap-6">
       <h2>Basic example</h2>
       <FormKit
-        :type="types.button"
+        type="button"
         label="Checkout my label"
         help="You can use the label prop."
       />
 
       <h2>Default slot</h2>
       <FormKit
-        :type="types.button"
+        type="button"
         help="You can use the default slot."
         prefix-icon="check"
       >
@@ -42,7 +40,7 @@ export const Default: StoryFn = () => ({
 
       <h2>Event listeners</h2>
       <FormKit
-        :type="types.button"
+        type="button"
         help="You can bind event listeners."
         @click="randomColor"
       >
@@ -51,7 +49,7 @@ export const Default: StoryFn = () => ({
 
       <h2>Loading</h2>
       <FormKit
-        :type="types.button"
+        type="button"
         help="You can bind event listeners."
         loading
       >

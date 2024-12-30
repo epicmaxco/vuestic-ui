@@ -1,6 +1,5 @@
 import { StoryFn } from '@storybook/vue3'
 import { ref } from 'vue'
-import * as types from '../src'
 
 export default {
   title: 'Formkit Integration/Range',
@@ -10,14 +9,13 @@ export const Default: StoryFn = () => ({
   setup () {
     const value = ref(true)
     return {
-      types,
       value,
     }
   },
   template: `
     <FormKit
       v-model="value"
-      :type="types.range"
+      type="range"
       label="Volume"
       min="0"
       max="11"

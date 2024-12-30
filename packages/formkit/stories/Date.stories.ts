@@ -1,19 +1,13 @@
 import { StoryFn } from '@storybook/vue3'
-import * as types from '../src'
 
 export default {
   title: 'Formkit Integration/Date',
 }
 
 export const Default: StoryFn = () => ({
-  setup () {
-    return {
-      types,
-    }
-  },
   template: `
     <FormKit
-      :type="types.date"
+      type="date"
       value="1999-01-01"
       label="Birthday"
       help="Enter your birth day"
@@ -24,14 +18,9 @@ export const Default: StoryFn = () => ({
 })
 
 export const Month: StoryFn = () => ({
-  setup () {
-    return {
-      types,
-    }
-  },
   template: `
     <FormKit
-      :type="types.month"
+      type="month"
       help="What month were you born?"
       label="Birth month"
       name="birth_month"
@@ -41,15 +30,10 @@ export const Month: StoryFn = () => ({
 })
 
 export const Week: StoryFn = () => ({
-  setup () {
-    return {
-      types,
-    }
-  },
   template: `
     <FormKit
       label="Vacation"
-      :type="types.week"
+      type="week"
       help="What week will you travel to Fiji?"
       value="2025-W02"
     />

@@ -1,21 +1,15 @@
 import { StoryFn } from '@storybook/vue3'
-import * as types from '../src'
 
 export default {
   title: 'Formkit Integration/Text',
 }
 
 export const Default: StoryFn = () => ({
-  setup () {
-    return {
-      types,
-    }
-  },
   template: `
     <div class="w-1/5 grid gap-6">
       <h2>Basic Example</h2>
       <FormKit
-        :type="types.text"
+        type="text"
         label="Your username"
         value="calypso"
         help="Pick a username people will remember!"
@@ -26,7 +20,7 @@ export const Default: StoryFn = () => ({
 
       <h2>Cast to number</h2>
       <FormKit
-        :type="types.text"
+        type="text"
         label="Atmospheric pressure"
         name="pressure"
         validation="number"

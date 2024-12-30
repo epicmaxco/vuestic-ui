@@ -1,6 +1,5 @@
 import { StoryFn } from '@storybook/vue3'
 import { ref } from 'vue'
-import * as types from '../src'
 
 export default {
   title: 'Formkit Integration/Checkbox',
@@ -10,13 +9,12 @@ export const SingleCheckbox: StoryFn = () => ({
   setup () {
     const value = ref(true)
     return {
-      types,
       value,
     }
   },
   template: `
     <FormKit
-      :type="types.checkbox"
+      type="checkbox"
       label="Terms and Conditions"
       help="Do you agree to our terms of service?"
       name="terms"
