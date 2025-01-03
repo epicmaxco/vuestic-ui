@@ -1,31 +1,36 @@
-import type { FormKitTypeDefinition } from '@formkit/core'
-import { createSection } from '@formkit/inputs'
+import { type FormKitTypeDefinition } from '@formkit/core'
+import { createSection, outer } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaSelect } from 'vuestic-ui'
-import { createInputWrapper } from './createInputWrapper'
-import { vuesticInputs } from './features/vuesticInputs'
+import { VaFileUpload } from 'vuestic-ui'
+import { vuesticInputs } from '../features/vuesticInputs';
+import { help, messages } from '../sections';
+import { createInputWrapper } from '../createInputWrapper';
 
-const FormKitInputWrapper = createInputWrapper(VaSelect);
+const FormKitInputWrapper = createInputWrapper(VaFileUpload)
 
-const dropdownInput = createSection('input', () => ({
+const fileInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
     context: '$node.context',
     prefixIcon: '$prefixIcon',
     suffixIcon: '$suffixIcon'
-  }
+  },
 }))
 
-  /**
-  * Input definition for a dropdown.
-* @public
-*/
-export const dropdown: FormKitTypeDefinition = {
+/**
+ * Input definition for a file.
+ * @public
+ */
+export const file: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: dropdownInput(),
+  schema: outer(
+    messages(),
+    fileInput(),
+    help(),
+  ),
   /**
    * The type of node, can be a list, group, or input.
    */
@@ -43,7 +48,7 @@ export const dropdown: FormKitTypeDefinition = {
    * A library of components to provide to the internal input schema
    */
   library: {
-    FormKitInputWrapper,
+    FormKitInputWrapper
   },
   /**
    * Additional features that should be added to your input

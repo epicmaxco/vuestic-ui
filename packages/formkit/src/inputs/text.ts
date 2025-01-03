@@ -1,13 +1,13 @@
 import { type FormKitTypeDefinition } from '@formkit/core'
 import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaButtonToggle } from 'vuestic-ui'
-import { vuesticInputs } from './features/vuesticInputs'
-import { createInputWrapper } from './createInputWrapper'
+import { VaInput } from 'vuestic-ui'
+import { vuesticInputs } from '../features/vuesticInputs'
+import { createInputWrapper } from '../createInputWrapper'
 
-const FormKitInputWrapper = createInputWrapper(VaButtonToggle)
+const FormKitInputWrapper = createInputWrapper(VaInput)
 
-const toggleButtonsInput = createSection('input', () => ({
+const textInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
@@ -18,14 +18,14 @@ const toggleButtonsInput = createSection('input', () => ({
 }))
 
 /**
- * Input definition for a togglebuttons.
+ * Input definition for a text.
  * @public
  */
-export const togglebuttons: FormKitTypeDefinition = {
+export const text: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: toggleButtonsInput(),
+  schema: textInput(),
   /**
    * The type of node, can be a list, group, or input.
    */

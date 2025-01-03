@@ -1,13 +1,13 @@
 import { type FormKitTypeDefinition } from '@formkit/core'
 import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaRating } from 'vuestic-ui'
-import { vuesticInputs } from './features/vuesticInputs';
-import { createInputWrapper } from './createInputWrapper';
+import { VaSlider } from 'vuestic-ui'
+import { vuesticInputs } from '../features/vuesticInputs';
+import { createInputWrapper } from '../createInputWrapper';
 
-const FormKitInputWrapper = createInputWrapper(VaRating)
+const FormKitInputWrapper = createInputWrapper(VaSlider)
 
-const ratingInput = createSection('input', () => ({
+const sliderInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
@@ -18,14 +18,14 @@ const ratingInput = createSection('input', () => ({
 }))
 
 /**
- * Input definition for a rating.
+ * Input definition for a slider.
  * @public
  */
-export const rating: FormKitTypeDefinition = {
+export const slider: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: ratingInput(),
+  schema: sliderInput(),
   /**
    * The type of node, can be a list, group, or input.
    */

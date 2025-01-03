@@ -1,13 +1,13 @@
-import { type FormKitTypeDefinition } from '@formkit/core'
+import type { FormKitTypeDefinition } from '@formkit/core'
 import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaInput } from 'vuestic-ui'
-import { vuesticInputs } from './features/vuesticInputs'
-import { createInputWrapper } from './createInputWrapper'
+import { VaSelect } from 'vuestic-ui'
+import { createInputWrapper } from '../createInputWrapper'
+import { vuesticInputs } from '../features/vuesticInputs'
 
-const FormKitInputWrapper = createInputWrapper(VaInput)
+const FormKitInputWrapper = createInputWrapper(VaSelect);
 
-const textInput = createSection('input', () => ({
+const dropdownInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
@@ -17,15 +17,15 @@ const textInput = createSection('input', () => ({
   }
 }))
 
-/**
- * Input definition for a text.
- * @public
- */
-export const text: FormKitTypeDefinition = {
+  /**
+  * Input definition for a dropdown.
+* @public
+*/
+export const select: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: textInput(),
+  schema: dropdownInput(),
   /**
    * The type of node, can be a list, group, or input.
    */
@@ -43,12 +43,8 @@ export const text: FormKitTypeDefinition = {
    * A library of components to provide to the internal input schema
    */
   library: {
-    FormKitInputWrapper
+    FormKitInputWrapper,
   },
-  /**
-   * Forces node.props.type to be this explicit value.
-   */
-  forceTypeProp: 'text',
   /**
    * Additional features that should be added to your input
    */

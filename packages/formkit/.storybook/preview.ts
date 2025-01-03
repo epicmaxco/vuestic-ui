@@ -6,6 +6,7 @@ import 'vuestic-ui/css'
 import 'vuestic-ui/styles/essential.css'
 import 'vuestic-ui/styles/typography.css'
 import './vuestic.css'
+import './tailwind.css'
 
 setup((app) => {
   app.use(createVuestic())

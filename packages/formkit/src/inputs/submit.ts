@@ -1,5 +1,5 @@
 import { token } from '@formkit/utils'
-import { button } from "./button";
+import { button } from './button';
 
 /**
  * Input definition for a submit button.

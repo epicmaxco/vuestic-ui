@@ -7,9 +7,9 @@ import {
   forms,
   disablesChildren,
 } from '@formkit/inputs'
-import { messages } from './sections'
+import { messages } from '../sections'
+import { vuesticInputs } from '../features/vuesticInputs';
 import { submit } from './submit'
-import { vuesticInputs } from "./features/vuesticInputs";
 
 export const formInput = createSection('form', () => ({
   $cmp: 'VaForm',

@@ -2,7 +2,7 @@ import { StoryFn } from '@storybook/vue3'
 import countries from './countries'
 
 export default {
-  title: 'Formkit Integration/Dropdown',
+  title: 'Formkit Integration/Select',
 }
 
 export const Default: StoryFn = () => ({
@@ -20,7 +20,7 @@ export const Default: StoryFn = () => ({
   },
   template: `
     <FormKit
-      type="dropdown"
+      type="select"
       name="framework"
       label="Choose your favorite frontend framework"
       placeholder="Backbone.js"
@@ -38,7 +38,7 @@ export const Autocomplete: StoryFn = () => ({
   },
   template: `
     <FormKit
-      type="dropdown"
+      type="select"
       name="country"
       label="Search for a country"
       placeholder="Example: United States"

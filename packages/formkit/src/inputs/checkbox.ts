@@ -1,13 +1,13 @@
 import { type FormKitTypeDefinition } from '@formkit/core'
 import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaSlider } from 'vuestic-ui'
-import { vuesticInputs } from './features/vuesticInputs';
-import { createInputWrapper } from './createInputWrapper';
+import { VaCheckbox } from 'vuestic-ui'
+import { vuesticInputs } from '../features/vuesticInputs';
+import { createInputWrapper } from '../createInputWrapper';
 
-const FormKitInputWrapper = createInputWrapper(VaSlider)
+const FormKitInputWrapper = createInputWrapper(VaCheckbox)
 
-const sliderInput = createSection('input', () => ({
+const boxInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
@@ -18,14 +18,14 @@ const sliderInput = createSection('input', () => ({
 }))
 
 /**
- * Input definition for a slider.
+ * Input definition for a checkbox.
  * @public
  */
-export const slider: FormKitTypeDefinition = {
+export const checkbox: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: sliderInput(),
+  schema: boxInput(),
   /**
    * The type of node, can be a list, group, or input.
    */
@@ -45,6 +45,10 @@ export const slider: FormKitTypeDefinition = {
   library: {
     FormKitInputWrapper
   },
+  /**
+   * Forces node.props.type to be this explicit value.
+   */
+  forceTypeProp: 'checkbox',
   /**
    * Additional features that should be added to your input
    */

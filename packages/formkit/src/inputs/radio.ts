@@ -1,13 +1,13 @@
-import type { FormKitTypeDefinition } from '@formkit/core'
+import { type FormKitTypeDefinition } from '@formkit/core'
 import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaColorInput } from 'vuestic-ui'
-import { vuesticInputs } from './features/vuesticInputs'
-import { createInputWrapper } from './createInputWrapper'
+import { VaRadio } from 'vuestic-ui'
+import { vuesticInputs } from '../features/vuesticInputs';
+import { createInputWrapper } from '../createInputWrapper';
 
-const FormKitInputWrapper = createInputWrapper(VaColorInput);
+const FormKitInputWrapper = createInputWrapper(VaRadio)
 
-const colorInput = createSection('input', () => ({
+const radioInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
@@ -18,14 +18,14 @@ const colorInput = createSection('input', () => ({
 }))
 
 /**
- * Input definition for a colorpicker.
+ * Input definition for a radio.
  * @public
  */
-export const colorpicker: FormKitTypeDefinition = {
+export const radio: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: colorInput(),
+  schema: radioInput(),
   /**
    * The type of node, can be a list, group, or input.
    */
@@ -45,10 +45,6 @@ export const colorpicker: FormKitTypeDefinition = {
   library: {
     FormKitInputWrapper
   },
-  /**
-   * Forces node.props.type to be this explicit value.
-   */
-  forceTypeProp: 'text',
   /**
    * Additional features that should be added to your input
    */

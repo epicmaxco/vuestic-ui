@@ -1,13 +1,13 @@
 import { type FormKitTypeDefinition } from '@formkit/core'
 import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaRadio } from 'vuestic-ui'
-import { vuesticInputs } from './features/vuesticInputs';
-import { createInputWrapper } from './createInputWrapper';
+import { VaTextarea } from 'vuestic-ui'
+import { vuesticInputs } from '../features/vuesticInputs'
+import { createInputWrapper } from '../createInputWrapper'
 
-const FormKitInputWrapper = createInputWrapper(VaRadio)
+const FormKitInputWrapper = createInputWrapper(VaTextarea)
 
-const radioInput = createSection('input', () => ({
+const textareaInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
@@ -18,14 +18,14 @@ const radioInput = createSection('input', () => ({
 }))
 
 /**
- * Input definition for a radio.
+ * Input definition for a textarea.
  * @public
  */
-export const radio: FormKitTypeDefinition = {
+export const textarea: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: radioInput(),
+  schema: textareaInput(),
   /**
    * The type of node, can be a list, group, or input.
    */
@@ -45,6 +45,10 @@ export const radio: FormKitTypeDefinition = {
   library: {
     FormKitInputWrapper
   },
+  /**
+   * Forces node.props.type to be this explicit value.
+   */
+  forceTypeProp: 'text',
   /**
    * Additional features that should be added to your input
    */

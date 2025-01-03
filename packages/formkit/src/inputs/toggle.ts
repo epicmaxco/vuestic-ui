@@ -1,36 +1,31 @@
 import { type FormKitTypeDefinition } from '@formkit/core'
-import { createSection, outer } from '@formkit/inputs'
+import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaFileUpload } from 'vuestic-ui'
-import { vuesticInputs } from './features/vuesticInputs';
-import { help, messages } from './sections';
-import { createInputWrapper } from './createInputWrapper';
+import { VaSwitch } from 'vuestic-ui'
+import { vuesticInputs } from '../features/vuesticInputs';
+import { createInputWrapper } from '../createInputWrapper';
 
-const FormKitInputWrapper = createInputWrapper(VaFileUpload)
+const FormKitInputWrapper = createInputWrapper(VaSwitch)
 
-const fileInput = createSection('input', () => ({
+const toggleInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
     context: '$node.context',
     prefixIcon: '$prefixIcon',
     suffixIcon: '$suffixIcon'
-  },
+  }
 }))
 
 /**
- * Input definition for a file.
+ * Input definition for a toggle.
  * @public
  */
-export const file: FormKitTypeDefinition = {
+export const toggle: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: outer(
-    messages(),
-    fileInput(),
-    help(),
-  ),
+  schema: toggleInput(),
   /**
    * The type of node, can be a list, group, or input.
    */

@@ -1,13 +1,13 @@
-import type { FormKitTypeDefinition } from '@formkit/core'
+import { type FormKitTypeDefinition } from '@formkit/core'
 import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaDateInput } from 'vuestic-ui'
-import { createInputWrapper } from './createInputWrapper'
-import { vuesticInputs } from './features/vuesticInputs'
+import { VaRating } from 'vuestic-ui'
+import { vuesticInputs } from '../features/vuesticInputs';
+import { createInputWrapper } from '../createInputWrapper';
 
-const FormKitInputWrapper = createInputWrapper(VaDateInput);
+const FormKitInputWrapper = createInputWrapper(VaRating)
 
-const dateInput = createSection('input', () => ({
+const ratingInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
@@ -17,15 +17,15 @@ const dateInput = createSection('input', () => ({
   }
 }))
 
-  /**
-  * Input definition for a datepicker.
-* @public
-*/
-export const datepicker: FormKitTypeDefinition = {
+/**
+ * Input definition for a rating.
+ * @public
+ */
+export const rating: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: dateInput(),
+  schema: ratingInput(),
   /**
    * The type of node, can be a list, group, or input.
    */
@@ -43,7 +43,7 @@ export const datepicker: FormKitTypeDefinition = {
    * A library of components to provide to the internal input schema
    */
   library: {
-    FormKitInputWrapper,
+    FormKitInputWrapper
   },
   /**
    * Additional features that should be added to your input
