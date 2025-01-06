@@ -4,11 +4,9 @@
   </h1>
 
   <FormKit
-    v-slot="{ state: { loading } }"
     v-model="formValue"
     type="form"
     class="grid grid-cols-1 md:grid-cols-3 gap-6"
-    :submit-label="loading ? 'Submitting...' : ''"
     @submit="submitApp"
   >
     <div>

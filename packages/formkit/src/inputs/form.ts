@@ -8,7 +8,7 @@ import {
   disablesChildren,
 } from '@formkit/inputs'
 import { messages } from '../sections'
-import { vuesticInputs } from '../features/vuesticInputs';
+import { vuesticInputs } from '../features/vuesticInputs'
 import { submit } from './submit'
 
 export const formInput = createSection('form', () => ({

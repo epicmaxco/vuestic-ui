@@ -1,13 +1,13 @@
-import { type FormKitTypeDefinition } from '@formkit/core'
+import type { FormKitTypeDefinition } from '@formkit/core'
 import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaSwitch } from 'vuestic-ui'
+import { VaCounter } from 'vuestic-ui'
 import { vuesticInputs } from '../features/vuesticInputs'
 import { createInputWrapper } from '../createInputWrapper'
 
-const FormKitInputWrapper = createInputWrapper(VaSwitch)
+const FormKitInputWrapper = createInputWrapper(VaCounter);
 
-const toggleInput = createSection('input', () => ({
+const counterInput = createSection('input', () => ({
   $cmp: 'FormKitInputWrapper',
   bind: '$attrs',
   props: {
@@ -18,14 +18,14 @@ const toggleInput = createSection('input', () => ({
 }))
 
 /**
- * Input definition for a toggle.
+ * Input definition for a counter.
  * @public
  */
-export const toggle: FormKitTypeDefinition = {
+export const counter: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
    */
-  schema: toggleInput(),
+  schema: counterInput(),
   /**
    * The type of node, can be a list, group, or input.
    */
@@ -45,6 +45,10 @@ export const toggle: FormKitTypeDefinition = {
   library: {
     FormKitInputWrapper
   },
+  /**
+   * Forces node.props.type to be this explicit value.
+   */
+  forceTypeProp: 'text',
   /**
    * Additional features that should be added to your input
    */

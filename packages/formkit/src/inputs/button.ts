@@ -11,7 +11,7 @@ import {
 } from '@formkit/inputs'
 import { token } from '@formkit/utils'
 import { VaButton, VaMessageList, VaIcon } from 'vuestic-ui'
-import { vuesticInputs } from '../features/vuesticInputs';
+import { vuesticInputs } from '../features/vuesticInputs'
 import { icon, messages, help } from '../sections'
 
 export const buttonInput = createSection('input', () => ({

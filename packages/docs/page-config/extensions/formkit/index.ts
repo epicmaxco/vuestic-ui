@@ -19,6 +19,8 @@ createApp(App)
 
 const dependencies = {
   "@vuestic/formkit": "latest",
+  "vuestic-ui": "latest",
+  "vue": "latest"
 };
 
 export default definePageConfig({
@@ -35,9 +37,13 @@ export default definePageConfig({
       codesandboxConfig: { dependencies },
       title: "Basic Form",
     }),
-    block.example("MultiStepForm", {
+    block.example("AdvancedForm", {
       codesandboxConfig: { dependencies },
-      title: "Multi Step Form",
+      title: "Advanced Form",
     }),
+    // block.example("MultiStepForm", {
+    //   codesandboxConfig: { dependencies },
+    //   title: "Multi Step Form",
+    // }),
   ],
 });

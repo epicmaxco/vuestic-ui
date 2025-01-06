@@ -2,8 +2,8 @@ import { type FormKitTypeDefinition } from '@formkit/core'
 import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
 import { VaRating } from 'vuestic-ui'
-import { vuesticInputs } from '../features/vuesticInputs';
-import { createInputWrapper } from '../createInputWrapper';
+import { vuesticInputs } from '../features/vuesticInputs'
+import { createInputWrapper } from '../createInputWrapper'
 
 const FormKitInputWrapper = createInputWrapper(VaRating)
 

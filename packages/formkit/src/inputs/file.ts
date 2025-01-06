@@ -2,9 +2,9 @@ import { type FormKitTypeDefinition } from '@formkit/core'
 import { createSection, outer } from '@formkit/inputs'
 import { token } from '@formkit/utils'
 import { VaFileUpload } from 'vuestic-ui'
-import { vuesticInputs } from '../features/vuesticInputs';
+import { vuesticInputs } from '../features/vuesticInputs'
 import { help, messages } from '../sections';
-import { createInputWrapper } from '../createInputWrapper';
+import { createInputWrapper } from '../createInputWrapper'
 
 const FormKitInputWrapper = createInputWrapper(VaFileUpload)
 
