@@ -185,6 +185,7 @@ export default defineNuxtConfig({
   },
 
   formkit: {
+    defaultConfig: false,
     autoImport: true,
   },
 

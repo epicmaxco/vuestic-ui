@@ -34,7 +34,7 @@
   <FormKit
     v-slot="{ state: { valid, loading } }"
     v-model="formValue"
-    :type="types.form"
+    type="form"
     :plugins="[stepPlugin]"
     :actions="false"
     class="flex flex-col my-4 mx-2"
@@ -47,11 +47,11 @@
     >
       <FormKit
         id="contactInfo"
-        :type="types.group"
+        type="group"
         name="contactInfo"
       >
         <FormKit
-          :type="types.text"
+          type="text"
           label="*Full name"
           name="full_name"
           placeholder="First Last"
@@ -59,7 +59,7 @@
         />
 
         <FormKit
-          :type="types.email"
+          type="email"
           name="email"
           label="*Email address"
           placeholder="email@domain.com"
@@ -67,7 +67,7 @@
         />
 
         <FormKit
-          :type="types.tel"
+          type="tel"
           name="tel"
           label="*Telephone"
           mask="+1 (###) ###-####"
@@ -88,7 +88,7 @@
       >
         <div>
           <FormKit
-            :type="types.text"
+            type="text"
             label="*Organization name"
             name="org_name"
             placeholder="MyOrg, Inc."
@@ -98,7 +98,7 @@
         </div>
         <div>
           <FormKit
-            :type="types.date"
+            type="date"
             label="Date of incorporation"
             :validation="date_rule"
             name="date_inc"
@@ -118,7 +118,7 @@
         name="application"
       >
         <FormKit
-          :type="types.checkbox"
+          type="checkbox"
           label="*I'm not a previous grant recipient"
           help="Have you received a grant from us before?"
           name="not_previous_recipient"
@@ -126,7 +126,7 @@
           :validation-messages="{ accepted: 'We can only give one grant per organization.' }"
         />
         <FormKit
-          :type="types.textarea"
+          type="textarea"
           label="*How will you use the money?"
           name="how_money"
           help="Must be between 20 and 500 characters."
@@ -140,7 +140,7 @@
     <div class="flex justify-between mt-4">
       <div class="flex gap-3">
         <FormKit
-          :type="types.button"
+          type="button"
           preset="primary"
           :disabled="activeStep === 'contactInfo'"
           @click="setStep(-1)"
@@ -149,7 +149,7 @@
         </FormKit>
 
         <FormKit
-          :type="types.button"
+          type="button"
           preset="primary"
           class="next"
           :disabled="activeStep === 'application'"
@@ -159,7 +159,7 @@
         </FormKit>
       </div>
 
-      <FormKit :type="types.submit" :disabled="!valid">
+      <FormKit type="submit" :disabled="!valid">
         {{ loading ? 'Submitting...' : 'Submit Application' }}
       </FormKit>
     </div>

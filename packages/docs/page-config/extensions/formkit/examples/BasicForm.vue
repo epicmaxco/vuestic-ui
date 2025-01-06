@@ -6,14 +6,14 @@
   <FormKit
     v-slot="{ state: { loading } }"
     v-model="formValue"
-    :type="types.form"
+    type="form"
     class="grid grid-cols-1 md:grid-cols-3 gap-6"
     :submit-label="loading ? 'Submitting...' : ''"
     @submit="submitApp"
   >
     <div>
       <FormKit
-        :type="types.email"
+        type="email"
         name="email"
         label="*Email address"
         validation="required|email"
@@ -22,7 +22,7 @@
 
     <div>
       <FormKit
-        :type="types.text"
+        type="text"
         name="organization_name"
         label="*Organization name"
         validation="required|length:3"
@@ -31,7 +31,7 @@
 
     <div>
       <FormKit
-        :type="types.textarea"
+        type="textarea"
         name="money_use"
         label="*How will you use the money?"
         validation="required|length:5,10"
@@ -48,8 +48,6 @@
 </template>
 
 <script setup>
-import * as types from '@vuestic/formkit'
-
 // NEW: submit handler, which posts to our fake backend.
 const submitApp = async (_formData, node) => {
   await new Promise(resolve => setTimeout(resolve, 1400))
