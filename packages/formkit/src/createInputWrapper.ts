@@ -1,5 +1,5 @@
-import { Component, defineComponent, h, PropType } from 'vue'
-import { FormKitFrameworkContext } from '@formkit/core'
+import { type FormKitFrameworkContext } from '@formkit/core'
+import { type Component, defineComponent, h, type PropType } from 'vue'
 import { VaIcon } from 'vuestic-ui'
 
 export const createInputWrapper =  <C extends Component>(component: C) => {
@@ -22,12 +22,11 @@ export const createInputWrapper =  <C extends Component>(component: C) => {
           modelValue: props.context._value,
           'onUpdate:modelValue': props.context.node.input,
           onBlur: props.context.handlers.blur,
-          error: props.context.defaultMessagePlacement && Boolean(props.context.fns.length(props.context.messages)),
+          error: props.context.error,
           messages: props.context.help,
-          errorMessages: props.context.fns.arrayMessages(props.context.messages),
+          errorMessages: props.context.errorMessages,
           disabled: props.context.disabled,
           label: props.context.label,
-          type: props.context.type,
           loading: props.context.loading,
           dirty: props.context.state.validationVisible,
         }, {

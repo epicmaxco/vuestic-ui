@@ -2,25 +2,29 @@ import type { FormKitTypeDefinition } from '@formkit/core'
 import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
 import { VaTimeInput } from 'vuestic-ui'
-import { createInputWrapper } from '../createInputWrapper'
 import { vuesticInputs } from '../features/vuesticInputs'
 
-const FormKitInputWrapper = createInputWrapper(VaTimeInput);
-
 const timeInput = createSection('input', () => ({
-  $cmp: 'FormKitInputWrapper',
+  $cmp: 'VaTimeInput',
   bind: '$attrs',
   props: {
-    context: '$node.context',
-    prefixIcon: '$prefixIcon',
-    suffixIcon: '$suffixIcon'
+    modelValue: '$node.context._value',
+    'onUpdate:modelValue': '$node.context.node.input',
+    onBlur: '$node.context.handlers.blur',
+    error: '$node.context.error',
+    messages: '$node.context.help',
+    errorMessages: '$node.context.errorMessages',
+    disabled: '$node.context.disabled',
+    label: '$node.context.label',
+    loading: '$node.context.loading',
+    dirty: '$node.context.state.validationVisible',
   }
 }))
 
-  /**
-  * Input definition for a timepicker.
-* @public
-*/
+/**
+ * Input definition for a timepicker.
+ * @public
+ */
 export const timepicker: FormKitTypeDefinition = {
   /**
    * The actual schema of the input, or a function that returns the schema.
@@ -43,7 +47,7 @@ export const timepicker: FormKitTypeDefinition = {
    * A library of components to provide to the internal input schema
    */
   library: {
-    FormKitInputWrapper,
+    VaTimeInput,
   },
   /**
    * Additional features that should be added to your input

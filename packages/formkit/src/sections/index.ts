@@ -40,5 +40,5 @@ export const messages = createSection('messages', () => ({
     id: '$: "errors-" + $id',
     modelValue: '$fns.arrayMessages($messages)',
     color: 'danger'
-  },
+  }
 }))

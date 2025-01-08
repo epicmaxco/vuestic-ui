@@ -98,7 +98,7 @@
         </div>
         <div>
           <FormKit
-            type="date"
+            type="datepicker"
             label="Date of incorporation"
             :validation="date_rule"
             name="date_inc"

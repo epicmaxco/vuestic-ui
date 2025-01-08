@@ -41,9 +41,9 @@ export default definePageConfig({
       codesandboxConfig: { dependencies },
       title: "Advanced Form",
     }),
-    // block.example("MultiStepForm", {
-    //   codesandboxConfig: { dependencies },
-    //   title: "Multi Step Form",
-    // }),
+    block.example("MultiStepForm", {
+      codesandboxConfig: { dependencies },
+      title: "Multi Step Form",
+    }),
   ],
 });

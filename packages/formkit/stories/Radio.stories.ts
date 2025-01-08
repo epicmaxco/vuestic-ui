@@ -7,18 +7,21 @@ export default {
 
 export const Default: StoryFn = () => ({
   setup () {
-    const value = ref(true)
+    const form = ref({})
     return {
-      value,
+      form,
     }
   },
   template: `
-    <FormKit
-      v-model="value"
-      type="radio"
-      label="Preferred transportation"
-      :options="['E-Bike', 'E-Scooter', 'Electric car', 'Walking', 'Space tube']"
-      help="How do you like to get around?"
-    />
+    <FormKit v-model="form" type="form" :actions="false">
+      <FormKit
+        name="transportation"
+        v-model="form.transportation"
+        type="radio"
+        label="Preferred transportation"
+        :options="['E-Bike', 'E-Scooter', 'Electric car', 'Walking', 'Space tube']"
+        help="How do you like to get around?"
+      />
+    </FormKit>
   `,
 })

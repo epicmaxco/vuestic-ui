@@ -98,7 +98,7 @@
         </div>
         <div>
           <FormKit
-            type="date"
+            type="datepicker"
             label="Date of incorporation"
             :validation="date_rule"
             name="date_inc"
@@ -174,7 +174,6 @@
 </template>
 
 <script setup>
-import * as types from '@vuestic/formkit'
 import { camel2title, axios } from './utils'
 import useSteps from './useSteps'
 
