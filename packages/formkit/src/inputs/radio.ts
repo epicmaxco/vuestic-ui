@@ -1,20 +1,34 @@
 import { type FormKitTypeDefinition } from '@formkit/core'
 import { createSection } from '@formkit/inputs'
 import { token } from '@formkit/utils'
-import { VaRadio } from 'vuestic-ui'
+import { VaRadio, VaFormField } from 'vuestic-ui'
 import { vuesticInputs } from '../features/vuesticInputs'
-import { createInputWrapper } from '../createInputWrapper'
 
-const FormKitInputWrapper = createInputWrapper(VaRadio)
 
 const radioInput = createSection('input', () => ({
-  $cmp: 'FormKitInputWrapper',
-  bind: '$attrs',
+  $cmp: 'VaFormField',
   props: {
-    context: '$node.context',
-    prefixIcon: '$prefixIcon',
-    suffixIcon: '$suffixIcon'
-  }
+    error: '$node.context.error',
+    messages: '$node.context.help',
+    errorMessages: '$node.context.errorMessages',
+    loading: '$node.context.loading',
+    dirty: '$node.context.state.validationVisible',
+    label: '$node.context.label',
+  },
+  children: [
+    {
+      for: ['option', '$attrs.options'],
+      $cmp: 'VaRadio',
+      bind: '$attrs',
+      props: {
+        option: '$option',
+        modelValue: '$node.context._value',
+        'onUpdate:modelValue': '$node.context.node.input',
+        onBlur: '$node.context.handlers.blur',
+        disabled: '$node.context.disabled',
+      }
+    }
+  ]
 }))
 
 /**
@@ -43,7 +57,8 @@ export const radio: FormKitTypeDefinition = {
    * A library of components to provide to the internal input schema
    */
   library: {
-    FormKitInputWrapper
+    VaFormField,
+    VaRadio
   },
   /**
    * Additional features that should be added to your input

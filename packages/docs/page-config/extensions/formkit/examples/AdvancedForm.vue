@@ -33,13 +33,13 @@
       }"
     />
 
-<!--    <FormKit-->
-<!--      name="time"-->
-<!--      type="timepicker"-->
-<!--      label="Pick-up time"-->
-<!--      validation="required"-->
-<!--      clearable-->
-<!--    />-->
+    <FormKit
+      name="time"
+      type="timepicker"
+      label="Pick-up time"
+      validation="required"
+      clearable
+    />
 
     <FormKit
       name="count"
@@ -64,19 +64,21 @@
       }"
     />
 
-<!--    <FormKit-->
-<!--      name="amount"-->
-<!--      type="slider"-->
-<!--      :min="1"-->
-<!--      :max="100"-->
-<!--      label="Weight, kg"-->
-<!--      style="width: 100%"-->
-<!--      validation="required|package"-->
-<!--      :validation-rules="{ package: (node) => {-->
-<!--        return node.parent.value.country.value === 'us' ? node.value > 20 : true-->
-<!--      } }"-->
-<!--      :validation-messages="{ package: 'Package to US can not be more than 20kg' }"-->
-<!--    />-->
+    <FormKit
+      name="amount"
+      type="slider"
+      :min="1"
+      :max="100"
+      label="Weight, kg"
+      style="width: 100%"
+      validation="required|package"
+      :validation-rules="{
+        package: (node) => {
+          return node.parent.value.country.value === 'us' ? node.value < 20 : true
+        }
+      }"
+      :validation-messages="{ package: 'Package to US can not be more than 20kg' }"
+    />
 
     <FormKit
       name="notifications"
