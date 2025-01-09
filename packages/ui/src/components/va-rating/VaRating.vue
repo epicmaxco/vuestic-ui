@@ -15,19 +15,19 @@
         class="va-rating__item"
         v-bind="VaRatingItemProps"
         :aria-label="tp($props.ariaItemLabel, { max: $props.max, value: itemNumber })"
-        :model-value="getItemValue(itemNumber - 1)"
+        :modelValue="getItemValue(itemNumber - 1)"
         :tabindex="tabIndexComputed"
         :disabled="$props.disabled"
         :readonly="$props.readonly"
         @hover="isInteractionsEnabled && onItemHoveredValueUpdate(itemNumber - 1, $event)"
-        @update:model-value="isInteractionsEnabled && onItemValueUpdate(itemNumber - 1, $event)"
+        @update:modelValue="isInteractionsEnabled && onItemValueUpdate(itemNumber - 1, $event)"
         v-slot="{ value, onClick }"
       >
         <slot name="item" v-bind="{ value: value, onClick: onClick, index: itemNumber }">
           <template v-if="$props.numbers">
             <VaRatingItemNumberButton
               v-bind="VaRatingItemNumberButtonProps"
-              :model-value="value"
+              :modelValue="value"
               :item-number="itemNumber"
             />
           </template>

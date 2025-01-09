@@ -22,6 +22,8 @@ export const useIsUserProvidedProp = (propName: string) => {
     if (!vm?.vnode.props) { return false }
 
     // If vnode doesn't have this prop it mean default value is used
+    // Note: be cautious as the `propName` should have the exact case in the template
+    // example: `modelValue` should not be `model-value`
     return propName in vm.vnode.props
   })
 }
