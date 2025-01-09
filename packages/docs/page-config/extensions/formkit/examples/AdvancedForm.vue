@@ -33,14 +33,6 @@
       }"
     />
 
-<!--    <FormKit-->
-<!--      name="time"-->
-<!--      type="timepicker"-->
-<!--      label="Pick-up time"-->
-<!--      validation="required"-->
-<!--      clearable-->
-<!--    />-->
-
     <FormKit
       name="count"
       type="counter"
@@ -153,7 +145,6 @@ const form = ref({
   lastName: '',
   country: '',
   birthDate: null as Date | null,
-  time: null as Date | null,
   acknowledgement: false,
   notifications: true,
   paymentMethod: '',

@@ -32,6 +32,7 @@ export default definePageConfig({
     block.code(installCommandObject, "bash"),
     block.paragraph("Then add the plugin to your main.* file"),
     block.code(setupCode, "js"),
+    block.subtitle("Examples"),
     block.paragraph("Here are some implementation examples of what is possible with Vuestic and FormKit:"),
     block.example("BasicForm", {
       codesandboxConfig: { dependencies },
@@ -40,6 +41,7 @@ export default definePageConfig({
     block.example("AdvancedForm", {
       codesandboxConfig: { dependencies },
       title: "Advanced Form",
+      description: "[Here](https://ui.vuestic.dev/ui-elements/form#default-usage) you can find this example done using only Vuestic components."
     }),
     block.example("MultiStepForm", {
       codesandboxConfig: { dependencies },
