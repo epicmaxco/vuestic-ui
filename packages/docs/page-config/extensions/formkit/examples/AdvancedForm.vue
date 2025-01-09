@@ -33,13 +33,13 @@
       }"
     />
 
-    <FormKit
-      name="time"
-      type="timepicker"
-      label="Pick-up time"
-      validation="required"
-      clearable
-    />
+<!--    <FormKit-->
+<!--      name="time"-->
+<!--      type="timepicker"-->
+<!--      label="Pick-up time"-->
+<!--      validation="required"-->
+<!--      clearable-->
+<!--    />-->
 
     <FormKit
       name="count"
