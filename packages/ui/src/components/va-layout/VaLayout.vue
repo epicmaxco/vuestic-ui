@@ -1,6 +1,6 @@
 <template>
   <div class="va-layout">
-    <template  v-for="area in areaNames" :key="area">
+    <template v-for="area in areaNames" :key="area">
       <VaLayoutArea
         v-if="$slots[area]"
         :area="area"

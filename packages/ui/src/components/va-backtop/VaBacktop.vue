@@ -23,7 +23,6 @@
 import { PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useComponentPresetProp, useTranslation, useTranslationProp, useNumericProp, makeNumericProp } from '../../composables'
 import { VaButton } from '../va-button'
-import { isServer } from '../../utils/ssr'
 import { warn } from '../../utils/console'
 
 defineOptions({
@@ -116,22 +115,18 @@ const handleScroll = () => {
     : targetElement.scrollTop
 }
 
-const server = isServer()
-
 const visible = computed(() => {
-  if (server) {
+  if (!visibilityHeightComputed.value) {
     return false
   }
-  return targetScrollValue.value > visibilityHeightComputed.value!
+  return targetScrollValue.value > visibilityHeightComputed.value
 })
 
-if (!server) {
-  onMounted(() => {
-    targetElement = getTargetElement()
-    targetElement.addEventListener('scroll', handleScroll, true)
-  })
-  onBeforeUnmount(() => targetElement?.removeEventListener('scroll', handleScroll))
-}
+onMounted(() => {
+  targetElement = getTargetElement()
+  targetElement.addEventListener('scroll', handleScroll, true)
+})
+onBeforeUnmount(() => targetElement?.removeEventListener('scroll', handleScroll))
 
 const { tp } = useTranslation()
 </script>

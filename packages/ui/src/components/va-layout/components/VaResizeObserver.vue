@@ -5,7 +5,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
+import { useResizeObserver } from '../../../composables'
 
 defineOptions({
   name: 'VaLayoutSizeKeeper',
@@ -17,17 +18,7 @@ const emit = defineEmits({
 
 const el = ref()
 
-let observer: ResizeObserver | null = null
-
-watch(el, (newEl) => {
-  if (observer) {
-    observer.disconnect()
-  }
-
-  observer = new ResizeObserver(([el]) => {
-    emit('resize', el.contentRect)
-  })
-
-  observer.observe(newEl)
+useResizeObserver(el, ([size]) => {
+  requestAnimationFrame(() => emit('resize', size.contentRect))
 })
 </script>

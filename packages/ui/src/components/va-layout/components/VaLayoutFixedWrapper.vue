@@ -9,7 +9,7 @@
     <VaResizeObserver
       class="va-layout-fixed-wrapper__content"
       :class="`va-layout-fixed-wrapper__content--${area}`"
-      :style="!size ? { position: 'relative' } : {}"
+      :style="!size ? { position: 'relative' } : styles"
       @resize="size = $event"
     >
       <slot />
@@ -51,24 +51,13 @@ const getPxOrZero = (value: number | null) => {
 
 const styles = computed(() => {
   if (direction.value === 'vertical') {
-    return { width: `calc(100% - ${getPxOrZero(paddings.value.left)} - ${getPxOrZero(paddings.value.right)})`, [props.area]: 0 }
+    return { width: `calc(100% - ${getPxOrZero(paddings.value.left)} - ${getPxOrZero(paddings.value.right)})` }
   } else {
-    return { height: `calc(100% - ${getPxOrZero(paddings.value.top)} - ${getPxOrZero(paddings.value.bottom)})`, [props.area]: 0 }
+    return { height: `calc(100% - ${getPxOrZero(paddings.value.top)} - ${getPxOrZero(paddings.value.bottom)})` }
   }
 })
 
 const { paddings } = useFixedLayoutChild(props.area, size)
-
-const computedStyle = computed(() => {
-  return Object.keys(paddings.value).reduce((acc, key) => {
-    if (key === props.area) { return acc }
-
-    return {
-      ...acc,
-      [key]: `${paddings.value[key as AreaName]}px`,
-    }
-  }, {})
-})
 </script>
 
 <style lang="scss">
@@ -78,8 +67,6 @@ const computedStyle = computed(() => {
 
   &__content {
     position: fixed;
-    width: v-bind("styles.width");
-    height: v-bind("styles.height");
 
     @media print {
       position: relative !important;

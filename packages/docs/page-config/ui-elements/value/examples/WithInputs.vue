@@ -5,7 +5,7 @@
     </span>
 
     <VaValue v-slot="v">
-      <input v-if="v.value" v-model="form[key]">
+      <input class="item__input" v-if="v.value" v-model="form[key]">
       <span v-else>
         {{ form[key] }}
       </span>
@@ -29,7 +29,7 @@
     height: 2rem;
   }
 
-  input {
+  .item__input {
     outline: 1px solid var(--va-background-border);
     box-sizing: border-box;
     padding: 0 4px;
