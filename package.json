@@ -12,7 +12,7 @@
   "private": true,
   "scripts": {
     "serve:storybook": "yarn workspace vuestic-ui serve:storybook",
-    "start:docs:ci": "yarn workspace docs start:ci",
+    "start:docs:ci": "yarn workspace formkit build && yarn workspace docs start:ci",
     "serve:production": "yarn workspace vuestic-ui serve:production",
     "lint": "yarn workspace vuestic-ui lint",
     "build": "yarn workspace vuestic-ui build",
