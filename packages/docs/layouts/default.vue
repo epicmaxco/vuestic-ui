@@ -45,7 +45,7 @@ const breakpoints = useBreakpoint()
 
 const { currentPresetName } = useColors()
 
-const isSidebarVisible = ref(!breakpoints.smDown)
+const isSidebarVisible = ref(false)
 const isOptionsVisible = ref(false)
 const doShowLoader = ref(true)
 
@@ -74,11 +74,10 @@ const onMouseMove = (e: MouseEvent) => {
 }
 
 onMounted(() => {
-
   isSidebarVisible.value = !breakpoints.smDown
-  setTimeout(() => {
-    doShowLoader.value = false
-  }, 300);
+  // setTimeout(() => {
+  doShowLoader.value = false
+  // }, 300);
 
   if (window.localStorage.getItem('eventConfig')) {
     window.localStorage.setItem('eventConfig', 'none')
@@ -112,7 +111,6 @@ useHead({
     { href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css", rel: "stylesheet" },
   ],
   script: [
-    { src: 'https://kit.fontawesome.com/5460c87b2a.js', crossorigin: 'anonymous' },
     { src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js', type: 'module' },
   ],
 })

@@ -13,8 +13,7 @@ export const useSelectorTemplateRef = (selector: Ref<MaybeHTMLElementOrSelector>
   return computed(() => {
     if (typeof selector?.value === 'string') {
       if (selector.value === '') {
-        warn('useSelectorTemplateRef: selector is invalid')
-        return
+        return document.value?.body
       }
 
       // May not be available until mounted, so try to querySelector once again when mounted

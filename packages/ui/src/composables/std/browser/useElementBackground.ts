@@ -1,5 +1,4 @@
 import { Ref, ref, watchEffect } from 'vue'
-import { isServer } from '../../../utils/ssr'
 
 /**
  * This module works with element background
@@ -132,11 +131,7 @@ const getColorFromElements = (els: HTMLElement[]): RGBAColorParsed => {
  * Returns undefined on server, otherwise returns ref with color
  */
 export const useElementBackground = (el: Ref<HTMLElement | undefined | null>) => {
-  if (isServer()) {
-    return ref(undefined)
-  }
-
-  const color = ref<string>('#000000')
+  const color = ref<string | undefined>(undefined)
   let unWatchAll = () => void 0 as void
 
   watchEffect(() => {

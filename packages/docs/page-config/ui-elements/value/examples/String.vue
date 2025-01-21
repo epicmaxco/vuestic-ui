@@ -1,6 +1,6 @@
 <template>
   <VaValue v-slot="inputText" default-value="Vuestic">
-    <div class="preview">
+    <div class="demo-preview">
       <VaValue
         v-for="i in 20"
         v-slot="textPosition"
@@ -29,13 +29,13 @@
 </template>
 
 <style>
-  .preview {
+  .demo-preview {
     position: relative;
     height: 200px;
     background: var(--va-primary);
   }
 
-  .preview span {
+  .demo-preview span {
     position: absolute;
     color: var(--va-on-primary);
     font-weight: 800;

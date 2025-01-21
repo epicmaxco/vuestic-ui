@@ -1,70 +1,54 @@
 <template>
   <table>
-    <tr>
-      <td colspan="2">
-        <div class="title va-text-center mb-2">
-          Offset direction
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td
-        colspan="2"
-        class="p-[4rem]"
-      >
-        <div class="flex flex-col items-center">
-          <VaDropdown
-            :model-value="true"
-            :placement="placementWIthAlias"
-            :close-on-click-outside="false"
-            :close-on-anchor-click="false"
-            :close-on-content-click="false"
-            :offset="offset"
-            :stateful="false"
-          >
-            <template #anchor>
-              <div><Coordinates :placement="placement" /></div>
-            </template>
+    <tbody>
+      <tr>
+        <td colspan="2">
+          <div class="title va-text-center mb-2">
+            Offset direction
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="p-[4rem]">
+          <div class="flex flex-col items-center">
+            <VaDropdown :model-value="true" :placement="placementWIthAlias" :close-on-click-outside="false"
+              :close-on-anchor-click="false" :close-on-content-click="false" :offset="offset" :stateful="false">
+              <template #anchor>
+                <div>
+                  <Coordinates :placement="placement" />
+                </div>
+              </template>
 
-            <VaDropdownContent> Dropdown </VaDropdownContent>
-          </VaDropdown>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td class="pr-4">
-        Placement:
-      </td>
-      <td>
-        <VaSelect
-          v-model="placementWIthAlias"
-          class="w-[10rem] sm:w-[unset]"
-          :options="placements"
-        />
-      </td>
-    </tr>
-    <tr>
-      <td class="text-[var(--va-primary)]">
-        Main:
-      </td>
-      <td>
-        <VaCounter
-          v-model="offset[0]"
-          manual-input
-        />
-      </td>
-    </tr>
-    <tr>
-      <td class="text-[var(--va-secondary)]">
-        Cross:
-      </td>
-      <td>
-        <VaCounter
-          v-model="offset[1]"
-          manual-input
-        />
-      </td>
-    </tr>
+              <VaDropdownContent> Dropdown </VaDropdownContent>
+            </VaDropdown>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="pr-4">
+          Placement:
+        </td>
+        <td>
+          <VaSelect v-model="placementWIthAlias" class="w-[10rem] sm:w-[unset]" :options="placements" />
+        </td>
+      </tr>
+      <tr>
+        <td class="text-[var(--va-primary)]">
+          Main:
+        </td>
+        <td>
+          <VaCounter v-model="offset[0]" manual-input />
+        </td>
+      </tr>
+      <tr>
+        <td class="text-[var(--va-secondary)]">
+          Cross:
+        </td>
+        <td>
+          <VaCounter v-model="offset[1]" manual-input />
+        </td>
+      </tr>
+    </tbody>
   </table>
 </template>
 
