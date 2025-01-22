@@ -5,6 +5,7 @@
   "compilerOptions": {
     "types": [
       "vite/client",
+      "@vuestic/formkit"
     ]
   },
   "exclude": [

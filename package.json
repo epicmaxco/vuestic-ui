@@ -24,7 +24,7 @@
     "lint:style": "yarn workspace vuestic-ui lint:style",
     "serve:docs": "yarn workspace docs serve",
     "build:docs": "yarn workspace docs build",
-    "build:docs:ci": "yarn workspace docs build:ci",
+    "build:docs:ci": "yarn workspace @vuestic/formkit build && yarn workspace docs build:ci",
     "push": "yarn workspace vuestic-ui push",
     "push-production": "yarn workspace vuestic-ui push-production",
     "build:nuxt": "yarn workspace @vuestic/nuxt build",
@@ -34,7 +34,10 @@
     "sandbox:nuxt": "yarn workspace sandbox dev:nuxt",
     "sandbox:vue-cli": "yarn workspace sandbox dev:vue-cli",
     "sandbox:web-components": "yarn workspace sandbox dev:web-components",
-    "release": "yarn workspace deploy release"
+    "release": "yarn workspace deploy release",
+    "serve:formkit": "yarn workspace @vuestic/formkit serve:storybook",
+    "build:formkit": "yarn workspace @vuestic/formkit build:storybook",
+    "start:formkit": "yarn workspace @vuestic/formkit start:storybook"
   },
   "workspaces": {
     "packages": [
@@ -56,6 +59,7 @@
     "@vue/server-renderer": "3.5.12",
     "@vue/compiler-dom": "3.5.12",
     "sass": "1.52.0",
+    "typescript": "5.3.2",
     "vue-tsc": "2.0.7"
   }
 }
