@@ -12,7 +12,7 @@
   "private": true,
   "scripts": {
     "serve:storybook": "yarn workspace vuestic-ui serve:storybook",
-    "start:docs:ci": "yarn workspace formkit build && yarn workspace docs start:ci",
+    "start:docs:ci": "yarn workspace docs start:ci",
     "serve:production": "yarn workspace vuestic-ui serve:production",
     "lint": "yarn workspace vuestic-ui lint",
     "build": "yarn workspace vuestic-ui build",
@@ -24,7 +24,7 @@
     "lint:style": "yarn workspace vuestic-ui lint:style",
     "serve:docs": "yarn workspace docs serve",
     "build:docs": "yarn workspace docs build",
-    "build:docs:ci": "yarn workspace docs build:ci",
+    "build:docs:ci": "yarn workspace formkit build && yarn workspace docs build:ci",
     "push": "yarn workspace vuestic-ui push",
     "push-production": "yarn workspace vuestic-ui push-production",
     "build:nuxt": "yarn workspace @vuestic/nuxt build",
