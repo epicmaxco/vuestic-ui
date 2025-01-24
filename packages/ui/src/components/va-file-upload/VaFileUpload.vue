@@ -240,7 +240,6 @@ const fileUploadListProps = filterComponentProps(VaFileUploadListProps)
 
     &__button {
       margin: var(--va-file-upload-dropzone-field-button-margin);
-      z-index: 10;
     }
 
     &__text {
