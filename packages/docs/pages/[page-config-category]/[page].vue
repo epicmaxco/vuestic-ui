@@ -1,7 +1,7 @@
 <template>
   <div class="page-config">
-    <PageConfig 
-      v-if="!isLoading && config" 
+    <PageConfig
+      v-if="!isLoading && config"
       :page-config="config"
     />
     <PageConfigSkeleton v-else />
@@ -33,7 +33,7 @@ const tabTitlePrefix = 'Vuestic UI'
 const router = useRouter()
 watch(config, () => {
     if (!config.value) {
-    router.push('/404')
+      router.push('/404')
     }
 }, { immediate: true })
 
