@@ -8,6 +8,7 @@
     "vue"
   ],
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "description": "Custom FormKit inputs done with Vuestic UI.",
   "homepage": "https://vuestic.dev",
