@@ -1,8 +1,5 @@
-import { ComputedRef, Ref } from 'vue'
-
-const isComputedRef = <T>(value: Ref<T>): value is ComputedRef<any> & { _setter: (v: T) => void} => {
-  return typeof value === 'object' && '_setter' in value
-}
+import { Ref } from 'vue'
+import { warn } from './console'
 
 // TODO: Maybe it is better to tweak useStateful
 /**
@@ -12,10 +9,20 @@ const isComputedRef = <T>(value: Ref<T>): value is ComputedRef<any> & { _setter:
  * @notice you likely want to watch when value is changed, not setter is called.
  */
 export const watchSetter = <T>(ref: Ref<T>, cb: (newValue: T) => void) => {
-  if (!isComputedRef(ref)) { return }
-  const originalSetter = ref._setter
+  let key: 'setter' | '_setter'
 
-  ref._setter = (newValue: T) => {
+  if ('_setter' in ref) {
+    key = '_setter' as const
+  } else if ('setter' in ref) {
+    key = 'setter' as const
+  } else {
+    warn('watchSetter', 'Ref does not have setter', ref)
+    return
+  }
+
+  const originalSetter = (ref as any)[key]
+
+  ;(ref as any)[key] = (newValue: T) => {
     cb(newValue)
     originalSetter(newValue)
   }

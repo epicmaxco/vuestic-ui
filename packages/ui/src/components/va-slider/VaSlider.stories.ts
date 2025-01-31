@@ -8,7 +8,7 @@ import { VaSlider } from './'
 
 function getSlider () {
   return {
-    slider: getStoryId('slider'),
+    slider: getStoryId('slider').querySelector('[role="slider"]') as HTMLElement,
     sliderTrack: getStorySelector('.va-slider__track'),
     sliderThumb: getStorySelector('.va-slider__handler'),
   }
@@ -16,7 +16,7 @@ function getSlider () {
 
 function getSliderAll () {
   return {
-    slider: getStoryIdAll('slider'),
+    slider: [...getStoryIdAll('slider')].map((el) => el.querySelector('[role="slider"]') as HTMLElement),
     sliderTrack: getStorySelectorAll('.va-slider__track:not([class*=" "])'),
     sliderThumb: getStorySelectorAll('.va-slider__handler'),
   }

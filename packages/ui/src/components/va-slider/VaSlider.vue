@@ -670,7 +670,7 @@ const sliderAriaAttributes = (value: number, order: 0 | 1) => {
     role: 'slider',
     'aria-valuemin': minComputed.value,
     'aria-valuemax': maxComputed.value,
-    'aria-valuenow:': value,
+    'aria-valuenow': value,
     'aria-valuetext': String(value),
     'aria-label': props.range
       ? order === 0
