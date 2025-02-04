@@ -1,4 +1,4 @@
-import { onMounted, shallowRef, onScopeDispose } from 'vue'
+import { onMounted, shallowRef } from 'vue'
 import { useEvent } from '../event/useEvent'
 import { makeSharedComposable } from '../internal/makeSharedComposable'
 

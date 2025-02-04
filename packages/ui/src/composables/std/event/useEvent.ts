@@ -25,7 +25,7 @@ export const useEvent = <N extends UseEventEventName, E extends Event>(
   event: N,
   listener: (this: GlobalEventHandlers, event: UseEventEvent<N, E>) => any,
   target?: MaybeRef<TemplateRef | Window> | boolean,
-  options: AddEventListenerOptions = {},
+  options?: AddEventListenerOptions,
 ) => {
   const window = useWindow()
 
