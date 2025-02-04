@@ -1,3 +1,4 @@
+import { unwrapEl } from './../../../../utils/unwrapEl'
 import { onBeforeUnmount, onMounted, ref, Ref, unref, watch } from 'vue'
 
 type MaybeRef<T> = T | Ref<T>
@@ -18,7 +19,7 @@ export const useResizeObserver = <T extends HTMLElement | undefined>(elementsLis
 
   const observeAll = (elements: MaybeRef<T>[]) => {
     elements.forEach((element: MaybeRef<T>) => {
-      const unrefElement = unref(element)
+      const unrefElement = unwrapEl(unref(element))
 
       if (!unrefElement) {
         return
