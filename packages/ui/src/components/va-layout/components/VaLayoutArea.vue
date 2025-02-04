@@ -1,18 +1,18 @@
 <template>
   <VaLayoutAbsoluteWrapper v-if="absolute">
-    <div :class="`va-layout-area va-layout__area va-layout__area--${area}`">
-      <VaLayoutFixedWrapper v-if="fixed" :area="area">
-        <slot />
-      </VaLayoutFixedWrapper>
-      <slot v-else />
+    <VaLayoutFixedWrapper v-if="fixed" :area="area" :class="layoutAreaClass">
+      <slot />
+    </VaLayoutFixedWrapper>
+    <div v-else :class="layoutAreaClass">
+      <slot />
     </div>
   </VaLayoutAbsoluteWrapper>
 
-  <div v-else :class="`va-layout-area va-layout__area va-layout__area--${area}`">
-    <VaLayoutFixedWrapper v-if="fixed" :area="area">
-      <slot />
-    </VaLayoutFixedWrapper>
-    <slot v-else />
+  <VaLayoutFixedWrapper v-if="fixed" :area="area" :class="layoutAreaClass">
+    <slot />
+  </VaLayoutFixedWrapper>
+  <div v-else :class="layoutAreaClass">
+    <slot />
   </div>
 
   <Transition>
@@ -47,6 +47,7 @@ const absolute = computed(() => props.config.absolute || false)
 const fixed = computed(() => props.config.fixed || false)
 const overlay = computed(() => props.config.overlay || false)
 const zIndex = computed(() => (props.config.order || 0) + 1)
+const layoutAreaClass = computed(() => `va-layout-area va-layout__area va-layout__area--${props.area}`)
 </script>
 
 <style lang="scss">
