@@ -16,7 +16,7 @@ function getSlider () {
 
 function getSliderAll () {
   return {
-    slider: [...getStoryIdAll('slider')].map((el) => el.querySelector('[role="slider"]') as HTMLElement),
+    slider: [...getStoryIdAll('slider')].map((el) => [...el.querySelectorAll('[role="slider"]')] as HTMLElement[]).flat(),
     sliderTrack: getStorySelectorAll('.va-slider__track:not([class*=" "])'),
     sliderThumb: getStorySelectorAll('.va-slider__handler'),
   }
@@ -426,14 +426,16 @@ Range.play = async ({ step }) => {
     await userEvent.click(sliderTrack[0], { clientX: 0 })
     await userEvent.click(sliderTrack[0], { clientX })
 
-    expect(slider[0]).toHaveAttribute('aria-valuetext', '0,100')
+    expect(slider[0]).toHaveAttribute('aria-valuetext', '0')
+    expect(slider[1]).toHaveAttribute('aria-valuetext', '100')
   })
 
   await step('Must work on both sides with min and max (track)', async () => {
     await userEvent.click(sliderTrack[1], { clientX: 0 })
     await userEvent.click(sliderTrack[1], { clientX })
 
-    expect(slider[1]).toHaveAttribute('aria-valuetext', '15,85')
+    expect(slider[2]).toHaveAttribute('aria-valuetext', '15')
+    expect(slider[3]).toHaveAttribute('aria-valuetext', '85')
   })
 }
 
@@ -672,6 +674,7 @@ Vertical.play = async ({ step }) => {
     await userEvent.click(sliderTrack[2], { clientY })
     await userEvent.click(sliderTrack[2], { clientY: clientY + 168 })
 
-    expect(slider[2]).toHaveAttribute('aria-valuetext', '0,100')
+    expect(slider[3]).toHaveAttribute('aria-valuetext', '0')
+    expect(slider[2]).toHaveAttribute('aria-valuetext', '100')
   })
 }
