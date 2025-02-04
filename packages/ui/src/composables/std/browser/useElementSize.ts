@@ -1,7 +1,8 @@
-import { onMounted, Ref, ref, watchEffect } from 'vue'
+import { DefineComponent, onMounted, Ref, ref, watchEffect } from 'vue'
 import { useResizeObserver } from './observer/useResizeObserver'
+import { unwrapEl } from '../../../utils/unwrapEl'
 
-export const useElementWidth = (el: Ref<HTMLElement | undefined>) => {
+export const useElementWidth = (el: Ref<HTMLElement | DefineComponent | undefined>) => {
   const width = ref<null | number>(null)
   const height = ref<null | number>(null)
 
@@ -11,7 +12,7 @@ export const useElementWidth = (el: Ref<HTMLElement | undefined>) => {
   })
 
   onMounted(() => {
-    const rect = el.value?.getBoundingClientRect()
+    const rect = unwrapEl(el.value)?.getBoundingClientRect()
 
     if (!rect) {
       return
