@@ -1,5 +1,5 @@
 import { ref, computed, watch, type PropType, type Ref, type WritableComputedRef } from 'vue'
-import { NOT_PROVIDED, useUserProvidedProp } from './std/internal/useUserProvidedProp'
+import { useIsUserProvidedProp } from './std/internal/useUserProvidedProp'
 
 export type StatefulProps = {
   stateful: boolean
@@ -57,14 +57,14 @@ export const useStateful = <
   const { eventName, defaultValue } = options
   const event = (eventName || `update:${key.toString()}`) as `update:${Key}`
 
-  const passedProp = useUserProvidedProp(key, props)
+  const isUserProvidedProp = useIsUserProvidedProp(key)
 
   const defaultValuePassed = 'defaultValue' in options
 
   const valueState = ref(
-    passedProp.value === NOT_PROVIDED
+    isUserProvidedProp.value
       ? defaultValuePassed ? defaultValue : props[key]
-      : passedProp.value,
+      : props[key],
   ) as Ref<P[Key]>
 
   let unwatchModelValue: ReturnType<typeof watch>
@@ -80,12 +80,13 @@ export const useStateful = <
 
   const valueComputed = computed({
     get: () => {
+      if (isUserProvidedProp.value) { return props[key] }
       if (props.stateful) { return valueState.value }
 
       return props[key]
     },
     set: (value) => {
-      if (props.stateful) { valueState.value = value }
+      if (props.stateful && valueComputed.value !== value) { valueState.value = value }
 
       emit(event, value)
     },
@@ -96,7 +97,7 @@ export const useStateful = <
   })
 
   Object.defineProperty(valueComputed, 'userProvided', {
-    get: () => passedProp.value !== NOT_PROVIDED,
+    get: () => isUserProvidedProp.value,
   })
 
   return { valueComputed }
