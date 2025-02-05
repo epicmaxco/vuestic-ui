@@ -8,7 +8,7 @@
     </div>
   </VaLayoutAbsoluteWrapper>
 
-  <VaLayoutFixedWrapper v-if="fixed" :area="area" :class="layoutAreaClass">
+  <VaLayoutFixedWrapper v-else-if="fixed" :area="area" :class="layoutAreaClass">
     <slot />
   </VaLayoutFixedWrapper>
   <div v-else :class="layoutAreaClass">
