@@ -10,7 +10,7 @@
         :auto-placement="false"
         trigger="none"
         placement="top"
-        target=".demo-viewport"
+        teleport=".demo-viewport"
       >
         <div class="h-screen w-24 bg-[var(--va-primary)]" />
 
