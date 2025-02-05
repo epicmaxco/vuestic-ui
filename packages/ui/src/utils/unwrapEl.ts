@@ -12,7 +12,7 @@ export {
  * @param el component, dom element or nothing
  * @returns HTMLElement or undefined
  */
-export const unwrapEl = <T extends TemplateRef | DefineComponent>(el: T) => {
+export const unwrapEl = <T extends TemplateRef | DefineComponent | undefined>(el: T) => {
   if (!el) { return }
   if (typeof el !== 'object') { return }
 

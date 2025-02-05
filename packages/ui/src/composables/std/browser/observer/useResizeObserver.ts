@@ -1,4 +1,5 @@
-import { onBeforeUnmount, onMounted, ref, Ref, unref, watch } from 'vue'
+import { unwrapEl } from './../../../../utils/unwrapEl'
+import { DefineComponent, onBeforeUnmount, onMounted, ref, Ref, unref, watch } from 'vue'
 
 type MaybeRef<T> = T | Ref<T>
 type MaybeArray<T> = T | T[]
@@ -13,12 +14,12 @@ const normalizeElements = <T>(elements: MaybeRef<T>[] | Ref<MaybeArray<T>>) => {
   return Array.isArray(unrefArray) ? unrefArray : [unrefArray]
 }
 
-export const useResizeObserver = <T extends HTMLElement | undefined>(elementsList: MaybeRef<T>[] | Ref<MaybeArray<T>>, cb: ResizeObserverCallback) => {
+export const useResizeObserver = <T extends HTMLElement | DefineComponent | undefined>(elementsList: MaybeRef<T>[] | Ref<MaybeArray<T>>, cb: ResizeObserverCallback) => {
   let resizeObserver: ResizeObserver | undefined
 
   const observeAll = (elements: MaybeRef<T>[]) => {
     elements.forEach((element: MaybeRef<T>) => {
-      const unrefElement = unref(element)
+      const unrefElement = unwrapEl(unref(element))
 
       if (!unrefElement) {
         return
