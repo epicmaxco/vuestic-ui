@@ -1,5 +1,7 @@
 import { defineComponent } from 'vue'
-import VaOptionList from './VaOptionList.demo.vue'
+import VaOptionListDemo from './VaOptionList.demo.vue'
+import VaOptionList from './VaOptionList.vue'
+import { StoryFn } from '@storybook/vue3'
 
 export default {
   title: 'VaOptionList',
@@ -7,6 +9,17 @@ export default {
 }
 
 export const Default = defineComponent({
+  components: { VaOptionListDemo },
+  template: '<VaOptionListDemo/>',
+})
+
+export const StatefulWithDefaultValue: StoryFn = () => ({
   components: { VaOptionList },
-  template: '<VaOptionList/>',
+  setup () {
+    const planeOptions = ['test1', 'test2', 'test3']
+    return {
+      planeOptions,
+    }
+  },
+  template: '<VaOptionList :options="planeOptions" stateful :defaultValue="[planeOptions[0], planeOptions[2]]" />',
 })
