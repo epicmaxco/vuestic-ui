@@ -252,3 +252,18 @@ export const EventListeners = () => ({
   <VaDateInput v-model="value" @keydown="onKeydown" manual-input />
   `,
 })
+
+export const Range = () => ({
+  components: { VaDateInput },
+
+  data () {
+    return {
+      value: { start: new Date('2020-01-01T00:00:00.000Z'), end: new Date('2020-01-02T00:00:00.000Z') },
+    }
+  },
+
+  template: `
+  {{ value }}
+  <VaDateInput v-model="value" />
+  `,
+})

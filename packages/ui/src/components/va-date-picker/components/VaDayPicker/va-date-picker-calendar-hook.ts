@@ -2,7 +2,6 @@ import { computed, Ref } from 'vue'
 
 import { DatePickerView } from '../../types'
 
-/** Returns last day of previous month */
 export const getMonthDaysCount = (year: number, month: number): number => new Date(year, month + 1, 0).getDate()
 
 export const getMonthStartWeekday = (year: number, month: number) => new Date(year, month, 1).getDay()

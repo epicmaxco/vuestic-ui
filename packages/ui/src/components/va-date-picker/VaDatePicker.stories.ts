@@ -19,3 +19,18 @@ export const firstWeekDay: StoryFn = () => ({
   <VaDatePicker firstWeekday="monday"/>
   `,
 })
+
+export const Range = () => ({
+  components: { VaDatePicker },
+
+  data () {
+    return {
+      value: { start: new Date('2020-01-01T00:00:00.000Z'), end: new Date('2020-01-02T00:00:00.000Z') },
+    }
+  },
+
+  template: `
+  {{ value }}
+  <VaDatePicker v-model="value" />
+  `,
+})
