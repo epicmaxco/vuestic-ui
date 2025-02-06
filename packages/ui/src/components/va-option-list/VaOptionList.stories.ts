@@ -8,7 +8,7 @@ export default {
   component: VaOptionList,
 }
 
-export const Default = defineComponent({
+export const Default: StoryFn = () => ({
   components: { VaOptionListDemo },
   template: '<VaOptionListDemo/>',
 })
