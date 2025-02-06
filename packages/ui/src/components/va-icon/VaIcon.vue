@@ -90,7 +90,7 @@ const computedStyle = computed(() => ({
 }))
 
 const tabindexComputed = computed(() => attrs.tabindex as number | undefined ?? -1)
-const ariaHiddenComputed = computed(() => attrs.role !== 'button' || tabindexComputed.value < 0)
+const ariaHiddenComputed = computed(() => (attrs.role !== 'button' && props.tag !== 'button') || tabindexComputed.value < 0)
 </script>
 
 <style lang="scss">
