@@ -64,9 +64,11 @@ const { paddings } = useFixedLayoutChild(props.area, size)
 .va-layout-fixed-wrapper {
   position: relative;
   flex: 1;
+  pointer-events: none;
 
   &__content {
     position: fixed;
+    pointer-events: all;
 
     @media print {
       position: relative !important;
