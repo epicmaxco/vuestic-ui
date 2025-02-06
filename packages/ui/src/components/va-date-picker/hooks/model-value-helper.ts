@@ -64,7 +64,10 @@ export const useDatePickerModelValue = (
       }
 
       emit('update:modelValue', date)
-    } else if (mode === 'range') {
+      return
+    }
+
+    if (mode === 'range') {
       if (!isRange(props.modelValue)) {
         return throwIncorrectModelValueError(props.modelValue, mode)
       }
@@ -73,18 +76,21 @@ export const useDatePickerModelValue = (
         return emit('update:modelValue', { start: props.modelValue.start, end: null })
       }
       if (props.modelValue.start && dateEqual(props.modelValue.start, date)) {
-        return emit('update:modelValue', { start: null, end: props.modelValue.end })
+        return emit('update:modelValue', { start: props.modelValue.end, end: null })
       }
 
-      if (props.modelValue.end === null) {
-        return emit('update:modelValue', sortRange({ start: props.modelValue.start, end: date }))
-      }
       if (props.modelValue.start === null) {
         return emit('update:modelValue', sortRange({ end: props.modelValue.end, start: date }))
       }
+      if (props.modelValue.end === null) {
+        return emit('update:modelValue', sortRange({ start: props.modelValue.start, end: date }))
+      }
 
       emit('update:modelValue', { start: date, end: null })
-    } else if (mode === 'multiple') {
+      return
+    }
+
+    if (mode === 'multiple') {
       if (!isDates(props.modelValue)) {
         return throwIncorrectModelValueError(props.modelValue, mode)
       }

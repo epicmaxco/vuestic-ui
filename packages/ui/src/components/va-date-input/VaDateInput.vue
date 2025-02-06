@@ -232,6 +232,10 @@ const modelValueToString = (value: DateInputModelValue): string => {
     return props.formatDate(value)
   }
   if (isRange(value)) {
+    if (value.start === null && value.end === null) {
+      return ''
+    }
+
     return dateOrNothing(value.start) + props.rangeDelimiter + dateOrNothing(value.end)
   }
 
