@@ -22,7 +22,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts",
+    "build": "tsup src/index.ts --format esm --dts --external vuestic-ui",
     "prepublishOnly": "npm run build",
     "serve:storybook": "storybook dev -p 6007",
     "build:storybook": "storybook build",
