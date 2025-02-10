@@ -1,5 +1,5 @@
 <template>
-  <VaDropdown v-bind="dropdownProps" ref="dropdown">
+  <VaDropdown v-bind="dropdownProps" ref="dropdown" v-model="vModel">
     <template #anchor>
       <slot name="anchor" />
     </template>
@@ -22,6 +22,7 @@ import { extractComponentProps, extractComponentEmits, filterComponentProps } fr
 import { useComponentPresetProp, useChildComponents, defineChildProps } from '../../composables'
 import { focusElement, focusFirstFocusableChild } from '../../utils/focus'
 import { unwrapEl } from '../../utils/unwrapEl'
+import { useStatefulControl } from '../../composables/fabrics/useStatefulControl'
 
 const VaMenuListProps = extractComponentProps(VaMenuList)
 const VaMenuListEmits = extractComponentEmits(VaMenuList)
@@ -53,6 +54,8 @@ const emit = defineEmits([
 
 const menuList = ref<HTMLElement>()
 const dropdown = ref<typeof VaDropdown>()
+
+const vModel = useStatefulControl(props, emit)
 
 watchEffect(() => {
   if (menuList.value) {

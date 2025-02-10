@@ -1,6 +1,6 @@
 <template>
   <div>
-    <VaMenu>
+    <VaMenu stick-to-edges>
       <template #anchor>
         <VaButton
           :icon="currentTheme?.icon"
