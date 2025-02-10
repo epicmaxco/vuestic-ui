@@ -130,6 +130,11 @@ export const useValidation = <V, P extends ExtractPropTypes<typeof useValidation
     isDirty.value = false
     isTouched.value = false
     isLoading.value = false
+    if (props.immediateValidation) {
+      nextTick(() => {
+        validate()
+      })
+    }
   }
 
   const processResults = (results: any[]) => {

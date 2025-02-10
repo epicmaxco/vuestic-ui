@@ -258,3 +258,78 @@ export const ValidationTouchedState = defineStory({
     })
   },
 })
+
+export const ValidationClear = defineStory({
+  story: () => ({
+    components: { VaInput },
+    data () {
+      return {
+        value: '',
+      }
+    },
+    template: `
+      <VaInput v-model="value" :rules="[ (value) => (value && value.length > 0) || 'Fill in the text box']" ref="component" clearable />
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect, event, sleep }) {
+    await step('Expect no error when mounted even if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).toBeNull()
+    })
+
+    await step('Expect error to be cleared when value is entered', async () => {
+      await event.type(canvasElement.querySelector('input')!, '1')
+      await event.type(canvasElement.querySelector('input')!, '{backspace}')
+
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
+
+    await step('Expect no error to be cleared when clear button is clicked', async () => {
+      await event.type(canvasElement.querySelector('input')!, '1')
+      await event.click(canvasElement.querySelector("[aria-label='reset']")!)
+
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).toBeNull()
+    })
+  },
+})
+
+export const ValidationClearWithImmediateValidation = defineStory({
+  story: () => ({
+    components: { VaInput },
+    data () {
+      return {
+        value: '',
+      }
+    },
+    template: `
+      <VaInput v-model="value" :rules="[(value) => (value && value.length > 0) || 'Fill in the text box']" ref="component" immediate-validation clearable />
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect, event, sleep }) {
+    await step('Expect error when mounted even if value is incorrect', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
+
+    await step('Expect error to be cleared when value is entered', async () => {
+      await event.type(canvasElement.querySelector('input')!, '1')
+      await event.type(canvasElement.querySelector('input')!, '{backspace}')
+
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
+
+    await step('Expect no error to be cleared when clear button is clicked', async () => {
+      await event.type(canvasElement.querySelector('input')!, '1')
+      await event.click(canvasElement.querySelector("[aria-label='reset']")!)
+      await sleep(1000)
+
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).not.toBeNull()
+    })
+  },
+})
