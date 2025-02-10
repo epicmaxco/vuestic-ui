@@ -82,14 +82,6 @@ export const useColors = () => {
       return prop
     }
 
-    if (prop?.startsWith('on')) {
-      const colorName = prop.slice(2)
-
-      if (colors[normalizeColorName(colorName)]) {
-        return getColor(getTextColor(getColor(colorName)), undefined, preferVariables)
-      }
-    }
-
     if (!prop) {
       prop = getColor(defaultColor)
     }
@@ -105,6 +97,14 @@ export const useColors = () => {
 
     if (preferVariables && isCSSVariable(prop)) {
       return prop
+    }
+
+    if (prop?.startsWith('on')) {
+      const colorName = prop.slice(2)
+
+      if (colors[normalizeColorName(colorName)]) {
+        return getColor(getTextColor(getColor(colorName)), undefined, preferVariables)
+      }
     }
 
     warn(`'${prop}' is not a proper color! Use HEX or default color themes
