@@ -91,13 +91,14 @@
                   va-child="cancelButton"
                   preset="secondary"
                   color="secondary"
-                  class="va-modal__default-cancel-button"
+                  class="va-modal__default-cancel-button va-modal__cancel-button"
                   @click="cancel"
                 >
                   {{ tp($props.cancelText) }}
                 </va-button>
                 <va-button
                   va-child="okButton"
+                  class="va-modal_ok-button"
                   @click="ok"
                 >
                   {{ tp($props.okText) }}

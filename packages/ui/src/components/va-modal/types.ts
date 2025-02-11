@@ -1,6 +1,5 @@
 import { ExtractComponentPropTypes } from '../../utils/component-options'
 import VaModal from './VaModal.vue'
-import { ExtractPropTypes } from 'vue'
 
 export type ModalSize = 'small' | 'medium' | 'large'
 
