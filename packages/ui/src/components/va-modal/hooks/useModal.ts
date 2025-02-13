@@ -1,6 +1,9 @@
-import { getCurrentInstance } from 'vue'
-import { createModalInstance } from '../modal'
+import { Component, getCurrentInstance } from 'vue'
+import { createModalInstance, getModalOptions } from '../modal'
 import { ModalOptions } from '../types'
+import { UnwrapType } from '../../../utils/types/unwrap-type'
+
+export type MakeInitModalFunction<R> = UnwrapType<((options: ModalOptions | string) => R) & ((component: Component, options?: ModalOptions) => R)>
 
 /** This hook can be used without plugin used */
 export const useModal = () => {
@@ -11,43 +14,33 @@ export const useModal = () => {
   }
 
   /**
-   * @param options can be message string or options object
+   * @param optionsOrComponent can be message string or options object
    */
-  const init = (options: string | ModalOptions) => {
-    return createModalInstance(options, appContext)
+  const init: MakeInitModalFunction<() => void> = (optionsOrComponent: string | ModalOptions | Component, options?: ModalOptions) => {
+    const { props, slots } = getModalOptions(optionsOrComponent)
+    return createModalInstance(options ?? props, appContext, slots)
   }
 
   /**
-   * @param options can be message string or options object
+   * @param optionsOrComponent can be message string or options object
    * @returns Promise with boolean value. True if modal was confirmed, false if modal was canceled
    */
-  const confirm = (options: string | ModalOptions) => {
-    if (typeof options === 'string') {
-      return new Promise<boolean>((resolve, reject) => {
-        createModalInstance({
-          message: options as string,
-          onOk () {
-            resolve(true)
-          },
-          onCancel () {
-            resolve(false)
-          },
-        }, appContext)
-      })
-    }
+  const confirm: MakeInitModalFunction<Promise<boolean>> = (optionsOrComponent: string | ModalOptions | Component, options: ModalOptions = {}) => {
+    const { props, slots } = getModalOptions(optionsOrComponent)
 
     return new Promise<boolean>((resolve, reject) => {
       createModalInstance({
         ...options,
+        ...props,
         onOk () {
-          options?.onOk?.()
+          props?.onOk?.()
           resolve(true)
         },
         onCancel () {
-          options?.onCancel?.()
+          props?.onCancel?.()
           resolve(false)
         },
-      }, appContext)
+      }, appContext, slots)
     })
   }
 

@@ -1,41 +1,32 @@
-import { App } from 'vue'
+import { App, Component } from 'vue'
 import { defineVuesticPlugin, defineGlobalProperty } from '../../../services/vue-plugin/utils'
-import { createModalInstance } from '../modal'
+import { createModalInstance, getModalOptions } from '../modal'
 import { ModalOptions } from '../types'
+import { MakeInitModalFunction } from '../hooks/useModal'
 
 const createVaModalPlugin = (app: App) => ({
-  init (options: string | ModalOptions) {
-    return createModalInstance(options, app?._context)
-  },
-  confirm (options: string | ModalOptions) {
-    if (typeof options === 'string') {
-      return new Promise<boolean>((resolve) => {
-        createModalInstance({
-          message: options as string,
-          onOk () {
-            resolve(true)
-          },
-          onCancel () {
-            resolve(false)
-          },
-        }, app?._context)
-      })
-    }
+  init: ((optionsOrComponent: string | ModalOptions | Component, options?: ModalOptions) => {
+    const { props, slots } = getModalOptions(optionsOrComponent)
+    return createModalInstance(options ?? props, app._context, slots)
+  }) as MakeInitModalFunction<() => void>,
+  confirm: ((optionsOrComponent: string | ModalOptions | Component, options: ModalOptions = {}) => {
+    const { props, slots } = getModalOptions(optionsOrComponent)
 
-    return new Promise<boolean>((resolve) => {
+    return new Promise<boolean>((resolve, reject) => {
       createModalInstance({
         ...options,
+        ...props,
         onOk () {
-          options?.onOk?.()
+          props?.onOk?.()
           resolve(true)
         },
         onCancel () {
-          options?.onCancel?.()
+          props?.onCancel?.()
           resolve(false)
         },
-      }, app?._context)
+      }, app._context, slots)
     })
-  },
+  }) as MakeInitModalFunction<Promise<boolean>>,
 })
 
 export const VaModalPlugin = defineVuesticPlugin(() => ({
