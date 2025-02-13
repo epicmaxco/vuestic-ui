@@ -107,7 +107,7 @@ const shadowStyle = computed(() => {
   return `0 0.125rem 0.19rem 0 ${getBoxShadowColor(colorComputed.value)}`
 })
 
-const { valueComputed } = useStateful(props, emit)
+const valueComputed = useStateful(props, emit)
 const { tagComputed, hrefComputed } = useRouterLink(props)
 
 const close = () => {

@@ -46,7 +46,7 @@ const props = defineProps({
 
 const emit = defineEmits([...useStatefulEmits])
 
-const { valueComputed } = useStateful(props, emit)
+const valueComputed = useStateful(props, emit)
 
 const isSelected = (color: string) => valueComputed.value === color
 

@@ -8,6 +8,7 @@
       <VaDropdown
         :model-value="true"
         :auto-placement="false"
+        :stateful="false"
         trigger="none"
         placement="top"
         teleport=".demo-viewport"

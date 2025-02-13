@@ -91,7 +91,7 @@ const emit = defineEmits([...useStatefulEmits])
 
 const splitPanelsContainer = shallowRef<HTMLElement>()
 
-const { valueComputed } = useStateful(props, emit)
+const valueComputed = useStateful(props, emit)
 
 const containerSize = ref()
 const bodyFontSize = ref(16)

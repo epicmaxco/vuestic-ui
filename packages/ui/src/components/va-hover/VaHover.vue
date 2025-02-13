@@ -24,7 +24,7 @@ const props = defineProps({
 
 const emit = defineEmits([...useStatefulEmits])
 
-const { valueComputed } = useStateful(props, emit)
+const valueComputed = useStateful(props, emit)
 
 const onMouseEnter = () => {
   if (!props.disabled) { valueComputed.value = true }

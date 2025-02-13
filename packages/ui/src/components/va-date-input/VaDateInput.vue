@@ -183,7 +183,7 @@ watch([datePicker], () => {
   trapFocus()
 })
 
-const { valueComputed: statefulValue } = useStateful(props, emit)
+const statefulValue = useStateful(props, emit)
 const { isOpenSync, dropdownProps } = useDropdownableControl(props, emit, {
   defaultCloseOnValueUpdate: computed(() => {
     if (Array.isArray(valueComputed.value)) {

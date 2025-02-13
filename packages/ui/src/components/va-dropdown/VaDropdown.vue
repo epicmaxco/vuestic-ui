@@ -81,7 +81,7 @@ export default defineComponent({
   emits: [...useStatefulEmits, 'anchor-click', 'anchor-right-click', 'content-click', 'click-outside', 'focus-outside', 'close', 'open', 'anchor-dblclick'],
 
   setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit, 'modelValue')
+    const valueComputed = useStateful(props, emit, 'modelValue')
 
     watch(valueComputed, (isOpened) => {
       if (isOpened) {

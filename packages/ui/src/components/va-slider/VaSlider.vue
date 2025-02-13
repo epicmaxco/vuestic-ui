@@ -246,7 +246,7 @@ const offset = ref(0)
 const size = ref(0)
 
 const defaultValue: number | number[] = props.range ? [0, 100] : 0
-const { valueComputed }: { valueComputed: WritableComputedRef<number | number[]> } = useStateful(props, emit, 'modelValue', { defaultValue })
+const valueComputed: WritableComputedRef<number | number[]> = useStateful(props, emit, 'modelValue', { defaultValue })
 
 const currentSliderDotIndex = ref(0)
 const hasMouseDown = ref(false)

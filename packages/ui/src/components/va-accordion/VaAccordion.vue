@@ -26,7 +26,7 @@ const props = defineProps({
 
 const emit = defineEmits([...useStatefulEmits])
 
-const { valueComputed } = useStateful(props, emit, 'modelValue')
+const valueComputed = useStateful(props, emit, 'modelValue')
 
 const { items } = useAccordion(props, valueComputed)
 

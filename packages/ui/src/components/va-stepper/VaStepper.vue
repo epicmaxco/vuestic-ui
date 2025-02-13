@@ -115,7 +115,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'finish', 'update:steps'])
 
 const stepperNavigation = shallowRef<HTMLElement>()
-const { valueComputed: modelValue }: { valueComputed: Ref<number> } = useStateful(props, emit, 'modelValue')
+const modelValue: Ref<number> = useStateful(props, emit, 'modelValue')
 
 const stepsComputed = computed(() => {
   if (!props.finishStep) {

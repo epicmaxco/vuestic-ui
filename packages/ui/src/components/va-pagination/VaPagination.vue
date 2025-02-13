@@ -177,7 +177,7 @@ const inputValue = ref('')
 
 const usesTotal = computed(() => !!((totalComputed.value || totalComputed.value === 0) && pageSizeComputed.value))
 
-const { valueComputed } = useStateful(props, emit)
+const valueComputed = useStateful(props, emit)
 
 const currentValue = computed({
   get: () => usesTotal.value ? Math.ceil(valueComputed.value / pageSizeComputed.value!) || 1 : valueComputed.value,

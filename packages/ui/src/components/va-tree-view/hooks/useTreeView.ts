@@ -49,8 +49,8 @@ const useTreeView: UseTreeViewFunc = (props, emit) => {
     getNodeProperty,
   } = useTreeHelpers(props)
   const { nodes, expandAll, filter, filterMethod, textBy } = toRefs(props)
-  const { valueComputed: expandedList } = useStateful(props, emit, 'expanded')
-  const { valueComputed: checkedList } = useStateful(props, emit, 'checked')
+  const expandedList = useStateful(props, emit, 'expanded')
+  const checkedList = useStateful(props, emit, 'checked')
 
   const selectedNode = ref()
   const selectedNodeComputed: WritableComputedRef<string | number | Record<string, unknown>> = computed({

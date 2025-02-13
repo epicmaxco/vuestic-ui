@@ -125,7 +125,7 @@ const {
   borderStyle,
 } = useAlertStyles(props)
 
-const { valueComputed } = useStateful(props, emit)
+const valueComputed = useStateful(props, emit)
 
 const hide = () => { valueComputed.value = false }
 
