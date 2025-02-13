@@ -136,7 +136,7 @@ useDeprecatedCondition([
 
 const input = shallowRef<HTMLInputElement>()
 
-const { valueComputed } = useStateful(props, emit, 'modelValue')
+const valueComputed = useStateful(props, emit, 'modelValue')
 
 const reset = () => withoutValidation(() => {
   valueComputed.value = props.clearValue

@@ -61,7 +61,7 @@ const props = defineProps({
 
 const emit = defineEmits([...useStatefulEmits])
 
-const { valueComputed } = useStateful(props, emit)
+const valueComputed = useStateful(props, emit)
 const { columns, isPM } = useTimePicker(props, valueComputed)
 const cellHeightComputed = useNumericProp('cellHeight') as ComputedRef<number>
 const visibleCellsCountComputed = useNumericProp('visibleCellsCount') as ComputedRef<number>

@@ -144,7 +144,7 @@ const timePicker = shallowRef<typeof VaTimePicker>()
 const { isOpenSync, dropdownProps } = useDropdownableControl(props, emit, {
   defaultCloseOnValueUpdate: computed(() => Array.isArray(props.view) && props.view.length === 1),
 })
-const { valueComputed } = useStateful<Date>(props, emit)
+const valueComputed = useStateful<Date>(props, emit)
 
 const { parse, isValid } = useTimeParser(props)
 const { format } = useTimeFormatter(props)

@@ -7,7 +7,7 @@ const TestComponentRich = defineComponent({
   template: '<p></p>',
   props: { ...useStatefulProps },
   setup (props, { emit }) {
-    const { valueComputed } = useStateful(props, emit)
+    const valueComputed = useStateful(props, emit)
 
     return {
       valueComputed,

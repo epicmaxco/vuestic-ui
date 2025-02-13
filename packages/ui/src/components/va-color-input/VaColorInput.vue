@@ -70,7 +70,7 @@ const emit = defineEmits([...useStatefulEmits])
 
 const colorPicker = shallowRef<HTMLInputElement>()
 
-const { valueComputed } = useStateful(props, emit)
+const valueComputed = useStateful(props, emit)
 
 const callPickerDialog = () => !props.disabled && colorPicker.value?.click()
 

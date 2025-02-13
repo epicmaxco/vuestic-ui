@@ -168,7 +168,7 @@ const props = defineProps({
 
 const emit = defineEmits([...useStatefulEmits])
 
-const { valueComputed: currentSlide } = useStateful(props, emit, 'modelValue')
+const currentSlide = useStateful(props, emit, 'modelValue')
 const autoscrollIntervalComputed = useNumericProp('autoscrollInterval')
 const autoscrollPauseDurationComputed = useNumericProp('autoscrollPauseDuration')
 const ratioComputed = useNumericProp('ratio')

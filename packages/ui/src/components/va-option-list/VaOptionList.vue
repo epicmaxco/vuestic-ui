@@ -93,7 +93,7 @@ const props = defineProps({
 
 const emit = defineEmits([...useStatefulEmits, ...useValidationEmits, 'clear'])
 
-const { valueComputed } = useStateful(props, emit, 'modelValue', { defaultValue: props.defaultValue })
+const valueComputed = useStateful(props, emit, 'modelValue', { defaultValue: props.defaultValue })
 
 const { getValue, getText, getTrackBy, getDisabled } = useSelectableList(props)
 

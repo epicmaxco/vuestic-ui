@@ -120,7 +120,7 @@ const emit = defineEmits(['update:modelValue', ...useSelectableEmits])
 
 const body = shallowRef<HTMLElement>()
 
-const { valueComputed } = useStateful(props, emit, 'modelValue')
+const valueComputed = useStateful(props, emit, 'modelValue')
 
 const { getColor, getTextColor, setHSLAColor } = useColors()
 const { accordionProps, accordionItemValue } = useAccordionItem()

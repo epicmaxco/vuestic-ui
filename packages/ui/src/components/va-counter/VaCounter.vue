@@ -195,7 +195,7 @@ const {
   blur,
 } = useFocusableControl(input, props, emit)
 
-const { valueComputed: statefulValue } = useStateful(props, emit)
+const statefulValue = useStateful(props, emit)
 
 function floatify (num: number | string) {
   return parseFloat(Number(num).toFixed(10))

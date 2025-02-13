@@ -252,7 +252,7 @@ const {
 
 const { getColor } = useColors()
 const textColorComputed = useElementTextColor(toRef(props, 'backgroundColor'))
-const { valueComputed } = useStateful(props, emit)
+const valueComputed = useStateful(props, emit)
 
 const computedClass = computed(() => ({
   'va-modal--fullscreen': props.fullscreen,

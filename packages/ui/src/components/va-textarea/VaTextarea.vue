@@ -114,9 +114,7 @@ const emit = defineEmits([...createEmits(), ...useValidationEmits])
 const attrs = useAttrs()
 
 const textarea = shallowRef<HTMLTextAreaElement>()
-const { valueComputed } = useStateful(props, emit, 'modelValue', {
-  defaultValue: '',
-})
+const valueComputed = useStateful(props, emit, 'modelValue')
 
 const focus = () => {
   focusElement(textarea.value)

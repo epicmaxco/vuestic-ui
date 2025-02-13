@@ -28,7 +28,7 @@ export const useRatingProps = {
 export const useRating = (props: ExtractPropTypes<typeof useRatingProps> & ExtractPropTypes<typeof useFormFieldProps>, el: Ref<HTMLElement | undefined>) => {
   const { emit } = getContext()
   const isHovered = useElementHovered(el)
-  const { valueComputed: modelValue } = useStateful(props, emit)
+  const modelValue = useStateful(props, emit)
 
   const hoveredValue = ref(0)
   const visibleValue = computed(() => !props.disabled && !props.readonly && props.hover && isHovered.value ? hoveredValue.value : modelValue.value)

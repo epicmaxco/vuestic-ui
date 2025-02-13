@@ -122,7 +122,7 @@ const emit = defineEmits([
 
 const currentPicker = ref<typeof VaDayPicker | typeof VaMonthPicker | typeof VaYearPicker>()
 
-const { valueComputed } = useStateful(props, emit)
+const valueComputed = useStateful(props, emit)
 
 const { syncView } = useView(props, emit, { type: props.type })
 

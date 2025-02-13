@@ -142,7 +142,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue', ...createEmits(), ...createMainButtonEmits()])
 
-const { valueComputed } = useStateful(props, emit)
+const valueComputed = useStateful(props, emit)
 
 const computedIcon = computed(() => valueComputed.value ? props.openedIcon : props.icon)
 

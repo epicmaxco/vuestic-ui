@@ -72,7 +72,7 @@ export const useSelectable = (
     unwrapEl(input.value)?.focus()
   }
 
-  const { valueComputed } = useStateful(props, emit)
+  const valueComputed = useStateful(props, emit)
 
   const {
     computedError,

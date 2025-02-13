@@ -61,6 +61,7 @@ export const useStateful = <
 
   const defaultValuePassed = 'defaultValue' in options
 
+  // TODO: Prefer props[key] instead of defaultValue and remove defaultValue from options
   const valueState = ref(
     isUserProvidedProp.value
       ? props[key]
@@ -78,27 +79,26 @@ export const useStateful = <
     stateful ? watchModelValue() : unwatchModelValue?.()
   }, { immediate: true })
 
-  const valueComputed = computed({
+  const statefulValue = computed({
     get: () => {
-      if (isUserProvidedProp.value) { return props[key] }
       if (props.stateful) { return valueState.value }
 
       return props[key]
     },
     set: (value) => {
-      if (props.stateful && valueComputed.value !== value) { valueState.value = value }
+      if (props.stateful && statefulValue.value !== value) { valueState.value = value }
 
       emit(event, value)
     },
   }) as StatefulValue<P[Key]>
 
-  Object.defineProperty(valueComputed, 'stateful', {
+  Object.defineProperty(statefulValue, 'stateful', {
     get: () => props.stateful,
   })
 
-  Object.defineProperty(valueComputed, 'userProvided', {
+  Object.defineProperty(statefulValue, 'userProvided', {
     get: () => isUserProvidedProp.value,
   })
 
-  return { valueComputed }
+  return statefulValue
 }
