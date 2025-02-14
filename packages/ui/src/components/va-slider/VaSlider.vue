@@ -68,12 +68,12 @@
         v-bind="sliderAriaAttributes(getValueByOrder(order), order)"
         @focus="currentSliderDotIndex = order"
       >
-        <div
+        <span
           v-if="isActiveDot(order)"
           :style="{ backgroundColor: getColor($props.color) }"
           class="va-slider__handler__dot--focus"
         />
-        <div
+        <span
           v-if="trackLabelVisible"
           :style="labelStyles"
           class="va-slider__handler__dot--value"
@@ -84,7 +84,7 @@
           >
             {{ getTrackLabel(getValueByOrder(order), order) }}
           </slot>
-        </div>
+        </span>
       </button>
     </div>
     <span
@@ -750,10 +750,11 @@ watch(hasMouseDown, (hasMouseDown) => {
 
     &__dot--focus {
       transform: var(--va-slider-dot-transform);
+      position: absolute;
+      top: 0;
       display: block;
       width: var(--va-slider-dot-width);
       height: var(--va-slider-dot-height);
-      position: absolute;
       border-radius: var(--va-slider-dot-border-radius);
       opacity: var(--va-slider-dot-opacity);
       pointer-events: var(--va-slider-dot-pointer-events);
