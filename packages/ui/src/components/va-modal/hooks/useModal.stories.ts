@@ -27,7 +27,7 @@ export const Default = defineStory({
       const button = canvasElement.querySelector('button')!
       button.click()
 
-      await sleep(100)
+      await sleep(1000)
 
       expect(document.querySelector('.va-modal')).not.toBeNull()
     })
@@ -36,7 +36,7 @@ export const Default = defineStory({
       const button = document.querySelector('.va-modal')!.querySelector('.va-modal_ok-button')! as HTMLButtonElement
       button.click()
 
-      await sleep(100)
+      await sleep(1000)
 
       expect(document.querySelector('.va-modal')).toBeNull()
     })
@@ -72,7 +72,7 @@ export const Confirm = defineStory({
       const button = canvasElement.querySelector('button')!
       button.click()
 
-      await sleep(100)
+      await sleep(1000)
 
       expect(canvasElement.querySelector('#result')?.innerHTML).toBe('')
       expect(document.querySelector('.va-modal')).not.toBeNull()
@@ -82,7 +82,7 @@ export const Confirm = defineStory({
       const button = document.querySelector('.va-modal')!.querySelector('.va-modal_ok-button')! as HTMLButtonElement
       button.click()
 
-      await sleep(100)
+      await sleep(1000)
 
       expect(canvasElement.querySelector('#result')?.innerHTML).toBe('true')
       expect(document.querySelector('.va-modal')).toBeNull()
@@ -123,7 +123,7 @@ export const InitComponent = defineStory({
       const button = canvasElement.querySelector('button')!
       button.click()
 
-      await sleep(100)
+      await sleep(1000)
 
       expect(canvasElement.querySelector('#result')?.innerHTML).toBe('')
       expect(document.querySelector('.va-modal')).not.toBeNull()
@@ -134,7 +134,7 @@ export const InitComponent = defineStory({
       const button = document.querySelector('.va-modal')!.querySelector('.va-modal_ok-button')! as HTMLButtonElement
       button.click()
 
-      await sleep(100)
+      await sleep(1000)
 
       expect(canvasElement.querySelector('#result')?.innerHTML).toBe('true')
       expect(document.querySelector('.va-modal')).toBeNull()
