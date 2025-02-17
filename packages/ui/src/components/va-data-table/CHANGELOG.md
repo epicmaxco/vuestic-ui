@@ -1,3 +1,6 @@
+# next
+- Add `row` slot
+
 # 1.9.3
 - Default sorting function now correctly sorts numbers
 

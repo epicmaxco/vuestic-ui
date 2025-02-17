@@ -104,55 +104,57 @@
                 v-for="(row, index) in renderBuffer"
                 :key="`table-row_${uniqueKey(row, index)}`"
               >
-                <tr
-                  class="va-data-table__table-tr"
-                  :class="[{ selected: isRowSelected(row), 'va-data-table__table-tr--expanded': row.isExpandableRowVisible }]"
-                  v-bind="getRowBind(row)"
-                  @click="onRowClickHandler('row:click', $event, row)"
-                  @dblclick="onRowClickHandler('row:dblclick', $event, row)"
-                  @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
-                >
-                  <td
-                    v-if="selectable && !$props.grid"
-                    class="va-data-table__table-td va-data-table__table-cell-select"
-                    :key="`selectable_${uniqueKey(row, index)}`"
-                    @selectstart.prevent
+                <slot name="row" v-bind="row">
+                  <tr
+                    class="va-data-table__table-tr"
+                    :class="[{ selected: isRowSelected(row), 'va-data-table__table-tr--expanded': row.isExpandableRowVisible }]"
+                    v-bind="getRowBind(row)"
+                    @click="onRowClickHandler('row:click', $event, row)"
+                    @dblclick="onRowClickHandler('row:dblclick', $event, row)"
+                    @contextmenu="onRowClickHandler('row:contextmenu', $event, row)"
                   >
-                    <va-checkbox
-                      class="va-data-table__table-cell-checkbox"
-                      :model-value="isRowSelected(row)"
-                      :color="selectedColor"
-                      :aria-label="tp($props.ariaSelectRowLabel, { index: row.initialIndex })"
-                      @click.shift.exact.stop="shiftSelectRows(row)"
-                      @click.ctrl.exact.stop="ctrlSelectRow(row)"
-                      @click.exact.stop="ctrlSelectRow(row)"
-                    />
-                  </td>
+                    <td
+                      v-if="selectable && !$props.grid"
+                      class="va-data-table__table-td va-data-table__table-cell-select"
+                      :key="`selectable_${uniqueKey(row, index)}`"
+                      @selectstart.prevent
+                    >
+                      <va-checkbox
+                        class="va-data-table__table-cell-checkbox"
+                        :model-value="isRowSelected(row)"
+                        :color="selectedColor"
+                        :aria-label="tp($props.ariaSelectRowLabel, { index: row.initialIndex })"
+                        @click.shift.exact.stop="shiftSelectRows(row)"
+                        @click.ctrl.exact.stop="ctrlSelectRow(row)"
+                        @click.exact.stop="ctrlSelectRow(row)"
+                      />
+                    </td>
 
-                  <td
-                    v-for="(cell, cellIndex) in row.cells"
-                    :key="`table-cell_${cell.column.name + cell.rowIndex}`"
-                    class="va-data-table__table-td"
-                    :class="getClass(cell.column.tdClass)"
-                    :style="[
-                      cell.column.width ? { minWidth: cell.column.width, maxWidth: cell.column.width } : {},
-                      getCellCSSVariables(cell),
-                      getStyle(cell.column.tdStyle),
-                    ]"
-                    v-bind="getCellBind(cell, row)"
-                  >
-                    <slot
-                      v-if="`cell(${cell.column.name})` in $slots"
-                      :name="`cell(${cell.column.name})`"
-                      v-bind="{ ...cell, row, isExpanded: row.isExpandableRowVisible }"
-                    />
+                    <td
+                      v-for="(cell, cellIndex) in row.cells"
+                      :key="`table-cell_${cell.column.name + cell.rowIndex}`"
+                      class="va-data-table__table-td"
+                      :class="getClass(cell.column.tdClass)"
+                      :style="[
+                        cell.column.width ? { minWidth: cell.column.width, maxWidth: cell.column.width } : {},
+                        getCellCSSVariables(cell),
+                        getStyle(cell.column.tdStyle),
+                      ]"
+                      v-bind="getCellBind(cell, row)"
+                    >
+                      <slot
+                        v-if="`cell(${cell.column.name})` in $slots"
+                        :name="`cell(${cell.column.name})`"
+                        v-bind="{ ...cell, row, isExpanded: row.isExpandableRowVisible }"
+                      />
 
-                    <slot v-else name="cell" v-bind="{ cell, row }">
-                      <span v-if="$props.grid" class="va-data-table__grid-column-header">{{ columnsComputed[cellIndex].label }}</span>
-                      {{ cellData(cell, columnsComputed[cellIndex]) }}
-                    </slot>
-                  </td>
-                </tr>
+                      <slot v-else name="cell" v-bind="{ cell, row }">
+                        <span v-if="$props.grid" class="va-data-table__grid-column-header">{{ columnsComputed[cellIndex].label }}</span>
+                        {{ cellData(cell, columnsComputed[cellIndex]) }}
+                      </slot>
+                    </td>
+                  </tr>
+                </slot>
                 <tr v-if="row.isExpandableRowVisible" class="va-data-table__table-tr" :key="`table-expandable-row_${uniqueKey(row, index)}`">
                   <td
                     class="va-data-table__table-expanded-content"

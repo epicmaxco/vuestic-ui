@@ -4,6 +4,7 @@ import VaDataTableDemo from './VaDataTable.demo.vue'
 import { VaDataTable } from '..'
 import { VaPagination } from '../va-pagination'
 import { StoryFn } from '@storybook/vue3'
+import { defineStory } from '../../../.storybook/types'
 
 export default {
   title: 'VaDataTable',
@@ -312,4 +313,41 @@ export const ExpandableRowFilter = () => ({
       </template>
     </VaDataTable>
   `,
+})
+
+export const RowSlot = defineStory({
+  story: () => ({
+    components: { VaDataTable },
+    setup () {
+      const items = [
+        { name: 'Aaa', email: 'a', age: 12 },
+        { name: 'Bbb', email: 'b', age: 12 },
+        { name: 'Ccc', email: 'c', age: 12 },
+        { name: 'Ddd', email: 'd', age: 12 },
+        { name: 'Eee', email: 'e', age: 12 },
+      ]
+
+      const columns = defineVaDataTableColumns([
+        { key: 'name' },
+        { key: 'email' },
+        { key: 'age' },
+      ]) satisfies Columns
+
+      return {
+        items,
+        columns,
+      }
+    },
+    template: `
+      <VaDataTable :items="items" :columns="columns">
+        <template #row="{ rowData }">
+          <tr>
+            <td>{{ rowData.name }}</td>
+            <td>{{ rowData.email }}</td>
+            <td>{{ rowData.age }}</td>
+          </tr>
+        </template>
+      </VaDataTable>
+    `,
+  }),
 })
