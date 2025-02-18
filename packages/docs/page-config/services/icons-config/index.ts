@@ -64,6 +64,10 @@ export default definePageConfig({
     block.paragraph("We use some icons in our components by default. You can redefine them by changing it's alias."),
     block.component("icon-aliases"),
 
+    block.headline("How to redefine default icons"),
+    block.paragraph("Here's how you can use aliases to redefine default Vuestic icons in case you're using your own icon solution."),
+    block.code("redefine-icons"),
+
     // setup
     block.subtitle("Let's build our config"),
     block.paragraph("We need to update icons config in our global config. Icons config is a flat array with Vuestic default font and aliases. We can use the `createIconsConfig()` helper to create a new config with Vuestic defaults and our custom fonts and aliases merged together. For example:"),
