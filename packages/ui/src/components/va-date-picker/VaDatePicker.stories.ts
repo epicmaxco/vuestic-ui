@@ -12,6 +12,24 @@ export const Default: StoryFn = () => ({
   template: '<VaDatePickerDemo />',
 })
 
+export const dynamicCurrentDate: StoryFn = () => ({
+  components: { VaDatePicker },
+  template: `
+  <VbDemo>
+    <VbCard title="statefull">
+      <va-date-picker stateful />
+    </VbCard>
+    <VbCard title="readonly">
+      <va-date-picker readonly />
+    </VbCard>
+    <VbCard title="without value">
+      <va-date-picker />
+    </VbCard>
+  </VbDemo>
+  `,
+})
+dynamicCurrentDate.parameters = { chromatic: { disableSnapshot: true } }
+
 export const firstWeekDay: StoryFn = () => ({
   components: { VaDatePicker },
   template: `
@@ -19,6 +37,7 @@ export const firstWeekDay: StoryFn = () => ({
   <VaDatePicker firstWeekday="monday"/>
   `,
 })
+firstWeekDay.parameters = { chromatic: { disableSnapshot: true } }
 
 export const Range = () => ({
   components: { VaDatePicker },
