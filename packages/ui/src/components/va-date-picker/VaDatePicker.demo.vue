@@ -16,18 +16,6 @@
       <va-date-picker mode="multiple" v-model="dates" />
     </VbCard>
 
-    <VbCard title="statefull">
-      <va-date-picker stateful />
-    </VbCard>
-
-    <VbCard title="readonly">
-      <va-date-picker readonly v-model:view="currentMonthDayView" />
-    </VbCard>
-
-    <VbCard title="without value">
-      <va-date-picker />
-    </VbCard>
-
     <VbCard title="weekday names">
       <va-date-picker v-model="value" :weekdayNames="['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']" />
     </VbCard>
@@ -188,7 +176,6 @@ export default {
 
       dayView: { type: 'day', month: 6, year: 2020 } satisfies DatePickerViewProp,
       monthView: { type: 'month' } satisfies DatePickerViewProp,
-      currentMonthDayView: { type: 'day', month: new Date().getMonth(), year: new Date().getFullYear() } satisfies DatePickerViewProp,
       yearView: { type: 'year' } satisfies DatePickerViewProp,
     }
   },
