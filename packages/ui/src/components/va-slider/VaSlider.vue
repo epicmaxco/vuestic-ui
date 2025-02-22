@@ -68,12 +68,12 @@
         v-bind="sliderAriaAttributes(getValueByOrder(order), order)"
         @focus="currentSliderDotIndex = order"
       >
-        <span
+        <div
           v-if="isActiveDot(order)"
           :style="{ backgroundColor: getColor($props.color) }"
           class="va-slider__handler__dot--focus"
         />
-        <span
+        <div
           v-if="trackLabelVisible"
           :style="labelStyles"
           class="va-slider__handler__dot--value"
@@ -84,7 +84,7 @@
           >
             {{ getTrackLabel(getValueByOrder(order), order) }}
           </slot>
-        </span>
+        </div>
       </button>
     </div>
     <span
