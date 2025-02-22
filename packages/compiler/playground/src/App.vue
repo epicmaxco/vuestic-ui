@@ -3,29 +3,19 @@ import TestPage from './pages/TestPage.vue';
 </script>
 
 <template>
-  <VaNavbar>
-    <template #left>
-      Vuestic UI Devtools demo
-    </template>
-    <template #right>
-      <VaNavbarItem>
-        <router-link to="/about">
-          Test
-        </router-link>
+  <div class="grid grid-cols-4 gap-4">
+    <VcButton icon="person" cool>
+      Sign In <span class="text-red-100">!</span>
+    </VcButton>
 
-      </VaNavbarItem>
-      <VaNavbarItem>
-        <router-link to="/contact">Contact</router-link>
-      </VaNavbarItem>
-    </template>
-  </VaNavbar>
+    <VcButton loading @click="() => console.log('clicked')">
+      Test
+    </VcButton>
 
-  <div style="padding: 16px">
-    <TestPage>
-      Default slot
-      <template #footer>
-        Footer slot
-      </template>
-    </TestPage>
+    <VcInput placeholder="Enter your name" />
+
+    <VaIcon name="person" />
+
+    <span class="text-red-100">Hello world!</span>
   </div>
 </template>

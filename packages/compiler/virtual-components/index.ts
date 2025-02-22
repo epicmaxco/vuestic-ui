@@ -1,0 +1,1 @@
+export { virtualComponents } from './plugin'

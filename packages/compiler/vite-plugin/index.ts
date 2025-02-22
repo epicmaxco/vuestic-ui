@@ -3,6 +3,7 @@ import { devtools, PluginOptions as DevtoolsPluginOptions } from "../devtools"
 import { cssLayers } from "../css-layers"
 import { vuesticConfig, Options as VuesticConfigPluginOptions } from "../vuestic-config"
 import { mergeDeep } from "../shared/merge-deep"
+import { virtualComponents } from "../virtual-components"
 
 type Options = {
   /** @default true */
@@ -78,8 +79,9 @@ export const vuestic = (options: Options = {}): Plugin[] => {
       timestamp: true,
     })
     plugins.push(...vuesticConfig(extractOptions('config')))
-
   }
+
+  plugins.push(virtualComponents)
 
   return plugins
 }
