@@ -69,13 +69,12 @@ import type { AnyStringPropType } from '../../utils/types/prop-type'
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { combineFunctions } from '../../utils/combine-functions'
-import { omit } from '../../utils/omit'
 import { pick } from '../../utils/pick'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 
 const { createEmits: createInputEmits, createListeners: createInputListeners } = useEmitProxy(
-  ['change', 'keyup', 'keypress', 'keydown', 'focus', 'blur', 'input'],
+  ['change', 'keyup', 'keypress', 'keydown', 'input'],
 )
 
 const { createEmits: createFieldEmits, createListeners: createFieldListeners } = useEmitProxy([
@@ -178,7 +177,7 @@ const inputListeners = createInputListeners(emit)
 
 const inputEvents = {
   ...inputListeners,
-  onBlur: combineFunctions(onBlur, inputListeners.onBlur),
+  onBlur,
 }
 
 const setInputValue = (newValue: string) => {
