@@ -27,9 +27,14 @@ const versions = computed(() => Object.keys(props.changeLog));
             color="secondary"
           />
           <h1 class="va-h6 va-link">
-            <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${version}`">
+            <template v-if="version.includes('next')">
+              next
+            </template>
+            <template v-else>
+              <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${version}`">
               v{{ version }}
-            </a>
+              </a>
+            </template>
             <Anchor :text="version" />
           </h1>
         </div>

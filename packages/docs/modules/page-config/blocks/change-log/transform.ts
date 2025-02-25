@@ -9,6 +9,9 @@ const sortObjectKeys = <T extends Record<string, any>>(obj: T) => {
   return Object
     .keys(obj)
     .sort((a, b) => {
+      if (a.includes('next')) return 1
+      if (b.includes('next')) return -1
+
       return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
     })
     .reverse()
@@ -35,7 +38,7 @@ export const render = async () => {
       const serviceName = path.match(/services\/(.*)\/CHANGELOG.md/)?.[1]
       const composableName = path.match(/composables\/(.*)\/CHANGELOG.md/)?.[1]
 
-      const spilledByVersion = changelog.split(/# ([0-9]*\.[0-9]*\.[0-9]*)/).filter(Boolean)
+      const spilledByVersion = changelog.split(/# ([0-9]*\.[0-9]*\.[0-9]*)|\# (next)/).filter(Boolean)
 
       for (let i = 0; i < spilledByVersion.length; i += 2) {
         const version = spilledByVersion[i]
