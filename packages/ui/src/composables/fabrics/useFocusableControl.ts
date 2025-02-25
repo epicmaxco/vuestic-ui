@@ -15,9 +15,16 @@ export const useFocusableControl = (
     autofocus: boolean,
     disabled?: boolean,
   },
-  emit: (event: (typeof useFocusableControlEmits)[number]) => void,
+  emit: (event: (typeof useFocusableControlEmits)[number], e: FocusEvent) => void,
 ) => {
-  const isFocused = useElementFocused(el)
+  const isFocused = useElementFocused(el, {
+    onBlur (e) {
+      emit('blur', e)
+    },
+    onFocus (e) {
+      emit('focus', e)
+    },
+  })
 
   const focus = () => {
     if (props.disabled) { return }
@@ -34,14 +41,6 @@ export const useFocusableControl = (
   onMounted(() => {
     if (props.autofocus) {
       focus()
-    }
-  })
-
-  watch(isFocused, (value) => {
-    if (value) {
-      emit('focus')
-    } else {
-      emit('blur')
     }
   })
 
