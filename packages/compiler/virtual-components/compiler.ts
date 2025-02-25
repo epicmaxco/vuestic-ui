@@ -68,13 +68,16 @@ export const compile = (code: string, id: string) => {
         parent.children.splice(nodeIndex, 1, ...slot.children)
       })
 
-      const propsCode = Object
-        .keys({
-          ...component.props,
-          ...ctx.props
-        })
-        .map((propName) => `const ${toCamelCase(propName)} = ${JSON.stringify(ctx.props[propName] === "" ? true : ctx.props[propName])}`)
-        .join(';')
+      // const propsCode = Object
+      //   .keys({
+      //     ...component.props,
+      //     ...ctx.props
+      //   })
+      //   .map((propName) => `const ${toCamelCase(propName)} = ${JSON.stringify(ctx.props[propName] === "" ? true : ctx.props[propName])}`)
+      //   .join(';')
+
+      const allProps = { ...component.props, ...ctx.props}
+      const destructedProps = `{ ${Object.keys(allProps).filter((p) => !['class'].includes(p)).join(', ')} }`
 
       walkCompiledVIf(componentTemplateAst!, (node, parent) => {
         if (!('children' in parent)) {
@@ -89,9 +92,11 @@ export const compile = (code: string, id: string) => {
 
         const condition = prop.value?.content
 
-        const code = `${propsCode};Boolean(${condition})`
+        const code = `($props, ${destructedProps}) => ${condition}`  //`${propsCode};Boolean(${condition})`
 
-        const doShow = execute(code)
+        console.log(code)
+
+        const doShow = execute(code)(ctx.props, ctx.props)
 
         if (!doShow) {
           const index = (parent as ElementNode).children.indexOf(node)
@@ -108,7 +113,6 @@ export const compile = (code: string, id: string) => {
           return
         }
 
-        const destructedProps = `{ ${Object.keys(ctx.props).join(', ')} }`
         const fn = `(($props, ${destructedProps}) => ${prop.exp.content})`
 
         const simplifiedExp = execute(fn)(ctx.props, ctx.props)
@@ -124,15 +128,32 @@ export const compile = (code: string, id: string) => {
 
       props.push(...ctx.directives)
 
-      Object.keys(ctx.props).forEach((propName) => {
+      ctx.rawProps.forEach(({ rawName: propName, value }) => {
         if (propName in component.props) {
           return
         }
 
-        const prop = ctx.props[propName]
-
         if (!componentTemplateAst!.children || componentTemplateAst!.children.length > 1) {
           console.warn('Can not pass custom attributes to components with multiple root nodes')
+          return
+        }
+
+        if (propName === 'class' || propName === 'style') {
+          const prop = props.find((prop) => prop.name === propName)
+
+          if (!prop || !('value' in prop)) {
+            return
+          }
+
+          if (!prop.value) {
+            throw new Error('Expected prop value')
+          }
+
+          prop.value.content = `normalizeClass([${prop.value.content}, ${value}])`
+          return
+        }
+
+        if (props.find((prop) => prop.name === propName)) {
           return
         }
 
@@ -141,7 +162,7 @@ export const compile = (code: string, id: string) => {
           name: propName,
           value: {
             type: NodeTypes.TEXT,
-            content: String(prop),
+            content: String(value),
             loc: {
               start: { offset: -1, line: -1, column: -1 },
               end: { offset: -1, line: -1, column: -1 },

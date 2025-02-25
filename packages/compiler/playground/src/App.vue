@@ -12,7 +12,7 @@ import TestPage from './pages/TestPage.vue';
       Test
     </VcButton>
 
-    <VcInput placeholder="Enter your name" />
+    <VcInput placeholder="Enter your name" class="border-1-red" />
 
     <VaIcon name="person" />
 

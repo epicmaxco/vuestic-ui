@@ -30,12 +30,20 @@ const toCamelCase = (str: string) => {
 
 export const createCompilerContext = (node: ElementNode, source: string) => {
   const tag = node.tag
-  const props = node.props
-    .reduce((acc, prop) => {
-      if (isPropAttribute(prop)) {
-        acc[toCamelCase(prop.name)] = prop.value?.content ?? true
-      }
 
+  const rawProps = node.props
+    .filter(isPropAttribute)
+    .map((prop) => {
+      return {
+        value: prop.value?.content,
+        name: toCamelCase(prop.name),
+        rawName: prop.name
+      }
+    })
+
+  const props = rawProps
+    .reduce((acc, prop) => {
+      acc[prop.name] = prop.value ?? true
       return acc
     }, {} as Record<string, string | boolean>)
 
@@ -70,6 +78,7 @@ export const createCompilerContext = (node: ElementNode, source: string) => {
     name: tag.replace(/^Vc/g, ''), // TODO: maybe handle custom prefix
     tag,
     props,
+    rawProps,
     slots,
     directives,
     originalSource: node.loc.source,
@@ -85,6 +94,7 @@ type CompilerComponentSlot = {
 export type CompilerComponent = {
   name: string,
   tag: string,
+  rawProps: { value: string | null, name: string, rawName: string }[],
   props: Record<string, string | boolean>,
   slots: Record<string, CompilerComponentSlot>,
   directives: DirectiveNode[],
