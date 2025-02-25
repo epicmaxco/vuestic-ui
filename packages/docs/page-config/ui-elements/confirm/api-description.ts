@@ -6,7 +6,7 @@ export default defineApiDescription({
     message: "Content of modal body",
     attachElement: "A valid selector of element, where modal will be rendered",
     disableAttachment: "Ignore `attach-element` prop and render component as it's parent child",
-    size: "Set the size of the modal's width. `\"small\"`, `\"medium\"` (default) or `\"large\"`",
+    size: "Set the size of the modal's width. `\"auto\"`, `\"small\"`, `\"medium\"` (default) or `\"large\"`",
     okText: "Text string to place in the default footer **Ok** button",
     cancelText: "Text string to place in the default footer **Cancel** button",
     hideDefaultActions: "Use `hide-default-actions: true` to hide **Cancel** and **Ok** buttons",
