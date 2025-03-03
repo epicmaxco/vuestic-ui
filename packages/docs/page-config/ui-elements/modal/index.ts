@@ -77,6 +77,16 @@ export default definePageConfig({
       description: "Modals can be nested: you can open one modal from another."
     }),
 
+    block.example("DraggableModals", {
+      title: "Draggable modals",
+      description: "Modals can be draggable: you can open modal in 1 of 9 positions and drag it."
+    }),
+
+    block.example("DraggableSlots", {
+      title: "Draggable slots",
+      description: "Draggable modal can be customize with any slots for drag interaction."
+    }),
+
     block.subtitle("API"),
     block.api("VaModal", apiDescription, apiOptions),
 

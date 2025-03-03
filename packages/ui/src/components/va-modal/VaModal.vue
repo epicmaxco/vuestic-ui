@@ -7,7 +7,6 @@
     <div v-if="$slots.anchor" class="va-modal__anchor" v-bind="teleportFromAttrs">
       <slot name="anchor" v-bind="slotBind" />
     </div>
-
     <teleport :to="attachElement" :disabled="$props.disableAttachment">
       <WithTransition
         name="va-modal"
@@ -28,6 +27,8 @@
           class="va-modal"
           role="dialog"
           aria-modal="true"
+          :style="positionStyle"
+          @mousedown="handleStartDrag"
         >
           <div
             v-if="$props.overlay"
@@ -40,6 +41,9 @@
             class="va-modal__dialog"
             :style="[computedDialogStyle]"
           >
+            <template v-if="$slots.draggable">
+              <slot name="draggable" v-bind="slotBind" />
+            </template>
             <va-icon
               v-if="$props.fullscreen || $props.closeButton"
               va-child="closeButton"
@@ -132,6 +136,8 @@ import {
   watch,
   defineComponent,
   onBeforeUnmount,
+  ref,
+  useSlots,
 } from 'vue'
 
 import {
@@ -148,6 +154,7 @@ import {
   useIsMounted,
   defineChildProps,
   useChildComponents,
+  useDraggable,
 } from '../../composables'
 
 import { VaButton } from '../va-button'
@@ -185,7 +192,7 @@ const props = defineProps({
   }),
   ...useStatefulProps,
   modelValue: { type: Boolean, default: false },
-  attachElement: { type: String, default: 'body' },
+  attachElement: { type: String, default: 'body' }, // TODO: fix "attachElement" in DOCS build
   allowBodyScroll: { type: Boolean, default: false },
   disableAttachment: { type: Boolean, default: false },
   title: { type: String, default: '' },
@@ -231,6 +238,8 @@ const props = defineProps({
   beforeOk: { type: Function as PropType<(hide: () => void) => any> },
   beforeCancel: { type: Function as PropType<(hide: () => void) => any> },
   ariaCloseLabel: useTranslationProp('$t:close'),
+  draggable: { type: Boolean, default: false },
+  draggablePosition: { type: Object, default: () => ({ x: '50%', y: '50%' }) },
 })
 
 useChildComponents(props)
@@ -260,6 +269,7 @@ const computedClass = computed(() => ({
   'va-modal--mobile-fullscreen': props.mobileFullscreen,
   'va-modal--fixed-layout': props.fixedLayout,
   'va-modal--no-padding': props.noPadding,
+  'va-modal--draggable': props.draggable,
 }))
 
 const {
@@ -402,16 +412,6 @@ watch(valueComputed, (newValue) => {
   }
 })
 
-onMounted(() => {
-  if (valueComputed.value) { // case when open modal with this.$vaModal.init
-    onShow()
-  }
-
-  if (isTopLevelModal.value) {
-    trapFocusInModal()
-  }
-})
-
 onBeforeUnmount(() => {
   onHide()
 })
@@ -422,12 +422,44 @@ watch(isTopLevelModal, newIsTopLevelModal => {
   }
 }, { immediate: true })
 
+const initialPosition = toRef(props, 'draggablePosition')
+
+const containerRef = ref<HTMLElement | null>(null)
+
+const { positionStyle, startDrag } = useDraggable({
+  draggableRef: modalDialog,
+  containerRef,
+  isDraggable: props.draggable,
+  initialPosition,
+})
+
+const slots = useSlots()
+
+const slotsWithStartDrag = computed(() => {
+  return Object.keys(slots).filter(slot => {
+    if (!slots[slot]) { return false }
+
+    const tempSlotBind = { startDrag: () => {} }
+
+    const slotContent = slots[slot]?.(tempSlotBind) || []
+
+    return slotContent.some(vnode =>
+      vnode.props && Object.keys(vnode.props).includes('onMousedown'),
+    )
+  })
+})
+
+const handleStartDrag = computed(() => {
+  return slotsWithStartDrag.value.length ? () => {} : startDrag
+})
+
 defineExpose({
   show,
   hide,
   toggle,
   cancel,
   ok,
+  startDrag,
   onBeforeEnterTransition,
   onAfterEnterTransition,
   onBeforeLeaveTransition,
@@ -442,7 +474,22 @@ const {
   teleportedAttrs,
 } = useTeleported()
 
-const slotBind = { show, hide, toggle, cancel, ok }
+const slotBind = { show, hide, toggle, cancel, ok, startDrag }
+
+onMounted(() => {
+  if (valueComputed.value) { // case when open modal with this.$vaModal.init
+    onShow()
+  }
+
+  if (isTopLevelModal.value) {
+    trapFocusInModal()
+  }
+
+  const { draggable, attachElement } = props
+  if (draggable && attachElement !== 'body') {
+    containerRef.value = document.querySelector(attachElement)
+  }
+})
 </script>
 
 <style lang="scss">
@@ -533,6 +580,20 @@ body.va-modal-open {
     .va-modal__overlay:not(.va-modal__overlay--lowest) {
       display: none;
     }
+  }
+
+  &--draggable {
+    width: auto !important;
+    height: auto !important;
+  }
+
+  &--draggable &__overlay {
+    display: none;
+  }
+
+  &--draggable &__dialog {
+    margin: 0;
+    box-shadow: none;
   }
 
   &--fullscreen {

@@ -23,6 +23,8 @@ export default defineApiDescription({
     overlayOpacity: "Set the overlay's opacity",
     anchorClass: "Set class name to the `anchor` slot container",
     zIndex: "Set the modal's `z-index`",
+    draggable: "Enable modal dragging",
+    draggablePosition: "Set the initial position of the draggable modal",
     allowBodyScroll: "Allows the document scroll while modal is open.",
     blur: "Use `blur` filter to overlay. Root `css` variable `--va-modal-overlay-background-blur-radius` sets the blur radius",
     ariaCloseLabel: "The aria-label of the close button",
