@@ -23,7 +23,6 @@
       >
         <div
           v-if="valueComputed"
-          :aria-labelledby="title"
           :class="computedClass"
           class="va-modal"
           role="dialog"
