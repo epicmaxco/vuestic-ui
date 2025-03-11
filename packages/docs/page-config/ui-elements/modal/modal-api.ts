@@ -38,6 +38,8 @@ const modalOptions: Record<keyof ModalOptions, string> = {
   overlay: "boolean",
   overlayOpacity: "number | string",
   zIndex: "number | string",
+  draggable: "boolean",
+  draggablePosition: "{ x?: number | string, y?: number | string }",
   onOk: "() => void",
   onCancel: "() => void",
   onClickOutside: "() => void",
