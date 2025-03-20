@@ -44,7 +44,7 @@ describe('Virtual Components', () => {
           `.trim())
         })
 
-        test('should render element if not passed', () => {
+        test('should render element if passed', () => {
           const source = `
             <template>
               <div>

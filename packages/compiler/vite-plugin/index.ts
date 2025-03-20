@@ -53,33 +53,33 @@ const defaultOptions: Required<Options> = {
 export const vuestic = (options: Options = {}): Plugin[] => {
   options = mergeDeep(defaultOptions, options)
 
-  const extractOptions = (key: keyof Options) => {
-    // Build fails without as Record<string, string> cast
-    return typeof options[key] === 'object' ? options[key] as Record<string, string> : undefined
-  }
+  // const extractOptions = (key: keyof Options) => {
+  //   // Build fails without as Record<string, string> cast
+  //   return typeof options[key] === 'object' ? options[key] as Record<string, string> : undefined
+  // }
 
   const plugins = []
 
-  if (options.devtools !== false) {
-    logger.info('Using vuestic:devtools', {
-      timestamp: true,
-    })
-    plugins.push(devtools(extractOptions('devtools')))
-  }
+  // if (options.devtools !== false) {
+  //   logger.info('Using vuestic:devtools', {
+  //     timestamp: true,
+  //   })
+  //   plugins.push(devtools(extractOptions('devtools')))
+  // }
 
-  if (options.cssLayers !== false) {
-    logger.info('Using vuestic:css-layers', {
-      timestamp: true,
-    })
-    plugins.push(cssLayers)
-  }
+  // if (options.cssLayers !== false) {
+  //   logger.info('Using vuestic:css-layers', {
+  //     timestamp: true,
+  //   })
+  //   plugins.push(cssLayers)
+  // }
 
-  if (Boolean(options.config)) {
-    logger.info('Using vuestic:config', {
-      timestamp: true,
-    })
-    plugins.push(...vuesticConfig(extractOptions('config')))
-  }
+  // if (Boolean(options.config)) {
+  //   logger.info('Using vuestic:config', {
+  //     timestamp: true,
+  //   })
+  //   plugins.push(...vuesticConfig(extractOptions('config')))
+  // }
 
   plugins.push(virtualComponents)
 

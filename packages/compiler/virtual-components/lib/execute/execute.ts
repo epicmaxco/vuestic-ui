@@ -1,6 +1,5 @@
 import { MagicString } from '@vue/compiler-sfc'
 import { parse, Node, Statement, ModuleDeclaration, MemberExpression, TemplateLiteral} from 'acorn'
-import { CompilerContext } from '../create-compiler-context'
 
 export const execute = (code: string) => {
   try {

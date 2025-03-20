@@ -19,7 +19,8 @@ type Scope = {
 export const createInTemplateExecuter = <T = any>(ctx: {
   props: { name: string, value: string | undefined }[],
   dynamicProps: { name: string, value: string }[],
-  slots: Record<string, any>
+  slots: Record<string, any>,
+  methods: string[]
 }) => {
   // If dynamic props are used, we need to return the code instead of the value
   let isDynamic = false
@@ -57,7 +58,11 @@ export const createInTemplateExecuter = <T = any>(ctx: {
         dynamic: { ...acc.dynamic, ...scope.dynamic }
       }
     }, {})
-    const fnCode = `(_ctx) => ${addContext(code)}`
+    const fnCode = `((_ctx) => {
+      ${ctx.methods.join('\n')}
+      return (() => ${addContext(code)})()
+    })
+    `
 
     const newCtx = new Proxy(_ctxObj, {
       get(target, key: string) {

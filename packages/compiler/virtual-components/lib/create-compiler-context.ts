@@ -146,10 +146,12 @@ export const createCompilerContext = (node: ElementNode, component: VirtualCompo
     dynamicProps,
     dynamicAttrs,
     slots,
+    methods: component.script.scriptSetupContent.functions,
     execute: createInTemplateExecuter({
       props: staticProps,
       dynamicProps,
-      slots
+      slots,
+      methods: component.script.scriptSetupContent.functions
     })
   }
 }

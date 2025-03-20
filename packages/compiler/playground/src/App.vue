@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import TestPage from './pages/TestPage.vue';
+// import VcButton from './components/VcButton.vue'
+// import VcInput from './components/VcInput.vue'
+// import VcList from './components/VcList.vue'
+// import VcIcon from './components/VcIcon.vue'
 </script>
 
 <template>
-  <div class="grid grid-cols-4 gap-4">
-    <VcButton icon="person" cool>
-      Sign In <span class="text-red-100">!</span>
+  <div class="">
+    <VcButton icon="person">
+      Sign In <span class="text-red-500">!</span>
     </VcButton>
 
     <VcButton loading @click="() => console.log('clicked')">
@@ -14,8 +17,10 @@ import TestPage from './pages/TestPage.vue';
 
     <VcInput placeholder="Enter your name" class="border-1-red" />
 
-    <VaIcon name="person" />
+    <VcList :items="['List 1', 'List 2', 'List 3']"></VcList>
 
-    <span class="text-red-100">Hello world!</span>
+    <VcIcon icon="person" />
+
+    <div class="text-red-500">Hello world!</div>
   </div>
 </template>

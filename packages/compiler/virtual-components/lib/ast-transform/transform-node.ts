@@ -1,10 +1,7 @@
-import { AttributeNode, NodeTypes, RootNode, type TextNode, type ElementNode, type Node, ConstantTypes, TemplateNode } from "@vue/compiler-core";
+import { RootNode,type ElementNode } from "@vue/compiler-core";
 import { type VirtualComponent } from "../create-virtual-component";
 import { createCompilerContext, type CompilerContext } from "../create-compiler-context";
-import {  walk, walkPropBinds, walkSlots, walkTags, walkTemplateInterpolations } from './walk'
-import { isPropAttribute } from "../utils";
-import { createInTemplateExecuter, printValueInTemplate } from "../execute/print-rendering-context";
-import { normalizeClass, normalizeStyle } from 'vue'
+import {  walk, } from './walk'
 import { isNodeElement, isNodeHasChildren, isNodeInterpolation, isNodeSlot, isNodeTemplateSlot, isPropDirective } from "./ast-helpers";
 import { transformSlotNode } from "./transformers/transform-slot-node";
 import { transformPropBind } from "./transformers/transform-prop-bind";

@@ -10,13 +10,10 @@ import { vuestic } from '../vite-plugin'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vuestic({
-      devtools: {
-        include: fileURLToPath(new URL('./src', import.meta.url)) + '/**/*.vue'
-      }
+    vuestic({ devtools: false
     }),
     vue(),
-    Inspect(),
+    // Inspect(),
   ],
   resolve: {
     alias: {
