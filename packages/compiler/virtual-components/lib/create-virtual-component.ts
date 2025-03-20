@@ -1,4 +1,4 @@
-import { parse as parseVue } from "@vue/compiler-sfc"
+import { parse as parseVue, compileScript } from "@vue/compiler-sfc"
 import { extractDefineProps, extractPropDefaults } from './create-virtual-component/define-props'
 import { createScriptSetupContext } from './create-virtual-component/script-setup'
 
@@ -24,7 +24,7 @@ export const createVirtualComponent = (componentName: string, source: string) =>
     script: {
       props: extractDefineProps(source),
       propsDefaults: extractPropDefaults(source),
-      scriptSetupContent: createScriptSetupContext(result.descriptor.scriptSetup?.content ?? ''),
+      scriptSetupContent: createScriptSetupContext(result.descriptor),
       // onCompileFunction: extractFunctionBodies(source)
     }
   }

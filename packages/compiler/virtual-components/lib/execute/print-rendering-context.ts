@@ -1,15 +1,5 @@
 import { execute, simplifyCode, addContext } from './execute'
 
-const jsKeywords = [
-  'break', 'case', 'catch', 'class', 'const', 'continue', 'debugger', 'default',
-  'delete', 'do', 'else', 'enum', 'export', 'extends', 'false', 'finally', 'for',
-  'function', 'if', 'implements', 'import', 'in', 'instanceof', 'interface', 'let',
-]
-
-const filterJSKeywords = (key: string) => {
-  return !jsKeywords.includes(key)
-}
-
 type Scope = {
   static?: Record<string, any>,
   dynamic?: Record<string, any>
@@ -20,7 +10,8 @@ export const createInTemplateExecuter = <T = any>(ctx: {
   props: { name: string, value: string | undefined }[],
   dynamicProps: { name: string, value: string }[],
   slots: Record<string, any>,
-  methods: string[]
+  methods: string[],
+  $setup: string[]
 }) => {
   // If dynamic props are used, we need to return the code instead of the value
   let isDynamic = false
@@ -58,9 +49,10 @@ export const createInTemplateExecuter = <T = any>(ctx: {
         dynamic: { ...acc.dynamic, ...scope.dynamic }
       }
     }, {})
+
     const fnCode = `((_ctx) => {
       ${ctx.methods.join('\n')}
-      return (() => ${addContext(code)})()
+      return (() => ${addContext(code, ctx.$setup)})()
     })
     `
 
@@ -82,8 +74,14 @@ export const createInTemplateExecuter = <T = any>(ctx: {
     isDynamic = false
 
     const fn = execute(fnCode) as (_ctx: any) => T
-    const value = fn(newCtx) as T
-
+    let value
+    try {
+      value = fn(newCtx) as T
+    } catch (e) {
+      if (!(e instanceof TypeError)) {
+        throw e
+      }
+    }
     if (isDynamic) {
       return {
         value: simplifyCode(code, ctx),

@@ -5,7 +5,8 @@ export const walk = (node: TemplateChildNode | RootNode, cb: (node: TemplateChil
     return
   }
 
-  for (const child of node.children) {
+  const children = [...node.children]
+  for (const child of children) {
     if (typeof child === 'string') {
       continue
     }
@@ -17,6 +18,7 @@ export const walk = (node: TemplateChildNode | RootNode, cb: (node: TemplateChil
     }
 
     cb(child, node)
+
     if (node.children.includes(child as any)) {
       walk(child, cb)
     }

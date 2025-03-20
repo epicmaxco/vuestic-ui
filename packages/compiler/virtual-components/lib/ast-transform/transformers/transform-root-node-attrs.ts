@@ -4,10 +4,9 @@ import { isPropAttribute } from "../ast-helpers";
 
 /** Apply attributes to root element */
 export const transformRootNodeAttrs = (rootNode: ElementNode, ctx: CompilerContext) => {
-  // No attributes to apply
-  if (ctx.attrs.length === 0 && ctx.dynamicAttrs.length === 0) {
-    return
-  }
+  ctx.directives.forEach((directive) => {
+    rootNode.props.push(directive)
+  })
 
   ctx.attrs.forEach(({ name, value }) => {
     if (name === 'class' || name === 'style') {

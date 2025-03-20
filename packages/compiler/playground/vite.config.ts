@@ -13,7 +13,7 @@ export default defineConfig({
     vuestic({ devtools: false
     }),
     vue(),
-    // Inspect(),
+    Inspect(),
   ],
   resolve: {
     alias: {

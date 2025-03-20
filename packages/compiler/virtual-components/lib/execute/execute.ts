@@ -5,6 +5,7 @@ export const execute = (code: string) => {
   try {
     return (0, eval)(code)
   } catch (e) {
+    return null
     // throw new Error(`Failed to execute code: ${code}`)
   }
 }
@@ -41,51 +42,68 @@ const stringifyValue = (value: unknown) => {
   return JSON.stringify(value)
 }
 
-/** Add _ctx to Identifier if it is not in property access */
-const add_ctx = (node: any, codeString: MagicString) => {
+const onAccess = (node: any, codeString: MagicString, cb: (node: any) => void) => {
   if (node.type === 'PropertyAccessExpression') {
-    codeString.appendLeft(node.start, '_ctx.')
-    return
+    return cb(node)
   }
   if (node.type === 'Identifier') {
-    codeString.appendLeft(node.start, '_ctx.')
+    return cb(node)
+  }
+
+  if (node.type === 'CallExpression') {
+    return onAccess(node.callee, codeString, cb)
   }
 
   if ('children' in node) {
     for (const child of node.children) {
-      add_ctx(child, codeString)
+      onAccess(child, codeString, cb)
     }
   }
 
   if ('expressions' in node) {
     for (const expression of node.expressions) {
-      add_ctx(expression, codeString)
+      onAccess(expression, codeString, cb)
     }
   }
 
   if ('expression' in node) {
-    add_ctx(node.expression, codeString)
+    onAccess(node.expression, codeString, cb)
   }
 
   if ('left' in node) {
-    add_ctx(node.left, codeString)
+    onAccess(node.left, codeString, cb)
   }
 
   if ('right' in node) {
-    add_ctx(node.right, codeString)
+    onAccess(node.right, codeString, cb)
   }
 
   if ('object' in node) {
-    add_ctx(node.object, codeString)
+    onAccess(node.object, codeString, cb)
   }
 }
 
+/** Add _ctx to Identifier if it is not in property access */
+const add_ctx = (node: any, codeString: MagicString, ignore: string[]) => {
+  onAccess(node, codeString, (node) => {
+    if (node.type === 'Identifier' && ignore.includes(node.name)) {
+      return
+    }
+
+    if (node.type === 'PropertyAccessExpression' && node.object.type === 'Identifier' && ignore.includes(node.object.name)) {
+      return
+    }
+
+    codeString.appendLeft(node.start, '_ctx.')
+  })
+}
+
 /** Add _ctx to all variables used */
-export const addContext = (code: string) => {
+export const addContext = (code: string, ignore: string[] = []) => {
   const codeString = new MagicString(code)
   const ast = parse(code, { ecmaVersion: 2020 })
 
-  add_ctx(ast.body[0], codeString)
+  add_ctx(ast.body[0], codeString, ignore)
 
   return codeString.toString()
 }
@@ -97,44 +115,42 @@ export const simplifyCode = (code: string, ctx: {
   const codeString = new MagicString(code)
   const ast = parse(code, { ecmaVersion: 2020 })
 
-  walk(ast.body[0], (node) => {
-    if (node.type === 'Identifier') {
-      if (!('name' in node) || typeof node.name !== 'string') {
-        console.warn('Unable to parse expression', code, 'Invalid node', node)
+  onAccess(ast.body[0], codeString, (node) => {
+    if (!('name' in node) || typeof node.name !== 'string') {
+      console.warn('Unable to parse expression', code, 'Invalid node', node)
+      return
+    }
+
+    if (node.name === '$props') {
+      codeString.overwrite(node.start, node.end + 1, '')
+      return
+    }
+
+    const dynamicProp = ctx.dynamicProps.find((p) => p.name === node.name)
+
+    if (dynamicProp) {
+      codeString.overwrite(node.start, node.end, dynamicProp.value)
+      return
+    }
+
+    const staticProp = ctx.props.find((p) => p.name === node.name)
+    if (staticProp) {
+      // Do not render quotes around in ${} in template literals
+      if (codeString.original[node.start - 2] === '$' && codeString.original[node.start - 1] === '{' && codeString.original[node.end] === '}') {
+        codeString.overwrite(node.start - 2, node.end + 1, staticProp.value!)
         return
       }
 
-      if (node.name === '$props') {
-        codeString.overwrite(node.start, node.end + 1, '')
+      const value = stringifyValue(staticProp.value)
+
+      if (!value) {
+        // TODO: Maybe prop is required
+        console.warn('Unable to find prop value', staticProp, value)
         return
       }
 
-      const dynamicProp = ctx.dynamicProps.find((p) => p.name === node.name)
-
-      if (dynamicProp) {
-        codeString.overwrite(node.start, node.end, dynamicProp.value)
-        return
-      }
-
-      const staticProp = ctx.props.find((p) => p.name === node.name)
-      if (staticProp) {
-        // Do not render quotes around in ${} in template literals
-        if (codeString.original[node.start - 2] === '$' && codeString.original[node.start - 1] === '{' && codeString.original[node.end] === '}') {
-          codeString.overwrite(node.start - 2, node.end + 1, staticProp.value!)
-          return
-        }
-
-        const value = stringifyValue(staticProp.value)
-
-        if (!value) {
-          // TODO: Maybe prop is required
-          console.warn('Unable to find prop value', staticProp, value)
-          return
-        }
-
-        codeString.overwrite(node.start, node.end, value)
-        return
-      }
+      codeString.overwrite(node.start, node.end, value)
+      return
     }
   })
 

@@ -20,7 +20,7 @@ const transformNestedComponents = (source: string, virtualComponents: VirtualCom
 
     if (!component) { return }
 
-    const intend = getNodeIndent(node, source)
+    const intend = getNodeIndent(node, sourceString.toString())
 
     const newTemplate = transformAstNode(node, component)
     const newTemplateString = addIndent(renderTemplateAst(newTemplate), intend)
@@ -41,7 +41,6 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
   const templateAst = parseVue(source).descriptor.template?.ast
 
   if (!templateAst) {
-    console.log('source', source)
     throw new Error('No template found in component while transforming vue file')
   }
 
@@ -55,16 +54,20 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
 
     const intend = getNodeIndent(node, source)
 
-    const newTemplate = transformAstNode(node, component)
-    const newTemplateString = addIndent(renderTemplateAst(newTemplate), intend)
+    try {
+      const newTemplate = transformAstNode(node, component)
+      const newTemplateString = addIndent(renderTemplateAst(newTemplate), intend)
 
-    const compiledNewTemplate = transformNestedComponents(newTemplateString, virtualComponents)
+      const compiledNewTemplate = transformNestedComponents(newTemplateString, virtualComponents)
 
-    sourceString.overwrite(
-      node.loc.start.offset,
-      node.loc.end.offset,
-      compiledNewTemplate.toString()
-    )
+      sourceString.overwrite(
+        node.loc.start.offset,
+        node.loc.end.offset,
+        compiledNewTemplate.toString()
+      )
+    } catch (e) {
+      console.error(`Failed to transform component ${componentName}`, e)
+    }
   })
 
   return sourceString

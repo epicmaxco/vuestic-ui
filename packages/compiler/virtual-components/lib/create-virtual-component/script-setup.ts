@@ -1,4 +1,6 @@
-import { parse, Node, Statement, ModuleDeclaration, MemberExpression, TemplateLiteral, Program, VariableDeclaration } from 'acorn'
+import { compileScript, SFCDescriptor } from '@vue/compiler-sfc'
+import { Node, Statement, ModuleDeclaration, MemberExpression, TemplateLiteral, Program, VariableDeclaration, FunctionDeclaration } from 'acorn'
+import { transpileModule } from 'typescript'
 
 export type ScriptSetupContext = {
 
@@ -33,27 +35,61 @@ const walk = (node: Node | Statement | ModuleDeclaration | Program, cb: (node: N
   }
 }
 
-export const createScriptSetupContext = (scriptSetup: string) => {
-  const result = parse(scriptSetup, { ecmaVersion: 2020, sourceType: 'module' })
+export const createScriptSetupContext = (scriptSetup: SFCDescriptor) => {
+  if (!scriptSetup.scriptSetup) {
+    return {
+      functions: [],
+      variables: [],
+      functionNames: [],
+    }
+  }
+
+  const script = compileScript(scriptSetup, { id: 'test' })
+
+  if (!script.scriptSetupAst) {
+    return {
+      functions: [],
+      variables: [],
+      functionNames: [],
+    }
+  }
+
+  const source = scriptSetup.scriptSetup?.content ?? ''
 
   const functions = [] as string[]
+  const functionNames = [] as string[]
   const variables = [] as string[]
 
-  walk(result, (node) => {
-    if (node.type === 'FunctionDeclaration') {
-      functions.push(scriptSetup.slice(node.start, node.end))
-    }
-    if (node.type === 'VariableDeclaration') {
-      if ((node as VariableDeclaration).declarations[0].init?.type === 'ArrowFunctionExpression') {
-        functions.push(scriptSetup.slice(node.start, node.end))
-      } else if (node) {
-        variables.push(scriptSetup.slice(node.start, node.end))
+  script.scriptSetupAst.forEach((node) => {
+    walk(node as any, (node) => {
+      if (node.type === 'FunctionDeclaration') {
+        const name = (node as FunctionDeclaration).id.name
+        functionNames.push(name)
+        functions.push(source.slice(node.start, node.end))
       }
-    }
+      if (node.type === 'VariableDeclaration') {
+        const dec = node as VariableDeclaration
+        if (dec.declarations.length > 1) {
+          throw new Error('Only one variable declaration is supported')
+        }
+
+        if (dec.declarations[0].id.type !== 'Identifier') {
+          throw new Error('Only identifier declarations are supported. No destructuring.')
+        }
+
+        if (dec.declarations[0].init?.type === 'ArrowFunctionExpression') {
+          functions.push(source.slice(node.start, node.end))
+          functionNames.push(dec.declarations[0].id.name)
+        } else if (node) {
+          variables.push(source.slice(node.start, node.end))
+        }
+      }
+    })
   })
 
   return {
     functions,
+    functionNames,
     variables,
   }
 }

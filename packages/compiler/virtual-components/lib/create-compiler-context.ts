@@ -70,6 +70,8 @@ const createProps = (node: ElementNode, component: VirtualComponent) => {
   const definedProps = component.script.props
   const defaultProps = component.script.propsDefaults
 
+  const directives = [] as DirectiveNode[]
+
   node.props.forEach((prop) => {
     if (isPropAttribute(prop)) {
       if (definedProps.includes(prop.name)) {
@@ -102,6 +104,13 @@ const createProps = (node: ElementNode, component: VirtualComponent) => {
             value: prop.exp.content
           })
         }
+      } else if (['if', 'for'].includes(prop.name)) {
+        directives.push(prop)
+      } else if (prop.name === 'slot') {
+        // ignore
+      } else {
+        console.error('Unsupported directive', )
+        throw new Error('Unsupported directive ' + prop.name + ' in ' + node.loc.source)
       }
     }
   })
@@ -119,6 +128,7 @@ const createProps = (node: ElementNode, component: VirtualComponent) => {
   })
 
   return {
+    directives,
     staticProps,
     dynamicProps,
     staticAttrs,
@@ -133,7 +143,8 @@ export const createCompilerContext = (node: ElementNode, component: VirtualCompo
     staticProps,
     dynamicProps,
     staticAttrs,
-    dynamicAttrs
+    dynamicAttrs,
+    directives
   } = createProps(node, component)
 
   const slots = createCompilerContextSlots(node)
@@ -145,13 +156,16 @@ export const createCompilerContext = (node: ElementNode, component: VirtualCompo
     attrs: staticAttrs,
     dynamicProps,
     dynamicAttrs,
+    directives,
     slots,
     methods: component.script.scriptSetupContent.functions,
+    $setup: component.script.scriptSetupContent.functionNames,
     execute: createInTemplateExecuter({
       props: staticProps,
       dynamicProps,
       slots,
-      methods: component.script.scriptSetupContent.functions
+      methods: component.script.scriptSetupContent.functions,
+      $setup: component.script.scriptSetupContent.functionNames
     })
   }
 }

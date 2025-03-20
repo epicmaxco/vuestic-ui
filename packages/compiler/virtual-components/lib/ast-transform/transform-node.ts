@@ -33,7 +33,7 @@ export const transformAstWithContext = <T extends ElementNode | RootNode>(node: 
     }
   })
 
-  if (ctx.attrs.length > 0 || ctx.dynamicAttrs.length > 0) {
+  if (ctx.attrs.length > 0 || ctx.dynamicAttrs.length > 0 || ctx.directives.length > 0) {
     if (node.children.length === 1) {
       const rootNode = node.children[0]
 
@@ -58,12 +58,6 @@ export const transformAstNode = (node: ElementNode, component: VirtualComponent)
   const newAst = structuredClone(component.templateAst)
 
   transformAstWithContext(newAst, ctx)
-
-  // TODO: Move to one walk
-  // applySlots(newAst, node, ctx)
-  // applyPropBinds(newAst, node, ctx)
-  // applyTextInterpolations(newAst, node, ctx)
-  // applyAttrs(newAst, node, ctx)
 
   return newAst
 }
