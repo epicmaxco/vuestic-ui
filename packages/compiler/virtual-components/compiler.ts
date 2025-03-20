@@ -94,8 +94,6 @@ export const compile = (code: string, id: string) => {
 
         const code = `($props, ${destructedProps}) => ${condition}`  //`${propsCode};Boolean(${condition})`
 
-        console.log(code)
-
         const doShow = execute(code)(ctx.props, ctx.props)
 
         if (!doShow) {

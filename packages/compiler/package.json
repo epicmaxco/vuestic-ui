@@ -42,5 +42,8 @@
   "files": [
     "dist",
     "Readme.md"
-  ]
+  ],
+  "devDependencies": {
+    "vitest": "^3.0.8"
+  }
 }

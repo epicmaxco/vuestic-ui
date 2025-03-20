@@ -1,6 +1,6 @@
 import { TemplateChildNode, RootNode, ElementNode, NodeTypes, ElementTypes, AttributeNode, DirectiveNode, TextNode, InterpolationNode } from "@vue/compiler-core"
 
-const walk = (node: TemplateChildNode | RootNode, cb: (node: TemplateChildNode, parent: TemplateChildNode | RootNode) => void) => {
+export const walk = (node: TemplateChildNode | RootNode, cb: (node: TemplateChildNode, parent: TemplateChildNode | RootNode) => void) => {
   if (!('children' in node)) {
     return
   }
@@ -17,10 +17,13 @@ const walk = (node: TemplateChildNode | RootNode, cb: (node: TemplateChildNode, 
     }
 
     cb(child, node)
-    walk(child, cb)
+    if (node.children.includes(child as any)) {
+      walk(child, cb)
+    }
   }
 }
 
+/** @deprecated */
 export const walkSlots = (node: RootNode, cb: (node: ElementNode, parent: TemplateChildNode | RootNode) => void) => {
   walk(node, (node, parent) => {
     if (node.type === NodeTypes.ELEMENT && node.tagType === ElementTypes.SLOT) {
@@ -29,6 +32,7 @@ export const walkSlots = (node: RootNode, cb: (node: ElementNode, parent: Templa
   })
 }
 
+/** @deprecated */
 export const walkTags = (node: RootNode, cb: (node: ElementNode) => void) => {
   walk(node, (node) => {
     if (node.type === NodeTypes.ELEMENT && node.tagType === ElementTypes.COMPONENT) {
@@ -37,6 +41,7 @@ export const walkTags = (node: RootNode, cb: (node: ElementNode) => void) => {
   })
 }
 
+/** @deprecated */
 export const walkTemplateInterpolations = (node: RootNode, cb: (node: InterpolationNode) => void) => {
   walk(node, (node) => {
     if (node.type === NodeTypes.INTERPOLATION) {
@@ -45,6 +50,7 @@ export const walkTemplateInterpolations = (node: RootNode, cb: (node: Interpolat
   })
 }
 
+/** @deprecated */
 export const walkCompiledVIf = (node: RootNode, cb: (node: ElementNode, parent: TemplateChildNode | RootNode) => void) => {
   walk(node, (node, parent) => {
     if (node.type === NodeTypes.ELEMENT && node.props.some((prop) => prop.name === '$v-if')) {
@@ -53,6 +59,7 @@ export const walkCompiledVIf = (node: RootNode, cb: (node: ElementNode, parent: 
   })
 }
 
+/** @deprecated */
 export const walkPropBinds = (node: RootNode, cb: (prop: DirectiveNode, node: ElementNode, parent: ElementNode | RootNode) => void) => {
   walk(node, (node, parent) => {
     if (node.type === NodeTypes.ELEMENT) {
