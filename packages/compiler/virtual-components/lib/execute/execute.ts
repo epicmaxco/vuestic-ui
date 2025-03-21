@@ -1,10 +1,13 @@
 import { MagicString } from '@vue/compiler-sfc'
 import { parse, Node, Statement, ModuleDeclaration, MemberExpression, TemplateLiteral} from 'acorn'
+import { CompilerContext } from '../create-compiler-context'
 
 export const execute = (code: string) => {
   try {
     return (0, eval)(code)
   } catch (e) {
+    // console.error(code)
+    // console.error(e)
     return null
     // throw new Error(`Failed to execute code: ${code}`)
   }
@@ -39,7 +42,13 @@ const stringifyValue = (value: unknown) => {
   //   return 'undefined'
   // }
 
-  return JSON.stringify(value)
+  const str =  JSON.stringify(value)
+
+  if (str.startsWith('"') && str.endsWith('"')) {
+    return `'${str.slice(1, -1)}'`
+  }
+
+  return
 }
 
 const onAccess = (node: any, codeString: MagicString, cb: (node: any) => void) => {
@@ -51,6 +60,9 @@ const onAccess = (node: any, codeString: MagicString, cb: (node: any) => void) =
   }
 
   if (node.type === 'CallExpression') {
+    node.arguments.forEach((arg: any) => {
+      onAccess(arg, codeString, cb)
+    })
     return onAccess(node.callee, codeString, cb)
   }
 
@@ -81,6 +93,12 @@ const onAccess = (node: any, codeString: MagicString, cb: (node: any) => void) =
   if ('object' in node) {
     onAccess(node.object, codeString, cb)
   }
+
+  if ('elements' in node) {
+    for (const element of node.elements) {
+      onAccess(element, codeString, cb)
+    }
+  }
 }
 
 /** Add _ctx to Identifier if it is not in property access */
@@ -108,14 +126,15 @@ export const addContext = (code: string, ignore: string[] = []) => {
   return codeString.toString()
 }
 
-export const simplifyCode = (code: string, ctx: {
-  props: { name: string, value: string | undefined }[],
-  dynamicProps: { name: string, value: string }[]
-}) => {
+export const simplifyCode = (code: string, ctx: CompilerContext) => {
   const codeString = new MagicString(code)
   const ast = parse(code, { ecmaVersion: 2020 })
 
   onAccess(ast.body[0], codeString, (node) => {
+    if (ctx.component.script.scriptSetupContent.functionNames.includes(node.name)) {
+      ctx.imports.push(node.name)
+    }
+
     if (!('name' in node) || typeof node.name !== 'string') {
       console.warn('Unable to parse expression', code, 'Invalid node', node)
       return

@@ -4,7 +4,7 @@ import { createCompilerContext, type CompilerContext } from "../create-compiler-
 import {  walk, } from './walk'
 import { isNodeElement, isNodeHasChildren, isNodeInterpolation, isNodeSlot, isNodeTemplateSlot, isPropDirective } from "./ast-helpers";
 import { transformSlotNode } from "./transformers/transform-slot-node";
-import { transformPropBind } from "./transformers/transform-prop-bind";
+import { mergeDuplicate, transformPropBind } from "./transformers/transform-prop-bind";
 import { transformInterpolation } from "./transformers/transform-interpolation";
 import { transformRootNodeAttrs } from './transformers/transform-root-node-attrs'
 
@@ -26,6 +26,8 @@ export const transformAstWithContext = <T extends ElementNode | RootNode>(node: 
           transformPropBind(prop, node, parent, ctx)
         }
       })
+
+      node.props = mergeDuplicate(node.props)
     }
 
     if (isNodeInterpolation(node)) {
@@ -59,5 +61,8 @@ export const transformAstNode = (node: ElementNode, component: VirtualComponent)
 
   transformAstWithContext(newAst, ctx)
 
-  return newAst
+  return {
+    ast: newAst,
+    imports: ctx.imports
+  }
 }

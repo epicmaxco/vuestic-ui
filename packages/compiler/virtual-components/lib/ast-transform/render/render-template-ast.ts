@@ -15,7 +15,6 @@ function renderTag(node: ElementNode): string {
         if (prop.name === 'bind' && prop.exp?.type === NodeTypes.SIMPLE_EXPRESSION && prop.arg?.type === NodeTypes.SIMPLE_EXPRESSION) {
           return `:${prop.arg?.content}="${prop.exp.content}"`
         }
-
         if (prop.name === 'if' && prop.exp?.type === NodeTypes.SIMPLE_EXPRESSION) {
           return `${prop.rawName}="${prop.exp.content}"`
         }

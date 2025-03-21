@@ -1,6 +1,6 @@
 import { compileScript, SFCDescriptor } from '@vue/compiler-sfc'
 import { Node, Statement, ModuleDeclaration, MemberExpression, TemplateLiteral, Program, VariableDeclaration, FunctionDeclaration } from 'acorn'
-import { transpileModule } from 'typescript'
+import ts from 'typescript'
 
 export type ScriptSetupContext = {
 
@@ -35,6 +35,16 @@ const walk = (node: Node | Statement | ModuleDeclaration | Program, cb: (node: N
   }
 }
 
+const transpileTs = (code: string) => {
+  return ts.transpileModule(code, {
+    compilerOptions: {
+      module: ts.ModuleKind.ESNext,
+      target: ts.ScriptTarget.ESNext,
+      strict: false,
+    },
+  })
+}
+
 export const createScriptSetupContext = (scriptSetup: SFCDescriptor) => {
   if (!scriptSetup.scriptSetup) {
     return {
@@ -45,6 +55,8 @@ export const createScriptSetupContext = (scriptSetup: SFCDescriptor) => {
   }
 
   const script = compileScript(scriptSetup, { id: 'test' })
+
+  // console.log(script)
 
   if (!script.scriptSetupAst) {
     return {
@@ -73,11 +85,11 @@ export const createScriptSetupContext = (scriptSetup: SFCDescriptor) => {
           throw new Error('Only one variable declaration is supported')
         }
 
-        if (dec.declarations[0].id.type !== 'Identifier') {
-          throw new Error('Only identifier declarations are supported. No destructuring.')
-        }
-
         if (dec.declarations[0].init?.type === 'ArrowFunctionExpression') {
+          if (dec.declarations[0].id.type !== 'Identifier') {
+            throw new Error('Only identifier declarations are supported. No destructuring.')
+          }
+
           functions.push(source.slice(node.start, node.end))
           functionNames.push(dec.declarations[0].id.name)
         } else if (node) {
@@ -85,6 +97,10 @@ export const createScriptSetupContext = (scriptSetup: SFCDescriptor) => {
         }
       }
     })
+  })
+
+  functions.forEach((fn, i) => {
+    functions[i] = transpileTs(fn).outputText
   })
 
   return {

@@ -149,23 +149,25 @@ export const createCompilerContext = (node: ElementNode, component: VirtualCompo
 
   const slots = createCompilerContextSlots(node)
 
+  const imports = [] as string[]
+
   return {
     name: tag.replace(/^Vc/g, ''),
     tag,
+    component,
     props: staticProps,
     attrs: staticAttrs,
     dynamicProps,
     dynamicAttrs,
     directives,
     slots,
-    methods: component.script.scriptSetupContent.functions,
-    $setup: component.script.scriptSetupContent.functionNames,
+    imports,
     execute: createInTemplateExecuter({
       props: staticProps,
       dynamicProps,
       slots,
-      methods: component.script.scriptSetupContent.functions,
-      $setup: component.script.scriptSetupContent.functionNames
+      imports,
+      component
     })
   }
 }

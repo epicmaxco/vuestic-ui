@@ -1,7 +1,8 @@
 <script setup>
 import { ref, computed } from 'vue';
+import VcOrderCard from './components/VcOrderCard.vue';
 
-const ordersCount = ref(500);
+const ordersCount = ref(1000);
 const orders = computed(() => Array.from({ length: ordersCount.value }, (_, i) => ({
   id: i,
   customer: `Customer ${i + 1}`,
@@ -24,18 +25,6 @@ const icon = [
     <div class="orders-grid">
       <VcOrderCard v-for="order in orders" :order="order" />
     </div>
-<!--
-    <VcButton>
-      Hello
-    </VcButton>
-
-    <VcButton icon="heart">
-      Hello
-    </VcButton>
-
-    <VcButton :icon="icon">
-      Hello
-    </VcButton> -->
   </div>
 </template>
 

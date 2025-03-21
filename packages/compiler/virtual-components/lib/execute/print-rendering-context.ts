@@ -1,3 +1,5 @@
+import { CompilerContext } from '../create-compiler-context'
+import { VirtualComponent } from '../create-virtual-component'
 import { execute, simplifyCode, addContext } from './execute'
 
 type Scope = {
@@ -10,8 +12,8 @@ export const createInTemplateExecuter = <T = any>(ctx: {
   props: { name: string, value: string | undefined }[],
   dynamicProps: { name: string, value: string }[],
   slots: Record<string, any>,
-  methods: string[],
-  $setup: string[]
+  imports: string[],
+  component: VirtualComponent
 }) => {
   // If dynamic props are used, we need to return the code instead of the value
   let isDynamic = false
@@ -37,6 +39,10 @@ export const createInTemplateExecuter = <T = any>(ctx: {
       if (key === '$props') {
         return _ctxObj
       }
+
+      if (key === '$slots') {
+        return ctx.slots
+      }
     }
   })
 
@@ -51,8 +57,8 @@ export const createInTemplateExecuter = <T = any>(ctx: {
     }, {})
 
     const fnCode = `((_ctx) => {
-      ${ctx.methods.join('\n')}
-      return (() => ${addContext(code, ctx.$setup)})()
+      ${ctx.component.script.scriptSetupContent.functions.join('\n')}
+      return (() => ${addContext(code, ctx.component.script.scriptSetupContent.functionNames)})()
     })
     `
 
@@ -82,9 +88,10 @@ export const createInTemplateExecuter = <T = any>(ctx: {
         throw e
       }
     }
+
     if (isDynamic) {
       return {
-        value: simplifyCode(code, ctx),
+        value: simplifyCode(code, ctx as CompilerContext),
         isDynamic: true as const
       }
     }

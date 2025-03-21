@@ -2,7 +2,7 @@ import { AttributeNode, DirectiveNode, ElementNode, NodeTypes, RootNode, TextNod
 import { CompilerContext } from "../../create-compiler-context";
 import { normalizeClass, normalizeStyle } from "@vue/shared";
 import { printValueInTemplate } from "../../execute/print-rendering-context";
-import { isNodeElement, isPropDirective, patchNode } from "../ast-helpers";
+import { isNodeElement, isPropAttribute, isPropDirective, patchNode } from "../ast-helpers";
 import { transformAstWithContext } from "../transform-node";
 
 const transformBindDirective = (prop: DirectiveNode, ctx: CompilerContext) => {
@@ -141,7 +141,35 @@ export const transformPropBind = (prop: DirectiveNode, node: ElementNode, parent
     return transformIfDirective(prop, node, parent, ctx)
   } else if (prop.name === 'for') {
     return transformForDirective(prop, node, parent, ctx)
+  } else if (prop.name === 'slot') {
+    // pass
+    return
   }
 
+  console.warn('Unknown directive', prop.name)
   throw new Error('Invalid bind directive')
+}
+
+export const mergeDuplicate = (props: (DirectiveNode | AttributeNode)[]) => {
+  const newProps = [] as (DirectiveNode | AttributeNode)[]
+
+  props.forEach((prop) => {
+    if (!newProps.find((p) => p.name === prop.name)) {
+      newProps.push(prop)
+    } else {
+      if (isPropAttribute(prop) && (prop.name === 'class' || prop.name === 'style')) {
+        const existingProp = newProps.find((p) => p.name === prop.name) as AttributeNode
+        const existingValue = existingProp.value?.content
+        const newValue = prop.value?.content
+
+        if (prop.name === 'class') {
+          existingProp.value!.content = normalizeClass(`${existingValue} ${newValue}`)
+        } else {
+          existingProp.value!.content = String(normalizeStyle(`${existingValue}; ${newValue}`))
+        }
+      }
+    }
+  })
+
+  return newProps
 }

@@ -1,34 +1,36 @@
-<script setup>
-import { defineProps } from 'vue';
+<script setup lang="ts">
+import VcButton from './VcButton.vue';
 
 const props = defineProps({
-  order: { type: Object, required: true}
+  order: { type: Object, required: true }
 });
+
+const statusClass = (status: 'pending' | 'shipped' | 'delivered') => {
+  switch (status) {
+    case 'pending':
+      return 'text-yellow-500';
+    case 'shipped':
+      return 'text-blue-500';
+    case 'delivered':
+      return 'text-green-500';
+    default:
+      return 'text-gray-500';
+  }
+};
 </script>
 
 <template>
-  <div class="order-card">
+  <div class="p-4 rounded-lg shadow bg-white">
     <h3>Order #{{ order.id }}</h3>
     <p><strong>Customer:</strong> {{ order.customer }}</p>
     <p><strong>Amount:</strong> ${{ order.amount }}</p>
-    <p><strong>Status:</strong> <span :class="order.status.toLowerCase()">{{ order.status }}</span></p>
+    <p><strong>Status:</strong> <span :class="statusClass(order.status.toLowerCase())">{{ order.status }}</span></p>
+
+    <div class="flex flex-col items-center gap-2 mt-2">
+      <VcButton color="blue" type="solid" icon="person">
+        View Customer
+      </VcButton>
+      <VcButton color="green" type="outlined" icon="local_shipping">Track Order</VcButton>
+    </div>
   </div>
 </template>
-
-<style scoped>
-.order-card {
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  background: white;
-}
-.order-card .pending {
-  color: orange;
-}
-.order-card .shipped {
-  color: blue;
-}
-.order-card .delivered {
-  color: green;
-}
-</style>
