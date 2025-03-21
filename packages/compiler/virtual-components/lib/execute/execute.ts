@@ -6,10 +6,7 @@ export const execute = (code: string) => {
   try {
     return (0, eval)(code)
   } catch (e) {
-    // console.error(code)
-    // console.error(e)
     return null
-    // throw new Error(`Failed to execute code: ${code}`)
   }
 }
 

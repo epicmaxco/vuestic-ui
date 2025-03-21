@@ -1,6 +1,7 @@
 import { compileScript, SFCDescriptor } from '@vue/compiler-sfc'
 import { Node, Statement, ModuleDeclaration, MemberExpression, TemplateLiteral, Program, VariableDeclaration, FunctionDeclaration } from 'acorn'
 import { transpileTs } from '../execute/transpile-ts'
+import { VirtualComponentError } from '../errors'
 
 export type ScriptSetupContext = {
 
@@ -70,12 +71,12 @@ export const createScriptSetupMeta = (scriptSetup: SFCDescriptor) => {
       if (node.type === 'VariableDeclaration') {
         const dec = node as VariableDeclaration
         if (dec.declarations.length > 1) {
-          throw new Error('Only one variable declaration is supported')
+          throw new VirtualComponentError('Only one variable declaration is supported in virtual components')
         }
 
         if (dec.declarations[0].init?.type === 'ArrowFunctionExpression') {
           if (dec.declarations[0].id.type !== 'Identifier') {
-            throw new Error('Only identifier declarations are supported. No destructuring.')
+            throw new VirtualComponentError('Only identifier declarations are supported. No destructuring in virtual components')
           }
 
           functions.push(source.slice(node.start, node.end))

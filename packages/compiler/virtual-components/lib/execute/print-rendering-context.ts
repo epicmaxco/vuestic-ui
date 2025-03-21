@@ -1,5 +1,6 @@
 import { CompilerContext } from '../create-compiler-context'
 import { VirtualComponent } from '../create-virtual-component'
+import { VirtualComponentError } from '../errors'
 import { execute, simplifyCode, addContext } from './execute'
 import { isRef } from 'vue'
 
@@ -50,7 +51,7 @@ const createSetupContext = (ctx: SimplifiedCompilerContext, onDynamicAccess: () 
       return false
     },
     set() {
-      throw new Error('Props are readonly in virtual components')
+      throw new VirtualComponentError('Props are readonly in virtual components')
     },
     ownKeys() {
       return [...ctx.props.map((prop) => prop.name), ...ctx.dynamicProps.map((prop) => prop.name)]
@@ -84,7 +85,7 @@ const createRenderingContext = (ctx: CompilerContext, setupContext: ReturnType<t
         const value = target[key]
 
         if (isRef(value)) {
-          throw new Error('Refs can not be used in virtual components template')
+          throw new VirtualComponentError('Refs can not be used in virtual components template')
         }
 
         return target[key]
@@ -133,7 +134,7 @@ const createRenderingContextWithScope = (ctx: ReturnType<typeof createRenderingC
 }
 
 /** Execute code during compilation */
-export const createInTemplateExecuter = <T = any>(ctx: CompilerContext) => {
+export const createInTemplateExecuter = (ctx: CompilerContext) => {
   // If dynamic props are used, we need to return the code instead of the value
   let isDynamic = false
 
@@ -145,7 +146,7 @@ export const createInTemplateExecuter = <T = any>(ctx: CompilerContext) => {
 
   let scopeStack = [] as Scope[]
 
-  const codeRunner = (code: string) => {
+  const codeRunner = <T = any> (code: string) => {
     const scope = scopeStack.reduce((acc, scope) => {
       return {
         static: { ...acc.static, ...scope.static },
@@ -183,7 +184,7 @@ export const createInTemplateExecuter = <T = any>(ctx: CompilerContext) => {
     }
 
     return {
-      value,
+      value: value as T,
       isDynamic: false as const
     }
   }
@@ -214,7 +215,7 @@ export const printValueInTemplate = <T>(result: { value: T, isDynamic: boolean }
     } else if (type === 'Interpolation') {
       return `{{ ${result.value} }}`
     } else {
-      throw new Error(`Can not print value in template. Invalid type ${type}`)
+      throw new VirtualComponentError(`Can not print value in template. Invalid type ${type}`)
     }
   }
 

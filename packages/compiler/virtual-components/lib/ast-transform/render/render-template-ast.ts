@@ -1,4 +1,5 @@
 import { ElementNode, NodeTypes, RootNode, TemplateChildNode } from "@vue/compiler-core";
+import { VirtualComponentError } from "../../errors";
 
 function tab(size: number): string {
   return ' '.repeat(size)
@@ -53,7 +54,7 @@ function renderElement(node: TemplateChildNode, tabsize = 0): string {
     return tab(tabsize) + node.loc.source
   }
 
-  throw new Error(`unhandled node type: ${node.type}`)
+  throw new VirtualComponentError(`Unexpected error: unhandled node type: ${node.type}`)
 }
 
 export const renderTemplateAst = (templateAst: RootNode) => {

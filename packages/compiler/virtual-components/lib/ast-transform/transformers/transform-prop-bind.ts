@@ -4,6 +4,7 @@ import { normalizeClass, normalizeStyle } from "@vue/shared";
 import { printValueInTemplate } from "../../execute/print-rendering-context";
 import { isNodeElement, isPropAttribute, isPropDirective, patchNode } from "../ast-helpers";
 import { transformAstWithContext } from "../transform-node";
+import { VirtualComponentError } from "../../errors";
 
 const transformBindDirective = (prop: DirectiveNode, ctx: CompilerContext) => {
   if (prop.exp?.type !== NodeTypes.SIMPLE_EXPRESSION) {
@@ -12,7 +13,7 @@ const transformBindDirective = (prop: DirectiveNode, ctx: CompilerContext) => {
   }
 
   if (!prop.arg || prop.arg.type !== NodeTypes.SIMPLE_EXPRESSION) {
-    throw new Error('Invalid bind directive: v-bind directive is not supported yet. Use :prop instead')
+    throw new VirtualComponentError('Invalid bind directive: v-bind directive is not supported yet. Use :prop instead')
   }
 
   const result = ctx.execute(prop.exp.content)
@@ -66,13 +67,13 @@ const transformForDirective = (prop: DirectiveNode, node: ElementNode, parent: E
   const argsStr = prop.forParseResult?.value?.loc.source
 
   if (!arrayStr || !argsStr) {
-    throw new Error('Invalid v-for directive: Unable to parse v-for')
+    throw new VirtualComponentError('Invalid v-for directive: Unable to parse v-for')
   }
 
   const providedProp = ctx.dynamicProps.find((prop) => prop.name === arrayStr)
 
   if (!providedProp) {
-    throw new Error('Invalid v-for directive: No prop passed, idk what to do')
+    throw new VirtualComponentError('Invalid v-for directive: No prop passed')
   }
 
   const executionResult = ctx.execute(providedProp.value)
@@ -146,8 +147,7 @@ export const transformPropBind = (prop: DirectiveNode, node: ElementNode, parent
     return
   }
 
-  console.warn('Unknown directive', prop.name)
-  throw new Error('Invalid bind directive')
+  throw new VirtualComponentError(`Unexpected Error: Unexpected directive ${prop.name}`)
 }
 
 export const mergeDuplicate = (props: (DirectiveNode | AttributeNode)[]) => {

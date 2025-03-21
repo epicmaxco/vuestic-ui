@@ -4,6 +4,7 @@ import { walkTags } from './walk'
 import { transformAstNode } from './transform-node';
 import { renderTemplateAst } from './render/render-template-ast';
 import { getNodeIndent, addIndent} from './render/indent'
+import { VirtualComponentError } from '../errors'
 
 const transformNestedComponents = (source: string, virtualComponents: VirtualComponent[]) => {
   let sourceString = new MagicString(`<template>${source}</template>`)
@@ -11,7 +12,7 @@ const transformNestedComponents = (source: string, virtualComponents: VirtualCom
   const templateAst = parseVue(sourceString.toString()).descriptor.template?.ast
 
   if (!templateAst) {
-    throw new Error('No template found in component while transforming nested virtual components')
+    throw new VirtualComponentError('No template found in component while transforming nested virtual components')
   }
 
   const globalImports = [] as string[]
@@ -50,7 +51,7 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
   const templateAst = sfcParseResult.descriptor.template?.ast
 
   if (!templateAst) {
-    throw new Error('No template found in component while transforming vue file')
+    throw new VirtualComponentError('No template found in component while transforming vue file')
   }
 
   let sourceString = new MagicString(source)
@@ -79,7 +80,7 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
       fileImports.push(imports.map((i) => `import { ${i} } from 'virtual-components:${component.name}'`).join('\n'))
       fileImports.push(...nestedImports)
     } catch (e) {
-      throw new Error(`Error transforming component ${component.name}: ${e}`)
+      throw new VirtualComponentError(`Error while using ${componentName}: ${typeof e === 'object' && e !== null && 'message' in e ? e.message : e}`)
     }
   })
 

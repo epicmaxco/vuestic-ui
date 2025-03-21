@@ -1,16 +1,17 @@
 import { parse as parseVue } from "@vue/compiler-sfc"
 import { buildScriptSetupModule } from './create-virtual-component/build-script-setup'
 import { createScriptSetupMeta } from './create-virtual-component/script-setup-meta'
+import { VirtualComponentCompilationError } from './errors'
 
 export const createVirtualComponent = async (componentName: string, source: string) => {
   const result = parseVue(source)
 
   if (!result.descriptor.template) {
-    throw new Error(`No template found in component ${componentName}`)
+    throw new VirtualComponentCompilationError(`Template not found`, componentName)
   }
 
   if (!result.descriptor.template.ast) {
-    throw new Error(`No AST found in component ${componentName}`)
+    throw new VirtualComponentCompilationError(`Template AST not found`, componentName)
   }
 
   // TODO: Parse $onCompile functions

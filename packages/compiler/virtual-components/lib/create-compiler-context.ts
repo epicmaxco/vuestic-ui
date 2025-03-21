@@ -2,6 +2,7 @@ import { NodeTypes, type TemplateChildNode, type ElementNode, DirectiveNode } fr
 import { isNodeTemplateSlot, isPropAttribute, isPropDirective, toCamelCase } from "./utils";
 import { type VirtualComponent } from "./create-virtual-component";
 import { createInTemplateExecuter } from "./execute/print-rendering-context";
+import { VirtualComponentError } from './errors'
 
 const findSlotName = (child: ElementNode) => {
   for (const prop of child.props) {
@@ -109,8 +110,7 @@ const createProps = (node: ElementNode, component: VirtualComponent) => {
       } else if (prop.name === 'slot') {
         // ignore
       } else {
-        console.error('Unsupported directive', )
-        throw new Error('Unsupported directive ' + prop.name + ' in ' + node.loc.source)
+        throw new VirtualComponentError('Unable to create props. Unsupported directive ' + prop.name + ' in ' + node.loc.source)
       }
     }
   })

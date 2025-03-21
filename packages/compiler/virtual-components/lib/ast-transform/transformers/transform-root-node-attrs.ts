@@ -1,6 +1,7 @@
 import { ConstantTypes, ElementNode, NodeTypes } from "@vue/compiler-core";
 import { CompilerContext } from "../../create-compiler-context";
 import { isPropAttribute } from "../ast-helpers";
+import { VirtualComponentError } from "../../errors";
 
 /** Apply attributes to root element */
 export const transformRootNodeAttrs = (rootNode: ElementNode, ctx: CompilerContext) => {
@@ -17,7 +18,7 @@ export const transformRootNodeAttrs = (rootNode: ElementNode, ctx: CompilerConte
       }
 
       if (!prop.value) {
-        throw new Error('Expected prop value')
+        throw new VirtualComponentError('Expected prop value for class or style')
       }
 
       prop.value.content = `${prop.value.content} ${value}`
