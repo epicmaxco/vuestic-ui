@@ -42,58 +42,58 @@ const stringifyValue = (value: unknown) => {
   const str =  JSON.stringify(value)
 
   if (str.startsWith('"') && str.endsWith('"')) {
-    return `'${str.slice(1, -1)}'`
+    return `'${str.slice(1, -1).replace(/'/g, "\\'")}'`
   }
 
   return
 }
 
-const onAccess = (node: any, codeString: MagicString, cb: (node: any) => void) => {
+const onAccess = (node: any, codeString: MagicString, cb: (node: any, parent?: any) => void, parent: any = null) => {
   if (node.type === 'PropertyAccessExpression') {
-    return cb(node)
+    return cb(node, parent)
   }
   if (node.type === 'Identifier') {
-    return cb(node)
+    return cb(node, parent)
   }
 
   if (node.type === 'CallExpression') {
     node.arguments.forEach((arg: any) => {
-      onAccess(arg, codeString, cb)
+      onAccess(arg, codeString, cb, node)
     })
-    return onAccess(node.callee, codeString, cb)
+    return onAccess(node.callee, codeString, cb, node)
   }
 
   if ('children' in node) {
     for (const child of node.children) {
-      onAccess(child, codeString, cb)
+      onAccess(child, codeString, cb, node)
     }
   }
 
   if ('expressions' in node) {
     for (const expression of node.expressions) {
-      onAccess(expression, codeString, cb)
+      onAccess(expression, codeString, cb, node)
     }
   }
 
   if ('expression' in node) {
-    onAccess(node.expression, codeString, cb)
+    onAccess(node.expression, codeString, cb, node)
   }
 
   if ('left' in node) {
-    onAccess(node.left, codeString, cb)
+    onAccess(node.left, codeString, cb, node)
   }
 
   if ('right' in node) {
-    onAccess(node.right, codeString, cb)
+    onAccess(node.right, codeString, cb, node)
   }
 
   if ('object' in node) {
-    onAccess(node.object, codeString, cb)
+    onAccess(node.object, codeString, cb, node)
   }
 
   if ('elements' in node) {
     for (const element of node.elements) {
-      onAccess(element, codeString, cb)
+      onAccess(element, codeString, cb, node)
     }
   }
 }
@@ -127,11 +127,7 @@ export const simplifyCode = (code: string, ctx: CompilerContext) => {
   const codeString = new MagicString(code)
   const ast = parse(code, { ecmaVersion: 2020 })
 
-  onAccess(ast.body[0], codeString, (node) => {
-    // if (ctx.component.script.scriptSetupContent.functionNames.includes(node.name)) {
-    //   ctx.imports.push(node.name)
-    // }
-
+  onAccess(ast.body[0], codeString, (node, parent) => {
     if (!('name' in node) || typeof node.name !== 'string') {
       console.warn('Unable to parse expression', code, 'Invalid node', node)
       return
@@ -139,7 +135,12 @@ export const simplifyCode = (code: string, ctx: CompilerContext) => {
 
     if (node.name === '$props') {
       codeString.overwrite(node.start, node.end + 1, '')
-      return
+
+      if (parent.type === 'MemberExpression') {
+        node = parent.property
+      } else {
+        return
+      }
     }
 
     const dynamicProp = ctx.dynamicProps.find((p) => p.name === node.name)

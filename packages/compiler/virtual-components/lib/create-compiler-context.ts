@@ -94,6 +94,8 @@ const createProps = (node: ElementNode, component: VirtualComponent) => {
         const name = toCamelCase(prop.arg.content)
 
         if (definedPropsNames.includes(name)) {
+          const value = prop.exp.content
+
           dynamicProps.push({
             name,
             rawName: prop.arg.content,

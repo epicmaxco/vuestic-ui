@@ -111,10 +111,5 @@ describe('Virtual Components', () => {
       expect(error).not.toBeNull()
       expect(component).not.toBeNull()
     })
-
-    // test('should transform Vue SFC to virtual component with methods', () => {
-
-    //   `)
-    // })
   })
 })
