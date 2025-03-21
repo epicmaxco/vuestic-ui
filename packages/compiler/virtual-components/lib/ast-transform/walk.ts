@@ -25,16 +25,6 @@ export const walk = (node: TemplateChildNode | RootNode, cb: (node: TemplateChil
   }
 }
 
-/** @deprecated */
-export const walkSlots = (node: RootNode, cb: (node: ElementNode, parent: TemplateChildNode | RootNode) => void) => {
-  walk(node, (node, parent) => {
-    if (node.type === NodeTypes.ELEMENT && node.tagType === ElementTypes.SLOT) {
-      cb(node, parent)
-    }
-  })
-}
-
-/** @deprecated */
 export const walkTags = (node: RootNode, cb: (node: ElementNode) => void) => {
   walk(node, (node) => {
     if (node.type === NodeTypes.ELEMENT && node.tagType === ElementTypes.COMPONENT) {
@@ -43,33 +33,3 @@ export const walkTags = (node: RootNode, cb: (node: ElementNode) => void) => {
   })
 }
 
-/** @deprecated */
-export const walkTemplateInterpolations = (node: RootNode, cb: (node: InterpolationNode) => void) => {
-  walk(node, (node) => {
-    if (node.type === NodeTypes.INTERPOLATION) {
-      cb(node)
-    }
-  })
-}
-
-/** @deprecated */
-export const walkCompiledVIf = (node: RootNode, cb: (node: ElementNode, parent: TemplateChildNode | RootNode) => void) => {
-  walk(node, (node, parent) => {
-    if (node.type === NodeTypes.ELEMENT && node.props.some((prop) => prop.name === '$v-if')) {
-      cb(node, parent)
-    }
-  })
-}
-
-/** @deprecated */
-export const walkPropBinds = (node: RootNode, cb: (prop: DirectiveNode, node: ElementNode, parent: ElementNode | RootNode) => void) => {
-  walk(node, (node, parent) => {
-    if (node.type === NodeTypes.ELEMENT) {
-      node.props.forEach((prop) => {
-        if (prop.type === NodeTypes.DIRECTIVE) {
-          cb(prop, node, parent as ElementNode)
-        }
-      })
-    }
-  })
-}

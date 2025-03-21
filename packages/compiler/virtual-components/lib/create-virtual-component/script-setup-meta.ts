@@ -1,6 +1,6 @@
 import { compileScript, SFCDescriptor } from '@vue/compiler-sfc'
 import { Node, Statement, ModuleDeclaration, MemberExpression, TemplateLiteral, Program, VariableDeclaration, FunctionDeclaration } from 'acorn'
-import ts from 'typescript'
+import { transpileTs } from '../execute/transpile-ts'
 
 export type ScriptSetupContext = {
 
@@ -35,17 +35,7 @@ const walk = (node: Node | Statement | ModuleDeclaration | Program, cb: (node: N
   }
 }
 
-const transpileTs = (code: string) => {
-  return ts.transpileModule(code, {
-    compilerOptions: {
-      module: ts.ModuleKind.ESNext,
-      target: ts.ScriptTarget.ESNext,
-      strict: false,
-    },
-  })
-}
-
-export const createScriptSetupContext = (scriptSetup: SFCDescriptor) => {
+export const createScriptSetupMeta = (scriptSetup: SFCDescriptor) => {
   if (!scriptSetup.scriptSetup) {
     return {
       functions: [],
@@ -55,8 +45,6 @@ export const createScriptSetupContext = (scriptSetup: SFCDescriptor) => {
   }
 
   const script = compileScript(scriptSetup, { id: 'test' })
-
-  // console.log(script)
 
   if (!script.scriptSetupAst) {
     return {

@@ -1,20 +1,20 @@
 import { Plugin } from 'vite'
 import { transformVue } from './lib/ast-transform/transform-vue-file'
 import { createVirtualComponent } from './lib/create-virtual-component'
-import { readdirSync, readFileSync } from 'fs'
+import { readdir, readFile } from 'fs/promises'
 import path from 'path'
 
-const resolveComponentsFromComponentsDir = (componentsDir: string = './src/components') => {
-  return readdirSync(componentsDir)
+const resolveComponentsFromComponentsDir = async (componentsDir: string = './src/components') => {
+  return Promise.all((await readdir(componentsDir))
     .filter((file) => file.endsWith('.vue'))
-    .map((file) => {
+    .map(async (file) => {
       const name = file.replace('.vue', '')
-      const content = readFileSync(path.resolve(componentsDir, file), 'utf-8')
-      return createVirtualComponent(name, content)
-    })
+      const content = await readFile(path.resolve(componentsDir, file), 'utf-8')
+      return await createVirtualComponent(name, content)
+    }))
 }
 
-let components = resolveComponentsFromComponentsDir()
+let components = await resolveComponentsFromComponentsDir()
 
 /** Add css layers to Vuestic files */
 export const virtualComponents: Plugin = {
@@ -35,7 +35,7 @@ export const virtualComponents: Plugin = {
         return
       }
 
-      const { functions, functionNames } = component.script.scriptSetupContent
+      const { functions, functionNames } = component.script.scriptSetupMeta
 
       return functions.join('\n') + `export { ${functionNames.join(', ')} }`
     }
@@ -57,9 +57,9 @@ export const virtualComponents: Plugin = {
 
   configureServer(server) {
     server.watcher.add('./src/components')
-    server.watcher.on('change', (file) => {
+    server.watcher.on('change', async (file) => {
       if (file.endsWith('.vue')) {
-        components = resolveComponentsFromComponentsDir()
+        components = await resolveComponentsFromComponentsDir()
       }
     })
   }

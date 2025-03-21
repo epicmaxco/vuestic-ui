@@ -4,8 +4,8 @@ import { transformVue } from '../lib'
 
 describe('Virtual Components', () => {
   describe('Syntax', () => {
-    test('props defined with generic', () => {
-      const button = createVirtualComponent('VcButton', `
+    test('props defined with generic', async () => {
+      const button = await createVirtualComponent('VcButton', `
         <script setup lang="ts">
           defineProps<{
             text: string
@@ -41,7 +41,7 @@ describe('Virtual Components', () => {
     // describe('props', () => {
     //   describe('rendering', () => {
     //     describe('Interpolation', () => {
-    //       const button = createVirtualComponent('VcButton', `
+    //       const button = await createVirtualComponent('VcButton', `
     //         <script setup>
     //           defineProps({
     //             text: String
@@ -108,7 +108,7 @@ describe('Virtual Components', () => {
     //     })
 
     //     describe('Bind', () => {
-    //       const button = createVirtualComponent('VcButton', `
+    //       const button = await createVirtualComponent('VcButton', `
     //         <script setup>
     //           defineProps({
     //             color: String
@@ -175,7 +175,7 @@ describe('Virtual Components', () => {
     //   })
 
     //   describe('props calculation (string)', () => {
-    //     const button = createVirtualComponent('VcButton', `
+    //     const button = await createVirtualComponent('VcButton', `
     //       <script setup>
     //         defineProps({
     //           firstName: String,
@@ -274,7 +274,7 @@ describe('Virtual Components', () => {
     //   })
 
     //   describe('props calculation (number)', () => {
-    //     const button = createVirtualComponent('VcButton', `
+    //     const button = await createVirtualComponent('VcButton', `
     //       <script setup>
     //         defineProps({
     //           price: Number,
@@ -403,7 +403,7 @@ describe('Virtual Components', () => {
     //   })
 
     //   describe('props multiple calculation', () => {
-    //     const button = createVirtualComponent('VcButton', `
+    //     const button = await createVirtualComponent('VcButton', `
     //       <script setup>
     //         defineProps({
     //           price: Number,
@@ -505,7 +505,7 @@ describe('Virtual Components', () => {
     //   })
 
     //   test('props calculation static+dynamic (bind)', () => {
-    //     const icon = createVirtualComponent('VcIcon', `
+    //     const icon = await createVirtualComponent('VcIcon', `
     //       <script setup>
     //         defineProps({
     //           font: String,
@@ -542,7 +542,7 @@ describe('Virtual Components', () => {
     //   })
 
     //   test('props defined with generic', () => {
-    //     const button = createVirtualComponent('VcButton', `
+    //     const button = await createVirtualComponent('VcButton', `
     //       <script setup>
     //         defineProps<{
     //           text: string
@@ -577,7 +577,7 @@ describe('Virtual Components', () => {
 
     //   describe('props with default value', () => {
     //     test('props destruction', () => {
-    //       const button = createVirtualComponent('VcButton', `
+    //       const button = await createVirtualComponent('VcButton', `
     //         <script setup>
     //           const { text = 'Sign In' } = defineProps<{ text: string }>()
     //         </script>
@@ -605,7 +605,7 @@ describe('Virtual Components', () => {
     //     })
 
     //     test('props default value', () => {
-    //       const button = createVirtualComponent('VcButton', `
+    //       const button = await createVirtualComponent('VcButton', `
     //         <script setup>
     //           defineProps({
     //             text: { default: 'Sign In' }

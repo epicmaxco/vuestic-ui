@@ -5,8 +5,8 @@ import { transformVue } from '../lib'
 describe('Virtual Components', () => {
   describe('Syntax', () => {
     describe('slots', () => {
-      test('default slot', () => {
-        const button = createVirtualComponent('VcButton', `
+      test('default slot', async () => {
+        const button = await createVirtualComponent('VcButton', `
           <template>
             <button>
               <slot />
@@ -35,8 +35,8 @@ describe('Virtual Components', () => {
         `.trim())
       })
 
-      test('named slot', () => {
-        const button = createVirtualComponent('VcButton', `
+      test('named slot', async () => {
+        const button = await createVirtualComponent('VcButton', `
           <template>
             <button>
               <slot name="icon" />
@@ -65,8 +65,8 @@ describe('Virtual Components', () => {
         `.trim())
       })
 
-      test('named slots (multiple)', () => {
-        const button = createVirtualComponent('VcButton', `
+      test('named slots (multiple)', async () => {
+        const button = await createVirtualComponent('VcButton', `
           <template>
             <button>
               <slot name="icon" />
@@ -103,8 +103,8 @@ describe('Virtual Components', () => {
         `.trim())
       })
 
-      test('named slot deep)', () => {
-        const button = createVirtualComponent('VcButton', `
+      test('named slot deep)', async () => {
+        const button = await createVirtualComponent('VcButton', `
           <template>
             <button>
               <span class="mr-2">

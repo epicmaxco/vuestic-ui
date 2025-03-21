@@ -11,7 +11,7 @@ import { vuestic } from '../vite-plugin'
 export default defineConfig({
   plugins: [
     vuestic({ devtools: false
-    }),
+    }) as any,
     vue(),
     Inspect(),
   ],
@@ -21,4 +21,7 @@ export default defineConfig({
       '@vuestic/compiler/devtools': fileURLToPath(new URL('../devtools/client/index.ts', import.meta.url)),
     }
   },
+  build: {
+    minify: false,
+  }
 })

@@ -67,18 +67,18 @@ const createProps = (node: ElementNode, component: VirtualComponent) => {
   const staticAttrs = [] as { name: string, value: string }[]
   const dynamicAttrs = [] as { name: string, value: string }[]
 
-  const definedProps = component.script.props
-  const defaultProps = component.script.propsDefaults
+  const definedProps = component.script.scriptSetup?.props ?? {}
+  const definedPropsNames = Object.keys(definedProps)
 
   const directives = [] as DirectiveNode[]
 
   node.props.forEach((prop) => {
     if (isPropAttribute(prop)) {
-      if (definedProps.includes(prop.name)) {
+      if (definedProps[prop.name]) {
         staticProps.push({
           name: toCamelCase(prop.name),
           rawName: prop.name,
-          value: prop.value?.content ?? defaultProps[prop.name]
+          value: prop.value?.content ?? definedProps[prop.name].default
         })
       } else {
         staticAttrs.push({
@@ -92,7 +92,7 @@ const createProps = (node: ElementNode, component: VirtualComponent) => {
       if (prop.name === 'bind' && prop.arg?.type === NodeTypes.SIMPLE_EXPRESSION && prop.exp?.type === NodeTypes.SIMPLE_EXPRESSION) {
         const name = toCamelCase(prop.arg.content)
 
-        if (definedProps.includes(name)) {
+        if (definedPropsNames.includes(name)) {
           dynamicProps.push({
             name,
             rawName: prop.arg.content,
@@ -115,14 +115,14 @@ const createProps = (node: ElementNode, component: VirtualComponent) => {
     }
   })
 
-  definedProps.forEach((propName) => {
+  definedPropsNames.forEach((propName) => {
     const exists = staticProps.find((prop) => prop.name === propName)
 
     if (!exists) {
       staticProps.push({
         name: toCamelCase(propName),
         rawName: propName,
-        value: defaultProps[propName] ?? undefined
+        value: definedProps[propName].default ?? undefined
       })
     }
   })
@@ -151,7 +151,7 @@ export const createCompilerContext = (node: ElementNode, component: VirtualCompo
 
   const imports = [] as string[]
 
-  return {
+  const ctx = {
     name: tag.replace(/^Vc/g, ''),
     tag,
     component,
@@ -162,14 +162,23 @@ export const createCompilerContext = (node: ElementNode, component: VirtualCompo
     directives,
     slots,
     imports,
-    execute: createInTemplateExecuter({
-      props: staticProps,
-      dynamicProps,
-      slots,
-      imports,
-      component
-    })
-  }
+  } as CompilerContext
+
+  ctx.execute = createInTemplateExecuter(ctx as CompilerContext)
+
+  return ctx satisfies CompilerContext
 }
 
-export type CompilerContext = ReturnType<typeof createCompilerContext>
+export type CompilerContext = {
+  name: string,
+  tag: string,
+  component: VirtualComponent,
+  props: { name: string, rawName: string, value: string | undefined }[],
+  attrs: { name: string, value: string }[],
+  dynamicProps: { name: string, rawName: string, value: string }[],
+  dynamicAttrs: { name: string, value: string }[],
+  directives: DirectiveNode[],
+  slots: Record<string, { name: string, children: TemplateChildNode[] }>,
+  imports: string[],
+  execute: ReturnType<typeof createInTemplateExecuter>
+}

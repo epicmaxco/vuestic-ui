@@ -1,8 +1,8 @@
-import { parse as parseVue, compileScript } from "@vue/compiler-sfc"
-import { extractDefineProps, extractPropDefaults } from './create-virtual-component/define-props'
-import { createScriptSetupContext } from './create-virtual-component/script-setup'
+import { parse as parseVue } from "@vue/compiler-sfc"
+import { buildScriptSetupModule } from './create-virtual-component/build-script-setup'
+import { createScriptSetupMeta } from './create-virtual-component/script-setup-meta'
 
-export const createVirtualComponent = (componentName: string, source: string) => {
+export const createVirtualComponent = async (componentName: string, source: string) => {
   const result = parseVue(source)
 
   if (!result.descriptor.template) {
@@ -22,12 +22,10 @@ export const createVirtualComponent = (componentName: string, source: string) =>
     templateAst: result.descriptor.template.ast,
     source: source.trim(),
     script: {
-      props: extractDefineProps(source),
-      propsDefaults: extractPropDefaults(source),
-      scriptSetupContent: createScriptSetupContext(result.descriptor),
-      // onCompileFunction: extractFunctionBodies(source)
+      scriptSetup: await buildScriptSetupModule(result.descriptor),
+      scriptSetupMeta: createScriptSetupMeta(result.descriptor)
     }
   }
 }
 
-export type VirtualComponent = ReturnType<typeof createVirtualComponent>
+export type VirtualComponent = Awaited<ReturnType<typeof createVirtualComponent>>

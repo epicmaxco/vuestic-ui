@@ -4,8 +4,8 @@ import { transformVue } from '../lib'
 
 describe('Virtual Components', () => {
   describe('Syntax', () => {
-    test('replace template', () => {
-      const button = createVirtualComponent('VcButton', `
+    test('replace template', async () => {
+      const button = await createVirtualComponent('VcButton', `
         <template>
           <button>Test</button>
         </template>

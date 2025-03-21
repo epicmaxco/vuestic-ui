@@ -5,8 +5,8 @@ import { transformVue } from '../lib'
 describe('Virtual Components', () => {
   describe('Syntax', () => {
     describe('attrs', () => {
-      describe('apply attrs on root', () => {
-        const button = createVirtualComponent('VcButton', `
+      describe('apply attrs on root', async () => {
+        const button = await createVirtualComponent('VcButton', `
           <template>
             <button>
               <slot />
@@ -68,8 +68,8 @@ describe('Virtual Components', () => {
         })
       })
 
-      describe('attrs merging (predefined static class)', () => {
-        const button = createVirtualComponent('VcButton', `
+      describe('attrs merging (predefined static class)', async () => {
+        const button = await createVirtualComponent('VcButton', `
           <template>
             <button class="btn">
               <slot />
@@ -100,8 +100,8 @@ describe('Virtual Components', () => {
         })
       })
 
-      describe('attrs merging (predefined dynamic class)', () => {
-        const button = createVirtualComponent('VcButton', `
+      describe('attrs merging (predefined dynamic class)', async () => {
+        const button = await createVirtualComponent('VcButton', `
           <template>
             <button :class="['btn', 'btn-primary']">
               <slot />

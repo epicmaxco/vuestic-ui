@@ -4,8 +4,8 @@ import { transformVue } from '../lib'
 
 describe('Virtual Components', () => {
   describe('Syntax', () => {
-    describe('v-if', () => {
-      const button = createVirtualComponent('VcButton', `
+    describe('v-if', async () => {
+      const button = await createVirtualComponent('VcButton', `
         <script setup>
           const props = defineProps({
             icon: String
@@ -106,8 +106,8 @@ describe('Virtual Components', () => {
       })
     })
 
-    describe('v-for', () => {
-      const list = createVirtualComponent('VcList', `
+    describe('v-for', async () => {
+      const list = await createVirtualComponent('VcList', `
         <script setup>
           const props = defineProps({
             items: Array
@@ -182,8 +182,8 @@ describe('Virtual Components', () => {
         `)
       })
 
-      test('should keep v-for if dynamic array and render static props inside', () => {
-        const list = createVirtualComponent('VcList', `
+      test('should keep v-for if dynamic array and render static props inside', async () => {
+        const list = await createVirtualComponent('VcList', `
           <script setup>
             const props = defineProps({
               items: Array,

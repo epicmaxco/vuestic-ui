@@ -131,9 +131,9 @@ export const simplifyCode = (code: string, ctx: CompilerContext) => {
   const ast = parse(code, { ecmaVersion: 2020 })
 
   onAccess(ast.body[0], codeString, (node) => {
-    if (ctx.component.script.scriptSetupContent.functionNames.includes(node.name)) {
-      ctx.imports.push(node.name)
-    }
+    // if (ctx.component.script.scriptSetupContent.functionNames.includes(node.name)) {
+    //   ctx.imports.push(node.name)
+    // }
 
     if (!('name' in node) || typeof node.name !== 'string') {
       console.warn('Unable to parse expression', code, 'Invalid node', node)

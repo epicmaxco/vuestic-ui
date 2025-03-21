@@ -3,8 +3,8 @@ import { createVirtualComponent } from '../lib/create-virtual-component'
 import { transformVue } from '../lib'
 
 describe('Virtual Components', () => {
-  describe('Syntax', () => {
-    const button = createVirtualComponent('VcButton', `
+  describe('Syntax', async () => {
+    const button = await createVirtualComponent('VcButton', `
       <script setup>
         defineProps({
           icon: String,
@@ -21,7 +21,7 @@ describe('Virtual Components', () => {
       </template>
     `)
 
-    const icon = createVirtualComponent('VcIcon', `
+    const icon = await createVirtualComponent('VcIcon', `
       <script setup>
         defineProps({ name: String })
       </script>

@@ -1,6 +1,6 @@
 import { MagicString, parse as parseVue } from '@vue/compiler-sfc'
 import { VirtualComponent } from "../create-virtual-component";
-import { walkTags } from '../../compiler/walk'
+import { walkTags } from './walk'
 import { transformAstNode } from './transform-node';
 import { renderTemplateAst } from './render/render-template-ast';
 import { getNodeIndent, addIndent} from './render/indent'
@@ -79,20 +79,22 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
       fileImports.push(imports.map((i) => `import { ${i} } from 'virtual-components:${component.name}'`).join('\n'))
       fileImports.push(...nestedImports)
     } catch (e) {
-      console.error(`Failed to transform component ${componentName}`, e)
+      throw new Error(`Error transforming component ${component.name}: ${e}`)
     }
   })
 
   fileImports = fileImports.filter((i) => i.length > 0)
   fileImports = [...new Set(fileImports)]
 
-  if (sfcParseResult.descriptor.script) {
-    const start = sfcParseResult.descriptor.script.loc.start.offset
+  if (fileImports.length > 0) {
+    if (sfcParseResult.descriptor.script) {
+      const start = sfcParseResult.descriptor.script.loc.start.offset
 
-    sourceString.appendLeft(start, fileImports.join('\n') + '\n')
-  } else {
-    const lang = sfcParseResult.descriptor.scriptSetup?.lang ? `lang="${sfcParseResult.descriptor.scriptSetup.lang}"` : ''
-    sourceString.prepend(`<script ${lang}>\n${fileImports.join('\n') + '\n'}</script>\n\n`)
+      sourceString.appendLeft(start, fileImports.join('\n') + '\n')
+    } else {
+      const lang = sfcParseResult.descriptor.scriptSetup?.lang ? `lang="${sfcParseResult.descriptor.scriptSetup.lang}"` : ''
+      sourceString.prepend(`<script ${lang}>\n${fileImports.join('\n') + '\n'}</script>\n\n`)
+    }
   }
 
   return sourceString

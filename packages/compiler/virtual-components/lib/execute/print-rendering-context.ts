@@ -1,28 +1,28 @@
 import { CompilerContext } from '../create-compiler-context'
 import { VirtualComponent } from '../create-virtual-component'
 import { execute, simplifyCode, addContext } from './execute'
+import { isRef } from 'vue'
 
 type Scope = {
   static?: Record<string, any>,
   dynamic?: Record<string, any>
 }
 
-/** Execute code during compilation */
-export const createInTemplateExecuter = <T = any>(ctx: {
-  props: { name: string, value: string | undefined }[],
-  dynamicProps: { name: string, value: string }[],
-  slots: Record<string, any>,
-  imports: string[],
+type SimplifiedCompilerContext = {
+  props: CompilerContext['props'],
+  dynamicProps: CompilerContext['dynamicProps'],
+  slots: CompilerContext['slots'],
+  imports: CompilerContext['imports'],
   component: VirtualComponent
-}) => {
-  // If dynamic props are used, we need to return the code instead of the value
-  let isDynamic = false
-  const _ctxObj = new Proxy({} as any, {
+}
+
+const createSetupContext = (ctx: SimplifiedCompilerContext, onDynamicAccess: () => void) => {
+  const props = new Proxy({}, {
     get(target, key: string) {
       const dynamicProp = ctx.dynamicProps.find((prop) => prop.name === key)
 
       if (dynamicProp) {
-        isDynamic = true
+        onDynamicAccess()
         return `${dynamicProp.value}`
       }
 
@@ -32,19 +32,116 @@ export const createInTemplateExecuter = <T = any>(ctx: {
         return staticProp.value
       }
 
+      return undefined
+    },
+    has(target, key: string) {
+      const dynamicProp = ctx.dynamicProps.find((prop) => prop.name === key)
+
+      if (dynamicProp) {
+        return true
+      }
+
+      const staticProp = ctx.props.find((prop) => prop.name === key)
+
+      if (staticProp) {
+        return true
+      }
+
+      return false
+    },
+    set() {
+      throw new Error('Props are readonly in virtual components')
+    },
+    ownKeys() {
+      return [...ctx.props.map((prop) => prop.name), ...ctx.dynamicProps.map((prop) => prop.name)]
+    },
+    getOwnPropertyDescriptor() {
+      return {
+        enumerable: true,
+        configurable: true,
+      }
+    },
+
+  }) as Record<string, any>
+
+  const setupCtx = {
+    expose: () => void 0,
+    slots: {} as Record<string, any> // TODO: Manage slots
+  } as { slots: Record<string, boolean>, expose: () => void }
+
+  return [props, setupCtx] as const
+}
+
+const createRenderingContext = (ctx: CompilerContext, setupContext: ReturnType<typeof createSetupContext>) => {
+  const setup = ctx.component.script.scriptSetup?.setup ?? (() => ({} as Record<string, any>))
+
+  const [props, setupCtx] = setupContext
+  const setupState = setup(props, setupCtx) as Record<string, any>
+
+  return new Proxy(setupState, {
+    get(target, key: string) {
+      if (key in target) {
+        const value = target[key]
+
+        if (isRef(value)) {
+          throw new Error('Refs can not be used in virtual components template')
+        }
+
+        return target[key]
+      }
+
       if (key in ctx.slots) {
-        return '$slots.' + key
+        return ctx.slots[key]
       }
 
       if (key === '$props') {
-        return _ctxObj
+        return props
       }
 
       if (key === '$slots') {
         return ctx.slots
       }
-    }
+
+      if (key in props) {
+        return props[key]
+      }
+    },
+    ownKeys(target) {
+      return [...Object.getOwnPropertyNames(target), ...Object.keys(ctx.slots), '$props', '$slots']
+    },
   })
+}
+
+const createRenderingContextWithScope = (ctx: ReturnType<typeof createRenderingContext>, scope: Scope, onDynamicAccess: () => void) => {
+  return new Proxy(ctx, {
+    get(target, key: string) {
+      if (scope.dynamic && key in scope.dynamic) {
+        onDynamicAccess()
+        return scope.dynamic[key]
+      }
+
+      if (scope.static && key in scope.static) {
+        return scope.static[key]
+      }
+
+      return target[key]
+    },
+    ownKeys(target) {
+      return [...Object.keys(target), ...Object.keys(scope.dynamic ?? {}), ...Object.keys(scope.static ?? {})]
+    },
+  })
+}
+
+/** Execute code during compilation */
+export const createInTemplateExecuter = <T = any>(ctx: CompilerContext) => {
+  // If dynamic props are used, we need to return the code instead of the value
+  let isDynamic = false
+
+  const setupContext = createSetupContext(ctx, () => {
+    isDynamic = true
+  })
+
+  const renderingContext = createRenderingContext(ctx, setupContext)
 
   let scopeStack = [] as Scope[]
 
@@ -57,32 +154,21 @@ export const createInTemplateExecuter = <T = any>(ctx: {
     }, {})
 
     const fnCode = `((_ctx) => {
-      ${ctx.component.script.scriptSetupContent.functions.join('\n')}
-      return (() => ${addContext(code, ctx.component.script.scriptSetupContent.functionNames)})()
+      return (() => ${addContext(code)})()
     })
     `
 
-    const newCtx = new Proxy(_ctxObj, {
-      get(target, key: string) {
-        if (scope.dynamic && key in scope.dynamic) {
-          isDynamic = true
-          return scope.dynamic[key]
-        }
-
-        if (scope.static && key in scope.static) {
-          return scope.static[key]
-        }
-
-        return _ctxObj[key]
-      }
-    })
-
     isDynamic = false
+
+    const _ctx = createRenderingContextWithScope(renderingContext, scope, () => {
+      isDynamic = true
+    })
 
     const fn = execute(fnCode) as (_ctx: any) => T
     let value
+
     try {
-      value = fn(newCtx) as T
+      value = fn(_ctx) as T
     } catch (e) {
       if (!(e instanceof TypeError)) {
         throw e

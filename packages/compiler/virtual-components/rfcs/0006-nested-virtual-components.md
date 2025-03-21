@@ -34,3 +34,22 @@ virtual-components/VcIcon.vue
   <i class="material-icons">{{ name }}</i>
 </template>
 ```
+
+```html
+App.vue
+
+<template>
+  <VcButton icon="person">User</VcButton>
+</template>
+```
+
+```html
+output
+
+<template>
+  <button>
+    <i class="material-icons">person</i>
+    User
+  </button>
+</template>
+```
