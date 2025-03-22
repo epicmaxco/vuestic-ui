@@ -93,8 +93,8 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
 
       sourceString.appendLeft(start, fileImports.join('\n') + '\n')
     } else {
-      const lang = sfcParseResult.descriptor.scriptSetup?.lang ? `lang="${sfcParseResult.descriptor.scriptSetup.lang}"` : ''
-      sourceString.prepend(`<script ${lang}>\n${fileImports.join('\n') + '\n'}</script>\n\n`)
+      const lang = sfcParseResult.descriptor.scriptSetup?.lang ? ` lang="${sfcParseResult.descriptor.scriptSetup.lang}"` : ''
+      sourceString.prepend(`<script${lang}>\n${fileImports.join('\n') + '\n'}</script>\n\n`)
     }
   }
 

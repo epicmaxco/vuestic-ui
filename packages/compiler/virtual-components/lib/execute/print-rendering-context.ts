@@ -1,7 +1,8 @@
 import { CompilerContext } from '../create-compiler-context'
 import { VirtualComponent } from '../create-virtual-component'
 import { VirtualComponentError } from '../errors'
-import { execute, simplifyCode, addContext } from './execute'
+import { executeWithContext, execute } from './execute'
+import { simplifyCode } from './simplify-code'
 import { isRef } from 'vue'
 
 type Scope = {
@@ -17,14 +18,40 @@ type SimplifiedCompilerContext = {
   component: VirtualComponent
 }
 
-const createSetupContext = (ctx: SimplifiedCompilerContext, onDynamicAccess: () => void) => {
+const STRING_REGEX = /^['|"|`].*['|"|`]$/
+const ARRAY_REGEX = /^\[.*\]$/
+const isStaticValue = (value: string) => {
+  if (value === 'undefined' || value === 'null') {
+    return true
+  }
+
+  if (isNaN(Number(value))) {
+    return true
+  }
+
+  if (STRING_REGEX.test(value)) {
+    return true
+  }
+
+  if (value === 'true' || value === 'false') {
+    return true
+  }
+}
+
+const createSetupContext = (ctx: SimplifiedCompilerContext, onDynamicAccess: (key: string) => void) => {
   const props = new Proxy({}, {
     get(target, key: string) {
       const dynamicProp = ctx.dynamicProps.find((prop) => prop.name === key)
 
       if (dynamicProp) {
-        onDynamicAccess()
-        return `${dynamicProp.value}`
+        try {
+          // Static
+          return execute(dynamicProp.value)
+        } catch (e) {
+          // Dynamic
+          onDynamicAccess(key)
+          return undefined
+        }
       }
 
       const staticProp = ctx.props.find((prop) => prop.name === key)
@@ -73,14 +100,24 @@ const createSetupContext = (ctx: SimplifiedCompilerContext, onDynamicAccess: () 
   return [props, setupCtx] as const
 }
 
-const createRenderingContext = (ctx: CompilerContext, setupContext: ReturnType<typeof createSetupContext>) => {
+const createRenderingContext = (ctx: CompilerContext, setupContext: ReturnType<typeof createSetupContext>, onDynamicAccess: (key: string) => void) => {
   const setup = ctx.component.script.scriptSetup?.setup ?? (() => ({} as Record<string, any>))
 
   const [props, setupCtx] = setupContext
   const setupState = setup(props, setupCtx) as Record<string, any>
 
-  return new Proxy(setupState, {
+  const _ctx = new Proxy(setupState, {
     get(target, key: string) {
+      // console.log('GET', key,  key in ctx.component.script.scriptSetupMeta.variables)
+      if (key in ctx.component.script.scriptSetupMeta.variables) {
+        try {
+          const result = executeWithContext(ctx.component.script.scriptSetupMeta.variables[key], _ctx)
+          return result
+        } catch (e) {
+
+        }
+      }
+
       if (key in target) {
         const value = target[key]
 
@@ -111,13 +148,15 @@ const createRenderingContext = (ctx: CompilerContext, setupContext: ReturnType<t
       return [...Object.getOwnPropertyNames(target), ...Object.keys(ctx.slots), '$props', '$slots']
     },
   })
+
+  return _ctx
 }
 
-const createRenderingContextWithScope = (ctx: ReturnType<typeof createRenderingContext>, scope: Scope, onDynamicAccess: () => void) => {
+const createRenderingContextWithScope = (ctx: ReturnType<typeof createRenderingContext>, scope: Scope, onDynamicAccess: (key: string) => void) => {
   return new Proxy(ctx, {
     get(target, key: string) {
       if (scope.dynamic && key in scope.dynamic) {
-        onDynamicAccess()
+        onDynamicAccess(key)
         return scope.dynamic[key]
       }
 
@@ -137,12 +176,16 @@ const createRenderingContextWithScope = (ctx: ReturnType<typeof createRenderingC
 export const createInTemplateExecuter = (ctx: CompilerContext) => {
   // If dynamic props are used, we need to return the code instead of the value
   let isDynamic = false
+  const dynamicVariables = new Set<string>()
 
-  const setupContext = createSetupContext(ctx, () => {
+  const setupContext = createSetupContext(ctx, (key) => {
+    dynamicVariables.add(key)
     isDynamic = true
   })
 
-  const renderingContext = createRenderingContext(ctx, setupContext)
+  const renderingContext = createRenderingContext(ctx, setupContext, () => {
+
+  })
 
   let scopeStack = [] as Scope[]
 
@@ -154,22 +197,18 @@ export const createInTemplateExecuter = (ctx: CompilerContext) => {
       }
     }, {})
 
-    const fnCode = `((_ctx) => {
-      return (() => ${addContext(code)})()
-    })
-    `
 
     isDynamic = false
 
-    const _ctx = createRenderingContextWithScope(renderingContext, scope, () => {
+    const _ctx = createRenderingContextWithScope(renderingContext, scope, (key) => {
+      dynamicVariables.add(key)
       isDynamic = true
     })
 
-    const fn = execute(fnCode) as (_ctx: any) => T
     let value
 
     try {
-      value = fn(_ctx) as T
+      value = executeWithContext(code, _ctx) as T
     } catch (e) {
       if (!(e instanceof TypeError)) {
         throw e

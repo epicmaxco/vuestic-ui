@@ -40,7 +40,7 @@ export const createScriptSetupMeta = (scriptSetup: SFCDescriptor) => {
   if (!scriptSetup.scriptSetup) {
     return {
       functions: [],
-      variables: [],
+      variables: {},
       functionNames: [],
     }
   }
@@ -50,7 +50,7 @@ export const createScriptSetupMeta = (scriptSetup: SFCDescriptor) => {
   if (!script.scriptSetupAst) {
     return {
       functions: [],
-      variables: [],
+      variables: {},
       functionNames: [],
     }
   }
@@ -59,7 +59,7 @@ export const createScriptSetupMeta = (scriptSetup: SFCDescriptor) => {
 
   const functions = [] as string[]
   const functionNames = [] as string[]
-  const variables = [] as string[]
+  const variables = {} as Record<string, string>
 
   script.scriptSetupAst.forEach((node) => {
     walk(node as any, (node) => {
@@ -82,7 +82,17 @@ export const createScriptSetupMeta = (scriptSetup: SFCDescriptor) => {
           functions.push(source.slice(node.start, node.end))
           functionNames.push(dec.declarations[0].id.name)
         } else if (node) {
-          variables.push(source.slice(node.start, node.end))
+          if (dec.declarations[0].id.type !== 'Identifier') {
+            // pass
+          } else {
+            const name = dec.declarations[0].id.name
+            const init = dec.declarations[0].init
+            if (!init) {
+              return
+            }
+            const value = source.slice(init.start, init.end)
+            variables[name] = String(value)
+          }
         }
       }
     })
