@@ -1,12 +1,11 @@
 import { AttributeNode, DirectiveNode, ElementNode, NodeTypes, RootNode, TextNode, Node } from "@vue/compiler-core";
-import { CompilerContext } from "../../create-compiler-context";
+import { CompilerNodeContext } from "../../create-compilation-context/create-node-context";
 import { normalizeClass, normalizeStyle } from "@vue/shared";
-import { printValueInTemplate } from "../../execute/print-rendering-context";
 import { isNodeElement, isPropAttribute, isPropDirective, patchNode } from "../ast-helpers";
 import { transformAstWithContext } from "../transform-node";
 import { VirtualComponentError } from "../../errors";
 
-const transformBindDirective = (prop: DirectiveNode, ctx: CompilerContext) => {
+const transformBindDirective = (prop: DirectiveNode, ctx: CompilerNodeContext) => {
   if (prop.exp?.type !== NodeTypes.SIMPLE_EXPRESSION) {
     console.warn('Only simple expressions are supported in prop binds')
     return
@@ -25,7 +24,7 @@ const transformBindDirective = (prop: DirectiveNode, ctx: CompilerContext) => {
   }
 
   if (result.isDynamic) {
-    prop.exp.content = printValueInTemplate(result, 'Bind')
+    prop.exp.content = ctx.execute.printInTemplate(result, 'Bind')
   } else {
     patchNode<AttributeNode>(prop, {
       type: NodeTypes.ATTRIBUTE,
@@ -41,7 +40,7 @@ const transformBindDirective = (prop: DirectiveNode, ctx: CompilerContext) => {
   }
 }
 
-const transformIfDirective = (prop: DirectiveNode, node: ElementNode, parent: ElementNode | RootNode, ctx: CompilerContext) => {
+const transformIfDirective = (prop: DirectiveNode, node: ElementNode, parent: ElementNode | RootNode, ctx: CompilerNodeContext) => {
   if (prop.exp?.type !== NodeTypes.SIMPLE_EXPRESSION) {
     console.warn('Only simple expressions are supported in v-if')
     return
@@ -53,7 +52,7 @@ const transformIfDirective = (prop: DirectiveNode, node: ElementNode, parent: El
     if (!result.isDynamic) {
       node.props = node.props.filter((p) => prop !== p)
     } else {
-      prop.exp.content = printValueInTemplate(result, 'Bind')
+      prop.exp.content = ctx.execute.printInTemplate(result, 'Bind')
     }
 
     return
@@ -62,7 +61,7 @@ const transformIfDirective = (prop: DirectiveNode, node: ElementNode, parent: El
   parent.children = parent.children.filter((child) => child !== node)
 }
 
-const transformForDirective = (prop: DirectiveNode, node: ElementNode, parent: ElementNode | RootNode, ctx: CompilerContext) => {
+const transformForDirective = (prop: DirectiveNode, node: ElementNode, parent: ElementNode | RootNode, ctx: CompilerNodeContext) => {
   const arrayStr = prop.forParseResult?.source.loc.source
   const argsStr = prop.forParseResult?.value?.loc.source
 
@@ -74,6 +73,10 @@ const transformForDirective = (prop: DirectiveNode, node: ElementNode, parent: E
 
   if (!providedProp) {
     throw new VirtualComponentError('Invalid v-for directive: No prop passed')
+  }
+
+  if (!providedProp.value) {
+    throw new VirtualComponentError('Unexpected missing value in v-for directive')
   }
 
   const executionResult = ctx.execute(providedProp.value)
@@ -133,7 +136,7 @@ const transformForDirective = (prop: DirectiveNode, node: ElementNode, parent: E
   }
 }
 
-export const transformPropBind = (prop: DirectiveNode, node: ElementNode, parent: ElementNode | RootNode, ctx: CompilerContext) => {
+export const transformPropBind = (prop: DirectiveNode, node: ElementNode, parent: ElementNode | RootNode, ctx: CompilerNodeContext) => {
   if (!prop) { return }
 
   if (prop.name === 'bind') {

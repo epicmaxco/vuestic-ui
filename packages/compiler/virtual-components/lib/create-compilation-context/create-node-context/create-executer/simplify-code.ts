@@ -1,8 +1,8 @@
 import { MagicString } from "@vue/compiler-sfc"
 import { parse } from "acorn"
-import { CompilerContext } from "../create-compiler-context"
-import { onAccess } from './js-ast'
-import { VirtualComponentError } from "../errors"
+import { VirtualComponentError } from "../../../errors"
+import { onAccess } from "../../../execute/js-ast"
+import { CompilerNodeContext } from "../../create-node-context"
 
 const stringifyValue = (value: unknown) => {
   const str =  JSON.stringify(value)
@@ -14,10 +14,8 @@ const stringifyValue = (value: unknown) => {
   return
 }
 
-const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
-
 /** Simplify code is a compile-time optimization if component can not be fully compiled. It will optimize code used in template and replace static values if possible */
-export const simplifyCode = (code: string, ctx: CompilerContext) => {
+export const simplifyCode = (code: string, ctx: CompilerNodeContext) => {
   const codeString = new MagicString(code)
   const ast = parse(code, { ecmaVersion: 2020 })
 
@@ -53,11 +51,11 @@ export const simplifyCode = (code: string, ctx: CompilerContext) => {
     const dynamicProp = ctx.dynamicProps.find((p) => p.name === node.name)
 
     if (dynamicProp) {
-      codeString.overwrite(node.start, node.end, dynamicProp.value)
+      codeString.overwrite(node.start, node.end, dynamicProp.value ?? '')
       return
     }
 
-    const staticProp = ctx.props.find((p) => p.name === node.name)
+    const staticProp = ctx.staticProps.find((p) => p.name === node.name)
     if (staticProp) {
       // Do not render quotes around in ${} in template literals
       if (codeString.original[node.start - 2] === '$' && codeString.original[node.start - 1] === '{' && codeString.original[node.end] === '}') {

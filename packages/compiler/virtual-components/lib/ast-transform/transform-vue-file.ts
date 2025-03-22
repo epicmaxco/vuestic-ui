@@ -5,11 +5,13 @@ import { transformAstNode } from './transform-node';
 import { renderTemplateAst } from './render/render-template-ast';
 import { getNodeIndent, addIndent} from './render/indent'
 import { VirtualComponentError } from '../errors'
+import { createSourceFileContext, CompilerSourceFileContext } from '../create-compilation-context/create-source-file-context'
 
-const transformNestedComponents = (source: string, virtualComponents: VirtualComponent[]) => {
+const transformNestedComponents = (source: string, virtualComponents: VirtualComponent[], ctx: CompilerSourceFileContext) => {
   let sourceString = new MagicString(`<template>${source}</template>`)
 
-  const templateAst = parseVue(sourceString.toString()).descriptor.template?.ast
+  const parseResult = parseVue(sourceString.toString())
+  const templateAst = parseResult.descriptor.template?.ast
 
   if (!templateAst) {
     throw new VirtualComponentError('No template found in component while transforming nested virtual components')
@@ -25,10 +27,10 @@ const transformNestedComponents = (source: string, virtualComponents: VirtualCom
 
     const intend = getNodeIndent(node, sourceString.toString())
 
-    const { ast, imports } = transformAstNode(node, component)
+    const { ast, imports } = transformAstNode(node, component, ctx)
     const newTemplateString = addIndent(renderTemplateAst(ast), intend)
 
-    const { code, imports: nestedImports } = transformNestedComponents(newTemplateString, virtualComponents)
+    const { code, imports: nestedImports } = transformNestedComponents(newTemplateString, virtualComponents, ctx)
 
     sourceString.overwrite(
       node.loc.start.offset,
@@ -54,8 +56,14 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
     throw new VirtualComponentError('No template found in component while transforming vue file')
   }
 
+  if (sfcParseResult.errors.length > 0) {
+    throw new VirtualComponentError(sfcParseResult.errors.map((e) => e.toString()).join('\n'))
+  }
+
   let sourceString = new MagicString(source)
   let fileImports = [] as string[]
+
+  const ctx = createSourceFileContext(sfcParseResult.descriptor)
 
   walkTags(templateAst, (node) => {
     const componentName = node.tag
@@ -66,10 +74,10 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
     const intend = getNodeIndent(node, source)
 
     try {
-      const { ast, imports } = transformAstNode(node, component)
+      const { ast, imports } = transformAstNode(node, component, ctx)
       const newTemplateString = addIndent(renderTemplateAst(ast), intend)
 
-      const { code, imports: nestedImports } = transformNestedComponents(newTemplateString, virtualComponents)
+      const { code, imports: nestedImports } = transformNestedComponents(newTemplateString, virtualComponents, ctx)
 
       sourceString.overwrite(
         node.loc.start.offset,

@@ -1,9 +1,11 @@
-import { CompilerContext } from '../create-compiler-context'
-import { VirtualComponent } from '../create-virtual-component'
-import { VirtualComponentError } from '../errors'
-import { executeWithContext, execute } from './execute'
-import { simplifyCode } from './simplify-code'
+
 import { isRef } from 'vue'
+import { CompilerNodeContext } from '../create-node-context'
+import { VirtualComponent } from '../../create-virtual-component'
+import { VirtualComponentError } from '../../errors'
+import { execute, executeWithContext } from '../../execute/execute'
+import { simplifyCode } from './create-executer/simplify-code'
+import { NodeContextProps } from './create-props'
 
 type Scope = {
   static?: Record<string, any>,
@@ -11,31 +13,11 @@ type Scope = {
 }
 
 type SimplifiedCompilerContext = {
-  props: CompilerContext['props'],
-  dynamicProps: CompilerContext['dynamicProps'],
-  slots: CompilerContext['slots'],
-  imports: CompilerContext['imports'],
+  staticProps: NodeContextProps,
+  dynamicProps: NodeContextProps,
+  slots: Record<string, any>,
+  imports: string[],
   component: VirtualComponent
-}
-
-const STRING_REGEX = /^['|"|`].*['|"|`]$/
-const ARRAY_REGEX = /^\[.*\]$/
-const isStaticValue = (value: string) => {
-  if (value === 'undefined' || value === 'null') {
-    return true
-  }
-
-  if (isNaN(Number(value))) {
-    return true
-  }
-
-  if (STRING_REGEX.test(value)) {
-    return true
-  }
-
-  if (value === 'true' || value === 'false') {
-    return true
-  }
 }
 
 const createSetupContext = (ctx: SimplifiedCompilerContext, onDynamicAccess: (key: string) => void) => {
@@ -44,6 +26,10 @@ const createSetupContext = (ctx: SimplifiedCompilerContext, onDynamicAccess: (ke
       const dynamicProp = ctx.dynamicProps.find((prop) => prop.name === key)
 
       if (dynamicProp) {
+        if (dynamicProp.value === undefined) {
+          throw new VirtualComponentError('Unexpected undefined value in dynamic prop ' + key)
+        }
+
         try {
           // Static
           return execute(dynamicProp.value)
@@ -54,7 +40,7 @@ const createSetupContext = (ctx: SimplifiedCompilerContext, onDynamicAccess: (ke
         }
       }
 
-      const staticProp = ctx.props.find((prop) => prop.name === key)
+      const staticProp = ctx.staticProps.find((prop) => prop.name === key)
 
       if (staticProp) {
         return staticProp.value
@@ -69,7 +55,7 @@ const createSetupContext = (ctx: SimplifiedCompilerContext, onDynamicAccess: (ke
         return true
       }
 
-      const staticProp = ctx.props.find((prop) => prop.name === key)
+      const staticProp = ctx.staticProps.find((prop) => prop.name === key)
 
       if (staticProp) {
         return true
@@ -81,7 +67,7 @@ const createSetupContext = (ctx: SimplifiedCompilerContext, onDynamicAccess: (ke
       throw new VirtualComponentError('Props are readonly in virtual components')
     },
     ownKeys() {
-      return [...ctx.props.map((prop) => prop.name), ...ctx.dynamicProps.map((prop) => prop.name)]
+      return [...ctx.staticProps.map((prop) => prop.name), ...ctx.dynamicProps.map((prop) => prop.name)]
     },
     getOwnPropertyDescriptor() {
       return {
@@ -100,7 +86,7 @@ const createSetupContext = (ctx: SimplifiedCompilerContext, onDynamicAccess: (ke
   return [props, setupCtx] as const
 }
 
-const createRenderingContext = (ctx: CompilerContext, setupContext: ReturnType<typeof createSetupContext>, onDynamicAccess: (key: string) => void) => {
+const createRenderingContext = (ctx: SimplifiedCompilerContext, setupContext: ReturnType<typeof createSetupContext>, onDynamicAccess: (key: string) => void) => {
   const setup = ctx.component.script.scriptSetup?.setup ?? (() => ({} as Record<string, any>))
 
   const [props, setupCtx] = setupContext
@@ -173,7 +159,7 @@ const createRenderingContextWithScope = (ctx: ReturnType<typeof createRenderingC
 }
 
 /** Execute code during compilation */
-export const createInTemplateExecuter = (ctx: CompilerContext) => {
+export const createInTemplateExecuter = (ctx: SimplifiedCompilerContext) => {
   // If dynamic props are used, we need to return the code instead of the value
   let isDynamic = false
   const dynamicVariables = new Set<string>()
@@ -217,7 +203,7 @@ export const createInTemplateExecuter = (ctx: CompilerContext) => {
 
     if (isDynamic) {
       return {
-        value: simplifyCode(code, ctx as CompilerContext),
+        value: simplifyCode(code, ctx as CompilerNodeContext),
         isDynamic: true as const
       }
     }
@@ -243,6 +229,8 @@ export const createInTemplateExecuter = (ctx: CompilerContext) => {
       return null
     }
   }
+
+  codeRunner.printInTemplate = printValueInTemplate
 
   return codeRunner
 }

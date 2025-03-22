@@ -57,12 +57,20 @@ function renderElement(node: TemplateChildNode, tabsize = 0): string {
   throw new VirtualComponentError(`Unexpected error: unhandled node type: ${node.type}`)
 }
 
-export const renderTemplateAst = (templateAst: RootNode) => {
+export const renderTemplateAst = (templateAst: RootNode | RootNode[]) => {
   let template = ''
 
-  templateAst.children.forEach((node) => {
-    template += renderElement(node)
-  })
+  if (Array.isArray(templateAst)) {
+    templateAst.forEach((node) => {
+      node.children.forEach((child) => {
+        template += renderElement(child)
+      })
+    })
+  } else {
+    templateAst.children.forEach((node) => {
+      template += renderElement(node)
+    })
+  }
 
   return template
 }

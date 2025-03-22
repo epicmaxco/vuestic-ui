@@ -1,15 +1,15 @@
 import { ConstantTypes, ElementNode, NodeTypes } from "@vue/compiler-core";
-import { CompilerContext } from "../../create-compiler-context";
 import { isPropAttribute } from "../ast-helpers";
 import { VirtualComponentError } from "../../errors";
+import { CompilerNodeContext } from "../../create-compilation-context/create-node-context";
 
 /** Apply attributes to root element */
-export const transformRootNodeAttrs = (rootNode: ElementNode, ctx: CompilerContext) => {
+export const transformRootNodeAttrs = (rootNode: ElementNode, ctx: CompilerNodeContext) => {
   ctx.directives.forEach((directive) => {
     rootNode.props.push(directive)
   })
 
-  ctx.attrs.forEach(({ name, value }) => {
+  ctx.staticAttrs.forEach(({ name, value }) => {
     if (name === 'class' || name === 'style') {
       const prop = rootNode.props.find((prop) => prop.name === name)
 

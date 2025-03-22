@@ -1,14 +1,65 @@
-import { RootNode,type ElementNode } from "@vue/compiler-core";
+import { NodeTypes, RootNode,type ElementNode } from "@vue/compiler-core";
 import { type VirtualComponent } from "../create-virtual-component";
-import { createCompilerContext, type CompilerContext } from "../create-compiler-context";
+import { createNodeContext, CompilerNodeContext } from "../create-compilation-context/create-node-context";
 import {  walk, } from './walk'
 import { isNodeElement, isNodeHasChildren, isNodeInterpolation, isNodeSlot, isNodeTemplateSlot, isPropDirective } from "./ast-helpers";
 import { transformSlotNode } from "./transformers/transform-slot-node";
 import { mergeDuplicate, transformPropBind } from "./transformers/transform-prop-bind";
 import { transformInterpolation } from "./transformers/transform-interpolation";
 import { transformRootNodeAttrs } from './transformers/transform-root-node-attrs'
+import { CompilerSourceFileContext } from '../create-compilation-context/create-source-file-context'
 
-export const transformAstWithContext = <T extends ElementNode | RootNode>(node: T, ctx: CompilerContext) => {
+const transformWithVFor = <T extends RootNode>(node: T, ctx: CompilerNodeContext) => {
+  const nodes = [] as RootNode[]
+
+  if (ctx.directives.length > 0) {
+    const forDirective = ctx.directives.find((d) => d.name === 'for')
+
+    if (!forDirective?.forParseResult) {
+      console.warn('Unexpected: no parse result for v-for directive')
+      return transformAstWithContext(node, ctx)
+    }
+
+    const forSource = forDirective?.forParseResult?.source.loc.source
+
+    // TODO: Accept numbers and try to execute here
+
+    if (forSource && forSource in ctx.sourceFileCtx.variables) {
+      const forSourceValue = ctx.sourceFileCtx.variables[forSource]
+
+      if (!Array.isArray(forSourceValue)) {
+        throw new Error('Unexpected Error: v-for directive only accepts arrays')
+      }
+
+      const forVariable = forDirective.forParseResult.value?.type === NodeTypes.SIMPLE_EXPRESSION ? forDirective.forParseResult.value.content : undefined
+
+      if (!forVariable) {
+        throw new Error('Unexpected Error: v-for directive requires a variable')
+      }
+
+      ctx.directives = ctx.directives.filter((d) => d !== forDirective)
+
+      for (let i = 0; i < forSourceValue.length; i++) {
+        const clone = structuredClone(node)
+        const scope = {
+          static: {
+            [forVariable]: forSourceValue[i]
+          }
+        }
+        ctx.execute.addScope(scope)
+        const transformed = transformAstWithContext(clone, ctx)
+        ctx.execute.removeScope(scope)
+        nodes.push(transformed)
+      }
+    }
+  } else {
+    return transformAstWithContext(node, ctx)
+  }
+
+  return nodes
+}
+
+export const transformAstWithContext = <T extends ElementNode | RootNode>(node: T, ctx: CompilerNodeContext) => {
   if ('__virtualComponentTransformed' in node && node.__virtualComponentTransformed) {
     return node
   }
@@ -35,7 +86,7 @@ export const transformAstWithContext = <T extends ElementNode | RootNode>(node: 
     }
   })
 
-  if (ctx.attrs.length > 0 || ctx.dynamicAttrs.length > 0 || ctx.directives.length > 0) {
+  if (ctx.staticAttrs.length > 0 || ctx.dynamicAttrs.length > 0 || ctx.directives.length > 0) {
     if (node.children.length === 1) {
       const rootNode = node.children[0]
 
@@ -55,14 +106,12 @@ export const transformAstWithContext = <T extends ElementNode | RootNode>(node: 
 }
 
 /** Apply virtual component to AST Node */
-export const transformAstNode = (node: ElementNode, component: VirtualComponent) => {
-  const ctx = createCompilerContext(node, component)
+export const transformAstNode = (node: ElementNode, component: VirtualComponent, sourceContext: CompilerSourceFileContext) => {
+  const ctx = createNodeContext(node, component, sourceContext)
   const newAst = structuredClone(component.templateAst)
 
-  transformAstWithContext(newAst, ctx)
-
   return {
-    ast: newAst,
+    ast: transformWithVFor(newAst, ctx),
     imports: ctx.imports
   }
 }

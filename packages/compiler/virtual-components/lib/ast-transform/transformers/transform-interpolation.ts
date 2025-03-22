@@ -1,10 +1,9 @@
 import { InterpolationNode, NodeTypes } from "@vue/compiler-core"
-import { CompilerContext } from "../../create-compiler-context"
-import { printValueInTemplate } from "../../execute/print-rendering-context"
 import { patchNode } from "../ast-helpers"
 import { VirtualComponentError } from "../../errors"
+import { CompilerNodeContext } from "../../create-compilation-context/create-node-context"
 
-export const transformInterpolation = (node: InterpolationNode, ctx: CompilerContext) => {
+export const transformInterpolation = (node: InterpolationNode, ctx: CompilerNodeContext) => {
   if (node.content.type !== NodeTypes.SIMPLE_EXPRESSION) {
     throw new VirtualComponentError('Unexpected Error: Only simple expressions are supported in text interpolations')
   }
@@ -13,7 +12,7 @@ export const transformInterpolation = (node: InterpolationNode, ctx: CompilerCon
 
   patchNode(node, {
     type: NodeTypes.TEXT,
-    content: printValueInTemplate(result, 'Interpolation'),
+    content: ctx.execute.printInTemplate(result, 'Interpolation'),
     loc: node.loc
   })
 }

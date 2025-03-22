@@ -2,13 +2,13 @@
 import { ref, computed } from 'vue';
 import VcOrderCard from './components/VcOrderCard.vue';
 
-const ordersCount = ref(1000);
-const orders = computed(() => Array.from({ length: ordersCount.value }, (_, i) => ({
+const ordersCount = 100;
+const orders = Array.from({ length: ordersCount }, (_, i) => ({
   id: i,
   customer: `Customer ${i + 1}`,
   amount: (Math.random() * 1000).toFixed(2),
   status: ['Pending', 'Shipped', 'Delivered'][i % 3]
-})));
+}));
 
 const icon = [
   {

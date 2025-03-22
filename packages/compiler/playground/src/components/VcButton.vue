@@ -1,6 +1,6 @@
 <script setup lang="ts">
-// import VcIcon from './VcIcon.vue';
-// import VcProgress from './VcProgress.vue';
+import VcIcon from './VcIcon.vue';
+import VcProgress from './VcProgress.vue';
 
 const { color = 'blue', type = 'solid' } = defineProps({
   icon: String,
