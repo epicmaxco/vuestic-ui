@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import VcButton from './VcButton.vue';
+import { ref } from 'vue';
 
 const props = defineProps({
   order: { type: Object, required: true }
@@ -31,6 +32,7 @@ const statusClass = (status: 'pending' | 'shipped' | 'delivered') => {
         View Customer
       </VcButton>
       <VcButton color="green" type="outlined" icon="local_shipping">Track Order</VcButton>
+      <VcButton color="green" type="outlined" icon="local_shipping">Track Driver</VcButton>
     </div>
   </div>
 </template>

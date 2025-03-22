@@ -108,3 +108,7 @@ import { getColor } from 'virtual-components:VcButton'
   </button>
 </template>
 ```
+
+### Component imports
+
+Component imports are not available in script setup and will be replaced with 

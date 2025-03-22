@@ -200,7 +200,7 @@ const header = 'Good bye'
 
         expect(transformVue(source, [component]).toString()).toBe(`
 <script>
-import { getHeader } from 'virtual-components:TestComponent'
+import { vcTestComponentGetHeader } from 'virtual-components:TestComponent'
 </script>
 
 <script setup>
@@ -210,7 +210,7 @@ const header = 'Good bye'
 <template>
   <div>
     <h1>
-      {{ getHeader(header) }}
+      {{ vcTestComponentGetHeader(header) }}
     </h1>
     <p>
       Description

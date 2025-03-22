@@ -1,5 +1,5 @@
 
-import { compileScript, SFCDescriptor } from '@vue/compiler-sfc'
+import { compileScript, SFCDescriptor, SFCScriptBlock } from '@vue/compiler-sfc'
 import { executeTsModule } from '../execute/execute-module'
 
 const vueCompileScript = (descriptor: SFCDescriptor) => {
@@ -9,6 +9,22 @@ const vueCompileScript = (descriptor: SFCDescriptor) => {
     console.error('Failed to virtual component compile script', e)
     return null
   }
+}
+
+/** Do not import components */
+const stubComponentsImports = (script: SFCScriptBlock) => {
+  let content = script.content
+  const imports = script.imports ?? {} as NonNullable<SFCScriptBlock['imports']>
+
+  Object.keys(imports).forEach((imported) => {
+    const importBlock = imports[imported]
+
+    if (importBlock.isUsedInTemplate && importBlock.source.endsWith('.vue')) {
+      content = content.replace(new RegExp(`import ${imported} from ['|"]${importBlock.source}['|"][;]?`, 'g'), `const ${imported} = { render: () => null }`)
+    }
+  })
+
+  return content
 }
 
 export const buildScriptSetupModule = async (descriptor: SFCDescriptor) => {
@@ -31,7 +47,7 @@ export const buildScriptSetupModule = async (descriptor: SFCDescriptor) => {
         expose: () => void
       }) => Record<string, any>
     }
-  }>(script.content)
+  }>(stubComponentsImports(script), descriptor.filename)
 
   let props = executedScript?.default.props ?? {}
 

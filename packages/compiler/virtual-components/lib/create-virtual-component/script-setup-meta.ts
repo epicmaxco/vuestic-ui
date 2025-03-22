@@ -1,5 +1,5 @@
-import { compileScript, SFCDescriptor } from '@vue/compiler-sfc'
-import { Node, Statement, ModuleDeclaration, MemberExpression, TemplateLiteral, Program, VariableDeclaration, FunctionDeclaration } from 'acorn'
+import { compileScript, MagicString, SFCDescriptor } from '@vue/compiler-sfc'
+import { Node, Statement, ModuleDeclaration, MemberExpression, TemplateLiteral, Program, VariableDeclaration, FunctionDeclaration, Identifier } from 'acorn'
 import { transpileTs } from '../execute/transpile-ts'
 import { VirtualComponentError } from '../errors'
 
@@ -36,12 +36,17 @@ const walk = (node: Node | Statement | ModuleDeclaration | Program, cb: (node: N
   }
 }
 
-export const createScriptSetupMeta = (scriptSetup: SFCDescriptor) => {
+const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
+
+const prefixFunctionName = (name: string, prefix: string) => {
+  return prefix + capitalize(name)
+}
+
+export const createScriptSetupMeta = (scriptSetup: SFCDescriptor, componentName: string) => {
   if (!scriptSetup.scriptSetup) {
     return {
       functions: [],
       variables: {},
-      functionNames: [],
     }
   }
 
@@ -51,22 +56,44 @@ export const createScriptSetupMeta = (scriptSetup: SFCDescriptor) => {
     return {
       functions: [],
       variables: {},
-      functionNames: [],
     }
   }
 
   const source = scriptSetup.scriptSetup?.content ?? ''
 
-  const functions = [] as string[]
-  const functionNames = [] as string[]
   const variables = {} as Record<string, string>
+
+  const functions = [] as {
+    name: string,
+    originalName: string,
+    source: string,
+    originalSource: string
+  }[]
+
+  const fnPrefix = 'vc' + componentName
+
+  const addFn = (id: Identifier, node: Node) => {
+    const originalName = id.name
+    const name = prefixFunctionName(originalName, fnPrefix)
+
+    const ms = new MagicString(source)
+    ms.overwrite(id.start, id.end, name)
+
+    functions.push({
+      name,
+      originalName,
+      source: transpileTs(ms.slice(node.start, node.end)).outputText,
+      originalSource: source.slice(node.start, node.end)
+    })
+  }
 
   script.scriptSetupAst.forEach((node) => {
     walk(node as any, (node) => {
       if (node.type === 'FunctionDeclaration') {
-        const name = (node as FunctionDeclaration).id.name
-        functionNames.push(name)
-        functions.push(source.slice(node.start, node.end))
+        const id = (node as FunctionDeclaration).id
+        const name = id.name
+
+        addFn(id, node)
       }
       if (node.type === 'VariableDeclaration') {
         const dec = node as VariableDeclaration
@@ -79,8 +106,9 @@ export const createScriptSetupMeta = (scriptSetup: SFCDescriptor) => {
             throw new VirtualComponentError('Only identifier declarations are supported. No destructuring in virtual components')
           }
 
-          functions.push(source.slice(node.start, node.end))
-          functionNames.push(dec.declarations[0].id.name)
+          const id = dec.declarations[0].id
+
+          addFn(id, node)
         } else if (node) {
           if (dec.declarations[0].id.type !== 'Identifier') {
             // pass
@@ -98,13 +126,8 @@ export const createScriptSetupMeta = (scriptSetup: SFCDescriptor) => {
     })
   })
 
-  functions.forEach((fn, i) => {
-    functions[i] = transpileTs(fn).outputText
-  })
-
   return {
     functions,
-    functionNames,
     variables,
   }
 }

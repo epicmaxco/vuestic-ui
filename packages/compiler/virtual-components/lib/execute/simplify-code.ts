@@ -2,6 +2,7 @@ import { MagicString } from "@vue/compiler-sfc"
 import { parse } from "acorn"
 import { CompilerContext } from "../create-compiler-context"
 import { onAccess } from './js-ast'
+import { VirtualComponentError } from "../errors"
 
 const stringifyValue = (value: unknown) => {
   const str =  JSON.stringify(value)
@@ -12,6 +13,8 @@ const stringifyValue = (value: unknown) => {
 
   return
 }
+
+const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
 
 /** Simplify code is a compile-time optimization if component can not be fully compiled. It will optimize code used in template and replace static values if possible */
 export const simplifyCode = (code: string, ctx: CompilerContext) => {
@@ -25,7 +28,16 @@ export const simplifyCode = (code: string, ctx: CompilerContext) => {
     }
 
     if (parent && parent.type === 'CallExpression') {
-      ctx.imports.push(node.name)
+      const fn = ctx.component.script.scriptSetupMeta.functions.find((f) => f.originalName === node.name)
+
+      if (!fn) {
+        throw new VirtualComponentError(`Function ${node.name} not found in script setup`)
+      }
+
+      ctx.imports.push(fn.name)
+
+      codeString.overwrite(node.start, node.end, fn.name)
+      return
     }
 
     if (node.name === '$props') {
