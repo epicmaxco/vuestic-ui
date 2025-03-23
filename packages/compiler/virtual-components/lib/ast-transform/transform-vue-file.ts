@@ -6,44 +6,33 @@ import { renderTemplateAst } from './render/render-template-ast';
 import { getNodeIndent, addIndent} from './render/indent'
 import { VirtualComponentError } from '../errors'
 import { createSourceFileContext, CompilerSourceFileContext } from '../create-compilation-context/create-source-file-context'
+import { isNodeAstVisited, markNodeAstVisited } from './node-marker'
+import { RootNode } from '@vue/compiler-core';
+import { patchNode } from './ast-helpers';
 
-const transformNestedComponents = (source: string, virtualComponents: VirtualComponent[], ctx: CompilerSourceFileContext) => {
-  let sourceString = new MagicString(`<template>${source}</template>`)
-
-  const parseResult = parseVue(sourceString.toString())
-  const templateAst = parseResult.descriptor.template?.ast
-
-  if (!templateAst) {
-    throw new VirtualComponentError('No template found in component while transforming nested virtual components')
-  }
-
+const transformNestedComponents = (ast: RootNode, virtualComponents: VirtualComponent[], ctx: CompilerSourceFileContext) => {
   const globalImports = [] as string[]
 
-  walkTags(templateAst, (node) => {
+  walkTags(ast, (node) => {
+    if (isNodeAstVisited(node)) { return }
+
     const componentName = node.tag
     const component = virtualComponents.find((c) => c.name === componentName)
 
     if (!component) { return }
 
-    const intend = getNodeIndent(node, sourceString.toString())
-
     const { ast, imports } = transformAstNode(node, component, ctx)
-    const newTemplateString = addIndent(renderTemplateAst(ast), intend)
+    const { imports: nestedImports } = transformNestedComponents(ast as RootNode, virtualComponents, ctx)
 
-    const { code, imports: nestedImports } = transformNestedComponents(newTemplateString, virtualComponents, ctx)
 
-    sourceString.overwrite(
-      node.loc.start.offset,
-      node.loc.end.offset,
-      code.toString()
-    )
+    patchNode(node, ast as RootNode)
+    markNodeAstVisited(node)
 
     globalImports.push(imports.map((i) => `import { ${i} } from 'virtual-components:${component.name}'`).join('\n'))
     globalImports.push(...nestedImports)
   })
 
   return {
-    code:  sourceString.toString().slice('<template>'.length, -'</template>'.length),
     imports: globalImports
   }
 }
@@ -65,7 +54,9 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
 
   const ctx = createSourceFileContext(sfcParseResult.descriptor)
 
-  walkTags(templateAst, (node) => {
+  walkTags(structuredClone(templateAst), (node) => {
+    if (isNodeAstVisited(node)) { return }
+
     const componentName = node.tag
     const component = virtualComponents.find((c) => c.name === componentName)
 
@@ -75,9 +66,13 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
 
     try {
       const { ast, imports } = transformAstNode(node, component, ctx)
+      markNodeAstVisited(node)
+
+      const { imports: nestedImports } = transformNestedComponents(ast as RootNode, virtualComponents, ctx)
+
       const newTemplateString = addIndent(renderTemplateAst(ast), intend)
 
-      const { code, imports: nestedImports } = transformNestedComponents(newTemplateString, virtualComponents, ctx)
+      const code = addIndent(newTemplateString, intend)
 
       sourceString.overwrite(
         node.loc.start.offset,

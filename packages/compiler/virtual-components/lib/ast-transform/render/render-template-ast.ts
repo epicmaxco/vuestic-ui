@@ -33,7 +33,7 @@ function renderTag(node: ElementNode): string {
   return `${node.tag} ${props.join(' ')}`
 }
 
-function renderElement(node: TemplateChildNode, tabsize = 0): string {
+function renderElement(node: TemplateChildNode | RootNode, tabsize = 0): string {
   if (node.type === NodeTypes.ELEMENT) {
     if (node.children.length === 0) {
       return tab(tabsize) + `<${renderTag(node)} />`
@@ -52,6 +52,12 @@ function renderElement(node: TemplateChildNode, tabsize = 0): string {
 
   if (node.loc.source) {
     return tab(tabsize) + node.loc.source
+  }
+
+  if (node.type === NodeTypes.ROOT) {
+    return (node as RootNode).children.map((c) => {
+      return renderElement(c, tabsize)
+    }).join('')
   }
 
   throw new VirtualComponentError(`Unexpected error: unhandled node type: ${node.type}`)

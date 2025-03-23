@@ -5,7 +5,7 @@ import { isNodeElement, isPropAttribute, isPropDirective, patchNode } from "../a
 import { transformAstWithContext } from "../transform-node";
 import { VirtualComponentError } from "../../errors";
 
-const transformBindDirective = (prop: DirectiveNode, ctx: CompilerNodeContext) => {
+const transformBindDirective = (prop: DirectiveNode, node: ElementNode, ctx: CompilerNodeContext) => {
   if (prop.exp?.type !== NodeTypes.SIMPLE_EXPRESSION) {
     console.warn('Only simple expressions are supported in prop binds')
     return
@@ -26,6 +26,12 @@ const transformBindDirective = (prop: DirectiveNode, ctx: CompilerNodeContext) =
   if (result.isDynamic) {
     prop.exp.content = ctx.execute.printInTemplate(result, 'Bind')
   } else {
+    // TODO: double check if undefined is passed as value
+    if (result.value === undefined) {
+      node.props = node.props.filter((p) => p !== prop)
+      return
+    }
+
     patchNode<AttributeNode>(prop, {
       type: NodeTypes.ATTRIBUTE,
       loc: prop.loc,
@@ -140,7 +146,7 @@ export const transformPropBind = (prop: DirectiveNode, node: ElementNode, parent
   if (!prop) { return }
 
   if (prop.name === 'bind') {
-    return transformBindDirective(prop, ctx)
+    return transformBindDirective(prop, node, ctx)
   } else if (prop.name === 'if') {
     return transformIfDirective(prop, node, parent, ctx)
   } else if (prop.name === 'for') {

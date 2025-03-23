@@ -27,7 +27,7 @@ export const walk = (node: TemplateChildNode | RootNode, cb: (node: TemplateChil
 }
 
 export const walkTags = (node: RootNode, cb: (node: ElementNode) => void) => {
-  walk(node, (node) => {
+  walk(node, (node, parent) => {
     if (node.type === NodeTypes.ELEMENT && node.tagType === ElementTypes.COMPONENT) {
       cb(node)
     }

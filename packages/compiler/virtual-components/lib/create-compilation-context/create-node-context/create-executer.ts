@@ -94,7 +94,6 @@ const createRenderingContext = (ctx: SimplifiedCompilerContext, setupContext: Re
 
   const _ctx = new Proxy(setupState, {
     get(target, key: string) {
-      // console.log('GET', key,  key in ctx.component.script.scriptSetupMeta.variables)
       if (key in ctx.component.script.scriptSetupMeta.variables) {
         try {
           const result = executeWithContext(ctx.component.script.scriptSetupMeta.variables[key], _ctx)

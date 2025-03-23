@@ -48,6 +48,4 @@ export const onAccess = (node: any, codeString: MagicString, cb: (node: any, par
       onAccess(element, codeString, cb, node)
     }
   }
-
-  // console.log(node)
 }

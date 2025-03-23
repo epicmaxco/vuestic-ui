@@ -1,5 +1,5 @@
+import { CompilerNodeContext } from './../../create-compilation-context/create-node-context';
 import { TemplateNode, ElementNode } from "@vue/compiler-core"
-import { CompilerContext } from "../../create-compiler-context"
 import { isPropAttribute } from "../ast-helpers"
 
 function getNodeSlotName(node: ElementNode): string | undefined {
@@ -12,7 +12,7 @@ function getNodeSlotName(node: ElementNode): string | undefined {
   return undefined
 }
 
-export const transformSlotNode = (node: ElementNode, parent: ElementNode, ctx: CompilerContext) => {
+export const transformSlotNode = (node: ElementNode, parent: ElementNode, ctx: CompilerNodeContext) => {
   const nodeIndex = parent.children.indexOf(node)
 
   const slotName = getNodeSlotName(node) || 'default'

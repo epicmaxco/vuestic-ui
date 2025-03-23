@@ -16,8 +16,6 @@ const resolveComponentsFromComponentsDir = async (componentsDir: string = './src
 
 let components = await resolveComponentsFromComponentsDir()
 
-const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
-
 /** Add css layers to Vuestic files */
 export const virtualComponents: Plugin = {
   name: 'vuestic:virtual-components',
@@ -56,7 +54,6 @@ export const virtualComponents: Plugin = {
     if (!id.endsWith('.vue')) return null
 
     if (!id.includes('playground/src')) return null
-
     const result = transformVue(code, components)
 
     return {
@@ -66,11 +63,15 @@ export const virtualComponents: Plugin = {
   },
 
   configureServer(server) {
-    server.watcher.add('./src/components')
-    server.watcher.on('change', async (file) => {
-      if (file.endsWith('.vue')) {
-        components = await resolveComponentsFromComponentsDir()
-      }
-    })
+    // server.watcher.add('./src/components')
+    // server.watcher.on('change', async (file) => {
+    //   if (file.endsWith('.vue')) {
+    //     components = await resolveComponentsFromComponentsDir()
+    //     // trigger hot reload
+    //     server.ws.send({
+    //       type: 'full-reload',
+    //     })
+    //   }
+    // })
   }
 }

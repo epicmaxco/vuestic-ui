@@ -1,40 +1,35 @@
-<script setup>
-import { ref, computed } from 'vue';
-import VcOrderCard from './components/VcOrderCard.vue';
-
-const ordersCount = 100;
-const orders = Array.from({ length: ordersCount }, (_, i) => ({
-  id: i,
-  customer: `Customer ${i + 1}`,
-  amount: (Math.random() * 1000).toFixed(2),
-  status: ['Pending', 'Shipped', 'Delivered'][i % 3]
-}));
-
-const icon = [
-  {
-    label: 'User',
-    icon: 'person'
-  }
-];
-</script>
-
 <template>
-  <div class="app">
-    <h1>Order Management</h1>
-    <button @click="ordersCount += 50">Load More Orders</button>
-    <div class="orders-grid">
-      <VcOrderCard v-for="order in orders" :order="order" />
-    </div>
+  <div class="flex justify-center items-center h-screen">
+    <VcCard class="w-96">
+      <VcCardTitle>Login</VcCardTitle>
+      <VcCardContent>
+        <VcInput label="Username" class="mb-4 w-full" />
+        <VcInput label="Password" type="password" class="mb-4 w-full" />
+        <VcButton class="w-full mb-2" color="primary">Sign In</VcButton>
+        <VcButton class="w-full" color="secondary">Create new Account</VcButton>
+      </VcCardContent>
+    </VcCard>
   </div>
 </template>
 
-<style>
-.app {
-  text-align: center;
-}
-.orders-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 15px;
+<script setup>
+import { ref } from 'vue';
+
+const username = ref('');
+const password = ref('');
+
+const signIn = () => {
+  console.log('Signing in with:', username.value, password.value);
+};
+
+const createAccount = () => {
+  console.log('Redirecting to create account page');
+};
+</script>
+
+<style scoped>
+.va-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 </style>

@@ -8,16 +8,21 @@ import { mergeDuplicate, transformPropBind } from "./transformers/transform-prop
 import { transformInterpolation } from "./transformers/transform-interpolation";
 import { transformRootNodeAttrs } from './transformers/transform-root-node-attrs'
 import { CompilerSourceFileContext } from '../create-compilation-context/create-source-file-context'
+import { VirtualComponentError } from "../errors";
+import { markNodeAstVisited, isNodeAstVisited } from './node-marker'
 
 const transformWithVFor = <T extends RootNode>(node: T, ctx: CompilerNodeContext) => {
   const nodes = [] as RootNode[]
 
-  if (ctx.directives.length > 0) {
+  if (ctx.directives.length > 0 && false) {
     const forDirective = ctx.directives.find((d) => d.name === 'for')
 
-    if (!forDirective?.forParseResult) {
-      console.warn('Unexpected: no parse result for v-for directive')
+    if (!forDirective) {
       return transformAstWithContext(node, ctx)
+    }
+
+    if (!forDirective?.forParseResult) {
+      throw new VirtualComponentError('Unexpected Error: unable to parse v-for directive')
     }
 
     const forSource = forDirective?.forParseResult?.source.loc.source
@@ -60,7 +65,7 @@ const transformWithVFor = <T extends RootNode>(node: T, ctx: CompilerNodeContext
 }
 
 export const transformAstWithContext = <T extends ElementNode | RootNode>(node: T, ctx: CompilerNodeContext) => {
-  if ('__virtualComponentTransformed' in node && node.__virtualComponentTransformed) {
+  if (isNodeAstVisited(node)) {
     return node
   }
 
@@ -100,7 +105,7 @@ export const transformAstWithContext = <T extends ElementNode | RootNode>(node: 
     }
   }
 
-  (node as any).__virtualComponentTransformed = true
+  markNodeAstVisited(node)
 
   return node
 }
