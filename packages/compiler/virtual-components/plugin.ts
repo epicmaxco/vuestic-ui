@@ -20,6 +20,8 @@ let components = await resolveComponentsFromComponentsDir()
 export const virtualComponents: Plugin = {
   name: 'vuestic:virtual-components',
 
+  enforce: 'pre',
+
   resolveId(id) {
     if (id.startsWith('virtual-components:')) {
       return id
@@ -53,7 +55,7 @@ export const virtualComponents: Plugin = {
     // Only transform CSS files
     if (!id.endsWith('.vue')) return null
 
-    if (!id.includes('playground/src')) return null
+    if (id.includes('node_modules')) return null
     const result = transformVue(code, components)
 
     return {
@@ -63,15 +65,15 @@ export const virtualComponents: Plugin = {
   },
 
   configureServer(server) {
-    // server.watcher.add('./src/components')
-    // server.watcher.on('change', async (file) => {
-    //   if (file.endsWith('.vue')) {
-    //     components = await resolveComponentsFromComponentsDir()
-    //     // trigger hot reload
-    //     server.ws.send({
-    //       type: 'full-reload',
-    //     })
-    //   }
-    // })
+    server.watcher.add('./src/components')
+    server.watcher.on('change', async (file) => {
+      if (file.endsWith('.vue')) {
+        components = await resolveComponentsFromComponentsDir()
+        // trigger hot reload
+        server.ws.send({
+          type: 'full-reload',
+        })
+      }
+    })
   }
 }

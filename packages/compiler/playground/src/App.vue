@@ -5,7 +5,7 @@
       <VcCardContent>
         <VcInput label="Username" class="mb-4 w-full" />
         <VcInput label="Password" type="password" class="mb-4 w-full" />
-        <VcButton class="w-full mb-2" color="primary">Sign In</VcButton>
+        <VcButton icon="person" class="w-full mb-2" color="primary">Sign In</VcButton>
         <VcButton class="w-full" color="secondary">Create new Account</VcButton>
       </VcCardContent>
     </VcCard>

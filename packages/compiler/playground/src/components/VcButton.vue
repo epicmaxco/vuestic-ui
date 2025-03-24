@@ -12,9 +12,9 @@ const { color = 'primary' } = defineProps({
 const getTextColor = (color: string) => {
   switch (color) {
     case 'primary':
-      return 'white'
+      return 'text-white'
     case 'secondary':
-      return 'white'
+      return 'text-white'
     default:
       return 'text-gray-500'
   }
@@ -23,9 +23,9 @@ const getTextColor = (color: string) => {
 const getColor = (color: string) => {
   switch (color) {
     case 'primary':
-      return '#154EC1'
+      return 'bg-[#154EC1]'
     case 'secondary':
-      return '#767C88'
+      return 'bg-[#767C88]'
     default:
       return 'gray'
   }
@@ -35,7 +35,7 @@ const getStyle = (color: string) => {
   const colorHex = getColor(color)
   const colorTextHex = getTextColor(color)
 
-  return `bg-[${colorHex}] text-${colorTextHex}`
+  return `${colorHex} ${colorTextHex}`
 }
 
 defineSlots<{

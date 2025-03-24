@@ -21,7 +21,6 @@ export const createVirtualComponent = async (componentName: string, source: stri
 
   return {
     name: componentName,
-    templateSource: result.descriptor.template.content,
     templateAst: result.descriptor.template.ast,
     source: source.trim(),
     script: {

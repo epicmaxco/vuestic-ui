@@ -4,7 +4,8 @@
   "dependencies": {
     "@rollup/pluginutils": "^5.1.0",
     "acorn": "^8.12.1",
-    "shiki": "^1.10.1"
+    "shiki": "^1.10.1",
+    "typescript": "^5.8.2"
   },
   "scripts": {
     "build": "rm -rf ./dist && yarn build:vite && yarn build:devtools:client",
