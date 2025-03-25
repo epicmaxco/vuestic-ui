@@ -58,7 +58,7 @@ export const vuestic = (options: Options = {}): Plugin[] => {
   //   return typeof options[key] === 'object' ? options[key] as Record<string, string> : undefined
   // }
 
-  const plugins = []
+  const plugins = [] as any[]
 
   // if (options.devtools !== false) {
   //   logger.info('Using vuestic:devtools', {
@@ -82,6 +82,5 @@ export const vuestic = (options: Options = {}): Plugin[] => {
   // }
 
   plugins.push(virtualComponents)
-
   return plugins
 }

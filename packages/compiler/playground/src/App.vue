@@ -1,35 +1,31 @@
+<script setup>
+import VcOrderCard from './components/VcOrderCard.vue';
+
+const ordersCount = 1000;
+const orders = Array.from({ length: ordersCount }, (_, i) => ({
+  id: i,
+  customer: `Customer ${i + 1}`,
+  amount: (Math.random() * 1000).toFixed(2),
+  status: ['Pending', 'Shipped', 'Delivered'][i % 3]
+}));
+</script>
+
 <template>
-  <div class="flex justify-center items-center h-screen">
-    <VcCard class="w-96">
-      <VcCardTitle>Login</VcCardTitle>
-      <VcCardContent>
-        <VcInput label="Username" class="mb-4 w-full" />
-        <VcInput label="Password" type="password" class="mb-4 w-full" />
-        <VcButton icon="person" class="w-full mb-2" color="primary">Sign In</VcButton>
-        <VcButton class="w-full" color="secondary">Create new Account</VcButton>
-      </VcCardContent>
-    </VcCard>
+  <div class="app">
+    <h1>Order Management</h1>
+    <div class="orders-grid" v-once>
+      <VcOrderCard v-for="order in orders" :order="order" />
+    </div>
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-
-const username = ref('');
-const password = ref('');
-
-const signIn = () => {
-  console.log('Signing in with:', username.value, password.value);
-};
-
-const createAccount = () => {
-  console.log('Redirecting to create account page');
-};
-</script>
-
-<style scoped>
-.va-card {
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+<style>
+.app {
+  text-align: center;
+}
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
 }
 </style>

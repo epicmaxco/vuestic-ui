@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import VcButton from './VcButton.vue';
-import { ref } from 'vue';
 
 const props = defineProps({
   order: { type: Object, required: true }
@@ -28,11 +27,10 @@ const statusClass = (status: 'pending' | 'shipped' | 'delivered') => {
     <p><strong>Status:</strong> <span :class="statusClass(order.status.toLowerCase())">{{ order.status }}</span></p>
 
     <div class="flex flex-col items-center gap-2 mt-2">
-      <VcButton color="blue" type="solid" icon="person">
+      <VcButton color="primary" type="solid">
         View Customer
       </VcButton>
-      <VcButton color="green" type="outlined" icon="local_shipping">Track Order</VcButton>
-      <VcButton color="green" type="outlined" icon="local_shipping">Track Driver</VcButton>
+      <VcButton color="secondary" type="outlined">Track Order</VcButton>
     </div>
   </div>
 </template>

@@ -14,7 +14,7 @@ import { markNodeAstVisited, isNodeAstVisited } from './node-marker'
 const transformWithVFor = <T extends RootNode>(node: T, ctx: CompilerNodeContext) => {
   const nodes = [] as RootNode[]
 
-  if (ctx.directives.length > 0 && false) {
+  if (ctx.directives.length > 0 && !!0) {
     const forDirective = ctx.directives.find((d) => d.name === 'for')
 
     if (!forDirective) {
@@ -45,7 +45,7 @@ const transformWithVFor = <T extends RootNode>(node: T, ctx: CompilerNodeContext
       ctx.directives = ctx.directives.filter((d) => d !== forDirective)
 
       for (let i = 0; i < forSourceValue.length; i++) {
-        const clone = structuredClone(node)
+        const clone = (node)
         const scope = {
           static: {
             [forVariable]: forSourceValue[i]

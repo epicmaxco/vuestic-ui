@@ -68,7 +68,15 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
       const { ast, imports } = transformAstNode(node, component, ctx)
       markNodeAstVisited(node)
 
-      const { imports: nestedImports } = transformNestedComponents(ast as RootNode, virtualComponents, ctx)
+      const astArray = Array.isArray(ast) ? ast : [ast]
+
+      astArray.forEach((ast) => {
+        const { imports: nestedImports } = transformNestedComponents(ast, virtualComponents, ctx)
+        fileImports.push(imports.map((i) => `import { ${i} } from 'virtual-components:${component.name}'`).join('\n'))
+        fileImports.push(...nestedImports)
+      })
+
+
 
       const newTemplateString = addIndent(renderTemplateAst(ast), intend)
 
@@ -79,9 +87,6 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
         node.loc.end.offset,
         code.toString()
       )
-
-      fileImports.push(imports.map((i) => `import { ${i} } from 'virtual-components:${component.name}'`).join('\n'))
-      fileImports.push(...nestedImports)
     } catch (e) {
       throw new VirtualComponentError(`Error while using ${componentName}: ${typeof e === 'object' && e !== null && 'message' in e ? e.message : e}`)
     }
