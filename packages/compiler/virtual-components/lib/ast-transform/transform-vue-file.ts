@@ -78,7 +78,7 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
 
 
 
-      const newTemplateString = addIndent(renderTemplateAst(ast), intend)
+      const newTemplateString = renderTemplateAst(ast)
 
       const code = addIndent(newTemplateString, intend)
 
