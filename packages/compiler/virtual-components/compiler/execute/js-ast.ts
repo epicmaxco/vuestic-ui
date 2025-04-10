@@ -1,5 +1,4 @@
 import { MagicString } from "@vue/compiler-sfc"
-import { VirtualComponentError } from "../errors"
 
 export const onAccess = (node: any, codeString: MagicString, cb: (node: any, parent?: any) => void, parent: any = null): void => {
   if (node.type === 'PropertyAccessExpression') {
@@ -57,5 +56,5 @@ export const onAccess = (node: any, codeString: MagicString, cb: (node: any, par
     return onAccess(node.argument, codeString, cb, node)
   }
 
-  throw new VirtualComponentError(`Unexpected: Unable to parse node ${node.type}`)
+  throw new Error(`Unexpected: Unable to parse node ${node.type}`)
 }

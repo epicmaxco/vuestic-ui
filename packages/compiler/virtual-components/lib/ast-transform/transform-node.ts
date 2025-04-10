@@ -1,6 +1,6 @@
 import { NodeTypes, RootNode,type ElementNode } from "@vue/compiler-core";
 import { type VirtualComponent } from "../create-virtual-component";
-import { createNodeContext, CompilerNodeContext } from "../create-compilation-context/create-node-context";
+import { createNodeContext, CompilerNodeContext, CompilerRenderResult } from "../create-compilation-context/create-node-context";
 import {  walk, } from './walk'
 import { isNodeElement, isNodeHasChildren, isNodeInterpolation, isNodeSlot, isNodeTemplateSlot, isPropDirective } from "./ast-helpers";
 import { transformSlotNode } from "./transformers/transform-slot-node";
@@ -10,6 +10,7 @@ import { transformRootNodeAttrs } from './transformers/transform-root-node-attrs
 import { CompilerSourceFileContext } from '../create-compilation-context/create-source-file-context'
 import { VirtualComponentError } from "../errors";
 import { markNodeAstVisited, isNodeAstVisited } from './node-marker'
+import { CompilerVirtualComponentVariable } from "../create-virtual-component/build-script-setup";
 
 const transformWithVFor = <T extends RootNode>(node: T, ctx: CompilerNodeContext) => {
   const nodes = [] as RootNode[]
@@ -115,8 +116,29 @@ export const transformAstNode = (node: ElementNode, component: VirtualComponent,
   const ctx = createNodeContext(node, component, sourceContext)
   const newAst = structuredClone(component.templateAst)
 
+  const ast = transformWithVFor(newAst, ctx)
+
+  if (ctx.component.script.scriptSetup?.variables) {
+    Object.keys(ctx.component.script.scriptSetup.variables).forEach((variableName) => {
+      const variable = ctx.component.script.scriptSetup!.variables[variableName]
+
+      if (!ctx.usedKeys.has(variableName)) {
+        return
+      }
+
+      if (variable.type === CompilerVirtualComponentVariable.Dynamic || variable.type === CompilerVirtualComponentVariable.MaybeDynamic) {
+        ctx.renderResult = CompilerRenderResult.Runtime
+      }
+    })
+  }
+
+  if (component.name === 'VcButton') {
+    ctx.imports.push('getColor')
+  }
+
   return {
     ast: transformWithVFor(newAst, ctx),
-    imports: ctx.imports
+    imports: ctx.imports,
+    renderResult: ctx.renderResult
   }
 }

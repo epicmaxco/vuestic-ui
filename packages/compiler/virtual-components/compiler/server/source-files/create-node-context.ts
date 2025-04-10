@@ -1,9 +1,8 @@
 import { ElementNode } from "@vue/compiler-core";
-import { VirtualComponent } from "../create-virtual-component";
-import { CompilerSourceFileContext } from "./create-source-file-context";
 import { createNodeContextProps } from "./create-node-context/create-props";
 import { createNodeContextSlots } from "./create-node-context/create-slots";
 import { createInTemplateExecuter } from './create-node-context/create-executer'
+import { VirtualComponent } from '../../virtual-component/types'
 
 const VIRTUAL_COMPONENT_PREFIX_REGEX = /^Vc/
 
@@ -17,7 +16,7 @@ export enum CompilerRenderResult {
   Runtime = 2
 }
 
-export const createNodeContext = (node: ElementNode, component: VirtualComponent, sourceFileCtx: CompilerSourceFileContext) => {
+export const createNodeContext = (node: ElementNode, component: VirtualComponent) => {
   const { tag } = node
 
   const name = tag.replace(VIRTUAL_COMPONENT_PREFIX_REGEX, '')
@@ -43,17 +42,10 @@ export const createNodeContext = (node: ElementNode, component: VirtualComponent
     dynamicProps,
     dynamicAttrs,
     directives,
-    sourceFileCtx,
     slots,
     imports,
-    execute: null as unknown as ReturnType<typeof createInTemplateExecuter>,
-    renderResult: CompilerRenderResult.None,
-    usedKeys: new Set<string>()
   }
 
-  const executer = createInTemplateExecuter(ctx)
-
-  ctx.execute = executer
 
   return ctx
 }

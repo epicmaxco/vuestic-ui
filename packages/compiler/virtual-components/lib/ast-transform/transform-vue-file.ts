@@ -65,8 +65,10 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
     const intend = getNodeIndent(node, source)
 
     try {
-      const { ast, imports } = transformAstNode(node, component, ctx)
+      const { ast, imports, renderResult } = transformAstNode(node, component, ctx)
       markNodeAstVisited(node)
+
+      // console.log('renderResult', renderResult)
 
       const astArray = Array.isArray(ast) ? ast : [ast]
 
@@ -75,8 +77,6 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
         fileImports.push(imports.map((i) => `import { ${i} } from 'virtual-components:${component.name}'`).join('\n'))
         fileImports.push(...nestedImports)
       })
-
-
 
       const newTemplateString = renderTemplateAst(ast)
 

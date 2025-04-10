@@ -1,5 +1,6 @@
 <script setup>
-import VcOrderCard from './components/VcOrderCard.vue';
+import Test from './Test.vue'
+import { ref } from 'vue'
 
 const ordersCount = 1000;
 const orders = Array.from({ length: ordersCount }, (_, i) => ({
@@ -8,14 +9,20 @@ const orders = Array.from({ length: ordersCount }, (_, i) => ({
   amount: (Math.random() * 1000).toFixed(2),
   status: ['Pending', 'Shipped', 'Delivered'][i % 3]
 }));
+
+const icon = ref('refresh');
+const color = ref('primary');
 </script>
 
 <template>
   <div class="app">
     <h1>Order Management</h1>
     <div class="orders-grid" v-once>
-      <VcOrderCard v-for="order in orders" :order="order" />
+      <VcButton icon="person">New Order</VcButton>
+      <VcButton :icon="icon">Refresh</VcButton>
     </div>
+
+    <Test />
   </div>
 </template>
 

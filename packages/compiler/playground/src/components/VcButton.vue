@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import VcIcon from './VcIcon.vue';
 import VcProgress from './VcProgress.vue';
+// import { useColor } from '../composables/useColor'
 
-const { color = 'primary' } = defineProps({
+const { color = 'primary', icon, loading } = defineProps({
   icon: String,
   color: String,
   iconRight: String,
@@ -38,10 +39,16 @@ const getStyle = (color: string) => {
   return `${colorHex} ${colorTextHex}`
 }
 
+if (loading) {
+  console.log('icon', icon)
+}
+
 defineSlots<{
   dropdown: true,
   default: true
 }>()
+
+// const colorC = useColor({})
 </script>
 
 <template>

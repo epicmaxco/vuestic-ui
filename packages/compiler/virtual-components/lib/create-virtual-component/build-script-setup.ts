@@ -1,6 +1,7 @@
 
 import { compileScript, SFCDescriptor, SFCScriptBlock } from '@vue/compiler-sfc'
 import { executeTsModule } from '../execute/execute-module'
+import { VirtualComponentCompilationError } from '../errors'
 
 const vueCompileScript = (descriptor: SFCDescriptor) => {
   try {
@@ -9,6 +10,32 @@ const vueCompileScript = (descriptor: SFCDescriptor) => {
     console.error('Failed to virtual component compile script', e)
     return null
   }
+}
+
+export enum CompilerVirtualComponentVariable {
+  Static = 0,
+  MaybeDynamic = 1,
+  Dynamic = 2
+}
+
+const getVirtualComponentVariableType = (vueBinding: string | undefined, componentName: string) => {
+  if (vueBinding === 'setup-let') {
+    throw new VirtualComponentCompilationError('let in setup function of virtual component is not supported', componentName)
+  }
+
+  if (vueBinding === 'props' || vueBinding === 'setup-const') {
+    return CompilerVirtualComponentVariable.Static
+  }
+
+  if (vueBinding === 'setup-maybe-ref') {
+    return CompilerVirtualComponentVariable.MaybeDynamic
+  }
+
+  if (vueBinding === 'setup-ref' || vueBinding === 'setup-reactive-const') {
+    return CompilerVirtualComponentVariable.Dynamic
+  }
+
+  throw new VirtualComponentCompilationError(`Unknown binding type ${vueBinding}`, componentName)
 }
 
 /** Do not import components */
@@ -27,7 +54,7 @@ const stubComponentsImports = (script: SFCScriptBlock) => {
   return content
 }
 
-export const buildScriptSetupModule = async (descriptor: SFCDescriptor) => {
+export const buildScriptSetupModule = async (descriptor: SFCDescriptor, componentName: string) => {
   if (!descriptor.scriptSetup) {
     return null
   }
@@ -58,9 +85,16 @@ export const buildScriptSetupModule = async (descriptor: SFCDescriptor) => {
     }, {})
   }
 
+  const variables = Object.keys(bindings).reduce((acc, key) => {
+    acc[key] = { type: getVirtualComponentVariableType(bindings[key], componentName) }
+
+    return acc
+  }, { } as Record<string, { type: CompilerVirtualComponentVariable }>)
+
   return {
     props: (props) as Record<string, { type?: any, default?: any, required?: Boolean }>,
     setup: executedScript?.default.setup ?? (() => ({} as Record<string, any>)),
     setupContext: bindings,
+    variables,
   }
 }
