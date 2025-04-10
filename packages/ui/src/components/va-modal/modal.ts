@@ -22,7 +22,7 @@ export const getModalOptions = (options: string | ModalOptions | Component): {
   }
 
   return {
-    props: {},
+    props: options,
     slots: undefined,
   }
 }
