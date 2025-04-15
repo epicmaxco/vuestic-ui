@@ -2,7 +2,7 @@ import { computed, ref, Ref, toRefs, watch } from 'vue'
 import { TimePickerProps, ModelValueRef } from '../types'
 
 // Use safeModelValue if we need to update model value
-const safeModelValue = (m: ModelValueRef) => m.value ? m.value : new Date(new Date().setHours(0, 0, 0, 0))
+const safeModelValue = (m: ModelValueRef) => m.value ? new Date(m.value) : new Date(new Date().setHours(0, 0, 0, 0))
 
 const createNumbersArray = (length: number) => Array.from(Array(length).keys())
 

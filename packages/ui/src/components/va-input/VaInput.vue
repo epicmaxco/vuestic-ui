@@ -171,7 +171,7 @@ const { modelValue } = toRefs(props)
 const {
   canBeCleared,
   clearIconProps,
-} = useClearableControl(props, input, computedError)
+} = useClearableControl(props, modelValue, computedError)
 
 const inputListeners = createInputListeners(emit)
 
