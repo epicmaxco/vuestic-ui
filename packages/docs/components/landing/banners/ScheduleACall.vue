@@ -6,7 +6,7 @@
     <p class="va-text max-w-[1000px] text-center">
       Schedule a free call with our CTO to discuss your specific project needs. We'll assess your current setup and help you make the best decision for your business. Let's get your app ready for the future!
     </p>
-    <VaButton to="https://calendly.com/epicmax/30min" target="blank">
+    <VaButton to="https://calendar.app.google/nqGDauqE7kCkxExX7" target="blank">
       Schedule a Call
     </VaButton>
   </div>
