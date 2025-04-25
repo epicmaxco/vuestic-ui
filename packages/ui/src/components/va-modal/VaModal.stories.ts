@@ -5,9 +5,12 @@ import { StoryFn } from '@storybook/vue3'
 import { expect } from '@storybook/jest'
 import { userEvent } from '../../../.storybook/interaction-utils/userEvent'
 
+import VaIcon from '../va-icon/VaIcon.vue'
+
 export default {
   title: 'VaModal',
   component: VaModal,
+  tags: ['autodocs'],
 }
 
 export const OldDemos: StoryFn = () => ({
@@ -96,5 +99,203 @@ export const childProps: StoryFn = () => ({
   <VaModal :model-value="true" :child:cancel-button="{ 'slot:default': 'Text' }" :child:ok-button="{ preset: 'secondary' }">
     Content
   </VaModal>
+  `,
+})
+
+// TODO: add tests
+type PositionType = number | `${number}%`
+type initialPositionType = { x?: PositionType; y?: PositionType }
+export const DraggableAndAttachElement: StoryFn = () => ({
+  components: { VaModal, VaIcon },
+  setup () {
+    const iconsList: {
+      title: string;
+      name: string;
+      flip?: string;
+      position: initialPositionType;
+    }[] = [
+      { title: 'Top Left', name: 'arrow_outward', flip: 'vertical', position: { x: 0, y: 0 } },
+      { title: 'Top Center', name: 'arrow_upward', position: { x: '50%', y: 0 } },
+      { title: 'Top Right', name: 'arrow_outward', position: { x: '100%', y: 0 } },
+      { title: 'Center Left', name: 'arrow_back', position: { x: 0, y: '50%' } },
+      { title: 'Center Center', name: 'circle', position: { x: '50%', y: '50%' } },
+      { title: 'Center Right', name: 'arrow_forward', position: { x: '100%', y: '50%' } },
+      { title: 'Bottom Left', name: 'arrow_outward', flip: 'both', position: { x: 0, y: '100%' } },
+      { title: 'Bottom Center', name: 'arrow_downward', position: { x: '50%', y: '100%' } },
+      { title: 'Bottom Right', name: 'arrow_outward', flip: 'horizontal', position: { x: '100%', y: '100%' } },
+    ]
+
+    const showModal = ref(false)
+    const title = ref<string | null>(null)
+    const initialPosition = ref<initialPositionType | null>(null)
+
+    const handleIconClick = (currentTitle: string, position: initialPositionType) => {
+      title.value = currentTitle
+      initialPosition.value = position
+      showModal.value = true
+    }
+
+    const iconsStyle = {
+      display: 'flex',
+      flexWrap: 'wrap',
+      width: '80px',
+      gap: '4px',
+      alignItems: 'Center',
+    }
+
+    const attachElementStyle = {
+      width: '300px',
+      height: '300px',
+      border: '2px solid black',
+    }
+
+    return { iconsList, showModal, title, initialPosition, handleIconClick, iconsStyle, attachElementStyle }
+  },
+  template: `
+    <div :style="iconsStyle">
+      <VaIcon
+        v-for="({ title, name, flip, position }, index) in iconsList"
+        :key="index"
+        :name="name"
+        :flip="flip"
+        size="large"
+        @click="() => handleIconClick(title, position)"
+      />
+    </div>
+  <div class="modal-attach-element" :style="attachElementStyle"/>
+  <VaModal
+    v-model="showModal"
+    draggable
+    :draggable-position="initialPosition"
+    :title="title"
+    attach-element=".modal-attach-element"
+  >
+    Lorem ipsum dolor sit amet.
+  </VaModal>
+  `,
+})
+
+export const DraggableSlots: StoryFn = () => ({
+  components: { VaModal, VaIcon },
+  template: `
+    <VaModal
+      model-value="true"
+      draggable
+      :draggable-position="{ x: 0, y: 0 }"
+      title='Top Left position / "#Draggable" slot for drag'
+    >
+      <template #draggable={startDrag}>
+        <span>
+          <VaIcon
+            name="drag_indicator"
+            @mousedown="startDrag"
+            :style="{cursor: 'move'}"
+          />
+        </span>
+      </template>
+    </VaModal>
+    <VaModal
+      model-value="true"
+      draggable
+      :draggable-position="{ x: '50%', y: 0 }"
+    >
+      Top Center position / "#Header" slot for drag
+      <template #header={startDrag}>
+        <VaIcon
+          name="drag_indicator"
+          @mousedown="startDrag"
+          :style="{cursor: 'move'}"
+        />
+      </template>
+    </VaModal>
+    <VaModal
+      model-value="true"
+      draggable
+      :draggable-position="{ x: '100%', y: 0 }"
+      title="Top Right position / Full window drag"
+    >
+      <template #footer>
+        Footer slot
+      </template>
+    </VaModal>
+    <VaModal
+      model-value="true"
+      draggable
+      :draggable-position="{ x: 0, y: '50%' }"
+    >
+    <template #header>
+      Center Left position / Header slot / Full window drag
+    </template>
+    </VaModal>
+    <VaModal
+      model-value="true"
+      draggable
+      :draggable-position="{ x: '50%', y: '50%' }"
+      title='Center Center position / "#Default" slot for drag'
+    >
+      <template #default={startDrag}>
+        <VaIcon
+          name="drag_indicator"
+          @mousedown="startDrag"
+          :style="{cursor: 'move'}"
+        />
+      </template>
+    </VaModal>
+    <VaModal
+      model-value="true"
+      draggable
+      :draggable-position="{ x: '100%', y: '50%' }"
+    >
+      <template #content={startDrag}>
+        Center Right position / "#Content" slot for drag
+        <VaIcon
+          name="drag_indicator"
+          @mousedown="startDrag"
+          :style="{cursor: 'move'}"
+        />
+      </template>
+    </VaModal>
+    <VaModal
+      model-value="true"
+      draggable
+      :draggable-position="{ x: 0, y: '100%' }"
+      title="Bottom Left position / Full window drag"
+    >
+    </VaModal>
+    <VaModal
+      model-value="true"
+      draggable
+      :draggable-position="{ x: '50%', y: '100%' }"
+    >
+      Bottom Center position /  "#Header" & "#Footer" slots for drag
+      <template #header={startDrag}>
+        <VaIcon
+          name="drag_indicator"
+          @mousedown="startDrag"
+          :style="{cursor: 'move'}"
+        />
+      </template>
+      <template #footer={startDrag}>
+        <VaIcon
+          name="drag_indicator"
+          @mousedown="startDrag"
+          :style="{cursor: 'move'}"
+        />
+      </template>
+    </VaModal>
+    <VaModal
+      model-value="true"
+      draggable
+      :draggable-position="{ x: '100%', y: '100%' }"
+      title='Bottom Right position / "#Footer" slot for drag'
+    >
+      <template #footer={startDrag}>
+        <VaIcon
+          name="drag_indicator"
+          @mousedown="startDrag"
+          :style="{cursor: 'move'}"
+        />
+      </template>
+    </VaModal>
   `,
 })
