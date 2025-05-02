@@ -3,7 +3,7 @@
     class="mr-6 my-1"
     @click="showModalSizeAuto = !showModalSizeAuto"
   >
-    Show modal size small
+    Show modal size auto
   </VaButton>
 
   <VaButton
