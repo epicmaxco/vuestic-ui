@@ -559,19 +559,19 @@
     <VbCard title="Max length">
       <va-input
         v-model="counterOrMaxLengthValue"
-        :max-length="maxLength"
+        :maxlength="maxLength"
         counter
       />
       <va-input
         v-model="counterOrMaxLengthValue"
-        :max-length="maxLength"
+        :maxlength="maxLength"
         counter
         label="Name"
         class="mb-6"
       />
       <va-input
         v-model="counterOrMaxLengthValue"
-        :max-length="maxLength"
+        :maxlength="maxLength"
         counter
         class="mb-6"
       >
@@ -581,7 +581,7 @@
       </va-input>
       <va-input
         v-model="counterOrMaxLengthValue"
-        :max-length="maxLength"
+        :maxlength="maxLength"
         counter
         label="Name"
       >
