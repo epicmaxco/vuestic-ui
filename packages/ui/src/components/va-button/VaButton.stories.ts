@@ -1,6 +1,7 @@
 import { defineComponent } from 'vue'
 import VaButton from './VaButton.vue'
 import VaButtonDemo from './VaButton.demo.vue'
+import { VaConfig } from '../va-config'
 
 export default {
   title: 'VaButton',
@@ -29,6 +30,17 @@ export const Focus = () => ({
     <div>
       <VaButton ref="target">Target</VaButton>
       <VaButton @click="$refs.target.focus()">Focus</VaButton>
+    </div>
+  `,
+})
+
+export const TextColor = () => ({
+  components: { VaButton, VaConfig },
+  template: `
+    <div>
+      <VaConfig :colors="{ variables: { onPrimary: '#000000', primary: '#f0f' } }">
+        <VaButton color="primary">Button</VaButton>
+      </VaConfig>
     </div>
   `,
 })

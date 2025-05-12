@@ -159,6 +159,10 @@ export const useColors = () => {
       return colors[onColorName]
     }
 
+    if (typeof color === 'string' && !isColor(color)) {
+      color = getColor(color)
+    }
+
     darkColor = darkColor || computedDarkColor.value
     lightColor = lightColor || computedLightColor.value
     return getColorLightnessFromCache(color) > globalConfig.value.colors.threshold ? darkColor : lightColor
