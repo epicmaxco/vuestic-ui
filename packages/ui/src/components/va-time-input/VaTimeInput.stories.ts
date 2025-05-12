@@ -59,6 +59,38 @@ export const Clearable = defineStory({
   },
 })
 
+export const ClearableValue = defineStory({
+  story: () => ({
+    components: { VaTimeInput },
+    data () {
+      return {
+        value: new Date('2020-01-01T00:00:00.000Z'),
+        clearValue: new Date('2020-01-01T02:00:00.000Z'),
+      }
+    },
+    template: '<VaTimeInput clearable :clearValue v-model="value" />',
+  }),
+
+  async tests ({ canvasElement, expect, event }) {
+    const leftIcon = canvasElement.querySelector('.va-input-wrapper__field')!
+    const clearButton = canvasElement.querySelector('.va-time-input__clear-button')!
+    const input = canvasElement.querySelector('input')!
+
+    await event.click(leftIcon)
+
+    // Dropdown should be visible
+    expect(canvasElement.parentElement!.querySelector('.va-time-picker')).not.toBe(null)
+
+    await event.click(clearButton)
+
+    const clearTime = new Date('2020-01-01T02:00:00.000Z')
+    expect(Number(input.value.split(':')[0])).toBe(clearTime.getHours())
+    expect(Number(input.value.split(':')[1])).toBe(clearTime.getMinutes())
+    // Dropdown should be hidden
+    expect(canvasElement.querySelector('.va-dropdown__content')).toBe(null)
+  },
+})
+
 export const Validation = defineStory({
   story: () => ({
     components: { VaTimeInput },

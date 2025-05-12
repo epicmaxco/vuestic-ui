@@ -1,9 +1,10 @@
 import { computed, Ref } from 'vue'
+import { isEqual } from '../../utils/is-equal'
 
-interface ClearableProps {
+interface ClearableProps<V = any> {
   clearable: boolean
   clearableIcon: string
-  clearValue?: any
+  clearValue?: V | null | undefined
   disabled?: boolean
   readonly?: boolean
   success?: boolean
@@ -18,9 +19,9 @@ export const useClearableControlProps = {
 
 export const useClearableControlEmits = ['clear'] as const
 
-export const useClearableControl = (
-  props: ClearableProps,
-  inputValue: Ref<any>,
+export const useClearableControl = <T>(
+  props: ClearableProps<T>,
+  inputValue: Ref<T | T[]>,
   hasError?: Ref<boolean>,
 ) => {
   const clearedValues = [null, undefined, props.clearValue]
@@ -32,7 +33,7 @@ export const useClearableControl = (
       return inputValue.value.length > 0
     }
 
-    return !clearedValues.includes(inputValue.value)
+    return !clearedValues.some((v) => isEqual(inputValue.value, v))
   })
 
   const clearIconColor = computed(() => {

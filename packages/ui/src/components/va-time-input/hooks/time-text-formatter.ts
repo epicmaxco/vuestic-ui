@@ -38,6 +38,10 @@ export const useTimeFormatter = (props: {
   }
 
   return {
-    format: (date?: Date) => props.format ? props.format(date) : formatWithView(date),
+    format: (date?: Date | string | null | undefined) => {
+      if (!date) { return '' }
+      if (typeof date === 'string') { return date }
+      return props.format ? props.format(date) : formatWithView(date)
+    },
   }
 }

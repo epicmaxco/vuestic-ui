@@ -12,7 +12,12 @@
           <!-- Replace back to vuestic later -->
           <!-- <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${uiVersion}`">We just released&nbsp;<strong>Vuestic {{ uiVersion }} 🤗</strong></a> -->
           <!-- <a href="https://admin.vuestic.dev/">We just released <strong>Vuestic Admin 3.0</strong> 🤗</a> -->
-          <span>Epicmax - We are the core team behind Vuestic UI and Vuestic Admin and frontend development company specializing in Vue.js since our founding in 2017.</span>
+
+          <!-- <span>Epicmax - We are the core team behind Vuestic UI and Vuestic Admin and frontend development company specializing in Vue.js since our founding in 2017.</span> -->
+
+          <span>
+            Our team will be speaking at <span style="color: var(--va-warning)">MadVue</span> – The Vue.js Event in Madrid! Don’t miss it, join us!
+          </span>
 
           <!--          <div class="header-banner__left-links">-->
           <!-- <a
@@ -78,11 +83,18 @@
 
         <div class="header-banner__buttons">
           <VaButton
+            href="https://madvue.es/?utm_source=vuestic&utm_campaign=banner"
+            target="blank"
+          >
+            🎟️ Get you ticket
+          </VaButton>
+
+          <!-- <VaButton
             href="https://epicmax.co/?ref=vuestic-header"
             target="blank"
           >
             <span class="text-nowrap">🔥🔥🔥 Hire us</span>
-          </VaButton>
+          </VaButton> -->
           <VaButton
             v-if="closeable"
             icon="close"

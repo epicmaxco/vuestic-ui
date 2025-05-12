@@ -117,7 +117,7 @@ const props = defineProps({
   offset: { ...useDropdownableControlProps.offset, default: () => [2, 0] },
   placement: { ...useDropdownableControlProps.placement, default: 'bottom-end' },
   modelValue: { type: Date, default: undefined },
-  clearValue: { type: Date, default: null },
+  clearValue: { type: Date as PropType<Date | null>, default: null },
   format: { type: Function as PropType<(date?: Date) => string> },
   parse: { type: Function as PropType<(input: string) => Date> },
   manualInput: { type: Boolean, default: false },
@@ -149,7 +149,7 @@ const valueComputed = useStateful<Date>(props, emit)
 const { parse, isValid } = useTimeParser(props)
 const { format } = useTimeFormatter(props)
 
-const valueText = computed<string>(() => format(valueComputed.value || props.clearValue))
+const valueText = computed<string>(() => format(valueComputed.value))
 
 const doShowDropdown = computed({
   get () {
@@ -233,7 +233,7 @@ watch(doShowDropdown, (v) => {
 const {
   canBeCleared,
   clearIconProps,
-} = useClearableControl(props, valueText)
+} = useClearableControl(props, valueComputed, computedError)
 
 const canBeClearedComputed = computed(() => (
   canBeCleared.value && valueText.value !== format(props.clearValue)

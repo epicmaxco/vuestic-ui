@@ -4,15 +4,23 @@ import { focusElement, blurElement } from '../../../utils/focus'
 import { unwrapEl } from '../../../utils/unwrapEl'
 import { TemplateRef } from '../../../utils/types/template-ref'
 
-export const useElementFocused = (el: Ref<TemplateRef>) => {
+export const useElementFocused = (
+  el: Ref<TemplateRef>,
+  options: {
+    onFocus?: (e: FocusEvent) => void,
+    onBlur?: (e: FocusEvent) => void
+  } = {},
+) => {
   const isFocused = ref(false)
 
-  useEvent('focus', () => {
+  useEvent('focus', (e) => {
     isFocused.value = true
+    options.onFocus?.(e)
   }, el)
 
-  useEvent('blur', () => {
+  useEvent('blur', (e) => {
     isFocused.value = false
+    options.onBlur?.(e)
   }, el)
 
   return computed({
