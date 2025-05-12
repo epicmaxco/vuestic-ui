@@ -230,7 +230,7 @@ const computedChildAttributes = computed(() => (({
 const computedInputAttributes = computed(() => (({
   ...computedChildAttributes.value,
   ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'name', 'autocomplete']),
-  ...pick(attrs, ['minlength', 'minlength']),
+  ...pick(attrs, ['minlength', 'minlength', 'step', 'min', 'max']),
 }) as InputHTMLAttributes))
 
 const valueLengthComputed = computed(() =>

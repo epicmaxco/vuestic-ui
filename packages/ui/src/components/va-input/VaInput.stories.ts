@@ -333,3 +333,24 @@ export const ValidationClearWithImmediateValidation = defineStory({
     })
   },
 })
+
+export const StepAttribute = () => ({
+  components: { VaInput },
+  template: `
+    <VaInput
+      type="number"
+      step="0.1"
+    />
+  `,
+})
+
+export const MinMaxAttribute = () => ({
+  components: { VaInput },
+  template: `
+    <VaInput
+      type="number"
+      min="1"
+      max="10"
+    />
+  `,
+})
