@@ -16,7 +16,7 @@ type UseButtonBackground = (
 }
 
 export const useButtonBackground: UseButtonBackground = (
-  colorComputed,
+  color,
   isPressed,
   isHovered,
 ) => {
@@ -26,12 +26,16 @@ export const useButtonBackground: UseButtonBackground = (
 
   const { getColor, getGradientBackground } = useColors()
 
+  const colorRaw = computed(() => {
+    return getColor(color.value)
+  })
+
   const backgroundColor = computed(() => {
     if (props.plain) { return 'transparent' }
 
     return props.gradient
-      ? getGradientBackground(colorComputed.value)
-      : colorComputed.value
+      ? getGradientBackground(colorRaw.value)
+      : colorRaw.value
   })
 
   const hoveredBgState = computed(() => !props.plain && isHovered.value)

@@ -27,7 +27,7 @@ export const useElementTextColor = (componentColor?: Ref<string | undefined> | s
 
     if (isColorTransparent(componentColorHex)) { return 'currentColor' }
 
-    return unref(isTransparent) ? componentColorHex : getColor(getTextColor(componentColorHex))
+    return unref(isTransparent) ? componentColorHex : getColor(getTextColor(bg))
   })
 
   return textColorComputed
