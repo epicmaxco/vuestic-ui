@@ -8,7 +8,7 @@ export default definePageConfig({
     block.list([
       "Fork Vuestic repository",
       "Clone your fork",
-      "Install dependencies with [yarn](https://classic.yarnpkg.com/lang/en/docs/install) using `yarn install`",
+      "Install dependencies with [yarn](https://yarnpkg.com/getting-started/install) using `yarn install`",
     ]),
 
     block.subtitle("Packages"),
