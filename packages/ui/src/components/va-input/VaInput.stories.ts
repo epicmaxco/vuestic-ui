@@ -354,3 +354,30 @@ export const MinMaxAttribute = () => ({
     />
   `,
 })
+export const MaxLengthAttribute = defineStory({
+  story: () => ({
+    components: { VaInput },
+    data () {
+      return {
+        value: '',
+      }
+    },
+    template: `
+      <VaInput v-model="value" :maxlength="5" />
+    `,
+  }),
+})
+
+export const MaxLengthWithCounterAttribute = defineStory({
+  story: () => ({
+    components: { VaInput },
+    data () {
+      return {
+        value: '',
+      }
+    },
+    template: `
+      <VaInput v-model="value" :maxlength="5" counter />
+    `,
+  }),
+})
