@@ -69,7 +69,7 @@ export default definePageConfig({
     }),
     block.example("ModalSizing", {
       title: "Modal sizing",
-      description: "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `small`, `medium` (default), and `large`."
+      description: "Modals have three optional sizes, available via the prop `size`. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports. Valid optional sizes are `auto`, `small`, `medium` (default), and `large`."
     }),
 
     block.example("NestedModals", {
