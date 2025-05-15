@@ -1,0 +1,12 @@
+:root,
+:host {
+  --va-carousel-background: var(--va-background-secondary);
+  --va-carousel-border-radius: var(--va-block-border-radius);
+  --va-carousel-box-shadow: var(--va-box-shadow);
+  --va-carousel-slides-transition: all 0.3s ease-in-out;
+  --va-carousel-indicators-gap: 0.25rem;
+  --va-carousel-min-height: 80px;
+
+  /** Fake padding for absolute position elements */
+  --va-carousel-padding: 16px;
+}

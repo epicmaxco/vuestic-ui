@@ -1,8 +1,8 @@
 import { DefineComponent, onMounted, Ref, ref, watchEffect } from 'vue'
 import { useResizeObserver } from './observer/useResizeObserver'
-import { unwrapEl } from '../../../utils/unwrapEl'
+import { TemplateRef, unwrapEl } from '../../../utils/unwrapEl'
 
-export const useElementWidth = (el: Ref<HTMLElement | DefineComponent | undefined>) => {
+export const useElementWidth = (el: Ref<TemplateRef>) => {
   const width = ref<null | number>(null)
 
   useResizeObserver(el, ([entry]) => {
