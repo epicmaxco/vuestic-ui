@@ -73,7 +73,7 @@ import { useCarouselAutoScroll } from './hooks/useCarouselAutoscroll'
 
 <script lang="ts" setup>
 defineOptions({
-  name: 'VaCarousel',
+  name: 'VaCarouselV2',
 })
 
 const props = defineProps({
