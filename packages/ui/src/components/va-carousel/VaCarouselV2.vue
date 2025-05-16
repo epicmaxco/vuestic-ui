@@ -45,7 +45,12 @@
       <slot name="indicator" v-bind="bind" />
     </VaCarouselIndicators>
 
-    <VaCarouselScrollContainer v-model="currentSlide" @slides-count="count = $event">
+    <VaCarouselScrollContainer
+      v-model="currentSlide"
+      :infinite="infinite"
+      :effect="effect"
+      @slides-count="count = $event"
+    >
       <slot />
     </VaCarouselScrollContainer>
   </div>
@@ -55,14 +60,14 @@
 import { computed, PropType, ref } from 'vue'
 import {
   useStateful, useStatefulProps, useStatefulEmits,
-  useSwipeProps, useComponentPresetProp,
+  useComponentPresetProp,
   useTranslation, useTranslationProp,
   makeNumericProp,
 } from '../../composables'
 
-import VaCarouselButton from '../va-carousel/components/VaCarouselButton.vue'
-import VaCarouselScrollContainer from '../va-carousel/components/VaCarouselScrollContainer.vue'
-import VaCarouselIndicators from '../va-carousel/components/VaCarouselIndicators.vue'
+import VaCarouselButton from './components/VaCarouselButton.vue'
+import VaCarouselScrollContainer from './components/VaCarouselScrollContainer.vue'
+import VaCarouselIndicators from './components/VaCarouselIndicators.vue'
 import { useCarouselAutoScroll } from './hooks/useCarouselAutoscroll'
 </script>
 
@@ -72,7 +77,6 @@ defineOptions({
 })
 
 const props = defineProps({
-  ...useSwipeProps,
   ...useStatefulProps,
   ...useComponentPresetProp,
 
@@ -84,6 +88,11 @@ const props = defineProps({
   autoscrollInterval: makeNumericProp({ default: 5000 }),
   autoscrollPauseDuration: makeNumericProp({ default: 2000 }),
   infinite: { type: Boolean, default: true },
+  effect: {
+    type: String as PropType<'scroll' | 'fade' | 'none'>,
+    default: 'scroll',
+    validator: (value: string) => ['scroll', 'fade', 'none'].includes(value),
+  },
 
   // Visual
   arrows: { type: Boolean, default: true },
@@ -108,7 +117,7 @@ const emit = defineEmits([...useStatefulEmits])
 
 const currentSlide = useStateful(props, emit, 'modelValue')
 
-const { } = useCarouselAutoScroll(currentSlide, computed(() => ({
+useCarouselAutoScroll(currentSlide, computed(() => ({
   ...props,
   slidesCount: count.value,
 })) as any)
@@ -145,9 +154,6 @@ const count = ref(0)
   width: 100%;
   height: 100%;
   max-height: 100%;
-  background: var(--va-carousel-background);
-  box-shadow: var(--va-carousel-box-shadow);
-  border-radius: var(--va-carousel-border-radius);
   position: relative;
   overflow: hidden;
 

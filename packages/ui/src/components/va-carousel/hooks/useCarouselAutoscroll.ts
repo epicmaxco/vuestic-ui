@@ -11,7 +11,7 @@ export const useCarouselAutoScroll = (currentSlide: Ref<number>, options: MaybeR
 
   let ignoreWatch = false
   const start = () => {
-    const { autoscroll, autoscrollInterval, slidesCount } = unref(options)
+    const { autoscroll, autoscrollInterval } = unref(options)
 
     if (!autoscroll) { return }
 
@@ -19,11 +19,11 @@ export const useCarouselAutoScroll = (currentSlide: Ref<number>, options: MaybeR
     animationInterval = setInterval(() => {
       ignoreWatch = true
       currentSlide.value += 1
-      if (currentSlide.value >= slidesCount) { currentSlide.value = 0 }
+      if (currentSlide.value >= unref(options).slidesCount) { currentSlide.value = 0 }
     }, autoscrollInterval) as any
   }
 
-  const {  } = watch(currentSlide, (newValue) => {
+  watch(currentSlide, (newValue) => {
     if (!ignoreWatch) { return }
     pause()
   })

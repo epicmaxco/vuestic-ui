@@ -44,7 +44,7 @@ export const useSwipeProps = {
  */
 export const useSwipe = (
   props: ExtractPropTypes<typeof useSwipeProps>,
-  container: ShallowRef<HTMLElement | undefined>,
+  container: ShallowRef<HTMLElement | undefined | null>,
   cb: (state: SwipeState) => void,
 ) => {
   const swipeStarted = ref(false)

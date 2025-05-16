@@ -21,8 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import { useTranslation, useTranslationProp } from '../../../composables';
-import VaCarouselButton from './VaCarouselButton.vue';
+import { useTranslation, useTranslationProp } from '../../../composables'
+import VaCarouselButton from './VaCarouselButton.vue'
 
 const props = defineProps({
   count: {
@@ -50,10 +50,10 @@ const { tp } = useTranslation()
 
 const getIndicatorEvents = (index: number) => {
   if (props.trigger === 'hover') {
-    return { onmouseover: () => currentSlide.value = index }
+    return { onmouseover: () => { currentSlide.value = index } }
   }
   if (props.trigger === 'click') {
-    return { onclick: () => currentSlide.value = index }
+    return { onclick: () => { currentSlide.value = index } }
   }
   // none
   return {}

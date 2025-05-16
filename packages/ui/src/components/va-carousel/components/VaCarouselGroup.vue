@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toNodeChildren } from '../../../utils/headless';
+import { toNodeChildren } from '../../../utils/headless'
 
 const props = defineProps({
   perGroup: {
@@ -8,22 +8,22 @@ const props = defineProps({
   },
 })
 
-const group = (elements: any[]) => {
+const groupNodes = (elements: any[]) => {
   return elements.reduce((acc: any[], el: any, index: number) => {
     if (index % props.perGroup === 0) {
-      acc.push([]);
+      acc.push([])
     }
-    acc[acc.length - 1].push(el);
-    return acc;
-  }, []);
+    acc[acc.length - 1].push(el)
+    return acc
+  }, []) as any[][]
 }
 </script>
 
 <template>
   <template v-if="$slots.default">
-    <div class="va-carousel-group" v-for="group in group(toNodeChildren($slots.default()))">
+    <div class="va-carousel-group" v-for="group in groupNodes(toNodeChildren($slots.default()))" :key="group.map((item: any) => item.key).join('-')">
       <component
-        v-for="(item, index) in group"
+        v-for="(item) in group"
         :key="item.key"
         :is="item"
       />
@@ -32,10 +32,10 @@ const group = (elements: any[]) => {
 </template>
 
 <style lang="scss">
-  .va-carousel-group {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    width: 100%;
-  }
+.va-carousel-group {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
 </style>
