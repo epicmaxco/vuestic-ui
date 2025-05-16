@@ -6,7 +6,7 @@
       :class="{ 'va-carousel__indicator--active': item - 1 === currentSlide }"
       v-bind="getIndicatorEvents(item - 1)"
     >
-      <slot v-bind="{ item, isActive: item - 1 === currentSlide }">
+      <slot v-bind="{ item, isActive: item - 1 === currentSlide, index: item - 1 }">
         <VaCarouselButton
           :color="color"
           :active="currentSlide === item - 1"

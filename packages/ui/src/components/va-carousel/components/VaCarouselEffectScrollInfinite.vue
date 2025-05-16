@@ -191,6 +191,7 @@ onUpdated(() => {
   flex-wrap: nowrap;
   transition: transform 0.5s linear;
   max-width: 100%;
+  width: 100%;
 
   & > * {
     flex: 0 0 auto;

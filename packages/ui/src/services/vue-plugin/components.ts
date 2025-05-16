@@ -21,6 +21,7 @@ export {
   VaCardTitle,
   VaCarousel,
   VaCarouselV2,
+  VaCarouselGroup,
   VaCheckbox,
   VaChip,
   VaCollapse,
