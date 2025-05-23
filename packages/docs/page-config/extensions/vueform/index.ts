@@ -1,0 +1,49 @@
+const installCommandObject = {
+  npm: "npm install @vuestic/vueform",
+  yarn: "yarn add @vuestic/vueform",
+}
+
+const setupCode = `
+// main.*
+import { createApp } from 'vue'
+import App from './App.vue'
+import Vueform from '@vueform/vueform'
+import vueformConfig from './../vueform.config'
+
+createApp(App)
+  .use(Vueform, vueformConfig)
+  .mount('#app')
+`
+const configCode = `
+import en from '@vueform/vueform/locales/en'
+import vueform from '@vueform/vueform/dist/vueform'
+import { defineConfig } from '@vueform/vueform'
+
+// You might place these anywhere else in your project
+import '@vueform/vueform/dist/vueform.css';
+
+import * as elements from '@vuestic/vueform'
+
+export default defineConfig({
+    theme: vueform,
+    locales: { en },
+    locale: 'en',
+    elements: [elements]
+})
+`
+export default definePageConfig({
+  blocks: [
+    block.title("Vueform integration"),
+    block.paragraph("[Vueform](https://vueform.com/)[[target=_blank]] is a comprehensive form framework for Vue that makes form development a breeze. Vuestic UI provides a ready-made style theme for this framework."),
+    block.headline("Vueform installation"),
+    block.paragraph("To start using Vueform, install the dependencies in your project."),
+    block.code(installCommandObject, "bash"),
+    block.paragraph("Create a vueform.config.(js|ts) file in the root of your project."),
+    block.code(configCode, "js"),
+    block.paragraph("Then add the plugin to your main.* file"),
+    block.code(setupCode, "js"),
+    block.subtitle("Examples"),
+    block.paragraph("Here are some implementation examples of what is possible with Vuestic and FormKit:"),
+    /* TODO add examples */
+  ]
+})
