@@ -9663,6 +9663,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@vuestic/vueform@workspace:packages/vueform":
+  version: 0.0.0-use.local
+  resolution: "@vuestic/vueform@workspace:packages/vueform"
+  dependencies:
+    "@storybook/vue3-vite": "npm:^7.1.0"
+    "@vitejs/plugin-vue": "npm:^5.2.4"
+    "@vueform/vueform": "npm:^1.12.7"
+    storybook: "npm:^7.1.0"
+    vite: "npm:^6.3.5"
+    vite-plugin-dts: "npm:^4.5.4"
+  peerDependencies:
+    vue: ^3.0.4
+    vuestic-ui: ^1.10.3
+  languageName: unknown
+  linkType: soft
+
 "@webassemblyjs/ast@npm:1.12.1, @webassemblyjs/ast@npm:^1.12.1":
   version: 1.12.1
   resolution: "@webassemblyjs/ast@npm:1.12.1"
@@ -31551,22 +31567,6 @@ __metadata:
   checksum: 10/81bac7123ef7c107f67023f2cab937a01e1c5d41fee2f956095ff8646bb47c056e46b84b9c5766ca78beaaf285273efc80827022b2f6d9fe0f6821fcaaaf9763
   languageName: node
   linkType: hard
-
-"vueform-vuestic-integration@workspace:packages/vueform":
-  version: 0.0.0-use.local
-  resolution: "vueform-vuestic-integration@workspace:packages/vueform"
-  dependencies:
-    "@storybook/vue3-vite": "npm:^7.1.0"
-    "@vitejs/plugin-vue": "npm:^5.2.4"
-    "@vueform/vueform": "npm:^1.12.7"
-    storybook: "npm:^7.1.0"
-    vite: "npm:^6.3.5"
-    vite-plugin-dts: "npm:^4.5.4"
-  peerDependencies:
-    vue: ^3.0.4
-    vuestic-ui: ^1.10.3
-  languageName: unknown
-  linkType: soft
 
 "vuestic-ui-wrapper@workspace:.":
   version: 0.0.0-use.local
