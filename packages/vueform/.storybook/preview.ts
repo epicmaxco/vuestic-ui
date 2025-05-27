@@ -8,6 +8,7 @@ import VaCheckboxElement from '../src/components/VaCheckboxElement.vue'
 import VaInputElement from '../src/components/VaInputElement.vue'
 import VaTextareaElement from '../src/components/VaTextareaElement.vue'
 import VaDateInputElement from '../src/components/VaDateInputElement.vue'
+import VaSliderElement from '../src/components/VaSliderElement.vue'
 
 import Vueform from '@vueform/vueform'
 import 'vuestic-ui/css'
@@ -28,7 +29,8 @@ setup((app) => {
       VaSelectElement,
       VaInputElement,
       VaTextareaElement,
-      VaDateInputElement
+      VaDateInputElement,
+      VaSliderElement
     ]
   }))
 })
