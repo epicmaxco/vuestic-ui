@@ -7,14 +7,16 @@ interface Props {
   components: any[]
   props: any
   emits: any
+  nullValue: any
   propsToOmit: Readonly<string[]>
 }
 
-export function defineVuesticElement({ name, components, props, emits, propsToOmit }: Props) {
+export function defineVuesticElement({ name, components, props, emits, propsToOmit, nullValue }: Props) {
   return defineElement({
     name,
     components,
     props,
+    nullValue: nullValue ?? null,
     emits,
     setup(props: any, { element, slots, attrs }: any) {
 

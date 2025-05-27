@@ -5,3 +5,4 @@ export { default as VaTextareaElement } from './components/VaTextareaElement.vue
 export { default as VaDateInputElement } from './components/VaDateInputElement.vue'
 export { default as VaSliderElement } from './components/VaSliderElement.vue'
 export { default as VaRadioElement } from './components/VaRadioElement.vue'
+export { default as VaFileUploadElement } from './components/VaFileUploadElement.vue'

@@ -11,6 +11,7 @@ import VaDateInputElement from '../src/components/VaDateInputElement.vue'
 import VaSliderElement from '../src/components/VaSliderElement.vue'
 import VaRadioElement from '../src/components/VaRadioElement.vue'
 import VaSwitchElement from '../src/components/VaSwitchElement.vue'
+import VaFileUploadElement from '../src/components/VaFileUploadElement.vue'
 
 import Vueform from '@vueform/vueform'
 import 'vuestic-ui/css'
@@ -34,7 +35,8 @@ setup((app) => {
       VaDateInputElement,
       VaSliderElement,
       VaRadioElement,
-      VaSwitchElement
+      VaSwitchElement,
+      VaFileUploadElement
     ]
   }))
 })
