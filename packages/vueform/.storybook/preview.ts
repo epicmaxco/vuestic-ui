@@ -13,6 +13,7 @@ import VaRadioElement from '../src/components/VaRadioElement.vue'
 import VaSwitchElement from '../src/components/VaSwitchElement.vue'
 import VaFileUploadElement from '../src/components/VaFileUploadElement.vue'
 import VaButtonElement from '../src/components/VaButtonElement.vue'
+import VaRatingElement from '../src/components/VaRatingElement.vue'
 
 import Vueform from '@vueform/vueform'
 import 'vuestic-ui/css'
@@ -38,7 +39,8 @@ setup((app) => {
       VaRadioElement,
       VaSwitchElement,
       VaFileUploadElement,
-      VaButtonElement
+      VaButtonElement,
+      VaRatingElement
     ]
   }))
 })

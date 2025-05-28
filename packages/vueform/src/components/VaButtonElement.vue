@@ -1,9 +1,9 @@
 <template>
   <ElementLayout>
     <template #element>
-      <VaButton :model-value="value" @update:model-value="handleInput" v-on="listeners" ref="input">
-        <template v-for="slotKey in vuesticSlotKeys" >
-          <slot :name="slotKey"  />
+      <VaButton v-bind="props" :model-value="value" @update:model-value="handleInput" v-on="listeners" ref="input" :type="props.submits ? 'submit' : 'button'">
+        <template v-for="slotKey in vuesticSlotKeys">
+          <slot :name="slotKey" />
         </template>
       </VaButton>
     </template>
@@ -16,11 +16,11 @@ import { extractComponentProps } from '../../../ui/src/utils/component-options'
 import { omit } from '../../../ui/src/utils/omit';
 import { defineVuesticElement } from '../defineVuesticElement';
 
-const propsToOmit = ['rules', 'label']
+const propsToOmit = ['rules', 'label', 'type']
 
 const props = {
   ...omit(extractComponentProps(VaButton), propsToOmit),
-   submit: { type: Boolean, default: false },
+  submits: { type: Boolean, default: false },
 }
 
 export default defineVuesticElement({ name: 'VaButtonElement', components: [VaButton], emits: VaButton.emits, props, propsToOmit })
