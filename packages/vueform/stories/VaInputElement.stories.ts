@@ -15,7 +15,7 @@ export const Default: StoryFn = () => ({
     >
       <template #label>
       Your username
-      <template/>
+      </template>
     </VaInputElement>
 
     <h2>Email</h2>
