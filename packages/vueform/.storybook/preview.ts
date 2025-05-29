@@ -14,6 +14,7 @@ import VaSwitchElement from '../src/components/VaSwitchElement.vue'
 import VaFileUploadElement from '../src/components/VaFileUploadElement.vue'
 import VaButtonElement from '../src/components/VaButtonElement.vue'
 import VaRatingElement from '../src/components/VaRatingElement.vue'
+import VaCounterElement from '../src/components/VaCounterElement.vue'
 
 import Vueform from '@vueform/vueform'
 import 'vuestic-ui/css'
@@ -40,7 +41,8 @@ setup((app) => {
       VaSwitchElement,
       VaFileUploadElement,
       VaButtonElement,
-      VaRatingElement
+      VaRatingElement,
+      VaCounterElement
     ]
   }))
 })
