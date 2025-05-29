@@ -6,3 +6,8 @@ export { default as VaDateInputElement } from './components/VaDateInputElement.v
 export { default as VaSliderElement } from './components/VaSliderElement.vue'
 export { default as VaRadioElement } from './components/VaRadioElement.vue'
 export { default as VaFileUploadElement } from './components/VaFileUploadElement.vue'
+export { default as VaButtonElement } from './components/VaButtonElement.vue'
+export { default as VaCounterElement } from './components/VaCounterElement.vue'
+export { default as VaRatingElement } from './components/VaRatingElement.vue'
+export { default as VaSwitchElement } from './components/VaSwitchElement.vue'
+export { default as VaTimeInputElement } from './components/VaTimeInputElement.vue'
