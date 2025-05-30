@@ -22,6 +22,7 @@ export const Default: StoryFn = () => ({
         name="framework"
         searchable
         :options="frameworks"
+        label="Choose a framework"
       />
   </Vueform>
   `,

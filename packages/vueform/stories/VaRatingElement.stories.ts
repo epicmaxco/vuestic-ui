@@ -10,7 +10,7 @@ export const Default: StoryFn = () => ({
     <VaRatingElement
       name="rating"
       label="Rate us"
-      color="success"
+      :texts="['Bad', 'Quite bad', 'Normal', 'Not bad', 'Good']"
     />
     <VaInputElement
       name="comment"

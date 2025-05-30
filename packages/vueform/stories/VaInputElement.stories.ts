@@ -7,7 +7,6 @@ export default {
 export const Default: StoryFn = () => ({
   template: `
   <Vueform>
-    <h2>Text input</h2>
     <VaInputElement
       name="userName"
       messages="Pick a username people will remember!"
@@ -18,23 +17,23 @@ export const Default: StoryFn = () => ({
       </template>
     </VaInputElement>
 
-    <h2>Email</h2>
     <VaInputElement
       name="email"
+      label="Email address"
       placeholder="Email address"
       rules="required|email|max:255"
       :debounce="300"
     />
 
-    <h2>Number</h2>
     <VaInputElement
       name="number"
+      label="Number"
       input-type="number"
     />
 
-    <h2>Url</h2>
     <VaInputElement
       name="Url"
+      label="Url"
       rules="required|url"
     />
 

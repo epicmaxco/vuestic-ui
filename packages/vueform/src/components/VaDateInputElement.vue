@@ -17,7 +17,7 @@ import { omit } from '../../../ui/src/utils/omit';
 import { defineVuesticElement } from '../defineVuesticElement';
 import { pick } from '../../../ui/src/utils/pick';
 
-const propsToOmit = ['rules', 'label', 'isOpen']
+const propsToOmit = ['rules', 'isOpen']
 
 const props = {
   ...omit(extractComponentProps(VaDateInput), propsToOmit),
@@ -25,3 +25,9 @@ const props = {
 
 export default defineVuesticElement({ name: 'VaDateInputElement', components: [VaDateInput], emits: VaDateInput.emits, props, propsToOmit })
 </script>
+
+<style>
+label.vf-label {
+  display: none;
+}
+</style>

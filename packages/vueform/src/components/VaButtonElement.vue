@@ -16,7 +16,7 @@ import { extractComponentProps } from '../../../ui/src/utils/component-options'
 import { omit } from '../../../ui/src/utils/omit';
 import { defineVuesticElement } from '../defineVuesticElement';
 
-const propsToOmit = ['rules', 'label', 'type']
+const propsToOmit = ['rules', 'type']
 
 const props = {
   ...omit(extractComponentProps(VaButton), propsToOmit),
@@ -25,3 +25,9 @@ const props = {
 
 export default defineVuesticElement({ name: 'VaButtonElement', components: [VaButton], emits: VaButton.emits, props, propsToOmit })
 </script>
+
+<style>
+label.vf-label {
+  display: none;
+}
+</style>

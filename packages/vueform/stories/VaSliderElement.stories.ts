@@ -10,6 +10,7 @@ export const Default: StoryFn = () => ({
     <VaSliderElement
       name="slider"
       track-label-visible
+      label="label"
       rules="integer|min:50"
     />
   </Vueform>

@@ -9,6 +9,7 @@ export const Default: StoryFn = () => ({
   <Vueform>
     <VaDateInputElement
       name="date"
+      label="Date"
       rules="required|after:today"
     />
   </Vueform>

@@ -10,6 +10,7 @@ export const Default: StoryFn = () => ({
     <VaTimeInputElement
       name="time"
       clearable
+      label="Time"
       rules="required"
     />
   </Vueform>

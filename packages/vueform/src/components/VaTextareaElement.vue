@@ -16,7 +16,7 @@ import { extractComponentProps } from '../../../ui/src/utils/component-options'
 import { omit } from '../../../ui/src/utils/omit';
 import { defineVuesticElement } from '../defineVuesticElement';
 
-const propsToOmit = ['rules', 'label']
+const propsToOmit = ['rules']
 
 const props = {
   ...omit(extractComponentProps(VaTextarea), propsToOmit),
@@ -24,3 +24,9 @@ const props = {
 
 export default defineVuesticElement({ name: 'VaTextareaElement', components: [VaTextarea], emits: VaTextarea.emits, props, propsToOmit })
 </script>
+
+<style>
+label.vf-label {
+  display: none;
+}
+</style>

@@ -10,6 +10,7 @@ export const Default: StoryFn = () => ({
     <VaTextareaElement
       name="textarea"
       rules="required|max:255|min:5"
+      label="Bio"
     />
   </Vueform>
   `,
