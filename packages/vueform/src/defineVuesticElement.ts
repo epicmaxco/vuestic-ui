@@ -33,6 +33,7 @@ export function defineVuesticElement({ name, components, props, emits, propsToOm
         return acc
       }, {})
 
+      const schemaSlots = computed(() => props.slots)
 
       const handleInput = (val: any) => update(val)
       return {
@@ -41,6 +42,7 @@ export function defineVuesticElement({ name, components, props, emits, propsToOm
         vuesticSlotKeys,
         attrs,
         listeners,
+        schemaSlots,
         handleInput
       }
     },

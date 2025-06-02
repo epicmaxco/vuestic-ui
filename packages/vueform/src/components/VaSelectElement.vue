@@ -5,6 +5,12 @@
         <template v-for="slotKey in vuesticSlotKeys" #[slotKey]="slotProps">
           <slot :name="slotKey" v-bind="slotProps" />
         </template>
+
+        <template v-for="(component, slot) in schemaSlots" #[slot]="slotProps">
+          <slot :name="slot" :el$="el$" v-bind="slotProps">
+            <component :is="component" :el$="el$" />
+          </slot>
+        </template>
       </VaSelect>
     </template>
   </ElementLayout>
