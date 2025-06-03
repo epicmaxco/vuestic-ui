@@ -1,6 +1,6 @@
 {
   "name": "create-vuestic",
-  "version": "0.0.10",
+  "version": "0.1.1",
   "description": "Easy way to create new vuestic-ui app",
   "main": "index.js",
   "license": "MIT",
@@ -20,6 +20,7 @@
   "devDependencies": {
     "@types/node": "^18.16.0",
     "@types/prompts": "^2.4.2",
-    "tsup": "^6.5.0"
+    "tsup": "^6.5.0",
+    "tsx": "^4.19.4"
   }
 }
