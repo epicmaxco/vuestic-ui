@@ -1,6 +1,6 @@
 {
   "name": "create-vuestic",
-  "version": "0.0.10",
+  "version": "0.1.0",
   "description": "Easy way to create new vuestic-ui app",
   "main": "index.js",
   "license": "MIT",
