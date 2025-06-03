@@ -198,6 +198,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "Carousel",
       },
       {
+        name: "carouselv2",
+        displayName: "Carousel v2",
+        meta: {
+          badge: navigationBadge.new('1.10.0'),
+        }
+      },
+      {
         name: "chip",
         displayName: "Chip",
       },

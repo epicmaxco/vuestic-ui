@@ -6,7 +6,7 @@ aliases:
 
   - &install_dependencies
     name: Install Dependencies
-    command: yarn install --frozen-lockfile --cache-folder ~/.cache/yarn
+    command: yarn install --immutable
 
   - &build_docs
     name: Build Docs
@@ -16,7 +16,7 @@ aliases:
     name: Save Yarn Package Cache
     key: yarn-packages-{{ checksum "yarn.lock" }}
     paths:
-      - ~/.cache/yarn
+      - ./.yarn/cache
 
 docker: &docker
   docker:

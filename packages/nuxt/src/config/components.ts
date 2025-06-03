@@ -20,6 +20,8 @@ export default [
   'VaCardTitle',
   'VaCardBlock',
   'VaCarousel',
+  'VaCarouselV2',
+  'VaCarouselGroup',
   'VaCheckbox',
   'VaChip',
   'VaCollapse',
