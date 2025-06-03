@@ -33,6 +33,8 @@ export function defineVuesticElement({ name, components, props, emits, propsToOm
         return acc
       }, {})
 
+      const isError = computed(() => Boolean(props.error || element.errors.value?.length > 0))
+
       const schemaSlots = computed(() => props.slots)
 
       const handleInput = (val: any) => update(val)
@@ -43,6 +45,7 @@ export function defineVuesticElement({ name, components, props, emits, propsToOm
         attrs,
         listeners,
         schemaSlots,
+        isError,
         handleInput
       }
     },

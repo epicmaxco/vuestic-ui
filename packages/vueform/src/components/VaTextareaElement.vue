@@ -1,7 +1,7 @@
 <template>
   <ElementLayout>
     <template #element>
-      <VaTextarea v-bind="props" :model-value="value" @update:model-value="handleInput" v-on="listeners" ref="input">
+      <VaTextarea v-bind="props" :model-value="value" @update:model-value="handleInput" v-on="listeners" ref="input" :error="isError">
         <template v-for="slotKey in vuesticSlotKeys" #[slotKey]="slotProps">
           <slot :name="slotKey" v-bind="slotProps" />
         </template>
