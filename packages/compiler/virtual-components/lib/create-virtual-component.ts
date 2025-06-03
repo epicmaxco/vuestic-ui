@@ -21,7 +21,7 @@ export const createVirtualComponent = async (componentName: string, source: stri
   // TODO: Parse $onCompile functions
   // const script = result.descriptor.scriptSetup?.content ?? null
 
-  const { render } = (cvc2(source))
+  // const { render } = await(cvc2(source))
 
   return {
     name: componentName,
@@ -31,7 +31,7 @@ export const createVirtualComponent = async (componentName: string, source: stri
       scriptSetup: await buildScriptSetupModule(result.descriptor, componentName),
       scriptSetupMeta: createScriptSetupMeta(result.descriptor, componentName)
     },
-    render: render
+    // render: render
   } as VirtualComponent
 }
 

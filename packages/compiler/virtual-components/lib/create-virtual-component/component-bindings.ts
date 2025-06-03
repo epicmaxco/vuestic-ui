@@ -21,7 +21,7 @@ const getNodeChildren = (node: Node) => {
     return (node as Program).body
   }
 
-  console.log(node)
+  // console.log(node)
 }
 
 const scriptAstHorizontalWalk = (node: Node, onNode: (node: Node) => void) => {

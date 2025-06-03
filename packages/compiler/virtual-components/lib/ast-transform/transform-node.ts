@@ -132,10 +132,6 @@ export const transformAstNode = (node: ElementNode, component: VirtualComponent,
     })
   }
 
-  if (component.name === 'VcButton') {
-    ctx.imports.push('getColor')
-  }
-
   return {
     ast: transformWithVFor(newAst, ctx),
     imports: ctx.imports,

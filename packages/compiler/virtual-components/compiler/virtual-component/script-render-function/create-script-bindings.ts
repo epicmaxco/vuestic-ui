@@ -174,9 +174,5 @@ export const createScriptBindings = (script: SFCScriptBlock): Record<string, Vir
   const imports = getImports(script.scriptSetupAst)
   const bindings = transformBindings(script.bindings, imports)
 
-  console.log(stubComponentsImports(script))
-
-  console.log(script)
-
   return bindings
 }

@@ -88,7 +88,7 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
         code.toString()
       )
     } catch (e) {
-      throw new VirtualComponentError(`Error while using ${componentName}: ${typeof e === 'object' && e !== null && 'message' in e ? e.message : e}`)
+      throw new VirtualComponentError(`Error while using ${componentName}: ${typeof e === 'object' && e !== null && 'message' in e ? e.message : e}`, e instanceof Error ? e.stack : undefined)
     }
   })
 

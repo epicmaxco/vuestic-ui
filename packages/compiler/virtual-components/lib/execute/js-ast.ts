@@ -34,12 +34,16 @@ export const onAccess = (node: any, codeString: MagicString, cb: (node: any, par
     return onAccess(node.expression, codeString, cb, node)
   }
 
-  if ('left' in node) {
-    return onAccess(node.left, codeString, cb, node)
-  }
+  if ('left' in node || 'right' in node) {
+    if ('left' in node) {
+      onAccess(node.left, codeString, cb, node)
+    }
 
-  if ('right' in node) {
-    return onAccess(node.right, codeString, cb, node)
+    if ('right' in node) {
+      onAccess(node.right, codeString, cb, node)
+    }
+
+    return
   }
 
   if ('object' in node) {
@@ -55,6 +59,22 @@ export const onAccess = (node: any, codeString: MagicString, cb: (node: any, par
 
   if ('argument' in node) {
     return onAccess(node.argument, codeString, cb, node)
+  }
+
+  if (node.type === 'Literal') {
+    // Do nothing for literals
+    return
+  }
+
+  if (node.type === 'ObjectExpression') {
+    for (const prop of node.properties) {
+      if (prop.type === 'Property') {
+        onAccess(prop.value, codeString, cb, node)
+      } else if (prop.type === 'SpreadElement') {
+        onAccess(prop.argument, codeString, cb, node)
+      }
+    }
+    return
   }
 
   throw new VirtualComponentError(`Unexpected: Unable to parse node ${node.type}`)

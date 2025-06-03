@@ -6,9 +6,12 @@ export class VirtualComponentCompilationError extends Error {
 }
 
 export class VirtualComponentError extends Error {
-    constructor(message: string) {
+    constructor(message: string, stack?: string) {
         super('VirtualComponentError: ' + message);
         this.name = 'VirtualComponentError';
+        if (stack) {
+          this.stack = stack;
+        }
     }
 }
 

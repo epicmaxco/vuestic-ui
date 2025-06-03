@@ -19,6 +19,7 @@ export enum CompilerVirtualComponentVariable {
 }
 
 const getVirtualComponentVariableType = (vueBinding: string | undefined, componentName: string) => {
+
   if (vueBinding === 'setup-let') {
     throw new VirtualComponentCompilationError('let in setup function of virtual component is not supported', componentName)
   }
@@ -33,6 +34,18 @@ const getVirtualComponentVariableType = (vueBinding: string | undefined, compone
 
   if (vueBinding === 'setup-ref' || vueBinding === 'setup-reactive-const') {
     return CompilerVirtualComponentVariable.Dynamic
+  }
+
+  if (vueBinding === 'literal-const') {
+    return CompilerVirtualComponentVariable.Static
+  }
+
+  if (vueBinding === 'data' || vueBinding === 'props-aliased' || vueBinding === 'setup-const') {
+    return CompilerVirtualComponentVariable.Static
+  }
+
+  if (vueBinding === 'options') {
+    return CompilerVirtualComponentVariable.Static
   }
 
   throw new VirtualComponentCompilationError(`Unknown binding type ${vueBinding}`, componentName)
@@ -86,9 +99,16 @@ export const buildScriptSetupModule = async (descriptor: SFCDescriptor, componen
   }
 
   const variables = Object.keys(bindings).reduce((acc, key) => {
-    acc[key] = { type: getVirtualComponentVariableType(bindings[key], componentName) }
+    try {
+      acc[key] = { type: getVirtualComponentVariableType(bindings[key], componentName) }
 
-    return acc
+      return acc
+    } catch (e) {
+      console.error(`Failed to get variable type for ${key} in component ${componentName}`, e)
+      console.log(descriptor.scriptSetup?.content)
+      throw e
+    }
+
   }, { } as Record<string, { type: CompilerVirtualComponentVariable }>)
 
   return {

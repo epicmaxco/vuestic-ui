@@ -3,7 +3,12 @@ import { parse, Node, Statement, ModuleDeclaration, MemberExpression, TemplateLi
 import { onAccess } from './js-ast'
 
 export const execute = (code: string) => {
-  return (0, eval)(code)
+  try {
+    return (0, eval)(code)
+  } catch (error) {
+    // console.error('Error executing code:', code)
+    throw error
+  }
 }
 /** Add _ctx to Identifier if it is not in property access */
 const add_ctx = (node: any, codeString: MagicString, ignore: string[]) => {
