@@ -11,7 +11,7 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
-    "@vuestic/compiler": "/Users/m0ksem/Code/vuestic-ui/packages/compiler",
+    "@vuestic/compiler": "../",
     "vue": "^3.5.0"
   },
   "devDependencies": {

@@ -42,7 +42,8 @@
   "workspaces": {
     "packages": [
       "packages/*",
-      "packages/extensions/*"
+      "packages/extensions/*",
+      "packages/compiler/playground"
     ]
   },
   "gitHooks": {
