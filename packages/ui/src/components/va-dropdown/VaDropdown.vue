@@ -190,7 +190,10 @@ export default defineComponent({
         })
       } else {
         if (!anchorRef.value) { return }
-        focusFirstFocusableChild(anchorRef.value)
+        // Lost focus on anchor when dropdown is closed
+        if (document.activeElement === document.body) {
+          focusFirstFocusableChild(anchorRef.value)
+        }
       }
     })
 
