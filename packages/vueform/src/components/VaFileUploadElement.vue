@@ -1,7 +1,7 @@
 <template>
   <ElementLayout>
     <template #element>
-      <VaFileUpload v-bind="props" :model-value="value" @update:model-value="handleInput" v-on="listeners" ref="input" type="list">
+      <VaFileUpload v-bind="props" :model-value="value" @update:model-value="handleInput" v-on="listeners" ref="input" :type="props.uploadType">
         <template v-for="slotKey in vuesticSlotKeys" #[slotKey]="slotProps">
           <slot :name="slotKey" v-bind="slotProps" />
         </template>
@@ -26,6 +26,10 @@ const propsToOmit = ['rules', 'type']
 
 const props = {
   ...omit(extractComponentProps(VaFileUpload), propsToOmit),
+  uploadType: {
+    type: String,
+    default: 'list'
+  }
 }
 
 export default defineVuesticElement({ name: 'VaFileUploadElement', components: [VaFileUpload], emits: VaFileUpload.emits, props, propsToOmit, nullValue: [] })

@@ -35,6 +35,7 @@ export default definePageConfig({
   blocks: [
     block.title("Vueform integration"),
     block.paragraph("[Vueform](https://vueform.com/)[[target=_blank]] is a comprehensive form framework for Vue that makes form development a breeze. Vuestic UI provides a ready-made style theme for this framework."),
+
     block.headline("Vueform installation"),
     block.paragraph("To start using Vueform, install the dependencies in your project."),
     block.code(installCommandObject, "bash"),
@@ -42,8 +43,30 @@ export default definePageConfig({
     block.code(configCode, "js"),
     block.paragraph("Then add the plugin to your main.* file"),
     block.code(setupCode, "js"),
+
+    block.subtitle("Components"),
+    block.paragraph("Currently, we support the following components: `VaInput`, `VaSelect`, `VaCheckbox`, `VaTextarea`, `VaDateInput`, `VaSlider`, `VaRadio`, `VaFileUpload`, `VaButton`, `VaCounter`, `VaRating`, `VaSwitch`, `VaTimeInput`."),
+    block.paragraph('Every component that we export, ends with `Element`, for example `VaInputElement` and it is necessary to provide prop `name`. See more in Examples.'),
+
+    block.subtitle("Props"),
+    block.paragraph('Some props have been changed:'),
+    block.list([
+      'All elements omit `rules` prop',
+      '`VaButtonElement` now has prop `submits` instead of `type`',
+      '`VaDateInputElement` omits `isOpen` prop',
+      '`VaFileUploadElement` `type` prop changed to `uploadType`',
+      '`VaInputElement` `type` prop changed to `inputType`',
+      '`VaRadioElement` omits `messages` prop',
+      '`VaSelectElement` omits `isOpen`, `messages` and `search` prop',
+    ]),
+
     block.subtitle("Examples"),
-    block.paragraph("Here are some implementation examples of what is possible with Vuestic and FormKit:"),
-    /* TODO add examples */
+    block.paragraph("Here are some implementation examples of what is possible with Vuestic and Vueform:"),
+    block.example("BasicForm", {
+      title: "Basic Form",
+    }),
+    block.example("AdvancedForm", {
+      title: "Advanced Form",
+    }),
   ]
 })

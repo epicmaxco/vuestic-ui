@@ -3,6 +3,7 @@
     class="va-rating__number-item"
     tabindex="-1"
     aria-hidden="true"
+    type="button"
     :style="{
       background: backgroundComputed,
       color: textColorComputed,

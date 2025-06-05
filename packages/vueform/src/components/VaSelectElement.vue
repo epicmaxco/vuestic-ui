@@ -22,7 +22,7 @@ import { extractComponentProps } from '../../../ui/src/utils/component-options'
 import { omit } from '../../../ui/src/utils/omit';
 import { defineVuesticElement } from '../defineVuesticElement';
 
-const propsToOmit = ['rules', 'isOpen', 'search']
+const propsToOmit = ['rules', 'isOpen', 'search', 'messages']
 
 const props = {
   ...omit(extractComponentProps(VaSelect), propsToOmit),
