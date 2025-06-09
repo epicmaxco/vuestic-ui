@@ -34,7 +34,7 @@ export default defineConfig({
 export default definePageConfig({
   blocks: [
     block.title("Vueform integration"),
-    block.paragraph("[Vueform](https://vueform.com/)[[target=_blank]] is a comprehensive form framework for Vue that makes form development a breeze. Vuestic UI provides a ready-made style theme for this framework."),
+    block.paragraph("[Vueform](https://vueform.com/)[[target=_blank]] is a comprehensive form framework for Vue that makes form development a breeze. With this integration library, you can easily use Vuestic components within Vueform."),
 
     block.headline("Vueform installation"),
     block.paragraph("To start using Vueform, install the dependencies in your project."),
@@ -45,11 +45,11 @@ export default definePageConfig({
     block.code(setupCode, "js"),
 
     block.subtitle("Components"),
-    block.paragraph("Currently, we support the following components: `VaInput`, `VaSelect`, `VaCheckbox`, `VaTextarea`, `VaDateInput`, `VaSlider`, `VaRadio`, `VaFileUpload`, `VaButton`, `VaCounter`, `VaRating`, `VaSwitch`, `VaTimeInput`."),
+    block.paragraph('Currently, we support the following components: `VaInput`, `VaSelect`, `VaCheckbox`, `VaTextarea`, `VaDateInput`, `VaSlider`, `VaRadio`, `VaFileUpload`, `VaButton`, `VaCounter`, `VaRating`, `VaSwitch`, `VaTimeInput`. These components were selected because they represent the most commonly used interactive form elements in real-world applications. If you need support for a specific component, feel free to contribute or open a feature request.'),
     block.paragraph('Every component that we export, ends with `Element`, for example `VaInputElement` and it is necessary to provide prop `name`. See more in Examples.'),
 
     block.subtitle("Props"),
-    block.paragraph('Some props have been changed:'),
+    block.paragraph('To avoid conflicts with Vueform, some props have been changed:'),
     block.list([
       'All elements omit `rules` prop',
       '`VaButtonElement` now has prop `submits` instead of `type`',

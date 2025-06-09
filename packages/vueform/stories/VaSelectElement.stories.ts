@@ -20,7 +20,7 @@ export const Default: StoryFn = () => ({
   <Vueform>
       <VaSelectElement
         name="framework"
-        searchable
+        autocomplete
         :options="frameworks"
         label="Choose a framework"
       />
