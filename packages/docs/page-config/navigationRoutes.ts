@@ -655,6 +655,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'formkit',
         displayName: 'FormKit integration',
+      },
+      {
+        name: 'vueform',
+        displayName: 'Vueform integration',
       }
     ],
   },
