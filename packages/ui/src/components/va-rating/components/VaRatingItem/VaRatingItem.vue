@@ -15,6 +15,7 @@
         class="va-rating-item__wrapper"
         tabindex="-1"
         tag="button"
+        type="button"
         :name="computedIconName"
         :size="$props.size"
         :color="computedColor"
