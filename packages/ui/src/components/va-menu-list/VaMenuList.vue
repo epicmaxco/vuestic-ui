@@ -110,7 +110,7 @@ const getVNodeKey = (node: VNode): string => {
 .va-menu-list {
   overflow: auto;
   min-width: 200px;
-  table-layout: fixed;
+  table-layout: auto;
   width: max-content;
   outline: none;
 
