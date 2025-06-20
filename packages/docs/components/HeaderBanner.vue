@@ -9,15 +9,17 @@
     >
       <div class="header__wrapper flex sm:flex-row flex-col">
         <div class="header-banner__left">
+          <a class="text-[var(--va-warning)] mr-1" href="https://epicmax.co/?utm_source=vuestic&utm_campaign=landing-banner">Need help with Vue or Nuxt?</a>
+          We build fast apps, custom UI libraries, and help you move to Vue 3 and Nuxt 3 — start with a free 2-week trial.
           <!-- Replace back to vuestic later -->
           <!-- <a :href="`https://github.com/epicmaxco/vuestic-ui/releases/tag/v${uiVersion}`">We just released&nbsp;<strong>Vuestic {{ uiVersion }} 🤗</strong></a> -->
           <!-- <a href="https://admin.vuestic.dev/">We just released <strong>Vuestic Admin 3.0</strong> 🤗</a> -->
 
           <!-- <span>Epicmax - We are the core team behind Vuestic UI and Vuestic Admin and frontend development company specializing in Vue.js since our founding in 2017.</span> -->
 
-          <span>
+          <!-- <span>
             Our team will be speaking at <span style="color: var(--va-warning)">MadVue</span> – The Vue.js Event in Madrid! Don’t miss it, join us!
-          </span>
+          </span> -->
 
           <!--          <div class="header-banner__left-links">-->
           <!-- <a
@@ -83,11 +85,18 @@
 
         <div class="header-banner__buttons">
           <VaButton
+            href="https://calendar.app.google/nqGDauqE7kCkxExX7"
+            target="_blank"
+            icon="arrow_forward"
+          >
+            Talk to an Engineer
+          </VaButton>
+          <!-- <VaButton
             href="https://madvue.es/?utm_source=vuestic&utm_campaign=banner"
             target="blank"
           >
             🎟️ Get you ticket
-          </VaButton>
+          </VaButton> -->
 
           <!-- <VaButton
             href="https://epicmax.co/?ref=vuestic-header"
@@ -200,10 +209,6 @@ const hide = () => {
     width: 100%;
 
     @include xs(flex-direction, column);
-  }
-
-  a {
-    color: $text-color !important;
   }
 
   &__left {
