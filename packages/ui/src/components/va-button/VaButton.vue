@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, computed, toRefs, shallowRef } from 'vue'
+import { PropType, computed, toRefs, shallowRef, toRef } from 'vue'
 import {
   useBem,
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
@@ -134,8 +134,6 @@ const emit = defineEmits([...useFocusableControlEmits])
 
 // colors
 const { getColor } = useColors()
-const colorComputed = computed(() => getColor(props.color))
-
 // loader size
 const { sizeComputed } = useSize(props)
 const iconSizeComputed = computed(() => {
@@ -183,17 +181,19 @@ const computedClass = useBem('va-button', () => ({
   rightIcon: !isOnlyIcon.value && !props.icon && !!props.iconRight,
 }))
 
+const color = toRef(props, 'color')
+
 // styles
 const isTransparentBg = computed(() => props.plain || backgroundOpacityComputed.value! < 0.5)
-const textColorComputed = useElementTextColor(colorComputed, isTransparentBg)
+const textColorComputed = useElementTextColor(color, isTransparentBg)
 
 const {
   backgroundColor,
   backgroundColorOpacity,
   backgroundMaskOpacity,
   backgroundMaskColor,
-} = useButtonBackground(colorComputed, isPressed, isHovered)
-const contentColorComputed = useButtonTextColor(textColorComputed, colorComputed, isPressed, isHovered)
+} = useButtonBackground(color, isPressed, isHovered)
+const contentColorComputed = useButtonTextColor(textColorComputed, color, isPressed, isHovered)
 
 const computedStyle = computed(() => ({
   borderColor: props.borderColor ? getColor(props.borderColor) : 'transparent',
