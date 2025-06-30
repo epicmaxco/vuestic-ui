@@ -20,7 +20,7 @@ const groupNodes = (elements: any[]) => {
 </script>
 
 <template>
-  <div class="va-carousel-group" v-for="group in groupNodes(toNodeChildren($slots.default?.()))" :key="group.map((item: any) => item.key).join('-')">
+  <div v-bind="$attrs" class="va-carousel-group" v-for="group in groupNodes(toNodeChildren($slots.default?.()))" :key="group.map((item: any) => item.key).join('-')">
     <component
       v-for="(item) in group"
       :key="item.key"
