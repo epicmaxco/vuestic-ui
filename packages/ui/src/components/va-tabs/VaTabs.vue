@@ -275,10 +275,9 @@ const updateTabsState = () => {
     if (isTabActive && !tab.isActive.value) {
       tab.isActive.value = true
       moveToTab(tab)
+    } else {
+      tab.isActive.value = isTabActive
     }
-
-    tab.isActive.value = isTabActive
-
     if (tab.isActive.value) {
       updateSlider(tab)
     }
