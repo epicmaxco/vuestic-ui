@@ -21,6 +21,8 @@ export default definePageConfig({
     block.example("StaticSlots", { hideTitle: true }),
     block.paragraph("**Using `colgroup` slot to set specific attributes to columns**. For last column an additional `className` with a background color is set."),
     block.example("ColgroupSlots", { hideTitle: true }),
+    block.paragraph("The `no-data` slot is used to display a message when the table has no data to show. It can be customized with any content you like."),
+    block.example("NoDataSlots", { hideTitle: true }),
 
     block.headline("Custom Filtering"),
     block.paragraph("The `va-data-table` offers a simple yet powerful filtering feature. Users can filter the displayed data using an input field. This feature reacts to input changes, updating the table view to match the query."),
