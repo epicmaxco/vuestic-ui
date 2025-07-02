@@ -1,24 +1,22 @@
-<script setup lang="ts">
-import { VaDropdown } from '..'
+<script setup>
+import { VaDateInput, VaInput, VaDropdown } from '../../../main'
 </script>
 
 <template>
+  <VaDateInput />
+  <VaInput />
+
   <VaDropdown>
     <template #anchor>
-      <button>Click me</button>
-    </template>
-    <template #default>
-      <div>Dropdown content</div>
+      <div>
+        <VaInput />
+      </div>
     </template>
   </VaDropdown>
 </template>
 
-<style lang="scss" scoped>
-div {
-  color: red;
-}
-
-button {
+<style scoped>
+.va-input-wrapper {
   border: 1px solid red;
 }
 </style>

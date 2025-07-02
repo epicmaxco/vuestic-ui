@@ -5,7 +5,7 @@ import { unwrapEl } from '../../../utils/unwrapEl'
 
 export const useAnchorSelector = (
   props: {
-    anchor: MaybeHTMLElementOrSelector | undefined,
+    anchor?: MaybeHTMLElementOrSelector | undefined,
     anchorSelector: string | undefined,
     innerAnchorSelector: string | undefined,
   },
