@@ -8,9 +8,11 @@ export default {
   component: VaTabs,
 }
 
-export const Default = defineComponent({
-  components: { VaTabs: VaTabsDemo },
-  template: '<VaTabs/>',
+export const Default = defineStory({
+  story: () => ({
+    components: { VaTabsDemo },
+    template: '<VaTabsDemo />',
+  }),
 })
 
 export const WithScroll = defineStory({

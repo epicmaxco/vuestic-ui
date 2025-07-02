@@ -114,24 +114,27 @@
               >
             </td>
           </tr>
-          <td>
-            <va-button size="large">Labely</va-button>
-            <va-button size="large" round>Labely</va-button>
-            <va-button size="large" round icon="block"></va-button>
-            <va-button size="large" round icon="block">Labely</va-button>
-            <va-button size="large" round icon-right="block">Labely</va-button>
-            <va-button size="large" round icon="block" icon-right="thumb_up"
-              >Labely</va-button
-            >
-            <va-button
-              size="large"
-              round
-              icon="block"
-              icon-right="thumb_up"
-              border-color="warning"
-              >Labely</va-button
-            >
-          </td>
+
+          <tr>
+            <td>
+              <va-button size="large">Labely</va-button>
+              <va-button size="large" round>Labely</va-button>
+              <va-button size="large" round icon="block"></va-button>
+              <va-button size="large" round icon="block">Labely</va-button>
+              <va-button size="large" round icon-right="block">Labely</va-button>
+              <va-button size="large" round icon="block" icon-right="thumb_up"
+                >Labely</va-button
+              >
+              <va-button
+                size="large"
+                round
+                icon="block"
+                icon-right="thumb_up"
+                border-color="warning"
+                >Labely</va-button
+              >
+            </td>
+          </tr>
 
           <tr>
             <td>Small size</td>
