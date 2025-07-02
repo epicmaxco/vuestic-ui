@@ -19,7 +19,7 @@ export const useElementTextColor = (componentColor?: Ref<string | undefined> | s
   const textColorComputed = computed(() => {
     if (props.textColor) { return getColor(props.textColor) }
 
-    const bg = componentColor ? unref(componentColor) : props.color
+    const bg = componentColor ? unref(componentColor) : getColor(props.color)
 
     if (!bg) { return 'currentColor' }
 
