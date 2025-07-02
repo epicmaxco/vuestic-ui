@@ -39,7 +39,7 @@ const props = defineProps({
   speed: makeNumericProp({ default: 50 }),
   verticalOffset: { type: String, default: '1rem' },
   horizontalOffset: { type: String, default: '1rem' },
-  color: { type: String, default: '' },
+  color: { type: String, default: 'primary' },
   horizontalPosition: {
     type: String as PropType<'right' | 'left'>,
     default: 'right',
