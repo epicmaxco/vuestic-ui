@@ -21,6 +21,7 @@
       >
         <slot name="prev-arrow">
           <VaCarouselButton
+            :round="false"
             :color="color"
             :icon="vertical ? 'va-arrow-up' : 'va-arrow-left'"
             :aria-label="tp($props.ariaPreviousLabel)"
@@ -35,6 +36,7 @@
       >
         <slot name="next-arrow">
           <VaCarouselButton
+            :round="false"
             :color="color"
             :icon="vertical ? 'va-arrow-down' : 'va-arrow-right'"
             :aria-label="tp($props.ariaNextLabel)"
