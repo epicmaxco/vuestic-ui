@@ -62,16 +62,16 @@ afterEach(() => {
 
 
 // Halloween background animation
-const mouse = ref({ x: 0, y: 0 })
-const mouseInertia = ref({ x: 0, y: 0 })
+// const mouse = ref({ x: 0, y: 0 })
+// const mouseInertia = ref({ x: 0, y: 0 })
 
-const onMouseMove = (e: MouseEvent) => {
-  mouse.value = { x: e.clientX, y: e.clientY }
-  mouseInertia.value = {
-    x: mouseInertia.value.x * 0.9 + (mouse.value.x - mouseInertia.value.x) * 0.1,
-    y: mouseInertia.value.y * 0.9 + (mouse.value.y - mouseInertia.value.y) * 0.1,
-  }
-}
+// const onMouseMove = (e: MouseEvent) => {
+//   mouse.value = { x: e.clientX, y: e.clientY }
+//   mouseInertia.value = {
+//     x: mouseInertia.value.x * 0.9 + (mouse.value.x - mouseInertia.value.x) * 0.1,
+//     y: mouseInertia.value.y * 0.9 + (mouse.value.y - mouseInertia.value.y) * 0.1,
+//   }
+// }
 
 onMounted(() => {
   isSidebarVisible.value = !breakpoints.smDown
@@ -87,22 +87,22 @@ onMounted(() => {
     currentPresetName.value = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   }
 
-  window.addEventListener('mousemove', onMouseMove)
+  // window.addEventListener('mousemove', onMouseMove)
 
-  const resetInertia = () => {
-    mouseInertia.value = {
-      x: mouseInertia.value.x * 0.9 + -1 * 0.1,
-      y: mouseInertia.value.y * 0.9 + -1 * 0.1,
-    }
-    requestAnimationFrame(resetInertia)
-  }
+  // const resetInertia = () => {
+  //   mouseInertia.value = {
+  //     x: mouseInertia.value.x * 0.9 + -1 * 0.1,
+  //     y: mouseInertia.value.y * 0.9 + -1 * 0.1,
+  //   }
+  //   requestAnimationFrame(resetInertia)
+  // }
 
-  requestAnimationFrame(resetInertia)
+  // requestAnimationFrame(resetInertia)
 })
 
-onUnmounted(() => {
-  window.removeEventListener('mousemove', onMouseMove)
-})
+// onUnmounted(() => {
+//   window.removeEventListener('mousemove', onMouseMove)
+// })
 
 useHead({
   link: [
