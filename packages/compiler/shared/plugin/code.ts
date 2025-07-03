@@ -84,3 +84,7 @@ export const replaceOrAddConfigPropertyValue = (content: string, newValue: strin
     return content
   }
 }
+
+export const omitComments = (code: string) => {
+  return code.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '').trim()
+}

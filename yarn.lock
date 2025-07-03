@@ -9823,6 +9823,7 @@ __metadata:
     "@rollup/pluginutils": "npm:^5.1.0"
     acorn: "npm:^8.12.1"
     shiki: "npm:^1.10.1"
+    unplugin-vue-components: "npm:^28.8.0"
   peerDependencies:
     "@vue/compiler-core": ^3.4.21
     "@vue/compiler-sfc": ^3.4.21
@@ -14007,7 +14008,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^4.4.0":
+"debug@npm:^4.4.0, debug@npm:^4.4.1":
   version: 4.4.1
   resolution: "debug@npm:4.4.1"
   dependencies:
@@ -29785,6 +29786,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tinyglobby@npm:^0.2.14":
+  version: 0.2.14
+  resolution: "tinyglobby@npm:0.2.14"
+  dependencies:
+    fdir: "npm:^6.4.4"
+    picomatch: "npm:^4.0.2"
+  checksum: 10/3d306d319718b7cc9d79fb3f29d8655237aa6a1f280860a217f93417039d0614891aee6fc47c5db315f4fcc6ac8d55eb8e23e2de73b2c51a431b42456d9e5764
+  languageName: node
+  linkType: hard
+
 "tinypool@npm:^0.8.3":
   version: 0.8.4
   resolution: "tinypool@npm:0.8.4"
@@ -30928,6 +30939,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"unplugin-vue-components@npm:^28.8.0":
+  version: 28.8.0
+  resolution: "unplugin-vue-components@npm:28.8.0"
+  dependencies:
+    chokidar: "npm:^3.6.0"
+    debug: "npm:^4.4.1"
+    local-pkg: "npm:^1.1.1"
+    magic-string: "npm:^0.30.17"
+    mlly: "npm:^1.7.4"
+    tinyglobby: "npm:^0.2.14"
+    unplugin: "npm:^2.3.5"
+    unplugin-utils: "npm:^0.2.4"
+  peerDependencies:
+    "@babel/parser": ^7.15.8
+    "@nuxt/kit": ^3.2.2 || ^4.0.0
+    vue: 2 || 3
+  peerDependenciesMeta:
+    "@babel/parser":
+      optional: true
+    "@nuxt/kit":
+      optional: true
+  checksum: 10/407144994b527524f7255bd3caad74133de9ba6f3bf9da87fed968e5672c1a370688505b68457bab78a66ab07d5ee5cc751f83ae3e5b11343ce157b2a27d9118
+  languageName: node
+  linkType: hard
+
 "unplugin-vue-router@npm:^0.10.8":
   version: 0.10.8
   resolution: "unplugin-vue-router@npm:0.10.8"
@@ -30965,7 +31001,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unplugin@npm:^2.1.0, unplugin@npm:^2.3.2":
+"unplugin@npm:^2.1.0, unplugin@npm:^2.3.2, unplugin@npm:^2.3.5":
   version: 2.3.5
   resolution: "unplugin@npm:2.3.5"
   dependencies:

@@ -1,8 +1,11 @@
 import { createLogger, Plugin } from "vite"
+import { vuesticTsConfig } from "../tsconfig-plugin"
 import { devtools, PluginOptions as DevtoolsPluginOptions } from "../devtools"
 import { cssLayers } from "../css-layers"
 import { vuesticConfig, Options as VuesticConfigPluginOptions } from "../vuestic-config"
+import { vuesticAutoImport } from "../auto-import"
 import { mergeDeep } from "../shared/merge-deep"
+import { logger } from "../logger"
 
 type Options = {
   /** @default true */
@@ -26,24 +29,21 @@ type Options = {
    *
    * @default 'vuestic.config.ts'
    *
-   * Make sure to include generated types to your tsconfig.json
-   *
-   * ```json
-   * {
-   *   "include": ["node_modules/.vuestic/*.d.ts", "src/**\/*.d.ts"]
-   * }
-   * ```
    */
   config?: boolean | VuesticConfigPluginOptions,
-}
 
-const logger = createLogger('info', {
-  prefix: '[vuestic:compiler]'
-})
+  /**
+   * Auto import components and inject plugin
+   *
+   * @default false
+   */
+  autoImport?: boolean,
+}
 
 const defaultOptions: Required<Options> = {
   devtools: false,
   cssLayers: false,
+  autoImport: false,
   config: {
     configPath: 'vuestic.config.ts'
   },
@@ -59,6 +59,8 @@ export const vuestic = (options: Options = {}): Plugin[] => {
 
   const plugins = []
 
+  plugins.push(...vuesticTsConfig())
+
   if (options.devtools !== false) {
     logger.info('Using vuestic:devtools', {
       timestamp: true,
@@ -73,12 +75,18 @@ export const vuestic = (options: Options = {}): Plugin[] => {
     plugins.push(cssLayers)
   }
 
+  if (Boolean(options.autoImport)) {
+    logger.info('Using vuestic:auto-import', {
+      timestamp: true,
+    })
+    plugins.push(...vuesticAutoImport())
+  }
+
   if (Boolean(options.config)) {
     logger.info('Using vuestic:config', {
       timestamp: true,
     })
     plugins.push(...vuesticConfig(extractOptions('config')))
-
   }
 
   return plugins
