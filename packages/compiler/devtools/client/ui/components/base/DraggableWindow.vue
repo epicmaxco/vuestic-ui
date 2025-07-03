@@ -25,7 +25,7 @@ const windowSize = useWindowSize()
 const boxSize = useElementRect(box)
 
 const props = defineProps<{
-  defaultPosition: 'top-left' | 'top-right' | 'bottom-center' | 'bottom-left',
+  defaultPosition: 'top-left' | 'top-right' | 'bottom-center' | 'bottom-left' | 'bottom-right',
   offsetY?: number,
   offsetX?: number,
 }>()
@@ -110,6 +110,7 @@ const updateLeftAndTop = () => {
     'top-right': { top: PADDING, left: windowSize.width },
     'bottom-center': { top: windowSize.height, left: windowSize.width / 2 },
     'bottom-left': { top: windowSize.height, left: PADDING },
+    'bottom-right': { top: windowSize.height, left: windowSize.width },
   }
 
   top.value = positions[props.defaultPosition].top

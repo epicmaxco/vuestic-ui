@@ -15,7 +15,7 @@ export default defineConfig({
         include: fileURLToPath(new URL('./src', import.meta.url)) + '/**/*.vue'
       },
       autoImport: true,
-      config: true
+      config: true,
     }),
     vue(),
     Inspect(),
