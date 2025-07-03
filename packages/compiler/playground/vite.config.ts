@@ -13,7 +13,9 @@ export default defineConfig({
     vuestic({
       devtools: {
         include: fileURLToPath(new URL('./src', import.meta.url)) + '/**/*.vue'
-      }
+      },
+      autoImport: true,
+      config: true
     }),
     vue(),
     Inspect(),
