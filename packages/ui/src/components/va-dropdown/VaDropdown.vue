@@ -216,8 +216,6 @@ export default defineComponent({
   },
 
   render () {
-    console.log('VaDropdown render', this.$props, this.$slots)
-
     const getParentScopedId = () => {
       const instance = getCurrentInstance()
 
@@ -236,8 +234,6 @@ export default defineComponent({
         [scopedId]: true,
       }
       : {}
-
-    console.log(scopePatch)
 
     const slotBind = {
       isOpened: this.valueComputed,
