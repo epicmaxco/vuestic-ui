@@ -97,7 +97,7 @@
 </template>
 
 <script lang="ts">
-import { toRefs, computed, shallowRef, InputHTMLAttributes, ComputedRef, toRef, useAttrs, useSlots, ref } from 'vue'
+import { toRefs, computed, shallowRef, InputHTMLAttributes, ComputedRef, toRef, useAttrs, useSlots, ref, PropType } from 'vue'
 
 import { safeCSSLength } from '../../utils/css'
 import {
@@ -117,8 +117,10 @@ import {
   useNumericProp,
   useElementTemplateRef,
   makeNumericProp,
+  ColorName,
 } from '../../composables'
 import useCounterPropsValidation from './hooks/useCounterPropsValidation'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaButton } from '../va-button'
@@ -162,7 +164,7 @@ const props = defineProps({
   min: { type: [Number, String] },
   max: { type: [Number, String] },
   step: { type: [Number, String], default: 1 },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
     // icons & buttons
   increaseIcon: { type: String, default: 'va-plus' },
   decreaseIcon: { type: String, default: 'va-minus' },

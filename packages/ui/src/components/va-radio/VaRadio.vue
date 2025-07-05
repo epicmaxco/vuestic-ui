@@ -84,7 +84,9 @@ import {
   useSelectableList,
   useSelectableListProps,
   useComponentUuid,
+  ColorName,
 } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { VaMessageListWrapper } from '../va-message-list'
 import type { VaRadioOption } from './types'
 
@@ -109,7 +111,7 @@ const props = defineProps({
   name: { type: String, default: '' },
   label: { type: String, default: undefined },
   leftLabel: { type: Boolean, default: false },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   option: {
     type: [Object, String, Number] as PropType<VaRadioOption>,
     default: undefined,

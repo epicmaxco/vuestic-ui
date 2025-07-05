@@ -143,7 +143,9 @@ import {
   makeNumericProp,
   useEvent,
   useWindow,
+  ColorName,
 } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { VaIcon } from '../va-icon'
 import { pick } from '../../utils/pick'
 import { warn } from '../../utils/console'
@@ -181,7 +183,7 @@ const props = defineProps({
     },
   },
   trackLabel: ({ type: [Function, String] as PropType<string | ((val: number, order?: number) => string) | undefined> }),
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   trackColor: { type: String, default: '' },
   labelColor: { type: String, default: '' },
   trackLabelVisible: { type: Boolean, default: false },

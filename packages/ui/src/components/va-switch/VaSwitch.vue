@@ -88,7 +88,9 @@ import {
   useBem, useTranslationProp,
   useComponentUuid,
   useElementFocusedKeyboard,
+  ColorName,
 } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 import { VaProgressCircle } from '../va-progress-circle'
 import { VaMessageListWrapper } from '../va-message-list'
@@ -112,7 +114,7 @@ const props = defineProps({
   trueInnerLabel: { type: String, default: null },
   falseInnerLabel: { type: String, default: null },
   ariaLabel: useTranslationProp('$t:switch'),
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   offColor: { type: String, default: 'background-element' },
   size: {
     type: String as PropType<'medium' | 'small' | 'large'>,

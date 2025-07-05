@@ -63,8 +63,10 @@ import {
   useComponentPresetProp,
   useTranslation, useTranslationProp,
   makeNumericProp,
+  ColorName,
 } from '../../composables'
 
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import VaCarouselButton from './components/VaCarouselButton.vue'
 import VaCarouselScrollContainer from './components/VaCarouselScrollContainer.vue'
 import VaCarouselIndicators from './components/VaCarouselIndicators.vue'
@@ -104,7 +106,7 @@ const props = defineProps({
   },
   vertical: { type: Boolean, default: false },
 
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
 
   ariaLabel: useTranslationProp('$t:carousel'),
   ariaPreviousLabel: useTranslationProp('$t:goPreviousSlide'),

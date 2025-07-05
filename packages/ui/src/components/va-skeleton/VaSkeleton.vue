@@ -15,14 +15,15 @@
 
 <script lang="ts" setup>
 import { onMounted, ref, computed, PropType, onBeforeUnmount, useAttrs, ComputedRef } from 'vue'
-import { makeNumericProp, useBem, useColors, useNumericProp, useTranslation, useTranslationProp } from '../../composables'
+import { makeNumericProp, useBem, useColors, useNumericProp, useTranslation, useTranslationProp, ColorName } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
   name: 'VaSkeleton',
 })
 
 const props = defineProps({
-  color: { type: String, default: 'backgroundElement' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'backgroundElement' },
   delay: makeNumericProp({ default: 100 }),
 
   tag: { type: String, default: 'div' },
