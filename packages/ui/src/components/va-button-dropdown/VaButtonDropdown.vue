@@ -91,6 +91,8 @@ import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import { omit } from '../../utils/omit'
+import { VaIconName } from '../va-icon'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 const { createEmits, createVOnListeners: createListeners } = useEmitProxy(['click'])
 const { createEmits: createMainButtonEmits, createVOnListeners: createMainButtonListeners } = useEmitProxy(
@@ -116,7 +118,7 @@ const props = defineProps({
   modelValue: { type: Boolean, default: false },
   stateful: { type: Boolean, default: true },
 
-  icon: { type: String, default: 'va-arrow-down' },
+  icon: { type: String as PropType<StringWithAutocomplete<VaIconName>>, default: 'va-arrow-down' },
   openedIcon: { type: String, default: 'va-arrow-up' },
   hideIcon: { type: Boolean, default: false },
   leftIcon: { type: Boolean, default: false },
