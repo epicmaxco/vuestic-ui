@@ -54,6 +54,7 @@ import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 <script lang="ts" setup>
 import VaIcon from '../va-icon/VaIcon.vue'
+import { VaIconName } from '../va-icon'
 
 const VaToastRenderer = defineComponent({
   name: 'VaToastRenderer',
@@ -76,7 +77,7 @@ const props = defineProps({
   offsetX: makeNumericProp({ default: 16 }),
   message: { type: [String, Function], default: '' },
   dangerouslyUseHtmlString: { type: Boolean, default: false },
-  icon: { type: String, default: 'close' },
+  icon: { type: String as PropType<StringWithAutocomplete<VaIconName>>, default: 'close' },
   customClass: { type: String, default: '' },
   duration: makeNumericProp({ default: 5000 }),
   color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
