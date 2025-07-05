@@ -133,7 +133,7 @@ import {
   useVModelStateful,
   ColorName,
 } from '../../composables'
-import { StringWithAutocomplete } from '@/utils/types/prop-type'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 import { VaMessageList } from '../va-message-list'
 import VaInputLabel from './components/VaInputLabel.vue'
