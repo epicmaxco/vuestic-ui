@@ -1,6 +1,6 @@
 {
   "name": "@vuestic/compiler",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "dependencies": {
     "@rollup/pluginutils": "^5.1.0",
