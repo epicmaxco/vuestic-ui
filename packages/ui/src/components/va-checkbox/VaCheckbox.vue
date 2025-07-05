@@ -63,9 +63,10 @@ import {
   useComponentPresetProp,
   useElementFocusedKeyboard,
   useColors, useElementTextColor,
-  useSelectable, useSelectableProps, useSelectableEmits, Elements,
+  useSelectable, useSelectableProps, useSelectableEmits, Elements, ColorName,
 } from '../../composables'
 
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { VaMessageListWrapper } from '../va-message-list'
 import { VaIcon } from '../va-icon/'
 
@@ -82,7 +83,7 @@ const props = defineProps({
   ...useSelectableProps,
   ...useComponentPresetProp,
   modelValue: { type: VaCheckboxValueType, default: false },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   checkedIcon: { type: String, default: 'va-check' },
   indeterminate: { type: Boolean, default: false },
   indeterminateValue: { type: VaCheckboxValueType, default: null },

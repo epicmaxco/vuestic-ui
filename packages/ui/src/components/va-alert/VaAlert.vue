@@ -72,6 +72,7 @@
 
     </div>
   </transition>
+
 </template>
 
 <script lang="ts" setup>
@@ -81,11 +82,14 @@ import {
   useComponentPresetProp,
   useStateful, useStatefulProps, useStatefulEmits,
   useTranslation,
+  ColorName,
 } from '../../composables'
 
 import { useAlertStyles } from './useAlertStyles'
 
-import { VaIcon } from '../va-icon'
+import { VaIcon, VaIconName } from '../va-icon'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
+import { VaAlert } from '.'
 
 defineOptions({
   name: 'VaAlert',
@@ -97,11 +101,11 @@ const props = defineProps({
 
   modelValue: { type: Boolean, default: true },
   stateful: { type: Boolean, default: true },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   textColor: { type: String, default: '' },
   title: { type: String, default: '' },
   description: { type: String, default: '' },
-  icon: { type: String, default: '' },
+  icon: { type: String as PropType<StringWithAutocomplete<VaIconName>>, default: '' },
   closeText: { type: String, default: '' },
   closeIcon: { type: String, default: 'close' },
   closeable: { type: Boolean, default: false },

@@ -30,7 +30,8 @@
 <script lang="ts" setup>
 import { computed, ComputedRef, nextTick, PropType, shallowRef, watch } from 'vue'
 import { VaIcon } from '../va-icon'
-import { makeNumericProp, useBem, useColors, useNumericProp, useTranslation } from '../../composables'
+import { makeNumericProp, useBem, useColors, useNumericProp, useTranslation, ColorName } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { VaProgressCircle } from '../va-progress-circle'
 import type { Step, StepControls } from './types'
 import { unFunction } from '../../utils/un-function'
@@ -46,7 +47,7 @@ const props = defineProps({
     type: Object as PropType<Step>,
     required: true,
   },
-  color: { type: String, required: true },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, required: true },
   stepIndex: makeNumericProp({ required: true }),
   navigationDisabled: { type: Boolean, required: true },
   nextDisabled: { type: Boolean, required: true },

@@ -141,7 +141,9 @@ import {
   useNumericProp,
   useFormControl,
   useVModelStateful,
+  ColorName,
 } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
@@ -209,7 +211,7 @@ const props = defineProps({
     validator: (mode: string | boolean) => [true, false, 'unique'].includes(mode),
   },
 
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   multiple: { type: Boolean, default: false },
   searchable: { type: Boolean, default: false },
   width: { type: String, default: '100%' },

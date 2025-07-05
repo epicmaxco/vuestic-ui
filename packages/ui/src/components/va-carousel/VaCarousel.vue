@@ -104,8 +104,10 @@ import {
   useSwipe, useSwipeProps, useComponentPresetProp,
   useTranslation, useTranslationProp, useNumericProp,
   makeNumericProp,
+  ColorName,
 } from '../../composables'
 
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { VaImage } from '../va-image'
 import VaCarouselButton from './components/VaCarouselButton.vue'
 
@@ -153,7 +155,7 @@ const props = defineProps({
     default: 'transition',
     validator: (value: string) => ['fade', 'transition'].includes(value),
   },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   ratio: { type: [Number, String] },
 
   ariaLabel: useTranslationProp('$t:carousel'),

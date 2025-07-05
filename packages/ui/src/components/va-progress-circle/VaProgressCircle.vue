@@ -32,10 +32,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, PropType } from 'vue'
 import { clamp } from '../../utils/clamp'
 
-import { useComponentPresetProp, useColors, useSize, useSizeProps, useTranslation, useTranslationProp } from '../../composables'
+import { useComponentPresetProp, useColors, useSize, useSizeProps, useTranslation, useTranslationProp, ColorName } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
   name: 'VaProgressCircle',
@@ -47,7 +48,7 @@ const props = defineProps({
   modelValue: { type: [Number, String], default: 0 },
   indeterminate: { type: Boolean, default: false },
   thickness: { type: [Number, String], default: 0.06 },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   ariaLabel: useTranslationProp('$t:progressState'),
 })
 

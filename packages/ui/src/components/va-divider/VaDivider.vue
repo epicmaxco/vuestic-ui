@@ -17,8 +17,9 @@
 
 <script lang="ts">
 import { computed, PropType, useSlots } from 'vue'
-import { useComponentPresetProp } from '../../composables'
+import { useComponentPresetProp, ColorName } from '../../composables'
 import { useColors } from '../../composables/useColors'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 const prefixClass = 'va-divider'
 </script>
@@ -39,7 +40,7 @@ const props = defineProps({
     default: 'center',
     validator: (value: string) => ['left', 'right', 'center'].includes(value),
   },
-  color: { type: String, default: 'backgroundBorder' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'backgroundBorder' },
 })
 
 const { getColor } = useColors()

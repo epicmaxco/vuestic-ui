@@ -118,7 +118,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref, PropType } from 'vue'
 
 import {
   useBem,
@@ -131,7 +131,9 @@ import {
   useNumericProp,
   makeNumericProp,
   useVModelStateful,
+  ColorName,
 } from '../../composables'
+import { StringWithAutocomplete } from '@/utils/types/prop-type'
 
 import { VaMessageList } from '../va-message-list'
 import VaInputLabel from './components/VaInputLabel.vue'
@@ -161,7 +163,7 @@ export default defineComponent({
 
     label: { type: String, default: '' },
     placeholder: { type: String, default: '' },
-    color: { type: String, default: 'primary' },
+    color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
     background: { type: String },
     success: { type: Boolean, default: false },
     loading: { type: Boolean, default: false },

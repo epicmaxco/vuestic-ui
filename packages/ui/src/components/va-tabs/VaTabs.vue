@@ -78,6 +78,7 @@ import {
   onMounted,
   watchEffect,
   ShallowRef,
+  PropType,
 } from 'vue'
 
 import {
@@ -86,7 +87,9 @@ import {
   useColors,
   useResizeObserver,
   useTranslation, useTranslationProp,
+  ColorName,
 } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 import { TabsViewKey, TabComponent, TabSelected } from './types'
 
@@ -115,7 +118,7 @@ const props = defineProps({
   disabled: { type: Boolean, default: false },
   hideSlider: { type: Boolean, default: false },
   vertical: { type: Boolean, default: false },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   prevIcon: { type: String, default: 'va-arrow-left' },
   nextIcon: { type: String, default: 'va-arrow-right' },
   ariaMoveRightLabel: useTranslationProp('$t:movePaginationLeft'),

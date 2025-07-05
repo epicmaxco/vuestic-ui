@@ -59,10 +59,10 @@
 <script lang="ts">
 import { computed, onMounted, ref, toRef, shallowRef, provide, PropType, ComputedRef } from 'vue'
 
-import { useColors, useComponentPresetProp, useBem, useTranslation, useTranslationProp, useNumericProp, makeNumericProp } from '../../composables'
+import { useColors, useComponentPresetProp, useBem, useTranslation, useTranslationProp, useNumericProp, makeNumericProp, ColorName } from '../../composables'
 
 import { VaFileUploadKey, VaFile } from './types'
-
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { VaButton, VaModal } from '../index'
 import { VaFileUploadList } from './VaFileUploadList'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
@@ -82,7 +82,7 @@ const props = defineProps({
   fileTypes: { type: String, default: '' },
   dropzone: { type: Boolean, default: false },
   hideFileList: { type: Boolean, default: false },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   disabled: { type: Boolean, default: false },
   undo: { type: Boolean, default: false },
   undoDuration: makeNumericProp({ default: 3000 }),

@@ -79,7 +79,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref, shallowRef, watch } from 'vue'
+import { computed, onMounted, ref, shallowRef, watch, PropType } from 'vue'
 import {
   useColors, useElementTextColor,
   useBem,
@@ -89,12 +89,14 @@ import {
   useStatefulProps,
   useSelectableEmits,
   useComponentUuid,
+  ColorName,
 } from '../../composables'
 import { useAccordionItem } from '../va-accordion/hooks/useAccordion'
 
-import { VaIcon } from '../va-icon'
+import { VaIcon, VaIconName } from '../va-icon'
 import { pick } from '../../utils/pick'
 import { isNilValue } from '../../utils/isNilValue'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
   name: 'VaCollapse',
@@ -106,8 +108,8 @@ const props = defineProps({
   modelValue: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
   header: { type: String, default: '' },
-  icon: { type: String, default: '' },
-  color: { type: String, default: undefined },
+  icon: { type: String as PropType<StringWithAutocomplete<VaIconName>>, default: '' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: undefined },
   bodyColor: { type: String, default: undefined },
   textColor: { type: String, default: '' },
   bodyTextColor: { type: String, default: '' },

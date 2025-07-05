@@ -44,7 +44,7 @@
 <script lang="ts">
 import { PropType, ref, computed, onMounted, shallowRef, defineComponent, ComputedRef } from 'vue'
 
-import { useComponentPresetProp, useColors, useElementTextColor, useTranslation, useTranslationProp, useNumericProp, useDebounceFn, makeNumericProp } from '../../composables'
+import { useComponentPresetProp, useColors, useElementTextColor, useTranslation, useTranslationProp, useNumericProp, useDebounceFn, makeNumericProp, ColorName } from '../../composables'
 
 import { ToastPosition } from './types'
 import { useToastService } from './hooks/useToastService'
@@ -79,7 +79,7 @@ const props = defineProps({
   icon: { type: String, default: 'close' },
   customClass: { type: String, default: '' },
   duration: makeNumericProp({ default: 5000 }),
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   closeable: { type: Boolean, default: true },
   onClose: { type: Function },
   onClick: { type: Function },
