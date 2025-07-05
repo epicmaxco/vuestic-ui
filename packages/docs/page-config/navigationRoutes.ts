@@ -678,12 +678,12 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "Guide",
       },
       {
-        name: "ui-element-guide",
-        displayName: "UI Element Guide",
-      },
-      {
         name: "structure",
         displayName: "Structure",
+      },
+      {
+        name: "ui-element-guide",
+        displayName: "UI Element Guide",
       },
       {
         name: "documentation-page",
