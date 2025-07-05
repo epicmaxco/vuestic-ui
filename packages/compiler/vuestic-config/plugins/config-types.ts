@@ -2,6 +2,9 @@ import { Plugin } from 'vite'
 import { resolveVuesticConfigPath} from './config-resolver'
 import { writeFile, mkdir } from 'fs/promises'
 import { resolve } from 'path'
+import { existsSync } from 'fs'
+import { logger } from '../../logger'
+import { formatString } from '../../shared/color'
 
 const typeModule = (configPath: string) => {
   return `
@@ -35,6 +38,16 @@ declare module 'vuestic-ui' {
 `.trim()
 }
 
+const vuesticConfig = () => {
+  return `
+import { defineVuesticConfig } from "vuestic-ui";
+
+export default defineVuesticConfig({
+
+})
+  `.trim()
+}
+
 /** Generate TS types for colors, icons and i18n messages from `vuestic.config.ts` */
 export const configTypes =  (options: {
   configPath?: string
@@ -48,6 +61,15 @@ export const configTypes =  (options: {
 
       if (!configPath) {
         return
+      }
+
+      if (!existsSync(configPath)) {
+        // If configPath is provided but does not exist, create a default config file
+        await writeFile(configPath, vuesticConfig(), {
+          encoding: 'utf-8',
+          flag: 'w',
+        })
+        logger.info(formatString(`Vuestic config file created at ${configPath}. Please update it with your configuration.`))
       }
 
       configPath = resolve(configPath)

@@ -28,10 +28,10 @@
         "require": "./dist/vite/index.d.ts",
         "default": "./dist/vite/index.d.ts"
       },
-      "node": "./dist/vite/index.mjs",
-      "import": "./dist/vite/index.mjs",
-      "require": "./dist/vite/index.js",
-      "default": "./dist/vite/index.mjs"
+      "node": "./dist/vite/index.js",
+      "import": "./dist/vite/index.js",
+      "require": "./dist/vite/index.cjs",
+      "default": "./dist/vite/index.js"
     },
     "./devtools": "./dist/devtools/client/vuestic-devtools.es.js"
   },
