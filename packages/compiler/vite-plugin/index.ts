@@ -1,4 +1,4 @@
-import { createLogger, Plugin } from "vite"
+import { Plugin } from "vite"
 import { vuesticTsConfig } from "../tsconfig-plugin"
 import { devtools, PluginOptions as DevtoolsPluginOptions } from "../devtools"
 import { cssLayers } from "../css-layers"
@@ -57,7 +57,7 @@ export const vuestic = (options: Options = {}): Plugin[] => {
     return typeof options[key] === 'object' ? options[key] as Record<string, string> : undefined
   }
 
-  const plugins = []
+  const plugins = [] as Plugin[]
 
   plugins.push(...vuesticTsConfig())
 
