@@ -147,3 +147,14 @@ export const fallbackRender = () => ({
   },
   template: '<VaAvatar src="https://not-exist" :fallbackRender="fallbackRender"/>',
 })
+
+export const ImgTestForChromatic = () => ({
+  components: { VaAvatar },
+  template: `
+    Ensure the can be loaded during tests.
+    <img
+      src="https://randomuser.me/api/portraits/women/5.jpg"
+      alt="image"
+    />
+  `,
+})

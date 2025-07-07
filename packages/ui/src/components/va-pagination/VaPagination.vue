@@ -113,7 +113,9 @@ import {
   useStateful, useStatefulProps, useStatefulEmits,
   useArrayRefs,
   useTranslation, useTranslationProp, useNumericProp,
+  ColorName,
 } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { setPaginationRange } from './setPaginationRange'
 
 import { VaButton } from '../va-button'
@@ -134,7 +136,7 @@ const props = defineProps({
   visiblePages: { type: [Number, String], default: 0 },
   pages: { type: [Number, String], default: 0 },
   disabled: { type: Boolean, default: false },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   size: {
     type: String as PropType<'small' | 'medium' | 'large'>,
     default: 'medium',

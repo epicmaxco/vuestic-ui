@@ -1,11 +1,12 @@
 {
   "name": "@vuestic/compiler",
-  "version": "0.1.0",
+  "version": "0.2.4",
+  "type": "module",
   "dependencies": {
     "@rollup/pluginutils": "^5.1.0",
     "acorn": "^8.12.1",
     "shiki": "^1.10.1",
-    "typescript": "^5.8.2"
+    "unplugin-vue-components": "^28.8.0"
   },
   "scripts": {
     "build": "rm -rf ./dist && yarn build:vite && yarn build:devtools:client",
@@ -23,15 +24,15 @@
   },
   "exports": {
     "./vite": {
-      "import": "./dist/vite/index.mjs",
-      "require": "./dist/vite/index.js",
       "types": {
         "import": "./dist/vite/index.d.ts",
         "require": "./dist/vite/index.d.ts",
         "default": "./dist/vite/index.d.ts"
       },
-      "default": "./dist/vite/index.mjs",
-      "node": "./dist/vite/index.mjs"
+      "node": "./dist/vite/index.js",
+      "import": "./dist/vite/index.js",
+      "require": "./dist/vite/index.cjs",
+      "default": "./dist/vite/index.js"
     },
     "./devtools": "./dist/devtools/client/vuestic-devtools.es.js"
   },
@@ -46,6 +47,9 @@
     "Readme.md"
   ],
   "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.0",
+    "tsup": "^8.5.0",
+    "vite": "5.3.3",
     "vitest": "^3.0.8"
   }
 }

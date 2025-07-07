@@ -3,6 +3,22 @@ export default definePageConfig({
     block.title('Structure'),
     block.paragraph(`Here you can learn about Vuestic UI file structure and understand how to keep your work synced with our conventions. It's great to check when you're unsure, though sometimes it's easier to understand just by looking on file contents.`),
 
+
+    block.subtitle("Packages"),
+    block.paragraph("Vuestic has few packages in order of importance for newcomers:"),
+    block.list([
+      "`packages/ui` - UI lib with demos. Here all vuestic components stored.",
+      "`packages/docs` - [ui.vuestic.dev](https://vuestic.dev) source code.",
+      "`packages/nuxt` - `@vuestic/nuxt` module for Nuxt3.",
+      "`packages/sandbox` - Package for testing build and treeshaking.",
+      "`packages/tailwind` - Tailwind utilities.",
+      "`packages/ag-grid-theme` - AgGrid extension styles.",
+      "`packages/vue-cli-plugin` - vue add vuestic-ui plugin for vue-cli [deprecated].",
+      "`packages/bundlers-tests` - package used for testing vuestic ui in different bundlers in CI.",
+      "`packages/deploy` - Release scripts for core contributors.",
+    ]),
+    block.paragraph("Likely you will deal only with `ui` and `docs` packages."),
+
     block.subtitle('Components'),
     block.fileStructure([
       {

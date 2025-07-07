@@ -12,8 +12,13 @@ import { vuestic } from '../vite-plugin'
 export default defineConfig({
   plugins: [
     tailwindcss(),
-    vuestic({ devtools: false
-    }) as any,
+    vuestic({
+      devtools: {
+        include: fileURLToPath(new URL('./src', import.meta.url)) + '/**/*.vue'
+      },
+      autoImport: true,
+      config: true,
+    }),
     vue(),
     Inspect(),
   ],

@@ -1,6 +1,7 @@
 import { Plugin } from 'vite'
 import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
+import { dirname, resolve } from 'node:path'
 
 const VUESTIC_CONFIG_ALIAS = '#vuestic-config'
 
@@ -45,31 +46,24 @@ export const configResolver =  (options: {
     name: 'vuestic:config-resolver',
 
     // Resolve vuestic config alias
-    async resolveId(source) {
+    async resolveId(source, importer) {
       if (source === VUESTIC_CONFIG_ALIAS) {
+        const {
+          configPath = resolveVuesticConfigPath()
+        } = options
+
+        if (configPath) {
+          return resolve(configPath)
+        }
+
         return `virtual:vuestic-config`
       }
     },
 
     async load(id) {
-      const {
-        configPath = resolveVuesticConfigPath()
-      } = options
-
+      // Return empty config if it is imported with `#vuestic-config`
       if (id === `virtual:vuestic-config`) {
-        if (!configPath) {
-          return 'export default {}'
-        }
-
-        const config = await tryToReadConfig(configPath)
-
-        if (config) {
-          return config
-        } else if (options.configPath) {
-          throw new Error(`Vuestic config file not found at ${configPath}`)
-        } else {
-          'export default {}'
-        }
+         return 'export default {}'
       }
     },
   }

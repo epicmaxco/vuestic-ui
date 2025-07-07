@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, PropType } from 'vue'
 
 import {
   useBem,
@@ -42,11 +42,13 @@ import {
   useSizeProps,
   useLoadableControlProps,
   useComponentPresetProp,
+  ColorName,
 } from '../../composables'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
-import { VaIcon, VaProgressCircle, VaFallback } from '../index'
+import { VaIcon, VaProgressCircle, VaFallback, VaIconName } from '../index'
 import { pick } from '../../utils/pick'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 const VaFallbackPropsDeclaration = extractComponentProps(VaFallback)
 </script>
@@ -63,12 +65,12 @@ const props = defineProps({
   ...useComponentPresetProp,
   ...VaFallbackPropsDeclaration,
 
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   textColor: { type: String },
   square: { type: Boolean, default: false },
   fontSize: { type: String, default: '' },
   src: { type: String, default: null },
-  icon: { type: String, default: '' },
+  icon: { type: String as PropType<StringWithAutocomplete<VaIconName>>, default: '' },
   alt: { type: String, default: '' },
 })
 

@@ -46,6 +46,7 @@
     "@nuxtjs/google-fonts": "^3.0.1",
     "@types/acorn": "^6.0.0",
     "@vue/repl": "^2.8.0",
+    "@vueform/nuxt": "^1.13.0",
     "@zadigetvoltaire/nuxt-gtm": "^0.0.13",
     "acorn": "^8.8.1",
     "codesandbox": "^2.2.3",

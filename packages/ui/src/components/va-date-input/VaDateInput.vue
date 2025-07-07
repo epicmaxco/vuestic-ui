@@ -92,10 +92,12 @@ import {
   useDropdownableControlEmits,
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
   useTranslation, useTranslationProp, useElementFocusedWithin, useTrapFocus,
+  ColorName,
 } from '../../composables'
 import { useRangeModelValueGuard } from './hooks/range-model-value-guard'
 import { useDateParser } from './hooks/input-text-parser'
 import { useDateInputModelValue } from './hooks/model-value'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-utils'
 
@@ -104,7 +106,7 @@ import type { DateInputModelValue, DateInputValue } from './types'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaInputWrapper } from '../va-input-wrapper'
-import { VaIcon } from '../va-icon'
+import { VaIcon, VaIconName } from '../va-icon'
 import { unwrapEl } from '../../utils/unwrapEl'
 import { omit } from '../../utils/omit'
 
@@ -144,9 +146,9 @@ const props = defineProps({
   rangeDelimiter: { type: String, default: ' ~ ' },
   manualInput: { type: Boolean, default: false },
 
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   leftIcon: { type: Boolean, default: false },
-  icon: { type: String, default: 'va-calendar' },
+  icon: { type: String as PropType<StringWithAutocomplete<VaIconName>>, default: 'va-calendar' },
 
   ariaToggleDropdownLabel: useTranslationProp('$t:toggleDropdown'),
   ariaResetLabel: useTranslationProp('$t:resetDate'),

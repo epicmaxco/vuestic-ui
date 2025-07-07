@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, PropType } from 'vue'
 
 import {
   useColors,
@@ -25,7 +25,10 @@ import {
   useComponentPresetProp,
   useElementFocusedKeyboard,
   useCurrentElement,
+  ColorName,
 } from '../../composables'
+
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
   name: 'VaColorIndicator',
@@ -35,7 +38,7 @@ const props = defineProps({
   ...useStatefulProps,
   ...useComponentPresetProp,
   modelValue: { type: Boolean, default: null },
-  color: { type: String, default: '' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: '' },
   square: { type: Boolean, default: false },
   size: { type: String, default: '1rem' },
 })

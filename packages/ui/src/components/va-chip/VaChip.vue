@@ -57,8 +57,9 @@ import {
   useElementHovered,
 } from '../../composables'
 
-import { VaIcon } from '../va-icon'
+import { VaIcon, VaIconName } from '../va-icon'
 import { pick } from '../../utils/pick'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
   name: 'VaChip',
@@ -77,7 +78,7 @@ const props = defineProps({
   square: { type: Boolean, default: false },
   shadow: { type: Boolean, default: false },
   flat: { type: Boolean, default: false },
-  icon: { type: String, default: '' },
+  icon: { type: String as PropType<StringWithAutocomplete<VaIconName>>, default: '' },
   tag: { type: String, default: 'span' },
   size: {
     type: String as PropType<'small' | 'medium' | 'large'>,

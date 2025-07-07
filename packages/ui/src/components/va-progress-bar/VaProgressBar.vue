@@ -41,9 +41,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useComponentPresetProp, useColors, useElementTextColor, useTranslation, useTranslationProp } from '../../composables'
+import { useComponentPresetProp, useColors, useElementTextColor, useTranslation, useTranslationProp, ColorName } from '../../composables'
 import { computed, PropType, StyleValue } from 'vue'
 import { clamp } from '../../utils/clamp'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
   name: 'VaProgressBar',
@@ -53,7 +54,7 @@ const props = defineProps({
   ...useComponentPresetProp,
   modelValue: { type: [Number, String], default: 0 },
   indeterminate: { type: Boolean, default: false },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   size: {
     type: [Number, String] as PropType<number | 'medium' | 'large' | 'small' | string>,
     default: 'medium',

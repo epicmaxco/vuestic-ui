@@ -82,6 +82,7 @@ export default defineNuxtConfig({
 
   modules: [
     '@formkit/nuxt',
+    '@vueform/nuxt',
     './modules/repl',
     './modules/banner',
     './modules/vuestic',

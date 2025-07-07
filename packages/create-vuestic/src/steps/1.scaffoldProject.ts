@@ -3,12 +3,12 @@ import { UserAnswers } from './../prompts';
 import { createVue } from "../generators/create-vue"
 import { createNuxt3 } from "../generators/create-nuxt"
 import { createVuesticAdmin } from '../generators/create-vuestic-admin';
-import { resolvePath } from "../utils/resolve-path"
+import { resolve } from 'pathe';
 
 export const scaffoldProject = async (options: UserAnswers) => {
   const { projectName, projectType, projectFeatures = [] } = options
 
-  const path = resolvePath(process.cwd(), projectName)!
+  const path = resolve(process.cwd(), projectName)!
 
   try {
     if (projectType === 'create-vue') {

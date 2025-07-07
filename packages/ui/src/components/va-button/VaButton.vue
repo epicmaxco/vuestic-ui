@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, computed, toRefs, shallowRef } from 'vue'
+import { PropType, computed, toRefs, shallowRef, toRef } from 'vue'
 import {
   useBem,
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
@@ -70,12 +70,13 @@ import { useButtonBackground } from './hooks/useButtonBackground'
 import { useButtonAttributes } from './hooks/useButtonAttributes'
 import { useButtonTextColor } from './hooks/useButtonTextColor'
 
-import { VaIcon } from '../va-icon'
+import { VaIcon, VaIconName } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
 import { pick } from '../../utils/pick'
 
 import type { ColorName } from '../../composables'
-
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
+import { VaButton } from '.'
 defineOptions({
   name: 'VaButton',
 })
@@ -107,7 +108,7 @@ const props = defineProps({
     validator: (v: string) => ['small', 'medium', 'large'].includes(v),
   },
 
-  icon: { type: String, default: '' },
+  icon: { type: String as PropType<StringWithAutocomplete<VaIconName>>, default: '' },
   iconRight: { type: String, default: '' },
   iconColor: { type: String, default: '' },
 
@@ -134,8 +135,6 @@ const emit = defineEmits([...useFocusableControlEmits])
 
 // colors
 const { getColor } = useColors()
-const colorComputed = computed(() => getColor(props.color))
-
 // loader size
 const { sizeComputed } = useSize(props)
 const iconSizeComputed = computed(() => {
@@ -183,17 +182,19 @@ const computedClass = useBem('va-button', () => ({
   rightIcon: !isOnlyIcon.value && !props.icon && !!props.iconRight,
 }))
 
+const color = toRef(props, 'color')
+
 // styles
 const isTransparentBg = computed(() => props.plain || backgroundOpacityComputed.value! < 0.5)
-const textColorComputed = useElementTextColor(colorComputed, isTransparentBg)
+const textColorComputed = useElementTextColor(color, isTransparentBg)
 
 const {
   backgroundColor,
   backgroundColorOpacity,
   backgroundMaskOpacity,
   backgroundMaskColor,
-} = useButtonBackground(colorComputed, isPressed, isHovered)
-const contentColorComputed = useButtonTextColor(textColorComputed, colorComputed, isPressed, isHovered)
+} = useButtonBackground(color, isPressed, isHovered)
+const contentColorComputed = useButtonTextColor(textColorComputed, color, isPressed, isHovered)
 
 const computedStyle = computed(() => ({
   borderColor: props.borderColor ? getColor(props.borderColor) : 'transparent',

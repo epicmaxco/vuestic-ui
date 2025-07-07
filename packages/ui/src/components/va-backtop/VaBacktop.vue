@@ -21,9 +21,10 @@
 
 <script lang="ts" setup>
 import { PropType, ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useComponentPresetProp, useTranslation, useTranslationProp, useNumericProp, makeNumericProp } from '../../composables'
+import { useComponentPresetProp, useTranslation, useTranslationProp, useNumericProp, makeNumericProp, ColorName } from '../../composables'
 import { VaButton } from '../va-button'
 import { warn } from '../../utils/console'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
   name: 'VaBacktop',
@@ -39,7 +40,7 @@ const props = defineProps({
   speed: makeNumericProp({ default: 50 }),
   verticalOffset: { type: String, default: '1rem' },
   horizontalOffset: { type: String, default: '1rem' },
-  color: { type: String, default: '' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   horizontalPosition: {
     type: String as PropType<'right' | 'left'>,
     default: 'right',

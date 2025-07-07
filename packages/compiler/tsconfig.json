@@ -15,7 +15,7 @@
     "baseUrl": ".",
     "allowJs": true,
     "types": [
-      "vite/client",
+      "vite/client"
     ],
     "lib": [
       "esnext",
@@ -29,5 +29,5 @@
   "exclude": [
     "dist",
     "node_modules"
-  ],
+  ]
 }

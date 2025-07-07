@@ -8,8 +8,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { useComponentPresetProp, useColors } from '../../composables'
+import { computed, PropType } from 'vue'
+import { useComponentPresetProp, useColors, ColorName } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
   name: 'VaListLabel',
@@ -17,7 +18,7 @@ defineOptions({
 
 const props = defineProps({
   ...useComponentPresetProp,
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
 })
 
 const { getColor } = useColors()

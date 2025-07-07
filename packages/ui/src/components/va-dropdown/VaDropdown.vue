@@ -10,6 +10,7 @@ import {
   Teleport,
   watch,
   toRef,
+  getCurrentInstance,
 } from 'vue'
 import {
   MaybeHTMLElementOrSelector,
@@ -215,6 +216,25 @@ export default defineComponent({
   },
 
   render () {
+    const getParentScopedId = () => {
+      const instance = getCurrentInstance()
+
+      const parent = instance?.parent
+
+      if (!parent) {
+        return undefined
+      }
+
+      return parent?.vnode.scopeId
+    }
+
+    const scopedId = getParentScopedId()
+    const scopePatch = scopedId
+      ? {
+        [scopedId]: true,
+      }
+      : {}
+
     const slotBind = {
       isOpened: this.valueComputed,
       hide: this.hide,
@@ -229,6 +249,7 @@ export default defineComponent({
       class: ['va-dropdown__content-wrapper', this.$props.contentClass],
       style: [this.floatingStyles, { zIndex: this.zIndex }],
       ...this.teleportedAttrs,
+      ...scopePatch,
     })
 
     const anchorSlotVNode = renderSlotNode(this.$slots.anchor, slotBind, {
@@ -241,6 +262,7 @@ export default defineComponent({
       'aria-expanded': this.$props.role && this.$props.role !== 'none' ? !!this.showFloating : undefined,
       ...this.teleportFromAttrs,
       ...this.$attrs,
+      ...scopePatch,
     })
 
     if (typeof this.$props.cursor === 'object' && floatingSlotNode) {

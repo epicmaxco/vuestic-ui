@@ -37,7 +37,10 @@
     "release": "yarn workspace deploy release",
     "serve:formkit": "yarn workspace @vuestic/formkit serve:storybook",
     "build:formkit": "yarn workspace @vuestic/formkit build:storybook",
-    "start:formkit": "yarn workspace @vuestic/formkit start:storybook"
+    "start:formkit": "yarn workspace @vuestic/formkit start:storybook",
+    "serve:vueform": "yarn workspace @vuestic/vueform serve:storybook",
+    "build:vueform": "yarn workspace @vuestic/vueform build:storybook",
+    "start:vueform": "yarn workspace @vuestic/vueform start:storybook"
   },
   "workspaces": {
     "packages": [

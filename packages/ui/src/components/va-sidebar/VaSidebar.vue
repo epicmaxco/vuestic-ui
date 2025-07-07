@@ -19,12 +19,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, shallowRef, watchEffect } from 'vue'
+import { computed, ref, shallowRef, watchEffect, PropType } from 'vue'
 
 import { VaConfig } from '../va-config'
 import { getGradientBackground } from '../../services/color'
-import { useColors, useElementTextColor, useBem, useClickOutside, useElementWidth, useComponentPresetProp } from '../../composables'
+import { useColors, useElementTextColor, useBem, useClickOutside, useElementWidth, useComponentPresetProp, ColorName } from '../../composables'
 import { useSidebar } from './hooks/useSidebar'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
   name: 'VaSidebar',
@@ -40,7 +41,7 @@ const props = defineProps({
     validator: (v: number | string) => Number(v) >= 0 && Number(v) <= 1,
   },
   borderColor: { type: String, default: undefined },
-  color: { type: String, default: 'background-element' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'background-element' },
   textColor: { type: String },
   gradient: { type: Boolean, default: false },
   minimized: { type: Boolean, default: false },

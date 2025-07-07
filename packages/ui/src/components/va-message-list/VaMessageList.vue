@@ -30,8 +30,9 @@
 <script lang="ts" setup>
 import { computed, ComputedRef, PropType } from 'vue'
 
-import { makeNumericProp, useColors, useNumericProp } from '../../composables'
+import { makeNumericProp, useColors, useNumericProp, ColorName } from '../../composables'
 
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { VaIcon } from '../va-icon'
 import { useMessageListAria } from './hooks/useMessageListAria'
 
@@ -46,7 +47,7 @@ const props = defineProps({
     default: '',
   },
   limit: makeNumericProp({ default: 1 }),
-  color: { type: String },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>> },
   hasError: { type: Boolean, default: false },
 })
 
