@@ -1,31 +1,38 @@
-<script setup lang="ts">
-import TestPage from './pages/TestPage.vue';
+<script setup>
+import Test from './Test.vue'
+import { ref } from 'vue'
+
+const ordersCount = 1000;
+const orders = Array.from({ length: ordersCount }, (_, i) => ({
+  id: i,
+  customer: `Customer ${i + 1}`,
+  amount: (Math.random() * 1000).toFixed(2),
+  status: ['Pending', 'Shipped', 'Delivered'][i % 3]
+}));
+
+const icon = ref('refresh');
+const color = ref('primary');
 </script>
 
 <template>
-  <VaNavbar color="myCustomColor">
-    <template #left>
-      Vuestic UI Devtools demo
-    </template>
-    <template #right>
-      <VaNavbarItem>
-        <router-link to="/about">
-          Test
-        </router-link>
+  <div class="app">
+    <h1>Order Management</h1>
+    <div class="orders-grid" v-once>
+      <VcButton icon="person">New Order</VcButton>
+      <VcButton :icon="icon">Refresh</VcButton>
+    </div>
 
-      </VaNavbarItem>
-      <VaNavbarItem>
-        <router-link to="/contact">Contact</router-link>
-      </VaNavbarItem>
-    </template>
-  </VaNavbar>
-
-  <div style="padding: 16px">
-    <TestPage>
-      Default slot
-      <template #footer>
-        Footer slot
-      </template>
-    </TestPage>
+    <Test />
   </div>
 </template>
+
+<style>
+.app {
+  text-align: center;
+}
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+</style>

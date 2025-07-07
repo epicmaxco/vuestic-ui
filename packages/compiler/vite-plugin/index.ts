@@ -5,6 +5,7 @@ import { cssLayers } from "../css-layers"
 import { vuesticConfig, Options as VuesticConfigPluginOptions } from "../vuestic-config"
 import { vuesticAutoImport } from "../auto-import"
 import { mergeDeep } from "../shared/merge-deep"
+import { virtualComponents } from "../virtual-components"
 import { logger } from "../logger"
 import { getProjectEnv } from "../shared/project-env"
 import { formatString } from "../shared/color"
@@ -106,5 +107,6 @@ export const vuestic = (options: Options = {}): Plugin[] => {
     plugins.push(...vuesticConfig(extractOptions('config')))
   }
 
+  plugins.push(virtualComponents)
   return plugins
 }
