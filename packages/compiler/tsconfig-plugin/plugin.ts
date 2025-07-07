@@ -1,6 +1,7 @@
 import { Plugin } from "vite";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { parseJSON5 } from 'confbox'
 import { logger } from "../logger";
 import { formatString } from "../shared/color";
 
@@ -33,7 +34,7 @@ export const vuesticTsConfig = (): Plugin[] => {
 
         if (await fs.stat(tsconfigAppPath).catch(() => false)) {
           const tsconfigApp = await fs.readFile(tsconfigAppPath, "utf-8");
-          const tsconfigAppJson = JSON.parse(tsconfigApp);
+          const tsconfigAppJson = parseJSON5<{ include?: string[] }>(tsconfigApp);
 
           if (!tsconfigAppJson.include) {
             tsconfigAppJson.include = [];
@@ -50,7 +51,7 @@ export const vuesticTsConfig = (): Plugin[] => {
           logger.info(formatString(`tsconfig.app.json found, updated ${fileName(tsconfigAppPath)} with default include.`), { timestamp: true });
         } else if (await fs.stat(tsconfigGlobalPath).catch(() => false)) {
           const tsconfigGlobal = await fs.readFile(tsconfigGlobalPath, "utf-8");
-          const tsconfigGlobalJson = JSON.parse(tsconfigGlobal);
+          const tsconfigGlobalJson = parseJSON5<{ include?: string[] }>(tsconfigGlobal);
 
           if (!tsconfigGlobalJson.include) {
             tsconfigGlobalJson.include = [];

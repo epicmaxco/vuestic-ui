@@ -1,4 +1,4 @@
-import { createLogger, Plugin } from "vite"
+import { Plugin } from "vite"
 import { vuesticTsConfig } from "../tsconfig-plugin"
 import { devtools, PluginOptions as DevtoolsPluginOptions } from "../devtools"
 import { cssLayers } from "../css-layers"
@@ -6,6 +6,8 @@ import { vuesticConfig, Options as VuesticConfigPluginOptions } from "../vuestic
 import { vuesticAutoImport } from "../auto-import"
 import { mergeDeep } from "../shared/merge-deep"
 import { logger } from "../logger"
+import { getProjectEnv } from "../shared/project-env"
+import { formatString } from "../shared/color"
 
 type Options = {
   /** @default true */
@@ -41,9 +43,9 @@ type Options = {
 }
 
 const defaultOptions: Required<Options> = {
-  devtools: false,
+  devtools: true,
   cssLayers: false,
-  autoImport: false,
+  autoImport: true,
   config: {
     configPath: 'vuestic.config.ts'
   },
@@ -57,33 +59,48 @@ export const vuestic = (options: Options = {}): Plugin[] => {
     return typeof options[key] === 'object' ? options[key] as Record<string, string> : undefined
   }
 
-  const plugins = []
+  const env = getProjectEnv()
+
+  if (!env?.hasVuesticUI) {
+    logger.error(formatString(`Vuestic UI is not installed in the project. Run [${env.packageManager} install vuestic-ui].`), {
+      timestamp: true,
+    })
+    return []
+  }
+
+  const plugins = [] as Plugin[]
 
   plugins.push(...vuesticTsConfig())
 
   if (options.devtools !== false) {
-    logger.info('Using vuestic:devtools', {
+    logger.info(formatString('Using [vuestic:devtools] plugin.'), {
       timestamp: true,
     })
     plugins.push(devtools(extractOptions('devtools')))
   }
 
-  if (options.cssLayers !== false) {
-    logger.info('Using vuestic:css-layers', {
-      timestamp: true,
-    })
+  if (options.cssLayers !== false || env.hasTailwindCSS) {
+    if (env.hasTailwindCSS) {
+      logger.info(formatString('Using [vuestic:css-layers] plugin, because Tailwind CSS is detected.'), {
+        timestamp: true,
+      })
+    } else {
+      logger.info(formatString('Using [vuestic:css-layers] plugin.'), {
+        timestamp: true,
+      })
+    }
     plugins.push(cssLayers)
   }
 
   if (Boolean(options.autoImport)) {
-    logger.info('Using vuestic:auto-import', {
+    logger.info(formatString('Using [vuestic:auto-import] plugin.'), {
       timestamp: true,
     })
     plugins.push(...vuesticAutoImport())
   }
 
   if (Boolean(options.config)) {
-    logger.info('Using vuestic:config', {
+    logger.info(formatString('Using [vuestic:config] plugin.'), {
       timestamp: true,
     })
     plugins.push(...vuesticConfig(extractOptions('config')))
