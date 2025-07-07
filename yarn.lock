@@ -10319,7 +10319,7 @@ __metadata:
 
 "@vuestic/compiler@file:../::locator=playground%40workspace%3Apackages%2Fcompiler%2Fplayground":
   version: 0.2.4
-  resolution: "@vuestic/compiler@file:../#../::hash=33036c&locator=playground%40workspace%3Apackages%2Fcompiler%2Fplayground"
+  resolution: "@vuestic/compiler@file:../#../::hash=e5b015&locator=playground%40workspace%3Apackages%2Fcompiler%2Fplayground"
   dependencies:
     "@rollup/pluginutils": "npm:^5.1.0"
     acorn: "npm:^8.12.1"
@@ -10330,7 +10330,7 @@ __metadata:
     "@vue/compiler-sfc": ^3.4.21
     tsup: ^8.1.0
     vite: ^5.3.3
-  checksum: 10/41221644d34efb41dc5d1588fd80314d31ed8fa099a6bc9feb786d9094c47f63c12368e5b94a1ad29e0cc899a724625c126a3deba3d4fa5808cb113ede29ccf7
+  checksum: 10/974b7800ac9173ead525ab4dfe1467ff40b08449bf891278ed1b4aa5670144452fc26d65c695ea119c15c77ea8e13086b4d0675825d2b37243826c6c232c9f35
   languageName: node
   linkType: hard
 

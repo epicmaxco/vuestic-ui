@@ -68,8 +68,6 @@ export const transformVue = (source: string, virtualComponents: VirtualComponent
       const { ast, imports, renderResult } = transformAstNode(node, component, ctx)
       markNodeAstVisited(node)
 
-      // console.log('renderResult', renderResult)
-
       const astArray = Array.isArray(ast) ? ast : [ast]
 
       astArray.forEach((ast) => {

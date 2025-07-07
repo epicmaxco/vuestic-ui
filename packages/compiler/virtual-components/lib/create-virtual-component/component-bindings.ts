@@ -20,8 +20,6 @@ const getNodeChildren = (node: Node) => {
   if ('body' in node && Array.isArray((node as Program).body)) {
     return (node as Program).body
   }
-
-  // console.log(node)
 }
 
 const scriptAstHorizontalWalk = (node: Node, onNode: (node: Node) => void) => {

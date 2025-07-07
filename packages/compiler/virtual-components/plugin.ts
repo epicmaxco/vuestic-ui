@@ -24,14 +24,12 @@ export const virtualComponents: Plugin = {
 
   resolveId(id) {
     if (id.startsWith('virtual-components:')) {
-      console.log('resolving', id)
       return id
     }
   },
 
   load(id) {
     if (id.startsWith('virtual-components:')) {
-      console.log('loading', id)
       const componentName = id.replace('virtual-components:', '')
       const component = components.find((c) => c.name === componentName)
 
@@ -54,17 +52,11 @@ export const virtualComponents: Plugin = {
   },
 
   transform(code, id) {
-    if (id.startsWith('virtual-components:')) {
-      console.log('transformed', id)
-    }
-
     // Only transform CSS files
     if (!id.endsWith('.vue')) return null
 
     if (id.includes('node_modules')) return null
     const result = transformVue(code, components)
-
-    console.log('transformed', id)
 
     return {
       code: result.toString(),
