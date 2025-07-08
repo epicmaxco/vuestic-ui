@@ -372,3 +372,27 @@ export const OptionMultipleAutocompleteContentSlot: StoryFn = () => ({
     </template>
   </VaSelect>`,
 })
+
+export const EmptyTrackByLongList = defineStory({
+  story: () => ({
+    components: { VaSelect },
+
+    data () {
+      return {
+        value: '',
+        options: Array.from({ length: 100 }, (_, i) => ({ text: `Option ${i + 1}`, value: i + 1 })),
+      }
+    },
+
+    template: `
+      <VaSelect v-model="value" :options="options" placeholder="Select an option" />
+    `,
+  }),
+
+  async tests ({ canvasElement, step, expect }) {
+    step('Expect no error when mounted', () => {
+      const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
+      expect(error).toBeNull()
+    })
+  },
+})
