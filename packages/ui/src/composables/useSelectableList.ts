@@ -2,6 +2,7 @@ import type { ExtractPropTypes, PropType } from 'vue'
 
 import { getValueByKey } from '../utils/value-by-key'
 import { isObject } from '../utils/is-object'
+import { getObjectId } from '../utils/get-object-uid'
 
 export type SelectableOption = string | number | boolean | Record<string, any> | null | undefined
 export type StringOrFunction = string | ((option: SelectableOption) => unknown)
@@ -35,7 +36,13 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
   }
 
   const getTrackBy = (option: SelectableOption): string | number => {
-    return props.trackBy ? getOptionProperty(option, props.trackBy) : getValue(option)
+    const key = props.trackBy ? getOptionProperty(option, props.trackBy) : getValue(option)
+
+    if (typeof key === 'object') {
+      return getObjectId(key)
+    }
+
+    return key
   }
 
   const getDisabled = (option: SelectableOption): boolean => {
