@@ -381,3 +381,13 @@ export const MaxLengthWithCounterAttribute = defineStory({
     `,
   }),
 })
+
+export const iconClear = () => ({
+  components: { VaInput },
+  data () {
+    return {
+      value: 'test',
+    }
+  },
+  template: '<VaInput clearable v-model="value" :child:icon-clear="{ \'color\': \'danger\' }"/>',
+})
