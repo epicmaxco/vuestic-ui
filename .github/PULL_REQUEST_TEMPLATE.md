@@ -8,15 +8,7 @@ https://github.com/epicmaxco/vuestic-ui/blob/master/CODE_OF_CONDUCT.md
 
 ## Description
 <!-- Describe your changes in detail -->
-
-## Markup:
-<!-- Paste your markup here. -->
-<details>
-
-```vue
-// Your code
-```
-</details>
+<!-- If you're closing some specific issue, make sure to put `closes #issue_number` (for example `closes #4141`) -->
 
 ## Types of changes
 <!-- What types of changes does your code introduce? Put an `x` in all the boxes that apply: -->
