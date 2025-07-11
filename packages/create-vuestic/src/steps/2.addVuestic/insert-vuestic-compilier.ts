@@ -1,8 +1,18 @@
 import { insertImport } from "./insert-import";
 
-export function insertVuesticCompiler(viteConfigSource: string): string {
+import { usePackageJson } from '../../composables/usePackageJson';
+import { versions } from '../../versions';
+
+export async function insertVuesticCompiler(viteConfigSource: string): Promise<string> {
     
-    viteConfigSource = insertImport(viteConfigSource, ['import vuestic from "vite-plugin-vuestic"']);
+    const { addDependency } = await usePackageJson();
+    await addDependency('@vuestic/compiler', versions['@vuestic/compiler']);
+
+
+
+
+
+    viteConfigSource = insertImport(viteConfigSource, ['import vuestic from "@vuestic/compiler/vite"']);
     const lines = viteConfigSource.split('\n');
     const pluginsLineIndex = lines.findIndex(line => line.includes('plugins:'));
     if (pluginsLineIndex === -1) {

@@ -24,7 +24,7 @@ export const addVuesticToVue3App = async () => {
 
   if (viteConfigPath) {
     let viteConfigSource = await readFile(viteConfigPath, 'utf-8')
-    let updatedConfig = insertVuesticCompiler(viteConfigSource)
+    let updatedConfig =  await insertVuesticCompiler(viteConfigSource)
     await writeFile(viteConfigPath, updatedConfig)
   }
 
