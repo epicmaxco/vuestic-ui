@@ -25,10 +25,11 @@
 </template>
 
 <script lang="ts" setup>
-import { useComponentPresetProp, useColors, useLoadableControlProps } from '../../composables'
-import { computed } from 'vue'
+import { useComponentPresetProp, useColors, useLoadableControlProps, ColorName } from '../../composables'
+import { computed, PropType } from 'vue'
 
-import { VaIcon } from '../va-icon'
+import { VaIcon, VaIconName } from '../va-icon'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
   name: 'VaInnerLoading',
@@ -37,8 +38,8 @@ defineOptions({
 const props = defineProps({
   ...useLoadableControlProps,
   ...useComponentPresetProp,
-  color: { type: String },
-  icon: { type: String, default: 'va-loading' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>> },
+  icon: { type: String as PropType<StringWithAutocomplete<VaIconName>>, default: 'va-loading' },
   size: { type: [Number, String], default: 30 },
 })
 

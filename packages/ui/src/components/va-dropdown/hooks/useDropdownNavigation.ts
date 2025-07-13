@@ -1,6 +1,5 @@
-import { Ref, computed, toRef, ComputedRef } from 'vue'
+import { Ref, computed } from 'vue'
 import { useDebounceFn, useEvent, useNumericProp } from '../../../composables'
-import { debounce } from '../../../utils/debounce'
 
 const isTyping = (e: Event) => {
   const target = e.target as HTMLElement

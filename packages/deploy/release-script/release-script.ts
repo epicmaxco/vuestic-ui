@@ -128,9 +128,19 @@ const confirmRelease = async () => simplePrompt<boolean>({
   message: 'Please check release details are correct. All good?',
 })
 
+const checkIfNodeVersionNewerThan = (version1: string, version2: string): boolean => {
+  return semver.gt(version1, version2)
+}
+
 const confirmNode = async () => {
   const current = await executeCommand('node -v')
   const recommended = getRecommendedNodeVersion()
+
+  if (checkIfNodeVersionNewerThan(current, recommended)) {
+    console.log(chalk.green(`Your node version is ${current}, which is newer than recommended ${recommended}.`))
+    return true
+  }
+
   return current === recommended
 }
 

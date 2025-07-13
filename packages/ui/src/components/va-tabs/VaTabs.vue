@@ -77,6 +77,8 @@ import {
   WritableComputedRef,
   onMounted,
   watchEffect,
+  ShallowRef,
+  PropType,
 } from 'vue'
 
 import {
@@ -85,7 +87,9 @@ import {
   useColors,
   useResizeObserver,
   useTranslation, useTranslationProp,
+  ColorName,
 } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 import { TabsViewKey, TabComponent, TabSelected } from './types'
 
@@ -114,7 +118,7 @@ const props = defineProps({
   disabled: { type: Boolean, default: false },
   hideSlider: { type: Boolean, default: false },
   vertical: { type: Boolean, default: false },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   prevIcon: { type: String, default: 'va-arrow-left' },
   nextIcon: { type: String, default: 'va-arrow-right' },
   ariaMoveRightLabel: useTranslationProp('$t:movePaginationLeft'),
@@ -127,7 +131,7 @@ const wrapper = shallowRef<HTMLElement>()
 const container = shallowRef<HTMLElement>()
 const tabs = shallowRef<HTMLElement>()
 
-const tabsList: Ref<TabComponent[]> = ref([])
+const tabsList: ShallowRef<TabComponent[]> = shallowRef([])
 const sliderHeight = ref<number | null>(null)
 const sliderWidth = ref<number | null>(null)
 const sliderOffsetX = ref(0)
@@ -264,15 +268,20 @@ const updateStartingXPoint = () => {
 const updateTabsState = () => {
   resetSliderSizes()
 
-  tabsList.value.forEach((tab: TabComponent) => {
+  tabsList.value.forEach((tab) => {
     tab.updateSidePositions()
 
     const isTabSelected = (tab.name?.value || tab.id) === tabSelected.value
+    const isTabActive = tab.isActiveRouterLink.value || isTabSelected
 
-    tab.isActive = tab.isActiveRouterLink || isTabSelected
-
-    if (tab.isActive) {
+    // If tab changed, move to new tab
+    if (isTabActive && !tab.isActive.value) {
+      tab.isActive.value = true
       moveToTab(tab)
+    } else {
+      tab.isActive.value = isTabActive
+    }
+    if (tab.isActive.value) {
       updateSlider(tab)
     }
   })

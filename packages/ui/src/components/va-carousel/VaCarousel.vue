@@ -5,7 +5,10 @@
       'va-carousel--vertical': $props.vertical,
       [`va-carousel--${$props.effect}`]: true
     }"
-    :style="{ height: ratioComputed ? 'auto' : height }"
+    :style="{
+      height: ratioComputed ? 'auto' : height,
+      aspectRatio: ratioComputed ? ratioComputed : undefined,
+    }"
     role="region"
     :aria-label="tp($props.ariaLabel)"
   >
@@ -17,13 +20,12 @@
         @keydown.enter.stop="prevWithPause"
       >
         <slot name="prev-arrow">
-          <va-hover #default="{ hover }" stateful>
-            <va-button
-              :color="hover ? computedHoverColor : computedColor"
-              :icon="vertical ? 'va-arrow-up' : 'va-arrow-left'"
-              :aria-label="tp($props.ariaPreviousLabel)"
-            />
-          </va-hover>
+          <VaCarouselButton
+            :round="false"
+            :color="color"
+            :icon="vertical ? 'va-arrow-up' : 'va-arrow-left'"
+            :aria-label="tp($props.ariaPreviousLabel)"
+          />
         </slot>
       </div>
       <div
@@ -33,13 +35,12 @@
         @keydown.enter.stop="nextWithPause"
       >
         <slot name="next-arrow">
-          <va-hover #default="{ hover }" stateful>
-            <va-button
-              :color="hover ? computedHoverColor : computedColor"
-              :icon="vertical ? 'va-arrow-down' : 'va-arrow-right'"
-              :aria-label="tp($props.ariaNextLabel)"
-            />
-          </va-hover>
+          <VaCarouselButton
+            :round="false"
+            :color="color"
+            :icon="vertical ? 'va-arrow-down' : 'va-arrow-right'"
+            :aria-label="tp($props.ariaNextLabel)"
+          />
         </slot>
       </div>
     </template>
@@ -52,15 +53,14 @@
         v-bind="getIndicatorEvents(index)"
       >
         <slot name="indicator" v-bind="{ item, index, goTo: goToWithPause, isActive: isCurrentSlide(index) }">
-          <va-hover #default="{ hover }" stateful>
-            <va-button
-              :aria-label="tp($props.ariaGoToSlideLabel, { index: index + 1 })"
-              round
-              :color="isCurrentSlide(index) ? computedActiveColor : (hover ? computedHoverColor : computedColor)"
-            >
-              {{ index + 1 }}
-            </va-button>
-          </va-hover>
+          <VaCarouselButton
+            :color="color"
+            :active="isCurrentSlide(index)"
+            :aria-label="tp($props.ariaGoToSlideLabel, { index: index + 1 })"
+            round
+          >
+            {{ index + 1 }}
+          </VaCarouselButton>
         </slot>
       </div>
     </div>
@@ -99,17 +99,17 @@
 import { shallowRef, PropType, computed } from 'vue'
 import { useCarousel } from './hooks/useCarousel'
 import { useCarouselAnimation } from './hooks/useCarouselAnimation'
-import { useCarouselColor } from './hooks/useCarouselColors'
 import {
   useStateful, useStatefulProps, useStatefulEmits,
   useSwipe, useSwipeProps, useComponentPresetProp,
   useTranslation, useTranslationProp, useNumericProp,
   makeNumericProp,
+  ColorName,
 } from '../../composables'
 
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { VaImage } from '../va-image'
-import { VaButton } from '../va-button'
-import { VaHover } from '../va-hover'
+import VaCarouselButton from './components/VaCarouselButton.vue'
 
 import type { SwipeState } from '../../composables'
 
@@ -119,7 +119,6 @@ const VaImageProps = extractComponentProps(VaImage, ['src', 'alt'])
 </script>
 
 <script lang="ts" setup>
-
 defineOptions({
   name: 'VaCarousel',
 })
@@ -134,7 +133,7 @@ const props = defineProps({
   modelValue: { type: Number, default: 0 },
   items: { type: Array as PropType<any[]>, required: true },
 
-    // Animations
+  // Animations
   autoscroll: { type: Boolean, default: false },
   autoscrollInterval: makeNumericProp({ default: 5000 }),
   autoscrollPauseDuration: makeNumericProp({ default: 2000 }),
@@ -156,7 +155,7 @@ const props = defineProps({
     default: 'transition',
     validator: (value: string) => ['fade', 'transition'].includes(value),
   },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   ratio: { type: [Number, String] },
 
   ariaLabel: useTranslationProp('$t:carousel'),
@@ -223,13 +222,7 @@ const getIndicatorEvents = (index: number) => {
   return {}
 }
 
-const { tp, t } = useTranslation()
-
-const {
-  computedActiveColor,
-  computedColor,
-  computedHoverColor,
-} = useCarouselColor()
+const { tp } = useTranslation()
 
 const vaImageProps = filterComponentProps(VaImageProps)
 

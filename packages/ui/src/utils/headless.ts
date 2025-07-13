@@ -2,6 +2,36 @@ import { VNode, h, Teleport, Suspense, Comment, Fragment, Text, Slot, normalizeC
 
 type NodeAttributes = Record<string, any>
 
+export const toNodeChildren = (v: any): VNode[] => {
+  if (!v) { return [] }
+
+  if (v.type === Fragment) {
+    return toNodeChildren(v.children)
+  }
+
+  if (Array.isArray(v)) {
+    if (v.length === 1 && v[0].type === Fragment) {
+      return toNodeChildren(v[0].children)
+    }
+
+    return v as VNode[]
+  }
+
+  if (typeof v === 'string' || typeof v === 'number') {
+    return [h('div', {}, v)]
+  }
+
+  if (v.type === Comment) {
+    return []
+  }
+
+  if ('children' in v) {
+    return v.children.map((child: any) => toNodeChildren(child)).flat()
+  }
+
+  return [v]
+}
+
 const toNode = (v: any, attrs: NodeAttributes): VNode | null => {
   if (!v) { return null }
 

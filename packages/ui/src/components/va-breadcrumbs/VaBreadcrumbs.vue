@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent, Fragment, h, ref, VNode } from 'vue'
+import { computed, defineComponent, Fragment, h, ref, VNode, PropType } from 'vue'
 
 import {
   useComponentPresetProp,
@@ -7,10 +7,12 @@ import {
   useAlignableProps,
   useColors,
   useTranslation, useTranslationProp,
+  ColorName,
 } from '../../composables'
 
 import { hasOwnProperty } from '../../utils/has-own-property'
 import { resolveSlot } from '../../utils/resolveSlot'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 export default defineComponent({
   name: 'VaBreadcrumbs',
@@ -18,7 +20,7 @@ export default defineComponent({
     ...useAlignableProps,
     ...useComponentPresetProp,
     separator: { type: String, default: '/' },
-    color: { type: String, default: null },
+    color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: null },
     disabledColor: { type: String, default: 'secondary' },
     activeColor: { type: String, default: null },
     separatorColor: { type: String, default: null },

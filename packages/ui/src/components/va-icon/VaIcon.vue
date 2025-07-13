@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import { PropType, computed, useAttrs } from 'vue'
-import { AnyStringPropType } from '../../utils/types/prop-type'
+import { AnyStringPropType, StringWithAutocomplete } from '../../utils/types/prop-type'
 import { VaIconName } from './types'
 
 import {
@@ -26,6 +26,7 @@ import {
   useColors,
   useSize, useSizeProps,
   useIcon,
+  ColorName,
 } from '../../composables'
 import { omit } from '../../utils/omit'
 
@@ -39,7 +40,7 @@ const props = defineProps({
   name: { type: String as AnyStringPropType<VaIconName>, default: '' },
   tag: { type: String },
   component: { type: Object as PropType<any> },
-  color: { type: String },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>> },
   rotation: { type: [String, Number] },
   spin: { type: [String, Boolean] },
   flip: {

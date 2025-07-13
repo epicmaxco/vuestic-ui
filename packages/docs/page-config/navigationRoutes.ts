@@ -198,6 +198,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "Carousel",
       },
       {
+        name: "carouselv2",
+        displayName: "Carousel v2",
+        meta: {
+          badge: navigationBadge.new('1.10.0'),
+        }
+      },
+      {
         name: "chip",
         displayName: "Chip",
       },
@@ -655,6 +662,10 @@ export const navigationRoutes: NavigationRoute[] = [
       {
         name: 'formkit',
         displayName: 'FormKit integration',
+      },
+      {
+        name: 'vueform',
+        displayName: 'Vueform integration',
       }
     ],
   },
@@ -667,12 +678,12 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "Guide",
       },
       {
-        name: "ui-element-guide",
-        displayName: "UI Element Guide",
-      },
-      {
         name: "structure",
         displayName: "Structure",
+      },
+      {
+        name: "ui-element-guide",
+        displayName: "UI Element Guide",
       },
       {
         name: "documentation-page",

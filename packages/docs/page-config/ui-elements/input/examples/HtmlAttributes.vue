@@ -39,6 +39,19 @@
       label="maxlength"
       maxlength="10"
     />
+    <VaInput
+      v-model="numberValue"
+      label="step"
+      type="number"
+      step="0.1"
+    />
+    <VaInput
+      v-model="minMaxNumberValue"
+      label="min, max"
+      type="number"
+      min="1"
+      max="10"
+    />
   </div>
 </template>
 
@@ -47,6 +60,8 @@ export default {
   name: 'HtmlAttributes',
   data: () => ({
     value: '',
+    numberValue: '',
+    minMaxNumberValue: '',
   }),
 }
 </script>

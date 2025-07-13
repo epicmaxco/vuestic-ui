@@ -3,6 +3,7 @@
     v-bind="{
       ...fieldListeners,
       ...wrapperProps,
+      maxLength: props.maxlength
     }"
     class="va-input"
     :class="$attrs.class"
@@ -111,6 +112,7 @@ const props = defineProps({
   inputmode: { type: String, default: 'text' },
   counter: { type: Boolean, default: false },
   autocomplete: { type: String },
+  maxlength: { type: Number, default: undefined },
 
     // style
   ariaResetLabel: useTranslationProp('$t:reset'),
@@ -229,8 +231,8 @@ const computedChildAttributes = computed(() => (({
 
 const computedInputAttributes = computed(() => (({
   ...computedChildAttributes.value,
-  ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'name', 'autocomplete']),
-  ...pick(attrs, ['minlength', 'minlength']),
+  ...pick(props, ['type', 'disabled', 'readonly', 'placeholder', 'pattern', 'inputmode', 'name', 'autocomplete', 'maxlength']),
+  ...pick(attrs, ['minlength', 'maxlength', 'step', 'min', 'max']),
 }) as InputHTMLAttributes))
 
 const valueLengthComputed = computed(() =>

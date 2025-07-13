@@ -6,30 +6,11 @@ export default definePageConfig({
     block.subtitle("Quick start"),
     block.paragraph("If you want to make some changes get a local copy of VuesticUI:"),
     block.list([
-      "Fork Vuestic repository",
-      "Clone your fork",
-      "Install dependencies with [yarn](https://classic.yarnpkg.com/lang/en/docs/install) using `yarn install`",
-    ]),
-
-    block.subtitle("Packages"),
-    block.paragraph("Vuestic has few packages in order of importance for newcomers:"),
-    block.list([
-      "`packages/ui` - UI lib with demos. Here all vuestic components stored.",
-      "`packages/docs` - [ui.vuestic.dev](https://vuestic.dev) source code.",
-      "`packages/nuxt` - `@vuestic/nuxt` module for Nuxt3.",
-      "`packages/sandbox` - Package for testing build and treeshaking.",
-      "`packages/tailwind` - Tailwind utilities.",
-      "`packages/ag-grid-theme` - AgGrid extension styles.",
-      "`packages/vue-cli-plugin` - vue add vuestic-ui plugin for vue-cli [deprecated].",
-      "`packages/bundlers-tests` - package used for testing vuestic ui in different bundlers in CI.",
-      "`packages/deploy` - Release scripts for core contributors.",
-    ]),
-    block.paragraph("Likely you will deal only with `ui` and `docs` packages."),
-
-    block.subtitle("Branches"),
-    block.list([
-      "Public branches (**epicmax/vuestic-ui**):\n  * `master` - releases and hotfixes only. Do not submit PR's to `master`!\n  * `develop` - main development branch.",
-      "Local branches\n  * For local branches prepend your messages with `feat/` or `fix/` (e.g. for a tabs-related fix it would be `fix/tabs`, `feat/date-picker` or `fix#1000/important-bug`). This is necessary to keep local branches visually separated from the public ones.",
+      "[Fork](https://github.com/epicmaxco/vuestic-ui/fork) Vuestic repository",
+      "Clone your fork `git clone git@github.com:{your github username}/vuestic-ui.git`",
+      "Install [node js](https://nodejs.org/en/download) v18.20.2 or later",
+      "Install [yarn](https://yarnpkg.com/getting-started/install) using `npm install -g yarn@4.9.1`",
+      "Install dependencies using `yarn install`",
     ]),
 
     block.subtitle("Commonly used scripts"),
@@ -38,6 +19,13 @@ export default definePageConfig({
       "`yarn serve:docs` - this will run project with docs (deployed here [vuestic.dev](https://vuestic.dev)).",
       "`yarn build` - this will build vuestic-ui package.",
     ]),
+
+    block.subtitle("Branches"),
+    block.list([
+      "Public branches (**epicmax/vuestic-ui**):\n  * `master` - releases and hotfixes only. Do not submit PR's to `master`!\n  * `develop` - main development branch.",
+      "Local branches\n  * For local branches prepend your messages with `feat/` or `fix/` (e.g. for a tabs-related fix it would be `fix/tabs`, `feat/date-picker` or `fix#1000/important-bug`). This is necessary to keep local branches visually separated from the public ones.",
+    ]),
+
     block.paragraph("You can find more scripts in `package.json` of each package."),
 
     block.subtitle("Component folder structure"),

@@ -55,7 +55,7 @@ export default defineNuxtModule<VuesticOptions>({
     themeCookieKey: 'vuestic-theme-cookie',
   },
 
-  setup (options, nuxt) {
+  setup(options, nuxt) {
     if (!nuxt.options.dev) {
       // Fix CSS variables made by v-bind in component: they're not rendered in cjs (SSG).
       addVitePlugin(componentVBindFix({ sourcemap: false }))
@@ -65,6 +65,7 @@ export default defineNuxtModule<VuesticOptions>({
 
     nuxt.options.alias['@vuestic/ag-grid-theme'] = resolve(__dirname, '../../ag-grid-theme/src/styles/index.scss');
     nuxt.options.alias['@vuestic/formkit'] = resolve(__dirname, '../../formkit/src/index.ts');
+    nuxt.options.alias['@vuestic/vueform'] = resolve(__dirname, '../../vueform/src/index.ts');
     nuxt.options.alias['vuestic-ui/styles/typography.css'] = resolve(__dirname, '../../ui/src/styles/typography/typography.scss');
     nuxt.options.alias['vuestic-ui/styles/grid'] = resolve(__dirname, '../../ui/src/styles/grid/grid.scss');
     nuxt.options.alias['vuestic-ui/styles/grid.css'] = resolve(__dirname, '../../ui/src/styles/grid/grid.scss');
@@ -73,8 +74,8 @@ export default defineNuxtModule<VuesticOptions>({
     nuxt.options.alias['vuestic-ui/styles/smart-helpers.css'] = resolve(__dirname, '../../ui/src/styles/smart-helpers/smart-helpers.scss');
     nuxt.options.alias['vuestic-ui/src'] = resolve(__dirname, '../../ui/src/');
     nuxt.options.alias['vuestic-ui/styles'] = resolve(__dirname, '../../ui/src/styles/');
-    nuxt.options.alias['vuestic-ui/css'] =  resolve(__dirname, '../../ui/src/styles/index.scss');
-    nuxt.options.alias['vuestic-ui/dist/styles/index.css'] =  resolve(__dirname, '../../ui/src/styles/index.scss');
+    nuxt.options.alias['vuestic-ui/css'] = resolve(__dirname, '../../ui/src/styles/index.scss');
+    nuxt.options.alias['vuestic-ui/dist/styles/index.css'] = resolve(__dirname, '../../ui/src/styles/index.scss');
     nuxt.options.alias['vuestic-ui/package.json'] = resolve(__dirname, '../../ui/package.json');
     nuxt.options.alias['vuestic-ui/web-components'] = resolve(__dirname, '../../ui/src/main.ts');
     nuxt.options.alias['vuestic-ui'] = resolve(__dirname, '../../ui/src/main.ts');

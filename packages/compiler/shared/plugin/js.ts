@@ -1,5 +1,5 @@
 import MagicString from 'magic-string'
-import { getContentInParenthesis, replaceOrAddConfigPropertyValue } from './code'
+import { getContentInParenthesis, omitComments, replaceOrAddConfigPropertyValue } from './code'
 
 const CREATE_APP_TEMPLATE = 'createApp(App)'
 
@@ -12,6 +12,27 @@ export const addImport = (originalCode: Code, code: string) => {
   const ms = createMagicString(originalCode)
   ms.appendLeft(0, code + '\n')
   return ms
+}
+
+export const hasImport = (originalCode: Code, from: string | { from: string, named: string }) => {
+  const ms = createMagicString(originalCode)
+  if (typeof from === 'string') {
+    const importRegex = new RegExp(`import\\s+.*?\\s+from\\s+['"]${from}['"]`)
+    return importRegex.test(ms.original)
+  }
+
+  if (typeof from === 'object' && from.from && from.named) {
+    const importRegex = new RegExp(`import\\s+.*?\\s+from\\s+['"]${from.from}['"]\\s*{\\s*${from.named}\\s*}`)
+    return importRegex.test(ms.original)
+  }
+
+  return false
+}
+
+export const hasVuePlugin = (originalCode: Code, pluginName: string) => {
+  const ms = createMagicString(originalCode)
+  const pluginRegex = new RegExp(`\\.use\\(${pluginName}\\(`)
+  return pluginRegex.test(omitComments(ms.original))
 }
 
 /**

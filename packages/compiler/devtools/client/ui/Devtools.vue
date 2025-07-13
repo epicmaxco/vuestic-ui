@@ -1,4 +1,9 @@
 <template>
+  <Teleport to="body" v-if="!isEditMode">
+    <div class="vuestic-devtools">
+      <OpenDevtoolsButton @click="isEditMode = true" />
+    </div>
+  </Teleport>
   <Teleport to="body" v-if="isEditMode">
     <div :style="colorsToCSSVariable(colors)" class="vuestic-devtools">
       <Overlay
@@ -66,6 +71,7 @@ import { EDIT_MODE_CLASS } from '../../shared/CONST'
 import { useEvent } from './composables/base/useEvent'
 import { useComponent } from './composables/useComponent'
 import { useAppTree } from './composables/useAppTree/index'
+import OpenDevtoolsButton from './components/OpenDevtoolsButton.vue'
 
 const { selectAppTreeItem, selectedAppTreeItem } = useAppTree()
 

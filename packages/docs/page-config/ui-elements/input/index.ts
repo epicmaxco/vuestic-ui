@@ -46,7 +46,7 @@ export default definePageConfig({
 
     block.example("HtmlAttributes", {
       title: "Supported HTML attributes",
-      description: "Be default we support these HTML Input attributes: `type`, `disabled`, `readonly`, `placeholder`, `pattern`, `inputmode`, `minlength`, `maxlength`. Read more on the [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)."
+      description: "Be default we support these HTML Input attributes: `type`, `disabled`, `readonly`, `placeholder`, `pattern`, `inputmode`, `minlength`, `maxlength`, `step`, `min`, `max`. Read more on the [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)."
     }),
     block.headline("Input types"),
     block.paragraph("With a `type` property you can set the type of the input which will render native `<input type=\"text/password/search/etc\" />`."),

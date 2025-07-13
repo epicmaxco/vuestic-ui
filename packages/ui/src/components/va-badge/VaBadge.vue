@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, unref, useSlots } from 'vue'
+import { computed, unref, useSlots, PropType } from 'vue'
 
 import {
   useBem,
@@ -28,10 +28,13 @@ import {
   useElementTextColor,
   useDeprecated,
   useComponentPresetProp,
+  ColorName,
 } from '../../composables'
 
 import { useFloatingPosition, useFloatingPositionProps } from './hooks/useFloatingPositionStyles'
 import { pick } from '../../utils/pick'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
+import { VaBadge } from '.'
 
 defineOptions({
   name: 'VaBadge',
@@ -41,7 +44,7 @@ const props = defineProps({
   ...useComponentPresetProp,
   ...useFloatingPositionProps,
 
-  color: { type: String, default: 'danger' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'danger' },
   textColor: { type: String },
   text: { type: [String, Number], default: '' },
   multiLine: { type: Boolean, default: false },

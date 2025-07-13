@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, PropType } from 'vue'
 import { getGradientBackground } from '../../services/color'
 import {
   useBem,
@@ -26,8 +26,10 @@ import {
   useElementTextColor,
   useRouterLink,
   useRouterLinkProps,
+  ColorName,
 } from '../../composables'
 import { pick } from '../../utils/pick'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 defineOptions({
   name: 'VaCard',
@@ -47,7 +49,7 @@ const props = defineProps({
   stripeColor: { type: String, default: '' },
   gradient: { type: Boolean, default: false },
   textColor: { type: String },
-  color: { type: String, default: 'background-secondary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'background-secondary' },
 })
 
 const { getColor } = useColors()

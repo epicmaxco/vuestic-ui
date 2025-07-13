@@ -66,8 +66,9 @@ import { VaButton } from '../'
 import { computed, nextTick, PropType, ref, watch } from 'vue'
 
 import { filterComponentProps, extractComponentProps, extractComponentEmits } from '../../utils/component-options'
-import { useColors, useStateful, useStatefulProps, useStatefulEmits, useComponentPresetProp, defineChildProps, useChildComponents } from '../../composables'
+import { useColors, useStateful, useStatefulProps, useStatefulEmits, useComponentPresetProp, defineChildProps, useChildComponents, ColorName } from '../../composables'
 import { useView } from './hooks/view'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 import { DatePickerModelValue, DatePickerType, DatePickerViewProp } from './types'
 
@@ -106,7 +107,7 @@ const props = defineProps({
   disabled: { type: Boolean, default: false },
 
     // Colors
-  color: { type: String, default: undefined },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: undefined },
   weekendsColor: { type: String, default: undefined },
 })
 

@@ -8,8 +8,7 @@
 
 <template>
   <VaButton
-     :color="'myCustomColor'"
-     color="info"
+     color="myCustomColor"
   >
     Test
   </VaButton>

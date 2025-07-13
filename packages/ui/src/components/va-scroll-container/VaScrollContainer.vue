@@ -9,8 +9,8 @@
 <script lang="ts" setup>
 import { computed, PropType } from 'vue'
 
-import { useColors, useSize, useSizeProps } from '../../composables'
-
+import { useColors, useSize, useSizeProps, ColorName } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 defineOptions({
   name: 'VaScrollContainer',
 })
@@ -19,7 +19,7 @@ const props = defineProps({
   ...useSizeProps,
   vertical: { type: Boolean, default: false },
   horizontal: { type: Boolean, default: false },
-  color: { type: String, default: 'secondary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'secondary' },
   rtl: { type: Boolean, default: false },
   gradient: { type: Boolean, default: false },
   sizesConfig: {

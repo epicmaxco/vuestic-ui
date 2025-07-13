@@ -1,0 +1,32 @@
+{
+  "name": "@vuestic/vueform",
+  "version": "0.0.1",
+  "main": "dist/index.es.js",
+  "module": "dist/index.es.js",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "serve:storybook": "storybook dev -p 6007",
+    "build:storybook": "storybook build",
+    "start:storybook": "serve storybook-static",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@vueform/vueform": "^1.12.7"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.4",
+    "vuestic-ui": "^1.10.3"
+  },
+  "devDependencies": {
+    "@storybook/vue3-vite": "^7.1.0",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "storybook": "^7.1.0",
+    "vite": "^6.3.5",
+    "vite-plugin-dts": "^4.5.4"
+  },
+  "types": "dist/types/index.d.ts",
+  "packageManager": "yarn@4.9.1"
+}

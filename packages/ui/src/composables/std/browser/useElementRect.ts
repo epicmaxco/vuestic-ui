@@ -1,6 +1,8 @@
+import { unwrapEl } from './../../../utils/unwrapEl';
 import { Ref, onBeforeUnmount, onMounted, ref } from 'vue'
+import { TemplateRef } from '../../../utils/unwrapEl'
 
-export const useElementRect = (element: Ref<HTMLElement | null>) => {
+export const useElementRect = (element: Ref<TemplateRef>) => {
   const rect = ref({ top: 0, left: 0, width: 0, height: 0, bottom: 0, right: 0 }) satisfies Ref<{
     top: number
     left: number
@@ -14,8 +16,9 @@ export const useElementRect = (element: Ref<HTMLElement | null>) => {
   let mutationObserver: MutationObserver | undefined
 
   const updateRect = () => {
-    if (element.value) {
-      rect.value = element.value.getBoundingClientRect()
+    const el = unwrapEl(element.value)
+    if (el) {
+      rect.value = el.getBoundingClientRect()
     }
   }
 
@@ -23,8 +26,10 @@ export const useElementRect = (element: Ref<HTMLElement | null>) => {
     resizeObserver = new ResizeObserver(updateRect)
     mutationObserver = new MutationObserver(updateRect)
 
-    element.value && resizeObserver.observe(element.value)
-    element.value && mutationObserver.observe(element.value, { attributes: true, childList: true, subtree: true })
+    const el = unwrapEl(element.value)
+
+    el && resizeObserver.observe(el)
+    el && mutationObserver.observe(el, { attributes: true, childList: true, subtree: true })
 
     window.addEventListener('resize', updateRect)
     window.addEventListener('scroll', updateRect)

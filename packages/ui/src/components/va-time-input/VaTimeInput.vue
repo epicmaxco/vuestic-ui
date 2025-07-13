@@ -90,7 +90,8 @@ import { useTimeParser } from './hooks/time-text-parser'
 import { useTimeFormatter } from './hooks/time-text-formatter'
 
 import { VaInputWrapper } from '../va-input-wrapper'
-import { VaIcon } from '../va-icon'
+import { VaIcon, VaIconName } from '../va-icon'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import { VaDropdown, VaDropdownContent } from '../va-dropdown'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 
@@ -122,7 +123,7 @@ const props = defineProps({
   parse: { type: Function as PropType<(input: string) => Date> },
   manualInput: { type: Boolean, default: false },
   leftIcon: { type: Boolean, default: false },
-  icon: { type: String, default: 'schedule' },
+  icon: { type: String as PropType<StringWithAutocomplete<VaIconName>>, default: 'schedule' },
 
   ariaLabel: useTranslationProp('$t:selectedTime'),
   ariaResetLabel: useTranslationProp('$t:resetTime'),

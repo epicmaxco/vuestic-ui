@@ -44,29 +44,31 @@
     <VaCard class="card card-2">
       <VaCardContent>
         <table class="w-full">
-          <tr>
-            <td>Amount</td>
-            <td>
-              <VaSlider
-                :model-value="40"
-                stateful
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Package</td>
-            <td><VaSwitch stateful /></td>
-          </tr>
-          <tr>
-            <td>Review</td>
-            <td>
-              <VaRating
-                stateful
-                :model-value="4.5"
-                halves
-              />
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>Amount</td>
+              <td>
+                <VaSlider
+                  :model-value="40"
+                  stateful
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Package</td>
+              <td><VaSwitch stateful /></td>
+            </tr>
+            <tr>
+              <td>Review</td>
+              <td>
+                <VaRating
+                  stateful
+                  :model-value="4.5"
+                  halves
+                />
+              </td>
+            </tr>
+          </tbody>
         </table>
         <VaAlert class="my-4" color="warning" icon="info">
           You can't change your review after sending
