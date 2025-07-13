@@ -9816,7 +9816,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@vuestic/compiler@workspace:packages/compiler":
+"@vuestic/compiler@npm:^0.2.4, @vuestic/compiler@workspace:packages/compiler":
   version: 0.0.0-use.local
   resolution: "@vuestic/compiler@workspace:packages/compiler"
   dependencies:
@@ -31651,6 +31651,86 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vite@npm:5.3.3":
+  version: 5.3.3
+  resolution: "vite@npm:5.3.3"
+  dependencies:
+    esbuild: "npm:^0.21.3"
+    fsevents: "npm:~2.3.3"
+    postcss: "npm:^8.4.39"
+    rollup: "npm:^4.13.0"
+  peerDependencies:
+    "@types/node": ^18.0.0 || >=20.0.0
+    less: "*"
+    lightningcss: ^1.21.0
+    sass: "*"
+    stylus: "*"
+    sugarss: "*"
+    terser: ^5.4.0
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  peerDependenciesMeta:
+    "@types/node":
+      optional: true
+    less:
+      optional: true
+    lightningcss:
+      optional: true
+    sass:
+      optional: true
+    stylus:
+      optional: true
+    sugarss:
+      optional: true
+    terser:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: 10/e7a094cefedad9e204b715588502118e07d1b9c00c617f55b810169181907f55144f0a82f650995d6a74f12e3695fca65afc348b475b91a81dcbd0274d30a088
+  languageName: node
+  linkType: hard
+
+"vite@npm:^4.1.3":
+  version: 4.5.14
+  resolution: "vite@npm:4.5.14"
+  dependencies:
+    esbuild: "npm:^0.18.10"
+    fsevents: "npm:~2.3.2"
+    postcss: "npm:^8.4.27"
+    rollup: "npm:^3.27.1"
+  peerDependencies:
+    "@types/node": ">= 14"
+    less: "*"
+    lightningcss: ^1.21.0
+    sass: "*"
+    stylus: "*"
+    sugarss: "*"
+    terser: ^5.4.0
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  peerDependenciesMeta:
+    "@types/node":
+      optional: true
+    less:
+      optional: true
+    lightningcss:
+      optional: true
+    sass:
+      optional: true
+    stylus:
+      optional: true
+    sugarss:
+      optional: true
+    terser:
+      optional: true
+  bin:
+    vite: bin/vite.js
+  checksum: 10/316a02f0d310511241fae15e6085c9f7285e87b7a75b7b04216925e72ec17107ae6f666181c79c711f6008fdaa8a0b4510280c68ce0bfab436ebea2470783d0a
+  languageName: node
+  linkType: hard
+
 "vite@npm:^4.2.1":
   version: 4.5.5
   resolution: "vite@npm:4.5.5"
@@ -32171,6 +32251,18 @@ __metadata:
   checksum: 10/81bac7123ef7c107f67023f2cab937a01e1c5d41fee2f956095ff8646bb47c056e46b84b9c5766ca78beaaf285273efc80827022b2f6d9fe0f6821fcaaaf9763
   languageName: node
   linkType: hard
+
+"vuestic-app@workspace:packages/create-vuestic/vuestic-app":
+  version: 0.0.0-use.local
+  resolution: "vuestic-app@workspace:packages/create-vuestic/vuestic-app"
+  dependencies:
+    "@vitejs/plugin-vue": "npm:^4.0.0"
+    "@vuestic/compiler": "npm:^0.2.4"
+    vite: "npm:^4.1.3"
+    vue: "npm:^3.2.47"
+    vuestic-ui: "npm:^1.9.0"
+  languageName: unknown
+  linkType: soft
 
 "vuestic-ui-wrapper@workspace:.":
   version: 0.0.0-use.local
