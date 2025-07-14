@@ -1,19 +1,15 @@
+import { ExtractComponentEmits, type ExtractComponentProps } from '../../utils/component-options'
 import { createProxyComponent } from './createProxyComponent'
 
-const CLASS_COMPONENT_KEY = '__c'
-
-const patchClassComponent = (component: { [CLASS_COMPONENT_KEY]: any }): any => {
-  component[CLASS_COMPONENT_KEY] = createProxyComponent(component[CLASS_COMPONENT_KEY])
-  return component
-}
+type WithMeta<T> = ({
+  props: ExtractComponentProps<T>,
+  emits: unknown extends ExtractComponentEmits<T> ? undefined : ExtractComponentEmits<T>,
+}) & T
 
 /** Allows props to be passed from vuestic config if they were not provided */
-export const withConfigTransport = <T>(component: T): T => {
+export const withConfigTransport = <T>(component: T): WithMeta<T> => {
   if ('setup' in (component as any)) {
     return createProxyComponent(component as any)
-  } else if (CLASS_COMPONENT_KEY in (component as any)) {
-    // TODO: Remove this. We don't want to use class components
-    return patchClassComponent(component as any)
   } else {
     // Options api. We need to transform it to Composition API and then create proxy.
     (component as any).setup = () => ({ /* Fake setup function */})
