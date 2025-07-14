@@ -38,7 +38,7 @@ export function useSelectableList (props: ExtractPropTypes<typeof useSelectableL
   const getTrackBy = (option: SelectableOption): string | number => {
     const key = props.trackBy ? getOptionProperty(option, props.trackBy) : getValue(option)
 
-    if (typeof key === 'object') {
+    if (isObject(key)) {
       return getObjectId(key)
     }
 
