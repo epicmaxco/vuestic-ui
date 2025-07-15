@@ -109,3 +109,21 @@ Range.play = async ({ step, canvasElement }) => {
   )
   expect(selectedDates.length).toBeGreaterThan(1)
 }
+
+export const prevButtonProps: StoryFn = () => ({
+  components: { VaDatePicker },
+  template: '<VaDatePicker :child:prev-button="{ \'textColor\': \'danger\',size:\'large\' }" />',
+
+})
+
+export const middleButtonProps: StoryFn = () => ({
+  components: { VaDatePicker },
+  template: '<VaDatePicker :child:middle-button="{ \'textColor\': \'danger\',size:\'large\' }" />',
+
+})
+
+export const nextButtonProps: StoryFn = () => ({
+  components: { VaDatePicker },
+  template: '<VaDatePicker :child:next-button="{ \'textColor\': \'danger\',size:\'large\' }" />',
+
+})

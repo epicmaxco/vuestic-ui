@@ -16,6 +16,7 @@
           v-if="($props.label || $slots.label) && !$props.innerLabel"
           class="va-input-wrapper__label va-input-wrapper__label--outer"
           v-bind="vaInputLabelProps"
+          va-child="inputLabel"
           :id="labelId"
           #default="bind"
         >
@@ -48,6 +49,7 @@
                 v-if="($props.label || $slots.label) && $props.innerLabel"
                 class="va-input-wrapper__label va-input-wrapper__label--inner"
                 v-bind="vaInputLabelProps"
+                va-child="inputLabel"
                 :id="labelId"
                 #default="bind"
               >
@@ -71,12 +73,14 @@
               color="success"
               name="va-check-circle"
               class="va-input-wrapper__icon va-input-wrapper__icon--success"
+              va-child="iconSuccess"
             />
             <va-icon
               v-if="error"
               color="danger"
               name="va-warning"
               class="va-input-wrapper__icon va-input-wrapper__icon--error"
+              va-child="iconError"
             />
             <va-icon
               v-if="$props.loading"
@@ -84,6 +88,7 @@
               name="va-loading"
               spin="counter-clockwise"
               class="va-input-wrapper__icon va-input-wrapper__icon--loading"
+              va-child="iconLoading"
             />
             <slot name="icon" />
 
@@ -132,11 +137,13 @@ import {
   makeNumericProp,
   useVModelStateful,
   ColorName,
+  defineChildProps,
+  useChildComponents,
 } from '../../composables'
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 import { VaMessageList } from '../va-message-list'
-import VaInputLabel from './components/VaInputLabel.vue'
+import { VaInputLabel } from './components'
 import { VaIcon } from '../va-icon'
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
 
@@ -152,6 +159,12 @@ export default defineComponent({
   components: { VaMessageList: WithSlotInheritance(VaMessageList), VaIcon, VaInputLabel },
 
   props: {
+    ...defineChildProps({
+      iconLoading: VaIcon,
+      iconError: VaIcon,
+      iconSuccess: VaIcon,
+      inputLabel: VaInputLabel,
+    }),
     ...useComponentPresetProp,
     ...useInputFieldAriaProps,
     ...useFormFieldProps,
@@ -169,6 +182,7 @@ export default defineComponent({
     loading: { type: Boolean, default: false },
     requiredMark: { type: Boolean, default: false },
     innerLabel: { type: Boolean, default: false },
+
   },
 
   emits: [
@@ -185,7 +199,7 @@ export default defineComponent({
     const { getColor } = useColors()
     const vModel = useVModelStateful(props, 'modelValue', emit)
     const inputRef = ref()
-
+    useChildComponents(props)
     const isFocused = useElementFocusedWithin()
 
     const counterValue = computed(() =>

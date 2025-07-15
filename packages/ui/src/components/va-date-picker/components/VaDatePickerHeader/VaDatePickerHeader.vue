@@ -64,13 +64,18 @@ import { useView } from '../../hooks/view'
 import { DatePickerView } from '../../types'
 
 import { VaButton } from '../../../va-button'
-import { useCurrentElement, useElementTextColor, useElementBackground, useTranslation, useTranslationProp } from '../../../../composables'
+import { useCurrentElement, useElementTextColor, useElementBackground, useTranslation, useTranslationProp, defineChildProps } from '../../../../composables'
 
 defineOptions({
   name: 'VaDatePickerHeader',
 })
 
 const props = defineProps({
+  ...defineChildProps({
+    prevButton: VaButton,
+    middleButton: VaButton,
+    nextButton: VaButton,
+  }),
   monthNames: { type: Array, required: true },
   view: { type: Object as PropType<DatePickerView> },
   color: { type: String },
