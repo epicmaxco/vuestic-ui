@@ -1,4 +1,4 @@
-import { Ref, ref, computed, ExtractPropTypes } from 'vue'
+import { Ref, computed, ExtractPropTypes, watch } from 'vue'
 
 import { createItemsProp, useItemsTrackByProp } from './useCommonProps'
 
@@ -12,6 +12,7 @@ import type {
   DataTableItemKey,
   DataTableRowData,
 } from '../types'
+import { useVModelStateful } from '../../../composables'
 
 export const getItemKey = <T extends Record<string, any>>(source: DataTableItem<T>, itemsTrackBy: string | ((item: DataTableItem<T>) => any)): DataTableItemKey => (
   typeof itemsTrackBy === 'function'
@@ -60,14 +61,16 @@ const buildTableRow = <Item extends DataTableItem>(
 }
 
 type RowsProps<Item> = Omit<ExtractPropTypes<ReturnType<typeof createRowsProps>>, 'items'> & {
-  items: Item[]
+  items: Item[],
+  expanded: boolean[]
 }
 
 export const useRows = <Item extends Record<string, any>>(
   columns: Ref<DataTableColumnInternal[]>,
   props: RowsProps<Item>,
+  emit: (event: 'update:expanded', value: boolean[]) => void,
 ) => {
-  const expandableRows = ref<Record<number, boolean>>({})
+  const expandableRows = useVModelStateful(props, 'expanded', emit)
 
   const rowsComputed = computed(() => props.items
     .map((rawItem, index) => ({
@@ -81,6 +84,10 @@ export const useRows = <Item extends Record<string, any>>(
       },
       isExpandableRowVisible: !!expandableRows.value[index],
     })))
+
+  watch(() => props.items, () => {
+    expandableRows.value = props.items.map(() => false)
+  })
 
   return {
     rowsComputed,

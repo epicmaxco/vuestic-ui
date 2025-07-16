@@ -18,5 +18,9 @@ export const useVModelStateful = <P, K extends keyof P>(props: P, key: K, emit: 
     },
   })
 
-  return valueProxy
+  Object.defineProperty(valueProxy, 'userProvided', {
+    get: () => isUserProvided.value,
+  })
+
+  return valueProxy as unknown as Ref<P[K]> & { userProvided: boolean }
 }
