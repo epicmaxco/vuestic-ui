@@ -1,0 +1,2 @@
+vue --version
+
