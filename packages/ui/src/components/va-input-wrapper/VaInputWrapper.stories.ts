@@ -1,4 +1,3 @@
-import { defineComponent } from 'vue'
 import VaInputWrapperDemo from './VaInputWrapper.demo.vue'
 import VaInputWrapper from './VaInputWrapper.vue'
 

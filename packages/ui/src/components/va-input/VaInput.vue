@@ -74,7 +74,6 @@ import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon } from '../va-icon'
 import { combineFunctions } from '../../utils/combine-functions'
 import { pick } from '../../utils/pick'
-import VaButton from '../va-button/VaButton.vue'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper)
 
