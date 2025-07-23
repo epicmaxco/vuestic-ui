@@ -30,6 +30,7 @@
         role="button"
         :aria-label="tp($props.ariaResetLabel)"
         v-bind="clearIconProps"
+        va-child="iconClear"
         @click.stop="reset"
         @keydown.enter.stop="reset"
         @keydown.space.stop="reset"
@@ -62,6 +63,8 @@ import {
   useStateful, useStatefulProps, useStatefulEmits, useDeprecatedCondition,
   useFocusableControl, useFocusableControlProps, useFocusableControlEmits,
   useEvent,
+  defineChildProps,
+  useChildComponents,
 } from '../../composables'
 import type { ValidationProps } from '../../composables/useValidation'
 
@@ -94,6 +97,9 @@ defineOptions({
 })
 
 const props = defineProps({
+  ...defineChildProps({
+    iconClear: VaIcon,
+  }),
   ...VaInputWrapperProps,
   ...useFormFieldProps,
   ...useFocusableControlProps,
@@ -120,6 +126,8 @@ const props = defineProps({
     /** Set value to input when model value is updated */
   strictBindInputValue: { type: Boolean, default: false },
 })
+
+useChildComponents(props)
 
 const emit = defineEmits([
   'update:modelValue',
