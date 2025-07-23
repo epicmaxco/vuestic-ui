@@ -54,7 +54,7 @@ describe('useSelectableList', () => {
       {
         getGroupBy: undefined,
         getText: 'textValue',
-        getTrackBy: { text: 'textValue', disabled: false },
+        getTrackBy: 'va-obj-id-2',
         getValue: { text: 'textValue', disabled: false },
         getDisabled: false,
       },

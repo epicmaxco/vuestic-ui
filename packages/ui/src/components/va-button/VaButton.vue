@@ -70,12 +70,13 @@ import { useButtonBackground } from './hooks/useButtonBackground'
 import { useButtonAttributes } from './hooks/useButtonAttributes'
 import { useButtonTextColor } from './hooks/useButtonTextColor'
 
-import { VaIcon } from '../va-icon'
+import { VaIcon, VaIconName } from '../va-icon'
 import { VaProgressCircle } from '../va-progress-circle'
 import { pick } from '../../utils/pick'
 
 import type { ColorName } from '../../composables'
-
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
+import { VaButton } from '.'
 defineOptions({
   name: 'VaButton',
 })
@@ -107,7 +108,7 @@ const props = defineProps({
     validator: (v: string) => ['small', 'medium', 'large'].includes(v),
   },
 
-  icon: { type: String, default: '' },
+  icon: { type: String as PropType<StringWithAutocomplete<VaIconName>>, default: '' },
   iconRight: { type: String, default: '' },
   iconColor: { type: String, default: '' },
 

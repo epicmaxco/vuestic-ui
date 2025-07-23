@@ -351,3 +351,181 @@ export const RowSlot = defineStory({
     `,
   }),
 })
+
+export const ExpandableRowPagination = () => ({
+  components: { VaDataTable, VaPagination },
+  data () {
+    const items = [
+      {
+        id: 1,
+        name: 'Leanne Graham',
+        username: 'Bret',
+        email: 'Sincere@april.biz',
+        phone: '1-770-736-8031',
+        website: 'hildegard.org',
+      },
+      {
+        id: 2,
+        name: 'Ervin Howell',
+        username: 'Antonette',
+        email: 'Shanna@melissa.tv',
+        phone: '010-692-6593',
+        website: 'anastasia.net',
+      },
+      {
+        id: 3,
+        name: 'Clementine Bauch',
+        username: 'Samantha',
+        email: 'Nathan@yesenia.net',
+        phone: '1-463-123-4447',
+        website: 'ramiro.info',
+      },
+      {
+        id: 4,
+        name: 'Patricia Lebsack',
+        username: 'Karianne',
+        email: 'Julianne.OConner@kory.org',
+        phone: '493-170-9623',
+        website: 'kale.biz',
+      },
+      {
+        id: 5,
+        name: 'Chelsey Dietrich',
+        username: 'Kamren',
+        email: 'Lucio_Hettinger@annie.ca',
+        phone: '(254)954-1289',
+        website: 'demarco.info',
+      },
+    ]
+
+    const columns = [
+      { key: 'name' },
+      { key: 'username' },
+      { key: 'email' },
+      { key: 'actions', width: 80 },
+    ]
+
+    const currentPage = ref(0)
+
+    return {
+      items,
+      columns,
+      currentPage,
+    }
+  },
+
+  template: `
+    <VaDataTable
+      :items="items"
+      :columns="columns"
+      :per-page="2"
+      :current-page="currentPage"
+    >
+      <template #cell(actions)="{ row, isExpanded }">
+          <button
+            @click="row.toggleRowDetails()"
+          >
+            {{ isExpanded ? 'Hide': 'More info' }}
+          </button>
+      </template>
+
+      <template #expandableRow="{ rowData }" >
+        <div>
+          {{ rowData }}
+        </div>
+      </template>
+    </VaDataTable>
+    <VaPagination
+      v-model="currentPage"
+      :pages="items.length"
+    />
+  `,
+})
+
+export const ExpandableRowPaginationSlice = () => ({
+  components: { VaDataTable, VaPagination },
+  data () {
+    const items = [
+      {
+        id: 1,
+        name: 'Leanne Graham',
+        username: 'Bret',
+        email: 'Sincere@april.biz',
+        phone: '1-770-736-8031',
+        website: 'hildegard.org',
+      },
+      {
+        id: 2,
+        name: 'Ervin Howell',
+        username: 'Antonette',
+        email: 'Shanna@melissa.tv',
+        phone: '010-692-6593',
+        website: 'anastasia.net',
+      },
+      {
+        id: 3,
+        name: 'Clementine Bauch',
+        username: 'Samantha',
+        email: 'Nathan@yesenia.net',
+        phone: '1-463-123-4447',
+        website: 'ramiro.info',
+      },
+      {
+        id: 4,
+        name: 'Patricia Lebsack',
+        username: 'Karianne',
+        email: 'Julianne.OConner@kory.org',
+        phone: '493-170-9623',
+        website: 'kale.biz',
+      },
+      {
+        id: 5,
+        name: 'Chelsey Dietrich',
+        username: 'Kamren',
+        email: 'Lucio_Hettinger@annie.ca',
+        phone: '(254)954-1289',
+        website: 'demarco.info',
+      },
+    ]
+
+    const columns = [
+      { key: 'name' },
+      { key: 'username' },
+      { key: 'email' },
+      { key: 'actions', width: 80 },
+    ]
+
+    const currentPage = ref(0)
+
+    return {
+      items,
+      columns,
+      currentPage,
+    }
+  },
+
+  template: `
+    <VaDataTable
+      :items="items.slice(currentPage * 2, (currentPage + 1) * 2)"
+      :columns="columns"
+    >
+      <template #cell(actions)="{ row, isExpanded }">
+          <button
+            @click="row.toggleRowDetails()"
+          >
+            {{ isExpanded ? 'Hide': 'More info' }}
+          </button>
+      </template>
+
+      <template #expandableRow="{ rowData }" >
+        <div>
+          {{ rowData }}
+        </div>
+      </template>
+    </VaDataTable>
+    <VaPagination
+      v-model="currentPage"
+      :pages="items.length"
+    />
+  `,
+})

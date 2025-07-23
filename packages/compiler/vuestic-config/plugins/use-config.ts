@@ -34,7 +34,7 @@ export const useConfig =  (options: {
         return compileCode(createVuesticEssential)
       }
 
-      throw new Error('createVuestic or createVuesticEssential not found')
+      throw new Error('createVuestic or createVuesticEssential not found in entry file. Please ensure you installed createVuestic plugin or used autoImport option for compiler.')
     },
   }
 }

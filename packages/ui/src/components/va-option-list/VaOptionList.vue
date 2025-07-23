@@ -53,7 +53,9 @@ import {
   useStateful, useStatefulProps, useStatefulEmits,
   useArrayRefs,
   useValidationEmits,
+  ColorName,
 } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 import { isDev } from '../../utils/env'
 
@@ -86,7 +88,7 @@ const props = defineProps({
   readonly: ({ type: Boolean, default: false }),
   defaultValue: ({ type: [String, Number, Boolean, Object, Array] as PropType<OptionListValue | null> }),
   name: ({ type: String, default: '' }),
-  color: ({ type: String, default: 'primary' }),
+  color: ({ type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' }),
   leftLabel: ({ type: Boolean, default: false }),
   modelValue: ({ type: [String, Number, Boolean, Object, Array] as PropType<OptionListValue | null> }),
 })

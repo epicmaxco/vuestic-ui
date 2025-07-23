@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, PropType } from 'vue'
 
 import {
   useColors,
@@ -38,8 +38,9 @@ import {
   useComponentPresetProp,
   useBem,
   useTemplateRef,
+  ColorName,
 } from '../../composables'
-
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 defineOptions({
   name: 'VaNavbar',
 })
@@ -47,7 +48,7 @@ defineOptions({
 const props = defineProps({
   ...useFixedBarProps,
   ...useComponentPresetProp,
-  color: { type: String, default: 'background-secondary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'background-secondary' },
   textColor: { type: String },
   shape: { type: Boolean, default: false },
   shadowed: { type: Boolean, default: false },

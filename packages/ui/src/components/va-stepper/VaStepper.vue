@@ -83,7 +83,8 @@
 import VaStepperControls from './VaStepperControls.vue'
 import VaStepperStepButton from './VaStepperStepButton.vue'
 import { computed, PropType, ref, Ref, shallowRef, watch } from 'vue'
-import { useColors, useStateful, useStatefulProps, useTranslation, useTranslationProp } from '../../composables'
+import { useColors, useStateful, useStatefulProps, useTranslation, useTranslationProp, ColorName } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 import type { Step, StepControls } from './types'
 import { isStepHasError } from './step'
 
@@ -99,7 +100,7 @@ const props = defineProps({
     default: () => [],
     required: true,
   },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
   vertical: { type: Boolean, default: false },
   navigationDisabled: { type: Boolean, default: false },
   controlsHidden: { type: Boolean, default: false },

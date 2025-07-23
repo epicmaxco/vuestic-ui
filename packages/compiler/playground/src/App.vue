@@ -3,7 +3,7 @@ import TestPage from './pages/TestPage.vue';
 </script>
 
 <template>
-  <VaNavbar>
+  <VaNavbar color="myCustomColor">
     <template #left>
       Vuestic UI Devtools demo
     </template>

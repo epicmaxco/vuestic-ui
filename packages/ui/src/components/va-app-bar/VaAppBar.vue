@@ -12,8 +12,8 @@
 <script lang="ts" setup>
 import { PropType, computed, toRef } from 'vue'
 
-import { useColors, useFixedBar, useFixedBarProps, useComponentPresetProp, useElementTextColor, useTemplateRef, useSelectorTemplateRef, useElementScrollableParent } from '../../composables'
-
+import { useColors, useFixedBar, useFixedBarProps, useComponentPresetProp, useElementTextColor, useTemplateRef, useSelectorTemplateRef, useElementScrollableParent, ColorName } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 defineOptions({
   name: 'VaAppBar',
 })
@@ -25,7 +25,7 @@ const props = defineProps({
   target: { type: [Object, String] as PropType<string | HTMLElement>, default: '' },
   shadowOnScroll: { type: Boolean, default: false },
   shadowColor: { type: String, default: '' },
-  color: { type: String, default: 'primary' },
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: 'primary' },
 })
 
 const targetHtmlElement = useSelectorTemplateRef(toRef(props, 'target'))

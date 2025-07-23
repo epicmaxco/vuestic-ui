@@ -293,12 +293,18 @@ const props = defineProps({
   ariaSelectRowLabel: useTranslationProp('$t:selectRowByIndex'),
 
   delay: { type: [Number, String], default: 0 },
+
+  expanded: {
+    type: Array as PropType<boolean[]>,
+    default: () => [],
+  },
 })
 
 const emit = defineEmits([
   'update:modelValue', // `modelValue` is selectedItems
   'update:sortBy',
   'update:sortingOrder',
+  'update:expanded',
   'filtered',
   'sorted',
   'selectionChange',
@@ -311,7 +317,7 @@ const emit = defineEmits([
 
 const { columnsComputed } = useColumns(props)
 
-const { rowsComputed } = useRows(columnsComputed, props)
+const { rowsComputed } = useRows(columnsComputed, props, emit)
 
 const { filteredRows } = useFilterable(rowsComputed, props, emit)
 

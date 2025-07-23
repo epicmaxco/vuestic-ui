@@ -42,9 +42,10 @@
 import { computed, PropType, useSlots } from 'vue'
 
 import { extractComponentProps, filterComponentProps } from '../../utils/component-options'
-import { useComponentPresetProp, useColors, useElementTextColor } from '../../composables'
+import { useComponentPresetProp, useColors, useElementTextColor, ColorName } from '../../composables'
+import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
-import { VaDropdown, VaIcon } from '../'
+import { VaDropdown, VaIcon, VaIconName } from '../'
 
 const VaDropdownProps = extractComponentProps(VaDropdown, ['closeOnClickOutside'])
 </script>
@@ -59,9 +60,9 @@ const props = defineProps({
   ...VaDropdownProps,
   ...useComponentPresetProp,
   trigger: { ...VaDropdownProps.trigger, default: ['hover', 'enter', 'space', 'arrow-down', 'arrow-up'] },
-  color: { type: String, default: '#1b1a1f' }, // TODO: Make sure add this color to pallete
+  color: { type: String as PropType<StringWithAutocomplete<ColorName>>, default: '#1b1a1f' }, // TODO: Make sure add this color to pallete
   textColor: { type: String },
-  icon: { type: String, default: '' },
+  icon: { type: String as PropType<StringWithAutocomplete<VaIconName>>, default: '' },
   title: { type: String, default: '' },
   message: { type: String, default: '' },
   autoHide: { type: Boolean, default: true },

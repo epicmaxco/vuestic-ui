@@ -62,6 +62,6 @@ export const vuesticAutoImport = (options: { prefix?: string } = { prefix: 'Va' 
             return { name: componentName, from: 'vuestic-ui' }
         },
       ],
-    })
+    }) as Plugin
   ]
 }
