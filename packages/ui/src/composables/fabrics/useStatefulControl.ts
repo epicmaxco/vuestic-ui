@@ -31,7 +31,7 @@ export const useStatefulControl = <V>(
     modelValue: V,
     stateful: boolean,
   },
-  emit: (eventName: 'update:modelValue') => void,
+  emit: (eventName: 'update:modelValue', v: V) => void,
 ) => {
   const isUserProvidedProp = useIsUserProvidedProp('modelValue')
 
@@ -54,7 +54,7 @@ export const useStatefulControl = <V>(
     },
     set (value: V) {
       state.value = value
-      emit('update:modelValue')
+      emit('update:modelValue', value)
     },
   }) as StatefulValue<V>
 
