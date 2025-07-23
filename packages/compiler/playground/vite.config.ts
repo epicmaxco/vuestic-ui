@@ -16,6 +16,7 @@ export default defineConfig({
       },
       autoImport: true,
       config: true,
+      cssLayers: true,
     }),
     vue(),
     Inspect(),

@@ -4,15 +4,11 @@ import { usePackageJson } from '../../composables/usePackageJson';
 import { versions } from '../../versions';
 
 export async function insertVuesticCompiler(viteConfigSource: string): Promise<string> {
-    
+
     const { addDependency } = await usePackageJson();
     await addDependency('@vuestic/compiler', versions['@vuestic/compiler']);
 
-
-
-
-
-    viteConfigSource = insertImport(viteConfigSource, ['import vuestic from "@vuestic/compiler/vite"']);
+    viteConfigSource = insertImport(viteConfigSource, ['import { vuestic } from "@vuestic/compiler/vite"']);
     const lines = viteConfigSource.split('\n');
     const pluginsLineIndex = lines.findIndex(line => line.includes('plugins:'));
     if (pluginsLineIndex === -1) {
@@ -37,5 +33,5 @@ export async function insertVuesticCompiler(viteConfigSource: string): Promise<s
         return lines.join('\n');
     }
 
-    return viteConfigSource; 
+    return viteConfigSource;
 }
