@@ -1,4 +1,4 @@
-import { Plugin } from "vite";
+import { type Plugin } from "vite";
 import { writeFile, readFile } from 'fs/promises'
 import { resolve } from 'path'
 

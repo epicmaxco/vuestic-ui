@@ -1,4 +1,4 @@
-import { createLogger, Plugin } from "vite"
+import { Plugin } from "vite"
 import { vuesticTsConfig } from "../tsconfig-plugin"
 import { devtools, PluginOptions as DevtoolsPluginOptions } from "../devtools"
 import { cssLayers } from "../css-layers"
