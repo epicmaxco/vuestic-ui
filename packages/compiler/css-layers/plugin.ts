@@ -2,7 +2,7 @@ import { Plugin } from 'vite'
 import MagicString from 'magic-string'
 
 const addLayer = (ms: MagicString, layer: string) => {
-  ms.prepend(`@layer ${layer} {\n`)
+  ms.prepend(`@layer vuestic.styles, vuestic.components;\n` + `@layer ${layer} {\n`)
   ms.append(`\n}`)
   return {
     code: ms.toString(),
@@ -18,11 +18,11 @@ export const cssLayers: Plugin = {
     // Only transform CSS files
     if (!id.endsWith('.css')) return null
 
-    if (id.includes('vuestic-ui/dist/styles/')) {
+    if (id.includes('vuestic-ui/dist/styles/') || id.includes('vuestic-ui/packages/ui/dist/styles/')) {
       return addLayer(new MagicString(code), 'vuestic.styles')
     }
 
-    if (id.includes('vuestic-ui/dist/es/')) {
+    if (id.includes('vuestic-ui/dist/es/') || id.includes('vuestic-ui/packages/ui/dist/es/')) {
       return addLayer(new MagicString(code), 'vuestic.components')
     }
   }

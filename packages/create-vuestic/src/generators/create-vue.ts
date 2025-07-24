@@ -15,7 +15,7 @@ export const createVue = async (projectName: string, features: CreateVueFeature[
   // --default in case no option is selected, so default would be no options
   // --force in case folder already exists
   // --yes to skip prompts
-  const command = `npm create vue@3 --yes -- ${argsString} ${projectName} --default --force`
+  const command = `npm create vue@latest --yes -- ${argsString} ${projectName} --default --force`
 
   return execp(command)
 }

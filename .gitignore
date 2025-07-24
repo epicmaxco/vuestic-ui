@@ -4,7 +4,8 @@ dist
 storybook-static
 build-storybook.log
 .nuxt
-packages/create-vuestic/vuestic-app
+packages/create-vuestic/vuestic-app/*
+!packages/create-vuestic/vuestic-app/yarn.lock
 
 /packages/bundlers-tests/**/screenshots
 /packages/bundlers-tests/**/video

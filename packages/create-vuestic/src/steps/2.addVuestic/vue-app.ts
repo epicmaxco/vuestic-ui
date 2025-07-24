@@ -9,6 +9,7 @@ import { insertImport } from './insert-import';
 import { insertVuesticPlugin } from './insert-plugin';
 import { useVuesticConfig } from '../../composables/useVuesticConfig';
 import { restructureProject } from './vue-restructure-project';
+import { insertVuesticCompiler } from './insert-vuestic-compiler';
 
 export const addVuesticToVue3App = async () => {
   const { projectName } = await useUserAnswers()
@@ -16,6 +17,20 @@ export const addVuesticToVue3App = async () => {
   // Install vuestic-ui
   const { addDependency } = await usePackageJson()
   await addDependency('vuestic-ui', versions['vuestic-ui'])
+
+
+
+  const viteConfigPath = resolvePath(process.cwd(), projectName, 'vite.config.ts') || resolvePath(process.cwd(), projectName, 'vite.config.js')
+
+  if (viteConfigPath) {
+    let viteConfigSource = await readFile(viteConfigPath, 'utf-8')
+    let updatedConfig =  await insertVuesticCompiler(viteConfigSource)
+    await writeFile(viteConfigPath, updatedConfig)
+  }
+
+
+
+
 
   // Add plugin
   const mainPath = resolvePath(process.cwd(), projectName, 'src/main.js') || resolvePath(process.cwd(), projectName, 'src/main.ts')
@@ -29,11 +44,7 @@ export const addVuesticToVue3App = async () => {
   const css = config.css.map((css) => `import '${css}'`)
 
   let mainSource = await readFile(mainPath, 'utf-8')
-  mainSource = insertVuesticPlugin(mainSource, config.plugin)
-  mainSource = insertImport(mainSource, [
-    ...config.import,
-    ...css,
-  ])
+
   await writeFile(mainPath, mainSource)
 
   // Add fonts

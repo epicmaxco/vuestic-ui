@@ -4,6 +4,8 @@ import MagicString from 'magic-string'
 import { minifyPath } from '../shared/slug'
 import { PREFIX } from '../shared/CONST'
 import { stringifyFileQuery } from '../shared/file-query'
+import { readFile } from 'node:fs/promises'
+import { makeDiffSyncByRow } from './diff-sync'
 
 const walk = (node: TemplateChildNode | RootNode, cb: (node: TemplateChildNode | RootNode) => void) => {
   cb(node)
@@ -71,8 +73,46 @@ const getNodeTagLoc = (source: string) => {
   }
 }
 
+export const fromOutputToSourceShift = (source: string, output: string) => {
+  const diff = makeDiffSyncByRow(source, output)
+
+
+  return (start: number, end: number) => {
+    let current: typeof diff[number] | undefined = undefined
+    let shiftStart = 0
+    let shiftEnd = 0
+
+    for (let i = 0; i < diff.length; i++) {
+      current = diff[i]
+
+      if (current.end.output > end) {
+        break
+      }
+
+      if (current.type === 'equal') {
+        continue
+      } else if (current.type === 'insert') {
+        if (current.start.output < start) {
+          shiftStart -= current.source.length
+        }
+        if (current.end.output < end) {
+          shiftEnd -= current.source.length
+        }
+      }
+    }
+
+    if (!current) {
+      return { start: 0, end: 0 }
+    }
+
+    return { start: shiftStart, end: shiftEnd }
+  }
+}
+
 
 export const transformFile = async (code: string, id: string) => {
+  // Read the source file, ignore polluted code from other plugins
+  const sourceFile = await readFile(id, 'utf-8')
   // TODO: remove old minified paths
   const result = parse(code)
   const templateAst = result.descriptor.template?.ast
@@ -83,17 +123,37 @@ export const transformFile = async (code: string, id: string) => {
 
   let source = new MagicString(code)
 
-  // TODO: TS fix correct versions of @vue/compiler-core and @vue/compiler-sfc
-  walk(templateAst as unknown as RootNode, (node) => {
-    if (node.type === 1) {
-      const tagLoc = getNodeTagLoc(node.loc.source)
-      const nodeId = stringifyFileQuery(id, node.loc.start.offset, node.loc.end.offset)
+  // Handle other plugins that may have modified the code
+  if (code !== sourceFile) {
+    const getShift = fromOutputToSourceShift(sourceFile, code)
 
-      const withAttribute = ` data-${PREFIX}="" data-${minifyPath(nodeId)}="${node.tag}"`
+    // TODO: TS fix correct versions of @vue/compiler-core and @vue/compiler-sfc
+    walk(templateAst as unknown as RootNode, (node) => {
+      if (node.type === 1) {
+        const tagLoc = getNodeTagLoc(node.loc.source)
+        const shift = getShift(node.loc.start.offset, node.loc.end.offset)
+        const nodeId = stringifyFileQuery(id, node.loc.start.offset + shift.start, node.loc.end.offset + shift.end)
 
-      source.appendLeft(node.loc.start.offset + tagLoc.end.offset - tagLoc.endSymbol.length, withAttribute)
-    }
-  })
+        const withAttribute = ` data-${PREFIX}="" data-${minifyPath(nodeId)}="${node.tag}"`
+
+        source.appendLeft(node.loc.start.offset + tagLoc.end.offset - tagLoc.endSymbol.length, withAttribute)
+      }
+    })
+  } else {
+     // TODO: TS fix correct versions of @vue/compiler-core and @vue/compiler-sfc
+    walk(templateAst as unknown as RootNode, (node) => {
+      if (node.type === 1) {
+        const tagLoc = getNodeTagLoc(node.loc.source)
+        const nodeId = stringifyFileQuery(id, node.loc.start.offset, node.loc.end.offset)
+
+        const withAttribute = ` data-${PREFIX}="" data-${minifyPath(nodeId)}="${node.tag}"`
+
+        source.appendLeft(node.loc.start.offset + tagLoc.end.offset - tagLoc.endSymbol.length, withAttribute)
+      }
+    })
+  }
+
+
 
   return {
     code: source.toString(),
