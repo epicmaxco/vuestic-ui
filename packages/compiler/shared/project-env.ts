@@ -58,6 +58,6 @@ export const getProjectEnv = () => {
     hasTailwindCSS: checkModuleExists('tailwindcss'),
     nodeVersion: getNodeVersion(),
     packageManager: getPackageManager(),
-    production: process.env.NODE_ENV === 'production' || import.meta.env.PROD,
+    production: process.env?.NODE_ENV === 'production' || import.meta.env?.PROD,
   }
 }

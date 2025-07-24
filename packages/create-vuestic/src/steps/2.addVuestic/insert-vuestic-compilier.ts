@@ -4,7 +4,6 @@ import { usePackageJson } from '../../composables/usePackageJson';
 import { versions } from '../../versions';
 
 export async function insertVuesticCompiler(viteConfigSource: string): Promise<string> {
-
     const { addDependency } = await usePackageJson();
     await addDependency('@vuestic/compiler', versions['@vuestic/compiler']);
 
@@ -28,8 +27,10 @@ export async function insertVuesticCompiler(viteConfigSource: string): Promise<s
         }
     }
 
+    const intent = lines[pluginsLineIndex + 1].match(/^\s*/)?.[0] || '';
+
     if (insertIndex !== -1) {
-        lines.splice(insertIndex, 0, '        vuestic(),');
+        lines.splice(insertIndex, 0, `${intent}vuestic(),`);
         return lines.join('\n');
     }
 
