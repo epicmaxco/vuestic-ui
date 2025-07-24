@@ -46,7 +46,7 @@ export const devtools = (options: PluginOptions = {}): Plugin => {
       }
     },
 
-    transform(code, id) {
+    async transform(code, id) {
       if (config.isProduction) {
         return
       }

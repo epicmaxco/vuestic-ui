@@ -72,7 +72,7 @@ export const vuestic = (options: Options = {}): Plugin[] => {
 
   plugins.push(...vuesticTsConfig())
 
-  if (options.devtools !== false) {
+  if (options.devtools !== false && !env.production) {
     logger.info(formatString('Using [vuestic:devtools] plugin.'), {
       timestamp: true,
     })
