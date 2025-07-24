@@ -9,7 +9,7 @@ import { insertImport } from './insert-import';
 import { insertVuesticPlugin } from './insert-plugin';
 import { useVuesticConfig } from '../../composables/useVuesticConfig';
 import { restructureProject } from './vue-restructure-project';
-import { insertVuesticCompiler } from './insert-vuestic-compilier';
+import { insertVuesticCompiler } from './insert-vuestic-compiler';
 
 export const addVuesticToVue3App = async () => {
   const { projectName } = await useUserAnswers()
@@ -44,7 +44,7 @@ export const addVuesticToVue3App = async () => {
   const css = config.css.map((css) => `import '${css}'`)
 
   let mainSource = await readFile(mainPath, 'utf-8')
-  
+
   await writeFile(mainPath, mainSource)
 
   // Add fonts
