@@ -11,7 +11,6 @@
         <img :src="option.logo" alt="" class="w-24 h-16 mb-4" />
         <h3 class="text-xl font-semibold mb-2">{{ option.label }}</h3>
         <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">{{ option.description }}</p>
-        <VaButton color="primary">Install with {{ option.label }}</VaButton>
       </VaCardContent>
     </VaCard>
   </div>
@@ -25,19 +24,19 @@ import Vue_logotype from './Vue_logotype.svg'
 const options = [
   {
     label: 'Nuxt',
-    description: 'Use Vuestic UI with Nuxt for seamless SSR and modular setup.',
+    description: 'Use @vuestic/nuxt with Nuxt for seamless SSR and modular setup.',
     link: '/getting-started/nuxt',
     logo: nuxt_logotype,
   },
   {
-    label: 'Vite (Create Vuestic)',
-    description: 'Quickly scaffold Vuestic projects with Vite-powered CLI.',
+    label: 'Vite',
+    description: 'Try @vuestic/compiler with Vite for great development experience.',
     link: '/getting-started/vite',
     logo: Vite_logotype,
   },
   {
     label: 'Manual',
-    description: 'Manually add Vuestic UI to any existing Vue project.',
+    description: 'Manually add vuestic-ui to any existing Vue project.',
     link: '/getting-started/manual',
     logo: Vue_logotype,
   },

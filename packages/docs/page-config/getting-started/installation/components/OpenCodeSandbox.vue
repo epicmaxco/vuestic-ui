@@ -2,14 +2,13 @@
   <VaCard class="hover:shadow-xl transition-all duration-300 cursor-pointer">
     <VaCardContent class="flex flex-col items-center text-center p-6">
       <img src="./codesandbox_logotype.svg" alt="CodeSandbox logo" class="w-24 h-16 mb-4" />
-      
-      <h3 class="text-xl font-semibold mb-2">Try Vuestic UI on CodeSandbox</h3>
-      
+
+      <h3 class="text-xl font-semibold mb-2">CodeSandbox</h3>
+
       <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
         Experiment right in your browser via CodeSandbox.
       </p>
-      
-      <!-- Форма з кнопкою -->
+
       <form
         :action="sandboxDefineUrl"
         method="POST"
@@ -20,12 +19,6 @@
           name="parameters"
           :value="sandboxParams"
         />
-        <VaButton
-          type="submit"
-          color="primary"
-        >
-          Open CodeSandbox
-        </VaButton>
       </form>
     </VaCardContent>
   </VaCard>

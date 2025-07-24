@@ -19,6 +19,3 @@ export default defineNuxtModule<any>({
     useCompiler(options)
   }
 })
-
-
-

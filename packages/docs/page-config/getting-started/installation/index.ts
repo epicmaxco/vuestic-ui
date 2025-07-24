@@ -12,13 +12,17 @@ export default definePageConfig({
     block.code({
       npm: 'npm create vuestic@latest',
       yarn: 'yarn create vuestic',
+      pnpm: 'pnpm create vuestic',
+      bun: 'bun create vuestic',
     }, 'bash'),
     block.paragraph('`create-vuestic` provides three template: Vuestic Admin, create-vue and Nuxt. Templates can be configured to use specific features like tree-shaking or AG Grid theme.'),
+
+    block.subtitle('Manual Installation'),
     block.headline('Choose your framework'),
     block.component('FrameworkInstallWidget'),
-    block.headline('Try Vuestic UI online'),
+    block.headline('Try without installation'),
     block.component('TryOnlineWidget'),
-    
-    
+
+
   ],
 });
