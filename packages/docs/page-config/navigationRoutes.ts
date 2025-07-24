@@ -70,6 +70,10 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "Nuxt",
       },
       {
+        name: "vite",
+        displayName: "Vite",
+      },
+      {
         name: "ssr-guide",
         displayName: "SSR",
       },
@@ -91,6 +95,10 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: navigationBadge.new('1.6.0'),
         },
       },
+      {
+        name: 'manual',
+        displayName: 'Manual Installation',
+      }
     ],
   },
   {
