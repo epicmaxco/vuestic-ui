@@ -625,6 +625,14 @@ export const navigationRoutes: NavigationRoute[] = [
           badge: navigationBadge.new('1.10.0'),
         },
         path: '/compiler/vuestic-config',
+      },
+      {
+        name: 'tailwind',
+        displayName: 'Tailwind',
+        meta: {
+          badge: navigationBadge.new('1.11.0'),
+        },
+        path: '/compiler/tailwind',
       }
     ]
   },

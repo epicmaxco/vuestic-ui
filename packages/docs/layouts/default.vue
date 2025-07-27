@@ -129,6 +129,11 @@ html {
   background: var(--va-background-primary);
 }
 
+body {
+  padding: 0;
+  margin: 0;
+}
+
 .docs-layout {
   font-family: var(--va-font-family);
   // Halloween background
