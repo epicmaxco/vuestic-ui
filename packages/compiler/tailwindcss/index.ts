@@ -1,6 +1,7 @@
+import { readFile, writeFile } from 'fs/promises';
 import { MagicString } from '@vue/compiler-sfc';
 import { Plugin } from 'vite';
-import { tryToReadConfig } from '../shared/vuestic-config';
+import { watchVuesticConfigOnce } from '../shared/vuestic-config';
 import { colorsPreset } from 'vuestic-ui'
 import { logger } from '../logger';
 
@@ -60,7 +61,12 @@ export const vuesticTailwind = () => {
 
       const ms = new MagicString(code);
 
-      const config = (await tryToReadConfig()) ?? { colors: { variables: {} } };
+      const config = (await watchVuesticConfigOnce(async () => {
+        // trigger full re-transform of id
+        await writeFile(id, ((await readFile(id)).toString()))
+
+        server?.ws.send({ type: 'full-reload', path: '*' });
+      })) ?? { colors: { variables: {} } };
 
       ms.appendRight(code.indexOf(TAILWIND_CSS_IMPORT_TEMPLATE) + TAILWIND_CSS_IMPORT_TEMPLATE.length, addCssVariables(config.colors.variables));
 

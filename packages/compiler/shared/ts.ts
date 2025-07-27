@@ -12,7 +12,7 @@ export const executeModule = async <T>(scriptCode: string, filePath: string) => 
   const fileName = basename(filePath)
   const dirName = dirname(filePath)
 
-  const tempFileName = resolve(dirName, fileName + '-vc.mjs')
+  const tempFileName = resolve(dirName, fileName + `${randomUUID()}-vc.mjs`)
 
   try {
     await writeFile(tempFileName, scriptCode)
