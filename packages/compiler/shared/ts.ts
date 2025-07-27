@@ -2,6 +2,7 @@ import ts from 'typescript'
 import { basename, dirname, resolve } from "path";
 import { writeFile, mkdtemp, rm } from 'fs/promises'
 import { randomUUID } from 'crypto'
+import { logger } from '../logger';
 
 export const executeModule = async <T>(scriptCode: string, filePath: string) => {
   if (!filePath) {
@@ -21,7 +22,9 @@ export const executeModule = async <T>(scriptCode: string, filePath: string) => 
     return module as T
   }
   catch (e) {
-    console.error(e)
+    logger.error(typeof e === 'string' ? e : e instanceof Error ? e.message : 'Unknown error', {
+      timestamp: true
+    })
   }
   finally {
     await rm(tempFileName, { recursive: true, force: true })

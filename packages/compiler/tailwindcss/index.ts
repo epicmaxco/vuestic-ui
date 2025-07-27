@@ -2,6 +2,7 @@ import { MagicString } from '@vue/compiler-sfc';
 import { Plugin } from 'vite';
 import { tryToReadConfig } from '../shared/vuestic-config';
 import { colorsPreset } from 'vuestic-ui'
+import { logger } from '../logger';
 
 const kebabCase = (str: string) => {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2')
@@ -11,8 +12,12 @@ const kebabCase = (str: string) => {
 
 const defaultColors = Object.keys(colorsPreset.light)
 
+function uniqueArray<T>(array: T[]): T[] {
+  return Array.from(new Set(array));
+}
+
 function addCssVariables(colors: Record<string, string>): string {
-  const colorVariables = [...defaultColors, ...Object.keys(colors)].map((key) => `--color-${kebabCase(key)}: var(--va-${kebabCase(key)});`).join('\n  ');
+  const colorVariables = uniqueArray([...defaultColors, ...Object.keys(colors)]).map((key) => `--color-${kebabCase(key)}: var(--va-${kebabCase(key)});`).join('\n  ');
 
   return `
 @theme {
@@ -36,7 +41,7 @@ export const vuesticTailwind = () => {
       const vuesticTailwindPluginIndex = config.plugins.findIndex((p) => p.name === 'vuestic:tailwindcss')
 
       if (tailwindPluginIndex !== -1 && vuesticTailwindPluginIndex !== -1 && tailwindPluginIndex < vuesticTailwindPluginIndex) {
-        console.warn('[Vuestic] vuestic:tailwindcss plugin should be placed before tailwindcss plugin in the Vite config plugins array.')
+        logger.warn('[Vuestic] vuestic plugin should be placed before tailwindcss plugin in the Vite config plugins array.', { timestamp: true });
       }
     },
 
