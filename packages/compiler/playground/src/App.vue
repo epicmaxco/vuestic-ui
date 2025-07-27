@@ -20,7 +20,7 @@ import TestPage from './pages/TestPage.vue';
     </template>
   </VaNavbar>
 
-  <div style="padding: 16px">
+  <div style="padding: 16px" class="bg-my-custom-color">
     <TestPage>
       Default slot
       <template #footer>
