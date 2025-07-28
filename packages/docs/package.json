@@ -18,7 +18,7 @@
   "devDependencies": {
     "@nuxt/eslint-config": "^0.1.1",
     "@nuxtjs/color-mode": "^3.2.0",
-    "@nuxtjs/tailwindcss": "^6.11.3",
+    "@tailwindcss/vite": "^4.1.11",
     "@types/escodegen": "^0.0.7",
     "@types/estree": "^1.0.0",
     "@types/marked": "^4.3.0",

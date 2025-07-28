@@ -1,3 +1,5 @@
+import tailwindcss from "@tailwindcss/vite"
+
 const GTM_ENABLED = process.env.GTM_ENABLED === 'true'
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
@@ -89,7 +91,6 @@ export default defineNuxtConfig({
     './modules/page-config',
     '@nuxtjs/google-fonts',
     './modules/markdown',
-    '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
     '@funken-studio/sitemap-nuxt-3',
     GTM_ENABLED ? '@zadigetvoltaire/nuxt-gtm' : null,
@@ -118,25 +119,8 @@ export default defineNuxtConfig({
     },
   },
 
-  tailwindcss: {
-    viewer: false,
-    config: {
-      important: true,
-      content: [
-        "./components/**/*.{js,vue,ts}",
-        "./page-config/**/*.{js,vue,ts}",
-        "./layouts/**/*.vue",
-        "./pages/**/*.vue",
-        "./modules/page-config/blocks/**/*.vue",
-        "./app.vue",
-      ]
-    }
-  },
-
   postcss: {
     plugins: {
-      cssnano: false,
-      tailwindcss: {},
       autoprefixer: {},
       ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {})
     },
@@ -162,7 +146,10 @@ export default defineNuxtConfig({
           api: 'modern'
         }
       }
-    }
+    },
+    plugins: [
+      tailwindcss()
+    ]
   },
 
   runtimeConfig: {

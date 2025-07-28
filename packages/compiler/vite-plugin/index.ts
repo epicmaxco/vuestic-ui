@@ -4,6 +4,7 @@ import { devtools, PluginOptions as DevtoolsPluginOptions } from "../devtools"
 import { cssLayers } from "../css-layers"
 import { vuesticConfig, Options as VuesticConfigPluginOptions } from "../vuestic-config"
 import { vuesticAutoImport } from "../auto-import"
+import { vuesticTailwind } from "../tailwindcss"
 import { mergeDeep } from "../shared/merge-deep"
 import { logger } from "../logger"
 import { getProjectEnv } from "../shared/project-env"
@@ -90,6 +91,13 @@ export const vuestic = (options: Options = {}): Plugin[] => {
       })
     }
     plugins.push(cssLayers)
+  }
+
+  if (env.hasTailwindCSS) {
+    logger.info(formatString('Using [vuestic:tailwind] plugin.'), {
+      timestamp: true,
+    })
+    plugins.push(vuesticTailwind())
   }
 
   if (Boolean(options.autoImport)) {
