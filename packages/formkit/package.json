@@ -41,6 +41,6 @@
   "devDependencies": {
     "@storybook/vue3-vite": "^7.1.0",
     "storybook": "^7.1.0",
-    "tsup": "^6.5.0"
+    "tsup": "^6.7.0"
   }
 }

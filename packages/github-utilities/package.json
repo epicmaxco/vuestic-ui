@@ -9,6 +9,6 @@
     "chalk": "^5.2.0",
     "dotenv": "^16.3.1",
     "inquirer": "^9.0.0",
-    "typescript": "^5"
+    "typescript": "^5.8.3"
   }
 }

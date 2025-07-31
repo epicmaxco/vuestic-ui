@@ -4,7 +4,7 @@
   "type": "module",
   "dependencies": {
     "@rollup/pluginutils": "^5.1.0",
-    "acorn": "^8.12.1",
+    "acorn": "^8.15.0",
     "shiki": "^1.10.1",
     "unplugin-vue-components": "^28.8.0"
   },

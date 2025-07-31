@@ -71,7 +71,7 @@
     "@types/cleave.js": "^1.4.7",
     "@types/mini-css-extract-plugin": "^1.2.1",
     "@types/semver": "^7.3.6",
-    "@types/yargs": "^17.0.10",
+    "@types/yargs": "^17.0.33",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
     "@vitejs/plugin-vue": "^4.1.0",
@@ -94,7 +94,7 @@
     "eslint-plugin-vue": "^9.19.2",
     "identity-obj-proxy": "^3.0.0",
     "ionicons": "^3.0.0",
-    "jsdom": "^16.2.2",
+    "jsdom": "^26.1.0",
     "lint-staged": "^11.1.2",
     "postcss": "^8.2.1",
     "postcss-import": "^14.0.2",
@@ -112,13 +112,13 @@
     "storybook-dark-mode": "^3.0.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
-    "typescript": "5.3.2",
+    "typescript": "5.8.3",
     "vite": "^4.5.14",
     "vite-plugin-chunk-split": "^0.4.7",
     "vitest": "^1.4.0",
-    "vue": "^3.0.4",
+    "vue": "^3.5.18",
     "vue-tsc": "^2.0.7",
-    "yargs": "^17.5.1"
+    "yargs": "^17.7.2"
   },
   "peerDependencies": {
     "vue": "^3.5.0"
