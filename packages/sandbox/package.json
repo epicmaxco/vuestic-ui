@@ -24,25 +24,25 @@
   },
   "dependencies": {
     "rollup-plugin-visualizer": "^5.5.4",
-    "vue": "*"
+    "vue": "^3.5.18"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
     "@vue/test-utils": "^2.4.1",
     "lodash": "^4.17.21",
-    "nuxt": "^3.8.1",
+    "nuxt": "^3.18.0",
     "rollup-plugin-analyzer": "^4.0.0",
     "sass": "^1.57.1",
     "serve": "^14.2.0",
-    "ts-loader": "^9.3.0",
-    "ts-node": "^10.8.1",
-    "typescript": "^5",
+    "ts-loader": "^9.5.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
     "vite": "^4.5.14",
     "vitest": "^1.4.0",
     "vue-bundle-renderer": "0.4.1",
     "vue-tsc": "^2.0.7",
-    "webpack": "^5.4.1",
-    "webpack-cli": "^4.9.2",
+    "webpack": "^5.101.0",
+    "webpack-cli": "^4.10.0",
     "when-dependencies-installed": "^1.0.1"
   },
   "workspaces": {

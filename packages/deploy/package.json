@@ -8,7 +8,7 @@
   "devDependencies": {
     "chalk": "^5.2.0",
     "inquirer": "^9.0.0",
-    "typescript": "^5"
+    "typescript": "^5.8.3"
   },
   "exports": {
     "./execute": "./execute/index.ts"
