@@ -32,7 +32,7 @@
     "lodash": "^4.17.21",
     "nuxt": "^3.18.0",
     "rollup-plugin-analyzer": "^4.0.0",
-    "sass": "^1.57.1",
+    "sass": "^1.89.2",
     "serve": "^14.2.0",
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
