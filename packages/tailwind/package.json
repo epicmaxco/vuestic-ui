@@ -33,7 +33,7 @@
     "registry": "https://registry.npmjs.org"
   },
   "devDependencies": {
-    "vite": "^4.2.1"
+    "vite": "^4.5.14"
   },
   "dependencies": {
     "pathe": "^1.1.2"
