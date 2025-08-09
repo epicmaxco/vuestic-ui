@@ -1,7 +1,7 @@
 import { injectChildPropsFromParent } from './../../config-transport/useChildComponents'
 import type { VuesticComponentName, Props, VuesticComponent } from '../types'
 import { useLocalConfig } from '../../../composables/useLocalConfig'
-import { useGlobalConfig } from '../../global-config/global-config'
+import { useGlobalConfig } from '../../../composables/useGlobalConfig'
 import { computed } from 'vue'
 import type { ComponentPresetProp, PresetPropValue } from '../../../composables'
 import { notNil } from '../../../utils/isNilValue'

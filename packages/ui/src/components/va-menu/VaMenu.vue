@@ -16,7 +16,8 @@
 
 <script lang="ts">
 import { nextTick, ref, watchEffect } from 'vue'
-import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaDropdown } from '../va-dropdown'
+import { VaDropdownContent } from '../va-dropdown/components/VaDropdownContent'
 import { VaMenuList } from '../va-menu-list'
 import { extractComponentProps, extractComponentEmits, filterComponentProps } from '../../utils/component-options'
 import { useComponentPresetProp, useChildComponents, defineChildProps } from '../../composables'

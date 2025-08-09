@@ -54,17 +54,24 @@ const getRootNodesOpenTags = (sfc: SFCParseResult) => {
   const ast = sfc.descriptor.template?.ast
   const rootNodes = ast?.children.filter(node => node.type === 1 /* ELEMENT */)
 
-  return rootNodes?.map(({ loc }) => {
-    const openTag = loc.source.match(/<[^>]*>/)?.[0]
-    if (!openTag) { return undefined }
+  const nodes = rootNodes
+    ?.map(({ loc }) => {
+      const openTag = loc.source.match(/<[^>]*>/)?.[0]
+      if (!openTag) { return undefined }
 
-    return {
-      ...loc,
-      end: { ...loc.start, offset: loc.start.offset + openTag.length },
+      return {
+        ...loc,
+        end: { ...loc.start, offset: loc.start.offset + openTag.length },
 
-      source: openTag,
-    }
-  })
+        source: openTag,
+      }
+    })
+
+  if (!nodes) {
+    return undefined
+  }
+
+  return nodes?.filter(Boolean) as (NonNullable<typeof nodes[number]>[])
 }
 
 const renderCSSVariableName = (vBind: string) => {
@@ -109,16 +116,14 @@ export const transformVueComponent = (code: string) => {
   const sfc = parse(code)
 
   const vBinds = getVBinds(sfc)
-  if (!vBinds.length) { return }
+  if (!vBinds.length) { return undefined }
 
   const rootNodes = getRootNodesOpenTags(sfc)
-  if (!rootNodes?.length) { return }
+  if (!rootNodes?.length) { return undefined }
 
   const s = new MagicString(code)
 
   rootNodes?.forEach((nodeOpenTag) => {
-    if (!nodeOpenTag) { return }
-
     const newStartTagCode = addStyleAttrToTag(nodeOpenTag.source, vBinds)
 
     s.overwrite(nodeOpenTag.start.offset, nodeOpenTag.end.offset, newStartTagCode)
@@ -132,11 +137,9 @@ export const transformVueComponent = (code: string) => {
     })
   })
 
-  return {
-    code: s.toString(),
-    // Always return null for map to avoid conflicts with Vue plugin sourcemaps
-    map: null,
-  }
+  // Return just the transformed code without any sourcemap information
+  // This tells Vite we transformed the code but provides no sourcemap data
+  return s.toString()
 }
 
 /** We need this plugin to support CSS vbind in SSR. Vue useCssVars is disabled for cjs build */
@@ -154,7 +157,15 @@ export const componentVBindFix = (o: {
         return
       }
 
-      return transformVueComponent(code)
+      // Quick check if the file contains v-bind CSS variables before parsing
+      if (!code.includes('v-bind(')) {
+        return
+      }
+
+      const result = transformVueComponent(code)
+
+      // Only return a transform result if we actually made changes
+      return result
     },
   } satisfies Plugin
 }

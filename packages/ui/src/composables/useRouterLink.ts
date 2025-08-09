@@ -1,6 +1,6 @@
 import { computed, PropType, getCurrentInstance, type ExtractPropTypes } from 'vue'
 
-import { useGlobalConfig } from '../services/global-config'
+import { useGlobalConfig } from './useGlobalConfig'
 
 export const useRouterLinkProps = {
   tag: { type: String, default: 'span' },

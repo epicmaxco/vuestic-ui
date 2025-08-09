@@ -146,7 +146,8 @@ import {
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 import { VaInputWrapper } from '../va-input-wrapper'
-import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaDropdown } from '../va-dropdown'
+import { VaDropdownContent } from '../va-dropdown/components/VaDropdownContent'
 import { VaIcon } from '../va-icon'
 import { VaSelectOptionList } from './components/VaSelectOptionList'
 import { VaSelectContent } from './components/VaSelectContent'

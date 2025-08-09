@@ -89,7 +89,8 @@ import {
 
 import { VaButton } from '../va-button'
 import { VaButtonGroup } from '../va-button-group'
-import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaDropdown } from '../va-dropdown'
+import { VaDropdownContent } from '../va-dropdown/components/VaDropdownContent'
 import { omit } from '../../utils/omit'
 import { VaIconName } from '../va-icon'
 import { StringWithAutocomplete } from '../../utils/types/prop-type'

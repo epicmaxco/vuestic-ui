@@ -92,7 +92,8 @@ import { useTimeFormatter } from './hooks/time-text-formatter'
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon, VaIconName } from '../va-icon'
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
-import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaDropdown } from '../va-dropdown'
+import { VaDropdownContent } from '../va-dropdown/components/VaDropdownContent'
 import VaTimePicker from '../va-time-picker/VaTimePicker.vue'
 
 const VaInputWrapperProps = extractComponentProps(VaInputWrapper, ['focused', 'maxLength', 'counterValue'])

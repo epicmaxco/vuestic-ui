@@ -59,6 +59,4 @@ export const provideForCurrentApp = <T>(provide: T) => {
   return provide
 }
 
-export { useGlobalConfig } from '../../composables/useGlobalConfig'
-
 export * from './types'

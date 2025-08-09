@@ -1,6 +1,7 @@
 import { computed, getCurrentInstance, PropType } from 'vue'
 
-import { useGlobalConfig, SizeConfig } from '../services/global-config/global-config'
+import { useGlobalConfig } from './useGlobalConfig'
+import { SizeConfig } from '../services/global-config'
 import type { VuesticComponentName } from '../services/vue-plugin/types/components'
 import { isNilValue } from '../utils/isNilValue'
 

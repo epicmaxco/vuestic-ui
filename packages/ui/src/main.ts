@@ -1,4 +1,4 @@
-export { useGlobalConfig } from './services/global-config'
+export { useGlobalConfig } from './composables/useGlobalConfig'
 export {
   useColors,
   useBreakpoint,
