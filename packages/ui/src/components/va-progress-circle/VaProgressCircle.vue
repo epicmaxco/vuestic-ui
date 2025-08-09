@@ -83,8 +83,8 @@ const ariaAttributesComputed = computed(() => ({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-progress-circle {
   position: var(--va-progress-circle-position);
@@ -102,7 +102,7 @@ const ariaAttributesComputed = computed(() => ({
     width: var(--va-progress-circle-width);
     height: var(--va-progress-circle-height);
 
-    @include flex-center();
+    @include resources.flex-center();
 
     @at-root {
       .va-progress-circle--indeterminate & {

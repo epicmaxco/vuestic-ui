@@ -434,8 +434,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import 'variables';
+@use '../../styles/resources';
+@use "variables";
 
 .va-tabs {
   display: var(--va-tabs-display);
@@ -498,7 +498,7 @@ defineExpose({
     }
 
     &--disabled {
-      @include va-disabled();
+      @include resources.va-disabled();
 
       pointer-events: none;
     }
@@ -551,7 +551,7 @@ defineExpose({
   }
 
   .va-button {
-    @include keyboard-focus-outline($offset: -2px);
+    @include resources.keyboard-focus-outline($offset: -2px);
   }
 }
 </style>

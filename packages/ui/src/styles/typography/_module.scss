@@ -1,10 +1,10 @@
-@import './mixins';
-@import '../resources/variables';
+@use 'mixins';
+@use '../resources/variables';
 
 /** Isolated typography so it can be used in VaContent */
 @mixin va-typography {
   .va-link {
-    @include link();
+    @include mixins.link();
 
     &-secondary {
       color: var(--va-link-color-secondary);
@@ -12,7 +12,7 @@
   }
 
   .va-title {
-    @include va-title();
+    @include mixins.va-title();
 
     &-info {
       color: var(--va-info);
@@ -75,7 +75,7 @@
     }
 
     &-code {
-      @include va-code;
+      @include mixins.va-code;
 
       padding: 0.1rem 0.2rem;
     }
@@ -88,7 +88,7 @@
   }
 
   .va-code-snippet {
-    @include va-code-snippet();
+    @include mixins.va-code-snippet();
   }
 
   .va-blockquote {
@@ -106,14 +106,14 @@
     }
   }
 
-  @each $element, $size in $display-font-sizes {
+  @each $element, $size in variables.$display-font-sizes {
     .va-h#{$element} {
-      @include va-display($element);
+      @include mixins.va-display($element);
     }
   }
 
   ul.va-unordered {
-    @include va-unordered;
+    @include mixins.va-unordered;
 
     ul.va-unordered,
     ol.va-ordered {
@@ -123,7 +123,7 @@
   }
 
   ol.va-ordered {
-    @include va-ordered;
+    @include mixins.va-ordered;
 
     ul.va-unordered,
     ol.va-ordered {
@@ -133,7 +133,7 @@
   }
 
   .va-table {
-    @include va-table();
+    @include mixins.va-table();
   }
 
   .va-text-block {

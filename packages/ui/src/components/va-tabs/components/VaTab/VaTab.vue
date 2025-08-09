@@ -167,8 +167,8 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
-@import "../../../../styles/resources";
-@import 'variables';
+@use '../../../../styles/resources';
+@use "variables";
 
 .va-tab {
   align-items: var(--va-tab-align-items);
@@ -182,7 +182,7 @@ onBeforeUnmount(() => {
   vertical-align: var(--va-tab-vertical-align);
   color: var(--va-tab-color);
 
-  @include keyboard-focus-outline($radius: 2px, $offset: -2px);
+  @include resources.keyboard-focus-outline($radius: 2px, $offset: -2px);
 
   &__content {
     align-items: var(--va-tab-content-align-items);
@@ -205,7 +205,7 @@ onBeforeUnmount(() => {
   }
 
   &.va-tab--disabled {
-    @include va-disabled();
+    @include resources.va-disabled();
 
     pointer-events: none;
   }

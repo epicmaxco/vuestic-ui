@@ -105,7 +105,7 @@ const getVNodeKey = (node: VNode): string => {
 </script>
 
 <style lang="scss">
-@import './variables';
+@use "variables";
 
 .va-menu-list {
   overflow: auto;

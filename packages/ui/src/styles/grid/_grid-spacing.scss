@@ -1,8 +1,8 @@
-@import "grid-variables";
+@use "grid-variables";
 
 // spacings around target block
 @each $prop, $abbrev in (margin: m, padding: p) {
-  @each $level, $spacer in $spacers {
+  @each $level, $spacer in grid-variables.$spacers {
     .#{$abbrev}a-#{$level},
     .#{$abbrev}y-#{$level},
     .#{$abbrev}t-#{$level} {
@@ -55,7 +55,7 @@
 
 // spacings between items in the block
 @each $prop, $direction in (x: right, y: bottom) {
-  @each $level, $spacer in $spacers {
+  @each $level, $spacer in grid-variables.$spacers {
     .va-spacing-#{$prop}-#{$level} {
       & > * {
         margin-#{$direction}: $spacer;

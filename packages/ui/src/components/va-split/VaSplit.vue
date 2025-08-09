@@ -283,8 +283,8 @@ const { t, tp } = useTranslation()
 </script>
 
 <style lang="scss">
-@import 'variables';
-@import '../../styles/resources';
+@use "variables";
+@use '../../styles/resources';
 
 .va-split {
   position: relative;
@@ -307,7 +307,7 @@ const { t, tp } = useTranslation()
   &__panel {
     overflow: var(--va-split-panel-overflow);
 
-    @include va-scroll();
+    @include resources.va-scroll();
   }
 
   &--dragging {

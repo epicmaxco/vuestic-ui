@@ -160,7 +160,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import 'variables';
+@use "variables";
 
 .va-option-list {
   &__list {

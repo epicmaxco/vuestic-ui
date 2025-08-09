@@ -79,8 +79,8 @@ const bemClasses = useBem('va-navbar', () => ({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-navbar {
   display: grid;
@@ -156,12 +156,6 @@ const bemClasses = useBem('va-navbar', () => ({
     border-left: var(--va-navbar-shape-border-left);
     border-right: var(--va-navbar-shape-border-right);
     height: 0;
-  }
-
-  @include media-breakpoint-down(sm) {
-    &__background-shape {
-      display: none;
-    }
   }
 
   &--shadowed {

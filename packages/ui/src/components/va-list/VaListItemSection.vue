@@ -29,7 +29,7 @@ const computedClass = computed(() => ({
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-list-item-section {
   display: flex;

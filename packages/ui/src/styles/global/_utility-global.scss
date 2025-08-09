@@ -1,4 +1,4 @@
-@import '../resources/index.scss';
+@use '../resources';
 
 .none {
   display: none;
@@ -9,7 +9,7 @@
 }
 
 .visually-hidden {
-  @include visually-hidden;
+  @include resources.visually-hidden;
 }
 
 .fill-width {

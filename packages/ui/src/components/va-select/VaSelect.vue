@@ -738,8 +738,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-select {
   & .va-input-wrapper__text {
@@ -778,7 +778,7 @@ defineExpose({
     background: var(--va-select-dropdown-background);
     overflow-y: auto;
 
-    @include va-scroll(var(--va-background-element));
+    @include resources.va-scroll(var(--va-background-element));
   }
 }
 </style>

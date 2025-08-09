@@ -238,8 +238,8 @@ const roleComputed = computed(() => props.options?.length > 0 ? 'radiogroup' : '
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-radio {
   display: flex;
@@ -273,7 +273,7 @@ const roleComputed = computed(() => props.options?.length > 0 ? 'radiogroup' : '
   }
 
   &--readonly {
-    @include va-readonly;
+    @include resources.va-readonly;
 
     .va-radio--left-label,
     .va-radio__text {
@@ -293,7 +293,7 @@ const roleComputed = computed(() => props.options?.length > 0 ? 'radiogroup' : '
   }
 
   &__input {
-    @include visually-hidden;
+    @include resources.visually-hidden;
   }
 
   &__icon {
@@ -311,11 +311,11 @@ const roleComputed = computed(() => props.options?.length > 0 ? 'radiogroup' : '
     margin: 4px;
 
     .va-radio__input:disabled + & {
-      @include va-disabled;
+      @include resources.va-disabled;
     }
 
     .va-radio__input:focus-visible + & {
-      @include focus-outline('inherit');
+      @include resources.focus-outline('inherit');
     }
 
     &__dot {
@@ -372,7 +372,7 @@ const roleComputed = computed(() => props.options?.length > 0 ? 'radiogroup' : '
     white-space: nowrap;
 
     .va-radio--disabled & {
-      @include va-disabled;
+      @include resources.va-disabled;
     }
 
     .va-radio--left-label & {

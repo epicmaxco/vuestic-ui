@@ -37,11 +37,11 @@ const { getColor } = useColors()
 </script>
 
 <style lang="scss">
-@import '../../../styles/resources/index.scss';
+@use '../../../styles/resources';
 
 .va-input-label {
-  @include va-ellipsis();
-  @include va-title();
+  @include resources.va-ellipsis();
+  @include resources.va-title();
 
   min-height: 1rem;
   display: inline-block;

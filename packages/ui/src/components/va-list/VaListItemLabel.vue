@@ -28,7 +28,7 @@ const computedStyle = computed(() => ({ '-webkit-line-clamp': linesComputed.valu
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-list-item-label {
   font-family: var(--va-font-family);

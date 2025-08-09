@@ -344,8 +344,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-pagination {
   display: flex;
@@ -409,7 +409,7 @@ defineExpose({
     &:focus-visible {
       outline-offset: -2px;
 
-      @include keyboard-focus-outline();
+      @include resources.keyboard-focus-outline();
     }
   }
 

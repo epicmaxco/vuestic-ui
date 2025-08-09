@@ -1,6 +1,6 @@
-@import "../typography/typography.scss";
-@import "utility-global";
-@import "reset.scss";
-@import "./css-variables.scss";
-@import "./theme.scss";
-@import "../grid/grid-global-styles";
+@use "../typography/typography.scss";
+@use "utility-global";
+@use "reset.scss";
+@use "css-variables.scss";
+@use "theme.scss";
+@use "../grid/grid-global-styles";

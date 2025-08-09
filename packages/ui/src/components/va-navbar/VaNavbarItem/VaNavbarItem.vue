@@ -15,7 +15,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources";
+@use '../../../styles/resources';
 
 .va-navbar__item {
   display: flex;

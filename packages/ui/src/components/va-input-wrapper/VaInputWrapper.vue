@@ -269,8 +269,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '../../styles/resources/index.scss';
-@import './variables';
+@use '../../styles/resources';
+@use "variables";
 
 @mixin parentWidthWithDefault {
   // Following behavior implements similar behavior as <input /> element has.
@@ -334,7 +334,7 @@ export default defineComponent({
     color: v-bind(textColorComputed);
     align-self: stretch;
 
-    @include va-background(var(--va-input-wrapper-background), var(--va-input-wrapper-background-opacity), -1);
+    @include resources.va-background(var(--va-input-wrapper-background), var(--va-input-wrapper-background-opacity), -1);
 
     input,
     textarea {
@@ -374,7 +374,7 @@ export default defineComponent({
     }
 
     input {
-      @include va-scroll(var(--va-input-scroll-color));
+      @include resources.va-scroll(var(--va-input-scroll-color));
 
       width: 100%;
       // Use line-height as min-height for empty content slot
@@ -401,7 +401,7 @@ export default defineComponent({
 
     &__reset {
       &:focus {
-        @include focus-outline;
+        @include resources.focus-outline;
       }
     }
   }
@@ -493,7 +493,7 @@ export default defineComponent({
   }
 
   &--disabled {
-    @include va-disabled;
+    @include resources.va-disabled;
   }
 }
 </style>

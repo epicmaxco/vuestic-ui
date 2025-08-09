@@ -426,7 +426,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
+@use '../../styles/resources';
 
 .va-date-input {
   --va-date-picker-cell-size: 28px;

@@ -342,8 +342,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../../../styles/resources";
-@import "variables";
+@use '../../../../styles/resources';
+@use "variables";
 
 .va-select-option-list {
   overflow: auto;
@@ -353,11 +353,11 @@ defineExpose({
   flex-direction: column;
   font-family: var(--va-font-family);
 
+  @include resources.va-scroll(var(--va-primary));
+
   &--empty {
     padding: var(--va-select-option-list-empty-block-padding);
   }
-
-  @include va-scroll(var(--va-primary));
 
   &__group-name {
     padding: var(--va-select-option-list-group-name-padding);

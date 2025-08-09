@@ -236,7 +236,7 @@ const fitComputed = computed(() => props.fit)
 </script>
 
 <style lang="scss">
-@import 'variables';
+@use "variables";
 
 .va-image {
   &__content {

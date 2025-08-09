@@ -127,8 +127,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import 'variables';
-@import '../../../../styles/resources';
+@use "variables";
+@use '../../../../styles/resources';
 
 @mixin hiddenYScroll {
   overflow-y: scroll;
@@ -194,7 +194,7 @@ defineExpose({
 
     .va-time-picker-cell {
       &--active {
-        @include focus-outline($radius: 4px, $offset: -2px);
+        @include resources.focus-outline($radius: 4px, $offset: -2px);
       }
     }
   }

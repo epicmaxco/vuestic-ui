@@ -199,8 +199,8 @@ watch(() => props.disabled, (value) => {
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import 'variables';
+@use '../../styles/resources';
+@use "variables";
 
 .va-infinite-scroll {
   display: var(--va-infinite-scroll-display);
@@ -212,8 +212,10 @@ watch(() => props.disabled, (value) => {
   }
 
   &__spinner {
+    @include resources.flex-center();
+
     &__default {
-      @include flex-center();
+      @include resources.flex-center();
 
       width: var(--va-infinite-scroll-spinner-default-width);
       min-height: var(--va-infinite-scroll-spinner-default-min-height);
@@ -222,8 +224,6 @@ watch(() => props.disabled, (value) => {
     &--invisible {
       visibility: hidden !important;
     }
-
-    @include flex-center();
   }
 }
 </style>

@@ -91,8 +91,8 @@ const computedPopoverStyle = computed(() => ({
 </script>
 
 <style lang="scss">
-@import '../../styles/resources';
-@import 'variables';
+@use '../../styles/resources';
+@use "variables";
 
 .va-popover {
   display: var(--va-popover-display);

@@ -701,8 +701,8 @@ watch(hasMouseDown, (hasMouseDown) => {
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-slider {
   display: flex;
@@ -802,7 +802,7 @@ watch(hasMouseDown, (hasMouseDown) => {
   }
 
   &--disabled {
-    @include va-disabled;
+    @include resources.va-disabled;
 
     .va-slider__container {
       cursor: default;

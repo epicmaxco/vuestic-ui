@@ -134,7 +134,8 @@ export const transformVueComponent = (code: string) => {
 
   return {
     code: s.toString(),
-    map: s.generateMap(),
+    // Always return null for map to avoid conflicts with Vue plugin sourcemaps
+    map: null,
   }
 }
 
@@ -145,18 +146,15 @@ export const componentVBindFix = (o: {
   return {
     name: 'vuestic:component-v-bind-fix',
     enforce: 'pre',
+    shouldTransformCachedModule({ id }) {
+      return false
+    },
     transform (code, id) {
       if (!/\.vue$/.test(id)) {
         return
       }
 
-      const result = transformVueComponent(code)
-
-      if (o.sourcemap) {
-        return result
-      }
-
-      return result?.code
+      return transformVueComponent(code)
     },
   } satisfies Plugin
 }

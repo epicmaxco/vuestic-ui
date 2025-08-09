@@ -90,8 +90,8 @@ const ariaAttributesComputed = computed(() => ({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-stepper {
   &__step-button {
@@ -103,7 +103,7 @@ const ariaAttributesComputed = computed(() => ({
     flex-shrink: 0;
     padding: var(--va-stepper-step-button-padding);
 
-    @include keyboard-focus-outline($radius: var(--va-stepper-step-border-radius));
+    @include resources.keyboard-focus-outline($radius: var(--va-stepper-step-border-radius));
 
     &::after {
       content: "";

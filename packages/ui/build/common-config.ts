@@ -46,7 +46,6 @@ const rollupMjsBuildOptions: RollupOptions = {
   input: resolver(process.cwd(), 'src/main.ts'),
 
   output: {
-    sourcemap: true,
     dir: 'dist/esm-node',
     format: 'esm',
     ...rollupOutputOptions('mjs'),
@@ -101,14 +100,14 @@ export default function createViteConfig (format: BuildFormat) {
   isEsm && config.plugins.push(fixVueGenericComponentFileNames)
   config.plugins.push(componentVBindFix())
 
-  if (isNode) {
-    config.build.rollupOptions = { ...external, ...rollupMjsBuildOptions }
-  } else {
-    config.build.rollupOptions = {
-      ...external,
-      output: rollupOutputOptions('js'),
-    }
-  }
+  // if (isNode) {
+  //   config.build.rollupOptions = { ...external, ...rollupMjsBuildOptions }
+  // } else {
+  //   config.build.rollupOptions = {
+  //     ...external,
+  //     output: rollupOutputOptions('js'),
+  //   }
+  // }
 
   return config
 }

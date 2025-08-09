@@ -105,7 +105,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'variables';
+@use "variables";
 
 .va-timeline {
   display: var(--va-timeline-display);

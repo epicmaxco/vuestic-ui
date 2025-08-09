@@ -56,7 +56,7 @@ const ariaAttributesComputed = computed(() => ({
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-inner-loading {
   position: var(--va-inner-loading-position);

@@ -1,4 +1,4 @@
-@import "grid-global-styles";
-@import "grid-mixins";
-@import "grid-spacing";
-@import "grid-variables";
+@forward "grid-global-styles";
+@forward "grid-mixins";
+@forward "grid-spacing";
+@forward "grid-variables";

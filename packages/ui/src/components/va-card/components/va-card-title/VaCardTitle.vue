@@ -29,14 +29,14 @@ const titleStyles = computed(() => ({
 </script>
 
 <style lang="scss" scoped>
-@import "../../../../styles/resources";
+@use '../../../../styles/resources';
 
 .va-card {
   &__title {
     display: flex;
     align-items: center;
 
-    @include va-title();
+    @include resources.va-title();
   }
 
   &__title,

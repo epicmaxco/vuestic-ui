@@ -377,7 +377,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-stepper {
   display: flex;

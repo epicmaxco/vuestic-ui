@@ -134,7 +134,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-breadcrumbs {
   display: var(--va-breadcrumbs-display);

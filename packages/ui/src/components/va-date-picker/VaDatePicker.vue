@@ -202,7 +202,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import 'variables';
+@use "variables";
 
 .va-date-picker {
   --va-date-picker-content-height: calc(var(--va-date-picker-cell-size) * 7 + var(--va-date-picker-cell-gap) * 6);

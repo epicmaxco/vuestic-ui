@@ -201,8 +201,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import 'variables';
-@import '../../styles/resources';
+@use "variables";
+@use '../../styles/resources';
 
 .va-button-dropdown {
   .va-button {

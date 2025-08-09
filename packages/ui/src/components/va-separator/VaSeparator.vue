@@ -11,8 +11,8 @@ defineOptions({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-separator {
   height: var(--va-separator-height);

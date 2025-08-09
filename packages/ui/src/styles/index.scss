@@ -1,5 +1,5 @@
 // All global styles
-@import "global/index.scss";
+@forward "global/index.scss";
 // Mixins, functions and variables
-@import "resources/index.scss";
-@import "essential.scss";
+@forward "resources/index.scss";
+@forward "essential.scss";

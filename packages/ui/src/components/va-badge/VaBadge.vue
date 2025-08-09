@@ -87,7 +87,7 @@ const ariaLabelledByComputed = computed(() => props.text ? String(props.text) : 
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-badge {
   display: inline-flex;

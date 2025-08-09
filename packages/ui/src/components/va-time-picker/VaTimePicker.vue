@@ -118,7 +118,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import './_variables.scss';
+@use 'variables';
 
 @mixin after-overlay {
   position: relative;

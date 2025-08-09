@@ -100,7 +100,7 @@ const classes = computed(() => [
 </script>
 
 <style lang="scss">
-@import 'variables.scss';
+@use 'variables';
 
 @keyframes pulse {
   0% {

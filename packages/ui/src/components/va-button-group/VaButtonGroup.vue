@@ -56,8 +56,8 @@ const backgroundColor = computed(() =>
 </script>
 
 <style lang="scss">
-@import "variables";
-@import '../../styles/resources';
+@use "variables";
+@use '../../styles/resources';
 
 .va-button-group {
   display: var(--va-button-group-display);
@@ -99,7 +99,7 @@ const backgroundColor = computed(() =>
       outline: none !important;
 
       &::before {
-        @include focus-outline($offset: -2px, $radius: 'inherit');
+        @include resources.focus-outline($offset: -2px, $radius: 'inherit');
       }
     }
   }

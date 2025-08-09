@@ -67,7 +67,7 @@ const toggleModelValue = () => { valueComputed.value = !valueComputed.value }
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
+@use '../../styles/resources';
 
 .va-color-indicator {
   display: inline-flex;
@@ -91,7 +91,7 @@ const toggleModelValue = () => { valueComputed.value = !valueComputed.value }
   }
 
   &--on-keyboard-focus {
-    @include focus-outline(v-bind(borderRadiusComputed));
+    @include resources.focus-outline(v-bind(borderRadiusComputed));
   }
 }
 </style>

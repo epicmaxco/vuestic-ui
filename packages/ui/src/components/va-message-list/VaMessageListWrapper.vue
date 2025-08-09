@@ -42,7 +42,7 @@ const errorLimit = computed(() => props.error ? Number(props.errorCount) : 99)
 </script>
 
 <style lang="scss">
-@import 'variables';
+@use "variables";
 
 .va-message-list-wrapper {
   .va-message-list {

@@ -262,8 +262,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-collapse {
   transition: var(--va-collapse-transition, var(--va-swing-transition));
@@ -321,7 +321,7 @@ defineExpose({
       font-weight: var(--va-collapse-header-content-text-font-weight);
     }
 
-    @include keyboard-focus-outline(var(--va-collapse-header-content-border-radius));
+    @include resources.keyboard-focus-outline(var(--va-collapse-header-content-border-radius));
   }
 
   &--expanded {
@@ -349,7 +349,7 @@ defineExpose({
   }
 
   &--disabled {
-    @include va-disabled();
+    @include resources.va-disabled();
   }
 
   &--height-changing {

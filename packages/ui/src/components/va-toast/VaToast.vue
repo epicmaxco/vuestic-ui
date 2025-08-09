@@ -198,8 +198,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-toast {
   --va-toast-x-shift: 0px;
@@ -251,7 +251,7 @@ onMounted(() => {
     font-size: var(--va-toast-title-font-size);
     margin: var(--va-toast-title-margin);
 
-    @include va-title();
+    @include resources.va-title();
   }
 
   &__content {

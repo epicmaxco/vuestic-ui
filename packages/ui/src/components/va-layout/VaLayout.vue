@@ -100,8 +100,8 @@ const horizontalTemplate = computed(() => {
 </script>
 
 <style lang="scss">
-@import '../../styles/resources';
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-layout {
   display: grid;
@@ -116,7 +116,7 @@ const horizontalTemplate = computed(() => {
 
   // Force more importance, because VaLayoutArea component can be loaded after VaLayout
   & &__area {
-    @include va-scroll();
+    @include resources.va-scroll();
 
     &--content {
       grid-area: content;

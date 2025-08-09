@@ -27,11 +27,11 @@ const computedClass = computed(() => ({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
+@use '../../styles/resources';
 
 .va-list-separator {
   height: 1px;
-  background-color: $separator-color;
+  background-color: resources.$separator-color;
 
   &--offset {
     margin-left: 1.5rem;

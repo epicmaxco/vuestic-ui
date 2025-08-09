@@ -91,7 +91,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import 'variables';
+@use "variables";
 
 .va-viewer {
   --va-image-position: relative;

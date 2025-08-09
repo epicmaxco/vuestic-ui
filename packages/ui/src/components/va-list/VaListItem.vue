@@ -59,19 +59,19 @@ const {
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-list-item {
   display: block;
   font-family: var(--va-font-family);
 
   &--disabled {
-    @include va-disabled;
+    @include resources.va-disabled;
   }
 
   &:not(.va-list-item--disabled) {
-    @include keyboard-focus-outline($radius: 2px, $offset: -2px);
+    @include resources.keyboard-focus-outline($radius: 2px, $offset: -2px);
   }
 
   &__inner {

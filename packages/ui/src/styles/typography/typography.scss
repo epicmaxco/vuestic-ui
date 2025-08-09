@@ -1,8 +1,9 @@
-@import 'module';
-@import '../resources';
+@use 'module';
+@use '../resources';
+@use "mixins";
 
 // TODO: Move it to GLOBAL-CSS service, so it can be turned off and scoped.
-@include va-typography;
+@include module.va-typography;
 
 * {
   font-family: var(--va-font-family);
@@ -13,7 +14,7 @@
 
   @for $i from 1 through 6 {
     h#{$i} {
-      @include va-display($i);
+      @include mixins.va-display($i);
     }
   }
 
@@ -33,10 +34,10 @@
     white-space: inherit;
     word-wrap: normal;
 
-    @include va-scroll(var(--va-primary));
+    @include resources.va-scroll(var(--va-primary));
 
     &.code {
-      @include va-code-snippet();
+      @include resources.va-code-snippet();
     }
   }
 
@@ -47,15 +48,15 @@
 
   strong,
   b {
-    font-weight: $font-weight-bold;
+    font-weight: resources.$font-weight-bold;
   }
 
   ol:not([class^="va"]) {
-    @include va-ordered;
+    @include mixins.va-ordered;
   }
 
   ul:not([class^="va"]) {
-    @include va-unordered;
+    @include mixins.va-unordered;
   }
 
   blockquote {
@@ -66,7 +67,7 @@
     border-radius: 0;
     border: none;
     box-sizing: border-box;
-    box-shadow: $widget-box-shadow;
+    box-shadow: resources.$widget-box-shadow;
     word-wrap: break-word;
 
     figcaption {
@@ -80,10 +81,10 @@
   }
 
   table {
-    @include va-table;
+    @include mixins.va-table;
   }
 
   a:not([class^="va"]) {
-    @include link();
+    @include mixins.link();
   }
 }
