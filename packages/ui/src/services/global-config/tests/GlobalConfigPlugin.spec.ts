@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import {
   PartialGlobalConfig,
   GLOBAL_CONFIG, createGlobalConfig,
-} from '../../global-config/global-config'
+} from '../../global-config'
 import { useGlobalConfig } from '../../../composables/useGlobalConfig'
 import { GlobalConfigPlugin } from '../../global-config/plugin'
 import { describe, it, expect, beforeEach } from 'vitest'
