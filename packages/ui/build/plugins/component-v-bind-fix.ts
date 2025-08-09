@@ -137,19 +137,15 @@ export const transformVueComponent = (code: string) => {
     })
   })
 
-  // Return just the transformed code without any sourcemap information
-  // This tells Vite we transformed the code but provides no sourcemap data
   return s.toString()
 }
 
 /** We need this plugin to support CSS vbind in SSR. Vue useCssVars is disabled for cjs build */
-export const componentVBindFix = (o: {
-  sourcemap?: boolean
-} = { sourcemap: false }) => {
+export const componentVBindFix = () => {
   return {
     name: 'vuestic:component-v-bind-fix',
     enforce: 'pre',
-    shouldTransformCachedModule({ id }) {
+    shouldTransformCachedModule ({ id }) {
       return false
     },
     transform (code, id) {

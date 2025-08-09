@@ -107,6 +107,7 @@
     "storybook-dark-mode": "^3.0.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
+    "tsx": "^4.20.3",
     "typescript": "5.8.3",
     "vite": "^7.1.1",
     "vite-plugin-chunk-split": "^0.4.7",

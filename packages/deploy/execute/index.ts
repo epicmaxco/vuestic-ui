@@ -53,12 +53,5 @@ export const $ = defineExecute((command, options = {
         reject(stdout)
       }
     });
-
-    child.stderr?.on('data', (data) => {
-      if (options.output) {
-        process.stderr.write(data)
-      }
-      console.error(`${chalk.bgRed(' Error ')} ${data}`)
-    })
   })
 })

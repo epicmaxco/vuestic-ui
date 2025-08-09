@@ -32008,6 +32008,7 @@ __metadata:
     storybook-dark-mode: "npm:^3.0.0"
     stylelint: "npm:^13.13.1"
     stylelint-config-standard: "npm:^22.0.0"
+    tsx: "npm:^4.20.3"
     typescript: "npm:5.8.3"
     vite: "npm:^7.1.1"
     vite-plugin-chunk-split: "npm:^0.4.7"
