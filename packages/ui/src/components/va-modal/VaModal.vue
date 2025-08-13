@@ -447,6 +447,7 @@ const slotBind = { show, hide, toggle, cancel, ok }
 <style lang="scss">
 @use '../../styles/resources';
 @use "variables";
+@use "sass:map";
 
 body.va-modal-open {
   overflow: hidden;
@@ -546,7 +547,7 @@ body.va-modal-open {
 
   &--mobile-fullscreen {
     .va-modal__dialog {
-      @media all and (max-width: 576px) {
+      @media all and (map.get(resources.$grid-breakpoints, sm)) {
         margin: 0 !important;
         min-width: 100vw !important;
         min-height: 100vh !important;
