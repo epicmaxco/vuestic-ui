@@ -1,7 +1,7 @@
 import { Plugin } from 'vite'
-import kebabCase from 'lodash/kebabCase'
 import { type SFCParseResult, parse } from 'vue/compiler-sfc'
 import MagicString from 'magic-string'
+import { camelCaseToKebabCase } from '../../src/utils/text-case'
 
 /**
  * Parse css and extract all variable names used in `v-bind`
@@ -75,7 +75,11 @@ const getRootNodesOpenTags = (sfc: SFCParseResult) => {
 }
 
 const renderCSSVariableName = (vBind: string) => {
-  return `--va-${kebabCase(vBind)}`
+  if (vBind.startsWith('$')) {
+    vBind = vBind.slice(1) // Remove $ prefix if it exists
+  }
+
+  return `--va-${camelCaseToKebabCase(vBind)}`
 }
 
 const renderCssVariablesAsStringCode = (vBinds: string[]) => {

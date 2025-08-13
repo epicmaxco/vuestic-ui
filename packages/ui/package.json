@@ -44,10 +44,7 @@
     "chromatic": "npx chromatic --build-script-name=build:storybook --project-token=chpt_0b6e7d8b20a17cf"
   },
   "dependencies": {
-    "@floating-ui/vue": "^1.0.1",
-    "@types/lodash": "^4.14.161",
-    "cleave.js": "^1.6.0",
-    "lodash": "^4.17.21"
+    "@floating-ui/vue": "^1.1.8"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -69,7 +66,7 @@
     "@storybook/testing-library": "^0.0.14-next.2",
     "@storybook/vue3": "^7.1.0",
     "@storybook/vue3-vite": "^7.1.0",
-    "@types/cleave.js": "^1.4.7",
+    "@types/lodash": "^4.14.161",
     "@types/mini-css-extract-plugin": "^1.2.1",
     "@types/semver": "^7.3.6",
     "@types/yargs": "^17.0.33",
@@ -97,6 +94,7 @@
     "ionicons": "^3.0.0",
     "jsdom": "^26.1.0",
     "lint-staged": "^11.1.2",
+    "lodash": "^4.17.21",
     "postcss": "^8.2.1",
     "postcss-import": "^14.0.2",
     "react": "^18.2.0",

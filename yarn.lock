@@ -3738,13 +3738,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@floating-ui/dom@npm:^1.0.0, @floating-ui/dom@npm:^1.6.1":
+"@floating-ui/core@npm:^1.7.3":
+  version: 1.7.3
+  resolution: "@floating-ui/core@npm:1.7.3"
+  dependencies:
+    "@floating-ui/utils": "npm:^0.2.10"
+  checksum: 10/a8952ff2673ddf28f12feeb86d90c54949e45bcb1af5758b7672850ac0dadb36d4bd61aa45dad1b6a35ba40d4756d3573afac6610b90502639d7266b91e0864e
+  languageName: node
+  linkType: hard
+
+"@floating-ui/dom@npm:^1.6.1":
   version: 1.6.12
   resolution: "@floating-ui/dom@npm:1.6.12"
   dependencies:
     "@floating-ui/core": "npm:^1.6.0"
     "@floating-ui/utils": "npm:^0.2.8"
   checksum: 10/5c8e5fdcd3843140a606ab6dc6c12ad740f44e66b898966ef877393faaede0bbe14586e1049e2c2f08856437da8847e884a2762e78275fefa65a5a9cd71e580d
+  languageName: node
+  linkType: hard
+
+"@floating-ui/dom@npm:^1.7.3":
+  version: 1.7.3
+  resolution: "@floating-ui/dom@npm:1.7.3"
+  dependencies:
+    "@floating-ui/core": "npm:^1.7.3"
+    "@floating-ui/utils": "npm:^0.2.10"
+  checksum: 10/0e91b67df31d30247a9516216b2d610a0b52f572c11d60a9875c68e5d65db0fe8819d096b823f123b45ed3ac7ef38d7462e268bdfc8b338c511c724acf098e78
   languageName: node
   linkType: hard
 
@@ -3760,6 +3779,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@floating-ui/utils@npm:^0.2.10":
+  version: 0.2.10
+  resolution: "@floating-ui/utils@npm:0.2.10"
+  checksum: 10/b635ea865a8be2484b608b7157f5abf9ed439f351011a74b7e988439e2898199a9a8b790f52291e05bdcf119088160dc782d98cff45cc98c5a271bc6f51327ae
+  languageName: node
+  linkType: hard
+
 "@floating-ui/utils@npm:^0.2.8":
   version: 0.2.8
   resolution: "@floating-ui/utils@npm:0.2.8"
@@ -3767,14 +3793,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@floating-ui/vue@npm:^1.0.1":
-  version: 1.1.5
-  resolution: "@floating-ui/vue@npm:1.1.5"
+"@floating-ui/vue@npm:^1.1.8":
+  version: 1.1.8
+  resolution: "@floating-ui/vue@npm:1.1.8"
   dependencies:
-    "@floating-ui/dom": "npm:^1.0.0"
-    "@floating-ui/utils": "npm:^0.2.8"
+    "@floating-ui/dom": "npm:^1.7.3"
+    "@floating-ui/utils": "npm:^0.2.10"
     vue-demi: "npm:>=0.13.0"
-  checksum: 10/fb08cd68eac0094645be08ff5714bd8a2e2ed2153806fa65fd661cd9dd103306c3b48e7c9a5c588d2b96fce9713933c901520c281ddedd90d8d6ac38a2d82f65
+  checksum: 10/2af54726228939d9dbd123530bfa4e9d805be668d9ab54579def8dceb174225c4f19798b311d2b23ec5fc70f4ba66b2774c133f36e6c8f56d66c65ebd700e495
   languageName: node
   linkType: hard
 
@@ -8646,15 +8672,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/cleave.js@npm:^1.4.7":
-  version: 1.4.12
-  resolution: "@types/cleave.js@npm:1.4.12"
-  dependencies:
-    "@types/react": "npm:*"
-  checksum: 10/07b82c2cd0a726b3e4c862e684e5409eaae9230faaa9dd7c14daf3691b73bd0690635d370777cc22040fa1bd7c8447fcc4969c8f3384c1ba8f3108429e43d2f5
-  languageName: node
-  linkType: hard
-
 "@types/connect@npm:*":
   version: 3.4.38
   resolution: "@types/connect@npm:3.4.38"
@@ -9058,7 +9075,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:>=16":
+"@types/react@npm:>=16":
   version: 18.2.73
   resolution: "@types/react@npm:18.2.73"
   dependencies:
@@ -12862,13 +12879,6 @@ __metadata:
   version: 2.2.0
   resolution: "clean-stack@npm:2.2.0"
   checksum: 10/2ac8cd2b2f5ec986a3c743935ec85b07bc174d5421a5efc8017e1f146a1cf5f781ae962618f416352103b32c9cd7e203276e8c28241bbe946160cab16149fb68
-  languageName: node
-  linkType: hard
-
-"cleave.js@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "cleave.js@npm:1.6.0"
-  checksum: 10/5631ec2a44504ac57c63d30194692c818bfdc0a256244524a2b660a29aea40fbbbf0e85488ebead643ad3aa4f09e0a15d6090a53a6387a6f41cb9f3690773c66
   languageName: node
   linkType: hard
 
@@ -27525,6 +27535,7 @@ __metadata:
     serve: "npm:^14.2.0"
     ts-loader: "npm:^9.5.2"
     ts-node: "npm:^10.9.2"
+    tsx: "npm:4.20.3"
     typescript: "npm:^5.8.3"
     vite: "npm:^4.5.14"
     vitest: "npm:^1.4.0"
@@ -29961,7 +29972,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsx@npm:^4.20.3":
+"tsx@npm:4.20.3, tsx@npm:^4.20.3":
   version: 4.20.3
   resolution: "tsx@npm:4.20.3"
   dependencies:
@@ -31951,7 +31962,7 @@ __metadata:
     "@babel/plugin-transform-modules-commonjs": "npm:^7.12.1"
     "@babel/preset-env": "npm:^7.12.1"
     "@faker-js/faker": "npm:^8.0.2"
-    "@floating-ui/vue": "npm:^1.0.1"
+    "@floating-ui/vue": "npm:^1.1.8"
     "@fortawesome/fontawesome-free": "npm:^6.1.1"
     "@fortawesome/fontawesome-svg-core": "npm:^1.2.32"
     "@fortawesome/free-solid-svg-icons": "npm:^5.15.1"
@@ -31967,7 +31978,6 @@ __metadata:
     "@storybook/testing-library": "npm:^0.0.14-next.2"
     "@storybook/vue3": "npm:^7.1.0"
     "@storybook/vue3-vite": "npm:^7.1.0"
-    "@types/cleave.js": "npm:^1.4.7"
     "@types/lodash": "npm:^4.14.161"
     "@types/mini-css-extract-plugin": "npm:^1.2.1"
     "@types/semver": "npm:^7.3.6"
@@ -31983,7 +31993,6 @@ __metadata:
     "@vuelidate/validators": "npm:^2.0.3"
     c8: "npm:^7.12.0"
     chromatic: "npm:^6.21.0"
-    cleave.js: "npm:^1.6.0"
     core-js: "npm:^3.8.2"
     cross-env: "npm:^7.0.2"
     eslint: "npm:^8.53.0"

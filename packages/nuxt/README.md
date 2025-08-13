@@ -5,7 +5,14 @@
 ## Description
 Adds vuestic components, composables, styles and reactive variables to Nuxt3.
 
-[Installation docs](https://vuestic.dev/en/getting-started/nuxt)
+### Setup
+
+Run the following command to add the module to your project:
+```
+npx nuxi module add vuestic
+```
+
+Visit [installation docs](https://vuestic.dev/en/getting-started/nuxt) for detailed guide.
 
 ## Development
 - Run `npm install` inside this pacakge

@@ -645,7 +645,6 @@ import { VaButton } from './../va-button'
 import { VaIcon } from './../va-icon'
 import VaInputValidation from './VaInput-validation.vue'
 import { VaCheckbox } from '../va-checkbox'
-import 'cleave.js/dist/addons/cleave-phone.us'
 
 export default defineComponent({
   components: {

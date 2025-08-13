@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from '../../utils/clone-deep'
 import { ref, Ref } from 'vue'
 import { mergeDeep } from '../../utils/merge-deep'
 import { PartialGlobalConfig, GlobalConfig, GlobalConfigUpdater } from './types'
