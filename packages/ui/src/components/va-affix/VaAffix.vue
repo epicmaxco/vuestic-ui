@@ -164,7 +164,7 @@ onBeforeUnmount(clearEventListeners)
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-affix {
   font-family: var(--va-font-family);

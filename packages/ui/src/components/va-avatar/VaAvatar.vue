@@ -120,7 +120,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-avatar {
   align-items: var(--va-avatar-align-items);

@@ -34,7 +34,7 @@ const computedStyle = computed(() => ({
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-dropdown {
   &__content {

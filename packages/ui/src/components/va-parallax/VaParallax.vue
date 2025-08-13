@@ -140,8 +140,8 @@ onBeforeUnmount(removeEventListeners)
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-parallax {
   display: var(--va-parallax-display);

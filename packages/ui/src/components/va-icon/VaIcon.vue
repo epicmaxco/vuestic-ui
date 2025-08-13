@@ -95,8 +95,8 @@ const ariaHiddenComputed = computed(() => (attrs.role !== 'button' && props.tag 
 </script>
 
 <style lang="scss">
-@import "variables";
-@import '../../styles/resources';
+@use "variables";
+@use '../../styles/resources';
 
 .va-icon {
   vertical-align: var(--va-icon-vertical-align);
@@ -105,7 +105,7 @@ const ariaHiddenComputed = computed(() => (attrs.role !== 'button' && props.tag 
   &[role^="button"][tabindex]:not([tabindex^="-"]) {
     cursor: pointer;
 
-    @include keyboard-focus-outline($radius: 2px);
+    @include resources.keyboard-focus-outline($radius: 2px);
   }
 
   &#{&} {

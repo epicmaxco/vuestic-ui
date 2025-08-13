@@ -1,9 +1,9 @@
 import { injectChildPropsFromParent } from './../../config-transport/useChildComponents'
-import { VuesticComponentName, Props, VuesticComponent } from '../types'
+import type { VuesticComponentName, Props, VuesticComponent } from '../types'
 import { useLocalConfig } from '../../../composables/useLocalConfig'
-import { useGlobalConfig } from '../../global-config/global-config'
+import { useGlobalConfig } from '../../../composables/useGlobalConfig'
 import { computed } from 'vue'
-import { ComponentPresetProp, PresetPropValue } from '../../../composables'
+import type { ComponentPresetProp, PresetPropValue } from '../../../composables'
 import { notNil } from '../../../utils/isNilValue'
 
 const withPresetProp = <P extends Props>(props: P): props is P & ComponentPresetProp => 'preset' in props

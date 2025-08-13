@@ -57,14 +57,14 @@ const hasKeyboardFocus = useElementFocusedKeyboard(useCurrentElement())
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources";
+@use '../../../styles/resources';
 
 .va-menu-item {
   display: table-row;
   cursor: pointer;
   position: relative;
 
-  @include va-background(var(--va-menu-item-hover-color), 0);
+  @include resources.va-background(var(--va-menu-item-hover-color), 0);
 
   &__cell {
     display: table-cell;
@@ -99,7 +99,7 @@ const hasKeyboardFocus = useElementFocusedKeyboard(useCurrentElement())
   }
 
   &:hover {
-    @include va-background-opacity(var(--va-menu-item-hover-color), var(--va-menu-item-hover-opacity));
+    @include resources.va-background-opacity(var(--va-menu-item-hover-color), var(--va-menu-item-hover-opacity));
   }
 
   &--disabled {
@@ -108,7 +108,7 @@ const hasKeyboardFocus = useElementFocusedKeyboard(useCurrentElement())
   }
 
   &--keyboard-focus {
-    @include focus-outline();
+    @include resources.focus-outline();
   }
 }
 </style>

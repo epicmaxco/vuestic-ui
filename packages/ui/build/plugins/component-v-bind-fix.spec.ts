@@ -3,7 +3,7 @@ import { transformVueComponent as o } from './component-v-bind-fix'
 
 const transformVueComponent = (code: string) => {
   if (!code) { return undefined }
-  return o(code)?.code
+  return o(code)
 }
 
 describe('component-v-bind-fix', () => {

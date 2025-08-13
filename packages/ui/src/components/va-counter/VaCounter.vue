@@ -407,7 +407,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-counter {
   --va-input-wrapper-width: var(--va-form-element-default-width-small);

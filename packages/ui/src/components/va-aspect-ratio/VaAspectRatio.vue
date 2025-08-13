@@ -49,7 +49,7 @@ const maxWidthComputed = computed(() => props.maxWidth ? `${props.maxWidth}px` :
 </script>
 
 <style lang="scss">
-@import 'variables';
+@use "variables";
 
 .va-aspect-ratio {
   position: var(--va-aspect-ratio-position);

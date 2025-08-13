@@ -61,8 +61,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources";
-@import 'variables';
+@use '../../../styles/resources';
+@use "variables";
 
 .va-timeline-separator {
   display: var(--va-timeline-separator-display);

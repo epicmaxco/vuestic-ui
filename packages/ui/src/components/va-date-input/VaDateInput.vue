@@ -103,7 +103,8 @@ import { isRange, isSingleDate, isDates } from '../va-date-picker/utils/date-uti
 
 import type { DateInputModelValue, DateInputValue } from './types'
 
-import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaDropdown } from '../va-dropdown'
+import { VaDropdownContent } from '../va-dropdown/components/VaDropdownContent'
 import VaDatePicker from '../va-date-picker/VaDatePicker.vue'
 import { VaInputWrapper } from '../va-input-wrapper'
 import { VaIcon, VaIconName } from '../va-icon'
@@ -426,7 +427,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
+@use '../../styles/resources';
 
 .va-date-input {
   --va-date-picker-cell-size: 28px;

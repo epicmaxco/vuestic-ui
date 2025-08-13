@@ -115,15 +115,15 @@ const tabIndexComputed = computed(() => props.disabled ? -1 : props.tabindex)
 </script>
 
 <style lang="scss">
-@import "../../../../styles/resources";
+@use '../../../../styles/resources';
 
 .va-rating-item {
   display: inline-block;
 
-  @include keyboard-focus-outline($radius: 2px);
+  @include resources.keyboard-focus-outline($radius: 2px);
 
   &__wrapper {
-    @include normalize-button();
+    @include resources.normalize-button();
   }
 }
 </style>

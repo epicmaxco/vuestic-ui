@@ -77,8 +77,8 @@ const cardStyles = computed(() => {
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-card {
   display: var(--va-card-display);
@@ -114,7 +114,7 @@ const cardStyles = computed(() => {
   }
 
   &--disabled {
-    @include va-disabled;
+    @include resources.va-disabled;
   }
 
   &--link {

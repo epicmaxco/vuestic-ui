@@ -146,7 +146,8 @@ import {
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
 
 import { VaInputWrapper } from '../va-input-wrapper'
-import { VaDropdown, VaDropdownContent } from '../va-dropdown'
+import { VaDropdown } from '../va-dropdown'
+import { VaDropdownContent } from '../va-dropdown/components/VaDropdownContent'
 import { VaIcon } from '../va-icon'
 import { VaSelectOptionList } from './components/VaSelectOptionList'
 import { VaSelectContent } from './components/VaSelectContent'
@@ -738,8 +739,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-select {
   & .va-input-wrapper__text {
@@ -778,7 +779,7 @@ defineExpose({
     background: var(--va-select-dropdown-background);
     overflow-y: auto;
 
-    @include va-scroll(var(--va-background-element));
+    @include resources.va-scroll(var(--va-background-element));
   }
 }
 </style>

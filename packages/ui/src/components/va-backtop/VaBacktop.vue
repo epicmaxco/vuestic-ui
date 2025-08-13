@@ -133,7 +133,7 @@ const { tp } = useTranslation()
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-backtop {
   position: var(--va-backtop-position);

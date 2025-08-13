@@ -1,4 +1,4 @@
-import { useGlobalConfig } from '../services/global-config'
+import { useGlobalConfig } from './useGlobalConfig'
 import { computed } from 'vue'
 import type { I18nConfig } from '../services/i18n'
 

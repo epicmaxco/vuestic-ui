@@ -302,8 +302,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '../../styles/resources';
-@import 'variables';
+@use '../../styles/resources';
+@use "variables";
 
 .va-dropdown {
   &.va-headless-wrapper {
@@ -315,7 +315,7 @@ export default defineComponent({
   }
 
   &--disabled {
-    @include va-disabled;
+    @include resources.va-disabled;
   }
 
   &__content-wrapper {

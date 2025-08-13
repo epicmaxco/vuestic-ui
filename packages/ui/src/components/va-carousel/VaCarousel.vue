@@ -242,8 +242,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "./_variables.scss";
+@use '../../styles/resources';
+@use "variables";
 
 @keyframes va-carousel-fade-appear {
   0% {
@@ -299,7 +299,7 @@ defineExpose({
     left: 50%;
     transform: translateX(-50%);
 
-    @include va-scroll();
+    @include resources.va-scroll();
 
     & > * {
       margin: 0 var(--va-carousel-indicators-gap);
@@ -372,7 +372,7 @@ defineExpose({
   }
 
   .va-button {
-    @include keyboard-focus-outline($offset: -2px);
+    @include resources.keyboard-focus-outline($offset: -2px);
   }
 }
 </style>

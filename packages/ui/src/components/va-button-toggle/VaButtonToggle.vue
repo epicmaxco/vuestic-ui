@@ -91,11 +91,11 @@ const changeValue = (value: any) => emit('update:modelValue', getTrackBy(value))
 </script>
 
 <style lang="scss">
-@import '../../styles/resources';
+@use '../../styles/resources';
 
 .va-button-toggle {
   .va-button {
-    @include keyboard-focus-outline($offset: -2px);
+    @include resources.keyboard-focus-outline($offset: -2px);
 
     height: auto;
   }

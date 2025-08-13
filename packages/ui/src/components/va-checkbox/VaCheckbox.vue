@@ -205,8 +205,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-checkbox {
   display: v-bind(displayVal);
@@ -223,7 +223,7 @@ defineExpose({
 
     @at-root {
       .va-checkbox--disabled & {
-        @include va-disabled();
+        @include resources.va-disabled();
 
         cursor: var(--va-checkbox-disabled-cursor);
       }
@@ -239,7 +239,7 @@ defineExpose({
   }
 
   #{&}__square {
-    @include flex-center();
+    @include resources.flex-center();
 
     width: var(--va-checkbox-square-width);
     min-width: var(--va-checkbox-square-min-width);
@@ -258,7 +258,7 @@ defineExpose({
   }
 
   &__input {
-    @include visually-hidden;
+    @include resources.visually-hidden;
   }
 
   &__label {

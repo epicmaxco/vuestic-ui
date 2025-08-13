@@ -111,7 +111,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-select-option {
   min-height: var(--va-select-option-list-option-min-height);

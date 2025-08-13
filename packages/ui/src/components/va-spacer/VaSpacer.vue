@@ -11,7 +11,7 @@ defineOptions({
 </script>
 
 <style lang="scss">
-@import 'variables';
+@use "variables";
 
 .va-spacer {
   flex-grow: var(--va-spacer-flex-grow);

@@ -37,7 +37,7 @@ const { treeItems, getTrackBy } = useTreeView(props, emit)
 </script>
 
 <style lang="scss">
-@import 'variables';
+@use "variables";
 
 .va-tree-view {
   padding: var(--va-tree-view-padding);

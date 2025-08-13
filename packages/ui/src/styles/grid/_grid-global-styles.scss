@@ -1,8 +1,8 @@
 // Also see material design material.io/guidelines/layout/responsive-ui.html#responsive-ui-breakpoints
-@import "grid-variables";
+@use "grid-variables";
 // Mixins are reserved for "smart stuffs", flex one-liners are kept intact
-@import "grid-mixins";
-@import "grid-spacing";
+@use "grid-mixins";
+@use "grid-spacing";
 
 // variables for runtime calculations, --va-media-ratio variable is overwritten by breakpoint service
 :root,
@@ -15,16 +15,16 @@
 }
 
 .layout {
-  @include va-container();
+  @include grid-mixins.va-container();
 
   &.fluid {
-    @include va-container-fluid();
+    @include grid-mixins.va-container-fluid();
   }
 
   // NOTE Not exactly sure on this one. Here's what manual says:
   // > Make sure that col element height is filled with parent and child. Important for Safari/Firefox if children is column element.
   &.fill-height {
-    @include va-container-fill-height();
+    @include grid-mixins.va-container-fill-height();
 
     > .row {
       flex: 1 1 auto;
@@ -33,7 +33,7 @@
   }
 
   // generating gutter classes
-  @each $size, $gutter in $grid-gutters {
+  @each $size, $gutter in grid-variables.$grid-gutters {
     &.va-gutter-#{$size} {
       padding: $gutter;
 
@@ -63,7 +63,7 @@
 }
 
 .row {
-  @include va-layout();
+  @include grid-mixins.va-layout();
 
   &.row {
     flex-direction: row;
@@ -91,18 +91,18 @@
 }
 
 .flex-center {
-  @include va-flex-center();
+  @include grid-mixins.va-flex-center();
 }
 
 .flex {
-  @include va-flex();
+  @include grid-mixins.va-flex();
 
-  @each $size, $width in $grid-breakpoints {
-    @include va-flex-breakpoint($size) {
-      @for $n from 1 through $grid-columns {
+  @each $size, $width in grid-variables.$grid-breakpoints {
+    @include grid-mixins.va-flex-breakpoint($size) {
+      @for $n from 1 through grid-variables.$grid-columns {
         @if $n != 0 {
           &.#{$size}#{$n} {
-            @include va-flex-size($n);
+            @include grid-mixins.va-flex-size($n);
           }
 
           &.order-#{$size}#{$n} {
@@ -111,7 +111,7 @@
         }
         // 0 offset is used to override offset from lower breakpoint.
         &.offset-#{$size}#{$n} {
-          @include va-flex-offset($n);
+          @include grid-mixins.va-flex-offset($n);
         }
       }
     }
@@ -247,11 +247,11 @@
 }
 
 .grow {
-  @include va-grow();
+  @include grid-mixins.va-grow();
 }
 
 .shrink {
-  @include va-shrink();
+  @include grid-mixins.va-shrink();
 }
 
 .overflow {
@@ -282,5 +282,5 @@
 }
 
 .ellipsis {
-  @include va-ellipsis();
+  @include grid-mixins.va-ellipsis();
 }

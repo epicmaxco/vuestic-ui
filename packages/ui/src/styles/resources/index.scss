@@ -1,4 +1,3 @@
-@import "mixins";
-@import "variables";
-@import "breakpoints";
-@import "../grid/grid-resources";
+@forward "mixins";
+@forward "variables";
+@forward "../grid/grid-resources";

@@ -161,8 +161,8 @@ const onNodeClick = (type: typeof expandNodeBy) => {
 </script>
 
 <style lang="scss">
-@import "../../../../styles/resources/index";
-@import 'variables';
+@use "../../../../styles/resources";
+@use "variables";
 
 .va-tree-node {
   &-root {
@@ -230,7 +230,7 @@ const onNodeClick = (type: typeof expandNodeBy) => {
   }
 
   &--disabled {
-    @include va-disabled;
+    @include resources.va-disabled;
 
     .va-tree-node-content__item--leaf {
       cursor: pointer;
@@ -239,7 +239,7 @@ const onNodeClick = (type: typeof expandNodeBy) => {
   }
 
   &:focus-visible > .va-tree-node-root {
-    @include focus-outline;
+    @include resources.focus-outline;
 
     &::before {
       opacity: var(--va-tree-node-interactive-bg-opacity);

@@ -1,5 +1,5 @@
 import { App } from 'vue'
-import { createGlobalConfig, GLOBAL_CONFIG } from '../global-config'
+import { createGlobalConfig, GLOBAL_CONFIG } from '../'
 import { PartialGlobalConfig } from '../types'
 import { defineGlobalProperty, defineVuesticPlugin } from '../../vue-plugin/utils'
 

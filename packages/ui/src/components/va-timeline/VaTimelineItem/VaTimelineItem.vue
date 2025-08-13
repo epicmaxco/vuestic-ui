@@ -67,8 +67,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources";
-@import 'variables';
+@use '../../../styles/resources';
+@use "variables";
 
 .va-timeline-item {
   display: var(--va-timeline-item-display);

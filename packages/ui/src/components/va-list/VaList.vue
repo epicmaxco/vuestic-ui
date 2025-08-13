@@ -25,8 +25,8 @@ const computedClass = computed(() => ({ 'va-list--fit': props.fit }))
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-list {
   width: var(--va-list-width);

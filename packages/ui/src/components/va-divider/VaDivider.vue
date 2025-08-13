@@ -59,7 +59,7 @@ const classComputed = computed(() => ({
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-divider {
   display: var(--va-divider-display);

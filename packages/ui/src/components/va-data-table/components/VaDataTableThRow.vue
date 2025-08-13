@@ -151,8 +151,8 @@ const multiplySelectAvailable = computed(() => props.selectMode === 'multiple')
 </script>
 
 <style lang="scss">
-@import "../../../styles/resources/index.scss";
-@import "../variables";
+@use "../../../styles/resources";
+@use "../variables";
 
 .va-data-table .va-data-table__table {
   .va-data-table__table-th {
@@ -172,7 +172,7 @@ const multiplySelectAvailable = computed(() => props.selectMode === 'multiple')
       display: flex;
       align-items: center;
 
-      @include keyboard-focus-outline($offset: 2px);
+      @include resources.keyboard-focus-outline($offset: 2px);
     }
 
     .va-data-table__table-th-sorting-icon {

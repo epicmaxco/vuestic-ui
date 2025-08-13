@@ -2,6 +2,7 @@
   "name": "deploy",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "release": "tsx release-script/release-script.ts"
   },

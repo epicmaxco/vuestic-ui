@@ -13,7 +13,7 @@ defineOptions({
 </script>
 
 <style lang="scss">
-@import '../variables';
+@use '../variables';
 
 .va-sidebar__item__content {
   display: flex;

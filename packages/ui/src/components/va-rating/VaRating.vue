@@ -123,27 +123,27 @@ const VaRatingItemNumberButtonProps = filterComponentProps(VaRatingItemNumberBut
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import 'variables';
+@use '../../styles/resources';
+@use "variables";
 
 .va-rating {
   display: var(--va-rating-display);
   font-family: var(--va-font-family);
 
   &__number-item {
-    @include normalize-button();
+    @include resources.normalize-button();
 
     font-size: var(--va-rating-number-item-font-size);
     margin: var(--va-rating-number-item-margin);
     font-weight: var(--va-rating-number-item-font-weight);
 
-    @include flex-center();
+    @include resources.flex-center();
 
     cursor: pointer;
 
     @at-root {
       .va-rating--disabled & {
-        @include va-disabled();
+        @include resources.va-disabled();
       }
 
       .va-rating--readonly & {
@@ -167,10 +167,10 @@ const VaRatingItemNumberButtonProps = filterComponentProps(VaRatingItemNumberBut
   &-item {
     display: flex;
 
-    @include flex-center();
+    @include resources.flex-center();
 
     .va-rating--disabled & {
-      @include va-disabled();
+      @include resources.va-disabled();
 
       &__wrapper {
         cursor: initial !important;

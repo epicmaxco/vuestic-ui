@@ -182,7 +182,7 @@ const slotValue = computed(() => {
 </script>
 
 <style lang="scss">
-@import '../../variables';
+@use '../../variables';
 
 .va-select-content {
   display: flex;

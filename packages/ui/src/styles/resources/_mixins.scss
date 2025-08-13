@@ -1,10 +1,13 @@
-@import '../grid/grid-mixins';
+@use "sass:color";
+@use "sass:map";
+@use '../grid/grid-mixins';
+@use "variables";
 
 @mixin va-title() {
   font-size: 0.625rem;
   letter-spacing: 0.6px;
   line-height: 1.2;
-  font-weight: $font-weight-bold;
+  font-weight: variables.$font-weight-bold;
   text-transform: uppercase;
 }
 
@@ -15,16 +18,16 @@
 }
 
 @mixin va-header-margin($element) {
-  margin-top: map_get($display-margins, $element);
-  margin-bottom: map_get($display-margins, $element) * 0.5;
+  margin-top: map.get(variables.$display-margins, $element);
+  margin-bottom: map.get(variables.$display-margins, $element) * 0.5;
 }
 
 @mixin va-display($element) {
   color: currentColor;
-  font-size: map-get($display-font-sizes, $element);
-  margin: map-get($display-margins, $element);
+  font-size: map.get(variables.$display-font-sizes, $element);
+  margin: map.get(variables.$display-margins, $element);
   font-weight: 700;
-  line-height: map-get($display-line-height, $element);
+  line-height: map.get(variables.$display-line-height, $element);
 }
 
 @mixin va-disabled() {
@@ -39,10 +42,10 @@
 }
 
 @mixin theme-button-variant($color, $background, $border, $shadow) {
-  $hover-bg: lighten($background, 10%);
-  $disabled-bg: darken($background, 15%);
-  $active-bg: darken($background, 15%);
-  $disabled-color: darken($background, 30%);
+  $hover-bg: color.adjust($background, $lightness: 10%);
+  $disabled-bg: color.adjust($background, $lightness: -15%);
+  $active-bg: color.adjust($background, $lightness: -15%);
+  $disabled-color: color.adjust($background, $lightness: -30%);
 
   background-color: $background;
   color: $color;
@@ -86,10 +89,10 @@
 
 @mixin va-code-snippet {
   font-size: 14px;
-  color: $white;
+  color: variables.$white;
   padding: 1rem;
   font-family: 'Source Code Pro';
-  background-color: $vue-darkest-blue;
+  background-color: variables.$vue-darkest-blue;
 }
 
 @mixin va-table {
@@ -100,7 +103,7 @@
   }
 
   th {
-    @include va-title();
+    @include resources.va-title();
 
     color: currentColor;
     border-bottom: 2px solid currentColor;

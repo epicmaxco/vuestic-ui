@@ -245,11 +245,12 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "variables";
-@import "../../styles/resources";
+@use "variables";
+@use '../../styles/resources';
 
 .va-switch {
   line-height: 0;
+  display: var(--va-switch-display);
 
   @at-root {
     .va-switch__container {
@@ -258,8 +259,6 @@ defineExpose({
       width: 100%;
     }
   }
-
-  display: var(--va-switch-display);
 
   &:focus {
     outline: none;
@@ -311,11 +310,11 @@ defineExpose({
   }
 
   &--disabled {
-    @include va-disabled;
+    @include resources.va-disabled;
   }
 
   &--readonly {
-    @include va-readonly;
+    @include resources.va-readonly;
 
     .va-switch__label {
       cursor: initial;
@@ -389,7 +388,7 @@ defineExpose({
 
     @at-root {
       .va-switch--keyboard-focus#{&} {
-        @include focus-outline('inherit');
+        @include resources.focus-outline('inherit');
       }
 
       .va-switch--small#{&} {
@@ -403,7 +402,7 @@ defineExpose({
   }
 
   #{&}__track-label {
-    color: $white;
+    color: resources.$white;
     margin: auto 0.5rem auto 2rem;
     user-select: none;
     width: 100%;

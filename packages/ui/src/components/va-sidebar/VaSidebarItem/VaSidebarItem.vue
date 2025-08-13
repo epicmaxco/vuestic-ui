@@ -102,8 +102,8 @@ const { tagComputed, linkAttributesComputed } = useRouterLink(props)
 </script>
 
 <style lang="scss">
-@import "../variables";
-@import "../../../styles/resources";
+@use "../variables";
+@use '../../../styles/resources';
 
 .va-sidebar-item {
   border-left: var(--va-sidebar-item-active-border-size) solid transparent;
@@ -121,6 +121,6 @@ const { tagComputed, linkAttributesComputed } = useRouterLink(props)
     cursor: not-allowed;
   }
 
-  @include keyboard-focus-outline("inherit", 2px, -2px);
+  @include resources.keyboard-focus-outline("inherit", 2px, -2px);
 }
 </style>

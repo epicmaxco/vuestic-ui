@@ -85,7 +85,7 @@ const avatarProps = computed(() => ({
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-avatar-group {
   display: flex;

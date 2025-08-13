@@ -70,7 +70,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-message-list {
   color: var(--va-message-list-color);

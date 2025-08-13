@@ -13,7 +13,7 @@ defineOptions({
 </script>
 
 <style lang="scss">
-@import '../_variables';
+@use '../_variables';
 
 .va-sidebar__title {
   flex-grow: 1;

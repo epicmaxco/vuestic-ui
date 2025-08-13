@@ -38,7 +38,7 @@ const classComputed = computed(() => ({
 </script>
 
 <style lang="scss">
-@import "variables";
+@use "variables";
 
 .va-breadcrumb-item {
   display: var(--va-breadcrumb-item-display);

@@ -220,8 +220,8 @@ const fileUploadListProps = filterComponentProps(VaFileUploadListProps)
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-file-upload {
   position: var(--va-file-upload-position);
@@ -276,16 +276,6 @@ const fileUploadListProps = filterComponentProps(VaFileUploadListProps)
       transition: height 0.2s;
       overflow: visible;
       flex-wrap: wrap;
-
-      @include media-breakpoint-down(sm) {
-        flex-direction: column;
-        padding: var(--va-file-upload-dropzone-field-padding-sm);
-
-        &__text {
-          padding: var(--va-file-upload-dropzone-text-padding-sm);
-          text-align: center;
-        }
-      }
     }
 
     .va-file-upload-list {
@@ -305,7 +295,7 @@ const fileUploadListProps = filterComponentProps(VaFileUploadListProps)
   }
 
   .va-button {
-    @include keyboard-focus-outline($offset: -2px);
+    @include resources.keyboard-focus-outline($offset: -2px);
   }
 }
 </style>

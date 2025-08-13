@@ -160,8 +160,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-sidebar {
   min-height: var(--va-sidebar-min-height);
@@ -185,7 +185,7 @@ defineExpose({
     overflow-x: var(--va-sidebar-menu-overflow-x);
     margin-left: auto;
 
-    @include va-scroll(var(--va-secondary));
+    @include resources.va-scroll(var(--va-secondary));
   }
 
   &--animated {

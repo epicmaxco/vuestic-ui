@@ -136,8 +136,8 @@ const textColorComputed = useElementTextColor(toRef(props, 'color'))
 </script>
 
 <style lang="scss">
-@import "variables";
-@import "../../../styles/resources";
+@use "variables";
+@use '../../../styles/resources';
 
 $max-image-size: 8.5714rem;
 
@@ -153,21 +153,6 @@ $max-image-size: 8.5714rem;
   overflow: hidden;
   width: 100%;
   align-items: stretch;
-
-  @include media-breakpoint-down(md) {
-    flex-basis: calc(16.667% - 0.5rem);
-    max-width: calc(16.667% - 0.5rem);
-  }
-
-  @include media-breakpoint-down(sm) {
-    flex-basis: calc(20% - 0.5rem);
-    max-width: calc(20% - 0.5rem);
-  }
-
-  @include media-breakpoint-down(xs) {
-    flex-basis: calc(50% - 0.5rem);
-    max-width: calc(50% - 0.5rem);
-  }
 
   &:last-of-type {
     margin-right: 0;

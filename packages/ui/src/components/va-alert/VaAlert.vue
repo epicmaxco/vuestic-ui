@@ -89,7 +89,6 @@ import { useAlertStyles } from './useAlertStyles'
 
 import { VaIcon, VaIconName } from '../va-icon'
 import { StringWithAutocomplete } from '../../utils/types/prop-type'
-import { VaAlert } from '.'
 
 defineOptions({
   name: 'VaAlert',
@@ -152,8 +151,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-alert {
   position: var(--va-alert-position);
@@ -221,7 +220,7 @@ defineExpose({
     color: var(--va-alert-color);
   }
 
-  @include keyboard-focus-outline;
+  @include resources.keyboard-focus-outline;
 
   &__close {
     padding-left: var(--va-alert-close-padding-x);
@@ -232,26 +231,7 @@ defineExpose({
       align-items: center;
       cursor: pointer;
 
-      @include keyboard-focus-outline;
-    }
-  }
-
-  @include media-breakpoint-down(xs) {
-    @at-root {
-      .va-alert {
-        &__content {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        &__close {
-          align-self: flex-start;
-          display: flex;
-          align-items: flex-start;
-          padding: 0 var(--va-alert-close-padding-x) 0 0;
-          margin: 0;
-        }
-      }
+      @include resources.keyboard-focus-outline;
     }
   }
 }

@@ -2,15 +2,15 @@ import { spawn } from 'child_process'
 import { defineExecute } from './defineExecute'
 import chalk from 'chalk'
 
-/** 
+/**
  * Execute command
- * 
+ *
  * @example
- * 
+ *
  * ```ts
  * $('ls', { errorMessage: 'Woops!' })
  * ```
- * 
+ *
  * ```ts
  * $`ls`
  * ```
@@ -49,7 +49,7 @@ export const $ = defineExecute((command, options = {
         } else {
           console.error(`${chalk.bgRed(' Error ')} ${command} exited with code ${code}`)
         }
-        
+
         reject(stdout)
       }
     });

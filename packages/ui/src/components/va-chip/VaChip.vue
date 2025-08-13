@@ -155,8 +155,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-chip {
   display: var(--va-chip-display);
@@ -229,7 +229,7 @@ defineExpose({
   }
 
   &.va-chip--disabled {
-    @include va-disabled;
+    @include resources.va-disabled;
   }
 }
 </style>

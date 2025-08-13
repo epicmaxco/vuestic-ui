@@ -423,8 +423,8 @@ const cellData = (cellData: DataTableCell, internalColumnData: DataTableColumnIn
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/index.scss";
-@import "variables";
+@use "../../styles/resources";
+@use "variables";
 
 .va-data-table {
   // we set variables below via the `useStylable` hook
@@ -434,18 +434,6 @@ const cellData = (cellData: DataTableCell, internalColumnData: DataTableColumnIn
   --va-data-table-thead-background--computed: v-bind('CSSVariables.theadBg');
   --va-data-table-tfoot-background--computed: v-bind('CSSVariables.tfootBg');
   --va-data-table-grid-tbody-columns: 4;
-
-  @include media-breakpoint-down(lg) {
-    --va-data-table-grid-tbody-columns: 3;
-  }
-
-  @include media-breakpoint-down(md) {
-    --va-data-table-grid-tbody-columns: 2;
-  }
-
-  @include media-breakpoint-down(sm) {
-    --va-data-table-grid-tbody-columns: 1;
-  }
 
   min-width: unset;
   font-family: var(--va-font-family);
@@ -568,7 +556,7 @@ const cellData = (cellData: DataTableCell, internalColumnData: DataTableColumnIn
 
           &:hover {
             td {
-              @include va-background(var(--va-data-table-hover-color), 1, -1);
+              @include resources.va-background(var(--va-data-table-hover-color), 1, -1);
             }
           }
         }
@@ -617,10 +605,6 @@ const cellData = (cellData: DataTableCell, internalColumnData: DataTableColumnIn
 
         .va-data-table__table-th {
           box-shadow: none;
-        }
-
-        @include media-breakpoint-down(sm) {
-          flex-direction: column;
         }
       }
     }

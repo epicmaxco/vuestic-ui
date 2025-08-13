@@ -122,8 +122,8 @@ const ariaAttributesComputed = computed(() => ({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import 'variables';
+@use '../../styles/resources';
+@use "variables";
 
 .va-progress-bar {
   $p: &;

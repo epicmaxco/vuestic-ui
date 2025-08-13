@@ -129,7 +129,7 @@ watch(hoveredIndex, (index) => { focusedCellIndex.value = index })
 </script>
 
 <style lang="scss">
-@import '../../../../styles/resources';
+@use '../../../../styles/resources';
 
 .va-year-picker {
   display: flex;
@@ -139,6 +139,6 @@ watch(hoveredIndex, (index) => { focusedCellIndex.value = index })
   max-height: 100%;
   position: relative;
 
-  @include va-scroll();
+  @include resources.va-scroll();
 }
 </style>

@@ -228,7 +228,7 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources/index.scss";
+@use "../../styles/resources";
 
 .va-textarea {
   .va-input-wrapper__field {
@@ -261,7 +261,7 @@ defineExpose({
     position: relative;
     resize: none;
 
-    @include va-scroll(var(--va-secondary));
+    @include resources.va-scroll(var(--va-secondary));
 
     &--autosize {
       overflow: hidden;

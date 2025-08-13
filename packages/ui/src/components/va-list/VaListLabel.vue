@@ -29,13 +29,13 @@ const computedStyle = computed(() => ({
 </script>
 
 <style lang="scss">
-@import "../../styles/resources";
-@import "variables";
+@use '../../styles/resources';
+@use "variables";
 
 .va-list-label {
   font-family: var(--va-font-family);
 
-  @include va-title();
+  @include resources.va-title();
 
   text-align: var(--va-list-label-text-align);
   padding: var(--va-list-label-padding);

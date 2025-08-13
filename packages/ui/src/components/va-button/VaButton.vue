@@ -208,8 +208,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
-@import 'variables';
-@import '../../styles/resources';
+@use "variables";
+@use '../../styles/resources';
 
 .va-button {
   position: relative;
@@ -441,7 +441,7 @@ defineExpose({
   }
 
   &.va-button--disabled {
-    @include va-disabled;
+    @include resources.va-disabled;
   }
 
   &--icon-only {
@@ -456,7 +456,7 @@ defineExpose({
     }
   }
 
-  @include keyboard-focus-outline;
+  @include resources.keyboard-focus-outline;
 
   &--loading {
     pointer-events: none;

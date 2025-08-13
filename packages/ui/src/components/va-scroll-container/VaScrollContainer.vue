@@ -52,11 +52,11 @@ const scrollbarPosition = computed(() => props.rtl ? 'rtl' : 'ltr')
 </script>
 
 <style lang="scss">
-@import '../../styles/resources';
-@import './variables';
+@use '../../styles/resources';
+@use "variables";
 
 .va-scroll-container {
-  @include va-scroll(v-bind(scrollColor), v-bind(scrollbarSize));
+  @include resources.va-scroll(v-bind(scrollColor), v-bind(scrollbarSize));
 
   overflow-x: v-bind(overflowX);
   overflow-y: v-bind(overflowY);

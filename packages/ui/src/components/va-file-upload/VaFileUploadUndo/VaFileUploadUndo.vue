@@ -68,7 +68,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-@import 'variables';
+@use "variables";
 
 .va-file-upload-undo-progress-bar {
   position: absolute;

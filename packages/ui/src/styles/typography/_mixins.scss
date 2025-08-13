@@ -1,4 +1,6 @@
-@import "../resources";
+@use "sass:map";
+@use "../resources";
+@use "../resources/mixins";
 
 @mixin va-title() {
   font-family: var(--va-font-family);
@@ -39,9 +41,9 @@ $va-display-margins: (
 
 /** This is va-heading actually... */
 @mixin va-display($element) {
-  font-size: map-get($va-display-font-sizes, $element);
-  margin: map-get($va-display-margins, $element);
-  line-height: map-get($va-display-line-height, $element);
+  font-size: map.get($va-display-font-sizes, $element);
+  margin: map.get($va-display-margins, $element);
+  line-height: map.get($va-display-line-height, $element);
   font-family: var(--va-font-family);
   // TODO: currentColor?
   color: currentColor;
@@ -127,11 +129,11 @@ $va-display-margins: (
   }
 
   th {
-    @include va-title();
+    @include resources.va-title();
 
     // TODO:(1.5.0) use CSS variables
-    color: $vue-darkest-blue;
-    border-bottom: 2px solid $vue-darkest-blue;
+    color: resources.$vue-darkest-blue;
+    border-bottom: 2px solid resources.$vue-darkest-blue;
   }
 
   td {
@@ -142,7 +144,7 @@ $va-display-margins: (
     tr {
       &:nth-child(even) {
         td {
-          background-color: $light-gray3;
+          background-color: resources.$light-gray3;
         }
       }
     }
@@ -152,7 +154,7 @@ $va-display-margins: (
     tr {
       &:hover {
         td {
-          background-color: $light-gray2;
+          background-color: resources.$light-gray2;
         }
       }
     }
@@ -186,6 +188,6 @@ $va-display-margins: (
       filter: brightness(125%);
     }
 
-    @include keyboard-focus-outline($radius: 2px, $offset: $offset);
+    @include mixins.keyboard-focus-outline($radius: 2px, $offset: $offset);
   }
 }

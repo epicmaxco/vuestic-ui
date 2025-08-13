@@ -36,7 +36,6 @@ export default () => defineConfig({
       external: dependencies,
 
       output: {
-        sourcemap: true,
         format: 'es',
         entryFileNames: '[name].js',
         chunkFileNames: '[name].js',
