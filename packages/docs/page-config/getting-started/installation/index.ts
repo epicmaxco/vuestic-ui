@@ -22,7 +22,5 @@ export default definePageConfig({
     block.component('FrameworkInstallWidget'),
     block.headline('Try without installation'),
     block.component('TryOnlineWidget'),
-
-
   ],
 });

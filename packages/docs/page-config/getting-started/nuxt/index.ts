@@ -12,8 +12,12 @@ export default definePageConfig({
     block.paragraph('The easiest way to create new Nuxt project with integrated Vuestic is to use `create-vuestic` tool. Create new project and select `Nuxt` template.'),
     block.link('See detailed guide here.', '/getting-started/installation#create-vuestic'),
 
-    block.subtitle("Manual Installation"),
-    block.paragraph("Install integration module:"),
+    block.subtitle('Add Nuxt module to your project'),
+    block.paragraph('To add Vuestic UI to your Nuxt project, you need to install the Nuxt module.'),
+    block.code(
+      `npx nuxi module add vuestic`
+    ),
+
     block.code(
       {
         npm: "npm install @vuestic/nuxt",
