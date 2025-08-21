@@ -7,6 +7,7 @@ import { mergeDeep } from "./shared/merge-deep"
 import { logger } from "./logger"
 import { getProjectEnv } from "./shared/project-env"
 import { formatString } from "./shared/color"
+import { devWarn } from "./dev-warn"
 
 type Options = {
   /** @default true */
@@ -48,6 +49,8 @@ const defaultOptions: Required<Options> = {
 }
 
 export const vuestic = (options: Options = {}): Plugin[] => {
+  devWarn()
+
   options = mergeDeep(defaultOptions, options)
 
   const extractOptions = (key: keyof Options) => {
