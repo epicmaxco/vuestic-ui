@@ -69,6 +69,6 @@ export const getProjectEnv = withCache(() => {
     hasTypescript: checkModuleExists('typescript'),
     nodeVersion: getNodeVersion(),
     packageManager: getPackageManager(),
-    production: process.env?.NODE_ENV === 'production' || import.meta.env?.PROD,
+    production: process.env?.NODE_ENV === 'production' || import.meta?.env?.PROD,
   }
 })
