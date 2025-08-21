@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "rm -rf ./dist && yarn build:vite && yarn build:devtools:client",
-    "build:vite": "tsup-node vite-plugin.ts --dts --format esm,cjs --target node16 --shims --out-dir ./dist/vite",
+    "build:vite": "tsup-node vite-plugin.ts --dts --format esm --target node20 --shims --out-dir ./dist/vite",
     "build:devtools:client": "vite build --config devtools/client/vite.config.ts --outDir ./dist/devtools/client",
     "dev": "cd ./playground && yarn dev",
     "prepublishOnly": "npm run build"
