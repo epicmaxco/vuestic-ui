@@ -1,4 +1,4 @@
-import { useGlobalConfig } from "vuestic-ui";
+import { useGlobalConfig } from 'vuestic-ui';
 
 export default {
   setup() {

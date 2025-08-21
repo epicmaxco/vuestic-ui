@@ -1,4 +1,4 @@
-import { vuestic } from "@vuestic/compiler/vite"
+import { vuestic } from '@vuestic/compiler/vite'
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'

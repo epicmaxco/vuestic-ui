@@ -17,28 +17,35 @@
 </template>
 
 <script setup>
-import nuxt_logotype from './nuxt_logotype.svg'
-import Vite_logotype from './Vite_logotype.svg'
-import Vue_logotype from './Vue_logotype.svg'
+import NuxtLogo from './nuxt_logotype.svg'
+import ViteLogo from './Vite_logotype.svg'
+import VueLogo from './Vue_logotype.svg'
+import WebComponentsLogo from './web-components-logo.svg'
 
 const options = [
   {
     label: 'Nuxt',
     description: 'Use @vuestic/nuxt with Nuxt for seamless SSR and modular setup.',
     link: '/getting-started/nuxt',
-    logo: nuxt_logotype,
+    logo: NuxtLogo,
   },
   {
     label: 'Vite',
     description: 'Try @vuestic/compiler with Vite for great development experience.',
     link: '/getting-started/vite',
-    logo: Vite_logotype,
+    logo: ViteLogo,
   },
   {
     label: 'Manual',
     description: 'Manually add vuestic-ui to any existing Vue project.',
     link: '/getting-started/manual',
-    logo: Vue_logotype,
+    logo: VueLogo,
   },
+  {
+    label: "Web components",
+    description: "Use web-components build for framework-agnostic usage.",
+    link: '/getting-started/web-components',
+    logo: WebComponentsLogo,
+  }
 ]
 </script>
