@@ -5,8 +5,9 @@
 // }
 
 import * as Vue from 'vue'
+import type { VuesticComponents } from '@/services/vue-plugin'
+
 declare module 'vue' {
-  import type { VuesticComponents } from '@/services/vue-plugin'
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   export interface GlobalComponents extends VuesticComponents {}
 }
