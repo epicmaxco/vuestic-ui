@@ -1,13 +1,12 @@
 import { Plugin } from "vite"
-import { vuesticTsConfig } from "../tsconfig-plugin"
-import { devtools, PluginOptions as DevtoolsPluginOptions } from "../devtools"
-import { cssLayers } from "../css-layers"
-import { vuesticConfig, Options as VuesticConfigPluginOptions } from "../vuestic-config"
-import { vuesticAutoImport } from "../auto-import"
-import { mergeDeep } from "../shared/merge-deep"
-import { logger } from "../logger"
-import { getProjectEnv } from "../shared/project-env"
-import { formatString } from "../shared/color"
+import { devtools, PluginOptions as DevtoolsPluginOptions } from "./devtools"
+import { cssLayers } from "./css-layers"
+import { vuesticConfig, Options as VuesticConfigPluginOptions } from "./vuestic-config"
+import { vuesticAutoImport } from "./auto-import"
+import { mergeDeep } from "./shared/merge-deep"
+import { logger } from "./logger"
+import { getProjectEnv } from "./shared/project-env"
+import { formatString } from "./shared/color"
 
 type Options = {
   /** @default true */
@@ -24,13 +23,10 @@ type Options = {
    * @notice This will make Vuestic styles less important. Make sure you don't have any global conflicting styles.
    * For example. tailwind have normalize css included. It may have higher priority than Vuestic styles and components might look broken.
    */
-  cssLayers?: boolean,
+  cssLayers?: boolean | 'auto',
 
   /**
-   * Path to the Vuestic config file
-   *
-   * @default 'vuestic.config.ts'
-   *
+   * Compile Vuestic Config on build
    */
   config?: boolean | VuesticConfigPluginOptions,
 
@@ -44,10 +40,10 @@ type Options = {
 
 const defaultOptions: Required<Options> = {
   devtools: true,
-  cssLayers: false,
+  cssLayers: 'auto',
   autoImport: true,
   config: {
-    configPath: 'vuestic.config.ts'
+    configPath: ''
   },
 }
 
@@ -70,8 +66,6 @@ export const vuestic = (options: Options = {}): Plugin[] => {
 
   const plugins = [] as Plugin[]
 
-  plugins.push(...vuesticTsConfig())
-
   if (options.devtools !== false && !env.production) {
     logger.info(formatString('Using [vuestic:devtools] plugin.'), {
       timestamp: true,
@@ -79,16 +73,15 @@ export const vuestic = (options: Options = {}): Plugin[] => {
     plugins.push(devtools(extractOptions('devtools')))
   }
 
-  if (options.cssLayers !== false || env.hasTailwindCSS) {
-    if (env.hasTailwindCSS) {
-      logger.info(formatString('Using [vuestic:css-layers] plugin, because Tailwind CSS is detected.'), {
-        timestamp: true,
-      })
-    } else {
-      logger.info(formatString('Using [vuestic:css-layers] plugin.'), {
-        timestamp: true,
-      })
-    }
+  if (options.cssLayers === 'auto' && env.hasTailwindCSS) {
+    logger.info(formatString('Using [vuestic:css-layers] plugin, because Tailwind CSS is detected.'), {
+      timestamp: true,
+    })
+    plugins.push(cssLayers)
+  } else if (options.cssLayers === true) {
+    logger.info(formatString('Using [vuestic:css-layers] plugin.'), {
+      timestamp: true,
+    })
     plugins.push(cssLayers)
   }
 

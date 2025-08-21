@@ -1,11 +1,8 @@
-import { transform } from '@vue/compiler-core'
 import Components from 'unplugin-vue-components/vite'
 import { isEntryFile } from '../shared/plugin/is-entry-file'
 import { Plugin } from 'vite'
 import { addImport, addVuePlugin, hasImport, hasVuePlugin } from '../shared/plugin/js'
 import { MagicString } from '@vue/compiler-sfc'
-import { logger } from '../logger'
-import { formatString } from '../shared/color'
 
 function installVuesticEssentialPlugin(ms: MagicString) {
   // Install vuestic essential plugin if not already installed

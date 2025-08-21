@@ -1,7 +1,12 @@
 import MagicString from 'magic-string'
 import { getContentInParenthesis, omitComments, replaceOrAddConfigPropertyValue } from './code'
 
-const CREATE_APP_TEMPLATE = 'createApp(App)'
+const CREATE_APP_REGEX = /createApp\(([^)]+)\)/gm
+
+function getCreateAppTemplate(code: string) {
+  const match = CREATE_APP_REGEX.exec(code)
+  return match ? match[1] : null
+}
 
 type Code = string | MagicString
 const createMagicString = (code: Code) => {
@@ -40,14 +45,15 @@ export const hasVuePlugin = (originalCode: Code, pluginName: string) => {
  */
 export const addVuePlugin = (originalCode: Code, code: string) => {
   const ms = createMagicString(originalCode)
+  const createAppTemplate = getCreateAppTemplate(ms.original)
 
-  const createAppIndex = ms.original.indexOf(CREATE_APP_TEMPLATE)
-
-  if (createAppIndex === -1) {
-    throw new Error('createApp not found')
+  if (!createAppTemplate) {
+    return null
   }
 
-  ms.appendRight(createAppIndex + CREATE_APP_TEMPLATE.length, `.use(${code})`)
+  const createAppIndex = ms.original.indexOf(createAppTemplate)
+
+  ms.appendRight(createAppIndex + createAppTemplate.length, `.use(${code})`)
 
   return ms
 }

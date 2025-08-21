@@ -52,12 +52,23 @@ function getPackageManager() {
   return packageJson?.packageManager?.split('@')[0] || 'npm';
 }
 
-export const getProjectEnv = () => {
+function withCache<T>(cb: () => T): () => T {
+  let cache: T | null = null;
+
+  return () => {
+    if (cache) return cache;
+    cache = cb();
+    return cache;
+  };
+}
+
+export const getProjectEnv = withCache(() => {
   return {
     hasVuesticUI: checkModuleExists('vuestic-ui'),
     hasTailwindCSS: checkModuleExists('tailwindcss'),
+    hasTypescript: checkModuleExists('typescript'),
     nodeVersion: getNodeVersion(),
     packageManager: getPackageManager(),
     production: process.env?.NODE_ENV === 'production' || import.meta.env?.PROD,
   }
-}
+})

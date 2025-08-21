@@ -3,7 +3,7 @@ import { createFilter, FilterPattern } from '@rollup/pluginutils'
 import { transformFile } from './compiler'
 import { devtoolsServerMiddleware } from '../server/server-middleware'
 import { fileURLToPath, URL } from 'node:url'
-import { addVuePlugin } from './add-vue-plugin'
+import { setupDevtoolsVuePlugin } from './add-vue-plugin'
 import { formatString } from '../../shared/color'
 
 export type PluginOptions = {
@@ -52,7 +52,11 @@ export const devtools = (options: PluginOptions = {}): Plugin => {
       }
 
       if (/\/src\/main\.(ts|js|mjs|mts)$/.test(id)) {
-        const newCode = addVuePlugin(code)
+        const newCode = setupDevtoolsVuePlugin(code)
+
+        if (!newCode) {
+          throw new Error('Failed to setup vuestic devtools plugin')
+        }
 
         if (newCode) {
           logger.info(formatString(`Vuestic Devtools installed. Open your application and press [${ALT_KEY}] + [F12] to open devtools`), {
