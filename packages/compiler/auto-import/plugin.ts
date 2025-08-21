@@ -17,17 +17,26 @@ function installVuesticEssentialPlugin(ms: MagicString) {
   return ms
 }
 
-function installVuesticEssentialStyles(ms: MagicString) {
+function installVuesticEssentialStyles(ms: MagicString, options: { typography?: boolean }) {
   // Add styles if not already imported
-  if (!hasImport(ms, 'vuestic-ui/css')) {
-    addImport(ms, `import 'vuestic-ui/css'`)
+  if (!hasImport(ms, 'vuestic-ui/styles/essential.css')) {
+    addImport(ms, `import 'vuestic-ui/styles/essential.css'`)
+  }
+
+  if (options.typography) {
+    if (!hasImport(ms, 'vuestic-ui/styles/typography.css')) {
+      addImport(ms, `import 'vuestic-ui/styles/typography.css'`)
+    }
   }
 
   return ms
 }
 
-export const vuesticAutoImport = (options: { prefix?: string } = { prefix: 'Va' }) => {
-  const prefix = options.prefix || 'Va'
+export const vuesticAutoImport = (options: {
+  typography?: boolean
+} = {}) => {
+  // TODO: Make optional prefix
+  const prefix = 'Va'
 
   return [
     {
@@ -43,7 +52,7 @@ export const vuesticAutoImport = (options: { prefix?: string } = { prefix: 'Va' 
         const ms = new MagicString(code)
 
         installVuesticEssentialPlugin(ms)
-        installVuesticEssentialStyles(ms)
+        installVuesticEssentialStyles(ms, options)
 
         return {
           code: ms.toString(),

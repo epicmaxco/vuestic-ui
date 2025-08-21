@@ -45,7 +45,7 @@ const vModelProxy = computed({
   width: 100%;
   display: flex;
   gap: 0.25rem;
-  align-items: start;
+  align-items: flex-start;
 
   &__input {
     width: 100%;

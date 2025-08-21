@@ -5,7 +5,7 @@ const CREATE_APP_REGEX = /createApp\(([^)]+)\)/gm
 
 function getCreateAppTemplate(code: string) {
   const match = CREATE_APP_REGEX.exec(code)
-  return match ? match[1] : null
+  return match ? match[0] : null
 }
 
 type Code = string | MagicString

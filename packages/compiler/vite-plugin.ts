@@ -36,7 +36,9 @@ type Options = {
    *
    * @default false
    */
-  autoImport?: boolean,
+  autoImport?: boolean | {
+    typography: boolean
+  },
 }
 
 const defaultOptions: Required<Options> = {
@@ -92,7 +94,7 @@ export const vuestic = (options: Options = {}): Plugin[] => {
     logger.info(formatString('Using [vuestic:auto-import] plugin.'), {
       timestamp: true,
     })
-    plugins.push(...vuesticAutoImport())
+    plugins.push(...vuesticAutoImport(extractOptions('autoImport')))
   }
 
   if (Boolean(options.config)) {

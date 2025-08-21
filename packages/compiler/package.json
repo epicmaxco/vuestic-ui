@@ -1,6 +1,6 @@
 {
   "name": "@vuestic/compiler",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "type": "module",
   "dependencies": {
     "@rollup/pluginutils": "^5.1.0",
@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "rm -rf ./dist && yarn build:vite && yarn build:devtools:client",
-    "build:vite": "tsup-node vite-plugin.ts --dts --format esm --target node20 --shims --out-dir ./dist/vite",
+    "build:vite": "tsup-node vite-plugin.ts --dts --format esm,cjs --target node20 --shims --out-dir ./dist/vite",
     "build:devtools:client": "vite build --config devtools/client/vite.config.ts --outDir ./dist/devtools/client",
     "dev": "cd ./playground && yarn dev",
     "prepublishOnly": "npm run build"
@@ -32,14 +32,13 @@
   "exports": {
     "./vite": {
       "types": {
-        "import": "./dist/vite/index.d.ts",
-        "require": "./dist/vite/index.d.ts",
-        "default": "./dist/vite/index.d.ts"
+        "import": "./dist/vite/vite-plugin.d.ts",
+        "require": "./dist/vite/vite-plugin.d.ts",
+        "default": "./dist/vite/vite-plugin.d.ts"
       },
-      "node": "./dist/vite/index.js",
-      "import": "./dist/vite/index.js",
-      "require": "./dist/vite/index.cjs",
-      "default": "./dist/vite/index.js"
+      "require": "./dist/vite/vite-plugin.cjs",
+      "import": "./dist/vite/vite-plugin.js",
+      "default": "./dist/vite/vite-plugin.js"
     },
     "./devtools": "./dist/devtools/client/vuestic-devtools.es.js"
   },
