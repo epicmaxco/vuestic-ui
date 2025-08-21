@@ -1,4 +1,4 @@
-import { createVuestic, createIconsConfig } from "vuestic-ui";
+import { createVuestic, createIconsConfig } from 'vuestic-ui';
 
 const aliases = [
   /*...*/
@@ -13,4 +13,4 @@ createApp(App)
       icons: createIconsConfig({ aliases, fonts }),
     },
   }))
-  .mount("#app");
+  .mount('#app');

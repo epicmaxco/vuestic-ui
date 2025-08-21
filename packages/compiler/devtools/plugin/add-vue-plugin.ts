@@ -1,24 +1,20 @@
 import MagicString from 'magic-string'
-
-const CREATE_APP_TEMPLATE = 'createApp(App)'
+import { addImport, addVuePlugin } from '../../shared/plugin/js'
 
 /**
  * Add devtools plugin to the Vue app
  */
-export const addVuePlugin = (code: string) => {
-  const ms = new MagicString(code)
+export const setupDevtoolsVuePlugin = (code: string) => {
+  let newCode = addVuePlugin(code, 'createVuesticDevtools()')
 
-  const createAppIndex = code.indexOf(CREATE_APP_TEMPLATE)
-
-  if (createAppIndex === -1) {
+  if (!newCode) {
     return null
   }
 
-  ms.appendRight(createAppIndex + CREATE_APP_TEMPLATE.length, '.use(createVuesticDevtools())')
-  ms.appendLeft(0, 'import { createVuesticDevtools } from "@vuestic/compiler/devtools";\n')
+  newCode = addImport(newCode, 'import { createVuesticDevtools } from "@vuestic/compiler/devtools";')
 
   return {
-    code: ms.toString(),
-    map: ms.generateMap({ hires: true }),
+    code: newCode.toString(),
+    map: newCode.generateMap({ hires: true }),
   }
 }

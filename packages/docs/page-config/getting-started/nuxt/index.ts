@@ -18,21 +18,6 @@ export default definePageConfig({
       `npx nuxi module add vuestic`
     ),
 
-    block.code(
-      {
-        npm: "npm install @vuestic/nuxt",
-        yarn: "yarn add @vuestic/nuxt",
-      },
-      "bash"
-    ),
-
-    block.paragraph("Then you need to update nuxt-config.ts file:"),
-    block.code("nuxt-config"),
-    block.link(
-      "More about configuration",
-      "/getting-started/configuration-guide"
-    ),
-
     block.subtitle("Tree shaking"),
     block.paragraph("Vuestic UI is tree-shaking friendly in Nuxt as well. You can choose which css modules will be used. This can be configured in `nuxt.config.ts`. Components must be tree-shakable automatically."),
     block.paragraph("In `css` options you can pass array of css modules that will be used in the project or `false` to remove all css from Vuestic expect components css. Available modules: `typography`, `grid`, `reset`. In example below grid will not be used in project. This is helpful in case you already using some other library."),

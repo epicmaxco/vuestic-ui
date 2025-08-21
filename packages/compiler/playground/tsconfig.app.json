@@ -4,8 +4,6 @@
     "env.d.ts",
     "src/**/*",
     "src/**/*.vue",
-    "node_modules/.vuestic/**/*",
-    "node_modules/vuestic-ui/**/*"
   ],
   "exclude": [
     "src/**/__tests__/*"

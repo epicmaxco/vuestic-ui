@@ -1,13 +1,13 @@
-import { useI18nConfig } from "vuestic-ui";
+import { useI18nConfig } from 'vuestic-ui';
 
-const locale = ref("en");
+const locale = ref('en');
 
 const messages = {
   en: {
-    search: "Search",
+    search: 'Search',
   },
   ua: {
-    search: "Пошук",
+    search: 'Пошук',
   },
 };
 

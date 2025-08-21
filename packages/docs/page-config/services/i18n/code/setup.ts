@@ -1,4 +1,4 @@
-import { createVuestic } from "vuestic-ui";
+import { createVuestic } from 'vuestic-ui';
 
 createApp(App)
   .use(
@@ -7,13 +7,13 @@ createApp(App)
         // ...
 
         i18n: {
-          ok: "Добре",
-          cancel: "Скасувати",
-          search: "Пошук",
+          ok: 'Добре',
+          cancel: 'Скасувати',
+          search: 'Пошук',
 
           // ...
         },
       },
     })
   )
-  .mount("#app");
+  .mount('#app');

@@ -1,4 +1,4 @@
-import { createVuestic } from "vuestic-ui";
+import { createVuestic } from 'vuestic-ui';
 
 createApp(App)
   .use(
@@ -18,4 +18,4 @@ createApp(App)
       },
     })
   )
-  .mount("#app");
+  .mount('#app');

@@ -12,14 +12,14 @@ export default definePageConfig({
     block.paragraph("The easiest way to create a new Vite project with integrated Vuestic UI is to use the `create-vuestic` CLI tool. Create a new project and select the `Vite` template."),
     block.link("See detailed guide here.", "/getting-started/installation#create-vuestic"),
 
-    block.subtitle("Manual Installation"),
-    block.paragraph("To manually integrate Vuestic UI into your existing Vite project, first install the library:"),
+    block.subtitle("Installation"),
+    block.paragraph("If you need to integrate Vuestic UI into your existing Vite project, first install the library:"),
     block.code(
       {
-        npm: "npm install @vuestic/compiler",
-        yarn: "yarn add @vuestic/compiler",
-        pnpm: "pnpm add @vuestic/compiler",
-        bun: "bun add @vuestic/compiler",
+        npm: "npm install @vuestic/compiler vuestic-ui",
+        yarn: "yarn add @vuestic/compiler vuestic-ui",
+        pnpm: "pnpm add @vuestic/compiler vuestic-ui",
+        bun: "bun add @vuestic/compiler vuestic-ui",
       },
       "bash"
     ),
@@ -40,5 +40,12 @@ export default definePageConfig({
     block.paragraph("You can configure Vuestic UI globally by creating a `vuestic.config.ts` file and using `defineVuesticConfig` function. This allows you to customize component defaults, icons, colors, and more."),
     block.code("vuestic-config"),
     block.link("Read more about Icons Config", "/services/icons-config"),
+
+    block.subtitle("Typescript"),
+    block.paragraph("Vuestic UI is written in TypeScript, providing type definitions for all components and utilities. This allows you to take full advantage of TypeScript's features, such as autocompletion and type checking."),
+
+    block.paragraph("To ensure TypeScript recognizes Vuestic UI components, you may need to add the following to your `env.d.ts` file:"),
+
+    block.code(`/// <reference types=".vuestic" />`, 'ts'),
   ],
 })
