@@ -12,7 +12,7 @@ const isReadonlyArray = (arr: any): arr is readonly any[] => {
   return Array.isArray(arr)
 }
 
-export type Trigger = 'click' | 'hover' | 'right-click' | 'dblclick' | 'space' | 'enter' | 'arrow-down' | 'arrow-up' | 'none'
+export type Trigger = 'click' | 'hover' | 'right-click' | 'dblclick' | 'space' | 'enter' | 'arrow-down' | 'arrow-up' | 'typing' | 'none'
 
 export const useNavigation = (
   isOpen: Ref<boolean>,
@@ -77,7 +77,7 @@ export const useNavigation = (
   useEvent(['click', 'contextmenu', 'dblclick'], (e) => {
     if (props.disabled) { return }
 
-    if (isTyping(e)) { return }
+    if (!normalizedTriggers.value.includes('typing') && isTyping(e)) { return }
 
     if (normalizedTriggers.value.includes(normalizeTriggerName(e.type))) {
       e.preventDefault()

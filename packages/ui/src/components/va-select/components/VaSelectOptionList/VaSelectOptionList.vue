@@ -241,6 +241,7 @@ const currentOptionIndex = computed(() => currentOptions.value.findIndex((option
 const selectOptionProps = computed(() => ({
   ...pick(props, ['getSelectedState', 'color', 'search', 'highlightMatchedText']),
   minSearchChars: minSearchCharsComputed.value,
+  hideHighlighting: props.doShowAllOptions,
   getText,
   getTrackBy,
 }))
