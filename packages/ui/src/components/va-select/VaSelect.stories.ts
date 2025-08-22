@@ -229,6 +229,17 @@ export const Autocomplete: StoryFn = () => ({
   template: '<VaSelect v-model="value" :options="options" autocomplete />',
 })
 
+export const AutocompleteSearch: StoryFn = () => ({
+  components: { VaSelect },
+
+  data () {
+    // Test if initial value is correctly set
+    return { value: '', options: ['one', 'two', 'three'], search: '' }
+  },
+
+  template: '<VaSelect v-model="value" v-model:search="search" :options="options" autocomplete />',
+})
+
 export const AutocompletePlaceholder: StoryFn = () => ({
   components: { VaSelect },
 

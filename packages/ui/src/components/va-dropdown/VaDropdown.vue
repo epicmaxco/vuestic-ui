@@ -101,7 +101,9 @@ export default defineComponent({
     const target = useSelectorTemplateRef(toRef(props, 'target'))
     const teleport = useSelectorTemplateRef(toRef(props, 'teleport'))
 
-    const anchorClass = useBem('va-dropdown', () => pick(props, ['disabled']))
+    const anchorClass = useBem('va-dropdown', () => ({
+      disabled: props.disabled,
+    }))
     const teleportTarget = computed<HTMLElement | undefined>(() => {
       if (teleport.value) {
         return teleport.value

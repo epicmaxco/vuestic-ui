@@ -168,7 +168,6 @@ const handleBackspace = (e: KeyboardEvent) => {
 const handleClick = (e: MouseEvent) => {
   if (props.autocomplete) {
     autocompleteInput.value?.focus()
-    e.stopPropagation()
   }
 }
 

@@ -202,7 +202,7 @@ const props = defineProps({
   keepAnchorWidth: { ...useDropdownableControlProps.keepAnchorWidth, default: true },
   offset: { ...useDropdownableControlProps.offset, default: [1, 0] as DropdownOffsetProp },
   closeOnContentClick: { ...useDropdownableControlProps.closeOnContentClick, default: false },
-  trigger: { ...useDropdownableControlProps.trigger, default: () => ['click', 'right-click', 'space', 'enter'] as const },
+  trigger: { ...useDropdownableControlProps.trigger, default: () => ['click', 'right-click', 'space', 'enter', 'typing'] as const },
 
   // Select options
 
@@ -493,7 +493,10 @@ const handleDropdownOpen = () => {
 
   isOpenSync.value = true
   scrollToSelected()
-  focusSearchOrOptions()
+
+  if (document.activeElement?.tagName !== 'INPUT') {
+    focusSearchOrOptions()
+  }
 }
 
 const handleDropdownClose = () => {

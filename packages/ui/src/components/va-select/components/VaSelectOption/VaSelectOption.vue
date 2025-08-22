@@ -59,6 +59,7 @@ const props = defineProps({
   highlightMatchedText: { type: Boolean, default: true },
   inputFocused: { type: Boolean, default: false },
   minSearchChars: { type: [Number, String], default: 0 },
+  hideHighlighting: { type: Boolean, default: false },
 })
 
 const { getColor, getHoverColor } = useColors()
@@ -70,6 +71,10 @@ const optionIconColor = computed(() => getColor(props.color))
 const optionText = computed(() => props.getText(props.option))
 const optionTextSplitted = computed(() => {
   const defaultSplit = { start: optionText.value, searchedSubString: '', end: '' }
+
+  if (props.hideHighlighting) {
+    return defaultSplit
+  }
 
   if (!optionText.value || !props.search || !props.highlightMatchedText || props.search.length < minSearchCharsComputed.value) {
     return defaultSplit
