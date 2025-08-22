@@ -6,7 +6,7 @@ aliases:
 
   - &install_package_manager
     name: Install package manager
-    command: corepack enable && corepack prepare yarn@4.5.0 --activate
+    command: sudo corepack enable && corepack prepare yarn@4.5.0 --activate
 
   - &install_dependencies
     name: Install Dependencies
