@@ -10,8 +10,6 @@
 </template>
 
 <script setup>
-import { useGlobalConfig } from 'vuestic-ui/src/services/global-config';
-
 const { mergeGlobalConfig } = useGlobalConfig()
 
 mergeGlobalConfig({
