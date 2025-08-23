@@ -202,6 +202,18 @@
       <va-date-input v-model="range" close-on-change label="Range" />
       <va-date-input v-model="value" manual-input close-on-change label="Manual input" />
     </VbCard>
+
+    <VbCard title="Quick date using default date and key">
+  <va-date-input v-model="quickDateDefault" manual-input label="Start date on 't' press (Enters todays date)" quick-dates />
+  </VbCard>
+
+  <VbCard title="Start date on 's' press">
+  <va-date-input v-model="quickDate" manual-input label="Start date on 's' press (Enters todays date) or 'e' (Enters 01/01/2000)" :quick-dates="[{ date: new Date(), key: 's' }, {date: '01/01/2000', key: 'e'}]" />
+  </VbCard>
+
+  <VbCard title="Start date on 't' press with string date for property">
+  <va-date-input v-model="strQuickDate" manual-input label="Start date on 't' press (Enters 01/01/2022)"  :quick-dates="[{ date: '01/01/2022' }]" />
+  </VbCard>
   </VbDemo>
 </template>
 
@@ -226,6 +238,9 @@ export default {
   data () {
     return {
       value: getStaticDate(),
+      quickDateDefault: undefined as any,
+      quickDate: undefined as any,
+      strQuickDate: undefined as any,
       range: { start: getStaticDate(), end: nextWeek },
       dates: [getStaticDate(), nextWeek],
       dayView: { type: 'day', month: 3, year: 2013 } as DatePickerView,
