@@ -428,6 +428,13 @@ export const navigationRoutes: NavigationRoute[] = [
         displayName: "Sidebar Item",
       },
       {
+        name: "skip-link",
+        displayName: "Skip Link",
+        meta: {
+          badge: navigationBadge.new('1.7.6'),
+        }
+      },
+      {
         name: 'stepper',
         displayName: 'Stepper',
         meta: {

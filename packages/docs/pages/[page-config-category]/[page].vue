@@ -1,5 +1,13 @@
 <template>
   <div class="page-config">
+    <va-skip-link 
+      v-if="$route.path === '/ui-elements/skip-link'"
+      class="skip-link"
+      position="bottom-right"
+      target="#api"
+    >
+      Jump to API
+    </va-skip-link>
     <PageConfig
       v-if="!isLoading && config"
       :page-config="config"
@@ -88,6 +96,21 @@ watchEffect(() => {
     &:first-child {
       margin-top: 0;
     }
+  }
+}
+
+.skip-link {
+  padding: 0.5rem;
+  border-radius: 2px;
+  outline: none;
+  color: white;
+  background-color: rgb(72, 72, 198);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  &:hover {
+    background-color: rgb(94, 94, 222);
   }
 }
 </style>
