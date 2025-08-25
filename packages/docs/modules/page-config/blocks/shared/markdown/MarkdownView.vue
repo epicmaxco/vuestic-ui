@@ -107,14 +107,6 @@ const codeBorder = computed(() => {
 
   a[target="_blank"] {
     position: relative;
-
-    &::after {
-      content: "\279A";
-      position: relative;
-      opacity: 0.35;
-      line-height: 1;
-      vertical-align: text-top;
-    }
   }
 }
 </style>
