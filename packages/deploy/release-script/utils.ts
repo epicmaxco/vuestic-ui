@@ -1,8 +1,12 @@
 import { exec } from 'child_process'
 
-const fs = require('fs')
-const semver = require('semver')
-const path = require('path')
+import fs  from 'fs'
+import semver from 'semver'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export const bumpGithubTemplateVersions = (newVersion: string): string => {
   // Bump patch .version in package.json.
@@ -37,7 +41,7 @@ export const bumpVersionInGenerators = (newVersion: string): string => {
 export const bumpPackageJsonVersion = (filePath: string, newVersion: string): string => {
   // Bump patch .version in package.json.
   const packageJsonPath = path.resolve(__dirname, filePath)
-  const packageJson: { version: string } = JSON.parse(fs.readFileSync(packageJsonPath))
+  const packageJson: { version: string } = JSON.parse(fs.readFileSync(packageJsonPath).toString())
   packageJson.version = newVersion
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2))
   console.log('vuestic-ui package.json version has been updated')
@@ -52,12 +56,10 @@ export const getRecommendedNodeVersion = (): string => {
 export const getPackageJsonVersion = (): string => {
   const packageJsonPath = path.resolve(__dirname, '../../../packages/ui/package.json')
   // Coerce keeps only 1.2.3 from full version string - useful in case we sit on some weird version.
-  return semver.coerce(JSON.parse(fs.readFileSync(packageJsonPath)).version)
+  return semver.coerce(JSON.parse(fs.readFileSync(packageJsonPath).toString()).version)!.toString()
 }
 
 export const executeCommand = (command: string): Promise<string> => {
-  const { exec } = require('child_process')
-
   let _resolve: any
   let _reject: any
   exec(command, (err: any, stdout: any, stderr: any) => {
