@@ -24,7 +24,7 @@
     "@storybook/vue3-vite": "^7.1.0",
     "@vitejs/plugin-vue": "^5.2.4",
     "storybook": "^7.1.0",
-    "vite": "^4.5.14",
+    "vite": "^6.3.5",
     "vite-plugin-dts": "^4.5.4"
   },
   "types": "dist/types/index.d.ts",
