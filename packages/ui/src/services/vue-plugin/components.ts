@@ -69,6 +69,7 @@ export {
   VaSeparator,
   VaSkeleton,
   VaSkeletonGroup,
+  VaSkipLink,
   VaSidebar,
   VaSidebarItem,
   VaSidebarItemContent,

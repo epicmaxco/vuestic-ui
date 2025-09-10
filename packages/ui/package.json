@@ -38,7 +38,7 @@
     "push-production": "npm publish --tag=latest",
     "precommit": "lint-staged --concurrent=false && yarn typecheck && yarn test:unit --run",
     "server:webapp": "npx http-server dist --push-state",
-    "serve:storybook": "storybook dev -p 6006",
+    "serve:storybook": "storybook dev -p 6006 --no-open",
     "build:storybook": "storybook build",
     "start:storybook": "serve storybook-static",
     "chromatic": "npx chromatic --build-script-name=build:storybook --project-token=chpt_0b6e7d8b20a17cf"
