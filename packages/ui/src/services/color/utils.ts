@@ -1,6 +1,6 @@
-import { camelCaseToKebabCase, kebabCaseToCamelCase } from '../../utils/text-case'
+import { camelCaseToKebabCase, kebabCaseToCamelCase } from '@/utils/text-case'
 
-import { setHSLA, shiftHSLA, parseColorToRGB, parseColorToHSL, rgbToString, hslToString, colorToString, type RGBObject, type HSLObject } from '../../utils/color'
+import { setHSLA, shiftHSLA, parseColorToRGB, parseColorToHSL, rgbToString, hslToString, colorToString, type RGBObject, type HSLObject } from '@/utils/color'
 
 export const isCSSVariable = (strColor: string): boolean => /var\(--.+\)/.test(strColor)
 export const cssVariableName = (colorName: string) => `--va-${camelCaseToKebabCase(colorName)}`
@@ -121,3 +121,64 @@ export const isColorTransparent = (color: string) => {
 }
 
 export { isColor } from './../../utils/color'
+
+type Palette = Record<string, string>
+
+// Values in a theme config can be:
+// - a token string ("blue10")
+// - a prioritized list of token strings (["redPaleDark","redSoftDark"])
+// - a nested object (e.g., { brand: "...", danger: "..." })
+type ConfigValue = string | string[] | Record<string, any>
+type Config = Record<string, ConfigValue>
+
+/**
+ * resolveColors
+ *
+ * Replaces token references in a config using a palette. Behavior:
+ *  - string:   replace with palette[token] if present; otherwise keep as-is
+ *  - string[]: treat as fallback list; return the first palette hit;
+ *              if none hit, return the first element unchanged
+ *  - object:   recurse into properties
+ *
+ * Example:
+ *  dangerPressed: ["redPaleDark", "redSoftDark"]
+ *    -> resolves to palette["redPaleDark"] if it exists,
+ *       otherwise palette["redSoftDark"] if it exists,
+ *       otherwise "redPaleDark" (the first item) unchanged.
+ */
+export function resolveColors (config: Config, palette: Palette): Config {
+  const replaceValues = (obj: any): any => {
+    // simple token string
+    if (typeof obj === 'string') {
+      return palette[obj] ?? obj
+    }
+
+    // arrays
+    if (Array.isArray(obj)) {
+      // If it's a list of strings, treat as fallback tokens
+      if (obj.every((x) => typeof x === 'string')) {
+        for (const token of obj) {
+          if (palette[token]) { return palette[token] }
+        }
+        // no token matched: return the first entry unchanged (best-effort fallback)
+        return obj[0]
+      }
+      // Mixed array / non-strings: preserve previous behavior (map recursively)
+      return obj.map(replaceValues)
+    }
+
+    // objects (recurse)
+    if (obj && typeof obj === 'object') {
+      const result: Record<string, any> = {}
+      for (const key of Object.keys(obj)) {
+        result[key] = replaceValues(obj[key])
+      }
+      return result
+    }
+
+    // everything else (numbers, null, etc.)
+    return obj
+  }
+
+  return replaceValues(config)
+}
