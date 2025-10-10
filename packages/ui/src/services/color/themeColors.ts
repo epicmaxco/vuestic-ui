@@ -42,14 +42,13 @@
  */
 
 import { parseColorToRGB, rgbToString } from '@/utils/color'
+import type { Palette } from './types'
 
 // ============================================================================
 // TYPES
 // ============================================================================
 
 type RGB = { r: number; g: number; b: number }
-
-export type Format = 'hex8' | 'hex' | 'rgba'
 
 // ============================================================================
 // CONSTANTS
@@ -143,12 +142,23 @@ const ACCENT_SOFT_MIX_RATIOS_BY_NAME: Record<string, { r: number; g: number; b: 
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value))
 
+/**
+ * Linear interpolation between two colors using a single ratio for all channels.
+ * Formula: result = start + (end - start) × ratio
+ * @example mixColors({r: 0, g: 0, b: 0}, {r: 255, g: 255, b: 255}, 0.5) → {r: 128, g: 128, b: 128}
+ */
 const mixColors = (startColor: RGB, endColor: RGB, ratio: number): RGB => ({
   r: Math.round(startColor.r + (endColor.r - startColor.r) * ratio),
   g: Math.round(startColor.g + (endColor.g - startColor.g) * ratio),
   b: Math.round(startColor.b + (endColor.b - startColor.b) * ratio),
 })
 
+/**
+ * Linear interpolation between two colors using different ratios per channel.
+ * Allows fine-tuned control for matching specific target colors (e.g., Figma tokens).
+ * Formula per channel: result = start + (end - start) × channelRatio
+ * @example mixColorsPerChannel({r: 20, g: 29, b: 38}, {r: 255, g: 255, b: 255}, {r: 0.9, g: 0.93, b: 0.94})
+ */
 const mixColorsPerChannel = (
   startColor: RGB,
   endColor: RGB,
@@ -164,8 +174,10 @@ const parseColorString = (color: string): RGB => {
   return { r, g, b }
 }
 
-const buildRgbaString = (rgb: RGB, alpha = 1): string => rgbToString({ ...rgb, a: alpha })
-
+/**
+ * Converts RGB to 6-digit hex color (e.g., #3a7bd5).
+ * Each channel (0-255) converts to 2 hex digits (00-ff).
+ */
 const rgbToHex = ({ r, g, b }: RGB): `#${string}` => {
   const hex = [r, g, b]
     .map((channel) => Math.round(channel).toString(16).padStart(2, '0'))
@@ -173,35 +185,39 @@ const rgbToHex = ({ r, g, b }: RGB): `#${string}` => {
   return `#${hex}`.toLowerCase() as `#${string}`
 }
 
-const rgbToHex8 = (rgb: RGB, alpha: number): `#${string}` => {
+/**
+ * Converts RGB color to hex string with optional alpha channel.
+ * - Opaque (alpha >= 1): 6-digit hex (#3a7bd5)
+ * - Transparent: 8-digit hex with alpha (#3a7bd580)
+ *
+ * Alpha conversion: 0.0 → '00' (transparent), 1.0 → 'ff' (opaque)
+ * Formula: alpha (0-1) × 255 → hex byte (00-ff)
+ *
+ * @example emitColor({r: 58, g: 123, b: 213}) → '#3a7bd5'
+ * @example emitColor({r: 58, g: 123, b: 213}, 0.5) → '#3a7bd580'
+ */
+const emitColor = (rgb: RGB, alpha?: number): string => {
+  if (alpha === undefined || alpha >= 1) {
+    return rgbToHex(rgb)
+  }
+
+  // Convert alpha from 0-1 range to 0-255, then to 2-digit hex
+  // Example: 0.5 → 128 → '80', 0.07 → 18 → '12'
   const alphaHex = Math.round(clamp01(alpha) * 255)
     .toString(16)
     .padStart(2, '0')
   return `${rgbToHex(rgb)}${alphaHex}` as `#${string}`
 }
 
-const emitColor = (rgb: RGB, format: Format, alpha?: number): string => {
-  if (format === 'rgba') {
-    return buildRgbaString(rgb, alpha ?? 1)
-  }
-  if (alpha === undefined || alpha >= 1) {
-    return rgbToHex(rgb)
-  }
-  return rgbToHex8(rgb, alpha)
-}
-
-// Creates both "blue7" and "blue_7" for compatibility
+/**
+ * Adds a color to the palette (e.g., "blue7", "blueSoft10").
+ */
 function addColorWithAlias (
-  outputMap: Record<string, string>,
+  outputMap: Palette,
   key: string,
   value: string,
 ): void {
   outputMap[key] = value
-  const match = key.match(/^(.*?)(Soft)?(7|10|13|20)$/)
-  if (match) {
-    const [, name, soft, alphaLevel] = match
-    outputMap[`${name}${soft || ''}_${alphaLevel}`] = value
-  }
 }
 
 // ============================================================================
@@ -219,11 +235,27 @@ type SecondaryColorsGenerator = (
   secondarySoftLight: RGB
 }
 
+/**
+ * Generates neutralPrimarySoft (light background) from neutralPrimary (dark text).
+ * Mixes dark color toward white using calibrated per-channel ratios.
+ * @example '#141D26' (dark) → '#ecf0f1' (light background)
+ */
 const defaultNeutralSoftGenerator: SoftVariantGenerator = (primaryColor) =>
   mixColorsPerChannel(primaryColor, WHITE, NEUTRAL_SOFT_MIX_RATIOS)
 
-// Generates alphaBase by pulling R/B channels toward G (green pivot)
-// '#141D26' (20, 29, 38) → '#191d1f' (25, 29, 31)
+/**
+ * Generates alphaBase for semi-transparent neutral colors.
+ *
+ * Strategy: Pull R/B channels toward G (green pivot) to create a balanced gray.
+ * This prevents color shift in semi-transparent overlays.
+ *
+ * Formula per channel:
+ * - r: greenValue + (4/9) × (r - greenValue) ← 44% toward green
+ * - g: greenValue (unchanged)
+ * - b: greenValue + (2/9) × (b - greenValue) ← 22% toward green
+ *
+ * @example '#141D26' (20, 29, 38) → '#191d1f' (25, 29, 31)
+ */
 const defaultAlphaBaseGenerator: AlphaBaseGenerator = (primaryColor) => {
   const greenPivot = primaryColor.g
   return {
@@ -233,6 +265,18 @@ const defaultAlphaBaseGenerator: AlphaBaseGenerator = (primaryColor) => {
   }
 }
 
+/**
+ * Generates secondary neutral colors (mid-tones) from primary and primarySoft.
+ *
+ * Creates three variants:
+ * - secondary: Mix primary toward primarySoft (medium-dark gray)
+ * - secondarySoft: Mix primarySoft toward primary (medium-light gray)
+ * - secondarySoftLight: Lighten secondarySoft for hover states
+ *
+ * @example
+ * Input: primary='#141D26', primarySoft='#ecf0f1'
+ * Output: secondary='#5c6169', secondarySoft='#acb4c3', secondarySoftLight='#b4bbc9'
+ */
 const defaultSecondaryColorsGenerator: SecondaryColorsGenerator = (primaryColor, primarySoft) => {
   const secondary = mixColorsPerChannel(primaryColor, primarySoft, SECONDARY_MIX_RATIOS)
   const secondarySoft = mixColorsPerChannel(primarySoft, primaryColor, SECONDARY_SOFT_MIX_RATIOS)
@@ -244,6 +288,16 @@ const defaultSecondaryColorsGenerator: SecondaryColorsGenerator = (primaryColor,
   return { secondary, secondarySoft, secondarySoftLight }
 }
 
+/**
+ * Creates a "soft" variant generator for accent colors (desaturated/lighter versions).
+ *
+ * Uses per-color calibrations (if available) to match Figma tokens exactly.
+ * Falls back to uniform 66% mix toward white for uncalibrated colors.
+ *
+ * @example
+ * createAccentSoftGenerator('red')('#C51818') → '#F67D73'
+ * createAccentSoftGenerator('blue')('#154EC1') → '#60ACE2'
+ */
 const createAccentSoftGenerator = (accentName: string): SoftVariantGenerator => {
   const calibratedRatios = ACCENT_SOFT_MIX_RATIOS_BY_NAME[accentName.toLowerCase()]
   if (calibratedRatios) {
@@ -302,7 +356,6 @@ const colorGenerationStrategies: ColorGenerationStrategies = {
 export function createAccent (
   anchors: { base: string; soft?: string },
   colorName: string,
-  outputFormat: Format = 'hex8',
 ): Record<string, string> {
   const baseColor = parseColorString(anchors.base)
   const lowerCaseName = colorName.toLowerCase()
@@ -318,22 +371,22 @@ export function createAccent (
   const softLightColor = mixColors(softColor, WHITE, COLOR_MIXING_RATIOS.light)
   const softDarkColor = mixColors(softColor, BLACK, COLOR_MIXING_RATIOS.dark)
 
-  const palette: Record<string, string> = {}
+  const palette: Palette = {}
 
   // Main trio
-  palette[colorName] = emitColor(mainColor, outputFormat)
-  palette[`${colorName}Light`] = emitColor(lightColor, outputFormat)
-  palette[`${colorName}Dark`] = emitColor(darkColor, outputFormat)
+  palette[colorName] = emitColor(mainColor)
+  palette[`${colorName}Light`] = emitColor(lightColor)
+  palette[`${colorName}Dark`] = emitColor(darkColor)
 
   // Soft trio
-  palette[`${colorName}Soft`] = emitColor(softColor, outputFormat)
-  palette[`${colorName}SoftLight`] = emitColor(softLightColor, outputFormat)
-  palette[`${colorName}SoftDark`] = emitColor(softDarkColor, outputFormat)
+  palette[`${colorName}Soft`] = emitColor(softColor)
+  palette[`${colorName}SoftLight`] = emitColor(softLightColor)
+  palette[`${colorName}SoftDark`] = emitColor(softDarkColor)
 
   // Alpha ladders
   for (const [percent, alpha] of Object.entries(ALPHA_VARIANTS)) {
-    addColorWithAlias(palette, `${colorName}${percent}`, emitColor(mainColor, outputFormat, alpha))
-    addColorWithAlias(palette, `${colorName}Soft${percent}`, emitColor(softColor, outputFormat, alpha))
+    addColorWithAlias(palette, `${colorName}${percent}`, emitColor(mainColor, alpha))
+    addColorWithAlias(palette, `${colorName}Soft${percent}`, emitColor(softColor, alpha))
   }
 
   // Figma edge cases (off-by-one due to .5 rounding)
@@ -390,7 +443,6 @@ export function createAccent (
  */
 export function createNeutral (
   anchors: { primary: string; primarySoft?: string; alphaBase?: string },
-  outputFormat: Format = 'hex8',
 ): Record<string, string> {
   const primaryColor = parseColorString(anchors.primary.toLowerCase())
 
@@ -415,31 +467,31 @@ export function createNeutral (
   const secondaryDark = mixColors(secondary, BLACK, COLOR_MIXING_RATIOS.dark)
   const secondarySoftDark = mixColors(secondarySoft, BLACK, COLOR_MIXING_RATIOS.dark)
 
-  const palette: Record<string, string> = {
-    white: emitColor(WHITE, outputFormat),
-    black: emitColor(BLACK, outputFormat),
+  const palette: Palette = {
+    white: emitColor(WHITE),
+    black: emitColor(BLACK),
 
-    neutralPrimary: emitColor(primaryColor, outputFormat),
-    neutralPrimaryLight: emitColor(primaryLight, outputFormat),
-    neutralPrimaryDark: emitColor(primaryDark, outputFormat),
+    neutralPrimary: emitColor(primaryColor),
+    neutralPrimaryLight: emitColor(primaryLight),
+    neutralPrimaryDark: emitColor(primaryDark),
 
-    neutralPrimarySoft: emitColor(primarySoftColor, outputFormat),
-    neutralPrimarySoftLight: emitColor(primarySoftLight, outputFormat),
-    neutralPrimarySoftDark: emitColor(primarySoftDark, outputFormat),
+    neutralPrimarySoft: emitColor(primarySoftColor),
+    neutralPrimarySoftLight: emitColor(primarySoftLight),
+    neutralPrimarySoftDark: emitColor(primarySoftDark),
 
-    neutralSecondaryLight: emitColor(secondaryLight, outputFormat),
-    neutralSecondary: emitColor(secondary, outputFormat),
-    neutralSecondaryDark: emitColor(secondaryDark, outputFormat),
+    neutralSecondaryLight: emitColor(secondaryLight),
+    neutralSecondary: emitColor(secondary),
+    neutralSecondaryDark: emitColor(secondaryDark),
 
-    neutralSecondarySoftLight: emitColor(secondarySoftLight, outputFormat),
-    neutralSecondarySoft: emitColor(secondarySoft, outputFormat),
-    neutralSecondarySoftDark: emitColor(secondarySoftDark, outputFormat),
+    neutralSecondarySoftLight: emitColor(secondarySoftLight),
+    neutralSecondarySoft: emitColor(secondarySoft),
+    neutralSecondarySoftDark: emitColor(secondarySoftDark),
   }
 
   // Alpha ladders
   for (const [percent, alpha] of Object.entries(ALPHA_VARIANTS)) {
-    addColorWithAlias(palette, `neutralPrimary${percent}`, emitColor(alphaBaseColor, outputFormat, alpha))
-    addColorWithAlias(palette, `neutralPrimarySoft${percent}`, emitColor(primarySoftColor, outputFormat, alpha))
+    addColorWithAlias(palette, `neutralPrimary${percent}`, emitColor(alphaBaseColor, alpha))
+    addColorWithAlias(palette, `neutralPrimarySoft${percent}`, emitColor(primarySoftColor, alpha))
   }
 
   // Figma edge case (off-by-one due to .5 rounding)
