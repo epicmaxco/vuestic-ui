@@ -65,7 +65,12 @@ const COLOR_MIXING_RATIOS = {
   deriveSecondaryFromPrimary: 0.58, // Legacy (unused)
 } as const
 
-const ALPHA_LEVELS = [0.07, 0.10, 0.13, 0.20] as const
+const ALPHA_VARIANTS = {
+  7: 0.07,
+  10: 0.10,
+  13: 0.13,
+  20: 0.20,
+} as const
 
 // ============================================================================
 // CALIBRATION: NEUTRAL COLORS
@@ -326,18 +331,9 @@ export function createAccent (
   palette[`${colorName}SoftDark`] = emitColor(softDarkColor, outputFormat)
 
   // Alpha ladders
-  for (const alphaLevel of ALPHA_LEVELS) {
-    const alphaPercent = Math.round(alphaLevel * 100)
-    addColorWithAlias(
-      palette,
-      `${colorName}${alphaPercent}`,
-      emitColor(mainColor, outputFormat, alphaLevel),
-    )
-    addColorWithAlias(
-      palette,
-      `${colorName}Soft${alphaPercent}`,
-      emitColor(softColor, outputFormat, alphaLevel),
-    )
+  for (const [percent, alpha] of Object.entries(ALPHA_VARIANTS)) {
+    addColorWithAlias(palette, `${colorName}${percent}`, emitColor(mainColor, outputFormat, alpha))
+    addColorWithAlias(palette, `${colorName}Soft${percent}`, emitColor(softColor, outputFormat, alpha))
   }
 
   // Figma edge cases (off-by-one due to .5 rounding)
@@ -441,18 +437,9 @@ export function createNeutral (
   }
 
   // Alpha ladders
-  for (const percentValue of [7, 10, 13, 20] as const) {
-    const alphaValue = ({ 7: 0.07, 10: 0.10, 13: 0.13, 20: 0.20 } as const)[percentValue]
-    addColorWithAlias(
-      palette,
-      `neutralPrimary${percentValue}`,
-      emitColor(alphaBaseColor, outputFormat, alphaValue),
-    )
-    addColorWithAlias(
-      palette,
-      `neutralPrimarySoft${percentValue}`,
-      emitColor(primarySoftColor, outputFormat, alphaValue),
-    )
+  for (const [percent, alpha] of Object.entries(ALPHA_VARIANTS)) {
+    addColorWithAlias(palette, `neutralPrimary${percent}`, emitColor(alphaBaseColor, outputFormat, alpha))
+    addColorWithAlias(palette, `neutralPrimarySoft${percent}`, emitColor(primarySoftColor, outputFormat, alpha))
   }
 
   // Figma edge case (off-by-one due to .5 rounding)
