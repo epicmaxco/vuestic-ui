@@ -341,6 +341,7 @@ export function createAccent (
   }
 
   // Figma edge cases (off-by-one due to .5 rounding)
+  // Drop after came up with single accent pattern
   if (lowerCaseName === 'blue' && anchors.base.toLowerCase() === '#154ec1') {
     palette.blueLight = '#2c5fc7'
   }
@@ -455,6 +456,7 @@ export function createNeutral (
   }
 
   // Figma edge case (off-by-one due to .5 rounding)
+  // Drop after came up with single accent pattern
   if (anchors.primary.toLowerCase() === '#141d26' && !anchors.primarySoft) {
     palette.neutralPrimarySoftLight = '#eef1f2'
   }
