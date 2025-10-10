@@ -1,3 +1,4 @@
+import type { Config, Palette } from './types'
 
 export const presetToShare = {
   blue: '#154ec1',
@@ -97,7 +98,7 @@ export const presetToShare = {
   skySoftDark: '#4b97de',
   skyLight: '#2379b6',
   skyDark: '#0a5c97',
-}
+} as Palette
 
 export const lightNewTheme = {
   text: {
@@ -183,7 +184,7 @@ export const lightNewTheme = {
     info: 'sky20',
     brand: 'blue20',
   },
-}
+} as Config
 
 export const darkNewTheme = {
   text: {
@@ -200,7 +201,7 @@ export const darkNewTheme = {
     brandHover: 'blueSoftLight',
     brandPressed: 'blueSoftDark',
     dangerHover: 'redSoftLight',
-    dangerPressed: ['redPaleDark', 'redSoftDark'], // not all names from figma follow the same pattern
+    dangerPressed: ['redPaleDark', 'redSoftDark'], // not all names from figma follow the same pattern - recommend to normalize them
     successHover: 'greenSoftLight',
     successPressed: 'greenSoftDark',
     warningHover: 'yellowSoftLight',
@@ -240,7 +241,7 @@ export const darkNewTheme = {
     dangerPressed: 'redSoft7',
     dangerHover: 'redSoft13',
     dangerAccentHover: 'redSoftLight',
-    dangerAccentPressed: ['redPaleDark', 'redSoftDark'],
+    dangerAccentPressed: ['redPaleDark', 'redSoftDark'], // not all names from figma follow the same pattern - recommend to normalize them
     successPressed: 'greenSoft7',
     successHover: 'greenSoft13',
     successAccentHover: 'greenSoftLight',
@@ -269,4 +270,4 @@ export const darkNewTheme = {
     info: 'skySoft20',
     brand: 'blueSoft20',
   },
-}
+} as Config
