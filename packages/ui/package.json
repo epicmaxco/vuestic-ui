@@ -83,7 +83,7 @@
     "chromatic": "^6.21.0",
     "core-js": "^3.8.2",
     "cross-env": "^7.0.2",
-    "eslint": "^8.53.0",
+    "eslint": "^9.26.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
