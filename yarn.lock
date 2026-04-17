@@ -12907,12 +12907,12 @@ __metadata:
   linkType: hard
 
 "effect@npm:^3.13.7":
-  version: 3.19.16
-  resolution: "effect@npm:3.19.16"
+  version: 3.21.0
+  resolution: "effect@npm:3.21.0"
   dependencies:
     "@standard-schema/spec": "npm:^1.0.0"
     fast-check: "npm:^3.23.1"
-  checksum: 10/a23c23f9e89118243917b6de9ebc26eea4b68cfaf79caf2addb31622046ed64e7a97cb5a74454bd4f54952c49aa229d7045687850ed745e24d6aba014b8c1ea6
+  checksum: 10/c920efb24ae1f5225069fa47334817372f1b4f37b47f878a7aaf17d0cf870338e21144b3fc6dd6d35044f404bb8313071420bc9139831670995f1f8ebfc70a61
   languageName: node
   linkType: hard
 
