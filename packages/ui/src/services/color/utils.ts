@@ -1,6 +1,8 @@
-import { camelCaseToKebabCase, kebabCaseToCamelCase } from '../../utils/text-case'
+import { camelCaseToKebabCase, kebabCaseToCamelCase } from '@/utils/text-case'
 
-import { setHSLA, shiftHSLA, parseColorToRGB, parseColorToHSL, rgbToString, hslToString, colorToString, type RGBObject, type HSLObject } from '../../utils/color'
+import { setHSLA, shiftHSLA, parseColorToRGB, parseColorToHSL, rgbToString, hslToString, colorToString, type RGBObject, type HSLObject } from '@/utils/color'
+
+import type { Config, Palette } from './types'
 
 export const isCSSVariable = (strColor: string): boolean => /var\(--.+\)/.test(strColor)
 export const cssVariableName = (colorName: string) => `--va-${camelCaseToKebabCase(colorName)}`
@@ -121,3 +123,46 @@ export const isColorTransparent = (color: string) => {
 }
 
 export { isColor } from './../../utils/color'
+
+/**
+ * Resolves color token references in config to actual color values from palette.
+ *
+ * Handles three types:
+ * - String: "blue10" → palette["blue10"] or unchanged if not found
+ * - Array: ["redPaleDark", "redSoftDark"] → first match from palette, or first item if none match
+ * - Object: Recursively resolves nested properties
+ *
+ * @example
+ * resolveColors(
+ *   { danger: "red", fallback: ["custom", "red"] },
+ *   { red: "#ff0000" }
+ * )
+ * // Returns: { danger: "#ff0000", fallback: "#ff0000" }
+ */
+export function resolveColors (config: Config, palette: Palette): Config {
+  const resolve = (value: any): any => {
+    if (typeof value === 'string') {
+      return palette[value] ?? value
+    }
+
+    if (Array.isArray(value)) {
+      // String array = fallback list (try each token until one matches)
+      if (value.every((x) => typeof x === 'string')) {
+        const match = value.find((token) => palette[token])
+        return match ? palette[match] : value[0]
+      }
+      // Non-string array = map recursively
+      return value.map(resolve)
+    }
+
+    if (value && typeof value === 'object') {
+      return Object.fromEntries(
+        Object.entries(value).map(([key, val]) => [key, resolve(val)]),
+      )
+    }
+
+    return value
+  }
+
+  return resolve(config)
+}

@@ -64,3 +64,7 @@ export type ColorConfig = {
   },
   currentPresetName: string,
 }
+
+export type Palette = Record<string, string>
+export type ConfigValue = string | string[] | Record<string, any>
+export type Config = Record<string, ConfigValue>
