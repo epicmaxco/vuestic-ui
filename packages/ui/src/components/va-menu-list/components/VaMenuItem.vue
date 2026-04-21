@@ -5,8 +5,8 @@
       'va-menu-item--disabled': disabled,
       'va-menu-item--keyboard-focus': hasKeyboardFocus,
     }"
-    @click="$emit('selected')"
-    @keydown.enter.space="$emit('selected')"
+    @click="!disabled && $emit('selected')"
+    @keydown.enter.space="!disabled && $emit('selected')"
   >
     <td class="va-menu-item__cell va-menu-item__cell--left">
       <slot name="left-icon">
