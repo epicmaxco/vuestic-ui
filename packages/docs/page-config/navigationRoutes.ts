@@ -324,7 +324,7 @@ export const navigationRoutes: NavigationRoute[] = [
         name: "date-input",
         displayName: "Date Input",
         meta: {
-          badge : navigationBadge.updated('1.8.0'),
+          badge : navigationBadge.updated('1.9.11'),
         }
       },
       {
