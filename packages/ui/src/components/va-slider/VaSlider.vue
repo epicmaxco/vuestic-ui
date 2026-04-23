@@ -229,6 +229,7 @@ const props = defineProps({
   iconAppend: { type: String, default: '' },
   vertical: { type: Boolean, default: false },
   showTrack: { type: Boolean, default: true },
+  invertTrack: { type: Boolean, default: false },
   ariaLabel: useTranslationProp('$t:sliderValue'),
   ariaLabelDot: useTranslationProp('$t:sliderDot'),
   ariaLabelMaxDot: useTranslationProp('$t:sliderMaxDot'),
@@ -267,6 +268,7 @@ const orders = computed(() => {
 
 const pinPositionStyle = computed(() => props.vertical ? 'bottom' : 'left')
 const trackSizeStyle = computed(() => props.vertical ? 'height' : 'width')
+const trackPositionStyle = computed(() => props.vertical ? props.invertTrack ? 'top' : 'bottom' : props.invertTrack ? 'right' : 'left')
 
 const moreToLess = computed(() => Array.isArray(val.value) && (val.value[1] - stepComputed.value) < val.value[0])
 
@@ -307,9 +309,11 @@ const processedStyles = computed(() => {
     } as CSSProperties
   } else {
     const val0 = calculatePercentage(val.value)
+    const trackSizeStyleValue = props.invertTrack ? 100 - val0 : val0
 
     return {
-      [trackSizeStyle.value]: `${val0 > 100 ? 100 : val0}%`,
+      [trackSizeStyle.value]: `${trackSizeStyleValue > 100 ? 100 : trackSizeStyleValue < 0 ? 0 : trackSizeStyleValue}%`,
+      [trackPositionStyle.value]: 0,
       backgroundColor: getColor(props.color),
       visibility: props.showTrack ? 'visible' : 'hidden',
     } as CSSProperties

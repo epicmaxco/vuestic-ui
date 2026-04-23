@@ -1,5 +1,5 @@
-import apiOptions from "./api-options";
 import apiDescription from './api-description';
+import apiOptions from "./api-options";
 
 export default definePageConfig({
   blocks: [
@@ -61,6 +61,10 @@ export default definePageConfig({
     block.example("Vertical", {
       title: "Vertical",
       description: "Vertical state of slider."
+    }),
+    block.example("InvertedTrack", {
+      title: "Inverted",
+      description: "Inverted track fill."
     }),
 
     block.subtitle('Accessibility'),

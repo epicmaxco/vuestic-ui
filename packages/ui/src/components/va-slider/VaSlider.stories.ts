@@ -1,9 +1,9 @@
-import { getStoryId, getStoryIdAll, getStorySelector, getStorySelectorAll } from '../../../.storybook/interaction-utils/storySelector'
-import { userEvent } from '../../../.storybook/interaction-utils/userEvent'
+import { sleep } from '@/utils/sleep'
+import { expect } from '@storybook/jest'
 import { fireEvent } from '@storybook/testing-library'
 import { StoryFn } from '@storybook/vue3'
-import { expect } from '@storybook/jest'
-import { sleep } from '@/utils/sleep'
+import { getStoryId, getStoryIdAll, getStorySelector, getStorySelectorAll } from '../../../.storybook/interaction-utils/storySelector'
+import { userEvent } from '../../../.storybook/interaction-utils/userEvent'
 import { VaSlider } from './'
 
 function getSlider () {
@@ -678,3 +678,26 @@ Vertical.play = async ({ step }) => {
     expect(slider[2]).toHaveAttribute('aria-valuetext', '100')
   })
 }
+
+export const invertTrack: StoryFn = () => ({
+  components: { VaSlider },
+  data: () => ({ value: 25 }),
+  template: `
+    [default inverted]
+    <div>
+      <VaSlider v-model="value" track-label-visible invert-track :track-label="'bigger than ' + value" />
+    </div>
+    [vertical inverted]
+    <div style="height: 192px">
+      <VaSlider v-model="value" vertical track-label-visible invert-track :track-label="'bigger than ' + value" />
+    </div>
+     [default regular]
+     <div>
+      <VaSlider v-model="value" track-label-visible :track-label="'smaller than ' + value"/>
+    </div>
+    [vertical regular]
+    <div style="height: 192px">
+      <VaSlider v-model="value" vertical track-label-visible :track-label="'smaller than ' + value"/>
+    </div>
+  `,
+})
