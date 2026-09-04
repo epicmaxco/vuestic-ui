@@ -98,6 +98,8 @@ import type { SelectOption, EventSource } from '../../types'
 import { unwrapEl } from '../../../../utils/unwrapEl'
 import { pick } from '../../../../utils/pick'
 
+const SCROLL_BOTTOM_TOLERANCE_PX = 1
+
 defineOptions({
   name: 'VaSelectOptionList',
 })
@@ -141,7 +143,7 @@ const onScroll = (event: Event) => {
   const target = event.target as Element
   if (!target) { return }
 
-  if (target.scrollTop + target.clientHeight === target.scrollHeight) {
+  if (Math.abs(target.scrollTop + target.clientHeight - target.scrollHeight) <= SCROLL_BOTTOM_TOLERANCE_PX) {
     handleScrollToBottom()
   }
 }
