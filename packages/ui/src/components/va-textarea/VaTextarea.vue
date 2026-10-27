@@ -197,6 +197,9 @@ const computedStyle = computed(
   () =>
     ({
       resize: isResizable.value ? undefined : 'none',
+      overflowY: props.autosize && props.maxRows != null
+        ? 'auto'
+        : undefined,
     } as CSSProperties),
 )
 

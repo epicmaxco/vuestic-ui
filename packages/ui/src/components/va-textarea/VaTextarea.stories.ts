@@ -1,3 +1,4 @@
+import { waitFor } from '@storybook/testing-library'
 import { defineStory } from '../../../.storybook/types'
 import VaTextareaDemo from './VaTextarea.demo.vue'
 import VaTextarea from './VaTextarea.vue'
@@ -207,6 +208,63 @@ export const ValidationTouchedState = defineStory({
 
       const error = canvasElement.querySelector('.va-input-wrapper.va-input-wrapper--error') as HTMLElement
       expect(error).not.toBeNull()
+    })
+  },
+})
+
+// These assertions require a real browser (ResizeObserver and native layout).
+export const AutosizeMaxRowsScrolling = defineStory({
+  story: () => ({
+    components: { VaTextarea },
+    data: () => ({ value: 'First line' }),
+    template: '<VaTextarea autosize :min-rows="2" :max-rows="3" v-model="value" />',
+  }),
+  async tests ({ canvasElement, step, expect, event }) {
+    const textarea = canvasElement.querySelector('textarea')!
+
+    await step('Grow to maxRows and allow vertical scrolling beyond the limit', async () => {
+      await waitFor(() => expect(textarea.rows).toBe(2))
+      const initialHeight = textarea.clientHeight
+      await event.type(textarea, '{enter}Second{enter}Third{enter}Fourth{enter}Fifth{enter}Sixth')
+
+      await waitFor(() => {
+        expect(textarea.rows).toBe(3)
+        expect(textarea.clientHeight).toBeGreaterThan(initialHeight)
+        expect(textarea.scrollHeight).toBeGreaterThan(textarea.clientHeight)
+        expect(getComputedStyle(textarea).overflowY).toBe('auto')
+      })
+
+      textarea.scrollTop = 0
+      textarea.scrollTo({ top: textarea.scrollHeight })
+      await waitFor(() => {
+        expect(textarea.scrollTop).toBeGreaterThan(0)
+        expect(Math.abs(textarea.scrollHeight - textarea.clientHeight - textarea.scrollTop)).toBeLessThanOrEqual(1)
+      })
+    })
+  },
+})
+
+export const AutosizeWithoutMaxRows = defineStory({
+  story: () => ({
+    components: { VaTextarea },
+    data: () => ({ value: 'First line' }),
+    template: '<VaTextarea autosize :min-rows="2" v-model="value" />',
+  }),
+  async tests ({ canvasElement, step, expect, event }) {
+    const textarea = canvasElement.querySelector('textarea')!
+
+    await step('Keep growing without introducing vertical scrolling when maxRows is unset', async () => {
+      await waitFor(() => expect(textarea.rows).toBe(2))
+      const initialHeight = textarea.clientHeight
+      await event.type(textarea, '{enter}Second{enter}Third{enter}Fourth{enter}Fifth{enter}Sixth')
+
+      await waitFor(() => {
+        expect(textarea.rows).toBeGreaterThan(3)
+        expect(textarea.clientHeight).toBeGreaterThan(initialHeight)
+        expect(textarea.scrollHeight).toBeLessThanOrEqual(textarea.clientHeight + 1)
+        expect(textarea.style.overflowY).toBe('')
+        expect(getComputedStyle(textarea).overflowY).toBe('hidden')
+      })
     })
   },
 })
