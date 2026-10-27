@@ -163,7 +163,7 @@ function calculateInputHeight () {
   maxRows = isNaN(maxRows) ? Infinity : maxRows
 
   if (!props.autosize) {
-    rows.value = Math.max(maxRows, Math.min(minRows, maxRows ?? 0))
+    rows.value = Number.isFinite(maxRows) ? maxRows : minRows
     return
   }
 
