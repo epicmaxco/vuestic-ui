@@ -138,9 +138,9 @@ export const useSelectable = (
     }
 
     if (isChecked.value) {
-      valueComputed.value = props.falseValue
-    } else {
       valueComputed.value = props.trueValue
+    } else {
+      valueComputed.value = props.falseValue
     }
   }
 
