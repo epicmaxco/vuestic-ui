@@ -13,6 +13,29 @@ describe('VaSelect', () => {
     expect(wrapper.exists()).toBeTruthy()
   })
 
+  it('ignores option selection when disabled while open', async () => {
+    const wrapper: VueWrapper<any> = mountWithGlobalConfig(VaSelect, {
+      props: { options: ['Apple', 'Orange'], modelValue: 'Apple', disabled: false },
+    })
+
+    wrapper.vm.showDropdownContentComputed = true
+    await wrapper.vm.$nextTick()
+    const dropdown = wrapper.getComponent(VaDropdownContent)
+    const orange = dropdown.findAll('.va-select-option')[1]
+    await wrapper.setProps({ disabled: true })
+    await orange.trigger('mousemove')
+    await orange.trigger('click')
+
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    expect(wrapper.find('.va-input-wrapper__text').text()).toBe('Apple')
+
+    await wrapper.setProps({ disabled: false })
+    await orange.trigger('mousemove')
+    await orange.trigger('click')
+    expect(wrapper.emitted('update:modelValue')).toEqual([['Orange']])
+    wrapper.unmount()
+  })
+
   const options = [
     { id: 1, label: 'one', value: 0, disabled: true, group: '1' },
     { id: 0, label: false, value: 1, disabled: false, group: 1 },

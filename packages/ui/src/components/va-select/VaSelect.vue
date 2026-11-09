@@ -399,6 +399,8 @@ const compareOptions = (option1: SelectOption, option2: SelectOption) => {
 const isValueComputedArray = (v: Ref<SelectOption | SelectOption[]>): v is Ref<SelectOption[]> => Array.isArray(v.value)
 
 const selectOption = (option: SelectOption) => {
+  if (props.disabled) { return }
+
   if (hoveredOption.value === null) {
     hideAndFocus()
     return
