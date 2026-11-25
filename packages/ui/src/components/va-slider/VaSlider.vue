@@ -436,8 +436,22 @@ const moving = (e: TouchEvent | MouseEvent) => {
 const moveEnd = () => {
   if (!props.disabled && !props.readonly) {
     if (isMoving.value) {
+      const current = val.value
+      const clampValue = (value: number) => clamp(minComputed.value, value, maxComputed.value)
+      let committed = current
+      if (Array.isArray(current)) {
+        const clamped = current.map(clampValue)
+        if (clamped.some((value, index) => value !== current[index])) {
+          committed = clamped
+        }
+      } else {
+        committed = clampValue(current)
+      }
+      if (committed !== current) {
+        val.value = committed
+      }
       emit('drag-end')
-      emit('change', val.value)
+      emit('change', committed)
     }
 
     isMoving.value = false
